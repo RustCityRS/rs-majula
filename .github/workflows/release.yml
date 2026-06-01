@@ -2,7 +2,8 @@ name: Release
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v*'
 
 env:
   CARGO_TERM_COLOR: always
@@ -109,20 +110,16 @@ jobs:
           path: artifacts
           merge-multiple: true
 
-      - name: Generate changelog and timestamp
+      - name: Generate changelog
         id: meta
         run: |
-          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
-          TAG=$(date -u +"%Y%m%d-%H%M%S")
-          PREV_TAG=$(git tag --sort=-creatordate | head -1)
+          PREV_TAG=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
           if [ -z "$PREV_TAG" ]; then
-            LOG=$(git log --pretty=format:"- %s (%h)" HEAD)
+            LOG=$(git log --pretty=format:"- %s (%h)" "${GITHUB_REF_NAME}")
           else
-            LOG=$(git log --pretty=format:"- %s (%h)" "$PREV_TAG"..HEAD)
+            LOG=$(git log --pretty=format:"- %s (%h)" "${PREV_TAG}..${GITHUB_REF_NAME}")
           fi
           {
-            echo "timestamp=$TIMESTAMP"
-            echo "tag=$TAG"
             echo "body<<EOF"
             echo "## Changelog"
             echo ""
@@ -133,7 +130,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.meta.outputs.tag }}
-          name: ${{ steps.meta.outputs.timestamp }}
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
           body: ${{ steps.meta.outputs.body }}
           files: artifacts/*
