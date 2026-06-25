@@ -197,7 +197,7 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
         };
         let mut inv = Inventory::with_stack_mode(capacity, stack_mode);
         for &(slot, obj_id, count) in &inv_profile.items {
-            if (slot as usize) < inv.capacity {
+            if (slot as usize) < inv.capacity && cache.objs.get_by_id(obj_id).is_some() {
                 inv.set(slot, obj_id, count);
             }
         }
