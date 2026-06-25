@@ -35,6 +35,7 @@ use cache::varn::VarnType;
 use cache::varp::VarPlayerType;
 use cache::vars::VarsType;
 use cache::wordenc::WordEncProvider;
+use pack::ondemand::OndemandArtifacts;
 #[cfg(since_244)]
 use pack::ondemand::build_ondemand_artifacts;
 use pack::other;
@@ -191,6 +192,10 @@ pub fn pack_all(
     // Run independent packing tasks in parallel using scoped threads.
     // Script compilation runs alongside asset packing - it's only needed
     // at the end for ScriptProvider construction.
+
+    #[cfg(since_244)]
+    let mut ondemand: Option<OndemandArtifacts> = None;
+
     let (
         script_dat,
         script_idx,
@@ -225,6 +230,8 @@ pub fn pack_all(
         let h_jingles = s.spawn(|| other::jingle::pack_jingles(source));
         let h_songs = s.spawn(|| other::song::pack_songs(source));
         let h_maps = s.spawn(|| other::map::pack_maps(source));
+        #[cfg(since_244)]
+        let h_ondemand = s.spawn(|| build_ondemand_artifacts(source, pack, 5));
 
         let (script_dat, script_idx) = unwrap_thread("scripts", h_scripts.join());
         let assets = unwrap_thread("assets", h_assets.join()).unwrap();
@@ -237,12 +244,19 @@ pub fn pack_all(
         let jingles = unwrap_thread("jingles", h_jingles.join());
         let songs = unwrap_thread("songs", h_songs.join());
         let (mapsquares, mapcrcs, multimap, freemap) = unwrap_thread("maps", h_maps.join());
+        #[cfg(since_244)]
+        {
+            ondemand = Some(unwrap_thread("ondemand", h_ondemand.join()));
+        }
 
         (
             script_dat, script_idx, assets, media, textures, title, models, sounds, wordenc,
             jingles, songs, mapsquares, mapcrcs, multimap, freemap,
         )
     });
+
+    #[cfg(since_244)]
+    let ondemand = ondemand.expect("ondemand thread did not run");
 
     let mut crcs = HashMap::new();
     let mut jags = HashMap::new();
@@ -304,16 +318,15 @@ pub fn pack_all(
 
     #[cfg(since_244)]
     let (ondemand_zip, ondemand): (Arc<[u8]>, Vec<Vec<Box<[u8]>>>) = {
-        let artifacts = build_ondemand_artifacts(source, pack, 5);
         insert_jag(
             &mut crcs,
             &mut jags,
             "versionlist",
-            artifacts.version_list,
+            ondemand.version_list,
             jag_crc::VERSIONLIST,
             verify,
         );
-        (Arc::from(artifacts.zip), artifacts.blobs)
+        (Arc::from(ondemand.zip), ondemand.blobs)
     };
 
     info!("Pack complete.");
