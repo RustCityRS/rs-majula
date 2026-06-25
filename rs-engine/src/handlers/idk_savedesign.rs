@@ -24,7 +24,6 @@ const DESIGN_BODY_COLORS: [&[u16]; 5] = [
     &[4550, 4537, 5681, 5673, 5790, 6806, 8076, 4574],
 ];
 
-/// `BodyType::WomanJaw` discriminant — the only design slot allowed to be empty.
 const WOMAN_JAW: u8 = 8;
 
 /// Handles the `IdkSaveDesign` client protocol message.

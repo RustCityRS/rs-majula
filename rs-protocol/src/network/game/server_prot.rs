@@ -8,6 +8,7 @@ macro_rules! server_prot {
     };
 }
 
+#[cfg(rev = "225")]
 server_prot! {
     NpcInfo = 1, // NXT naming
     IfSetColour = 2, // NXT naming
@@ -80,4 +81,75 @@ server_prot! {
     CamReset = 239, // NXT naming
     PCountDialog = 243, // named after runescript command + client resume_p_countdialog packet
     SetMultiway = 254,
+}
+
+#[cfg(since_244)]
+server_prot! {
+    UpdateIgnoreList = 7,
+    ChatFilterSettings = 9,
+    IfOpenMain = 10,
+    CamMoveTo = 12,
+    Logout = 17,
+    EnableTracking = 22,
+    UpdateStat = 24,
+    LocMerge = 29,
+    MessagePrivate = 30,
+    ObjDel = 39,
+    LastLoginInfo = 44,
+    HintArrow = 49,
+    CamShake = 50,
+    CamReset = 53,
+    IfSetTabActive = 56,
+    FinishTracking = 60,
+    UnsetMapFlag = 62,
+    ObjReveal = 69,
+    UpdateFriendList = 70,
+    UpdateInvFull = 72,
+    IfSetColour = 78,
+    UpdateRebootTimer = 85,
+    PlayerInfo = 86,
+    ResetClientVarCache = 87,
+    UpdateZonePartialFollows = 94,
+    MessageGame = 95,
+    SetMultiway = 97,
+    IfSetRecol = 103,
+    IfSetPlayerHead = 108,
+    IfSetHide = 123,
+    LocDel = 125,
+    IfSetNpcHead = 129,
+    UpdateZoneFullFollows = 131,
+    UpdateInvPartial = 132,
+    MapProjAnim = 137,
+    SynthSound = 151,
+    PCountDialog = 152,
+    IfSetText = 154,
+    LocAnim = 155,
+    UpdateRunWeight = 160,
+    UpdateInvStopTransmit = 162,
+    IfSetObject = 164,
+    RebuildNormal = 165,
+    TutFlash = 168,
+    MidiJingle = 173,
+    TutOpen = 174,
+    IfOpenSide = 176,
+    UpdateRunEnergy = 177,
+    IfOpenChat = 189,
+    MapAnim = 198,
+    IfSetTab = 200,
+    IfOpenMainSide = 207,
+    ObjCount = 209,
+    UpdatePid = 210,
+    IfClose = 214,
+    IfSetAnim = 219,
+    CamLookAt = 222,
+    VarpLarge = 226,
+    LocAddChange = 232,
+    UpdateZonePartialEnclosed = 233,
+    ObjAdd = 234,
+    VarpSmall = 236,
+    MidiSong = 240,
+    IfSetPosition = 241,
+    ResetAnims = 242,
+    NpcInfo = 244,
+    IfSetModel = 245,
 }

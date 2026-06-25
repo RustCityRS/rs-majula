@@ -24,6 +24,16 @@ pub enum EtherOutboundOp {
     LoginAbort = 13,
 }
 
+#[cfg_attr(rev = "225", allow(unused_variables))]
+pub fn max_friends_cap(is_member: bool) -> u16 {
+    #[cfg(since_244)]
+    if is_member {
+        return 200;
+    }
+
+    100
+}
+
 /// Opcodes for messages received from the ether sidecar.
 #[repr(u8)]
 pub enum EtherInboundOp {
@@ -47,6 +57,7 @@ pub enum EtherOutbound {
     PlayerLogin {
         user37: u64,
         pid: u16,
+        max_friends: u16,
         ip: String,
     },
     PlayerLogout {
@@ -85,6 +96,7 @@ pub enum EtherOutbound {
         user37: u64,
         pid: u16,
         private_mode: u8,
+        max_friends: u16,
         ip: String,
     },
     LoginCheck {
@@ -149,10 +161,16 @@ impl EtherOutbound {
                 buf.push(EtherOutboundOp::WorldRegister as u8);
                 buf.push(*node_id);
             }
-            Self::PlayerLogin { user37, pid, ip } => {
+            Self::PlayerLogin {
+                user37,
+                pid,
+                max_friends,
+                ip,
+            } => {
                 buf.push(EtherOutboundOp::PlayerLogin as u8);
                 buf.extend_from_slice(&user37.to_be_bytes());
                 buf.extend_from_slice(&pid.to_be_bytes());
+                buf.extend_from_slice(&max_friends.to_be_bytes());
                 buf.extend_from_slice(ip.as_bytes());
             }
             Self::PlayerLogout { user37 } => {
@@ -207,12 +225,14 @@ impl EtherOutbound {
                 user37,
                 pid,
                 private_mode,
+                max_friends,
                 ip,
             } => {
                 buf.push(EtherOutboundOp::PlayerResync as u8);
                 buf.extend_from_slice(&user37.to_be_bytes());
                 buf.extend_from_slice(&pid.to_be_bytes());
                 buf.push(*private_mode);
+                buf.extend_from_slice(&max_friends.to_be_bytes());
                 buf.extend_from_slice(ip.as_bytes());
             }
             Self::LoginCheck {

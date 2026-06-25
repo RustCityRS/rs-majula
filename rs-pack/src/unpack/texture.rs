@@ -40,7 +40,10 @@ pub const TEXTURE_NAMES: &[&str] = &[
     "bark",
     "mapletree",
     "yewtree",
+    #[cfg(rev = "225")]
     "elfbrick",
+    #[cfg(since_244)]
+    "empty",
     "elfwall",
     "chainmail",
     "mummy",

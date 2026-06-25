@@ -250,6 +250,7 @@ impl Npc {
             self.stats.reset();
             self.hero_points.clear();
             self.state.queues.queue.clear();
+            self.pathing.clear_waypoints();
             self.pathing.tele = true;
             self.revert_at = None;
             self.revert_reset = false;

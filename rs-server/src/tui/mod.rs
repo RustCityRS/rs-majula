@@ -31,7 +31,7 @@ const BANNER: &str = r"
 ██╔══██╗██║   ██║╚════██║   ██║   ██║     ██║   ██║     ╚██╔╝
 ██║  ██║╚██████╔╝███████║   ██║   ╚██████╗██║   ██║      ██║
 ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝╚═╝   ╚═╝      ╚═╝
-                   rev 225 · rust edition";
+                   rev {REV} · rust edition";
 
 /// How many ticks of history to keep for the sparklines.
 const HISTORY: usize = 240; // 240 × 600ms ≈ 2.4 min
@@ -466,7 +466,8 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
 }
 
 fn draw_banner(f: &mut ratatui::Frame, area: Rect) {
-    let para = Paragraph::new(BANNER).style(Style::default().fg(Color::Magenta));
+    let banner = BANNER.replace("{REV}", crate::REVISION);
+    let para = Paragraph::new(banner).style(Style::default().fg(Color::Magenta));
     f.render_widget(para, area);
 }
 

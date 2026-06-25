@@ -127,6 +127,16 @@ pub struct EntityMasks {
     pub damage_type: Option<u8>,
     pub damage_current: Option<u8>,
     pub damage_base: Option<u8>,
+    #[cfg(since_244)]
+    pub damage2_taken: Option<u8>,
+    #[cfg(since_244)]
+    pub damage2_type: Option<u8>,
+    #[cfg(since_244)]
+    pub damage2_current: Option<u8>,
+    #[cfg(since_244)]
+    pub damage2_base: Option<u8>,
+    #[cfg(since_244)]
+    pub damage_slot: u8,
     pub chat_bytes: Option<Box<[u8]>>,
     pub chat_colour: Option<u8>,
     pub chat_effects: Option<u8>,
@@ -187,6 +197,16 @@ impl EntityMasks {
             damage_type: None,
             damage_current: None,
             damage_base: None,
+            #[cfg(since_244)]
+            damage2_taken: None,
+            #[cfg(since_244)]
+            damage2_type: None,
+            #[cfg(since_244)]
+            damage2_current: None,
+            #[cfg(since_244)]
+            damage2_base: None,
+            #[cfg(since_244)]
+            damage_slot: 0,
             chat_bytes: None,
             chat_colour: None,
             chat_effects: None,
@@ -206,14 +226,59 @@ impl EntityMasks {
         }
     }
 
+    /// Writes a hit into the primary `Damage` slot and flags `bit` for the
+    /// next info update.
+    ///
+    /// `bit` is the rev-specific `Damage` mask bit (`PlayerInfoProt::Damage`
+    /// for players, `NpcInfoProt::Damage` for npcs).
+    pub fn apply_damage(&mut self, taken: u8, damage_type: u8, current: u8, base: u8, bit: u16) {
+        self.damage_taken = Some(taken);
+        self.damage_type = Some(damage_type);
+        self.damage_current = Some(current);
+        self.damage_base = Some(base);
+        self.masks |= bit;
+    }
+
+    /// Routes a hit to the second-hitmark (`Damage2`) slot on the odd-numbered
+    /// hit of a tick. `damage_slot` alternates on every call and is reset to `0`
+    /// each tick by [`reset`](EntityMasks::reset), so the first hit lands in
+    /// `Damage` and the second in `Damage2`. Returns `true` when this hit filled
+    /// `Damage2`, in which case the caller skips the primary `Damage` write.
+    ///
+    /// `bit` is the rev-specific `Damage2` mask bit (`PlayerInfoProt::Damage2`
+    /// for players, `NpcInfoProt::Damage2` for npcs).
+    #[cfg(since_244)]
+    pub fn apply_damage2(
+        &mut self,
+        taken: u8,
+        damage_type: u8,
+        current: u8,
+        base: u8,
+        bit: u16,
+    ) -> bool {
+        let slot = self.damage_slot;
+        self.damage_slot = slot.wrapping_add(1);
+        if slot % 2 == 1 {
+            self.damage2_taken = Some(taken);
+            self.damage2_type = Some(damage_type);
+            self.damage2_current = Some(current);
+            self.damage2_base = Some(base);
+            self.masks |= bit;
+            true
+        } else {
+            false
+        }
+    }
+
     /// Sets the active animation on this entity, subject to priority and
     /// protection checks.
     ///
     /// If `anim_protect` is `true`, the call is a no-op -- the current
-    /// animation is locked and cannot be overridden. Otherwise, if both
-    /// `current_priority` and `new_priority` are `Some`, the new animation
-    /// is only applied when either the current priority is `0` (no animation
-    /// playing) or the new priority strictly exceeds the current one.
+    /// animation is locked and cannot be overridden. Otherwise, when both
+    /// `current_priority` and `new_priority` are `Some`, the new animation is
+    /// applied only when its priority is greater than or equal to the current
+    /// one (an equal-priority anim overrides). A `None` priority -- no current
+    /// anim, or clearing the anim -- always applies.
     ///
     /// When the animation is accepted, `anim_id` and `anim_delay` are
     /// written and the given `mask_bit` is OR-ed into `masks` so the info
@@ -249,8 +314,7 @@ impl EntityMasks {
             return;
         }
         if let (Some(cur), Some(new)) = (current_priority, new_priority)
-            && cur != 0
-            && new <= cur
+            && new < cur
         {
             return;
         }
@@ -294,6 +358,14 @@ impl EntityMasks {
         self.damage_type = None;
         self.damage_current = None;
         self.damage_base = None;
+        #[cfg(since_244)]
+        {
+            self.damage2_taken = None;
+            self.damage2_type = None;
+            self.damage2_current = None;
+            self.damage2_base = None;
+            self.damage_slot = 0;
+        }
         self.chat_bytes = None;
         self.chat_colour = None;
         self.chat_effects = None;
@@ -973,5 +1045,23 @@ mod tests {
         assert!(masks.damage_type.is_none());
         assert!(masks.damage_current.is_none());
         assert!(masks.damage_base.is_none());
+    }
+
+    #[cfg(since_244)]
+    #[test]
+    fn damage2_fields_and_slot_are_temporary() {
+        let mut masks = EntityMasks::new();
+        assert_eq!(masks.damage_slot, 0);
+        masks.damage2_taken = Some(7);
+        masks.damage2_type = Some(2);
+        masks.damage2_current = Some(40);
+        masks.damage2_base = Some(99);
+        masks.damage_slot = 3;
+        masks.reset();
+        assert!(masks.damage2_taken.is_none());
+        assert!(masks.damage2_type.is_none());
+        assert!(masks.damage2_current.is_none());
+        assert!(masks.damage2_base.is_none());
+        assert_eq!(masks.damage_slot, 0);
     }
 }

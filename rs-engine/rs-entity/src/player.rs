@@ -670,8 +670,7 @@ impl Player {
     /// Opens a side-panel modal interface.
     ///
     /// Unlike the main and chat openers, this does not close any conflicting
-    /// modal — the side panel coexists with whatever is currently open, so the
-    /// `MODAL_SIDE` bit is simply added on top.
+    /// modal.
     ///
     /// # Arguments
     /// * `com` - The interface component ID to open as the side modal.

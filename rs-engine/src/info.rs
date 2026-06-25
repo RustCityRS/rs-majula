@@ -6,104 +6,9 @@ use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_info::{NpcRenderer, PlayerRenderer};
 use rs_io::Packet;
+use rs_io::packet::BitWriter;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_zone::zone_map::ZoneMap;
-
-/// A register-based, MSB-first bit accumulator that replaces per-call
-/// [`Packet::pbit`] in the info encoders.
-///
-/// `Packet::pbit` recomputes the byte cursor and does a byte-by-byte
-/// read-modify-write on every call. With ~1M movement entries written per
-/// tick at 2000 players that is a meaningful cost even though fat-LTO inlines
-/// it. This writer instead shifts each field into a `u64` register MSB-first
-/// and flushes only whole bytes, so a typical entry is a couple of ALU ops
-/// plus an occasional store.
-///
-/// # Bit order
-///
-/// Identical to `Packet::pbit`: the first bit written occupies the most
-/// significant free bit of byte 0 and the stream fills downward, splitting
-/// across byte boundaries high-bits-first. The produced bytes are therefore
-/// bit-for-bit identical to a sequence of `pbit` calls, **except** the unused
-/// low bits of the final partial byte, which this writer zero-pads (whereas
-/// `pbit`'s read-modify-write would leave whatever was previously in the
-/// reused buffer). Those padding bits are not part of the wire protocol.
-///
-/// # Invariant
-///
-/// After every operation the live (un-flushed) bits occupy the low `nbits`
-/// bits of `acc`; previously flushed bits sit above them and are truncated by
-/// the `as u8` flush and eventually shifted out of the register — they never
-/// re-enter a flushed byte. `nbits` stays below 8 + the widest single field
-/// (24), so `acc` never holds more than ~31 live bits and no shift exceeds 63.
-struct BitWriter {
-    acc: u64,
-    bits: u32,
-    byte: usize,
-}
-
-impl BitWriter {
-    #[inline(always)]
-    const fn new() -> BitWriter {
-        BitWriter {
-            acc: 0,
-            bits: 0,
-            byte: 0,
-        }
-    }
-
-    /// Resets the writer to the start of `buf` for a fresh encode.
-    #[inline(always)]
-    const fn reset(&mut self) {
-        self.acc = 0;
-        self.bits = 0;
-        self.byte = 0;
-    }
-
-    /// Appends the low `N` bits of `val` to the stream (MSB-first) and flushes
-    /// any whole bytes that have accumulated into `buf.data`.
-    ///
-    /// `N` is always a compile-time constant at every call site (1, 3, 7, 8,
-    /// 10, 11, 13, 21, 23, 24), so the mask folds and the flush loop unrolls.
-    ///
-    /// # Safety
-    ///
-    /// `buf.data` must have capacity for the byte being written; the encoders
-    /// guarantee this via [`PlayerInfo::fits`] / [`NpcInfo::fits`] against the
-    /// fixed `BYTES_LIMIT` buffer, exactly as `Packet::pbit` relied on.
-    #[inline(always)]
-    const fn pbit<const N: usize>(&mut self, buf: &mut Packet, val: i32) {
-        self.acc = (self.acc << N) | (val as u32 as u64 & ((1 << N) - 1));
-        self.bits += N as u32;
-        while self.bits >= 8 {
-            self.bits -= 8;
-            unsafe {
-                *buf.data.as_mut_ptr().add(self.byte) = (self.acc >> self.bits) as u8;
-            }
-            self.byte += 1;
-        }
-    }
-
-    /// The number of bits written so far, equivalent to the old `buf.pos2`.
-    #[inline(always)]
-    const fn bitpos(&self) -> usize {
-        (self.byte << 3) + self.bits as usize
-    }
-
-    /// Flushes the trailing partial byte (zero-padded) and sets `buf.pos` to
-    /// the total byte length, equivalent to the old `buf.bytes()`.
-    #[inline(always)]
-    const fn finish(&mut self, buf: &mut Packet) {
-        if self.bits > 0 {
-            unsafe {
-                *buf.data.as_mut_ptr().add(self.byte) = (self.acc << (8 - self.bits)) as u8;
-            }
-            self.byte += 1;
-            self.bits = 0;
-        }
-        buf.pos = self.byte;
-    }
-}
 
 /// Compact per-tick snapshot of the handful of player fields the hot
 /// `write_players` loop reads, indexed by pid.
@@ -707,35 +612,19 @@ impl PlayerInfo {
         other: &ActivePlayer,
     ) {
         let pid = other.player.uid.pid();
+        let masks = other.player.info.masks;
         if active.player.uid.pid() == pid {
-            // Self-observation: Chat is masked off. Chat sits in the middle of
-            // the block (before SpotAnim/ExactMove), so the pre-coalesced prefix
-            // cannot be reused; emit field-by-field. This runs at most once per
-            // packet (the local player), so its cost is irrelevant.
-            let masks = other.player.info.masks & !(PlayerInfoProt::Chat as u16);
-            self.write_blocks(renderer, active, other, masks);
-            return;
-        }
-        // Other players: one memcpy of the pre-coalesced prefix (mask header +
-        // every field except ExactMove), then append the observer-relative
-        // ExactMove tail. The prefix's header was computed from the FULL masks
-        // (ExactMove bit + BigInfo rule), so this is byte-identical to the old
-        // field-by-field `write_blocks`.
-        let blk = renderer.high_block(pid);
-        self.updates.pdata(blk, 0, blk.len());
-        if other.player.info.masks & PlayerInfoProt::ExactMove as u16 != 0 {
-            let x = CoordGrid::zone_origin(active.player.build_area.origin.x());
-            let z = CoordGrid::zone_origin(active.player.build_area.origin.z());
-            renderer.write_exactmove(
-                &mut self.updates,
-                (other.player.info.exactmove_start_x.unwrap() - x) as u8,
-                (other.player.info.exactmove_start_z.unwrap() - z) as u8,
-                (other.player.info.exactmove_end_x.unwrap() - x) as u8,
-                (other.player.info.exactmove_end_z.unwrap() - z) as u8,
-                other.player.info.exactmove_begin.unwrap(),
-                other.player.info.exactmove_finish.unwrap(),
-                other.player.info.exactmove_dir.unwrap(),
+            self.write_blocks(
+                renderer,
+                active,
+                other,
+                masks & !(PlayerInfoProt::Chat as u16),
             );
+        } else if masks & PlayerInfoProt::ExactMove as u16 != 0 {
+            self.write_blocks(renderer, active, other, masks);
+        } else {
+            let blk = renderer.high_block(pid);
+            self.updates.pdata(blk, 0, blk.len());
         }
     }
 
@@ -758,9 +647,6 @@ impl PlayerInfo {
         flags: u8,
     ) {
         if pid == active.player.uid.pid() || flags & PlayerSnapshot::HAS_EXACTMOVE != 0 {
-            // SAFETY: identical invariant to the original unconditional deref in
-            // write_players — a tracked player that did not `should_remove` is
-            // `Some` in `players`. This path is a strict subset of those derefs.
             let other = unsafe {
                 (*players.as_ptr().add(pid as usize))
                     .as_ref()
@@ -904,6 +790,10 @@ impl PlayerInfo {
                 other.player.info.exactmove_finish.unwrap(),
                 other.player.info.exactmove_dir.unwrap(),
             )
+        }
+        #[cfg(since_244)]
+        if masks & PlayerInfoProt::Damage2 as u16 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::Damage2);
         }
     }
 
@@ -1306,6 +1196,10 @@ impl NpcInfo {
         // ----
         // an optimization *could* be made where all of these are just 1 block of bytes...
         // the same could NOT be done for players bcuz of how exact_move works...
+        #[cfg(since_244)]
+        if masks & NpcInfoProt::Damage2 as u16 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::Damage2);
+        }
         if masks & NpcInfoProt::Anim as u16 != 0 {
             renderer.write(&mut self.updates, nid, NpcInfoProt::Anim);
         }

@@ -1,10 +1,15 @@
+#[cfg(rev = "225")]
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
 use rs_io::Packet;
+#[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
+#[cfg(since_244)]
+use rs_io::js5::Js5Store;
 use tracing::info;
 
+#[cfg(rev = "225")]
 pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let out_dir = output_dir.join("maps");
     std::fs::create_dir_all(&out_dir)?;
@@ -102,6 +107,46 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         let filename = format!("m{map_x}_{map_z}.jm2");
         let content = lines.join("\n") + "\n";
         std::fs::write(out_dir.join(&filename), &content)?;
+        count += 1;
+    }
+
+    info!("Unpacked {} map squares", count);
+    Ok(())
+}
+
+#[cfg(since_244)]
+pub fn unpack_maps(
+    cache: &Js5Store,
+    version_list: &crate::version_list::VersionList,
+    output_dir: &Path,
+) -> anyhow::Result<()> {
+    let out_dir = output_dir.join("maps");
+    std::fs::create_dir_all(&out_dir)?;
+
+    let mut count = 0;
+    for entry in &version_list.maps {
+        let (map_x, map_z) = (entry.map_x(), entry.map_z());
+        let mut lines = Vec::new();
+
+        if let Some(land) = cache.read(4, entry.land_file as usize, true) {
+            lines.push("==== MAP ====".to_string());
+            decode_terrain(&land, &mut lines);
+        }
+
+        if let Some(loc) = cache.read(4, entry.loc_file as usize, true) {
+            lines.push(String::new());
+            lines.push("==== LOC ====".to_string());
+            decode_locs(&loc, &mut lines);
+        }
+
+        lines.push(String::new());
+        lines.push("==== NPC ====".to_string());
+
+        lines.push(String::new());
+        lines.push("==== OBJ ====".to_string());
+
+        let content = lines.join("\n") + "\n";
+        std::fs::write(out_dir.join(format!("m{map_x}_{map_z}.jm2")), &content)?;
         count += 1;
     }
 

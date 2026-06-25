@@ -21,6 +21,7 @@ use obj::ObjType;
 use param::ParamType;
 use provider::TypeProvider;
 use seq::SeqType;
+#[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use spotanim::SpotAnimType;
 use varn::VarnType;
@@ -58,6 +59,12 @@ pub mod wordenc;
 pub struct CacheStore {
     pub crctable: [i32; 9],
     pub crctable_bytes: Arc<[u8]>,
+    #[cfg(since_244)]
+    pub ondemand_zip: Arc<[u8]>,
+    #[cfg(since_244)]
+    pub build: Arc<[u8]>,
+    #[cfg(since_244)]
+    pub ondemand: Vec<Vec<Box<[u8]>>>,
     pub crcs: HashMap<&'static str, i32>,
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
@@ -76,6 +83,7 @@ pub struct CacheStore {
     pub mesanims: TypeProvider<MesAnimType>,
     pub npcs: TypeProvider<NpcType>,
     pub params: TypeProvider<ParamType>,
+    #[cfg(rev = "225")]
     pub seq_frames: SeqFrameProvider,
     pub seqs: TypeProvider<SeqType>,
     pub spotanims: TypeProvider<SpotAnimType>,
@@ -88,6 +96,8 @@ pub struct CacheStore {
     pub wordenc: WordEncProvider,
     pub songs: MidiProvider,
     pub jingles: MidiProvider,
+    #[cfg(since_244)]
+    pub midi_ids: HashMap<Box<str>, u16>,
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,

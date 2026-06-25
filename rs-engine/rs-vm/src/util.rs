@@ -9,6 +9,7 @@ use rs_pack::cache::font::FontType;
 use rs_pack::cache::idk::IdkType;
 use rs_pack::cache::inv::{InvScope, InvType};
 use rs_pack::cache::loc::LocType;
+#[cfg(rev = "225")]
 use rs_pack::cache::midi::MidiType;
 use rs_pack::cache::npc::NpcType;
 use rs_pack::cache::obj::ObjType;
@@ -563,6 +564,7 @@ pub(crate) fn pop_idk(state: &mut ScriptState) -> Result<&'static IdkType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::JingleNotFoundName` if no jingle exists with the popped name.
+#[cfg(rev = "225")]
 pub(crate) fn pop_jingle(state: &mut ScriptState) -> Result<&'static MidiType> {
     let name = state.pop_string();
     cache()
@@ -587,6 +589,7 @@ pub(crate) fn pop_jingle(state: &mut ScriptState) -> Result<&'static MidiType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::SongNotFoundName` if no song exists with the normalized name.
+#[cfg(rev = "225")]
 pub(crate) fn pop_song(state: &mut ScriptState) -> Result<&'static MidiType> {
     let mut name = state.pop_string();
     unsafe {
@@ -601,6 +604,31 @@ pub(crate) fn pop_song(state: &mut ScriptState) -> Result<&'static MidiType> {
         .songs
         .get_by_name(&name)
         .ok_or(ScriptError::SongNotFoundName(name))
+}
+
+#[cfg(since_244)]
+fn normalize_song_name(name: &str) -> String {
+    name.chars()
+        .map(|c| c.to_ascii_lowercase())
+        .map(|c| if c == ' ' { '_' } else { c })
+        .filter(|c| matches!(c, 'a'..='z' | '0'..='9' | '_' | '-'))
+        .collect()
+}
+
+#[cfg(since_244)]
+pub(crate) fn song_midi_id(name: &str) -> Option<u16> {
+    cache()
+        .midi_ids
+        .get(normalize_song_name(name).as_str())
+        .copied()
+}
+
+#[cfg(since_244)]
+pub(crate) fn jingle_midi_id(name: &str) -> Option<u16> {
+    cache()
+        .midi_ids
+        .get(name.to_ascii_lowercase().as_str())
+        .copied()
 }
 
 /// Pops an integer from the script stack and looks up the corresponding [`NpcType`] from the cache.

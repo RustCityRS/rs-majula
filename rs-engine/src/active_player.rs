@@ -30,6 +30,7 @@ use rs_protocol::network::game::client::anticheat_oplogic9::AnticheatOpLogic9;
 use rs_protocol::network::game::client::chat_setmode::ChatSetMode;
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
 use rs_protocol::network::game::client::close_modal::CloseModal;
+#[cfg(rev = "225")]
 use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
 use rs_protocol::network::game::client::friendlist_add::FriendListAdd;
 use rs_protocol::network::game::client::friendlist_del::FriendListDel;
@@ -84,6 +85,7 @@ use rs_protocol::network::game::client::opplayer3::OpPlayer3;
 use rs_protocol::network::game::client::opplayer4::OpPlayer4;
 use rs_protocol::network::game::client::opplayert::OpPlayerT;
 use rs_protocol::network::game::client::opplayeru::OpPlayerU;
+#[cfg(rev = "225")]
 use rs_protocol::network::game::client::rebuild_get_maps::RebuildGetMaps;
 use rs_protocol::network::game::client::resume_p_countdialog::ResumePCountDialog;
 use rs_protocol::network::game::client::resume_pause_button::ResumePauseButton;
@@ -535,6 +537,7 @@ impl ActivePlayer {
     }
 
     /// Sends a chunk of land (ground texture) map data to the client.
+    #[cfg(rev = "225")]
     pub fn data_land(&mut self, x: u8, z: u8, off: u16, len: u16, data: &[u8]) {
         self.write(rs_protocol::network::game::server::data_land::DataLand {
             x,
@@ -547,11 +550,13 @@ impl ActivePlayer {
 
     /// Signals to the client that all land data chunks for the given mapsquare
     /// have been sent.
+    #[cfg(rev = "225")]
     pub fn data_land_done(&mut self, x: u8, z: u8) {
         self.write(rs_protocol::network::game::server::data_land_done::DataLandDone { x, z });
     }
 
     /// Sends a chunk of location map data to the client.
+    #[cfg(rev = "225")]
     pub fn data_loc(&mut self, x: u8, z: u8, off: u16, len: u16, data: &[u8]) {
         self.write(rs_protocol::network::game::server::data_loc::DataLoc {
             x,
@@ -564,6 +569,7 @@ impl ActivePlayer {
 
     /// Signals to the client that all location data chunks for the given
     /// mapsquare have been sent.
+    #[cfg(rev = "225")]
     pub fn data_loc_done(&mut self, x: u8, z: u8) {
         self.write(rs_protocol::network::game::server::data_loc_done::DataLocDone { x, z });
     }
@@ -671,6 +677,8 @@ impl ActivePlayer {
                 login: days_since_login,
                 recovery: 201,
                 messages: 0,
+                #[cfg(since_244)]
+                warn_members_in_non_members: !engine().members && self.member(),
             },
         );
     }
@@ -752,13 +760,27 @@ impl ActivePlayer {
     }
 
     /// Plays a MIDI jingle sound effect on the client.
+    #[cfg(rev = "225")]
     pub fn midi_jingle(&mut self, delay: u16, bytes: &[u8]) {
         self.write(rs_protocol::network::game::server::midi_jingle::MidiJingle { delay, bytes });
     }
 
-    /// Starts playing a MIDI song on the client, identified by name and CRC.
+    /// Plays a MIDI jingle sound effect on the client.
+    #[cfg(since_244)]
+    pub fn midi_jingle(&mut self, id: u16, delay: u16) {
+        self.write(rs_protocol::network::game::server::midi_jingle::MidiJingle { id, delay });
+    }
+
+    /// Starts playing a MIDI song on the client
+    #[cfg(rev = "225")]
     pub fn midi_song(&mut self, name: &str, crc: i32, len: i32) {
         self.write(rs_protocol::network::game::server::midi_song::MidiSong { name, crc, len });
+    }
+
+    /// Starts playing a MIDI song on the client
+    #[cfg(since_244)]
+    pub fn midi_song(&mut self, id: u16) {
+        self.write(rs_protocol::network::game::server::midi_song::MidiSong { id });
     }
 
     /// Sends the pre-encoded NPC info update payload to the client.
@@ -797,30 +819,37 @@ impl ActivePlayer {
         {
             return;
         }
-        let c = cache();
         let coord = self.player.pathing.coord;
         self.player.build_area.rebuild_normal(&coord);
         let zone_x = self.player.pathing.coord.zone_x();
         let zone_z = self.player.pathing.coord.zone_z();
-        let mut crcs = FxHashMap::default();
-        let mapsquares = self.player.build_area.mapsquares.clone();
-        for mapsquare in &mapsquares {
-            let x = (mapsquare >> 8) as u8;
-            let z = (mapsquare & 0xFF) as u8;
-            if let Some(crc) = c.mapcrcs.get(&('m', x, z)).copied() {
-                crcs.insert(('m', x, z), crc);
+        #[cfg(rev = "225")]
+        {
+            let cache = cache();
+            let mut crcs = FxHashMap::default();
+            let mapsquares = self.player.build_area.mapsquares.clone();
+            for mapsquare in &mapsquares {
+                let x = (mapsquare >> 8) as u8;
+                let z = (mapsquare & 0xFF) as u8;
+                if let Some(crc) = cache.mapcrcs.get(&('m', x, z)).copied() {
+                    crcs.insert(('m', x, z), crc);
+                }
+                if let Some(crc) = cache.mapcrcs.get(&('l', x, z)).copied() {
+                    crcs.insert(('l', x, z), crc);
+                }
             }
-            if let Some(crc) = c.mapcrcs.get(&('l', x, z)).copied() {
-                crcs.insert(('l', x, z), crc);
-            }
+            self.write(
+                rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
+                    zone_x,
+                    zone_z,
+                    mapsquares: mapsquares.into_iter().collect(),
+                    crcs: crcs.into_iter().collect(),
+                },
+            );
         }
+        #[cfg(since_244)]
         self.write(
-            rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
-                zone_x,
-                zone_z,
-                mapsquares: mapsquares.into_iter().collect(),
-                crcs: crcs.into_iter().collect(),
-            },
+            rs_protocol::network::game::server::rebuild_normal::RebuildNormal { zone_x, zone_z },
         );
     }
 
@@ -889,7 +918,13 @@ impl ActivePlayer {
 
     /// Sends the player's server-side player ID to the client.
     pub fn update_pid(&mut self, pid: u16) {
+        #[cfg(rev = "225")]
         self.write(rs_protocol::network::game::server::update_pid::UpdatePid { pid });
+        #[cfg(since_244)]
+        self.write(rs_protocol::network::game::server::update_pid::UpdatePid {
+            pid,
+            members: self.member(),
+        });
     }
 
     /// Sends stat and run energy updates to the client for any values that
@@ -1371,23 +1406,40 @@ impl ActivePlayer {
     /// * Reduces `player.stats.levels[Hitpoints]` by `amount` (saturating at 0).
     /// * Populates the damage info fields (`damage_taken`, `damage_type`,
     ///   `damage_current`, `damage_base`) and sets the `PlayerInfoProt::Damage`
-    ///   mask for the next info update.
+    ///   mask for the next info update. On 244, a second hit within the same
+    ///   tick fills the `damage2_*` fields and sets `PlayerInfoProt::Damage2`
+    ///   instead, alternating via the per-tick `damage_slot` counter.
     pub fn damage(&mut self, amount: u8, damage_type: u8) {
         let current = self.player.stats.levels[PlayerStat::Hitpoints as usize];
-        if current.saturating_sub(amount) == 0 {
+        let taken = if current.saturating_sub(amount) == 0 {
             self.player.stats.levels[PlayerStat::Hitpoints as usize] = 0;
-            self.player.info.damage_taken = Some(current);
+            current
         } else {
             self.player.stats.levels[PlayerStat::Hitpoints as usize] =
                 current.saturating_sub(amount);
-            self.player.info.damage_taken = Some(amount);
+            amount
+        };
+        let remaining = self.player.stats.levels[PlayerStat::Hitpoints as usize];
+        let base = self.player.stats.base_levels[PlayerStat::Hitpoints as usize];
+
+        #[cfg(since_244)]
+        if self.player.info.apply_damage2(
+            taken,
+            damage_type,
+            remaining,
+            base,
+            PlayerInfoProt::Damage2 as u16,
+        ) {
+            return;
         }
-        self.player.info.damage_type = Some(damage_type);
-        self.player.info.damage_current =
-            Some(self.player.stats.levels[PlayerStat::Hitpoints as usize]);
-        self.player.info.damage_base =
-            Some(self.player.stats.base_levels[PlayerStat::Hitpoints as usize]);
-        self.player.info.masks |= PlayerInfoProt::Damage as u16;
+
+        self.player.info.apply_damage(
+            taken,
+            damage_type,
+            remaining,
+            base,
+            PlayerInfoProt::Damage as u16,
+        );
     }
 
     /// Executes the player's pending walk trigger script, if any.
@@ -1822,6 +1874,7 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::ChatSetMode => ChatSetMode::decode(&mut buf, len).handle(self),
                 ClientProt::ClientCheat => ClientCheat::decode(&mut buf, len).handle(self),
                 ClientProt::CloseModal => CloseModal::decode(&mut buf, len).handle(self),
+                #[cfg(rev = "225")]
                 ClientProt::EventCameraPosition => EventCameraPosition::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListAdd => FriendListAdd::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListDel => FriendListDel::decode(&mut buf, len).handle(self),
@@ -1876,6 +1929,7 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::OpPlayer4 => OpPlayer4::decode(&mut buf, len).handle(self),
                 ClientProt::OpPlayerT => OpPlayerT::decode(&mut buf, len).handle(self),
                 ClientProt::OpPlayerU => OpPlayerU::decode(&mut buf, len).handle(self),
+                #[cfg(rev = "225")]
                 ClientProt::RebuildGetMaps => RebuildGetMaps::decode(&mut buf, len).handle(self),
                 ClientProt::ResumePCountDialog => ResumePCountDialog::decode(&mut buf, len).handle(self),
                 ClientProt::ResumePauseButton => ResumePauseButton::decode(&mut buf, len).handle(self),

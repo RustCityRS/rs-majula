@@ -30,7 +30,11 @@ ratatui = { workspace = true }
 crossterm = { workspace = true }
 sysinfo = { workspace = true }
 notify = { workspace = true }
+num_enum = { workspace = true }
 rand = "0.10"
+
+[build-dependencies]
+rev-cfg = { workspace = true }
 
 [lints]
 workspace = true

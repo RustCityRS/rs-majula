@@ -839,8 +839,7 @@ pub trait ScriptPlayer {
     ///
     /// The body slot is derived from the idk's body type (adjusted for gender);
     /// the color is applied to the matching appearance color slot
-    /// (hair/torso/legs/feet) — hands are not recolored. Not visible until the
-    /// appearance is rebuilt.
+    /// (hair/torso/legs/feet).
     ///
     /// # Arguments
     /// * `idk_type` - The idk body type index (0-6 male, 7-13 female).
@@ -1038,7 +1037,16 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `length` - The playback length in client ticks.
     /// * `data` - The raw MIDI data bytes.
+    #[cfg(rev = "225")]
     fn midi_jingle(&mut self, length: u16, data: &[u8]);
+
+    /// Plays a MIDI jingle (short musical effect) for the player.
+    ///
+    /// # Arguments
+    /// * `id` - The id of the midi from idx(3).
+    /// * `delay` - The playback delay.
+    #[cfg(since_244)]
+    fn midi_jingle(&mut self, id: u16, delay: u16);
 
     /// Starts playing a MIDI song (background music) for the player.
     ///
@@ -1046,7 +1054,15 @@ pub trait ScriptPlayer {
     /// * `name` - The song name.
     /// * `crc` - The CRC checksum of the song data.
     /// * `len` - The length of the song data.
+    #[cfg(rev = "225")]
     fn midi_song(&mut self, name: &str, crc: i32, len: i32);
+
+    /// Starts playing a MIDI song (background music) for the player.
+    ///
+    /// # Arguments
+    /// * `id` - The id of the midi from idx(3).
+    #[cfg(since_244)]
+    fn midi_song(&mut self, id: u16);
 
     /// Makes the player face a specific tile.
     ///

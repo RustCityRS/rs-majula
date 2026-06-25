@@ -1,3 +1,4 @@
+use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -138,10 +139,9 @@ pub fn pack_idks(
 
     if verify {
         let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = -359342366;
-
+        let expected = config_crc::IDK;
         if crc != expected {
-            panic!("CRC mismatch: Got: {crc}, Expected: {expected}");
+            panic!("CRC mismatch ['idk']: Got: {crc}, Expected: {expected}");
         }
     }
 

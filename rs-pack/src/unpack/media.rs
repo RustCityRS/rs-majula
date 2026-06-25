@@ -40,6 +40,12 @@ const MEDIA_NAMES: &[&str] = &[
     "mapflag",
     "mapfunction",
     "mapscene",
+    #[cfg(since_244)]
+    "mapedge",
+    #[cfg(since_244)]
+    "mapmarker",
+    #[cfg(since_244)]
+    "mod_icons",
     "miscgraphics",
     "miscgraphics2",
     "miscgraphics3",

@@ -4,8 +4,16 @@ use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 
 const MAX_PLAYERS: usize = 2048;
 const MAX_NPCS: usize = 8192;
+
+#[cfg(rev = "225")]
 const PLAYER_PROT_COUNT: usize = 8;
+#[cfg(since_244)]
+const PLAYER_PROT_COUNT: usize = 9; // +1 for the Damage2 fixed slot
+
+#[cfg(rev = "225")]
 const NPC_PROT_COUNT: usize = 7;
+#[cfg(since_244)]
+const NPC_PROT_COUNT: usize = 8; // +1 for the Damage2 fixed slot
 
 /// An 8-byte inline buffer that stores a single pre-serialized protocol field
 /// in big-endian format.
@@ -422,6 +430,19 @@ impl PlayerRenderer {
             if masks & PlayerInfoProt::ExactMove as u16 != 0 {
                 highs += 9;
             }
+            #[cfg(since_244)]
+            if masks & PlayerInfoProt::Damage2 as u16 != 0 {
+                self.fixed
+                    .get_unchecked_mut(PlayerInfoProt::Damage2.to_index())
+                    .get_unchecked_mut(pid)
+                    .set_p1_p1_p1_p1(
+                        info.damage2_taken.unwrap(),
+                        info.damage2_type.unwrap(),
+                        info.damage2_current.unwrap(),
+                        info.damage2_base.unwrap(),
+                    );
+                highs += 4;
+            }
 
             if highs > 0 {
                 *self.highs.get_unchecked_mut(pid) = highs + Self::header(masks);
@@ -508,6 +529,15 @@ impl PlayerRenderer {
                 blk.extend_from_slice(
                     self.fixed
                         .get_unchecked(PlayerInfoProt::SpotAnim.to_index())
+                        .get_unchecked(pid)
+                        .bytes(),
+                );
+            }
+            #[cfg(since_244)]
+            if masks & PlayerInfoProt::Damage2 as u16 != 0 {
+                blk.extend_from_slice(
+                    self.fixed
+                        .get_unchecked(PlayerInfoProt::Damage2.to_index())
                         .get_unchecked(pid)
                         .bytes(),
                 );
@@ -1078,6 +1108,19 @@ impl NpcRenderer {
                 highs += 4;
                 lows += 4;
             }
+            #[cfg(since_244)]
+            if masks & NpcInfoProt::Damage2 as u16 != 0 {
+                self.fixed
+                    .get_unchecked_mut(NpcInfoProt::Damage2.to_index())
+                    .get_unchecked_mut(nid)
+                    .set_p1_p1_p1_p1(
+                        info.damage2_taken.unwrap(),
+                        info.damage2_type.unwrap(),
+                        info.damage2_current.unwrap(),
+                        info.damage2_base.unwrap(),
+                    );
+                highs += 4;
+            }
 
             if highs > 0 {
                 *self.highs.get_unchecked_mut(nid) = highs + Self::header(masks);
@@ -1097,6 +1140,15 @@ impl NpcRenderer {
             let blk = self.high_blocks.get_unchecked_mut(nid);
             blk.clear();
             blk.push(masks as u8);
+            #[cfg(since_244)]
+            if masks & NpcInfoProt::Damage2 as u16 != 0 {
+                blk.extend_from_slice(
+                    self.fixed
+                        .get_unchecked(NpcInfoProt::Damage2.to_index())
+                        .get_unchecked(nid)
+                        .bytes(),
+                );
+            }
             if masks & NpcInfoProt::Anim as u16 != 0 {
                 blk.extend_from_slice(
                     self.fixed

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 
 use crate::pack::util::media::convert_image;
-use rs_io::jag::JagFile;
+use rs_io::jag::{JagCompression, JagFile};
 use tracing::info;
 
 pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
@@ -63,5 +63,5 @@ pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
     }
 
     info!("Packed title Jag ({} sprites + title.jpg)", entries.len());
-    jag.build()
+    jag.build(JagCompression::PerFile)
 }

@@ -42,6 +42,14 @@ pub struct NpcType {
     pub vislevel: Option<u16>,
     pub resizeh: u16,
     pub resizev: u16,
+    #[cfg(since_244)]
+    pub alwaysontop: bool,
+    #[cfg(since_244)]
+    pub ambient: i8,
+    #[cfg(since_244)]
+    pub contrast: i8,
+    #[cfg(since_244)]
+    pub headicon: Option<u16>,
     pub wanderrange: u16,
     pub maxrange: u16,
     pub huntrange: u8,
@@ -94,6 +102,14 @@ impl CacheType for NpcType {
             vislevel: None,
             resizeh: 128,
             resizev: 128,
+            #[cfg(since_244)]
+            alwaysontop: false,
+            #[cfg(since_244)]
+            ambient: 0,
+            #[cfg(since_244)]
+            contrast: 0,
+            #[cfg(since_244)]
+            headicon: None,
             wanderrange: 5,
             maxrange: 7,
             huntrange: 0,
@@ -178,6 +194,14 @@ impl CacheType for NpcType {
                 95 => self.vislevel = Some(buf.g2()),
                 97 => self.resizeh = buf.g2(),
                 98 => self.resizev = buf.g2(),
+                #[cfg(since_244)]
+                99 => self.alwaysontop = true,
+                #[cfg(since_244)]
+                100 => self.ambient = buf.g1s(),
+                #[cfg(since_244)]
+                101 => self.contrast = buf.g1s(),
+                #[cfg(since_244)]
+                102 => self.headicon = Some(buf.g2()),
                 200 => self.wanderrange = buf.g2(),
                 201 => self.maxrange = buf.g2(),
                 202 => self.huntrange = buf.g1(),

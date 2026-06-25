@@ -11,6 +11,8 @@ pub enum PlayerInfoProt {
     BigInfo = 0x80,
     SpotAnim = 0x100,
     ExactMove = 0x200,
+    #[cfg(since_244)]
+    Damage2 = 0x400,
 }
 
 impl PlayerInfoProt {
@@ -26,6 +28,8 @@ impl PlayerInfoProt {
             PlayerInfoProt::FaceCoord => 5,
             PlayerInfoProt::Chat => 6,
             PlayerInfoProt::SpotAnim => 7,
+            #[cfg(since_244)]
+            PlayerInfoProt::Damage2 => 8,
             PlayerInfoProt::BigInfo => 255,   // unused
             PlayerInfoProt::ExactMove => 255, // unused
         }
@@ -35,6 +39,8 @@ impl PlayerInfoProt {
 #[repr(u16)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub enum NpcInfoProt {
+    #[cfg(since_244)]
+    Damage2 = 0x1,
     Anim = 0x2,
     FaceEntity = 0x4,
     Say = 0x8,
@@ -56,6 +62,8 @@ impl NpcInfoProt {
             NpcInfoProt::ChangeType => 4,
             NpcInfoProt::SpotAnim => 5,
             NpcInfoProt::FaceCoord => 6,
+            #[cfg(since_244)]
+            NpcInfoProt::Damage2 => 7,
         }
     }
 }

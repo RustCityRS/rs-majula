@@ -1,15 +1,16 @@
-pub mod data_land;
-pub mod data_land_done;
-pub mod data_loc;
-pub mod data_loc_done;
-pub mod player_info;
-pub mod rebuild_normal;
-
 pub mod cam_look_at;
 pub mod cam_move_to;
 pub mod cam_reset;
 pub mod cam_shake;
 pub mod chat_filter_settings;
+#[cfg(rev = "225")]
+pub mod data_land;
+#[cfg(rev = "225")]
+pub mod data_land_done;
+#[cfg(rev = "225")]
+pub mod data_loc;
+#[cfg(rev = "225")]
+pub mod data_loc_done;
 pub mod enable_tracking;
 pub mod finish_tracking;
 pub mod hint_arrow;
@@ -48,6 +49,8 @@ pub mod obj_count;
 pub mod obj_del;
 pub mod obj_reveal;
 pub mod p_countdialog;
+pub mod player_info;
+pub mod rebuild_normal;
 pub mod reset_anims;
 pub mod reset_client_varcache;
 pub mod set_multiway;

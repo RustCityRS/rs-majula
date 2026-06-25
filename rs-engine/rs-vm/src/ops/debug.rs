@@ -48,5 +48,14 @@ pub fn build() -> OpsRegistry {
         none!(m, TIMESPENT => |s| {
             s.timespent = Some(Instant::now());
         });
+
+        // 10019
+        // TODO: this is duplicated with `MAP_LIVE`
+        none!(m, MAP_PRODUCTION => |s| {
+            #[cfg(debug_assertions)]
+            s.push_int(0);
+            #[cfg(not(debug_assertions))]
+            s.push_int(1);
+        });
     }
 }

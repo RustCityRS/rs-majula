@@ -1,4 +1,4 @@
-use crate::clients::client_ether::{EtherInbound, EtherOutbound};
+use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::engine::Engine;
 use rs_entity::build::MAX_PLAYERS;
 use rs_protocol::LoginResponse;
@@ -135,6 +135,7 @@ impl Engine {
                                     user37: active.uid().username37(),
                                     pid,
                                     private_mode: active.player.private as u8,
+                                    max_friends: max_friends_cap(active.player.is_member),
                                     ip: active
                                         .remote_ip
                                         .map(|ip| ip.to_string())

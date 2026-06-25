@@ -121,17 +121,17 @@ impl CacheType for LocType {
                 24 => self.anim = Some(buf.g2()),
                 25 => self.hasalpha = true,
                 28 => self.wallwidth = buf.g1(),
-                29 => self.ambient = buf.g1() as i8,
+                29 => self.ambient = buf.g1s(),
                 30..=34 => {
                     self.op
                         .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
                         [code as usize - 30] = Some(buf.gjstr(10).into_boxed_str())
                 }
-                39 => self.contrast = buf.g1() as i8,
+                39 => self.contrast = buf.g1s(),
                 40 => {
                     let count = buf.g1() as usize;
-                    let mut recol_s = vec![0u16; count];
-                    let mut recol_d = vec![0u16; count];
+                    let mut recol_s = vec![0; count];
+                    let mut recol_d = vec![0; count];
                     for i in 0..count {
                         recol_s[i] = buf.g2();
                         recol_d[i] = buf.g2();

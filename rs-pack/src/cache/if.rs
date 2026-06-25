@@ -170,7 +170,10 @@ impl IfTypeProvider {
                     com.scroll = buf.g2();
                     com.hide = buf.g1() == 1;
 
+                    #[cfg(rev = "225")]
                     let child_count = buf.g1() as usize;
+                    #[cfg(since_244)]
+                    let child_count = buf.g2() as usize;
                     let mut child_x = Vec::with_capacity(child_count);
                     let mut child_y = Vec::with_capacity(child_count);
                     for _ in 0..child_count {

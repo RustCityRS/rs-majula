@@ -25,5 +25,8 @@ num_enum = { workspace = true }
 rustc-hash = { workspace = true }
 image = { version = "0.25", default-features = false, features = ["png"] }
 
+[build-dependencies]
+rev-cfg = { workspace = true }
+
 [lints]
 workspace = true

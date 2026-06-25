@@ -186,6 +186,9 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
 
     for inv_profile in &profile.invs {
         let inv_type = cache.invs.get_by_id(inv_profile.inv_type);
+        if inv_type.map(|t| t.scope).unwrap_or(InvScope::Temp) != InvScope::Perm {
+            continue;
+        }
         let capacity = inv_type.map(|t| t.size as usize).unwrap_or(28);
         let stack_mode = if inv_type.is_some_and(|t| t.stackall) {
             StackMode::Always

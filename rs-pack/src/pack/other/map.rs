@@ -449,6 +449,23 @@ fn load_csv_zones(path: &Path) -> MapSquareCsv {
     set
 }
 
+#[cfg(since_244)]
+pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
+    let mut tiles = [TileData::EMPTY; TILE_COUNT];
+    let parsed = read_map(jm2_bytes, &mut tiles);
+
+    let mut terrain = Packet::new(TILE_COUNT * 7);
+    encode_terrain(&tiles, &mut terrain);
+
+    let mut loc = Packet::new(64 * 1024);
+    encode_locs(&parsed, &mut loc);
+
+    (
+        terrain.data[..terrain.pos].to_vec(),
+        loc.data[..loc.pos].to_vec(),
+    )
+}
+
 pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
     let maps_dir = content_dir.join("maps");
     let mut mapsquares = MapSquares::default();

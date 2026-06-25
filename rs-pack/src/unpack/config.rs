@@ -602,6 +602,39 @@ fn decode_seq_entries(
                     }
                 }
                 8 => props.push(("maxloops".into(), buf.g1().to_string())),
+                #[cfg(since_244)]
+                9 => {
+                    let v = buf.g1();
+                    let s = match v {
+                        0 => "delaymove".to_string(),
+                        1 => "delayanim".to_string(),
+                        2 => "merge".to_string(),
+                        _ => panic!("Unrecognized seq config preanim_move value: {v}"),
+                    };
+                    props.push(("preanim_move".into(), s));
+                }
+                #[cfg(since_244)]
+                10 => {
+                    let v = buf.g1();
+                    let s = match v {
+                        0 => "delaymove".to_string(),
+                        1 => "abortanim".to_string(),
+                        2 => "merge".to_string(),
+                        _ => panic!("Unrecognized seq config postanim_move value: {v}"),
+                    };
+                    props.push(("postanim_move".into(), s));
+                }
+                #[cfg(since_244)]
+                11 => {
+                    let v = buf.g1();
+                    let s = match v {
+                        1 => "reset".to_string(),
+                        2 => "reset_loop".to_string(),
+                        _ => panic!("Unrecognized seq config duplicatebehavior value: {v}"),
+                    };
+                    // TODO: this has to be in british spelling
+                    props.push(("duplicatebehavior".into(), s));
+                }
                 _ => panic!("Unrecognized seq config code: {code}"),
             }
         }
@@ -665,13 +698,13 @@ fn decode_loc_entries(
                 24 => props.push(("anim".into(), seq_ref(buf.g2(), packs))),
                 25 => props.push(("hasalpha".into(), "yes".into())),
                 28 => props.push(("wallwidth".into(), buf.g1().to_string())),
-                29 => props.push(("ambient".into(), (buf.g1() as i8).to_string())),
+                29 => props.push(("ambient".into(), buf.g1s().to_string())),
                 30 => props.push(("op1".into(), buf.gjstr(10))),
                 31 => props.push(("op2".into(), buf.gjstr(10))),
                 32 => props.push(("op3".into(), buf.gjstr(10))),
                 33 => props.push(("op4".into(), buf.gjstr(10))),
                 34 => props.push(("op5".into(), buf.gjstr(10))),
-                39 => props.push(("contrast".into(), (buf.g1() as i8).to_string())),
+                39 => props.push(("contrast".into(), buf.g1s().to_string())),
                 40 => {
                     let count = buf.g1() as usize;
                     for i in 0..count {
@@ -792,6 +825,14 @@ fn decode_npc_entries(
                 }
                 97 => props.push(("resizeh".into(), buf.g2().to_string())),
                 98 => props.push(("resizev".into(), buf.g2().to_string())),
+                #[cfg(since_244)]
+                99 => props.push(("alwaysontop".into(), "yes".into())),
+                #[cfg(since_244)]
+                100 => props.push(("ambient".into(), buf.g1s().to_string())),
+                #[cfg(since_244)]
+                101 => props.push(("contrast".into(), buf.g1s().to_string())),
+                #[cfg(since_244)]
+                102 => props.push(("headicon".into(), buf.g2().to_string())),
                 _ => panic!("Unrecognized npc config code: {code}"),
             }
         }
@@ -903,12 +944,30 @@ fn decode_obj_entries(
                 95 => props.push(("2dzan".into(), buf.g2().to_string())),
                 97 => props.push(("certlink".into(), obj_ref(buf.g2(), packs))),
                 98 => props.push(("certtemplate".into(), obj_ref(buf.g2(), packs))),
+                #[cfg(rev = "225")]
                 99..=108 => {
                     let i = code - 99;
                     let oid = obj_ref(buf.g2(), packs);
                     let count = buf.g2();
                     props.push((format!("count{}", i + 1), format!("{oid},{count}")));
                 }
+                #[cfg(since_244)]
+                100..=109 => {
+                    let i = code - 100;
+                    let oid = obj_ref(buf.g2(), packs);
+                    let count = buf.g2();
+                    props.push((format!("count{}", i + 1), format!("{oid},{count}")));
+                }
+                #[cfg(since_244)]
+                110 => props.push(("resizex".into(), buf.g2().to_string())),
+                #[cfg(since_244)]
+                111 => props.push(("resizey".into(), buf.g2().to_string())),
+                #[cfg(since_244)]
+                112 => props.push(("resizez".into(), buf.g2().to_string())),
+                #[cfg(since_244)]
+                113 => props.push(("ambient".into(), buf.g1s().to_string())),
+                #[cfg(since_244)]
+                114 => props.push(("contrast".into(), buf.g1s().to_string())),
                 _ => panic!("Unrecognized obj config code: {code}"),
             }
         }

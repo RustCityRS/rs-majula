@@ -4,10 +4,7 @@ use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, QueuePriority, ScriptArgument, ScriptState, TimerPriority};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
-use crate::{
-    ScriptError, active_player, active_player_mut, handlers, none, protected_active_player,
-    protected_active_player_mut,
-};
+use crate::*;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::*;
 use rs_pack::types::HuntCheckVis;
@@ -556,21 +553,48 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2063
         active_player_mut!(m, MIDI_JINGLE => |s, player| {
-            s.pop_int();
-            let jingle = pop_jingle(s)?;
-            if player.lowmem() {
-                return Ok(());
+            #[cfg(rev = "225")]
+            {
+                s.pop_int();
+                let jingle = pop_jingle(s)?;
+                if player.lowmem() {
+                    return Ok(());
+                }
+                player.midi_jingle(jingle.length_ms as u16, &jingle.data);
             }
-            player.midi_jingle(jingle.length_ms as u16, &jingle.data);
+            #[cfg(since_244)]
+            {
+                let delay = s.pop_int();
+                let name = s.pop_string();
+                if player.lowmem() {
+                    return Ok(());
+                }
+                if let Some(id) = jingle_midi_id(&name) {
+                    player.midi_jingle(id, delay as u16);
+                }
+            }
         });
 
         // 2064
         active_player_mut!(m, MIDI_SONG => |s, player| {
-            let song = pop_song(s)?;
-            if player.lowmem() {
-                return Ok(());
+            #[cfg(rev = "225")]
+            {
+                let song = pop_song(s)?;
+                if player.lowmem() {
+                    return Ok(());
+                }
+                player.midi_song(&song.name, song.crc, song.data.len() as i32);
             }
-            player.midi_song(&song.name, song.crc, song.data.len() as i32);
+            #[cfg(since_244)]
+            {
+                let name = s.pop_string();
+                if player.lowmem() {
+                    return Ok(());
+                }
+                if let Some(id) = song_midi_id(&name) {
+                    player.midi_song(id);
+                }
+            }
         });
 
         // 2065
@@ -1250,6 +1274,72 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1694990340669747261
         active_player!(m, BUFFER_FULL => |s, player| {
             s.push_int(player.buffer_full() as i32);
+        });
+
+        // 2135
+        // TODO: this is duplicated with `LOWMEM`
+        active_player!(m, LOWMEMORY => |s, player| {
+            s.push_int(player.lowmem() as i32);
+        });
+
+        // 2136
+        // TODO: this is duplicated with `HINT_PL`
+        active_player_mut!(m, HINT_PLAYER => |s, player| {
+            // `active_player2` is the player opposite the operand-selected active player.
+            let secondary = s.int_operand() != 0;
+            let slot = if secondary { s.active_player } else { s.active_player2 }
+                .ok_or_else(|| ScriptError::Runtime("no active_player2".into()))?
+                .pid();
+            player.hint_player(slot);
+        });
+
+        // 2137
+        // TODO: this is duplicated with `RUNANIM`
+        active_player_mut!(m, BAS_RUNNING => |s, player| {
+            // anim can be null for example: agility
+            player.runanim(s.pop_int() as u16);
+        });
+
+        // 2138
+        // TODO: this is duplicated with `READYANIM`
+        active_player_mut!(m, BAS_READYANIM => |s, player| {
+            // anim can be null for example: agility
+            player.readyanim(s.pop_int() as u16);
+        });
+
+        // 2139
+        // TODO: this is duplicated with `WALKANIM`
+        active_player_mut!(m, BAS_WALK_F => |s, player| {
+            // anim can be null for example: agility
+            player.walkanim(s.pop_int() as u16);
+        });
+
+        // 2140
+        // TODO: this is duplicated with `WALKANIM_B`
+        active_player_mut!(m, BAS_WALK_B => |s, player| {
+            // anim can be null for example: agility
+            player.walkanim_b(s.pop_int() as u16);
+        });
+
+        // 2141
+        // TODO: this is duplicated with `WALKANIM_L`
+        active_player_mut!(m, BAS_WALK_L => |s, player| {
+            // anim can be null for example: agility
+            player.walkanim_l(s.pop_int() as u16);
+        });
+
+        // 2142
+        // TODO: this is duplicated with `WALKANIM_R`
+        active_player_mut!(m, BAS_WALK_R => |s, player| {
+            // anim can be null for example: agility
+            player.walkanim_r(s.pop_int() as u16);
+        });
+
+        // 2143
+        // TODO: this is duplicated with `TURNANIM`
+        active_player_mut!(m, BAS_TURNONSPOT => |s, player| {
+            // anim can be null for example: agility
+            player.turnanim(s.pop_int() as u16);
         });
     }
 }

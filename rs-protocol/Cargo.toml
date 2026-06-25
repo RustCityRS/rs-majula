@@ -12,6 +12,9 @@ rs-protocol-macros = { workspace = true }
 
 thiserror = { workspace = true }
 
+[build-dependencies]
+rev-cfg = { workspace = true }
+
 [lints]
 workspace = true
 

@@ -53,6 +53,16 @@ pub struct ObjType {
     pub certtemplate: Option<u16>,
     pub countobj: Option<Box<[u16]>>,
     pub countco: Option<Box<[u16]>>,
+    #[cfg(since_244)]
+    pub resizex: Option<u16>,
+    #[cfg(since_244)]
+    pub resizey: Option<u16>,
+    #[cfg(since_244)]
+    pub resizez: Option<u16>,
+    #[cfg(since_244)]
+    pub ambient: i8,
+    #[cfg(since_244)]
+    pub contrast: i8,
     pub tradeable: bool,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
@@ -155,6 +165,16 @@ impl CacheType for ObjType {
             certtemplate: None,
             countobj: None,
             countco: None,
+            #[cfg(since_244)]
+            resizex: None,
+            #[cfg(since_244)]
+            resizey: None,
+            #[cfg(since_244)]
+            resizez: None,
+            #[cfg(since_244)]
+            ambient: 0,
+            #[cfg(since_244)]
+            contrast: 0,
             tradeable: true,
             respawnrate: 100,
             params: None,
@@ -247,6 +267,16 @@ impl CacheType for ObjType {
                         .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
                         [code as usize - 100] = buf.g2();
                 }
+                #[cfg(since_244)]
+                110 => self.resizex = Some(buf.g2()),
+                #[cfg(since_244)]
+                111 => self.resizey = Some(buf.g2()),
+                #[cfg(since_244)]
+                112 => self.resizez = Some(buf.g2()),
+                #[cfg(since_244)]
+                113 => self.ambient = buf.g1s(),
+                #[cfg(since_244)]
+                114 => self.contrast = buf.g1s(),
                 201 => self.respawnrate = buf.g2(),
                 249 => ParamType::decode_params(
                     buf,

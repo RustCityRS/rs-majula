@@ -1,0 +1,24 @@
+[plaguesheep_furnace]
+name=Furnace
+desc=Very hot.
+model=model_loc_165
+width=3
+length=3
+forceapproach=east
+
+[plaguesheep_gatel]
+name=Gate
+desc=A wooden gate.
+model=model_loc_47
+active=yes
+op1=Open
+category=sheepherder_gate
+
+[plaguesheep_gater]
+name=Gate
+desc=A wooden gate.
+model=model_loc_47
+active=yes
+mirror=yes
+op1=Open
+category=sheepherder_gate

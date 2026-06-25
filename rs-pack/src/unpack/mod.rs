@@ -6,15 +6,19 @@ pub mod song;
 pub mod sound;
 pub mod texture;
 pub mod title;
-pub mod verify;
 pub mod wordenc;
 
-use std::collections::HashMap;
-use std::path::Path;
-
+#[cfg(since_244)]
+use crate::version_list::VersionListMeta;
 use image::{Rgba, RgbaImage};
 use rs_io::Packet;
-use rs_io::jag::JagFile;
+use rs_io::jag::{JagCompression, JagFile};
+#[cfg(since_244)]
+use rs_io::js5::Js5Store;
+use std::collections::HashMap;
+use std::path::Path;
+#[cfg(rev = "225")]
+use std::path::PathBuf;
 use tracing::info;
 
 const CONFIG_ENTRY_NAMES: &[&str] = &[
@@ -38,6 +42,89 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
 
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
 
+#[derive(Clone, Copy)]
+enum Archive {
+    Title,
+    Config,
+    Interface,
+    Media,
+    Textures,
+    Wordenc,
+    Sounds,
+    #[cfg(since_244)]
+    VersionList,
+}
+
+impl Archive {
+    #[cfg(rev = "225")]
+    fn file_name(self) -> &'static str {
+        match self {
+            Archive::Title => "title",
+            Archive::Config => "config",
+            Archive::Interface => "interface",
+            Archive::Media => "media",
+            Archive::Textures => "textures",
+            Archive::Wordenc => "wordenc",
+            Archive::Sounds => "sounds",
+        }
+    }
+
+    #[cfg(since_244)]
+    fn idx0_file(self) -> usize {
+        match self {
+            Archive::Title => 1,
+            Archive::Config => 2,
+            Archive::Interface => 3,
+            Archive::Media => 4,
+            Archive::Textures => 6,
+            Archive::Wordenc => 7,
+            Archive::Sounds => 8,
+            Archive::VersionList => 5,
+        }
+    }
+}
+
+struct ArchiveSource {
+    #[cfg(rev = "225")]
+    dir: PathBuf,
+    #[cfg(since_244)]
+    cache: Js5Store,
+}
+
+impl ArchiveSource {
+    #[cfg(rev = "225")]
+    fn open(expected_dir: &Path) -> anyhow::Result<Self> {
+        Ok(Self {
+            dir: expected_dir.to_path_buf(),
+        })
+    }
+
+    #[cfg(since_244)]
+    fn open(expected_dir: &Path) -> anyhow::Result<Self> {
+        Ok(Self {
+            cache: Js5Store::open(expected_dir, 5)?,
+        })
+    }
+
+    #[cfg(rev = "225")]
+    fn archive(&self, kind: Archive) -> Option<Vec<u8>> {
+        let name = kind.file_name();
+        std::fs::read(self.dir.join("archives").join(name))
+            .or_else(|_| std::fs::read(self.dir.join(name)))
+            .ok()
+    }
+
+    #[cfg(since_244)]
+    fn archive(&self, kind: Archive) -> Option<Vec<u8>> {
+        self.cache.read(0, kind.idx0_file(), false)
+    }
+
+    #[cfg(since_244)]
+    fn cache(&self) -> &Js5Store {
+        &self.cache
+    }
+}
+
 pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     info!("Unpacking assets...");
     info!("  expected: {}", expected_dir.display());
@@ -46,103 +133,132 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     std::fs::create_dir_all(output_dir)?;
     std::fs::create_dir_all(pack_dir)?;
 
+    let source = ArchiveSource::open(expected_dir)?;
+
     // Config must run first - it produces model_categories needed by models.
     let mut model_categories = HashMap::new();
-    let config_path = expected_dir.join("config");
-    if config_path.exists() {
+    if let Some(bytes) = source.archive(Archive::Config) {
         info!("Unpacking config...");
-        let jag = JagFile::from(std::fs::read(&config_path)?);
+        let jag = JagFile::from(bytes);
         let packs = config::unpack_config(&jag, output_dir, pack_dir)?;
         model_categories = packs.model_categories;
         let raw_dir = output_dir.join("_raw").join("config");
         let entries = dump_jag_entries(&jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
         info!("  Dumped {} raw config entries", entries.len());
     }
+    let interface_bytes = source.archive(Archive::Interface);
+    let media_bytes = source.archive(Archive::Media);
+    let textures_bytes = source.archive(Archive::Textures);
+    let title_bytes = source.archive(Archive::Title);
+    let sounds_bytes = source.archive(Archive::Sounds);
+    let wordenc_bytes = source.archive(Archive::Wordenc);
 
-    // Everything else is independent - run in parallel.
-    let interface_path = expected_dir.join("interface");
-    let media_path = expected_dir.join("media");
-    let textures_path = expected_dir.join("textures");
-    let title_path = expected_dir.join("title");
-    let models_path = expected_dir.join("models");
-    let sounds_path = expected_dir.join("sounds");
-    let wordenc_path = expected_dir.join("wordenc");
-    let songs_dir = expected_dir.join("songs");
-    let maps_dir = expected_dir.join("maps");
+    #[cfg(rev = "225")]
+    let (models_path, songs_dir, maps_dir) = {
+        // `models` is a jag archive (under `archives/` in the 225 layout); maps and
+        // songs are top-level dirs in the distribution.
+        let nested = expected_dir.join("archives").join("models");
+        let models_path = if nested.exists() {
+            nested
+        } else {
+            expected_dir.join("models")
+        };
+        (
+            models_path,
+            expected_dir.join("songs"),
+            expected_dir.join("maps"),
+        )
+    };
 
     std::thread::scope(|s| {
-        if interface_path.exists() {
-            s.spawn(|| {
+        if let Some(bytes) = interface_bytes {
+            s.spawn(move || {
                 info!("Unpacking interface...");
-                let jag = JagFile::from(std::fs::read(&interface_path).unwrap());
+                let jag = JagFile::from(bytes);
                 let raw_dir = output_dir.join("_raw").join("interface");
                 let entries = dump_jag_entries(&jag, &raw_dir, INTERFACE_ENTRY_NAMES).unwrap();
                 info!("  Dumped {} raw interface entries", entries.len());
             });
         }
 
-        if media_path.exists() {
-            s.spawn(|| {
+        if let Some(bytes) = media_bytes {
+            s.spawn(move || {
                 info!("Unpacking media...");
-                let jag = JagFile::from(std::fs::read(&media_path).unwrap());
-                media::unpack_media(&jag, output_dir).unwrap();
+                media::unpack_media(&JagFile::from(bytes), output_dir).unwrap();
             });
         }
 
-        if textures_path.exists() {
-            s.spawn(|| {
+        if let Some(bytes) = textures_bytes {
+            s.spawn(move || {
                 info!("Unpacking textures...");
-                let jag = JagFile::from(std::fs::read(&textures_path).unwrap());
-                texture::unpack_textures(&jag, output_dir, pack_dir).unwrap();
+                texture::unpack_textures(&JagFile::from(bytes), output_dir, pack_dir).unwrap();
             });
         }
 
-        if title_path.exists() {
-            s.spawn(|| {
+        if let Some(bytes) = title_bytes {
+            s.spawn(move || {
                 info!("Unpacking title...");
-                let jag = JagFile::from(std::fs::read(&title_path).unwrap());
-                title::unpack_title(&jag, output_dir).unwrap();
+                title::unpack_title(&JagFile::from(bytes), output_dir).unwrap();
             });
         }
 
-        if models_path.exists() {
-            s.spawn(|| {
-                info!("Unpacking models...");
-                let jag = JagFile::from(std::fs::read(&models_path).unwrap());
-                model::unpack_models(&jag, output_dir, pack_dir, &model_categories).unwrap();
-            });
-        }
-
-        if sounds_path.exists() {
-            s.spawn(|| {
+        if let Some(bytes) = sounds_bytes {
+            s.spawn(move || {
                 info!("Unpacking sounds...");
-                let jag = JagFile::from(std::fs::read(&sounds_path).unwrap());
-                sound::unpack_sounds(&jag, output_dir, pack_dir).unwrap();
+                sound::unpack_sounds(&JagFile::from(bytes), output_dir, pack_dir).unwrap();
             });
         }
 
-        if wordenc_path.exists() {
-            s.spawn(|| {
+        if let Some(bytes) = wordenc_bytes {
+            s.spawn(move || {
                 info!("Unpacking wordenc...");
-                let jag = JagFile::from(std::fs::read(&wordenc_path).unwrap());
-                wordenc::unpack_wordenc(&jag, output_dir).unwrap();
+                wordenc::unpack_wordenc(&JagFile::from(bytes), output_dir).unwrap();
             });
         }
 
-        if songs_dir.exists() {
-            s.spawn(|| {
-                info!("Unpacking songs...");
-                song::unpack_songs(&songs_dir, output_dir).unwrap();
-            });
-        }
+        #[cfg(rev = "225")]
+        {
+            if models_path.exists() {
+                s.spawn(|| {
+                    info!("Unpacking models...");
+                    let jag = JagFile::from(std::fs::read(&models_path).unwrap());
+                    model::unpack_models(&jag, output_dir, pack_dir, &model_categories).unwrap();
+                });
+            }
 
-        if maps_dir.exists() {
-            s.spawn(|| {
-                info!("Unpacking maps...");
-                map::unpack_maps(&maps_dir, output_dir).unwrap();
-            });
+            if songs_dir.exists() {
+                s.spawn(|| {
+                    info!("Unpacking songs...");
+                    song::unpack_songs(&songs_dir, output_dir).unwrap();
+                });
+            }
+
+            if maps_dir.exists() {
+                s.spawn(|| {
+                    info!("Unpacking maps...");
+                    map::unpack_maps(&maps_dir, output_dir).unwrap();
+                });
+            }
         }
     });
+
+    #[cfg(since_244)]
+    {
+        let vl_jag = source.archive(Archive::VersionList).map(JagFile::from);
+        let version_list = vl_jag
+            .as_ref()
+            .map(crate::version_list::VersionList::from_jag)
+            .unwrap_or_default();
+
+        if let Some(jag) = &vl_jag {
+            VersionListMeta::extract(jag, source.cache()).write(&pack_dir.join("version_list"))?;
+        }
+
+        map::unpack_maps(source.cache(), &version_list, output_dir)?;
+        model::unpack_models(source.cache(), output_dir, pack_dir, &model_categories)?;
+        model::unpack_anims(source.cache(), output_dir, pack_dir)?;
+        song::unpack_midi(source.cache(), &version_list, output_dir, pack_dir)?;
+    }
 
     info!("Unpack complete.");
     Ok(())
@@ -285,7 +401,7 @@ pub fn dump_jag_entries(
     Ok(jag_order)
 }
 
-pub fn pack_jag_from_raw(raw_dir: &Path) -> Vec<u8> {
+pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8> {
     let order: Vec<String> = std::fs::read_to_string(raw_dir.join("_jag_order.txt"))
         .unwrap_or_default()
         .lines()
@@ -299,5 +415,5 @@ pub fn pack_jag_from_raw(raw_dir: &Path) -> Vec<u8> {
             jag.write(name, data);
         }
     }
-    jag.build()
+    jag.build(compression)
 }

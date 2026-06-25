@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use crate::config_crc;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -122,7 +123,7 @@ pub fn pack_objs(
                 }),
 
                 // 7
-                "2dxof" => parse_number(value, |v: i16| {
+                "2dxof" => parse_number(value, |v: i32| {
                     client.p1(7);
                     client.p2(v as u16);
                     server.p1(7);
@@ -130,7 +131,7 @@ pub fn pack_objs(
                 }),
 
                 // 8
-                "2dyof" => parse_number(value, |v: i16| {
+                "2dyof" => parse_number(value, |v: i32| {
                     client.p1(8);
                     client.p2(v as u16);
                     server.p1(8);
@@ -410,6 +411,51 @@ pub fn pack_objs(
                     });
                 }
 
+                // 110
+                #[cfg(since_244)]
+                "resizex" => parse_number(value, |v| {
+                    client.p1(110);
+                    client.p2(v);
+                    server.p1(110);
+                    server.p2(v);
+                }),
+
+                // 111
+                #[cfg(since_244)]
+                "resizey" => parse_number(value, |v| {
+                    client.p1(111);
+                    client.p2(v);
+                    server.p1(111);
+                    server.p2(v);
+                }),
+
+                // 112
+                #[cfg(since_244)]
+                "resizez" => parse_number(value, |v| {
+                    client.p1(112);
+                    client.p2(v);
+                    server.p1(112);
+                    server.p2(v);
+                }),
+
+                // 113
+                #[cfg(since_244)]
+                "ambient" => parse_number(value, |v: i8| {
+                    client.p1(113);
+                    client.p1(v as u8);
+                    server.p1(113);
+                    server.p1(v as u8);
+                }),
+
+                // 114
+                #[cfg(since_244)]
+                "contrast" => parse_number(value, |v: i8| {
+                    client.p1(114);
+                    client.p1(v as u8);
+                    server.p1(114);
+                    server.p1(v as u8);
+                }),
+
                 // 201
                 "respawnrate" => parse_number(value, |v| {
                     server.p1(201);
@@ -420,7 +466,7 @@ pub fn pack_objs(
                 "param" => {} // handled at the end
 
                 // not found
-                _ => panic!("Unrecognized loc config key: {key}"),
+                _ => panic!("Unrecognized obj config key: {key}"),
             }
         }
 
@@ -476,10 +522,9 @@ pub fn pack_objs(
 
     if verify {
         let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = -840233510;
-
+        let expected = config_crc::OBJ;
         if crc != expected {
-            panic!("CRC mismatch: Got: {crc}, Expected: {expected}");
+            panic!("CRC mismatch ['obj']: Got: {crc}, Expected: {expected}");
         }
     }
 

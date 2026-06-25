@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 use rs_io::Packet;
-use rs_io::jag::JagFile;
+use rs_io::jag::{JagCompression, JagFile};
 use tracing::info;
 
 use crate::pack::pack_registry::PackRegistry;
@@ -54,5 +54,5 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     jag.write("sounds.dat", out.data[..out.pos].to_vec());
 
     info!("Packed {} synths into sounds Jag", count);
-    jag.build()
+    jag.build(JagCompression::PerFile)
 }

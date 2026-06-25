@@ -1,3 +1,4 @@
+use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -91,10 +92,9 @@ pub fn pack_flos(
 
     if verify {
         let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = 1976597026;
-
+        let expected = config_crc::FLO;
         if crc != expected {
-            panic!("CRC mismatch: Got: {crc}, Expected: {expected}");
+            panic!("CRC mismatch ['flo']: Got: {crc}, Expected: {expected}");
         }
     }
 

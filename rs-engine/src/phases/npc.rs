@@ -196,7 +196,6 @@ impl Engine {
             active.npc.stats.base_levels[NpcStat::Magic as usize] = npc_type.magic as u8;
         }
 
-        // resetEntity(true) — resets type, uid, levels, heropoints, queues, vars, hunt
         active.npc.reset_pathing_entity(true);
         active.anim(None, 0);
         active

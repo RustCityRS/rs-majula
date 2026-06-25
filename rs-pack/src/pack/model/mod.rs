@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 use rs_io::Packet;
-use rs_io::jag::JagFile;
+use rs_io::jag::{JagCompression, JagFile};
 use tracing::{info, warn};
 
 use crate::pack::pack_registry::{PackFile, PackRegistry};
@@ -331,7 +331,7 @@ pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
         anim_order.len(),
         base_order.len()
     );
-    jag.build()
+    jag.build(JagCompression::PerFile)
 }
 
 fn parse_text_props(text: &str) -> HashMap<String, String> {

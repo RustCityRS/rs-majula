@@ -13,12 +13,12 @@
 
 # rs-majula
 
-> **The first fully feature-complete RuneScape private server engine written in
+> **The first fully feature-complete, multi-revision, RuneScape private server engine written in
 > Rust** — and the first private server to build its game cache from source assets
 > to CRCs that perfectly match the original Jagex game cache.
 
 `rs-majula` is the project, Cargo workspace, and canonical engine name: a
-from-scratch Rust reimplementation of a **build-225 RuneScape 2** game server, with
+from-scratch Rust reimplementation of a **RuneScape 2** game server, with
 byte-identical protocol and content emulation, a single-threaded deterministic game
 loop, and an async `tokio` host. The stock client connects and plays against
 unmodified cache content.
@@ -124,7 +124,6 @@ All configuration is via CLI flags (clap). This is the complete set — run
 
 | Argument                      | Default                     | Description                                                                                                    |
 |-------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------|
-| `--version <VERSION>`         | `225`                       | Protocol/build revision the server emulates.                                                                   |
 | `--host <HOST>`               | `0.0.0.0`                   | Bind address for the TCP game + HTTP listeners.                                                                |
 | `--http-port <HTTP_PORT>`     | `8070 + node_id` (`8080`)   | HTTP port — web client + cache archives.                                                                       |
 | `--tcp-port <TCP_PORT>`       | `43584 + node_id` (`43594`) | TCP game-protocol port.                                                                                        |
@@ -158,31 +157,6 @@ Defined in `.cargo/config.toml`:
 - **`release`** — **maximum performance**: `opt-level=3`, fat LTO, `panic = "unwind"`
   (load-bearing for the engine's `catch_unwind` recovery). Slowest to compile; use it
   for production and benchmarking. `cargo run --release -p rs-server`.
-
-## Content toolchain (optional)
-
-The server packs `content/` into a cache at boot, so you don't need to run these
-to play. They exist to validate the content pipeline against the original cache.
-
-Both commands read the original Jagex cache archives from an `expected/` directory
-that is **not** included in the repo — you build it from the bundled `225.zip`.
-Extract the zip and place the archives so that `expected/` **directly** contains the
-archive files (`config`, `interface`, `media`, `models`, `sounds`, `textures`,
-`title`, `wordenc`) and a `maps/` folder. In the zip these sit under `225/archives/`
-and `225/maps/`, so drop the `archives/` level when copying into `expected/`:
-
-```text
-expected/
-├── config, interface, media, models, sounds, textures, title, wordenc   # from 225/archives/
-└── maps/                                                                 # from 225/maps/
-```
-
-With `expected/` in place, run the roundtrip:
-
-```bash
-cargo unpack   # extract original JAG archives in expected/ into content_unpack/
-cargo verify   # unpack → pack → CRC-compare roundtrip (proves byte-fidelity)
-```
 
 ----
 

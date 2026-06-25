@@ -1,9 +1,6 @@
 use thiserror::Error;
 
-pub mod login;
 pub mod network;
-
-pub use login::LoginType;
 
 /// Protocol error types
 #[derive(Error, Debug)]

@@ -31,6 +31,9 @@ argon2 = { workspace = true }
 num_enum = { workspace = true }
 rustc-hash = { workspace = true }
 
+[build-dependencies]
+rev-cfg = { workspace = true }
+
 [lints]
 workspace = true
 

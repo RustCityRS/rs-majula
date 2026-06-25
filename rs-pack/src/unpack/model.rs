@@ -1,13 +1,16 @@
 use std::collections::HashMap;
+#[cfg(rev = "225")]
 use std::fmt::Write as _;
 use std::path::Path;
 
 use super::config::ModelCategory;
+#[cfg(rev = "225")]
 use crate::types::BoneType;
 use rs_io::Packet;
-use rs_io::jag::JagFile;
+use rs_io::jag::{JagCompression, JagFile};
 use tracing::info;
 
+#[cfg(rev = "225")]
 const JAG_ENTRY_NAMES: [&str; 21] = [
     "base_label.dat",
     "ob_point1.dat",
@@ -32,6 +35,7 @@ const JAG_ENTRY_NAMES: [&str; 21] = [
     "ob_axis.dat",
 ];
 
+#[cfg(rev = "225")]
 pub fn unpack_models(
     jag: &JagFile,
     output_dir: &Path,
@@ -145,10 +149,10 @@ pub fn pack_models_from_raw(raw_dir: &Path) -> Vec<u8> {
             jag.write(name, data);
         }
     }
-    jag.build()
+    jag.build(JagCompression::PerFile)
 }
 
-fn load_existing_pack(pack_dir: &Path, name: &str) -> HashMap<u16, String> {
+pub(crate) fn load_existing_pack(pack_dir: &Path, name: &str) -> HashMap<u16, String> {
     let mut map = HashMap::new();
     if let Ok(text) = std::fs::read_to_string(pack_dir.join(format!("{name}.pack"))) {
         for line in text.lines() {
@@ -162,6 +166,7 @@ fn load_existing_pack(pack_dir: &Path, name: &str) -> HashMap<u16, String> {
     map
 }
 
+#[cfg(rev = "225")]
 fn take(buf: &mut Packet, n: usize) -> Vec<u8> {
     let end = (buf.pos + n).min(buf.data.len());
     let result = buf.data[buf.pos..end].to_vec();
@@ -169,6 +174,7 @@ fn take(buf: &mut Packet, n: usize) -> Vec<u8> {
     result
 }
 
+#[cfg(rev = "225")]
 fn axis_flags_name(flags: u8) -> &'static str {
     match flags & 0x7 {
         1 => "x",
@@ -182,6 +188,7 @@ fn axis_flags_name(flags: u8) -> &'static str {
     }
 }
 
+#[cfg(rev = "225")]
 fn extract_bases(
     head: &[u8],
     type_data: &[u8],
@@ -255,6 +262,7 @@ fn extract_bases(
     Ok(count)
 }
 
+#[cfg(rev = "225")]
 fn extract_frames(
     head: &[u8],
     tran1: &[u8],
@@ -330,6 +338,19 @@ fn extract_frames(
     Ok(count)
 }
 
+fn model_subdir(category: Option<&ModelCategory>) -> &'static str {
+    match category {
+        Some(ModelCategory::Npc) => "npc",
+        Some(ModelCategory::Obj) => "obj",
+        Some(ModelCategory::Loc) => "loc",
+        Some(ModelCategory::Spotanim) => "spotanim",
+        Some(ModelCategory::IdkMan) => "human/man",
+        Some(ModelCategory::IdkWoman) => "human/woman",
+        None => "_unpack",
+    }
+}
+
+#[cfg(rev = "225")]
 fn extract_ob2(
     head: &[u8],
     point1: &[u8],
@@ -458,16 +479,7 @@ fn extract_ob2(
         out.extend_from_slice(&(vz_len as u16).to_be_bytes());
         out.extend_from_slice(&(v1d.len() as u16).to_be_bytes());
 
-        let subdir = match categories.get(&id) {
-            Some(ModelCategory::Npc) => "npc",
-            Some(ModelCategory::Obj) => "obj",
-            Some(ModelCategory::Loc) => "loc",
-            Some(ModelCategory::Spotanim) => "spotanim",
-            Some(ModelCategory::IdkMan) => "human/man",
-            Some(ModelCategory::IdkWoman) => "human/woman",
-            None => "_unpack",
-        };
-        let out_dir = models_dir.join(subdir);
+        let out_dir = models_dir.join(model_subdir(categories.get(&id)));
         std::fs::create_dir_all(&out_dir)?;
         std::fs::write(out_dir.join(format!("{name}.ob2")), &out)?;
     }
@@ -490,6 +502,7 @@ fn extract_ob2(
     Ok(model_count)
 }
 
+#[cfg(rev = "225")]
 fn compute_face_vertex_len(face_count: usize, v2: &[u8]) -> usize {
     let mut len = 0;
     for &v in v2.iter().take(face_count.min(v2.len())) {
@@ -501,6 +514,7 @@ fn compute_face_vertex_len(face_count: usize, v2: &[u8]) -> usize {
     len
 }
 
+#[cfg(rev = "225")]
 fn compute_vertex_delta_len(vertex_count: usize, p1: &[u8], axis: u8) -> usize {
     let mut len = 0;
     for &p in p1.iter().take(vertex_count.min(p1.len())) {
@@ -511,4 +525,112 @@ fn compute_vertex_delta_len(vertex_count: usize, p1: &[u8], axis: u8) -> usize {
         }
     }
     len
+}
+
+#[cfg(since_244)]
+pub fn unpack_models(
+    cache: &rs_io::js5::Js5Store,
+    output_dir: &Path,
+    pack_dir: &Path,
+    model_categories: &HashMap<u16, ModelCategory>,
+) -> anyhow::Result<()> {
+    let models_dir = output_dir.join("models");
+    std::fs::create_dir_all(&models_dir)?;
+
+    let existing_names = load_existing_pack(pack_dir, "model");
+    let count = cache.count(1);
+
+    let mut pack_lines = Vec::with_capacity(count);
+    let mut written = 0;
+    for id in 0..count {
+        let id16 = id as u16;
+        let name = existing_names
+            .get(&id16)
+            .cloned()
+            .unwrap_or_else(|| format!("model_{id}"));
+        pack_lines.push(format!("{id}={name}"));
+
+        let Some(data) = cache.read(1, id, true).filter(|d| !d.is_empty()) else {
+            continue;
+        };
+
+        let out_dir = models_dir.join(model_subdir(model_categories.get(&id16)));
+        std::fs::create_dir_all(&out_dir)?;
+        std::fs::write(out_dir.join(format!("{name}.ob2")), &data)?;
+        written += 1;
+    }
+
+    let order: Vec<String> = (0..count).map(|id| id.to_string()).collect();
+    std::fs::write(pack_dir.join("model.order"), order.join("\n") + "\n")?;
+    std::fs::write(pack_dir.join("model.pack"), pack_lines.join("\n") + "\n")?;
+
+    info!("Unpacked {written} models");
+    Ok(())
+}
+
+#[cfg(since_244)]
+pub fn unpack_anims(
+    cache: &rs_io::js5::Js5Store,
+    output_dir: &Path,
+    pack_dir: &Path,
+) -> anyhow::Result<()> {
+    let anim_dir = output_dir.join("models").join("anim");
+    std::fs::create_dir_all(&anim_dir)?;
+
+    let count = cache.count(2);
+
+    // Seed with the frames config already named (those referenced by seqs), then
+    // add every frame declared in an anim set head.
+    let mut frame_names = load_existing_pack(pack_dir, "anim");
+    let mut written = 0;
+
+    for set_id in 0..count {
+        let Some(set) = cache.read(2, set_id, true).filter(|d| !d.is_empty()) else {
+            continue;
+        };
+        std::fs::write(anim_dir.join(format!("anim_{set_id}.anim")), &set)?;
+        written += 1;
+
+        for frame_id in anim_set_frame_ids(&set) {
+            frame_names
+                .entry(frame_id)
+                .or_insert_with(|| format!("anim_{frame_id}"));
+        }
+    }
+
+    let max_frame = frame_names.keys().copied().max().unwrap_or(0);
+    let mut anim_pack = Vec::with_capacity(max_frame as usize + 1);
+    for id in 0..=max_frame {
+        let name = frame_names
+            .get(&id)
+            .cloned()
+            .unwrap_or_else(|| format!("anim_{id}"));
+        anim_pack.push(format!("{id}={name}"));
+    }
+    std::fs::write(pack_dir.join("anim.pack"), anim_pack.join("\n") + "\n")?;
+
+    let base_pack: Vec<String> = (0..count).map(|id| format!("{id}=base_{id}")).collect();
+    std::fs::write(pack_dir.join("base.pack"), base_pack.join("\n") + "\n")?;
+
+    info!("Unpacked {written} anim sets");
+    Ok(())
+}
+
+#[cfg(since_244)]
+fn anim_set_frame_ids(set: &[u8]) -> Vec<u16> {
+    if set.len() < 2 {
+        return Vec::new();
+    }
+    let mut head = Packet::from(set.to_vec());
+    let frame_count = head.g2() as usize;
+    let mut ids = Vec::with_capacity(frame_count);
+    for _ in 0..frame_count {
+        if head.pos + 3 > set.len() {
+            break;
+        }
+        let frame_id = head.g2();
+        let _label_count = head.g1();
+        ids.push(frame_id);
+    }
+    ids
 }

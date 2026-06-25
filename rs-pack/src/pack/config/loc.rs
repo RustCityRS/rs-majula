@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use crate::config_crc;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -423,10 +424,9 @@ pub fn pack_locs(
 
     if verify {
         let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = 891497087;
-
+        let expected = config_crc::LOC;
         if crc != expected {
-            panic!("CRC mismatch: Got: {crc}, Expected: {expected}");
+            panic!("CRC mismatch ['loc']: Got: {crc}, Expected: {expected}");
         }
     }
 

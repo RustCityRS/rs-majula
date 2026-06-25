@@ -19,6 +19,7 @@ members = [
     "rs-protocol",
     "rs-protocol/macros",
     "rs-server",
+    "rev-cfg",
 ]
 resolver = "2"
 
@@ -64,7 +65,7 @@ rustc-hash = "2"
 itoa = "1"
 
 # MISC
-rs-io = "0.2"
+rs-io = "0.3"
 rs-pathfinder = "0.1"
 rs-runec = "0.4"
 num_enum = "0.7"
@@ -97,6 +98,7 @@ rs-info = { path = "rs-engine/rs-info" }
 rs-timer = { path = "rs-engine/rs-timer" }
 rs-stat = { path = "rs-engine/rs-stat" }
 rs-pack = { path = "rs-pack" }
+rev-cfg = { path = "rev-cfg" }
 
 [workspace.lints]
 rust.unused_must_use = "deny"

@@ -46,7 +46,8 @@ enum ClientTemplate {
 }
 
 #[derive(TemplateSimple)]
-#[template(path = "public/client/client.ejs")]
+#[cfg_attr(rev = "225", template(path = "public/225/client.ejs"))]
+#[cfg_attr(rev = "244", template(path = "public/244/client.ejs"))]
 struct TypeScriptClient {
     plugin: String,
     nodeid: String,
@@ -56,7 +57,8 @@ struct TypeScriptClient {
 }
 
 #[derive(TemplateSimple)]
-#[template(path = "public/client/java.ejs")]
+#[cfg_attr(rev = "225", template(path = "public/225/java.ejs"))]
+#[cfg_attr(rev = "244", template(path = "public/244/java.ejs"))]
 struct JavaClient {
     plugin: String,
     nodeid: String,
@@ -72,7 +74,6 @@ struct JavaClient {
 /// Spawn the HTTP server on `port`, serving all game-client routes.
 #[allow(clippy::too_many_arguments)]
 pub async fn serve(
-    version: u16,
     host: String,
     port: u16,
     nodeid: String,
@@ -105,17 +106,7 @@ pub async fn serve(
 
         tokio::spawn(async move {
             info!("HTTP {:?} connected", addr);
-            handle_connection(
-                stream,
-                nodeid,
-                portoff,
-                members,
-                server_state,
-                addr,
-                version,
-                guard,
-            )
-            .await;
+            handle_connection(stream, nodeid, portoff, members, server_state, addr, guard).await;
         });
     }
 }
@@ -128,7 +119,6 @@ async fn handle_connection(
     members: bool,
     server_state: ServerIO,
     addr: SocketAddr,
-    version: u16,
     guard: ConnectionGuard,
 ) {
     stream.set_nodelay(true).ok();
@@ -158,7 +148,7 @@ async fn handle_connection(
         {
             Ok(ws) => {
                 info!("WebSocket handshake complete for {}", addr);
-                let connection = Socket::from_ws(ws, addr, server_state, version, guard);
+                let connection = Socket::from_ws(ws, addr, server_state, guard);
                 if let Err(e) = handshake(connection).await {
                     info!("Connection {} closed: {}", addr, e);
                 }
@@ -327,18 +317,7 @@ async fn route(
 // ---------------------------------------------------------------------------
 
 fn matches_cache(path: &str) -> bool {
-    matches!(
-        path,
-        "/crc"
-            | "/title"
-            | "/config"
-            | "/interface"
-            | "/media"
-            | "/models"
-            | "/textures"
-            | "/wordenc"
-            | "/sounds"
-    ) || [
+    [
         "/title",
         "/config",
         "/interface",
@@ -348,6 +327,12 @@ fn matches_cache(path: &str) -> bool {
         "/wordenc",
         "/sounds",
         "/crc",
+        #[cfg(since_244)]
+        "/versionlist",
+        #[cfg(since_244)]
+        "/ondemand.zip",
+        #[cfg(since_244)]
+        "/build",
     ]
     .iter()
     .any(|p| path.starts_with(p))
@@ -356,6 +341,24 @@ fn matches_cache(path: &str) -> bool {
 fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body> {
     if path.starts_with("/crc") {
         return Some(Body::Shared(Arc::clone(&cache.crctable_bytes)));
+    }
+
+    #[cfg(since_244)]
+    if path.starts_with("/ondemand.zip") {
+        return Some(Body::Shared(Arc::clone(&cache.ondemand_zip)));
+    }
+
+    #[cfg(since_244)]
+    if path.starts_with("/build") {
+        return Some(Body::Shared(Arc::clone(&cache.build)));
+    }
+
+    #[cfg(since_244)]
+    if path.starts_with("/versionlist") {
+        return cache
+            .jags
+            .get("versionlist")
+            .map(|arc| Body::Shared(Arc::clone(arc)));
     }
 
     let key = match path {

@@ -2,6 +2,7 @@ pub mod anticheat;
 pub mod chat_setmode;
 pub mod client_cheat;
 pub mod close_modal;
+#[cfg(rev = "225")]
 pub mod event_camera_position;
 pub mod friendlist_add;
 pub mod friendlist_del;
@@ -31,6 +32,7 @@ pub mod opobju;
 pub mod opplayer;
 pub mod opplayert;
 pub mod opplayeru;
+#[cfg(rev = "225")]
 pub mod rebuild_get_maps;
 pub mod resume_p_countdialog;
 pub mod resume_pause_button;

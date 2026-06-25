@@ -432,6 +432,15 @@ pub const WEALTH_EVENT: u16 = 2131;
 pub const WEIGHT: u16 = 2132;
 pub const SETIDKCOLOUR: u16 = 2133;
 pub const BUFFER_FULL: u16 = 2134;
+pub const LOWMEMORY: u16 = 2135; // TODO
+pub const HINT_PLAYER: u16 = 2136; // TODO
+pub const BAS_RUNNING: u16 = 2137; // TODO
+pub const BAS_READYANIM: u16 = 2138; // TODO
+pub const BAS_WALK_F: u16 = 2139; // TODO
+pub const BAS_WALK_B: u16 = 2140; // TODO
+pub const BAS_WALK_L: u16 = 2141; // TODO
+pub const BAS_WALK_R: u16 = 2142; // TODO
+pub const BAS_TURNONSPOT: u16 = 2143; // TODO
 
 // ── Npc ops (2500-2999) ─────────────────────────────────────────────────────
 
@@ -484,6 +493,7 @@ pub const NPC_WALKTRIGGER: u16 = 2545;
 pub const PROJANIM_NPC: u16 = 2546;
 pub const SPOTANIM_NPC: u16 = 2547;
 pub const NPC_DESTINATION: u16 = 2548;
+pub const NPC_HUNTNEXT: u16 = 2549; // TODO
 
 // ── Loc ops (3000-3499) ─────────────────────────────────────────────────────
 
@@ -677,6 +687,23 @@ pub const CONSOLE: u16 = 10000;
 pub const ERROR: u16 = 10001;
 pub const GETTIMESPENT: u16 = 10002;
 pub const TIMESPENT: u16 = 10003;
+pub const NPCCOUNT: u16 = 10004;
+pub const ZONECOUNT: u16 = 10005;
+pub const LOCCOUNT: u16 = 10006;
+pub const MAP_LASTCLOCK: u16 = 10007;
+pub const MAP_LASTWORLD: u16 = 10008;
+pub const MAP_LASTCLIENTIN: u16 = 10009;
+pub const MAP_LASTNPC: u16 = 10010;
+pub const MAP_LASTPLAYER: u16 = 10011;
+pub const MAP_LASTLOGIN: u16 = 10012;
+pub const MAP_LASTLOGOUT: u16 = 10013;
+pub const MAP_LASTZONE: u16 = 10014;
+pub const MAP_LASTCLIENTOUT: u16 = 10015;
+pub const MAP_LAST_CLEANUP: u16 = 10016;
+pub const MAP_LAST_BANDWIDTHIN: u16 = 10017;
+pub const MAP_LAST_BANDWIDTHOUT: u16 = 10018;
+pub const MAP_PRODUCTION: u16 = 10019; // TODO.
+pub const OBJCOUNT: u16 = 10020;
 
 // ── DO NOT ADD ANY OPCODES AFTER THIS ONE (11000) ─────────────────────────────────────────────────
 

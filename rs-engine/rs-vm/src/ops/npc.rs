@@ -627,5 +627,25 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc!(m, NPC_DESTINATION => |s, npc| {
             s.push_int(npc.destination() as i32);
         });
+
+        // 2549
+        // TODO: this is duplicated with `NPC_FINDNEXT`
+        none!(m, NPC_HUNTNEXT => |s| {
+            let iter = match s.npc_iterator.as_mut() {
+                Some(iter) => iter,
+                None => {
+                    s.push_int(0);
+                    return Ok(());
+                }
+            };
+            if iter.cursor < iter.matches.len() {
+                let npc_ref = iter.matches[iter.cursor];
+                iter.cursor += 1;
+                set_active_npc(s, NpcUid::new(npc_ref.id, npc_ref.nid), s.int_operand() != 0);
+                s.push_int(1);
+            } else {
+                s.push_int(0);
+            }
+        });
     }
 }

@@ -1,3 +1,4 @@
+use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -135,10 +136,9 @@ pub fn pack_spotanims(
 
     if verify {
         let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = -1279835623;
-
+        let expected = config_crc::SPOTANIM;
         if crc != expected {
-            panic!("CRC mismatch: Got: {crc}, Expected: {expected}");
+            panic!("CRC mismatch ['spotanim']: Got: {crc}, Expected: {expected}");
         }
     }
 
