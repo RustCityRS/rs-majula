@@ -41,6 +41,8 @@ use pack::other;
 use rs_io::crc;
 use rs_io::jag::{JagCompression, JagFile};
 use tracing::debug;
+#[cfg(since_244)]
+use types::OndemandBlobs;
 pub use types::ParamValue;
 #[cfg(since_244)]
 use unpack::model::load_existing_pack;
@@ -316,7 +318,7 @@ pub fn pack_all(
     );
 
     #[cfg(since_244)]
-    let (ondemand_zip, ondemand): (Arc<[u8]>, Vec<Vec<Box<[u8]>>>) = {
+    let (ondemand_zip, ondemand): (Arc<[u8]>, OndemandBlobs) = {
         insert_jag(
             &mut crcs,
             &mut jags,

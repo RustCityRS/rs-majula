@@ -4,6 +4,8 @@ use std::sync::Arc;
 use crate::cache::r#enum::EnumType;
 use crate::cache::r#if::IfTypeProvider;
 use crate::cache::r#struct::StructType;
+#[cfg(since_244)]
+use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
 use category::CategoryType;
 use dbrow::DbRowType;
@@ -64,7 +66,7 @@ pub struct CacheStore {
     #[cfg(since_244)]
     pub build: Arc<[u8]>,
     #[cfg(since_244)]
-    pub ondemand: Vec<Vec<Box<[u8]>>>,
+    pub ondemand: OndemandBlobs,
     pub crcs: HashMap<&'static str, i32>,
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,

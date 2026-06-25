@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 use crate::pack::other::map::encode_jm2;
 use crate::pack::util::walk;
 use crate::pack::versionlist::build_version_list;
+use crate::types::OndemandBlobs;
 use crate::unpack::model;
 use crate::version_list::VersionListMeta;
 use rs_io::js5::{Js5Store, js5zip};
@@ -12,7 +13,7 @@ use tracing::debug;
 pub struct OndemandArtifacts {
     pub version_list: Vec<u8>,
     pub zip: Vec<u8>,
-    pub blobs: Vec<Vec<Box<[u8]>>>,
+    pub blobs: OndemandBlobs,
 }
 
 fn stem_paths(dir: &Path, ext: &str) -> HashMap<String, PathBuf> {

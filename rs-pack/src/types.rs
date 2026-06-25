@@ -12,6 +12,9 @@ pub type MapSquares = FxHashMap<MapSquare, Arc<[u8]>>;
 // --- Mapsquare crc ---
 pub type MapSquareCrcs = HashMap<MapSquare, i32>;
 
+// --- Ondemand blobs ---
+pub type OndemandBlobs = Vec<Vec<Box<[u8]>>>;
+
 // --- bone type ---
 
 #[repr(u8)]
