@@ -1651,9 +1651,13 @@ mod energy_tests {
         p.runenergy = 5000;
         p.pathing.steps_taken = 0;
         p.stats.base_levels[PlayerStat::Agility as usize] = 99;
-        // recovered = 99/9 + 8 = 11 + 8 = 19
+        // recovered = 99/9 + 8 = 19 (rev 225); 99/6 + 8 = 24 (since 244, June rate)
+        #[cfg(rev = "225")]
+        let recovered = 99 / 9 + 8;
+        #[cfg(since_244)]
+        let recovered = 99 / 6 + 8;
         p.update_energy();
-        assert_eq!(p.runenergy, 5019);
+        assert_eq!(p.runenergy, 5000 + recovered);
     }
 
     #[test]
