@@ -9,6 +9,7 @@ pub type ObjTypeProvider = TypeProvider<ObjType>;
 
 pub struct ObjContext {
     pub members: bool,
+    pub autodisable_params: Box<[bool]>,
 }
 
 pub struct ObjType {
@@ -108,13 +109,25 @@ impl ObjType {
         }
     }
 
-    fn disable(&mut self, members: bool) {
-        if !members && self.members {
+    fn disable(&mut self, ctx: &ObjContext) {
+        if !ctx.members && self.members {
             self.tradeable = false;
-            self.op = None;
-            self.iop = None;
+            self.op = Some(Box::new([None, None, Some("Take".into()), None, None]));
+            self.iop = Some(Box::new([None, None, None, None, Some("Drop".into())]));
+            self.category = None;
 
-            // TODO: autodisable params here
+            if let Some(params) = &mut self.params {
+                params.retain(|key, _| {
+                    !usize::try_from(*key)
+                        .ok()
+                        .and_then(|id| ctx.autodisable_params.get(id))
+                        .copied()
+                        .unwrap_or(false)
+                });
+                if params.is_empty() {
+                    self.params = None;
+                }
+            }
         }
     }
 }
@@ -330,7 +343,7 @@ impl CacheType for ObjType {
             }
 
             if let Some(obj) = objs.get_mut(id) {
-                obj.disable(ctx.members);
+                obj.disable(ctx);
             }
         }
     }

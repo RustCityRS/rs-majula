@@ -298,6 +298,7 @@ async fn bootstrap(
         Path::new(rs_pack::CONTENT_DIR),
         Path::new(rs_pack::PACK_DIR),
         args.verify,
+        args.members,
     )?;
     let cache_ptr_val = Box::into_raw(store) as usize;
     let cache: &'static CacheStore = unsafe { &*(cache_ptr_val as *const CacheStore) };
@@ -390,6 +391,7 @@ async fn bootstrap(
     #[cfg(debug_assertions)]
     tokio::spawn(reload_coordinator(
         args.verify,
+        args.members,
         trigger_rx,
         reload_tx,
         reload_world_rx,
@@ -618,6 +620,7 @@ fn kill_ether_sidecar(pid: u32) {
 #[cfg(debug_assertions)]
 async fn reload_coordinator(
     verify: bool,
+    members: bool,
     mut trigger_rx: UnboundedReceiver<()>,
     result_tx: UnboundedSender<(Box<CacheStore>, ScriptProvider)>,
     mut reload_world_rx: UnboundedReceiver<()>,
@@ -677,6 +680,7 @@ async fn reload_coordinator(
                 Path::new(rs_pack::CONTENT_DIR),
                 Path::new(rs_pack::PACK_DIR),
                 verify,
+                members,
             )
         })
         .await;

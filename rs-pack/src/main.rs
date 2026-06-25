@@ -21,8 +21,10 @@ enum Commands {
         #[arg(long, default_value = rs_pack::PACK_DIR)]
         pack: PathBuf,
         /// Strict verification mode
-        #[arg(long)]
+        #[arg(long, default_value = "true")]
         verify: bool,
+        #[arg(long, default_value = "true")]
+        members: bool,
     },
     /// Extract original JAG archives into content files for re-packing
     Unpack {
@@ -50,8 +52,9 @@ fn main() -> Result<()> {
             source,
             pack,
             verify,
+            members,
         } => {
-            let (store, scripts) = rs_pack::pack_all(&source, &pack, verify)?;
+            let (store, scripts) = rs_pack::pack_all(&source, &pack, verify, members)?;
             tracing::info!(
                 "CacheStore: {} packs, {} jingles, {} maps, {} songs, {} objs, {} invs, {} varps, {} scripts",
                 store.jags.len(),

@@ -177,6 +177,7 @@ pub fn pack_all(
     source: &Path,
     pack: &Path,
     verify: bool,
+    members: bool,
 ) -> anyhow::Result<(Box<CacheStore>, cache::script::ScriptProvider)> {
     info!("Packing assets...");
     info!("  source: {}", source.display());
@@ -331,8 +332,15 @@ pub fn pack_all(
             .collect::<Vec<u8>>(),
     );
 
-    // Build TypeProviders from server-side packed data
-    let objs = build_type_provider::<ObjType>(&assets, "obj", ObjContext { members: true });
+    let params = build_type_provider::<ParamType>(&assets, "param", ());
+    let objs = build_type_provider::<ObjType>(
+        &assets,
+        "obj",
+        ObjContext {
+            members,
+            autodisable_params: params.types.iter().map(|p| p.autodisable).collect(),
+        },
+    );
     let invs = build_type_provider::<InvType>(&assets, "inv", ());
     let varps = build_type_provider::<VarPlayerType>(&assets, "varp", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
@@ -345,7 +353,6 @@ pub fn pack_all(
     let locs = build_type_provider::<LocType>(&assets, "loc", ());
     let mesanims = build_type_provider::<MesAnimType>(&assets, "mesanim", ());
     let npcs = build_type_provider::<NpcType>(&assets, "npc", ());
-    let params = build_type_provider::<ParamType>(&assets, "param", ());
     #[cfg(rev = "225")]
     let seq_frames = cache::seq_frame::SeqFrameProvider::from_jag(
         jags.get("models")
