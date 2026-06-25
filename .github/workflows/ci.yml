@@ -14,22 +14,52 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-test:
+  revs:
     runs-on: ubuntu-latest
+    outputs:
+      list: ${{ steps.read.outputs.list }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: read
+        name: Read supported revisions from rev-cfg
+        run: |
+          revs=$(sed -n '/REVS/s/.*= *&\[\([0-9, ]*\)\].*/\1/p' rev-cfg/src/lib.rs | tr -d ' ')
+          if [ -z "$revs" ]; then
+            echo "::error file=rev-cfg/src/lib.rs::could not parse REVS list"
+            exit 1
+          fi
+          echo "Revisions: [$revs]"
+          echo "list=[$revs]" >> "$GITHUB_OUTPUT"
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+  build-test:
+    needs: revs
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rev: ${{ fromJSON(needs.revs.outputs.list) }}
+    env:
+      REV: ${{ matrix.rev }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt, clippy
+          components: clippy
 
       - uses: Swatinem/rust-cache@v2
         with:
-          key: ci
-
-      - name: Check formatting
-        run: cargo fmt --all --check
+          key: ci-${{ matrix.rev }}
 
       - name: Clippy
         run: cargo clippy --workspace --all-targets
