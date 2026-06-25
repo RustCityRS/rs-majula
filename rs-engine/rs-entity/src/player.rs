@@ -856,6 +856,7 @@ impl Player {
             #[cfg(rev = "225")]
             let recovered = self.stats.base_levels[PlayerStat::Agility as usize] as u16 / 9 + 8;
             #[cfg(since_244)]
+            // https://runescape.wiki/w/Update:Agility_improved_and_bug_fixes
             let recovered = self.stats.base_levels[PlayerStat::Agility as usize] as u16 / 6 + 8;
             self.runenergy = (self.runenergy + recovered).min(10000);
         } else {
