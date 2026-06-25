@@ -853,7 +853,10 @@ impl Player {
         }
 
         if self.pathing.steps_taken < 2 {
+            #[cfg(rev = "225")]
             let recovered = self.stats.base_levels[PlayerStat::Agility as usize] as u16 / 9 + 8;
+            #[cfg(since_244)]
+            let recovered = self.stats.base_levels[PlayerStat::Agility as usize] as u16 / 6 + 8;
             self.runenergy = (self.runenergy + recovered).min(10000);
         } else {
             let weight_kg = self.runweight as f64 / 1000.0;

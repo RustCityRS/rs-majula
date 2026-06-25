@@ -9,5 +9,8 @@ license.workspace = true
 [dependencies]
 rs-pack = { workspace = true }
 
+[build-dependencies]
+rev-cfg = { workspace = true }
+
 [lints]
 workspace = true

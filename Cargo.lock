@@ -1880,6 +1880,7 @@ version = "0.1.5"
 name = "rs-cam"
 version = "0.1.5"
 dependencies = [
+ "rev-cfg",
  "rs-datastruct",
  "rs-vm",
 ]
@@ -1899,6 +1900,9 @@ dependencies = [
 [[package]]
 name = "rs-datastruct"
 version = "0.1.5"
+dependencies = [
+ "rev-cfg",
+]
 
 [[package]]
 name = "rs-engine"
@@ -1933,6 +1937,7 @@ dependencies = [
 name = "rs-entity"
 version = "0.1.5"
 dependencies = [
+ "rev-cfg",
  "rs-cam",
  "rs-grid",
  "rs-hero",
@@ -1951,10 +1956,16 @@ dependencies = [
 [[package]]
 name = "rs-grid"
 version = "0.1.5"
+dependencies = [
+ "rev-cfg",
+]
 
 [[package]]
 name = "rs-hero"
 version = "0.1.5"
+dependencies = [
+ "rev-cfg",
+]
 
 [[package]]
 name = "rs-info"
@@ -1968,6 +1979,9 @@ dependencies = [
 [[package]]
 name = "rs-inv"
 version = "0.1.5"
+dependencies = [
+ "rev-cfg",
+]
 
 [[package]]
 name = "rs-io"
@@ -2029,6 +2043,7 @@ dependencies = [
 name = "rs-queue"
 version = "0.1.5"
 dependencies = [
+ "rev-cfg",
  "rs-datastruct",
  "rs-vm",
 ]
@@ -2079,6 +2094,7 @@ version = "0.1.5"
 name = "rs-timer"
 version = "0.1.5"
 dependencies = [
+ "rev-cfg",
  "rs-vm",
  "rustc-hash",
 ]
@@ -2086,11 +2102,15 @@ dependencies = [
 [[package]]
 name = "rs-util"
 version = "0.1.5"
+dependencies = [
+ "rev-cfg",
+]
 
 [[package]]
 name = "rs-var"
 version = "0.1.5"
 dependencies = [
+ "rev-cfg",
  "rs-pack",
 ]
 
@@ -2114,7 +2134,7 @@ dependencies = [
 name = "rs-zone"
 version = "0.1.5"
 dependencies = [
- "log",
+ "rev-cfg",
  "rs-entity",
  "rs-grid",
  "rs-io",

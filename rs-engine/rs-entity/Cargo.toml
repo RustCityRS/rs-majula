@@ -21,5 +21,8 @@ rs-vm = { workspace = true }
 rs-stat = { workspace = true }
 rustc-hash = { workspace = true }
 
+[build-dependencies]
+rev-cfg = { workspace = true }
+
 [lints]
 workspace = true
