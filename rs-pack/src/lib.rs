@@ -18,7 +18,7 @@ use cache::r#enum::EnumType;
 use cache::flo::FloType;
 use cache::font::FontTypeProvider;
 use cache::hunt::HuntType;
-use cache::idk::IdkType;
+use cache::idk::{IdkType, IdkTypeRaw};
 use cache::r#if::IfTypeProvider;
 use cache::inv::InvType;
 use cache::loc::{LocType, LocTypeRaw};
@@ -361,7 +361,7 @@ pub fn pack_all(
     let enums = build_type_provider::<EnumType>(&assets, "enum", ());
     let flos = build_type_provider::<FloType>(&assets, "flo", ());
     let hunts = build_type_provider::<HuntType>(&assets, "hunt", ());
-    let idks = build_type_provider::<IdkType>(&assets, "idk", ());
+    let idks = build_type_provider_into::<IdkTypeRaw, IdkType>(&assets, "idk", ());
     let locs = build_type_provider_into::<LocTypeRaw, LocType>(&assets, "loc", ());
     let mesanims = build_type_provider::<MesAnimType>(&assets, "mesanim", ());
     let npcs = build_type_provider_into::<NpcTypeRaw, NpcType>(&assets, "npc", ());

@@ -25,98 +25,10 @@ const CHAR_LOOKUP: [u8; 256] = {
 
 pub struct FontType {
     pub id: u8,
-    pub char_mask_width: [u8; CHAR_COUNT],
-    pub char_mask_height: [u8; CHAR_COUNT],
-    pub char_offset_x: [u8; CHAR_COUNT],
-    pub char_offset_y: [u8; CHAR_COUNT],
-    pub char_advance: [u8; CHAR_COUNT + 1],
     pub draw_width: [u8; 256],
-    pub height: u16,
 }
 
 impl FontType {
-    fn decode(id: u8, jag: &JagFile, name: &str) -> FontType {
-        let mut data = jag.read(&format!("{name}.dat")).expect("missing font dat");
-        let mut index = jag.read("index.dat").expect("missing index.dat");
-
-        let mut font = FontType {
-            id,
-            char_mask_width: [0; CHAR_COUNT],
-            char_mask_height: [0; CHAR_COUNT],
-            char_offset_x: [0; CHAR_COUNT],
-            char_offset_y: [0; CHAR_COUNT],
-            char_advance: [0; CHAR_COUNT + 1],
-            draw_width: [0; 256],
-            height: 0,
-        };
-
-        index.pos = data.g2() as usize + 4;
-        let pal_count = index.g1();
-        if pal_count > 0 {
-            index.pos += (pal_count as usize - 1) * 3;
-        }
-
-        for c in 0..CHAR_COUNT {
-            font.char_offset_x[c] = index.g1();
-            font.char_offset_y[c] = index.g1();
-
-            let wi = index.g2() as usize;
-            let hi = index.g2() as usize;
-            font.char_mask_width[c] = wi as u8;
-            font.char_mask_height[c] = hi as u8;
-
-            let pixel_order = index.g1();
-            let len = wi * hi;
-
-            let mut mask = vec![0; len];
-            if pixel_order == 0 {
-                for slot in mask.iter_mut() {
-                    *slot = data.g1();
-                }
-            } else if pixel_order == 1 {
-                for x in 0..wi {
-                    for y in 0..hi {
-                        mask[x + y * wi] = data.g1();
-                    }
-                }
-            }
-
-            if hi as u16 > font.height {
-                font.height = hi as u16;
-            }
-
-            font.char_offset_x[c] = 1;
-            font.char_advance[c] = (wi + 2) as u8;
-
-            if len > 0 {
-                let mut space: u32 = 0;
-                for y in (hi / 7)..hi {
-                    space += mask[y * wi] as u32;
-                }
-                if space <= (hi / 7) as u32 {
-                    font.char_advance[c] -= 1;
-                    font.char_offset_x[c] = 0;
-                }
-
-                space = 0;
-                for y in (hi / 7)..hi {
-                    space += mask[wi - 1 + y * wi] as u32;
-                }
-                if space <= (hi / 7) as u32 {
-                    font.char_advance[c] -= 1;
-                }
-            }
-        }
-
-        font.char_advance[94] = font.char_advance[8];
-
-        for (i, &c) in CHAR_LOOKUP.iter().enumerate() {
-            font.draw_width[i] = font.char_advance[c as usize];
-        }
-
-        font
-    }
-
     pub fn string_width(&self, s: &str) -> u16 {
         let bytes = s.as_bytes();
         let mut size = 0;
@@ -218,6 +130,102 @@ impl FontType {
     }
 }
 
+#[allow(dead_code)]
+struct FontTypeRaw {
+    id: u8,
+    char_mask_width: [u8; CHAR_COUNT],
+    char_mask_height: [u8; CHAR_COUNT],
+    char_offset_x: [u8; CHAR_COUNT],
+    char_offset_y: [u8; CHAR_COUNT],
+    char_advance: [u8; CHAR_COUNT + 1],
+    draw_width: [u8; 256],
+    height: u16,
+}
+
+impl FontTypeRaw {
+    fn decode(id: u8, jag: &JagFile, name: &str) -> FontTypeRaw {
+        let mut data = jag.read(&format!("{name}.dat")).expect("missing font dat");
+        let mut index = jag.read("index.dat").expect("missing index.dat");
+
+        let mut font = FontTypeRaw {
+            id,
+            char_mask_width: [0; CHAR_COUNT],
+            char_mask_height: [0; CHAR_COUNT],
+            char_offset_x: [0; CHAR_COUNT],
+            char_offset_y: [0; CHAR_COUNT],
+            char_advance: [0; CHAR_COUNT + 1],
+            draw_width: [0; 256],
+            height: 0,
+        };
+
+        index.pos = data.g2() as usize + 4;
+        let pal_count = index.g1();
+        if pal_count > 0 {
+            index.pos += (pal_count as usize - 1) * 3;
+        }
+
+        for c in 0..CHAR_COUNT {
+            font.char_offset_x[c] = index.g1();
+            font.char_offset_y[c] = index.g1();
+
+            let wi = index.g2() as usize;
+            let hi = index.g2() as usize;
+            font.char_mask_width[c] = wi as u8;
+            font.char_mask_height[c] = hi as u8;
+
+            let pixel_order = index.g1();
+            let len = wi * hi;
+
+            let mut mask = vec![0; len];
+            if pixel_order == 0 {
+                for slot in mask.iter_mut() {
+                    *slot = data.g1();
+                }
+            } else if pixel_order == 1 {
+                for x in 0..wi {
+                    for y in 0..hi {
+                        mask[x + y * wi] = data.g1();
+                    }
+                }
+            }
+
+            if hi as u16 > font.height {
+                font.height = hi as u16;
+            }
+
+            font.char_offset_x[c] = 1;
+            font.char_advance[c] = (wi + 2) as u8;
+
+            if len > 0 {
+                let mut space: u32 = 0;
+                for y in (hi / 7)..hi {
+                    space += mask[y * wi] as u32;
+                }
+                if space <= (hi / 7) as u32 {
+                    font.char_advance[c] -= 1;
+                    font.char_offset_x[c] = 0;
+                }
+
+                space = 0;
+                for y in (hi / 7)..hi {
+                    space += mask[wi - 1 + y * wi] as u32;
+                }
+                if space <= (hi / 7) as u32 {
+                    font.char_advance[c] -= 1;
+                }
+            }
+        }
+
+        font.char_advance[94] = font.char_advance[8];
+
+        for (i, &c) in CHAR_LOOKUP.iter().enumerate() {
+            font.draw_width[i] = font.char_advance[c as usize];
+        }
+
+        font
+    }
+}
+
 pub struct FontTypeProvider {
     pub fonts: Vec<FontType>,
 }
@@ -227,7 +235,13 @@ impl FontTypeProvider {
         let jag = JagFile::from(jag_bytes.to_vec());
         let fonts = Font::ALL
             .iter()
-            .map(|font_id| FontType::decode(*font_id as u8, &jag, font_id.name()))
+            .map(|font_id| {
+                let raw = FontTypeRaw::decode(*font_id as u8, &jag, font_id.name());
+                FontType {
+                    id: raw.id,
+                    draw_width: raw.draw_width,
+                }
+            })
             .collect();
         FontTypeProvider { fonts }
     }

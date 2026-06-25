@@ -7,6 +7,22 @@ pub type IdkTypeProvider = TypeProvider<IdkType>;
 pub struct IdkType {
     pub id: u16,
     pub body_type: BodyType,
+    pub disable: bool,
+}
+
+impl From<IdkTypeRaw> for IdkType {
+    fn from(raw: IdkTypeRaw) -> Self {
+        IdkType {
+            id: raw.id,
+            body_type: raw.body_type,
+            disable: raw.disable,
+        }
+    }
+}
+
+pub struct IdkTypeRaw {
+    pub id: u16,
+    pub body_type: BodyType,
     pub models: Option<Box<[u16]>>,
     pub disable: bool,
     pub recol_s: Option<Box<[u16]>>,
@@ -15,11 +31,11 @@ pub struct IdkType {
     debugname: Option<Box<str>>,
 }
 
-impl CacheType for IdkType {
+impl CacheType for IdkTypeRaw {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        IdkType {
+        IdkTypeRaw {
             id,
             body_type: BodyType::ManHair,
             models: None,
