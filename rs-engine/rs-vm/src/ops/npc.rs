@@ -8,7 +8,6 @@ use crate::{NpcUid, ScriptError, active_npc, handlers, none};
 use crate::{active_npc_mut, iterators};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 use rs_pack::types::{HuntCheckVis, NpcMode};
 

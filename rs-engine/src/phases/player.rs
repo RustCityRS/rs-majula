@@ -6,7 +6,6 @@ use rs_entity::MoveSpeed;
 use rs_entity::interaction::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
-use rs_pack::cache::provider::CacheType;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::{ExecutionState, QueuePriority, ScriptArgument, TimerPriority};
 use rs_vm::subject::ScriptSubject;

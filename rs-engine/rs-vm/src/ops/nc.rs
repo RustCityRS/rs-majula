@@ -2,7 +2,6 @@ use crate::register::OpsRegistry;
 use crate::util::{pop_npc, pop_param};
 use crate::{handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 
 /// Registers NPC config (NC) opcodes for querying static NPC definitions

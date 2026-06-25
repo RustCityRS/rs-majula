@@ -21,15 +21,15 @@ use cache::hunt::HuntType;
 use cache::idk::IdkType;
 use cache::r#if::IfTypeProvider;
 use cache::inv::InvType;
-use cache::loc::LocType;
+use cache::loc::{LocType, LocTypeRaw};
 use cache::mesanim::MesAnimType;
 use cache::midi::MidiProvider;
-use cache::npc::NpcType;
-use cache::obj::{ObjContext, ObjType};
+use cache::npc::{NpcType, NpcTypeRaw};
+use cache::obj::{ObjContext, ObjType, ObjTypeRaw};
 use cache::param::ParamType;
 use cache::provider::TypeProvider;
-use cache::seq::SeqType;
-use cache::spotanim::SpotAnimType;
+use cache::seq::{SeqType, SeqTypeRaw};
+use cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
 use cache::r#struct::StructType;
 use cache::varn::VarnType;
 use cache::varp::VarPlayerType;
@@ -345,7 +345,7 @@ pub fn pack_all(
     );
 
     let params = build_type_provider::<ParamType>(&assets, "param", ());
-    let objs = build_type_provider::<ObjType>(
+    let objs = build_type_provider_into::<ObjTypeRaw, ObjType>(
         &assets,
         "obj",
         ObjContext {
@@ -362,9 +362,9 @@ pub fn pack_all(
     let flos = build_type_provider::<FloType>(&assets, "flo", ());
     let hunts = build_type_provider::<HuntType>(&assets, "hunt", ());
     let idks = build_type_provider::<IdkType>(&assets, "idk", ());
-    let locs = build_type_provider::<LocType>(&assets, "loc", ());
+    let locs = build_type_provider_into::<LocTypeRaw, LocType>(&assets, "loc", ());
     let mesanims = build_type_provider::<MesAnimType>(&assets, "mesanim", ());
-    let npcs = build_type_provider::<NpcType>(&assets, "npc", ());
+    let npcs = build_type_provider_into::<NpcTypeRaw, NpcType>(&assets, "npc", ());
     #[cfg(rev = "225")]
     let seq_frames = cache::seq_frame::SeqFrameProvider::from_jag(
         jags.get("models")
@@ -374,8 +374,9 @@ pub fn pack_all(
     let seq_frame_delays = seq_frames.delays.clone();
     #[cfg(since_244)]
     let seq_frame_delays = cache::seq_frame::anim_frame_delays(source);
-    let seqs = build_type_provider::<SeqType>(&assets, "seq", seq_frame_delays);
-    let spotanims = build_type_provider::<SpotAnimType>(&assets, "spotanim", ());
+    let seqs = build_type_provider_into::<SeqTypeRaw, SeqType>(&assets, "seq", seq_frame_delays);
+    let spotanims =
+        build_type_provider_into::<SpotAnimTypeRaw, SpotAnimType>(&assets, "spotanim", ());
     let structs = build_type_provider::<StructType>(&assets, "struct", ());
     let varns = build_type_provider::<VarnType>(&assets, "varn", ());
     let varss = build_type_provider::<VarsType>(&assets, "vars", ());
@@ -534,10 +535,22 @@ fn build_type_provider<T: cache::provider::CacheType>(
     name: &str,
     ctx: T::Context,
 ) -> TypeProvider<T> {
+    build_type_provider_into::<T, T>(assets, name, ctx)
+}
+
+fn build_type_provider_into<Raw, Stored>(
+    assets: &HashMap<String, pack::pack_registry::PackedFile>,
+    name: &str,
+    ctx: Raw::Context,
+) -> TypeProvider<Stored>
+where
+    Raw: cache::provider::CacheType,
+    Stored: From<Raw>,
+{
     let packed_file = assets
         .get(name)
         .unwrap_or_else(|| panic!("Missing packed data for {name}"));
-    TypeProvider::from_bytes(&packed_file.server.dat, ctx)
+    TypeProvider::from_bytes::<Raw>(&packed_file.server.dat, ctx)
 }
 
 fn assemble_config_jag(assets: &mut HashMap<String, pack::pack_registry::PackedFile>) -> Vec<u8> {

@@ -5,6 +5,16 @@ pub type SpotAnimTypeProvider = TypeProvider<SpotAnimType>;
 
 pub struct SpotAnimType {
     pub id: u16,
+}
+
+impl From<SpotAnimTypeRaw> for SpotAnimType {
+    fn from(raw: SpotAnimTypeRaw) -> Self {
+        SpotAnimType { id: raw.id }
+    }
+}
+
+pub struct SpotAnimTypeRaw {
+    pub id: u16,
     pub model: u16,
     pub anim: Option<u16>,
     pub hasalpha: bool,
@@ -18,11 +28,11 @@ pub struct SpotAnimType {
     debugname: Option<Box<str>>,
 }
 
-impl CacheType for SpotAnimType {
+impl CacheType for SpotAnimTypeRaw {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        SpotAnimType {
+        SpotAnimTypeRaw {
             id,
             model: 0,
             anim: None,

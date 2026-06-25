@@ -14,6 +14,80 @@ pub struct NpcPatrol {
 
 pub struct NpcType {
     pub id: u16,
+    pub name: Option<Box<str>>,
+    pub desc: Option<Box<str>>,
+    pub size: u8,
+    pub category: Option<u16>,
+    pub op: Option<Box<[Option<Box<str>>]>>,
+    pub attack: u16,
+    pub defence: u16,
+    pub strength: u16,
+    pub hitpoints: u16,
+    pub ranged: u16,
+    pub magic: u16,
+    pub vislevel: Option<u16>,
+    pub wanderrange: u16,
+    pub maxrange: u16,
+    pub huntrange: u8,
+    pub timer: Option<u16>,
+    pub respawnrate: u16,
+    pub moverestrict: MoveRestrict,
+    pub attackrange: u16,
+    pub blockwalk: BlockWalk,
+    pub huntmode: Option<u16>,
+    pub defaultmode: NpcMode,
+    pub members: bool,
+    pub patrol: Option<Box<[NpcPatrol]>>,
+    pub givechase: bool,
+    pub regenrate: u16,
+    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    debugname: Option<Box<str>>,
+}
+
+impl NpcType {
+    pub fn debugname(&self) -> Option<&str> {
+        self.debugname.as_deref()
+    }
+}
+
+impl From<NpcTypeRaw> for NpcType {
+    fn from(raw: NpcTypeRaw) -> Self {
+        NpcType {
+            id: raw.id,
+            name: raw.name,
+            desc: raw.desc,
+            size: raw.size,
+            category: raw.category,
+            op: raw.op,
+            attack: raw.attack,
+            defence: raw.defence,
+            strength: raw.strength,
+            hitpoints: raw.hitpoints,
+            ranged: raw.ranged,
+            magic: raw.magic,
+            vislevel: raw.vislevel,
+            wanderrange: raw.wanderrange,
+            maxrange: raw.maxrange,
+            huntrange: raw.huntrange,
+            timer: raw.timer,
+            respawnrate: raw.respawnrate,
+            moverestrict: raw.moverestrict,
+            attackrange: raw.attackrange,
+            blockwalk: raw.blockwalk,
+            huntmode: raw.huntmode,
+            defaultmode: raw.defaultmode,
+            members: raw.members,
+            patrol: raw.patrol,
+            givechase: raw.givechase,
+            regenrate: raw.regenrate,
+            params: raw.params,
+            debugname: raw.debugname,
+        }
+    }
+}
+
+pub struct NpcTypeRaw {
+    pub id: u16,
     pub models: Option<Box<[u16]>>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
@@ -68,11 +142,11 @@ pub struct NpcType {
     debugname: Option<Box<str>>,
 }
 
-impl CacheType for NpcType {
+impl CacheType for NpcTypeRaw {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        NpcType {
+        NpcTypeRaw {
             id,
             models: None,
             name: None,

@@ -2,7 +2,6 @@ use crate::register::OpsRegistry;
 use crate::util::{cert, pop_obj, pop_param, uncert};
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 
 /// Registers object config (OC) opcodes for querying static item definitions

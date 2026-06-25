@@ -15,32 +15,39 @@ pub struct TypeProvider<T> {
     pub types: Box<[T]>,
 }
 
-impl<T: CacheType> TypeProvider<T> {
-    pub fn from_bytes(dat: &[u8], ctx: T::Context) -> TypeProvider<T> {
+impl<T> TypeProvider<T> {
+    pub fn from_bytes<Raw>(dat: &[u8], ctx: Raw::Context) -> TypeProvider<T>
+    where
+        Raw: CacheType,
+        T: From<Raw>,
+    {
         let mut dat = Packet::from(dat.to_vec());
 
         let count = dat.g2() as usize;
 
+        let mut raws: Vec<Raw> = Vec::with_capacity(count);
+        for index in 0..count {
+            let mut entry = Raw::new(index as u16);
+            entry.decode(&mut dat);
+            raws.push(entry);
+        }
+
+        Raw::post_decode(&mut raws, &ctx);
+
         let mut debugnames = FxHashMap::with_capacity_and_hasher(count, Default::default());
         let mut types = Vec::with_capacity(count);
 
-        for index in 0..count {
-            let id = index as u16;
-            let mut entry = T::new(id);
-            entry.decode(&mut dat);
-
-            if let Some(debugname) = entry.debugname() {
-                debugnames.insert(Box::from(debugname), id);
+        for (index, raw) in raws.into_iter().enumerate() {
+            if let Some(debugname) = raw.debugname() {
+                debugnames.insert(Box::from(debugname), index as u16);
             }
 
-            types.push(entry);
+            types.push(T::from(raw));
         }
-
-        T::post_decode(&mut types, &ctx);
 
         TypeProvider {
             debugnames,
-            types: Box::from(types),
+            types: types.into_boxed_slice(),
         }
     }
 

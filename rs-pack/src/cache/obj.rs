@@ -14,6 +14,62 @@ pub struct ObjContext {
 
 pub struct ObjType {
     pub id: u16,
+    pub name: Option<Box<str>>,
+    pub desc: Option<Box<str>>,
+    pub stackable: bool,
+    pub cost: i32,
+    pub wearpos: Option<WearPos>,
+    pub wearpos2: Option<WearPos>,
+    pub members: bool,
+    pub wearpos3: Option<WearPos>,
+    pub op: Option<Box<[Option<Box<str>>]>>,
+    pub iop: Option<Box<[Option<Box<str>>]>>,
+    pub weight: i16,
+    pub category: Option<u16>,
+    pub dummyitem: DummyItem,
+    pub certlink: Option<u16>,
+    pub certtemplate: Option<u16>,
+    pub tradeable: bool,
+    pub respawnrate: u16,
+    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    debugname: Option<Box<str>>,
+}
+
+impl ObjType {
+    pub fn debugname(&self) -> Option<&str> {
+        self.debugname.as_deref()
+    }
+}
+
+impl From<ObjTypeRaw> for ObjType {
+    fn from(raw: ObjTypeRaw) -> Self {
+        ObjType {
+            id: raw.id,
+            name: raw.name,
+            desc: raw.desc,
+            stackable: raw.stackable,
+            cost: raw.cost,
+            wearpos: raw.wearpos,
+            wearpos2: raw.wearpos2,
+            members: raw.members,
+            wearpos3: raw.wearpos3,
+            op: raw.op,
+            iop: raw.iop,
+            weight: raw.weight,
+            category: raw.category,
+            dummyitem: raw.dummyitem,
+            certlink: raw.certlink,
+            certtemplate: raw.certtemplate,
+            tradeable: raw.tradeable,
+            respawnrate: raw.respawnrate,
+            params: raw.params,
+            debugname: raw.debugname,
+        }
+    }
+}
+
+pub struct ObjTypeRaw {
+    pub id: u16,
     pub model: u16,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
@@ -70,7 +126,7 @@ pub struct ObjType {
     debugname: Option<Box<str>>,
 }
 
-impl ObjType {
+impl ObjTypeRaw {
     #[allow(clippy::too_many_arguments)]
     fn cert_template(
         &mut self,
@@ -132,11 +188,11 @@ impl ObjType {
     }
 }
 
-impl CacheType for ObjType {
+impl CacheType for ObjTypeRaw {
     type Context = ObjContext;
 
     fn new(id: u16) -> Self {
-        ObjType {
+        ObjTypeRaw {
             id,
             model: 0,
             name: None,

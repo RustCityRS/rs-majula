@@ -6,7 +6,6 @@ use crate::util::*;
 use crate::{ScriptError, active_obj, handlers, iterators, none};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 
 /// Registers ground-item (obj) opcodes for spawning, removing, picking up,

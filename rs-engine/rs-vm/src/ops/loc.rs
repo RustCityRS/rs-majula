@@ -7,7 +7,6 @@ use crate::util::{pop_param, pop_seq, set_active_loc};
 use crate::{ScriptError, active_loc, handlers, none};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 use rs_pack::types::LocShape;
 
