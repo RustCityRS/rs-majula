@@ -3,7 +3,7 @@ use crate::pack::interface;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use std::collections::HashMap;
 use std::path::Path;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_assets(
     registry: &PackRegistry,
@@ -13,107 +13,107 @@ pub fn pack_assets(
     let fc = FileCache::new(source_dir);
 
     let constants = load_constants_from_cache(&fc);
-    info!("  Loaded {} constants", constants.len());
+    debug!("  Loaded {} constants", constants.len());
 
     let param_types = param::load_param_types(&fc);
     let mut results = HashMap::new();
 
-    info!("Packing param configs...");
+    debug!("Packing param configs...");
     results.insert(
         "param".to_string(),
         param::pack_params(&fc, registry, &constants)?,
     );
-    info!("Packing dbtable configs...");
+    debug!("Packing dbtable configs...");
     results.insert(
         "dbtable".to_string(),
         dbtable::pack_dbtables(&fc, registry, &constants)?,
     );
-    info!("Packing dbrow configs...");
+    debug!("Packing dbrow configs...");
     results.insert(
         "dbrow".to_string(),
         dbrow::pack_dbrows(&fc, registry, &constants)?,
     );
-    info!("Packing enum configs...");
+    debug!("Packing enum configs...");
     results.insert(
         "enum".to_string(),
         r#enum::pack_enums(&fc, registry, &constants)?,
     );
-    info!("Packing flo configs...");
+    debug!("Packing flo configs...");
     results.insert(
         "flo".to_string(),
         flo::pack_flos(&fc, registry, &constants, verify)?,
     );
-    info!("Packing inv configs...");
+    debug!("Packing inv configs...");
     results.insert(
         "inv".to_string(),
         inv::pack_invs(&fc, registry, &constants)?,
     );
-    info!("Packing mesanim configs...");
+    debug!("Packing mesanim configs...");
     results.insert(
         "mesanim".to_string(),
         mesanim::pack_mesanims(&fc, registry, &constants)?,
     );
-    info!("Packing struct configs...");
+    debug!("Packing struct configs...");
     results.insert(
         "struct".to_string(),
         r#struct::pack_structs(&fc, registry, &constants, &param_types)?,
     );
-    info!("Packing seq configs...");
+    debug!("Packing seq configs...");
     results.insert(
         "seq".to_string(),
         seq::pack_seqs(&fc, registry, &constants, verify)?,
     );
-    info!("Packing loc configs...");
+    debug!("Packing loc configs...");
     results.insert(
         "loc".to_string(),
         loc::pack_locs(&fc, registry, &constants, &param_types, verify)?,
     );
-    info!("Packing npc configs...");
+    debug!("Packing npc configs...");
     results.insert(
         "npc".to_string(),
         npc::pack_npcs(&fc, registry, &constants, &param_types, verify)?,
     );
-    info!("Packing obj configs...");
+    debug!("Packing obj configs...");
     results.insert(
         "obj".to_string(),
         obj::pack_objs(&fc, registry, &constants, &param_types, verify)?,
     );
-    info!("Packing varp configs...");
+    debug!("Packing varp configs...");
     results.insert(
         "varp".to_string(),
         varp::pack_varps(&fc, registry, &constants, verify)?,
     );
-    info!("Packing hunt configs...");
+    debug!("Packing hunt configs...");
     results.insert(
         "hunt".to_string(),
         hunt::pack_hunts(&fc, registry, &constants)?,
     );
-    info!("Packing varn configs...");
+    debug!("Packing varn configs...");
     results.insert(
         "varn".to_string(),
         varn::pack_varns(&fc, registry, &constants)?,
     );
-    info!("Packing vars configs...");
+    debug!("Packing vars configs...");
     results.insert(
         "vars".to_string(),
         vars::pack_vars_configs(&fc, registry, &constants)?,
     );
-    info!("Packing interface configs...");
+    debug!("Packing interface configs...");
     results.insert(
         "interface".to_string(),
         interface::pack_interfaces(source_dir, registry, verify)?,
     );
-    info!("Packing spotanim configs...");
+    debug!("Packing spotanim configs...");
     results.insert(
         "spotanim".to_string(),
         spotanim::pack_spotanims(&fc, registry, &constants, verify)?,
     );
-    info!("Packing idk configs...");
+    debug!("Packing idk configs...");
     results.insert(
         "idk".to_string(),
         idk::pack_idks(&fc, registry, &constants, verify)?,
     );
-    info!("Packing categories...");
+    debug!("Packing categories...");
     results.insert("category".to_string(), category::pack_categories(registry)?);
     Ok(results)
 }

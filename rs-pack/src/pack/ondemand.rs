@@ -7,7 +7,7 @@ use crate::pack::versionlist::build_version_list;
 use crate::unpack::model;
 use crate::version_list::VersionListMeta;
 use rs_io::js5::{Js5Store, js5zip};
-use tracing::info;
+use tracing::debug;
 
 pub struct OndemandArtifacts {
     pub version_list: Vec<u8>,
@@ -42,7 +42,7 @@ fn stage(
         }
     }
     bulk.ensure_file_count(index, versions.len());
-    info!("  idx{index}: {} {label} slots", versions.len());
+    debug!("  idx{index}: {} {label} slots", versions.len());
 }
 
 fn stage_bulk(
@@ -102,7 +102,7 @@ fn stage_bulk(
         }
     }
     bulk.ensure_file_count(4, meta.map_version.len());
-    info!("  idx4: {} map squares", meta.maps.len());
+    debug!("  idx4: {} map squares", meta.maps.len());
 
     (bulk, midi_jingles)
 }

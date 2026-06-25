@@ -3,7 +3,7 @@ use std::path::Path;
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-use tracing::info;
+use tracing::debug;
 
 pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let out_dir = output_dir.join("songs");
@@ -44,7 +44,7 @@ pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         count += 1;
     }
 
-    info!("Unpacked {} songs", count);
+    debug!("Unpacked {} songs", count);
     Ok(())
 }
 
@@ -97,6 +97,6 @@ pub fn unpack_midi(
     }
 
     std::fs::write(pack_dir.join("midi.pack"), pack_lines.join("\n") + "\n")?;
-    info!("Unpacked {songs} songs + {jingles} jingles");
+    debug!("Unpacked {songs} songs + {jingles} jingles");
     Ok(())
 }

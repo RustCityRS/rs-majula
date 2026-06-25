@@ -12,7 +12,7 @@ use crate::pack::util::{
 use crate::types::{ForceApproach, LocShape};
 use anyhow::Result;
 use rs_io::crc;
-use tracing::info;
+use tracing::debug;
 
 struct LocModelShape {
     model: u16,
@@ -29,10 +29,10 @@ pub fn pack_locs(
     let pack = &registry.loc;
 
     let files = file_cache.collect("loc");
-    info!("  Found {} .loc files", files.len());
+    debug!("  Found {} .loc files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "loc", constants);
-    info!("  Parsed {} loc configs", configs.len());
+    debug!("  Parsed {} loc configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

@@ -10,7 +10,7 @@ use crate::types::{BlockWalk, MoveRestrict, NpcMode};
 use anyhow::Result;
 use rs_io::crc;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_npcs(
     file_cache: &FileCache,
@@ -22,10 +22,10 @@ pub fn pack_npcs(
     let pack = &registry.npc;
 
     let files = file_cache.collect("npc");
-    info!("  Found {} .npc files", files.len());
+    debug!("  Found {} .npc files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "npc", constants);
-    info!("  Parsed {} npc configs", configs.len());
+    debug!("  Parsed {} npc configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

@@ -1,6 +1,6 @@
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -19,10 +19,10 @@ pub fn pack_hunts(
     let pack = &registry.hunt;
 
     let files = file_cache.collect("hunt");
-    info!("  Found {} .hunt files", files.len());
+    debug!("  Found {} .hunt files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "hunt", constants);
-    info!("  Parsed {} hunt configs", configs.len());
+    debug!("  Parsed {} hunt configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
 

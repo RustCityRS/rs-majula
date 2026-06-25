@@ -2,7 +2,7 @@ use std::path::Path;
 
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::info;
+use tracing::debug;
 
 fn read_lines(path: &Path) -> Vec<String> {
     let Ok(text) = std::fs::read_to_string(path) else {
@@ -48,7 +48,7 @@ pub fn pack_wordenc(content_dir: &Path) -> Vec<u8> {
         jag.write(name, data);
     }
 
-    info!("Packed wordenc into Jag");
+    debug!("Packed wordenc into Jag");
     jag.build(JagCompression::PerFile)
 }
 

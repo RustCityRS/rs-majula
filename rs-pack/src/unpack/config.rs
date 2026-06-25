@@ -6,7 +6,7 @@ use crate::pack::util::colour::rgb15_to_hsl16;
 use crate::types::LocShape;
 use rs_io::Packet;
 use rs_io::jag::JagFile;
-use tracing::info;
+use tracing::debug;
 
 type ConfigEntries = Vec<(u16, Vec<(String, String)>)>;
 type ConfigDecoder = fn(&[u8], &[u8], &HashMap<u16, u16>, &mut UnpackedPacks) -> ConfigEntries;
@@ -182,7 +182,7 @@ pub fn unpack_config(
         write_config_pack_file(pack_dir, name, count, &packs)?;
 
         write_config_text_file(output_dir, name, count, &entries, &packs)?;
-        info!("  Unpacked {} {name} entries", entries.len());
+        debug!("  Unpacked {} {name} entries", entries.len());
     }
 
     packs.write_pack_files(pack_dir)?;

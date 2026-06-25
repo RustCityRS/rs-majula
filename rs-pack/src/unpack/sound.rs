@@ -2,7 +2,7 @@ use std::path::Path;
 
 use rs_io::Packet;
 use rs_io::jag::JagFile;
-use tracing::info;
+use tracing::debug;
 
 pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let synth_dir = output_dir.join("synth");
@@ -47,7 +47,7 @@ pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyho
     }
     std::fs::write(pack_dir.join("synth.pack"), pack_lines.join("\n") + "\n")?;
 
-    info!("Unpacked {} synths from sounds JAG", count);
+    debug!("Unpacked {} synths from sounds JAG", count);
     Ok(())
 }
 

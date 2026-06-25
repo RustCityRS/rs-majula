@@ -8,7 +8,7 @@ use super::config::ModelCategory;
 use crate::types::BoneType;
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::info;
+use tracing::debug;
 
 #[cfg(rev = "225")]
 const JAG_ENTRY_NAMES: [&str; 21] = [
@@ -95,7 +95,7 @@ pub fn unpack_models(
     let base_out = models_dir.join("_unpack").join("base");
     std::fs::create_dir_all(&base_out)?;
     let base_count = extract_bases(&base_head, &base_type, &base_label, &base_out, pack_dir)?;
-    info!("  Extracted {} bases", base_count);
+    debug!("  Extracted {} bases", base_count);
 
     let frame_out = models_dir.join("_unpack").join("frame");
     std::fs::create_dir_all(&frame_out)?;
@@ -107,7 +107,7 @@ pub fn unpack_models(
         &frame_out,
         pack_dir,
     )?;
-    info!("  Extracted {} frames", frame_count);
+    debug!("  Extracted {} frames", frame_count);
 
     let ob2_count = extract_ob2(
         &ob_head,
@@ -129,9 +129,9 @@ pub fn unpack_models(
         &existing_model_names,
         model_categories,
     )?;
-    info!("  Extracted {} ob2 models", ob2_count);
+    debug!("  Extracted {} ob2 models", ob2_count);
 
-    info!("Unpacked models JAG");
+    debug!("Unpacked models JAG");
     Ok(())
 }
 
@@ -564,7 +564,7 @@ pub fn unpack_models(
     std::fs::write(pack_dir.join("model.order"), order.join("\n") + "\n")?;
     std::fs::write(pack_dir.join("model.pack"), pack_lines.join("\n") + "\n")?;
 
-    info!("Unpacked {written} models");
+    debug!("Unpacked {written} models");
     Ok(())
 }
 
@@ -612,7 +612,7 @@ pub fn unpack_anims(
     let base_pack: Vec<String> = (0..count).map(|id| format!("{id}=base_{id}")).collect();
     std::fs::write(pack_dir.join("base.pack"), base_pack.join("\n") + "\n")?;
 
-    info!("Unpacked {written} anim sets");
+    debug!("Unpacked {written} anim sets");
     Ok(())
 }
 

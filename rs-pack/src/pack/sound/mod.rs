@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::info;
+use tracing::debug;
 
 use crate::pack::pack_registry::PackRegistry;
 use crate::pack::util;
@@ -53,6 +53,6 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     let mut jag = JagFile::new();
     jag.write("sounds.dat", out.data[..out.pos].to_vec());
 
-    info!("Packed {} synths into sounds Jag", count);
+    debug!("Packed {} synths into sounds Jag", count);
     jag.build(JagCompression::PerFile)
 }

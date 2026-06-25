@@ -6,7 +6,7 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util;
 use crate::types::ScriptVarType;
 use anyhow::Result;
-use tracing::info;
+use tracing::debug;
 use util::parse_csv_values;
 
 const PROP_INDEXED: u8 = 0x1;
@@ -28,9 +28,9 @@ pub fn pack_dbtables(
 ) -> Result<PackedFile> {
     let pack = PackFile::load(&registry.pack_dir().join("dbtable.pack"))?;
     let files = file_cache.collect("dbtable");
-    info!("  Found {} .dbtable files", files.len());
+    debug!("  Found {} .dbtable files", files.len());
     let configs = parse_config_sections_cached(file_cache, "dbtable", constants);
-    info!("  Parsed {} dbtable configs", configs.len());
+    debug!("  Parsed {} dbtable configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
 

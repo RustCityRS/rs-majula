@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use anyhow::Result;
-use tracing::info;
+use tracing::debug;
 
 use crate::ParamValue;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -19,10 +19,10 @@ pub fn pack_params(
     let pack = &registry.param;
 
     let files = file_cache.collect("param");
-    info!("  Found {} .param files", files.len());
+    debug!("  Found {} .param files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "param", constants);
-    info!("  Parsed {} param configs", configs.len());
+    debug!("  Parsed {} param configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
 

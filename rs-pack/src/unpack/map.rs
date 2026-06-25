@@ -7,7 +7,7 @@ use rs_io::Packet;
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-use tracing::info;
+use tracing::debug;
 
 #[cfg(rev = "225")]
 pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
@@ -110,7 +110,7 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         count += 1;
     }
 
-    info!("Unpacked {} map squares", count);
+    debug!("Unpacked {} map squares", count);
     Ok(())
 }
 
@@ -150,7 +150,7 @@ pub fn unpack_maps(
         count += 1;
     }
 
-    info!("Unpacked {} map squares", count);
+    debug!("Unpacked {} map squares", count);
     Ok(())
 }
 

@@ -4,7 +4,7 @@ use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_structs(
     file_cache: &FileCache,
@@ -15,10 +15,10 @@ pub fn pack_structs(
     let r#struct = &registry.r#struct;
 
     let files = file_cache.collect("struct");
-    info!("  Found {} .struct files", files.len());
+    debug!("  Found {} .struct files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "struct", constants);
-    info!("  Parsed {} struct configs", configs.len());
+    debug!("  Parsed {} struct configs", configs.len());
 
     let mut server = PackedData::new(r#struct.max);
 

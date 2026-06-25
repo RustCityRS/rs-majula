@@ -3,7 +3,7 @@
 use crate::types::Font;
 use crate::unpack;
 use rs_io::jag::JagFile;
-use tracing::info;
+use tracing::debug;
 
 const TITLE_NAMES: &[&str] = &[
     "index",
@@ -92,7 +92,7 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let title_order_content = title_order.join("\n") + "\n";
     std::fs::write(meta_dir.join("title.order"), &title_order_content)?;
 
-    info!("Unpacked title JAG ({} entries)", title_order.len());
+    debug!("Unpacked title JAG ({} entries)", title_order.len());
     Ok(())
 }
 

@@ -8,7 +8,7 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_csv_values;
 use crate::types::ScriptVarType;
 use anyhow::Result;
-use tracing::info;
+use tracing::debug;
 
 /// Loaded table schema for resolving column names and types.
 struct TableSchema {
@@ -54,9 +54,9 @@ pub fn pack_dbrows(
     }
 
     let files = file_cache.collect("dbrow");
-    info!("  Found {} .dbrow files", files.len());
+    debug!("  Found {} .dbrow files", files.len());
     let configs = parse_config_sections_cached(file_cache, "dbrow", constants);
-    info!("  Parsed {} dbrow configs", configs.len());
+    debug!("  Parsed {} dbrow configs", configs.len());
 
     let mut server = PackedData::new(row_pack.max);
 

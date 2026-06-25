@@ -35,13 +35,12 @@ use cache::varn::VarnType;
 use cache::varp::VarPlayerType;
 use cache::vars::VarsType;
 use cache::wordenc::WordEncProvider;
-use pack::ondemand::OndemandArtifacts;
 #[cfg(since_244)]
-use pack::ondemand::build_ondemand_artifacts;
+use pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
 use pack::other;
 use rs_io::crc;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::info;
+use tracing::debug;
 pub use types::ParamValue;
 #[cfg(since_244)]
 use unpack::model::load_existing_pack;
@@ -180,11 +179,11 @@ pub fn pack_all(
     verify: bool,
     members: bool,
 ) -> anyhow::Result<(Box<CacheStore>, cache::script::ScriptProvider)> {
-    info!("Packing assets...");
-    info!("  source: {}", source.display());
-    info!("  pack:   {}", pack.display());
+    debug!("Packing assets...");
+    debug!("  source: {}", source.display());
+    debug!("  pack:   {}", pack.display());
     if verify {
-        info!("  mode:   VERIFY (strict)");
+        debug!("  mode:   VERIFY (strict)");
     }
 
     let registry = PackRegistry::load(pack)?;
@@ -214,7 +213,7 @@ pub fn pack_all(
         freemap,
     ) = std::thread::scope(|s| {
         let h_scripts = s.spawn(|| {
-            info!("Compiling RuneScript sources...");
+            debug!("Compiling RuneScript sources...");
             match runec::compile_memory(source, Some(pack), false) {
                 Ok(bytes) => bytes,
                 Err(e) => panic!("RuneScript compilation failed: {}", e),
@@ -261,7 +260,7 @@ pub fn pack_all(
     let mut crcs = HashMap::new();
     let mut jags = HashMap::new();
 
-    info!("Packing config...");
+    debug!("Packing config...");
     insert_jag(
         &mut crcs,
         &mut jags,
@@ -271,7 +270,7 @@ pub fn pack_all(
         verify,
     );
 
-    info!("Packing interface...");
+    debug!("Packing interface...");
     insert_jag(
         &mut crcs,
         &mut jags,
@@ -329,7 +328,7 @@ pub fn pack_all(
         (Arc::from(ondemand.zip), ondemand.blobs)
     };
 
-    info!("Pack complete.");
+    debug!("Pack complete.");
 
     // Build CRC table
     let mut crctable = [0; 9];
@@ -404,7 +403,7 @@ pub fn pack_all(
         .map(|(id, name)| (name.into_boxed_str(), id))
         .collect();
 
-    info!(
+    debug!(
         "TypeProviders: objs={} invs={} varps={} dbrows={} dbtables={} enums={} flos={} hunts={} idks={} locs={} mesanims={} npcs={} params={} seqs={} spotanims={} structs={} varns={} varss={} categories={} interfaces={} fonts={} wordenc=bad:{}/frag:{}/tld:{}/dom:{} songs={} jingles={}",
         objs.count(),
         invs.count(),
@@ -437,7 +436,7 @@ pub fn pack_all(
 
     // Script bytecode -> ScriptProvider
     let scripts = cache::script::ScriptProvider::from_bytes(&script_dat, &script_idx);
-    info!("Scripts: {} loaded", scripts.count());
+    debug!("Scripts: {} loaded", scripts.count());
 
     #[cfg(since_244)]
     let build: Arc<[u8]> = {
@@ -495,7 +494,7 @@ pub fn pack_all(
         freemap,
     });
 
-    info!("CacheStore built successfully");
+    debug!("CacheStore built successfully");
     Ok((store, scripts))
 }
 
@@ -506,7 +505,7 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
         return assets;
     }
     load_assets_recursive(dir, dir, &mut assets);
-    info!("Loaded {} static assets into memory", assets.len());
+    debug!("Loaded {} static assets into memory", assets.len());
     assets
 }
 

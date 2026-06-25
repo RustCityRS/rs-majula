@@ -9,7 +9,7 @@ use crate::pack::util::parse_hex;
 use crate::types::{Font, IfButtonType, IfComparator, IfComponentType, IfScriptOp, PlayerStat};
 use anyhow::Result;
 use rs_io::crc;
-use tracing::info;
+use tracing::debug;
 
 fn name_to_type(name: &str) -> IfComponentType {
     IfComponentType::from_config_str(name)
@@ -153,7 +153,7 @@ pub fn pack_interfaces(
     }
 
     let if_files = collect_if_files(source_dir);
-    info!("  Found {} .if files", if_files.len());
+    debug!("  Found {} .if files", if_files.len());
 
     for (if_name, lines) in &if_files {
         let if_id = registry

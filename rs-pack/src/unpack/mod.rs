@@ -19,7 +19,7 @@ use std::collections::HashMap;
 use std::path::Path;
 #[cfg(rev = "225")]
 use std::path::PathBuf;
-use tracing::info;
+use tracing::debug;
 
 const CONFIG_ENTRY_NAMES: &[&str] = &[
     "seq.dat",
@@ -126,9 +126,9 @@ impl ArchiveSource {
 }
 
 pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
-    info!("Unpacking assets...");
-    info!("  expected: {}", expected_dir.display());
-    info!("  output:   {}", output_dir.display());
+    debug!("Unpacking assets...");
+    debug!("  expected: {}", expected_dir.display());
+    debug!("  output:   {}", output_dir.display());
 
     std::fs::create_dir_all(output_dir)?;
     std::fs::create_dir_all(pack_dir)?;
@@ -138,13 +138,13 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     // Config must run first - it produces model_categories needed by models.
     let mut model_categories = HashMap::new();
     if let Some(bytes) = source.archive(Archive::Config) {
-        info!("Unpacking config...");
+        debug!("Unpacking config...");
         let jag = JagFile::from(bytes);
         let packs = config::unpack_config(&jag, output_dir, pack_dir)?;
         model_categories = packs.model_categories;
         let raw_dir = output_dir.join("_raw").join("config");
         let entries = dump_jag_entries(&jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
-        info!("  Dumped {} raw config entries", entries.len());
+        debug!("  Dumped {} raw config entries", entries.len());
     }
     let interface_bytes = source.archive(Archive::Interface);
     let media_bytes = source.archive(Archive::Media);
@@ -173,45 +173,45 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     std::thread::scope(|s| {
         if let Some(bytes) = interface_bytes {
             s.spawn(move || {
-                info!("Unpacking interface...");
+                debug!("Unpacking interface...");
                 let jag = JagFile::from(bytes);
                 let raw_dir = output_dir.join("_raw").join("interface");
                 let entries = dump_jag_entries(&jag, &raw_dir, INTERFACE_ENTRY_NAMES).unwrap();
-                info!("  Dumped {} raw interface entries", entries.len());
+                debug!("  Dumped {} raw interface entries", entries.len());
             });
         }
 
         if let Some(bytes) = media_bytes {
             s.spawn(move || {
-                info!("Unpacking media...");
+                debug!("Unpacking media...");
                 media::unpack_media(&JagFile::from(bytes), output_dir).unwrap();
             });
         }
 
         if let Some(bytes) = textures_bytes {
             s.spawn(move || {
-                info!("Unpacking textures...");
+                debug!("Unpacking textures...");
                 texture::unpack_textures(&JagFile::from(bytes), output_dir, pack_dir).unwrap();
             });
         }
 
         if let Some(bytes) = title_bytes {
             s.spawn(move || {
-                info!("Unpacking title...");
+                debug!("Unpacking title...");
                 title::unpack_title(&JagFile::from(bytes), output_dir).unwrap();
             });
         }
 
         if let Some(bytes) = sounds_bytes {
             s.spawn(move || {
-                info!("Unpacking sounds...");
+                debug!("Unpacking sounds...");
                 sound::unpack_sounds(&JagFile::from(bytes), output_dir, pack_dir).unwrap();
             });
         }
 
         if let Some(bytes) = wordenc_bytes {
             s.spawn(move || {
-                info!("Unpacking wordenc...");
+                debug!("Unpacking wordenc...");
                 wordenc::unpack_wordenc(&JagFile::from(bytes), output_dir).unwrap();
             });
         }
@@ -220,7 +220,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         {
             if models_path.exists() {
                 s.spawn(|| {
-                    info!("Unpacking models...");
+                    debug!("Unpacking models...");
                     let jag = JagFile::from(std::fs::read(&models_path).unwrap());
                     model::unpack_models(&jag, output_dir, pack_dir, &model_categories).unwrap();
                 });
@@ -228,14 +228,14 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
             if songs_dir.exists() {
                 s.spawn(|| {
-                    info!("Unpacking songs...");
+                    debug!("Unpacking songs...");
                     song::unpack_songs(&songs_dir, output_dir).unwrap();
                 });
             }
 
             if maps_dir.exists() {
                 s.spawn(|| {
-                    info!("Unpacking maps...");
+                    debug!("Unpacking maps...");
                     map::unpack_maps(&maps_dir, output_dir).unwrap();
                 });
             }
@@ -260,7 +260,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         song::unpack_midi(source.cache(), &version_list, output_dir, pack_dir)?;
     }
 
-    info!("Unpack complete.");
+    debug!("Unpack complete.");
     Ok(())
 }
 

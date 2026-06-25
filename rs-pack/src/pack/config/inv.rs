@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use anyhow::Result;
-use tracing::info;
+use tracing::debug;
 
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -17,10 +17,10 @@ pub fn pack_invs(
     let pack = &registry.inv;
 
     let files = file_cache.collect("inv");
-    info!("  Found {} .inv files", files.len());
+    debug!("  Found {} .inv files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "inv", constants);
-    info!("  Parsed {} inv configs", configs.len());
+    debug!("  Parsed {} inv configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
 

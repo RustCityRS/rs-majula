@@ -2,7 +2,7 @@
 
 use crate::unpack;
 use rs_io::jag::JagFile;
-use tracing::info;
+use tracing::debug;
 
 pub const TEXTURE_NAMES: &[&str] = &[
     "door",
@@ -135,7 +135,7 @@ pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> any
     }
     std::fs::write(pack_dir.join("texture.pack"), pack_lines.join("\n") + "\n")?;
 
-    info!("Unpacked {} textures from textures JAG", index_order.len());
+    debug!("Unpacked {} textures from textures JAG", index_order.len());
     Ok(())
 }
 

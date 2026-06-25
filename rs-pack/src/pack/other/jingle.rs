@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 
 use rs_io::bz2::bz2_compress_with_size;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_jingles(content_dir: &Path) -> HashMap<String, Vec<u8>> {
     let jingles_dir = content_dir.join("jingles");
@@ -37,6 +37,6 @@ pub fn pack_jingles(content_dir: &Path) -> HashMap<String, Vec<u8>> {
         }
     }
 
-    info!("Packed {} jingles", result.len());
+    debug!("Packed {} jingles", result.len());
     result
 }

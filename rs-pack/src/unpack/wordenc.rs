@@ -2,7 +2,7 @@ use std::path::Path;
 
 use rs_io::Packet;
 use rs_io::jag::JagFile;
-use tracing::info;
+use tracing::debug;
 
 pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let wordenc_dir = output_dir.join("wordenc");
@@ -28,7 +28,7 @@ pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
         std::fs::write(wordenc_dir.join("domainenc.txt"), text)?;
     }
 
-    info!("Unpacked wordenc");
+    debug!("Unpacked wordenc");
     Ok(())
 }
 

@@ -4,7 +4,7 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_seq;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_mesanims(
     file_cache: &FileCache,
@@ -14,10 +14,10 @@ pub fn pack_mesanims(
     let pack = &registry.mesanim;
 
     let files = file_cache.collect("mesanim");
-    info!("  Found {} .mesanim files", files.len());
+    debug!("  Found {} .mesanim files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "mesanim", constants);
-    info!("  Parsed {} mesanim configs", configs.len());
+    debug!("  Parsed {} mesanim configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
 

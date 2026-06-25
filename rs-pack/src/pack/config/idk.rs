@@ -8,7 +8,7 @@ use crate::types::BodyType;
 use anyhow::Result;
 use rs_io::crc;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_idks(
     file_cache: &FileCache,
@@ -19,10 +19,10 @@ pub fn pack_idks(
     let pack = &registry.idk;
 
     let files = file_cache.collect("idk");
-    info!("  Found {} .idk files", files.len());
+    debug!("  Found {} .idk files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "idk", constants);
-    info!("  Parsed {} idk configs", configs.len());
+    debug!("  Parsed {} idk configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

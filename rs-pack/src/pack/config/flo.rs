@@ -6,7 +6,7 @@ use crate::pack::util::{parse_bool, parse_hex, parse_texture};
 use anyhow::Result;
 use rs_io::crc;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_flos(
     file_cache: &FileCache,
@@ -17,10 +17,10 @@ pub fn pack_flos(
     let pack = &registry.flo;
 
     let files = file_cache.collect("flo");
-    info!("  Found {} .flo files", files.len());
+    debug!("  Found {} .flo files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "flo", constants);
-    info!("  Parsed {} flo configs", configs.len());
+    debug!("  Parsed {} flo configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

@@ -30,7 +30,7 @@ use tokio::sync::{mpsc, watch};
 use tokio::time::{self, Duration};
 use tokio_tungstenite::WebSocketStream;
 use tokio_tungstenite::tungstenite::{Bytes, Message};
-use tracing::{Level, error, info};
+use tracing::{Level, debug, error, info};
 use tracing_subscriber::Layer;
 use tracing_subscriber::util::SubscriberInitExt;
 use watch::{Receiver, Sender, channel};
@@ -188,14 +188,15 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     // Honor RUST_LOG if set; otherwise default to INFO globally but
-    // silence the chatty save + protocol logs that would otherwise
-    // flood during stress testing.
+    // silence the chatty save + protocol logs and tokio-postgres'
+    // schema-migration NOTICEs that would otherwise flood at startup.
     let make_filter = || {
         tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
             tracing_subscriber::EnvFilter::new(
                 "info,\
                      rs_engine::player_save=warn,\
-                     rs_protocol=warn",
+                     rs_protocol=warn,\
+                     tokio_postgres=warn",
             )
         })
     };
@@ -528,7 +529,7 @@ async fn supervise_ether_sidecar(node_id: u8, ether_port: u16, node_name: String
                         use std::io::BufRead;
                         let reader = std::io::BufReader::new(stdout);
                         for line in reader.lines().map_while(Result::ok) {
-                            info!(target: "ether", "{}", line);
+                            debug!(target: "ether", "{}", line);
                         }
                     });
                 }
@@ -541,7 +542,7 @@ async fn supervise_ether_sidecar(node_id: u8, ether_port: u16, node_name: String
                             if line.contains("erroneous line, SKIPPED") {
                                 continue;
                             }
-                            info!(target: "ether", "{}", line);
+                            debug!(target: "ether", "{}", line);
                         }
                     });
                 }

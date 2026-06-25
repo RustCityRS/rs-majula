@@ -7,7 +7,7 @@ use crate::pack::util::{parse_bool, parse_model, parse_number, parse_recol, pars
 use anyhow::Result;
 use rs_io::crc;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_spotanims(
     file_cache: &FileCache,
@@ -18,10 +18,10 @@ pub fn pack_spotanims(
     let pack = &registry.spotanim;
 
     let files = file_cache.collect("spotanim");
-    info!("  Found {} .spotanim files", files.len());
+    debug!("  Found {} .spotanim files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "spotanim", constants);
-    info!("  Parsed {} spotanim configs", configs.len());
+    debug!("  Parsed {} spotanim configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

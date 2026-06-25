@@ -3,7 +3,7 @@ use std::path::Path;
 
 use crate::pack::packed_data::PackedData;
 use anyhow::Result;
-use tracing::info;
+use tracing::debug;
 
 pub struct PackFile {
     pub id_to_debugname: HashMap<u16, String>,
@@ -126,7 +126,7 @@ impl PackRegistry {
         let texture = load("texture")?;
         let anim = load("anim")?;
 
-        info!(
+        debug!(
             "PackRegistry: npc={} obj={} loc={} hunt={} param={} cat={} seq={} varp={} varn={} model={} interface={} dbrow={} synth={} flo={} texture={} spotanim={} anim={} idk={}",
             npc.max,
             obj.max,

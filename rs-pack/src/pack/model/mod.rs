@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::{info, warn};
+use tracing::{debug, warn};
 
 use crate::pack::pack_registry::{PackFile, PackRegistry};
 use crate::types::BoneType;
@@ -325,7 +325,7 @@ pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
         jag.write(name, data);
     }
 
-    info!(
+    debug!(
         "Packed {} models, {} anims, {} bases into models Jag",
         model_order.len(),
         anim_order.len(),

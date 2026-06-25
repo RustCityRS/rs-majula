@@ -6,7 +6,7 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_script_var_type;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_enums(
     file_cache: &FileCache,
@@ -16,10 +16,10 @@ pub fn pack_enums(
     let pack = &registry.r#enum;
 
     let files = file_cache.collect("enum");
-    info!("  Found {} .enum files", files.len());
+    debug!("  Found {} .enum files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "enum", constants);
-    info!("  Parsed {} enum configs", configs.len());
+    debug!("  Parsed {} enum configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     for id in 0..pack.max {

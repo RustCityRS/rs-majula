@@ -5,7 +5,7 @@ use rs_io::crc;
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 use std::sync::Arc;
-use tracing::{info, warn};
+use tracing::{debug, warn};
 
 type PackedMapSquare = (MapSquares, MapSquareCrcs, MapSquareCsv, MapSquareCsv);
 
@@ -473,7 +473,7 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
     let multimap = load_csv_zones(&maps_dir.join("multiway.csv"));
     let freemap = load_csv_zones(&maps_dir.join("free2play.csv"));
-    info!(
+    debug!(
         "Zone flags: {} multi, {} free-to-play",
         multimap.len(),
         freemap.len()
@@ -565,6 +565,6 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
         count += 1;
     }
 
-    info!("Packed {} map squares ({} files)", count, mapsquares.len());
+    debug!("Packed {} map squares ({} files)", count, mapsquares.len());
     (mapsquares, mapcrcs, multimap, freemap)
 }

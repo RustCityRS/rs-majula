@@ -55,7 +55,7 @@ fn main() -> Result<()> {
             members,
         } => {
             let (store, scripts) = rs_pack::pack_all(&source, &pack, verify, members)?;
-            tracing::info!(
+            tracing::debug!(
                 "CacheStore: {} packs, {} jingles, {} maps, {} songs, {} objs, {} invs, {} varps, {} scripts",
                 store.jags.len(),
                 store.jingles.count(),

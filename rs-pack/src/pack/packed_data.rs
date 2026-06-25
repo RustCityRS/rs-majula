@@ -1,7 +1,7 @@
 use std::path::Path;
 
 use anyhow::Result;
-use tracing::info;
+use tracing::debug;
 
 pub struct PackedData {
     pub dat: Vec<u8>,
@@ -85,7 +85,7 @@ impl PackedData {
         let idx_path = base_path.join(format!("{name}.idx"));
         std::fs::write(&dat_path, &self.dat)?;
         std::fs::write(&idx_path, &self.idx)?;
-        info!(
+        debug!(
             "  {name}: {count} entries, dat={dat_size} bytes, idx={idx_size} bytes",
             count = self.count,
             dat_size = self.dat.len(),

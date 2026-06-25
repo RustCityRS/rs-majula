@@ -10,7 +10,7 @@ use crate::pack::util::*;
 use crate::types::{DummyItem, WearPos};
 use anyhow::Result;
 use rs_io::crc;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_objs(
     file_cache: &FileCache,
@@ -22,10 +22,10 @@ pub fn pack_objs(
     let pack = &registry.obj;
 
     let files = file_cache.collect("obj");
-    info!("  Found {} .obj files", files.len());
+    debug!("  Found {} .obj files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "obj", constants);
-    info!("  Parsed {} obj configs", configs.len());
+    debug!("  Parsed {} obj configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

@@ -4,7 +4,7 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_script_var_type;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_vars_configs(
     file_cache: &FileCache,
@@ -14,10 +14,10 @@ pub fn pack_vars_configs(
     let pack = &registry.vars;
 
     let files = file_cache.collect("vars");
-    info!("  Found {} .vars files", files.len());
+    debug!("  Found {} .vars files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "vars", constants);
-    info!("  Parsed {} vars configs", configs.len());
+    debug!("  Parsed {} vars configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
 

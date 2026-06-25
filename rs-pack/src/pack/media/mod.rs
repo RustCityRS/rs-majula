@@ -3,7 +3,7 @@ use std::path::Path;
 
 use crate::pack::util::media;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
     let sprite_dir = content_dir.join("sprites");
@@ -63,6 +63,6 @@ pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
         }
     }
 
-    info!("Packed {} sprite groups into media Jag", dat_map.len());
+    debug!("Packed {} sprite groups into media Jag", dat_map.len());
     jag.build(JagCompression::PerFile)
 }

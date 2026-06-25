@@ -6,7 +6,7 @@ use crate::pack::util::{parse_anim, parse_bool, parse_number, parse_obj};
 use anyhow::Result;
 use rs_io::crc;
 use std::collections::HashMap;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_seqs(
     file_cache: &FileCache,
@@ -17,10 +17,10 @@ pub fn pack_seqs(
     let pack = &registry.seq;
 
     let files = file_cache.collect("seq");
-    info!("  Found {} .seq files", files.len());
+    debug!("  Found {} .seq files", files.len());
 
     let configs = parse_config_sections_cached(file_cache, "seq", constants);
-    info!("  Parsed {} seq configs", configs.len());
+    debug!("  Parsed {} seq configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

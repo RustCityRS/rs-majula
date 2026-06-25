@@ -1,11 +1,11 @@
 ﻿use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use tracing::info;
+use tracing::debug;
 
 pub fn pack_categories(registry: &PackRegistry) -> anyhow::Result<PackedFile> {
     let category = &registry.category;
 
-    info!("  Found {} .categories", category.max);
+    debug!("  Found {} .categories", category.max);
 
     let mut server = PackedData::new(category.max);
 
