@@ -557,7 +557,9 @@ impl Zone {
     /// Removes a loc from this zone and queues an enclosed `LocDel` event.
     ///
     /// behavior depends on the loc's lifetime:
-    /// - [`EntityLifeTime::Despawn`]: The loc is removed from `self.locs` via swap-remove.
+    /// - [`EntityLifeTime::Despawn`]: The loc is removed from `self.locs` with an
+    ///   order-preserving remove, so the remaining locs keep their relative order
+    ///   (a zone reload re-sends locs in their original add order).
     /// - [`EntityLifeTime::Respawn`]: The loc remains in storage but is reverted to its
     ///   base state (it will be invisible until respawned).
     ///
@@ -590,7 +592,7 @@ impl Zone {
         let lifetime = loc.lifetime();
         self.clear_queued_events(lid);
         if lifetime == EntityLifeTime::Despawn {
-            self.locs.swap_remove(idx);
+            self.locs.remove(idx);
         } else {
             self.locs[idx].revert();
         }
@@ -1039,7 +1041,9 @@ impl Zone {
     /// Internal helper that removes the obj at the given index and queues an `ObjDel` event.
     ///
     /// behavior depends on the obj's lifetime:
-    /// - [`EntityLifeTime::Despawn`]: The obj is removed from `self.objs` via swap-remove.
+    /// - [`EntityLifeTime::Despawn`]: The obj is removed from `self.objs` with an
+    ///   order-preserving remove, so the remaining objs keep their relative order
+    ///   (a zone reload re-sends ground-item stacks oldest-first).
     /// - [`EntityLifeTime::Respawn`]: The obj remains in storage but its `last_clock` is
     ///   set to `respawn_at` (or `u64::MAX` if `None`), hiding it until that tick.
     ///
@@ -1078,7 +1082,7 @@ impl Zone {
         self.clear_queued_events(oid);
         self.receivers.remove(&oid);
         if self.objs[idx].lifetime() == EntityLifeTime::Despawn {
-            self.objs.swap_remove(idx);
+            self.objs.remove(idx);
         } else {
             self.objs[idx].set_last_clock(respawn_at.unwrap_or(u32::MAX));
         }
@@ -1561,6 +1565,30 @@ mod tests {
         assert_eq!(count_enclosed(&z), 0);
     }
 
+    #[test]
+    fn remove_obj_preserves_remaining_stack_order() {
+        let mut z = zone();
+
+        // Drop X on one tile, then a two-item stack A, B on another -- in order.
+        for (x, zz, id) in [(3216, 3216, 10), (3220, 3220, 20), (3220, 3220, 30)] {
+            let mut obj = despawn_obj(x, zz, id, 1);
+            obj.set_last_clock(200);
+            z.add_obj(obj, None);
+        }
+        assert_eq!(
+            z.visible_objs(0, 100).map(|o| o.id()).collect::<Vec<_>>(),
+            vec![10, 20, 30],
+        );
+
+        // Pick up X (oldest, index 0). The A,B stack must stay A-then-B.
+        z.remove_obj(3216, 3216, 10, None, None);
+        assert_eq!(
+            z.visible_objs(0, 100).map(|o| o.id()).collect::<Vec<_>>(),
+            vec![20, 30],
+            "removing an obj reordered the remaining stack",
+        );
+    }
+
     // ---- obj: respawn_obj ----
 
     #[test]
@@ -1984,6 +2012,28 @@ mod tests {
             &active_enclosed[0].message,
             ZoneMessage::LocDel(_)
         ));
+    }
+
+    #[test]
+    fn remove_loc_preserves_remaining_order() {
+        let mut z = zone();
+
+        // Add three dynamic locs on distinct tiles, in order.
+        for (x, zz, id) in [(3216, 3216, 10), (3220, 3220, 20), (3221, 3221, 30)] {
+            z.locs.push(despawn_loc(x, zz, id));
+        }
+        assert_eq!(
+            z.locs.iter().map(|l| l.id()).collect::<Vec<_>>(),
+            vec![10, 20, 30],
+        );
+
+        // Remove the oldest (index 0). The remaining locs must keep their order.
+        z.remove_loc(0);
+        assert_eq!(
+            z.locs.iter().map(|l| l.id()).collect::<Vec<_>>(),
+            vec![20, 30],
+            "removing a loc reordered the remaining locs",
+        );
     }
 
     // ---- loc: get_loc / get_loc_by_layer ----
