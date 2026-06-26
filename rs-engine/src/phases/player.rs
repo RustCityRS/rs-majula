@@ -487,6 +487,7 @@ impl Engine {
                 interacted = Self::try_interact(active, active.player.pathing.steps_taken == 0);
 
                 if !interacted
+                    && !active.player.interaction.ap_range_called
                     && !active.player.pathing.has_waypoints()
                     && active.player.pathing.steps_taken == 0
                 {
@@ -810,9 +811,10 @@ impl Engine {
     /// Returns `true` if the player is within approach (AP) distance of its
     /// current interaction target.
     ///
-    /// Uses the player's configured `ap_range` (defaulting to 10 tiles) and
-    /// checks both Chebyshev distance and line-of-sight via the shared
-    /// [`entity_in_approach_distance`] helper.
+    /// Uses the player's configured `ap_range` and checks both Chebyshev
+    /// distance and line-of-sight via the shared [`entity_in_approach_distance`]
+    /// helper. An `ap_range` of `None` means approach has been disabled (set by
+    /// the default-ap branch of [`try_interact`]), so this returns `false`.
     ///
     /// # Safety Note
     ///
@@ -823,13 +825,10 @@ impl Engine {
         let Some(target) = &active.player.interaction.target else {
             return false;
         };
-        let range = active
-            .player
-            .interaction
-            .ap_range
-            .map(|r| r as i32)
-            .unwrap_or(10);
-        Self::entity_in_approach_distance(&active.player.pathing, target, range)
+        let Some(range) = active.player.interaction.ap_range else {
+            return false;
+        };
+        Self::entity_in_approach_distance(&active.player.pathing, target, range as i32)
     }
 
     /// Attempts to execute an interaction between the player and its current
