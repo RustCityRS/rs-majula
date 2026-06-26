@@ -97,14 +97,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, NPC_CHANGETYPE_KEEPALL => |s, npc| {
             let duration = s.pop_int();
             let npc_type = pop_npc(s)?;
-            npc.change_type(npc_type.id, duration as u64, false, engine::<E>().clock());
+            npc.change_type(npc_type.id, duration as u64, false);
         });
 
         // 2507
         active_npc_mut!(m, NPC_CHANGETYPE => |s, npc| {
             let duration = s.pop_int();
             let npc_type = pop_npc(s)?;
-            npc.change_type(npc_type.id, duration as u64, true, engine::<E>().clock());
+            npc.change_type(npc_type.id, duration as u64, true);
         });
 
         // 2508

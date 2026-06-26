@@ -53,14 +53,14 @@ impl Zone {
     /// Maximum number of objs (respawn + despawn) retained in a zone. Once this
     /// total is reached, the next add evicts the oldest *despawn* obj to make room;
     /// respawn (static) objs count toward the total but are never evicted.
-    /// `((8 * 8(<<3)) << 2) - 1 = 255`.
-    pub const MAX_OBJS: usize = ((8 << 3) << 2) - 1;
+    /// `((8 * 8(<<3)) << 1) - 1 = 127`.
+    pub const MAX_OBJS: usize = ((8 << 3) << 1) - 1;
 
     /// Maximum number of locs (respawn + despawn) retained in a zone. Once this
     /// total is reached, the next add evicts the oldest *despawn* loc to make room;
     /// respawn (static) locs count toward the total but are never evicted.
-    /// `((8 * 8(<<3)) << 1) - 1 = 127`
-    pub const MAX_LOCS: usize = ((8 << 3) << 1) - 1;
+    /// `((8 * 8(<<3)) << 2) - 1 = 255`.
+    pub const MAX_LOCS: usize = ((8 << 3) << 2) - 1;
 
     /// Creates a new, empty zone at the given coordinate.
     ///
@@ -834,7 +834,7 @@ impl Zone {
     /// different players' private stacks of the same item -- would otherwise share
     /// an oid; the slot disambiguates them. Slots freed by removal are reused, so
     /// values stay small. The dynamic add path is bounded by the per-zone obj cap
-    /// ([`Self::MAX_OBJS`] = 255), so it always finds a slot; the static path is
+    /// ([`Self::MAX_OBJS`] = 127), so it always finds a slot; the static path is
     /// unbounded, so a caller that gets `None` must drop the obj rather than admit a
     /// colliding oid.
     fn assign_obj_slot(&self, local_x: u8, local_z: u8, id: u16) -> Option<u8> {

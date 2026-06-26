@@ -262,8 +262,19 @@ pub trait ScriptEngine {
     /// * `id` - The location type identifier.
     /// * `shape` - The location shape (e.g. wall, centrepiece, ground decor).
     /// * `angle` - The rotation angle (0--3).
-    /// * `duration` - The tick at which the location should revert.
-    fn add_or_change_loc(&mut self, coord: u32, id: u16, shape: u8, angle: u8, duration: u64);
+    /// * `duration` - How many ticks until the change reverts (0 = permanent).
+    /// * `create_if_missing` - When `true` (LOC_ADD), a loc is created if none
+    ///   exists on the layer. When `false` (LOC_CHANGE), a missing loc is left
+    ///   untouched so a deleted dynamic loc is never resurrected.
+    fn add_or_change_loc(
+        &mut self,
+        coord: u32,
+        id: u16,
+        shape: u8,
+        angle: u8,
+        duration: u64,
+        create_if_missing: bool,
+    );
 
     /// Merges a location so that it is only visible to one player.
     ///
@@ -1678,10 +1689,9 @@ pub trait ScriptNpc {
     ///
     /// # Arguments
     /// * `new_type` - The NPC type ID to transform into.
-    /// * `duration` - The tick at which the transformation should revert.
+    /// * `duration` - How many ticks the transformation lasts before reverting.
     /// * `reset` - Whether to reset the NPC's state upon transformation.
-    /// * `clock` - The current game tick.
-    fn change_type(&mut self, new_type: u16, duration: u64, reset: bool, clock: u32);
+    fn change_type(&mut self, new_type: u16, duration: u64, reset: bool);
 
     /// Returns whether the NPC's current target is within its max range.
     fn inrange(&self) -> bool;

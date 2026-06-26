@@ -415,6 +415,7 @@ fn cheat_loc_add(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<()
             LocShape::CentrepieceStraight,
             LocAngle::West,
             500,
+            true,
         );
         active.message_game(&format!(
             "Loc Added: {} (ID: {})",

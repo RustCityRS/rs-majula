@@ -41,7 +41,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .map_err(|_| ScriptError::Runtime(format!("invalid loc shape: {}", shape)))?
                 .layer() as u8;
 
-            engine_mut::<E>().add_or_change_loc(coord, id, shape, angle, duration as u64);
+            engine_mut::<E>().add_or_change_loc(coord, id, shape, angle, duration as u64, true);
 
             let secondary = s.int_operand() != 0;
             set_active_loc(s, LocRef { coord, id, shape, angle, layer }, secondary);
@@ -75,7 +75,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_loc!(m, LOC_CHANGE => |s, loc| {
             let duration = s.pop_int();
             let id = s.pop_int_as::<u16>()?;
-            engine_mut::<E>().add_or_change_loc(loc.coord, id, loc.shape, loc.angle, duration as u64);
+            engine_mut::<E>().add_or_change_loc(loc.coord, id, loc.shape, loc.angle, duration as u64, false);
         });
 
         // 3005

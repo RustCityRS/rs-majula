@@ -1777,6 +1777,7 @@ impl Engine {
         shape: LocShape,
         angle: LocAngle,
         duration: u64,
+        create_if_missing: bool,
     ) {
         let layer = shape.layer();
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
@@ -1830,6 +1831,10 @@ impl Engine {
             }
             self.track_zone(x, y, z);
         } else {
+            if !create_if_missing {
+                return;
+            }
+
             let (blockwalk, blockrange, width, length) = self
                 .cache
                 .locs
@@ -2209,7 +2214,7 @@ impl Engine {
                 .get_by_id(active.npc.uid.id())
                 .map(|t| t.respawnrate as u64)
                 .unwrap_or(100);
-            active.npc.respawn_at = Some(self.clock + respawnrate as u32);
+            active.npc.respawn_at = Some(respawnrate as u32);
         }
     }
 
@@ -2346,7 +2351,7 @@ impl Engine {
                 .get_by_id(active.npc.uid.id())
                 .map(|t| t.respawnrate as u64)
                 .unwrap_or(100);
-            active.npc.respawn_at = Some(self.clock + respawnrate as u32);
+            active.npc.respawn_at = Some(respawnrate as u32);
         } else {
             self.npc_list.remove(nid);
         }
@@ -3212,10 +3217,25 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Engine::add_or_change_loc` (inherent)
-    fn add_or_change_loc(&mut self, coord: u32, id: u16, shape: u8, angle: u8, duration: u64) {
+    fn add_or_change_loc(
+        &mut self,
+        coord: u32,
+        id: u16,
+        shape: u8,
+        angle: u8,
+        duration: u64,
+        create_if_missing: bool,
+    ) {
         let shape = unsafe { std::mem::transmute::<u8, LocShape>(shape) };
         let angle = unsafe { std::mem::transmute::<u8, LocAngle>(angle) };
-        self.add_or_change_loc(CoordGrid::from(coord), id, shape, angle, duration);
+        self.add_or_change_loc(
+            CoordGrid::from(coord),
+            id,
+            shape,
+            angle,
+            duration,
+            create_if_missing,
+        );
     }
 
     /// Merges a location so that it is only visible to one player within a bounded area.
@@ -5614,8 +5634,8 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `ActiveNpc::change_type`
-    fn change_type(&mut self, new_type: u16, duration: u64, reset: bool, clock: u32) {
-        self.change_type(new_type, duration, reset, clock);
+    fn change_type(&mut self, new_type: u16, duration: u64, reset: bool) {
+        self.change_type(new_type, duration, reset);
     }
 
     /// Returns whether the NPC's current target is within its max range

@@ -112,18 +112,23 @@ impl Engine {
         }
 
         if !active.npc.state.delayed && !active.npc.active {
-            if let Some(respawn_at) = active.npc.respawn_at {
-                if self.clock >= respawn_at {
+            if let Some(remaining) = active.npc.respawn_at {
+                if remaining <= 1 {
+                    active.npc.respawn_at = None;
                     Self::respawn_npc(&mut self.zones, active, self.cache);
                     engine_mut().ai_spawn(active.npc.uid, active.npc.base_type);
+                } else {
+                    active.npc.respawn_at = Some(remaining - 1);
                 }
             }
         }
 
         if !active.npc.state.delayed && active.npc.active {
-            if let Some(revert_at) = active.npc.revert_at {
-                if self.clock >= revert_at {
+            if let Some(remaining) = active.npc.revert_at {
+                if remaining <= 1 {
                     active.revert_type();
+                } else {
+                    active.npc.revert_at = Some(remaining - 1);
                 }
             }
         }
