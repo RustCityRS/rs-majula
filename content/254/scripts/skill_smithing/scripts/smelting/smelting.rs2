@@ -1,0 +1,89 @@
+[oplocu,_smithing_furnace]
+switch_obj (last_useitem)
+{
+    case gold_bar, perfect_gold_bar : @craft_gold_interface;
+    case silver_bar : @craft_silver;
+    case steel_bar : @smelt_cannonballs;
+    case bucket_sand, soda_ash : @smelt_glass;
+    case caveorb1, caveorb2, caveorb3, caveorb4 :
+        if(loc_type = furnace_upass) @destroy_orboflight(last_useitem);
+        ~displaymessage(^dm_default);
+    case elemental_workshop_ore : mes("This furnace is not hot enough to smelt elemental ore.");
+    case default :
+        if (oc_category(last_useitem) = category_91) {
+            @smelt_ore(last_useitem);
+        }
+        ~displaymessage(^dm_default);
+}
+
+//--- this is the code that uses p_delays instead of weakqueues
+[label,smelt_ore](obj $last)
+p_arrivedelay();
+// find the bar that the ore smelts to
+def_namedobj $bar = oc_param($last, smeltsto);
+// using coal on furnace assumes steel bar. If using iron on furnace and player has 2 or more coal, then assume steel bar
+if (($last = iron_ore & inv_total(inv, coal) >= 2 & stat(smithing) >= 30) | $last = coal) {
+    $bar = steel_bar;
+}
+// for some reason jagex has blankrune and clay in the ores category
+if ($bar = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+def_struct $struct = oc_param($bar, smelting_struct); 
+// If smithing level isnt high enough, dislpay level fail message
+if (stat(smithing) < struct_param($struct, levelrequired)) {
+    ~mesbox(struct_param($struct, levelfailure));
+    return;
+}
+def_int $primary_total = inv_total(inv, struct_param($struct, ingredient));
+def_int $secondary_total = inv_total(inv, struct_param($struct, ingredient_secondary));
+// If not enough ores
+if ($primary_total < struct_param($struct, bar_count)) {
+    ~mesbox(struct_param($struct, processfailure));
+    return;
+}
+if ($secondary_total < struct_param($struct, ingredient_secondary_count)) {
+    ~mesbox(struct_param($struct, processfailure));
+    return;
+}
+if (afk_event = ^true) {
+    ~macro_event_general_spawn(~macro_event_set_random);
+    return;
+}
+anim(human_furnace, 0);
+sound_synth(furnace, 0, 0);
+mes(struct_param($struct, processmessage));
+
+p_delay(3);
+
+// delete main ore
+inv_del(inv, struct_param($struct, ingredient), struct_param($struct, bar_count));
+// delete secondary ore
+if (struct_param($struct, ingredient_secondary) ! null) {
+    inv_del(inv, struct_param($struct, ingredient_secondary), struct_param($struct, ingredient_secondary_count));
+}
+
+if ($bar = iron_bar) {
+    // if player is wearing ring of forging
+    if (inv_total(worn, ring_of_forging) > 0 & map_members = ^true) {
+        ~lose_charge_ring_of_forging;
+    } else if (randominc(1) = 1) { // else assume 50% chance of success
+        mes("The ore is too impure and you fail to refine it.");
+        return;
+    }
+}
+// if player is wearing gold smith gauntlets, 2.5x xp. The multiplier was 1.5x in RSC,
+// earliest mention of 2.5x (56.2) xp is in aug 2004: https://web.archive.org/web/20040820223401/http://runevillage.net/ThePub/viewtopic.php?p=1257194&amp
+// No mentioned updates to Family Crest or the gauntlets in that period. 
+// Was likely changed when ported to rs2.
+def_int $xp = struct_param($struct, productexp);
+if ($bar = gold_bar & inv_total(worn, gauntlets_of_goldsmithing) > 0) {
+    $xp = scale(5, 2, $xp); // 2.5x
+}
+// display ingame message
+mes(struct_param($struct, productmessage));
+// add product
+inv_add(inv, $bar, 1);
+// add exp
+stat_advance(smithing, $xp);

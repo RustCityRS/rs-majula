@@ -1,0 +1,352 @@
+[opnpc1,death_guard_equiproom]
+switch_int(%death_equiproom) {
+    case ^death_complete :
+        ~chatplayer("<p,happy>Hello there.");
+        ~chatnpc("<p,sad>Hi.");
+        @harold_drink;
+    case ^death_found_combo, ^death_unlocked_door :
+        if(testbit(%death_bits, ^harold_verydrunk) = ^true) {
+            ~chatplayer("<p,happy>Hello there.");
+            ~chatnpc("<p,sad>*hic*");
+            if(%death_equiproom >= ^death_given_iou & ~obj_gettotal(death_iou) = 0 & ~obj_gettotal(death_combination) = 0) @harold_reclaim_iou;
+            @multi2("Would you like to gamble?", harold_gamble, "Can I buy you a drink?", harold_drink);
+        }
+        ~chatplayer("<p,happy>Hello there.");
+        ~chatnpc("<p,sad>Hi.");
+        if(%death_equiproom >= ^death_given_iou & ~obj_gettotal(death_iou) = 0 & ~obj_gettotal(death_combination) = 0) @harold_reclaim_iou;
+        @harold_gamble;
+    case ^death_given_ale, ^death_given_iou :
+        if(testbit(%death_bits, ^harold_verydrunk) = ^true) {
+            ~chatplayer("<p,happy>Hello there.");
+            ~chatnpc("<p,sad>'Ello matey!");
+            if(%death_equiproom >= ^death_given_iou & ~obj_gettotal(death_iou) = 0 & ~obj_gettotal(death_combination) = 0) @harold_reclaim_iou;
+            @multi3("Where were you when you last had the combination?", harold_combo, "Would you like to gamble?", harold_gamble, "Can I buy you a drink?", harold_drink);
+        }
+        ~chatplayer("<p,happy>Hello there.");
+        ~chatnpc("<p,sad>Hi.");
+        if(%death_equiproom >= ^death_given_iou & ~obj_gettotal(death_iou) = 0 & ~obj_gettotal(death_combination) = 0) @harold_reclaim_iou;
+        @multi3("Where were you when you last had the combination?", harold_combo, "Would you like to gamble?", harold_gamble, "Can I buy you a drink?", harold_drink);
+    case ^death_spoken_headservant2 : @harold_drink;
+    case ^death_spoken_harold :
+        ~chatplayer("<p,happy>Hello there.");
+        ~chatnpc("<p,angry>What?");
+        @multi2("You're the guard that was on duty last night?", harold_duty, "Can I buy you a drink?", harold_drink);
+    case ^death_spoken_headservant :
+        ~chatplayer("<p,happy>Hello there.");
+        ~chatnpc("<p,sad>Hi.");
+        @multi2("You're the guard that was on duty last night?", harold_duty, "Can I buy you a drink?", harold_drink);
+}
+
+[opnpcu,death_guard_equiproom]
+if(last_useitem = beer | last_useitem = wizards_mind_bomb | last_useitem = asgarnian_ale | last_useitem = dwarven_stout | last_useitem = dragon_bitter | last_useitem = grog | last_useitem = blurberry_special | last_useitem = premade_blurberry_special) {
+    @harold_drink;
+}
+~displaymessage(^dm_default);
+
+[if_button,death_dice:com_28]
+@player_roll;
+
+[proc,get_death_coins_if]()(int)
+if(~death_get_bet = 1) {
+    return (1);
+} else if(~death_get_bet = 2) {
+    return (2);
+} else if(~death_get_bet = 3) {
+    return (3);
+}  else if(~death_get_bet = 4) {
+    return (4);
+}  else if(~death_get_bet < 25) {
+    return (5);
+} else if(~death_get_bet < 100) {
+    return (6);
+} else if(~death_get_bet < 250) {
+    return (7);
+}  else if(~death_get_bet < 1000) {
+    return (8);
+}  else {
+    return (9);
+}
+
+[label,harold_roll](int $entered_value)
+~death_set_bet($entered_value);
+%if1 = ~get_death_coins_if;
+%if2 = ~get_death_coins_if;
+%death_bits = clearbit(%death_bits, ^death_goldclaimed);
+~death_set_haroldroll(0);
+~death_set_playerroll(0);
+if_settext(death_dice:com_33, "Harold rolls...");
+if_setanim(death_dice:com_2, dice_idle);
+if_setanim(death_dice:com_1, dice_idle);
+if_setanim(death_dice:com_3, dice_idle);
+if_setanim(death_dice:com_4, dice_idle);
+if_sethide(death_dice:com_27, true);
+if_sethide(death_dice:com_29, true);
+if_settext(death_dice:com_6, displayname());
+if_settext(death_dice:com_31, tostring($entered_value));
+if_settext(death_dice:com_32, tostring($entered_value));
+if_openmain(death_dice);
+p_delay(2);
+def_int $harold_roll1 = ~random_range(1, 6);
+if_setanim(death_dice:com_2, enum(int, seq, death_dice_anim, $harold_roll1));
+sound_synth(dice_shake, 0, 0);
+p_delay(2);
+def_int $harold_roll2 = ~random_range(1, 6);
+if_setanim(death_dice:com_1, enum(int, seq, death_dice_anim, $harold_roll2));
+sound_synth(dice_shake, 0, 0);
+~death_set_haroldroll(add($harold_roll1, $harold_roll2));
+p_delay(2);
+queue(haroldgamble_end, 0, 0);
+if_sethide(death_dice:com_27, false);
+if_settext(death_dice:com_33, "Your roll...");
+
+[label,player_roll]
+if_sethide(death_dice:com_27, true);
+def_int $player_roll1 = ~random_range(1, 6);
+if_setanim(death_dice:com_3, enum(int, seq, death_dice_anim, $player_roll1));
+sound_synth(dice_shake, 0, 0);
+p_delay(2);
+def_int $player_roll2 = ~random_range(1, 6);
+if_setanim(death_dice:com_4, enum(int, seq, death_dice_anim, $player_roll2));
+sound_synth(dice_shake, 0, 0);
+~death_set_playerroll(add($player_roll1, $player_roll2));
+p_delay(2);
+%death_bits = setbit(%death_bits, ^death_goldclaimed);
+~dice_winnings;
+if(~death_get_playerroll > ~death_get_haroldroll) {
+    if_settext(death_dice:com_33, "You win!");
+    midi_jingle("dice win");
+} else {
+    if_settext(death_dice:com_33, "You lose!");
+    midi_jingle("dice lose");
+}
+if_sethide(death_dice:com_29, false);
+p_pausebutton;
+if_close;
+
+[proc,dice_winnings]
+%death_bits = setbit(%death_bits, ^death_goldclaimed);
+if(inv_total(inv, coins) < ~death_get_bet) {
+    if(npc_find(coord, death_guard_equiproom, 5, 0) = true) {
+        ~chatnpc("<p,angry>Oi, you don't have enough money on you! Let's have another game."); // guessing mesanim
+    }
+    return;
+}
+if(~death_get_playerroll > 0 & (testbit(%death_bits, ^harold_verydrunk) = ^true | ~death_get_playerroll > ~death_get_haroldroll)) {
+    if(calc(~death_get_haroldgold - ~death_get_bet) < 0) {
+        %death_bits = setbit(%death_bits, ^harold_lostall);
+        return; // done in queue
+    }
+    mes("Harold has given you your winnings!");
+    inv_add(inv, coins, ~death_get_bet);
+    ~death_set_haroldgold(calc(~death_get_haroldgold - ~death_get_bet));
+} else {
+    mes("You give Harold his winnings.");
+    inv_del(inv, coins, ~death_get_bet);
+    ~death_set_haroldgold(calc(~death_get_haroldgold + ~death_get_bet));
+}
+
+[queue,haroldgamble_end]
+if(testbit(%death_bits, ^death_goldclaimed) = ^false) {
+    ~dice_winnings;
+}
+~death_set_bet(0);
+if(testbit(%death_bits, ^harold_lostall) = ^true) {
+    if(npc_find(coord, death_guard_equiproom, 5, 0) = true) {
+        if(testbit(%death_bits, ^harold_verydrunk) = ^false) {
+            ~chatnpc("<p,sad>Oh dear, I seem to have run out of money!");
+            if(~death_get_haroldgold > 0) {
+                inv_add(inv, coins, ~death_get_haroldgold);
+                ~death_set_haroldgold(0);
+                ~chatnpc("<p,sad>Here's what I have.");
+                mes("Harold has given you some of your winnings!");
+                ~objbox(coins_250, "Harold has given you some of your winnings!", 250, 0, 0);
+            }
+            ~chatnpc("<p,sad>I'll write you out an IOU for the rest.");
+            %death_equiproom = ^death_given_iou;
+            inv_add(inv, death_iou, 1);
+            mes("Harold has given you an IOU scribbled on some paper.");
+            ~objbox(death_iou, "Harold has given you an IOU scribbled on some paper.", 250, 0, 0);
+        } else {
+            ~chatnpc("<p,drunk>Um...not enough money.");
+            if(~death_get_haroldgold > 0) {
+                inv_add(inv, coins, ~death_get_haroldgold);
+                ~death_set_haroldgold(0);
+                ~chatnpc("<p,drunk>Heresh shome of it.");
+                mes("Harold has given you some of your winnings!");
+                ~objbox(coins_250, "Harold has given you some of your winnings!", 250, 0, 0);
+            }
+            ~chatnpc("<p,drunk>I owe you the resht!");
+            %death_equiproom = ^death_given_iou;
+            inv_add(inv, death_iou, 1);
+            mes("Harold has given you an IOU scribbled on some paper.");
+            ~objbox(death_iou, "Harold has given you an IOU scribbled on some paper.", 250, 0, 0);
+        }
+    }
+    return;
+}
+if(~death_get_playerroll > 0 & testbit(%death_bits, ^harold_verydrunk) = ^true) {
+    if(npc_find(coord, death_guard_equiproom, 5, 0) = true) {
+        switch_int(random(4)) {
+            case 0 : ~chatnpc("<p,drunk>*hic*");
+            case 1 : ~chatnpc("<p,drunk>I didn't know you could ushe four dishe. Oh well.");
+            case 2 : ~chatnpc("<p,drunk>Shixteen! How am I shupposhed to beat that!");
+            case 3 : ~chatnpc("<p,drunk>I sheemed to have rolled a one.");
+        }
+        mes("Harold is so drunk he can hardly see, let alone count!");
+        ~mesbox("Harold is so drunk he can hardly see, let alone count!");
+        ~death_set_playerroll(16);
+    }
+}
+if(~death_get_playerroll > ~death_get_haroldroll) {
+    ~objbox(coins_250, "Harold has given you your winnings!", 250, 0, 0);
+} else {
+    ~objbox(coins_250, "You give Harold his winnings.", 250, 0, 0);
+}
+
+
+[label,harold_gamble]
+~chatplayer("<p,neutral>Would you like to gamble?");
+if(testbit(%death_bits, ^harold_verydrunk) = ^true) {
+    if(%death_equiproom >= ^death_given_iou) {
+        ~chatnpc("<p,drunk>I'm shure I had money, not anymore!");
+        return;
+    }
+    ~chatnpc("<p,drunk>Shure!");
+    ~chatnpc("<p,drunk>Place your betsh pleashe!");
+    ~chatnpc("<p,drunk>*giggle*");
+} else {
+    if(%death_equiproom >= ^death_given_iou) {
+        ~chatnpc("<p,sad>I've run out of money!");
+        ~chatnpc("<p,sad>Oh dear. I need beer.");
+        return;
+    }
+    ~chatnpc("<p,happy>Good. Good. I have some dice. How much do you want to offer?");
+}
+if_close;
+p_delay(0); // old videos have this it seems, I think it's a workaround otherwise the old chatnpc will appear for a tick after the countdialog is closed
+p_countdialog;
+def_int $entered_value = last_int;
+p_delay(0); // after as well
+if($entered_value > 1000) {
+    if(testbit(%death_bits, ^harold_verydrunk) = ^true) ~chatnpc("<p,drunk>Eashy tiger! Max bet ish 1000 coinsh.");
+    else ~chatnpc("<p,shock>Woah! Do you think I'm made of money? Max bet is 1000 gold.");
+    return;
+}
+if($entered_value <= 0) {
+    mes("You have to offer some money.");
+    return;
+}
+if(inv_total(inv, coins) < $entered_value) {
+    mes("You do not have that much money!");
+    return;
+}
+if(testbit(%death_bits, ^harold_verydrunk) = ^true) {
+    ~chatnpc("<p,drunk>Right...er...here goes...");
+} else {
+    ~chatnpc("<p,happy>OK. I'll roll first!");
+    ~chatnpc("<p,neutral>Don't forget that once I start my roll you can't back out of the bet! If you do you lose your stake!");
+}
+@harold_roll($entered_value);
+
+[label,harold_combo]
+~chatplayer("<p,neutral>Where were you when you last had the combination?");
+if(testbit(%death_bits, ^harold_verydrunk) = ^true) {
+    ~chatnpc("<p,drunk>Hmm...!");
+    ~chatnpc("<p,drunk>Er...!");
+    ~chatnpc("<p,drunk>What wash the queshtion?");
+    return;
+}
+~chatnpc("<p,sad>I honestly don't know! I've looked everywhere. I've searched the castle and my room!");
+~chatplayer("<p,neutral>Have you tried looking between here and the castle?");
+~chatnpc("<p,sad>Yeah, I tried that.");
+~chatnpc("<p,sad>I need another beer.");
+
+[label,harold_duty]
+~chatplayer("<p,neutral>You're the guard that was on duty last night?");
+if(%death_equiproom = ^death_spoken_harold) {
+    ~chatnpc("<p,angry>I said I don't want to talk about it!");
+    return;
+}
+~chatnpc("<p,sad>Yeah.");
+~chatplayer("<p,neutral>Denulth said that you lost the combination to the equipment room?");
+%death_equiproom = ^death_spoken_harold;
+~chatnpc("<p,angry>I don't want to talk about it!");
+
+[label,harold_drink2]
+~chatplayer("<p,neutral>Can I buy you a drink?");
+~chatnpc("<p,happy>Sounds good! I normally drink Asgarnian Ale but you know what?");
+~chatplayer("<p,confused>What?");
+~chatnpc("<p,happy>I really fancy one of those Blurberry Specials. I never get over to the Gnome Stronghold so I haven't had one for ages!");
+if(inv_total(inv, blurberry_special) > 0 | inv_total(inv, premade_blurberry_special) > 0) {
+    %death_bits = setbit(%death_bits, ^harold_verydrunk);
+    if(inv_total(inv, blurberry_special) > 0) {
+        inv_del(inv, blurberry_special, 1);
+        ~objbox(blurberry_special, "You give Harold a Blurberry Special.", 250, 0, ^objbox_height);
+    } else if(inv_total(inv, premade_blurberry_special) > 0) {
+        inv_del(inv, premade_blurberry_special, 1);
+        ~objbox(premade_blurberry_special, "You give Harold a Blurberry Special.", 250, 0, ^objbox_height);
+    }
+    if_close;
+    p_delay(0);
+    npc_anim(human_eat, 0);
+    p_delay(2);
+    npc_say("Wow!");
+    p_delay(2);
+    spotanim_npc(stunned, 124, 0);
+    p_delay(2);
+    ~chatnpc("<p,drunk>Now THAT hit the spot!");
+    return;
+}
+~chatplayer("<p,happy>I'll go and get you one.");
+
+[label,harold_drink]
+if(%death_equiproom = ^death_given_ale & testbit(%death_bits, ^harold_verydrunk) = ^false) {
+    @harold_drink2;
+}
+if(%death_equiproom = ^death_spoken_headservant2) {
+    ~chatplayer("<p,happy>Hello there.");
+    ~chatnpc("<p,angry>What?");
+}
+~chatplayer("<p,neutral>Can I buy you a drink?");
+if(testbit(%death_bits, ^harold_verydrunk) = ^true) {
+    ~chatnpc("<p,drunk>I fink I've had enough!");
+    return;
+}
+~chatnpc("<p,happy>Now you're talking! An Asgarnian Ale please!");
+if(inv_total(inv, asgarnian_ale) > 0) {
+    if(%death_equiproom = ^death_spoken_headservant2) %death_equiproom = ^death_given_ale;
+    inv_del(inv, asgarnian_ale, 1);
+    mes("You give Harold an Asgarnian Ale.");
+    ~objbox(asgarnian_ale, "You give Harold an Asgarnian Ale.", 250, 0, ^objbox_height);
+    if_close;
+    p_delay(0);
+    npc_anim(human_eat, 0);
+    p_delay(2);
+    if(%death_equiproom ! ^death_given_ale) {
+        switch_int(random(4)) {
+            case 0 : ~chatnpc("<p,happy>Mmm... Asgarnian Ale.");
+            case 1 : ~chatnpc("<p,happy>*burp*");
+            case 2 : ~chatnpc("<p,happy>Arrh. That hit the spot!");
+            case 3 : ~chatnpc("<p,happy>Thanks!");
+        }
+    } else {
+        ~chatnpc("<p,happy>Arrh. That hit the spot!");
+    }
+    if(%death_equiproom = ^death_given_ale) @multi3("Where were you when you last had the combination?", harold_combo, "Would you like to gamble?", harold_gamble, "Can I buy you a drink?", harold_drink);
+    return;
+}
+~chatplayer("<p,happy>I'll go and get you one.");
+
+[label,harold_reclaim_iou]
+~chatplayer("<p,confused>I've lost the IOU you gave me.");
+if(testbit(%death_bits, ^harold_verydrunk) = ^true) ~chatnpc("<p,drunk>Oh dear.");
+else ~chatnpc("<p,neutral>I'll write you another.");
+if(%death_equiproom >= ^death_found_combo) {
+    inv_add(inv, death_combination, 1);
+    mes("Harold has given you the IOU, which you know is the combination.");
+    ~objbox(death_combination, "Harold has given you the IOU, which you know is the combination.", 250, 0, 0);
+    return;
+}
+inv_add(inv, death_iou, 1);
+mes("Harold has given you an IOU scribbled on some paper.");
+~objbox(death_iou, "Harold has given you an IOU scribbled on some paper.", 250, 0, 0);

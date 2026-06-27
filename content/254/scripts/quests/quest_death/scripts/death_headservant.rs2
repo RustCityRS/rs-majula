@@ -1,0 +1,61 @@
+[opnpc1,death_headservant]
+~chatplayer("<p,happy>Hi!");
+~chatnpc("<p,happy>Hi, can I help?");
+if(%death_equiproom = ^death_spoken_headservant2) {
+    ~chatplayer("<p,neutral>You said that Harold had a weakness?");
+    ~chatnpc("<p,neutral>Yes, if you buy Harold a beer he might talk to you. I also know he has a weakness for gambling. Hope that helps!");
+    ~chatplayer("<p,happy>Thanks for the help!");
+    return;
+} 
+if(%death_equiproom = ^death_spoken_harold) {
+    ~chatplayer("<p,neutral>I found Harold but he won't talk to me!");
+    %death_equiproom = ^death_spoken_headservant2;
+    ~chatnpc("<p,neutral>Hmm. Harold has got in trouble a few times over his drinking and gambling. Perhaps he'd open up after a drink?");
+    ~chatplayer("<p,happy>Thanks, I'll try that!");
+    return;
+} 
+if(%death_equiproom = ^death_spoken_headservant) {
+    @multi3("Where is the guard that was on last night staying?", eohric_lastnight, "Do you know of another way up Death Plateau?", eohric_plat, "No, I'm just looking around.", eohric_no);
+} else if(%death_equiproom = ^death_started) {
+    @multi3("I'm looking for the guard that was on last night.", eohric_guard, "Do you know of another way up Death Plateau?", eohric_plat, "No, I'm just looking around.", eohric_no);
+}
+def_int $op = ~p_choice4("What is this castle?", 1, "Where is the prince?", 2, "Do you have any quests for me?", 3, "No, I'm just looking around.", 4);
+while($op ! null) {
+    if($op = 1) {
+        ~chatplayer("<p,neutral>What is this castle?");
+        ~chatnpc("<p,neutral>Welcome to Burthorpe Castle! Home to his Royal Highness the Prince of Burthorpe, Heir to the Throne of Asgarnia!");
+        ~chatplayer("<p,shock>Wow!");
+    } else if($op = 2) {
+        ~chatplayer("<p,neutral>Where is the prince?");
+        ~chatnpc("<p,neutral>We do not disclose his majesty's business.");
+    } else if($op = 3) {
+        ~chatplayer("<p,neutral>Do you have any quests for me?");
+        ~chatnpc("<p,neutral>Yes actually I do, we need another servant.");
+        ~chatplayer("<p,neutral>Does this noble quest have a name?");
+        ~chatnpc("<p,shifty>Yes, it's the... er... Empty the Cesspit Quest!");
+        ~chatplayer("<p,angry>I'll give it a miss!");
+    } else if($op = 4) {
+        @eohric_no;
+    }
+    ~chatnpc("<p,neutral>Anything else I can help you with?");
+    $op = ~p_choice4("What is this castle?", 1, "Where is the prince?", 2, "Do you have any quests for me?", 3, "No, I'm just looking around.", 4);
+}
+
+[label,eohric_lastnight]
+~chatplayer("<p,neutral>Where is the guard that was on last night staying?");
+~chatnpc("<p,neutral>Harold is staying at the local inn, the Toad and Chicken.");
+
+[label,eohric_guard]
+~chatplayer("<p,neutral>I'm looking for the guard that was on last night.");
+~chatnpc("<p,neutral>There was only one guard on last night. Harold. He's a nice lad, if a little dim.");
+~chatplayer("<p,neutral>Do you know where he is staying?");
+%death_equiproom = ^death_spoken_headservant;
+~chatnpc("<p,neutral>Harold is staying at the Toad and Chicken.");
+~chatplayer("<p,neutral>Thanks!");
+
+[label,eohric_plat]
+~chatplayer("<p,neutral>Do you know of another way up Death Plateau?");
+~chatnpc("<p,neutral>No, sorry. I wouldn't want to go north-east from here, it's very rocky and barren.");
+
+[label,eohric_no]
+~chatplayer("<p,neutral>No, I'm just looking around.");

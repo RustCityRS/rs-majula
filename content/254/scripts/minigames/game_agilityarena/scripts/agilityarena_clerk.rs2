@@ -1,0 +1,229 @@
+[apnpc1,agilityarena_clerk]
+~chatplayer("<p,happy>Ahoy Cap'n!");
+~chatnpc("<p,happy>Ahoy there!");
+// no parrot head model/npc so no parrot dialogue?
+def_int $op = ~p_choice4("What is this place?", 1, "What do I do in the arena?", 2, "I'd like to use the Agility Arena, please.", 3, "See you later.", 4);
+while($op ! null) {
+    if($op = 1) {
+        ~chatplayer("<p,confused>What is this place?");
+        ~chatnpc("<p,happy>This, me hearty, is the entrance to the Brimhaven Agility Arena!");
+        ~chatnpc("<p,happy>I were diggin for buried treasure when I found it! Amazed I was! It was a sight to behold!");
+        ~chatnpc("<p,happy>It were the biggest thing I'd ever seen! It must've been at least a league from side to side!");
+        ~chatnpc("<p,happy>It made me list, I were that excited!");
+        ~chatnpc("<p,happy>I'd found a huge cave with all these platforms. I reckon it be an ancient civilisation that made it. I had to be mighty careful as there was these traps everywhere! Dangerous it was!");
+        ~chatnpc("<p,happy>Entrance is only 200 coins!");
+        $op = ~p_choice4("What is this place?", 1, "What do I do in the arena?", 2, "I'd like to use the Agility Arena, please.", 3, "See you later.", 4);
+    } else if($op = 2) {
+        ~chatplayer("<p,confused>What do I do in the arena?");
+        ~chatnpc("<p,neutral>Well, me hearty, it's simple. Ye can cross between two platforms by using the traps or obstacles strung across 'em. Try and make your way to the pillar that is indicated by the flashing arrow.");
+        ~chatnpc("<p,neutral>Ye receive tickets for tagging more than one pillar in a row. So ye won't get a ticket from the first pillar but ye will for every platform ye tag in a row after that.");
+        ~chatnpc("<p,neutral>If ye miss a platform ye will miss out on the next ticket so try and get every platform you can! When ye be done, take the tickets to Jackie over there and she'll exchange them for more stuff!");
+        ~chatplayer("<p,happy>Thanks!");
+        $op = ~p_choice4("What is this place?", 1, "What do I do in the arena?", 2, "I'd like to use the Agility Arena, please.", 3, "See you later.", 4);
+    } else if($op = 3) {
+        ~chatplayer("<p,neutral>I'd like to use the Agility Arena, please.");
+        if(testbit(%agilityarena_varbit, ^agilityarena_paid) = ^true) {
+            ~chatnpc("<p,laugh>Ye've already paid, so down ye goes...");
+            return;
+        }
+        ~chatnpc("<p,neutral>Aye, entrance be 200 coins.");
+        ~chatnpc("<p,shock>A word of warning me hearty! There are dangerous traps down there!");
+        if(inv_total(inv, coins) < 200) {
+            ~chatplayer("<p,neutral>I don't have the money on me at the moment.");
+            ~chatnpc("<p,angry>No coins, no entrance!");
+            return;
+        }
+        $op = ~p_choice2("Okay, here's 200 coins.", 1, "Never mind.", 2);
+        if($op = 2) {
+            ~chatplayer("<p,neutral>Never mind.");
+            return;
+        }
+        ~chatplayer("<p,neutral>Okay, here's 200 coins.");
+        %agilityarena_varbit = setbit(%agilityarena_varbit, ^agilityarena_paid);
+        inv_del(inv, coins, 200);
+        mes("You give Cap'n Izzy 200 coins.");
+        ~objbox(coins, "You give Cap'n Izzy 200 coins.", 250, 0, 0);
+        ~chatnpc("<p,happy>May the wind be in ye sails!");
+        return;
+    } else if($op = 4) {
+        ~chatplayer("<p,neutral>See you later.");
+        $op = null;
+    }
+}
+
+[apnpc3,agilityarena_clerk]
+if(testbit(%agilityarena_varbit, ^agilityarena_paid) = ^true) {
+    if(npc_find(coord, agilityarena_clerk, 5, 0) = true) {
+        ~chatnpc("<p,laugh>Avast there, ye've already paid!");
+    }
+    return;
+}
+if(inv_total(inv, coins) < 200) {
+    mes("You don't have the 200 coin entrance fee.");
+    return;
+}
+%agilityarena_varbit = setbit(%agilityarena_varbit, ^agilityarena_paid);
+inv_del(inv, coins, 200);
+mes("You give Cap'n Izzy the 200 coin entrance fee.");
+~objbox(coins, "You give Cap'n Izzy the 200 coin entrance fee.", 250, 0, 0);
+
+[ai_timer,agilityarena_clerk]
+if(map_clock >= %agilityarena_next_pillar_time) {
+    def_int $new_pillar = random(24);
+    while ($new_pillar = %agilityarena_pillar_index) {
+        $new_pillar = random(24);
+    }
+    %agilityarena_pillar_index = $new_pillar;
+    %agilityarena_next_pillar_time = add(map_clock, 98);
+    ~agilityarena_change_planks;
+}
+if(modulo(map_clock, 7) = 0) {
+    // these all happen at the same time afaik
+    if(loc_find(3_43_149_31_15, agilityarena_timedblade2_floor) = true & .loc_find(3_43_149_31_16, agilityarena_timedblade2_floorl) = true) {
+        ~activate_timedblade(0, 1);
+    }
+    if(loc_find(3_43_149_9_48, agilityarena_timedblade2_floor) = true & .loc_find(3_43_149_9_49, agilityarena_timedblade2_floorl) = true) {
+        ~activate_timedblade(0, 1);
+    }
+    if(loc_find(3_43_149_36_43, agilityarena_timedblade2_floor) = true & .loc_find(3_43_149_37_43, agilityarena_timedblade2_floorl) = true) {
+        ~activate_timedblade(1, 0);
+    }
+}
+
+[proc,activate_timedblade](int $dx, int $dz)
+def_coord $dest;
+loc_del(5);
+.loc_del(5);
+loc_add(loc_coord, agilityarena_trap_timedblade2, loc_angle, centrepiece_straight, 5);
+huntall(loc_coord, 4, 0);
+while(huntnext = true) {
+    sound_synth(saw_rise_and_spin, 0, 0);
+    if(coord = loc_coord | coord = movecoord(loc_coord, $dx, 0, $dz)) {
+        if(coord = loc_coord) $dest = movecoord(coord, multiply($dx, -1), 0, multiply($dz, -1));
+        else $dest = movecoord(coord, $dx, 0, $dz);
+        if_close;
+        queue*(agilityarena_timedblade_hit, 0)($dest);
+    }
+}
+
+[queue,agilityarena_timedblade_hit](coord $dest)
+// no delay
+def_int $dir = ^exact_north;
+if(coordz($dest) > coordz(coord)) $dir = ^exact_south;
+else if(coordx($dest) > coordx(coord)) $dir = ^exact_west;
+else if(coordx($dest) < coordx(coord)) $dir = ^exact_east;
+mes("You were hit by the saw blade!");
+anim(human_stumble_back, 30);
+p_exactmove(coord, $dest, 30, 56, $dir);
+queue(damage_player, 0, calc((stat(hitpoints) * 5 / 100) + 2));
+
+[proc,random_fixed_bridge]()(loc)
+switch_int(random(3)) {
+    case 0 : return (agilityarena_plank_middle);
+    case 1 : return (agilityarena_plank2_middle);
+    case 2 : return (agilityarena_plank3_middle);
+}
+
+[proc,random_any_bridge]()(loc)
+if(random(2) = 0) return (~random_fixed_bridge);
+else return (agilityarena_plank_broke1);
+
+[proc,agilityarena_change_planks]
+// only inner planks are changed, one row will have all fixed planks, the other 2 will (always) have broken planks on the outer tiles
+// and any type in the innerwards tiles (seems to be random)
+// the bridges are not synced and dont have the same loc angles when rebuilding
+def_int $rand = random(3);
+if($rand = 0) {
+    loc_add(3_43_149_49_55, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_48_55, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_47_55, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_55, ~random_fixed_bridge, 1, grounddecor, 200);
+
+    loc_add(3_43_149_49_54, agilityarena_plank_broke1, 3, grounddecor, 200);
+    loc_add(3_43_149_48_54, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_47_54, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_54, agilityarena_plank_broke1, 1, grounddecor, 200);
+
+    loc_add(3_43_149_49_53, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_48_53, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_47_53, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_53, agilityarena_plank_broke1, 3, grounddecor, 200);
+} else if ($rand = 1) {
+    loc_add(3_43_149_49_55, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_48_55, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_47_55, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_55, agilityarena_plank_broke1, 1, grounddecor, 200);
+
+    loc_add(3_43_149_49_54, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_48_54, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_47_54, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_54, ~random_fixed_bridge, 1, grounddecor, 200);
+
+    loc_add(3_43_149_49_53, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_48_53, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_47_53, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_53, agilityarena_plank_broke1, 3, grounddecor, 200);
+}  else if ($rand = 2) {
+    loc_add(3_43_149_49_55, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_48_55, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_47_55, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_55, agilityarena_plank_broke1, 1, grounddecor, 200);
+
+    loc_add(3_43_149_49_54, agilityarena_plank_broke1, 3, grounddecor, 200);
+    loc_add(3_43_149_48_54, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_47_54, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_54, agilityarena_plank_broke1, 1, grounddecor, 200);
+
+    loc_add(3_43_149_49_53, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_48_53, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_47_53, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_46_53, ~random_fixed_bridge, 3, grounddecor, 200);
+}
+
+$rand = random(3);
+if($rand = 0) {
+    loc_add(3_43_149_16_22, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_15_22, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_14_22, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_22, ~random_fixed_bridge, 3, grounddecor, 200);
+
+    loc_add(3_43_149_16_21, agilityarena_plank_broke1, 3, grounddecor, 200);
+    loc_add(3_43_149_15_21, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_14_21, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_21, agilityarena_plank_broke1, 3, grounddecor, 200);
+
+    loc_add(3_43_149_16_20, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_15_20, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_14_20, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_20, agilityarena_plank_broke1, 1, grounddecor, 200);
+} else if ($rand = 1) {
+    loc_add(3_43_149_16_22, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_15_22, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_14_22, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_22, agilityarena_plank_broke1, 3, grounddecor, 200);
+
+    loc_add(3_43_149_16_21, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_15_21, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_14_21, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_21, ~random_fixed_bridge, 3, grounddecor, 200);
+
+    loc_add(3_43_149_16_20, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_15_20, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_14_20, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_20, agilityarena_plank_broke1, 1, grounddecor, 200);
+}  else if ($rand = 2) {
+    loc_add(3_43_149_16_22, agilityarena_plank_broke1, 1, grounddecor, 200);
+    loc_add(3_43_149_15_22, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_14_22, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_22, agilityarena_plank_broke1, 3, grounddecor, 200);
+
+    loc_add(3_43_149_16_21, agilityarena_plank_broke1, 3, grounddecor, 200);
+    loc_add(3_43_149_15_21, ~random_any_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_14_21, ~random_any_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_21, agilityarena_plank_broke1, 3, grounddecor, 200);
+
+    loc_add(3_43_149_16_20, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_15_20, ~random_fixed_bridge, 3, grounddecor, 200);
+    loc_add(3_43_149_14_20, ~random_fixed_bridge, 1, grounddecor, 200);
+    loc_add(3_43_149_13_20, ~random_fixed_bridge, 1, grounddecor, 200);
+}

@@ -1,0 +1,72 @@
+[kalphite_burrow_entrance]
+name=Tunnel entrance
+desc=How am I going to get down there?
+model=loc_3827
+width=2
+length=2
+
+[kalphite_burrow_entrance_withrope]
+name=Tunnel entrance
+desc=How am I going to get down there?
+model=loc_3828
+width=2
+length=2
+op1=Climb-down
+
+[kalphite_burrow_exit]
+name=Rope
+desc=I hope this holds!
+model=model_loc_1762
+blockwalk=no
+blockrange=no
+op1=Climb-up
+
+[kalphite_chamber_entrance]
+name=Tunnel entrance
+desc=How am I going to get down there?
+model=loc_3827
+recol1s=25326
+recol1d=18953
+recol2s=24236
+recol2d=16839
+recol3s=20008
+recol3d=14725
+recol4s=15780
+recol4d=12611
+recol5s=11552
+recol5d=10497
+width=2
+length=2
+
+[kalphite_chamber_entrance_withrope]
+name=Tunnel entrance
+desc=How am I going to get down there?
+model=loc_3828
+recol1s=25326
+recol1d=18953
+recol2s=24236
+recol2d=16839
+recol3s=20008
+recol3d=14725
+recol4s=15780
+recol4d=12611
+recol5s=11552
+recol5d=10497
+width=2
+length=2
+op1=Climb-down
+
+[kalphite_chamber_exit]
+name=Rope
+desc=I hope this holds!
+model=model_loc_1762
+blockwalk=no
+blockrange=no
+op1=Climb-up
+
+[kalphite_egg]
+name=Cocoon
+desc=It's moving...
+model=loc_3833
+width=2
+length=2

@@ -1,0 +1,34 @@
+[agilityarena_ticket]
+name=Agility arena ticket
+recol1s=19150
+recol1d=18888
+desc=I can exchange these for further experience or items.
+model=agilityarena_ticket
+cost=1
+2dzoom=1160
+2dyan=1888
+2dzan=8
+2dxan=308
+members=yes
+stackable=yes
+weight=5g
+tradeable=no
+
+[piratehook]
+name=Pirate's hook
+desc=You should see the shark...
+cost=89
+2dxof=-3
+2dzoom=810
+2dyan=2012
+2dxan=680
+members=yes
+model=obj_2997
+manwear=obj_2997_manwear,0
+womanwear=obj_2997_womanwear,0
+iop2=Wear
+weight=300g
+wearpos=hands
+param=stabdefence,1
+param=slashdefence,5
+param=crushdefence,3

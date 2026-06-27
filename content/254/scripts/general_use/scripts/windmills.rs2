@@ -1,0 +1,126 @@
+// revisit later for authenticity
+// there's a good chance the 2004 dialogue is just removing the helpful advice from OSRS
+
+// OSRS mes
+// You fill a pot with the last of the flour in the bin.
+// The flour bin is already empty. You need to place wheat in the hopper upstairs first.
+// You operate the empty hopper. Nothing interesting happens.
+// You put the grain in the hopper. You should now pull the lever nearby to operate the hopper.
+// You operate the hopper. The grain slides down the chute.
+// You operate the empty hopper. Nothing interesting happens.
+// There is already grain in the hopper.
+// You need an empty pot to hold the flour in.
+// You fill a pot with flour from the bin.
+// The flour bin downstairs is now full.
+// The flour bin downstairs is full, I should empty it first.
+
+// OSRS objbox
+// grain, "You haven't got anything to fill the hopper with."
+
+// RSC mes
+// There is already grain in the hopper
+// You put the grain in the hopper
+// The grain slides down the chute
+
+// no varbits to control the visual state so we should check in both
+[oploc1,millbase]
+@millbase_take;
+
+[oploc1,millbase_flour]
+@millbase_take;
+
+[oplocu,millbase]
+@millbase_opu;
+
+[oplocu,millbase_flour]
+@millbase_opu;
+
+[label,millbase_opu]
+if (last_useitem = pot_empty) {
+    if (%flour > 0) p_oploc(1);
+    else @empty_flour_bin;
+} else if(last_useitem = pot_flour) {
+    mes("This pot is already full.");
+} else {
+    ~displaymessage(^dm_default);
+}
+
+[label,millbase_take]
+if (%flour > 0) {
+    @take_flour_bin;
+} else {
+    @empty_flour_bin;
+}
+
+[label,empty_flour_bin]
+mes("The flour bin is already empty.");
+
+[label,take_flour_bin]
+if (inv_total(inv, pot_empty) < 1) {
+    mes("You need an empty pot to hold the flour in.");
+} else {
+    inv_del(inv, pot_empty, 1);
+    inv_add(inv, pot_flour, 1);
+
+    if (%flour > 1) {
+        %flour = sub(%flour, 1);
+        mes("You fill a pot with flour from the bin.");
+    } else {
+        // todo: do we revert visual state? let the loc_change run its course?
+        %flour = 0;
+        mes("You fill a pot with the last of the flour in the bin.");
+        // Temp note: dur does not need updated
+        loc_change(millbase, 500);
+    }
+}
+
+[label,hopper_fill]
+if (last_useitem = grain) {
+    if(%hopper_full = ^false) {
+        inv_del(inv, grain, 1);
+        %hopper_full = ^true;
+        p_arrivedelay;
+        anim(human_pickuptable, 0);
+        p_delay(0);
+        mes("You put the grain in the hopper.");
+        return;
+    }
+    mes("There is already grain in the hopper.");
+} else {
+    ~displaymessage(^dm_default);
+}
+
+[oplocu,hopper_full] @hopper_fill;
+[oplocu,_hopper_nonfull] @hopper_fill;
+
+[oploc1,_hoppercontrol]
+def_coord $hopper_coord = loc_param(hopper_coord);
+def_coord $millbase_coord = loc_param(millbase_coord);
+if(%hopper_full = ^false) {
+    // this message shows up before arrivedelay
+    mes("You operate the empty hopper. Nothing interesting happens.");
+}
+p_arrivedelay;
+anim(human_pickuptable, 0);
+loc_change(hoppercontrol_inuse, 3);
+sound_synth(lever, 0, 0);
+if(%hopper_full = ^true) {
+    if (%flour > 29) {
+        mes("The flour bin downstairs is full, I should empty it first.");
+        return;
+    }
+
+    mes("You operate the hopper. The grain slides down the chute.");
+    sound_synth(millstones, 0, 0);
+    sound_synth(lever, 0, 0); // this sound plays twice
+
+    %hopper_full = ^false;
+    %flour = add(%flour, 1);
+    if (%flour = 30) {
+        mes("The flour bin downstairs is now full.");
+    }
+
+    if (loc_find($millbase_coord, millbase) = true) {
+        loc_change(millbase_flour, 500);
+    }
+}

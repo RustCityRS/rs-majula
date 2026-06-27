@@ -1,0 +1,114 @@
+[if_button,questlist:death]
+// linebreaks dont match osrs, just formatting with split_init
+def_string $text;
+// complete (changes tense and has different breaks so its kind of annoying)
+if(%death_equiproom = ^death_complete) {
+    $text = "@str@I offered to help Denulth by finding another way up Death|@str@Plateau. I also needed to find the combination to the|@str@equipment room and unlock the door.|";
+    $text = append($text, "|@str@The equipment room guard is staying at the local inn, the @str@Toad and Chicken. The guard wouldn't talk to me!|");
+    $text = append($text, "@str@I bought the guard a drink and he seemed more helpful.");
+    $text = append($text, " I @str@gambled with the guard until he ran out of money. He wrote @str@me an IOU.|");
+    $text = append($text, "|@str@It turned out the IOU was written on the back of the|@str@combination!");
+    $text = append($text, " I put the stone balls in the right places on the|@str@@str@stone mechanism and unlocked the door.");
+    $text = append($text, "@str@I found the|@str@sherpa's house. I gave Tenzing the ten loaves of bread,|@str@ten cooked trout and the Spiked boots. Tenzing has given|@str@me a map of the secret way. I checked the|@str@secret way and it is safe for the Imperial Guard to use.");
+    $text = append($text, "||@str@I have given Dunstan the certificate to prove that his son|@str@has been signed up for the Imperial Guard. Dunstan|@str@made me the Spiked boots.");
+    $text = append($text, "||@str@I gave Denulth the secret way map and the combination.|@str@Denulth gave me some Steel claws and trained me in attack.|@str@I'm now an honorary member of the Imperial Guard!||@red@QUEST COMPLETE!");
+    ~quest_journal("Death Plateau", $text);
+    return;
+}
+// equiproom 
+if(%death_equiproom = ^death_not_started) {
+    $text = "@dbl@I can start this quest by speaking to @dre@Denulth@dbl@ who is in his|@dbl@tent at the @dre@Imperial Guard camp@dbl@ in @dre@Burthorpe";
+    ~quest_journal("Death Plateau", $text);
+    return;
+}
+if(~death_get_map = ^death_scouted_area) {
+    $text = "@str@I have found another way up Death Plateau for Denulth.";
+} else {
+    $text = "@dbl@I have offered to help @dre@Denulth@dbl@ by finding @dre@another way@dbl@ up|@dre@Death Plateau.";
+}
+
+if(%death_equiproom < ^death_unlocked_door) {
+    $text = append($text, "@dbl@ I also need to find the @dre@combination@dbl@ to the|@dre@equipment room@dbl@ and @dre@unlock@dbl@ the door.|");
+} else {
+    $text = append($text, "|@str@I have found the combination to the equipment room and|@str@unlocked the door.|");
+}
+
+if(%death_equiproom >= ^death_spoken_headservant2) {
+    $text = append($text, "|@str@The equipment room guard is staying at the local inn, the @str@Toad and Chicken. The guard wouldn't talk to me!|");
+}
+if(%death_equiproom = ^death_spoken_headservant2) {
+    $text = append($text, "@dre@Eohric@dbl@ says to buy the @dre@guard@dbl@ a @dre@drink");
+} else if(%death_equiproom >= ^death_given_ale) {
+    $text = append($text, "@str@I bought the guard a drink and he seemed more helpful."); 
+}
+if(%death_equiproom = ^death_spoken_harold) {
+    $text = append($text, "|@str@The equipment room guard is staying at the local inn, the Toad @str@and Chicken. The guard wouldn't talk to me!");
+} else if (%death_equiproom = ^death_spoken_headservant) {
+    $text = append($text, "|@dre@Eohric@dbl@ said that the @dre@equipment room guard@dbl@ is staying at @dbl@the local inn, the @dre@Toad and Chicken");
+}
+
+if(%death_equiproom >= ^death_given_iou) {
+    $text = append($text, " I @str@gambled with the guard until he ran out of money. He wrote @str@me an IOU.|");
+}
+if(%death_equiproom >= ^death_found_combo) {
+    $text = append($text, "|@str@It turned out the IOU was written on the back of the|@str@combination!");
+}
+if(%death_equiproom >= ^death_unlocked_door) {
+    $text = append($text, " I put the stone balls in the right places on the|@str@@str@stone mechanism and unlocked the door.");
+}
+
+// map 
+if(~death_get_map >= ^death_given_supplies) {
+    $text = append($text, "||@str@I found the sherpa's house. I gave Tenzing the ten loaves|@str@of bread, ten cooked trout and the Spiked boots.");
+    if(~death_get_map = ^death_scouted_area) {
+        $text = append($text, "Tenzing|@str@has given me a map of the secret way. I checked the @str@secret way|@str@and it is safe for the Imperial Guard to use.");
+    } else if (~death_get_map = ^death_got_map) {
+        $text = append($text, "Tenzing|@str@has given me a map of the secret way.|@dbl@I need to @dre@check@dbl@ that the @dre@secret way@dbl@ is @dre@safe@dbl@ for the @dre@Imperial|@dre@Guard@dbl@ to use.");
+    }
+    $text = append($text, "||@str@I have given Dunstan the certificate to prove that his son|@str@has been signed up for the Imperial Guard. Dunstan|@str@made me the Spiked boots.");
+    if(~death_get_map = ^death_scouted_area & %death_equiproom = ^death_unlocked_door) {
+        $text = append($text, "||@dbl@I should go and tell @dre@Denulth@dbl@ I've completed my mission.");
+    } 
+    ~quest_journal("Death Plateau", $text);
+    return;
+}
+
+if(~death_get_map >= ^death_spoken_tenzing) {
+    $text = append($text, "||@str@I found the sherpa's house.||@dre@Tenzing@dbl@ will show me a @dre@secret way@dbl@ up Death Plateau if I get|@dbl@him some items:");
+    if(inv_total(inv, bread) >= 10) {
+        $text = append($text, "|@str@Ten loaves of bread.");
+    } else {
+        $text = append($text, "|@dre@Ten loaves of bread.");
+    }
+    if(inv_total(inv, trout) >= 10) {
+        $text = append($text, "|@str@Ten cooked trout.");
+    } else {
+        $text = append($text, "|@dre@Ten cooked trout.");
+    }
+    if(inv_total(inv, death_spikedboots) > 0) {
+        $text = append($text, "|@str@Spiked boots.");
+    } else {
+        $text = append($text, "|@dre@Spiked boots.");
+    }
+    if(inv_total(inv, death_spikedboots) > 0) {
+        $text = append($text, "|@str@I have given Dunstan the certificate to prove that his son|@str@has been signed up for the Imperial Guard. Dunstan|@str@made me the Spiked boots.");
+        ~quest_journal("Death Plateau", $text);
+        return;
+    }
+    $text = append($text, "||@dre@Tenzing@dbl@ gave me his @dre@climbing boots@dbl@, I need to take them to|@dre@Dunstan@dbl@ in @dre@Burthorpe@dbl@ for the @dre@spikes");
+    if(~death_get_map = ^death_given_cert) {
+        $text = append($text, "||@str@I have given Dunstan the certificate to prove that his son|@str@has been signed up for the Imperial Guard.|@dbl@I will need an @dre@Iron bar@dbl@ for the boots");
+        ~quest_journal("Death Plateau", $text);
+        return;
+    }
+    if(~death_get_map >= ^death_spoken_smithy) {
+        $text = append($text, "||@dre@Dunstan@dbl@ will help me if I get his @dre@son signed up@dbl@ for the @dre@Imperial Guard@dbl@. I will need an @dre@Iron bar@dbl@ for the boots");
+    }
+    if(~death_get_map = ^death_got_entrancecert) {
+        $text = append($text, "||@dre@Denulth@dbl@ gave me a @dre@certificate@dbl@ to prove that Dunstan's son|@dbl@has been signed up for the Imperial Guard.");
+    }
+} else if(~death_get_map = ^death_spoken_saba) {
+    $text = append($text, "||@dre@Saba@dbl@ says that there is a @dre@sherpa@dbl@ living @dre@nearby@dbl@ that may|@dbl@know another way up Death Plateau.");
+}
+
+~quest_journal("Death Plateau", $text);

@@ -1,0 +1,98 @@
+// volume setting if_closes here (interupts the cooking weakqueue)
+// https://youtu.be/neAoU0yiGFY?t=98
+
+[if_button,options:com_0]
+if_close;
+%option_brightness = 1;
+
+[if_button,options:com_1]
+if_close;
+%option_brightness = 1;
+
+[if_button,options:com_2]
+if_close;
+%option_brightness = 2;
+
+[if_button,options:com_3]
+if_close;
+%option_brightness = 2;
+
+[if_button,options:com_4]
+if_close;
+%option_brightness = 3;
+
+[if_button,options:com_5]
+if_close;
+%option_brightness = 3;
+
+[if_button,options:com_6]
+if_close;
+%option_brightness = 4;
+
+[if_button,options:com_7]
+if_close;
+%option_brightness = 4;
+
+[if_button,options:com_8]
+if_close;
+%option_mouse = 0;
+
+[if_button,options:com_9]
+if_close;
+%option_mouse = 1;
+
+[if_button,options:com_10]
+if_close;
+%option_chat = 0;
+
+[if_button,options:com_11]
+if_close;
+%option_chat = 1;
+
+[if_button,options:com_25]
+if_close;
+%option_music = 4;
+
+[if_button,options:com_26]
+if_close;
+%option_music = 3;
+
+[if_button,options:com_27]
+if_close;
+%option_music = 2;
+
+[if_button,options:com_28]
+if_close;
+%option_music = 1;
+
+[if_button,options:com_29]
+if_close;
+%option_music = 0;
+
+[if_button,options:com_36]
+if_close;
+%option_sounds = 4;
+
+[if_button,options:com_37]
+if_close;
+%option_sounds = 3;
+
+[if_button,options:com_38]
+if_close;
+%option_sounds = 2;
+
+[if_button,options:com_39]
+if_close;
+%option_sounds = 1;
+
+[if_button,options:com_40]
+if_close;
+%option_sounds = 0;
+
+[if_button,options:com_47]
+if_close;
+%option_pm = 1;
+
+[if_button,options:com_48]
+if_close;
+%option_pm = 0;

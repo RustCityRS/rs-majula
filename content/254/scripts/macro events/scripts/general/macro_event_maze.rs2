@@ -1,0 +1,195 @@
+[mapzoneexit,0_45_71]
+~macro_events_varps_reset;
+~macro_maze_cleanup;
+
+[mapzone,0_45_71]
+%macro_event = ^macro_maze;
+settimer(macro_maze, 5);
+~update_macro_maze_progress;
+if_openoverlay(mazetimer);
+// https://youtu.be/LWfcA_C2bJY?si=9sY2pzIesH4AkEjO&t=107 tabs not hidden originally
+//https://youtu.be/yCBpihIGy68?si=CsTkheu7cAfGpjHa&t=13 login inside maze
+@music_playbyregion(coord);
+
+[proc,start_macro_maze]
+def_coord $coord = enum(int, coord, macro_maze_teleports, random(enum_getoutputcount(macro_maze_teleports)));
+%xplamp = 100;
+%macro_event_target_coord = coord;
+p_telejump($coord);
+~update_macro_maze_progress;
+if_openoverlay(mazetimer);
+mes("You need to reach the maze centre, then you'll be returned to where you were.");
+~chatnpc_specific("Mysterious Old Man", macro_mysterious_old_man, "<p,neutral>You need to reach the maze centre,|then you'll be returned to where you were."); // Split line as per https://imgur.com/riCliBA
+
+[proc,end_macro_maze]
+if_openoverlay(null);
+cleartimer(macro_maze);
+anim(emote_cheer, 20);
+p_delay(5);
+~macro_return_teleport;
+if (%xplamp > 0) {
+    ~macro_maze_give_reward(~total_level, %xplamp);
+}
+
+[proc,update_macro_maze_progress]
+if_settext(mazetimer:com_2, "<tostring(%xplamp)>%");
+
+[proc,macro_maze_cleanup]
+cleartimer(macro_maze);
+if_openoverlay(null);
+%xplamp = 0;
+
+[timer,macro_maze]
+if (%xplamp > 0) {
+    %xplamp = sub(%xplamp, 1);
+}
+~update_macro_maze_progress;
+
+[oploc1,loc_3626]
+~mesbox("I can't open that.");
+
+[oploc1,_macro_maze_wall_door]
+p_arrivedelay;
+p_walk(loc_coord);
+def_int $door_entry_side = loc_param(approach_direction);
+def_boolean $player_side = ~check_axis(coord, loc_coord, loc_angle);
+def_boolean $should_open = false;
+
+if ($door_entry_side = 0) {
+    $should_open = true;
+} else if ($door_entry_side = 1 & $player_side = true) {
+    $should_open = true;
+} else if ($door_entry_side = 2 & $player_side = false) {
+    $should_open = true;
+}
+if ($should_open = true) {
+    ~open_and_close_door(macro_maze_opened_wall, $player_side, false);
+} else {
+    ~mesbox("I don't think that's the right way.");
+}
+
+[oploc1,loc_3634] // Maze finish statue
+if_close;
+~end_macro_maze;
+
+[oploc1,loc_3635] // Open chest & loot it
+~macro_maze_open_chest(loc_3636);
+
+[oploc1,loc_3636] // Open chest search option
+~mesbox("Awww, it's empty!");
+
+[debugproc,maze]
+if (p_finduid(uid) = false) {
+    return;
+}
+def_coord $coord = enum(int, coord, macro_maze_teleports, random(enum_getoutputcount(macro_maze_teleports)));
+%xplamp = 100;
+%macro_event_target_coord = coord;
+p_telejump($coord);
+~chatnpc_specific("Mysterious Old Man", macro_mysterious_old_man, "<p,neutral>You need to reach the maze centre,|then you'll be returned to where you were."); // Split line as per https://imgur.com/riCliBA
+mes("You need to reach the maze centre, then you'll be returned to where you were.");
+
+[debugproc,mazeend]
+if (p_finduid(uid) = false) {
+    return;
+}
+p_telejump(0_45_71_30_32);
+
+[proc,macro_maze_open_chest](loc $other_chest)
+p_arrivedelay;
+anim(human_openchest, 0);
+sound_synth(chest_open, 0, 0);
+p_delay(0);
+loc_change($other_chest, ^macro_maze_chest_ticks);
+~macro_maze_calculate_chest_loot;
+
+[proc,macro_maze_calc_reward](int $total_level, int $reward_potential_percent)
+def_int $roll;
+def_int $divisor;
+def_int $reward_qty;
+def_int $tmr;
+def_int $tmrmult;
+def_int $denominator;
+def_namedobj $reward_type;
+$roll = random(9);
+
+switch_int($roll) {
+    case 0 : { $reward_type = coins;            $divisor = 1;   }
+    case 1 : { $reward_type = feather;          $divisor = 2;   }
+    case 2 : { $reward_type = iron_arrow;       $divisor = 3;   }
+    case 3 : { $reward_type = chaosrune;        $divisor = 9;   }
+    case 4 : { $reward_type = steel_arrow;      $divisor = 12;  }
+    case 5 : { $reward_type = deathrune;        $divisor = 18;  }
+    case 6 : { $reward_type = cert_coal;        $divisor = 45;  }
+    case 7 : { $reward_type = cert_mithril_ore; $divisor = 162; }
+    case 8 : { $reward_type = naturerune;       $divisor = 180; }
+}
+
+// (total_level × reward_potential × 10) / (3 × divisor × 100)
+$tmr = multiply($total_level, $reward_potential_percent);
+$tmrmult = multiply($tmr, 10);
+$denominator = multiply(multiply(3, $divisor), 100);
+$reward_qty = divide($tmrmult, $denominator);
+
+if ($reward_qty < 1) {
+    $reward_qty = 1;
+}
+
+inv_add(inv, $reward_type, $reward_qty);
+
+[proc,macro_maze_give_reward](int $total_level, int $reward_potential_percent)
+def_int $i;
+$i = 0;
+
+while ($i < 3) {
+    ~macro_maze_calc_reward($total_level, $reward_potential_percent);
+    $i = add($i, 1);
+}
+
+[proc,total_level]()(int)
+def_int $i = 1;
+def_int $total = 0;
+def_stat $stat;
+
+while ($i <= enum_getoutputcount(stats)) {
+    $stat = enum(int, stat, stats, $i);
+    $total = add($total, stat_base($stat));
+    $i = calc($i + 1);
+}
+
+return($total);
+
+[proc,macro_maze_calculate_chest_loot]
+// Sources used: https://www.youtube.com/watch?v=0end9ZuL3vI&t=1041s - https://www.youtube.com/watch?v=OdnmdmAXnSs&t=553s
+// https://www.youtube.com/watch?v=yCBpihIGy68
+p_arrivedelay;
+
+if (%xplamp <= 0) {
+    ~mesbox("Awww, it's empty!");
+    return;
+}
+
+def_int $roll;
+if (map_members() = ^false) {
+    $roll = random(8); // F2P
+} else {
+    $roll = random(10); // Members
+}
+
+switch_int($roll) {
+    case 0 : { ~macro_maze_give_chest_loot(airrune, 15, "You've found some air runes!", 0); }
+    case 1 : { ~macro_maze_give_chest_loot(waterrune, 10, "You've found some water runes!", 0); }
+    case 2 : { ~macro_maze_give_chest_loot(earthrune, 10, "You've found some earth runes!", 0); }
+    case 3 : { ~macro_maze_give_chest_loot(firerune, 10, "You've found some fire runes!", 0); }
+    case 4 : { ~macro_maze_give_chest_loot(bronze_arrow, 20, "You've found some bronze arrows!", 0); }
+    case 5 : { ~macro_maze_give_chest_loot(bolt, 10, "You've found some bolts!", ^objbox_height); }
+    case 6 : { ~macro_maze_give_chest_loot(iron_arrow, 15, "You've found some iron arrows!", 0); }
+    case 7 : { ~macro_maze_give_chest_loot(2dose1strength, 1, "You've found a strength potion!", ^objbox_height); }
+    // Members-only
+    case 8 : { ~macro_maze_give_chest_loot(2dose1attack, 1, "You've found an attack potion!", ^objbox_height); }
+    case 9 : { ~macro_maze_give_chest_loot(2dose1defense, 1, "You've found a defence potion!", ^objbox_height); }
+}
+
+[proc,macro_maze_give_chest_loot](namedobj $item, int $qty, string $text, int $y_offset)
+inv_add(inv, $item, $qty);
+~objbox($item, $text, 200, 0, $y_offset);

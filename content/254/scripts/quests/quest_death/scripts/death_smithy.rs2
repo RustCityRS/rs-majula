@@ -1,0 +1,192 @@
+[opnpc1,death_smithy]
+if(%troll_quest = ^troll_freed_godric) {
+    ~chatplayer("<p,neutral>Has Godric returned home?");
+    ~chatnpc("<p,happy>He is safe and sound, thanks to you my friend!");
+    ~chatplayer("<p,happy>I'm glad to hear it.");
+    ~chatnpc("<p,happy>I have very little to offer you in way of thanks, but perhaps you will accept this family heirloom. It was found by my great-great-grandfather, but we still don't have any idea what it does.");
+    queue(troll_quest_complete, 0, 0);
+    return;
+}
+if(%troll_quest < ^troll_freed_godric & %troll_quest >= ^troll_started) {
+    ~chatnpc("<p,neutral>Have you managed to rescue Godric yet?");
+    ~chatplayer("<p,sad>Not yet.");
+    ~chatnpc("<p,sad>Please hurry! Who knows what they will do to him? Is there anything I can do in the meantime?");
+    @dunstan_ops;
+}
+if(~death_get_map = ^death_spoken_tenzing) {
+    ~chatnpc("<p,happy>Hi! How can I help?");
+    ~chatplayer("<p,neutral>Tenzing has asked me to bring you his climbing boots, he needs to have spikes put on them.");
+    ~chatnpc("<p,angry>He does, does he? Well I won't do it till he pays for the last set I made for him!");
+    ~chatplayer("<p,sad>This is really important!");
+    ~chatnpc("<p,neutral>How so?");
+    ~chatplayer("<p,sad>Well, I need the Sherpa to show me a secret way up Death Plateau so that the Imperial Guard can destroy the troll camp! He won't help me till I've got the spikes!");
+    ~chatnpc("<p,neutral>Hmm. That's different!");
+    ~chatnpc("<p,neutral>Tell you what, I'll make them for you on one condition.");
+    ~chatplayer("<p,neutral>*sigh* What's the condition?");
+    ~death_set_map(^death_spoken_smithy);
+    ~chatnpc("<p,neutral>My son has just turned 16 and I'd very much like him to join the Imperial Guard. The Prince's elite forces are invite only so it's very unlikely he'll get in. If you can arrange that you have a deal!");
+    ~chatplayer("<p,happy>That won't be a problem as I'm helping out the Imperial Guard!");
+    ~chatnpc("<p,happy>Excellent! You'll need to bring an Iron bar for the spikes!");
+    return;
+}
+~chatplayer("<p,happy>Hi!");
+if(~death_get_map = ^death_given_cert) {
+    ~chatnpc("<p,happy>Hi!");
+    @dunstan_bargain;
+}
+if(~death_get_map = ^death_got_entrancecert) {
+    ~chatnpc("<p,neutral>Have you managed to get my son signed up for the Imperial Guard?");
+    if(inv_total(inv, death_entrancecert) > 0) {
+        inv_del(inv, death_entrancecert, 1);
+        ~death_set_map(^death_given_cert);
+        mes("You give Dunstan the certificate.");
+        ~objbox(death_entrancecert, "You give Dunstan the certificate.", 250, 0, 0);
+        ~chatnpc("<p,happy>Thank you!");
+        @dunstan_bargain;
+    }
+    ~chatplayer("<p,neutral>I have but I don't have the entrance certificate on me.");
+    ~chatnpc("<p,neutral>Good but I need to have the certificate.");
+    return;
+}
+if(~death_get_map = ^death_spoken_smithy) {
+    ~chatnpc("<p,neutral>Have you managed to get my son signed up for the Imperial Guard?");
+    ~chatplayer("<p,neutral>Not yet! I just need to speak to Denulth!");
+    return;
+}
+~chatnpc("<p,happy>Hi! Did you want something?");
+@dunstan_ops;
+
+[opnpcu,death_smithy]
+switch_obj(last_useitem) {
+    case default : ~chatnpc("<p,confused>Sorry friend, but I can't do anything with that.");
+}
+
+[label,dunstan_anythingelse]
+~chatnpc("<p,neutral>Anything else before I get on with my work?");
+@dunstan_ops;
+
+// TODO: this is guessed based off OSRS dialogue, reclaim used to be free if you didn't have a law talisman
+[label,dunstan_lawtali]
+~chatplayer("<p,neutral>Can I have another law talisman?");
+~chatnpc("<p,neutral>Well, I've got one here you can have if you'd like it?");
+~chatplayer("<p,happy>Yes, I'll take it.");
+if (inv_freespace(inv) = 0) {
+    ~chatnpc("<p,sad>Looks like you don't have any room to carry it just now, come back when you do.");
+    return;
+}
+inv_add(inv, law_talisman, 1);
+mes("Dunstan hands you a law talisman.");
+~objbox(law_talisman, "Dunstan hands you a law talisman.", 250, 0, 0);
+~chatplayer("<p,neutral>Thanks.");
+
+[label,dunstan_ops]
+if(%troll_quest < ^troll_complete & %troll_quest >= ^troll_started) {
+    @multi3("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
+}
+if(~death_get_map >= ^death_given_supplies) {
+    if(%troll_quest = ^troll_complete & ~obj_gettotal(law_talisman) = 0) {
+        @multi5("Can I have another law talisman?", dunstan_lawtali, "Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "How is your son getting on?", dunstan_son, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
+    }
+    @multi4("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "How is your son getting on?", dunstan_son, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
+}
+switch_int(%death_equiproom) {
+    case default :
+        @multi5("I'm looking for the guard that was on last night.", dunstan_guard, "Do you know of another way up Death Plateau?", dunstan_plat, "Is it OK if I use your anvil?", dunstan_anvil, "Can you repair my items for me?", dunstan_repair, "Nothing, thanks.", dunstan_nothing);
+    case ^death_not_started :
+        @multi2("Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
+}
+
+[label,dunstan_spikeboots]
+~chatplayer("<p,neutral>Can you put some spikes on my Climbing boots?");
+~chatnpc("<p,neutral>For you, no problem.");
+~chatnpc("<p,neutral>Do you realise that you can only use the Climbing boots right now? The Spiked boots can only be used in the Icelands but no ones been able to get there for years!");
+switch_int(~p_choice2("Yes, but I still want them.", 1, "Oh OK, I'll leave them thanks.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Yes, but I still want them.");
+        if(inv_total(inv, iron_bar) = 0) {
+            ~chatnpc("<p,neutral>Sorry, I'll need an Iron bar to make the spikes.");
+        } else if(inv_total(inv, death_climbingboots) = 0) {
+            ~chatplayer("<p,neutral>I don't have them on me.");
+        } else {
+            inv_del(inv, iron_bar, 1);
+            inv_del(inv, death_climbingboots, 1);
+            inv_add(inv, death_spikedboots, 1);
+            mes("You give Dunstan an Iron bar and the climbing boots.");
+            mes("Dunstan has given you the Spiked boots.");
+            ~doubleobjbox(iron_bar, death_climbingboots, "You give Dunstan an Iron bar and the climbing boots.| ", 200); // does this break in osrs (and the space)
+            ~objbox(death_spikedboots, "Dunstan has given you the Spiked boots.", 250, 0, ^objbox_height);
+        }
+        @dunstan_anythingelse;
+    case 2 :
+        ~chatplayer("<p,neutral>Oh OK, I'll leave them thanks.");
+        @dunstan_anythingelse;
+}
+
+[label,dunstan_son]
+~chatplayer("<p,neutral>How is your son getting on?");
+if(%troll_quest = ^troll_complete) {
+    ~chatnpc("<p,happy>He is getting on fine! He has just been promoted to Sergeant! I'm really proud of him!");
+    ~chatplayer("<p,happy>I'm happy for you!");
+    @dunstan_anythingelse;
+}
+if(%death_equiproom = ^death_complete) {
+    ~chatnpc("<p,sad>He was captured by those cursed trolls! I don't know what to do. Even the imperial guard are too afraid to go rescue him.");
+    ~chatplayer("<p,sad>What happened?");
+    ~chatnpc("<p,sad>Talk to Denulth, he can tell you all about it. Anything else before I get on with my work?");
+    @multi4("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "How is your son getting on?", dunstan_son, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
+}
+~chatnpc("<p,happy>He is getting on fine! He has just started his basic training and has already been promoted to corporal! I'm really proud of him!");
+~chatplayer("<p,happy>I'm happy for you!");
+@dunstan_anythingelse;
+
+[label,dunstan_guard]
+~chatplayer("<p,neutral>I'm looking for the guard that was on duty last night.");
+~chatnpc("<p,neutral>I can't help you there I'm afraid, I don't know any of the guards.");
+@dunstan_anythingelse;
+
+[label,dunstan_plat]
+~chatplayer("<p,neutral>Do you know of another way up Death Plateau?");
+~chatnpc("<p,laugh>I've never left the village!");
+@dunstan_anythingelse;
+
+[label,dunstan_anvil]
+~chatplayer("<p,neutral>Is it OK if I use your anvil?");
+~chatnpc("<p,neutral>So you're a smithy are you?");
+~chatplayer("<p,neutral>I dabble.");
+~chatnpc("<p,neutral>A fellow smith is welcome to use my anvil!");
+~chatplayer("<p,happy>Thanks!");
+@dunstan_anythingelse;
+
+// todo: this should prob be shared with bob and the others
+[label,dunstan_repair]
+~chatplayer("<p,sad>Can you repair my items for me?");
+~chatnpc("<p,shock>Of course I'll repair it, though the materials may cost you. Just hand me the item and I'll have a look.");
+
+[label,dunstan_nothing]
+~chatplayer("<p,neutral>Nothing, thanks.");
+
+[label,dunstan_bargain]
+// https://oldschool.runescape.wiki/w/Update:Patch_Notes_(8_August_2013), no bank specific dialog, but still has bank check I think?
+if(~obj_gettotal(death_spikedboots) > 0) {
+    ~chatnpc("<p,neutral>I see you've got the spiked boots. Are you going to take them to the Sherpa?");
+    ~chatplayer("<p,neutral>I will do shortly.");
+    return;
+}
+~chatnpc("<p,neutral>Now to keep my end of the bargain. Give me the boots and an iron bar and I'll put on the spikes.");
+if(inv_total(inv, iron_bar) = 0 & inv_total(inv, death_climbingboots) = 0) {
+    ~chatplayer("<p,neutral>I don't have the iron bar or the climbing boots.");
+} else if(inv_total(inv, iron_bar) = 0) {
+    ~chatplayer("<p,neutral>I don't have the iron bar.");
+} else if(inv_total(inv, death_climbingboots) = 0) {
+    ~chatplayer("<p,neutral>I don't have the climbing boots.");
+} else {
+    inv_del(inv, iron_bar, 1);
+    inv_del(inv, death_climbingboots, 1);
+    inv_add(inv, death_spikedboots, 1);
+    mes("You give Dunstan an Iron bar and the climbing boots.");
+    mes("Dunstan has given you the Spiked boots.");
+    ~doubleobjbox(iron_bar, death_climbingboots, "You give Dunstan an Iron bar and the climbing boots.", 200);
+    ~objbox(death_spikedboots, "Dunstan has given you the Spiked boots.", 250, 0, ^objbox_height);
+    ~chatplayer("<p,happy>Thank you!");
+    ~chatnpc("<p,happy>No problem.");
+}

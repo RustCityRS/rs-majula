@@ -1,0 +1,129 @@
+
+[leverg]
+name=Lever
+desc=This lever is down.
+model=model_loc_33
+active=yes
+op1=Pull
+
+[leverg2]
+name=Lever
+desc=This lever is up.
+model=model_loc_34
+active=yes
+op1=Pull
+
+[leverh]
+name=Lever
+desc=This lever is down.
+model=model_loc_33
+active=yes
+op1=Pull
+
+[leverh2]
+name=Lever
+desc=This lever is up.
+model=model_loc_34
+active=yes
+op1=Pull
+
+[leveri]
+name=Lever
+desc=This lever is down.
+model=model_loc_33
+active=yes
+op1=Pull
+
+[leveri2]
+name=Lever
+desc=This lever is up.
+model=model_loc_34
+active=yes
+op1=Pull
+
+[famcrest_doorh2]
+name=Door
+desc=This door is closed by an unknown mechanism.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+
+[famcrest_doorh2i2]
+name=Door
+desc=This door is closed by an unknown mechanism.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+
+[famcrest_doorg2h1]
+name=Door
+desc=This door is closed by an unknown mechanism.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+
+[famcrest_doori2h1]
+name=Door
+desc=This door is closed by an unknown mechanism.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+
+[famcrest_doorh2g1]
+name=Door
+desc=This door is closed by an unknown mechanism.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+
+// These gates were added in rev 194, and removed somewhere between 299 and 306.
+// Can't find any footage of how they operated, but are no opened versions available,
+// so assuming they close automatically after the player passes through.
+[chronodoorl]
+name=Gate
+desc=This gate is closed shut.
+model=model_loc_52
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+category=double_door_open_and_close_left
+param=next_loc_stage,loc_1562
+param=open_sound,grate_open
+
+[chronodoorr]
+name=Gate
+desc=This gate is closed shut.
+model=model_loc_52
+active=yes
+op1=Open
+mirror=yes
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+category=double_door_open_and_close_right
+param=next_loc_stage,loc_1563
+param=open_sound,grate_open

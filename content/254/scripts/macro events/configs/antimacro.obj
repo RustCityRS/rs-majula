@@ -1,0 +1,783 @@
+[macro_triffidfruit]
+name=Strange fruit
+desc=I wonder what this tastes like?
+model=model_2432_obj
+members=yes
+2dzoom=940
+2dyan=56
+2dxan=116
+weight=3oz
+iop1=Eat
+param=cures_poison,yes
+
+[macro_pickaxehandle]
+name=Pickaxe handle
+desc=Useless without the head.
+model=model_2597_obj
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=1lb
+category=weapon_blunt
+manwear=model_558_obj_wear,0
+womanwear=model_558_obj_wear,6
+cost=1
+param=attackrate,5
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=crush_sound,baxe_crush
+// stats mentioned here https://web.archive.org/web/20050303033424/http://koti.mbnet.fi/~timpat/index2.htm -> esineet -> aseet -> Kirveenvarsi(Headless axe)
+// Trivia mentions that the this item can be taken to the entrana. https://runescape.wiki/w/Lost_City
+
+[macro_broken_bronze_pickaxe]
+name=Broken pickaxe
+desc=Nurmof can fix this for me.
+model=model_2662_obj
+recol1s=15855
+recol1d=8354
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=4lb
+category=weapon_blunt
+manwear=model_530_obj_wear,0
+womanwear=model_530_obj_wear,6
+cost=0
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_nurmof,^true
+param=fixed,bronze_pickaxe
+
+[macro_broken_iron_pickaxe]
+name=Broken pickaxe
+desc=Nurmof can fix this for me.
+model=model_2662_obj
+recol1s=15855
+recol1d=8456
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=4lb
+category=weapon_blunt
+manwear=model_530_obj_wear,0
+womanwear=model_530_obj_wear,6
+cost=0
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_nurmof,^true
+param=fixed,iron_pickaxe
+
+[macro_broken_steel_pickaxe]
+name=Broken pickaxe
+desc=Nurmof can fix this for me.
+model=model_2662_obj
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=4lb
+category=weapon_blunt
+manwear=model_530_obj_wear,0
+womanwear=model_530_obj_wear,6
+cost=17
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_nurmof,^true
+param=fixed,steel_pickaxe
+
+[macro_broken_mithril_pickaxe]
+name=Broken pickaxe
+desc=Nurmof can fix this for me.
+model=model_2662_obj
+recol1s=15855
+recol1d=6346
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=4lb
+category=weapon_blunt
+manwear=model_530_obj_wear,0
+womanwear=model_530_obj_wear,6
+cost=43
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_nurmof,^true
+param=fixed,mithril_pickaxe
+
+[macro_broken_adamant_pickaxe]
+name=Broken pickaxe
+desc=Nurmof can fix this for me.
+model=model_2662_obj
+recol1s=15855
+recol1d=6438
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=4lb
+category=weapon_blunt
+manwear=model_530_obj_wear,0
+womanwear=model_530_obj_wear,6
+cost=107
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_nurmof,^true
+param=fixed,adamant_pickaxe
+
+[macro_broken_rune_pickaxe]
+name=Broken pickaxe
+desc=Nurmof can fix this for me.
+model=model_2662_obj
+recol1s=15855
+recol1d=6476
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+wearpos=righthand
+weight=4lb
+category=weapon_blunt
+manwear=model_530_obj_wear,0
+womanwear=model_530_obj_wear,6
+cost=1100
+param=attackrate,5
+param=stabattack_anim,human_blunt_pound
+param=crushattack_anim,human_blunt_spike
+param=defend_anim,human_axe_block
+param=stab_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_nurmof,^true
+param=fixed,rune_pickaxe
+
+[macro_bronze_pickaxehead]
+name=Pickaxe head
+desc=It's missing a handle.
+model=model_2732_obj
+recol1s=15855
+recol1d=8354
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+weight=4lb
+cost=1
+param=fixed,bronze_pickaxe
+
+[macro_iron_pickaxehead]
+name=Pickaxe head
+desc=It's missing a handle.
+model=model_2732_obj
+recol1s=15855
+recol1d=8456
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+weight=4lb
+cost=139
+param=fixed,iron_pickaxe
+
+[macro_steel_pickaxehead]
+name=Pickaxe head
+desc=It's missing a handle.
+model=model_2732_obj
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+weight=4lb
+cost=499
+param=fixed,steel_pickaxe
+
+[macro_mithril_pickaxehead]
+name=Pickaxe head
+desc=It's missing a handle.
+model=model_2732_obj
+recol1s=15855
+recol1d=6346
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+weight=4lb
+cost=1299
+param=fixed,mithril_pickaxe
+
+[macro_adamant_pickaxehead]
+name=Pickaxe head
+desc=It's missing a handle.
+model=model_2732_obj
+recol1s=15855
+recol1d=6438
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+weight=4lb
+cost=3199
+param=fixed,adamant_pickaxe
+
+[macro_rune_pickaxehead]
+name=Pickaxe head
+desc=It's missing a handle.
+model=model_2732_obj
+recol1s=15855
+recol1d=6476
+2dxof=-2
+2dyof=-19
+2dzoom=1070
+2dyan=1056
+2dxan=224
+weight=4lb
+cost=31999
+param=fixed,rune_pickaxe
+
+[macro_hatchethandle]
+name=Axe handle
+desc=Useless without the head.
+model=model_2597_obj
+recol1s=4160
+recol1d=15649
+2dxof=-19
+2dyof=-6
+2dzoom=1220
+2dyan=84
+2dxan=440
+wearpos=righthand
+weight=1lb
+category=weapon_blunt
+manwear=model_557_obj_wear,0
+womanwear=model_557_obj_wear,6
+cost=1
+param=attackrate,5
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=crush_sound,baxe_crush
+// stats mentioned here https://web.archive.org/web/20050303033424/http://koti.mbnet.fi/~timpat/index2.htm -> esineet -> aseet -> Kirveenvarsi(Headless axe)
+// Trivia mentions that the this item can be taken to the entrana. https://runescape.wiki/w/Lost_City
+
+[macro_broken_bronze_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+recol1s=15855
+recol1d=8354
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=0
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,bronze_axe
+
+[macro_broken_iron_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+recol1s=15855
+recol1d=8456
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=0
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,iron_axe
+
+[macro_broken_steel_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=0
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,steel_axe
+
+[macro_broken_black_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+recol1s=15855
+recol1d=0
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=10
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,black_axe
+
+[macro_broken_mithril_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+recol1s=15855
+recol1d=6346
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=18
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,mithril_axe
+
+[macro_broken_adamant_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+recol1s=15855
+recol1d=6438
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=43
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,adamant_axe
+
+[macro_broken_rune_hatchet]
+name=Broken axe
+desc=Bob can fix this for me.
+model=model_2342_obj
+recol1s=15855
+recol1d=6476
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+wearpos=righthand
+weight=2lb
+category=weapon_blunt
+manwear=model_487_obj_wear,0
+womanwear=model_487_obj_wear,6
+cost=427
+param=attackrate,5
+param=slashattack_anim,human_axe_hack
+param=crushattack_anim,human_blunt_pound
+param=defend_anim,human_axe_block
+param=slash_sound,baxe_slash
+param=crush_sound,baxe_crush
+param=to_be_fixed_by_bob,^true
+param=fixed,rune_axe
+
+[macro_bronze_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+recol1s=15855
+recol1d=8354
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=2lb
+cost=15
+param=fixed,bronze_axe
+
+[macro_iron_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+recol1s=15855
+recol1d=8456
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=2lb
+cost=55
+param=fixed,iron_axe
+
+[macro_steel_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=2lb
+cost=199
+param=fixed,steel_axe
+
+[macro_black_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+recol1s=15855
+recol1d=0
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=2lb
+cost=383
+param=fixed,black_axe
+
+[macro_mithril_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+recol1s=15855
+recol1d=6346
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=24oz
+cost=519
+param=fixed,mithril_axe
+
+[macro_adamant_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+recol1s=15855
+recol1d=6438
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=40oz
+cost=1279
+param=fixed,adamant_axe
+
+[macro_rune_hatchethead]
+name=Axe head
+desc=It's missing a handle.
+model=model_2444_obj
+recol1s=15855
+recol1d=6476
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+weight=2lb
+cost=12799
+param=fixed,rune_axe
+
+[macro_mime_mask]
+name=Mime mask
+desc=A mime would wear this.
+model=obj_3057
+2dyof=-2
+2dzoom=480
+2dzan=2024
+2dxan=436
+iop2=Wear
+manwear=model_3598,0
+womanwear=obj_3057_womanwear,0
+manhead=model_3548
+womanhead=model_3548
+wearpos=hat
+wearpos2=jaw
+weight=1g
+tradeable=no
+
+[macro_mime_top]
+name=Mime top
+recol1s=8384
+recol1d=23263
+recol2s=14724
+recol2d=2114
+desc=A mime would wear this.
+model=obj_3058
+2dyof=4
+2dzoom=1160
+2dxan=528
+iop2=Wear
+manwear=model_292_idk,0
+manwear2=model_163_idk
+manwear3=obj_3058_manwear3
+womanwear=model_456_idk,0
+womanwear2=model_348_idk
+womanwear3=obj_3058_womanwear3
+wearpos=torso
+wearpos2=arms
+weight=1g
+tradeable=no
+
+[macro_mime_legs]
+name=Mime legs
+recol1s=2340
+recol1d=2114
+desc=A mime would wear these.
+model=model_2517
+manwear=model_254_idk,0
+womanwear=model_419_idk,0
+iop2=Wear
+2dxof=1
+2dyof=4
+2dzoom=1690
+2dyan=2044
+2dzan=32
+2dxan=620
+wearpos=legs
+weight=1g
+tradeable=no
+
+[macro_mime_gloves]
+name=Mime gloves
+recol1s=9473
+recol1d=23263
+desc=A mime would wear these.
+model=model_2649_obj
+iop2=Wear
+manwear=model_179_obj_wear,0
+womanwear=model_356_obj_wear,0
+2dxof=8
+2dyof=-8
+2dzoom=930
+2dyan=828
+2dxan=420
+wearpos=hands
+weight=1g
+tradeable=no
+
+[macro_mime_boots]
+name=Mime boots
+recol1s=7298
+recol1d=2114
+desc=A mime would wear these.
+model=model_2837_obj
+manwear=model_185_obj_wear,0
+womanwear=model_361_obj_wear,0
+iop2=Wear
+2dxof=1
+2dyof=-6
+2dzoom=770
+2dyan=160
+2dxan=152
+wearpos=feet
+weight=12oz
+tradeable=no
+
+[macro_cube]
+name=Strange box
+model=obj_3062
+2dxof=15
+2dyof=-126
+2dzoom=3840
+2dyan=1684
+2dxan=108
+iop1=Open
+desc=It seems to be humming...
+stackable=yes
+weight=5kg
+tradeable=no
+
+[macro_cube_redtriangle]
+name=Cube part
+recol1s=29596
+recol1d=16547
+model=obj_3063
+2dzoom=1500
+
+[macro_cube_bluetriangle]
+name=Cube part
+recol1s=29596
+recol1d=5293
+model=obj_3063
+2dzoom=1500
+
+[macro_cube_yellowtriangle]
+name=Cube part
+recol1s=29596
+recol1d=17893
+model=obj_3063
+2dzoom=1500
+
+[macro_cube_redsquare]
+name=Cube part
+recol1s=29596
+recol1d=16547
+model=obj_3069
+2dzoom=1500
+
+[macro_cube_bluesquare]
+name=Cube part
+recol1s=29596
+recol1d=5293
+model=obj_3069
+2dzoom=1500
+
+[macro_cube_yellowsquare]
+name=Cube part
+recol1s=29596
+recol1d=17893
+model=obj_3069
+2dzoom=1500
+
+[macro_cube_redcircle]
+name=Cube part
+recol1s=29596
+recol1d=16547
+model=obj_3075
+2dzoom=1500
+
+[macro_cube_bluecircle]
+name=Cube part
+recol1s=29596
+recol1d=5293
+model=obj_3075
+2dzoom=1500
+
+[macro_cube_yellowcircle]
+name=Cube part
+recol1s=29596
+recol1d=17893
+model=obj_3075
+2dzoom=1500
+
+[macro_cube_redstar]
+name=Cube part
+recol1s=29596
+recol1d=16547
+model=obj_3081
+2dzoom=1500
+
+[macro_cube_bluestar]
+name=Cube part
+recol1s=29596
+recol1d=5293
+model=obj_3081
+2dzoom=1500
+
+[macro_cube_yellowstar]
+name=Cube part
+recol1s=29596
+recol1d=17893
+model=obj_3081
+2dzoom=1500
+
+[macro_cube_redhalfmoon]
+name=Cube part
+recol1s=29596
+recol1d=16547
+model=obj_3087
+2dzoom=1500
+
+[macro_cube_bluehalfmoon]
+name=Cube part
+recol1s=29596
+recol1d=5293
+model=obj_3087
+2dzoom=1500
+
+[macro_cube_yellowhalfmoon]
+name=Cube part
+recol1s=29596
+recol1d=17893
+model=obj_3087
+2dzoom=1500
