@@ -278,6 +278,13 @@ pub fn get_param_value_for_type(
                 .map(|id| id as i32)
                 .unwrap_or(-1),
         )),
+        "midi" => Some(ParamValue::Int(
+            registry
+                .midi
+                .get_by_debugname(value)
+                .map(|id| id as i32)
+                .unwrap_or(-1),
+        )),
         _ => None,
     }
 }

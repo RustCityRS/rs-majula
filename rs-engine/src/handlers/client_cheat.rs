@@ -276,6 +276,7 @@ fn cheat_debugproc(
             ScriptVarType::PlayerUid => {}
             ScriptVarType::NpcUid => {}
             ScriptVarType::DbRow => {}
+            ScriptVarType::Midi => {}
         }
     }
 

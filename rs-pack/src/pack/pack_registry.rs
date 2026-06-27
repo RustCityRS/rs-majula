@@ -92,6 +92,7 @@ pub struct PackRegistry {
     pub flo: PackFile,
     pub texture: PackFile,
     pub anim: PackFile,
+    pub midi: PackFile,
     pack_dir: std::path::PathBuf,
 }
 
@@ -125,9 +126,10 @@ impl PackRegistry {
         let flo = load("flo")?;
         let texture = load("texture")?;
         let anim = load("anim")?;
+        let midi = load("midi")?;
 
         debug!(
-            "PackRegistry: npc={} obj={} loc={} hunt={} param={} cat={} seq={} varp={} varn={} model={} interface={} dbrow={} synth={} flo={} texture={} spotanim={} anim={} idk={}",
+            "PackRegistry: npc={} obj={} loc={} hunt={} param={} cat={} seq={} varp={} varn={} model={} interface={} dbrow={} synth={} flo={} texture={} spotanim={} anim={} idk={} midi={}",
             npc.max,
             obj.max,
             loc.max,
@@ -146,6 +148,7 @@ impl PackRegistry {
             spotanim.max,
             anim.max,
             idk.max,
+            midi.max,
         );
 
         Ok(Self {
@@ -172,6 +175,7 @@ impl PackRegistry {
             flo,
             texture,
             anim,
+            midi,
             pack_dir: pack_dir.to_path_buf(),
         })
     }

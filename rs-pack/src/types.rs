@@ -212,6 +212,7 @@ pub enum ScriptVarType {
     NpcStat = 254,   // þ
     Idkit = 75,      // K
     DbRow = 208,     // Ð
+    Midi = 77,       // M
 }
 
 impl ScriptVarType {
@@ -247,6 +248,7 @@ impl ScriptVarType {
             "player_uid" => Self::PlayerUid,
             "npc_uid" => Self::NpcUid,
             "dbrow" => Self::DbRow,
+            "midi" => Self::Midi,
             _ => panic!("Unknown script var type: '{name}'"),
         }
     }
@@ -276,6 +278,7 @@ impl ScriptVarType {
             Self::NpcUid => "npc_uid",
             Self::DbRow => "dbrow",
             Self::Interface => "interface",
+            Self::Midi => "midi",
         }
     }
 }

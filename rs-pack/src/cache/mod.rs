@@ -161,6 +161,7 @@ pub enum VarValue {
     NpcStat(i32),
     Idkit(i32),
     DbRow(i32),
+    Midi(i32),
 }
 
 impl VarValue {
@@ -191,6 +192,7 @@ impl VarValue {
             ScriptVarType::NpcStat => VarValue::NpcStat(value),
             ScriptVarType::Idkit => VarValue::Idkit(value),
             ScriptVarType::DbRow => VarValue::DbRow(value),
+            ScriptVarType::Midi => VarValue::Midi(value),
         }
     }
 
@@ -220,6 +222,7 @@ impl VarValue {
             ScriptVarType::NpcUid => VarValue::NpcUid(-1),
             ScriptVarType::Idkit => VarValue::Idkit(-1),
             ScriptVarType::DbRow => VarValue::DbRow(-1),
+            ScriptVarType::Midi => VarValue::Midi(-1),
         }
     }
 
@@ -249,7 +252,8 @@ impl VarValue {
             | VarValue::Interface(v)
             | VarValue::NpcStat(v)
             | VarValue::Idkit(v)
-            | VarValue::DbRow(v) => *v,
+            | VarValue::DbRow(v)
+            | VarValue::Midi(v) => *v,
         }
     }
 }
