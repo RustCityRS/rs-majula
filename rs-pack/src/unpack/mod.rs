@@ -2,6 +2,7 @@ pub mod config;
 pub mod map;
 pub mod media;
 pub mod model;
+mod namecrack;
 pub mod report;
 pub mod song;
 pub mod sound;
@@ -361,6 +362,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     }
 
     crc_report.write(output_dir)?;
+    leftover.crack_unknown_names();
     leftover.write(output_dir)?;
 
     debug!("Unpack complete.");

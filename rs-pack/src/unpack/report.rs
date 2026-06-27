@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use std::fmt::Write as _;
+use std::fmt::{Display, Write as _};
 use std::path::Path;
 
 use rs_io::crc;
@@ -99,7 +99,9 @@ impl CrcReport {
         out.push('\n');
         out.push_str("# JAG archive CRCs (cache CRC over each archive's raw bytes)\n");
         out.push_str("# idx0 = JS5 index-0 file slot the archive lives in (since 244)\n");
-        out.push_str("# name            idx0  cache          constant       status\n");
+        out.push_str(&archive_crc_row(
+            "# name", "idx0", "cache", "constant", "status",
+        ));
         for a in &self.archives {
             let (status, mismatch) = crc_status(a.computed, a.expected);
             mismatches += mismatch as usize;
@@ -109,25 +111,17 @@ impl CrcReport {
             let expected = a
                 .expected
                 .map_or_else(|| "-".to_string(), |e| e.to_string());
-            writeln!(
-                out,
-                "{:<16}{:<6}{:>11}  {:>13}  {status}",
-                a.name, idx0, a.computed, expected
-            )
-            .unwrap();
+            out.push_str(&archive_crc_row(
+                &a.name, idx0, a.computed, expected, status,
+            ));
         }
 
         out.push_str("\n# Per-config-type client .dat CRCs (constant = config_crc::*)\n");
-        out.push_str("# type            cache          constant       status\n");
+        out.push_str(&config_crc_row("# type", "cache", "constant", "status"));
         for c in &self.configs {
             let (status, mismatch) = crc_status(c.computed, Some(c.expected));
             mismatches += mismatch as usize;
-            writeln!(
-                out,
-                "{:<16}{:>11}  {:>13}  {status}",
-                c.name, c.computed, c.expected
-            )
-            .unwrap();
+            out.push_str(&config_crc_row(&c.name, c.computed, c.expected, status));
         }
 
         #[cfg(since_244)]
@@ -136,7 +130,14 @@ impl CrcReport {
             out.push_str(
                 "# listed = CRC the version list records; recomputed = getcrc over the stored blob minus its 2-byte version trailer\n",
             );
-            out.push_str("# table   id      version  listed         recomputed     status\n");
+            out.push_str(&js5_ondemand_row(
+                "# table",
+                "id",
+                "version",
+                "listed",
+                "recomputed",
+                "status",
+            ));
             for r in &self.js5_ondemand {
                 let (status, mismatch, recomputed) = match r.recomputed {
                     Some(rc) => {
@@ -146,12 +147,9 @@ impl CrcReport {
                     None => ("absent", false, "-".to_string()),
                 };
                 mismatches += mismatch as usize;
-                writeln!(
-                    out,
-                    "{:<8}{:<8}{:<9}{:>11}  {:>13}  {status}",
-                    r.table, r.id, r.version, r.expected, recomputed
-                )
-                .unwrap();
+                out.push_str(&js5_ondemand_row(
+                    r.table, r.id, r.version, r.expected, recomputed, status,
+                ));
             }
         }
 
@@ -174,6 +172,8 @@ struct UnknownJagFile {
     hash: i32,
     packed: usize,
     unpacked: usize,
+    crc: i32,
+    candidates: Vec<String>,
 }
 
 #[cfg(since_244)]
@@ -212,13 +212,31 @@ impl LeftoverReport {
                 .file_unpacks
                 .as_ref()
                 .map_or(0, |u| u[i].max(0) as usize);
+            let crc = jag
+                .get(i)
+                .map_or(0, |p| crc::getcrc(&p.data, 0, p.data.len()));
             self.unknown_jag.push(UnknownJagFile {
                 archive: archive.to_string(),
                 id: i,
                 hash,
                 packed,
                 unpacked,
+                crc,
+                candidates: Vec::new(),
             });
+        }
+    }
+
+    pub fn crack_unknown_names(&mut self) {
+        if self.unknown_jag.is_empty() {
+            return;
+        }
+        let targets: Vec<i32> = self.unknown_jag.iter().map(|u| u.hash).collect();
+        let cracked = super::namecrack::crack(&targets);
+        for entry in &mut self.unknown_jag {
+            if let Some(names) = cracked.get(&entry.hash) {
+                entry.candidates = names.clone();
+            }
         }
     }
 
@@ -275,39 +293,48 @@ impl LeftoverReport {
 
         if !self.unknown_jag.is_empty() {
             out.push_str("\n## Unknown files inside JAG archives (hash has no known name)\n");
-            out.push_str("# archive         id         hash          packed   unpacked\n");
+            out.push_str(&unknown_row(
+                "# archive",
+                "id",
+                "hash",
+                "packed",
+                "unpacked",
+                "crc",
+            ));
             for u in &self.unknown_jag {
-                writeln!(
-                    out,
-                    "{:<16}{:>4}  {:>16}  {:>8}  {:>8}",
-                    u.archive, u.id, u.hash, u.packed, u.unpacked
-                )
-                .unwrap();
+                out.push_str(&unknown_row(
+                    &u.archive, u.id, u.hash, u.packed, u.unpacked, u.crc,
+                ));
+                if u.candidates.is_empty() {
+                    out.push_str("    candidates: none within search bounds\n");
+                } else {
+                    writeln!(out, "    candidates: {}", u.candidates.join(", ")).unwrap();
+                }
             }
         }
 
         if !self.dat_trailing.is_empty() {
             out.push_str("\n## Trailing bytes past the last entry in a config .dat\n");
-            out.push_str("# type            bytes\n");
+            out.push_str(&dat_trailing_row("# type", "bytes"));
             for (name, bytes) in &self.dat_trailing {
-                writeln!(out, "{name:<16}{bytes}").unwrap();
+                out.push_str(&dat_trailing_row(name, bytes));
             }
         }
 
         if !self.record_trailing.is_empty() {
             out.push_str("\n## Trailing bytes inside a config record (after its 0 terminator)\n");
-            out.push_str("# type            id      bytes\n");
+            out.push_str(&record_trailing_row("# type", "id", "bytes"));
             for r in &self.record_trailing {
-                writeln!(out, "{:<16}{:<8}{}", r.config_type, r.id, r.bytes).unwrap();
+                out.push_str(&record_trailing_row(r.config_type, r.id, r.bytes));
             }
         }
 
         #[cfg(since_244)]
         if !self.js5_unread.is_empty() {
             out.push_str("\n## Unread JS5 blobs (present in the cache, never extracted)\n");
-            out.push_str("# index  file    size       reason\n");
+            out.push_str(&js5_unread_row("# index", "file", "size", "reason"));
             for u in &self.js5_unread {
-                writeln!(out, "{:<7}{:<8}{:<11}{}", u.index, u.file, u.size, u.reason).unwrap();
+                out.push_str(&js5_unread_row(u.index, u.file, u.size, u.reason));
             }
         }
 
@@ -356,6 +383,66 @@ impl LeftoverReport {
 
         Ok(())
     }
+}
+
+fn unknown_row(
+    archive: impl Display,
+    id: impl Display,
+    hash: impl Display,
+    packed: impl Display,
+    unpacked: impl Display,
+    crc: impl Display,
+) -> String {
+    format!("{archive:<16}{id:>6}{hash:>14}{packed:>11}{unpacked:>11}{crc:>16}\n")
+}
+
+fn archive_crc_row(
+    name: impl Display,
+    idx0: impl Display,
+    cache: impl Display,
+    constant: impl Display,
+    status: impl Display,
+) -> String {
+    format!("{name:<16}{idx0:<6}{cache:>11}{constant:>15}  {status}\n")
+}
+
+fn config_crc_row(
+    ty: impl Display,
+    cache: impl Display,
+    constant: impl Display,
+    status: impl Display,
+) -> String {
+    format!("{ty:<16}{cache:>11}{constant:>15}  {status}\n")
+}
+
+#[cfg(since_244)]
+fn js5_ondemand_row(
+    table: impl Display,
+    id: impl Display,
+    version: impl Display,
+    listed: impl Display,
+    recomputed: impl Display,
+    status: impl Display,
+) -> String {
+    format!("{table:<8}{id:<8}{version:<9}{listed:>11}{recomputed:>15}  {status}\n")
+}
+
+fn dat_trailing_row(ty: impl Display, bytes: impl Display) -> String {
+    format!("{ty:<16}{bytes}\n")
+}
+
+fn record_trailing_row(ty: impl Display, id: impl Display, bytes: impl Display) -> String {
+    format!("{ty:<16}{id:<8}{bytes}\n")
+}
+
+#[cfg(since_244)]
+fn js5_unread_row(
+    index: impl Display,
+    file: impl Display,
+    size: impl Display,
+    reason: impl Display,
+) -> String {
+    format!("{index:<8}{file:<8}{size:<11}{reason}\n")
 }
 
 fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
