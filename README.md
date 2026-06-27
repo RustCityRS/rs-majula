@@ -167,7 +167,7 @@ Simply change the `REV` located in `/.cargo/config.toml` and rebuild.
 
 ```toml
 [env]
-REV = "244"
+REV = "245.2"
 ```
 
 ### 225 (2004-05-18)
