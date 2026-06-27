@@ -115,6 +115,13 @@ pub fn pack_assets(
     );
     debug!("Packing categories...");
     results.insert("category".to_string(), category::pack_categories(registry)?);
+    #[cfg(since_254)]
+    debug!("Packing varbit configs...");
+    #[cfg(since_254)]
+    results.insert(
+        "varbit".to_string(),
+        varbit::pack_varbits(&fc, registry, &constants, verify)?,
+    );
     Ok(results)
 }
 
@@ -125,8 +132,28 @@ pub struct FileCache {
 
 impl FileCache {
     const TEXT_EXTS: &[&str] = &[
-        "param", "obj", "npc", "loc", "seq", "flo", "inv", "enum", "hunt", "idk", "mesanim",
-        "spotanim", "varp", "varn", "vars", "struct", "dbtable", "dbrow", "constant", "if",
+        "param",
+        "obj",
+        "npc",
+        "loc",
+        "seq",
+        "flo",
+        "inv",
+        "enum",
+        "hunt",
+        "idk",
+        "mesanim",
+        "spotanim",
+        "varp",
+        "varn",
+        "vars",
+        "struct",
+        "dbtable",
+        "dbrow",
+        "constant",
+        "if",
+        #[cfg(since_254)]
+        "varbit",
     ];
     pub fn new(source_dir: &Path) -> Self {
         let mut files = Vec::new();

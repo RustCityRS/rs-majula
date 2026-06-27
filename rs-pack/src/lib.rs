@@ -312,7 +312,7 @@ pub fn pack_all(
         &mut crcs,
         &mut jags,
         "config",
-        assemble_config_jag(&mut assets),
+        assemble_config_jag(&mut assets, pack),
         jag_crc::CONFIG,
         verify,
     );
@@ -600,16 +600,41 @@ where
     TypeProvider::from_bytes::<Raw>(&packed_file.server.dat, ctx)
 }
 
-fn assemble_config_jag(assets: &mut HashMap<String, pack::pack_registry::PackedFile>) -> Vec<u8> {
-    let config_types = ["seq", "loc", "flo", "spotanim", "obj", "npc", "idk", "varp"];
+fn assemble_config_jag(
+    assets: &mut HashMap<String, pack::pack_registry::PackedFile>,
+    pack_dir: &Path,
+) -> Vec<u8> {
+    let order: Vec<String> = std::fs::read_to_string(pack_dir.join("config.order"))
+        .expect("Missing config.order")
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty())
+        .map(str::to_string)
+        .collect();
+
+    let mut clients: HashMap<&str, _> = HashMap::new();
+    for entry in &order {
+        let kind = entry.split_once('.').map_or(entry.as_str(), |(k, _)| k);
+        if !clients.contains_key(kind)
+            && let Some(client) = assets.get_mut(kind).and_then(|pf| pf.client.take())
+        {
+            clients.insert(kind, client);
+        }
+    }
+
     let mut jag = JagFile::new();
     let mut has_data = false;
-    for name in config_types {
-        if let Some(packed_file) = assets.get_mut(name)
-            && let Some(client) = packed_file.client.take()
-        {
-            jag.write(&format!("{name}.dat"), client.dat);
-            jag.write(&format!("{name}.idx"), client.idx);
+    for entry in &order {
+        let Some((kind, ext)) = entry.split_once('.') else {
+            continue;
+        };
+        if let Some(client) = clients.get_mut(kind) {
+            let data = if ext == "idx" {
+                std::mem::take(&mut client.idx)
+            } else {
+                std::mem::take(&mut client.dat)
+            };
+            jag.write(entry, data);
             has_data = true;
         }
     }

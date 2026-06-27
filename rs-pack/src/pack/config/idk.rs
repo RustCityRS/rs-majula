@@ -75,7 +75,10 @@ pub fn pack_idks(
                 }),
 
                 // 60-69
-                _ if key.starts_with("head") => {
+                _ if key
+                    .strip_prefix("head")
+                    .is_some_and(|rest| rest.starts_with(|c: char| c.is_ascii_digit())) =>
+                {
                     parse_model_kind(registry, "head", key, value, |v| {
                         head_models.push((v.0, v.1))
                     })

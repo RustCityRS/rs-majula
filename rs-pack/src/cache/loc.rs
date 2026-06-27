@@ -2,6 +2,8 @@ use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
 use crate::types::ForceApproach;
+#[cfg(since_254)]
+use crate::types::LocShape;
 use rs_io::Packet;
 use rustc_hash::FxHashMap;
 
@@ -90,6 +92,8 @@ pub struct LocTypeRaw {
     pub forcedecor: bool,
     #[cfg(since_245_2)]
     pub breakroutefinding: bool,
+    #[cfg(since_254)]
+    pub raiseobject: Option<u8>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -134,6 +138,8 @@ impl CacheType for LocTypeRaw {
             forcedecor: false,
             #[cfg(since_245_2)]
             breakroutefinding: false,
+            #[cfg(since_254)]
+            raiseobject: None,
             params: None,
             debugname: None,
         }
@@ -151,6 +157,18 @@ impl CacheType for LocTypeRaw {
                         let model = buf.g2();
                         let shape = buf.g1();
                         models.push(LocModelShape { model, shape });
+                    }
+                    self.models = Some(models.into_boxed_slice());
+                }
+                #[cfg(since_254)]
+                5 => {
+                    let count = buf.g1() as usize;
+                    let mut models = Vec::with_capacity(count);
+                    for _ in 0..count {
+                        models.push(LocModelShape {
+                            model: buf.g2(),
+                            shape: LocShape::CentrepieceStraight as u8,
+                        });
                     }
                     self.models = Some(models.into_boxed_slice());
                 }
@@ -200,6 +218,8 @@ impl CacheType for LocTypeRaw {
                 73 => self.forcedecor = true,
                 #[cfg(since_245_2)]
                 74 => self.breakroutefinding = true,
+                #[cfg(since_254)]
+                75 => self.raiseobject = Some(buf.g1()),
                 249 => ParamType::decode_params(
                     buf,
                     self.params

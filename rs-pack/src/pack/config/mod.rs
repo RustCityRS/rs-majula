@@ -14,6 +14,8 @@ pub mod param;
 pub mod seq;
 pub mod spotanim;
 pub mod r#struct;
+#[cfg(since_254)]
+pub mod varbit;
 pub mod varn;
 pub mod varp;
 pub mod vars;

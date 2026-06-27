@@ -180,6 +180,8 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         let entries = dump_jag_entries(&jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
         debug!("  Dumped {} raw config entries", entries.len());
 
+        std::fs::write(pack_dir.join("config.order"), entries.join("\n") + "\n")?;
+
         leftover.add_config_leftovers(packs.leftovers, packs.dat_trailing);
         model_categories = packs.model_categories;
     }

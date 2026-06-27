@@ -934,6 +934,20 @@ pub enum IfScriptOp {
     RunEnergy = 11,
     RunWeight = 12,
     TestBit = 13,
+    #[cfg(since_254)]
+    PushVarbit = 14,
+    #[cfg(since_254)]
+    Subtract = 15,
+    #[cfg(since_254)]
+    Divide = 16,
+    #[cfg(since_254)]
+    Multiply = 17,
+    #[cfg(since_254)]
+    CoordX = 18,
+    #[cfg(since_254)]
+    CoordZ = 19,
+    #[cfg(since_254)]
+    PushConstant = 20,
 }
 
 impl IfScriptOp {
@@ -952,6 +966,20 @@ impl IfScriptOp {
             "runenergy" => Self::RunEnergy,
             "runweight" => Self::RunWeight,
             "testbit" => Self::TestBit,
+            #[cfg(since_254)]
+            "push_varbit" => Self::PushVarbit,
+            #[cfg(since_254)]
+            "subtract" => Self::Subtract,
+            #[cfg(since_254)]
+            "divide" => Self::Divide,
+            #[cfg(since_254)]
+            "multiply" => Self::Multiply,
+            #[cfg(since_254)]
+            "coordx" => Self::CoordX,
+            #[cfg(since_254)]
+            "coordz" => Self::CoordZ,
+            #[cfg(since_254)]
+            "push_constant" => Self::PushConstant,
             _ => panic!("Unknown script op: {s}"),
         }
     }

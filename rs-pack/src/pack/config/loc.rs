@@ -59,7 +59,7 @@ pub fn pack_locs(
         for (key, value) in props {
             match key.as_str() {
                 // 1
-                "model" => src_models.push(value),
+                _ if key.starts_with("model") => src_models.push(value),
 
                 // 2
                 "name" => name = Some(value.to_string()),
@@ -303,6 +303,16 @@ pub fn pack_locs(
                     }
                 }),
 
+                // 75
+                "raiseobject" => parse_bool(value, |v| {
+                    if !v {
+                        client.p1(75);
+                        client.p1(0);
+                        server.p1(75);
+                        server.p1(0);
+                    }
+                }),
+
                 // 249
                 "param" => {} // handled at the end
 
@@ -374,6 +384,7 @@ pub fn pack_locs(
             panic!("{debugname}: Failed to find suitable loc models");
         }
 
+        #[cfg(before_254)]
         if !models.is_empty() {
             client.p1(1);
             client.p1(models.len() as u8);
@@ -384,6 +395,40 @@ pub fn pack_locs(
                 client.p1(m.shape);
                 server.p2(m.model);
                 server.p1(m.shape);
+            }
+        }
+
+        #[cfg(since_254)]
+        if !models.is_empty() {
+            let mut centrepiece_only = true;
+            for model in &models {
+                let loc_shape = LocShape::try_from(model.shape)?;
+                if loc_shape != LocShape::CentrepieceStraight {
+                    centrepiece_only = false;
+                    break;
+                }
+            }
+
+            if centrepiece_only {
+                client.p1(5);
+                client.p1(models.len() as u8);
+                server.p1(5);
+                server.p1(models.len() as u8);
+                for m in &models {
+                    client.p2(m.model);
+                    server.p2(m.model);
+                }
+            } else {
+                client.p1(1);
+                client.p1(models.len() as u8);
+                server.p1(1);
+                server.p1(models.len() as u8);
+                for m in &models {
+                    client.p2(m.model);
+                    client.p1(m.shape);
+                    server.p2(m.model);
+                    server.p1(m.shape);
+                }
             }
         }
 

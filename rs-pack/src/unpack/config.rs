@@ -733,9 +733,7 @@ fn decode_loc_entries(
                     let count = buf.g1() as usize;
                     let mut pairs: Vec<(u16, u8)> = Vec::new();
                     for _ in 0..count {
-                        let model_id = buf.g2();
-                        let shape = buf.g1();
-                        pairs.push((model_id, shape));
+                        pairs.push((buf.g2(), buf.g1()));
                     }
                     let base = format!("model_loc_{id}");
                     for &(mid, shape) in &pairs {
@@ -750,14 +748,16 @@ fn decode_loc_entries(
                 3 => props.push(("desc".into(), buf.gjstr(10))),
                 5 => {
                     let count = buf.g1() as usize;
-                    let mut models: Vec<u16> = Vec::new();
+                    let mut pairs: Vec<(u16, u8)> = Vec::new();
                     for _ in 0..count {
-                        let model_id = buf.g2();
-                        models.push(model_id);
+                        pairs.push((buf.g2(), LocShape::CentrepieceStraight as u8));
                     }
                     let base = format!("model_loc_{id}");
-                    for &mid in &models {
-                        packs.name_model(mid, format!("{base}"), ModelCategory::Loc);
+                    for &(mid, shape) in &pairs {
+                        let suffix = LocShape::try_from(shape)
+                            .expect("unknown loc shape")
+                            .suffix();
+                        packs.name_model(mid, format!("{base}{suffix}"), ModelCategory::Loc);
                     }
                     props.push(("model".into(), base));
                 }
@@ -816,7 +816,10 @@ fn decode_loc_entries(
                 #[cfg(since_245_2)]
                 74 => props.push(("breakroutefinding".into(), "yes".into())),
                 #[cfg(since_254)]
-                75 => props.push(("raiseobject".into(), buf.g1().to_string())),
+                75 => {
+                    let v = if buf.g1() == 1 { "yes" } else { "no" };
+                    props.push(("raiseobject".into(), v.into()));
+                }
                 _ => panic!("Unrecognized loc config code: {code}"),
             }
         }

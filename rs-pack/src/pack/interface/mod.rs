@@ -65,6 +65,8 @@ fn count_script_ops(src: &HashMap<String, String>, j: usize) -> usize {
                     count += 1
                 }
                 "inv_count" | "inv_contains" | "testbit" => count += 2,
+                #[cfg(since_254)]
+                "push_varbit" | "push_constant" => count += 1,
                 _ => {}
             }
         }
@@ -411,6 +413,21 @@ pub fn pack_interfaces(
                             client.p2(bit);
                             server.p2(varp_link);
                             server.p2(bit);
+                        }
+                        #[cfg(since_254)]
+                        "push_varbit" => {
+                            let varbit_link = registry
+                                .varbit
+                                .get_by_debugname(parts.get(1).copied().unwrap())
+                                .unwrap();
+                            client.p2(varbit_link);
+                            server.p2(varbit_link);
+                        }
+                        #[cfg(since_254)]
+                        "push_constant" => {
+                            let value = parts.get(1).and_then(|v| v.parse::<u16>().ok()).unwrap();
+                            client.p2(value);
+                            server.p2(value);
                         }
                         _ => {}
                     }

@@ -93,6 +93,8 @@ pub struct PackRegistry {
     pub texture: PackFile,
     pub anim: PackFile,
     pub midi: PackFile,
+    #[cfg(since_254)]
+    pub varbit: PackFile,
     pack_dir: std::path::PathBuf,
 }
 
@@ -127,6 +129,8 @@ impl PackRegistry {
         let texture = load("texture")?;
         let anim = load("anim")?;
         let midi = load("midi")?;
+        #[cfg(since_254)]
+        let varbit = load("varbit")?;
 
         debug!(
             "PackRegistry: npc={} obj={} loc={} hunt={} param={} cat={} seq={} varp={} varn={} model={} interface={} dbrow={} synth={} flo={} texture={} spotanim={} anim={} idk={} midi={}",
@@ -176,6 +180,8 @@ impl PackRegistry {
             texture,
             anim,
             midi,
+            #[cfg(since_254)]
+            varbit,
             pack_dir: pack_dir.to_path_buf(),
         })
     }
