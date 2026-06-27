@@ -170,6 +170,7 @@ impl CrcReport {
 
 struct UnknownJagFile {
     archive: String,
+    id: usize,
     hash: i32,
     packed: usize,
     unpacked: usize,
@@ -213,6 +214,7 @@ impl LeftoverReport {
                 .map_or(0, |u| u[i].max(0) as usize);
             self.unknown_jag.push(UnknownJagFile {
                 archive: archive.to_string(),
+                id: i,
                 hash,
                 packed,
                 unpacked,
@@ -273,12 +275,12 @@ impl LeftoverReport {
 
         if !self.unknown_jag.is_empty() {
             out.push_str("\n## Unknown files inside JAG archives (hash has no known name)\n");
-            out.push_str("# archive         hash          packed   unpacked\n");
+            out.push_str("# archive         id         hash          packed   unpacked\n");
             for u in &self.unknown_jag {
                 writeln!(
                     out,
-                    "{:<16}{:>11}  {:>8}  {:>8}",
-                    u.archive, u.hash, u.packed, u.unpacked
+                    "{:<16}{:>4}  {:>16}  {:>8}  {:>8}",
+                    u.archive, u.id, u.hash, u.packed, u.unpacked
                 )
                 .unwrap();
             }
