@@ -157,6 +157,7 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 535204494;
     pub const SPOTANIM: i32 = -555849646;
     pub const INTERFACE: i32 = 1728499832;
+    pub const VARBIT: i32 = -1387031023;
 }
 
 #[cfg(rev = "225")]

@@ -24,7 +24,7 @@ use std::path::Path;
 use std::path::PathBuf;
 use tracing::debug;
 
-const CONFIG_TYPE_CRCS: [(&str, i32); 8] = [
+const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("seq", config_crc::SEQ),
     ("loc", config_crc::LOC),
     ("flo", config_crc::FLO),
@@ -33,6 +33,8 @@ const CONFIG_TYPE_CRCS: [(&str, i32); 8] = [
     ("npc", config_crc::NPC),
     ("idk", config_crc::IDK),
     ("varp", config_crc::VARP),
+    #[cfg(since_254)]
+    ("varbit", config_crc::VARBIT),
 ];
 
 const CONFIG_ENTRY_NAMES: &[&str] = &[
@@ -52,6 +54,10 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
     "idk.idx",
     "varp.dat",
     "varp.idx",
+    #[cfg(since_254)]
+    "varbit.dat",
+    #[cfg(since_254)]
+    "varbit.idx",
 ];
 
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
@@ -166,7 +172,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
         for (name, expected) in CONFIG_TYPE_CRCS {
             if let Some(dat) = jag.read(&format!("{name}.dat")) {
-                crc_report.config(name, &dat.data, expected);
+                crc_report.config(name, &dat.data, *expected);
             }
         }
 
