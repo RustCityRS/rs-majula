@@ -94,6 +94,19 @@ pub(crate) mod jag_crc {
     pub const VERSIONLIST: Option<i32> = Some(-1979342254);
 }
 
+#[cfg(rev = "254")]
+pub(crate) mod jag_crc {
+    pub const TITLE: Option<i32> = Some(-1);
+    pub const CONFIG: Option<i32> = Some(-1);
+    pub const INTERFACE: Option<i32> = Some(-1);
+    pub const MEDIA: Option<i32> = Some(-1);
+    pub const MODELS: Option<i32> = None;
+    pub const TEXTURES: Option<i32> = Some(-1);
+    pub const WORDENC: Option<i32> = Some(-1);
+    pub const SOUNDS: Option<i32> = Some(-1);
+    pub const VERSIONLIST: Option<i32> = Some(-1);
+}
+
 #[cfg(rev = "225")]
 pub(crate) mod config_crc {
     pub const SEQ: i32 = 1638136604;
@@ -131,6 +144,19 @@ pub(crate) mod config_crc {
     pub const OBJ: i32 = 344600333;
     pub const SPOTANIM: i32 = 96621343;
     pub const INTERFACE: i32 = 587792799;
+}
+
+#[cfg(rev = "254")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = -1;
+    pub const LOC: i32 = -1;
+    pub const FLO: i32 = -1;
+    pub const IDK: i32 = -1;
+    pub const VARP: i32 = -1;
+    pub const NPC: i32 = -1;
+    pub const OBJ: i32 = -1;
+    pub const SPOTANIM: i32 = -1;
+    pub const INTERFACE: i32 = -1;
 }
 
 #[cfg(rev = "225")]
