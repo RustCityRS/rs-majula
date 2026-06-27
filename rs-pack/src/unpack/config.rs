@@ -746,6 +746,19 @@ fn decode_loc_entries(
                 }
                 2 => props.push(("name".into(), buf.gjstr(10))),
                 3 => props.push(("desc".into(), buf.gjstr(10))),
+                5 => {
+                    let count = buf.g1() as usize;
+                    let mut models: Vec<u16> = Vec::new();
+                    for _ in 0..count {
+                        let model_id = buf.g2();
+                        models.push(model_id);
+                    }
+                    let base = format!("model_loc_{id}");
+                    for &mid in &models {
+                        packs.name_model(mid, format!("{base}"), ModelCategory::Loc);
+                    }
+                    props.push(("model".into(), base));
+                }
                 14 => props.push(("width".into(), buf.g1().to_string())),
                 15 => props.push(("length".into(), buf.g1().to_string())),
                 17 => props.push(("blockwalk".into(), "no".into())),
@@ -800,6 +813,8 @@ fn decode_loc_entries(
                 73 => props.push(("forcedecor".into(), "yes".into())),
                 #[cfg(since_245_2)]
                 74 => props.push(("breakroutefinding".into(), "yes".into())),
+                #[cfg(since_254)]
+                75 => props.push(("raiseobject".into(), buf.g1().to_string())),
                 _ => panic!("Unrecognized loc config code: {code}"),
             }
         }
