@@ -154,3 +154,9 @@ fn find_texture_id(hash: i32) -> Option<String> {
     }
     None
 }
+
+pub(crate) fn known_hashes() -> Vec<i32> {
+    let mut hashes = vec![JagFile::hash("index.dat")];
+    hashes.extend((0..256).map(|id| JagFile::hash(&format!("{id}.dat"))));
+    hashes
+}

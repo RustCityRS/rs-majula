@@ -55,6 +55,8 @@ pub struct IfTypeRaw {
     pub draggable: bool,
     pub operable: bool,
     pub usable: bool,
+    #[cfg(since_245_2)]
+    pub swappable: bool,
     pub margin_x: u8,
     pub margin_y: u8,
     pub inventory_slot_offset_x: Option<Box<[i16]>>,
@@ -70,6 +72,8 @@ pub struct IfTypeRaw {
     pub colour: i32,
     pub active_colour: i32,
     pub over_colour: i32,
+    #[cfg(since_245_2)]
+    pub active_over_colour: i32,
     pub graphic: Option<Box<str>>,
     pub active_graphic: Option<Box<str>>,
     pub model: i32,
@@ -128,6 +132,8 @@ impl IfTypeProvider {
                 draggable: false,
                 operable: false,
                 usable: false,
+                #[cfg(since_245_2)]
+                swappable: false,
                 margin_x: 0,
                 margin_y: 0,
                 inventory_slot_offset_x: None,
@@ -143,6 +149,8 @@ impl IfTypeProvider {
                 colour: 0,
                 active_colour: 0,
                 over_colour: 0,
+                #[cfg(since_245_2)]
+                active_over_colour: 0,
                 graphic: None,
                 active_graphic: None,
                 model: -1,
@@ -221,6 +229,10 @@ impl IfTypeProvider {
                     com.draggable = buf.g1() == 1;
                     com.operable = buf.g1() == 1;
                     com.usable = buf.g1() == 1;
+                    #[cfg(since_245_2)]
+                    {
+                        com.swappable = buf.g1() == 1;
+                    }
                     com.margin_x = buf.g1();
                     com.margin_y = buf.g1();
 
@@ -310,6 +322,10 @@ impl IfTypeProvider {
                 com.colour = buf.g4s();
                 com.active_colour = buf.g4s();
                 com.over_colour = buf.g4s();
+                #[cfg(since_245_2)]
+                {
+                    com.active_over_colour = buf.g4s();
+                }
             }
 
             if com.button_type == IfButtonType::Target || com.com_type == IfComponentType::Inv {

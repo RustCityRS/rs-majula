@@ -105,7 +105,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         bail!("{} Not enough bytes to read", client.addr);
     }
     let version = buf.g1(); // the client revision.
-    if version.to_string() != REVISION {
+    if version.to_string() != REVISION.split('.').next().unwrap_or(REVISION) {
         let _ = client.write(&[LoginResponse::RuneScapeUpdated as u8]).await;
         bail!("{}: Invalid version: {}", client.addr, version)
     }

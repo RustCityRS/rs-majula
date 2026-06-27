@@ -4,6 +4,18 @@ use rs_io::Packet;
 use rs_io::jag::JagFile;
 use tracing::debug;
 
+pub(crate) fn known_hashes() -> Vec<i32> {
+    [
+        "badenc.txt",
+        "fragmentsenc.txt",
+        "tldlist.txt",
+        "domainenc.txt",
+    ]
+    .iter()
+    .map(|n| JagFile::hash(n))
+    .collect()
+}
+
 pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let wordenc_dir = output_dir.join("wordenc");
     std::fs::create_dir_all(&wordenc_dir)?;

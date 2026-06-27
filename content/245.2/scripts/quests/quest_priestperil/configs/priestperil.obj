@@ -1,0 +1,198 @@
+[pipkey_gold]
+name=Golden key
+desc=A replica key made of solid gold.
+recol1s=31393
+recol1d=26209
+cost=300
+members=yes
+model=model_2372_obj
+2dxof=-3
+2dyof=5
+2dzoom=700
+2dyan=20
+2dxan=328
+tradeable=no
+weight=10g
+
+[pipkey_iron]
+name=Iron key
+desc=A key made of solid Iron.
+recol1s=31393
+recol1d=8456
+cost=2
+members=yes
+model=model_2372_obj
+2dxof=-3
+2dyof=5
+2dzoom=700
+2dyan=20
+2dxan=328
+tradeable=no
+weight=10g
+
+[piptinderbox_gold]
+name=Golden tinderbox
+desc=A replica tinderbox made of solid gold.
+recol1s=32767
+recol1d=26209
+cost=300
+model=model_2348_obj
+manwear=model_488_obj_wear,0
+womanwear=model_488_obj_wear,0
+members=yes
+2dxof=1
+2dyof=-10
+2dzoom=660
+2dyan=1968
+2dxan=196
+tradeable=no
+weight=35g
+
+[pipcandle_gold]
+name=Golden candle
+desc=A replica candle made of solid gold.
+recol1s=32767
+recol1d=26209
+cost=300
+model=model_2467_obj
+members=yes
+2dyof=-2
+2dzoom=570
+2dyan=1864
+2dxan=168
+tradeable=no
+weight=1oz
+
+[pippot_gold]
+name=Golden pot
+desc=A replica pot made of solid gold.
+recol1s=16643
+recol1d=26209
+recol2s=14529
+recol2d=26209
+recol3s=14529
+recol3d=26209
+recol4s=12448
+recol4d=26209
+recol5s=10336
+recol5d=26209
+cost=300
+model=model_2345_obj
+members=yes
+2dxof=-1
+2dyof=2
+2dzoom=990
+2dyan=8
+2dxan=112
+tradeable=no
+weight=1lb
+
+[piphammer_gold]
+name=Golden hammer
+desc=A replica hammer made of solid gold.
+recol1s=839
+recol1d=26209
+recol2s=11627
+recol2d=26209
+cost=300
+model=model_2376_obj
+manwear=model_491_obj_wear,0
+womanwear=model_491_obj_wear,6
+members=yes
+2dxof=-3
+2dyof=-1
+2dzoom=900
+2dyan=2012
+2dxan=356
+tradeable=no
+weight=2lb
+
+[pipfeather_gold]
+name=Golden feather
+desc=A replica feather made of solid gold.
+recol1s=32767
+recol1d=26209
+cost=300
+model=model_2476_obj
+members=yes
+2dxof=4
+2dyof=10
+2dzoom=700
+2dyan=692
+2dxan=428
+tradeable=no
+weight=2g
+
+[pipneedle_gold]
+name=Golden needle
+desc=A replica needle made of solid gold.
+recol1s=19026
+recol1d=26209
+cost=300
+model=model_2770_obj
+members=yes
+2dxof=2
+2dyof=4
+2dzoom=850
+2dyan=868
+2dxan=368
+tradeable=no
+weight=1g
+
+[dagger_wolfbane]
+name=Wolfbane
+desc=A silver dagger that can prevent werewolves changing form.
+members=yes
+model=obj_2952
+cost=350
+cost=300
+members=yes
+2dyof=-4
+2dzoom=760
+2dyan=1276
+2dxan=472
+iop2=Wield
+manwear=obj_2952_manwear,0
+womanwear=obj_2952_manwear,6
+tradeable=no
+category=weapon_stab
+wearpos=righthand
+weight=1lb
+param=stabattack,11
+param=slashattack,5
+param=crushattack,-4
+param=magicattack,1
+param=magicdefence,1
+param=strengthbonus,10
+param=prayerbonus,5
+param=stabattack_anim,human_sword_stab
+param=slashattack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=stab_sound,stabsword_stab
+param=slash_sound,stabsword_slash
+
+[bucket_murkywater]
+name=Bucket of water
+members=yes
+desc=It's a bucket of murky water.
+cost=6
+model=model_2504_obj
+2dyof=-18
+2dzoom=1020
+2dyan=1688
+2dxan=204
+tradeable=no
+weight=3kg
+
+[bucket_blessedwater]
+name=Bucket of water
+desc=It's a bucket of blessed water.
+members=yes
+cost=6
+model=model_2504_obj
+2dyof=-18
+2dzoom=1020
+2dyan=1688
+2dxan=204
+tradeable=no
+weight=1lb

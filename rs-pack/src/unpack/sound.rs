@@ -4,6 +4,10 @@ use rs_io::Packet;
 use rs_io::jag::JagFile;
 use tracing::debug;
 
+pub(crate) fn known_hashes() -> Vec<i32> {
+    vec![JagFile::hash("sounds.dat")]
+}
+
 pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let synth_dir = output_dir.join("synth");
     std::fs::create_dir_all(&synth_dir)?;

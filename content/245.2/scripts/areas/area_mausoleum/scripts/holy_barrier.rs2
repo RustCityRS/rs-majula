@@ -1,0 +1,25 @@
+[oploc1,pip_underground_wall_side_withportal]
+if (%priestperil = ^priestperil_access_holy_barrier) {
+    if (p_finduid(uid) = true) {
+        p_telejump(0_53_54_31_29);
+        mes("You pass through the holy barrier.");
+    }
+} else {
+    @drezel_cant_access_holy_barrier;
+}
+
+[oploc1,pipeastsidetrapdoor]
+mes("The trapdoor opens...");
+sound_synth(door_open, 0, 0);
+loc_change(pipeastsidetrapdoor_open, 500);
+
+[oploc1,pipeastsidetrapdoor_open]
+mes("You climb down through the trapdoor...");
+anim(human_pickupfloor, 0);
+p_delay(0);
+p_telejump(0_53_154_48_31);
+
+[oploc2,pipeastsidetrapdoor_open]
+mes("You close the trapdoor.");
+sound_synth(door_close, 0,0 );
+loc_change(pipeastsidetrapdoor, 500);

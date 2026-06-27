@@ -24,7 +24,7 @@ jobs:
       - id: read
         name: Read supported revisions from rev-cfg
         run: |
-          revs=$(sed -n '/REVS/s/.*= *&\[\([0-9, ]*\)\].*/\1/p' rev-cfg/src/lib.rs | tr -d ' ')
+          revs=$(sed -n '/REVS/s/.*= *&\[\(.*\)\].*/\1/p' rev-cfg/src/lib.rs | tr -d ' ')
           if [ -z "$revs" ]; then
             echo "::error file=rev-cfg/src/lib.rs::could not parse REVS list"
             exit 1

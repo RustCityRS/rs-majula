@@ -725,7 +725,20 @@ impl ActivePlayer {
         self.write(rs_protocol::network::game::server::if_setposition::IfSetPosition { com, x, y });
     }
 
+    /// Sets the scrollbar position on an interface component.
+    #[cfg(since_245_2)]
+    pub fn if_setscrollpos(&mut self, com: u16, y: u16) {
+        self.write(rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos { com, y });
+    }
+
+    /// Opens a modal overlay interface component.
+    #[cfg(since_244)]
+    pub fn if_openoverlay(&mut self, com: u16) {
+        self.write(rs_protocol::network::game::server::if_openoverlay::IfOpenOverlay { com });
+    }
+
     /// Recolors an interface component model, remapping `src` color to `dst`.
+    #[cfg(before_245_2)]
     pub fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
         self.write(rs_protocol::network::game::server::if_setrecol::IfSetRecol { com, src, dst });
     }

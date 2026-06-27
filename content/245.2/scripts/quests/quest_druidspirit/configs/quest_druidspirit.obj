@@ -1,0 +1,225 @@
+[druid_pouch_empty]
+name=Druid pouch
+desc=An empty druid pouch.
+recol1s=9376
+recol1d=480
+recol2s=21000
+recol2d=992
+cost=5
+model=model_2678_obj
+2dxof=-2
+2dyof=-4
+2dzoom=550
+2dyan=1844
+2dxan=116
+members=yes
+iop1=Fill
+tradeable=no
+weight=10g
+
+[druid_pouch]
+name=Druid pouch
+desc=A druid pouch.
+recol1s=9376
+recol1d=480
+recol2s=21000
+recol2d=992
+cost=5
+model=model_2678_obj
+2dxof=-2
+2dyof=-4
+2dzoom=550
+2dyan=1844
+2dxan=116
+members=yes
+stackable=yes
+iop1=Fill
+tradeable=no
+weight=100g
+
+[rotten_food]
+name=Rotten food
+desc=Erhhh! It stinks.
+cost=1
+model=obj_2959
+2dxof=1
+2dyof=-19
+2dzoom=740
+2dxan=236
+members=yes
+weight=1lb
+
+[silver_sickle_blessed]
+name=Silver sickle(b)
+desc=It's a blessed silver sickle.
+recol1s=8456
+recol1d=32767
+recol2s=6342
+recol2d=11630
+cost=250
+model=obj_2961
+2dxof=-4
+2dyof=2
+2dzoom=980
+2dyan=948
+2dxan=604
+iop2=Wield
+iop3=Cast Bloom
+manwear=obj_2961_manwear,0
+womanwear=obj_2961_manwear,6
+members=yes
+category=weapon_slash
+wearpos=righthand
+tradeable=no
+weight=56oz
+param=slashdefence,1
+param=crushdefence,1
+param=magicdefence,1
+param=rangedefence,1
+param=strengthbonus,1
+param=prayerbonus,5
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
+
+[bowl_empty_filliman]
+name=Washing bowl
+desc=Used for washing your face, amongst other things.
+recol1s=16705
+recol1d=320
+recol2s=19841
+recol2d=480
+cost=4
+model=model_2807_obj
+2dzoom=910
+2dyan=1856
+2dxan=204
+members=yes
+weight=1lb
+respawnrate=3
+
+[mirror]
+name=Mirror
+desc=A small mirror, probably used for grooming.
+model=obj_2966
+2dxof=-3
+2dzoom=1090
+2dxan=344
+members=yes
+tradeable=no
+weight=8oz
+
+[filliman_journal]
+name=Journal
+desc=This must be Filliman Tarlocks personal journal.
+recol1s=13472
+recol1d=640
+recol2s=29594
+recol2d=14273
+members=yes
+model=model_2633_obj
+2dxof=1
+2dyof=22
+2dzoom=860
+2dyan=120
+2dxan=276
+iop1=Read
+tradeable=no
+weight=18oz
+
+[bloom_spell]
+name=Druidic spell
+desc=A druidic spell given to you freely by the spirit of Filliman Tarlock.
+recol1s=0
+recol1d=160
+recol2s=1024
+recol2d=160
+recol3s=2048
+recol3d=14273
+recol4s=3072
+recol4d=160
+recol5s=4096
+recol5d=14273
+recol6s=29494
+recol6d=14273
+members=yes
+model=model_2838_obj
+manwear=model_532_obj_wear,0
+womanwear=model_532_obj_wear,6
+2dzoom=940
+2dyan=112
+2dxan=248
+iop1=Cast
+tradeable=no
+weight=20g
+
+[used_bloom_spell]
+name=A used spell
+desc=A used druidic spell given to you freely by the spirit of Filliman Tarlock.
+recol1s=0
+recol1d=14273
+recol2s=1024
+recol2d=14273
+recol3s=2048
+recol3d=14273
+recol4s=3072
+recol4d=14273
+recol5s=4096
+recol5d=14273
+recol6s=29494
+recol6d=14273
+members=yes
+model=model_2838_obj
+manwear=model_532_obj_wear,0
+womanwear=model_532_obj_wear,6
+2dzoom=940
+2dyan=112
+2dxan=248
+tradeable=no
+weight=20g
+
+[mortmyremushroom]
+name=Mort myre fungi
+desc=A mushroom from the swamps of Mort Myre.
+model=obj_2970
+2dxof=3
+2dzoom=790
+2dyan=60
+2dxan=232
+members=yes
+weight=10g
+
+[mortmyrebuddingstem]
+name=Mort myre stem
+desc=A cutting from a budding branch.
+model=obj_2972
+2dyof=-9
+2dzoom=1160
+2dyan=680
+2dxan=504
+members=yes
+weight=10g
+
+[mortmyrepear]
+name=Mort myre pear
+desc=A pear picked from a dying bush in Mort Myre.
+model=obj_2974
+2dzoom=830
+2dyan=1740
+2dxan=52
+members=yes
+weight=4oz
+
+[sickle_mould]
+name=Sickle mould
+desc=Used to make sickles
+cost=10
+model=obj_2976
+2dzoom=1330
+2dyan=1100
+2dxan=284
+members=yes
+weight=1lb

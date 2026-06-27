@@ -411,6 +411,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2046
+        #[cfg(before_245_2)]
         active_player_mut!(m, IF_SETRECOL => |s, player| {
             let dst = s.pop_int_as::<u16>()?;
             let src = s.pop_int_as::<u16>()?;
@@ -1340,6 +1341,57 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, BAS_TURNONSPOT => |s, player| {
             // anim can be null for example: agility
             player.turnanim(s.pop_int() as u16);
+        });
+
+        // 2144
+        #[cfg(since_245_2)]
+        active_player_mut!(m, IF_SETSCROLLPOS => |s, player| {
+            let y = s.pop_int_as::<u16>()?;
+            let com = s.pop_int_as::<u16>()?;
+            player.if_setscrollpos(com, y);
+        });
+
+        // 2145
+        #[cfg(since_244)]
+        active_player_mut!(m, IF_OPENOVERLAY => |s, player| {
+            let com = s.pop_int_as::<u16>()?;
+            player.if_openoverlay(com);
+        });
+
+        // 2146
+        // TODO: this is duplicated with `HUNTALL`
+        none!(m, PLAYER_FINDALLZONE => |s| {
+            let coord = CoordGrid::from(s.pop_int() as u32);
+            let players = iterators::player_zone::<E>(coord);
+            s.player_iterator = Some(PlayerIteratorState {
+                matches: players,
+                cursor: 0,
+            });
+        });
+
+        // 2147
+        // TODO: this is duplicated with `HUNTNEXT`
+        none!(m, PLAYER_FINDNEXT => |s| {
+            let iter = match s.player_iterator.as_mut() {
+                Some(iter) => iter,
+                None => {
+                    s.push_int(0);
+                    return Ok(());
+                }
+            };
+            if iter.cursor < iter.matches.len() {
+                let pid = iter.matches[iter.cursor];
+                iter.cursor += 1;
+                if let Some(player) = engine::<E>().get_player(pid) {
+                    let operand = s.int_operand();
+                    set_active_player(s, player.uid(), operand != 0);
+                    s.push_int(1);
+                } else {
+                    s.push_int(0);
+                }
+            } else {
+                s.push_int(0);
+            }
         });
     }
 }

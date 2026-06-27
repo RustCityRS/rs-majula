@@ -88,6 +88,8 @@ pub struct LocTypeRaw {
     pub offsety: i16,
     pub offsetz: i16,
     pub forcedecor: bool,
+    #[cfg(since_245_2)]
+    pub breakroutefinding: bool,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -130,6 +132,8 @@ impl CacheType for LocTypeRaw {
             offsety: 0,
             offsetz: 0,
             forcedecor: false,
+            #[cfg(since_245_2)]
+            breakroutefinding: false,
             params: None,
             debugname: None,
         }
@@ -194,6 +198,8 @@ impl CacheType for LocTypeRaw {
                 71 => self.offsety = buf.g2s(),
                 72 => self.offsetz = buf.g2s(),
                 73 => self.forcedecor = true,
+                #[cfg(since_245_2)]
+                74 => self.breakroutefinding = true,
                 249 => ParamType::decode_params(
                     buf,
                     self.params

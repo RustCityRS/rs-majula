@@ -441,6 +441,10 @@ pub const BAS_WALK_B: u16 = 2140; // TODO
 pub const BAS_WALK_L: u16 = 2141; // TODO
 pub const BAS_WALK_R: u16 = 2142; // TODO
 pub const BAS_TURNONSPOT: u16 = 2143; // TODO
+pub const IF_SETSCROLLPOS: u16 = 2144;
+pub const IF_OPENOVERLAY: u16 = 2145;
+pub const PLAYER_FINDALLZONE: u16 = 2146; // TODO
+pub const PLAYER_FINDNEXT: u16 = 2147; // TODO
 
 // ── Npc ops (2500-2999) ─────────────────────────────────────────────────────
 

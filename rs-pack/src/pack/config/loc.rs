@@ -294,6 +294,15 @@ pub fn pack_locs(
                     }
                 }),
 
+                // 74
+                #[cfg(since_245_2)]
+                "breakroutefinding" => parse_bool(value, |v| {
+                    if v {
+                        client.p1(74);
+                        server.p1(74);
+                    }
+                }),
+
                 // 249
                 "param" => {} // handled at the end
 

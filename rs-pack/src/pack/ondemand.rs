@@ -8,7 +8,7 @@ use crate::types::OndemandBlobs;
 use crate::unpack::model;
 use crate::version_list::VersionListMeta;
 use rs_io::js5::{Js5Store, js5zip};
-use tracing::debug;
+use tracing::{debug, warn};
 
 pub struct OndemandArtifacts {
     pub version_list: Vec<u8>,
@@ -30,16 +30,38 @@ fn stem_paths(dir: &Path, ext: &str) -> HashMap<String, PathBuf> {
     map
 }
 
+fn warn_missing_referenced_models(
+    model_names: &HashMap<u16, String>,
+    ob2: &HashMap<String, PathBuf>,
+) {
+    let mut missing: Vec<(u16, &str)> = model_names
+        .iter()
+        .filter(|&(&id, name)| *name != format!("model_{id}") && !ob2.contains_key(name.as_str()))
+        .map(|(&id, name)| (id, name.as_str()))
+        .collect();
+    missing.sort_unstable();
+    for (_, name) in &missing {
+        warn!(
+            "packing: \"{name}\" is referenced by a config but has no .ob2 in content; cache will omit it"
+        );
+    }
+}
+
 fn stage(
     bulk: &mut Js5Store,
     index: usize,
     versions: &[u16],
     label: &str,
+    warn_missing: bool,
     mut resolve: impl FnMut(usize) -> Option<Vec<u8>>,
 ) {
     for (id, &version) in versions.iter().enumerate() {
-        if let Some(data) = resolve(id) {
-            bulk.write_compressed(index, id, &data, version);
+        match resolve(id) {
+            Some(data) => bulk.write_compressed(index, id, &data, version),
+            None if warn_missing && version != 0 => warn!(
+                "packing: {label} {id} is in the version list but missing from content; cache will omit it"
+            ),
+            None => {}
         }
     }
     bulk.ensure_file_count(index, versions.len());
@@ -57,14 +79,15 @@ fn stage_bulk(
     // idx1: models (.ob2), resolved through their pack name.
     let model_names = model::load_existing_pack(pack_dir, "model");
     let ob2 = stem_paths(&content_dir.join("models"), "ob2");
-    stage(&mut bulk, 1, &meta.model_version, "model", |id| {
+    stage(&mut bulk, 1, &meta.model_version, "model", false, |id| {
         let name = model_names.get(&(id as u16))?;
         std::fs::read(ob2.get(name)?).ok()
     });
+    warn_missing_referenced_models(&model_names, &ob2);
 
     // idx2: anims (.anim), named directly by id.
     let anim_dir = content_dir.join("models").join("anim");
-    stage(&mut bulk, 2, &meta.anim_version, "anim", |id| {
+    stage(&mut bulk, 2, &meta.anim_version, "anim", true, |id| {
         std::fs::read(anim_dir.join(format!("anim_{id}.anim"))).ok()
     });
 
@@ -73,7 +96,7 @@ fn stage_bulk(
     let songs = stem_paths(&content_dir.join("songs"), "mid");
     let jingles = stem_paths(&content_dir.join("jingles"), "mid");
     let mut midi_jingles = vec![false; meta.midi_version.len()];
-    stage(&mut bulk, 3, &meta.midi_version, "midi", |id| {
+    stage(&mut bulk, 3, &meta.midi_version, "midi", true, |id| {
         let name = midi_names.get(&(id as u16))?;
         let jingle = jingles.get(name);
         midi_jingles[id] = jingle.is_some();
@@ -86,7 +109,12 @@ fn stage_bulk(
     let mut maps: Vec<Option<Vec<u8>>> = vec![None; meta.map_version.len()];
     for entry in &meta.maps {
         let path = maps_dir.join(format!("m{}_{}.jm2", entry.map_x(), entry.map_z()));
-        let Ok(jm2) = std::fs::read(path) else {
+        let Ok(jm2) = std::fs::read(&path) else {
+            warn!(
+                "packing: map m{}_{} is in the version list but missing from content; cache will omit it",
+                entry.map_x(),
+                entry.map_z()
+            );
             continue;
         };
         let (land, loc) = encode_jm2(&jm2);

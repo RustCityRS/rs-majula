@@ -183,6 +183,12 @@ REV = "244"
 - https://runescape.wiki/w/Update:Various_tweaks_to_the_game
 - https://runescape.wiki/w/Update:Lots_more_improvements
 
+### 245.2 (2004-07-13)
+
+- https://runescape.wiki/w/Update:Easier_to_rearrange_bank
+- https://runescape.wiki/w/Update:Priest_In_Peril_Quest
+- https://runescape.wiki/w/Update:Nature_Spirit_Quest
+
 ----
 
 *Bearer of the curse, seek misery.*

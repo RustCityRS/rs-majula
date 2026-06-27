@@ -104,3 +104,10 @@ fn find_title_name(hash: i32) -> Option<&'static str> {
     }
     None
 }
+
+pub(crate) fn known_hashes() -> Vec<i32> {
+    TITLE_NAMES
+        .iter()
+        .map(|n| JagFile::hash(&format!("{n}.dat")))
+        .collect()
+}

@@ -1015,12 +1015,21 @@ pub trait ScriptPlayer {
     /// * `y` - The Y position in interface coordinates.
     fn if_setposition(&mut self, com: u16, x: u16, y: u16);
 
+    /// Sets the scrollbar position on an interface component.
+    #[cfg(since_245_2)]
+    fn if_setscrollpos(&mut self, com: u16, y: u16);
+
+    /// Opens a modal overlay interface component.
+    #[cfg(since_244)]
+    fn if_openoverlay(&mut self, com: u16);
+
     /// Recolors an interface component model, remapping one color to another.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `src` - The source color to replace.
     /// * `dst` - The destination color to apply.
+    #[cfg(before_245_2)]
     fn if_setrecol(&mut self, com: u16, src: u16, dst: u16);
 
     /// Assigns an interface component to a tab slot.

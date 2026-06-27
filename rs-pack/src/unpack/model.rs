@@ -36,6 +36,11 @@ const JAG_ENTRY_NAMES: [&str; 21] = [
 ];
 
 #[cfg(rev = "225")]
+pub(crate) fn known_hashes() -> Vec<i32> {
+    JAG_ENTRY_NAMES.iter().map(|n| JagFile::hash(n)).collect()
+}
+
+#[cfg(rev = "225")]
 pub fn unpack_models(
     jag: &JagFile,
     output_dir: &Path,

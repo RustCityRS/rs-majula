@@ -337,7 +337,7 @@ fn name_for_hash(h: i32) -> Option<&'static str> {
     TABLE_NAMES.iter().copied().find(|n| JagFile::hash(n) == h)
 }
 
-fn read_u16_table(jag: &JagFile, name: &str) -> Vec<u16> {
+pub(crate) fn read_u16_table(jag: &JagFile, name: &str) -> Vec<u16> {
     jag.read(name)
         .map(|p| {
             p.data
@@ -348,7 +348,7 @@ fn read_u16_table(jag: &JagFile, name: &str) -> Vec<u16> {
         .unwrap_or_default()
 }
 
-fn read_i32_table(jag: &JagFile, name: &str) -> Vec<i32> {
+pub(crate) fn read_i32_table(jag: &JagFile, name: &str) -> Vec<i32> {
     jag.read(name)
         .map(|p| {
             p.data

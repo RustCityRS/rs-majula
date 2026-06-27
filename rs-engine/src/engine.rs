@@ -4586,12 +4586,25 @@ impl ScriptPlayer for ActivePlayer {
         self.if_setposition(com, x, y);
     }
 
+    /// Sets the scrollbar position on an interface component.
+    #[cfg(since_245_2)]
+    fn if_setscrollpos(&mut self, com: u16, y: u16) {
+        self.if_setscrollpos(com, y);
+    }
+
+    /// Opens a modal overlay interface component.
+    #[cfg(since_244)]
+    fn if_openoverlay(&mut self, com: u16) {
+        self.if_openoverlay(com);
+    }
+
     /// Recolors an interface component model.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setrecol`
+    #[cfg(before_245_2)]
     fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
         self.if_setrecol(com, src, dst);
     }
@@ -5762,10 +5775,6 @@ pub fn register_ops() -> OpsRegistry {
     ops.extend(ops::server::build::<Engine>());
     ops.extend(ops::string::build::<Engine>());
     ops.extend(ops::r#struct::build());
-    info!(
-        "Registered {} script opcode handlers across 16 modules",
-        ops.len()
-    );
     ops
 }
 

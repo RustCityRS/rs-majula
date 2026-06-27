@@ -1,0 +1,57 @@
+[nostringstar]
+name=Unstrung symbol
+desc=It needs a string so I can wear it.
+cost=200
+model=model_2480_obj
+2dyof=4
+2dzoom=600
+2dyan=92
+2dxan=352
+weight=4g
+param=crafting_jewelry_struct,unstrung_symbol
+
+[nostringsnake]
+name=Unstrung emblem
+desc=It needs a string so I can wear it.
+cost=200
+model=model_2490_obj
+recol1s=25249
+recol1d=24311
+2dxof=1
+2dyof=3
+2dzoom=600
+2dyan=172
+2dxan=336
+weight=4g
+members=yes
+param=crafting_jewelry_struct,unstrung_emblem
+
+[silver_sickle]
+name=Silver sickle
+desc=It's a silver sickle.
+cost=175
+model=obj_2961
+2dxof=-4
+2dyof=2
+2dzoom=980
+2dyan=948
+2dxan=604
+iop2=Wield
+manwear=obj_2961_manwear,0
+womanwear=obj_2961_manwear,6
+members=yes
+category=weapon_slash
+wearpos=righthand
+weight=56oz
+param=slashdefence,1
+param=crushdefence,1
+param=magicdefence,1
+param=rangedefence,1
+param=strengthbonus,1
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
+param=crafting_jewelry_struct,silver_sickle

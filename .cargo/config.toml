@@ -6,7 +6,7 @@ world1 = "run -p rs-server --release -- --node-id 10 --cluster world10@127.0.0.1
 world2 = "run -p rs-server --release -- --node-id 11 --cluster world10@127.0.0.1,world11@127.0.0.1"
 
 [env]
-REV = "244"
+REV = "245.2"
 
 [build]
 target-dir = "target"

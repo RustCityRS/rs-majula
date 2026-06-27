@@ -80,6 +80,13 @@ pub fn npc_zone<E: ScriptEngine + 'static>(coord: CoordGrid) -> Vec<NpcRef> {
     engine::<E>().get_zone_npcs(coord.x(), coord.y(), coord.z())
 }
 
+/// Returns the pids of all players in the zone containing `coord`.
+pub fn player_zone<E: ScriptEngine + 'static>(coord: CoordGrid) -> Vec<u16> {
+    engine::<E>()
+        .get_zone_player_pids(coord.x(), coord.y(), coord.z())
+        .to_vec()
+}
+
 /// Internal implementation for distance-based NPC searches.
 ///
 /// Scans all zones within a radius derived from the Chebyshev distance, filters NPCs

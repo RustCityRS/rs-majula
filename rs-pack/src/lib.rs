@@ -57,7 +57,7 @@ pub const CONTENT_DIR: &str = rev_content_path!("");
 pub const PACK_DIR: &str = rev_content_path!("/pack");
 
 #[cfg(rev = "225")]
-mod jag_crc {
+pub(crate) mod jag_crc {
     pub const TITLE: Option<i32> = Some(-430779560);
     pub const CONFIG: Option<i32> = Some(511217062);
     pub const INTERFACE: Option<i32> = Some(1614084464);
@@ -69,7 +69,7 @@ mod jag_crc {
 }
 
 #[cfg(rev = "244")]
-mod jag_crc {
+pub(crate) mod jag_crc {
     pub const TITLE: Option<i32> = Some(126707642);
     pub const CONFIG: Option<i32> = Some(1573679574);
     pub const INTERFACE: Option<i32> = Some(2074207176);
@@ -81,11 +81,19 @@ mod jag_crc {
     pub const VERSIONLIST: Option<i32> = Some(-390182005);
 }
 
-/// Expected CRCs of each recompiled per-type *client* stream, checked at boot
-/// under `--verify`. The config-type packers and the interface packer compare
-/// their rebuilt `client.dat` against these. Unlike [`jag_crc`] (whole-jag CRCs)
-/// every type is always present, so these are plain `i32`. flo/idk are
-/// byte-identical across revisions, hence the same value in both blocks.
+#[cfg(rev = "245.2")]
+pub(crate) mod jag_crc {
+    pub const TITLE: Option<i32> = Some(126707642);
+    pub const CONFIG: Option<i32> = Some(219495412);
+    pub const INTERFACE: Option<i32> = Some(1539972921);
+    pub const MEDIA: Option<i32> = Some(353992155);
+    pub const MODELS: Option<i32> = None;
+    pub const TEXTURES: Option<i32> = Some(-1885459577);
+    pub const WORDENC: Option<i32> = Some(-87627495);
+    pub const SOUNDS: Option<i32> = Some(-1625923170);
+    pub const VERSIONLIST: Option<i32> = Some(-1979342254);
+}
+
 #[cfg(rev = "225")]
 pub(crate) mod config_crc {
     pub const SEQ: i32 = 1638136604;
@@ -112,9 +120,19 @@ pub(crate) mod config_crc {
     pub const INTERFACE: i32 = 316858560;
 }
 
-/// idx0 archive names whose CRCs fill the crctable, in order: `CRC_KEYS[i]`
-/// supplies `crctable[i + 1]`. 244 uses `versionlist` in slot 5 where 225 uses
-/// `models` (244 moved models to ondemand idx1).
+#[cfg(rev = "245.2")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = -1858954999;
+    pub const LOC: i32 = 626415911;
+    pub const FLO: i32 = -532285888;
+    pub const IDK: i32 = -359342366;
+    pub const VARP: i32 = 1480086078;
+    pub const NPC: i32 = 417024969;
+    pub const OBJ: i32 = 344600333;
+    pub const SPOTANIM: i32 = 96621343;
+    pub const INTERFACE: i32 = 587792799;
+}
+
 #[cfg(rev = "225")]
 const CRC_KEYS: [&str; 8] = [
     "title",
@@ -127,7 +145,7 @@ const CRC_KEYS: [&str; 8] = [
     "sounds",
 ];
 
-#[cfg(rev = "244")]
+#[cfg(since_244)]
 const CRC_KEYS: [&str; 8] = [
     "title",
     "config",

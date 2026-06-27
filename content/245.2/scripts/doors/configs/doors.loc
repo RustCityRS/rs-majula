@@ -1,0 +1,138 @@
+[openbankdoor_r]
+name=Large door
+desc=A sturdy wooden door.
+model=model_loc_1512
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+category=door_closed
+param=next_loc_stage,bankdoor_l_inactive
+
+[bankdoor_l]
+name=Large door
+desc=A sturdy wooden door.
+model=model_loc_1513
+op1=Open
+category=door_closed
+param=next_loc_stage,bankdoor_r_inactive
+
+[bankdoor_r_inactive]
+name=Large door
+desc=A sturdy wooden door.
+model=model_loc_1513
+op1=Close
+category=door_opened
+param=next_loc_stage,bankdoor_l
+
+[bankdoor_l_inactive]
+name=Large door
+desc=A sturdy wooden door.
+model=model_loc_1512
+op1=Close
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+category=door_opened
+param=next_loc_stage,openbankdoor_r
+
+[inaccastledoubledoorropen]
+name=Door
+desc=The door is closed.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door
+recol2s=6342
+recol2d=11458
+category=door_closed
+param=next_loc_stage,desertdoor_animate
+
+[desertdoor_animate]
+name=Door
+desc=The door is open.
+model=model_loc_3
+active=yes
+op1=Close
+retex1s=wall
+retex1d=door
+recol2s=6342
+recol2d=11458
+category=door_opened
+param=next_loc_stage,inaccastledoubledoorropen
+
+[desertdoorclosed]
+name=Door
+desc=A nicely fitted door.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+category=door_closed
+param=next_loc_stage,desertdooropen
+
+[desertdooropen]
+name=Door
+desc=A nicely fitted door.
+model=model_loc_3
+active=yes
+op1=Close
+retex1s=wall
+retex1d=door2
+recol2s=6342
+recol2d=11458
+category=door_opened
+param=next_loc_stage,desertdoorclosed
+
+[poordooropen]
+name=Door
+desc=An elf-fashioned door.
+model=model_loc_3
+active=yes
+op1=Open
+retex1s=wall
+retex1d=elfdoor
+recol2s=6342
+recol2d=11458
+category=door_closed
+param=next_loc_stage,poordoor_cross
+
+[poordoor_cross]
+name=Door
+desc=An elf-fashioned door.
+model=model_loc_3
+active=yes
+op1=Close
+retex1s=wall
+retex1d=elfdoor
+recol2s=6342
+recol2d=11458
+category=door_opened
+param=next_loc_stage,poordooropen
+
+[inactivepoordoor]
+name=Door
+desc=Solid bars of iron.
+model=model_loc_37
+op1=Open
+active=yes
+blockrange=no
+category=door_closed
+param=next_loc_stage,poshdoor
+param=open_sound,grate_open
+
+[poshdoor]
+name=Door
+desc=Solid bars of iron.
+model=model_loc_37
+op1=Close
+active=yes
+category=door_opened
+param=next_loc_stage,inactivepoordoor
+param=close_sound,grate_close

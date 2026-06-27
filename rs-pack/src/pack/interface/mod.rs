@@ -456,9 +456,13 @@ pub fn pack_interfaces(
             client.pbool(get_bool(src.get("draggable")));
             client.pbool(get_bool(src.get("interactable")));
             client.pbool(get_bool(src.get("usable")));
+            #[cfg(since_245_2)]
+            client.pbool(get_bool(src.get("swappable")));
             server.pbool(get_bool(src.get("draggable")));
             server.pbool(get_bool(src.get("interactable")));
             server.pbool(get_bool(src.get("usable")));
+            #[cfg(since_245_2)]
+            server.pbool(get_bool(src.get("swappable")));
 
             if let Some(margin) = src.get("margin") {
                 let (x, y) = parse_margin(margin, 0, 0);
@@ -526,6 +530,11 @@ pub fn pack_interfaces(
                 server.p4(v);
             });
             parse_hex(get_colour(src.get("overcolour")), |v| {
+                client.p4(v);
+                server.p4(v);
+            });
+            #[cfg(since_245_2)]
+            parse_hex(get_colour(src.get("activeovercolour")), |v| {
                 client.p4(v);
                 server.p4(v);
             });

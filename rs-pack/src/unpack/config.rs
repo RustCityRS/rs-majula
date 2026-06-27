@@ -2,6 +2,7 @@ use std::collections::hash_map::Entry;
 use std::collections::{BTreeSet, HashMap};
 use std::path::Path;
 
+use super::report::RecordLeftover;
 use crate::pack::util::colour::rgb15_to_hsl16;
 use crate::types::LocShape;
 use rs_io::Packet;
@@ -32,6 +33,8 @@ pub struct UnpackedPacks {
     pub cert_objs: HashMap<u16, u16>,
     pub cert_template_id: Option<u16>,
     pub flo_names: HashMap<u16, String>,
+    pub leftovers: Vec<RecordLeftover>,
+    pub dat_trailing: Vec<(String, usize)>,
 }
 
 #[allow(clippy::new_without_default)]
@@ -48,6 +51,8 @@ impl UnpackedPacks {
             cert_objs: HashMap::new(),
             cert_template_id: None,
             flo_names: HashMap::new(),
+            leftovers: Vec::new(),
+            dat_trailing: Vec::new(),
         }
     }
 
@@ -175,6 +180,11 @@ pub fn unpack_config(
 
         let entries = decoder(&dat.data, &idx.data, &reverse_hsl, &mut packs);
 
+        let trailing = config_dat_trailing(&dat.data, &idx.data);
+        if trailing > 0 {
+            packs.dat_trailing.push((name.to_string(), trailing));
+        }
+
         let count = {
             let mut idx_buf = Packet::from(idx.data.clone());
             idx_buf.g2()
@@ -257,6 +267,22 @@ fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u16, Vec<u8>)> {
     entries
 }
 
+fn config_dat_trailing(dat: &[u8], idx: &[u8]) -> usize {
+    if dat.len() < 2 || idx.len() < 2 {
+        return 0;
+    }
+    let count = u16::from_be_bytes([dat[0], dat[1]]) as usize;
+    let mut consumed = 2;
+    for k in 0..count {
+        let off = 2 + k * 2;
+        if off + 2 > idx.len() {
+            break;
+        }
+        consumed += u16::from_be_bytes([idx[off], idx[off + 1]]) as usize;
+    }
+    dat.len().saturating_sub(consumed)
+}
+
 fn reverse_recol_pair(bs: u16, bd: u16, reverse_hsl: &HashMap<u16, u16>) -> (u16, u16) {
     if bs < 100 && bd < 100 {
         return (bs, bd);
@@ -336,6 +362,14 @@ fn decode_flo_entries(
             }
         }
 
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "flo",
+                id,
+                bytes: buf.remaining() as usize,
+            });
+        }
+
         if !props.is_empty() {
             results.push((id, props));
         }
@@ -347,7 +381,7 @@ fn decode_varp_entries(
     dat: &[u8],
     idx: &[u8],
     _reverse_hsl: &HashMap<u16, u16>,
-    _packs: &mut UnpackedPacks,
+    packs: &mut UnpackedPacks,
 ) -> Vec<(u16, Vec<(String, String)>)> {
     let raw = read_entries(dat, idx);
     let mut results = Vec::new();
@@ -366,6 +400,13 @@ fn decode_varp_entries(
                 5 => props.push(("clientcode".into(), buf.g2().to_string())),
                 _ => panic!("Unrecognized varp config code: {code}"),
             }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "varp",
+                id,
+                bytes: buf.remaining() as usize,
+            });
         }
         results.push((id, props));
     }
@@ -481,6 +522,13 @@ fn decode_idk_entries(
                 _ => panic!("Unrecognized idk config code: {code}"),
             }
         }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "idk",
+                id,
+                bytes: buf.remaining() as usize,
+            });
+        }
         if !props.is_empty() {
             results.push((id, props));
         }
@@ -533,6 +581,13 @@ fn decode_spotanim_entries(
                 }
                 _ => panic!("Unrecognized spotanim config code: {code}"),
             }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "spotanim",
+                id,
+                bytes: buf.remaining() as usize,
+            });
         }
         if !props.is_empty() {
             results.push((id, props));
@@ -638,6 +693,13 @@ fn decode_seq_entries(
                 _ => panic!("Unrecognized seq config code: {code}"),
             }
         }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "seq",
+                id,
+                bytes: buf.remaining() as usize,
+            });
+        }
         if !props.is_empty() {
             results.push((id, props));
         }
@@ -736,8 +798,17 @@ fn decode_loc_entries(
                 71 => props.push(("offsety".into(), buf.g2().to_string())),
                 72 => props.push(("offsetz".into(), buf.g2().to_string())),
                 73 => props.push(("forcedecor".into(), "yes".into())),
+                #[cfg(since_245_2)]
+                74 => props.push(("breakroutefinding".into(), "yes".into())),
                 _ => panic!("Unrecognized loc config code: {code}"),
             }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "loc",
+                id,
+                bytes: buf.remaining() as usize,
+            });
         }
         if !props.is_empty() {
             results.push((id, props));
@@ -835,6 +906,13 @@ fn decode_npc_entries(
                 102 => props.push(("headicon".into(), buf.g2().to_string())),
                 _ => panic!("Unrecognized npc config code: {code}"),
             }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "npc",
+                id,
+                bytes: buf.remaining() as usize,
+            });
         }
         if !props.is_empty() {
             results.push((id, props));
@@ -970,6 +1048,13 @@ fn decode_obj_entries(
                 114 => props.push(("contrast".into(), buf.g1s().to_string())),
                 _ => panic!("Unrecognized obj config code: {code}"),
             }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "obj",
+                id,
+                bytes: buf.remaining() as usize,
+            });
         }
         let is_cert = props.len() == 2
             && props

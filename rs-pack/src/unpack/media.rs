@@ -143,3 +143,13 @@ fn find_media_name(hash: i32) -> Option<&'static str> {
     }
     None
 }
+
+pub(crate) fn known_hashes() -> Vec<i32> {
+    let mut hashes = vec![JagFile::hash("index.dat")];
+    hashes.extend(
+        MEDIA_NAMES
+            .iter()
+            .map(|n| JagFile::hash(&format!("{n}.dat"))),
+    );
+    hashes
+}

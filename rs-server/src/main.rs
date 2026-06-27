@@ -196,7 +196,8 @@ async fn main() -> Result<()> {
                 "info,\
                      rs_engine::player_save=warn,\
                      rs_protocol=warn,\
-                     tokio_postgres=warn",
+                     tokio_postgres=warn,\
+                     runec=error",
             )
         })
     };
@@ -294,7 +295,7 @@ async fn bootstrap(
     info!("TCP Port: {}", tcp_port);
     info!("RSA: {:?}", args.private_key);
 
-    info!("Packing content sources & building CacheStore...");
+    info!("Compiling content assets & building cache...");
     let (store, scripts) = rs_pack::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
         Path::new(rs_pack::PACK_DIR),
@@ -304,7 +305,6 @@ async fn bootstrap(
     let cache_ptr_val = Box::into_raw(store) as usize;
     let cache: &'static CacheStore = unsafe { &*(cache_ptr_val as *const CacheStore) };
 
-    info!("Loading RSA key pair...");
     let rsa_path = Path::new(&args.private_key);
     let rsa: &'static RsaKey = Box::leak(Box::new(load_rsa_key(rsa_path)?));
 
@@ -324,19 +324,13 @@ async fn bootstrap(
             cluster: args.cluster.clone(),
         };
 
-        info!("Preparing Ether sidecar...");
         prepare_ether_sidecar(&db_env);
 
-        info!(
-            "Starting Ether sidecar (node {}, port {})",
-            node_name, ether_port
-        );
         tokio::spawn(supervise_ether_sidecar(
             node_id, ether_port, node_name, db_env,
         ));
 
         let (ready_tx, ready_rx) = tokio::sync::oneshot::channel();
-        info!("Waiting for Ether sidecar to be ready...");
         tokio::spawn(ether_client_task(
             ether_port,
             node_id,
@@ -345,7 +339,6 @@ async fn bootstrap(
             ready_tx,
         ));
         let _ = ready_rx.await;
-        info!("Ether sidecar ready (port {})", ether_port);
         (Some(outbound_tx), inbound_rx)
     };
 
@@ -362,7 +355,6 @@ async fn bootstrap(
             req_rx,
             resp_tx,
         ));
-        info!("DB client background task spawned");
         (Some(req_tx), resp_rx)
     };
 
@@ -387,7 +379,6 @@ async fn bootstrap(
         db_rx,
     );
     tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx));
-    info!("Engine clock task spawned (600ms cycle)");
 
     #[cfg(debug_assertions)]
     tokio::spawn(reload_coordinator(
@@ -521,7 +512,6 @@ async fn supervise_ether_sidecar(node_id: u8, ether_port: u16, node_name: String
             Ok(mut child) => {
                 let pid = child.id();
                 SIDECAR_PID.store(pid, Ordering::Relaxed);
-                info!("Ether sidecar started (pid {})", pid);
                 backoff = Duration::from_secs(30);
 
                 if let Some(stdout) = child.stdout.take() {

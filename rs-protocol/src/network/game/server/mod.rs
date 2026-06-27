@@ -18,6 +18,8 @@ pub mod if_close;
 pub mod if_openchat;
 pub mod if_openmain;
 pub mod if_openmain_side;
+#[cfg(since_244)]
+pub mod if_openoverlay;
 pub mod if_openside;
 pub mod if_setanim;
 pub mod if_setcolour;
@@ -27,7 +29,10 @@ pub mod if_setnpchead;
 pub mod if_setobject;
 pub mod if_setplayerhead;
 pub mod if_setposition;
+#[cfg(before_245_2)]
 pub mod if_setrecol;
+#[cfg(since_245_2)]
+pub mod if_setscrollpos;
 pub mod if_settab;
 pub mod if_settab_active;
 pub mod if_settext;

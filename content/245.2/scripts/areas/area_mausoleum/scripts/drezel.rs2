@@ -1,0 +1,381 @@
+[opnpc1,priestperiltrappedmonk2]
+if (%priestperil = ^priestperil_meet_in_mausoleum) {
+    @priestperil_drezel_meet_in_mausoleum;
+} else if (%priestperil = ^priestperil_begin_bring_essence) {
+    @priestperil_drezel_begin_bring_essence;
+} else if (%priestperil > ^priestperil_begin_bring_essence & %priestperil < ^priestperil_end_bring_essence) {
+    @priestperil_drezel_bring_more_essence;
+} else if (%priestperil = ^priestperil_complete) {
+    if (inv_total(inv, dagger_wolfbane) = 0 & inv_total(bank, dagger_wolfbane) = 0 & inv_total(worn, dagger_wolfbane) = 0) {
+        @reclaim_wolfbane_dagger;
+    } else {
+        @drezel_access_holy_barrier;
+    }
+} else if (%priestperil = ^priestperil_access_holy_barrier) {
+    if (inv_total(inv, dagger_wolfbane) = 0 & inv_total(bank, dagger_wolfbane) = 0 & inv_total(worn, dagger_wolfbane) = 0) {
+        @reclaim_wolfbane_dagger;
+    } else {
+        @drezel_post_priestperil_dialogue;
+    }
+}
+
+[opnpcu,priestperiltrappedmonk2]
+if(last_useitem = blankrune) {
+    @drezel_give_blankrunes;
+} else if(last_useitem = cert_blankrune) {
+    @drezel_blankrune_cert;
+}
+~displaymessage(^dm_default);
+
+[label,priestperil_drezel_meet_in_mausoleum]
+~chatnpc("<p,neutral>Ah, <displayname>. I see you finally made it down here. Things are worse than I feared. I'm not sure if I will be able to repair the damage.");
+    ~chatplayer("<p,quiz>Why, what's happened?");
+    ~chatnpc("<p,sad>From what I can tell, after you killed the guard dog who protected the entrance to the monuments, those Zamorakians forced the door into the main chamber");
+    ~chatnpc("<p,sad>and have used some kind of evil potion upon the well which leads to the source of the river Salve. As they have done this at the very mouth of the river");
+    ~chatnpc("<p,sad>it will spread along the entire river, disrupting the blessing placed upon it and allowing the evil creatures of Morytania to invade at their leisure.");
+    ~chatplayer("<p,shock>What can we do to prevent that?");
+    ~chatnpc("<p,neutral>Well, as you can see, I have placed a holy barrier on the entrance to this room from the South, but it is not very powerful and requires me to remain");
+    ~chatnpc("<p,neutral>here focussing upon it to keep it intact. Should an attack come, they would be able to break this defence very quickly indeed. What we need to do is");
+    ~chatnpc("<p,neutral>find some kind of way of removing or counteracting the evil magic that has been put into the river source at the well, so that the river will flow pure once again.");
+    ~chatplayer("<p,quiz>Couldn't you bless the river to purify it? Like you did with the water I took from the well?");
+    ~chatnpc("<p,sad>No, that would not work, the power I have from Saradomin is not great enough to cleanse an entire river of this foul Zamorakian pollutant.");
+    ~chatnpc("<p,neutral>I have only one idea how we could possibly cleanse the river.");
+    ~chatplayer("<p,quiz>What's that?");
+    ~chatnpc("<p,neutral>I have heard rumours recently that Mages have found some secret ore that absorbs magic into it and allows them to create runes.");
+    ~chatnpc("<p,neutral>Should you be able to collect enough of this ore, it is possible it will soak up the evil potion that has been poured into the river, and purify it.");
+    ~chatplayer("<p,quiz>Kind of like a filter? Okay, I guess it's worth a try. How many should I get?");
+    %priestperil = ^priestperil_begin_bring_essence;
+    ~chatnpc("<p,neutral>Well I have no knowledge of these ores other than speculation and gossip, but if the things I hear are true around fifty should be sufficient for the task.");
+
+[label,priestperil_drezel_begin_bring_essence]
+if (inv_total(inv, blankrune) > 0) {
+    ~chatplayer("<p,happy>I brought you some Rune Essence.");
+    ~chatnpc("<p,neutral>Quickly, give it to me!");
+    @drezel_give_blankrunes;
+} else if (inv_total(inv, cert_blankrune) > 0) { 
+    @drezel_blankrune_cert;
+} else { 
+    ~chatplayer("<p,quiz>What am I supposed to do again?");
+    ~chatnpc("<p,neutral>Bring me fifty Rune Essence so that I can undo the damage done by those Zamorakians.");
+}
+
+[label,priestperil_drezel_bring_more_essence]
+if (inv_total(inv, blankrune) > 0) {
+    ~chatplayer("<p,happy>I brought you some more essences.");
+    ~chatnpc("<p,neutral>Quickly, give them to me!");
+    @drezel_give_blankrunes;
+} else if (inv_total(inv, cert_blankrune) > 0) { 
+    @drezel_blankrune_cert;
+} else { 
+    ~chatplayer("<p,quiz>How many more essences do I need to bring you?");
+    // https://youtu.be/Nhgp_fe9Ld4?si=-d7p5WkQX0-Emy55&t=758
+    ~chatnpc("<p,neutral>I need <~drezel_essence_remaining>");
+}
+
+[label,drezel_blankrune_cert]
+if(%priestperil < ^priestperil_begin_bring_essence | %priestperil >= ^priestperil_end_bring_essence) {
+    ~displaymessage(^dm_default);
+    return; 
+}
+~chatplayer("<p,happy>I brought you some Rune Essence.");
+~chatnpc("<p,confused>You have brought me notes saying 'I promise to pay the bearer on demand the listed number of Rune Essence.' How is that supposed to help me?");
+
+[label,drezel_give_blankrunes]
+if(inv_total(inv, blankrune) <= 0 | %priestperil < ^priestperil_begin_bring_essence | %priestperil >= ^priestperil_end_bring_essence) {
+    ~displaymessage(^dm_default);
+    return; 
+}
+
+if_close;
+def_int $essence_needed = calc(60 - %priestperil);
+def_int $essence_have = inv_total(inv, blankrune);
+def_int $essence_to_give = min($essence_needed, $essence_have);
+while($essence_to_give > 0) {
+    inv_del(inv, blankrune, 1);
+    %priestperil = add(%priestperil, 1);
+    $essence_to_give = sub($essence_to_give, 1);
+}
+if($essence_to_give = 1) {
+    mes("You give the priest your blank rune.");
+} else {
+    mes("You give the priest your blank runes.");
+}
+if(%priestperil = ^priestperil_end_bring_essence) {
+    @drezel_finish_blankrunes;
+} else {
+    if_close;
+}
+
+[proc,drezel_essence_remaining]()(string)
+def_int $essence_needed = calc(60 - %priestperil);
+return ("<tostring($essence_needed)> more");
+
+[label,drezel_finish_blankrunes]
+queue(priestperil_complete, 0, 0);
+~chatnpc("<p,happy>Excellent! That should do it! I will bless these stones and place them within the well, and Misthalin should be protected once more!");
+~chatnpc("<p,happy>Please take this dagger; it has been handed down within my family for generations and is filled with the power of Saradomin. You will find that");
+~chatnpc("<p,happy>it has the power to prevent werewolves from adopting their wolf form in combat as long as you have it equipped.");
+
+[label,drezel_cant_access_holy_barrier]
+if (%priestperil < ^priestperil_complete) {
+    if (npc_find(coord, priestperiltrappedmonk2, 20, 0) = true) {
+        ~chatnpc("<p,angry>STOP!");
+        ~chatplayer("<p,quiz>Can't I go through here?");
+        ~chatnpc("<p,neutral>No, you cannot! It is taking all of my willpower to hold that barrier in place. You must restore the sanctity of the Salve as soon as possible!");
+    }
+} else if (%priestperil < ^priestperil_access_holy_barrier) {
+    if (npc_find(coord, priestperiltrappedmonk2, 20, 0) = true) {
+        ~chatnpc("<p,angry>STOP!");
+        ~chatplayer("<p,quiz>Can't I go through here?");
+        ~chatnpc("<p,angry>Yes, now the Salve is restored you may, but speak to me first, as I have advice for you before you pass through.");
+    }
+} else {
+    if (npc_find(coord, priestperiltrappedmonk2, 20, 0) = true) {
+        @drezel_access_holy_barrier;
+    }
+}
+
+[label,drezel_access_holy_barrier]
+~chatplayer("<p,quiz>So can I pass through that barrier now?");
+~chatnpc("<p,neutral>Ah, <displayname>. For all the assistance you have given both myself and Misthalin in your actions, I cannot let you pass without warning you.");
+~chatnpc("<p,neutral>Morytania is an evil land, filled with creatures and monsters more terrifying than any you have yet encountered. Although I will pray for you,");
+~chatnpc("<p,neutral>You should take some basic precautions before heading over the Salve into it. The first place you will come across is the Werewolf trading post.");
+~chatnpc("<p,neutral>In many ways Werewolves are like you and me, except never forget that they are evil vicious beasts at heart. The dagger I have given you is named 'Wolfbane'");
+~chatnpc("<p,neutral>and it is a holy relic that prevents the werewolf people from changing form. I suggest if you battle with them that you keep it always equipped, for their");
+~chatnpc("<p,neutral>wolf form is incredibly powerful, and would savage you very quickly. Please adventurer, promise me this: I should hate for you to die foolishly.");
+~chatplayer("<p,neutral>Okay, I will keep it equipped whenever I fight werewolves.");
+%priestperil = ^priestperil_access_holy_barrier;
+// Sources used for this dialogue, although they're from 2011.
+// https://youtu.be/wdUTtS7KzTI?si=gKdrWEcXykzYWpsc&t=562 & https://youtu.be/jw4XYrDFKGE?si=-Cbd2rLZcACS52wO&t=671
+
+[label,reclaim_wolfbane_dagger]
+// https://runescape.wiki/w/Transcript:Priest_in_Peril#Post-Quest_Dialogue doesn't seem to contain this dialogue.
+// Indio fetched from OSRS (Thank you Indio <3): https://github.com/LostCityRS/Content/pull/156#discussion_r2345035025
+~chatplayer("I've lost my wolfbane dagger.");
+inv_add(inv, dagger_wolfbane, 1);
+~chatnpc("<p,neutral>Yes, I know! Luckily for you it washed up on the banks of the Salve earlier! Here, take it again, but please try and be more careful this time.");
+~chatnpc("<p,neutral>It's a family heirloom after all!");
+~chatplayer("<p,neutral>Thanks for that!");
+
+[label,drezel_post_priestperil_dialogue]
+switch_int(%druidspirit) {
+    case ^druidspirit_complete :
+        ~chatplayer("<p,neutral>Hi there! Filliman says I've completed the quest!");
+        ~chatnpc("<p,neutral>That's fantastic, well done!");
+    case ^druidspirit_killed_ghast3 :
+        ~chatplayer("<p,neutral>Hiya, I'm a mighty Ghast killer! I've killed 3 so far!");
+        ~chatnpc("<p,neutral>That's great! How many did Filliman ask you kill?");
+        ~chatplayer("<p,neutral>He asked me to kill 3!");
+        ~chatnpc("<p,neutral>So, you've killed them all then! Go and tell him, I'll bet he'll be pleased.");
+    case ^druidspirit_killed_ghast2 :
+        ~chatplayer("<p,neutral>Hiya, I'm a mighty Ghast killer! I've killed 2 so far!");
+        ~chatnpc("<p,neutral>That's great! How many did Filliman ask you kill?");
+        ~chatplayer("<p,neutral>He asked me to kill 3!");
+        ~chatnpc("<p,neutral>So, you've got one more to kill then!");
+    case ^druidspirit_killed_ghast1 :
+        ~chatplayer("<p,neutral>Hiya, I'm a mighty Ghast killer! I've killed 1 so far!");
+        ~chatnpc("<p,neutral>That's great! How many did Filliman ask you kill?");
+        ~chatplayer("<p,neutral>He asked me to kill 3!");
+        ~chatnpc("<p,neutral>So, you've got two more to kill then!");
+    case ^druidspirit_added_pouch :
+        ~chatplayer("<p,neutral>Hi there, I've added the blossomed things to the pouch, but I'm not sure what to do now.");
+        ~chatnpc("<p,neutral>Perhaps it has some effect in the swamp? Have you tried using it?");
+    case ^druidspirit_picked_sickle :
+        ~chatplayer("<p,neutral>Hello again. I've collected something from the swamp, but I'm not sure what to do with it?");
+        ~chatnpc("<p,neutral>Hmm, did Filliman ask you to do something special with it? Perhaps it has a special purpose? I'd keep it safe until you need it though, do you have somewhere safe to keep it?");
+    case ^druidspirit_casted_sickle_bloom :
+        ~chatplayer("<p,neutral>Hey again.. I've cast the spell in the swamp, but I'm not too sure what to do now.");
+        ~chatnpc("<p,neutral>Well, did anything happen when you cast the spell? If there was no effect I would keep trying. I know that Filliman always used to be able to survive in the swamp by collecting things that grow there.");
+        ~chatplayer("<p,neutral>But nothing does grow there!");
+        ~chatnpc("<p,neutral>Yes, you're right, come to think of it, that's a bit odd now isn't it? I always thought that there was something a bit odd about that man.");
+    case ^druidspirit_blessed_sickle :
+        ~chatplayer("<p,neutral>Hey there, Filliman blessed my silver sickle, but now I've got to kill three Ghasts, but I'm not sure how to make them appear.");
+        ~chatnpc("<p,neutral>Well, did Filliman give you any special instructions on how to combat them?");
+        ~chatplayer("<p,neutral>Only something about harvesting natures bounty... that's all!");
+        ~chatnpc("<p,neutral>Well, perhaps it has something to do with the silver sickle, do you think that in blessing it, it did something special to it?");
+    case ^druidspirit_full_transform :
+        if(inv_total(inv, silver_sickle) > 0| inv_total(worn, silver_sickle) > 0) {
+            ~chatplayer("<p,neutral>Hi again. Filliman has turned into the Nature Spirit. I've just gotten the Silver sickle that he asked me to get. He says he's going to bless it!");
+            ~chatnpc("<p,neutral>Well, that's great! You'd best take it to him then with all haste!");
+        } else {
+            ~chatplayer("<p,neutral>Hi again. Filliman has turned into the Nature Spirit. I now need to get a silver sickle so that I can try and defeat the Ghasts. Do you know where I could get something like that?");
+            ~chatnpc("<p,neutral>Well, let me think now. Aha, yes, if you're making something from silver, you'll more than likely need a mould, most crafting shops sell them, you could get one from Al Kharid.");
+            ~chatnpc("<p,neutral>You can mine silver from a silver rock, you can find some on the way to Al Kharid.");
+        }
+    case ^druidspirit_entered_grotto :
+        ~chatplayer("<p,neutral>I've entered Fillimans underground grotto, but I'm not sure what to do.");
+        ~chatnpc("<p,neutral>Well, is there anything down there that might relate to Filliman? Perhaps if you search around you can contact him.");
+    case ^druidspirit_performed_ritual :
+        ~chatplayer("<p,neutral>I've placed all the items and Filliman said that spell was cast. What do I do now?");
+        ~chatnpc("<p,neutral>Where did he go to? Why not ask him for some help. Perhaps he went into his grotto.");
+    case ^druidspirit_spoken_filliman2 :
+        ~chatplayer("<p,neutral>I've shown Filliman the fungus, but I'm not sure what to do now?");
+        ~chatnpc("<p,neutral>Well, what does he need now? Has he asked for any other things? What does it take to become a Nature Spirit?");
+    case ^druidspirit_picked_fungi :
+        ~chatplayer("<p,neutral>I've picked the Fungus, but I'm not sure what to do now.");
+        ~chatnpc("<p,neutral>Well, perhaps Filliman needs it? Why not show it to him.");
+    case ^druidspirit_casted_spell :
+        ~chatplayer("<p,neutral>Hello there, I've cast the spell in the swamp, but I'm not sure what to do now.");
+        ~chatnpc("<p,neutral>Perhaps the nature of the spell should give some guidance here. It is a bloom spell isn't it?");
+        ~chatnpc("<p,neutral>Perhaps you should harvest natures bounty? In any case, you'll need another bloom scroll, go and see Filliman, he may have another.");
+        ~chatplayer("<p,neutral>Ok, thanks.");
+    case ^druidspirit_blessed :
+        ~chatnpc("<p,happy>How's life been treating you since you got blessed?");
+        ~chatplayer("<p,neutral>Not so bad!");
+        ~chatnpc("<p,happy>It's funny, because when I look at you, there does seem to be something of the faith about you. Have you considered a life of service to Saradomin?");
+        ~chatplayer("<p,neutral>I serve Saradomin in other ways.");
+        ~chatnpc("<p,happy>Fair enough!");
+    case ^druidspirit_received_spell :
+        ~chatplayer("<p,neutral>Hello again! I'm helping Filliman, he plans to become a nature spirit. I have a spell to cast but first I need to be blessed. Can you bless me?");
+        ~chatnpc("<p,laugh>But you haven't sneezed!");
+        ~chatplayer("<p,laugh>You're so funny!");
+        ~chatplayer("<p,angry>But can you bless me?");
+        ~chatnpc("<p,neutral>Very well my friend, prepare yourself for the blessings of Saradomin. Here we go!");
+        if_close;
+        anim(human_pray, 30);
+        npc_anim(human_casting, 30);
+        npc_say("Ashustru, blessidium, adverturasi, fidum!");
+        p_delay(0);
+        ~player_projectile(npc_coord, coord, uid, druid_shooting_star, 32, 32, 30, 90, 50, 0, 10);
+        p_delay(0);
+        spotanim_pl(druidicspirit_priest_bless, 0, 30);
+        p_delay(0);
+        %druidspirit = ^druidspirit_blessed;
+        ~chatnpc("<p,neutral>There you go my friend, you're now blessed. It's funny, now I look at you, there seems to be something of the faith about you. Anyway, good luck with your quest!");
+        ~chatplayer("<p,happy>Many thanks!");
+    case ^druidspirit_given_journal :
+        ~chatplayer("<p,neutral>Filliman has to make some plans, but I'm not sure what to do.");
+        ~chatnpc("<p,neutral>Well, it sounds like he needs some help, have you tried offering to help him?");
+    case ^druidspirit_shown_mirror :
+        ~chatplayer("<p,neutral>Filliman wants his journal.");
+        ~chatnpc("<p,neutral>He was always losing things in his camp, take a good look around.");
+    case ^druidspirit_spoken_filliman :
+        ~chatplayer("<p,neutral>I've spoken with the spirit and it is Filliman Tarlock, he's been slain.");
+        ~chatnpc("<p,neutral>Oh dear, such grave news. Filliman and I used to have such lovely chats...");
+        ~chatplayer("<p,neutral>Well, he's still quite conversational actually but he won't accept that he's dead. No matter what I say, he won't accept it.");
+        ~chatnpc("<p,neutral>Hmm, it sounds like he's trapped here until he can accept that he's dead. He still see's the world as if he were in it. If he could somehow see that he is no longer here, that might just do the trick.");
+        ~chatplayer("<p,neutral>How would I do that?");
+        ~chatnpc("<p,neutral>Hmm, I've no clue really my friend, the life of a priest does not mirror your adventurous life style. I'll certainly reflect on the matter, but I'm sure you'll come up with the answer before too long.");
+    case ^druidspirit_failed_talk :
+        ~chatplayer("<p,neutral>I've found Filliman and you should prepare for some sad news.");
+        ~chatnpc("<p,neutral>You mean... he's dead?");
+        ~chatplayer("<p,neutral>Well, er sort of. I got to his camp and I encountered a spirit of some kind. I don't think it was a Ghast, it tried to communicate with me, but made no sense, it was all 'ooooh' this and 'oooh' that.");
+        ~chatnpc("<p,neutral>Hmmm, that's very interesting, I seem to remember Father Aereck in Lumbridge and his predecessor Father Urhney having a similar issue. Though this is probably not related to your problem.");
+        ~chatnpc("<p,neutral>I will pray that it wasn't the spirit of my friend Filliman, but some lost soul who needs some help. Please do let me know how you get on with it.");
+    case ^druidspirit_started, ^druidspirit_entered_swamp :
+        ~chatplayer("<p,neutral>Hello again!");
+        ~chatnpc("<p,neutral>Have you managed to find Filliman yet?");
+        ~chatplayer("<p,neutral>No not yet.");
+        ~chatnpc("<p,neutral>Please go and look for him, I would appreciate it!");
+        @multi5("Where should I look for Filliman Tarlock again?", drezel_filliman_again, 
+                "Explain to me what a Ghast is again.", drezel_ghast_again, 
+                "What's the story with Mort Myre?", drezel_mort_myre2, 
+                "What's the story with Filliman Tarlock?", drezel_story, 
+                "Ok, thanks.", drezel_okthanks);
+    case ^druidspirit_not_started :
+        ~chatnpc("<p,neutral>Greetings again adventurer. How go your travels in Moryania? Is it as evil as I have heard?");
+        @multi2("Well, I'm going to look around a bit more.", drezel_look_around, "Is there anything else interesting to do around here?", drezel_anything_interesting);
+}
+
+[label,drezel_look_around]
+~chatplayer("<p,neutral>Well, I'm going to look around a bit more.");
+~chatnpc("<p,neutral>Well, that sounds like a good idea. Don't get into any trouble though!");
+
+[label,drezel_anything_interesting]
+~chatplayer("<p,quiz>Is there anything else interesting to do around here?");
+@drezel_start_druidspirit;
+
+[label,drezel_start_druidspirit]
+~chatnpc("<p,neutral>Well, not a great deal... but there is something you could do for me if you're interested. Though it is quite dangerous.");
+@multi2("Sorry, not interested...", drezel_druidspirit_not_interested, "Well, what is it, I may be able to help?", drezel_druidspirit_what_is_it);
+
+[label,drezel_druidspirit_not_interested]
+~chatplayer("<p,neutral>Sorry, not interested.");
+~chatnpc("<p,neutral>Well, I understand. You must be busy.");
+
+[label,drezel_druidspirit_what_is_it]
+~chatplayer("<p,neutral>Well, what is it, I may be able to help?");
+~chatnpc("<p,neutral>There's a man called Filliman who lives in Mort Myre, I wonder if you could look for him? The swamps of Mort Myre are dangerous though, they're infested with Ghasts!"); // https://youtu.be/gkw959x8Q6s?si=Pv6XBSiFlNXPSPuO&t=63
+@multi5("Who is this Filliman?", drezel_who_filliman, "Where's Mort Myre?", drezel_mort_myre, "What's a Ghast?", drezel_ghast, "Yes, I'll go and look for him.", drezel_look, "Sorry, I don't think I can help.", drezel_nohelp);
+
+[label,drezel_look]
+~chatplayer("<p,neutral>Yes, I'll go and look for him.");
+~chatnpc("<p,neutral>That's great, but it is very dangerous. Are you sure you want to do this?");
+@multi5_header("Yes, I'm sure.", drezel_sure, "Who is this Filliman?", drezel_who_filliman, "Where's Mort Myre?", drezel_mort_myre, "What's a Ghast?", drezel_ghast, "Sorry, I don't think I can help.", drezel_nohelp, "Accept Quest to look for Filliman?");
+
+[label,drezel_who_filliman]
+~chatplayer("<p,neutral>Who is this Filliman?");
+~chatnpc("<p,neutral>Filliman Tarlock is his full name and he's a druid. He lives in Mort Myre much like a hermit, but there's many a traveller who he's helped.");
+~chatnpc("<p,happy>Most people that come this way tell stories of when they were lost and paths that just seemed to 'open up' before them! I think it was Filliman Tarlock helping out.");
+@multi5("Who is this Filliman?", drezel_who_filliman, "Where's Mort Myre?", drezel_mort_myre, "What's a Ghast?", drezel_ghast, "Yes, I'll go and look for him.", drezel_look, "Sorry, I don't think I can help.", drezel_nohelp);
+
+[label,drezel_mort_myre]
+~chatplayer("<p,neutral>Where's Mort Myre?");
+~chatnpc("<p,neutral>Mort Myre is a decayed and dangerous swamp to the south east of here. It was once a beautiful forest but has since become filled with vile emanations from within Morytania.");
+~chatnpc("<p,neutral>The swamp decays everything. We put a fence around|it to stop unwary travellers going in. Anyone who dies in|the swamp is forever cursed to haunt it as a Ghast.|Ghasts attack travellers, turning food to rotten flesh.");
+@multi5("Who is this Filliman?", drezel_who_filliman, "Where's Mort Myre?", drezel_mort_myre, "What's a Ghast?", drezel_ghast, "Yes, I'll go and look for him.", drezel_look, "Sorry, I don't think I can help.", drezel_nohelp);
+
+[label,drezel_ghast]
+~chatplayer("<p,neutral>What's a ghast?");
+~chatnpc("<p,neutral>A Ghast is a poor soul who died in Mort Myre. They're undead of a special class, they're untouchable as far as I'm aware!");
+~chatnpc("<p,neutral>Filliman knew how to tackle them, but I've not heard from him in a long time. Ghasts, when they attack, will devour any food you have. If you have no food, they'll draw their nourishment from you!");
+@multi5("Who is this Filliman?", drezel_who_filliman, "Where's Mort Myre?", drezel_mort_myre, "What's a Ghast?", drezel_ghast, "Yes, I'll go and look for him.", drezel_look, "Sorry, I don't think I can help.", drezel_nohelp);
+
+[label,drezel_nohelp]
+~chatplayer("<p,neutral>Sorry, I don't think I can help.");
+~chatnpc("<p,neutral>That's fine, I'm sure someone else will be along shortly who can. Now, if you will excuse me, I do have some things to be getting on with.");
+
+[label,drezel_sure]
+~chatplayer("<p,neutral>Yes, I'm sure.");
+~chatnpc("<p,neutral>That's great! Many thanks! Now then, please be aware of the Ghasts, you cannot attack them, only Filliman knew how to take them on.");
+~chatnpc("<p,neutral>Just run from them if you can. If you start to get lost, try to make your way back to the temple.");
+%druidspirit = ^druidspirit_started;
+~send_quest_progress(questlist:druidspirit, %druidspirit, ^druidspirit_complete);
+inv_add(inv, meat_pie, 3);
+inv_add(inv, apple_pie, 3);
+~doubleobjbox(meat_pie, apple_pie, "The cleric hands you some food.", 200);
+~chatnpc("<p,neutral>Please take this food to Filliman, he'll probably appreciate a bit of cooked food. Now, he's never revealed where he lives in the swamps but I guess he'd be to the south, search for him won't you?");
+~chatplayer("<p,neutral>I'll do my very best, don't worry, if he's in there and he's still alive I'll definitely find him.");
+
+[label,drezel_filliman_again]
+~chatplayer("<p,neutral>Where should I look for Filliman Tarlock again?");
+~chatnpc("<p,neutral>Search to the south of Mort Myre. Remember that he's a druid so he can conceal himself within nature quite well. My guess is that he lives in the southern area of the swamp, though he could be anywhere.");
+@multi5("Where should I look for Filliman Tarlock again?", drezel_filliman_again, 
+        "Explain to me what a Ghast is again.", drezel_ghast_again, 
+        "What's the story with Mort Myre?", drezel_mort_myre2, 
+        "What's the story with Filliman Tarlock?", drezel_story, 
+        "Ok, thanks.", drezel_okthanks);
+
+[label,drezel_ghast_again]
+~chatplayer("<p,neutral>Explain to me what a Ghast is again.");
+~chatnpc("<p,neutral>A Ghast is a poor soul who died in Mort Myre. They're undead of a special class, they're untouchable apart from with special druidic items.");
+~chatnpc("<p,neutral>Filliman knew how to tackle them, but I've not heard from him in a long time. Ghasts, when they attack, will devour any food you have. If you have no food, they'll draw their nourishment from you!");
+@multi5("Where should I look for Filliman Tarlock again?", drezel_filliman_again, 
+        "Explain to me what a Ghast is again.", drezel_ghast_again, 
+        "What's the story with Mort Myre?", drezel_mort_myre2, 
+        "What's the story with Filliman Tarlock?", drezel_story, 
+        "Ok, thanks.", drezel_okthanks);
+
+[label,drezel_mort_myre2]
+~chatplayer("<p,neutral>What's the story with Mort Myre?");
+~chatnpc("<p,neutral>Mort Myre was once a beautiful forest by the name of Humblethorn until the evil denizens of Morytania descended. Now their evil emanations have putrified and diseased the forest into a decaying swamp of death.");
+@multi5("Where should I look for Filliman Tarlock again?", drezel_filliman_again, 
+        "Explain to me what a Ghast is again.", drezel_ghast_again, 
+        "What's the story with Mort Myre?", drezel_mort_myre2, 
+        "What's the story with Filliman Tarlock?", drezel_story, 
+        "Ok, thanks.", drezel_okthanks);
+
+[label,drezel_story]
+~chatplayer("<p,neutral>What's the story with Filliman Tarlock?");
+~chatnpc("<p,neutral>Filliman is a druid of some considerable power. He helped many people in Morytania escape when the evil descended upon the land. His knowledge of plants and nature was exceptional.");
+~chatnpc("<p,neutral>But one day, he was betrayed by some of the people who he had tried to help. This naturally made him more careful when dealing with strangers again and so, instead of showing himself, he would follow them.");
+~chatnpc("<p,neutral>He would follow them at a distance and make the path clear for them, showing them to the temple and to salvation. Saradomin bless him! He is a good man.");
+@multi5("Where should I look for Filliman Tarlock again?", drezel_filliman_again, 
+        "Explain to me what a Ghast is again.", drezel_ghast_again, 
+        "What's the story with Mort Myre?", drezel_mort_myre2, 
+        "What's the story with Filliman Tarlock?", drezel_story, 
+        "Ok, thanks.", drezel_okthanks);
+
+[label,drezel_okthanks]
+~chatplayer("<p,neutral>Ok, thanks");
+~chatnpc("<p,neutral>Many thanks to you, <displayname()>!");

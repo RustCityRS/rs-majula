@@ -83,7 +83,7 @@ server_prot! {
     SetMultiway = 254,
 }
 
-#[cfg(since_244)]
+#[cfg(rev = "244")]
 server_prot! {
     UpdateIgnoreList = 7,
     ChatFilterSettings = 9,
@@ -114,6 +114,7 @@ server_prot! {
     SetMultiway = 97,
     IfSetRecol = 103,
     IfSetPlayerHead = 108,
+    IfOpenOverlay = 158,
     IfSetHide = 123,
     LocDel = 125,
     IfSetNpcHead = 129,
@@ -152,4 +153,76 @@ server_prot! {
     ResetAnims = 242,
     NpcInfo = 244,
     IfSetModel = 245,
+}
+
+#[cfg(rev = "245.2")]
+server_prot! {
+    ChatFilterSettings = 2, // NXT naming
+    IfOpenChat = 7,
+    IfSetTabActive = 8,
+    ObjDel = 13,
+    UpdateZonePartialEnclosed = 15, // NXT naming
+    ResetClientVarCache = 25, // NXT naming
+    UpdateRebootTimer = 26, // NXT naming
+    EnableTracking = 28,
+    IfSetTab = 29,
+    IfSetText = 32, // NXT naming
+    SetMultiway = 35,
+    Logout = 36, // NXT naming
+    MidiJingle = 39, // NXT naming
+    UpdatePid = 49,
+    PCountDialog = 56, // named after runescript command + client resume_p_countdialog packet
+    IfSetModel = 60, // NXT naming
+    RebuildNormal = 66, // NXT naming (do we really need _normal if there's no region rebuild?)
+    IfSetAnim = 69, // NXT naming
+    UpdateRunWeight = 70, // NXT naming
+    LocAnim = 71,
+    VarpLarge = 75, // NXT naming
+    IfSetNpcHead = 76, // NXT naming
+    IfSetPlayerHead = 83, // NXT naming
+    CamMoveTo = 86, // NXT naming
+    ObjAdd = 94,
+    UpdateInvPartial = 95, // NXT naming
+    MidiSong = 96, // NXT naming
+    CamShake = 103, // NXT naming
+    NpcInfo = 105, // NXT naming
+    UpdateFriendList = 109, // NXT naming
+    UpdateStat = 110, // NXT naming
+    IfOpenOverlay = 115,
+    LocAddChange = 119,
+    CamLookAt = 123, // NXT naming
+    TutFlash = 132,
+    CamReset = 134, // NXT naming
+    IfSetColour = 135, // NXT naming
+    UpdateZoneFullFollows = 140, // NXT naming
+    MapAnim = 141,
+    UpdateInvStopTransmit = 143, // NXT naming
+    ResetAnims = 144, // NXT naming
+    ObjCount = 151,
+    TutOpen = 152,
+    IfSetObject = 153, // NXT naming
+    UpdateInvFull = 156, // NXT naming
+    PlayerInfo = 161, // NXT naming
+    FinishTracking = 165,
+    IfClose = 174,
+    MessageGame = 175, // NXT naming
+    IfOpenMain = 177,
+    UpdateIgnoreList = 181, // NXT naming
+    MapProjAnim = 187,
+    LocMerge = 188,
+    ObjReveal = 190,
+    VarpSmall = 192, // NXT naming
+    LocDel = 198,
+    UpdateZonePartialFollows = 203, // NXT naming
+    MessagePrivate = 207, // NXT naming
+    UpdateRunEnergy = 208, // NXT naming
+    SynthSound = 209, // NXT naming
+    IfSetHide = 225, // NXT naming
+    IfSetScrollPos = 226, // NXT naming
+    IfOpenMainSide = 229,
+    IfSetPosition = 230, // NXT naming
+    UnsetMapFlag = 233, // NXT has "SET_MAP_FLAG" but we cannot control the position
+    IfOpenSide = 236,
+    LastLoginInfo = 238, // NXT naming
+    HintArrow = 243, // NXT naming
 }
