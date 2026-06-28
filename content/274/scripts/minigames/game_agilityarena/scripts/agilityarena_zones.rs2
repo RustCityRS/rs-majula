@@ -1,0 +1,286 @@
+// these timeres are zone triggers and not done through mapzone
+[zone,3_43_149_8_32] 
+settimer(agilityarena_spikes, 1);
+
+[zone,3_43_149_8_40] 
+settimer(agilityarena_spikes, 1);
+
+[zone,3_43_149_16_8] 
+settimer(agilityarena_spikes, 1);
+
+[zone,3_43_149_16_16] 
+settimer(agilityarena_spikes, 1);
+settimer(agilityarena_sawblades, 1);
+
+[zone,3_43_149_24_16] 
+settimer(agilityarena_sawblades, 1);
+
+[zone,3_43_149_40_16]
+settimer(agilityarena_pressurepad, 1);
+
+[zone,3_43_149_48_16]
+settimer(agilityarena_pressurepad, 1);
+
+[zone,3_43_149_40_32] 
+settimer(agilityarena_spikes, 1);
+settimer(agilityarena_poisondarts, 1);
+
+[zone,3_43_149_48_32] 
+settimer(agilityarena_spikes, 1);
+
+[zone,3_43_149_40_40] 
+settimer(agilityarena_poisondarts, 1);
+settimer(agilityarena_pressurepad, 1);
+
+[zone,3_43_149_48_40] 
+settimer(agilityarena_pressurepad, 1);
+
+[zone,3_43_149_16_40] 
+settimer(agilityarena_pressurepad, 1);
+settimer(agilityarena_sawblades, 1);
+
+[zone,3_43_149_16_48] 
+settimer(agilityarena_pressurepad, 1);
+
+[zone,3_43_149_24_40] 
+settimer(agilityarena_sawblades, 1);
+
+[zone,3_43_149_16_32] 
+settimer(agilityarena_poisondarts, 1);
+
+[zone,3_43_149_24_32]
+settimer(agilityarena_sawblades, 1);
+settimer(agilityarena_poisondarts, 1);
+
+[zone,3_43_149_32_16] 
+settimer(agilityarena_poisondarts, 1);
+
+// clear timers
+[zoneexit,3_43_149_8_32] 
+cleartimer(agilityarena_spikes);
+
+[zoneexit,3_43_149_8_40]
+cleartimer(agilityarena_spikes);
+
+[zoneexit,3_43_149_16_8] 
+cleartimer(agilityarena_spikes);
+
+[zoneexit,3_43_149_16_16] 
+cleartimer(agilityarena_spikes);
+cleartimer(agilityarena_sawblades);
+
+[zoneexit,3_43_149_24_16] 
+cleartimer(agilityarena_sawblades);
+
+[zoneexit,3_43_149_40_16]
+cleartimer(agilityarena_pressurepad);
+
+[zoneexit,3_43_149_48_16]
+cleartimer(agilityarena_pressurepad);
+
+[zoneexit,3_43_149_40_32] 
+cleartimer(agilityarena_spikes);
+cleartimer(agilityarena_poisondarts);
+
+[zoneexit,3_43_149_48_32] 
+cleartimer(agilityarena_spikes);
+
+[zoneexit,3_43_149_40_40] 
+cleartimer(agilityarena_poisondarts);
+cleartimer(agilityarena_pressurepad);
+
+[zoneexit,3_43_149_48_40] 
+cleartimer(agilityarena_pressurepad);
+
+[zoneexit,3_43_149_16_40] 
+cleartimer(agilityarena_pressurepad);
+cleartimer(agilityarena_sawblades);
+
+[zoneexit,3_43_149_24_40] 
+cleartimer(agilityarena_sawblades);
+
+[zoneexit,3_43_149_16_32] 
+cleartimer(agilityarena_poisondarts);
+
+[zoneexit,3_43_149_24_32]
+cleartimer(agilityarena_sawblades);
+cleartimer(agilityarena_poisondarts);
+
+[zoneexit,3_43_149_32_16] 
+cleartimer(agilityarena_poisondarts);
+
+[timer,agilityarena_spikes]
+if(loc_find(coord, agilityarena_floorspikes) = true) {
+    // https://youtu.be/eHMW2KRp9_Q?si=H8uk_KvSW2zFNcIQ&t=119 1t delay before activating, which osrs doesnt seem to have
+    p_stopaction;
+    p_delay(0);
+    if(stat_random(agility, 60, 250) = false | stat(agility) < 20) {
+        if(stat(agility) < 20) mes("You need an agility level of at least 20 to get past this trap!");
+        mes("You were hit by some floor spikes!");
+        sound_synth(floor_spikes, 1, 0);
+        loc_anim(agilityarena_floorspikes_activate);
+        if(.loc_find(movecoord(coord, 1, 0, 0), agilityarena_floorspikes) = true) {
+            ~agility_exactmove(agilityarena_player_spikedback, 11, 1, coord, movecoord(coord, -1, 0, 0), 30, 60, ^exact_east, false);
+        } else if(.loc_find(movecoord(coord, -1, 0, 0), agilityarena_floorspikes) = true) {
+            ~agility_exactmove(agilityarena_player_spikedback, 11, 1, coord, movecoord(coord, 1, 0, 0), 30, 60, ^exact_west, false);
+        } else if(.loc_find(movecoord(coord, 0, 0, 1), agilityarena_floorspikes) = true) {
+            ~agility_exactmove(agilityarena_player_spikedback, 11, 1, coord, movecoord(coord, 0, 0, -1), 30, 60, ^exact_north, false);
+        } else {
+            ~agility_exactmove(agilityarena_player_spikedback, 11, 1, coord, movecoord(coord, 0, 0, 1), 30, 60, ^exact_south, false);
+        }
+        ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+        return;
+    }
+    if(.loc_find(movecoord(coord, 1, 0, 0), agilityarena_floorspikes) = true) {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, 2, 0, 0), 30, 49, ^exact_east, false);
+    } else if(.loc_find(movecoord(coord, -1, 0, 0), agilityarena_floorspikes) = true) {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, -2, 0, 0), 30, 49, ^exact_west, false);
+    } else if(.loc_find(movecoord(coord, 0, 0, 1), agilityarena_floorspikes) = true) {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, 0, 0, 2), 30, 49, ^exact_north, false);
+    } else {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, 0, 0, -2), 30, 49, ^exact_south, false);
+    }
+    loc_anim(agilityarena_floorspikes_activate);
+    sound_synth(floor_spikes_avoid, 1, 0);
+    p_delay(0);
+    stat_advance(agility, 240);
+}
+
+[timer,agilityarena_pressurepad]
+if(loc_find(coord, agilityarena_pressurepad) = true) {
+    // https://youtu.be/eHMW2KRp9_Q?si=4o0WDWs9VMAxXitO&t=137 1t delay before activating, which osrs doesnt seem to have (same as floor spikes bascially)
+    p_stopaction;
+    p_delay(0);
+    if(stat_random(agility, 40, 230) = false | stat(agility) < 20) {
+        if(stat(agility) < 20) mes("You need an agility level of at least 20 to get past this trap!");
+        mes("You were hit by some falling rocks!");
+        sound_synth(roof_collapse, 1, 0);
+        spotanim_map(agilityarena_roofcollapse, loc_coord, 0, 0);
+        if(.loc_find(movecoord(coord, 1, 0, 0), agilityarena_pressurepad) = true) {
+            ~agility_exactmove(agilityarena_roofcollapse_hitandstumble, 0, 0, coord, movecoord(coord, -1, 0, 0), 34, 60, ^exact_east, false);
+        } else if(.loc_find(movecoord(coord, -1, 0, 0), agilityarena_pressurepad) = true) {
+            ~agility_exactmove(agilityarena_roofcollapse_hitandstumble, 0, 0, coord, movecoord(coord, 1, 0, 0), 34, 60, ^exact_west, false);
+        } else if(.loc_find(movecoord(coord, 0, 0, 1), agilityarena_pressurepad) = true) {
+            ~agility_exactmove(agilityarena_roofcollapse_hitandstumble, 0, 0, coord, movecoord(coord, 0, 0, -1), 34, 60, ^exact_north, false);
+        } else  {
+            ~agility_exactmove(agilityarena_roofcollapse_hitandstumble, 0, 0, coord, movecoord(coord, 0, 0, 1), 34, 60, ^exact_south, false);
+        }
+        sound_synth(roof_collapse2, 1, 0);
+        spotanim_map(agilityarena_roofcollapse, loc_coord, 0, 0);
+        p_delay(0);
+        ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+        return;
+    }
+    if(.loc_find(movecoord(coord, 1, 0, 0), agilityarena_pressurepad) = true) {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, 2, 0, 0), 30, 49, ^exact_east, false);
+    } else if(.loc_find(movecoord(coord, -1, 0, 0), agilityarena_pressurepad) = true) {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, -2, 0, 0), 30, 49, ^exact_west, false);
+    } else if(.loc_find(movecoord(coord, 0, 0, 1), agilityarena_pressurepad) = true) {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, 0, 0, 2), 30, 49, ^exact_north, false);
+    } else {
+        ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(coord, 0, 0, -2), 30, 49, ^exact_south, false);
+    }
+    spotanim_map(agilityarena_roofcollapse, loc_coord, 0, 20);
+    sound_synth(collapse_avoid, 1, 0);
+    p_delay(0);
+    stat_advance(agility, 260);
+}
+
+[proc,get_sawblades_coord]()(coord)
+if(inzone(3_43_149_25_43, 3_43_149_28_43, coord) = true) {
+    return (3_43_149_25_44);
+} else if(inzone(3_43_149_31_37, 3_43_149_31_39, coord) = true) {
+    return (3_43_149_30_37);
+} else if(inzone(3_43_149_25_21, 3_43_149_27_21, coord) = true) {
+    return (3_43_149_25_20);
+}
+
+[timer,agilityarena_sawblades]
+// can't think of a good way to do this without harcoded coord checks unfortunately
+def_int $dest_coord;
+if((inzone(3_43_149_25_43, 3_43_149_27_43, coord) = true | inzone(3_43_149_31_37, 3_43_149_31_39, coord) = true | inzone(3_43_149_25_21, 3_43_149_27_21, coord) = true) 
+    & loc_find(~get_sawblades_coord, agilityarena_sawblades) = true) {
+    p_stopaction;
+    p_delay(0);
+    if(stat_random(agility, 30, 210) = false | stat(agility) < 40) {
+        if(stat(agility) < 40) mes("You need an agility level of at least 40 to get past this trap!");
+        if(~total_distance(coord, loc_coord) > 1) {
+            // these could just be coord checks, theres only 3 of them and they all have different angles
+            if(loc_angle = ^loc_east) ~agility_exactmove(agilityarena_player_spikedback, 11, 0, coord, movecoord(loc_coord, 1, 0, 3), 30, 60, ^exact_south, false);
+            else if(loc_angle = ^loc_north) ~agility_exactmove(agilityarena_player_spikedback, 11, 0, coord, movecoord(loc_coord, 3, 0, 1), 30, 60, ^exact_west, false);
+            else ~agility_exactmove(agilityarena_player_spikedback, 11, 0, coord, movecoord(loc_coord, 3, 0, -1), 30, 60, ^exact_west, false);
+        } else {
+            if(loc_angle = ^loc_east) ~agility_exactmove(agilityarena_player_spikedback, 11, 0, coord, movecoord(loc_coord, 1, 0, -1), 30, 60, ^exact_north, false);
+            else if(loc_angle = ^loc_north) ~agility_exactmove(agilityarena_player_spikedback, 11, 0, coord, movecoord(loc_coord, -1, 0, 1), 30, 60, ^exact_east, false);
+            else ~agility_exactmove(agilityarena_player_spikedback, 11, 0, coord, movecoord(loc_coord, -1, 0, -1), 30, 60, ^exact_east, false);
+        }
+        mes("You were hit by the spinning blades!");
+        loc_anim(agilityarena_sawblades_twist);
+        sound_synth(blade_hit, 1, 0);
+        p_delay(0);
+        ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+        return;
+    }
+    if(~total_distance(coord, loc_coord) > 1) {
+        if(loc_angle = ^loc_east) ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(loc_coord, 1, 0, -1), 30, 49, ^exact_south, false);
+        else if (loc_angle = ^loc_north) ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(loc_coord, -1, 0, 1), 30, 49, ^exact_west, false);
+        else ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(loc_coord, -1, 0, -1), 30, 49, ^exact_west, false);
+    } else {
+        if(loc_angle = ^loc_east) ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(loc_coord, 1, 0, 3), 30, 49, ^exact_north, false);
+        else if (loc_angle = ^loc_north) ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(loc_coord, 3, 0, 1), 30, 49, ^exact_east, false);
+        else ~agility_exactmove(agilityarena_dive_player, 20, 0, coord, movecoord(loc_coord, 3, 0, -1), 30, 49, ^exact_east, false);
+    }
+    loc_anim(agilityarena_sawblades_twist);
+    sound_synth(land_flat, 1, 30);
+    p_delay(0);
+    stat_advance(agility, 280);
+}
+
+// pillar, cam2, cam3, dart target, dest, fail dest, fail dir
+[proc,get_poisondart_vals](coord $passed)(coord, coord, coord, coord, coord, coord, int)
+switch_coord($passed) {
+    case 3_43_149_42_38 : return (3_43_149_42_32, 3_43_149_42_28, 3_43_149_38_42, 3_43_149_42_40, 3_43_149_42_36, 3_43_149_42_39, ^exact_south);
+    case 3_43_149_42_37 : return (3_43_149_42_43, 3_43_149_42_47, 3_43_149_46_33, 3_43_149_42_35, 3_43_149_42_39, 3_43_149_42_36, ^exact_north);
+    case 3_43_149_37_21 : return (3_43_149_31_21, 3_43_149_27_21, 3_43_149_41_25, 3_43_149_39_21, 3_43_149_35_21, 3_43_149_38_21, ^exact_west);
+    case 3_43_149_36_21 : return (3_43_149_42_21, 3_43_149_46_21, 3_43_149_32_17, 3_43_149_34_21, 3_43_149_38_21, 3_43_149_35_21, ^exact_east);
+    case 3_43_149_26_32 : return (3_43_149_20_32, 3_43_149_16_32, 3_43_149_30_36, 3_43_149_28_32, 3_43_149_24_32, 3_43_149_27_32, ^exact_west);
+    case 3_43_149_25_32 : return (3_43_149_31_32, 3_43_149_35_32, 3_43_149_21_28, 3_43_149_23_32, 3_43_149_27_32, 3_43_149_24_32, ^exact_west);
+}
+
+[timer,agilityarena_poisondarts]
+// hardcoded, could be done with lookup on the darts pillar and loc_angle but seems  obtuse
+// to be running in a 1t timer tbh
+def_coord $pillar_coord;
+def_coord $cam2;
+def_coord $cam3;
+def_coord $dart_target;
+def_coord $dest;
+def_coord $fail;
+def_int $dir;
+if(coord = 3_43_149_42_38 | coord = 3_43_149_42_37 | coord = 3_43_149_37_21 | coord = 3_43_149_36_21 | coord = 3_43_149_26_32 | coord = 3_43_149_25_32) {
+    // https://youtu.be/eHMW2KRp9_Q?si=rtwNYyYl0s9i3YlV&t=144
+    p_stopaction;
+    p_delay(0);
+    $pillar_coord, $cam2, $cam3, $dart_target, $dest, $fail, $dir = ~get_poisondart_vals(coord);
+    if(stat_random(agility, 20, 190) = false | stat(agility) < 40) {
+        if(stat(agility) < 40) mes("You need an agility level of at least 40 to get past this trap!");
+        sound_synth(dart_fire_hit, 1, 0);
+        ~coord_projectile($pillar_coord, coord, bullettime_dart, 0, 10, 0, 2, 25, 40, 0);
+        ~agility_exactmove(agilityarena_player_spikedback, 25, 0, coord, $fail, 44, 74, $dir, false);
+        mes("You were hit by some darts, something on them makes you feel dizzy!");
+        stat_drain(agility, 2, 0);
+        ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+        return;
+    }
+    sound_synth(dart_fire_avoid, 1, 0);
+    cam_lookat(coord, 100, 100, 100);
+    cam_moveto($cam2, 400, 232, 232);
+    p_delay(0);
+    anim(agilityarena_dartduck, 70);
+    ~coord_projectile($pillar_coord, $dart_target, bullettime_dart, 0, 10, 0, 2, 150, 40, 0);
+    cam_moveto($cam3, 440, 5, 4);
+    p_delay(6);
+    ~forcemove($dest);
+    cam_reset;
+    stat_advance(agility, 300);
+}

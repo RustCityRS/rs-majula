@@ -1411,5 +1411,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, IF_ADDRESUMEBUTTON => |s, player| {
             player.if_addresumebutton(s.pop_int());
         });
+
+        // 2150
+        #[cfg(since_274)]
+        none!(m, MINIMAP_TOGGLE => |_s| {
+            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        });
+
+        // 2151
+        #[cfg(since_274)]
+        none!(m, SET_SKILL_LEVEL => |_s| {
+            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        });
     }
 }

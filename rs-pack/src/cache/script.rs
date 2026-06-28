@@ -294,6 +294,7 @@ pub const PROJANIM_MAP: u16 = 1018;
 pub const SEQLENGTH: u16 = 1019;
 pub const SPOTANIM_MAP: u16 = 1020;
 pub const WORLD_DELAY: u16 = 1021;
+pub const MIDI_LENGTH: u16 = 1022;
 
 // ── Player ops (2000-2499) ──────────────────────────────────────────────────
 
@@ -447,6 +448,8 @@ pub const PLAYER_FINDALLZONE: u16 = 2146; // TODO
 pub const PLAYER_FINDNEXT: u16 = 2147; // TODO
 pub const SET_PLAYER_OP: u16 = 2148;
 pub const IF_ADDRESUMEBUTTON: u16 = 2149;
+pub const MINIMAP_TOGGLE: u16 = 2150;
+pub const SET_SKILL_LEVEL: u16 = 2151;
 
 // ── Npc ops (2500-2999) ─────────────────────────────────────────────────────
 

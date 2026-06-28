@@ -1,0 +1,181 @@
+[opnpc1,sanfew]
+if(%druidquest = ^druid_spoken_sanfew) {
+    @druid_sanfew_give_ingredients;
+}
+~chatnpc("<p,quiz>What can I do for you young 'un?");
+if(%eadgar_quest = ^eadgar_unlocked_storeroom & inv_total(inv, eadgar_goutweed_herb) > 0) { //this should fire AFTER "What can I do for you young 'un?"
+    @sanfew_complete_eadgar;
+} else if(%eadgar_quest >= ^eadgar_started & %eadgar_quest <= ^eadgar_unlocked_storeroom) {
+    if(%eadgar_quest = ^eadgar_needs_items) {
+        if(inv_total(inv, eadgar_dirty_druid_robe) = 0 & inv_total(bank, eadgar_dirty_druid_robe) = 0) {
+            @eadgar_sanfew_dirty_clothes;
+        } else {
+            @multi2("What was I meant to be doing again?", eadgar_sanfew_reminder, "Actually I don't need to speak to you.", sanfew_dont_need);
+        }
+    } else {
+        @multi2("What was I meant to be doing again?", eadgar_sanfew_reminder, "Actually I don't need to speak to you.", sanfew_dont_need);
+    }
+}
+if(%eadgar_quest = ^eadgar_complete) {
+    if(inv_total(inv, eadgar_goutweed_herb) > 0) {
+        @multi3("I have some more goutweed for you.", sanfew_goutweed_exchange, "Have you any more work for me, to help reclaim the circle?", sanfew_more_work, "Actually I don't need to speak to you.", sanfew_dont_need);
+    } else {
+        @multi3("Did you say you needed more goutweed?", sanfew_goutweed_exchange, "Have you any more work for me, to help reclaim the circle?", sanfew_more_work, "Actually I don't need to speak to you.", sanfew_dont_need);
+    }
+} else if(%druidquest = ^druid_started) {
+    @multi2("I've been sent to help purify the Varrock stone circle.", druid_sanfew_information, "Actually I don't need to speak to you.", sanfew_dont_need);
+} else if(%druidquest >= ^druid_given_ingredients) {
+    @sanfew_postquest;
+} else if(%druidquest = ^druid_not_started) {
+    @multi2("I've heard you druids might be able to teach me herblore.", sanfew_teach_herblore, "Actually I don't need to speak to you.", sanfew_dont_need);
+}
+
+[label,sanfew_postquest]
+@multi2("Have you any more work for me, to help reclaim the circle?", sanfew_more_work, "Actually I don't need to speak to you.", sanfew_dont_need);
+
+[label,druid_sanfew_information]
+~chatplayer("<p,neutral>I've been sent to assist you with the ritual to purify the Varrockian stone circle.");
+~chatnpc("<p,neutral>Well, what I'm struggling with right now is the meats needed for the potion to honour Guthix. I need the raw meat of four different animals for it, but not just any old meats will do.");
+~chatnpc("<p,neutral>Each meat has to be dipped individually into the Cauldron of Thunder for it to work correctly.");
+%druidquest = ^druid_spoken_sanfew;
+@druid_sanfew_questions;
+
+[label,druid_sanfew_questions]
+def_int $option = ~p_choice2("Where can I find this cauldron?", 1, "Ok, I'll do that then.", 2);
+if($option = 1) {
+    ~chatplayer("<p,quiz>Where can I find this cauldron?");
+    ~chatnpc("<p,neutral>It is located somewhere in the mysterious underground halls which are located somewhere in the woods just South of here. They are too dangerous for me to go myself however.");
+} else if($option = 2) {
+    ~chatplayer("<p,neutral>Ok, I'll do that then.");
+    ~chatnpc("<p,happy>Well thank you very much!");
+}
+
+[label,druid_sanfew_give_ingredients]
+~chatnpc("<p,quiz>Did you bring me the required ingredients for the potion?");
+
+if(inv_total(inv, enchanted_beef) > 0 & inv_total(inv, enchanted_rat_meat) > 0 & inv_total(inv, enchanted_bear_meat) > 0& inv_total(inv, enchanted_chicken) > 0) {
+    ~chatplayer("<p,happy>Yes, I have all four now!");
+    ~chatnpc("<p,happy>Well hand 'em over then <text_gender("lad", "lass")>!");
+    ~chatnpc("<p,happy>Thank you so much adventurer! These meats will allow our potion to honour Guthix to be completed, and bring one step closer to reclaiming our stone circle!");
+    inv_del(inv, enchanted_beef, 1);
+    inv_del(inv, enchanted_rat_meat, 1);
+    inv_del(inv, enchanted_bear_meat, 1);
+    inv_del(inv, enchanted_chicken, 1);
+    %druidquest = ^druid_given_ingredients;
+    ~chatnpc("<p,neutral>Now go and talk to Kaqemeex and he will introduce you to the wonderful world of herblore and potion making!");
+    return;
+} 
+~chatplayer("<p,sad>No, not yet...");
+~chatnpc("<p,neutral>Well let me know when you do young 'un.");
+def_int $option = ~p_choice2("What was I meant to be doing again?", 1, "I'll get on with it.", 2);
+
+if($option = 1) {
+    ~chatplayer("<p,neutral>What was I meant to be doing again?");
+    ~chatnpc("<p,neutral>Trouble with your memory eh young'un? I need the raw meats of four different animals that have been dipped into the Cauldron of Thunder so I can make my potion to honour Guthix.");
+    ~chatplayer("<p,neutral>Ooooh yeah, I remember.");
+    @druid_sanfew_questions;
+} else if($option = 2) {
+    ~chatplayer("<p,neutral>I'll get on with it.");
+    ~chatnpc("<p,happy>Good, good.");
+}
+
+[label,sanfew_teach_herblore]
+~chatplayer("<p,quiz>So... I've heard you druids might be able to teach me herblore...");
+~chatnpc("<p,neutral>Herblore eh? You're probably best off talking to Kaqemeex about that; he's the best herblore teacher we currently have. I believe at the moment he's at out stone circle just North of here.");
+~chatplayer("<p,happy>Thanks.");
+
+[label,sanfew_dont_need]
+~chatplayer("<p,confused>Actually, I don't need to speak to you.");
+~chatnpc("<p,neutral>Well, we all make mistakes sometimes.");
+if(%druidquest > ^druid_spoken_sanfew) { // guess they made a label with the exact same dialogue?
+    mes("Sanfew grunts.");
+} else {
+    mes("Sanfew grunts");
+}
+
+[label,sanfew_more_work]
+~chatplayer("<p,quiz>Have you any more work for me to help reclaim the stone circle?");
+if(%eadgar_quest = ^eadgar_complete) {
+    ~chatnpc("<p,neutral>Well, not right now I don't think young 'un. In fact, I need to make some more preparations myself for the ritual. Rest assured, if I need any more help I will ask you again.");
+    return;
+}
+if(%death_equiproom = ^death_complete & %troll_quest = ^troll_complete) {
+    if(stat_base(herblore) >= 31) {
+        // source https://youtu.be/Kt5WcY9qP0g?t=61
+        // mesanims rsprox/branon
+        ~chatnpc("<p,happy>Ah, you've come just in time. I need a certain herb|for the next part of the purification ritual..."); //linebreaks from runeweb 2004
+        ~chatnpc("<p,neutral>It used to be quite common, but nowadays only the trolls know where to find it. They use it in their cooking, you see. It's a very prized ingredient.");
+        ~chatplayer("<p,neutral>And what exactly do you want me to do?");
+        ~chatnpc("<p,neutral>Journey to the north into the land of the trolls, and find the secret of the herb the trolls call 'goutweed'.");
+        ~chatnpc("<p,neutral>My friend Eadgar lives in the area, and he may be able to help you. Bring some goutweed back and I will teach you something useful.");
+        @multi2("I'll do it.", sanfew_ill_do_it, "No thanks.", sanfew_no_thanks);
+    } else {
+        // OSRS: I tried starting the quest with Death Plateau and Troll Stronghold completed but under 31 Herblore and I got:
+        //~chatnpc("<p,neutral>Not just yet, young 'un.");
+        //~mesbox("You do not meet all of the requirements to start the Eadgar's Ruse quest.");
+        //
+        // This is confusing because according to the wiki transcript, you should only get that line/mesbox if you are *missing* the quest prereqs (Death Plateau and/or Troll Stronghold)
+        // OSRS wiki says there should be different dialog for *only* missing Herblore level (below) but this wasn't the case when I checked OSRS
+        ~chatnpc("<p,sad>I'm afraid you are not yet learned enough in the art of Herblore to be able to help me, adventurer...");
+        // The above line *is* used in RS3 if you are missing Herblore req only (but the mesbox afterwards is *not* - dialog simply ends)
+        // Relatively unsure which to use, but switched to the RS3 behavior as it feels older to me
+    }
+} else {
+    // TODO this might be the wrong dialog - this is the "generic" line for when Sanfew has no more quests for you (after Druidic Ritual/Eadgar's Ruse)
+    // there might be another line for specifically trying to start Eadgar's Ruse without quest prereqs completed
+    // I don't yet have a test case recorded for trying to start Eadgar's Ruse with Druidic Ritual completed but NOT Death Plateau/Troll Stronghold
+    ~chatnpc("<p,neutral>Well, not right now I don't think young 'un. In fact, I need to make some more preparations myself for the ritual. Rest assured, if I need any more help I will ask you again.");
+}
+
+[label,sanfew_ill_do_it] 
+%eadgar_quest = ^eadgar_started;
+~send_quest_progress(questlist:eadgar, %eadgar_quest, ^eadgar_complete);
+// source https://youtu.be/Kt5WcY9qP0g?t=61
+// mesanims rsprox/branon
+~chatplayer("<p,happy>I'll do it.");
+~chatnpc("<p,happy>Thank you, adventurer!");
+
+[label,sanfew_no_thanks]
+// mesanims from RS3
+~chatplayer("<p,neutral>No thanks.");
+~chatnpc("<p,sad>Oh well. No doubt some other adventurer will eventually come who can help me.");
+
+[label,eadgar_sanfew_reminder]
+// rsprox/branon
+~chatplayer("<p,neutral>What was I meant to be doing again?");
+~chatnpc("<p,angry>I've told you already.");
+~chatnpc("<p,neutral>Journey to the north into the land of the trolls, and find the secret of the herb the trolls call goutweed.");
+~chatnpc("<p,neutral>My friend Eadgar lives in the area, and he may be able to help you. Bring some goutweed back and I will teach you something useful.");
+~chatplayer("<p,neutral>I'll get on with it.");
+
+[label,eadgar_sanfew_dirty_clothes]
+// rsprox/branon
+~chatplayer("<p,neutral>Eadgar says he needs some dirty clothes for his plan, and he said you might be able to help.");
+~chatnpc("<p,confused>Now why would he need that?");
+~chatplayer("<p,neutral>It's a long story.");
+~chatnpc("<p,neutral>Never mind then... I think Tegid is doing his laundry|outside. You could ask him if you can borrow one of|his dirty robes."); // linebreaks from runeweb 2004
+
+[label,sanfew_complete_eadgar]
+inv_del(inv, eadgar_goutweed_herb, 1);
+queue(eadgar_quest_complete, 0, 0);
+// rsprox/branon
+~chatplayer("<p,happy>I have some goutweed!");
+~chatnpc("<p,happy>Excellent! I will be able to complete the next part of the|ritual now. I will teach you a new spell and give you|some of my knowledge in herblore as a token of thanks."); // https://www.global-rs.com/img/eadgarsruse_congrats.gif
+~chatnpc("<p,neutral>If you ever come across more goutweed, bring it to me; I don't need any more for the ritual, but it's still quite difficult for me to get. I'll exchange it for some other herbs.");
+
+[label,sanfew_goutweed_exchange]
+if(inv_total(inv, eadgar_goutweed_herb) > 0) {
+    // swap happens right away
+    def_int $herbs = inv_total(inv, eadgar_goutweed_herb);
+    inv_del(inv, eadgar_goutweed_herb, $herbs);
+    while($herbs > 0) {
+        inv_add(inv, ~randomherb);
+        $herbs = sub($herbs, 1);
+    }
+    ~chatplayer("<p,happy>I have some more goutweed for you.");
+    ~chatnpc("<p,happy>Ah, good. Here are some herbs in exchange.");
+} else {
+    //mesanims rsprox/branon
+    ~chatplayer("<p,quiz>Did you say you needed more goutweed?");
+    ~chatnpc("<p,neutral>I don't need any more goutweed for the ritual, but it's still quite difficult for me to get. If you ever come across some, bring it to me; I'll exchange it for some other herbs.");
+}

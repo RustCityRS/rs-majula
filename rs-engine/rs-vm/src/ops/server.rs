@@ -2,7 +2,7 @@ use crate::engine::{ScriptEngine, cache, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ExecutionState;
 use crate::util::{pop_seq, pop_spotanim};
-use crate::{handlers, none};
+use crate::{ScriptError, handlers, none};
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::*;
 
@@ -304,6 +304,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, WORLD_DELAY => |s| {
             // arg is popped elsewhere
             s.execution = ExecutionState::WorldSuspended;
+        });
+
+        // 1022
+        #[cfg(since_274)]
+        none!(m, MIDI_LENGTH => |_s| {
+            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
         });
     }
 }

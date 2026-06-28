@@ -1,0 +1,102 @@
+[fullstyle]
+name=Stile
+desc=I can climb over the fence with this.
+model=model_loc_993
+length=2
+hillskew=yes
+op1=Climb-over
+blockrange=no
+
+[castlecrumbly]
+name=Crumbling wall
+desc=It looks like I might be able to climb over this piece of the wall...
+model=model_loc_1660
+op1=Climb-over
+
+[watchshortcut]
+name=Climbing rocks
+desc=The irregular surface can be climbed.
+model=model_loc_448
+op1=Climb-up
+
+[loc_2320]
+name=Monkeybars
+desc=I can traverse these.
+model=model_loc_2320
+width=3
+op1=Swing across
+blockwalk=no
+category=monkeybars
+param=agil_level_req,15
+param=start_coord,0_48_155_48_44
+param=end_coord,0_48_155_49_49
+param=obstacle_low_fail,256
+param=obstacle_high_fail,512
+
+[tree_ropeswing1]
+name=Ropeswing
+desc=Use this to swing across gaps.
+model=model_loc_2322
+op1=Swing-on
+length=6
+blockwalk=no
+category=island_rope_swing
+param=start_coord,0_42_50_21_9
+param=end_coord,0_42_50_16_9
+param=dir,3
+
+[tree_ropeswing2]
+name=Ropeswing
+desc=Use this to swing across gaps.
+model=model_loc_2322
+op1=Swing-on
+length=6
+blockwalk=no
+category=island_rope_swing
+param=start_coord,0_42_50_17_5
+param=end_coord,0_42_50_21_5
+param=dir,1
+
+[tree_ropeswing3]
+name=Ropeswing
+desc=Use this to swing across gaps.
+model=model_loc_2322
+op1=Swing-on
+length=6
+blockwalk=no
+category=island_rope_swing
+param=start_coord,0_39_48_15_19
+param=end_coord,0_39_48_15_24
+param=dir,0
+
+[zq_logbalance]
+name=A wooden log
+desc=A nearly rotten wooden log that crosses the river.
+model=model_loc_2291
+op1=Balance
+sharelight=yes
+mapscene=13
+
+[zqrockjump1]
+name=Stepping stones
+desc=A rocky outcrop from the running water.
+model=model_loc_2311
+op1=Balance
+active=yes
+category=karamja_stepping_stone
+
+[zqrockjump2]
+name=Stepping stones
+desc=A rocky outcrop from the running water.
+model=model_loc_2311
+op1=Balance
+active=yes
+category=karamja_stepping_stone
+
+[zqrockjump3]
+name=Stepping stones
+desc=A rocky outcrop from the running water.
+model=model_loc_2311
+op1=Balance
+active=yes
+category=karamja_stepping_stone

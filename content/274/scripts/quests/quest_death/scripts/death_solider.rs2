@@ -1,0 +1,133 @@
+// wounded soldier by mountain
+[opnpc1,death_ig_solider_wounded]
+~chatplayer("<p,confused>Are you OK?");
+~chatnpcnoturn("<p,sad>Urrrgggh.....");
+~chatnpcnoturn("<p,neutral>I'll be OK, the trolls only leave the plateau at nightfall. The guys are bringing a stretcher shortly.");
+~chatplayer("<p,neutral>As long as you're sure.");
+~chatnpcnoturn("<p,sad>It's my own fault really, I was having a walk and wandered past the danger sign. The trolls throw rocks down at any one who goes up the path!");
+~chatnpcnoturn("<p,shock>Don't go up there!");
+~chatplayer("<p,neutral>OK, thanks for the warning.");
+
+[ai_timer,death_ig_solider_wounded]
+// static 10t timer
+npc_facesquare(movecoord(npc_coord, -7, 0, 0));
+
+// eating soldiers
+[ai_timer,death_ig_solider_sitting1]
+npc_anim(sitting_eating, 0);
+npc_facesquare(movecoord(npc_coord, 1, 0, 0));
+npc_settimer(~random_range(5, 10));
+
+[ai_timer,death_ig_solider_sitting2]
+npc_anim(sitting_eating, 0);
+npc_facesquare(movecoord(npc_coord, 0, 0, -1));
+npc_settimer(~random_range(5, 10));
+
+[ai_timer,death_ig_solider_sitting3]
+npc_anim(sitting_eating, 0);
+npc_facesquare(movecoord(npc_coord, -1, 0, 0));
+npc_settimer(~random_range(5, 10));
+
+[opnpc1,death_ig_solider_sitting1] @solider_eating;
+[opnpc1,death_ig_solider_sitting2] @solider_eating;
+[opnpc1,death_ig_solider_sitting3] @solider_eating;
+
+// drilling soldiers
+[ai_timer,death_ig_sergeant_drilling]
+def_int $rand = random(3);
+def_seq $seq;
+if($rand = 0) $seq = human_unarmedpunch;
+else if($rand = 1) $seq = human_unarmedkick;
+else $seq = human_unarmedblock;
+npc_anim($seq, 0);
+.npc_findall(npc_coord, death_ig_solider_drilling, 5, 0);
+while (.npc_findnext = true) {
+    .npc_anim($seq, 40);
+    .npc_facesquare(movecoord(.npc_coord, 0, 0, 1));
+}
+
+[opnpc1,death_ig_sergeant_drilling] @sergeant_training;
+[opnpc1,death_ig_solider_drilling] @solider_training;
+
+// training soldiers
+[ai_timer,death_ig_sergeant_training]
+if(.npc_find(npc_coord, death_ig_solider_training, 5, 0) = true) {
+    npc_facesquare(.npc_coord);
+    npc_delay(1);
+    switch_int(random(6)) {
+        case 0 : npc_say("I want to see you sweat soldier!");
+        case 1 : npc_say("Put your back into it soldier!");
+        case 2 : npc_say("That dummy is the enemy. Kill it!");
+        case 3 : npc_say("Keep it up soldier!");
+        case 4 : npc_say("Good work soldier!");
+        case 5 : npc_say("You're not out for a sunday stroll soldier!");
+        case 6 : npc_say("Work it!");
+        case 7 : npc_say("My daughter can hit harder than that!");
+        case 8 : npc_say("Push it!");
+        case 9 : npc_say("Well done soldier!");
+    }
+    npc_delay(1);
+    .npc_say("Yes sir!");
+    .npc_anim(emote_yes, 0);
+    npc_settimer(add(20, random(100)));
+}
+
+[ai_timer,death_ig_solider_training]
+def_int $rand = random(3);
+def_seq $seq;
+if($rand = 0) $seq = human_unarmedpunch;
+else if($rand = 1) $seq = human_unarmedkick;
+npc_anim($seq, 0);
+npc_settimer(~random_range(4, 6));
+npc_facesquare(movecoord(npc_coord, 1, 0, 0));
+
+[opnpc1,death_ig_sergeant_training] @sergeant_training;
+[opnpc1,death_ig_solider_training] @solider_training;
+
+[opnpc1,death_ig_solider_wander]
+~chatplayer("<p,neutral>Hi!");
+switch_int(random(25)) {
+    case 0 : ~chatnpc("<p,neutral>Furnulum pani nolo.");
+    case 1 : ~chatnpc("<p,angry>Ne auderis delere orbem rigidum meum!");
+    case 2 : ~chatnpc("<p,neutral>Mihi ignosce. Cum homine de cane debeo congredi.");
+    case 3 : ~chatnpc("<p,neutral>Carpe Diem!");
+    case 4 : ~chatnpc("<p,angry>Vacca foeda.");
+    case 5 : ~chatnpc("<p,worried>Di! Ecce hora! Uxor mea me necabit!");
+    case 6 : ~chatnpc("<p,confused>Te audire non possum. Musa sapientum fixa est in aure.");
+    case 7 : ~chatnpc("<p,neutral>Nemo dat quod non habet.");
+    case 8 : ~chatnpc("<p,neutral>Die dulci fruere.");
+    case 9 : ~chatnpc("<p,neutral>Da mihi sis bubulae frustrum assae, solana tuberosa in modo Gallico fricta, ac quassum lactatum coagulatum crassum.");
+    case 10 : ~chatnpc("<p,neutral>Cogito Ergo Sum.");
+    case 11 : ~chatnpc("<p,angry>Utinam barbari spatium proprium tuum invadant!");
+    case 12 : ~chatnpc("<p,angry>Corripe Cervisiam!");
+    case 13 : ~chatnpc("<p,neutral>Vescere bracis meis.");
+    case 14 : ~chatnpc("<p,laugh>Braccae tuae aperiuntur.");
+    case 15 : ~chatnpc("<p,neutral>Meliora Cogito.");
+    case 16 : ~chatnpc("<p,neutral>Noli me vocare, ego te vocabo.");
+    case 17 : ~chatnpc("<p,angry>Fac ut vivas.");
+    case 18 : ~chatnpc("<p,neutral>Cave ne ante ullas catapultas ambules.");
+    case 19 : ~chatnpc("<p,confused>Latine loqui coactus sum.");
+    case 20 : ~chatnpc("<p,neutral>Raptus regaliter.");
+    case 21 : ~chatnpc("<p,neutral>Sona si Latine loqueris.");
+    case 22 : ~chatnpc("<p,neutral>Quantum materiae materietur marmota monax si marmota monax materiam possit materiari?");
+    case 23 : ~chatnpc("<p,neutral>Errare humanum est.");
+    case 24 : ~chatnpc("<p,angry>Fac ut gaudeam.");
+}
+switch_int(random(5)) {
+    case 0 :
+        ~chatplayer("<p,confused>Are you insulting me in Latin?");
+        ~chatnpc("<p,happy>Yes!");
+        ~chatplayer("<p,sad>Hmm...");
+    case 1 :
+        ~chatplayer("<p,confused>Er...");
+    case 2 :
+        ~chatplayer("<p,confused>OK...");
+    case 3 : 
+        ~chatplayer("<p,confused>What?!");
+    case 4 :
+        ~chatplayer("<p,confused>Huh?!");
+}
+
+[label,solider_eating] mes("The soldier is busy eating.");
+[label,solider_training] mes("The soldier is busy training.");
+[label,sergeant_training] mes("The Sergeant is busy training the soldiers.");
