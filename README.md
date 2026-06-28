@@ -167,7 +167,7 @@ Simply change the `REV` located in `/.cargo/config.toml` and rebuild.
 
 ```toml
 [env]
-REV = "245.2"
+REV = "254"
 ```
 
 ### 225 (2004-05-18)
@@ -188,6 +188,16 @@ REV = "245.2"
 - https://runescape.wiki/w/Update:Easier_to_rearrange_bank
 - https://runescape.wiki/w/Update:Priest_In_Peril_Quest
 - https://runescape.wiki/w/Update:Nature_Spirit_Quest
+
+### 254 (2004-09-07)
+
+- https://runescape.wiki/w/Update:Quest_Journals_and_Chompy_Hats
+- https://runescape.wiki/w/Update:Agility,_Potions_and_Parties!
+- https://runescape.wiki/w/Update:New_Random_Events!
+- https://runescape.wiki/w/Update:Death_Plateau_Quest
+- https://runescape.wiki/w/Update:Troll_Stronghold_Quest
+- https://runescape.wiki/w/Update:Herblore_Additions
+- https://runescape.wiki/w/Update:Situation_in_the_Sands
 
 ----
 
