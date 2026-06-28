@@ -173,6 +173,8 @@ pub fn unpack_config(
         ("mes", decode_mes_entries),
         #[cfg(since_274)]
         ("param", decode_param_entries),
+        #[cfg(since_274)]
+        ("hunt", decode_hunt_entries),
     ];
 
     for (name, decoder) in types {
@@ -1252,6 +1254,42 @@ fn decode_param_entries(
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
                 config_type: "param",
+                id,
+                bytes: buf.remaining() as usize,
+            });
+        }
+        results.push((id, props));
+    }
+    results
+}
+
+#[cfg(since_274)]
+fn decode_hunt_entries(
+    dat: &[u8],
+    idx: &[u8],
+    _reverse_hsl: &HashMap<u16, u16>,
+    packs: &mut UnpackedPacks,
+) -> Vec<(u16, Vec<(String, String)>)> {
+    let raw = read_entries(dat, idx);
+    let mut results = Vec::new();
+
+    for (id, data) in raw {
+        if data.is_empty() {
+            continue;
+        }
+        let mut buf = Packet::from(data);
+        let props = Vec::new();
+
+        while buf.remaining() > 0 {
+            let code: u8 = buf.g1();
+            match code {
+                0 => break,
+                _ => panic!("Unrecognized hunt config code: {code}"),
+            }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "hunt",
                 id,
                 bytes: buf.remaining() as usize,
             });

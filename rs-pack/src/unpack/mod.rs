@@ -70,6 +70,10 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
     "param.dat",
     #[cfg(since_274)]
     "param.idx",
+    #[cfg(since_274)]
+    "hunt.dat",
+    #[cfg(since_274)]
+    "hunt.idx",
 ];
 
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
