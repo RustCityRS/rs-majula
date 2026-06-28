@@ -1,9 +1,7 @@
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
-use crate::types::ForceApproach;
-#[cfg(since_254)]
-use crate::types::LocShape;
+use crate::types::{ForceApproach, LocShape};
 use rs_io::Packet;
 use rustc_hash::FxHashMap;
 
