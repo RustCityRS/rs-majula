@@ -8,10 +8,22 @@ use tracing::debug;
 const TITLE_NAMES: &[&str] = &[
     "index",
     "logo",
+    #[cfg(before_274)]
     "p11",
+    #[cfg(since_274)]
+    "p11_full",
+    #[cfg(before_274)]
     "p12",
+    #[cfg(since_274)]
+    "p12_full",
+    #[cfg(before_274)]
     "b12",
+    #[cfg(since_274)]
+    "b12_full",
+    #[cfg(before_274)]
     "q8",
+    #[cfg(since_274)]
+    "q8_full",
     "runes",
     "title",
     "titlebox",

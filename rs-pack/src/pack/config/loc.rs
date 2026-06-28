@@ -304,13 +304,12 @@ pub fn pack_locs(
                 }),
 
                 // 75
+                #[cfg(since_254)]
                 "raiseobject" => parse_bool(value, |v| {
-                    if !v {
-                        client.p1(75);
-                        client.p1(0);
-                        server.p1(75);
-                        server.p1(0);
-                    }
+                    client.p1(75);
+                    client.p1(v as u8);
+                    server.p1(75);
+                    server.p1(v as u8);
                 }),
 
                 // 249

@@ -820,19 +820,43 @@ impl Font {
 
     pub const fn name(self) -> &'static str {
         match self {
+            #[cfg(before_274)]
             Self::P11 => "p11",
+            #[cfg(before_274)]
             Self::P12 => "p12",
+            #[cfg(before_274)]
             Self::B12 => "b12",
+            #[cfg(before_274)]
             Self::Q8 => "q8",
+            #[cfg(since_274)]
+            Self::P11 => "p11_full",
+            #[cfg(since_274)]
+            Self::P12 => "p12_full",
+            #[cfg(since_274)]
+            Self::B12 => "b12_full",
+            #[cfg(since_274)]
+            Self::Q8 => "q8_full",
         }
     }
 
     pub fn from_config_str(s: &str) -> Self {
         match s {
+            #[cfg(before_274)]
             "p11" => Self::P11,
+            #[cfg(before_274)]
             "p12" => Self::P12,
+            #[cfg(before_274)]
             "b12" => Self::B12,
+            #[cfg(before_274)]
             "q8" => Self::Q8,
+            #[cfg(since_274)]
+            "p11_full" => Self::P11,
+            #[cfg(since_274)]
+            "p12_full" => Self::P12,
+            #[cfg(since_274)]
+            "b12_full" => Self::B12,
+            #[cfg(since_274)]
+            "q8_full" => Self::Q8,
             _ => panic!("Unknown font: {s}"),
         }
     }
