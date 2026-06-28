@@ -1,15 +1,16 @@
-#[cfg(since_254)]
+#[cfg(any(rev = "225", since_254))]
 use crate::active_player::ActivePlayer;
-#[cfg(since_254)]
+#[cfg(any(rev = "225", since_254))]
 use crate::handlers::ClientGameHandler;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
+#[cfg(any(rev = "225", since_254))]
 use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
-#[cfg(since_254)]
+#[cfg(any(rev = "225", since_254))]
 use rs_vm::ScriptError;
 
 /// Handles the `EventMouseClick` client protocol message.
