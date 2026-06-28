@@ -1,8 +1,12 @@
+#[cfg(since_274)]
+use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_seq;
 use anyhow::Result;
+#[cfg(since_274)]
+use rs_io::crc;
 use std::collections::HashMap;
 use tracing::debug;
 
@@ -10,6 +14,7 @@ pub fn pack_mesanims(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
+    verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.mesanim;
 
@@ -20,9 +25,13 @@ pub fn pack_mesanims(
     debug!("  Parsed {} mesanim configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
+    #[cfg(since_274)]
+    let mut client = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
+        #[cfg(since_274)]
+        client.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
             panic!("Unknown mesanim id: {}", id);
@@ -55,6 +64,17 @@ pub fn pack_mesanims(
 
         // done
         server.finish_entry();
+        #[cfg(since_274)]
+        client.finish_entry();
+    }
+
+    #[cfg(since_274)]
+    if verify {
+        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
+        let expected = config_crc::MESANIM;
+        if crc != expected {
+            panic!("CRC mismatch ['mesanim']: Got: {crc}, Expected: {expected}");
+        }
     }
 
     Ok(PackedFile {

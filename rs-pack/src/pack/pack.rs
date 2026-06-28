@@ -51,7 +51,7 @@ pub fn pack_assets(
     debug!("Packing mesanim configs...");
     results.insert(
         "mesanim".to_string(),
-        mesanim::pack_mesanims(&fc, registry, &constants)?,
+        mesanim::pack_mesanims(&fc, registry, &constants, verify)?,
     );
     debug!("Packing struct configs...");
     results.insert(
