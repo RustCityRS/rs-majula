@@ -58,6 +58,10 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
     "varbit.dat",
     #[cfg(since_254)]
     "varbit.idx",
+    #[cfg(since_274)]
+    "mesanim.dat",
+    #[cfg(since_274)]
+    "mesanim.idx",
 ];
 
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
