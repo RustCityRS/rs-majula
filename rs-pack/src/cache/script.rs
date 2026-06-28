@@ -445,6 +445,8 @@ pub const IF_SETSCROLLPOS: u16 = 2144;
 pub const IF_OPENOVERLAY: u16 = 2145;
 pub const PLAYER_FINDALLZONE: u16 = 2146; // TODO
 pub const PLAYER_FINDNEXT: u16 = 2147; // TODO
+pub const SET_PLAYER_OP: u16 = 2148;
+pub const IF_ADDRESUMEBUTTON: u16 = 2149;
 
 // ── Npc ops (2500-2999) ─────────────────────────────────────────────────────
 

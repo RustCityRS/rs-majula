@@ -1,15 +1,21 @@
+#[cfg(since_254)]
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_254)]
 use crate::network::game::client_prot_category::ClientProtCategory;
+#[cfg(since_254)]
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
+#[cfg(since_254)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_254)]
 use rs_protocol_macros::client_prot;
 
-#[cfg_attr(before_254, client_prot(Fixed(4), ClientEvent))]
-#[cfg_attr(since_254, client_prot(Fixed(1), ClientEvent))]
-pub struct AnticheatCycleLogic4;
+#[cfg(since_254)]
+#[client_prot(Fixed, ClientEvent)]
+pub struct MapBuildComplete;
 
-impl ClientProtMessage for AnticheatCycleLogic4 {
+#[cfg(since_254)]
+impl ClientProtMessage for MapBuildComplete {
     fn decode(_: &mut Packet, _: usize) -> Self {
-        AnticheatCycleLogic4
+        MapBuildComplete
     }
 }

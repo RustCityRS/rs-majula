@@ -11,6 +11,7 @@ use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(since_254)]
 use crate::pack::util::parse_number;
+#[cfg(since_254)]
 use crate::pack::util::parse_varp;
 #[cfg(since_254)]
 use anyhow::Result;

@@ -31,6 +31,8 @@ use cache::provider::TypeProvider;
 use cache::seq::{SeqType, SeqTypeRaw};
 use cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
 use cache::r#struct::StructType;
+#[cfg(since_254)]
+use cache::varbit::VarbitType;
 use cache::varn::VarnType;
 use cache::varp::VarPlayerType;
 use cache::vars::VarsType;
@@ -402,6 +404,8 @@ pub fn pack_all(
     );
     let invs = build_type_provider::<InvType>(&assets, "inv", ());
     let varps = build_type_provider::<VarPlayerType>(&assets, "varp", ());
+    #[cfg(since_254)]
+    let varbits = build_type_provider::<VarbitType>(&assets, "varbit", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
     let dbtables = build_type_provider::<DbTableType>(&assets, "dbtable", ());
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
@@ -511,6 +515,8 @@ pub fn pack_all(
         objs,
         invs,
         varps,
+        #[cfg(since_254)]
+        varbits,
         dbrows,
         dbtables,
         db_index,

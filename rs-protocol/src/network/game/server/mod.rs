@@ -13,6 +13,8 @@ pub mod data_loc;
 pub mod data_loc_done;
 pub mod enable_tracking;
 pub mod finish_tracking;
+#[cfg(since_254)]
+pub mod friendlist_loaded;
 pub mod hint_arrow;
 pub mod if_close;
 pub mod if_openchat;
@@ -59,6 +61,8 @@ pub mod rebuild_normal;
 pub mod reset_anims;
 pub mod reset_client_varcache;
 pub mod set_multiway;
+#[cfg(since_254)]
+pub mod set_player_op;
 pub mod synth_sound;
 pub mod tut_flash;
 pub mod tut_open;

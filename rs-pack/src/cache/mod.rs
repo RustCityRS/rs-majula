@@ -1,34 +1,36 @@
 use std::collections::HashMap;
 use std::sync::Arc;
 
-use crate::cache::r#enum::EnumType;
+use crate::cache::category::CategoryTypeProvider;
+use crate::cache::dbrow::DbRowTypeProvider;
+use crate::cache::dbtable::DbTableTypeProvider;
+use crate::cache::r#enum::EnumTypeProvider;
+use crate::cache::flo::FloTypeProvider;
+use crate::cache::hunt::HuntTypeProvider;
+use crate::cache::idk::IdkTypeProvider;
 use crate::cache::r#if::IfTypeProvider;
-use crate::cache::r#struct::StructType;
+use crate::cache::inv::InvTypeProvider;
+use crate::cache::loc::LocTypeProvider;
+use crate::cache::mesanim::MesAnimTypeProvider;
+use crate::cache::npc::NpcTypeProvider;
+use crate::cache::obj::ObjTypeProvider;
+use crate::cache::param::ParamTypeProvider;
+use crate::cache::seq::SeqTypeProvider;
+use crate::cache::spotanim::SpotAnimTypeProvider;
+use crate::cache::r#struct::StructTypeProvider;
+#[cfg(since_254)]
+use crate::cache::varbit::VarbitTypeProvider;
+use crate::cache::varn::VarnTypeProvider;
+use crate::cache::varp::VarPlayerTypeProvider;
+use crate::cache::vars::VarsTypeProvider;
 #[cfg(since_244)]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
-use category::CategoryType;
-use dbrow::DbRowType;
-use dbtable::{DbTableIndex, DbTableType};
-use flo::FloType;
+use dbtable::DbTableIndex;
 use font::FontTypeProvider;
-use hunt::HuntType;
-use idk::IdkType;
-use inv::InvType;
-use loc::LocType;
-use mesanim::MesAnimType;
 use midi::MidiProvider;
-use npc::NpcType;
-use obj::ObjType;
-use param::ParamType;
-use provider::TypeProvider;
-use seq::SeqType;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
-use spotanim::SpotAnimType;
-use varn::VarnType;
-use varp::VarPlayerType;
-use vars::VarsType;
 use wordenc::WordEncProvider;
 
 pub mod category;
@@ -53,6 +55,8 @@ pub mod seq;
 pub mod seq_frame;
 pub mod spotanim;
 pub mod r#struct;
+#[cfg(since_254)]
+pub mod varbit;
 pub mod varn;
 pub mod varp;
 pub mod vars;
@@ -71,28 +75,30 @@ pub struct CacheStore {
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
     pub mapcrcs: MapSquareCrcs,
-    pub objs: TypeProvider<ObjType>,
-    pub invs: TypeProvider<InvType>,
-    pub varps: TypeProvider<VarPlayerType>,
-    pub dbrows: TypeProvider<DbRowType>,
-    pub dbtables: TypeProvider<DbTableType>,
+    pub objs: ObjTypeProvider,
+    pub invs: InvTypeProvider,
+    pub varps: VarPlayerTypeProvider,
+    #[cfg(since_254)]
+    pub varbits: VarbitTypeProvider,
+    pub dbrows: DbRowTypeProvider,
+    pub dbtables: DbTableTypeProvider,
     pub db_index: DbTableIndex,
-    pub enums: TypeProvider<EnumType>,
-    pub flos: TypeProvider<FloType>,
-    pub hunts: TypeProvider<HuntType>,
-    pub idks: TypeProvider<IdkType>,
-    pub locs: TypeProvider<LocType>,
-    pub mesanims: TypeProvider<MesAnimType>,
-    pub npcs: TypeProvider<NpcType>,
-    pub params: TypeProvider<ParamType>,
+    pub enums: EnumTypeProvider,
+    pub flos: FloTypeProvider,
+    pub hunts: HuntTypeProvider,
+    pub idks: IdkTypeProvider,
+    pub locs: LocTypeProvider,
+    pub mesanims: MesAnimTypeProvider,
+    pub npcs: NpcTypeProvider,
+    pub params: ParamTypeProvider,
     #[cfg(rev = "225")]
     pub seq_frames: SeqFrameProvider,
-    pub seqs: TypeProvider<SeqType>,
-    pub spotanims: TypeProvider<SpotAnimType>,
-    pub structs: TypeProvider<StructType>,
-    pub varns: TypeProvider<VarnType>,
-    pub varss: TypeProvider<VarsType>,
-    pub categories: TypeProvider<CategoryType>,
+    pub seqs: SeqTypeProvider,
+    pub spotanims: SpotAnimTypeProvider,
+    pub structs: StructTypeProvider,
+    pub varns: VarnTypeProvider,
+    pub varss: VarsTypeProvider,
+    pub categories: CategoryTypeProvider,
     pub interfaces: IfTypeProvider,
     pub fonts: FontTypeProvider,
     pub wordenc: WordEncProvider,

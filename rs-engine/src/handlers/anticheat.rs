@@ -6,6 +6,8 @@ use rs_protocol::network::game::client::anticheat_cyclelogic3::AnticheatCycleLog
 use rs_protocol::network::game::client::anticheat_cyclelogic4::AnticheatCycleLogic4;
 use rs_protocol::network::game::client::anticheat_cyclelogic5::AnticheatCycleLogic5;
 use rs_protocol::network::game::client::anticheat_cyclelogic6::AnticheatCycleLogic6;
+#[cfg(since_254)]
+use rs_protocol::network::game::client::anticheat_cyclelogic7::AnticheatCycleLogic7;
 use rs_protocol::network::game::client::anticheat_oplogic1::AnticheatOpLogic1;
 use rs_protocol::network::game::client::anticheat_oplogic2::AnticheatOpLogic2;
 use rs_protocol::network::game::client::anticheat_oplogic3::AnticheatOpLogic3;
@@ -222,6 +224,16 @@ impl ClientGameHandler for AnticheatOpLogic8 {
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
 impl ClientGameHandler for AnticheatOpLogic9 {
+    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle()
+    }
+}
+
+/// Handles the `AnticheatCycleLogic7` client protocol message.
+///
+/// No-op. The server accepts but ignores this anti-cheat cycle logic packet.
+#[cfg(since_254)]
+impl ClientGameHandler for AnticheatCycleLogic7 {
     fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle()
     }

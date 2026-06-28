@@ -1,7 +1,7 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
-use rs_entity::BuildArea;
+use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_info::{NpcRenderer, PlayerRenderer};
@@ -215,7 +215,7 @@ impl PlayerInfo {
         self.write_players(players, snap, renderer, active);
         self.write_new_players(map, players, snap, renderer, active);
         if self.updates.pos > 0 {
-            self.bw.pbit::<11>(&mut self.buf, 2047);
+            self.bw.pbit::<11>(&mut self.buf, MAX_PLAYERS as i32 - 1);
             self.bw.finish(&mut self.buf);
             self.buf.pdata(&self.updates.data, 0, self.updates.pos);
         } else {
@@ -827,7 +827,10 @@ pub struct NpcInfo {
 }
 
 impl NpcInfo {
+    #[cfg(before_254)]
     const BITS_ADD: usize = 13 + 11 + 5 + 5 + 1;
+    #[cfg(since_254)]
+    const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1;
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
     const BITS_WALK: usize = 1 + 2 + 3 + 1;
     const BITS_EXTEND: usize = 1 + 2;
@@ -899,7 +902,10 @@ impl NpcInfo {
         self.write_npcs(npcs, nsnap, renderer, active);
         self.write_new_npcs(map, npcs, nsnap, renderer, active);
         if self.updates.pos > 0 {
-            self.bw.pbit::<13>(&mut self.buf, 8191);
+            #[cfg(before_254)]
+            self.bw.pbit::<13>(&mut self.buf, MAX_NPCS as i32 - 1);
+            #[cfg(since_254)]
+            self.bw.pbit::<14>(&mut self.buf, MAX_NPCS as i32 - 1);
             self.bw.finish(&mut self.buf);
             self.buf.pdata(&self.updates.data, 0, self.updates.pos);
         } else {
@@ -1089,9 +1095,13 @@ impl NpcInfo {
         x: i32,
         z: i32,
     ) {
-        // 13 + 11 = 24 bits, then 5 + 5 + 1 = 11 bits (35 total, split for i32)
+        // 13/14 + 11 = 24/25 bits, then 5 + 5 + 1 = 11 bits (35/36 total, split for i32)
+        #[cfg(before_254)]
         self.bw
             .pbit::<24>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
+        #[cfg(since_254)]
+        self.bw
+            .pbit::<25>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
         self.bw
             .pbit::<11>(&mut self.buf, ((x & 0x1F) << 6) | ((z & 0x1F) << 1) | 1);
         self.lowdefinition(renderer, other);

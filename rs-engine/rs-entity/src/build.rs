@@ -3,7 +3,10 @@ use rs_grid::{CoordGrid, ZoneCoordGrid};
 /// Maximum number of players supported by the engine.
 pub const MAX_PLAYERS: usize = 2048;
 /// Maximum number of NPCs supported by the engine.
+#[cfg(before_254)]
 pub const MAX_NPCS: usize = 8192;
+#[cfg(since_254)]
+pub const MAX_NPCS: usize = 16384;
 
 /// A compact set of entity IDs backed by a bit vector for O(1) membership checks
 /// and an ordered ID list for iteration.

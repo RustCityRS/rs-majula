@@ -420,6 +420,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2047
+        #[cfg(before_254)]
         active_player_mut!(m, IF_SETRESUMEBUTTONS => |s, player| {
             let button5 = s.pop_int();
             let button4 = s.pop_int();
@@ -581,18 +582,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             #[cfg(rev = "225")]
             {
                 let song = pop_song(s)?;
-                if player.lowmem() {
-                    return Ok(());
+                if !player.lowmem() {
+                    player.midi_song(&song.name, song.crc, song.data.len() as i32);
                 }
-                player.midi_song(&song.name, song.crc, song.data.len() as i32);
             }
             #[cfg(since_244)]
             {
-                let name = s.pop_string();
-                if player.lowmem() {
-                    return Ok(());
-                }
-                if let Some(id) = song_midi_id(&name) {
+                #[cfg(before_254)]
+                let id = song_midi_id(&s.pop_string());
+                #[cfg(since_254)]
+                let id = Some(s.pop_int_as::<u16>()?);
+
+                if !player.lowmem()
+                    && let Some(id) = id
+                {
                     player.midi_song(id);
                 }
             }
@@ -1392,6 +1395,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else {
                 s.push_int(0);
             }
+        });
+
+        // 2148
+        #[cfg(since_254)]
+        active_player_mut!(m, SET_PLAYER_OP => |s, player| {
+            let text = s.pop_string();
+            let primary = s.pop_int_as::<u8>()?;
+            let index = s.pop_int_as::<u8>()?;
+            player.set_player_op(index, &text, primary);
+        });
+
+        // 2149
+        #[cfg(since_254)]
+        active_player_mut!(m, IF_ADDRESUMEBUTTON => |s, player| {
+            player.if_addresumebutton(s.pop_int());
         });
     }
 }

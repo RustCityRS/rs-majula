@@ -1,8 +1,5 @@
 use super::provider::{CacheType, TypeProvider};
-use crate::types::{
-    HuntCheckAfk, HuntCheckNotBusy, HuntCheckNotTooStrong, HuntCheckVis, HuntFindKeepHunting,
-    HuntModeType, HuntNobodyNear, NpcMode,
-};
+use crate::types::*;
 use rs_io::Packet;
 
 pub type HuntTypeProvider = TypeProvider<HuntType>;

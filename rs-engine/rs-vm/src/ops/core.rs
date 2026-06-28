@@ -187,10 +187,52 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 25
-        none!(m, PUSH_VARBIT => |_s| {});
+        #[cfg(since_254)]
+        none!(m, PUSH_VARBIT => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let varbit = cache()
+                .varbits
+                .get_by_id(id)
+                .ok_or(ScriptError::Runtime(format!("Varbit with id: {id} not found!")))?;
+            let start = varbit.start_bit as u32;
+            let width = varbit.end_bit as u32 - start + 1;
+            let mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
+            let base = get_active_player::<E>(s, secondary)?.get_var(varbit.basevar).as_int() as u32;
+            s.push_int(((base >> start) & mask) as i32);
+        });
 
         // 27
-        none!(m, POP_VARBIT => |_s| {});
+        #[cfg(since_254)]
+        none!(m, POP_VARBIT => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let varbit = cache()
+                .varbits
+                .get_by_id(id)
+                .ok_or(ScriptError::Runtime(format!("Varbit with id: {id} not found!")))?;
+            let basevar = cache()
+                .varps
+                .get_by_id(varbit.basevar)
+                .ok_or(ScriptError::Runtime(format!("Varp with id: {} not found!", varbit.basevar)))?;
+            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[((operand >> 16) & 0x1) as usize]) && basevar.protect {
+                return Err(ScriptError::Runtime(format!("Varbit: {:?} requires protected access!", varbit.debugname())))
+            }
+            let start = varbit.start_bit as u32;
+            let width = varbit.end_bit as u32 - start + 1;
+            let value_mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
+            let mut value = s.pop_int();
+            if value < 0 || value as i64 > value_mask as i64 {
+                value = 0;
+            }
+            let shifted_mask = value_mask << start;
+            let player = get_active_player_mut::<E>(s, secondary)?;
+            let current = player.get_var(varbit.basevar).as_int() as u32;
+            let new_value = (shifted_mask & ((value as u32) << start)) | (current & !shifted_mask);
+            player.set_var(varbit.basevar, VarValue::from_int(basevar.var_type, new_value as i32), basevar.transmit);
+        });
 
         // 31
         m.insert(BRANCH_LESS_THAN_OR_EQUALS, |s| branch_if(s, |a, b| a <= b));

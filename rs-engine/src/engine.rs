@@ -11,7 +11,9 @@ use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
-use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS, StaffModLevel};
+#[cfg(before_254)]
+use rs_entity::StaffModLevel;
+use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::{NpcRenderer, PlayerRenderer};
@@ -2439,31 +2441,29 @@ impl Engine {
 
         let uid = active.player.uid;
 
-        match active.player.staff_mod_level {
-            StaffModLevel::Normal => {
-                let _ = active
-                    .handle
-                    .outbox
-                    .send(vec![LoginResponse::SuccessNormal as u8]);
-            }
-            StaffModLevel::PlayerModerator => {
-                let _ = active
-                    .handle
-                    .outbox
-                    .send(vec![LoginResponse::SuccessModerator as u8]);
-            }
-            StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+        #[cfg(since_254)]
+        {
+            let level = (active.player.staff_mod_level as u8).min(2);
+            let _ = active
+                .handle
+                .outbox
+                .send(vec![LoginResponse::SuccessNormal as u8, level, 1]);
+        }
+        #[cfg(before_254)]
+        {
+            let response = match active.player.staff_mod_level {
+                StaffModLevel::Normal => LoginResponse::SuccessNormal,
+                StaffModLevel::PlayerModerator => LoginResponse::SuccessModerator,
                 #[cfg(rev = "225")]
-                let _ = active
-                    .handle
-                    .outbox
-                    .send(vec![LoginResponse::SuccessModerator as u8]);
+                StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+                    LoginResponse::SuccessModerator
+                }
                 #[cfg(since_244)]
-                let _ = active
-                    .handle
-                    .outbox
-                    .send(vec![LoginResponse::SuccessJagexModerator as u8]);
-            }
+                StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+                    LoginResponse::SuccessJagexModerator
+                }
+            };
+            let _ = active.handle.outbox.send(vec![response as u8]);
         }
 
         info!(
@@ -4148,8 +4148,24 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.resume_buttons`
+    #[cfg(before_254)]
     fn if_setresumebuttons(&mut self, buttons: Option<Vec<i32>>) {
         self.player.resume_buttons = buttons;
+    }
+
+    /// Appends a single interface button to the set of valid resume targets for
+    /// a paused script dialog, lazily allocating the set on first use.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** pushes onto `self.player.resume_buttons`
+    #[cfg(since_254)]
+    fn if_addresumebutton(&mut self, button: i32) {
+        self.player
+            .resume_buttons
+            .get_or_insert_with(Vec::new)
+            .push(button);
     }
 
     /// Initiates a player logout.
@@ -4596,6 +4612,12 @@ impl ScriptPlayer for ActivePlayer {
     #[cfg(since_244)]
     fn if_openoverlay(&mut self, com: u16) {
         self.if_openoverlay(com);
+    }
+
+    /// Sets (or clears) a right-click option on this player's menu.
+    #[cfg(since_254)]
+    fn set_player_op(&mut self, op: u8, value: &str, primary: u8) {
+        self.set_player_op(op, value, primary);
     }
 
     /// Recolors an interface component model.

@@ -6,6 +6,8 @@ use rs_protocol::network::game::client::opplayer1::OpPlayer1;
 use rs_protocol::network::game::client::opplayer2::OpPlayer2;
 use rs_protocol::network::game::client::opplayer3::OpPlayer3;
 use rs_protocol::network::game::client::opplayer4::OpPlayer4;
+#[cfg(since_254)]
+use rs_protocol::network::game::client::opplayer5::OpPlayer5;
 use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
 
@@ -62,6 +64,21 @@ impl ClientGameHandler for OpPlayer3 {
 impl ClientGameHandler for OpPlayer4 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(4, self.pid, active)
+    }
+}
+
+/// Handles the `OpPlayer5` client protocol message.
+///
+/// Delegates to the shared [`handle`] function with operation 5.
+///
+/// # Call Stack
+///
+/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
+/// **Calls:** [`handle`]
+#[cfg(since_254)]
+impl ClientGameHandler for OpPlayer5 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(5, self.pid, active)
     }
 }
 

@@ -149,17 +149,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, SPLIT_GET => |s| {
             let line = s.pop_int();
             let page = s.pop_int();
-            let pages = s.split_pages
+            let text = s
+                .split_pages
                 .as_deref()
-                .ok_or(ScriptError::Runtime("Split pages not found!".to_string()))?;
-            let page = pages
-                .get(page as usize)
-                .ok_or(ScriptError::Runtime(format!("Split page {} not found!", page)))?;
-            let line = page
-                .get(line as usize)
-                .ok_or(ScriptError::Runtime(format!("Split page line {} not found!", line)))?;
-            let line = line as *const String;
-            s.push_string(unsafe { &*line });
+                .and_then(|pages| pages.get(page as usize))
+                .and_then(|page| page.get(line as usize))
+                .cloned()
+                .unwrap_or_default();
+            s.push_string(&text);
         });
 
         // 4514

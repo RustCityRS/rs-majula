@@ -49,7 +49,7 @@ impl NpcUid {
     ///
     /// # Returns
     /// The NPC index, used as a direct array index into the engine's NPC array
-    /// (e.g. `npcs[nid as usize]`). Typical maximum is 8191 (`MAX_NPCS = 8192`).
+    /// (e.g. `npcs[nid as usize]`).
     #[inline(always)]
     pub const fn nid(&self) -> u16 {
         (self.0 & 0xFFFF) as u16
@@ -125,7 +125,7 @@ mod tests {
     fn nid_used_as_array_index() {
         // Engine indexes npcs[nid as usize]
         let uid = NpcUid::new(42, 8191);
-        assert_eq!(uid.nid(), 8191); // MAX_NPCS = 8192
+        assert_eq!(uid.nid(), 8191);
     }
 
     #[test]

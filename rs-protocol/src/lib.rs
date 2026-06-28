@@ -19,7 +19,12 @@ pub enum LoginResponse {
     Reconnect = 15,
     TooManyAttempts = 16,
     MembersArea = 17,
+    #[cfg(before_254)]
     SuccessModerator = 18,
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_254))]
     SuccessJagexModerator = 19,
+    #[cfg(since_244)]
+    InvalidLoginServer = 20,
+    #[cfg(since_254)]
+    ProfileTransfer = 21,
 }

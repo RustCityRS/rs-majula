@@ -425,6 +425,8 @@ impl Player {
     /// # Side Effects
     /// * Sets `self.state.active_script` to `None` if the script's execution state
     ///   is `CountDialog` or `PauseButton`.
+    /// * Clears `self.resume_buttons`, since the resume targets belonged to the
+    ///   script being discarded.
     pub fn clear_suspended_script(&mut self) {
         if let Some(s) = &self.state.active_script
             && matches!(
@@ -433,6 +435,7 @@ impl Player {
             )
         {
             self.state.active_script = None;
+            self.resume_buttons = None;
         }
     }
 

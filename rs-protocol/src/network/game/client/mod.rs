@@ -4,6 +4,8 @@ pub mod anticheat_cyclelogic3;
 pub mod anticheat_cyclelogic4;
 pub mod anticheat_cyclelogic5;
 pub mod anticheat_cyclelogic6;
+#[cfg(since_254)]
+pub mod anticheat_cyclelogic7;
 pub mod anticheat_oplogic1;
 pub mod anticheat_oplogic2;
 pub mod anticheat_oplogic3;
@@ -16,7 +18,14 @@ pub mod anticheat_oplogic9;
 pub mod chat_setmode;
 pub mod client_cheat;
 pub mod close_modal;
+#[cfg(since_254)]
+pub mod event_applet_focus;
+#[cfg(any(rev = "225", since_254))]
 pub mod event_camera_position;
+#[cfg(since_254)]
+pub mod event_mouse_click;
+#[cfg(since_254)]
+pub mod event_mouse_move;
 pub mod event_tracking;
 pub mod friendlist_add;
 pub mod friendlist_del;
@@ -31,6 +40,8 @@ pub mod inv_button3;
 pub mod inv_button4;
 pub mod inv_button5;
 pub mod inv_buttond;
+#[cfg(since_254)]
+pub mod map_build_complete;
 pub mod message_private;
 pub mod message_public;
 pub mod move_gameclick;
@@ -69,6 +80,8 @@ pub mod opplayer1;
 pub mod opplayer2;
 pub mod opplayer3;
 pub mod opplayer4;
+#[cfg(since_254)]
+pub mod opplayer5;
 pub mod opplayert;
 pub mod opplayeru;
 pub mod rebuild_get_maps;

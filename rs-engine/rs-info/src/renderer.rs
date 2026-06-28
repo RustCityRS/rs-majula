@@ -3,7 +3,10 @@ use rs_io::Packet;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 
 const MAX_PLAYERS: usize = 2048;
+#[cfg(before_254)]
 const MAX_NPCS: usize = 8192;
+#[cfg(since_254)]
+const MAX_NPCS: usize = 16384;
 
 #[cfg(rev = "225")]
 const PLAYER_PROT_COUNT: usize = 8;
@@ -926,7 +929,7 @@ impl PlayerRenderer {
 
 /// Pre-computed NPC info update storage for efficient network serialization.
 ///
-/// `NpcRenderer` maintains a set of 8192 NPC slots, one per possible NPC
+/// `NpcRenderer` maintains a set of NPC slots, one per possible NPC
 /// index, where each slot holds pre-serialized protocol field data. Fixed-size
 /// fields (Anim, FaceEntity, Damage, ChangeType, SpotAnim, FaceCoord) are
 /// stored in inline [`Slot`] buffers, while the variable-length Say field
@@ -937,7 +940,7 @@ impl PlayerRenderer {
 /// enabling the info output phase to perform capacity checks before writing.
 ///
 /// This mirrors [`PlayerRenderer`] but with NPC-specific protocol types
-/// (7 protocols instead of 8) and a larger index space (8192 vs 2048).
+/// (7 protocols instead of 8) and a larger index space.
 ///
 /// # Call Stack
 ///
@@ -959,7 +962,7 @@ impl NpcRenderer {
     ///
     /// Allocates the fixed-size slot arrays on the heap via `Box`, and
     /// initializes the variable-length say vector with `None` for all
-    /// 8192 NPC indices. All high-def and low-def byte-size counters
+    /// NPC indices. All high-def and low-def byte-size counters
     /// start at zero.
     ///
     /// # Returns
@@ -992,7 +995,7 @@ impl NpcRenderer {
     ///
     /// # Arguments
     ///
-    /// * `nid` - The NPC index (0..8192) identifying which slot to populate.
+    /// * `nid` - The NPC index identifying which slot to populate.
     /// * `info` - The entity masks containing the raw field values to serialize.
     ///
     /// # Side Effects
@@ -1016,7 +1019,7 @@ impl NpcRenderer {
     /// `Slot::set_p2_p2`, `Slot::set_p2_p4`, `Self::header`.
     /// # Safety
     ///
-    /// `nid` must be < `MAX_NPCS` (8192). This is guaranteed by the engine
+    /// `nid` must be < `MAX_NPCS`. This is guaranteed by the engine
     /// which only passes valid NPC indices from `active_npcs`.
     #[inline]
     pub fn compute_info(&mut self, nid: usize, info: &EntityMasks) {

@@ -4,6 +4,8 @@ use crate::network::game::client::anticheat_cyclelogic3::AnticheatCycleLogic3;
 use crate::network::game::client::anticheat_cyclelogic4::AnticheatCycleLogic4;
 use crate::network::game::client::anticheat_cyclelogic5::AnticheatCycleLogic5;
 use crate::network::game::client::anticheat_cyclelogic6::AnticheatCycleLogic6;
+#[cfg(since_254)]
+use crate::network::game::client::anticheat_cyclelogic7::AnticheatCycleLogic7;
 use crate::network::game::client::anticheat_oplogic1::AnticheatOpLogic1;
 use crate::network::game::client::anticheat_oplogic2::AnticheatOpLogic2;
 use crate::network::game::client::anticheat_oplogic3::AnticheatOpLogic3;
@@ -16,8 +18,14 @@ use crate::network::game::client::anticheat_oplogic9::AnticheatOpLogic9;
 use crate::network::game::client::chat_setmode::ChatSetMode;
 use crate::network::game::client::client_cheat::ClientCheat;
 use crate::network::game::client::close_modal::CloseModal;
-#[cfg(rev = "225")]
+#[cfg(since_254)]
+use crate::network::game::client::event_applet_focus::EventAppletFocus;
+#[cfg(any(rev = "225", since_254))]
 use crate::network::game::client::event_camera_position::EventCameraPosition;
+#[cfg(since_254)]
+use crate::network::game::client::event_mouse_click::EventMouseClick;
+#[cfg(since_254)]
+use crate::network::game::client::event_mouse_move::EventMouseMove;
 use crate::network::game::client::event_tracking::EventTracking;
 use crate::network::game::client::friendlist_add::FriendListAdd;
 use crate::network::game::client::friendlist_del::FriendListDel;
@@ -32,6 +40,8 @@ use crate::network::game::client::inv_button3::InvButton3;
 use crate::network::game::client::inv_button4::InvButton4;
 use crate::network::game::client::inv_button5::InvButton5;
 use crate::network::game::client::inv_buttond::InvButtonD;
+#[cfg(since_254)]
+use crate::network::game::client::map_build_complete::MapBuildComplete;
 use crate::network::game::client::message_private::MessagePrivate;
 use crate::network::game::client::message_public::MessagePublic;
 use crate::network::game::client::move_gameclick::MoveGameClick;
@@ -70,6 +80,8 @@ use crate::network::game::client::opplayer1::OpPlayer1;
 use crate::network::game::client::opplayer2::OpPlayer2;
 use crate::network::game::client::opplayer3::OpPlayer3;
 use crate::network::game::client::opplayer4::OpPlayer4;
+#[cfg(since_254)]
+use crate::network::game::client::opplayer5::OpPlayer5;
 use crate::network::game::client::opplayert::OpPlayerT;
 use crate::network::game::client::opplayeru::OpPlayerU;
 #[cfg(rev = "225")]
@@ -358,82 +370,89 @@ client_prot! {
 
 #[cfg(rev = "254")]
 client_prot! {
-    OpLoc1 = 1, // NXT naming
-    IgnoreListDel = 4, // NXT naming
-    InvButtonD = 7, // NXT has "IF_BUTTOND" but our interface system differs
-    ChatSetMode = 8, // NXT naming
-    OpHeld5 = 9, // name based on runescript trigger
-    ClientCheat = 11, // NXT naming
-    InvButton1 = 13, // NXT has "IF_BUTTON1" but our interface system differs
-    OpNpcU = 14, // NXT naming
-    OpObj4 = 17, // NXT naming
-    EventTracking = 19,
-    IgnoreListAdd = 20, // NXT naming
-    OpNpc5 = 43, // NXT naming
-    InvButton3 = 48, // NXT has "IF_BUTTON3" but our interface system differs
-    OpPlayerT = 52, // NXT naming
-    OpPlayer4 = 54, // NXT naming
-    OpObj3 = 55, // NXT naming
-    InvButton2 = 58, // NXT has "IF_BUTTON2" but our interface system differs
-    FriendListDel = 61, // NXT naming
-    AnticheatCycleLogic5 = 63,
-    AnticheatOpLogic5 = 74,
-    MessagePublic = 78, // NXT naming
-    OpLoc5 = 86, // NXT naming
-    AnticheatOpLogic1 = 87,
-    AnticheatCycleLogic4 = 94,
-    AnticheatOpLogic2 = 95,
-    MessagePrivate = 99, // NXT naming
-    IdleTimer = 102, // NXT naming
-    OpHeld1 = 104, // name based on runescript trigger
-    OpNpc4 = 107, // NXT naming
-    AnticheatCycleLogic6 = 112,
-    OpObj1 = 113, // NXT naming
-    OpHeld3 = 115, // name based on runescript trigger
-    FriendListAdd = 116, // NXT naming
-    AnticheatOpLogic7 = 119,
-    OpObjT = 122, // NXT naming
-    OpHeldU = 126, // name based on runescript trigger
-    OpPlayer1 = 135, // NXT naming
-    AnticheatCycleLogic1 = 136,
-    OpNpcT = 141, // NXT naming
-    OpObjU = 143, // NXT naming
-    AnticheatOpLogic3 = 146,
-    OpLocU = 147, // NXT naming
-    IdkSaveDesign = 150, // IF_PLAYERDESIGN
-    OpPlayer2 = 165, // NXT naming
-    AnticheatOpLogic8 = 171,
-    OpPlayer3 = 172, // NXT naming
-    IfButton = 177, // NXT naming
-    OpNpc1 = 180, // NXT naming
-    AnticheatCycleLogic3 = 181,
-    MoveGameClick = 182, // NXT naming
-    InvButton4 = 183, // NXT has "IF_BUTTON4" but our interface system differs
-    AnticheatOpLogic4 = 186,
-    OpHeldT = 188, // name based on runescript trigger
-    OpHeld2 = 193, // name based on runescript trigger
-    OpHeld4 = 194, // name based on runescript trigger
-    OpNpc3 = 196, // NXT naming
-    MoveMinimapClick = 198, // NXT naming
-    OpLoc4 = 204, // NXT naming
-    SendSnapshot = 205, // REPORT_ABUSE
-    NoTimeout = 206, // NXT naming
-    OpLocT = 208, // NXT naming
-    OpPlayerU = 210, // NXT naming
-    MoveOpClick = 216, // comes with OP packets, name based on other MOVE packets
-    OpLoc2 = 219, // NXT naming
-    AnticheatCycleLogic2 = 223,
-    OpLoc3 = 226, // NXT naming
-    AnticheatOpLogic9 = 233,
-    OpObj2 = 238, // NXT naming
-    ResumePauseButton = 239, // NXT naming
-    ResumePCountDialog = 241, // NXT naming
-    InvButton5 = 242, // NXT has "IF_BUTTON5" but our interface system differs
-    TutClickSide = 243,
-    CloseModal = 245, // NXT naming
-    OpObj5 = 247, // NXT naming
-    AnticheatOpLogic6 = 250,
-    OpNpc2 = 252, // NXT naming
+    AnticheatCycleLogic3 = 4,
+    MoveGameClick = 6, // NXT naming
+    EventAppletFocus = 8,
+    FriendListAdd = 9, // NXT naming
+    IdkSaveDesign = 13, // IF_PLAYERDESIGN
+    OpPlayer2 = 17, // NXT naming
+    OpPlayer3 = 18, // NXT naming
+    OpLocT = 26, // NXT naming
+    AnticheatOpLogic1 = 28,
+    OpLoc1 = 33, // NXT naming
+    AnticheatCycleLogic6 = 36,
+    OpObj4 = 47, // NXT naming
+    AnticheatCycleLogic1 = 51,
+    AnticheatOpLogic3 = 56,
+    CloseModal = 58, // NXT naming
+    InvButton3 = 59, // NXT has "IF_BUTTON3" but our interface system differs
+    InvButton5 = 62, // NXT has "IF_BUTTON5" but our interface system differs
+    OpObj2 = 67, // NXT naming
+    OpPlayerT = 68, // NXT naming
+    OpNpc3 = 69, // NXT naming
+    InvButton2 = 70, // NXT has "IF_BUTTON2" but our interface system differs
+    OpPlayer4 = 72, // NXT naming
+    OpHeld5 = 74, // name based on runescript trigger
+    AnticheatOpLogic2 = 77,
+    OpHeld3 = 80, // name based on runescript trigger
+    MessagePublic = 83, // NXT naming
+    FriendListDel = 84, // NXT naming
+    ClientCheat = 86, // NXT naming
+    OpLoc4 = 87, // NXT naming
+    EventCameraPosition = 91, // NXT naming
+    OpObj5 = 97, // NXT naming
+    OpLoc3 = 98, // NXT naming
+    AnticheatCycleLogic5 = 100,
+    OpHeldT = 102, // name based on runescript trigger
+    OpPlayerU = 113, // NXT naming
+    OpNpc5 = 118, // NXT naming
+    OpNpcU = 119, // NXT naming
+    AnticheatOpLogic4 = 121,
+    OpNpc4 = 122, // NXT naming
+    MoveOpClick = 127, // comes with OP packets, name based on other MOVE packets
+    ChatSetMode = 129, // NXT naming
+    AnticheatOpLogic6 = 131,
+    MapBuildComplete = 134, // NXT naming
+    OpObj1 = 141, // NXT naming
+    EventTracking = 142,
+    OpNpc1 = 143, // NXT naming
+    IdleTimer = 144, // NXT naming
+    ResumePauseButton = 146, // NXT naming
+    OpLoc5 = 147, // NXT naming
+    InvButton4 = 160, // NXT has "IF_BUTTON4" but our interface system differs
+    ResumePCountDialog = 161, // NXT naming
+    AnticheatOpLogic9 = 162,
+    OpHeld4 = 163, // name based on runescript trigger
+    InvButtonD = 176, // NXT has "IF_BUTTOND" but our interface system differs
+    OpObj3 = 178, // NXT naming
+    InvButton1 = 181, // NXT has "IF_BUTTON1" but our interface system differs
+    AnticheatCycleLogic7 = 182,
+    AnticheatOpLogic7 = 187,
+    IgnoreListAdd = 189, // NXT naming
+    OpPlayer1 = 192, // NXT naming
+    IgnoreListDel = 193, // NXT naming
+    OpNpc2 = 195, // NXT naming
+    OpHeldU = 200, // name based on runescript trigger
+    TutClickSide = 201,
+    OpObjT = 202, // NXT naming
+    SendSnapshot = 203, // REPORT_ABUSE
+    AnticheatOpLogic8 = 206,
+    OpLoc2 = 213, // NXT naming
+    MessagePrivate = 214, // NXT naming
+    MoveMinimapClick = 220, // NXT naming
+    AnticheatCycleLogic2 = 225,
+    AnticheatCycleLogic4 = 226,
+    OpHeld2 = 228, // name based on runescript trigger
+    OpPlayer5 = 230, // NXT naming
+    OpNpcT = 231, // NXT naming
+    EventMouseMove = 232,
+    AnticheatOpLogic5 = 233,
+    EventMouseClick = 234, // NXT naming
+    NoTimeout = 239, // NXT naming
+    OpLocU = 240, // NXT naming
+    OpHeld1 = 243, // name based on runescript trigger
+    IfButton = 244, // NXT naming
+    OpObjU = 245, // NXT naming
 }
 
 pub struct ClientProtInfo {

@@ -4,7 +4,19 @@ use rs_io::jag::JagFile;
 const PERIOD: &[u8] = b"dot";
 const AMPERSAT: &[u8] = b"(a)";
 const SLASH: &[u8] = b"slash";
-const WHITELIST: &[&str] = &["cook", "cook's", "cooks", "seeks", "sheet"];
+const WHITELIST: &[&str] = &[
+    "cook",
+    "cook's",
+    "cooks",
+    "seeks",
+    "sheet",
+    #[cfg(since_244)]
+    "woop",
+    #[cfg(since_244)]
+    "woops",
+    #[cfg(since_254)]
+    "faq",
+];
 
 type BadCombinations = Box<[Option<Box<[[i8; 2]]>>]>;
 type WordList = Box<[Box<[u8]>]>;

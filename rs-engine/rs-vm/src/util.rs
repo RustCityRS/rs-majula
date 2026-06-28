@@ -606,7 +606,7 @@ pub(crate) fn pop_song(state: &mut ScriptState) -> Result<&'static MidiType> {
         .ok_or(ScriptError::SongNotFoundName(name))
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_254))]
 fn normalize_song_name(name: &str) -> String {
     name.chars()
         .map(|c| c.to_ascii_lowercase())
@@ -615,7 +615,7 @@ fn normalize_song_name(name: &str) -> String {
         .collect()
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_254))]
 pub(crate) fn song_midi_id(name: &str) -> Option<u16> {
     cache()
         .midi_ids

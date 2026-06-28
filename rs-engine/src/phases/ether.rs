@@ -85,7 +85,16 @@ impl Engine {
                         });
                     }
                 }
-                EtherInbound::FriendListComplete { .. } => {}
+                EtherInbound::FriendListComplete { target37 } => {
+                    #[cfg(since_254)]
+                    if let Some(pid) = self.find_pid_by_user37(target37)
+                        && let Some(active) = self.get_player_mut(pid)
+                    {
+                        active.friendlist_loaded(2);
+                    }
+                    #[cfg(before_254)]
+                    let _ = target37;
+                }
                 EtherInbound::WorldReady => {}
                 EtherInbound::LoginCheckResponse {
                     user37,

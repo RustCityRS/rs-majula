@@ -2,7 +2,9 @@ pub mod anticheat;
 pub mod chat_setmode;
 pub mod client_cheat;
 pub mod close_modal;
-#[cfg(rev = "225")]
+#[cfg(since_254)]
+pub mod event;
+#[cfg(any(rev = "225", since_254))]
 pub mod event_camera_position;
 pub mod friendlist_add;
 pub mod friendlist_del;
