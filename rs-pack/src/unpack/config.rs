@@ -169,6 +169,8 @@ pub fn unpack_config(
         ("varbit", decode_varbit_entries),
         #[cfg(since_274)]
         ("mesanim", decode_mesanim_entries),
+        #[cfg(since_274)]
+        ("mes", decode_mes_entries),
     ];
 
     for (name, decoder) in types {
@@ -1164,7 +1166,7 @@ fn decode_mesanim_entries(
             continue;
         }
         let mut buf = Packet::from(data);
-        let mut props = Vec::new();
+        let props = Vec::new();
 
         while buf.remaining() > 0 {
             let code: u8 = buf.g1();
@@ -1176,6 +1178,42 @@ fn decode_mesanim_entries(
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
                 config_type: "mesanim",
+                id,
+                bytes: buf.remaining() as usize,
+            });
+        }
+        results.push((id, props));
+    }
+    results
+}
+
+#[cfg(since_274)]
+fn decode_mes_entries(
+    dat: &[u8],
+    idx: &[u8],
+    _reverse_hsl: &HashMap<u16, u16>,
+    packs: &mut UnpackedPacks,
+) -> Vec<(u16, Vec<(String, String)>)> {
+    let raw = read_entries(dat, idx);
+    let mut results = Vec::new();
+
+    for (id, data) in raw {
+        if data.is_empty() {
+            continue;
+        }
+        let mut buf = Packet::from(data);
+        let props = Vec::new();
+
+        while buf.remaining() > 0 {
+            let code: u8 = buf.g1();
+            match code {
+                0 => break,
+                _ => panic!("Unrecognized mes config code: {code}"),
+            }
+        }
+        if buf.remaining() > 0 {
+            packs.leftovers.push(RecordLeftover {
+                config_type: "mes",
                 id,
                 bytes: buf.remaining() as usize,
             });

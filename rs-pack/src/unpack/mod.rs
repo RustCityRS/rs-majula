@@ -62,6 +62,10 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
     "mesanim.dat",
     #[cfg(since_274)]
     "mesanim.idx",
+    #[cfg(since_274)]
+    "mes.dat",
+    #[cfg(since_274)]
+    "mes.idx",
 ];
 
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
