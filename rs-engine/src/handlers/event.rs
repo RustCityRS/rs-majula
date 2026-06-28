@@ -4,18 +4,29 @@ use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
+use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::map_build_complete::MapBuildComplete;
 #[cfg(since_254)]
 use rs_vm::ScriptError;
 
 /// Handles the `EventMouseClick` client protocol message.
 ///
 /// No-op. The server accepts but ignores client mouse-click telemetry.
+///
+/// # Arguments
+///
+/// * `_` - The active player (unused).
+///
+/// # Returns
+///
+/// * `Ok(())` always.
+///
+/// # Call Stack
+///
+/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(since_254)]
 impl ClientGameHandler for EventMouseClick {
     fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
@@ -26,6 +37,18 @@ impl ClientGameHandler for EventMouseClick {
 /// Handles the `EventMouseMove` client protocol message.
 ///
 /// No-op. The server accepts but ignores client mouse-move telemetry.
+///
+/// # Arguments
+///
+/// * `_` - The active player (unused).
+///
+/// # Returns
+///
+/// * `Ok(())` always.
+///
+/// # Call Stack
+///
+/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(since_254)]
 impl ClientGameHandler for EventMouseMove {
     fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
@@ -36,6 +59,18 @@ impl ClientGameHandler for EventMouseMove {
 /// Handles the `EventAppletFocus` client protocol message.
 ///
 /// No-op. The server accepts but ignores client applet focus/blur telemetry.
+///
+/// # Arguments
+///
+/// * `_` - The active player (unused).
+///
+/// # Returns
+///
+/// * `Ok(())` always.
+///
+/// # Call Stack
+///
+/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(since_254)]
 impl ClientGameHandler for EventAppletFocus {
     fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
@@ -43,13 +78,26 @@ impl ClientGameHandler for EventAppletFocus {
     }
 }
 
-/// Handles the `MapBuildComplete` client protocol message.
+/// Handles the `EventCameraPosition` client protocol message.
 ///
-/// No-op. The server accepts but ignores the client's map-build-complete notice.
-#[cfg(since_254)]
-impl ClientGameHandler for MapBuildComplete {
+/// No-op. The client periodically sends camera position updates, but the server
+/// does not currently use this information. The packet is accepted and discarded.
+///
+/// # Arguments
+///
+/// * `_` - The active player (unused).
+///
+/// # Returns
+///
+/// * `Ok(())` always.
+///
+/// # Call Stack
+///
+/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
+#[cfg(any(rev = "225", since_254))]
+impl ClientGameHandler for EventCameraPosition {
     fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle()
+        Ok(())
     }
 }
 
