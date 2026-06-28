@@ -97,3 +97,14 @@ fn enumerate(max: usize, f: &mut impl FnMut(&str, u32)) {
     }
     go(&mut Vec::with_capacity(max), 0, max, f);
 }
+
+#[cfg(test)]
+mod tests {
+    use rs_io::jag::JagFile;
+
+    #[test]
+    fn hash_name_for_jag_file() {
+        let value = JagFile::hash("mesanim.idx");
+        println!("{:?}", value);
+    }
+}
