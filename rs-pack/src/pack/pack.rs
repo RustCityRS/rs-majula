@@ -116,12 +116,18 @@ pub fn pack_assets(
     debug!("Packing categories...");
     results.insert("category".to_string(), category::pack_categories(registry)?);
     #[cfg(since_254)]
-    debug!("Packing varbit configs...");
-    #[cfg(since_254)]
-    results.insert(
-        "varbit".to_string(),
-        varbit::pack_varbits(&fc, registry, &constants, verify)?,
-    );
+    {
+        debug!("Packing varbit configs...");
+        results.insert(
+            "varbit".to_string(),
+            varbit::pack_varbits(&fc, registry, &constants, verify)?,
+        );
+    }
+    #[cfg(since_274)]
+    {
+        debug!("Packing mes configs...");
+        results.insert("mes".to_string(), mes::pack_mes(&fc, &constants, verify)?);
+    }
     Ok(results)
 }
 

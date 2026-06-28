@@ -7,6 +7,8 @@ pub mod hunt;
 pub mod idk;
 pub mod inv;
 pub mod loc;
+#[cfg(since_274)]
+pub mod mes;
 pub mod mesanim;
 pub mod npc;
 pub mod obj;
