@@ -35,6 +35,14 @@ const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("varp", config_crc::VARP),
     #[cfg(since_254)]
     ("varbit", config_crc::VARBIT),
+    #[cfg(since_274)]
+    ("mesanim", config_crc::MESANIM),
+    #[cfg(since_274)]
+    ("mes", config_crc::MES),
+    #[cfg(since_274)]
+    ("param", config_crc::PARAM),
+    #[cfg(since_274)]
+    ("hunt", config_crc::HUNT),
 ];
 
 const CONFIG_ENTRY_NAMES: &[&str] = &[

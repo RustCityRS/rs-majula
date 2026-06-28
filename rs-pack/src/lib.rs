@@ -187,6 +187,10 @@ pub(crate) mod config_crc {
     pub const SPOTANIM: i32 = -1587698939;
     pub const INTERFACE: i32 = 2041671134;
     pub const VARBIT: i32 = -234977015;
+    pub const MESANIM: i32 = 1747166838;
+    pub const MES: i32 = 1145177955;
+    pub const PARAM: i32 = 254004952;
+    pub const HUNT: i32 = 1104745215;
 }
 
 #[cfg(rev = "225")]
