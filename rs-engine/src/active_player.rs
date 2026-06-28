@@ -1000,7 +1000,7 @@ impl ActivePlayer {
             rs_protocol::network::game::server::update_stat::UpdateStat {
                 stat: stat as u8,
                 exp: self.player.stats.xp[stat] / 10,
-                lvl: self.player.stats.levels[stat],
+                lvl: self.player.stats.levels[stat] as u8,
             },
         );
     }
@@ -1453,17 +1453,18 @@ impl ActivePlayer {
     ///   tick fills the `damage2_*` fields and sets `PlayerInfoProt::Damage2`
     ///   instead, alternating via the per-tick `damage_slot` counter.
     pub fn damage(&mut self, amount: u8, damage_type: u8) {
+        let amount = amount as u16;
         let current = self.player.stats.levels[PlayerStat::Hitpoints as usize];
         let taken = if current.saturating_sub(amount) == 0 {
             self.player.stats.levels[PlayerStat::Hitpoints as usize] = 0;
-            current
+            current as u8
         } else {
             self.player.stats.levels[PlayerStat::Hitpoints as usize] =
                 current.saturating_sub(amount);
-            amount
+            amount as u8
         };
-        let remaining = self.player.stats.levels[PlayerStat::Hitpoints as usize];
-        let base = self.player.stats.base_levels[PlayerStat::Hitpoints as usize];
+        let remaining = self.player.stats.levels[PlayerStat::Hitpoints as usize] as u8;
+        let base = self.player.stats.base_levels[PlayerStat::Hitpoints as usize] as u8;
 
         #[cfg(since_244)]
         if self.player.info.apply_damage2(

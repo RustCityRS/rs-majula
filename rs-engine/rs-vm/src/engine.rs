@@ -620,8 +620,8 @@ pub trait ScriptPlayer {
     /// * `stat` - The stat index.
     ///
     /// # Returns
-    /// The effective level as `u8`.
-    fn stat(&self, stat: usize) -> u8;
+    /// The effective level as `u16`.
+    fn stat(&self, stat: usize) -> u16;
 
     /// Returns the player's base (unboosted) level in the given stat.
     ///
@@ -629,8 +629,8 @@ pub trait ScriptPlayer {
     /// * `stat` - The stat index.
     ///
     /// # Returns
-    /// The base level as `u8`.
-    fn stat_base(&self, stat: usize) -> u8;
+    /// The base level as `u16`.
+    fn stat_base(&self, stat: usize) -> u16;
 
     /// Returns the sum of all base (unboosted) stat levels.
     fn stat_total(&self) -> i32;
@@ -1618,11 +1618,11 @@ pub trait ScriptNpc {
     /// * `stat` - The NPC stat index.
     ///
     /// # Returns
-    /// The effective level as `u8`.
-    fn stat(&self, stat: usize) -> u8;
+    /// The effective level as `u16`.
+    fn stat(&self, stat: usize) -> u16;
 
     /// Returns the NPC's base (unmodified) level in the given stat.
-    fn basestat(&self, stat: usize) -> u8;
+    fn basestat(&self, stat: usize) -> u16;
 
     /// Applies damage to the NPC and displays a hitsplat.
     ///

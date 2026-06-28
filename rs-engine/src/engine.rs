@@ -20,7 +20,7 @@ use rs_info::{NpcRenderer, PlayerRenderer};
 use rs_inv::{Inventory, STACK_LIMIT, StackMode};
 use rs_pack::cache::script::{Script, ScriptProvider};
 use rs_pack::cache::{CacheStore, VarValue};
-use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, PlayerStat};
+use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::server::obj_count::ObjCount;
@@ -3835,7 +3835,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** reads `self.player.stat_block.levels[stat]`
-    fn stat(&self, stat: usize) -> u8 {
+    fn stat(&self, stat: usize) -> u16 {
         self.player.stats.level(stat)
     }
 
@@ -3845,7 +3845,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** reads `self.player.stat_block.base_levels[stat]`
-    fn stat_base(&self, stat: usize) -> u8 {
+    fn stat_base(&self, stat: usize) -> u16 {
         self.player.stats.base_level(stat)
     }
 
@@ -5525,7 +5525,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `StatBlock::level`
-    fn stat(&self, stat: usize) -> u8 {
+    fn stat(&self, stat: usize) -> u16 {
         self.npc.stats.level(stat)
     }
 
@@ -5535,7 +5535,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `StatBlock::base_level`
-    fn basestat(&self, stat: usize) -> u8 {
+    fn basestat(&self, stat: usize) -> u16 {
         self.npc.stats.base_level(stat)
     }
 
@@ -5721,12 +5721,21 @@ impl ScriptNpc for ActiveNpc {
 
     /// Heals the NPC's current stat level, capped at the base level.
     ///
+    /// Clears hero points if Hitpoints is restored to or above the base level,
+    /// so an NPC healed back to full HP loses its stale damage attribution.
+    ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `StatBlock::heal`
     fn statheal(&mut self, stat: usize, constant: i32, percent: i32) {
         self.npc.stats.heal(stat, constant, percent);
+        if stat == NpcStat::Hitpoints as usize
+            && self.npc.stats.level(NpcStat::Hitpoints as usize)
+                >= self.npc.stats.base_level(NpcStat::Hitpoints as usize)
+        {
+            self.npc.hero_points.clear();
+        }
     }
 
     /// Sets the NPC's walk trigger script and argument.

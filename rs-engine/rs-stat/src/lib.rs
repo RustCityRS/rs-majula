@@ -11,18 +11,18 @@ include!(concat!(env!("OUT_DIR"), "/level_xp.rs"));
 
 #[derive(Debug, Clone)]
 pub struct Stats<const N: usize> {
-    pub levels: [u8; N],
-    pub base_levels: [u8; N],
+    pub levels: [u16; N],
+    pub base_levels: [u16; N],
     pub xp: [i32; N],
     pub last_xp: [Option<i32>; N],
-    pub last_levels: [Option<u8>; N],
+    pub last_levels: [Option<u16>; N],
 }
 
 impl<const N: usize> Stats<N> {
     /// Creates a new `StatBlock` with all levels set to `default_level`,
     /// zero experience, and no change-tracking history.
     #[inline(always)]
-    pub const fn new(default_level: u8) -> Self {
+    pub const fn new(default_level: u16) -> Self {
         Self {
             levels: [default_level; N],
             base_levels: [default_level; N],
@@ -34,13 +34,13 @@ impl<const N: usize> Stats<N> {
 
     /// Returns the current (boosted/drained) level for a stat.
     #[inline(always)]
-    pub const fn level(&self, stat: usize) -> u8 {
+    pub const fn level(&self, stat: usize) -> u16 {
         self.levels[stat]
     }
 
     /// Returns the base (unboosted) level for a stat.
     #[inline(always)]
-    pub const fn base_level(&self, stat: usize) -> u8 {
+    pub const fn base_level(&self, stat: usize) -> u16 {
         self.base_levels[stat]
     }
 
@@ -56,15 +56,15 @@ impl<const N: usize> Stats<N> {
         self.base_levels.iter().map(|&l| l as i32).sum()
     }
 
-    /// Clamps a computed level into the storable `0..=255` range and narrows it
-    /// to a `u8`.
+    /// Clamps a computed level into the storable `0..=65535` range and narrows
+    /// it to a `u16`.
     #[inline(always)]
-    fn clamp_level(value: i32) -> u8 {
-        value.clamp(0, 255) as u8
+    fn clamp_level(value: i32) -> u16 {
+        value.clamp(0, 65535) as u16
     }
 
     /// Raises the current level by a flat amount plus a percentage of the
-    /// base level. The result is clamped to `[0, 255]`.
+    /// base level. The result is clamped to `[0, 65535]`.
     ///
     /// Formula: `current + (constant + base * percent / 100)`
     pub fn add(&mut self, stat: usize, constant: i32, percent: i32) {
@@ -82,7 +82,7 @@ impl<const N: usize> Stats<N> {
         let base = self.base_levels[stat] as i32;
         let current = self.levels[stat] as i32;
         let subbed = current - (constant + base * percent / 100);
-        self.levels[stat] = subbed.max(0) as u8;
+        self.levels[stat] = subbed.max(0) as u16;
     }
 
     /// Restores the current level by a flat amount plus a percentage of the
@@ -94,7 +94,7 @@ impl<const N: usize> Stats<N> {
         let base = self.base_levels[stat] as i32;
         let current = self.levels[stat] as i32;
         let healed = current + (constant + base * percent / 100);
-        self.levels[stat] = healed.min(base).max(current) as u8;
+        self.levels[stat] = healed.min(base).max(current) as u16;
     }
 
     /// Boosts the current level by a flat amount plus a percentage of the
@@ -118,7 +118,7 @@ impl<const N: usize> Stats<N> {
     pub fn drain(&mut self, stat: usize, constant: i32, percent: i32) {
         let current = self.levels[stat] as i32;
         let drained = current - (constant + current * percent / 100);
-        self.levels[stat] = drained.max(0) as u8;
+        self.levels[stat] = drained.max(0) as u16;
     }
 
     /// Resets all current levels to their base levels.
@@ -158,7 +158,7 @@ impl<const N: usize> Stats<N> {
         }
         self.xp[stat] = self.xp[stat].saturating_add(xp).min(2_000_000_000);
         let before = self.base_levels[stat];
-        let new_base = get_level_by_exp(self.xp[stat]);
+        let new_base = get_level_by_exp(self.xp[stat]) as u16;
         if self.levels[stat] == before {
             self.levels[stat] = new_base;
         } else if new_base > before && self.levels[stat] < before {
@@ -219,10 +219,10 @@ mod tests {
     }
 
     #[test]
-    fn add_clamps_at_255() {
+    fn add_clamps_at_max() {
         let mut stats: Stats<1> = Stats::new(99);
-        stats.add(0, 200, 0);
-        assert_eq!(stats.level(0), 255);
+        stats.add(0, 100_000, 0);
+        assert_eq!(stats.level(0), 65535);
     }
 
     #[test]

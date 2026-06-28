@@ -48,12 +48,12 @@ impl ActiveNpc {
         let mut npc = Npc::new(id, nid, coord, size, vars);
 
         if let Some(npc_type) = store.npcs.get_by_id(id) {
-            npc.stats.levels[NpcStat::Attack as usize] = npc_type.attack as u8;
-            npc.stats.levels[NpcStat::Defence as usize] = npc_type.defence as u8;
-            npc.stats.levels[NpcStat::Strength as usize] = npc_type.strength as u8;
-            npc.stats.levels[NpcStat::Hitpoints as usize] = npc_type.hitpoints as u8;
-            npc.stats.levels[NpcStat::Ranged as usize] = npc_type.ranged as u8;
-            npc.stats.levels[NpcStat::Magic as usize] = npc_type.magic as u8;
+            npc.stats.levels[NpcStat::Attack as usize] = npc_type.attack;
+            npc.stats.levels[NpcStat::Defence as usize] = npc_type.defence;
+            npc.stats.levels[NpcStat::Strength as usize] = npc_type.strength;
+            npc.stats.levels[NpcStat::Hitpoints as usize] = npc_type.hitpoints;
+            npc.stats.levels[NpcStat::Ranged as usize] = npc_type.ranged;
+            npc.stats.levels[NpcStat::Magic as usize] = npc_type.magic;
             npc.stats.base_levels = npc.stats.levels;
             npc.interaction.target_op = Some(npc_type.defaultmode as u8);
             npc.hunt_mode = npc_type.huntmode;
@@ -121,16 +121,17 @@ impl ActiveNpc {
     ///   `damage_current`, `damage_base`) and sets the `NpcInfoProt::Damage`
     ///   mask for the next info update.
     pub fn damage(&mut self, amount: u8, damage_type: u8) {
+        let amount = amount as u16;
         let current = self.npc.stats.levels[NpcStat::Hitpoints as usize];
         let taken = if current.saturating_sub(amount) == 0 {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] = 0;
-            current
+            current as u8
         } else {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] = current.saturating_sub(amount);
-            amount
+            amount as u8
         };
-        let remaining = self.npc.stats.levels[NpcStat::Hitpoints as usize];
-        let base = self.npc.stats.base_levels[NpcStat::Hitpoints as usize];
+        let remaining = self.npc.stats.levels[NpcStat::Hitpoints as usize] as u8;
+        let base = self.npc.stats.base_levels[NpcStat::Hitpoints as usize] as u8;
 
         #[cfg(since_244)]
         if self.npc.info.apply_damage2(
@@ -226,16 +227,16 @@ impl ActiveNpc {
 
         if reset && let Some(npc_type) = cache().npcs.get_by_id(new_type) {
             let stats = [
-                npc_type.attack as u8,
-                npc_type.defence as u8,
-                npc_type.strength as u8,
-                npc_type.hitpoints as u8,
-                npc_type.ranged as u8,
-                npc_type.magic as u8,
+                npc_type.attack,
+                npc_type.defence,
+                npc_type.strength,
+                npc_type.hitpoints,
+                npc_type.ranged,
+                npc_type.magic,
             ];
             for (i, &base) in stats.iter().enumerate() {
-                let delta = self.npc.stats.levels[i] as i16 - self.npc.stats.base_levels[i] as i16;
-                self.npc.stats.levels[i] = (base as i16 + delta).max(0) as u8;
+                let delta = self.npc.stats.levels[i] as i32 - self.npc.stats.base_levels[i] as i32;
+                self.npc.stats.levels[i] = (base as i32 + delta).clamp(0, 65535) as u16;
                 self.npc.stats.base_levels[i] = base;
             }
         }
@@ -269,12 +270,12 @@ impl ActiveNpc {
 
         if self.npc.revert_reset {
             if let Some(npc_type) = cache().npcs.get_by_id(self.npc.base_type) {
-                self.npc.stats.base_levels[NpcStat::Attack as usize] = npc_type.attack as u8;
-                self.npc.stats.base_levels[NpcStat::Defence as usize] = npc_type.defence as u8;
-                self.npc.stats.base_levels[NpcStat::Strength as usize] = npc_type.strength as u8;
-                self.npc.stats.base_levels[NpcStat::Hitpoints as usize] = npc_type.hitpoints as u8;
-                self.npc.stats.base_levels[NpcStat::Ranged as usize] = npc_type.ranged as u8;
-                self.npc.stats.base_levels[NpcStat::Magic as usize] = npc_type.magic as u8;
+                self.npc.stats.base_levels[NpcStat::Attack as usize] = npc_type.attack;
+                self.npc.stats.base_levels[NpcStat::Defence as usize] = npc_type.defence;
+                self.npc.stats.base_levels[NpcStat::Strength as usize] = npc_type.strength;
+                self.npc.stats.base_levels[NpcStat::Hitpoints as usize] = npc_type.hitpoints;
+                self.npc.stats.base_levels[NpcStat::Ranged as usize] = npc_type.ranged;
+                self.npc.stats.base_levels[NpcStat::Magic as usize] = npc_type.magic;
                 self.npc.stats.reset();
             }
             self.npc.hero_points.clear();

@@ -120,7 +120,7 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         runenergy: player.runenergy,
         playtime: player.playtime,
         stats: player.stats.xp,
-        levels: player.stats.levels,
+        levels: player.stats.levels.map(|l| l as u8),
         varps,
         invs,
         afk_zones: player.afk_zones,
@@ -159,9 +159,9 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
     player.runenergy = profile.runenergy;
     player.playtime = profile.playtime;
     player.stats.xp = profile.stats;
-    player.stats.levels = profile.levels;
+    player.stats.levels = profile.levels.map(|l| l as u16);
     for i in 0..STAT_COUNT {
-        player.stats.base_levels[i] = get_level_by_exp(profile.stats[i]);
+        player.stats.base_levels[i] = get_level_by_exp(profile.stats[i]) as u16;
     }
     player.combat_level = player.get_combat_level();
     player.afk_zones = profile.afk_zones;

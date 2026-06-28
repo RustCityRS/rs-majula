@@ -237,8 +237,9 @@ impl CacheType for LocTypeRaw {
                 let mut active = false;
 
                 if let Some(models) = &loc.models
-                    && models.len() == 1
-                    && models[0].shape == 10
+                    && models
+                        .first()
+                        .is_some_and(|m| m.shape == LocShape::CentrepieceStraight as u8)
                 {
                     active = true;
                 }

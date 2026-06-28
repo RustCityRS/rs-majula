@@ -193,12 +193,12 @@ impl Engine {
 
         let npc_type = cache.npcs.get_by_id(active.npc.base_type);
         if let Some(npc_type) = npc_type {
-            active.npc.stats.base_levels[NpcStat::Attack as usize] = npc_type.attack as u8;
-            active.npc.stats.base_levels[NpcStat::Defence as usize] = npc_type.defence as u8;
-            active.npc.stats.base_levels[NpcStat::Strength as usize] = npc_type.strength as u8;
-            active.npc.stats.base_levels[NpcStat::Hitpoints as usize] = npc_type.hitpoints as u8;
-            active.npc.stats.base_levels[NpcStat::Ranged as usize] = npc_type.ranged as u8;
-            active.npc.stats.base_levels[NpcStat::Magic as usize] = npc_type.magic as u8;
+            active.npc.stats.base_levels[NpcStat::Attack as usize] = npc_type.attack;
+            active.npc.stats.base_levels[NpcStat::Defence as usize] = npc_type.defence;
+            active.npc.stats.base_levels[NpcStat::Strength as usize] = npc_type.strength;
+            active.npc.stats.base_levels[NpcStat::Hitpoints as usize] = npc_type.hitpoints;
+            active.npc.stats.base_levels[NpcStat::Ranged as usize] = npc_type.ranged;
+            active.npc.stats.base_levels[NpcStat::Magic as usize] = npc_type.magic;
         }
 
         active.npc.reset_pathing_entity(true);
@@ -370,6 +370,11 @@ impl Engine {
     #[inline(always)]
     fn npc_process_queue(active: *mut ActiveNpc) {
         let active = unsafe { &mut *active };
+
+        if !active.npc.active {
+            return;
+        }
+
         let uid = active.npc.uid;
 
         let mut h = active.npc.state.queues.queue.head();
@@ -1089,7 +1094,8 @@ impl Engine {
     #[inline(always)]
     fn npc_process_movement_interaction(active: *mut ActiveNpc) {
         let active = unsafe { &mut *active };
-        if active.npc.state.delayed {
+
+        if active.npc.state.delayed || !active.npc.active {
             return;
         }
 
