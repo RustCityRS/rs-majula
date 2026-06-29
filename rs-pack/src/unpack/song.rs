@@ -1,5 +1,7 @@
 use std::path::Path;
 
+#[cfg(since_244)]
+use crate::versionlist::VersionList;
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
@@ -60,7 +62,7 @@ fn key_to_filename(key: &str) -> String {
 #[cfg(since_244)]
 pub fn unpack_midi(
     cache: &Js5Store,
-    version_list: &crate::version_list::VersionList,
+    version_list: &VersionList,
     output_dir: &Path,
     pack_dir: &Path,
 ) -> anyhow::Result<()> {

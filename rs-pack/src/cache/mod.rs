@@ -63,11 +63,11 @@ pub mod vars;
 pub mod wordenc;
 
 pub struct CacheStore {
-    pub crctable: [i32; 9],
     pub crctable_bytes: Arc<[u8]>,
-    #[cfg(since_244)]
+    pub crc_buffer32: i32,
+    #[cfg(all(since_244, before_274))]
     pub ondemand_zip: Arc<[u8]>,
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_274))]
     pub build: Arc<[u8]>,
     #[cfg(since_244)]
     pub ondemand: OndemandBlobs,
@@ -106,6 +106,8 @@ pub struct CacheStore {
     pub jingles: MidiProvider,
     #[cfg(since_244)]
     pub midi_ids: HashMap<Box<str>, u16>,
+    #[cfg(since_274)]
+    pub midi_tick_lengths: Box<[Option<u16>]>,
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,

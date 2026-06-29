@@ -16,6 +16,10 @@ const WHITELIST: &[&str] = &[
     "woops",
     #[cfg(since_254)]
     "faq",
+    #[cfg(since_274)]
+    "noob",
+    #[cfg(since_274)]
+    "noobs",
 ];
 
 type BadCombinations = Box<[Option<Box<[[i8; 2]]>>]>;

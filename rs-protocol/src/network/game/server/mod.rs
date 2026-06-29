@@ -11,7 +11,9 @@ pub mod data_land_done;
 pub mod data_loc;
 #[cfg(rev = "225")]
 pub mod data_loc_done;
+#[cfg(before_274)]
 pub mod enable_tracking;
+#[cfg(before_274)]
 pub mod finish_tracking;
 #[cfg(since_254)]
 pub mod friendlist_loaded;
@@ -50,6 +52,8 @@ pub mod message_game;
 pub mod message_private;
 pub mod midi_jingle;
 pub mod midi_song;
+#[cfg(since_274)]
+pub mod minimap_toggle;
 pub mod npc_info;
 pub mod obj_add;
 pub mod obj_count;

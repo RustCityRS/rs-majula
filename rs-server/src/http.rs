@@ -335,9 +335,9 @@ fn matches_cache(path: &str) -> bool {
         "/crc",
         #[cfg(since_244)]
         "/versionlist",
-        #[cfg(since_244)]
+        #[cfg(all(since_244, before_274))]
         "/ondemand.zip",
-        #[cfg(since_244)]
+        #[cfg(all(since_244, before_274))]
         "/build",
     ]
     .iter()
@@ -349,12 +349,12 @@ fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body> {
         return Some(Body::Shared(Arc::clone(&cache.crctable_bytes)));
     }
 
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_274))]
     if path.starts_with("/ondemand.zip") {
         return Some(Body::Shared(Arc::clone(&cache.ondemand_zip)));
     }
 
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_274))]
     if path.starts_with("/build") {
         return Some(Body::Shared(Arc::clone(&cache.build)));
     }

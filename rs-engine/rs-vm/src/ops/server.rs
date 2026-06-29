@@ -1,8 +1,10 @@
+#[cfg(since_274)]
+use crate::ScriptError;
 use crate::engine::{ScriptEngine, cache, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ExecutionState;
 use crate::util::{pop_seq, pop_spotanim};
-use crate::{ScriptError, handlers, none};
+use crate::{handlers, none};
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::*;
 
@@ -308,8 +310,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 1022
         #[cfg(since_274)]
-        none!(m, MIDI_LENGTH => |_s| {
-            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        none!(m, MIDI_LENGTH => |s| {
+            let track = s.pop_int();
+            let ticks = cache()
+                .midi_tick_lengths
+                .get(track as usize)
+                .copied()
+                .flatten()
+                .ok_or(ScriptError::SongNotFound(track))?;
+            s.push_int(ticks as i32);
         });
     }
 }

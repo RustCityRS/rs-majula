@@ -6,12 +6,15 @@ use crate::pack::util::walk;
 use crate::pack::versionlist::build_version_list;
 use crate::types::OndemandBlobs;
 use crate::unpack::model;
-use crate::version_list::VersionListMeta;
-use rs_io::js5::{Js5Store, js5zip};
+use crate::versionlist::VersionListMeta;
+use rs_io::js5::Js5Store;
+#[cfg(before_274)]
+use rs_io::js5::js5zip;
 use tracing::{debug, warn};
 
 pub struct OndemandArtifacts {
     pub version_list: Vec<u8>,
+    #[cfg(before_274)]
     pub zip: Vec<u8>,
     pub blobs: OndemandBlobs,
 }
@@ -198,6 +201,7 @@ pub fn build_ondemand_artifacts(
 
     OndemandArtifacts {
         version_list: build_version_list(&bulk, &meta, &midi_jingles),
+        #[cfg(before_274)]
         zip: js5zip(&bulk, count),
         blobs,
     }

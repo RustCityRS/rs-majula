@@ -1414,14 +1414,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2150
         #[cfg(since_274)]
-        none!(m, MINIMAP_TOGGLE => |_s| {
-            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        active_player_mut!(m, MINIMAP_TOGGLE => |s, player| {
+            player.minimap_toggle(s.pop_int_as::<u8>()?);
         });
 
         // 2151
         #[cfg(since_274)]
-        none!(m, SET_SKILL_LEVEL => |_s| {
-            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        active_player_mut!(m, SET_SKILL_LEVEL => |s, player| {
+            player.set_skill_level(s.pop_int_as::<u16>()?);
         });
     }
 }

@@ -3,7 +3,7 @@ pub mod pack;
 pub mod types;
 pub mod unpack;
 #[cfg(since_244)]
-pub mod version_list;
+pub mod versionlist;
 
 use std::collections::HashMap;
 use std::path::Path;
@@ -396,17 +396,18 @@ pub fn pack_all(
     );
 
     #[cfg(since_244)]
-    let (ondemand_zip, ondemand): (Arc<[u8]>, OndemandBlobs) = {
-        insert_jag(
-            &mut crcs,
-            &mut jags,
-            "versionlist",
-            ondemand.version_list,
-            jag_crc::VERSIONLIST,
-            verify,
-        );
-        (Arc::from(ondemand.zip), ondemand.blobs)
-    };
+    insert_jag(
+        &mut crcs,
+        &mut jags,
+        "versionlist",
+        ondemand.version_list,
+        jag_crc::VERSIONLIST,
+        verify,
+    );
+    #[cfg(all(since_244, before_274))]
+    let ondemand_zip: Arc<[u8]> = Arc::from(ondemand.zip);
+    #[cfg(since_244)]
+    let ondemand: OndemandBlobs = ondemand.blobs;
 
     debug!("Pack complete.");
 
@@ -417,9 +418,14 @@ pub fn pack_all(
             crctable[i + 1] = data;
         }
     }
-    let mut crc_bytes: Vec<u8> = crctable.iter().flat_map(|n| n.to_be_bytes()).collect();
+    let crc_bytes: Vec<u8> = crctable.iter().flat_map(|n| n.to_be_bytes()).collect();
+    let crc_buffer32 = crc::getcrc(&crc_bytes, 0, crc_bytes.len());
     #[cfg(since_274)]
-    crc_bytes.extend_from_slice(&crc_table_footer(&crctable).to_be_bytes());
+    let crc_bytes = {
+        let mut bytes = crc_bytes;
+        bytes.extend_from_slice(&crc_table_footer(&crctable).to_be_bytes());
+        bytes
+    };
     let crctable_bytes = Arc::from(crc_bytes);
 
     let params = build_type_provider::<ParamType>(&assets, "param", ());
@@ -484,6 +490,25 @@ pub fn pack_all(
         .map(|(id, name)| (name.into_boxed_str(), id))
         .collect();
 
+    #[cfg(since_274)]
+    let midi_tick_lengths: Box<[Option<u16>]> = {
+        let size = midi_ids
+            .values()
+            .map(|&id| id as usize + 1)
+            .max()
+            .unwrap_or(0);
+        let mut lengths: Vec<Option<u16>> = vec![None; size];
+        for (name, &id) in &midi_ids {
+            if let Some(midi) = midi_songs
+                .get_by_name(name)
+                .or_else(|| midi_jingles.get_by_name(name))
+            {
+                lengths[id as usize] = Some(midi.tick_length() as u16);
+            }
+        }
+        lengths.into_boxed_slice()
+    };
+
     debug!(
         "TypeProviders: objs={} invs={} varps={} dbrows={} dbtables={} enums={} flos={} hunts={} idks={} locs={} mesanims={} npcs={} params={} seqs={} spotanims={} structs={} varns={} varss={} categories={} interfaces={} fonts={} wordenc=bad:{}/frag:{}/tld:{}/dom:{} songs={} jingles={}",
         objs.count(),
@@ -519,7 +544,7 @@ pub fn pack_all(
     let scripts = cache::script::ScriptProvider::from_bytes(&script_dat, &script_idx);
     debug!("Scripts: {} loaded", scripts.count());
 
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_274))]
     let build: Arc<[u8]> = {
         let secs = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
@@ -529,11 +554,11 @@ pub fn pack_all(
     };
 
     let store = Box::new(CacheStore {
-        crctable,
         crctable_bytes,
-        #[cfg(since_244)]
+        crc_buffer32,
+        #[cfg(all(since_244, before_274))]
         ondemand_zip,
-        #[cfg(since_244)]
+        #[cfg(all(since_244, before_274))]
         build,
         #[cfg(since_244)]
         ondemand,
@@ -572,6 +597,8 @@ pub fn pack_all(
         jingles: midi_jingles,
         #[cfg(since_244)]
         midi_ids,
+        #[cfg(since_274)]
+        midi_tick_lengths,
         static_assets: load_static_assets(),
         multimap,
         freemap,

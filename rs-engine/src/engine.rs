@@ -4620,6 +4620,18 @@ impl ScriptPlayer for ActivePlayer {
         self.set_player_op(op, value, primary);
     }
 
+    /// Sets the client minimap state.
+    #[cfg(since_274)]
+    fn minimap_toggle(&mut self, minimap_type: u8) {
+        self.minimap_toggle(minimap_type);
+    }
+
+    /// Sets the player's appearance skill level.
+    #[cfg(since_274)]
+    fn set_skill_level(&mut self, level: u16) {
+        self.set_skill_level(level);
+    }
+
     /// Recolors an interface component model.
     ///
     /// # Call Stack

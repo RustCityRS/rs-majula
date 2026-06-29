@@ -1046,6 +1046,21 @@ pub trait ScriptPlayer {
     #[cfg(since_254)]
     fn set_player_op(&mut self, op: u8, value: &str, primary: u8);
 
+    /// Sets the client minimap state.
+    ///
+    /// # Arguments
+    /// * `minimap_type` - `0` normal, `1` disable click, `2` blacked out.
+    #[cfg(since_274)]
+    fn minimap_toggle(&mut self, minimap_type: u8);
+
+    /// Sets the player's appearance "skill level", shown by the client
+    /// alongside the combat level.
+    ///
+    /// # Arguments
+    /// * `level` - The skill level value (`0` = unset).
+    #[cfg(since_274)]
+    fn set_skill_level(&mut self, level: u16);
+
     /// Recolors an interface component model, remapping one color to another.
     ///
     /// # Arguments

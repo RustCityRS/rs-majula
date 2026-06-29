@@ -4,6 +4,8 @@ pub mod client_cheat;
 pub mod close_modal;
 #[cfg(any(rev = "225", since_254))]
 pub mod event;
+#[cfg(before_274)]
+pub mod event_tracking;
 pub mod friendlist_add;
 pub mod friendlist_del;
 pub mod idk_savedesign;

@@ -1059,6 +1059,7 @@ impl NpcInfo {
                     other.npc.uid.id(),
                     other.npc.pathing.coord.x() as i32 - active.player.pathing.coord.x() as i32,
                     other.npc.pathing.coord.z() as i32 - active.player.pathing.coord.z() as i32,
+                    other.npc.pathing.jump,
                 );
                 other.npc.observers = other.npc.observers.saturating_add(1);
             }
@@ -1094,16 +1095,23 @@ impl NpcInfo {
         ntype: u16,
         x: i32,
         z: i32,
+        jump: bool,
     ) {
-        // 13/14 + 11 = 24/25 bits, then 5 + 5 + 1 = 11 bits (35/36 total, split for i32)
+        // 13/14 + 11 = 24/25 bits, then 5 + 5 + (1) + 1 = 11/12 bits (35/36/37 total, split for i32)
         #[cfg(before_254)]
         self.bw
             .pbit::<24>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
         #[cfg(since_254)]
         self.bw
             .pbit::<25>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
+        #[cfg(before_274)]
         self.bw
             .pbit::<11>(&mut self.buf, ((x & 0x1F) << 6) | ((z & 0x1F) << 1) | 1);
+        #[cfg(since_274)]
+        self.bw.pbit::<12>(
+            &mut self.buf,
+            ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | if jump { 1 } else { 0 } | 1,
+        );
         self.lowdefinition(renderer, other);
         active.player.build_area.npcs.insert(other.npc.uid.nid());
     }

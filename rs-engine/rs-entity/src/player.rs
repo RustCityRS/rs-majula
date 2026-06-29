@@ -160,6 +160,8 @@ pub struct Player {
     pub last_login_date: i64,
     pub stats: Stats<21>,
     pub combat_level: u8,
+    #[cfg(since_274)]
+    pub skill_level: u16,
     pub hero_points: HeroPoints,
     pub vars: VarSet,
     pub state: EntityState,
@@ -258,6 +260,8 @@ impl Player {
             last_login_date: 0,
             stats: Stats::new(1),
             combat_level: 3,
+            #[cfg(since_274)]
+            skill_level: 0,
             hero_points: HeroPoints::new(),
             vars,
             state: EntityState::new(),

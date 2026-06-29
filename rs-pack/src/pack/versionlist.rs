@@ -2,7 +2,7 @@ use rs_io::Packet;
 use rs_io::crc::getcrc;
 use rs_io::jag::JagFile;
 
-use crate::version_list::VersionListMeta;
+use crate::versionlist::VersionListMeta;
 use rs_io::js5::Js5Store;
 
 pub fn build_version_list(

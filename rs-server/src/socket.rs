@@ -104,24 +104,26 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         let _ = client.write(&[LoginResponse::Rejected as u8]).await;
         bail!("{} Not enough bytes to read", client.addr);
     }
-    let version = buf.g1(); // the client revision.
+    let mut version = u16::from(buf.g1()); // the client revision.
+    if version == 255 {
+        version = buf.g2();
+    }
     if version.to_string() != REVISION.split('.').next().unwrap_or(REVISION) {
         let _ = client.write(&[LoginResponse::RuneScapeUpdated as u8]).await;
         bail!("{}: Invalid version: {}", client.addr, version)
     }
     let info = buf.g1();
     let low_memory = (info & 0x1) != 0;
-    let crcs: Vec<i32> = (0..9).map(|_| buf.g4s()).collect();
-    if crcs
-        .iter()
-        .any(|x| !client.server_io.cache.crctable.contains(x))
-    {
+    let mut crc_block = [0; 9 * 4];
+    buf.gdata(&mut crc_block, 0, 9 * 4);
+    let client_crc = rs_io::crc::getcrc(&crc_block, 0, 9 * 4);
+    if client_crc != client.server_io.cache.crc_buffer32 {
         let _ = client.write(&[LoginResponse::RuneScapeUpdated as u8]).await;
         bail!(
-            "{}: Invalid crctable: {:?} : {:?}",
+            "{}: CRC mismatch: client={} expected={}",
             client.addr,
-            crcs,
-            client.server_io.cache.crctable
+            client_crc,
+            client.server_io.cache.crc_buffer32
         )
     }
     buf.rsadec(RsaFrame::Byte, client.server_io.rsa);

@@ -2,6 +2,8 @@
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
+#[cfg(since_244)]
+use crate::versionlist::VersionList;
 use rs_io::Packet;
 #[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
@@ -117,7 +119,7 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
 #[cfg(since_244)]
 pub fn unpack_maps(
     cache: &Js5Store,
-    version_list: &crate::version_list::VersionList,
+    version_list: &VersionList,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
     let out_dir = output_dir.join("maps");

@@ -26,6 +26,7 @@ pub mod event_camera_position;
 pub mod event_mouse_click;
 #[cfg(since_254)]
 pub mod event_mouse_move;
+#[cfg(before_274)]
 pub mod event_tracking;
 pub mod friendlist_add;
 pub mod friendlist_del;

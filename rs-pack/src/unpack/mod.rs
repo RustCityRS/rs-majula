@@ -11,14 +11,19 @@ pub mod title;
 pub mod wordenc;
 
 #[cfg(since_244)]
-use crate::version_list::VersionListMeta;
+use crate::versionlist::VersionListMeta;
+#[cfg(since_244)]
+use crate::versionlist::{TABLE_NAMES, VersionList, read_i32_table, read_u16_table};
 use crate::{config_crc, jag_crc};
 use image::{Rgba, RgbaImage};
+use report::CrcReport;
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
 use std::collections::HashMap;
+#[cfg(since_244)]
+use std::collections::HashSet;
 use std::path::Path;
 #[cfg(rev = "225")]
 use std::path::PathBuf;
@@ -178,7 +183,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     std::fs::create_dir_all(pack_dir)?;
 
     let source = ArchiveSource::open(expected_dir)?;
-    let mut crc_report = report::CrcReport::new();
+    let mut crc_report = CrcReport::new();
     let mut leftover = report::LeftoverReport::new();
 
     // Config must run first - it produces model_categories needed by models.
@@ -377,7 +382,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
         let version_list = vl_jag
             .as_ref()
-            .map(crate::version_list::VersionList::from_jag)
+            .map(VersionList::from_jag)
             .unwrap_or_default();
 
         if let Some(jag) = &vl_jag {
@@ -406,7 +411,7 @@ fn prepare_jag(
     bytes: Option<Vec<u8>>,
     expected_crc: Option<i32>,
     known: &[i32],
-    crc_report: &mut report::CrcReport,
+    crc_report: &mut CrcReport,
     leftover: &mut report::LeftoverReport,
 ) -> Option<JagFile> {
     let bytes = bytes?;
@@ -432,18 +437,11 @@ fn interface_known_hashes() -> Vec<i32> {
 
 #[cfg(since_244)]
 fn versionlist_known_hashes() -> Vec<i32> {
-    crate::version_list::TABLE_NAMES
-        .iter()
-        .map(|n| JagFile::hash(n))
-        .collect()
+    TABLE_NAMES.iter().map(|n| JagFile::hash(n)).collect()
 }
 
 #[cfg(since_244)]
-fn collect_js5_ondemand_crcs(
-    vl_jag: &JagFile,
-    cache: &Js5Store,
-    crc_report: &mut report::CrcReport,
-) {
+fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &Js5Store, crc_report: &mut CrcReport) {
     let tables = [
         (1usize, "model", "model_version", "model_crc"),
         (2, "anim", "anim_version", "anim_crc"),
@@ -451,8 +449,8 @@ fn collect_js5_ondemand_crcs(
         (4, "map", "map_version", "map_crc"),
     ];
     for (index, label, version_table, crc_table) in tables {
-        let versions = crate::version_list::read_u16_table(vl_jag, version_table);
-        let crcs = crate::version_list::read_i32_table(vl_jag, crc_table);
+        let versions = read_u16_table(vl_jag, version_table);
+        let crcs = read_i32_table(vl_jag, crc_table);
         for (id, &expected) in crcs.iter().enumerate() {
             // Recompute exactly as build_version_list does: getcrc over the stored
             // blob minus its trailing 2-byte version (versionlist::crc_no_version).
@@ -470,11 +468,9 @@ fn collect_js5_ondemand_crcs(
 fn collect_js5_leftovers(
     cache: &Js5Store,
     expected_dir: &Path,
-    version_list: &crate::version_list::VersionList,
+    version_list: &VersionList,
     leftover: &mut report::LeftoverReport,
 ) {
-    use std::collections::HashSet;
-
     for file in 0..cache.count(0) {
         if (1..=8).contains(&file) {
             continue;

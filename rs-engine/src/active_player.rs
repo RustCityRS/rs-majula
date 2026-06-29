@@ -40,6 +40,8 @@ use rs_protocol::network::game::client::event_camera_position::EventCameraPositi
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
+#[cfg(before_274)]
+use rs_protocol::network::game::client::event_tracking::EventTracking;
 use rs_protocol::network::game::client::friendlist_add::FriendListAdd;
 use rs_protocol::network::game::client::friendlist_del::FriendListDel;
 use rs_protocol::network::game::client::idk_savedesign::IdkSaveDesign;
@@ -767,6 +769,15 @@ impl ActivePlayer {
         );
     }
 
+    /// Sets the client minimap state (`0` normal, `1` disable click, `2`
+    /// blacked out).
+    #[cfg(since_274)]
+    pub fn minimap_toggle(&mut self, minimap_type: u8) {
+        self.write(
+            rs_protocol::network::game::server::minimap_toggle::MinimapToggle { minimap_type },
+        );
+    }
+
     /// Recolors an interface component model, remapping `src` color to `dst`.
     #[cfg(before_245_2)]
     pub fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
@@ -1438,6 +1449,16 @@ impl ActivePlayer {
         }
     }
 
+    /// Sets the appearance "skill level" (RuneScript `SET_SKILL_LEVEL`) and
+    /// rebuilds the appearance so the new value is reflected to other players.
+    #[cfg(since_274)]
+    pub fn set_skill_level(&mut self, level: u16) {
+        self.player.skill_level = level;
+        if let Some(appearance) = self.player.info.appearance {
+            self.buildappearance(appearance);
+        }
+    }
+
     /// Applies damage to this player, clamping hitpoints to zero if the damage
     /// exceeds the current value.
     ///
@@ -1614,6 +1635,8 @@ impl ActivePlayer {
             buf.p2(self.player.info.runanim.unwrap());
             buf.p8(self.uid().username37() as i64);
             buf.p1(self.player.combat_level);
+            #[cfg(since_274)]
+            buf.p2(self.player.skill_level);
 
             Box::from(&buf.data[..buf.pos])
         });
@@ -1928,6 +1951,8 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::EventMouseClick => EventMouseClick::decode(&mut buf, len).handle(self),
                 #[cfg(since_254)]
                 ClientProt::EventMouseMove => EventMouseMove::decode(&mut buf, len).handle(self),
+                #[cfg(before_274)]
+                ClientProt::EventTracking => EventTracking::decode(&mut buf, len).handle(self),
                 #[cfg(since_254)]
                 ClientProt::MapBuildComplete => MapBuildComplete::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListAdd => FriendListAdd::decode(&mut buf, len).handle(self),
@@ -1991,7 +2016,6 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::ResumePauseButton => ResumePauseButton::decode(&mut buf, len).handle(self),
                 ClientProt::SendSnapshot => SendSnapshot::decode(&mut buf, len).handle(self),
                 ClientProt::TutClickSide => TutClickSide::decode(&mut buf, len).handle(self),
-                _ => Err(ScriptError::Client(format!("Unhandled opcode: {:?}", prot))),
             };
             match result {
                 Ok(_) => true,
