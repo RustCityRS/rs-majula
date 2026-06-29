@@ -1,6 +1,6 @@
-use std::collections::HashSet;
+use std::collections::{BTreeMap, HashSet};
 use std::fmt::{Display, Write as _};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use rs_io::crc;
 use rs_io::jag::JagFile;
@@ -383,6 +383,222 @@ impl LeftoverReport {
 
         Ok(())
     }
+}
+
+pub struct PackDiffReport {
+    committed_dir: PathBuf,
+    unpacked_dir: PathBuf,
+    files: Vec<PackFileDiff>,
+    unchanged_files: usize,
+    not_produced: Vec<String>,
+}
+
+struct PackFileDiff {
+    name: String,
+    is_new_file: bool,
+    added: Vec<IdEntry>,
+    removed: Vec<IdEntry>,
+}
+
+struct IdEntry {
+    id: String,
+    name: String,
+}
+
+impl PackDiffReport {
+    pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> std::io::Result<Self> {
+        let committed = collect_pack_files(committed_dir)?;
+        let unpacked = collect_pack_files(unpacked_dir)?;
+
+        let mut report = Self {
+            committed_dir: committed_dir.to_path_buf(),
+            unpacked_dir: unpacked_dir.to_path_buf(),
+            files: Vec::new(),
+            unchanged_files: 0,
+            not_produced: committed
+                .keys()
+                .filter(|name| !unpacked.contains_key(*name))
+                .cloned()
+                .collect(),
+        };
+
+        for (name, u_path) in &unpacked {
+            let u_map = parse_pack(u_path)?;
+            let (c_map, is_new_file) = match committed.get(name) {
+                Some(p) => (parse_pack(p)?, false),
+                None => (BTreeMap::new(), true),
+            };
+
+            let mut added = Vec::new();
+            for (id, u_name) in &u_map {
+                if !c_map.contains_key(id) {
+                    added.push(IdEntry {
+                        id: id.clone(),
+                        name: u_name.clone(),
+                    });
+                }
+            }
+            let mut removed = Vec::new();
+            for (id, c_name) in &c_map {
+                if !u_map.contains_key(id) {
+                    removed.push(IdEntry {
+                        id: id.clone(),
+                        name: c_name.clone(),
+                    });
+                }
+            }
+
+            if added.is_empty() && removed.is_empty() {
+                report.unchanged_files += 1;
+                continue;
+            }
+            added.sort_by_key(|e| id_key(&e.id));
+            removed.sort_by_key(|e| id_key(&e.id));
+            report.files.push(PackFileDiff {
+                name: name.clone(),
+                is_new_file,
+                added,
+                removed,
+            });
+        }
+        Ok(report)
+    }
+
+    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+        let dir = output_dir.join("_packdiff");
+        std::fs::create_dir_all(&dir)?;
+        let path = dir.join("report.txt");
+
+        let compared = self.files.len() + self.unchanged_files;
+
+        let mut footer = String::new();
+        if !self.not_produced.is_empty() {
+            writeln!(
+                footer,
+                "\n# Not compared: {} committed .pack file(s) the unpacker does not produce",
+                self.not_produced.len(),
+            )
+            .unwrap();
+            footer.push_str("# (they come from authored content registries, not the cache):\n");
+            writeln!(footer, "#   {}", self.not_produced.join(", ")).unwrap();
+        }
+
+        if self.files.is_empty() {
+            let mut out = format!(
+                "No .pack id deltas: all {compared} unpacked .pack file(s) match {} by id.\n",
+                self.committed_dir.display(),
+            );
+            out.push_str(&footer);
+            std::fs::write(&path, &out)?;
+            info!(
+                "Pack-diff report: no id deltas across {compared} unpacked .pack file(s) vs {} - {}",
+                self.committed_dir.display(),
+                path.display()
+            );
+            return Ok(());
+        }
+
+        let (mut added, mut removed) = (0usize, 0usize);
+        for f in &self.files {
+            added += f.added.len();
+            removed += f.removed.len();
+        }
+
+        let mut out = String::new();
+        out.push_str(
+            "# Pack-file delta: the .pack registries THIS unpack produced vs the ones checked\n\
+             # in for this revision. Entries are matched by ID (the value left of '='); a\n\
+             # name-only change for an existing id is NOT a delta - only added/removed ids.\n",
+        );
+        writeln!(out, "# committed = {}", self.committed_dir.display()).unwrap();
+        writeln!(out, "# unpacked  = {}", self.unpacked_dir.display()).unwrap();
+        out.push_str(
+            "#\n\
+             #   + id  added   - id only in the fresh unpack (a new entry this cache introduces)\n\
+             #   - id  removed - id only in this file's committed copy (no longer produced)\n",
+        );
+        writeln!(
+            out,
+            "\nSummary: {compared} unpacked .pack file(s) compared - {} with id deltas, {} identical.",
+            self.files.len(),
+            self.unchanged_files,
+        )
+        .unwrap();
+        writeln!(out, "  ids: +{added} added, -{removed} removed").unwrap();
+
+        for f in &self.files {
+            let tag = if f.is_new_file {
+                " (new pack file)"
+            } else {
+                ""
+            };
+            writeln!(
+                out,
+                "\n## {}{tag}: +{} added, -{} removed",
+                f.name,
+                f.added.len(),
+                f.removed.len(),
+            )
+            .unwrap();
+            for e in &f.added {
+                writeln!(out, "  + {:<8} {}", e.id, e.name).unwrap();
+            }
+            for e in &f.removed {
+                writeln!(out, "  - {:<8} {}", e.id, e.name).unwrap();
+            }
+        }
+
+        out.push_str(&footer);
+        std::fs::write(&path, &out)?;
+        warn!(
+            "Pack-diff report: {} of {compared} unpacked .pack file(s) differ by id (+{added} -{removed}) vs {} - see {}",
+            self.files.len(),
+            self.committed_dir.display(),
+            path.display()
+        );
+        Ok(())
+    }
+}
+
+fn collect_pack_files(root: &Path) -> std::io::Result<BTreeMap<String, PathBuf>> {
+    let mut files = BTreeMap::new();
+    if root.exists() {
+        collect_packs_into(root, root, &mut files)?;
+    }
+    Ok(files)
+}
+
+fn collect_packs_into(
+    root: &Path,
+    dir: &Path,
+    files: &mut BTreeMap<String, PathBuf>,
+) -> std::io::Result<()> {
+    for entry in std::fs::read_dir(dir)? {
+        let path = entry?.path();
+        if path.is_dir() {
+            collect_packs_into(root, &path, files)?;
+        } else if path.extension().is_some_and(|e| e == "pack")
+            && let Ok(rel) = path.strip_prefix(root)
+        {
+            files.insert(rel.to_string_lossy().replace('\\', "/"), path);
+        }
+    }
+    Ok(())
+}
+
+fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
+    let text = std::fs::read_to_string(path)?;
+    let mut map = BTreeMap::new();
+    for line in text.lines() {
+        if let Some((id, name)) = line.split_once('=') {
+            map.insert(id.trim().to_string(), name.to_string());
+        }
+    }
+    Ok(map)
+}
+
+fn id_key(id: &str) -> (i64, String) {
+    (id.parse::<i64>().unwrap_or(i64::MAX), id.to_string())
 }
 
 fn unknown_row(

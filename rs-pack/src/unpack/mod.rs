@@ -16,7 +16,7 @@ use crate::versionlist::VersionListMeta;
 use crate::versionlist::{TABLE_NAMES, VersionList, read_i32_table, read_u16_table};
 use crate::{config_crc, jag_crc};
 use image::{Rgba, RgbaImage};
-use report::CrcReport;
+use report::{CrcReport, PackDiffReport};
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
 #[cfg(since_244)]
@@ -402,8 +402,20 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     leftover.crack_unknown_names();
     leftover.write(output_dir)?;
 
+    let committed_pack = Path::new(crate::PACK_DIR);
+    if committed_pack.exists() && !same_dir(committed_pack, pack_dir) {
+        PackDiffReport::compare(committed_pack, pack_dir)?.write(output_dir)?;
+    }
+
     debug!("Unpack complete.");
     Ok(())
+}
+
+fn same_dir(a: &Path, b: &Path) -> bool {
+    match (std::fs::canonicalize(a), std::fs::canonicalize(b)) {
+        (Ok(ca), Ok(cb)) => ca == cb,
+        _ => a == b,
+    }
 }
 
 fn prepare_jag(
