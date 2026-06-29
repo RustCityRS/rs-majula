@@ -404,10 +404,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2045
         active_player_mut!(m, IF_SETPOSITION => |s, player| {
-            let y = s.pop_int_as::<u16>()?;
-            let x = s.pop_int_as::<u16>()?;
+            let y = s.pop_int();
+            let x = s.pop_int();
             let com = s.pop_int_as::<u16>()?;
-            player.if_setposition(com, x, y);
+            player.if_setposition(com, x as u16, y as u16);
         });
 
         // 2046
