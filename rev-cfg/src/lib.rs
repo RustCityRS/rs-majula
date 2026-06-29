@@ -1,4 +1,4 @@
-pub const REVS: &[&str] = &["225", "244", "245.2", "254", "274"];
+pub const REVS: &[&str] = &["225", "244", "245.2", "254", "274", "289"];
 
 pub fn compile_target_revision() {
     assert!(!REVS.is_empty(), "REVS must list at least one revision");
