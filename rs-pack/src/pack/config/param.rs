@@ -105,7 +105,10 @@ pub fn pack_params(
     #[cfg(since_274)]
     let client = {
         // TODO: content needs to be rewritten in order to not hard code this ffs...
+        #[cfg(rev = "274")]
         const CLIENT_PARAM_COUNT: u16 = 45;
+        #[cfg(rev = "289")]
+        const CLIENT_PARAM_COUNT: u16 = 54;
         let mut client = PackedData::new(CLIENT_PARAM_COUNT);
         for _ in 0..CLIENT_PARAM_COUNT {
             client.start_entry();
