@@ -14,7 +14,7 @@ pub fn pack_mesanims(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    verify: bool,
+    #[cfg_attr(before_274, allow(unused_variables))] verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.mesanim;
 
@@ -68,17 +68,20 @@ pub fn pack_mesanims(
         client.finish_entry();
     }
 
-    #[cfg(since_274)]
-    if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::MESANIM;
-        if crc != expected {
-            panic!("CRC mismatch ['mesanim']: Got: {crc}, Expected: {expected}");
-        }
-    }
+    #[cfg(before_274)]
+    let client = None;
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(since_274)]
+    let client = {
+        if verify {
+            let crc = crc::getcrc(&client.dat, 0, client.dat.len());
+            let expected = config_crc::MESANIM;
+            if crc != expected {
+                panic!("CRC mismatch ['mesanim']: Got: {crc}, Expected: {expected}");
+            }
+        }
+        Some(client)
+    };
+
+    Ok(PackedFile { server, client })
 }

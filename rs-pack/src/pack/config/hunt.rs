@@ -2,19 +2,21 @@ use anyhow::Result;
 use std::collections::HashMap;
 use tracing::debug;
 
+#[cfg(since_274)]
+use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::*;
-use crate::types::{
-    HuntCheckAfk, HuntCheckNotBusy, HuntCheckNotTooStrong, HuntCheckVis, HuntFindKeepHunting,
-    HuntModeType, HuntNobodyNear, NpcMode,
-};
+use crate::types::*;
+#[cfg(since_274)]
+use rs_io::crc;
 
 pub fn pack_hunts(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
+    #[cfg_attr(before_274, allow(unused_variables))] verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.hunt;
 
@@ -309,8 +311,21 @@ pub fn pack_hunts(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_274)]
+    let client = None;
+
+    #[cfg(since_274)]
+    let client = {
+        let client = PackedData::new(0);
+        if verify {
+            let crc = crc::getcrc(&client.dat, 0, client.dat.len());
+            let expected = config_crc::HUNT;
+            if crc != expected {
+                panic!("CRC mismatch ['hunt']: Got: {crc}, Expected: {expected}");
+            }
+        }
+        Some(client)
+    };
+
+    Ok(PackedFile { server, client })
 }

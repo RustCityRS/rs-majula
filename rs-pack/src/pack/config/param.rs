@@ -4,17 +4,22 @@ use anyhow::Result;
 use tracing::debug;
 
 use crate::ParamValue;
+#[cfg(since_274)]
+use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_bool;
 use crate::pack::util::{parse_coord, parse_script_var_type};
 use crate::types::{NpcStat, PlayerStat};
+#[cfg(since_274)]
+use rs_io::crc;
 
 pub fn pack_params(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
+    #[cfg_attr(before_274, allow(unused_variables))] verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.param;
 
@@ -94,10 +99,29 @@ pub fn pack_params(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_274)]
+    let client = None;
+
+    #[cfg(since_274)]
+    let client = {
+        // TODO: content needs to be rewritten in order to not hard code this ffs...
+        const CLIENT_PARAM_COUNT: u16 = 45;
+        let mut client = PackedData::new(CLIENT_PARAM_COUNT);
+        for _ in 0..CLIENT_PARAM_COUNT {
+            client.start_entry();
+            client.finish_entry();
+        }
+        if verify {
+            let crc = crc::getcrc(&client.dat, 0, client.dat.len());
+            let expected = config_crc::PARAM;
+            if crc != expected {
+                panic!("CRC mismatch ['param']: Got: {crc}, Expected: {expected}");
+            }
+        }
+        Some(client)
+    };
+
+    Ok(PackedFile { server, client })
 }
 
 pub fn load_param_types(file_cache: &FileCache) -> HashMap<String, String> {

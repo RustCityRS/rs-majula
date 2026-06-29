@@ -21,7 +21,7 @@ pub fn pack_assets(
     debug!("Packing param configs...");
     results.insert(
         "param".to_string(),
-        param::pack_params(&fc, registry, &constants)?,
+        param::pack_params(&fc, registry, &constants, verify)?,
     );
     debug!("Packing dbtable configs...");
     results.insert(
@@ -86,7 +86,7 @@ pub fn pack_assets(
     debug!("Packing hunt configs...");
     results.insert(
         "hunt".to_string(),
-        hunt::pack_hunts(&fc, registry, &constants)?,
+        hunt::pack_hunts(&fc, registry, &constants, verify)?,
     );
     debug!("Packing varn configs...");
     results.insert(
