@@ -29,9 +29,9 @@ pub fn build_version_list(
     let (midi_version, midi_crc) = build(3, &meta.midi_version, &meta.midi_crc);
     let (map_version, map_crc) = build(4, &meta.map_version, &meta.map_crc);
 
-    let mut model_index = Packet::new(meta.model_version.len() + 16);
-    for id in 0..meta.model_version.len() {
-        model_index.p1(meta.model_flags.get(id).copied().unwrap_or(0));
+    let mut model_index = Packet::new(meta.model_flags.len() + 16);
+    for &flag in &meta.model_flags {
+        model_index.p1(flag);
     }
     let mut midi_index = Packet::new(meta.midi_version.len() + 16);
     for id in 0..meta.midi_version.len() {
