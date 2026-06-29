@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::fmt::{Display, Write as _};
 use std::path::{Path, PathBuf};
 
@@ -391,6 +391,7 @@ pub struct PackDiffReport {
     files: Vec<PackFileDiff>,
     unchanged_files: usize,
     not_produced: Vec<String>,
+    maps: Option<MapDiff>,
 }
 
 struct PackFileDiff {
@@ -403,6 +404,34 @@ struct PackFileDiff {
 struct IdEntry {
     id: String,
     name: String,
+}
+
+struct MapDiff {
+    unpacked_dir: PathBuf,
+    added: Vec<(u8, u8)>,
+    removed: Vec<(u8, u8)>,
+    unchanged: usize,
+}
+
+impl MapDiff {
+    fn has_delta(&self) -> bool {
+        !self.added.is_empty() || !self.removed.is_empty()
+    }
+
+    fn section(&self) -> String {
+        let mut out = format!(
+            "\n## maps (m<x>_<z>.jm2 squares): +{} added, -{} removed\n",
+            self.added.len(),
+            self.removed.len(),
+        );
+        for (x, z) in &self.added {
+            writeln!(out, "  + m{x}_{z}").unwrap();
+        }
+        for (x, z) in &self.removed {
+            writeln!(out, "  - m{x}_{z}").unwrap();
+        }
+        out
+    }
 }
 
 impl PackDiffReport {
@@ -420,6 +449,7 @@ impl PackDiffReport {
                 .filter(|name| !unpacked.contains_key(*name))
                 .cloned()
                 .collect(),
+            maps: None,
         };
 
         for (name, u_path) in &unpacked {
@@ -464,6 +494,22 @@ impl PackDiffReport {
         Ok(report)
     }
 
+    pub fn compare_maps(
+        &mut self,
+        committed_maps: &Path,
+        unpacked_maps: &Path,
+    ) -> std::io::Result<()> {
+        let committed = collect_map_squares(committed_maps)?;
+        let unpacked = collect_map_squares(unpacked_maps)?;
+        self.maps = Some(MapDiff {
+            unpacked_dir: unpacked_maps.to_path_buf(),
+            added: unpacked.difference(&committed).copied().collect(),
+            removed: committed.difference(&unpacked).copied().collect(),
+            unchanged: committed.intersection(&unpacked).count(),
+        });
+        Ok(())
+    }
+
     pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
         let dir = output_dir.join("_packdiff");
         std::fs::create_dir_all(&dir)?;
@@ -483,11 +529,22 @@ impl PackDiffReport {
             writeln!(footer, "#   {}", self.not_produced.join(", ")).unwrap();
         }
 
-        if self.files.is_empty() {
+        let map_delta = self.maps.as_ref().is_some_and(MapDiff::has_delta);
+
+        if self.files.is_empty() && !map_delta {
             let mut out = format!(
                 "No .pack id deltas: all {compared} unpacked .pack file(s) match {} by id.\n",
                 self.committed_dir.display(),
             );
+            if let Some(m) = &self.maps {
+                writeln!(
+                    out,
+                    "No new/removed map squares: all {} square(s) match {}.",
+                    m.unchanged,
+                    m.unpacked_dir.display(),
+                )
+                .unwrap();
+            }
             out.push_str(&footer);
             std::fs::write(&path, &out)?;
             info!(
@@ -508,7 +565,8 @@ impl PackDiffReport {
         out.push_str(
             "# Pack-file delta: the .pack registries THIS unpack produced vs the ones checked\n\
              # in for this revision. Entries are matched by ID (the value left of '='); a\n\
-             # name-only change for an existing id is NOT a delta - only added/removed ids.\n",
+             # name-only change for an existing id is NOT a delta - only added/removed ids.\n\
+             # Decoded map squares (m<x>_<z>.jm2) are diffed by presence in the maps section.\n",
         );
         writeln!(out, "# committed = {}", self.committed_dir.display()).unwrap();
         writeln!(out, "# unpacked  = {}", self.unpacked_dir.display()).unwrap();
@@ -525,6 +583,16 @@ impl PackDiffReport {
         )
         .unwrap();
         writeln!(out, "  ids: +{added} added, -{removed} removed").unwrap();
+        if let Some(m) = &self.maps {
+            writeln!(
+                out,
+                "  maps: +{} added, -{} removed, {} unchanged",
+                m.added.len(),
+                m.removed.len(),
+                m.unchanged,
+            )
+            .unwrap();
+        }
 
         for f in &self.files {
             let tag = if f.is_new_file {
@@ -548,10 +616,22 @@ impl PackDiffReport {
             }
         }
 
+        if let Some(m) = &self.maps
+            && m.has_delta()
+        {
+            out.push_str(&m.section());
+        }
+
         out.push_str(&footer);
         std::fs::write(&path, &out)?;
+        let map_clause = match &self.maps {
+            Some(m) if m.has_delta() => {
+                format!(", maps +{} -{}", m.added.len(), m.removed.len())
+            }
+            _ => String::new(),
+        };
         warn!(
-            "Pack-diff report: {} of {compared} unpacked .pack file(s) differ by id (+{added} -{removed}) vs {} - see {}",
+            "Pack-diff report: {} of {compared} unpacked .pack file(s) differ by id (+{added} -{removed}){map_clause} vs {} - see {}",
             self.files.len(),
             self.committed_dir.display(),
             path.display()
@@ -599,6 +679,31 @@ fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
 
 fn id_key(id: &str) -> (i64, String) {
     (id.parse::<i64>().unwrap_or(i64::MAX), id.to_string())
+}
+
+fn collect_map_squares(dir: &Path) -> std::io::Result<BTreeSet<(u8, u8)>> {
+    let mut squares = BTreeSet::new();
+    if dir.exists() {
+        for entry in std::fs::read_dir(dir)? {
+            if let Some(sq) = entry?
+                .path()
+                .file_name()
+                .and_then(|n| n.to_str())
+                .and_then(parse_map_square)
+            {
+                squares.insert(sq);
+            }
+        }
+    }
+    Ok(squares)
+}
+
+fn parse_map_square(name: &str) -> Option<(u8, u8)> {
+    let (x, z) = name
+        .strip_suffix(".jm2")?
+        .strip_prefix('m')?
+        .split_once('_')?;
+    Some((x.parse().ok()?, z.parse().ok()?))
 }
 
 fn unknown_row(

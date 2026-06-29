@@ -404,7 +404,13 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
     let committed_pack = Path::new(crate::PACK_DIR);
     if committed_pack.exists() && !same_dir(committed_pack, pack_dir) {
-        PackDiffReport::compare(committed_pack, pack_dir)?.write(output_dir)?;
+        let mut report = PackDiffReport::compare(committed_pack, pack_dir)?;
+        let committed_maps = Path::new(crate::CONTENT_DIR).join("maps");
+        let unpacked_maps = output_dir.join("maps");
+        if committed_maps.exists() && !same_dir(&committed_maps, &unpacked_maps) {
+            report.compare_maps(&committed_maps, &unpacked_maps)?;
+        }
+        report.write(output_dir)?;
     }
 
     debug!("Unpack complete.");
