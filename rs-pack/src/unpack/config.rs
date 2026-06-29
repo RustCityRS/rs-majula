@@ -932,6 +932,8 @@ fn decode_npc_entries(
                 101 => props.push(("contrast".into(), buf.g1s().to_string())),
                 #[cfg(since_244)]
                 102 => props.push(("headicon".into(), buf.g2().to_string())),
+                #[cfg(since_289)]
+                103 => props.push(("turnspeed".into(), buf.g2().to_string())),
                 _ => panic!("Unrecognized npc config code: {code}"),
             }
         }
