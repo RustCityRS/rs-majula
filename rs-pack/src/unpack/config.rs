@@ -1074,6 +1074,8 @@ fn decode_obj_entries(
                 113 => props.push(("ambient".into(), buf.g1s().to_string())),
                 #[cfg(since_244)]
                 114 => props.push(("contrast".into(), buf.g1s().to_string())),
+                #[cfg(since_289)]
+                115 => props.push(("team".into(), buf.g1s().to_string())),
                 _ => panic!("Unrecognized obj config code: {code}"),
             }
         }
