@@ -1,7 +1,7 @@
 [loc_4671]
 op1=Search
 forceapproach=east
-model=model_loc_4671
+model=loc_4171
 name=Bookcase
 desc=A good source of books!
 
@@ -12,7 +12,7 @@ recol1s=2
 recol1d=45
 recol2s=24
 recol2d=4762
-model=model_loc_4672
+model=model_loc_1512
 name=Throne Room Door
 desc=The door into the throne room.
 
@@ -22,7 +22,7 @@ recol1s=2
 recol1d=45
 recol2s=24
 recol2d=4762
-model=model_loc_4673
+model=model_loc_1512
 
 [loc_4674]
 width=2
@@ -30,7 +30,7 @@ mapscene=2
 length=2
 op1=Chop down
 op3=hidden
-model=model_loc_4674
+model=model_loc_1307
 name=Maple tree
 desc=I bet this makes good syrup!
 
@@ -40,7 +40,8 @@ blockwalk=no
 blockrange=no
 op1=Weed
 op3=hidden
-model=model_loc_4675
+model=model_loc_1178
+model=loc_4675
 name=Herbs
 desc=Scented herbs.
 
@@ -52,7 +53,7 @@ mapscene=12
 blockrange=no
 recol1s=24
 recol1d=10508
-model=model_loc_4676
+model=plainrock1
 name=Rocks
 desc=A rocky outcrop.
 
@@ -64,7 +65,8 @@ op1=Weed
 op3=hidden
 recol1s=60748
 recol1d=61667
-model=model_loc_4677
+model=model_loc_1178
+model=loc_4675
 name=Herbs
 desc=Scented herbs.
 
@@ -74,7 +76,8 @@ blockwalk=no
 blockrange=no
 op1=Weed
 op3=hidden
-model=model_loc_4678
+model=model_loc_1178
+model=loc_4675
 name=Herbs
 desc=Scented herbs.
 
@@ -86,7 +89,8 @@ op1=Weed
 op3=hidden
 recol1s=60748
 recol1d=60727
-model=model_loc_4679
+model=model_loc_1178
+model=loc_4675
 name=Herbs
 desc=Scented herbs.
 
@@ -97,14 +101,14 @@ blockrange=no
 active=no
 recol1s=60748
 recol1d=61667
-model=model_loc_4680
+model=model_loc_1178
 
 [loc_4681]
 hillskew=yes
 blockwalk=no
 blockrange=no
 active=no
-model=model_loc_4681
+model=model_loc_1178
 
 [loc_4682]
 hillskew=yes
@@ -113,16 +117,16 @@ blockrange=no
 active=no
 recol1s=60748
 recol1d=60727
-model=model_loc_4682
+model=model_loc_1178
 
 [loc_4683]
 active=yes
-model=model_loc_4683
+model=model_2589
 name=Harp
 desc=A large harp.
 
 [loc_4684]
-model=model_loc_4684
+model=loc_4684
 name=Barrel
 desc=Good for shooting fish in.
 
@@ -132,7 +136,7 @@ recol1s=4531
 recol1d=6930
 recol2s=4537
 recol2d=127
-model=model_loc_4685
+model=model_loc_1334
 name=Hollow log
 desc=This old tree is rotting away
 
@@ -142,7 +146,7 @@ recol1s=4531
 recol1d=6930
 recol2s=4537
 recol2d=127
-model=model_loc_4686
+model=model_loc_1335
 name=Hollow log
 desc=This old tree is rotting away.
 
@@ -152,7 +156,7 @@ recol1s=926
 recol1d=6470
 recol2s=9145
 recol2d=6488
-model=model_loc_4687
+model=model_loc_107
 
 [loc_4688]
 sharelight=yes
@@ -162,7 +166,7 @@ recol2s=9145
 recol2d=6488
 recol3s=0
 recol3d=6453
-model=model_loc_4688
+model=model_loc_108
 
 [loc_4689]
 sharelight=yes
@@ -170,21 +174,21 @@ recol1s=926
 recol1d=6470
 recol2s=0
 recol2d=6453
-model=model_loc_4689
+model=model_loc_109
 
 [loc_4690]
 recol1s=4886
 recol1d=6930
 recol2s=922
 recol2d=6470
-model=model_loc_4690
+model=model_loc_1090
 name=Chair
 desc=Fancy.
 
 [loc_4691]
 recol1s=33
 recol1d=6930
-model=model_loc_4691
+model=model_loc_205
 
 [loc_4692]
 anim=seq_471
@@ -194,7 +198,7 @@ recol2s=43934
 recol2d=6470
 recol3s=61
 recol3d=0
-model=model_loc_4692
+model=model_loc_869
 name=Flagpole
 desc=Flag, pole...Yep, it's a flagpole.
 
@@ -206,7 +210,7 @@ recol2s=15
 recol2d=0
 recol3s=61
 recol3d=6470
-model=model_loc_4693
+model=model_loc_869
 name=Flagpole
 desc=Flag, pole...Yep, it's a flagpole.
 
@@ -214,53 +218,53 @@ desc=Flag, pole...Yep, it's a flagpole.
 anim=seq_481
 recol1s=33
 recol1d=6930
-model=model_loc_4694
+model=model_loc_196
 
 [loc_4695]
 resizey=105
-model=model_loc_4695
+model=loc_4246
 
 [loc_4696]
 resizey=105
 op1=Open
-model=model_loc_4696
+model=loc_4148
 name=Door
 desc=The door is closed.
 
 [loc_4697]
 resizey=105
 op1=Close
-model=model_loc_4697
+model=loc_4148
 name=Door
 desc=The door is open.
 
 [loc_4698]
 resizey=105
-model=model_loc_4698
+model=loc_4193
 
 [loc_4699]
 active=no
 shadow=no
 forcedecor=yes
-model=model_loc_4699
+model=loc_4699
 
 [loc_4700]
 active=no
 shadow=no
 forcedecor=yes
 mirror=yes
-model=model_loc_4700
+model=loc_4699
 
 [loc_4701]
 active=yes
 mirror=yes
-model=model_loc_4701
+model=loc_4148
 name=Door
 desc=Keeps the cold winds out.
 
 [loc_4702]
 blockrange=no
-model=model_loc_4702
+model=loc_4702
 name=Chair
 desc=A nicely carved wooden chair.
 
@@ -272,7 +276,7 @@ recol1s=14614
 recol1d=70
 recol2s=14610
 recol2d=43107
-model=model_loc_4703
+model=model_4409
 name=Bed
 desc=A wooden double bed.  For sleeping in...
 
@@ -284,7 +288,7 @@ recol1s=14614
 recol1d=19235
 recol2s=14610
 recol2d=25913
-model=model_loc_4704
+model=model_4409
 name=Bed
 desc=A wooden double bed.  For sleeping in...
 
@@ -305,7 +309,8 @@ recol5s=61
 recol5d=7223
 recol6s=103
 recol6d=5214
-model=model_loc_4705
+model=loc_4277
+model=market_stall
 name=Fish stall
 desc=There's something fishy about this stall.
 
@@ -326,7 +331,8 @@ recol5s=8103
 recol5d=3491
 recol6s=7081
 recol6d=5669
-model=model_loc_4706
+model=loc_4706
+model=market_stall
 name=Veg stall
 desc=You should eat your greens!
 
@@ -347,7 +353,8 @@ recol5s=61
 recol5d=7223
 recol6s=103
 recol6d=5214
-model=model_loc_4707
+model=loc_4277
+model=market_stall
 name=Fish stall
 desc=There's something fishy about this stall.
 
@@ -368,14 +375,15 @@ recol5s=8103
 recol5d=3491
 recol6s=7081
 recol6d=5669
-model=model_loc_4708
+model=loc_4706
+model=market_stall
 name=Veg stall
 desc=You should eat your greens!
 
 [loc_4709]
 forcedecor=yes
 mapfunction=50
-model=model_loc_4709
+model=model_loc_2733
 
 [loc_4710]
 op1=Open
@@ -384,7 +392,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4710
+model=model_4007
 name=Doorway
 desc=A doorway made from bamboo.
 
@@ -395,7 +403,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4711
+model=model_4007
 
 [loc_4712]
 active=yes
@@ -404,7 +412,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4712
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
@@ -415,98 +423,98 @@ op1=Climb-down
 op2=Close
 raiseobject=no
 blockrange=no
-model=model_loc_4713
+model=loc_4713
 name=Trapdoor
 desc=It's an open trapdoor.
 
 [loc_4714]
 op1=Search
-model=model_loc_4714
+model=model_loc_63
 name=Crate
 desc=A wooden crate for storage.
 
 [loc_4715]
 op1=Search
-model=model_loc_4715
+model=model_loc_355
 name=Crate
 desc=This crate is making chattering sounds.
 
 [loc_4716]
 op1=Search
-model=model_loc_4716
+model=model_loc_355
 name=Crate
 desc=This crate smells slightly nauseous.
 
 [loc_4717]
 op1=Search
-model=model_loc_4717
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Hamab' on its side.
 
 [loc_4718]
 op1=Search
-model=model_loc_4718
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Hamab' on its side.
 
 [loc_4719]
 op1=Search
-model=model_loc_4719
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Ifaba' on its side.
 
 [loc_4720]
 op1=Search
-model=model_loc_4720
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Daga' on its side.
 
 [loc_4721]
 op1=Search
-model=model_loc_4721
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Daga' on its side.
 
 [loc_4722]
 op1=Search
-model=model_loc_4722
+model=model_loc_63
 name=Crate
 desc=This crate smells slightly of banana.
 
 [loc_4723]
 op1=Search
-model=model_loc_4723
+model=model_loc_355
 name=Crate
 desc=This crate smells slightly of banana.
 
 [loc_4724]
 op1=Search
-model=model_loc_4724
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Hamab' on its side.
 
 [loc_4725]
 op1=Search
-model=model_loc_4725
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Ifaba' on its side.
 
 [loc_4726]
 op1=Search
-model=model_loc_4726
+model=model_loc_355
 name=Crate
 desc=This crate says 'Property of Ifaba' on its side.
 
 [loc_4727]
 op1=Search
-model=model_loc_4727
+model=model_loc_63
 name=Crate
 desc=This crate says 'Property of Ifaba' on its side.
 
 [loc_4728]
 active=yes
 op1=Climb
-model=model_loc_4728
+model=agilityarena_climbingrope
 name=Climbing rope
 desc=I can climb up this.
 
@@ -515,7 +523,7 @@ active=yes
 sharelight=yes
 hillskew=yes
 op1=Enter
-model=model_loc_4729
+model=model_loc_1418
 name=Crack
 desc=It's a large crack in the wall.
 
@@ -524,7 +532,7 @@ active=yes
 hillskew=yes
 sharelight=yes
 op1=Enter
-model=model_loc_4730
+model=model_loc_1418
 name=Crack
 desc=It's a large crack in the wall.
 
@@ -533,7 +541,7 @@ active=yes
 hillskew=yes
 sharelight=yes
 op1=Enter
-model=model_loc_4731
+model=model_loc_1418
 name=Crack
 desc=It's a large crack in the wall.
 
@@ -542,7 +550,7 @@ active=yes
 hillskew=yes
 sharelight=yes
 op1=Enter
-model=model_loc_4732
+model=model_loc_1418
 name=Crack
 desc=It's a large crack in the wall.
 
@@ -551,7 +559,7 @@ active=yes
 hillskew=yes
 sharelight=yes
 op1=Enter
-model=model_loc_4733
+model=model_loc_1418
 name=Crack
 desc=It's a large crack in the wall.
 
@@ -559,7 +567,7 @@ desc=It's a large crack in the wall.
 hillskew=yes
 sharelight=yes
 op1=Enter
-model=model_loc_4734
+model=model_loc_1418
 name=Crack
 desc=It's a large crack in the wall.
 
@@ -570,7 +578,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4735
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
@@ -581,7 +589,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4736
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
@@ -592,7 +600,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4737
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
@@ -603,7 +611,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4738
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
@@ -614,7 +622,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4739
+model=model_loc_1570
 name=Trapdoor
 desc=It's an open trapdoor.
 
@@ -625,7 +633,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4740
+model=model_loc_1570
 name=Trapdoor
 desc=It's an open trapdoor.
 
@@ -636,7 +644,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4741
+model=model_loc_1570
 name=Trapdoor
 desc=It's an open trapdoor.
 
@@ -647,7 +655,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4742
+model=model_loc_1570
 name=Trapdoor
 desc=It's an open trapdoor.
 
@@ -659,7 +667,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4743
+model=loc_4743
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -671,7 +679,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4744
+model=loc_4744
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -680,13 +688,13 @@ active=yes
 blockwalk=no
 blockrange=no
 op1=Jump off
-model=model_loc_4745
+model=loc_4745
 name=End of bridge
 desc=Looks good for jumping off.
 
 [loc_4746]
 op1=Search
-model=model_loc_4746
+model=model_loc_63
 name=Crate
 desc=This crate is marked 'Deliver to Glough'...
 
@@ -696,7 +704,7 @@ hillskew=yes
 active=no
 mapscene=46
 forcedecor=yes
-model=model_loc_4747
+model=loc_4747
 
 [loc_4748]
 sharelight=yes
@@ -704,7 +712,7 @@ hillskew=yes
 active=no
 mapscene=46
 forcedecor=yes
-model=model_loc_4748
+model=loc_4748
 
 [loc_4749]
 width=2
@@ -717,7 +725,7 @@ recol2s=15799
 recol2d=15265
 recol3s=13264
 recol3d=9657
-model=model_loc_4749
+model=model_loc_2073
 name=Banana Tree
 desc=It's a banana tree, full of bananas.
 
@@ -732,7 +740,7 @@ recol2s=15799
 recol2d=15265
 recol3s=13264
 recol3d=9657
-model=model_loc_4750
+model=model_loc_2073
 name=Banana Tree
 desc=It's a banana tree, with lots of bananas.
 
@@ -747,7 +755,7 @@ recol2s=15799
 recol2d=15265
 recol3s=13264
 recol3d=9657
-model=model_loc_4751
+model=model_loc_2073
 name=Banana Tree
 desc=It's a banana tree, with many bananas.
 
@@ -762,7 +770,7 @@ recol2s=15799
 recol2d=15265
 recol3s=13264
 recol3d=9657
-model=model_loc_4752
+model=model_loc_2073
 name=Banana Tree
 desc=It's a banana tree, with a few bananas.
 
@@ -777,7 +785,7 @@ recol2s=15799
 recol2d=15265
 recol3s=13264
 recol3d=9657
-model=model_loc_4753
+model=model_loc_2073
 name=Banana Tree
 desc=It's a banana tree, with but one banana.
 
@@ -790,7 +798,7 @@ recol1s=6583
 recol1d=6703
 recol2s=15799
 recol2d=15265
-model=model_loc_4754
+model=model_loc_2078
 name=Banana Tree
 desc=It's a banana tree, with no more bananas left.
 
@@ -801,7 +809,7 @@ op1=Climb-down
 forceapproach=north
 sharelight=yes
 mapscene=7
-model=model_loc_4755
+model=loc_4755
 name=Stairs
 desc=They go down.
 
@@ -812,7 +820,7 @@ op1=Climb-up
 forceapproach=south
 sharelight=yes
 mapscene=7
-model=model_loc_4756
+model=loc_4756
 name=Stairs
 desc=They go up.
 
@@ -824,43 +832,43 @@ recol1s=5429
 recol1d=6682
 recol2s=61
 recol2d=7566
-model=model_loc_4757
+model=model_loc_3429
 
 [loc_4758]
 sharelight=yes
 recol1s=17071
 recol1d=7566
-model=model_loc_4758
+model=loc_4758
 
 [loc_4759]
 sharelight=yes
 recol1s=17071
 recol1d=7566
-model=model_loc_4759
+model=loc_4759
 
 [loc_4760]
 sharelight=yes
 recol1s=17071
 recol1d=7566
-model=model_loc_4760
+model=loc_4760
 
 [loc_4761]
 sharelight=yes
 recol1s=17071
 recol1d=7566
-model=model_loc_4761
+model=loc_4761
 
 [loc_4762]
 blockrange=no
 blockwalk=no
 sharelight=yes
-model=model_loc_4762
+model=loc_4762
 
 [loc_4763]
 blockrange=no
 blockwalk=no
 sharelight=yes
-model=model_loc_4763
+model=loc_4763
 
 [loc_4764]
 blockrange=no
@@ -868,7 +876,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4764
+model=model_loc_1113
 name=Bamboo Stool
 desc=It's a bamboo stool.
 
@@ -879,7 +887,7 @@ contrast=100
 resizey=512
 mapscene=22
 active=yes
-model=model_loc_4765
+model=loc_4765
 name=Wall of flame
 desc=It's a sheer wall of fire, rising as high as you can see.
 
@@ -890,7 +898,7 @@ contrast=100
 resizey=512
 mapscene=22
 active=yes
-model=model_loc_4766
+model=loc_4766
 name=Wall of flame
 desc=It's a sheer wall of fire, rising as high as you can see.
 
@@ -899,25 +907,25 @@ width=4
 length=4
 raiseobject=no
 anim=seq_1416
-model=model_loc_4767
+model=loc_4767
 name=Sacrificial Pyre
 desc=The contents of this pyre are rapidly bubbling and burning.
 
 [loc_4768]
 raiseobject=no
-model=model_loc_4768
+model=loc_4768
 name=Wall of bricks
 desc=It's a wall of bricks.
 
 [loc_4769]
 raiseobject=no
-model=model_loc_4769
+model=loc_4769
 name=Pile of bricks
 desc=It's a pile of bricks.
 
 [loc_4770]
 raiseobject=no
-model=model_loc_4770
+model=loc_4770
 name=Pile of bricks
 desc=It's a pile of bricks.
 
@@ -925,7 +933,7 @@ desc=It's a pile of bricks.
 width=2
 anim=seq_1398
 op1=Talk-to
-model=model_loc_4771
+model=loc_4771
 name=Awowogei
 desc=A rather dapper little monkey sitting on a throne.
 
@@ -937,7 +945,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4772
+model=loc_4743
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -949,7 +957,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4773
+model=loc_4743
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -961,7 +969,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4774
+model=loc_4743
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -973,7 +981,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4775
+model=loc_4743
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -984,7 +992,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4776
+model=loc_4744
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -995,7 +1003,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4777
+model=loc_4744
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -1006,7 +1014,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4778
+model=loc_4744
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -1017,7 +1025,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4779
+model=loc_4744
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -1028,7 +1036,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4780
+model=loc_4744
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
@@ -1040,31 +1048,31 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4781
+model=loc_4743
 name=Bamboo Ladder
 desc=It's a bamboo ladder.
 
 [loc_4782]
 sharelight=yes
 forcedecor=yes
-model=model_loc_4782
+model=loc_4782
 
 [loc_4783]
 sharelight=yes
 forcedecor=yes
-model=model_loc_4783
+model=loc_4783
 
 [loc_4784]
 hillskew=yes
 blockrange=no
 sharelight=yes
-model=model_loc_4784
+model=loc_4784
 
 [loc_4785]
 hillskew=yes
 blockwalk=no
 sharelight=yes
-model=model_loc_4785
+model=loc_4785
 
 [loc_4786]
 width=2
@@ -1073,7 +1081,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4786
+model=model_loc_1160
 name=Potted plant
 desc=A plant in a bamboo pot.
 
@@ -1084,7 +1092,7 @@ recol1s=24
 recol1d=5673
 recol2s=41
 recol2d=6585
-model=model_loc_4787
+model=loc_4787
 name=Bamboo Gate
 desc=It's an absolutely huge bamboo gate.
 
@@ -1096,7 +1104,7 @@ recol1s=24
 recol1d=5673
 recol2s=41
 recol2d=6585
-model=model_loc_4788
+model=loc_4787
 name=Bamboo Gate
 desc=It's an absolutely huge bamboo gate.
 
@@ -1107,7 +1115,7 @@ recol1s=24
 recol1d=5673
 recol2s=41
 recol2d=6585
-model=model_loc_4789
+model=loc_4789
 
 [loc_4790]
 length=2
@@ -1117,7 +1125,7 @@ recol1s=24
 recol1d=5673
 recol2s=41
 recol2d=6585
-model=model_loc_4790
+model=loc_4789
 
 [loc_4791]
 width=2
@@ -1126,7 +1134,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4791
+model=model_loc_433
 name=Bamboo Bed
 desc=It's a big comfy bed, made of strips of bamboo.
 
@@ -1136,7 +1144,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4792
+model=model_loc_434
 name=Bamboo Bed
 desc=It's a big comfy bed, made of strips of bamboo.
 
@@ -1147,7 +1155,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4793
+model=model_loc_434
 name=Bamboo Bed
 desc=It's a big comfy bed, made of strips of bamboo.
 
@@ -1156,7 +1164,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4794
+model=model_loc_395
 name=Pot
 desc=It's a pot made out of bamboo.
 
@@ -1165,7 +1173,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4795
+model=model_loc_396
 name=Pots
 desc=They are pots made out of bamboo.
 
@@ -1176,10 +1184,10 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4796
+model=model_loc_1618
 
 [loc_4797]
-model=model_loc_4797
+model=model_loc_620
 name=Bamboo Desk
 desc=Bamboo strips have been lashed together to make this rickety desk.
 
@@ -1190,7 +1198,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4798
+model=model_loc_394
 name=Bamboo Bookcase
 desc=It's a bookcase made out of bamboo.
 
@@ -1203,7 +1211,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4799
+model=loc_4799
 name=Jail Door
 desc=It's a bamboo door with a large iron padlock.
 
@@ -1216,7 +1224,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4800
+model=loc_4799
 name=Jail Door
 desc=It's a bamboo door with a large iron padlock.
 
@@ -1229,7 +1237,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4801
+model=loc_4799
 
 [loc_4802]
 sharelight=yes
@@ -1241,7 +1249,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4802
+model=loc_4802
 
 [loc_4803]
 sharelight=yes
@@ -1252,7 +1260,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4803
+model=loc_4803
 
 [loc_4804]
 sharelight=yes
@@ -1264,10 +1272,10 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4804
+model=loc_4804
 
 [loc_4805]
-model=model_loc_4805
+model=loc_4805
 
 [loc_4806]
 sharelight=yes
@@ -1276,7 +1284,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4806
+model=loc_4806
 
 [loc_4807]
 op1=Open
@@ -1286,7 +1294,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4807
+model=model_4007
 name=Bamboo Door
 desc=It's a door made from bamboo.
 
@@ -1298,7 +1306,7 @@ recol1s=6585
 recol1d=6703
 recol2s=5673
 recol2d=5673
-model=model_loc_4808
+model=loc_4808
 
 [loc_4809]
 hillskew=yes
@@ -1306,7 +1314,7 @@ active=no
 resizex=128
 resizey=220
 resizez=128
-model=model_loc_4809
+model=loc_3547
 
 [loc_4810]
 hillskew=yes
@@ -1314,7 +1322,7 @@ active=no
 resizex=128
 resizey=220
 resizez=128
-model=model_loc_4810
+model=loc_3548
 
 [loc_4811]
 hillskew=yes
@@ -1322,7 +1330,7 @@ active=no
 resizex=128
 resizey=220
 resizez=128
-model=model_loc_4811
+model=loc_3549
 
 [loc_4812]
 hillskew=yes
@@ -1333,7 +1341,7 @@ resizez=128
 forcedecor=yes
 blockwalk=no
 blockrange=no
-model=model_loc_4812
+model=loc_4812
 name=Jungle Grass
 desc=Looks good for hiding in...
 
@@ -1346,7 +1354,7 @@ resizez=128
 forcedecor=yes
 blockwalk=no
 blockrange=no
-model=model_loc_4813
+model=loc_4813
 name=Jungle Grass
 desc=Looks good for hiding in...
 
@@ -1359,7 +1367,7 @@ resizez=128
 forcedecor=yes
 blockwalk=no
 blockrange=no
-model=model_loc_4814
+model=loc_4814
 name=Jungle Grass
 desc=Looks good for hiding in...
 
@@ -1367,7 +1375,7 @@ desc=Looks good for hiding in...
 active=yes
 blockwalk=no
 blockrange=no
-model=model_loc_4815
+model=loc_4745
 name=Long grass
 desc=Looks good for hiding in.
 
@@ -1386,7 +1394,7 @@ recol2s=49
 recol2d=13840
 recol3s=41
 recol3d=4626
-model=model_loc_4816
+model=model_loc_1301
 name=Jungle Tree
 desc=This is a fairly tall tree with sparse foliage.
 
@@ -1394,7 +1402,7 @@ desc=This is a fairly tall tree with sparse foliage.
 width=3
 length=2
 mapscene=5
-model=model_loc_4817
+model=model_loc_1313
 name=Jungle Palm
 desc=A jungle palm with dense foliage.
 
@@ -1409,13 +1417,13 @@ recol2s=49
 recol2d=13840
 recol3s=41
 recol3d=4626
-model=model_loc_4818
+model=model_loc_1301
 name=Jungle Tree
 desc=This is a fairly tall tree with sparse foliage.
 
 [loc_4819]
 mapscene=5
-model=model_loc_4819
+model=loc_4819
 name=Jungle Tree Stump
 desc=This was a fairly tall tree with sparse foliage.
 
@@ -1425,7 +1433,7 @@ op3=hidden
 width=2
 length=2
 mapscene=5
-model=model_loc_4820
+model=model_loc_1302
 name=Jungle Tree
 desc=A leafy tree.
 
@@ -1433,7 +1441,7 @@ desc=A leafy tree.
 width=2
 length=2
 mapscene=5
-model=model_loc_4821
+model=loc_4819
 name=Jungle Tree Stump
 desc=This was a fairly tall tree with sparse foliage.
 
@@ -1441,26 +1449,26 @@ desc=This was a fairly tall tree with sparse foliage.
 mapscene=5
 recol1s=5388
 recol1d=3470
-model=model_loc_4822
+model=model_loc_1341
 name=Tree stump
 desc=This tree has been cut down.
 
 [loc_4823]
 blockrange=no
 blockwalk=no
-model=model_loc_4823
+model=model_loc_1202
 name=Jungle Flower
 desc=This flower is found only in jungle areas.
 
 [loc_4824]
 blockrange=no
-model=model_loc_4824
+model=model_loc_1203
 name=Orchid
 desc=A very rare and exotic flower.
 
 [loc_4825]
 blockrange=no
-model=model_loc_4825
+model=model_loc_1204
 name=Jungle Plant
 desc=A small fernlike plant.
 
@@ -1469,7 +1477,7 @@ width=2
 length=2
 blockwalk=no
 blockrange=no
-model=model_loc_4826
+model=model_loc_1407
 name=Whipping Plant
 desc=Leaves a nasty mark.
 
@@ -1478,7 +1486,7 @@ width=2
 length=2
 op1=Pick
 blockrange=no
-model=model_loc_4827
+model=model_loc_1408
 name=Pineapple Plant
 desc=Looks spikey.
 
@@ -1486,7 +1494,7 @@ desc=Looks spikey.
 width=2
 length=2
 blockrange=no
-model=model_loc_4828
+model=model_loc_1399
 name=Jungle Plant
 desc=This has broad leaves.
 
@@ -1494,7 +1502,7 @@ desc=This has broad leaves.
 width=2
 length=2
 blockrange=no
-model=model_loc_4829
+model=model_loc_1401
 name=Jungle Plant
 desc=A type of jungle fern.
 
@@ -1504,7 +1512,7 @@ length=2
 blockrange=no
 recol1s=22439
 recol1d=16955
-model=model_loc_4830
+model=model_loc_1399
 name=Jungle Plant
 desc=A large waxy jungle plant.
 
@@ -1512,21 +1520,21 @@ desc=A large waxy jungle plant.
 width=2
 blockwalk=no
 blockrange=no
-model=model_loc_4831
+model=model_loc_1390
 name=Jungle Plant
 desc=Commonly found in these parts.
 
 [loc_4832]
 blockwalk=no
 blockrange=no
-model=model_loc_4832
+model=model_loc_1184
 name=Creeping Plant
 desc=The tendrils of a creeping plant.
 
 [loc_4833]
 mapscene=5
 blockwalk=no
-model=model_loc_4833
+model=model_loc_1390
 name=Jungle Bush
 desc=A jungle bush, quite common to these areas.
 
@@ -1535,7 +1543,7 @@ mapscene=5
 blockwalk=no
 recol1s=17304
 recol1d=22447
-model=model_loc_4834
+model=model_loc_1390
 name=Jungle Bush
 desc=A jungle bush, quite common to these areas.
 
@@ -1544,7 +1552,7 @@ mapscene=5
 blockwalk=no
 recol1s=17304
 recol1d=22447
-model=model_loc_4835
+model=model_loc_2894
 name=Slashed Bush
 desc=A jungle bush that has been chopped down.
 
@@ -1557,7 +1565,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4836
+model=loc_4836
 
 [loc_4837]
 hillskew=yes
@@ -1568,7 +1576,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4837
+model=loc_4837
 
 [loc_4838]
 hillskew=yes
@@ -1579,7 +1587,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4838
+model=loc_4838
 
 [loc_4839]
 hillskew=yes
@@ -1590,7 +1598,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4839
+model=loc_4839
 
 [loc_4840]
 hillskew=yes
@@ -1601,7 +1609,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4840
+model=loc_4840
 
 [loc_4841]
 hillskew=yes
@@ -1612,7 +1620,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4841
+model=loc_4841
 
 [loc_4842]
 hillskew=yes
@@ -1623,7 +1631,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4842
+model=loc_4842
 
 [loc_4843]
 hillskew=yes
@@ -1634,7 +1642,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4843
+model=loc_4843
 
 [loc_4844]
 hillskew=yes
@@ -1645,7 +1653,7 @@ recol2s=14238
 recol2d=12700
 recol3s=931
 recol3d=16677
-model=model_loc_4844
+model=loc_4844
 
 [loc_4845]
 mapscene=0
@@ -1655,7 +1663,7 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4845
+model=model_loc_1326
 name=Tropical tree
 desc=A terribly tall tropical tree.
 
@@ -1666,7 +1674,7 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4846
+model=model_loc_1327
 name=Tropical tree
 desc=A terribly tall tropical tree.
 
@@ -1677,7 +1685,7 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4847
+model=model_loc_1328
 name=Tropical tree
 desc=A terribly tall tropical tree.
 
@@ -1690,7 +1698,7 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4848
+model=model_loc_1329
 name=Tropical Leaves
 desc=Leaves of a tropical tree.
 
@@ -1702,7 +1710,7 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4849
+model=model_loc_1360
 name=Tropical tree
 desc=This tree no doubt contains dangerous insects.
 
@@ -1715,7 +1723,7 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4850
+model=model_loc_1361
 name=Tropical tree
 desc=This tree no doubt contains dangerous insects.
 
@@ -1728,14 +1736,14 @@ recol2s=6585
 recol2d=5673
 recol3s=15919
 recol3d=14876
-model=model_loc_4851
+model=model_loc_1362
 name=Tropical tree
 desc=This tree no doubt contains dangerous insects.
 
 [loc_4852]
 width=3
 mapscene=6
-model=model_loc_4852
+model=model_loc_1334
 name=Hollow Log
 desc=This old tree is rotting away.
 
@@ -1743,7 +1751,7 @@ desc=This old tree is rotting away.
 mapscene=6
 recol1s=6028
 recol1d=9100
-model=model_loc_4853
+model=model_loc_1323
 name=Roots
 desc=A gnarly old tree root.
 
@@ -1751,7 +1759,7 @@ desc=A gnarly old tree root.
 mapscene=6
 recol1s=6028
 recol1d=9100
-model=model_loc_4854
+model=model_loc_1324
 name=Roots
 desc=The roots of this tree are exposed.
 
@@ -1759,28 +1767,28 @@ desc=The roots of this tree are exposed.
 mapscene=6
 recol1s=6028
 recol1d=9100
-model=model_loc_4855
+model=model_loc_1325
 name=Roots
 desc=I hope I don't trip over any of these.
 
 [loc_4856]
 blockwalk=no
 blockrange=no
-model=model_loc_4856
+model=loc_4856
 name=Glowing Fungus
 desc=It's a small patch of glowing fungus.
 
 [loc_4857]
 blockwalk=no
 blockrange=no
-model=model_loc_4857
+model=loc_4857
 name=Glowing Fungus
 desc=It's a medium patch of glowing fungus.
 
 [loc_4858]
 width=4
 length=4
-model=model_loc_4858
+model=loc_4858
 name=Gorilla Statue
 desc=It's an absolutely collosal statue of some kind of gorilla.
 
@@ -1790,7 +1798,7 @@ length=2
 op1=Pray-at
 recol1s=8514
 recol1d=7646
-model=model_loc_4859
+model=loc_4859
 name=Gorilla Statue
 desc=It's a huge statue of some kind of gorilla.
 
@@ -1799,36 +1807,36 @@ width=2
 length=2
 recol1s=8514
 recol1d=7646
-model=model_loc_4860
+model=loc_4859
 name=Gorilla Statue
 desc=It's a huge statue of some kind of gorilla.
 
 [loc_4861]
 recol1s=8514
 recol1d=7646
-model=model_loc_4861
+model=loc_4861
 name=Monkey Statue
 desc=It's a huge statue of some kind of monkey.
 
 [loc_4862]
 blockwalk=no
 blockrange=no
-model=model_loc_4862
+model=loc_4862
 name=Glowing Fungus
 desc=It's a large patch of glowing fungus.
 
 [loc_4863]
-model=model_loc_4863
+model=loc_4863
 name=Watchtower Legs
 desc=Legs of this watchtower.
 
 [loc_4864]
-model=model_loc_4864
+model=loc_4864
 name=Watchtower Legs
 desc=Legs of this watchtower.
 
 [loc_4865]
-model=model_loc_4865
+model=loc_4865
 name=Watchtower Middle
 desc=It's the middle of this watchtower.
 
@@ -1836,14 +1844,14 @@ desc=It's the middle of this watchtower.
 width=4
 length=4
 anim=seq_1411
-model=model_loc_4866
+model=loc_4866
 name=Gnome Glider
 desc=It's a deactivated military Gnome glider.
 
 [loc_4867]
 width=4
 length=4
-model=model_loc_4867
+model=loc_4866
 name=Gnome Glider
 desc=It's an activated military Gnome glider.
 
@@ -1854,7 +1862,7 @@ op1=Operate
 blockwalk=no
 recol1s=61
 recol1d=7566
-model=model_loc_4868
+model=loc_4868
 name=Teleportation Device
 desc=It's some kind of Gnome teleportation device.
 
@@ -1864,7 +1872,7 @@ op1=Operate
 blockwalk=no
 recol1s=61
 recol1d=7566
-model=model_loc_4869
+model=loc_4869
 name=Teleportation Device
 desc=It's some kind of Gnome teleportation device.
 
@@ -1874,7 +1882,7 @@ op1=Operate
 blockwalk=no
 recol1s=61
 recol1d=7566
-model=model_loc_4870
+model=loc_4870
 name=Teleportation Device
 desc=It's some kind of Gnome teleportation device.
 
@@ -1882,49 +1890,49 @@ desc=It's some kind of Gnome teleportation device.
 op1=Operate
 recol1s=61
 recol1d=7566
-model=model_loc_4871
+model=loc_4871
 name=Reinitialisation Panel
 desc=This is the panel controlling the hangar reinitialisation.
 
 [loc_4872]
 recol1s=61
 recol1d=7566
-model=model_loc_4872
+model=loc_4872
 name=Exit Sign
 desc=There must be an exit nearby.
 
 [loc_4873]
-model=model_loc_4873
+model=model_loc_670
 name=Lever
 desc=It's probably too risky to try pulling this.
 
 [loc_4874]
 op2=Steal from
-model=model_loc_4874
+model=loc_4874
 name=Crafting Stall
 desc=This table has crafting paraphernalia on it.
 
 [loc_4875]
 op2=Steal from
-model=model_loc_4875
+model=loc_4875
 name=Food Stall
 desc=This table has ripe bananas on show.
 
 [loc_4876]
 op2=Steal from
-model=model_loc_4876
+model=loc_4876
 name=General Stall
 desc=This table has items of a general nature on it.
 
 [loc_4877]
 op2=Steal from
-model=model_loc_4877
+model=loc_4877
 name=Magic Stall
 desc=This table has runes on display.
 
 [loc_4878]
 op2=Steal from
-model=model_loc_4878
+model=loc_4878
 name=Scimitar Stall
 desc=This table has a scimitar on it.
 
@@ -1935,7 +1943,7 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4879
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
@@ -1946,14 +1954,14 @@ op1=Climb-down
 op2=Close
 raiseobject=no
 blockrange=no
-model=model_loc_4880
+model=loc_4713
 name=Trapdoor
 desc=It's an open trapdoor.
 
 [loc_4881]
 active=yes
 op1=Climb
-model=model_loc_4881
+model=agilityarena_climbingrope
 name=Climbing rope
 desc=I can climb up this.
 
@@ -1964,7 +1972,7 @@ blockwalk=no
 blockrange=no
 recol1s=7952
 recol1d=6689
-model=model_loc_4882
+model=model_loc_3234
 name=Slight indentations
 desc=Looks suspicious.
 
@@ -1975,7 +1983,7 @@ blockrange=no
 op1=Search
 recol1s=53
 recol1d=6798
-model=model_loc_4883
+model=model_loc_3230
 name=A rock
 desc=Looks suspicious.
 
@@ -1985,7 +1993,7 @@ hillskew=yes
 blockwalk=no
 blockrange=no
 active=yes
-model=model_loc_4884
+model=model_loc_755
 name=Plank
 
 [loc_4885]
@@ -1993,7 +2001,7 @@ width=3
 hillskew=yes
 blockwalk=no
 blockrange=no
-model=model_loc_4885
+model=model_loc_3232
 name=Stalagmites
 desc=Formed over many years.
 
@@ -2005,7 +2013,7 @@ forcedecor=yes
 active=yes
 shadow=no
 hillskew=yes
-model=model_loc_4886
+model=loc_4886
 name=Floor spikes
 desc=Human sieve creation.
 
@@ -2016,7 +2024,7 @@ blockrange=no
 op1=Search
 recol1s=53
 recol1d=6798
-model=model_loc_4887
+model=model_loc_3230
 name=A rock
 desc=Looks suspicious.
 
@@ -2027,14 +2035,14 @@ op1=Open
 raiseobject=no
 blockwalk=no
 blockrange=no
-model=model_loc_4888
+model=model_loc_100
 name=Trapdoor
 desc=It's a trapdoor.
 
 [loc_4889]
 active=yes
 op1=Climb
-model=model_loc_4889
+model=agilityarena_climbingrope
 name=Climbing rope
 desc=I can climb up this.
 
@@ -2043,14 +2051,14 @@ sharelight=yes
 hillskew=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4890
+model=model_loc_1417
 
 [loc_4891]
 sharelight=yes
 hillskew=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4891
+model=model_loc_1418
 
 [loc_4892]
 sharelight=yes
@@ -2058,7 +2066,7 @@ hillskew=yes
 active=no
 recol1s=6689
 recol1d=7851
-model=model_loc_4892
+model=model_loc_1434
 
 [loc_4893]
 sharelight=yes
@@ -2066,14 +2074,14 @@ hillskew=yes
 active=no
 recol1s=6689
 recol1d=7851
-model=model_loc_4893
+model=model_loc_1435
 
 [loc_4894]
 sharelight=yes
 hillskew=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4894
+model=model_loc_1423
 
 [loc_4895]
 sharelight=yes
@@ -2081,14 +2089,14 @@ hillskew=yes
 mirror=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4895
+model=model_loc_1423
 
 [loc_4896]
 sharelight=yes
 hillskew=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4896
+model=loc_4896
 
 [loc_4897]
 sharelight=yes
@@ -2096,25 +2104,25 @@ hillskew=yes
 active=no
 recol1s=6689
 recol1d=7851
-model=model_loc_4897
+model=model_loc_1436
 
 [loc_4898]
 sharelight=yes
 hillskew=yes
 active=no
-model=model_loc_4898
+model=loc_4898
 
 [loc_4899]
 sharelight=yes
 hillskew=yes
 active=no
-model=model_loc_4899
+model=model_loc_1428
 
 [loc_4900]
 op1=Take
 anim=seq_1430
 mapscene=28
-model=model_loc_4900
+model=model_4445
 name=Saradomin Standard
 desc=The Saradomin Team Standard.
 
@@ -2122,7 +2130,7 @@ desc=The Saradomin Team Standard.
 op1=Take
 anim=seq_1430
 mapscene=29
-model=model_loc_4901
+model=model_4446
 name=Zamorak Standard
 desc=The Zamorak Team Standard.
 
@@ -2134,7 +2142,8 @@ recol1s=23
 recol1d=35
 recol2s=10388
 recol2d=8379
-model=model_loc_4902
+model=model_4445
+model=loc_4377
 name=Saradomin Standard
 desc=The Saradomin Team Standard.
 
@@ -2142,7 +2151,8 @@ desc=The Saradomin Team Standard.
 op1=Capture
 anim=seq_1430
 mapscene=29
-model=model_loc_4903
+model=model_4446
+model=loc_4377
 name=Zamorak Standard
 desc=The Zamorak Team Standard.
 
@@ -2163,7 +2173,8 @@ recol3s=8076
 recol3d=3346
 recol4s=53
 recol4d=3239
-model=model_loc_4904
+model=model_4448
+model=model_4449
 name=Catapult
 desc=It's on fire!
 
@@ -2184,7 +2195,8 @@ recol3s=8076
 recol3d=3346
 recol4s=53
 recol4d=3239
-model=model_loc_4905
+model=model_4448
+model=model_4449
 name=Catapult
 desc=It's on fire!
 
@@ -2195,7 +2207,8 @@ recol1s=23
 recol1d=35
 recol2s=10388
 recol2d=8379
-model=model_loc_4906
+model=model_4445
+model=loc_4377
 
 [loc_4907]
 active=no
@@ -2204,24 +2217,26 @@ recol1s=23
 recol1d=35
 recol2s=10388
 recol2d=8379
-model=model_loc_4907
+model=model_4446
+model=loc_4377
 
 [loc_4908]
 sharelight=yes
 blockrange=no
 recol1s=2
 recol1d=23
-model=model_loc_4908
+model=model_loc_1622
 
 [loc_4909]
 shadow=no
 blockrange=no
 mapscene=22
-model=model_loc_4909
+model=model_loc_83
+model=loc_83
 
 [loc_4910]
 blockrange=no
-model=model_loc_4910
+model=model_loc_362
 name=Barrel
 desc=A wooden barrel for storage.
 
@@ -2230,7 +2245,7 @@ active=yes
 op1=Climb-down
 mapscene=7
 forceapproach=south
-model=model_loc_4911
+model=model_loc_10
 name=Ladder
 desc=I can climb down this.
 
@@ -2239,7 +2254,7 @@ active=yes
 op1=Climb-down
 mapscene=7
 forceapproach=north
-model=model_loc_4912
+model=model_loc_133
 name=Ladder
 desc=I can climb down this.
 
@@ -2248,7 +2263,7 @@ sharelight=yes
 op1=Crawl down
 recol1s=6689
 recol1d=45
-model=model_loc_4913
+model=loc_4913
 name=Cart tunnel
 desc=It looks cramped and dark.
 
@@ -2257,7 +2272,7 @@ sharelight=yes
 op1=Crawl down
 recol1s=6689
 recol1d=45
-model=model_loc_4914
+model=loc_4913
 name=Cart tunnel
 desc=It looks cramped and dark.
 
@@ -2266,7 +2281,7 @@ sharelight=yes
 op1=Crawl down
 recol1s=6689
 recol1d=45
-model=model_loc_4915
+model=loc_4913
 name=Cart tunnel
 desc=It looks cramped and dark.
 
@@ -2275,7 +2290,7 @@ hillskew=yes
 sharelight=yes
 recol1s=6689
 recol1d=45
-model=model_loc_4916
+model=loc_4916
 
 [loc_4917]
 hillskew=yes
@@ -2283,11 +2298,11 @@ sharelight=yes
 mirror=yes
 recol1s=6689
 recol1d=45
-model=model_loc_4917
+model=loc_4916
 
 [loc_4918]
 op1=Climb over
-model=model_loc_4918
+model=model_loc_637
 name=Mine cart
 desc=This cart is blocking the way up the ridge.
 
@@ -2309,7 +2324,7 @@ recol5s=6028
 recol5d=12
 recol6s=2952
 recol6d=8
-model=model_loc_4919
+model=loc_4919
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -2318,7 +2333,7 @@ sharelight=yes
 op1=Crawl through
 recol1s=6689
 recol1d=7851
-model=model_loc_4920
+model=loc_4913
 name=Cart tunnel
 desc=It looks cramped and dark.
 
@@ -2327,7 +2342,7 @@ sharelight=yes
 op1=Crawl through
 recol1s=6689
 recol1d=7851
-model=model_loc_4921
+model=loc_4913
 name=Cart tunnel
 desc=It looks cramped and dark.
 
@@ -2336,7 +2351,7 @@ sharelight=yes
 op1=Crawl through
 recol1s=6689
 recol1d=7851
-model=model_loc_4922
+model=loc_4913
 name=Cart tunnel
 desc=It looks cramped and dark.
 
@@ -2349,7 +2364,7 @@ recol1s=6689
 recol1d=7851
 recol2s=6932
 recol2d=6689
-model=model_loc_4923
+model=loc_4923
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -2357,7 +2372,7 @@ desc=These stairs seem to have been hewn out of the rock itself.
 op1=Turn
 recol1s=21543
 recol1d=7566
-model=model_loc_4924
+model=model_loc_2844
 name=Water Valve
 desc=A valve to start and stop the flow of water.
 
@@ -2365,26 +2380,26 @@ desc=A valve to start and stop the flow of water.
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_4925
+model=loc_4925
 
 [loc_4926]
 hillskew=yes
 op1=Cut
-model=model_loc_4926
+model=loc_4926
 name=Crystal outcrop
 desc=Shiny!
 
 [loc_4927]
 hillskew=yes
 op1=Cut
-model=model_loc_4927
+model=loc_4927
 name=Crystal outcrop
 desc=Shiny!
 
 [loc_4928]
 hillskew=yes
 op1=Cut
-model=model_loc_4928
+model=loc_4928
 name=Crystal outcrop
 desc=Shiny!
 
@@ -2392,7 +2407,7 @@ desc=Shiny!
 sharelight=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4929
+model=loc_4913
 name=Dark tunnel
 desc=It looks cramped and dark.
 
@@ -2400,7 +2415,7 @@ desc=It looks cramped and dark.
 sharelight=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4930
+model=loc_4930
 name=Mine cart
 desc=It's blocking the tunnel, but it looks dark down there anyway.
 
@@ -2410,17 +2425,17 @@ sharelight=yes
 width=4
 recol1s=6689
 recol1d=7851
-model=model_loc_4931
+model=loc_4931
 
 [loc_4932]
 op1=Pick
-model=model_loc_4932
+model=loc_4932
 name=Glowing fungus
 desc=A bizarre fungus.  It emits a pale blue light.
 
 [loc_4933]
 op1=Pick
-model=model_loc_4933
+model=loc_4933
 name=Glowing fungus
 desc=A bizarre fungus.  It emits a pale blue light.
 
@@ -2429,26 +2444,26 @@ hillskew=yes
 sharelight=yes
 recol1s=6689
 recol1d=7851
-model=model_loc_4934
+model=loc_4934
 
 [loc_4935]
 hillskew=yes
 sharelight=yes
-model=model_loc_4935
+model=loc_4935
 name=Ceiling support
 desc=If that wasn't there I'd probably be a lot flatter now.
 
 [loc_4936]
 hillskew=yes
 sharelight=yes
-model=model_loc_4936
+model=loc_4936
 name=Wall support
 desc=It prevents the wall unceremoniously squashing people.
 
 [loc_4937]
 sharelight=yes
 op1=Go down in
-model=model_loc_4937
+model=loc_4937
 name=Lift
 desc=It looks like it's water powered.
 
@@ -2456,7 +2471,7 @@ desc=It looks like it's water powered.
 sharelight=yes
 mirror=yes
 op1=Go down in
-model=model_loc_4938
+model=loc_4937
 name=Lift
 desc=It looks like it's water powered.
 
@@ -2467,7 +2482,7 @@ mirror=yes
 active=no
 recol1s=6689
 recol1d=7851
-model=model_loc_4939
+model=loc_4939
 
 [loc_4940]
 length=2
@@ -2475,7 +2490,7 @@ sharelight=yes
 op1=Go down in
 recol1s=6689
 recol1d=7851
-model=model_loc_4940
+model=loc_4940
 name=Lift
 desc=It looks like it's water powered.
 
@@ -2485,28 +2500,28 @@ sharelight=yes
 active=no
 recol1s=6689
 recol1d=7851
-model=model_loc_4941
+model=loc_4939
 
 [loc_4942]
 op1=Wade to
 op1=Go up in
-model=model_loc_4942
+model=loc_4942
 name=Lift
 desc=It's a little waterlogged.  I hope it still works.
 
 [loc_4943]
 forcedecor=yes
 hillskew=yes
-model=model_loc_4943
+model=loc_4943
 
 [loc_4944]
 blockrange=no
-model=model_loc_4944
+model=loc_4944
 name=Crate
 desc=It doesn't look very watertight.  Any contents will be ruined.
 
 [loc_4945]
-model=model_loc_4945
+model=loc_4945
 name=Mine cart
 desc=A sunken mine cart, how useful.
 
@@ -2514,19 +2529,19 @@ desc=A sunken mine cart, how useful.
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_4946
+model=loc_4946
 
 [loc_4947]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_4947
+model=loc_4947
 
 [loc_4948]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_4948
+model=loc_4948
 
 [loc_4949]
 sharelight=yes
@@ -2534,75 +2549,75 @@ length=2
 op1=Check
 recol1s=6689
 recol1d=7851
-model=model_loc_4949
+model=loc_4949
 name=Points settings
 desc=This displays information on how the points on this level are set.
 
 [loc_4950]
 op1=Pull
-model=model_loc_4950
+model=model_loc_670
 name=Lever
 desc=It has the letter 'B' inscribed on the end.
 
 [loc_4951]
 op1=Pull
-model=model_loc_4951
+model=model_loc_670
 name=Lever
 desc=It has the letter 'A' inscribed on the end.
 
 [loc_4952]
 op1=Pull
-model=model_loc_4952
+model=model_loc_670
 name=Lever
 desc=It has the letter 'C' inscribed on the end.
 
 [loc_4953]
 op1=Pull
-model=model_loc_4953
+model=model_loc_670
 name=Lever
 desc=It has the letter 'D' inscribed on the end.
 
 [loc_4954]
 op1=Pull
-model=model_loc_4954
+model=model_loc_670
 name=Lever
 desc=It has the letter 'E' inscribed on the end.
 
 [loc_4955]
 op1=Pull
-model=model_loc_4955
+model=model_loc_670
 name=Lever
 desc=It has the letter 'I' inscribed on the end.
 
 [loc_4956]
 op1=Pull
-model=model_loc_4956
+model=model_loc_670
 name=Lever
 desc=It has the letter 'J' inscribed on the end.
 
 [loc_4957]
 op1=Pull
-model=model_loc_4957
+model=model_loc_670
 name=Lever
 desc=It has the letter 'K' inscribed on the end.
 
 [loc_4958]
-model=model_loc_4958
+model=model_loc_669
 name=Lever
 desc=I think this changes one of the sets of points.
 
 [loc_4959]
-model=model_loc_4959
+model=model_loc_670
 name=Lever
 desc=It has the letter 'F' inscribed on the end.
 
 [loc_4960]
-model=model_loc_4960
+model=model_loc_670
 name=Lever
 desc=It has the letter 'G' inscribed on the end.
 
 [loc_4961]
-model=model_loc_4961
+model=model_loc_670
 name=Lever
 desc=It has the letter 'H' inscribed on the end.
 
@@ -2613,14 +2628,14 @@ recol1s=2
 recol1d=0
 recol2s=24
 recol2d=4762
-model=model_loc_4962
+model=model_loc_3
 name=Door
 desc=The door is closed.
 
 [loc_4963]
 op1=Open
 raiseobject=no
-model=model_loc_4963
+model=model_loc_71
 name=Large door
 desc=A large double door.
 
@@ -2628,7 +2643,7 @@ desc=A large double door.
 op1=Open
 mirror=yes
 raiseobject=no
-model=model_loc_4964
+model=model_loc_71
 name=Large door
 desc=A large double door.
 
@@ -2636,7 +2651,7 @@ desc=A large double door.
 active=yes
 op1=Climb-down
 mapscene=7
-model=model_loc_4965
+model=model_loc_133
 name=Ladder
 desc=I can climb down this.
 
@@ -2644,7 +2659,7 @@ desc=I can climb down this.
 active=yes
 op1=Climb-up
 mapscene=7
-model=model_loc_4966
+model=model_loc_11
 name=Ladder
 desc=I can climb this.
 
@@ -2652,7 +2667,7 @@ desc=I can climb this.
 active=yes
 op1=Climb-down
 mapscene=7
-model=model_loc_4967
+model=model_loc_133
 name=Ladder
 desc=I can climb down this.
 
@@ -2660,7 +2675,7 @@ desc=I can climb down this.
 active=yes
 op1=Climb-up
 mapscene=7
-model=model_loc_4968
+model=model_loc_11
 name=Ladder
 desc=I can climb this.
 
@@ -2668,7 +2683,7 @@ desc=I can climb this.
 active=yes
 op1=Climb-down
 mapscene=7
-model=model_loc_4969
+model=model_loc_133
 name=Ladder
 desc=I can climb down this.
 
@@ -2676,7 +2691,7 @@ desc=I can climb down this.
 active=yes
 op1=Climb-up
 mapscene=7
-model=model_loc_4970
+model=model_loc_11
 name=Ladder
 desc=I can climb this.
 
@@ -2690,7 +2705,7 @@ recol1s=7958
 recol1d=127
 recol2s=6689
 recol2d=7958
-model=model_loc_4971
+model=loc_4919
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -2703,7 +2718,7 @@ recol1s=6689
 recol1d=8
 recol2s=6932
 recol2d=0
-model=model_loc_4972
+model=loc_4923
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -2714,13 +2729,13 @@ length=3
 op1=Walk-up
 recol1s=6689
 recol1d=7851
-model=model_loc_4973
+model=loc_4923
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
 [loc_4974]
 op1=Search
-model=model_loc_4974
+model=model_loc_637
 name=Mine cart
 desc=Useful for moving items around the mine.
 
@@ -2730,7 +2745,7 @@ recol1s=5
 recol1d=16
 recol2s=22
 recol2d=16
-model=model_loc_4975
+model=model_loc_0
 name=Crate
 desc=An old crate for storage.
 
@@ -2744,7 +2759,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=4645
-model=model_loc_4976
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2758,7 +2773,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=4645
-model=model_loc_4977
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2772,7 +2787,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=4645
-model=model_loc_4978
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2786,7 +2801,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=53
-model=model_loc_4979
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2800,7 +2815,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=53
-model=model_loc_4980
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2814,7 +2829,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=53
-model=model_loc_4981
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2828,7 +2843,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=2576
-model=model_loc_4982
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2842,7 +2857,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=2576
-model=model_loc_4983
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2856,7 +2871,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=2576
-model=model_loc_4984
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2870,7 +2885,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=0
-model=model_loc_4985
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2884,7 +2899,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=0
-model=model_loc_4986
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2898,7 +2913,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=0
-model=model_loc_4987
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2912,7 +2927,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=43297
-model=model_loc_4988
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2926,7 +2941,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=43297
-model=model_loc_4989
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2940,7 +2955,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=43297
-model=model_loc_4990
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2954,7 +2969,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=21662
-model=model_loc_4991
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2968,7 +2983,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=21662
-model=model_loc_4992
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2982,7 +2997,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=21662
-model=model_loc_4993
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -2996,7 +3011,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=7851
-model=model_loc_4994
+model=loc_4976
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -3010,7 +3025,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=7851
-model=model_loc_4995
+model=loc_4977
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -3024,7 +3039,7 @@ op2=Prospect
 op3=Hidden
 recol1s=22464
 recol1d=7851
-model=model_loc_4996
+model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
 
@@ -3033,33 +3048,33 @@ hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_4997
+model=model_loc_643
 
 [loc_4998]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_4998
+model=model_loc_644
 
 [loc_4999]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_4999
+model=model_loc_645
 
 [loc_5000]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_5000
+model=model_loc_646
 
 [loc_5001]
 active=yes
 raiseobject=no
-model=model_loc_5001
+model=model_loc_1572
 name=Wooden boards
 desc=This cave has been boarded up.
 
@@ -3074,7 +3089,7 @@ recol1s=5673
 recol1d=13592
 recol2s=6585
 recol2d=12583
-model=model_loc_5002
+model=model_loc_1721
 name=Rope bridge
 desc=Useful for passing over inaccesible areas.
 
@@ -3088,14 +3103,14 @@ recol1s=5673
 recol1d=13592
 recol2s=6585
 recol2d=12583
-model=model_loc_5003
+model=loc_5003
 name=Broken rope bridge
 desc=It's old and pretty broken
 
 [loc_5004]
 forcedecor=yes
 sharelight=yes
-model=model_loc_5004
+model=loc_5004
 name=Tree
 desc=A well used tree.
 
@@ -3104,7 +3119,7 @@ forcedecor=yes
 sharelight=yes
 op1=Climb up
 op2=Climb down
-model=model_loc_5005
+model=loc_5005
 name=Tree
 desc=A well used tree.
 
@@ -3122,7 +3137,7 @@ recol4s=37196
 recol4d=36060
 recol5s=10043
 recol5d=36069
-model=model_loc_5006
+model=model_loc_2980
 name=Rare Flowers
 desc=These flowers only grow in one place in the mountains.
 
@@ -3141,7 +3156,7 @@ recol4s=904
 recol4d=45
 recol5s=900
 recol5d=20
-model=model_loc_5007
+model=model_loc_2
 name=Cave entrance
 desc=Looks like small cave.
 
@@ -3159,7 +3174,7 @@ recol4s=904
 recol4d=7566
 recol5s=900
 recol5d=8070
-model=model_loc_5008
+model=model_loc_2
 name=Tunnel
 desc=Looks dark...
 
@@ -3184,7 +3199,7 @@ recol4s=904
 recol4d=7566
 recol5s=900
 recol5d=8070
-model=model_loc_5009
+model=loc_5009
 name=Tunnel
 desc=Looks dark...
 
@@ -3205,7 +3220,7 @@ recol4s=904
 recol4d=43082
 recol5s=900
 recol5d=43202
-model=model_loc_5010
+model=loc_3736
 name=Tunnel
 desc=Looks dark...
 
@@ -3226,7 +3241,7 @@ recol4s=904
 recol4d=43082
 recol5s=900
 recol5d=43202
-model=model_loc_5011
+model=loc_3736
 name=Tunnel
 desc=Looks dark...
 
@@ -3245,7 +3260,7 @@ recol4s=904
 recol4d=43082
 recol5s=900
 recol5d=43202
-model=model_loc_5012
+model=model_loc_2
 name=Tunnel
 desc=Looks dark...
 
@@ -3266,7 +3281,7 @@ recol4s=904
 recol4d=7566
 recol5s=900
 recol5d=8070
-model=model_loc_5013
+model=loc_3736
 name=Tunnel
 desc=Looks dark...
 
@@ -3287,7 +3302,7 @@ recol4s=904
 recol4d=7566
 recol5s=900
 recol5d=8070
-model=model_loc_5014
+model=loc_3736
 name=Tunnel
 desc=Looks dark...
 
@@ -3298,7 +3313,7 @@ forcedecor=yes
 shadow=no
 hillskew=yes
 op1=Slide
-model=model_loc_5015
+model=loc_3975
 name=slope
 desc=It's too dangerous to go down here by foot...
 
@@ -3309,7 +3324,7 @@ forcedecor=yes
 shadow=no
 hillskew=yes
 op1=Slide
-model=model_loc_5016
+model=loc_3975
 name=slope
 desc=It's too dangerous to go down here by foot...
 
@@ -3318,7 +3333,7 @@ sharelight=yes
 hillskew=yes
 recol1s=6689
 recol1d=43131
-model=model_loc_5017
+model=model_loc_1417
 
 [loc_5018]
 sharelight=yes
@@ -3326,7 +3341,7 @@ hillskew=yes
 active=no
 recol1s=6689
 recol1d=43131
-model=model_loc_5018
+model=model_loc_1434
 
 [loc_5019]
 sharelight=yes
@@ -3334,7 +3349,7 @@ hillskew=yes
 active=no
 recol1s=6689
 recol1d=43131
-model=model_loc_5019
+model=model_loc_1435
 
 [loc_5020]
 sharelight=yes
@@ -3342,7 +3357,7 @@ hillskew=yes
 active=no
 recol1s=6689
 recol1d=43131
-model=model_loc_5020
+model=model_loc_1436
 
 [loc_5021]
 sharelight=yes
@@ -3352,7 +3367,7 @@ resizex=128
 resizey=64
 recol1s=6689
 recol1d=43131
-model=model_loc_5021
+model=model_loc_1417
 
 [loc_5022]
 sharelight=yes
@@ -3363,7 +3378,7 @@ resizex=128
 resizey=64
 recol1s=6689
 recol1d=43131
-model=model_loc_5022
+model=model_loc_1434
 
 [loc_5023]
 sharelight=yes
@@ -3374,7 +3389,7 @@ resizex=128
 resizey=64
 recol1s=6689
 recol1d=43131
-model=model_loc_5023
+model=model_loc_1435
 
 [loc_5024]
 sharelight=yes
@@ -3385,7 +3400,7 @@ resizex=128
 resizey=64
 recol1s=6689
 recol1d=43131
-model=model_loc_5024
+model=model_loc_1436
 
 [loc_5025]
 sharelight=yes
@@ -3395,7 +3410,7 @@ recol1s=6689
 recol1d=43131
 recol2s=6808
 recol2d=43123
-model=model_loc_5025
+model=model_loc_1418
 name=Crevasse
 desc=A split in the cave wall...
 
@@ -3408,7 +3423,7 @@ recol2s=4899
 recol2d=43131
 recol3s=5921
 recol3d=43131
-model=model_loc_5026
+model=model_loc_184
 
 [loc_5027]
 hillskew=yes
@@ -3419,7 +3434,7 @@ recol2s=4899
 recol2d=43131
 recol3s=5921
 recol3d=43131
-model=model_loc_5027
+model=model_loc_185
 
 [loc_5028]
 hillskew=yes
@@ -3430,7 +3445,7 @@ recol2s=4899
 recol2d=43131
 recol3s=5921
 recol3d=43131
-model=model_loc_5028
+model=model_loc_186
 
 [loc_5029]
 width=2
@@ -3441,7 +3456,7 @@ hillskew=yes
 mapscene=11
 recol1s=6689
 recol1d=43131
-model=model_loc_5029
+model=model_loc_471
 
 [loc_5030]
 width=2
@@ -3452,7 +3467,7 @@ blockrange=no
 mapscene=11
 recol1s=6689
 recol1d=43131
-model=model_loc_5030
+model=model_loc_472
 
 [loc_5031]
 width=2
@@ -3464,7 +3479,7 @@ hillskew=yes
 mapscene=12
 recol1s=6689
 recol1d=43131
-model=model_loc_5031
+model=model_loc_473
 
 [loc_5032]
 width=2
@@ -3476,24 +3491,24 @@ hillskew=yes
 mapscene=12
 recol1s=6689
 recol1d=43131
-model=model_loc_5032
+model=model_loc_474
 
 [loc_5033]
 hillskew=yes
 recol1s=6689
 recol1d=43131
-model=model_loc_5033
+model=model_loc_475
 
 [loc_5034]
 hillskew=yes
 recol1s=6689
 recol1d=43131
-model=model_loc_5034
+model=model_loc_476
 
 [loc_5035]
 blockwalk=no
 active=no
-model=model_loc_5035
+model=loc_5035
 
 [loc_5036]
 mapscene=6
@@ -3502,7 +3517,7 @@ blockwalk=no
 active=no
 recol1s=7054
 recol1d=5235
-model=model_loc_5036
+model=model_loc_1286
 
 [loc_5037]
 width=3
@@ -3511,7 +3526,7 @@ resizex=384
 resizey=384
 resizez=384
 shadow=no
-model=model_loc_5037
+model=loc_5035
 name=Ice covered boulder
 desc=A large ice covered boulder.
 
@@ -3522,13 +3537,13 @@ resizex=256
 resizey=256
 resizez=256
 shadow=no
-model=model_loc_5038
+model=loc_5035
 name=Ice covered boulder
 desc=An ice covered boulder.
 
 [loc_5039]
 shadow=no
-model=model_loc_5039
+model=loc_5035
 name=Ice covered boulder
 desc=A small ice covered boulder.
 
@@ -3536,32 +3551,32 @@ desc=A small ice covered boulder.
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_5040
+model=loc_5040
 
 [loc_5041]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_5041
+model=loc_5041
 
 [loc_5042]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_5042
+model=loc_5042
 
 [loc_5043]
 length=3
 sharelight=yes
 active=no
-model=model_loc_5043
+model=loc_5043
 
 [loc_5044]
 mirror=yes
 length=3
 sharelight=yes
 active=no
-model=model_loc_5044
+model=loc_5043
 
 [loc_5045]
 length=2
@@ -3569,7 +3584,7 @@ width=2
 resizex=256
 resizey=256
 resizez=256
-model=model_loc_5045
+model=loc_5045
 name=Tree
 desc=An interesting looking tree.
 
@@ -3577,7 +3592,7 @@ desc=An interesting looking tree.
 sharelight=yes
 hillskew=yes
 op1=Enter
-model=model_loc_5046
+model=loc_5046
 name=Cave entrance
 desc=A small cave entrance.
 
@@ -3585,7 +3600,7 @@ desc=A small cave entrance.
 hillskew=yes
 recol1s=5916
 recol1d=6689
-model=model_loc_5047
+model=model_loc_468
 name=Stalagmites
 desc=Limestone ceiling growth.
 
@@ -3594,7 +3609,7 @@ blockwalk=no
 hillskew=yes
 recol1s=5916
 recol1d=6689
-model=model_loc_5048
+model=model_loc_469
 name=Stalagtite
 desc=A limestone ceiling growth.
 
@@ -3602,7 +3617,7 @@ desc=A limestone ceiling growth.
 hillskew=yes
 recol1s=5916
 recol1d=6689
-model=model_loc_5049
+model=model_loc_534
 name=Stalagmite
 desc=A tooth shaped rock formation protruding from the floor.
 
@@ -3610,7 +3625,7 @@ desc=A tooth shaped rock formation protruding from the floor.
 hillskew=yes
 op1=Look
 op2=Squeeze-past
-model=model_loc_5050
+model=loc_5050
 name=Stalagmite
 desc=Tooth shaped rock formations protruding from the floor.
 
@@ -3618,7 +3633,7 @@ desc=Tooth shaped rock formations protruding from the floor.
 width=3
 length=3
 op1=Board
-model=model_loc_5051
+model=loc_5051
 name=Swamp Boaty
 desc=A dirty little swamp boat.
 
@@ -3630,7 +3645,7 @@ recol1s=2
 recol1d=23
 recol2s=24
 recol2d=9098
-model=model_loc_5052
+model=model_loc_3
 name=Wall
 desc=If it had paint on it, you'd probably watch it dry.
 
@@ -3641,7 +3656,7 @@ recol1s=2
 recol1d=23
 recol2s=24
 recol2d=9098
-model=model_loc_5053
+model=model_loc_3
 name=Wall
 desc=If it had paint on it, you'd probably watch it dry.
 
@@ -3649,7 +3664,7 @@ desc=If it had paint on it, you'd probably watch it dry.
 active=yes
 op1=Climb-up
 mapscene=7
-model=model_loc_5054
+model=model_loc_11
 name=Ladder
 desc=I can climb this.
 
@@ -3657,14 +3672,14 @@ desc=I can climb this.
 blockwalk=no
 blockrange=no
 op1=Open
-model=model_loc_5055
+model=model_loc_105
 name=Trapdoor
 desc=I wonder what that's there for...
 
 [loc_5056]
 width=2
 op1=Open
-model=model_loc_5056
+model=loc_5056
 name=Wooden doors
 desc=These doors look very ominous.
 
@@ -3672,14 +3687,14 @@ desc=These doors look very ominous.
 width=2
 mirror=yes
 op1=Open
-model=model_loc_5057
+model=loc_5056
 name=Wooden doors
 desc=These doors look very ominous.
 
 [loc_5058]
 width=2
 op1=Walk-through
-model=model_loc_5058
+model=loc_5058
 name=Wooden doors
 desc=Large doors set into the hillside.
 
@@ -3687,14 +3702,14 @@ desc=Large doors set into the hillside.
 width=2
 mirror=yes
 op1=Walk-through
-model=model_loc_5059
+model=loc_5058
 name=Wooden doors
 desc=Large doors set into the hillside.
 
 [loc_5060]
 width=2
 op1=Open
-model=model_loc_5060
+model=model_loc_2240
 name=Wooden doors
 desc=These doors seem to lead into the underground.
 
@@ -3702,20 +3717,20 @@ desc=These doors seem to lead into the underground.
 width=2
 mirror=yes
 op1=Open
-model=model_loc_5061
+model=model_loc_2240
 name=Wooden doors
 desc=These doors seem to lead into the underground.
 
 [loc_5062]
 width=2
-model=model_loc_5062
+model=model_loc_2238
 name=Wooden doors
 desc=Large doors set into the hillside.
 
 [loc_5063]
 width=2
 mirror=yes
-model=model_loc_5063
+model=model_loc_2238
 name=Wooden doors
 desc=Large doors set into the hillside.
 
@@ -3724,14 +3739,14 @@ blockwalk=no
 sharelight=yes
 forcedecor=yes
 active=no
-model=model_loc_5064
+model=loc_5064
 
 [loc_5065]
 active=no
 length=6
 recol1s=61
 recol1d=6449
-model=model_loc_5065
+model=loc_5065
 
 [loc_5066]
 active=no
@@ -3739,20 +3754,20 @@ sharelight=yes
 blockrange=no
 recol1s=6689
 recol1d=7952
-model=model_loc_5066
+model=loc_5066
 
 [loc_5067]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=model_loc_5067
+model=loc_5067
 
 [loc_5068]
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_5068
+model=loc_5067
 
 [loc_5069]
 hillskew=yes
@@ -3760,7 +3775,7 @@ sharelight=yes
 forcedecor=yes
 recol1s=61
 recol1d=6697
-model=model_loc_5069
+model=loc_5067
 
 [loc_5070]
 hillskew=yes
@@ -3769,15 +3784,15 @@ forcedecor=yes
 mirror=yes
 recol1s=61
 recol1d=6697
-model=model_loc_5070
+model=loc_5067
 
 [loc_5071]
 active=no
-model=model_loc_5071
+model=loc_5071
 
 [loc_5072]
 anim=seq_473
-model=model_loc_5072
+model=loc_5072
 name=Pillar
 desc=A Large Pillar
 
@@ -3788,7 +3803,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5073
+model=model_loc_58
 
 [loc_5074]
 hillskew=yes
@@ -3797,7 +3812,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5074
+model=model_loc_1214
 
 [loc_5075]
 hillskew=yes
@@ -3806,7 +3821,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5075
+model=model_loc_1215
 
 [loc_5076]
 hillskew=yes
@@ -3815,7 +3830,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5076
+model=model_loc_1216
 
 [loc_5077]
 hillskew=yes
@@ -3824,7 +3839,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5077
+model=model_loc_1217
 
 [loc_5078]
 hillskew=yes
@@ -3833,7 +3848,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5078
+model=model_loc_1218
 
 [loc_5079]
 hillskew=yes
@@ -3842,7 +3857,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5079
+model=model_loc_1219
 
 [loc_5080]
 hillskew=yes
@@ -3851,7 +3866,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5080
+model=model_loc_1220
 
 [loc_5081]
 hillskew=yes
@@ -3860,7 +3875,7 @@ recol1s=929
 recol1d=7585
 recol2s=931
 recol2d=7465
-model=model_loc_5081
+model=model_loc_1221
 
 [loc_5082]
 hillskew=yes
@@ -3870,7 +3885,7 @@ resizez=95
 length=4
 width=4
 op1=Enter
-model=model_loc_5082
+model=loc_5082
 name=Dungeon entrance
 desc=An over grown dungeon entrance.
 
@@ -3882,7 +3897,8 @@ resizez=95
 length=4
 width=4
 op1=Enter
-model=model_loc_5083
+model=loc_5082
+model=loc_5083
 name=Dungeon entrance
 desc=A closed over grown dungeon entrance.
 
@@ -3890,24 +3906,24 @@ desc=A closed over grown dungeon entrance.
 sharelight=yes
 hillskew=yes
 op1=leave
-model=model_loc_5084
+model=loc_5084
 name=Exit
 desc=The way to go when I get scared.
 
 [loc_5085]
-model=model_loc_5085
+model=loc_5085
 
 [loc_5086]
-model=model_loc_5086
+model=loc_5086
 
 [loc_5087]
-model=model_loc_5087
+model=loc_5087
 
 [loc_5088]
 active=yes
 sharelight=yes
 op1=Walk-across
-model=model_loc_5088
+model=loc_5088
 name=Log balance
 desc=I hope I don't fall off this.
 
@@ -3916,13 +3932,13 @@ active=no
 blockwalk=no
 sharelight=yes
 forcedecor=yes
-model=model_loc_5089
+model=loc_5089
 
 [loc_5090]
 active=yes
 sharelight=yes
 op1=Walk-across
-model=model_loc_5090
+model=loc_5088
 name=Log balance
 desc=I hope I don't fall off this.
 
@@ -3941,24 +3957,24 @@ recol5s=7331
 recol5d=6684
 recol6s=7335
 recol6d=6689
-model=model_loc_5091
+model=loc_4533
 
 [loc_5092]
 sharelight=yes
 hillskew=yes
-model=model_loc_5092
+model=loc_5092
 
 [loc_5093]
 sharelight=yes
 hillskew=yes
-model=model_loc_5093
+model=loc_5093
 
 [loc_5094]
 sharelight=yes
 width=4
 length=3
 op1=Walk-up
-model=model_loc_5094
+model=loc_5094
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -3966,7 +3982,7 @@ desc=These stairs seem to have been hewn out of the rock itself.
 sharelight=yes
 width=4
 length=3
-model=model_loc_5095
+model=loc_5095
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -3975,7 +3991,7 @@ sharelight=yes
 width=4
 length=3
 op1=Walk-down
-model=model_loc_5096
+model=loc_5096
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -3984,7 +4000,7 @@ sharelight=yes
 width=4
 length=3
 op1=Walk-up
-model=model_loc_5097
+model=loc_5094
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -3993,7 +4009,7 @@ sharelight=yes
 width=4
 length=3
 op1=Walk-down
-model=model_loc_5098
+model=loc_5096
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
 
@@ -4012,7 +4028,7 @@ recol5s=7331
 recol5d=6684
 recol6s=7335
 recol6d=6689
-model=model_loc_5099
+model=loc_5099
 name=Pipe
 desc=A pipe I can squeeze through.
 
@@ -4031,7 +4047,7 @@ recol5s=7331
 recol5d=6684
 recol6s=7335
 recol6d=6689
-model=model_loc_5100
+model=loc_5099
 name=Pipe
 desc=A pipe I can squeeze through.
 
@@ -4050,7 +4066,7 @@ recol5s=7331
 recol5d=6684
 recol6s=7335
 recol6d=6689
-model=model_loc_5101
+model=loc_5101
 
 [loc_5102]
 sharelight=yes
@@ -4067,13 +4083,13 @@ recol5s=7331
 recol5d=6684
 recol6s=7335
 recol6d=6689
-model=model_loc_5102
+model=loc_5102
 
 [loc_5103]
 hillskew=yes
 op1=Chop-down
 op3=hidden
-model=model_loc_5103
+model=loc_5103
 name=vines
 desc=Thick vines blocking your way.
 
@@ -4081,7 +4097,7 @@ desc=Thick vines blocking your way.
 hillskew=yes
 op1=Chop-down
 op3=hidden
-model=model_loc_5104
+model=loc_5103
 name=Vines
 desc=Thick vines blocking your way.
 
@@ -4089,7 +4105,7 @@ desc=Thick vines blocking your way.
 hillskew=yes
 op1=Chop-down
 op3=hidden
-model=model_loc_5105
+model=loc_5103
 name=Vines
 desc=Thick vines blocking your way.
 
@@ -4097,7 +4113,7 @@ desc=Thick vines blocking your way.
 hillskew=yes
 op1=Chop-down
 op3=hidden
-model=model_loc_5106
+model=loc_5103
 name=Vines
 desc=Thick vines blocking your way.
 
@@ -4105,7 +4121,7 @@ desc=Thick vines blocking your way.
 hillskew=yes
 op1=Chop-down
 op3=hidden
-model=model_loc_5107
+model=loc_5103
 name=Vines
 desc=Thick vines blocking your way.
 
@@ -4124,7 +4140,7 @@ recol5s=7331
 recol5d=6684
 recol6s=7335
 recol6d=6689
-model=model_loc_5108
+model=loc_5108
 
 [loc_5109]
 sharelight=yes
@@ -4133,13 +4149,13 @@ recol1s=7335
 recol1d=6689
 recol2s=7446
 recol2d=7056
-model=model_loc_5109
+model=loc_5109
 
 [loc_5110]
 op1=Jump-from
 active=yes
 forcedecor=yes
-model=model_loc_5110
+model=model_loc_2311
 name=Stepping stone
 desc=I can jump from this stepping stone.
 
@@ -4147,7 +4163,7 @@ desc=I can jump from this stepping stone.
 op1=Jump-from
 active=yes
 forcedecor=yes
-model=model_loc_5111
+model=model_loc_2311
 name=Stepping stone
 desc=I can jump from this stepping stone.
 
@@ -4157,7 +4173,7 @@ recol1s=8148
 recol1d=8732
 recol2s=7283
 recol2d=10541
-model=model_loc_5112
+model=model_loc_1163
 name=Mushroom
 desc=Not good for eating.
 
@@ -4173,7 +4189,7 @@ recol2s=5594
 recol2d=10541
 recol3s=5970
 recol3d=10541
-model=model_loc_5113
+model=model_loc_1170
 name=Fungus
 desc=I doubt that's edible.
 
@@ -4185,7 +4201,7 @@ recol2s=5594
 recol2d=7830
 recol3s=5970
 recol3d=7954
-model=model_loc_5114
+model=model_loc_1170
 name=Fungus
 desc=I doubt that's edible.
 
@@ -4196,6 +4212,6 @@ recol2s=5594
 recol2d=7830
 recol3s=5970
 recol3d=7954
-model=model_loc_5115
+model=loc_5115
 name=Fungus
 desc=I doubt that's edible.

@@ -127,6 +127,35 @@ impl LocShape {
         }
     }
 
+    pub fn from_suffix(suffix: &str) -> Option<Self> {
+        Some(match suffix {
+            "_1" => Self::WallStraight,
+            "_2" => Self::WallDiagonalCorner,
+            "_3" => Self::WallL,
+            "_4" => Self::WallSquareCorner,
+            "_q" => Self::WallDecorStraightNoOffset,
+            "_w" => Self::WallDecorStraightOffset,
+            "_r" => Self::WallDecorDiagonalOffset,
+            "_e" => Self::WallDecorDiagonalNoOffset,
+            "_t" => Self::WallDecorDiagonalBoth,
+            "_5" => Self::WallDiagonal,
+            "_8" => Self::CentrepieceStraight,
+            "_9" => Self::CentrepieceDiagonal,
+            "_a" => Self::RoofStraight,
+            "_s" => Self::RoofDiagonalWithRoofEdge,
+            "_d" => Self::RoofDiagonal,
+            "_f" => Self::RoofLConcave,
+            "_g" => Self::RoofLConvex,
+            "_h" => Self::RoofFlat,
+            "_z" => Self::RoofEdgeStraight,
+            "_x" => Self::RoofEdgeDiagonalCorner,
+            "_c" => Self::RoofEdgeL,
+            "_v" => Self::RoofEdgeSquareCorner,
+            "_0" => Self::GroundDecor,
+            _ => return None,
+        })
+    }
+
     pub const fn layer(self) -> LocLayer {
         match self {
             Self::WallStraight
@@ -154,6 +183,22 @@ impl LocShape {
             Self::GroundDecor => LocLayer::GroundDecor,
         }
     }
+}
+
+pub fn trailing_shape(name: &str) -> Option<u8> {
+    let n = name.len();
+    if n >= 2 && name.is_char_boundary(n - 2) {
+        let suffix = &name[n - 2..];
+        if suffix.as_bytes()[0] == b'_' {
+            return LocShape::from_suffix(suffix).map(|s| s as u8);
+        }
+    }
+    None
+}
+
+pub fn split_trailing_shape(name: &str) -> Option<(&str, u8)> {
+    let shape = trailing_shape(name)?;
+    Some((&name[..name.len() - 2], shape))
 }
 
 #[repr(u8)]

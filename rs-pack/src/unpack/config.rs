@@ -3,6 +3,7 @@ use std::collections::{BTreeSet, HashMap};
 use std::path::Path;
 
 use super::report::RecordLeftover;
+use crate::PACK_DIR;
 use crate::pack::util::colour::rgb15_to_hsl16;
 use crate::types::LocShape;
 use rs_io::Packet;
@@ -25,6 +26,7 @@ pub enum ModelCategory {
 pub struct UnpackedPacks {
     pub model_names: HashMap<u16, String>,
     pub model_categories: HashMap<u16, ModelCategory>,
+    pub existing_model_names: HashMap<u16, String>,
     pub seq_ids: BTreeSet<u16>,
     pub anim_ids: BTreeSet<u16>,
     pub obj_ids: BTreeSet<u16>,
@@ -43,6 +45,7 @@ impl UnpackedPacks {
         Self {
             model_names: HashMap::new(),
             model_categories: HashMap::new(),
+            existing_model_names: HashMap::new(),
             seq_ids: BTreeSet::new(),
             anim_ids: BTreeSet::new(),
             obj_ids: BTreeSet::new(),
@@ -58,6 +61,7 @@ impl UnpackedPacks {
 
     fn name_model(&mut self, id: u16, name: String, category: ModelCategory) -> String {
         if let Entry::Vacant(e) = self.model_names.entry(id) {
+            let name = self.existing_model_names.get(&id).cloned().unwrap_or(name);
             e.insert(name);
             self.model_categories.insert(id, category);
         }
@@ -155,6 +159,7 @@ pub fn unpack_config(
     std::fs::create_dir_all(pack_dir)?;
     let reverse_hsl = build_reverse_hsl_table();
     let mut packs = UnpackedPacks::new();
+    packs.existing_model_names = super::model::load_existing_pack(Path::new(PACK_DIR), "model");
 
     let types: &[(&str, ConfigDecoder)] = &[
         ("idk", decode_idk_entries),
@@ -717,6 +722,32 @@ fn decode_seq_entries(
     results
 }
 
+fn model_base(name: &str) -> &str {
+    crate::types::split_trailing_shape(name).map_or(name, |(base, _)| base)
+}
+
+fn push_loc_model_refs(
+    loc_id: u16,
+    pairs: &[(u16, u8)],
+    packs: &mut UnpackedPacks,
+    props: &mut Vec<(String, String)>,
+) {
+    let mut bases: Vec<String> = Vec::new();
+    for &(mid, shape) in pairs {
+        let suffix = LocShape::try_from(shape)
+            .expect("unknown loc shape")
+            .suffix();
+        let name = packs.name_model(mid, format!("loc_{loc_id}{suffix}"), ModelCategory::Loc);
+        let base = model_base(&name).to_string();
+        if !bases.contains(&base) {
+            bases.push(base);
+        }
+    }
+    for base in bases {
+        props.push(("model".into(), base));
+    }
+}
+
 fn decode_loc_entries(
     dat: &[u8],
     idx: &[u8],
@@ -743,14 +774,7 @@ fn decode_loc_entries(
                     for _ in 0..count {
                         pairs.push((buf.g2(), buf.g1()));
                     }
-                    let base = format!("model_loc_{id}");
-                    for &(mid, shape) in &pairs {
-                        let suffix = LocShape::try_from(shape)
-                            .expect("unknown loc shape")
-                            .suffix();
-                        packs.name_model(mid, format!("{base}{suffix}"), ModelCategory::Loc);
-                    }
-                    props.push(("model".into(), base));
+                    push_loc_model_refs(id, &pairs, packs, &mut props);
                 }
                 2 => props.push(("name".into(), buf.gjstr(10))),
                 3 => props.push(("desc".into(), buf.gjstr(10))),
@@ -760,14 +784,7 @@ fn decode_loc_entries(
                     for _ in 0..count {
                         pairs.push((buf.g2(), LocShape::CentrepieceStraight as u8));
                     }
-                    let base = format!("model_loc_{id}");
-                    for &(mid, shape) in &pairs {
-                        let suffix = LocShape::try_from(shape)
-                            .expect("unknown loc shape")
-                            .suffix();
-                        packs.name_model(mid, format!("{base}{suffix}"), ModelCategory::Loc);
-                    }
-                    props.push(("model".into(), base));
+                    push_loc_model_refs(id, &pairs, packs, &mut props);
                 }
                 14 => props.push(("width".into(), buf.g1().to_string())),
                 15 => props.push(("length".into(), buf.g1().to_string())),
