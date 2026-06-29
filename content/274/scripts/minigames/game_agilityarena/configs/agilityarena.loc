@@ -166,7 +166,7 @@ name=Low wall
 desc=It looks like I can clamber over this.
 model=agilityarena_lowwall
 retex1s=wall
-retex1d=elfbrick
+retex1d=empty
 length=2
 op1=Climb-over
 blockrange=no
@@ -380,7 +380,7 @@ active=yes
 [agility_wall]
 model=model_loc_3
 retex1s=wall
-retex1d=elfbrick
+retex1d=empty
 recol2s=6342
 recol2d=30513
 sharelight=yes
@@ -390,7 +390,7 @@ active=no
 [agility_arch]
 model=loc_3587
 retex1s=wall
-retex1d=elfbrick
+retex1d=empty
 recol2s=6342
 recol2d=30513
 sharelight=yes
@@ -399,7 +399,7 @@ active=no
 [agility_arch_left]
 model=loc_3587
 retex1s=wall
-retex1d=elfbrick
+retex1d=empty
 recol2s=6342
 recol2d=30513
 sharelight=yes
@@ -467,14 +467,14 @@ active=no
 [agility_crumblywall1]
 model=model_loc_1613
 retex1s=mossybricks
-retex1d=elfbrick
+retex1d=empty
 sharelight=yes
 active=no
 
 [agility_crumblywall1r]
 model=model_loc_1613
 retex1s=mossybricks
-retex1d=elfbrick
+retex1d=empty
 sharelight=yes
 mirror=yes
 hillskew=yes
@@ -483,7 +483,7 @@ active=no
 [agility_crumblywall2]
 model=model_loc_1614
 retex1s=mossybricks
-retex1d=elfbrick
+retex1d=empty
 sharelight=yes
 active=no
 blockrange=no
