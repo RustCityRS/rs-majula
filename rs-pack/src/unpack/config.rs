@@ -1172,12 +1172,9 @@ fn decode_mesanim_entries(
         let mut buf = Packet::from(data);
         let props = Vec::new();
 
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                _ => panic!("Unrecognized mesanim config code: {code}"),
-            }
+        let code: u8 = buf.g1();
+        if code != 0 {
+            panic!("Unrecognized mesanim config code: {code}");
         }
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
@@ -1208,12 +1205,9 @@ fn decode_mes_entries(
         let mut buf = Packet::from(data);
         let props = Vec::new();
 
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                _ => panic!("Unrecognized mes config code: {code}"),
-            }
+        let code: u8 = buf.g1();
+        if code != 0 {
+            panic!("Unrecognized mes config code: {code}");
         }
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
@@ -1244,12 +1238,9 @@ fn decode_param_entries(
         let mut buf = Packet::from(data);
         let props = Vec::new();
 
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                _ => panic!("Unrecognized param config code: {code}"),
-            }
+        let code: u8 = buf.g1();
+        if code != 0 {
+            panic!("Unrecognized param config code: {code}");
         }
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
@@ -1280,12 +1271,9 @@ fn decode_hunt_entries(
         let mut buf = Packet::from(data);
         let props = Vec::new();
 
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                _ => panic!("Unrecognized hunt config code: {code}"),
-            }
+        let code: u8 = buf.g1();
+        if code != 0 {
+            panic!("Unrecognized hunt config code: {code}");
         }
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
