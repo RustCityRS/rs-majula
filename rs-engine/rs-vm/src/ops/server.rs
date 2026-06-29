@@ -320,5 +320,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::SongNotFound(track))?;
             s.push_int(ticks as i32);
         });
+
+        // 1023
+        #[cfg(since_274)]
+        none!(m, MAP_LOC => |s| {
+            let coord = CoordGrid::from(s.pop_int() as u32);
+            s.push_int(engine::<E>().map_loc(coord) as i32);
+        });
     }
 }

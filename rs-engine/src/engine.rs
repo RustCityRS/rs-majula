@@ -2788,6 +2788,62 @@ impl Engine {
 }
 
 // -----------------------------------------------------------------------
+// Loc occupancy
+// -----------------------------------------------------------------------
+
+impl Engine {
+    /// Scans the target zone and its three south-west neighbors for an active
+    /// loc whose footprint covers `coord`, returning `true` on the first hit.
+    ///
+    /// When `skip_invisible_walls` is set, invisible wall locs are ignored
+    /// (what [`locaddunsafe`](ScriptEngine::locaddunsafe) wants); `map_loc`
+    /// passes `false` so they still count.
+    fn loc_occupies(&self, coord: CoordGrid, skip_invisible_walls: bool) -> bool {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        for dx in (-8..=0).step_by(8) {
+            for dz in (-8..=0).step_by(8) {
+                let zx = x as i32 + dx;
+                let zz = z as i32 + dz;
+                if zx < 0 || zz < 0 {
+                    continue;
+                }
+                let Some(zone) = self.zones.zone(zx as u16, y, zz as u16) else {
+                    continue;
+                };
+                for loc in &zone.locs {
+                    let Some(loc_type) = self.cache.locs.get_by_id(loc.id()) else {
+                        continue;
+                    };
+
+                    if loc_type.active != Some(true) {
+                        continue;
+                    }
+
+                    if skip_invisible_walls && !loc.visible() && loc.layer() == LocLayer::Wall {
+                        continue;
+                    }
+
+                    let loc_coord = loc.world_coord(zone.coord);
+                    let (width, length) = match loc.angle() {
+                        LocAngle::North | LocAngle::South => (loc.length(), loc.width()),
+                        _ => (loc.width(), loc.length()),
+                    };
+
+                    for index in 0..(width as u16 * length as u16) {
+                        let lx = loc_coord.x() + (index % width as u16);
+                        let lz = loc_coord.z() + (index / width as u16);
+                        if lx == x && lz == z {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        false
+    }
+}
+
+// -----------------------------------------------------------------------
 // ScriptEngine implementation
 // -----------------------------------------------------------------------
 
@@ -3409,10 +3465,8 @@ impl ScriptEngine for Engine {
         self.track_zone(x, y, z);
     }
 
-    /// Checks whether adding a location at the given coordinate is unsafe.
-    ///
-    /// Scans surrounding zones for active locations whose footprint covers
-    /// the target coordinate. Returns `true` if any active loc occupies the tile.
+    /// Checks whether adding a location at the given coordinate is unsafe, i.e.
+    /// an active loc already occupies the tile. Invisible wall locs are skipped.
     ///
     /// # Arguments
     ///
@@ -3425,50 +3479,24 @@ impl ScriptEngine for Engine {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `ZoneMap::zone`, `CacheStore::locs`
+    /// **Calls:** `Engine::loc_occupies`
     fn locaddunsafe(&self, coord: CoordGrid) -> bool {
-        let (x, y, z) = (coord.x(), coord.y(), coord.z());
-        for dx in (-8..=0).step_by(8) {
-            for dz in (-8..=0).step_by(8) {
-                let zx = x as i32 + dx;
-                let zz = z as i32 + dz;
-                if zx < 0 || zz < 0 {
-                    continue;
-                }
-                let Some(zone) = self.zones.zone(zx as u16, y, zz as u16) else {
-                    continue;
-                };
-                for loc in &zone.locs {
-                    let loc_type = match self.cache.locs.get_by_id(loc.id()) {
-                        Some(t) => t,
-                        None => continue,
-                    };
+        self.loc_occupies(coord, true)
+    }
 
-                    if loc_type.active != Some(true) {
-                        continue;
-                    }
-
-                    if !loc.visible() && loc.layer() == LocLayer::Wall {
-                        continue;
-                    }
-
-                    let loc_coord = loc.world_coord(zone.coord);
-                    let (width, length) = match loc.angle() {
-                        LocAngle::North | LocAngle::South => (loc.length(), loc.width()),
-                        _ => (loc.width(), loc.length()),
-                    };
-
-                    for index in 0..(width as u16 * length as u16) {
-                        let lx = loc_coord.x() + (index % width as u16);
-                        let lz = loc_coord.z() + (index / width as u16);
-                        if lx == x && lz == z {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        false
+    /// Checks whether an active loc occupies the given coordinate. Unlike
+    /// [`locaddunsafe`](Self::locaddunsafe), invisible wall locs still count.
+    ///
+    /// # Arguments
+    ///
+    /// * `coord` - The coordinate to test.
+    ///
+    /// # Returns
+    ///
+    /// `true` if an active loc covers the coordinate.
+    #[cfg(since_274)]
+    fn map_loc(&self, coord: CoordGrid) -> bool {
+        self.loc_occupies(coord, false)
     }
 
     /// Returns a mutable reference to the engine's random number generator.

@@ -295,6 +295,7 @@ pub const SEQLENGTH: u16 = 1019;
 pub const SPOTANIM_MAP: u16 = 1020;
 pub const WORLD_DELAY: u16 = 1021;
 pub const MIDI_LENGTH: u16 = 1022;
+pub const MAP_LOC: u16 = 1023;
 
 // ── Player ops (2000-2499) ──────────────────────────────────────────────────
 

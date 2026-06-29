@@ -376,6 +376,19 @@ pub trait ScriptEngine {
     /// `true` if the coordinate is flagged as unsafe for location placement.
     fn locaddunsafe(&self, coord: CoordGrid) -> bool;
 
+    /// Checks whether an active loc occupies the given coordinate.
+    ///
+    /// Like [`locaddunsafe`](Self::locaddunsafe), but invisible wall locs still
+    /// count (they are not skipped).
+    ///
+    /// # Arguments
+    /// * `coord` - The coordinate to test.
+    ///
+    /// # Returns
+    /// `true` if an active loc covers the coordinate.
+    #[cfg(since_274)]
+    fn map_loc(&self, coord: CoordGrid) -> bool;
+
     /// Returns a mutable reference to the engine's random number generator.
     ///
     /// # Returns
