@@ -109,6 +109,49 @@ fn parse_tone(buf: &mut Packet) {
     buf.gsmart1or2(); // reverbVolume
     buf.g2(); // length
     buf.g2(); // start
+
+    // 289 appends a pole/zero filter to every tone.
+    #[cfg(since_289)]
+    parse_filter(buf);
+}
+
+#[cfg(since_289)]
+fn parse_filter(buf: &mut Packet) {
+    let pairs = buf.g1();
+    if pairs == 0 {
+        return;
+    }
+    let counts = [(pairs >> 4) as usize, (pairs & 0xF) as usize];
+    let migration_start = buf.g2();
+    let migration_end = buf.g2();
+    let migrated = buf.g1() as u32;
+
+    for &count in &counts {
+        for _ in 0..count {
+            buf.g2();
+            buf.g2();
+        }
+    }
+    for (channel, &count) in counts.iter().enumerate() {
+        for i in 0..count {
+            if migrated & (1 << (channel * 4) << i) != 0 {
+                buf.g2();
+                buf.g2();
+            }
+        }
+    }
+    if migrated != 0 || migration_end != migration_start {
+        parse_envelope_segments(buf);
+    }
+}
+
+#[cfg(since_289)]
+fn parse_envelope_segments(buf: &mut Packet) {
+    let num_segments = buf.g1() as usize;
+    for _ in 0..num_segments {
+        buf.g2();
+        buf.g2();
+    }
 }
 
 fn parse_envelope(buf: &mut Packet) {
