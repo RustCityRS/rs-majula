@@ -2,7 +2,7 @@ use crate::active_npc::ActiveNpc;
 use crate::engine::Engine;
 use crate::engine::{cache, engine, engine_mut};
 use crate::phases::shared::EntityId;
-use rs_entity::{InteractionTarget, PathingEntity};
+use rs_entity::{Direction, InteractionTarget, PathingEntity};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
 use rs_pack::cache::CacheStore;
@@ -13,6 +13,7 @@ use rs_vm::state::{ExecutionState, ScriptArgument};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
@@ -1296,12 +1297,12 @@ impl Engine {
 
     /// Handles the `PlayerEscape` NPC mode (flee from a player).
     ///
-    /// Computes the escape direction (opposite to the player's relative
-    /// position) and attempts to move one tile away. Falls back to a
-    /// single-axis escape if the diagonal would exceed the NPC's
-    /// `maxrange` from spawn. Resets to defaults if the player is more
-    /// than 25 tiles away or the NPC cannot travel in the chosen
-    /// direction.
+    /// Picks the escape direction (diagonally away from the player) and queues
+    /// a step: the diagonal if it is walkable and stays within the NPC's
+    /// `maxrange` of spawn, otherwise the X axis, otherwise the Z axis (none if
+    /// all are blocked or out of range). Resets to defaults if the target
+    /// player is gone or more than 25 tiles away, or if the NPC has failed to
+    /// move for 5 ticks while not yet cornered at `maxrange` on both axes.
     ///
     /// # Safety Note
     ///
@@ -1309,7 +1310,7 @@ impl Engine {
     ///
     /// # Side Effects
     ///
-    /// * Queues a single escape waypoint.
+    /// * Queues an escape waypoint and processes movement.
     /// * May reset the NPC to default mode.
     #[inline(always)]
     fn npc_player_escape_mode(active: *mut ActiveNpc) {
@@ -1331,73 +1332,97 @@ impl Engine {
             return;
         }
 
-        let dir: i8 = if player_coord.x() >= active.npc.pathing.coord.x()
-            && player_coord.z() >= active.npc.pathing.coord.z()
-        {
-            5 // SouthWest
-        } else if player_coord.x() >= active.npc.pathing.coord.x()
-            && player_coord.z() < active.npc.pathing.coord.z()
-        {
-            0 // NorthWest
-        } else if player_coord.x() < active.npc.pathing.coord.x()
-            && player_coord.z() >= active.npc.pathing.coord.z()
-        {
-            7 // SouthEast
+        let coord = active.npc.pathing.coord;
+        let dir: Direction = if player_coord.x() >= coord.x() && player_coord.z() >= coord.z() {
+            Direction::SouthWest
+        } else if player_coord.x() >= coord.x() && player_coord.z() < coord.z() {
+            Direction::NorthWest
+        } else if player_coord.x() < coord.x() && player_coord.z() >= coord.z() {
+            Direction::SouthEast
         } else {
-            2 // NorthEast
+            Direction::NorthEast
         };
 
-        let (dx, dz) = rs_entity::dir_delta(dir);
-        let mx = (active.npc.pathing.coord.x() as i32 + dx as i32) as u16;
-        let mz = (active.npc.pathing.coord.z() as i32 + dz as i32) as u16;
-
-        let mr = active.move_restrict();
-        let Some(collision) = PathingEntity::collision_type(mr) else {
-            Self::npc_reset_defaults(active);
-            return;
-        };
-        let extra_flag = PathingEntity::block_walk_extra_flag(mr);
-        if !rs_entity::can_travel(
-            engine().members,
-            active.npc.pathing.coord.y(),
-            active.npc.pathing.coord.x(),
-            active.npc.pathing.coord.z(),
-            dx,
-            dz,
-            active.npc.pathing.size,
-            extra_flag,
-            collision,
-        ) {
-            Self::npc_reset_defaults(active);
-            return;
-        }
+        let (dx, dz) = rs_entity::dir_delta(dir as i8);
+        let level = coord.y();
+        let mx = (coord.x() as i32 + dx as i32) as u16;
+        let mz = (coord.z() as i32 + dz as i32) as u16;
 
         let Some(npc_type) = cache().npcs.get_by_id(active.npc.uid.id()) else {
             return;
         };
         let maxrange = npc_type.maxrange as i32;
 
-        let escape_dist =
-            CoordGrid::new(mx, active.npc.pathing.coord.y(), mz).distance(active.npc.spawn_coord);
-        if escape_dist < maxrange {
+        let mr = active.move_restrict();
+        let collision = || PathingEntity::collision_type(mr).unwrap_or(CollisionType::Normal);
+        let extra_flag = PathingEntity::block_walk_extra_flag(mr);
+        let members = engine().members;
+        let spawn = active.npc.spawn_coord;
+        let size = active.npc.pathing.size;
+
+        // Prefer the diagonal away from the player; if it is blocked or would
+        // leave maxrange, fall back to the X axis, then the Z axis.
+        let diagonal_ok = rs_entity::can_travel(
+            members,
+            level,
+            coord.x(),
+            coord.z(),
+            dx,
+            dz,
+            size,
+            extra_flag,
+            collision(),
+        ) && CoordGrid::new(mx, level, mz).distance(spawn) <= maxrange;
+
+        if diagonal_ok {
             active.npc.pathing.queue_waypoint(mx, mz);
-            Self::npc_process_movement(active);
-            return;
+        } else {
+            let primary_ok = rs_entity::can_travel(
+                members,
+                level,
+                coord.x(),
+                coord.z(),
+                dx,
+                0,
+                size,
+                extra_flag,
+                collision(),
+            ) && CoordGrid::new(mx, level, coord.z()).distance(spawn) <= maxrange;
+            let secondary_ok = rs_entity::can_travel(
+                members,
+                level,
+                coord.x(),
+                coord.z(),
+                0,
+                dz,
+                size,
+                extra_flag,
+                collision(),
+            ) && CoordGrid::new(coord.x(), level, mz).distance(spawn)
+                <= maxrange;
+
+            if primary_ok {
+                active.npc.pathing.queue_waypoint(mx, coord.z());
+            } else if secondary_ok {
+                active.npc.pathing.queue_waypoint(coord.x(), mz);
+            }
         }
 
-        // Walk along other axis
-        if dir == 2 || dir == 0 {
-            active
-                .npc
-                .pathing
-                .queue_waypoint(active.npc.pathing.coord.x(), mz);
-        } else {
-            active
-                .npc
-                .pathing
-                .queue_waypoint(mx, active.npc.pathing.coord.z());
+        if !Self::npc_process_movement(active) {
+            active.npc.stuck_counter += 1;
         }
-        Self::npc_process_movement(active);
+
+        // Give up retreating only when genuinely stuck, not merely cornered at
+        // the edge of maxrange on both axes.
+        let after = active.npc.pathing.coord;
+        let dist_x = (after.x() as i32 - spawn.x() as i32).abs();
+        let dist_z = (after.z() as i32 - spawn.z() as i32).abs();
+        let at_max_range_both = dist_x >= maxrange && dist_z >= maxrange;
+
+        if active.npc.stuck_counter >= 5 && !at_max_range_both {
+            Self::npc_reset_defaults(active);
+            active.npc.stuck_counter = 0;
+        }
     }
 
     /// Handles the `PlayerFollow` NPC mode (path toward a player).
