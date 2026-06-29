@@ -417,12 +417,10 @@ pub fn pack_all(
             crctable[i + 1] = data;
         }
     }
-    let crctable_bytes: Arc<[u8]> = Arc::from(
-        crctable
-            .iter()
-            .flat_map(|n| n.to_be_bytes())
-            .collect::<Vec<u8>>(),
-    );
+    let mut crc_bytes: Vec<u8> = crctable.iter().flat_map(|n| n.to_be_bytes()).collect();
+    #[cfg(since_274)]
+    crc_bytes.extend_from_slice(&crc_table_footer(&crctable).to_be_bytes());
+    let crctable_bytes = Arc::from(crc_bytes);
 
     let params = build_type_provider::<ParamType>(&assets, "param", ());
     let objs = build_type_provider_into::<ObjTypeRaw, ObjType>(
@@ -693,4 +691,13 @@ fn assemble_interface_jag(
         return jag.build(JagCompression::WholeArchive);
     }
     Vec::new()
+}
+
+#[cfg(since_274)]
+fn crc_table_footer(crctable: &[i32]) -> i32 {
+    let mut acc: i32 = 1234;
+    for &c in crctable {
+        acc = (acc << 1).wrapping_add(c);
+    }
+    acc
 }
