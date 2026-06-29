@@ -51,6 +51,7 @@ enum ClientTemplate {
 #[cfg_attr(rev = "245.2", template(path = "public/245.2/client.ejs"))]
 #[cfg_attr(rev = "254", template(path = "public/254/client.ejs"))]
 #[cfg_attr(rev = "274", template(path = "public/274/client.ejs"))]
+#[cfg_attr(rev = "289", template(path = "public/289/client.ejs"))]
 struct TypeScriptClient {
     plugin: String,
     nodeid: String,
@@ -65,6 +66,7 @@ struct TypeScriptClient {
 #[cfg_attr(rev = "245.2", template(path = "public/245.2/java.ejs"))]
 #[cfg_attr(rev = "254", template(path = "public/254/java.ejs"))]
 #[cfg_attr(rev = "274", template(path = "public/274/java.ejs"))]
+#[cfg_attr(rev = "289", template(path = "public/289/java.ejs"))]
 struct JavaClient {
     plugin: String,
     nodeid: String,

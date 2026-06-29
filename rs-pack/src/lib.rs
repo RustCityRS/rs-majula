@@ -122,6 +122,19 @@ pub(crate) mod jag_crc {
     pub const VERSIONLIST: Option<i32> = Some(-322040827);
 }
 
+#[cfg(rev = "289")]
+pub(crate) mod jag_crc {
+    pub const TITLE: Option<i32> = Some(410306098);
+    pub const CONFIG: Option<i32> = Some(-433051697);
+    pub const INTERFACE: Option<i32> = Some(2135735991);
+    pub const MEDIA: Option<i32> = Some(1861649167);
+    pub const MODELS: Option<i32> = None;
+    pub const TEXTURES: Option<i32> = Some(915347346);
+    pub const WORDENC: Option<i32> = Some(1386621111);
+    pub const SOUNDS: Option<i32> = Some(-759577225);
+    pub const VERSIONLIST: Option<i32> = Some(-322040827);
+}
+
 #[cfg(rev = "225")]
 pub(crate) mod config_crc {
     pub const SEQ: i32 = 1638136604;
@@ -176,6 +189,24 @@ pub(crate) mod config_crc {
 }
 
 #[cfg(rev = "274")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = -753410077;
+    pub const LOC: i32 = 452815002;
+    pub const FLO: i32 = 960212554;
+    pub const IDK: i32 = -359342366;
+    pub const VARP: i32 = 703279713;
+    pub const NPC: i32 = -1249602232;
+    pub const OBJ: i32 = 128627047;
+    pub const SPOTANIM: i32 = -1587698939;
+    pub const INTERFACE: i32 = 2041671134;
+    pub const VARBIT: i32 = -234977015;
+    pub const MESANIM: i32 = 1747166838;
+    pub const MES: i32 = 1145177955;
+    pub const PARAM: i32 = 254004952;
+    pub const HUNT: i32 = 1104745215;
+}
+
+#[cfg(rev = "289")]
 pub(crate) mod config_crc {
     pub const SEQ: i32 = -753410077;
     pub const LOC: i32 = 452815002;
