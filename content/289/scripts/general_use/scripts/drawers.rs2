@@ -1,0 +1,65 @@
+[oploc1,_drawer]
+if(map_members = ^true) {
+    if(loc_coord = 1_40_51_14_62) {
+        // two different clue scrolls share this location
+        // - https://oldschool.runescape.wiki/w/Clue_scroll_(easy)_-_Search_the_drawers_found_upstairs_in_East_Ardougne%27s_houses
+        // - https://oldschool.runescape.wiki/w/Clue_scroll_(medium)_-_In_a_town_where_the_guards_are_armed_with_maces
+        if(inv_total(inv, trail_clue_easy_vague003) = 1) {
+            @riddle_loc_easy_exp008;
+        } else {
+            @riddle_loc_medium_exp002;
+        }
+    } else if(loc_coord = 1_40_51_51_60) {
+        @riddle_loc_medium_exp003;
+    } else if(loc_coord = 0_42_54_21_22) {
+        @riddle_loc_medium_exp004;
+    } else if(loc_coord = 1_43_49_57_29) {
+        @riddle_loc_medium_exp007;
+    } else if(loc_coord = 0_45_55_41_57) {
+        @riddle_loc_medium_exp008;
+    }
+}
+p_arrivedelay;
+anim(human_openchest,0);
+p_delay(0);
+// todo - Sound
+// Temp note: dur does not need updated
+loc_change(loc_param(drawer_other), 300);
+
+[oplocu,_drawer]
+if(loc_coord = 1_40_51_14_62) {
+    @riddle_loc_medium_exp002;
+} else if(loc_coord = 1_40_51_51_60) {
+    @riddle_loc_medium_exp003;
+} else if(loc_coord = 0_42_54_21_22) {
+    @riddle_loc_medium_exp004;
+} else if(loc_coord = 1_43_49_57_29) {
+    @riddle_loc_medium_exp007;
+}  else if(loc_coord = 0_45_55_41_57) {
+    @riddle_loc_medium_exp008;
+}
+~displaymessage(^dm_default);
+
+[oploc2,_empty_drawer]
+// Treasure Trail
+if(map_members = ^true) {
+    def_obj $clue = ~trail_getclue_inv;
+    if($clue ! null & oc_param($clue, trail_loc) = ^true & oc_param($clue, trail_coord) = loc_coord) {
+        @trail_clue_loc_interact($clue);
+    }
+}
+if (random(^findsomethingnice_chance) = 0 & ~in_tutorial_island(coord) = false) { // complete guess
+    mes("You search the drawers..."); // guess
+    p_delay(2);
+    ~findsomethingnice;
+    return;
+}
+mes("The drawers are empty.");
+
+[oploc3,_empty_drawer]
+p_arrivedelay;
+anim(human_closechest,0);
+p_delay(0);
+// todo - Sound
+// Temp note: dur does not need updated
+loc_change(loc_param(drawer_other), 300);

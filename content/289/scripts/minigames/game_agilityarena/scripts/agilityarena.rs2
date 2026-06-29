@@ -1,0 +1,507 @@
+[oploc1,agilityarena_ladderdown]
+if(testbit(%agilityarena_varbit, ^agilityarena_paid) = ^false) {
+    ~chatnpc_specific(nc_name(agilityarena_clerk), agilityarena_clerk, "<p,angry>Ahoy there! Pay up first!");
+    return;
+}
+~climb_ladder(map_findsquare(3_43_149_53_54, 1, 1, ^map_findsquare_lineofsight), false);
+~add_agilityarena_timer;
+
+[oploc1,agilityarena_ladderup]
+~climb_ladder(0_43_49_56_57, true);
+~clear_agilityarena_timer;
+
+[proc,add_agilityarena_timer]
+if(gettimer(agilityarena_pillar) < 1) {
+    %agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_eligible_tickets);
+    %agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_first_pillar_tagged);
+    %agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_pillar_tagged);
+    if_openoverlay(agilityarena_overlay);
+    settimer(agilityarena_pillar, sub(%agilityarena_next_pillar_time, map_clock));
+    hint_stop();
+    hint_coord(^hint_center, ~get_pillar_coord, 60);
+}
+
+[proc,clear_agilityarena_timer]
+if(gettimer(agilityarena_pillar) > 0) {
+    hint_stop();
+    if_openoverlay(null);
+    %agilityarena_varbit = clearbit_range(%agilityarena_varbit, ^agilityarena_pillar_tagged, ^agilityarena_first_pillar_tagged);
+    cleartimer(agilityarena_pillar);
+}
+
+[mapzone,0_43_149]
+~add_agilityarena_timer;
+@music_playbyregion(coord);
+
+[mapzoneexit,0_43_149]
+~clear_agilityarena_timer;
+
+[timer,agilityarena_pillar]
+if(testbit(%agilityarena_varbit, ^agilityarena_pillar_tagged) = ^false) {
+    %agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_eligible_tickets);
+    %agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_first_pillar_tagged);
+}
+%agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_pillar_tagged);
+hint_stop();
+hint_coord(^hint_center, ~get_pillar_coord, 60);
+settimer(agilityarena_pillar, sub(%agilityarena_next_pillar_time, map_clock));
+
+[oploc1,agility_ticketpillar] @agilityarena_tag_pillar;
+[oploc1,agilityarena_poisondarts] @agilityarena_tag_pillar;
+
+[label,agilityarena_tag_pillar]
+if(~get_pillar_coord ! loc_coord) {
+    mes("You can only get a ticket when the flashing arrow is above the pillar.");
+    return;
+}
+if(testbit(%agilityarena_varbit, ^agilityarena_pillar_tagged) = ^true) {
+    if(testbit(%agilityarena_varbit, ^agilityarena_first_pillar_tagged) = ^true) {
+        mes("You get tickets by tagging more than one pillar in a row, tag the next");
+        mes("pillar!");
+        return;
+    }
+    mes("You can only get one ticket at a time, wait till the arrow moves again.");
+    return;
+}
+%agilityarena_varbit = setbit(%agilityarena_varbit, ^agilityarena_pillar_tagged);
+if(testbit(%agilityarena_varbit, ^agilityarena_eligible_tickets) = ^false) {
+    %agilityarena_varbit = setbit(%agilityarena_varbit, ^agilityarena_eligible_tickets);
+    %agilityarena_varbit = setbit(%agilityarena_varbit, ^agilityarena_first_pillar_tagged);
+    // https://youtu.be/fu3V6gn4WWM?si=vir6X6qhZrFlUkBl&t=240
+    mes("You get tickets by tagging more than one pillar in a row, tag the next");
+    mes("pillar!");
+    sound_synth(pillartag, 1, 0);
+    ~mesbox("You get tickets by tagging more than one pillar in a row. @red@Tag the @red@next pillar for a ticket!");
+    return;
+}
+if(testbit(%agilityarena_varbit, ^agilityarena_first_pillar_tagged) = ^true) {
+    %agilityarena_varbit = clearbit(%agilityarena_varbit, ^agilityarena_first_pillar_tagged);
+}
+~music_jingle("agility complete");
+inv_add(inv, agilityarena_ticket, 1);
+mes("You have received an Agility Arena Ticket!");
+~objbox(agilityarena_ticket, "You have received an Agility Arena Ticket!", 250, 0, 0);
+
+[oploc1,agilityarena_ropebalance]
+p_delay(0);
+~forcemove(loc_coord);
+def_int $z_dist = 1;
+if(loc_angle = ^loc_east) {
+    $z_dist = -1;
+}
+~set_readywalk_bas(human_walk_logbalance_ready, human_walk_logbalance);
+sound_synth(tightrope, 2, 0);
+~forcemove(movecoord(coord, 0, 0, multiply($z_dist, 2)));
+if(stat_random(agility, 200, 440) = false) {
+    ~update_bas;
+    anim(human_walk_logbalance_stumble, 0);
+    facesquare(movecoord(coord, 0, 0, -1)); // face south
+    p_delay(0);
+    p_teleport(movecoord(coord, multiply($z_dist, -1), -3, 0));
+    p_delay(0);
+    mes("You lost your balance!");
+    ~forcemove(movecoord(coord, 0, 0, multiply($z_dist, -1)));
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+~forcemove(movecoord(coord, 0, 0, $z_dist));
+p_delay(0);
+sound_synth(tightrope, 2, 0);
+~forcemove(movecoord(coord, 0, 0, multiply($z_dist, 2)));
+p_delay(0);
+sound_synth(tightrope, 1, 0);
+~forcemove(movecoord(coord, 0, 0, $z_dist));
+~update_bas;
+~forcemove(movecoord(coord, 0, 0, $z_dist));
+stat_advance(agility, 100);
+
+[aploc1,agilityarena_ropeswing]
+def_int $dz = 0;
+def_int $dx = 0;
+def_coord $start_pos;
+def_int $dir;
+switch_int(loc_angle) {
+    case ^loc_west :
+        if(coordz(coord) < coordz(loc_coord)) {
+            mes("You can't use that rope swing from here.");
+            return;
+        }
+        $dz = -5;
+        $start_pos = movecoord(loc_coord, 0, 0, 2);
+        $dir = ^exact_south;
+    case ^loc_north :
+        if(coordx(coord) < coordx(loc_coord)) {
+            mes("You can't use that rope swing from here.");
+            return;
+        }
+        $dx = -5;
+        $start_pos = movecoord(loc_coord, 2, 0, 0);
+        $dir = ^exact_west;
+    case ^loc_east :
+        if(coordz(coord) > coordz(loc_coord)) {
+            mes("You can't use that rope swing from here.");
+            return;
+        }
+        $dz = 5;
+        $start_pos = movecoord(loc_coord, 0, 0, -2);
+        $dir = ^exact_north;
+    case ^loc_south :
+        if(coordx(coord) > coordx(loc_coord)) {
+            mes("You can't use that rope swing from here.");
+            return;
+        }
+        $dx = 5;
+        $start_pos = movecoord(loc_coord, -2, 0, 0);
+        $dir = ^exact_east;
+}
+p_delay(0);
+~playerwalk3($start_pos);
+p_arrivedelay;
+if(coord ! $start_pos) {
+    return;
+}
+if(stat_random(agility, 100, 310) = false) {
+    sound_synth(stumble_loop, 6, 10);
+    ~agility_exactmove(human_ropeswing_long_miss, 30, 2, $start_pos, movecoord($start_pos, divide($dx, 5), 0, divide($dz, 5)), 30, 76, $dir, false);
+    mes("You missed the rope!");
+    anim(null, 0);
+    sound_synth(fall_land, 1, 0);
+    p_teleport(movecoord($start_pos, 0, -3, 0));
+    p_delay(0);
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+// no restriction on rope swing usage? osrs
+loc_anim(ropeswing_long);
+~agility_exactmove(human_ropeswing_long, 20, 0, $start_pos, movecoord($start_pos, $dx, 0, $dz), 45, 70, $dir, false);
+sound_synth(swing_across, 1, 0);
+stat_advance(agility, 200);
+
+[oploc1,agilityarena_pillar_top]
+p_delay(0);
+def_int $dx = sub(coordx(loc_coord), coordx(coord));
+def_int $dz = sub(coordz(loc_coord), coordz(coord));
+def_int $dir;
+if ($dx = 0 & $dz = 1) {
+    $dir = ^exact_north;
+} else if ($dx = 0 & $dz = -1) {
+    $dir = ^exact_south;
+} else if ($dx = -1 & $dz = 0) {
+    $dir = ^exact_west;
+} else if ($dx = 1 & $dz = 0) {
+    $dir = ^exact_east;
+}
+// https://youtu.be/fu3V6gn4WWM?si=JsMRX4S23YvvD-Ev&t=355 2t delay instead of 1t (OSRS is 1t)
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, coord, loc_coord, 15, 30, $dir, false);
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, loc_coord, movecoord(loc_coord, $dx, 0, $dz), 15, 30, $dir, false);
+if(stat_random(agility, 120, 340) = false) {
+    anim(human_walk_logbalance_stumble, 0);
+    p_delay(0);
+    p_teleport(movecoord(coord, multiply($dz, -1), -3, multiply($dx, 1)));
+    p_delay(0);
+    mes("You lost your balance!");
+    ~forcemove(movecoord(coord, multiply($dz, -1), 0, multiply($dx, 1)));
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, $dx, 0, $dz), movecoord(loc_coord, multiply(2, $dx), 0, multiply(2, $dz)), 15, 30, $dir, false);
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, multiply(2, $dx), 0, multiply(2, $dz)), movecoord(loc_coord, multiply(3, $dx), 0, multiply(3, $dz)), 15, 30, $dir, false);
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, multiply(3, $dx), 0, multiply(3, $dz)), movecoord(loc_coord, multiply(4, $dx), 0, multiply(4, $dz)), 15, 30, $dir, false);
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, multiply(4, $dx), 0, multiply(4, $dz)), movecoord(loc_coord, multiply(5, $dx), 0, multiply(5, $dz)), 15, 30, $dir, false);
+sound_synth(jump_no_land, 1, 0);
+~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, multiply(5, $dx), 0, multiply(5, $dz)), movecoord(loc_coord, multiply(6, $dx), 0, multiply(6, $dz)), 15, 30, $dir, false);
+stat_advance(agility, 180);
+
+[oploc1,agilityarena_handholds]
+if(stat(agility) < 20) {
+    mes("You need an agility level of at least 20 to get past this obstacle!");
+    return;
+}
+p_delay(0);
+def_int $dx;
+def_int $dz;
+def_int $dir;
+def_seq $start_seq = agilityarena_handholds_first;
+def_seq $middle_seq = agilityarena_handholds_middle;
+def_seq $end_seq = agilityarena_handholds_last;
+def_seq $fall_seq = agilityarena_handholds_middlefall;
+if (.loc_find(movecoord(coord, 0, 0, 1), agilityarena_handholds_middle) = true) {
+    $dz = 1;
+    $dir = ^exact_west;
+} else if (.loc_find(movecoord(coord, 0, 0, -1), agilityarena_handholds_middle) = true) {
+    $dz = -1;
+    $start_seq = agilityarena_handholds_firstreverse;
+    $middle_seq = agilityarena_handholds_middlereverse;
+    $end_seq = agilityarena_handholds_lastreverse;
+    $fall_seq = agilityarena_handholds_middlefallreverse;
+    $dir = ^exact_west;
+} else if (.loc_find(movecoord(coord, -1, 0, 0), agilityarena_handholds_middle) = true) {
+    $dx = -1;
+    if(loc_angle = ^loc_south) {
+        $dir = ^exact_south;
+    } else {
+        $dir = ^exact_north;
+        $start_seq = agilityarena_handholds_firstreverse;
+        $middle_seq = agilityarena_handholds_middlereverse;
+        $end_seq = agilityarena_handholds_lastreverse;
+        $fall_seq = agilityarena_handholds_middlefallreverse;
+    }
+} else if (.loc_find(movecoord(coord, 1, 0, 0), agilityarena_handholds_middle) = true) {
+    $dx = 1;
+    if(loc_angle = ^loc_south) {
+        $dir = ^exact_south;
+        $start_seq = agilityarena_handholds_firstreverse;
+        $middle_seq = agilityarena_handholds_middlereverse;
+        $end_seq = agilityarena_handholds_lastreverse;
+        $fall_seq = agilityarena_handholds_middlefallreverse;
+    } else {
+        $dir = ^exact_north;
+    }
+}
+// https://youtu.be/fu3V6gn4WWM?si=JsMRX4S23YvvD-Ev&t=355 2t delay instead of 1t (OSRS is 1t)
+sound_synth(handholds_grab_to_second, 1, 0);
+~agility_exactmove($start_seq, 0, 1, loc_coord, movecoord(loc_coord, $dx, 0, $dz), 46, 60, $dir, false);
+if(stat_random(agility, 80, 280) = false) {
+    ~update_bas;
+    ~agility_exactmove($fall_seq, 0, 2, movecoord(loc_coord, $dx, 0, $dz), movecoord(loc_coord, multiply(2, $dx), 0, multiply(2, $dz)), 26, 44, $dir, false);
+    p_teleport(movecoord(coord, 0, -3, 0));
+    anim(null, 0);
+    sound_synth(fall_land, 1, 0);
+    p_delay(0);
+    mes("You missed a hand hold!");
+    p_teleport(movecoord(coord, multiply(-1, $dx), 0, multiply(-1, $dz)));
+    sound_synth(stumble_loop, 5, 0);
+    p_delay(0);
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+sound_synth(handholds_loop, 1, 5);
+~agility_exactmove($middle_seq, 0, 1, movecoord(loc_coord, $dx, 0, $dz), movecoord(loc_coord, multiply(2, $dx), 0, multiply(2, $dz)), 26, 44, $dir, false);
+sound_synth(handholds_loop, 1, 5);
+~agility_exactmove($middle_seq, 0, 1, movecoord(loc_coord, multiply(2, $dx), 0, multiply(2, $dz)), movecoord(loc_coord, multiply(3, $dx), 0, multiply(3, $dz)), 26, 44, $dir, false);
+sound_synth(handholds_loop, 1, 5);
+~agility_exactmove($middle_seq, 0, 1, movecoord(loc_coord, multiply(3, $dx), 0, multiply(3, $dz)), movecoord(loc_coord, multiply(4, $dx), 0, multiply(4, $dz)), 26, 44, $dir, false);
+sound_synth(handholds_loop, 1, 5);
+~agility_exactmove($middle_seq, 0, 1, movecoord(loc_coord, multiply(4, $dx), 0, multiply(4, $dz)), movecoord(loc_coord, multiply(5, $dx), 0, multiply(5, $dz)), 26, 44, $dir, false);
+sound_synth(handholds_loop, 1, 5);
+~agility_exactmove($middle_seq, 0, 1, movecoord(loc_coord, multiply(5, $dx), 0, multiply(5, $dz)), movecoord(loc_coord, multiply(6, $dx), 0, multiply(6, $dz)), 26, 44, $dir, false);
+sound_synth(handholds_off, 1, 0);
+~agility_exactmove($end_seq, 0, 1, movecoord(loc_coord, multiply(6, $dx), 0, multiply(6, $dz)), movecoord(loc_coord, multiply(7, $dx), 0, multiply(7, $dz)), 26, 44, $dir, false);
+stat_advance(agility, 220);
+
+[oploc1,agilityarena_lowwall]
+// https://youtu.be/eHMW2KRp9_Q?si=0DNrQy3ljO7yjbZ9&t=90 this might be arrivedelay, i suspect not though
+p_delay(0);
+def_int $dx = sub(coordx(loc_coord), coordx(coord));
+def_int $dz = sub(coordz(loc_coord), coordz(coord));
+def_int $dir;
+if ($dx = 0 & $dz >= 1) {
+    $dir = ^exact_north;
+    $dz = 1;
+} else if ($dx = 0 & $dz <= -1) {
+    $dir = ^exact_south;
+    $dz = -1;
+} else if ($dx <= -1 & $dz = 0) {
+    $dir = ^exact_west;
+    $dx = -1;
+} else if ($dx >= 1 & $dz = 0) {
+    $dir = ^exact_east;
+    $dx = 1;
+}
+if(stat_random(agility, 220, 460) = false) {
+    ~forcemove(movecoord(coord, $dx, 0, $dz));
+    mes("You stumbled!");
+    anim(human_lowwall_fail, 0);
+    p_delay(2);
+    ~forcemove(movecoord(coord, multiply(-1, $dx), 0, multiply(-1, $dz)));
+    return;
+}
+sound_synth(climb_wall, 1, 40);
+~agility_exactmove(human_lowwall, 0, 3, coord, movecoord(coord, multiply(3, $dx), 0, multiply(3, $dz)), 0, 144, $dir, true);
+stat_advance(agility, 80);
+
+[oploc1,agilityarena_monkeybars_end]
+p_delay(0);
+def_int $dx = 0;
+def_int $dz = 0;
+def_coord $start = loc_coord;
+switch_int(loc_angle) {
+    case ^loc_west : 
+        $dz = -1;
+        $start = movecoord(loc_coord, 1, 0, 0);
+    case ^loc_east : 
+        $dz = 1;
+        $start = movecoord(loc_coord, 1, 0, 0);
+    case ^loc_north : 
+        $dx = -1;
+        $start = movecoord(loc_coord, 0, 0, 1);
+    case ^loc_south : 
+        $dx = 1;
+        $start = movecoord(loc_coord, 0, 0, 1);
+}
+p_teleport($start);
+facesquare(movecoord(coord, calc($dx * 3), 0, calc($dz * 3)));
+p_delay(1);
+~bas_set(human_monkeybars_ready, human_monkeybars_ready, human_monkeybars_walk, 
+         human_monkeybars_ready, human_monkeybars_ready, human_monkeybars_ready, null);
+anim(human_monkeybars_on, 0);
+sound_synth(monkeybars_on, 1, 0);
+p_delay(0);
+sound_synth(monkeybars_loop, 6, 0);
+~forcemove(movecoord(coord, calc($dx * 2), 0, calc($dz * 2)));
+if(stat_random(agility, 160, 400) = false) {
+    ~update_bas;
+    anim(human_monkeybars_off, 0);
+    sound_synth(monkeybars_off, 1, 0);
+    p_delay(0);
+    sound_synth(stumble_loop, 10, 0);
+    mes("You missed a hand hold!");
+    p_delay(0);
+    p_teleport(movecoord(coord, 0, -3, 0));
+    p_delay(0);
+    ~forcemove(movecoord(coord, 0, 0, multiply($dz, -1)));
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+~forcemove(movecoord(coord, $dx, 0, $dz));
+p_delay(0);
+sound_synth(monkeybars_loop, 4, 10);
+~forcemove(movecoord(coord, calc($dx * 2), 0, calc($dz * 2)));
+p_delay(0);
+sound_synth(monkeybars_loop, 3, 5);
+~forcemove(movecoord(coord, calc($dx * 2), 0, calc($dz * 2)));
+~update_bas;
+anim(human_monkeybars_off, 0);
+sound_synth(monkeybars_off, 1, 0);
+p_delay(0);
+p_teleport(movecoord(coord, $dx, 0, $dz));
+stat_advance(agility, 140);
+
+[oploc1,agilityarena_ledgebalance] @agilityarena_ledge;
+[oploc1,agilityarena_ledgebalance2] @agilityarena_ledge;
+
+[label,agilityarena_ledge]
+p_delay(0);
+// https://youtu.be/eHMW2KRp9_Q?si=Q-j-HvEy1eKe5xOy&t=96 one side has no end seq, the other does
+// https://youtu.be/fu3V6gn4WWM?si=uskgi-XANqCyj9nm&t=204 this means the side with the seq takes 1t longer than the other
+def_int $x_dist = -1;
+def_seq $walk_seq = human_walk_sidestepl;
+def_seq $end_seq = null;
+if(coordx(coord) < coordx(loc_coord)) {
+    $x_dist = 1;
+    $walk_seq = human_walk_sidestep;
+    $end_seq = human_outof_sidestep;
+}
+~set_forcemove_bas($walk_seq);
+sound_synth(balancing_ledge, 3, 10);
+~forcemove(movecoord(coord, multiply($x_dist, 2), 0, 0));
+if(stat_random(agility, 140, 370) = false) {
+    ~update_bas;
+    anim(human_walk_logbalance_stumble, 0);
+    facesquare(movecoord(coord, -1, 0, 0)); // face west
+    p_delay(0);
+    p_teleport(movecoord(coord, 0, -3, multiply($x_dist, 1)));
+    p_delay(0);
+    mes("You lost your balance!");
+    ~forcemove(movecoord(coord, multiply($x_dist, -1), 0, 0));
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+~forcemove(movecoord(coord, $x_dist, 0, 0));
+p_delay(0);
+sound_synth(balancing_ledge, 2, 0);
+~forcemove(movecoord(coord, multiply($x_dist, 2), 0, 0));
+p_delay(0);
+sound_synth(balancing_ledge, 2, 0);
+~forcemove(movecoord(coord, multiply($x_dist, 2), 0, 0));
+if($end_seq ! null) {
+    anim($end_seq, 20);
+    p_delay(0);
+}
+~update_bas;
+stat_advance(agility, 160);
+
+[oploc1,agilityarena_logbalance1] @agilityarena_logbalance;
+[oploc1,agilityarena_logbalance2] @agilityarena_logbalance;
+[oploc1,agilityarena_logbalance3] @agilityarena_logbalance;
+
+[label,agilityarena_logbalance]
+p_delay(0);
+def_int $z_dist = 0;
+def_int $x_dist = 0;
+if(coordz(coord) > coordz(loc_coord)) {
+    $z_dist = -1;
+} else if(coordz(coord) < coordz(loc_coord)) {
+    $z_dist = 1;
+} else if(coordx(coord) > coordx(loc_coord)) {
+    $x_dist = -1;
+} else if(coordx(coord) < coordx(loc_coord)) {
+    $x_dist = 1;
+}
+~set_readywalk_bas(human_walk_logbalance_ready, human_walk_logbalance);
+sound_synth(log_balance, 2, 0);
+~forcemove(movecoord(coord, multiply($x_dist, 2), 0, multiply($z_dist, 2)));
+if(stat_random(agility, 180, 420) = false) {
+    ~update_bas;
+    anim(human_walk_logbalance_stumble, 0);
+    p_delay(0);
+    p_teleport(movecoord(coord, multiply($z_dist, -1), -3, multiply($x_dist, 1)));
+    p_delay(0);
+    mes("You lost your balance!");
+    ~forcemove(movecoord(coord, multiply($x_dist, -1), 0, multiply($z_dist, -1)));
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+~forcemove(movecoord(coord, $x_dist, 0, $z_dist));
+p_delay(0); // https://youtu.be/fu3V6gn4WWM?si=bAAgadse3xgxdG5v&t=144 additional ticks of delay
+sound_synth(log_balance, 2, 0);
+~forcemove(movecoord(coord, multiply($x_dist, 2), 0, multiply($z_dist, 2)));
+p_delay(0);
+sound_synth(log_balance, 1, 0);
+~forcemove(movecoord(coord, $x_dist, 0, $z_dist));
+~update_bas;
+~forcemove(movecoord(coord, $x_dist, 0, $z_dist));
+stat_advance(agility, 120);
+
+[oploc1,agilityarena_plank] @agilityarena_plank;
+[oploc1,agilityarena_plank2] @agilityarena_plank;
+[oploc1,agilityarena_plank3] @agilityarena_plank;
+
+[label,agilityarena_plank]
+p_delay(0);
+def_int $x_dist = -1;
+if(coordx(coord) < coordx(loc_coord)) {
+    $x_dist = 1;
+}
+sound_synth(plankwalk, 2, 10);
+~forcemove(movecoord(coord, multiply($x_dist, 2), 0, 0));
+if(loc_find(coord, agilityarena_plank_broke1) = true) {
+    anim(human_falling_4, 0);
+    sound_synth(plank_break, 1, 0);
+    sound_synth(stumble_loop, 10, 0);
+    p_delay(0);
+    p_teleport(movecoord(coord, 0, -3, 0));
+    sound_synth(fall_land, 1, 0);
+    p_delay(0);
+    mes("You stepped on a broken piece of plank!");
+    p_teleport(movecoord(coord, multiply($x_dist, -1), 0, 0));
+    p_delay(0);
+    ~damage_self(calc((stat(hitpoints) * 5 / 100) + 2));
+    return;
+}
+sound_synth(plankwalk, 4, 10);
+~forcemove(movecoord(coord, multiply($x_dist, 5), 0, 0));
+stat_advance(agility, 60);
+
+[oploc1,agilityarena_climbingrope]
+p_arrivedelay;
+~climb_ladder(map_findsquare(movecoord(loc_coord, 0, 3, 0), 1, 1, ^map_findsquare_lineofwalk), true);
+
+[proc,get_pillar_coord]()(coord)
+return (enum(int, coord, agilityarena_pillar_coords, %agilityarena_pillar_index));

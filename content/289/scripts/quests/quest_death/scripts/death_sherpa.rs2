@@ -1,0 +1,151 @@
+[opnpc1,death_sherpa]
+if(%death_equiproom = ^death_complete) {
+    ~chatplayer("<p,happy>Hello Tenzing!");
+    ~chatnpc("<p,happy>Hello again traveller. What can I do for you?");
+    def_int $op = ~p_choice5("Can I buy some Climbing boots?", 1, "What does a Sherpa do?", 2, "How did you find out about the secret way?", 3, "Nice place you have here.", 4, "Nothing, thanks!", 5);
+    while($op ! null) {
+        if($op = 1) {
+            ~chatplayer("<p,neutral>Can I buy some Climbing boots?");
+            ~chatnpc("<p,neutral>Sure, I'll sell you some in your size for 12 gold.");
+            $op = ~p_choice2("OK, sounds good.", 1, "No, thanks.", 2);
+            if($op = 1) {
+                ~chatplayer("<p,neutral>OK, sounds good.");
+                if(inv_total(inv, coins) < 12) {
+                    ~chatplayer("<p,neutral>I don't have the money on me.");
+                } else {
+                    inv_del(inv, coins, 12);
+                    inv_add(inv, death_climbingboots, 1);
+                    mes("Tenzing has given you some Climbing boots.");
+                    ~objbox(death_climbingboots, "Tenzing has given you some Climbing boots.", 250, 0, ^objbox_height);
+                }
+            } else if($op = 2) {
+                ~chatplayer("<p,neutral>No, thanks.");
+            }
+        } else if($op = 2) {
+            ~chatplayer("<p,neutral>What does a Sherpa do?");
+            ~chatnpc("<p,neutral>We are expert guides that take adventurers, such as yourself, on mountaineering expeditions.");
+        } else if($op = 3) {
+            ~chatplayer("<p,neutral>How did you find out about the secret way?");
+            ~chatnpc("<p,neutral>I used to take adventurers up Death Plateau and further north before the trolls came. I know these mountains well.");
+        } else if($op = 4) {
+            ~chatplayer("<p,neutral>Nice place you have here.");
+            ~chatnpc("<p,neutral>Thanks, I built it myself! I'm usually self sufficient but I can't earn any money with the trolls camped on Death Plateau.");
+            ~chatplayer("<p,neutral>Now that the Imperial Guard know about the secret way they will be able to destroy the trolls!");
+            ~chatnpc("<p,neutral>Let us hope so traveller!");
+        } else if($op = 5) {
+            ~chatplayer("<p,happy>Nothing, thanks!");
+            return;
+        }
+        ~chatnpc("<p,neutral>Was there anything else?");
+        $op = ~p_choice5("Can I buy some Climbing boots?", 1, "What does a Sherpa do?", 2, "How did you find out about the secret way?", 3, "Nice place you have here.", 4, "Nothing, thanks!", 5);
+    }
+    return;
+}
+switch_int(~death_get_map) {
+    case ^death_got_map, ^death_scouted_area :
+        ~chatplayer("<p,happy>Hello Tenzing!");
+        ~chatnpc("<p,happy>Hello again traveller. What can I do for you?");
+        if(~obj_gettotal(death_secretwaymap) = 0) {
+            ~chatplayer("<p,neutral>I've lost the secret way map.");
+            ~chatnpc("<p,neutral>Never mind. I'll quickly draw you another one.");
+            mes("Tenzing has given you a map of the secret way!");
+            inv_add(inv, death_secretwaymap, 1);
+            ~objbox(death_secretwaymap, "Tenzing has given you a map of the secret way!", 250, 0, divide(^objbox_height, 2));
+            return;
+        }
+        switch_int(~p_choice2("I'm lost!", 1, "Nothing, thanks.", 2)) {
+            case 1 :
+                ~chatplayer("<p,confused>I'm lost!");
+                ~chatnpc("<p,neutral>To get back to Burthorpe follow the path going east.");
+                if(~death_get_map = ^death_got_map) {
+                    ~chatnpc("<p,confused>I thought you were going to investigate the secret way to Death Plateau? Use the back door to my hut, hop over the stile and follow that path.");
+                }
+                ~chatplayer("<p,happy>Oh yes, of course! Thanks!");
+            case 2 :
+                ~chatplayer("<p,neutral>Nothing, thanks.");
+                ~chatnpc("<p,neutral>Go in peace traveller.");
+        }
+    case ^death_given_supplies :
+        ~chatplayer("<p,happy>Hello!");
+        ~chatnpc("<p,happy>Hello traveller. Thanks again for the food and boots.");
+        @tenzing_secretway;
+    case ^death_given_cert :
+        ~chatplayer("<p,happy>Hello!");
+        ~chatnpc("<p,neutral>Have you brought me the items I asked for?");
+        if(~obj_gettotal(death_climbingboots) = 0 & ~obj_gettotal(death_spikedboots) = 0) {
+            ~chatplayer("<p,neutral>I've lost the climbing boots.");
+            ~chatnpc("<p,angry>These are expensive, do not lose another pair!");
+            inv_add(inv, death_climbingboots, 1);
+            mes("Tenzing has given you some climbing boots.");
+            ~objbox(death_climbingboots, "Tenzing has given you some climbing boots.", 250, 0, ^objbox_height);
+            return;
+        }
+        def_boolean $missing = false;
+        def_string $missing_text = "";
+        if(inv_total(inv, death_spikedboots) = 0) {
+            $missing = true;
+            $missing_text = append($missing_text, " Spiked boots.");
+        }
+        if(inv_total(inv, bread) < 10) {
+            $missing = true;
+            $missing_text = append($missing_text, " Ten loaves of bread.");
+        }
+        if(inv_total(inv, trout) < 10) {
+            $missing = true;
+            $missing_text = append($missing_text, " Ten cooked trout.");
+        }
+        if($missing = false) {
+            mes("You give Tenzing the Spiked boots.");
+            mes("You give Tenzing the loaves of bread and the cooked trout.");
+            ~death_set_map(^death_given_supplies);
+            inv_del(inv, trout, 10);
+            inv_del(inv, bread, 10);
+            inv_del(inv, death_spikedboots, 1);
+            ~objbox(death_spikedboots, "You give Tenzing the Spiked boots.", 250, 0, ^objbox_height);
+            ~doubleobjbox(trout, bread, "You give Tenzing the loaves of bread and the cooked trout.", 200);
+            ~chatnpc("<p,happy>Thank you very much traveller. I'm now ready for the winter!");
+            @tenzing_secretway;
+        }
+        ~chatplayer("<p,neutral>I don't have the:<$missing_text>");
+    case ^death_spoken_tenzing, ^death_spoken_smithy, ^death_got_entrancecert :
+        ~chatplayer("<p,happy>Hello!");
+        ~chatnpc("<p,neutral>Has Dunstan added spikes to my climbing boots yet?");
+        ~chatplayer("<p,sad>No, not yet.");
+        ~chatnpc("<p,neutral>Well, when he has, bring the boots to me with ten loaves of bread and ten cooked trout. I have to prepare for the winter, after all.");
+    case ^death_spoken_saba :
+        ~chatplayer("<p,happy>Hello!");
+        ~chatnpc("<p,happy>Hello. How can I help?");
+        ~chatplayer("<p,neutral>I'm helping the Imperial Guard. They need to find a way to sneak up Death Plateau to destroy the troll camp! Saba seemed to think you'd be able to help.");
+        ~chatnpc("<p,neutral>Ah...Saba is still alive and kicking?");
+        ~chatplayer("<p,happy>Yeh, he seemed very bitter.");
+        ~chatnpc("<p,laugh>That's Saba alright!");
+        // https://web.archive.org/web/20061231212357im_/http://www.runeweb.net/fireball/Death%20Plateau%20Images/DeathPlateau9.PNG
+        ~chatnpc("<p,neutral>I do know of a secret way up to Death Plateau,|the Imperial Guard would be able to use it at|night and not be seen until it was too late!");
+        ~chatnpc("<p,neutral>I'd be happy to show you it if you do something for me first.");
+        ~chatplayer("<p,neutral>Name it.");
+        ~chatnpc("<p,neutral>I don't get into town much and I'm getting low on supplies. I need ten loaves of bread and ten cooked trout, that should see me through the winter.");
+        ~chatplayer("<p,confused>Anything else?");
+        ~chatnpc("<p,neutral>Yes. My climbing boots need to have new spikes, so can you take them to Dunstan in Burthorpe? He always puts my spikes on for me.");
+        switch_int(~p_choice2("OK, I'll get those for you.", 1, "I'll find the secret way for myself.", 2)) {
+            case 1 :
+                ~death_set_map(^death_spoken_tenzing);
+                inv_add(inv, death_climbingboots, 1);
+                ~chatplayer("<p,neutral>OK, I'll get those for you.");
+                ~chatnpc("<p,happy>Thank you traveller!");
+                ~objbox(death_climbingboots, "Tenzing has given you his climbing boots.", 250, 0, ^objbox_height);
+            case 2 :
+                ~chatplayer("<p,neutral>I'll find the secret way for myself.");
+                ~chatnpc("<p,angry>Hmph.");
+        }
+}
+
+[label,tenzing_secretway]
+~chatplayer("<p,neutral>You said you would show me the secret way to Death Plateau?");
+~chatnpc("<p,happy>Yes, of course! I drew up a map in case I ever needed to use it again.");
+~death_set_map(^death_got_map);
+mes("Tenzing has given you a map of the secret way!");
+inv_add(inv, death_secretwaymap, 1);
+~objbox(death_secretwaymap, "Tenzing has given you a map of the secret way!", 250, 0, divide(^objbox_height, 2));
+~chatnpc("<p,neutral>I don't think the Trolls have found the secret way yet, if they had I would've been attacked by now.");
+~chatplayer("<p,neutral>OK thanks but I think I'd better check the path. I don't want to send the Imperial Guards to their death!");
+~chatnpc("<p,neutral>You are wise for one so young.");

@@ -1,0 +1,122 @@
+[opnpc1,kinglathas]
+if(%regicide_quest > ^regicide_not_started) {
+    switch_int(%regicide_quest) {
+        case ^regicide_complete :
+            ~chatplayer("<p,neutral>Good day my lord.");
+            ~chatnpc("<p,neutral>Hello <displayname()>. I've got nothing for you right now.");
+        case ^regicide_killed_tyras, ^regicide_reported_iorwerth, ^regicide_spoken_arianwyn :
+            ~chatplayer("<p,happy>My lord, Tyras is dead!");
+            ~chatnpc("<p,happy>This is grand news indeed! You'll forgive me if I'm a little apprehensive about this, but I take it you do have proof?");
+            if(inv_total(inv, regicide_iorwerth_message) = 0 | %regicide_quest < ^regicide_spoken_arianwyn) {
+                ~chatplayer("<p,sad>No I have nothing to corroborate this.");
+                ~chatnpc("<p,neutral>I am sure you have done as you say, but on this matter I can afford no doubts. You must find something to confirm your story.");
+                ~chatplayer("<p,neutral>I'll see what I can do"); // no period
+                return;
+            }
+            ~chatplayer("<p,neutral>Yes, I have a letter sent by Lord Iorwerth.");
+            ~objbox(regicide_iorwerth_message, "You hand the king the message. He looks at the seal then opens it.", 250, 0, 0);
+            inv_del(inv, regicide_iorwerth_message, 1);
+            queue(quest_regicide_complete, 0, 0);
+            ~chatnpc("<p,neutral>Yes... Good... This will do nicely. Well done, You're really proving to be quite useful. I'll send word when I next require your services. Oh and I guess you'll be wanting your reward.");
+        case ^regicide_entered_camp, ^regicide_spoken_iorwerth2 :
+            ~chatplayer("<p,happy>Goodday my lord."); // authentic typo
+            ~chatnpc("<p,neutral>Ah... <displayname()> how goes your exploration? Any luck finding my brother in the west lands?");
+            ~chatplayer("<p,neutral>I have tracked him down, but I've yet to deal with him.");
+            ~chatnpc("<p,neutral>What are you doing here then? I'm counting on you <displayname()>.");
+            ~chatplayer("<p,neutral>Yes my lord.");
+        case default :
+            ~chatplayer("<p,neutral>My Liege. What must I do again?");
+            ~chatnpc("<p,neutral>In short you must use the underpass to enter|the west lands, kill my brother Tyras, find an easy|route home and finally return back here, to report.|And don't worry, you will be well rewarded.");
+        case ^regicide_received_message :
+            ~chatplayer("<p,neutral>I received your message my Liege. How may I serve the kingdom?");
+            ~chatnpc("<p,neutral>Ahh.. <displayname()>. Yes... We have finally finished the work on the Well of Voyage. It is now time for us to move against my brother.");
+            ~chatnpc("<p,neutral>I've managed to get a letter through to the elves|that live to the west. They informed me that Tyras|and his brigands are camped up in the|woods to the South of their city.");
+            ~chatnpc("<p,neutral>The elves have agreed to help, however they have their battles to fight. Unfortunately the men at arms I promised you are unavailable but I have faith that you'll get the job done.");
+            ~chatnpc("<p,neutral>Finally and most importantly you must find an easy way to the west lands. We cannot use the well as a trade route, and certainly cannot move any bulk of troops through there.");
+            %regicide_quest = ^regicide_spoken_lathas;
+            ~chatnpc("<p,neutral>In short you must use the underpass to enter|the west lands, kill my brother Tyras, find an easy|route home and finally return back here, to report.|And don't worry, you will be well rewarded.");
+    }
+    return;
+}
+if(%biohazard = ^biohazard_reported_elena) {
+    ~chatplayer("<p,quiz>I assume that you are the King of East Ardougne?");
+    ~chatnpc("<p,angry>You assume correctly, but where do you get such impertinence.");
+    ~chatplayer("<p,neutral>I get it from finding out that the plague is a hoax.");
+    ~chatnpc("<p,confused>A hoax? I've never heard such a ridiculous thing...");
+    ~chatplayer("<p,neutral>I have evidence, from Guidor of Varrock.");
+    ~chatnpc("<p,neutral>Ah... I see. Well then you are right about the plague. But I did it for the good of my people.");
+    ~chatplayer("<p,quiz>When is it ever good to lie to people like that?");
+    ~chatnpc("<p,sad>When it protects them from a far greater danger, a fear too big to fathom.");
+    switch_int(~p_choice2("I don't understand...", 1, "Well I've wasted enough of my time here.", 2)) {
+        case 1 :
+            ~chatplayer("<p,confused>I don't understand...");
+            ~chatnpc("<p,sad>Their King, Tyras, journeyed out to the West on a voyage of discovery. But he was captured by the Dark Lord.");
+            ~chatnpc("<p,sad>The Dark Lord agreed to spare his life, but only on one condition... That he would drink from the Chalice of Eternity.");
+            ~chatplayer("<p,quiz>So what happened?");
+            ~chatnpc("<p,sad>The chalice corrupted him. He joined forces with the Dark Lord, the embodiment of pure evil, banished all those years ago...");
+            ~chatnpc("<p,sad>And so I erected this wall, not just to protect my people, but to protect all the people of RuneScape.");
+            ~chatnpc("<p,sad>Now, with the King of West Ardougne, the Dark Lord has an ally on the inside.");
+            ~chatnpc("<p,sad>So I'm sorry that I lied about the plague. I just hope that you can understand my reasons.");
+            ~chatplayer("<p,quiz>Well at least I know now, but what can we do about it?");
+            ~chatnpc("<p,neutral>Nothing at the moment, I'm waiting for my scouts to come back. They will tell us how we can get through the mountains.");
+            ~chatnpc("<p,quiz>When this happens, can I count on your support?");
+            ~chatplayer("<p,neutral>Absolutely!");
+            ~chatnpc("<p,happy>Thank the gods! I give you permission to use my training area.");
+            ~chatnpc("<p,happy>It's located just to the north west of Ardougne, there you can prepare for the challenge ahead.");
+            ~chatplayer("<p,quiz>Ok. There's just one thing I don't understand, how do you know so much about King Tyras?");
+            ~chatnpc("<p,sad>How could I not do? He was my brother.");
+            queue(quest_biohazard_complete, 0, 0);
+        case 2 :
+            ~chatplayer("<p,angry>I've wasted enough of my time here.");
+            ~chatnpc("<p,neutral>No time is ever wasted, thanks for all you've done.");
+    }
+} else if(%biohazard = ^biohazard_complete) {
+    switch_int(%upass) {
+        case ^upass_complete :
+            ~chatplayer("<p,happy>Hello King Lathas.");
+            // magi isn't a typo lol
+            ~chatnpc("<p,happy>Well hello there traveller. The magi are still resurrecting the Well of Voyage, but I'll have word sent to you as soon as it's ready.");
+            ~chatplayer("<p,happy>Ok then, take care.");
+            ~chatnpc("<p,happy>You too.");
+        case ^upass_defeated_iban :
+            ~chatnpc("<p,quiz>The traveller returns, any news?");
+            ~chatplayer("<p,happy>Indeed, the quest is complete, Lathas. I have defeated Iban and his undead minions.");
+            ~chatnpc("<p,happy>Once our mages have re-summoned the well, I will send a band of troops led by yourself to head into west RuneScape and stop Tyras.");
+            ~chatplayer("<p,neutral>I will be ready and waiting.");
+            ~chatnpc("<p,happy>Your loyalty is appreciated, traveller.");
+            queue(upass_quest_complete, 0, 0);
+        case ^upass_not_started :
+            if(testbit(%ibanmulti, ^upass_started_bit) = ^true) {
+                @lathas_managing;
+            }
+            ~chatplayer("<p,happy>Hello King Lathas.");
+            ~chatnpc("<p,happy>Adventurer, thank Saradomin for your arrival!");
+            ~chatplayer("<p,quiz>Have your scouts found a way through the mountains?");
+            if(stat_base(ranged) < 25) {
+                // todo: did this exist originally?
+                ~chatnpc("<p,neutral>I appreciate your enthusiasm adventurer. However, I fear you are not yet ready for the challenges ahead. Return to me when you are and we will discuss our next steps.");
+                return;
+            }
+            ~chatnpc("<p,sad>Not quite, we found a path to where we expected to find the Well of Voyage, an ancient portal to the west RuneScape.");
+            ~chatnpc("<p,neutral>However during recent times a cluster of cultists have settled there, run by a madman named Iban.");
+            ~chatplayer("<p,quiz>Iban?");
+            ~chatnpc("<p,neutral>A crazy loon who claims to be the son of Zamorak.");
+            %ibanmulti = setbit(%ibanmulti, ^upass_started_bit);
+            ~setupassgrilltrap;
+            ~send_quest_progress(questlist:upass, 1, ^upass_complete);
+            ~chatnpc("<p,neutral>Go meet my main tracker, Koftik. He will help you. He waits for you at the west side of West Ardougne.");
+            ~chatnpc("<p,neutral>We must find a way through these caverns if we are to stop my brother Tyras.");
+            ~chatplayer("<p,neutral>I'll do my best Lathas.");
+            ~chatnpc("<p,neutral>A warning traveller, the underground pass is lethal. We lost many men exploring those caverns. Go prepared with food and armour or you won't last long.");
+        case default : @lathas_managing;
+            
+    }
+} else {
+    mes("The king is too busy to talk.");
+}
+
+[label,lathas_managing]
+~chatplayer("<p,happy>Hello King Lathas.");
+~chatnpc("<p,happy>Traveller, how are you managing down there?");
+~chatplayer("<p,neutral>It's a pretty nasty place but I'm OK.");
+~chatnpc("<p,neutral>Well keep up the good work.");

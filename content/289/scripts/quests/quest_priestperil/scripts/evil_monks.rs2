@@ -1,0 +1,56 @@
+[ai_opplayer2,priestperilevilmonk1]
+if (%npc_action_delay > map_clock) return;
+def_int $whichattack = random(4); // guess
+if ($whichattack = 0) {
+    // weaken -> confuse -> curse
+
+    if(stat_base(strength) <= stat(strength)) {
+        ~npc_cast_spell(^weaken, 4);
+    } else if (stat_base(attack) <= stat(attack)) { 
+        ~npc_cast_spell(^confuse, 4);
+    } else if(stat_base(defence) <= stat(defence)) {
+        ~npc_cast_spell(^defence, 4);
+    } else {
+        ~npc_default_attack;
+    }
+} else {
+    ~npc_default_attack;
+}
+
+[ai_opplayer2,priestperilevilmonk2]
+if (%npc_action_delay > map_clock) return;
+def_int $whichattack = random(4);
+if ($whichattack = 0) {
+    // confuse -> weaken and then curse
+    if (stat_base(attack) <= stat(attack)) { 
+        ~npc_cast_spell(^confuse, 4);
+    } else if(stat_base(strength) <= stat(strength)) {
+        ~npc_cast_spell(^weaken, 4);
+    } else if(stat_base(defence) <= stat(defence)) {
+        ~npc_cast_spell(^defence, 4);
+    } else {
+        ~npc_default_attack;
+    }
+} else {
+    ~npc_default_attack;
+}
+
+[ai_opplayer2,priestperilevilmonk3]
+if (%npc_action_delay > map_clock) return;
+def_int $whichattack = random(4);
+if ($whichattack = 0) {
+    ~npc_zap_attack(8,npc_param(attackrate)); // max hit for this one (8) is a guess, osrs wiki is unclear.
+} else {
+    ~npc_default_attack;
+}
+
+[ai_queue3,priestperilevilmonk3]
+// before npc_death
+if(finduid(%npc_aggressive_player) = true & %priestperil < ^priestperil_unlocked_drezel) obj_add(npc_coord, pipkey_gold, 1, ^lootdrop_duration);
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+
+// Default drop from config.
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);

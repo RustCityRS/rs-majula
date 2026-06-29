@@ -1,0 +1,40 @@
+[opnpc1,gnometrainer]
+if(inv_total(inv, trail_clue_hard_riddle026) > 0) {
+    // https://www.youtube.com/watch?v=PGE6w5X6_AM
+    if(~obj_gettotal(trail_clue_hard_riddle026_puzzlebox) > 0) {
+        if(inv_total(inv, trail_clue_hard_riddle026_puzzlebox) = 0) {
+            ~chatplayer("<p,neutral>I don't have the puzzle box with me.");
+            ~chatnpc("<p,angry>Go and fetch it before I make you drop and give me 10!");
+            return;
+        }
+        if(~trail_puzzle_complete(trail_clue_hard_riddle026_puzzlebox) = true) {
+            ~chatnpc("<p,happy>Excellent work!");
+            inv_del(inv, trail_clue_hard_riddle026_puzzlebox, 1);
+            ~progress_clue_hard(trail_clue_hard_riddle026, "Heckel Funch has given you another clue scroll!");
+            return;
+        }
+        // TODO: check mesanim
+        ~chatnpc("<p,neutral>My baby sister can do puzzles better than that!");
+        return;
+    }
+    ~give_trail_puzzle(trail_clue_hard_riddle026_puzzlebox, "<p,neutral>You're not done yet! Do this for me!", "The gnome trainer has given you a puzzle box!");
+    return;
+}
+
+
+def_int $rand_value = random(4);
+if($rand_value = 0) {
+    ~chatplayer("<p,neutral>Hello how are you?");
+    ~chatnpc("<p,angry>I'm amazed by how much humans chat. The sign over there says training area, not pointless conversation area.");
+} else if($rand_value = 1) {
+    ~chatplayer("<p,confused>Hello, what is this place?");
+    ~chatnpc("<p,happy>This, my friend, is where we train. Here we improve our agility. It's an essential skill.");
+    ~chatplayer("<p,neutral>It looks easy enough.");
+    ~chatnpc("<p,neutral>If you complete the course in order from the slippery log to the end, your agility will increase much faster than by repeating just one obstacle.");
+} else if($rand_value = 2) {
+    ~chatplayer("<p,happy>This is fun!");
+    ~chatnpc("<p,angry>This is training soldier. If you want fun go make some cocktails.");
+} else if($rand_value = 3) {
+    ~chatplayer("<p,happy>Hello there.");
+    ~chatnpc("<p,neutral>This isn't a grannies' tea party, let's see some sweat human. Go! Go! Go!");
+}

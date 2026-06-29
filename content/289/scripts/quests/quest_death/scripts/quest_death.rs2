@@ -1,0 +1,222 @@
+[oploc1,death_hermitcave_entrance]
+p_arrivedelay;
+p_teleport(0_35_74_29_16);
+
+[oploc1,death_hermitcave_exit]
+p_arrivedelay;
+p_teleport(0_44_55_42_57);
+
+[oploc1,death_harold_door]
+def_boolean $leaving = ~check_axis(coord, loc_coord, loc_angle);
+if($leaving = false) {
+    ~open_and_close_door2(loc_1535, $leaving, door_open); // nicedoor_open
+    return;
+}
+if(%death_equiproom < ^death_spoken_headservant) { 
+    ~chatplayer("<p,neutral>I'd better not go into someone's bedroom without a reason!");
+    return;
+}
+sound_synth(knock_knock, 1, 0);
+~mesbox("You knock on the door.");
+if(npc_find(coord, death_guard_equiproom, 7, 0) = true) {
+    ~chatnpc("<p,neutral>Come in!");
+    if_close;
+    ~open_and_close_door2(loc_1535, $leaving, door_open); // nicedoor_open
+}
+
+[opheld1,death_iou]
+~chatplayer("<p,neutral>The IOU says that Harold owes me some money.");
+~chatplayer("<p,shock>Wait just a minute!");
+~chatplayer("<p,neutral>The IOU is written on the back of the combination! The stupid guard had it in his back pocket all the time!");
+mes("You have found the combination!");
+inv_del(inv, death_iou, 1); // doesnt replace all, still works after reading 1
+inv_add(inv, death_combination, 1);
+if(%death_equiproom = ^death_given_iou) %death_equiproom = ^death_found_combo;
+~objbox(death_combination, "You have found the combination!", 250, 0, 0);
+
+[opheld1,death_combination]
+// https://web.archive.org/web/20061231212357/http://www.runeweb.net/index.php?page=rs2-quest-deathplateau
+if_settext(messagescroll_handwriting:com_2, "Red is North of Blue.");
+if_settext(messagescroll_handwriting:com_3, "Yellow is South of Purple.");
+if_settext(messagescroll_handwriting:com_4, "Green is North of Purple.");
+if_settext(messagescroll_handwriting:com_5, "Blue is West of Yellow.");
+if_settext(messagescroll_handwriting:com_6, "Purple is East of Red.");
+if_openmain(messagescroll_handwriting);
+
+[oploc1,death_sherpa_door]
+def_boolean $leaving = ~check_axis(coord, loc_coord, loc_angle);
+if($leaving = true | ~death_get_map >= ^death_spoken_tenzing) {
+    ~open_and_close_door2(loc_1532, $leaving, door_open); // open door loc isnt in this version?
+    return;
+}
+sound_synth(knock_knock, 1, 0);
+~mesbox("You knock on the door.");
+if(npc_find(coord, death_sherpa, 5, 0) = true) {
+    ~chatnpc("<p,angry>No milk today! Thank you!");
+    if(~death_get_map >= ^death_spoken_saba) {
+        ~chatplayer("<p,neutral>I'm not the milkman, I need your help!");
+        ~chatnpc("<p,neutral>Oh...OK. You'd better come in then.");
+        ~open_and_close_door2(loc_1532, $leaving, door_open); // open door loc isnt in this version?
+    }
+}
+
+[oploc1,death_sherpa_backdoor]
+def_boolean $leaving = ~check_axis(coord, loc_coord, loc_angle);
+if($leaving = false | ~death_get_map >= ^death_got_map) {
+    ~open_and_close_door2(loc_1532, $leaving, door_open); // open door loc isnt in this version?
+    return;
+}
+if(npc_find(coord, death_sherpa, 5, 0) = true) {
+    ~chatnpc("<p,angry>Where do you think you're going? This is private property!");
+}
+
+[oploc1,death_castledoor]
+if(%death_equiproom >= ^death_unlocked_door) {
+    ~open_and_close_door2(castledoor_inactive, ~check_axis(coord, loc_coord, loc_angle), door_open); // nicedoor_open
+    return;
+}
+mes("The door is locked.");
+
+[oplocu,death_stone_mechanism_corner] @death_place_stone;
+[oplocu,death_stone_mechanism_side] @death_place_stone;
+
+[label,death_place_stone]
+if(oc_category(last_useitem) = death_cannonball) {
+    if(obj_find(loc_coord, death_cannonball_blue) = true | obj_find(loc_coord, death_cannonball_yellow) = true | 
+        obj_find(loc_coord, death_cannonball_red) = true | obj_find(loc_coord, death_cannonball_purple) = true | obj_find(loc_coord, death_cannonball_green) = true) {
+            mes("There is already a stone ball here.");
+            return;
+    }
+    inv_dropitem(inv, loc_coord, last_useitem, 1, 1000);
+    if(%death_equiproom = ^death_found_combo) {
+        if(obj_find(0_45_55_14_42, death_cannonball_blue) = true & obj_find(0_45_55_15_42, death_cannonball_yellow) = true 
+            & obj_find(0_45_55_14_43, death_cannonball_red) = true & obj_find(0_45_55_15_43, death_cannonball_purple) = true & obj_find(0_45_55_15_44, death_cannonball_green) = true) {
+                mes("The equipment room door has unlocked.");
+                %death_equiproom = ^death_unlocked_door;
+                sound_synth(unlock_and_move, 1, 0);
+            }
+    }
+    return;
+}
+~displaymessage(^dm_default);
+
+[oploc1,death_fullstyle]
+def_coord $start_coord = loc_coord;
+def_int $mod = 1;
+def_int $dir = ^exact_north;
+def_coord $end_coord = movecoord($start_coord, 0, 0, 1);
+if(coordz(coord) > coordz(loc_coord)) {
+    $start_coord = movecoord(loc_coord, 0, 0, 1);
+    $mod = -1;
+    $dir = ^exact_south;
+    $end_coord = movecoord(loc_coord, 0, 0, 0);
+}
+def_coord $walk_coord = movecoord($end_coord, 0, 0, $mod);
+p_teleport($start_coord);
+p_delay(0);
+~agility_exactmove(human_walk_style, 30, 2, $start_coord, $end_coord, 30, 94, $dir, true);
+p_teleport($walk_coord);
+
+[opheld2,death_climbingboots]
+if(%death_equiproom < ^death_complete) {
+    mes("The sherpa's feet must be very small; I can't get them on.");
+    return;
+}
+~equip(last_slot);
+
+[opheld2,death_spikedboots]
+mes("Trying to walk in these would be difficult. I'll carry them for now."); // maybe changed with dt? not sure
+
+[zone,0_44_56_48_24]
+if(~death_get_map = ^death_got_map) {
+    ~death_set_map(^death_scouted_area);
+    mes("You can see that there are no trolls on the secret path.");
+    mes("You should go and speak to Denulth.");
+    ~chatplayer("<p,neutral>I think this is far enough, I can see Death Plateau and it looks like the trolls haven't found the path. I'd better go and tell Denulth.");
+}
+
+[oploc1,death_dangersign_trolls]
+// cam params are from osrs
+cam_moveto(0_44_56_29_12, 1500, 10, 3);
+cam_lookat(0_44_56_35_14, 300, 10, 3);
+p_delay(3);
+if(npc_findexact(0_44_56_35_14, death_troll_thrower5) = true) {
+    npc_facesquare(0_44_56_29_12);
+    p_delay(1);
+    npc_anim(troll_rock_throw, 0);
+    spotanim_npc(troll_rock_launch, 0, 0);
+    ~coord_projectile(0_44_56_35_14, 0_44_56_26_11, troll_rock_travel, 36, 437, 31, 51, 0, 128, 2);
+    sound_synth(troll_with_rock_attack, 1, 0);
+    sound_synth(rock_impact, 1, 52);
+    p_delay(1);
+    cam_shake(0, 5, 0, 0);
+    p_delay(0);
+} else {
+    p_delay(3); // still delays for 8t
+}
+cam_reset;
+
+[oploc1,death_climbingrocks_top]
+if(inv_total(worn, death_climbingboots) = 0) {
+    mes("You need climbing boots to negotiate these rocks.");
+    return;
+}
+p_delay(0);
+sound_synth(climbing_loop, 4, 10);
+~agility_exactmove(death_human_climbing_down, 10, 2, coord, movecoord(coord, 0, 0, -3), 10, 90, ^exact_north, false);
+anim(null, 0);
+
+[oploc1,death_climbingrocks_bottom]
+if(inv_total(worn, death_climbingboots) = 0) {
+    mes("You need climbing boots to negotiate these rocks.");
+    return;
+}
+p_delay(0);
+sound_synth(climbing_loop, 4, 0);
+~agility_force_move(0, human_climbing, movecoord(coord, 0, 0, 2));
+p_teleport(movecoord(coord, 0, 0, 1));
+
+[proc,death_get_playerroll]()(int)
+return (getbit_range(%death_bits, ^death_playerroll_lower, ^death_playerroll_upper));
+
+[proc,death_get_haroldroll]()(int)
+return (getbit_range(%death_bits, ^death_haroldroll_lower, ^death_haroldroll_upper));
+
+[proc,death_get_haroldgold]()(int)
+return (getbit_range(%death_bits, ^harold_money_lower, ^harold_money_upper));
+
+[proc,death_set_playerroll](int $val)
+%death_bits = setbit_range_toint(%death_bits, $val, ^death_playerroll_lower, ^death_playerroll_upper);
+
+[proc,death_set_haroldroll](int $val)
+%death_bits = setbit_range_toint(%death_bits, $val, ^death_haroldroll_lower, ^death_haroldroll_upper);
+
+[proc,death_set_haroldgold](int $val)
+if($val >= 10000) {
+    %death_bits = setbit_range_toint(%death_bits, 10000, ^harold_money_lower, ^harold_money_upper);
+} else {
+    %death_bits = setbit_range_toint(%death_bits, $val, ^harold_money_lower, ^harold_money_upper);
+}
+
+[proc,death_clear_dicegame]()(int)
+%death_bits = clearbit_range(%death_bits, ^death_haroldroll_lower, ^death_goldclaimed);
+
+[proc,death_get_map]()(int)
+return (getbit_range(%death_map, ^death_map_lower, ^death_map_upper));
+
+[proc,death_set_map](int $val)
+%death_map = setbit_range_toint(%death_map, $val, ^death_map_lower, ^death_map_upper);
+
+[proc,death_get_bet]()(int)
+return (getbit_range(%death_map, ^death_bet_lower, ^death_bet_upper));
+
+[proc,death_set_bet](int $val)
+%death_map = setbit_range_toint(%death_map, $val, ^death_bet_lower, ^death_bet_upper);
+
+[queue,death_quest_complete]
+session_log(^log_adventure, "Quest complete: Death Plateau");
+%death_equiproom = ^death_complete;
+%death_bits = clearbit_range(%death_bits, ^death_haroldroll_lower, ^denulth_given_combo);
+inv_add(inv, steel_claws, 1);
+stat_advance(attack, 30000);
+~send_quest_complete(questlist:death, steel_claws, 250, ^death_questpoints, "You have completed\\nDeath Plateau!");

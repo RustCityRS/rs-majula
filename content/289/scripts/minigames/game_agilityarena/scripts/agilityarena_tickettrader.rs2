@@ -1,0 +1,76 @@
+[opnpc1,agilityarena_tickettrader]
+~chatnpc("<p,happy>Ahoy!");
+@multi5("What is this place?", jackie_place, "What do you do?", jackie_do, "I'd like to trade in my tickets, please.", jackie_tickets, "What potions do these new herbs make?", jackie_potions, "See you later.", jackie_seeyou);
+
+[label,jackie_place]
+~chatplayer("<p,confused>What is this place?");
+~chatnpc("<p,happy>Welcome to the Brimhaven Agility Arena!");
+~chatnpc("<p,neutral>If ye want to know more talk to Cap'n Izzy, he found it!");
+@multi5("What is this place?", jackie_place, "What do you do?", jackie_do, "I'd like to trade in my tickets, please.", jackie_tickets, "What potions do these new herbs make?", jackie_potions, "See you later.", jackie_seeyou);
+
+[label,jackie_do]
+~chatplayer("<p,neutral>What do you do?");
+~chatnpc("<p,neutral>I be the Jack o' Tickets. I exchange the tickets ye collect in the Agility Arena for more stuff. Ye can obtain more agility experience or some items ye won't find anywhere else!");
+~chatplayer("<p,happy>Sounds good!");
+@multi5("What is this place?", jackie_place, "What do you do?", jackie_do, "I'd like to trade in my tickets, please.", jackie_tickets, "What potions do these new herbs make?", jackie_potions, "See you later.", jackie_seeyou);
+
+[label,jackie_tickets]
+~chatplayer("<p,neutral>I'd like to trade in my tickets, please.");
+~chatnpc("<p,neutral>Aye, ye be on the right tack.");
+if_openmain(agilityarena_trade);
+
+[label,jackie_potions]
+~chatplayer("<p,neutral>What potions do these new herbs make?");
+~chatnpc("<p,neutral>I be no herbalist but I were given the recipes to go with these herbs...");
+~doubleobjbox(toadflax, toads_legs, "Toadflax + toad legs|= Agility potion", 200);
+~doubleobjbox(snapdragon, red_spiders_eggs, "Snapdragon + red spiders' eggs |= Super restore potion.", 200);
+~chatplayer("<p,happy>Thanks!");
+@multi5("What is this place?", jackie_place, "What do you do?", jackie_do, "I'd like to trade in my tickets, please.", jackie_tickets, "What potions do these new herbs make?", jackie_potions, "See you later.", jackie_seeyou);
+
+[label,jackie_seeyou]
+~chatplayer("<p,neutral>See you later.");
+
+[opnpc3,agilityarena_tickettrader]
+if_openmain(agilityarena_trade);
+
+[if_button,agilityarena_trade:com_94] @agilityarena_buy_xp(1, 2400);
+[if_button,agilityarena_trade:com_95] @agilityarena_buy_xp(1, 2400);
+
+[if_button,agilityarena_trade:com_96] @agilityarena_buy_xp(10, 24800);
+[if_button,agilityarena_trade:com_102] @agilityarena_buy_xp(10, 24800);
+
+[if_button,agilityarena_trade:com_97] @agilityarena_buy_xp(25, 65000);
+[if_button,agilityarena_trade:com_103] @agilityarena_buy_xp(25, 65000);
+
+[if_button,agilityarena_trade:com_98] @agilityarena_buy_xp(100, 280000);
+[if_button,agilityarena_trade:com_104] @agilityarena_buy_xp(100, 280000);
+
+[if_button,agilityarena_trade:com_99] @agilityarena_buy_xp(1000, 3200000);
+[if_button,agilityarena_trade:com_105] @agilityarena_buy_xp(1000, 3200000);
+
+[if_button,agilityarena_trade:com_89] @agilityarena_buy_item(3, toadflax);
+[if_button,agilityarena_trade:com_91] @agilityarena_buy_item(3, toadflax);
+
+[if_button,agilityarena_trade:com_100] @agilityarena_buy_item(10, snapdragon);
+[if_button,agilityarena_trade:com_101] @agilityarena_buy_item(10, snapdragon);
+
+[if_button,agilityarena_trade:com_88] @agilityarena_buy_item(800, piratehook);
+[if_button,agilityarena_trade:com_92] @agilityarena_buy_item(800, piratehook);
+
+[label,agilityarena_buy_xp](int $cost, int $xp)
+if(inv_total(inv, agilityarena_ticket) < $cost) {
+    // complete guess, based off archery tokens (they changed this interface in both games)
+    mes("You'd need <~pluralise($cost, "Agility Arena Ticket")> to buy that.");
+    return;
+}
+inv_del(inv, agilityarena_ticket, $cost);
+stat_advance(agility, $xp);
+mes("You have been granted some Agility experience!");
+
+[label,agilityarena_buy_item](int $cost, namedobj $item)
+if(inv_total(inv, agilityarena_ticket) < $cost) {
+    mes("You'd need <~pluralise($cost, "Agility Arena Ticket")> to buy that.");
+    return;
+}
+inv_del(inv, agilityarena_ticket, $cost);
+inv_add(inv, $item, 1);

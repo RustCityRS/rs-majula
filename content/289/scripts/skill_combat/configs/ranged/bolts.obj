@@ -1,0 +1,159 @@
+[bolt]
+stackable=yes
+cost=3
+name=Bolts
+desc=Good if you have a crossbow!
+model=model_4410
+2dxof=-1
+2dyof=-42
+2dzoom=640
+2dyan=4
+2dxan=244
+iop2=Wield
+count1=bolt2,2
+count2=bolt3,3
+count3=bolt4,4
+count4=bolts,5
+wearpos=quiver
+weight=18g
+category=bolts
+param=rangebonus,10
+param=levelrequire,1
+param=proj_launch,crossbowbolt_launch
+param=proj_travel,crossbowbolt_travel
+param=weapon_poisoned,poison_bolt
+param=weapon_poisoned_message,You poison some bolts.
+
+[poison_bolt]
+stackable=yes
+cost=3
+members=yes
+name=Bolts(p)
+desc=Vicious poisoned bolts.
+model=model_4410
+recol1s=14798
+recol1d=8682
+recol2s=5285
+recol2d=8682
+2dxof=-1
+2dyof=-42
+2dzoom=640
+2dyan=4
+2dxan=244
+iop2=Wield
+count1=poison_bolt2,2
+count2=poison_bolt3,3
+count3=poison_bolt4,4
+count4=poison_bolts,5
+wearpos=quiver
+weight=18g
+category=bolts
+param=rangebonus,10
+param=levelrequire,1
+param=proj_launch,crossbowbolt_launch
+param=proj_travel,crossbowbolt_travel
+param=poison_severity,20
+
+//RANGED STRENGTH FOR UNUSUAL BOLTS:
+//The ranged strength stats for non-standard bolts before the 2006 crossbow rework are not known precisely.
+//Modern bolts all give a +18/+9 bonus over the previous tier / half-tier, and there is some evidence that this schema pre-exists the rework
+//For example, karil's bolt racks (2005) at +55 - i.e. exactly 2.5 tiers above basic bolts at +10. Likewise, the non-standard introduction of blurite in 2006 to fill in a 'missing' tier between bronze and iron.
+//Strength values have therefore been set according to this +9/+18 schema, matching fansite comparisons @ https://web.archive.org/web/20041204070450/https://www.lunagang.nl/
+//CONFIRM if evidence surfaces - should be nontheless be accurate +/- one max hit
+
+//LEVEL REQUIREMENTS presumably did not exist. osrs/post-crossbow-update puts them at 26
+
+[opal_bolt]
+stackable=yes
+cost=60
+members=yes
+name=Opal bolts
+desc=Great if you have a crossbow!
+model=model_4410
+recol1s=15855
+recol1d=3205
+recol2s=21140
+recol2d=3205
+recol3s=14798
+recol3d=3206
+recol4s=10570
+recol4d=3206
+recol5s=5285
+recol5d=21140
+2dxof=-1
+2dyof=-42
+2dzoom=640
+2dyan=4
+2dxan=244
+iop2=Wield
+count1=opal_bolt2,2
+count2=opal_bolt3,3
+count3=opal_bolt4,4
+count4=opal_bolts,5
+wearpos=quiver
+weight=18g
+category=bolts
+param=rangebonus,28
+param=levelrequire,1
+param=proj_launch,crossbowbolt_launch
+param=proj_travel,crossbowbolt_travel
+
+[pearl_bolt]
+stackable=yes
+cost=110
+members=yes
+name=Pearl bolts
+desc=Useful if you have a crossbow!
+model=model_4410
+recol1s=15855
+recol1d=22161
+recol2s=21140
+recol2d=22162
+recol3s=14798
+recol3d=22161
+recol4s=10570
+recol4d=22161
+2dxof=-1
+2dyof=-42
+2dzoom=640
+2dyan=4
+2dxan=244
+iop2=Wield
+count1=pearl_bolt2,2
+count2=pearl_bolt3,3
+count3=pearl_bolt4,4
+count4=pearl_bolts,5
+wearpos=quiver
+weight=18g
+category=bolts
+param=rangebonus,19
+param=levelrequire,1
+param=proj_launch,crossbowbolt_launch
+param=proj_travel,crossbowbolt_travel
+
+[barbed_bolt]
+stackable=yes
+cost=200
+members=yes
+name=Barbed bolts
+desc=Great if you have a crossbow!
+model=model_4410
+recol1s=5285
+recol1d=13472
+2dxof=-1
+2dyof=-42
+2dzoom=640
+2dyan=4
+2dxan=244
+iop2=Wield
+count1=barbed_bolt2,2
+count2=barbed_bolt3,3
+count3=barbed_bolt4,4
+count4=barbed_bolts,5
+wearpos=quiver
+weight=18g
+category=bolts
+param=rangebonus,46
+param=levelrequire,1
+param=proj_launch,crossbowbolt_launch
+param=proj_travel,crossbowbolt_travel

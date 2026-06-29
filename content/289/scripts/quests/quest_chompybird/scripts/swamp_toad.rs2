@@ -1,0 +1,80 @@
+[proc,reduce_ogre_bellows](obj $used_bellow)
+{
+    if ($used_bellow = filled_ogre_bellow3) {
+        inv_del(inv, filled_ogre_bellow3, 1);
+        inv_add(inv, filled_ogre_bellow2, 1);
+    } else if ($used_bellow = filled_ogre_bellow2) {
+        inv_del(inv, filled_ogre_bellow2, 1);
+        inv_add(inv, filled_ogre_bellow1, 1);
+    } else if ($used_bellow = filled_ogre_bellow1) {
+        inv_del(inv, filled_ogre_bellow1, 1);
+        inv_add(inv, empty_ogre_bellows, 1);
+    }
+}
+
+[proc,come_here_toady]()
+{
+    say("Come here toady!");
+    anim(human_chompybird_ogrebellows, 30);
+    sound_synth(ogre_bellows, 1, 30);
+    spotanim_pl(ogre_bellows_use, 64, 30);
+    npc_anim(chompy_toad_inflate, 30);
+}
+
+[opnpcu,toad]
+// always does this regardless of item used
+facesquare(npc_coord);
+npc_setmode(playerface);
+npc_anim(null, 0);
+switch_obj(last_useitem) {
+    case empty_ogre_bellows :
+        ~come_here_toady();
+        p_delay(2);
+        npc_anim(null, 0);
+        npc_setmode(null);
+        npc_say("Hissss....");
+        ~sound_area(toad_hiss, 0, npc_coord, 5);
+        p_delay(0);
+        mes("The air seems too thin to stay in the toad.");
+        mes("Perhaps you need something thicker than air.");
+
+    case filled_ogre_bellow3, filled_ogre_bellow2, filled_ogre_bellow1 :
+        if (inv_freespace(inv) < 1) {
+            mes("You don't have space to carry that.");
+            return;
+        }
+
+        def_obj $used_bellow = last_useitem;
+
+        if (inv_total(inv, bloated_toad) >= 3) {
+            npc_setmode(playerfaceclose);
+            p_delay(1);
+            mes("One of your bloated toads manages to escape.");
+
+            npc_add(map_findsquare(coord, 1, 1, ^map_findsquare_lineofwalk), toad, 100);
+            npc_say("Ribbitt!");
+            inv_del(inv, bloated_toad, 1);
+
+            p_delay(1);
+        }
+        
+        mes("You manage to catch the toad and inflate it with the swamp gas.");
+        ~come_here_toady();
+
+        p_delay(3);
+        ~reduce_ogre_bellows($used_bellow);
+        mes("You add the bloated toad to your inventory.");
+        inv_add(inv, bloated_toad, 1);
+
+        npc_del;
+
+    case default :
+        mes("Nothing interesting happens.");
+}
+
+// 116 samples, low = 75, high = 99
+[ai_timer,toad]
+npc_settimer(add(75, random(25)));
+~sound_area(toad_croak, 0, npc_coord, 5);
+if(random(2) = 0) npc_say("Ribbit");
+else npc_say("Croak");

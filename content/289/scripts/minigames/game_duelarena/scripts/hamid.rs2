@@ -1,0 +1,46 @@
+[opnpc1,duel_monk]
+if(inv_total(inv, trail_clue_hard_riddle020) > 0) {
+    // https://www.youtube.com/watch?v=xgadOHVQajI
+    if(~obj_gettotal(trail_clue_hard_riddle020_puzzlebox) > 0) {
+        if(inv_total(inv, trail_clue_hard_riddle020_puzzlebox) = 0) {
+            ~chatplayer("<p,neutral>I don't have the puzzle box with me.");
+            ~chatnpc("<p,angry>That's not much use. Go and fetch it.");
+            return;
+        }
+        if(~trail_puzzle_complete(trail_clue_hard_riddle020_puzzlebox) = true) {
+            ~chatnpc("<p,happy>Excellent! Good work!");
+            inv_del(inv, trail_clue_hard_riddle020_puzzlebox, 1);
+            ~progress_clue_hard(trail_clue_hard_riddle020, "Hamid has given you another clue scroll!");
+            return;
+        }
+        // TODO: check mesanim
+        ~chatnpc("<p,neutral>I'm afraid that the puzzle is wrong.");
+        return;
+    }
+    ~give_trail_puzzle(trail_clue_hard_riddle020_puzzlebox, "<p,neutral>Hello! Please complete this for me!", "Hamid has given you a puzzle box!");
+    return;
+}
+
+~chatplayer("<p,neutral>Hi!");
+~chatnpc("<p,neutral>Hello traveller. How can I be of assistance?");
+
+def_int $choice = ~p_choice3("Can you heal me?", 1, "What's a Monk doing in a place such as this?", 2, "Which monastery do you come from?", 3);
+
+switch_int ($choice) {
+    case 1 :
+    ~chatplayer("<p,neutral>Can you heal me?");
+    ~chatnpc("<p,neutral>You'd be better off speaking to one of the nurses.");
+    ~chatnpc("<p,neutral>They are so... nice... afterall!"); // Typo consistent with OSRS.
+
+    case 2 :
+    ~chatplayer("<p,neutral>What's a Monk doing in a place such as this?");
+    ~chatnpc("<p,neutral>Well don't tell anyone but I came here because of the nurses!");
+    ~chatplayer("<p,neutral>Really?");
+    ~chatnpc("<p,neutral>It beats being stuck in the monastery!");
+
+    case 3 :
+    ~chatplayer("<p,neutral>Which monastery do you come from?");
+    ~chatnpc("<p,neutral>I belong to a monastery north of Falador.");
+    ~chatplayer("<p,neutral>You're a long way from home?");
+    ~chatnpc("<p,neutral>Yeh. I miss the guys.");
+}
