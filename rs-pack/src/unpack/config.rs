@@ -1156,7 +1156,7 @@ fn decode_varbit_entries(
             match code {
                 0 => break,
                 1 => {
-                    props.push(("basevar".into(), buf.g2().to_string()));
+                    props.push(("basevar".into(), format!("varp_{}", buf.g2())));
                     props.push(("startbit".into(), buf.g1().to_string()));
                     props.push(("endbit".into(), buf.g1().to_string()));
                 }

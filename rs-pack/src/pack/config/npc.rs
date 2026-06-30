@@ -290,6 +290,15 @@ pub fn pack_npcs(
                     server.p2(v);
                 }),
 
+                // 103
+                #[cfg(since_289)]
+                "turnspeed" => parse_number(value, |v| {
+                    client.p1(103);
+                    client.p2(v);
+                    server.p1(103);
+                    server.p2(v);
+                }),
+
                 // 200
                 "wanderrange" => parse_number(value, |v| {
                     server.p1(200);

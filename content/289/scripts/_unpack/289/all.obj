@@ -72,15 +72,15 @@ name=Giant pen
 [obj_3899]
 desc=Not as good as a pet frog.
 cost=15
-model=model_3566_obj
+model=obj_2961
 2dxof=-4
 2dyof=2
 2dzoom=980
 2dyan=948
 2dxan=604
 iop2=Wield
-manwear=model_3604_obj_wear,0
-womanwear=model_3604_obj_wear,6
+manwear=obj_2961_manwear,0
+womanwear=obj_2961_manwear,6
 members=yes
 recol1s=6342
 recol1d=15649
@@ -971,7 +971,7 @@ name=10th squad sigil
 
 [obj_4037]
 desc=The Saradomin Team Standard.
-model=model_4445_obj
+model=model_4445
 2dxof=2
 2dyof=144
 2dzoom=1900
@@ -985,7 +985,7 @@ name=Saradomin banner
 
 [obj_4039]
 desc=The Zamorak Team Standard.
-model=model_4446_obj
+model=model_4446
 iop2=Wield
 manwear=model_4851_obj_wear,0
 womanwear=model_4851_obj_wear,6
@@ -1006,10 +1006,10 @@ model=model_2603_obj
 2dyan=948
 2dxan=400
 iop2=Wear
-manwear=model_4604_obj_wear,0
+manwear=model_4604,0
 womanwear=model_4849_obj_wear,0
-manhead=model_48_obj_wear
-womanhead=model_107_obj_wear
+manhead=model_48_npc_head
+womanhead=model_107_npc_head
 members=yes
 team=1
 recol1s=14724
@@ -1031,10 +1031,10 @@ model=model_2603_obj
 2dyan=948
 2dxan=400
 iop2=Wear
-manwear=model_4604_obj_wear,0
+manwear=model_4604,0
 womanwear=model_4849_obj_wear,0
-manhead=model_48_obj_wear
-womanhead=model_107_obj_wear
+manhead=model_48_npc_head
+womanhead=model_107_npc_head
 members=yes
 team=2
 recol1s=14724
@@ -1072,7 +1072,7 @@ name=Explosive potion
 
 [obj_4047]
 desc=Should be long enough to scale castle walls.
-model=model_1842_obj
+model=model_loc_227_8
 2dxof=-2
 2dyof=-30
 2dzoom=1240
@@ -1107,7 +1107,7 @@ name=Toolbox
 
 [obj_4053]
 desc=Use these to block enemy team movement.
-model=model_4450_obj
+model=loc_4421_8
 2dyof=-27
 2dzoom=2760
 2dyan=1816
@@ -1227,7 +1227,7 @@ members=yes
 name=Castlewars no9
 
 [obj_4066]
-model=model_2217_obj
+model=model_loc_671_8
 members=yes
 2dxof=11
 2dyof=-72
@@ -1239,7 +1239,7 @@ name=Catapult
 
 [obj_4067]
 desc=I can exchange these for further items.
-model=model_3663_obj
+model=agilityarena_ticket
 cost=1
 2dzoom=1160
 2dyan=1888

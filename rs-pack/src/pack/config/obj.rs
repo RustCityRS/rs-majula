@@ -456,6 +456,15 @@ pub fn pack_objs(
                     server.p1(v as u8);
                 }),
 
+                // 115
+                #[cfg(since_289)]
+                "team" => parse_number(value, |v| {
+                    client.p1(115);
+                    client.p1(v);
+                    server.p1(115);
+                    server.p1(v);
+                }),
+
                 // 201
                 "respawnrate" => parse_number(value, |v| {
                     server.p1(201);

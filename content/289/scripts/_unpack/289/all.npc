@@ -1,7 +1,7 @@
 [npc_1359]
 desc=The Queen of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 vislevel=hide
 op1=Talk-to
 recol1s=2340
@@ -23,15 +23,15 @@ model3=model_351_idk
 model4=model_356_obj_wear
 model5=model_440_npc
 model6=model_446_obj_wear
-model7=model_3675_obj_wear
+model7=obj_3058_womanwear3
 model8=model_481_obj_wear
 head1=model_115_idk_head
 
 [npc_1360]
 desc=He seems happy to see you.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op3=Bank
 recol1s=2340
@@ -50,16 +50,16 @@ model2=model_247_idk
 model3=model_299_npc
 model4=model_162_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_282_obj_wear
 head1=model_63_idk_head
 head2=model_79_idk_head
 
 [npc_1361]
 desc=A subject of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -74,21 +74,21 @@ recol4d=30320
 recol5s=6273
 recol5d=22057
 name=Arnor
-model1=model_4220_npc
+model1=npc_1278
 model2=model_251_idk
 model3=model_292_idk
 model4=model_163_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_4219_obj_wear
-head1=model_4210_obj
+model6=npc_1269
+model7=npc_1269i2
+model8=obj_3748_manwear3
+head1=obj_3686
 head2=model_83_idk_head
 
 [npc_1362]
 desc=A subject of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -105,20 +105,20 @@ recol5d=22057
 recol6s=21001
 recol6d=8555
 name=Haming
-model1=model_4220_npc
+model1=npc_1278
 model2=model_246_idk
 model3=model_293_npc
 model4=model_167_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_4219_obj_wear
-head1=model_4210_obj
+model6=npc_1269
+model7=npc_1269i2
+model8=obj_3748_manwear3
+head1=obj_3686
 
 [npc_1363]
 desc=A subject of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -138,15 +138,15 @@ model2=model_250_idk
 model3=model_305_obj_wear
 model4=model_168_npc
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 head1=model_49_idk_head
 head2=model_82_idk_head
 
 [npc_1364]
 desc=A subject of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op1=Talk-to
 op2=Attack
@@ -174,8 +174,8 @@ head1=model_115_idk_head
 
 [npc_1365]
 desc=A subject of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -203,8 +203,8 @@ head1=model_113_idk_head
 
 [npc_1366]
 desc=A subject of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -231,8 +231,8 @@ head1=model_114_idk_head
 
 [npc_1367]
 desc=A warrior of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -249,26 +249,26 @@ recol5d=7395
 recol6s=24075
 recol6d=30320
 name=Skraeling
-model1=model_4220_npc
+model1=npc_1278
 model2=model_250_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_176_idk
-model6=model_317_obj_wear
-model7=model_4219_obj_wear
-model8=model_4226_npc
-model9=model_4218_npc
-model10=model_4236_obj_wear
-model11=model_4235_obj_wear
-model12=model_4391_obj_wear
+model6=model_317_npc
+model7=obj_3748_manwear3
+model8=npc_1269
+model9=npc_1269i2
+model10=obj_3757_manwear
+model11=obj_3758_manwear
+model12=obj_3767_manwear3
 head1=model_53_idk_head
 head2=model_82_idk_head
-head3=model_4210_obj
+head3=obj_3686
 
 [npc_1368]
 desc=A warrior of Etceteria.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -285,27 +285,27 @@ recol5d=7395
 recol6s=24075
 recol6d=30320
 name=Skraeling
-model1=model_4220_npc
+model1=npc_1278
 model2=model_252_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_176_idk
-model6=model_4221_obj_wear
-model7=model_4219_obj_wear
-model8=model_4226_npc
-model9=model_4218_npc
+model6=obj_3748_manwear2
+model7=obj_3748_manwear3
+model8=npc_1269
+model9=npc_1269i2
 model10=model_550_obj_wear
-model11=model_4235_obj_wear
-model12=model_4391_obj_wear
+model11=obj_3758_manwear
+model12=obj_3767_manwear3
 head1=model_53_idk_head
 head2=model_84_idk_head
-head3=model_4210_obj
+head3=obj_3686
 
 [npc_1369]
 vislevel=hide
 desc=Hmm, he smells.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_813
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_staffready
 vislevel=hide
 op1=Talk-to
 op3=Trade
@@ -327,17 +327,17 @@ model2=model_246_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_326_idk
-model9=model_317_obj_wear
+model9=model_317_npc
 head1=model_49_idk_head
 
 [npc_1370]
 vislevel=hide
 desc=At least he eats his greens.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_813
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_staffready
 vislevel=hide
 op1=Talk-to
 op3=Trade
@@ -357,18 +357,18 @@ model2=model_249_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_4391_obj_wear
-model9=model_317_obj_wear
+model6=npc_1269
+model7=npc_1269i2
+model8=obj_3767_manwear3
+model9=model_317_npc
 head1=model_46_idk_head
 head2=model_81_idk_head
 
 [npc_1371]
 desc=The Prince of Miscellania.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_1321
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=viking_lyre_playing_loop
 op1=Talk-to
 recol1s=7329
 recol1d=12288
@@ -388,18 +388,18 @@ model2=model_246_idk
 model3=model_311_obj_wear
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_281_obj_wear
-model9=model_317_obj_wear
-model10=model_4394_obj_wear
+model9=model_317_npc
+model10=obj_3688_manwear
 head1=model_67_idk_head
 
 [npc_1372]
 desc=The Princess of Miscellania.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=128
@@ -417,14 +417,14 @@ model2=model_466_obj_wear
 model3=model_347_npc
 model4=model_354_obj_wear
 model5=model_429_idk
-model6=model_3708_obj_wear
+model6=obj_3105_womanwear
 model7=model_446_obj_wear
 head1=model_103_idk_head
 
 [npc_1373]
 desc=He's in no state to rule a kingdom.
-walkanim=seq_293
-readyanim=seq_296
+walkanim=yeti_walk
+readyanim=yeti_ready
 size=2
 vislevel=hide
 op1=Talk-to
@@ -437,8 +437,8 @@ head1=model_4651_npc_head
 [npc_1374]
 desc=He's guarding the throne room.
 op1=Talk-to
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 resizeh=128
 resizev=128
 vislevel=hide
@@ -450,24 +450,24 @@ recol2d=5250
 recol3s=7328
 recol3d=21000
 name=Guard
-model1=model_4220_npc
+model1=npc_1278
 model2=model_250_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_326_idk
-model9=model_4221_obj_wear
-model10=model_4219_obj_wear
-head1=model_4210_obj
+model9=obj_3748_manwear2
+model10=obj_3748_manwear3
+head1=obj_3686
 head2=model_84_idk_head
-head3=model_4211_obj_wear
+head3=obj_3748_manhead2
 
 [npc_1375]
 desc=He probably hasn't smiled since the Third Age.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 vislevel=hide
 op1=Talk-to
 recol1s=6273
@@ -498,8 +498,8 @@ head2=model_82_idk_head
 
 [npc_1376]
 desc=Smithy for Sogthorpe.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 resizeh=128
 resizev=128
 vislevel=hide
@@ -516,16 +516,16 @@ model2=model_252_idk
 model3=model_302_npc
 model4=model_167_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_491_obj_wear
 head1=model_52_idk_head
 head2=model_84_idk_head
 
 [npc_1377]
 desc=He's cutting the wheat.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_440
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_scythe_sweep
 vislevel=hide
 recol1s=14724
 recol1d=11558
@@ -545,19 +545,19 @@ model2=model_248_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_507_obj_wear
-model9=model_4390_npc
-model10=model_317_obj_wear
+model9=npc_1269i3
+model10=model_317_npc
 head1=model_53_idk_head
 head2=model_80_idk_head
 
 [npc_1378]
 desc=No-one would mistake her for a duchess.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=8420
@@ -580,8 +580,8 @@ head1=model_113_idk_head
 
 [npc_1379]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -598,21 +598,21 @@ recol5d=19942
 recol6s=21001
 recol6d=128
 name=Ragnar
-model1=model_4220_npc
+model1=npc_1278
 model2=model_250_idk
 model3=model_292_idk
 model4=model_151_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_4219_obj_wear
-head1=model_4210_obj
+model6=npc_1269
+model7=npc_1269i2
+model8=obj_3748_manwear3
+head1=obj_3686
 head2=model_82_idk_head
 
 [npc_1380]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -627,21 +627,21 @@ recol4d=30320
 recol5s=6273
 recol5d=19942
 name=Einar
-model1=model_4220_npc
-model2=model_4219_obj_wear
+model1=npc_1278
+model2=obj_3748_manwear3
 model3=model_292_idk
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_250_idk
-model9=model_3707_npc
-head1=model_4210_obj
+model9=npc_1071i2
+head1=obj_3686
 
 [npc_1381]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -663,17 +663,17 @@ model2=model_252_idk
 model3=model_311_obj_wear
 model4=model_169_npc
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_3706_npc
+model6=npc_1269
+model7=npc_1269i2
+model8=npc_1071
 head1=model_53_idk_head
 head2=model_84_idk_head
-head3=model_3713_npc_head
+head3=npc_1071_head
 
 [npc_1382]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -696,12 +696,12 @@ model3=model_347_npc
 model4=model_353_idk
 model5=model_421_idk
 model6=model_358_idk
-head1=model_107_obj_wear
+head1=model_107_npc_head
 
 [npc_1383]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -728,8 +728,8 @@ head2=model_131_npc_head
 
 [npc_1384]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=1
@@ -748,16 +748,16 @@ model1=model_387_idk
 model2=model_472_npc
 model3=model_343_idk
 model4=model_353_idk
-model5=model_3332_npc
-model6=model_439_npc
+model5=model_3332
+model6=model_439
 model7=model_358_idk
 head1=model_110_idk_head
 
 [npc_1385]
 vislevel=hide
 desc=He's strong to the finish, because he eats cabbage.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=14724
 recol1d=6377
@@ -775,18 +775,18 @@ model2=model_252_idk
 model3=model_299_npc
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_550_obj_wear
-model9=model_3877_obj_wear
-model10=model_317_obj_wear
-head1=model_48_obj_wear
+model9=obj_3164_manwear
+model10=model_317_npc
+head1=model_48_npc_head
 head2=model_84_idk_head
 
 [npc_1386]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -808,14 +808,14 @@ model2=model_343_idk
 model3=model_456_idk
 model4=model_421_idk
 model5=model_353_idk
-model6=model_479_obj_wear
+model6=model_479_npc
 model7=model_361_obj_wear
 head1=model_110_idk_head
 
 [npc_1387]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -838,13 +838,13 @@ model3=model_343_idk
 model4=model_353_idk
 model5=model_421_idk
 model6=model_358_idk
-model7=model_479_obj_wear
+model7=model_479_npc
 head1=model_105_idk_head
 
 [npc_1388]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -866,7 +866,7 @@ model2=model_343_idk
 model3=model_456_idk
 model4=model_421_idk
 model5=model_353_idk
-model6=model_479_obj_wear
+model6=model_479_npc
 model7=model_361_obj_wear
 model8=model_417_npc
 head1=model_113_idk_head
@@ -874,8 +874,8 @@ head2=model_136_npc_head
 
 [npc_1389]
 desc=A warrior of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -892,26 +892,26 @@ recol5d=16710
 recol6s=24075
 recol6d=30320
 name=Skraeling
-model1=model_4220_npc
+model1=npc_1278
 model2=model_252_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_176_idk
-model6=model_4221_obj_wear
-model7=model_4219_obj_wear
-model8=model_4226_npc
-model9=model_4218_npc
+model6=obj_3748_manwear2
+model7=obj_3748_manwear3
+model8=npc_1269
+model9=npc_1269i2
 model10=model_550_obj_wear
-model11=model_4235_obj_wear
-model12=model_4391_obj_wear
+model11=obj_3758_manwear
+model12=obj_3767_manwear3
 head1=model_53_idk_head
 head2=model_84_idk_head
-head3=model_4210_obj
+head3=obj_3686
 
 [npc_1390]
 desc=A subject of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -933,16 +933,16 @@ model2=model_252_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_176_idk
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_4391_obj_wear
+model6=npc_1269
+model7=npc_1269i2
+model8=obj_3767_manwear3
 head1=model_46_idk_head
 head2=model_84_idk_head
 
 [npc_1391]
 desc=A warrior of Miscellania.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -959,25 +959,25 @@ recol5d=17863
 recol6s=24075
 recol6d=30320
 name=Skraeling
-model1=model_4220_npc
+model1=npc_1278
 model2=model_252_idk
 model3=model_299_npc
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_550_obj_wear
-model9=model_4235_obj_wear
-model10=model_4221_obj_wear
-model11=model_4219_obj_wear
+model9=obj_3758_manwear
+model10=obj_3748_manwear2
+model11=obj_3748_manwear3
 head1=model_53_idk_head
 head2=model_84_idk_head
-head3=model_4210_obj
+head3=obj_3686
 
 [npc_1392]
 desc=A subject of Miscellania.
-walkanim=seq_1146,seq_820,seq_821,seq_822
-readyanim=seq_813
+walkanim=walk_walkingstick,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_staffready
 op1=Talk-to
 op2=Attack
 vislevel=2
@@ -1001,17 +1001,17 @@ model4=model_170_idk
 model5=model_176_idk
 model6=model_265_obj_wear
 model7=model_185_obj_wear
-model8=model_317_obj_wear
-model9=model_4391_obj_wear
-model10=model_3711_npc
-head1=model_48_obj_wear
+model8=model_317_npc
+model9=obj_3767_manwear3
+model10=npc_1071i3
+head1=model_48_npc_head
 head2=model_84_idk_head
 
 [npc_1393]
 vislevel=hide
 desc=Hmm, he smells.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 vislevel=hide
 op1=Talk-to
 op3=Trade
@@ -1033,18 +1033,18 @@ model2=model_252_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_326_idk
-model9=model_317_obj_wear
+model9=model_317_npc
 head1=model_63_idk_head
 head2=model_84_idk_head
 
 [npc_1394]
 vislevel=hide
 desc=At least he eats his greens.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 vislevel=hide
 op1=Talk-to
 op3=Trade
@@ -1064,17 +1064,17 @@ model2=model_252_idk
 model3=model_292_idk
 model4=model_162_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
-model8=model_4391_obj_wear
-model9=model_317_obj_wear
+model6=npc_1269
+model7=npc_1269i2
+model8=obj_3767_manwear3
+model9=model_317_npc
 head1=model_46_idk_head
 head2=model_84_idk_head
 
 [npc_1395]
 desc=He's a lumberjack, and he's okay.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=seq_1365
 op1=Talk-to
 recol1s=2340
@@ -1095,8 +1095,8 @@ model2=model_252_idk
 model3=model_299_npc
 model4=model_167_idk
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_510_obj_wear
 head1=model_53_idk_head
 head2=model_84_idk_head
@@ -1104,7 +1104,7 @@ head2=model_84_idk_head
 [npc_1396]
 desc=He's just mining his own business.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=seq_1364
 op1=Talk-to
 recol1s=2340
@@ -1125,8 +1125,8 @@ model2=model_247_idk
 model3=model_299_npc
 model4=model_168_npc
 model5=model_179_obj_wear
-model6=model_4226_npc
-model7=model_4218_npc
+model6=npc_1269
+model7=npc_1269i2
 model8=model_509_obj_wear
 head1=model_53_idk_head
 head2=model_79_idk_head
@@ -1134,7 +1134,7 @@ head2=model_79_idk_head
 [npc_1397]
 vislevel=hide
 desc=There's something fishy about him.
-walkanim=seq_819,seq_820,seq_821,seq_822
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=seq_1363
 op1=Talk-to
 recol1s=14724
@@ -1159,14 +1159,14 @@ model6=model_254_idk
 model7=model_358_idk
 model8=model_562_obj_wear
 model9=model_327_idk
-model10=model_317_obj_wear
+model10=model_317_npc
 head1=model_53_idk_head
 head2=model_80_idk_head
 
 [npc_1398]
 desc=She's looking a bit weedy.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=seq_1366
 op1=Talk-to
 recol1s=24075
@@ -1189,13 +1189,13 @@ model4=model_356_obj_wear
 model5=model_421_idk
 model6=model_358_idk
 model7=model_480_npc
-model8=model_3604_obj_wear
+model8=obj_2961_manwear
 head1=model_113_idk_head
 
 [npc_1399]
 vislevel=hide
-readyanim=seq_447
-walkanim=seq_448
+readyanim=fishingspot_ready
+walkanim=fishingspot_walk
 desc=I can see fish swimming in the water.
 minimap=no
 op1=Cage
@@ -1203,12 +1203,12 @@ op3=Harpoon
 op4=hidden
 op5=hidden
 name=Fishing spot
-model1=model_1491_npc
+model1=model_loc_42_8
 
 [npc_1400]
 desc=A sea bird.
-walkanim=seq_341
-readyanim=seq_342
+walkanim=bird_walk
+readyanim=bird_ready
 op2=Attack
 vislevel=hide
 minimap=no
@@ -1223,8 +1223,8 @@ model1=model_2850_npc
 
 [npc_1401]
 desc=Yep, definitely a chicken.
-walkanim=seq_53
-readyanim=seq_54
+walkanim=chicken_walk
+readyanim=chicken_ready
 op2=Attack
 vislevel=1
 name=Chicken
@@ -1232,8 +1232,8 @@ model1=model_2849_npc
 
 [npc_1402]
 desc=Yep, definitely a chicken.
-walkanim=seq_53
-readyanim=seq_54
+walkanim=chicken_walk
+readyanim=chicken_ready
 op2=Attack
 vislevel=1
 recol1s=32767
@@ -1249,8 +1249,8 @@ model1=model_2849_npc
 
 [npc_1403]
 desc=He rules the...er...roost.
-walkanim=seq_53
-readyanim=seq_54
+walkanim=chicken_walk
+readyanim=chicken_ready
 op2=Attack
 resizeh=172
 resizev=172
@@ -1268,8 +1268,8 @@ model1=model_2849_npc
 
 [npc_1404]
 desc=Aww, how cute.
-readyanim=seq_1242
-walkanim=seq_1243
+readyanim=rabbit_ready
+walkanim=rabbit_walk
 resizeh=164
 resizev=164
 op2=Attack
@@ -1277,12 +1277,12 @@ vislevel=2
 recol1s=15777
 recol1d=18922
 name=Rabbit
-model1=model_4042_npc
+model1=npc_1192
 
 [npc_1405]
 vislevel=hide
-readyanim=seq_447
-walkanim=seq_448
+readyanim=fishingspot_ready
+walkanim=fishingspot_walk
 desc=I can see fish swimming in the water.
 minimap=no
 op1=Net
@@ -1290,12 +1290,12 @@ op3=Harpoon
 op4=hidden
 op5=hidden
 name=Fishing spot
-model1=model_1491_npc
+model1=model_loc_42_8
 
 [npc_1406]
 vislevel=hide
-readyanim=seq_447
-walkanim=seq_448
+readyanim=fishingspot_ready
+walkanim=fishingspot_walk
 desc=I can see fish swimming in the water.
 minimap=no
 op1=Net
@@ -1303,12 +1303,12 @@ op3=Harpoon
 op4=hidden
 op5=hidden
 name=Fishing spot
-model1=model_1491_npc
+model1=model_loc_42_8
 
 [npc_1407]
 desc=Daero gives off an easy sense of authority.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=41
@@ -1321,8 +1321,8 @@ head1=model_22_npc_head
 
 [npc_1408]
 desc=Waydar is some kind of flight officer.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 name=Waydar
@@ -1333,8 +1333,8 @@ head1=model_19_npc_head
 
 [npc_1409]
 desc=Waydar is some kind of flight officer.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 name=Waydar
@@ -1345,8 +1345,8 @@ head1=model_19_npc_head
 
 [npc_1410]
 desc=Waydar is some kind of flight officer.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 name=Waydar
@@ -1357,8 +1357,8 @@ head1=model_19_npc_head
 
 [npc_1411]
 desc=A large and weathered looking Gnome veteran.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 resizeh=150
 resizev=150
 op1=Talk-to
@@ -1373,8 +1373,8 @@ head1=model_22_npc_head
 
 [npc_1412]
 desc=A large and weathered looking Gnome veteran.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 resizeh=150
 resizev=150
 op1=Talk-to
@@ -1389,8 +1389,8 @@ head1=model_22_npc_head
 
 [npc_1413]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=416
@@ -1403,12 +1403,12 @@ name=Lumo
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1414]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=hide
 recol1s=416
 recol1d=13798
@@ -1420,12 +1420,12 @@ name=Lumo
 model1=model_2914_npc
 model2=model_4699_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1415]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=416
@@ -1436,12 +1436,12 @@ name=Bunkdo
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1416]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=hide
 recol1s=416
 recol1d=14887
@@ -1451,12 +1451,12 @@ name=Bunkdo
 model1=model_2914_npc
 model2=model_4699_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1417]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=416
@@ -1467,12 +1467,12 @@ name=Carado
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1418]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=hide
 recol1s=416
 recol1d=13798
@@ -1482,12 +1482,12 @@ name=Carado
 model1=model_2914_npc
 model2=model_4699_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1419]
 desc=A seasoned looking Gnome foot soldier.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=416
@@ -1498,11 +1498,11 @@ name=Lumdo
 model1=model_2914_npc
 model2=model_4699_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1420]
 desc=All you see is a glimmer of light and the suggestion of shadow.
-walkanim=seq_189
+walkanim=midget_walk
 readyanim=seq_1412
 op1=Talk-to
 vislevel=hide
@@ -1514,7 +1514,7 @@ head1=model_4653_npc_head
 
 [npc_1421]
 desc=All you see is a glimmer of light and the suggestion of shadow.
-walkanim=seq_189
+walkanim=midget_walk
 readyanim=seq_1412
 vislevel=hide
 name=Karam
@@ -1525,7 +1525,7 @@ head1=model_4653_npc_head
 
 [npc_1422]
 desc=All you see is a glimmer of light and the suggestion of shadow.
-walkanim=seq_189
+walkanim=midget_walk
 readyanim=seq_1412
 op1=Talk-to
 vislevel=hide
@@ -1537,8 +1537,8 @@ head1=model_4653_npc_head
 
 [npc_1423]
 desc=This Gnome is busy applying some kind of pasty material to the cave walls.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=384
@@ -1549,12 +1549,12 @@ name=Bunkwicket
 model1=model_2909_npc
 model2=model_2915_npc
 model3=model_4701_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1424]
 desc=This Gnome is busy applying some kind of pasty material to the cave walls.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=384
@@ -1565,12 +1565,12 @@ name=Waymottin
 model1=model_2909_npc
 model2=model_2915_npc
 model3=model_4701_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1425]
 desc=A wizened little Gnome dressed in brightly coloured clothes.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=13728
@@ -1589,8 +1589,8 @@ head1=model_4654_npc_head
 
 [npc_1426]
 desc=A wizened little Gnome dressed in brightly coloured clothes.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=13728
@@ -1609,8 +1609,8 @@ head1=model_4654_npc_head
 
 [npc_1427]
 desc=An official looking Gnome with small beady eyes.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=352
@@ -1621,12 +1621,12 @@ name=G.L.O. Caranock
 model1=model_2909_npc
 model2=model_2890_npc
 model3=model_2915_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1428]
 desc=An official looking Gnome with small beady eyes.
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 op1=Talk-to
 vislevel=hide
 recol1s=352
@@ -1637,7 +1637,7 @@ name=G.L.O. Caranock
 model1=model_2909_npc
 model2=model_2890_npc
 model3=model_2915_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1429]
 desc=A large hairy monkey with a spade.
@@ -1655,8 +1655,8 @@ head1=model_4659_npc_head
 
 [npc_1430]
 desc=It's Salenab the monkey.
-walkanim=seq_219
-readyanim=seq_222
+walkanim=monkey_walk
+readyanim=monkey_ready
 op1=Talk-to
 vislevel=hide
 name=Salenab
@@ -2102,8 +2102,8 @@ head1=model_4663_npc_head
 
 [npc_1463]
 desc=This monkey seems like it might want to talk!
-walkanim=seq_219
-readyanim=seq_222
+walkanim=monkey_walk
+readyanim=monkey_ready
 op1=Talk-to
 vislevel=3
 name=Monkey
@@ -2112,8 +2112,8 @@ head1=model_4661_npc_head
 
 [npc_1464]
 desc=This poor pet monkey looks very lost.
-walkanim=seq_219
-readyanim=seq_222
+walkanim=monkey_walk
+readyanim=monkey_ready
 op1=Talk-to
 vislevel=3
 name=Monkey
@@ -2195,8 +2195,8 @@ head1=model_4656_npc_head
 
 [npc_1469]
 desc=He looks like the type of guy who would mind monkeys.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 vislevel=hide
 recol1s=2340
@@ -2224,8 +2224,8 @@ head3=model_37_npc_head
 
 [npc_1470]
 desc=The boss!
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 vislevel=hide
 recol1s=2340
 recol1d=8420
@@ -2246,8 +2246,8 @@ head2=model_79_idk_head
 
 [npc_1471]
 desc=It looks just a bit ... underfed.
-walkanim=seq_259
-readyanim=seq_262
+walkanim=skeleton_walk
+readyanim=skeleton_ready
 resizeh=100
 resizev=100
 op2=Attack
@@ -2259,8 +2259,8 @@ model2=model_2946_npc
 [npc_1472]
 desc=It's a large green Greater Jungle Demon. An aura of magic emanates from its hide.
 size=3
-walkanim=seq_63
-readyanim=seq_66
+walkanim=demon_walk
+readyanim=demon_ready
 resizeh=150
 resizev=140
 turnspeed=16
@@ -2283,7 +2283,7 @@ model1=model_2942_npc
 
 [npc_1473]
 desc=It's an extremely small black spider. Probably very poisonous.
-walkanim=seq_279
+walkanim=spider_walk
 minimap=no
 resizeh=64
 resizev=64
@@ -2296,7 +2296,7 @@ model1=model_2996_npc
 
 [npc_1474]
 desc=It's an extremely small and probably poisonous black spider.
-walkanim=seq_279
+walkanim=spider_walk
 minimap=no
 resizeh=64
 resizev=64
@@ -2308,7 +2308,7 @@ model1=model_2996_npc
 
 [npc_1475]
 desc=It's a brightly coloured bird of the jungle.
-walkanim=seq_341
+walkanim=bird_walk
 resizeh=64
 resizev=64
 turnspeed=64
@@ -2323,7 +2323,7 @@ model1=model_4836_npc
 
 [npc_1476]
 desc=It's a brightly coloured bird of the jungle. It flies very quickly.
-walkanim=seq_341
+walkanim=bird_walk
 resizeh=64
 resizev=64
 turnspeed=64
@@ -2338,7 +2338,7 @@ model1=model_4836_npc
 
 [npc_1477]
 desc=It's an extremely dangerous looking scorpion.
-walkanim=seq_244
+walkanim=scorpion_walk
 minimap=no
 resizeh=32
 resizev=32
@@ -2353,7 +2353,7 @@ model1=model_2967_npc
 
 [npc_1478]
 desc=A very dangerous looking spider, with its fangs unsheathed.
-walkanim=seq_142
+walkanim=giantspider_walk
 minimap=no
 resizeh=100
 resizev=100
@@ -2368,7 +2368,7 @@ model1=model_2884_npc
 
 [npc_1479]
 desc=It's a camouflaged jungle snake.
-walkanim=seq_274
+walkanim=snake_walk
 minimap=no
 op2=Attack
 vislevel=24
@@ -2463,8 +2463,8 @@ model2=model_4824_npc
 head1=model_4656_npc_head
 
 [npc_1487]
-walkanim=seq_219
-readyanim=seq_222
+walkanim=monkey_walk
+readyanim=monkey_ready
 vislevel=1
 name=mm_transmogrification_normal_monkey
 model1=model_3004_npc
@@ -2750,7 +2750,7 @@ model3=model_4829_npc
 
 [npc_1511]
 op1=attack
-walkanim=seq_189
+walkanim=midget_walk
 readyanim=seq_1412
 vislevel=9
 name=toms_gnome_assassin
@@ -2759,7 +2759,7 @@ model2=model_4704_npc
 model3=model_4697_npc
 
 [npc_1512]
-walkanim=seq_189
+walkanim=midget_walk
 readyanim=seq_1414
 vislevel=1
 recol1s=384
@@ -2772,7 +2772,7 @@ model2=model_2915_npc
 model3=model_4701_npc
 
 [npc_1513]
-walkanim=seq_189
+walkanim=midget_walk
 readyanim=seq_1415
 vislevel=1
 recol1s=13728
@@ -2798,8 +2798,8 @@ model2=model_4823_npc
 
 [npc_1515]
 desc=Could do with gaining a few pounds.
-walkanim=seq_259
-readyanim=seq_262
+walkanim=skeleton_walk
+readyanim=skeleton_ready
 op2=Attack
 resizeh=110
 resizev=40
@@ -2828,8 +2828,8 @@ name=demo
 model1=model_2942_npc
 
 [npc_1517]
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=1
 recol1s=416
 recol1d=13798
@@ -2841,11 +2841,11 @@ name=toms_gnome_troop1
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1518]
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=1
 recol1s=416
 recol1d=14887
@@ -2855,11 +2855,11 @@ name=toms_gnome_troop2
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1519]
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=1
 recol1s=416
 recol1d=13798
@@ -2869,11 +2869,11 @@ name=toms_gnome_troop3
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1520]
-walkanim=seq_189
-readyanim=seq_195
+walkanim=midget_walk
+readyanim=midget_ready
 vislevel=1
 recol1s=416
 recol1d=12903
@@ -2883,13 +2883,13 @@ name=toms_gnome_troop4
 model1=model_2914_npc
 model2=model_4698_npc
 model3=model_2919_npc
-head1=model_21_obj
+head1=model_21_npc_head
 
 [npc_1521]
 desc=A tropical bird.
 size=2
-walkanim=seq_341
-readyanim=seq_342
+walkanim=bird_walk
+readyanim=bird_ready
 resizeh=110
 resizev=110
 vislevel=1
@@ -2903,8 +2903,8 @@ model1=model_2850_npc
 [npc_1522]
 desc=A tropical bird.
 size=2
-walkanim=seq_341
-readyanim=seq_342
+walkanim=bird_walk
+readyanim=bird_ready
 resizeh=90
 resizev=90
 vislevel=1
@@ -2917,8 +2917,8 @@ model1=model_2850_npc
 
 [npc_1523]
 desc=that's poisonous.
-walkanim=seq_244
-readyanim=seq_245
+walkanim=scorpion_walk
+readyanim=scorpion_ready
 resizeh=70
 resizev=70
 vislevel=1
@@ -2930,8 +2930,8 @@ name=King Scorpion
 model1=model_2967_npc
 
 [npc_1524]
-walkanim=seq_142
-readyanim=seq_145
+walkanim=giantspider_walk
+readyanim=giantspider_ready
 vislevel=1
 recol1s=31393
 recol1d=19586
@@ -2952,8 +2952,8 @@ model1=model_2632_obj
 [npc_1526]
 vislevel=hide
 desc=He must run this place.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op4=Trade-with
 recol1s=6273
@@ -2994,8 +2994,8 @@ model1=model_4894_npc
 desc=His robes prominently display the star of Saradomin.
 op1=Talk-to
 op3=Pickpocket
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 alwaysontop=yes
 vislevel=hide
 recol1s=31649
@@ -3026,8 +3026,8 @@ head2=model_80_idk_head
 
 [npc_1529]
 desc=White and fluffy.
-walkanim=seq_249
-readyanim=seq_252
+walkanim=sheep_walk
+readyanim=sheep_ready
 resizeh=108
 resizev=108
 ambient=30
@@ -3035,14 +3035,14 @@ vislevel=1
 recol1s=15853
 recol1d=5285
 name=Sheep
-model1=model_3786_npc
-model2=model_3784_npc
-model3=model_3787_npc
+model1=model_3786
+model2=model_3784
+model3=npc_1093i3
 
 [npc_1530]
 desc=Bright eyes.
-readyanim=seq_1242
-walkanim=seq_1243
+readyanim=rabbit_ready
+walkanim=rabbit_walk
 resizeh=168
 resizev=168
 ambient=30
@@ -3052,12 +3052,12 @@ recol1d=29495
 recol2s=30620
 recol2d=29495
 name=Rabbit
-model1=model_4042_npc
+model1=npc_1192
 
 [npc_1531]
 desc=A cheeky little imp.
-walkanim=seq_168
-readyanim=seq_171
+walkanim=imp_walk
+readyanim=imp_ready
 resizeh=132
 resizev=132
 ambient=30
@@ -3079,21 +3079,21 @@ vislevel=hide
 desc=A spiky barricade.
 op2=Attack
 name=Barricade
-model1=model_4450_obj
+model1=loc_4421_8
 
 [npc_1533]
 minimap=no
 vislevel=hide
 desc=A spiky barricade.
-readyanim=seq_475
+readyanim=fire
 op2=Attack
 recol1s=14628
 recol1d=11458
 recol2s=28306
 recol2d=23021
 name=Barricade
-model1=model_4450_obj
-model2=model_4495_npc
+model1=loc_4421_8
+model2=loc_4422_8
 
 [npc_1534]
 minimap=no
@@ -3101,25 +3101,25 @@ vislevel=hide
 desc=A spiky barricade.
 op2=Attack
 name=Barricade
-model1=model_4450_obj
+model1=loc_4421_8
 
 [npc_1535]
 minimap=no
 vislevel=hide
 desc=A spiky barricade.
-readyanim=seq_475
+readyanim=fire
 op2=Attack
 recol1s=14628
 recol1d=11458
 recol2s=28306
 recol2d=23021
 name=Barricade
-model1=model_4450_obj
-model2=model_4495_npc
+model1=loc_4421_8
+model2=loc_4422_8
 
 [npc_1536]
-walkanim=seq_181
-readyanim=seq_187
+walkanim=magicaxe_walk
+readyanim=magicaxe_ready
 desc=How does it move of its own accord?
 op2=Attack
 vislevel=50
@@ -3128,7 +3128,7 @@ model1=model_4922_npc
 
 [npc_1537]
 op1=Take
-walkanim=seq_181
+walkanim=magicaxe_walk
 readyanim=seq_1445
 desc=Useful for hitting rocks.
 vislevel=hide
@@ -3139,7 +3139,7 @@ model1=model_4922_npc
 [npc_1538]
 desc=Well at least he doesn't have to worry about getting black lung.
 readyanim=seq_1442
-walkanim=seq_259
+walkanim=skeleton_walk
 vislevel=hide
 minimap=no
 name=Corpse
@@ -3148,8 +3148,8 @@ model2=model_4923_npc
 
 [npc_1539]
 desc=I don't think the pickaxe is for hitting rocks.
-walkanim=seq_259
-readyanim=seq_262
+walkanim=skeleton_walk
+readyanim=skeleton_ready
 op2=Attack
 vislevel=42
 name=Skeletal miner
@@ -3158,8 +3158,8 @@ model2=model_4923_npc
 
 [npc_1540]
 desc=Eeek! A big ghost!
-walkanim=seq_119
-readyanim=seq_125
+walkanim=ghost_walk
+readyanim=ghost_ready
 op2=Attack
 alwaysontop=yes
 vislevel=95
@@ -3260,8 +3260,8 @@ model1=model_4894_npc
 
 [npc_1549]
 desc=Eeek! A ghost!
-walkanim=seq_119
-readyanim=seq_125
+walkanim=ghost_walk
+readyanim=ghost_ready
 op2=Attack
 vislevel=29
 name=Ghost
@@ -3282,8 +3282,8 @@ model3=model_2965_npc
 
 [npc_1551]
 desc=That ghost looks like he's up to something.
-walkanim=seq_119
-readyanim=seq_125
+walkanim=ghost_walk
+readyanim=ghost_ready
 vislevel=hide
 name=Mischievous Ghost
 model1=model_2961_npc
@@ -3293,8 +3293,8 @@ model3=model_2965_npc
 [npc_1552]
 vislevel=hide
 desc=He knows if you've been naughty or nice.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 minimap=no
 alwaysontop=yes
 op1=Talk-to
@@ -3314,8 +3314,8 @@ name=Santa
 model1=model_235_idk
 model2=model_189_obj_wear
 model3=model_299_npc
-model4=model_4226_npc
-model5=model_4218_npc
+model4=npc_1269
+model5=npc_1269i2
 model6=model_162_idk
 model7=model_4924_npc
 model8=model_4925_npc
@@ -3326,7 +3326,7 @@ head3=model_69_obj_wear
 
 [npc_1553]
 desc=A frail little troll.
-walkanim=seq_283
+walkanim=troll_walk
 readyanim=seq_1474
 op1=Talk-to
 resizeh=124
@@ -3335,18 +3335,18 @@ vislevel=hide
 recol1s=15855
 recol1d=14761
 name=Ug
-model1=model_3753_npc
-model2=model_3758_npc
-model3=model_3755_npc
-model4=model_3773_npc
+model1=npc_1095
+model2=npc_1096i2
+model3=npc_1099
+model4=npc_1095i7
 model5=model_4945_npc
-head1=model_3790_npc_head
-head2=model_3789_npc_head
+head1=model_3790
+head2=npc_1125_headi2
 
 [npc_1554]
 desc=A beautiful troll.
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 op1=Talk-to
 vislevel=hide
 recol1s=15855
@@ -3356,13 +3356,13 @@ recol2d=14662
 name=Aga
 model1=model_4941_npc
 model2=model_4944_npc
-model3=model_3755_npc
+model3=npc_1099
 head1=model_4940_npc_head
 
 [npc_1555]
 desc=A massive, scary-looking troll.
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 op1=Talk-to
 size=2
 resizeh=150
@@ -3373,18 +3373,18 @@ recol1d=11558
 recol2s=15919
 recol2d=11492
 name=Arrg
-model1=model_3754_npc
-model2=model_3759_npc
-model3=model_3756_npc
-model4=model_3757_npc
-model5=model_3770_npc
-model6=model_3769_npc
-head1=model_3791_npc_head
+model1=npc_1096
+model2=npc_1095i2
+model3=npc_1095i3
+model4=npc_1115
+model5=npc_1095i5
+model6=npc_1116
+head1=npc_1125_head
 
 [npc_1556]
 desc=A massive, scary-looking troll.
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 op2=Attack
 size=2
 resizeh=150
@@ -3395,17 +3395,17 @@ recol1d=11558
 recol2s=15919
 recol2d=11492
 name=Arrg
-model1=model_3754_npc
-model2=model_3759_npc
-model3=model_3756_npc
-model4=model_3757_npc
-model5=model_3770_npc
-model6=model_3769_npc
-head1=model_3791_npc_head
+model1=npc_1096
+model2=npc_1095i2
+model3=npc_1095i3
+model4=npc_1115
+model5=npc_1095i5
+model6=npc_1116
+head1=npc_1125_head
 
 [npc_1557]
 desc=A frail little troll.
-walkanim=seq_283
+walkanim=troll_walk
 readyanim=seq_1480
 op1=Talk-to
 resizeh=124
@@ -3414,19 +3414,19 @@ vislevel=1
 recol1s=15855
 recol1d=14761
 name=Ug
-model1=model_3753_npc
-model2=model_3758_npc
-model3=model_3755_npc
-model4=model_3773_npc
+model1=npc_1095
+model2=npc_1096i2
+model3=npc_1099
+model4=npc_1095i7
 model5=model_4947_npc
-head1=model_3790_npc_head
-head2=model_3789_npc_head
+head1=model_3790
+head2=npc_1125_headi2
 
 [npc_1558]
 desc=Not mans' best friend.
 size=2
-walkanim=seq_74
-readyanim=seq_77
+walkanim=dog_walk
+readyanim=dog_ready
 op2=Attack
 vislevel=96
 recol1s=61
@@ -3439,8 +3439,8 @@ model1=model_2937_npc
 [npc_1559]
 desc=Not mans' best friend.
 size=2
-walkanim=seq_74
-readyanim=seq_77
+walkanim=dog_walk
+readyanim=dog_ready
 op2=Attack
 resizev=110
 resizeh=110
@@ -3454,8 +3454,8 @@ model1=model_2937_npc
 
 [npc_1560]
 desc=Brrrrr...he must be cold!
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 resizeh=134
 resizev=134
 op2=Attack
@@ -3467,13 +3467,13 @@ recol2d=25375
 name=Ice Troll
 model1=model_4942_npc
 model2=model_4943_npc
-model3=model_3756_npc
-model4=model_3762_npc
+model3=npc_1095i3
+model4=npc_1097
 
 [npc_1561]
 desc=Brrrrr...he must be cold!
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 resizeh=128
 resizev=128
 op2=Attack
@@ -3485,15 +3485,15 @@ recol2d=22232
 recol3s=10501
 recol3d=32767
 name=Ice Troll
-model1=model_3753_npc
-model2=model_3759_npc
-model3=model_3755_npc
+model1=npc_1095
+model2=npc_1095i2
+model3=npc_1099
 model4=model_4949_npc
 
 [npc_1562]
 desc=Brrrrr...he must be cold!
-walkanim=seq_1139
-readyanim=seq_926
+walkanim=troll_walk_shield
+readyanim=troll_ready_shield
 resizeh=139
 resizev=139
 op2=Attack
@@ -3504,15 +3504,15 @@ recol2s=15919
 recol2d=19031
 name=Ice Troll
 model1=model_4942_npc
-model2=model_3758_npc
-model3=model_3756_npc
-model4=model_3762_npc
+model2=npc_1096i2
+model3=npc_1095i3
+model4=npc_1097
 model5=model_4948_npc
 
 [npc_1563]
 desc=Brrrrr...he must be cold!
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 resizeh=134
 resizev=134
 op2=Attack
@@ -3526,13 +3526,13 @@ recol3d=32767
 name=Ice Troll
 model1=model_4942_npc
 model2=model_4943_npc
-model3=model_3755_npc
-model4=model_3763_npc
+model3=npc_1099
+model4=npc_1096i4
 
 [npc_1564]
 desc=Brrrrr...he must be cold!
-walkanim=seq_1139
-readyanim=seq_926
+walkanim=troll_walk_shield
+readyanim=troll_ready_shield
 resizeh=138
 resizev=138
 op2=Attack
@@ -3544,14 +3544,14 @@ recol2d=21173
 name=Ice Troll
 model1=model_4942_npc
 model2=model_4943_npc
-model3=model_3756_npc
-model4=model_3762_npc
+model3=npc_1095i3
+model4=npc_1097
 model5=model_4948_npc
 
 [npc_1565]
 desc=Brrrrr...he must be cold!
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 resizeh=125
 resizev=125
 op2=Attack
@@ -3563,15 +3563,15 @@ recol2d=25375
 recol3s=10501
 recol3d=32767
 name=Ice Troll
-model1=model_3754_npc
-model2=model_3758_npc
-model3=model_3755_npc
+model1=npc_1096
+model2=npc_1096i2
+model3=npc_1099
 model4=model_4949_npc
 
 [npc_1566]
 desc=Brrrrr...he must be cold!
-walkanim=seq_283
-readyanim=seq_286
+walkanim=troll_walk
+readyanim=troll_ready
 resizeh=134
 resizev=134
 op2=Attack
@@ -3583,13 +3583,13 @@ recol2d=19445
 name=Ice Troll
 model1=model_4942_npc
 model2=model_4943_npc
-model3=model_3755_npc
-model4=model_3762_npc
+model3=npc_1099
+model4=npc_1097
 
 [npc_1567]
 desc=A tall and imposing man who's more than familiar with boating.
 vislevel=hide
-walkanim=seq_819,seq_820,seq_821,seq_822
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 op1=Talk-to
 recol1s=7329
 recol1d=6501
@@ -3611,17 +3611,17 @@ model4=model_163_idk
 model5=model_179_obj_wear
 model6=model_265_obj_wear
 model7=model_185_obj_wear
-model8=model_288_npc
-model9=model_317_obj_wear
+model8=model_288
+model9=model_317_npc
 model10=model_534_obj_wear
-head1=model_48_obj_wear
+head1=model_48_npc_head
 head2=model_82_idk_head
 
 [npc_1568]
 vislevel=hide
 desc=A typical, if overly heavy handed, jobs worth guard.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=9377
@@ -3651,8 +3651,8 @@ head2=model_79_idk_head
 [npc_1569]
 vislevel=hide
 desc=Looks like the leader of the Myreque.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 op3=hidden
 recol1s=2340
@@ -3683,8 +3683,8 @@ head2=model_79_idk_head
 [npc_1570]
 vislevel=hide
 desc=A pretty young rogue.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=9314
@@ -3700,20 +3700,20 @@ recol6s=7298
 recol6d=98
 name=Sani Piliu
 model1=model_390_idk
-model2=model_457_npc
+model2=model_457
 model3=model_347_npc
 model4=model_356_obj_wear
 model5=model_438_idk
 model6=model_358_idk
 model7=model_417_npc
-model8=model_288_npc
+model8=model_288
 head1=model_113_idk_head
 
 [npc_1571]
 vislevel=hide
 desc=Hot headed big built youth who trained in the militia.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=2249
@@ -3743,8 +3743,8 @@ head2=model_77_npc_head
 [npc_1572]
 vislevel=hide
 desc=A quick and agile fighter, a mercenary from Asgarnia.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=2249
@@ -3773,8 +3773,8 @@ head1=model_52_idk_head
 [npc_1573]
 vislevel=hide
 desc=A member of the Myreque and intellectual assistant to Veliaf.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=2340
 recol1d=130
@@ -3791,7 +3791,7 @@ recol6d=98
 name=Polmafi Ferdygris
 model1=model_215_idk
 model2=model_245_npc
-model3=model_288_npc
+model3=model_288
 model4=model_292_idk
 model5=model_170_idk
 model6=model_176_idk
@@ -3806,8 +3806,8 @@ head3=model_81_idk_head
 [npc_1574]
 vislevel=hide
 desc=A member of the Myreque and an aspiring young priest.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=7329
 recol1d=9
@@ -3829,8 +3829,8 @@ model4=model_151_idk
 model5=model_176_idk
 model6=model_275_idk
 model7=model_185_obj_wear
-model8=model_287_npc
-model9=model_317_obj_wear
+model8=model_287
+model9=model_317_npc
 model10=model_521_npc
 head1=model_47_npc_head
 
@@ -3851,8 +3851,8 @@ model1=model_4974_npc
 [npc_1576]
 vislevel=hide
 desc=A typical villager of Canafis.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=14724
 recol1d=9440
@@ -3866,16 +3866,16 @@ model2=model_250_idk
 model3=model_292_idk
 model4=model_170_idk
 model5=model_176_idk
-model6=model_3599_npc
-head1=model_48_obj_wear
+model6=model_3599
+head1=model_48_npc_head
 head2=model_82_idk_head
-head3=model_3483_npc_head
+head3=npc_1024_head
 
 [npc_1577]
 vislevel=hide
 desc=A curious fellow.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=14724
 recol1d=11394
@@ -3888,24 +3888,24 @@ model1=model_226_npc
 model2=model_292_idk
 model3=model_170_idk
 model4=model_176_idk
-model5=model_3599_npc
+model5=model_3599
 head1=model_61_npc_head
 
 [npc_1578]
 desc=A billowing cloud of fine mist...it looks creepy.
 vislevel=hide
 size=3
-walkanim=seq_1261
-readyanim=seq_1261
+walkanim=misty
+readyanim=misty
 alwaysontop=yes
 name=Mist
-model1=model_4086_npc
+model1=loc_4047_8
 
 [npc_1579]
 vislevel=hide
 desc=A curious fellow.
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 op1=Talk-to
 recol1s=14724
 recol1d=11394
@@ -3939,7 +3939,7 @@ name=Vanstrom Klause
 model1=model_4977_npc
 model2=model_4978_npc
 model3=model_170_idk
-model4=model_4088_npc
+model4=npc_1220i3
 model5=model_254_idk
 model6=model_181_idk
 head1=model_4976_npc_head
@@ -3961,15 +3961,15 @@ name=Vanstrom Klause
 model1=model_4977_npc
 model2=model_4978_npc
 model3=model_170_idk
-model4=model_4088_npc
+model4=npc_1220i3
 model5=model_254_idk
 model6=model_181_idk
 head1=model_4976_npc_head
 
 [npc_1582]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=150
 resizev=150
 desc=A very large elemental adversary.
@@ -3989,8 +3989,8 @@ model4=model_4992_npc
 
 [npc_1583]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=150
 resizev=150
 desc=A very large elemental adversary.
@@ -4010,8 +4010,8 @@ model4=model_4992_npc
 
 [npc_1584]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=150
 resizev=150
 desc=A very large elemental adversary.
@@ -4031,8 +4031,8 @@ model4=model_4992_npc
 
 [npc_1585]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=120
 resizev=120
 desc=A very large elemental adversary.
@@ -4050,8 +4050,8 @@ model2=model_2864_npc
 
 [npc_1586]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=120
 resizev=120
 desc=A very large elemental adversary.
@@ -4070,8 +4070,8 @@ model3=model_4994_npc
 
 [npc_1587]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=130
 resizev=130
 desc=His beard seems to have a life of its own.
@@ -4091,8 +4091,8 @@ model4=model_4991_npc
 
 [npc_1588]
 size=2
-walkanim=seq_127
-readyanim=seq_130
+walkanim=giant_walk
+readyanim=giant_ready
 resizeh=110
 resizev=110
 desc=His beard seems to have a life of its own.
@@ -4112,8 +4112,8 @@ model4=model_4991_npc
 
 [npc_1589]
 size=2
-walkanim=seq_21
-readyanim=seq_27
+walkanim=bdrag_walk
+readyanim=bdrag_ready
 desc=Young but still dangerous.
 op2=Attack
 vislevel=65
@@ -4124,8 +4124,8 @@ model1=model_2998_npc
 
 [npc_1590]
 size=4
-walkanim=seq_79
-readyanim=seq_90
+walkanim=dragon_walk
+readyanim=dragon_ready
 desc=It's scales seem to be made of bronze.
 op2=Attack
 vislevel=131
@@ -4142,8 +4142,8 @@ model3=model_4987_npc
 
 [npc_1591]
 size=4
-walkanim=seq_79
-readyanim=seq_90
+walkanim=dragon_walk
+readyanim=dragon_ready
 desc=It's scales seem to be made of iron.
 op2=Attack
 vislevel=189
@@ -4160,8 +4160,8 @@ model3=model_4987_npc
 
 [npc_1592]
 size=4
-walkanim=seq_79
-readyanim=seq_90
+walkanim=dragon_walk
+readyanim=dragon_ready
 desc=It's scales seem to be made of steel.
 op2=Attack
 vislevel=246
@@ -4178,8 +4178,8 @@ model3=model_4987_npc
 
 [npc_1593]
 desc=Looks like its got Rabies!
-walkanim=seq_74
-readyanim=seq_77
+walkanim=dog_walk
+readyanim=dog_ready
 op2=Attack
 vislevel=63
 recol1s=15718
@@ -4191,8 +4191,8 @@ model1=model_4983_npc
 
 [npc_1594]
 desc=An unsuitable pet
-walkanim=seq_74
-readyanim=seq_77
+walkanim=dog_walk
+readyanim=dog_ready
 op2=Attack
 vislevel=63
 recol1s=15718
@@ -4203,8 +4203,8 @@ name=Wild dog
 model1=model_4984_npc
 
 [npc_1595]
-walkanim=seq_819,seq_820,seq_821,seq_822
-readyanim=seq_808
+walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
+readyanim=human_ready
 resizeh=135
 resizev=128
 vislevel=hide
