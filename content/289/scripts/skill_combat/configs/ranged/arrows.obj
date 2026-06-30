@@ -1010,8 +1010,7 @@ recol2d=14881
 dummyitem=inv_only
 
 [litarrow]
-name=Lit arrows
-desc=These arrows are ablaze with fire.
+desc=These bronze headed arrows are ablaze with fire.
 members=yes
 cost=10
 stackable=yes
@@ -1020,13 +1019,14 @@ model=model_3178_obj
 2dyan=240
 2dxan=192
 iop2=Wield
-wearpos=quiver
-weight=16g
 code10=fire_arrow
 count1=litarrow_2,2
 count2=litarrow_3,3
 count3=litarrow_4,4
 count4=litarrow_5,5
+name=Bronze fire arrows
+wearpos=quiver
+weight=16g
 category=arrows
 param=rangebonus,7
 param=levelrequire,1

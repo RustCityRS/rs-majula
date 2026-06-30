@@ -40,6 +40,8 @@ pub struct NpcType {
     pub patrol: Option<Box<[NpcPatrol]>>,
     pub givechase: bool,
     pub regenrate: u16,
+    #[cfg(since_289)]
+    pub turnspeed: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -80,6 +82,8 @@ impl From<NpcTypeRaw> for NpcType {
             patrol: raw.patrol,
             givechase: raw.givechase,
             regenrate: raw.regenrate,
+            #[cfg(since_289)]
+            turnspeed: raw.turnspeed,
             params: raw.params,
             debugname: raw.debugname,
         }
@@ -138,6 +142,8 @@ pub struct NpcTypeRaw {
     pub patrol: Option<Box<[NpcPatrol]>>,
     pub givechase: bool,
     pub regenrate: u16,
+    #[cfg(since_289)]
+    pub turnspeed: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -198,6 +204,8 @@ impl CacheType for NpcTypeRaw {
             patrol: None,
             givechase: true,
             regenrate: 100,
+            #[cfg(since_289)]
+            turnspeed: 0,
             params: None,
             debugname: None,
         }
@@ -299,6 +307,8 @@ impl CacheType for NpcTypeRaw {
                 }
                 213 => self.givechase = false,
                 214 => self.regenrate = buf.g2(),
+                #[cfg(since_289)]
+                103 => self.turnspeed = buf.g2(),
                 249 => ParamType::decode_params(
                     buf,
                     self.params

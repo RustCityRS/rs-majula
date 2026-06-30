@@ -92,10 +92,10 @@ head2=model_81_idk_head
 [blessed_spider]
 walkanim=giantspider_walk
 readyanim=giantspider_ready
-name=Blessed spider
-desc=It's one of Ibans' pets.
+desc=It's one of Iban's pets.
 op2=Attack
 vislevel=39
+name=Blessed spider
 model1=model_2884_npc
 wanderrange=10
 maxrange=12
@@ -127,10 +127,10 @@ huntrange=1
 size=2
 walkanim=giantrat_walk
 readyanim=giantrat_ready
-name=Blessed Giant rat
-desc=It's one of Ibans' pet vermin.
+desc=It's one of Iban's pet vermin.
 op2=Attack
 vislevel=9
+name=Blessed Giant rat
 model1=model_2959_npc
 wanderrange=6
 maxrange=8
@@ -346,7 +346,6 @@ param=defend_sound,horse_hit
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_9209
 
 [upass_paladin1]
-name=Sir Jerro
 desc=A mighty looking warrior.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -361,6 +360,7 @@ recol3s=15375
 recol3d=19126
 recol4s=14801
 recol4d=24075
+name=Sir Jerro
 model1=model_217_idk
 model2=model_248_idk
 model3=model_313_npc
@@ -372,6 +372,7 @@ model8=model_518_obj_wear
 model9=model_541_obj_wear
 model10=model_3330_obj_wear
 head1=model_55_idk_head
+head2=model_80_idk_head
 hitpoints=57
 attack=54
 strength=54
@@ -393,7 +394,6 @@ param=defend_sound,blade4
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_8987
 
 [upass_paladin2]
-name=Sir Carl
 desc=A mighty looking warrior.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -406,6 +406,7 @@ recol2s=15375
 recol2d=19126
 recol3s=14801
 recol3d=24075
+name=Sir Carl
 model1=model_214_idk
 model2=model_250_idk
 model3=model_313_npc
@@ -417,6 +418,7 @@ model8=model_518_obj_wear
 model9=model_541_obj_wear
 model10=model_3330_obj_wear
 head1=model_52_idk_head
+head2=model_82_idk_head
 hitpoints=57
 attack=54
 strength=54
@@ -438,7 +440,6 @@ param=defend_sound,blade4
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_8988
 
 [upass_paladin3]
-name=Sir Harry
 desc=A mighty looking warrior.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -451,6 +452,7 @@ recol2s=15375
 recol2d=19126
 recol3s=14801
 recol3d=24075
+name=Sir Harry
 model1=model_214_idk
 model2=model_250_idk
 model3=model_313_npc
@@ -462,6 +464,7 @@ model8=model_518_obj_wear
 model9=model_541_obj_wear
 model10=model_3330_obj_wear
 head1=model_52_idk_head
+head2=model_82_idk_head
 hitpoints=57
 attack=54
 strength=54

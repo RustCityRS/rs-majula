@@ -55,15 +55,12 @@ category=light_source_unlit
 param=product,torch_lit
 
 [unlitarrow]
-name=Unlit arrows
-desc=Unlit arrows.
+desc=Arrows with bronze heads and oil soaked cloth.
 members=yes
 cost=10
 stackable=yes
 model=model_2702_obj
 iop2=Wield
-wearpos=quiver
-weight=16g
 count1=unlitarrow_2,2
 count2=unlitarrow_3,3
 count3=unlitarrow_4,4
@@ -71,6 +68,9 @@ count4=unlitarrow_5,5
 2dzoom=1580
 2dyan=1832
 2dxan=336
+name=Bronze fire arrows
+wearpos=quiver
+weight=16g
 category=arrows
 param=rangebonus,7
 param=levelrequire,1

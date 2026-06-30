@@ -263,7 +263,6 @@ moverestrict=indoors
 
 [thessalia]
 vislevel=hide
-name=Thessalia
 desc=Interesting assortment of clothes on offer...
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -277,6 +276,9 @@ recol3s=13664
 recol3d=2559
 recol4s=14801
 recol4d=24075
+recol5s=15854
+recol5d=24075
+name=Thessalia
 model1=model_390_idk
 model2=model_456_idk
 model3=model_348_idk
@@ -293,7 +295,6 @@ moverestrict=indoors
 
 [horvik_the_armourer]
 vislevel=hide
-name=Horvik
 desc=The man with the armour.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -307,6 +308,9 @@ recol3s=6273
 recol3d=27240
 recol4s=32735
 recol4d=13539
+recol5s=14801
+recol5d=24075
+name=Horvik
 model1=model_215_idk
 model2=model_254_idk
 model3=model_246_idk
@@ -696,8 +700,7 @@ param=damagetype,^crush_style
 
 [king_roald]
 vislevel=hide
-name=King Roald
-desc=Varrocks' resident monarch.
+desc=Varrock's resident monarch.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
 op1=Talk-to
@@ -707,6 +710,7 @@ recol2s=14724
 recol2d=18630
 recol3s=28609
 recol3d=30377
+name=King Roald
 model1=model_215_idk
 model2=model_246_idk
 model3=model_292_idk

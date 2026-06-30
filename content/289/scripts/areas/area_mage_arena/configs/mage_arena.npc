@@ -360,7 +360,6 @@ category=kolodion
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1609
 
 [zamorak_mage]
-name=Battle mage
 desc=He kills in the name of Zamorak.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -376,8 +375,9 @@ recol4s=2340
 recol4d=5285
 recol5s=24075
 recol5d=29460
-recol6s=7298
+recol6s=7299
 recol6d=0
+name=Battle mage
 model1=model_207_npc
 model2=model_246_idk
 model3=model_243_obj_wear
@@ -405,7 +405,6 @@ category=battle_mage
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1610
 
 [saradomin_mage]
-name=Battle mage
 desc=He kills in the name of Saradomin.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -415,7 +414,7 @@ recol1s=14724
 recol1d=32767
 recol2s=2340
 recol2d=32767
-recol3s=7298
+recol3s=7299
 recol3d=30646
 recol4s=15360
 recol4d=32767
@@ -423,6 +422,7 @@ recol5s=8386
 recol5d=19
 recol6s=24075
 recol6d=14596
+name=Battle mage
 model1=model_217_idk
 model2=model_250_idk
 model3=model_292_idk

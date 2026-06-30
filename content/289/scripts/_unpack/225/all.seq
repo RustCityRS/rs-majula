@@ -10935,7 +10935,6 @@ frame13=anim_1857
 frame14=anim_2155
 
 [human_ready]
-stretches=yes
 frame1=anim_1555
 frame2=anim_1848
 frame3=anim_2147
@@ -10950,7 +10949,6 @@ frame11=anim_1882
 frame12=anim_2180
 
 [human_ds_ready]
-stretches=yes
 frame1=anim_1855
 frame2=anim_2153
 frame3=anim_2448
@@ -11014,7 +11012,6 @@ frame16=anim_1805
 frame17=anim_2102
 
 [human_staffready]
-stretches=yes
 frame1=anim_1821
 frame2=anim_2121
 frame3=anim_2418
@@ -11133,7 +11130,6 @@ frame23=anim_877
 frame24=anim_585
 
 [human_walk_f]
-stretches=yes
 frame1=anim_2422
 frame2=anim_703
 frame3=anim_990
@@ -11144,7 +11140,6 @@ frame7=anim_2149
 frame8=anim_2446
 
 [human_walk_b]
-stretches=yes
 frame1=anim_2446
 frame2=anim_2149
 frame3=anim_1850
@@ -11155,28 +11150,24 @@ frame7=anim_703
 frame8=anim_2422
 
 [human_walk_l]
-stretches=yes
 frame1=anim_818
 frame2=anim_1100
 frame3=anim_1385
 frame4=anim_1675
 
 [human_walk_r]
-stretches=yes
 frame1=anim_1225
 frame2=anim_1508
 frame3=anim_1804
 frame4=anim_2101
 
 [human_turnonspot]
-stretches=yes
 frame1=anim_1126
 frame2=anim_1410
 frame3=anim_1702
 frame4=anim_1997
 
 [human_running]
-stretches=yes
 frame1=anim_1765
 frame2=anim_2064
 frame3=anim_2368
@@ -11187,7 +11178,6 @@ frame7=anim_1502
 frame8=anim_1799
 
 [human_ready_dh]
-stretches=yes
 frame1=anim_533
 frame2=anim_830
 frame3=anim_1113
@@ -11202,7 +11192,6 @@ frame11=anim_468
 frame12=anim_767
 
 [human_walk_f_dh]
-stretches=yes
 frame1=anim_495
 frame2=anim_795
 frame3=anim_1079
@@ -11362,17 +11351,13 @@ frame2=anim_2229
 frame3=anim_516
 frame4=anim_814
 frame5=anim_1096
-frame6=anim_1382
-frame7=anim_1673
-frame8=anim_1970
-frame9=anim_2271
-delay9=20000
+delay5=20000
 
 [human_unconscious]
 replaceheldright=hide
 replaceheldleft=hide
-frame1=anim_2271
-frame2=anim_2271
+frame1=anim_1096
+frame2=anim_1096
 delay2=20000
 
 [human_walk_style]
@@ -11409,7 +11394,6 @@ frame14=anim_489
 frame15=anim_790
 
 [human_transwalk_f]
-stretches=yes
 frame1=anim_509
 frame2=anim_808
 frame3=anim_1092
@@ -11420,7 +11404,6 @@ frame7=anim_2267
 frame8=anim_547
 
 [human_transready]
-stretches=yes
 frame1=anim_700
 frame2=anim_988
 frame3=anim_1274
@@ -11483,7 +11466,6 @@ frame10=anim_2364
 frame11=anim_644
 
 [human_ready_scythe]
-stretches=yes
 frame1=anim_1151
 frame2=anim_1439
 frame3=anim_1737
@@ -11498,7 +11480,6 @@ frame11=anim_1394
 frame12=anim_1684
 
 [human_stunned]
-stretches=yes
 frame1=anim_1899
 frame2=anim_2197
 frame3=anim_483
@@ -11582,6 +11563,7 @@ frame6=anim_1818
 
 [emote_yes]
 priority=2
+preanim_move=delayanim
 frame1=anim_2001
 frame2=anim_2300
 frame3=anim_2001
@@ -11593,6 +11575,7 @@ frame8=anim_2300
 
 [emote_no]
 priority=2
+preanim_move=delayanim
 frame1=anim_2049
 frame2=anim_2351
 frame3=anim_632
@@ -11610,6 +11593,7 @@ frame12=anim_926
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_2330
 frame2=anim_612
 frame3=anim_907
@@ -11636,6 +11620,7 @@ frame21=anim_2330
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_1396
 frame2=anim_1687
 frame3=anim_1985
@@ -11654,6 +11639,7 @@ frame13=anim_1396
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_1203
 frame2=anim_1487
 frame3=anim_1788
@@ -11674,6 +11660,7 @@ frame15=anim_1203
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_470
 frame2=anim_769
 frame3=anim_1055
@@ -11694,6 +11681,7 @@ frame15=anim_470
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_2440
 frame2=anim_728
 frame3=anim_1016
@@ -11712,6 +11700,7 @@ frame13=anim_2440
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_2469
 frame2=anim_755
 frame3=anim_1042
@@ -11738,6 +11727,7 @@ frame21=anim_2469
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_2297
 frame2=anim_576
 frame3=anim_868
@@ -11758,6 +11748,7 @@ frame15=anim_2297
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_2456
 frame2=anim_743
 frame3=anim_1031
@@ -11780,6 +11771,7 @@ frame17=anim_2456
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_1425
 frame2=anim_1718
 frame3=anim_2016
@@ -11800,6 +11792,7 @@ frame15=anim_1425
 replaceheldleft=hide
 replaceheldright=hide
 priority=2
+preanim_move=delayanim
 frame1=anim_1417
 frame2=anim_1708
 frame3=anim_2005

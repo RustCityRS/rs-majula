@@ -1,13 +1,18 @@
 use std::collections::HashMap;
+#[cfg(since_244)]
+use std::collections::HashSet;
 #[cfg(rev = "225")]
 use std::fmt::Write as _;
 use std::path::Path;
 
 use super::config::ModelCategory;
+use crate::PACK_DIR;
 #[cfg(rev = "225")]
 use crate::types::BoneType;
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
+#[cfg(since_244)]
+use rs_io::js5::Js5Store;
 use tracing::debug;
 
 #[cfg(rev = "225")]
@@ -534,7 +539,7 @@ fn compute_vertex_delta_len(vertex_count: usize, p1: &[u8], axis: u8) -> usize {
 
 #[cfg(since_244)]
 pub fn unpack_models(
-    cache: &rs_io::js5::Js5Store,
+    cache: &Js5Store,
     output_dir: &Path,
     pack_dir: &Path,
     model_categories: &HashMap<u16, ModelCategory>,
@@ -542,7 +547,7 @@ pub fn unpack_models(
     let models_dir = output_dir.join("models");
     std::fs::create_dir_all(&models_dir)?;
 
-    let existing_names = load_existing_pack(pack_dir, "model");
+    let existing_names = load_existing_pack(Path::new(PACK_DIR), "model");
     let count = cache.count(1);
 
     let mut pack_lines = Vec::with_capacity(count);
@@ -574,11 +579,75 @@ pub fn unpack_models(
 }
 
 #[cfg(since_244)]
-pub fn unpack_anims(
-    cache: &rs_io::js5::Js5Store,
-    output_dir: &Path,
-    pack_dir: &Path,
-) -> anyhow::Result<()> {
+pub fn ob2_textures(data: &[u8]) -> Vec<u16> {
+    if data.len() < 18 {
+        return Vec::new();
+    }
+    let mut h = Packet::from(data[data.len() - 18..].to_vec());
+    let vertex_count = h.g2() as usize;
+    let face_count = h.g2() as usize;
+    let textured_face_count = h.g1() as usize;
+    let has_info = h.g1();
+    let priority = h.g1();
+    let has_alpha = h.g1();
+    let has_face_labels = h.g1();
+    let has_vertex_labels = h.g1();
+    h.pos += 2;
+    h.pos += 2;
+    h.pos += 2;
+    let face_orient_len = h.g2() as usize;
+    if has_info != 1 || textured_face_count == 0 {
+        return Vec::new();
+    }
+    let mut pos = vertex_count + face_count;
+    if priority == 255 {
+        pos += face_count;
+    }
+    if has_face_labels == 1 {
+        pos += face_count;
+    }
+    let face_infos_off = pos;
+    pos += face_count;
+    if has_vertex_labels == 1 {
+        pos += vertex_count;
+    }
+    if has_alpha == 1 {
+        pos += face_count;
+    }
+    pos += face_orient_len;
+    let face_colours_off = pos;
+    if face_colours_off + face_count * 2 > data.len() {
+        return Vec::new();
+    }
+    let mut textures = Vec::new();
+    for f in 0..face_count {
+        if data[face_infos_off + f] & 0x3 > 1 {
+            textures.push(u16::from_be_bytes([
+                data[face_colours_off + f * 2],
+                data[face_colours_off + f * 2 + 1],
+            ]));
+        }
+    }
+    textures
+}
+
+#[cfg(since_244)]
+pub fn build_model_textures(cache: &Js5Store) -> HashMap<u16, HashSet<u16>> {
+    let mut map = HashMap::new();
+    for id in 0..cache.count(1) {
+        let Some(data) = cache.read(1, id, true).filter(|d| !d.is_empty()) else {
+            continue;
+        };
+        let textures = ob2_textures(&data);
+        if !textures.is_empty() {
+            map.insert(id as u16, textures.into_iter().collect());
+        }
+    }
+    map
+}
+
+#[cfg(since_244)]
+pub fn unpack_anims(cache: &Js5Store, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let anim_dir = output_dir.join("models").join("anim");
     std::fs::create_dir_all(&anim_dir)?;
 

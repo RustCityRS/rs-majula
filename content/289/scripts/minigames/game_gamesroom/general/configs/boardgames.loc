@@ -256,8 +256,9 @@ op1=Open
 raiseobject=no
 
 [barrel_stacked]
-name=barrel_stacked
 model=loc_4641
+name=Stacked barrels
+desc=Mmm...beer!
 
 [boardgames_noticeboard]
 name=Noticeboard
@@ -268,12 +269,12 @@ active=yes
 op1=Read
 
 [boardgames_runelink_ladderup_experienced]
-name=Ladder up
-desc=The ladder to the Runelink challenge room for experienced players.
-model=model_loc_11
 forceapproach=north
 active=yes
 op1=Climb-up
+model=model_loc_11
+name=Ladder
+desc=The ladder to the Runelink challenge room for experienced players.
 
 [boardgames_runelink_ladderdown_experienced]
 name=Ladder
@@ -284,12 +285,12 @@ active=yes
 op1=Climb-Down
 
 [boardgames_draughts_ladderup_experienced]
-name=Ladder up
-desc=The ladder to the Draughts challenge room for experienced players.
-model=model_loc_11
 forceapproach=north
 active=yes
 op1=Climb-up
+model=model_loc_11
+name=Ladder
+desc=The ladder to the Draughts challenge room for experienced players.
 
 [boardgames_draughts_ladderdown_experienced]
 name=Ladder
@@ -300,12 +301,12 @@ active=yes
 op1=Climb-Down
 
 [boardgames_ladderup]
-name=Ladder up
-desc=The ladder back up to the Toad and Chicken.
-model=model_loc_11
 forceapproach=north
 active=yes
 op1=Climb-up
+model=model_loc_11
+name=Ladder
+desc=The ladder back up to the Toad and Chicken.
 
 [boardgames_ladderdown]
 name=Ladder
@@ -380,8 +381,9 @@ recol2d=4192
 blockrange=no
 
 [boardgames_barstool_invis]
-model=model_loc_83
 blockrange=no
+model=model_loc_83
+model=loc_83
 
 [boardgames_draughts_plaque]
 name=Plaque

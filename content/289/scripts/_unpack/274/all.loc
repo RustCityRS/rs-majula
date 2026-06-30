@@ -322,12 +322,14 @@ op1=Squeeze-through
 width=2
 
 [balancing_rope_mid]
-name=Balancing rope
-desc=I can balance on this rope.
-model=model_loc_269
 hillskew=yes
 sharelight=yes
 active=yes
+blockwalk=no
+op1=Cross
+model=model_loc_269
+name=Balancing rope
+desc=I can balance on this rope.
 
 [shades_experimentshelf]
 name=Shelf
@@ -763,22 +765,22 @@ model=loc_4376
 active=no
 
 [castlewars_saradomin_stand]
+op1=Capture
+blockrange=no
+model=loc_4377
 name=Standard Stand
 desc=There should be a standard here!
-model=loc_4377
 retex1s=mossybricks
 retex1d=empty
 recol2s=6340
 recol2d=17932
-op1=Return
-blockrange=no
 
 [castlewars_zamorak_stand]
+blockrange=no
+op1=Capture
+model=loc_4377
 name=Standard Stand
 desc=There should be a standard here!
-model=loc_4377
-blockrange=no
-op1=Return
 
 [castlewars_catapult_zamorak]
 name=Catapult
@@ -1078,15 +1080,14 @@ op1=Enter
 blockrange=no
 
 [castlewars_wall_saradomin]
+wallwidth=32
+sharelight=yes
+occlude=yes
 model=model_loc_1512
 retex1s=wall
 retex1d=empty
 recol2s=6342
 recol2d=5248
-wallwidth=32
-sharelight=yes
-occlude=yes
-blockrange=no
 
 [castlewars_castlebattlements_saradomin]
 model=model_loc_1622
@@ -1096,22 +1097,23 @@ sharelight=yes
 blockrange=no
 
 [castlewars_steping_stone]
-name=Stepping stone
-desc=a very slipery stepping stone
-model=loc_4411
 op1=Jump-to
 active=yes
 blockrange=no
+model=loc_4411
+name=Stepping stone
+desc=A very slippery stepping stone
 
 [castlewars_outsidestairs]
-name=Staircase
-desc=A rickety old staircase.
-model=loc_4414
-recol1s=25366
-recol1d=12684
 length=3
 mapscene=7
 sharelight=yes
+forceapproach=north
+model=loc_4414
+name=Staircase
+desc=A rickety old staircase.
+recol1s=25366
+recol1d=12684
 
 [castlewars_topstair]
 name=Staircase
@@ -1128,26 +1130,28 @@ op1=Climb
 sharelight=yes
 
 [castlewars_outsidestairs_saradomin]
+length=3
+mapscene=7
+op1=Climb
+sharelight=yes
+forceapproach=north
+model=loc_4414
 name=Staircase
 desc=A solid stone staircase.
-model=loc_4414
 retex1s=mossybricks
 retex1d=empty
 recol2s=6272
 recol2d=14692
-length=3
-mapscene=7
-op1=Climb
-sharelight=yes
 
 [castlewars_outsidestairs_zamorak]
-name=Staircase
-desc=A solid stone staircase.
-model=loc_4414
 length=3
 mapscene=7
 op1=Climb
 sharelight=yes
+forceapproach=north
+model=loc_4414
+name=Staircase
+desc=A solid stone staircase.
 
 [castlewars_outsidestairs_saradomin_linked]
 name=Staircase
@@ -1412,9 +1416,10 @@ sharelight=yes
 mirror=yes
 
 [hs_inviswall]
-model=model_loc_83
 shadow=no
 mapscene=22
+model=model_loc_83
+model=loc_83
 
 [castlewars_stair_zero_a]
 model=loc_4452
@@ -1486,13 +1491,13 @@ blockrange=no
 op1=Take-from
 
 [castlewars_table_rocks]
-name=Table
-desc=There's some rock I can use with the catupult here.
-model=model_loc_594
-model2=loc_4460
 width=2
 blockrange=no
 op1=Take-from
+model=model_loc_594
+model=loc_4460
+name=Table
+desc=There's some rock I can use with the catapult here.
 
 [castlewars_table_barricades]
 name=Table
@@ -1525,15 +1530,15 @@ blockrange=no
 op1=Take-from
 
 [castlewars_table_pickaxes]
-name=Table
-desc=There are some toolboxes on this table.
-model=model_loc_594
-model2=loc_4464
-recol1s=15855
-recol1d=8354
 width=2
 blockrange=no
 op1=Take-from
+model=model_loc_594
+model=loc_4464
+name=Table
+desc=There are some pickaxes on this table.
+recol1s=15855
+recol1d=8354
 
 [castlewars_saradomin_sidedoor]
 name=Door
@@ -1584,28 +1589,30 @@ op1=Lock
 raiseobject=no
 
 [castlewars_saradomin_spawndoor]
-name=Door
-desc=An elf-fashioned door.
-model=model_loc_3
-retex1s=wall
-retex1d=elfdoor
-recol2s=6342
-recol2d=11458
 active=yes
-op1=Open
+op1=Pass
+anim=seq_1433
 raiseobject=no
+ambient=100
+contrast=100
+model=loc_4469
+name=Energy Barrier
+desc=Only the Saradomin team may pass.
+recol1s=15855
+recol1d=349
 
 [castlewars_zamorak_spawndoor]
-name=Door
-desc=The door is closed.
-model=model_loc_3
-retex1s=wall
-retex1d=door
-recol2s=6342
-recol2d=11458
 active=yes
-op1=Open
+op1=Pass
 raiseobject=no
+anim=seq_1433
+ambient=100
+contrast=100
+model=loc_4469
+name=Energy Barrier
+desc=Only the Zamorak team may pass.
+recol1s=15855
+recol1d=30753
 
 [castlewars_saradomin_spawntrapdoor]
 name=Trapdoor

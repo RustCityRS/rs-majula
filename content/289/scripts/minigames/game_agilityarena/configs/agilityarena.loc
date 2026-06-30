@@ -1,8 +1,9 @@
 [inviswall_serverside]
-model=model_loc_83
 breakroutefinding=yes
 active=no
 mapscene=22
+model=model_loc_83
+model=loc_83
 
 [agilityarena_ropebalance]
 name=Balancing rope
@@ -172,13 +173,14 @@ op1=Climb-over
 blockrange=no
 
 [agilityarena_ropeswing]
-name=Rope swing
-desc=Use this to swing over to the next platform.
-model=model_loc_2282
 blockwalk=no
+sharelight=yes
 forcedecor=yes
 active=yes
 op1=Swing-on
+model=model_loc_2282
+name=Rope swing
+desc=Use this to swing over to the next platform.
 
 [agilityarena_trap_timedblade2]
 name=Blade

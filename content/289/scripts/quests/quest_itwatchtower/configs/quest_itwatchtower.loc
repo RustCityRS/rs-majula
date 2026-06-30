@@ -81,16 +81,18 @@ op1=Pull
 active=yes
 
 [watchladderup]
+op1=Climb-up
+mapscene=7
+model=model_loc_11
 name=Ladder
 desc=This leads to the watchtower.
-model=model_loc_11
-op1=Climb-up
 
 [watchladderdown]
+op1=Climb-down
+mapscene=7
+model=model_loc_133
 name=Ladder
 desc=This leads downwards.
-model=model_loc_133
-op1=Climb-down
 
 [watchtowerbush]
 name=Bush
@@ -200,10 +202,11 @@ length=2
 op1=Enter
 
 [tobanladderdown]
+op1=Climb-down
+mapscene=7
+model=model_loc_1759
 name=Ladder
 desc=This leads downwards.
-model=model_loc_1759
-op1=Climb-down
 
 [enclavecave]
 name=Cave entrance
@@ -362,17 +365,18 @@ blockrange=no
 op1=Climb-over
 
 [towerladder]
+op1=Climb-up
+mapscene=7
+model=model_loc_11
 name=Ladder
 desc=This goes up!
-model=model_loc_11
-op1=Climb-up
 
 [tobanblock]
+op1=Climb-over
+active=yes
+model=model_loc_1629
 name=Battlement
 desc=A low wall is blocking your path.
-model=model_loc_1629
-op1=Climb_over
-active=yes
 
 [darkcaverock]
 name=Rock

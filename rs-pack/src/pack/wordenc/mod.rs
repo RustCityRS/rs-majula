@@ -14,41 +14,34 @@ fn read_lines(path: &Path) -> Vec<String> {
         .collect()
 }
 
-#[cfg(rev = "225")]
-const WORDENC: [&str; 4] = [
-    "badenc.txt",
-    "fragmentsenc.txt",
-    "tldlist.txt",
-    "domainenc.txt",
-];
-
-#[cfg(since_244)]
-const WORDENC: [&str; 4] = [
-    "domainenc.txt",
-    "badenc.txt",
-    "tldlist.txt",
-    "fragmentsenc.txt",
-];
-
 pub fn pack_wordenc(content_dir: &Path) -> Vec<u8> {
     let wordenc_dir = content_dir.join("wordenc");
     if !wordenc_dir.exists() {
         return Vec::new();
     }
 
+    let order_path = wordenc_dir.join("meta").join("wordenc.order");
+    let order: Vec<String> = std::fs::read_to_string(&order_path)
+        .unwrap_or_else(|e| panic!("Missing wordenc order file {}: {e}", order_path.display()))
+        .lines()
+        .map(|l| l.trim())
+        .filter(|l| !l.is_empty())
+        .map(|l| l.to_string())
+        .collect();
+
     let mut jag = JagFile::new();
-    for name in WORDENC {
-        let data = match name {
+    for name in &order {
+        let data = match name.as_str() {
             "badenc.txt" => encode_badenc(&wordenc_dir),
             "fragmentsenc.txt" => encode_fragmentsenc(&wordenc_dir),
             "tldlist.txt" => encode_tldlist(&wordenc_dir),
             "domainenc.txt" => encode_domainenc(&wordenc_dir),
-            _ => panic!("Unexpected wordenc file in WORDENC_ORDER: {name}"),
+            _ => panic!("Unexpected wordenc file in wordenc.order: {name}"),
         };
         jag.write(name, data);
     }
 
-    debug!("Packed wordenc into Jag");
+    debug!("Packed wordenc into Jag ({} entries)", order.len());
     jag.build(JagCompression::PerFile)
 }
 

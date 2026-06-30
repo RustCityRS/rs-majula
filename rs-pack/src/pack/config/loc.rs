@@ -383,6 +383,8 @@ pub fn pack_locs(
             panic!("{debugname}: Failed to find suitable loc models");
         }
 
+        models.sort_by_key(|m| (m.shape != LocShape::CentrepieceStraight as u8, m.shape));
+
         #[cfg(before_254)]
         if !models.is_empty() {
             client.p1(1);

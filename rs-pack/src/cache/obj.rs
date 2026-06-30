@@ -120,6 +120,8 @@ pub struct ObjTypeRaw {
     pub ambient: i8,
     #[cfg(since_244)]
     pub contrast: i8,
+    #[cfg(since_289)]
+    pub team: u8,
     pub tradeable: bool,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
@@ -244,6 +246,8 @@ impl CacheType for ObjTypeRaw {
             ambient: 0,
             #[cfg(since_244)]
             contrast: 0,
+            #[cfg(since_289)]
+            team: 0,
             tradeable: true,
             respawnrate: 100,
             params: None,
@@ -346,6 +350,8 @@ impl CacheType for ObjTypeRaw {
                 113 => self.ambient = buf.g1s(),
                 #[cfg(since_244)]
                 114 => self.contrast = buf.g1s(),
+                #[cfg(since_289)]
+                115 => self.team = buf.g1(),
                 201 => self.respawnrate = buf.g2(),
                 249 => ParamType::decode_params(
                     buf,

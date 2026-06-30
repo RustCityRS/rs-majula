@@ -80,8 +80,7 @@ moverestrict=indoors
 
 [jatix]
 vislevel=hide
-name=Jatix
-desc=He runs the Herblore Shop
+desc=He runs the Herblore Shop.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
 op1=Talk-to
@@ -94,6 +93,7 @@ recol3s=15855
 recol3d=14975
 recol4s=6144
 recol4d=14975
+name=Jatix
 model1=model_207_npc
 model2=model_292_idk
 model3=model_170_idk
@@ -141,7 +141,6 @@ wanderrange=1
 
 [ballboy]
 vislevel=hide
-name=Boy
 desc=A sad looking child...
 walkanim=midget_walk
 readyanim=midget_ready
@@ -154,10 +153,11 @@ recol3s=8387
 recol3d=18785
 recol4s=6273
 recol4d=18785
+name=Boy
 model1=model_2897_npc
 model2=model_2909_npc
 model3=model_2917_npc
-head1=model_53_idk_head
+head1=model_139_npc_head
 param=death_anim,midget_death
 
 [druid]

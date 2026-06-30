@@ -849,13 +849,13 @@ category=door_closed
 param=next_loc_stage,viking_abode_door_open
 
 [viking_abode_door_open]
-name=Door
-desc=Doesn't keep the wind out if its open!
-model=loc_4148
 active=yes
 ambient=30
 contrast=30
 op1=Close
+model=loc_4148
+name=Door
+desc=Doesn't keep the wind out if it's open!
 category=door_opened
 param=next_loc_stage,viking_abode_door
 
@@ -866,20 +866,20 @@ ambient=30
 contrast=30
 
 [viking_fur_door]
-name=Door
-desc=I'm sure the animal is glad it's fur was put to good use.
-model=loc_4250
 op1=Open
 active=yes
+model=loc_4250
+name=Door
+desc=I'm sure the animal is glad its fur was put to good use.
 
 [viking_fur_door_open]
-name=Door
-desc=I'm sure the animal is glad it's fur was put to good use.
-model=loc_4251
 op1=Close
 blockwalk=no
 blockrange=no
 active=yes
+model=loc_4251
+name=Door
+desc=I'm sure the animal is glad its fur was put to good use.
 
 [viking_chest_closed]
 name=Chest

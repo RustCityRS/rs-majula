@@ -1,17 +1,18 @@
 [battlestaff]
 members=yes
-name=Battlestaff
 desc=It's a slightly magical stick.
 cost=7000
 model=model_2648_obj
-2dyof=-23
-2dzoom=1460
-2dyan=1416
-2dxan=196
+2dxof=-5
+2dyof=2
+2dzoom=1490
+2dyan=1400
+2dxan=148
 iop2=Wield
-wearpos=righthand
 manwear=model_534_obj_wear,0
 womanwear=model_534_obj_wear,6
+name=Battlestaff
+wearpos=righthand
 category=weapon_staff
 weight=5lb
 param=stabattack,7

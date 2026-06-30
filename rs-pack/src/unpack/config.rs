@@ -1,17 +1,43 @@
-use std::collections::hash_map::Entry;
-use std::collections::{BTreeSet, HashMap};
-use std::path::Path;
-
+use super::model::load_existing_pack;
 use super::report::RecordLeftover;
 use crate::PACK_DIR;
 use crate::pack::util::colour::rgb15_to_hsl16;
 use crate::types::LocShape;
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use std::collections::hash_map::Entry;
+use std::collections::{BTreeSet, HashMap, HashSet};
+use std::path::Path;
+use std::rc::Rc;
 use tracing::debug;
 
 type ConfigEntries = Vec<(u16, Vec<(String, String)>)>;
-type ConfigDecoder = fn(&[u8], &[u8], &HashMap<u16, u16>, &mut UnpackedPacks) -> ConfigEntries;
+pub(crate) type ConfigDecoder =
+    fn(&[u8], &[u8], &HashMap<u16, u16>, &mut UnpackedPacks) -> ConfigEntries;
+
+pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
+    #[allow(unused_mut)]
+    let mut types: Vec<(&'static str, ConfigDecoder)> = vec![
+        ("idk", decode_idk_entries),
+        ("obj", decode_obj_entries),
+        ("npc", decode_npc_entries),
+        ("spotanim", decode_spotanim_entries),
+        ("flo", decode_flo_entries),
+        ("seq", decode_seq_entries),
+        ("loc", decode_loc_entries),
+        ("varp", decode_varp_entries),
+    ];
+    #[cfg(since_254)]
+    types.push(("varbit", decode_varbit_entries));
+    #[cfg(since_274)]
+    {
+        types.push(("mesanim", decode_mesanim_entries));
+        types.push(("mes", decode_mes_entries));
+        types.push(("param", decode_param_entries));
+        types.push(("hunt", decode_hunt_entries));
+    }
+    types
+}
 
 #[derive(Clone, Debug)]
 pub enum ModelCategory {
@@ -27,6 +53,7 @@ pub struct UnpackedPacks {
     pub model_names: HashMap<u16, String>,
     pub model_categories: HashMap<u16, ModelCategory>,
     pub existing_model_names: HashMap<u16, String>,
+    pub existing_config_names: HashMap<String, HashMap<u16, String>>,
     pub seq_ids: BTreeSet<u16>,
     pub anim_ids: BTreeSet<u16>,
     pub obj_ids: BTreeSet<u16>,
@@ -35,6 +62,7 @@ pub struct UnpackedPacks {
     pub cert_objs: HashMap<u16, u16>,
     pub cert_template_id: Option<u16>,
     pub flo_names: HashMap<u16, String>,
+    pub model_textures: Rc<HashMap<u16, HashSet<u16>>>,
     pub leftovers: Vec<RecordLeftover>,
     pub dat_trailing: Vec<(String, usize)>,
 }
@@ -46,6 +74,7 @@ impl UnpackedPacks {
             model_names: HashMap::new(),
             model_categories: HashMap::new(),
             existing_model_names: HashMap::new(),
+            existing_config_names: HashMap::new(),
             seq_ids: BTreeSet::new(),
             anim_ids: BTreeSet::new(),
             obj_ids: BTreeSet::new(),
@@ -54,9 +83,15 @@ impl UnpackedPacks {
             cert_objs: HashMap::new(),
             cert_template_id: None,
             flo_names: HashMap::new(),
+            model_textures: Rc::new(HashMap::new()),
             leftovers: Vec::new(),
             dat_trailing: Vec::new(),
         }
+    }
+
+    pub fn load_existing_names(&mut self, pack_dir: &Path) {
+        self.existing_model_names = load_existing_pack(pack_dir, "model");
+        self.existing_config_names = load_committed_config_names(pack_dir);
     }
 
     fn name_model(&mut self, id: u16, name: String, category: ModelCategory) -> String {
@@ -115,9 +150,29 @@ fn write_pack_file(
     Ok(())
 }
 
+pub(crate) fn load_committed_config_names(
+    pack_dir: &Path,
+) -> HashMap<String, HashMap<u16, String>> {
+    let mut map = HashMap::new();
+    for (config_type, _) in config_decoders() {
+        let names = load_existing_pack(pack_dir, config_type);
+        if !names.is_empty() {
+            map.insert(config_type.to_string(), names);
+        }
+    }
+    map
+}
+
 fn entry_name(config_type: &str, id: u16, packs: &UnpackedPacks) -> String {
     if config_type == "flo"
         && let Some(name) = packs.flo_names.get(&id)
+    {
+        return name.clone();
+    }
+    if let Some(name) = packs
+        .existing_config_names
+        .get(config_type)
+        .and_then(|names| names.get(&id))
     {
         return name.clone();
     }
@@ -155,34 +210,17 @@ pub fn unpack_config(
     jag: &JagFile,
     output_dir: &Path,
     pack_dir: &Path,
+    model_textures: Rc<HashMap<u16, HashSet<u16>>>,
 ) -> anyhow::Result<UnpackedPacks> {
     std::fs::create_dir_all(pack_dir)?;
     let reverse_hsl = build_reverse_hsl_table();
     let mut packs = UnpackedPacks::new();
-    packs.existing_model_names = super::model::load_existing_pack(Path::new(PACK_DIR), "model");
+    packs.load_existing_names(Path::new(PACK_DIR));
+    packs.model_textures = model_textures;
 
-    let types: &[(&str, ConfigDecoder)] = &[
-        ("idk", decode_idk_entries),
-        ("obj", decode_obj_entries),
-        ("npc", decode_npc_entries),
-        ("spotanim", decode_spotanim_entries),
-        ("flo", decode_flo_entries),
-        ("seq", decode_seq_entries),
-        ("loc", decode_loc_entries),
-        ("varp", decode_varp_entries),
-        #[cfg(since_254)]
-        ("varbit", decode_varbit_entries),
-        #[cfg(since_274)]
-        ("mesanim", decode_mesanim_entries),
-        #[cfg(since_274)]
-        ("mes", decode_mes_entries),
-        #[cfg(since_274)]
-        ("param", decode_param_entries),
-        #[cfg(since_274)]
-        ("hunt", decode_hunt_entries),
-    ];
+    let types = config_decoders();
 
-    for (name, decoder) in types {
+    for (name, decoder) in &types {
         let dat_name = format!("{name}.dat");
         let idx_name = format!("{name}.idx");
 
@@ -247,7 +285,7 @@ fn write_config_text_file(
     Ok(())
 }
 
-fn build_reverse_hsl_table() -> HashMap<u16, u16> {
+pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
     let mut table = HashMap::new();
     for rgb15 in 0..32768u16 {
         let hsl16 = rgb15_to_hsl16(rgb15);
@@ -256,7 +294,7 @@ fn build_reverse_hsl_table() -> HashMap<u16, u16> {
     table
 }
 
-fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u16, Vec<u8>)> {
+pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u16, Vec<u8>)> {
     let mut dat_buf = Packet::from(dat.to_vec());
     let mut idx_buf = Packet::from(idx.to_vec());
 
@@ -318,12 +356,27 @@ fn model_ref(id: u16, suffix: &str, category: ModelCategory, packs: &mut Unpacke
 
 fn seq_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.seq_ids.insert(id);
-    format!("seq_{id}")
+    entry_name("seq", id, packs)
 }
 
 fn obj_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.obj_ids.insert(id);
-    format!("obj_{id}")
+    entry_name("obj", id, packs)
+}
+
+fn obj_ref_to_id(value: &str, packs: &UnpackedPacks) -> Option<u16> {
+    if let Some(id) = value
+        .strip_prefix("obj_")
+        .and_then(|s| s.parse::<u16>().ok())
+    {
+        return Some(id);
+    }
+    packs.existing_config_names.get("obj").and_then(|names| {
+        names
+            .iter()
+            .find(|(_, name)| name.as_str() == value)
+            .map(|(id, _)| *id)
+    })
 }
 
 fn anim_ref(id: u16, packs: &mut UnpackedPacks) -> String {
@@ -722,8 +775,12 @@ fn decode_seq_entries(
     results
 }
 
-fn model_base(name: &str) -> &str {
-    crate::types::split_trailing_shape(name).map_or(name, |(base, _)| base)
+fn rename_loc_model(name: &str, shape: u8) -> &str {
+    let base = name.strip_suffix("_ld").unwrap_or(name);
+    LocShape::try_from(shape)
+        .ok()
+        .and_then(|s| base.strip_suffix(s.suffix()))
+        .unwrap_or(base)
 }
 
 fn push_loc_model_refs(
@@ -738,7 +795,7 @@ fn push_loc_model_refs(
             .expect("unknown loc shape")
             .suffix();
         let name = packs.name_model(mid, format!("loc_{loc_id}{suffix}"), ModelCategory::Loc);
-        let base = model_base(&name).to_string();
+        let base = rename_loc_model(&name, shape).to_string();
         if !bases.contains(&base) {
             bases.push(base);
         }
@@ -751,7 +808,7 @@ fn push_loc_model_refs(
 fn decode_loc_entries(
     dat: &[u8],
     idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
+    reverse_hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
 ) -> Vec<(u16, Vec<(String, String)>)> {
     let raw = read_entries(dat, idx);
@@ -764,6 +821,10 @@ fn decode_loc_entries(
         let mut buf = Packet::from(data);
         let mut props = Vec::new();
 
+        let mut recol_src: Vec<u16> = Vec::new();
+        let mut recol_dst: Vec<u16> = Vec::new();
+        let mut model_ids: Vec<u16> = Vec::new();
+
         while buf.remaining() > 0 {
             let code: u8 = buf.g1();
             match code {
@@ -774,6 +835,7 @@ fn decode_loc_entries(
                     for _ in 0..count {
                         pairs.push((buf.g2(), buf.g1()));
                     }
+                    model_ids.extend(pairs.iter().map(|(m, _)| *m));
                     push_loc_model_refs(id, &pairs, packs, &mut props);
                 }
                 2 => props.push(("name".into(), buf.gjstr(10))),
@@ -784,6 +846,7 @@ fn decode_loc_entries(
                     for _ in 0..count {
                         pairs.push((buf.g2(), LocShape::CentrepieceStraight as u8));
                     }
+                    model_ids.extend(pairs.iter().map(|(m, _)| *m));
                     push_loc_model_refs(id, &pairs, packs, &mut props);
                 }
                 14 => props.push(("width".into(), buf.g1().to_string())),
@@ -809,11 +872,9 @@ fn decode_loc_entries(
                 39 => props.push(("contrast".into(), buf.g1s().to_string())),
                 40 => {
                     let count = buf.g1() as usize;
-                    for i in 0..count {
-                        let s = buf.g2();
-                        let d = buf.g2();
-                        props.push((format!("recol{}s", i + 1), s.to_string()));
-                        props.push((format!("recol{}d", i + 1), d.to_string()));
+                    for _ in 0..count {
+                        recol_src.push(buf.g2());
+                        recol_dst.push(buf.g2());
                     }
                 }
                 60 => props.push(("mapfunction".into(), buf.g2().to_string())),
@@ -848,6 +909,33 @@ fn decode_loc_entries(
                 _ => panic!("Unrecognized loc config code: {code}"),
             }
         }
+        let model_textures = packs.model_textures.clone();
+        for i in 0..recol_src.len() {
+            let s = recol_src[i];
+            let d = recol_dst[i];
+            let idx = i + 1;
+            let s_rgb = reverse_hsl.get(&s);
+            let d_rgb = reverse_hsl.get(&d);
+            if s >= 100 || d >= 100 {
+                props.push((
+                    format!("recol{idx}s"),
+                    s_rgb.copied().unwrap_or(s).to_string(),
+                ));
+                props.push((
+                    format!("recol{idx}d"),
+                    d_rgb.copied().unwrap_or(d).to_string(),
+                ));
+            } else if s_rgb.is_none()
+                || d_rgb.is_none()
+                || models_have_texture(&model_ids, s, &model_textures)
+            {
+                props.push((format!("retex{idx}s"), texture_ref(s, packs)));
+                props.push((format!("retex{idx}d"), texture_ref(d, packs)));
+            } else {
+                props.push((format!("recol{idx}s"), s_rgb.copied().unwrap().to_string()));
+                props.push((format!("recol{idx}d"), d_rgb.copied().unwrap().to_string()));
+            }
+        }
         if buf.remaining() > 0 {
             packs.leftovers.push(RecordLeftover {
                 config_type: "loc",
@@ -860,6 +948,16 @@ fn decode_loc_entries(
         }
     }
     results
+}
+
+fn models_have_texture(
+    model_ids: &[u16],
+    texture: u16,
+    model_textures: &HashMap<u16, HashSet<u16>>,
+) -> bool {
+    model_ids
+        .iter()
+        .any(|m| model_textures.get(m).is_some_and(|t| t.contains(&texture)))
 }
 
 fn decode_npc_entries(
@@ -1110,21 +1208,15 @@ fn decode_obj_entries(
                 .iter()
                 .all(|(k, _)| k == "certlink" || k == "certtemplate");
         if is_cert {
-            if let Some((_, link_name)) = props.iter().find(|(k, _)| k == "certlink") {
-                if let Some(linked_id) = link_name
-                    .strip_prefix("obj_")
-                    .and_then(|s| s.parse::<u16>().ok())
-                {
-                    packs.cert_objs.insert(id, linked_id);
-                }
+            if let Some((_, link_name)) = props.iter().find(|(k, _)| k == "certlink")
+                && let Some(linked_id) = obj_ref_to_id(link_name, packs)
+            {
+                packs.cert_objs.insert(id, linked_id);
             }
-            if let Some((_, tmpl_name)) = props.iter().find(|(k, _)| k == "certtemplate") {
-                if let Some(tmpl_id) = tmpl_name
-                    .strip_prefix("obj_")
-                    .and_then(|s| s.parse::<u16>().ok())
-                {
-                    packs.cert_template_id = Some(tmpl_id);
-                }
+            if let Some((_, tmpl_name)) = props.iter().find(|(k, _)| k == "certtemplate")
+                && let Some(tmpl_id) = obj_ref_to_id(tmpl_name, packs)
+            {
+                packs.cert_template_id = Some(tmpl_id);
             }
         }
         if !props.is_empty() {

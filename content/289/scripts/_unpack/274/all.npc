@@ -1,12 +1,12 @@
 [0_45_48_seabird1]
-name=Gull
-model1=model_2850_npc
 desc=A sea bird.
 size=2
 walkanim=bird_walk
 readyanim=bird_ready
 minimap=no
-vislevel=26
+vislevel=hide
+name=Gull
+model1=model_2850_npc
 wanderrange=8
 hitpoints=32
 attack=22
@@ -25,14 +25,14 @@ param=defend_sound,bird_hit
 param=death_sound,bird_death
 
 [0_45_48_seabird2]
-name=Cormorant
-model1=model_2850_npc
 desc=A sea bird.
 size=2
 walkanim=bird_walk
 readyanim=bird_ready
 minimap=no
-vislevel=26
+vislevel=hide
+name=Cormorant
+model1=model_2850_npc
 wanderrange=15
 hitpoints=32
 attack=22
@@ -51,14 +51,14 @@ param=defend_sound,bird_hit
 param=death_sound,bird_death
 
 [0_45_48_seabird3]
-name=Albatross
-model1=model_2850_npc
 desc=A sea bird.
 size=2
 walkanim=bird_walk
 readyanim=bird_ready
 minimap=no
-vislevel=26
+vislevel=hide
+name=Albatross
+model1=model_2850_npc
 wanderrange=20
 hitpoints=32
 attack=22

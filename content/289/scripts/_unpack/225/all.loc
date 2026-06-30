@@ -35,11 +35,11 @@ recol1s=6342
 recol1d=15749
 
 [junglestatue]
-name=Mysterious statue
-desc=It's eyes stare off into the distance...
-model=model_loc_21
 width=4
 length=4
+model=model_loc_21
+name=Mysterious statue
+desc=Its eyes stare off into the distance...
 
 [ctratgatea]
 name=Gate
@@ -261,18 +261,21 @@ recol2s=6342
 recol2d=11458
 
 [inviswall]
-model=model_loc_83
 shadow=no
 mapscene=22
+model=model_loc_83
+model=loc_83
 
 [00]
 model=model_loc_83
+model=loc_83
 
 [inviswall_blockrange]
-model=model_loc_83
 blockrange=no
 shadow=no
 mapscene=22
+model=model_loc_83
+model=loc_83
 
 [rugcorner_verydark]
 model=model_loc_107
@@ -5609,9 +5612,10 @@ desc=Used for storing things on.
 model=model_loc_1024
 
 [clothesequip_shelves]
+blockwalk=no
+model=model_loc_1025
 name=Clothing shelves
 desc=Tailor made for needlework supplies
-model=model_loc_1025
 
 [cookingshelfempty_dark]
 model=model_loc_1023
@@ -9643,10 +9647,11 @@ retex1s=wall
 retex1d=mossybricks
 
 [bamboo_bridge1]
-model=model_loc_1721
 sharelight=yes
 hillskew=yes
 active=no
+forcedecor=yes
+model=model_loc_1721
 
 [loc_1724]
 name=Staircase
@@ -9910,19 +9915,21 @@ length=5
 op1=Climb-up
 
 [loc_1762]
-name=Climbing rope
-desc=A rope hangs here
-model=model_loc_1762
 op1=Climb
+model=model_loc_1762
+name=Climbing rope
+desc=A rope hangs here.
 
 [climbing_rope_top]
 model=model_loc_1763
+name=Climbing rope
+desc=A rope hangs here.
 
 [climbing_rope2]
-name=Climbing rope
-desc=A rope hangs here
-model=model_loc_1762
 op1=Climb
+model=model_loc_1762
+name=Climbing rope
+desc=A rope hangs here.
 
 [wildymirrorladdertop1]
 name=Ladder
@@ -10505,9 +10512,9 @@ model=model_loc_1867
 active=no
 
 [marblearch]
-model=model_loc_1868
-width=2
 active=no
+width=2
+model=model_loc_1868
 
 [marblepillar]
 model=model_loc_1869
@@ -12810,9 +12817,10 @@ model=model_loc_3
 blockrange=no
 
 [inviswall_no_blockrange]
-model=model_loc_83
 width=2
 length=2
+model=model_loc_83
+model=loc_83
 
 [loc_2648]
 model=model_loc_2648

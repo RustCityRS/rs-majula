@@ -447,7 +447,6 @@ hitpoints=20
 
 [arena_spectator]
 vislevel=hide
-name=Local
 desc=A scruffy looking chap.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -456,6 +455,7 @@ recol1s=14724
 recol1d=8192
 recol2s=2340
 recol2d=8456
+name=Local
 model1=model_230_idk
 model2=model_249_idk
 model3=model_236_obj_wear
@@ -465,7 +465,8 @@ model6=model_179_obj_wear
 model7=model_275_idk
 model8=model_185_obj_wear
 head1=model_63_idk_head
-head2=model_68_obj_wear
+head2=model_81_idk_head
+head3=model_68_obj_wear
 
 [arena_bouncer]
 size=2

@@ -4,21 +4,28 @@ use rs_io::Packet;
 use rs_io::jag::JagFile;
 use tracing::debug;
 
+const WORDENC_NAMES: &[&str] = &[
+    "badenc.txt",
+    "fragmentsenc.txt",
+    "tldlist.txt",
+    "domainenc.txt",
+];
+
 pub(crate) fn known_hashes() -> Vec<i32> {
-    [
-        "badenc.txt",
-        "fragmentsenc.txt",
-        "tldlist.txt",
-        "domainenc.txt",
-    ]
-    .iter()
-    .map(|n| JagFile::hash(n))
-    .collect()
+    WORDENC_NAMES.iter().map(|n| JagFile::hash(n)).collect()
+}
+
+fn find_wordenc_name(hash: i32) -> Option<&'static str> {
+    WORDENC_NAMES
+        .iter()
+        .copied()
+        .find(|n| JagFile::hash(n) == hash)
 }
 
 pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let wordenc_dir = output_dir.join("wordenc");
-    std::fs::create_dir_all(&wordenc_dir)?;
+    let meta_dir = wordenc_dir.join("meta");
+    std::fs::create_dir_all(&meta_dir)?;
 
     if let Some(data) = jag.read("badenc.txt") {
         let text = decode_badenc(&data.data);
@@ -40,7 +47,16 @@ pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
         std::fs::write(wordenc_dir.join("domainenc.txt"), text)?;
     }
 
-    debug!("Unpacked wordenc");
+    let mut order = Vec::new();
+    for i in 0..jag.file_count {
+        if let Some(name) = find_wordenc_name(jag.file_hash(i)) {
+            order.push(name.to_string());
+        }
+    }
+    let order_content = order.join("\n") + "\n";
+    std::fs::write(meta_dir.join("wordenc.order"), order_content)?;
+
+    debug!("Unpacked wordenc ({} entries)", order.len());
     Ok(())
 }
 

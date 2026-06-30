@@ -931,50 +931,51 @@ sharelight=yes
 active=no
 
 [regicide_tentroofcentre1]
-name=Tent
-desc=A Tent
-model=model_loc_1682
-recol1s=26425
-recol1d=21069
 sharelight=yes
 active=yes
+model=model_loc_1682
+name=Tent
+desc=A Tent.
+recol1s=26425
+recol1d=21069
 
 [regicide_tentroof_high]
-name=Tent
-desc=A Tent
+sharelight=yes
+active=yes
 model=loc_3984
+name=Tent
+desc=A Tent.
 recol1s=26425
 recol1d=9623
 recol2s=5348
 recol2d=21069
-sharelight=yes
-active=yes
 
 [regicide_tentroof_high_centre]
-name=Tent
-desc=A Tent
-model=loc_3985
-recol1s=26425
-recol1d=21069
 sharelight=yes
 active=yes
+model=loc_3985
+name=Tent
+desc=A Tent.
+recol1s=26425
+recol1d=21069
 
 [regicide_tentroof_highcorner]
-name=Tent
-desc=A Tent
+active=yes
 model=loc_3986
+name=Tent
+desc=A Tent.
 recol1s=26425
 recol1d=9623
 recol2s=5348
 recol2d=21069
-active=yes
 
 [propbarrel_burning]
-name=propbarrel_burning
+anim=propbarrel_burning
 model=loc_3987
+name=Barrel
+desc=A small barrel.
 recol1s=9344
 recol1d=16808
-anim=propbarrel_burning
 
 [regicide_guideropes1]
 model=model_loc_1680

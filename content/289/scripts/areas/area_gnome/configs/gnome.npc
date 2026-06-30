@@ -263,12 +263,12 @@ param=death_anim,midget_death
 param=death_sound,gnome_death
 
 [aluft_gianne]
-name=Aluft Gianne
+vislevel=hide
 desc=It's a tree gnome chef.
 walkanim=midget_walk
 readyanim=midget_ready
 op1=Talk-to
-vislevel=1
+name=Aluft Gianne
 model1=model_2909_npc
 model2=model_2889_npc
 model3=model_2917_npc
@@ -278,19 +278,19 @@ param=death_anim,midget_death
 param=death_sound,gnome_death
 
 [gnome_waiter]
-name=Gnome Waiter
+vislevel=hide
 desc=He can serve you gnome food.
 walkanim=midget_walk
 readyanim=midget_ready
 op1=Talk-to
 op3=Trade
-vislevel=1
 recol1s=416
 recol1d=6342
 recol2s=11456
 recol2d=9513
 recol3s=13728
 recol3d=3171
+name=Gnome Waiter
 model1=model_2909_npc
 model2=model_2900_npc
 model3=model_2915_npc

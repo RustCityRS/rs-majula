@@ -1,4 +1,6 @@
 pub mod config;
+pub mod configdiff;
+pub mod interface;
 pub mod map;
 pub mod media;
 pub mod model;
@@ -10,24 +12,28 @@ pub mod texture;
 pub mod title;
 pub mod wordenc;
 
+use crate::pack::pack::pack_assets;
+use crate::pack::pack_registry::{PackRegistry, PackedFile};
 #[cfg(since_244)]
 use crate::versionlist::VersionListMeta;
 #[cfg(since_244)]
 use crate::versionlist::{TABLE_NAMES, VersionList, read_i32_table, read_u16_table};
-use crate::{config_crc, jag_crc};
+use crate::{CONTENT_DIR, PACK_DIR, config_crc, jag_crc};
 use image::{Rgba, RgbaImage};
+#[cfg(since_244)]
+use model::build_model_textures;
 use report::{CrcReport, PackDiffReport};
 use rs_io::Packet;
 use rs_io::jag::{JagCompression, JagFile};
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
 use std::collections::HashMap;
-#[cfg(since_244)]
 use std::collections::HashSet;
 use std::path::Path;
 #[cfg(rev = "225")]
 use std::path::PathBuf;
-use tracing::debug;
+use std::rc::Rc;
+use tracing::{debug, warn};
 
 const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("seq", config_crc::SEQ),
@@ -186,18 +192,24 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     let mut crc_report = CrcReport::new();
     let mut leftover = report::LeftoverReport::new();
 
+    #[cfg(since_244)]
+    let model_textures = Rc::new(build_model_textures(source.cache()));
+    #[cfg(rev = "225")]
+    let model_textures: Rc<HashMap<u16, HashSet<u16>>> = Rc::new(HashMap::new());
+
     // Config must run first - it produces model_categories needed by models.
-    let mut model_categories = HashMap::new();
-    if let Some(jag) = prepare_jag(
+    let config_jag = prepare_jag(
         "config",
         source.archive(Archive::Config),
         jag_crc::CONFIG,
         &config_known_hashes(),
         &mut crc_report,
         &mut leftover,
-    ) {
+    );
+    let mut model_categories = HashMap::new();
+    if let Some(jag) = &config_jag {
         debug!("Unpacking config...");
-        let packs = config::unpack_config(&jag, output_dir, pack_dir)?;
+        let packs = config::unpack_config(jag, output_dir, pack_dir, model_textures.clone())?;
 
         for (name, expected) in CONFIG_TYPE_CRCS {
             if let Some(dat) = jag.read(&format!("{name}.dat")) {
@@ -206,7 +218,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         }
 
         let raw_dir = output_dir.join("_raw").join("config");
-        let entries = dump_jag_entries(&jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
+        let entries = dump_jag_entries(jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
         debug!("  Dumped {} raw config entries", entries.len());
 
         std::fs::write(pack_dir.join("config.order"), entries.join("\n") + "\n")?;
@@ -306,6 +318,19 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
                 let raw_dir = output_dir.join("_raw").join("interface");
                 let entries = dump_jag_entries(jag, &raw_dir, INTERFACE_ENTRY_NAMES).unwrap();
                 debug!("  Dumped {} raw interface entries", entries.len());
+
+                let registry = PackRegistry::load(Path::new(PACK_DIR))
+                    .expect("load pack registry for interface unpack");
+                let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts");
+                let out_scripts_dir = output_dir.join("scripts");
+                interface::unpack_interface(
+                    jag,
+                    &src_scripts_dir,
+                    &out_scripts_dir,
+                    pack_dir,
+                    &registry,
+                )
+                .expect("unpack interface source");
             });
         }
 
@@ -402,10 +427,10 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     leftover.crack_unknown_names();
     leftover.write(output_dir)?;
 
-    let committed_pack = Path::new(crate::PACK_DIR);
+    let committed_pack = Path::new(PACK_DIR);
     if committed_pack.exists() && !same_dir(committed_pack, pack_dir) {
         let mut report = PackDiffReport::compare(committed_pack, pack_dir)?;
-        let committed_maps = Path::new(crate::CONTENT_DIR).join("maps");
+        let committed_maps = Path::new(CONTENT_DIR).join("maps");
         let unpacked_maps = output_dir.join("maps");
         if committed_maps.exists() && !same_dir(&committed_maps, &unpacked_maps) {
             report.compare_maps(&committed_maps, &unpacked_maps)?;
@@ -413,8 +438,32 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         report.write(output_dir)?;
     }
 
+    let committed_content = Path::new(CONTENT_DIR);
+    if let Some(jag) = &config_jag
+        && committed_content.exists()
+        && !same_dir(committed_content, output_dir)
+    {
+        match pack_committed_configs() {
+            Ok(packed) => {
+                configdiff::ConfigDiffReport::compare(
+                    jag,
+                    &packed,
+                    committed_pack,
+                    model_textures.clone(),
+                )
+                .write(output_dir)?;
+            }
+            Err(e) => warn!("Config-diff skipped: could not pack committed content: {e:#}"),
+        }
+    }
+
     debug!("Unpack complete.");
     Ok(())
+}
+
+fn pack_committed_configs() -> anyhow::Result<HashMap<String, PackedFile>> {
+    let registry = PackRegistry::load(Path::new(PACK_DIR))?;
+    pack_assets(&registry, Path::new(CONTENT_DIR), false)
 }
 
 fn same_dir(a: &Path, b: &Path) -> bool {
