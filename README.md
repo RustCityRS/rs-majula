@@ -160,11 +160,11 @@ Defined in `.cargo/config.toml`:
 
 ----
 
-# How to Play
+## How to Play
 
 There are two ways to play the server.
 
-## 1. The original shipped Java client
+### 1. The original shipped Java client
 
 Depending on your targeted revision, navigate to the respective `/public/{REV}/client.jar` file.
 Run the following command:
@@ -176,7 +176,7 @@ java -cp client.jar client 10 0 highmem members 10
 > [!NOTE]
 > Usage: node-id, port-offset, [lowmem/highmem], [free/members], storeid
 
-## 2. The ported JavaScript browser client
+### 2. The ported JavaScript browser client
 
 Navigate to the following address on any modern web browser:
 
