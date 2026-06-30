@@ -45,6 +45,8 @@ pub mod loc_add_change;
 pub mod loc_anim;
 pub mod loc_del;
 pub mod loc_merge;
+#[cfg(since_289)]
+pub mod loc_sound;
 pub mod logout;
 pub mod map_anim;
 pub mod map_projanim;

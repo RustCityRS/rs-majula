@@ -364,6 +364,16 @@ fn obj_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     entry_name("obj", id, packs)
 }
 
+fn loc_ref(id: u16, packs: &mut UnpackedPacks) -> String {
+    packs.obj_ids.insert(id);
+    entry_name("loc", id, packs)
+}
+
+fn varbit_ref(id: u16, packs: &mut UnpackedPacks) -> String {
+    packs.obj_ids.insert(id);
+    entry_name("varbit", id, packs)
+}
+
 fn obj_ref_to_id(value: &str, packs: &UnpackedPacks) -> Option<u16> {
     if let Some(id) = value
         .strip_prefix("obj_")
@@ -905,6 +915,23 @@ fn decode_loc_entries(
                 75 => {
                     let v = if buf.g1() == 1 { "yes" } else { "no" };
                     props.push(("raiseobject".into(), v.into()));
+                }
+                #[cfg(since_289)]
+                77 => {
+                    let multivarbit = buf.g2();
+                    if multivarbit != u16::MAX {
+                        props.push(("multivar".into(), varbit_ref(multivarbit, packs)));
+                        let count = buf.g1();
+                        for i in 0..=count {
+                            let multiloc = buf.g2();
+                            if multiloc != u16::MAX {
+                                props.push((
+                                    "multiloc".into(),
+                                    format!("{i},{}", loc_ref(multiloc, packs)),
+                                ));
+                            }
+                        }
+                    }
                 }
                 _ => panic!("Unrecognized loc config code: {code}"),
             }

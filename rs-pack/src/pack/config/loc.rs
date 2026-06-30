@@ -52,6 +52,10 @@ pub fn pack_locs(
         let mut src_models: Vec<&str> = Vec::new();
         let mut recol_s: Vec<(usize, u16)> = Vec::new();
         let mut recol_d: Vec<(usize, u16)> = Vec::new();
+        #[cfg(since_289)]
+        let mut multivar: Option<&str> = None;
+        #[cfg(since_289)]
+        let mut multiloc: Vec<(usize, &str)> = Vec::new();
         let mut active = -1;
         let mut name = None;
         let mut desc = None;
@@ -312,6 +316,20 @@ pub fn pack_locs(
                     server.p1(v as u8);
                 }),
 
+                // 77 (collected, emitted after the loop)
+                #[cfg(since_289)]
+                "multivar" => multivar = Some(value.as_str()),
+                #[cfg(since_289)]
+                "multiloc" => {
+                    let (idx, loc_name) = value
+                        .split_once(',')
+                        .unwrap_or_else(|| panic!("{debugname}: invalid multiloc '{value}'"));
+                    let idx: usize = idx.trim().parse().unwrap_or_else(|e| {
+                        panic!("{debugname}: invalid multiloc index '{idx}': {e}")
+                    });
+                    multiloc.push((idx, loc_name.trim()));
+                }
+
                 // 249
                 "param" => {} // handled at the end
 
@@ -334,6 +352,33 @@ pub fn pack_locs(
                 client.p2(d);
                 server.p2(s);
                 server.p2(d);
+            }
+        }
+
+        // handle 77 (multivar / multiloc morph)
+        #[cfg(since_289)]
+        if let Some(varbit_name) = multivar {
+            let varbit_id = registry
+                .varbit
+                .get_by_debugname(varbit_name)
+                .unwrap_or_else(|| panic!("{debugname}: unknown multivar varbit '{varbit_name}'"));
+            let count = multiloc.iter().map(|(i, _)| *i).max().unwrap_or(0);
+            client.p1(77);
+            client.p2(varbit_id);
+            client.p1(count as u8);
+            server.p1(77);
+            server.p2(varbit_id);
+            server.p1(count as u8);
+            for i in 0..=count {
+                let id = match multiloc.iter().find(|(idx, _)| *idx == i).map(|&(_, n)| n) {
+                    Some(name) => registry
+                        .loc
+                        .get_by_debugname(name)
+                        .unwrap_or_else(|| panic!("{debugname}: unknown multiloc '{name}'")),
+                    None => u16::MAX,
+                };
+                client.p2(id);
+                server.p2(id);
             }
         }
 

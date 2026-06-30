@@ -92,6 +92,10 @@ pub struct LocTypeRaw {
     pub breakroutefinding: bool,
     #[cfg(since_254)]
     pub raiseobject: Option<u8>,
+    #[cfg(since_289)]
+    pub multivar: Option<u16>,
+    #[cfg(since_289)]
+    pub multiloc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -138,6 +142,10 @@ impl CacheType for LocTypeRaw {
             breakroutefinding: false,
             #[cfg(since_254)]
             raiseobject: None,
+            #[cfg(since_289)]
+            multivar: None,
+            #[cfg(since_289)]
+            multiloc: None,
             params: None,
             debugname: None,
         }
@@ -218,6 +226,17 @@ impl CacheType for LocTypeRaw {
                 74 => self.breakroutefinding = true,
                 #[cfg(since_254)]
                 75 => self.raiseobject = Some(buf.g1()),
+                #[cfg(since_289)]
+                77 => {
+                    self.multivar = Some(buf.g2());
+                    let count = buf.g1() as usize;
+                    let mut multiloc = vec![0i32; count + 1];
+                    for slot in multiloc.iter_mut() {
+                        let id = buf.g2();
+                        *slot = if id == u16::MAX { -1 } else { id as i32 };
+                    }
+                    self.multiloc = Some(multiloc.into_boxed_slice());
+                }
                 249 => ParamType::decode_params(
                     buf,
                     self.params
