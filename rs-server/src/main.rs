@@ -4,10 +4,10 @@ use futures_util::StreamExt;
 use std::io::IsTerminal;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 mod http;
+mod jaggrab;
 mod socket;
 pub mod tui;
 
-use crate::socket::handshake;
 use crate::tui::log_layer::{LogBuffer, TuiLogLayer};
 use anyhow::Result;
 use clap::Parser;
@@ -22,6 +22,7 @@ use rs_pack::cache::script::ScriptProvider;
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
+use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
@@ -133,6 +134,10 @@ struct Args {
     /// TCP game port. Defaults to 43584 + node_id (43594 for node 10).
     #[arg(long)]
     tcp_port: Option<u16>,
+    /// JAGGRAB port for the standalone desktop client's cache bootstrap.
+    /// Defaults to tcp_port + 1 (43595 for node 10). The web client doesn't use it.
+    #[arg(long)]
+    jaggrab_port: Option<u16>,
     #[arg(long, default_value = ".keys/private.pem")]
     private_key: PathBuf,
     #[arg(long, default_value = "true")]
@@ -285,14 +290,16 @@ async fn bootstrap(
     stats_tx: Sender<TickStats>,
     trigger_rx: UnboundedReceiver<()>,
 ) -> Result<()> {
-    let http_port = args.http_port.unwrap_or(8070 + args.node_id as u16);
-    let tcp_port = args.tcp_port.unwrap_or(43584 + args.node_id as u16);
+    let host = args.host;
+    let http = args.http_port.unwrap_or(8070 + args.node_id as u16);
+    let tcp = args.tcp_port.unwrap_or(43584 + args.node_id as u16);
+    let jaggrab = args.jaggrab_port.unwrap_or(tcp + 1);
 
     info!("RuneScape Private Server (Rev {}) starting", REVISION);
-    info!("Host: {}", args.host);
+    info!("Host: {}", host);
     info!("Node ID: {}", args.node_id);
-    info!("HTTP Port: {}", http_port);
-    info!("TCP Port: {}", tcp_port);
+    info!("HTTP Port: {}", http);
+    info!("TCP Port: {}", tcp);
     info!("RSA: {:?}", args.private_key);
 
     info!("Compiling content assets & building cache...");
@@ -399,9 +406,11 @@ async fn bootstrap(
 
     let guard = ConnectionGuard::new();
 
+    info!("Accepting HTTP connections on: {}:{}", host, http);
+    info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
     tokio::spawn(http::serve(
-        args.host.to_string(),
-        http_port,
+        host.to_string(),
+        http,
         args.node_id.to_string(),
         (args.node_id - 10).to_string(),
         args.members,
@@ -409,36 +418,14 @@ async fn bootstrap(
         guard.clone(),
     ));
 
-    info!("Accepting HTTP connections on: {}:{}", args.host, http_port);
+    info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
+    tokio::spawn(jaggrab::serve(host.to_string(), jaggrab, cache));
 
-    info!("Accepting TCP connections on: {}:{}", args.host, tcp_port);
-
-    info!(
-        "Webclient available at: http://localhost:{}/rs2.cgi",
-        http_port
-    );
-
-    let bind_addr: SocketAddr = format!("{}:{}", args.host, tcp_port).parse()?;
-    let listener = TcpListener::bind(bind_addr).await?;
-
-    loop {
-        let (stream, addr) = listener.accept().await?;
-        stream.set_nodelay(true)?;
-        info!("TCP connection from {}", addr);
-        let server_state = server_state.clone();
-        let guard = guard.clone();
-        tokio::spawn(async move {
-            let connection = Socket::from_tcp(stream, addr, server_state, guard);
-            if let Err(e) = handshake(connection).await {
-                info!("TCP connection {} closed: {}", addr, e);
-            }
-        });
-    }
+    info!("Accepting TCP connections on: {}:{}", host, tcp);
+    socket::serve(host, tcp, server_state, guard).await
 }
 
 fn prepare_ether_sidecar(db: &DbEnv) {
-    use std::process::{Command, Stdio};
-
     let run = |args: &[&str]| {
         let status = Command::new("cmd")
             .args(["/c", "mix"])

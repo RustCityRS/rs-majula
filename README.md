@@ -160,6 +160,33 @@ Defined in `.cargo/config.toml`:
 
 ----
 
+# How to Play
+
+There are two ways to play the server.
+
+## 1. The original shipped Java client
+
+Depending on your targeted revision, navigate to the respective `/public/{REV}/client.jar` file.
+Run the following command:
+
+```bash
+java -cp client.jar client 10 0 highmem members 10
+```
+
+> [!NOTE]
+> Usage: node-id, port-offset, [lowmem/highmem], [free/members], storeid
+
+## 2. The ported JavaScript browser client
+
+Navigate to the following address on any modern web browser:
+
+http://localhost:8080/
+
+> [!NOTE]
+> Any browser should be supported as long as it supports WebAssembly. This includes any mobile browser as well.
+
+----
+
 ## Multi-Revision
 
 The engine supports multiple revision targets. The ones listed below can be targeted to your choice.
@@ -167,7 +194,7 @@ Simply change the `REV` located in `/.cargo/config.toml` and rebuild.
 
 ```toml
 [env]
-REV = "274"
+REV = "289"
 ```
 
 ### 225 (2004-05-18)
@@ -212,6 +239,21 @@ REV = "274"
 - https://runescape.wiki/w/Update:The_Fremennik_Trials
 - https://runescape.wiki/w/Update:Horror_From_The_Deep
 - https://runescape.wiki/w/Update:Burthorpe_Games_Room
+
+### 289 (2005-01-17)
+
+- https://runescape.wiki/w/Update:Throne_Of_Miscellania
+- https://runescape.wiki/w/Update:Monkey_Madness
+- https://runescape.wiki/w/Update:Various_Small_Changes.
+- https://runescape.wiki/w/Update:More_Small_Changes
+- https://runescape.wiki/w/Update:Castle_Wars
+- https://runescape.wiki/w/Update:Changes_to_Castle_Wars
+- https://runescape.wiki/w/Update:Santa,_Flax_and_Castlewars
+- https://runescape.wiki/w/Update:The_Haunted_Mine
+- https://runescape.wiki/w/Update:Troll_Romance,_Banks_and_Chat
+- https://runescape.wiki/w/Update:In_Search_Of_The_Myreque
+- https://runescape.wiki/w/Update:Trawler_Game_Update
+- https://runescape.wiki/w/Update:Karamja_Dungeon
 
 ----
 

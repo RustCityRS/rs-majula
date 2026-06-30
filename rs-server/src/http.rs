@@ -13,7 +13,7 @@ use tokio_tungstenite::accept_hdr_async;
 use tokio_tungstenite::tungstenite::handshake::server::{Request, Response};
 use tracing::{debug, info, warn};
 
-enum Body {
+pub(crate) enum Body {
     Empty,
     Owned(Vec<u8>),
     Shared(Arc<[u8]>),
@@ -28,7 +28,7 @@ impl Body {
         }
     }
 
-    fn as_bytes(&self) -> &[u8] {
+    pub(crate) fn as_bytes(&self) -> &[u8] {
         match self {
             Body::Empty => &[],
             Body::Owned(v) => v,
@@ -37,12 +37,8 @@ impl Body {
     }
 }
 
-// ---------------------------------------------------------------------------
-// Client template structs
-// ---------------------------------------------------------------------------
 enum ClientTemplate {
     TypeScript(TypeScriptClient),
-    Java(JavaClient),
 }
 
 #[derive(TemplateSimple)]
@@ -60,26 +56,6 @@ struct TypeScriptClient {
     members: String,
 }
 
-#[derive(TemplateSimple)]
-#[cfg_attr(rev = "225", template(path = "public/225/java.ejs"))]
-#[cfg_attr(rev = "244", template(path = "public/244/java.ejs"))]
-#[cfg_attr(rev = "245.2", template(path = "public/245.2/java.ejs"))]
-#[cfg_attr(rev = "254", template(path = "public/254/java.ejs"))]
-#[cfg_attr(rev = "274", template(path = "public/274/java.ejs"))]
-#[cfg_attr(rev = "289", template(path = "public/289/java.ejs"))]
-struct JavaClient {
-    plugin: String,
-    nodeid: String,
-    portoff: String,
-    lowmem: bool,
-    members: bool,
-}
-
-// ---------------------------------------------------------------------------
-// Server entry point
-// ---------------------------------------------------------------------------
-
-/// Spawn the HTTP server on `port`, serving all game-client routes.
 #[allow(clippy::too_many_arguments)]
 pub async fn serve(
     host: String,
@@ -320,10 +296,6 @@ async fn route(
     }
 }
 
-// ---------------------------------------------------------------------------
-// Routing helpers
-// ---------------------------------------------------------------------------
-
 fn matches_cache(path: &str) -> bool {
     [
         "/title",
@@ -346,7 +318,7 @@ fn matches_cache(path: &str) -> bool {
     .any(|p| path.starts_with(p))
 }
 
-fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body> {
+pub(crate) fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body> {
     if path.starts_with("/crc") {
         return Some(Body::Shared(Arc::clone(&cache.crctable_bytes)));
     }
@@ -433,10 +405,6 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
     None
 }
 
-// ---------------------------------------------------------------------------
-// Template rendering
-// ---------------------------------------------------------------------------
-
 fn render_client(
     plugin: String,
     lowmem: String,
@@ -445,13 +413,6 @@ fn render_client(
     members: bool,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let client = match plugin.as_str() {
-        "3" => ClientTemplate::Java(JavaClient {
-            plugin,
-            nodeid,
-            portoff,
-            lowmem: lowmem == "1",
-            members,
-        }),
         _ => ClientTemplate::TypeScript(TypeScriptClient {
             plugin,
             nodeid,
@@ -463,13 +424,8 @@ fn render_client(
 
     Ok(match client {
         ClientTemplate::TypeScript(c) => c.render_once()?,
-        ClientTemplate::Java(c) => c.render_once()?,
     })
 }
-
-// ---------------------------------------------------------------------------
-// Stock responses
-// ---------------------------------------------------------------------------
 
 fn bad_request() -> (&'static str, String, Body) {
     (
@@ -482,10 +438,6 @@ fn bad_request() -> (&'static str, String, Body) {
 fn not_found() -> (&'static str, String, Body) {
     ("404 Not Found", "Content-Length: 0\r\n".into(), Body::Empty)
 }
-
-// ---------------------------------------------------------------------------
-// Query-string parser
-// ---------------------------------------------------------------------------
 
 fn parse_query(query: &str) -> HashMap<String, String> {
     query

@@ -1,4 +1,4 @@
-use crate::{ConnectionPermit, REVISION, Socket};
+use crate::{ConnectionGuard, ConnectionPermit, REVISION, ServerIO, Socket};
 use anyhow::bail;
 use mpsc::{Sender, UnboundedReceiver, UnboundedSender};
 use num_enum::TryFromPrimitive;
@@ -9,7 +9,10 @@ use rs_engine::{ClientIO, create_io};
 use rs_io::Packet;
 use rs_io::packet::RsaFrame;
 use rs_protocol::LoginResponse;
+use std::net::SocketAddr;
+use tokio::net::TcpListener;
 use tokio::sync::mpsc;
+use tracing::{debug, info, warn};
 
 #[repr(u8)]
 #[derive(TryFromPrimitive)]
@@ -18,6 +21,30 @@ pub enum HandshakeType {
     Js5 = 15,
     Login = 16,
     Reconnect = 18,
+}
+
+pub async fn serve(
+    host: String,
+    port: u16,
+    server_state: ServerIO,
+    guard: ConnectionGuard,
+) -> anyhow::Result<()> {
+    let bind_addr: SocketAddr = format!("{}:{}", host, port).parse()?;
+    let listener = TcpListener::bind(bind_addr).await?;
+
+    loop {
+        let (stream, addr) = listener.accept().await?;
+        stream.set_nodelay(true)?;
+        info!("TCP connection from {}", addr);
+        let server_state = server_state.clone();
+        let guard = guard.clone();
+        tokio::spawn(async move {
+            let connection = Socket::from_tcp(stream, addr, server_state, guard);
+            if let Err(e) = handshake(connection).await {
+                info!("TCP connection {} closed: {}", addr, e);
+            }
+        });
+    }
 }
 
 fn make_seed() -> Packet {
