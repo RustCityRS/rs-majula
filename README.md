@@ -17,11 +17,12 @@
 > Rust** -- and the first private server to build its game cache from source assets
 > to CRCs that perfectly match the original Jagex game cache.
 
-`rs-majula` is the project, Cargo workspace, and canonical engine name: a
-from-scratch Rust reimplementation of a **RuneScape 2** game server, with
-byte-identical protocol and content emulation, a single-threaded deterministic game
-loop, and an async `tokio` host. The stock client connects and plays against
-unmodified cache content.
+> [!IMPORTANT]  
+> `rs-majula` is the project, Cargo workspace, and canonical engine name: a
+> from-scratch Rust reimplementation of a **RuneScape 2** game server, with
+> byte-identical protocol and content emulation, a single-threaded deterministic game
+> loop, and an async `tokio` host. The stock client connects and plays against
+> unmodified cache content.
 
 ----
 
@@ -51,6 +52,7 @@ The workspace is 19 crates organized by responsibility:
 | **Elixir** + `mix`      | `~> 1.15`                               | **Required to log in.** Runs the `rs-ether` sidecar, which the login flow depends on (cross-world login checks). The server boots and serves the web client without it, but every login attempt returns *login server offline*. Auto-spawned via `cmd /c` (Windows); on Linux/macOS start it from `rs-ether/` yourself. |
 | **Git**                 | --                                      | `rs-ether` is a submodule -- clone with `--recursive`.                                                                                                                                                                                                                                                                  |
 
+> [!NOTE]
 > **To actually log in you need both Postgres (Docker) up and the ether sidecar
 > connected.** If Postgres is down or the sidecar fails to start (e.g. Elixir
 > isn't installed), the server still serves the web client, but the client will
@@ -87,10 +89,12 @@ cargo run -p rs-server
 #    http://localhost:8080/rs2.cgi
 ```
 
+> [!TIP]
 > First build compiles the whole workspace and takes a while. For running a
 > populated world locally, prefer the `dev-opt` profile (near-release speed,
 > still has debuginfo): `cargo run --profile dev-opt -p rs-server`.
 
+> [!TIP]
 > For **maximum performance** (production or benchmarking), run in release mode --
 > `cargo run --release -p rs-server` -- for full optimizations and fat LTO, at the
 > cost of the longest compile.
@@ -140,9 +144,10 @@ All configuration is via CLI flags (clap). This is the complete set -- run
 | `--cluster <CLUSTER>`         | `""`                        | Comma-separated cluster node list (e.g. `world10@127.0.0.1,world11@127.0.0.1`), forwarded to the sidecar mesh. |
 | `--pepper <PEPPER>`           | `localhost`                 | Server-side pepper for password hashing.                                                                       |
 
-`--members`, `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
+> [!NOTE]
+> `--members`, `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
 (defaults shown). The `--db-*` defaults match `docker-compose.yml`, so the server
-connects with no extra flags.
+> connects with no extra flags.
 
 ----
 
