@@ -1,6 +1,8 @@
 [alias]
 unpack = "run -p rs-pack -- unpack -e expected -o content_unpack"
 verify = "run -p rs-pack -- verify -e expected -u content_unpack"
+pack-tga = "run -p rs-pack -- from-pyxel"
+unpack-tga = "run -p rs-pack -- to-pyxel"
 
 world1 = "run -p rs-server --release -- --node-id 10 --cluster world10@127.0.0.1,world11@127.0.0.1"
 world2 = "run -p rs-server --release -- --node-id 11 --cluster world10@127.0.0.1,world11@127.0.0.1"

@@ -69,8 +69,8 @@ const MEDIA_NAMES: &[&str] = &[
 
 pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let sprite_dir = output_dir.join("sprites");
-    std::fs::create_dir_all(&sprite_dir)?;
     let meta_dir = sprite_dir.join("meta");
+    std::fs::create_dir_all(&sprite_dir)?;
     std::fs::create_dir_all(&meta_dir)?;
 
     let index_data = jag
@@ -105,16 +105,15 @@ pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
 
     index_positions.sort_by_key(|(_, pos, _)| *pos);
 
-    let index_order: Vec<String> = index_positions.iter().map(|(n, _, _)| n.clone()).collect();
-
+    let mut keys = Vec::new();
     for (name, _, dat_data) in &index_positions {
-        let sub_dir = sprite_dir.join(name);
-        std::fs::create_dir_all(&sub_dir)?;
-        unpack::decode_sprite_group(&index_data.data, dat_data, &sub_dir)?;
+        if let Some(g) = unpack::decode_group(&index_data.data, dat_data) {
+            unpack::write_group_sheet(&sprite_dir.join(format!("{name}.tga")), &g)?;
+            keys.push(name.clone());
+        }
     }
-
-    let index_content = index_order.join("\n") + "\n";
-    std::fs::write(meta_dir.join("index.order"), &index_content)?;
+    let count = keys.len();
+    unpack::write_index_order(&sprite_dir, &keys)?;
 
     let mut sprite_order_entries = Vec::new();
     for i in 0..jag.file_count {
@@ -128,10 +127,7 @@ pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let sprite_order_content = sprite_order_entries.join("\n") + "\n";
     std::fs::write(meta_dir.join("sprite.order"), &sprite_order_content)?;
 
-    debug!(
-        "Unpacked {} sprite groups from media JAG",
-        index_order.len()
-    );
+    debug!("Unpacked {count} sprite groups from media JAG");
     Ok(())
 }
 

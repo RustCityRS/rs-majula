@@ -40,11 +40,11 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     std::fs::create_dir_all(&binary_dir)?;
     std::fs::create_dir_all(&meta_dir)?;
 
+    let font_names: Vec<&str> = Font::ALL.iter().map(|f| f.name()).collect();
+
     let index_data = jag
         .read("index.dat")
         .ok_or_else(|| anyhow::anyhow!("Missing index.dat in title JAG"))?;
-
-    let font_names: Vec<&str> = Font::ALL.iter().map(|f| f.name()).collect();
 
     let mut sprites: Vec<(String, Vec<u8>)> = Vec::new();
 
@@ -74,25 +74,25 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
 
     index_positions.sort_by_key(|(_, pos, _)| *pos);
 
-    let index_order: Vec<String> = index_positions.iter().map(|(n, _, _)| n.clone()).collect();
-
+    // Fonts and title sprites share the title JAG's index.dat; fonts are written
+    // to fonts/, title sprites to title/. index.order (in title/) lists both.
+    let mut keys = Vec::new();
     for (name, _, dat_data) in &index_positions {
-        let is_font = font_names.contains(&name.as_str());
-        let sub_dir = if is_font {
-            font_dir.join(name)
-        } else {
-            title_dir.join(name)
-        };
-        std::fs::create_dir_all(&sub_dir)?;
-        unpack::decode_sprite_group(&index_data.data, dat_data, &sub_dir)?;
+        if let Some(g) = unpack::decode_group(&index_data.data, dat_data) {
+            let dir = if font_names.contains(&name.as_str()) {
+                &font_dir
+            } else {
+                &title_dir
+            };
+            unpack::write_group_sheet(&dir.join(format!("{name}.tga")), &g)?;
+            keys.push(name.clone());
+        }
     }
+    unpack::write_index_order(&title_dir, &keys)?;
 
     if let Some(dat) = jag.read("title.dat") {
         std::fs::write(binary_dir.join("title.jpg"), &dat.data)?;
     }
-
-    let index_content = index_order.join("\n") + "\n";
-    std::fs::write(meta_dir.join("index.order"), &index_content)?;
 
     let mut title_order = Vec::new();
     for i in 0..jag.file_count {

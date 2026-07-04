@@ -1,5 +1,8 @@
 pub mod cache;
 pub mod pack;
+pub mod pyxel;
+pub mod sheet;
+pub mod tga;
 pub mod types;
 pub mod unpack;
 #[cfg(since_244)]

@@ -708,10 +708,10 @@ content_unpack/
 ├── all.idk                  -- idk config text
 ├── all.spotanim             -- spotanim config text
 ├── all.varp                 -- varp config text
-├── sprites/                 -- media sprite PNGs
-├── textures/                -- texture sprite PNGs
-├── fonts/                   -- font sprite PNGs
-├── title/                   -- title sprite PNGs
+├── sprites/                 -- media sprite TGAs
+├── textures/                -- texture sprite TGAs
+├── fonts/                   -- font sprite TGAs
+├── title/                   -- title sprite TGAs
 ├── binary/title.jpg         -- title background JPEG
 ├── models/                  -- extracted model files
 ├── synth/                   -- extracted synth instrument files
@@ -732,9 +732,9 @@ file. All 10 asset types must produce byte-identical output:
 |-----------|----------------------------------------------------------------|
 | config    | Raw dat/idx reassembly into Jag (per-entry compression)        |
 | interface | Raw data entry reassembly into Jag (whole-archive compression) |
-| media     | Full PNG -> indexed sprite re-encoding                         |
-| title     | Full PNG -> indexed sprite re-encoding + raw JPEG              |
-| textures  | Full PNG -> indexed sprite re-encoding                         |
+| media     | Full TGA -> indexed sprite re-encoding                         |
+| title     | Full TGA -> indexed sprite re-encoding + raw JPEG              |
+| textures  | Full TGA -> indexed sprite re-encoding                         |
 | wordenc   | Full text -> binary re-encoding                                |
 | sounds    | Full synth file -> sounds.dat re-concatenation                 |
 | models    | Raw stream reassembly into Jag                                 |
@@ -836,7 +836,7 @@ converted. The reverse table recovers the original RGB15 values.
 
 - **Entry point**: `rs-pack/src/unpack/mod.rs` -- `unpack_all` function
 - **Config decoder**: `rs-pack/src/unpack/config.rs` -- code-based binary -> text conversion
-- **Sprite decoder**: `rs-pack/src/unpack/sprite_decode.rs` -- indexed pixel -> PNG conversion
+- **Sprite decoder**: `rs-pack/src/unpack/mod.rs` (`decode_group` + `write_group_sheet`) -- indexed pixel -> per-group indexed sprite-sheet TGA
 - **Synth parser**: `rs-pack/src/unpack/sound.rs` -- SoundEffect/Tone/Envelope format parser
 - **Verification**: `rs-pack/src/unpack/verify.rs` -- per-type CRC comparison
 
@@ -2965,29 +2965,39 @@ Each sprite group has its own `{name}.dat` containing pixel indices.
 
 ```
 content/sprites/
-├── meta/
-│   ├── index.order    -- order sprites appear in index.dat
-│   └── sprite.order   -- order entries appear in the Jag file table
-├── backbase1/
-│   └── 0.png          -- single sub-sprite
-├── combaticons/
-│   ├── 0.png          -- first sub-sprite
-│   ├── 1.png
-│   └── ...            -- 20 sub-sprites total
-└── ...
+├── backbase1.tga     -- one indexed sprite-sheet TGA per group
+├── combaticons.tga
+├── ...
+└── meta/
+    ├── index.order   -- group keys in index.dat order
+    └── sprite.order  -- order entries appear in the Jag file table
 ```
 
-Each sprite group is a directory of individual sub-sprite PNGs. The number of PNG files determines the sub-sprite count.
+Each sprite group is one **indexed (color-mapped) TGA sprite sheet**, `<key>.tga`, that carries everything needed to
+repack it byte-exact inside native TGA fields:
+
+- the **color map** carries the palette -- entry 0 magenta (`0xFF00FF` transparent), entries 1..N the real colors in
+  cache order, including any entries no pixel uses. A multi-frame sheet appends one extra **decorative gridline entry**
+  (neutral grey `0x808080`) at the end; it is used only in the grid gaps, and pack strips it, so it never reaches the
+  cache;
+- the **image ID** field carries the grid dimensions -- `tileW`, `tileH`, `frameCount` as three big-endian u16s (6
+  bytes), so the sheet is self-describing;
+- the **pixels** are the frames laid out in a grid whose column count is chosen so the sheet is as close to square as
+  possible in pixels (given the tile aspect ratio), rather than one long row. A single-frame group is a plain
+  `tileW x tileH` tile; a multi-frame group is a mini atlas with a visible 1px gridline (the extra color-map entry)
+  around every cell. Cell interiors and empty cells are index 0 (magenta).
+
+The palette (order + unused entries) is the one thing not derivable from the frame pixels (see
+[Source Encoding](#source-encoding)); the TGA color map carries it natively, so there is no separate metadata file.
 
 #### Ordering Files
 
-**`index.order`** -- one sprite name per line. Controls the order sprites appear in `index.dat`. Determines the
-`indexPos` byte offset each sprite's `.dat` file stores.
+**`index.order`** -- one group key per line, in `index.dat` order. Drives packing: the group's `.dat` metadata is
+written in this order (setting each `indexPos`). This order is derived from the original Jagex rev-225 cache and cannot
+be algorithmically reproduced.
 
 **`sprite.order`** -- one entry name per line, including `index`. Controls the order entries appear in the Jag file
-table.
-
-These orderings are derived from the original Jagex rev-225 cache and cannot be algorithmically reproduced.
+table (independent of `index.dat` order).
 
 #### Binary Format
 
@@ -3024,50 +3034,48 @@ Pixel data contains only the cropped content region. Palette index 0 is always t
 For `pixelOrder = 0` (row-major): pixels stored left-to-right, top-to-bottom.
 For `pixelOrder = 1` (column-major): pixels stored top-to-bottom, left-to-right (`for x { for y { ... } }`).
 
-#### Source PNG Encoding
+#### Source Encoding
 
-Each PNG uses three alpha values to encode all sprite parameters:
+Each `<key>.tga` is an uncompressed 8-bit color-mapped TGA (type 1, bottom-left origin -- the classic Targa defaults).
+The reader also accepts RLE-compressed (type 9), 32-bit color maps, and top-left origin so sheets survive a round trip
+through common image editors. At pack time each sheet's grid dimensions are read from the image ID, its palette from
+the color map, and each frame's cell sliced straight out (the pixels are already palette indices -- no inversion
+needed). Palette index 0 is magenta `0xFF00FF` (transparent).
 
-| Alpha | Meaning                                                                |
-|-------|------------------------------------------------------------------------|
-| 0     | Padding -- outside the content region, not part of sprite data         |
-| 255   | Content pixel -- part of the sprite data, including transparent pixels |
-| 254   | Palette strip -- encodes palette color order                           |
+The palette lives in the TGA color map (rather than derived from the frame pixels) because it **cannot** be recovered
+from those pixels:
+
+- **Order** is not recoverable. A first-encounter pixel scan reproduces the original palette order for only about a
+  quarter of groups; the rest match no scan order. Order matters because the colors are written to `index.dat` in that
+  order and every `{name}.dat` pixel is an index into it -- reorder and both byte streams change.
+- **Unused entries** are not recoverable. Several groups (e.g. the `back*` steel border pieces) carry palette colors no
+  pixel references. Nothing in the pixels can bring them back.
+
+Both are artifacts of the color maps in Jagex's original indexed source images, so the TGA color map preserves them
+natively. Edit sheets only in a tool that preserves indexed TGA (the color map and its order) and the image ID field;
+a tool that flattens to truecolor or drops the image ID breaks byte-exactness.
 
 ##### Parameter Derivation
 
-All encoding parameters are derived from the PNGs at pack time:
+Per-group parameters come from native TGA fields; per-frame parameters are re-derived from the cell pixels at pack
+time:
 
-| Parameter        | Derivation                                                  |
-|------------------|-------------------------------------------------------------|
-| tileW x tileH    | PNG dimensions minus palette strip rows                     |
-| Palette          | Read from alpha=254 strip pixels (bottom rows of first PNG) |
-| Crop region      | Bounding box of alpha=255 pixels in the tile area           |
-| Pixel order      | Run-length scoring: row-major vs column-major               |
-| Sub-sprite count | Number of PNG files in the directory                        |
-
-If no palette strip is found (no alpha=254 pixels), the palette is generated by scanning all content pixels (alpha=255)
-across all sub-sprite PNGs in order, collecting unique colors in first-encounter row-major order.
-
-##### Palette Strip
-
-The bottom row(s) of each PNG contain the palette encoded as pixels with alpha=254:
-
-- One pixel per palette color (indices 1 through N), left to right
-- If the palette has more colors than the tile width, additional rows are used
-- Strip rows = `ceil(palette_color_count / tile_width)`
-- Remaining pixels in the last strip row have alpha=0
-
-The encoder detects strip rows by scanning from the bottom of the PNG: any row containing at least one alpha=254 pixel
-is a strip row.
+| Parameter        | Derivation                                                     |
+|------------------|----------------------------------------------------------------|
+| tileW x tileH    | Image ID field                                                |
+| Sub-sprite count | Image ID field (`frameCount`)                                 |
+| Palette          | TGA color map (colors + order, magenta entry 0)               |
+| Crop region      | Bounding box of non-zero palette indices, per frame           |
+| Pixel order      | Run-length scoring: row-major vs column-major, per frame      |
 
 ##### Crop Detection
 
-The content region is the bounding box of all alpha=255 pixels within the tile area (above the strip):
+The content region is the tight bounding box of all non-zero (non-transparent) pixels:
 
-- Content pixels have alpha=255, including transparent ones (palette index 0 = `0xFF00FF`)
-- Padding pixels have alpha=0
 - The bounding box exactly reproduces `cropX, cropY, contentWidth, contentHeight`
+- Fully transparent sub-sprites are stored as a full tile of index 0 (`cropX=0, cropY=0, contentWidth=tileWidth,
+  contentHeight=tileHeight`), matching the original Jagex packer. These occur as placeholder frames (e.g. unused
+  `combaticons3` slots) and empty font glyphs.
 
 ##### Pixel Order Determination
 
@@ -3083,11 +3091,12 @@ pixelOrder = if col_runs > row_runs { 1 } else { 0 }
 #### Black Color Handling
 
 The client decoder replaces palette color `0x000000` (black) with `0x000001` (almost-black) during rendering. Source
-PNGs should contain true black -- the encoder writes `0x000000` to the palette, and the client adjusts at decode time.
+frames should contain true black -- the encoder writes `0x000000` to the palette, and the client adjusts at decode
+time.
 
 ### Media Unpacking
 
-Extracts all in-game sprite graphics from the media Jag archive into individual PNG files with palette strips.
+Extracts all in-game sprite graphics from the media Jag archive into one indexed sprite-sheet TGA per group.
 
 #### Input
 
@@ -3097,16 +3106,12 @@ The `media` Jag archive file (CRC: `-343404987`), using per-entry bzip2 compress
 
 ```
 content_unpack/sprites/
-├── meta/
-│   ├── index.order    -- sprite processing order (derived from indexPos values)
-│   └── sprite.order   -- Jag file table order (derived from Jag entry sequence)
-├── backbase1/
-│   └── 0.png
-├── combaticons/
-│   ├── 0.png
-│   ├── 1.png
-│   └── ...
-└── ...
+├── backbase1.tga     -- one indexed sprite-sheet TGA per group
+├── combaticons.tga
+├── ...
+└── meta/
+    ├── index.order   -- group keys in index.dat order
+    └── sprite.order  -- Jag file table order (derived from Jag entry sequence)
 ```
 
 #### Hash-to-Name Resolution
@@ -3132,16 +3137,16 @@ against the file table entry.
 
 #### Index Order Derivation
 
-The `index.order` file controls which order sprite groups appear in the shared `index.dat`. This order cannot be derived
-from the Jag file table order -- it must be recovered from the binary data.
+`index.order` lists the group keys in `index.dat` order (which also determines the `indexPos` offsets). This order
+cannot be derived from the Jag file table order -- it is recovered from the binary data.
 
 Each sprite's `.dat` entry begins with `p2(indexPos)` -- the byte offset into `index.dat` where that sprite's metadata
-starts. The index order is recovered by sorting sprites by their `indexPos` value (ascending). Lower offsets were
-processed earlier during the original pack.
+starts. The order is recovered by sorting sprites by their `indexPos` value (ascending), then written as `index.order`.
 
 #### Sprite Decoding
 
-Each sprite group is decoded from its binary `index.dat` metadata and `.dat` pixel data into PNG files.
+Each sprite group is decoded from its binary `index.dat` metadata and `.dat` pixel data, then written as one indexed
+sprite-sheet TGA (color map = palette, image ID = grid dims, pixels = frame grid).
 
 ##### Reading index.dat
 
@@ -3175,36 +3180,41 @@ From the `.dat` file (after the 2-byte `indexPos` header), pixel indices are rea
 - **Row-major (0)**: `contentWidth x contentHeight` bytes in left-to-right, top-to-bottom order
 - **Column-major (1)**: same count, but read top-to-bottom then left-to-right (`for x { for y { ... } }`)
 
-##### PNG Reconstruction
+##### Sheet Reconstruction
 
-Each sub-sprite is written as an RGBA PNG:
+Each group is written as one indexed sprite-sheet TGA:
 
-1. Create image of size `tileWidth x tileHeight` (plus palette strip rows for sub-sprite 0)
-2. Fill entirely with alpha=0 (transparent)
-3. For the content region at `(cropX, cropY)` with size `(contentWidth, contentHeight)`:
-    - Look up each pixel's palette index -> RGB color
-    - Write pixel with alpha=255
-4. For the first sub-sprite only, append the palette strip:
-    - `stripRows = ceil((paletteCount - 1) / tileWidth)`
-    - Write palette colors 1..N as pixels with alpha=254, left-to-right, top-to-bottom
-    - Remaining pixels in the last strip row are alpha=0
+1. Decode every sub-sprite into a `tileWidth x tileHeight` index buffer (index 0 background, pixel indices placed at
+   `(cropX, cropY)` unchanged)
+2. Write the color map: magenta index 0 + palette colors 1..N from `index.dat`, in order (including unused entries); for
+   a multi-frame group append one extra grey `0x808080` gridline entry (index N+1)
+3. Write the image ID field: `tileWidth`, `tileHeight`, `frameCount` as three big-endian u16s
+4. Lay the frames into a grid whose column count makes the sheet as close to square as possible in pixels (not one long
+   row): single-frame groups are a plain tile, multi-frame groups get a visible 1px gridline (the extra entry) around
+   every cell; cell interiors and empty cells stay index 0. On repack the gridline entry is dropped, so `index.dat`
+   keeps only the real palette
 
 ##### Sub-sprite Count
 
-The number of sub-sprites is not stored explicitly. It is determined by consuming pixel data from the `.dat` file until
-no bytes remain (after the 2-byte `indexPos` header).
+The number of sub-sprites is not stored explicitly in the binary. It is determined by consuming pixel data from the
+`.dat` file until no bytes remain (after the 2-byte `indexPos` header). In the source tree it is the `frameCount` in
+the sheet's image ID field.
 
 #### Roundtrip Guarantee
 
-The PNG encoding preserves all parameters needed for exact re-packing:
+The indexed sprite sheet preserves all parameters needed for exact re-packing:
 
 | Parameter                | Preserved By                                                         |
 |--------------------------|----------------------------------------------------------------------|
-| Palette colors and order | Alpha=254 strip on first sub-sprite                                  |
-| Tile dimensions          | PNG image dimensions minus strip rows                                |
-| Crop bounds              | Bounding box of alpha=255 pixels                                     |
+| Palette colors and order | TGA color map (including entries unused by any pixel)               |
+| Pixel indices            | Sheet cell pixels (already palette indices)                        |
+| Tile dimensions          | Image ID field                                                    |
+| Sub-sprite count         | Image ID field (`frameCount`)                                      |
+| Crop bounds              | Bounding box of non-zero pixels per frame (full tile when empty)     |
 | Pixel order              | Re-derived from run-length heuristic (deterministic from pixel data) |
-| Sub-sprite count         | Number of PNG files in directory                                     |
+
+The `examples/sprite_roundtrip.rs` example verifies this: it packs the content sprites into media and title Jags,
+unpacks them, re-packs the result, and asserts byte-identical output.
 
 ---
 
@@ -4061,24 +4071,22 @@ e.g., `0.dat`, `1.dat`, `49.dat`).
 
 ```
 content/textures/
-├── meta/
-│   ├── index.order    -- numeric IDs controlling index.dat order
-│   └── texture.order  -- numeric IDs controlling Jag entry order
-├── door/
-│   └── 0.png          -- single sub-sprite (128x128 typically)
-├── water/
-│   └── 0.png
-├── planks/
-│   └── 0.png
-└── ...
+├── door.tga           -- one indexed sprite-sheet TGA per texture, named by texture name
+├── water.tga
+├── ...
+└── meta/
+    ├── index.order    -- numeric IDs in index.dat order
+    └── texture.order  -- numeric IDs controlling Jag entry order
 ```
 
-Each texture is a directory containing a single sub-sprite PNG. The directory is named by the texture's debugname from
-`texture.pack`, not by its numeric ID.
+The textures archive is one indexed sprite sheet per texture, exactly like media. Files are named by texture **name**
+(via `texture.pack`); `index.order` lists the numeric **IDs** (each texture's `index.dat` identity) in `index.dat`
+order.
 
 #### ID-to-Name Mapping
 
-The pack registry (`content/pack/texture.pack`) maps numeric IDs to texture names:
+The pack registry (`content/pack/texture.pack`) maps numeric IDs to texture names, used to resolve each `index.order`
+id to its `<name>.tga` sheet:
 
 ```
 0=door
@@ -4090,16 +4098,12 @@ The pack registry (`content/pack/texture.pack`) maps numeric IDs to texture name
 49=canvas
 ```
 
-The packer resolves each ID in `index.order` to a texture name via this registry, then reads the PNG from the
-corresponding directory.
-
 #### Ordering Files
 
-**`index.order`** -- numeric texture IDs (0, 1, 2, ..., 49), one per line. Controls the order textures appear in the
-shared `index.dat`.
+**`index.order`** -- numeric texture IDs in `index.dat` order.
 
 **`texture.order`** -- numeric texture IDs plus `index`, one per line. Controls the order entries appear in the Jag file
-table.
+table (independent of `index.dat` order).
 
 #### Binary Format
 
@@ -4110,22 +4114,17 @@ full details on:
 - `{id}.dat` structure (indexPos + palette indices)
 - Pixel order encoding (row-major vs column-major)
 
-#### Source PNG Encoding
+#### Source Encoding
 
-Textures use the same alpha-channel encoding as media sprites:
-
-- **alpha=0** -- padding outside content region
-- **alpha=255** -- content pixels
-- **alpha=254** -- palette strip pixels
-
-All parameters (tile dimensions, palette, crop region, pixel order) are derived from the PNG. See
-the [media packing](#media-packing) section for the full derivation rules.
+Textures use the same indexed sprite sheets as media sprites: each `<name>.tga` carries its grid dims in the image ID,
+its palette in the color map, and index 0 is magenta transparency. All per-frame parameters (crop region, pixel order)
+are re-derived at pack time. See the [media packing](#media-packing) section for the full rules.
 
 Most textures are single 128x128 images with no cropping, though some are 64x64.
 
 ### Texture Unpacking
 
-Extracts all 3D surface textures from the textures Jag archive into individual PNG files.
+Extracts all 3D surface textures from the textures Jag archive into one indexed sprite-sheet TGA per texture.
 
 #### Input
 
@@ -4135,16 +4134,12 @@ The `textures` Jag archive file (CRC: `1703545114`), using per-entry bzip2 compr
 
 ```
 content_unpack/textures/
-├── meta/
-│   ├── index.order      -- texture processing order (numeric IDs)
-│   └── texture.order    -- Jag file table order (numeric IDs + "index")
-├── door/
-│   └── 0.png            -- typically 128x128
-├── water/
-│   └── 0.png
-├── planks/
-│   └── 0.png
-└── ...
+├── door.tga             -- one indexed sprite-sheet TGA per texture, named by texture name
+├── water.tga
+├── ...
+└── meta/
+    ├── index.order      -- numeric IDs in index.dat order
+    └── texture.order    -- Jag file table order (numeric IDs + "index")
 
 content_unpack/pack/
 └── texture.pack         -- ID-to-name mapping (e.g., 0=door)
@@ -4175,16 +4170,17 @@ texture names:
 | 15 | marble    | 32 | bark           | 49 | canvas      |
 | 16 | wood2     | 33 | mapletree      |    |             |
 
-IDs beyond this table fall back to `texture_{id}`. Directories are named by the resolved name (e.g., `door/`, not `0/`).
+IDs beyond this table fall back to `texture_{id}`. The mapping is written to `pack/texture.pack` and used to name each
+sheet file; `index.order` keys stay numeric IDs.
 
 #### Sprite Decoding
 
 Textures use the identical indexed-color binary format as media sprites. See the [media unpacking](#media-unpacking)
 section for the full sprite decoding process:
 
-- Index order derived from `indexPos` values in each `.dat` entry
+- Index order derived from `indexPos` values in each `.dat` entry (written as `index.order`)
 - Palette, crop bounds, and pixel order read from shared `index.dat`
-- PNGs written with alpha=254 palette strips for exact roundtrip
+- Written as one `<name>.tga` indexed sprite sheet (palette in the color map) for exact roundtrip
 
 Most textures are single 128x128 images (some 64x64) with no cropping and a single sub-sprite.
 
@@ -4219,53 +4215,38 @@ title (Jag archive)
 The `title.dat` entry is a raw JPEG file (`title.jpg`), not an indexed-color sprite. All other entries use the same
 sprite format as the media archive.
 
-#### Source Directories
+#### Source Directory
 
-The title Jag pulls sprites from **two** directories and a binary file:
+The title Jag's fonts and title-screen sprites share the JAG's `index.dat`, so one `index.order` lists both, but their
+sheets live in separate directories (fonts in `fonts/`, title sprites in `title/`), plus the binary background:
 
 ```
-content/fonts/             -- font sprites
-├── p11/                   -- 120 sub-sprites (glyphs)
-│   ├── 0.png
-│   ├── 1.png
-│   └── ...
-├── p12/
-├── b12/
-└── q8/
+content/fonts/
+├── p11.tga            -- font glyph sheets
+├── p12.tga
+├── b12.tga
+└── q8.tga
 
-content/title/             -- title screen sprites
-├── meta/
-│   ├── index.order        -- sprite index order
-│   └── title.order        -- Jag entry order
-├── logo/
-│   └── 0.png
-├── titlebox/
-│   └── 0.png
-├── titlebutton/
-│   └── 0.png
-└── runes/
-    ├── 0.png              -- 12 sub-sprites (animated rune cycle)
-    ├── 1.png
-    └── ...
+content/title/
+├── logo.tga           -- title screen sprite sheets
+├── titlebox.tga
+├── titlebutton.tga
+├── runes.tga
+└── meta/
+    ├── index.order    -- all title-Jag group keys in index.dat order (fonts + title)
+    └── title.order    -- Jag entry order
 
 content/binary/
-└── title.jpg              -- background image (optional)
+└── title.jpg          -- background image (optional)
 ```
+
+`index.order` lists font groups (`p11`, `p12`, `b12`, `q8`) and title sprites (`logo`, `titlebox`, `titlebutton`,
+`runes`) together, in `index.dat` order. On pack, each key is resolved to `fonts/<key>.tga` if present, else
+`title/<key>.tga`.
 
 #### Ordering Files
 
-**`index.order`** -- controls the order sprites appear in `index.dat`. Fonts come first, then title sprites:
-
-```
-p11
-p12
-b12
-q8
-logo
-titlebox
-titlebutton
-runes
-```
+**`index.order`** -- one group key per line, in `index.dat` order; fonts and title sprites together.
 
 **`title.order`** -- controls the order entries appear in the Jag file table, including `index` and `title`:
 
@@ -4282,12 +4263,7 @@ logo
 b12
 ```
 
-Both files are located in `content/title/meta/`.
-
-#### Sprite Resolution
-
-For each name in `index.order`, the packer checks `content/fonts/{name}/` first, then falls back to
-`content/title/{name}/`. This allows fonts and title sprites to share a single ordering file.
+Both located in `content/title/meta/`.
 
 #### Binary Format
 
@@ -4296,12 +4272,13 @@ for full details on:
 
 - `index.dat` structure (tile dimensions, palette, per-sub-sprite crop metadata)
 - `{name}.dat` structure (indexPos + palette indices)
-- Source PNG alpha-channel encoding (alpha=0/255/254)
+- Source encoding (indexed sprite sheet: palette in color map, grid dims in image ID)
 
 #### Font Sprites
 
-Each font directory contains 120 sub-sprite PNGs at 20x20 tile size. Each glyph is a cropped character with 2-color
-palette (text color + transparent). Glyph order follows the RuneScape character set:
+Each font group holds 120 glyph frames on 20x20 canvases (the rev-274+ `_full` fonts hold 256). Each glyph is a
+cropped character with 2-color palette (text color + transparent); unmapped glyph slots are blank placeholder frames.
+Glyph order follows the RuneScape character set:
 
 - Indices 0-25: uppercase A-Z
 - Indices 26-51: lowercase a-z
@@ -4325,29 +4302,22 @@ The `title` Jag archive file (CRC: `-430779560`), using per-entry bzip2 compress
 
 ```
 content_unpack/fonts/
-├── p11/                 -- 120 glyph PNGs (11pt proportional)
-│   ├── 0.png
-│   └── ...
-├── p12/                 -- 120 glyph PNGs (12pt proportional)
-├── b12/                 -- 120 glyph PNGs (12pt bold)
-└── q8/                  -- 120 glyph PNGs (8pt quill)
+├── p11.tga             -- font glyph sheets
+├── p12.tga
+├── b12.tga
+└── q8.tga
 
 content_unpack/title/
-├── meta/
-│   ├── index.order      -- sprite processing order
-│   └── title.order      -- Jag file table order
-├── logo/
-│   └── 0.png
-├── titlebox/
-│   └── 0.png
-├── titlebutton/
-│   └── 0.png
-└── runes/
-    ├── 0.png            -- 12 animated rune sub-sprites
-    └── ...
+├── logo.tga            -- title screen sprite sheets
+├── titlebox.tga
+├── titlebutton.tga
+├── runes.tga
+└── meta/
+    ├── index.order     -- all title-Jag group keys in index.dat order
+    └── title.order     -- Jag file table order
 
 content_unpack/binary/
-└── title.jpg            -- raw JPEG background image
+└── title.jpg           -- raw JPEG background image
 ```
 
 #### Hash-to-Name Resolution
@@ -4358,16 +4328,19 @@ A hardcoded table of known title entry names resolves Jag file hashes:
 index, logo, p11, p12, b12, q8, runes, title, titlebox, titlebutton
 ```
 
-#### Directory Routing
+#### Entry Routing
 
-Entries are routed to different directories based on their name:
+Entries are handled by name:
 
 | Entry                              | Destination            | Content                       |
 |------------------------------------|------------------------|-------------------------------|
-| p11, p12, b12, q8                  | `fonts/{name}/`        | Font glyph sprites            |
-| logo, titlebox, titlebutton, runes | `title/{name}/`        | Title screen sprites          |
+| p11, p12, b12, q8                  | `fonts/<name>.tga`     | Font glyph sheets             |
+| logo, titlebox, titlebutton, runes | `title/<name>.tga`     | Title screen sprite sheets    |
 | title                              | `binary/title.jpg`     | Raw JPEG (not sprite-decoded) |
-| index                              | Not extracted as files | Shared sprite metadata        |
+| index                              | Sheet image IDs        | Shared sprite metadata        |
+
+Fonts and title sprites share one `index.order` because they share the JAG's `index.dat`, but their sheets are written
+to separate directories.
 
 #### Title Background
 
@@ -4378,7 +4351,7 @@ without any processing.
 
 All non-JPEG entries use the identical indexed-color format as media sprites.
 See the [media unpacking](#media-unpacking) section for the full sprite decoding process. Index order is derived from
-`indexPos` values in each sprite's `.dat` entry.
+`indexPos` values in each sprite's `.dat` entry (written as `index.order`).
 
 ---
 

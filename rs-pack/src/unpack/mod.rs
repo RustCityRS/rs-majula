@@ -19,7 +19,6 @@ use crate::versionlist::VersionListMeta;
 #[cfg(since_244)]
 use crate::versionlist::{TABLE_NAMES, VersionList, read_i32_table, read_u16_table};
 use crate::{CONTENT_DIR, PACK_DIR, config_crc, jag_crc};
-use image::{Rgba, RgbaImage};
 #[cfg(since_244)]
 use model::build_model_textures;
 use report::{CrcReport, PackDiffReport};
@@ -576,109 +575,90 @@ fn collect_js5_leftovers(
     }
 }
 
-pub fn decode_sprite_group(
-    index_data: &[u8],
-    dat_data: &[u8],
-    output_dir: &Path,
-) -> anyhow::Result<()> {
+/// A sprite group decoded from the cache: tile size, palette (RGB triplets,
+/// entry 0 magenta), and per-frame index buffers (`tile_w * tile_h` each).
+pub struct DecodedGroup {
+    pub tile_w: usize,
+    pub tile_h: usize,
+    pub palette: Vec<u8>,
+    pub frames: Vec<Vec<u8>>,
+}
+
+/// Decode one sprite group's `index.dat` metadata and `.dat` pixel data into
+/// per-frame index buffers. Returns `None` if the group is empty or invalid.
+pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> {
     let mut dat = Packet::from(dat_data.to_vec());
 
     let index_pos = dat.g2() as usize;
     if index_pos >= index_data.len() {
-        return Ok(());
+        return None;
     }
 
     let mut idx = Packet::from(index_data[index_pos..].to_vec());
 
-    let tile_w = idx.g2() as u32;
-    let tile_h = idx.g2() as u32;
+    let tile_w = idx.g2() as usize;
+    let tile_h = idx.g2() as usize;
     let palette_len = idx.g1() as usize;
 
-    let mut palette = vec![0xFF00FF];
+    let mut palette = vec![0xFF, 0x00, 0xFF];
     for _ in 1..palette_len {
-        let r = idx.g1() as u32;
-        let g = idx.g1() as u32;
-        let b = idx.g1() as u32;
-        palette.push((r << 16) | (g << 8) | b);
+        palette.push(idx.g1());
+        palette.push(idx.g1());
+        palette.push(idx.g1());
     }
 
-    let strip_pixels = palette.len() - 1;
-    let strip_rows = if tile_w > 0 {
-        (strip_pixels as u32).div_ceil(tile_w)
-    } else {
-        0
-    };
-
-    let mut sprite_index = 0u32;
+    let mut frames: Vec<Vec<u8>> = Vec::new();
     while dat.remaining() > 0 {
-        let crop_x = idx.g1() as u32;
-        let crop_y = idx.g1() as u32;
-        let content_w = idx.g2() as u32;
-        let content_h = idx.g2() as u32;
+        let crop_x = idx.g1() as usize;
+        let crop_y = idx.g1() as usize;
+        let content_w = idx.g2() as usize;
+        let content_h = idx.g2() as usize;
         let pixel_order = idx.g1();
 
-        let img_h = if sprite_index == 0 {
-            tile_h + strip_rows
-        } else {
-            tile_h
-        };
-        let mut img = RgbaImage::new(tile_w, img_h);
-
-        for y in 0..img_h {
-            for x in 0..tile_w {
-                img.put_pixel(x, y, Rgba([0, 0, 0, 0]));
-            }
-        }
-
-        if content_w > 0 && content_h > 0 {
-            let pixel_count = (content_w * content_h) as usize;
-            let mut indices = vec![0u8; pixel_count];
-
-            if pixel_order == 0 {
-                for p in indices.iter_mut().take(pixel_count) {
-                    *p = dat.g1();
-                }
-            } else {
-                for x in 0..content_w as usize {
-                    for y in 0..content_h as usize {
-                        indices[y * content_w as usize + x] = dat.g1();
-                    }
-                }
-            }
-
+        let mut pixels = vec![0u8; tile_w * tile_h];
+        if pixel_order == 0 {
             for y in 0..content_h {
                 for x in 0..content_w {
-                    let pi = indices[(y * content_w + x) as usize] as usize;
-                    let rgb = palette[pi.min(palette.len() - 1)];
-                    let r = (rgb >> 16) as u8;
-                    let g = (rgb >> 8) as u8;
-                    let b = rgb as u8;
-                    img.put_pixel(crop_x + x, crop_y + y, Rgba([r, g, b, 255]));
+                    pixels[(crop_y + y) * tile_w + crop_x + x] = dat.g1();
+                }
+            }
+        } else {
+            for x in 0..content_w {
+                for y in 0..content_h {
+                    pixels[(crop_y + y) * tile_w + crop_x + x] = dat.g1();
                 }
             }
         }
-
-        if sprite_index == 0 && strip_rows > 0 {
-            let mut pi = 1;
-            for sy in tile_h..tile_h + strip_rows {
-                for sx in 0..tile_w {
-                    if pi < palette.len() {
-                        let rgb = palette[pi];
-                        let r = (rgb >> 16) as u8;
-                        let g = (rgb >> 8) as u8;
-                        let b = rgb as u8;
-                        img.put_pixel(sx, sy, Rgba([r, g, b, 254]));
-                        pi += 1;
-                    }
-                }
-            }
-        }
-
-        let out_path = output_dir.join(format!("{sprite_index}.png"));
-        img.save(&out_path)?;
-        sprite_index += 1;
+        frames.push(pixels);
     }
 
+    if frames.is_empty() {
+        return None;
+    }
+
+    Some(DecodedGroup {
+        tile_w,
+        tile_h,
+        palette,
+        frames,
+    })
+}
+
+/// Write one decoded group as an indexed sprite sheet TGA at `path`. The palette
+/// goes in the color map, the grid dimensions in the image ID.
+pub fn write_group_sheet(path: &Path, g: &DecodedGroup) -> anyhow::Result<()> {
+    let (w, h, pixels, palette) = crate::sheet::render(g.tile_w, g.tile_h, &g.palette, &g.frames);
+    let id = crate::sheet::image_id(g.tile_w, g.tile_h, g.frames.len());
+    crate::tga::write(path, &id, &palette, w as u32, h as u32, &pixels)?;
+    Ok(())
+}
+
+/// Write a `meta/index.order` sidecar: group keys in `index.dat` order.
+pub fn write_index_order(archive_dir: &Path, keys: &[String]) -> anyhow::Result<()> {
+    let meta = archive_dir.join("meta");
+    std::fs::create_dir_all(&meta)?;
+    let body: String = keys.iter().map(|k| format!("{k}\n")).collect();
+    std::fs::write(meta.join("index.order"), body)?;
     Ok(())
 }
 

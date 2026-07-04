@@ -62,7 +62,6 @@ pub const TEXTURE_NAMES: &[&str] = &[
 
 pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let tex_dir = output_dir.join("textures");
-    std::fs::create_dir_all(&tex_dir)?;
     let meta_dir = tex_dir.join("meta");
     std::fs::create_dir_all(&meta_dir)?;
 
@@ -101,16 +100,16 @@ pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> any
 
     let index_order: Vec<String> = index_positions.iter().map(|(n, _, _)| n.clone()).collect();
 
+    let mut keys = Vec::new();
     for (id_str, _, dat_data) in &index_positions {
-        let id: u16 = id_str.parse().unwrap_or(u16::MAX);
-        let name = texture_name(id);
-        let sub_dir = tex_dir.join(&name);
-        std::fs::create_dir_all(&sub_dir)?;
-        unpack::decode_sprite_group(&index_data.data, dat_data, &sub_dir)?;
+        if let Some(g) = unpack::decode_group(&index_data.data, dat_data) {
+            let id: u16 = id_str.parse().unwrap_or(u16::MAX);
+            let name = texture_name(id);
+            unpack::write_group_sheet(&tex_dir.join(format!("{name}.tga")), &g)?;
+            keys.push(id_str.clone());
+        }
     }
-
-    let index_content = index_order.join("\n") + "\n";
-    std::fs::write(meta_dir.join("index.order"), &index_content)?;
+    unpack::write_index_order(&tex_dir, &keys)?;
 
     let mut jag_entry_order = Vec::new();
     for i in 0..jag.file_count {

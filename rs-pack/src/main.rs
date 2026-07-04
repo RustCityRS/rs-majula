@@ -20,8 +20,9 @@ enum Commands {
         /// Pack directory for name-id resolution
         #[arg(long, default_value = rs_pack::PACK_DIR)]
         pack: PathBuf,
-        /// Strict verification mode
-        #[arg(long, default_value = "true")]
+        /// Strict CRC verification against the original cache (`--verify false`
+        /// to pack edited/custom content that intentionally differs)
+        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
         verify: bool,
         #[arg(long, default_value = "true")]
         members: bool,
@@ -34,6 +35,18 @@ enum Commands {
         /// Output directory for unpacked content
         #[arg(short, long, default_value = "content_unpack")]
         output: PathBuf,
+    },
+    /// Generate editable .pyxel sprite docs next to the content TGAs
+    ToPyxel {
+        /// Content directory holding the sprite TGAs
+        #[arg(short, long, default_value = rs_pack::CONTENT_DIR)]
+        source: PathBuf,
+    },
+    /// Rebuild content TGAs from edited .pyxel docs (run before `pack`)
+    FromPyxel {
+        /// Content directory holding the .pyxel docs
+        #[arg(short, long, default_value = rs_pack::CONTENT_DIR)]
+        source: PathBuf,
     },
 }
 
@@ -71,6 +84,8 @@ fn main() -> Result<()> {
             let pack = output.join("pack");
             rs_pack::unpack::unpack_all(&expected, &output, &pack)?;
         }
+        Commands::ToPyxel { source } => rs_pack::pyxel::content_to_pyxel(&source)?,
+        Commands::FromPyxel { source } => rs_pack::pyxel::content_from_pyxel(&source)?,
     }
 
     Ok(())
