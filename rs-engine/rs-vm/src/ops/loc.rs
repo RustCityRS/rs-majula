@@ -32,7 +32,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, LOC_ADD => |s| {
             let duration = s.pop_int();
             let shape = s.pop_int_as::<u8>()?;
-            let angle = s.pop_int_as::<u8>()?;
+            let angle = s.pop_int_as::<u8>()? & 0x3;
             let id = s.pop_int_as::<u16>()?;
             let coord = pop_coord(s)?;
 
