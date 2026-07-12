@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, cache, engine, engine_mut};
+use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::iterators;
 use crate::iterators::LocIteratorState;
 use crate::register::OpsRegistry;
@@ -55,14 +55,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 3002
         // https://x.com/JagexAsh/status/1773801749175812307
         active_loc!(m, LOC_ANIM => |s, loc| {
-            let seq = pop_seq(s)?;
+            let seq = pop_seq::<E>(s)?;
             engine_mut::<E>().anim_loc(loc.coord, loc.id, seq.id);
         });
 
         // 3003
         active_loc!(m, LOC_CATEGORY => |s, loc| {
-            let category = cache()
-                .locs
+            let category = engine::<E>()
+                .locs()
                 .get_by_id(loc.id)
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?
                 .category
@@ -124,8 +124,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3010
         active_loc!(m, LOC_NAME => |s, loc| {
-            let loc = cache()
-                .locs
+            let loc = engine::<E>()
+                .locs()
                 .get_by_id(loc.id)
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
             s.push_string(loc.name.as_deref().unwrap_or(loc.debugname().unwrap_or("null")));
@@ -133,9 +133,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3011
         active_loc!(m, LOC_PARAM => |s, loc| {
-            let param = pop_param(s)?;
-            let value = cache()
-                .locs
+            let param = pop_param::<E>(s)?;
+            let value = engine::<E>()
+                .locs()
                 .get_by_id(loc.id)
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?
                 .params

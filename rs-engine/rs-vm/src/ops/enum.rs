@@ -1,3 +1,4 @@
+use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
 use crate::util::pop_enum;
 use crate::{ScriptError, handlers, none};
@@ -18,12 +19,12 @@ use rs_pack::cache::script::{ENUM, ENUM_GETOUTPUTCOUNT};
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::enum::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
         // 4400
         none!(m, ENUM => |s| {
             let key = s.pop_int();
-            let e = pop_enum(s)?;
+            let e = pop_enum::<E>(s)?;
             let outputtype = s.pop_int();
             let inputtype = s.pop_int();
 
@@ -50,7 +51,7 @@ pub fn build() -> OpsRegistry {
 
         // 4401
         none!(m, ENUM_GETOUTPUTCOUNT => |s| {
-            let e = pop_enum(s)?;
+            let e = pop_enum::<E>(s)?;
             s.push_int(e.values.len() as i32);
         });
     }

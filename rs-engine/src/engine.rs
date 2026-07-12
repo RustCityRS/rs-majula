@@ -18,7 +18,33 @@ use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::{NpcRenderer, PlayerRenderer};
 use rs_inv::{Inventory, STACK_LIMIT, StackMode};
+use rs_pack::cache::category::CategoryTypeProvider;
+use rs_pack::cache::dbrow::DbRowTypeProvider;
+use rs_pack::cache::dbtable::{DbTableIndex, DbTableTypeProvider};
+use rs_pack::cache::r#enum::EnumTypeProvider;
+use rs_pack::cache::flo::FloTypeProvider;
+use rs_pack::cache::font::FontTypeProvider;
+use rs_pack::cache::hunt::HuntTypeProvider;
+use rs_pack::cache::idk::IdkTypeProvider;
+use rs_pack::cache::r#if::IfTypeProvider;
+use rs_pack::cache::inv::InvTypeProvider;
+use rs_pack::cache::loc::LocTypeProvider;
+use rs_pack::cache::mesanim::MesAnimTypeProvider;
+#[cfg(rev = "225")]
+use rs_pack::cache::midi::MidiType;
+use rs_pack::cache::npc::NpcTypeProvider;
+use rs_pack::cache::obj::ObjTypeProvider;
+use rs_pack::cache::param::ParamTypeProvider;
 use rs_pack::cache::script::{Script, ScriptProvider};
+use rs_pack::cache::seq::SeqTypeProvider;
+use rs_pack::cache::spotanim::SpotAnimTypeProvider;
+use rs_pack::cache::r#struct::StructTypeProvider;
+#[cfg(since_254)]
+use rs_pack::cache::varbit::VarbitTypeProvider;
+use rs_pack::cache::varn::VarnTypeProvider;
+use rs_pack::cache::varp::VarPlayerTypeProvider;
+use rs_pack::cache::vars::VarsTypeProvider;
+use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::cache::{CacheStore, VarValue};
 use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
@@ -27,8 +53,8 @@ use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
+pub use rs_vm::engine::with_engine;
 use rs_vm::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut};
-pub use rs_vm::engine::{cache, with_engine};
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
 use rs_vm::state::*;
@@ -39,6 +65,7 @@ use rs_zone::zone_map::ZoneMap;
 use rs_zone::{ZoneEventType, ZoneMessage};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use rsmod::rsmod::flag::collision_flag::CollisionFlag;
+use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::BTreeMap;
 use std::net::{IpAddr, SocketAddr};
@@ -573,6 +600,17 @@ impl Engine {
         db_rx: UnboundedReceiver<DbResponse>,
     ) -> (Self, watch::Receiver<u64>) {
         let ops = register_ops();
+
+        for &key in &cache.freemap {
+            let zone = ZoneCoordGrid::from(key);
+            for y in 0..4 {
+                rsmod::change_zone(zone.x(), zone.z(), y, ZoneFlag::Free as u8, true);
+            }
+        }
+        for &key in &cache.multimap {
+            let zone = ZoneCoordGrid::from(key);
+            rsmod::change_zone(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8, true);
+        }
 
         let mut zones = ZoneMap::new();
         let spawned_npcs = GameMap::load(members, cache, &mut zones);
@@ -2419,7 +2457,7 @@ impl Engine {
         );
 
         if let Some(profile) = &profile {
-            apply_profile(profile, &mut active.player, cache());
+            apply_profile(profile, &mut active.player, self.cache);
         }
         if active.player.stats.xp.iter().all(|&s| s == 0) {
             apply_new_player_defaults(&mut active.player);
@@ -2863,14 +2901,125 @@ impl ScriptEngine for Engine {
         self.multi_xp
     }
 
-    /// Returns a reference to the global cache store.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** reads `self.cache`
-    fn cache(&self) -> &CacheStore {
+    fn objs(&self) -> &ObjTypeProvider {
+        &self.cache.objs
+    }
+
+    fn invs(&self) -> &InvTypeProvider {
+        &self.cache.invs
+    }
+
+    fn varps(&self) -> &VarPlayerTypeProvider {
+        &self.cache.varps
+    }
+
+    #[cfg(since_254)]
+    fn varbits(&self) -> &VarbitTypeProvider {
+        &self.cache.varbits
+    }
+
+    fn dbrows(&self) -> &DbRowTypeProvider {
+        &self.cache.dbrows
+    }
+
+    fn dbtables(&self) -> &DbTableTypeProvider {
+        &self.cache.dbtables
+    }
+
+    fn dbindex(&self) -> &DbTableIndex {
+        &self.cache.db_index
+    }
+
+    fn enums(&self) -> &EnumTypeProvider {
+        &self.cache.enums
+    }
+
+    fn flos(&self) -> &FloTypeProvider {
+        &self.cache.flos
+    }
+
+    fn hunts(&self) -> &HuntTypeProvider {
+        &self.cache.hunts
+    }
+
+    fn idks(&self) -> &IdkTypeProvider {
+        &self.cache.idks
+    }
+
+    fn locs(&self) -> &LocTypeProvider {
+        &self.cache.locs
+    }
+
+    fn mesanims(&self) -> &MesAnimTypeProvider {
+        &self.cache.mesanims
+    }
+
+    fn npcs(&self) -> &NpcTypeProvider {
+        &self.cache.npcs
+    }
+
+    fn params(&self) -> &ParamTypeProvider {
+        &self.cache.params
+    }
+
+    fn seqs(&self) -> &SeqTypeProvider {
+        &self.cache.seqs
+    }
+
+    fn spotanims(&self) -> &SpotAnimTypeProvider {
+        &self.cache.spotanims
+    }
+
+    fn structs(&self) -> &StructTypeProvider {
+        &self.cache.structs
+    }
+
+    fn varns(&self) -> &VarnTypeProvider {
+        &self.cache.varns
+    }
+
+    fn varss(&self) -> &VarsTypeProvider {
+        &self.cache.varss
+    }
+
+    fn fonts(&self) -> &FontTypeProvider {
+        &self.cache.fonts
+    }
+
+    fn categories(&self) -> &CategoryTypeProvider {
+        &self.cache.categories
+    }
+
+    fn interfaces(&self) -> &IfTypeProvider {
+        &self.cache.interfaces
+    }
+
+    fn wordenc(&self) -> &WordEncProvider {
+        &self.cache.wordenc
+    }
+
+    #[cfg(since_254)]
+    fn midi_tick_length(&self, id: i32) -> Option<u16> {
         self.cache
+            .midi_tick_lengths
+            .get(id as usize)
+            .copied()
+            .flatten()
+    }
+
+    #[cfg(rev = "225")]
+    fn jingle_by_name(&self, name: &str) -> Option<&MidiType> {
+        self.cache.jingles.get_by_name(name)
+    }
+
+    #[cfg(rev = "225")]
+    fn song_by_name(&self, name: &str) -> Option<&MidiType> {
+        self.cache.songs.get_by_name(name)
+    }
+
+    #[cfg(all(since_244, before_254))]
+    fn midi_id(&self, name: &str) -> Option<u16> {
+        self.cache.midi_ids.get(name).copied()
     }
 
     /// Looks up a compiled script by its numeric identifier.
@@ -3153,12 +3302,13 @@ impl ScriptEngine for Engine {
                 coord
             )));
         }
-        Ok(self.add_obj(
+        self.add_obj(
             coord,
             Obj::new(coord, EntityLifeTime::Despawn, id, count),
             receiver37,
             duration,
-        ))
+        );
+        Ok(())
     }
 
     /// Enqueues a ground object to be spawned after a delay.
@@ -3342,7 +3492,7 @@ impl ScriptEngine for Engine {
                 }
             }
         }
-        Ok(self.add_or_change_loc(
+        self.add_or_change_loc(
             coord,
             id,
             shape,
@@ -3353,7 +3503,8 @@ impl ScriptEngine for Engine {
             loc_type.blockrange,
             duration,
             create_if_missing,
-        ))
+        );
+        Ok(())
     }
 
     /// Merges a location so that it is only visible to one player within a bounded area.
@@ -3606,7 +3757,8 @@ impl ScriptEngine for Engine {
         if src.y() != dst.y() {
             return Ok(false);
         }
-        if !self.members && !self.cache.is_free(dst.x(), dst.z()) {
+        if !self.members && !rsmod::is_zone_flagged(dst.x(), dst.z(), dst.y(), ZoneFlag::Free as u8)
+        {
             return Ok(false);
         }
         Ok(rsmod::has_line_of_sight(
@@ -3644,7 +3796,8 @@ impl ScriptEngine for Engine {
         if src.y() != dst.y() {
             return Ok(false);
         }
-        if !self.members && !self.cache.is_free(dst.x(), dst.z()) {
+        if !self.members && !rsmod::is_zone_flagged(dst.x(), dst.z(), dst.y(), ZoneFlag::Free as u8)
+        {
             return Ok(false);
         }
         Ok(rsmod::has_line_of_walk(
@@ -3673,7 +3826,9 @@ impl ScriptEngine for Engine {
                 coord
             )));
         }
-        if !self.members && !self.cache.is_free(coord.x(), coord.z()) {
+        if !self.members
+            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
+        {
             return Ok(false);
         }
         Ok(rsmod::is_flagged(
@@ -3696,7 +3851,9 @@ impl ScriptEngine for Engine {
                 coord
             )));
         }
-        if !self.members && !self.cache.is_free(coord.x(), coord.z()) {
+        if !self.members
+            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
+        {
             return Ok(false);
         }
         Ok(rsmod::is_flagged(
@@ -5240,7 +5397,7 @@ impl ScriptPlayer for ActivePlayer {
     fn get_or_create_inv(&mut self, id: u16, size: usize, stack_mode: StackMode) -> &mut Inventory {
         self.player.invs.entry(id).or_insert_with(|| {
             let mut inv = Inventory::with_stack_mode(size, stack_mode);
-            if let Some(inv_type) = cache().invs.get_by_id(id) {
+            if let Some(inv_type) = engine().invs().get_by_id(id) {
                 if let Some(stockobj) = &inv_type.stockobj {
                     inv.stockobj = stockobj.clone();
                 }
@@ -5606,7 +5763,7 @@ impl ScriptNpc for ActiveNpc {
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `cache().npcs.get_by_id`, `NpcInfo::clear_face_entity_npc`, `Npc::reset_defaults`
     fn reset_defaults(&mut self) {
-        let npc_type = cache().npcs.get_by_id(self.npc.uid.id());
+        let npc_type = engine().npcs().get_by_id(self.npc.uid.id());
         let default_mode = npc_type.map(|t| t.defaultmode).unwrap_or(NpcMode::None);
         let hunt_mode = npc_type.and_then(|t| t.huntmode);
         let hunt_range = npc_type.map(|t| t.huntrange).unwrap_or(0);
@@ -5983,21 +6140,21 @@ impl ScriptNpc for ActiveNpc {
 pub fn register_ops() -> OpsRegistry {
     let mut ops = OpsRegistry::new();
     ops.extend(ops::core::build::<Engine>());
-    ops.extend(ops::db::build());
+    ops.extend(ops::db::build::<Engine>());
     ops.extend(ops::debug::build());
-    ops.extend(ops::r#enum::build());
+    ops.extend(ops::r#enum::build::<Engine>());
     ops.extend(ops::inv::build::<Engine>());
-    ops.extend(ops::lc::build());
+    ops.extend(ops::lc::build::<Engine>());
     ops.extend(ops::loc::build::<Engine>());
-    ops.extend(ops::nc::build());
+    ops.extend(ops::nc::build::<Engine>());
     ops.extend(ops::npc::build::<Engine>());
     ops.extend(ops::number::build::<Engine>());
     ops.extend(ops::obj::build::<Engine>());
-    ops.extend(ops::oc::build());
+    ops.extend(ops::oc::build::<Engine>());
     ops.extend(ops::player::build::<Engine>());
     ops.extend(ops::server::build::<Engine>());
     ops.extend(ops::string::build::<Engine>());
-    ops.extend(ops::r#struct::build());
+    ops.extend(ops::r#struct::build::<Engine>());
     ops
 }
 

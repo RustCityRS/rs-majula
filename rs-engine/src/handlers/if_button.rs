@@ -1,9 +1,10 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::{cache, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_pack::types::IfButtonType;
 use rs_protocol::network::game::client::if_button::IfButton;
 use rs_vm::ScriptError;
+use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -38,7 +39,9 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `engine_mut().run_script_by_state` (resume), `engine_mut().run_script_by_trigger`
 impl ClientGameHandler for IfButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let Some(interface) = cache().interfaces.get_by_id(self.com) else {
+        let interfaces = engine().interfaces();
+
+        let Some(interface) = interfaces.get_by_id(self.com) else {
             return Err(ScriptError::Client(format!(
                 "No interface with id: {}",
                 self.com
@@ -79,8 +82,7 @@ impl ClientGameHandler for IfButton {
                 )?;
             }
         } else {
-            let protect = cache()
-                .interfaces
+            let protect = interfaces
                 .get_by_id(interface.root_layer as u16)
                 .is_some_and(|root| !root.overlay);
 

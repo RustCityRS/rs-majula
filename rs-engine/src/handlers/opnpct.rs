@@ -4,7 +4,7 @@ use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opnpct::OpNpcT;
 use rs_vm::ScriptError;
-use rs_vm::engine::cache;
+use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
 
 /// `ComActionTarget::NPC` bit: the component may be cast on an NPC.
@@ -44,8 +44,10 @@ impl ClientGameHandler for OpNpcT {
             return Ok(());
         }
 
+        let engine = engine();
+
         let spell_com = self.com;
-        let Some(spell_interface) = cache().interfaces.get_by_id(spell_com) else {
+        let Some(spell_interface) = engine.interfaces().get_by_id(spell_com) else {
             // bad client: component is not acceptable for this packet
             active.unset_map_flag();
             return Ok(());
@@ -66,7 +68,7 @@ impl ClientGameHandler for OpNpcT {
             return Ok(());
         }
 
-        let npc_delayed = engine().get_npc(self.nid).map(|n| n.npc.state.delayed);
+        let npc_delayed = engine.get_npc(self.nid).map(|n| n.npc.state.delayed);
         let Some(npc_delayed) = npc_delayed else {
             // bad client or lag: npc does not exist
             active.unset_map_flag();

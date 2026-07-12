@@ -15,9 +15,7 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 /// - **NPC variables (varns):** stored on each [`ActiveNpc`] and accessed by
 ///   the VM through the `NpcEngine::get_var` / `NpcEngine::set_var` trait
 ///   methods.
-pub struct VarSet {
-    values: Vec<VarValue>,
-}
+pub struct VarSet(Vec<VarValue>);
 
 impl VarSet {
     /// Creates a new `VarSet` by mapping each [`ScriptVarType`] to its
@@ -44,9 +42,7 @@ impl VarSet {
     ///
     /// **Calls:** [`VarValue::default_for`] for each type.
     pub fn new(types: impl Iterator<Item = ScriptVarType>) -> Self {
-        VarSet {
-            values: types.map(VarValue::default_for).collect(),
-        }
+        VarSet(types.map(VarValue::default_for).collect())
     }
 
     /// Returns a reference to the variable value at the given index.
@@ -74,7 +70,7 @@ impl VarSet {
     ///   each permanent varp for persistence.
     #[inline]
     pub fn get(&self, id: u16) -> &VarValue {
-        &self.values[id as usize]
+        &self.0[id as usize]
     }
 
     /// Overwrites the variable value at the given index.
@@ -103,7 +99,7 @@ impl VarSet {
     ///   `ActivePlayer::set_varp`.
     #[inline]
     pub fn set(&mut self, id: u16, value: VarValue) {
-        self.values[id as usize] = value;
+        self.0[id as usize] = value;
     }
 
     /// Returns the number of variable slots in this set.
@@ -113,7 +109,7 @@ impl VarSet {
     /// to [`VarSet::new`].
     #[inline]
     pub fn len(&self) -> usize {
-        self.values.len()
+        self.0.len()
     }
 
     /// Returns `true` if this set contains no variable slots.
@@ -123,7 +119,7 @@ impl VarSet {
     /// empty iterator.
     #[inline]
     pub fn is_empty(&self) -> bool {
-        self.values.is_empty()
+        self.0.is_empty()
     }
 
     /// Resets existing variable slots back to their type-appropriate defaults.
@@ -147,8 +143,8 @@ impl VarSet {
     /// **Calls:** [`VarValue::default_for`] for each type.
     pub fn reset(&mut self, types: impl Iterator<Item = ScriptVarType>) {
         for (i, var_type) in types.enumerate() {
-            if i < self.values.len() {
-                self.values[i] = VarValue::default_for(var_type);
+            if i < self.0.len() {
+                self.0[i] = VarValue::default_for(var_type);
             }
         }
     }

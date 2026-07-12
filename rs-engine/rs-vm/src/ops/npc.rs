@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptNpc, cache, engine, engine_mut};
+use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 use crate::iterators::NpcIteratorState;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptArgument};
@@ -71,8 +71,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2503
         // https://twitter.com/JagexAsh/status/1614498680144527360
         active_npc_mut!(m, NPC_ATTACKRANGE => |s, npc| {
-            let npc_type = cache()
-                .npcs
+            let npc_type = engine::<E>()
+                .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
             s.push_int(npc_type.attackrange as i32);
@@ -86,8 +86,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2505
         active_npc!(m, NPC_CATEGORY => |s, npc| {
-            let npc_type = cache()
-                .npcs
+            let npc_type = engine::<E>()
+                .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
             s.push_int(npc_type.category.map(|c| c as i32).unwrap_or(-1));
@@ -96,14 +96,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2506
         active_npc_mut!(m, NPC_CHANGETYPE_KEEPALL => |s, npc| {
             let duration = s.pop_int();
-            let npc_type = pop_npc(s)?;
+            let npc_type = pop_npc::<E>(s)?;
             npc.change_type(npc_type.id, duration as u64, false);
         });
 
         // 2507
         active_npc_mut!(m, NPC_CHANGETYPE => |s, npc| {
             let duration = s.pop_int();
-            let npc_type = pop_npc(s)?;
+            let npc_type = pop_npc::<E>(s)?;
             npc.change_type(npc_type.id, duration as u64, true);
         });
 
@@ -141,7 +141,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, NPC_FIND => |s| {
             let vis = HuntCheckVis::try_from(s.pop_int() as u8).unwrap_or(HuntCheckVis::Off);
             let distance = s.pop_int();
-            let npc = pop_npc(s)?;
+            let npc = pop_npc::<E>(s)?;
             let coord = pop_coord(s)?;
 
             let npcs = iterators::npc_distance::<E>(npc.id, coord, distance, vis)?;
@@ -162,7 +162,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, NPC_FINDALL => |s| {
             let vis = HuntCheckVis::try_from(s.pop_int() as u8).unwrap_or(HuntCheckVis::Off);
             let distance = s.pop_int();
-            let npc = pop_npc(s)?;
+            let npc = pop_npc::<E>(s)?;
             let coord = pop_coord(s)?;
             let npcs = iterators::npc_distance::<E>(npc.id, coord, distance, vis)?;
             s.npc_iterator = Some(NpcIteratorState {
@@ -200,13 +200,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let category = s.pop_int();
             let coord = pop_coord(s)?;
 
-            let npcs = iterators::npc_distance_any::<E>(coord, distance, vis)?;
-            let c = cache();
+            let refs = iterators::npc_distance_any::<E>(coord, distance, vis)?;
+            let npcs = engine::<E>().npcs();
 
-            let closest = npcs
+            let closest = refs
                 .iter()
                 .filter(|r| {
-                    c.npcs
+                    npcs
                         .get_by_id(r.id)
                         .and_then(|t| t.category)
                         .is_some_and(|cat| cat as i32 == category)
@@ -297,8 +297,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1821492251429679257
         active_npc!(m, NPC_HASOP => |s, npc| {
             let op = s.pop_int();
-            let npc_type = cache()
-                .npcs
+            let npc_type = engine::<E>()
+                .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
             let has = npc_type
@@ -324,13 +324,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let distance = s.pop_int();
             let coord = pop_coord(s)?;
 
-            let npcs = iterators::npc_distance_any::<E>(coord, distance, vis)?;
+            let refs = iterators::npc_distance_any::<E>(coord, distance, vis)?;
+            let npcs = engine::<E>().npcs();
 
-            let closest = npcs
+            let closest = refs
                 .iter()
                 .filter(|npc_ref| {
-                    cache()
-                        .npcs
+                    npcs
                         .get_by_id(npc_ref.id)
                         .and_then(|t| t.op.as_ref())
                         .is_some_and(|ops| ops.get(1).is_some_and(|o| o.is_some()))
@@ -353,17 +353,18 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let distance = s.pop_int();
             let coord = pop_coord(s)?;
 
-            let mut npcs = iterators::npc_distance_any::<E>(coord, distance, vis)?;
-            npcs.retain(|npc_ref| {
-                cache()
-                    .npcs
+            let mut refs = iterators::npc_distance_any::<E>(coord, distance, vis)?;
+            let npcs = engine::<E>().npcs();
+
+            refs.retain(|npc_ref| {
+                npcs
                     .get_by_id(npc_ref.id)
                     .and_then(|t| t.op.as_ref())
                     .is_some_and(|ops| ops.get(1).is_some_and(|o| o.is_some()))
             });
 
             s.npc_iterator = Some(NpcIteratorState {
-                matches: npcs,
+                matches: refs,
                 cursor: 0,
             });
         });
@@ -375,8 +376,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2528
         active_npc!(m, NPC_NAME => |s, npc| {
-            let npc_type = cache()
-                .npcs
+            let npc_type = engine::<E>()
+                .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
             s.push_string(npc_type.name.as_deref().unwrap_or(npc_type.debugname().unwrap_or("null")));
@@ -384,9 +385,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2529
         active_npc!(m, NPC_PARAM => |s, npc| {
-            let param = pop_param(s)?;
-            let value = cache()
-                .npcs
+            let param = pop_param::<E>(s)?;
+            let value = engine::<E>()
+                .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::ParamNotFound(param.id as i32))?
                 .params
@@ -492,7 +493,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else if mode >= NpcMode::OpLoc1 as i32 {
                 match s.active_loc {
                     Some(loc) => {
-                        let loc_type = cache().locs.get_by_id(loc.id);
+                        let loc_type = engine::<E>().locs().get_by_id(loc.id);
                         let width = loc_type.map(|lt| lt.width).unwrap_or(1);
                         let length = loc_type.map(|lt| lt.length).unwrap_or(1);
                         npc.set_interaction_loc(loc.coord, loc.id, width, length, loc.shape, loc.angle, loc.layer, op);
@@ -581,7 +582,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u16>()?;
             let dst_height = s.pop_int_as::<u8>()?;
             let src_height = s.pop_int_as::<u8>()?;
-            let spotanim = pop_spotanim(s)?;
+            let spotanim = pop_spotanim::<E>(s)?;
             let uid = s.pop_int();
             let src = pop_coord(s)?;
             let dst = npc.coord();

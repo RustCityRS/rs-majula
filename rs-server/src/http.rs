@@ -49,19 +49,15 @@ enum ClientTemplate {
 #[cfg_attr(rev = "274", template(path = "public/274/client.ejs"))]
 #[cfg_attr(rev = "289", template(path = "public/289/client.ejs"))]
 struct TypeScriptClient {
-    plugin: String,
     nodeid: String,
-    portoff: String,
     lowmem: String,
     members: String,
 }
 
-#[allow(clippy::too_many_arguments)]
 pub async fn serve(
     host: String,
     port: u16,
     nodeid: String,
-    portoff: String,
     members: bool,
     server_state: ServerIO,
     guard: ConnectionGuard,
@@ -84,22 +80,19 @@ pub async fn serve(
         };
 
         let nodeid = nodeid.clone();
-        let portoff = portoff.clone();
         let server_state = server_state.clone();
         let guard = guard.clone();
 
         tokio::spawn(async move {
             info!("HTTP {:?} connected", addr);
-            handle_connection(stream, nodeid, portoff, members, server_state, addr, guard).await;
+            handle_connection(stream, nodeid, members, server_state, addr, guard).await;
         });
     }
 }
 
-#[allow(clippy::too_many_arguments)]
 async fn handle_connection(
     mut stream: TcpStream,
     nodeid: String,
-    portoff: String,
     members: bool,
     server_state: ServerIO,
     addr: SocketAddr,
@@ -178,7 +171,7 @@ async fn handle_connection(
         }
 
         let (status, headers, body) =
-            route(path, query, &nodeid, &portoff, members, server_state.cache).await;
+            route(path, query, &nodeid, members, server_state.cache).await;
 
         // Check if client wants to close
         let connection_close = raw.to_ascii_lowercase().contains("connection: close");
@@ -212,7 +205,6 @@ async fn route(
     path: &str,
     query: &str,
     nodeid: &str,
-    portoff: &str,
     members: bool,
     cache: &'static CacheStore,
 ) -> (&'static str, String, Body) {
@@ -240,15 +232,8 @@ async fn route(
                 );
             }
 
-            let plugin = params.get("plugin").cloned().unwrap_or("0".into());
             let lowmem = params.get("lowmem").cloned().unwrap_or("0".into());
-            match render_client(
-                plugin,
-                lowmem,
-                nodeid.to_string(),
-                portoff.to_string(),
-                members,
-            ) {
+            match render_client(lowmem, nodeid.to_string(), members) {
                 Ok(html) => {
                     let bytes = html.into_bytes();
                     let len = bytes.len();
@@ -406,21 +391,15 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
 }
 
 fn render_client(
-    plugin: String,
     lowmem: String,
     nodeid: String,
-    portoff: String,
     members: bool,
 ) -> Result<String, Box<dyn std::error::Error>> {
-    let client = match plugin.as_str() {
-        _ => ClientTemplate::TypeScript(TypeScriptClient {
-            plugin,
-            nodeid,
-            portoff,
-            lowmem,
-            members: members.to_string(),
-        }),
-    };
+    let client = ClientTemplate::TypeScript(TypeScriptClient {
+        nodeid,
+        lowmem,
+        members: members.to_string(),
+    });
 
     Ok(match client {
         ClientTemplate::TypeScript(c) => c.render_once()?,

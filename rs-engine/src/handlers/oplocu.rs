@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
@@ -55,8 +55,10 @@ impl ClientGameHandler for OpLocU {
             return Ok(());
         }
 
+        let engine = engine();
+
         let y = active.player.pathing.coord.y();
-        let Some(zone) = engine().zones.zone(self.x, y, self.z) else {
+        let Some(zone) = engine.zones.zone(self.x, y, self.z) else {
             // bad client or lag: loc does not exist
             active.unset_map_flag();
             return Ok(());
@@ -68,7 +70,7 @@ impl ClientGameHandler for OpLocU {
         };
         let loc = &zone.locs[idx];
 
-        let loc_type = cache().locs.get_by_id(self.loc);
+        let loc_type = engine.locs().get_by_id(self.loc);
         let width = loc_type.map(|lt| lt.width).unwrap_or(1);
         let length = loc_type.map(|lt| lt.length).unwrap_or(1);
         let coord = CoordGrid::new(self.x, y, self.z);
@@ -82,7 +84,7 @@ impl ClientGameHandler for OpLocU {
             layer: loc.layer(),
         };
 
-        let Some(use_interface) = cache().interfaces.get_by_id(self.com) else {
+        let Some(use_interface) = engine.interfaces().get_by_id(self.com) else {
             // bad client: component is not acceptable for this packet
             active.unset_map_flag();
             return Ok(());
@@ -113,7 +115,7 @@ impl ClientGameHandler for OpLocU {
             return Ok(());
         };
 
-        let inv = cache().invs.get_by_id(inv_id);
+        let inv = engine.invs().get_by_id(inv_id);
         let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
 
         let Some(inventory) = (if shared {
@@ -140,7 +142,7 @@ impl ClientGameHandler for OpLocU {
 
         active.clear_pending_action()?;
 
-        if cache().objs.get_by_id(self.obj).is_some_and(|o| o.members) && !engine().members {
+        if engine.objs().get_by_id(self.obj).is_some_and(|o| o.members) && !engine.members {
             active.message_game("To use this item please login to a members' server.");
             active.unset_map_flag();
             return Ok(());

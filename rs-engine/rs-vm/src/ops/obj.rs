@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptPlayer, cache, engine_mut};
+use crate::engine::{ScriptEngine, ScriptPlayer, engine, engine_mut};
 use crate::macros::active_obj_ref;
 use crate::register::OpsRegistry;
 use crate::state::ObjRef;
@@ -38,8 +38,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
 
-            let obj_type = cache()
-                .objs
+            let obj_type = engine::<E>()
+                .objs()
                 .get_by_id(obj_id as u16)
                 .ok_or(ScriptError::ObjNotFound(obj_id))?;
 
@@ -71,8 +71,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
 
-            let obj_type = cache()
-                .objs
+            let obj_type = engine::<E>()
+                .objs()
                 .get_by_id(obj_id as u16)
                 .ok_or(ScriptError::ObjNotFound(obj_id))?;
 
@@ -96,8 +96,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3504
         active_obj!(m, OBJ_DEL => |s, obj| {
-            let respawnrate = cache()
-                .objs
+            let respawnrate = engine::<E>()
+                .objs()
                 .get_by_id(obj.id)
                 .map(|t| t.respawnrate as u64)
                 .unwrap_or(100);
@@ -149,8 +149,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3508
         active_obj!(m, OBJ_NAME => |s, obj| {
-            let obj_type = cache()
-                .objs
+            let obj_type = engine::<E>()
+                .objs()
                 .get_by_id(obj.id)
                 .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
             s.push_string(obj_type.name.as_deref().unwrap_or(obj_type.debugname().unwrap_or("null")));
@@ -158,9 +158,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3509
         active_obj!(m, OBJ_PARAM => |s, obj| {
-            let param = pop_param(s)?;
-            let value = cache()
-                .objs
+            let param = pop_param::<E>(s)?;
+            let value = engine::<E>()
+                .objs()
                 .get_by_id(obj.id)
                 .ok_or(ScriptError::ParamNotFound(param.id as i32))?
                 .params
@@ -178,15 +178,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1679942100249464833
         none!(m, OBJ_TAKEITEM => |s| {
             require_active_obj(s)?;
-            let inv_type = pop_inv(s)?;
+            let inv_type = pop_inv::<E>(s)?;
 
             let obj = active_obj_ref(s)?;
             if obj.count == 0 {
                 return Ok(());
             }
 
-            let obj_type = cache()
-                .objs
+            let obj_type = engine::<E>()
+                .objs()
                 .get_by_id(obj.id)
                 .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
 

@@ -412,7 +412,6 @@ async fn bootstrap(
         host.to_string(),
         http,
         args.node_id.to_string(),
-        (args.node_id - 10).to_string(),
         args.members,
         server_state.clone(),
         guard.clone(),

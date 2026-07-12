@@ -8,7 +8,7 @@ use rs_protocol::network::game::client::opnpc3::OpNpc3;
 use rs_protocol::network::game::client::opnpc4::OpNpc4;
 use rs_protocol::network::game::client::opnpc5::OpNpc5;
 use rs_vm::ScriptError;
-use rs_vm::engine::cache;
+use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
 
 /// Handles the `OpNpc1` client protocol message.
@@ -114,7 +114,9 @@ fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         return Ok(());
     }
 
-    let npc_info = engine()
+    let engine = engine();
+
+    let npc_info = engine
         .get_npc(nid)
         .map(|n| (n.npc.state.delayed, n.npc.uid.id()));
 
@@ -136,7 +138,7 @@ fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         return Ok(());
     }
 
-    let npc_type = cache().npcs.get_by_id(npc_type_id);
+    let npc_type = engine.npcs().get_by_id(npc_type_id);
     if let Some(nt) = &npc_type {
         if let Some(ops) = &nt.op {
             if ops.get((op - 1) as usize).is_none_or(|o| o.is_none()) {

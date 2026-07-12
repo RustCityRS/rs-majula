@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
@@ -55,9 +55,11 @@ impl ClientGameHandler for OpObjU {
             return Ok(());
         }
 
+        let engine = engine();
+
         let y = active.player.pathing.coord.y();
         let receiver = active.uid().username37();
-        let Some(zone) = engine().zones.zone(self.x, y, self.z) else {
+        let Some(zone) = engine.zones.zone(self.x, y, self.z) else {
             // bad client or lag: obj does not exist
             active.unset_map_flag();
             return Ok(());
@@ -74,7 +76,7 @@ impl ClientGameHandler for OpObjU {
             count: zone.objs[idx].count(),
         };
 
-        let Some(use_interface) = cache().interfaces.get_by_id(self.com) else {
+        let Some(use_interface) = engine.interfaces().get_by_id(self.com) else {
             // bad client: component is not acceptable for this packet
             active.unset_map_flag();
             return Ok(());
@@ -105,7 +107,7 @@ impl ClientGameHandler for OpObjU {
             return Ok(());
         };
 
-        let inv = cache().invs.get_by_id(inv_id);
+        let inv = engine.invs().get_by_id(inv_id);
         let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
 
         let Some(inventory) = (if shared {
@@ -132,11 +134,11 @@ impl ClientGameHandler for OpObjU {
 
         active.clear_pending_action()?;
 
-        if cache()
-            .objs
+        if engine
+            .objs()
             .get_by_id(self.use_obj)
             .is_some_and(|o| o.members)
-            && !engine().members
+            && !engine.members
         {
             active.message_game("To use this item please login to a members' server.");
             active.unset_map_flag();

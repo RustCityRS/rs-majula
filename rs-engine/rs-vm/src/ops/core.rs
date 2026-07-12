@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, cache, engine, engine_mut};
+use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
@@ -55,8 +55,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varp = cache()
-                .varps
+            let varp = engine::<E>()
+                .varps()
                 .get_by_id(id)
                 .ok_or(ScriptError::Runtime(format!("Varp with id: {id} not found!")))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[((operand >> 16) & 0x1) as usize]) && varp.protect {
@@ -94,8 +94,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varn = cache()
-                .varns
+            let varn = engine::<E>()
+                .varns()
                 .get_by_id(id)
                 .ok_or(ScriptError::Runtime(format!("Varn with id: {id} not found!")))?;
             let value = if varn.var_type == ScriptVarType::String {
@@ -139,8 +139,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, POP_VARS => |s| {
             let operand = s.int_operand();
             let id = (operand & 0xFFFF) as u16;
-            let vars = cache()
-                .varss
+            let vars = engine::<E>()
+                .varss()
                 .get_by_id(id)
                 .ok_or(ScriptError::Runtime(format!("Vars with id: {id} not found!")))?;
             let value = if vars.var_type == ScriptVarType::String {
@@ -192,8 +192,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = cache()
-                .varbits
+            let varbit = engine::<E>()
+                .varbits()
                 .get_by_id(id)
                 .ok_or(ScriptError::Runtime(format!("Varbit with id: {id} not found!")))?;
             let start = varbit.start_bit as u32;
@@ -209,12 +209,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
             let id = (operand & 0xFFFF) as u16;
-            let varbit = cache()
-                .varbits
+            let varbit = engine::<E>()
+                .varbits()
                 .get_by_id(id)
                 .ok_or(ScriptError::Runtime(format!("Varbit with id: {id} not found!")))?;
-            let basevar = cache()
-                .varps
+            let basevar = engine::<E>()
+                .varps()
                 .get_by_id(varbit.basevar)
                 .ok_or(ScriptError::Runtime(format!("Varp with id: {} not found!", varbit.basevar)))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[((operand >> 16) & 0x1) as usize]) && basevar.protect {

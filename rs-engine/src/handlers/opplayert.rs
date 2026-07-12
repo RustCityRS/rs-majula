@@ -1,9 +1,10 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opplayert::OpPlayerT;
 use rs_vm::ScriptError;
+use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
 
 /// `ComActionTarget::PLAYER` bit: the component may be cast on a player.
@@ -43,8 +44,10 @@ impl ClientGameHandler for OpPlayerT {
             return Ok(());
         }
 
+        let engine = engine();
+
         let spell_com = self.com;
-        let Some(spell_interface) = cache().interfaces.get_by_id(spell_com) else {
+        let Some(spell_interface) = engine.interfaces().get_by_id(spell_com) else {
             // bad client: component is not acceptable for this packet
             active.unset_map_flag();
             return Ok(());

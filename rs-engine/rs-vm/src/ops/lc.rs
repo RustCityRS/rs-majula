@@ -1,38 +1,39 @@
+use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
 use crate::util::{pop_loc, pop_param};
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
 use rs_pack::cache::script::*;
 
-pub fn build() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
         // 4100
         none!(m, LC_CATEGORY => |s| {
-            let loc = pop_loc(s)?;
+            let loc = pop_loc::<E>(s)?;
             s.push_int(loc.category.map(|x| x as i32).unwrap_or(-1));
         });
 
         // 4101
         none!(m, LC_DEBUGNAME => |s| {
-            let loc = pop_loc(s)?;
+            let loc = pop_loc::<E>(s)?;
             s.push_string(loc.debugname().unwrap_or("null"));
         });
 
         // 4102
         none!(m, LC_DESC => |s| {
-            let loc = pop_loc(s)?;
+            let loc = pop_loc::<E>(s)?;
             s.push_string(loc.desc.as_deref().unwrap_or("null"));
         });
 
         // 4103
         none!(m, LC_LENGTH => |s| {
-            let loc = pop_loc(s)?;
+            let loc = pop_loc::<E>(s)?;
             s.push_int(loc.length as i32);
         });
 
         // 4104
         none!(m, LC_NAME => |s| {
-            let loc = pop_loc(s)?;
+            let loc = pop_loc::<E>(s)?;
             s.push_string(loc.name.as_deref().unwrap_or(loc.debugname().unwrap_or("null")));
         });
 
@@ -43,8 +44,8 @@ pub fn build() -> OpsRegistry {
 
         // 4106
         none!(m, LC_PARAM => |s| {
-            let param = pop_param(s)?;
-            let loc = pop_loc(s)?;
+            let param = pop_param::<E>(s)?;
+            let loc = pop_loc::<E>(s)?;
             let value = loc.params
                 .as_ref()
                 .and_then(|p| param.get_param_or_default(p))
@@ -58,7 +59,7 @@ pub fn build() -> OpsRegistry {
 
         // 4107
         none!(m, LC_WIDTH => |s| {
-            let loc = pop_loc(s)?;
+            let loc = pop_loc::<E>(s)?;
             s.push_int(loc.width as i32);
         });
     }

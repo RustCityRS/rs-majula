@@ -118,12 +118,13 @@ use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZoneP
 use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 use rs_var::VarSet;
 use rs_vm::ScriptError;
-use rs_vm::engine::{ScriptEngine, ScriptPlayer, cache};
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
+use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 use std::net::IpAddr;
@@ -178,12 +179,10 @@ impl ActivePlayer {
         bot: bool,
     ) -> Self {
         let uid = PlayerUid::new(username, pid);
-
         let coord = CoordGrid::new(3094, 0, 3106); // Tutorial island
-
-        let c = cache();
-        let vars = VarSet::new((0..c.varps.count()).map(|id| {
-            c.varps
+        let varps = engine().varps();
+        let vars = VarSet::new((0..varps.count()).map(|id| {
+            varps
                 .get_by_id(id as u16)
                 .map(|v| v.var_type)
                 .unwrap_or(ScriptVarType::Int)
@@ -473,9 +472,14 @@ impl ActivePlayer {
         self.player.update_map();
 
         if zone_changed {
-            let c = cache();
-            let was_multi = c.is_multi(old_zone.x(), old_zone.z(), old_zone.y());
-            let now_multi = c.is_multi(zone.x(), zone.z(), zone.y());
+            let was_multi = rsmod::is_zone_flagged(
+                old_zone.x(),
+                old_zone.z(),
+                old_zone.y(),
+                ZoneFlag::Multi as u8,
+            );
+            let now_multi =
+                rsmod::is_zone_flagged(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8);
             if was_multi != now_multi {
                 self.write(
                     rs_protocol::network::game::server::set_multiway::SetMultiway {
@@ -879,7 +883,7 @@ impl ActivePlayer {
         let zone_z = self.player.pathing.coord.zone_z();
         #[cfg(rev = "225")]
         {
-            let cache = cache();
+            let cache = engine().cache;
             let mut crcs = FxHashMap::default();
             let mapsquares = self.player.build_area.mapsquares.clone();
             for mapsquare in &mapsquares {
@@ -938,8 +942,8 @@ impl ActivePlayer {
     /// Sends a full inventory update to the client for the given component.
     pub fn update_inv_full(&mut self, com: u16, objs: &[Option<(u16, i32)>]) {
         // prevent a client crash by capping to inv size || interface size
-        let size = cache()
-            .interfaces
+        let size = engine()
+            .interfaces()
             .get_by_id(com)
             .map(|c| c.width as usize * c.height as usize)
             .unwrap_or(objs.len())
@@ -1082,8 +1086,10 @@ impl ActivePlayer {
         // client has the correct value, e.g. right after logging in).
         let mut first_seen_weight = false;
 
+        let invs = engine().invs();
+
         for (inv_id, coms) in &transmits {
-            let inv_type = cache().invs.get_by_id(*inv_id);
+            let inv_type = invs.get_by_id(*inv_id);
             let is_shared = inv_type.is_some_and(|t| t.scope == InvScope::Shared);
             let runweight_inv = inv_type.is_some_and(|t| t.runweight);
 
@@ -1238,17 +1244,18 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Overwrites `self.player.runweight`.
     fn calculate_runweight(&mut self) {
-        let c = cache();
+        let invs = engine().invs();
+        let objs = engine().objs();
         let mut weight = 0;
         for (inv_id, inv) in &self.player.invs {
-            let Some(inv_type) = c.invs.get_by_id(*inv_id) else {
+            let Some(inv_type) = invs.get_by_id(*inv_id) else {
                 continue;
             };
             if !inv_type.runweight {
                 continue;
             }
             for item in inv.slots.iter().flatten() {
-                let Some(obj_type) = c.objs.get_by_id(item.obj) else {
+                let Some(obj_type) = objs.get_by_id(item.obj) else {
                     continue;
                 };
                 if obj_type.stackable {
@@ -1269,7 +1276,7 @@ impl ActivePlayer {
     /// # Arguments
     /// * `text` - The message text (may be longer than one chatbox line).
     pub fn message_game_wrapped(&mut self, text: &str) {
-        if let Some(font) = cache().fonts.get(Font::P12) {
+        if let Some(font) = engine().fonts().get(Font::P12) {
             let lines = font.split(text, 456);
             for line in lines {
                 self.message_game(&line);
@@ -1287,9 +1294,9 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sends varp_small or varp_large packets for every transmittable varp.
     pub fn sync_varps(&mut self) {
-        let varp_types = &cache().varps;
+        let varps = engine().varps();
         for id in 0..self.player.vars.len() {
-            let Some(varp) = varp_types.get_by_id(id as u16) else {
+            let Some(varp) = varps.get_by_id(id as u16) else {
                 continue;
             };
             if !varp.transmit {
@@ -1664,8 +1671,9 @@ impl ActivePlayer {
             .invs
             .get(&self.player.info.appearance.unwrap_or(0))
         {
+            let objs = engine().objs();
             for item in worn.slots.iter().flatten() {
-                if let Some(obj) = cache().objs.get_by_id(item.obj) {
+                if let Some(obj) = objs.get_by_id(item.obj) {
                     if let Some(wp2) = obj.wearpos2.filter(|&w| (w as usize) < 12) {
                         skipped_slots[wp2 as usize] = true;
                     }
@@ -1739,14 +1747,15 @@ impl ActivePlayer {
     /// * Updates `player.info` animation fields and sets the
     ///   `PlayerInfoProt::Anim` mask.
     pub fn anim(&mut self, id: Option<u16>, delay: u8) {
+        let seqs = engine().seqs();
         let cur_pri = self
             .player
             .info
             .anim_id
-            .and_then(|a| cache().seqs.get_by_id(a))
+            .and_then(|a| seqs.get_by_id(a))
             .map(|s| s.priority as u16);
         let new_pri = id
-            .and_then(|a| cache().seqs.get_by_id(a))
+            .and_then(|a| seqs.get_by_id(a))
             .map(|s| s.priority as u16);
         self.player
             .info
@@ -1802,7 +1811,7 @@ impl ActivePlayer {
     /// * Updates the player's varp set and, when the varp is transmittable,
     ///   sends a varp packet to the client.
     pub fn set_varp_by_name(&mut self, name: &str, value: i32) -> bool {
-        let Some(varp) = cache().varps.get_by_debugname(name) else {
+        let Some(varp) = engine().varps().get_by_debugname(name) else {
             return false;
         };
         let id = varp.id;
@@ -2361,6 +2370,8 @@ impl EnginePlayer for ActivePlayer {
         self.player.modal_state = MODAL_NONE;
         self.player.clear_suspended_script();
 
+        let interfaces = engine().interfaces();
+
         if let Some(modal_main) = self.player.modal_main {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_main), None),
@@ -2375,7 +2386,7 @@ impl EnginePlayer for ActivePlayer {
             }
             let modal = self.player.modal_main;
             let cleared = self.player.clear_interface_listeners(modal, |com| {
-                cache().interfaces.get_by_id(com).map(|i| i.root_layer)
+                interfaces.get_by_id(com).map(|i| i.root_layer)
             });
             for com in cleared {
                 self.clear_inv_transmits(com);
@@ -2397,7 +2408,7 @@ impl EnginePlayer for ActivePlayer {
             }
             let modal = self.player.modal_chat;
             let cleared = self.player.clear_interface_listeners(modal, |com| {
-                cache().interfaces.get_by_id(com).map(|i| i.root_layer)
+                interfaces.get_by_id(com).map(|i| i.root_layer)
             });
             for com in cleared {
                 self.clear_inv_transmits(com);
@@ -2419,7 +2430,7 @@ impl EnginePlayer for ActivePlayer {
             }
             let modal = self.player.modal_side;
             let cleared = self.player.clear_interface_listeners(modal, |com| {
-                cache().interfaces.get_by_id(com).map(|i| i.root_layer)
+                interfaces.get_by_id(com).map(|i| i.root_layer)
             });
             for com in cleared {
                 self.clear_inv_transmits(com);

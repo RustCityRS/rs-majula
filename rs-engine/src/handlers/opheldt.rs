@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::opheldt::OpHeldT;
@@ -47,8 +47,12 @@ impl ClientGameHandler for OpHeldT {
             return Ok(());
         }
 
+        let engine = engine();
+        let interfaces = engine.interfaces();
+        let invs = engine.invs();
+
         let spell_com = self.com2;
-        let Some(spell_interface) = cache().interfaces.get_by_id(spell_com) else {
+        let Some(spell_interface) = interfaces.get_by_id(spell_com) else {
             return Err(ScriptError::Client(format!(
                 "No interface with id: {}",
                 spell_com
@@ -72,7 +76,7 @@ impl ClientGameHandler for OpHeldT {
             )));
         }
 
-        let Some(interface) = cache().interfaces.get_by_id(self.com) else {
+        let Some(interface) = interfaces.get_by_id(self.com) else {
             return Err(ScriptError::Client(format!(
                 "No interface with id: {}",
                 self.com
@@ -107,7 +111,7 @@ impl ClientGameHandler for OpHeldT {
             )));
         };
 
-        let inv = cache().invs.get_by_id(inv_id);
+        let inv = invs.get_by_id(inv_id);
         let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
 
         let Some(inventory) = (if shared {

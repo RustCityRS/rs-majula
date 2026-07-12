@@ -1,3 +1,4 @@
+use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
 use crate::util::{pop_param, pop_struct};
 use crate::{handlers, none};
@@ -16,12 +17,12 @@ use rs_pack::cache::script::STRUCT_PARAM;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::struct::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
         // 4700
         none!(m, STRUCT_PARAM => |s| {
-            let param = pop_param(s)?;
-            let id = pop_struct(s)?;
+            let param = pop_param::<E>(s)?;
+            let id = pop_struct::<E>(s)?;
             let value = id.params
                 .as_ref()
                 .and_then(|p| param.get_param_or_default(p))

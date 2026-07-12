@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptPlayer, cache};
+use crate::engine::{ScriptEngine, ScriptPlayer, engine};
 use crate::register::OpsRegistry;
 use crate::util::pop_font;
 use crate::{ScriptError, active_player, handlers, none};
@@ -165,8 +165,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             match s.split_mesanim {
                 None => s.push_int(-1),
                 Some(v) => {
-                    let mesanim = cache()
-                        .mesanims
+                    let mesanim = engine::<E>()
+                        .mesanims()
                         .get_by_id(v)
                         .ok_or(ScriptError::MesanimNotFound(v as i32))?;
                     let line_count = s.split_pages
@@ -185,14 +185,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4515
         none!(m, SPLIT_INIT => |s| {
-            let font = pop_font(s)?;
+            let font = pop_font::<E>(s)?;
             let lines = s.pop_int();
             let width = s.pop_int();
             let mut text = s.pop_string();
             if text.starts_with("<p,") && let Some(end) = text.find(">") {
                 let name = &text[3..end];
-                let mesanim = cache()
-                    .mesanims
+                let mesanim = engine::<E>()
+                    .mesanims()
                     .get_by_debugname(name)
                     .ok_or(ScriptError::MesanimNotFoundName(name.into()))?;
                 s.split_mesanim = Some(mesanim.id);

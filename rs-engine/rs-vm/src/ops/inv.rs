@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptPlayer, cache, engine_mut};
+use crate::engine::{ScriptEngine, ScriptPlayer, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ObjRef;
 use crate::state::ScriptState;
@@ -40,16 +40,18 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let duration = s.pop_int();
             let slot = s.pop_int();
             let coord = pop_coord(s)?;
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let secondary = s.int_operand() as usize;
             require_inv_access(s, inv, secondary)?;
             let to_uid = if secondary != 0 { s.active_player } else { s.active_player2 }
                 .ok_or(ScriptError::Runtime("player is null".into()))?;
+
             let inventory = get_inv_mut::<E>(inv.id, player)?;
             let item = inventory.get(slot as u16).copied()
                 .ok_or(ScriptError::Runtime(format!("Slot: {} is empty", slot)))?;
-            let obj_type = cache().objs.get_by_id(item.obj)
+            let obj_type = engine::<E>().objs().get_by_id(item.obj)
                 .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
+
             let completed = inventory.delete(item.obj, item.num);
             if completed == 0 || !obj_type.tradeable {
                 return Ok(());
@@ -61,8 +63,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1681295591639248897
         // https://x.com/JagexAsh/status/1799020087086903511
         active_player_mut!(m, BOTH_MOVEINV => |s, player| {
-            let to_inv = pop_inv(s)?;
-            let from_inv = pop_inv(s)?;
+            let to_inv = pop_inv::<E>(s)?;
+            let from_inv = pop_inv::<E>(s)?;
             let secondary = s.int_operand() as usize;
             require_inv_access(s, from_inv, secondary)?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[if secondary != 0 { 0 } else { 1 }])
@@ -77,12 +79,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let inventory = get_inv_mut::<E>(from_inv.id, player)?;
             let items: Vec<_> = inventory.slots.iter().filter_map(|s| *s).collect();
             inventory.clear();
-            for item in items {
-                let obj_type = cache().objs.get_by_id(item.obj)
-                    .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
-                let to_player = engine_mut::<E>().get_player_mut(to_pid)
-                    .ok_or(ScriptError::Runtime("to player not found".into()))?;
+
+            let to_player = engine_mut::<E>().get_player_mut(to_pid)
+                .ok_or(ScriptError::Runtime("to player not found".into()))?;
                 let to_coord = to_player.coord();
+
+            let objs = engine::<E>().objs();
+
+            for item in items {
+                let obj_type = objs.get_by_id(item.obj)
+                    .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
                 let overflow = get_inv_mut::<E>(to_inv.id, to_player)?.add(item.obj, item.num, obj_type.stackable);
                 if overflow > 0 {
                     add_obj_split::<E>(to_coord, item.obj, overflow, obj_type.stackable, to_receiver37, LOOTDROP_DURATION)?;
@@ -93,8 +99,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4302
         active_player_mut!(m, INV_ADD => |s, player| {
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
-            let inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
                 return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
@@ -110,16 +116,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4303
         none!(m, INV_ALLSTOCK => |s| {
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             s.push_int(inv.allstock as i32);
         });
 
         // 4304
         active_player_mut!(m, INV_CHANGESLOT => |s, player| {
             let replace_count = pop_count(s)?;
-            let replace_obj = pop_obj(s)?;
-            let find_obj = pop_obj(s)?;
-            let inv = pop_inv(s)?;
+            let replace_obj = pop_obj::<E>(s)?;
+            let find_obj = pop_obj::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             let inventory = get_inv_mut::<E>(inv.id, player)?;
             for slot in 0..inventory.capacity {
@@ -134,14 +140,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4305
         active_player_mut!(m, INV_CLEAR => |s, player| {
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             get_inv_mut::<E>(inv.id, player)?.clear();
         });
 
         // 4306
         none!(m, INV_DEBUGNAME => |s| {
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             s.push_string(inv.debugname().unwrap_or("null"));
         });
 
@@ -150,8 +156,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1708084689141895625
         active_player_mut!(m, INV_DEL => |s, player| {
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
-            let inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             get_inv_mut::<E>(inv.id, player)?.delete(obj.id, count);
         });
@@ -159,7 +165,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4308
         active_player_mut!(m, INV_DELSLOT => |s, player| {
             let slot = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             get_inv_mut::<E>(inv.id, player)?.delete_slot(slot as u16);
         });
@@ -169,14 +175,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, INV_DROPALL => |s, player| {
             let duration = s.pop_int();
             let coord = pop_coord(s)?;
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             let inventory = get_inv_mut::<E>(inv.id, player)?;
+
+            let objs = engine::<E>().objs();
+
             for slot in 0..inventory.capacity {
                 let Some(item) = inventory.get(slot as u16).copied() else {
                     continue
                 };
-                let obj_type = cache().objs.get_by_id(item.obj)
+                let obj_type = objs.get_by_id(item.obj)
                     .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
                 inventory.delete_slot(slot as u16);
                 if !obj_type.tradeable {
@@ -191,9 +200,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int();
             let duration = s.pop_int();
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
+            let obj = pop_obj::<E>(s)?;
             let coord = pop_coord(s)?;
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             let completed = get_inv_mut::<E>(inv.id, player)?.delete(obj.id, count);
             if completed == 0 {
@@ -214,9 +223,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, INV_DROPITEM => |s, player| {
             let duration = s.pop_int();
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
+            let obj = pop_obj::<E>(s)?;
             let coord = pop_coord(s)?;
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let secondary = s.int_operand() as usize;
             require_inv_access(s, inv, secondary)?;
             let completed = get_inv_mut::<E>(inv.id, player)?.delete(obj.id, count);
@@ -239,7 +248,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let duration = s.pop_int();
             let slot = s.pop_int();
             let coord = pop_coord(s)?;
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let secondary = s.int_operand() as usize;
             require_inv_access(s, inv, secondary)?;
 
@@ -248,8 +257,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Slot: {} is empty", slot)));
             };
 
-            let obj_type = cache().objs.get_by_id(item.obj)
+            let obj_type = engine::<E>()
+                .objs()
+                .get_by_id(item.obj)
                 .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
+
             let stackable = obj_type.stackable;
 
             inventory.remove(slot as u16, item.num);
@@ -261,7 +273,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4313
         active_player_mut!(m, INV_FREESPACE => |s, player| {
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let inventory = get_inv::<E>(inv, player)?;
             s.push_int(inventory.freespace() as i32);
         });
@@ -269,7 +281,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4314
         active_player_mut!(m, INV_GETNUM => |s, player| {
             let slot = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let inventory = get_inv::<E>(inv, player)?;
             s.push_int(inventory.get(slot as u16).map(|x| x.num).unwrap_or(0) as i32);
         });
@@ -277,7 +289,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4315
         active_player_mut!(m, INV_GETOBJ => |s, player| {
             let slot = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let inventory = get_inv::<E>(inv, player)?;
             s.push_int(inventory.get(slot as u16).map(|x| x.obj).map_or(-1, |v| v as i32));
         });
@@ -286,8 +298,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, INV_ITEMSPACE => |s, player| {
             let size = s.pop_int();
             let count = s.pop_int();
-            let obj = pop_obj(s)?;
-            let inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             if count == 0 {
                 s.push_int(1); return Ok(());
             }
@@ -302,8 +314,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, INV_ITEMSPACE2 => |s, player| {
             let size = s.pop_int();
             let count = s.pop_int();
-            let obj = pop_obj(s)?;
-            let inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             if count == 0 {
                 s.push_int(0); return Ok(());
             }
@@ -314,8 +326,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1706983568805704126
         active_player_mut!(m, INV_MOVEFROMSLOT => |s, player| {
             let slot = s.pop_int();
-            let to_inv = pop_inv(s)?;
-            let from_inv = pop_inv(s)?;
+            let to_inv = pop_inv::<E>(s)?;
+            let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
             let coord = player.coord();
@@ -324,18 +336,24 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 let Some(item) = inv.get(slot as u16).copied() else {
                     return Ok(());
                 };
-                let stackable = cache().objs.get_by_id(item.obj).is_some_and(|o| o.stackable);
+                let stackable = engine::<E>()
+                    .objs()
+                    .get_by_id(item.obj)
+                    .is_some_and(|o| o.stackable);
                 let overflow = inv.move_from_slot(slot as u16, stackable);
                 if overflow > 0 {
                     let receiver37 = Some(player.uid().username37());
                     add_obj_split::<E>(coord, item.obj, overflow, stackable, receiver37, LOOTDROP_DURATION)?;
                 }
             } else {
-                let (from, to) = get_inv_pair_mut(from_inv.id, to_inv.id, player)?;
+                let (from, to) = get_inv_pair_mut::<E>(from_inv.id, to_inv.id, player)?;
                 let Some(item) = from.get(slot as u16).copied() else {
                     return Ok(());
                 };
-                let stackable = cache().objs.get_by_id(item.obj).is_some_and(|o| o.stackable);
+                let stackable = engine::<E>()
+                    .objs()
+                    .get_by_id(item.obj)
+                    .is_some_and(|o| o.stackable);
                 let overflow = from.move_from_slot_to(to, slot as u16, stackable);
                 if overflow > 0 {
                     let receiver37 = Some(player.uid().username37());
@@ -348,9 +366,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1681616480763367424
         active_player_mut!(m, INV_MOVEITEM_CERT => |s, player| {
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
-            let to_inv = pop_inv(s)?;
-            let from_inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let to_inv = pop_inv::<E>(s)?;
+            let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj.id, count);
@@ -368,9 +386,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1681616480763367424
         active_player_mut!(m, INV_MOVEITEM_UNCERT => |s, player| {
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
-            let to_inv = pop_inv(s)?;
-            let from_inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let to_inv = pop_inv::<E>(s)?;
+            let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj.id, count);
@@ -378,7 +396,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             let uncert_id = uncert(obj);
-            let stackable = cache().objs.get_by_id(uncert_id).is_some_and(|o| o.stackable);
+            let stackable = engine::<E>()
+                .objs()
+                .get_by_id(uncert_id)
+                .is_some_and(|o| o.stackable);
             get_inv_mut::<E>(to_inv.id, player)?.add(uncert_id, completed, stackable);
         });
 
@@ -386,9 +407,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/TheCrazy0neTv/status/1681181722811957248
         active_player_mut!(m, INV_MOVEITEM => |s, player| {
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
-            let to_inv = pop_inv(s)?;
-            let from_inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let to_inv = pop_inv::<E>(s)?;
+            let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
             let coord = player.coord();
@@ -409,14 +430,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, INV_MOVETOSLOT => |s, player| {
             let to_slot = s.pop_int();
             let from_slot = s.pop_int();
-            let to_inv = pop_inv(s)?;
-            let from_inv = pop_inv(s)?;
+            let to_inv = pop_inv::<E>(s)?;
+            let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
             if from_inv.id == to_inv.id {
                 get_inv_mut::<E>(from_inv.id, player)?.move_to_slot(from_slot as u16, to_slot as u16);
             } else {
-                let (from, to) = get_inv_pair_mut(from_inv.id, to_inv.id, player)?;
+                let (from, to) = get_inv_pair_mut::<E>(from_inv.id, to_inv.id, player)?;
                 from.move_to_slot_to(to, from_slot as u16, to_slot as u16);
             }
         });
@@ -424,9 +445,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4323
         active_player_mut!(m, INV_SETSLOT => |s, player| {
             let count = pop_count(s)?;
-            let obj = pop_obj(s)?;
+            let obj = pop_obj::<E>(s)?;
             let slot = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
                 return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
@@ -436,14 +457,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4324
         none!(m, INV_SIZE => |s| {
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             s.push_int(inv.size as i32);
         });
 
         // 4325
         none!(m, INV_STOCKBASE => |s| {
-            let obj = pop_obj(s)?;
-            let inv = pop_inv(s)?;
+            let obj = pop_obj::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             let result = match (&inv.stockobj, &inv.stockcount) {
                 (Some(stockobj), Some(stockcount)) => {
                     stockobj.iter().position(|&id| id == obj.id)
@@ -466,7 +487,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4327
         active_player_mut!(m, INV_TOTAL => |s, player| {
             let obj = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             if obj == -1 {
                 s.push_int(0);
                 return Ok(());
@@ -478,15 +499,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4328
         active_player_mut!(m, INV_TOTALCAT => |s, player| {
             let category = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let inv = get_inv::<E>(inv, player)?;
-            let cache = cache();
+            let objs = engine::<E>().objs();
             let total: u32 = inv
                 .slots
                 .iter()
                 .filter_map(|s| s.as_ref())
                 .filter(|item| {
-                    cache.objs
+                    objs
                         .get_by_id(item.obj)
                         .and_then(|o| o.category)
                         .is_some_and(|cat| cat as i32 == category)
@@ -498,22 +519,22 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4329
         active_player_mut!(m, INV_TOTALPARAM_STACK => |s, player| {
-            let param = pop_param(s)?;
-            let inv = pop_inv(s)?;
+            let param = pop_param::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             s.push_int(inv_total_param::<E>(inv, param, true, player)?);
         });
 
         // 4330
         active_player_mut!(m, INV_TOTALPARAM => |s, player| {
-            let param = pop_param(s)?;
-            let inv = pop_inv(s)?;
+            let param = pop_param::<E>(s)?;
+            let inv = pop_inv::<E>(s)?;
             s.push_int(inv_total_param::<E>(inv, param, false, player)?);
         });
 
         // 4331
         active_player_mut!(m, INV_TRANSMIT => |s, player| {
             let com = s.pop_int() as u16;
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             if player.has_inv_transmit(com).is_some_and(|id| id == inv.id) {
                 return Ok(());
             }
@@ -534,7 +555,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, INVOTHER_TRANSMIT => |s, player| {
             // invother_transmit(player_uid, inv, component): component is on top.
             let com = s.pop_int();
-            let inv = pop_inv(s)?;
+            let inv = pop_inv::<E>(s)?;
             let uid = s.pop_int();
             if uid == -1 {
                 return Err(ScriptError::Runtime("invother_transmit: uid is null".into()));

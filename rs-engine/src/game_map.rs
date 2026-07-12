@@ -10,6 +10,7 @@ use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::types::{LocAngle, LocLayer, LocShape, ParamValue, ScriptVarType};
 use rs_var::VarSet;
 use rs_zone::zone_map::ZoneMap;
+use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use tracing::info;
 
 /// Mapsquare width in tiles.
@@ -307,7 +308,6 @@ impl GameMap {
             Self::apply_ground(
                 members,
                 &square.lands,
-                cache,
                 &marks,
                 square.originx,
                 square.originz,
@@ -742,7 +742,6 @@ impl GameMap {
     /// # Arguments
     /// * `members` - Whether this world loads members-only areas.
     /// * `lands` - The tile flags decoded by [`decode_ground`](Self::decode_ground).
-    /// * `cache` - The game cache, used for free-to-play zone lookups.
     /// * `marks` - The world zone marks computed by the decode pass.
     /// * `originx` - The mapsquare origin X in absolute tile coordinates.
     /// * `originz` - The mapsquare origin Z in absolute tile coordinates.
@@ -755,7 +754,6 @@ impl GameMap {
     fn apply_ground(
         members: bool,
         lands: &[u8; MAPSQUARE],
-        cache: &CacheStore,
         marks: &ZoneMarks,
         originx: u16,
         originz: u16,
@@ -768,8 +766,8 @@ impl GameMap {
                     let coordz = originz + z as u16;
 
                     if !members
-                        && !cache.is_free(coordx, coordz)
-                        && !cache.borders_free(coordx, coordz)
+                        && !rsmod::is_zone_flagged(coordx, coordz, y as u8, ZoneFlag::Free as u8)
+                        && !rsmod::borders_zone_flag(coordx, coordz, y as u8, ZoneFlag::Free as u8)
                     {
                         continue;
                     }
@@ -843,8 +841,13 @@ impl GameMap {
             let absolute_x = originx + coord.x() as u16;
             let absolute_z = originz + coord.z() as u16;
             if !members
-                && !cache.is_free(absolute_x, absolute_z)
-                && !cache.borders_free(absolute_x, absolute_z)
+                && !rsmod::is_zone_flagged(absolute_x, absolute_z, coord.y(), ZoneFlag::Free as u8)
+                && !rsmod::borders_zone_flag(
+                    absolute_x,
+                    absolute_z,
+                    coord.y(),
+                    ZoneFlag::Free as u8,
+                )
             {
                 continue;
             }
@@ -962,7 +965,9 @@ impl GameMap {
                 originz + coord.z() as u16,
             );
 
-            if !members && !cache.is_free(coord.x(), coord.z()) {
+            if !members
+                && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
+            {
                 continue;
             }
 
@@ -1015,7 +1020,9 @@ impl GameMap {
                 originz + coord.z() as u16,
             );
 
-            if !members && !cache.is_free(coord.x(), coord.z()) {
+            if !members
+                && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
+            {
                 continue;
             }
 
