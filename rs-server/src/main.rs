@@ -140,7 +140,7 @@ struct Args {
     jaggrab_port: Option<u16>,
     #[arg(long, default_value = ".keys/private.pem")]
     private_key: PathBuf,
-    #[arg(long, default_value = "false")]
+    #[arg(long, default_value = "true")]
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
