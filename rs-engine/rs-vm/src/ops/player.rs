@@ -251,8 +251,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2028
         active_player_mut!(m, HINT_NPC => |s, player| {
-            let secondary = s.int_operand() != 0;
-            let nid = if secondary { s.active_npc2 } else { s.active_npc }
+            let nid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
                 .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?
                 .nid();
             player.hint_npc(nid);
@@ -261,8 +260,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2029
         active_player_mut!(m, HINT_PL => |s, player| {
             // `active_player2` is the player opposite the operand-selected active player.
-            let secondary = s.int_operand() != 0;
-            let slot = if secondary { s.active_player } else { s.active_player2 }
+            let slot = if s.int_operand() != 0 { s.active_player } else { s.active_player2 }
                 .ok_or_else(|| ScriptError::Runtime("no active_player2".into()))?
                 .pid();
             player.hint_player(slot);
@@ -777,8 +775,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Invalid opnpc: {}", op + 1)));
             }
 
-            let secondary = s.int_operand() != 0;
-            let npc_uid = if secondary { s.active_npc2 } else { s.active_npc }
+            let npc_uid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
                 .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?;
 
             let npc = engine::<E>()
@@ -811,8 +808,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime("opnpct: spell is null".into()));
             }
 
-            let secondary = s.int_operand() != 0;
-            let nid = if secondary { s.active_npc2 } else { s.active_npc }
+            let nid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
                 .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?
                 .nid();
 
@@ -1280,8 +1276,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // TODO: this is duplicated with `HINT_PL`
         active_player_mut!(m, HINT_PLAYER => |s, player| {
             // `active_player2` is the player opposite the operand-selected active player.
-            let secondary = s.int_operand() != 0;
-            let slot = if secondary { s.active_player } else { s.active_player2 }
+            let slot = if s.int_operand() != 0 { s.active_player } else { s.active_player2 }
                 .ok_or_else(|| ScriptError::Runtime("no active_player2".into()))?
                 .pid();
             player.hint_player(slot);

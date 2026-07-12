@@ -6,6 +6,7 @@ use crate::{NpcUid, PlayerUid, ScriptError};
 use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
+use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use std::any::type_name;
 use std::sync::Arc;
 use std::time::Instant;
@@ -1175,9 +1176,9 @@ pub struct NpcRef {
 pub struct LocRef {
     pub coord: CoordGrid,
     pub id: u16,
-    pub shape: u8,
-    pub angle: u8,
-    pub layer: u8,
+    pub shape: LocShape,
+    pub angle: LocAngle,
+    pub layer: LocLayer,
 }
 
 /// A snapshot reference to a ground object (item) entity in the game world.

@@ -3264,9 +3264,9 @@ impl ScriptEngine for Engine {
             .map(|loc| LocRef {
                 coord: loc.world_coord(zone.coord),
                 id: loc.id(),
-                shape: loc.shape() as u8,
-                angle: loc.angle() as u8,
-                layer: loc.layer() as u8,
+                shape: loc.shape(),
+                angle: loc.angle(),
+                layer: loc.layer(),
             })
             .collect()
     }
@@ -3295,9 +3295,9 @@ impl ScriptEngine for Engine {
         Some(LocRef {
             coord: loc.world_coord(zone.coord),
             id: loc.id(),
-            shape: loc.shape() as u8,
-            angle: loc.angle() as u8,
-            layer: loc.layer() as u8,
+            shape: loc.shape(),
+            angle: loc.angle(),
+            layer: loc.layer(),
         })
     }
 
@@ -3314,8 +3314,8 @@ impl ScriptEngine for Engine {
         &mut self,
         coord: CoordGrid,
         id: u16,
-        shape: u8,
-        angle: u8,
+        shape: LocShape,
+        angle: LocAngle,
         duration: u64,
         create_if_missing: bool,
     ) -> rs_vm::Result<()> {
@@ -3324,8 +3324,6 @@ impl ScriptEngine for Engine {
             .locs
             .get_by_id(id)
             .ok_or(ScriptError::LocNotFound(id as i32))?;
-        let shape = unsafe { std::mem::transmute::<u8, LocShape>(shape) };
-        let angle = unsafe { std::mem::transmute::<u8, LocAngle>(angle) };
         let (size_x, size_z) = match angle {
             LocAngle::North | LocAngle::South => (loc_type.length, loc_type.width),
             _ => (loc_type.width, loc_type.length),
@@ -3374,8 +3372,8 @@ impl ScriptEngine for Engine {
     fn merge_loc(
         &mut self,
         coord: CoordGrid,
-        shape: u8,
-        angle: u8,
+        shape: LocShape,
+        angle: LocAngle,
         id: u16,
         start: u16,
         end: u16,
@@ -3385,8 +3383,6 @@ impl ScriptEngine for Engine {
         north: u16,
         west: u16,
     ) {
-        let shape = unsafe { std::mem::transmute::<u8, LocShape>(shape) };
-        let angle = unsafe { std::mem::transmute::<u8, LocAngle>(angle) };
         let layer = shape.layer();
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
 
@@ -3424,8 +3420,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Engine::remove_loc` (inherent)
-    fn remove_loc(&mut self, coord: CoordGrid, layer: u8, duration: u64) {
-        let layer = unsafe { std::mem::transmute::<u8, LocLayer>(layer) };
+    fn remove_loc(&mut self, coord: CoordGrid, layer: LocLayer, duration: u64) {
         self.remove_loc(coord, layer, duration);
     }
 
@@ -5391,21 +5386,24 @@ impl ScriptPlayer for ActivePlayer {
         id: u16,
         width: u8,
         length: u8,
-        shape: u8,
-        angle: u8,
-        layer: u8,
+        shape: LocShape,
+        angle: LocAngle,
+        layer: LocLayer,
         op: u8,
     ) {
-        let target = InteractionTarget::Loc {
-            coord,
-            id,
-            width,
-            length,
-            shape: unsafe { std::mem::transmute::<u8, LocShape>(shape) },
-            angle: unsafe { std::mem::transmute::<u8, LocAngle>(angle) },
-            layer: unsafe { std::mem::transmute::<u8, LocLayer>(layer) },
-        };
-        self.player.set_interaction(target, op, false);
+        self.player.set_interaction(
+            InteractionTarget::Loc {
+                coord,
+                id,
+                width,
+                length,
+                shape,
+                angle,
+                layer,
+            },
+            op,
+            false,
+        );
     }
 
     /// Sets the player's interaction target to an NPC.
@@ -5465,8 +5463,8 @@ impl ScriptPlayer for ActivePlayer {
         coord: CoordGrid,
         width: u8,
         length: u8,
-        shape: u8,
-        angle: u8,
+        shape: LocShape,
+        angle: LocAngle,
         forceapproach: u8,
     ) -> bool {
         if coord.y() != self.player.pathing.coord.y() {
@@ -5481,7 +5479,7 @@ impl ScriptPlayer for ActivePlayer {
             width,
             length,
             1,
-            angle,
+            angle as u8,
             shape as i8,
             forceapproach,
         )
@@ -5660,21 +5658,24 @@ impl ScriptNpc for ActiveNpc {
         id: u16,
         width: u8,
         length: u8,
-        shape: u8,
-        angle: u8,
-        layer: u8,
+        shape: LocShape,
+        angle: LocAngle,
+        layer: LocLayer,
         op: u8,
     ) {
-        let target = InteractionTarget::Loc {
-            coord,
-            id,
-            width,
-            length,
-            shape: unsafe { std::mem::transmute::<u8, LocShape>(shape) },
-            angle: unsafe { std::mem::transmute::<u8, LocAngle>(angle) },
-            layer: unsafe { std::mem::transmute::<u8, LocLayer>(layer) },
-        };
-        self.npc.set_interaction(target, op, false);
+        self.npc.set_interaction(
+            InteractionTarget::Loc {
+                coord,
+                id,
+                width,
+                length,
+                shape,
+                angle,
+                layer,
+            },
+            op,
+            false,
+        );
     }
 
     /// Sets the NPC's interaction target to a ground object.

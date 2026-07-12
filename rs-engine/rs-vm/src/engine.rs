@@ -4,6 +4,7 @@ use rs_grid::CoordGrid;
 use rs_inv::Inventory;
 use rs_pack::cache::script::Script;
 use rs_pack::cache::{CacheStore, VarValue};
+use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use rs_util::random::JavaRandom;
 use std::cell::Cell;
 use std::sync::Arc;
@@ -282,8 +283,8 @@ pub trait ScriptEngine {
         &mut self,
         coord: CoordGrid,
         id: u16,
-        shape: u8,
-        angle: u8,
+        shape: LocShape,
+        angle: LocAngle,
         duration: u64,
         create_if_missing: bool,
     ) -> crate::Result<()>;
@@ -306,8 +307,8 @@ pub trait ScriptEngine {
     fn merge_loc(
         &mut self,
         coord: CoordGrid,
-        shape: u8,
-        angle: u8,
+        shape: LocShape,
+        angle: LocAngle,
         id: u16,
         start: u16,
         end: u16,
@@ -324,7 +325,7 @@ pub trait ScriptEngine {
     /// * `coord` - The packed coordinate.
     /// * `layer` - The collision layer of the location to remove.
     /// * `duration` - The tick at which the removal should revert.
-    fn remove_loc(&mut self, coord: CoordGrid, layer: u8, duration: u64);
+    fn remove_loc(&mut self, coord: CoordGrid, layer: LocLayer, duration: u64);
 
     /// Plays a sequence animation on a location.
     ///
@@ -1474,9 +1475,9 @@ pub trait ScriptPlayer {
         id: u16,
         width: u8,
         length: u8,
-        shape: u8,
-        angle: u8,
-        layer: u8,
+        shape: LocShape,
+        angle: LocAngle,
+        layer: LocLayer,
         op: u8,
     );
 
@@ -1530,8 +1531,8 @@ pub trait ScriptPlayer {
         coord: CoordGrid,
         width: u8,
         length: u8,
-        shape: u8,
-        angle: u8,
+        shape: LocShape,
+        angle: LocAngle,
         forceapproach: u8,
     ) -> bool;
 
@@ -1644,9 +1645,9 @@ pub trait ScriptNpc {
         id: u16,
         width: u8,
         length: u8,
-        shape: u8,
-        angle: u8,
-        layer: u8,
+        shape: LocShape,
+        angle: LocAngle,
+        layer: LocLayer,
         op: u8,
     );
 

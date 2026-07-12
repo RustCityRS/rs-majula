@@ -60,9 +60,9 @@ impl Engine {
             } => Some(ScriptSubject::Loc(LocRef {
                 coord: *coord,
                 id: *id,
-                shape: *shape as u8,
-                angle: *angle as u8,
-                layer: *layer as u8,
+                shape: *shape,
+                angle: *angle,
+                layer: *layer,
             })),
         }
     }
