@@ -1122,10 +1122,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let high = s.pop_int();
             let low = s.pop_int();
             let stat = s.pop_int() as usize;
-            let level = player.stat(stat) as i32;
+            let level = (player.stat(stat) as i32).min(99);
             let value = (low * (99 - level)) / 98 + (high * (level - 1)) / 98 + 1;
             let chance = (engine_mut::<E>().random().next_double() * 256.0) as i32;
-            s.push_int(if value > chance { 1 } else { 0 });
+            s.push_int((value > chance) as i32);
         });
 
         // 2114
