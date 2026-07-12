@@ -35,7 +35,7 @@ repository = "https://github.com/RustCityRS/rs-majula"
 # Async runtime
 tokio = { version = "1.52", features = ["full"] }
 tokio-postgres = "0.7"
-tokio-tungstenite = "0.29"
+tokio-tungstenite = "0.30"
 futures-util = "0.3"
 
 # Serialization
@@ -104,11 +104,6 @@ rs-timer = { path = "rs-engine/rs-timer" }
 rs-stat = { path = "rs-engine/rs-stat" }
 rs-pack = { path = "rs-pack" }
 rev-cfg = { path = "rev-cfg" }
-
-# Temporary: develop against the local rs-pathfinder (ZoneFlag work) until
-# 0.1.3 is published, then drop this patch.
-[patch.crates-io]
-rs-pathfinder = { path = "../rs-pathfinder" }
 
 [workspace.lints]
 rust.unused_must_use = "deny"
