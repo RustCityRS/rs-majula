@@ -92,6 +92,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 1009
+        // Picks a random walkable tile in the square ring [minRadius, maxRadius] (Chebyshev distance)
+        // around `coord`. `type` controls reachability: NONE = any open tile, LINEOFWALK / LINEOFSIGHT =
+        // the tile must also have a clear walk/sight path back to the origin. Returns the input coord
+        // unchanged when no tile qualifies (caller treats "result === coord" as "no square found").
         none!(m, MAP_FINDSQUARE => |s| {
             let find_type = s.pop_int();
             let max_radius = s.pop_int();
@@ -99,63 +103,44 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let coord = pop_coord(s)?;
 
             let engine = engine::<E>();
-            let engine_mut = engine_mut::<E>();
             let cache = cache();
-            let free_world = !engine.members();
+            let not_members = !engine.members();
+            let (cx, cz) = (coord.x() as i32, coord.z() as i32);
 
-            if max_radius < 10 {
-                for _ in 0..50 {
-                    let dx = (engine_mut.random().next_double() * (2 * max_radius + 1) as f64) as i32 - max_radius;
-                    let dz = (engine_mut.random().next_double() * (2 * max_radius + 1) as f64) as i32 - max_radius;
-                    let distance = dx.abs().max(dz.abs());
-                    if distance < min_radius || distance > max_radius {
-                        continue;
-                    }
-                    let rx = (coord.x() as i32 + dx) as u16;
-                    let rz = (coord.z() as i32 + dz) as u16;
-                    if free_world && !cache.is_free(rx, rz) {
-                        continue;
-                    }
-                    let src = CoordGrid::new(rx, coord.y(), rz);
-                    let blocked = engine.map_blocked(src).unwrap_or(true);
-                    let vis_ok = match find_type {
-                        1 => engine.lineofwalk(src, coord).unwrap_or(false),
-                        2 => engine.lineofsight(src, coord).unwrap_or(false),
-                        _ => true,
-                    };
-                    if vis_ok && !blocked {
-                        s.push_int(src.packed() as i32);
-                        return Ok(());
-                    }
-                }
+            // The reachability gate for a candidate tile back to the origin. Checked last in the loop
+            // because line-of-walk/sight tracing is far more expensive than the other filters, so we
+            // only pay for it on tiles that already passed the cheap checks.
+            let passes_type = |src: CoordGrid| match find_type {
+                1 => engine.lineofwalk(src, coord).unwrap_or(false),
+                2 => engine.lineofsight(src, coord).unwrap_or(false),
+                _ => true,
+            };
+
+            const MAX_TILES: usize = 100;
+            let eligible: Vec<CoordGrid> = (cx - max_radius..=cx + max_radius)
+                // Restrict the bounding box to the ring: skip the inner hole and anything past maxRadius.
+                .flat_map(|x| (cz - max_radius..=cz + max_radius).map(move |z| (x, z)))
+                .filter(|&(x, z)| {
+                    let distance = (x - cx).abs().max((z - cz).abs());
+                    (min_radius..=max_radius).contains(&distance)
+                })
+                // F2P node: discard members-only tiles.
+                .filter(|&(x, z)| !not_members || cache.is_free(x as u16, z as u16))
+                .map(|(x, z)| CoordGrid::new(x as u16, coord.y(), z as u16))
+                // Must be a standable tile (no collision).
+                // Finally the (costly) reachability requirement for this `type`.
+                .filter(|&src| !engine.map_blocked(src).unwrap_or(true) && passes_type(src))
+                .take(MAX_TILES)
+                .collect();
+
+            // No qualifying tile: hand back the original coord so the caller can detect the failure.
+            if eligible.is_empty() {
+                s.push_int(coord.packed() as i32);
+            // Uniform roll among the collected candidates.
             } else {
-                for x in (coord.x() as i32 - max_radius)..=(coord.x() as i32 + max_radius) {
-                    let dx = x - coord.x() as i32;
-                    let dz = (engine_mut.random().next_double() * (2 * max_radius + 1) as f64) as i32 - max_radius;
-                    let distance = dx.abs().max(dz.abs());
-                    if distance < min_radius || distance > max_radius {
-                        continue;
-                    }
-                    let rx = x as u16;
-                    let rz = (coord.z() as i32 + dz) as u16;
-                    if free_world && !cache.is_free(rx, rz) {
-                        continue;
-                    }
-                    let src = CoordGrid::new(rx, coord.y(), rz);
-                    let blocked = engine.map_blocked(src).unwrap_or(true);
-                    let too_close = src.in_distance(coord, min_radius as u8);
-                    let vis_ok = match find_type {
-                        1 => engine.lineofwalk(src, coord).unwrap_or(false),
-                        2 => engine.lineofsight(src, coord).unwrap_or(false),
-                        _ => true,
-                    };
-                    if vis_ok && !blocked && !too_close {
-                        s.push_int(src.packed() as i32);
-                        return Ok(());
-                    }
-                }
+                let index = (engine_mut::<E>().random().next_double() * eligible.len() as f64) as usize;
+                s.push_int(eligible[index].packed() as i32);
             }
-            s.push_int(coord.packed() as i32);
         });
 
         // 1010
