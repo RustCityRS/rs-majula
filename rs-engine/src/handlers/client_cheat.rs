@@ -1,6 +1,6 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_game::create_io;
-use crate::engine::{cache, engine, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use core::str::Split;
 use num_enum::TryFromPrimitive;
@@ -171,9 +171,7 @@ fn cheat_player_moderator(
     args: Split<'_, char>,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    match cmd {
-        _ => cheat_normal(cmd, args, active),
-    }
+    cheat_normal(cmd, args, active)
 }
 
 /// Dispatches cheat commands available to every player; unrecognized commands
@@ -182,13 +180,11 @@ fn cheat_player_moderator(
 /// This is the base of the staff-level fall-through chain that all higher
 /// levels cascade down to.
 fn cheat_normal(
-    cmd: &str,
+    _cmd: &str,
     _args: Split<'_, char>,
     _active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    match cmd {
-        _ => Ok(()),
-    }
+    Ok(())
 }
 
 /// Runs the `[debugproc,<name>]` script, parsing the remaining arguments into
@@ -303,12 +299,12 @@ fn cheat_reload() -> Result<(), ScriptError> {
 /// Usage: `::give <obj> [count]` (e.g. `::give coins 1000`).
 fn cheat_give(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let obj_name = args.next().unwrap_or_default();
-    let obj = cache()
-        .objs
+    let obj = engine()
+        .objs()
         .get_by_debugname(obj_name)
         .ok_or(ScriptError::ObjNotFoundName(obj_name.into()))?;
-    let inv = cache()
-        .invs
+    let inv = engine()
+        .invs()
         .get_by_debugname("inv")
         .ok_or(ScriptError::InvNotFoundName("inv".into()))?;
     if let Some(inventory) = active.player.invs.get_mut(&inv.id) {
@@ -323,14 +319,14 @@ fn cheat_give(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), S
 /// Usage: `::givemany <obj>` (e.g. `::givemany coins`).
 fn cheat_give_many(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let obj_name = args.next();
-    let obj = cache()
-        .objs
+    let obj = engine()
+        .objs()
         .get_by_debugname(obj_name.unwrap_or_default())
         .ok_or(ScriptError::ObjNotFoundName(
             obj_name.unwrap_or_default().into(),
         ))?;
-    let inv = cache()
-        .invs
+    let inv = engine()
+        .invs()
         .get_by_debugname("inv")
         .ok_or(ScriptError::InvNotFoundName("inv".into()))?;
     if let Some(inventory) = active.player.invs.get_mut(&inv.id) {
@@ -447,12 +443,12 @@ fn cheat_npc_add(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<()
 ///
 /// Usage: `::givecrap` (no arguments).
 fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
-    let objs = &cache().objs;
+    let objs = &engine().objs();
     let count = objs.count() as i32;
     let world_members = engine().members;
     let rng = &mut engine_mut().random;
 
-    let Some(inv) = cache().invs.get_by_debugname("inv") else {
+    let Some(inv) = engine().invs().get_by_debugname("inv") else {
         return Ok(());
     };
     let Some(inventory) = active.player.invs.get_mut(&inv.id) else {
@@ -726,7 +722,7 @@ where
     F: FnOnce(&ObjType),
 {
     if let Some(debugname) = value
-        && let Some(obj) = cache().objs.get_by_debugname(debugname)
+        && let Some(obj) = engine().objs().get_by_debugname(debugname)
     {
         callback(obj);
         Ok(())
@@ -753,7 +749,7 @@ where
     F: FnOnce(&EnumType),
 {
     if let Some(debugname) = value
-        && let Some(e) = cache().enums.get_by_debugname(debugname)
+        && let Some(e) = engine().enums().get_by_debugname(debugname)
     {
         callback(e);
         Ok(())
@@ -780,7 +776,7 @@ where
     F: FnOnce(&LocType),
 {
     if let Some(debugname) = value
-        && let Some(loc) = cache().locs.get_by_debugname(debugname)
+        && let Some(loc) = engine().locs().get_by_debugname(debugname)
     {
         callback(loc);
         Ok(())
@@ -807,7 +803,7 @@ where
     F: FnOnce(&IfType),
 {
     if let Some(debugname) = value
-        && let Some(interface) = cache().interfaces.get_by_debugname(debugname)
+        && let Some(interface) = engine().interfaces().get_by_debugname(debugname)
     {
         callback(interface);
         Ok(())
@@ -834,7 +830,7 @@ where
     F: FnOnce(&SpotAnimType),
 {
     if let Some(debugname) = value
-        && let Some(spotanim) = cache().spotanims.get_by_debugname(debugname)
+        && let Some(spotanim) = engine().spotanims().get_by_debugname(debugname)
     {
         callback(spotanim);
         Ok(())
@@ -861,7 +857,7 @@ where
     F: FnOnce(&NpcType),
 {
     if let Some(debugname) = value
-        && let Some(npc) = cache().npcs.get_by_debugname(debugname)
+        && let Some(npc) = engine().npcs().get_by_debugname(debugname)
     {
         callback(npc);
         Ok(())
@@ -888,7 +884,7 @@ where
     F: FnOnce(&InvType),
 {
     if let Some(debugname) = value
-        && let Some(inv) = cache().invs.get_by_debugname(debugname)
+        && let Some(inv) = engine().invs().get_by_debugname(debugname)
     {
         callback(inv);
         Ok(())
@@ -915,7 +911,7 @@ where
     F: FnOnce(&SeqType),
 {
     if let Some(debugname) = value
-        && let Some(seq) = cache().seqs.get_by_debugname(debugname)
+        && let Some(seq) = engine().seqs().get_by_debugname(debugname)
     {
         callback(seq);
         Ok(())
@@ -942,7 +938,7 @@ where
     F: FnOnce(&IdkType),
 {
     if let Some(debugname) = value
-        && let Some(idk) = cache().idks.get_by_debugname(debugname)
+        && let Some(idk) = engine().idks().get_by_debugname(debugname)
     {
         callback(idk);
         Ok(())
@@ -969,7 +965,7 @@ where
     F: FnOnce(&VarPlayerType),
 {
     if let Some(debugname) = value
-        && let Some(idk) = cache().varps.get_by_debugname(debugname)
+        && let Some(idk) = engine().varps().get_by_debugname(debugname)
     {
         callback(idk);
         Ok(())
@@ -996,7 +992,7 @@ where
     F: FnOnce(&StructType),
 {
     if let Some(debugname) = value
-        && let Some(s) = cache().structs.get_by_debugname(debugname)
+        && let Some(s) = engine().structs().get_by_debugname(debugname)
     {
         callback(s);
         Ok(())
@@ -1023,7 +1019,7 @@ where
     F: FnOnce(&CategoryType),
 {
     if let Some(debugname) = value
-        && let Some(category) = cache().categories.get_by_debugname(debugname)
+        && let Some(category) = engine().categories().get_by_debugname(debugname)
     {
         callback(category);
         Ok(())

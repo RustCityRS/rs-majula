@@ -1,3 +1,4 @@
+use crate::engine::engine;
 use rs_entity::{EntityLifeTime, Npc, NpcUid};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
@@ -6,7 +7,7 @@ use rs_pack::cache::npc::NpcType;
 use rs_pack::types::{BlockWalk, MoveRestrict, NpcStat};
 use rs_protocol::network::game::info_prot::NpcInfoProt;
 use rs_var::VarSet;
-use rs_vm::engine::cache;
+use rs_vm::engine::ScriptEngine;
 
 /// Wraps an [`Npc`] entity with engine-level behavior such as animation,
 /// combat, type morphing, and timer management.
@@ -82,14 +83,15 @@ impl ActiveNpc {
     /// # Side Effects
     /// * Updates `npc.info` animation fields and sets the `NpcInfoProt::Anim` mask.
     pub fn anim(&mut self, id: Option<u16>, delay: u8) {
+        let seqs = engine().seqs();
         let cur_pri = self
             .npc
             .info
             .anim_id
-            .and_then(|a| cache().seqs.get_by_id(a))
+            .and_then(|a| seqs.get_by_id(a))
             .map(|s| s.priority as u16);
         let new_pri = id
-            .and_then(|a| cache().seqs.get_by_id(a))
+            .and_then(|a| seqs.get_by_id(a))
             .map(|s| s.priority as u16);
         self.npc
             .info
@@ -238,7 +240,7 @@ impl ActiveNpc {
         self.npc.info.changetype = Some(new_type);
         self.npc.info.masks |= NpcInfoProt::ChangeType as u16;
 
-        if let Some(npc_type) = cache().npcs.get_by_id(new_type) {
+        if let Some(npc_type) = engine().npcs().get_by_id(new_type) {
             Self::apply_type_config(&mut self.npc, npc_type);
 
             if reset {
@@ -287,12 +289,12 @@ impl ActiveNpc {
         self.npc.info.masks |= NpcInfoProt::ChangeType as u16;
 
         // Restore the type-config fields for the base type (see `change_type`).
-        if let Some(npc_type) = cache().npcs.get_by_id(self.npc.base_type) {
+        if let Some(npc_type) = engine().npcs().get_by_id(self.npc.base_type) {
             Self::apply_type_config(&mut self.npc, npc_type);
         }
 
         if self.npc.revert_reset {
-            if let Some(npc_type) = cache().npcs.get_by_id(self.npc.base_type) {
+            if let Some(npc_type) = engine().npcs().get_by_id(self.npc.base_type) {
                 self.npc.stats.base_levels[NpcStat::Attack as usize] = npc_type.attack;
                 self.npc.stats.base_levels[NpcStat::Defence as usize] = npc_type.defence;
                 self.npc.stats.base_levels[NpcStat::Strength as usize] = npc_type.strength;

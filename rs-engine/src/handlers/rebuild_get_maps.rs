@@ -1,9 +1,9 @@
 use crate::active_player::ActivePlayer;
+use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use num_enum::TryFromPrimitive;
 use rs_protocol::network::game::client::rebuild_get_maps::RebuildGetMaps;
 use rs_vm::ScriptError;
-use rs_vm::engine::cache;
 
 /// Maximum data payload size per chunk packet, accounting for packet header overhead.
 const CHUNK_SIZE: usize = 1000 - 1 - 2 - 1 - 1 - 2 - 2;
@@ -105,7 +105,7 @@ impl ClientGameHandler for RebuildGetMaps {
             )));
         }
 
-        let cache = cache();
+        let cache = engine().cache;
 
         for packed in self.maps {
             let mapsquare = (packed & 0xFFFF) as u16;

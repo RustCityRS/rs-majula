@@ -746,6 +746,9 @@ fn get_emulated_bad_char_len(next_char: char, bad_char: char, current_char: char
                     return 1;
                 }
             }
+            // On 225 the arm holds a single `if` (the since_244 one is compiled
+            // out), which trips collapsible_match; the shape must stay uniform.
+            #[cfg_attr(rev = "225", allow(clippy::collapsible_match))]
             'd' => {
                 if current_char == '[' && next_char == ')' {
                     return 2;

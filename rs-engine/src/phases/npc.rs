@@ -1,6 +1,6 @@
 use crate::active_npc::ActiveNpc;
 use crate::engine::Engine;
-use crate::engine::{cache, engine, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_entity::{Direction, InteractionTarget, PathingEntity};
 use rs_grid::CoordGrid;
@@ -14,6 +14,7 @@ use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
@@ -373,6 +374,7 @@ impl Engine {
         }
 
         let uid = active.npc.uid;
+        let npcs = engine().npcs();
 
         let mut h = active.npc.state.queues.queue.head();
         while let Some(idx) = h {
@@ -384,8 +386,7 @@ impl Engine {
             if !active.npc.state.delayed && active.npc.state.queues.queue[idx].delay == 0 {
                 let request = active.npc.state.queues.queue.unlink(idx);
                 let type_id = active.npc.uid.id();
-                let category = cache()
-                    .npcs
+                let category = npcs
                     .get_by_id(type_id)
                     .and_then(|t| t.category)
                     .map(|c| c as i32);
@@ -452,7 +453,7 @@ impl Engine {
         let Some(hunt_id) = active.npc.hunt_mode else {
             return;
         };
-        let Some(hunt) = cache().hunts.get_by_id(hunt_id) else {
+        let Some(hunt) = engine().hunts().get_by_id(hunt_id) else {
             return;
         };
 
@@ -563,7 +564,8 @@ impl Engine {
         let mut count: u32 = 0;
 
         let engine = engine();
-        let cache = cache();
+        let params = engine.params();
+        let objs = engine.objs();
         let clock = engine.clock as i32;
 
         for zx in ((center_zx - radius)..=(center_zx + radius)).rev() {
@@ -622,7 +624,12 @@ impl Engine {
                     );
 
                     if !is_current_target
-                        && !cache.is_multi(player_coord.x(), player_coord.z(), player_coord.y())
+                        && !rsmod::is_zone_flagged(
+                            player_coord.x(),
+                            player_coord.z(),
+                            player_coord.y(),
+                            ZoneFlag::Multi as u8,
+                        )
                     {
                         if let Some(varp_id) = hunt.check_notcombat {
                             if player.player.vars.len() > varp_id as usize {
@@ -677,16 +684,14 @@ impl Engine {
                             .invs
                             .get(&param_check.inv)
                             .map(|inv| {
-                                let param = cache.params.get_by_id(param_check.param);
+                                let param = params.get_by_id(param_check.param);
                                 inv.slots
                                     .iter()
                                     .filter_map(|s| s.as_ref())
                                     .map(|item| {
                                         let value = param
                                             .and_then(|p| {
-                                                cache
-                                                    .objs
-                                                    .get_by_id(item.obj)
+                                                objs.get_by_id(item.obj)
                                                     .and_then(|o| o.params.as_ref())
                                                     .and_then(|ps| {
                                                         ps.get(&(param_check.param as i32))
@@ -747,7 +752,7 @@ impl Engine {
         let mut count: u32 = 0;
 
         let engine = engine();
-        let cache = cache();
+        let npcs = engine.npcs();
 
         for zx in ((center_zx - radius)..=(center_zx + radius)).rev() {
             for zz in ((center_zz - radius)..=(center_zz + radius)).rev() {
@@ -778,7 +783,7 @@ impl Engine {
                         continue;
                     }
                     if let Some(cat) = check_category {
-                        let npc_cat = cache.npcs.get_by_id(npc_type_id).and_then(|t| t.category);
+                        let npc_cat = npcs.get_by_id(npc_type_id).and_then(|t| t.category);
                         if npc_cat != Some(cat) {
                             continue;
                         }
@@ -833,7 +838,7 @@ impl Engine {
         let mut count: u32 = 0;
 
         let engine = engine();
-        let cache = cache();
+        let objs = engine.objs();
         let clock = engine.clock();
 
         for zx in ((center_zx - radius)..=(center_zx + radius)).rev() {
@@ -860,7 +865,7 @@ impl Engine {
                         continue;
                     }
                     if let Some(cat) = check_category {
-                        let obj_cat = cache.objs.get_by_id(obj.id()).and_then(|t| t.category);
+                        let obj_cat = objs.get_by_id(obj.id()).and_then(|t| t.category);
                         if obj_cat != Some(cat) {
                             continue;
                         }
@@ -920,19 +925,19 @@ impl Engine {
         let mut count: u32 = 0;
 
         let engine = engine();
-        let cache = cache();
+        let locs = engine.locs();
 
         for zx in ((center_zx - radius)..=(center_zx + radius)).rev() {
             for zz in ((center_zz - radius)..=(center_zz + radius)).rev() {
                 if zx < 0 || zz < 0 {
                     continue;
                 }
-                let locs = engine.get_zone_locs(CoordGrid::new(
+                let refs = engine.get_zone_locs(CoordGrid::new(
                     (zx as u16) << 3,
                     coord.y(),
                     (zz as u16) << 3,
                 ));
-                for loc_ref in locs {
+                for loc_ref in refs {
                     if let Some(id) = check_loc
                         && loc_ref.id != id
                     {
@@ -942,7 +947,7 @@ impl Engine {
                     if coord.distance(loc_coord) > distance {
                         continue;
                     }
-                    let loc_type = cache.locs.get_by_id(loc_ref.id);
+                    let loc_type = locs.get_by_id(loc_ref.id);
                     if let Some(cat) = check_category {
                         let loc_cat = loc_type.and_then(|t| t.category);
                         if loc_cat != Some(cat) {
@@ -971,10 +976,9 @@ impl Engine {
                             id: loc_ref.id,
                             width,
                             length,
-                            shape: LocShape::try_from(loc_ref.shape)
-                                .unwrap_or(LocShape::CentrepieceStraight),
-                            angle: LocAngle::try_from(loc_ref.angle).unwrap_or(LocAngle::North),
-                            layer: LocLayer::try_from(loc_ref.layer).unwrap_or(LocLayer::Ground),
+                            shape: loc_ref.shape,
+                            angle: loc_ref.angle,
+                            layer: loc_ref.layer,
                         });
                     }
                 }
@@ -1014,7 +1018,8 @@ impl Engine {
         let Some(hunt_id) = active.npc.hunt_mode else {
             return;
         };
-        let Some(hunt) = cache().hunts.get_by_id(hunt_id) else {
+        let engine = engine();
+        let Some(hunt) = engine.hunts().get_by_id(hunt_id) else {
             return;
         };
         let Some(target) = active.npc.hunt_target.take() else {
@@ -1036,8 +1041,8 @@ impl Engine {
             if let Ok(trigger) = ServerTriggerType::try_from(trigger_base + queue_offset) {
                 let uid = active.npc.uid;
                 let type_id = uid.id();
-                let category = cache()
-                    .npcs
+                let category = engine
+                    .npcs()
                     .get_by_id(type_id)
                     .and_then(|t| t.category)
                     .map(|c| c as i32);
@@ -1244,7 +1249,7 @@ impl Engine {
     #[inline(always)]
     fn npc_patrol_mode(active: *mut ActiveNpc) {
         let active = unsafe { &mut *active };
-        let Some(npc_type) = cache().npcs.get_by_id(active.npc.uid.id()) else {
+        let Some(npc_type) = engine().npcs().get_by_id(active.npc.uid.id()) else {
             return;
         };
         let Some(patrol) = &npc_type.patrol else {
@@ -1508,8 +1513,8 @@ impl Engine {
 
         // Clear target if givechase=no
         if moved {
-            let givechase = cache()
-                .npcs
+            let givechase = engine()
+                .npcs()
                 .get_by_id(active.npc.uid.id())
                 .map(|t| t.givechase)
                 .unwrap_or(true);
@@ -1795,7 +1800,7 @@ impl Engine {
     #[inline(always)]
     fn npc_reset_defaults(active: *mut ActiveNpc) {
         let active = unsafe { &mut *active };
-        let npc_type = cache().npcs.get_by_id(active.npc.uid.id());
+        let npc_type = engine().npcs().get_by_id(active.npc.uid.id());
         let default_mode = npc_type.map(|t| t.defaultmode).unwrap_or(NpcMode::None);
         let hunt_mode = npc_type.and_then(|t| t.huntmode);
         let hunt_range = npc_type.map(|t| t.huntrange).unwrap_or(0);

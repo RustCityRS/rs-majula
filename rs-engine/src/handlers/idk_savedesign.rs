@@ -1,8 +1,9 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::cache;
+use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::idk_savedesign::IdkSaveDesign;
 use rs_vm::ScriptError;
+use rs_vm::engine::ScriptEngine;
 
 /// Valid body-colour palettes for each of the 5 design slots
 /// (hair, torso, legs, feet, skin). The client transmits an *index* into these
@@ -66,6 +67,10 @@ impl ClientGameHandler for IdkSaveDesign {
             return Ok(());
         }
 
+        let engine = engine();
+        let idks = engine.idks();
+        let invs = engine.invs();
+
         // Identity-kit values arrive as signed bytes (-1 == empty slot).
         for i in 0..7 {
             let expected = if self.gender == 1 {
@@ -81,7 +86,7 @@ impl ClientGameHandler for IdkSaveDesign {
             }
 
             let idk = if kit >= 0 {
-                cache().idks.get_by_id(kit as u16)
+                idks.get_by_id(kit as u16)
             } else {
                 None
             };
@@ -110,11 +115,7 @@ impl ClientGameHandler for IdkSaveDesign {
             active.player.colours[i] = self.colour[i];
         }
 
-        let worn = cache()
-            .invs
-            .get_by_debugname("worn")
-            .map_or(94, |inv| inv.id);
-        active.buildappearance(worn);
+        active.buildappearance(invs.get_by_debugname("worn").map_or(94, |inv| inv.id));
 
         Ok(())
     }

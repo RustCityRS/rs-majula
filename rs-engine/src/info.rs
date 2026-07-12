@@ -1077,6 +1077,7 @@ impl NpcInfo {
     /// * `ntype` - The NPC type ID (may differ from base type if morphed).
     /// * `x` - The X coordinate delta from the observer.
     /// * `z` - The Z coordinate delta from the observer.
+    /// * `jump` - Whether the NPC teleported; encoded in the position bits since rev 274.
     ///
     /// # Side Effects
     /// * Inserts `nid` into the observer's tracked NPC set.
@@ -1095,7 +1096,7 @@ impl NpcInfo {
         ntype: u16,
         x: i32,
         z: i32,
-        jump: bool,
+        #[cfg_attr(before_274, allow(unused_variables))] jump: bool,
     ) {
         // 13/14 + 11 = 24/25 bits, then 5 + 5 + (1) + 1 = 11/12 bits (35/36/37 total, split for i32)
         #[cfg(before_254)]

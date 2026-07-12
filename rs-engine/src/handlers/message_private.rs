@@ -5,7 +5,7 @@ use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
-use rs_vm::engine::{ScriptPlayer, cache};
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 
 /// Handles the `MessagePrivate` client protocol message.
 ///
@@ -39,11 +39,13 @@ impl ClientGameHandler for MessagePrivate {
             return Ok(());
         }
 
-        let Some(tx) = &engine().ether_tx else {
+        let engine = engine();
+
+        let Some(tx) = &engine.ether_tx else {
             return Ok(());
         };
 
-        let message = cache().wordenc.filter(&unpack(&self.bytes));
+        let message = engine.wordenc().filter(&unpack(&self.bytes));
         let filtered_bytes = pack(&message);
 
         let _ = tx.send(EtherOutbound::PrivateMessage {

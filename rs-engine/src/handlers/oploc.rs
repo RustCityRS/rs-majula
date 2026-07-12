@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine};
+use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
@@ -9,6 +9,7 @@ use rs_protocol::network::game::client::oploc3::OpLoc3;
 use rs_protocol::network::game::client::oploc4::OpLoc4;
 use rs_protocol::network::game::client::oploc5::OpLoc5;
 use rs_vm::ScriptError;
+use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
 
 /// Handles the `OpLoc1` client protocol message.
@@ -136,8 +137,10 @@ fn handle(
         return Ok(());
     }
 
+    let engine = engine();
+
     let y = active.player.pathing.coord.y();
-    let Some(zone) = engine().zones.zone(x, y, z) else {
+    let Some(zone) = engine.zones.zone(x, y, z) else {
         active.unset_map_flag();
         active.clear_pending_action()?;
         return Ok(());
@@ -149,7 +152,7 @@ fn handle(
     };
     let loc = &zone.locs[idx];
 
-    let loc_type = cache().locs.get_by_id(loc_id);
+    let loc_type = engine.locs().get_by_id(loc_id);
     if let Some(lt) = &loc_type {
         if let Some(ops) = &lt.op {
             if ops.get((op - 1) as usize).is_none_or(|o| o.is_none()) {

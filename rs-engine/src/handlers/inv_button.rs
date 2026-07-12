@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::{cache, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::inv_button1::InvButton1;
@@ -124,7 +124,11 @@ fn handle(
         return Ok(());
     }
 
-    let Some(interface) = cache().interfaces.get_by_id(com) else {
+    let engine = engine();
+    let interfaces = engine.interfaces();
+    let invs = engine.invs();
+
+    let Some(interface) = interfaces.get_by_id(com) else {
         return Err(ScriptError::Client(format!(
             "No interface with id: {}",
             com
@@ -166,7 +170,7 @@ fn handle(
         )));
     };
 
-    let inv = cache().invs.get_by_id(inv_id);
+    let inv = invs.get_by_id(inv_id);
     let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
 
     let Some(inventory) = (if shared {
@@ -195,8 +199,7 @@ fn handle(
     active.player.last_item = Some(obj);
     active.player.last_slot = Some(slot);
 
-    let protect = cache()
-        .interfaces
+    let protect = interfaces
         .get_by_id(interface.root_layer as u16)
         .is_some_and(|root| !root.overlay);
 

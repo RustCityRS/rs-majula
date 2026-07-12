@@ -54,6 +54,31 @@ impl ZoneCoordGrid {
         )
     }
 
+    /// Wraps a raw pre-packed `u32` value as a `ZoneCoordGrid`.
+    ///
+    /// No validation or masking is performed -- the caller is responsible for
+    /// ensuring the value follows the expected bit layout. This is typically
+    /// used when reading zone keys that were previously packed, such as the
+    /// multiway/free2play zone-key sets loaded from the content CSVs.
+    ///
+    /// # Arguments
+    ///
+    /// * `packed` - A `u32` already in the `ZoneCoordGrid` bit layout.
+    ///
+    /// # Returns
+    ///
+    /// A `ZoneCoordGrid` wrapping the given value directly.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `Engine::new` zone-flag seeding.
+    ///
+    /// **Calls:** nothing.
+    #[inline(always)]
+    pub const fn from(packed: u32) -> Self {
+        ZoneCoordGrid(packed)
+    }
+
     /// Returns the raw packed `u32` value.
     ///
     /// The value encodes zone X in bits 0-10, zone Z in bits 11-21, and level Y
@@ -165,6 +190,14 @@ mod tests {
         assert_eq!(zone.x(), (3200 >> 3) << 3);
         assert_eq!(zone.y(), 1);
         assert_eq!(zone.z(), (3200 >> 3) << 3);
+    }
+
+    #[test]
+    fn from_packed_round_trips() {
+        let zone = ZoneCoordGrid::new(3200, 2, 3200);
+        let wrapped = ZoneCoordGrid::from(zone.packed());
+        assert_eq!(wrapped, zone);
+        assert_eq!(wrapped.index(), (3200, 2, 3200));
     }
 
     #[test]

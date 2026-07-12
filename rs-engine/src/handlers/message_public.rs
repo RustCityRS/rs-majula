@@ -1,10 +1,11 @@
 use crate::active_player::ActivePlayer;
+use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
-use rs_vm::engine::cache;
+use rs_vm::engine::ScriptEngine;
 
 /// Handles the `MessagePublic` client protocol message.
 ///
@@ -38,7 +39,7 @@ impl ClientGameHandler for MessagePublic {
             return Ok(());
         }
 
-        let message = cache().wordenc.filter(&unpack(&self.bytes));
+        let message = engine().wordenc().filter(&unpack(&self.bytes));
         active.player.info.chat_bytes = Some(pack(&message).into_boxed_slice());
         active.player.info.chat_colour = Some(self.colour);
         active.player.info.chat_effects = Some(self.effect);

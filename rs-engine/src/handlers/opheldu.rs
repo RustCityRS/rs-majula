@@ -5,7 +5,7 @@ use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::opheldu::OpHeldU;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_vm::ScriptError;
-use rs_vm::engine::{ScriptEngine, cache};
+use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -58,7 +58,12 @@ impl ClientGameHandler for OpHeldU {
             return Ok(());
         }
 
-        let Some(interface) = cache().interfaces.get_by_id(self.com) else {
+        let engine = engine();
+        let interfaces = engine.interfaces();
+        let invs = engine.invs();
+        let objs = engine.objs();
+
+        let Some(interface) = interfaces.get_by_id(self.com) else {
             return Err(ScriptError::Client(format!(
                 "No interface with id: {}",
                 self.com
@@ -79,7 +84,7 @@ impl ClientGameHandler for OpHeldU {
             )));
         };
 
-        let Some(interface2) = cache().interfaces.get_by_id(self.com2) else {
+        let Some(interface2) = interfaces.get_by_id(self.com2) else {
             return Err(ScriptError::Client(format!(
                 "No interface with id: {}",
                 self.com2
@@ -128,7 +133,7 @@ impl ClientGameHandler for OpHeldU {
             )));
         };
 
-        let inv = cache().invs.get_by_id(inv_id);
+        let inv = invs.get_by_id(inv_id);
         let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
 
         let Some(inventory) = (if shared {
@@ -152,14 +157,14 @@ impl ClientGameHandler for OpHeldU {
             return Ok(());
         }
 
-        let Some(obj) = cache().objs.get_by_id(self.obj) else {
+        let Some(obj) = objs.get_by_id(self.obj) else {
             return Err(ScriptError::Client(format!(
                 "Invalid slot: {} with obj: {}",
                 self.slot, self.obj
             )));
         };
 
-        let inv2 = cache().invs.get_by_id(inv_id2);
+        let inv2 = invs.get_by_id(inv_id2);
         let shared2 = inv2.is_some_and(|t| t.scope == InvScope::Shared);
 
         let Some(inventory2) = (if shared2 {
@@ -183,7 +188,7 @@ impl ClientGameHandler for OpHeldU {
             return Ok(());
         }
 
-        let Some(obj2) = cache().objs.get_by_id(self.obj2) else {
+        let Some(obj2) = objs.get_by_id(self.obj2) else {
             return Err(ScriptError::Client(format!(
                 "Invalid slot: {} with obj: {}",
                 self.slot2, self.obj2
@@ -199,7 +204,7 @@ impl ClientGameHandler for OpHeldU {
         active.player.info.face_entity = None;
         active.player.info.masks |= PlayerInfoProt::FaceEntity as u16;
 
-        if (obj.members || obj2.members) && !engine().members {
+        if (obj.members || obj2.members) && !engine.members {
             active.message_game("To use this item please login to a members' server.");
             return Ok(());
         }

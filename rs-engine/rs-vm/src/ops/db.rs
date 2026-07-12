@@ -1,4 +1,4 @@
-use crate::engine::cache;
+use crate::engine::{ScriptEngine, engine};
 use crate::register::OpsRegistry;
 use crate::state::ScriptState;
 use crate::util::pop_dbrow;
@@ -32,11 +32,11 @@ use rustc_hash::FxHashSet;
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::db::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` / `none!` macros
-pub fn build() -> OpsRegistry {
+pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
         // 7500
         none!(m, DB_FIND_WITH_COUNT => |s| {
-            db_find(s, true)?;
+            db_find(engine::<E>(), s, true)?;
         });
 
         // 7501
@@ -58,12 +58,12 @@ pub fn build() -> OpsRegistry {
         none!(m, DB_GETFIELD => |s| {
             let index = s.pop_int();
             let packed = s.pop_int();
-            let dbrow = pop_dbrow(s)?;
+            let dbrow = pop_dbrow::<E>(s)?;
             let table = ((packed >> 12) & 0xFFFF) as u16;
             let column = ((packed >> 4) & 0x7F) as usize;
             let tuple = (packed & 0xF) - 1;
-            let dbtable = cache()
-                .dbtables
+            let dbtable = engine::<E>()
+                .dbtables()
                 .get_by_id(table)
                 .ok_or(ScriptError::DbTableNotFound(table as i32))?;
             let Some(types) = &dbtable.types else {
@@ -114,11 +114,11 @@ pub fn build() -> OpsRegistry {
         // 7503
         none!(m, DB_GETFIELDCOUNT => |s| {
             let packed = s.pop_int();
-            let dbrow = pop_dbrow(s)?;
+            let dbrow = pop_dbrow::<E>(s)?;
             let table = ((packed >> 12) & 0xFFFF) as u16;
             let column = ((packed >> 4) & 0x7F) as u8;
-            let dbtable = cache()
-                .dbtables
+            let dbtable = engine::<E>()
+                .dbtables()
                 .get_by_id(table)
                 .ok_or(ScriptError::DbTableNotFound(table as i32))?;
             if dbrow.table != table {
@@ -139,12 +139,12 @@ pub fn build() -> OpsRegistry {
 
         // 7504
         none!(m, DB_LISTALL_WITH_COUNT => |s| {
-            db_listall(s, true)?;
+            db_listall(engine::<E>(), s, true)?;
         });
 
         // 7505
         none!(m, DB_GETROWTABLE => |s| {
-            let dbrow = pop_dbrow(s)?;
+            let dbrow = pop_dbrow::<E>(s)?;
             s.push_int(dbrow.table as i32);
         });
 
@@ -159,8 +159,8 @@ pub fn build() -> OpsRegistry {
                 return Ok(());
             }
             let id = s.db_row_query[index as usize];
-            let dbrow = cache()
-                .dbrows
+            let dbrow = engine::<E>()
+                .dbrows()
                 .get_by_id(id)
                 .ok_or(ScriptError::DbRowNotFound(id as i32))?;
             s.push_int(dbrow.id as i32);
@@ -168,22 +168,22 @@ pub fn build() -> OpsRegistry {
 
         // 7507
         none!(m, DB_FIND_REFINE_WITH_COUNT => |s| {
-            db_find_refine(s, true)?;
+            db_find_refine(engine::<E>(), s, true)?;
         });
 
         // 7508
         none!(m, DB_FIND => |s| {
-            db_find(s, false)?;
+            db_find(engine::<E>(), s, false)?;
         });
 
         // 7509
         none!(m, DB_FIND_REFINE => |s| {
-            db_find_refine(s, false)?;
+            db_find_refine(engine::<E>(), s, false)?;
         });
 
         // 7510
         none!(m, DB_LISTALL => |s| {
-            db_listall(s, false)?;
+            db_listall(engine::<E>(), s, false)?;
         });
     }
 }
@@ -194,17 +194,20 @@ pub fn build() -> OpsRegistry {
 /// and the packed `table << 12 | column << 4 | tuple` id. Validates the table,
 /// stores the matching row ids in `db_row_query`, and resets the cursor; pushes
 /// the match count when `with_count` is set.
-fn db_find(s: &mut ScriptState, with_count: bool) -> crate::Result<()> {
+fn db_find<E: ScriptEngine + 'static>(
+    engine: &'static E,
+    s: &mut ScriptState,
+    with_count: bool,
+) -> crate::Result<()> {
     let (query, packed) = decode_query(s);
     let table = ((packed >> 12) & 0xFFFF) as u16;
-    cache()
-        .dbtables
+    engine
+        .dbtables()
         .get_by_id(table)
         .ok_or(ScriptError::DbTableNotFound(table as i32))?;
-    let rows = cache().db_index.find(&query, packed);
     s.db_table = Some(table);
     s.db_row = None;
-    s.db_row_query = rows.to_vec();
+    s.db_row_query = engine.dbindex().find(&query, packed).to_vec();
     finish_query(s, with_count)
 }
 
@@ -239,17 +242,21 @@ fn finish_query(s: &mut ScriptState, with_count: bool) -> crate::Result<()> {
 ///
 /// Pops the table id, validates it, then fills `db_row_query` with the ids of
 /// all rows whose `table` matches; pushes the count when `with_count` is set.
-fn db_listall(s: &mut ScriptState, with_count: bool) -> crate::Result<()> {
+fn db_listall<E: ScriptEngine + 'static>(
+    engine: &'static E,
+    s: &mut ScriptState,
+    with_count: bool,
+) -> crate::Result<()> {
     let table = s.pop_int();
     let table_id = table as u16;
-    cache()
-        .dbtables
+    engine
+        .dbtables()
         .get_by_id(table_id)
         .ok_or(ScriptError::DbTableNotFound(table))?;
     s.db_table = Some(table_id);
     s.db_row = None;
-    s.db_row_query = cache()
-        .dbrows
+    s.db_row_query = engine
+        .dbrows()
         .types
         .iter()
         .filter(|row| row.table == table_id)
@@ -263,9 +270,13 @@ fn db_listall(s: &mut ScriptState, with_count: bool) -> crate::Result<()> {
 /// Runs a fresh index query and keeps only the rows already present in
 /// `db_row_query` (intersection, preserving the previous order). The selected
 /// table is left unchanged; pushes the count when `with_count` is set.
-fn db_find_refine(s: &mut ScriptState, with_count: bool) -> crate::Result<()> {
+fn db_find_refine<E: ScriptEngine + 'static>(
+    engine: &'static E,
+    s: &mut ScriptState,
+    with_count: bool,
+) -> crate::Result<()> {
     let (query, packed) = decode_query(s);
-    let found = cache().db_index.find(&query, packed);
+    let found = engine.dbindex().find(&query, packed);
     let found_set: FxHashSet<u16> = found.iter().copied().collect();
     let prev = std::mem::take(&mut s.db_row_query);
     s.db_row = None;

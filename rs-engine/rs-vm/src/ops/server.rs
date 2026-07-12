@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, cache, engine, engine_mut};
+use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ExecutionState;
 #[cfg(since_274)]
@@ -7,6 +7,7 @@ use crate::util::{pop_coord, pop_seq, pop_spotanim};
 use crate::{handlers, none};
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::*;
+use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
 /// Registers server and world-level opcodes for coordinate utilities, map queries,
 /// pathfinding checks, projectile animations, and zone management.
@@ -103,7 +104,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let coord = pop_coord(s)?;
 
             let engine = engine::<E>();
-            let cache = cache();
             let not_members = !engine.members();
             let (cx, cz) = (coord.x() as i32, coord.z() as i32);
 
@@ -125,7 +125,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     (min_radius..=max_radius).contains(&distance)
                 })
                 // F2P node: discard members-only tiles.
-                .filter(|&(x, z)| !not_members || cache.is_free(x as u16, z as u16))
+                .filter(|&(x, z)| {
+                    !not_members
+                        || rsmod::is_zone_flagged(
+                            x as u16,
+                            z as u16,
+                            coord.y(),
+                            ZoneFlag::Free as u8,
+                        )
+                })
                 .map(|(x, z)| CoordGrid::new(x as u16, coord.y(), z as u16))
                 // Must be a standable tile (no collision).
                 // Finally the (costly) reachability requirement for this `type`.
@@ -171,7 +179,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 1014
         none!(m, MAP_MULTIWAY => |s| {
             let coord = pop_coord(s)?;
-            s.push_int(cache().is_multi(coord.x(), coord.z(), coord.y()) as i32);
+            s.push_int(
+                rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Multi as u8)
+                    as i32,
+            );
         });
 
         // 1015
@@ -227,7 +238,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u16>()?;
             let dst_height = s.pop_int_as::<u8>()?;
             let src_height = s.pop_int_as::<u8>()?;
-            let spotanim = pop_spotanim(s)?;
+            let spotanim = pop_spotanim::<E>(s)?;
             let dst = pop_coord(s)?;
             let src = pop_coord(s)?;
             engine_mut::<E>().map_proj_anim(
@@ -249,7 +260,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 1019
         none!(m, SEQLENGTH => |s| {
-            let seq = pop_seq(s)?;
+            let seq = pop_seq::<E>(s)?;
             s.push_int(seq.duration as i32);
         });
 
@@ -258,7 +269,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u8>()?;
             let coord = pop_coord(s)?;
-            let spotanim = pop_spotanim(s)?;
+            let spotanim = pop_spotanim::<E>(s)?;
             engine_mut::<E>().anim_map(coord.y(), coord.x(), coord.z(), spotanim.id, height, delay);
         });
 
@@ -272,7 +283,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_274)]
         none!(m, MIDI_LENGTH => |s| {
             let id = s.pop_int();
-            let ticks = midi_tick_length(id)?;
+            let ticks = midi_tick_length::<E>(id)?;
             s.push_int(ticks as i32);
         });
 

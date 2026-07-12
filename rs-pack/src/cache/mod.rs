@@ -115,33 +115,6 @@ pub struct CacheStore {
 
 pub use crate::types::ScriptVarType;
 
-impl CacheStore {
-    pub fn is_multi(&self, x: u16, z: u16, y: u8) -> bool {
-        let zone_key = ((x >> 3) & 0x7FF) as u32
-            | ((((z >> 3) & 0x7FF) as u32) << 11)
-            | (((y & 0x3) as u32) << 22);
-        self.multimap.contains(&zone_key)
-    }
-
-    pub fn is_free(&self, x: u16, z: u16) -> bool {
-        let zone_key = ((x >> 3) & 0x7FF) as u32 | ((((z >> 3) & 0x7FF) as u32) << 11);
-        self.freemap.contains(&zone_key)
-    }
-
-    /// Returns `true` if any of the four orthogonally-adjacent tiles is
-    /// flagged free-to-play.
-    ///
-    /// Used during map loading so that collision and zone allocation extend
-    /// one tile into the members area bordering free-to-play land, keeping
-    /// pathing and line-of-sight correct at the boundary.
-    pub fn borders_free(&self, x: u16, z: u16) -> bool {
-        self.is_free(x + 1, z)
-            || self.is_free(x.saturating_sub(1), z)
-            || self.is_free(x, z + 1)
-            || self.is_free(x, z.saturating_sub(1))
-    }
-}
-
 #[derive(Debug, Clone)]
 pub enum VarValue {
     Int(i32),

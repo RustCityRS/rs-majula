@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine};
+use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
@@ -9,7 +9,7 @@ use rs_protocol::network::game::client::opobj3::OpObj3;
 use rs_protocol::network::game::client::opobj4::OpObj4;
 use rs_protocol::network::game::client::opobj5::OpObj5;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptPlayer;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::trigger::ServerTriggerType;
 
 /// Handles the `OpObj1` client protocol message.
@@ -140,8 +140,10 @@ fn handle(
         return Ok(());
     }
 
+    let engine = engine();
+
     let y = active.player.pathing.coord.y();
-    let Some(zone) = engine().zones.zone(x, y, z) else {
+    let Some(zone) = engine.zones.zone(x, y, z) else {
         active.player.move_request = false;
         active.clear_pending_action()?;
         return Ok(());
@@ -153,7 +155,7 @@ fn handle(
     };
     let obj = &zone.objs[idx];
 
-    let obj_type = cache().objs.get_by_id(obj_id);
+    let obj_type = engine.objs().get_by_id(obj_id);
     if let Some(ot) = &obj_type {
         if let Some(ops) = &ot.op {
             if (op == 1 && ops.first().is_none_or(|o| o.is_none()))

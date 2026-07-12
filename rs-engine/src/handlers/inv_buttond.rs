@@ -1,10 +1,10 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::engine_mut;
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::inv_buttond::InvButtonD;
 use rs_vm::ScriptError;
-use rs_vm::engine::{ScriptEngine, cache};
+use rs_vm::engine::ScriptEngine;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 
@@ -40,7 +40,11 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `engine_mut().run_script_by_trigger`
 impl ClientGameHandler for InvButtonD {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let Some(interface) = cache().interfaces.get_by_id(self.com) else {
+        let engine = engine();
+        let interfaces = engine.interfaces();
+        let invs = engine.invs();
+
+        let Some(interface) = interfaces.get_by_id(self.com) else {
             return Err(ScriptError::Client(format!(
                 "No interface with id: {}",
                 self.com
@@ -75,7 +79,7 @@ impl ClientGameHandler for InvButtonD {
             )));
         };
 
-        let inv = cache().invs.get_by_id(inv_id);
+        let inv = invs.get_by_id(inv_id);
         let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
         let delayed = active.player.state.delayed;
 
@@ -118,8 +122,7 @@ impl ClientGameHandler for InvButtonD {
         active.player.last_slot = Some(self.slot);
         active.player.last_target_slot = Some(self.slot2);
 
-        let protect = cache()
-            .interfaces
+        let protect = interfaces
             .get_by_id(interface.root_layer as u16)
             .is_some_and(|root| !root.overlay);
 

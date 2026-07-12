@@ -140,7 +140,7 @@ struct Args {
     jaggrab_port: Option<u16>,
     #[arg(long, default_value = ".keys/private.pem")]
     private_key: PathBuf,
-    #[arg(long, default_value = "true")]
+    #[arg(long, default_value = "false")]
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
@@ -412,7 +412,6 @@ async fn bootstrap(
         host.to_string(),
         http,
         args.node_id.to_string(),
-        (args.node_id - 10).to_string(),
         args.members,
         server_state.clone(),
         guard.clone(),

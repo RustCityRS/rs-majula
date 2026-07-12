@@ -6,6 +6,7 @@ use std::fmt::Write as _;
 use std::path::Path;
 
 use super::config::ModelCategory;
+#[cfg(since_244)]
 use crate::PACK_DIR;
 #[cfg(rev = "225")]
 use crate::types::BoneType;

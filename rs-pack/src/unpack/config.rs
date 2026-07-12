@@ -54,9 +54,7 @@ pub struct UnpackedPacks {
     pub model_categories: HashMap<u16, ModelCategory>,
     pub existing_model_names: HashMap<u16, String>,
     pub existing_config_names: HashMap<String, HashMap<u16, String>>,
-    pub seq_ids: BTreeSet<u16>,
     pub anim_ids: BTreeSet<u16>,
-    pub obj_ids: BTreeSet<u16>,
     pub texture_ids: BTreeSet<u16>,
     pub category_ids: BTreeSet<u16>,
     pub cert_objs: HashMap<u16, u16>,
@@ -75,9 +73,7 @@ impl UnpackedPacks {
             model_categories: HashMap::new(),
             existing_model_names: HashMap::new(),
             existing_config_names: HashMap::new(),
-            seq_ids: BTreeSet::new(),
             anim_ids: BTreeSet::new(),
-            obj_ids: BTreeSet::new(),
             texture_ids: BTreeSet::new(),
             category_ids: BTreeSet::new(),
             cert_objs: HashMap::new(),
@@ -354,23 +350,21 @@ fn model_ref(id: u16, suffix: &str, category: ModelCategory, packs: &mut Unpacke
     packs.name_model(id, name, category)
 }
 
-fn seq_ref(id: u16, packs: &mut UnpackedPacks) -> String {
-    packs.seq_ids.insert(id);
+fn seq_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("seq", id, packs)
 }
 
-fn obj_ref(id: u16, packs: &mut UnpackedPacks) -> String {
-    packs.obj_ids.insert(id);
+fn obj_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("obj", id, packs)
 }
 
-fn loc_ref(id: u16, packs: &mut UnpackedPacks) -> String {
-    packs.obj_ids.insert(id);
+#[cfg(since_289)]
+fn loc_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("loc", id, packs)
 }
 
-fn varbit_ref(id: u16, packs: &mut UnpackedPacks) -> String {
-    packs.obj_ids.insert(id);
+#[cfg(since_289)]
+fn varbit_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("varbit", id, packs)
 }
 

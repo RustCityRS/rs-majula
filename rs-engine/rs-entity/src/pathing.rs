@@ -3,9 +3,9 @@ use crate::player::MoveSpeed;
 use rs_grid::CoordGrid;
 use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::MoveRestrict;
-use rs_vm::engine::cache;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use rsmod::rsmod::flag::collision_flag::CollisionFlag;
+use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
 /// The pathfinding strategy used by a pathing entity.
 #[repr(u8)]
@@ -490,7 +490,7 @@ impl PathingEntity {
 ///
 /// # Call Stack
 /// **Called by:** `PathingEntity::take_step`, NPC interaction movement.
-/// **Calls:** [`cache`], `rsmod::can_travel`.
+/// **Calls:** `rsmod::is_zone_flagged`, `rsmod::can_travel`.
 #[allow(clippy::too_many_arguments)]
 pub fn can_travel(
     members: bool,
@@ -504,9 +504,11 @@ pub fn can_travel(
     collision: CollisionType,
 ) -> bool {
     if !members
-        && !cache().is_free(
+        && !rsmod::is_zone_flagged(
             (x as i32 + offset_x as i32) as u16,
             (z as i32 + offset_z as i32) as u16,
+            level,
+            ZoneFlag::Free as u8,
         )
     {
         return false;

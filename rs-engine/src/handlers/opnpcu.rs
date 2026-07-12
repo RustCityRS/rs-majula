@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{cache, engine, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_entity::InteractionTarget;
 use rs_pack::types::InvScope;
@@ -42,7 +42,9 @@ impl ClientGameHandler for OpNpcU {
             return Ok(());
         }
 
-        let Some(use_interface) = cache().interfaces.get_by_id(self.com) else {
+        let engine = engine();
+
+        let Some(use_interface) = engine.interfaces().get_by_id(self.com) else {
             // bad client: component is not acceptable for this packet
             active.unset_map_flag();
             return Ok(());
@@ -73,7 +75,7 @@ impl ClientGameHandler for OpNpcU {
             return Ok(());
         };
 
-        let inv = cache().invs.get_by_id(inv_id);
+        let inv = engine.invs().get_by_id(inv_id);
         let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
 
         let Some(inventory) = (if shared {
@@ -98,7 +100,7 @@ impl ClientGameHandler for OpNpcU {
             return Ok(());
         }
 
-        let npc_delayed = engine().get_npc(self.nid).map(|n| n.npc.state.delayed);
+        let npc_delayed = engine.get_npc(self.nid).map(|n| n.npc.state.delayed);
         let Some(npc_delayed) = npc_delayed else {
             // bad client or lag: npc does not exist
             active.unset_map_flag();
@@ -118,7 +120,7 @@ impl ClientGameHandler for OpNpcU {
 
         active.clear_pending_action()?;
 
-        if cache().objs.get_by_id(self.obj).is_some_and(|o| o.members) && !engine().members {
+        if engine.objs().get_by_id(self.obj).is_some_and(|o| o.members) && !engine.members {
             active.message_game("To use this item please login to a members' server.");
             active.unset_map_flag();
             return Ok(());

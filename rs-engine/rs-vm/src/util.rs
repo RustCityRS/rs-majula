@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, cache, engine, engine_mut};
+use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
 use crate::{NpcUid, PlayerUid, Result, ScriptError};
 use rs_grid::CoordGrid;
@@ -487,10 +487,12 @@ pub(crate) fn pop_coord(state: &mut ScriptState) -> Result<CoordGrid> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::EnumNotFound` if no enum exists with the popped ID.
-pub(crate) fn pop_enum(state: &mut ScriptState) -> Result<&'static EnumType> {
+pub(crate) fn pop_enum<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static EnumType> {
     let id = state.pop_int();
-    cache()
-        .enums
+    engine::<E>()
+        .enums()
         .get_by_id(id as u16)
         .ok_or(ScriptError::EnumNotFound(id))
 }
@@ -505,10 +507,12 @@ pub(crate) fn pop_enum(state: &mut ScriptState) -> Result<&'static EnumType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::DbRowNotFound` if no database row exists with the popped ID.
-pub(crate) fn pop_dbrow(state: &mut ScriptState) -> Result<&'static DbRowType> {
+pub(crate) fn pop_dbrow<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static DbRowType> {
     let id = state.pop_int();
-    cache()
-        .dbrows
+    engine::<E>()
+        .dbrows()
         .get_by_id(id as u16)
         .ok_or(ScriptError::DbRowNotFound(id))
 }
@@ -523,10 +527,12 @@ pub(crate) fn pop_dbrow(state: &mut ScriptState) -> Result<&'static DbRowType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::FontNotFound` if no font exists with the popped ID.
-pub(crate) fn pop_font(state: &mut ScriptState) -> Result<&'static FontType> {
+pub(crate) fn pop_font<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static FontType> {
     let id = state.pop_int();
-    cache()
-        .fonts
+    engine::<E>()
+        .fonts()
         .get_by_id(id as u16)
         .ok_or(ScriptError::FontNotFound(id))
 }
@@ -541,10 +547,12 @@ pub(crate) fn pop_font(state: &mut ScriptState) -> Result<&'static FontType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::InvNotFound` if no inventory type exists with the popped ID.
-pub(crate) fn pop_inv(state: &mut ScriptState) -> Result<&'static InvType> {
+pub(crate) fn pop_inv<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static InvType> {
     let id = state.pop_int();
-    cache()
-        .invs
+    engine::<E>()
+        .invs()
         .get_by_id(id as u16)
         .ok_or(ScriptError::InvNotFound(id))
 }
@@ -559,10 +567,12 @@ pub(crate) fn pop_inv(state: &mut ScriptState) -> Result<&'static InvType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::IdkNotFound` if no inventory type exists with the popped ID.
-pub(crate) fn pop_idk(state: &mut ScriptState) -> Result<&'static IdkType> {
+pub(crate) fn pop_idk<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static IdkType> {
     let id = state.pop_int();
-    cache()
-        .idks
+    engine::<E>()
+        .idks()
         .get_by_id(id as u16)
         .ok_or(ScriptError::IdkNotFound(id))
 }
@@ -578,11 +588,12 @@ pub(crate) fn pop_idk(state: &mut ScriptState) -> Result<&'static IdkType> {
 /// # Panics / Errors
 /// Returns `ScriptError::JingleNotFoundName` if no jingle exists with the popped name.
 #[cfg(rev = "225")]
-pub(crate) fn pop_jingle(state: &mut ScriptState) -> Result<&'static MidiType> {
+pub(crate) fn pop_jingle<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static MidiType> {
     let name = state.pop_string();
-    cache()
-        .jingles
-        .get_by_name(&name)
+    engine::<E>()
+        .jingle_by_name(&name)
         .ok_or(ScriptError::JingleNotFoundName(name))
 }
 
@@ -603,7 +614,9 @@ pub(crate) fn pop_jingle(state: &mut ScriptState) -> Result<&'static MidiType> {
 /// # Panics / Errors
 /// Returns `ScriptError::SongNotFoundName` if no song exists with the normalized name.
 #[cfg(rev = "225")]
-pub(crate) fn pop_song(state: &mut ScriptState) -> Result<&'static MidiType> {
+pub(crate) fn pop_song<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static MidiType> {
     let mut name = state.pop_string();
     unsafe {
         for b in name.as_bytes_mut() {
@@ -613,9 +626,8 @@ pub(crate) fn pop_song(state: &mut ScriptState) -> Result<&'static MidiType> {
             b.make_ascii_lowercase();
         }
     }
-    cache()
-        .songs
-        .get_by_name(&name)
+    engine::<E>()
+        .song_by_name(&name)
         .ok_or(ScriptError::SongNotFoundName(name))
 }
 
@@ -629,28 +641,19 @@ fn normalize_song_name(name: &str) -> String {
 }
 
 #[cfg(all(since_244, before_254))]
-pub(crate) fn song_midi_id(name: &str) -> Option<u16> {
-    cache()
-        .midi_ids
-        .get(normalize_song_name(name).as_str())
-        .copied()
+pub(crate) fn song_midi_id<E: ScriptEngine + 'static>(name: &str) -> Option<u16> {
+    engine::<E>().midi_id(normalize_song_name(name).as_str())
 }
 
 #[cfg(all(since_244, before_254))]
-pub(crate) fn jingle_midi_id(name: &str) -> Option<u16> {
-    cache()
-        .midi_ids
-        .get(name.to_ascii_lowercase().as_str())
-        .copied()
+pub(crate) fn jingle_midi_id<E: ScriptEngine + 'static>(name: &str) -> Option<u16> {
+    engine::<E>().midi_id(name.to_ascii_lowercase().as_str())
 }
 
 #[cfg(since_254)]
-pub(crate) fn midi_tick_length(id: i32) -> Result<u16> {
-    cache()
-        .midi_tick_lengths
-        .get(id as usize)
-        .copied()
-        .flatten()
+pub(crate) fn midi_tick_length<E: ScriptEngine + 'static>(id: i32) -> Result<u16> {
+    engine::<E>()
+        .midi_tick_length(id)
         .ok_or(ScriptError::SongNotFound(id))
 }
 
@@ -664,10 +667,12 @@ pub(crate) fn midi_tick_length(id: i32) -> Result<u16> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::NpcNotFound` if no NPC type exists with the popped ID.
-pub(crate) fn pop_npc(state: &mut ScriptState) -> Result<&'static NpcType> {
+pub(crate) fn pop_npc<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static NpcType> {
     let id = state.pop_int();
-    cache()
-        .npcs
+    engine::<E>()
+        .npcs()
         .get_by_id(id as u16)
         .ok_or(ScriptError::NpcNotFound(id))
 }
@@ -682,10 +687,12 @@ pub(crate) fn pop_npc(state: &mut ScriptState) -> Result<&'static NpcType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::ObjNotFound` if no object type exists with the popped ID.
-pub(crate) fn pop_obj(state: &mut ScriptState) -> Result<&'static ObjType> {
+pub(crate) fn pop_obj<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static ObjType> {
     let id = state.pop_int();
-    cache()
-        .objs
+    engine::<E>()
+        .objs()
         .get_by_id(id as u16)
         .ok_or(ScriptError::ObjNotFound(id))
 }
@@ -700,10 +707,12 @@ pub(crate) fn pop_obj(state: &mut ScriptState) -> Result<&'static ObjType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::ObjNotFound` if no object type exists with the popped ID.
-pub(crate) fn pop_loc(state: &mut ScriptState) -> Result<&'static LocType> {
+pub(crate) fn pop_loc<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static LocType> {
     let id = state.pop_int();
-    cache()
-        .locs
+    engine::<E>()
+        .locs()
         .get_by_id(id as u16)
         .ok_or(ScriptError::ObjNotFound(id))
 }
@@ -718,10 +727,12 @@ pub(crate) fn pop_loc(state: &mut ScriptState) -> Result<&'static LocType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::ParamNotFound` if no param type exists with the popped ID.
-pub(crate) fn pop_param(state: &mut ScriptState) -> Result<&'static ParamType> {
+pub(crate) fn pop_param<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static ParamType> {
     let id = state.pop_int();
-    cache()
-        .params
+    engine::<E>()
+        .params()
         .get_by_id(id as u16)
         .ok_or(ScriptError::ParamNotFound(id))
 }
@@ -758,10 +769,12 @@ pub(crate) fn pop_script<E: ScriptEngine + 'static>(
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::SeqNotFound` if no sequence exists with the popped ID.
-pub(crate) fn pop_seq(state: &mut ScriptState) -> Result<&'static SeqType> {
+pub(crate) fn pop_seq<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static SeqType> {
     let id = state.pop_int();
-    cache()
-        .seqs
+    engine::<E>()
+        .seqs()
         .get_by_id(id as u16)
         .ok_or(ScriptError::SeqNotFound(id))
 }
@@ -776,10 +789,12 @@ pub(crate) fn pop_seq(state: &mut ScriptState) -> Result<&'static SeqType> {
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::SpotanimNotFound` if no spot animation exists with the popped ID.
-pub(crate) fn pop_spotanim(state: &mut ScriptState) -> Result<&'static SpotAnimType> {
+pub(crate) fn pop_spotanim<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static SpotAnimType> {
     let id = state.pop_int();
-    cache()
-        .spotanims
+    engine::<E>()
+        .spotanims()
         .get_by_id(id as u16)
         .ok_or(ScriptError::SpotanimNotFound(id))
 }
@@ -794,10 +809,12 @@ pub(crate) fn pop_spotanim(state: &mut ScriptState) -> Result<&'static SpotAnimT
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::StructNotFound` if no struct exists with the popped ID.
-pub(crate) fn pop_struct(state: &mut ScriptState) -> Result<&'static StructType> {
+pub(crate) fn pop_struct<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static StructType> {
     let id = state.pop_int();
-    cache()
-        .structs
+    engine::<E>()
+        .structs()
         .get_by_id(id as u16)
         .ok_or(ScriptError::StructNotFound(id))
 }
@@ -867,8 +884,8 @@ pub(crate) fn get_inv_mut<E: ScriptEngine + 'static>(
     inv_id: u16,
     player: &mut impl ScriptPlayer,
 ) -> Result<&mut Inventory> {
-    let inv = cache()
-        .invs
+    let inv = engine::<E>()
+        .invs()
         .get_by_id(inv_id)
         .ok_or(ScriptError::InvNotFound(inv_id as i32))?;
     let stackmode = stackmode(inv);
@@ -900,18 +917,16 @@ pub(crate) fn get_inv_mut<E: ScriptEngine + 'static>(
 /// # Call Stack
 /// **Calls:** [`cache`], [`stackmode`], [`ScriptPlayer::get_or_create_inv`],
 /// [`ScriptPlayer::get_inv_pair_mut`].
-pub(crate) fn get_inv_pair_mut(
+pub(crate) fn get_inv_pair_mut<E: ScriptEngine + 'static>(
     inv_a: u16,
     inv_b: u16,
     player: &mut impl ScriptPlayer,
 ) -> Result<(&mut Inventory, &mut Inventory)> {
-    let cache = cache();
-    let a = cache
-        .invs
+    let invs = engine::<E>().invs();
+    let a = invs
         .get_by_id(inv_a)
         .ok_or(ScriptError::InvNotFound(inv_a as i32))?;
-    let b = cache
-        .invs
+    let b = invs
         .get_by_id(inv_b)
         .ok_or(ScriptError::InvNotFound(inv_b as i32))?;
     let sa = stackmode(a);
@@ -1029,11 +1044,11 @@ pub(crate) fn inv_total_param<E: ScriptEngine + 'static>(
     player: &mut impl ScriptPlayer,
 ) -> Result<i32> {
     let inventory = get_inv::<E>(inv, player)?;
-    let c = cache();
+    let objs = engine::<E>().objs();
     let mut total: i32 = 0;
     for slot in &inventory.slots {
         let Some(item) = slot else { continue };
-        let Some(obj_type) = c.objs.get_by_id(item.obj) else {
+        let Some(obj_type) = objs.get_by_id(item.obj) else {
             continue;
         };
         let value = obj_type

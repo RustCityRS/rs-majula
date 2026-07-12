@@ -1980,8 +1980,6 @@ dependencies = [
 [[package]]
 name = "rs-pathfinder"
 version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e8f76af4b49ac6adcecae027ba5c6e20710cafea83286e61c6c59016f8faa9a"
 dependencies = [
  "once_cell",
  "rand 0.10.2",
@@ -2090,6 +2088,7 @@ dependencies = [
  "rs-grid",
  "rs-inv",
  "rs-pack",
+ "rs-pathfinder",
  "rs-util",
  "rustc-hash",
  "thiserror 2.0.18",

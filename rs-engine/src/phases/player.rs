@@ -1,6 +1,6 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::Engine;
-use crate::engine::{cache, engine, engine_mut};
+use crate::engine::{engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_entity::MoveSpeed;
 use rs_entity::interaction::InteractionTarget;
@@ -746,13 +746,13 @@ impl Engine {
 
         match target {
             InteractionTarget::Obj { id, .. } => {
-                if let Some(obj_type) = cache().objs.get_by_id(*id) {
+                if let Some(obj_type) = engine().objs().get_by_id(*id) {
                     type_id = obj_type.id as i32;
                     category_id = obj_type.category.map(|c| c as i32).unwrap_or(-1);
                 }
             }
             InteractionTarget::Loc { id, .. } => {
-                if let Some(loc_type) = cache().locs.get_by_id(*id) {
+                if let Some(loc_type) = engine().locs().get_by_id(*id) {
                     type_id = loc_type.id as i32;
                     category_id = loc_type.category.map(|c| c as i32).unwrap_or(-1);
                 }
@@ -760,7 +760,7 @@ impl Engine {
             InteractionTarget::Npc { nid } => {
                 if let Some(npc_active) = engine().get_npc(*nid) {
                     let npc_type_id = npc_active.npc.uid.id();
-                    if let Some(npc_type) = cache().npcs.get_by_id(npc_type_id) {
+                    if let Some(npc_type) = engine().npcs().get_by_id(npc_type_id) {
                         type_id = npc_type.id as i32;
                         category_id = npc_type.category.map(|c| c as i32).unwrap_or(-1);
                     }
@@ -987,21 +987,21 @@ impl Engine {
                     .unwrap_or_else(|_| format!("unknown_{}", op_trigger));
 
                 let debugname = match target {
-                    InteractionTarget::Obj { id, .. } => cache()
-                        .objs
+                    InteractionTarget::Obj { id, .. } => engine()
+                        .objs()
                         .get_by_id(*id)
                         .and_then(|t| t.debugname().map(|s| s.to_string()))
                         .unwrap_or_else(|| id.to_string()),
-                    InteractionTarget::Loc { id, .. } => cache()
-                        .locs
+                    InteractionTarget::Loc { id, .. } => engine()
+                        .locs()
                         .get_by_id(*id)
                         .and_then(|t| t.debugname().map(|s| s.to_string()))
                         .unwrap_or_else(|| id.to_string()),
                     InteractionTarget::Npc { nid } => engine()
                         .get_npc(*nid)
                         .and_then(|n| {
-                            cache()
-                                .npcs
+                            engine()
+                                .npcs()
                                 .get_by_id(n.npc.uid.id())
                                 .and_then(|t| t.debugname().map(|s| s.to_string()))
                         })
