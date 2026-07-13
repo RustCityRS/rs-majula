@@ -14,7 +14,7 @@ REV = "289"
 target-dir = "target"
 rustflags = ["-C", "target-cpu=native"]
 
-[target.'cfg(windows)']
+[target.'cfg(all(windows, target_env = "msvc"))']
 rustflags = ["-C", "target-cpu=native", "-C", "link-arg=/STACK:8388608"]
 
 [profile.release]
