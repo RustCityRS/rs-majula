@@ -23,7 +23,7 @@ use tokio::sync::{mpsc, watch};
 use tokio::time::{self, Duration};
 use tokio_tungstenite::WebSocketStream;
 use tokio_tungstenite::tungstenite::{Bytes, Message};
-use tracing::{Level, debug, error, info};
+use tracing::{Level, debug, error, info, warn};
 use tracing_subscriber::Layer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
@@ -64,44 +64,97 @@ const MAX_CONNECTIONS_PER_IP: usize = 4;
 #[cfg(not(debug_assertions))]
 const MAX_CONNECTIONS_PER_IP: usize = 2;
 
+const MAX_GAME_CONNECTIONS: usize = 8192;
+
+const MAX_HTTP_PER_IP: usize = 16;
+const MAX_HTTP_CONNECTIONS: usize = 8192;
+
+const MAX_JAGGRAB_PER_IP: usize = 8;
+const MAX_JAGGRAB_CONNECTIONS: usize = 2048;
+
+struct GuardCounts {
+    per_ip: HashMap<IpAddr, usize>,
+    total: usize,
+    served: u64,
+}
+
 #[derive(Clone)]
 pub struct ConnectionGuard {
-    ip_counts: Arc<Mutex<HashMap<IpAddr, usize>>>,
+    counts: Arc<Mutex<GuardCounts>>,
+    max_per_ip: usize,
+    max_total: usize,
+}
+
+#[derive(Clone)]
+pub struct ConnectionGuards {
+    pub game: ConnectionGuard,
+    pub http: ConnectionGuard,
+    pub jaggrab: ConnectionGuard,
+}
+
+impl ConnectionGuards {
+    fn new() -> Self {
+        Self {
+            game: ConnectionGuard::new(MAX_CONNECTIONS_PER_IP, MAX_GAME_CONNECTIONS),
+            http: ConnectionGuard::new(MAX_HTTP_PER_IP, MAX_HTTP_CONNECTIONS),
+            jaggrab: ConnectionGuard::new(MAX_JAGGRAB_PER_IP, MAX_JAGGRAB_CONNECTIONS),
+        }
+    }
 }
 
 impl ConnectionGuard {
-    fn new() -> Self {
+    fn new(max_per_ip: usize, max_total: usize) -> Self {
         Self {
-            ip_counts: Arc::new(Mutex::new(HashMap::new())),
+            counts: Arc::new(Mutex::new(GuardCounts {
+                per_ip: HashMap::new(),
+                total: 0,
+                served: 0,
+            })),
+            max_per_ip,
+            max_total,
         }
     }
 
+    fn active(&self) -> usize {
+        self.counts.lock().unwrap().total
+    }
+
+    fn served(&self) -> u64 {
+        self.counts.lock().unwrap().served
+    }
+
     fn try_acquire(&self, ip: IpAddr) -> Option<ConnectionPermit> {
-        let mut counts = self.ip_counts.lock().unwrap();
-        let count = counts.entry(ip).or_insert(0);
-        if *count >= MAX_CONNECTIONS_PER_IP {
+        let mut counts = self.counts.lock().unwrap();
+        if counts.total >= self.max_total {
+            return None;
+        }
+        let count = counts.per_ip.entry(ip).or_insert(0);
+        if *count >= self.max_per_ip {
             return None;
         }
         *count += 1;
+        counts.total += 1;
+        counts.served += 1;
         Some(ConnectionPermit {
             ip,
-            ip_counts: self.ip_counts.clone(),
+            counts: self.counts.clone(),
         })
     }
 }
 
 pub struct ConnectionPermit {
     ip: IpAddr,
-    ip_counts: Arc<Mutex<HashMap<IpAddr, usize>>>,
+    counts: Arc<Mutex<GuardCounts>>,
 }
 
 impl Drop for ConnectionPermit {
     fn drop(&mut self) {
-        let mut counts = self.ip_counts.lock().unwrap();
-        let count = counts.get_mut(&self.ip).unwrap();
+        let mut counts = self.counts.lock().unwrap();
+        counts.total -= 1;
+        let count = counts.per_ip.get_mut(&self.ip).unwrap();
         *count -= 1;
         if *count == 0 {
-            counts.remove(&self.ip);
+            counts.per_ip.remove(&self.ip);
         }
     }
 }
@@ -142,18 +195,14 @@ pub const REVISION: &str = env!("REV");
 /// Command line arguments
 #[derive(Parser, Debug)]
 #[command(name = "rs-server")]
-#[command(about = "RuneScape Private Server (Rev 225)")]
+#[command(about = "RuneScape Private Server")]
 struct Args {
     #[arg(long, default_value = "0.0.0.0")]
     host: String,
-    /// HTTP port. Defaults to 8070 + node_id (8080 for node 10).
     #[arg(long)]
     http_port: Option<u16>,
-    /// TCP game port. Defaults to 43584 + node_id (43594 for node 10).
     #[arg(long)]
     tcp_port: Option<u16>,
-    /// JAGGRAB port for the standalone desktop client's cache bootstrap.
-    /// Defaults to tcp_port + 1 (43595 for node 10). The web client doesn't use it.
     #[arg(long)]
     jaggrab_port: Option<u16>,
     #[arg(long, default_value = ".keys/private.pem")]
@@ -164,36 +213,28 @@ struct Args {
     multi_xp: u8,
     #[arg(long, default_value = "true")]
     client_pathfinder: bool,
-    /// Disable the TUI dashboard and run with classic stdout logging.
     #[arg(long, default_value = "false")]
     no_tui: bool,
     #[arg(long, default_value = "true")]
     verify: bool,
-    /// World node ID (10 = world 1, 11 = world 2, etc.)
+    #[arg(long, default_value = "false")]
+    jaggrab_only: bool,
     #[arg(long, default_value = "10")]
     node_id: u8,
-    /// Ether sidecar TCP port. Defaults to 5000 + node_id.
     #[arg(long)]
     ether_port: Option<u16>,
-    /// Postgres hostname.
     #[arg(long, default_value = "localhost")]
     db_host: String,
-    /// Postgres port.
     #[arg(long, default_value = "5432")]
     db_port: u16,
-    /// Postgres database name.
     #[arg(long, default_value = "postgres")]
     db_name: String,
-    /// Postgres username.
     #[arg(long, default_value = "postgres")]
     db_user: String,
-    /// Postgres password.
     #[arg(long, default_value = "password")]
     db_pass: String,
-    /// Comma-separated list of cluster node names (e.g. "world10@127.0.0.1,world11@127.0.0.1").
     #[arg(long, default_value = "")]
     cluster: String,
-    /// Server-side pepper for password hashing.
     #[arg(long, default_value = "localhost")]
     pepper: String,
 }
@@ -265,7 +306,7 @@ async fn main() -> Result<()> {
 
         let (stats_tx, _stats_rx) = channel(TickStats::default());
         let (_trigger_tx, trigger_rx) = unbounded_channel::<()>();
-        bootstrap(args, stats_tx, trigger_rx).await
+        bootstrap(args, stats_tx, trigger_rx, ConnectionGuards::new()).await
     } else {
         let log_buf = tui::log_layer::new_buffer();
         let tui_layer = TuiLogLayer::new(log_buf.clone()).with_filter(make_filter());
@@ -285,16 +326,19 @@ async fn run_with_tui(args: Args, log_buf: LogBuffer) -> Result<()> {
         trigger_rx,
     } = handles;
 
+    let guards = ConnectionGuards::new();
+    let tui_guards = guards.clone();
+
     // Bootstrap right away in the background - the TUI shows "loading" until
     // the first tick lands, then "RUNNING".
     let bootstrap_task = tokio::spawn(async move {
-        if let Err(e) = bootstrap(args, stats_tx, trigger_rx).await {
+        if let Err(e) = bootstrap(args, stats_tx, trigger_rx, guards).await {
             error!("server bootstrap failed: {e:#}");
         }
     });
 
     // Foreground: render loop. Returns when the user presses `q`.
-    let result = tui::run(log_buf, sinks).await;
+    let result = tui::run(log_buf, sinks, tui_guards).await;
 
     bootstrap_task.abort();
     shutdown_sidecar();
@@ -307,6 +351,7 @@ async fn bootstrap(
     args: Args,
     stats_tx: Sender<TickStats>,
     trigger_rx: UnboundedReceiver<()>,
+    guards: ConnectionGuards,
 ) -> Result<()> {
     let host = args.host;
     let http = args.http_port.unwrap_or(8070 + args.node_id as u16);
@@ -329,6 +374,20 @@ async fn bootstrap(
     )?;
     let cache_ptr_val = Box::into_raw(store) as usize;
     let cache: &'static CacheStore = unsafe { &*(cache_ptr_val as *const CacheStore) };
+
+    #[cfg(since_244)]
+    for (archive, files) in cache.ondemand.iter().enumerate() {
+        for (file, blob) in files.iter().enumerate() {
+            if blob.len() > u16::MAX as usize {
+                warn!(
+                    "ondemand {}/{} is {} bytes, larger than the u16 wire size field; clients will see it as missing",
+                    archive,
+                    file,
+                    blob.len()
+                );
+            }
+        }
+    }
 
     let rsa_path = Path::new(&args.private_key);
     let rsa: &'static RsaKey = Box::leak(Box::new(load_rsa_key(rsa_path)?));
@@ -426,10 +485,17 @@ async fn bootstrap(
         new_player_tx,
     };
 
-    let guard = ConnectionGuard::new();
+    let ConnectionGuards {
+        game: guard,
+        http: http_guard,
+        jaggrab: jaggrab_guard,
+    } = guards;
 
     info!("Accepting HTTP connections on: {}:{}", host, http);
     info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
+    if args.jaggrab_only {
+        info!("--jaggrab-only: cache downloads over HTTP will 404 to force the JAGGRAB fallback");
+    }
     tokio::spawn(http::serve(
         host.to_string(),
         http,
@@ -437,10 +503,17 @@ async fn bootstrap(
         args.members,
         server_state.clone(),
         guard.clone(),
+        http_guard,
+        args.jaggrab_only,
     ));
 
     info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
-    tokio::spawn(jaggrab::serve(host.to_string(), jaggrab, cache));
+    tokio::spawn(jaggrab::serve(
+        host.to_string(),
+        jaggrab,
+        cache,
+        jaggrab_guard,
+    ));
 
     info!("Accepting TCP connections on: {}:{}", host, tcp);
     socket::serve(host, tcp, server_state, guard).await
@@ -465,11 +538,11 @@ fn prepare_ether_sidecar(db: &DbEnv) {
         match status {
             Ok(s) if s.success() => true,
             Ok(s) => {
-                tracing::warn!("mix {} exited with {}", args.join(" "), s);
+                warn!("mix {} exited with {}", args.join(" "), s);
                 false
             }
             Err(e) => {
-                tracing::warn!("mix {} failed: {}", args.join(" "), e);
+                warn!("mix {} failed: {}", args.join(" "), e);
                 false
             }
         }
@@ -636,7 +709,7 @@ async fn reload_coordinator(
         let mut watcher = match notify::recommended_watcher(notify_tx) {
             Ok(w) => w,
             Err(e) => {
-                tracing::warn!("File watcher failed to start: {e}");
+                warn!("File watcher failed to start: {e}");
                 return;
             }
         };

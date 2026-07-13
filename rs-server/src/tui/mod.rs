@@ -111,6 +111,7 @@ struct Flash {
 struct App {
     log_buf: LogBuffer,
     sinks: TuiSinks,
+    guards: crate::ConnectionGuards,
     search: String,
     search_focused: bool,
     scroll_back: usize,
@@ -137,7 +138,7 @@ struct App {
 }
 
 impl App {
-    fn new(log_buf: LogBuffer, sinks: TuiSinks) -> Self {
+    fn new(log_buf: LogBuffer, sinks: TuiSinks, guards: crate::ConnectionGuards) -> Self {
         let sys = System::new_with_specifics(
             RefreshKind::nothing().with_processes(ProcessRefreshKind::nothing().with_memory()),
         );
@@ -145,6 +146,7 @@ impl App {
         Self {
             log_buf,
             sinks,
+            guards,
             search: String::new(),
             search_focused: false,
             scroll_back: 0,
@@ -331,7 +333,11 @@ fn react_to_log(line: &LogLine) -> String {
     comment.to_string()
 }
 
-pub async fn run(log_buf: LogBuffer, sinks: TuiSinks) -> Result<()> {
+pub async fn run(
+    log_buf: LogBuffer,
+    sinks: TuiSinks,
+    guards: crate::ConnectionGuards,
+) -> Result<()> {
     let tui_thread_id = std::thread::current().id();
     std::panic::set_hook(Box::new(move |info| {
         if std::thread::current().id() == tui_thread_id {
@@ -353,7 +359,7 @@ pub async fn run(log_buf: LogBuffer, sinks: TuiSinks) -> Result<()> {
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
-    let res = run_app(&mut terminal, App::new(log_buf, sinks)).await;
+    let res = run_app(&mut terminal, App::new(log_buf, sinks, guards)).await;
 
     disable_raw_mode()?;
     crossterm::execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
@@ -449,7 +455,7 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
         .direction(Direction::Vertical)
         .constraints([
             Constraint::Length(8), // banner
-            Constraint::Length(6), // stats + timings + graphs
+            Constraint::Length(7), // stats + timings + graphs
             Constraint::Length(5), // Sir Roastalot
             Constraint::Min(5),    // log
             Constraint::Length(3), // search bar
@@ -475,7 +481,7 @@ fn draw_stats_row(f: &mut ratatui::Frame, area: Rect, app: &App) {
     let cols = Layout::default()
         .direction(Direction::Horizontal)
         .constraints([
-            Constraint::Length(38),
+            Constraint::Length(44),
             Constraint::Length(24),
             Constraint::Length(24),
             Constraint::Min(20),
@@ -536,6 +542,16 @@ fn draw_stats_column(f: &mut ratatui::Frame, area: Rect, app: &App) {
         Line::from(vec![
             label("Memory:"),
             Span::raw(format!("{}mb ({})", mem_cur, mem_delta)),
+        ]),
+        Line::from(vec![
+            label("Conns:"),
+            Span::raw(format!(
+                "tcp {} ({})  http {} ({})",
+                app.guards.game.active(),
+                app.guards.game.served(),
+                app.guards.http.active(),
+                app.guards.http.served(),
+            )),
         ]),
     ];
 

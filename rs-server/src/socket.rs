@@ -12,9 +12,11 @@ use rs_protocol::LoginResponse;
 #[cfg(since_244)]
 use std::collections::VecDeque;
 use std::net::SocketAddr;
+use std::time::Duration;
 use tokio::net::TcpListener;
 use tokio::sync::mpsc;
-use tracing::info;
+use tokio::time::timeout;
+use tracing::{info, warn};
 
 #[repr(u8)]
 #[derive(TryFromPrimitive)]
@@ -35,8 +37,17 @@ pub async fn serve(
     let listener = TcpListener::bind(bind_addr).await?;
 
     loop {
-        let (stream, addr) = listener.accept().await?;
-        stream.set_nodelay(true)?;
+        let (stream, addr) = match listener.accept().await {
+            Ok(conn) => conn,
+            Err(e) => {
+                warn!("TCP accept error: {e}");
+                tokio::time::sleep(Duration::from_millis(100)).await;
+                continue;
+            }
+        };
+        if stream.set_nodelay(true).is_err() {
+            continue; // peer already gone
+        }
         info!("TCP connection from {}", addr);
         let server_state = server_state.clone();
         let guard = guard.clone();
@@ -48,6 +59,9 @@ pub async fn serve(
         });
     }
 }
+
+const HANDSHAKE_TIMEOUT: Duration = Duration::from_secs(10);
+const WRITE_STALL_TIMEOUT: Duration = Duration::from_secs(60);
 
 fn make_seed() -> Packet {
     let mut seed = Packet::new(8);
@@ -72,7 +86,11 @@ async fn acquire_permit(client: &mut Socket) -> anyhow::Result<ConnectionPermit>
 pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     client.write(&make_seed().data).await?;
     let permit = acquire_permit(&mut client).await?;
-    let Some(bytes) = client.read().await? else {
+    // A connection that never speaks must not hold its permit forever.
+    let Ok(result) = timeout(HANDSHAKE_TIMEOUT, client.read()).await else {
+        bail!("{}: handshake timeout", client.addr)
+    };
+    let Some(bytes) = result? else {
         bail!("no bytes")
     };
     if bytes.is_empty() {
@@ -93,8 +111,13 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
 pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     let permit = acquire_permit(&mut client).await?;
 
+    let mut key_exchanges = 0;
     let (handshake, buf) = loop {
-        let Some(bytes) = client.read().await? else {
+        // A connection that never speaks must not hold its permit forever.
+        let Ok(result) = timeout(HANDSHAKE_TIMEOUT, client.read()).await else {
+            bail!("{}: handshake timeout", client.addr)
+        };
+        let Some(bytes) = result? else {
             bail!("no bytes")
         };
         if bytes.is_empty() {
@@ -103,6 +126,12 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
         let mut buf = Packet::from(bytes);
         match HandshakeType::try_from(buf.g1())? {
             HandshakeType::New => {
+                // The client requests one seed per login attempt; a stream of
+                // them is someone keeping the loop (and its permit) spinning.
+                key_exchanges += 1;
+                if key_exchanges > 3 {
+                    bail!("{}: repeated session-key exchanges", client.addr);
+                }
                 let _name_hash = buf.g1();
                 let mut resp = vec![0u8; 9]; // 8 ignored bytes + status 0 (proceed)
                 resp.extend_from_slice(&make_seed().data);
@@ -206,6 +235,10 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
 }
 #[cfg(since_244)]
 const MAX_QUEUED_REQUESTS: usize = 8192;
+#[cfg(since_244)]
+const JS5_IDLE_TIMEOUT: Duration = Duration::from_secs(30);
+#[cfg(since_244)]
+const JS5_SEND_TIMEOUT: Duration = Duration::from_secs(60);
 
 #[cfg(since_244)]
 async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
@@ -213,7 +246,10 @@ async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
     let mut partial: Vec<u8> = Vec::new();
     loop {
         if queues.iter().all(|q| q.is_empty()) {
-            match client.read().await? {
+            let Ok(result) = timeout(JS5_IDLE_TIMEOUT, client.read()).await else {
+                return Ok(());
+            };
+            match result? {
                 Some(bytes) => enqueue_requests(client.addr, &mut queues, &mut partial, &bytes)?,
                 None => return Ok(()), // connection closed
             }
@@ -231,7 +267,11 @@ async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
             _ = std::future::ready(()) => {}
         }
         if let Some((archive, file)) = queues.iter_mut().find_map(VecDeque::pop_front) {
-            send_js5_file(&mut client, archive, file).await?;
+            let send = send_js5_file(&mut client, archive, file);
+            match timeout(JS5_SEND_TIMEOUT, send).await {
+                Ok(result) => result?,
+                Err(_) => bail!("{}: ondemand send stalled", client.addr),
+            }
         }
     }
 }
@@ -248,10 +288,17 @@ fn enqueue_requests(
     for req in partial[..complete].chunks_exact(4) {
         let (archive, priority) = (req[0], req[3]);
         let file = u16::from_be_bytes([req[1], req[2]]);
-        if archive > 3 || priority > 2 {
+        let tier = match priority {
+            2 => 0,
+            1 => 1,
+            0 => 2,
+            10 => continue,
+            _ => bail!("{addr}: invalid ondemand request (archive={archive}, priority={priority})"),
+        };
+        if archive > 3 {
             bail!("{addr}: invalid ondemand request (archive={archive}, priority={priority})");
         }
-        queues[priority as usize].push_back((archive, file));
+        queues[tier].push_back((archive, file));
     }
     partial.drain(..complete);
     if queues.iter().map(|q| q.len()).sum::<usize>() > MAX_QUEUED_REQUESTS {
@@ -272,7 +319,8 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
         .unwrap_or(&[]);
 
     let len = blob.len();
-    if len == 0 {
+
+    if len == 0 || len > u16::MAX as usize {
         let mut pkt = Packet::new(6);
         pkt.p1(archive);
         pkt.p2(file);
@@ -325,11 +373,16 @@ pub async fn network_loop(
             },
             msg = bytes_rx.recv() => match msg {
                 Some(bytes) => {
-                    // Return the drained buffer to the engine for reuse (TCP
-                    // only; WebSocket consumes it). A send failure just means
-                    // the engine dropped the client, so the buffer is freed.
-                    if let Some(returned) = client.write_owned(bytes).await? {
-                        let _ = recycle_tx.send(returned);
+                    match tokio::time::timeout(WRITE_STALL_TIMEOUT, client.write_owned(bytes)).await {
+                        Ok(result) => {
+                            if let Some(returned) = result? {
+                                let _ = recycle_tx.send(returned);
+                            }
+                        }
+                        Err(_) => {
+                            disconnect_tx.send(()).await?;
+                            bail!("{addr} write stalled");
+                        }
                     }
                 }
                 None => {

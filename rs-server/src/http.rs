@@ -9,9 +9,22 @@ use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
 use tokio::time::timeout;
-use tokio_tungstenite::accept_hdr_async;
+use tokio_tungstenite::accept_hdr_async_with_config;
 use tokio_tungstenite::tungstenite::handshake::server::{Request, Response};
+use tokio_tungstenite::tungstenite::protocol::WebSocketConfig;
 use tracing::{debug, info, warn};
+
+const HANDSHAKE_TIMEOUT: Duration = Duration::from_secs(10);
+const WRITE_TIMEOUT: Duration = Duration::from_secs(30);
+
+#[allow(clippy::field_reassign_with_default)]
+fn ws_config() -> WebSocketConfig {
+    let mut config = WebSocketConfig::default();
+    config.read_buffer_size = 4 * 1024;
+    config.max_message_size = Some(64 * 1024);
+    config.max_frame_size = Some(64 * 1024);
+    config
+}
 
 pub(crate) enum Body {
     Empty,
@@ -61,6 +74,8 @@ pub async fn serve(
     members: bool,
     server_state: ServerIO,
     guard: ConnectionGuard,
+    http_guard: ConnectionGuard,
+    jaggrab_only: bool,
 ) {
     let listener = match TcpListener::bind((host, port)).await {
         Ok(l) => l,
@@ -82,14 +97,29 @@ pub async fn serve(
         let nodeid = nodeid.clone();
         let server_state = server_state.clone();
         let guard = guard.clone();
+        let http_guard = http_guard.clone();
 
         tokio::spawn(async move {
+            let Some(_permit) = http_guard.try_acquire(addr.ip()) else {
+                debug!("HTTP {} connection limit reached", addr);
+                return;
+            };
             info!("HTTP {:?} connected", addr);
-            handle_connection(stream, nodeid, members, server_state, addr, guard).await;
+            handle_connection(
+                stream,
+                nodeid,
+                members,
+                server_state,
+                addr,
+                guard,
+                jaggrab_only,
+            )
+            .await;
         });
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 async fn handle_connection(
     mut stream: TcpStream,
     nodeid: String,
@@ -97,15 +127,20 @@ async fn handle_connection(
     server_state: ServerIO,
     addr: SocketAddr,
     guard: ConnectionGuard,
+    jaggrab_only: bool,
 ) {
     stream.set_nodelay(true).ok();
 
     // Peek first to check if it's a WebSocket upgrade
-    let mut buf = [0u8; 1024]; // increase buffer
-    let n = match stream.peek(&mut buf).await {
-        Ok(n) => n,
-        Err(e) => {
+    let mut buf = [0; 1024]; // increase buffer
+    let n = match timeout(HANDSHAKE_TIMEOUT, stream.peek(&mut buf)).await {
+        Ok(Ok(n)) => n,
+        Ok(Err(e)) => {
             debug!("peek error: {}", e);
+            return;
+        }
+        Err(_) => {
+            debug!("HTTP {} handshake timeout", addr);
             return;
         }
     };
@@ -114,31 +149,37 @@ async fn handle_connection(
 
     if raw.to_ascii_lowercase().contains("upgrade: websocket") {
         #[allow(clippy::result_large_err)]
-        match accept_hdr_async(stream, |req: &Request, mut res: Response| {
-            if let Some(protocol) = req.headers().get("Sec-WebSocket-Protocol") {
-                res.headers_mut()
-                    .insert("Sec-WebSocket-Protocol", protocol.clone());
-            }
-            Ok(res)
-        })
-        .await
-        {
-            Ok(ws) => {
+        let upgrade = accept_hdr_async_with_config(
+            stream,
+            |req: &Request, mut res: Response| {
+                if let Some(protocol) = req.headers().get("Sec-WebSocket-Protocol") {
+                    res.headers_mut()
+                        .insert("Sec-WebSocket-Protocol", protocol.clone());
+                }
+                Ok(res)
+            },
+            Some(ws_config()),
+        );
+        match timeout(HANDSHAKE_TIMEOUT, upgrade).await {
+            Ok(Ok(ws)) => {
                 info!("WebSocket handshake complete for {}", addr);
                 let connection = Socket::from_ws(ws, addr, server_state, guard);
                 if let Err(e) = handshake(connection).await {
                     info!("Connection {} closed: {}", addr, e);
                 }
             }
-            Err(e) => {
+            Ok(Err(e)) => {
                 info!("WebSocket handshake failed: {}", e);
+            }
+            Err(_) => {
+                info!("WebSocket handshake timed out for {}", addr);
             }
         }
         return;
     }
 
     loop {
-        let mut buf = [0u8; 1024];
+        let mut buf = [0; 1024];
 
         // Disconnect if idle for 30 seconds
         let n = match timeout(Duration::from_secs(30), stream.read(&mut buf)).await {
@@ -170,8 +211,15 @@ async fn handle_connection(
             break;
         }
 
-        let (status, headers, body) =
-            route(path, query, &nodeid, members, server_state.cache).await;
+        let (status, headers, body) = route(
+            path,
+            query,
+            &nodeid,
+            members,
+            server_state.cache,
+            jaggrab_only,
+        )
+        .await;
 
         // Check if client wants to close
         let connection_close = raw.to_ascii_lowercase().contains("connection: close");
@@ -188,11 +236,20 @@ async fn handle_connection(
         );
         let header_bytes = header.as_bytes();
         let body_bytes = body.as_bytes();
-        let _ = stream.write_all(header_bytes).await;
-        if !body_bytes.is_empty() {
-            let _ = stream.write_all(body_bytes).await;
+        let write = async {
+            stream.write_all(header_bytes).await?;
+            if !body_bytes.is_empty() {
+                stream.write_all(body_bytes).await?;
+            }
+            stream.flush().await
+        };
+        match timeout(WRITE_TIMEOUT, write).await {
+            Ok(Ok(())) => {}
+            Ok(Err(_)) | Err(_) => {
+                info!("HTTP {:?} write failed or stalled", addr);
+                break;
+            }
         }
-        let _ = stream.flush().await;
 
         if connection_close {
             info!("HTTP {:?} closed", addr);
@@ -207,7 +264,13 @@ async fn route(
     nodeid: &str,
     members: bool,
     cache: &'static CacheStore,
+    jaggrab_only: bool,
 ) -> (&'static str, String, Body) {
+    // Test hook: refusing cache downloads over HTTP makes a stock desktop
+    // client toggle its archive loader onto the JAGGRAB fallback.
+    if jaggrab_only && matches_cache(path) {
+        return not_found();
+    }
     match path {
         "/" => (
             "302 Found",
