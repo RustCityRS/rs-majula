@@ -3742,37 +3742,27 @@ impl ScriptEngine for Engine {
     ///
     /// **Calls:** reads `rsmod::has_line_of_sight()`
     fn lineofsight(&self, src: CoordGrid, dst: CoordGrid) -> rs_vm::Result<bool> {
-        if !rsmod::is_zone_allocated(src.x(), src.z(), src.y()) {
+        let (sx, sy, sz) = (src.x(), src.y(), src.z());
+        let (dx, dy, dz) = (dst.x(), dst.y(), dst.z());
+        if !rsmod::is_zone_allocated(sx, sz, sy) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 src
             )));
         }
-        if !rsmod::is_zone_allocated(dst.x(), dst.z(), dst.y()) {
+        if !rsmod::is_zone_allocated(dx, dz, dy) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 dst
             )));
         }
-        if src.y() != dst.y() {
+        if sy != dy {
             return Ok(false);
         }
-        if !self.members && !rsmod::is_zone_flagged(dst.x(), dst.z(), dst.y(), ZoneFlag::Free as u8)
-        {
+        if !self.members && !rsmod::is_zone_flagged(dx, dz, dy, ZoneFlag::Free as u8) {
             return Ok(false);
         }
-        Ok(rsmod::has_line_of_sight(
-            src.y(),
-            src.x(),
-            src.z(),
-            dst.x(),
-            dst.z(),
-            1,
-            1,
-            1,
-            1,
-            0,
-        ))
+        Ok(rsmod::has_line_of_sight(sy, sx, sz, dx, dz, 1, 1, 1, 1, 0))
     }
 
     /// Indicates if there is "line of walk" between these coords.
@@ -3781,37 +3771,27 @@ impl ScriptEngine for Engine {
     ///
     /// **Calls:** reads `rsmod::has_line_of_walk()`
     fn lineofwalk(&self, src: CoordGrid, dst: CoordGrid) -> rs_vm::Result<bool> {
-        if !rsmod::is_zone_allocated(src.x(), src.z(), src.y()) {
+        let (sx, sy, sz) = (src.x(), src.y(), src.z());
+        let (dx, dy, dz) = (dst.x(), dst.y(), dst.z());
+        if !rsmod::is_zone_allocated(sx, sz, sy) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 src
             )));
         }
-        if !rsmod::is_zone_allocated(dst.x(), dst.z(), dst.y()) {
+        if !rsmod::is_zone_allocated(dx, dz, dy) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 dst
             )));
         }
-        if src.y() != dst.y() {
+        if sy != dy {
             return Ok(false);
         }
-        if !self.members && !rsmod::is_zone_flagged(dst.x(), dst.z(), dst.y(), ZoneFlag::Free as u8)
-        {
+        if !self.members && !rsmod::is_zone_flagged(dx, dz, dy, ZoneFlag::Free as u8) {
             return Ok(false);
         }
-        Ok(rsmod::has_line_of_walk(
-            src.y(),
-            src.x(),
-            src.z(),
-            dst.x(),
-            dst.z(),
-            1,
-            1,
-            1,
-            1,
-            0,
-        ))
+        Ok(rsmod::has_line_of_walk(sy, sx, sz, dx, dz, 1, 1, 1, 1, 0))
     }
 
     /// Indicates if this coord has a `CollisionFlag::WalkBlocked` on it.
@@ -3820,21 +3800,20 @@ impl ScriptEngine for Engine {
     ///
     /// **Calls:** reads `rsmod::is_flagged()`
     fn map_blocked(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
-        if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        if !rsmod::is_zone_allocated(x, z, y) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
         }
-        if !self.members
-            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
-        {
+        if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
             return Ok(false);
         }
         Ok(rsmod::is_flagged(
-            coord.x(),
-            coord.z(),
-            coord.y(),
+            x,
+            z,
+            y,
             CollisionFlag::WalkBlocked as u32,
         ))
     }
@@ -3845,23 +3824,17 @@ impl ScriptEngine for Engine {
     ///
     /// **Calls:** reads `rsmod::is_flagged()`
     fn map_indoors(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
-        if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        if !rsmod::is_zone_allocated(x, z, y) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
         }
-        if !self.members
-            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
-        {
+        if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
             return Ok(false);
         }
-        Ok(rsmod::is_flagged(
-            coord.x(),
-            coord.z(),
-            coord.y(),
-            CollisionFlag::Roof as u32,
-        ))
+        Ok(rsmod::is_flagged(x, z, y, CollisionFlag::Roof as u32))
     }
 
     /// Indicates if this coord has a `ZoneFlag::Free` collision flag on it.
@@ -3870,15 +3843,14 @@ impl ScriptEngine for Engine {
     ///
     /// **Calls:** reads `rsmod::is_zone_flagged()`
     fn map_f2p(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
-        if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        if !rsmod::is_zone_allocated(x, z, y) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
         }
-        if !self.members
-            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
-        {
+        if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
             return Ok(false);
         }
         Ok(true)
@@ -3890,23 +3862,17 @@ impl ScriptEngine for Engine {
     ///
     /// **Calls:** reads `rsmod::is_zone_flagged()`
     fn map_multiway(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
-        if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        if !rsmod::is_zone_allocated(x, z, y) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
         }
-        if !self.members
-            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
-        {
+        if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
             return Ok(false);
         }
-        Ok(rsmod::is_zone_flagged(
-            coord.x(),
-            coord.z(),
-            coord.y(),
-            ZoneFlag::Multi as u8,
-        ))
+        Ok(rsmod::is_zone_flagged(x, z, y, ZoneFlag::Multi as u8))
     }
 
     /// Reads a shared variable (vars) by its definition ID.

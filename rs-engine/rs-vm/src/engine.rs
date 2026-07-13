@@ -1,5 +1,5 @@
+use crate::PlayerUid;
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
-use crate::{PlayerUid, ScriptError};
 use rs_grid::CoordGrid;
 use rs_inv::Inventory;
 use rs_pack::cache::VarValue;
@@ -33,7 +33,6 @@ use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use rs_util::random::JavaRandom;
 use std::cell::Cell;
-use std::format;
 use std::sync::Arc;
 
 /// Engine-level operations available to the script VM.
