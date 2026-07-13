@@ -64,6 +64,10 @@ rustc-hash = "2"
 # Fast integer-to-string formatting
 itoa = "1"
 
+# Memory allocator
+mimalloc = "0.1"
+libmimalloc-sys = { version = "0.1", features = ["extended"] }
+
 # MISC
 rs-io = "0.3"
 rs-pathfinder = "0.1"

@@ -1,17 +1,8 @@
-extern crate core;
-
-use futures_util::StreamExt;
-use std::io::IsTerminal;
-use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
-mod http;
-mod jaggrab;
-mod socket;
-pub mod tui;
-
 use crate::tui::log_layer::{LogBuffer, TuiLogLayer};
 use anyhow::Result;
 use clap::Parser;
 use futures_util::SinkExt;
+use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
 use rs_crypto::rsa::{RsaKey, load_rsa_key};
 use rs_engine::{CycleResult, Engine};
@@ -20,6 +11,7 @@ use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
 use std::collections::HashMap;
+use std::io::IsTerminal;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
@@ -33,15 +25,39 @@ use tokio_tungstenite::WebSocketStream;
 use tokio_tungstenite::tungstenite::{Bytes, Message};
 use tracing::{Level, debug, error, info};
 use tracing_subscriber::Layer;
+use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use watch::{Receiver, Sender, channel};
 
 use crossterm::execute;
 use crossterm::terminal::{LeaveAlternateScreen, disable_raw_mode};
+use mimalloc::MiMalloc;
 use std::sync::atomic::{AtomicU32, Ordering};
 use time::MissedTickBehavior;
 
-static SIDECAR_PID: AtomicU32 = AtomicU32::new(0);
+mod http;
+mod jaggrab;
+mod socket;
+pub mod tui;
+
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
+
+fn release_freed_memory() {
+    unsafe { libmimalloc_sys::mi_collect(true) };
+}
+
+#[cfg(windows)]
+fn trim_working_set() {
+    unsafe extern "system" {
+        fn GetCurrentProcess() -> isize;
+        fn SetProcessWorkingSetSize(handle: isize, min: usize, max: usize) -> i32;
+    }
+    unsafe { SetProcessWorkingSetSize(GetCurrentProcess(), usize::MAX, usize::MAX) };
+}
+
+#[cfg(not(windows))]
+fn trim_working_set() {}
 
 #[cfg(debug_assertions)]
 const MAX_CONNECTIONS_PER_IP: usize = 4;
@@ -97,6 +113,8 @@ impl Drop for ShutdownGuard {
         restore_terminal_and_sidecar();
     }
 }
+
+static SIDECAR_PID: AtomicU32 = AtomicU32::new(0);
 
 fn restore_terminal_and_sidecar() {
     shutdown_sidecar();
@@ -385,6 +403,10 @@ async fn bootstrap(
         db_tx,
         db_rx,
     );
+
+    release_freed_memory();
+    trim_working_set();
+
     tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx));
 
     #[cfg(debug_assertions)]
@@ -575,18 +597,18 @@ fn shutdown_sidecar() {
 fn kill_ether_sidecar(pid: u32) {
     #[cfg(windows)]
     {
-        let _ = std::process::Command::new("taskkill")
+        let _ = Command::new("taskkill")
             .args(["/F", "/T", "/PID", &pid.to_string()])
-            .stdout(std::process::Stdio::null())
-            .stderr(std::process::Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
             .status();
     }
     #[cfg(not(windows))]
     {
-        let _ = std::process::Command::new("kill")
+        let _ = Command::new("kill")
             .args(["-TERM", &pid.to_string()])
-            .stdout(std::process::Stdio::null())
-            .stderr(std::process::Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
             .spawn();
     }
 }
@@ -701,6 +723,7 @@ async fn engine_tick(
                 rs_engine::with_engine(&mut engine, || {
                     unsafe { &mut *ptr }.reload_assets(store, scripts);
                 });
+                release_freed_memory();
             }
             if clock_rate_rx.has_changed().unwrap_or(false) {
                 clock_ms = *clock_rate_rx.borrow_and_update();
@@ -718,6 +741,7 @@ async fn engine_tick(
                     rs_engine::with_engine(&mut engine, || {
                         unsafe { &mut *ptr }.reload_assets(store, scripts);
                     });
+                    release_freed_memory();
                     continue;
                 }
                 Ok(()) = clock_rate_rx.changed() => {

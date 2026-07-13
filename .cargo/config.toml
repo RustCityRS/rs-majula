@@ -12,6 +12,9 @@ REV = "289"
 
 [build]
 target-dir = "target"
+rustflags = ["-C", "target-cpu=native"]
+
+[target.'cfg(windows)']
 rustflags = ["-C", "target-cpu=native", "-C", "link-arg=/STACK:8388608"]
 
 [profile.release]
