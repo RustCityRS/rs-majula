@@ -3864,6 +3864,51 @@ impl ScriptEngine for Engine {
         ))
     }
 
+    /// Indicates if this coord has a `ZoneFlag::Free` collision flag on it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Calls:** reads `rsmod::is_zone_flagged()`
+    fn map_f2p(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
+        if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
+            return Err(ScriptError::Runtime(format!(
+                "Zone does not exist at coord: {:?}",
+                coord
+            )));
+        }
+        if !self.members
+            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
+        {
+            return Ok(false);
+        }
+        Ok(true)
+    }
+
+    /// Indicates if this coord has a `ZoneFlag::Multi` collision flag on it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Calls:** reads `rsmod::is_zone_flagged()`
+    fn map_multiway(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
+        if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
+            return Err(ScriptError::Runtime(format!(
+                "Zone does not exist at coord: {:?}",
+                coord
+            )));
+        }
+        if !self.members
+            && !rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Free as u8)
+        {
+            return Ok(false);
+        }
+        Ok(rsmod::is_zone_flagged(
+            coord.x(),
+            coord.z(),
+            coord.y(),
+            ZoneFlag::Multi as u8,
+        ))
+    }
+
     /// Reads a shared variable (vars) by its definition ID.
     ///
     /// # Call Stack

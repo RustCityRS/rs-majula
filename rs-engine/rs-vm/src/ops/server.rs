@@ -7,7 +7,6 @@ use crate::util::{pop_coord, pop_seq, pop_spotanim};
 use crate::{handlers, none};
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::*;
-use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
 /// Registers server and world-level opcodes for coordinate utilities, map queries,
 /// pathfinding checks, projectile animations, and zone management.
@@ -104,7 +103,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let coord = pop_coord(s)?;
 
             let engine = engine::<E>();
-            let not_members = !engine.members();
             let (cx, cz) = (coord.x() as i32, coord.z() as i32);
 
             // The reachability gate for a candidate tile back to the origin. Checked last in the loop
@@ -125,15 +123,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     (min_radius..=max_radius).contains(&distance)
                 })
                 // F2P node: discard members-only tiles.
-                .filter(|&(x, z)| {
-                    !not_members
-                        || rsmod::is_zone_flagged(
-                            x as u16,
-                            z as u16,
-                            coord.y(),
-                            ZoneFlag::Free as u8,
-                        )
-                })
+                .filter(|&(x, z)| engine.map_f2p(CoordGrid::new(x as u16, coord.y(), z as u16)).unwrap_or(false))
                 .map(|(x, z)| CoordGrid::new(x as u16, coord.y(), z as u16))
                 // Must be a standable tile (no collision).
                 // Finally the (costly) reachability requirement for this `type`.
@@ -179,10 +169,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 1014
         none!(m, MAP_MULTIWAY => |s| {
             let coord = pop_coord(s)?;
-            s.push_int(
-                rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Multi as u8)
-                    as i32,
-            );
+            s.push_int(engine::<E>().map_multiway(coord)? as i32);
         });
 
         // 1015

@@ -1,5 +1,5 @@
-use crate::PlayerUid;
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
+use crate::{PlayerUid, ScriptError};
 use rs_grid::CoordGrid;
 use rs_inv::Inventory;
 use rs_pack::cache::VarValue;
@@ -33,6 +33,7 @@ use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use rs_util::random::JavaRandom;
 use std::cell::Cell;
+use std::format;
 use std::sync::Arc;
 
 /// Engine-level operations available to the script VM.
@@ -512,6 +513,20 @@ pub trait ScriptEngine {
     /// `true` if there is `CollisionFlag::Roof` on it.
     /// `false` if there is not `CollisionFlag::Roof` on it.
     fn map_indoors(&self, coord: CoordGrid) -> crate::Result<bool>;
+
+    /// Indicates if this coord has a `ZoneFlag::Free` collision flag on it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Calls:** reads `rsmod::is_zone_flagged()`
+    fn map_f2p(&self, coord: CoordGrid) -> crate::Result<bool>;
+
+    /// Indicates if this coord has a `ZoneFlag::Multi` collision flag on it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Calls:** reads `rsmod::is_zone_flagged()`
+    fn map_multiway(&self, coord: CoordGrid) -> crate::Result<bool>;
 
     /// Reads a shared variable (vars) by its definition ID.
     ///
