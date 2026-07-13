@@ -9,6 +9,8 @@ use rs_engine::{ClientIO, create_io};
 use rs_io::Packet;
 use rs_io::packet::RsaFrame;
 use rs_protocol::LoginResponse;
+#[cfg(since_244)]
+use std::collections::VecDeque;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::sync::mpsc;
@@ -202,49 +204,81 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
     }
     network_loop(client, packet_tx, bytes_rx, recycle_tx, &disconnect_tx).await
 }
+#[cfg(since_244)]
+const MAX_QUEUED_REQUESTS: usize = 8192;
 
 #[cfg(since_244)]
 async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
+    let mut queues: [VecDeque<(u8, u16)>; 3] = Default::default();
+    let mut partial: Vec<u8> = Vec::new();
     loop {
-        let Some(bytes) = client.read().await? else {
-            return Ok(()); // connection closed
-        };
-        let mut buf = Packet::from(bytes);
-        while buf.len().saturating_sub(buf.pos) >= 4 {
-            let archive = buf.g1();
-            let file = buf.g2();
-            let priority = buf.g1();
-            if archive > 3 || priority > 2 {
-                bail!(
-                    "{}: invalid ondemand request (archive={}, priority={})",
-                    client.addr,
-                    archive,
-                    priority
-                );
+        if queues.iter().all(|q| q.is_empty()) {
+            match client.read().await? {
+                Some(bytes) => enqueue_requests(client.addr, &mut queues, &mut partial, &bytes)?,
+                None => return Ok(()), // connection closed
             }
+            continue;
+        }
+        tokio::select! {
+            biased;
+            result = client.read() => {
+                match result? {
+                    Some(bytes) => enqueue_requests(client.addr, &mut queues, &mut partial, &bytes)?,
+                    None => return Ok(()),
+                }
+                continue;
+            }
+            _ = std::future::ready(()) => {}
+        }
+        if let Some((archive, file)) = queues.iter_mut().find_map(VecDeque::pop_front) {
             send_js5_file(&mut client, archive, file).await?;
         }
     }
 }
 
 #[cfg(since_244)]
+fn enqueue_requests(
+    addr: SocketAddr,
+    queues: &mut [VecDeque<(u8, u16)>; 3],
+    partial: &mut Vec<u8>,
+    bytes: &[u8],
+) -> anyhow::Result<()> {
+    partial.extend_from_slice(bytes);
+    let complete = partial.len() - partial.len() % 4;
+    for req in partial[..complete].chunks_exact(4) {
+        let (archive, priority) = (req[0], req[3]);
+        let file = u16::from_be_bytes([req[1], req[2]]);
+        if archive > 3 || priority > 2 {
+            bail!("{addr}: invalid ondemand request (archive={archive}, priority={priority})");
+        }
+        queues[priority as usize].push_back((archive, file));
+    }
+    partial.drain(..complete);
+    if queues.iter().map(|q| q.len()).sum::<usize>() > MAX_QUEUED_REQUESTS {
+        bail!("{addr}: ondemand request queue overflow");
+    }
+    Ok(())
+}
+
+#[cfg(since_244)]
 async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::Result<()> {
-    let cache = client.server_io.cache;
-    let blob: &[u8] = cache
+    let blob: &[u8] = client
+        .server_io
+        .cache
         .ondemand
         .get(archive as usize)
         .and_then(|files| files.get(file as usize))
         .map(|b| b.as_ref())
         .unwrap_or(&[]);
-    let len = blob.len();
 
+    let len = blob.len();
     if len == 0 {
-        let mut pkt = Vec::with_capacity(6);
-        pkt.push(archive);
-        pkt.extend_from_slice(&file.to_be_bytes());
-        pkt.extend_from_slice(&0u16.to_be_bytes());
-        pkt.push(0);
-        client.write(&pkt).await?;
+        let mut pkt = Packet::new(6);
+        pkt.p1(archive);
+        pkt.p2(file);
+        pkt.p2(0);
+        pkt.p1(0);
+        client.write(&pkt.data).await?;
         return Ok(());
     }
 
@@ -252,13 +286,13 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
     let mut part = 0;
     while pos < len {
         let chunk = (len - pos).min(500);
-        let mut pkt = Vec::with_capacity(6 + chunk);
-        pkt.push(archive);
-        pkt.extend_from_slice(&file.to_be_bytes());
-        pkt.extend_from_slice(&(len as u16).to_be_bytes());
-        pkt.push(part);
-        pkt.extend_from_slice(&blob[pos..pos + chunk]);
-        client.write(&pkt).await?;
+        let mut pkt = Packet::new(6 + chunk);
+        pkt.p1(archive);
+        pkt.p2(file);
+        pkt.p2(len as u16);
+        pkt.p1(part);
+        pkt.pdata(blob, pos, chunk);
+        client.write(&pkt.data).await?;
         pos += chunk;
         part = part.wrapping_add(1);
     }
