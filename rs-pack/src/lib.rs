@@ -1,3 +1,4 @@
+pub mod back;
 pub mod cache;
 pub mod pack;
 pub mod pyxel;

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 
 use super::pack_registry::PackRegistry;
-use crate::pack::util::media;
+use crate::pack::util::{media, palette};
 use rs_io::jag::{JagCompression, JagFile};
 use tracing::debug;
 
@@ -30,7 +30,8 @@ pub fn pack_textures_jag(registry: &PackRegistry, content_dir: &Path) -> Vec<u8>
         let name = pack
             .get_by_id(id_str.parse().unwrap_or(u16::MAX))
             .unwrap_or(id_str.as_str());
-        let group = media::read_group(&tex_dir.join(format!("{name}.tga")));
+        let mut group = media::read_group(&tex_dir.join(format!("{name}.tga")));
+        palette::derive_group(name, &mut group);
         let data = media::emit_group(&mut index, &group);
         dat_map.insert(id_str.clone(), data);
     }

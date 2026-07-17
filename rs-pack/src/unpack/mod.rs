@@ -582,6 +582,24 @@ pub struct DecodedGroup {
     pub tile_h: usize,
     pub palette: Vec<u8>,
     pub frames: Vec<Vec<u8>>,
+    /// Palette scan-grid column count when the default layout doesn't reproduce
+    /// the cache palette (stamped into the TGA image ID; see
+    /// `pack::util::palette::detect_scan_cols`).
+    pub scan_cols: Option<usize>,
+}
+
+impl DecodedGroup {
+    /// Check the cache palette against the default scan grid and record the
+    /// column count to stamp when a bespoke layout is needed.
+    pub fn detect_scan_cols(&mut self, name: &str) {
+        self.scan_cols = crate::pack::util::palette::detect_scan_cols(
+            name,
+            self.tile_w,
+            self.tile_h,
+            &self.palette,
+            &self.frames,
+        );
+    }
 }
 
 /// Decode one sprite group's `index.dat` metadata and `.dat` pixel data into
@@ -641,14 +659,16 @@ pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> 
         tile_h,
         palette,
         frames,
+        scan_cols: None,
     })
 }
 
 /// Write one decoded group as an indexed sprite sheet TGA at `path`. The palette
-/// goes in the color map, the grid dimensions in the image ID.
+/// goes in the color map, the grid dimensions (and any scan-grid column stamp)
+/// in the image ID.
 pub fn write_group_sheet(path: &Path, g: &DecodedGroup) -> anyhow::Result<()> {
     let (w, h, pixels, palette) = crate::sheet::render(g.tile_w, g.tile_h, &g.palette, &g.frames);
-    let id = crate::sheet::image_id(g.tile_w, g.tile_h, g.frames.len());
+    let id = crate::sheet::image_id(g.tile_w, g.tile_h, g.frames.len(), g.scan_cols);
     crate::tga::write(path, &id, &palette, w as u32, h as u32, &pixels)?;
     Ok(())
 }

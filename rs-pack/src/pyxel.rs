@@ -5,53 +5,14 @@ use std::path::Path;
 use anyhow::{Context, Result, bail};
 use serde_json::{Value, json};
 
+use crate::back::{CANVAS_H, CANVAS_W, FRAME};
 use crate::unpack::{DecodedGroup, write_group_sheet};
+use crate::{sheet, tga};
 
 type Rgb = (u8, u8, u8);
 type PaletteIndex = HashMap<Rgb, u8>;
 
 const CATEGORIES: [&str; 4] = ["sprites", "textures", "title", "fonts"];
-
-#[cfg(rev = "225")]
-const FRAME: &[(&str, usize, usize, usize, usize)] = &[
-    ("backleft1", 0, 11, 8, 334),
-    ("backleft2", 0, 375, 22, 96),
-    ("backright1", 729, 5, 60, 166),
-    ("backright2", 752, 231, 37, 261),
-    ("backtop1", 0, 0, 561, 11),
-    ("backtop2", 561, 0, 228, 5),
-    ("backvmid1", 520, 11, 41, 154),
-    ("backvmid2", 520, 231, 42, 114),
-    ("backvmid3", 501, 375, 61, 117),
-    ("backhmid2", 0, 345, 562, 30),
-    ("backhmid1", 520, 165, 269, 66), // sub-buffer Rt -> screen (520,165)
-    ("backbase1", 0, 471, 501, 61),   // sub-buffer Pt -> screen (0,471)
-    ("backbase2", 501, 492, 288, 40), // sub-buffer Qt -> screen (501,492)
-];
-#[cfg(rev = "225")]
-const CANVAS_W: usize = 789;
-#[cfg(rev = "225")]
-const CANVAS_H: usize = 532;
-
-#[cfg(since_244)]
-const FRAME: &[(&str, usize, usize, usize, usize)] = &[
-    ("backtop1", 0, 0, 765, 4),
-    ("backleft1", 0, 4, 4, 334),
-    ("backright1", 722, 4, 43, 156),
-    ("backvmid1", 516, 4, 34, 156),
-    ("backhmid1", 516, 160, 249, 45),
-    ("backvmid2", 516, 205, 37, 133),
-    ("backright2", 743, 205, 22, 261),
-    ("backhmid2", 0, 338, 553, 19),
-    ("backleft2", 0, 357, 17, 96),
-    ("backvmid3", 496, 357, 57, 109),
-    ("backbase1", 0, 453, 496, 50),
-    ("backbase2", 496, 466, 269, 37),
-];
-#[cfg(since_244)]
-const CANVAS_W: usize = 765;
-#[cfg(since_244)]
-const CANVAS_H: usize = 503;
 
 fn frame_entry(name: &str) -> Option<(usize, usize, usize, usize)> {
     FRAME
@@ -169,9 +130,9 @@ fn resolve_palette(
             }
             if let std::collections::hash_map::Entry::Vacant(slot) = idx.entry(key) {
                 let next = palette.len() / 3;
-                if next > u8::MAX as usize {
+                if next >= u8::MAX as usize {
                     bail!(
-                        "group uses more than 256 colors; indexed sprites cap at 256 palette entries"
+                        "group uses more than 255 palette entries (including transparent); the cache palette-count byte cannot hold more"
                     );
                 }
                 palette.extend_from_slice(&[key.0, key.1, key.2]);
@@ -250,7 +211,7 @@ fn write_group(path: &Path, name: &str, g: &DecodedGroup) -> Result<()> {
     let (tw, th) = (g.tile_w, g.tile_h);
     let mut entries: Vec<(String, Vec<u8>)> = Vec::new();
     if g.frames.len() > 1 {
-        let (cols, rows) = crate::sheet::grid(tw, th, g.frames.len());
+        let (cols, rows) = sheet::grid(tw, th, g.frames.len());
         let (cw, ch) = (cols * tw, rows * th);
         let mut tile_refs = serde_json::Map::new();
         let mut composite = vec![0u8; cw * ch * 4];
@@ -422,6 +383,7 @@ fn read_group(path: &Path) -> Result<DecodedGroup> {
         tile_h: th,
         palette,
         frames,
+        scan_cols: None,
     })
 }
 
@@ -467,6 +429,7 @@ fn read_back(path: &Path) -> Result<Vec<(String, DecodedGroup)>> {
                     tile_h: h,
                     palette: palette.clone(),
                     frames: vec![frame],
+                    scan_cols: None,
                 },
             )
         })
@@ -504,12 +467,13 @@ pub fn content_to_pyxel(content_dir: &Path) -> Result<()> {
 
         let mut back: Vec<(String, DecodedGroup)> = Vec::new();
         for name in &tgas {
-            let parsed = crate::sheet::parse(&crate::tga::read(&dir.join(format!("{name}.tga"))));
+            let parsed = sheet::parse(&tga::read(&dir.join(format!("{name}.tga"))));
             let g = DecodedGroup {
                 tile_w: parsed.tile_w,
                 tile_h: parsed.tile_h,
                 palette: parsed.palette,
                 frames: parsed.frames,
+                scan_cols: parsed.scan_cols,
             };
             if frame_entry(name).is_some() {
                 back.push((name.clone(), g));
@@ -550,7 +514,13 @@ pub fn content_from_pyxel(content_dir: &Path) -> Result<()> {
                     tgas += 1;
                 }
             } else {
-                write_group_sheet(&dir.join(format!("{name}.tga")), &read_group(&path)?)?;
+                let tga_path = dir.join(format!("{name}.tga"));
+                let mut g = read_group(&path)?;
+                // carry the scan-grid stamp so a pyxel roundtrip stays byte-exact
+                if tga_path.is_file() {
+                    g.scan_cols = sheet::parse(&tga::read(&tga_path)).scan_cols;
+                }
+                write_group_sheet(&tga_path, &g)?;
                 tgas += 1;
             }
         }

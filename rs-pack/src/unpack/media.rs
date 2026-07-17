@@ -1,6 +1,6 @@
 ﻿use std::path::Path;
 
-use crate::unpack;
+use crate::{back, unpack};
 use rs_io::jag::JagFile;
 use tracing::debug;
 
@@ -107,7 +107,10 @@ pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
 
     let mut keys = Vec::new();
     for (name, _, dat_data) in &index_positions {
-        if let Some(g) = unpack::decode_group(&index_data.data, dat_data) {
+        if let Some(mut g) = unpack::decode_group(&index_data.data, dat_data) {
+            if !back::FRAME.iter().any(|&(n, ..)| n == name) {
+                g.detect_scan_cols(name);
+            }
             unpack::write_group_sheet(&sprite_dir.join(format!("{name}.tga")), &g)?;
             keys.push(name.clone());
         }

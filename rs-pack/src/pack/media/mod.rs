@@ -1,7 +1,8 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use crate::pack::util::media;
+use crate::pack::util::{media, palette};
+use crate::sheet::Parsed;
 use rs_io::jag::{JagCompression, JagFile};
 use tracing::debug;
 
@@ -23,9 +24,17 @@ pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
     let mut index: Vec<u8> = Vec::new();
     let mut dat_map: HashMap<String, Vec<u8>> = HashMap::new();
 
-    for name in &index_order {
-        let group = media::read_group(&sprite_dir.join(format!("{name}.tga")));
-        let data = media::emit_group(&mut index, &group);
+    let mut groups: Vec<(String, Parsed)> = index_order
+        .iter()
+        .map(|name| {
+            let group = media::read_group(&sprite_dir.join(format!("{name}.tga")));
+            (name.clone(), group)
+        })
+        .collect();
+    palette::derive_media(&mut groups);
+
+    for (name, group) in &groups {
+        let data = media::emit_group(&mut index, group);
         dat_map.insert(name.clone(), data);
     }
 

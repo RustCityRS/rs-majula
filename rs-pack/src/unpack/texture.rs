@@ -102,9 +102,10 @@ pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> any
 
     let mut keys = Vec::new();
     for (id_str, _, dat_data) in &index_positions {
-        if let Some(g) = unpack::decode_group(&index_data.data, dat_data) {
+        if let Some(mut g) = unpack::decode_group(&index_data.data, dat_data) {
             let id: u16 = id_str.parse().unwrap_or(u16::MAX);
             let name = texture_name(id);
+            g.detect_scan_cols(&name);
             unpack::write_group_sheet(&tex_dir.join(format!("{name}.tga")), &g)?;
             keys.push(id_str.clone());
         }

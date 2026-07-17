@@ -37,15 +37,25 @@ fn cell_origin(
     }
 }
 
-pub fn image_id(tile_w: usize, tile_h: usize, frame_count: usize) -> [u8; 6] {
-    [
+pub fn image_id(
+    tile_w: usize,
+    tile_h: usize,
+    frame_count: usize,
+    scan_cols: Option<usize>,
+) -> Vec<u8> {
+    let mut id = vec![
         (tile_w >> 8) as u8,
         tile_w as u8,
         (tile_h >> 8) as u8,
         tile_h as u8,
         (frame_count >> 8) as u8,
         frame_count as u8,
-    ]
+    ];
+    if let Some(cols) = scan_cols {
+        id.push((cols >> 8) as u8);
+        id.push(cols as u8);
+    }
+    id
 }
 
 pub fn render(
@@ -94,6 +104,7 @@ pub struct Parsed {
     pub tile_h: usize,
     pub palette: Vec<u8>,
     pub frames: Vec<Vec<u8>>,
+    pub scan_cols: Option<usize>,
 }
 
 pub fn parse(sheet: &Indexed) -> Parsed {
@@ -105,6 +116,9 @@ pub fn parse(sheet: &Indexed) -> Parsed {
     let tile_w = ((id[0] as usize) << 8) | id[1] as usize;
     let tile_h = ((id[2] as usize) << 8) | id[3] as usize;
     let frame_count = ((id[4] as usize) << 8) | id[5] as usize;
+    let scan_cols = (id.len() >= 8)
+        .then(|| ((id[6] as usize) << 8) | id[7] as usize)
+        .filter(|&c| c > 0);
 
     let (cols, _rows) = grid(tile_w, tile_h, frame_count);
     let w = sheet.width;
@@ -128,5 +142,6 @@ pub fn parse(sheet: &Indexed) -> Parsed {
         tile_h,
         palette,
         frames,
+        scan_cols,
     }
 }

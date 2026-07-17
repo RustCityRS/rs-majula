@@ -78,12 +78,13 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     // to fonts/, title sprites to title/. index.order (in title/) lists both.
     let mut keys = Vec::new();
     for (name, _, dat_data) in &index_positions {
-        if let Some(g) = unpack::decode_group(&index_data.data, dat_data) {
+        if let Some(mut g) = unpack::decode_group(&index_data.data, dat_data) {
             let dir = if font_names.contains(&name.as_str()) {
                 &font_dir
             } else {
                 &title_dir
             };
+            g.detect_scan_cols(name);
             unpack::write_group_sheet(&dir.join(format!("{name}.tga")), &g)?;
             keys.push(name.clone());
         }

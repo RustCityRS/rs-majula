@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 
 use crate::pack::util::media::{emit_group, read_group, read_index_order};
+use crate::pack::util::palette;
 use rs_io::jag::{JagCompression, JagFile};
 use tracing::debug;
 
@@ -28,7 +29,8 @@ pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
         } else {
             title_dir.join(format!("{name}.tga"))
         };
-        let group = read_group(&path);
+        let mut group = read_group(&path);
+        palette::derive_group(name, &mut group);
         let data = emit_group(&mut index, &group);
         entries.insert(name.clone(), data);
     }

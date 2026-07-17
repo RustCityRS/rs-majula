@@ -7,6 +7,7 @@ use std::str::FromStr;
 
 pub mod colour;
 pub mod media;
+pub mod palette;
 
 pub fn parse_number<T, F>(value: &str, callback: F)
 where
