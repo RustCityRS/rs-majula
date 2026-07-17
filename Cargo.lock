@@ -1826,11 +1826,11 @@ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 
 [[package]]
 name = "rev-cfg"
-version = "0.1.10"
+version = "0.1.11"
 
 [[package]]
 name = "rs-cam"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-datastruct",
@@ -1851,14 +1851,14 @@ dependencies = [
 
 [[package]]
 name = "rs-datastruct"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
 ]
 
 [[package]]
 name = "rs-engine"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "argon2",
  "num_enum",
@@ -1887,7 +1887,7 @@ dependencies = [
 
 [[package]]
 name = "rs-entity"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-cam",
@@ -1907,21 +1907,21 @@ dependencies = [
 
 [[package]]
 name = "rs-grid"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
 ]
 
 [[package]]
 name = "rs-hero"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
 ]
 
 [[package]]
 name = "rs-info"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-io",
@@ -1930,7 +1930,7 @@ dependencies = [
 
 [[package]]
 name = "rs-inv"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
 ]
@@ -1948,7 +1948,7 @@ dependencies = [
 
 [[package]]
 name = "rs-pack"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "anyhow",
  "clap",
@@ -1976,7 +1976,7 @@ dependencies = [
 
 [[package]]
 name = "rs-protocol"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-io",
@@ -1985,7 +1985,7 @@ dependencies = [
 
 [[package]]
 name = "rs-protocol-macros"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1994,7 +1994,7 @@ dependencies = [
 
 [[package]]
 name = "rs-queue"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-datastruct",
@@ -2014,7 +2014,7 @@ dependencies = [
 
 [[package]]
 name = "rs-server"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "anyhow",
  "clap",
@@ -2043,11 +2043,11 @@ dependencies = [
 
 [[package]]
 name = "rs-stat"
-version = "0.1.10"
+version = "0.1.11"
 
 [[package]]
 name = "rs-timer"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-vm",
@@ -2056,14 +2056,14 @@ dependencies = [
 
 [[package]]
 name = "rs-util"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
 ]
 
 [[package]]
 name = "rs-var"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-pack",
@@ -2071,7 +2071,7 @@ dependencies = [
 
 [[package]]
 name = "rs-vm"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "itoa",
  "num_enum",
@@ -2087,7 +2087,7 @@ dependencies = [
 
 [[package]]
 name = "rs-zone"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "rev-cfg",
  "rs-entity",
