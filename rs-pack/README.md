@@ -219,12 +219,24 @@ NPC definitions. CacheStore field: `npcs`.
 | 12     | size                                                | u8                                | 1       |
 | 13     | readyanim                                           | Option\<u16\>                     | None    |
 | 14     | walkanim                                            | Option\<u16\>                     | None    |
-| 16     | hasalpha                                            | bool                              | false   |
+| 16     | hasalpha (before 254)                               | bool                              | false   |
 | 17     | walkf, walkb, walkr, walkl                          | Option\<u16\>                     | None    |
 | 18     | category                                            | Option\<u16\>                     | None    |
+| 19     | timer                                               | u16                               | 0       |
+| 20     | respawnrate                                         | u16                               | 100     |
+| 21     | regenrate                                           | u16                               | 100     |
+| 22     | moverestrict                                        | MoveRestrict                      | Normal  |
+| 23     | blockwalk                                           | BlockWalk                         | Npc     |
+| 24     | defaultmode                                         | NpcMode                           | Wander  |
+| 25     | huntmode                                            | Option\<NpcMode\>                 | None    |
 | 26     | wanderrange                                         | u16                               | 5       |
 | 27     | maxrange                                            | Option\<u16\>                     | None    |
+| 28     | huntrange                                           | u8                                | 0       |
+| 29     | attackrange                                         | u16                               | 0       |
 | 30-34  | op[0-4]                                             | Option\<String\>                  | None    |
+| 35     | patrol                                              | Vec\<NpcPatrol\>                  | None    |
+| 36     | members                                             | bool                              | false   |
+| 37     | givechase=false                                     | bool                              | true    |
 | 40     | recol_s, recol_d                                    | Box\<[u16]\>                      | None    |
 | 60     | head_models                                         | Box\<[u16]\>                      | None    |
 | 74-79  | attack, defence, strength, hitpoints, ranged, magic | u16                               | 1       |
@@ -232,18 +244,6 @@ NPC definitions. CacheStore field: `npcs`.
 | 93     | minimap=false                                       | bool                              | true    |
 | 95     | vislevel                                            | u16                               | 1       |
 | 97-98  | resizeh, resizev                                    | u16                               | 128     |
-| 202    | huntrange                                           | u8                                | 0       |
-| 203    | timer                                               | u16                               | 0       |
-| 204    | respawnrate                                         | u16                               | 100     |
-| 206    | moverestrict                                        | MoveRestrict                      | Normal  |
-| 207    | attackrange                                         | u16                               | 0       |
-| 208    | blockwalk                                           | BlockWalk                         | Npc     |
-| 209    | huntmode                                            | Option\<NpcMode\>                 | None    |
-| 210    | defaultmode                                         | NpcMode                           | Wander  |
-| 211    | members                                             | bool                              | false   |
-| 212    | patrol                                              | Vec\<NpcPatrol\>                  | None    |
-| 213    | givechase=false                                     | bool                              | true    |
-| 214    | regenrate                                           | u16                               | 100     |
 | 249    | params                                              | Box\<HashMap\<i32, ParamValue\>\> | None    |
 | 250    | debugname                                           | Box\<str\>                        |         |
 
@@ -1466,6 +1466,11 @@ Source extension: `.npc`
 NPCs always emit a name (opcode 2). If no `name=` key is present, the debugname is used. NPCs also default to
 `vislevel=1` if no explicit `vislevel` is set.
 
+Server-only opcodes live in the gaps between real client opcodes. Only 26 (wanderrange) and 27 (maxrange) are
+confirmed real; the rest (19-25, 28-29, 35-37) are speculative placements grouped by theme (timers 19-21,
+movement 22-23, modes 24-25, ranges 26-29) and may be renumbered as more of the real numbering surfaces.
+Codes 15 and 16 are left reserved for the client (16 = hasalpha in revs before 254, removed after).
+
 **Opcodes**
 
 | Opcode | Field             | Format                                                                                                        |
@@ -1476,12 +1481,24 @@ NPCs always emit a name (opcode 2). If no `name=` key is present, the debugname 
 | 12     | size              | `p1(value)`                                                                                                   |
 | 13     | readyanim         | `p2(seq_id)`                                                                                                  |
 | 14     | walkanim (single) | `p2(seq_id)`                                                                                                  |
-| 16     | hasalpha          | Flag opcode.                                                                                                  |
+| 16     | hasalpha          | Flag opcode. Removed in rev 254+.                                                                             |
 | 17     | walkanim (4-way)  | `p2(walk) p2(walk_back) p2(walk_left) p2(walk_right)`                                                         |
 | 18     | category          | `p2(value)` (server only)                                                                                     |
+| 19     | timer             | `p2(value)` (server only)                                                                                     |
+| 20     | respawnrate       | `p2(value)` (server only)                                                                                     |
+| 21     | regenrate         | `p2(value)` (server only)                                                                                     |
+| 22     | moverestrict      | `p1(value)` (server only): normal=0, blocked=1, blocked+normal=2, indoors=3, outdoors=4, nomove=5, passthru=6 |
+| 23     | blockwalk         | `p1(value)` (server only): none=0, all=1, npc=2                                                               |
+| 24     | defaultmode       | `p1(value)` (server only): none=0, wander=1, patrol=2                                                         |
+| 25     | huntmode          | `p1(hunt_id)` (server only)                                                                                   |
 | 26     | wanderrange       | `p2(value)` (server only)                                                                                     |
 | 27     | maxrange          | `p2(value)` (server only)                                                                                     |
+| 28     | huntrange         | `p1(value)` (server only)                                                                                     |
+| 29     | attackrange       | `p2(value)` (server only)                                                                                     |
 | 30-34  | op1-op5           | `pjstr(text)` (interaction options)                                                                           |
+| 35     | patrol            | `p1(count)` then per waypoint: `p4(coord) p1(delay)` (server only)                                            |
+| 36     | members           | Flag opcode (server only).                                                                                    |
+| 37     | givechase         | Flag opcode. Emitted when `givechase=no` (server only).                                                       |
 | 40     | recol             | `p1(count)` then per pair: `p2(src) p2(dst)`. Values >= 100 use `rgb15_to_hsl16`.                             |
 | 60     | head models       | `p1(count)` then `p2(model_id)` per head model                                                                |
 | 74-79  | combat stats      | `p2(value)`: 74=attack, 75=defence, 76=strength, 77=hitpoints, 78=ranged, 79=magic (server only)              |
@@ -1492,18 +1509,6 @@ NPCs always emit a name (opcode 2). If no `name=` key is present, the debugname 
 | 95     | vislevel          | `p2(value)`. `hide` = 0. Defaults to 1 if omitted.                                                            |
 | 97     | resizeh           | `p2(value)`                                                                                                   |
 | 98     | resizev           | `p2(value)`                                                                                                   |
-| 202    | huntrange         | `p1(value)` (server only)                                                                                     |
-| 203    | timer             | `p2(value)` (server only)                                                                                     |
-| 204    | respawnrate       | `p2(value)` (server only)                                                                                     |
-| 206    | moverestrict      | `p1(value)` (server only): normal=0, blocked=1, blocked+normal=2, indoors=3, outdoors=4, nomove=5, passthru=6 |
-| 207    | attackrange       | `p2(value)` (server only)                                                                                     |
-| 208    | blockwalk         | `p1(value)` (server only): none=0, all=1, npc=2                                                               |
-| 209    | huntmode          | `p1(hunt_id)` (server only)                                                                                   |
-| 210    | defaultmode       | `p1(value)` (server only): none=0, wander=1, patrol=2                                                         |
-| 211    | members           | Flag opcode (server only).                                                                                    |
-| 212    | patrol            | `p1(count)` then per waypoint: `p4(coord) p1(delay)` (server only)                                            |
-| 213    | givechase         | Flag opcode. Emitted when `givechase=no` (server only).                                                       |
-| 214    | regenrate         | `p2(value)` (server only)                                                                                     |
 | 249    | params            | Same format as loc params.                                                                                    |
 | 250    | debugname         | `pjstr(debugname)` (server only)                                                                              |
 

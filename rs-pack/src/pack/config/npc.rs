@@ -117,6 +117,7 @@ pub fn pack_npcs(
                 }
 
                 // 16
+                #[cfg(before_254)]
                 "hasalpha" => parse_bool(value, |v| {
                     if v {
                         client.p1(16);
@@ -128,6 +129,51 @@ pub fn pack_npcs(
                 "category" => parse_category(registry, value, |v| {
                     server.p1(18);
                     server.p2(v);
+                }),
+
+                // 19
+                "timer" => parse_number(value, |v| {
+                    server.p1(19);
+                    server.p2(v);
+                }),
+
+                // 20
+                "respawnrate" => parse_number(value, |v| {
+                    server.p1(20);
+                    server.p2(v);
+                }),
+
+                // 21
+                "regenrate" => parse_number(value, |v| {
+                    server.p1(21);
+                    server.p2(v);
+                }),
+
+                // 22
+                "moverestrict" => {
+                    let val = MoveRestrict::from_config_str(value);
+                    server.p1(22);
+                    server.p1(val as u8);
+                }
+
+                // 23
+                "blockwalk" => {
+                    let val = BlockWalk::from_config_str(value);
+                    server.p1(23);
+                    server.p1(val as u8);
+                }
+
+                // 24
+                "defaultmode" => {
+                    let val = NpcMode::from_config_str(value);
+                    server.p1(24);
+                    server.p1(val as u8);
+                }
+
+                // 25
+                "huntmode" => parse_hunt(registry, value, |v| {
+                    server.p1(25);
+                    server.p1(v as u8);
                 }),
 
                 // 26
@@ -142,12 +188,48 @@ pub fn pack_npcs(
                     server.p2(v);
                 }),
 
+                // 28
+                "huntrange" => parse_number(value, |v| {
+                    server.p1(28);
+                    server.p1(v);
+                }),
+
+                // 29
+                "attackrange" => parse_number(value, |v| {
+                    server.p1(29);
+                    server.p2(v);
+                }),
+
                 // 30-39
                 "op1" | "op2" | "op3" | "op4" | "op5" => parse_number(&key[2..], |v: u8| {
                     client.p1(29 + v);
                     client.pjstr(value);
                     server.p1(29 + v);
                     server.pjstr(value);
+                }),
+
+                // 35
+                _ if key.starts_with("patrol") => {
+                    if let Some((coord_str, delay_str)) = value.split_once(',')
+                        && let (Some(coord), Ok(delay)) =
+                            (parse_coord(coord_str), delay_str.parse::<u8>())
+                    {
+                        patrols.push((coord, delay));
+                    }
+                }
+
+                // 36
+                "members" => parse_bool(value, |v| {
+                    if v {
+                        server.p1(36);
+                    }
+                }),
+
+                // 37
+                "givechase" => parse_bool(value, |v| {
+                    if !v {
+                        server.p1(37);
+                    }
                 }),
 
                 // 40
@@ -311,87 +393,6 @@ pub fn pack_npcs(
                     server.p2(v);
                 }),
 
-                // 202
-                "huntrange" => parse_number(value, |v| {
-                    server.p1(202);
-                    server.p1(v);
-                }),
-
-                // 203
-                "timer" => parse_number(value, |v| {
-                    server.p1(203);
-                    server.p2(v);
-                }),
-
-                // 204
-                "respawnrate" => parse_number(value, |v| {
-                    server.p1(204);
-                    server.p2(v);
-                }),
-
-                // 206
-                "moverestrict" => {
-                    let val = MoveRestrict::from_config_str(value);
-                    server.p1(206);
-                    server.p1(val as u8);
-                }
-
-                // 207
-                "attackrange" => parse_number(value, |v| {
-                    server.p1(207);
-                    server.p2(v);
-                }),
-
-                // 208
-                "blockwalk" => {
-                    let val = BlockWalk::from_config_str(value);
-                    server.p1(208);
-                    server.p1(val as u8);
-                }
-
-                // 209
-                "huntmode" => parse_hunt(registry, value, |v| {
-                    server.p1(209);
-                    server.p1(v as u8);
-                }),
-
-                // 210
-                "defaultmode" => {
-                    let val = NpcMode::from_config_str(value);
-                    server.p1(210);
-                    server.p1(val as u8);
-                }
-
-                // 211
-                "members" => parse_bool(value, |v| {
-                    if v {
-                        server.p1(211);
-                    }
-                }),
-
-                // 212
-                _ if key.starts_with("patrol") => {
-                    if let Some((coord_str, delay_str)) = value.split_once(',')
-                        && let (Some(coord), Ok(delay)) =
-                            (parse_coord(coord_str), delay_str.parse::<u8>())
-                    {
-                        patrols.push((coord, delay));
-                    }
-                }
-
-                // 213
-                "givechase" => parse_bool(value, |v| {
-                    if !v {
-                        server.p1(213);
-                    }
-                }),
-
-                // 214
-                "regenrate" => parse_number(value, |v| {
-                    server.p1(214);
-                    server.p2(v);
-                }),
-
                 // 249
                 "param" => {} // handled at the end
 
@@ -467,9 +468,9 @@ pub fn pack_npcs(
             server.p2(1);
         }
 
-        // handle 212
+        // handle 35
         if !patrols.is_empty() {
-            server.p1(212);
+            server.p1(35);
             server.p1(patrols.len() as u8);
             for (coord, delay) in &patrols {
                 server.p4(*coord);

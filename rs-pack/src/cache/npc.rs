@@ -101,6 +101,7 @@ pub struct NpcTypeRaw {
     pub size: u8,
     pub readyanim: Option<u16>,
     pub walkanim: Option<u16>,
+    #[cfg(before_254)]
     pub hasalpha: bool,
     pub walkanim_b: Option<u16>,
     pub walkanim_l: Option<u16>,
@@ -163,6 +164,7 @@ impl CacheType for NpcTypeRaw {
             size: 1,
             readyanim: None,
             walkanim: None,
+            #[cfg(before_254)]
             hasalpha: false,
             walkanim_b: None,
             walkanim_l: None,
@@ -233,6 +235,7 @@ impl CacheType for NpcTypeRaw {
                 12 => self.size = buf.g1(),
                 13 => self.readyanim = Some(buf.g2()),
                 14 => self.walkanim = Some(buf.g2()),
+                #[cfg(before_254)]
                 16 => self.hasalpha = true,
                 17 => {
                     self.walkanim = Some(buf.g2());
@@ -241,13 +244,34 @@ impl CacheType for NpcTypeRaw {
                     self.walkanim_l = Some(buf.g2());
                 }
                 18 => self.category = Some(buf.g2()),
+                19 => self.timer = Some(buf.g2()),
+                20 => self.respawnrate = buf.g2(),
+                21 => self.regenrate = buf.g2(),
+                22 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
+                23 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
+                24 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
+                25 => self.huntmode = Some(buf.g1() as u16),
                 26 => self.wanderrange = buf.g2(),
                 27 => self.maxrange = Some(buf.g2()),
+                28 => self.huntrange = buf.g1(),
+                29 => self.attackrange = buf.g2(),
                 30..=34 => {
                     self.op
                         .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
                         [code as usize - 30] = Some(buf.gjstr(10).into_boxed_str())
                 }
+                35 => {
+                    let count = buf.g1() as usize;
+                    let mut patrol = Vec::with_capacity(count);
+                    for _ in 0..count {
+                        let coord = buf.g4s();
+                        let delay = buf.g1();
+                        patrol.push(NpcPatrol { coord, delay });
+                    }
+                    self.patrol = Some(patrol.into_boxed_slice());
+                }
+                36 => self.members = true,
+                37 => self.givechase = false,
                 40 => {
                     let count = buf.g1() as usize;
                     let mut recol_s = vec![0u16; count];
@@ -291,27 +315,6 @@ impl CacheType for NpcTypeRaw {
                 102 => self.headicon = Some(buf.g2()),
                 #[cfg(since_289)]
                 103 => self.turnspeed = buf.g2(),
-                202 => self.huntrange = buf.g1(),
-                203 => self.timer = Some(buf.g2()),
-                204 => self.respawnrate = buf.g2(),
-                206 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
-                207 => self.attackrange = buf.g2(),
-                208 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
-                209 => self.huntmode = Some(buf.g1() as u16),
-                210 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
-                211 => self.members = true,
-                212 => {
-                    let count = buf.g1() as usize;
-                    let mut patrol = Vec::with_capacity(count);
-                    for _ in 0..count {
-                        let coord = buf.g4s();
-                        let delay = buf.g1();
-                        patrol.push(NpcPatrol { coord, delay });
-                    }
-                    self.patrol = Some(patrol.into_boxed_slice());
-                }
-                213 => self.givechase = false,
-                214 => self.regenrate = buf.g2(),
                 249 => ParamType::decode_params(
                     buf,
                     self.params

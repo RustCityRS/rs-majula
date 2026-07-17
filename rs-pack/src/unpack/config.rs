@@ -1015,6 +1015,7 @@ fn decode_npc_entries(
                 12 => props.push(("size".into(), buf.g1().to_string())),
                 13 => props.push(("readyanim".into(), seq_ref(buf.g2(), packs))),
                 14 => props.push(("walkanim".into(), seq_ref(buf.g2(), packs))),
+                #[cfg(before_254)]
                 16 => props.push(("hasalpha".into(), "yes".into())),
                 17 => {
                     let a = seq_ref(buf.g2(), packs);
