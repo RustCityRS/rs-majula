@@ -69,7 +69,10 @@ impl From<NpcTypeRaw> for NpcType {
             magic: raw.magic,
             vislevel: raw.vislevel,
             wanderrange: raw.wanderrange,
-            maxrange: raw.maxrange,
+            maxrange: raw
+                .maxrange
+                .unwrap_or(raw.wanderrange + 2)
+                .max(raw.wanderrange),
             huntrange: raw.huntrange,
             timer: raw.timer,
             respawnrate: raw.respawnrate,
@@ -129,7 +132,7 @@ pub struct NpcTypeRaw {
     #[cfg(since_244)]
     pub headicon: Option<u16>,
     pub wanderrange: u16,
-    pub maxrange: u16,
+    pub maxrange: Option<u16>,
     pub huntrange: u8,
     pub timer: Option<u16>,
     pub respawnrate: u16,
@@ -191,7 +194,7 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_244)]
             headicon: None,
             wanderrange: 5,
-            maxrange: 7,
+            maxrange: None,
             huntrange: 0,
             timer: None,
             respawnrate: 100,
@@ -238,6 +241,8 @@ impl CacheType for NpcTypeRaw {
                     self.walkanim_l = Some(buf.g2());
                 }
                 18 => self.category = Some(buf.g2()),
+                26 => self.wanderrange = buf.g2(),
+                27 => self.maxrange = Some(buf.g2()),
                 30..=34 => {
                     self.op
                         .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
@@ -284,8 +289,8 @@ impl CacheType for NpcTypeRaw {
                 101 => self.contrast = buf.g1s(),
                 #[cfg(since_244)]
                 102 => self.headicon = Some(buf.g2()),
-                200 => self.wanderrange = buf.g2(),
-                201 => self.maxrange = buf.g2(),
+                #[cfg(since_289)]
+                103 => self.turnspeed = buf.g2(),
                 202 => self.huntrange = buf.g1(),
                 203 => self.timer = Some(buf.g2()),
                 204 => self.respawnrate = buf.g2(),
@@ -307,8 +312,6 @@ impl CacheType for NpcTypeRaw {
                 }
                 213 => self.givechase = false,
                 214 => self.regenrate = buf.g2(),
-                #[cfg(since_289)]
-                103 => self.turnspeed = buf.g2(),
                 249 => ParamType::decode_params(
                     buf,
                     self.params

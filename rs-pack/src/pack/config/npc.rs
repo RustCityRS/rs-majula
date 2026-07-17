@@ -130,6 +130,18 @@ pub fn pack_npcs(
                     server.p2(v);
                 }),
 
+                // 26
+                "wanderrange" => parse_number(value, |v| {
+                    server.p1(26);
+                    server.p2(v);
+                }),
+
+                // 27
+                "maxrange" => parse_number(value, |v| {
+                    server.p1(27);
+                    server.p2(v);
+                }),
+
                 // 30-39
                 "op1" | "op2" | "op3" | "op4" | "op5" => parse_number(&key[2..], |v: u8| {
                     client.p1(29 + v);
@@ -296,18 +308,6 @@ pub fn pack_npcs(
                     client.p1(103);
                     client.p2(v);
                     server.p1(103);
-                    server.p2(v);
-                }),
-
-                // 200
-                "wanderrange" => parse_number(value, |v| {
-                    server.p1(200);
-                    server.p2(v);
-                }),
-
-                // 201
-                "maxrange" => parse_number(value, |v| {
-                    server.p1(201);
                     server.p2(v);
                 }),
 

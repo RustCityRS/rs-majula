@@ -222,6 +222,8 @@ NPC definitions. CacheStore field: `npcs`.
 | 16     | hasalpha                                            | bool                              | false   |
 | 17     | walkf, walkb, walkr, walkl                          | Option\<u16\>                     | None    |
 | 18     | category                                            | Option\<u16\>                     | None    |
+| 26     | wanderrange                                         | u16                               | 5       |
+| 27     | maxrange                                            | Option\<u16\>                     | None    |
 | 30-34  | op[0-4]                                             | Option\<String\>                  | None    |
 | 40     | recol_s, recol_d                                    | Box\<[u16]\>                      | None    |
 | 60     | head_models                                         | Box\<[u16]\>                      | None    |
@@ -230,8 +232,6 @@ NPC definitions. CacheStore field: `npcs`.
 | 93     | minimap=false                                       | bool                              | true    |
 | 95     | vislevel                                            | u16                               | 1       |
 | 97-98  | resizeh, resizev                                    | u16                               | 128     |
-| 200    | wanderrange                                         | u16                               | 5       |
-| 201    | maxrange                                            | u16                               | 7       |
 | 202    | huntrange                                           | u8                                | 0       |
 | 203    | timer                                               | u16                               | 0       |
 | 204    | respawnrate                                         | u16                               | 100     |
@@ -246,6 +246,8 @@ NPC definitions. CacheStore field: `npcs`.
 | 214    | regenrate                                           | u16                               | 100     |
 | 249    | params                                              | Box\<HashMap\<i32, ParamValue\>\> | None    |
 | 250    | debugname                                           | Box\<str\>                        |         |
+
+Post-decode: `maxrange` defaults to `wanderrange + 2` when unset, and is raised to `wanderrange` if set below it.
 
 #### LocType (`cache/loc.rs`)
 
@@ -1477,6 +1479,8 @@ NPCs always emit a name (opcode 2). If no `name=` key is present, the debugname 
 | 16     | hasalpha          | Flag opcode.                                                                                                  |
 | 17     | walkanim (4-way)  | `p2(walk) p2(walk_back) p2(walk_left) p2(walk_right)`                                                         |
 | 18     | category          | `p2(value)` (server only)                                                                                     |
+| 26     | wanderrange       | `p2(value)` (server only)                                                                                     |
+| 27     | maxrange          | `p2(value)` (server only)                                                                                     |
 | 30-34  | op1-op5           | `pjstr(text)` (interaction options)                                                                           |
 | 40     | recol             | `p1(count)` then per pair: `p2(src) p2(dst)`. Values >= 100 use `rgb15_to_hsl16`.                             |
 | 60     | head models       | `p1(count)` then `p2(model_id)` per head model                                                                |
@@ -1488,8 +1492,6 @@ NPCs always emit a name (opcode 2). If no `name=` key is present, the debugname 
 | 95     | vislevel          | `p2(value)`. `hide` = 0. Defaults to 1 if omitted.                                                            |
 | 97     | resizeh           | `p2(value)`                                                                                                   |
 | 98     | resizev           | `p2(value)`                                                                                                   |
-| 200    | wanderrange       | `p2(value)` (server only)                                                                                     |
-| 201    | maxrange          | `p2(value)` (server only)                                                                                     |
 | 202    | huntrange         | `p1(value)` (server only)                                                                                     |
 | 203    | timer             | `p2(value)` (server only)                                                                                     |
 | 204    | respawnrate       | `p2(value)` (server only)                                                                                     |
