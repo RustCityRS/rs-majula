@@ -284,7 +284,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 1024
         #[cfg(since_289)]
         none!(m, SOUND_AREA => |s| {
-            s.pop_int(); // delay?
+            let delay = s.pop_int_as::<u8>()?;
             let loops = s.pop_int_as::<u8>()?;
             let synth = s.pop_int();
             let range = s.pop_int_as::<u8>()?;
@@ -292,7 +292,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if synth == -1 {
                 return Ok(());
             }
-            engine_mut::<E>().sound_area(coord.y(), coord.x(), coord.z(), synth as u16, range, loops);
+            engine_mut::<E>().sound_area(coord.y(), coord.x(), coord.z(), synth as u16, range, loops, delay);
         });
     }
 }

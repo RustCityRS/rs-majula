@@ -446,9 +446,10 @@ pub trait ScriptEngine {
     /// * `range` - Audible radius in tiles (`0..=15`), packed into the high nibble
     ///   of the wire info byte.
     /// * `loops` - Number of times the sound repeats (`0..=7`), packed into the
+    /// * `delay` - How long to wait for the sound area to happen.
     ///   low bits of the wire info byte.
     #[cfg(since_289)]
-    fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8);
+    fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8, delay: u8);
 
     /// Checks whether adding a location at the given coordinate is unsafe.
     ///

@@ -22,6 +22,7 @@ pub struct SoundArea {
     pub coord: u8,
     pub sound: u16,
     pub info: u8,
+    pub delay: u8,
 }
 
 #[cfg(since_289)]

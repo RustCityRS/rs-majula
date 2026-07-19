@@ -3669,7 +3669,7 @@ impl ScriptEngine for Engine {
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::sound_area`, `Engine::track_zone`
     #[cfg(since_289)]
-    fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8) {
+    fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8, delay: u8) {
         let coord = CoordGrid::packed_zone_coord(x, z);
         let info = ((range & 0xF) << 4) | (loops & 0x7);
         let message =
@@ -3677,6 +3677,7 @@ impl ScriptEngine for Engine {
                 coord,
                 sound,
                 info,
+                delay,
             });
         self.zones.zone_mut(x, y, z).sound_area(message);
         self.track_zone(x, y, z);
