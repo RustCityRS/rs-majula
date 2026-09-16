@@ -55,9 +55,7 @@ pub fn in_build_area(active: &ActivePlayer, x: u16, z: u16) -> bool {
 /// The matching [`Loc`], or `None` if the zone is not loaded or holds no such
 /// location.
 pub fn zone_loc(x: u16, y: u8, z: u16, id: u16) -> Option<&'static Loc> {
-    let zone = engine().zones.zone(x, y, z)?;
-    let idx = zone.get_loc(x, z, id)?;
-    Some(&zone.locs[idx])
+    engine().zones.loc_at(x, y, z, id)
 }
 
 /// Looks up a ground object in the zone that contains the given tile.
@@ -76,9 +74,7 @@ pub fn zone_loc(x: u16, y: u8, z: u16, id: u16) -> Option<&'static Loc> {
 /// The matching [`Obj`], or `None` if the zone is not loaded or holds no such
 /// object visible to this receiver.
 pub fn zone_obj(x: u16, y: u8, z: u16, id: u16, receiver37: u64) -> Option<&'static Obj> {
-    let zone = engine().zones.zone(x, y, z)?;
-    let idx = zone.get_obj(x, z, id, Some(receiver37))?;
-    Some(&zone.objs[idx])
+    engine().zones.obj_at(x, y, z, id, Some(receiver37))
 }
 
 /// Builds the [`InteractionTarget::Loc`] for a placed location.

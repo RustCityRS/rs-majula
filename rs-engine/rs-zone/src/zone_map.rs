@@ -1,4 +1,5 @@
 use crate::zone::Zone;
+use rs_entity::{Loc, Obj};
 use rs_grid::ZoneCoordGrid;
 use rustc_hash::FxHashMap;
 
@@ -79,5 +80,101 @@ impl ZoneMap {
         self.zones
             .entry(coord)
             .or_insert_with(|| Box::new(Zone::new(coord)))
+    }
+
+    /// Resolves the zone holding a tile and the index of a matching location in it.
+    ///
+    /// This is the shared form of the "look up the zone, then index into it"
+    /// pattern. Callers that need the zone itself -- to reach `Zone::coord` for
+    /// [`Loc::world_coord`], say -- use this; callers that only want the location
+    /// use [`loc_at`](Self::loc_at).
+    ///
+    /// # Arguments
+    ///
+    /// * `x` -- The tile x coordinate.
+    /// * `y` -- The level (height plane).
+    /// * `z` -- The tile z coordinate.
+    /// * `id` -- The location type id to match.
+    ///
+    /// # Returns
+    ///
+    /// `Some((zone, index))` addressing `zone.locs[index]`, or `None` if the zone
+    /// is not loaded or holds no such location.
+    #[inline]
+    pub fn find_loc(&self, x: u16, y: u8, z: u16, id: u16) -> Option<(&Zone, usize)> {
+        let zone = self.zone(x, y, z)?;
+        let idx = zone.get_loc(x, z, id)?;
+        Some((zone, idx))
+    }
+
+    /// Returns the placed location matching `id` at the given tile.
+    ///
+    /// # Arguments
+    ///
+    /// * `x` -- The tile x coordinate.
+    /// * `y` -- The level (height plane).
+    /// * `z` -- The tile z coordinate.
+    /// * `id` -- The location type id to match.
+    ///
+    /// # Returns
+    ///
+    /// `Some(&Loc)`, or `None` if the zone is not loaded or holds no such location.
+    #[inline]
+    pub fn loc_at(&self, x: u16, y: u8, z: u16, id: u16) -> Option<&Loc> {
+        let (zone, idx) = self.find_loc(x, y, z, id)?;
+        Some(&zone.locs[idx])
+    }
+
+    /// Resolves the zone holding a tile and the index of a matching ground object.
+    ///
+    /// The counterpart of [`find_loc`](Self::find_loc) for ground objects; callers
+    /// that only want the object use [`obj_at`](Self::obj_at).
+    ///
+    /// # Arguments
+    ///
+    /// * `x` -- The tile x coordinate.
+    /// * `y` -- The level (height plane).
+    /// * `z` -- The tile z coordinate.
+    /// * `id` -- The object type id to match.
+    /// * `receiver37` -- Base-37 username to match receiver-only objects against,
+    ///   or `None` to consider only objects visible to everyone.
+    ///
+    /// # Returns
+    ///
+    /// `Some((zone, index))` addressing `zone.objs[index]`, or `None` if the zone
+    /// is not loaded or holds no such object visible to this receiver.
+    #[inline]
+    pub fn find_obj(
+        &self,
+        x: u16,
+        y: u8,
+        z: u16,
+        id: u16,
+        receiver37: Option<u64>,
+    ) -> Option<(&Zone, usize)> {
+        let zone = self.zone(x, y, z)?;
+        let idx = zone.get_obj(x, z, id, receiver37)?;
+        Some((zone, idx))
+    }
+
+    /// Returns the ground object matching `id` at the given tile.
+    ///
+    /// # Arguments
+    ///
+    /// * `x` -- The tile x coordinate.
+    /// * `y` -- The level (height plane).
+    /// * `z` -- The tile z coordinate.
+    /// * `id` -- The object type id to match.
+    /// * `receiver37` -- Base-37 username to match receiver-only objects against,
+    ///   or `None` to consider only objects visible to everyone.
+    ///
+    /// # Returns
+    ///
+    /// `Some(&Obj)`, or `None` if the zone is not loaded or holds no such object
+    /// visible to this receiver.
+    #[inline]
+    pub fn obj_at(&self, x: u16, y: u8, z: u16, id: u16, receiver37: Option<u64>) -> Option<&Obj> {
+        let (zone, idx) = self.find_obj(x, y, z, id, receiver37)?;
+        Some(&zone.objs[idx])
     }
 }

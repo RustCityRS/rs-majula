@@ -3354,10 +3354,11 @@ impl ScriptEngine for Engine {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `ZoneMap::zone`, `Zone::get_obj`
+    /// **Calls:** `ZoneMap::find_obj`
     fn find_obj(&self, coord: CoordGrid, id: u16, receiver37: Option<u64>) -> Option<ObjRef> {
-        let zone = self.zones.zone(coord.x(), coord.y(), coord.z())?;
-        let idx = zone.get_obj(coord.x(), coord.z(), id, receiver37)?;
+        let (zone, idx) = self
+            .zones
+            .find_obj(coord.x(), coord.y(), coord.z(), id, receiver37)?;
         let obj = &zone.objs[idx];
         Some(ObjRef {
             coord: obj.world_coord(zone.coord),
@@ -3437,10 +3438,9 @@ impl ScriptEngine for Engine {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `ZoneMap::zone`, `Zone::get_loc`
+    /// **Calls:** `ZoneMap::find_loc`
     fn find_loc(&self, coord: CoordGrid, id: u16) -> Option<LocRef> {
-        let zone = self.zones.zone(coord.x(), coord.y(), coord.z())?;
-        let idx = zone.get_loc(coord.x(), coord.z(), id)?;
+        let (zone, idx) = self.zones.find_loc(coord.x(), coord.y(), coord.z(), id)?;
         let loc = &zone.locs[idx];
         Some(LocRef {
             coord: loc.world_coord(zone.coord),
