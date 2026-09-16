@@ -11,7 +11,7 @@ const SENTINEL: usize = 0;
 
 /// Arena-based singly-linked list with sentinel node and cursor-based iteration.
 ///
-/// All nodes are stored in a contiguous `Vec<Entry<T>>`. Index `0` is a permanent
+/// All nodes are stored in a contiguous `Vec<Entry<T>>`. Index `0` is the
 /// sentinel whose `prev`/`next` pointers close the list into a circular doubly-linked
 /// ring. Callers never see the sentinel; public handles always refer to indices >= 1.
 ///
@@ -31,9 +31,9 @@ pub struct LinkList<T> {
 impl<T> LinkList<T> {
     /// Creates a new, empty `LinkList`.
     ///
-    /// The list is initialized with a single sentinel entry at index 0 whose
-    /// `prev` and `next` both point to itself, representing an empty circular
-    /// ring.
+    /// No heap allocation is performed. The sentinel entry at index 0 is
+    /// materialized by the first [`alloc`](Self::alloc); until then the arena is
+    /// empty and every read path treats it as an empty circular ring.
     ///
     /// # Returns
     ///
@@ -45,13 +45,40 @@ impl<T> LinkList<T> {
     /// `QueueSet::new` (rs-queue/src/lib.rs)
     pub fn new() -> Self {
         LinkList {
-            entries: vec![Entry {
-                value: None,
-                prev: SENTINEL,
-                next: SENTINEL,
-            }],
+            entries: Vec::new(),
             free: Vec::new(),
             cursor: SENTINEL,
+        }
+    }
+
+    /// Returns the sentinel's `next` pointer, or `SENTINEL` if the arena has not
+    /// been allocated yet.
+    ///
+    /// An unallocated arena is indistinguishable from an empty ring, so this
+    /// lets the read paths stay branch-light without forcing an allocation.
+    ///
+    /// # Returns
+    ///
+    /// The handle of the head node, or `SENTINEL` when the list is empty.
+    #[inline]
+    fn sentinel_next(&self) -> usize {
+        match self.entries.first() {
+            Some(sentinel) => sentinel.next,
+            None => SENTINEL,
+        }
+    }
+
+    /// Returns the sentinel's `prev` pointer, or `SENTINEL` if the arena has not
+    /// been allocated yet.
+    ///
+    /// # Returns
+    ///
+    /// The handle of the tail node, or `SENTINEL` when the list is empty.
+    #[inline]
+    fn sentinel_prev(&self) -> usize {
+        match self.entries.first() {
+            Some(sentinel) => sentinel.prev,
+            None => SENTINEL,
         }
     }
 
@@ -79,6 +106,13 @@ impl<T> LinkList<T> {
     ///
     /// **Called by:** `add_tail`, `add_head`
     fn alloc(&mut self, value: T) -> usize {
+        if self.entries.is_empty() {
+            self.entries.push(Entry {
+                value: None,
+                prev: SENTINEL,
+                next: SENTINEL,
+            });
+        }
         if let Some(idx) = self.free.pop() {
             self.entries[idx] = Entry {
                 value: Some(value),
@@ -169,7 +203,7 @@ impl<T> LinkList<T> {
     ///
     /// **Calls:** `unlink`
     pub fn remove_head(&mut self) -> Option<T> {
-        let idx = self.entries[SENTINEL].next;
+        let idx = self.sentinel_next();
         if idx == SENTINEL {
             return None;
         }
@@ -199,7 +233,7 @@ impl<T> LinkList<T> {
     /// **Called by:** iteration loops in phases/npc.rs, phases/player.rs,
     /// phases/world.rs
     pub fn head(&mut self) -> Option<usize> {
-        let idx = self.entries[SENTINEL].next;
+        let idx = self.sentinel_next();
         if idx == SENTINEL {
             self.cursor = SENTINEL;
             return None;
@@ -223,7 +257,7 @@ impl<T> LinkList<T> {
     ///
     /// * Sets `self.cursor` to the node before the tail (or `SENTINEL` if empty).
     pub fn tail(&mut self) -> Option<usize> {
-        let idx = self.entries[SENTINEL].prev;
+        let idx = self.sentinel_prev();
         if idx == SENTINEL {
             self.cursor = SENTINEL;
             return None;
@@ -374,7 +408,7 @@ impl<T> LinkList<T> {
     ///
     /// `true` when the list is empty, `false` otherwise.
     pub fn is_empty(&self) -> bool {
-        self.entries[SENTINEL].next == SENTINEL
+        self.sentinel_next() == SENTINEL
     }
 
     /// Returns a forward iterator over the list's live values, head to tail,
@@ -388,7 +422,7 @@ impl<T> LinkList<T> {
     ///
     /// An iterator yielding `&T` for each element in insertion order.
     pub fn iter(&self) -> impl Iterator<Item = &T> + '_ {
-        let mut idx = self.entries[SENTINEL].next;
+        let mut idx = self.sentinel_next();
         std::iter::from_fn(move || {
             if idx == SENTINEL {
                 return None;
@@ -414,6 +448,9 @@ impl<T> LinkList<T> {
     /// * Clears and repopulates `self.free` with indices `1..entries.len()`.
     /// * Resets the sentinel's `prev`/`next` to `SENTINEL`.
     pub fn clear(&mut self) {
+        if self.entries.is_empty() {
+            return;
+        }
         self.entries[SENTINEL].prev = SENTINEL;
         self.entries[SENTINEL].next = SENTINEL;
         self.cursor = SENTINEL;
@@ -898,5 +935,42 @@ mod tests {
             h = list.next();
         }
         assert_eq!(count, 50);
+    }
+
+    #[test]
+    fn untouched_list_owns_no_allocation() {
+        let list: LinkList<i32> = LinkList::new();
+        assert_eq!(list.entries.capacity(), 0);
+        assert_eq!(list.free.capacity(), 0);
+    }
+
+    #[test]
+    fn read_paths_on_untouched_list() {
+        let mut list: LinkList<i32> = LinkList::new();
+        assert!(list.is_empty());
+        assert_eq!(list.iter().count(), 0);
+        list.clear();
+        assert_eq!(list.entries.capacity(), 0);
+        assert!(list.is_empty());
+    }
+
+    #[test]
+    fn untouched_list_becomes_usable_on_first_insert() {
+        let mut list: LinkList<i32> = LinkList::new();
+        assert!(list.is_empty());
+        assert_eq!(list.head(), None);
+        assert_eq!(list.tail(), None);
+
+        list.add_tail(1);
+        list.add_tail(2);
+        list.add_head(0);
+
+        assert!(!list.is_empty());
+        assert_eq!(list.iter().copied().collect::<Vec<_>>(), vec![0, 1, 2]);
+        assert_eq!(list.remove_head(), Some(0));
+        assert_eq!(list.remove_head(), Some(1));
+        assert_eq!(list.remove_head(), Some(2));
+        assert_eq!(list.remove_head(), None);
+        assert!(list.is_empty());
     }
 }
