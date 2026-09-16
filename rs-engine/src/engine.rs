@@ -405,7 +405,7 @@ impl PlayerList {
 }
 
 pub struct NpcList {
-    pub npcs: Vec<Option<ActiveNpc>>,
+    pub npcs: Vec<Option<Box<ActiveNpc>>>,
     pub processing: HashTable<u16>,
     node_map: Vec<usize>,
     cursor: u16,
@@ -452,10 +452,10 @@ impl NpcList {
         self.cursor = nid;
         let node_idx = self.processing.put(key, nid);
         self.node_map[nid as usize] = node_idx;
-        self.npcs[nid as usize] = Some(active);
+        self.npcs[nid as usize] = Some(Box::new(active));
     }
 
-    pub fn remove(&mut self, nid: u16) -> Option<ActiveNpc> {
+    pub fn remove(&mut self, nid: u16) -> Option<Box<ActiveNpc>> {
         if self.npcs[nid as usize].is_some() {
             self.processing.unlink(self.node_map[nid as usize]);
         }
@@ -463,11 +463,11 @@ impl NpcList {
     }
 
     pub fn get(&self, nid: u16) -> Option<&ActiveNpc> {
-        self.npcs.get(nid as usize)?.as_ref()
+        self.npcs.get(nid as usize)?.as_deref()
     }
 
     pub fn get_mut(&mut self, nid: u16) -> Option<&mut ActiveNpc> {
-        self.npcs.get_mut(nid as usize)?.as_mut()
+        self.npcs.get_mut(nid as usize)?.as_deref_mut()
     }
 
     pub fn nids(&self) -> Vec<u16> {
@@ -2253,7 +2253,7 @@ impl Engine {
         }
     }
 
-    pub fn remove_npc(&mut self, nid: u16) -> Option<ActiveNpc> {
+    pub fn remove_npc(&mut self, nid: u16) -> Option<Box<ActiveNpc>> {
         self.npc_renderer.remove_permanent(nid);
         self.npc_snapshots[nid as usize].clear();
         if let Some(active) = self.get_npc(nid) {

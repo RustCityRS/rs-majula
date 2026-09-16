@@ -879,7 +879,7 @@ impl NpcInfo {
     pub fn encode(
         &mut self,
         renderer: &mut NpcRenderer,
-        npcs: &mut [Option<ActiveNpc>],
+        npcs: &mut [Option<Box<ActiveNpc>>],
         nsnap: &[NpcSnapshot],
         map: &ZoneMap,
         active: &mut ActivePlayer,
@@ -929,7 +929,7 @@ impl NpcInfo {
     #[inline(always)]
     fn write_npcs(
         &mut self,
-        npcs: &mut [Option<ActiveNpc>],
+        npcs: &mut [Option<Box<ActiveNpc>>],
         nsnap: &[NpcSnapshot],
         renderer: &mut NpcRenderer,
         active: &mut ActivePlayer,
@@ -1022,7 +1022,7 @@ impl NpcInfo {
     fn write_new_npcs(
         &mut self,
         map: &ZoneMap,
-        npcs: &mut [Option<ActiveNpc>],
+        npcs: &mut [Option<Box<ActiveNpc>>],
         nsnap: &[NpcSnapshot],
         renderer: &mut NpcRenderer,
         active: &mut ActivePlayer,

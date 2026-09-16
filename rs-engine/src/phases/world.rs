@@ -157,7 +157,7 @@ impl Engine {
             if hunt.hunt_type != HuntModeType::Player {
                 continue;
             }
-            Self::npc_hunt_all(active, hunt);
+            Self::npc_hunt_all(&mut **active, hunt);
         }
     }
 }

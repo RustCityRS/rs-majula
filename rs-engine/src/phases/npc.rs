@@ -86,6 +86,8 @@ impl Engine {
             return;
         };
 
+        let active: &mut ActiveNpc = active;
+
         let prev_coord = active.npc.pathing.coord;
 
         if active.npc.active {
