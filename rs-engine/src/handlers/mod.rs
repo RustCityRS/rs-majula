@@ -20,6 +20,7 @@ pub mod message_private;
 pub mod message_public;
 pub mod move_click;
 pub mod no_timeout;
+pub mod op_common;
 pub mod opheld;
 pub mod opheldt;
 pub mod opheldu;

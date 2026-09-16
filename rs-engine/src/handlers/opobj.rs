@@ -1,6 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
+use crate::handlers::op_common::{in_build_area, zone_obj};
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::opobj1::OpObj1;
@@ -85,10 +86,10 @@ impl ClientGameHandler for OpObj5 {
 /// Shared handler for ground object operations (ops 1-5).
 ///
 /// Processes a right-click menu operation on a ground object (item on the floor).
-/// Validates the target coordinates are within the player's build area (within
-/// 52 tiles of origin), looks up the ground object in the zone (checking receiver
-/// ownership for the active player), verifies the operation option exists on the
-/// object type, and sets up an approach-style interaction (`ApObj1`-`ApObj5`).
+/// Validates the target coordinates are within the player's build area, looks up
+/// the ground object in the zone (checking receiver ownership for the active
+/// player), verifies the operation option exists on the object type, and sets up
+/// an approach-style interaction (`ApObj1`-`ApObj5`).
 ///
 /// Operations 1 and 4 require explicit `op` entries on the object type definition;
 /// operations 2, 3, and 5 are allowed even without explicit entries (e.g., "take"
@@ -128,13 +129,7 @@ fn handle(
         return Ok(());
     }
 
-    let origin_x = active.player.build_area.origin.x() as i32;
-    let origin_z = active.player.build_area.origin.z() as i32;
-    if (x as i32) < origin_x - 52
-        || (x as i32) > origin_x + 52
-        || (z as i32) < origin_z - 52
-        || (z as i32) > origin_z + 52
-    {
+    if !in_build_area(active, x, z) {
         active.unset_map_flag();
         active.clear_pending_action()?;
         return Ok(());
@@ -143,17 +138,12 @@ fn handle(
     let engine = engine();
 
     let y = active.player.pathing.coord.y();
-    let Some(zone) = engine.zones.zone(x, y, z) else {
+    let receiver = active.uid().username37();
+    let Some(obj) = zone_obj(x, y, z, obj_id, receiver) else {
         active.player.move_request = false;
         active.clear_pending_action()?;
         return Ok(());
     };
-    let Some(idx) = zone.get_obj(x, z, obj_id, Some(active.uid().username37())) else {
-        active.player.move_request = false;
-        active.clear_pending_action()?;
-        return Ok(());
-    };
-    let obj = &zone.objs[idx];
 
     let obj_type = engine.objs().get_by_id(obj_id);
     if let Some(ot) = &obj_type {

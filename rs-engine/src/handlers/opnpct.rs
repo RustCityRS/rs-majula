@@ -1,14 +1,10 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
+use crate::handlers::op_common::{action_target, npc_target_ok, spell_component_ok};
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opnpct::OpNpcT;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
-
-/// `ComActionTarget::NPC` bit: the component may be cast on an NPC.
-const ACTION_TARGET_NPC: u16 = 0x2;
 
 /// Handles the `OpNpcT` (cast spell on NPC) client protocol message.
 ///
@@ -44,44 +40,15 @@ impl ClientGameHandler for OpNpcT {
             return Ok(());
         }
 
-        let engine = engine();
-
         let spell_com = self.com;
-        let Some(spell_interface) = engine.interfaces().get_by_id(spell_com) else {
-            // bad client: component is not acceptable for this packet
-            active.unset_map_flag();
-            return Ok(());
-        };
-
-        if spell_interface.action_target & ACTION_TARGET_NPC == 0 {
-            // bad client: component is not acceptable for this packet
+        if !spell_component_ok(active, spell_com, action_target::NPC) {
+            // bad client or lag: component is not acceptable for this packet, or not visible
             active.unset_map_flag();
             return Ok(());
         }
 
-        if !active
-            .player
-            .is_interface_visible(spell_interface.root_layer)
-        {
-            // bad client or lag: component is not visible
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        let npc_delayed = engine.get_npc(self.nid).map(|n| n.npc.state.delayed);
-        let Some(npc_delayed) = npc_delayed else {
-            // bad client or lag: npc does not exist
-            active.unset_map_flag();
-            return Ok(());
-        };
-        if npc_delayed {
-            // normal: cannot interact with delayed npcs
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !active.player.build_area.npcs.contains(self.nid) {
-            // bad client or lag: npc is not visible on client
+        if !npc_target_ok(active, self.nid) {
+            // bad client or lag: npc does not exist, is delayed, or is not visible on client
             active.unset_map_flag();
             return Ok(());
         }

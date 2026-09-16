@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
-use rs_entity::InteractionTarget;
+use crate::handlers::op_common::{in_build_area, loc_target, zone_loc};
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::oploc1::OpLoc1;
 use rs_protocol::network::game::client::oploc2::OpLoc2;
@@ -85,11 +85,10 @@ impl ClientGameHandler for OpLoc5 {
 /// Shared handler for location (scenery) operations (ops 1-5).
 ///
 /// Processes a right-click menu operation on a world location (e.g., door, tree,
-/// furnace). Validates the target coordinates are within the player's build area
-/// (within 52 tiles of origin), looks up the location in the zone, verifies the
-/// operation option exists on the location type, and sets up an approach-style
-/// interaction (`ApLoc1`-`ApLoc5`) that will trigger the corresponding script
-/// once the player reaches the location.
+/// furnace). Validates the target coordinates are within the player's build area,
+/// looks up the location in the zone, verifies the operation option exists on the
+/// location type, and sets up an approach-style interaction (`ApLoc1`-`ApLoc5`)
+/// that will trigger the corresponding script once the player reaches the location.
 ///
 /// # Arguments
 ///
@@ -125,13 +124,7 @@ fn handle(
         return Ok(());
     }
 
-    let origin_x = active.player.build_area.origin.x() as i32;
-    let origin_z = active.player.build_area.origin.z() as i32;
-    if (x as i32) < origin_x - 52
-        || (x as i32) > origin_x + 52
-        || (z as i32) < origin_z - 52
-        || (z as i32) > origin_z + 52
-    {
+    if !in_build_area(active, x, z) {
         active.unset_map_flag();
         let _ = active.clear_pending_action();
         return Ok(());
@@ -140,17 +133,11 @@ fn handle(
     let engine = engine();
 
     let y = active.player.pathing.coord.y();
-    let Some(zone) = engine.zones.zone(x, y, z) else {
+    let Some(loc) = zone_loc(x, y, z, loc_id) else {
         active.unset_map_flag();
         active.clear_pending_action()?;
         return Ok(());
     };
-    let Some(idx) = zone.get_loc(x, z, loc_id) else {
-        active.unset_map_flag();
-        active.clear_pending_action()?;
-        return Ok(());
-    };
-    let loc = &zone.locs[idx];
 
     let loc_type = engine.locs().get_by_id(loc_id);
     if let Some(lt) = &loc_type {
@@ -175,18 +162,7 @@ fn handle(
         _ => ServerTriggerType::ApLoc5,
     };
 
-    let width = loc_type.map(|lt| lt.width).unwrap_or(1);
-    let length = loc_type.map(|lt| lt.length).unwrap_or(1);
-    let coord = CoordGrid::new(x, y, z);
-    let target = InteractionTarget::Loc {
-        coord,
-        id: loc_id,
-        width,
-        length,
-        shape: loc.shape(),
-        angle: loc.angle(),
-        layer: loc.layer(),
-    };
+    let target = loc_target(loc_id, CoordGrid::new(x, y, z), loc);
 
     active.clear_pending_action()?;
     active.player.set_interaction(target, mode as u8, true);

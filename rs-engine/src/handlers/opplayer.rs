@@ -1,6 +1,6 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine_mut;
 use crate::handlers::ClientGameHandler;
+use crate::handlers::op_common::player_target_ok;
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opplayer1::OpPlayer1;
 use rs_protocol::network::game::client::opplayer2::OpPlayer2;
@@ -115,13 +115,7 @@ fn handle(op: u8, pid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         return Ok(());
     }
 
-    if engine_mut().get_player(pid).is_none() {
-        active.unset_map_flag();
-        active.clear_pending_action()?;
-        return Ok(());
-    }
-
-    if !active.player.build_area.players.contains(pid) {
+    if !player_target_ok(active, pid) {
         active.unset_map_flag();
         active.clear_pending_action()?;
         return Ok(());

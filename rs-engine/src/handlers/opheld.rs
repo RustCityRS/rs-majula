@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
-use rs_pack::types::InvScope;
+use crate::handlers::op_common::{HeldCheck, check_held};
 use rs_protocol::network::game::client::opheld1::OpHeld1;
 use rs_protocol::network::game::client::opheld2::OpHeld2;
 use rs_protocol::network::game::client::opheld3::OpHeld3;
@@ -129,7 +129,6 @@ fn handle(
 
     let engine = engine();
     let interfaces = engine.interfaces();
-    let invs = engine.invs();
     let objs = engine.objs();
 
     let Some(interface) = interfaces.get_by_id(com) else {
@@ -153,44 +152,30 @@ fn handle(
         )));
     };
 
-    let inv_id = active
-        .player
-        .inv_transmits
-        .iter()
-        .find(|(_, coms)| coms.contains(&com))
-        .map(|(id, _)| *id);
-
-    let Some(inv_id) = inv_id else {
-        return Err(ScriptError::Client(format!(
-            "No inv transmit for interface with id: {}",
-            com
-        )));
-    };
-
-    let inv = invs.get_by_id(inv_id);
-    let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
-
-    let Some(inventory) = (if shared {
-        engine_mut().get_shared_inv_mut(inv_id)
-    } else {
-        active.player.invs.get_mut(&inv_id)
-    }) else {
-        return Err(ScriptError::Client(format!(
-            "Inv {} not found for com: {}",
-            inv_id, com
-        )));
-    };
-
-    if !inventory.valid_slot(slot) {
-        return Err(ScriptError::Client(format!("Invalid slot: {}", slot)));
-    }
-
-    if !inventory.has_at(slot, obj) {
-        /*return Err(ScriptError::Client(format!(
-            "Invalid slot: {} with obj: {}",
-            slot, obj
-        )));*/
-        return Ok(());
+    match check_held(active, com, slot, obj) {
+        HeldCheck::Ok => {}
+        HeldCheck::NoTransmit => {
+            return Err(ScriptError::Client(format!(
+                "No inv transmit for interface with id: {}",
+                com
+            )));
+        }
+        HeldCheck::NoInv(inv_id) => {
+            return Err(ScriptError::Client(format!(
+                "Inv {} not found for com: {}",
+                inv_id, com
+            )));
+        }
+        HeldCheck::InvalidSlot => {
+            return Err(ScriptError::Client(format!("Invalid slot: {}", slot)));
+        }
+        HeldCheck::NotHeld => {
+            /*return Err(ScriptError::Client(format!(
+                "Invalid slot: {} with obj: {}",
+                slot, obj
+            )));*/
+            return Ok(());
+        }
     }
 
     let Some(obj) = objs.get_by_id(obj) else {

@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
-use rs_pack::types::InvScope;
+use crate::handlers::op_common::{HeldCheck, check_held};
 use rs_protocol::network::game::client::opheldu::OpHeldU;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_vm::ScriptError;
@@ -60,7 +60,6 @@ impl ClientGameHandler for OpHeldU {
 
         let engine = engine();
         let interfaces = engine.interfaces();
-        let invs = engine.invs();
         let objs = engine.objs();
 
         let Some(interface) = interfaces.get_by_id(self.com) else {
@@ -105,56 +104,30 @@ impl ClientGameHandler for OpHeldU {
             )));
         };
 
-        let inv_id = active
-            .player
-            .inv_transmits
-            .iter()
-            .find(|(_, coms)| coms.contains(&self.com))
-            .map(|(id, _)| *id);
-
-        let Some(inv_id) = inv_id else {
-            return Err(ScriptError::Client(format!(
-                "No inv transmit for interface with id: {}",
-                self.com
-            )));
-        };
-
-        let inv_id2 = active
-            .player
-            .inv_transmits
-            .iter()
-            .find(|(_, coms)| coms.contains(&self.com2))
-            .map(|(id, _)| *id);
-
-        let Some(inv_id2) = inv_id2 else {
-            return Err(ScriptError::Client(format!(
-                "No inv transmit for interface with id: {}",
-                self.com
-            )));
-        };
-
-        let inv = invs.get_by_id(inv_id);
-        let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
-
-        let Some(inventory) = (if shared {
-            engine_mut().get_shared_inv_mut(inv_id)
-        } else {
-            active.player.invs.get_mut(&inv_id)
-        }) else {
-            return Err(ScriptError::Client(format!(
-                "Inv {} not found for com: {}",
-                inv_id, self.com
-            )));
-        };
-
-        if !inventory.valid_slot(self.slot) {
-            return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
-        }
-
-        if !inventory.has_at(self.slot, self.obj) {
-            active.player.move_request = true;
-            active.clear_pending_action()?;
-            return Ok(());
+        // `com` and `com2` are equal (checked above), so both slots resolve through
+        // the same transmitted inventory and either check can report for `self.com`.
+        match check_held(active, self.com, self.slot, self.obj) {
+            HeldCheck::Ok => {}
+            HeldCheck::NoTransmit => {
+                return Err(ScriptError::Client(format!(
+                    "No inv transmit for interface with id: {}",
+                    self.com
+                )));
+            }
+            HeldCheck::NoInv(inv_id) => {
+                return Err(ScriptError::Client(format!(
+                    "Inv {} not found for com: {}",
+                    inv_id, self.com
+                )));
+            }
+            HeldCheck::InvalidSlot => {
+                return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
+            }
+            HeldCheck::NotHeld => {
+                active.player.move_request = true;
+                active.clear_pending_action()?;
+                return Ok(());
+            }
         }
 
         let Some(obj) = objs.get_by_id(self.obj) else {
@@ -164,28 +137,28 @@ impl ClientGameHandler for OpHeldU {
             )));
         };
 
-        let inv2 = invs.get_by_id(inv_id2);
-        let shared2 = inv2.is_some_and(|t| t.scope == InvScope::Shared);
-
-        let Some(inventory2) = (if shared2 {
-            engine_mut().get_shared_inv_mut(inv_id2)
-        } else {
-            active.player.invs.get_mut(&inv_id2)
-        }) else {
-            return Err(ScriptError::Client(format!(
-                "Inv {} not found for com: {}",
-                inv_id2, self.com
-            )));
-        };
-
-        if !inventory2.valid_slot(self.slot2) {
-            return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot2)));
-        }
-
-        if !inventory2.has_at(self.slot2, self.obj2) {
-            active.player.move_request = true;
-            active.clear_pending_action()?;
-            return Ok(());
+        match check_held(active, self.com2, self.slot2, self.obj2) {
+            HeldCheck::Ok => {}
+            HeldCheck::NoTransmit => {
+                return Err(ScriptError::Client(format!(
+                    "No inv transmit for interface with id: {}",
+                    self.com
+                )));
+            }
+            HeldCheck::NoInv(inv_id) => {
+                return Err(ScriptError::Client(format!(
+                    "Inv {} not found for com: {}",
+                    inv_id, self.com
+                )));
+            }
+            HeldCheck::InvalidSlot => {
+                return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot2)));
+            }
+            HeldCheck::NotHeld => {
+                active.player.move_request = true;
+                active.clear_pending_action()?;
+                return Ok(());
+            }
         }
 
         let Some(obj2) = objs.get_by_id(self.obj2) else {

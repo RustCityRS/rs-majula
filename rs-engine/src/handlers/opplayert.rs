@@ -1,14 +1,10 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::handlers::op_common::{action_target, player_target_ok, spell_component_ok};
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opplayert::OpPlayerT;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
-
-/// `ComActionTarget::PLAYER` bit: the component may be cast on a player.
-const ACTION_TARGET_PLAYER: u16 = 0x8;
 
 /// Handles the `OpPlayerT` (cast spell on player) client protocol message.
 ///
@@ -44,38 +40,15 @@ impl ClientGameHandler for OpPlayerT {
             return Ok(());
         }
 
-        let engine = engine();
-
         let spell_com = self.com;
-        let Some(spell_interface) = engine.interfaces().get_by_id(spell_com) else {
-            // bad client: component is not acceptable for this packet
-            active.unset_map_flag();
-            return Ok(());
-        };
-
-        if spell_interface.action_target & ACTION_TARGET_PLAYER == 0 {
-            // bad client: component is not acceptable for this packet
+        if !spell_component_ok(active, spell_com, action_target::PLAYER) {
+            // bad client or lag: component is not acceptable for this packet, or not visible
             active.unset_map_flag();
             return Ok(());
         }
 
-        if !active
-            .player
-            .is_interface_visible(spell_interface.root_layer)
-        {
-            // bad client or lag: component is not visible
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if engine_mut().get_player(self.pid).is_none() {
-            // bad client or lag: player does not exist
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !active.player.build_area.players.contains(self.pid) {
-            // bad client or lag: player is not visible on client
+        if !player_target_ok(active, self.pid) {
+            // bad client or lag: player does not exist or is not visible on client
             active.unset_map_flag();
             return Ok(());
         }

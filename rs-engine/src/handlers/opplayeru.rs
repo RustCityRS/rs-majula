@@ -1,11 +1,11 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::handlers::op_common::{
+    HeldCheck, check_held, members_blocked, player_target_ok, use_component_ok,
+};
 use rs_entity::InteractionTarget;
-use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::opplayeru::OpPlayerU;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
 
 /// Handles the `OpPlayerU` (use item on player) client protocol message.
@@ -44,81 +44,27 @@ impl ClientGameHandler for OpPlayerU {
             return Ok(());
         }
 
-        let engine = engine();
-
-        let Some(use_interface) = engine.interfaces().get_by_id(self.com) else {
-            // bad client: component is not acceptable for this packet
-            active.unset_map_flag();
-            return Ok(());
-        };
-
-        if !use_interface.usable {
-            // bad client: component is not acceptable for this packet
+        if !use_component_ok(active, self.com) {
+            // bad client or lag: component is not acceptable for this packet, or not visible
             active.unset_map_flag();
             return Ok(());
         }
 
-        if !active.player.is_interface_visible(use_interface.root_layer) {
-            // bad client or lag: component is not visible
+        if check_held(active, self.com, self.slot, self.obj) != HeldCheck::Ok {
+            // bad client or lag: item does not exist at that slot of a transmitted inventory
             active.unset_map_flag();
             return Ok(());
         }
 
-        let inv_id = active
-            .player
-            .inv_transmits
-            .iter()
-            .find(|(_, coms)| coms.contains(&self.com))
-            .map(|(id, _)| *id);
-
-        let Some(inv_id) = inv_id else {
-            // bad client or lag: inventory is not transmitted to client
-            active.unset_map_flag();
-            return Ok(());
-        };
-
-        let inv = engine.invs().get_by_id(inv_id);
-        let shared = inv.is_some_and(|t| t.scope == InvScope::Shared);
-
-        let Some(inventory) = (if shared {
-            engine_mut().get_shared_inv_mut(inv_id)
-        } else {
-            active.player.invs.get_mut(&inv_id)
-        }) else {
-            // bad client or lag: inventory is not transmitted to client
-            active.unset_map_flag();
-            return Ok(());
-        };
-
-        if !inventory.valid_slot(self.slot) {
-            // bad client: real inventory is smaller
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !inventory.has_at(self.slot, self.obj) {
-            // bad client or lag: item does not exist in inventory
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if engine_mut().get_player(self.pid).is_none() {
-            // bad client or lag: player does not exist
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !active.player.build_area.players.contains(self.pid) {
-            // bad client or lag: player is not visible on client
+        if !player_target_ok(active, self.pid) {
+            // bad client or lag: player does not exist or is not visible on client
             active.unset_map_flag();
             return Ok(());
         }
 
         active.clear_pending_action()?;
 
-        if engine.objs().get_by_id(self.obj).is_some_and(|o| o.members) && !engine.members {
-            active.message_game("To use this item please login to a members' server.");
-            active.unset_map_flag();
+        if members_blocked(active, self.obj) {
             return Ok(());
         }
 
