@@ -142,11 +142,11 @@ impl ActiveBuildArea for BuildArea {
         let cap = BuildArea::PREFERRED_PLAYERS as usize;
         let count = self.players.len();
 
-        for zx in start_x..=end_x {
+        'scan: for zx in start_x..=end_x {
             let zone_x = zx << 3;
             for zz in start_z..=end_z {
                 if self.nearby_players.len() + count >= cap {
-                    break;
+                    break 'scan;
                 }
                 let zone_z = zz << 3;
                 let Some(zone) = map.zone(zone_x, y, zone_z) else {
@@ -218,8 +218,10 @@ impl ActiveBuildArea for BuildArea {
                 let Some(zone) = map.zone(zone_x, y, zone_z) else {
                     continue;
                 };
-                let remaining = cap - self.nearby_npcs.len();
-                for &npc_id in zone.npcs.iter().take(remaining) {
+                for &npc_id in zone.npcs.iter() {
+                    if self.nearby_npcs.len() + count >= cap {
+                        return;
+                    }
                     if self.filter_npc(snap, npc_id, x, y, z) {
                         self.nearby_npcs.push(npc_id);
                     }
