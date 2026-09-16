@@ -55,7 +55,7 @@ impl ClientGameHandler for OpLocU {
             return Ok(());
         };
 
-        let target = loc_target(self.loc, CoordGrid::new(self.x, y, self.z), loc);
+        let target = loc_target(CoordGrid::new(self.x, y, self.z), loc);
 
         if !use_component_ok(active, self.com) {
             // bad client or lag: component is not acceptable for this packet, or not visible

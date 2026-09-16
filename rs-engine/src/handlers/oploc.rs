@@ -162,7 +162,7 @@ fn handle(
         _ => ServerTriggerType::ApLoc5,
     };
 
-    let target = loc_target(loc_id, CoordGrid::new(x, y, z), loc);
+    let target = loc_target(CoordGrid::new(x, y, z), loc);
 
     active.clear_pending_action()?;
     active.player.set_interaction(target, mode as u8, true);

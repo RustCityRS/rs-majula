@@ -63,7 +63,7 @@ impl ClientGameHandler for OpLocT {
             return Ok(());
         };
 
-        let target = loc_target(self.loc, CoordGrid::new(self.x, y, self.z), loc);
+        let target = loc_target(CoordGrid::new(self.x, y, self.z), loc);
 
         active.clear_pending_action()?;
         active

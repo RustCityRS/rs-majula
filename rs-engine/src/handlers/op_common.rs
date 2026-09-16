@@ -79,26 +79,25 @@ pub fn zone_obj(x: u16, y: u8, z: u16, id: u16, receiver37: u64) -> Option<&'sta
 
 /// Builds the [`InteractionTarget::Loc`] for a placed location.
 ///
-/// Dimensions come from the location type when it is known, falling back to a
-/// 1x1 footprint when it is not; shape, angle and layer come from the placed
-/// location itself.
+/// Id, dimensions, shape, angle and layer all come from the placed location
+/// itself. The zone lookup already matched on the loc's *current* id, and every
+/// add/change path keeps the packed width/length in sync with that id, so no loc
+/// type lookup is needed here.
 ///
 /// # Arguments
 ///
-/// * `id` - The location type ID.
 /// * `coord` - The coordinate the location occupies.
 /// * `loc` - The placed location, as found in the zone.
 ///
 /// # Returns
 ///
 /// The interaction target describing this location.
-pub fn loc_target(id: u16, coord: CoordGrid, loc: &Loc) -> InteractionTarget {
-    let loc_type = engine().locs().get_by_id(id);
+pub fn loc_target(coord: CoordGrid, loc: &Loc) -> InteractionTarget {
     InteractionTarget::Loc {
         coord,
-        id,
-        width: loc_type.map(|lt| lt.width).unwrap_or(1),
-        length: loc_type.map(|lt| lt.length).unwrap_or(1),
+        id: loc.id(),
+        width: loc.width(),
+        length: loc.length(),
         shape: loc.shape(),
         angle: loc.angle(),
         layer: loc.layer(),
