@@ -1296,6 +1296,13 @@ pub trait ScriptPlayer {
     /// * `run` - The run mode flag (`0` = walk, `1` = run, `2` = temporary run).
     fn run(&mut self, run: u8);
 
+    /// Forces the player to run for the current movement only.
+    ///
+    /// Unlike [`ScriptPlayer::run`], this does not change the persistent run
+    /// toggle or the client's run orb -- it is cleared automatically as soon as
+    /// the player stops moving.
+    fn temprun(&mut self);
+
     /// Stops the player's current action and clears interaction state.
     ///
     /// # Returns

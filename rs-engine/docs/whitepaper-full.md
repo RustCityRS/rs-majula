@@ -5637,7 +5637,7 @@ table below is grounded in the first/last constants observed in that file and th
 |--------------------------------------|---------------|-------------------------------------------------|----------------------------------------------|
 | `core` — control flow / stack / vars | 0–46          | `PUSH_CONSTANT_INT=0` … `POP_ARRAY_INT=46`      | ScriptState, varp/varn cache, engine scripts |
 | `server` — world/map                 | 1000–1021     | `COORDX=1000` … `WORLD_DELAY=1021`              | engine, cache, `rsmod` pathfinding           |
-| `player` — live player               | 2000–2132     | `AFK_EVENT=2000` … `WEIGHT=2132`                | `ScriptPlayer`, engine, cache                |
+| `player` — live player               | 2000–2153     | `AFK_EVENT=2000` … `P_TEMPRUN=2153`             | `ScriptPlayer`, engine, cache                |
 | `npc` — live NPC                     | 2500–2547     | `NPC_ADD=2500` … `SPOTANIM_NPC=2547`            | `ScriptNpc`, engine, cache, iterators        |
 | `loc` — locations                    | 3000–3013     | `LOC_ADD=3000` … `LOC_TYPE=3013`                | engine, cache, iterators                     |
 | `obj` — ground items                 | 3500–3511     | `OBJ_ADD=3500` … `OBJ_TYPE=3511`                | engine, cache, iterators                     |
@@ -5688,7 +5688,7 @@ management (`GOSUB`, `JUMP`, `RETURN`) is delegated to `ScriptState::gosub_frame
 
 ### `number` — arithmetic, bitwise, trigonometry, RNG
 
-`number` (`ops/number.rs`, opcodes 4600–4628) is a pure stack calculator. Every binary op pops `b` then `a` (note the
+`number` (`ops/number.rs`, opcodes 4600–4630) is a pure stack calculator. Every binary op pops `b` then `a` (note the
 order) and pushes the result, and all integer arithmetic uses *wrapping* semantics (`wrapping_add`, `wrapping_mul`,
 `wrapping_div`, `wrapping_rem`, `wrapping_pow`, `core.rs`/`number.rs`) — a deliberate fidelity choice so results
 bit-match the original Java's silent 32-bit overflow rather than panicking in debug or saturating.
@@ -5742,7 +5742,7 @@ and gestures in lockstep with the client.
 
 ### `player` — the largest family
 
-`player` (`ops/player.rs`, 2000–2132) is by far the broadest family and the primary surface for `ScriptPlayer` (the
+`player` (`ops/player.rs`, 2000–2153) is by far the broadest family and the primary surface for `ScriptPlayer` (the
 trait spans `engine.rs:385-1355`). Handlers cover identity/state reads, stats, animations, all `IF_*` interface
 manipulation, movement, combat/hero points, queues and timers, hint arrows, audio, camera, and player search. Almost
 every mutating opcode is wrapped in `active_player_mut!` or `protected_active_player_mut!`; pure reads use
@@ -12539,7 +12539,7 @@ discipline, and the same arithmetic as the reference VM. This is covered exhaust
 opcode catalog); the fidelity-relevant guarantees are:
 
 - **Opcode numbering matches the compiler.** The dispatch table is sized by `LAST = 11000` and the opcode bands (core
-  0–46, server 1000–1021, player 2000–2132, npc 2500–2547, number 4600–4628, etc.) are the compiler's numbering, so a
+  0–46, server 1000–1021, player 2000–2153, npc 2500–2547, number 4600–4630, etc.) are the compiler's numbering, so a
   `.rs2` script's opcodes index the correct handlers without remapping (§12).
 - **Integer math is Java-faithful** via the `wrapping_*` discipline of §2 — the same bytecode arithmetic yields the same
   results.
@@ -13450,7 +13450,7 @@ is clock-gated (`visible(clock)`, `obj.rs:91`). Identity within a zone is `oid()
 
 **opcode** — A numeric instruction/message identifier. The term is overloaded across three
 spaces in this engine: (1) **RuneScript opcodes** — VM instructions in a dense `0..LAST=11000`
-dispatch table, banded by subsystem (core 0-46, player 2000-2132, npc 2500-2547, …)
+dispatch table, banded by subsystem (core 0-46, player 2000-2153, npc 2500-2547, …)
 (section 12); (2) **client/server protocol opcodes** — `ClientProt` (75 inbound) /
 `ServerProt` (~68 outbound) revision-225 wire opcodes (section 18); (3) **cache TLV opcodes**
 — per-config decode tags (section 17). Context disambiguates.

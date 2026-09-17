@@ -1332,7 +1332,7 @@ discipline, and the same arithmetic as the reference VM. This is covered exhaust
 opcode catalog); the fidelity-relevant guarantees are:
 
 - **Opcode numbering matches the compiler.** The dispatch table is sized by `LAST = 11000` and the opcode bands (core
-  0–46, server 1000–1021, player 2000–2132, npc 2500–2547, number 4600–4628, etc.) are the compiler's numbering, so a
+  0–46, server 1000–1021, player 2000–2153, npc 2500–2547, number 4600–4630, etc.) are the compiler's numbering, so a
   `.rs2` script's opcodes index the correct handlers without remapping (§12).
 - **Integer math is Java-faithful** via the `wrapping_*` discipline of §2 — the same bytecode arithmetic yields the same
   results.

@@ -25,7 +25,7 @@ use rs_util::colour::rgb24_to_15;
 ///   `IF_SETANIM`, `IF_SETCOLOUR`, `IF_SETHIDE`, `IF_SETNPCHEAD`, `IF_SETOBJECT`,
 ///   `IF_SETPLAYERHEAD`, `IF_SETPOSITION`, `IF_SETRESUMEBUTTONS`, `IF_SETTAB`, `IF_SETTEXT`
 /// - **Movement:** `FACESQUARE`, `P_WALK`, `P_TELEJUMP`, `P_TELEPORT`, `P_EXACTMOVE`,
-///   `P_RUN`, `P_ARRIVEDELAY`, `WALKTRIGGER`, `GETWALKTRIGGER`
+///   `P_RUN`, `P_TEMPRUN`, `P_ARRIVEDELAY`, `WALKTRIGGER`, `GETWALKTRIGGER`
 /// - **Combat / hero:** `DAMAGE`, `BOTH_HEROPOINTS`, `FINDHERO`, `HEADICONS_GET`,
 ///   `HEADICONS_SET`, `P_ANIMPROTECT`
 /// - **Queues / timers:** `QUEUE`, `QUEUEVARARG`, `SETTIMER`, `CLEARTIMER`, `GETTIMER`
@@ -1416,6 +1416,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::NpcNotFound(id));
             }
             player.transmogrify(if id == -1 { None } else { Some(id as u16) });
+        });
+
+        // 2153
+        protected_active_player_mut!(m, P_TEMPRUN => |_s, player| {
+            player.temprun();
         });
     }
 }

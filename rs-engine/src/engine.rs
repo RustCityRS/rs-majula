@@ -5191,6 +5191,20 @@ impl ScriptPlayer for ActivePlayer {
         self.sync_run();
     }
 
+    /// Forces the player to run for the current movement only.
+    ///
+    /// Sets the same `temprun` flag a ctrl-click sets. The movement phase
+    /// applies it as `MoveSpeed::Run` and clears it once the player stops
+    /// moving, so the persistent run toggle and the run orb are left alone.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** sets `self.player.temprun`
+    fn temprun(&mut self) {
+        self.player.temprun = true;
+    }
+
     /// Stops the player's current action and clears interaction state.
     ///
     /// # Call Stack

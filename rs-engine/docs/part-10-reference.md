@@ -296,7 +296,7 @@ is clock-gated (`visible(clock)`, `obj.rs:91`). Identity within a zone is `oid()
 
 **opcode** — A numeric instruction/message identifier. The term is overloaded across three
 spaces in this engine: (1) **RuneScript opcodes** — VM instructions in a dense `0..LAST=11000`
-dispatch table, banded by subsystem (core 0-46, player 2000-2132, npc 2500-2547, …)
+dispatch table, banded by subsystem (core 0-46, player 2000-2153, npc 2500-2547, …)
 (section 12); (2) **client/server protocol opcodes** — `ClientProt` (75 inbound) /
 `ServerProt` (~68 outbound) revision-225 wire opcodes (section 18); (3) **cache TLV opcodes**
 — per-config decode tags (section 17). Context disambiguates.
