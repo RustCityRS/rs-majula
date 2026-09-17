@@ -32,7 +32,7 @@ pub struct NpcType {
     pub timer: Option<u16>,
     pub respawnrate: u16,
     pub moverestrict: MoveRestrict,
-    pub attackrange: u16,
+    pub attackrange: u8,
     pub blockwalk: BlockWalk,
     pub huntmode: Option<u16>,
     pub defaultmode: NpcMode,
@@ -138,7 +138,7 @@ pub struct NpcTypeRaw {
     pub timer: Option<u16>,
     pub respawnrate: u16,
     pub moverestrict: MoveRestrict,
-    pub attackrange: u16,
+    pub attackrange: u8,
     pub blockwalk: BlockWalk,
     pub huntmode: Option<u16>,
     pub defaultmode: NpcMode,
@@ -254,7 +254,7 @@ impl CacheType for NpcTypeRaw {
                 26 => self.wanderrange = buf.g2(),
                 27 => self.maxrange = Some(buf.g2()),
                 28 => self.huntrange = buf.g1(),
-                29 => self.attackrange = buf.g2(),
+                29 => self.attackrange = buf.g1(),
                 30..=34 => {
                     self.op
                         .get_or_insert_with(|| vec![None; 5].into_boxed_slice())

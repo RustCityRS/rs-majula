@@ -26,7 +26,7 @@ pub struct Npc {
     pub default_mode: NpcMode,
     pub wander_range: u16,
     pub max_range: u16,
-    pub attack_range: u16,
+    pub attack_range: u8,
     pub regen_rate: u16,
     pub category: Option<u16>,
     pub block_walk: BlockWalk,

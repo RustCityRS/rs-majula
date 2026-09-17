@@ -197,7 +197,7 @@ pub fn pack_npcs(
                 // 29
                 "attackrange" => parse_number(value, |v| {
                     server.p1(29);
-                    server.p2(v);
+                    server.p1(v);
                 }),
 
                 // 30-39
