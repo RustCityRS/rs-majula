@@ -2188,47 +2188,43 @@ impl Engine {
         }
     }
 
-    /// Deactivates an NPC, removing it from the world without freeing its slot.
+    /// Shared teardown for both NPC deactivation paths.
     ///
-    /// Fires the `AiDespawn` script, marks the NPC as inactive, removes it
-    /// from its zone, clears its collision flags, and removes it from the
-    /// renderer. If the NPC has a `Respawn` lifecycle, sets `respawn_at` so
-    /// the cleanup phase can re-activate it later.
+    /// Marks the NPC inactive, clears its script state, removes it from its
+    /// zone, the collision map, the renderer and the snapshot list, and
+    /// schedules a respawn for `Respawn` lifecycle NPCs. Callers are
+    /// responsible for their own pre-checks and for releasing the slot of a
+    /// `Despawn` lifecycle NPC, which the two paths do differently.
+    ///
+    /// Clearing `active_script`/`delayed`/`delayed_until` here is load-bearing,
+    /// not tidiness: `EntityState::check_delay` only runs for *active* NPCs (see
+    /// `phases::npc::process_npc`), while the respawn countdown is gated on
+    /// `!delayed`. An NPC deactivated mid-delay would otherwise keep `delayed`
+    /// set with nothing left able to clear it, so its countdown would never run
+    /// and the spawn would be lost for good.
     ///
     /// # Arguments
     ///
-    /// * `nid` -- The NPC id to deactivate.
+    /// * `nid` -- The NPC id to tear down.
     ///
-    /// # Side Effects
+    /// # Returns
     ///
-    /// - Executes the `AiDespawn` script.
-    /// - Sets `active.npc.active = false`.
-    /// - Removes the NPC from its zone and from the collision map.
-    /// - Removes the nid from the NPC renderer.
-    /// - Sets `respawn_at` for `Respawn` lifecycle NPCs.
-    /// - Queues `Despawn` lifecycle NPCs on `despawn_pending` so the
-    ///   cleanup phase frees their slots without a full-list scan.
+    /// `true` when the NPC has a `Despawn` lifecycle and the caller must still
+    /// release its slot; `false` when a respawn was scheduled instead, or when
+    /// the slot was already empty.
     ///
     /// # Call Stack
     ///
-    /// **Called by:** `ScriptEngine::remove_npc`, NPC death logic.
-    /// **Calls:** `ai_despawn`, `rsmod::change_npc`, `rsmod::change_player`.
-    pub fn deactivate_npc(&mut self, nid: u16) {
-        let (uid, type_id) = {
-            let Some(active) = self.npc_list.npcs[nid as usize].as_ref() else {
-                return;
-            };
-            if !active.npc.active {
-                return;
-            }
-            (active.npc.uid, active.npc.base_type)
-        };
-        self.ai_despawn(uid, type_id);
-
+    /// **Called by:** `deactivate_npc`, `emergency_deactivate_npc`.
+    /// **Calls:** `rsmod::change_npc`, `rsmod::change_player`.
+    fn deactivate_npc_common(&mut self, nid: u16) -> bool {
         let Some(active) = self.npc_list.npcs[nid as usize].as_mut() else {
-            return;
+            return false;
         };
         active.npc.active = false;
+        active.npc.state.active_script = None;
+        active.npc.state.delayed = false;
+        active.npc.state.delayed_until = 0;
 
         self.zones
             .zone_mut(
@@ -2263,7 +2259,52 @@ impl Engine {
                 .map(|t| t.respawnrate as u64)
                 .unwrap_or(100);
             active.npc.respawn_at = Some(respawnrate as u32);
+            false
         } else {
+            true
+        }
+    }
+
+    /// Deactivates an NPC, removing it from the world without freeing its slot.
+    ///
+    /// Fires the `AiDespawn` script, marks the NPC as inactive, removes it
+    /// from its zone, clears its collision flags, and removes it from the
+    /// renderer. If the NPC has a `Respawn` lifecycle, sets `respawn_at` so
+    /// the cleanup phase can re-activate it later.
+    ///
+    /// # Arguments
+    ///
+    /// * `nid` -- The NPC id to deactivate.
+    ///
+    /// # Side Effects
+    ///
+    /// - Executes the `AiDespawn` script.
+    /// - Sets `active.npc.active = false`.
+    /// - Clears `active_script`, `delayed` and `delayed_until`.
+    /// - Removes the NPC from its zone and from the collision map.
+    /// - Removes the nid from the NPC renderer.
+    /// - Sets `respawn_at` for `Respawn` lifecycle NPCs.
+    /// - Queues `Despawn` lifecycle NPCs on `despawn_pending` so the
+    ///   cleanup phase frees their slots without a full-list scan.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `ScriptEngine::remove_npc`, NPC death logic.
+    /// **Calls:** `ai_despawn`, `deactivate_npc_common`.
+    pub fn deactivate_npc(&mut self, nid: u16) {
+        let (uid, type_id) = {
+            let Some(active) = self.npc_list.npcs[nid as usize].as_ref() else {
+                return;
+            };
+            if !active.npc.active {
+                return;
+            }
+            (active.npc.uid, active.npc.base_type)
+        };
+
+        self.ai_despawn(uid, type_id);
+
+        if self.deactivate_npc_common(nid) {
             self.npc_list.despawn_pending.push(nid);
         }
     }
@@ -2339,11 +2380,13 @@ impl Engine {
 
     /// Forcibly deactivates an NPC without running its despawn script.
     ///
-    /// Used as a last resort when an NPC's tick processing panics. Performs
-    /// the same cleanup as [`Engine::deactivate_npc`] (zone removal, collision
-    /// cleanup, renderer removal, respawn scheduling) but skips the `AiDespawn`
-    /// script to avoid triggering further panics. For `Despawn` lifecycle NPCs,
-    /// the slot is fully freed.
+    /// Used as a last resort when an NPC's tick processing panics. Shares its
+    /// teardown with [`Engine::deactivate_npc`] via
+    /// `Engine::deactivate_npc_common` (zone removal, collision cleanup,
+    /// renderer removal, script-state clearing, respawn scheduling) but skips
+    /// the `AiDespawn` script to avoid triggering further panics. For `Despawn`
+    /// lifecycle NPCs, the slot is freed here and now rather than deferred to
+    /// the cleanup phase.
     ///
     /// # Arguments
     ///
@@ -2352,6 +2395,7 @@ impl Engine {
     /// # Side Effects
     ///
     /// - Sets `active.npc.active = false`.
+    /// - Clears `active_script`, `delayed` and `delayed_until`.
     /// - Removes the NPC from its zone and collision map.
     /// - Removes the nid from the NPC renderer.
     /// - For `Respawn` NPCs, sets `respawn_at`.
@@ -2361,48 +2405,13 @@ impl Engine {
     ///
     /// **Called by:** panic recovery in the NPC phase.
     pub fn emergency_deactivate_npc(&mut self, nid: u16) {
-        let Some(active) = self.npc_list.npcs[nid as usize].as_mut() else {
+        let Some(active) = self.npc_list.npcs[nid as usize].as_ref() else {
             return;
         };
         if !active.npc.active {
             return;
         }
-        active.npc.active = false;
-
-        self.zones
-            .zone_mut(
-                active.npc.pathing.coord.x(),
-                active.npc.pathing.coord.y(),
-                active.npc.pathing.coord.z(),
-            )
-            .remove_npc(nid);
-
-        let block_walk = active.block_walk();
-        let coord = active.npc.pathing.coord;
-        let size = active.npc.pathing.size;
-        match block_walk {
-            BlockWalk::Npc => {
-                rsmod::change_npc(coord.x(), coord.z(), coord.y(), size, false);
-            }
-            BlockWalk::All => {
-                rsmod::change_npc(coord.x(), coord.z(), coord.y(), size, false);
-                rsmod::change_player(coord.x(), coord.z(), coord.y(), size, false);
-            }
-            _ => {}
-        }
-
-        self.npc_renderer.remove_permanent(nid);
-        self.npc_snapshots[nid as usize].clear();
-
-        if active.npc.lifecycle == EntityLifeTime::Respawn {
-            let respawnrate = self
-                .cache
-                .npcs
-                .get_by_id(active.npc.uid.id())
-                .map(|t| t.respawnrate as u64)
-                .unwrap_or(100);
-            active.npc.respawn_at = Some(respawnrate as u32);
-        } else {
+        if self.deactivate_npc_common(nid) {
             self.npc_list.remove(nid);
         }
     }
