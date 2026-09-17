@@ -1838,15 +1838,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 
 [[package]]
-name = "rev-cfg"
-version = "0.1.12"
-
-[[package]]
 name = "rs-cam"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-datastruct",
+ "rs-ver",
  "rs-vm",
 ]
 
@@ -1866,7 +1862,7 @@ dependencies = [
 name = "rs-datastruct"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
+ "rs-ver",
 ]
 
 [[package]]
@@ -1875,7 +1871,6 @@ version = "0.1.12"
 dependencies = [
  "argon2",
  "num_enum",
- "rev-cfg",
  "rs-cam",
  "rs-crypto",
  "rs-datastruct",
@@ -1890,6 +1885,7 @@ dependencies = [
  "rs-stat",
  "rs-util",
  "rs-var",
+ "rs-ver",
  "rs-vm",
  "rs-zone",
  "rustc-hash",
@@ -1902,7 +1898,6 @@ dependencies = [
 name = "rs-entity"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-cam",
  "rs-grid",
  "rs-hero",
@@ -1914,6 +1909,7 @@ dependencies = [
  "rs-stat",
  "rs-timer",
  "rs-var",
+ "rs-ver",
  "rs-vm",
  "rustc-hash",
 ]
@@ -1922,30 +1918,30 @@ dependencies = [
 name = "rs-grid"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
+ "rs-ver",
 ]
 
 [[package]]
 name = "rs-hero"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
+ "rs-ver",
 ]
 
 [[package]]
 name = "rs-info"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-io",
  "rs-protocol",
+ "rs-ver",
 ]
 
 [[package]]
 name = "rs-inv"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
+ "rs-ver",
 ]
 
 [[package]]
@@ -1967,9 +1963,9 @@ dependencies = [
  "clap",
  "num_enum",
  "png",
- "rev-cfg",
  "rs-io",
  "rs-runec",
+ "rs-ver",
  "rustc-hash",
  "serde_json",
  "tracing",
@@ -1991,9 +1987,9 @@ dependencies = [
 name = "rs-protocol"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-io",
  "rs-protocol-macros",
+ "rs-ver",
 ]
 
 [[package]]
@@ -2009,8 +2005,8 @@ dependencies = [
 name = "rs-queue"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-datastruct",
+ "rs-ver",
  "rs-vm",
 ]
 
@@ -2039,12 +2035,12 @@ dependencies = [
  "num_enum",
  "rand 0.10.2",
  "ratatui",
- "rev-cfg",
  "rs-crypto",
  "rs-engine",
  "rs-io",
  "rs-pack",
  "rs-protocol",
+ "rs-ver",
  "sailfish",
  "sysinfo",
  "tokio",
@@ -2062,7 +2058,7 @@ version = "0.1.12"
 name = "rs-timer"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
+ "rs-ver",
  "rs-vm",
  "rustc-hash",
 ]
@@ -2071,16 +2067,20 @@ dependencies = [
 name = "rs-util"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
+ "rs-ver",
 ]
 
 [[package]]
 name = "rs-var"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-pack",
+ "rs-ver",
 ]
+
+[[package]]
+name = "rs-ver"
+version = "0.1.12"
 
 [[package]]
 name = "rs-vm"
@@ -2088,11 +2088,11 @@ version = "0.1.12"
 dependencies = [
  "itoa",
  "num_enum",
- "rev-cfg",
  "rs-grid",
  "rs-inv",
  "rs-pack",
  "rs-util",
+ "rs-ver",
  "rustc-hash",
  "thiserror 2.0.20",
  "tracing",
@@ -2102,12 +2102,12 @@ dependencies = [
 name = "rs-zone"
 version = "0.1.12"
 dependencies = [
- "rev-cfg",
  "rs-entity",
  "rs-grid",
  "rs-io",
  "rs-pack",
  "rs-protocol",
+ "rs-ver",
  "rustc-hash",
 ]
 

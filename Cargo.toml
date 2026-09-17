@@ -19,7 +19,7 @@ members = [
     "rs-protocol",
     "rs-protocol/macros",
     "rs-server",
-    "rev-cfg",
+    "rs-ver",
 ]
 resolver = "2"
 
@@ -107,7 +107,7 @@ rs-info = { path = "rs-engine/rs-info" }
 rs-timer = { path = "rs-engine/rs-timer" }
 rs-stat = { path = "rs-engine/rs-stat" }
 rs-pack = { path = "rs-pack" }
-rev-cfg = { path = "rev-cfg" }
+rs-ver = { path = "rs-ver" }
 
 [workspace.lints]
 rust.unused_must_use = "deny"

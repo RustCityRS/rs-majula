@@ -22,11 +22,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - id: read
-        name: Read supported revisions from rev-cfg
+        name: Read supported revisions from rs-ver
         run: |
-          revs=$(sed -n '/REVS/s/.*= *&\[\(.*\)\].*/\1/p' rev-cfg/src/lib.rs | tr -d ' ')
+          revs=$(sed -n '/REVS/s/.*= *&\[\(.*\)\].*/\1/p' rs-ver/src/lib.rs | tr -d ' ')
           if [ -z "$revs" ]; then
-            echo "::error file=rev-cfg/src/lib.rs::could not parse REVS list"
+            echo "::error file=rs-ver/src/lib.rs::could not parse REVS list"
             exit 1
           fi
           echo "Revisions: [$revs]"

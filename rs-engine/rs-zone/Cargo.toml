@@ -15,7 +15,7 @@ rs-protocol = { workspace = true }
 rustc-hash = { workspace = true }
 
 [build-dependencies]
-rev-cfg = { workspace = true }
+rs-ver = { workspace = true }
 
 [lints]
 workspace = true

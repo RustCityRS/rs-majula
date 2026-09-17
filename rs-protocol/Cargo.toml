@@ -11,7 +11,7 @@ rs-io = { workspace = true }
 rs-protocol-macros = { workspace = true }
 
 [build-dependencies]
-rev-cfg = { workspace = true }
+rs-ver = { workspace = true }
 
 [lints]
 workspace = true

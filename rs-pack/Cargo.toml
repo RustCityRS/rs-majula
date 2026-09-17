@@ -30,7 +30,7 @@ png = { workspace = true }
 serde_json = { workspace = true }
 
 [build-dependencies]
-rev-cfg = { workspace = true }
+rs-ver = { workspace = true }
 
 [lints]
 workspace = true
