@@ -7,13 +7,26 @@ use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 
+/// Highest chat effect this revision's client can render.
+///
+/// `0` = none, `1` = wave, `2` = wave2. From 289 the client also renders
+/// `3` = shake, `4` = scroll and `5` = slide.
+#[cfg(before_289)]
+const MAX_CHAT_EFFECT: u8 = 2;
+#[cfg(since_289)]
+const MAX_CHAT_EFFECT: u8 = 5;
+
+const MAX_CHAT_COLOUR: u8 = 11;
+
+const MAX_CHAT_LEN: usize = 100;
+
 /// Handles the `MessagePublic` client protocol message.
 ///
 /// Processes a public chat message spoken by the player in-game. Validates the
-/// colour (0-11), effect (0-2), and byte length (max 100), then unpacks the
-/// compressed text, filters it through the word encoder (censorship), repacks it,
-/// and stores the result in the player's info block so it can be broadcast to
-/// nearby players during the next player info update.
+/// colour (0-11), effect (0-[`MAX_CHAT_EFFECT`]), and byte length (max 100),
+/// then unpacks the compressed text, filters it through the word encoder
+/// (censorship), repacks it, and stores the result in the player's info block
+/// so it can be broadcast to nearby players during the next player info update.
 ///
 /// # Arguments
 ///
@@ -35,7 +48,10 @@ use rs_vm::engine::ScriptEngine;
 /// **Calls:** `cache().wordenc.filter`, `pack`/`unpack`
 impl ClientGameHandler for MessagePublic {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        if self.colour > 11 || self.effect > 2 || self.bytes.len() > 100 {
+        if self.colour > MAX_CHAT_COLOUR
+            || self.effect > MAX_CHAT_EFFECT
+            || self.bytes.len() > MAX_CHAT_LEN
+        {
             return Ok(());
         }
 
