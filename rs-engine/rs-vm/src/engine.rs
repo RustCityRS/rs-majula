@@ -50,6 +50,16 @@ pub trait ScriptEngine {
     /// The monotonically increasing tick counter (`u32`).
     fn clock(&self) -> u32;
 
+    /// Returns the current cycle's wall-clock timestamp in Unix-epoch milliseconds.
+    ///
+    /// Sampled once per cycle from a startup wall-clock stamp plus monotonic
+    /// elapsed time, so it never jumps backwards and is identical for every
+    /// script that runs within the same tick.
+    ///
+    /// # Returns
+    /// Milliseconds since the Unix epoch.
+    fn date_millis(&self) -> i64;
+
     /// Returns the experience multiplier of the engine.
     ///
     /// # Returns

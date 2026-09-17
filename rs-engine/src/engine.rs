@@ -71,7 +71,7 @@ use std::collections::BTreeMap;
 use std::net::{IpAddr, SocketAddr};
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use std::sync::Arc;
-use std::time::{Instant, SystemTime};
+use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::{mpsc, watch};
 use tracing::{error, info};
 use watch::{Sender, channel};
@@ -495,6 +495,9 @@ impl NpcList {
 pub struct Engine {
     pub clock: u32,
     pub shutdown_clock: Option<u32>,
+    date_origin_ms: i64,
+    date_origin: Instant,
+    cycle_date_ms: i64,
     pub members: bool,
     pub multi_xp: u8,
     pub client_pathfinder: bool,
@@ -619,9 +622,17 @@ impl Engine {
 
         let (clock_rate_tx, clock_rate_rx) = channel(600);
 
+        let date_origin_ms = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map(|d| d.as_millis() as i64)
+            .unwrap_or(0);
+
         let mut engine = Self {
             clock: 0,
             shutdown_clock: None,
+            date_origin_ms,
+            date_origin: Instant::now(),
+            cycle_date_ms: date_origin_ms,
             members,
             multi_xp,
             client_pathfinder,
@@ -724,6 +735,10 @@ impl Engine {
             let engine = unsafe { &mut *engine };
 
             let start = Instant::now();
+
+            engine.cycle_date_ms =
+                    engine.date_origin_ms + engine.date_origin.elapsed().as_millis() as i64;
+
             let mut fatal = false;
 
             macro_rules! phase {
@@ -2464,7 +2479,7 @@ impl Engine {
         }
 
         active.player.last_date = SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
+            .duration_since(UNIX_EPOCH)
             .map(|d| d.as_secs() as i64)
             .unwrap_or(0);
         active.player.last_response = self.clock;
@@ -2889,6 +2904,16 @@ impl ScriptEngine for Engine {
     /// **Calls:** reads `self.clock`
     fn clock(&self) -> u32 {
         self.clock
+    }
+
+    /// Returns this cycle's wall-clock timestamp in Unix-epoch milliseconds.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** the `DATE_MINUTES` / `DATE_RUNEDAY` ops via `ScriptEngine`
+    /// **Calls:** reads `self.cycle_date_ms`
+    fn date_millis(&self) -> i64 {
+        self.cycle_date_ms
     }
 
     /// Returns the experience multiplier of the engine.

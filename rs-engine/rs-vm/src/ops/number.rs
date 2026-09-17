@@ -1,5 +1,7 @@
+use crate::engine::engine;
 use crate::engine::{ScriptEngine, engine_mut};
 use crate::register::OpsRegistry;
+use crate::util::RUNEDAY_EPOCH_DAYS;
 use crate::{handlers, none};
 use rs_pack::cache::script::*;
 use rs_util::bits::{clearbit_range, setbit_range, setbit_range_toint};
@@ -20,6 +22,7 @@ use rs_util::bits::{clearbit_range, setbit_range, setbit_range_toint};
 /// - **Comparison:** `MIN`, `MAX`
 /// - **Trigonometry:** `SIN_DEG`, `COS_DEG`, `ATAN2_DEG`
 /// - **Random:** `RANDOM`, `RANDOMINC`
+/// - **Date** `DATE_MINUTES`, `DATE_RUNEDAY`
 ///
 /// # Call Stack
 ///
@@ -250,6 +253,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, ABS => |s| {
             let a = s.pop_int();
             s.push_int(a.abs());
+        });
+
+        // 4629
+        none!(m, DATE_MINUTES => |s| {
+            s.push_int((engine::<E>().date_millis() / 60_000) as i32);
+        });
+
+        // 4630
+        none!(m, DATE_RUNEDAY => |s| {
+            s.push_int((engine::<E>().date_millis() / 86_400_000) as i32 - RUNEDAY_EPOCH_DAYS);
         });
     }
 }

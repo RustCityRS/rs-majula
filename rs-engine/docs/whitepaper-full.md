@@ -5647,7 +5647,7 @@ table below is grounded in the first/last constants observed in that file and th
 | `inv` — inventory                    | 4300–4332     | `BOTH_DROPSLOT=4300` … `INVOTHER_TRANSMIT=4332` | `ScriptPlayer` invs, engine, cache           |
 | `enum` — enum lookup                 | 4400–4401     | `ENUM=4400`, `ENUM_GETOUTPUTCOUNT=4401`         | cache (`enums`)                              |
 | `string` — strings                   | 4500–4517     | `APPEND_NUM=4500` … `SPLIT_PAGECOUNT=4517`      | ScriptState, cache (`fonts`/`mesanims`)      |
-| `number` — math/bitwise              | 4600–4628     | `ADD=4600` … `ABS=4628`                         | ScriptState, engine RNG                      |
+| `number` — math/bitwise              | 4600–4630     | `ADD=4600` … `DATE_RUNEDAY=4630`                | ScriptState, engine RNG, wall clock          |
 | `struct` — struct param              | 4700          | `STRUCT_PARAM=4700`                             | cache (`structs`/`params`)                   |
 | `db` — database                      | 7501–7508     | `DB_FINDNEXT=7501` … `DB_FIND=7508`             | cache (`dbtables`/`dbrows`/`db_index`)       |
 | `debug`                              | 10000–10003   | `CONSOLE=10000` … `TIMESPENT=10003`             | tracing log, ScriptState                     |
@@ -5708,6 +5708,8 @@ bit-match the original Java's silent 32-bit overflow rather than panicking in de
 | `SETBIT_RANGE/CLEARBIT_RANGE/GETBIT_RANGE/SETBIT_RANGE_TOINT` (4621–4624) | …             | Multi-bit field ops (delegates to `rs_util::bits`)                       |
 | `SIN_DEG/COS_DEG/ATAN2_DEG` (4625–4627)                                   | … → r         | Fixed-point trig scaled by `65536`, RS angle units (`/ (180.0*65536.0)`) |
 | `ABS` (4628)                                                              | a → r         | `a.abs()`                                                                |
+| `DATE_MINUTES` (4629)                                                     | → r           | Unix-epoch minutes (`now_ms / 60000`)                                    |
+| `DATE_RUNEDAY` (4630)                                                     | → r           | Runeday-epoch days (`now_ms / 86400000 - 11745`)                         |
 
 The trig opcodes (`number.rs:228-247`) reproduce RuneScape's fixed-point angle encoding: inputs/outputs are scaled by
 `65536` and degrees are pre-divided so that the same integer values the client expects come back out.
@@ -10660,21 +10662,21 @@ the child Elixir process is never orphaned even on a panic-driven unwind.
 CLI parsing is via `clap`'s derive macro on `struct Args` (`main.rs:109–164`). The argument surface is the server's
 entire operational configuration:
 
-| Arg                                 | Default                    | Purpose                                                                       |
-|-------------------------------------|----------------------------|-------------------------------------------------------------------------------|
-| `--version`                         | `225`                      | Protocol revision; checked against the client's reported version during login |
-| `--host`                            | `0.0.0.0`                  | Bind address for both TCP game and HTTP                                       |
-| `--http-port`                       | `8070 + node_id`           | Web/client port (8080 for node 10)                                            |
-| `--tcp-port`                        | `43584 + node_id`          | Game port (43594 for node 10 — the canonical RS port)                         |
-| `--private-key`                     | `keys/private.pem`         | RSA private key (PEM) for the login block                                     |
-| `--members` / `--client-pathfinder` | `true`                     | World flags passed to `Engine::new`                                           |
-| `--no-tui`                          | `false`                    | Force headless stdout logging                                                 |
-| `--verify`                          | `true`                     | Validate packed cache byte-identity during `pack_all`                         |
-| `--node-id`                         | `10`                       | World node (10 = world 1); offsets all derived ports                          |
-| `--ether-port`                      | `5000 + node_id`           | Ether sidecar TCP port (5010 for node 10)                                     |
-| `--db-host/port/name/user/pass`     | localhost:5432/postgres    | Postgres connection                                                           |
-| `--cluster`                         | `""`                       | Comma-separated peer node list for multi-world                                |
-| `--pepper`                          | `localhost`                | Server-side pepper for password hashing                                       |
+| Arg                                 | Default                 | Purpose                                                                       |
+|-------------------------------------|-------------------------|-------------------------------------------------------------------------------|
+| `--version`                         | `225`                   | Protocol revision; checked against the client's reported version during login |
+| `--host`                            | `0.0.0.0`               | Bind address for both TCP game and HTTP                                       |
+| `--http-port`                       | `8070 + node_id`        | Web/client port (8080 for node 10)                                            |
+| `--tcp-port`                        | `43584 + node_id`       | Game port (43594 for node 10 — the canonical RS port)                         |
+| `--private-key`                     | `keys/private.pem`      | RSA private key (PEM) for the login block                                     |
+| `--members` / `--client-pathfinder` | `true`                  | World flags passed to `Engine::new`                                           |
+| `--no-tui`                          | `false`                 | Force headless stdout logging                                                 |
+| `--verify`                          | `true`                  | Validate packed cache byte-identity during `pack_all`                         |
+| `--node-id`                         | `10`                    | World node (10 = world 1); offsets all derived ports                          |
+| `--ether-port`                      | `5000 + node_id`        | Ether sidecar TCP port (5010 for node 10)                                     |
+| `--db-host/port/name/user/pass`     | localhost:5432/postgres | Postgres connection                                                           |
+| `--cluster`                         | `""`                    | Comma-separated peer node list for multi-world                                |
+| `--pepper`                          | `localhost`             | Server-side pepper for password hashing                                       |
 
 The derived-port convention (`8070 + node_id`, `43584 + node_id`, `5000 + node_id`, `main.rs:274–275`, `300`) lets
 multiple world nodes coexist on one host with only `--node-id` differing — `(args.node_id - 10)` becomes the `portoff`

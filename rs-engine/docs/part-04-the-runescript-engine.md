@@ -771,7 +771,7 @@ table below is grounded in the first/last constants observed in that file and th
 | `inv` — inventory                    | 4300–4332     | `BOTH_DROPSLOT=4300` … `INVOTHER_TRANSMIT=4332` | `ScriptPlayer` invs, engine, cache           |
 | `enum` — enum lookup                 | 4400–4401     | `ENUM=4400`, `ENUM_GETOUTPUTCOUNT=4401`         | cache (`enums`)                              |
 | `string` — strings                   | 4500–4517     | `APPEND_NUM=4500` … `SPLIT_PAGECOUNT=4517`      | ScriptState, cache (`fonts`/`mesanims`)      |
-| `number` — math/bitwise              | 4600–4628     | `ADD=4600` … `ABS=4628`                         | ScriptState, engine RNG                      |
+| `number` — math/bitwise              | 4600–4630     | `ADD=4600` … `DATE_RUNEDAY=4630` (289+)         | ScriptState, engine RNG, wall clock          |
 | `struct` — struct param              | 4700          | `STRUCT_PARAM=4700`                             | cache (`structs`/`params`)                   |
 | `db` — database                      | 7501–7508     | `DB_FINDNEXT=7501` … `DB_FIND=7508`             | cache (`dbtables`/`dbrows`/`db_index`)       |
 | `debug`                              | 10000–10003   | `CONSOLE=10000` … `TIMESPENT=10003`             | tracing log, ScriptState                     |
@@ -832,6 +832,8 @@ bit-match the original Java's silent 32-bit overflow rather than panicking in de
 | `SETBIT_RANGE/CLEARBIT_RANGE/GETBIT_RANGE/SETBIT_RANGE_TOINT` (4621–4624) | …             | Multi-bit field ops (delegates to `rs_util::bits`)                       |
 | `SIN_DEG/COS_DEG/ATAN2_DEG` (4625–4627)                                   | … → r         | Fixed-point trig scaled by `65536`, RS angle units (`/ (180.0*65536.0)`) |
 | `ABS` (4628)                                                              | a → r         | `a.abs()`                                                                |
+| `DATE_MINUTES` (4629, 289+)                                               | → r           | Unix-epoch minutes (`now_ms / 60000`)                                    |
+| `DATE_RUNEDAY` (4630, 289+)                                               | → r           | Runeday-epoch days (`now_ms / 86400000 - 11745`)                         |
 
 The trig opcodes (`number.rs:228-247`) reproduce RuneScape's fixed-point angle encoding: inputs/outputs are scaled by
 `65536` and degrees are pre-divided so that the same integer values the client expects come back out.

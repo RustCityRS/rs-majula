@@ -24,6 +24,9 @@ use std::sync::Arc;
 
 pub const LOOTDROP_DURATION: u64 = (200 * 3) >> 1;
 
+/// Days between the Unix epoch and the RuneScape "runeday" epoch (2002-02-27).
+pub const RUNEDAY_EPOCH_DAYS: i32 = 11745;
+
 /// Enforces the protected-access rule shared by the inventory opcodes: a
 /// `protect` inventory may only be mutated while the matching protected
 /// active-player pointer is held, unless the inventory is shared.

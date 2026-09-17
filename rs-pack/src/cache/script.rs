@@ -674,6 +674,8 @@ pub const SIN_DEG: u16 = 4625;
 pub const COS_DEG: u16 = 4626;
 pub const ATAN2_DEG: u16 = 4627;
 pub const ABS: u16 = 4628;
+pub const DATE_MINUTES: u16 = 4629;
+pub const DATE_RUNEDAY: u16 = 4630;
 
 // ── Struct ops (4700) ───────────────────────────────────────────────────────
 
