@@ -103,6 +103,7 @@ stat_advance(agility, 200);
 ~update_wilderness_varp(2);
 
 [oploc1,wilderness_stepping_stone]
+p_arrivedelay;
 mes("You carefully start crossing the stepping stones...");
 sound_synth(jump_no_land, 1, 0);
 ~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, 1, 0, 0), loc_coord, 15, 30, ^exact_west, false);
@@ -120,7 +121,7 @@ sound_synth(jump_no_land, 1, 0);
 sound_synth(jump_no_land, 1, 0);
 ~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, -3, 0, 0), movecoord(loc_coord, -4, 0, 0), 15, 30, ^exact_west, false);
 sound_synth(jump_no_land, 1, 0);
-~agility_exactmove(human_spot_jump, 0, 1, movecoord(loc_coord, -4, 0, 0), movecoord(loc_coord, -5, 0, 0), 15, 30, ^exact_west, false);
+~agility_exactmove(human_spot_jump, 0, 0, movecoord(loc_coord, -4, 0, 0), movecoord(loc_coord, -5, 0, 0), 15, 30, ^exact_west, false);
 stat_advance(agility, 200);
 mes("...You safely cross to the other side.");
 ~update_wilderness_varp(3);

@@ -1,30 +1,30 @@
 [spotanim_301]
-model=model_3091_spotanim
+model=spells_teleport
 anim=teleport
 ambient=100
 contrast=100
 recol1s=13404
 recol1d=24741
 
-[spotanim_302]
-model=model_2321_spotanim
+[mm_roofcollapse]
+model=traps_rockfall
 anim=rockfall
 recol1s=15855
 recol1d=30513
 
-[spotanim_303]
-model=model_4848_spotanim
-anim=seq_1432
+[castlewars_catapult_impact]
+model=castlewars_catapult_rock
+anim=castlewars_catapult_impact
 recol4s=13741
 recol4d=11560
 
-[spotanim_304]
-model=model_3140_spotanim
+[castlewars_catapult_travel]
+model=proj_catapultload
 recol4s=13741
 recol4d=11560
 
-[spotanim_305]
-model=model_3116_spotanim
+[castlewars_catapult_splash]
+model=spells_wave_impact
 anim=wave_impact
 recol1s=31297
 recol1d=256
@@ -34,34 +34,34 @@ recol3s=30753
 recol3d=4292
 
 [spotanim_306]
-model=model_spotanim_252
+model=spells_specialattack_puncture
 anim=sp_attack_puncture_spotanim
 ambient=50
 contrast=50
 recol1s=30754
 recol1d=14352
 
-[spotanim_307]
-model=model_4922_npc
+[pickaxe_summon_spotanim]
+model=spot_spotanim_307
 anim=seq_1448
 
-[spotanim_308]
-model=model_3091_spotanim
-anim=seq_1447
+[pickaxe_summon_effect_spotanim]
+model=spells_teleport
+anim=pickaxe_projectile_summon_spotanim
 
-[spotanim_309]
-model=model_4922_npc
-anim=seq_1449
+[pickaxe_travel_spotanim]
+model=spot_spotanim_307
+anim=pickaxe_projectile_travel
 
-[spotanim_310]
-model=loc_4047_8
+[misty]
+model=misty
 anim=misty
 contrast=30
 ambient=30
 
-[spotanim_311]
-model=model_4975_spotanim
-anim=seq_1503
+[summon_spell]
+model=spot_spotanim_311
+anim=summon_spell
 
 [spotanim_312]
 model=model_3137_spotanim
@@ -118,3 +118,4 @@ recol1d=6438
 model=model_3134_spotanim
 recol1s=15855
 recol1d=6476
+

@@ -9,6 +9,7 @@ mes("You climb down the ladder.");
 [oploc1,magearena_ladder_from_cellar]
 p_arrivedelay;
 ~climb_ladder(movecoord(coord, 549, 0, -756), true);
+mes("You climb up the ladder."); // https://web.archive.org/web/20040829183021if_/http://www.iownjoo.com:80/freeimghost/ajay/rs2thedevilscry1.jpg
 
 
 [oploc1,magearena_waterportal1] @jump_in_sparkling_pool(^sparkling_pool_chamber_coord);

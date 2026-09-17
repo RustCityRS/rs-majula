@@ -1,306 +1,312 @@
-[loc_4671]
-op1=Search
-forceapproach=east
-model=loc_4171
+[misc_bookcase]
 name=Bookcase
 desc=A good source of books!
+model=quest_viking_bookcase2_textured
+op1=Search
+forceapproach=east
 
-[loc_4672]
-raiseobject=no
-op1=Open
-model=model_loc_1512
+[misc_ulby_throneroomdoor]
 name=Throne Room Door
 desc=The door into the throne room.
+model=castle_wall
 retex1s=wall
 retex1d=door2
 recol2s=6342
 recol2d=11458
-
-[loc_4673]
 raiseobject=no
-model=model_loc_1512
+op1=Open
+category=door_closed
+param=next_loc_stage,misc_ulby_throneroomdoor_inactive
+
+[misc_ulby_throneroomdoor_inactive]
+model=castle_wall
 retex1s=wall
 retex1d=door2
 recol2s=6342
 recol2d=11458
+raiseobject=no
+category=door_opened
+param=next_loc_stage,misc_ulby_throneroomdoor
 
-[loc_4674]
+[misc_dummy_mapletree]
+name=Maple tree
+desc=I bet this makes good syrup!
+model=plants_loc_1307
 width=2
 mapscene=2
 length=2
 op1=Chop down
 op3=hidden
-model=model_loc_1307
-name=Maple tree
-desc=I bet this makes good syrup!
 
-[loc_4675]
+[misc_dummy_heather_normal]
+name=Herbs
+desc=Scented herbs.
+model=plants_heather
+model2=loc_4675
 hillskew=yes
 blockwalk=no
 blockrange=no
 op1=Weed
 op3=hidden
-model=model_loc_1178
-model=loc_4675
-name=Herbs
-desc=Scented herbs.
 
-[loc_4676]
+[misc_dummy_coalrock1]
+name=Rocks
+desc=A rocky outcrop.
+model=mine_rocks1
+recol1s=6342
+recol1d=4226
 op1=Mine
 op2=Prospect
 op3=hidden
 mapscene=12
 blockrange=no
-model=plainrock1
-name=Rocks
-desc=A rocky outcrop.
-recol1s=6342
-recol1d=4226
 
-[loc_4677]
-hillskew=yes
-blockwalk=no
-blockrange=no
-op1=Weed
-op3=hidden
-model=model_loc_1178
-model=loc_4675
+[misc_heather_light]
 name=Herbs
 desc=Scented herbs.
+model=plants_heather
+model2=loc_4675
 recol1s=23026
 recol1d=29335
-
-[loc_4678]
 hillskew=yes
 blockwalk=no
 blockrange=no
 op1=Weed
 op3=hidden
-model=model_loc_1178
-model=loc_4675
+
+[misc_heather_normal]
 name=Herbs
 desc=Scented herbs.
-
-[loc_4679]
+model=plants_heather
+model2=loc_4675
 hillskew=yes
 blockwalk=no
 blockrange=no
 op1=Weed
 op3=hidden
-model=model_loc_1178
-model=loc_4675
+
+[misc_heather_dark]
 name=Herbs
 desc=Scented herbs.
+model=plants_heather
+model2=loc_4675
 recol1s=23026
 recol1d=17741
-
-[loc_4680]
 hillskew=yes
 blockwalk=no
 blockrange=no
-active=no
-model=model_loc_1178
+op1=Weed
+op3=hidden
+
+[misc_heather_light_noweeds]
+model=plants_heather
 recol1s=23026
 recol1d=29335
-
-[loc_4681]
 hillskew=yes
 blockwalk=no
 blockrange=no
 active=no
-model=model_loc_1178
 
-[loc_4682]
+[misc_heather_normal_noweeds]
+model=plants_heather
 hillskew=yes
 blockwalk=no
 blockrange=no
 active=no
-model=model_loc_1178
+
+[misc_heather_dark_noweeds]
+model=plants_heather
 recol1s=23026
 recol1d=17741
+hillskew=yes
+blockwalk=no
+blockrange=no
+active=no
 
-[loc_4683]
-active=yes
-model=model_2589
+[misc_harp]
 name=Harp
 desc=A large harp.
+model=inv_harp
+active=yes
 
-[loc_4684]
-model=loc_4684
+[misc_barrel]
 name=Barrel
 desc=Good for shooting fish in.
+model=quest_misc_viking_barrel
 
-[loc_4685]
-width=3
-model=model_loc_1334
+[misc_hollowlog_snow]
 name=Hollow log
 desc=This old tree is rotting away
+model=plants_hollowlog
 recol1s=18823
 recol1d=8353
 recol2s=20904
 recol2d=32767
+width=3
 
-[loc_4686]
-width=2
-model=model_loc_1335
+[misc_hollowlogsmall_snow]
 name=Hollow log
 desc=This old tree is rotting away.
+model=plants_hollowlogsmaller
 recol1s=18823
 recol1d=8353
 recol2s=20904
 recol2d=32767
+width=2
 
-[loc_4687]
-sharelight=yes
-model=model_loc_107
+[misc_rugcorner]
+model=floor_rugcorner
 recol1s=15360
 recol1d=22093
 recol2s=28321
 recol2d=25299
-
-[loc_4688]
 sharelight=yes
-model=model_loc_108
+
+[misc_rugside]
+model=floor_rugside
 recol1s=15360
 recol1d=22093
 recol2s=28321
 recol2d=25299
 recol3s=0
 recol3d=17865
-
-[loc_4689]
 sharelight=yes
-model=model_loc_109
+
+[misc_rugmiddle]
+model=floor_rugmiddle
 recol1s=15360
 recol1d=22093
 recol2s=0
 recol2d=17865
+sharelight=yes
 
-[loc_4690]
-model=model_loc_1090
+[misc_posh_chair]
 name=Chair
 desc=Fancy.
+model=furniture_chair-posh
 recol1s=10401
 recol1d=8353
 recol2s=13312
 recol2d=22093
 
-[loc_4691]
-model=model_loc_205
+[misc_lantern]
+model=walldecor_lantern
 recol1s=8456
 recol1d=8353
 
-[loc_4692]
-anim=flagpole
-model=model_loc_869
+[misc_flagpole]
 name=Flagpole
 desc=Flag, pole...Yep, it's a flagpole.
+model=outdoorfurniture_flagpole
 recol1s=26425
 recol1d=8353
 recol2s=15
 recol2d=22093
 recol3s=15855
 recol3d=0
-
-[loc_4693]
 anim=flagpole
-model=model_loc_869
+
+[misc_flagpole2]
 name=Flagpole
 desc=Flag, pole...Yep, it's a flagpole.
+model=outdoorfurniture_flagpole
 recol1s=26425
 recol1d=8353
 retex2s=marble
 retex2d=door
 recol3s=15855
 recol3d=22093
+anim=flagpole
 
-[loc_4694]
-anim=torch
-model=model_loc_196
+[misc_torches]
+model=walldecor_torch
 recol1s=8456
 recol1d=8353
+anim=torch
 
-[loc_4695]
+[misc_viking_abode_wall_low]
+model=quest_viking_abode_wall
 resizey=105
-model=loc_4246
 
-[loc_4696]
-resizey=105
-op1=Open
-model=loc_4148
+[misc_viking_abode_door_low]
 name=Door
 desc=The door is closed.
-
-[loc_4697]
+model=quest_viking_abode_wooden_door
 resizey=105
-op1=Close
-model=loc_4148
+op1=Open
+category=door_closed
+param=next_loc_stage,misc_viking_abode_door_low_open
+//
+
+[misc_viking_abode_door_low_open]
 name=Door
 desc=The door is open.
-
-[loc_4698]
+model=quest_viking_abode_wooden_door
 resizey=105
-model=loc_4193
+op1=Close
+category=door_opened
+param=next_loc_stage,misc_viking_abode_door_low
+//
 
-[loc_4699]
+[misc_viking_abode_longhall_low]
+model=quest_viking_longhall_wall
+resizey=105
+
+[misc_viking_shipedge_with_seat]
+model=quest_misc_vikingship_edge_seat
 active=no
 shadow=no
 forcedecor=yes
-model=loc_4699
 
-[loc_4700]
+[misc_viking_shipedge_with_seat_mirror]
+model=quest_misc_vikingship_edge_seat
 active=no
 shadow=no
 forcedecor=yes
 mirror=yes
-model=loc_4699
 
-[loc_4701]
-active=yes
-mirror=yes
-model=loc_4148
+[misc_bank_door]
 name=Door
 desc=Keeps the cold winds out.
+model=quest_viking_abode_wooden_door
+active=yes
+mirror=yes
 
-[loc_4702]
-blockrange=no
-model=loc_4702
+[misc_ornatechair]
 name=Chair
 desc=A nicely carved wooden chair.
+model=quest_misc_viking_ornatechair
+blockrange=no
 
-[loc_4703]
-width=2
-length=3
-resizez=107
-model=model_4409
+[misc_doublebed_astrid]
 name=Bed
 desc=A wooden double bed.  For sleeping in...
+model=quest_misc_viking_bigbed
 recol1s=6372
 recol1d=17969
 recol2s=5315
 recol2d=22203
-
-[loc_4704]
 width=2
 length=3
 resizez=107
-model=model_4409
+
+[misc_doublebed_brand]
 name=Bed
 desc=A wooden double bed.  For sleeping in...
+model=quest_misc_viking_bigbed
 recol1s=6372
 recol1d=5602
 recol2s=5315
 recol2d=9837
-
-[loc_4705]
 width=2
-length=2
-op2=Steal-from
-active=yes
-model=loc_4277
-model=market_stall
+length=3
+resizez=107
+
+[misc_fish_market]
 name=Fish stall
 desc=There's something fishy about this stall.
+model=quest_viking_market_fishmongers
+model2=outdoorfurniture_market
 recol1s=32767
 recol1d=18956
 recol2s=15890
@@ -313,16 +319,16 @@ recol5s=15855
 recol5d=15820
 recol6s=26425
 recol6d=25334
-
-[loc_4706]
 width=2
 length=2
 op2=Steal-from
 active=yes
-model=loc_4706
-model=market_stall
+
+[misc_veg_market]
 name=Veg stall
 desc=You should eat your greens!
+model=quest_misc_market_vegtables
+model2=outdoorfurniture_market
 recol1s=32767
 recol1d=18956
 recol2s=15890
@@ -335,16 +341,16 @@ recol5s=18849
 recol5d=12517
 recol6s=19841
 recol6d=14628
-
-[loc_4707]
 width=2
 length=2
 op2=Steal-from
 active=yes
-model=loc_4277
-model=market_stall
+
+[etc_fish_market]
 name=Fish stall
 desc=There's something fishy about this stall.
+model=quest_viking_market_fishmongers
+model2=outdoorfurniture_market
 recol1s=32767
 recol1d=18956
 recol2s=15890
@@ -357,16 +363,16 @@ recol5s=15855
 recol5d=15820
 recol6s=26425
 recol6d=25334
-
-[loc_4708]
 width=2
 length=2
 op2=Steal-from
 active=yes
-model=loc_4706
-model=market_stall
+
+[etc_veg_market]
 name=Veg stall
 desc=You should eat your greens!
+model=quest_misc_market_vegtables
+model2=outdoorfurniture_market
 recol1s=32767
 recol1d=18956
 recol2s=15890
@@ -379,1796 +385,59 @@ recol5s=18849
 recol5d=12517
 recol6s=19841
 recol6d=14628
+width=2
+length=2
+op2=Steal-from
+active=yes
 
-[loc_4709]
+[veg_store_icon]
+model=floor_invisableicon
 forcedecor=yes
 mapfunction=50
-model=model_loc_2733
 
-[loc_4710]
-op1=Open
-blockrange=no
-model=model_4007
-name=Doorway
-desc=A doorway made from bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4711]
-active=no
-blockrange=no
-model=model_4007
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4712]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4713]
-active=yes
-forceapproach=west
-op1=Climb-down
-op2=Close
-raiseobject=no
-blockrange=no
-model=loc_4713
-name=Trapdoor
-desc=It's an open trapdoor.
-
-[loc_4714]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=A wooden crate for storage.
-
-[loc_4715]
-op1=Search
-model=model_loc_355
-name=Crate
-desc=This crate is making chattering sounds.
-
-[loc_4716]
-op1=Search
-model=model_loc_355
-name=Crate
-desc=This crate smells slightly nauseous.
-
-[loc_4717]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Hamab' on its side.
-
-[loc_4718]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Hamab' on its side.
-
-[loc_4719]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Ifaba' on its side.
-
-[loc_4720]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Daga' on its side.
-
-[loc_4721]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Daga' on its side.
-
-[loc_4722]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate smells slightly of banana.
-
-[loc_4723]
-op1=Search
-model=model_loc_355
-name=Crate
-desc=This crate smells slightly of banana.
-
-[loc_4724]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Hamab' on its side.
-
-[loc_4725]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Ifaba' on its side.
-
-[loc_4726]
-op1=Search
-model=model_loc_355
-name=Crate
-desc=This crate says 'Property of Ifaba' on its side.
-
-[loc_4727]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate says 'Property of Ifaba' on its side.
-
-[loc_4728]
-active=yes
-op1=Climb
-model=agilityarena_climbingrope
-name=Climbing rope
-desc=I can climb up this.
-
-[loc_4729]
-active=yes
-sharelight=yes
-hillskew=yes
-op1=Enter
-model=model_loc_1418
-name=Crack
-desc=It's a large crack in the wall.
-
-[loc_4730]
-active=yes
-hillskew=yes
-sharelight=yes
-op1=Enter
-model=model_loc_1418
-name=Crack
-desc=It's a large crack in the wall.
-
-[loc_4731]
-active=yes
-hillskew=yes
-sharelight=yes
-op1=Enter
-model=model_loc_1418
-name=Crack
-desc=It's a large crack in the wall.
-
-[loc_4732]
-active=yes
-hillskew=yes
-sharelight=yes
-op1=Enter
-model=model_loc_1418
-name=Crack
-desc=It's a large crack in the wall.
-
-[loc_4733]
-active=yes
-hillskew=yes
-sharelight=yes
-op1=Enter
-model=model_loc_1418
-name=Crack
-desc=It's a large crack in the wall.
-
-[loc_4734]
-hillskew=yes
-sharelight=yes
-op1=Enter
-model=model_loc_1418
-name=Crack
-desc=It's a large crack in the wall.
-
-[loc_4735]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4736]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4737]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4738]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4739]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_1570
-name=Trapdoor
-desc=It's an open trapdoor.
-
-[loc_4740]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_1570
-name=Trapdoor
-desc=It's an open trapdoor.
-
-[loc_4741]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_1570
-name=Trapdoor
-desc=It's an open trapdoor.
-
-[loc_4742]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_1570
-name=Trapdoor
-desc=It's an open trapdoor.
-
-[loc_4743]
-raiseobject=no
-forceapproach=east
-op1=Climb-up
-model=loc_4743
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4744]
-raiseobject=no
-forceapproach=west
-op1=Climb-down
-model=loc_4744
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4745]
-active=yes
-blockwalk=no
-blockrange=no
-op1=Jump off
-model=loc_4745
-name=End of bridge
-desc=Looks good for jumping off.
-
-[loc_4746]
-op1=Search
-model=model_loc_63
-name=Crate
-desc=This crate is marked 'Deliver to Glough'...
-
-[loc_4747]
-sharelight=yes
-hillskew=yes
-active=no
-mapscene=46
-forcedecor=yes
-model=loc_4747
-
-[loc_4748]
-sharelight=yes
-hillskew=yes
-active=no
-mapscene=46
-forcedecor=yes
-model=loc_4748
-
-[loc_4749]
-width=2
-length=2
-op1=Search
-mapscene=5
-model=model_loc_2073
-name=Banana Tree
-desc=It's a banana tree, full of bananas.
-recol1s=19944
-recol1d=18853
-recol2s=14952
-recol2d=10721
-recol3s=27593
-recol3d=21096
-
-[loc_4750]
-width=2
-length=2
-op1=Search
-mapscene=5
-model=model_loc_2073
-name=Banana Tree
-desc=It's a banana tree, with lots of bananas.
-recol1s=19944
-recol1d=18853
-recol2s=14952
-recol2d=10721
-recol3s=27593
-recol3d=21096
-
-[loc_4751]
-width=2
-length=2
-op1=Search
-mapscene=5
-model=model_loc_2073
-name=Banana Tree
-desc=It's a banana tree, with many bananas.
-recol1s=19944
-recol1d=18853
-recol2s=14952
-recol2d=10721
-recol3s=27593
-recol3d=21096
-
-[loc_4752]
-width=2
-length=2
-op1=Search
-mapscene=5
-model=model_loc_2073
-name=Banana Tree
-desc=It's a banana tree, with a few bananas.
-recol1s=19944
-recol1d=18853
-recol2s=14952
-recol2d=10721
-recol3s=27593
-recol3d=21096
-
-[loc_4753]
-width=2
-length=2
-op1=Search
-mapscene=5
-model=model_loc_2073
-name=Banana Tree
-desc=It's a banana tree, with but one banana.
-recol1s=19944
-recol1d=18853
-recol2s=14952
-recol2d=10721
-recol3s=27593
-recol3d=21096
-
-[loc_4754]
-width=2
-length=2
-op1=Search
-mapscene=5
-model=model_loc_2078
-name=Banana Tree
-desc=It's a banana tree, with no more bananas left.
-recol1s=19944
-recol1d=18853
-recol2s=14952
-recol2d=10721
-
-[loc_4755]
-width=2
-length=2
-op1=Climb-down
-forceapproach=north
-sharelight=yes
-mapscene=7
-model=loc_4755
-name=Stairs
-desc=They go down.
-
-[loc_4756]
-width=2
-length=3
-op1=Climb-up
-forceapproach=south
-sharelight=yes
-mapscene=7
-model=loc_4756
-name=Stairs
-desc=They go up.
-
-[loc_4757]
-ambient=20
-length=2
-active=no
-model=model_loc_3429
-recol1s=17833
-recol1d=10467
-recol2s=15855
-recol2d=5250
-
-[loc_4758]
-sharelight=yes
-model=loc_4758
-recol1s=10883
-recol1d=5250
-
-[loc_4759]
-sharelight=yes
-model=loc_4759
-recol1s=10883
-recol1d=5250
-
-[loc_4760]
-sharelight=yes
-model=loc_4760
-recol1s=10883
-recol1d=5250
-
-[loc_4761]
-sharelight=yes
-model=loc_4761
-recol1s=10883
-recol1d=5250
-
-[loc_4762]
-blockrange=no
-blockwalk=no
-sharelight=yes
-model=loc_4762
-
-[loc_4763]
-blockrange=no
-blockwalk=no
-sharelight=yes
-model=loc_4763
-
-[loc_4764]
-blockrange=no
-model=model_loc_1113
-name=Bamboo Stool
-desc=It's a bamboo stool.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4765]
-anim=firewall
-ambient=100
-contrast=100
-resizey=512
-mapscene=22
-active=yes
-model=loc_4765
-name=Wall of flame
-desc=It's a sheer wall of fire, rising as high as you can see.
-
-[loc_4766]
-anim=firewall
-ambient=100
-contrast=100
-resizey=512
-mapscene=22
-active=yes
-model=loc_4766
-name=Wall of flame
-desc=It's a sheer wall of fire, rising as high as you can see.
-
-[loc_4767]
-width=4
-length=4
-raiseobject=no
-anim=seq_1416
-model=loc_4767
-name=Sacrificial Pyre
-desc=The contents of this pyre are rapidly bubbling and burning.
-
-[loc_4768]
-raiseobject=no
-model=loc_4768
-name=Wall of bricks
-desc=It's a wall of bricks.
-
-[loc_4769]
-raiseobject=no
-model=loc_4769
-name=Pile of bricks
-desc=It's a pile of bricks.
-
-[loc_4770]
-raiseobject=no
-model=loc_4770
-name=Pile of bricks
-desc=It's a pile of bricks.
-
-[loc_4771]
-width=2
-anim=seq_1398
-op1=Talk-to
-model=loc_4771
-name=Awowogei
-desc=A rather dapper little monkey sitting on a throne.
-
-[loc_4772]
-raiseobject=no
-forceapproach=east
-op1=Climb-up
-model=loc_4743
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4773]
-raiseobject=no
-forceapproach=east
-op1=Climb-up
-model=loc_4743
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4774]
-raiseobject=no
-forceapproach=east
-op1=Climb-up
-model=loc_4743
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4775]
-raiseobject=no
-forceapproach=east
-op1=Climb-up
-model=loc_4743
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4776]
-forceapproach=east
-op1=Climb-down
-model=loc_4744
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4777]
-forceapproach=east
-op1=Climb-down
-model=loc_4744
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4778]
-forceapproach=east
-op1=Climb-down
-model=loc_4744
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4779]
-forceapproach=west
-op1=Climb-down
-model=loc_4744
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4780]
-forceapproach=east
-op1=Climb-down
-model=loc_4744
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4781]
-raiseobject=no
-forceapproach=east
-op1=Climb-up
-model=loc_4743
-name=Bamboo Ladder
-desc=It's a bamboo ladder.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4782]
-sharelight=yes
-forcedecor=yes
-model=loc_4782
-
-[loc_4783]
-sharelight=yes
-forcedecor=yes
-model=loc_4783
-
-[loc_4784]
-hillskew=yes
-blockrange=no
-sharelight=yes
-model=loc_4784
-
-[loc_4785]
-hillskew=yes
-blockwalk=no
-sharelight=yes
-model=loc_4785
-
-[loc_4786]
-width=2
-length=2
-model=model_loc_1160
-name=Potted plant
-desc=A plant in a bamboo pot.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4787]
-width=2
-op1=Open
-model=loc_4787
-name=Bamboo Gate
-desc=It's an absolutely huge bamboo gate.
-recol1s=6342
-recol1d=15685
-recol2s=10570
-recol2d=20968
-
-[loc_4788]
-width=2
-op1=Open
-mirror=yes
-model=loc_4787
-name=Bamboo Gate
-desc=It's an absolutely huge bamboo gate.
-recol1s=6342
-recol1d=15685
-recol2s=10570
-recol2d=20968
-
-[loc_4789]
-length=2
-active=no
-model=loc_4789
-recol1s=6342
-recol1d=15685
-recol2s=10570
-recol2d=20968
-
-[loc_4790]
-length=2
-active=no
-mirror=yes
-model=loc_4789
-recol1s=6342
-recol1d=15685
-recol2s=10570
-recol2d=20968
-
-[loc_4791]
-width=2
-length=3
-model=model_loc_433
-name=Bamboo Bed
-desc=It's a big comfy bed, made of strips of bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4792]
-length=2
-model=model_loc_434
-name=Bamboo Bed
-desc=It's a big comfy bed, made of strips of bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4793]
-length=2
-mirror=yes
-model=model_loc_434
-name=Bamboo Bed
-desc=It's a big comfy bed, made of strips of bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4794]
-model=model_loc_395
-name=Pot
-desc=It's a pot made out of bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4795]
-model=model_loc_396
-name=Pots
-desc=They are pots made out of bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4796]
-sharelight=yes
-occlude=yes
-model=model_loc_1618
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4797]
-model=model_loc_620
-name=Bamboo Desk
-desc=Bamboo strips have been lashed together to make this rickety desk.
-
-[loc_4798]
-length=2
-op2=Search
-model=model_loc_394
-name=Bamboo Bookcase
-desc=It's a bookcase made out of bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4799]
-contrast=20
-ambient=10
-op1=Pick-lock
-blockrange=no
-model=loc_4799
-name=Jail Door
-desc=It's a bamboo door with a large iron padlock.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4800]
-contrast=20
-ambient=10
-op1=Pick-lock
-blockrange=no
-model=loc_4799
-name=Jail Door
-desc=It's a bamboo door with a large iron padlock.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4801]
-contrast=20
-ambient=10
-active=no
-blockrange=no
-model=loc_4799
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4802]
-sharelight=yes
-contrast=80
-ambient=10
-active=no
-blockrange=no
-model=loc_4802
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4803]
-sharelight=yes
-contrast=80
-ambient=10
-active=no
-model=loc_4803
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4804]
-sharelight=yes
-occlude=yes
-contrast=100
-ambient=10
-active=no
-model=loc_4804
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4805]
-model=loc_4805
-
-[loc_4806]
-sharelight=yes
-blockrange=no
-model=loc_4806
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4807]
-op1=Open
-blockrange=no
-raiseobject=no
-model=model_4007
-name=Bamboo Door
-desc=It's a door made from bamboo.
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4808]
-blockwalk=no
-blockrange=no
-raiseobject=no
-model=loc_4808
-recol1s=20968
-recol1d=18853
-recol2s=15685
-recol2d=15685
-
-[loc_4809]
-hillskew=yes
-active=no
-resizex=128
-resizey=220
-resizez=128
-model=loc_3547
-
-[loc_4810]
-hillskew=yes
-active=no
-resizex=128
-resizey=220
-resizez=128
-model=loc_3548
-
-[loc_4811]
-hillskew=yes
-active=no
-resizex=128
-resizey=220
-resizez=128
-model=loc_3549
-
-[loc_4812]
-hillskew=yes
-active=yes
-resizex=128
-resizey=270
-resizez=128
-forcedecor=yes
-blockwalk=no
-blockrange=no
-model=loc_4812
-name=Jungle Grass
-desc=Looks good for hiding in...
-
-[loc_4813]
-hillskew=yes
-active=yes
-resizex=128
-resizey=270
-resizez=128
-forcedecor=yes
-blockwalk=no
-blockrange=no
-model=loc_4813
-name=Jungle Grass
-desc=Looks good for hiding in...
-
-[loc_4814]
-hillskew=yes
-active=yes
-resizex=128
-resizey=270
-resizez=128
-forcedecor=yes
-blockwalk=no
-blockrange=no
-model=loc_4814
-name=Jungle Grass
-desc=Looks good for hiding in...
-
-[loc_4815]
-active=yes
-blockwalk=no
-blockrange=no
-model=loc_4745
-name=Long grass
-desc=Looks good for hiding in.
-
-[loc_4816]
-resizex=164
-resizey=164
-resizez=164
-ambient=40
-width=2
-length=2
-mapscene=5
-blockwalk=no
-model=model_loc_1301
-name=Jungle Tree
-desc=This is a fairly tall tree with sparse foliage.
-recol1s=15855
-recol1d=5378
-recol2s=12684
-recol2d=5314
-recol3s=10570
-recol3d=7298
-
-[loc_4817]
-width=3
-length=2
-mapscene=5
-model=model_loc_1313
-name=Jungle Palm
-desc=A jungle palm with dense foliage.
-
-[loc_4818]
-ambient=40
-op1=Chop-down
-op3=hidden
-mapscene=5
-model=model_loc_1301
-name=Jungle Tree
-desc=This is a fairly tall tree with sparse foliage.
-recol1s=15855
-recol1d=5378
-recol2s=12684
-recol2d=5314
-recol3s=10570
-recol3d=7298
-
-[loc_4819]
-mapscene=5
-model=loc_4819
-name=Jungle Tree Stump
-desc=This was a fairly tall tree with sparse foliage.
-
-[loc_4820]
-op1=Chop-down
-op3=hidden
-width=2
-length=2
-mapscene=5
-model=model_loc_1302
-name=Jungle Tree
-desc=A leafy tree.
-
-[loc_4821]
-width=2
-length=2
-mapscene=5
-model=loc_4819
-name=Jungle Tree Stump
-desc=This was a fairly tall tree with sparse foliage.
-
-[loc_4822]
-mapscene=5
-model=model_loc_1341
-name=Tree stump
-desc=This tree has been cut down.
-recol1s=4194
-recol1d=5218
-
-[loc_4823]
-blockrange=no
-blockwalk=no
-model=model_loc_1202
-name=Jungle Flower
-desc=This flower is found only in jungle areas.
-
-[loc_4824]
-blockrange=no
-model=model_loc_1203
-name=Orchid
-desc=A very rare and exotic flower.
-
-[loc_4825]
-blockrange=no
-model=model_loc_1204
-name=Jungle Plant
-desc=A small fernlike plant.
-
-[loc_4826]
-width=2
-length=2
-blockwalk=no
-blockrange=no
-model=model_loc_1407
-name=Whipping Plant
-desc=Leaves a nasty mark.
-
-[loc_4827]
-width=2
-length=2
-op1=Pick
-blockrange=no
-model=model_loc_1408
-name=Pineapple Plant
-desc=Looks spikey.
-
-[loc_4828]
-width=2
-length=2
-blockrange=no
-model=model_loc_1399
-name=Jungle Plant
-desc=This has broad leaves.
-
-[loc_4829]
-width=2
-length=2
-blockrange=no
-model=model_loc_1401
-name=Jungle Plant
-desc=A type of jungle fern.
-
-[loc_4830]
-width=2
-length=2
-blockrange=no
-model=model_loc_1399
-name=Jungle Plant
-desc=A large waxy jungle plant.
-recol1s=608
-recol1d=14054
-
-[loc_4831]
-width=2
-blockwalk=no
-blockrange=no
-model=model_loc_1390
-name=Jungle Plant
-desc=Commonly found in these parts.
-
-[loc_4832]
-blockwalk=no
-blockrange=no
-model=model_loc_1184
-name=Creeping Plant
-desc=The tendrils of a creeping plant.
-
-[loc_4833]
-mapscene=5
-blockwalk=no
-model=model_loc_1390
-name=Jungle Bush
-desc=A jungle bush, quite common to these areas.
-
-[loc_4834]
-mapscene=5
-blockwalk=no
-model=model_loc_1390
-name=Jungle Bush
-desc=A jungle bush, quite common to these areas.
-recol1s=5504
-recol1d=736
-
-[loc_4835]
-mapscene=5
-blockwalk=no
-model=model_loc_2894
-name=Slashed Bush
-desc=A jungle bush that has been chopped down.
-recol1s=5504
-recol1d=736
-
-[loc_4836]
-hillskew=yes
-sharelight=yes
-model=loc_4836
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4837]
-hillskew=yes
-sharelight=yes
-model=loc_4837
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4838]
-hillskew=yes
-sharelight=yes
-model=loc_4838
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4839]
-hillskew=yes
-sharelight=yes
-model=loc_4839
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4840]
-hillskew=yes
-sharelight=yes
-model=loc_4840
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4841]
-hillskew=yes
-sharelight=yes
-model=loc_4841
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4842]
-hillskew=yes
-sharelight=yes
-model=loc_4842
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4843]
-hillskew=yes
-sharelight=yes
-model=loc_4843
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4844]
-hillskew=yes
-sharelight=yes
-model=loc_4844
-recol1s=15393
-recol1d=9606
-recol2s=11744
-recol2d=9540
-recol3s=16417
-recol3d=9606
-
-[loc_4845]
-mapscene=0
-model=model_loc_1326
-name=Tropical tree
-desc=A terribly tall tropical tree.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4846]
-model=model_loc_1327
-name=Tropical tree
-desc=A terribly tall tropical tree.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4847]
-model=model_loc_1328
-name=Tropical tree
-desc=A terribly tall tropical tree.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4848]
-width=3
-length=3
-model=model_loc_1329
-name=Tropical Leaves
-desc=Leaves of a tropical tree.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4849]
-mapscene=23
-model=model_loc_1360
-name=Tropical tree
-desc=This tree no doubt contains dangerous insects.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4850]
-width=7
-length=7
-model=model_loc_1361
-name=Tropical tree
-desc=This tree no doubt contains dangerous insects.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4851]
-width=4
-length=3
-model=model_loc_1362
-name=Tropical tree
-desc=This tree no doubt contains dangerous insects.
-recol1s=19910
-recol1d=18853
-recol2s=20968
-recol2d=15685
-recol3s=12869
-recol3d=8547
-
-[loc_4852]
-width=3
-mapscene=6
-model=model_loc_1334
-name=Hollow Log
-desc=This old tree is rotting away.
-
-[loc_4853]
-mapscene=6
-model=model_loc_1323
-name=Roots
-desc=A gnarly old tree root.
-recol1s=6240
-recol1d=6304
-
-[loc_4854]
-mapscene=6
-model=model_loc_1324
-name=Roots
-desc=The roots of this tree are exposed.
-recol1s=6240
-recol1d=6304
-
-[loc_4855]
-mapscene=6
-model=model_loc_1325
-name=Roots
-desc=I hope I don't trip over any of these.
-recol1s=6240
-recol1d=6304
-
-[loc_4856]
-blockwalk=no
-blockrange=no
-model=loc_4856
-name=Glowing Fungus
-desc=It's a small patch of glowing fungus.
-
-[loc_4857]
-blockwalk=no
-blockrange=no
-model=loc_4857
-name=Glowing Fungus
-desc=It's a medium patch of glowing fungus.
-
-[loc_4858]
-width=4
-length=4
-model=loc_4858
-name=Gorilla Statue
-desc=It's an absolutely collosal statue of some kind of gorilla.
-
-[loc_4859]
-width=2
-length=2
-op1=Pray-at
-model=loc_4859
-name=Gorilla Statue
-desc=It's a huge statue of some kind of gorilla.
-recol1s=21068
-recol1d=30513
-
-[loc_4860]
-width=2
-length=2
-model=loc_4859
-name=Gorilla Statue
-desc=It's a huge statue of some kind of gorilla.
-recol1s=21068
-recol1d=30513
-
-[loc_4861]
-model=loc_4861
-name=Monkey Statue
-desc=It's a huge statue of some kind of monkey.
-recol1s=21068
-recol1d=30513
-
-[loc_4862]
-blockwalk=no
-blockrange=no
-model=loc_4862
-name=Glowing Fungus
-desc=It's a large patch of glowing fungus.
-
-[loc_4863]
-model=loc_4863
-name=Watchtower Legs
-desc=Legs of this watchtower.
-
-[loc_4864]
-model=loc_4864
-name=Watchtower Legs
-desc=Legs of this watchtower.
-
-[loc_4865]
-model=loc_4865
-name=Watchtower Middle
-desc=It's the middle of this watchtower.
-
-[loc_4866]
-width=4
-length=4
-anim=seq_1411
-model=loc_4866
-name=Gnome Glider
-desc=It's a deactivated military Gnome glider.
-
-[loc_4867]
-width=4
-length=4
-model=loc_4866
-name=Gnome Glider
-desc=It's an activated military Gnome glider.
-
-[loc_4868]
-width=3
-length=3
-op1=Operate
-blockwalk=no
-model=loc_4868
-name=Teleportation Device
-desc=It's some kind of Gnome teleportation device.
-recol1s=15855
-recol1d=5250
-
-[loc_4869]
-active=yes
-op1=Operate
-blockwalk=no
-model=loc_4869
-name=Teleportation Device
-desc=It's some kind of Gnome teleportation device.
-recol1s=15855
-recol1d=5250
-
-[loc_4870]
-active=yes
-op1=Operate
-blockwalk=no
-model=loc_4870
-name=Teleportation Device
-desc=It's some kind of Gnome teleportation device.
-recol1s=15855
-recol1d=5250
-
-[loc_4871]
-op1=Operate
-model=loc_4871
-name=Reinitialisation Panel
-desc=This is the panel controlling the hangar reinitialisation.
-recol1s=15855
-recol1d=5250
-
-[loc_4872]
-model=loc_4872
-name=Exit Sign
-desc=There must be an exit nearby.
-recol1s=15855
-recol1d=5250
-
-[loc_4873]
-model=model_loc_670
-name=Lever
-desc=It's probably too risky to try pulling this.
-
-[loc_4874]
-op2=Steal from
-model=loc_4874
-name=Crafting Stall
-desc=This table has crafting paraphernalia on it.
-
-[loc_4875]
-op2=Steal from
-model=loc_4875
-name=Food Stall
-desc=This table has ripe bananas on show.
-
-[loc_4876]
-op2=Steal from
-model=loc_4876
-name=General Stall
-desc=This table has items of a general nature on it.
-
-[loc_4877]
-op2=Steal from
-model=loc_4877
-name=Magic Stall
-desc=This table has runes on display.
-
-[loc_4878]
-op2=Steal from
-model=loc_4878
-name=Scimitar Stall
-desc=This table has a scimitar on it.
-
-[loc_4879]
-active=yes
-forceapproach=east
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4880]
-active=yes
-forceapproach=east
-op1=Climb-down
-op2=Close
-raiseobject=no
-blockrange=no
-model=loc_4713
-name=Trapdoor
-desc=It's an open trapdoor.
-
-[loc_4881]
-active=yes
-op1=Climb
-model=agilityarena_climbingrope
-name=Climbing rope
-desc=I can climb up this.
-
-[loc_4882]
-width=2
-hillskew=yes
-blockwalk=no
-blockrange=no
-model=model_loc_3234
-name=Slight indentations
-desc=Looks suspicious.
-recol1s=7329
-recol1d=12580
-
-[loc_4883]
-hillskew=yes
-blockwalk=no
-blockrange=no
-op1=Search
-model=model_loc_3230_0
-name=A rock
-desc=Looks suspicious.
-recol1s=13741
-recol1d=6273
-
-[loc_4884]
-sharelight=yes
-hillskew=yes
-blockwalk=no
-blockrange=no
-active=yes
-model=model_loc_755
-name=Plank
-
-[loc_4885]
-width=3
-hillskew=yes
-blockwalk=no
-blockrange=no
-model=model_loc_3232
-name=Stalagmites
-desc=Formed over many years.
-
-[loc_4886]
-anim=agilityarena_floorspikes_normal
-blockwalk=no
-blockrange=no
-forcedecor=yes
-active=yes
-shadow=no
-hillskew=yes
-model=loc_4886
-name=Floor spikes
-desc=Human sieve creation.
-
-[loc_4887]
-hillskew=yes
-blockwalk=no
-blockrange=no
-op1=Search
-model=model_loc_3230_0
-name=A rock
-desc=Looks suspicious.
-recol1s=13741
-recol1d=6273
-
-[loc_4888]
-active=yes
-forceapproach=west
-op1=Open
-raiseobject=no
-blockwalk=no
-blockrange=no
-model=model_loc_100
-name=Trapdoor
-desc=It's a trapdoor.
-
-[loc_4889]
-active=yes
-op1=Climb
-model=agilityarena_climbingrope
-name=Climbing rope
-desc=I can climb up this.
-
-[loc_4890]
-sharelight=yes
-hillskew=yes
-model=model_loc_1417
-recol1s=12580
-recol1d=18851
-
-[loc_4891]
-sharelight=yes
-hillskew=yes
-model=model_loc_1418
-recol1s=12580
-recol1d=18851
-
-[loc_4892]
-sharelight=yes
-hillskew=yes
-active=no
-model=model_loc_1434
-recol1s=12580
-recol1d=18851
-
-[loc_4893]
-sharelight=yes
-hillskew=yes
-active=no
-model=model_loc_1435
-recol1s=12580
-recol1d=18851
-
-[loc_4894]
-sharelight=yes
-hillskew=yes
-model=model_loc_1423
-recol1s=12580
-recol1d=18851
-
-[loc_4895]
-sharelight=yes
-hillskew=yes
-mirror=yes
-model=model_loc_1423
-recol1s=12580
-recol1d=18851
-
-[loc_4896]
-sharelight=yes
-hillskew=yes
-model=loc_4896
-recol1s=12580
-recol1d=18851
-
-[loc_4897]
-sharelight=yes
-hillskew=yes
-active=no
-model=model_loc_1436
-recol1s=12580
-recol1d=18851
-
-[loc_4898]
-sharelight=yes
-hillskew=yes
-active=no
-model=loc_4898
-
-[loc_4899]
-sharelight=yes
-hillskew=yes
-active=no
-model=model_loc_1428
-
-[loc_4900]
-op1=Take
-anim=seq_1430
-mapscene=28
-model=model_4445
+[castlewars_saradomin_banner]
 name=Saradomin Standard
 desc=The Saradomin Team Standard.
-
-[loc_4901]
+model=game_castlewars_banners_saradomin
 op1=Take
-anim=seq_1430
-mapscene=29
-model=model_4446
+anim=castlewars_banner
+mapscene=28
+
+[castlewars_zamorak_banner]
 name=Zamorak Standard
 desc=The Zamorak Team Standard.
+model=game_castlewars_banners_zamorak
+op1=Take
+anim=castlewars_banner
+mapscene=29
 
-[loc_4902]
-op1=Capture
-anim=seq_1430
-mapscene=28
-model=model_4445
-model=loc_4377
+[castlewars_saradomin_banner+stand]
 name=Saradomin Standard
 desc=The Saradomin Team Standard.
+model=game_castlewars_banners_saradomin
+model2=loc_4377
 retex1s=mossybricks
 retex1d=empty
 recol2s=6340
 recol2d=17932
-
-[loc_4903]
 op1=Capture
-anim=seq_1430
-mapscene=29
-model=model_4446
-model=loc_4377
+anim=castlewars_banner
+mapscene=28
+
+[castlewars_zamorak_banner+stand]
 name=Zamorak Standard
 desc=The Zamorak Team Standard.
+model=game_castlewars_banners_zamorak
+model2=loc_4377
+op1=Capture
+anim=castlewars_banner
+mapscene=29
 
-[loc_4904]
-anim=seq_1431
-width=3
-length=3
-active=yes
-blockrange=no
-ambient=40
-contrast=40
-mapscene=30
-model=model_4448
-model=model_4449
+[castlewars_catapult_zamorak_burning]
 name=Catapult
 desc=It's on fire!
+model=model_4448
+model2=model_4449
 recol1s=9513
 recol1d=6342
 recol2s=8386
@@ -2177,8 +446,6 @@ recol3s=6272
 recol3d=6275
 recol4s=13741
 recol4d=11560
-
-[loc_4905]
 anim=seq_1431
 width=3
 length=3
@@ -2187,10 +454,12 @@ blockrange=no
 ambient=40
 contrast=40
 mapscene=30
-model=model_4448
-model=model_4449
+
+[castlewars_catapult_saradomin_burning]
 name=Catapult
 desc=It's on fire!
+model=model_4448
+model2=model_4449
 recol1s=9513
 recol1d=6342
 recol2s=8386
@@ -2199,122 +468,125 @@ recol3s=6272
 recol3d=6275
 recol4s=13741
 recol4d=11560
-
-[loc_4906]
-active=no
-anim=seq_1430
-model=model_4445
-model=loc_4377
-retex1s=mossybricks
-retex1d=empty
-recol2s=6340
-recol2d=17932
-
-[loc_4907]
-active=no
-anim=seq_1430
-model=model_4446
-model=loc_4377
-retex1s=mossybricks
-retex1d=empty
-recol2s=6340
-recol2d=17932
-
-[loc_4908]
-sharelight=yes
+anim=seq_1431
+width=3
+length=3
+active=yes
 blockrange=no
-model=model_loc_1622
+ambient=40
+contrast=40
+mapscene=30
+
+[castlewars_saradomin_banner+stand_inactive]
+model=game_castlewars_banners_saradomin
+model2=loc_4377
+retex1s=mossybricks
+retex1d=empty
+recol2s=6340
+recol2d=17932
+active=no
+anim=castlewars_banner
+
+[castlewars_zamorak_banner+stand_inactive]
+model=game_castlewars_banners_zamorak
+model2=loc_4377
+retex1s=mossybricks
+retex1d=empty
+recol2s=6340
+recol2d=17932
+active=no
+anim=castlewars_banner
+
+[castlewars_castlebattlements_zamorak]
+model=castle_edge
 retex1s=wall
 retex1d=mossybricks
+sharelight=yes
+blockrange=no
 
 [loc_4909]
+model=blank
+model2=loc_4909
 shadow=no
 blockrange=no
 mapscene=22
-model=model_loc_83
-model=loc_83
 
-[loc_4910]
-blockrange=no
-model=model_loc_362
+[castlewars_barrel]
 name=Barrel
 desc=A wooden barrel for storage.
+model=outdoorfurniture_barrel
+blockrange=no
 
-[loc_4911]
+[castlewars_laddertop]
+name=Ladder
+desc=I can climb down this.
+model=furniture_laddertop
 active=yes
 op1=Climb-down
 mapscene=7
 forceapproach=south
-model=model_loc_10
+
+[castlewars_ladder_cellar_directional]
 name=Ladder
 desc=I can climb down this.
-
-[loc_4912]
+model=furniture_ladderdown
 active=yes
 op1=Climb-down
 mapscene=7
 forceapproach=north
-model=model_loc_133
-name=Ladder
-desc=I can climb down this.
 
-[loc_4913]
-sharelight=yes
-op1=Crawl down
-model=loc_4913
+[hauntedmine_secondary_entrance]
 name=Cart tunnel
 desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
 recol1s=12580
 recol1d=11627
-
-[loc_4914]
 sharelight=yes
 op1=Crawl down
-model=loc_4913
+
+[hauntedmine_back_entrance1]
 name=Cart tunnel
 desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
 recol1s=12580
 recol1d=11627
-
-[loc_4915]
 sharelight=yes
 op1=Crawl down
-model=loc_4913
+
+[hauntedmine_back_entrance2]
 name=Cart tunnel
 desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
 recol1s=12580
 recol1d=11627
+sharelight=yes
+op1=Crawl down
 
-[loc_4916]
+[cavewall_face1_end_grey_left]
+model=quest_hauntedmine_cavewall_face1_end
+recol1s=12580
+recol1d=11627
 hillskew=yes
 sharelight=yes
-model=loc_4916
+
+[cavewall_face1_end_grey_right]
+model=quest_hauntedmine_cavewall_face1_end
 recol1s=12580
 recol1d=11627
-
-[loc_4917]
 hillskew=yes
 sharelight=yes
 mirror=yes
-model=loc_4916
-recol1s=12580
-recol1d=11627
 
-[loc_4918]
-op1=Climb over
-model=model_loc_637
+[hauntedmine_obstacle_cart]
 name=Mine cart
 desc=This cart is blocking the way up the ridge.
+model=mine_cart
+op1=Climb over
 
-[loc_4919]
-sharelight=yes
-width=3
-length=4
-op1=Walk-down
-forceapproach=north
-model=loc_4919
+[hauntedmine_main_entrance]
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
+model=quest_hauntedmine_cave_stairs_down
 recol1s=12580
 recol1d=7399
 recol2s=10467
@@ -2327,429 +599,439 @@ recol5s=6240
 recol5d=3171
 recol6s=4128
 recol6d=2114
-
-[loc_4920]
-sharelight=yes
-op1=Crawl through
-model=loc_4913
-name=Cart tunnel
-desc=It looks cramped and dark.
-recol1s=12580
-recol1d=18851
-
-[loc_4921]
-sharelight=yes
-op1=Crawl through
-model=loc_4913
-name=Cart tunnel
-desc=It looks cramped and dark.
-recol1s=12580
-recol1d=18851
-
-[loc_4922]
-sharelight=yes
-op1=Crawl through
-model=loc_4913
-name=Cart tunnel
-desc=It looks cramped and dark.
-recol1s=12580
-recol1d=18851
-
-[loc_4923]
-sharelight=yes
-width=4
-length=3
-op1=Walk-up
-model=loc_4923
-name=Stairs
-desc=These stairs seem to have been hewn out of the rock itself.
-recol1s=12580
-recol1d=18851
-recol2s=9409
-recol2d=12580
-
-[loc_4924]
-op1=Turn
-model=model_loc_2844
-name=Water Valve
-desc=A valve to start and stop the flow of water.
-recol1s=9545
-recol1d=5250
-
-[loc_4925]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-model=loc_4925
-
-[loc_4926]
-hillskew=yes
-op1=Cut
-model=loc_4926
-name=Crystal outcrop
-desc=Shiny!
-
-[loc_4927]
-hillskew=yes
-op1=Cut
-model=loc_4927
-name=Crystal outcrop
-desc=Shiny!
-
-[loc_4928]
-hillskew=yes
-op1=Cut
-model=loc_4928
-name=Crystal outcrop
-desc=Shiny!
-
-[loc_4929]
-sharelight=yes
-model=loc_4913
-name=Dark tunnel
-desc=It looks cramped and dark.
-recol1s=12580
-recol1d=18851
-
-[loc_4930]
-sharelight=yes
-model=loc_4930
-name=Mine cart
-desc=It's blocking the tunnel, but it looks dark down there anyway.
-recol1s=12580
-recol1d=18851
-
-[loc_4931]
-active=no
-sharelight=yes
-width=4
-model=loc_4931
-recol1s=12580
-recol1d=18851
-
-[loc_4932]
-op1=Pick
-model=loc_4932
-name=Glowing fungus
-desc=A bizarre fungus.  It emits a pale blue light.
-
-[loc_4933]
-op1=Pick
-model=loc_4933
-name=Glowing fungus
-desc=A bizarre fungus.  It emits a pale blue light.
-
-[loc_4934]
-hillskew=yes
-sharelight=yes
-model=loc_4934
-recol1s=12580
-recol1d=18851
-
-[loc_4935]
-hillskew=yes
-sharelight=yes
-model=loc_4935
-name=Ceiling support
-desc=If that wasn't there I'd probably be a lot flatter now.
-
-[loc_4936]
-hillskew=yes
-sharelight=yes
-model=loc_4936
-name=Wall support
-desc=It prevents the wall unceremoniously squashing people.
-
-[loc_4937]
-sharelight=yes
-op1=Go down in
-model=loc_4937
-name=Lift
-desc=It looks like it's water powered.
-
-[loc_4938]
-sharelight=yes
-mirror=yes
-op1=Go down in
-model=loc_4937
-name=Lift
-desc=It looks like it's water powered.
-
-[loc_4939]
-length=2
-sharelight=yes
-mirror=yes
-active=no
-model=loc_4939
-recol1s=12580
-recol1d=18851
-
-[loc_4940]
-length=2
-sharelight=yes
-op1=Go down in
-model=loc_4940
-name=Lift
-desc=It looks like it's water powered.
-recol1s=12580
-recol1d=18851
-
-[loc_4941]
-length=2
-sharelight=yes
-active=no
-model=loc_4939
-recol1s=12580
-recol1d=18851
-
-[loc_4942]
-op1=Wade to
-op1=Go up in
-model=loc_4942
-name=Lift
-desc=It's a little waterlogged.  I hope it still works.
-
-[loc_4943]
-forcedecor=yes
-hillskew=yes
-model=loc_4943
-
-[loc_4944]
-blockrange=no
-model=loc_4944
-name=Crate
-desc=It doesn't look very watertight.  Any contents will be ruined.
-
-[loc_4945]
-model=loc_4945
-name=Mine cart
-desc=A sunken mine cart, how useful.
-
-[loc_4946]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-model=loc_4946
-
-[loc_4947]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-model=loc_4947
-
-[loc_4948]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-model=loc_4948
-
-[loc_4949]
-sharelight=yes
-length=2
-op1=Check
-model=loc_4949
-name=Points settings
-desc=This displays information on how the points on this level are set.
-recol1s=12580
-recol1d=18851
-
-[loc_4950]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'B' inscribed on the end.
-
-[loc_4951]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'A' inscribed on the end.
-
-[loc_4952]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'C' inscribed on the end.
-
-[loc_4953]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'D' inscribed on the end.
-
-[loc_4954]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'E' inscribed on the end.
-
-[loc_4955]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'I' inscribed on the end.
-
-[loc_4956]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'J' inscribed on the end.
-
-[loc_4957]
-op1=Pull
-model=model_loc_670
-name=Lever
-desc=It has the letter 'K' inscribed on the end.
-
-[loc_4958]
-model=model_loc_669
-name=Lever
-desc=I think this changes one of the sets of points.
-
-[loc_4959]
-model=model_loc_670
-name=Lever
-desc=It has the letter 'F' inscribed on the end.
-
-[loc_4960]
-model=model_loc_670
-name=Lever
-desc=It has the letter 'G' inscribed on the end.
-
-[loc_4961]
-model=model_loc_670
-name=Lever
-desc=It has the letter 'H' inscribed on the end.
-
-[loc_4962]
-active=yes
-op1=Open
-model=model_loc_3
-name=Door
-desc=The door is closed.
-retex1s=wall
-retex1d=door
-recol2s=6342
-recol2d=11458
-
-[loc_4963]
-op1=Open
-raiseobject=no
-model=model_loc_71
-name=Large door
-desc=A large double door.
-
-[loc_4964]
-op1=Open
-mirror=yes
-raiseobject=no
-model=model_loc_71
-name=Large door
-desc=A large double door.
-
-[loc_4965]
-active=yes
-op1=Climb-down
-mapscene=7
-model=model_loc_133
-name=Ladder
-desc=I can climb down this.
-
-[loc_4966]
-active=yes
-op1=Climb-up
-mapscene=7
-model=model_loc_11
-name=Ladder
-desc=I can climb this.
-
-[loc_4967]
-active=yes
-op1=Climb-down
-mapscene=7
-model=model_loc_133
-name=Ladder
-desc=I can climb down this.
-
-[loc_4968]
-active=yes
-op1=Climb-up
-mapscene=7
-model=model_loc_11
-name=Ladder
-desc=I can climb this.
-
-[loc_4969]
-active=yes
-op1=Climb-down
-mapscene=7
-model=model_loc_133
-name=Ladder
-desc=I can climb down this.
-
-[loc_4970]
-active=yes
-op1=Climb-up
-mapscene=7
-model=model_loc_11
-name=Ladder
-desc=I can climb this.
-
-[loc_4971]
 sharelight=yes
 width=3
 length=4
 op1=Walk-down
 forceapproach=north
-model=loc_4919
+
+[hauntedmine_secondary_entrance_inside]
+name=Cart tunnel
+desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
+recol1s=12580
+recol1d=18851
+sharelight=yes
+op1=Crawl through
+
+[hauntedmine_back_entrance1_inside]
+name=Cart tunnel
+desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
+recol1s=12580
+recol1d=18851
+sharelight=yes
+op1=Crawl through
+
+[hauntedmine_back_entrance2_inside]
+name=Cart tunnel
+desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
+recol1s=12580
+recol1d=18851
+sharelight=yes
+op1=Crawl through
+
+[hauntedmine_main_entrance_inside]
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
+model=quest_hauntedmine_cave_stairs
+recol1s=12580
+recol1d=18851
+recol2s=9409
+recol2d=12580
+sharelight=yes
+width=4
+length=3
+op1=Walk-up
+
+[hauntedmine_lift_valve]
+name=Water Valve
+desc=A valve to start and stop the flow of water.
+model=quest_sewervalve
+recol1s=9545
+recol1d=5250
+op1=Turn
+
+[trackcross]
+model=loc_4925
+hillskew=yes
+sharelight=yes
+forcedecor=yes
+
+[crystalcorner]
+name=Crystal outcrop
+desc=Shiny!
+model=quest_hauntedmine_crystalcorner
+hillskew=yes
+op1=Cut
+
+[crystaledging]
+name=Crystal outcrop
+desc=Shiny!
+model=quest_hauntedmine_crystaledging
+hillskew=yes
+op1=Cut
+
+[largecrystals]
+name=Crystal outcrop
+desc=Shiny!
+model=quest_hauntedmine_largecrystals
+hillskew=yes
+op1=Cut
+
+[cavewall_tunnel_track]
+name=Dark tunnel
+desc=It looks cramped and dark.
+model=quest_hauntedmine_cavewall_tunnel_track
+recol1s=12580
+recol1d=18851
+sharelight=yes
+
+[cavewall_tunnel_cart]
+name=Mine cart
+desc=It's blocking the tunnel, but it looks dark down there anyway.
+model=loc_4930
+recol1s=12580
+recol1d=18851
+sharelight=yes
+
+[track_up]
+model=loc_4931
+recol1s=12580
+recol1d=18851
+active=no
+sharelight=yes
+width=4
+
+[glowing_mushroom]
+name=Glowing fungus
+desc=A bizarre fungus.  It emits a pale blue light.
+model=quest_hauntedmine_glowing_mushroom
+op1=Pick
+
+[glowing_mushroom2]
+name=Glowing fungus
+desc=A bizarre fungus.  It emits a pale blue light.
+model=quest_hauntedmine_glowing_mushroom2
+op1=Pick
+
+[cavewall_face_forsupport]
+model=loc_4934
+recol1s=12580
+recol1d=18851
+hillskew=yes
+sharelight=yes
+
+[mine_support_ceiling]
+name=Ceiling support
+desc=If that wasn't there I'd probably be a lot flatter now.
+model=loc_4935
+hillskew=yes
+sharelight=yes
+
+[mine_support_wall]
+name=Wall support
+desc=It prevents the wall unceremoniously squashing people.
+model=loc_4936
+hillskew=yes
+sharelight=yes
+
+[lift_side_l]
+name=Lift
+desc=It looks like it's water powered.
+model=loc_4937
+sharelight=yes
+op1=Go down in
+
+[lift_side_r]
+name=Lift
+desc=It looks like it's water powered.
+model=loc_4937
+sharelight=yes
+mirror=yes
+op1=Go down in
+
+[lift_back_l]
+model=loc_4939
+recol1s=12580
+recol1d=18851
+length=2
+sharelight=yes
+mirror=yes
+active=no
+
+[lift_back]
+name=Lift
+desc=It looks like it's water powered.
+model=loc_4940
+recol1s=12580
+recol1d=18851
+length=2
+sharelight=yes
+op1=Go down in
+
+[lift_back_r]
+model=loc_4939
+recol1s=12580
+recol1d=18851
+length=2
+sharelight=yes
+active=no
+
+[lift_flooded]
+name=Lift
+desc=It's a little waterlogged.  I hope it still works.
+model=quest_hauntedmine_lift_flooded
+op1=Wade to
+op1=Go up in
+
+[track_flooded]
+model=quest_hauntedmine_track_flooded
+forcedecor=yes
+hillskew=yes
+
+[crate_flooded]
+name=Crate
+desc=It doesn't look very watertight.  Any contents will be ruined.
+model=quest_hauntedmine_crate_flooded
+blockrange=no
+
+[mine_cart_flooded]
+name=Mine cart
+desc=A sunken mine cart, how useful.
+model=loc_4945
+
+[cavewall_hole]
+model=quest_hauntedmine_cavewall_hole
+hillskew=yes
+sharelight=yes
+forcedecor=yes
+
+[cavewall_hole_bridge]
+model=loc_4947
+hillskew=yes
+sharelight=yes
+forcedecor=yes
+
+[cavewall_hole_corner]
+model=quest_hauntedmine_cavewall_hole_corner
+hillskew=yes
+sharelight=yes
+forcedecor=yes
+
+[hauntedmine_points_info]
+name=Points settings
+desc=This displays information on how the points on this level are set.
+model=loc_4949
+recol1s=12580
+recol1d=18851
+sharelight=yes
+length=2
+op1=Check
+
+[hauntedmine_point_lever1]
+name=Lever
+desc=It has the letter 'B' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever2]
+name=Lever
+desc=It has the letter 'A' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever3]
+name=Lever
+desc=It has the letter 'C' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever4]
+name=Lever
+desc=It has the letter 'D' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever5]
+name=Lever
+desc=It has the letter 'E' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever6]
+name=Lever
+desc=It has the letter 'I' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever7]
+name=Lever
+desc=It has the letter 'J' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever8]
+name=Lever
+desc=It has the letter 'K' inscribed on the end.
+model=quest_floorlever_off
+op1=Pull
+
+[hauntedmine_point_lever_inactive]
+name=Lever
+desc=I think this changes one of the sets of points.
+model=quest_floorlever_on
+
+[hauntedmine_point_lever_flooded9]
+name=Lever
+desc=It has the letter 'F' inscribed on the end.
+model=quest_floorlever_off
+
+[hauntedmine_point_lever_flooded10]
+name=Lever
+desc=It has the letter 'G' inscribed on the end.
+model=quest_floorlever_off
+
+[hauntedmine_point_lever_flooded11]
+name=Lever
+desc=It has the letter 'H' inscribed on the end.
+model=quest_floorlever_off
+
+[hauntedmine_boss_door]
+name=Door
+desc=The door is closed.
+model=basic_wall
+retex1s=wall
+retex1d=door
+recol2s=6342
+recol2d=11458
+active=yes
+op1=Open
+
+[hauntedmine_rewarddoor_l]
+name=Large door
+desc=A large double door.
+model=castle_doubledoorl
+op1=Open
+raiseobject=no
+
+[hauntedmine_rewarddoor_r]
+name=Large door
+desc=A large double door.
+model=castle_doubledoorl
+op1=Open
+mirror=yes
+raiseobject=no
+
+[hauntedmine_laddertop]
+name=Ladder
+desc=I can climb down this.
+model=furniture_ladderdown
+active=yes
+op1=Climb-down
+mapscene=7
+
+[hauntedmine_ladder]
+name=Ladder
+desc=I can climb this.
+model=furniture_ladder
+active=yes
+op1=Climb-up
+mapscene=7
+
+[hauntedmine_laddertop_1e]
+name=Ladder
+desc=I can climb down this.
+model=furniture_ladderdown
+active=yes
+op1=Climb-down
+mapscene=7
+
+[hauntedmine_ladder_1w]
+name=Ladder
+desc=I can climb this.
+model=furniture_ladder
+active=yes
+op1=Climb-up
+mapscene=7
+
+[hauntedmine_laddertop_1sw]
+name=Ladder
+desc=I can climb down this.
+model=furniture_ladderdown
+active=yes
+op1=Climb-down
+mapscene=7
+
+[hauntedmine_ladder_1ne]
+name=Ladder
+desc=I can climb this.
+model=furniture_ladder
+active=yes
+op1=Climb-up
+mapscene=7
+
+[hauntedmine_dark_stairs_top]
+name=Stairs
+desc=These stairs seem to have been hewn out of the rock itself.
+model=quest_hauntedmine_cave_stairs_down
 recol1s=10465
 recol1d=32767
 recol2s=12580
 recol2d=10465
-
-[loc_4972]
 sharelight=yes
-width=4
-length=3
-op1=Walk-up
-model=loc_4923
+width=3
+length=4
+op1=Walk-down
+forceapproach=north
+
+[hauntedmine_dark_stairs_bottom]
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
+model=quest_hauntedmine_cave_stairs
 recol1s=12580
 recol1d=2114
 recol2s=9409
 recol2d=0
-
-[loc_4973]
 sharelight=yes
 width=4
 length=3
 op1=Walk-up
-model=loc_4923
+
+[hauntedmine_light_stairs_bottom]
 name=Stairs
 desc=These stairs seem to have been hewn out of the rock itself.
+model=quest_hauntedmine_cave_stairs
 recol1s=12580
 recol1d=18851
+sharelight=yes
+width=4
+length=3
+op1=Walk-up
 
-[loc_4974]
-op1=Search
-model=model_loc_637
+[hauntedmine_puzzle_cart]
 name=Mine cart
 desc=Useful for moving items around the mine.
-
-[loc_4975]
+model=mine_cart
 op1=Search
-model=model_loc_0
+
+[hauntedmine_chisel_crate]
 name=Crate
 desc=An old crate for storage.
+model=warehouse_shop_crate2
 retex1s=darkwood
 retex1d=wood2
 retex2s=elfwood
 retex2d=wood2
+op1=Search
 
 [loc_4976]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=14596
 active=yes
 contrast=100
 ambient=25
@@ -2757,13 +1039,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=14596
 
 [loc_4977]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=14596
 active=yes
 contrast=100
 ambient=25
@@ -2771,27 +1053,27 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=14596
 
 [loc_4978]
-active=yes
-contrast=100
-ambient=25
-hillskew=yes
-op1=Mine
-op2=Prospect
-op3=Hidden
-model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
+model=loc_4978
 recol1s=992
 recol1d=14596
+active=yes
+contrast=100
+ambient=25
+hillskew=yes
+op1=Mine
+op2=Prospect
+op3=Hidden
 
 [loc_4979]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=13741
 active=yes
 contrast=100
 ambient=25
@@ -2799,13 +1081,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=13741
 
 [loc_4980]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=13741
 active=yes
 contrast=100
 ambient=25
@@ -2813,27 +1095,27 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=13741
 
 [loc_4981]
-active=yes
-contrast=100
-ambient=25
-hillskew=yes
-op1=Mine
-op2=Prospect
-op3=Hidden
-model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
+model=loc_4978
 recol1s=992
 recol1d=13741
+active=yes
+contrast=100
+ambient=25
+hillskew=yes
+op1=Mine
+op2=Prospect
+op3=Hidden
 
 [loc_4982]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=6242
 active=yes
 contrast=100
 ambient=25
@@ -2841,13 +1123,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=6242
 
 [loc_4983]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=6242
 active=yes
 contrast=100
 ambient=25
@@ -2855,27 +1137,27 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=6242
 
 [loc_4984]
-active=yes
-contrast=100
-ambient=25
-hillskew=yes
-op1=Mine
-op2=Prospect
-op3=Hidden
-model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
+model=loc_4978
 recol1s=992
 recol1d=6242
+active=yes
+contrast=100
+ambient=25
+hillskew=yes
+op1=Mine
+op2=Prospect
+op3=Hidden
 
 [loc_4985]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=0
 active=yes
 contrast=100
 ambient=25
@@ -2883,13 +1165,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=0
 
 [loc_4986]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=0
 active=yes
 contrast=100
 ambient=25
@@ -2897,27 +1179,27 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=0
 
 [loc_4987]
-active=yes
-contrast=100
-ambient=25
-hillskew=yes
-op1=Mine
-op2=Prospect
-op3=Hidden
-model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
+model=loc_4978
 recol1s=992
 recol1d=0
+active=yes
+contrast=100
+ambient=25
+hillskew=yes
+op1=Mine
+op2=Prospect
+op3=Hidden
 
 [loc_4988]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=6346
 active=yes
 contrast=100
 ambient=25
@@ -2925,13 +1207,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=6346
 
 [loc_4989]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=6346
 active=yes
 contrast=100
 ambient=25
@@ -2939,27 +1221,27 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=6346
 
 [loc_4990]
-active=yes
-contrast=100
-ambient=25
-hillskew=yes
-op1=Mine
-op2=Prospect
-op3=Hidden
-model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
+model=loc_4978
 recol1s=992
 recol1d=6346
+active=yes
+contrast=100
+ambient=25
+hillskew=yes
+op1=Mine
+op2=Prospect
+op3=Hidden
 
 [loc_4991]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=6438
 active=yes
 contrast=100
 ambient=25
@@ -2967,13 +1249,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=6438
 
 [loc_4992]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=6438
 active=yes
 contrast=100
 ambient=25
@@ -2981,27 +1263,27 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=6438
 
 [loc_4993]
-active=yes
-contrast=100
-ambient=25
-hillskew=yes
-op1=Mine
-op2=Prospect
-op3=Hidden
-model=loc_4978
 name=Mineral vein
 desc=A distinctive layer in the rock strata.
+model=loc_4978
 recol1s=992
 recol1d=6438
+active=yes
+contrast=100
+ambient=25
+hillskew=yes
+op1=Mine
+op2=Prospect
+op3=Hidden
 
 [loc_4994]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4976
+recol1s=992
+recol1d=18851
 active=yes
 contrast=100
 ambient=25
@@ -3009,13 +1291,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4976
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=18851
 
 [loc_4995]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4977
+recol1s=992
+recol1d=18851
 active=yes
 contrast=100
 ambient=25
@@ -3023,13 +1305,13 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4977
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=18851
 
 [loc_4996]
+name=Mineral vein
+desc=A distinctive layer in the rock strata.
+model=loc_4978
+recol1s=992
+recol1d=18851
 active=yes
 contrast=100
 ambient=25
@@ -3037,99 +1319,91 @@ hillskew=yes
 op1=Mine
 op2=Prospect
 op3=Hidden
-model=loc_4978
-name=Mineral vein
-desc=A distinctive layer in the rock strata.
-recol1s=992
-recol1d=18851
 
-[loc_4997]
+[track_points_a_mirrored]
+model=mine_trackpoints_a
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_643
 
-[loc_4998]
+[track_points_b_mirrored]
+model=mine_trackpoints_b
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_644
 
-[loc_4999]
+[track_points_c_mirrored]
+model=mine_trackpoints_c
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_645
 
-[loc_5000]
+[track_points_d_mirrored]
+model=mine_trackpoints_d
 hillskew=yes
 sharelight=yes
 forcedecor=yes
 mirror=yes
-model=model_loc_646
 
-[loc_5001]
-active=yes
-raiseobject=no
-model=model_loc_1572
+[route_boardedupdoor]
 name=Wooden boards
 desc=This cave has been boarded up.
+model=walldecor_bordedupdoor
+active=yes
+raiseobject=no
 
-[loc_5002]
+[swamp_bridge1]
+name=Rope bridge
+desc=Useful for passing over inaccesible areas.
+model=wooden_bamboo_bridge
+recol1s=15685
+recol1d=7428
+recol2s=20968
+recol2d=11655
 hillskew=yes
 active=no
 forcedecor=yes
 op1=Walk-here
 op5=Repair
 active=yes
-model=model_loc_1721
-name=Rope bridge
-desc=Useful for passing over inaccesible areas.
+
+[spooky_tree_base_forbridge]
+name=Broken rope bridge
+desc=It's old and pretty broken
+model=loc_5003
 recol1s=15685
 recol1d=7428
 recol2s=20968
 recol2d=11655
-
-[loc_5003]
 hillskew=yes
 active=no
 forcedecor=yes
 op1=Repair
 active=yes
-model=loc_5003
-name=Broken rope bridge
-desc=It's old and pretty broken
-recol1s=15685
-recol1d=7428
-recol2s=20968
-recol2d=11655
 
-[loc_5004]
-forcedecor=yes
-sharelight=yes
-model=loc_5004
+[spooky_tree_mid_forbridge]
 name=Tree
 desc=A well used tree.
+model=loc_5004
+forcedecor=yes
+sharelight=yes
 
-[loc_5005]
+[harmless_dead_palm_mid]
+name=Tree
+desc=A well used tree.
+model=loc_5005
 forcedecor=yes
 sharelight=yes
 op1=Climb up
 op2=Climb down
-model=loc_5005
-name=Tree
-desc=A well used tree.
 
-[loc_5006]
-op2=Pick
-blockwalk=no
-blockrange=no
-model=model_loc_2980
+[trollromance_rareflowers]
 name=Rare Flowers
 desc=These flowers only grow in one place in the mountains.
+model=quest_flower_growing
 recol1s=9702
 recol1d=13932
 recol2s=21017
@@ -3140,15 +1414,14 @@ recol4s=14967
 recol4d=20250
 recol5s=27363
 recol5d=19327
+op2=Pick
+blockwalk=no
+blockrange=no
 
-[loc_5007]
-width=3
-length=2
-shadow=no
-op1=Enter
-model=model_loc_2
+[trollromance_caveentrance]
 name=Cave entrance
 desc=Looks like small cave.
+model=cave_entrance3
 recol1s=10400
 recol1d=30653
 recol2s=8288
@@ -3159,14 +1432,15 @@ recol4s=4096
 recol4d=11627
 recol5s=2048
 recol5d=5285
-
-[loc_5008]
 width=3
 length=2
+shadow=no
 op1=Enter
-model=model_loc_2
+
+[trollromance_stronghold_exit_tunnel]
 name=Tunnel
 desc=Looks dark...
+model=cave_entrance3
 recol1s=10400
 recol1d=11592
 recol2s=8288
@@ -3177,8 +1451,24 @@ recol4s=4096
 recol4d=5250
 recol5s=2048
 recol5d=3136
+width=3
+length=2
+op1=Enter
 
-[loc_5009]
+[trollromance_piste_top]
+name=Tunnel
+desc=Looks dark...
+model=quest_trollromance_secret_rock_exit
+recol1s=10400
+recol1d=11592
+recol2s=8288
+recol2d=9478
+recol3s=6176
+recol3d=7364
+recol4s=4096
+recol4d=5250
+recol5s=2048
+recol5d=3136
 width=3
 length=3
 resizex=384
@@ -3189,30 +1479,11 @@ ambient=60
 contrast=70
 sharelight=yes
 op1=Enter
-model=loc_5009
-name=Tunnel
-desc=Looks dark...
-recol1s=10400
-recol1d=11592
-recol2s=8288
-recol2d=9478
-recol3s=6176
-recol3d=7364
-recol4s=4096
-recol4d=5250
-recol5s=2048
-recol5d=3136
 
-[loc_5010]
-width=3
-length=2
-ambient=60
-contrast=60
-sharelight=yes
-op1=Enter
-model=loc_3736
+[trollromance_piste_tunnel_top]
 name=Tunnel
 desc=Looks dark...
+model=quest_death_caveexit
 recol1s=10400
 recol1d=30655
 recol2s=8288
@@ -3223,17 +1494,17 @@ recol4s=4096
 recol4d=17971
 recol5s=2048
 recol5d=13747
-
-[loc_5011]
 width=3
 length=2
 ambient=60
 contrast=60
 sharelight=yes
 op1=Enter
-model=loc_3736
+
+[trollromance_piste_tunnel_bottom]
 name=Tunnel
 desc=Looks dark...
+model=quest_death_caveexit
 recol1s=10400
 recol1d=30655
 recol2s=8288
@@ -3244,36 +1515,36 @@ recol4s=4096
 recol4d=17971
 recol5s=2048
 recol5d=13747
+width=3
+length=2
+ambient=60
+contrast=60
+sharelight=yes
+op1=Enter
 
-[loc_5012]
+[trollromance_piste_exit_tunnel_exit]
+name=Tunnel
+desc=Looks dark...
+model=cave_entrance3
+recol1s=10400
+recol1d=30655
+recol2s=8288
+recol2d=25372
+recol3s=6176
+recol3d=21144
+recol4s=4096
+recol4d=17971
+recol5s=2048
+recol5d=13747
 width=3
 length=2
 shadow=no
 op1=Enter
-model=model_loc_2
-name=Tunnel
-desc=Looks dark...
-recol1s=10400
-recol1d=30655
-recol2s=8288
-recol2d=25372
-recol3s=6176
-recol3d=21144
-recol4s=4096
-recol4d=17971
-recol5s=2048
-recol5d=13747
 
-[loc_5013]
-width=3
-length=2
-ambient=60
-contrast=60
-sharelight=yes
-op1=Enter
-model=loc_3736
+[trollromance_piste_exit_tunnel_top]
 name=Tunnel
 desc=Looks dark...
+model=quest_death_caveexit
 recol1s=10400
 recol1d=11592
 recol2s=8288
@@ -3284,17 +1555,17 @@ recol4s=4096
 recol4d=5250
 recol5s=2048
 recol5d=3136
-
-[loc_5014]
 width=3
 length=2
 ambient=60
 contrast=60
 sharelight=yes
 op1=Enter
-model=loc_3736
+
+[trollromance_piste_exit_tunnel_bottom]
 name=Tunnel
 desc=Looks dark...
+model=quest_death_caveexit
 recol1s=10400
 recol1d=11592
 recol2s=8288
@@ -3305,171 +1576,180 @@ recol4s=4096
 recol4d=5250
 recol5s=2048
 recol5d=3136
+width=3
+length=2
+ambient=60
+contrast=60
+sharelight=yes
+op1=Enter
 
-[loc_5015]
+[trollromance_piste_walk_barrier_down]
+name=slope
+desc=It's too dangerous to go down here by foot...
+model=quest_regicide_transparent_square1
 blockrange=no
 active=yes
 forcedecor=yes
 shadow=no
 hillskew=yes
 op1=Slide
-model=loc_3975
+
+[trollromance_piste_walk_barrier_up]
 name=slope
 desc=It's too dangerous to go down here by foot...
-
-[loc_5016]
+model=quest_regicide_transparent_square1
 blockrange=no
 active=yes
 forcedecor=yes
 shadow=no
 hillskew=yes
 op1=Slide
-model=loc_3975
-name=slope
-desc=It's too dangerous to go down here by foot...
 
-[loc_5017]
-sharelight=yes
-hillskew=yes
-model=model_loc_1417
+[trollromance_snow_cavewall_face1]
+model=cavern_cavewall_face1
 recol1s=12580
 recol1d=30655
-
-[loc_5018]
 sharelight=yes
 hillskew=yes
-active=no
-model=model_loc_1434
+
+[trollromance_snow_cavewall_top]
+model=cavern_cavewall_top_dark
 recol1s=12580
 recol1d=30655
-
-[loc_5019]
 sharelight=yes
 hillskew=yes
 active=no
-model=model_loc_1435
+
+[trollromance_snow_cavewall_top5]
+model=cavern_cavewall_top5
 recol1s=12580
 recol1d=30655
-
-[loc_5020]
 sharelight=yes
 hillskew=yes
 active=no
-model=model_loc_1436
+
+[trollromance_snow_cavewall_top_higher]
+model=cavern_cavewall_top5_high
 recol1s=12580
 recol1d=30655
+sharelight=yes
+hillskew=yes
+active=no
 
-[loc_5021]
+[trollromance_snow_cavewall_face1_shorter]
+model=cavern_cavewall_face1
+recol1s=12580
+recol1d=30655
 sharelight=yes
 hillskew=yes
 resizez=128
 resizex=128
 resizey=64
-model=model_loc_1417
+
+[trollromance_snow_cavewall_top_shorter]
+model=cavern_cavewall_top_dark
 recol1s=12580
 recol1d=30655
-
-[loc_5022]
-sharelight=yes
-hillskew=yes
-active=no
-resizez=128
-resizex=128
-resizey=64
-model=model_loc_1434
-recol1s=12580
-recol1d=30655
-
-[loc_5023]
 sharelight=yes
 hillskew=yes
 active=no
 resizez=128
 resizex=128
 resizey=64
-model=model_loc_1435
+
+[trollromance_snow_cavewall_top5_shorter]
+model=cavern_cavewall_top5
 recol1s=12580
 recol1d=30655
-
-[loc_5024]
 sharelight=yes
 hillskew=yes
 active=no
 resizez=128
 resizex=128
 resizey=64
-model=model_loc_1436
+
+[trollromance_snow_cavewall_top_higher_shorter]
+model=cavern_cavewall_top5_high
 recol1s=12580
 recol1d=30655
-
-[loc_5025]
 sharelight=yes
 hillskew=yes
-op1=Enter
-model=model_loc_1418
+active=no
+resizez=128
+resizex=128
+resizey=64
+
+[trollromance_snow_cavewall_crevis]
 name=Crevasse
 desc=A split in the cave wall...
+model=cavern_loc_1418
 recol1s=12580
 recol1d=30655
 recol2s=10466
 recol2d=26431
-
-[loc_5026]
+sharelight=yes
 hillskew=yes
-active=no
-model=model_loc_184
+op1=Enter
+
+[trollromance_dugupsoil_1]
+model=floor_dugupsoil1
 recol1s=13505
 recol1d=30655
 recol2s=15586
 recol2d=30655
 recol3s=14594
 recol3d=30655
-
-[loc_5027]
 hillskew=yes
 active=no
-model=model_loc_185
+
+[trollromance_dugupsoil_2]
+model=floor_dugupsoil2
 recol1s=13505
 recol1d=30655
 recol2s=15586
 recol2d=30655
 recol3s=14594
 recol3d=30655
-
-[loc_5028]
 hillskew=yes
 active=no
-model=model_loc_186
+
+[trollromance_dugupsoil_3]
+model=floor_dugupsoil3
 recol1s=13505
 recol1d=30655
 recol2s=15586
 recol2d=30655
 recol3s=14594
 recol3d=30655
+hillskew=yes
+active=no
 
-[loc_5029]
+[trollromance_rockslide1]
+model=cavern_rockslide1
+recol1s=12580
+recol1d=30655
 width=2
 length=2
 active=no
 blockrange=no
 hillskew=yes
 mapscene=11
-model=model_loc_471
+
+[trollromance_rockslide2]
+model=cavern_rockslide2
 recol1s=12580
 recol1d=30655
-
-[loc_5030]
 width=2
 length=2
 active=no
 hillskew=yes
 blockrange=no
 mapscene=11
-model=model_loc_472
+
+[trollromance_rockslide3]
+model=cavern_rockslide3
 recol1s=12580
 recol1d=30655
-
-[loc_5031]
 width=2
 length=2
 active=no
@@ -3477,11 +1757,11 @@ shadow=no
 blockrange=no
 hillskew=yes
 mapscene=12
-model=model_loc_473
+
+[trollromance_rockslide4]
+model=cavern_rockslide4
 recol1s=12580
 recol1d=30655
-
-[loc_5032]
 width=2
 length=2
 active=no
@@ -3489,729 +1769,266 @@ shadow=no
 blockrange=no
 hillskew=yes
 mapscene=12
-model=model_loc_474
+
+[trollromance_rockslide5]
+model=cavern_rockslide5
 recol1s=12580
 recol1d=30655
-
-[loc_5033]
 hillskew=yes
-model=model_loc_475
+
+[trollromance_rockslide6]
+model=cavern_rockslide6
 recol1s=12580
 recol1d=30655
-
-[loc_5034]
 hillskew=yes
-model=model_loc_476
-recol1s=12580
-recol1d=30655
 
-[loc_5035]
+[troll_romance_rocknoblock]
+model=quest_trollrescue_icerock1
 blockwalk=no
 active=no
-model=loc_5035
 
-[loc_5036]
+[troll_romance_treenoblock]
+model=plants_deadtree2
+recol1s=7296
+recol1d=30619
 mapscene=6
 op3=hidden
 blockwalk=no
 active=no
-model=model_loc_1286
-recol1s=7296
-recol1d=30619
 
-[loc_5037]
+[trollrescue_icy_rock_big]
+name=Ice covered boulder
+desc=A large ice covered boulder.
+model=quest_trollrescue_icerock1
 width=3
 length=3
 resizex=384
 resizey=384
 resizez=384
 shadow=no
-model=loc_5035
-name=Ice covered boulder
-desc=A large ice covered boulder.
 
-[loc_5038]
+[trollrescue_icy_rock_medium]
+name=Ice covered boulder
+desc=An ice covered boulder.
+model=quest_trollrescue_icerock1
 width=2
 length=2
 resizex=256
 resizey=256
 resizez=256
 shadow=no
-model=loc_5035
-name=Ice covered boulder
-desc=An ice covered boulder.
 
-[loc_5039]
-shadow=no
-model=loc_5035
+[trollrescue_icy_rock_small]
 name=Ice covered boulder
 desc=A small ice covered boulder.
+model=quest_trollrescue_icerock1
+shadow=no
 
-[loc_5040]
+[icefloor_ledge_flat]
+model=quest_trollrescue_flat
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=loc_5040
 
-[loc_5041]
+[icefloor_ledge_one]
+model=quest_trollrescue_one
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=loc_5041
 
-[loc_5042]
+[icefloor_ledge_two]
+model=quest_trollrescue_two
 hillskew=yes
 sharelight=yes
 forcedecor=yes
-model=loc_5042
 
-[loc_5043]
+[icegate_left]
+model=quest_trollrescue_icegate10
 length=3
 sharelight=yes
 active=no
-model=loc_5043
 
-[loc_5044]
+[icegate_right]
+model=quest_trollrescue_icegate10
 mirror=yes
 length=3
 sharelight=yes
 active=no
-model=loc_5043
 
-[loc_5045]
+[hollowtree_entrance]
+name=Tree
+desc=An interesting looking tree.
+model=loc_5045
 length=2
 width=2
 resizex=256
 resizey=256
 resizez=256
-model=loc_5045
-name=Tree
-desc=An interesting looking tree.
 
-[loc_5046]
+[route_cavewalltunnel]
+name=Cave entrance
+desc=A small cave entrance.
+model=loc_5046
 sharelight=yes
 hillskew=yes
 op1=Enter
-model=loc_5046
-name=Cave entrance
-desc=A small cave entrance.
 
-[loc_5047]
-hillskew=yes
-model=model_loc_468
+[route_stalagmite_twin]
 name=Stalagmites
 desc=Limestone ceiling growth.
+model=cave_stalagmite_twin
 recol1s=13537
 recol1d=12580
-
-[loc_5048]
-blockwalk=no
 hillskew=yes
-model=model_loc_469
+
+[route_stalagtite_twin]
 name=Stalagtite
 desc=A limestone ceiling growth.
+model=cave_stalagtite_twin
 recol1s=13537
 recol1d=12580
-
-[loc_5049]
+blockwalk=no
 hillskew=yes
-model=model_loc_534
+
+[route_stalagmite_small]
 name=Stalagmite
 desc=A tooth shaped rock formation protruding from the floor.
+model=cave_stagamite_small
 recol1s=13537
 recol1d=12580
+hillskew=yes
 
-[loc_5050]
+[route_stalagmite_cave_entrace]
+name=Stalagmite
+desc=Tooth shaped rock formations protruding from the floor.
+model=loc_5050
 hillskew=yes
 op1=Look
 op2=Squeeze-past
-model=loc_5050
-name=Stalagmite
-desc=Tooth shaped rock formations protruding from the floor.
 
-[loc_5051]
+[route_rowboat]
+name=Swamp Boaty
+desc=A dirty little swamp boat.
+model=loc_5051
 width=3
 length=3
 op1=Board
-model=loc_5051
-name=Swamp Boaty
-desc=A dirty little swamp boat.
 
-[loc_5052]
+[thrttavernbasementfalsewall]
+name=Wall
+desc=If it had paint on it, you'd probably watch it dry.
+model=basic_wall
+retex1s=wall
+retex1d=mossybricks
+recol2s=6342
+recol2d=5248
 hillskew=yes
 active=yes
 op1=Search
-model=model_loc_3
+
+[thrttavernbasementfalsewall_inactive]
 name=Wall
 desc=If it had paint on it, you'd probably watch it dry.
+model=basic_wall
 retex1s=wall
 retex1d=mossybricks
 recol2s=6342
 recol2d=5248
-
-[loc_5053]
 hillskew=yes
 active=yes
-model=model_loc_3
-name=Wall
-desc=If it had paint on it, you'd probably watch it dry.
-retex1s=wall
-retex1d=mossybricks
-recol2s=6342
-recol2d=5248
 
-[loc_5054]
+[thrttavernbasementladder]
+name=Ladder
+desc=I can climb this.
+model=furniture_ladder
 active=yes
 op1=Climb-up
 mapscene=7
-model=model_loc_11
-name=Ladder
-desc=I can climb this.
 
-[loc_5055]
+[thrt_tavern_trap_door]
+name=Trapdoor
+desc=I wonder what that's there for...
+model=furniture_hiddentrapdoor_closed
 blockwalk=no
 blockrange=no
 op1=Open
-model=model_loc_105
-name=Trapdoor
-desc=I wonder what that's there for...
 
-[loc_5056]
-width=2
-op1=Open
-model=loc_5056
+[freedomfighterundergroundentrancel]
 name=Wooden doors
 desc=These doors look very ominous.
-
-[loc_5057]
-width=2
-mirror=yes
-op1=Open
 model=loc_5056
+width=2
+op1=Open
+
+[freedomfighterundergroundentrancer]
 name=Wooden doors
 desc=These doors look very ominous.
-
-[loc_5058]
-width=2
-op1=Walk-through
-model=loc_5058
-name=Wooden doors
-desc=Large doors set into the hillside.
-
-[loc_5059]
-width=2
-mirror=yes
-op1=Walk-through
-model=loc_5058
-name=Wooden doors
-desc=Large doors set into the hillside.
-
-[loc_5060]
-width=2
-op1=Open
-model=model_loc_2240
-name=Wooden doors
-desc=These doors seem to lead into the underground.
-
-[loc_5061]
+model=loc_5056
 width=2
 mirror=yes
 op1=Open
-model=model_loc_2240
-name=Wooden doors
-desc=These doors seem to lead into the underground.
 
-[loc_5062]
-width=2
-model=model_loc_2238
+[freedomfighterundergrounddooropenl]
 name=Wooden doors
 desc=Large doors set into the hillside.
+model=loc_5058
+width=2
+op1=Walk-through
 
-[loc_5063]
+[freedomfighterundergrounddooropenr]
+name=Wooden doors
+desc=Large doors set into the hillside.
+model=loc_5058
 width=2
 mirror=yes
-model=model_loc_2238
+op1=Walk-through
+
+[freedomfighterentrancel]
+name=Wooden doors
+desc=These doors seem to lead into the underground.
+model=basic_loc_2240
+width=2
+op1=Open
+
+[freedomfighterentrancer]
+name=Wooden doors
+desc=These doors seem to lead into the underground.
+model=basic_loc_2240
+width=2
+mirror=yes
+op1=Open
+
+[freedomfighterdooropenl]
 name=Wooden doors
 desc=Large doors set into the hillside.
+model=basic_loc_2238
+width=2
 
-[loc_5064]
+[freedomfighterdooropenr]
+name=Wooden doors
+desc=Large doors set into the hillside.
+model=basic_loc_2238
+width=2
+mirror=yes
+
+[agilityarena_ropeswing_filler]
+model=outdoorfurniture_ropeswing_long_filler
 blockwalk=no
 sharelight=yes
 forcedecor=yes
 active=no
-model=loc_5064
 
-[loc_5065]
-active=no
-length=6
-model=loc_5065
+[rope_swing_support]
+model=outdoorfurniture_rope_swing_support
 recol1s=15855
 recol1d=16808
-
-[loc_5066]
 active=no
-sharelight=yes
-blockrange=no
+length=6
+
+[walkway_upass_tjunction]
 model=loc_5066
 recol1s=12580
 recol1d=7329
-
-[loc_5067]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-model=loc_5067
-
-[loc_5068]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-mirror=yes
-model=loc_5067
-
-[loc_5069]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-model=loc_5067
-recol1s=15855
-recol1d=15717
-
-[loc_5070]
-hillskew=yes
-sharelight=yes
-forcedecor=yes
-mirror=yes
-model=loc_5067
-recol1s=15855
-recol1d=15717
-
-[loc_5071]
 active=no
-model=loc_5071
-
-[loc_5072]
-anim=wiztorch
-model=loc_5072
-name=Pillar
-desc=A Large Pillar
-
-[loc_5073]
-hillskew=yes
 sharelight=yes
-model=model_loc_58
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5074]
-hillskew=yes
-sharelight=yes
-model=model_loc_1214
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5075]
-hillskew=yes
-sharelight=yes
-model=model_loc_1215
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5076]
-hillskew=yes
-sharelight=yes
-model=model_loc_1216
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5077]
-hillskew=yes
-sharelight=yes
-model=model_loc_1217
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5078]
-hillskew=yes
-sharelight=yes
-model=model_loc_1218
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5079]
-hillskew=yes
-sharelight=yes
-model=model_loc_1219
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5080]
-hillskew=yes
-sharelight=yes
-model=model_loc_1220
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5081]
-hillskew=yes
-sharelight=yes
-model=model_loc_1221
-recol1s=15393
-recol1d=11557
-recol2s=16417
-recol2d=13671
-
-[loc_5082]
-hillskew=yes
-resizex=95
-resizey=110
-resizez=95
-length=4
-width=4
-op1=Enter
-model=loc_5082
-name=Dungeon entrance
-desc=An over grown dungeon entrance.
-
-[loc_5083]
-hillskew=yes
-resizex=95
-resizey=110
-resizez=95
-length=4
-width=4
-op1=Enter
-model=loc_5082
-model=loc_5083
-name=Dungeon entrance
-desc=A closed over grown dungeon entrance.
-
-[loc_5084]
-sharelight=yes
-hillskew=yes
-op1=leave
-model=loc_5084
-name=Exit
-desc=The way to go when I get scared.
-
-[loc_5085]
-model=loc_5085
-
-[loc_5086]
-model=loc_5086
-
-[loc_5087]
-model=loc_5087
-
-[loc_5088]
-active=yes
-sharelight=yes
-op1=Walk-across
-model=loc_5088
-name=Log balance
-desc=I hope I don't fall off this.
-
-[loc_5089]
-active=no
-blockwalk=no
-sharelight=yes
-forcedecor=yes
-model=loc_5089
-
-[loc_5090]
-active=yes
-sharelight=yes
-op1=Walk-across
-model=loc_5088
-name=Log balance
-desc=I hope I don't fall off this.
-
-[loc_5091]
-sharelight=yes
-hillskew=yes
-model=loc_4533
-recol1s=6307
-recol1d=7296
-recol2s=7364
-recol2d=8352
-recol3s=8421
-recol3d=9409
-recol4s=9478
-recol4d=10466
-recol5s=10535
-recol5d=11523
-recol6s=11592
-recol6d=12580
-
-[loc_5092]
-sharelight=yes
-hillskew=yes
-model=loc_5092
-
-[loc_5093]
-sharelight=yes
-hillskew=yes
-model=loc_5093
-
-[loc_5094]
-sharelight=yes
-width=4
-length=3
-op1=Walk-up
-model=loc_5094
-name=Stairs
-desc=These stairs seem to have been hewn out of the rock itself.
-
-[loc_5095]
-sharelight=yes
-width=4
-length=3
-model=loc_5095
-name=Stairs
-desc=These stairs seem to have been hewn out of the rock itself.
-
-[loc_5096]
-sharelight=yes
-width=4
-length=3
-op1=Walk-down
-model=loc_5096
-name=Stairs
-desc=These stairs seem to have been hewn out of the rock itself.
-
-[loc_5097]
-sharelight=yes
-width=4
-length=3
-op1=Walk-up
-model=loc_5094
-name=Stairs
-desc=These stairs seem to have been hewn out of the rock itself.
-
-[loc_5098]
-sharelight=yes
-width=4
-length=3
-op1=Walk-down
-model=loc_5096
-name=Stairs
-desc=These stairs seem to have been hewn out of the rock itself.
-
-[loc_5099]
-op1=Squeeze-through
-width=2
-model=loc_5099
-name=Pipe
-desc=A pipe I can squeeze through.
-recol1s=6307
-recol1d=7296
-recol2s=7364
-recol2d=8352
-recol3s=8421
-recol3d=9409
-recol4s=9478
-recol4d=10466
-recol5s=10535
-recol5d=11523
-recol6s=11592
-recol6d=12580
-
-[loc_5100]
-op1=Squeeze-through
-width=2
-model=loc_5099
-name=Pipe
-desc=A pipe I can squeeze through.
-recol1s=6307
-recol1d=7296
-recol2s=7364
-recol2d=8352
-recol3s=8421
-recol3d=9409
-recol4s=9478
-recol4d=10466
-recol5s=10535
-recol5d=11523
-recol6s=11592
-recol6d=12580
-
-[loc_5101]
-sharelight=yes
-hillskew=yes
-model=loc_5101
-recol1s=6307
-recol1d=7296
-recol2s=7364
-recol2d=8352
-recol3s=8421
-recol3d=9409
-recol4s=9478
-recol4d=10466
-recol5s=10535
-recol5d=11523
-recol6s=11592
-recol6d=12580
-
-[loc_5102]
-sharelight=yes
-hillskew=yes
-model=loc_5102
-recol1s=6307
-recol1d=7296
-recol2s=7364
-recol2d=8352
-recol3s=8421
-recol3d=9409
-recol4s=9478
-recol4d=10466
-recol5s=10535
-recol5d=11523
-recol6s=11592
-recol6d=12580
-
-[loc_5103]
-hillskew=yes
-op1=Chop-down
-op3=hidden
-model=loc_5103
-name=vines
-desc=Thick vines blocking your way.
-
-[loc_5104]
-hillskew=yes
-op1=Chop-down
-op3=hidden
-model=loc_5103
-name=Vines
-desc=Thick vines blocking your way.
-
-[loc_5105]
-hillskew=yes
-op1=Chop-down
-op3=hidden
-model=loc_5103
-name=Vines
-desc=Thick vines blocking your way.
-
-[loc_5106]
-hillskew=yes
-op1=Chop-down
-op3=hidden
-model=loc_5103
-name=Vines
-desc=Thick vines blocking your way.
-
-[loc_5107]
-hillskew=yes
-op1=Chop-down
-op3=hidden
-model=loc_5103
-name=Vines
-desc=Thick vines blocking your way.
-
-[loc_5108]
-sharelight=yes
-hillskew=yes
-model=loc_5108
-recol1s=6307
-recol1d=7296
-recol2s=7364
-recol2d=8352
-recol3s=8421
-recol3d=9409
-recol4s=9478
-recol4d=10466
-recol5s=10535
-recol5d=11523
-recol6s=11592
-recol6d=12580
-
-[loc_5109]
-sharelight=yes
-hillskew=yes
-model=loc_5109
-recol1s=11592
-recol1d=12580
-recol2s=7364
-recol2d=8352
-
-[loc_5110]
-op1=Jump-from
-active=yes
-forcedecor=yes
-model=model_loc_2311
-name=Stepping stone
-desc=I can jump from this stepping stone.
-
-[loc_5111]
-op1=Jump-from
-active=yes
-forcedecor=yes
-model=model_loc_2311
-name=Stepping stone
-desc=I can jump from this stepping stone.
-
-[loc_5112]
 blockrange=no
-model=model_loc_1163
-name=Mushroom
-desc=Not good for eating.
-recol1s=31499
-recol1d=11555
-recol2s=31674
-recol2d=14792
-
-[loc_5113]
-width=2
-length=2
-resizex=256
-resizey=256
-resizez=256
-model=model_loc_1170
-name=Fungus
-desc=I doubt that's edible.
-recol1s=31302
-recol1d=11555
-recol2s=30415
-recol2d=14792
-recol3s=30347
-recol3d=14792
-
-[loc_5114]
-blockrange=no
-model=model_loc_1170
-name=Fungus
-desc=I doubt that's edible.
-recol1s=31302
-recol1d=11555
-recol2s=30415
-recol2d=9442
-recol3s=30347
-recol3d=8385
-
-[loc_5115]
-model=loc_5115
-name=Fungus
-desc=I doubt that's edible.
-recol1s=31302
-recol1d=11555
-recol2s=30415
-recol2d=9442
-recol3s=30347
-recol3d=8385

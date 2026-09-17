@@ -2,6 +2,10 @@
 [apnpc2,_] @player_combat_start_ap;
 
 [label,player_combat_start_ap]
+if (~mm_wearing_greegree = true) { // checks before attackrange
+    ~mesbox("You cannot attack as a monkey.");
+    return;
+}
 def_int $attackrange = ~player_attackrange(inv_getobj(worn, ^wearpos_rhand));
 if (($attackrange <= 1 & ~player_in_combat_check = false) | npc_range(coord) > $attackrange) {
     p_aprange($attackrange);
@@ -92,6 +96,10 @@ switch_int ($damagetype) {
 }
 
 [proc,player_in_combat_check]()(boolean)
+if (~mm_wearing_greegree = true) {
+    ~mesbox("You cannot attack as a monkey.");
+    return(false);
+}
 if (map_multiway(npc_coord) = false & nc_param(npc_type, npc_forcemulti) = ^false) {
     // player has been attacked in the last 8 ticks, and not by the current npc
     // or player has been attacked in the last 8 ticks, and %aggressive_npc is null (for pvp)

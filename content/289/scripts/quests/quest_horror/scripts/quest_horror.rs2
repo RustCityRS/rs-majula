@@ -437,36 +437,36 @@ if(coordz(coord) >= coordz(loc_coord)) {
     return;
 }
 if(%horrorfire = ^false) {
-    if_setmodel(inter_188:horror_fire, 4513);
+    if_setmodel(horror_metaldoor:horror_fire, 4513);
 } else {
-    if_setmodel(inter_188:horror_fire, 4514);
+    if_setmodel(horror_metaldoor:horror_fire, 4514);
 }
 if(%horrorwater = ^false) {
-    if_setmodel(inter_188:horror_water, 4520);
+    if_setmodel(horror_metaldoor:horror_water, 4520);
 } else {
-    if_setmodel(inter_188:horror_water, 4521);
+    if_setmodel(horror_metaldoor:horror_water, 4521);
 }
 if(%horrorearth = ^false) {
-    if_setmodel(inter_188:horror_earth, 4511);
+    if_setmodel(horror_metaldoor:horror_earth, 4511);
 } else {
-    if_setmodel(inter_188:horror_earth, 4512);
+    if_setmodel(horror_metaldoor:horror_earth, 4512);
 }
 if(%horrorair = ^false) {
-    if_setmodel(inter_188:horror_air, 4509);
+    if_setmodel(horror_metaldoor:horror_air, 4509);
 } else {
-    if_setmodel(inter_188:horror_air, 4510);
+    if_setmodel(horror_metaldoor:horror_air, 4510);
 }
 if(%horrorsword = ^false) {
-    if_setmodel(inter_188:horror_melee, 4516);
+    if_setmodel(horror_metaldoor:horror_melee, 4516);
 } else {
-    if_setmodel(inter_188:horror_melee, 4517);
+    if_setmodel(horror_metaldoor:horror_melee, 4517);
 }
 if(%horrorarrow = ^false) {
-    if_setmodel(inter_188:horror_ranging, 4518);
+    if_setmodel(horror_metaldoor:horror_ranging, 4518);
 } else {
-    if_setmodel(inter_188:horror_ranging, 4519);
+    if_setmodel(horror_metaldoor:horror_ranging, 4519);
 }
-if_openmain(inter_188);
+if_openmain(horror_metaldoor);
 
 [oploc1,horror_ladder_top2]
 p_arrivedelay;

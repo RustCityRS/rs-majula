@@ -986,22 +986,22 @@ if(testbit(%viking_bits, ^viking_seerdoor_reddisk_1) = ^true & testbit(%viking_b
 mes("You study the mural... it appears to be missing something...");
 
 if(testbit(%viking_bits, ^viking_seerdoor_reddisk_1) = ^true & testbit(%viking_bits, ^viking_seerdoor_reddisk_2) = ^true & inv_total(inv, viking_vase_lid) > 0) {
-    if_setobject(inter_185:com_1, viking_dummy_lid, 10);
+    if_setobject(viking_mural:com_1, viking_dummy_lid, 10);
 }
 
-if_setobject(inter_185:com_9, viking_dummy_coin, 116);
-if_setobject(inter_185:com_10, viking_dummy_coin, 116);
-if_setobject(inter_185:com_11, viking_dummy_coin, 116);
-if_setobject(inter_185:com_12, viking_dummy_coin, 116);
-if_setobject(inter_185:com_13, viking_dummy_coin, 116);
-if_setobject(inter_185:com_14, viking_dummy_coin, 116);
-if(testbit(%viking_bits, ^viking_seerdoor_reddisk_1) = ^true) if_setobject(inter_185:com_15, viking_dummy_coin, 116);
-else if_setobject(inter_185:com_15, viking_dummy_coin2, 116);
+if_setobject(viking_mural:com_9, viking_dummy_coin, 116);
+if_setobject(viking_mural:com_10, viking_dummy_coin, 116);
+if_setobject(viking_mural:com_11, viking_dummy_coin, 116);
+if_setobject(viking_mural:com_12, viking_dummy_coin, 116);
+if_setobject(viking_mural:com_13, viking_dummy_coin, 116);
+if_setobject(viking_mural:com_14, viking_dummy_coin, 116);
+if(testbit(%viking_bits, ^viking_seerdoor_reddisk_1) = ^true) if_setobject(viking_mural:com_15, viking_dummy_coin, 116);
+else if_setobject(viking_mural:com_15, viking_dummy_coin2, 116);
 
-if(testbit(%viking_bits, ^viking_seerdoor_reddisk_2) = ^true) if_setobject(inter_185:com_16, viking_dummy_coin, 116);
-else if_setobject(inter_185:com_16, viking_dummy_coin2, 116);
+if(testbit(%viking_bits, ^viking_seerdoor_reddisk_2) = ^true) if_setobject(viking_mural:com_16, viking_dummy_coin, 116);
+else if_setobject(viking_mural:com_16, viking_dummy_coin2, 116);
 
-if_openmain(inter_185);
+if_openmain(viking_mural);
 
 [oplocu,viking_seers_mural]
 // this mural is kind of reworked in late 2006 to prevent skipping with drop trick

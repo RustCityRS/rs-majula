@@ -70,7 +70,7 @@ if(%eadgar_quest = ^eadgar_spoken_burntmeat_first | %eadgar_quest = ^eadgar_spok
 // rsprox/branon
 ~chatnpc("<p,neutral>Oh, it's you. Have you got me a parrot yet?");
 if(inv_total(inv, eadgar_drunk_parrot) > 0) {
-    ~chatnpc_specific("Parrot", eadgar_parrotts, "<p,neutral>Raaawk! Polly wanna cracker!");
+    ~chatnpc_model("Parrot", 3624, "<p,parrot>Raaawk! Polly wanna cracker!");
     ~chatplayer("<p,happy>Here it is! How are you going to explain your plan?");
     ~chatnpc("<p,happy>Yes, yes, of course. It's quite ingenious really!");
     ~chatnpc("<p,neutral>What we need is something that looks like a human,|sounds like a human, smells like a human and tastes|like a human."); //linebreaks from from runeweb, one of the few 2004-era images we have of this quest
@@ -78,7 +78,7 @@ if(inv_total(inv, eadgar_drunk_parrot) > 0) {
     ~chatnpc("<p,neutral>We'll just make a scarecrow. We'll need logs, and 10 sheaves of wheat for stuffing.");
     ~chatplayer("<p,quiz>How are we going to make it sound like a human?");
     ~chatnpc("<p,happy>That's what the parrot's for, of course.");
-    ~chatnpc_specific("Parrot", eadgar_parrotts, "<p,neutral>Who's a pretty boy then?"); // mesanim lore_bird_chathead_quizical
+    ~chatnpc_model("Parrot", 3624, "<p,parrot>Who's a pretty boy then?"); // mesanim lore_bird_chathead_quizical
     ~chatnpc("<p,neutral>Although the trolls might get suspicious if it doesn't say what they expect a human to say...");
     ~chatnpc("<p,neutral>You should hide it for a while somewhere it can pick up some more appropriate catchphrases.");
     ~chatplayer("<p,quiz>How are we going to make it smell like a human?");
@@ -148,14 +148,14 @@ if(inv_freespace(inv) > 0) {
 // rsprox/branon
 if(%eadgar_quest >= ^eadgar_hid_parrot & %eadgar_quest <= ^eadgar_needs_potion) {
     switch_int(randominc(2)) {
-        case 0 : ~chatnpc_specific("Parrot", eadgar_parrotts, "<p,neutral>Polly wanna cracker!");
-        case 1 : ~chatnpc_specific("Parrot", eadgar_parrotts, "<p,neutral>Pieces of eight! Pieces of eight!");
-        case 2 : ~chatnpc_specific("Parrot", eadgar_parrotts, "<p,neutral>Who's a pretty boy then?");
+        case 0 : ~chatnpc_model("Parrot", 3624, "<p,parrot>Polly wanna cracker!");
+        case 1 : ~chatnpc_model("Parrot", 3624, "<p,parrot>Pieces of eight! Pieces of eight!");
+        case 2 : ~chatnpc_model("Parrot", 3624, "<p,parrot>Who's a pretty boy then?");
     }
     ~chatplayer("<p,neutral>I don't think it's done yet.");
 } else if(%eadgar_quest = ^eadgar_needs_parrot_back) {
     ~mesbox("You look under the rack and find the drunk parrot.");
-    ~chatnpc_specific("Parrot", eadgar_parrotts, "<p,neutral>Ah, hello Sir. Could you please free me?|I seem to have ... OW! What are you doing?|That's my spleen!"); // linebreaks from runeweb 2004
+    ~chatnpc_model("Parrot", 3624, "<p,parrot>Ah, hello Sir. Could you please free me?|I seem to have ... OW! What are you doing?|That's my spleen!"); // linebreaks from runeweb 2004
     ~chatplayer("<p,happy>I think it's probably heard enough.");
     inv_add(inv, eadgar_drunk_parrot, 1);
     %eadgar_quest = ^eadgar_got_parrot_back;
@@ -427,7 +427,7 @@ if(inv_total(inv, eadgar_drunk_parrot) > 0) {
 // to match OSRS videos - the drunk parrot/fake man swap is queued
 // and does not occur until the player clicks through or cancels eadgar's default dialog tree
 queue(eadgar_fake_man, 0, 0);
-~chatnpc_specific("Fake man", eadgar_parrotts, "<p,neutral>What am I doing here? Ow! Where's the rest of the|Guard? Agh! I won't tell you anything!"); // linebreaks from runeweb 2004
+~chatnpc_model("Fake man", 4053, "<p,neutral>What am I doing here? Ow! Where's the rest of the|Guard? Agh! I won't tell you anything!"); // linebreaks from runeweb 2004
 @eadgar_default_tree;
 
 [queue,eadgar_fake_man]
@@ -534,7 +534,7 @@ if (getqueue(eadgar_take_goutweed) > 0 | getqueue(troll_guard_knockout) > 0 | ge
 if_close;
 npc_say("!");
 npc_anim(eadgar_troll_axethrow, 0);
-~player_projectile(npc_coord, coord, uid, spotanim_290, 40, 36, 41, 15, 5, 11, 5);
+~player_projectile(npc_coord, coord, uid, eadgar_thrown_club, 40, 36, 41, 15, 5, 11, 5);
 sound_synth(throw_club, 1, 0);
 queue(troll_guard_knockout, 2, 0);
 
@@ -562,7 +562,7 @@ if(npc_findexact(0_44_157_41_27, eadgar_storeroom_guard) = true) {
     npc_say("Hm?");
     npc_facesquare(coord);
     npc_anim(eadgar_troll_axethrow, 0);
-    ~player_projectile(npc_coord, coord, uid, spotanim_290, 40, 36, 41, 15, 5, 11, 5);
+    ~player_projectile(npc_coord, coord, uid, eadgar_thrown_club, 40, 36, 41, 15, 5, 11, 5);
     sound_synth(throw_club, 1, 0);
     queue(troll_guard_knockout, 2, 0);
 }
@@ -586,7 +586,7 @@ if(inzone(0_44_157_0_0, 0_44_157_63_63, coord) = false) {
     return;
 }
 p_teleport(0_44_157_49_40);
-spotanim_pl(spotanim_291, 124, 0);
+spotanim_pl(eadgar_stunned, 124, 0);
 sound_synth(stun_all, 1, 0);
 
 [queue,eadgar_quest_complete]

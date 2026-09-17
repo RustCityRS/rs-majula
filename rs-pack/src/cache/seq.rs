@@ -34,7 +34,7 @@ pub struct SeqTypeRaw {
     pub delays: Option<Box<[u16]>>,
     pub loops: Option<u16>,
     pub walkmerge: Option<Box<[i32]>>,
-    pub stretches: bool,
+    pub reachforward: bool,
     pub priority: u8,
     pub replaceheldleft: Option<u16>,
     pub replaceheldright: Option<u16>,
@@ -60,7 +60,7 @@ impl CacheType for SeqTypeRaw {
             delays: None,
             loops: None,
             walkmerge: None,
-            stretches: false,
+            reachforward: false,
             priority: 5,
             replaceheldleft: None,
             replaceheldright: None,
@@ -106,7 +106,7 @@ impl CacheType for SeqTypeRaw {
                     walkmerge.push(9999999);
                     self.walkmerge = Some(walkmerge.into_boxed_slice());
                 }
-                4 => self.stretches = true,
+                4 => self.reachforward = true,
                 5 => self.priority = buf.g1(),
                 6 => self.replaceheldleft = Some(buf.g2()),
                 7 => self.replaceheldright = Some(buf.g2()),

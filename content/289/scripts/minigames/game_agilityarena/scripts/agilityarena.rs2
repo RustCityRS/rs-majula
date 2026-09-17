@@ -1,5 +1,6 @@
 [oploc1,agilityarena_ladderdown]
 if(testbit(%agilityarena_varbit, ^agilityarena_paid) = ^false) {
+    ~chatnpc_model("Parrot", 3624, "<p,parrot>Clap 'em in irons!");
     ~chatnpc_specific(nc_name(agilityarena_clerk), agilityarena_clerk, "<p,angry>Ahoy there! Pay up first!");
     return;
 }

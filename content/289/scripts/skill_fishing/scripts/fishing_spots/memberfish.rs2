@@ -6,10 +6,15 @@
 [opnpc5,_memberfish] @fish_shark;
 
 [label,attempt_fish_shark]
-// check level 
+// check level
+if(~mm_wearing_greegree = true) {
+    ~mesbox("You cannot do that as a monkey.");
+    return;
+}
 if (stat(fishing) < 76) {
     anim(null, 0);
-    ~mesbox("You need at least 76 Fishing to harpoon these fish.");
+    // https://web.archive.org/web/*/http://runescape.salmoneus.net/cities/images/atollfish2.png
+    ~mesbox("You need at least 76 Fishing to Harpoon these fish.");
     return;
 }
 // check if they have fishing equipment
@@ -43,10 +48,15 @@ if (afk_event = ^true & npc_param(is_whirlpool) = ^false) {
 
 
 [label,fish_shark]
-// check level 
+// check level
+if(~mm_wearing_greegree = true) {
+    ~mesbox("You cannot do that as a monkey.");
+    return;
+}
 if (stat(fishing) < 76) {
     anim(null, 0);
-    ~mesbox("You need at least 76 Fishing to harpoon these fish.");
+    // https://web.archive.org/web/*/http://runescape.salmoneus.net/cities/images/atollfish2.png
+    ~mesbox("You need at least 76 Fishing to Harpoon these fish.");
     return;
 }
 // check if they have fishing equipment
@@ -70,6 +80,10 @@ p_opnpc(5);
 
 [label,attempt_fish_mackerel]
 // check level
+if(~mm_wearing_greegree = true) {
+    ~mesbox("You cannot do that as a monkey.");
+    return;
+}
 if (stat(fishing) < 16) {
     anim(null, 0);
     ~mesbox("You need at least 16 Fishing to catch these fish.");
@@ -106,6 +120,10 @@ if (afk_event = ^true & npc_param(is_whirlpool) = ^false) {
 
 [label,fish_mackerel]
 // check level
+if(~mm_wearing_greegree = true) {
+    ~mesbox("You cannot do that as a monkey.");
+    return;
+}
 if (stat(fishing) < 16) {
     anim(null, 0);
     ~mesbox("You need at least 16 Fishing to catch these fish.");

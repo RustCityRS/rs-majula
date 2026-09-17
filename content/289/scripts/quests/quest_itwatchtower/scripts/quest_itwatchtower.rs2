@@ -105,7 +105,9 @@ if(inv_total(inv, skavidmap) > 0) {
     mes("You enter the cave...");
     return(1);
 } else {
-    mes("There's no way I can find my way through without a map of some kind.");
+    // https://youtu.be/FvV0D3EAnx8?si=UJTxfdQhS64XfqJN&t=69
+    mes("There's no way I can find my way through");
+    mes("without a map of some kind.");
     return(0);
 }
 

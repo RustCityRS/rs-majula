@@ -1,7 +1,7 @@
 [stairs]
 name=Staircase
 desc=I can climb these stairs.
-model=model_loc_54
+model=furniture_stairs
 width=2
 length=3
 op1=Climb-up
@@ -12,7 +12,7 @@ mapscene=7
 [stairstop]
 name=Staircase
 desc=They go down.
-model=model_loc_55
+model=furniture_stairstop
 width=2
 length=2
 op1=Climb-down
@@ -23,7 +23,7 @@ mapscene=7
 [yanillestairsdown]
 name=Staircase
 desc=I can climb down this.
-model=model_loc_1727
+model=furniture_loc_1727
 width=2
 length=3
 op1=Climb-down
@@ -33,7 +33,7 @@ mapscene=7
 [yanillestairsup]
 name=Staircase
 desc=I can climb this.
-model=model_loc_54
+model=furniture_stairs
 width=2
 length=3
 op1=Climb-up
@@ -43,7 +43,7 @@ mapscene=7
 [stairs_cellar]
 name=Staircase
 desc=I can use these stairs to climb down.
-model=model_loc_98
+model=furniture_stairsdown
 width=2
 length=3
 op1=Climb-down
@@ -53,7 +53,7 @@ mapscene=7
 [loc_1734]
 name=Staircase
 desc=I can climb these stairs.
-model=model_loc_54
+model=furniture_stairs
 width=2
 length=3
 op1=Climb-up
@@ -63,7 +63,7 @@ mapscene=7
 [loc_1736]
 name=Staircase
 desc=I can climb down these stairs.
-model=model_loc_1736
+model=outdoorfurniture_loc_1736
 length=2
 op1=Climb-down
 sharelight=yes
@@ -73,7 +73,7 @@ mapscene=7
 [outdoorstairs_wooden_bottom]
 name=Staircase
 desc=I can climb up these stairs.
-model=model_loc_1737
+model=outdoorfurniture_loc_1737
 op1=Climb-up
 sharelight=yes
 forceapproach=north
@@ -82,7 +82,7 @@ mapscene=7
 [spiralstairs]
 name=Staircase
 desc=I can climb up these stairs.
-model=model_loc_1738
+model=furniture_spiralstairs
 width=2
 length=2
 op1=Climb-up
@@ -91,7 +91,7 @@ mapscene=7
 [spiralstairsmiddle]
 name=Staircase
 desc=I can climb up or go down these stairs.
-model=model_loc_1738
+model=furniture_spiralstairs
 width=2
 length=2
 op1=Climb
@@ -102,7 +102,7 @@ mapscene=7
 [spiralstairstop]
 name=Staircase
 desc=I can climb down these stairs.
-model=model_loc_1740
+model=furniture_spiralstairstop
 op1=Climb-down
 forceapproach=east
 mapscene=7
@@ -110,7 +110,7 @@ mapscene=7
 [balance40up]
 name=Staircase
 desc=I can climb up these stairs.
-model=model_loc_54
+model=furniture_stairs
 width=2
 length=3
 op1=Climb-up
@@ -118,7 +118,7 @@ op1=Climb-up
 [cryptstairsdown]
 name=Stairs
 desc=Looks spooky...
-model=model_loc_1732
+model=spooky_loc_1732
 width=2
 length=3
 op1=Walk-Down
@@ -126,7 +126,7 @@ op1=Walk-Down
 [cryptstairsup]
 name=Stairs
 desc=Phew, an exit!
-model=model_loc_1730
+model=spooky_stairs
 width=2
 length=3
 op1=Walk-Up

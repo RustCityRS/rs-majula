@@ -710,7 +710,10 @@ fn decode_seq_entries(
                         (0..count).map(|_| format!("label_{}", buf.g1())).collect();
                     props.push(("walkmerge".into(), labels.join(",")));
                 }
+                #[cfg(before_289)]
                 4 => props.push(("stretches".into(), "yes".into())),
+                #[cfg(since_289)]
+                4 => props.push(("reachforward".into(), "yes".into())),
                 5 => props.push(("priority".into(), buf.g1().to_string())),
                 6 => {
                     let v = buf.g2();
@@ -751,7 +754,7 @@ fn decode_seq_entries(
                     };
                     props.push(("postanim_move".into(), s));
                 }
-                #[cfg(since_244)]
+                #[cfg(before_289)]
                 11 => {
                     let v = buf.g1();
                     let s = match v {
@@ -761,6 +764,16 @@ fn decode_seq_entries(
                     };
                     // TODO: this has to be in british spelling
                     props.push(("duplicatebehavior".into(), s));
+                }
+                #[cfg(since_289)]
+                11 => {
+                    let v = buf.g1();
+                    let s = match v {
+                        1 => "reset".to_string(),
+                        2 => "reset_loop".to_string(),
+                        _ => panic!("Unrecognized seq config duplicatebehaviour value: {v}"),
+                    };
+                    props.push(("duplicatebehaviour".into(), s));
                 }
                 _ => panic!("Unrecognized seq config code: {code}"),
             }

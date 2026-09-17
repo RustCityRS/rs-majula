@@ -1,7 +1,7 @@
 [range]
 name=Range
 desc=Ideal for cooking on.
-model=model_loc_114
+model=furniture_range
 length=2
 forceapproach=east
 category=cooking_oven
@@ -9,32 +9,32 @@ category=cooking_oven
 [loc_2729]
 name=Range
 desc=Ideal for cooking on.
-model=model_loc_114
+model=furniture_range
 category=cooking_oven
 
 [loc_2730]
 name=Range
 desc=Ideal for cooking on.
-model=model_loc_114
+model=furniture_range
 category=cooking_oven
 
 [loc_2731]
 name=Range
 desc=Ideal for cooking on.
-model=model_loc_114
+model=furniture_range
 category=cooking_oven
 
 [fireplace]
 name=Fireplace
 desc=A fire burns brightly here.
-model=model_loc_2724
+model=furniture_fireplace
 anim=fireplace
 category=cooking_fire
 
 [grandfireplace]
 name=Fireplace
 desc=A grand old fireplace.
-model=model_loc_2725
+model=furniture_grandfireplace
 length=3
 anim=grandfireplace
 category=cooking_fire
@@ -42,7 +42,7 @@ category=cooking_fire
 [grandfireplace_oldbrick]
 name=Fireplace
 desc=A grand old fireplace.
-model=model_loc_2725
+model=furniture_grandfireplace
 length=3
 anim=grandfireplace
 retex1s=wall
@@ -52,14 +52,14 @@ category=cooking_fire
 [fireplacecookingpot]
 name=Cooking pot
 desc=Something is cooking nicely here.
-model=model_loc_2727
+model=furniture_fireplace_cookingpot
 anim=fireplace
 category=cooking_fire
 
 [fire]
 name=Fire
 desc=Hot!
-model=model_loc_2732
+model=outdoorfurniture_fire
 anim=fire
 blockwalk=no
 blockrange=no

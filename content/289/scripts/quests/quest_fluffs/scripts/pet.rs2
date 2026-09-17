@@ -5,7 +5,6 @@ if (finduid(%npc_attacking_uid) = true) {
     }
     return;
 }
-npc_del;
 
 [timer,petcat_growth]
 if (%follower_uid = null) {
@@ -253,11 +252,18 @@ settimer(petcat_growth, 150);
 
 [proc,follower_death]
 if (npc_finduid(%follower_uid) = true) {
-    %follower_uid = null;
-    %follower_obj = null;
-    %cat_growth = 0;
-    npc_del;
+    ~remove_follower;
 }
+
+[proc,remove_follower]
+%follower_uid = null;
+%follower_obj = null;
+if(npc_category = petcat) %cat_growth = 0; // cat specific
+npc_del;
+
+[proc,remove_follower_inv](obj $obj, int $slot)
+if(oc_category($obj) = kitten | oc_category($obj) = cat | oc_category($obj) = overgrown) %cat_growth = 0; // cat specific
+inv_delslot(inv, $slot);
 
 [proc,follower_logout]
 if (npc_finduid(%follower_uid) = true) {

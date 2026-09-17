@@ -369,42 +369,81 @@ pub fn pack_interfaces(
                         continue;
                     }
                     let parts: Vec<&str> = op.split(',').collect();
-                    let op_name = parts.first().copied().unwrap();
+                    let describe = || {
+                        format!(
+                            "interface '{}' {}: '{}'",
+                            com.root.as_deref().unwrap_or("<no root>"),
+                            op_key,
+                            op
+                        )
+                    };
+                    let arg = |i: usize| {
+                        parts.get(i).copied().unwrap_or_else(|| {
+                            panic!(
+                                "Error packing interfaces
+{} is missing argument {i}",
+                                describe()
+                            )
+                        })
+                    };
+                    let op_name = arg(0);
                     client.p2(name_to_script(op_name) as u16);
                     server.p2(name_to_script(op_name) as u16);
 
                     match op_name {
                         "stat_level" | "stat_base_level" | "stat_xp" | "stat_xp_remaining" => {
-                            client.p2(name_to_stat(parts.get(1).copied().unwrap()) as u16);
-                            server.p2(name_to_stat(parts.get(1).copied().unwrap()) as u16);
+                            client.p2(name_to_stat(arg(1)) as u16);
+                            server.p2(name_to_stat(arg(1)) as u16);
                         }
                         "inv_count" | "inv_contains" => {
                             let com_link = registry
                                 .interface
-                                .get_by_debugname(parts.get(1).copied().unwrap())
-                                .unwrap();
-                            let obj_link = registry
-                                .obj
-                                .get_by_debugname(parts.get(2).copied().unwrap())
-                                .unwrap();
+                                .get_by_debugname(arg(1))
+                                .unwrap_or_else(|| {
+                                    panic!(
+                                        "Error packing interfaces
+{} references unknown interface '{}'",
+                                        describe(),
+                                        arg(1)
+                                    )
+                                });
+                            let obj_link =
+                                registry.obj.get_by_debugname(arg(2)).unwrap_or_else(|| {
+                                    panic!(
+                                        "Error packing interfaces
+{} references unknown obj '{}'",
+                                        describe(),
+                                        arg(2)
+                                    )
+                                });
                             client.p2(com_link);
                             client.p2(obj_link);
                             server.p2(com_link);
                             server.p2(obj_link);
                         }
                         "pushvar" => {
-                            let varp_link = registry
-                                .varp
-                                .get_by_debugname(parts.get(1).copied().unwrap())
-                                .unwrap();
+                            let varp_link =
+                                registry.varp.get_by_debugname(arg(1)).unwrap_or_else(|| {
+                                    panic!(
+                                        "Error packing interfaces
+{} references unknown varp '{}'",
+                                        describe(),
+                                        arg(1)
+                                    )
+                                });
                             client.p2(varp_link);
                             server.p2(varp_link);
                         }
                         "testbit" => {
-                            let varp_link = registry
-                                .varp
-                                .get_by_debugname(parts.get(1).copied().unwrap())
-                                .unwrap();
+                            let varp_link =
+                                registry.varp.get_by_debugname(arg(1)).unwrap_or_else(|| {
+                                    panic!(
+                                        "Error packing interfaces
+{} references unknown varp '{}'",
+                                        describe(),
+                                        arg(1)
+                                    )
+                                });
                             let bit = parts
                                 .get(2)
                                 .and_then(|v| v.parse::<u16>().ok())
@@ -416,16 +455,28 @@ pub fn pack_interfaces(
                         }
                         #[cfg(since_254)]
                         "push_varbit" => {
-                            let varbit_link = registry
-                                .varbit
-                                .get_by_debugname(parts.get(1).copied().unwrap())
-                                .unwrap();
+                            let varbit_link =
+                                registry.varbit.get_by_debugname(arg(1)).unwrap_or_else(|| {
+                                    panic!(
+                                        "Error packing interfaces
+{} references unknown varbit '{}'",
+                                        describe(),
+                                        arg(1)
+                                    )
+                                });
                             client.p2(varbit_link);
                             server.p2(varbit_link);
                         }
                         #[cfg(since_254)]
                         "push_constant" => {
-                            let value = parts.get(1).and_then(|v| v.parse::<u16>().ok()).unwrap();
+                            let value = arg(1).parse::<u16>().unwrap_or_else(|e| {
+                                panic!(
+                                    "Error packing interfaces
+{} has an invalid constant '{}': {e}",
+                                    describe(),
+                                    arg(1)
+                                )
+                            });
                             client.p2(value);
                             server.p2(value);
                         }

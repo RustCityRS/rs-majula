@@ -1,4 +1,9 @@
 [opnpc2,monkey]
+if (~mm_wearing_greegree = true) {
+    // seperate code for this opnpc2, would be interesting to prove if other npcs with overriden opnpc2 have seperate behaviour
+    mes("You cannot attack as a monkey!");
+    return;
+}
 if (~player_in_combat_check = false) {
     return;
 }

@@ -95,7 +95,16 @@ pub fn pack_seqs(
                 }
 
                 // 4
+                #[cfg(before_289)]
                 "stretches" => parse_bool(value, |v| {
+                    if v {
+                        client.p1(4);
+                        server.p1(4);
+                    }
+                }),
+
+                #[cfg(since_289)]
+                "reachforward" => parse_bool(value, |v| {
                     if v {
                         client.p1(4);
                         server.p1(4);
@@ -183,7 +192,7 @@ pub fn pack_seqs(
                 }
 
                 // 11
-                #[cfg(since_244)]
+                #[cfg(before_289)]
                 "duplicatebehavior" => {
                     // TODO: this has to be in british spelling
                     let v: u8 = match value.as_str() {
@@ -192,6 +201,21 @@ pub fn pack_seqs(
                         other => other
                             .parse()
                             .unwrap_or_else(|_| panic!("Invalid duplicatebehavior: {other}")),
+                    };
+                    client.p1(11);
+                    client.p1(v);
+                    server.p1(11);
+                    server.p1(v);
+                }
+
+                #[cfg(since_289)]
+                "duplicatebehaviour" => {
+                    let v: u8 = match value.as_str() {
+                        "reset" => 1,
+                        "reset_loop" => 2,
+                        other => other
+                            .parse()
+                            .unwrap_or_else(|_| panic!("Invalid duplicatebehaviour: {other}")),
                     };
                     client.p1(11);
                     client.p1(v);

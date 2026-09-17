@@ -145,7 +145,7 @@ if($last_useitem = mortmyremushroom) {
     if(%druidspirit < ^druidspirit_picked_fungi) {
         mes("The fungus seems to be quite old and dry, not fresh.");
         if(npc_findexact(0_53_52_48_8, filliman_tarlock_spirit) = false) {
-            if(coord = 0_53_52_48_8) ~forcemove(map_findsquare(coord, 1, 1, ^vis_lineofwalk)); // random tile
+            if(coord = 0_53_52_48_8) ~forcemove(map_findsquare(coord, 1, 1, ^map_findsquare_lineofwalk)); // random tile
             npc_add(0_53_52_48_8, filliman_tarlock_spirit, 100); // 100t osrs
             ~chatnpc("<p,idle>@blu@~ Filliman Tarlock suddenly appears! ~");
         }

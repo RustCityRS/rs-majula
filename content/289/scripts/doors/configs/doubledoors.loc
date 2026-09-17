@@ -1,7 +1,7 @@
 [loc_1506]
 name=Large door
 desc=A sturdy wooden door.
-model=model_loc_1506
+model=basic_bankdoorl
 active=yes
 op1=Open
 mirror=yes
@@ -12,7 +12,7 @@ param=next_loc_stage,loc_1507
 [loc_1507]
 name=Large door
 desc=A sturdy wooden door.
-model=model_loc_1507
+model=basic_bankdooropenl
 active=yes
 op1=Close
 mirror=yes
@@ -23,7 +23,7 @@ param=next_loc_stage,loc_1506
 [loc_1508]
 name=Large door
 desc=A sturdy wooden door.
-model=model_loc_1506
+model=basic_bankdoorl
 active=yes
 op1=Open
 raiseobject=no
@@ -33,7 +33,7 @@ param=next_loc_stage,loc_1511
 [loc_1511]
 name=Large door
 desc=A sturdy wooden door.
-model=model_loc_1507
+model=basic_bankdooropenl
 active=yes
 op1=Close
 raiseobject=no
@@ -43,7 +43,7 @@ param=next_loc_stage,loc_1508
 [loc_1516]
 name=Large door
 desc=A large double door.
-model=model_loc_71
+model=castle_doubledoorl
 op1=Open
 raiseobject=no
 category=door_left_closed
@@ -52,7 +52,7 @@ param=next_loc_stage,loc_1517
 [loc_1517]
 name=Large door
 desc=A large double door.
-model=model_loc_71
+model=castle_doubledoorl
 op1=Close
 raiseobject=no
 category=door_left_opened
@@ -61,7 +61,7 @@ param=next_loc_stage,loc_1516
 [loc_1519]
 name=Large door
 desc=A large double door.
-model=model_loc_71
+model=castle_doubledoorl
 op1=Open
 mirror=yes
 raiseobject=no
@@ -71,7 +71,7 @@ param=next_loc_stage,loc_1520
 [loc_1520]
 name=Large door
 desc=A large double door.
-model=model_loc_71
+model=castle_doubledoorl
 op1=Close
 mirror=yes
 raiseobject=no
@@ -81,7 +81,7 @@ param=next_loc_stage,loc_1519
 [loc_1542]
 name=Door
 desc=Solid bars of iron.
-model=model_loc_37
+model=basic_prisondoor
 op1=Open
 active=yes
 blockrange=no
@@ -93,7 +93,7 @@ param=open_sound,grate_open
 [loc_1543]
 name=Door
 desc=Solid bars of iron.
-model=model_loc_37
+model=basic_prisondoor
 op1=Close
 active=yes
 raiseobject=no
@@ -104,7 +104,7 @@ param=close_sound,grate_close
 [loc_1544]
 name=Door
 desc=Solid bars of iron.
-model=model_loc_37
+model=basic_prisondoor
 op1=Open
 mirror=yes
 active=yes
@@ -117,7 +117,7 @@ param=open_sound,grate_open
 [loc_1545]
 name=Door
 desc=Solid bars of iron.
-model=model_loc_37
+model=basic_prisondoor
 op1=Close
 mirror=yes
 active=yes
@@ -129,7 +129,7 @@ param=close_sound,grate_close
 [membergatel]
 name=Gate
 desc=A wrought iron gate.
-model=model_loc_52
+model=outdoorfurniture_metalgateclosedl
 op1=Open
 active=yes
 blockrange=no
@@ -141,7 +141,7 @@ param=open_sound,grate_open
 [membergater]
 name=Gate
 desc=A wrought iron gate.
-model=model_loc_52
+model=outdoorfurniture_metalgateclosedl
 op1=Open
 mirror=yes
 active=yes
@@ -154,7 +154,7 @@ param=open_sound,grate_open
 [loc_1560]
 name=Gate
 desc=A wrought iron gate.
-model=model_loc_52
+model=outdoorfurniture_metalgateclosedl
 op1=Close
 active=yes
 raiseobject=no
@@ -165,7 +165,7 @@ param=close_sound,grate_close
 [loc_1561]
 name=Gate
 desc=A wrought iron gate.
-model=model_loc_52
+model=outdoorfurniture_metalgateclosedl
 op1=Close
 mirror=yes
 active=yes
@@ -177,7 +177,7 @@ param=close_sound,grate_close
 [loc_1557]
 name=Gate
 desc=A wrought iron gate.
-model=model_loc_52
+model=outdoorfurniture_metalgateclosedl
 op1=Open
 active=yes
 blockrange=no
@@ -189,7 +189,7 @@ param=open_sound,grate_open
 [loc_1558]
 name=Gate
 desc=A wrought iron gate.
-model=model_loc_52
+model=outdoorfurniture_metalgateclosedl
 op1=Open
 mirror=yes
 active=yes
@@ -202,14 +202,14 @@ param=open_sound,grate_open
 [inaclefayeunopenabledoorl]
 name=Large door
 desc=Securely fastened shut.
-model=model_loc_71
+model=castle_doubledoorl
 active=yes
 op1=Open
 
 [inaclefayeunopenabledoorr]
 name=Large door
 desc=Securely fastened shut.
-model=model_loc_71
+model=castle_doubledoorl
 active=yes
 mirror=yes
 op1=Open

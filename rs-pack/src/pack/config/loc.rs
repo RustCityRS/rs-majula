@@ -403,8 +403,8 @@ pub fn pack_locs(
                 continue;
             }
 
-            // centrepiece_straight (_8) comes first
             if let Some(id) = try_model(&format!("{src}{}", LocShape::CentrepieceStraight.suffix()))
+                .or_else(|| try_model(src))
             {
                 models.push(LocModelShape {
                     model: id,
