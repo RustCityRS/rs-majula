@@ -754,25 +754,21 @@ fn decode_seq_entries(
                     };
                     props.push(("postanim_move".into(), s));
                 }
-                #[cfg(before_289)]
+                #[cfg(since_244)]
                 11 => {
                     let v = buf.g1();
                     let s = match v {
                         1 => "reset".to_string(),
                         2 => "reset_loop".to_string(),
+                        #[cfg(before_289)]
                         _ => panic!("Unrecognized seq config duplicatebehavior value: {v}"),
-                    };
-                    // TODO: this has to be in british spelling
-                    props.push(("duplicatebehavior".into(), s));
-                }
-                #[cfg(since_289)]
-                11 => {
-                    let v = buf.g1();
-                    let s = match v {
-                        1 => "reset".to_string(),
-                        2 => "reset_loop".to_string(),
+                        #[cfg(since_289)]
                         _ => panic!("Unrecognized seq config duplicatebehaviour value: {v}"),
                     };
+                    // TODO: this has to be in british spelling
+                    #[cfg(before_289)]
+                    props.push(("duplicatebehavior".into(), s));
+                    #[cfg(since_289)]
                     props.push(("duplicatebehaviour".into(), s));
                 }
                 _ => panic!("Unrecognized seq config code: {code}"),

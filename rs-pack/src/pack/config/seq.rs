@@ -192,7 +192,7 @@ pub fn pack_seqs(
                 }
 
                 // 11
-                #[cfg(before_289)]
+                #[cfg(all(since_244, before_289))]
                 "duplicatebehavior" => {
                     // TODO: this has to be in british spelling
                     let v: u8 = match value.as_str() {
