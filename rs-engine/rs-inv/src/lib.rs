@@ -602,7 +602,7 @@ mod tests {
     #[test]
     fn add_stackable_new_slot_capped_at_limit() {
         let mut inv = Inventory::new(28);
-        let overflow = inv.add(1, STACK_LIMIT as u32 + 100, true);
+        let overflow = inv.add(1, STACK_LIMIT + 100, true);
         assert_eq!(overflow, 100);
         assert_eq!(inv.total(1), STACK_LIMIT);
     }

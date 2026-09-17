@@ -931,6 +931,7 @@ mod tests {
         assert!(!set.contains(&c));
     }
 
+    #[allow(clippy::clone_on_copy)]
     #[test]
     fn copy_and_clone() {
         let a = CoordGrid::new(100, 1, 200);

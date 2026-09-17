@@ -2336,7 +2336,7 @@ mod tests {
         let mut z = zone();
         let mut obj = despawn_obj(3222, 3222, 100, 1);
         obj.set_last_clock(200);
-        z.add_obj(obj.clone(), None);
+        z.add_obj(obj, None);
         let mut obj2 = despawn_obj(3222, 3222, 200, 1);
         obj2.set_last_clock(200);
         z.add_obj(obj2, Some(111));

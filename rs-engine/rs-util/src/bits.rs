@@ -280,8 +280,8 @@ mod tests {
         // Mimics SETBIT: a | (1 << b), TESTBIT: (a & (1 << b)) != 0
         let mut val = 0i32;
         val |= 1i32 << 5; // setbit bit 5
-        assert_eq!((val & (1i32 << 5)) != 0, true); // testbit bit 5
-        assert_eq!((val & (1i32 << 3)) != 0, false); // testbit bit 3
+        assert_ne!(val & (1i32 << 5), 0); // testbit bit 5
+        assert_eq!(val & (1i32 << 3), 0); // testbit bit 3
     }
 
     #[test]

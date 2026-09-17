@@ -420,6 +420,7 @@ mod tests {
         assert_eq!(ServerTriggerType::AiDespawn as u8, 167);
     }
 
+    #[allow(clippy::clone_on_copy)]
     #[test]
     fn clone_and_copy() {
         let a = ServerTriggerType::Proc;

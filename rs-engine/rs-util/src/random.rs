@@ -454,7 +454,7 @@ mod tests {
         let mut rng = JavaRandom::new(0);
         for _ in 0..1000 {
             let f = rng.next_float();
-            assert!(f >= 0.0 && f < 1.0);
+            assert!((0.0..1.0).contains(&f));
         }
     }
 
@@ -463,7 +463,7 @@ mod tests {
         let mut rng = JavaRandom::new(0);
         for _ in 0..1000 {
             let d = rng.next_double();
-            assert!(d >= 0.0 && d < 1.0);
+            assert!((0.0..1.0).contains(&d));
         }
     }
 

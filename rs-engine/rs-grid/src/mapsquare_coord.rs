@@ -216,6 +216,7 @@ mod tests {
         assert!(!set.contains(&c));
     }
 
+    #[allow(clippy::clone_on_copy)]
     #[test]
     fn copy_clone() {
         let a = MapsquareCoordGrid::new(10, 2, 30);
