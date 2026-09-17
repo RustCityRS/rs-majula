@@ -2537,7 +2537,7 @@ impl Engine {
             IpAddr::V4(ip) => u32::from(ip) as i64,
             IpAddr::V6(ip) => {
                 let octets = ip.octets();
-                i32::from_be_bytes([octets[12], octets[13], octets[14], octets[15]]) as i64
+                u32::from_be_bytes([octets[12], octets[13], octets[14], octets[15]]) as i64
             }
         };
         self.add_player(pid, active, key);
