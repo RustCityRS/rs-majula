@@ -5,6 +5,13 @@ macro_rules! server_prot {
         pub enum ServerProt {
             $( $variant = $id, )*
         }
+
+        impl ServerProt {
+            /// Every variant name defined for the active revision, in declaration
+            /// order. Used by the sizeof/encode parity test to prove that no
+            /// server packet escapes coverage.
+            pub const NAMES: &'static [&'static str] = &[ $( stringify!($variant), )* ];
+        }
     };
 }
 

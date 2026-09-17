@@ -1,6 +1,6 @@
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::ServerProtMessageInfo;
+use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
@@ -16,6 +16,6 @@ impl ServerProtMessage for MessageGame<'_> {
     }
 
     fn sizeof(&self) -> usize {
-        self.text.len() + 1
+        jstr_len(self.text)
     }
 }

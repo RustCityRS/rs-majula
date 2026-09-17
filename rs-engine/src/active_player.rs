@@ -258,6 +258,7 @@ impl ActivePlayer {
             PacketFrame::VarByte => buf.psize1((buf.pos - start) as u8),
             PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
         }
+        buf.data.truncate(buf.pos);
         self.buffered.push(buf);
     }
 

@@ -12,3 +12,12 @@ pub trait ServerProtMessage: ServerProtMessageInfo {
     fn encode(&self, buf: &mut Packet);
     fn sizeof(&self) -> usize;
 }
+
+#[inline]
+pub fn jstr_len(s: &str) -> usize {
+    if s.is_ascii() {
+        s.len() + 1
+    } else {
+        s.chars().count() + 1
+    }
+}

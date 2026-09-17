@@ -3,7 +3,7 @@ use crate::network::game::server::ServerProtMessage;
 #[cfg(since_254)]
 use crate::network::game::server_prot::ServerProt;
 #[cfg(since_254)]
-use crate::network::game::server_prot_message::ServerProtMessageInfo;
+use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
 #[cfg(since_254)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_254)]
@@ -28,6 +28,6 @@ impl ServerProtMessage for SetPlayerOp<'_> {
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.op) + size_of_val(&self.primary) + self.value.len() + 1
+        size_of_val(&self.op) + size_of_val(&self.primary) + jstr_len(self.value)
     }
 }
