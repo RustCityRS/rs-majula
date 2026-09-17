@@ -718,6 +718,29 @@ impl Engine {
                         }
                     }
 
+                    if let Some(ref cat_check) = hunt.check_invcat {
+                        let quantity = player
+                            .player
+                            .invs
+                            .get(&cat_check.inv)
+                            .map(|inv| {
+                                inv.slots
+                                    .iter()
+                                    .filter_map(|s| s.as_ref())
+                                    .filter(|item| {
+                                        objs.get_by_id(item.obj)
+                                            .and_then(|o| o.category)
+                                            .is_some_and(|cat| cat == cat_check.category)
+                                    })
+                                    .map(|item| item.num as i32)
+                                    .fold(0i32, |a, b| a.wrapping_add(b))
+                            })
+                            .unwrap_or(0);
+                        if !check_hunt_condition(quantity, &cat_check.condition, cat_check.value) {
+                            continue;
+                        }
+                    }
+
                     count += 1;
                     if engine_mut().random.next_int_bound(count as i32) == 0 {
                         chosen = Some(pid);

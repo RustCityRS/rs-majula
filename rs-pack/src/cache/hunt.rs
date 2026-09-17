@@ -23,6 +23,7 @@ pub struct HuntType {
     pub check_loc: Option<u16>,
     pub check_inv: Option<HuntCheckInv>,
     pub check_invparam: Option<HuntCheckInvParam>,
+    pub check_invcat: Option<HuntCheckInvCat>,
     pub extracheck_vars: Vec<HuntExtraCheckVar>,
     debugname: Option<Box<str>>,
 }
@@ -37,6 +38,13 @@ pub struct HuntCheckInv {
 pub struct HuntCheckInvParam {
     pub inv: u16,
     pub param: u16,
+    pub condition: String,
+    pub value: i32,
+}
+
+pub struct HuntCheckInvCat {
+    pub inv: u16,
+    pub category: u16,
     pub condition: String,
     pub value: i32,
 }
@@ -70,6 +78,7 @@ impl CacheType for HuntType {
             check_loc: None,
             check_inv: None,
             check_invparam: None,
+            check_invcat: None,
             extracheck_vars: Vec::new(),
             debugname: None,
         }
@@ -119,7 +128,19 @@ impl CacheType for HuntType {
                         value,
                     });
                 }
-                18..=20 => {
+                18 => {
+                    let inv = buf.g2();
+                    let category = buf.g2();
+                    let condition = buf.gjstr(10);
+                    let value = buf.g4s();
+                    self.check_invcat = Some(HuntCheckInvCat {
+                        inv,
+                        category,
+                        condition,
+                        value,
+                    });
+                }
+                19..=21 => {
                     let varp = buf.g2();
                     let condition = buf.gjstr(10);
                     let value = buf.g4s();

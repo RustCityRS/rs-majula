@@ -141,6 +141,7 @@ pub fn pack_hunts(
                         || has_key("check_loc")
                         || has_key("check_inv")
                         || has_key("check_invparam")
+                        || has_key("check_invcat")
                     {
                         panic!("Invalid check_category value: {key}={value}");
                     }
@@ -160,6 +161,7 @@ pub fn pack_hunts(
                         || has_key("check_loc")
                         || has_key("check_inv")
                         || has_key("check_invparam")
+                        || has_key("check_invcat")
                     {
                         panic!("Invalid check_npc value: {key}={value}");
                     }
@@ -179,6 +181,7 @@ pub fn pack_hunts(
                         || has_key("check_loc")
                         || has_key("check_inv")
                         || has_key("check_invparam")
+                        || has_key("check_invcat")
                     {
                         panic!("Invalid check_obj value: {key}={value}");
                     }
@@ -198,6 +201,7 @@ pub fn pack_hunts(
                         || has_key("check_obj")
                         || has_key("check_inv")
                         || has_key("check_invparam")
+                        || has_key("check_invcat")
                     {
                         panic!("Invalid check_loc value: {key}={value}");
                     }
@@ -217,6 +221,7 @@ pub fn pack_hunts(
                         || has_key("check_obj")
                         || has_key("check_loc")
                         || has_key("check_invparam")
+                        || has_key("check_invcat")
                     {
                         panic!("Invalid check_inv value: {key}={value}");
                     }
@@ -248,6 +253,7 @@ pub fn pack_hunts(
                         || has_key("check_obj")
                         || has_key("check_loc")
                         || has_key("check_inv")
+                        || has_key("check_invcat")
                     {
                         panic!("Invalid check_invparam value: {key}={value}");
                     }
@@ -272,7 +278,39 @@ pub fn pack_hunts(
                     parse_number(&last[1..], |v| server.p4(v));
                 }
 
-                // 18-20
+                // 18
+                "check_invcat" => {
+                    if has_key("check_category")
+                        || has_key("check_npc")
+                        || has_key("check_obj")
+                        || has_key("check_loc")
+                        || has_key("check_inv")
+                        || has_key("check_invparam")
+                    {
+                        panic!("Invalid check_invcat value: {key}={value}");
+                    }
+                    if !has_type("player") {
+                        panic!("Invalid check_invcat value: {key}={value}");
+                    }
+                    let parts: Vec<&str> = value.splitn(3, ',').collect();
+                    if parts.len() != 3 {
+                        panic!("Invalid check_invcat value: {key}={value}");
+                    }
+                    let last = parts[2];
+                    let Some(condition) = last.chars().next() else {
+                        panic!("Invalid check_invcat value: {key}={value}");
+                    };
+                    if !matches!(condition, '=' | '>' | '<' | '!' | '&' | '|') {
+                        panic!("Invalid check_invcat value: {key}={value}");
+                    }
+                    server.p1(18);
+                    parse_inv(registry, parts[0], |v| server.p2(v));
+                    parse_category(registry, parts[1], |v| server.p2(v));
+                    server.pjstr(&condition.to_string());
+                    parse_number(&last[1..], |v| server.p4(v));
+                }
+
+                // 19-21
                 "extracheck_var" => {
                     if extracheck_var > 2 {
                         panic!("Invalid extracheck_var value: {key}={value}");
@@ -291,7 +329,7 @@ pub fn pack_hunts(
                     if !matches!(condition, '=' | '>' | '<' | '!' | '&' | '|') {
                         panic!("Invalid extracheck_var value: {key}={value}");
                     }
-                    server.p1(18 + extracheck_var);
+                    server.p1(19 + extracheck_var);
                     parse_varp(registry, &parts[0][1..], |v| server.p2(v));
                     server.pjstr(&condition.to_string());
                     parse_number(&last[1..], |v| server.p4(v));
