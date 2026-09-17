@@ -92,8 +92,8 @@ use crate::network::game::client::resume_pause_button::ResumePauseButton;
 use crate::network::game::client::send_snapshot::SendSnapshot;
 use crate::network::game::client::tut_clickside::TutClickSide;
 use crate::network::game::client_prot_category::ClientProtCategory;
+use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
-use rs_io::PacketFrame;
 
 macro_rules! client_prot {
     ( $( $variant:ident = $id:expr ),* $(,)? ) => {
@@ -115,6 +115,8 @@ macro_rules! client_prot {
         }
 
         impl ClientProt {
+            pub const ALL: &'static [ClientProt] = &[ $( ClientProt::$variant, )* ];
+
             pub fn info(&self) -> ClientProtInfo {
                 match self {
                     $( ClientProt::$variant => ClientProtInfo {
@@ -629,6 +631,6 @@ client_prot! {
 }
 
 pub struct ClientProtInfo {
-    pub frame: (PacketFrame, Option<u8>),
+    pub frame: ClientProtFrame,
     pub category: ClientProtCategory,
 }

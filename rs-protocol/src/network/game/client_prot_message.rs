@@ -1,8 +1,9 @@
 use crate::network::game::client_prot_category::ClientProtCategory;
-use rs_io::{Packet, PacketFrame};
+use crate::network::game::client_prot_frame::ClientProtFrame;
+use rs_io::Packet;
 
 pub trait ClientProtMessageInfo {
-    const FRAME: (PacketFrame, Option<u8>);
+    const FRAME: ClientProtFrame;
     const CATEGORY: ClientProtCategory;
 }
 

@@ -1,6 +1,7 @@
 pub mod client;
 pub mod client_prot;
 pub mod client_prot_category;
+pub mod client_prot_frame;
 pub mod client_prot_message;
 pub mod info_prot;
 pub mod info_prot_message;

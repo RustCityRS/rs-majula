@@ -1,10 +1,12 @@
 use crate::network::game::client::{ClientProtMessage, pack_coord};
 use crate::network::game::client_prot_category::ClientProtCategory;
+use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
-use rs_io::{Packet, PacketFrame};
+use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-#[client_prot(VarByte, UserEvent)]
+// Minimum covers ctrl + x + z.
+#[client_prot(VarByte { min: 5 }, UserEvent)]
 pub struct MoveOpClick {
     pub path: Vec<u32>,
     pub ctrl: bool,

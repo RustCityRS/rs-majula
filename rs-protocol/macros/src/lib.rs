@@ -15,25 +15,8 @@ pub fn client_prot(args: TokenStream, input: TokenStream) -> TokenStream {
 
     let mut iter = args.iter();
 
-    let frame_expr = match iter.next().expect("expected frame kind") {
-        Expr::Call(call) => {
-            let func = match call.func.as_ref() {
-                Expr::Path(p) => p.path.get_ident().unwrap(),
-                _ => panic!("expected frame kind identifier"),
-            };
-            let size = call
-                .args
-                .first()
-                .map(|a| quote! { Some(#a) })
-                .unwrap_or(quote! { None });
-            quote! { (PacketFrame::#func, #size) }
-        }
-        Expr::Path(p) => {
-            let ident = p.path.get_ident().unwrap();
-            quote! { (PacketFrame::#ident, None) }
-        }
-        _ => panic!("expected frame kind"),
-    };
+    let frame = iter.next().expect("expected frame kind");
+    let frame_expr = quote! { ClientProtFrame::#frame };
 
     let category_expr = match iter.next().expect("expected category") {
         Expr::Path(p) => {
@@ -47,7 +30,7 @@ pub fn client_prot(args: TokenStream, input: TokenStream) -> TokenStream {
         #input
 
         impl ClientProtMessageInfo for #name {
-            const FRAME: (PacketFrame, Option<u8>) = #frame_expr;
+            const FRAME: ClientProtFrame = #frame_expr;
             const CATEGORY: ClientProtCategory = #category_expr;
         }
     }

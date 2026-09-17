@@ -107,6 +107,7 @@ use rs_protocol::network::game::client::send_snapshot::SendSnapshot;
 use rs_protocol::network::game::client::tut_clickside::TutClickSide;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
+use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
@@ -1939,6 +1940,9 @@ impl EnginePlayer for ActivePlayer {
     /// and routes to the matching `ClientProt` handler. On success,
     /// increments the appropriate rate-limit counter.
     ///
+    /// A var-frame payload shorter than the decoder's declared minimum is
+    /// drained and dropped rather than decoded.
+    ///
     /// # Returns
     /// `Some(())` if a message was processed, `None` if the queue is
     /// empty or incomplete.
@@ -1950,7 +1954,7 @@ impl EnginePlayer for ActivePlayer {
     /// # Call Stack
     /// **Called by:** [`decode`](Self::decode)
     fn read(&mut self) -> Option<()> {
-        let (prot, data, info) = {
+        let (prot, data, info, short) = {
             let handle = &mut self.handle;
 
             let opcode = handle
@@ -1965,26 +1969,31 @@ impl EnginePlayer for ActivePlayer {
 
             let info = prot.info();
 
-            let len: usize = match info.frame.0 {
-                PacketFrame::VarByte => handle.read_queue.pop_front()? as usize,
-                PacketFrame::VarShort => {
+            let len: usize = match info.frame {
+                ClientProtFrame::VarByte { .. } => handle.read_queue.pop_front()? as usize,
+                ClientProtFrame::VarShort { .. } => {
                     let hi = handle.read_queue.pop_front()? as usize;
                     let lo = handle.read_queue.pop_front()? as usize;
                     (hi << 8) | lo
                 }
-                PacketFrame::Fixed => info.frame.1.unwrap_or(0) as usize,
+                ClientProtFrame::Fixed(len) => len as usize,
             };
 
             if handle.read_queue.len() < len {
                 return None;
             }
 
+            let short = len < info.frame.min();
+
             let data: Vec<u8> = handle.read_queue.drain(..len).collect();
-            (prot, data, info)
+            (prot, data, info, short)
         };
 
         #[rustfmt::skip]
-        let success = {
+        let success = if short {
+            warn!("Short {prot:?}: {} byte(s)", data.len());
+            false
+        } else {
             let mut buf = Packet::from(data);
             let len = buf.len();
             let result = match prot {
