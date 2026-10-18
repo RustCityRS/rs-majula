@@ -3,13 +3,15 @@ mod news;
 mod password;
 mod player;
 mod save;
+mod session;
 mod world;
 
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsCategory, NewsPost, NewsSummary};
 pub use password::Passwords;
 pub use player::{Credentials, NewPlayer};
-pub use save::PlayerSave;
+pub use save::{PlayerSave, SaveResult};
+pub use session::{Claim, Reconciled};
 pub use sqlx::Error;
 pub use world::WorldStatus;
 
@@ -38,6 +40,13 @@ impl DbConfig {
             .database(&self.name)
             .username(&self.user)
             .password(&self.pass)
+            // A hung query errors out instead of stalling its caller, and a
+            // client that stalls mid-transaction is cut off so it can't hold
+            // a player's row locked.
+            .options([
+                ("statement_timeout", "20s"),
+                ("idle_in_transaction_session_timeout", "30s"),
+            ])
     }
 }
 

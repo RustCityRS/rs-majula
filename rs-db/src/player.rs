@@ -7,6 +7,7 @@ pub struct Credentials {
     pub password_hash: String,
     pub staff_mod_level: i16,
     pub banned: bool,
+    pub left_other_world_ms: Option<i64>,
 }
 
 /// A player to register.
@@ -20,14 +21,23 @@ pub struct NewPlayer<'a> {
 }
 
 impl Db {
-    /// Looks up a player's credentials by base37 name. `None` if no such player.
-    pub async fn find_credentials(&self, name_hash: u64) -> Result<Option<Credentials>, Error> {
+    /// Looks up a player's credentials by base37 name, for a login to world
+    /// `node_id`. `None` if no such player.
+    pub async fn find_credentials(
+        &self,
+        name_hash: u64,
+        node_id: i16,
+    ) -> Result<Option<Credentials>, Error> {
         sqlx::query_as(
-            "SELECT password_hash, staff_mod_level,
-                    coalesce(banned_until > now(), false) AS banned
-             FROM players WHERE name_hash = $1",
+            "select * from (SELECT password_hash, staff_mod_level,
+                    coalesce(banned_until > now(), false) AS banned,
+                    CASE WHEN last_logout_node <> $2
+                         THEN (extract(epoch FROM now() - last_logout_at) * 1000)::bigint
+                    END AS left_other_world_ms
+             FROM players WHERE name_hash = $1) p",
         )
         .bind(name_hash as i64)
+        .bind(node_id)
         .fetch_optional(&self.pool)
         .await
     }

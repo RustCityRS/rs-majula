@@ -1,23 +1,43 @@
+use crate::phases::login::{LOGIN_FAILURE_WINDOW_SECS, MAX_LOGIN_FAILURES};
 use crate::player_save::{
-    PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file, save_to_file,
+    PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
+    orphan_save_file, save_orphan, save_to_file,
 };
-use rs_db::{Db, DbConfig, NewPlayer, Passwords, PlayerSave};
+use rs_db::{Claim, Db, DbConfig, NewPlayer, Passwords, PlayerSave, SaveResult};
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
+use std::net::IpAddr;
 use std::path::Path;
+use std::time::Instant;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
-use tokio::time::{Duration, sleep};
+use tokio::task::JoinHandle;
+use tokio::time::{Duration, sleep, timeout};
 use tracing::{error, info, warn};
+
+/// Seconds without a heartbeat after which a world counts as dead and
+/// another world may take over the sessions it owns. A dead world's saves
+/// are refused once its sessions are taken, so its stale copies can never
+/// overwrite the new owner's.
+const TAKEOVER_AFTER_SECS: i32 = 60;
+
+/// How often the lease task renews this world's heartbeat, on a connection
+/// of its own so a backlog of saves and logins can't delay it.
+const LEASE_INTERVAL: Duration = Duration::from_secs(5);
+
+/// How long the engine plays on without a confirmed heartbeat before it
+/// fences itself (removes every player). Half the takeover time: a world
+/// cut off from the database always stops serving its players well before
+/// another world may take them over, so a player can never be live in two
+/// worlds at once.
+pub const DB_FENCE: Duration = Duration::from_secs(30);
+
+const _: () = assert!(DB_FENCE.as_secs() * 2 <= TAKEOVER_AFTER_SECS as u64);
 
 /// Settings for [`db_client_task`].
 pub struct DbClientConfig {
     pub db: DbConfig,
-    /// This world's node id, for its `world_status` heartbeat.
     pub node_id: u8,
     pub pepper: String,
     pub auto_register: bool,
-    /// Apply pending migrations on connect. Off, the task only checks the
-    /// schema is current and stays offline until a separate migrate step has
-    /// run.
     pub auto_migrate: bool,
 }
 
@@ -26,27 +46,53 @@ pub enum DbRequest {
     Authenticate {
         user37: u64,
         password: Box<str>,
+        ip: IpAddr,
     },
     Save {
         user37: u64,
         username: String,
         profile: Box<PlayerProfile>,
         binary: Vec<u8>,
+        logout: bool,
     },
     Load {
         user37: u64,
     },
-    /// The world's heartbeat for the website's world list.
+    Release {
+        user37: u64,
+    },
     WorldStatus {
         players: u32,
+        online: Vec<u64>,
+        held: Vec<u64>,
     },
 }
 
 /// The outcome of a [`DbRequest::Authenticate`].
 pub enum AuthResult {
-    Accepted { staff_mod_level: u8 },
+    Accepted {
+        staff_mod_level: u8,
+        left_other_world: Option<Duration>,
+    },
     InvalidCredentials,
     Banned,
+    TooManyAttempts,
+}
+
+/// Where a [`DbRequest::Save`] ended up.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SaveOutcome {
+    Stored,
+    Unregistered,
+    NotOwner,
+    Failed,
+}
+
+/// The outcome of a [`DbRequest::Load`].
+pub enum LoadResult {
+    Loaded(Option<Box<PlayerProfile>>),
+    Busy,
+    Unregistered,
 }
 
 /// A response sent from the database client task back to the engine.
@@ -60,12 +106,111 @@ pub enum DbResponse {
     SaveAck {
         user37: u64,
         username: String,
-        success: bool,
+        outcome: SaveOutcome,
+        /// Echoes [`DbRequest::Save::logout`].
+        logout: bool,
     },
     LoadResponse {
         user37: u64,
-        profile: Option<PlayerProfile>,
+        result: LoadResult,
     },
+    SessionsLost {
+        users37: Vec<u64>,
+    },
+    Lease {
+        at: Instant,
+    },
+}
+
+/// Aborts a spawned task when dropped, so it can't outlive its owner.
+struct AbortOnDrop(JoinHandle<()>);
+
+impl Drop for AbortOnDrop {
+    fn drop(&mut self) {
+        self.0.abort();
+    }
+}
+
+/// Renews this world's heartbeat every [`LEASE_INTERVAL`] on a connection of
+/// its own, reporting each renewal to the engine as a [`DbResponse::Lease`].
+/// Each attempt is bounded by a timeout, and a failure drops the connection
+/// for a fresh one next time.
+async fn lease_task(config: DbConfig, node_id: u8, response_tx: UnboundedSender<DbResponse>) {
+    let mut db: Option<Db> = None;
+    loop {
+        sleep(LEASE_INTERVAL).await;
+        if db.is_none() {
+            db = timeout(LEASE_INTERVAL, Db::connect(&config, 1))
+                .await
+                .ok()
+                .and_then(Result::ok);
+        }
+        let Some(conn) = &db else {
+            continue;
+        };
+        let at = Instant::now();
+        match timeout(LEASE_INTERVAL, conn.touch_world(node_id.into())).await {
+            Ok(Ok(())) => {
+                if response_tx.send(DbResponse::Lease { at }).is_err() {
+                    return;
+                }
+            }
+            Ok(Err(e)) => {
+                warn!("World heartbeat failed: {}", e);
+                db = None;
+            }
+            Err(_) => {
+                warn!("World heartbeat timed out");
+                db = None;
+            }
+        }
+    }
+}
+
+/// Handles a request while the database is unreachable. Saves go straight to
+/// local files (synced on reconnect) and are acked as failed, so a crash
+/// during the outage loses nothing that reached this task; the rest is
+/// dropped: the engine rejected its logins when the connection went, and the
+/// heartbeat's reconcile cleans up any claim a dropped release would have
+/// freed.
+fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
+    if let DbRequest::Save {
+        user37,
+        username,
+        binary,
+        logout,
+        ..
+    } = req
+    {
+        save_to_file(&username, &binary);
+        let _ = response_tx.send(DbResponse::SaveAck {
+            user37,
+            username,
+            outcome: SaveOutcome::Failed,
+            logout,
+        });
+    }
+}
+
+/// Waits out `delay` before the next connect attempt, handling requests
+/// offline meanwhile. Returns `false` once the engine has closed the channel
+/// and every request is handled: nothing is left to do.
+async fn wait_offline(
+    delay: Duration,
+    request_rx: &mut UnboundedReceiver<DbRequest>,
+    response_tx: &UnboundedSender<DbResponse>,
+) -> bool {
+    let deadline = sleep(delay);
+    tokio::pin!(deadline);
+    loop {
+        tokio::select! {
+            _ = &mut deadline => return true,
+            req = request_rx.recv() => match req {
+                Some(req) => handle_offline(req, response_tx),
+                None => return false,
+            },
+        }
+    }
 }
 
 /// Brings the schema up to date, or with `auto_migrate` off, checks that it
@@ -90,10 +235,11 @@ async fn prepare_schema(db: &Db, auto_migrate: bool) -> Result<(), String> {
 /// operations (authentication, save, load).
 ///
 /// Connects with exponential backoff, applies (or checks for) pending
-/// migrations, syncs any
-/// locally saved player files to the database, signals readiness via
-/// [`DbResponse::DbReady`], and then serves requests in order. Requests are
-/// handled one at a time so a player's save always lands before a later load.
+/// migrations, syncs any locally saved player files to the database, and on
+/// the first connect ends every session a previous run of this world left
+/// claimed. It then signals readiness via [`DbResponse::DbReady`] and serves
+/// requests in order. Requests are handled one at a time so a player's save
+/// always lands before a later load or claim.
 ///
 /// If a query fails, a [`DbResponse::DbDisconnected`] is sent and the task
 /// reconnects.
@@ -108,109 +254,254 @@ pub async fn db_client_task(
     let passwords = Passwords::new(&config.pepper);
     let mut backoff = Duration::from_secs(1);
     let max_backoff = Duration::from_secs(30);
+    let mut first_connect = true;
+    let mut lease: Option<AbortOnDrop> = None;
 
     loop {
-        match Db::connect(&config.db, 2).await {
-            Ok(db) => {
-                info!(
-                    "DB connected to {}:{}/{}",
-                    config.db.host, config.db.port, config.db.name
-                );
-
-                if let Err(e) = prepare_schema(&db, config.auto_migrate).await {
-                    error!("{}", e);
+        let delay = match Db::connect(&config.db, 2).await {
+            Ok(db) => match serve(
+                &db,
+                &passwords,
+                &config,
+                &mut first_connect,
+                &mut lease,
+                &mut request_rx,
+                &response_tx,
+            )
+            .await
+            {
+                Served::Closed => {
+                    // Stop renewing first, or the lease would re-list the
+                    // world right after it retires.
+                    drop(lease.take());
+                    retire_node(&db, config.node_id).await;
                     db.close().await;
-                    sleep(backoff).await;
-                    backoff = (backoff * 2).min(max_backoff);
-                    continue;
+                    info!("DB request channel closed -- stopping DB client task");
+                    return;
                 }
-                backoff = Duration::from_secs(1);
-
-                sync_local_saves(&db).await;
-                let _ = response_tx.send(DbResponse::DbReady);
-
-                let result =
-                    run_requests(&db, &passwords, &config, &mut request_rx, &response_tx).await;
-                db.close().await;
-                match result {
-                    Ok(()) => {
-                        info!("DB request channel closed -- stopping DB client task");
-                        return;
-                    }
-                    Err(e) => {
-                        warn!("DB connection lost: {}", e);
-                        let _ = response_tx.send(DbResponse::DbDisconnected);
-                    }
+                Served::Retry(delay) => {
+                    db.close().await;
+                    delay
                 }
-            }
+                Served::Lost(e) => {
+                    db.close().await;
+                    warn!("DB connection lost: {}", e);
+                    let _ = response_tx.send(DbResponse::DbDisconnected);
+                    backoff = Duration::from_secs(1);
+                    backoff
+                }
+            },
             Err(e) => {
                 warn!("DB connect failed: {} (retry in {:?})", e, backoff);
+                let delay = backoff;
+                backoff = (backoff * 2).min(max_backoff);
+                delay
+            }
+        };
+
+        if !wait_offline(delay, &mut request_rx, &response_tx).await {
+            drop(lease);
+            info!("DB request channel closed while offline -- saves kept as local files");
+            return;
+        }
+    }
+}
+
+/// How one connection's service ended.
+enum Served {
+    /// The engine closed the request channel: shut down.
+    Closed,
+    /// The connection couldn't be brought into service; retry after a delay.
+    Retry(Duration),
+    /// The connection failed mid-service.
+    Lost(rs_db::Error),
+}
+
+/// Brings a fresh connection into service and serves requests on it.
+///
+/// Checks the schema, then on the first connect takes over this node's
+/// leftover sessions and starts the lease task; on a reconnect it syncs the
+/// local saves written while offline. It renews the heartbeat before
+/// reporting [`DbResponse::DbReady`], so the engine holds a lease from the
+/// moment it accepts logins.
+async fn serve(
+    db: &Db,
+    passwords: &Passwords,
+    config: &DbClientConfig,
+    first_connect: &mut bool,
+    lease: &mut Option<AbortOnDrop>,
+    request_rx: &mut UnboundedReceiver<DbRequest>,
+    response_tx: &UnboundedSender<DbResponse>,
+) -> Served {
+    info!(
+        "DB connected to {}:{}/{}",
+        config.db.host, config.db.port, config.db.name
+    );
+
+    if let Err(e) = prepare_schema(db, config.auto_migrate).await {
+        error!("{}", e);
+        return Served::Retry(Duration::from_secs(5));
+    }
+
+    if *first_connect {
+        match take_over_node(db, config.node_id).await {
+            Ok(true) => *first_connect = false,
+            Ok(false) => return Served::Retry(Duration::from_secs(5)),
+            Err(e) => {
+                warn!("Failed to take over leftover sessions: {}", e);
+                return Served::Retry(Duration::from_secs(5));
             }
         }
-
-        sleep(backoff).await;
-        backoff = (backoff * 2).min(max_backoff);
+    } else {
+        sync_local_saves(db, config.node_id).await;
     }
+
+    let at = Instant::now();
+    if let Err(e) = db.touch_world(config.node_id.into()).await {
+        return Served::Lost(e);
+    }
+    let _ = response_tx.send(DbResponse::Lease { at });
+    if lease.is_none() {
+        *lease = Some(AbortOnDrop(tokio::spawn(lease_task(
+            config.db.clone(),
+            config.node_id,
+            response_tx.clone(),
+        ))));
+    }
+    let _ = response_tx.send(DbResponse::DbReady);
+
+    match run_requests(db, passwords, config, request_rx, response_tx).await {
+        Ok(()) => Served::Closed,
+        Err(e) => Served::Lost(e),
+    }
+}
+
+/// Prepares this world's sessions on its first connect: syncs the local save
+/// files a previous run left, then ends the sessions that run still owned.
+///
+/// If this node's heartbeat is still fresh, another process may be running
+/// as the same node, and ending "its" sessions would strip a live world's
+/// players. A release build then waits (returns `false`) until the heartbeat
+/// goes stale; a clean shutdown retires the heartbeat, so only a crash makes
+/// a restart wait. Debug builds only warn, to keep dev restarts quick.
+///
+/// # Call Stack
+/// **Called by:** [`db_client_task`]
+async fn take_over_node(db: &Db, node_id: u8) -> Result<bool, rs_db::Error> {
+    let live = db
+        .live_worlds(TAKEOVER_AFTER_SECS)
+        .await?
+        .iter()
+        .any(|world| world.node_id == i16::from(node_id));
+    if live {
+        if cfg!(debug_assertions) {
+            warn!(
+                "World {} has a fresh heartbeat: if another process runs as this node, \
+                 its sessions are about to be ended",
+                node_id
+            );
+        } else {
+            warn!(
+                "World {} has a fresh heartbeat: another process may be running as this \
+                 node (or it just crashed); waiting for it to go stale",
+                node_id
+            );
+            return Ok(false);
+        }
+    }
+
+    // Local files first: they hold the newest copies of the sessions a
+    // previous run still owns, and releasing those sessions before syncing
+    // would get the files refused. Files that still can't sync keep their
+    // sessions held.
+    sync_local_saves(db, node_id).await;
+    let ended = db
+        .release_node_sessions(node_id.into(), &local_save_users())
+        .await?;
+    if ended > 0 {
+        warn!("Ended {} session(s) left over from a previous run", ended);
+    }
+
+    let orphans = std::fs::read_dir(Path::new("data").join("players"))
+        .map(|entries| {
+            entries
+                .flatten()
+                .filter(|e| e.file_name().to_string_lossy().contains(".sav.orphaned-"))
+                .count()
+        })
+        .unwrap_or(0);
+    if orphans > 0 {
+        warn!(
+            "{} orphaned save file(s) in data/players await manual review (refused as stale)",
+            orphans
+        );
+    }
+    Ok(true)
+}
+
+/// Takes this world offline at a clean shutdown: ends any session it still
+/// owns (every player has been logged out by now) and retires its heartbeat.
+/// Best effort; a failure here is covered by the next start.
+async fn retire_node(db: &Db, node_id: u8) {
+    if let Err(e) = db
+        .release_node_sessions(node_id.into(), &local_save_users())
+        .await
+    {
+        warn!("Failed to end sessions at shutdown: {}", e);
+    }
+    if let Err(e) = db.retire_world(node_id.into()).await {
+        warn!("Failed to retire world status at shutdown: {}", e);
+    }
+}
+
+/// The players with a local `.sav` file waiting to be synced.
+fn local_save_users() -> Vec<u64> {
+    let Ok(entries) = std::fs::read_dir(Path::new("data").join("players")) else {
+        return Vec::new();
+    };
+    entries
+        .flatten()
+        .filter_map(|entry| {
+            let path = entry.path();
+            if path.extension()? != "sav" {
+                return None;
+            }
+            Some(to_userhash(path.file_stem()?.to_str()?))
+        })
+        .collect()
 }
 
 /// Scans the `data/players/` directory for locally saved `.sav` files and
 /// uploads each one to the database.
 ///
-/// Files that are successfully synced are deleted. Files whose player is not
-/// registered are kept. This handles the case where the database was
-/// unavailable when a save was attempted.
+/// A file is only accepted for a player whose session this world still
+/// owns; then it is the newest copy, and is deleted once stored. A file for
+/// a session the world lost (another world took it over, or it already
+/// ended) is stale and is moved aside as an orphan rather than overwriting
+/// newer data. Files whose player is not registered are kept. This handles
+/// the case where the database was unavailable when a save was attempted.
 ///
 /// # Call Stack
 /// **Called by:** [`db_client_task`]
-async fn sync_local_saves(db: &Db) {
-    let dir = Path::new("data").join("players");
-    let entries = match std::fs::read_dir(&dir) {
-        Ok(entries) => entries,
-        Err(_) => return,
-    };
-
+async fn sync_local_saves(db: &Db, node_id: u8) {
     let mut synced = 0;
-    for entry in entries.flatten() {
-        let path = entry.path();
-        let Some(ext) = path.extension() else {
-            continue;
-        };
-        if ext != "sav" {
-            continue;
-        }
-        let Some(stem) = path.file_stem().and_then(|s| s.to_str()) else {
-            continue;
-        };
-        let username = stem.to_string();
-        let user37 = to_userhash(&username);
-
-        let data = match std::fs::read(&path) {
-            Ok(d) => d,
-            Err(e) => {
-                warn!("Failed to read local save '{}': {}", username, e);
-                continue;
+    for user37 in local_save_users() {
+        let username = to_raw_username(user37);
+        match sync_local_save(db, node_id, user37, &username).await {
+            Ok(Some(SaveResult::Stored)) => synced += 1,
+            Ok(Some(SaveResult::NotOwner)) => {
+                error!(
+                    "Local save for '{}' is stale (session not owned by this world) - orphaned",
+                    username
+                );
             }
-        };
-
-        let profile = match load_binary(&data) {
-            Ok(p) => p,
-            Err(e) => {
-                warn!("Failed to parse local save '{}': {}", username, e);
-                continue;
-            }
-        };
-
-        match db.store_save(user37, &to_save(&profile)).await {
-            Ok(true) => {
-                let _ = std::fs::remove_file(&path);
-                synced += 1;
-            }
-            Ok(false) => {
+            Ok(Some(SaveResult::Unregistered)) => {
                 warn!(
                     "No registered player '{}' - keeping local save file",
                     username
                 );
             }
+            Ok(None) => {}
             Err(e) => {
                 warn!("Failed to sync local save '{}' to DB: {}", username, e);
             }
@@ -220,6 +511,36 @@ async fn sync_local_saves(db: &Db) {
     if synced > 0 {
         info!("Synced {} local save(s) to database", synced);
     }
+}
+
+/// Uploads one local save file (see [`sync_local_saves`]). Returns `None` if
+/// there is no usable file; an unreadable one is moved aside as an orphan.
+async fn sync_local_save(
+    db: &Db,
+    node_id: u8,
+    user37: u64,
+    username: &str,
+) -> Result<Option<SaveResult>, rs_db::Error> {
+    let Some(data) = load_from_file(username) else {
+        return Ok(None);
+    };
+    let profile = match load_binary(&data) {
+        Ok(profile) => profile,
+        Err(e) => {
+            error!("Unreadable local save for '{}' - orphaned: {}", username, e);
+            orphan_save_file(username);
+            return Ok(None);
+        }
+    };
+    let result = db
+        .store_save(user37, node_id.into(), &to_save(&profile))
+        .await?;
+    match result {
+        SaveResult::Stored => delete_save_file(username),
+        SaveResult::NotOwner => orphan_save_file(username),
+        SaveResult::Unregistered => {}
+    }
+    Ok(Some(result))
 }
 
 /// Serves requests until the channel closes or a query fails.
@@ -233,7 +554,7 @@ async fn sync_local_saves(db: &Db) {
 ///
 /// # Call Stack
 /// **Called by:** [`db_client_task`]
-/// **Calls:** [`authenticate`]
+/// **Calls:** [`authenticate`], [`claim`]
 async fn run_requests(
     db: &Db,
     passwords: &Passwords,
@@ -241,11 +562,24 @@ async fn run_requests(
     request_rx: &mut UnboundedReceiver<DbRequest>,
     response_tx: &UnboundedSender<DbResponse>,
 ) -> Result<(), rs_db::Error> {
+    let node_id = i16::from(config.node_id);
     while let Some(req) = request_rx.recv().await {
         match req {
-            DbRequest::Authenticate { user37, password } => {
-                let result =
-                    authenticate(db, passwords, config.auto_register, user37, &password).await?;
+            DbRequest::Authenticate {
+                user37,
+                password,
+                ip,
+            } => {
+                let result = authenticate(
+                    db,
+                    passwords,
+                    config.auto_register,
+                    config.node_id,
+                    user37,
+                    &password,
+                    ip,
+                )
+                .await?;
                 let _ = response_tx.send(DbResponse::AuthResponse { user37, result });
             }
             DbRequest::Save {
@@ -253,42 +587,149 @@ async fn run_requests(
                 username,
                 profile,
                 binary,
+                logout,
             } => {
-                let result = db.store_save(user37, &to_save(&profile)).await;
-                let success = matches!(result, Ok(true));
-                if !success {
-                    if let Err(e) = &result {
-                        error!("DB save failed for '{}': {}", username, e);
+                let save = to_save(&profile);
+                let result = if logout {
+                    db.store_logout_save(user37, node_id, &save).await
+                } else {
+                    db.store_save(user37, node_id, &save).await
+                };
+                let outcome = match &result {
+                    Ok(SaveResult::Stored) => SaveOutcome::Stored,
+                    Ok(SaveResult::Unregistered) => {
+                        save_to_file(&username, &binary);
+                        SaveOutcome::Unregistered
                     }
-                    save_to_file(&username, &binary);
-                }
+                    Ok(SaveResult::NotOwner) => {
+                        error!(
+                            "Save for '{}' refused: session not owned by this world",
+                            username
+                        );
+                        save_orphan(&username, &binary);
+                        SaveOutcome::NotOwner
+                    }
+                    Err(e) => {
+                        error!("DB save failed for '{}': {}", username, e);
+                        save_to_file(&username, &binary);
+                        SaveOutcome::Failed
+                    }
+                };
                 let _ = response_tx.send(DbResponse::SaveAck {
                     user37,
                     username,
-                    success,
+                    outcome,
+                    logout,
                 });
                 result?;
             }
             DbRequest::Load { user37 } => {
-                let profile = db.load_save(user37).await?.map(from_save);
-                let _ = response_tx.send(DbResponse::LoadResponse { user37, profile });
+                let result = claim(db, config.node_id, user37).await?;
+                let _ = response_tx.send(DbResponse::LoadResponse { user37, result });
             }
-            DbRequest::WorldStatus { players } => {
-                db.report_world_status(config.node_id.into(), players as i32)
-                    .await?;
+            DbRequest::Release { user37 } => {
+                // Unsynced local data means the database copy is stale:
+                // keep the claim so no other world loads it.
+                if local_save_users().contains(&user37) {
+                    warn!(
+                        "Kept the session of '{}': it has an unsynced local save",
+                        to_raw_username(user37)
+                    );
+                } else {
+                    db.release_session(user37, node_id).await?;
+                }
+            }
+            DbRequest::WorldStatus {
+                players,
+                online,
+                mut held,
+            } => {
+                let at = Instant::now();
+                db.report_world_status(node_id, players as i32).await?;
+                let _ = response_tx.send(DbResponse::Lease { at });
+                held.extend(local_save_users());
+                let fixed = db.reconcile_sessions(node_id, &online, &held).await?;
+                for user37 in &fixed.released {
+                    warn!(
+                        "Released a leaked session claim on '{}'",
+                        to_raw_username(*user37)
+                    );
+                }
+                if !fixed.lost.is_empty() {
+                    let _ = response_tx.send(DbResponse::SessionsLost {
+                        users37: fixed.lost,
+                    });
+                }
+                db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
             }
         }
     }
     Ok(())
 }
 
+/// Claims a player's session for this world and loads their profile.
+///
+/// A local save file for the player (data this world failed to store) is
+/// newer than the database copy: once the claim makes this world the owner
+/// it is stored and used instead.
+///
+/// # Call Stack
+/// **Called by:** [`run_requests`]
+async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::Error> {
+    let username = to_raw_username(user37);
+    let save = match db
+        .claim_session(user37, node_id.into(), TAKEOVER_AFTER_SECS)
+        .await?
+    {
+        Claim::Claimed { save, took_over } => {
+            if let Some(dead) = took_over {
+                warn!(
+                    "Took over the session of '{}' from unresponsive world {}",
+                    username, dead
+                );
+            }
+            save
+        }
+        Claim::Busy { node } => {
+            info!("Session of '{}' is owned by world {}", username, node);
+            return Ok(LoadResult::Busy);
+        }
+        Claim::Unregistered => return Ok(LoadResult::Unregistered),
+    };
+
+    if let Some(data) = load_from_file(&username) {
+        match load_binary(&data) {
+            Ok(local) => {
+                if db
+                    .store_save(user37, node_id.into(), &to_save(&local))
+                    .await?
+                    == SaveResult::Stored
+                {
+                    delete_save_file(&username);
+                    warn!("Loaded '{}' from an unsynced local save", username);
+                    return Ok(LoadResult::Loaded(Some(Box::new(local))));
+                }
+            }
+            Err(e) => {
+                error!("Unreadable local save for '{}' - orphaned: {}", username, e);
+                orphan_save_file(&username);
+            }
+        }
+    }
+    Ok(LoadResult::Loaded(
+        save.map(|save| Box::new(from_save(*save))),
+    ))
+}
+
 /// Authenticates a login against the `players` table.
 ///
-/// A registered player is accepted if the password verifies and they are not
-/// banned (the password is checked first so a ban is never revealed to a
-/// wrong password). An unknown name is rejected, unless `auto_register` is
-/// set, in which case the player is registered with this password and any
-/// local save file for the name is imported.
+/// An IP with too many recent wrong passwords (across all worlds) is refused
+/// before the password is checked. A registered player is accepted if the
+/// password verifies and they are not banned (the password is checked first
+/// so a ban is never revealed to a wrong password). An unknown name is
+/// rejected, unless `auto_register` is set, in which case the player is
+/// registered with this password and any local save file for the name is
+/// imported. Wrong passwords and unknown names count against the IP.
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
@@ -296,11 +737,22 @@ async fn authenticate(
     db: &Db,
     passwords: &Passwords,
     auto_register: bool,
+    node_id: u8,
     user37: u64,
     password: &str,
+    ip: IpAddr,
 ) -> Result<AuthResult, rs_db::Error> {
-    if let Some(creds) = db.find_credentials(user37).await? {
+    if db
+        .recent_login_failures(ip, LOGIN_FAILURE_WINDOW_SECS)
+        .await?
+        >= i64::from(MAX_LOGIN_FAILURES)
+    {
+        return Ok(AuthResult::TooManyAttempts);
+    }
+
+    if let Some(creds) = db.find_credentials(user37, node_id.into()).await? {
         if !passwords.verify(password, &creds.password_hash) {
+            db.record_login_failure(ip).await?;
             return Ok(AuthResult::InvalidCredentials);
         }
         if creds.banned {
@@ -308,10 +760,14 @@ async fn authenticate(
         }
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
+            left_other_world: creds
+                .left_other_world_ms
+                .map(|ms| Duration::from_millis(ms.max(0) as u64)),
         });
     }
 
     if !auto_register {
+        db.record_login_failure(ip).await?;
         return Ok(AuthResult::InvalidCredentials);
     }
 
@@ -339,7 +795,7 @@ async fn authenticate(
 
     if let Some(data) = load_from_file(&username)
         && let Ok(profile) = load_binary(&data)
-        && db.store_save(user37, &to_save(&profile)).await?
+        && db.import_save(user37, &to_save(&profile)).await?
     {
         delete_save_file(&username);
         info!("Imported local save for '{}'", username);
@@ -347,6 +803,7 @@ async fn authenticate(
 
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
+        left_other_world: None,
     })
 }
 
@@ -503,9 +960,17 @@ mod tests {
 
     async fn auth(db: &Db, auto_register: bool, name: &str, password: &str) -> AuthResult {
         let passwords = Passwords::new(AUTH_PEPPER);
-        authenticate(db, &passwords, auto_register, to_userhash(name), password)
-            .await
-            .unwrap()
+        authenticate(
+            db,
+            &passwords,
+            auto_register,
+            1,
+            to_userhash(name),
+            password,
+            [203, 0, 113, 7].into(),
+        )
+        .await
+        .unwrap()
     }
 
     /// Needs a reachable Postgres:
@@ -521,7 +986,7 @@ mod tests {
             AuthResult::InvalidCredentials
         ));
         assert!(
-            db.find_credentials(to_userhash("bob"))
+            db.find_credentials(to_userhash("bob"), 1)
                 .await
                 .unwrap()
                 .is_none()
@@ -531,7 +996,7 @@ mod tests {
         let staff = if cfg!(debug_assertions) { 3 } else { 0 };
         assert!(matches!(
             auth(&db, true, "bob", "secret").await,
-            AuthResult::Accepted { staff_mod_level } if staff_mod_level == staff
+            AuthResult::Accepted { staff_mod_level, .. } if staff_mod_level == staff
         ));
 
         // From then on the password is enforced, auto-register or not, and
@@ -558,6 +1023,274 @@ mod tests {
             auth(&db, false, "bob", "wrong").await,
             AuthResult::InvalidCredentials
         ));
+
+        // That was the IP's third failure (the unknown name, then two wrong
+        // passwords); two more lock it out, even with the right password.
+        sqlx::query("UPDATE players SET banned_until = NULL")
+            .execute(&pool)
+            .await
+            .unwrap();
+        for _ in 0..2 {
+            assert!(matches!(
+                auth(&db, false, "bob", "wrong").await,
+                AuthResult::InvalidCredentials
+            ));
+        }
+        assert!(matches!(
+            auth(&db, false, "bob", "secret").await,
+            AuthResult::TooManyAttempts
+        ));
+    }
+
+    /// The settings to reach a `#[sqlx::test]` database: its name from the
+    /// pool, the rest from `DATABASE_URL`.
+    fn test_db_config(pool: &sqlx::PgPool) -> DbConfig {
+        let url = std::env::var("DATABASE_URL").unwrap();
+        let rest = url.split_once("://").unwrap().1;
+        let (auth, host) = rest.split_once('@').unwrap();
+        let (user, pass) = auth.split_once(':').unwrap_or((auth, ""));
+        let host = host.split('/').next().unwrap();
+        let (host, port) = host.split_once(':').unwrap_or((host, "5432"));
+        DbConfig {
+            host: host.to_owned(),
+            port: port.parse().unwrap(),
+            name: pool.connect_options().get_database().unwrap().to_owned(),
+            user: user.to_owned(),
+            pass: pass.to_owned(),
+        }
+    }
+
+    /// One world's database client task, driven like the engine drives it.
+    struct World {
+        tx: UnboundedSender<DbRequest>,
+        rx: UnboundedReceiver<DbResponse>,
+        leases: u32,
+    }
+
+    const HOPPER: &str = "hopper";
+
+    impl World {
+        async fn start(pool: &sqlx::PgPool, node_id: u8) -> Self {
+            let (tx, req_rx) = tokio::sync::mpsc::unbounded_channel();
+            let (resp_tx, rx) = tokio::sync::mpsc::unbounded_channel();
+            let config = DbClientConfig {
+                db: test_db_config(pool),
+                node_id,
+                pepper: AUTH_PEPPER.to_owned(),
+                auto_register: false,
+                auto_migrate: false,
+            };
+            tokio::spawn(db_client_task(config, req_rx, resp_tx));
+            let mut world = World { tx, rx, leases: 0 };
+            assert!(matches!(world.next().await, DbResponse::DbReady));
+            // The world holds a lease before it accepts any login.
+            assert_eq!(world.leases, 1);
+            world
+        }
+
+        /// The next response, skipping lease renewals (but counting them).
+        async fn next(&mut self) -> DbResponse {
+            loop {
+                let response = tokio::time::timeout(Duration::from_secs(10), self.rx.recv())
+                    .await
+                    .expect("db task stalled")
+                    .expect("db task stopped");
+                if !matches!(response, DbResponse::Lease { .. }) {
+                    return response;
+                }
+                self.leases += 1;
+            }
+        }
+
+        async fn auth(&mut self) -> AuthResult {
+            let _ = self.tx.send(DbRequest::Authenticate {
+                user37: to_userhash(HOPPER),
+                password: "secret".into(),
+                ip: [198, 51, 100, 1].into(),
+            });
+            match self.next().await {
+                DbResponse::AuthResponse { result, .. } => result,
+                _ => panic!("expected an auth response"),
+            }
+        }
+
+        async fn load(&mut self) -> LoadResult {
+            let _ = self.tx.send(DbRequest::Load {
+                user37: to_userhash(HOPPER),
+            });
+            match self.next().await {
+                DbResponse::LoadResponse { result, .. } => result,
+                _ => panic!("expected a load response"),
+            }
+        }
+
+        async fn save(&mut self, x: i16, logout: bool) -> SaveOutcome {
+            let profile = from_save(PlayerSave {
+                x,
+                ..PlayerSave::default()
+            });
+            let _ = self.tx.send(DbRequest::Save {
+                user37: to_userhash(HOPPER),
+                username: HOPPER.to_owned(),
+                profile: Box::new(profile),
+                binary: Vec::new(),
+                logout,
+            });
+            match self.next().await {
+                DbResponse::SaveAck { outcome, .. } => outcome,
+                _ => panic!("expected a save ack"),
+            }
+        }
+
+        /// Sends a heartbeat with the player online, then waits on an auth
+        /// round trip so the heartbeat has landed. Returns the players the
+        /// world was told it lost.
+        async fn heartbeat_online(&mut self) -> Vec<u64> {
+            let _ = self.tx.send(DbRequest::WorldStatus {
+                players: 1,
+                online: vec![to_userhash(HOPPER)],
+                held: Vec::new(),
+            });
+            let mut lost = Vec::new();
+            let _ = self.tx.send(DbRequest::Authenticate {
+                user37: to_userhash(HOPPER),
+                password: "secret".into(),
+                ip: [198, 51, 100, 1].into(),
+            });
+            loop {
+                match self.next().await {
+                    DbResponse::SessionsLost { users37 } => lost = users37,
+                    DbResponse::AuthResponse { .. } => return lost,
+                    _ => panic!("unexpected response"),
+                }
+            }
+        }
+    }
+
+    fn loaded_x(result: LoadResult) -> Option<u16> {
+        match result {
+            LoadResult::Loaded(profile) => Some(profile.map_or(0, |p| p.x)),
+            _ => None,
+        }
+    }
+
+    /// Two worlds on one database handing a player back and forth: the
+    /// session claim refuses a second owner, refuses a stale world's saves,
+    /// times out a dead world, and is released on shutdown.
+    #[sqlx::test(migrator = "rs_db::MIGRATOR")]
+    #[ignore = "needs DATABASE_URL"]
+    async fn worlds_hand_over_a_player(pool: sqlx::PgPool) {
+        let db = Db::from_pool(pool.clone());
+        let hash = Passwords::new(AUTH_PEPPER).hash("secret").unwrap();
+        db.create_player(&NewPlayer {
+            name_hash: to_userhash(HOPPER),
+            display_name: "Hopper",
+            password_hash: &hash,
+            staff_mod_level: 0,
+            registration_ip: None,
+        })
+        .await
+        .unwrap();
+
+        let mut one = World::start(&pool, 1).await;
+        let mut two = World::start(&pool, 2).await;
+
+        // World 1 logs the player in and keeps a live heartbeat.
+        assert!(matches!(
+            one.auth().await,
+            AuthResult::Accepted {
+                left_other_world: None,
+                ..
+            }
+        ));
+        assert_eq!(loaded_x(one.load().await), Some(0));
+        assert!(one.heartbeat_online().await.is_empty());
+
+        // World 2 can't claim them while world 1 has them.
+        assert!(matches!(two.load().await, LoadResult::Busy));
+        assert_eq!(one.save(3100, false).await, SaveOutcome::Stored);
+
+        // World 1's logout save ends the session; world 2 sees the hop and
+        // the final save.
+        assert_eq!(one.save(3200, true).await, SaveOutcome::Stored);
+        match two.auth().await {
+            AuthResult::Accepted {
+                left_other_world: Some(ago),
+                ..
+            } => assert!(ago < Duration::from_secs(5)),
+            _ => panic!("expected a recent hop"),
+        }
+        assert_eq!(loaded_x(two.load().await), Some(3200));
+        assert!(two.heartbeat_online().await.is_empty());
+        assert!(matches!(one.load().await, LoadResult::Busy));
+
+        // A live world's lease keeps its players: world 2 renews its
+        // heartbeat on its own even if a stale one is forced on it.
+        sqlx::query("UPDATE world_status SET updated_at = now() - interval '2 minutes'")
+            .execute(&pool)
+            .await
+            .unwrap();
+        tokio::time::sleep(LEASE_INTERVAL + Duration::from_secs(1)).await;
+        assert!(matches!(one.load().await, LoadResult::Busy));
+
+        // A world that went silent (9) loses them: world 1 takes over, and
+        // world 2, which still thinks it has them, learns it lost them.
+        sqlx::query("UPDATE players SET online_node = 9")
+            .execute(&pool)
+            .await
+            .unwrap();
+        sqlx::query(
+            "INSERT INTO world_status (node_id, players, updated_at)
+             VALUES (9, 1, now() - interval '2 minutes')",
+        )
+        .execute(&pool)
+        .await
+        .unwrap();
+        assert_eq!(loaded_x(one.load().await), Some(3200));
+        assert_eq!(two.heartbeat_online().await, vec![to_userhash(HOPPER)]);
+        assert!(two.leases >= 2, "the lease task renews on its own");
+
+        // A login that never entered releases its claim.
+        let _ = one.tx.send(DbRequest::Release {
+            user37: to_userhash(HOPPER),
+        });
+        one.auth().await;
+        assert_eq!(loaded_x(two.load().await), Some(3200));
+
+        // A clean shutdown releases what the world held and retires it.
+        drop(two.tx);
+        while let Some(response) = two.rx.recv().await {
+            assert!(matches!(response, DbResponse::Lease { .. }));
+        }
+        assert!(
+            !db.live_worlds(60)
+                .await
+                .unwrap()
+                .iter()
+                .any(|w| w.node_id == 2)
+        );
+        assert_eq!(loaded_x(one.load().await), Some(3200));
+    }
+
+    /// With the database down, the task must still finish once the engine
+    /// hangs up, or a shutdown would wait on it forever.
+    #[tokio::test]
+    async fn offline_wait_ends_when_the_engine_hangs_up() {
+        let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
+        let (resp_tx, mut resp_rx) = tokio::sync::mpsc::unbounded_channel();
+        let _ = tx.send(DbRequest::Release { user37: 1 });
+        assert!(wait_offline(Duration::from_millis(50), &mut rx, &resp_tx).await);
+        assert!(rx.try_recv().is_err(), "requests are handled while offline");
+
+        drop(tx);
+        let wait = wait_offline(Duration::from_secs(60), &mut rx, &resp_tx);
+        let done = tokio::time::timeout(Duration::from_secs(1), wait).await;
+        assert_eq!(
+            done.ok(),
+            Some(false),
+            "returns at once, not after the delay"
+        );
+        assert!(resp_rx.try_recv().is_err());
     }
 
     #[test]

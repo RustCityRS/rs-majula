@@ -10,6 +10,7 @@ use rs_stat::{get_exp_by_level, get_level_by_exp};
 use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
+use std::time::{SystemTime, UNIX_EPOCH};
 use tracing::error;
 
 /// Magic number at the start of every binary save file for format validation.
@@ -25,6 +26,7 @@ const STAT_COUNT: usize = 21;
 
 /// Represents a single inventory's contents within a player profile,
 /// storing the inventory type ID and a list of (slot, obj_id, count) tuples.
+#[derive(Clone)]
 pub struct PlayerProfileInv {
     pub inv_type: u16,
     pub items: Vec<(u16, u16, u32)>, // (slot, obj_id, count)
@@ -34,6 +36,7 @@ pub struct PlayerProfileInv {
 ///
 /// Used as the intermediate representation between the live [`Player`] entity
 /// and both the database and binary save file formats.
+#[derive(Clone)]
 pub struct PlayerProfile {
     pub x: u16,
     pub z: u16,
@@ -523,15 +526,53 @@ fn save_path(username: &str) -> PathBuf {
 /// * Creates or overwrites the `.sav` file on disk.
 /// * Logs an error if the directory or file cannot be created.
 pub fn save_to_file(username: &str, data: &[u8]) {
+    write_atomically(&save_path(username), username, data);
+}
+
+/// Writes binary save data that the database refused (this world no longer
+/// owns the player's session) to `data/players/{username}.sav.orphaned-{ms}`,
+/// where the sync never reads it. Kept for manual recovery only.
+pub fn save_orphan(username: &str, data: &[u8]) {
+    write_atomically(&orphan_path(username), username, data);
+}
+
+/// Moves the local save file `data/players/{username}.sav` aside as an
+/// orphan (see [`save_orphan`]), out of the sync's reach.
+pub fn orphan_save_file(username: &str) {
+    let to = orphan_path(username);
+    if let Err(e) = fs::rename(save_path(username), &to) {
+        error!("Failed to orphan save file for '{}': {}", username, e);
+    }
+}
+
+fn orphan_path(username: &str) -> PathBuf {
+    let ms = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_millis())
+        .unwrap_or(0);
+    Path::new("data")
+        .join("players")
+        .join(format!("{username}.sav.orphaned-{ms}"))
+}
+
+/// Writes `data` to a temporary file, flushes it to disk, then renames it
+/// over `path`, so a crash mid-write never leaves a truncated save behind.
+fn write_atomically(path: &Path, username: &str, data: &[u8]) {
     let dir = Path::new("data").join("players");
     if let Err(e) = fs::create_dir_all(&dir) {
         error!("Failed to create save directory: {}", e);
         return;
     }
-    let path = save_path(username);
-    match fs::File::create(&path).and_then(|mut f| f.write_all(data)) {
-        Ok(()) => {}
-        Err(e) => error!("Failed to write save file for '{}': {}", username, e),
+    let tmp = path.with_extension("tmp");
+    let result = fs::File::create(&tmp)
+        .and_then(|mut f| {
+            f.write_all(data)?;
+            f.sync_all()
+        })
+        .and_then(|()| fs::rename(&tmp, path));
+    if let Err(e) = result {
+        error!("Failed to write save file for '{}': {}", username, e);
+        let _ = fs::remove_file(&tmp);
     }
 }
 

@@ -1,6 +1,6 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::clients::client_db::{DbRequest, DbResponse};
+use crate::clients::client_db::{DB_FENCE, DbRequest, DbResponse};
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
 use crate::game_map::{GameMap, apply_loc_collision};
@@ -50,6 +50,7 @@ use rs_protocol::LoginResponse;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
+use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 pub use rs_vm::engine::with_engine;
@@ -229,9 +230,16 @@ pub struct PendingLogin {
     pub request: LoginRequest,
     pub clock: u32,
     pub ether_allowed: bool,
-    /// Set once the database accepts the password: the player's staff level.
     pub auth: Option<StaffModLevel>,
+    pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
+}
+
+/// A departed player's final save, held until the database stores it.
+pub struct LogoutSave {
+    pub username: String,
+    pub profile: PlayerProfile,
+    pub failed: bool,
 }
 
 /// Recent wrong-password attempts from one IP, for the
@@ -540,6 +548,8 @@ pub struct Engine {
     pub ether_ready: bool,
     pub pending_logins: Vec<PendingLogin>,
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
+    pub logout_saves: FxHashMap<u64, LogoutSave>,
+    pub db_lease: Option<Instant>,
     pub random: JavaRandom,
     pub vars: VarSet,
     /// A reusable [`ScriptState`] kept alive between script invocations to
@@ -676,6 +686,8 @@ impl Engine {
             ether_ready: false,
             pending_logins: Vec::new(),
             login_failures: FxHashMap::default(),
+            logout_saves: FxHashMap::default(),
+            db_lease: None,
             random: JavaRandom::new(1084838400000),
             vars,
             reusable_script: None,
@@ -762,9 +774,12 @@ impl Engine {
                 }};
             }
 
+            let _ = phase!("fence", engine.fence());
             let world = phase!("world", engine.world());
+            let _ = phase!("fence", engine.fence());
             let input = phase!("in", engine.inputs());
             let npcs = phase!("npcs", engine.npcs());
+            let _ = phase!("fence", engine.fence());
             let players = phase!("players", engine.players());
             let logouts = phase!("logouts", engine.logouts());
             let autosave = phase!("autosave", engine.autosave());
@@ -2356,8 +2371,8 @@ impl Engine {
     ///
     /// # Side Effects
     ///
-    /// - Saves the player profile to the database (if `db_tx` is available).
-    /// - Sends `EtherOutbound::PlayerLogout` (if `ether_tx` is available).
+    /// - Saves the player profile and logs them out of ether once it lands
+    ///   (see [`Engine::save_logout`]).
     /// - Calls `remove_player` for full cleanup.
     ///
     /// # Call Stack
@@ -2365,27 +2380,130 @@ impl Engine {
     /// **Called by:** panic recovery in the players/input phases.
     /// **Calls:** `extract_profile`, `save_binary`, `remove_player`.
     pub fn emergency_remove_player(&mut self, pid: u16) {
-        if let Some(active) = self.player_list.players[pid as usize].as_ref() {
-            let user37 = active.uid().username37();
-            let username = active.uid().username();
-
-            if let Some(tx) = &self.db_tx {
-                let profile = extract_profile(&active.player, self.cache);
-                let binary = save_binary(&profile, self.cache);
-                let _ = tx.send(DbRequest::Save {
-                    user37,
-                    username,
-                    profile: Box::new(profile),
-                    binary,
-                });
-            }
-
-            if let Some(tx) = &self.ether_tx {
-                let _ = tx.send(EtherOutbound::PlayerLogout { user37 });
-            }
-        }
-
+        self.save_logout(pid);
         self.remove_player(pid);
+    }
+
+    /// Saves a player who is leaving this world and logs them out of ether.
+    ///
+    /// The save ends the player's database session in the same transaction,
+    /// and ether only hears of the logout once that save's ack comes back
+    /// (see the `SaveAck` arm of [`Engine::saves`]). Until then the account
+    /// still reads as logged in across the cluster and as busy on this world
+    /// (it sits in `logout_saves`), so nothing can load the profile before
+    /// the save lands. A save that fails is kept in `logout_saves` and sent
+    /// again once the database is back. Without a database there is nothing
+    /// to wait for and ether is told straight away.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `logouts`, `emergency_remove_player`.
+    pub(crate) fn save_logout(&mut self, pid: u16) {
+        let Some(active) = self.player_list.players[pid as usize].as_ref() else {
+            return;
+        };
+        let user37 = active.uid().username37();
+        if self.db_tx.is_none() {
+            self.release_logout(user37);
+            return;
+        }
+        let profile = extract_profile(&active.player, self.cache);
+        let username = active.uid().username();
+        self.logout_saves.insert(
+            user37,
+            LogoutSave {
+                username,
+                profile,
+                failed: false,
+            },
+        );
+        self.send_logout_save(user37);
+    }
+
+    /// Sends (or resends) the logout save held in `logout_saves`.
+    pub(crate) fn send_logout_save(&mut self, user37: u64) {
+        let (Some(tx), Some(save)) = (&self.db_tx, self.logout_saves.get_mut(&user37)) else {
+            return;
+        };
+        save.failed = false;
+        let _ = tx.send(DbRequest::Save {
+            user37,
+            username: save.username.clone(),
+            binary: save_binary(&save.profile, self.cache),
+            profile: Box::new(save.profile.clone()),
+            logout: true,
+        });
+    }
+
+    /// Whether this world's lease on its sessions may have run out: no
+    /// heartbeat confirmed within [`DB_FENCE`]. Another world may take over
+    /// this world's players [`DB_FENCE`] later, so it must stop serving them
+    /// now. Never fenced without a database (no sessions to lose).
+    pub(crate) fn lease_expired(&self) -> bool {
+        self.db_tx.is_some() && self.db_lease.is_none_or(|at| at.elapsed() > DB_FENCE)
+    }
+
+    /// Fences this world when its lease has run out: removes every player
+    /// (saving them, which falls back to local files while the database is
+    /// unreachable) before any other world could take them over, so no
+    /// player is ever live in two worlds at once. Runs first in every cycle,
+    /// so not even one tick of input is served past the lease.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `Engine::cycle`
+    pub(crate) fn fence(&mut self) {
+        if !self.lease_expired() {
+            return;
+        }
+        let pids: Vec<u16> = self
+            .player_list
+            .pids()
+            .into_iter()
+            .filter(|&pid| {
+                self.player_list.players[pid as usize]
+                    .as_ref()
+                    .is_some_and(|active| !active.player.bot)
+            })
+            .collect();
+        if pids.is_empty() {
+            return;
+        }
+        error!(
+            "No database heartbeat confirmed for {:?} - removing {} player(s) before another world may take them over",
+            DB_FENCE,
+            pids.len()
+        );
+        for pid in pids {
+            self.emergency_remove_player(pid);
+        }
+    }
+
+    /// Tells ether a departed player's session is over.
+    pub(crate) fn release_logout(&self, user37: u64) {
+        if let Some(tx) = &self.ether_tx {
+            let _ = tx.send(EtherOutbound::PlayerLogout { user37 });
+        }
+    }
+
+    /// Removes an online player whose session another world has taken over,
+    /// without saving: the database refuses this world's copy, and the new
+    /// owner's is the one that counts.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `saves` (`SessionsLost`, refused autosave).
+    pub(crate) fn drop_unowned_player(&mut self, user37: u64) {
+        let Some(pid) = self.find_pid_by_user37(user37) else {
+            return;
+        };
+        error!(
+            "Player '{}' (pid={}) lost their session to another world - removing unsaved",
+            to_raw_username(user37),
+            pid
+        );
+        self.remove_player(pid);
+        self.release_logout(user37);
     }
 
     /// Forcibly deactivates an NPC without running its despawn script.
@@ -2720,29 +2838,8 @@ impl Engine {
         info!("Player '{}' reconnected (pid={})", username, pid);
     }
 
-    /// Attempts to complete a pending login if all async prerequisites are met.
-    ///
-    /// A login requires both `ether_allowed` and `auth` to be set. If
-    /// the profile has not yet been fetched from the database, a `DbRequest::Load`
-    /// is sent. Once all three conditions are satisfied, the pending login is
-    /// removed from the list and forwarded to [`Engine::accept_login`].
-    ///
-    /// # Arguments
-    ///
-    /// * `idx` -- Index into `self.pending_logins`.
-    ///
-    /// # Side Effects
-    ///
-    /// - May send a `DbRequest::Load` to fetch the player profile.
-    /// - On completion, calls `accept_login` and removes the entry from
-    ///   `pending_logins` via `swap_remove`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** logins phase, ether inbound handler, db response handler.
-    /// **Calls:** `accept_login`.
     /// Removes a pending login, sends the given response to its client, and
-    /// releases any cluster-wide login reservations the attempt holds.
+    /// releases everything the attempt holds across the cluster.
     ///
     /// When a login check is granted, the ether sidecar registers account and
     /// IP reservations (10-second TTL) that are normally consumed when the
@@ -2753,6 +2850,11 @@ impl Engine {
     /// `ether_allowed` is set: before that, this attempt owns no reservations
     /// (and an unconditional abort could release a *concurrent* attempt's).
     ///
+    /// Likewise, once the attempt has asked the database to claim the
+    /// player's session, the claim is released: the database handles
+    /// requests in order, so the release lands after the claim whether or
+    /// not the claim's reply has arrived yet.
+    ///
     /// # Arguments
     ///
     /// * `idx` -- Index into `self.pending_logins` (removed via `swap_remove`).
@@ -2761,10 +2863,16 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** login timeout sweep, auth-failure handler,
-    /// db-disconnect drain, ether-reconnect sweep.
+    /// db-disconnect drain, ether-reconnect sweep, `try_complete_login`.
     pub(crate) fn reject_pending_login(&mut self, idx: usize, response: LoginResponse) {
+        self.reject_pending_login_with(idx, vec![response as u8]);
+    }
+
+    /// [`reject_pending_login`](Engine::reject_pending_login) for a response
+    /// that carries a payload after its code byte.
+    pub(crate) fn reject_pending_login_with(&mut self, idx: usize, reply: Vec<u8>) {
         let pending = self.pending_logins.swap_remove(idx);
-        let _ = pending.request.handle.outbox.send(vec![response as u8]);
+        let _ = pending.request.handle.outbox.send(reply);
         if pending.ether_allowed
             && let Some(tx) = &self.ether_tx
         {
@@ -2773,8 +2881,45 @@ impl Engine {
                 ip: pending.request.remote_addr.ip().to_string(),
             });
         }
+        if pending.claim_sent {
+            self.release_claim(pending.user37);
+        }
     }
 
+    /// Releases this world's database claim on a player who never entered
+    /// it. Never for a player who is online here or still being logged out
+    /// of here: their claim is live, and their logout save ends it.
+    pub(crate) fn release_claim(&self, user37: u64) {
+        if self.find_pid_by_user37(user37).is_some() || self.logout_saves.contains_key(&user37) {
+            return;
+        }
+        if let Some(tx) = &self.db_tx {
+            let _ = tx.send(DbRequest::Release { user37 });
+        }
+    }
+
+    /// Attempts to complete a pending login if all async prerequisites are met.
+    ///
+    /// A login requires both `ether_allowed` and `auth` to be set. Then the
+    /// player's session is claimed and their profile loaded with one
+    /// `DbRequest::Load` (sent once). Once the profile is in, the pending
+    /// login is removed from the list and forwarded to
+    /// [`Engine::accept_login`].
+    ///
+    /// # Arguments
+    ///
+    /// * `idx` -- Index into `self.pending_logins`.
+    ///
+    /// # Side Effects
+    ///
+    /// - May send a `DbRequest::Load` to claim and fetch the player profile.
+    /// - On completion, calls `accept_login` and removes the entry from
+    ///   `pending_logins` via `swap_remove`.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** logins phase, ether inbound handler, db response handler.
+    /// **Calls:** `accept_login`.
     pub(crate) fn try_complete_login(&mut self, idx: usize) {
         let pending = &self.pending_logins[idx];
         if !pending.ether_allowed {
@@ -2808,10 +2953,13 @@ impl Engine {
         };
 
         if pending.profile.is_none() {
-            if let Some(tx) = &self.db_tx {
+            if !pending.claim_sent
+                && let Some(tx) = &self.db_tx
+            {
                 let _ = tx.send(DbRequest::Load {
                     user37: pending.user37,
                 });
+                self.pending_logins[idx].claim_sent = true;
             }
             return;
         }

@@ -22,6 +22,30 @@ impl Db {
         Ok(())
     }
 
+    /// Renews world `node_id`'s heartbeat without changing its player count.
+    /// The heartbeat is the world's lease on the sessions it owns: other
+    /// worlds only take them over once it goes stale.
+    pub async fn touch_world(&self, node_id: i16) -> Result<(), Error> {
+        sqlx::query(
+            "INSERT INTO world_status (node_id, players) VALUES ($1, 0)
+             ON CONFLICT (node_id) DO UPDATE SET updated_at = now()",
+        )
+        .bind(node_id)
+        .execute(&self.pool)
+        .await?;
+        Ok(())
+    }
+
+    /// Takes world `node_id` off the list at a clean shutdown, so its next
+    /// start doesn't mistake its own last heartbeat for a live duplicate.
+    pub async fn retire_world(&self, node_id: i16) -> Result<(), Error> {
+        sqlx::query("DELETE FROM world_status WHERE node_id = $1")
+            .bind(node_id)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
+    }
+
     /// The worlds that reported within the last `max_age_secs`, judged by the
     /// database's clock so the worlds' own clocks don't matter.
     pub async fn live_worlds(&self, max_age_secs: i32) -> Result<Vec<WorldStatus>, Error> {

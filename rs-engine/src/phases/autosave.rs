@@ -18,7 +18,9 @@ impl Engine {
     /// Every tick, increments each active player's `playtime` counter.
     ///
     /// Every [`STATUS_INTERVAL`] ticks, reports the number of (non-bot)
-    /// players online via [`DbRequest::WorldStatus`].
+    /// players online via [`DbRequest::WorldStatus`], with the players this
+    /// world has online or held mid-login/mid-logout, so the database can
+    /// square its session claims with them.
     ///
     /// Every [`AUTOSAVE_INTERVAL`] ticks (excluding tick 0), extracts and
     /// Serializes every active player's profile and sends it to the
@@ -47,10 +49,28 @@ impl Engine {
             }
         }
 
-        if self.clock.is_multiple_of(STATUS_INTERVAL) {
-            if let Some(tx) = &self.db_tx {
-                let _ = tx.send(DbRequest::WorldStatus { players });
-            }
+        if self.clock.is_multiple_of(STATUS_INTERVAL)
+            && let Some(tx) = &self.db_tx
+        {
+            let online = self
+                .player_list
+                .processing
+                .iter()
+                .filter_map(|&pid| self.player_list.players[pid as usize].as_ref())
+                .filter(|active| !active.player.bot)
+                .map(|active| active.uid().username37())
+                .collect();
+            let held = self
+                .pending_logins
+                .iter()
+                .map(|p| p.user37)
+                .chain(self.logout_saves.keys().copied())
+                .collect();
+            let _ = tx.send(DbRequest::WorldStatus {
+                players,
+                online,
+                held,
+            });
         }
 
         if !self.clock.is_multiple_of(AUTOSAVE_INTERVAL) || self.clock == 0 {
@@ -71,6 +91,7 @@ impl Engine {
                         username: active.uid().username(),
                         profile: Box::new(profile),
                         binary,
+                        logout: false,
                     });
                 }
                 count += 1;

@@ -32,7 +32,7 @@ use watch::{Receiver, Sender, channel};
 use crossterm::execute;
 use crossterm::terminal::{LeaveAlternateScreen, disable_raw_mode};
 use mimalloc::MiMalloc;
-use std::sync::atomic::{AtomicU32, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use time::MissedTickBehavior;
 
 mod http;
@@ -473,7 +473,26 @@ async fn main() -> Result<()> {
 
         let (stats_tx, _stats_rx) = channel(TickStats::default());
         let (_trigger_tx, trigger_rx) = unbounded_channel::<()>();
-        bootstrap(args, secrets, stats_tx, trigger_rx, ConnectionGuards::new()).await
+        let (shutdown_tx, shutdown_rx) = unbounded_channel::<()>();
+        tokio::spawn(async move {
+            if tokio::signal::ctrl_c().await.is_ok() {
+                info!("Ctrl+C -- saving every player and shutting down (Ctrl+C again to force)");
+                let _ = shutdown_tx.send(());
+                if tokio::signal::ctrl_c().await.is_ok() {
+                    warn!("Forced exit -- players since their last save are not saved");
+                    graceful_exit(130);
+                }
+            }
+        });
+        bootstrap(
+            args,
+            secrets,
+            stats_tx,
+            trigger_rx,
+            shutdown_rx,
+            ConnectionGuards::new(),
+        )
+        .await
     } else {
         let log_buf = tui::log_layer::new_buffer();
         let tui_layer = TuiLogLayer::new(log_buf.clone()).with_filter(make_filter());
@@ -495,11 +514,12 @@ async fn run_with_tui(args: Args, secrets: Secrets, log_buf: LogBuffer) -> Resul
 
     let guards = ConnectionGuards::new();
     let tui_guards = guards.clone();
+    let (shutdown_tx, shutdown_rx) = unbounded_channel::<()>();
 
     // Bootstrap right away in the background - the TUI shows "loading" until
     // the first tick lands, then "RUNNING".
-    let bootstrap_task = tokio::spawn(async move {
-        if let Err(e) = bootstrap(args, secrets, stats_tx, trigger_rx, guards).await {
+    let mut bootstrap_task = tokio::spawn(async move {
+        if let Err(e) = bootstrap(args, secrets, stats_tx, trigger_rx, shutdown_rx, guards).await {
             error!("server bootstrap failed: {e:#}");
         }
     });
@@ -507,10 +527,27 @@ async fn run_with_tui(args: Args, secrets: Secrets, log_buf: LogBuffer) -> Resul
     // Foreground: render loop. Returns when the user presses `q`.
     let result = tui::run(log_buf, sinks, tui_guards).await;
 
+    // Shut down like a reboot: every player is logged out and saved, and the
+    // tick loop exits the process once the saves are flushed. Nothing to
+    // save if the world never started.
+    if ENGINE_RUNNING.load(Ordering::Acquire) {
+        let _ = shutdown_tx.send(());
+        println!("Saving every player and shutting down... (Ctrl+C to force)");
+        tokio::select! {
+            _ = tokio::signal::ctrl_c() => {
+                println!("Forced exit -- players since their last save are not saved");
+            }
+            _ = &mut bootstrap_task => {}
+        }
+    }
+
     bootstrap_task.abort();
     shutdown_sidecar();
     result
 }
+
+/// Set once the tick loop is running, i.e. once there can be players to save.
+static ENGINE_RUNNING: AtomicBool = AtomicBool::new(false);
 
 /// Run the full server startup sequence and accept-loop. Used by both the
 /// headless (`--no-tui`) and TUI paths.
@@ -519,6 +556,7 @@ async fn bootstrap(
     secrets: Secrets,
     stats_tx: Sender<TickStats>,
     trigger_rx: UnboundedReceiver<()>,
+    shutdown_rx: UnboundedReceiver<()>,
     guards: ConnectionGuards,
 ) -> Result<()> {
     let host = args.host.clone();
@@ -633,7 +671,7 @@ async fn bootstrap(
     release_freed_memory();
     trim_working_set();
 
-    tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx));
+    tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx, shutdown_rx));
 
     #[cfg(debug_assertions)]
     tokio::spawn(reload_coordinator(
@@ -942,21 +980,37 @@ async fn reload_coordinator(
     }
 }
 
+/// Starts a reboot-style shutdown on request (Ctrl+C, the TUI's `q`): every
+/// player is logged out and saved, then the tick loop exits the process.
+fn begin_shutdown(engine: &mut Engine) {
+    if engine.is_pending_shutdown() || engine.is_shutdown() {
+        return;
+    }
+    info!("Shutdown requested -- logging every player out with a save");
+    let ptr = &raw mut *engine;
+    rs_engine::with_engine(engine, || unsafe { &mut *ptr }.reboot_timer(0));
+}
+
 /// World tick task - runs Engine::cycle() every 600ms.
 ///
 /// Also wakes immediately when a hot-reload result arrives to swap the
-/// CacheStore + scripts between ticks.
+/// CacheStore + scripts between ticks, or when a shutdown is requested.
 async fn engine_tick(
     mut engine: Engine,
     mut reload_rx: UnboundedReceiver<(Box<CacheStore>, ScriptProvider)>,
     mut clock_rate_rx: Receiver<u64>,
+    mut shutdown_rx: UnboundedReceiver<()>,
 ) {
+    ENGINE_RUNNING.store(true, Ordering::Release);
     let mut clock_ms: u64 = 600;
     let mut interval = time::interval(Duration::from_millis(clock_ms));
     interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
     loop {
         if clock_ms == 0 {
             tokio::task::yield_now().await;
+            if shutdown_rx.try_recv().is_ok() {
+                begin_shutdown(&mut engine);
+            }
             while let Ok((store, scripts)) = reload_rx.try_recv() {
                 let ptr = &raw mut engine;
                 rs_engine::with_engine(&mut engine, || {
@@ -975,6 +1029,10 @@ async fn engine_tick(
         } else {
             tokio::select! {
                 _ = interval.tick() => {}
+                Some(()) = shutdown_rx.recv() => {
+                    begin_shutdown(&mut engine);
+                    continue;
+                }
                 Some((store, scripts)) = reload_rx.recv() => {
                     let ptr = &raw mut engine;
                     rs_engine::with_engine(&mut engine, || {

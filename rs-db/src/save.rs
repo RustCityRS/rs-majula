@@ -1,4 +1,7 @@
 use crate::{Db, Error};
+use sqlx::postgres::PgArguments;
+use sqlx::query::Query;
+use sqlx::{PgConnection, Postgres};
 
 #[derive(Clone, Debug, Default, PartialEq, sqlx::FromRow)]
 pub struct PlayerSave {
@@ -26,6 +29,14 @@ pub struct PlayerSave {
     pub inv_counts: Vec<i32>,
 }
 
+/// Where a save ended up.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SaveResult {
+    Stored,
+    NotOwner,
+    Unregistered,
+}
+
 impl Db {
     /// Loads a player's save by base37 name. `None` if the player doesn't
     /// exist or has never been saved.
@@ -40,21 +51,107 @@ impl Db {
         .await
     }
 
-    /// Writes a player's save, creating the row on first save. Returns `false`
-    /// if no player with that name exists.
-    pub async fn store_save(&self, name_hash: u64, save: &PlayerSave) -> Result<bool, Error> {
-        let result = sqlx::query(
-            "INSERT INTO player_saves (
+    /// Writes a player's save for world `node_id`, creating the row on first
+    /// save. Only the world that owns the player's session may save them.
+    pub async fn store_save(
+        &self,
+        name_hash: u64,
+        node_id: i16,
+        save: &PlayerSave,
+    ) -> Result<SaveResult, Error> {
+        let mut tx = self.pool.begin().await?;
+        let id = match lock_session(&mut tx, name_hash, node_id).await? {
+            Ok(id) => id,
+            Err(refused) => return Ok(refused),
+        };
+        upsert_save(id, save).execute(&mut *tx).await?;
+        tx.commit().await?;
+        Ok(SaveResult::Stored)
+    }
+
+    /// Writes a player's final save as they leave world `node_id`, ends their
+    /// session and records the logout for the world-hop delay, all in one
+    /// transaction: no other world can claim the player until their final
+    /// save has landed.
+    pub async fn store_logout_save(
+        &self,
+        name_hash: u64,
+        node_id: i16,
+        save: &PlayerSave,
+    ) -> Result<SaveResult, Error> {
+        let mut tx = self.pool.begin().await?;
+        let id = match lock_session(&mut tx, name_hash, node_id).await? {
+            Ok(id) => id,
+            Err(refused) => return Ok(refused),
+        };
+        upsert_save(id, save).execute(&mut *tx).await?;
+        sqlx::query(
+            "UPDATE players SET online_node = NULL, online_since = NULL,
+                                last_logout_node = $2, last_logout_at = now()
+             WHERE id = $1",
+        )
+        .bind(id)
+        .bind(node_id)
+        .execute(&mut *tx)
+        .await?;
+        tx.commit().await?;
+        Ok(SaveResult::Stored)
+    }
+
+    /// Writes a first save for a player who has none and is not online
+    /// anywhere (importing a local save at registration). Returns `false` if
+    /// the player doesn't exist, already has a save, or is online.
+    pub async fn import_save(&self, name_hash: u64, save: &PlayerSave) -> Result<bool, Error> {
+        let mut tx = self.pool.begin().await?;
+        let id: Option<i64> = sqlx::query_scalar(
+            "SELECT id FROM players p
+             WHERE name_hash = $1 AND online_node IS NULL
+               AND NOT EXISTS (SELECT 1 FROM player_saves s WHERE s.player_id = p.id)
+             FOR UPDATE",
+        )
+        .bind(name_hash as i64)
+        .fetch_optional(&mut *tx)
+        .await?;
+        let Some(id) = id else {
+            return Ok(false);
+        };
+        upsert_save(id, save).execute(&mut *tx).await?;
+        tx.commit().await?;
+        Ok(true)
+    }
+}
+
+/// Locks the player's row for the rest of `tx` and checks that world
+/// `node_id` owns their session. `Ok(player id)` if it does.
+pub(crate) async fn lock_session(
+    tx: &mut PgConnection,
+    name_hash: u64,
+    node_id: i16,
+) -> Result<Result<i64, SaveResult>, Error> {
+    let row: Option<(i64, Option<i16>)> =
+        sqlx::query_as("SELECT id, online_node FROM players WHERE name_hash = $1 FOR UPDATE")
+            .bind(name_hash as i64)
+            .fetch_optional(&mut *tx)
+            .await?;
+    Ok(match row {
+        None => Err(SaveResult::Unregistered),
+        Some((id, Some(owner))) if owner == node_id => Ok(id),
+        Some(_) => Err(SaveResult::NotOwner),
+    })
+}
+
+fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArguments> {
+    sqlx::query(
+        "INSERT INTO player_saves (
                  player_id, x, z, y, body, colors, gender, runenergy, playtime,
                  stats, levels, afk_zones, last_afk_zone,
                  public_chat, private_chat, trade_chat, last_date,
                  varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts
              )
-             SELECT id, $2, $3, $4, $5, $6, $7, $8, $9,
-                    $10, $11, $12, $13,
-                    $14, $15, $16, $17,
-                    $18, $19, $20, $21, $22, $23
-             FROM players WHERE name_hash = $1
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,
+                     $10, $11, $12, $13,
+                     $14, $15, $16, $17,
+                     $18, $19, $20, $21, $22, $23)
              ON CONFLICT (player_id) DO UPDATE SET
                  x = EXCLUDED.x, z = EXCLUDED.z, y = EXCLUDED.y,
                  body = EXCLUDED.body, colors = EXCLUDED.colors,
@@ -70,32 +167,28 @@ impl Db {
                  inv_types = EXCLUDED.inv_types, inv_slots = EXCLUDED.inv_slots,
                  inv_objs = EXCLUDED.inv_objs, inv_counts = EXCLUDED.inv_counts,
                  updated_at = now()",
-        )
-        .bind(name_hash as i64)
-        .bind(save.x)
-        .bind(save.z)
-        .bind(save.y)
-        .bind(&save.body)
-        .bind(&save.colors)
-        .bind(save.gender)
-        .bind(save.runenergy)
-        .bind(save.playtime)
-        .bind(&save.stats)
-        .bind(&save.levels)
-        .bind(&save.afk_zones)
-        .bind(save.last_afk_zone)
-        .bind(save.public_chat)
-        .bind(save.private_chat)
-        .bind(save.trade_chat)
-        .bind(save.last_date)
-        .bind(&save.varp_ids)
-        .bind(&save.varp_values)
-        .bind(&save.inv_types)
-        .bind(&save.inv_slots)
-        .bind(&save.inv_objs)
-        .bind(&save.inv_counts)
-        .execute(&self.pool)
-        .await?;
-        Ok(result.rows_affected() == 1)
-    }
+    )
+    .bind(player_id)
+    .bind(save.x)
+    .bind(save.z)
+    .bind(save.y)
+    .bind(&save.body)
+    .bind(&save.colors)
+    .bind(save.gender)
+    .bind(save.runenergy)
+    .bind(save.playtime)
+    .bind(&save.stats)
+    .bind(&save.levels)
+    .bind(&save.afk_zones)
+    .bind(save.last_afk_zone)
+    .bind(save.public_chat)
+    .bind(save.private_chat)
+    .bind(save.trade_chat)
+    .bind(save.last_date)
+    .bind(&save.varp_ids)
+    .bind(&save.varp_values)
+    .bind(&save.inv_types)
+    .bind(&save.inv_slots)
+    .bind(&save.inv_objs)
+    .bind(&save.inv_counts)
 }
