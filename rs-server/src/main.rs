@@ -359,9 +359,6 @@ struct Args {
     verify: bool,
     #[arg(long, default_value = "false")]
     jaggrab_only: bool,
-    /// Header a reverse proxy puts the client IP in (e.g. `x-real-ip`). Only
-    /// set it when the HTTP port is reachable through that proxy alone, or
-    /// clients can forge their address past the per-IP limits.
     #[arg(long)]
     real_ip_header: Option<String>,
     #[arg(long, default_value = "10")]
@@ -398,7 +395,6 @@ struct Args {
 
 #[derive(Subcommand, Debug)]
 enum Cmd {
-    /// Apply pending migrations (game tables, then ether's) and exit.
     Migrate,
 }
 
