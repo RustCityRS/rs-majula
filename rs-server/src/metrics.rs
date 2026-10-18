@@ -1,0 +1,314 @@
+use crate::{ConnectionGuards, REVISION};
+use axum::Router;
+use axum::extract::State;
+use axum::http::header;
+use axum::response::IntoResponse;
+use axum::routing::get;
+use rs_engine::TickStats;
+use std::fmt::Write as _;
+use std::sync::{Arc, Mutex};
+use std::time::{SystemTime, UNIX_EPOCH};
+use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, System};
+use tokio::net::TcpListener;
+use tokio::sync::watch;
+use tracing::{info, warn};
+
+/// The game tick, and the length a tick may take before it overruns.
+const TICK_BUDGET_MS: f64 = 600.0;
+
+/// Upper bounds (seconds) of the tick duration histogram's buckets.
+const TICK_BUCKETS: [f64; 12] = [
+    0.001, 0.0025, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 0.6, 1.0, 2.5,
+];
+
+/// A phase's time (ms) in a tick.
+type PhaseTime = fn(&TickStats) -> f64;
+
+/// Each engine phase's label and its time in a tick.
+const PHASES: [(&str, PhaseTime); 14] = [
+    ("world", |s| s.world),
+    ("input", |s| s.input),
+    ("npcs", |s| s.npcs),
+    ("players", |s| s.players),
+    ("logouts", |s| s.logouts),
+    ("autosave", |s| s.autosave),
+    ("logins", |s| s.logins),
+    ("ether", |s| s.ether),
+    ("saves", |s| s.saves),
+    ("zones", |s| s.zones),
+    ("info", |s| s.info),
+    ("out", |s| s.out),
+    ("cleanup", |s| s.cleanup),
+    ("other", |s| {
+        s.total_ms
+            - (s.world
+                + s.input
+                + s.npcs
+                + s.players
+                + s.logouts
+                + s.autosave
+                + s.logins
+                + s.ether
+                + s.saves
+                + s.zones
+                + s.info
+                + s.out
+                + s.cleanup)
+    }),
+];
+
+/// Totals over every tick since startup, plus the latest tick's population.
+#[derive(Clone, Copy, Default)]
+struct TickTotals {
+    ticks: u64,
+    overruns: u64,
+    buckets: [u64; TICK_BUCKETS.len()],
+    seconds: f64,
+    phase_seconds: [f64; PHASES.len()],
+    players: usize,
+    npcs: usize,
+}
+
+impl TickTotals {
+    fn record(&mut self, s: &TickStats) {
+        let secs = s.total_ms / 1000.0;
+        self.ticks += 1;
+        if s.total_ms > TICK_BUDGET_MS {
+            self.overruns += 1;
+        }
+        for (count, &le) in self.buckets.iter_mut().zip(&TICK_BUCKETS) {
+            if secs <= le {
+                *count += 1;
+            }
+        }
+        self.seconds += secs;
+        for (total, (_, ms)) in self.phase_seconds.iter_mut().zip(PHASES) {
+            *total += ms(s).max(0.0) / 1000.0;
+        }
+        self.players = s.player_count;
+        self.npcs = s.npc_count;
+    }
+}
+
+struct Metrics {
+    ticks: Mutex<TickTotals>,
+    guards: ConnectionGuards,
+    members: bool,
+    started_secs: u64,
+    sys: Mutex<System>,
+    pid: Option<Pid>,
+}
+
+pub async fn serve(
+    host: String,
+    port: u16,
+    members: bool,
+    stats: watch::Receiver<TickStats>,
+    guards: ConnectionGuards,
+) {
+    let listener = match TcpListener::bind((host.as_str(), port)).await {
+        Ok(l) => l,
+        Err(e) => {
+            warn!("Failed to bind metrics on: {}:{} - {}", host, port, e);
+            return;
+        }
+    };
+    info!("Metrics available at: http://{}:{}/metrics", host, port);
+
+    let metrics = Arc::new(Metrics {
+        ticks: Mutex::default(),
+        guards,
+        members,
+        started_secs: unix_secs(),
+        sys: Mutex::new(System::new()),
+        pid: sysinfo::get_current_pid().ok(),
+    });
+    tokio::spawn(record_ticks(stats, metrics.clone()));
+
+    let app = Router::new()
+        .route("/metrics", get(render))
+        .with_state(metrics);
+    if let Err(e) = axum::serve(listener, app).await {
+        warn!("Metrics server stopped: {}", e);
+    }
+}
+
+/// Folds every published tick into the totals. `stats` must be subscribed
+/// before the engine starts. The tick loop skips missed ticks rather than
+/// bursting, so no tick is published before the last one was seen.
+async fn record_ticks(mut stats: watch::Receiver<TickStats>, metrics: Arc<Metrics>) {
+    while stats.changed().await.is_ok() {
+        let tick = stats.borrow_and_update().clone();
+        if let Ok(mut totals) = metrics.ticks.lock() {
+            totals.record(&tick);
+        }
+    }
+}
+
+async fn render(State(m): State<Arc<Metrics>>) -> impl IntoResponse {
+    let mut out = String::with_capacity(4096);
+    m.write(&mut out);
+    (
+        [(
+            header::CONTENT_TYPE,
+            "text/plain; version=0.0.4; charset=utf-8",
+        )],
+        out,
+    )
+}
+
+impl Metrics {
+    fn write(&self, out: &mut String) {
+        let t = self.ticks.lock().map(|t| *t).unwrap_or_default();
+
+        family(out, "rs_build_info", "gauge", "The running build.");
+        let _ = writeln!(
+            out,
+            "rs_build_info{{rev=\"{REVISION}\",version=\"{}\",members=\"{}\"}} 1",
+            env!("CARGO_PKG_VERSION"),
+            self.members
+        );
+
+        family(out, "rs_ticks_total", "counter", "Game ticks run.");
+        let _ = writeln!(out, "rs_ticks_total {}", t.ticks);
+        family(
+            out,
+            "rs_tick_overruns_total",
+            "counter",
+            "Ticks that took longer than the 600ms tick.",
+        );
+        let _ = writeln!(out, "rs_tick_overruns_total {}", t.overruns);
+
+        family(
+            out,
+            "rs_tick_duration_seconds",
+            "histogram",
+            "How long each tick's work took.",
+        );
+        for (le, count) in TICK_BUCKETS.iter().zip(t.buckets) {
+            let _ = writeln!(
+                out,
+                "rs_tick_duration_seconds_bucket{{le=\"{le}\"}} {count}"
+            );
+        }
+        let _ = writeln!(
+            out,
+            "rs_tick_duration_seconds_bucket{{le=\"+Inf\"}} {}",
+            t.ticks
+        );
+        let _ = writeln!(out, "rs_tick_duration_seconds_sum {}", t.seconds);
+        let _ = writeln!(out, "rs_tick_duration_seconds_count {}", t.ticks);
+
+        family(
+            out,
+            "rs_tick_phase_seconds_total",
+            "counter",
+            "Time spent in each engine phase, summed over every tick.",
+        );
+        for ((phase, _), secs) in PHASES.iter().zip(t.phase_seconds) {
+            let _ = writeln!(
+                out,
+                "rs_tick_phase_seconds_total{{phase=\"{phase}\"}} {secs}"
+            );
+        }
+
+        family(out, "rs_players", "gauge", "Players in the world.");
+        let _ = writeln!(out, "rs_players {}", t.players);
+        family(out, "rs_npcs", "gauge", "NPCs in the world.");
+        let _ = writeln!(out, "rs_npcs {}", t.npcs);
+
+        let guards = [
+            ("game", &self.guards.game),
+            ("http", &self.guards.http),
+            ("jaggrab", &self.guards.jaggrab),
+        ];
+        family(
+            out,
+            "rs_connections",
+            "gauge",
+            "Open connections by listener.",
+        );
+        for (kind, guard) in guards {
+            let _ = writeln!(out, "rs_connections{{kind=\"{kind}\"}} {}", guard.active());
+        }
+        family(
+            out,
+            "rs_connections_accepted_total",
+            "counter",
+            "Connections accepted by listener.",
+        );
+        for (kind, guard) in guards {
+            let _ = writeln!(
+                out,
+                "rs_connections_accepted_total{{kind=\"{kind}\"}} {}",
+                guard.served()
+            );
+        }
+
+        family(
+            out,
+            "process_start_time_seconds",
+            "gauge",
+            "Start time of the process since the Unix epoch.",
+        );
+        let _ = writeln!(out, "process_start_time_seconds {}", self.started_secs);
+        if let Some(rss) = self.resident_bytes() {
+            family(
+                out,
+                "process_resident_memory_bytes",
+                "gauge",
+                "Resident memory size.",
+            );
+            let _ = writeln!(out, "process_resident_memory_bytes {rss}");
+        }
+    }
+
+    fn resident_bytes(&self) -> Option<u64> {
+        let pid = self.pid?;
+        let mut sys = self.sys.lock().ok()?;
+        sys.refresh_processes_specifics(
+            ProcessesToUpdate::Some(&[pid]),
+            true,
+            ProcessRefreshKind::nothing().with_memory(),
+        );
+        sys.process(pid).map(|p| p.memory())
+    }
+}
+
+fn family(out: &mut String, name: &str, kind: &str, help: &str) {
+    let _ = writeln!(out, "# HELP {name} {help}\n# TYPE {name} {kind}");
+}
+
+fn unix_secs() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_or(0, |d| d.as_secs())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ticks_fill_cumulative_buckets_and_phases() {
+        let mut t = TickTotals::default();
+        t.record(&TickStats {
+            total_ms: 4.0,
+            npcs: 3.0,
+            player_count: 7,
+            ..Default::default()
+        });
+        t.record(&TickStats {
+            total_ms: 700.0,
+            npcs: 650.0,
+            ..Default::default()
+        });
+
+        assert_eq!((t.ticks, t.overruns, t.players), (2, 1, 0));
+        // 4ms lands in every bucket from 5ms up; 700ms only from 1s up.
+        assert_eq!(t.buckets, [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2]);
+        let phase = |name| t.phase_seconds[PHASES.iter().position(|p| p.0 == name).unwrap()];
+        assert!((phase("npcs") - 0.653).abs() < 1e-9);
+        assert!((phase("other") - 0.051).abs() < 1e-9);
+    }
+}

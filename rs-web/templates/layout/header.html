@@ -38,12 +38,15 @@
 <body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 topmargin=0 leftmargin=0>
     {# https://stackoverflow.com/a/4723302 #}
     {# https://stackoverflow.com/a/6222280 #}
+    {# Moves http visitors to https once this host is seen answering on it. #}
     {% if https_enabled %}
-        <img 
-            style="display: none;" 
-            src="https://2004scape.org/img/blank.gif" 
-            onload="if (location.protocol !== 'https:') { location.replace(`https:${location.href.substring(location.protocol.length)}`); }"
-        >
+        <script>
+            if (location.protocol !== 'https:') {
+                const probe = new Image();
+                probe.onload = () => location.replace(`https://${location.hostname}${location.pathname}${location.search}${location.hash}`);
+                probe.src = `https://${location.hostname}/img/blank.gif`;
+            }
+        </script>
     {% endif %}
     <table width=100% height=100% cellpadding=0 cellspacing=0>
         <tr>

@@ -1,6 +1,6 @@
 use crate::tui::log_layer::{LogBuffer, TuiLogLayer};
 use anyhow::{Context, Result, anyhow, bail};
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 use futures_util::SinkExt;
 use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
@@ -37,6 +37,7 @@ use time::MissedTickBehavior;
 
 mod http;
 mod jaggrab;
+mod metrics;
 mod socket;
 pub mod tui;
 
@@ -364,6 +365,16 @@ struct Args {
     #[arg(long, default_value = "10")]
     node_id: u8,
     #[arg(long)]
+    metrics_port: Option<u16>,
+    #[arg(long, default_value = "127.0.0.1")]
+    metrics_host: String,
+    #[arg(long, value_enum, default_value_t = LogFormat::Text)]
+    log_format: LogFormat,
+    #[arg(long, default_value = "rs-server.log")]
+    log_file: PathBuf,
+    #[arg(long)]
+    no_log_file: bool,
+    #[arg(long)]
     ether_port: Option<u16>,
     #[arg(long, env = "RS_DB_HOST", default_value = "localhost")]
     db_host: String,
@@ -391,6 +402,32 @@ struct Args {
     auto_migrate: bool,
     #[command(subcommand)]
     command: Option<Cmd>,
+}
+
+#[derive(Clone, Copy, Debug, ValueEnum)]
+enum LogFormat {
+    Text,
+    Json,
+}
+
+/// A log output in `format`; `time` only applies to text (JSON lines always
+/// carry a timestamp).
+fn fmt_layer<S, W>(
+    format: LogFormat,
+    writer: W,
+    ansi: bool,
+    time: bool,
+) -> Box<dyn Layer<S> + Send + Sync>
+where
+    S: tracing::Subscriber + for<'a> tracing_subscriber::registry::LookupSpan<'a>,
+    W: for<'w> tracing_subscriber::fmt::MakeWriter<'w> + Send + Sync + 'static,
+{
+    let layer = tracing_subscriber::fmt::layer().with_writer(writer);
+    match format {
+        LogFormat::Text if time => layer.with_ansi(ansi).boxed(),
+        LogFormat::Text => layer.with_ansi(ansi).without_time().boxed(),
+        LogFormat::Json => layer.json().flatten_event(true).boxed(),
+    }
 }
 
 #[derive(Subcommand, Debug)]
@@ -434,21 +471,22 @@ async fn main() -> Result<()> {
     }
     let secrets = Secrets::resolve(&args)?;
 
-    // File appender - `rs-server.log` in the current working directory,
-    // overwritten each run (no rotation; log volume per session is bounded).
-    // Held in `_log_guard` for the lifetime of `main` so the background
-    // writer thread keeps draining until shutdown.
-    let log_file = std::fs::OpenOptions::new()
-        .create(true)
-        .write(true)
-        .truncate(true)
-        .open("rs-server.log")?;
-    let (file_writer, _log_guard) = tracing_appender::non_blocking(log_file);
-
-    let file_layer = tracing_subscriber::fmt::layer()
-        .with_writer(file_writer)
-        .with_ansi(false)
-        .with_filter(make_filter());
+    // File appender - `--log-file`, overwritten each run (no rotation; log
+    // volume per session is bounded). Held in `_log_guard` for the lifetime
+    // of `main` so the background writer thread keeps draining until shutdown.
+    let (file_layer, _log_guard) = if args.no_log_file {
+        (None, None)
+    } else {
+        let log_file = std::fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&args.log_file)
+            .with_context(|| format!("opening {}", args.log_file.display()))?;
+        let (file_writer, guard) = tracing_appender::non_blocking(log_file);
+        let layer = fmt_layer(args.log_format, file_writer, false, true).with_filter(make_filter());
+        (Some(layer), Some(guard))
+    };
 
     let registry = tracing_subscriber::registry().with(file_layer);
 
@@ -459,9 +497,8 @@ async fn main() -> Result<()> {
     let use_tui = !args.no_tui && tty;
 
     if !use_tui {
-        let stdout_layer = tracing_subscriber::fmt::layer()
-            .without_time()
-            .with_filter(make_filter());
+        let stdout_layer =
+            fmt_layer(args.log_format, std::io::stdout, true, false).with_filter(make_filter());
         registry.with(stdout_layer).init();
         let _ = Level::INFO;
 
@@ -470,7 +507,7 @@ async fn main() -> Result<()> {
                 "stdout is not a TTY - falling back to headless mode (use a real terminal for the TUI dashboard)"
             );
         }
-        info!("RuneScape Private Server (Rev 225) starting (headless)");
+        info!("Running headless");
 
         let (stats_tx, _stats_rx) = channel(TickStats::default());
         let (_trigger_tx, trigger_rx) = unbounded_channel::<()>();
@@ -591,6 +628,9 @@ async fn bootstrap(
     info!("TCP Port: {}", tcp);
     info!("RSA: {:?}", args.private_key);
 
+    // Subscribed before the engine starts, so the metrics see every tick.
+    let metrics_stats = stats_tx.subscribe();
+
     info!("Compiling content assets & building cache...");
     let (store, scripts) = rs_pack::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
@@ -709,6 +749,17 @@ async fn bootstrap(
         rsa,
         new_player_tx,
     };
+
+    let metrics_port = args.metrics_port.unwrap_or(8170 + args.node_id as u16);
+    if metrics_port != 0 {
+        tokio::spawn(metrics::serve(
+            args.metrics_host.clone(),
+            metrics_port,
+            args.members,
+            metrics_stats,
+            guards.clone(),
+        ));
+    }
 
     let ConnectionGuards {
         game: guard,
