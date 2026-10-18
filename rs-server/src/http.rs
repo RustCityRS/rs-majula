@@ -2,7 +2,7 @@ use crate::socket::handshake;
 use crate::{ConnectionGuard, ServerIO, Socket};
 use rs_pack::cache::CacheStore;
 use std::collections::HashMap;
-use std::net::SocketAddr;
+use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
@@ -74,6 +74,7 @@ pub async fn serve(
     guard: ConnectionGuard,
     http_guard: ConnectionGuard,
     jaggrab_only: bool,
+    real_ip_header: Option<&'static str>,
 ) {
     let listener = match TcpListener::bind((host, port)).await {
         Ok(l) => l,
@@ -98,11 +99,6 @@ pub async fn serve(
         let http_guard = http_guard.clone();
 
         tokio::spawn(async move {
-            let Some(_permit) = http_guard.try_acquire(addr.ip()) else {
-                debug!("HTTP {} connection limit reached", addr);
-                return;
-            };
-            info!("HTTP {:?} connected", addr);
             handle_connection(
                 stream,
                 nodeid,
@@ -110,7 +106,9 @@ pub async fn serve(
                 server_state,
                 addr,
                 guard,
+                http_guard,
                 jaggrab_only,
+                real_ip_header,
             )
             .await;
         });
@@ -123,14 +121,29 @@ async fn handle_connection(
     nodeid: String,
     members: bool,
     server_state: ServerIO,
-    addr: SocketAddr,
+    peer: SocketAddr,
     guard: ConnectionGuard,
+    http_guard: ConnectionGuard,
     jaggrab_only: bool,
+    real_ip_header: Option<&'static str>,
 ) {
     stream.set_nodelay(true).ok();
 
+    // Without a proxy the peer is the client, so it is limited before any
+    // bytes are read. Behind one, the limit waits for the forwarded address.
+    let permit = match real_ip_header {
+        Some(_) => None,
+        None => {
+            let Some(permit) = http_guard.try_acquire(peer.ip()) else {
+                debug!("HTTP {} connection limit reached", peer);
+                return;
+            };
+            Some(permit)
+        }
+    };
+
     // Peek first to check if it's a WebSocket upgrade
-    let mut buf = [0; 1024]; // increase buffer
+    let mut buf = [0; 4096];
     let n = match timeout(HANDSHAKE_TIMEOUT, stream.peek(&mut buf)).await {
         Ok(Ok(n)) => n,
         Ok(Err(e)) => {
@@ -138,12 +151,18 @@ async fn handle_connection(
             return;
         }
         Err(_) => {
-            debug!("HTTP {} handshake timeout", addr);
+            debug!("HTTP {} handshake timeout", peer);
             return;
         }
     };
 
     let raw = String::from_utf8_lossy(&buf[..n]);
+    let addr = client_addr(&raw, real_ip_header, peer);
+    let Some(_permit) = permit.or_else(|| http_guard.try_acquire(addr.ip())) else {
+        debug!("HTTP {} connection limit reached", addr);
+        return;
+    };
+    info!("HTTP {:?} connected", addr);
 
     if raw.to_ascii_lowercase().contains("upgrade: websocket") {
         #[allow(clippy::result_large_err)]
@@ -254,6 +273,28 @@ async fn handle_connection(
             break;
         }
     }
+}
+
+/// The client's address: the `header` field of the request head when it
+/// holds a valid IP, otherwise the socket peer. Only lines the peek read in
+/// full are searched, so a cut-off value is never parsed.
+fn client_addr(head: &str, header: Option<&str>, peer: SocketAddr) -> SocketAddr {
+    let complete = &head[..head.rfind("\r\n").unwrap_or(0)];
+    header
+        .and_then(|name| {
+            complete
+                .lines()
+                .skip(1)
+                .take_while(|line| !line.is_empty())
+                .find_map(|line| {
+                    let (key, value) = line.split_once(':')?;
+                    key.trim().eq_ignore_ascii_case(name).then_some(value)
+                })
+        })
+        // x-forwarded-for style lists put the client first.
+        .and_then(|value| value.split(',').next())
+        .and_then(|value| value.trim().parse::<IpAddr>().ok())
+        .map_or(peer, |ip| SocketAddr::new(ip, peer.port()))
 }
 
 async fn route(
@@ -496,5 +537,37 @@ mod tests {
         assert_eq!(query_number(&params, "plugin"), 3);
         assert_eq!(query_number(&params, "lowmem"), 0);
         assert_eq!(query_number(&params, "missing"), 0);
+    }
+
+    const PEER: &str = "127.0.0.1:50000";
+
+    fn client(head: &str, header: Option<&str>) -> String {
+        client_addr(head, header, PEER.parse().unwrap()).to_string()
+    }
+
+    #[test]
+    fn real_ip_header_replaces_the_proxy_peer() {
+        let head = "GET / HTTP/1.1\r\nHost: w1\r\nX-Real-IP: 203.0.113.7\r\n\r\n";
+        assert_eq!(client(head, Some("x-real-ip")), "203.0.113.7:50000");
+        assert_eq!(client(head, None), PEER);
+    }
+
+    #[test]
+    fn forwarded_for_lists_take_the_client() {
+        let head = "GET / HTTP/1.1\r\nx-forwarded-for: 2001:db8::1, 10.0.0.2\r\n\r\n";
+        assert_eq!(client(head, Some("X-Forwarded-For")), "[2001:db8::1]:50000");
+    }
+
+    #[test]
+    fn bad_missing_or_cut_off_values_keep_the_peer() {
+        let bad = "GET / HTTP/1.1\r\nX-Real-IP: not-an-ip\r\n\r\n";
+        assert_eq!(client(bad, Some("x-real-ip")), PEER);
+        let missing = "GET / HTTP/1.1\r\nHost: w1\r\n\r\n";
+        assert_eq!(client(missing, Some("x-real-ip")), PEER);
+        let cut_off = "GET / HTTP/1.1\r\nHost: w1\r\nX-Real-IP: 2001:db8::1";
+        assert_eq!(client(cut_off, Some("x-real-ip")), PEER);
+        // A body or a later request can't smuggle the field in.
+        let body = "GET / HTTP/1.1\r\n\r\nX-Real-IP: 203.0.113.7\r\n";
+        assert_eq!(client(body, Some("x-real-ip")), PEER);
     }
 }

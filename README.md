@@ -167,11 +167,12 @@ before `migrate`).
 | `--http-port <HTTP_PORT>`     | `8070 + node_id` (`8080`)   | HTTP port -- web client + cache archives.                                                                      |
 | `--tcp-port <TCP_PORT>`       | `43584 + node_id` (`43594`) | TCP game-protocol port.                                                                                        |
 | `--private-key <PRIVATE_KEY>` | `.keys/private.pem`         | RSA private key (PEM) for the login handshake.                                                                 |
-| `--members`                   | `true`                      | Members world (vs free-to-play) content rules.                                                                 |
+| `--members <BOOL>`            | `true`                      | Members world (vs free-to-play) content rules. Takes a value: `--members false` runs a free-to-play world.     |
 | `--client-pathfinder`         | `true`                      | Trust client-computed movement paths.                                                                          |
 | `--no-tui`                    | `false`                     | Disable the TUI dashboard; use stdout logging (auto-falls back when stdout isn't a TTY).                       |
 | `--verify`                    | `true`                      | Verify packed-cache byte-identity at boot (`pack_all`).                                                        |
 | `--node-id <NODE_ID>`         | `10`                        | World node ID (10 = world 1, 11 = world 2, …); drives the derived port scheme.                                 |
+| `--real-ip-header <NAME>`     | unset                       | Header a reverse proxy puts the client IP in (e.g. `x-real-ip`). Per-IP connection limits and login rate limiting then use it instead of the proxy's address. Only set it when the HTTP port is reachable through the proxy alone, or clients can forge their address. |
 | `--ether-port <ETHER_PORT>`   | `5000 + node_id` (`5010`)   | Ether sidecar TCP port.                                                                                        |
 | `--db-host <DB_HOST>`         | `localhost` (`RS_DB_HOST`)  | Postgres hostname.                                                                                             |
 | `--db-port <DB_PORT>`         | `5432` (`RS_DB_PORT`)       | Postgres port.                                                                                                 |
@@ -187,7 +188,7 @@ before `migrate`).
 | `--auto-migrate <BOOL>`       | `true` (debug) / `false` (release) | Apply pending migrations on startup. Off, the server only checks the schema is current and keeps logins offline until `rs-server migrate` has run. |
 
 > [!NOTE]
-> `--members`, `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
+> `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
 (defaults shown). The `--db-*` defaults match `docker-compose.yml`, so the server
 > connects with no extra flags.
 
@@ -222,7 +223,11 @@ node; the nodes mesh into one cluster for cross-world social features.
    for the world process; the sidecar inherits it.
 6. **TLS at a reverse proxy.** The web client connects back to the page's own
    host over `ws`/`wss`, so terminate TLS for the website and for each world's
-   HTTP port.
+   HTTP port. Behind the proxy every connection comes from the proxy's own
+   address, so have it set the client IP in a header (nginx:
+   `proxy_set_header X-Real-IP $remote_addr;`), start the world with
+   `--real-ip-header x-real-ip`, and bind it where only the proxy can reach it
+   (e.g. `--host 127.0.0.1`).
 
 ----
 

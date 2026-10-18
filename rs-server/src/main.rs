@@ -347,7 +347,7 @@ struct Args {
     jaggrab_port: Option<u16>,
     #[arg(long, default_value = ".keys/private.pem")]
     private_key: PathBuf,
-    #[arg(long, default_value = "true")]
+    #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
@@ -359,6 +359,11 @@ struct Args {
     verify: bool,
     #[arg(long, default_value = "false")]
     jaggrab_only: bool,
+    /// Header a reverse proxy puts the client IP in (e.g. `x-real-ip`). Only
+    /// set it when the HTTP port is reachable through that proxy alone, or
+    /// clients can forge their address past the per-IP limits.
+    #[arg(long)]
+    real_ip_header: Option<String>,
     #[arg(long, default_value = "10")]
     node_id: u8,
     #[arg(long)]
@@ -710,6 +715,9 @@ async fn bootstrap(
         guard.clone(),
         http_guard,
         args.jaggrab_only,
+        args.real_ip_header
+            .clone()
+            .map(|header| &*Box::leak(header.into_boxed_str())),
     ));
 
     info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
