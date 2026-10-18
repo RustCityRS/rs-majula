@@ -5,9 +5,9 @@ mod worlds;
 
 use crate::app::{App, SiteConfig};
 use crate::templates::Templates;
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use rs_db::{Db, DbConfig, Passwords};
 use std::net::SocketAddr;
 use std::path::PathBuf;
@@ -31,18 +31,28 @@ struct Args {
     https: bool,
     #[arg(long)]
     real_ip_header: Option<HeaderName>,
-    #[arg(long, default_value = "localhost")]
+    #[arg(long, env = "RS_DB_HOST", default_value = "localhost")]
     db_host: String,
-    #[arg(long, default_value = "5432")]
+    #[arg(long, env = "RS_DB_PORT", default_value = "5432")]
     db_port: u16,
-    #[arg(long, default_value = "postgres")]
+    #[arg(long, env = "RS_DB_NAME", default_value = "postgres")]
     db_name: String,
-    #[arg(long, default_value = "postgres")]
+    #[arg(long, env = "RS_DB_USER", default_value = "postgres")]
     db_user: String,
-    #[arg(long, default_value = "password")]
-    db_pass: String,
-    #[arg(long, default_value = "localhost")]
-    pepper: String,
+    #[arg(long, env = "RS_DB_PASS", hide_env_values = true)]
+    db_pass: Option<String>,
+    #[arg(long, env = "RS_PEPPER", hide_env_values = true)]
+    pepper: Option<String>,
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    auto_migrate: bool,
+    #[command(subcommand)]
+    command: Option<Cmd>,
+}
+
+#[derive(Subcommand, Debug)]
+enum Cmd {
+    /// Apply pending database migrations and exit.
+    Migrate,
 }
 
 #[tokio::main]
@@ -54,6 +64,25 @@ async fn main() -> Result<()> {
         )
         .init();
     let args = Args::parse();
+    let db_config = DbConfig {
+        host: args.db_host,
+        port: args.db_port,
+        name: args.db_name,
+        user: args.db_user,
+        pass: rs_db::require_secret(args.db_pass, "RS_DB_PASS", "password")
+            .map_err(|e| anyhow!(e))?,
+    };
+
+    if let Some(Cmd::Migrate) = args.command {
+        let db = Db::connect(&db_config, 1)
+            .await
+            .with_context(|| format!("connecting to {}:{}", db_config.host, db_config.port))?;
+        db.migrate().await.context("migrations failed")?;
+        info!("Migrations applied");
+        return Ok(());
+    }
+    let pepper =
+        rs_db::require_secret(args.pepper, "RS_PEPPER", "localhost").map_err(|e| anyhow!(e))?;
 
     let worlds_path = args.root.join("worlds.json");
     let worlds =
@@ -67,25 +96,28 @@ async fn main() -> Result<()> {
         );
     }
 
-    let db = Db::connect_lazy(
-        &DbConfig {
-            host: args.db_host,
-            port: args.db_port,
-            name: args.db_name,
-            user: args.db_user,
-            pass: args.db_pass,
-        },
-        8,
-    );
-    // The game server applies the same migrations; the site still serves its
-    // static pages if the database isn't up yet.
-    if let Err(e) = db.migrate().await {
-        warn!("Database migration failed ({e}); database pages will error until it is reachable");
+    let db = Db::connect_lazy(&db_config, 8);
+    // The site still serves its static pages if the database isn't up yet or
+    // is behind; only the pages that read it fail.
+    if args.auto_migrate {
+        if let Err(e) = db.migrate().await {
+            warn!(
+                "Database migration failed ({e}); database pages will error until it is reachable"
+            );
+        }
+    } else {
+        match db.pending_migrations().await {
+            Ok(pending) if pending.is_empty() => {}
+            Ok(pending) => {
+                warn!("Database is missing migrations {pending:?}; run `rs-web migrate`")
+            }
+            Err(e) => warn!("Database schema check failed ({e}); database pages may error"),
+        }
     }
 
     let app = Arc::new(App {
         db,
-        passwords: Passwords::new(&args.pepper),
+        passwords: Passwords::new(&pepper),
         templates: Templates::new(args.root.join("templates"), args.https),
         worlds,
         wordenc,

@@ -157,3 +157,31 @@ async fn news_pages_and_neighbours(pool: PgPool) {
     assert_eq!((first.prev_id, first.next_id), (None, Some(3)));
     assert!(db.news_post(99).await.unwrap().is_none());
 }
+
+#[sqlx::test(migrations = false)]
+#[ignore = "needs DATABASE_URL"]
+async fn schema_check_tracks_this_build(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let all: Vec<i64> = rs_db::MIGRATOR.iter().map(|m| m.version).collect();
+    assert_eq!(db.pending_migrations().await.unwrap(), all);
+
+    db.migrate().await.unwrap();
+    assert!(db.pending_migrations().await.unwrap().is_empty());
+
+    // A newer build's migration doesn't make this one stale.
+    sqlx::query(
+        "INSERT INTO _sqlx_migrations (version, description, success, checksum, execution_time)
+         VALUES (99999, 'future', true, decode('00', 'hex'), 0)",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+    assert!(db.pending_migrations().await.unwrap().is_empty());
+
+    sqlx::query("UPDATE _sqlx_migrations SET checksum = decode('00', 'hex') WHERE version = $1")
+        .bind(all[0])
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert!(db.pending_migrations().await.is_err());
+}

@@ -13,6 +13,10 @@ pub struct DbClientConfig {
     pub db: DbConfig,
     pub pepper: String,
     pub auto_register: bool,
+    /// Apply pending migrations on connect. Off, the task only checks the
+    /// schema is current and stays offline until a separate migrate step has
+    /// run.
+    pub auto_migrate: bool,
 }
 
 /// A request sent from the engine to the database client task.
@@ -58,10 +62,29 @@ pub enum DbResponse {
     },
 }
 
+/// Brings the schema up to date, or with `auto_migrate` off, checks that it
+/// already is.
+async fn prepare_schema(db: &Db, auto_migrate: bool) -> Result<(), String> {
+    if auto_migrate {
+        return db
+            .migrate()
+            .await
+            .map_err(|e| format!("DB migration failed: {e}"));
+    }
+    match db.pending_migrations().await {
+        Ok(pending) if pending.is_empty() => Ok(()),
+        Ok(pending) => Err(format!(
+            "DB schema is missing migrations {pending:?}; run `rs-server migrate`"
+        )),
+        Err(e) => Err(format!("DB schema check failed: {e}")),
+    }
+}
+
 /// Long-running async task that owns the database connection for player
 /// operations (authentication, save, load).
 ///
-/// Connects with exponential backoff, applies pending migrations, syncs any
+/// Connects with exponential backoff, applies (or checks for) pending
+/// migrations, syncs any
 /// locally saved player files to the database, signals readiness via
 /// [`DbResponse::DbReady`], and then serves requests in order. Requests are
 /// handled one at a time so a player's save always lands before a later load.
@@ -88,8 +111,8 @@ pub async fn db_client_task(
                     config.db.host, config.db.port, config.db.name
                 );
 
-                if let Err(e) = db.migrate().await {
-                    error!("DB migration failed: {}", e);
+                if let Err(e) = prepare_schema(&db, config.auto_migrate).await {
+                    error!("{}", e);
                     db.close().await;
                     sleep(backoff).await;
                     backoff = (backoff * 2).min(max_backoff);

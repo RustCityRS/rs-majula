@@ -39,6 +39,20 @@ impl DbConfig {
     }
 }
 
+/// A secret from its flag or environment variable. Debug builds fall back to
+/// `dev_default`; release builds refuse to start without a real one.
+pub fn require_secret(
+    value: Option<String>,
+    env: &str,
+    dev_default: &str,
+) -> Result<String, String> {
+    match value {
+        Some(value) => Ok(value),
+        None if cfg!(debug_assertions) => Ok(dev_default.to_owned()),
+        None => Err(format!("{env} must be set in release builds")),
+    }
+}
+
 /// A handle to the game database. Cheap to clone (it wraps a connection pool).
 #[derive(Clone, Debug)]
 pub struct Db {
@@ -73,6 +87,38 @@ impl Db {
     /// once: sqlx serialises migrators with a Postgres advisory lock.
     pub async fn migrate(&self) -> Result<(), MigrateError> {
         MIGRATOR.run(&self.pool).await
+    }
+
+    /// The versions of this build's migrations the database hasn't applied
+    /// yet, without changing anything. Migrations from a newer build are
+    /// ignored, so an older server keeps running through a rolling deploy.
+    pub async fn pending_migrations(&self) -> Result<Vec<i64>, MigrateError> {
+        let exists: bool = sqlx::query_scalar("SELECT to_regclass('_sqlx_migrations') IS NOT NULL")
+            .fetch_one(&self.pool)
+            .await?;
+        let applied: Vec<(i64, Vec<u8>, bool)> = if exists {
+            sqlx::query_as("SELECT version, checksum, success FROM _sqlx_migrations")
+                .fetch_all(&self.pool)
+                .await?
+        } else {
+            Vec::new()
+        };
+
+        let mut pending = Vec::new();
+        for migration in MIGRATOR.iter() {
+            if migration.migration_type.is_down_migration() {
+                continue;
+            }
+            match applied.iter().find(|(v, ..)| *v == migration.version) {
+                Some((_, _, false)) => return Err(MigrateError::Dirty(migration.version)),
+                Some((_, checksum, _)) if *checksum != *migration.checksum => {
+                    return Err(MigrateError::VersionMismatch(migration.version));
+                }
+                Some(_) => {}
+                None => pending.push(migration.version),
+            }
+        }
+        Ok(pending)
     }
 
     /// Closes every pooled connection.
