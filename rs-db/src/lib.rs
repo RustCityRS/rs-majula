@@ -3,6 +3,7 @@ mod news;
 mod password;
 mod player;
 mod save;
+mod world;
 
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsCategory, NewsPost, NewsSummary};
@@ -10,6 +11,7 @@ pub use password::Passwords;
 pub use player::{Credentials, NewPlayer};
 pub use save::PlayerSave;
 pub use sqlx::Error;
+pub use world::WorldStatus;
 
 use sqlx::migrate::{MigrateError, Migrator};
 use sqlx::postgres::{PgConnectOptions, PgPool, PgPoolOptions};

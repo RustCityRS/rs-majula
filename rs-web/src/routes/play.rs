@@ -25,7 +25,7 @@ pub async fn title(State(app): State<Arc<App>>) -> Result<Response, AppError> {
         warn!("Loading news for the title page failed: {e}");
         Vec::new()
     });
-    let player_count: u32 = app.worlds.iter().map(|w| w.players).sum();
+    let player_count: u32 = app.worlds_now().iter().map(|w| w.players).sum();
     let html = app.templates.render(
         "views/title.html",
         context! { news => Serde(news), player_count },
@@ -81,13 +81,14 @@ pub async fn serverlist(
     } else {
         "low"
     };
+    let worlds = app.worlds_now();
     let html = app.templates.render(
         "views/serverlist.html",
         context! {
             detail,
             method,
-            free_regions => Serde(regions(&app.worlds, false)),
-            members_regions => Serde(regions(&app.worlds, true)),
+            free_regions => Serde(regions(&worlds, false)),
+            members_regions => Serde(regions(&worlds, true)),
         },
     )?;
     Ok(html.into_response())
@@ -185,7 +186,7 @@ pub async fn jav_config(State(app): State<Arc<App>>) -> String {
                     "servername=World {} ({kind}), {detail_name} Detail",
                     world.id
                 ),
-                format!("param=nodeid={}", 10 + world.id - 1),
+                format!("param=nodeid={}", world.node_id()),
                 format!("param=portoff={}", world.port_offset),
                 format!("param=free={}", u8::from(!world.members)),
                 format!("param=lowmem={lowmem}"),
@@ -205,5 +206,5 @@ pub async fn serverlist_ws(State(app): State<Arc<App>>) -> String {
 }
 
 pub async fn worldlist(State(app): State<Arc<App>>) -> Json<Vec<World>> {
-    Json(app.worlds.clone())
+    Json(app.worlds_now())
 }

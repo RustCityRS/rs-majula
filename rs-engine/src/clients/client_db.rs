@@ -11,6 +11,8 @@ use tracing::{error, info, warn};
 /// Settings for [`db_client_task`].
 pub struct DbClientConfig {
     pub db: DbConfig,
+    /// This world's node id, for its `world_status` heartbeat.
+    pub node_id: u8,
     pub pepper: String,
     pub auto_register: bool,
     /// Apply pending migrations on connect. Off, the task only checks the
@@ -33,6 +35,10 @@ pub enum DbRequest {
     },
     Load {
         user37: u64,
+    },
+    /// The world's heartbeat for the website's world list.
+    WorldStatus {
+        players: u32,
     },
 }
 
@@ -123,14 +129,8 @@ pub async fn db_client_task(
                 sync_local_saves(&db).await;
                 let _ = response_tx.send(DbResponse::DbReady);
 
-                let result = run_requests(
-                    &db,
-                    &passwords,
-                    config.auto_register,
-                    &mut request_rx,
-                    &response_tx,
-                )
-                .await;
+                let result =
+                    run_requests(&db, &passwords, &config, &mut request_rx, &response_tx).await;
                 db.close().await;
                 match result {
                     Ok(()) => {
@@ -237,14 +237,15 @@ async fn sync_local_saves(db: &Db) {
 async fn run_requests(
     db: &Db,
     passwords: &Passwords,
-    auto_register: bool,
+    config: &DbClientConfig,
     request_rx: &mut UnboundedReceiver<DbRequest>,
     response_tx: &UnboundedSender<DbResponse>,
 ) -> Result<(), rs_db::Error> {
     while let Some(req) = request_rx.recv().await {
         match req {
             DbRequest::Authenticate { user37, password } => {
-                let result = authenticate(db, passwords, auto_register, user37, &password).await?;
+                let result =
+                    authenticate(db, passwords, config.auto_register, user37, &password).await?;
                 let _ = response_tx.send(DbResponse::AuthResponse { user37, result });
             }
             DbRequest::Save {
@@ -271,6 +272,10 @@ async fn run_requests(
             DbRequest::Load { user37 } => {
                 let profile = db.load_save(user37).await?.map(from_save);
                 let _ = response_tx.send(DbResponse::LoadResponse { user37, profile });
+            }
+            DbRequest::WorldStatus { players } => {
+                db.report_world_status(config.node_id.into(), players as i32)
+                    .await?;
             }
         }
     }

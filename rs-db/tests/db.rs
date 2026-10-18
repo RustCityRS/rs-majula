@@ -1,4 +1,4 @@
-use rs_db::{Db, NewPlayer, PlayerSave};
+use rs_db::{Db, NewPlayer, PlayerSave, WorldStatus};
 use sqlx::PgPool;
 
 fn player(name_hash: u64) -> NewPlayer<'static> {
@@ -184,4 +184,28 @@ async fn schema_check_tracks_this_build(pool: PgPool) {
         .await
         .unwrap();
     assert!(db.pending_migrations().await.is_err());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn world_status_goes_stale(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.report_world_status(10, 3).await.unwrap();
+    db.report_world_status(11, 0).await.unwrap();
+    db.report_world_status(10, 5).await.unwrap();
+    sqlx::query(
+        "UPDATE world_status SET updated_at = now() - interval '1 minute' WHERE node_id = 11",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+
+    let live = db.live_worlds(30).await.unwrap();
+    assert_eq!(
+        live,
+        vec![WorldStatus {
+            node_id: 10,
+            players: 5
+        }]
+    );
 }

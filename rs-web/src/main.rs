@@ -120,6 +120,7 @@ async fn main() -> Result<()> {
         passwords: Passwords::new(&pepper),
         templates: Templates::new(args.root.join("templates"), args.https),
         worlds,
+        live_worlds: Default::default(),
         wordenc,
         site: SiteConfig {
             https: args.https,
@@ -128,6 +129,8 @@ async fn main() -> Result<()> {
             real_ip_header: args.real_ip_header,
         },
     });
+
+    tokio::spawn(worlds::refresh(app.clone()));
 
     let url = app.base_url();
     let router = routes::router(app, &args.root.join("public"));

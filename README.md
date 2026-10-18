@@ -140,6 +140,9 @@ cargo run -p rs-web   # http://localhost:8000
 
 - `rs-web/worlds.json` lists the worlds shown on the world select; each
   `address` is that world's HTTP port (`8070 + node_id`, so `8080` for world 1).
+- Player counts are live: each world writes a heartbeat to the `world_status`
+  table every ~10 seconds, and the site shows a world as OFFLINE once its
+  heartbeat is 30 seconds old (world `N` is node `N + 9`).
 - Templates are [minijinja](https://docs.rs/minijinja): `templates/pages/` is
   served by URL (`/faq/billing` -> `pages/faq/billing.html`), `templates/views/`
   is rendered by handlers, `templates/layout/` holds shared partials. Debug

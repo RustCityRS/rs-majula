@@ -1,5 +1,5 @@
 use crate::templates::Templates;
-use crate::worlds::World;
+use crate::worlds::{LiveWorlds, World};
 use axum::http::{HeaderMap, HeaderName, StatusCode};
 use axum::response::{IntoResponse, Response};
 use rs_db::{Db, Passwords};
@@ -12,7 +12,10 @@ pub struct App {
     pub db: Db,
     pub passwords: Passwords,
     pub templates: Templates,
+    /// The worlds from `worlds.json`. Use [`App::worlds_now`] for anything
+    /// that shows player counts or online state.
     pub worlds: Vec<World>,
+    pub live_worlds: LiveWorlds,
     pub wordenc: Option<WordEncProvider>,
     pub site: SiteConfig,
 }
@@ -37,6 +40,11 @@ impl App {
             .and_then(|v| v.split(',').next())
             .and_then(|v| v.trim().parse().ok())
             .unwrap_or(peer.ip())
+    }
+
+    /// Every world with its current player count and online state.
+    pub fn worlds_now(&self) -> Vec<World> {
+        self.live_worlds.apply(&self.worlds)
     }
 
     /// The site's own base URL, e.g. `http://localhost:8000`.

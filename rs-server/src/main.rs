@@ -600,6 +600,7 @@ async fn bootstrap(
         let (resp_tx, resp_rx) = unbounded_channel::<rs_engine::DbResponse>();
         let config = rs_engine::DbClientConfig {
             db: db_config(&args, secrets.db_pass),
+            node_id: args.node_id,
             pepper: secrets.pepper,
             auto_register: args.auto_register,
             auto_migrate: args.auto_migrate,
