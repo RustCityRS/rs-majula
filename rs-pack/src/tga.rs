@@ -39,8 +39,8 @@ pub fn write(
         0, // descriptor: bottom-left origin
     ]);
     out.extend_from_slice(image_id);
-    for rgb in palette.chunks_exact(3) {
-        out.extend_from_slice(&[rgb[2], rgb[1], rgb[0]]); // BGR
+    for &[r, g, b] in palette.as_chunks::<3>().0 {
+        out.extend_from_slice(&[b, g, r]); // BGR
     }
     for y in (0..height as usize).rev() {
         let row = &pixels[y * width as usize..(y + 1) * width as usize];
