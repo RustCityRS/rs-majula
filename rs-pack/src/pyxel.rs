@@ -85,7 +85,7 @@ fn zip_read(path: &Path) -> Result<HashMap<String, Vec<u8>>> {
     let mut map = HashMap::new();
     for i in 0..archive.len() {
         let mut f = archive.by_index(i)?;
-        let name = f.name().to_string();
+        let name = f.name()?.into_owned();
         let mut data = Vec::new();
         f.read_to_end(&mut data)?;
         map.insert(name, data);

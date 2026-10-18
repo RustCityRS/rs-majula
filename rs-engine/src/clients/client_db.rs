@@ -1,8 +1,7 @@
 use crate::player_save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file, save_to_file,
 };
-use argon2::password_hash::{self, PasswordHash, PasswordHasher, PasswordVerifier, SaltString};
-use argon2::{Algorithm, Argon2, Params, Version};
+use argon2::{Algorithm, Argon2, Params, PasswordHash, PasswordHasher, PasswordVerifier, Version};
 use ddl::Type;
 use rs_util::base37::{to_raw_username, to_userhash};
 use std::path::Path;
@@ -622,8 +621,7 @@ async fn authenticate(
             let Some(argon2) = new_argon2_with_secret(pepper, user37) else {
                 return Ok(false);
             };
-            let salt = SaltString::generate(password_hash::rand_core::OsRng);
-            let Ok(hashed) = argon2.hash_password(password.as_bytes(), &salt) else {
+            let Ok(hashed) = argon2.hash_password(password.as_bytes()) else {
                 error!("Failed to hash password for user37={}", user37);
                 return Ok(false);
             };
