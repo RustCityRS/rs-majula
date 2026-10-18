@@ -476,14 +476,12 @@ async fn main() -> Result<()> {
         let (_trigger_tx, trigger_rx) = unbounded_channel::<()>();
         let (shutdown_tx, shutdown_rx) = unbounded_channel::<()>();
         tokio::spawn(async move {
-            if tokio::signal::ctrl_c().await.is_ok() {
-                info!("Ctrl+C -- saving every player and shutting down (Ctrl+C again to force)");
-                let _ = shutdown_tx.send(());
-                if tokio::signal::ctrl_c().await.is_ok() {
-                    warn!("Forced exit -- players since their last save are not saved");
-                    graceful_exit(130);
-                }
-            }
+            let signal = shutdown_signal().await;
+            info!("{signal} -- saving every player and shutting down ({signal} again to force)");
+            let _ = shutdown_tx.send(());
+            shutdown_signal().await;
+            warn!("Forced exit -- players since their last save are not saved");
+            graceful_exit(130);
         });
         bootstrap(
             args,
@@ -500,6 +498,27 @@ async fn main() -> Result<()> {
         registry.with(tui_layer).init();
 
         run_with_tui(args, secrets, log_buf).await
+    }
+}
+
+/// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
+/// managers (systemd, Docker) stop a process with. Returns which one came.
+async fn shutdown_signal() -> &'static str {
+    #[cfg(unix)]
+    {
+        use tokio::signal::unix::{SignalKind, signal};
+        let mut term = signal(SignalKind::terminate()).expect("SIGTERM handler");
+        tokio::select! {
+            Ok(()) = tokio::signal::ctrl_c() => "Ctrl+C",
+            _ = term.recv() => "SIGTERM",
+        }
+    }
+    #[cfg(not(unix))]
+    {
+        if tokio::signal::ctrl_c().await.is_err() {
+            std::future::pending::<()>().await;
+        }
+        "Ctrl+C"
     }
 }
 
@@ -984,7 +1003,7 @@ async fn reload_coordinator(
     }
 }
 
-/// Starts a reboot-style shutdown on request (Ctrl+C, the TUI's `q`): every
+/// Starts a reboot-style shutdown on request (Ctrl+C, SIGTERM, the TUI's `q`): every
 /// player is logged out and saved, then the tick loop exits the process.
 fn begin_shutdown(engine: &mut Engine) {
     if engine.is_pending_shutdown() || engine.is_shutdown() {
