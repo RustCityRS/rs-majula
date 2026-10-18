@@ -966,7 +966,10 @@ impl Socket {
                 stream.shutdown().await?;
             }
             SocketType::WebSocket(ws) => {
-                ws.close(None).await?;
+                // Named explicitly: plain `ws.close()` resolves to either this or
+                // `SinkExt::close` on the Box, depending on which futures-sink
+                // features the rest of the build happens to enable.
+                WebSocketStream::close(ws, None).await?;
             }
         }
         Ok(())

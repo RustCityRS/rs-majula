@@ -1,0 +1,15 @@
+{% with title="Non-Affiliation Disclaimer" %}{% include "layout/header.html" %}{% endwith %}
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Non-Affiliation Disclaimer" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start.html" %}
+
+<br>
+{% include "layout/disclaimer.html" %}
+<br>
+
+{% include "layout/content-body-end.html" %}
+
+{% include "layout/content-end.html" %}
+{% with nodisclaimer=true %}{% include "layout/footer.html" %}{% endwith %}

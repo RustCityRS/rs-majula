@@ -7,8 +7,11 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
+rs-util = { workspace = true }
+
 sqlx = { workspace = true }
 argon2 = { workspace = true }
+serde = { workspace = true }
 
 [dev-dependencies]
 tokio = { workspace = true }

@@ -1,7 +1,6 @@
 use crate::socket::handshake;
 use crate::{ConnectionGuard, ServerIO, Socket};
 use rs_pack::cache::CacheStore;
-use sailfish::TemplateSimple;
 use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::sync::Arc;
@@ -50,22 +49,21 @@ impl Body {
     }
 }
 
-enum ClientTemplate {
-    TypeScript(TypeScriptClient),
-}
-
-#[derive(TemplateSimple)]
-#[cfg_attr(rev = "225", template(path = "public/225/client.ejs"))]
-#[cfg_attr(rev = "244", template(path = "public/244/client.ejs"))]
-#[cfg_attr(rev = "245.2", template(path = "public/245.2/client.ejs"))]
-#[cfg_attr(rev = "254", template(path = "public/254/client.ejs"))]
-#[cfg_attr(rev = "274", template(path = "public/274/client.ejs"))]
-#[cfg_attr(rev = "289", template(path = "public/289/client.ejs"))]
-struct TypeScriptClient {
-    nodeid: String,
-    lowmem: String,
-    members: String,
-}
+/// This revision's web client page. Its one dynamic line is
+/// `new Client({{nodeid}}, {{lowmem}}, {{members}});`, filled in by
+/// [`render_client`].
+#[cfg(rev = "225")]
+const CLIENT_HTML: &str = include_str!("../../public/225/client.html");
+#[cfg(rev = "244")]
+const CLIENT_HTML: &str = include_str!("../../public/244/client.html");
+#[cfg(rev = "245.2")]
+const CLIENT_HTML: &str = include_str!("../../public/245.2/client.html");
+#[cfg(rev = "254")]
+const CLIENT_HTML: &str = include_str!("../../public/254/client.html");
+#[cfg(rev = "274")]
+const CLIENT_HTML: &str = include_str!("../../public/274/client.html");
+#[cfg(rev = "289")]
+const CLIENT_HTML: &str = include_str!("../../public/289/client.html");
 
 pub async fn serve(
     host: String,
@@ -279,44 +277,30 @@ async fn route(
         ),
         "/rs2.cgi" => {
             let params = parse_query(query);
-            let has_plugin = params.contains_key("plugin");
-            let has_lowmem = params.contains_key("lowmem");
+            // Only ever echoed as parsed numbers: they end up in a redirect
+            // header and in the page's JavaScript.
+            let plugin = query_number(&params, "plugin");
+            let lowmem = query_number(&params, "lowmem") != 0;
 
-            if !has_plugin || !has_lowmem {
-                let plugin = params.get("plugin").map(|s| s.as_str()).unwrap_or("0");
-                let lowmem = params.get("lowmem").map(|s| s.as_str()).unwrap_or("0");
+            if !params.contains_key("plugin") || !params.contains_key("lowmem") {
                 return (
                     "302 Found",
                     format!(
                         "Location: /rs2.cgi?lowmem={}&plugin={}\r\nContent-Length: 0\r\n",
-                        lowmem, plugin
+                        u8::from(lowmem),
+                        plugin
                     ),
                     Body::Empty,
                 );
             }
 
-            let lowmem = params.get("lowmem").cloned().unwrap_or("0".into());
-            match render_client(lowmem, nodeid.to_string(), members) {
-                Ok(html) => {
-                    let bytes = html.into_bytes();
-                    let len = bytes.len();
-                    (
-                        "200 OK",
-                        format!(
-                            "Content-Type: text/html; charset=UTF-8\r\nContent-Length: {len}\r\n"
-                        ),
-                        Body::Owned(bytes),
-                    )
-                }
-                Err(e) => {
-                    warn!("Template render error: {}", e);
-                    (
-                        "500 Internal Server Error",
-                        "Content-Length: 0\r\n".into(),
-                        Body::Empty,
-                    )
-                }
-            }
+            let bytes = render_client(nodeid, lowmem, members).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!("Content-Type: text/html; charset=UTF-8\r\nContent-Length: {len}\r\n"),
+                Body::Owned(bytes),
+            )
         }
         p if matches_cache(p) => match read_cache(p, cache) {
             Some(body) => {
@@ -453,20 +437,18 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
     None
 }
 
-fn render_client(
-    lowmem: String,
-    nodeid: String,
-    members: bool,
-) -> Result<String, Box<dyn std::error::Error>> {
-    let client = ClientTemplate::TypeScript(TypeScriptClient {
-        nodeid,
-        lowmem,
-        members: members.to_string(),
-    });
+/// Fills in this revision's client page. Every value is a number or a bool,
+/// so no request text reaches the page's JavaScript.
+fn render_client(nodeid: &str, lowmem: bool, members: bool) -> String {
+    CLIENT_HTML
+        .replace("{{nodeid}}", nodeid)
+        .replace("{{lowmem}}", if lowmem { "1" } else { "0" })
+        .replace("{{members}}", if members { "true" } else { "false" })
+}
 
-    Ok(match client {
-        ClientTemplate::TypeScript(c) => c.render_once()?,
-    })
+/// A numeric query parameter; missing or non-numeric reads as 0.
+fn query_number(params: &HashMap<String, String>, key: &str) -> u8 {
+    params.get(key).and_then(|v| v.parse().ok()).unwrap_or(0)
 }
 
 fn bad_request() -> (&'static str, String, Body) {
@@ -495,4 +477,24 @@ fn parse_query(query: &str) -> HashMap<String, String> {
             }
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn client_page_fills_every_marker() {
+        let html = render_client("10", true, false);
+        assert!(html.contains("new Client(10, 1, false);"));
+        assert!(!html.contains("{{"));
+    }
+
+    #[test]
+    fn query_numbers_never_echo_text() {
+        let params = parse_query("plugin=3&lowmem=0);alert(document.cookie);(0");
+        assert_eq!(query_number(&params, "plugin"), 3);
+        assert_eq!(query_number(&params, "lowmem"), 0);
+        assert_eq!(query_number(&params, "missing"), 0);
+    }
 }

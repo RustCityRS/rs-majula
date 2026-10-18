@@ -1,0 +1,109 @@
+use crate::app::{App, AppError};
+use axum::extract::{Query, State};
+use axum::http::{StatusCode, Uri};
+use axum::response::{IntoResponse, Response};
+use serde::Deserialize;
+use std::sync::Arc;
+
+/// Serves `templates/pages/<path>.html` or `templates/pages/<path>/index.html`.
+pub async fn page(State(app): State<Arc<App>>, uri: Uri) -> Result<Response, AppError> {
+    let path = uri.path().trim_matches('/');
+    if !is_page_path(path) {
+        return Ok(not_found());
+    }
+    let candidates = if path.is_empty() {
+        vec!["pages/index.html".to_string()]
+    } else {
+        vec![
+            format!("pages/{path}.html"),
+            format!("pages/{path}/index.html"),
+        ]
+    };
+    render_first(&app, &candidates)
+}
+
+/// `/hiscores?category=N` and `?user=` pick between the archived pages.
+#[derive(Deserialize)]
+pub struct HiscoresQuery {
+    user: Option<String>,
+    category: Option<String>,
+}
+
+pub async fn hiscores(
+    State(app): State<Arc<App>>,
+    Query(q): Query<HiscoresQuery>,
+) -> Result<Response, AppError> {
+    let name = match (&q.user, &q.category) {
+        (Some(_), Some(_)) => "user".to_string(),
+        (Some(_), None) => "personal".to_string(),
+        (None, Some(c)) if is_number(c) => format!("index{c}"),
+        _ => "index".to_string(),
+    };
+    render_first(&app, &[format!("pages/hiscores/{name}.html")])
+}
+
+#[derive(Deserialize)]
+pub struct PollQuery {
+    pollid: Option<String>,
+}
+
+/// `/results?pollid=N`, the archived form of `/polls/N`.
+pub async fn poll_results(
+    State(app): State<Arc<App>>,
+    Query(q): Query<PollQuery>,
+) -> Result<Response, AppError> {
+    match q.pollid.filter(|id| is_number(id)) {
+        Some(id) => render_first(&app, &[format!("pages/polls/{id}.html")]),
+        None => Ok(not_found()),
+    }
+}
+
+pub async fn worldmap(State(app): State<Arc<App>>) -> Result<Response, AppError> {
+    render_first(&app, &["pages/worldmap/applet.html".to_string()])
+}
+
+fn render_first(app: &App, names: &[String]) -> Result<Response, AppError> {
+    for name in names {
+        if let Some(html) = app.templates.render_if_exists(name)? {
+            return Ok(html.into_response());
+        }
+    }
+    Ok(not_found())
+}
+
+pub fn not_found() -> Response {
+    (StatusCode::NOT_FOUND, "Page not found").into_response()
+}
+
+/// Only plain `a-z0-9_-` segments, so a URL can't reach outside `pages/`.
+fn is_page_path(path: &str) -> bool {
+    path.is_empty()
+        || path.split('/').all(|seg| {
+            !seg.is_empty()
+                && seg
+                    .bytes()
+                    .all(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'-')
+        })
+}
+
+fn is_number(s: &str) -> bool {
+    !s.is_empty() && s.len() <= 4 && s.bytes().all(|b| b.is_ascii_digit())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn page_paths() {
+        assert!(is_page_path(""));
+        assert!(is_page_path("faq"));
+        assert!(is_page_path("rs2/skills/fighting"));
+        assert!(is_page_path("hiscores/index-v2"));
+        assert!(!is_page_path(".."));
+        assert!(!is_page_path("faq/../layout/header"));
+        assert!(!is_page_path("faq//billing"));
+        assert!(!is_page_path("faq/billing.html"));
+        assert!(!is_page_path("%2e%2e"));
+    }
+}

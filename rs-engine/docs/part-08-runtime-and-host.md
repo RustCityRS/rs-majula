@@ -788,7 +788,7 @@ non-GET with `400` and dispatching GETs through `route`.
 | Path                                                                                                              | Response                                         | Notes                       |
 |-------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|-----------------------------|
 | `/`                                                                                                               | `302 → /rs2.cgi?lowmem=0&plugin=0`               | Canonicalizes the entry URL |
-| `/rs2.cgi`                                                                                                        | rendered client HTML (or `302` to fill defaults) | sailfish-templated          |
+| `/rs2.cgi`                                                                                                        | rendered client HTML (or `302` to fill defaults) | embedded per-rev HTML       |
 | `/crc`, `/title`, `/config`, `/interface`, `/media`, `/models`, `/textures`, `/wordenc`, `/sounds` (+ CRC suffix) | cache archive bytes                              | `application/octet-stream`  |
 | `*.js`, `*.mjs`, `*.wasm`, `*.sf2`, `*.ico`, `*.mid`                                                              | static asset / MIDI                              | content-typed               |
 | else                                                                                                              | `400 Bad Request`                                |                             |
@@ -809,11 +809,10 @@ wildcard `12345678`). Other static assets resolve through `cache.static_assets`.
 
 #### Client templating (`http.rs:43–66`, `427–455`)
 
-Two `sailfish::TemplateSimple` structs render the client launcher HTML at compile-time-checked paths:
-`TypeScriptClient` (`public/client/client.ejs`) and `JavaClient` (`public/client/java.ejs`). `render_client` selects
-Java when `plugin == "3"`, else the TypeScript client, injecting `plugin`, `nodeid`, `portoff`, `lowmem`, and `members`.
-The `portoff` (= `node_id - 10`) lets the served client compute its game port from the HTTP port, completing the
-multi-world port convention.
+The revision's web client page (`public/<rev>/client.html`) is embedded with `include_str!`, selected by
+`cfg(rev = ...)`. `render_client` fills its single dynamic line, `new Client({{nodeid}}, {{lowmem}}, {{members}});`.
+`lowmem` and `plugin` are parsed to numbers before use (non-numeric reads as 0), so request text never reaches the
+page's JavaScript or the redirect header.
 
 ---
 

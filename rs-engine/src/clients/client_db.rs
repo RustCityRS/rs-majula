@@ -300,6 +300,7 @@ async fn authenticate(
             display_name: &to_screen_name(&username),
             password_hash: &password_hash,
             staff_mod_level,
+            registration_ip: None,
         })
         .await?;
     if !created {

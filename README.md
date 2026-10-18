@@ -121,6 +121,31 @@ See [`rs-ether/README.md`](rs-ether/README.md) for sidecar details.
 
 ----
 
+## Running the website
+
+`rs-web` is the game's website: player registration (`/create`), news, the
+world select that frames each world's web client, and the archived 2004
+pages. It shares the game database (same `--db-*` flags and defaults) and
+must use the same `--pepper` as the game server, or passwords registered on
+the site won't verify in game.
+
+```bash
+docker compose up -d
+cargo run -p rs-web   # http://localhost:8000
+```
+
+- `rs-web/worlds.json` lists the worlds shown on the world select; each
+  `address` is that world's HTTP port (`8070 + node_id`, so `8080` for world 1).
+- Templates are [minijinja](https://docs.rs/minijinja): `templates/pages/` is
+  served by URL (`/faq/billing` -> `pages/faq/billing.html`), `templates/views/`
+  is rendered by handlers, `templates/layout/` holds shared partials. Debug
+  builds reload edited templates without a restart.
+- Flags: `--port` (`8000`), `--root` (`rs-web`), `--public-host`, `--https`,
+  and `--real-ip-header` (e.g. `cf-connecting-ip`) when behind a proxy, so the
+  per-IP registration limit sees the real client.
+
+----
+
 ## Command-line arguments
 
 All configuration is via CLI flags (clap). This is the complete set -- run

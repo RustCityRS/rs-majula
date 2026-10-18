@@ -20,6 +20,7 @@ members = [
     "rs-protocol",
     "rs-protocol/macros",
     "rs-server",
+    "rs-web",
     "rs-ver",
 ]
 resolver = "2"
@@ -39,8 +40,10 @@ sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio",
 tokio-tungstenite = "0.30"
 futures-util = "0.3"
 
-# Serialization
-sailfish = "0.11"
+# Website
+axum = "0.8"
+tower-http = { version = "0.7", features = ["fs"] }
+minijinja = { version = "3", features = ["serde"] }
 
 # Security
 argon2 = "0.6"
@@ -87,6 +90,7 @@ sysinfo = { version = "0.39", default-features = false, features = ["system"] }
 # Sprite authoring docs (PyxelEdit .pyxel = zip of PNGs + JSON)
 zip = { version = "9.0", default-features = false, features = ["deflate"] }
 png = "0.18"
+serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
 # Internal crates

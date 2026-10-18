@@ -1,0 +1,24 @@
+{% with title=post.title %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+
+{% include "layout/news-nav.html" %}
+
+<img src='/img/title/blank.gif' width=1 height=3><br>
+
+{% include "layout/news-categories.html" %}
+
+<img src='/img/title/blank.gif' width=1 height=3><br>
+
+<table width=500 bgcolor=black cellpadding=4>
+  <tr>
+    <td class=e>
+      <center><b>{{ post.long_date }} - {{ post.title }}</b></center><br>
+      {{ post.content|safe }}
+    </td>
+  </tr>
+</table>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

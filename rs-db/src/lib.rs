@@ -1,7 +1,11 @@
+mod name;
+mod news;
 mod password;
 mod player;
 mod save;
 
+pub use name::{NameError, PlayerName, validate_name};
+pub use news::{NewsCategory, NewsPost, NewsSummary};
 pub use password::Passwords;
 pub use player::{Credentials, NewPlayer};
 pub use save::PlayerSave;
@@ -24,6 +28,17 @@ pub struct DbConfig {
     pub pass: String,
 }
 
+impl DbConfig {
+    fn options(&self) -> PgConnectOptions {
+        PgConnectOptions::new()
+            .host(&self.host)
+            .port(self.port)
+            .database(&self.name)
+            .username(&self.user)
+            .password(&self.pass)
+    }
+}
+
 /// A handle to the game database. Cheap to clone (it wraps a connection pool).
 #[derive(Clone, Debug)]
 pub struct Db {
@@ -33,17 +48,20 @@ pub struct Db {
 impl Db {
     /// Opens a connection pool and verifies the database is reachable.
     pub async fn connect(config: &DbConfig, max_connections: u32) -> Result<Self, Error> {
-        let options = PgConnectOptions::new()
-            .host(&config.host)
-            .port(config.port)
-            .database(&config.name)
-            .username(&config.user)
-            .password(&config.pass);
         let pool = PgPoolOptions::new()
             .max_connections(max_connections)
-            .connect_with(options)
+            .connect_with(config.options())
             .await?;
         Ok(Self { pool })
+    }
+
+    /// Creates a pool that connects on first use, so a caller can start while
+    /// the database is still down.
+    pub fn connect_lazy(config: &DbConfig, max_connections: u32) -> Self {
+        let pool = PgPoolOptions::new()
+            .max_connections(max_connections)
+            .connect_lazy_with(config.options());
+        Self { pool }
     }
 
     /// Wraps an existing pool (used by tests).

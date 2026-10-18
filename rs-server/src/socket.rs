@@ -11,6 +11,7 @@ use rs_io::packet::RsaFrame;
 use rs_protocol::LoginResponse;
 #[cfg(since_244)]
 use std::collections::VecDeque;
+#[cfg(since_244)]
 use std::net::SocketAddr;
 use std::time::Duration;
 use tokio::net::TcpListener;
@@ -33,8 +34,7 @@ pub async fn serve(
     server_state: ServerIO,
     guard: ConnectionGuard,
 ) -> anyhow::Result<()> {
-    let bind_addr: SocketAddr = format!("{}:{}", host, port).parse()?;
-    let listener = TcpListener::bind(bind_addr).await?;
+    let listener = TcpListener::bind((host.as_str(), port)).await?;
 
     loop {
         let (stream, addr) = match listener.accept().await {

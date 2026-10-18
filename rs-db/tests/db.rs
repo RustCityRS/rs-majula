@@ -7,6 +7,7 @@ fn player(name_hash: u64) -> NewPlayer<'static> {
         display_name: "Test",
         password_hash: "$argon2id$stub",
         staff_mod_level: 2,
+        registration_ip: None,
     }
 }
 
@@ -93,4 +94,66 @@ async fn save_round_trips_and_overwrites(pool: PgPool) {
     };
     assert!(db.store_save(42, &second).await.unwrap());
     assert_eq!(db.load_save(42).await.unwrap().unwrap(), second);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn registrations_are_counted_per_ip(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let other: std::net::IpAddr = "2001:db8::1".parse().unwrap();
+
+    for (hash, from) in [(1, Some(ip)), (2, Some(ip)), (3, Some(other)), (4, None)] {
+        let new = NewPlayer {
+            registration_ip: from,
+            ..player(hash)
+        };
+        db.create_player(&new).await.unwrap();
+    }
+    assert!(db.name_taken(1).await.unwrap());
+    assert!(!db.name_taken(99).await.unwrap());
+    assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 2);
+    assert_eq!(db.recent_registrations(other, 1).await.unwrap(), 1);
+
+    // Registrations older than the window don't count.
+    sqlx::query("UPDATE players SET created_at = now() - interval '2 hours' WHERE name_hash = 1")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 1);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn news_pages_and_neighbours(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    assert_eq!(db.news_categories().await.unwrap().len(), 7);
+
+    // Posts 1..=5 alternate categories 1 and 2.
+    for i in 1..=5 {
+        sqlx::query(
+            "INSERT INTO news_posts (category_id, title, content, created_at)
+             VALUES ($1, $2, '<b>hi</b>', '2004-03-01T12:00:00Z')",
+        )
+        .bind(if i % 2 == 1 { 1i16 } else { 2 })
+        .bind(format!("post {i}"))
+        .execute(&pool)
+        .await
+        .unwrap();
+    }
+
+    let all = db.news_page(None, 0, 3).await.unwrap();
+    assert_eq!(all.iter().map(|p| p.id).collect::<Vec<_>>(), vec![5, 4, 3]);
+    assert_eq!(all[0].short_date, "1-Mar-2004");
+    assert_eq!(all[0].category_name, "Game Updates");
+
+    let updates = db.news_page(Some(1), 1, 10).await.unwrap();
+    assert_eq!(updates.iter().map(|p| p.id).collect::<Vec<_>>(), vec![3, 1]);
+
+    let post = db.news_post(3).await.unwrap().unwrap();
+    assert_eq!(post.long_date, "1st March 2004");
+    assert_eq!((post.prev_id, post.next_id), (Some(1), Some(5)));
+    let first = db.news_post(1).await.unwrap().unwrap();
+    assert_eq!((first.prev_id, first.next_id), (None, Some(3)));
+    assert!(db.news_post(99).await.unwrap().is_none());
 }

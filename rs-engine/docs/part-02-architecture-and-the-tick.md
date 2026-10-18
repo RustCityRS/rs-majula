@@ -188,7 +188,7 @@ graph TD
 
 - **`rs-server` is the only crate that touches `tokio` accept/listen and the only entry point.** Its dependencies are
   deliberately thin (`rs-server/Cargo.toml:13-33`): `rs-engine`, `rs-protocol`, `rs-pack`, `rs-io`, `rs-crypto`, plus
-  the async/TUI stack (`tokio`, `tracing*`, `tokio-tungstenite`, `futures-util`, `sailfish`, `ratatui`, `crossterm`,
+  the async/TUI stack (`tokio`, `tracing*`, `tokio-tungstenite`, `futures-util`, `ratatui`, `crossterm`,
   `sysinfo`, `notify`, `clap`, `rand`). It depends on `rs-engine` for the world and on `rs-pack` only to call `pack_all`
   at boot. See [§25](part-08-runtime-and-host.md#sec-25).
 - **`rs-engine` is the convergence hub.** It pulls in **all** of `rs-cam`, `rs-datastruct`, `rs-entity`, `rs-grid`,

@@ -1,0 +1,51 @@
+{# Prev/next arrows around the heading box. Expects prev_href, next_href
+   (either may be none) and heading. #}
+<table>
+  <tr>
+    <td>
+      <table bgcolor=black cellpadding=1>
+        <tr>
+          {% if prev_href %}
+          <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+            <center><a href='{{ prev_href }}'><img src=/img/prevpage.gif border=0 width=74 height=35></a></center>
+          </td>
+          {% else %}
+          <td width="88px">
+            &nbsp
+          </td>
+          {% endif %}
+        </tr>
+      </table>
+    </td>
+
+    <td width=40>&nbsp</td>
+
+    <td valign=bottom>
+      <table width=250 bgcolor=black cellpadding=4>
+        <tr>
+          <td class=e>
+            <center><b>{{ heading }}</b><br><a href="/title" class=c>Main Menu</a></center>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td width=40></td>
+
+    <td>
+      <table bgcolor=black cellpadding=1>
+        <tr>
+          {% if next_href %}
+          <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+            <center><a href='{{ next_href }}'><img src=/img/nextpage.gif border=0 width=74 height=35></a></center>
+          </td>
+          {% else %}
+          <td width="88px">
+            &nbsp
+          </td>
+          {% endif %}
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
