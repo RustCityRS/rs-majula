@@ -1,8 +1,9 @@
 use crate::clients::client_db::DbRequest;
 use crate::clients::client_ether::EtherOutbound;
-use crate::engine::{Engine, PendingLogin};
+use crate::engine::{Engine, LoginFailures, PendingLogin};
 use rs_protocol::LoginResponse;
 use rs_util::base37::to_userhash;
+use std::net::IpAddr;
 use tracing::warn;
 
 /// Number of ticks a pending login may remain unresolved before being
@@ -19,6 +20,14 @@ const MAX_PLAYING_PER_IP: u8 = 2;
 #[cfg(not(debug_assertions))]
 const MAX_PLAYING_PER_IP: u8 = 1;
 
+/// Wrong-password attempts an IP may make before further logins are refused
+/// with [`LoginResponse::TooManyAttempts`].
+const MAX_LOGIN_FAILURES: u8 = 5;
+
+/// Ticks (1 minute, as the client's message promises) after the most recent
+/// failure before an IP's failure count is forgotten.
+const LOGIN_FAILURE_WINDOW_TICKS: u32 = 100;
+
 impl Engine {
     /// Processes the login phase of the engine tick cycle.
     ///
@@ -27,9 +36,12 @@ impl Engine {
     ///
     /// 1. Rejects immediately if the database is not ready
     ///    ([`LoginResponse::LoginServerOffline`]).
-    /// 2. Rejects if the player is already logged in on this world
+    /// 2. Rejects if the IP has made [`MAX_LOGIN_FAILURES`] wrong-password
+    ///    attempts within [`LOGIN_FAILURE_WINDOW_TICKS`]
+    ///    ([`LoginResponse::TooManyAttempts`]).
+    /// 3. Rejects if the player is already logged in on this world
     ///    ([`LoginResponse::AlreadyLoggedIn`]).
-    /// 3. Sends an ether cross-world login-check and a database
+    /// 4. Sends an ether cross-world login-check and a database
     ///    authentication request, then parks the request in
     ///    `pending_logins`.
     ///
@@ -57,6 +69,14 @@ impl Engine {
                     .handle
                     .outbox
                     .send(vec![LoginResponse::LoginServerOffline as u8]);
+                continue;
+            }
+
+            if self.login_attempts_exceeded(request.remote_addr.ip()) {
+                let _ = request
+                    .handle
+                    .outbox
+                    .send(vec![LoginResponse::TooManyAttempts as u8]);
                 continue;
             }
 
@@ -108,5 +128,32 @@ impl Engine {
                 self.reject_pending_login(i, LoginResponse::CouldNotComplete);
             }
         }
+
+        if clock.is_multiple_of(LOGIN_FAILURE_WINDOW_TICKS) {
+            self.login_failures
+                .retain(|_, f| clock - f.last < LOGIN_FAILURE_WINDOW_TICKS);
+        }
+    }
+
+    /// Counts a wrong-password attempt against `ip`, restarting the count
+    /// if the previous failure has aged out of the window.
+    pub(crate) fn record_login_failure(&mut self, ip: IpAddr) {
+        let clock = self.clock;
+        let failures = self.login_failures.entry(ip).or_insert(LoginFailures {
+            count: 0,
+            last: clock,
+        });
+        if clock - failures.last >= LOGIN_FAILURE_WINDOW_TICKS {
+            failures.count = 0;
+        }
+        failures.count = failures.count.saturating_add(1);
+        failures.last = clock;
+    }
+
+    /// Whether `ip` is locked out by recent wrong-password attempts.
+    fn login_attempts_exceeded(&self, ip: IpAddr) -> bool {
+        self.login_failures.get(&ip).is_some_and(|f| {
+            f.count >= MAX_LOGIN_FAILURES && self.clock - f.last < LOGIN_FAILURE_WINDOW_TICKS
+        })
     }
 }

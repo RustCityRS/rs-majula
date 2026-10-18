@@ -17,7 +17,8 @@ impl Engine {
     /// * `AuthResponse` -- completes authentication for a pending login.
     ///   On success, records the player's staff level and attempts
     ///   completion. A wrong password or unknown name rejects with
-    ///   [`LoginResponse::InvalidCredentials`], a ban with
+    ///   [`LoginResponse::InvalidCredentials`] and counts toward the IP's
+    ///   [`LoginResponse::TooManyAttempts`] lockout; a ban rejects with
     ///   [`LoginResponse::AccountDisabled`].
     /// * `LoadResponse` -- attaches a loaded player profile to a pending
     ///   login and attempts completion.
@@ -58,6 +59,8 @@ impl Engine {
                                 self.try_complete_login(idx);
                             }
                             AuthResult::InvalidCredentials => {
+                                let ip = self.pending_logins[idx].request.remote_addr.ip();
+                                self.record_login_failure(ip);
                                 self.reject_pending_login(idx, LoginResponse::InvalidCredentials);
                             }
                             AuthResult::Banned => {

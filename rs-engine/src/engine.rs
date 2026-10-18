@@ -234,6 +234,14 @@ pub struct PendingLogin {
     pub profile: Option<Option<PlayerProfile>>,
 }
 
+/// Recent wrong-password attempts from one IP, for the
+/// [`LoginResponse::TooManyAttempts`] lockout.
+pub struct LoginFailures {
+    pub count: u8,
+    /// Clock of the most recent failure; the lockout runs from here.
+    pub last: u32,
+}
+
 fn next_free_id(cursor: u16, upper: u16, lower: u16, is_free: impl Fn(u16) -> bool) -> Option<u16> {
     for i in (cursor + 1)..upper {
         if is_free(i) {
@@ -531,6 +539,7 @@ pub struct Engine {
     pub db_ready: bool,
     pub ether_ready: bool,
     pub pending_logins: Vec<PendingLogin>,
+    pub login_failures: FxHashMap<IpAddr, LoginFailures>,
     pub random: JavaRandom,
     pub vars: VarSet,
     /// A reusable [`ScriptState`] kept alive between script invocations to
@@ -666,6 +675,7 @@ impl Engine {
             db_ready: false,
             ether_ready: false,
             pending_logins: Vec::new(),
+            login_failures: FxHashMap::default(),
             random: JavaRandom::new(1084838400000),
             vars,
             reusable_script: None,
@@ -2805,6 +2815,16 @@ impl Engine {
             }
             return;
         }
+
+        // A free world cannot place a player saved inside a members area.
+        if !self.members
+            && let Some(Some(profile)) = &self.pending_logins[idx].profile
+            && !rsmod::is_zone_flagged(profile.x, profile.z, profile.y, ZoneFlag::Free as u8)
+        {
+            self.reject_pending_login(idx, LoginResponse::MembersArea);
+            return;
+        }
+
         let pending = self.pending_logins.swap_remove(idx);
         let profile = pending.profile.unwrap();
         self.accept_login(pending.request, profile, staff_mod_level, pid);
