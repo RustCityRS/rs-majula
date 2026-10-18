@@ -85,7 +85,7 @@ impl Engine {
                     request,
                     clock: self.clock,
                     ether_allowed: false,
-                    auth_ok: false,
+                    auth: None,
                     profile: None,
                 });
             } else {

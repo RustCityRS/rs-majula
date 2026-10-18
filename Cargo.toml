@@ -15,6 +15,7 @@ members = [
     "rs-engine/rs-info",
     "rs-engine/rs-timer",
     "rs-engine/rs-stat",
+    "rs-db",
     "rs-pack",
     "rs-protocol",
     "rs-protocol/macros",
@@ -34,7 +35,7 @@ repository = "https://github.com/RustCityRS/rs-majula"
 [workspace.dependencies]
 # Async runtime
 tokio = { version = "1.53", features = ["full"] }
-tokio-postgres = "0.7"
+sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "postgres", "macros", "migrate"] }
 tokio-tungstenite = "0.30"
 futures-util = "0.3"
 
@@ -107,6 +108,7 @@ rs-info = { path = "rs-engine/rs-info" }
 rs-timer = { path = "rs-engine/rs-timer" }
 rs-stat = { path = "rs-engine/rs-stat" }
 rs-pack = { path = "rs-pack" }
+rs-db = { path = "rs-db" }
 rs-ver = { path = "rs-ver" }
 
 [workspace.lints]

@@ -1,6 +1,7 @@
-use crate::clients::client_db::DbResponse;
+use crate::clients::client_db::{AuthResult, DbResponse};
 use crate::engine::Engine;
 use crate::player_save::delete_save_file;
+use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
 use tracing::{info, warn};
 
@@ -14,9 +15,10 @@ impl Engine {
     /// * `DbDisconnected` -- marks the database as unavailable, rejects
     ///   all pending logins with [`LoginResponse::LoginServerOffline`].
     /// * `AuthResponse` -- completes authentication for a pending login.
-    ///   On success, marks the login as authenticated and attempts
-    ///   completion. On failure, rejects with
-    ///   [`LoginResponse::InvalidCredentials`].
+    ///   On success, records the player's staff level and attempts
+    ///   completion. A wrong password or unknown name rejects with
+    ///   [`LoginResponse::InvalidCredentials`], a ban with
+    ///   [`LoginResponse::AccountDisabled`].
     /// * `LoadResponse` -- attaches a loaded player profile to a pending
     ///   login and attempts completion.
     /// * `SaveAck` -- on success, deletes the local backup save file. On
@@ -47,13 +49,20 @@ impl Engine {
                         self.reject_pending_login(idx, LoginResponse::LoginServerOffline);
                     }
                 }
-                DbResponse::AuthResponse { user37, success } => {
+                DbResponse::AuthResponse { user37, result } => {
                     if let Some(idx) = self.pending_logins.iter().position(|p| p.user37 == user37) {
-                        if success {
-                            self.pending_logins[idx].auth_ok = true;
-                            self.try_complete_login(idx);
-                        } else {
-                            self.reject_pending_login(idx, LoginResponse::InvalidCredentials);
+                        match result {
+                            AuthResult::Accepted { staff_mod_level } => {
+                                self.pending_logins[idx].auth =
+                                    Some(StaffModLevel::from_u8(staff_mod_level));
+                                self.try_complete_login(idx);
+                            }
+                            AuthResult::InvalidCredentials => {
+                                self.reject_pending_login(idx, LoginResponse::InvalidCredentials);
+                            }
+                            AuthResult::Banned => {
+                                self.reject_pending_login(idx, LoginResponse::AccountDisabled);
+                            }
                         }
                     }
                 }

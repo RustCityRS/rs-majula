@@ -81,8 +81,10 @@ repo, so there is nothing else to generate.
 docker compose up -d
 
 # 2. Build & run the server (node 10 = world 1).
-#    On first boot the ether sidecar runs `mix deps.get` + `ecto.create` +
-#    `ecto.migrate` against Postgres, so Docker must be up first.
+#    On boot the server applies its schema migrations (`rs-db/migrations/`)
+#    and the ether sidecar runs `mix deps.get` + `ecto.create` +
+#    `ecto.migrate` for its social tables, so Docker must be up first.
+#    Debug builds auto-register any new name on first login.
 cargo run -p rs-server
 
 # 3. Open the web client and log in
@@ -143,6 +145,7 @@ All configuration is via CLI flags (clap). This is the complete set -- run
 | `--db-pass <DB_PASS>`         | `password`                  | Postgres password.                                                                                             |
 | `--cluster <CLUSTER>`         | `""`                        | Comma-separated cluster node list (e.g. `world10@127.0.0.1,world11@127.0.0.1`), forwarded to the sidecar mesh. |
 | `--pepper <PEPPER>`           | `localhost`                 | Server-side pepper for password hashing.                                                                       |
+| `--auto-register <BOOL>`      | `true` (debug) / `false` (release) | Register an unknown name on first login (debug builds also grant staff level 3). Off in release: players register on the website. Takes a value, e.g. `--auto-register false`. |
 
 > [!NOTE]
 > `--members`, `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags

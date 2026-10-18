@@ -23,11 +23,10 @@ rs-io = { workspace = true }
 rs-protocol = { workspace = true }
 rs-pathfinder = { workspace = true }
 rs-util = { workspace = true }
+rs-db = { workspace = true }
 
 tracing = { workspace = true }
 tokio = { workspace = true }
-tokio-postgres = { workspace = true }
-argon2 = { workspace = true }
 num_enum = { workspace = true }
 rustc-hash = { workspace = true }
 
@@ -38,3 +37,4 @@ rs-ver = { workspace = true }
 workspace = true
 
 [dev-dependencies]
+sqlx = { workspace = true }

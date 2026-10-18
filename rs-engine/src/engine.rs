@@ -11,7 +11,6 @@ use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
-#[cfg(before_254)]
 use rs_entity::StaffModLevel;
 use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -230,7 +229,8 @@ pub struct PendingLogin {
     pub request: LoginRequest,
     pub clock: u32,
     pub ether_allowed: bool,
-    pub auth_ok: bool,
+    /// Set once the database accepts the password: the player's staff level.
+    pub auth: Option<StaffModLevel>,
     pub profile: Option<Option<PlayerProfile>>,
 }
 
@@ -2453,6 +2453,7 @@ impl Engine {
     ///
     /// * `request` -- The original [`LoginRequest`] with the client handle.
     /// * `profile` -- The player's saved profile, or `None` for a new player.
+    /// * `staff_mod_level` -- From the player's database row, via authentication.
     /// * `pid`     -- The accepted pid to use for the active player.
     ///
     /// # Side Effects
@@ -2470,6 +2471,7 @@ impl Engine {
         &mut self,
         request: LoginRequest,
         profile: Option<PlayerProfile>,
+        staff_mod_level: StaffModLevel,
         pid: u16,
     ) {
         let mut active = ActivePlayer::new(
@@ -2486,6 +2488,7 @@ impl Engine {
         if active.player.stats.xp.iter().all(|&s| s == 0) {
             apply_new_player_defaults(&mut active.player);
         }
+        active.player.staff_mod_level = staff_mod_level;
 
         active.player.last_date = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -2709,7 +2712,7 @@ impl Engine {
 
     /// Attempts to complete a pending login if all async prerequisites are met.
     ///
-    /// A login requires both `ether_allowed` and `auth_ok` to be true. If
+    /// A login requires both `ether_allowed` and `auth` to be set. If
     /// the profile has not yet been fetched from the database, a `DbRequest::Load`
     /// is sent. Once all three conditions are satisfied, the pending login is
     /// removed from the list and forwarded to [`Engine::accept_login`].
@@ -2764,9 +2767,12 @@ impl Engine {
 
     pub(crate) fn try_complete_login(&mut self, idx: usize) {
         let pending = &self.pending_logins[idx];
-        if !pending.ether_allowed || !pending.auth_ok {
+        if !pending.ether_allowed {
             return;
         }
+        let Some(staff_mod_level) = pending.auth else {
+            return;
+        };
 
         if pending.request.reconnect
             && let Some(pid) = self.find_pid_by_user37(pending.user37)
@@ -2801,7 +2807,7 @@ impl Engine {
         }
         let pending = self.pending_logins.swap_remove(idx);
         let profile = pending.profile.unwrap();
-        self.accept_login(pending.request, profile, pid);
+        self.accept_login(pending.request, profile, staff_mod_level, pid);
     }
 
     /// Finds the pid of an online player by their Base37-encoded username.

@@ -237,6 +237,8 @@ struct Args {
     cluster: String,
     #[arg(long, default_value = "localhost")]
     pepper: String,
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    auto_register: bool,
 }
 
 #[derive(Clone)]
@@ -252,15 +254,15 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     // Honor RUST_LOG if set; otherwise default to INFO globally but
-    // silence the chatty save + protocol logs and tokio-postgres'
-    // schema-migration NOTICEs that would otherwise flood at startup.
+    // silence the chatty save + protocol logs and sqlx's per-statement
+    // logs and migration NOTICEs.
     let make_filter = || {
         tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
             tracing_subscriber::EnvFilter::new(
                 "info,\
                      rs_engine::player_save=warn,\
                      rs_protocol=warn,\
-                     tokio_postgres=warn,\
+                     sqlx=warn,\
                      runec=error",
             )
         })
@@ -429,16 +431,18 @@ async fn bootstrap(
     let (db_tx, db_rx) = {
         let (req_tx, req_rx) = unbounded_channel::<rs_engine::DbRequest>();
         let (resp_tx, resp_rx) = unbounded_channel::<rs_engine::DbResponse>();
-        tokio::spawn(rs_engine::db_client_task(
-            args.db_host.clone(),
-            args.db_port,
-            args.db_name.clone(),
-            args.db_user.clone(),
-            args.db_pass.clone(),
-            args.pepper.clone(),
-            req_rx,
-            resp_tx,
-        ));
+        let config = rs_engine::DbClientConfig {
+            db: rs_engine::DbConfig {
+                host: args.db_host.clone(),
+                port: args.db_port,
+                name: args.db_name.clone(),
+                user: args.db_user.clone(),
+                pass: args.db_pass.clone(),
+            },
+            pepper: args.pepper.clone(),
+            auto_register: args.auto_register,
+        };
+        tokio::spawn(rs_engine::db_client_task(config, req_rx, resp_tx));
         (Some(req_tx), resp_rx)
     };
 
@@ -962,7 +966,7 @@ impl Socket {
                 stream.shutdown().await?;
             }
             SocketType::WebSocket(ws) => {
-                ws.close().await?;
+                ws.close(None).await?;
             }
         }
         Ok(())

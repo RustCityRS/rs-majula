@@ -1,6 +1,4 @@
-use rs_entity::player::{
-    ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player, StaffModLevel,
-};
+use rs_entity::player::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_io::{Packet, crc};
@@ -18,7 +16,7 @@ use tracing::error;
 const SAV_MAGIC: u16 = 0x2004;
 
 /// Current save file format version. Incremented when the binary layout changes.
-const SAV_VERSION: u16 = 7;
+const SAV_VERSION: u16 = 8;
 
 /// Total number of player stats (skills).
 const STAT_COUNT: usize = 21;
@@ -55,7 +53,6 @@ pub struct PlayerProfile {
     pub private_chat: u8,
     pub trade_chat: u8,
     pub last_date: i64,
-    pub staff_mod_level: u8,
 }
 
 /// Extracts a [`PlayerProfile`] from a live [`Player`] entity.
@@ -129,7 +126,6 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         private_chat: player.private as u8,
         trade_chat: player.trade as u8,
         last_date: player.last_date,
-        staff_mod_level: player.staff_mod_level as u8,
     }
 }
 
@@ -168,7 +164,6 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
     player.last_afk_zone = profile.last_afk_zone;
     player.last_date = profile.last_date;
     player.last_login_date = profile.last_date;
-    player.staff_mod_level = StaffModLevel::from_u8(profile.staff_mod_level);
 
     player.public = ChatSettingsPublic::from_u8(profile.public_chat);
     player.private = ChatSettingsPrivate::from_u8(profile.private_chat);
@@ -307,7 +302,6 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
     sav.p1(packed_chat);
 
     sav.p8(profile.last_date);
-    sav.p1(profile.staff_mod_level);
 
     let checksum = crc::getcrc(&sav.data, 0, sav.pos);
     sav.p4(checksum);
@@ -319,7 +313,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
 /// DeSerializes a [`PlayerProfile`] from raw binary `.sav` data.
 ///
 /// Validates the magic number, version, and CRC32 checksum before parsing.
-/// Supports forward-compatible reading of older save versions (v2..=v6).
+/// Supports forward-compatible reading of older save versions (v2..=v7).
 ///
 /// # Arguments
 /// * `data` - The raw binary save data.
@@ -450,8 +444,11 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
     };
 
     let last_date = if version >= 6 { sav.g8s() } else { 0 };
-    // Saves older than v7 predate staff-level persistence; default to Normal (0).
-    let staff_mod_level = if version >= 7 { sav.g1() } else { 0 };
+    // v7 stored the staff level here. It now belongs to the player's identity
+    // (the `players` row) and arrives with authentication, so it is skipped.
+    if version == 7 {
+        sav.g1();
+    }
 
     Ok(PlayerProfile {
         x,
@@ -472,7 +469,6 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
         private_chat,
         trade_chat,
         last_date,
-        staff_mod_level,
     })
 }
 
