@@ -1,3 +1,28 @@
+{# One main-menu button: picture, stone label, blurb and link. #}
+{% macro option(href, img, label, text, red=false) %}
+<td width=100 align=center><a href='{{ href|safe }}'><img src={{ img|safe }} border=0></a></td>
+<td width=120>
+    <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: relative;">
+        <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
+            <a href='{{ href|safe }}'><img src=/img/title/blank.gif width=100 height=45 border=0></a>
+        </div>
+    </div>
+    <table width=100 height=45 bgcolor=black cellpadding=2>
+        <tr>
+            {% if red %}
+            <td class=b2 bgcolor=#570700 background=/img/title/shinystonered.jpg>
+                {% else %}
+            <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+                {% endif %}
+                <center><b>{{ label|safe }}</b></center>
+            </td>
+        </tr>
+    </table>
+    {{ text|safe }}<br>
+    <a href='{{ href|safe }}' class=c>Click Here</a>
+</td>
+{% endmacro %}
+
 {% include "layout/header.html" %}
 {% include "layout/frame-top.html" %}
 {% include "layout/content-start.html" %}
@@ -54,85 +79,31 @@ To view a full list of news and updates, click <a href="/news" class=c>here</a>.
 {% include "layout/stones-border-top.html" %}
 {% include "layout/stones-content-start.html" %}
 {% include "layout/options-start.html" %}
-<td width=100 align=center><a href='/detail'><img src=/img/title/mm_sword.jpg border=0></a></td>
-<td width=120>
-    <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: relative;">
-        <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <a href='/detail'><img src=/img/title/blank.gif width=100 height=45 border=0></a>
-        </div>
-    </div>
-    <table width=100 height=45 bgcolor=black cellpadding=2>
-        <tr>
-            <td class=b2 bgcolor=#570700 background=/img/title/shinystonered.jpg>
-                <center><b>Play<br>Game</b></center>
-            </td>
-        </tr>
-    </table>
-    Play 2004Scape right now!<br>
-    <a href='/detail' class=c>Click here</a>
-</td>
-
+{{ option("/detail", "/img/title/mm_sword.jpg", "Play<br>Game", "Play RuneScape right now!", red=true) }}
 <td width=10></td>
-<td width=100 align=center><a href='/create?reset'><img src=/img/title/mm_player.jpg border=0></a></td>
-<td width=120>
-    <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: relative;">
-        <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <a href='/create?reset'><img src=/img/title/blank.gif width=100 height=45 border=0></a>
-        </div>
-    </div>
-    <table width=100 bgcolor=black cellpadding=2>
-        <tr>
-            <td class=b2 bgcolor=#570700 background=/img/title/shinystonered.jpg>
-                <center><b>Create Account</b></center>
-            </td>
-        </tr>
-    </table>
-    Create an account for both the game and our website.<br>
-    <a href='/create?reset' class=c>Click Here</a>
-</td>
-
+{{ option("/create?reset", "/img/title/mm_player.jpg", "Create Account", "Create a free
+<br>account for both the game & website.", red=true) }}
 {% include "layout/options-continue.html" %}
-
-
-<td width=100 align=center><a href='https://discord.rustcity.org/'><img src='/img/title/mm_forums.jpg' width=77
-                                                                        height=120 border=0></a></td>
-<td width=120>
-    <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: relative;">
-        <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <a href='https://discord.rustcity.org/'><img src=/img/title/blank.gif width=100 height=45 border=0></a>
-        </div>
-    </div>
-    <table width=100 height=45 bgcolor=black cellpadding=2>
-        <tr>
-            <td class=b bgcolor=#474747 background=/img/stoneback.gif>
-                <center><b>Discord</b></center>
-            </td>
-        </tr>
-    </table>
-    Discuss the game with fellow players!<br>
-    <a href='https://discord.rustcity.org/' class=c>Click Here</a>
-</td>
-
-<td></td>
-<td width=100 align=center><a href='https://github.com/RustCityRS'><img src=/img/title/mm2_rs2b.jpg border=0></a>
-</td>
-<td width=120>
-    <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: relative;">
-        <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <a href='https://github.com/RustCityRS'><img src=/img/title/blank.gif width=100 height=45
-                                                         border=0></a>
-        </div>
-    </div>
-    <table width=100 height=45 bgcolor=black cellpadding=2>
-        <tr>
-            <td class=b bgcolor=#474747 background=/img/stoneback.gif>
-                <center><b>Source Code</b></center>
-            </td>
-        </tr>
-    </table>
-    Download our source code.<br>
-    <a href='https://github.com/RustCityRS' class=c>Click Here</a>
-</td>
+{{ option("/manual", "/img/title/mm_howtoplay.jpg", "Manual", "Detailed info on all<br>aspects of the<br>game.") }}
+<td width=10></td>
+{{ option("/hiscores", "/img/title/mm_chalice.jpg", "Full<br>Hiscores", "Is your character in<br>the top 500,000?") }}
+{% include "layout/options-continue.html" %}
+{{ option("/members", "/img/title/mm_members.jpg", "Benefits for<br>Members", "Find out what extras<br>are available to
+<br>members.") }}
+<td width=10></td>
+{{ option("/varrock", "/img/title/mm_lov.jpg", "Library of
+<br>Varrock", "Stories and letters about RuneScape.") }}
+{% include "layout/options-continue.html" %}
+{{ option("/worldmap", "/img/manual/worldmap.jpg", "World<br>Map", "Great for finding<br>your way around.") }}
+<td width=10></td>
+{{ option("/guides", "/img/title/mm_rules.jpg", "Rules &amp;
+<br>Security", "Learn our rules<br>and stay safe<br>online.") }}
+{% include "layout/options-continue.html" %}
+{{ option("/faq", "/img/title/mm_faq.jpg", "FAQ", "Answers to Frequently Asked Questions.") }}
+<td width=10></td>
+{{ option("https://discord.rustcity.org/", "/img/title/mm_forums.jpg", "Discord", "Discuss the game with fellow players!") }}
+{% include "layout/options-continue.html" %}
+{{ option("https://github.com/RustCityRS", "/img/title/mm2_rs2b.jpg", "Source Code", "Download our source code.") }}
 
 {% include "layout/options-end.html" %}
 {% include "layout/stones-content-end.html" %}

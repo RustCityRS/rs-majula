@@ -1,3 +1,4 @@
+use crate::hiscores::update_hiscores;
 use crate::{Db, Error};
 use sqlx::postgres::PgArguments;
 use sqlx::query::Query;
@@ -65,6 +66,7 @@ impl Db {
             Err(refused) => return Ok(refused),
         };
         upsert_save(id, save).execute(&mut *tx).await?;
+        update_hiscores(&mut tx, id, &save.stats).await?;
         tx.commit().await?;
         Ok(SaveResult::Stored)
     }
@@ -85,6 +87,7 @@ impl Db {
             Err(refused) => return Ok(refused),
         };
         upsert_save(id, save).execute(&mut *tx).await?;
+        update_hiscores(&mut tx, id, &save.stats).await?;
         sqlx::query(
             "UPDATE players SET online_node = NULL, online_since = NULL,
                                 last_logout_node = $2, last_logout_at = now()
@@ -116,6 +119,7 @@ impl Db {
             return Ok(false);
         };
         upsert_save(id, save).execute(&mut *tx).await?;
+        update_hiscores(&mut tx, id, &save.stats).await?;
         tx.commit().await?;
         Ok(true)
     }

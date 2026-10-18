@@ -1,4 +1,5 @@
 mod create;
+mod hiscores;
 mod news;
 mod pages;
 mod play;
@@ -26,7 +27,10 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/create", get(create::form).post(create::submit))
         .route("/news", get(news::index))
         .route("/news/{id}", get(news::post))
-        .route("/hiscores", get(pages::hiscores))
+        .route("/hiscores", get(hiscores::index))
+        .route("/hiscorerank", get(hiscores::index))
+        .route("/hiscorepersonal", get(hiscores::index))
+        .route("/index_lite.ws", get(hiscores::lite))
         .route("/results", get(pages::poll_results))
         .route("/worldmap", get(pages::worldmap))
         .fallback_service(ServeDir::new(public).fallback(pages))

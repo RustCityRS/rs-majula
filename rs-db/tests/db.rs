@@ -457,3 +457,150 @@ async fn world_status_goes_stale(pool: PgPool) {
             .any(|w| w.node_id == 10)
     );
 }
+
+/// Registers, claims and saves a player with these stats (XP x10, indexed
+/// by stat id).
+async fn ranked(db: &Db, name_hash: u64, name: &'static str, staff: i16, stats: &[(usize, i32)]) {
+    db.create_player(&NewPlayer {
+        display_name: name,
+        staff_mod_level: staff,
+        ..player(name_hash)
+    })
+    .await
+    .unwrap();
+    db.claim_session(name_hash, 1, 60).await.unwrap();
+    resave(db, name_hash, stats).await;
+}
+
+async fn resave(db: &Db, name_hash: u64, stats: &[(usize, i32)]) {
+    let mut all = vec![0; 21];
+    for &(stat, xp) in stats {
+        all[stat] = xp;
+    }
+    let save = PlayerSave {
+        stats: all,
+        ..save()
+    };
+    assert_eq!(
+        db.store_save(name_hash, 1, &save).await.unwrap(),
+        SaveResult::Stored
+    );
+}
+
+fn names(page: &[rs_db::HiscoreEntry]) -> Vec<&str> {
+    page.iter().map(|e| e.name.as_str()).collect()
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn hiscores_rank_saved_stats(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    // Attack 99 (13,034,431 XP) + Hitpoints 10.
+    ranked(&db, 1, "Maxed", 0, &[(0, 130_344_310), (3, 11_540)]).await;
+    // Attack 40 + Runecrafting 2.
+    ranked(&db, 2, "Middle", 0, &[(0, 372_240), (3, 11_540), (20, 830)]).await;
+    // Same Attack as Middle, reached later.
+    ranked(&db, 3, "Second", 0, &[(0, 372_240), (3, 11_540)]).await;
+    // Never ranked: a J-Mod, and a banned player.
+    ranked(&db, 4, "Jmod", 2, &[(0, 200_000_000)]).await;
+    ranked(&db, 5, "Banned", 0, &[(0, 200_000_000)]).await;
+    sqlx::query("UPDATE players SET banned_until = now() + interval '1 day' WHERE name_hash = 5")
+        .execute(&pool)
+        .await
+        .unwrap();
+
+    let attack = db.hiscores_page(1, 0, 10).await.unwrap();
+    assert_eq!(names(&attack), ["Maxed", "Middle", "Second"]);
+    assert_eq!(
+        (attack[0].rank, attack[0].level, attack[0].xp),
+        (1, 99, 13_034_431)
+    );
+    assert_eq!(db.hiscores_count(1).await.unwrap(), 3);
+
+    // Overall: total level over the 19 skills (untrained ones count as 1).
+    let overall = db.hiscores_page(0, 0, 10).await.unwrap();
+    assert_eq!(names(&overall), ["Maxed", "Middle", "Second"]);
+    assert_eq!(overall[0].level, 99 + 10 + 17);
+    assert_eq!(overall[1].level, 40 + 10 + 2 + 16);
+
+    // Untrained skills aren't ranked.
+    assert_eq!(
+        names(&db.hiscores_page(21, 0, 10).await.unwrap()),
+        ["Middle"]
+    );
+    let second = db.player_hiscores(3).await.unwrap().unwrap();
+    assert_eq!(second.name, "Second");
+    assert_eq!(second.rank(1).unwrap().rank, 3);
+    assert!(second.rank(21).is_none());
+
+    // Saving unchanged XP keeps your place; gaining XP moves you.
+    resave(&db, 2, &[(0, 372_240), (3, 11_540), (20, 830)]).await;
+    assert_eq!(
+        db.player_hiscores(2)
+            .await
+            .unwrap()
+            .unwrap()
+            .rank(1)
+            .unwrap()
+            .rank,
+        2
+    );
+    resave(&db, 3, &[(0, 372_241), (3, 11_540)]).await;
+    assert_eq!(
+        db.player_hiscores(3)
+            .await
+            .unwrap()
+            .unwrap()
+            .rank(1)
+            .unwrap()
+            .rank,
+        2
+    );
+
+    assert!(db.player_hiscores(4).await.unwrap().is_none());
+    assert!(db.player_hiscores(5).await.unwrap().is_none());
+    assert!(db.player_hiscores(99).await.unwrap().is_none());
+
+    // Paging carries the absolute rank.
+    let tail = db.hiscores_page(1, 1, 10).await.unwrap();
+    assert_eq!(tail.iter().map(|e| e.rank).collect::<Vec<_>>(), [2, 3]);
+}
+
+/// The migration's SQL backfill builds the same rows a save does.
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn hiscores_backfill_matches_saves(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    ranked(
+        &db,
+        1,
+        "Maxed",
+        0,
+        &[(0, 130_344_310), (3, 11_540), (20, 2_000_000_000)],
+    )
+    .await;
+    ranked(&db, 2, "Fresh", 0, &[(3, 11_540)]).await;
+    ranked(
+        &db,
+        3,
+        "Odd",
+        0,
+        &[(0, 830), (17, 99_999), (18, 5_000), (19, 5_000)],
+    )
+    .await;
+
+    let rows = "SELECT player_id, category, level, xp FROM hiscores ORDER BY 1, 2";
+    let saved: Vec<(i64, i16, i16, i64)> = sqlx::query_as(rows).fetch_all(&pool).await.unwrap();
+    assert_eq!(saved.len(), 3 * 20);
+
+    let migration = include_str!("../migrations/0005_hiscores.sql");
+    let backfill = &migration[migration.find("WITH skills").unwrap()..];
+    sqlx::query("DELETE FROM hiscores")
+        .execute(&pool)
+        .await
+        .unwrap();
+    sqlx::raw_sql(backfill).execute(&pool).await.unwrap();
+    let backfilled: Vec<(i64, i16, i16, i64)> =
+        sqlx::query_as(rows).fetch_all(&pool).await.unwrap();
+    assert_eq!(backfilled, saved);
+}

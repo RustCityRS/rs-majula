@@ -22,26 +22,6 @@ pub async fn page(State(app): State<Arc<App>>, uri: Uri) -> Result<Response, App
     render_first(&app, &candidates)
 }
 
-/// `/hiscores?category=N` and `?user=` pick between the archived pages.
-#[derive(Deserialize)]
-pub struct HiscoresQuery {
-    user: Option<String>,
-    category: Option<String>,
-}
-
-pub async fn hiscores(
-    State(app): State<Arc<App>>,
-    Query(q): Query<HiscoresQuery>,
-) -> Result<Response, AppError> {
-    let name = match (&q.user, &q.category) {
-        (Some(_), Some(_)) => "user".to_string(),
-        (Some(_), None) => "personal".to_string(),
-        (None, Some(c)) if is_number(c) => format!("index{c}"),
-        _ => "index".to_string(),
-    };
-    render_first(&app, &[format!("pages/hiscores/{name}.html")])
-}
-
 #[derive(Deserialize)]
 pub struct PollQuery {
     pollid: Option<String>,

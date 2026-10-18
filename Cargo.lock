@@ -2223,6 +2223,7 @@ name = "rs-db"
 version = "0.1.13"
 dependencies = [
  "argon2",
+ "rs-stat",
  "rs-util",
  "serde",
  "sqlx",

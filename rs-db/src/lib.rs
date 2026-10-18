@@ -1,3 +1,4 @@
+mod hiscores;
 mod name;
 mod news;
 mod password;
@@ -6,6 +7,7 @@ mod save;
 mod session;
 mod world;
 
+pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsCategory, NewsPost, NewsSummary};
 pub use password::Passwords;

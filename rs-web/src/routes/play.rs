@@ -180,7 +180,7 @@ pub async fn jav_config(State(app): State<Arc<App>>) -> String {
             let detail_name = if lowmem == 0 { "High" } else { "Low" };
             lines.extend([
                 format!("[{}.{detail}]", world.id),
-                format!("title=2004Scape - World {} ({kind})", world.id),
+                format!("title=RuneScape - World {} ({kind})", world.id),
                 format!("codebase=http://{host}"),
                 format!(
                     "servername=World {} ({kind}), {detail_name} Detail",
