@@ -5,9 +5,10 @@ mod pages;
 mod play;
 
 use crate::app::App;
-use axum::Router;
+use crate::metrics;
 use axum::response::Redirect;
 use axum::routing::get;
+use axum::{Router, middleware};
 use std::path::Path;
 use std::sync::Arc;
 use tower_http::services::ServeDir;
@@ -34,5 +35,6 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/results", get(pages::poll_results))
         .route("/worldmap", get(pages::worldmap))
         .fallback_service(ServeDir::new(public).fallback(pages))
+        .layer(middleware::from_fn_with_state(app.clone(), metrics::track))
         .with_state(app)
 }

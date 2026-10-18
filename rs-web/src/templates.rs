@@ -58,6 +58,7 @@ fn commas(n: i64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::path::Path;
 
     #[test]
     fn commas_group_thousands() {
@@ -66,5 +67,46 @@ mod tests {
         assert_eq!(commas(1000), "1,000");
         assert_eq!(commas(13_034_431), "13,034,431");
         assert_eq!(commas(-1234), "-1,234");
+    }
+
+    /// Every template under `dir`, as loader names (`pages/faq/billing.html`).
+    fn template_names(root: &Path, dir: &Path, out: &mut Vec<String>) {
+        for entry in std::fs::read_dir(dir).unwrap() {
+            let path = entry.unwrap().path();
+            if path.is_dir() {
+                template_names(root, &path, out);
+            } else if path.extension().is_some_and(|e| e == "html") {
+                let name = path.strip_prefix(root).unwrap().to_string_lossy();
+                out.push(name.replace('\\', "/"));
+            }
+        }
+    }
+
+    /// Pages are served with no context, so each must render as-is: this
+    /// catches syntax errors, missing includes and filters misapplied to
+    /// undefined values. Views and partials need a handler's data, so they
+    /// are only compiled.
+    #[test]
+    fn every_template_compiles_and_every_page_renders() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("templates");
+        let templates = Templates::new(root.clone(), false);
+        let mut names = Vec::new();
+        template_names(&root, &root, &mut names);
+        assert!(names.iter().any(|n| n == "pages/index.html"));
+
+        let failures: Vec<String> = names
+            .iter()
+            .filter_map(|name| {
+                let template = match templates.env.get_template(name) {
+                    Ok(t) => t,
+                    Err(e) => return Some(format!("{name}: {e:#}")),
+                };
+                if !name.starts_with("pages/") {
+                    return None;
+                }
+                template.render(()).err().map(|e| format!("{name}: {e:#}"))
+            })
+            .collect();
+        assert!(failures.is_empty(), "{}", failures.join("\n"));
     }
 }

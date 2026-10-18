@@ -12,6 +12,7 @@ use rs_db::{NewPlayer, PlayerName, validate_name};
 use serde::Deserialize;
 use std::net::SocketAddr;
 use std::sync::Arc;
+use std::sync::atomic::Ordering;
 use tokio::task::spawn_blocking;
 use tracing::info;
 
@@ -45,6 +46,9 @@ pub async fn submit(
 ) -> Result<Html<String>, AppError> {
     let ip = app.client_ip(&headers, peer);
     if app.db.recent_registrations(ip, RATE_LIMIT_HOURS).await? >= RATE_LIMIT {
+        app.metrics
+            .registrations_rate_limited
+            .fetch_add(1, Ordering::Relaxed);
         return username_page(
             &app,
             Some("You have created too many accounts recently. Please try again later."),
@@ -86,6 +90,7 @@ pub async fn submit(
                 return username_page(&app, Some(&taken(username)));
             }
             info!("Registered player '{}' from {}", username, ip);
+            app.metrics.registrations.fetch_add(1, Ordering::Relaxed);
             Ok(app
                 .templates
                 .render("views/create/finish.html", context! {})?)

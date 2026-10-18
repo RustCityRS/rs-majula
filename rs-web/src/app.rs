@@ -1,3 +1,4 @@
+use crate::metrics::Metrics;
 use crate::templates::Templates;
 use crate::worlds::{LiveWorlds, World};
 use axum::http::{HeaderMap, HeaderName, StatusCode};
@@ -18,6 +19,7 @@ pub struct App {
     pub live_worlds: LiveWorlds,
     pub wordenc: Option<WordEncProvider>,
     pub site: SiteConfig,
+    pub metrics: Metrics,
 }
 
 pub struct SiteConfig {

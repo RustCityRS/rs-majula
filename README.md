@@ -150,6 +150,13 @@ cargo run -p rs-web   # http://localhost:8000
 - Flags: `--port` (`8000`), `--root` (`rs-web`), `--public-host`, `--https`,
   and `--real-ip-header` (e.g. `cf-connecting-ip`) when behind a proxy, so the
   per-IP registration limit sees the real client.
+- Prometheus metrics (requests by route and status, response times,
+  registrations) are on `http://127.0.0.1:8160/metrics`, apart from the public
+  port; `--metrics-host`/`--metrics-port` move it and `--metrics-port 0` turns
+  it off. `--log-format json` writes JSON lines for journald and Loki;
+  `deploy/grafana/web.alloy` ships both from the website's host.
+- Ctrl+C or SIGTERM stops taking connections and finishes open requests
+  before exiting.
 
 ----
 

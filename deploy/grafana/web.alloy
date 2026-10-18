@@ -1,0 +1,80 @@
+prometheus.scrape "rs_web" {
+	targets = [
+		{"__address__" = "127.0.0.1:8160", "instance" = constants.hostname},
+	]
+	job_name        = "rs-web"
+	scrape_interval = "15s"
+	forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+// CPU, memory, disk and network of the host itself.
+prometheus.exporter.unix "host" { }
+
+prometheus.scrape "host" {
+	targets         = prometheus.exporter.unix.host.targets
+	job_name        = "integrations/unix"
+	scrape_interval = "60s"
+	forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+prometheus.remote_write "grafana_cloud" {
+	endpoint {
+		url = sys.env("GRAFANA_PROM_URL")
+
+		basic_auth {
+			username = sys.env("GRAFANA_PROM_USER")
+			password = sys.env("GRAFANA_CLOUD_TOKEN")
+		}
+	}
+}
+
+// Logs ----------------------------------------------------------------------
+
+// Keeps only the website's unit.
+loki.relabel "web" {
+	forward_to = []
+
+	rule {
+		source_labels = ["__journal__systemd_unit"]
+		regex         = "rs-web\\.service"
+		action        = "keep"
+	}
+}
+
+loki.source.journal "web" {
+	relabel_rules = loki.relabel.web.rules
+	labels        = {job = "rs-web", instance = constants.hostname}
+	forward_to    = [loki.process.rs_web.receiver]
+}
+
+// rs-web runs with --log-format json.
+loki.process "rs_web" {
+	stage.json {
+		expressions = {
+			level     = "level",
+			timestamp = "timestamp",
+		}
+	}
+
+	stage.labels {
+		values = {level = ""}
+	}
+
+	stage.timestamp {
+		source = "timestamp"
+		format = "RFC3339Nano"
+	}
+
+	forward_to = [loki.write.grafana_cloud.receiver]
+}
+
+loki.write "grafana_cloud" {
+	endpoint {
+		url = sys.env("GRAFANA_LOKI_URL")
+
+		basic_auth {
+			username = sys.env("GRAFANA_LOKI_USER")
+			password = sys.env("GRAFANA_CLOUD_TOKEN")
+		}
+	}
+}

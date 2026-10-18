@@ -1,4 +1,5 @@
 mod app;
+mod metrics;
 mod routes;
 mod templates;
 mod worlds;
@@ -7,7 +8,7 @@ use crate::app::{App, SiteConfig};
 use crate::templates::Templates;
 use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 use rs_db::{Db, DbConfig, Passwords};
 use std::net::SocketAddr;
 use std::path::PathBuf;
@@ -31,6 +32,13 @@ struct Args {
     https: bool,
     #[arg(long)]
     real_ip_header: Option<HeaderName>,
+    /// Port of the Prometheus `/metrics` listener; `0` disables it.
+    #[arg(long, default_value = "8160")]
+    metrics_port: u16,
+    #[arg(long, default_value = "127.0.0.1")]
+    metrics_host: String,
+    #[arg(long, value_enum, default_value_t = LogFormat::Text)]
+    log_format: LogFormat,
     #[arg(long, env = "RS_DB_HOST", default_value = "localhost")]
     db_host: String,
     #[arg(long, env = "RS_DB_PORT", default_value = "5432")]
@@ -49,6 +57,12 @@ struct Args {
     command: Option<Cmd>,
 }
 
+#[derive(Clone, Copy, Debug, ValueEnum)]
+enum LogFormat {
+    Text,
+    Json,
+}
+
 #[derive(Subcommand, Debug)]
 enum Cmd {
     /// Apply pending database migrations and exit.
@@ -57,13 +71,15 @@ enum Cmd {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    tracing_subscriber::fmt()
-        .with_env_filter(
-            tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "info,sqlx=warn".into()),
-        )
-        .init();
     let args = Args::parse();
+    let logs = tracing_subscriber::fmt().with_env_filter(
+        tracing_subscriber::EnvFilter::try_from_default_env()
+            .unwrap_or_else(|_| "info,sqlx=warn".into()),
+    );
+    match args.log_format {
+        LogFormat::Text => logs.init(),
+        LogFormat::Json => logs.json().flatten_event(true).init(),
+    }
     let db_config = DbConfig {
         host: args.db_host,
         port: args.db_port,
@@ -128,9 +144,17 @@ async fn main() -> Result<()> {
             port: args.port,
             real_ip_header: args.real_ip_header,
         },
+        metrics: Default::default(),
     });
 
     tokio::spawn(worlds::refresh(app.clone()));
+    if args.metrics_port != 0 {
+        tokio::spawn(metrics::serve(
+            args.metrics_host,
+            args.metrics_port,
+            app.clone(),
+        ));
+    }
 
     let url = app.base_url();
     let router = routes::router(app, &args.root.join("public"));
@@ -146,6 +170,32 @@ async fn main() -> Result<()> {
         listener,
         router.into_make_service_with_connect_info::<SocketAddr>(),
     )
+    .with_graceful_shutdown(async {
+        let signal = shutdown_signal().await;
+        info!("{signal} received; finishing open requests");
+    })
     .await?;
+    info!("Website stopped");
     Ok(())
+}
+
+/// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
+/// managers (systemd, Docker) stop a process with. Returns which one came.
+async fn shutdown_signal() -> &'static str {
+    #[cfg(unix)]
+    {
+        use tokio::signal::unix::{SignalKind, signal};
+        let mut term = signal(SignalKind::terminate()).expect("SIGTERM handler");
+        tokio::select! {
+            Ok(()) = tokio::signal::ctrl_c() => "Ctrl+C",
+            _ = term.recv() => "SIGTERM",
+        }
+    }
+    #[cfg(not(unix))]
+    {
+        if tokio::signal::ctrl_c().await.is_err() {
+            std::future::pending::<()>().await;
+        }
+        "Ctrl+C"
+    }
 }
