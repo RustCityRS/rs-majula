@@ -180,6 +180,7 @@ before `migrate`).
 | `--verify`                    | `true`                      | Verify packed-cache byte-identity at boot (`pack_all`).                                                        |
 | `--node-id <NODE_ID>`         | `10`                        | World node ID (10 = world 1, 11 = world 2, …); drives the derived port scheme.                                 |
 | `--real-ip-header <NAME>`     | unset                       | Header a reverse proxy puts the client IP in (e.g. `x-real-ip`). Per-IP connection limits and login rate limiting then use it instead of the proxy's address. Only set it when the HTTP port is reachable through the proxy alone, or clients can forge their address. |
+| `--site-origin <ORIGINS>`     | unset (`RS_SITE_ORIGIN`)    | The website's origins, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`): the only other sites allowed to frame the client page. Unset, any site may. WebSockets always have to come from a page this world served. |
 | `--ether-port <ETHER_PORT>`   | `5000 + node_id` (`5010`)   | Ether sidecar TCP port.                                                                                        |
 | `--db-host <DB_HOST>`         | `localhost` (`RS_DB_HOST`)  | Postgres hostname.                                                                                             |
 | `--db-port <DB_PORT>`         | `5432` (`RS_DB_PORT`)       | Postgres port.                                                                                                 |

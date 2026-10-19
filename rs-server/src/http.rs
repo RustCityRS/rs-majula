@@ -9,7 +9,8 @@ use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
 use tokio::time::timeout;
 use tokio_tungstenite::accept_hdr_async_with_config;
-use tokio_tungstenite::tungstenite::handshake::server::{Request, Response};
+use tokio_tungstenite::tungstenite::handshake::server::{ErrorResponse, Request, Response};
+use tokio_tungstenite::tungstenite::http::StatusCode;
 use tokio_tungstenite::tungstenite::protocol::WebSocketConfig;
 use tracing::{debug, info, warn};
 
@@ -75,6 +76,7 @@ pub async fn serve(
     http_guard: ConnectionGuard,
     jaggrab_only: bool,
     real_ip_header: Option<&'static str>,
+    site_origin: Option<&'static str>,
 ) {
     let listener = match TcpListener::bind((host, port)).await {
         Ok(l) => l,
@@ -109,6 +111,7 @@ pub async fn serve(
                 http_guard,
                 jaggrab_only,
                 real_ip_header,
+                site_origin,
             )
             .await;
         });
@@ -126,6 +129,7 @@ async fn handle_connection(
     http_guard: ConnectionGuard,
     jaggrab_only: bool,
     real_ip_header: Option<&'static str>,
+    site_origin: Option<&'static str>,
 ) {
     stream.set_nodelay(true).ok();
 
@@ -169,6 +173,16 @@ async fn handle_connection(
         let upgrade = accept_hdr_async_with_config(
             stream,
             |req: &Request, mut res: Response| {
+                if !same_origin(req) {
+                    info!(
+                        "WebSocket from {} refused: origin {:?} isn't this host",
+                        addr,
+                        req.headers().get("Origin")
+                    );
+                    let mut refused = ErrorResponse::new(None);
+                    *refused.status_mut() = StatusCode::FORBIDDEN;
+                    return Err(refused);
+                }
                 if let Some(protocol) = req.headers().get("Sec-WebSocket-Protocol") {
                     res.headers_mut()
                         .insert("Sec-WebSocket-Protocol", protocol.clone());
@@ -235,6 +249,7 @@ async fn handle_connection(
             members,
             server_state.cache,
             jaggrab_only,
+            site_origin,
         )
         .await;
 
@@ -242,7 +257,7 @@ async fn handle_connection(
         let connection_close = raw.to_ascii_lowercase().contains("connection: close");
 
         let header = format!(
-            "HTTP/1.1 {}\r\nConnection: {}\r\n{}\r\n",
+            "HTTP/1.1 {}\r\nConnection: {}\r\n{SECURITY_HEADERS}{}\r\n",
             status,
             if connection_close {
                 "close"
@@ -297,6 +312,26 @@ fn client_addr(head: &str, header: Option<&str>, peer: SocketAddr) -> SocketAddr
         .map_or(peer, |ip| SocketAddr::new(ip, peer.port()))
 }
 
+/// Sent on every HTTP response: browsers take each file as the type it's
+/// served as, and other sites learn no more than this origin from links.
+const SECURITY_HEADERS: &str =
+    "X-Content-Type-Options: nosniff\r\nReferrer-Policy: strict-origin-when-cross-origin\r\n";
+
+/// Whether a WebSocket handshake comes from a page this host served: its
+/// `Origin` names the same host (and port) as its `Host`. The web client
+/// always connects back to the world that served it, so this refuses pages on
+/// other sites, such as a phishing copy of the client. A handshake with no
+/// `Origin` isn't from a browser page, so the check has nothing to stop.
+fn same_origin(req: &Request) -> bool {
+    let header = |name| req.headers().get(name).and_then(|v| v.to_str().ok());
+    let Some(origin) = header("Origin") else {
+        return true;
+    };
+    let authority = origin.split_once("://").map_or(origin, |(_, rest)| rest);
+    header("Host").is_some_and(|host| authority.eq_ignore_ascii_case(host))
+}
+
+#[allow(clippy::too_many_arguments)]
 async fn route(
     path: &str,
     query: &str,
@@ -304,6 +339,7 @@ async fn route(
     members: bool,
     cache: &'static CacheStore,
     jaggrab_only: bool,
+    site_origin: Option<&'static str>,
 ) -> (&'static str, String, Body) {
     // Test hook: refusing cache downloads over HTTP makes a stock desktop
     // client toggle its archive loader onto the JAGGRAB fallback.
@@ -341,7 +377,8 @@ async fn route(
                 "200 OK",
                 // Never reused: it names the client.js to load (see render_client).
                 format!(
-                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
+                    frame_ancestors(site_origin)
                 ),
                 Body::Owned(bytes),
             )
@@ -498,6 +535,16 @@ fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>
     }
 }
 
+/// The client page's framing rule: only this host and the website (which
+/// frames it on its play page) may show it, so no other site can wrap the
+/// game in its own page. Without a website origin, framing is left open (a
+/// local setup frames the world from another port).
+fn frame_ancestors(site_origin: Option<&str>) -> String {
+    site_origin.map_or_else(String::new, |site| {
+        format!("Content-Security-Policy: frame-ancestors 'self' {site}\r\n")
+    })
+}
+
 /// The CRC of the client.js this world serves, `None` if it has none.
 fn client_version(cache: &CacheStore) -> Option<u32> {
     let js = cache
@@ -548,6 +595,37 @@ mod tests {
         let html = render_client("10", true, false, None);
         assert!(html.contains("new Client(10, 1, false);"));
         assert!(!html.contains("{{"));
+    }
+
+    fn ws_request(origin: Option<&str>, host: &str) -> Request {
+        let mut req = Request::builder().header("Host", host);
+        if let Some(origin) = origin {
+            req = req.header("Origin", origin);
+        }
+        req.body(()).unwrap()
+    }
+
+    #[test]
+    fn websockets_must_come_from_this_host() {
+        let same = |origin, host| same_origin(&ws_request(origin, host));
+        assert!(same(Some("https://w1.rustcity.org"), "w1.rustcity.org"));
+        assert!(same(Some("http://localhost:8080"), "localhost:8080"));
+        assert!(same(Some("https://W1.RustCity.org"), "w1.rustcity.org"));
+        assert!(!same(Some("https://evil.example"), "w1.rustcity.org"));
+        assert!(!same(Some("https://w2.rustcity.org"), "w1.rustcity.org"));
+        assert!(!same(Some("http://localhost:9999"), "localhost:8080"));
+        assert!(!same(Some("null"), "w1.rustcity.org"));
+        // Not a browser page.
+        assert!(same(None, "w1.rustcity.org"));
+    }
+
+    #[test]
+    fn client_page_framing_names_the_website() {
+        assert_eq!(
+            frame_ancestors(Some("https://rustcity.org")),
+            "Content-Security-Policy: frame-ancestors 'self' https://rustcity.org\r\n"
+        );
+        assert_eq!(frame_ancestors(None), "");
     }
 
     #[test]

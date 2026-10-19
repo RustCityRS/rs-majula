@@ -42,7 +42,7 @@ futures-util = "0.3"
 
 # Website
 axum = "0.8"
-tower-http = { version = "0.7", features = ["fs"] }
+tower-http = { version = "0.7", features = ["fs", "set-header"] }
 minijinja = { version = "3", features = ["serde"] }
 
 # Security

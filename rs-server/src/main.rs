@@ -362,6 +362,8 @@ struct Args {
     jaggrab_only: bool,
     #[arg(long)]
     real_ip_header: Option<String>,
+    #[arg(long, env = "RS_SITE_ORIGIN")]
+    site_origin: Option<String>,
     #[arg(long, default_value = "10")]
     node_id: u8,
     #[arg(long)]
@@ -784,6 +786,9 @@ async fn bootstrap(
         args.real_ip_header
             .clone()
             .map(|header| &*Box::leak(header.into_boxed_str())),
+        args.site_origin
+            .clone()
+            .map(|origin| &*Box::leak(origin.into_boxed_str())),
     ));
 
     info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);

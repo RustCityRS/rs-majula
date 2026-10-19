@@ -6,12 +6,14 @@ mod play;
 
 use crate::app::App;
 use crate::metrics;
+use axum::http::{HeaderName, HeaderValue, header};
 use axum::response::Redirect;
 use axum::routing::get;
 use axum::{Router, middleware};
 use std::path::Path;
 use std::sync::Arc;
 use tower_http::services::ServeDir;
+use tower_http::set_header::SetResponseHeaderLayer;
 
 /// Explicit routes for the dynamic pages; anything else is a file under
 /// `public/` or, failing that, a template under `templates/pages/`.
@@ -34,5 +36,20 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/worldmap", get(pages::worldmap))
         .fallback_service(ServeDir::new(public).fallback(pages))
         .layer(middleware::from_fn_with_state(app.clone(), metrics::track))
+        .layer(header(header::X_CONTENT_TYPE_OPTIONS, "nosniff"))
+        .layer(header(
+            header::REFERRER_POLICY,
+            "strict-origin-when-cross-origin",
+        ))
+        .layer(header(
+            header::CONTENT_SECURITY_POLICY,
+            "frame-ancestors 'self'",
+        ))
+        .layer(header(header::X_FRAME_OPTIONS, "SAMEORIGIN"))
         .with_state(app)
+}
+
+/// Sets `name` on every response that hasn't set it itself.
+fn header(name: HeaderName, value: &'static str) -> SetResponseHeaderLayer<HeaderValue> {
+    SetResponseHeaderLayer::if_not_present(name, HeaderValue::from_static(value))
 }
