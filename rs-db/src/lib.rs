@@ -1,3 +1,4 @@
+mod chat;
 mod hiscores;
 mod name;
 mod news;
@@ -8,6 +9,7 @@ mod session;
 mod snapshot;
 mod world;
 
+pub use chat::ChatLog;
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsCategory, NewsPost, NewsSummary};

@@ -3,6 +3,7 @@ use crate::clients::client_game::ClientHandle;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_cam::CamKind;
+use rs_db::ChatLog;
 use rs_entity::player::*;
 use rs_entity::{EntityLifeTime, Player};
 use rs_grid::CoordGrid;
@@ -842,6 +843,24 @@ impl ActivePlayer {
             });
         }
         self.logout();
+    }
+
+    /// Logs chat the player sent (unfiltered), to `to37` if private, with
+    /// this tick's [`DbRequest::Chat`].
+    pub fn log_chat(&self, to37: Option<u64>, message: String) {
+        let engine = engine_mut();
+        if engine.db_tx.is_none() {
+            return;
+        }
+        let coord = self.player.pathing.coord;
+        engine.chat_logs.push(ChatLog {
+            name_hash: self.player.uid.username37(),
+            to_name_hash: to37,
+            x: coord.x() as i16,
+            z: coord.z() as i16,
+            y: i16::from(coord.y()),
+            message,
+        });
     }
 
     /// Sends a game message to the player's chatbox.

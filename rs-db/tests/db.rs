@@ -1,4 +1,6 @@
-use rs_db::{Claim, Db, NewPlayer, NewSnapshot, PlayerSave, Reconciled, SaveResult, WorldStatus};
+use rs_db::{
+    ChatLog, Claim, Db, NewPlayer, NewSnapshot, PlayerSave, Reconciled, SaveResult, WorldStatus,
+};
 use sqlx::PgPool;
 
 fn claimed(save: Option<PlayerSave>) -> Claim {
@@ -159,6 +161,46 @@ async fn snapshots_need_a_registered_reporter(pool: PgPool) {
             .await
             .unwrap();
     assert_eq!(row, (99, 11, 10, 3222, true));
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn chat_is_logged_in_order(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let log = |name_hash, to_name_hash, message: &str| ChatLog {
+        name_hash,
+        to_name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: message.to_owned(),
+    };
+    db.record_chat(
+        10,
+        &[
+            log(42, None, "hello"),
+            // Not registered: skipped.
+            log(99, None, "lost"),
+            log(42, Some(99), "psst"),
+        ],
+    )
+    .await
+    .unwrap();
+    db.record_chat(10, &[]).await.unwrap();
+
+    let rows: Vec<(Option<i64>, i16, String)> =
+        sqlx::query_as("SELECT to_name_hash, node_id, message FROM chat_logs ORDER BY id")
+            .fetch_all(&pool)
+            .await
+            .unwrap();
+    assert_eq!(
+        rows,
+        vec![
+            (None, 10, "hello".to_owned()),
+            (Some(99), 10, "psst".to_owned()),
+        ]
+    );
 }
 
 #[sqlx::test]

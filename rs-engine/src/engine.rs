@@ -11,6 +11,7 @@ use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
+use rs_db::ChatLog;
 use rs_entity::StaffModLevel;
 use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -552,6 +553,9 @@ pub struct Engine {
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
     pub logout_saves: FxHashMap<u64, LogoutSave>,
     pub db_lease: Option<Instant>,
+    /// This tick's public and private chat, sent to the database in one
+    /// [`DbRequest::Chat`] at the end of the tick.
+    pub chat_logs: Vec<ChatLog>,
     pub random: JavaRandom,
     pub vars: VarSet,
     /// A reusable [`ScriptState`] kept alive between script invocations to
@@ -690,6 +694,7 @@ impl Engine {
             login_failures: FxHashMap::default(),
             logout_saves: FxHashMap::default(),
             db_lease: None,
+            chat_logs: Vec::new(),
             random: JavaRandom::new(1084838400000),
             vars,
             reusable_script: None,

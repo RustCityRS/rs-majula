@@ -17,6 +17,9 @@ impl Engine {
     ///
     /// Every tick, increments each active player's `playtime` counter.
     ///
+    /// Every tick, sends the tick's chat to the database via
+    /// [`DbRequest::Chat`].
+    ///
     /// Every [`STATUS_INTERVAL`] ticks, reports the number of (non-bot)
     /// players online via [`DbRequest::WorldStatus`], with the players this
     /// world has online or held mid-login/mid-logout, so the database can
@@ -47,6 +50,14 @@ impl Engine {
                     players += 1;
                 }
             }
+        }
+
+        if !self.chat_logs.is_empty()
+            && let Some(tx) = &self.db_tx
+        {
+            let _ = tx.send(DbRequest::Chat {
+                logs: std::mem::take(&mut self.chat_logs),
+            });
         }
 
         if self.clock.is_multiple_of(STATUS_INTERVAL)

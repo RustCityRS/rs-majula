@@ -42,6 +42,7 @@ const MAX_CHAT_LEN: usize = 100;
 /// * Sets the player's `info.chat_bytes`, `info.chat_colour`, `info.chat_effects`,
 ///   and `info.chat_ignored` fields.
 /// * Adds `PlayerInfoProt::Chat` to the player's info update mask.
+/// * Logs the unfiltered message to the database (`ActivePlayer::log_chat`).
 ///
 /// # Call Stack
 ///
@@ -62,7 +63,8 @@ impl ClientGameHandler for MessagePublic {
             return Ok(());
         }
 
-        let message = engine().wordenc().filter(&unpack(&self.bytes));
+        let text = unpack(&self.bytes);
+        let message = engine().wordenc().filter(&text);
         active.player.info.chat_bytes = Some(pack(&message).into_boxed_slice());
         active.player.info.chat_colour = Some(self.colour);
         active.player.info.chat_effects = Some(self.effect);
@@ -70,6 +72,7 @@ impl ClientGameHandler for MessagePublic {
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);
+        active.log_chat(None, text);
 
         Ok(())
     }

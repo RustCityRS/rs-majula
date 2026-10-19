@@ -32,6 +32,7 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 ///
 /// * Sends an `EtherOutbound::PrivateMessage` containing the sender's username,
 ///   target username, staff level, and filtered message bytes to the ether service.
+/// * Logs the unfiltered message to the database (`ActivePlayer::log_chat`).
 ///
 /// # Call Stack
 ///
@@ -59,7 +60,8 @@ impl ClientGameHandler for MessagePrivate {
             return Ok(());
         };
 
-        let message = engine.wordenc().filter(&unpack(&self.bytes));
+        let text = unpack(&self.bytes);
+        let message = engine.wordenc().filter(&text);
         let filtered_bytes = pack(&message);
 
         let _ = tx.send(EtherOutbound::PrivateMessage {
@@ -70,6 +72,7 @@ impl ClientGameHandler for MessagePrivate {
         });
 
         active.last_social = Some(engine.clock);
+        active.log_chat(Some(self.user37 as u64), text);
         Ok(())
     }
 }
