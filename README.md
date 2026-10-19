@@ -220,15 +220,22 @@ node; the nodes mesh into one cluster for cross-world social features.
    it's current. They tolerate migrations from a *newer* build, so old worlds
    keep running while you roll out, as long as each migration is backward
    compatible.
-4. **Name nodes by reachable hosts.** Give each world `--node-host` (its
+4. **Rotate the login key on every deploy.** The repo's `.keys/private.pem`
+   is public. Copy `deploy/rotate-rsa.py` to the server, and in each extracted
+   release, before starting the world, run `python3 /path/to/rotate-rsa.py`
+   (needs `openssl`). It writes a new key and patches
+   `public/<rev>/client.js` to match. Run it on the server only: the key must
+   never be committed or uploaded. The Java client keeps the old key and can't
+   log in afterwards.
+5. **Name nodes by reachable hosts.** Give each world `--node-host` (its
    private IP or hostname) and every world the same `--cluster` list, e.g.
    `world10@10.0.0.5,world11@10.0.0.6`.
-5. **Keep the cluster private.** Anyone holding the cookie who can reach a
+6. **Keep the cluster private.** Anyone holding the cookie who can reach a
    node can run code on it. Firewall EPMD (`4369`) and the distribution ports
    to the private network. To pin those ports, set
    `ERL_AFLAGS="-kernel inet_dist_listen_min 9100 inet_dist_listen_max 9110"`
    for the world process; the sidecar inherits it.
-6. **TLS at a reverse proxy.** The web client connects back to the page's own
+7. **TLS at a reverse proxy.** The web client connects back to the page's own
    host over `ws`/`wss`, so terminate TLS for the website and for each world's
    HTTP port. Behind the proxy every connection comes from the proxy's own
    address, so have it set the client IP in a header (nginx:
