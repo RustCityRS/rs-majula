@@ -89,8 +89,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu
 
-      - name: Build release binary
-        run: cargo build --release --target ${{ matrix.target.triple }} -p rs-server
+      - name: Build release binaries
+        run: cargo build --release --target ${{ matrix.target.triple }} -p rs-server -p rs-web
         env:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
           RUSTFLAGS: ${{ matrix.target.rustflags }}
@@ -98,16 +98,15 @@ jobs:
       - name: Package
         shell: bash
         run: |
-          mkdir -p staging/rs-majula/content staging/rs-majula/public
-          cp target/${{ matrix.target.triple }}/release/rs-server${{ matrix.target.ext }} staging/rs-majula/
-          # The binary reads content/<REV>/ at runtime, so ship only the matching rev.
-          cp -r content/${{ matrix.rev }} staging/rs-majula/content/
-          cp -r public/${{ matrix.rev }} staging/rs-majula/public/
-          cp -r .keys staging/rs-majula/
-          cp -r rs-ether staging/rs-majula/
-          rm -rf staging/rs-majula/rs-ether/.git
-          cp docker-compose.yml staging/rs-majula/
-          tar -czf rs-majula-${{ matrix.rev }}-${{ matrix.target.triple }}.tar.gz -C staging rs-majula
+          # The same layout as the deploy docs' hand-built pkg/, tarred flat.
+          bin=target/${{ matrix.target.triple }}/release
+          mkdir -p pkg/content pkg/public pkg/web
+          cp $bin/rs-server${{ matrix.target.ext }} $bin/rs-web${{ matrix.target.ext }} pkg/
+          # The server reads content/<REV>/ at runtime, so ship only the matching rev.
+          cp -r .keys pkg/ && cp -r content/${{ matrix.rev }} pkg/content/ && cp -r public/${{ matrix.rev }} pkg/public/
+          cp -r deploy/grafana pkg/ && cp deploy/rotate-rsa.py pkg/
+          cp -r rs-web/templates rs-web/public rs-web/worlds.json pkg/web/
+          tar -czf rs-majula-${{ matrix.rev }}-${{ matrix.target.triple }}.tar.gz -C pkg .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -125,11 +124,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: recursive
 
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
           merge-multiple: true
+
+      # Ether ships as source, built into a release on the host (see the deploy docs).
+      - name: Package ether source
+        run: tar -czf artifacts/rs-ether-src.tar.gz --exclude=_build --exclude=deps --exclude=.git rs-ether
 
       - name: Generate changelog
         id: meta
