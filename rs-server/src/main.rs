@@ -1,6 +1,6 @@
 use crate::tui::log_layer::{LogBuffer, TuiLogLayer};
-use anyhow::Result;
-use clap::Parser;
+use anyhow::{Context, Result, anyhow, bail};
+use clap::{Parser, Subcommand, ValueEnum};
 use futures_util::SinkExt;
 use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
@@ -32,11 +32,12 @@ use watch::{Receiver, Sender, channel};
 use crossterm::execute;
 use crossterm::terminal::{LeaveAlternateScreen, disable_raw_mode};
 use mimalloc::MiMalloc;
-use std::sync::atomic::{AtomicU32, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use time::MissedTickBehavior;
 
 mod http;
 mod jaggrab;
+mod metrics;
 mod socket;
 pub mod tui;
 
@@ -180,13 +181,153 @@ fn graceful_exit(code: i32) -> ! {
     std::process::exit(code);
 }
 
-struct DbEnv {
-    host: String,
-    port: u16,
-    name: String,
-    user: String,
-    pass: String,
+/// Secrets read at startup. Each comes from its flag or environment variable;
+/// only debug builds fall back to the local development values.
+struct Secrets {
+    db_pass: String,
+    pepper: String,
+    cookie: String,
+}
+
+impl Secrets {
+    fn resolve(args: &Args) -> Result<Self> {
+        Ok(Self {
+            db_pass: db_pass(args)?,
+            pepper: rs_db::require_secret(args.pepper.clone(), "RS_PEPPER", "localhost")
+                .map_err(|e| anyhow!(e))?,
+            cookie: rs_db::require_secret(args.cookie.clone(), "RS_COOKIE", "rs_secret")
+                .map_err(|e| anyhow!(e))?,
+        })
+    }
+}
+
+fn db_pass(args: &Args) -> Result<String> {
+    rs_db::require_secret(args.db_pass.clone(), "RS_DB_PASS", "password").map_err(|e| anyhow!(e))
+}
+
+fn db_config(args: &Args, pass: String) -> rs_db::DbConfig {
+    rs_db::DbConfig {
+        host: args.db_host.clone(),
+        port: args.db_port,
+        name: args.db_name.clone(),
+        user: args.db_user.clone(),
+        pass,
+    }
+}
+
+/// How to launch the ether sidecar, and the environment its
+/// `config/runtime.exs` reads.
+#[derive(Clone)]
+struct EtherEnv {
+    release: Option<PathBuf>,
+    node_host: String,
     cluster: String,
+    auto_migrate: bool,
+    db: rs_db::DbConfig,
+}
+
+#[cfg(windows)]
+const RELEASE_SCRIPT: &str = "rs_ether.bat";
+#[cfg(not(windows))]
+const RELEASE_SCRIPT: &str = "rs_ether";
+
+impl EtherEnv {
+    fn new(args: &Args, db: rs_db::DbConfig) -> Result<Self> {
+        let release = match &args.ether_release {
+            Some(root) => {
+                let root = std::path::absolute(root)?;
+                let script = root.join("bin").join(RELEASE_SCRIPT);
+                if !script.is_file() {
+                    bail!("--ether-release: {} not found", script.display());
+                }
+                Some(root)
+            }
+            None => None,
+        };
+        Ok(Self {
+            release,
+            node_host: args.node_host.clone(),
+            cluster: args.cluster.clone(),
+            auto_migrate: args.auto_migrate,
+            db,
+        })
+    }
+
+    /// `mix <args>` in rs-ether/, for running ether from source.
+    fn mix(&self, args: &[&str]) -> Command {
+        let mut cmd = elixir_tool("mix");
+        cmd.args(args).current_dir("rs-ether");
+        self.with_env(cmd)
+    }
+
+    /// `bin/rs_ether <args>` from the built release.
+    fn release(&self, root: &Path, args: &[&str]) -> Command {
+        let mut cmd = Command::new(root.join("bin").join(RELEASE_SCRIPT));
+        cmd.args(args);
+        self.with_env(cmd)
+    }
+
+    fn with_env(&self, mut cmd: Command) -> Command {
+        cmd.env("RS_NODE_HOST", &self.node_host)
+            .env("RS_CLUSTER_HOSTS", &self.cluster)
+            .env(
+                "RS_AUTO_MIGRATE",
+                if self.auto_migrate { "true" } else { "false" },
+            )
+            .env("RS_DB_HOST", &self.db.host)
+            .env("RS_DB_PORT", self.db.port.to_string())
+            .env("RS_DB_NAME", &self.db.name)
+            .env("RS_DB_USER", &self.db.user)
+            .env("RS_DB_PASS", &self.db.pass)
+            .stdin(Stdio::null());
+        cmd
+    }
+
+    /// The command that runs this world's ether node until it's killed.
+    fn run(&self, node_id: u8, ether_port: u16, node_name: &str, cookie: &str) -> Command {
+        let mut cmd = match &self.release {
+            Some(root) => {
+                let mut cmd = self.release(root, &["start"]);
+                cmd.env("RELEASE_DISTRIBUTION", "name")
+                    .env("RELEASE_NODE", node_name)
+                    .env("RELEASE_COOKIE", cookie);
+                cmd
+            }
+            None => {
+                let mut cmd = elixir_tool("elixir");
+                cmd.args(["--name", node_name, "--cookie", cookie])
+                    .args(["-S", "mix", "run", "--no-halt"])
+                    .current_dir("rs-ether");
+                self.with_env(cmd)
+            }
+        };
+        cmd.env("RS_NODE_ID", node_id.to_string())
+            .env("RS_ETHER_PORT", ether_port.to_string());
+        cmd
+    }
+
+    /// The command that applies ether's pending Ecto migrations and exits.
+    fn migrate(&self) -> Command {
+        match &self.release {
+            Some(root) => self.release(root, &["eval", "RsEther.Release.migrate()"]),
+            None => self.mix(&["ecto.migrate"]),
+        }
+    }
+}
+
+/// A command for one of Elixir's tool scripts. On Windows those are `.bat`
+/// wrappers, which only resolve through `cmd`.
+fn elixir_tool(program: &str) -> Command {
+    #[cfg(windows)]
+    {
+        let mut cmd = Command::new("cmd");
+        cmd.args(["/c", program]);
+        cmd
+    }
+    #[cfg(not(windows))]
+    {
+        Command::new(program)
+    }
 }
 
 /// Server revision, taken from the `REV` build env var (see `.cargo/config.toml`).
@@ -207,7 +348,7 @@ struct Args {
     jaggrab_port: Option<u16>,
     #[arg(long, default_value = ".keys/private.pem")]
     private_key: PathBuf,
-    #[arg(long, default_value = "true")]
+    #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
@@ -219,24 +360,79 @@ struct Args {
     verify: bool,
     #[arg(long, default_value = "false")]
     jaggrab_only: bool,
+    #[arg(long)]
+    real_ip_header: Option<String>,
     #[arg(long, default_value = "10")]
     node_id: u8,
     #[arg(long)]
+    metrics_port: Option<u16>,
+    #[arg(long, default_value = "127.0.0.1")]
+    metrics_host: String,
+    #[arg(long, value_enum, default_value_t = LogFormat::Text)]
+    log_format: LogFormat,
+    #[arg(long, default_value = "rs-server.log")]
+    log_file: PathBuf,
+    #[arg(long)]
+    no_log_file: bool,
+    #[arg(long)]
     ether_port: Option<u16>,
-    #[arg(long, default_value = "localhost")]
+    #[arg(long, env = "RS_DB_HOST", default_value = "localhost")]
     db_host: String,
-    #[arg(long, default_value = "5432")]
+    #[arg(long, env = "RS_DB_PORT", default_value = "5432")]
     db_port: u16,
-    #[arg(long, default_value = "postgres")]
+    #[arg(long, env = "RS_DB_NAME", default_value = "postgres")]
     db_name: String,
-    #[arg(long, default_value = "postgres")]
+    #[arg(long, env = "RS_DB_USER", default_value = "postgres")]
     db_user: String,
-    #[arg(long, default_value = "password")]
-    db_pass: String,
-    #[arg(long, default_value = "")]
+    #[arg(long, env = "RS_DB_PASS", hide_env_values = true)]
+    db_pass: Option<String>,
+    #[arg(long, env = "RS_PEPPER", hide_env_values = true)]
+    pepper: Option<String>,
+    #[arg(long, env = "RS_COOKIE", hide_env_values = true)]
+    cookie: Option<String>,
+    #[arg(long, env = "RS_NODE_HOST", default_value = "127.0.0.1")]
+    node_host: String,
+    #[arg(long, env = "RS_CLUSTER_HOSTS", default_value = "")]
     cluster: String,
-    #[arg(long, default_value = "localhost")]
-    pepper: String,
+    #[arg(long, env = "RS_ETHER_RELEASE")]
+    ether_release: Option<PathBuf>,
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    auto_register: bool,
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    auto_migrate: bool,
+    #[command(subcommand)]
+    command: Option<Cmd>,
+}
+
+#[derive(Clone, Copy, Debug, ValueEnum)]
+enum LogFormat {
+    Text,
+    Json,
+}
+
+/// A log output in `format`; `time` only applies to text (JSON lines always
+/// carry a timestamp).
+fn fmt_layer<S, W>(
+    format: LogFormat,
+    writer: W,
+    ansi: bool,
+    time: bool,
+) -> Box<dyn Layer<S> + Send + Sync>
+where
+    S: tracing::Subscriber + for<'a> tracing_subscriber::registry::LookupSpan<'a>,
+    W: for<'w> tracing_subscriber::fmt::MakeWriter<'w> + Send + Sync + 'static,
+{
+    let layer = tracing_subscriber::fmt::layer().with_writer(writer);
+    match format {
+        LogFormat::Text if time => layer.with_ansi(ansi).boxed(),
+        LogFormat::Text => layer.with_ansi(ansi).without_time().boxed(),
+        LogFormat::Json => layer.json().flatten_event(true).boxed(),
+    }
+}
+
+#[derive(Subcommand, Debug)]
+enum Cmd {
+    Migrate,
 }
 
 #[derive(Clone)]
@@ -252,35 +448,45 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     // Honor RUST_LOG if set; otherwise default to INFO globally but
-    // silence the chatty save + protocol logs and tokio-postgres'
-    // schema-migration NOTICEs that would otherwise flood at startup.
+    // silence the chatty save + protocol logs and sqlx's per-statement
+    // logs and migration NOTICEs.
     let make_filter = || {
         tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
             tracing_subscriber::EnvFilter::new(
                 "info,\
                      rs_engine::player_save=warn,\
                      rs_protocol=warn,\
-                     tokio_postgres=warn,\
+                     sqlx=warn,\
                      runec=error",
             )
         })
     };
 
-    // File appender - `rs-server.log` in the current working directory,
-    // overwritten each run (no rotation; log volume per session is bounded).
-    // Held in `_log_guard` for the lifetime of `main` so the background
-    // writer thread keeps draining until shutdown.
-    let log_file = std::fs::OpenOptions::new()
-        .create(true)
-        .write(true)
-        .truncate(true)
-        .open("rs-server.log")?;
-    let (file_writer, _log_guard) = tracing_appender::non_blocking(log_file);
+    if let Some(Cmd::Migrate) = args.command {
+        tracing_subscriber::fmt()
+            .without_time()
+            .with_env_filter(make_filter())
+            .init();
+        return migrate(&args).await;
+    }
+    let secrets = Secrets::resolve(&args)?;
 
-    let file_layer = tracing_subscriber::fmt::layer()
-        .with_writer(file_writer)
-        .with_ansi(false)
-        .with_filter(make_filter());
+    // File appender - `--log-file`, overwritten each run (no rotation; log
+    // volume per session is bounded). Held in `_log_guard` for the lifetime
+    // of `main` so the background writer thread keeps draining until shutdown.
+    let (file_layer, _log_guard) = if args.no_log_file {
+        (None, None)
+    } else {
+        let log_file = std::fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&args.log_file)
+            .with_context(|| format!("opening {}", args.log_file.display()))?;
+        let (file_writer, guard) = tracing_appender::non_blocking(log_file);
+        let layer = fmt_layer(args.log_format, file_writer, false, true).with_filter(make_filter());
+        (Some(layer), Some(guard))
+    };
 
     let registry = tracing_subscriber::registry().with(file_layer);
 
@@ -291,9 +497,8 @@ async fn main() -> Result<()> {
     let use_tui = !args.no_tui && tty;
 
     if !use_tui {
-        let stdout_layer = tracing_subscriber::fmt::layer()
-            .without_time()
-            .with_filter(make_filter());
+        let stdout_layer =
+            fmt_layer(args.log_format, std::io::stdout, true, false).with_filter(make_filter());
         registry.with(stdout_layer).init();
         let _ = Level::INFO;
 
@@ -302,24 +507,62 @@ async fn main() -> Result<()> {
                 "stdout is not a TTY - falling back to headless mode (use a real terminal for the TUI dashboard)"
             );
         }
-        info!("RuneScape Private Server (Rev 225) starting (headless)");
+        info!("Running headless");
 
         let (stats_tx, _stats_rx) = channel(TickStats::default());
         let (_trigger_tx, trigger_rx) = unbounded_channel::<()>();
-        bootstrap(args, stats_tx, trigger_rx, ConnectionGuards::new()).await
+        let (shutdown_tx, shutdown_rx) = unbounded_channel::<()>();
+        tokio::spawn(async move {
+            let signal = shutdown_signal().await;
+            info!("{signal} -- saving every player and shutting down ({signal} again to force)");
+            let _ = shutdown_tx.send(());
+            shutdown_signal().await;
+            warn!("Forced exit -- players since their last save are not saved");
+            graceful_exit(130);
+        });
+        bootstrap(
+            args,
+            secrets,
+            stats_tx,
+            trigger_rx,
+            shutdown_rx,
+            ConnectionGuards::new(),
+        )
+        .await
     } else {
         let log_buf = tui::log_layer::new_buffer();
         let tui_layer = TuiLogLayer::new(log_buf.clone()).with_filter(make_filter());
         registry.with(tui_layer).init();
 
-        run_with_tui(args, log_buf).await
+        run_with_tui(args, secrets, log_buf).await
+    }
+}
+
+/// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
+/// managers (systemd, Docker) stop a process with. Returns which one came.
+async fn shutdown_signal() -> &'static str {
+    #[cfg(unix)]
+    {
+        use tokio::signal::unix::{SignalKind, signal};
+        let mut term = signal(SignalKind::terminate()).expect("SIGTERM handler");
+        tokio::select! {
+            Ok(()) = tokio::signal::ctrl_c() => "Ctrl+C",
+            _ = term.recv() => "SIGTERM",
+        }
+    }
+    #[cfg(not(unix))]
+    {
+        if tokio::signal::ctrl_c().await.is_err() {
+            std::future::pending::<()>().await;
+        }
+        "Ctrl+C"
     }
 }
 
 /// Run the TUI dashboard. The server bootstraps immediately as a sibling
 /// task; the TUI just renders state. Hot-reload (`c`) is debug-only - the
 /// key is hidden and the channel ignored in release builds.
-async fn run_with_tui(args: Args, log_buf: LogBuffer) -> Result<()> {
+async fn run_with_tui(args: Args, secrets: Secrets, log_buf: LogBuffer) -> Result<()> {
     let (handles, sinks) = tui::make_channels();
     let tui::TuiHandles {
         stats_tx,
@@ -328,11 +571,12 @@ async fn run_with_tui(args: Args, log_buf: LogBuffer) -> Result<()> {
 
     let guards = ConnectionGuards::new();
     let tui_guards = guards.clone();
+    let (shutdown_tx, shutdown_rx) = unbounded_channel::<()>();
 
     // Bootstrap right away in the background - the TUI shows "loading" until
     // the first tick lands, then "RUNNING".
-    let bootstrap_task = tokio::spawn(async move {
-        if let Err(e) = bootstrap(args, stats_tx, trigger_rx, guards).await {
+    let mut bootstrap_task = tokio::spawn(async move {
+        if let Err(e) = bootstrap(args, secrets, stats_tx, trigger_rx, shutdown_rx, guards).await {
             error!("server bootstrap failed: {e:#}");
         }
     });
@@ -340,20 +584,39 @@ async fn run_with_tui(args: Args, log_buf: LogBuffer) -> Result<()> {
     // Foreground: render loop. Returns when the user presses `q`.
     let result = tui::run(log_buf, sinks, tui_guards).await;
 
+    // Shut down like a reboot: every player is logged out and saved, and the
+    // tick loop exits the process once the saves are flushed. Nothing to
+    // save if the world never started.
+    if ENGINE_RUNNING.load(Ordering::Acquire) {
+        let _ = shutdown_tx.send(());
+        println!("Saving every player and shutting down... (Ctrl+C to force)");
+        tokio::select! {
+            _ = tokio::signal::ctrl_c() => {
+                println!("Forced exit -- players since their last save are not saved");
+            }
+            _ = &mut bootstrap_task => {}
+        }
+    }
+
     bootstrap_task.abort();
     shutdown_sidecar();
     result
 }
 
+/// Set once the tick loop is running, i.e. once there can be players to save.
+static ENGINE_RUNNING: AtomicBool = AtomicBool::new(false);
+
 /// Run the full server startup sequence and accept-loop. Used by both the
 /// headless (`--no-tui`) and TUI paths.
 async fn bootstrap(
     args: Args,
+    secrets: Secrets,
     stats_tx: Sender<TickStats>,
     trigger_rx: UnboundedReceiver<()>,
+    shutdown_rx: UnboundedReceiver<()>,
     guards: ConnectionGuards,
 ) -> Result<()> {
-    let host = args.host;
+    let host = args.host.clone();
     let http = args.http_port.unwrap_or(8070 + args.node_id as u16);
     let tcp = args.tcp_port.unwrap_or(43584 + args.node_id as u16);
     let jaggrab = args.jaggrab_port.unwrap_or(tcp + 1);
@@ -364,6 +627,9 @@ async fn bootstrap(
     info!("HTTP Port: {}", http);
     info!("TCP Port: {}", tcp);
     info!("RSA: {:?}", args.private_key);
+
+    // Subscribed before the engine starts, so the metrics see every tick.
+    let metrics_stats = stats_tx.subscribe();
 
     info!("Compiling content assets & building cache...");
     let (store, scripts) = rs_pack::pack_all(
@@ -398,20 +664,21 @@ async fn bootstrap(
         let ether_port = args.ether_port.unwrap_or(5000 + args.node_id as u16);
         let node_id = args.node_id;
 
-        let node_name = format!("world{}@127.0.0.1", node_id);
-        let db_env = DbEnv {
-            host: args.db_host.clone(),
-            port: args.db_port,
-            name: args.db_name.clone(),
-            user: args.db_user.clone(),
-            pass: args.db_pass.clone(),
-            cluster: args.cluster.clone(),
-        };
-
-        prepare_ether_sidecar(&db_env);
+        let node_name = format!("world{}@{}", node_id, args.node_host);
+        let ether = EtherEnv::new(&args, db_config(&args, secrets.db_pass.clone()))?;
+        if ether.release.is_none() {
+            if !cfg!(debug_assertions) {
+                warn!("Running ether from source with mix; use --ether-release in production");
+            }
+            prepare_ether_sidecar(&ether);
+        }
 
         tokio::spawn(supervise_ether_sidecar(
-            node_id, ether_port, node_name, db_env,
+            ether,
+            node_id,
+            ether_port,
+            node_name,
+            secrets.cookie,
         ));
 
         let (ready_tx, ready_rx) = tokio::sync::oneshot::channel();
@@ -429,16 +696,14 @@ async fn bootstrap(
     let (db_tx, db_rx) = {
         let (req_tx, req_rx) = unbounded_channel::<rs_engine::DbRequest>();
         let (resp_tx, resp_rx) = unbounded_channel::<rs_engine::DbResponse>();
-        tokio::spawn(rs_engine::db_client_task(
-            args.db_host.clone(),
-            args.db_port,
-            args.db_name.clone(),
-            args.db_user.clone(),
-            args.db_pass.clone(),
-            args.pepper.clone(),
-            req_rx,
-            resp_tx,
-        ));
+        let config = rs_engine::DbClientConfig {
+            db: db_config(&args, secrets.db_pass),
+            node_id: args.node_id,
+            pepper: secrets.pepper,
+            auto_register: args.auto_register,
+            auto_migrate: args.auto_migrate,
+        };
+        tokio::spawn(rs_engine::db_client_task(config, req_rx, resp_tx));
         (Some(req_tx), resp_rx)
     };
 
@@ -466,7 +731,7 @@ async fn bootstrap(
     release_freed_memory();
     trim_working_set();
 
-    tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx));
+    tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx, shutdown_rx));
 
     #[cfg(debug_assertions)]
     tokio::spawn(reload_coordinator(
@@ -484,6 +749,17 @@ async fn bootstrap(
         rsa,
         new_player_tx,
     };
+
+    let metrics_port = args.metrics_port.unwrap_or(8170 + args.node_id as u16);
+    if metrics_port != 0 {
+        tokio::spawn(metrics::serve(
+            args.metrics_host.clone(),
+            metrics_port,
+            args.members,
+            metrics_stats,
+            guards.clone(),
+        ));
+    }
 
     let ConnectionGuards {
         game: guard,
@@ -505,6 +781,9 @@ async fn bootstrap(
         guard.clone(),
         http_guard,
         args.jaggrab_only,
+        args.real_ip_header
+            .clone()
+            .map(|header| &*Box::leak(header.into_boxed_str())),
     ));
 
     info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
@@ -519,41 +798,61 @@ async fn bootstrap(
     socket::serve(host, tcp, server_state, guard).await
 }
 
-fn prepare_ether_sidecar(db: &DbEnv) {
-    let run = |args: &[&str]| {
-        let status = Command::new("cmd")
-            .args(["/c", "mix"])
-            .args(args)
-            .current_dir("rs-ether")
-            .env("RS_DB_HOST", &db.host)
-            .env("RS_DB_PORT", db.port.to_string())
-            .env("RS_DB_NAME", &db.name)
-            .env("RS_DB_USER", &db.user)
-            .env("RS_DB_PASS", &db.pass)
-            .env("RS_CLUSTER_HOSTS", &db.cluster)
-            .stdin(Stdio::null())
+/// Fetches ether's dependencies before running it from source. Its schema is
+/// migrated by the node itself on boot when --auto-migrate is on.
+fn prepare_ether_sidecar(ether: &EtherEnv) {
+    let mut steps = vec![["deps.get"]];
+    if ether.auto_migrate {
+        steps.push(["ecto.create"]);
+    }
+    for step in steps {
+        let status = ether
+            .mix(&step)
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .status();
         match status {
-            Ok(s) if s.success() => true,
-            Ok(s) => {
-                warn!("mix {} exited with {}", args.join(" "), s);
-                false
-            }
-            Err(e) => {
-                warn!("mix {} failed: {}", args.join(" "), e);
-                false
-            }
+            Ok(s) if s.success() => {}
+            Ok(s) => warn!("mix {} exited with {}", step.join(" "), s),
+            Err(e) => warn!("mix {} failed: {}", step.join(" "), e),
         }
-    };
-
-    run(&["deps.get"]);
-    run(&["ecto.create"]);
-    run(&["ecto.migrate"]);
+    }
 }
 
-async fn supervise_ether_sidecar(node_id: u8, ether_port: u16, node_name: String, db: DbEnv) {
+/// `rs-server migrate`: the deploy step that brings the shared database up to
+/// date before new servers start, so running servers never migrate it under
+/// each other.
+async fn migrate(args: &Args) -> Result<()> {
+    let db_config = db_config(args, db_pass(args)?);
+    let db = rs_db::Db::connect(&db_config, 1)
+        .await
+        .with_context(|| format!("connecting to {}:{}", db_config.host, db_config.port))?;
+    db.migrate().await.context("game migrations failed")?;
+    db.close().await;
+    info!("Game migrations applied");
+
+    let ether = EtherEnv::new(args, db_config)?;
+    if ether.release.is_none() {
+        prepare_ether_sidecar(&ether);
+    }
+    let status = ether
+        .migrate()
+        .status()
+        .context("starting ether migrations")?;
+    if !status.success() {
+        bail!("ether migrations exited with {status}");
+    }
+    info!("Ether migrations applied");
+    Ok(())
+}
+
+async fn supervise_ether_sidecar(
+    ether: EtherEnv,
+    node_id: u8,
+    ether_port: u16,
+    node_name: String,
+    cookie: String,
+) {
     use std::process::Stdio;
     use tokio::time::sleep;
     use tracing::warn;
@@ -562,29 +861,8 @@ async fn supervise_ether_sidecar(node_id: u8, ether_port: u16, node_name: String
     let max_backoff = Duration::from_secs(30);
 
     loop {
-        let result = std::process::Command::new("cmd")
-            .args([
-                "/c",
-                "elixir",
-                "--name",
-                &node_name,
-                "--cookie",
-                "rs_secret",
-                "-S",
-                "mix",
-                "run",
-                "--no-halt",
-            ])
-            .current_dir("rs-ether")
-            .env("RS_NODE_ID", node_id.to_string())
-            .env("RS_ETHER_PORT", ether_port.to_string())
-            .env("RS_DB_HOST", &db.host)
-            .env("RS_DB_PORT", db.port.to_string())
-            .env("RS_DB_NAME", &db.name)
-            .env("RS_DB_USER", &db.user)
-            .env("RS_DB_PASS", &db.pass)
-            .env("RS_CLUSTER_HOSTS", &db.cluster)
-            .stdin(Stdio::null())
+        let result = ether
+            .run(node_id, ether_port, &node_name, &cookie)
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn();
@@ -776,21 +1054,37 @@ async fn reload_coordinator(
     }
 }
 
+/// Starts a reboot-style shutdown on request (Ctrl+C, SIGTERM, the TUI's `q`): every
+/// player is logged out and saved, then the tick loop exits the process.
+fn begin_shutdown(engine: &mut Engine) {
+    if engine.is_pending_shutdown() || engine.is_shutdown() {
+        return;
+    }
+    info!("Shutdown requested -- logging every player out with a save");
+    let ptr = &raw mut *engine;
+    rs_engine::with_engine(engine, || unsafe { &mut *ptr }.reboot_timer(0));
+}
+
 /// World tick task - runs Engine::cycle() every 600ms.
 ///
 /// Also wakes immediately when a hot-reload result arrives to swap the
-/// CacheStore + scripts between ticks.
+/// CacheStore + scripts between ticks, or when a shutdown is requested.
 async fn engine_tick(
     mut engine: Engine,
     mut reload_rx: UnboundedReceiver<(Box<CacheStore>, ScriptProvider)>,
     mut clock_rate_rx: Receiver<u64>,
+    mut shutdown_rx: UnboundedReceiver<()>,
 ) {
+    ENGINE_RUNNING.store(true, Ordering::Release);
     let mut clock_ms: u64 = 600;
     let mut interval = time::interval(Duration::from_millis(clock_ms));
     interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
     loop {
         if clock_ms == 0 {
             tokio::task::yield_now().await;
+            if shutdown_rx.try_recv().is_ok() {
+                begin_shutdown(&mut engine);
+            }
             while let Ok((store, scripts)) = reload_rx.try_recv() {
                 let ptr = &raw mut engine;
                 rs_engine::with_engine(&mut engine, || {
@@ -809,6 +1103,10 @@ async fn engine_tick(
         } else {
             tokio::select! {
                 _ = interval.tick() => {}
+                Some(()) = shutdown_rx.recv() => {
+                    begin_shutdown(&mut engine);
+                    continue;
+                }
                 Some((store, scripts)) = reload_rx.recv() => {
                     let ptr = &raw mut engine;
                     rs_engine::with_engine(&mut engine, || {
@@ -962,7 +1260,10 @@ impl Socket {
                 stream.shutdown().await?;
             }
             SocketType::WebSocket(ws) => {
-                ws.close().await?;
+                // Named explicitly: plain `ws.close()` resolves to either this or
+                // `SinkExt::close` on the Box, depending on which futures-sink
+                // features the rest of the build happens to enable.
+                WebSocketStream::close(ws, None).await?;
             }
         }
         Ok(())

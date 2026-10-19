@@ -1,0 +1,45 @@
+{% with title="Hiscores for " ~ (name or search) %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+
+{% with title="RuneScape Hiscores", links=[{"text": "All Hiscores", "href": "/hiscores"}] %}{% include "layout/title-box.html" %}{% endwith %}
+
+<center>
+  <table bgcolor=black cellpadding=4 border=0>
+    <tr>
+      <td class=e>
+        {% if name %}
+        <center>RuneScape Hiscores for <span style="color:yellow">{{ name }}</span></center>
+        <p>
+        <table>
+          <tr>
+            <td colspan="3" width="120"><b>Skill</b></td>
+            <td width="80" align="right"><b>Rank</b></td>
+            <td width="80" align="right"><b>Level</b></td>
+            <td width="80" align="right"><b>XP</b></td>
+          </tr>
+          {% for row in rows %}
+          <tr>
+            <td><img src="{{ row.category.icon }}" valign="bottom" width=16 height=16></td>
+            <td>&nbsp;</td>
+            <td><a href="/hiscores?user={{ name|lower|replace(' ', '_') }}&category={{ row.category.id }}" class=c>{{ row.category.name }}</a></td>
+            <td align="right">{{ row.rank.rank|commas }}</td>
+            <td align="right">{{ row.rank.level|commas }}</td>
+            <td align="right">{{ row.rank.xp|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% else %}
+        <center>The player <span style="color:yellow">{{ search }}</span> does not feature in the hiscores.</center>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+</center>
+<br>
+
+{% with category=0, search=name or search %}{% include "layout/hiscores-search.html" %}{% endwith %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

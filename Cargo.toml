@@ -15,10 +15,12 @@ members = [
     "rs-engine/rs-info",
     "rs-engine/rs-timer",
     "rs-engine/rs-stat",
+    "rs-db",
     "rs-pack",
     "rs-protocol",
     "rs-protocol/macros",
     "rs-server",
+    "rs-web",
     "rs-ver",
 ]
 resolver = "2"
@@ -34,12 +36,14 @@ repository = "https://github.com/RustCityRS/rs-majula"
 [workspace.dependencies]
 # Async runtime
 tokio = { version = "1.53", features = ["full"] }
-tokio-postgres = "0.7"
+sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "postgres", "macros", "migrate"] }
 tokio-tungstenite = "0.30"
 futures-util = "0.3"
 
-# Serialization
-sailfish = "0.11"
+# Website
+axum = "0.8"
+tower-http = { version = "0.7", features = ["fs"] }
+minijinja = { version = "3", features = ["serde"] }
 
 # Security
 argon2 = "0.6"
@@ -50,7 +54,7 @@ anyhow = "1.0"
 
 # Tracing
 tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 tracing-appender = "0.2"
 
 # Cryptography
@@ -76,7 +80,7 @@ num_enum = "0.7"
 notify = "8.2"
 
 # CLI
-clap = { version = "4.6", features = ["derive"] }
+clap = { version = "4.6", features = ["derive", "env"] }
 
 # Terminal UI
 ratatui = "0.30"
@@ -86,6 +90,7 @@ sysinfo = { version = "0.39", default-features = false, features = ["system"] }
 # Sprite authoring docs (PyxelEdit .pyxel = zip of PNGs + JSON)
 zip = { version = "9.0", default-features = false, features = ["deflate"] }
 png = "0.18"
+serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
 # Internal crates
@@ -107,6 +112,7 @@ rs-info = { path = "rs-engine/rs-info" }
 rs-timer = { path = "rs-engine/rs-timer" }
 rs-stat = { path = "rs-engine/rs-stat" }
 rs-pack = { path = "rs-pack" }
+rs-db = { path = "rs-db" }
 rs-ver = { path = "rs-ver" }
 
 [workspace.lints]

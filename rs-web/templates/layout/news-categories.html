@@ -1,0 +1,5 @@
+{# Category links, four per line counting "All Categories" as the first. #}
+<a href='/news?cat=0' class=white>All Categories</a> -
+{% for cat in categories %}
+<a href='/news?cat={{ cat.id }}' class="{{ cat.style }}">{{ cat.name }}</a>{% if loop.index0 % 4 == 2 %}<br>{% elif not loop.last %} -{% endif %}
+{% endfor %}

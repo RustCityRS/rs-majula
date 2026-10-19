@@ -1,6 +1,4 @@
-use rs_entity::player::{
-    ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player, StaffModLevel,
-};
+use rs_entity::player::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_io::{Packet, crc};
@@ -12,13 +10,14 @@ use rs_stat::{get_exp_by_level, get_level_by_exp};
 use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
+use std::time::{SystemTime, UNIX_EPOCH};
 use tracing::error;
 
 /// Magic number at the start of every binary save file for format validation.
 const SAV_MAGIC: u16 = 0x2004;
 
 /// Current save file format version. Incremented when the binary layout changes.
-const SAV_VERSION: u16 = 7;
+const SAV_VERSION: u16 = 8;
 
 /// Total number of player stats (skills).
 const STAT_COUNT: usize = 21;
@@ -27,6 +26,7 @@ const STAT_COUNT: usize = 21;
 
 /// Represents a single inventory's contents within a player profile,
 /// storing the inventory type ID and a list of (slot, obj_id, count) tuples.
+#[derive(Clone)]
 pub struct PlayerProfileInv {
     pub inv_type: u16,
     pub items: Vec<(u16, u16, u32)>, // (slot, obj_id, count)
@@ -36,6 +36,7 @@ pub struct PlayerProfileInv {
 ///
 /// Used as the intermediate representation between the live [`Player`] entity
 /// and both the database and binary save file formats.
+#[derive(Clone)]
 pub struct PlayerProfile {
     pub x: u16,
     pub z: u16,
@@ -55,7 +56,6 @@ pub struct PlayerProfile {
     pub private_chat: u8,
     pub trade_chat: u8,
     pub last_date: i64,
-    pub staff_mod_level: u8,
 }
 
 /// Extracts a [`PlayerProfile`] from a live [`Player`] entity.
@@ -129,7 +129,6 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         private_chat: player.private as u8,
         trade_chat: player.trade as u8,
         last_date: player.last_date,
-        staff_mod_level: player.staff_mod_level as u8,
     }
 }
 
@@ -168,7 +167,6 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
     player.last_afk_zone = profile.last_afk_zone;
     player.last_date = profile.last_date;
     player.last_login_date = profile.last_date;
-    player.staff_mod_level = StaffModLevel::from_u8(profile.staff_mod_level);
 
     player.public = ChatSettingsPublic::from_u8(profile.public_chat);
     player.private = ChatSettingsPrivate::from_u8(profile.private_chat);
@@ -307,7 +305,6 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
     sav.p1(packed_chat);
 
     sav.p8(profile.last_date);
-    sav.p1(profile.staff_mod_level);
 
     let checksum = crc::getcrc(&sav.data, 0, sav.pos);
     sav.p4(checksum);
@@ -319,7 +316,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
 /// DeSerializes a [`PlayerProfile`] from raw binary `.sav` data.
 ///
 /// Validates the magic number, version, and CRC32 checksum before parsing.
-/// Supports forward-compatible reading of older save versions (v2..=v6).
+/// Supports forward-compatible reading of older save versions (v2..=v7).
 ///
 /// # Arguments
 /// * `data` - The raw binary save data.
@@ -450,8 +447,11 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
     };
 
     let last_date = if version >= 6 { sav.g8s() } else { 0 };
-    // Saves older than v7 predate staff-level persistence; default to Normal (0).
-    let staff_mod_level = if version >= 7 { sav.g1() } else { 0 };
+    // v7 stored the staff level here. It now belongs to the player's identity
+    // (the `players` row) and arrives with authentication, so it is skipped.
+    if version == 7 {
+        sav.g1();
+    }
 
     Ok(PlayerProfile {
         x,
@@ -472,7 +472,6 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
         private_chat,
         trade_chat,
         last_date,
-        staff_mod_level,
     })
 }
 
@@ -527,15 +526,53 @@ fn save_path(username: &str) -> PathBuf {
 /// * Creates or overwrites the `.sav` file on disk.
 /// * Logs an error if the directory or file cannot be created.
 pub fn save_to_file(username: &str, data: &[u8]) {
+    write_atomically(&save_path(username), username, data);
+}
+
+/// Writes binary save data that the database refused (this world no longer
+/// owns the player's session) to `data/players/{username}.sav.orphaned-{ms}`,
+/// where the sync never reads it. Kept for manual recovery only.
+pub fn save_orphan(username: &str, data: &[u8]) {
+    write_atomically(&orphan_path(username), username, data);
+}
+
+/// Moves the local save file `data/players/{username}.sav` aside as an
+/// orphan (see [`save_orphan`]), out of the sync's reach.
+pub fn orphan_save_file(username: &str) {
+    let to = orphan_path(username);
+    if let Err(e) = fs::rename(save_path(username), &to) {
+        error!("Failed to orphan save file for '{}': {}", username, e);
+    }
+}
+
+fn orphan_path(username: &str) -> PathBuf {
+    let ms = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_millis())
+        .unwrap_or(0);
+    Path::new("data")
+        .join("players")
+        .join(format!("{username}.sav.orphaned-{ms}"))
+}
+
+/// Writes `data` to a temporary file, flushes it to disk, then renames it
+/// over `path`, so a crash mid-write never leaves a truncated save behind.
+fn write_atomically(path: &Path, username: &str, data: &[u8]) {
     let dir = Path::new("data").join("players");
     if let Err(e) = fs::create_dir_all(&dir) {
         error!("Failed to create save directory: {}", e);
         return;
     }
-    let path = save_path(username);
-    match fs::File::create(&path).and_then(|mut f| f.write_all(data)) {
-        Ok(()) => {}
-        Err(e) => error!("Failed to write save file for '{}': {}", username, e),
+    let tmp = path.with_extension("tmp");
+    let result = fs::File::create(&tmp)
+        .and_then(|mut f| {
+            f.write_all(data)?;
+            f.sync_all()
+        })
+        .and_then(|()| fs::rename(&tmp, path));
+    if let Err(e) = result {
+        error!("Failed to write save file for '{}': {}", username, e);
+        let _ = fs::remove_file(&tmp);
     }
 }
 

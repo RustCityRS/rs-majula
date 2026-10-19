@@ -14,10 +14,12 @@ path = "src/main.rs"
 rs-crypto = { workspace = true }
 rs-protocol = { workspace = true }
 rs-engine = { workspace = true }
+rs-db = { workspace = true }
 rs-io = { workspace = true }
 rs-pack = { workspace = true }
 
 anyhow = { workspace = true }
+axum = { workspace = true }
 clap = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }
@@ -25,7 +27,6 @@ tracing-subscriber = { workspace = true }
 tracing-appender = { workspace = true }
 tokio-tungstenite = { workspace = true }
 futures-util = { workspace = true }
-sailfish = { workspace = true }
 ratatui = { workspace = true }
 crossterm = { workspace = true }
 sysinfo = { workspace = true }

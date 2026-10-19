@@ -117,8 +117,7 @@ impl Engine {
                             } else {
                                 LoginResponse::AlreadyLoggedIn
                             };
-                            let pending = self.pending_logins.swap_remove(idx);
-                            let _ = pending.request.handle.outbox.send(vec![response as u8]);
+                            self.reject_pending_login(idx, response);
                         }
                     }
                 }

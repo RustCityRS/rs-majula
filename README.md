@@ -49,7 +49,7 @@ The workspace is 19 crates organized by responsibility:
 | **Rust** (via `rustup`) | stable, **≥ 1.95** (MSRV), edition 2024 | Pinned by `rust-toolchain.toml`, so `rustup` installs the right toolchain automatically. Builds use `-C target-cpu=native` (the binary is tuned to the building machine's CPU).                                                                                                                                         |
 | **C linker**            | --                                      | Required by any Rust build: MSVC Build Tools on Windows, `cc`/`clang` on Linux/macOS.                                                                                                                                                                                                                                   |
 | **Docker** + Compose    | --                                      | **Required to log in.** Runs Postgres 17 (`docker-compose.yml`); the server authenticates/persists accounts against it. Until Postgres is connected, logins are rejected with *login server offline*.                                                                                                                   |
-| **Elixir** + `mix`      | `~> 1.15`                               | **Required to log in.** Runs the `rs-ether` sidecar, which the login flow depends on (cross-world login checks). The server boots and serves the web client without it, but every login attempt returns *login server offline*. Auto-spawned via `cmd /c` (Windows); on Linux/macOS start it from `rs-ether/` yourself. |
+| **Elixir** + `mix`      | `~> 1.15`                               | **Required to log in.** Runs the `rs-ether` sidecar, which the login flow depends on (cross-world login checks). The server boots and serves the web client without it, but every login attempt returns *login server offline*. Auto-spawned from source with `mix`; production runs a built release instead (see [Deploying](#deploying)). |
 | **Git**                 | --                                      | `rs-ether` is a submodule -- clone with `--recursive`.                                                                                                                                                                                                                                                                  |
 
 > [!NOTE]
@@ -81,8 +81,9 @@ repo, so there is nothing else to generate.
 docker compose up -d
 
 # 2. Build & run the server (node 10 = world 1).
-#    On first boot the ether sidecar runs `mix deps.get` + `ecto.create` +
-#    `ecto.migrate` against Postgres, so Docker must be up first.
+#    Debug builds apply schema migrations on boot (`rs-db/migrations/`, and
+#    ether's social tables), so Docker must be up first. They also
+#    auto-register any new name on first login.
 cargo run -p rs-server
 
 # 3. Open the web client and log in
@@ -97,7 +98,9 @@ cargo run -p rs-server
 > [!TIP]
 > For **maximum performance** (production or benchmarking), run in release mode --
 > `cargo run --release -p rs-server` -- for full optimizations and fat LTO, at the
-> cost of the longest compile.
+> cost of the longest compile. Release builds have no development defaults:
+> set `RS_DB_PASS`, `RS_PEPPER` and `RS_COOKIE` first, and run
+> `rs-server migrate` once (see [Deploying](#deploying)).
 
 Stop Postgres when you're done with `docker compose down` (add `-v` to also wipe
 the database volume).
@@ -106,8 +109,9 @@ the database volume).
 
 ## Running a second world (cluster)
 
-The `cargo world1` / `cargo world2` aliases bring up a two-node cluster (each
-auto-spawns its own ether sidecar; they mesh via the shared `--cluster` list):
+The `cargo world1` / `cargo world2` aliases bring up a two-node cluster on the
+`dev-opt` profile (each auto-spawns its own ether sidecar; they mesh via the
+shared `--cluster` list):
 
 ```bash
 docker compose up -d
@@ -119,10 +123,50 @@ See [`rs-ether/README.md`](rs-ether/README.md) for sidecar details.
 
 ----
 
+## Running the website
+
+`rs-web` is the game's website: player registration (`/create`), news, the
+world select that frames each world's web client, and the archived 2004
+pages. It shares the game database (same `--db-*` flags, `RS_DB_*` variables
+and defaults) and must use the same `RS_PEPPER` as the game server, or
+passwords registered on the site won't verify in game. Like the game server,
+debug builds migrate on startup; release builds only check the schema
+(`rs-web migrate` applies it).
+
+```bash
+docker compose up -d
+cargo run -p rs-web   # http://localhost:8000
+```
+
+- `rs-web/worlds.json` lists the worlds shown on the world select; each
+  `address` is that world's HTTP port (`8070 + node_id`, so `8080` for world 1).
+- Player counts are live: each world writes a heartbeat to the `world_status`
+  table every ~10 seconds, and the site shows a world as OFFLINE once its
+  heartbeat is 30 seconds old (world `N` is node `N + 9`).
+- Templates are [minijinja](https://docs.rs/minijinja): `templates/pages/` is
+  served by URL (`/faq/billing` -> `pages/faq/billing.html`), `templates/views/`
+  is rendered by handlers, `templates/layout/` holds shared partials. Debug
+  builds reload edited templates without a restart.
+- Flags: `--port` (`8000`), `--root` (`rs-web`), `--public-host`, `--https`,
+  and `--real-ip-header` (e.g. `cf-connecting-ip`) when behind a proxy, so the
+  per-IP registration limit sees the real client.
+- Prometheus metrics (requests by route and status, response times,
+  registrations) are on `http://127.0.0.1:8160/metrics`, apart from the public
+  port; `--metrics-host`/`--metrics-port` move it and `--metrics-port 0` turns
+  it off. `--log-format json` writes JSON lines for journald and Loki;
+  `deploy/grafana/web.alloy` ships both from the website's host.
+- Ctrl+C or SIGTERM stops taking connections and finishes open requests
+  before exiting.
+
+----
+
 ## Command-line arguments
 
-All configuration is via CLI flags (clap). This is the complete set -- run
-`cargo run -p rs-server -- --help` for the canonical output.
+All configuration is via CLI flags (clap); the database, secret and cluster
+settings can also come from the environment variable shown. This is the
+complete set -- run `cargo run -p rs-server -- --help` for the canonical
+output. `rs-server migrate` applies pending migrations and exits (flags go
+before `migrate`).
 
 | Argument                      | Default                     | Description                                                                                                    |
 |-------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------|
@@ -130,24 +174,74 @@ All configuration is via CLI flags (clap). This is the complete set -- run
 | `--http-port <HTTP_PORT>`     | `8070 + node_id` (`8080`)   | HTTP port -- web client + cache archives.                                                                      |
 | `--tcp-port <TCP_PORT>`       | `43584 + node_id` (`43594`) | TCP game-protocol port.                                                                                        |
 | `--private-key <PRIVATE_KEY>` | `.keys/private.pem`         | RSA private key (PEM) for the login handshake.                                                                 |
-| `--members`                   | `true`                      | Members world (vs free-to-play) content rules.                                                                 |
+| `--members <BOOL>`            | `true`                      | Members world (vs free-to-play) content rules. Takes a value: `--members false` runs a free-to-play world.     |
 | `--client-pathfinder`         | `true`                      | Trust client-computed movement paths.                                                                          |
 | `--no-tui`                    | `false`                     | Disable the TUI dashboard; use stdout logging (auto-falls back when stdout isn't a TTY).                       |
 | `--verify`                    | `true`                      | Verify packed-cache byte-identity at boot (`pack_all`).                                                        |
 | `--node-id <NODE_ID>`         | `10`                        | World node ID (10 = world 1, 11 = world 2, …); drives the derived port scheme.                                 |
+| `--real-ip-header <NAME>`     | unset                       | Header a reverse proxy puts the client IP in (e.g. `x-real-ip`). Per-IP connection limits and login rate limiting then use it instead of the proxy's address. Only set it when the HTTP port is reachable through the proxy alone, or clients can forge their address. |
 | `--ether-port <ETHER_PORT>`   | `5000 + node_id` (`5010`)   | Ether sidecar TCP port.                                                                                        |
-| `--db-host <DB_HOST>`         | `localhost`                 | Postgres hostname.                                                                                             |
-| `--db-port <DB_PORT>`         | `5432`                      | Postgres port.                                                                                                 |
-| `--db-name <DB_NAME>`         | `postgres`                  | Postgres database name.                                                                                        |
-| `--db-user <DB_USER>`         | `postgres`                  | Postgres username.                                                                                             |
-| `--db-pass <DB_PASS>`         | `password`                  | Postgres password.                                                                                             |
-| `--cluster <CLUSTER>`         | `""`                        | Comma-separated cluster node list (e.g. `world10@127.0.0.1,world11@127.0.0.1`), forwarded to the sidecar mesh. |
-| `--pepper <PEPPER>`           | `localhost`                 | Server-side pepper for password hashing.                                                                       |
+| `--db-host <DB_HOST>`         | `localhost` (`RS_DB_HOST`)  | Postgres hostname.                                                                                             |
+| `--db-port <DB_PORT>`         | `5432` (`RS_DB_PORT`)       | Postgres port.                                                                                                 |
+| `--db-name <DB_NAME>`         | `postgres` (`RS_DB_NAME`)   | Postgres database name.                                                                                        |
+| `--db-user <DB_USER>`         | `postgres` (`RS_DB_USER`)   | Postgres username.                                                                                             |
+| `--db-pass <DB_PASS>`         | `RS_DB_PASS`; `password` in debug only | Postgres password. Required in release builds.                                                      |
+| `--pepper <PEPPER>`           | `RS_PEPPER`; `localhost` in debug only | Server-side pepper for password hashing. Required in release builds.                                |
+| `--cookie <COOKIE>`           | `RS_COOKIE`; `rs_secret` in debug only | Erlang cookie shared by every ether node in the cluster. Required in release builds.                |
+| `--node-host <NODE_HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | Host part of this world's ether node name (`world<id>@<host>`); other worlds must be able to reach it.       |
+| `--cluster <CLUSTER>`         | `""` (`RS_CLUSTER_HOSTS`)   | Comma-separated ether node list (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10`..`world20` on `--node-host`. |
+| `--ether-release <PATH>`      | unset (`RS_ETHER_RELEASE`)  | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.               |
+| `--auto-register <BOOL>`      | `true` (debug) / `false` (release) | Register an unknown name on first login (debug builds also grant staff level 3). Off in release: players register on the website. Takes a value, e.g. `--auto-register false`. |
+| `--auto-migrate <BOOL>`       | `true` (debug) / `false` (release) | Apply pending migrations on startup. Off, the server only checks the schema is current and keeps logins offline until `rs-server migrate` has run. |
 
 > [!NOTE]
-> `--members`, `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
+> `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
 (defaults shown). The `--db-*` defaults match `docker-compose.yml`, so the server
 > connects with no extra flags.
+
+----
+
+## Deploying
+
+One website, many worlds, one shared Postgres. Each world runs its own ether
+node; the nodes mesh into one cluster for cross-world social features.
+
+1. **Secrets come from the environment.** Set `RS_DB_PASS`, `RS_PEPPER` and
+   `RS_COOKIE` (the website needs the first two). Release builds refuse to
+   start without them. Flags would also work, but anyone who can list
+   processes can read them.
+2. **Build ether once.** In `rs-ether/`: `MIX_ENV=prod mix deps.get` then
+   `MIX_ENV=prod mix release`, and point each world at the result with
+   `RS_ETHER_RELEASE=rs-ether/_build/prod/rel/rs_ether`. The release needs no
+   Elixir install on the world host, only a matching OS.
+3. **Migrate as its own deploy step**, before rolling out new binaries:
+   `rs-server migrate` (game tables, then ether's). Release servers never
+   migrate on their own; they check the schema and keep logins offline until
+   it's current. They tolerate migrations from a *newer* build, so old worlds
+   keep running while you roll out, as long as each migration is backward
+   compatible.
+4. **Rotate the login key on every deploy.** The repo's `.keys/private.pem`
+   is public. Copy `deploy/rotate-rsa.py` to the server, and in each extracted
+   release, before starting the world, run `python3 /path/to/rotate-rsa.py`
+   (needs `openssl`). It writes a new key and patches
+   `public/<rev>/client.js` to match. Run it on the server only: the key must
+   never be committed or uploaded. The Java client keeps the old key and can't
+   log in afterwards.
+5. **Name nodes by reachable hosts.** Give each world `--node-host` (its
+   private IP or hostname) and every world the same `--cluster` list, e.g.
+   `world10@10.0.0.5,world11@10.0.0.6`.
+6. **Keep the cluster private.** Anyone holding the cookie who can reach a
+   node can run code on it. Firewall EPMD (`4369`) and the distribution ports
+   to the private network. To pin those ports, set
+   `ERL_AFLAGS="-kernel inet_dist_listen_min 9100 inet_dist_listen_max 9110"`
+   for the world process; the sidecar inherits it.
+7. **TLS at a reverse proxy.** The web client connects back to the page's own
+   host over `ws`/`wss`, so terminate TLS for the website and for each world's
+   HTTP port. Behind the proxy every connection comes from the proxy's own
+   address, so have it set the client IP in a header (nginx:
+   `proxy_set_header X-Real-IP $remote_addr;`), start the world with
+   `--real-ip-header x-real-ip`, and bind it where only the proxy can reach it
+   (e.g. `--host 127.0.0.1`).
 
 ----
 

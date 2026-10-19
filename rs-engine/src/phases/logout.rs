@@ -1,8 +1,5 @@
 use crate::active_player::EnginePlayer;
-use crate::clients::client_db::DbRequest;
-use crate::clients::client_ether::EtherOutbound;
 use crate::engine::Engine;
-use crate::player_save::{extract_profile, save_binary};
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::state::{QueuePriority, ScriptArgument, ScriptState};
@@ -50,8 +47,8 @@ impl Engine {
     /// * Closes any open modal interface.
     /// * Checks whether the player's queues allow immediate removal.
     /// * Executes the `Logout` server trigger script.
-    /// * Persists the player profile via [`DbRequest::Save`].
-    /// * Notifies the ether service with [`EtherOutbound::PlayerLogout`].
+    /// * Persists the player profile, notifying the ether service once the
+    ///   save lands (see [`Engine::save_logout`]).
     /// * Removes the player from the engine.
     ///
     /// # Side Effects
@@ -161,21 +158,10 @@ impl Engine {
                         state.pointers.add(ScriptPointer::ProtectedActivePlayer);
                         self.runescript_vm_execute(&mut state);
 
-                        if let Some(active) = self.player_list.players[idx].as_ref() {
-                            if let Some(tx) = &self.db_tx {
-                                let profile = extract_profile(&active.player, self.cache);
-                                let binary = save_binary(&profile, self.cache);
-                                let _ = tx.send(DbRequest::Save {
-                                    user37,
-                                    username: uid.username(),
-                                    profile: Box::new(profile),
-                                    binary,
-                                });
-                            }
-                        }
-
-                        if let Some(tx) = &self.ether_tx {
-                            let _ = tx.send(EtherOutbound::PlayerLogout { user37 });
+                        if self.player_list.players[idx].is_some() {
+                            self.save_logout(index);
+                        } else {
+                            self.release_logout(user37);
                         }
                         self.remove_player(index);
                         info!(

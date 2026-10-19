@@ -1,0 +1,97 @@
+{% with title=category.name ~ " Hiscores" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+
+{% with title="RuneScape Hiscores", links=[{"text": "All Hiscores", "href": "/hiscores"}] if user else [] %}{% include "layout/title-box.html" %}{% endwith %}
+
+<center>
+  <table>
+    <tr>
+      <td width=160 valign=top>
+        <center>
+          <img src="/img/title/blank.gif" width=1 height=16><b>Select hiscore table</b><br>
+          <table width=150 height=400 bgcolor=black cellpadding=4>
+            <tr>
+              <td class=e>
+                <center>
+                  <table height=380 cellspacing="1" cellpadding="0">
+                    {% for c in categories %}
+                    <tr>
+                      <td><img src="{{ c.icon }}" valign="bottom" width=16 height=16></td>
+                      <td>&nbsp;</td>
+                      <td>
+                        {% if user %}
+                        <a href="/hiscores?user={{ user|lower|replace(' ', '_') }}&category={{ c.id }}" class=c>{{ c.name }}</a>
+                        {% elif c.id == 0 %}
+                        <a href="/hiscores" class=c>{{ c.name }}</a>
+                        {% else %}
+                        <a href="/hiscores?category={{ c.id }}" class=c>{{ c.name }}</a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                </center>
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+      <td width=290 valign=top>
+        <center>
+          <img src="{{ category.icon }}" valign="bottom" width=16 height=16>&nbsp;
+          <b>{{ category.name }} Hiscores</b><br>
+          <table width=270 height=400 bgcolor=black cellpadding=4>
+            <tr>
+              <td class=e valign=top>
+                <center>
+                  {% if entries %}
+                  <table>
+                    <tr>
+                      <td align=right>
+                        <b>Rank</b><br>
+                        {% for e in entries %}
+                        {% if e.rank == focus %}<font color=yellow>{{ e.rank|commas }}</font>{% else %}{{ e.rank|commas }}{% endif %}<br>
+                        {% endfor %}
+                      </td>
+                      <td>&nbsp;</td>
+                      <td nowrap>
+                        <b>Name</b><br>
+                        {% for e in entries %}
+                        <a href="/hiscores?user={{ e.name|lower|replace(' ', '_') }}" class=c{% if e.rank == focus %} style="color: yellow"{% endif %}>{{ e.name }}</a><br>
+                        {% endfor %}
+                      </td>
+                      <td>&nbsp;</td>
+                      <td>
+                        <b>Level</b><br>
+                        {% for e in entries %}
+                        {% if e.rank == focus %}<font color=yellow>{{ e.level|commas }}</font>{% else %}{{ e.level|commas }}{% endif %}<br>
+                        {% endfor %}
+                      </td>
+                      <td>&nbsp;</td>
+                      <td align=right>
+                        <b>XP</b><br>
+                        {% for e in entries %}
+                        {% if e.rank == focus %}<font color=yellow>{{ e.xp|commas }}</font>{% else %}{{ e.xp|commas }}{% endif %}<br>
+                        {% endfor %}
+                      </td>
+                    </tr>
+                  </table>
+                  {% else %}
+                  <br>Nobody is ranked here yet.
+                  {% endif %}
+                </center>
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+</center>
+
+{% with category=category.id, search=user %}{% include "layout/hiscores-search.html" %}{% endwith %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

@@ -1,7 +1,10 @@
+use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
 use crate::clients::client_game::ClientHandle;
+use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_cam::CamKind;
+use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
 use rs_entity::{EntityLifeTime, Player};
 use rs_grid::CoordGrid;
@@ -129,6 +132,7 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 use std::net::IpAddr;
+use std::time::{Duration, Instant};
 use tracing::{error, warn};
 
 /// Maximum number of recycled outbound byte buffers kept per client in
@@ -157,6 +161,13 @@ pub struct ActivePlayer {
     pub user_limit: u8,
     pub restricted_limit: u8,
     pub remote_ip: Option<IpAddr>,
+    /// When the player's chat mute ends, `None` if not muted. Kept in step
+    /// with the database's `players.muted_until`.
+    pub muted_until: Option<Instant>,
+    /// The tick of the player's last abuse report: one per tick.
+    pub last_report: Option<u32>,
+    /// The tick of the player's last public or private chat: one per tick.
+    pub last_social: Option<u32>,
 }
 
 impl ActivePlayer {
@@ -200,6 +211,9 @@ impl ActivePlayer {
             user_limit: 0,
             restricted_limit: 0,
             remote_ip: None,
+            muted_until: None,
+            last_report: None,
+            last_social: None,
         }
     }
 
@@ -812,6 +826,93 @@ impl ActivePlayer {
     pub fn logout(&mut self) {
         self.player.logout_sent = true;
         self.write(rs_protocol::network::game::server::logout::Logout);
+    }
+
+    /// When a mute lasting `d` from now ends. Capped at 100 years, so a mute
+    /// set far out by hand can't overflow the clock.
+    pub fn mute_deadline(d: Duration) -> Instant {
+        const CENTURY: Duration = Duration::from_secs(100 * 365 * 24 * 3600);
+        Instant::now() + d.min(CENTURY)
+    }
+
+    /// Whether the player is muted, and so may not public or private chat.
+    pub fn is_muted(&self) -> bool {
+        self.muted_until.is_some_and(|until| Instant::now() < until)
+    }
+
+    /// Bans the player for [`AUTO_BAN_HOURS`] and logs them out, for sending
+    /// what only a modified client can. The ban reaches the database before
+    /// the logout save, so logging straight back in is refused.
+    pub fn auto_ban(&mut self, trigger: AutoBan) {
+        counters::add(&COUNTERS.auto_bans[trigger as usize], 1);
+        if let Some(tx) = &engine().db_tx {
+            let _ = tx.send(DbRequest::Ban {
+                user37: self.player.uid.username37(),
+                hours: AUTO_BAN_HOURS,
+            });
+        }
+        self.logout();
+    }
+
+    /// This tick's [`LogBatch`], sent with [`DbRequest::Logs`], and where the
+    /// player is (x, z, y). `None` when nothing is logged: without a database,
+    /// or for a bot.
+    fn log_batch(&self) -> Option<(&'static mut LogBatch, i16, i16, i16)> {
+        let engine = engine_mut();
+        if engine.db_tx.is_none() || self.player.bot {
+            return None;
+        }
+        let coord = self.player.pathing.coord;
+        Some((
+            &mut engine.logs,
+            coord.x() as i16,
+            coord.z() as i16,
+            i16::from(coord.y()),
+        ))
+    }
+
+    /// Logs chat the player sent (unfiltered), to `to37` if private.
+    pub fn log_chat(&self, to37: Option<u64>, message: String) {
+        if let Some((logs, x, z, y)) = self.log_batch() {
+            logs.chat.push(ChatLog {
+                name_hash: self.player.uid.username37(),
+                to_name_hash: to37,
+                x,
+                z,
+                y,
+                message,
+            });
+        }
+    }
+
+    /// Logs a script's `session_log` event.
+    pub fn log_session(&self, event_type: i32, event: &str) {
+        if let Some((logs, x, z, y)) = self.log_batch() {
+            logs.sessions.push(SessionLog {
+                name_hash: self.player.uid.username37(),
+                x,
+                z,
+                y,
+                event_type: event_type as i16,
+                event: event.to_owned(),
+            });
+        }
+    }
+
+    /// Logs a script's `wealth_event`.
+    pub fn log_wealth(&self, event_type: i32, item: &str, count: i32, value: i32) {
+        if let Some((logs, x, z, y)) = self.log_batch() {
+            logs.wealth.push(WealthEvent {
+                name_hash: self.player.uid.username37(),
+                x,
+                z,
+                y,
+                event_type: event_type as i16,
+                item: item.to_owned(),
+                count,
+                value,
+            });
+        }
     }
 
     /// Sends a game message to the player's chatbox.

@@ -1,0 +1,34 @@
+{% with title="Latest News" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+
+{% include "layout/news-nav.html" %}
+
+{% include "layout/news-categories.html" %}
+
+<table width=500 bgcolor=black cellpadding=4>
+  <tr>
+    <td class=e>
+      <center>
+        <table width=490>
+          <tr>
+            <td width="25%"><b>Category</b></td>
+            <td><b>News Item</b></td>
+            <td width="25%" align="right"><b>Date</b></td>
+          </tr>
+          {% for post in news %}
+          <tr>
+            <td class="{{ post.category_style }}">{{ post.category_name }}</td>
+            <td><a href="/news/{{ post.id }}">{{ post.title }}</a></td>
+            <td align='right'>{{ post.short_date }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

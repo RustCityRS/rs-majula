@@ -1,0 +1,15 @@
+{% with title="Virtual world" %}{% include "layout/header.html" %}{% endwith %}
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="What is a virtual world?", links=[{"text": "About RuneScape", "href": "/about"}] %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start.html" %}
+<center><b>What is a virtual world?</b></center>
+
+<p>A virtual world is a place where thousands of people from across the globe can interact with each other at the press of a button. Not only will you meet players of all ages and backgrounds, but your actions will have a real impact on shaping the environment and the development of RuneScape.</p>
+<p>Whatever the time you log in there will be thousands of online players in our community to interact with. Combine that with over a 1000 different objects to find/trade and a large landscape to explore, you will always have something exciting to attend to.</p>
+<p>You have the absolute freedom and opportunity to create your own virtual life. So why not <a href="/about/getstart">get started?</a></p>
+{% include "layout/content-body-end.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

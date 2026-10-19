@@ -1,0 +1,15 @@
+<br>
+<table width=250 bgcolor=black cellpadding=4>
+    <tr>
+        <td class=e>
+            <center>
+                <b>{{ title }}</b><br>
+                {% if not nomenu %}<a href="/title" class=c>Main menu</a>{% endif %}
+                {% for link in links %}
+                    {% if link.br %}<br>{% else %}- {% endif %}<a href="{{ link.href }}" class=c>{{ link.text }}</a>
+                {% endfor %}
+            </center>
+        </td>
+    </tr>
+</table>
+<br>

@@ -1,0 +1,81 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, shrink-to-fit=no">
+    <title>RuneScape Game</title>
+
+    <style>
+        body,
+        td,
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+        }
+
+        body {
+            margin: 0px;
+            overflow: auto;
+        }
+
+        .b {
+            border-style: outset;
+            border-width: 3pt;
+            border-color: #373737;
+        }
+
+        .e {
+            border: 2px solid #382418;
+        }
+
+        .c {
+            text-decoration: none;
+        }
+
+        A.c:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body bgcolor="black" text="white" link="#90c040" alink="#90c040" vlink="#90c040" style="margin: 2px 0 0 0 0;"
+      marginwidth="0" marginheight="0" topmargin="2" leftmargin="0">
+<center>
+    <table cellpadding="1" cellspacing="0">
+        <tr>
+            <td align="{{ 'left' if world.members else 'center' }}">
+                <table {% if not world.members %}width="785" {% endif %} cellpadding="1" cellspacing="0">
+                    <tr>
+                        <td align="center">
+                            <a href="/title" id="menulink">
+                                <img src="/img/jagexlogo_black.jpg" border="0"><br>
+                                <a href="/title"><font color="white">Main Menu</font></a> - <a
+                                    style="text-decoration: underline; cursor: pointer;"
+                                    onclick="window.open('/worldmap', 'WorldMap', 'width=800,height=600');"><font
+                                    color="white">World Map</font></a>
+                            </a>
+                        </td>
+                        <td width="25"></td>
+                        <td align="center">
+                            <iframe src="/banner?size=469" width="468" height="60" marginwidth="0" marginheight="0"
+                                    frameborder="0" scrolling="no"></iframe>
+                        </td>
+                        <td width="25"></td>
+                        <td align="right">
+                            <a href="/" target="newwin">
+                                <img src="/img/gamewin/realbanner.gif" border="0">
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="{{ 1 if world.members else 2 }}" align="center">
+                {# methods 2 and 3 are Java plugins, which can't load over https #}
+                <iframe src='{{ world.address|replace("https", "http") if method in [2, 3] else world.address }}/rs2.cgi?plugin={{ method }}&world={{ world.id }}&lowmem={{ detail }}'
+                        frameborder="0" border="0" width="789" height="560" scrolling="no" allowfullscreen></iframe>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

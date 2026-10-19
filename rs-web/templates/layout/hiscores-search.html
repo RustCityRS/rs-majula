@@ -1,0 +1,41 @@
+{# The search-by-rank and search-by-name boxes under every hiscores page.
+   Expects category (the table rank searches look in) and search (the name
+   to prefill, may be none). #}
+<center>
+  <table>
+    <tr>
+      <td>
+        <table width=200 bgcolor=black cellpadding=4>
+          <tr>
+            <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+              <center>
+                <form action="/hiscorerank">
+                  <b>Search by rank</b><br>
+                  <input type=text maxlength=12 size=12 name=rank value=""><br>
+                  <input type=hidden name=category value="{{ category }}">
+                  <input type=submit value="Search" style="margin-top: 4px">
+                </form>
+              </center>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>
+        <table width=200 bgcolor=black cellpadding=4>
+          <tr>
+            <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+              <center>
+                <form action="/hiscorepersonal">
+                  <b>Search by name</b><br>
+                  <input type=text maxlength=12 size=12 name=username value="{{ search or '' }}"><br>
+                  <input type=submit value="Search" style="margin-top: 4px">
+                </form>
+              </center>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</center>

@@ -3,7 +3,7 @@ mod cleanup;
 mod ether;
 mod info;
 mod input;
-mod login;
+pub(crate) mod login;
 mod logout;
 mod npc;
 mod output;

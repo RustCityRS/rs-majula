@@ -1,9 +1,8 @@
 use crate::socket::handshake;
-use crate::{ConnectionGuard, ServerIO, Socket};
+use crate::{ConnectionGuard, REVISION, ServerIO, Socket};
 use rs_pack::cache::CacheStore;
-use sailfish::TemplateSimple;
 use std::collections::HashMap;
-use std::net::SocketAddr;
+use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
@@ -50,22 +49,21 @@ impl Body {
     }
 }
 
-enum ClientTemplate {
-    TypeScript(TypeScriptClient),
-}
-
-#[derive(TemplateSimple)]
-#[cfg_attr(rev = "225", template(path = "public/225/client.ejs"))]
-#[cfg_attr(rev = "244", template(path = "public/244/client.ejs"))]
-#[cfg_attr(rev = "245.2", template(path = "public/245.2/client.ejs"))]
-#[cfg_attr(rev = "254", template(path = "public/254/client.ejs"))]
-#[cfg_attr(rev = "274", template(path = "public/274/client.ejs"))]
-#[cfg_attr(rev = "289", template(path = "public/289/client.ejs"))]
-struct TypeScriptClient {
-    nodeid: String,
-    lowmem: String,
-    members: String,
-}
+/// This revision's web client page. Its one dynamic line is
+/// `new Client({{nodeid}}, {{lowmem}}, {{members}});`, filled in by
+/// [`render_client`].
+#[cfg(rev = "225")]
+const CLIENT_HTML: &str = include_str!("../../public/225/client.html");
+#[cfg(rev = "244")]
+const CLIENT_HTML: &str = include_str!("../../public/244/client.html");
+#[cfg(rev = "245.2")]
+const CLIENT_HTML: &str = include_str!("../../public/245.2/client.html");
+#[cfg(rev = "254")]
+const CLIENT_HTML: &str = include_str!("../../public/254/client.html");
+#[cfg(rev = "274")]
+const CLIENT_HTML: &str = include_str!("../../public/274/client.html");
+#[cfg(rev = "289")]
+const CLIENT_HTML: &str = include_str!("../../public/289/client.html");
 
 pub async fn serve(
     host: String,
@@ -76,6 +74,7 @@ pub async fn serve(
     guard: ConnectionGuard,
     http_guard: ConnectionGuard,
     jaggrab_only: bool,
+    real_ip_header: Option<&'static str>,
 ) {
     let listener = match TcpListener::bind((host, port)).await {
         Ok(l) => l,
@@ -100,11 +99,6 @@ pub async fn serve(
         let http_guard = http_guard.clone();
 
         tokio::spawn(async move {
-            let Some(_permit) = http_guard.try_acquire(addr.ip()) else {
-                debug!("HTTP {} connection limit reached", addr);
-                return;
-            };
-            info!("HTTP {:?} connected", addr);
             handle_connection(
                 stream,
                 nodeid,
@@ -112,7 +106,9 @@ pub async fn serve(
                 server_state,
                 addr,
                 guard,
+                http_guard,
                 jaggrab_only,
+                real_ip_header,
             )
             .await;
         });
@@ -125,14 +121,29 @@ async fn handle_connection(
     nodeid: String,
     members: bool,
     server_state: ServerIO,
-    addr: SocketAddr,
+    peer: SocketAddr,
     guard: ConnectionGuard,
+    http_guard: ConnectionGuard,
     jaggrab_only: bool,
+    real_ip_header: Option<&'static str>,
 ) {
     stream.set_nodelay(true).ok();
 
+    // Without a proxy the peer is the client, so it is limited before any
+    // bytes are read. Behind one, the limit waits for the forwarded address.
+    let permit = match real_ip_header {
+        Some(_) => None,
+        None => {
+            let Some(permit) = http_guard.try_acquire(peer.ip()) else {
+                debug!("HTTP {} connection limit reached", peer);
+                return;
+            };
+            Some(permit)
+        }
+    };
+
     // Peek first to check if it's a WebSocket upgrade
-    let mut buf = [0; 1024]; // increase buffer
+    let mut buf = [0; 4096];
     let n = match timeout(HANDSHAKE_TIMEOUT, stream.peek(&mut buf)).await {
         Ok(Ok(n)) => n,
         Ok(Err(e)) => {
@@ -140,12 +151,18 @@ async fn handle_connection(
             return;
         }
         Err(_) => {
-            debug!("HTTP {} handshake timeout", addr);
+            debug!("HTTP {} handshake timeout", peer);
             return;
         }
     };
 
     let raw = String::from_utf8_lossy(&buf[..n]);
+    let addr = client_addr(&raw, real_ip_header, peer);
+    let Some(_permit) = permit.or_else(|| http_guard.try_acquire(addr.ip())) else {
+        debug!("HTTP {} connection limit reached", addr);
+        return;
+    };
+    info!("HTTP {:?} connected", addr);
 
     if raw.to_ascii_lowercase().contains("upgrade: websocket") {
         #[allow(clippy::result_large_err)]
@@ -258,6 +275,28 @@ async fn handle_connection(
     }
 }
 
+/// The client's address: the `header` field of the request head when it
+/// holds a valid IP, otherwise the socket peer. Only lines the peek read in
+/// full are searched, so a cut-off value is never parsed.
+fn client_addr(head: &str, header: Option<&str>, peer: SocketAddr) -> SocketAddr {
+    let complete = &head[..head.rfind("\r\n").unwrap_or(0)];
+    header
+        .and_then(|name| {
+            complete
+                .lines()
+                .skip(1)
+                .take_while(|line| !line.is_empty())
+                .find_map(|line| {
+                    let (key, value) = line.split_once(':')?;
+                    key.trim().eq_ignore_ascii_case(name).then_some(value)
+                })
+        })
+        // x-forwarded-for style lists put the client first.
+        .and_then(|value| value.split(',').next())
+        .and_then(|value| value.trim().parse::<IpAddr>().ok())
+        .map_or(peer, |ip| SocketAddr::new(ip, peer.port()))
+}
+
 async fn route(
     path: &str,
     query: &str,
@@ -279,44 +318,33 @@ async fn route(
         ),
         "/rs2.cgi" => {
             let params = parse_query(query);
-            let has_plugin = params.contains_key("plugin");
-            let has_lowmem = params.contains_key("lowmem");
+            // Only ever echoed as parsed numbers: they end up in a redirect
+            // header and in the page's JavaScript.
+            let plugin = query_number(&params, "plugin");
+            let lowmem = query_number(&params, "lowmem") != 0;
 
-            if !has_plugin || !has_lowmem {
-                let plugin = params.get("plugin").map(|s| s.as_str()).unwrap_or("0");
-                let lowmem = params.get("lowmem").map(|s| s.as_str()).unwrap_or("0");
+            if !params.contains_key("plugin") || !params.contains_key("lowmem") {
                 return (
                     "302 Found",
                     format!(
                         "Location: /rs2.cgi?lowmem={}&plugin={}\r\nContent-Length: 0\r\n",
-                        lowmem, plugin
+                        u8::from(lowmem),
+                        plugin
                     ),
                     Body::Empty,
                 );
             }
 
-            let lowmem = params.get("lowmem").cloned().unwrap_or("0".into());
-            match render_client(lowmem, nodeid.to_string(), members) {
-                Ok(html) => {
-                    let bytes = html.into_bytes();
-                    let len = bytes.len();
-                    (
-                        "200 OK",
-                        format!(
-                            "Content-Type: text/html; charset=UTF-8\r\nContent-Length: {len}\r\n"
-                        ),
-                        Body::Owned(bytes),
-                    )
-                }
-                Err(e) => {
-                    warn!("Template render error: {}", e);
-                    (
-                        "500 Internal Server Error",
-                        "Content-Length: 0\r\n".into(),
-                        Body::Empty,
-                    )
-                }
-            }
+            let bytes = render_client(nodeid, lowmem, members, client_version(cache)).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                // Never reused: it names the client.js to load (see render_client).
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                ),
+                Body::Owned(bytes),
+            )
         }
         p if matches_cache(p) => match read_cache(p, cache) {
             Some(body) => {
@@ -453,20 +481,34 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
     None
 }
 
-fn render_client(
-    lowmem: String,
-    nodeid: String,
-    members: bool,
-) -> Result<String, Box<dyn std::error::Error>> {
-    let client = ClientTemplate::TypeScript(TypeScriptClient {
-        nodeid,
-        lowmem,
-        members: members.to_string(),
-    });
+/// Fills in this revision's client page. Every value is a number or a bool,
+/// so no request text reaches the page's JavaScript.
+///
+/// With `version`, the page imports `client.js?v=<version>`: a client.js that
+/// changes (a new release, or `rotate-rsa.py` patching in a new login key)
+/// gets a new URL, so no browser or Cloudflare cache serves the old one.
+fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
+    let html = CLIENT_HTML
+        .replace("{{nodeid}}", nodeid)
+        .replace("{{lowmem}}", if lowmem { "1" } else { "0" })
+        .replace("{{members}}", if members { "true" } else { "false" });
+    match version {
+        Some(v) => html.replace("client.js'", &format!("client.js?v={v:08x}'")),
+        None => html,
+    }
+}
 
-    Ok(match client {
-        ClientTemplate::TypeScript(c) => c.render_once()?,
-    })
+/// The CRC of the client.js this world serves, `None` if it has none.
+fn client_version(cache: &CacheStore) -> Option<u32> {
+    let js = cache
+        .static_assets
+        .get(format!("/{REVISION}/client.js").as_str())?;
+    Some(rs_io::crc::getcrc(js, 0, js.len()) as u32)
+}
+
+/// A numeric query parameter; missing or non-numeric reads as 0.
+fn query_number(params: &HashMap<String, String>, key: &str) -> u8 {
+    params.get(key).and_then(|v| v.parse().ok()).unwrap_or(0)
 }
 
 fn bad_request() -> (&'static str, String, Body) {
@@ -495,4 +537,63 @@ fn parse_query(query: &str) -> HashMap<String, String> {
             }
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn client_page_fills_every_marker() {
+        let html = render_client("10", true, false, None);
+        assert!(html.contains("new Client(10, 1, false);"));
+        assert!(!html.contains("{{"));
+    }
+
+    #[test]
+    fn client_page_versions_its_client_js() {
+        let html = render_client("10", true, false, Some(0xab12));
+        assert_eq!(html.matches("/client.js?v=0000ab12'").count(), 1);
+        assert!(!render_client("10", true, false, None).contains("?v="));
+    }
+
+    #[test]
+    fn query_numbers_never_echo_text() {
+        let params = parse_query("plugin=3&lowmem=0);alert(document.cookie);(0");
+        assert_eq!(query_number(&params, "plugin"), 3);
+        assert_eq!(query_number(&params, "lowmem"), 0);
+        assert_eq!(query_number(&params, "missing"), 0);
+    }
+
+    const PEER: &str = "127.0.0.1:50000";
+
+    fn client(head: &str, header: Option<&str>) -> String {
+        client_addr(head, header, PEER.parse().unwrap()).to_string()
+    }
+
+    #[test]
+    fn real_ip_header_replaces_the_proxy_peer() {
+        let head = "GET / HTTP/1.1\r\nHost: w1\r\nX-Real-IP: 203.0.113.7\r\n\r\n";
+        assert_eq!(client(head, Some("x-real-ip")), "203.0.113.7:50000");
+        assert_eq!(client(head, None), PEER);
+    }
+
+    #[test]
+    fn forwarded_for_lists_take_the_client() {
+        let head = "GET / HTTP/1.1\r\nx-forwarded-for: 2001:db8::1, 10.0.0.2\r\n\r\n";
+        assert_eq!(client(head, Some("X-Forwarded-For")), "[2001:db8::1]:50000");
+    }
+
+    #[test]
+    fn bad_missing_or_cut_off_values_keep_the_peer() {
+        let bad = "GET / HTTP/1.1\r\nX-Real-IP: not-an-ip\r\n\r\n";
+        assert_eq!(client(bad, Some("x-real-ip")), PEER);
+        let missing = "GET / HTTP/1.1\r\nHost: w1\r\n\r\n";
+        assert_eq!(client(missing, Some("x-real-ip")), PEER);
+        let cut_off = "GET / HTTP/1.1\r\nHost: w1\r\nX-Real-IP: 2001:db8::1";
+        assert_eq!(client(cut_off, Some("x-real-ip")), PEER);
+        // A body or a later request can't smuggle the field in.
+        let body = "GET / HTTP/1.1\r\n\r\nX-Real-IP: 203.0.113.7\r\n";
+        assert_eq!(client(body, Some("x-real-ip")), PEER);
+    }
 }

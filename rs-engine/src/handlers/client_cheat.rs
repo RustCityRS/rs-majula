@@ -1,10 +1,12 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
+use crate::clients::client_db::DbRequest;
 use crate::clients::client_game::create_io;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use core::str::Split;
 use num_enum::TryFromPrimitive;
 use rs_crypto::isaac::IsaacPair;
+use rs_db::ModAction;
 use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
@@ -25,6 +27,7 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{DummyItem, LocAngle, LocShape, NpcStat, PlayerStat};
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
 use rs_stat::get_exp_by_level;
+use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptArgument;
@@ -146,6 +149,8 @@ fn cheat_developer(
 /// - `setvis <level>` - Sets the player's visibility (0 = default, 1 = soft, 2 = hard).
 /// - `getcoord` - Prints the player's current coordinate.
 /// - `tele <level,mx,mz[,lx,lz]>` - Teleports the player to a coordinate.
+/// - `ban <name> <hours>`, `unban <name>`, `kick <name>` - Bans, unbans or
+///   kicks a player (see [`cheat_moderate`]).
 ///
 /// Reached directly by jagex moderators, and by developers cascading down from
 /// [`cheat_developer`].
@@ -158,6 +163,7 @@ fn cheat_jagex_moderator(
         "setvis" => cheat_setvis(&mut args, active),
         "getcoord" => cheat_getcoord(active),
         "tele" => cheat_tele(&mut args, active),
+        "ban" | "unban" | "kick" => cheat_moderate(cmd, &mut args, active),
         _ => cheat_player_moderator(cmd, args, active),
     }
 }
@@ -165,13 +171,20 @@ fn cheat_jagex_moderator(
 /// Dispatches player-moderator cheat commands, falling through to
 /// [`cheat_normal`] for any command it does not handle.
 ///
+/// Supported commands:
+/// - `mute <name> <hours>`, `unmute <name>` - Mutes or unmutes a player (see
+///   [`cheat_moderate`]).
+///
 /// Reached directly by player moderators, and by higher staff cascading down.
 fn cheat_player_moderator(
     cmd: &str,
-    args: Split<'_, char>,
+    mut args: Split<'_, char>,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    cheat_normal(cmd, args, active)
+    match cmd {
+        "mute" | "unmute" => cheat_moderate(cmd, &mut args, active),
+        _ => cheat_normal(cmd, args, active),
+    }
 }
 
 /// Dispatches cheat commands available to every player; unrecognized commands
@@ -632,6 +645,80 @@ fn cheat_setvis(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
     };
     Ok(())
 }
+
+/// Mutes, unmutes, bans, unbans or kicks a player. Names with spaces take
+/// underscores; mutes and bans last a whole number of hours from now,
+/// replacing any already in place.
+///
+/// The database applies it (refusing a target of the moderator's staff level
+/// or above, on any world) and logs who did what; the moderator hears back
+/// once it has (`Engine::moderated`). A ban also kicks the target, from
+/// whichever world they're on. A kick only reaches this world.
+///
+/// Mutes need staff level 1 (player moderator), bans and kicks level 2
+/// (Jagex moderator); the dispatchers above enforce that.
+///
+/// Usage: `::mute <name> <hours>`, `::unmute <name>`, `::ban <name> <hours>`,
+/// `::unban <name>`, `::kick <name>`.
+fn cheat_moderate(
+    cmd: &str,
+    args: &mut Split<char>,
+    active: &mut ActivePlayer,
+) -> Result<(), ScriptError> {
+    let timed = matches!(cmd, "mute" | "ban");
+    let usage = format!(
+        "Usage: ::{cmd} <name>{}",
+        if timed { " <hours>" } else { "" }
+    );
+
+    let Some(name) = args.next().filter(|name| !name.is_empty()) else {
+        active.message_game(&usage);
+        return Ok(());
+    };
+    let target37 = to_userhash(name);
+    if !is_valid_userhash(target37) {
+        active.message_game(&format!("{name} isn't a valid name."));
+        return Ok(());
+    }
+    let hours = if timed {
+        match args.next().and_then(|h| h.parse::<i32>().ok()) {
+            Some(hours @ 1..=MAX_MOD_HOURS) => hours,
+            _ => {
+                active.message_game(&format!("{usage} (1 to {MAX_MOD_HOURS})"));
+                return Ok(());
+            }
+        }
+    } else {
+        0
+    };
+    let action = match cmd {
+        "mute" => ModAction::Mute { hours },
+        "unmute" => ModAction::Unmute,
+        "ban" => ModAction::Ban { hours },
+        "unban" => ModAction::Unban,
+        _ => ModAction::Kick,
+    };
+
+    let engine = engine();
+    if action == ModAction::Kick && engine.find_pid_by_user37(target37).is_none() {
+        active.message_game(&format!("{} isn't on this world.", to_screen_name(name)));
+        return Ok(());
+    }
+    let Some(tx) = &engine.db_tx else {
+        active.message_game("The database is offline, so nothing was changed.");
+        return Ok(());
+    };
+    let _ = tx.send(DbRequest::Moderate {
+        moderator37: active.player.uid.username37(),
+        by_level: active.player.staff_mod_level as u8,
+        target37,
+        action,
+    });
+    Ok(())
+}
+
+/// The longest mute or ban a command sets: 10 years.
+const MAX_MOD_HOURS: i32 = 87_600;
 
 /// Reports the player's current coordinate as `level,mx,mz,lx,lz` (level,
 /// map-square X/Z, local tile X/Z) -- the same format accepted by `tele`.

@@ -1,0 +1,95 @@
+prometheus.scrape "rs_server" {
+	targets = [
+		{"__address__" = "127.0.0.1:8180", "instance" = constants.hostname, "node" = "10"},
+		{"__address__" = "127.0.0.1:8181", "instance" = constants.hostname, "node" = "11"},
+		{"__address__" = "127.0.0.1:8182", "instance" = constants.hostname, "node" = "12"},
+		{"__address__" = "127.0.0.1:8183", "instance" = constants.hostname, "node" = "13"},
+	]
+	job_name        = "rs-server"
+	scrape_interval = "15s"
+	forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+// CPU, memory, disk and network of the host itself.
+prometheus.exporter.unix "host" { }
+
+prometheus.scrape "host" {
+	targets         = prometheus.exporter.unix.host.targets
+	job_name        = "integrations/unix"
+	scrape_interval = "60s"
+	forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+prometheus.remote_write "grafana_cloud" {
+	endpoint {
+		url = sys.env("GRAFANA_PROM_URL")
+
+		basic_auth {
+			username = sys.env("GRAFANA_PROM_USER")
+			password = sys.env("GRAFANA_CLOUD_TOKEN")
+		}
+	}
+}
+
+// Logs ----------------------------------------------------------------------
+
+// Keeps only rs-world@<node> units, labelled with their node.
+loki.relabel "worlds" {
+	forward_to = []
+
+	rule {
+		source_labels = ["__journal__systemd_unit"]
+		regex         = "rs-world@[0-9]+\\.service"
+		action        = "keep"
+	}
+
+	rule {
+		source_labels = ["__journal__systemd_unit"]
+		regex         = "rs-world@([0-9]+)\\.service"
+		target_label  = "node"
+	}
+}
+
+loki.source.journal "worlds" {
+	relabel_rules = loki.relabel.worlds.rules
+	labels        = {job = "rs-server", instance = constants.hostname}
+	forward_to    = [loki.process.rs_server.receiver]
+}
+
+loki.process "rs_server" {
+	stage.json {
+		expressions = {
+			level     = "level",
+			target    = "target",
+			timestamp = "timestamp",
+		}
+	}
+
+	// Tick timings are in the metrics; a line per tick would only add noise.
+	stage.drop {
+		source = "target"
+		value  = "tick_stats"
+	}
+
+	stage.labels {
+		values = {level = ""}
+	}
+
+	stage.timestamp {
+		source = "timestamp"
+		format = "RFC3339Nano"
+	}
+
+	forward_to = [loki.write.grafana_cloud.receiver]
+}
+
+loki.write "grafana_cloud" {
+	endpoint {
+		url = sys.env("GRAFANA_LOKI_URL")
+
+		basic_auth {
+			username = sys.env("GRAFANA_LOKI_USER")
+			password = sys.env("GRAFANA_CLOUD_TOKEN")
+		}
+	}
+}

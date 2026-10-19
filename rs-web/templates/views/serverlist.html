@@ -1,0 +1,148 @@
+{% macro region_grid(regions, detail, method) -%}
+<table>
+  <tr valign="top">
+    {% for region in regions %}
+      {% if loop.index0 % 3 == 0 %}
+        <td align=center width=165>
+        <table>
+      {% endif %}
+          <tr><td colspan=2>&nbsp;&nbsp;<img align=absmiddle src=/img/gamewin/{{ region.flag }}flag.gif width=30 height=15 border=0> {{ region.name }}</td></tr>
+          {% for world in region.worlds %}
+            <tr><td valign=center><a href="/client?world={{ world.id }}&detail={{ detail }}&method={{ method }}" oncontextmenu=return(false) target="_parent" class=c>World {{ world.id }}</a></td><td align=right>{% if world.online %}{{ world.players }} player{{ "s" if world.players != 1 }}{% else %}OFFLINE{% endif %}</td></tr>
+          {% endfor %}
+          {% if not loop.last %}
+            <tr><td colspan=2>&nbsp;</td></tr>
+          {% endif %}
+      {% if loop.index % 3 == 0 or loop.last %}
+        </table>
+        </td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+</table>
+{%- endmacro %}
+{% with title="Select a World" %}{% include "layout/header.html" %}{% endwith %}
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Play RuneScape", links=[{"text": "Detail Select", "href": "/detail"}] %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start.html" %}
+<center><b>Anyone can play on the Free Worlds below</b><br><br>
+{{ region_grid(free_regions, detail, method) }}
+<br><br>
+</td></tr></table>
+<br>
+</center>
+
+<DIV STYLE="LEFT: 0px; TOP: -45px; POSITION: relative;">
+<DIV STYLE="LEFT: 0px; TOP: 0px; width:100%; POSITION: absolute;">
+<DIV STYLE="LEFT: 0px; TOP: 45px; POSITION: relative;">
+<DIV STYLE="LEFT: 0px; TOP: 0px; width:100%; POSITION: absolute;">
+<center>
+<table border=0 width=450>
+    <tr>
+      <td align=center>
+        <table width=150 bgcolor=black cellpadding=4>
+          <tr><td class=b bgcolor=#474747 background='/img/stoneback.gif'>
+            <center>
+            <a href='/guides/rules' class=c>
+            <b>Rules of conduct</b></a><br>
+
+            Know the rules - don't risk being banned from the game
+            </center>
+          </td></tr>
+        </table>
+      </td>
+      <td align=center>
+        <table width=150 bgcolor=black cellpadding=4>
+
+          <tr><td class=b bgcolor=#474747 background='/img/stoneback.gif'>
+            <center>
+            <a href='/members' class=c>
+            <font color='#ffbb22'><b>Play for Free</b></font></a><br>
+              You won't need to pay now-- or ever! Play any way you want
+            </center>
+          </td></tr>
+        </table>
+      </td>
+      <td align=center>  
+        <table width=150 bgcolor=black cellpadding=4>
+          <tr><td class=b bgcolor=#474747 background='/img/stoneback.gif'>
+            <center>
+            <a href='/guides/securetips' class=c>
+            <b>Security tips</b></a><br>
+            Protect your password and read this important information
+            </center>
+          </td></tr>
+        </table>
+      </td>
+   </tr>
+</table>
+</center>
+</div>
+</div>
+<center>
+<table border=0 width=450>
+<tr>
+<td width="150">&nbsp;</td>
+<td width="150" align="center">
+<img src="/img/playgame/swordarrow.gif" border="0">
+</td>
+<td width="150">&nbsp;</td>
+</tr></table>
+</center>
+</div>
+</div>
+
+<center>
+<table border=0 width=450>
+    <tr>
+      <td align=center>
+        <table width=150 bgcolor=black cellpadding=4>
+          <tr><td class=b bgcolor=#474747 background='/img/stoneback.gif'>
+            <center>
+            <a href='/guides/rules' class=c>
+            <b>Rules of conduct</b></a><br>
+
+            Know the rules - don't risk being banned from the game
+            </center>
+          </td></tr>
+        </table>
+      </td>
+      <td align=center>
+        <table width=150 bgcolor=black cellpadding=4>
+
+          <tr><td class=b bgcolor=#474747 background='/img/stoneback.gif'>
+            <center>
+            <a href='/members' class=c>
+            <font color='#ffbb22'><b>Play for Free</b></font></a><br>
+              You won't need to pay now-- or ever! Play any way you want
+            </center>
+          </td></tr>
+        </table>
+      </td>
+      <td align=center>  
+        <table width=150 bgcolor=black cellpadding=4>
+          <tr><td class=b bgcolor=#474747 background='/img/stoneback.gif'>
+            <center>
+            <a href='/guides/securetips' class=c>
+            <b>Security tips</b></a><br>
+            Protect your password and read this important information
+            </center>
+          </td></tr>
+        </table>
+      </td>
+   </tr>
+</table>
+</center>
+</div>
+</div>
+
+<center>
+<br><center><table width=500 bgcolor=black cellpadding=4 border=0><tr><td class=e>
+<br><center><b>Anyone can play on the Members Worlds below</b><br>Use these worlds to access members-only features<br><br>
+{{ region_grid(members_regions, detail, method) }}<br>
+</td></tr></table><br></center>
+</td></tr></table>
+
+{% include "layout/footer.html" %}
