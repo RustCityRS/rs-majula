@@ -1,5 +1,5 @@
-mod chat;
 mod hiscores;
+mod logs;
 mod name;
 mod news;
 mod password;
@@ -9,8 +9,8 @@ mod session;
 mod snapshot;
 mod world;
 
-pub use chat::ChatLog;
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
+pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsCategory, NewsPost, NewsSummary};
 pub use password::Passwords;

@@ -1004,10 +1004,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2098
-        active_player_mut!(m, SESSION_LOG => |s, _player| {
-            s.pop_int();
-            s.pop_string();
-            // TODO
+        active_player_mut!(m, SESSION_LOG => |s, player| {
+            let event = s.pop_string();
+            let event_type = s.pop_int();
+            player.session_log(event_type, &event);
         });
 
         // 2099
@@ -1240,12 +1240,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2131
-        active_player_mut!(m, WEALTH_EVENT => |s, _player| {
-            let _name = s.pop_string();
-            let _value = s.pop_int();
-            let _count = s.pop_int();
-            let _event = s.pop_int();
-            // TODO
+        active_player_mut!(m, WEALTH_EVENT => |s, player| {
+            let name = s.pop_string();
+            let value = s.pop_int();
+            let count = s.pop_int();
+            let event_type = s.pop_int();
+            player.wealth_event(event_type, &name, count, value);
         });
 
         // 2132

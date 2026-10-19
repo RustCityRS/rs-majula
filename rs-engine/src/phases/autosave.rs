@@ -52,11 +52,11 @@ impl Engine {
             }
         }
 
-        if !self.chat_logs.is_empty()
+        if !self.logs.is_empty()
             && let Some(tx) = &self.db_tx
         {
-            let _ = tx.send(DbRequest::Chat {
-                logs: std::mem::take(&mut self.chat_logs),
+            let _ = tx.send(DbRequest::Logs {
+                logs: std::mem::take(&mut self.logs),
             });
         }
 

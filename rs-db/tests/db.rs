@@ -1,5 +1,6 @@
 use rs_db::{
-    ChatLog, Claim, Db, NewPlayer, NewSnapshot, PlayerSave, Reconciled, SaveResult, WorldStatus,
+    ChatLog, Claim, Db, LogBatch, NewPlayer, NewSnapshot, PlayerSave, Reconciled, SaveResult,
+    SessionLog, WealthEvent, WorldStatus,
 };
 use sqlx::PgPool;
 
@@ -165,10 +166,10 @@ async fn snapshots_need_a_registered_reporter(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
-async fn chat_is_logged_in_order(pool: PgPool) {
+async fn logs_are_recorded_in_order(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
-    let log = |name_hash, to_name_hash, message: &str| ChatLog {
+    let chat = |name_hash, to_name_hash, message: &str| ChatLog {
         name_hash,
         to_name_hash,
         x: 3222,
@@ -176,18 +177,44 @@ async fn chat_is_logged_in_order(pool: PgPool) {
         y: 0,
         message: message.to_owned(),
     };
-    db.record_chat(
+    let session = |name_hash, event_type, event: &str| SessionLog {
+        name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type,
+        event: event.to_owned(),
+    };
+    let wealth = |name_hash, item: &str, count, value| WealthEvent {
+        name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type: 6,
+        item: item.to_owned(),
+        count,
+        value,
+    };
+    db.record_logs(
         10,
-        &[
-            log(42, None, "hello"),
-            // Not registered: skipped.
-            log(99, None, "lost"),
-            log(42, Some(99), "psst"),
-        ],
+        &LogBatch {
+            chat: vec![
+                chat(42, None, "hello"),
+                // Not registered: skipped.
+                chat(99, None, "lost"),
+                chat(42, Some(99), "psst"),
+            ],
+            sessions: vec![
+                session(42, 1, "Quest complete: Clock Tower"),
+                session(99, 0, "lost"),
+                session(42, 0, "Player died"),
+            ],
+            wealth: vec![wealth(42, "bronze_axe", 1, 16), wealth(99, "lost", 1, 1)],
+        },
     )
     .await
     .unwrap();
-    db.record_chat(10, &[]).await.unwrap();
+    db.record_logs(10, &LogBatch::default()).await.unwrap();
 
     let rows: Vec<(Option<i64>, i16, String)> =
         sqlx::query_as("SELECT to_name_hash, node_id, message FROM chat_logs ORDER BY id")
@@ -201,6 +228,24 @@ async fn chat_is_logged_in_order(pool: PgPool) {
             (Some(99), 10, "psst".to_owned()),
         ]
     );
+    let rows: Vec<(i16, String)> =
+        sqlx::query_as("SELECT event_type, event FROM session_logs ORDER BY id")
+            .fetch_all(&pool)
+            .await
+            .unwrap();
+    assert_eq!(
+        rows,
+        vec![
+            (1, "Quest complete: Clock Tower".to_owned()),
+            (0, "Player died".to_owned()),
+        ]
+    );
+    let rows: Vec<(i16, i16, String, i32, i32)> =
+        sqlx::query_as("SELECT node_id, event_type, item, count, value FROM wealth_events")
+            .fetch_all(&pool)
+            .await
+            .unwrap();
+    assert_eq!(rows, vec![(10, 6, "bronze_axe".to_owned(), 1, 16)]);
 }
 
 #[sqlx::test]

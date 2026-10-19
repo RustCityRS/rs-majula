@@ -731,6 +731,22 @@ pub trait ScriptPlayer {
     /// * `msg` - The message text to display above the player.
     fn say(&mut self, msg: &str);
 
+    /// Logs a notable event for moderators (`session_log`).
+    ///
+    /// # Arguments
+    /// * `event_type` - `^log_moderator` (0) or `^log_adventure` (1).
+    /// * `event` - What happened, as text.
+    fn session_log(&mut self, event_type: i32, event: &str);
+
+    /// Logs wealth entering or leaving the player's hands (`wealth_event`).
+    ///
+    /// # Arguments
+    /// * `event_type` - A `^wealth_*` constant (pickup, shop buy/sell, ...).
+    /// * `item` - The obj's debug name.
+    /// * `count` - How many of the obj.
+    /// * `value` - Their worth in coins, as the script valued it.
+    fn wealth_event(&mut self, event_type: i32, item: &str, count: i32, value: i32);
+
     /// Sends the last-login info to the client (welcome screen): days since the
     /// previous login, recovery prompt code, and unread message count.
     fn last_login_info(&mut self);

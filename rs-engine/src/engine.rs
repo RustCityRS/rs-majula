@@ -11,7 +11,7 @@ use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
-use rs_db::ChatLog;
+use rs_db::LogBatch;
 use rs_entity::StaffModLevel;
 use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -553,9 +553,9 @@ pub struct Engine {
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
     pub logout_saves: FxHashMap<u64, LogoutSave>,
     pub db_lease: Option<Instant>,
-    /// This tick's public and private chat, sent to the database in one
-    /// [`DbRequest::Chat`] at the end of the tick.
-    pub chat_logs: Vec<ChatLog>,
+    /// This tick's chat, session logs and wealth events, sent to the database
+    /// in one [`DbRequest::Logs`] at the end of the tick.
+    pub logs: LogBatch,
     pub random: JavaRandom,
     pub vars: VarSet,
     /// A reusable [`ScriptState`] kept alive between script invocations to
@@ -694,7 +694,7 @@ impl Engine {
             login_failures: FxHashMap::default(),
             logout_saves: FxHashMap::default(),
             db_lease: None,
-            chat_logs: Vec::new(),
+            logs: LogBatch::default(),
             random: JavaRandom::new(1084838400000),
             vars,
             reusable_script: None,
@@ -4385,6 +4385,26 @@ impl ScriptPlayer for ActivePlayer {
     fn say(&mut self, msg: &str) {
         self.player.info.say = Some(msg.into());
         self.player.info.masks |= PlayerInfoProt::Say as u16;
+    }
+
+    /// Logs a `session_log` event for moderators.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::log_session`
+    fn session_log(&mut self, event_type: i32, event: &str) {
+        self.log_session(event_type, event);
+    }
+
+    /// Logs a `wealth_event` for moderators.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::log_wealth`
+    fn wealth_event(&mut self, event_type: i32, item: &str, count: i32, value: i32) {
+        self.log_wealth(event_type, item, count, value);
     }
 
     /// Sends the last-login info packet (welcome screen).

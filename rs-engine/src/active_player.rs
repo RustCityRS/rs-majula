@@ -3,7 +3,7 @@ use crate::clients::client_game::ClientHandle;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_cam::CamKind;
-use rs_db::ChatLog;
+use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
 use rs_entity::{EntityLifeTime, Player};
 use rs_grid::CoordGrid;
@@ -845,22 +845,65 @@ impl ActivePlayer {
         self.logout();
     }
 
-    /// Logs chat the player sent (unfiltered), to `to37` if private, with
-    /// this tick's [`DbRequest::Chat`].
-    pub fn log_chat(&self, to37: Option<u64>, message: String) {
+    /// This tick's [`LogBatch`], sent with [`DbRequest::Logs`], and where the
+    /// player is (x, z, y). `None` when nothing is logged: without a database,
+    /// or for a bot.
+    fn log_batch(&self) -> Option<(&'static mut LogBatch, i16, i16, i16)> {
         let engine = engine_mut();
-        if engine.db_tx.is_none() {
-            return;
+        if engine.db_tx.is_none() || self.player.bot {
+            return None;
         }
         let coord = self.player.pathing.coord;
-        engine.chat_logs.push(ChatLog {
-            name_hash: self.player.uid.username37(),
-            to_name_hash: to37,
-            x: coord.x() as i16,
-            z: coord.z() as i16,
-            y: i16::from(coord.y()),
-            message,
-        });
+        Some((
+            &mut engine.logs,
+            coord.x() as i16,
+            coord.z() as i16,
+            i16::from(coord.y()),
+        ))
+    }
+
+    /// Logs chat the player sent (unfiltered), to `to37` if private.
+    pub fn log_chat(&self, to37: Option<u64>, message: String) {
+        if let Some((logs, x, z, y)) = self.log_batch() {
+            logs.chat.push(ChatLog {
+                name_hash: self.player.uid.username37(),
+                to_name_hash: to37,
+                x,
+                z,
+                y,
+                message,
+            });
+        }
+    }
+
+    /// Logs a script's `session_log` event.
+    pub fn log_session(&self, event_type: i32, event: &str) {
+        if let Some((logs, x, z, y)) = self.log_batch() {
+            logs.sessions.push(SessionLog {
+                name_hash: self.player.uid.username37(),
+                x,
+                z,
+                y,
+                event_type: event_type as i16,
+                event: event.to_owned(),
+            });
+        }
+    }
+
+    /// Logs a script's `wealth_event`.
+    pub fn log_wealth(&self, event_type: i32, item: &str, count: i32, value: i32) {
+        if let Some((logs, x, z, y)) = self.log_batch() {
+            logs.wealth.push(WealthEvent {
+                name_hash: self.player.uid.username37(),
+                x,
+                z,
+                y,
+                event_type: event_type as i16,
+                item: item.to_owned(),
+                count,
+                value,
+            });
+        }
     }
 
     /// Sends a game message to the player's chatbox.

@@ -4,7 +4,7 @@ use crate::player_save::{
     orphan_save_file, save_orphan, save_to_file,
 };
 use rs_db::{
-    ChatLog, Claim, Db, DbConfig, NewPlayer, NewSnapshot, Passwords, PlayerSave, SaveResult,
+    Claim, Db, DbConfig, LogBatch, NewPlayer, NewSnapshot, Passwords, PlayerSave, SaveResult,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
@@ -83,9 +83,9 @@ pub enum DbRequest {
         user37: u64,
         hours: i32,
     },
-    /// A tick's public and private chat, in order.
-    Chat {
-        logs: Vec<ChatLog>,
+    /// A tick's chat, session logs and wealth events.
+    Logs {
+        logs: LogBatch,
     },
 }
 
@@ -750,7 +750,7 @@ async fn run_requests(
                 })
                 .await?;
             }
-            DbRequest::Chat { logs } => db.record_chat(node_id, &logs).await?,
+            DbRequest::Logs { logs } => db.record_logs(node_id, &logs).await?,
             DbRequest::Ban { user37, hours } => {
                 if db.ban_player(user37, hours).await? {
                     warn!("Banned '{}' for {} hours", to_raw_username(user37), hours);
