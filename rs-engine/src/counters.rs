@@ -5,6 +5,7 @@
 //! one. Labels come from the fixed lists below, which keeps each metric to a
 //! handful of series.
 
+use rs_db::ModAction;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 /// Chat kinds, indexing [`Counters::chat`] and [`Counters::chat_muted`].
@@ -53,6 +54,20 @@ pub const WEALTH_TYPES: [&str; 6] = [
 ];
 const FIRST_WEALTH_TYPE: i32 = 5;
 
+/// Staff moderation commands that took, indexing [`Counters::mod_actions`].
+pub const MOD_ACTIONS: [&str; 5] = ["mute", "unmute", "ban", "unban", "kick"];
+
+/// Where `action` counts in [`Counters::mod_actions`].
+pub const fn mod_action_index(action: ModAction) -> usize {
+    match action {
+        ModAction::Mute { .. } => 0,
+        ModAction::Unmute => 1,
+        ModAction::Ban { .. } => 2,
+        ModAction::Unban => 3,
+        ModAction::Kick => 4,
+    }
+}
+
 /// The kinds of rows in a log batch, indexing [`Counters::log_rows`].
 pub const LOG_KINDS: [&str; 3] = ["chat", "session", "wealth"];
 
@@ -64,6 +79,7 @@ pub struct Counters {
     pub reports: [AtomicU64; 12],
     /// Mutes moderators made from this world that took.
     pub mutes: AtomicU64,
+    pub mod_actions: [AtomicU64; 5],
     pub wealth_coins: [AtomicU64; 6],
     pub wealth_items: [AtomicU64; 6],
     /// Log rows written to the database, by kind.
@@ -80,6 +96,7 @@ pub static COUNTERS: Counters = Counters {
     auto_bans: [const { AtomicU64::new(0) }; 3],
     reports: [const { AtomicU64::new(0) }; 12],
     mutes: AtomicU64::new(0),
+    mod_actions: [const { AtomicU64::new(0) }; 5],
     wealth_coins: [const { AtomicU64::new(0) }; 6],
     wealth_items: [const { AtomicU64::new(0) }; 6],
     log_rows: [const { AtomicU64::new(0) }; 3],

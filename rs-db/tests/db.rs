@@ -1,6 +1,6 @@
 use rs_db::{
-    ChatLog, Claim, Db, LogBatch, NewPlayer, NewSnapshot, PlayerSave, Reconciled, SaveResult,
-    SessionLog, WealthEvent, WorldStatus,
+    ChatLog, Claim, Db, LogBatch, ModAction, NewPlayer, NewSnapshot, PlayerSave, Reconciled,
+    Sanctions, SaveResult, SessionLog, WealthEvent, WorldStatus,
 };
 use sqlx::PgPool;
 
@@ -91,7 +91,7 @@ async fn mutes_respect_rank_and_expire(pool: PgPool) {
     .await
     .unwrap();
     assert_eq!(muted_ms(&db, 7).await, None);
-    assert_eq!(db.mutes(&[7, 42, 99]).await.unwrap().len(), 2);
+    assert_eq!(db.sanctions(&[7, 42, 99]).await.unwrap().len(), 2);
 
     // A P-Mod can't mute a J-Mod, or an unknown name.
     assert_eq!(db.mute_player(42, 48, 1).await.unwrap(), None);
@@ -106,16 +106,98 @@ async fn mutes_respect_rank_and_expire(pool: PgPool) {
     let ms = db.mute_player(7, 1, 1).await.unwrap().unwrap();
     assert_eq!(hours(ms), 48);
 
-    let mut mutes = db.mutes(&[7, 42]).await.unwrap();
+    let mut mutes: Vec<_> = db
+        .sanctions(&[7, 42])
+        .await
+        .unwrap()
+        .into_iter()
+        .map(|s| (s.name_hash, s.muted_ms.is_some()))
+        .collect();
     mutes.sort();
-    assert!(matches!(mutes[..], [(7, Some(_)), (42, None)]));
+    assert_eq!(mutes, [(7, true), (42, false)]);
 
     sqlx::query("UPDATE players SET muted_until = now() - interval '1 day'")
         .execute(&pool)
         .await
         .unwrap();
     assert_eq!(muted_ms(&db, 7).await, None);
-    assert_eq!(db.mutes(&[7]).await.unwrap(), vec![(7, None)]);
+    assert_eq!(
+        db.sanctions(&[7]).await.unwrap(),
+        vec![Sanctions {
+            name_hash: 7,
+            muted_ms: None,
+            banned: false
+        }]
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn moderation_respects_rank_and_is_logged(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    // `player()` is a J-Mod; 7 is a regular player.
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    let state = |db: Db| async move {
+        let s = db.sanctions(&[7]).await.unwrap().remove(0);
+        (s.muted_ms.map(|ms| (ms + 60_000) / 3_600_000), s.banned)
+    };
+
+    // A J-Mod can't act on a J-Mod, an unknown name, or themselves.
+    assert!(!db.moderate(42, 2, 42, ModAction::Kick, 10).await.unwrap());
+    assert!(!db.moderate(42, 2, 99, ModAction::Unban, 10).await.unwrap());
+
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Mute { hours: 48 }, 10)
+            .await
+            .unwrap()
+    );
+    assert_eq!(state(db.clone()).await, (Some(48), false));
+    // A command sets the length outright, shorter included.
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, 10)
+            .await
+            .unwrap()
+    );
+    assert_eq!(state(db.clone()).await, (Some(2), false));
+    assert!(db.moderate(42, 2, 7, ModAction::Unmute, 10).await.unwrap());
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, 10)
+            .await
+            .unwrap()
+    );
+    assert_eq!(state(db.clone()).await, (None, true));
+    assert!(db.find_credentials(7, 1).await.unwrap().unwrap().banned);
+    assert!(db.moderate(42, 2, 7, ModAction::Unban, 10).await.unwrap());
+    assert_eq!(state(db.clone()).await, (None, false));
+    assert!(db.moderate(42, 2, 7, ModAction::Kick, 10).await.unwrap());
+
+    let logged: Vec<(String, Option<i32>, i16)> = sqlx::query_as(
+        "SELECT l.action, l.hours, l.node_id FROM moderation_logs l
+         JOIN players m ON m.id = l.moderator_id AND m.name_hash = 42
+         JOIN players t ON t.id = l.target_id AND t.name_hash = 7
+         ORDER BY l.id",
+    )
+    .fetch_all(&pool)
+    .await
+    .unwrap();
+    let row = |action: &str, hours| (action.to_owned(), hours, 10);
+    assert_eq!(
+        logged,
+        vec![
+            row("mute", Some(48)),
+            row("mute", Some(2)),
+            row("unmute", None),
+            row("ban", Some(24)),
+            row("unban", None),
+            row("kick", None),
+        ]
+    );
 }
 
 #[sqlx::test]

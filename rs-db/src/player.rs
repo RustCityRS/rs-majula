@@ -11,6 +11,15 @@ pub struct Credentials {
     pub left_other_world_ms: Option<i64>,
 }
 
+/// A player's current mute and ban, from [`Db::sanctions`].
+#[derive(Debug, PartialEq, Eq)]
+pub struct Sanctions {
+    pub name_hash: u64,
+    /// Milliseconds left on a chat mute, `None` while not muted.
+    pub muted_ms: Option<i64>,
+    pub banned: bool,
+}
+
 /// A player to register.
 #[derive(Debug)]
 pub struct NewPlayer<'a> {
@@ -102,21 +111,28 @@ impl Db {
         Ok(result.rows_affected() == 1)
     }
 
-    /// The current mute of each of `names` that is registered: milliseconds
-    /// left, or `None` while not muted.
-    pub async fn mutes(&self, names: &[u64]) -> Result<Vec<(u64, Option<i64>)>, Error> {
+    /// The current mute and ban of each of `names` that is registered.
+    pub async fn sanctions(&self, names: &[u64]) -> Result<Vec<Sanctions>, Error> {
         let names: Vec<i64> = names.iter().map(|&h| h as i64).collect();
-        let rows: Vec<(i64, Option<i64>)> = sqlx::query_as(
+        let rows: Vec<(i64, Option<i64>, bool)> = sqlx::query_as(
             "SELECT name_hash,
                     CASE WHEN muted_until > now()
                          THEN (extract(epoch FROM muted_until - now()) * 1000)::bigint
-                    END
+                    END,
+                    coalesce(banned_until > now(), false)
              FROM players WHERE name_hash = ANY($1)",
         )
         .bind(&names)
         .fetch_all(&self.pool)
         .await?;
-        Ok(rows.into_iter().map(|(h, ms)| (h as u64, ms)).collect())
+        Ok(rows
+            .into_iter()
+            .map(|(h, muted_ms, banned)| Sanctions {
+                name_hash: h as u64,
+                muted_ms,
+                banned,
+            })
+            .collect())
     }
 
     pub async fn name_taken(&self, name_hash: u64) -> Result<bool, Error> {

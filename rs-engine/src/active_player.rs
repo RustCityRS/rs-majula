@@ -132,7 +132,7 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 use std::net::IpAddr;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 use tracing::{error, warn};
 
 /// Maximum number of recycled outbound byte buffers kept per client in
@@ -826,6 +826,13 @@ impl ActivePlayer {
     pub fn logout(&mut self) {
         self.player.logout_sent = true;
         self.write(rs_protocol::network::game::server::logout::Logout);
+    }
+
+    /// When a mute lasting `d` from now ends. Capped at 100 years, so a mute
+    /// set far out by hand can't overflow the clock.
+    pub fn mute_deadline(d: Duration) -> Instant {
+        const CENTURY: Duration = Duration::from_secs(100 * 365 * 24 * 3600);
+        Instant::now() + d.min(CENTURY)
     }
 
     /// Whether the player is muted, and so may not public or private chat.

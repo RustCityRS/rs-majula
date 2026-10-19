@@ -1,12 +1,13 @@
-use crate::clients::client_db::{AuthResult, DbResponse, LoadResult, SaveOutcome};
+use crate::active_player::ActivePlayer;
+use crate::clients::client_db::{AuthResult, DbResponse, LoadResult, ModOutcome, SaveOutcome};
 use crate::engine::Engine;
 use crate::player_save::delete_save_file;
+use rs_db::ModAction;
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
+use rs_util::base37::{to_raw_username, to_screen_name};
 use rustc_hash::FxHashMap;
-#[cfg(since_254)]
 use std::time::Duration;
-use std::time::Instant;
 use tracing::{info, warn};
 
 /// How long a player who logged out of one world must wait before logging
@@ -61,8 +62,10 @@ impl Engine {
     ///   another world took over.
     /// * `Lease` -- renews this world's lease (see `Engine::fence`).
     /// * `Muted` -- a moderator's mute took: mutes the player if online here.
-    /// * `Mutes` -- syncs online players' mutes with the database, so mutes
-    ///   and unmutes made elsewhere reach them.
+    /// * `Sanctions` -- syncs online players' mutes with the database and
+    ///   logs out banned players, so what was done elsewhere reaches them.
+    /// * `Moderated` -- a staff command's outcome: applies it to the target if
+    ///   online here, and tells the moderator (see `Engine::moderated`).
     ///
     /// # Side Effects
     ///
@@ -121,7 +124,7 @@ impl Engine {
                                 self.pending_logins[idx].auth =
                                     Some(StaffModLevel::from_u8(staff_mod_level));
                                 self.pending_logins[idx].muted_until =
-                                    muted_for.map(|d| Instant::now() + d);
+                                    muted_for.map(ActivePlayer::mute_deadline);
                                 self.try_complete_login(idx);
                             }
                             AuthResult::InvalidCredentials => {
@@ -201,21 +204,89 @@ impl Engine {
                     if let Some(pid) = self.find_pid_by_user37(user37)
                         && let Some(active) = self.get_player_mut(pid)
                     {
-                        active.muted_until = Some(Instant::now() + remaining);
+                        active.muted_until = Some(ActivePlayer::mute_deadline(remaining));
                     }
                 }
-                DbResponse::Mutes { mutes } => {
-                    let now = Instant::now();
-                    let mutes: FxHashMap<u64, _> = mutes.into_iter().collect();
+                DbResponse::Sanctions { players } => {
+                    let players: FxHashMap<u64, _> = players
+                        .into_iter()
+                        .map(|(user37, muted_for, banned)| (user37, (muted_for, banned)))
+                        .collect();
                     for &pid in self.player_list.processing.iter() {
                         if let Some(active) = self.player_list.players[pid as usize].as_mut()
-                            && let Some(muted_for) = mutes.get(&active.player.uid.username37())
+                            && let Some(&(muted_for, banned)) =
+                                players.get(&active.player.uid.username37())
                         {
-                            active.muted_until = muted_for.map(|d| now + d);
+                            active.muted_until = muted_for.map(ActivePlayer::mute_deadline);
+                            if banned && !active.player.logout_sent {
+                                active.logout();
+                            }
                         }
                     }
                 }
+                DbResponse::Moderated {
+                    moderator37,
+                    target37,
+                    action,
+                    outcome,
+                } => self.moderated(moderator37, target37, action, outcome),
             }
+        }
+    }
+}
+
+impl Engine {
+    /// Finishes a staff command once the database has answered: applies a
+    /// mute, unmute, ban or kick to the target if they are online here, and
+    /// tells the moderator how it went.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `Engine::saves`
+    fn moderated(
+        &mut self,
+        moderator37: u64,
+        target37: u64,
+        action: ModAction,
+        outcome: ModOutcome,
+    ) {
+        let name = to_screen_name(&to_raw_username(target37));
+        let message = match outcome {
+            ModOutcome::Done => match action {
+                ModAction::Mute { hours } => format!("Muted {name} for {hours} hours."),
+                ModAction::Unmute => format!("Unmuted {name}."),
+                ModAction::Ban { hours } => format!("Banned {name} for {hours} hours."),
+                ModAction::Unban => format!("Unbanned {name}."),
+                ModAction::Kick => format!("Kicked {name}."),
+            },
+            ModOutcome::Refused => {
+                format!("{name} isn't a registered player, or is staff of your level or above.")
+            }
+            ModOutcome::Offline => "The database is offline, so nothing was changed.".to_owned(),
+        };
+
+        if outcome == ModOutcome::Done
+            && let Some(pid) = self.find_pid_by_user37(target37)
+            && let Some(target) = self.get_player_mut(pid)
+        {
+            match action {
+                ModAction::Mute { hours } => {
+                    target.muted_until = Some(ActivePlayer::mute_deadline(Duration::from_secs(
+                        hours as u64 * 3600,
+                    )));
+                }
+                ModAction::Unmute => target.muted_until = None,
+                ModAction::Ban { .. } | ModAction::Kick if !target.player.logout_sent => {
+                    target.logout();
+                }
+                _ => {}
+            }
+        }
+
+        if let Some(pid) = self.find_pid_by_user37(moderator37)
+            && let Some(moderator) = self.get_player_mut(pid)
+        {
+            moderator.message_game(&message);
         }
     }
 }

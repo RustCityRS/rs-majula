@@ -6,7 +6,8 @@ use axum::response::IntoResponse;
 use axum::routing::get;
 use rs_engine::TickStats;
 use rs_engine::counters::{
-    self, AUTO_BAN_TRIGGERS, CHAT_KINDS, COUNTERS, LOG_KINDS, REPORT_REASONS, WEALTH_TYPES,
+    self, AUTO_BAN_TRIGGERS, CHAT_KINDS, COUNTERS, LOG_KINDS, MOD_ACTIONS, REPORT_REASONS,
+    WEALTH_TYPES,
 };
 use std::fmt::Write as _;
 use std::sync::atomic::AtomicU64;
@@ -325,6 +326,14 @@ fn write_counters(out: &mut String) {
     let _ = writeln!(out, "rs_mutes_total {}", counters::get(&c.mutes));
     labelled(
         out,
+        "rs_mod_actions_total",
+        "Staff moderation commands that took, by action.",
+        "action",
+        &MOD_ACTIONS,
+        &c.mod_actions,
+    );
+    labelled(
+        out,
         "rs_wealth_coins_total",
         "Coin value of wealth events, by type.",
         "type",
@@ -448,7 +457,7 @@ mod tests {
         let mut out = String::new();
         write_counters(&mut out);
         let series: Vec<&str> = out.lines().filter(|l| !l.starts_with('#')).collect();
-        assert_eq!(series.len(), 2 + 2 + 3 + 12 + 1 + 6 + 6 + 3 + 1 + 1 + 1);
+        assert_eq!(series.len(), 2 + 2 + 3 + 12 + 1 + 5 + 6 + 6 + 3 + 1 + 1 + 1);
         assert!(series.contains(&"rs_wealth_coins_total{type=\"shop_sell\"} 120"));
         assert!(series.contains(&"rs_wealth_items_total{type=\"shop_sell\"} 3"));
         assert!(series.contains(&"rs_wealth_coins_total{type=\"low_alch\"} 0"));

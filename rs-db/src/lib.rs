@@ -1,5 +1,6 @@
 mod hiscores;
 mod logs;
+mod moderation;
 mod name;
 mod news;
 mod password;
@@ -11,10 +12,11 @@ mod world;
 
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
+pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsCategory, NewsPost, NewsSummary};
 pub use password::Passwords;
-pub use player::{Credentials, NewPlayer};
+pub use player::{Credentials, NewPlayer, Sanctions};
 pub use save::{PlayerSave, SaveResult};
 pub use session::{Claim, Reconciled};
 pub use snapshot::NewSnapshot;

@@ -1,11 +1,12 @@
-use crate::counters::{self, COUNTERS};
+use crate::counters::{self, COUNTERS, mod_action_index};
 use crate::phases::login::{LOGIN_FAILURE_WINDOW_SECS, MAX_LOGIN_FAILURES};
 use crate::player_save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
     orphan_save_file, save_orphan, save_to_file,
 };
 use rs_db::{
-    Claim, Db, DbConfig, LogBatch, NewPlayer, NewSnapshot, Passwords, PlayerSave, SaveResult,
+    Claim, Db, DbConfig, LogBatch, ModAction, NewPlayer, NewSnapshot, Passwords, PlayerSave,
+    SaveResult,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
@@ -84,6 +85,13 @@ pub enum DbRequest {
         user37: u64,
         hours: i32,
     },
+    /// A staff command (`::mute`, `::ban`, ...) by a moderator of `by_level`.
+    Moderate {
+        moderator37: u64,
+        by_level: u8,
+        target37: u64,
+        action: ModAction,
+    },
     /// A tick's chat, session logs and wealth events.
     Logs {
         logs: LogBatch,
@@ -156,12 +164,30 @@ pub enum DbResponse {
         user37: u64,
         remaining: Duration,
     },
-    /// The mute of each online player, as of a [`DbRequest::WorldStatus`]:
-    /// how long is left, or `None` while not muted. Carries mutes and unmutes
-    /// made elsewhere (another world, or by hand in the database).
-    Mutes {
-        mutes: Vec<(u64, Option<Duration>)>,
+    /// The mute and ban of each online player, as of a
+    /// [`DbRequest::WorldStatus`]: how long is left on a mute (`None` while not
+    /// muted), and whether they are banned. Carries what was done elsewhere
+    /// (another world, or by hand in the database).
+    Sanctions {
+        players: Vec<(u64, Option<Duration>, bool)>,
     },
+    /// How a [`DbRequest::Moderate`] went.
+    Moderated {
+        moderator37: u64,
+        target37: u64,
+        action: ModAction,
+        outcome: ModOutcome,
+    },
+}
+
+/// How a [`DbRequest::Moderate`] went.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ModOutcome {
+    Done,
+    /// No such player, or they are staff of the moderator's level or above.
+    Refused,
+    /// The database was unreachable.
+    Offline,
 }
 
 /// Aborts a spawned task when dropped, so it can't outlive its owner.
@@ -218,6 +244,21 @@ async fn lease_task(config: DbConfig, node_id: u8, response_tx: UnboundedSender<
 fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
     if let DbRequest::Logs { logs } = &req {
         drop_logs(logs);
+    }
+    if let DbRequest::Moderate {
+        moderator37,
+        target37,
+        action,
+        ..
+    } = req
+    {
+        let _ = response_tx.send(DbResponse::Moderated {
+            moderator37,
+            target37,
+            action,
+            outcome: ModOutcome::Offline,
+        });
+        return;
     }
     if let DbRequest::Save {
         user37,
@@ -713,11 +754,11 @@ async fn run_requests(
                     });
                 }
                 db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
-                let mutes = db.mutes(&online).await?;
-                let _ = response_tx.send(DbResponse::Mutes {
-                    mutes: mutes
+                let sanctions = db.sanctions(&online).await?;
+                let _ = response_tx.send(DbResponse::Sanctions {
+                    players: sanctions
                         .into_iter()
-                        .map(|(user37, ms)| (user37, ms.map(millis)))
+                        .map(|s| (s.name_hash, s.muted_ms.map(millis), s.banned))
                         .collect(),
                 });
             }
@@ -772,6 +813,35 @@ async fn run_requests(
                 for (total, n) in COUNTERS.log_rows.iter().zip(rows) {
                     counters::add(total, n as u64);
                 }
+            }
+            DbRequest::Moderate {
+                moderator37,
+                by_level,
+                target37,
+                action,
+            } => {
+                let done = db
+                    .moderate(moderator37, i16::from(by_level), target37, action, node_id)
+                    .await?;
+                if done {
+                    counters::add(&COUNTERS.mod_actions[mod_action_index(action)], 1);
+                    info!(
+                        "'{}' ran {} on '{}'",
+                        to_raw_username(moderator37),
+                        action.name(),
+                        to_raw_username(target37)
+                    );
+                }
+                let _ = response_tx.send(DbResponse::Moderated {
+                    moderator37,
+                    target37,
+                    action,
+                    outcome: if done {
+                        ModOutcome::Done
+                    } else {
+                        ModOutcome::Refused
+                    },
+                });
             }
             DbRequest::Ban { user37, hours } => {
                 if db.ban_player(user37, hours).await? {
@@ -1281,7 +1351,7 @@ mod tests {
             loop {
                 match self.next().await {
                     DbResponse::SessionsLost { users37 } => lost = users37,
-                    DbResponse::Mutes { .. } => {}
+                    DbResponse::Sanctions { .. } => {}
                     DbResponse::AuthResponse { .. } => return lost,
                     _ => panic!("unexpected response"),
                 }

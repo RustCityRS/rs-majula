@@ -1226,7 +1226,7 @@
     {
       "id": 32,
       "type": "timeseries",
-      "title": "Auto-bans and mutes",
+      "title": "Bans, mutes and kicks",
       "datasource": {
         "type": "prometheus",
         "uid": "${prom}"
@@ -1254,7 +1254,16 @@
             "uid": "${prom}"
           },
           "expr": "sum(increase(rs_mutes_total{job=\"rs-server\", node=~\"$node\"}[$__interval]))",
-          "legendFormat": "mute"
+          "legendFormat": "report mute"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom}"
+          },
+          "expr": "sum by (action) (increase(rs_mod_actions_total{job=\"rs-server\", node=~\"$node\"}[$__interval]))",
+          "legendFormat": "staff: {{action}}"
         }
       ],
       "fieldConfig": {
@@ -1280,7 +1289,7 @@
           "sort": "desc"
         }
       },
-      "description": "Automated bans by trigger, and moderator mutes."
+      "description": "Automated bans by trigger, mutes from abuse reports, and staff moderation commands by action."
     },
     {
       "id": 33,
