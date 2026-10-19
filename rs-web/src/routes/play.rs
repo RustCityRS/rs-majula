@@ -72,9 +72,6 @@ pub async fn serverlist(
     if !present("lores.x") && !present("hires.x") {
         return Ok(Redirect::to("/detail").into_response());
     }
-    if method == "4" {
-        return Ok(Redirect::to("/downloads").into_response());
-    }
 
     let detail = if q.contains_key("hires.x") {
         "high"
@@ -118,91 +115,6 @@ pub async fn client(
         context! { world => Serde(world), method, detail => lowmem },
     )?;
     Ok(html.into_response())
-}
-
-/// Configuration for the desktop launcher.
-pub async fn jav_config(State(app): State<Arc<App>>) -> String {
-    let base = app.base_url();
-    let mut lines = vec![
-        "viewerversion=101".to_string(),
-        format!("serverlist={base}/serverlist.ws"),
-        "loader_jar=loader.jar".to_string(),
-        "window_preferredwidth=774".to_string(),
-        "window_preferredheight=552".to_string(),
-        "applet_minwidth=789".to_string(),
-        "applet_minheight=532".to_string(),
-        "applet_maxwidth=5670".to_string(),
-        "applet_maxheight=2160".to_string(),
-    ];
-
-    let messages = [
-        "lang0=English",
-        "ok=OK",
-        "cancel=Cancel",
-        "options=Options",
-        "changes_on_restart=Your changes will take effect when you next start this program.",
-        "copy_paste_url=Please copy and paste the following URL into your web browser",
-        "err_create_advertising=Unable to create advertising",
-        "err_create_target=Unable to create target applet",
-        "err_downloading=Error downloading",
-        "err_get_file=Error getting file",
-        "err_save_file=Error saving file",
-        "err_load_bc=Unable to load browsercontrol",
-        "err_verify_bc=Unable to verify browsercontrol",
-        "err_verify_bc64=Unable to verify browsercontrol64",
-        "information=Information",
-        "language=Language",
-        "switchserver=Switch World",
-        "loading_app=Loading application",
-        "loading_app_resources=Loading application resources",
-        "message=Message",
-        "new_version=Launcher update available! Please visit the website to download the latest version.",
-        "new_version_linktext=Open Homepage",
-        // `\` is the launcher's line break.
-        "tandc=This game is copyright (c) 1999 - 2004 Jagex Ltd.\\Recreated and preserved 2023 - 2026.",
-    ];
-    lines.extend(messages.iter().map(|m| format!("msg={m}")));
-    lines.push(format!("msg=new_version_link={base}/downloads"));
-
-    for world in &app.worlds {
-        let kind = if world.members { "Members" } else { "Free" };
-        // Legacy Java runtimes cope badly with https, and the client finds the
-        // game port from portoff, so the codebase is plain http on the host.
-        let host = world
-            .address
-            .split("://")
-            .nth(1)
-            .unwrap_or(&world.address)
-            .split(':')
-            .next()
-            .unwrap_or_default();
-        for (detail, lowmem) in [("high", 0), ("low", 1)] {
-            let detail_name = if lowmem == 0 { "High" } else { "Low" };
-            lines.extend([
-                format!("[{}.{detail}]", world.id),
-                format!("title=RuneScape - World {} ({kind})", world.id),
-                format!("codebase=http://{host}"),
-                format!(
-                    "servername=World {} ({kind}), {detail_name} Detail",
-                    world.id
-                ),
-                format!("param=nodeid={}", world.node_id()),
-                format!("param=portoff={}", world.port_offset),
-                format!("param=free={}", u8::from(!world.members)),
-                format!("param=lowmem={lowmem}"),
-            ]);
-        }
-    }
-    lines.join("\n")
-}
-
-/// The launcher's world list.
-pub async fn serverlist_ws(State(app): State<Arc<App>>) -> String {
-    app.worlds
-        .iter()
-        .flat_map(|w| [format!("{}.high,true", w.id), format!("{}.low,true", w.id)])
-        .collect::<Vec<_>>()
-        .join("\n")
 }
 
 pub async fn worldlist(State(app): State<Arc<App>>) -> Json<Vec<World>> {

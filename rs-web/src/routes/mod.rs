@@ -22,8 +22,6 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/play", get(|| async { Redirect::to("/detail") }))
         .route("/serverlist", get(play::serverlist))
         .route("/client", get(play::client))
-        .route("/jav_config.ws", get(play::jav_config))
-        .route("/serverlist.ws", get(play::serverlist_ws))
         .route("/api/v1/worldlist", get(play::worldlist))
         .route("/create", get(create::form).post(create::submit))
         .route("/news", get(news::index))
