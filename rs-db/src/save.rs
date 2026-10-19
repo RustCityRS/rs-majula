@@ -54,6 +54,7 @@ impl Db {
 
     /// Writes a player's save for world `node_id`, creating the row on first
     /// save. Only the world that owns the player's session may save them.
+    /// Hiscores are left alone: they only move on logout.
     pub async fn store_save(
         &self,
         name_hash: u64,
@@ -66,7 +67,6 @@ impl Db {
             Err(refused) => return Ok(refused),
         };
         upsert_save(id, save).execute(&mut *tx).await?;
-        update_hiscores(&mut tx, id, &save.stats).await?;
         tx.commit().await?;
         Ok(SaveResult::Stored)
     }
@@ -74,7 +74,7 @@ impl Db {
     /// Writes a player's final save as they leave world `node_id`, ends their
     /// session and records the logout for the world-hop delay, all in one
     /// transaction: no other world can claim the player until their final
-    /// save has landed.
+    /// save has landed. This is the only live save that updates hiscores.
     pub async fn store_logout_save(
         &self,
         name_hash: u64,

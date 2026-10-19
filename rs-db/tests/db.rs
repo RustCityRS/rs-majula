@@ -718,8 +718,8 @@ async fn world_status_goes_stale(pool: PgPool) {
     );
 }
 
-/// Registers, claims and saves a player with these stats (XP x10, indexed
-/// by stat id).
+/// Registers a player and logs them in and out with these stats (XP x10,
+/// indexed by stat id).
 async fn ranked(db: &Db, name_hash: u64, name: &'static str, staff: i16, stats: &[(usize, i32)]) {
     db.create_player(&NewPlayer {
         display_name: name,
@@ -728,21 +728,27 @@ async fn ranked(db: &Db, name_hash: u64, name: &'static str, staff: i16, stats: 
     })
     .await
     .unwrap();
-    db.claim_session(name_hash, 1, 60).await.unwrap();
     resave(db, name_hash, stats).await;
 }
 
-async fn resave(db: &Db, name_hash: u64, stats: &[(usize, i32)]) {
+fn stats_save(stats: &[(usize, i32)]) -> PlayerSave {
     let mut all = vec![0; 21];
     for &(stat, xp) in stats {
         all[stat] = xp;
     }
-    let save = PlayerSave {
+    PlayerSave {
         stats: all,
         ..save()
-    };
+    }
+}
+
+/// Logs a player in and out with these stats.
+async fn resave(db: &Db, name_hash: u64, stats: &[(usize, i32)]) {
+    db.claim_session(name_hash, 1, 60).await.unwrap();
     assert_eq!(
-        db.store_save(name_hash, 1, &save).await.unwrap(),
+        db.store_logout_save(name_hash, 1, &stats_save(stats))
+            .await
+            .unwrap(),
         SaveResult::Stored
     );
 }
@@ -816,6 +822,22 @@ async fn hiscores_rank_saved_stats(pool: PgPool) {
             .rank,
         2
     );
+
+    // An autosave doesn't touch the hiscores; the logout save does.
+    db.claim_session(2, 1, 60).await.unwrap();
+    let more = stats_save(&[(0, 130_344_310), (3, 11_540), (20, 830)]);
+    assert_eq!(
+        db.store_save(2, 1, &more).await.unwrap(),
+        SaveResult::Stored
+    );
+    let middle = db.player_hiscores(2).await.unwrap().unwrap();
+    assert_eq!(middle.rank(1).unwrap().rank, 3);
+    assert_eq!(
+        db.store_logout_save(2, 1, &more).await.unwrap(),
+        SaveResult::Stored
+    );
+    let middle = db.player_hiscores(2).await.unwrap().unwrap();
+    assert_eq!(middle.rank(1).unwrap().rank, 2);
 
     assert!(db.player_hiscores(4).await.unwrap().is_none());
     assert!(db.player_hiscores(5).await.unwrap().is_none());
