@@ -5,7 +5,11 @@ use axum::http::header;
 use axum::response::IntoResponse;
 use axum::routing::get;
 use rs_engine::TickStats;
+use rs_engine::counters::{
+    self, AUTO_BAN_TRIGGERS, CHAT_KINDS, COUNTERS, LOG_KINDS, REPORT_REASONS, WEALTH_TYPES,
+};
 use std::fmt::Write as _;
+use std::sync::atomic::AtomicU64;
 use std::sync::{Arc, Mutex};
 use std::time::{SystemTime, UNIX_EPOCH};
 use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, System};
@@ -245,6 +249,8 @@ impl Metrics {
             );
         }
 
+        write_counters(out);
+
         family(
             out,
             "process_start_time_seconds",
@@ -272,6 +278,126 @@ impl Metrics {
             ProcessRefreshKind::nothing().with_memory(),
         );
         sys.process(pid).map(|p| p.memory())
+    }
+}
+
+/// The engine's game event totals (see `rs_engine::counters`).
+fn write_counters(out: &mut String) {
+    let c = &COUNTERS;
+    labelled(
+        out,
+        "rs_chat_messages_total",
+        "Chat messages sent.",
+        "kind",
+        &CHAT_KINDS,
+        &c.chat,
+    );
+    labelled(
+        out,
+        "rs_chat_muted_total",
+        "Chat messages muted players tried to send.",
+        "kind",
+        &CHAT_KINDS,
+        &c.chat_muted,
+    );
+    labelled(
+        out,
+        "rs_auto_bans_total",
+        "Automated bans for what only a modified client sends.",
+        "trigger",
+        &AUTO_BAN_TRIGGERS,
+        &c.auto_bans,
+    );
+    labelled(
+        out,
+        "rs_reports_total",
+        "Abuse reports, by rule broken.",
+        "reason",
+        &REPORT_REASONS,
+        &c.reports,
+    );
+    family(
+        out,
+        "rs_mutes_total",
+        "counter",
+        "Mutes moderators made from abuse reports.",
+    );
+    let _ = writeln!(out, "rs_mutes_total {}", counters::get(&c.mutes));
+    labelled(
+        out,
+        "rs_wealth_coins_total",
+        "Coin value of wealth events, by type.",
+        "type",
+        &WEALTH_TYPES,
+        &c.wealth_coins,
+    );
+    labelled(
+        out,
+        "rs_wealth_items_total",
+        "Items moved by wealth events, by type.",
+        "type",
+        &WEALTH_TYPES,
+        &c.wealth_items,
+    );
+    labelled(
+        out,
+        "rs_db_log_rows_total",
+        "Log rows written to the database, by kind.",
+        "kind",
+        &LOG_KINDS,
+        &c.log_rows,
+    );
+    family(
+        out,
+        "rs_db_log_batches_total",
+        "counter",
+        "Log batches written to the database (one per tick with logs).",
+    );
+    let _ = writeln!(
+        out,
+        "rs_db_log_batches_total {}",
+        counters::get(&c.log_batches)
+    );
+    family(
+        out,
+        "rs_db_log_batches_dropped_total",
+        "counter",
+        "Log batches lost to a failed write or an offline database.",
+    );
+    let _ = writeln!(
+        out,
+        "rs_db_log_batches_dropped_total {}",
+        counters::get(&c.log_batches_dropped)
+    );
+    family(
+        out,
+        "rs_db_log_rows_dropped_total",
+        "counter",
+        "Log rows in the dropped batches.",
+    );
+    let _ = writeln!(
+        out,
+        "rs_db_log_rows_dropped_total {}",
+        counters::get(&c.log_rows_dropped)
+    );
+}
+
+/// A counter family with one series per label value.
+fn labelled(
+    out: &mut String,
+    name: &str,
+    help: &str,
+    label: &str,
+    values: &[&str],
+    totals: &[AtomicU64],
+) {
+    family(out, name, "counter", help);
+    for (value, total) in values.iter().zip(totals) {
+        let _ = writeln!(
+            out,
+            "{name}{{{label}=\"{value}\"}} {}",
+            counters::get(total)
+        );
     }
 }
 
@@ -310,5 +436,22 @@ mod tests {
         let phase = |name| t.phase_seconds[PHASES.iter().position(|p| p.0 == name).unwrap()];
         assert!((phase("npcs") - 0.653).abs() < 1e-9);
         assert!((phase("other") - 0.051).abs() < 1e-9);
+    }
+
+    #[test]
+    fn counters_render_a_fixed_set_of_series() {
+        COUNTERS.wealth(7, 3, 120);
+        // Unknown types and negative amounts stay out.
+        COUNTERS.wealth(4, 1, 1);
+        COUNTERS.wealth(8, -1, -5);
+
+        let mut out = String::new();
+        write_counters(&mut out);
+        let series: Vec<&str> = out.lines().filter(|l| !l.starts_with('#')).collect();
+        assert_eq!(series.len(), 2 + 2 + 3 + 12 + 1 + 6 + 6 + 3 + 1 + 1 + 1);
+        assert!(series.contains(&"rs_wealth_coins_total{type=\"shop_sell\"} 120"));
+        assert!(series.contains(&"rs_wealth_items_total{type=\"shop_sell\"} 3"));
+        assert!(series.contains(&"rs_wealth_coins_total{type=\"low_alch\"} 0"));
+        assert!(series.contains(&"rs_reports_total{reason=\"macroing\"} 0"));
     }
 }

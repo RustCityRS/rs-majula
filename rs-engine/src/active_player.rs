@@ -1,5 +1,6 @@
 use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
 use crate::clients::client_game::ClientHandle;
+use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_cam::CamKind;
@@ -835,7 +836,8 @@ impl ActivePlayer {
     /// Bans the player for [`AUTO_BAN_HOURS`] and logs them out, for sending
     /// what only a modified client can. The ban reaches the database before
     /// the logout save, so logging straight back in is refused.
-    pub fn auto_ban(&mut self) {
+    pub fn auto_ban(&mut self, trigger: AutoBan) {
+        counters::add(&COUNTERS.auto_bans[trigger as usize], 1);
         if let Some(tx) = &engine().db_tx {
             let _ = tx.send(DbRequest::Ban {
                 user37: self.player.uid.username37(),

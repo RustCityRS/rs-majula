@@ -1,5 +1,6 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_ether::EtherOutbound;
+use crate::counters::{self, AutoBan, CHAT_PRIVATE, COUNTERS};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
@@ -46,13 +47,14 @@ impl ClientGameHandler for MessagePrivate {
         }
 
         if active.is_muted() {
+            counters::add(&COUNTERS.chat_muted[CHAT_PRIVATE], 1);
             return Ok(());
         }
 
         // The client only sends names from the friend list: a bad one means a
         // modified client.
         if !is_valid_userhash(self.user37 as u64) {
-            active.auto_ban();
+            active.auto_ban(AutoBan::PrivateName);
             return Ok(());
         }
 
@@ -72,6 +74,7 @@ impl ClientGameHandler for MessagePrivate {
         });
 
         active.last_social = Some(engine.clock);
+        counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
         active.log_chat(Some(self.user37 as u64), text);
         Ok(())
     }

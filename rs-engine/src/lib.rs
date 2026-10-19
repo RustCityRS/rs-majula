@@ -5,6 +5,7 @@ mod active_npc;
 mod active_player;
 mod build;
 mod clients;
+pub mod counters;
 mod engine;
 mod game_map;
 mod handlers;

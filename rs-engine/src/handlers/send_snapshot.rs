@@ -1,5 +1,6 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_db::DbRequest;
+use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_entity::StaffModLevel;
@@ -34,12 +35,12 @@ impl ClientGameHandler for SendSnapshot {
         }
 
         if self.reason > MAX_REASON {
-            active.auto_ban();
+            active.auto_ban(AutoBan::ReportReason);
             return Ok(());
         }
 
         if !is_valid_userhash(self.offender as u64) {
-            active.auto_ban();
+            active.auto_ban(AutoBan::ReportOffender);
             return Ok(());
         }
 
@@ -60,6 +61,7 @@ impl ClientGameHandler for SendSnapshot {
 
         active.message_game("Thank-you, your abuse report has been received");
         active.last_report = Some(engine.clock);
+        counters::add(&COUNTERS.reports[self.reason as usize], 1);
         Ok(())
     }
 }

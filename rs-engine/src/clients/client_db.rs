@@ -1,3 +1,4 @@
+use crate::counters::{self, COUNTERS};
 use crate::phases::login::{LOGIN_FAILURE_WINDOW_SECS, MAX_LOGIN_FAILURES};
 use crate::player_save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
@@ -215,6 +216,9 @@ async fn lease_task(config: DbConfig, node_id: u8, response_tx: UnboundedSender<
 /// heartbeat's reconcile cleans up any claim a dropped release would have
 /// freed.
 fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
+    if let DbRequest::Logs { logs } = &req {
+        drop_logs(logs);
+    }
     if let DbRequest::Save {
         user37,
         username,
@@ -231,6 +235,13 @@ fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
             logout,
         });
     }
+}
+
+/// Counts a log batch the database never got.
+fn drop_logs(logs: &LogBatch) {
+    counters::add(&COUNTERS.log_batches_dropped, 1);
+    let rows = logs.chat.len() + logs.sessions.len() + logs.wealth.len();
+    counters::add(&COUNTERS.log_rows_dropped, rows as u64);
 }
 
 /// Waits out `delay` before the next connect attempt, handling requests
@@ -727,6 +738,7 @@ async fn run_requests(
                     None => None,
                 };
                 if let Some(ms) = muted {
+                    counters::add(&COUNTERS.mutes, 1);
                     info!(
                         "'{}' muted '{}' for {} hours",
                         to_raw_username(reporter37),
@@ -750,7 +762,17 @@ async fn run_requests(
                 })
                 .await?;
             }
-            DbRequest::Logs { logs } => db.record_logs(node_id, &logs).await?,
+            DbRequest::Logs { logs } => {
+                if let Err(e) = db.record_logs(node_id, &logs).await {
+                    drop_logs(&logs);
+                    return Err(e);
+                }
+                counters::add(&COUNTERS.log_batches, 1);
+                let rows = [logs.chat.len(), logs.sessions.len(), logs.wealth.len()];
+                for (total, n) in COUNTERS.log_rows.iter().zip(rows) {
+                    counters::add(total, n as u64);
+                }
+            }
             DbRequest::Ban { user37, hours } => {
                 if db.ban_player(user37, hours).await? {
                     warn!("Banned '{}' for {} hours", to_raw_username(user37), hours);

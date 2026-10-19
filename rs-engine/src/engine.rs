@@ -3,6 +3,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest, DbResponse};
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
+use crate::counters::COUNTERS;
 use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
 use crate::phases::shared::panic_message;
@@ -4402,8 +4403,11 @@ impl ScriptPlayer for ActivePlayer {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ActivePlayer::log_wealth`
+    /// **Calls:** `Counters::wealth`, `ActivePlayer::log_wealth`
     fn wealth_event(&mut self, event_type: i32, item: &str, count: i32, value: i32) {
+        if !self.player.bot {
+            COUNTERS.wealth(event_type, count, value);
+        }
         self.log_wealth(event_type, item, count, value);
     }
 

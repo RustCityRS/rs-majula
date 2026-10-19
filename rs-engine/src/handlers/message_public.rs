@@ -1,4 +1,5 @@
 use crate::active_player::ActivePlayer;
+use crate::counters::{self, CHAT_PUBLIC, COUNTERS};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::message_public::MessagePublic;
@@ -60,6 +61,7 @@ impl ClientGameHandler for MessagePublic {
         }
 
         if active.is_muted() {
+            counters::add(&COUNTERS.chat_muted[CHAT_PUBLIC], 1);
             return Ok(());
         }
 
@@ -72,6 +74,7 @@ impl ClientGameHandler for MessagePublic {
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);
+        counters::add(&COUNTERS.chat[CHAT_PUBLIC], 1);
         active.log_chat(None, text);
 
         Ok(())
