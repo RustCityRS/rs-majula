@@ -417,7 +417,7 @@ impl Player {
     /// # Side Effects
     /// * Removes `com` from every entry in `self.inv_transmits`.
     pub fn clear_inv_transmits(&mut self, com: u16) {
-        for (_, coms) in self.inv_transmits.iter_mut() {
+        for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }
         self.inv_other_transmits.remove(&com);

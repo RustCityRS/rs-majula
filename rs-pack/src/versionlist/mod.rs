@@ -49,12 +49,14 @@ impl VersionList {
 
 pub fn parse_map_index(bytes: &[u8]) -> Vec<MapEntry> {
     bytes
-        .chunks_exact(7)
-        .map(|c| MapEntry {
-            mapsquare: u16::from_be_bytes([c[0], c[1]]),
-            land_file: u16::from_be_bytes([c[2], c[3]]),
-            loc_file: u16::from_be_bytes([c[4], c[5]]),
-            free2play: c[6] != 0,
+        .as_chunks::<7>()
+        .0
+        .iter()
+        .map(|&[m0, m1, l0, l1, o0, o1, f2p]| MapEntry {
+            mapsquare: u16::from_be_bytes([m0, m1]),
+            land_file: u16::from_be_bytes([l0, l1]),
+            loc_file: u16::from_be_bytes([o0, o1]),
+            free2play: f2p != 0,
         })
         .collect()
 }
@@ -161,8 +163,8 @@ impl VersionListMeta {
         std::fs::write(dir.join("model"), model)?;
 
         let mut anim_index = String::from("# frame  flags\n");
-        for (frame, c) in self.anim_index.chunks_exact(2).enumerate() {
-            anim_index += &format!("{frame} {}\n", u16::from_be_bytes([c[0], c[1]]));
+        for (frame, &c) in self.anim_index.as_chunks::<2>().0.iter().enumerate() {
+            anim_index += &format!("{frame} {}\n", u16::from_be_bytes(c));
         }
         std::fs::write(dir.join("anim_index"), anim_index)?;
 
@@ -341,8 +343,10 @@ pub(crate) fn read_u16_table(jag: &JagFile, name: &str) -> Vec<u16> {
     jag.read(name)
         .map(|p| {
             p.data
-                .chunks_exact(2)
-                .map(|c| u16::from_be_bytes([c[0], c[1]]))
+                .as_chunks::<2>()
+                .0
+                .iter()
+                .map(|&c| u16::from_be_bytes(c))
                 .collect()
         })
         .unwrap_or_default()
@@ -352,8 +356,10 @@ pub(crate) fn read_i32_table(jag: &JagFile, name: &str) -> Vec<i32> {
     jag.read(name)
         .map(|p| {
             p.data
-                .chunks_exact(4)
-                .map(|c| i32::from_be_bytes([c[0], c[1], c[2], c[3]]))
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .map(|&c| i32::from_be_bytes(c))
                 .collect()
         })
         .unwrap_or_default()

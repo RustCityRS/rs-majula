@@ -285,9 +285,8 @@ fn enqueue_requests(
 ) -> anyhow::Result<()> {
     partial.extend_from_slice(bytes);
     let complete = partial.len() - partial.len() % 4;
-    for req in partial[..complete].chunks_exact(4) {
-        let (archive, priority) = (req[0], req[3]);
-        let file = u16::from_be_bytes([req[1], req[2]]);
+    for &[archive, file_hi, file_lo, priority] in partial[..complete].as_chunks::<4>().0 {
+        let file = u16::from_be_bytes([file_hi, file_lo]);
         let tier = match priority {
             2 => 0,
             1 => 1,
