@@ -1,5 +1,5 @@
 use crate::socket::handshake;
-use crate::{ConnectionGuard, ServerIO, Socket};
+use crate::{ConnectionGuard, REVISION, ServerIO, Socket};
 use rs_pack::cache::CacheStore;
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
@@ -335,11 +335,14 @@ async fn route(
                 );
             }
 
-            let bytes = render_client(nodeid, lowmem, members).into_bytes();
+            let bytes = render_client(nodeid, lowmem, members, client_version(cache)).into_bytes();
             let len = bytes.len();
             (
                 "200 OK",
-                format!("Content-Type: text/html; charset=UTF-8\r\nContent-Length: {len}\r\n"),
+                // Never reused: it names the client.js to load (see render_client).
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                ),
                 Body::Owned(bytes),
             )
         }
@@ -480,11 +483,27 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
 
 /// Fills in this revision's client page. Every value is a number or a bool,
 /// so no request text reaches the page's JavaScript.
-fn render_client(nodeid: &str, lowmem: bool, members: bool) -> String {
-    CLIENT_HTML
+///
+/// With `version`, the page imports `client.js?v=<version>`: a client.js that
+/// changes (a new release, or `rotate-rsa.py` patching in a new login key)
+/// gets a new URL, so no browser or Cloudflare cache serves the old one.
+fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
+    let html = CLIENT_HTML
         .replace("{{nodeid}}", nodeid)
         .replace("{{lowmem}}", if lowmem { "1" } else { "0" })
-        .replace("{{members}}", if members { "true" } else { "false" })
+        .replace("{{members}}", if members { "true" } else { "false" });
+    match version {
+        Some(v) => html.replace("client.js'", &format!("client.js?v={v:08x}'")),
+        None => html,
+    }
+}
+
+/// The CRC of the client.js this world serves, `None` if it has none.
+fn client_version(cache: &CacheStore) -> Option<u32> {
+    let js = cache
+        .static_assets
+        .get(format!("/{REVISION}/client.js").as_str())?;
+    Some(rs_io::crc::getcrc(js, 0, js.len()) as u32)
 }
 
 /// A numeric query parameter; missing or non-numeric reads as 0.
@@ -526,9 +545,16 @@ mod tests {
 
     #[test]
     fn client_page_fills_every_marker() {
-        let html = render_client("10", true, false);
+        let html = render_client("10", true, false, None);
         assert!(html.contains("new Client(10, 1, false);"));
         assert!(!html.contains("{{"));
+    }
+
+    #[test]
+    fn client_page_versions_its_client_js() {
+        let html = render_client("10", true, false, Some(0xab12));
+        assert_eq!(html.matches("/client.js?v=0000ab12'").count(), 1);
+        assert!(!render_client("10", true, false, None).contains("?v="));
     }
 
     #[test]
