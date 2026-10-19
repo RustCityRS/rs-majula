@@ -7,6 +7,7 @@ pub struct Credentials {
     pub password_hash: String,
     pub staff_mod_level: i16,
     pub banned: bool,
+    pub muted_ms: Option<i64>,
     pub left_other_world_ms: Option<i64>,
 }
 
@@ -31,6 +32,9 @@ impl Db {
         sqlx::query_as(
             "select * from (SELECT password_hash, staff_mod_level,
                     coalesce(banned_until > now(), false) AS banned,
+                    CASE WHEN muted_until > now()
+                         THEN (extract(epoch FROM muted_until - now()) * 1000)::bigint
+                    END AS muted_ms,
                     CASE WHEN last_logout_node <> $2
                          THEN (extract(epoch FROM now() - last_logout_at) * 1000)::bigint
                     END AS left_other_world_ms
@@ -58,6 +62,61 @@ impl Db {
         .execute(&self.pool)
         .await?;
         Ok(result.rows_affected() == 1)
+    }
+
+    /// Mutes a player for `hours`, unless they are staff of `by_level` or
+    /// above. A longer mute already in place is kept. Returns the milliseconds
+    /// left on the mute, or `None` if no such player or they outrank the
+    /// moderator.
+    pub async fn mute_player(
+        &self,
+        name_hash: u64,
+        hours: i32,
+        by_level: i16,
+    ) -> Result<Option<i64>, Error> {
+        sqlx::query_scalar(
+            "UPDATE players
+             SET muted_until = greatest(muted_until, now() + make_interval(hours => $2))
+             WHERE name_hash = $1 AND staff_mod_level < $3
+             RETURNING (extract(epoch FROM muted_until - now()) * 1000)::bigint",
+        )
+        .bind(name_hash as i64)
+        .bind(hours)
+        .bind(by_level)
+        .fetch_optional(&self.pool)
+        .await
+    }
+
+    /// Bans a player for `hours`. A longer ban already in place is kept.
+    /// Returns `false` if no such player.
+    pub async fn ban_player(&self, name_hash: u64, hours: i32) -> Result<bool, Error> {
+        let result = sqlx::query(
+            "UPDATE players
+             SET banned_until = greatest(banned_until, now() + make_interval(hours => $2))
+             WHERE name_hash = $1",
+        )
+        .bind(name_hash as i64)
+        .bind(hours)
+        .execute(&self.pool)
+        .await?;
+        Ok(result.rows_affected() == 1)
+    }
+
+    /// The current mute of each of `names` that is registered: milliseconds
+    /// left, or `None` while not muted.
+    pub async fn mutes(&self, names: &[u64]) -> Result<Vec<(u64, Option<i64>)>, Error> {
+        let names: Vec<i64> = names.iter().map(|&h| h as i64).collect();
+        let rows: Vec<(i64, Option<i64>)> = sqlx::query_as(
+            "SELECT name_hash,
+                    CASE WHEN muted_until > now()
+                         THEN (extract(epoch FROM muted_until - now()) * 1000)::bigint
+                    END
+             FROM players WHERE name_hash = ANY($1)",
+        )
+        .bind(&names)
+        .fetch_all(&self.pool)
+        .await?;
+        Ok(rows.into_iter().map(|(h, ms)| (h as u64, ms)).collect())
     }
 
     pub async fn name_taken(&self, name_hash: u64) -> Result<bool, Error> {

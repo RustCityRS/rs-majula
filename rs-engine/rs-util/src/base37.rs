@@ -58,6 +58,12 @@ pub fn to_userhash(string: &str) -> u64 {
     l
 }
 
+/// Whether `value` is a base37 hash [`to_raw_username`] can decode: in range,
+/// and not ending in an underscore (divisible by 37).
+pub const fn is_valid_userhash(value: u64) -> bool {
+    value < 6582952005840035281 && !value.is_multiple_of(37)
+}
+
 /// Decodes a base37 hash back into a lowercase username string.
 ///
 /// Repeatedly divides the hash by 37, using the remainder as an index into
@@ -81,11 +87,7 @@ pub fn to_userhash(string: &str) -> u64 {
 /// **Called by:** [`to_safe_name`], player name display paths throughout rs-engine.
 /// **Calls:** Nothing (indexes into [`USERHASH_CHAR`]).
 pub fn to_raw_username(mut value: u64) -> String {
-    if !(0..6582952005840035281).contains(&value) {
-        return "invalid_name".to_string();
-    }
-
-    if value.is_multiple_of(37) {
+    if !is_valid_userhash(value) {
         return "invalid_name".to_string();
     }
 

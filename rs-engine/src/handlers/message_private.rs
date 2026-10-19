@@ -3,6 +3,7 @@ use crate::clients::client_ether::EtherOutbound;
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
+use rs_util::base37::is_valid_userhash;
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
@@ -13,6 +14,9 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 /// The message bytes are validated for length (max 100 bytes), unpacked from the
 /// game's compressed text format, filtered through the word encoder (censorship),
 /// repacked, and forwarded to the ether (cross-world) service for delivery.
+/// One message per tick (shared with public chat); a muted player's message
+/// is dropped. A target that isn't a valid name only comes from a modified
+/// client, so the sender is banned and logged out (`ActivePlayer::auto_ban`).
 ///
 /// If no ether connection is available, the message is silently dropped.
 ///
@@ -35,11 +39,21 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 /// **Calls:** `cache().wordenc.filter`, `pack`/`unpack`, `EtherOutbound::PrivateMessage`
 impl ClientGameHandler for MessagePrivate {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        if self.bytes.len() > 100 {
+        let engine = engine();
+        if active.last_social == Some(engine.clock) || self.bytes.len() > 100 {
             return Ok(());
         }
 
-        let engine = engine();
+        if active.is_muted() {
+            return Ok(());
+        }
+
+        // The client only sends names from the friend list: a bad one means a
+        // modified client.
+        if !is_valid_userhash(self.user37 as u64) {
+            active.auto_ban();
+            return Ok(());
+        }
 
         let Some(tx) = &engine.ether_tx else {
             return Ok(());
@@ -55,6 +69,7 @@ impl ClientGameHandler for MessagePrivate {
             bytes: filtered_bytes,
         });
 
+        active.last_social = Some(engine.clock);
         Ok(())
     }
 }

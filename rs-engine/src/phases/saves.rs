@@ -3,8 +3,10 @@ use crate::engine::Engine;
 use crate::player_save::delete_save_file;
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
+use rustc_hash::FxHashMap;
 #[cfg(since_254)]
 use std::time::Duration;
+use std::time::Instant;
 use tracing::{info, warn};
 
 /// How long a player who logged out of one world must wait before logging
@@ -58,6 +60,9 @@ impl Engine {
     /// * `SessionsLost` -- removes, unsaved, online players whose sessions
     ///   another world took over.
     /// * `Lease` -- renews this world's lease (see `Engine::fence`).
+    /// * `Muted` -- a moderator's mute took: mutes the player if online here.
+    /// * `Mutes` -- syncs online players' mutes with the database, so mutes
+    ///   and unmutes made elsewhere reach them.
     ///
     /// # Side Effects
     ///
@@ -98,6 +103,7 @@ impl Engine {
                         match result {
                             AuthResult::Accepted {
                                 staff_mod_level,
+                                muted_for,
                                 left_other_world,
                             } => {
                                 #[cfg(since_254)]
@@ -114,6 +120,8 @@ impl Engine {
                                 let _ = left_other_world;
                                 self.pending_logins[idx].auth =
                                     Some(StaffModLevel::from_u8(staff_mod_level));
+                                self.pending_logins[idx].muted_until =
+                                    muted_for.map(|d| Instant::now() + d);
                                 self.try_complete_login(idx);
                             }
                             AuthResult::InvalidCredentials => {
@@ -188,6 +196,24 @@ impl Engine {
                 }
                 DbResponse::Lease { at } => {
                     self.db_lease = Some(self.db_lease.map_or(at, |lease| lease.max(at)));
+                }
+                DbResponse::Muted { user37, remaining } => {
+                    if let Some(pid) = self.find_pid_by_user37(user37)
+                        && let Some(active) = self.get_player_mut(pid)
+                    {
+                        active.muted_until = Some(Instant::now() + remaining);
+                    }
+                }
+                DbResponse::Mutes { mutes } => {
+                    let now = Instant::now();
+                    let mutes: FxHashMap<u64, _> = mutes.into_iter().collect();
+                    for &pid in self.player_list.processing.iter() {
+                        if let Some(active) = self.player_list.players[pid as usize].as_mut()
+                            && let Some(muted_for) = mutes.get(&active.player.uid.username37())
+                        {
+                            active.muted_until = muted_for.map(|d| now + d);
+                        }
+                    }
                 }
             }
         }

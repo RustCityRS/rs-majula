@@ -1,3 +1,4 @@
+use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
 use crate::clients::client_game::ClientHandle;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
@@ -129,6 +130,7 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 use std::net::IpAddr;
+use std::time::Instant;
 use tracing::{error, warn};
 
 /// Maximum number of recycled outbound byte buffers kept per client in
@@ -157,6 +159,13 @@ pub struct ActivePlayer {
     pub user_limit: u8,
     pub restricted_limit: u8,
     pub remote_ip: Option<IpAddr>,
+    /// When the player's chat mute ends, `None` if not muted. Kept in step
+    /// with the database's `players.muted_until`.
+    pub muted_until: Option<Instant>,
+    /// The tick of the player's last abuse report: one per tick.
+    pub last_report: Option<u32>,
+    /// The tick of the player's last public or private chat: one per tick.
+    pub last_social: Option<u32>,
 }
 
 impl ActivePlayer {
@@ -200,6 +209,9 @@ impl ActivePlayer {
             user_limit: 0,
             restricted_limit: 0,
             remote_ip: None,
+            muted_until: None,
+            last_report: None,
+            last_social: None,
         }
     }
 
@@ -812,6 +824,24 @@ impl ActivePlayer {
     pub fn logout(&mut self) {
         self.player.logout_sent = true;
         self.write(rs_protocol::network::game::server::logout::Logout);
+    }
+
+    /// Whether the player is muted, and so may not public or private chat.
+    pub fn is_muted(&self) -> bool {
+        self.muted_until.is_some_and(|until| Instant::now() < until)
+    }
+
+    /// Bans the player for [`AUTO_BAN_HOURS`] and logs them out, for sending
+    /// what only a modified client can. The ban reaches the database before
+    /// the logout save, so logging straight back in is refused.
+    pub fn auto_ban(&mut self) {
+        if let Some(tx) = &engine().db_tx {
+            let _ = tx.send(DbRequest::Ban {
+                user37: self.player.uid.username37(),
+                hours: AUTO_BAN_HOURS,
+            });
+        }
+        self.logout();
     }
 
     /// Sends a game message to the player's chatbox.

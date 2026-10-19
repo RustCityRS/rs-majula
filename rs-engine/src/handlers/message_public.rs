@@ -22,11 +22,12 @@ const MAX_CHAT_LEN: usize = 100;
 
 /// Handles the `MessagePublic` client protocol message.
 ///
-/// Processes a public chat message spoken by the player in-game. Validates the
-/// colour (0-11), effect (0-[`MAX_CHAT_EFFECT`]), and byte length (max 100),
-/// then unpacks the compressed text, filters it through the word encoder
-/// (censorship), repacks it, and stores the result in the player's info block
-/// so it can be broadcast to nearby players during the next player info update.
+/// Processes a public chat message spoken by the player in-game, one per tick
+/// (shared with private chat). Validates the colour (0-11), effect (0-[`MAX_CHAT_EFFECT`]), and byte length (max 100),
+/// and drops it if the player is muted. Then unpacks the
+/// compressed text, filters it through the word encoder (censorship), repacks
+/// it, and stores the result in the player's info block so it can be broadcast
+/// to nearby players during the next player info update.
 ///
 /// # Arguments
 ///
@@ -48,10 +49,16 @@ const MAX_CHAT_LEN: usize = 100;
 /// **Calls:** `cache().wordenc.filter`, `pack`/`unpack`
 impl ClientGameHandler for MessagePublic {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        if self.colour > MAX_CHAT_COLOUR
+        let clock = engine().clock;
+        if active.last_social == Some(clock)
+            || self.colour > MAX_CHAT_COLOUR
             || self.effect > MAX_CHAT_EFFECT
             || self.bytes.len() > MAX_CHAT_LEN
         {
+            return Ok(());
+        }
+
+        if active.is_muted() {
             return Ok(());
         }
 
@@ -59,8 +66,10 @@ impl ClientGameHandler for MessagePublic {
         active.player.info.chat_bytes = Some(pack(&message).into_boxed_slice());
         active.player.info.chat_colour = Some(self.colour);
         active.player.info.chat_effects = Some(self.effect);
-        active.player.info.chat_ignored = Some(active.player.staff_mod_level as u8);
+        active.player.info.chat_ignored = Some((active.player.staff_mod_level as u8).min(2));
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
+
+        active.last_social = Some(clock);
 
         Ok(())
     }

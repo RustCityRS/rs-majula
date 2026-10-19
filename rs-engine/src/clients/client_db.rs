@@ -3,7 +3,7 @@ use crate::player_save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
     orphan_save_file, save_orphan, save_to_file,
 };
-use rs_db::{Claim, Db, DbConfig, NewPlayer, Passwords, PlayerSave, SaveResult};
+use rs_db::{Claim, Db, DbConfig, NewPlayer, NewSnapshot, Passwords, PlayerSave, SaveResult};
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
 use std::path::Path;
@@ -66,12 +66,36 @@ pub enum DbRequest {
         online: Vec<u64>,
         held: Vec<u64>,
     },
+    /// An abuse report, made at `(x, z, y)`. With `mute_by`, the reporter is a
+    /// moderator of that level who also mutes the offender for [`MUTE_HOURS`].
+    Snapshot {
+        reporter37: u64,
+        offender37: u64,
+        reason: u8,
+        x: u16,
+        z: u16,
+        y: u8,
+        mute_by: Option<u8>,
+    },
+    Ban {
+        user37: u64,
+        hours: i32,
+    },
 }
+
+/// How long a moderator's in-game mute lasts, as the client's abuse report
+/// promises ("Mute player for 48 hours").
+pub const MUTE_HOURS: i32 = 48;
+
+/// How long the automated ban lasts for sending what only a modified client
+/// can.
+pub const AUTO_BAN_HOURS: i32 = 48;
 
 /// The outcome of a [`DbRequest::Authenticate`].
 pub enum AuthResult {
     Accepted {
         staff_mod_level: u8,
+        muted_for: Option<Duration>,
         left_other_world: Option<Duration>,
     },
     InvalidCredentials,
@@ -119,6 +143,17 @@ pub enum DbResponse {
     },
     Lease {
         at: Instant,
+    },
+    /// A [`DbRequest::Mute`] took: the player is muted for `remaining`.
+    Muted {
+        user37: u64,
+        remaining: Duration,
+    },
+    /// The mute of each online player, as of a [`DbRequest::WorldStatus`]:
+    /// how long is left, or `None` while not muted. Carries mutes and unmutes
+    /// made elsewhere (another world, or by hand in the database).
+    Mutes {
+        mutes: Vec<(u64, Option<Duration>)>,
     },
 }
 
@@ -661,6 +696,58 @@ async fn run_requests(
                     });
                 }
                 db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
+                let mutes = db.mutes(&online).await?;
+                let _ = response_tx.send(DbResponse::Mutes {
+                    mutes: mutes
+                        .into_iter()
+                        .map(|(user37, ms)| (user37, ms.map(millis)))
+                        .collect(),
+                });
+            }
+            DbRequest::Snapshot {
+                reporter37,
+                offender37,
+                reason,
+                x,
+                z,
+                y,
+                mute_by,
+            } => {
+                let muted = match mute_by {
+                    Some(level) => {
+                        db.mute_player(offender37, MUTE_HOURS, i16::from(level))
+                            .await?
+                    }
+                    None => None,
+                };
+                if let Some(ms) = muted {
+                    info!(
+                        "'{}' muted '{}' for {} hours",
+                        to_raw_username(reporter37),
+                        to_raw_username(offender37),
+                        MUTE_HOURS
+                    );
+                    let _ = response_tx.send(DbResponse::Muted {
+                        user37: offender37,
+                        remaining: millis(ms),
+                    });
+                }
+                db.record_snapshot(&NewSnapshot {
+                    reporter_name_hash: reporter37,
+                    offender_name_hash: offender37,
+                    reason: i16::from(reason),
+                    node_id,
+                    x: x as i16,
+                    z: z as i16,
+                    y: i16::from(y),
+                    muted: muted.is_some(),
+                })
+                .await?;
+            }
+            DbRequest::Ban { user37, hours } => {
+                if db.ban_player(user37, hours).await? {
+                    warn!("Banned '{}' for {} hours", to_raw_username(user37), hours);
+                }
             }
         }
     }
@@ -760,9 +847,8 @@ async fn authenticate(
         }
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
-            left_other_world: creds
-                .left_other_world_ms
-                .map(|ms| Duration::from_millis(ms.max(0) as u64)),
+            muted_for: creds.muted_ms.map(millis),
+            left_other_world: creds.left_other_world_ms.map(millis),
         });
     }
 
@@ -803,8 +889,14 @@ async fn authenticate(
 
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
+        muted_for: None,
         left_other_world: None,
     })
+}
+
+/// A database millisecond count as a [`Duration`], clamping negatives to zero.
+fn millis(ms: i64) -> Duration {
+    Duration::from_millis(ms.max(0) as u64)
 }
 
 /// Flattens a [`PlayerProfile`] into its `player_saves` row. Inventory items
@@ -1160,6 +1252,7 @@ mod tests {
             loop {
                 match self.next().await {
                     DbResponse::SessionsLost { users37 } => lost = users37,
+                    DbResponse::Mutes { .. } => {}
                     DbResponse::AuthResponse { .. } => return lost,
                     _ => panic!("unexpected response"),
                 }

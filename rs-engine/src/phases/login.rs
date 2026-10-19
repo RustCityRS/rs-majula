@@ -119,6 +119,7 @@ impl Engine {
                     clock: self.clock,
                     ether_allowed: false,
                     auth: None,
+                    muted_until: None,
                     claim_sent: false,
                     profile: None,
                 });

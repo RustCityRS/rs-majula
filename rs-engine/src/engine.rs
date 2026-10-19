@@ -231,6 +231,8 @@ pub struct PendingLogin {
     pub clock: u32,
     pub ether_allowed: bool,
     pub auth: Option<StaffModLevel>,
+    /// When the player's chat mute ends, set with `auth`.
+    pub muted_until: Option<Instant>,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
 }
@@ -2582,6 +2584,7 @@ impl Engine {
     /// * `request` -- The original [`LoginRequest`] with the client handle.
     /// * `profile` -- The player's saved profile, or `None` for a new player.
     /// * `staff_mod_level` -- From the player's database row, via authentication.
+    /// * `muted_until` -- When the player's chat mute ends, likewise.
     /// * `pid`     -- The accepted pid to use for the active player.
     ///
     /// # Side Effects
@@ -2600,6 +2603,7 @@ impl Engine {
         request: LoginRequest,
         profile: Option<PlayerProfile>,
         staff_mod_level: StaffModLevel,
+        muted_until: Option<Instant>,
         pid: u16,
     ) {
         let mut active = ActivePlayer::new(
@@ -2617,6 +2621,7 @@ impl Engine {
             apply_new_player_defaults(&mut active.player);
         }
         active.player.staff_mod_level = staff_mod_level;
+        active.muted_until = muted_until;
 
         active.player.last_date = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -2975,7 +2980,13 @@ impl Engine {
 
         let pending = self.pending_logins.swap_remove(idx);
         let profile = pending.profile.unwrap();
-        self.accept_login(pending.request, profile, staff_mod_level, pid);
+        self.accept_login(
+            pending.request,
+            profile,
+            staff_mod_level,
+            pending.muted_until,
+            pid,
+        );
     }
 
     /// Finds the pid of an online player by their Base37-encoded username.

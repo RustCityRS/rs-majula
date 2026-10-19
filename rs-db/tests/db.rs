@@ -1,4 +1,4 @@
-use rs_db::{Claim, Db, NewPlayer, PlayerSave, Reconciled, SaveResult, WorldStatus};
+use rs_db::{Claim, Db, NewPlayer, NewSnapshot, PlayerSave, Reconciled, SaveResult, WorldStatus};
 use sqlx::PgPool;
 
 fn claimed(save: Option<PlayerSave>) -> Claim {
@@ -68,6 +68,97 @@ async fn credentials_round_trip(pool: PgPool) {
         .await
         .unwrap();
     assert!(!db.find_credentials(42, 1).await.unwrap().unwrap().banned);
+}
+
+async fn muted_ms(db: &Db, name_hash: u64) -> Option<i64> {
+    let creds = db.find_credentials(name_hash, 1).await.unwrap();
+    creds.unwrap().muted_ms
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn mutes_respect_rank_and_expire(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    // `player()` is a J-Mod; 7 is a regular player.
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    assert_eq!(muted_ms(&db, 7).await, None);
+    assert_eq!(db.mutes(&[7, 42, 99]).await.unwrap().len(), 2);
+
+    // A P-Mod can't mute a J-Mod, or an unknown name.
+    assert_eq!(db.mute_player(42, 48, 1).await.unwrap(), None);
+    assert_eq!(db.mute_player(99, 48, 1).await.unwrap(), None);
+
+    let hours = |ms: i64| (ms + 60_000) / 3_600_000;
+    let ms = db.mute_player(7, 48, 1).await.unwrap().unwrap();
+    assert_eq!(hours(ms), 48);
+    assert_eq!(hours(muted_ms(&db, 7).await.unwrap()), 48);
+
+    // A shorter mute doesn't cut a longer one short.
+    let ms = db.mute_player(7, 1, 1).await.unwrap().unwrap();
+    assert_eq!(hours(ms), 48);
+
+    let mut mutes = db.mutes(&[7, 42]).await.unwrap();
+    mutes.sort();
+    assert!(matches!(mutes[..], [(7, Some(_)), (42, None)]));
+
+    sqlx::query("UPDATE players SET muted_until = now() - interval '1 day'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(muted_ms(&db, 7).await, None);
+    assert_eq!(db.mutes(&[7]).await.unwrap(), vec![(7, None)]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn bans_keep_the_longest(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    assert!(!db.ban_player(42, 48).await.unwrap());
+    db.create_player(&player(42)).await.unwrap();
+
+    assert!(db.ban_player(42, 48).await.unwrap());
+    assert!(db.find_credentials(42, 1).await.unwrap().unwrap().banned);
+    assert!(db.ban_player(42, 1).await.unwrap());
+    let hours: f64 = sqlx::query_scalar(
+        "SELECT extract(epoch FROM banned_until - now())::float8 / 3600 FROM players",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert!(hours > 47.0);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn snapshots_need_a_registered_reporter(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let snapshot = NewSnapshot {
+        reporter_name_hash: 42,
+        // Need not be registered.
+        offender_name_hash: 99,
+        reason: 11,
+        node_id: 10,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        muted: true,
+    };
+    assert!(!db.record_snapshot(&snapshot).await.unwrap());
+
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.record_snapshot(&snapshot).await.unwrap());
+    let row: (i64, i16, i16, i16, bool) =
+        sqlx::query_as("SELECT offender_name_hash, reason, node_id, x, muted FROM snapshots")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(row, (99, 11, 10, 3222, true));
 }
 
 #[sqlx::test]

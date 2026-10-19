@@ -5,6 +5,7 @@ mod password;
 mod player;
 mod save;
 mod session;
+mod snapshot;
 mod world;
 
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
@@ -14,6 +15,7 @@ pub use password::Passwords;
 pub use player::{Credentials, NewPlayer};
 pub use save::{PlayerSave, SaveResult};
 pub use session::{Claim, Reconciled};
+pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
 pub use world::WorldStatus;
 
