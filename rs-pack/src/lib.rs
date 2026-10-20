@@ -326,6 +326,7 @@ pub fn pack_all(
         mapcrcs,
         multimap,
         freemap,
+        worldmap,
     ) = std::thread::scope(|s| {
         let h_scripts = s.spawn(|| {
             debug!("Compiling RuneScript sources...");
@@ -347,8 +348,18 @@ pub fn pack_all(
         #[cfg(since_244)]
         let h_ondemand = s.spawn(|| build_ondemand_artifacts(source, pack, 5));
 
-        let (script_dat, script_idx) = unwrap_thread("scripts", h_scripts.join());
         let assets = unwrap_thread("assets", h_assets.join()).unwrap();
+        let (mapsquares, mapcrcs, multimap, freemap, worldmap) =
+            unwrap_thread("maps", h_maps.join());
+        // The world map needs packed configs, so it starts once they are done
+        // and overlaps the rest (script compilation is the long pole).
+        let h_worldmap = {
+            let dat = |name: &str| assets[name].server.dat.clone();
+            let (flo, loc, npc) = (dat("flo"), dat("loc"), dat("npc"));
+            let (multimap, freemap) = (multimap.clone(), freemap.clone());
+            s.spawn(move || worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap))
+        };
+        let (script_dat, script_idx) = unwrap_thread("scripts", h_scripts.join());
         let media = unwrap_thread("media", h_media.join());
         let textures = unwrap_thread("textures", h_textures.join());
         let title = unwrap_thread("title", h_title.join());
@@ -357,7 +368,7 @@ pub fn pack_all(
         let wordenc = unwrap_thread("wordenc", h_wordenc.join());
         let jingles = unwrap_thread("jingles", h_jingles.join());
         let songs = unwrap_thread("songs", h_songs.join());
-        let (mapsquares, mapcrcs, multimap, freemap) = unwrap_thread("maps", h_maps.join());
+        let worldmap = unwrap_thread("worldmap", h_worldmap.join());
         #[cfg(since_244)]
         {
             ondemand = Some(unwrap_thread("ondemand", h_ondemand.join()));
@@ -365,7 +376,7 @@ pub fn pack_all(
 
         (
             script_dat, script_idx, assets, media, textures, title, models, sounds, wordenc,
-            jingles, songs, mapsquares, mapcrcs, multimap, freemap,
+            jingles, songs, mapsquares, mapcrcs, multimap, freemap, worldmap,
         )
     });
 
@@ -396,6 +407,8 @@ pub fn pack_all(
     );
 
     insert_jag(&mut crcs, &mut jags, "media", media, jag_crc::MEDIA, verify);
+    // Served for the website's map viewer; not in the client's CRC table.
+    jags.insert("worldmap", Arc::from(worldmap));
     insert_jag(
         &mut crcs,
         &mut jags,

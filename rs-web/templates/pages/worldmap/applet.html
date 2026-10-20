@@ -114,7 +114,6 @@
             text-decoration: underline
         }
     </STYLE>
-    <script defer="defer" src="/js/mapview.js"></script>
 </head>
 
 <body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 style="margin:0">
@@ -124,12 +123,11 @@
             <center>
                 <p>
                     <br>
-                    <canvas id="canvas" width="635" height="503"></canvas>
-                    <script>
-                        window.onload = async () => {
-                            new MapView().run();
-                        }
-                    </script>
+                    {% if world %}
+                    <iframe src="{{ world.address }}/worldmap" width="635" height="503" frameborder="0" scrolling="no"></iframe>
+                    {% else %}
+                    The world map is unavailable while no worlds are listed.
+                    {% endif %}
                 <p>
                 <center>
                     <table width=500 bgcolor=black cellpadding=4 border=0>

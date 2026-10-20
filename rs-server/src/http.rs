@@ -383,6 +383,21 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        "/worldmap" => {
+            let bytes = render_worldmap(asset_version(cache, "/mapview.js")).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8
+Cache-Control: no-cache
+{}Content-Length: {len}
+",
+                    frame_ancestors(site_origin)
+                ),
+                Body::Owned(bytes),
+            )
+        }
         "/replay" => {
             let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
             let len = bytes.len();
@@ -438,6 +453,7 @@ fn matches_cache(path: &str) -> bool {
         "/textures",
         "/wordenc",
         "/sounds",
+        "/worldmap.jag",
         "/crc",
         #[cfg(since_244)]
         "/versionlist",
@@ -482,6 +498,7 @@ pub(crate) fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body>
         p if p.starts_with("/textures") => "textures",
         p if p.starts_with("/wordenc") => "wordenc",
         p if p.starts_with("/sounds") => "sounds",
+        p if p.starts_with("/worldmap.jag") => "worldmap",
         _ => return None,
     };
 
@@ -591,6 +608,30 @@ window.__replay.start(new Client({nodeid}, 0, {members}));
     )
 }
 
+/// The world map viewer for this revision's `worldmap.jag`, framed by the
+/// website's world map page. `mapview.js` is shared by every revision.
+fn render_worldmap(version: Option<u32>) -> String {
+    let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    format!(
+        r#"<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Map</title>
+<style>html, body {{ margin: 0; background: #000; overflow: hidden; }} #canvas {{ display: block; }}</style>
+</head>
+<body>
+<canvas id="canvas" width="635" height="503"></canvas>
+<script type="module">
+import {{ MapView }} from '/mapview.js{query}';
+new MapView();
+</script>
+</body>
+</html>
+"#
+    )
+}
+
 /// The client page's framing rule: only this host and the website (which
 /// frames it on its play page) may show it, so no other site can wrap the
 /// game in its own page. Without a website origin, framing is left open (a
@@ -603,10 +644,13 @@ fn frame_ancestors(site_origin: Option<&str>) -> String {
 
 /// The CRC of the client.js this world serves, `None` if it has none.
 fn client_version(cache: &CacheStore) -> Option<u32> {
-    let js = cache
-        .static_assets
-        .get(format!("/{REVISION}/client.js").as_str())?;
-    Some(rs_io::crc::getcrc(js, 0, js.len()) as u32)
+    asset_version(cache, &format!("/{REVISION}/client.js"))
+}
+
+/// The CRC of a static asset, `None` if this world doesn't have it.
+fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
+    let data = cache.static_assets.get(path)?;
+    Some(rs_io::crc::getcrc(data, 0, data.len()) as u32)
 }
 
 /// A numeric query parameter; missing or non-numeric reads as 0.

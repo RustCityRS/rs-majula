@@ -2,6 +2,8 @@ use crate::app::{App, AppError};
 use axum::extract::{Query, State};
 use axum::http::{StatusCode, Uri};
 use axum::response::{IntoResponse, Response};
+use minijinja::context;
+use minijinja::value::Serde;
 use serde::Deserialize;
 use std::sync::Arc;
 
@@ -38,8 +40,16 @@ pub async fn poll_results(
     }
 }
 
+/// Frames a world's map viewer, which draws that world's revision. Prefers a
+/// world that is online.
 pub async fn worldmap(State(app): State<Arc<App>>) -> Result<Response, AppError> {
-    render_first(&app, &["pages/worldmap/applet.html".to_string()])
+    let worlds = app.worlds_now();
+    let world = worlds.iter().find(|w| w.online).or(worlds.first());
+    let html = app.templates.render(
+        "pages/worldmap/applet.html",
+        context! { world => world.map(Serde) },
+    )?;
+    Ok(html.into_response())
 }
 
 fn render_first(app: &App, names: &[String]) -> Result<Response, AppError> {
