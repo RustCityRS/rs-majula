@@ -1,3 +1,4 @@
+use super::access::{ceiling, check_replay, may_see};
 use super::lookup::{address_label, sees_addresses, unavailable};
 use super::replays::checked_id;
 use crate::audit::Event;
@@ -31,17 +32,23 @@ pub struct Everyone {
 }
 
 /// `GET /api/live/players`: everyone online on every world, where they are.
-pub async fn players(State(app): State<Arc<App>>, _staff: Staff) -> Json<Everyone> {
+pub async fn players(State(app): State<Arc<App>>, staff: Staff) -> Json<Everyone> {
     let worlds = app.worlds.online();
     let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
     let mut players = Vec::new();
     let mut unreachable = Vec::new();
     for (world, list) in worlds.iter().zip(lists) {
         match list {
-            Ok(list) => players.extend(list.into_iter().map(|player| Positioned {
-                player,
-                world: world.id,
-                node: world.node,
+            Ok(list) => players.extend(list.into_iter().map(|mut player| {
+                // Nobody watches staff above them live.
+                if !may_see(&staff, player.staff_level) {
+                    player.replay = None;
+                }
+                Positioned {
+                    player,
+                    world: world.id,
+                    node: world.node,
+                }
             })),
             Err(_) => unreachable.push(world.id),
         }
@@ -86,7 +93,7 @@ pub struct Leaderboard {
 /// flagged most over the window, with their scores over it.
 pub async fn anticheat(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Query(query): Query<WindowQuery>,
 ) -> Result<Json<Leaderboard>, ApiError> {
     let (span, buckets) = window(query.window.as_deref())?;
@@ -98,6 +105,7 @@ pub async fn anticheat(
             &AnticheatLookup {
                 since_ms,
                 buckets,
+                max_staff_level: ceiling(&staff),
                 limit: 100,
             },
         )
@@ -253,6 +261,9 @@ pub async fn replay(
         .token
         .filter(|t| t.len() <= 64 && t.bytes().all(|b| b.is_ascii_hexdigit()));
     let start = token.is_none();
+    if start {
+        check_replay(&app, &staff, &id).await?;
+    }
     let bytes = app
         .worlds
         .live_replay(

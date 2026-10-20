@@ -87,6 +87,10 @@ const ICONS = {
     target: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', 'M12 12h.01'],
     radio: ['M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z', 'M8.5 8.5a5 5 0 0 0 0 7', 'M15.5 8.5a5 5 0 0 1 0 7', 'M5.6 5.6a9 9 0 0 0 0 12.8', 'M18.4 5.6a9 9 0 0 1 0 12.8'],
     clip: ['M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.7 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7'],
+    star: ['M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z'],
+    download: ['M12 4v11', 'M7.5 10.5L12 15l4.5-4.5', 'M5 19h14'],
+    bookmark: ['M7 4h10v16l-5-3.5L7 20z'],
+    chart: ['M4 19h16', 'M7 16v-5', 'M12 16V7', 'M17 16v-8'],
     scissors: ['M6 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M20 4 8.1 15.9', 'M14.5 14.5 20 20', 'M8.1 8.1 12 12'],
     link: ['M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1', 'M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1'],
 };
@@ -141,16 +145,33 @@ function ago(ms) {
     if (secs < 3600) return `${Math.round(secs / 60)}m ago`;
     if (secs < 86400) return `${Math.round(secs / 3600)}h ago`;
     if (secs < 7 * 86400) return `${Math.round(secs / 86400)}d ago`;
-    return new Date(ms).toLocaleDateString();
+    return dateOnly(ms);
 }
 
-const fullTime = (ms) => new Date(ms).toLocaleString();
+// Every time shows in the browser's zone, or in UTC for those who chose it
+// (a setting that follows them, see state.prefs).
+const inUtc = () => !!state.prefs?.utc;
+const zoned = (opts = {}) => ({...opts, timeZone: inUtc() ? 'UTC' : undefined});
+const fullTime = (ms) => `${new Date(ms).toLocaleString([], zoned())}${inUtc() ? ' UTC' : ''}`;
+const dateOnly = (ms) => new Date(ms).toLocaleDateString([], zoned());
+// The calendar day `ms` falls on, as `2026-10-20`.
+const dayKey = (ms) => new Date(ms).toLocaleDateString('en-CA', zoned());
 const shortTime = (ms) => {
     const d = new Date(ms);
-    const sameDay = d.toDateString() === new Date().toDateString();
-    return sameDay ? d.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
-        : d.toLocaleString([], {month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'});
+    return dayKey(ms) === dayKey(Date.now()) ? d.toLocaleTimeString([], zoned({hour: '2-digit', minute: '2-digit'}))
+        : d.toLocaleString([], zoned({month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}));
 };
+// The weekday (0 is Monday) and hour `ms` falls in.
+const weekHour = (() => {
+    const formats = {};
+    const DAYS = {Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6};
+    return (ms) => {
+        const key = inUtc() ? 'utc' : 'local';
+        formats[key] ??= new Intl.DateTimeFormat('en-US', zoned({weekday: 'short', hour: 'numeric', hourCycle: 'h23'}));
+        const parts = Object.fromEntries(formats[key].formatToParts(ms).map((p) => [p.type, p.value]));
+        return [DAYS[parts.weekday], Number(parts.hour) % 24];
+    };
+})();
 
 // Until `ms`, as "in 2d 4h" (or "permanent" past ten years).
 function until(ms) {
@@ -214,6 +235,9 @@ applyTheme(prefs.get('theme', 'dark'));
 
 const state = {
     session: null,
+    // The signed-in staff member's settings that follow them: pinned and
+    // recent players, saved filters, time zone.
+    prefs: null,
     worlds: [],
     canCommand: false,
     worldsLoaded: false,
@@ -373,6 +397,147 @@ function confirmDialog({title, subtitle, body, label, kind = 'primary', run}) {
         subtitle,
         body,
         actions: [{label: 'Cancel'}, {label, kind, run}],
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Settings that follow a staff member from browser to browser: pinned and
+// recently viewed players, saved filters, and the time zone.
+
+const NO_PREFS = {pinned: [], recent: [], filters: [], utc: false};
+const prefsWatchers = new Set();
+
+// Calls `fn` when the settings change, while `el` is on the page.
+function watchPrefs(el, fn) {
+    prefsWatchers.add({el, fn});
+}
+
+async function loadPrefs() {
+    try {
+        state.prefs = await api('GET', '/prefs');
+    } catch {
+        state.prefs = {...NO_PREFS};
+    }
+}
+
+// Makes one change (see PrefsOp in prefs.rs); every time on the page is
+// drawn again when the zone changes.
+async function changePrefs(op) {
+    const before = state.prefs?.utc;
+    state.prefs = await api('POST', '/prefs', op);
+    for (const w of prefsWatchers) {
+        if (w.el.isConnected) w.fn();
+        else prefsWatchers.delete(w);
+    }
+    if (state.prefs.utc !== before) renderPage();
+    return state.prefs;
+}
+
+const isPinned = (name) => (state.prefs?.pinned || []).some((p) => nameKey(p) === nameKey(name));
+
+function pinButton(name) {
+    const btn = button('Pin', {kind: 'ghost'});
+    const draw = () => {
+        const on = isPinned(name);
+        replace(btn, icon('star'), on ? 'Pinned' : 'Pin');
+        btn.setAttribute('aria-pressed', String(on));
+        btn.title = on ? 'Unpin: take them off your pinned players' : 'Pin them to your players page and the search';
+    };
+    btn.addEventListener('click', async () => {
+        try {
+            await changePrefs({op: isPinned(name) ? 'unpin' : 'pin', name});
+        } catch (e) {
+            toast(e.message, 'error');
+        }
+    });
+    draw();
+    watchPrefs(btn, draw);
+    return btn;
+}
+
+// A filter's settings as text, the same whatever order they're in.
+const filterText = (params) => JSON.stringify(Object.entries(params).filter(([, v]) => v !== '' && v != null)
+    .map(([k, v]) => [k, String(v)]).sort());
+
+// The filters saved for `page`, as chips that apply one, and a button that
+// saves what's set now. `current()` gives the settings, `apply(params)`
+// sets them.
+function savedFilters(page, current, apply) {
+    const el = h('div', {class: 'chips saved-filters'});
+    const save = () => {
+        const name = h('input', {
+            class: 'input',
+            maxlength: '60',
+            required: true,
+            autofocus: true,
+            placeholder: 'e.g. Bans this week',
+            'data-invalid': 'Name it.'
+        });
+        openDialog({
+            title: 'Save this filter',
+            subtitle: 'Saved to your account: it follows you to any browser. Saving under a name you used replaces it.',
+            body: [h('label', {class: 'field'}, h('span', {}, 'Name'), name)],
+            actions: [{label: 'Cancel'}, {
+                label: 'Save', kind: 'primary', icon: 'bookmark', run: async () => {
+                    await changePrefs({op: 'save_filter', filter: {id: '', name: name.value, page, params: current()}});
+                    toast('Filter saved.');
+                }
+            }],
+        });
+    };
+    const draw = () => {
+        const now = filterText(current());
+        const saved = (state.prefs?.filters || []).filter((f) => f.page === page);
+        const empty = filterText(current()) === '[]';
+        replace(el,
+            saved.map((f) => h('span', {class: 'saved-filter', 'aria-pressed': String(filterText(f.params) === now)},
+                h('button', {
+                    type: 'button',
+                    title: 'Apply this saved filter',
+                    on: {
+                        click: () => {
+                            apply(f.params);
+                            draw();
+                        }
+                    }
+                }, icon('bookmark'), f.name),
+                h('button', {
+                    type: 'button',
+                    class: 'saved-forget',
+                    'aria-label': `Forget ${f.name}`,
+                    title: 'Forget this saved filter',
+                    on: {click: () => changePrefs({op: 'remove_filter', id: f.id}).catch((e) => toast(e.message, 'error'))}
+                }, icon('x')))),
+            button('Save filter', {
+                small: true,
+                kind: 'ghost',
+                icon: 'plus',
+                disabled: empty,
+                title: empty ? 'Set a filter first' : 'Save these settings to apply again later',
+                on: {click: save}
+            }));
+    };
+    draw();
+    watchPrefs(el, draw);
+    return {el, draw};
+}
+
+// A button that downloads `path()` (an /api/export address) as a CSV file.
+function exportButton(path, title = 'Download what this shows as a CSV file (recorded in the audit log)') {
+    return button('Export CSV', {
+        small: true,
+        kind: 'ghost',
+        icon: 'download',
+        title,
+        on: {
+            click: () => {
+                const a = h('a', {href: `/api${path()}`, download: ''});
+                document.body.append(a);
+                a.click();
+                a.remove();
+                toast('Exporting: the download starts when it\'s ready.');
+            }
+        }
     });
 }
 
@@ -715,11 +880,18 @@ function maintenanceDialog(worlds, onDone) {
 // Moderation
 
 const DURATIONS = [[1, '1 hour'], [24, '1 day'], [48, '2 days'], [168, '1 week'], [720, '30 days'], [8760, '1 year'], [87600, 'Permanent']];
+// The longest mute a trial moderator gives (TRIAL_MAX_MUTE_HOURS).
+const TRIAL_MAX_HOURS = 48;
 
 // `caseId`: the case it's sent from, whose timeline notes it. `also`: linked
 // accounts to tick for the same mute or ban.
 function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {}) {
-    let action = preset;
+    // Trial moderators kick and give short mutes, and nothing else.
+    const trial = isTrial();
+    const ACTIONS = trial ? {kick: 'Kick', mute: 'Mute'} : {kick: 'Kick', mute: 'Mute', ban: 'Ban', unmute: 'Unmute', unban: 'Unban'};
+    const durations = trial ? DURATIONS.filter(([h0]) => h0 <= TRIAL_MAX_HOURS) : DURATIONS;
+    const maxHours = trial ? TRIAL_MAX_HOURS : 87600;
+    let action = ACTIONS[preset] ? preset : 'mute';
     let hours = 48;
     // A sanction template's id, and where the player stands on it.
     let template = '';
@@ -753,15 +925,14 @@ function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {})
         class: 'input',
         type: 'number',
         min: '1',
-        max: '87600',
+        max: String(maxHours),
         step: '1',
         placeholder: 'Custom length in hours',
         inputmode: 'numeric',
-        'data-invalid': 'Lengths are 1 to 87600 whole hours.'
+        'data-invalid': `Lengths are 1 to ${maxHours} whole hours.`
     });
     const effect = h('div', {class: 'callout'});
     const alsoField = h('div', {class: 'field hidden'});
-    const ACTIONS = {kick: 'Kick', mute: 'Mute', ban: 'Ban', unmute: 'Unmute', unban: 'Unban'};
     let confirm;
     let seq = 0;
 
@@ -770,6 +941,8 @@ function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {})
     const effective = () => (step() ? {action: step().action, hours: step().hours} : {action, hours});
     const length = (n) => hoursLabel(n);
     const timed = (a) => a === 'mute' || a === 'ban';
+    // A template's next step can be past what a trial moderator may give.
+    const beyondTrial = (now) => trial && (!ACTIONS[now.action] || (now.action === 'mute' && now.hours > TRIAL_MAX_HOURS));
 
     const update = () => {
         const now = effective();
@@ -786,7 +959,7 @@ function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {})
                 }
             }, label)));
         durationField.classList.toggle('hidden', !!template || !timed(action));
-        replace(durationField, h('span', {}, 'Length'), h('div', {class: 'chips'}, DURATIONS.map(([h0, label]) =>
+        replace(durationField, h('span', {}, 'Length'), h('div', {class: 'chips'}, durations.map(([h0, label]) =>
             h('button', {
                 type: 'button',
                 class: 'chip',
@@ -815,10 +988,11 @@ function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {})
             unmute: `${who} can chat again straight away.`,
             unban: `${who} can log in again straight away.`,
         };
-        effect.className = `callout ${now.action === 'ban' ? 'danger' : ''}`;
-        replace(effect, icon(now.action === 'ban' ? 'ban' : 'alert'), h('div', {}, template && !standing ? 'Looking up their record...' : effects[now.action]));
+        effect.className = `callout ${now.action === 'ban' || beyondTrial(now) ? 'danger' : ''}`;
+        replace(effect, icon(now.action === 'ban' ? 'ban' : 'alert'), h('div', {}, template && !standing ? 'Looking up their record...'
+            : beyondTrial(now) ? `${effects[now.action]} That's past what a trial moderator can give: ask a moderator to do it.` : effects[now.action]));
 
-        const reach = timed(now.action) && linked && linked.length;
+        const reach = !trial && timed(now.action) && linked && linked.length;
         alsoField.classList.toggle('hidden', !reach);
         if (reach) {
             replace(alsoField, h('span', {}, `Also ${now.action} linked accounts`),
@@ -837,7 +1011,7 @@ function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {})
             const n = reach ? [...tickedAlso].filter((x) => linked.some((a) => a.name === x)).length : 0;
             replace(confirm.button, ACTIONS[now.action] + (nameInput.value.trim() ? ` ${nameInput.value.trim()}` : '') + (n ? ` and ${n} linked` : ''));
             confirm.button.className = `btn ${now.action === 'ban' || now.action === 'kick' ? 'danger' : 'primary'}`;
-            confirm.button.disabled = !!template && !standing;
+            confirm.button.disabled = (!!template && !standing) || beyondTrial(now);
         }
     };
 
@@ -963,6 +1137,11 @@ const PAGES = [
 const TABS = 4;
 
 const isDeveloper = () => state.session?.role === 'developer';
+const isTrial = () => state.session?.role === 'trial';
+// The game staff level each role acts at; staff above yours keep their
+// sessions and logs from you.
+const ROLE_LEVELS = {trial: 1, moderator: 1, admin: 2, developer: 3};
+const mayWatch = (staffLevel) => (staffLevel || 0) <= (ROLE_LEVELS[state.session?.role] || 0);
 const navItems = () => NAV.filter((n) => !n.developer || isDeveloper());
 
 function navigate(path) {
@@ -994,12 +1173,17 @@ function render() {
     for (const fn of pageCleanup) fn();
     pageCleanup = [];
     if (state.session?.stage === 'signed_in') {
+        if (!state.prefs) {
+            loadPrefs().then(render);
+            return;
+        }
         state.canCommand = state.session.role === 'admin' || state.session.role === 'developer';
         renderShell();
         renderPage();
         startPolling();
     } else {
         stopPolling();
+        state.prefs = null;
         replace(app, authView());
         app.querySelector('[autofocus]')?.focus();
     }
@@ -1020,6 +1204,20 @@ function themeButton() {
         applyTheme(theme);
         set(theme);
     });
+    return btn;
+}
+
+// Switches every time between this browser's zone and UTC.
+function zoneButton() {
+    const btn = h('button', {type: 'button', class: 'btn ghost zone-button'});
+    const draw = () => {
+        replace(btn, h('span', {class: 'num'}, inUtc() ? 'UTC' : 'Local'));
+        btn.title = inUtc() ? 'Times are in UTC. Click for your own time zone.' : `Times are in your time zone (${Intl.DateTimeFormat().resolvedOptions().timeZone}). Click for UTC.`;
+        btn.setAttribute('aria-label', btn.title);
+    };
+    btn.addEventListener('click', () => changePrefs({op: 'utc', utc: !inUtc()}).catch((e) => toast(e.message, 'error')));
+    draw();
+    watchPrefs(btn, draw);
     return btn;
 }
 
@@ -1051,21 +1249,25 @@ function renderShell() {
         h('nav', {class: 'nav', 'aria-label': 'Main'}, navLinks),
         h('div', {class: 'sidebar-foot'},
             h('div', {class: 'me'},
-                h('div', {class: 'avatar'}, initial(name)),
-                h('div', {class: 'grow'}, h('b', {}, name), h('small', {}, role)),
-                themeButton(),
-                button(null, {
-                    kind: 'ghost',
-                    icon: 'logout',
-                    'aria-label': 'Sign out',
-                    title: 'Sign out',
-                    on: {click: signOut}
-                }))));
+                h('div', {class: 'me-who'},
+                    h('div', {class: 'avatar'}, initial(name)),
+                    h('div', {class: 'grow'}, h('b', {}, name), h('small', {}, ROLE_NAMES[role] || role))),
+                h('div', {class: 'me-actions'},
+                    zoneButton(),
+                    themeButton(),
+                    button(null, {
+                        kind: 'ghost',
+                        icon: 'logout',
+                        'aria-label': 'Sign out',
+                        title: 'Sign out',
+                        on: {click: signOut}
+                    })))));
 
     const topbar = h('header', {class: 'topbar'},
         h('img', {src: '/icon.svg', alt: ''}), h('b', {}, 'RS Admin'),
         h('div', {class: 'actions'},
             button(null, {kind: 'ghost', icon: 'search', 'aria-label': 'Search', on: {click: openPalette}}),
+            zoneButton(),
             themeButton()));
 
     const more = h('button', {
@@ -1112,6 +1314,11 @@ function updateNavCounts() {
         '/moderation': moderationCount(),
     };
     for (const el of document.querySelectorAll('[data-count]')) el.textContent = counts[el.dataset.count] || '';
+    // A dot when a case changed since its staff member last looked.
+    for (const el of document.querySelectorAll('[data-count="/moderation"]')) {
+        el.classList.toggle('unread', !!state.caseSummary?.unread);
+        el.title = state.caseSummary?.unread ? `${plural(state.caseSummary.unread, 'case')} changed since you last looked` : '';
+    }
 }
 
 function renderPage() {
@@ -1637,7 +1844,7 @@ function playerItem(p, world, onAct, refresh) {
                 title: 'Mute',
                 on: {click: act('mute')}
             }),
-            button(null, {
+            !isTrial() && button(null, {
                 small: true,
                 icon: 'ban',
                 'aria-label': `Ban ${p.name}`,
@@ -1665,6 +1872,10 @@ function playersPage(ctx) {
         try {
             const data = await api('GET', `/players?q=${encodeURIComponent(q)}`);
             if (mine !== seq) return;
+            if (!q) {
+                online = new Map(data.players.map((p) => [nameKey(p.name), p.world]));
+                drawMine();
+            }
             summary.textContent = data.total > data.players.length
                 ? `Showing ${data.players.length} of ${plural(data.total, 'player')}`
                 : plural(data.total, 'player') + (q ? ' match' : ' online');
@@ -1694,6 +1905,43 @@ function playersPage(ctx) {
     }, 15000);
     ctx.cleanup(() => clearInterval(timer));
 
+    // Pinned and recently viewed players: whether each is online, from the
+    // lists the search just fetched.
+    const mineBox = h('div', {class: 'split hidden'});
+    // By name key, the world each is on; null until everyone online is known.
+    let online = null;
+    const drawMine = () => {
+        const p = state.prefs || NO_PREFS;
+        const row = (name, side) => h('div', {class: 'list-item'},
+            h('div', {class: 'avatar'}, initial(name)),
+            h('div', {class: 'list-main'},
+                h('div', {class: 'list-title'}, playerLink(name)),
+                online && h('div', {class: 'list-sub'}, online.has(nameKey(name)) ? `Online on world ${online.get(nameKey(name))}` : 'Offline')),
+            side);
+        const unpin = (name) => button(null, {
+            small: true,
+            kind: 'ghost',
+            icon: 'x',
+            'aria-label': `Unpin ${name}`,
+            title: 'Unpin',
+            on: {click: () => changePrefs({op: 'unpin', name}).catch((e) => toast(e.message, 'error'))}
+        });
+        mineBox.classList.toggle('hidden', !p.pinned.length && !p.recent.length);
+        replace(mineBox,
+            card('Pinned', h('span', {class: 'hint'}, 'Pin from a player\'s page'),
+                h('div', {class: 'list'}, p.pinned.length ? p.pinned.map((n) => row(n, unpin(n)))
+                    : h('div', {class: 'empty'}, icon('star'), 'Nobody pinned yet.'))),
+            card('Recently viewed', p.recent.length > 0 && button('Clear', {
+                    small: true,
+                    kind: 'ghost',
+                    on: {click: () => changePrefs({op: 'forget_recent'}).catch((e) => toast(e.message, 'error'))}
+                }),
+                h('div', {class: 'list'}, p.recent.length ? p.recent.map((r) => row(r.name, h('span', {class: 'list-side'}, ago(r.at_ms))))
+                    : h('div', {class: 'empty'}, 'Players you look up show here.'))));
+    };
+    watchPrefs(mineBox, drawMine);
+    drawMine();
+
     return h('div', {class: 'page'},
         pageHead('Players', 'Everyone online, across every world. Look up anyone, online or not.',
             button('Moderate by name', {icon: 'shield', on: {click: () => moderateDialog('', 'mute', load)}})),
@@ -1708,6 +1956,7 @@ function playersPage(ctx) {
             },
             h('div', {class: 'search grow'}, icon('search'), query),
             h('button', {type: 'submit', class: 'btn'}, icon('user'), 'Look up')),
+        mineBox,
         h('section', {class: 'card'},
             h('div', {class: 'card-head'}, h('h2', {}, 'Online'), h('div', {class: 'actions'}, summary)),
             results));
@@ -1762,6 +2011,7 @@ const VERBS = {
     scheduled_missed: ['had a scheduled job skipped,', 'alert', 'danger'],
     templates_saved: ['saved the sanction templates', 'shield'],
     canned_saved: ['saved the canned texts', 'edit'],
+    exported: ['exported', 'download'],
     timeline_viewed: ['viewed the timeline of', 'list'],
     addresses_viewed: ['viewed the login addresses of', 'key'],
     appeal_received: ['took in an appeal from', 'flag', 'warn'],
@@ -1796,28 +2046,32 @@ function auditItem(e) {
         h('div', {class: 'list-side', title: `${fullTime(e.at_ms)}${e.ip ? ` from ${e.ip}` : ''}`}, ago(e.at_ms)));
 }
 
-function auditPage() {
+function auditPage(ctx) {
     const list = h('div', {class: 'list'});
     const more = h('div', {class: 'more hidden'});
     const search = h('input', {
         class: 'input',
         type: 'search',
         placeholder: 'Search actions, players, details',
-        'aria-label': 'Search the audit log'
+        'aria-label': 'Search the audit log',
+        value: ctx.params.get('q') || ''
     });
-    let mine = false;
+    let mine = ctx.params.get('mine') === '1';
     let last = null;
     let seq = 0;
     const chips = h('div', {class: 'chips'});
+    const filter = () => ({q: search.value.trim(), mine: mine ? '1' : ''});
+    const filterQuery = () => query({q: filter().q, actor: mine ? state.session.name : null});
 
     const load = async (append_) => {
         const current = ++seq;
-        const params = new URLSearchParams({limit: '50'});
-        if (search.value.trim()) params.set('q', search.value.trim());
-        if (mine) params.set('actor', state.session.name);
-        if (append_ && last) params.set('before', String(last));
+        if (!append_) {
+            const q = query(filter());
+            history.replaceState(null, '', `/audit${q ? `?${q}` : ''}`);
+            saved.draw();
+        }
         try {
-            const entries = await api('GET', `/audit?${params}`);
+            const entries = await api('GET', `/audit?${query({limit: 50, before: append_ && last ? last : null})}&${filterQuery()}`);
             if (current !== seq) return;
             if (!append_) list.replaceChildren();
             append(list, entries.map(auditItem));
@@ -1828,33 +2082,28 @@ function auditPage() {
             replace(list, h('div', {class: 'empty'}, e.message));
         }
     };
+    const setMine = (on) => {
+        mine = on;
+        drawChips();
+        load();
+    };
     const drawChips = () => replace(chips,
-        h('button', {
-            type: 'button', class: 'chip', 'aria-pressed': String(!mine), on: {
-                click: () => {
-                    mine = false;
-                    drawChips();
-                    load();
-                }
-            }
-        }, 'Everyone'),
-        h('button', {
-            type: 'button', class: 'chip', 'aria-pressed': String(mine), on: {
-                click: () => {
-                    mine = true;
-                    drawChips();
-                    load();
-                }
-            }
-        }, 'Only mine'));
+        h('button', {type: 'button', class: 'chip', 'aria-pressed': String(!mine), on: {click: () => setMine(false)}}, 'Everyone'),
+        h('button', {type: 'button', class: 'chip', 'aria-pressed': String(mine), on: {click: () => setMine(true)}}, 'Only mine'));
+    const saved = savedFilters('audit', filter, (params) => {
+        search.value = params.q || '';
+        setMine(params.mine === '1');
+    });
     drawChips();
     search.addEventListener('input', debounce(() => load(), 250));
     append(more, button('Load older', {small: true, on: {click: () => load(true)}}));
     load();
 
     return h('div', {class: 'page'},
-        pageHead('Audit log', 'Everything done through the console, sign-ins included.'),
+        pageHead('Audit log', 'Everything done through the console, sign-ins included.',
+            exportButton(() => `/export/audit?${filterQuery()}`, 'Download every entry this search finds (up to 10,000) as a CSV file')),
         h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), search), chips),
+        saved.el,
         h('section', {class: 'card'}, list, more));
 }
 
@@ -1964,6 +2213,14 @@ function accountPage() {
             },
             t === 'auto' ? 'System' : t[0].toUpperCase() + t.slice(1))));
     drawThemes();
+    const zones = h('div', {class: 'segmented', role: 'group', 'aria-label': 'Times'});
+    const drawZones = () => replace(zones, [[false, `Your zone (${Intl.DateTimeFormat().resolvedOptions().timeZone})`], [true, 'UTC']].map(([utc, label]) =>
+        h('button', {
+            type: 'button',
+            'aria-pressed': String(inUtc() === utc),
+            on: {click: () => changePrefs({op: 'utc', utc}).catch((e) => toast(e.message, 'error'))}
+        }, label)));
+    drawZones();
 
     return h('div', {class: 'page'},
         pageHead('Account', null, button('Sign out', {icon: 'logout', on: {click: signOut}})),
@@ -1972,11 +2229,12 @@ function accountPage() {
                 h('div', {class: 'list-item'},
                     h('div', {class: 'avatar'}, initial(name)),
                     h('div', {class: 'list-main'},
-                        h('div', {class: 'list-title'}, h('b', {}, name), ' ', h('span', {class: 'badge accent'}, role)),
+                        h('div', {class: 'list-title'}, h('b', {}, name), ' ', h('span', {class: 'badge accent'}, ROLE_NAMES[role] || role)),
                         h('div', {class: 'list-sub'}, {
                             developer: 'Can do everything, including managing staff accounts.',
                             admin: 'Can reboot, broadcast, toggle maintenance, kick, mute and ban.',
                             moderator: 'Can kick, mute and ban. World controls need the admin role.',
+                            trial: 'A trial moderator: can kick, and mute for up to 2 days. Bans, lifting sanctions, bulk dismissing and appeal decisions need a moderator.',
                         }[role])),
                     h('span', {class: 'badge ok'}, icon('shield'), '2FA on')))),
         h('div', {class: 'split'},
@@ -1985,7 +2243,10 @@ function accountPage() {
                 sessions),
             h('section', {class: 'card'},
                 h('div', {class: 'card-head'}, h('h2', {}, 'Appearance')),
-                h('div', {class: 'card-body'}, themes))),
+                h('div', {class: 'card-body column'},
+                    h('div', {class: 'field'}, h('span', {}, 'Theme'), themes),
+                    h('div', {class: 'field'}, h('span', {}, 'Times'), zones,
+                        h('p', {class: 'hint'}, 'Every time in the console shows in this zone. It follows your account to any browser.'))))),
         h('section', {class: 'card'},
             h('div', {class: 'card-head'}, h('h2', {}, 'Change password')),
             h('div', {class: 'card-body'}, form)));
@@ -2087,14 +2348,59 @@ function playerPage(ctx) {
     const fact = (iconName, label, value, sub) => h('div', {class: 'card stat'},
         h('div', {class: 'label'}, icon(iconName), label), h('div', {class: 'value'}, value), h('div', {class: 'sub'}, sub));
 
+    // Their sessions and logs, once it's known whether they're staff above
+    // the one looking.
+    const logsTop = h('div', {class: 'column'});
+    const logsBottom = h('div', {class: 'column'});
+    let logsShown = false;
+    const showLogs = (allowed) => {
+        if (logsShown) return;
+        logsShown = true;
+        const mods = pagedList(
+            (before) => api('GET', `/lookup/moderation?${query({name, before})}`),
+            moderationItem, 'No moderation on record.');
+        const modsCard = h('section', {class: 'card'},
+            h('div', {class: 'card-head'}, h('h2', {}, 'Moderation history')),
+            mods.el);
+        if (!allowed) {
+            replace(logsTop, h('div', {class: 'callout'}, icon('lock'),
+                h('div', {}, `${name} is staff above your role, so their sessions, chat, timeline, progress and login addresses are hidden from you.`)));
+            replace(logsBottom, modsCard);
+            return;
+        }
+        const chat = pagedList(
+            (before) => api('GET', `/lookup/chat?${query({name, before})}`),
+            chatItem, 'No chat on record.');
+        const sessions = pagedList(
+            (before) => api('GET', `/replays?${query({name, before})}`).then((rows) => {
+                if (!before) dockWarm(rows);
+                return rows;
+            }),
+            replayItem, 'No recorded sessions.', (r) => r.started_ms);
+        replace(logsTop, progressSection(name), timelineCard(name), linksSection(name, load));
+        replace(logsBottom,
+            h('section', {class: 'card'},
+                h('div', {class: 'card-head'}, h('h2', {}, 'Recorded sessions'),
+                    h('div', {class: 'actions'}, link(`/replays?${query({name})}`, {class: 'btn small ghost'}, 'All their sessions', icon('chevron')))),
+                sessions.el),
+            h('div', {class: 'split'},
+                h('section', {class: 'card'},
+                    h('div', {class: 'card-head'}, h('h2', {}, 'Chat'),
+                        h('div', {class: 'actions'}, link(`/chat?${query({name})}`, {class: 'btn small ghost'}, 'All chat logs', icon('chevron')))),
+                    h('div', {class: 'chat-list'}, chat.el)),
+                modsCard));
+    };
+
     const load = async () => {
         let p;
         try {
             p = await api('GET', `/lookup/player?${query({name})}`);
         } catch (e) {
             replace(head, pageHead(name, e.message));
+            showLogs(true);
             return;
         }
+        showLogs(!p || mayWatch(p.staff_level));
         if (!p) {
             replace(head, pageHead(name, 'No registered player has this name.'));
             facts.classList.add('hidden');
@@ -2107,41 +2413,32 @@ function playerPage(ctx) {
         support.update(p);
         replace(head, pageHead(h('span', {}, p.name, ' ', playerBadges({staff_level: p.staff_level})),
             p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
-            p.online_node != null && button('Watch live', {icon: 'radio', on: {click: () => watchLive(p.name)}}),
+            p.online_node != null && mayWatch(p.staff_level) && button('Watch live', {icon: 'radio', on: {click: () => watchLive(p.name)}}),
             p.online_node != null && button('Kick', {icon: 'kick', on: {click: act('kick')}}),
-            button(muted ? 'Unmute' : 'Mute', {
+            !(muted && isTrial()) && button(muted ? 'Unmute' : 'Mute', {
                 icon: muted ? 'undo' : 'mute',
                 on: {click: act(muted ? 'unmute' : 'mute')}
             }),
-            button(banned ? 'Unban' : 'Ban', {
+            !isTrial() && button(banned ? 'Unban' : 'Ban', {
                 icon: banned ? 'undo' : 'ban',
                 kind: banned ? undefined : 'danger',
                 on: {click: act(banned ? 'unban' : 'ban')}
             }),
-            button('Open case', {icon: 'briefcase', on: {click: () => newCaseDialog({player: p.name})}})));
+            button('Open case', {icon: 'briefcase', on: {click: () => newCaseDialog({player: p.name})}}),
+            pinButton(p.name)));
+        changePrefs({op: 'viewed', name: p.name}).catch(() => {
+        });
         const seen = p.online_node != null
             ? fact('activity', 'Status', 'Online', `${p.online_world ? `World ${p.online_world}` : `Node ${p.online_node}`}${p.online_since_ms ? ` since ${ago(p.online_since_ms)}` : ''}`)
             : fact('clock', 'Last seen', p.last_seen_ms ? ago(p.last_seen_ms) : 'Never', p.last_seen_ms ? `${p.last_world ? `World ${p.last_world}` : 'Logged out'} · ${fullTime(p.last_seen_ms)}` : 'No logout on record');
         replace(facts,
             seen,
-            fact('user', 'Registered', new Date(p.registered_ms).toLocaleDateString(), ago(p.registered_ms)),
+            fact('user', 'Registered', dateOnly(p.registered_ms), ago(p.registered_ms)),
             fact('mute', 'Mute', muted ? h('span', {class: 'tone-warn'}, 'Muted') : 'None', muted ? `${until(p.muted_until_ms)} · ends ${fullTime(p.muted_until_ms)}` : 'Can chat'),
             fact('ban', 'Ban', banned ? h('span', {class: 'tone-danger'}, 'Banned') : 'None', banned ? `${until(p.banned_until_ms)} · ends ${fullTime(p.banned_until_ms)}` : 'Can log in'));
     };
     load();
 
-    const mods = pagedList(
-        (before) => api('GET', `/lookup/moderation?${query({name, before})}`),
-        moderationItem, 'No moderation on record.');
-    const chat = pagedList(
-        (before) => api('GET', `/lookup/chat?${query({name, before})}`),
-        chatItem, 'No chat on record.');
-    const sessions = pagedList(
-        (before) => api('GET', `/replays?${query({name, before})}`).then((rows) => {
-            if (!before) dockWarm(rows);
-            return rows;
-        }),
-        replayItem, 'No recorded sessions.', (r) => r.started_ms);
     const cases = spinnerList();
     const loadCases = () => api('GET', `/cases?${query({player: name, status: 'all'})}`).then((rows) =>
         replace(cases, rows.length ? rows.map((c) => caseItem(c)) : h('div', {class: 'empty'}, icon('briefcase'), 'No cases on them.')))
@@ -2160,8 +2457,7 @@ function playerPage(ctx) {
         notesSection(name, (on) => watched.classList.toggle('hidden', !on)),
         support.el,
         isDeveloper() && editSection(name),
-        timelineCard(name),
-        linksSection(name, load),
+        logsTop,
         h('div', {class: 'split'},
             card('Cases', button('Open case', {
                 small: true,
@@ -2173,19 +2469,136 @@ function playerPage(ctx) {
                 all: 1,
                 name
             })}`, {class: 'btn small ghost'}, 'In the queue', icon('chevron')), reports.el)),
-        h('section', {class: 'card'},
-            h('div', {class: 'card-head'}, h('h2', {}, 'Recorded sessions'),
-                h('div', {class: 'actions'}, link(`/replays?${query({name})}`, {class: 'btn small ghost'}, 'All their sessions', icon('chevron')))),
-            sessions.el),
-        h('div', {class: 'split'},
-            h('section', {class: 'card'},
-                h('div', {class: 'card-head'}, h('h2', {}, 'Chat'),
-                    h('div', {class: 'actions'}, link(`/chat?${query({name})}`, {class: 'btn small ghost'}, 'All chat logs', icon('chevron')))),
-                h('div', {class: 'chat-list'}, chat.el)),
-            h('section', {class: 'card'},
-                h('div', {class: 'card-head'}, h('h2', {}, 'Moderation history')),
-                mods.el)));
+        logsBottom);
     return page;
+}
+
+// ---------------------------------------------------------------------------
+// Charts on the player page: XP and wealth at each save point kept, and
+// when they play.
+
+// `n` short: 1.2M, 34K.
+const compact = (n) => new Intl.NumberFormat([], {notation: 'compact', maximumFractionDigits: 1}).format(n);
+const POINT_LABELS = {logout: 'Logout', session: 'During a session', staff: 'Before a staff change', now: 'Now'};
+
+// A line of `key` over time across `points`, with the value under the
+// pointer shown below it.
+function lineChart(points, key, title, format) {
+    const W = 600;
+    const H = 150;
+    const PAD = 6;
+    const values = points.map((p) => p[key]);
+    const lo = Math.min(...values);
+    const hi = Math.max(...values);
+    const t0 = points[0].at_ms;
+    const t1 = points[points.length - 1].at_ms;
+    const x = (t) => PAD + ((t - t0) / Math.max(1, t1 - t0)) * (W - 2 * PAD);
+    const y = (v) => H - PAD - ((v - lo) / Math.max(1, hi - lo)) * (H - 2 * PAD);
+    const xy = points.map((p) => [x(p.at_ms), y(p[key])]);
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', `${title}: ${format(values[0])} to ${format(values[values.length - 1])}`);
+    const make = (tag, attrs) => {
+        const el = document.createElementNS(SVG, tag);
+        for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+        svg.append(el);
+        return el;
+    };
+    const line = xy.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ');
+    make('path', {d: `${line} L${xy[xy.length - 1][0].toFixed(1)} ${H} L${xy[0][0].toFixed(1)} ${H} Z`, class: 'chart-area'});
+    make('path', {d: line, class: 'chart-line', 'vector-effect': 'non-scaling-stroke'});
+    const cursor = make('line', {y1: 0, y2: H, class: 'chart-cursor hidden', 'vector-effect': 'non-scaling-stroke'});
+    const last = values[values.length - 1];
+    const change = last - values[0];
+    const readout = h('span', {class: 'muted'});
+    const at = (i) => {
+        const p = points[i];
+        replace(readout, h('b', {class: 'num'}, format(p[key])), ` · ${POINT_LABELS[p.kind] || p.kind}, ${fullTime(p.at_ms)}`);
+    };
+    const rest = () => {
+        cursor.classList.add('hidden');
+        replace(readout, `${change >= 0 ? '+' : '-'}${format(Math.abs(change))} since ${dateOnly(t0)}`);
+    };
+    svg.addEventListener('pointermove', (e) => {
+        const box = svg.getBoundingClientRect();
+        const px = ((e.clientX - box.left) / box.width) * W;
+        let best = 0;
+        xy.forEach(([qx], i) => {
+            if (Math.abs(qx - px) < Math.abs(xy[best][0] - px)) best = i;
+        });
+        cursor.setAttribute('x1', xy[best][0]);
+        cursor.setAttribute('x2', xy[best][0]);
+        cursor.classList.remove('hidden');
+        at(best);
+    });
+    svg.addEventListener('pointerleave', rest);
+    rest();
+    return h('div', {class: 'chart'},
+        h('div', {class: 'chart-head'}, h('span', {class: 'label'}, title), h('b', {class: 'num'}, format(last))),
+        h('div', {class: 'chart-plot'},
+            h('div', {class: 'chart-axis num', 'aria-hidden': 'true'}, h('span', {}, format(hi)), h('span', {}, format(lo))), svg),
+        h('div', {class: 'chart-foot'}, readout));
+}
+
+const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+// Events by weekday and hour, in the zone times are shown in.
+function heatmap(hours, days) {
+    const grid = WEEKDAYS.map(() => new Array(24).fill(0));
+    let total = 0;
+    for (const {hour_ms, events} of hours) {
+        const [d, hr] = weekHour(hour_ms);
+        grid[d][hr] += events;
+        total += events;
+    }
+    const top = Math.max(1, ...grid.flat());
+    let peak = [0, 0];
+    grid.forEach((row, d) => row.forEach((n, hr) => {
+        if (n > grid[peak[0]][peak[1]]) peak = [d, hr];
+    }));
+    const hourLabel = (hr) => `${String(hr).padStart(2, '0')}:00`;
+    const zone = inUtc() ? 'UTC' : 'your time';
+    return h('div', {class: 'chart'},
+        h('div', {class: 'chart-head'}, h('span', {class: 'label'}, `When they play · last ${days} days`),
+            h('b', {class: 'num'}, plural(total, 'event'))),
+        h('div', {class: 'heat', role: 'img', 'aria-label': total ? `Most active ${WEEKDAYS[peak[0]]} ${hourLabel(peak[1])} ${zone}` : 'No activity'},
+            h('span', {}),
+            Array.from({length: 24}, (_, hr) => h('span', {class: 'heat-hour num'}, hr % 6 === 0 ? hourLabel(hr).slice(0, 2) : '')),
+            grid.map((row, d) => [
+                h('span', {class: 'heat-day'}, WEEKDAYS[d]),
+                row.map((n, hr) => h('span', {
+                    class: `heat-cell${n ? ' on' : ''}`,
+                    title: `${WEEKDAYS[d]} ${hourLabel(hr)} ${zone}: ${plural(n, 'event')}`,
+                    style: n ? {opacity: String(0.2 + (0.8 * n) / top)} : null,
+                })),
+            ])),
+        h('div', {class: 'chart-foot muted'}, total
+            ? `Busiest: ${WEEKDAYS[peak[0]]} around ${hourLabel(peak[1])} (${zone}). Counts what their scripts logged, such as banking and drops.`
+            : 'Their scripts logged nothing in this time.'));
+}
+
+function progressSection(name) {
+    const DAYS = 90;
+    const body = h('div', {class: 'card-body charts'}, h('div', {class: 'spinner'}));
+    const draw = (progress, hours) => {
+        const charts = [];
+        if (progress.status === 'rejected') charts.push(h('div', {class: 'empty'}, progress.reason.message));
+        else if (progress.value.length < 2) charts.push(h('div', {class: 'empty'}, icon('chart'), 'Not enough saves kept yet to chart their progress.'));
+        else {
+            charts.push(lineChart(progress.value, 'xp', 'Total XP', (n) => compact(n)));
+            charts.push(lineChart(progress.value, 'wealth', 'Wealth', (n) => `${compact(n)} gp`));
+        }
+        charts.push(hours.status === 'rejected' ? h('div', {class: 'empty'}, hours.reason.message) : heatmap(hours.value, DAYS));
+        replace(body, charts);
+    };
+    // A change of zone draws the page again, heatmap and all.
+    Promise.allSettled([
+        api('GET', `/lookup/progress?${query({name})}`),
+        api('GET', `/lookup/activity?${query({name, days: DAYS})}`),
+    ]).then(([progress, hours]) => draw(progress, hours));
+    return card('Progress', h('span', {class: 'hint hide-mobile'}, 'From the saves kept for rollbacks; wealth at item values'), body);
 }
 
 // ---------------------------------------------------------------------------
@@ -3347,10 +3760,12 @@ function caseItem(c, extra) {
     const closed = c.status === 'closed';
     const tone = closed ? 'ok' : PRIORITY_TONE[c.priority] || (c.assignees.length ? 'accent' : '');
     const counts = evidenceCounts(c);
-    return h('div', {class: 'list-item'},
+    return h('div', {class: `list-item${c.unread ? ' unread' : ''}`},
         h('div', {class: `list-icon ${tone}`}, icon(closed ? 'check' : 'briefcase')),
         h('div', {class: 'list-main'},
-            h('div', {class: 'list-title'}, h('span', {class: 'case-id num'}, `#${c.id}`),
+            h('div', {class: 'list-title'},
+                c.unread && h('span', {class: 'unread-dot', title: 'Changed since you last looked', 'aria-label': 'Changed since you last looked'}),
+                h('span', {class: 'case-id num'}, `#${c.id}`),
                 link(caseHref(c.id), {class: 'name-link'}, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c)),
             h('div', {class: 'list-sub'}, playerLink(c.player),
                 closed ? ` · closed by ${c.closed_by} ${ago(c.closed_ms)}` : ` · opened by ${c.created_by} ${ago(c.created_ms)}`,
@@ -3676,9 +4091,11 @@ const spinnerList = () => h('div', {class: 'list'}, h('div', {class: 'empty'}, h
 const failed = (el, e) => replace(el, h('div', {class: 'empty'}, e.message));
 
 const CENTER_TABS = [['overview', 'Overview'], ['triage', 'Triage'], ['cases', 'Cases'], ['sanctions', 'In force'], ['history', 'History'], ['templates', 'Templates']];
+// Staff activity is for admins, who coach the moderators.
+const centerTabs = () => (state.canCommand ? [...CENTER_TABS, ['staff', 'Staff']] : CENTER_TABS);
 
 function moderationPage(ctx) {
-    let tab = CENTER_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'overview';
+    let tab = centerTabs().some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'overview';
     const tabs = h('div', {class: 'segmented tabs center-tabs', role: 'group', 'aria-label': 'View'});
     const stats = h('div', {class: 'stats'});
     const body = h('div', {class: 'center-body'});
@@ -3707,7 +4124,7 @@ function moderationPage(ctx) {
         const capped = queue && (queue.reports.length >= 50 || queue.flagged.length >= 50);
         replace(stats,
             statLink('briefcase', 'Open cases', s ? s.open : '-', s ? `${s.urgent} high priority · ${s.waiting} waiting` : '', () => go('cases')),
-            statLink('user', 'Your cases', s ? s.yours : '-', s ? (s.unassigned ? `${plural(s.unassigned, 'case')} with nobody on it` : 'Every open case has someone') : '', () => go('cases', {show: 'mine'})),
+            statLink('user', 'Your cases', s ? s.yours : '-', s ? [s.unread ? `${s.unread} changed since you looked · ` : '', s.unassigned ? `${plural(s.unassigned, 'case')} with nobody on it` : 'Every open case has someone'].join('') : '', () => go('cases', {show: s?.unread ? 'unread' : 'mine'})),
             statLink('inbox', 'To triage', queue ? `${queued}${capped ? '+' : ''}` : '-', queue ? `${plural(queue.reports.length, 'report')} · ${plural(queue.flagged.length, 'flagged session')}` : 'Reports and flagged sessions in no case', () => go('triage')),
             statLink('shield', 'In force', sanctions ? sanctions.length : '-', sanctions
                 ? `${sanctions.filter((x) => x.banned_until_ms).length} banned · ${sanctions.filter((x) => x.muted_until_ms).length} muted`
@@ -3885,7 +4302,7 @@ function moderationPage(ctx) {
                     on: {click: () => newCaseDialog({...caseArgs, priority: items.some((i) => i.high) ? 'high' : 'normal'}, afterBulk)}
                 }),
                 button('Add to case', {small: true, icon: 'plus', disabled: tooMany, on: {click: () => addToCaseDialog(caseArgs, afterBulk)}}),
-                dismissable.length > 0 && button(`Dismiss${dismissable.length < items.length ? ` ${dismissable.length}` : ''}`, {
+                !isTrial() && dismissable.length > 0 && button(`Dismiss${dismissable.length < items.length ? ` ${dismissable.length}` : ''}`, {
                     small: true,
                     icon: 'x',
                     disabled: dismissable.length > 100,
@@ -4025,7 +4442,7 @@ function moderationPage(ctx) {
     };
 
     const casesTab = () => {
-        const SHOWS = [['open', 'Open'], ['mine', 'Yours'], ['unassigned', 'Nobody on it'], ['waiting', 'Waiting'], ['closed', 'Closed'], ['all', 'All']];
+        const SHOWS = [['open', 'Open'], ['mine', 'Yours'], ['unread', 'Changed'], ['unassigned', 'Nobody on it'], ['waiting', 'Waiting'], ['closed', 'Closed'], ['all', 'All']];
         let show = SHOWS.some(([k]) => k === params.get('show')) ? params.get('show') : 'open';
         const search = h('input', {
             class: 'input',
@@ -4037,6 +4454,24 @@ function moderationPage(ctx) {
         const chips = h('div', {class: 'chips'});
         const list = spinnerList();
         const count = h('span', {class: 'muted'});
+        const markRead = button('Mark all read', {
+            small: true,
+            kind: 'ghost',
+            icon: 'check',
+            on: {
+                click: async () => {
+                    try {
+                        state.caseSummary = await api('POST', '/cases/read');
+                        updateNavCounts();
+                        for (const fn of caseListeners) fn(state.caseSummary);
+                        load();
+                    } catch (e) {
+                        toast(e.message, 'error');
+                    }
+                }
+            }
+        });
+        markRead.classList.add('hidden');
         let seq = 0;
         const load = async () => {
             const mine = ++seq;
@@ -4048,6 +4483,7 @@ function moderationPage(ctx) {
             })}`);
             const filter = {
                 mine: {mine: true},
+                unread: {unread: true, status: 'all'},
                 unassigned: {unassigned: true},
                 waiting: {status: 'waiting'},
                 closed: {status: 'closed'},
@@ -4057,6 +4493,7 @@ function moderationPage(ctx) {
                 const rows = await api('GET', `/cases?${query({...filter, q})}`);
                 if (mine !== seq) return;
                 count.textContent = plural(rows.length, 'case');
+                markRead.classList.toggle('hidden', !rows.some((c) => c.unread));
                 replace(list, rows.length ? rows.map((c) => caseItem(c)) : h('div', {class: 'empty'}, icon('briefcase'), q ? 'No case matches.' : 'No cases here.'));
             } catch (e) {
                 if (mine === seq) failed(list, e);
@@ -4071,14 +4508,14 @@ function moderationPage(ctx) {
                         load();
                     }
                 }
-            }, label)));
+            }, label, k === 'unread' && state.caseSummary?.unread ? h('span', {class: 'chip-count num'}, state.caseSummary.unread) : null)));
         search.addEventListener('input', debounce(load, 250));
         drawChips();
         load();
         return {
             load, el: [
                 h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), search), chips),
-                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Cases'), h('div', {class: 'actions'}, count)), list)]
+                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Cases'), h('div', {class: 'actions'}, markRead, count)), list)]
         };
     };
 
@@ -4092,12 +4529,12 @@ function moderationPage(ctx) {
                 ? `${s.last_action === 'ban' ? 'Banned' : 'Muted'} by ${s.moderator} ${ago(s.at_ms)}`
                 : 'No moderator on record (abuse report or older)')),
         h('div', {class: 'chips'},
-            s.muted_until_ms && button('Unmute', {
+            !isTrial() && s.muted_until_ms && button('Unmute', {
                 small: true,
                 icon: 'undo',
                 on: {click: () => moderateDialog(s.name, 'unmute', reload)}
             }),
-            s.banned_until_ms && button('Unban', {
+            !isTrial() && s.banned_until_ms && button('Unban', {
                 small: true,
                 icon: 'undo',
                 on: {click: () => moderateDialog(s.name, 'unban', reload)}
@@ -4134,7 +4571,7 @@ function moderationPage(ctx) {
 
     let current = null;
     const draw = () => {
-        replace(tabs, CENTER_TABS.map(([k, label]) =>
+        replace(tabs, centerTabs().map(([k, label]) =>
             h('button', {type: 'button', 'aria-pressed': String(tab === k), on: {click: () => go(k)}}, label)));
         current = {
             overview,
@@ -4142,7 +4579,8 @@ function moderationPage(ctx) {
             cases: casesTab,
             sanctions: sanctionsTab,
             history: historyTab,
-            templates: templatesTab
+            templates: templatesTab,
+            staff: () => staffActivityTab(params, go),
         }[tab]();
         replace(body, current.el);
     };
@@ -4170,6 +4608,98 @@ function moderationPage(ctx) {
         stats,
         tabs,
         body);
+}
+
+// Staff activity: what each staff member did, how their sanctions fare on
+// appeal and how quickly they get to cases. For coaching, admins only.
+
+const ACTIVITY_WINDOWS = [[7, '7 days'], [30, '30 days'], [90, '90 days']];
+// An overturn rate worth a look, once enough of their sanctions were appealed.
+const OVERTURN_WATCH = {appealed: 3, rate: 0.3};
+
+function staffActivityTab(params, go) {
+    const days = ACTIVITY_WINDOWS.some(([d]) => String(d) === params.get('days')) ? Number(params.get('days')) : 30;
+    let trialsOnly = params.get('trials') === '1';
+    const body = h('div', {class: 'table-wrap'}, spinnerList());
+    const chips = h('div', {class: 'chips'});
+    const note = h('p', {class: 'muted'},
+        'Sanctions come from the audit log (those that took), cases and dismissals from the case log. Overturned counts appeals against their mutes and bans that were decided in the window. Pickup is how long a case waited, from opening, for their first change on it.');
+    let rows = null;
+    const took = (ms) => (ms == null ? '-' : span(ms / 1000));
+    const draw = () => {
+        replace(chips,
+            ACTIVITY_WINDOWS.map(([d, label]) => h('button', {
+                type: 'button',
+                class: 'chip',
+                'aria-pressed': String(days === d),
+                on: {click: () => go('staff', {days: d, trials: trialsOnly ? 1 : null})}
+            }, label)),
+            h('span', {class: 'toolbar-gap'}),
+            h('button', {
+                type: 'button',
+                class: 'chip',
+                'aria-pressed': String(trialsOnly),
+                on: {
+                    click: () => {
+                        trialsOnly = !trialsOnly;
+                        go('staff', {days, trials: trialsOnly ? 1 : null});
+                    }
+                }
+            }, 'Trial moderators only'));
+        if (!rows) return;
+        const shown = rows.filter((a) => !trialsOnly || a.role === 'trial');
+        if (!shown.length) {
+            replace(body, h('div', {class: 'empty'}, icon('users'), trialsOnly ? 'No trial moderators.' : 'Nobody did anything in this window.'));
+            return;
+        }
+        replace(body, h('table', {class: 'table staff-activity'},
+            h('thead', {}, h('tr', {},
+                h('th', {}, 'Staff'),
+                h('th', {class: 'num', title: 'Kicks / mutes / bans / lifted'}, 'Kick · mute · ban · lift'),
+                h('th', {class: 'num', title: 'Cases opened / closed, and comments'}, 'Cases'),
+                h('th', {class: 'num', title: 'Reports and sessions set aside from triage'}, 'Dismissed'),
+                h('th', {class: 'num'}, 'Appeals decided'),
+                h('th', {class: 'num', title: 'Appeals against their mutes and bans that were overturned / decided'}, 'Overturned'),
+                h('th', {class: 'num', title: 'Median time from a case opening to their first change on it'}, 'Pickup'),
+                h('th', {class: 'num', title: 'Median time from a case opening to their closing it'}, 'To close'),
+                h('th', {class: 'num', title: 'Median time from an appeal coming in to their decision'}, 'To decide'),
+                h('th', {}, 'Last active'))),
+            h('tbody', {}, shown.map((a) => {
+                const rate = a.appealed ? a.overturned / a.appealed : 0;
+                const watch = a.appealed >= OVERTURN_WATCH.appealed && rate >= OVERTURN_WATCH.rate;
+                return h('tr', {},
+                    h('td', {}, h('div', {class: 'name-cell'}, playerLink(a.name),
+                        a.role ? h('span', {class: `badge ${a.role === 'trial' ? 'warn' : ''}`}, ROLE_NAMES[a.role] || a.role)
+                            : h('span', {class: 'badge', title: 'No console account: their in-game sanctions were appealed'}, 'In game'))),
+                    h('td', {class: 'num'}, `${a.kicks} · ${a.mutes} · ${a.bans} · ${a.lifts}`),
+                    h('td', {class: 'num', title: `${a.cases_opened} opened, ${a.cases_closed} closed, ${plural(a.comments, 'comment')}`},
+                        `${a.cases_opened} / ${a.cases_closed}`, h('span', {class: 'muted'}, ` · ${a.comments}`)),
+                    h('td', {class: 'num'}, a.dismissed),
+                    h('td', {class: 'num'}, a.appeals_decided),
+                    h('td', {class: `num ${watch ? 'tone-warn' : ''}`},
+                        a.appealed ? `${a.overturned} / ${a.appealed}` : h('span', {class: 'muted'}, '-'),
+                        a.appealed > 0 && h('span', {class: 'muted'}, ` (${Math.round(rate * 100)}%)`),
+                        a.overturned_cases.length > 0 && h('div', {class: 'chips nowrap case-refs'}, caseLinks(a.overturned_cases))),
+                    h('td', {class: 'num', title: a.pickups ? `Over ${plural(a.pickups, 'case')}` : ''}, took(a.pickup_ms)),
+                    h('td', {class: 'num'}, took(a.close_ms)),
+                    h('td', {class: 'num'}, took(a.decide_ms)),
+                    h('td', {class: 'muted', title: a.last_active_ms ? fullTime(a.last_active_ms) : ''}, a.last_active_ms ? ago(a.last_active_ms) : 'Not in this window'));
+            }))));
+    };
+    draw();
+    api('GET', `/staff/activity?${query({days})}`).then((found) => {
+        rows = found;
+        draw();
+    }).catch((e) => failed(body, e));
+
+    return {
+        load: () => {
+        },
+        el: h('div', {class: 'column'},
+            h('div', {class: 'toolbar'}, chips),
+            note,
+            h('section', {class: 'card'}, body))
+    };
 }
 
 // Saved closing notes and appeal decisions (edited in the Templates tab),
@@ -4604,8 +5134,10 @@ function casePage(ctx) {
             h('div', {class: 'card-body'},
                 h('div', {class: 'appeal-statement'}, a.statement),
                 h('dl', {class: 'facts'}, facts.map(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
-                open() && (blocked
-                    ? h('div', {class: 'callout'}, icon('shield'), h('div', {}, 'You issued this sanction, so someone else must decide the appeal.'))
+                open() && (blocked || isTrial()
+                    ? h('div', {class: 'callout'}, icon('shield'), h('div', {}, blocked
+                        ? 'You issued this sanction, so someone else must decide the appeal.'
+                        : 'Trial moderators don\'t decide appeals: comment with what you found, and a moderator decides.'))
                     : h('div', {class: 'chips'},
                         button('Uphold', {icon: 'check', on: {click: () => decideDialog('upheld')}}),
                         button('Overturn', {
@@ -4759,16 +5291,16 @@ function casePage(ctx) {
                 muted && h('span', {class: 'badge warn'}, `Muted · ${until(record.muted_until_ms)}`),
                 banned && h('span', {class: 'badge danger'}, `Banned · ${until(record.banned_until_ms)}`)),
             h('dl', {class: 'facts'},
-                h('dt', {}, 'Registered'), h('dd', {}, new Date(record.registered_ms).toLocaleDateString()),
+                h('dt', {}, 'Registered'), h('dd', {}, dateOnly(record.registered_ms)),
                 h('dt', {}, 'Last seen'), h('dd', {}, online ? 'Now' : record.last_seen_ms ? ago(record.last_seen_ms) : 'Never')),
             h('div', {class: 'chips'},
                 online && button('Kick', {small: true, icon: 'kick', on: {click: act('kick')}}),
-                button(muted ? 'Unmute' : 'Mute', {
+                !(muted && isTrial()) && button(muted ? 'Unmute' : 'Mute', {
                     small: true,
                     icon: muted ? 'undo' : 'mute',
                     on: {click: act(muted ? 'unmute' : 'mute')}
                 }),
-                button(banned ? 'Unban' : 'Ban', {
+                !isTrial() && button(banned ? 'Unban' : 'Ban', {
                     small: true,
                     icon: banned ? 'undo' : 'ban',
                     kind: banned ? undefined : 'danger',
@@ -4825,6 +5357,8 @@ function casePage(ctx) {
         c = detail;
         drawPresence();
         if (!changed) return;
+        // Looking counts as reading it: the nav's dot may go.
+        if (state.caseSummary?.unread) loadCaseSummary();
         document.title = `#${c.id} ${c.title} · RS Admin`;
         layout.classList.remove('hidden');
         drawHead();
@@ -4950,6 +5484,7 @@ function chatPage(ctx) {
         }
         const q = query({name, node, live: live ? 1 : null});
         history.replaceState(null, '', `/chat${q ? `?${q}` : ''}`);
+        saved.draw();
         note.textContent = `${name ? `${name}'s` : 'Everyone\'s'} public chat and private messages${node ? ` on world ${state.worlds.find((w) => w.node === node)?.id ?? node}` : ', on every world'}, newest first${live ? ', as they come in' : ''}. Viewing them is recorded in the audit log.`;
         newest = null;
         const paged = pagedList((before) => api('GET', `/lookup/chat?${query({name, node, before})}`).then((rows) => {
@@ -5018,6 +5553,13 @@ function chatPage(ctx) {
                 }
             }
         }, worldName(w))));
+    const filter = () => ({name: nameInput.value.trim(), node: node === null ? '' : String(node)});
+    const saved = savedFilters('chat', filter, (params) => {
+        nameInput.value = params.name || '';
+        node = params.node ? Number(params.node) : null;
+        drawWorlds();
+        load();
+    });
     nameInput.addEventListener('input', debounce(load, 400));
     drawWorlds();
     ctx.cleanup(onWorlds(() => {
@@ -5027,8 +5569,10 @@ function chatPage(ctx) {
     poll();
 
     return h('div', {class: 'page'},
-        pageHead('Chat logs', null, liveBtn, button('Refresh', {icon: 'refresh', on: {click: load}})),
+        pageHead('Chat logs', null, liveBtn, button('Refresh', {icon: 'refresh', on: {click: load}}),
+            exportButton(() => `/export/chat?${query(filter())}`, 'Download the messages this shows (up to 5,000) as a CSV file. Recorded in the audit log.')),
         h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), nameInput), worlds),
+        saved.el,
         note,
         h('section', {class: 'card'}, body));
 }
@@ -6361,7 +6905,7 @@ function playerActions(p, refresh) {
                 title: 'Mute',
                 on: {click: act('mute')}
             }),
-            button(null, {
+            !isTrial() && button(null, {
                 small: true,
                 icon: 'ban',
                 'aria-label': `Ban ${p.name}`,
@@ -6736,7 +7280,7 @@ function anticheatTab(ctx, params, go) {
                             })
                         }
                     }),
-                    button(null, {
+                    !isTrial() && button(null, {
                         small: true,
                         icon: 'ban',
                         'aria-label': `Ban ${l.name}`,
@@ -6836,7 +7380,7 @@ function farmCard(f) {
                     title: 'Watch live',
                     on: {click: () => watchLive(m.name)}
                 }),
-                button(null, {
+                !isTrial() && button(null, {
                     small: true,
                     icon: 'ban',
                     'aria-label': `Ban ${m.name}`,
@@ -6902,8 +7446,10 @@ function investigatePage(ctx) {
 // ---------------------------------------------------------------------------
 // Staff accounts (developers)
 
-const ROLES = [['moderator', 'Moderator'], ['admin', 'Admin'], ['developer', 'Developer']];
+const ROLES = [['trial', 'Trial'], ['moderator', 'Moderator'], ['admin', 'Admin'], ['developer', 'Developer']];
+const ROLE_NAMES = {trial: 'trial moderator', moderator: 'moderator', admin: 'admin', developer: 'developer'};
 const ROLE_HINTS = {
+    trial: 'A moderator in training: kicks, and mutes of up to 2 days. No bans, lifting sanctions, bulk dismissing or deciding appeals.',
     moderator: 'Kicks, mutes and bans, looks players up and reads chat logs.',
     admin: 'Also reboots, broadcasts and toggles maintenance.',
     developer: 'Everything, including managing these accounts.',
@@ -7073,7 +7619,7 @@ function staffPage() {
                             a.you && h('span', {class: 'badge ok'}, 'You'), ' ',
                             !a.two_factor && h('span', {class: 'badge warn'}, '2FA not set up'), ' ',
                             a.disabled && h('span', {class: 'badge danger'}, 'Disabled')),
-                        h('div', {class: 'list-sub'}, `${a.sessions ? plural(a.sessions, 'session') + ' open' : 'Signed out'} · added ${a.created_ms ? new Date(a.created_ms).toLocaleDateString() : 'from the command line'}`)),
+                        h('div', {class: 'list-sub'}, `${a.sessions ? plural(a.sessions, 'session') + ' open' : 'Signed out'} · added ${a.created_ms ? dateOnly(a.created_ms) : 'from the command line'}`)),
                     a.you
                         ? link('/account', {class: 'btn small ghost'}, 'Your account', icon('chevron'))
                         : h('div', {class: 'chips'},
@@ -7131,13 +7677,13 @@ const WEALTH_TYPES = {
     10: 'Party room'
 };
 const coins = (n) => `${Number(n || 0).toLocaleString()} gp`;
-const dayLabel = (ms) => new Date(ms).toLocaleDateString([], {
+const dayLabel = (ms) => new Date(ms).toLocaleDateString([], zoned({
     weekday: 'short',
     year: 'numeric',
     month: 'short',
     day: 'numeric'
-});
-const timeOfDay = (ms) => new Date(ms).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+}));
+const timeOfDay = (ms) => new Date(ms).toLocaleTimeString([], zoned({hour: '2-digit', minute: '2-digit'}));
 const joined = (parts) => parts.filter(Boolean).flatMap((p, i) => (i ? [' · ', p] : [p]));
 
 function timelineItem(e, name) {
@@ -7247,7 +7793,7 @@ function timelineCard(name) {
             if (mine !== seq) return;
             if (!older) list.replaceChildren();
             for (const e of rows) {
-                const day = new Date(e.at_ms).toDateString();
+                const day = dayKey(e.at_ms);
                 if (day !== lastDay) {
                     lastDay = day;
                     append(list, h('div', {class: 'list-day'}, dayLabel(e.at_ms)));
@@ -7288,19 +7834,30 @@ function timelineCard(name) {
                 },
             }, label)));
     };
+    // Every kind is no filter at all.
+    const filter = () => ({kinds: kinds.size === all.length ? '' : [...kinds].sort().join(',')});
     const changed = () => {
         prefs.set('timelineKinds', [...kinds].join(','));
         drawChips();
+        savedBar.draw();
         load(false);
     };
+    const savedBar = savedFilters('timeline', filter, (params) => {
+        const picked = (params.kinds || '').split(',').filter((k) => all.includes(k));
+        kinds.clear();
+        (picked.length ? picked : all).forEach((k) => kinds.add(k));
+        changed();
+    });
     append(more, button('Load older', {small: true, on: {click: () => load(true)}}));
     drawChips();
     load(false);
 
     return h('section', {class: 'card'},
         h('div', {class: 'card-head'}, h('h2', {}, 'Timeline'),
-            h('div', {class: 'actions'}, h('span', {class: 'hint hide-mobile'}, 'Every log, newest first'))),
-        h('div', {class: 'card-body'}, chips),
+            h('div', {class: 'actions'}, h('span', {class: 'hint hide-mobile'}, 'Every log, newest first'),
+                exportButton(() => `/export/timeline?${query({name, kinds: [...kinds].join(',')})}`,
+                    'Download the kinds shown (up to 5,000 rows) as a CSV file. Recorded in the audit log.'))),
+        h('div', {class: 'card-body column timeline-filters'}, chips, savedBar.el),
         list, more);
 }
 
@@ -7349,7 +7906,7 @@ function linksSection(name, onModerated) {
                 : h('div', {class: 'empty'}, icon('users'), 'No other account shares an address or a browser with them.'));
             const open = links.accounts.filter((a) => !a.banned_until_ms).map((a) => a.name);
             replace(act, open.length
-                ? button(`Ban with ${plural(open.length, 'linked account')}`, {
+                && !isTrial() ? button(`Ban with ${plural(open.length, 'linked account')}`, {
                     small: true,
                     icon: 'ban',
                     kind: 'danger',
@@ -7721,12 +8278,16 @@ async function controlsBanner(el) {
 
 const REPEATS = [[null, 'Once'], [1440, 'Every day'], [10080, 'Every week']];
 const repeatLabel = (mins) => (mins ? REPEATS.find(([m]) => m === mins)?.[1] ?? `Every ${span(mins * 60)}` : 'Once');
-// A datetime-local input's value for `ms`, in this browser's time zone.
+// A datetime-local input's value for `ms`, and the time a value stands
+// for, in the zone times are shown in.
 const localInput = (ms) => {
     const d = new Date(ms);
     const pad = (n) => String(n).padStart(2, '0');
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    return inUtc()
+        ? `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`
+        : `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 };
+const inputTime = (value) => (value ? new Date(inUtc() ? `${value}Z` : value).getTime() : NaN);
 
 function jobWorlds(job) {
     if (!job.nodes.length) return 'Every world online';
@@ -7864,13 +8425,13 @@ function scheduleDialog(kind = 'reboot', picked = [], onDone) {
         rebootFields.classList.toggle('hidden', task !== 'reboot');
         broadcastFields.classList.toggle('hidden', task !== 'broadcast');
         message.required = task === 'broadcast';
-        const ms = new Date(at.value).getTime();
+        const ms = inputTime(at.value);
         when.textContent = Number.isFinite(ms)
             ? task === 'reboot'
-                ? `The countdown starts ${fullTime(ms)}; the first world goes down at ${new Date(ms + countdown_ * 1000).toLocaleTimeString([], {
+                ? `The countdown starts ${fullTime(ms)}; the first world goes down at ${new Date(ms + countdown_ * 1000).toLocaleTimeString([], zoned({
                     hour: '2-digit',
                     minute: '2-digit'
-                })}.`
+                }))}.`
                 : `Goes out ${fullTime(ms)}.`
             : '';
     };
@@ -7895,7 +8456,7 @@ function scheduleDialog(kind = 'reboot', picked = [], onDone) {
             kindPick,
             h('div', {class: 'field'}, h('span', {}, 'Worlds'), worldMode, worldChips,
                 h('p', {class: 'hint'}, 'Every world means every world online when it runs.')),
-            h('label', {class: 'field'}, h('span', {}, 'When'), at, when),
+            h('label', {class: 'field'}, h('span', {}, inUtc() ? 'When (UTC)' : 'When'), at, when),
             h('div', {class: 'field'}, h('span', {}, 'Repeat'), repeatChips, customEvery),
             rebootFields,
             broadcastFields,
@@ -7905,7 +8466,7 @@ function scheduleDialog(kind = 'reboot', picked = [], onDone) {
             run: async () => {
                 const nodes = everyWorld ? [] : [...chosen];
                 if (!everyWorld && !nodes.length) throw new Error('Pick at least one world.');
-                const atMs = new Date(at.value).getTime();
+                const atMs = inputTime(at.value);
                 if (!Number.isFinite(atMs)) throw new Error('Pick a time.');
                 const body = {
                     task: task === 'reboot'
@@ -8351,7 +8912,51 @@ function notesSection(name, onWatch) {
 // ---------------------------------------------------------------------------
 // Command palette (Ctrl/Cmd+K)
 
-function paletteItems(query) {
+// What the console found for the palette's query (see /api/search), as
+// palette items.
+function foundItems(found) {
+    const items = [];
+    for (const p of found.players) {
+        items.push({
+            group: 'Players',
+            label: p.name,
+            icon: 'user',
+            hint: p.online_world ? `Online on world ${p.online_world}` : p.registered ? 'Registered' : '',
+            run: () => navigate(`/player?name=${encodeURIComponent(p.name)}`)
+        });
+    }
+    for (const c of found.cases) {
+        items.push({
+            group: 'Cases',
+            label: `#${c.id} ${c.title}`,
+            icon: c.status === 'closed' ? 'check' : 'briefcase',
+            hint: `${c.player} · ${CASE_STATUS[c.status]?.[0] || c.status}`,
+            run: () => navigate(caseHref(c.id))
+        });
+    }
+    for (const r of found.replays) {
+        items.push({
+            group: 'Replays',
+            label: `Session of ${r.player}`,
+            icon: r.score > 0 ? 'alert' : 'play',
+            hint: `${shortTime(r.started_ms)} · ${clock(r.duration_ms / 1000)}`,
+            run: () => navigate(replayHref(r))
+        });
+    }
+    for (const e of found.audit) {
+        const [verb] = VERBS[e.action] || [e.action.replace(/_/g, ' ')];
+        items.push({
+            group: 'Audit log',
+            label: `${e.actor || 'Someone'} ${verb}${e.target ? ` ${e.target}` : ''}`,
+            icon: 'list',
+            hint: ago(e.at_ms),
+            run: () => navigate(`/audit?${query({q: found.q})}`)
+        });
+    }
+    return items;
+}
+
+function paletteItems(query, found) {
     const admin = state.canCommand;
     const {online, rebooting} = totals();
     const items = [
@@ -8383,7 +8988,7 @@ function paletteItems(query) {
         {group: 'Actions', label: 'Kill switches and login lockdown', icon: 'zap', run: () => navigate('/controls')},
         {group: 'Actions', label: 'Kick a player...', icon: 'kick', run: () => moderateDialog('', 'kick')},
         {group: 'Actions', label: 'Mute a player...', icon: 'mute', run: () => moderateDialog('', 'mute')},
-        {group: 'Actions', label: 'Ban a player...', icon: 'ban', run: () => moderateDialog('', 'ban')},
+        !isTrial() && {group: 'Actions', label: 'Ban a player...', icon: 'ban', run: () => moderateDialog('', 'ban')},
         {group: 'Actions', label: 'Open a case...', icon: 'briefcase', run: () => newCaseDialog({})},
         {
             group: 'Actions',
@@ -8400,9 +9005,23 @@ function paletteItems(query) {
         })),
     ].filter(Boolean);
     const q = query.trim().toLowerCase();
-    const matches = q ? items.filter((i) => i.label.toLowerCase().includes(q)) : items.filter((i) => i.group !== 'Worlds');
+    const p = state.prefs || NO_PREFS;
+    // Pinned and recent players first: all of them with no query, else those
+    // that match.
+    const known = [
+        ...p.pinned.map((name) => ({group: 'Pinned', name})),
+        ...p.recent.filter((r) => !isPinned(r.name)).map((r) => ({group: 'Recently viewed', name: r.name, hint: ago(r.at_ms)})),
+    ].filter((k) => !q || nameKey(k.name).includes(nameKey(q)))
+        .map((k) => ({group: k.group, label: k.name, hint: k.hint, icon: k.group === 'Pinned' ? 'star' : 'clock', run: () => navigate(`/player?name=${encodeURIComponent(k.name)}`)}));
+    const ready = found && found.q === query.trim();
+    const shownNames = new Set(known.map((k) => nameKey(k.label)));
+    const results = ready ? foundItems(found).filter((i) => i.group !== 'Players' || !shownNames.has(nameKey(i.label))) : [];
+    const pages = q ? items.filter((i) => i.label.toLowerCase().includes(q)) : items.filter((i) => i.group !== 'Worlds');
+    const audit = results.filter((i) => i.group === 'Audit log');
+    const matches = [...known.slice(0, q ? 6 : 10), ...results.filter((i) => i.group !== 'Audit log'), ...pages];
+
     const caseId = /^#?(\d{1,9})$/.exec(query.trim());
-    if (caseId) matches.unshift({
+    if (caseId && !(ready && found.cases.some((c) => String(c.id) === caseId[1]))) matches.unshift({
         group: 'Cases',
         label: `Go to case #${caseId[1]}`,
         icon: 'briefcase',
@@ -8410,43 +9029,52 @@ function paletteItems(query) {
     });
     if (q && /^[a-z0-9 _]{1,12}$/i.test(query.trim())) {
         matches.push({
-            group: 'Players',
+            group: 'For this name',
             label: `Look up ${query.trim()}`,
             icon: 'user',
             run: () => navigate(`/player?name=${encodeURIComponent(query.trim())}`)
         });
         matches.push({
-            group: 'Players',
+            group: 'For this name',
             label: `Find "${query.trim()}" online`,
             icon: 'search',
             run: () => navigate(`/players?q=${encodeURIComponent(query.trim())}`)
         });
         matches.push({
-            group: 'Players',
+            group: 'For this name',
             label: `Chat logs of ${query.trim()}`,
             icon: 'chat',
             run: () => navigate(`/chat?name=${encodeURIComponent(query.trim())}`)
         });
-        matches.push({
-            group: 'Players',
+        if (!isTrial()) matches.push({
+            group: 'For this name',
             label: `Ban ${query.trim()} by template...`,
             icon: 'ban',
             run: () => moderateDialog(query.trim(), 'ban')
         });
         matches.push({
-            group: 'Players',
+            group: 'For this name',
             label: `Cases on ${query.trim()}`,
             icon: 'briefcase',
             run: () => navigate(`/moderation?tab=cases&show=all&q=${encodeURIComponent(query.trim())}`)
         });
     }
-    return matches.slice(0, 40);
+    if (q && !ready) matches.push({group: 'Searching', label: 'Searching players, cases, replays and the audit log...', icon: 'search', run: () => {}, pending: true});
+    if (q) {
+        matches.push(...audit, {
+            group: 'Audit log',
+            label: `Search the whole audit log for "${query.trim()}"`,
+            icon: 'list',
+            run: () => navigate(`/audit?${new URLSearchParams({q: query.trim()})}`)
+        });
+    }
+    return matches.slice(0, 60);
 }
 
 function openPalette() {
     if (state.session?.stage !== 'signed_in' || document.querySelector('dialog.palette')) return;
     const input = h('input', {
-        placeholder: 'Search pages, actions, worlds, players',
+        placeholder: 'Search players, cases, replays, the audit log, pages and actions',
         'aria-label': 'Command',
         autocomplete: 'off',
         spellcheck: 'false'
@@ -8458,12 +9086,30 @@ function openPalette() {
         h('div', {class: 'palette-foot hide-mobile'}, h('span', {}, h('kbd', {}, '↑'), ' ', h('kbd', {}, '↓'), ' to move'), h('span', {}, h('kbd', {}, 'Enter'), ' to run')));
     let items = [];
     let active = 0;
+    // The console's search, for the query typed.
+    let found = null;
+    let seq = 0;
+    const search = debounce(async () => {
+        const q = input.value.trim();
+        const mine = ++seq;
+        if (!q) return;
+        try {
+            const result = await api('GET', `/search?${new URLSearchParams({q})}`);
+            if (mine !== seq || !dialog.open) return;
+            found = {...result, q};
+        } catch {
+            if (mine !== seq) return;
+            found = {players: [], cases: [], replays: [], audit: [], q};
+        }
+        draw();
+    }, 180);
     const run = (item) => {
+        if (item.pending) return;
         dialog.close();
         item.run();
     };
     const draw = () => {
-        items = paletteItems(input.value);
+        items = paletteItems(input.value, found);
         active = Math.min(active, Math.max(0, items.length - 1));
         list.replaceChildren();
         let group = null;
@@ -8490,6 +9136,7 @@ function openPalette() {
     input.addEventListener('input', () => {
         active = 0;
         draw();
+        search();
     });
     input.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowDown') {

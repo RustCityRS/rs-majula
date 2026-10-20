@@ -146,16 +146,20 @@ impl Db {
 
     /// Recordings newest first: everyone's or only `player`'s, only flagged
     /// ones (most suspicious first) if `flagged`, started before `before`
-    /// (Unix ms) when paging.
+    /// (Unix ms) when paging; with `max_staff_level`, none of staff above it.
     pub async fn replays(
         &self,
         player: Option<u64>,
         flagged: bool,
         before: Option<i64>,
+        max_staff_level: Option<i16>,
         limit: i64,
     ) -> Result<Vec<ReplayRecord>, Error> {
         let mut query = QueryBuilder::<Postgres>::new(RECORD_COLUMNS);
         query.push(" WHERE true");
+        if let Some(max) = max_staff_level {
+            query.push(" AND p.staff_mod_level <= ").push_bind(max);
+        }
         if let Some(player) = player {
             query
                 .push(" AND r.player_id = (SELECT id FROM players WHERE name_hash = ")

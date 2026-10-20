@@ -62,11 +62,12 @@ impl Db {
     /// The players with sessions started since `since_ms` (Unix ms) that the
     /// checks flagged, most flagged sessions first (then the highest scores
     /// summed), with each one's highest score in each of `buckets` equal
-    /// stretches from then to now.
+    /// stretches from then to now. With `max_staff_level`, no staff above it.
     pub async fn anticheat_leaders(
         &self,
         since_ms: i64,
         buckets: i32,
+        max_staff_level: Option<i16>,
         limit: i64,
     ) -> Result<Vec<AnticheatLeader>, Error> {
         let since = since_ms as f64 / 1000.0;
@@ -77,7 +78,8 @@ impl Db {
         let sql = concat!(
             "WITH r AS (SELECT player_id, score, flags, duration_ms, started_at, ",
             "least($3 - 1, greatest(0, floor((extract(epoch FROM started_at)::float8 - $1) / $2)))::int AS b ",
-            "FROM replays WHERE started_at >= to_timestamp($1)), ",
+            "FROM replays WHERE started_at >= to_timestamp($1) AND ($5::smallint IS NULL ",
+            "OR player_id IN (SELECT id FROM players WHERE staff_mod_level <= $5))), ",
             "top AS (SELECT player_id, count(*) AS sessions, ",
             "count(*) FILTER (WHERE score > 0) AS flagged, max(score) AS max_score, ",
             "sum(score)::bigint AS total_score, sum(duration_ms)::bigint AS play_ms, ",
@@ -101,6 +103,7 @@ impl Db {
             .bind(bucket_secs)
             .bind(buckets.max(1))
             .bind(limit)
+            .bind(max_staff_level)
             .fetch_all(&self.pool)
             .await
     }

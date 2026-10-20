@@ -1,3 +1,4 @@
+use super::access::{ceiling, check_player};
 use super::players::checked_name;
 use crate::audit::Event;
 use crate::cases::Triage;
@@ -6,9 +7,9 @@ use axum::Json;
 use axum::extract::{Query, State};
 use axum::http::StatusCode;
 use rs_admin_api::{
-    ChatLookup, ChatRecord, Links, LinksLookup, ModerationLookup, ModerationRecord, PlayerLookup,
-    PlayerRecord, ReportLookup, ReportRecord, Sanction, SanctionsLookup, TimelineCursor,
-    TimelineEntry, TimelineLookup, path,
+    ActivityHour, ActivityLookup, ChatLookup, ChatRecord, Links, LinksLookup, ModerationLookup,
+    ModerationRecord, PlayerLookup, PlayerRecord, ProgressLookup, ProgressPoint, ReportLookup,
+    ReportRecord, Sanction, SanctionsLookup, TimelineCursor, TimelineEntry, TimelineLookup, path,
 };
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -156,6 +157,9 @@ pub async fn chat(
         .filter(|n| !n.is_empty())
         .map(checked_name)
         .transpose()?;
+    if let Some(name) = &name {
+        check_player(&app, &staff, name).await?;
+    }
     let world = match query.node {
         Some(node) => {
             Some(world_of(&app, node).ok_or_else(|| ApiError::bad_request("No such world."))?)
@@ -171,6 +175,7 @@ pub async fn chat(
                 node: query.node,
                 before: query.before,
                 after: query.after,
+                max_staff_level: ceiling(&staff),
                 limit: PAGE,
             },
         )
@@ -310,6 +315,7 @@ pub async fn timeline(
     Query(query): Query<TimelineQuery>,
 ) -> Result<Json<Vec<TimelineView>>, ApiError> {
     let name = checked_name(&query.name)?;
+    check_player(&app, &staff, &name).await?;
     let kinds: Vec<String> = match &query.kinds {
         Some(kinds) => kinds
             .split(',')
@@ -386,6 +392,7 @@ pub async fn links(
     Query(query): Query<NameQuery>,
 ) -> Result<Json<LinksView>, ApiError> {
     let name = checked_name(&query.name)?;
+    check_player(&app, &staff, &name).await?;
     let mut links: Links = app
         .worlds
         .ask(
@@ -416,4 +423,57 @@ pub async fn links(
         links,
         addresses_shown: sees,
     }))
+}
+
+/// How many save points the progress charts reach back over.
+const PROGRESS_POINTS: u32 = 500;
+
+/// `GET /api/lookup/progress?name=`: a player's XP and wealth at each save
+/// point kept, oldest first, ending with their save as it stands.
+pub async fn progress(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<NameQuery>,
+) -> Result<Json<Vec<ProgressPoint>>, ApiError> {
+    let name = checked_name(&query.name)?;
+    check_player(&app, &staff, &name).await?;
+    app.worlds
+        .ask(
+            path::PROGRESS,
+            &ProgressLookup {
+                name,
+                limit: PROGRESS_POINTS,
+            },
+        )
+        .await
+        .map(Json)
+        .map_err(unavailable)
+}
+
+#[derive(Deserialize)]
+pub struct ActivityQuery {
+    name: String,
+    days: Option<u32>,
+}
+
+/// `GET /api/lookup/activity?name=&days=`: how many events a player's
+/// scripts logged in each hour of the last `days` (90 by default).
+pub async fn activity(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<ActivityQuery>,
+) -> Result<Json<Vec<ActivityHour>>, ApiError> {
+    let name = checked_name(&query.name)?;
+    check_player(&app, &staff, &name).await?;
+    app.worlds
+        .ask(
+            path::ACTIVITY,
+            &ActivityLookup {
+                name,
+                days: query.days.unwrap_or(90).clamp(1, 365),
+            },
+        )
+        .await
+        .map(Json)
+        .map_err(unavailable)
 }

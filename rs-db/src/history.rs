@@ -34,6 +34,17 @@ pub struct SavePoint {
     pub saved_ms: i64,
 }
 
+/// What a save held that charts a player's progress: their XP, 10x as
+/// stored, and every item they had.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct SaveProgress {
+    pub kind: String,
+    pub saved_ms: i64,
+    pub stats: Vec<i32>,
+    pub inv_objs: Vec<i32>,
+    pub inv_counts: Vec<i32>,
+}
+
 /// Keeps the save just stored for `player_id` as a point, unless an
 /// automatic point was kept less than `gap_mins` ago.
 async fn keep_point(
@@ -157,6 +168,33 @@ impl Db {
         .fetch_one(&self.pool)
         .await?;
         Ok(Some((point, save)))
+    }
+
+    /// A player's newest `limit` save points and their save as it stands,
+    /// oldest first: for charting their progress.
+    pub async fn save_progress(
+        &self,
+        name_hash: u64,
+        limit: i64,
+    ) -> Result<Vec<SaveProgress>, Error> {
+        let mut rows: Vec<SaveProgress> = sqlx::query_as(concat!(
+            "(SELECT h.kind, ",
+            ms!("h.saved_at"),
+            " AS saved_ms, h.stats, h.inv_objs, h.inv_counts FROM save_history h
+              JOIN players p ON p.id = h.player_id
+              WHERE p.name_hash = $1 ORDER BY h.id DESC LIMIT $2)
+             UNION ALL
+             (SELECT 'now', ",
+            ms!("s.updated_at"),
+            ", s.stats, s.inv_objs, s.inv_counts FROM player_saves s
+              JOIN players p ON p.id = s.player_id WHERE p.name_hash = $1)"
+        ))
+        .bind(name_hash as i64)
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await?;
+        rows.sort_by_key(|r| r.saved_ms);
+        Ok(rows)
     }
 
     /// Forgets save points older than `days`, but never a player's newest

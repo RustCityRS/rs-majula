@@ -486,7 +486,7 @@ async fn only_the_owning_world_saves(pool: PgPool) {
 
     db.claim_session(42, 1, 60).await.unwrap();
     // World 1 is alive (fresh heartbeat), so world 2 can't claim or save.
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
     assert_eq!(
         db.claim_session(42, 2, 60).await.unwrap(),
         Claim::Busy { node: 1 }
@@ -522,7 +522,7 @@ async fn dead_worlds_lose_their_sessions(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
     db.claim_session(42, 1, 60).await.unwrap();
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
 
     sqlx::query("UPDATE world_status SET updated_at = now() - interval '2 minutes'")
         .execute(&pool)
@@ -554,7 +554,7 @@ async fn sessions_are_released_and_reconciled(pool: PgPool) {
         db.create_player(&player(hash)).await.unwrap();
         db.claim_session(hash, 1, 60).await.unwrap();
     }
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
 
     assert!(db.release_session(4, 1).await.unwrap());
     assert!(!db.release_session(4, 1).await.unwrap());
@@ -735,9 +735,10 @@ async fn schema_check_tracks_this_build(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn world_status_goes_stale(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    db.report_world_status(10, 3).await.unwrap();
-    db.report_world_status(11, 0).await.unwrap();
-    db.report_world_status(10, 5).await.unwrap();
+    db.report_world_status(10, 3, false).await.unwrap();
+    db.report_world_status(11, 0, false).await.unwrap();
+    // The latest heartbeat says whether it's in maintenance.
+    db.report_world_status(10, 5, true).await.unwrap();
     sqlx::query(
         "UPDATE world_status SET updated_at = now() - interval '1 minute' WHERE node_id = 11",
     )
@@ -750,7 +751,8 @@ async fn world_status_goes_stale(pool: PgPool) {
         live,
         vec![WorldStatus {
             node_id: 10,
-            players: 5
+            players: 5,
+            maintenance: true,
         }]
     );
 
@@ -996,10 +998,13 @@ async fn replays_store_list_and_prune(pool: PgPool) {
     );
 
     assert_eq!(
-        db.replays(Some(42), false, None, 10).await.unwrap().len(),
+        db.replays(Some(42), false, None, None, 10)
+            .await
+            .unwrap()
+            .len(),
         2
     );
-    let only_flagged = db.replays(None, true, None, 10).await.unwrap();
+    let only_flagged = db.replays(None, true, None, None, 10).await.unwrap();
     assert_eq!(only_flagged.iter().map(|r| r.id).collect::<Vec<_>>(), [1]);
 
     sqlx::query("UPDATE replays SET started_at = now() - interval '8 days' WHERE id = 1")
@@ -1409,6 +1414,71 @@ async fn appeals_are_filed_once_and_decided(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn staff_above_a_level_are_left_out(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    // A player, and an admin.
+    sqlx::query("UPDATE players SET staff_mod_level = (name_hash - 42) * 2")
+        .execute(&pool)
+        .await
+        .unwrap();
+    let chat = |name_hash, to_name_hash, message: &str| ChatLog {
+        name_hash,
+        to_name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: message.to_owned(),
+    };
+    let logs = LogBatch {
+        chat: vec![
+            chat(42, None, "public"),
+            chat(42, Some(43), "to the admin"),
+            chat(43, None, "from the admin"),
+        ],
+        ..Default::default()
+    };
+    db.record_logs(10, &logs).await.unwrap();
+    let said =
+        |rows: Vec<rs_db::ChatRecord>| rows.into_iter().map(|c| c.message).collect::<Vec<_>>();
+    assert_eq!(
+        said(
+            db.chat_history(None, None, None, None, Some(1), 10)
+                .await
+                .unwrap()
+        ),
+        ["public"]
+    );
+    assert_eq!(
+        db.chat_history(None, None, None, None, Some(2), 10)
+            .await
+            .unwrap()
+            .len(),
+        3
+    );
+
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    db.start_replay(&replay(1, 42)).await.unwrap();
+    db.start_replay(&replay(2, 43)).await.unwrap();
+    let ids = |rows: Vec<rs_db::ReplayRecord>| rows.into_iter().map(|r| r.id).collect::<Vec<_>>();
+    assert_eq!(
+        ids(db.replays(None, false, None, Some(1), 10).await.unwrap()),
+        [1]
+    );
+    assert_eq!(
+        db.replays(None, false, None, None, 10).await.unwrap().len(),
+        2
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn chat_feeds_on_from_a_message(pool: PgPool) {
     let db = Db::from_pool(pool);
     db.create_player(&player(42)).await.unwrap();
@@ -1426,14 +1496,17 @@ async fn chat_feeds_on_from_a_message(pool: PgPool) {
     };
     db.record_logs(10, &batch(&["one", "two"])).await.unwrap();
     db.record_logs(11, &batch(&["three"])).await.unwrap();
-    let newest = db.chat_history(None, None, None, None, 10).await.unwrap();
+    let newest = db
+        .chat_history(None, None, None, None, None, 10)
+        .await
+        .unwrap();
     let first = newest.last().unwrap().id;
     let messages =
         |rows: Vec<rs_db::ChatRecord>| rows.into_iter().map(|c| c.message).collect::<Vec<_>>();
     // Newer than the first, oldest first.
     assert_eq!(
         messages(
-            db.chat_history(None, None, None, Some(first), 10)
+            db.chat_history(None, None, None, Some(first), None, 10)
                 .await
                 .unwrap()
         ),
@@ -1441,14 +1514,14 @@ async fn chat_feeds_on_from_a_message(pool: PgPool) {
     );
     assert_eq!(
         messages(
-            db.chat_history(None, Some(11), None, Some(first), 10)
+            db.chat_history(None, Some(11), None, Some(first), None, 10)
                 .await
                 .unwrap()
         ),
         ["three"]
     );
     assert!(
-        db.chat_history(None, None, None, Some(newest[0].id), 10)
+        db.chat_history(None, None, None, Some(newest[0].id), None, 10)
             .await
             .unwrap()
             .is_empty()
@@ -1540,7 +1613,7 @@ async fn anticheat_leaders_rank_and_trend(pool: PgPool) {
         .unwrap()
         .as_millis() as i64)
         - 24 * 3_600_000;
-    let leaders = db.anticheat_leaders(since, 4, 10).await.unwrap();
+    let leaders = db.anticheat_leaders(since, 4, None, 10).await.unwrap();
     let summary: Vec<_> = leaders
         .iter()
         .map(|l| (l.sessions, l.flagged, l.max_score, l.total_score))
@@ -1685,6 +1758,71 @@ async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn progress_is_each_point_then_the_save_now(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.save_progress(42, 10).await.unwrap().is_empty());
+    let with_xp = |xp| {
+        let mut save = save();
+        save.stats[0] = xp;
+        save
+    };
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_save(42, 1, &with_xp(100)).await.unwrap();
+    age_points(&pool, 61).await;
+    db.store_save(42, 1, &with_xp(200)).await.unwrap();
+    db.store_save(42, 1, &with_xp(300)).await.unwrap();
+    let rows = db.save_progress(42, 10).await.unwrap();
+    let seen: Vec<(&str, i32)> = rows.iter().map(|r| (r.kind.as_str(), r.stats[0])).collect();
+    assert_eq!(seen, [("session", 100), ("session", 200), ("now", 300)]);
+    assert!(rows.windows(2).all(|w| w[0].saved_ms <= w[1].saved_ms));
+    assert_eq!(rows[2].inv_objs.len(), rows[2].inv_counts.len());
+    // The newest points only, and always the save now.
+    let newest = db.save_progress(42, 1).await.unwrap();
+    assert_eq!(
+        newest.iter().map(|r| r.stats[0]).collect::<Vec<_>>(),
+        [200, 300]
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn activity_counts_session_logs_by_hour(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    let event = |name_hash| SessionLog {
+        name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type: 0,
+        event: "Deposited coins x5 into bank".to_owned(),
+    };
+    let logs = LogBatch {
+        sessions: vec![event(42), event(42), event(43)],
+        ..Default::default()
+    };
+    db.record_logs(10, &logs).await.unwrap();
+    // One of them from two days ago.
+    sqlx::query(
+        "UPDATE session_logs SET created_at = created_at - interval '2 days'
+         WHERE id = (SELECT min(id) FROM session_logs)",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+    let hours = db.activity_hours(42, 30).await.unwrap();
+    assert_eq!(hours.len(), 2);
+    assert!(hours.iter().all(|(ms, _)| ms % 3_600_000 == 0));
+    assert_eq!(hours.iter().map(|(_, n)| n).sum::<i64>(), 2);
+    assert!(hours[0].0 < hours[1].0);
+    assert_eq!(db.activity_hours(42, 1).await.unwrap().len(), 1);
+    assert!(db.activity_hours(44, 30).await.unwrap().is_empty());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn password_resets_are_redeemed_once(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
@@ -1776,7 +1914,7 @@ async fn only_dead_worlds_sessions_are_released(pool: PgPool) {
     assert_eq!(db.release_dead_session(42, 60).await.unwrap(), None);
 
     db.claim_session(42, 1, 60).await.unwrap();
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
     let owner = db.session_owner(42).await.unwrap().unwrap();
     assert_eq!(owner.node, 1);
     assert!(owner.since_ms.is_some());

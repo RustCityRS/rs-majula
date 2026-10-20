@@ -1,15 +1,19 @@
+pub(crate) mod access;
 mod account;
 mod auth;
 mod cases;
 mod controls;
 mod edit;
+mod export;
 mod live;
 mod lookup;
 mod news;
 mod notes;
 mod players;
+mod prefs;
 mod replays;
 mod schedule;
+mod search;
 mod staff;
 mod support;
 mod templates;
@@ -67,8 +71,11 @@ pub fn router() -> Router<Arc<App>> {
         .route("/lookup/reports", get(lookup::reports))
         .route("/lookup/timeline", get(lookup::timeline))
         .route("/lookup/links", get(lookup::links))
+        .route("/lookup/progress", get(lookup::progress))
+        .route("/lookup/activity", get(lookup::activity))
         .route("/cases", get(cases::list).post(cases::create))
         .route("/cases/summary", get(cases::summary))
+        .route("/cases/read", post(cases::mark_read))
         .route("/cases/staff", get(cases::staff))
         .route("/cases/{id}", get(cases::get).post(cases::change))
         .route("/cases/preview", post(cases::preview))
@@ -89,6 +96,7 @@ pub fn router() -> Router<Arc<App>> {
         .route("/live/farms", get(live::farms))
         .route("/staff", get(staff::list).post(staff::add))
         .route("/staff/update", post(staff::update))
+        .route("/staff/activity", get(staff::activity))
         .route("/players/sheet", get(edit::player))
         .route("/players/edit", post(edit::edit))
         .route("/objs", get(edit::objs))
@@ -111,6 +119,11 @@ pub fn router() -> Router<Arc<App>> {
         )
         .route("/news/media/{name}", get(news::media))
         .route("/audit", get(audit))
+        .route("/search", get(search::search))
+        .route("/export/audit", get(export::audit))
+        .route("/export/chat", get(export::chat))
+        .route("/export/timeline", get(export::timeline))
+        .route("/prefs", get(prefs::get).post(prefs::change))
         .route("/account", get(account::get))
         .route("/account/sessions/{id}/end", post(account::end_session))
         .route(
@@ -128,27 +141,45 @@ struct AuditQuery {
     q: Option<String>,
 }
 
+/// Which audit entries a search keeps: by whom, and with what in them.
+pub(super) struct AuditFilter {
+    actor: Option<String>,
+    needle: Option<String>,
+}
+
+impl AuditFilter {
+    pub(super) fn new(actor: Option<&str>, q: Option<&str>) -> Self {
+        Self {
+            actor: actor.map(name_key).filter(|a| !a.is_empty()),
+            needle: q.map(|q| q.trim().to_lowercase()).filter(|q| !q.is_empty()),
+        }
+    }
+
+    pub(super) fn keeps(&self, e: &Entry) -> bool {
+        self.actor
+            .as_ref()
+            .is_none_or(|a| e.actor.as_deref().map(name_key).as_ref() == Some(a))
+            && self.needle.as_ref().is_none_or(|n| {
+                e.action.contains(n.as_str())
+                    || e.target
+                        .as_deref()
+                        .is_some_and(|t| t.to_lowercase().contains(n))
+                    || e.detail.to_lowercase().contains(n)
+            })
+    }
+}
+
 /// `GET /api/audit`: the audit trail, newest first.
 async fn audit(
     State(app): State<Arc<App>>,
     _staff: Staff,
     Query(query): Query<AuditQuery>,
 ) -> Json<Vec<Entry>> {
-    let actor = query.actor.as_deref().map(name_key);
-    let needle = query.q.as_deref().map(str::to_lowercase);
+    let filter = AuditFilter::new(query.actor.as_deref(), query.q.as_deref());
     Json(
         app.audit
             .page(query.before, query.limit.unwrap_or(50).min(200), |e| {
-                actor
-                    .as_ref()
-                    .is_none_or(|a| e.actor.as_deref().map(name_key).as_ref() == Some(a))
-                    && needle.as_ref().is_none_or(|n| {
-                        e.action.contains(n.as_str())
-                            || e.target
-                                .as_deref()
-                                .is_some_and(|t| t.to_lowercase().contains(n))
-                            || e.detail.to_lowercase().contains(n)
-                    })
+                filter.keeps(e)
             }),
     )
 }

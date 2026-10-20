@@ -180,7 +180,8 @@ on phones too.
 - **Worlds:** reboot (with a countdown, optionally staggered across worlds,
   and an optional reason players see with it), cancel a reboot, broadcast,
   close a world to new logins (maintenance mode: players already on stay,
-  staff can still log in, a restart reopens it), and each world's tick time,
+  staff can still log in, a restart reopens it; the website's world list
+  shows it as MAINTENANCE within about 20 seconds), and each world's tick time,
   memory and connections.
 - **Players:** find anyone online, look anyone up (last seen, registered,
   mutes, bans), and kick, mute or ban. A player's page has their
@@ -237,6 +238,27 @@ on phones too.
   session" plays the offender's recording from a minute before it. Also who
   is muted or banned now, and every moderation action. Players' pages and
   replays link into it.
+- **Finding your way:** Ctrl+K (or `/`) searches players (online, or
+  registered by exact name), cases, recordings and recent audit entries, as
+  well as pages and actions. Pin players from their page; pinned and
+  recently viewed players are on the Players page and open the search.
+  "Yours" and "Changed" in the moderation center list your cases and those
+  changed by someone else since you last looked (the nav shows a dot). The
+  timeline, chat logs and audit log save filters by name, and export what
+  they show as CSV (audited; formulas are defused for spreadsheets). Times
+  show in your zone or UTC (the button by your name, or Account). Pins,
+  recents, saved filters, the zone and what you've read follow your account,
+  in `rs-admin/data/prefs.json`.
+- **Progress charts**, on a player's page: total XP and wealth (every item,
+  bank included, at its value in the cache) at each save kept for
+  rollbacks, and when they play: what their scripts logged (`session_log`)
+  by weekday and hour over the last 90 days.
+- **Staff activity** (admins, in the moderation center): for each staff
+  member over 7, 30 or 90 days, their kicks, mutes, bans and lifts, cases
+  opened and closed, comments, dismissals and appeals decided; how many
+  appeals against their sanctions were overturned (linking the cases); and
+  their median pickup (a case opening to their first change on it), time
+  to close and time to decide an appeal. For coaching trial moderators.
 - **Chat logs:** public chat and private messages, by player or world.
   Turn on Live to see new messages at the top as they're sent. Viewing them
   is audited.
@@ -336,13 +358,18 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   unless that player's staff level is 1 or more. Every account sets
   up an authenticator app at its first sign-in. Roles match the game's staff
   levels (0 is a player):
-  `moderator` (1) kicks, mutes, bans, looks players up, reads chat logs,
+  `trial` (1) is a moderator in training: kicks and mutes of up to 2 days,
+  but no bans, lifting mutes or bans, sanctioning linked accounts, bulk
+  dismissing or deciding appeals (the console refuses them, not just the
+  page); `moderator` (1) kicks, mutes, bans, looks players up, reads chat logs,
   frees stuck sessions and sends stuck players home; `admin` (2) also
   reboots, broadcasts, toggles maintenance, resets passwords, restores
   items and rolls saves back; `developer` (3)
   also manages staff accounts, changes players' stats and items, and posts
   news. Nobody can moderate someone at or above their
-  own level. Manage accounts on the Staff page, or with `rs-admin user
+  own level, nor see the sessions or logs (recordings, live spectating,
+  chat, timeline, login addresses, progress charts, exports) of staff above
+  it: lists leave them out, and their player page says so. Manage accounts on the Staff page, or with `rs-admin user
   list|add|passwd|role|reset-2fa|disable|enable|remove` (the way to create
   the first developer); changing a password, role or authenticator signs
   that account out everywhere.

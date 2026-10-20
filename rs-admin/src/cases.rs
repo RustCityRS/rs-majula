@@ -1,6 +1,6 @@
 use crate::users::{name_key, now_ms};
 use serde::{Deserialize, Serialize};
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::Mutex;
@@ -711,6 +711,16 @@ impl Cases {
             .collect()
     }
 
+    /// Runs `f` over every case, timelines and all, and what's dismissed
+    /// from the triage queue.
+    pub fn read<R>(
+        &self,
+        f: impl FnOnce(&BTreeMap<u64, Case>, &HashMap<String, Dismissal>) -> R,
+    ) -> R {
+        let inner = self.lock();
+        f(&inner.cases, &inner.dismissed)
+    }
+
     /// How each of `keys` stands in the triage queue.
     pub fn triage_of(&self, keys: &[String]) -> HashMap<String, Triage> {
         let inner = self.lock();
@@ -734,6 +744,30 @@ impl Cases {
             }
         }
         found
+    }
+
+    /// The cases changed by someone other than `name` since they last looked
+    /// (`seen`: when each case's newest change was then): those they've
+    /// looked at, and those they're on and haven't yet.
+    pub fn unread(&self, name: &str, seen: &BTreeMap<u64, u64>) -> HashSet<u64> {
+        let me = name_key(name);
+        self.lock()
+            .cases
+            .values()
+            .filter(|case| {
+                let since = match seen.get(&case.id) {
+                    Some(&ms) => ms,
+                    None if case.has(name) => 0,
+                    None => return false,
+                };
+                case.timeline
+                    .iter()
+                    .rev()
+                    .take_while(|e| e.at_ms > since)
+                    .any(|e| name_key(&e.by) != me)
+            })
+            .map(|case| case.id)
+            .collect()
     }
 
     /// The clips of recording `replay` in cases, earliest in it first.
@@ -853,6 +887,51 @@ mod tests {
             .create("Kim", "Next".into(), "Eve".into(), Priority::Low, vec![])
             .unwrap();
         assert_eq!(next.id, 2);
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    fn a_case_is_unread_when_someone_else_changed_it_since() {
+        let path = temp_log("unread");
+        let cases = Cases::open(path.clone());
+        let on = |by: &str| {
+            cases
+                .create(by, "T".into(), "Bob".into(), Priority::Normal, vec![])
+                .unwrap()
+        };
+        let mine = on("Kim");
+        let theirs = on("Kim");
+        cases
+            .change("Kim", mine.id, |_| {
+                Ok(vec![Change::Assigned { name: "Ash".into() }])
+            })
+            .unwrap();
+        // Put on a case, never opened: unread. Never looked at: not.
+        let none = BTreeMap::new();
+        assert_eq!(cases.unread("Ash", &none), HashSet::from([mine.id]));
+        let seen =
+            |case: &Case| BTreeMap::from([(case.id, cases.get(case.id).unwrap().updated_ms)]);
+        let mut looked = seen(&mine);
+        looked.extend(seen(&theirs));
+        assert!(cases.unread("Ash", &looked).is_empty());
+        // Their own changes since don't count; others' do.
+        std::thread::sleep(Duration::from_millis(2));
+        cases
+            .change("ash", mine.id, |_| {
+                Ok(vec![Change::Comment {
+                    text: "On it".into(),
+                }])
+            })
+            .unwrap();
+        assert!(cases.unread("Ash", &looked).is_empty());
+        cases
+            .change("Kim", theirs.id, |_| {
+                Ok(vec![Change::Comment {
+                    text: "More".into(),
+                }])
+            })
+            .unwrap();
+        assert_eq!(cases.unread("Ash", &looked), HashSet::from([theirs.id]));
         let _ = std::fs::remove_file(path);
     }
 

@@ -30,6 +30,9 @@ pub struct World {
     pub players: u32,
     #[serde(default, skip_deserializing)]
     pub online: bool,
+    /// Closed to new logins for maintenance; also from the heartbeat.
+    #[serde(default, skip_deserializing)]
+    pub maintenance: bool,
 }
 
 impl World {
@@ -43,28 +46,36 @@ pub fn load(path: &Path) -> anyhow::Result<Vec<World>> {
     Ok(serde_json::from_str(&std::fs::read_to_string(path)?)?)
 }
 
-/// Player counts of the worlds with a fresh heartbeat, by node id.
+/// What the worlds with a fresh heartbeat report, by node id.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+struct Live {
+    players: u32,
+    maintenance: bool,
+}
+
 #[derive(Default)]
-pub struct LiveWorlds(RwLock<HashMap<u16, u32>>);
+pub struct LiveWorlds(RwLock<HashMap<u16, Live>>);
 
 impl LiveWorlds {
-    /// `worlds` with their live player counts and online state filled in.
+    /// `worlds` with their live player counts, online and maintenance state
+    /// filled in.
     pub fn apply(&self, worlds: &[World]) -> Vec<World> {
         let live = self.0.read().unwrap_or_else(|e| e.into_inner());
         worlds
             .iter()
             .map(|world| {
-                let players = live.get(&world.node_id()).copied();
+                let status = live.get(&world.node_id()).copied();
                 World {
-                    players: players.unwrap_or(0),
-                    online: players.is_some(),
+                    players: status.map_or(0, |s| s.players),
+                    online: status.is_some(),
+                    maintenance: status.is_some_and(|s| s.maintenance),
                     ..world.clone()
                 }
             })
             .collect()
     }
 
-    fn set(&self, live: HashMap<u16, u32>) {
+    fn set(&self, live: HashMap<u16, Live>) {
         *self.0.write().unwrap_or_else(|e| e.into_inner()) = live;
     }
 }
@@ -85,7 +96,13 @@ pub async fn refresh(app: Arc<App>) {
                 app.live_worlds.set(
                     statuses
                         .into_iter()
-                        .map(|s| (s.node_id as u16, s.players.max(0) as u32))
+                        .map(|s| {
+                            let live = Live {
+                                players: s.players.max(0) as u32,
+                                maintenance: s.maintenance,
+                            };
+                            (s.node_id as u16, live)
+                        })
                         .collect(),
                 );
             }
@@ -113,15 +130,23 @@ mod tests {
             port_offset: 0,
             players: 0,
             online: false,
+            maintenance: false,
         }
     }
 
     #[test]
     fn only_reporting_worlds_are_online() {
         let live = LiveWorlds::default();
-        live.set(HashMap::from([(10, 4)]));
-        let worlds = live.apply(&[world(1), world(2)]);
-        assert_eq!((worlds[0].online, worlds[0].players), (true, 4));
-        assert_eq!((worlds[1].online, worlds[1].players), (false, 0));
+        let up = |players, maintenance| Live {
+            players,
+            maintenance,
+        };
+        live.set(HashMap::from([(10, up(4, false)), (12, up(1, true))]));
+        let worlds = live.apply(&[world(1), world(2), world(3)]);
+        let seen: Vec<_> = worlds
+            .iter()
+            .map(|w| (w.online, w.players, w.maintenance))
+            .collect();
+        assert_eq!(seen, [(true, 4, false), (false, 0, false), (true, 1, true)]);
     }
 }

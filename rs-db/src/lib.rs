@@ -18,7 +18,7 @@ mod world;
 
 pub use appeal::{AppealFiled, AppealLogin, AppealRecord, NewAppeal};
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
-pub use history::SavePoint;
+pub use history::{SavePoint, SaveProgress};
 pub use investigate::{AccountActivity, AnticheatLeader};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
 pub use moderation::ModAction;

@@ -1,3 +1,4 @@
+use super::access::{ceiling, check_player, check_replay};
 use super::lookup::{TRIAGE_PAGES, unavailable};
 use super::players::checked_name;
 use crate::audit::Event;
@@ -28,7 +29,7 @@ pub struct ReplayView {
     triage: Triage,
 }
 
-fn view(app: &App, summary: ReplaySummary) -> ReplayView {
+pub(super) fn view(app: &App, summary: ReplaySummary) -> ReplayView {
     let now = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map_or(0, |d| d.as_millis() as i64);
@@ -68,7 +69,7 @@ pub struct ListQuery {
 /// first, with the cases each is in.
 pub async fn list(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Query(query): Query<ListQuery>,
 ) -> Result<Json<Vec<ReplayView>>, ApiError> {
     let name = query
@@ -78,6 +79,9 @@ pub async fn list(
         .filter(|n| !n.is_empty())
         .map(checked_name)
         .transpose()?;
+    if let Some(name) = &name {
+        check_player(&app, &staff, name).await?;
+    }
     let mut views = Vec::new();
     let mut before = query.before;
     for _ in 0..if query.untriaged { TRIAGE_PAGES } else { 1 } {
@@ -89,6 +93,7 @@ pub async fn list(
                     name: name.clone(),
                     flagged: query.flagged,
                     before,
+                    max_staff_level: ceiling(&staff),
                     limit: PAGE,
                 },
             )
@@ -122,7 +127,7 @@ pub struct ReplayDetail {
 /// `GET /api/replays/{id}`: one recording, and where it can play.
 pub async fn get(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Path(id): Path<String>,
 ) -> Result<Json<ReplayDetail>, ApiError> {
     let id = checked_id(&id)?;
@@ -143,6 +148,7 @@ pub async fn get(
             }
         },
     };
+    check_player(&app, &staff, &summary.player).await?;
     let at_revision = app.worlds.online_at(&summary.revision);
     let player_url = at_revision
         .iter()
@@ -206,6 +212,7 @@ pub async fn file(
 ) -> Result<Response, ApiError> {
     let id = checked_id(&id)?;
     let player = checked_name(&query.player)?;
+    check_replay(&app, &staff, &id).await?;
     // The worlds' copy, else (pruned) the one kept for a clip.
     let (bytes, kept) = match app.worlds.replay_file(&id, &query.revision).await {
         Ok(bytes) => (bytes, false),

@@ -2,7 +2,7 @@ use crate::audit::Event;
 use crate::cases::Change;
 use crate::http::{ApiError, App, Staff};
 use crate::templates::Offence;
-use crate::users::{name_key, now_ms};
+use crate::users::{TRIAL_MAX_MUTE_HOURS, name_key, now_ms};
 use crate::worlds::{Outcome, Reply};
 use axum::Json;
 use axum::extract::{Query, State};
@@ -60,7 +60,7 @@ pub struct SearchQuery {
 /// `q`.
 pub async fn search(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Query(query): Query<SearchQuery>,
 ) -> Json<Search> {
     let needle = name_key(&query.q);
@@ -74,10 +74,16 @@ pub async fn search(
             Ok(list) => players.extend(
                 list.into_iter()
                     .filter(|p| name_key(&p.name).contains(&needle))
-                    .map(|player| FoundPlayer {
-                        player,
-                        world: world.id,
-                        node: world.node,
+                    .map(|mut player| {
+                        // Nobody watches staff above them live.
+                        if !super::access::may_see(&staff, player.staff_level) {
+                            player.replay = None;
+                        }
+                        FoundPlayer {
+                            player,
+                            world: world.id,
+                            node: world.node,
+                        }
                     }),
             ),
             Err(_) => unreachable.push(world.id),
@@ -403,6 +409,21 @@ pub async fn moderate(
             (action, hours, None, typed)
         }
     };
+    if staff.user.role.is_trial() {
+        match (action, hours) {
+            (ModAction::Mute, Some(h)) if h <= TRIAL_MAX_MUTE_HOURS => {}
+            (ModAction::Mute, _) => staff.refuse_trial(&format!(
+                "mute for longer than {TRIAL_MAX_MUTE_HOURS} hours"
+            ))?,
+            (ModAction::Ban, _) => staff.refuse_trial("ban")?,
+            (ModAction::Unmute | ModAction::Unban, _) => {
+                staff.refuse_trial("lift mutes or bans")?
+            }
+        }
+        if !also.is_empty() {
+            staff.refuse_trial("sanction linked accounts")?;
+        }
+    }
     if !also.is_empty() && !matches!(action, ModAction::Mute | ModAction::Ban) {
         return Err(ApiError::bad_request(
             "Only mutes and bans reach linked accounts.",

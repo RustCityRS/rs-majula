@@ -1,3 +1,4 @@
+use super::access::{ceiling, check_player, check_replay};
 use super::lookup::unavailable;
 use super::players::{action_name, checked_name, moderate_one};
 use super::replays::checked_id;
@@ -91,7 +92,8 @@ fn gone(what: &str) -> ApiError {
     ApiError::new(StatusCode::NOT_FOUND, format!("That {what} is gone."))
 }
 
-async fn resolve(app: &App, item: &EvidenceRef) -> Result<Evidence, ApiError> {
+/// Staff above the caller's own level are refused, as when looking them up.
+async fn resolve(app: &App, staff: &Staff, item: &EvidenceRef) -> Result<Evidence, ApiError> {
     Ok(match item {
         EvidenceRef::Report { id } => {
             // The report itself is the newest one before the next.
@@ -131,6 +133,7 @@ async fn resolve(app: &App, item: &EvidenceRef) -> Result<Evidence, ApiError> {
                 .await
                 .map_err(unavailable)?;
             let r = r.ok_or_else(|| gone("recording"))?;
+            check_player(app, staff, &r.player).await?;
             Evidence::Replay {
                 id: r.id,
                 player: r.player,
@@ -152,6 +155,7 @@ async fn resolve(app: &App, item: &EvidenceRef) -> Result<Evidence, ApiError> {
                         node: None,
                         before: id.checked_add(1),
                         after: None,
+                        max_staff_level: ceiling(staff),
                         limit: 1,
                     },
                 )
@@ -184,6 +188,8 @@ async fn resolve(app: &App, item: &EvidenceRef) -> Result<Evidence, ApiError> {
                     "A clip ends at least a second after it starts.",
                 ));
             }
+            // Checked before the console keeps a copy of it.
+            check_replay(app, staff, &id).await?;
             let (summary, file) = kept_recording(app, &id).await?;
             if clips::file_duration(&file).unwrap_or(0) < u64::from(to_ms) {
                 return Err(ApiError::bad_request(
@@ -241,7 +247,11 @@ async fn kept_recording(app: &App, id: &str) -> Result<(ReplaySummary, Vec<u8>),
 
 /// Looks up each of `items`, a few at a time, each once. Refused whole if
 /// any is.
-async fn resolve_all(app: &App, items: &[EvidenceRef]) -> Result<Vec<Evidence>, ApiError> {
+async fn resolve_all(
+    app: &App,
+    staff: &Staff,
+    items: &[EvidenceRef],
+) -> Result<Vec<Evidence>, ApiError> {
     if items.len() > MAX_AT_ONCE {
         return Err(ApiError::bad_request(format!(
             "At most {MAX_AT_ONCE} pieces of evidence at once."
@@ -250,7 +260,8 @@ async fn resolve_all(app: &App, items: &[EvidenceRef]) -> Result<Vec<Evidence>, 
     let mut found: Vec<Result<Evidence, ApiError>> = Vec::with_capacity(items.len());
     for batch in items.chunks(RESOLVING_AT_ONCE) {
         found.extend(
-            futures_util::future::join_all(batch.iter().map(|item| resolve(app, item))).await,
+            futures_util::future::join_all(batch.iter().map(|item| resolve(app, staff, item)))
+                .await,
         );
     }
     let mut out: Vec<Evidence> = Vec::with_capacity(found.len());
@@ -303,6 +314,9 @@ pub struct ListQuery {
     /// Only those the caller is on.
     #[serde(default)]
     mine: bool,
+    /// Only those changed since the caller last looked.
+    #[serde(default)]
+    unread: bool,
     /// Only open ones nobody is on.
     #[serde(default)]
     unassigned: bool,
@@ -310,14 +324,25 @@ pub struct ListQuery {
     q: Option<String>,
 }
 
-/// `GET /api/cases?status=&mine=&unassigned=&player=&q=`: open cases most
-/// urgent then most recently changed first, closed ones most recently
-/// closed first.
+#[derive(Serialize)]
+pub struct CaseRow {
+    #[serde(flatten)]
+    case: Case,
+    /// Someone else changed it since the caller last looked.
+    unread: bool,
+}
+
+/// `GET /api/cases?status=&mine=&unread=&unassigned=&player=&q=`: open
+/// cases most urgent then most recently changed first, closed ones most
+/// recently closed first.
 pub async fn list(
     State(app): State<Arc<App>>,
     staff: Staff,
     Query(query): Query<ListQuery>,
-) -> Json<Vec<Case>> {
+) -> Json<Vec<CaseRow>> {
+    let unread = app
+        .cases
+        .unread(staff.name(), &app.prefs.of(staff.name()).seen);
     let player = query
         .player
         .as_deref()
@@ -337,6 +362,7 @@ pub async fn list(
         };
         shown
             && (!query.mine || c.has(staff.name()))
+            && (!query.unread || unread.contains(&c.id))
             && (!query.unassigned || (c.is_open() && c.assignees.is_empty()))
             && player.as_ref().is_none_or(|p| name_key(&c.player) == *p)
             && needle.as_ref().is_none_or(|n| {
@@ -358,7 +384,15 @@ pub async fn list(
         )
     });
     cases.truncate(MAX_CASES);
-    Json(cases)
+    Json(
+        cases
+            .into_iter()
+            .map(|case| CaseRow {
+                unread: unread.contains(&case.id),
+                case,
+            })
+            .collect(),
+    )
 }
 
 #[derive(Serialize)]
@@ -369,18 +403,37 @@ pub struct Summary {
     /// Open at high priority or above.
     urgent: usize,
     waiting: usize,
+    /// Changed since the caller last looked, open or not.
+    unread: usize,
 }
 
 /// `GET /api/cases/summary`: counts for the nav and the center's header.
 pub async fn summary(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
     let open = app.cases.all(Case::is_open);
     Json(Summary {
+        unread: app
+            .cases
+            .unread(staff.name(), &app.prefs.of(staff.name()).seen)
+            .len(),
         open: open.len(),
         yours: open.iter().filter(|c| c.has(staff.name())).count(),
         unassigned: open.iter().filter(|c| c.assignees.is_empty()).count(),
         urgent: open.iter().filter(|c| c.priority >= Priority::High).count(),
         waiting: open.iter().filter(|c| c.status == Status::Waiting).count(),
     })
+}
+
+/// `POST /api/cases/read`: counts every case as looked at by the caller.
+pub async fn mark_read(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
+    let seen = app.prefs.of(staff.name()).seen;
+    let unread = app.cases.unread(staff.name(), &seen);
+    let updated = app
+        .cases
+        .all(|c| unread.contains(&c.id))
+        .into_iter()
+        .map(|c| (c.id, c.updated_ms));
+    app.prefs.saw_all(staff.name(), updated);
+    summary(State(app), staff).await
 }
 
 #[derive(Serialize)]
@@ -434,7 +487,7 @@ pub async fn create(
     let player = checked_name(&req.player)?;
     let title = required(&req.title, MAX_TITLE, false, "A title")?;
     let note = text(&req.note, MAX_TEXT, true, "A note")?;
-    let mut then: Vec<Change> = resolve_all(&app, &req.evidence)
+    let mut then: Vec<Change> = resolve_all(&app, &staff, &req.evidence)
         .await?
         .into_iter()
         .map(|evidence| Change::EvidenceAdded { evidence })
@@ -480,7 +533,9 @@ pub struct CaseDetail {
     viewing: Vec<String>,
 }
 
+/// The case as the caller sees it, which counts as their looking at it.
 fn detail(app: &App, staff: &Staff, mut case: Case) -> CaseDetail {
+    app.prefs.saw(staff.name(), case.id, case.updated_ms);
     let timeline = std::mem::take(&mut case.timeline)
         .into_iter()
         .map(|entry| {
@@ -577,11 +632,11 @@ pub async fn change(
     };
     // What needs the game database or the accounts, before the store's lock.
     let evidence = match &op {
-        Op::AddEvidence { item } => Some(resolve(&app, item).await?),
+        Op::AddEvidence { item } => Some(resolve(&app, &staff, item).await?),
         _ => None,
     };
     let many = match &op {
-        Op::AddEvidenceMany { items } => resolve_all(&app, items).await?,
+        Op::AddEvidenceMany { items } => resolve_all(&app, &staff, items).await?,
         _ => Vec::new(),
     };
     let assignee = match &op {
@@ -696,6 +751,7 @@ async fn decide_appeal(
     decision: Decision,
     note: &str,
 ) -> Result<Json<CaseDetail>, ApiError> {
+    staff.refuse_trial("decide appeals")?;
     let me = staff.name().to_owned();
     let note = text(note, MAX_DECISION_NOTE, true, "The note to the player")?;
     let case = app
@@ -948,6 +1004,9 @@ pub async fn triage_bulk(
     staff: Staff,
     Json(req): Json<BulkTriageRequest>,
 ) -> Result<Json<BulkTriaged>, ApiError> {
+    if req.dismissed {
+        staff.refuse_trial("dismiss in bulk")?;
+    }
     if req.keys.is_empty() || req.keys.len() > MAX_AT_ONCE {
         return Err(ApiError::bad_request(format!(
             "Pick 1 to {MAX_AT_ONCE} at once."

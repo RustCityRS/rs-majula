@@ -136,6 +136,13 @@ fn obj_name(cache: &CacheStore, id: u16) -> String {
     )
 }
 
+/// A save's XP, total level and wealth (see [`Engine::progress`]).
+pub struct Progress {
+    pub xp: i64,
+    pub total_level: u32,
+    pub wealth: i64,
+}
+
 /// A saved inventory, by its config name.
 fn saved_inv<'a>(cache: &'a CacheStore, name: &str) -> Result<&'a InvType, String> {
     cache
@@ -336,6 +343,28 @@ impl Engine {
                     sheet_inv(cache, inv, items)
                 })
                 .collect(),
+        }
+    }
+
+    /// A save's progress: its stats' XP (`stats` is 10x, as saved) and
+    /// total level, and what its items (`objs` with `counts` alongside) are
+    /// worth at their value in the cache, unknown ones counting for nothing.
+    pub fn progress(&self, stats: &[i32], objs: &[i32], counts: &[i32]) -> Progress {
+        let trained = || self::stats().filter_map(|(id, _)| stats.get(id as usize).copied());
+        let wealth = objs
+            .iter()
+            .zip(counts)
+            .filter_map(|(&obj, &count)| {
+                let obj = self.cache.objs.get_by_id(u16::try_from(obj).ok()?)?;
+                Some(i64::from(obj.cost.max(0)) * i64::from(count.max(0)))
+            })
+            .sum();
+        Progress {
+            xp: trained().map(|xp| i64::from(xp.max(0) / 10)).sum(),
+            total_level: trained()
+                .map(|xp| u32::from(get_level_by_exp(xp.max(0))))
+                .sum(),
+            wealth,
         }
     }
 

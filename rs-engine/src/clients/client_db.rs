@@ -69,6 +69,7 @@ pub enum DbRequest {
     },
     WorldStatus {
         players: u32,
+        maintenance: bool,
         online: Vec<u64>,
         held: Vec<u64>,
     },
@@ -815,11 +816,13 @@ async fn run_requests(
             }
             DbRequest::WorldStatus {
                 players,
+                maintenance,
                 online,
                 mut held,
             } => {
                 let at = Instant::now();
-                db.report_world_status(node_id, players as i32).await?;
+                db.report_world_status(node_id, players as i32, maintenance)
+                    .await?;
                 let _ = response_tx.send(DbResponse::Lease { at });
                 held.extend(local_save_users());
                 let fixed = db.reconcile_sessions(node_id, &online, &held).await?;
@@ -1460,6 +1463,7 @@ mod tests {
         async fn heartbeat_online(&mut self) -> Vec<u64> {
             let _ = self.tx.send(DbRequest::WorldStatus {
                 players: 1,
+                maintenance: false,
                 online: vec![to_userhash(HOPPER)],
                 held: Vec::new(),
             });

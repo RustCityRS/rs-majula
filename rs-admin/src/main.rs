@@ -1,3 +1,4 @@
+mod activity;
 mod api;
 mod appeals;
 mod audit;
@@ -9,6 +10,7 @@ mod farms;
 mod http;
 mod markdown;
 mod notes;
+mod prefs;
 mod schedule;
 mod sessions;
 mod store;
@@ -24,6 +26,7 @@ use crate::clips::Clips;
 use crate::controls::Controls;
 use crate::http::{App, HttpConfig};
 use crate::notes::Notes;
+use crate::prefs::Prefs;
 use crate::schedule::Schedule;
 use crate::sessions::Sessions;
 use crate::templates::Templates;
@@ -312,6 +315,8 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         ),
         canned: CannedTexts::open(data_dir.join("canned.json")),
         clips: Clips::new(data_dir.join("clips")),
+        prefs: Prefs::open(data_dir.join("prefs.json")),
+        staff_levels: Default::default(),
         address_salt: sessions::random_token(),
         media_dir: data_dir.join("media"),
         config: HttpConfig {

@@ -8,6 +8,8 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 /// The shortest password a console account may have.
 pub const MIN_PASSWORD_LEN: usize = 12;
+/// The longest mute a trial moderator gives.
+pub const TRIAL_MAX_MUTE_HOURS: i32 = 48;
 
 /// Ordered by rank, matching the game's staff levels.
 #[derive(
@@ -15,6 +17,9 @@ pub const MIN_PASSWORD_LEN: usize = 12;
 )]
 #[serde(rename_all = "snake_case")]
 pub enum Role {
+    /// A moderator still learning: kicks and short mutes only (see
+    /// [`Role::is_trial`]).
+    Trial,
     Moderator,
     Admin,
     Developer,
@@ -25,7 +30,7 @@ impl Role {
     /// at or above it can be moderated by them.
     pub fn staff_level(self) -> u8 {
         match self {
-            Self::Moderator => 1,
+            Self::Trial | Self::Moderator => 1,
             Self::Admin => 2,
             Self::Developer => 3,
         }
@@ -34,6 +39,13 @@ impl Role {
     /// Whether they may reboot worlds and broadcast.
     pub fn can_command(self) -> bool {
         self >= Self::Admin
+    }
+
+    /// Whether they're a trial moderator: they kick and mute for up to
+    /// [`TRIAL_MAX_MUTE_HOURS`], but don't ban, lift sanctions, sanction
+    /// linked accounts, dismiss in bulk or decide appeals.
+    pub fn is_trial(self) -> bool {
+        self == Self::Trial
     }
 }
 
@@ -217,7 +229,9 @@ mod tests {
 
     #[test]
     fn roles_are_game_staff_levels() {
+        assert_eq!(Role::Trial.staff_level(), 1);
         assert_eq!(Role::Moderator.staff_level(), 1);
+        assert!(Role::Trial < Role::Moderator && Role::Trial.is_trial());
         assert_eq!(Role::Admin.staff_level(), 2);
         assert_eq!(Role::Developer.staff_level(), 3);
         assert!(!Role::Moderator.can_command());

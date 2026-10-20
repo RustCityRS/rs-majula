@@ -1,11 +1,12 @@
 use super::account::reauthenticate;
 use super::players::checked_name;
+use crate::activity::{self, StaffActivity};
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
 use crate::users::{Role, User, hash_password, name_key, now_ms, password_problem};
 use crate::worlds::Worlds;
 use axum::Json;
-use axum::extract::State;
+use axum::extract::{Query, State};
 use axum::http::StatusCode;
 use rs_admin_api::{PlayerLookup, PlayerRecord, path};
 use serde::{Deserialize, Serialize};
@@ -77,6 +78,7 @@ async fn hashed(password: String) -> Result<String, ApiError> {
 
 fn role_name(role: Role) -> &'static str {
     match role {
+        Role::Trial => "trial moderator",
         Role::Moderator => "moderator",
         Role::Admin => "admin",
         Role::Developer => "developer",
@@ -230,4 +232,38 @@ pub async fn update(
             .detail(detail),
     );
     Ok(Json(json!({ "ok": true })))
+}
+
+#[derive(Deserialize)]
+pub struct ActivityQuery {
+    days: Option<u64>,
+}
+
+/// `GET /api/staff/activity?days=`: what each staff member did over the
+/// last `days` (30 by default), for coaching. Admins and up.
+pub async fn activity(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<ActivityQuery>,
+) -> Result<Json<Vec<StaffActivity>>, ApiError> {
+    staff.require_admin()?;
+    let days = query.days.unwrap_or(30).clamp(1, 365);
+    let since_ms = now_ms().saturating_sub(days * 86_400_000);
+    let accounts: Vec<(String, Role)> = app
+        .users
+        .all()
+        .map_err(ApiError::internal)?
+        .into_iter()
+        .filter(|u| !u.disabled)
+        .map(|u| (u.name, u.role))
+        .collect();
+    let entries = app.audit.since(since_ms, |e| {
+        matches!(
+            e.action.as_str(),
+            "kick" | "mute" | "ban" | "unmute" | "unban"
+        )
+    });
+    Ok(Json(app.cases.read(|cases, dismissed| {
+        activity::of(&accounts, cases, dismissed, &entries, since_ms)
+    })))
 }

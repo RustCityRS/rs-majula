@@ -8,16 +8,16 @@ use axum::routing::{get, post};
 use axum::{Json, Router};
 use rs_admin_api::utc_time;
 use rs_admin_api::{
-    AccountActivity, AccountsLookup, AnticheatLeader, AnticheatLookup, Broadcast, CancelReboot,
-    ChatLookup, ChatRecord, CheckPatterns, ControlsSet, Health, InvSheet, ItemLine, Kick,
-    LinkedAccount, Links, LinksLookup, LiveReplay, LoginAddress, MAX_RESTORE_ITEMS,
-    MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome, Moderate, ModerationLookup, ModerationRecord,
-    ObjLine, ObjSearch, OnlinePlayer, Outcome, PasswordReset, PlayerEdit, PlayerEditRequest,
-    PlayerLookup, PlayerRecord, PlayerSheet, Reboot, ReplayGet, ReplayLookup, ReplaySummary,
-    ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup, SavePointLine,
-    SavePointLookup, SavePointsLookup, SessionClaim, SessionLookup, SessionState, SetControls,
-    SheetLookup, StatLine, TimelineEntry, TimelineLookup, Unstick, Verifier, WealthLine,
-    WealthLookup, WorldControls, WorldStatus, path,
+    AccountActivity, AccountsLookup, ActivityHour, ActivityLookup, AnticheatLeader,
+    AnticheatLookup, Broadcast, CancelReboot, ChatLookup, ChatRecord, CheckPatterns, ControlsSet,
+    Health, InvSheet, ItemLine, Kick, LinkedAccount, Links, LinksLookup, LiveReplay, LoginAddress,
+    MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome, Moderate, ModerationLookup,
+    ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome, PasswordReset, PlayerEdit,
+    PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, ProgressLookup, ProgressPoint,
+    Reboot, ReplayGet, ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, ResetIssued,
+    Rollback, Sanction, SanctionsLookup, SavePointLine, SavePointLookup, SavePointsLookup,
+    SessionClaim, SessionLookup, SessionState, SetControls, SheetLookup, StatLine, TimelineEntry,
+    TimelineLookup, Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::controls::{self, Controls};
@@ -212,6 +212,8 @@ pub async fn serve(
         .route(path::ROLLBACK, post(rollback))
         .route(path::PASSWORD_RESET, post(password_reset))
         .route(path::WEALTH, post(wealth_lookup))
+        .route(path::PROGRESS, post(progress_lookup))
+        .route(path::ACTIVITY, post(activity_lookup))
         .layer(middleware::from_fn_with_state(state.clone(), authenticate))
         .with_state(state);
     if let Err(e) = axum::serve(listener, router).await {
@@ -759,6 +761,7 @@ async fn chat_lookup(
             req.node.map(i16::from),
             req.before,
             req.after,
+            req.max_staff_level.map(i16::from),
             i64::from(req.limit.clamp(1, MAX_LOOKUP_ROWS)),
         )
         .await
@@ -940,6 +943,7 @@ async fn replays_lookup(
             player,
             req.flagged,
             req.before,
+            req.max_staff_level.map(i16::from),
             i64::from(req.limit.clamp(1, MAX_LOOKUP_ROWS)),
         )
         .await
@@ -1176,6 +1180,7 @@ async fn anticheat_lookup(
         .anticheat_leaders(
             req.since_ms,
             req.buckets.clamp(1, MAX_BUCKETS) as i32,
+            req.max_staff_level.map(i16::from),
             i64::from(req.limit.clamp(1, MAX_LEADERS)),
         )
         .await
@@ -1767,6 +1772,64 @@ async fn save_point_sheet(
     let profile = profile_from_save(save);
     let saved = on_engine(&state, move |engine| engine.profile_sheet(&profile)).await?;
     Ok(Json(Some(sheet(to_screen_name(&req.name), saved))))
+}
+
+/// The most save points a progress chart reaches back over.
+const MAX_PROGRESS_POINTS: u32 = 500;
+/// The most days an activity chart covers.
+const MAX_ACTIVITY_DAYS: u32 = 365;
+
+/// A player's XP and wealth at each save point, and now.
+async fn progress_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ProgressLookup>,
+) -> Result<Json<Vec<ProgressPoint>>, StatusCode> {
+    let saves = state
+        .db
+        .save_progress(
+            name_hash(&req.name)?,
+            i64::from(req.limit.clamp(1, MAX_PROGRESS_POINTS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    let points = on_engine(&state, move |engine| {
+        saves
+            .into_iter()
+            .map(|save| {
+                let progress = engine.progress(&save.stats, &save.inv_objs, &save.inv_counts);
+                ProgressPoint {
+                    kind: save.kind,
+                    at_ms: save.saved_ms,
+                    xp: progress.xp,
+                    total_level: progress.total_level,
+                    wealth: progress.wealth,
+                }
+            })
+            .collect()
+    })
+    .await?;
+    Ok(Json(points))
+}
+
+/// How many events a player's scripts logged, hour by hour.
+async fn activity_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ActivityLookup>,
+) -> Result<Json<Vec<ActivityHour>>, StatusCode> {
+    let hours = state
+        .db
+        .activity_hours(
+            name_hash(&req.name)?,
+            req.days.clamp(1, MAX_ACTIVITY_DAYS) as i32,
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        hours
+            .into_iter()
+            .map(|(hour_ms, events)| ActivityHour { hour_ms, events })
+            .collect(),
+    ))
 }
 
 /// How long a password reset code can be redeemed for.

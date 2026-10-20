@@ -283,15 +283,23 @@ kbd {
   font: 650 10px/16px var(--font); padding: 1px 4px; border-radius: 3px;
   border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text-2);
 }
-.sidebar-foot { margin-top: auto; display: grid; gap: 8px; }
-.me { display: flex; align-items: center; gap: 10px; padding: 10px 2px 0 4px; border-top: 1px solid var(--border); }
+.sidebar-foot { margin-top: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.me { display: grid; gap: 8px; padding: 10px 0 0 4px; border-top: 1px solid var(--border); }
+.me-who { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.me-who .grow { flex: 1; min-width: 0; }
+/* Time zone, theme and sign out, under who's signed in. */
+.me-actions { display: flex; align-items: center; gap: 6px; }
+.me-actions .btn { flex: none; }
 .avatar {
   width: 30px; height: 30px; border-radius: var(--radius-sm); display: grid; place-items: center;
   background: var(--sel); border: 1px solid var(--sel-line); color: var(--sel-ink);
   font: 700 12.5px var(--mono); flex: none;
 }
 .me b { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.me small { color: var(--faint); font: 600 10px/1.4 var(--font); letter-spacing: 0.12em; text-transform: uppercase; }
+.me small {
+  display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: var(--faint); font: 600 10px/1.4 var(--font); letter-spacing: 0.12em; text-transform: uppercase;
+}
 
 .main { margin-left: var(--sidebar); min-width: 0; }
 .page { max-width: 1280px; margin: 0 auto; padding: 22px 28px 120px; display: grid; gap: 18px; }
@@ -955,3 +963,68 @@ textarea.composer-text { min-height: 72px; }
 .replay-clipbar .input { width: 220px; max-width: 100%; height: 28px; }
 .replay-clip-icon { color: var(--muted); display: grid; place-items: center; }
 .replay-clip-icon .icon { width: 15px; height: 15px; }
+
+/* Times in UTC or the browser's zone */
+
+.zone-button { height: 26px; padding: 0 5px; font: 600 10.5px var(--mono); letter-spacing: 0.04em; color: var(--muted); }
+
+/* Saved filters */
+
+.saved-filters:empty { display: none; }
+.saved-filter {
+  display: inline-flex; align-items: stretch; height: 28px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+}
+.saved-filter button {
+  border: 0; background: transparent; color: var(--text-2); cursor: pointer;
+  font-size: 12px; font-weight: 600; padding: 0 8px; display: inline-flex; align-items: center; gap: 5px;
+}
+.saved-filter button:hover { color: var(--text); }
+.saved-filter .icon { width: 13px; height: 13px; }
+.saved-filter .saved-forget { padding: 0 6px; border-left: 1px solid var(--border); color: var(--faint); }
+.saved-filter[aria-pressed="true"] { background: var(--sel); border-color: var(--sel-line); }
+.saved-filter[aria-pressed="true"] button { color: var(--sel-ink); }
+.saved-filter[aria-pressed="true"] .saved-forget { border-color: var(--sel-line); }
+.timeline-filters { gap: 8px; }
+
+/* Cases changed since you last looked */
+
+.unread-dot {
+  display: inline-block; width: 7px; height: 7px; margin-right: 7px; vertical-align: 1px;
+  border-radius: 50%; background: var(--accent);
+}
+.list-item.unread .list-title b { color: var(--text); }
+.nav .count.unread::before {
+  content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 5px; vertical-align: 1px;
+  border-radius: 50%; background: var(--accent);
+}
+.chip-count { margin-left: 6px; font: 600 11px var(--mono); color: var(--accent); }
+
+/* Player progress charts */
+
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start; }
+.chart { display: grid; gap: 8px; min-width: 0; align-content: start; }
+.chart-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.chart-head .label { color: var(--faint); font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.chart-head b { font: 600 18px var(--mono); }
+.chart-plot { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; }
+.chart-plot svg {
+  display: block; width: 100%; height: 150px; cursor: crosshair;
+  border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2);
+}
+.chart-axis { display: flex; flex-direction: column; justify-content: space-between; text-align: right; font-size: 10.5px; color: var(--faint); padding: 2px 0; }
+.chart-line { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.chart-area { fill: var(--accent); opacity: 0.1; }
+.chart-cursor { stroke: var(--faint); stroke-width: 1; }
+.chart-cursor.hidden { display: none; }
+.chart-foot { font-size: 12px; min-height: 18px; }
+.heat { display: grid; grid-template-columns: 28px repeat(24, minmax(0, 1fr)); gap: 2px; align-items: center; }
+.heat-day { font-size: 10.5px; color: var(--faint); }
+.heat-hour { font-size: 10px; color: var(--faint); height: 14px; }
+.heat-cell { aspect-ratio: 1; min-height: 8px; border-radius: 2px; background: var(--surface-3); }
+.heat-cell.on { background: var(--accent); }
+
+/* Staff activity */
+
+.staff-activity td { white-space: nowrap; }
+.case-refs { margin-top: 4px; gap: 4px; }

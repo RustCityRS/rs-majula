@@ -475,13 +475,14 @@ impl Db {
     /// Chat messages newest first: everyone's, or only `sender`'s, on any
     /// world or only world `node_id`, older than the message `before` when
     /// paging. With `after`, only those newer than that message, oldest
-    /// first.
+    /// first. With `max_staff_level`, none from or to staff above it.
     pub async fn chat_history(
         &self,
         sender: Option<u64>,
         node_id: Option<i16>,
         before: Option<i64>,
         after: Option<i64>,
+        max_staff_level: Option<i16>,
         limit: i64,
     ) -> Result<Vec<ChatRecord>, Error> {
         let mut query = QueryBuilder::<Postgres>::new(concat!(
@@ -504,6 +505,15 @@ impl Db {
         }
         if let Some(after) = after {
             query.push(" AND c.id > ").push_bind(after);
+        }
+        // Neither from nor to staff above that level.
+        if let Some(max) = max_staff_level {
+            query
+                .push(" AND p.staff_mod_level <= ")
+                .push_bind(max)
+                .push(" AND NOT EXISTS (SELECT 1 FROM players t WHERE t.name_hash = c.to_name_hash AND t.staff_mod_level > ")
+                .push_bind(max)
+                .push(")");
         }
         query
             .push(if after.is_some() {

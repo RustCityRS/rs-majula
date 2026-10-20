@@ -67,6 +67,26 @@ impl Db {
         }
         tx.commit().await
     }
+
+    /// How many `session_log` events a player's scripts logged in each hour
+    /// (as Unix ms, UTC) of the last `days`, for the hours with any.
+    pub async fn activity_hours(
+        &self,
+        name_hash: u64,
+        days: i32,
+    ) -> Result<Vec<(i64, i64)>, Error> {
+        sqlx::query_as(
+            "SELECT (extract(epoch FROM date_trunc('hour', l.created_at AT TIME ZONE 'UTC')) * 1000)::bigint,
+                    count(*)
+             FROM session_logs l JOIN players p ON p.id = l.player_id
+             WHERE p.name_hash = $1 AND l.created_at > now() - make_interval(days => $2)
+             GROUP BY 1 ORDER BY 1",
+        )
+        .bind(name_hash as i64)
+        .bind(days)
+        .fetch_all(&self.pool)
+        .await
+    }
 }
 
 async fn insert_chat(conn: &mut PgConnection, node_id: i16, logs: &[ChatLog]) -> Result<(), Error> {

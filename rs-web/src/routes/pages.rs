@@ -41,10 +41,14 @@ pub async fn poll_results(
 }
 
 /// Frames a world's map viewer, which draws that world's revision. Prefers a
-/// world that is online.
+/// world that is online and open, then one that is online.
 pub async fn worldmap(State(app): State<Arc<App>>) -> Result<Response, AppError> {
     let worlds = app.worlds_now();
-    let world = worlds.iter().find(|w| w.online).or(worlds.first());
+    let world = worlds
+        .iter()
+        .find(|w| w.online && !w.maintenance)
+        .or_else(|| worlds.iter().find(|w| w.online))
+        .or(worlds.first());
     let html = app.templates.render(
         "pages/worldmap/applet.html",
         context! { world => world.map(Serde) },

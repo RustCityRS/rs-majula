@@ -80,6 +80,7 @@ impl Engine {
                 .collect();
             let _ = tx.send(DbRequest::WorldStatus {
                 players,
+                maintenance: self.maintenance_mode,
                 online,
                 held,
             });

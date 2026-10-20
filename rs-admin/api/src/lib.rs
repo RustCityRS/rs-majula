@@ -66,6 +66,10 @@ pub mod path {
     pub const PASSWORD_RESET: &str = "/v1/player/password-reset";
     /// One wealth event, by id.
     pub const WEALTH: &str = "/v1/lookup/wealth";
+    /// A player's XP and wealth at each save point, for charting.
+    pub const PROGRESS: &str = "/v1/player/progress";
+    /// How active a player has been, hour by hour.
+    pub const ACTIVITY: &str = "/v1/player/activity";
     /// The website's admin API (`rs-web`), signed the same way.
     pub const NEWS: &str = "/v1/news";
     pub const NEWS_SAVE: &str = "/v1/news/save";
@@ -534,6 +538,9 @@ pub struct ChatLookup {
     pub before: Option<i64>,
     #[serde(default)]
     pub after: Option<i64>,
+    /// Leaves out messages from or to staff above this level.
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
     pub limit: u32,
 }
 
@@ -583,6 +590,9 @@ pub struct ReplayLookup {
     pub name: Option<String>,
     pub flagged: bool,
     pub before: Option<i64>,
+    /// Leaves out the sessions of staff above this level.
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
     pub limit: u32,
 }
 
@@ -630,6 +640,9 @@ pub struct LiveReplay {
 pub struct AnticheatLookup {
     pub since_ms: i64,
     pub buckets: u32,
+    /// Leaves out staff above this level.
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
     pub limit: u32,
 }
 
@@ -911,6 +924,42 @@ pub struct WealthLine {
     pub at_ms: i64,
 }
 
+/// `POST /v1/player/progress`: answered with [`ProgressPoint`]s, oldest
+/// first: the newest `limit` save points, then their save as it stands.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ProgressLookup {
+    pub name: String,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ProgressPoint {
+    /// `logout`, `session` or `staff` as for a save point, or `now`.
+    pub kind: String,
+    pub at_ms: i64,
+    /// Every stat's XP added up.
+    pub xp: i64,
+    pub total_level: u32,
+    /// Every item they had (bank and worn too), at its value in the cache.
+    pub wealth: i64,
+}
+
+/// `POST /v1/player/activity`: answered with [`ActivityHour`]s, oldest
+/// first: how many events their scripts logged (`session_log`) in each
+/// hour of the last `days` that had any.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ActivityLookup {
+    pub name: String,
+    pub days: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ActivityHour {
+    /// The hour's start, as Unix ms.
+    pub hour_ms: i64,
+    pub events: i64,
+}
+
 /// `POST /v1/objs`: items whose name or config name contains `query`.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ObjSearch {
@@ -1035,6 +1084,27 @@ pub struct AppealDecide {
 
 /// `ms` as a UTC date and time, as staff notes and logs give times.
 pub fn utc_time(ms: i64) -> String {
+    let (year, month, day, secs) = civil(ms);
+    format!(
+        "{year}-{month:02}-{day:02} {:02}:{:02} UTC",
+        secs / 3600,
+        secs % 3600 / 60
+    )
+}
+
+/// `ms` in ISO 8601, to the second: `2026-10-20T09:05:33Z`.
+pub fn iso_time(ms: i64) -> String {
+    let (year, month, day, secs) = civil(ms);
+    format!(
+        "{year}-{month:02}-{day:02}T{:02}:{:02}:{:02}Z",
+        secs / 3600,
+        secs % 3600 / 60,
+        secs % 60
+    )
+}
+
+/// `ms` as a UTC year, month, day and seconds into the day.
+fn civil(ms: i64) -> (i64, i64, i64, i64) {
     let secs = ms.div_euclid(1000);
     let days = secs.div_euclid(86_400);
     let rem = secs.rem_euclid(86_400);
@@ -1048,11 +1118,7 @@ pub fn utc_time(ms: i64) -> String {
     let day = doy - (153 * mp + 2) / 5 + 1;
     let month = if mp < 10 { mp + 3 } else { mp - 9 };
     let year = yoe + era * 400 + i64::from(month <= 2);
-    format!(
-        "{year}-{month:02}-{day:02} {:02}:{:02} UTC",
-        rem / 3600,
-        rem % 3600 / 60
-    )
+    (year, month, day, rem)
 }
 
 /// The answer to a command: whether it took, and why not.
@@ -1087,6 +1153,7 @@ mod tests {
         assert_eq!(utc_time(0), "1970-01-01 00:00 UTC");
         assert_eq!(utc_time(1_792_497_600_000), "2026-10-20 12:00 UTC");
         assert_eq!(utc_time(951_782_400_000), "2000-02-29 00:00 UTC");
+        assert_eq!(iso_time(1_792_497_633_999), "2026-10-20T12:00:33Z");
     }
 
     #[test]

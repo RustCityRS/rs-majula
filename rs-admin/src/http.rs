@@ -5,6 +5,7 @@ use crate::cases::Cases;
 use crate::clips::Clips;
 use crate::controls::Controls;
 use crate::notes::Notes;
+use crate::prefs::Prefs;
 use crate::schedule::Schedule;
 use crate::sessions::{Session, Sessions, Stage};
 use crate::templates::Templates;
@@ -48,6 +49,8 @@ pub struct App {
     pub templates: Templates,
     pub canned: CannedTexts,
     pub clips: Clips,
+    pub prefs: Prefs,
+    pub staff_levels: crate::api::access::StaffLevels,
     pub address_salt: String,
     pub media_dir: PathBuf,
     pub config: HttpConfig,
@@ -208,6 +211,18 @@ impl Staff {
             Ok(())
         } else {
             Err(ApiError::forbidden())
+        }
+    }
+
+    /// Refuses a trial moderator, saying what they can't do.
+    pub fn refuse_trial(&self, what: &str) -> Result<(), ApiError> {
+        if self.user.role.is_trial() {
+            Err(ApiError::new(
+                StatusCode::FORBIDDEN,
+                format!("Trial moderators can't {what}; ask a moderator."),
+            ))
+        } else {
+            Ok(())
         }
     }
 

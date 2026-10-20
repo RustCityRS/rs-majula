@@ -287,6 +287,36 @@ impl Audit {
         out
     }
 
+    /// Up to `limit` of the newest entries kept in memory that pass `keep`,
+    /// newest first: a quick search that never reads the file.
+    pub fn recent(&self, limit: usize, keep: impl Fn(&Entry) -> bool) -> Vec<Entry> {
+        self.lock()
+            .recent
+            .iter()
+            .rev()
+            .filter(|e| keep(e))
+            .take(limit)
+            .cloned()
+            .collect()
+    }
+
+    /// Every entry from `since_ms` on, newest first, that passes `keep`.
+    pub fn since(&self, since_ms: u64, keep: impl Fn(&Entry) -> bool) -> Vec<Entry> {
+        let mut out = Vec::new();
+        let mut before = None;
+        loop {
+            let page = self.page(before, BLOCK, |_| true);
+            let Some(last) = page.last() else { break };
+            before = Some(last.id);
+            let done = last.at_ms < since_ms;
+            out.extend(page.into_iter().filter(|e| e.at_ms >= since_ms && keep(e)));
+            if done {
+                break;
+            }
+        }
+        out
+    }
+
     /// Entries `lo..=hi`, oldest first, from the file.
     fn read_block(&self, lo: u64, hi: u64) -> std::io::Result<Vec<Entry>> {
         let (starts, (from, to)) = {
