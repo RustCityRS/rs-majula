@@ -713,6 +713,7 @@ fn cheat_moderate(
         by_level: active.player.staff_mod_level as u8,
         target37,
         action,
+        reply: None,
     });
     Ok(())
 }

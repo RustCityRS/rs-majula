@@ -383,6 +383,25 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        "/replay" => {
+            let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                ),
+                Body::Owned(bytes),
+            )
+        }
+        "/replay.js" => (
+            "200 OK",
+            format!(
+                "Content-Type: application/javascript\r\nCache-Control: no-cache\r\nContent-Length: {}\r\n",
+                REPLAY_JS.len()
+            ),
+            Body::Owned(REPLAY_JS.as_bytes().to_vec()),
+        ),
         p if matches_cache(p) => match read_cache(p, cache) {
             Some(body) => {
                 let len = body.len();
@@ -533,6 +552,43 @@ fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>
         Some(v) => html.replace("client.js'", &format!("client.js?v={v:08x}'")),
         None => html,
     }
+}
+
+/// Plays a recorded session in this revision's client, for the staff console.
+const REPLAY_JS: &str = include_str!("replay.js");
+
+/// The replay page: this revision's client, with replay.js loaded first to
+/// stand in for the world.
+fn render_replay(nodeid: &str, members: bool, version: Option<u32>) -> String {
+    let (width, height) = if cfg!(rev = "225") {
+        (789, 532)
+    } else {
+        (765, 503)
+    };
+    let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    format!(
+        r#"<!DOCTYPE html>
+<html data-rev="{REVISION}">
+<head>
+<meta charset="utf-8">
+<title>Replay</title>
+<style>
+html, body {{ margin: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }}
+#game {{ position: relative; width: 100vw; height: 100vh; }}
+#canvas {{ display: block; width: 100%; height: 100%; image-rendering: pixelated; }}
+</style>
+<script src="/replay.js"></script>
+</head>
+<body>
+<div id="game"><canvas id="canvas" width="{width}" height="{height}"></canvas></div>
+<script type="module">
+import {{ Client }} from './{REVISION}/client.js{query}';
+window.__replay.start(new Client({nodeid}, 0, {members}));
+</script>
+</body>
+</html>
+"#
+    )
 }
 
 /// The client page's framing rule: only this host and the website (which

@@ -1,6 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{action_target, in_build_area, spell_component_ok, zone_obj};
+use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::opobjt::OpObjT;
@@ -37,6 +38,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 impl ClientGameHandler for OpObjT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_use(Using::Spell(self.com), Target::Obj(self.obj));
         if active.player.state.delayed {
             // normal: cannot interact while delayed
             active.unset_map_flag();

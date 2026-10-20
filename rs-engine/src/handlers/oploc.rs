@@ -2,6 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{in_build_area, loc_target, zone_loc};
+use crate::watch::Op;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::oploc1::OpLoc1;
 use rs_protocol::network::game::client::oploc2::OpLoc2;
@@ -119,6 +120,12 @@ fn handle(
     loc_id: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
+    active.watch_op(Op::Loc {
+        op,
+        id: loc_id,
+        x,
+        z,
+    });
     if active.player.state.delayed {
         active.unset_map_flag();
         return Ok(());

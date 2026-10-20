@@ -8,6 +8,7 @@ use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
 use crate::phases::shared::panic_message;
 use crate::player_save::*;
+use crate::watch::{ReplayRequest, Watch};
 use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
@@ -515,6 +516,7 @@ impl NpcList {
 pub struct Engine {
     pub clock: u32,
     pub shutdown_clock: Option<u32>,
+    pub maintenance_mode: bool,
     date_origin_ms: i64,
     date_origin: Instant,
     cycle_date_ms: i64,
@@ -548,14 +550,14 @@ pub struct Engine {
     pub ether_rx: UnboundedReceiver<EtherInbound>,
     pub db_tx: Option<UnboundedSender<DbRequest>>,
     pub db_rx: UnboundedReceiver<DbResponse>,
+    pub replay_tx: Option<tokio::sync::mpsc::Sender<ReplayRequest>>,
     pub db_ready: bool,
     pub ether_ready: bool,
     pub pending_logins: Vec<PendingLogin>,
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
     pub logout_saves: FxHashMap<u64, LogoutSave>,
+    pub offline_edits: FxHashSet<u64>,
     pub db_lease: Option<Instant>,
-    /// This tick's chat, session logs and wealth events, sent to the database
-    /// in one [`DbRequest::Logs`] at the end of the tick.
     pub logs: LogBatch,
     pub random: JavaRandom,
     pub vars: VarSet,
@@ -656,6 +658,7 @@ impl Engine {
         let mut engine = Self {
             clock: 0,
             shutdown_clock: None,
+            maintenance_mode: false,
             date_origin_ms,
             date_origin: Instant::now(),
             cycle_date_ms: date_origin_ms,
@@ -689,11 +692,13 @@ impl Engine {
             ether_rx,
             db_tx,
             db_rx,
+            replay_tx: None,
             db_ready: false,
             ether_ready: false,
             pending_logins: Vec::new(),
             login_failures: FxHashMap::default(),
             logout_saves: FxHashMap::default(),
+            offline_edits: FxHashSet::default(),
             db_lease: None,
             logs: LogBatch::default(),
             random: JavaRandom::new(1084838400000),
@@ -939,6 +944,21 @@ impl Engine {
             "Reboot scheduled in {duration} tick(s) (fires at tick {})",
             self.clock + duration as u32
         );
+    }
+
+    /// Calls off a scheduled reboot and clears every player's countdown.
+    /// Returns `false` if none is scheduled, or it has already begun (players
+    /// are being logged out), when it can no longer be stopped.
+    pub fn cancel_reboot(&mut self) -> bool {
+        if !self.is_pending_shutdown() || self.is_shutdown() {
+            return false;
+        }
+        self.shutdown_clock = None;
+        for active in self.player_list.players.iter_mut().flatten() {
+            active.write(UpdateRebootTimer { clocks: 0 });
+        }
+        info!("Scheduled reboot cancelled");
+        true
     }
 
     /// Drives a triggered shutdown towards process exit. Run once per cycle from
@@ -2563,7 +2583,7 @@ impl Engine {
     /// # Side Effects
     ///
     /// Calls `message_game_wrapped` on every active player.
-    fn broadcast(&mut self, text: &str) {
+    pub fn broadcast(&mut self, text: &str) {
         for active in self.player_list.players.iter_mut().flatten() {
             if text.contains('\n') {
                 for line in text.split('\n') {
@@ -2641,15 +2661,12 @@ impl Engine {
         let uid = active.player.uid;
 
         #[cfg(since_254)]
-        {
+        let reply = {
             let level = (active.player.staff_mod_level as u8).min(2);
-            let _ = active
-                .handle
-                .outbox
-                .send(vec![LoginResponse::SuccessNormal as u8, level, 1]);
-        }
+            vec![LoginResponse::SuccessNormal as u8, level, 1]
+        };
         #[cfg(before_254)]
-        {
+        let reply = {
             let response = match active.player.staff_mod_level {
                 StaffModLevel::Normal => LoginResponse::SuccessNormal,
                 StaffModLevel::PlayerModerator => LoginResponse::SuccessModerator,
@@ -2662,8 +2679,17 @@ impl Engine {
                     LoginResponse::SuccessJagexModerator
                 }
             };
-            let _ = active.handle.outbox.send(vec![response as u8]);
+            vec![response as u8]
+        };
+        if !active.player.bot {
+            active.watch = Box::new(Watch::start(
+                uid.username37(),
+                self.node_id,
+                self.replay_tx.as_ref(),
+            ));
+            active.watch.login(self.clock, &reply);
         }
+        let _ = active.handle.outbox.send(reply);
 
         info!(
             "Player '{}' joined at ({},{},{}) (uid={:?}, pid={})",
@@ -2793,6 +2819,9 @@ impl Engine {
             .handle
             .outbox
             .send(vec![LoginResponse::Reconnect as u8]);
+        active
+            .watch
+            .reconnect(clock, &[LoginResponse::Reconnect as u8]);
 
         // Swapping the handle drops the old one: its channels close and the
         // old socket task (dead or alive) shuts down. Buffered packets queued
@@ -2901,7 +2930,10 @@ impl Engine {
     /// it. Never for a player who is online here or still being logged out
     /// of here: their claim is live, and their logout save ends it.
     pub(crate) fn release_claim(&self, user37: u64) {
-        if self.find_pid_by_user37(user37).is_some() || self.logout_saves.contains_key(&user37) {
+        if self.find_pid_by_user37(user37).is_some()
+            || self.logout_saves.contains_key(&user37)
+            || self.offline_edits.contains(&user37)
+        {
             return;
         }
         if let Some(tx) = &self.db_tx {
@@ -2948,7 +2980,9 @@ impl Engine {
             return;
         }
 
-        if self.is_shutdown_soon() {
+        if self.is_shutdown_soon()
+            || (self.maintenance_mode && staff_mod_level == StaffModLevel::Normal)
+        {
             self.reject_pending_login(idx, LoginResponse::ServerUpdating);
             return;
         }

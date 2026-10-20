@@ -1,5 +1,8 @@
+mod admin;
 mod app;
+mod media;
 mod metrics;
+mod news_render;
 mod routes;
 mod templates;
 mod worlds;
@@ -37,6 +40,14 @@ struct Args {
     metrics_port: u16,
     #[arg(long, default_value = "127.0.0.1")]
     metrics_host: String,
+    #[arg(long, default_value = "8190")]
+    admin_port: u16,
+    #[arg(long, default_value = "127.0.0.1")]
+    admin_host: String,
+    #[arg(long, env = "RS_ADMIN_SECRET", hide_env_values = true)]
+    admin_secret: Option<String>,
+    #[arg(long, env = "RS_WEB_MEDIA_DIR")]
+    media_dir: Option<PathBuf>,
     #[arg(long, value_enum, default_value_t = LogFormat::Text)]
     log_format: LogFormat,
     #[arg(long, env = "RS_DB_HOST", default_value = "localhost")]
@@ -131,8 +142,16 @@ async fn main() -> Result<()> {
         }
     }
 
+    let media_dir = args
+        .media_dir
+        .or_else(|| cfg!(debug_assertions).then(|| args.root.join("media")));
+    match &media_dir {
+        Some(dir) => info!("News media in: {}", dir.display()),
+        None => warn!("No --media-dir, so news can't have images or videos uploaded"),
+    }
     let app = Arc::new(App {
         db,
+        media_dir,
         passwords: Passwords::new(&pepper),
         templates: Templates::new(args.root.join("templates"), args.https),
         worlds,
@@ -154,6 +173,23 @@ async fn main() -> Result<()> {
             args.metrics_port,
             app.clone(),
         ));
+    }
+
+    if args.admin_port != 0 {
+        match args
+            .admin_secret
+            .or_else(|| cfg!(debug_assertions).then(|| "rs_admin".to_owned()))
+        {
+            Some(secret) => {
+                tokio::spawn(admin::serve(
+                    args.admin_host,
+                    args.admin_port,
+                    secret,
+                    app.clone(),
+                ));
+            }
+            None => warn!("RS_ADMIN_SECRET isn't set, so the admin API (news posting) is off"),
+        }
     }
 
     let url = app.base_url();

@@ -2,6 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{HeldCheck, check_held};
+use crate::watch::Op;
 use rs_protocol::network::game::client::opheld1::OpHeld1;
 use rs_protocol::network::game::client::opheld2::OpHeld2;
 use rs_protocol::network::game::client::opheld3::OpHeld3;
@@ -123,6 +124,11 @@ fn handle(
     com: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
+    active.watch_op(Op::Held {
+        op: op as u8,
+        obj,
+        slot,
+    });
     if active.player.state.delayed {
         return Ok(());
     }

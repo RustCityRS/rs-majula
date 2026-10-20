@@ -1,0 +1,193 @@
+//! Lookups in the game database: a player's record, moderation history,
+//! who is muted or banned, and chat logs. Any online world answers them;
+//! the console itself never touches the database.
+
+use super::players::checked_name;
+use crate::audit::Event;
+use crate::http::{ApiError, App, Staff};
+use axum::Json;
+use axum::extract::{Query, State};
+use axum::http::StatusCode;
+use rs_admin_api::{
+    ChatLookup, ChatRecord, ModerationLookup, ModerationRecord, PlayerLookup, PlayerRecord,
+    Sanction, SanctionsLookup, path,
+};
+use serde::{Deserialize, Serialize};
+use std::sync::Arc;
+
+/// Rows per page.
+const PAGE: u32 = 50;
+/// The most mutes and bans listed at once.
+const MAX_SANCTIONS: u32 = 200;
+
+fn unavailable(error: String) -> ApiError {
+    ApiError::new(StatusCode::BAD_GATEWAY, format!("{error}."))
+}
+
+/// The world id of node `node`, if the console manages it.
+fn world_of(app: &App, node: u8) -> Option<u16> {
+    app.worlds.get(node).map(|w| w.id)
+}
+
+#[derive(Deserialize)]
+pub struct NameQuery {
+    name: String,
+}
+
+#[derive(Serialize)]
+pub struct PlayerView {
+    #[serde(flatten)]
+    record: PlayerRecord,
+    online_world: Option<u16>,
+    last_world: Option<u16>,
+}
+
+/// `GET /api/lookup/player?name=`: `null` when no such player is registered.
+pub async fn player(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+    Query(query): Query<NameQuery>,
+) -> Result<Json<Option<PlayerView>>, ApiError> {
+    let name = checked_name(&query.name)?;
+    let record: Option<PlayerRecord> = app
+        .worlds
+        .ask(path::PLAYER, &PlayerLookup { name })
+        .await
+        .map_err(unavailable)?;
+    Ok(Json(record.map(|record| PlayerView {
+        online_world: record.online_node.and_then(|n| world_of(&app, n)),
+        last_world: record.last_node.and_then(|n| world_of(&app, n)),
+        record,
+    })))
+}
+
+#[derive(Deserialize)]
+pub struct PageQuery {
+    name: Option<String>,
+    before: Option<i64>,
+}
+
+#[derive(Serialize)]
+pub struct ModerationView {
+    #[serde(flatten)]
+    record: ModerationRecord,
+    world: Option<u16>,
+}
+
+/// `GET /api/lookup/moderation?name=&before=`: moderation commands newest
+/// first, everyone's or those on `name`.
+pub async fn moderation(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+    Query(query): Query<PageQuery>,
+) -> Result<Json<Vec<ModerationView>>, ApiError> {
+    let name = query.name.as_deref().map(checked_name).transpose()?;
+    let records: Vec<ModerationRecord> = app
+        .worlds
+        .ask(
+            path::MODERATION,
+            &ModerationLookup {
+                name,
+                before: query.before,
+                limit: PAGE,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    Ok(Json(
+        records
+            .into_iter()
+            .map(|record| ModerationView {
+                world: world_of(&app, record.node),
+                record,
+            })
+            .collect(),
+    ))
+}
+
+/// `GET /api/lookup/sanctions`: everyone muted or banned now.
+pub async fn sanctions(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+) -> Result<Json<Vec<Sanction>>, ApiError> {
+    app.worlds
+        .ask(
+            path::SANCTIONS,
+            &SanctionsLookup {
+                limit: MAX_SANCTIONS,
+            },
+        )
+        .await
+        .map(Json)
+        .map_err(unavailable)
+}
+
+#[derive(Deserialize)]
+pub struct ChatQuery {
+    name: Option<String>,
+    /// A world's node.
+    node: Option<u8>,
+    before: Option<i64>,
+}
+
+#[derive(Serialize)]
+pub struct ChatView {
+    #[serde(flatten)]
+    record: ChatRecord,
+    world: Option<u16>,
+}
+
+/// `GET /api/lookup/chat?name=&node=&before=`: chat newest first. Each new
+/// search (not its "load older" pages) is audited, since this includes
+/// private messages.
+pub async fn chat(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<ChatQuery>,
+) -> Result<Json<Vec<ChatView>>, ApiError> {
+    let name = query
+        .name
+        .as_deref()
+        .map(str::trim)
+        .filter(|n| !n.is_empty())
+        .map(checked_name)
+        .transpose()?;
+    let world = match query.node {
+        Some(node) => {
+            Some(world_of(&app, node).ok_or_else(|| ApiError::bad_request("No such world."))?)
+        }
+        None => None,
+    };
+    let records: Vec<ChatRecord> = app
+        .worlds
+        .ask(
+            path::CHAT,
+            &ChatLookup {
+                name: name.clone(),
+                node: query.node,
+                before: query.before,
+                limit: PAGE,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    if query.before.is_none() {
+        let target = match (&name, world) {
+            (Some(name), Some(world)) => format!("{name} on world {world}"),
+            (Some(name), None) => name.clone(),
+            (None, Some(world)) => format!("world {world}"),
+            (None, None) => "every world".to_owned(),
+        };
+        app.audit
+            .record(Event::new(Some(staff.name()), staff.client.ip, "chat_viewed").target(target));
+    }
+    Ok(Json(
+        records
+            .into_iter()
+            .map(|record| ChatView {
+                world: world_of(&app, record.node),
+                record,
+            })
+            .collect(),
+    ))
+}

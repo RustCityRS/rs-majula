@@ -13,13 +13,26 @@ use axum::{Router, middleware};
 use std::path::Path;
 use std::sync::Arc;
 use tower_http::services::ServeDir;
-use tower_http::set_header::SetResponseHeaderLayer;
+use tower_http::set_header::{SetResponseHeader, SetResponseHeaderLayer};
 
 /// Explicit routes for the dynamic pages; anything else is a file under
 /// `public/` or, failing that, a template under `templates/pages/`.
 pub fn router(app: Arc<App>, public: &Path) -> Router {
     let pages = get(pages::page).with_state(app.clone());
-    Router::new()
+    let mut router = Router::new();
+    if let Some(dir) = &app.media_dir {
+        // Named by their content, so never stale. ServeDir answers range
+        // requests, which video seeking needs.
+        router = router.nest_service(
+            "/news/media",
+            SetResponseHeader::overriding(
+                ServeDir::new(dir),
+                header::CACHE_CONTROL,
+                HeaderValue::from_static("public, max-age=31536000, immutable"),
+            ),
+        );
+    }
+    router
         .route("/title", get(play::title))
         .route("/play", get(|| async { Redirect::to("/detail") }))
         .route("/serverlist", get(play::serverlist))

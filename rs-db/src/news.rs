@@ -15,7 +15,6 @@ pub struct NewsSummary {
     pub title: String,
     pub category_name: String,
     pub category_style: String,
-    /// e.g. `18-Oct-2026`
     pub short_date: String,
 }
 
@@ -26,11 +25,20 @@ pub struct NewsPost {
     pub category_name: String,
     pub title: String,
     pub content: String,
-    /// e.g. `18th October 2026`
     pub long_date: String,
-    /// Previous and next post in the same category.
     pub prev_id: Option<i32>,
     pub next_id: Option<i32>,
+}
+
+/// A post as the staff console edits it.
+#[derive(Clone, Debug, Serialize, sqlx::FromRow)]
+pub struct NewsAdminPost {
+    pub id: i32,
+    pub category_id: i16,
+    pub title: String,
+    pub content: String,
+    pub markdown: Option<String>,
+    pub created_ms: i64,
 }
 
 impl Db {
@@ -76,5 +84,83 @@ impl Db {
         .bind(id)
         .fetch_optional(&self.pool)
         .await
+    }
+
+    /// Posts with their HTML, newest first, older than post `before` when
+    /// paging: for the staff console.
+    pub async fn news_admin_page(
+        &self,
+        before: Option<i32>,
+        limit: i64,
+    ) -> Result<Vec<NewsAdminPost>, Error> {
+        sqlx::query_as(
+            "SELECT id, category_id, title, content, markdown,
+                    (extract(epoch FROM created_at) * 1000)::bigint AS created_ms
+             FROM news_posts
+             WHERE $1::int IS NULL OR id < $1
+             ORDER BY id DESC
+             LIMIT $2",
+        )
+        .bind(before)
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await
+    }
+
+    /// Adds a post written in `markdown`, shown as `content`. `None` if the
+    /// category doesn't exist.
+    pub async fn create_news_post(
+        &self,
+        category_id: i16,
+        title: &str,
+        content: &str,
+        markdown: &str,
+    ) -> Result<Option<NewsAdminPost>, Error> {
+        sqlx::query_as(
+            "INSERT INTO news_posts (category_id, title, content, markdown)
+             SELECT $1, $2, $3, $4 WHERE EXISTS (SELECT 1 FROM news_categories WHERE id = $1)
+             RETURNING id, category_id, title, content, markdown,
+                       (extract(epoch FROM created_at) * 1000)::bigint AS created_ms",
+        )
+        .bind(category_id)
+        .bind(title)
+        .bind(content)
+        .bind(markdown)
+        .fetch_optional(&self.pool)
+        .await
+    }
+
+    /// Edits a post, keeping its date. `None` if there's no such post or
+    /// category.
+    pub async fn update_news_post(
+        &self,
+        id: i32,
+        category_id: i16,
+        title: &str,
+        content: &str,
+        markdown: &str,
+    ) -> Result<Option<NewsAdminPost>, Error> {
+        sqlx::query_as(
+            "UPDATE news_posts SET category_id = $2, title = $3, content = $4, markdown = $5
+             WHERE id = $1 AND EXISTS (SELECT 1 FROM news_categories WHERE id = $2)
+             RETURNING id, category_id, title, content, markdown,
+                       (extract(epoch FROM created_at) * 1000)::bigint AS created_ms",
+        )
+        .bind(id)
+        .bind(category_id)
+        .bind(title)
+        .bind(content)
+        .bind(markdown)
+        .fetch_optional(&self.pool)
+        .await
+    }
+
+    /// Deletes a post. Returns whether there was one.
+    pub async fn delete_news_post(&self, id: i32) -> Result<bool, Error> {
+        let result = sqlx::query("DELETE FROM news_posts WHERE id = $1")
+            .bind(id)
+            .execute(&self.pool)
+            .await?;
+        Ok(result.rows_affected() == 1)
     }
 }

@@ -3,6 +3,7 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
     HeldCheck, check_held, members_blocked, player_target_ok, use_component_ok,
 };
+use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opplayeru::OpPlayerU;
 use rs_vm::ScriptError;
@@ -38,6 +39,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 impl ClientGameHandler for OpPlayerU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_use(Using::Item(self.obj), Target::Player(self.pid));
         if active.player.state.delayed {
             // normal: cannot interact while delayed
             active.unset_map_flag();

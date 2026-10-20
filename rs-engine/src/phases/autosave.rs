@@ -76,6 +76,7 @@ impl Engine {
                 .iter()
                 .map(|p| p.user37)
                 .chain(self.logout_saves.keys().copied())
+                .chain(self.offline_edits.iter().copied())
                 .collect();
             let _ = tx.send(DbRequest::WorldStatus {
                 players,

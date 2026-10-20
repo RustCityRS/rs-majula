@@ -1,6 +1,7 @@
 use rs_db::{
-    ChatLog, Claim, Db, LogBatch, ModAction, NewPlayer, NewSnapshot, PlayerSave, Reconciled,
-    Sanctions, SaveResult, SessionLog, WealthEvent, WorldStatus,
+    ChatLog, Claim, Db, LogBatch, ModAction, NewPlayer, NewReplay, NewSnapshot, PlayerSave,
+    Reconciled, ReplayChunk, ReplayReport, Sanctions, SaveResult, SessionLog, WealthEvent,
+    WorldStatus,
 };
 use sqlx::PgPool;
 
@@ -885,4 +886,71 @@ async fn hiscores_backfill_matches_saves(pool: PgPool) {
     let backfilled: Vec<(i64, i16, i16, i64)> =
         sqlx::query_as(rows).fetch_all(&pool).await.unwrap();
     assert_eq!(backfilled, saved);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replays_store_list_and_prune(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    // Only registered players are recorded.
+    assert!(!db.start_replay(&replay(1, 42)).await.unwrap());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.start_replay(&replay(1, 42)).await.unwrap());
+    assert!(db.start_replay(&replay(2, 42)).await.unwrap());
+
+    let chunk = |seq, data: &[u8]| ReplayChunk {
+        seq,
+        start_ms: seq * 30_000,
+        end_ms: (seq + 1) * 30_000,
+        data: data.to_vec(),
+    };
+    let clean = ReplayReport::default();
+    db.store_replay(1, Some(&chunk(0, b"abc")), 30_000, &clean, false, true)
+        .await
+        .unwrap();
+    let flagged = ReplayReport {
+        score: 40,
+        flags: vec!["no_heartbeat".into()],
+        stats: "{}".into(),
+    };
+    db.store_replay(1, Some(&chunk(1, b"defg")), 41_000, &flagged, true, true)
+        .await
+        .unwrap();
+    // A chunk for a recording that isn't there is dropped.
+    db.store_replay(99, Some(&chunk(0, b"x")), 1, &clean, true, true)
+        .await
+        .unwrap();
+
+    let one = db.replay(1).await.unwrap().unwrap();
+    assert_eq!(one.player, "Test");
+    assert_eq!((one.duration_ms, one.bytes, one.score), (41_000, 7, 40));
+    assert_eq!(one.flags, ["no_heartbeat"]);
+    assert!(one.ended_ms.is_some() && one.complete);
+    let chunks = db.replay_chunks(1).await.unwrap();
+    assert_eq!(
+        chunks.iter().map(|c| c.data.as_slice()).collect::<Vec<_>>(),
+        [b"abc".as_slice(), b"defg"]
+    );
+
+    assert_eq!(
+        db.replays(Some(42), false, None, 10).await.unwrap().len(),
+        2
+    );
+    let only_flagged = db.replays(None, true, None, 10).await.unwrap();
+    assert_eq!(only_flagged.iter().map(|r| r.id).collect::<Vec<_>>(), [1]);
+
+    sqlx::query("UPDATE replays SET started_at = now() - interval '8 days' WHERE id = 1")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.prune_replays(7).await.unwrap(), 1);
+    assert!(db.replay(1).await.unwrap().is_none());
+    assert!(db.replay_chunks(1).await.unwrap().is_empty());
+    assert!(db.replay(2).await.unwrap().is_some());
 }

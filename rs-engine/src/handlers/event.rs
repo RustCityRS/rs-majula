@@ -1,5 +1,7 @@
 #[cfg(any(rev = "225", since_254))]
 use crate::active_player::ActivePlayer;
+#[cfg(since_254)]
+use crate::engine::engine;
 #[cfg(any(rev = "225", since_254))]
 use crate::handlers::ClientGameHandler;
 #[cfg(since_254)]
@@ -15,11 +17,12 @@ use rs_vm::ScriptError;
 
 /// Handles the `EventMouseClick` client protocol message.
 ///
-/// No-op. The server accepts but ignores client mouse-click telemetry.
+/// A click the client acted on. The anti-cheat checks that the action it
+/// starts arrives on the same tick, and judges the click's spot and rhythm.
 ///
 /// # Arguments
 ///
-/// * `_` - The active player (unused).
+/// * `active` - The active player whose client sent this message.
 ///
 /// # Returns
 ///
@@ -30,18 +33,24 @@ use rs_vm::ScriptError;
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(since_254)]
 impl ClientGameHandler for EventMouseClick {
-    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle()
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let ms = active.watch.ms();
+        active
+            .watch
+            .anticheat
+            .mouse_click(ms, engine().clock, &self);
+        Ok(())
     }
 }
 
 /// Handles the `EventMouseMove` client protocol message.
 ///
-/// No-op. The server accepts but ignores client mouse-move telemetry.
+/// The cursor's path since the last report, for the anti-cheat to compare
+/// clicks against.
 ///
 /// # Arguments
 ///
-/// * `_` - The active player (unused).
+/// * `active` - The active player whose client sent this message.
 ///
 /// # Returns
 ///
@@ -52,18 +61,21 @@ impl ClientGameHandler for EventMouseClick {
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(since_254)]
 impl ClientGameHandler for EventMouseMove {
-    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle()
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let ms = active.watch.ms();
+        active.watch.anticheat.mouse_move(ms, &self);
+        Ok(())
     }
 }
 
 /// Handles the `EventAppletFocus` client protocol message.
 ///
-/// No-op. The server accepts but ignores client applet focus/blur telemetry.
+/// The client's window gained or lost focus; the anti-cheat counts the
+/// losses.
 ///
 /// # Arguments
 ///
-/// * `_` - The active player (unused).
+/// * `active` - The active player whose client sent this message.
 ///
 /// # Returns
 ///
@@ -74,19 +86,21 @@ impl ClientGameHandler for EventMouseMove {
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(since_254)]
 impl ClientGameHandler for EventAppletFocus {
-    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle()
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let ms = active.watch.ms();
+        active.watch.anticheat.focus(ms, &self);
+        Ok(())
     }
 }
 
 /// Handles the `EventCameraPosition` client protocol message.
 ///
-/// No-op. The client periodically sends camera position updates, but the server
-/// does not currently use this information. The packet is accepted and discarded.
+/// The client sends where its camera points while it turns; the anti-cheat
+/// counts the reports.
 ///
 /// # Arguments
 ///
-/// * `_` - The active player (unused).
+/// * `active` - The active player whose client sent this message.
 ///
 /// # Returns
 ///
@@ -97,13 +111,9 @@ impl ClientGameHandler for EventAppletFocus {
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(any(rev = "225", since_254))]
 impl ClientGameHandler for EventCameraPosition {
-    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let ms = active.watch.ms();
+        active.watch.anticheat.camera(ms, &self);
         Ok(())
     }
-}
-
-/// Shared no-op handler for ignored client telemetry events.
-#[cfg(since_254)]
-fn handle() -> Result<(), ScriptError> {
-    Ok(())
 }

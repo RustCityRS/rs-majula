@@ -3,6 +3,7 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
     HeldCheck, check_held, in_build_area, members_blocked, use_component_ok, zone_obj,
 };
+use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::opobju::OpObjU;
@@ -38,6 +39,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 impl ClientGameHandler for OpObjU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_use(Using::Item(self.use_obj), Target::Obj(self.obj));
         if active.player.state.delayed {
             // normal: cannot interact while delayed
             active.unset_map_flag();

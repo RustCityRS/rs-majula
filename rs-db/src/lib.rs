@@ -5,22 +5,26 @@ mod name;
 mod news;
 mod password;
 mod player;
+mod replay;
 mod save;
 mod session;
 mod snapshot;
+mod staff;
 mod world;
 
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};
-pub use news::{NewsCategory, NewsPost, NewsSummary};
+pub use news::{NewsAdminPost, NewsCategory, NewsPost, NewsSummary};
 pub use password::Passwords;
 pub use player::{Credentials, NewPlayer, Sanctions};
+pub use replay::{NewReplay, ReplayChunk, ReplayRecord, ReplayReport};
 pub use save::{PlayerSave, SaveResult};
 pub use session::{Claim, Reconciled};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
+pub use staff::{ChatRecord, ModerationRecord, PlayerRecord, SanctionRecord};
 pub use world::WorldStatus;
 
 use sqlx::migrate::{MigrateError, Migrator};

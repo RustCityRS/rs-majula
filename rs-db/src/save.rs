@@ -101,6 +101,30 @@ impl Db {
         Ok(SaveResult::Stored)
     }
 
+    /// Stores a save made outside a session (a developer's edit of a
+    /// logged-out player) and ends world `node_id`'s claim on them. Unlike a
+    /// logout it leaves their last logout as it was.
+    pub async fn store_edit_save(
+        &self,
+        name_hash: u64,
+        node_id: i16,
+        save: &PlayerSave,
+    ) -> Result<SaveResult, Error> {
+        let mut tx = self.pool.begin().await?;
+        let id = match lock_session(&mut tx, name_hash, node_id).await? {
+            Ok(id) => id,
+            Err(refused) => return Ok(refused),
+        };
+        upsert_save(id, save).execute(&mut *tx).await?;
+        update_hiscores(&mut tx, id, &save.stats).await?;
+        sqlx::query("UPDATE players SET online_node = NULL, online_since = NULL WHERE id = $1")
+            .bind(id)
+            .execute(&mut *tx)
+            .await?;
+        tx.commit().await?;
+        Ok(SaveResult::Stored)
+    }
+
     /// Writes a first save for a player who has none and is not online
     /// anywhere (importing a local save at registration). Returns `false` if
     /// the player doesn't exist, already has a save, or is online.

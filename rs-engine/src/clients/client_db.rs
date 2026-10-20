@@ -13,6 +13,7 @@ use std::net::IpAddr;
 use std::path::Path;
 use std::time::Instant;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
+use tokio::sync::oneshot;
 use tokio::task::JoinHandle;
 use tokio::time::{Duration, sleep, timeout};
 use tracing::{error, info, warn};
@@ -70,8 +71,6 @@ pub enum DbRequest {
         online: Vec<u64>,
         held: Vec<u64>,
     },
-    /// An abuse report, made at `(x, z, y)`. With `mute_by`, the reporter is a
-    /// moderator of that level who also mutes the offender for [`MUTE_HOURS`].
     Snapshot {
         reporter37: u64,
         offender37: u64,
@@ -85,16 +84,24 @@ pub enum DbRequest {
         user37: u64,
         hours: i32,
     },
-    /// A staff command (`::mute`, `::ban`, ...) by a moderator of `by_level`.
     Moderate {
         moderator37: u64,
         by_level: u8,
         target37: u64,
         action: ModAction,
+        reply: Option<oneshot::Sender<ModOutcome>>,
     },
-    /// A tick's chat, session logs and wealth events.
     Logs {
         logs: LogBatch,
+    },
+    EditLoad {
+        user37: u64,
+        reply: oneshot::Sender<LoadResult>,
+    },
+    EditStore {
+        user37: u64,
+        profile: Box<PlayerProfile>,
+        reply: oneshot::Sender<SaveOutcome>,
     },
 }
 
@@ -249,9 +256,13 @@ fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
         moderator37,
         target37,
         action,
+        reply,
         ..
     } = req
     {
+        if let Some(reply) = reply {
+            let _ = reply.send(ModOutcome::Offline);
+        }
         let _ = response_tx.send(DbResponse::Moderated {
             moderator37,
             target37,
@@ -720,6 +731,24 @@ async fn run_requests(
                 let result = claim(db, config.node_id, user37).await?;
                 let _ = response_tx.send(DbResponse::LoadResponse { user37, result });
             }
+            DbRequest::EditLoad { user37, reply } => {
+                let _ = reply.send(claim(db, config.node_id, user37).await?);
+            }
+            DbRequest::EditStore {
+                user37,
+                profile,
+                reply,
+            } => {
+                let outcome = match db
+                    .store_edit_save(user37, node_id, &to_save(&profile))
+                    .await?
+                {
+                    SaveResult::Stored => SaveOutcome::Stored,
+                    SaveResult::NotOwner => SaveOutcome::NotOwner,
+                    SaveResult::Unregistered => SaveOutcome::Unregistered,
+                };
+                let _ = reply.send(outcome);
+            }
             DbRequest::Release { user37 } => {
                 // Unsynced local data means the database copy is stale:
                 // keep the claim so no other world loads it.
@@ -819,6 +848,7 @@ async fn run_requests(
                 by_level,
                 target37,
                 action,
+                reply,
             } => {
                 let done = db
                     .moderate(moderator37, i16::from(by_level), target37, action, node_id)
@@ -832,15 +862,19 @@ async fn run_requests(
                         to_raw_username(target37)
                     );
                 }
+                let outcome = if done {
+                    ModOutcome::Done
+                } else {
+                    ModOutcome::Refused
+                };
+                if let Some(reply) = reply {
+                    let _ = reply.send(outcome);
+                }
                 let _ = response_tx.send(DbResponse::Moderated {
                     moderator37,
                     target37,
                     action,
-                    outcome: if done {
-                        ModOutcome::Done
-                    } else {
-                        ModOutcome::Refused
-                    },
+                    outcome,
                 });
             }
             DbRequest::Ban { user37, hours } => {
@@ -903,7 +937,7 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
         }
     }
     Ok(LoadResult::Loaded(
-        save.map(|save| Box::new(from_save(*save))),
+        save.map(|save| Box::new(profile_from_save(*save))),
     ))
 }
 
@@ -1036,7 +1070,7 @@ fn to_save(profile: &PlayerProfile) -> PlayerSave {
 /// Rebuilds a [`PlayerProfile`] from its `player_saves` row. Short arrays are
 /// padded with defaults; the flattened `inv_*` arrays are regrouped per
 /// inventory (in any order).
-fn from_save(save: PlayerSave) -> PlayerProfile {
+pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
     fn fill<T: Copy, const N: usize>(default: T, values: impl Iterator<Item = T>) -> [T; N] {
         let mut out = [default; N];
         for (slot, v) in out.iter_mut().zip(values) {
@@ -1127,7 +1161,7 @@ mod tests {
             last_date: 1_700_000_000,
         };
 
-        let back = from_save(to_save(&profile));
+        let back = profile_from_save(to_save(&profile));
         assert_eq!((back.x, back.z, back.y), (3222, 3218, 1));
         assert_eq!(back.body, profile.body);
         assert_eq!(back.colors, profile.colors);
@@ -1316,7 +1350,7 @@ mod tests {
         }
 
         async fn save(&mut self, x: i16, logout: bool) -> SaveOutcome {
-            let profile = from_save(PlayerSave {
+            let profile = profile_from_save(PlayerSave {
                 x,
                 ..PlayerSave::default()
             });
@@ -1487,7 +1521,7 @@ mod tests {
 
     #[test]
     fn short_arrays_are_padded() {
-        let back = from_save(PlayerSave::default());
+        let back = profile_from_save(PlayerSave::default());
         assert_eq!(back.levels, [1; 21]);
         assert_eq!(back.stats, [0; 21]);
         assert!(back.invs.is_empty());

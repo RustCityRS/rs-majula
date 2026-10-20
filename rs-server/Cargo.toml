@@ -17,6 +17,8 @@ rs-engine = { workspace = true }
 rs-db = { workspace = true }
 rs-io = { workspace = true }
 rs-pack = { workspace = true }
+rs-admin-api = { workspace = true }
+rs-util = { workspace = true }
 
 anyhow = { workspace = true }
 axum = { workspace = true }
@@ -35,6 +37,7 @@ num_enum = { workspace = true }
 mimalloc = { workspace = true }
 libmimalloc-sys = { workspace = true }
 rand = "0.10"
+serde_json = { workspace = true }
 
 [build-dependencies]
 rs-ver = { workspace = true }

@@ -389,6 +389,26 @@ fn write_counters(out: &mut String) {
         "rs_db_log_rows_dropped_total {}",
         counters::get(&c.log_rows_dropped)
     );
+    for (name, help, counter) in [
+        (
+            "rs_db_replay_chunks_total",
+            "Session recording chunks stored.",
+            &c.replay_chunks,
+        ),
+        (
+            "rs_db_replay_bytes_total",
+            "Deflated bytes of the session recording chunks stored.",
+            &c.replay_bytes,
+        ),
+        (
+            "rs_db_replay_chunks_dropped_total",
+            "Session recording chunks lost to a full queue, a failed write or an offline database.",
+            &c.replay_chunks_dropped,
+        ),
+    ] {
+        family(out, name, "counter", help);
+        let _ = writeln!(out, "{name} {}", counters::get(counter));
+    }
 }
 
 /// A counter family with one series per label value.
@@ -457,7 +477,11 @@ mod tests {
         let mut out = String::new();
         write_counters(&mut out);
         let series: Vec<&str> = out.lines().filter(|l| !l.starts_with('#')).collect();
-        assert_eq!(series.len(), 2 + 2 + 3 + 12 + 1 + 5 + 6 + 6 + 3 + 1 + 1 + 1);
+        assert_eq!(
+            series.len(),
+            2 + 2 + 3 + 12 + 1 + 5 + 6 + 6 + 3 + 1 + 1 + 1 + 3
+        );
+        assert!(series.contains(&"rs_db_replay_chunks_dropped_total 0"));
         assert!(series.contains(&"rs_wealth_coins_total{type=\"shop_sell\"} 120"));
         assert!(series.contains(&"rs_wealth_items_total{type=\"shop_sell\"} 3"));
         assert!(series.contains(&"rs_wealth_coins_total{type=\"low_alch\"} 0"));

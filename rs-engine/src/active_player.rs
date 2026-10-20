@@ -3,6 +3,7 @@ use crate::clients::client_game::ClientHandle;
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::watch::{MapBase, Op, Target, Using, Watch};
 use rs_cam::CamKind;
 use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
@@ -161,13 +162,11 @@ pub struct ActivePlayer {
     pub user_limit: u8,
     pub restricted_limit: u8,
     pub remote_ip: Option<IpAddr>,
-    /// When the player's chat mute ends, `None` if not muted. Kept in step
-    /// with the database's `players.muted_until`.
     pub muted_until: Option<Instant>,
-    /// The tick of the player's last abuse report: one per tick.
     pub last_report: Option<u32>,
-    /// The tick of the player's last public or private chat: one per tick.
     pub last_social: Option<u32>,
+    pub watch: Box<Watch>,
+    pub(crate) capture: Option<Vec<Vec<u8>>>,
 }
 
 impl ActivePlayer {
@@ -214,6 +213,8 @@ impl ActivePlayer {
             muted_until: None,
             last_report: None,
             last_social: None,
+            watch: Box::default(),
+            capture: None,
         }
     }
 
@@ -234,6 +235,12 @@ impl ActivePlayer {
     where
         M: ServerProtMessage,
     {
+        if let Some(capture) = &mut self.capture {
+            if let Some(buf) = Self::plaintext(message) {
+                capture.push(buf.data);
+            }
+            return;
+        }
         match M::PRIORITY {
             ServerProtPriority::Buffered => self.queue_buffered(message),
             ServerProtPriority::Immediate => self.write_immediate(message),
@@ -258,10 +265,24 @@ impl ActivePlayer {
     where
         M: ServerProtMessage,
     {
+        let Some(buf) = Self::plaintext(message) else {
+            return;
+        };
+        self.watch
+            .remember(M::PROT as u8, M::FRAME as usize, &buf.data[1..]);
+        self.buffered.push(buf);
+    }
+
+    /// A message as a packet: opcode (unciphered), frame and body. `None`
+    /// past 5000 bytes.
+    fn plaintext<M>(message: M) -> Option<Packet>
+    where
+        M: ServerProtMessage,
+    {
         let frame = M::FRAME as usize;
         let len = 1 + frame + message.sizeof();
         if len > 5000 {
-            return;
+            return None;
         }
         let mut buf = Packet::new(len);
         buf.p1(M::PROT as u8);
@@ -274,7 +295,7 @@ impl ActivePlayer {
             PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
         }
         buf.data.truncate(buf.pos);
-        self.buffered.push(buf);
+        Some(buf)
     }
 
     /// Flushes all queued buffered packets to the network outbox.
@@ -288,7 +309,9 @@ impl ActivePlayer {
     /// **Called by:** [`encode`](Self::encode)
     fn write_buffered(&mut self) {
         let handle = &mut self.handle;
+        let clock = engine().clock;
         for mut buf in self.buffered.drain(..) {
+            self.watch.server(clock, buf.data[0], &buf.data[1..]);
             buf.data[0] = (buf.data[0] as u32 + handle.isaac_encode.next_int()) as u8;
             let _ = handle.outbox.send(buf.data);
         }
@@ -327,6 +350,10 @@ impl ActivePlayer {
             PacketFrame::VarByte => buf.psize1((buf.pos - start) as u8),
             PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
         }
+        self.watch
+            .server(engine().clock, M::PROT as u8, &buf.data[1..buf.pos]);
+        self.watch
+            .remember(M::PROT as u8, frame, &buf.data[1..buf.pos]);
         // Reuse a recycled outbound buffer instead of allocating a fresh
         // Vec per immediate message. The TCP net task returns drained buffers
         // via recycle_rx; copy the encoded bytes into one and send it. (The
@@ -400,7 +427,15 @@ impl ActivePlayer {
             self.player.refresh_modal = false;
         }
 
+        // The client's input report: sent now, then from a fresh start.
+        #[cfg(before_274)]
+        if engine().clock.is_multiple_of(crate::watch::TRACKING_TICKS) {
+            self.write(rs_protocol::network::game::server::finish_tracking::FinishTracking);
+            self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
+        }
+
         self.write_buffered();
+        self.watch.end_tick();
     }
 
     pub fn cam_moveto(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
@@ -852,6 +887,164 @@ impl ActivePlayer {
             });
         }
         self.logout();
+    }
+
+    /// Records a menu action the player chose, for the anti-cheat checks and
+    /// the replay's timeline.
+    pub fn watch_op(&mut self, op: Op) {
+        let clock = engine().clock;
+        let origin = self.player.build_area.origin;
+        let base = MapBase {
+            x: CoordGrid::zone_origin(origin.x()),
+            z: CoordGrid::zone_origin(origin.z()),
+        };
+        self.watch.op(op, clock, base);
+        if let Some(note) = self.op_note(op) {
+            self.watch.note(clock, &note);
+        }
+    }
+
+    /// Notes something the player did for the replay's timeline.
+    pub fn watch_note(&mut self, note: &str) {
+        self.watch.note(engine().clock, note);
+    }
+
+    /// Records a "use" or spell action, e.g. "Use Bones on Altar".
+    pub fn watch_use(&mut self, with: Using, on: Target) {
+        self.watch_op(Op::Other);
+        let engine = engine();
+        let obj = |id: u16| {
+            engine
+                .objs()
+                .get_by_id(id)
+                .and_then(|t| t.name.as_deref())
+                .unwrap_or("?")
+                .to_owned()
+        };
+        let with = match with {
+            Using::Item(id) => format!("Use {}", obj(id)),
+            Using::Spell(com) => format!("Cast {}", self.component_name(com)),
+        };
+        let on = match on {
+            Target::Npc(nid) => engine
+                .get_npc(nid)
+                .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
+                .and_then(|t| t.name.as_deref())
+                .unwrap_or("?")
+                .to_owned(),
+            Target::Loc(id) => engine
+                .locs()
+                .get_by_id(id)
+                .and_then(|t| t.name.as_deref())
+                .unwrap_or("?")
+                .to_owned(),
+            Target::Obj(id) | Target::Item(id) => obj(id),
+            Target::Player(pid) => engine
+                .get_player(pid)
+                .map(|p| p.uid().username())
+                .unwrap_or_else(|| "?".to_owned()),
+        };
+        self.watch_note(&format!("{with} on {on}"));
+    }
+
+    /// Records a click on interface component `com`.
+    pub fn watch_button(&mut self, com: u16) {
+        self.watch_op(Op::Other);
+        let note = format!("Click {}", self.component_name(com));
+        self.watch_note(&note);
+    }
+
+    /// Records a walk click on the game screen or the minimap.
+    pub fn watch_walk(&mut self, path: &[u32], minimap: bool) {
+        self.watch_op(Op::Other);
+        if let Some(&to) = path.last() {
+            let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
+            let on = if minimap { " (minimap)" } else { "" };
+            self.watch_note(&format!("Walk to {x}, {z}{on}"));
+        }
+    }
+
+    /// An interface component's name, e.g. `magic:wind_strike`.
+    fn component_name(&self, com: u16) -> String {
+        engine()
+            .interfaces()
+            .get_by_id(com)
+            .and_then(|i| i.com_name.as_deref())
+            .map_or_else(|| format!("component {com}"), str::to_owned)
+    }
+
+    /// How the player saw `op` in their menu, e.g. "Attack Goblin".
+    fn op_note(&self, op: Op) -> Option<String> {
+        let engine = engine();
+        fn named(
+            ops: Option<&[Option<Box<str>>]>,
+            op: u8,
+            name: Option<&str>,
+            kind: &str,
+        ) -> String {
+            let verb = ops
+                .and_then(|ops| ops.get(usize::from(op).checked_sub(1)?)?.as_deref())
+                .map(str::to_owned)
+                .unwrap_or_else(|| format!("{kind} op {op}"));
+            format!("{verb} {}", name.unwrap_or("?"))
+        }
+        Some(match op {
+            Op::Npc { op, nid } => {
+                let ty = engine
+                    .get_npc(nid)
+                    .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()));
+                named(
+                    ty.and_then(|t| t.op.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Npc",
+                )
+            }
+            Op::Loc { op, id, x, z } => {
+                let ty = engine.locs().get_by_id(id);
+                let what = named(
+                    ty.and_then(|t| t.op.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Loc",
+                );
+                format!("{what} at {x}, {z}")
+            }
+            Op::Obj { op, id, x, z } => {
+                let ty = engine.objs().get_by_id(id);
+                let what = named(
+                    ty.and_then(|t| t.op.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Obj",
+                );
+                format!("{what} at {x}, {z}")
+            }
+            Op::Player { op, pid } => {
+                let name = engine.get_player(pid).map(|p| p.uid().username());
+                format!("Player op {op} on {}", name.as_deref().unwrap_or("?"))
+            }
+            Op::Held { op, obj, .. } => {
+                let ty = engine.objs().get_by_id(obj);
+                named(
+                    ty.and_then(|t| t.iop.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Item",
+                )
+            }
+            // A shop's or bank's own options, named by the interface.
+            Op::InvButton { op, obj, com, .. } => named(
+                engine
+                    .interfaces()
+                    .get_by_id(com)
+                    .and_then(|i| i.iop.as_deref()),
+                op,
+                engine.objs().get_by_id(obj).and_then(|t| t.name.as_deref()),
+                "Button",
+            ),
+            Op::Other => return None,
+        })
     }
 
     /// This tick's [`LogBatch`], sent with [`DbRequest::Logs`], and where the
@@ -2055,7 +2248,7 @@ impl EnginePlayer for ActivePlayer {
     /// # Call Stack
     /// **Called by:** [`decode`](Self::decode)
     fn read(&mut self) -> Option<()> {
-        let (prot, data, info, short) = {
+        let (prot, opcode, data, info, short) = {
             let handle = &mut self.handle;
 
             let opcode = handle
@@ -2087,8 +2280,9 @@ impl EnginePlayer for ActivePlayer {
             let short = len < info.frame.min();
 
             let data: Vec<u8> = handle.read_queue.drain(..len).collect();
-            (prot, data, info, short)
+            (prot, opcode, data, info, short)
         };
+        self.watch.client(engine().clock, &prot, opcode, &data);
 
         #[rustfmt::skip]
         let success = if short {
@@ -2255,6 +2449,9 @@ impl EnginePlayer for ActivePlayer {
         }
         self.update_runenergy(self.player.runenergy);
         self.reset_anims();
+        // The client's own input report, for the replay and the checks.
+        #[cfg(before_274)]
+        self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
         let coord = self.player.pathing.coord;
         let snapshot_coord = CoordGrid::new(coord.x().saturating_sub(1), coord.y(), coord.z());
         self.player.pathing.last_step_coord = snapshot_coord;

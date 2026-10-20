@@ -9,12 +9,14 @@ use rs_vm::ScriptError;
 
 /// Handles the `EventTracking` client protocol message.
 ///
-/// No-op. The server accepts but ignores client input-tracking telemetry.
-/// This packet was removed from the protocol in revision 274.
+/// The client's input (mouse, keys, focus) since its last report, while the
+/// server has tracking on. Before 254 it's the only input report; after,
+/// only its keys are new. This packet was removed from the protocol in
+/// revision 274.
 ///
 /// # Arguments
 ///
-/// * `_` - The active player (unused).
+/// * `active` - The active player whose client sent this message.
 ///
 /// # Returns
 ///
@@ -25,7 +27,9 @@ use rs_vm::ScriptError;
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 #[cfg(before_274)]
 impl ClientGameHandler for EventTracking {
-    fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let ms = active.watch.ms();
+        active.watch.anticheat.tracking(ms, &self);
         Ok(())
     }
 }

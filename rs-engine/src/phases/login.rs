@@ -91,6 +91,7 @@ impl Engine {
             // be loaded before its final save lands.
             let busy = (self.find_pid_by_user37(user37).is_some() && !request.reconnect)
                 || self.logout_saves.contains_key(&user37)
+                || self.offline_edits.contains(&user37)
                 || self.pending_logins.iter().any(|p| p.user37 == user37);
             if busy {
                 let _ = request

@@ -2,6 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{HeldCheck, check_held};
+use crate::watch::{Target, Using};
 use rs_protocol::network::game::client::opheldu::OpHeldU;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_vm::ScriptError;
@@ -50,6 +51,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `engine_mut().run_script_by_state`
 impl ClientGameHandler for OpHeldU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_use(Using::Item(self.obj2), Target::Item(self.obj));
         if active.player.state.delayed {
             return Ok(());
         }

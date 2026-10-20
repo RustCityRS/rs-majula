@@ -155,8 +155,206 @@ cargo run -p rs-web   # http://localhost:8000
   port; `--metrics-host`/`--metrics-port` move it and `--metrics-port 0` turns
   it off. `--log-format json` writes JSON lines for journald and Loki;
   `deploy/grafana/web.alloy` ships both from the website's host.
+- The staff console posts news through the site's private admin API
+  (`127.0.0.1:8190`; `--admin-host`/`--admin-port`, `--admin-port 0` turns it
+  off). Its requests are signed with `RS_ADMIN_SECRET`, like the worlds';
+  release builds without the secret leave the admin API off.
+- News is written in Markdown and stored with the HTML rendered from it.
+  Images, GIFs and videos (PNG, JPEG, GIF, WebP, MP4, WebM, up to 50 MB,
+  checked by their content) are uploaded through the admin API, kept under
+  `--media-dir` (`RS_WEB_MEDIA_DIR`; `rs-web/media` in debug builds, and
+  release builds without it take no uploads) named by their content's hash,
+  and served at `/news/media/` with a year-long cache and range requests.
+  Keep that folder outside the release directory and back it up: it isn't in
+  the database.
 - Ctrl+C or SIGTERM stops taking connections and finishes open requests
   before exiting.
+
+----
+
+## Running the staff console
+
+`rs-admin` is a web console for running every world from one place. It works
+on phones too.
+
+- **Worlds:** reboot (with a countdown, optionally staggered across worlds,
+  and an optional reason players see with it), cancel a reboot, broadcast,
+  close a world to new logins (maintenance mode: players already on stay,
+  staff can still log in, a restart reopens it), and each world's tick time,
+  memory and connections.
+- **Players:** find anyone online, look anyone up (last seen, registered,
+  mutes, bans), and kick, mute or ban.
+- **Moderation:** who is muted or banned now, and every moderation action.
+- **Chat logs:** public chat and private messages, by player or world.
+  Viewing them is audited.
+- **Replays:** every session is recorded, and anti-cheat checks score it.
+  Watch any session in the game's own client, with the player's mouse drawn
+  on top and replayed into the client (menus, hovers and tabs show as they
+  did), at up to 8x, with a timeline of what they did ("Attack Goblin",
+  "Walk to 3222, 3218"). List only the sessions the checks flagged. Watching
+  is audited. See [Session replays and anti-cheat](#session-replays-and-anti-cheat).
+- **Staff** (developers only): add accounts, change roles and passwords,
+  reset 2FA, disable or remove. Each change needs the developer's password
+  and a fresh authenticator code.
+- **Stats and items** (developers only, on a player's page): set stats, give
+  or take items in the backpack, bank or any saved inventory, and move them.
+  A logged-in player is changed live by the world they're on; a logged-out
+  one has their save changed by any world, which claims their session for
+  the moment it takes, exactly as a login would, so they can't log in half
+  way through. Every change is audited.
+- **News** (developers only): write the website's news in Markdown, with
+  images, GIFs and videos (add them with the button, or paste or drop them
+  into the text), preview it as the site shows it, and post, edit or delete
+  it. It goes through the website's admin API (`--web-url`,
+  `RS_ADMIN_WEB_URL`; `http://127.0.0.1:8190` in debug builds).
+
+First-time setup, locally:
+
+```bash
+cargo world1                                                # a world; its admin API is on 8280
+cargo run -p rs-admin -- user add <name> --role developer   # a game staff account; asks for a password (12+ characters)
+cargo run -p rs-admin                                       # http://127.0.0.1:8150
+```
+
+Open http://127.0.0.1:8150, sign in, and scan the QR code with an
+authenticator app (Google Authenticator, 1Password, Aegis, ...); the console
+asks for its six-digit code at every sign-in after that. Debug builds share
+the secret `rs_admin` with debug worlds, so nothing else needs setting.
+
+- It talks to each world's private admin API (`--admin-port`, `8270 +
+  node_id`), never the database. Requests are HMAC-signed with
+  `RS_ADMIN_SECRET`, which the console and every world must share; worlds
+  refuse unsigned, stale or replayed requests. Mutes and bans go through a
+  world exactly as the in-game `::mute`/`::ban` do. Lookups (players,
+  moderation, chat) are answered by whichever world is online, from the
+  game database; each world keeps 2 database connections for them, apart
+  from the game's own.
+- `rs-admin/worlds.json` lists the worlds and where their admin APIs are
+  (`url`). It isn't `rs-web/worlds.json`: those addresses are public, these
+  are private. A world's `client` is its public web address
+  (`http://127.0.0.1:8080` locally): replays play on its `/replay` page, so
+  without one that world can't show them.
+- Accounts live in `rs-admin/data/users.json` (argon2 password hashes, TOTP
+  secrets), not the game database; `RS_ADMIN_DATA` (or `--data-dir`, before
+  the subcommand) moves the folder. Only game staff get accounts: adding one
+  (on the Staff page or with `user add`, which asks the worlds in `--worlds`
+  and needs `RS_ADMIN_SECRET`) looks the name up in the game and refuses it
+  unless that player's staff level is 1 or more. Every account sets
+  up an authenticator app at its first sign-in. Roles match the game's staff
+  levels (0 is a player):
+  `moderator` (1) kicks, mutes, bans, looks players up and reads chat logs;
+  `admin` (2) also reboots, broadcasts and toggles maintenance; `developer` (3)
+  also manages staff accounts, changes players' stats and items, and posts
+  news. Nobody can moderate someone at or above their
+  own level. Manage accounts on the Staff page, or with `rs-admin user
+  list|add|passwd|role|reset-2fa|disable|enable|remove` (the way to create
+  the first developer); changing a password, role or authenticator signs
+  that account out everywhere.
+- Everything done through it, sign-ins included, goes to
+  `rs-admin/data/audit.jsonl` and the `audit` log target.
+- Security: sessions are in memory (a restart signs everyone out), 30 minutes
+  idle / 12 hours max; `HttpOnly` + `SameSite=Strict` cookies, a CSRF token
+  and an Origin check on every change; strict CSP; 5 failed sign-ins lock an
+  account for 15 minutes.
+- Keep it private: it binds to `127.0.0.1` by default. On the tailnet, serve
+  it with `tailscale serve --bg 8150` and start it with `--https true
+  --origin https://<host>.<tailnet>.ts.net`. Keep each world's admin API on
+  its private address too (`--admin-host`).
+
+### Session replays and anti-cheat
+
+Every world records each player's session (`--replay-days`, 7 by default;
+`0` records nothing): every packet it sends them, minus the ISAAC cipher,
+and every packet their client sends back, in chunks deflated by a task with
+its own database connection, so saves never wait on it. Recordings go to
+`replays` and `replay_chunks` and are pruned once older than the setting.
+They're a few kilobytes per minute of play.
+
+**Replaying.** A world serves `/replay`: its own `client.js` with
+`replay.js` loaded first. The console frames it and hands it the recording.
+The script stands in for the world: it fakes the game connection and answers
+the login handshake, pinning `Math.random` while the client picks its ISAAC
+seeds so it can cipher the recorded packets the same way, and it runs the
+page on a virtual clock, so pause, speed and fast-forward drive the client's
+own game loop. Maps and models load from the world as usual. A recording
+plays on a world of the revision it was recorded at, with no changes to the
+clients: what the script needs from one (its login, scene state, camera and
+draw step, connection timeout) it finds in its code by pattern.
+
+**Seeking.** Fast-forwarding runs the client's game loop one tick (20ms) a
+step, many steps a task (a few ms of them at a time for the scout, so what's
+being watched stays smooth), and skips its drawing except just before a
+recorded click (its menus are built as it draws). One tick a step matters:
+the client works out how many ticks to run from how long its last steps
+took, and any other step leaves what it simulates (walking, the camera)
+behind the recording. Seeks match playing the same stretch normally. Every
+minute the world records a keyframe: what a client that has just logged in
+needs to show what the player's showed (the map and what's on it,
+inventories, the players and NPCs in view, and the last of each packet that
+sets lasting state, like interface text, varps and stats, plus recent chat).
+Going back, or more than 15 seconds forward, logs the client out with the
+game's own logout packet and in again from the nearest keyframe, then
+fast-forwards from there; no reload. Replays play no music: the client
+renders a whole song up front, a heavy load for seconds, run again on the
+fast clock. Sound effects still play.
+
+**Buffering.** While it plays, the page keeps a frame every half second of
+what the game showed, and a scout (a second, hidden, silent copy of the
+replay, `/replay?scout=1`, under the replay and covered by it; out of view,
+Chrome would run it once a second) sweeps the whole recording, coarse first
+and then down to a frame every 5 seconds (wider on long sessions, at most
+~600). Frames are kept up to 160 MB; past that every other one goes, so hours
+of play stay covered. Seeking somewhere buffered shows that frame at once
+while the client catches up behind it, hovering the timeline previews it (a
+spot not buffered yet jumps the scout's queue), and a bar under the timeline
+shows what's buffered.
+
+**The dock.** Loading the client takes seconds, so the console keeps one (and
+its scout) loaded between replays: started ahead of time on the replays
+list and a player's page, and only logged in to a recording when one opens
+(switching sessions is a logout and a login). Moving a frame in the page
+would reload it, so the dock is fixed on top of the page, laid over the
+replay page's stage, and waits out of sight (still in view) elsewhere; it's
+let go five minutes after the last replay page. The console also keeps
+finished recordings it has downloaded in memory (up to 256 MB) for the rest
+of the visit.
+
+**Input.** The player's input comes from the client's own reports: from 254,
+`EVENT_MOUSE_MOVE` (the cursor every 50ms), `EVENT_MOUSE_CLICK` and
+`EVENT_APPLET_FOCUS`; before 274, `EVENT_TRACKING` (mouse, keys, focus),
+which the world turns on at login and asks for every ~10 seconds (input from
+the last few seconds before a disconnect is lost). The 225 web client doesn't
+report mouse moves, so its replays show the cursor only where it clicked.
+The camera follows the client's `EVENT_CAMERA_POSITION` reports (225, 254+);
+244 and 245.2 have none, so their replays press the recorded arrow keys.
+Chat, private messages and `::` commands are typed into the client again from
+the packets that sent them (274+ report no keys at all), a key at a time and
+ending as they were sent, so the client shows them as it did; the timeline
+lists them too.
+
+**Free look.** The console's Free look button pauses and gives the viewer
+the client: their mouse works its menus, tabs and tooltips and the arrow keys
+turn the camera, while the player's cursor is still drawn. The recording
+stands still but the client keeps running, so it answers. What the client
+sends goes nowhere, and the viewer can't type into it. Turning it off (or
+playing) puts the client back as it was: if the viewer clicked or turned
+anything, it starts again from the nearest keyframe to the same spot.
+
+**The checks** (flags for review, never acted on):
+
+| Flag | Means |
+|---|---|
+| Modified client | An `ANTICHEAT_*` packet had the wrong contents (they're fixed per revision family: 225-245.2, 254-289). |
+| No game loop | 20+ actions and none of the heartbeats the client's game loop sends (`ANTICHEAT_CYCLELOGIC3/4`, from 254 `4/7`): it isn't running the client. |
+| Missing op checks | The client sends `ANTICHEAT_OPLOGIC*` with certain actions once a hidden count passes a threshold; the world mirrors the counts and expects them. |
+| Actions without clicks | 254+: over a quarter of 20+ actions came without the click the client reports alongside each. |
+| No mouse | 20+ actions and no mouse reports. |
+| Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last report. |
+| Clockwork clicks | 30+ clicks at very even intervals. |
+
+Each session's score is the sum of its flags' weights; the measurements
+behind them are kept with it. A real client scores 0; a packet bot that only
+sends walks scores 110 (no game loop, actions without clicks, no mouse).
 
 ----
 
@@ -189,11 +387,15 @@ before `migrate`).
 | `--db-pass <DB_PASS>`         | `RS_DB_PASS`; `password` in debug only | Postgres password. Required in release builds.                                                      |
 | `--pepper <PEPPER>`           | `RS_PEPPER`; `localhost` in debug only | Server-side pepper for password hashing. Required in release builds.                                |
 | `--cookie <COOKIE>`           | `RS_COOKIE`; `rs_secret` in debug only | Erlang cookie shared by every ether node in the cluster. Required in release builds.                |
+| `--admin-port <ADMIN_PORT>`   | `8270 + node_id` (`8280`)   | Private admin API the staff console (`rs-admin`) calls. `0` turns it off.                                     |
+| `--admin-host <ADMIN_HOST>`   | `127.0.0.1`                 | Bind address for the admin API. Keep it private (loopback or the Tailscale address).                          |
+| `--admin-secret <SECRET>`     | `RS_ADMIN_SECRET`; `rs_admin` in debug only | Shared with `rs-admin`, which signs every request with it. Required in release builds.        |
 | `--node-host <NODE_HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | Host part of this world's ether node name (`world<id>@<host>`); other worlds must be able to reach it.       |
 | `--cluster <CLUSTER>`         | `""` (`RS_CLUSTER_HOSTS`)   | Comma-separated ether node list (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10`..`world20` on `--node-host`. |
 | `--ether-release <PATH>`      | unset (`RS_ETHER_RELEASE`)  | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.               |
 | `--auto-register <BOOL>`      | `true` (debug) / `false` (release) | Register an unknown name on first login (debug builds also grant staff level 3). Off in release: players register on the website. Takes a value, e.g. `--auto-register false`. |
 | `--auto-migrate <BOOL>`       | `true` (debug) / `false` (release) | Apply pending migrations on startup. Off, the server only checks the schema is current and keeps logins offline until `rs-server migrate` has run. |
+| `--replay-days <DAYS>`        | `7` (`RS_REPLAY_DAYS`)      | Days to keep session recordings for the staff console's replays. `0` records nothing. |
 
 > [!NOTE]
 > `--client-pathfinder`, `--no-tui`, and `--verify` are boolean flags
@@ -207,8 +409,9 @@ before `migrate`).
 One website, many worlds, one shared Postgres. Each world runs its own ether
 node; the nodes mesh into one cluster for cross-world social features.
 
-1. **Secrets come from the environment.** Set `RS_DB_PASS`, `RS_PEPPER` and
-   `RS_COOKIE` (the website needs the first two). Release builds refuse to
+1. **Secrets come from the environment.** Set `RS_DB_PASS`, `RS_PEPPER`,
+   `RS_COOKIE` and `RS_ADMIN_SECRET` (the website needs the first two, the
+   staff console only the last). Release builds refuse to
    start without them. Flags would also work, but anyone who can list
    processes can read them.
 2. **Build ether once.** In `rs-ether/`: `MIX_ENV=prod mix deps.get` then
@@ -243,6 +446,27 @@ node; the nodes mesh into one cluster for cross-world social features.
    `proxy_set_header X-Real-IP $remote_addr;`), start the world with
    `--real-ip-header x-real-ip`, and bind it where only the proxy can reach it
    (e.g. `--host 127.0.0.1`).
+8. **Run one staff console, privately.** Put `rs-admin` on a host that can
+   reach every world's admin API over the private network (on the worlds'
+   host, they can stay on `127.0.0.1`), with the same `RS_ADMIN_SECRET` and
+   `RS_ADMIN_DATA` on persistent disk. List the worlds' private admin URLs in
+   a worlds file passed with `--worlds`. Serve it over HTTPS on the private
+   network only (e.g. `tailscale serve --bg 8150`), start it with
+   `--https true --origin https://<that host>`, and create the first account
+   with `rs-admin user add <name> --role developer` (in the console's
+   environment and with its `--worlds`, since it asks a world whether they're
+   game staff, so with the worlds up). Never expose it or an
+   admin API to the internet. Worlds restart after a console reboot only if
+   their service manager restarts them (systemd `Restart=always`). For news,
+   give `rs-web` the same `RS_ADMIN_SECRET` and an admin port the console can
+   reach privately (`--admin-host`, `--admin-port`), point the console at it
+   with `RS_ADMIN_WEB_URL`, give it a `--media-dir` outside the release
+   folder for news images and videos, and let the website's database login
+   insert, update and delete `news_posts`. For replays, give each world in
+   the console's worlds file its public `client` address (e.g.
+   `https://w1.example.com`); the console's browser loads `/replay` from it.
+9. **Keep recordings out of routine backups.** Session recordings are bulky
+   and short-lived: dump with `pg_dump --exclude-table-data=replay_chunks`.
 
 ----
 
