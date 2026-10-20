@@ -1,7 +1,7 @@
 use futures_util::StreamExt;
 use futures_util::stream;
 use rs_admin_api::{
-    MediaSaved, NONCE_HEADER, OnlinePlayer, PlayerRecord, ReplayGet, SIGNATURE_HEADER,
+    LiveReplay, MediaSaved, NONCE_HEADER, OnlinePlayer, PlayerRecord, ReplayGet, SIGNATURE_HEADER,
     TIMESTAMP_HEADER, WorldStatus, path,
 };
 use serde::de::DeserializeOwned;
@@ -205,6 +205,40 @@ impl Worlds {
             }
         }
         Err(error)
+    }
+
+    /// The next of a session going on now on `node`, to watch live (see
+    /// [`path::LIVE_REPLAY`]).
+    pub async fn live_replay(&self, node: u8, req: &LiveReplay) -> Result<Vec<u8>, String> {
+        let world = self
+            .get(node)
+            .ok_or("That world isn't in the console's list")?;
+        let body = serde_json::to_vec(req).expect("serialising a request");
+        let response = self
+            .send(
+                &world.url,
+                Server::World,
+                path::LIVE_REPLAY,
+                Some(body),
+                REPLAY_TIMEOUT,
+            )
+            .await
+            .map_err(|e| match e.message.as_str() {
+                "Not found" if req.token.is_some() => {
+                    "The world forgot this live view (it restarted, or the view went unused)"
+                        .to_owned()
+                }
+                "Not found" => "That recording is gone".to_owned(),
+                m if m.contains("409") => {
+                    "That session isn't going on on its world any more".to_owned()
+                }
+                _ => e.message,
+            })?;
+        response
+            .bytes()
+            .await
+            .map(|b| b.to_vec())
+            .map_err(|e| format!("Unreadable answer: {e}"))
     }
 
     /// The worlds that answered their last check.

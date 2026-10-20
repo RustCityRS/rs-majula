@@ -83,6 +83,9 @@ const ICONS = {
   briefcase: ['M4 8h16v11H4z', 'M9 8V5h6v3', 'M4 13h16'],
   inbox: ['M3 13h5l1.5 3h5l1.5-3h5', 'M5.5 5h13L21 13v6H3v-6z'],
   flag: ['M5 21V4', 'M5 4h12l-2 4 2 4H5'],
+  map: ['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z', 'M9 4v14', 'M15 6v14'],
+  target: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', 'M12 12h.01'],
+  radio: ['M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z', 'M8.5 8.5a5 5 0 0 0 0 7', 'M15.5 8.5a5 5 0 0 1 0 7', 'M5.6 5.6a9 9 0 0 0 0 12.8', 'M18.4 5.6a9 9 0 0 1 0 12.8'],
   clip: ['M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.7 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7'],
 };
 
@@ -802,6 +805,7 @@ const NAV = [
   { path: '/worlds', label: 'Worlds', icon: 'globe', page: worldsPage },
   { path: '/players', label: 'Players', icon: 'users', page: playersPage },
   { path: '/moderation', label: 'Moderation', icon: 'shield', page: moderationPage },
+  { path: '/investigate', label: 'Investigate', icon: 'target', page: investigatePage },
   { path: '/controls', label: 'Controls', icon: 'zap', page: controlsPage },
   { path: '/schedule', label: 'Schedule', icon: 'clock', page: schedulePage },
   { path: '/chat', label: 'Chat logs', icon: 'chat', page: chatPage },
@@ -1726,6 +1730,7 @@ function playerPage(ctx) {
     const act = (action) => () => moderateDialog(p.name, action, load);
     replace(head, pageHead(h('span', {}, p.name, ' ', playerBadges({ staff_level: p.staff_level })),
       p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
+      p.online_node != null && button('Watch live', { icon: 'radio', on: { click: () => watchLive(p.name) } }),
       p.online_node != null && button('Kick', { icon: 'kick', on: { click: act('kick') } }),
       button(muted ? 'Unmute' : 'Mute', { icon: muted ? 'undo' : 'mute', on: { click: act(muted ? 'unmute' : 'mute') } }),
       button(banned ? 'Unban' : 'Ban', { icon: banned ? 'undo' : 'ban', kind: banned ? undefined : 'danger', on: { click: act(banned ? 'unban' : 'ban') } }),
@@ -3303,8 +3308,19 @@ function casePage(ctx) {
 // ---------------------------------------------------------------------------
 // Chat logs
 
+// New chat comes in this often while the feed is live.
+const CHAT_LIVE_MS = 2000;
+// The most messages a live feed keeps on the page.
+const CHAT_LIVE_KEEP = 500;
+
 function chatPage(ctx) {
   let node = ctx.params.get('node') ? Number(ctx.params.get('node')) : null;
+  let live = ctx.params.get('live') === '1';
+  // The newest message shown, which the live feed carries on from.
+  let newest = null;
+  let feed = null;
+  let liveTimer = null;
+  const liveBtn = button('Live', { icon: 'radio', 'aria-pressed': String(live), title: 'Show new messages as they come in, newest at the top' });
   const nameInput = h('input', { class: 'input', type: 'search', placeholder: 'Player name (optional)', 'aria-label': 'Player', value: ctx.params.get('name') || '', maxlength: '12' });
   const worlds = h('div', { class: 'chips' });
   const body = h('div', { class: 'chat-list' });
@@ -3316,11 +3332,46 @@ function chatPage(ctx) {
       replace(body, h('div', { class: 'empty' }, 'That isn\'t a valid player name.'));
       return;
     }
-    history.replaceState(null, '', `/chat${query({ name, node }) ? `?${query({ name, node })}` : ''}`);
-    note.textContent = `${name ? `${name}'s` : 'Everyone\'s'} public chat and private messages${node ? ` on world ${state.worlds.find((w) => w.node === node)?.id ?? node}` : ', on every world'}, newest first. Viewing them is recorded in the audit log.`;
-    const paged = pagedList((before) => api('GET', `/lookup/chat?${query({ name, node, before })}`), chatItem, 'No chat matches.');
+    const q = query({ name, node, live: live ? 1 : null });
+    history.replaceState(null, '', `/chat${q ? `?${q}` : ''}`);
+    note.textContent = `${name ? `${name}'s` : 'Everyone\'s'} public chat and private messages${node ? ` on world ${state.worlds.find((w) => w.node === node)?.id ?? node}` : ', on every world'}, newest first${live ? ', as they come in' : ''}. Viewing them is recorded in the audit log.`;
+    newest = null;
+    const paged = pagedList((before) => api('GET', `/lookup/chat?${query({ name, node, before })}`).then((rows) => {
+      if (!before) newest = rows.length ? rows[0].id : 0;
+      return rows;
+    }), chatItem, 'No chat matches.');
+    feed = { list: paged.el[0], name, node };
     replace(body, paged.el);
   };
+  // The live feed: what's come since the newest shown, at the top.
+  const poll = async () => {
+    clearTimeout(liveTimer);
+    if (!live) return;
+    const current = feed;
+    if (current && newest !== null && !document.hidden) {
+      try {
+        const rows = await api('GET', `/lookup/chat?${query({ name: current.name, node: current.node, after: newest })}`);
+        if (current === feed && rows.length) {
+          newest = rows[rows.length - 1].id;
+          current.list.querySelector(':scope > .empty')?.remove();
+          for (const row of rows) {
+            const el = chatItem(row);
+            el.classList.add('fresh');
+            current.list.prepend(el);
+          }
+          while (current.list.children.length > CHAT_LIVE_KEEP) current.list.lastElementChild.remove();
+        }
+      } catch { /* the next poll tries again */ }
+    }
+    if (live) liveTimer = setTimeout(poll, CHAT_LIVE_MS);
+  };
+  liveBtn.addEventListener('click', () => {
+    live = !live;
+    liveBtn.setAttribute('aria-pressed', String(live));
+    load();
+    poll();
+  });
+  ctx.cleanup(() => { live = false; clearTimeout(liveTimer); });
   const drawWorlds = () => replace(worlds,
     h('button', { type: 'button', class: 'chip', 'aria-pressed': String(node === null), on: { click: () => { node = null; drawWorlds(); load(); } } }, 'All worlds'),
     state.worlds.map((w) => h('button', { type: 'button', class: 'chip', 'aria-pressed': String(node === w.node), on: { click: () => { node = w.node; drawWorlds(); load(); } } }, worldName(w))));
@@ -3328,9 +3379,10 @@ function chatPage(ctx) {
   drawWorlds();
   ctx.cleanup(onWorlds(() => { if (!worlds.children.length || worlds.children.length !== state.worlds.length + 1) drawWorlds(); }));
   load();
+  poll();
 
   return h('div', { class: 'page' },
-    pageHead('Chat logs', null, button('Refresh', { icon: 'refresh', on: { click: load } })),
+    pageHead('Chat logs', null, liveBtn, button('Refresh', { icon: 'refresh', on: { click: load } })),
     h('div', { class: 'toolbar' }, h('div', { class: 'search' }, icon('search'), nameInput), worlds),
     note,
     h('section', { class: 'card' }, body));
@@ -3367,7 +3419,7 @@ function replayItem(r, extra) {
     h('div', { class: 'list-main' },
       h('div', { class: 'list-title' },
         link(replayHref(r), { class: 'name-link' }, r.player), ' ',
-        r.live && h('span', { class: 'badge ok' }, 'Live'), ' ',
+        r.live && link(liveHref(r.id), { class: 'badge ok', title: 'Watch it live' }, icon('radio'), 'Live'), ' ',
         !r.complete && h('span', { class: 'badge warn', title: 'Part of it was lost: it stops early.' }, 'Incomplete'), ' ',
         r.flags.map(flagBadge), caseLinks(r.cases), dismissedBadge(r.dismissed)),
       h('div', { class: 'list-sub' },
@@ -3646,6 +3698,15 @@ async function dockWarm(replays) {
   } catch { /* only a head start */ }
 }
 
+// A replay file's JSON header.
+function fileHeader(file) {
+  const view = new DataView(file);
+  return JSON.parse(new TextDecoder().decode(new Uint8Array(file, 9, view.getUint32(5))));
+}
+
+// A live session is asked for what's new this often.
+const LIVE_POLL_MS = 2000;
+
 function replayPage(ctx) {
   const id = ctx.params.get('id') || '';
   const page = h('div', { class: 'page replay-page' });
@@ -3660,6 +3721,19 @@ function replayPage(ctx) {
   let origin = null;
   let file = null;
   let detail = null;
+  // Watching live (`live=1`, for a session still going on): the world's
+  // token for what comes next, how far behind its end to play, and what has
+  // come since the first file (sent again if the page has to load again).
+  let liveMode = ctx.params.get('live') === '1';
+  let liveToken = null;
+  let liveDelay = 0;
+  let liveTimer = null;
+  let liveEnded = false;
+  const appended = [];
+  let notes = [];
+  let total = 1;
+  // Whether the first catch-up after loading has been done (see onMain).
+  let caughtUp = false;
   let wantSpeed = 1;
   let wantPaused = false;
   let freeLook = false;
@@ -3686,6 +3760,8 @@ function replayPage(ctx) {
   const playBtn = button(null, { icon: 'pause', 'aria-label': 'Pause', title: 'Play / pause (space)', disabled: true });
   const backBtn = button('10', { icon: 'back', small: true, 'aria-label': 'Back 10 seconds', title: 'Back 10 seconds' });
   const forwardBtn = button('10', { icon: 'forward', small: true, 'aria-label': 'Forward 10 seconds', title: 'Forward 10 seconds' });
+  const edgeBtn = button('Now', { icon: 'radio', small: true, title: 'Back to as live as it gets' });
+  edgeBtn.classList.add('hidden');
   const lookBtn = button('Free look', { icon: 'eye', small: true, 'aria-pressed': 'false', title: 'Pause and use the client yourself: your mouse and arrow keys work its menus, tabs and camera. Nothing reaches the game, and turning it off puts the client back as it was.' });
   const footHint = h('span', { class: 'muted' }, 'Watching is recorded in the audit log.');
   const speeds = h('div', { class: 'segmented replay-speeds', role: 'group', 'aria-label': 'Speed' });
@@ -3826,6 +3902,10 @@ function replayPage(ctx) {
     mainLoaded = true;
     const copy = file.slice(0);
     send({ type: 'load', file: copy, seek: loadSeek, speed: wantSpeed, paused: wantPaused, freeLook }, [copy]);
+    for (const more of appended) {
+      const again = more.slice(0);
+      send({ type: 'append', file: again }, [again]);
+    }
     status.textContent = 'Starting the client...';
   };
 
@@ -3840,7 +3920,7 @@ function replayPage(ctx) {
       // The scout starts as soon as the replay plays (not with it: the two
       // share a thread, and loading both at once slows both), so the first
       // preview of somewhere unwatched doesn't wait for a client to load.
-      if (msg.live && !scout) requestShot(1000);
+      if (msg.live && !scout && !liveMode) requestShot(1000);
       // Hovering somewhere still waiting for a frame: ask again, in case
       // the first ask came before the page (or the scout) could answer.
       const waiting = hoverMs !== null && !(previewFrame !== null && Math.abs(previewFrame - hoverMs) <= previewWithin());
@@ -3851,6 +3931,12 @@ function replayPage(ctx) {
       const total = msg.durationMs || detail.replay.duration_ms;
       atMs = msg.ms;
       if (msg.seeking) seekHeard = true;
+      // Watching live, loading the client took a while, which it's now that
+      // far further behind: catch up, once.
+      if (liveMode && !caughtUp && msg.live && !msg.seeking && !msg.loading && seekingTo === null) {
+        caughtUp = true;
+        if (total - msg.ms > liveDelay + 4000) seek(Math.max(0, total - liveDelay));
+      }
       else if (seekingTo !== null && (seekHeard || performance.now() - seekSentAt > 1000)) seekingTo = null;
       // Seeking: shown at where it's going.
       const shownMs = seekingTo ?? (msg.seeking ? msg.seekTo : msg.ms);
@@ -3870,14 +3956,17 @@ function replayPage(ctx) {
         showSeek(null);
       }
       if (status.dataset.ended !== '1') {
-        status.textContent = msg.seeking ? '' : msg.loading ? 'Starting the client...' : msg.live ? '' : 'Reconnecting...';
+        const behind = liveMode && !liveEnded && msg.live
+          ? (msg.starved ? 'Live: waiting for more from the world...' : `Live, ${clock(Math.max(0, total - msg.ms) / 1000)} behind`)
+          : '';
+        status.textContent = msg.seeking ? '' : msg.loading ? 'Starting the client...' : msg.live ? behind : 'Reconnecting...';
       }
       for (const el of timeline.querySelectorAll('[data-ms]')) el.classList.toggle('past', Number(el.dataset.ms) <= shownMs);
     } else if (msg.type === 'ended') {
       wantPaused = true;
       drawPlay();
       status.dataset.ended = '1';
-      status.textContent = 'End of the recording.';
+      status.textContent = liveMode ? 'The session has ended.' : 'End of the recording.';
     } else if (msg.type === 'reload') {
       // A file from an older world: a fresh client, from there.
       status.dataset.ended = '';
@@ -3899,6 +3988,7 @@ function replayPage(ctx) {
   ctx.cleanup(() => document.removeEventListener('keydown', onKey));
 
   playBtn.addEventListener('click', togglePlay);
+  edgeBtn.addEventListener('click', () => seek(Math.max(0, total - liveDelay)));
   backBtn.addEventListener('click', () => skip(-10_000));
   forwardBtn.addEventListener('click', () => skip(10_000));
   lookBtn.addEventListener('click', () => {
@@ -3978,7 +4068,8 @@ function replayPage(ctx) {
   let scoutAsked = null;
   let scoutAskedAt = 0;
   const requestShot = (ms) => {
-    if (!detail?.player_url || !file) return;
+    // Live, the scout would only have what came first.
+    if (!detail?.player_url || !file || liveMode) return;
     const at = Math.max(1, Math.round(ms / 1000) * 1000);
     // Once per second of the timeline, unless that was a while ago.
     if (at === scoutAsked && performance.now() - scoutAskedAt < 3000) return;
@@ -4062,11 +4153,16 @@ function replayPage(ctx) {
       return;
     }
     const r = detail.replay;
+    if (liveMode && !r.live) {
+      liveMode = false;
+      toast('That session has ended; playing its recording.');
+    }
     const refs = [{ type: 'replay', id: r.id }];
     const caseTitle = r.flags.length ? `Flagged session: ${FLAGS[r.flags[0]]?.[0] || r.flags[0]}` : '';
     replace(head, pageHead(
       h('span', {}, playerLink(r.player), '\'s session', ' ', caseLinks(r.cases)),
       `${r.world ? `World ${r.world}` : `Node ${r.node}`} · ${fullTime(r.started_ms)} · ${clock(r.duration_ms / 1000)}${r.live ? ' so far (still playing)' : ''} · revision ${r.revision}`,
+      r.live && !liveMode && link(liveHref(r.id), { class: 'btn' }, icon('radio'), 'Watch live'),
       link(`/replays?${query({ name: r.player })}`, { class: 'btn' }, 'Their sessions'),
       button('Add to case', { icon: 'plus', on: { click: () => addToCaseDialog({ refs, player: r.player, what: ['this session'], title: caseTitle }) } }),
       button('Open case', { icon: 'briefcase', on: { click: () => newCaseDialog({ player: r.player, refs, what: ['this session'], title: caseTitle, priority: r.score >= 100 ? 'high' : 'normal' }) } })));
@@ -4090,7 +4186,17 @@ function replayPage(ctx) {
     // A finished recording never changes; a live one has grown since.
     const finished = !r.live && r.ended_ms != null;
     const kept = !finished ? null : replayCache.get(id) || await storedReplay(id);
-    if (kept) {
+    if (liveMode) {
+      try {
+        file = await fetchLive();
+      } catch (e) {
+        dockDetach(pageCtl);
+        cover.remove();
+        replace(stage, h('div', { class: 'empty' }, e.message));
+        status.textContent = '';
+        return;
+      }
+    } else if (kept) {
       file = kept;
       cacheReplay(id, file);
       // Not downloaded, so not audited by the download: say it was watched.
@@ -4118,17 +4224,75 @@ function replayPage(ctx) {
     }
 
     // The timeline: what they did, from the recording.
-    const view = new DataView(file);
-    const header = JSON.parse(new TextDecoder().decode(new Uint8Array(file, 9, view.getUint32(5))));
-    const total = header.durationMs || r.duration_ms || 1;
-    replace(marks, header.notes.map(([ms]) => h('span', { style: { left: `${Math.min(100, (ms / total) * 100)}%` } })));
-    replace(timeline, header.notes.length
-      ? header.notes.map(([ms, text]) => h('button', { type: 'button', class: 'list-item replay-note', dataset: { ms }, on: { click: () => seek(ms) } },
-        h('span', { class: 'num muted' }, clock(ms / 1000)), h('span', {}, text)))
-      : h('div', { class: 'empty' }, 'Nothing noted.'));
+    const header = fileHeader(file);
+    total = header.durationMs || r.duration_ms || 1;
+    notes = header.notes;
+    drawTimeline();
+    if (liveMode) {
+      liveToken = header.live.token;
+      liveDelay = header.live.delayMs || 0;
+      liveEnded = !!header.live.ended;
+      edgeBtn.classList.remove('hidden');
+      // From a little behind the end: what the player does comes in batches.
+      loadSeek = Math.max(0, total - liveDelay);
+      showSeek(loadSeek || null, 0);
+      liveTimer = setTimeout(pollLive, LIVE_POLL_MS);
+    }
     sendLoad();
     if (scoutReady && !scoutLoaded) onScout({ type: 'ready' });
   };
+  // The timeline's marks and notes, from what's come so far.
+  const drawTimeline = () => {
+    replace(marks, notes.map(([ms]) => h('span', { style: { left: `${Math.min(100, (ms / total) * 100)}%` } })));
+    replace(timeline, notes.length
+      ? notes.map(([ms, text]) => h('button', { type: 'button', class: 'list-item replay-note', dataset: { ms }, on: { click: () => seek(ms) } },
+        h('span', { class: 'num muted' }, clock(ms / 1000)), h('span', {}, text)))
+      : h('div', { class: 'empty' }, 'Nothing noted.'));
+  };
+
+  // The live session from its world: everything so far, then (with the
+  // token) what's come since.
+  const fetchLive = async () => {
+    const r = detail.replay;
+    const res = await fetch(`/api/replays/${id}/live?${query({ node: r.node, player: r.player, token: liveToken })}`, { credentials: 'same-origin' });
+    if (!res.ok) {
+      let message = `Request failed (${res.status})`;
+      try { message = (await res.json()).error || message; } catch { /* not JSON */ }
+      throw new Error(message);
+    }
+    return res.arrayBuffer();
+  };
+  const pollLive = async () => {
+    if (liveEnded || !liveToken) return;
+    try {
+      const more = await fetchLive();
+      const header = fileHeader(more);
+      appended.push(more);
+      if (mainLoaded) {
+        const copy = more.slice(0);
+        send({ type: 'append', file: copy }, [copy]);
+      }
+      total = Math.max(total, header.durationMs || 0);
+      if (header.notes.length) {
+        notes = notes.concat(header.notes);
+        drawTimeline();
+      } else {
+        // The marks are placed by the length so far.
+        replace(marks, notes.map(([ms]) => h('span', { style: { left: `${Math.min(100, (ms / total) * 100)}%` } })));
+      }
+      if (header.live?.ended) {
+        liveEnded = true;
+        toast('The session has ended: the rest of it plays to its end.');
+      }
+    } catch (e) {
+      liveEnded = true;
+      status.dataset.ended = '1';
+      status.textContent = `Stopped watching live: ${e.message}`;
+    }
+    if (!liveEnded) liveTimer = setTimeout(pollLive, LIVE_POLL_MS);
+  };
+  ctx.cleanup(() => { liveEnded = true; clearTimeout(liveTimer); });
+
   load();
 
   append(page,
@@ -4143,12 +4307,464 @@ function replayPage(ctx) {
           time,
           speeds,
           sizes,
+          edgeBtn,
           lookBtn),
         h('div', { class: 'replay-foot' }, status, footHint)),
       h('div', { class: 'replay-side' },
         h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Anti-cheat checks')), h('div', { class: 'card-body' }, checks)),
         h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'What they did')), timeline))));
   return page;
+}
+
+// ---------------------------------------------------------------------------
+// Investigate: watching everyone at once. A live map of where players are
+// (the world's own map viewer, framed, with the dots sent to it), the
+// players the anti-cheat checks flag most, and groups of accounts that look
+// like one bot farm.
+
+const INVESTIGATE_TABS = [['map', 'Live map'], ['anticheat', 'Anti-cheat'], ['farms', 'Bot farms']];
+const WINDOWS = [['24h', 'Last 24 hours'], ['7d', 'Last 7 days'], ['30d', 'Last 30 days']];
+
+// The live recording of `name`'s session, watched live.
+async function watchLive(name) {
+  try {
+    const [r] = await api('GET', `/replays?${query({ name })}`);
+    if (!r || !r.live) {
+      toast(`${name} has no session going on now.`, 'error');
+      return;
+    }
+    navigate(`/replay?${query({ id: r.id, live: 1 })}`);
+  } catch (e) {
+    toast(e.message, 'error');
+  }
+}
+
+const liveHref = (id) => `/replay?${query({ id, live: 1 })}`;
+
+// A small menu by the pointer: closed by Escape, a click elsewhere, or
+// picking from it.
+function popover(x, y, ...children) {
+  document.querySelector('.popover')?.remove();
+  const el = h('div', { class: 'popover', role: 'menu' }, children);
+  document.body.append(el);
+  const r = el.getBoundingClientRect();
+  el.style.left = `${Math.max(8, Math.min(window.innerWidth - r.width - 8, x))}px`;
+  el.style.top = `${Math.max(8, Math.min(window.innerHeight - r.height - 8, y))}px`;
+  const close = () => {
+    el.remove();
+    document.removeEventListener('pointerdown', outside, true);
+    document.removeEventListener('keydown', onKey, true);
+  };
+  const outside = (e) => { if (!el.contains(e.target)) close(); };
+  const onKey = (e) => { if (e.key === 'Escape') close(); };
+  setTimeout(() => {
+    document.addEventListener('pointerdown', outside, true);
+    document.addEventListener('keydown', onKey, true);
+  }, 0);
+  el.addEventListener('click', (e) => { if (e.target.closest('a, button')) close(); });
+  return close;
+}
+
+// What can be done to an online player from the map.
+function playerActions(p, refresh) {
+  const act = (action) => () => moderateDialog(p.name, action, refresh);
+  return h('div', { class: 'pop-row' },
+    h('div', { class: 'pop-main' },
+      h('b', {}, playerLink(p.name)), ' ', playerBadges(p),
+      p.flagged > 0 && h('span', { class: 'badge danger', title: `Flagged by the checks in the last day: highest score ${p.flagged}` }, icon('alert'), p.flagged),
+      h('div', { class: 'list-sub num' }, `World ${p.world} · ${where(p.x, p.z, p.level)}`)),
+    h('div', { class: 'chips' },
+      p.replay && link(liveHref(p.replay), { class: 'btn small', title: 'Watch their session live' }, icon('play'), 'Live'),
+      button(null, { small: true, icon: 'kick', 'aria-label': `Kick ${p.name}`, title: 'Kick', on: { click: act('kick') } }),
+      button(null, { small: true, icon: 'mute', 'aria-label': `Mute ${p.name}`, title: 'Mute', on: { click: act('mute') } }),
+      button(null, { small: true, icon: 'ban', 'aria-label': `Ban ${p.name}`, title: 'Ban', on: { click: act('ban') } })));
+}
+
+// Where players stand close together: `size` or more within `tiles` of the
+// first, on the same floor, on any world. Biggest first.
+function hotspots(players, size, tiles = 4) {
+  const cells = new Map();
+  const cellOf = (x, z, level) => `${level}:${Math.floor(x / tiles)}:${Math.floor(z / tiles)}`;
+  for (const p of players) {
+    const key = cellOf(p.x, p.z, p.level);
+    if (!cells.has(key)) cells.set(key, []);
+    cells.get(key).push(p);
+  }
+  const taken = new Set();
+  const spots = [];
+  const byCount = [...players].sort((a, b) => (cells.get(cellOf(b.x, b.z, b.level)).length - cells.get(cellOf(a.x, a.z, a.level)).length));
+  for (const p of byCount) {
+    if (taken.has(p)) continue;
+    const near = [];
+    const cx = Math.floor(p.x / tiles);
+    const cz = Math.floor(p.z / tiles);
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        for (const q of cells.get(`${p.level}:${cx + dx}:${cz + dz}`) || []) {
+          if (!taken.has(q) && Math.abs(q.x - p.x) <= tiles && Math.abs(q.z - p.z) <= tiles) near.push(q);
+        }
+      }
+    }
+    if (near.length >= size) {
+      near.forEach((q) => taken.add(q));
+      const x = Math.round(near.reduce((s, q) => s + q.x, 0) / near.length);
+      const z = Math.round(near.reduce((s, q) => s + q.z, 0) / near.length);
+      spots.push({ x, z, level: p.level, players: near });
+    }
+  }
+  return spots.sort((a, b) => b.players.length - a.players.length);
+}
+
+// The surface the world map shows, in tiles.
+const onSurface = (p) => p.x >= 2048 && p.x < 3648 && p.z >= 2624 && p.z < 4032;
+
+function liveMapTab(ctx, params) {
+  const host = state.worlds.find((w) => w.online && w.client);
+  if (!host) {
+    return h('section', { class: 'card' }, h('div', { class: 'empty' }, icon('alert'),
+      'No online world has a public address (client) in the console\'s worlds file to show the map from.'));
+  }
+  const url = `${host.client.replace(/\/+$/, '')}/livemap`;
+  const origin = new URL(url).origin;
+  const frame = h('iframe', { class: 'livemap-frame', src: url, title: 'Live map', referrerpolicy: 'no-referrer' });
+  const stage = h('div', { class: 'livemap-stage' }, frame);
+  const summary = h('div', { class: 'livemap-summary muted' }, 'Loading players...');
+  const searchInput = h('input', { class: 'input', type: 'search', placeholder: 'Find an online player', 'aria-label': 'Find a player', maxlength: '12' });
+  const found = h('div', { class: 'list' });
+  const spotsList = h('div', { class: 'list' });
+  const worldChips = h('div', { class: 'chips' });
+  const sizeChips = h('div', { class: 'segmented livemap-sizes', role: 'group', 'aria-label': 'Hotspot size' });
+  let node = null;
+  let spotSize = 4;
+  let players = [];
+  let flagged = new Map();
+  let ready = false;
+  let selected = (params.get('select') || '').split(',').map((n) => n.trim()).filter(Boolean);
+
+  const shown = () => players.filter((p) => node === null || p.node === node);
+  const tone = (p) => (flagged.has(nameKey(p.name)) ? 'flagged' : p.staff_level > 0 ? 'staff' : p.muted ? 'muted' : 'normal');
+  const post = (msg) => frame.contentWindow?.postMessage(msg, origin);
+  const sendPlayers = () => {
+    if (!ready) return;
+    post({ type: 'players', players: shown().filter(onSurface).map((p) => ({ name: p.name, x: p.x, z: p.z, level: p.level, tone: tone(p) })) });
+  };
+  const decorate = (p) => ({ ...p, flagged: flagged.get(nameKey(p.name)) || 0 });
+  const focusOn = (p, names) => {
+    selected = names || [p.name];
+    post({ type: 'select', names: selected });
+    if (onSurface(p)) post({ type: 'focus', x: p.x, z: p.z });
+    else toast(`${p.name ?? 'They'} are off the surface map (${where(p.x, p.z, p.level)}).`, 'error');
+  };
+
+  const drawWorlds = () => replace(worldChips,
+    h('button', { type: 'button', class: 'chip', 'aria-pressed': String(node === null), on: { click: () => { node = null; drawWorlds(); draw(); } } }, 'All worlds'),
+    state.worlds.filter((w) => w.online).map((w) => h('button', { type: 'button', class: 'chip', 'aria-pressed': String(node === w.node), on: { click: () => { node = w.node; drawWorlds(); draw(); } } }, worldName(w))));
+  const drawSizes = () => replace(sizeChips, [3, 4, 6, 10].map((n) => h('button', {
+    type: 'button', 'aria-pressed': String(spotSize === n), title: `${n} or more players within 4 tiles`,
+    on: { click: () => { spotSize = n; drawSizes(); draw(); } },
+  }, `${n}+`)));
+
+  const drawFound = () => {
+    const q = nameKey(searchInput.value);
+    if (!q) {
+      replace(found);
+      return;
+    }
+    const hits = shown().filter((p) => nameKey(p.name).includes(q)).slice(0, 8);
+    replace(found, hits.length
+      ? hits.map((p) => h('button', { type: 'button', class: 'list-item spot-item', on: { click: () => focusOn(p) } },
+        h('div', { class: 'list-main' }, h('div', { class: 'list-title' }, h('b', {}, p.name), ' ', playerBadges(p)),
+          h('div', { class: 'list-sub num' }, `World ${p.world} · ${where(p.x, p.z, p.level)}`))))
+      : h('div', { class: 'empty' }, 'Nobody online matches.'));
+  };
+
+  const draw = () => {
+    const list = shown();
+    const surface = list.filter(onSurface);
+    const flaggedOnline = list.filter((p) => flagged.has(nameKey(p.name))).length;
+    replace(summary,
+      h('span', {}, h('b', { class: 'num' }, list.length.toLocaleString()), ' online'),
+      h('span', {}, h('b', { class: 'num' }, (list.length - surface.length).toLocaleString()), ' underground or elsewhere'),
+      h('span', { class: flaggedOnline ? 'tone-danger' : '' }, h('b', { class: 'num' }, flaggedOnline), ' flagged in the last day'));
+    const spots = hotspots(list, spotSize);
+    replace(spotsList, spots.length
+      ? spots.slice(0, 30).map((s) => {
+        const bad = s.players.filter((p) => flagged.has(nameKey(p.name))).length;
+        const worlds = [...new Set(s.players.map((p) => p.world))];
+        return h('button', { type: 'button', class: 'list-item spot-item', on: { click: () => focusOn({ x: s.x, z: s.z, level: s.level }, s.players.map((p) => p.name)) } },
+          h('div', { class: `list-icon ${bad ? 'danger' : ''}` }, h('b', { class: 'num' }, s.players.length)),
+          h('div', { class: 'list-main' },
+            h('div', { class: 'list-title' }, clip(s.players.map((p) => p.name).join(', '), 70)),
+            h('div', { class: 'list-sub num' }, `${where(s.x, s.z, s.level)} · ${worlds.length === 1 ? `World ${worlds[0]}` : plural(worlds.length, 'world')}${bad ? ` · ${bad} flagged` : ''}`)));
+      })
+      : h('div', { class: 'empty' }, `No ${spotSize} or more players stand together.`));
+    drawFound();
+    sendPlayers();
+  };
+
+  const load = async () => {
+    try {
+      const data = await api('GET', '/live/players');
+      players = data.players.map(decorate);
+      if (data.unreachable.length) toast(`${plural(data.unreachable.length, 'world')} didn't answer.`, 'error');
+      draw();
+    } catch (e) {
+      summary.textContent = e.message;
+    }
+  };
+  const loadFlagged = async () => {
+    try {
+      const board = await api('GET', '/live/anticheat?window=24h');
+      flagged = new Map(board.leaders.map((l) => [nameKey(l.name), l.max_score]));
+      players = players.map(decorate);
+      draw();
+    } catch { /* the map works without */ }
+  };
+
+  const onMessage = (e) => {
+    if (e.source !== frame.contentWindow || e.origin !== origin || e.data?.source !== 'rs-livemap') return;
+    const msg = e.data;
+    if (msg.type === 'ready') {
+      ready = true;
+      sendPlayers();
+      if (selected.length) {
+        const first = players.find((p) => selected.includes(p.name));
+        post({ type: 'select', names: selected });
+        if (first && onSurface(first)) post({ type: 'focus', x: first.x, z: first.z });
+      }
+    } else if (msg.type === 'pick' && Array.isArray(msg.names)) {
+      const picked = msg.names.map((n) => players.find((p) => p.name === n)).filter(Boolean);
+      if (!picked.length) return;
+      const r = frame.getBoundingClientRect();
+      popover(r.left + msg.x + 8, r.top + msg.y + 8,
+        picked.length > 1 && h('div', { class: 'pop-head' }, `${picked.length} players here`),
+        h('div', { class: 'pop-list' }, picked.slice(0, 40).map((p) => playerActions(p, load))),
+        picked.length > 40 && h('div', { class: 'pop-head muted' }, `and ${picked.length - 40} more`));
+    }
+  };
+  window.addEventListener('message', onMessage);
+  ctx.cleanup(() => window.removeEventListener('message', onMessage));
+  searchInput.addEventListener('input', drawFound);
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const q = nameKey(searchInput.value);
+    const p = shown().find((x) => nameKey(x.name) === q) || shown().find((x) => nameKey(x.name).includes(q));
+    if (p) focusOn(p);
+  });
+  drawWorlds();
+  drawSizes();
+  load();
+  loadFlagged();
+  const timer = setInterval(() => { if (!document.hidden) load(); }, 3000);
+  const flaggedTimer = setInterval(() => { if (!document.hidden) loadFlagged(); }, 5 * 60 * 1000);
+  ctx.cleanup(() => { clearInterval(timer); clearInterval(flaggedTimer); document.querySelector('.popover')?.remove(); });
+
+  const legend = h('div', { class: 'livemap-legend' },
+    [['normal', 'Player'], ['flagged', 'Flagged in the last day'], ['staff', 'Staff'], ['muted', 'Muted']]
+      .map(([t, label]) => h('span', {}, h('i', { class: `map-dot ${t}` }), label)),
+    h('span', { class: 'muted' }, 'Click a dot for what you can do. Drag to move, 1-4 to zoom.'));
+  return h('div', { class: 'livemap-layout' },
+    h('section', { class: 'card livemap-card' }, stage, h('div', { class: 'livemap-foot' }, summary, legend)),
+    h('div', { class: 'column' },
+      h('section', { class: 'card' },
+        h('div', { class: 'livemap-tools' }, h('div', { class: 'search' }, icon('search'), searchInput), worldChips),
+        found),
+      h('section', { class: 'card' },
+        h('div', { class: 'card-head' }, h('h2', {}, 'Hotspots'), h('div', { class: 'actions' }, sizeChips)),
+        h('p', { class: 'card-note muted' }, 'Players standing within 4 tiles of each other. Bot farms bunch up; so do banks.'),
+        h('div', { class: 'spot-list' }, spotsList))));
+}
+
+// A leader's highest score in each stretch of the window, as bars.
+function trendBars(trend, sinceMs) {
+  const svg = document.createElementNS(SVG, 'svg');
+  const w = 120;
+  const hgt = 28;
+  const n = trend.length || 1;
+  const gap = n > 24 ? 1 : 2;
+  const bw = Math.max(1, (w - gap * (n - 1)) / n);
+  const top = Math.max(100, ...trend);
+  const span = Date.now() - sinceMs;
+  svg.setAttribute('viewBox', `0 0 ${w} ${hgt}`);
+  svg.setAttribute('class', 'trend');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', `Highest score per stretch, oldest first: ${trend.join(', ')}`);
+  trend.forEach((v, i) => {
+    const x = i * (bw + gap);
+    const hit = document.createElementNS(SVG, 'rect');
+    hit.setAttribute('x', x);
+    hit.setAttribute('y', 0);
+    hit.setAttribute('width', bw + gap);
+    hit.setAttribute('height', hgt);
+    hit.setAttribute('class', 'trend-hit');
+    const title = document.createElementNS(SVG, 'title');
+    const from = sinceMs + (span * i) / n;
+    title.textContent = `${shortTime(from)}: ${v ? `highest score ${v}` : 'nothing flagged'}`;
+    hit.append(title);
+    const bar = document.createElementNS(SVG, 'rect');
+    const bh = v ? Math.max(2, (v / top) * (hgt - 2)) : 1;
+    bar.setAttribute('x', x);
+    bar.setAttribute('y', hgt - bh);
+    bar.setAttribute('width', bw);
+    bar.setAttribute('height', bh);
+    bar.setAttribute('rx', Math.min(1.5, bw / 2));
+    bar.setAttribute('class', v ? 'trend-bar' : 'trend-zero');
+    svg.append(bar, hit);
+  });
+  return svg;
+}
+
+// Whether a leader is getting worse: more flagged in the latest third of the
+// window than in the rest, by stretch.
+function trendWord(trend) {
+  const n = trend.length;
+  if (n < 3) return null;
+  const cut = Math.floor((n * 2) / 3);
+  const rate = (a) => a.filter((v) => v > 0).length / Math.max(1, a.length);
+  const early = rate(trend.slice(0, cut));
+  const late = rate(trend.slice(cut));
+  if (late > early * 1.5 && late > 0) return h('span', { class: 'badge danger', title: 'Flagged more often lately than earlier in the window' }, 'Rising');
+  if (late === 0 && early > 0) return h('span', { class: 'badge', title: 'Nothing flagged lately' }, 'Quiet lately');
+  return null;
+}
+
+function anticheatTab(ctx, params, go) {
+  const win = WINDOWS.some(([k]) => k === params.get('window')) ? params.get('window') : '24h';
+  const chips = h('div', { class: 'chips' }, WINDOWS.map(([k, label]) =>
+    h('button', { type: 'button', class: 'chip', 'aria-pressed': String(win === k), on: { click: () => go('anticheat', { window: k }) } }, label)));
+  const body = h('div', { class: 'table-wrap' }, spinnerList());
+  const note = h('p', { class: 'muted' });
+
+  api('GET', `/live/anticheat?${query({ window: win })}`).then((board) => {
+    note.textContent = `Players with sessions flagged by the anti-cheat checks since ${fullTime(board.since_ms)}, most flagged first. The bars are each stretch's highest score.`;
+    if (!board.leaders.length) {
+      replace(body, h('div', { class: 'empty' }, icon('check'), 'No sessions were flagged in this window.'));
+      return;
+    }
+    replace(body, h('table', { class: 'table leaders' },
+      h('thead', {}, h('tr', {},
+        h('th', { class: 'num' }, '#'), h('th', {}, 'Player'), h('th', { class: 'num', title: 'Flagged sessions / all sessions' }, 'Flagged'),
+        h('th', { class: 'num' }, 'Top'), h('th', { class: 'num', title: 'Every flagged session\'s score, added up' }, 'Total'),
+        h('th', {}, 'Over the window'), h('th', {}, 'Checks failed'), h('th', {}, 'Last flagged'), h('th', {}))),
+      h('tbody', {}, board.leaders.map((l, i) => h('tr', {},
+        h('td', { class: 'num muted' }, i + 1),
+        h('td', {}, h('div', { class: 'name-cell' }, playerLink(l.name),
+          l.online_world && h('span', { class: 'badge ok', title: 'Online now' }, `W${l.online_world}`),
+          l.banned_until_ms && h('span', { class: 'badge danger' }, 'Banned'),
+          l.muted_until_ms && h('span', { class: 'badge warn' }, 'Muted'))),
+        h('td', { class: 'num' }, `${l.flagged} / ${l.sessions}`),
+        h('td', { class: `num ${l.max_score >= 100 ? 'tone-danger' : ''}` }, l.max_score),
+        h('td', { class: 'num' }, l.total_score.toLocaleString()),
+        h('td', {}, h('div', { class: 'trend-cell' }, trendBars(l.trend, board.since_ms), trendWord(l.trend))),
+        h('td', {}, h('div', { class: 'chips' }, l.flags.map(flagBadge))),
+        h('td', { class: 'num muted', title: fullTime(l.last_flagged_ms) }, ago(l.last_flagged_ms)),
+        h('td', {}, h('div', { class: 'chips nowrap' },
+          link(`/replays?${query({ name: l.name, flagged: 1 })}`, { class: 'btn small ghost' }, 'Sessions'),
+          l.online_world && button('Live', { small: true, icon: 'play', title: 'Watch their session live', on: { click: () => watchLive(l.name) } }),
+          button(null, { small: true, icon: 'briefcase', 'aria-label': `Open a case on ${l.name}`, title: 'Open case', on: { click: () => newCaseDialog({ player: l.name, title: `Flagged by the checks: ${FLAGS[l.flags[0]]?.[0] || 'anti-cheat'}`, priority: l.max_score >= 100 ? 'high' : 'normal' }) } }),
+          button(null, { small: true, icon: 'ban', 'aria-label': `Ban ${l.name}`, title: 'Ban', on: { click: () => moderateDialog(l.name, 'ban') } }))))))));
+  }).catch((e) => failed(body, e));
+
+  return h('div', { class: 'column' },
+    h('div', { class: 'toolbar' }, chips),
+    note,
+    h('section', { class: 'card' }, body));
+}
+
+const REASONS = {
+  registered: (r) => ['Registered from one address', r.ip],
+  logged_in: (r) => ['Logged in from one address', r.ip],
+  together: () => ['Registered within 15 minutes', null],
+  names: () => ['Names alike', null],
+  rhythm: () => ['The same even click rhythm', null],
+  spot: () => ['Saved at the same spot', null],
+  hours: () => ['Play the same hours', null],
+};
+
+// Which hours of the day (UTC) an account played, as a strip of 24 cells.
+function hourStrip(hours) {
+  const top = Math.max(1, ...hours);
+  return h('div', { class: 'hours', role: 'img', 'aria-label': `Sessions by hour of day (UTC): ${hours.join(', ')}` },
+    hours.map((n, i) => h('span', {
+      class: n ? 'on' : '',
+      title: `${String(i).padStart(2, '0')}:00 UTC: ${plural(n, 'session')}`,
+      style: n ? { opacity: String(0.35 + (0.65 * n) / top) } : null,
+    })));
+}
+
+function farmCard(f) {
+  const names = f.members.map((m) => m.name);
+  const online = f.members.filter((m) => m.online_world);
+  const banned = f.members.filter((m) => m.banned_until_ms).length;
+  const shared = f.shared.map((s) => {
+    const [label, ip] = (REASONS[s.kind] || (() => [s.kind, null]))(s);
+    return h('span', { class: `badge ${s.kind === 'registered' || s.kind === 'rhythm' ? 'danger' : ''}`, title: `${s.accounts} of the ${f.members.length} accounts` },
+      label, ip && h('span', { class: 'mono' }, ` ${ip}`), h('span', { class: 'num muted' }, ` ×${s.accounts}`));
+  });
+  return h('section', { class: 'card farm' },
+    h('div', { class: 'card-head' },
+      h('h2', {}, `${f.members.length} accounts`),
+      h('span', { class: 'badge', title: 'Bigger groups, more in common and flagged sessions score higher' }, `score ${f.score}`),
+      banned > 0 && h('span', { class: 'badge danger' }, `${banned} banned`),
+      online.length > 0 && h('span', { class: 'badge ok' }, `${online.length} online`),
+      h('div', { class: 'actions' },
+        online.length > 0 && link(`/investigate?${query({ tab: 'map', select: online.map((m) => m.name).join(',') })}`, { class: 'btn small ghost' }, icon('pin'), 'On the map'),
+        button('Open case', { small: true, icon: 'briefcase', on: { click: () => newCaseDialog({ player: names[0], title: `Possible bot farm: ${clip(listNames(names), 80)}`, priority: f.score >= 100 ? 'high' : 'normal' }) } }))),
+    h('div', { class: 'farm-shared' }, shared),
+    h('div', { class: 'list' }, f.members.map((m) => h('div', { class: 'list-item farm-member' },
+      h('div', { class: 'list-main' },
+        h('div', { class: 'list-title' }, h('b', {}, playerLink(m.name)), ' ',
+          m.online_world && h('span', { class: 'badge ok' }, `W${m.online_world}`),
+          m.banned_until_ms && h('span', { class: 'badge danger' }, 'Banned'),
+          m.muted_until_ms && h('span', { class: 'badge warn' }, 'Muted'),
+          m.flagged > 0 && h('span', { class: 'badge danger', title: `Flagged sessions; highest score ${m.max_score}` }, icon('alert'), `${m.flagged} flagged`)),
+        h('div', { class: 'list-sub' }, joined([
+          `registered ${ago(m.registered_ms)}`,
+          `${plural(m.sessions, 'session')}, ${span(m.play_ms / 1000)}`,
+          m.rhythm != null && `rhythm ${m.rhythm.toFixed(3)}`,
+          m.x != null && h('span', { class: 'num' }, where(m.x, m.z, m.level)),
+          m.registration_ip && h('span', { class: 'mono', title: 'Registered from' }, m.registration_ip),
+        ]))),
+      hourStrip(m.hours),
+      h('div', { class: 'chips nowrap' },
+        m.online_world && button(null, { small: true, icon: 'play', 'aria-label': `Watch ${m.name} live`, title: 'Watch live', on: { click: () => watchLive(m.name) } }),
+        button(null, { small: true, icon: 'ban', 'aria-label': `Ban ${m.name}`, title: 'Ban', on: { click: () => moderateDialog(m.name, 'ban') } }))))));
+}
+
+function farmsTab(ctx, params, go) {
+  const win = WINDOWS.some(([k]) => k === params.get('window')) ? params.get('window') : '7d';
+  const chips = h('div', { class: 'chips' }, WINDOWS.map(([k, label]) =>
+    h('button', { type: 'button', class: 'chip', 'aria-pressed': String(win === k), on: { click: () => go('farms', { window: k }) } }, label)));
+  const body = h('div', { class: 'column' }, h('section', { class: 'card' }, spinnerList()));
+  const note = h('p', { class: 'muted' }, 'Weighing accounts...');
+
+  api('GET', `/live/farms?${query({ window: win })}`).then((r) => {
+    note.textContent = `${plural(r.accounts, 'account')} active since ${fullTime(r.since_ms)}${r.capped ? ' (the most recently active; there are more)' : ''}, grouped where they share an address, or several of: registering together, alike names, the same even click rhythm, the same spot and the same hours.${r.addresses_shown ? ' Viewing addresses is recorded in the audit log.' : ' Addresses show as labels: the same label is the same address.'}`;
+    replace(body, r.farms.length
+      ? r.farms.map(farmCard)
+      : h('section', { class: 'card' }, h('div', { class: 'empty' }, icon('check'), 'No accounts look grouped in this window.')));
+  }).catch((e) => replace(body, h('section', { class: 'card' }, h('div', { class: 'empty' }, e.message))));
+
+  return h('div', { class: 'column' }, h('div', { class: 'toolbar' }, chips), note, body);
+}
+
+function investigatePage(ctx) {
+  const tab = INVESTIGATE_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'map';
+  const go = (next, extra = {}) => navigate(`/investigate?${query({ tab: next, ...extra })}`);
+  const tabs = h('div', { class: 'segmented tabs', role: 'group', 'aria-label': 'View' }, INVESTIGATE_TABS.map(([k, label]) =>
+    h('button', { type: 'button', 'aria-pressed': String(tab === k), on: { click: () => { if (k !== tab) go(k); } } }, label)));
+  const body = tab === 'map'
+    ? (state.worldsLoaded ? liveMapTab(ctx, ctx.params) : h('section', { class: 'card' }, spinnerList()))
+    : tab === 'anticheat' ? anticheatTab(ctx, ctx.params, go) : farmsTab(ctx, ctx.params, go);
+  if (tab === 'map' && !state.worldsLoaded) {
+    // The map is framed from an online world, known once the worlds are in.
+    const off = onWorlds(() => { off(); if (location.pathname === '/investigate') renderPage(); });
+    ctx.cleanup(off);
+  }
+  return h('div', { class: 'page' },
+    pageHead('Investigate', 'Everyone at once: where they are, who the checks flag most, and accounts that look like one bot farm.'),
+    tabs,
+    body);
 }
 
 // ---------------------------------------------------------------------------
@@ -4525,16 +5141,86 @@ function worldSyncRow(w) {
     h('td', { class: 'muted' }, w.error || (w.matched ? plural(w.matched.reduce((a, b) => a + b, 0), 'script') + ' switched off' : '')));
 }
 
+// What's wrong with patterns as the worlds' scripts have them, from a
+// check (`/controls/check`): for each, a line if it matches no script on
+// some or every world that answered.
+function patternProblems(check) {
+  const out = new Map();
+  if (!check || !check.checked.length) return out;
+  for (const p of check.patterns) {
+    const none = check.checked.filter((_, i) => p.matched[i] === 0);
+    if (!none.length) continue;
+    out.set(p.pattern, none.length === check.checked.length
+      ? 'matches no script on any world'
+      : `matches no script on ${none.length === 1 ? 'world' : 'worlds'} ${none.join(', ')}`);
+  }
+  return out;
+}
+
+// The same from what the worlds report for the switches that are on: their
+// counts are current, a script reload included.
+function livePatternProblems(page) {
+  const out = new Map();
+  const reporting = page.worlds.filter((w) => w.online && w.in_sync && Array.isArray(w.matched));
+  if (!reporting.length) return out;
+  page.wanted.switches.forEach((pattern, i) => {
+    const none = reporting.filter((w) => w.matched[i] === 0).map((w) => w.world);
+    if (!none.length) return;
+    out.set(pattern, none.length === reporting.length
+      ? 'matches no script on any world: it switches nothing off'
+      : `matches no script on ${none.length === 1 ? 'world' : 'worlds'} ${none.join(', ')}: it switches nothing off there`);
+  });
+  return out;
+}
+
+const problemLines = (patterns, problems) => patterns.filter((p) => problems.has(p)).map((p) =>
+  h('div', { class: 'list-sub tone-warn' }, icon('alert'), ' ', h('span', { class: 'mono' }, p), ` ${problems.get(p)}.`));
+
+// After a switch went on: what the world check found off about it.
+function switchWarnings(page) {
+  for (const w of page.warnings || []) toast(w, 'error');
+}
+
 function customSwitchDialog(onDone) {
   const label = h('input', { class: 'input', maxlength: '60', required: true, placeholder: 'e.g. Party room', autofocus: true });
   const patterns = h('textarea', { class: 'input mono', required: true, placeholder: '[oploc1,partyroom_lever]\n[if_button,partyroom_*]', rows: '5' });
+  const results = h('div', { class: 'pattern-check' });
+  const lines = () => patterns.value.split('\n').map((l) => l.trim()).filter(Boolean);
+  const checkNow = async () => {
+    const wanted = lines();
+    if (!wanted.length) {
+      replace(results);
+      return;
+    }
+    replace(results, h('div', { class: 'muted' }, h('span', { class: 'spinner' }), ' Checking against the worlds\' scripts...'));
+    try {
+      const check = await api('POST', '/controls/check', { patterns: wanted });
+      if (!check.checked.length) {
+        replace(results, h('div', { class: 'tone-warn' }, 'No world answered, so they can\'t be checked.'));
+        return;
+      }
+      replace(results, check.patterns.map((p) => {
+        const most = Math.max(0, ...p.matched);
+        const none = check.checked.filter((_, i) => p.matched[i] === 0);
+        const tone = most === 0 || most > 300 ? 'tone-danger' : none.length ? 'tone-warn' : 'tone-ok';
+        const text = most === 0 ? 'matches no script'
+          : most > 300 ? `matches ${most} scripts: too many`
+            : `${plural(most, 'script')}${none.length ? `, none on ${none.length === 1 ? 'world' : 'worlds'} ${none.join(', ')}` : ''}`;
+        return h('div', { class: 'pattern-row' }, h('span', { class: 'mono' }, p.pattern), h('span', { class: tone }, text));
+      }), check.unreachable.length > 0 && h('div', { class: 'muted' }, `Not checked on world ${check.unreachable.join(', ')}, which didn't answer.`));
+    } catch (e) {
+      replace(results, h('div', { class: 'tone-danger' }, e.message));
+    }
+  };
+  patterns.addEventListener('input', debounce(checkNow, 500));
   openDialog({
     title: 'Custom kill switch',
     subtitle: 'Switch off the scripts whose names match, on every world.',
     body: [
       h('label', { class: 'field' }, h('span', {}, 'Label'), label),
       h('label', { class: 'field' }, h('span', {}, 'Script patterns, one per line'), patterns,
-        h('p', { class: 'hint' }, 'Names as in the content, like [opheld5,_] or [inv_button1,bank_main:inv]. * matches anything. A pattern matching over 300 scripts is refused.')),
+        h('p', { class: 'hint' }, 'Names as in the content, like [opheld5,_] or [inv_button1,bank_main:inv]. * matches anything. A pattern that matches no script, or over 300, is refused.'),
+        results),
       h('div', { class: 'callout warn' }, icon('alert'), h('div', {}, 'Players trying a switched-off script are told it\'s switched off for now. Scripts already running finish.')),
     ],
     actions: [{ label: 'Cancel' }, {
@@ -4542,6 +5228,7 @@ function customSwitchDialog(onDone) {
       run: async () => {
         const page = await api('POST', '/controls/switch', { on: true, label: label.value.trim(), patterns: patterns.value.split('\n') });
         toast(`${label.value.trim()} is switched off.`);
+        switchWarnings(page);
         onDone?.(page);
       },
     }],
@@ -4554,12 +5241,31 @@ function controlsPage(ctx) {
   const worlds = h('tbody');
   const head = h('div', {});
   let current = null;
+  // How the presets' patterns match the worlds' scripts now: checked when
+  // the page opens and every few minutes, so a preset whose scripts were
+  // renamed shows it before anyone tries it.
+  let presetCheck = null;
 
   const setSwitch = async (body, message) => {
     try {
       draw(await api('POST', '/controls/switch', body));
       toast(message);
     } catch (e) { toast(e.message, 'error'); }
+  };
+  // Turning one on from its dialog: a refusal (a pattern matching nothing)
+  // shows there.
+  const switchOn = async (body, message) => {
+    const page = await api('POST', '/controls/switch', body);
+    draw(page);
+    toast(message);
+    switchWarnings(page);
+  };
+  const checkPresets = async () => {
+    if (!current) return;
+    try {
+      presetCheck = await api('POST', '/controls/check', { patterns: [...new Set(current.presets.flatMap((p) => p.patterns))] });
+      draw(current);
+    } catch { /* the switches work without it */ }
   };
 
   const draw = (page) => {
@@ -4599,14 +5305,20 @@ function controlsPage(ctx) {
         }) } }),
         lockdown && button('Lift lockdown', { icon: 'unlock', on: { click: apply(0) } })));
 
+    const live = livePatternProblems(page);
+    const checked = patternProblems(presetCheck);
     const presetRows = page.presets.map((p) => {
       const on = active.get(p.key);
+      const problems = on ? live : checked;
+      const wrong = p.patterns.some((x) => problems.has(x));
       return h('div', { class: 'list-item' },
         h('div', { class: `list-icon ${on ? 'danger' : ''}` }, icon('zap')),
         h('div', { class: 'list-main' },
-          h('div', { class: 'list-title' }, h('b', {}, p.label), on && h('span', { class: 'badge danger' }, 'Switched off')),
+          h('div', { class: 'list-title' }, h('b', {}, p.label), on && h('span', { class: 'badge danger' }, 'Switched off'),
+            wrong && h('span', { class: 'badge warn', title: 'Part of it matches no script: its scripts may have been renamed' }, icon('alert'), 'Check patterns')),
           h('div', { class: 'list-sub' }, p.description),
           h('div', { class: 'list-sub mono' }, p.patterns.join('  ')),
+          problemLines(p.patterns, problems),
           on && h('div', { class: 'list-sub' }, `By ${on.by} ${ago(on.at_ms)}`)),
         canChange && h('div', { class: 'chips' }, on
           ? button('Turn back on', { small: true, icon: 'undo', on: { click: () => setSwitch({ key: p.key, on: false }, `${p.label} is back on.`) } })
@@ -4614,15 +5326,17 @@ function controlsPage(ctx) {
             title: `Switch off ${p.label.toLowerCase()}`,
             subtitle: 'Every world',
             body: [h('p', {}, p.description), h('p', { class: 'muted' }, 'Players trying it are told it\'s switched off for now. It stays off until you turn it back on, restarts included.')],
-            label: 'Switch off', kind: 'danger', run: () => setSwitch({ key: p.key, on: true }, `${p.label} is switched off.`),
+            label: 'Switch off', kind: 'danger', run: () => switchOn({ key: p.key, on: true }, `${p.label} is switched off.`),
           }) } })));
     });
     const customRows = desired.switches.filter((s) => !page.presets.some((p) => p.key === s.key)).map((s) =>
       h('div', { class: 'list-item' },
         h('div', { class: 'list-icon danger' }, icon('zap')),
         h('div', { class: 'list-main' },
-          h('div', { class: 'list-title' }, h('b', {}, s.label), h('span', { class: 'badge danger' }, 'Switched off'), h('span', { class: 'badge' }, 'Custom')),
+          h('div', { class: 'list-title' }, h('b', {}, s.label), h('span', { class: 'badge danger' }, 'Switched off'), h('span', { class: 'badge' }, 'Custom'),
+            s.patterns.some((x) => live.has(x)) && h('span', { class: 'badge warn' }, icon('alert'), 'Check patterns')),
           h('div', { class: 'list-sub mono' }, s.patterns.join('  ')),
+          problemLines(s.patterns, live),
           h('div', { class: 'list-sub' }, `By ${s.by} ${ago(s.at_ms)}`)),
         canChange && button('Turn back on', { small: true, icon: 'undo', on: { click: () => setSwitch({ key: s.key, on: false }, `${s.label} is back on.`) } })));
     replace(switches, ...customRows, ...presetRows);
@@ -4637,9 +5351,12 @@ function controlsPage(ctx) {
       const page = await api('GET', '/controls');
       const json = JSON.stringify(page);
       if (json !== seen) { seen = json; draw(page); }
+      if (!presetCheck) checkPresets();
     } catch (e) { failed(switches, e); }
   };
   load();
+  const presetTimer = setInterval(() => { if (!document.hidden) checkPresets(); }, 5 * 60 * 1000);
+  ctx.cleanup(() => clearInterval(presetTimer));
   const timer = setInterval(() => { if (!document.hidden && !document.querySelector('dialog[open]')) load(); }, 10000);
   ctx.cleanup(() => clearInterval(timer));
 

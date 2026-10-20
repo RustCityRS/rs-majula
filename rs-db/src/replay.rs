@@ -186,10 +186,18 @@ impl Db {
 
     /// Recording `id`'s chunks in order, deflated.
     pub async fn replay_chunks(&self, id: i64) -> Result<Vec<ReplayChunk>, Error> {
+        self.replay_chunks_from(id, 0).await
+    }
+
+    /// Recording `id`'s chunks from number `seq` on, in order. A world
+    /// stores a recording's chunks one after another, so once one is here
+    /// every one before it is (or was lost).
+    pub async fn replay_chunks_from(&self, id: i64, seq: i32) -> Result<Vec<ReplayChunk>, Error> {
         let rows: Vec<(i32, i32, i32, Vec<u8>)> = sqlx::query_as(
-            "SELECT seq, start_ms, end_ms, data FROM replay_chunks WHERE replay_id = $1 ORDER BY seq",
+            "SELECT seq, start_ms, end_ms, data FROM replay_chunks WHERE replay_id = $1 AND seq >= $2 ORDER BY seq",
         )
         .bind(id)
+        .bind(seq)
         .fetch_all(&self.pool)
         .await?;
         Ok(rows

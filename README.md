@@ -238,13 +238,28 @@ on phones too.
   is muted or banned now, and every moderation action. Players' pages and
   replays link into it.
 - **Chat logs:** public chat and private messages, by player or world.
-  Viewing them is audited.
+  Turn on Live to see new messages at the top as they're sent. Viewing them
+  is audited.
 - **Replays:** every session is recorded, and anti-cheat checks score it.
   Watch any session in the game's own client, with the player's mouse drawn
   on top and replayed into the client (menus, hovers and tabs show as they
   did), at up to 8x, with a timeline of what they did ("Attack Goblin",
-  "Walk to 3222, 3218"). List only the sessions the checks flagged. Watching
-  is audited. See [Session replays and anti-cheat](#session-replays-and-anti-cheat).
+  "Walk to 3222, 3218"). List only the sessions the checks flagged. A
+  session still going on can be watched live: its world then stores it
+  every 2 seconds, and the replay plays a few seconds behind it (about 14
+  before revision 274, whose client reports input in batches). Watching is
+  audited. See [Session replays and anti-cheat](#session-replays-and-anti-cheat).
+- **Investigate:** everyone at once.
+  - *Live map:* every online player as a dot on the world map (a world's
+    own `/livemap` page, framed), coloured for flagged, staff and muted.
+    Click a dot to watch live, kick, mute or ban; find a player by name; and
+    a list of hotspots, where players stand bunched together.
+  - *Anti-cheat:* the players the checks flagged most over the last day,
+    week or month, with their highest score in each stretch of it.
+  - *Bot farms:* accounts active in the window grouped where they share an
+    address, or several of: registering within 15 minutes of each other,
+    alike names, the same even click rhythm, the same spot and the same
+    hours. Moderators see addresses as labels; admins see them, audited.
 - **Staff** (developers only): add accounts, change roles and passwords,
   reset 2FA, disable or remove. Each change needs the developer's password
   and a fresh authenticator code.

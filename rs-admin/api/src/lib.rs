@@ -29,6 +29,8 @@ pub mod path {
     pub const MAINTENANCE: &str = "/v1/maintenance";
     /// Kill switches and the login lockdown.
     pub const CONTROLS: &str = "/v1/controls";
+    /// How many scripts kill switch patterns would match, changing nothing.
+    pub const CONTROLS_CHECK: &str = "/v1/controls/check";
     /// Lookups in the game database, which any world can answer.
     pub const PLAYER: &str = "/v1/lookup/player";
     pub const MODERATION: &str = "/v1/lookup/moderation";
@@ -42,6 +44,12 @@ pub mod path {
     pub const REPLAYS: &str = "/v1/lookup/replays";
     pub const REPLAY: &str = "/v1/lookup/replay";
     pub const REPLAY_DATA: &str = "/v1/lookup/replay/data";
+    /// A session going on now, to watch live: answered by the world it's on.
+    pub const LIVE_REPLAY: &str = "/v1/live/replay";
+    /// The players the anti-cheat checks flag most, and accounts' activity
+    /// to group bot farms by.
+    pub const ANTICHEAT: &str = "/v1/lookup/anticheat";
+    pub const ACCOUNTS: &str = "/v1/lookup/accounts";
     /// Player editing: answered by the world the player is on, or by any
     /// world while they're logged out.
     pub const PLAYER_SHEET: &str = "/v1/player/sheet";
@@ -211,6 +219,22 @@ pub struct WorldStatus {
     pub health: Option<Health>,
     #[serde(default)]
     pub controls: Option<WorldControls>,
+    /// How many scripts each of `controls.switches` matches now (after any
+    /// script reload).
+    #[serde(default)]
+    pub control_matches: Option<Vec<u32>>,
+}
+
+/// The most scripts one kill switch pattern may turn off: more is a pattern
+/// too broad to be meant (`*` would stop every player script, logins
+/// included).
+pub const MAX_SWITCH_SCRIPTS: usize = 300;
+
+/// `POST /v1/controls/check`: answered with how many scripts each pattern
+/// matches on that world, in order. Nothing is switched off.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct CheckPatterns {
+    pub patterns: Vec<String>,
 }
 
 /// A world's kill switches and login lockdown. They last until it restarts.
@@ -260,6 +284,9 @@ pub struct OnlinePlayer {
     pub z: u16,
     pub level: u8,
     pub muted: bool,
+    /// The recording of their session, to watch live.
+    #[serde(default)]
+    pub replay: Option<String>,
 }
 
 /// Who a command is from, for the world's logs.
@@ -480,11 +507,15 @@ pub struct Sanction {
 
 /// `POST /v1/lookup/chat`: chat newest first, everyone's or only `name`'s,
 /// on any world or only `node`, older than the message `before` when paging.
+/// With `after`, only messages newer than that one, oldest first: a live
+/// feed's next ones.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ChatLookup {
     pub name: Option<String>,
     pub node: Option<u8>,
     pub before: Option<i64>,
+    #[serde(default)]
+    pub after: Option<i64>,
     pub limit: u32,
 }
 
@@ -561,6 +592,78 @@ pub struct ReplaySummary {
     pub score: i16,
     pub flags: Vec<String>,
     pub stats: String,
+}
+
+/// `POST /v1/live/replay`: a session going on now on the world asked, to
+/// watch live. Without `token`, the whole recording so far; with the token
+/// that came in its header (`live.token`), only what's been recorded since.
+/// Answered with a replay file like `REPLAY_DATA`'s; 404 once the token is
+/// forgotten (unused for a minute), 409 when it isn't recording that session.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LiveReplay {
+    pub id: String,
+    pub token: Option<String>,
+}
+
+/// `POST /v1/lookup/anticheat`: the players whose sessions the anti-cheat
+/// checks flagged since `since_ms`, most flagged first, each with their
+/// highest score in each of `buckets` equal stretches of the time since.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AnticheatLookup {
+    pub since_ms: i64,
+    pub buckets: u32,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AnticheatLeader {
+    pub name: String,
+    pub sessions: i64,
+    pub flagged: i64,
+    pub max_score: i16,
+    pub total_score: i64,
+    pub play_ms: i64,
+    /// Every check they failed, each once.
+    pub flags: Vec<String>,
+    pub last_flagged_ms: i64,
+    /// Their highest score in each stretch, oldest first (0 for none).
+    pub trend: Vec<i16>,
+    pub online_node: Option<u8>,
+    pub muted_until_ms: Option<i64>,
+    pub banned_until_ms: Option<i64>,
+}
+
+/// `POST /v1/lookup/accounts`: non-staff accounts registered or logged in
+/// since `since_ms`, most recent first, with what bot farms give away.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AccountsLookup {
+    pub since_ms: i64,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AccountActivity {
+    pub name: String,
+    pub registered_ms: i64,
+    pub registration_ip: Option<String>,
+    /// The addresses they logged in from since.
+    pub login_ips: Vec<String>,
+    pub sessions: i64,
+    pub play_ms: i64,
+    pub flagged: i64,
+    pub max_score: i16,
+    /// Their sessions' mean click rhythm (see the anti-cheat checks), where
+    /// any measured one.
+    pub rhythm: Option<f64>,
+    /// Sessions started in each hour of the day (UTC), 24 of them.
+    pub hours: Vec<i32>,
+    /// Where they were last saved.
+    pub x: Option<u16>,
+    pub z: Option<u16>,
+    pub level: Option<u8>,
+    pub online_node: Option<u8>,
+    pub muted_until_ms: Option<i64>,
+    pub banned_until_ms: Option<i64>,
 }
 
 /// `POST /v1/player/sheet`: answered with `Option<PlayerSheet>`, `None` when

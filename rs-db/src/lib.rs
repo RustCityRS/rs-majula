@@ -1,5 +1,6 @@
 mod appeal;
 mod hiscores;
+mod investigate;
 mod logs;
 mod moderation;
 mod name;
@@ -15,6 +16,7 @@ mod world;
 
 pub use appeal::{AppealFiled, AppealLogin, AppealRecord, NewAppeal};
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
+pub use investigate::{AccountActivity, AnticheatLeader};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};

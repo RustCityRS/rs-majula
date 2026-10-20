@@ -389,15 +389,31 @@ async fn route(
             (
                 "200 OK",
                 format!(
-                    "Content-Type: text/html; charset=UTF-8
-Cache-Control: no-cache
-{}Content-Length: {len}
-",
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
                     frame_ancestors(site_origin)
                 ),
                 Body::Owned(bytes),
             )
         }
+        "/livemap" => {
+            let bytes = render_livemap(asset_version(cache, "/mapview.js")).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                ),
+                Body::Owned(bytes),
+            )
+        }
+        "/livemap.js" => (
+            "200 OK",
+            format!(
+                "Content-Type: application/javascript\r\nCache-Control: no-cache\r\nContent-Length: {}\r\n",
+                LIVEMAP_JS.len()
+            ),
+            Body::Owned(LIVEMAP_JS.as_bytes().to_vec()),
+        ),
         "/replay" => {
             let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
             let len = bytes.len();
@@ -625,6 +641,42 @@ fn render_worldmap(version: Option<u32>) -> String {
 <script type="module">
 import {{ MapView }} from '/mapview.js{query}';
 new MapView();
+</script>
+</body>
+</html>
+"#
+    )
+}
+
+/// Draws the players the staff console sends over the world map.
+const LIVEMAP_JS: &str = include_str!("livemap.js");
+
+/// The world map viewer with livemap.js drawing players over it, for the
+/// staff console's live map. Sized to the frame it loads in.
+fn render_livemap(version: Option<u32>) -> String {
+    let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    format!(
+        r#"<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Live Map</title>
+<style>html, body {{ margin: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }} #map {{ position: relative; width: 100%; height: 100%; }} #canvas {{ display: block; width: 100%; height: 100%; }}</style>
+<script src="/livemap.js"></script>
+</head>
+<body>
+<div id="map"><canvas id="canvas" width="635" height="503"></canvas></div>
+<script>
+// The viewer draws at the canvas's size: the frame's, with a width that
+// isn't also the height (livemap.js tells the two apart by it).
+const c = document.getElementById('canvas');
+c.width = Math.max(320, Math.min(2560, innerWidth));
+c.height = Math.max(240, Math.min(1600, innerHeight));
+if (c.width === c.height) c.width += 1;
+</script>
+<script type="module">
+import {{ MapView }} from '/mapview.js{query}';
+window.__livemap.start(new MapView());
 </script>
 </body>
 </html>

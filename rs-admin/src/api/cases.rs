@@ -133,6 +133,7 @@ async fn resolve(app: &App, item: &EvidenceRef) -> Result<Evidence, ApiError> {
                         name: None,
                         node: None,
                         before: id.checked_add(1),
+                        after: None,
                         limit: 1,
                     },
                 )

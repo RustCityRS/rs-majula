@@ -421,12 +421,14 @@ impl Db {
 
     /// Chat messages newest first: everyone's, or only `sender`'s, on any
     /// world or only world `node_id`, older than the message `before` when
-    /// paging.
+    /// paging. With `after`, only those newer than that message, oldest
+    /// first.
     pub async fn chat_history(
         &self,
         sender: Option<u64>,
         node_id: Option<i16>,
         before: Option<i64>,
+        after: Option<i64>,
         limit: i64,
     ) -> Result<Vec<ChatRecord>, Error> {
         let mut query = QueryBuilder::<Postgres>::new(concat!(
@@ -447,7 +449,16 @@ impl Db {
         if let Some(before) = before {
             query.push(" AND c.id < ").push_bind(before);
         }
-        query.push(" ORDER BY c.id DESC LIMIT ").push_bind(limit);
+        if let Some(after) = after {
+            query.push(" AND c.id > ").push_bind(after);
+        }
+        query
+            .push(if after.is_some() {
+                " ORDER BY c.id LIMIT "
+            } else {
+                " ORDER BY c.id DESC LIMIT "
+            })
+            .push_bind(limit);
         query.build_query_as().fetch_all(&self.pool).await
     }
 

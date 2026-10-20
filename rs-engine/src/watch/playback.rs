@@ -98,15 +98,9 @@ fn typed_line(prot: &ClientProt, data: &[u8]) -> Option<(String, String)> {
 
 /// Types each line in `lines` (`(sent at, text)`) into `inputs`: one key at
 /// a time, ending with Enter as it was sent. Typing starts no earlier than
-/// the click before it (which may have opened the box it's typed into) or
-/// the line before.
-fn type_lines(lines: &[(u32, String)], inputs: &mut Vec<Value>) {
-    let clicks: Vec<u32> = inputs
-        .iter()
-        .filter(|i| matches!(i[1].as_u64(), Some(2 | 4)))
-        .filter_map(|i| i[0].as_u64().map(|ms| ms as u32))
-        .collect();
-    let mut free = 0;
+/// the last of `clicks` before it (which may have opened the box it's typed
+/// into) or `free`, the end of the line before.
+fn type_lines(lines: &[(u32, String)], clicks: &[u32], free: &mut u32, inputs: &mut Vec<Value>) {
     for (sent, text) in lines {
         let keys = text.chars().count() as u32;
         let click = clicks
@@ -117,14 +111,14 @@ fn type_lines(lines: &[(u32, String)], inputs: &mut Vec<Value>) {
         let start = sent
             .saturating_sub(keys * KEY_MS)
             .max(click)
-            .max(free)
+            .max(*free)
             .min(*sent);
         let step = (sent - start) / (keys + 1);
         for (i, ch) in text.chars().enumerate() {
             inputs.push(json!([start + step * i as u32, 11, ch.to_string()]));
         }
         inputs.push(json!([sent, 11, "Enter"]));
-        free = sent + 1;
+        *free = sent + 1;
     }
 }
 
@@ -148,113 +142,157 @@ pub fn inflate(chunks: &[ReplayChunk]) -> Vec<u8> {
 /// Builds the replay file from a recording, with `extra` (who, where,
 /// the verdict) added to its header.
 pub fn build(recording: &[u8], extra: Map<String, Value>) -> Vec<u8> {
-    let mut frames: Vec<u8> = Vec::with_capacity(recording.len() + recording.len() / 8);
-    let mut inputs = Vec::new();
-    let mut notes = Vec::new();
-    let mut decoder = InputDecoder::default();
-    let mut decoded = Vec::new();
-    let mut lines = Vec::new();
-    let mut ms = 0u32;
-    let mut frame_count = 0u32;
-    // Where the open server frame's length is, to grow it.
-    let mut open: Option<(u32, usize)> = None;
+    let mut builder = Builder::default();
+    builder.feed(recording);
+    builder.take(extra)
+}
 
-    let push = |frames: &mut Vec<u8>, ms: u32, kind: Frame, bytes: &[u8]| -> usize {
-        frames.extend_from_slice(&ms.to_be_bytes());
-        frames.push(kind as u8);
-        let len_at = frames.len();
-        frames.extend_from_slice(&(bytes.len() as u32).to_be_bytes());
-        frames.extend_from_slice(bytes);
+/// Builds a replay file a piece at a time, for watching a session live: the
+/// first [`Self::take`] is the whole file so far, each later one a file of
+/// only what was fed since, for the page to add on.
+#[derive(Default)]
+pub struct Builder {
+    frames: Vec<u8>,
+    frame_count: u32,
+    inputs: Vec<Value>,
+    notes: Vec<Value>,
+    decoder: InputDecoder,
+    decoded: Vec<Timed>,
+    /// Lines sent since the last take, still to type.
+    lines: Vec<(u32, String)>,
+    /// When every click so far was, for typing lines after them.
+    clicks: Vec<u32>,
+    /// Where the last line typed ended.
+    typed_to: u32,
+    ms: u32,
+    /// The open server frame: its time, and where its length is (to grow
+    /// it).
+    open: Option<(u32, usize)>,
+}
+
+impl Builder {
+    fn push(&mut self, kind: Frame, bytes: &[u8]) -> usize {
+        self.frames.extend_from_slice(&self.ms.to_be_bytes());
+        self.frames.push(kind as u8);
+        let len_at = self.frames.len();
+        self.frames
+            .extend_from_slice(&(bytes.len() as u32).to_be_bytes());
+        self.frames.extend_from_slice(bytes);
+        self.frame_count += 1;
         len_at
-    };
+    }
 
-    for entry in Reader::new(recording) {
-        match entry {
-            Entry::Tick { ms: at } => {
-                ms = at;
-                open = None;
-            }
-            Entry::Server(bytes) => {
-                #[cfg(before_274)]
-                if bytes.first() == Some(&super::TRACKING_ENABLED) {
-                    decoder.tracking_restarted(ms);
+    /// More of the recording: whole entries, carrying on from the last feed.
+    pub fn feed(&mut self, recording: &[u8]) {
+        for entry in Reader::new(recording) {
+            match entry {
+                Entry::Tick { ms } => {
+                    self.ms = ms;
+                    self.open = None;
                 }
-                let len_at = match open {
-                    Some((at, len_at)) if at == ms => len_at,
-                    _ => {
-                        let len_at = push(&mut frames, ms, Frame::Server, &[]);
-                        open = Some((ms, len_at));
-                        frame_count += 1;
-                        len_at
+                Entry::Server(bytes) => {
+                    #[cfg(before_274)]
+                    if bytes.first() == Some(&super::TRACKING_ENABLED) {
+                        self.decoder.tracking_restarted(self.ms);
                     }
-                };
-                let packet_len = bytes.len().min(usize::from(u16::MAX));
-                frames.extend_from_slice(&(packet_len as u16).to_be_bytes());
-                frames.extend_from_slice(&bytes[..packet_len]);
-                let len =
-                    u32::from_be_bytes(frames[len_at..len_at + 4].try_into().unwrap_or_default());
-                frames[len_at..len_at + 4]
-                    .copy_from_slice(&(len + 2 + packet_len as u32).to_be_bytes());
-            }
-            Entry::Login(bytes) => {
-                push(&mut frames, ms, Frame::Login, bytes);
-                open = None;
-                frame_count += 1;
-                notes.push(json!([ms, "Logged in"]));
-            }
-            Entry::Reconnect(bytes) => {
-                push(&mut frames, ms, Frame::Reconnect, bytes);
-                open = None;
-                frame_count += 1;
-                notes.push(json!([ms, "Reconnected"]));
-            }
-            Entry::Client { opcode, data } => {
-                let Ok(prot) = ClientProt::try_from(opcode) else {
-                    continue;
-                };
-                decoded.clear();
-                if decoder.packet(&prot, ms, data, &mut decoded) {
-                    inputs.extend(decoded.iter().map(input_json));
-                } else if let Some((text, note)) = typed_line(&prot, data) {
-                    lines.push((ms, text));
-                    notes.push(json!([ms, note]));
+                    let len_at = match self.open {
+                        Some((at, len_at)) if at == self.ms => len_at,
+                        _ => {
+                            let len_at = self.push(Frame::Server, &[]);
+                            self.open = Some((self.ms, len_at));
+                            len_at
+                        }
+                    };
+                    let packet_len = bytes.len().min(usize::from(u16::MAX));
+                    let frames = &mut self.frames;
+                    frames.extend_from_slice(&(packet_len as u16).to_be_bytes());
+                    frames.extend_from_slice(&bytes[..packet_len]);
+                    let len = u32::from_be_bytes(
+                        frames[len_at..len_at + 4].try_into().unwrap_or_default(),
+                    );
+                    frames[len_at..len_at + 4]
+                        .copy_from_slice(&(len + 2 + packet_len as u32).to_be_bytes());
                 }
-            }
-            Entry::Note(text) => notes.push(json!([ms, text])),
-            Entry::Keyframe(bytes) => {
-                push(&mut frames, ms, Frame::Keyframe, bytes);
-                open = None;
-                frame_count += 1;
+                Entry::Login(bytes) => {
+                    self.push(Frame::Login, bytes);
+                    self.open = None;
+                    self.notes.push(json!([self.ms, "Logged in"]));
+                }
+                Entry::Reconnect(bytes) => {
+                    self.push(Frame::Reconnect, bytes);
+                    self.open = None;
+                    self.notes.push(json!([self.ms, "Reconnected"]));
+                }
+                Entry::Client { opcode, data } => {
+                    let Ok(prot) = ClientProt::try_from(opcode) else {
+                        continue;
+                    };
+                    self.decoded.clear();
+                    if self.decoder.packet(&prot, self.ms, data, &mut self.decoded) {
+                        for timed in &self.decoded {
+                            if matches!(timed.input, Input::Press { .. } | Input::Click { .. }) {
+                                self.clicks.push(timed.ms);
+                            }
+                            self.inputs.push(input_json(timed));
+                        }
+                    } else if let Some((text, note)) = typed_line(&prot, data) {
+                        self.lines.push((self.ms, text));
+                        self.notes.push(json!([self.ms, note]));
+                    }
+                }
+                Entry::Note(text) => self.notes.push(json!([self.ms, text])),
+                Entry::Keyframe(bytes) => {
+                    self.push(Frame::Keyframe, bytes);
+                    self.open = None;
+                }
             }
         }
     }
-    type_lines(&lines, &mut inputs);
-    // Reports arrive batched, so put the inputs in time order.
-    inputs.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
 
-    let mut header = extra;
-    header.insert(
-        "logout".into(),
-        json!(rs_protocol::network::game::server_prot::ServerProt::Logout as u8),
-    );
-    #[cfg(any(rev = "225", since_254))]
-    header.insert(
-        "cameraOp".into(),
-        json!(ClientProt::EventCameraPosition as u8),
-    );
-    header.insert("durationMs".into(), json!(ms));
-    header.insert("frames".into(), json!(frame_count));
-    header.insert("inputs".into(), Value::Array(inputs));
-    header.insert("notes".into(), Value::Array(notes));
-    let header = Value::Object(header).to_string();
+    /// A replay file of everything fed since the last take (from the start
+    /// on the first), with `extra` added to its header.
+    pub fn take(&mut self, extra: Map<String, Value>) -> Vec<u8> {
+        // Reports arrive batched, so the clicks may be out of order.
+        self.clicks.sort_unstable();
+        let lines = std::mem::take(&mut self.lines);
+        type_lines(&lines, &self.clicks, &mut self.typed_to, &mut self.inputs);
+        let mut inputs = std::mem::take(&mut self.inputs);
+        // Reports arrive batched, so put the inputs in time order.
+        inputs.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
+        let frames = std::mem::take(&mut self.frames);
+        // What's fed next starts frames of its own, in the next file.
+        self.open = None;
 
-    let mut out = Vec::with_capacity(9 + header.len() + frames.len());
-    out.extend_from_slice(MAGIC);
-    out.push(VERSION);
-    out.extend_from_slice(&(header.len() as u32).to_be_bytes());
-    out.extend_from_slice(header.as_bytes());
-    out.extend_from_slice(&frames);
-    out
+        let mut header = extra;
+        header.insert(
+            "logout".into(),
+            json!(rs_protocol::network::game::server_prot::ServerProt::Logout as u8),
+        );
+        #[cfg(any(rev = "225", since_254))]
+        header.insert(
+            "cameraOp".into(),
+            json!(ClientProt::EventCameraPosition as u8),
+        );
+        header.insert("durationMs".into(), json!(self.ms));
+        header.insert(
+            "frames".into(),
+            json!(std::mem::take(&mut self.frame_count)),
+        );
+        header.insert("inputs".into(), Value::Array(inputs));
+        header.insert(
+            "notes".into(),
+            Value::Array(std::mem::take(&mut self.notes)),
+        );
+        let header = Value::Object(header).to_string();
+
+        let mut out = Vec::with_capacity(9 + header.len() + frames.len());
+        out.extend_from_slice(MAGIC);
+        out.push(VERSION);
+        out.extend_from_slice(&(header.len() as u32).to_be_bytes());
+        out.extend_from_slice(header.as_bytes());
+        out.extend_from_slice(&frames);
+        out
+    }
 }
 
 #[cfg(test)]
@@ -291,6 +329,50 @@ mod tests {
         assert_eq!(second[4], Frame::Server as u8);
         assert_eq!(u32::from_be_bytes(second[5..9].try_into().unwrap()), 9);
         assert_eq!(&second[9..18], &[0, 2, 10, 1, 0, 3, 11, 2, 3]);
+    }
+
+    /// A file's header and frames.
+    fn split(file: &[u8]) -> (Value, &[u8]) {
+        let header_len = u32::from_be_bytes(file[5..9].try_into().unwrap()) as usize;
+        (
+            serde_json::from_slice(&file[9..9 + header_len]).unwrap(),
+            &file[9 + header_len..],
+        )
+    }
+
+    #[test]
+    fn builds_live_a_piece_at_a_time() {
+        let mut first = Vec::new();
+        first.push(TICK);
+        put_varint(&mut first, 0);
+        put_bytes(&mut first, LOGIN, &[2]);
+        put_bytes(&mut first, SERVER, &[10, 1]);
+        put_bytes(&mut first, NOTE, b"Walk here");
+        let mut second = Vec::new();
+        second.push(TICK);
+        put_varint(&mut second, 600);
+        put_bytes(&mut second, SERVER, &[11, 2]);
+        put_bytes(&mut second, NOTE, b"Take Logs");
+
+        let whole = build(&[first.clone(), second.clone()].concat(), Map::new());
+        let mut live = Builder::default();
+        live.feed(&first);
+        let start = live.take(Map::new());
+        live.feed(&second);
+        let next = live.take(Map::new());
+        let nothing = live.take(Map::new());
+
+        let (whole_header, whole_frames) = split(&whole);
+        let (start_header, start_frames) = split(&start);
+        let (next_header, next_frames) = split(&next);
+        assert_eq!([start_frames, next_frames].concat(), whole_frames);
+        assert_eq!(start_header["frames"], 2);
+        assert_eq!(next_header["frames"], 1);
+        assert_eq!(next_header["durationMs"], whole_header["durationMs"]);
+        assert_eq!(next_header["notes"], json!([[600, "Take Logs"]]));
+        let (nothing_header, nothing_frames) = split(&nothing);
+        assert!(nothing_frames.is_empty());
+        assert_eq!(nothing_header["notes"], json!([]));
     }
 
     #[test]

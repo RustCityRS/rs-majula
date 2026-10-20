@@ -1,7 +1,9 @@
 use crate::http::App;
 use crate::store::JsonFile;
 use crate::worlds::{Outcome, Reply};
-use rs_admin_api::{Actor, ControlsSet, SetControls, WorldControls, path};
+use rs_admin_api::{
+    Actor, CheckPatterns, ControlsSet, MAX_SWITCH_SCRIPTS, SetControls, WorldControls, path,
+};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -165,6 +167,153 @@ pub fn check_total(desired: &Desired) -> Result<(), String> {
         ));
     }
     Ok(())
+}
+
+/// How patterns match the scripts of the online worlds.
+#[derive(Debug, Serialize)]
+pub struct PatternCheck {
+    pub patterns: Vec<PatternMatches>,
+    /// The worlds that answered, and those online that didn't.
+    pub checked: Vec<u16>,
+    pub unreachable: Vec<u16>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct PatternMatches {
+    pub pattern: String,
+    /// How many scripts it matches on each world that answered, in order.
+    pub matched: Vec<u32>,
+}
+
+/// `world 3` or `worlds 2, 3`.
+fn worlds_named(ids: &[u16]) -> String {
+    let list: Vec<String> = ids.iter().map(u16::to_string).collect();
+    format!(
+        "{} {}",
+        if ids.len() == 1 { "world" } else { "worlds" },
+        list.join(", ")
+    )
+}
+
+impl PatternCheck {
+    /// The patterns that match no script on any world that answered: a
+    /// mistake, or scripts renamed since.
+    pub fn nowhere(&self) -> Vec<&str> {
+        if self.checked.is_empty() {
+            return Vec::new();
+        }
+        self.patterns
+            .iter()
+            .filter(|p| p.matched.iter().all(|&n| n == 0))
+            .map(|p| p.pattern.as_str())
+            .collect()
+    }
+
+    /// The patterns that match on some worlds but not others (a world on
+    /// another revision, with other content), and the worlds without.
+    pub fn missing_on(&self) -> Vec<(&str, Vec<u16>)> {
+        self.patterns
+            .iter()
+            .filter(|p| p.matched.iter().any(|&n| n > 0))
+            .filter_map(|p| {
+                let worlds: Vec<u16> = p
+                    .matched
+                    .iter()
+                    .zip(&self.checked)
+                    .filter(|&(&n, _)| n == 0)
+                    .map(|(_, &w)| w)
+                    .collect();
+                (!worlds.is_empty()).then_some((p.pattern.as_str(), worlds))
+            })
+            .collect()
+    }
+
+    /// A pattern matching more scripts than a world takes, and how many.
+    pub fn too_broad(&self) -> Option<(&str, u32)> {
+        self.patterns.iter().find_map(|p| {
+            let most = p.matched.iter().copied().max().unwrap_or(0);
+            (most as usize > MAX_SWITCH_SCRIPTS).then_some((p.pattern.as_str(), most))
+        })
+    }
+
+    /// What's wrong enough to refuse a switch over, if anything.
+    pub fn refusal(&self) -> Option<String> {
+        if let Some((p, n)) = self.too_broad() {
+            return Some(format!(
+                "\"{p}\" matches {n} scripts, more than the {MAX_SWITCH_SCRIPTS} a switch may turn off. Nothing was switched off."
+            ));
+        }
+        let nowhere = self.nowhere();
+        (!nowhere.is_empty()).then(|| {
+            let list: Vec<String> = nowhere.iter().map(|p| format!("\"{p}\"")).collect();
+            format!(
+                "{} {} no script on any world: mistyped, or the scripts were renamed. Nothing was switched off.",
+                list.join(", "),
+                if list.len() == 1 { "matches" } else { "match" }
+            )
+        })
+    }
+
+    /// What to warn about a switch that went on anyway.
+    pub fn warnings(&self) -> Vec<String> {
+        let mut out: Vec<String> = self
+            .missing_on()
+            .into_iter()
+            .map(|(p, worlds)| {
+                format!(
+                    "\"{p}\" matches no script on {}, so it switches nothing off there.",
+                    worlds_named(&worlds)
+                )
+            })
+            .collect();
+        if self.checked.is_empty() {
+            out.push(
+                "No world answered, so the patterns couldn't be checked against the scripts."
+                    .to_owned(),
+            );
+        } else if !self.unreachable.is_empty() {
+            out.push(format!(
+                "Not checked on {}, which didn't answer.",
+                worlds_named(&self.unreachable)
+            ));
+        }
+        out
+    }
+}
+
+/// How `patterns` match on every online world. Nothing is switched off.
+pub async fn check(app: &App, patterns: &[String]) -> PatternCheck {
+    let online = app.worlds.online();
+    let replies: Vec<Reply<Vec<u32>>> = app
+        .worlds
+        .command(&online, path::CONTROLS_CHECK, |_| CheckPatterns {
+            patterns: patterns.to_vec(),
+        })
+        .await;
+    let mut checked = Vec::new();
+    let mut unreachable = Vec::new();
+    let mut counts: Vec<Vec<u32>> = vec![Vec::new(); patterns.len()];
+    for reply in replies {
+        match reply.result {
+            Outcome::Answered { answer } if answer.len() == patterns.len() => {
+                checked.push(reply.world);
+                for (count, n) in counts.iter_mut().zip(answer) {
+                    count.push(n);
+                }
+            }
+            _ => unreachable.push(reply.world),
+        }
+    }
+    PatternCheck {
+        patterns: patterns
+            .iter()
+            .cloned()
+            .zip(counts)
+            .map(|(pattern, matched)| PatternMatches { pattern, matched })
+            .collect(),
+        checked,
+        unreachable,
+    }
 }
 
 /// The last time a world was sent its controls, and how it went.
@@ -341,6 +490,58 @@ mod tests {
         assert!(p(&["*"]).is_err());
         assert!(p(&["**"]).is_err());
         assert!(p(&[&"x".repeat(101)]).is_err());
+    }
+
+    fn checked(worlds: &[u16], patterns: &[(&str, &[u32])]) -> PatternCheck {
+        PatternCheck {
+            patterns: patterns
+                .iter()
+                .map(|(p, m)| PatternMatches {
+                    pattern: (*p).to_owned(),
+                    matched: m.to_vec(),
+                })
+                .collect(),
+            checked: worlds.to_vec(),
+            unreachable: vec![],
+        }
+    }
+
+    #[test]
+    fn a_pattern_matching_nothing_is_refused() {
+        let check = checked(
+            &[1, 2],
+            &[("[opheld5,*]", &[40, 38]), ("[opheld5,typo]", &[0, 0])],
+        );
+        assert_eq!(check.nowhere(), ["[opheld5,typo]"]);
+        assert!(
+            check
+                .refusal()
+                .unwrap()
+                .contains("\"[opheld5,typo]\" matches no script")
+        );
+        assert!(check.warnings().is_empty());
+    }
+
+    #[test]
+    fn a_pattern_missing_on_some_worlds_is_warned_of() {
+        let check = checked(&[1, 2, 3], &[("[if_button,new:accept]", &[1, 0, 0])]);
+        assert!(check.refusal().is_none());
+        assert_eq!(check.missing_on(), [("[if_button,new:accept]", vec![2, 3])]);
+        assert_eq!(
+            check.warnings(),
+            [
+                "\"[if_button,new:accept]\" matches no script on worlds 2, 3, so it switches nothing off there."
+            ]
+        );
+    }
+
+    #[test]
+    fn too_broad_or_unchecked() {
+        let check = checked(&[1], &[("[*,*]", &[900])]);
+        assert!(check.refusal().unwrap().contains("matches 900 scripts"));
+        let none = checked(&[], &[("[x,_]", &[])]);
+        assert!(none.refusal().is_none());
+        assert_eq!(none.warnings().len(), 1);
     }
 
     #[test]

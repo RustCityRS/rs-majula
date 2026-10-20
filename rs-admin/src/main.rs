@@ -3,6 +3,7 @@ mod appeals;
 mod audit;
 mod cases;
 mod controls;
+mod farms;
 mod http;
 mod markdown;
 mod notes;

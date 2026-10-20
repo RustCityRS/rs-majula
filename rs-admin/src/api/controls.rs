@@ -1,7 +1,7 @@
 use crate::audit::Event;
 use crate::controls::{
-    self, ActiveSwitch, Desired, Lockdown, MAX_LOCKDOWN_HOURS, PRESETS, Preset, checked_label,
-    checked_patterns,
+    self, ActiveSwitch, Desired, Lockdown, MAX_LOCKDOWN_HOURS, PRESETS, PatternCheck, Preset,
+    checked_label, checked_patterns,
 };
 use crate::http::{ApiError, App, Staff};
 use crate::users::now_ms;
@@ -31,6 +31,8 @@ pub struct ControlsPage {
     wanted: WorldControls,
     worlds: Vec<WorldSync>,
     can_change: bool,
+    /// What's off about the switch just turned on.
+    warnings: Vec<String>,
 }
 
 fn page(app: &App, staff: &Staff) -> ControlsPage {
@@ -46,14 +48,22 @@ fn page(app: &App, staff: &Staff) -> ControlsPage {
                 .controls
                 .push(v.config.node)
                 .filter(|p| p.sent == wanted);
+            let in_sync = applied.as_ref() == Some(&wanted);
+            // The world's own counts are current (a script reload redoes
+            // them); a world on an older release only has the push's.
+            let current = v
+                .status
+                .as_ref()
+                .and_then(|s| s.control_matches.clone())
+                .filter(|m| in_sync && m.len() == wanted.switches.len());
             WorldSync {
                 node: v.config.node,
                 world: v.config.id,
                 online: v.online,
                 supported: applied.is_some(),
-                in_sync: applied.as_ref() == Some(&wanted),
+                in_sync,
                 applied,
-                matched: push.as_ref().and_then(|p| p.result.clone().ok()),
+                matched: current.or_else(|| push.as_ref().and_then(|p| p.result.clone().ok())),
                 error: push.and_then(|p| p.result.err()),
             }
         })
@@ -64,7 +74,42 @@ fn page(app: &App, staff: &Staff) -> ControlsPage {
         wanted,
         worlds,
         can_change: staff.require_admin().is_ok(),
+        warnings: Vec::new(),
     }
+}
+
+/// The most patterns checked at once: every preset's, with room to spare.
+const MAX_CHECK_PATTERNS: usize = 64;
+const MAX_PATTERN_CHARS: usize = 100;
+
+#[derive(Deserialize)]
+pub struct CheckRequest {
+    patterns: Vec<String>,
+}
+
+/// `POST /api/controls/check`: how many scripts each pattern would match on
+/// every online world, switching nothing off.
+pub async fn check(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+    Json(req): Json<CheckRequest>,
+) -> Result<Json<PatternCheck>, ApiError> {
+    let patterns: Vec<String> = req
+        .patterns
+        .iter()
+        .map(|p| p.trim().to_owned())
+        .filter(|p| !p.is_empty())
+        .collect();
+    if patterns.len() > MAX_CHECK_PATTERNS
+        || patterns
+            .iter()
+            .any(|p| p.chars().count() > MAX_PATTERN_CHARS)
+    {
+        return Err(ApiError::bad_request(format!(
+            "Check at most {MAX_CHECK_PATTERNS} patterns of at most {MAX_PATTERN_CHARS} characters."
+        )));
+    }
+    Ok(Json(controls::check(&app, &patterns).await))
 }
 
 /// `GET /api/controls`.
@@ -112,6 +157,18 @@ pub async fn switch(
         Some((String::new(), label, patterns))
     } else {
         return Err(ApiError::bad_request("There's no such switch to turn on."));
+    };
+    // Checked against the worlds' scripts first: a pattern that matches
+    // nothing switches nothing off, and would look like it worked.
+    let warnings = match &new {
+        Some((_, _, patterns)) => {
+            let check = controls::check(&app, patterns).await;
+            if let Some(refusal) = check.refusal() {
+                return Err(ApiError::bad_request(refusal));
+            }
+            check.warnings()
+        }
+        None => Vec::new(),
     };
 
     let by = staff.name().to_owned();
@@ -164,7 +221,10 @@ pub async fn switch(
         );
         controls::sync(&app, staff.name(), None).await;
     }
-    Ok(Json(page(&app, &staff)))
+    Ok(Json(ControlsPage {
+        warnings,
+        ..page(&app, &staff)
+    }))
 }
 
 #[derive(Deserialize)]

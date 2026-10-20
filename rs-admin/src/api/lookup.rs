@@ -129,6 +129,8 @@ pub struct ChatQuery {
     /// A world's node.
     node: Option<u8>,
     before: Option<i64>,
+    /// Only messages newer than this one, oldest first: a live feed.
+    after: Option<i64>,
 }
 
 #[derive(Serialize)]
@@ -138,9 +140,10 @@ pub struct ChatView {
     world: Option<u16>,
 }
 
-/// `GET /api/lookup/chat?name=&node=&before=`: chat newest first. Each new
-/// search (not its "load older" pages) is audited, since this includes
-/// private messages.
+/// `GET /api/lookup/chat?name=&node=&before=&after=`: chat newest first, or
+/// with `after` what's come since, oldest first. Each new search (not its
+/// "load older" pages, nor a live feed's next messages) is audited, since
+/// this includes private messages.
 pub async fn chat(
     State(app): State<Arc<App>>,
     staff: Staff,
@@ -167,12 +170,13 @@ pub async fn chat(
                 name: name.clone(),
                 node: query.node,
                 before: query.before,
+                after: query.after,
                 limit: PAGE,
             },
         )
         .await
         .map_err(unavailable)?;
-    if query.before.is_none() {
+    if query.before.is_none() && query.after.is_none() {
         let target = match (&name, world) {
             (Some(name), Some(world)) => format!("{name} on world {world}"),
             (Some(name), None) => name.clone(),
@@ -264,14 +268,14 @@ pub async fn reports(
 }
 
 /// Whether `staff` may see players' addresses; others see [`address_label`]s.
-fn sees_addresses(staff: &Staff) -> bool {
+pub(super) fn sees_addresses(staff: &Staff) -> bool {
     staff.require_admin().is_ok()
 }
 
 /// A stand-in for an address: the same address gets the same label all
 /// through this console's run, so moderators can match addresses up without
 /// seeing them.
-fn address_label(app: &App, ip: &str) -> String {
+pub(super) fn address_label(app: &App, ip: &str) -> String {
     let digest = Sha256::digest(format!("{}:{ip}", app.address_salt).as_bytes());
     let hex: String = digest[..3].iter().map(|b| format!("{b:02x}")).collect();
     format!("addr-{hex}")

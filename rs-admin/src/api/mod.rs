@@ -3,6 +3,7 @@ mod auth;
 mod cases;
 mod controls;
 mod edit;
+mod live;
 mod lookup;
 mod news;
 mod notes;
@@ -42,6 +43,7 @@ pub fn router() -> Router<Arc<App>> {
         .route("/worlds/maintenance", post(worlds::maintenance))
         .route("/controls", get(controls::get))
         .route("/controls/switch", post(controls::switch))
+        .route("/controls/check", post(controls::check))
         .route("/controls/lockdown", post(controls::lockdown))
         .route("/schedule", get(schedule::list).post(schedule::add))
         .route("/schedule/{id}/delete", post(schedule::remove))
@@ -75,6 +77,10 @@ pub fn router() -> Router<Arc<App>> {
         .route("/replays/{id}", get(replays::get))
         .route("/replays/{id}/file", get(replays::file))
         .route("/replays/{id}/viewed", post(replays::viewed))
+        .route("/replays/{id}/live", get(live::replay))
+        .route("/live/players", get(live::players))
+        .route("/live/anticheat", get(live::anticheat))
+        .route("/live/farms", get(live::farms))
         .route("/staff", get(staff::list).post(staff::add))
         .route("/staff/update", post(staff::update))
         .route("/players/sheet", get(edit::player))

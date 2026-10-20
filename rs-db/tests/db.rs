@@ -1356,3 +1356,207 @@ async fn appeals_are_filed_once_and_decided(pool: PgPool) {
     assert_eq!(mute.issued_by, None);
     assert_eq!(mute.sanction, "mute");
 }
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn chat_feeds_on_from_a_message(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    let chat = |message: &str| ChatLog {
+        name_hash: 42,
+        to_name_hash: None,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: message.to_owned(),
+    };
+    let batch = |lines: &[&str]| LogBatch {
+        chat: lines.iter().map(|m| chat(m)).collect(),
+        ..Default::default()
+    };
+    db.record_logs(10, &batch(&["one", "two"])).await.unwrap();
+    db.record_logs(11, &batch(&["three"])).await.unwrap();
+    let newest = db.chat_history(None, None, None, None, 10).await.unwrap();
+    let first = newest.last().unwrap().id;
+    let messages =
+        |rows: Vec<rs_db::ChatRecord>| rows.into_iter().map(|c| c.message).collect::<Vec<_>>();
+    // Newer than the first, oldest first.
+    assert_eq!(
+        messages(
+            db.chat_history(None, None, None, Some(first), 10)
+                .await
+                .unwrap()
+        ),
+        ["two", "three"]
+    );
+    assert_eq!(
+        messages(
+            db.chat_history(None, Some(11), None, Some(first), 10)
+                .await
+                .unwrap()
+        ),
+        ["three"]
+    );
+    assert!(
+        db.chat_history(None, None, None, Some(newest[0].id), 10)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replay_chunks_page_from_a_seq(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    db.start_replay(&NewReplay {
+        id: 1,
+        name_hash: 42,
+        node_id: 10,
+        revision: "289".into(),
+    })
+    .await
+    .unwrap();
+    let clean = ReplayReport::default();
+    // Seq 1 was empty, so never stored.
+    for seq in [0, 2, 3] {
+        let chunk = ReplayChunk {
+            seq,
+            start_ms: seq * 2000,
+            end_ms: (seq + 1) * 2000,
+            data: vec![seq as u8],
+        };
+        db.store_replay(1, Some(&chunk), (seq + 1) * 2000, &clean, false, true)
+            .await
+            .unwrap();
+    }
+    let seqs = |chunks: Vec<ReplayChunk>| chunks.into_iter().map(|c| c.seq).collect::<Vec<_>>();
+    assert_eq!(seqs(db.replay_chunks_from(1, 1).await.unwrap()), [2, 3]);
+    assert_eq!(seqs(db.replay_chunks_from(1, 3).await.unwrap()), [3]);
+    assert!(db.replay_chunks_from(1, 4).await.unwrap().is_empty());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn anticheat_leaders_rank_and_trend(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    for name_hash in [1, 2, 3] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            ..player(name_hash)
+        })
+        .await
+        .unwrap();
+    }
+    let report = |score, flags: &[&str]| ReplayReport {
+        score,
+        flags: flags.iter().map(|f| (*f).to_owned()).collect(),
+        stats: "{}".into(),
+    };
+    // (id, player, hours ago, score, flags)
+    let sessions: [(i64, u64, i32, i16, &[&str]); 6] = [
+        (1, 1, 20, 40, &["no_heartbeat"]),
+        (2, 1, 2, 100, &["modified_client", "no_heartbeat"]),
+        (3, 2, 5, 20, &["robotic_click_timing"]),
+        (4, 2, 3, 0, &[]),
+        (5, 3, 1, 0, &[]),
+        // Before the window.
+        (6, 3, 30, 100, &["modified_client"]),
+    ];
+    for (id, name_hash, hours, score, flags) in sessions {
+        db.start_replay(&NewReplay {
+            id,
+            name_hash,
+            node_id: 10,
+            revision: "289".into(),
+        })
+        .await
+        .unwrap();
+        db.store_replay(id, None, 60_000, &report(score, flags), true, true)
+            .await
+            .unwrap();
+        sqlx::query(
+            "UPDATE replays SET started_at = now() - make_interval(hours => $2) WHERE id = $1",
+        )
+        .bind(id)
+        .bind(hours)
+        .execute(&pool)
+        .await
+        .unwrap();
+    }
+    let since = (std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_millis() as i64)
+        - 24 * 3_600_000;
+    let leaders = db.anticheat_leaders(since, 4, 10).await.unwrap();
+    let summary: Vec<_> = leaders
+        .iter()
+        .map(|l| (l.sessions, l.flagged, l.max_score, l.total_score))
+        .collect();
+    assert_eq!(summary, [(2, 2, 100, 140), (2, 1, 20, 20)]);
+    assert_eq!(leaders[0].flags, ["modified_client", "no_heartbeat"]);
+    // Six-hour stretches: 20 hours ago, then 2 hours ago.
+    assert_eq!(leaders[0].trend, [40, 0, 0, 100]);
+    assert_eq!(leaders[1].trend, [0, 0, 0, 20]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn account_activity_covers_recent_accounts(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    for name_hash in [1, 2] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            registration_ip: Some(ip),
+            ..player(name_hash)
+        })
+        .await
+        .unwrap();
+    }
+    // Staff aren't listed.
+    db.create_player(&player(3)).await.unwrap();
+    db.record_login(1, 10, ip).await.unwrap();
+    db.record_login(3, 10, ip).await.unwrap();
+    db.start_replay(&NewReplay {
+        id: 1,
+        name_hash: 1,
+        node_id: 10,
+        revision: "289".into(),
+    })
+    .await
+    .unwrap();
+    let report = ReplayReport {
+        score: 20,
+        flags: vec!["robotic_click_timing".into()],
+        stats: r#"{"clickRhythm":0.05}"#.into(),
+    };
+    db.store_replay(1, None, 90_000, &report, true, true)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE players SET created_at = now() - interval '30 days' WHERE name_hash = 2")
+        .execute(&pool)
+        .await
+        .unwrap();
+
+    let since = (std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_millis() as i64)
+        - 7 * 86_400_000;
+    let accounts = db.account_activity(since, 10).await.unwrap();
+    // Account 2 registered before the window and hasn't logged in since.
+    assert_eq!(accounts.len(), 1);
+    let a = &accounts[0];
+    assert_eq!(a.registration_ip.as_deref(), Some("203.0.113.7"));
+    assert_eq!(a.login_ips, ["203.0.113.7"]);
+    assert_eq!(
+        (a.sessions, a.play_ms, a.flagged, a.max_score),
+        (1, 90_000, 1, 20)
+    );
+    assert_eq!(a.rhythm, Some(0.05));
+    assert_eq!(a.hours.len(), 24);
+    assert_eq!(a.hours.iter().sum::<i32>(), 1);
+}

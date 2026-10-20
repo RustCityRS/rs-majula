@@ -7,12 +7,14 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::{Json, Router};
 use rs_admin_api::{
-    Broadcast, CancelReboot, ChatLookup, ChatRecord, ControlsSet, Health, InvSheet, ItemLine, Kick,
-    LinkedAccount, Links, LinksLookup, LoginAddress, Maintenance, ModOutcome, Moderate,
-    ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome, PlayerEdit,
-    PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, Reboot, ReplayGet, ReplayLookup,
-    ReplaySummary, ReportLookup, ReportRecord, Sanction, SanctionsLookup, SetControls, SheetLookup,
-    StatLine, TimelineEntry, TimelineLookup, Verifier, WorldControls, WorldStatus, path,
+    AccountActivity, AccountsLookup, AnticheatLeader, AnticheatLookup, Broadcast, CancelReboot,
+    ChatLookup, ChatRecord, CheckPatterns, ControlsSet, Health, InvSheet, ItemLine, Kick,
+    LinkedAccount, Links, LinksLookup, LiveReplay, LoginAddress, MAX_SWITCH_SCRIPTS, Maintenance,
+    ModOutcome, Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer,
+    Outcome, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, Reboot,
+    ReplayGet, ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, Sanction, SanctionsLookup,
+    SetControls, SheetLookup, StatLine, TimelineEntry, TimelineLookup, Verifier, WorldControls,
+    WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, TimelineCursor};
 use rs_engine::controls::{self, Controls};
@@ -20,7 +22,7 @@ use rs_engine::edit::{self, Change};
 use rs_engine::watch::playback;
 use rs_engine::{DbRequest, Engine, LoadResult, SaveOutcome, TickStats, profile_from_save};
 use rs_util::base37::{is_valid_userhash, to_raw_username, to_screen_name, to_userhash};
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, System};
@@ -59,10 +61,6 @@ const MAX_MOD_REASON_CHARS: usize = 300;
 /// The longest kill switch pattern, in characters.
 const MAX_PATTERN_CHARS: usize = 100;
 
-/// The most scripts one kill switch may turn off: more is a pattern too
-/// broad to be meant (`*` would stop every player script, logins included).
-const MAX_SWITCH_SCRIPTS: usize = 300;
-
 /// The longest login lockdown: a year.
 const MAX_LOCKDOWN_HOURS: u32 = 8760;
 
@@ -93,6 +91,8 @@ struct AdminState {
     sys: Mutex<System>,
     pid: Option<Pid>,
     reboot_reason: Mutex<Option<String>>,
+    /// Sessions staff are watching live, by token.
+    spectates: Mutex<HashMap<String, Arc<tokio::sync::Mutex<Spectate>>>>,
 }
 
 impl AdminState {
@@ -164,6 +164,7 @@ pub async fn serve(
         sys: Mutex::new(System::new()),
         pid: sysinfo::get_current_pid().ok(),
         reboot_reason: Mutex::default(),
+        spectates: Mutex::default(),
     });
     tokio::spawn(record_ticks(stats, state.clone()));
     let router = Router::new()
@@ -176,6 +177,7 @@ pub async fn serve(
         .route(path::MODERATE, post(moderate))
         .route(path::MAINTENANCE, post(maintenance))
         .route(path::CONTROLS, post(set_controls))
+        .route(path::CONTROLS_CHECK, post(check_patterns))
         .route(path::PLAYER, post(player_lookup))
         .route(path::MODERATION, post(moderation_lookup))
         .route(path::SANCTIONS, post(sanctions_lookup))
@@ -186,6 +188,9 @@ pub async fn serve(
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
         .route(path::REPLAY_DATA, post(replay_data))
+        .route(path::LIVE_REPLAY, post(live_replay))
+        .route(path::ANTICHEAT, post(anticheat_lookup))
+        .route(path::ACCOUNTS, post(accounts_lookup))
         .route(path::PLAYER_SHEET, post(player_sheet))
         .route(path::PLAYER_EDIT, post(player_edit))
         .route(path::OBJ_SEARCH, post(obj_search))
@@ -284,6 +289,14 @@ fn world_status(state: &AdminState, engine: &Engine) -> WorldStatus {
             switches: engine.controls.patterns().to_vec(),
             min_account_age_hours: engine.controls.min_account_age_hours,
         }),
+        control_matches: Some(
+            engine
+                .controls
+                .matched()
+                .iter()
+                .map(|&n| n as u32)
+                .collect(),
+        ),
     }
 }
 
@@ -313,6 +326,7 @@ async fn players(
                     z: coord.z(),
                     level: coord.y(),
                     muted: active.is_muted(),
+                    replay: active.watch.recording_id().map(|id| id.to_string()),
                 }
             })
             .collect()
@@ -595,6 +609,29 @@ async fn set_controls(
     .map(Json)
 }
 
+/// How many scripts each pattern would switch off here, changing nothing.
+async fn check_patterns(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<CheckPatterns>,
+) -> Result<Json<Vec<u32>>, StatusCode> {
+    if req.patterns.len() > controls::MAX_SWITCHES
+        || req
+            .patterns
+            .iter()
+            .any(|p| p.chars().count() > MAX_PATTERN_CHARS)
+    {
+        return Err(StatusCode::UNPROCESSABLE_ENTITY);
+    }
+    on_engine(&state, move |engine| {
+        req.patterns
+            .iter()
+            .map(|p| Controls::matches(p, &engine.scripts) as u32)
+            .collect()
+    })
+    .await
+    .map(Json)
+}
+
 /// A lookup's database failure: logged, and answered as the database being
 /// out of reach.
 fn db_failed(e: rs_db::Error) -> StatusCode {
@@ -702,6 +739,7 @@ async fn chat_lookup(
             sender,
             req.node.map(i16::from),
             req.before,
+            req.after,
             i64::from(req.limit.clamp(1, MAX_LOOKUP_ROWS)),
         )
         .await
@@ -928,6 +966,251 @@ async fn replay_data(
         file,
     )
         .into_response())
+}
+
+/// How long a live watch keeps a session's chunks coming every couple of
+/// seconds without hearing from the console again.
+const LIVE_SECS: u64 = 30;
+
+/// A live watch the console stopped asking about is forgotten after this.
+const SPECTATE_IDLE: Duration = Duration::from_secs(60);
+
+/// A session that stopped being stored this long ago without ending (its
+/// world went down) is over.
+const STALE_MS: i64 = 90_000;
+
+/// How far behind the end of what's stored a live replay plays, so the
+/// player's input (reported in batches) is in before it's needed. Before
+/// 274 the client holds its report for up to 17 ticks.
+const LIVE_DELAY_MS: u32 = if cfg!(before_274) { 14_000 } else { 6_000 };
+
+/// A session staff are watching live: what's been built from it so far.
+struct Spectate {
+    id: i64,
+    builder: playback::Builder,
+    next_seq: i32,
+    used: Instant,
+}
+
+/// The header fields of a live replay's file.
+fn live_header(token: &str, ended: bool) -> serde_json::Map<String, serde_json::Value> {
+    let mut extra = serde_json::Map::new();
+    extra.insert(
+        "live".into(),
+        serde_json::json!({ "token": token, "delayMs": LIVE_DELAY_MS, "ended": ended }),
+    );
+    extra
+}
+
+fn now_ms() -> i64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_millis() as i64)
+}
+
+/// A session going on now on this world, to watch live: the recording so far
+/// (and a token), then with the token what's been stored since. Watching
+/// keeps the session's chunks coming every couple of seconds.
+async fn live_replay(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<LiveReplay>,
+) -> Result<Response, StatusCode> {
+    let id = replay_id(&req.id)?;
+    state
+        .spectates
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .retain(|_, s| {
+            s.try_lock()
+                .map_or(true, |s| s.used.elapsed() < SPECTATE_IDLE)
+        });
+    let file = match req.token {
+        None => start_spectate(&state, id).await?,
+        Some(token) => {
+            let spectate = state
+                .spectates
+                .lock()
+                .unwrap_or_else(|e| e.into_inner())
+                .get(&token)
+                .cloned()
+                .ok_or(StatusCode::NOT_FOUND)?;
+            let mut spectate = spectate.lock().await;
+            if spectate.id != id {
+                return Err(StatusCode::NOT_FOUND);
+            }
+            spectate.used = Instant::now();
+            let (file, ended) = continue_spectate(&state, &mut spectate, &token).await?;
+            if ended {
+                state
+                    .spectates
+                    .lock()
+                    .unwrap_or_else(|e| e.into_inner())
+                    .remove(&token);
+            }
+            file
+        }
+    };
+    Ok((
+        [(axum::http::header::CONTENT_TYPE, "application/octet-stream")],
+        file,
+    )
+        .into_response())
+}
+
+/// Whether recording `id` is going on on this world, keeping its chunks
+/// coming quickly if it is.
+async fn keep_live(state: &AdminState, id: i64) -> Result<bool, StatusCode> {
+    on_engine(state, move |engine| {
+        engine
+            .player_list
+            .players
+            .iter_mut()
+            .flatten()
+            .any(|active| active.watch.watch_live(id, LIVE_SECS))
+    })
+    .await
+}
+
+async fn start_spectate(state: &AdminState, id: i64) -> Result<Vec<u8>, StatusCode> {
+    let Some(record) = state.db.replay(id).await.map_err(db_failed)? else {
+        return Err(StatusCode::NOT_FOUND);
+    };
+    if record.revision != REVISION || !record.complete || !keep_live(state, id).await? {
+        return Err(StatusCode::CONFLICT);
+    }
+    let chunks = state.db.replay_chunks(id).await.map_err(db_failed)?;
+    let next_seq = chunks.last().map_or(0, |c| c.seq + 1);
+    let token = format!("{:032x}", rand::random::<u128>());
+    let mut extra = live_header(&token, false);
+    extra.insert("id".into(), record.id.to_string().into());
+    extra.insert("player".into(), record.player.into());
+    extra.insert("node".into(), record.node_id.into());
+    extra.insert("revision".into(), record.revision.into());
+    extra.insert("startedMs".into(), record.started_ms.into());
+    extra.insert("complete".into(), true.into());
+    let (builder, file) = tokio::task::spawn_blocking(move || {
+        let mut builder = playback::Builder::default();
+        builder.feed(&playback::inflate(&chunks));
+        let file = builder.take(extra);
+        (builder, file)
+    })
+    .await
+    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let spectate = Spectate {
+        id,
+        builder,
+        next_seq,
+        used: Instant::now(),
+    };
+    state
+        .spectates
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .insert(token, Arc::new(tokio::sync::Mutex::new(spectate)));
+    Ok(file)
+}
+
+/// What's been stored of a live session since the last time, and whether it
+/// has ended (and all of it has been sent).
+async fn continue_spectate(
+    state: &AdminState,
+    spectate: &mut Spectate,
+    token: &str,
+) -> Result<(Vec<u8>, bool), StatusCode> {
+    let id = spectate.id;
+    // Over once it's no longer going on here and its end is stored: that's
+    // read before the chunks, so the last of them come with it.
+    let ended = if keep_live(state, id).await? {
+        false
+    } else {
+        match state.db.replay(id).await.map_err(db_failed)? {
+            None => true,
+            Some(r) => r.ended_ms.is_some() || !r.complete || now_ms() - r.updated_ms > STALE_MS,
+        }
+    };
+    let chunks = state
+        .db
+        .replay_chunks_from(id, spectate.next_seq)
+        .await
+        .map_err(db_failed)?;
+    if let Some(last) = chunks.last() {
+        spectate.next_seq = last.seq + 1;
+    }
+    spectate.builder.feed(&playback::inflate(&chunks));
+    Ok((spectate.builder.take(live_header(token, ended)), ended))
+}
+
+/// The most players the anti-cheat leaderboard lists.
+const MAX_LEADERS: u32 = 200;
+/// The most stretches a leader's trend splits the window into.
+const MAX_BUCKETS: u32 = 48;
+/// The most accounts an activity lookup returns.
+const MAX_ACCOUNTS: u32 = 5000;
+
+async fn anticheat_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<AnticheatLookup>,
+) -> Result<Json<Vec<AnticheatLeader>>, StatusCode> {
+    let rows = state
+        .db
+        .anticheat_leaders(
+            req.since_ms,
+            req.buckets.clamp(1, MAX_BUCKETS) as i32,
+            i64::from(req.limit.clamp(1, MAX_LEADERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| AnticheatLeader {
+                name: r.name,
+                sessions: r.sessions,
+                flagged: r.flagged,
+                max_score: r.max_score,
+                total_score: r.total_score,
+                play_ms: r.play_ms,
+                flags: r.flags,
+                last_flagged_ms: r.last_flagged_ms,
+                trend: r.trend,
+                online_node: node(r.online_node),
+                muted_until_ms: r.muted_until_ms,
+                banned_until_ms: r.banned_until_ms,
+            })
+            .collect(),
+    ))
+}
+
+async fn accounts_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<AccountsLookup>,
+) -> Result<Json<Vec<AccountActivity>>, StatusCode> {
+    let rows = state
+        .db
+        .account_activity(req.since_ms, i64::from(req.limit.clamp(1, MAX_ACCOUNTS)))
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|a| AccountActivity {
+                name: a.name,
+                registered_ms: a.registered_ms,
+                registration_ip: a.registration_ip,
+                login_ips: a.login_ips,
+                sessions: a.sessions,
+                play_ms: a.play_ms,
+                flagged: a.flagged,
+                max_score: a.max_score,
+                rhythm: a.rhythm,
+                hours: a.hours,
+                x: a.x.map(|x| x as u16),
+                z: a.z.map(|z| z as u16),
+                level: a.y.map(|y| y as u8),
+                online_node: node(a.online_node),
+                muted_until_ms: a.muted_until_ms,
+                banned_until_ms: a.banned_until_ms,
+            })
+            .collect(),
+    ))
 }
 
 /// Player editing needs staff level 3 (developers), whatever the console

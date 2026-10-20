@@ -33,6 +33,8 @@ use tokio::sync::mpsc::Sender;
 
 /// A chunk is handed over after this long...
 pub const CHUNK_MS: u32 = 30_000;
+/// ...or this long while staff watch it live, so they're seconds behind.
+pub const LIVE_CHUNK_MS: u32 = 2_000;
 /// ...or once it's this big, whichever comes first.
 pub const CHUNK_BYTES: usize = 64 * 1024;
 /// How many requests the recording task can fall behind by before chunks
@@ -108,6 +110,8 @@ pub struct Watch {
     pub anticheat: AntiCheat,
     started: Instant,
     recording: Option<Recording>,
+    /// Until when staff watch it live (see [`Self::watch_live`]).
+    live_until: Option<Instant>,
 }
 
 impl Default for Watch {
@@ -116,6 +120,7 @@ impl Default for Watch {
             anticheat: AntiCheat::default(),
             started: Instant::now(),
             recording: None,
+            live_until: None,
         }
     }
 }
@@ -154,7 +159,24 @@ impl Watch {
             anticheat: AntiCheat::default(),
             started: Instant::now(),
             recording,
+            live_until: None,
         }
+    }
+
+    /// The recording's id, while it goes on whole.
+    pub fn recording_id(&self) -> Option<i64> {
+        self.recording.as_ref().filter(|r| !r.lost).map(|r| r.id)
+    }
+
+    /// Staff watch recording `id` live for the next `secs` seconds: its
+    /// chunks are stored every [`LIVE_CHUNK_MS`] meanwhile. Whether it's
+    /// this one (and still whole).
+    pub fn watch_live(&mut self, id: i64, secs: u64) -> bool {
+        if self.recording_id() != Some(id) {
+            return false;
+        }
+        self.live_until = Some(Instant::now() + std::time::Duration::from_secs(secs));
+        true
     }
 
     /// Milliseconds into the session.
@@ -269,8 +291,12 @@ impl Watch {
     /// At the end of each tick: hands over the chunk when it's due.
     pub fn end_tick(&mut self) {
         let ms = self.ms();
+        let live = self.live_until.is_some_and(|until| Instant::now() < until);
         let due = self.recording.as_ref().is_some_and(|r| {
-            r.buf.len() >= CHUNK_BYTES || ms.saturating_sub(r.chunk_start_ms) >= CHUNK_MS
+            let age = ms.saturating_sub(r.chunk_start_ms);
+            r.buf.len() >= CHUNK_BYTES
+                || age >= CHUNK_MS
+                || (live && age >= LIVE_CHUNK_MS && !r.buf.is_empty())
         });
         if due {
             self.flush(false);

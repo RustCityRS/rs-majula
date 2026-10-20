@@ -19,6 +19,11 @@
 // {type: 'load', file}, then 'play', 'pause', {type: 'speed', value},
 // {type: 'seek', ms} and {type: 'freeLook', on}; the page answers with
 // 'ready', 'state' and 'ended'.
+//
+// Watching live, the file's header has `live` ({token, delayMs, ended}) and
+// the console adds what's recorded since with {type: 'append', file}, a file
+// of only that. Caught up with what it has, the replay waits there (the
+// client runs on) until more comes, and only ends once the session has.
 (() => {
     'use strict';
 
@@ -491,6 +496,10 @@
         startAt: null,
         arrowsHeld: new Set(),
         cameraFields: undefined,
+        // Watching live: {delayMs, ended}, and whether it's caught up and
+        // waiting for more.
+        live: null,
+        starved: false,
     };
 
     const sessionMs = () => (replay.streaming ? replay.baseMs + (vnow() - replay.baseV) : replay.lastMs);
@@ -748,10 +757,16 @@
                 applyClock();
             }
         }
+        // Live, and caught up with what's come: wait there for more.
+        const duration = replay.rec.header.durationMs;
+        if (replay.live && !replay.live.ended && replay.streaming && replay.seekTo === null && replay.lastMs >= duration) {
+            replay.starved = true;
+            hold();
+            return;
+        }
         // Over once everything was sent and its time is up, or once the
         // client closed the connection itself (it logged out) with no
         // reconnect to come.
-        const duration = replay.rec.header.durationMs;
         const sent = replay.frame >= replay.rec.frames.length;
         const loggedOut = !replay.streaming && replay.closedAt !== null && vnow() - replay.closedAt > 5000
             && !replay.rec.frames.slice(replay.frame).some((f) => f.kind === FRAME_RECONNECT);
@@ -1415,6 +1430,8 @@
         scouting.sweeping = false;
         Object.assign(sweep, { fine: 0, step: 0, from: 0, done: false, sent: [] });
         replay.scoutStep = 0;
+        replay.live = null;
+        replay.starved = false;
         replay.ended = false;
         replay.seekTo = null;
         replay.startAt = null;
@@ -1525,6 +1542,7 @@
             replay.rec = rec;
             replay.cameras = rec.header.inputs.filter((i) => i[1] === 10).map(([at, , pitch, yaw]) => [at, pitch, yaw]);
             replay.camera = -1;
+            replay.live = rec.header.live ? { delayMs: rec.header.live.delayMs || 0, ended: !!rec.header.live.ended } : null;
             replay.userSpeed = Math.min(8, Math.max(0.25, Number(msg.speed) || 1));
             replay.userPaused = !!msg.paused;
             const seekTo = typeof msg.seek === 'number' && msg.seek > 0 ? msg.seek : null;
@@ -1546,6 +1564,15 @@
                 replay.startAt = keyframeFor(seekTo);
             }
             maybeLogin();
+        } else if (msg.type === 'append' && msg.file instanceof ArrayBuffer && replay.rec && replay.live) {
+            let more;
+            try {
+                more = parse(msg.file);
+            } catch (err) {
+                post({ type: 'error', message: String(err.message || err) });
+                return;
+            }
+            append(more);
         } else if (msg.type === 'unload') {
             // Not watching any more: the session ends, and the client waits
             // at its title screen (still) for the next.
@@ -1605,8 +1632,52 @@
         }
     });
 
+    // `b` (sorted by time) merged into `a` (the same) from index `from`: what
+    // comes before that has been played.
+    function mergeFrom(a, from, b) {
+        if (!b.length) {
+            return a;
+        }
+        const rest = a.slice(from);
+        const merged = a.slice(0, from);
+        let i = 0;
+        let j = 0;
+        while (i < rest.length || j < b.length) {
+            if (j >= b.length || (i < rest.length && rest[i][0] <= b[j][0])) {
+                merged.push(rest[i++]);
+            } else {
+                merged.push(b[j++]);
+            }
+        }
+        return merged;
+    }
+
+    // What's been recorded since, watching live. Input reports come in
+    // batches, so some of it may be earlier than what's been played already:
+    // that plays straight away.
+    function append(more) {
+        const rec = replay.rec;
+        rec.frames.push(...more.frames);
+        const inputs = more.header.inputs || [];
+        rec.header.inputs = mergeFrom(rec.header.inputs, replay.input, inputs);
+        const cams = inputs.filter((i) => i[1] === 10).map(([at, , pitch, yaw]) => [at, pitch, yaw]);
+        replay.cameras = mergeFrom(replay.cameras, Math.max(0, replay.camera + 1), cams);
+        rec.header.notes.push(...(more.header.notes || []));
+        rec.header.durationMs = Math.max(rec.header.durationMs, more.header.durationMs || 0);
+        rec.header.frames += more.frames.length;
+        if (more.header.live?.ended) {
+            replay.live.ended = true;
+        }
+        if (replay.starved) {
+            replay.starved = false;
+            unhold();
+            applyClock();
+        }
+    }
+
     function seek(ms) {
         replay.settling = null;
+        replay.starved = false;
         unhold();
         // Somewhere already watched shows at once; the client catches up
         // behind it.
@@ -1872,6 +1943,10 @@
             seekTo: replay.seekTo ?? replay.settling?.to ?? null,
             live: replay.streaming,
             loading: !replay.streaming && replay.frame === 0,
+            // Watching live: caught up and waiting for more, and whether the
+            // session has ended.
+            starved: replay.starved,
+            sessionEnded: replay.live ? replay.live.ended : null,
             // A watched frame stands in while it seeks.
             preview: curtainUp,
             // What has frames (to preview or jump to), when that changed.

@@ -12,6 +12,8 @@ pub const MAX_SWITCHES: usize = 64;
 #[derive(Default)]
 pub struct Controls {
     patterns: Vec<String>,
+    /// How many scripts each pattern matched, when last matched.
+    matched: Vec<usize>,
     disabled: FxHashSet<i32>,
     pub min_account_age_hours: u32,
 }
@@ -27,7 +29,8 @@ impl Controls {
     /// Matches the patterns against `scripts` again, after a reload.
     pub fn refresh(&mut self, scripts: &ScriptProvider) -> Vec<usize> {
         self.disabled.clear();
-        self.patterns
+        self.matched = self
+            .patterns
             .iter()
             .map(|pattern| {
                 let mut matched = 0;
@@ -39,7 +42,14 @@ impl Controls {
                 }
                 matched
             })
-            .collect()
+            .collect();
+        self.matched.clone()
+    }
+
+    /// How many scripts each of [`Self::patterns`] matches: a pattern that
+    /// matches none (mistyped, or its scripts renamed) switches nothing off.
+    pub fn matched(&self) -> &[usize] {
+        &self.matched
     }
 
     /// How many of `scripts` `pattern` matches.

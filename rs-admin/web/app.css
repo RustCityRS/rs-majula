@@ -827,3 +827,71 @@ textarea.composer-text { min-height: 72px; }
   .toolbar-gap, .composer-send .hint { display: none; }
   .composer-foot { justify-content: flex-end; }
 }
+
+/* Investigate: the live map, the anti-cheat leaderboard and bot farms */
+
+.livemap-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+.livemap-card { overflow: hidden; }
+.livemap-stage { position: relative; height: min(72vh, 820px); min-height: 360px; background: #000; }
+.livemap-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.livemap-foot { display: flex; justify-content: space-between; gap: 10px 16px; flex-wrap: wrap; padding: 8px 12px; border-top: 1px solid var(--border); font-size: 12px; }
+.livemap-summary { display: flex; gap: 14px; flex-wrap: wrap; }
+.livemap-summary b { color: var(--text); font-weight: 600; }
+.livemap-legend { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; color: var(--text-2); }
+.livemap-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.map-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid #000; display: inline-block; }
+.map-dot.normal { background: #fefefe; }
+.map-dot.flagged { background: #ff5a52; }
+.map-dot.staff { background: #5d9cff; }
+.map-dot.muted { background: #f2b33d; }
+.livemap-tools { display: grid; gap: 10px; padding: 14px; }
+.livemap-sizes { grid-auto-columns: auto; gap: 4px; }
+.livemap-sizes button { height: 26px; padding: 0 8px; font-size: 12px; }
+.card-note { margin: 0; padding: 8px 14px 0; font-size: 12px; }
+.spot-list { max-height: 52vh; overflow-y: auto; }
+.spot-item { width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--border); font: inherit; color: inherit; cursor: pointer; align-items: center; }
+.spot-item:hover { background: var(--surface-2); }
+.spot-item .list-icon b { font-size: 12px; }
+
+.popover {
+  position: fixed; z-index: 40; width: min(420px, calc(100vw - 16px)); max-height: min(420px, 70vh); overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius);
+}
+.pop-head { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--text-2); }
+.pop-row { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+.pop-row:last-child { border-bottom: 0; }
+.pop-main { flex: 1; min-width: 0; }
+.chips.nowrap { flex-wrap: nowrap; }
+
+.leaders td { white-space: nowrap; }
+.leaders .chips { flex-wrap: nowrap; }
+.trend-cell { display: flex; align-items: center; gap: 8px; }
+.trend { width: 120px; height: 28px; display: block; }
+.trend-bar { fill: var(--accent); }
+.trend-zero { fill: var(--border-strong); }
+.trend-hit { fill: transparent; }
+.trend-hit:hover { fill: var(--sel); fill-opacity: 0.5; }
+
+.farm-shared { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.farm-shared .badge { text-transform: none; letter-spacing: 0; font-family: var(--font); font-size: 11.5px; }
+.farm-member { align-items: center; }
+.hours { display: grid; grid-template-columns: repeat(24, 5px); gap: 1px; flex: none; }
+.hours span { height: 14px; border-radius: 1px; background: var(--surface-3); }
+.hours span.on { background: var(--accent); }
+
+.chat-row.fresh { animation: fresh 2.5s ease-out; }
+@keyframes fresh { from { background: var(--sel); } to { background: transparent; } }
+
+@media (max-width: 1100px) {
+  .livemap-layout { grid-template-columns: minmax(0, 1fr); }
+  .livemap-stage { height: 60vh; }
+}
+@media (max-width: 640px) {
+  .hours { display: none; }
+}
+
+/* Controls: how a custom switch's patterns match the worlds' scripts */
+.pattern-check { display: grid; gap: 4px; font-size: 12.5px; }
+.pattern-row { display: flex; justify-content: space-between; gap: 12px; }
+.pattern-row .mono { overflow-wrap: anywhere; }
+.tone-ok { color: var(--ok); }
