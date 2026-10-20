@@ -9,6 +9,8 @@ pub struct Credentials {
     pub banned: bool,
     pub muted_ms: Option<i64>,
     pub left_other_world_ms: Option<i64>,
+    /// How long ago the account was registered.
+    pub age_ms: i64,
 }
 
 /// A player's current mute and ban, from [`Db::sanctions`].
@@ -46,7 +48,8 @@ impl Db {
                     END AS muted_ms,
                     CASE WHEN last_logout_node <> $2
                          THEN (extract(epoch FROM now() - last_logout_at) * 1000)::bigint
-                    END AS left_other_world_ms
+                    END AS left_other_world_ms,
+                    (extract(epoch FROM now() - created_at) * 1000)::bigint AS age_ms
              FROM players WHERE name_hash = $1) p",
         )
         .bind(name_hash as i64)

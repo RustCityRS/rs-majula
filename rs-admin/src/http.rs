@@ -1,7 +1,11 @@
 use crate::api;
 use crate::audit::Audit;
 use crate::cases::Cases;
+use crate::controls::Controls;
+use crate::notes::Notes;
+use crate::schedule::Schedule;
 use crate::sessions::{Session, Sessions, Stage};
+use crate::templates::Templates;
 use crate::users::{Role, User, Users};
 use crate::worlds::Worlds;
 use axum::extract::{ConnectInfo, DefaultBodyLimit, FromRequestParts, Request, State};
@@ -36,6 +40,11 @@ pub struct App {
     pub worlds: Arc<Worlds>,
     pub audit: Audit,
     pub cases: Cases,
+    pub controls: Controls,
+    pub notes: Notes,
+    pub schedule: Schedule,
+    pub templates: Templates,
+    pub address_salt: String,
     pub media_dir: PathBuf,
     pub config: HttpConfig,
     pub dummy_hash: String,

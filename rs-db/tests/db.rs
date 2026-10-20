@@ -1,7 +1,7 @@
 use rs_db::{
-    ChatLog, Claim, Db, LogBatch, ModAction, NewPlayer, NewReplay, NewSnapshot, PlayerSave,
-    Reconciled, ReplayChunk, ReplayReport, Sanctions, SaveResult, SessionLog, WealthEvent,
-    WorldStatus,
+    AppealFiled, ChatLog, Claim, Db, LogBatch, ModAction, NewAppeal, NewPlayer, NewReplay,
+    NewSnapshot, PlayerSave, Reconciled, ReplayChunk, ReplayReport, Sanctions, SaveResult,
+    SessionLog, TimelineCursor, WealthEvent, WorldStatus,
 };
 use sqlx::PgPool;
 
@@ -150,33 +150,53 @@ async fn moderation_respects_rank_and_is_logged(pool: PgPool) {
     };
 
     // A J-Mod can't act on a J-Mod, an unknown name, or themselves.
-    assert!(!db.moderate(42, 2, 42, ModAction::Kick, 10).await.unwrap());
-    assert!(!db.moderate(42, 2, 99, ModAction::Unban, 10).await.unwrap());
+    assert!(
+        !db.moderate(42, 2, 42, ModAction::Kick, None, 10)
+            .await
+            .unwrap()
+    );
+    assert!(
+        !db.moderate(42, 2, 99, ModAction::Unban, None, 10)
+            .await
+            .unwrap()
+    );
 
     assert!(
-        db.moderate(42, 2, 7, ModAction::Mute { hours: 48 }, 10)
+        db.moderate(42, 2, 7, ModAction::Mute { hours: 48 }, None, 10)
             .await
             .unwrap()
     );
     assert_eq!(state(db.clone()).await, (Some(48), false));
     // A command sets the length outright, shorter included.
     assert!(
-        db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, 10)
+        db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, None, 10)
             .await
             .unwrap()
     );
     assert_eq!(state(db.clone()).await, (Some(2), false));
-    assert!(db.moderate(42, 2, 7, ModAction::Unmute, 10).await.unwrap());
     assert!(
-        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, 10)
+        db.moderate(42, 2, 7, ModAction::Unmute, None, 10)
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, None, 10)
             .await
             .unwrap()
     );
     assert_eq!(state(db.clone()).await, (None, true));
     assert!(db.find_credentials(7, 1).await.unwrap().unwrap().banned);
-    assert!(db.moderate(42, 2, 7, ModAction::Unban, 10).await.unwrap());
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Unban, None, 10)
+            .await
+            .unwrap()
+    );
     assert_eq!(state(db.clone()).await, (None, false));
-    assert!(db.moderate(42, 2, 7, ModAction::Kick, 10).await.unwrap());
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Kick, None, 10)
+            .await
+            .unwrap()
+    );
 
     let logged: Vec<(String, Option<i32>, i16)> = sqlx::query_as(
         "SELECT l.action, l.hours, l.node_id FROM moderation_logs l
@@ -990,4 +1010,349 @@ async fn replays_store_list_and_prune(pool: PgPool) {
     assert!(db.replay(1).await.unwrap().is_none());
     assert!(db.replay_chunks(1).await.unwrap().is_empty());
     assert!(db.replay(2).await.unwrap().is_some());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn moderation_reasons_are_logged(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    let ban = ModAction::Ban { hours: 48 };
+    assert!(
+        db.moderate(42, 2, 7, ban, Some(" Macroing (offence 1) "), 10)
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Unban, Some("  "), 10)
+            .await
+            .unwrap()
+    );
+    let history = db.moderation_history(Some(7), None, 10).await.unwrap();
+    let reasons: Vec<Option<&str>> = history.iter().map(|m| m.reason.as_deref()).collect();
+    assert_eq!(reasons, [None, Some("Macroing (offence 1)")]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn logins_link_accounts_by_address(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let a: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let b: std::net::IpAddr = "2001:db8::1".parse().unwrap();
+    let c: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    // 1 registered from a; 4 registered from a but never logged in.
+    for (hash, from) in [(1, Some(a)), (2, None), (3, None), (4, Some(a)), (5, None)] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            registration_ip: from,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    for (hash, ip) in [(1, a), (1, a), (2, a), (2, b), (3, b), (5, c), (99, c)] {
+        db.record_login(hash, 10, ip).await.unwrap();
+    }
+
+    let addresses = db.login_addresses(1, 10).await.unwrap();
+    assert_eq!(addresses.len(), 1);
+    assert_eq!(
+        (addresses[0].ip.as_str(), addresses[0].logins),
+        ("203.0.113.7", 2)
+    );
+    // 2 logged in from it and 4 registered from it.
+    assert_eq!(addresses[0].others, 2);
+
+    let names = |links: Vec<rs_db::LinkedAccount>| {
+        let mut names: Vec<(i64, Vec<String>)> =
+            links.into_iter().map(|l| (l.logins, l.shared)).collect();
+        names.sort();
+        names
+    };
+    // 1 shares a with 2 (a login) and 4 (a registration); not 3, who only
+    // shares b with 2.
+    assert_eq!(
+        names(db.linked_accounts(1, 10).await.unwrap()),
+        vec![
+            (0, vec!["203.0.113.7".to_owned()]),
+            (1, vec!["203.0.113.7".to_owned()]),
+        ]
+    );
+    assert_eq!(db.linked_accounts(2, 10).await.unwrap().len(), 3);
+    assert!(db.linked_accounts(5, 10).await.unwrap().is_empty());
+
+    // Bans show on the linked account.
+    sqlx::query("UPDATE players SET banned_until = now() + interval '1 day' WHERE name_hash = 3")
+        .execute(&pool)
+        .await
+        .unwrap();
+    let banned = db.linked_accounts(2, 10).await.unwrap();
+    assert_eq!(
+        banned
+            .iter()
+            .filter(|l| l.banned_until_ms.is_some())
+            .count(),
+        1
+    );
+
+    // Old logins are pruned.
+    sqlx::query(
+        "UPDATE login_logs SET created_at = now() - interval '200 days' WHERE ip = $1::inet",
+    )
+    .bind(b.to_string())
+    .execute(&pool)
+    .await
+    .unwrap();
+    db.prune_login_logs(180).await.unwrap();
+    assert!(db.login_addresses(3, 10).await.unwrap().is_empty());
+    assert_eq!(db.login_addresses(1, 10).await.unwrap().len(), 1);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn timeline_merges_every_log_and_pages(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    db.record_login(7, 10, "203.0.113.7".parse().unwrap())
+        .await
+        .unwrap();
+    let at = |x| (x, 3218, 0);
+    let (x, z, y) = at(3222);
+    db.record_logs(
+        10,
+        &LogBatch {
+            chat: vec![
+                ChatLog {
+                    name_hash: 7,
+                    to_name_hash: None,
+                    x,
+                    z,
+                    y,
+                    message: "hello".to_owned(),
+                },
+                ChatLog {
+                    name_hash: 7,
+                    to_name_hash: Some(42),
+                    x,
+                    z,
+                    y,
+                    message: "psst".to_owned(),
+                },
+            ],
+            sessions: vec![SessionLog {
+                name_hash: 7,
+                x,
+                z,
+                y,
+                event_type: 0,
+                event: "Deposited coins x5 into bank".to_owned(),
+            }],
+            wealth: vec![WealthEvent {
+                name_hash: 7,
+                x,
+                z,
+                y,
+                event_type: 5,
+                item: "coins".to_owned(),
+                count: 5,
+                value: 5,
+            }],
+        },
+    )
+    .await
+    .unwrap();
+    db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, Some("Spam"), 10)
+        .await
+        .unwrap();
+    // One against them, one they sent.
+    for (reporter, offender) in [(42, 7), (7, 42)] {
+        db.record_snapshot(&NewSnapshot {
+            reporter_name_hash: reporter,
+            offender_name_hash: offender,
+            reason: 6,
+            node_id: 10,
+            x,
+            z,
+            y,
+            muted: false,
+        })
+        .await
+        .unwrap();
+    }
+
+    let every: Vec<String> = rs_db::TIMELINE_KINDS
+        .iter()
+        .map(|k| k.to_string())
+        .collect();
+    let all = db.timeline(7, &every, None, 100).await.unwrap();
+    let mut kinds: Vec<&str> = all.iter().map(|r| r.kind.as_str()).collect();
+    kinds.sort();
+    assert_eq!(
+        kinds,
+        [
+            "chat",
+            "chat",
+            "login",
+            "moderation",
+            "report",
+            "reported",
+            "session",
+            "wealth"
+        ]
+    );
+    assert!(all.windows(2).all(|w| w[0].at_ms >= w[1].at_ms));
+    let moderation = all.iter().find(|r| r.kind == "moderation").unwrap();
+    assert_eq!(moderation.other.as_deref(), Some("Test"));
+    assert_eq!(moderation.detail.as_deref(), Some("Spam"));
+    assert_eq!(moderation.hours, Some(2));
+    let login = all.iter().find(|r| r.kind == "login").unwrap();
+    assert_eq!(login.text.as_deref(), Some("203.0.113.7"));
+
+    // Paging two at a time reads the same rows in the same order, even
+    // though many share a millisecond.
+    let mut paged = Vec::new();
+    let mut cursor: Option<TimelineCursor> = None;
+    loop {
+        let page = db.timeline(7, &every, cursor.as_ref(), 2).await.unwrap();
+        let Some(last) = page.last() else { break };
+        cursor = Some(TimelineCursor {
+            at_ms: last.at_ms,
+            kind: last.kind.clone(),
+            id: last.id,
+        });
+        paged.extend(page);
+    }
+    let key = |r: &rs_db::TimelineRow| (r.kind.clone(), r.id);
+    assert_eq!(
+        paged.iter().map(key).collect::<Vec<_>>(),
+        all.iter().map(key).collect::<Vec<_>>()
+    );
+
+    // Only the kinds asked for; none known reads nothing.
+    let chat = db
+        .timeline(7, &["chat".to_owned()], None, 100)
+        .await
+        .unwrap();
+    assert_eq!(chat.len(), 2);
+    assert_eq!(chat.iter().filter(|r| r.other_hash == Some(42)).count(), 1);
+    assert!(
+        db.timeline(7, &["nope".to_owned()], None, 100)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+    assert!(db.timeline(99, &every, None, 100).await.unwrap().is_empty());
+
+    // Account age comes with the credentials.
+    let creds = db.find_credentials(7, 10).await.unwrap().unwrap();
+    assert!((0..60_000).contains(&creds.age_ms));
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn appeals_are_filed_once_and_decided(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    let appeal = |sanction| NewAppeal {
+        name_hash: 7,
+        sanction,
+        statement: "It wasn't me",
+        ip: Some("203.0.113.7".parse().unwrap()),
+    };
+
+    // Nothing to appeal yet.
+    assert_eq!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::NotSanctioned
+    );
+    let login = db.appeal_login(7).await.unwrap().unwrap();
+    assert_eq!((login.muted_until_ms, login.banned_until_ms), (None, None));
+
+    // A moderator's ban: the appeal knows who set it, and why.
+    let ban = ModAction::Ban { hours: 48 };
+    assert!(
+        db.moderate(42, 2, 7, ban, Some("Macroing"), 10)
+            .await
+            .unwrap()
+    );
+    let AppealFiled::Filed { id } = db.file_appeal(&appeal("ban")).await.unwrap() else {
+        panic!("expected a filed appeal");
+    };
+    assert_eq!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::AlreadyOpen { id }
+    );
+    let waiting = db.waiting_appeals(10).await.unwrap();
+    assert_eq!(waiting.len(), 1);
+    let filed = &waiting[0];
+    assert_eq!(filed.issued_by.as_deref(), Some("Test"));
+    assert_eq!(filed.reason.as_deref(), Some("Macroing"));
+    assert_eq!(filed.statement, "It wasn't me");
+    assert!(filed.decision.is_none() && filed.case_id.is_none());
+
+    // Taken into a case, then decided.
+    assert!(db.link_appeal(id, 12).await.unwrap());
+    assert!(db.waiting_appeals(10).await.unwrap().is_empty());
+    assert!(
+        db.decide_appeal(id, "upheld", "Stands.", "Kim")
+            .await
+            .unwrap()
+    );
+    assert!(
+        !db.decide_appeal(id + 99, "upheld", "", "Kim")
+            .await
+            .unwrap()
+    );
+    let mine = db.appeals_of(7).await.unwrap();
+    assert_eq!(mine[0].case_id, Some(12));
+    assert_eq!(mine[0].decision.as_deref(), Some("upheld"));
+    assert_eq!(mine[0].decided_by.as_deref(), Some("Kim"));
+
+    // The same ban can't be appealed again; a new one can.
+    assert_eq!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::AlreadyDecided { id }
+    );
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, None, 10)
+            .await
+            .unwrap()
+    );
+    assert!(matches!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::Filed { .. }
+    ));
+
+    // An abuse report's mute has no moderator on record.
+    db.mute_player(7, 48, 3).await.unwrap();
+    let AppealFiled::Filed { id: mute } = db.file_appeal(&appeal("mute")).await.unwrap() else {
+        panic!("expected a filed appeal");
+    };
+    let mute = db
+        .appeals_of(7)
+        .await
+        .unwrap()
+        .into_iter()
+        .find(|a| a.id == mute)
+        .unwrap();
+    assert_eq!(mute.issued_by, None);
+    assert_eq!(mute.sanction, "mute");
 }

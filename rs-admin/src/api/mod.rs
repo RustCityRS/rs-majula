@@ -1,12 +1,16 @@
 mod account;
 mod auth;
 mod cases;
+mod controls;
 mod edit;
 mod lookup;
 mod news;
+mod notes;
 mod players;
 mod replays;
+mod schedule;
 mod staff;
+mod templates;
 mod worlds;
 
 use crate::audit::Entry;
@@ -36,6 +40,16 @@ pub fn router() -> Router<Arc<App>> {
         .route("/worlds/cancel-reboot", post(worlds::cancel_reboot))
         .route("/worlds/broadcast", post(worlds::broadcast))
         .route("/worlds/maintenance", post(worlds::maintenance))
+        .route("/controls", get(controls::get))
+        .route("/controls/switch", post(controls::switch))
+        .route("/controls/lockdown", post(controls::lockdown))
+        .route("/schedule", get(schedule::list).post(schedule::add))
+        .route("/schedule/{id}/delete", post(schedule::remove))
+        .route("/templates", get(templates::list).post(templates::save))
+        .route("/templates/standing", get(templates::standing))
+        .route("/notes", get(notes::of).post(notes::add))
+        .route("/notes/watched", get(notes::watched))
+        .route("/notes/{id}/remove", post(notes::remove))
         .route("/players", get(players::search))
         .route("/players/kick", post(players::kick))
         .route("/players/moderate", post(players::moderate))
@@ -44,6 +58,8 @@ pub fn router() -> Router<Arc<App>> {
         .route("/lookup/sanctions", get(lookup::sanctions))
         .route("/lookup/chat", get(lookup::chat))
         .route("/lookup/reports", get(lookup::reports))
+        .route("/lookup/timeline", get(lookup::timeline))
+        .route("/lookup/links", get(lookup::links))
         .route("/cases", get(cases::list).post(cases::create))
         .route("/cases/summary", get(cases::summary))
         .route("/cases/staff", get(cases::staff))
@@ -58,6 +74,7 @@ pub fn router() -> Router<Arc<App>> {
         .route("/replays", get(replays::list))
         .route("/replays/{id}", get(replays::get))
         .route("/replays/{id}/file", get(replays::file))
+        .route("/replays/{id}/viewed", post(replays::viewed))
         .route("/staff", get(staff::list).post(staff::add))
         .route("/staff/update", post(staff::update))
         .route("/players/sheet", get(edit::player))

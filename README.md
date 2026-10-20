@@ -183,7 +183,45 @@ on phones too.
   staff can still log in, a restart reopens it), and each world's tick time,
   memory and connections.
 - **Players:** find anyone online, look anyone up (last seen, registered,
-  mutes, bans), and kick, mute or ban.
+  mutes, bans), and kick, mute or ban. A player's page has their
+  **timeline**: logins, activity and wealth logs (`session_log`,
+  `wealth_event`), chat, moderation, abuse reports against them and by them,
+  and recorded sessions, merged newest first and filterable by kind. And
+  their **linked accounts**: every address they logged in from (kept 180
+  days) and the other accounts that logged in or registered from one, with
+  a button to ban them all together. Moderators see addresses as labels
+  (`addr-3f9a1c`: the same label is the same address); admins see the
+  addresses, and that is audited.
+- **Controls:** kill switches that switch a feature off on every world
+  (trading, the duel arena, dropping, picking up, shops, banking, or any
+  scripts by name pattern): players trying it are told it's switched off.
+  And a login lockdown that turns away accounts younger than a set age (for
+  a bot wave; staff exempt). Both stay on until turned off: the console
+  keeps them (`controls.json`) and sets them again on any world that
+  restarts or missed the change.
+- **Schedule:** reboots and broadcasts set for later, once or repeating
+  (daily, weekly, every N hours), on every world or picked ones. A job due
+  while the console was down is skipped (not run late) if it's over 5
+  minutes overdue, and the audit log says so.
+- **Appeals:** players appeal a ban or mute on the website (`/appeal`,
+  linked from Support), signing in with their game username and password
+  (wrong passwords count toward the same per-IP lockout as game logins),
+  and follow it on `/appeal/status`. The console takes each appeal into a
+  case of its own within 30 seconds (it needs `--web-url`), with who issued
+  the sanction and why. Whoever issued it can't decide it: the case log
+  refuses them. Deciding is Uphold or Overturn with a note the player sees;
+  overturning lifts the sanction; either closes the case, which can't be
+  closed any other way while the appeal is undecided. One appeal per
+  sanction: a decided one can't be appealed again.
+- **Staff notes:** private notes on a player's page, apart from cases. A
+  note can put them on the watchlist, which the moderation center shows
+  with who's online. Kept in `rs-admin/data/notes.jsonl`; their author or
+  an admin can remove one, and adding or removing is audited.
+- **Sanction templates:** named offences with a ladder of mutes and bans
+  (e.g. Macroing: 2-day ban, then 2 weeks, then permanent). Pick one when
+  muting or banning: the length comes from how many times the player has had
+  it within its window, and the template is logged as the reason. Admins
+  edit them in the moderation center.
 - **Moderation center:** one place to moderate from. Cases: one per player
   being looked into, which any number of staff work on together (join one,
   or put others on it) until someone closes it as actioned, no action or a
@@ -240,7 +278,7 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   `RS_ADMIN_SECRET`, which the console and every world must share; worlds
   refuse unsigned, stale or replayed requests. Mutes and bans go through a
   world exactly as the in-game `::mute`/`::ban` do. Lookups (players,
-  moderation, chat, abuse reports) are answered by whichever world is online, from the
+  moderation, chat, abuse reports, timelines, linked accounts) are answered by whichever world is online, from the
   game database; each world keeps 2 database connections for them, apart
   from the game's own.
 - `rs-admin/worlds.json` lists the worlds and where their admin APIs are
@@ -265,7 +303,11 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   the first developer); changing a password, role or authenticator signs
   that account out everywhere.
 - Everything done through it, sign-ins included, goes to
-  `rs-admin/data/audit.jsonl` and the `audit` log target. Cases are
+  `rs-admin/data/audit.jsonl` and the `audit` log target. The file is only
+  ever appended to, and each entry is synced to disk before it shows; the
+  Audit log page pages and searches all of it, back to the first entry (an
+  entry's number is its place in the file, so it never changes). Back the
+  file up with the rest of `rs-admin/data/`. Cases are
   `rs-admin/data/cases.jsonl`: every change to one is appended there and the
   cases are rebuilt from it at start, so nothing is ever rewritten. Images
   and videos posted on cases go in `rs-admin/data/media/` (named by their

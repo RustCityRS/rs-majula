@@ -1,3 +1,4 @@
+mod appeal;
 mod hiscores;
 mod logs;
 mod moderation;
@@ -12,6 +13,7 @@ mod snapshot;
 mod staff;
 mod world;
 
+pub use appeal::{AppealFiled, AppealLogin, AppealRecord, NewAppeal};
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
 pub use moderation::ModAction;
@@ -24,7 +26,10 @@ pub use save::{PlayerSave, SaveResult};
 pub use session::{Claim, Reconciled};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
-pub use staff::{ChatRecord, ModerationRecord, PlayerRecord, ReportRecord, SanctionRecord};
+pub use staff::{
+    ChatRecord, LinkedAccount, LoginAddress, ModerationRecord, PlayerRecord, ReportRecord,
+    SanctionRecord, TIMELINE_KINDS, TimelineCursor, TimelineRow,
+};
 pub use world::WorldStatus;
 
 use sqlx::migrate::{MigrateError, Migrator};

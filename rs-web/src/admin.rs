@@ -8,8 +8,9 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::{Json, Router};
 use rs_admin_api::{
-    MAX_MEDIA_BYTES, MediaSaved, NewsCategory, NewsDelete, NewsItem, NewsList, NewsPage,
-    NewsRender, NewsRendered, NewsSave, Outcome, Verifier, media, path,
+    Appeal, AppealDecide, AppealLink, AppealsWaiting, MAX_MEDIA_BYTES, MediaSaved, NewsCategory,
+    NewsDelete, NewsItem, NewsList, NewsPage, NewsRender, NewsRendered, NewsSave, Outcome,
+    Verifier, media, path,
 };
 use rs_db::NewsAdminPost;
 use std::sync::Arc;
@@ -24,6 +25,12 @@ const MAX_TITLE_CHARS: usize = 120;
 
 /// The most posts a page lists.
 const MAX_PAGE: u32 = 100;
+
+/// The most appeals handed over at once.
+const MAX_APPEALS: u32 = 100;
+
+/// The longest note a player is shown with a decision, in characters.
+const MAX_DECISION_NOTE: usize = 2000;
 
 struct AdminState {
     app: Arc<App>,
@@ -50,6 +57,9 @@ pub async fn serve(host: String, port: u16, secret: String, app: Arc<App>) {
         .route(path::NEWS_RENDER, post(render))
         .route(path::NEWS_MEDIA, post(upload))
         .route(&format!("{}/{{name}}", path::NEWS_MEDIA), get(media_file))
+        .route(path::APPEALS_WAITING, post(appeals_waiting))
+        .route(path::APPEAL_LINK, post(appeal_link))
+        .route(path::APPEAL_DECIDE, post(appeal_decide))
         .layer(middleware::from_fn_with_state(state.clone(), authenticate))
         .with_state(state);
     if let Err(e) = axum::serve(listener, router).await {
@@ -210,6 +220,78 @@ async fn upload(
         url: format!("/news/media/{name}"),
         kind: kind.to_owned(),
     }))
+}
+
+/// Appeals players sent that no case has taken in yet, oldest first.
+async fn appeals_waiting(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<AppealsWaiting>,
+) -> Result<Json<Vec<Appeal>>, StatusCode> {
+    let rows = state
+        .app
+        .db
+        .waiting_appeals(i64::from(req.limit.clamp(1, MAX_APPEALS)))
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|a| Appeal {
+                id: a.id,
+                player: a.player,
+                sanction: a.sanction,
+                sanction_until_ms: a.sanction_until_ms,
+                issued_by: a.issued_by,
+                reason: a.reason,
+                statement: a.statement,
+                filed_ms: a.created_ms,
+            })
+            .collect(),
+    ))
+}
+
+async fn appeal_link(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<AppealLink>,
+) -> Result<Json<Outcome>, StatusCode> {
+    let case = i64::try_from(req.case_id).map_err(|_| StatusCode::UNPROCESSABLE_ENTITY)?;
+    let linked = state
+        .app
+        .db
+        .link_appeal(req.id, case)
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(if linked {
+        Outcome::ok("Linked.")
+    } else {
+        Outcome::refused("There's no such appeal.")
+    }))
+}
+
+/// Records a decision for the player to see on the site.
+async fn appeal_decide(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<AppealDecide>,
+) -> Result<Json<Outcome>, StatusCode> {
+    let note = req.note.trim();
+    if !matches!(req.decision.as_str(), "upheld" | "overturned")
+        || note.chars().count() > MAX_DECISION_NOTE
+    {
+        return Err(StatusCode::UNPROCESSABLE_ENTITY);
+    }
+    let decided = state
+        .app
+        .db
+        .decide_appeal(req.id, &req.decision, note, &req.actor.name)
+        .await
+        .map_err(db_failed)?;
+    if !decided {
+        return Ok(Json(Outcome::refused("There's no such appeal.")));
+    }
+    info!(
+        "{} decided appeal {} from the admin console: {}",
+        req.actor.name, req.id, req.decision
+    );
+    Ok(Json(Outcome::ok("Decided.")))
 }
 
 /// An upload, for the console's preview (the console can't reach the

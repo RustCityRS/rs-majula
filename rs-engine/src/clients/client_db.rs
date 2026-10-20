@@ -89,6 +89,7 @@ pub enum DbRequest {
         by_level: u8,
         target37: u64,
         action: ModAction,
+        reason: Option<String>,
         reply: Option<oneshot::Sender<ModOutcome>>,
     },
     Logs {
@@ -113,12 +114,18 @@ pub const MUTE_HOURS: i32 = 48;
 /// can.
 pub const AUTO_BAN_HOURS: i32 = 48;
 
+/// How long logins (and the addresses they came from) are kept, for staff
+/// to link accounts by.
+const LOGIN_LOG_DAYS: i32 = 180;
+
 /// The outcome of a [`DbRequest::Authenticate`].
 pub enum AuthResult {
     Accepted {
         staff_mod_level: u8,
         muted_for: Option<Duration>,
         left_other_world: Option<Duration>,
+        /// How long ago the account was registered.
+        account_age: Duration,
     },
     InvalidCredentials,
     Banned,
@@ -783,6 +790,7 @@ async fn run_requests(
                     });
                 }
                 db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
+                db.prune_login_logs(LOGIN_LOG_DAYS).await?;
                 let sanctions = db.sanctions(&online).await?;
                 let _ = response_tx.send(DbResponse::Sanctions {
                     players: sanctions
@@ -848,10 +856,18 @@ async fn run_requests(
                 by_level,
                 target37,
                 action,
+                reason,
                 reply,
             } => {
                 let done = db
-                    .moderate(moderator37, i16::from(by_level), target37, action, node_id)
+                    .moderate(
+                        moderator37,
+                        i16::from(by_level),
+                        target37,
+                        action,
+                        reason.as_deref(),
+                        node_id,
+                    )
                     .await?;
                 if done {
                     counters::add(&COUNTERS.mod_actions[mod_action_index(action)], 1);
@@ -949,7 +965,8 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 /// so a ban is never revealed to a wrong password). An unknown name is
 /// rejected, unless `auto_register` is set, in which case the player is
 /// registered with this password and any local save file for the name is
-/// imported. Wrong passwords and unknown names count against the IP.
+/// imported. Wrong passwords and unknown names count against the IP; an
+/// accepted login is logged with its IP.
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
@@ -978,10 +995,12 @@ async fn authenticate(
         if creds.banned {
             return Ok(AuthResult::Banned);
         }
+        db.record_login(user37, node_id.into(), ip).await?;
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),
             left_other_world: creds.left_other_world_ms.map(millis),
+            account_age: millis(creds.age_ms),
         });
     }
 
@@ -1020,10 +1039,12 @@ async fn authenticate(
         info!("Imported local save for '{}'", username);
     }
 
+    db.record_login(user37, node_id.into(), ip).await?;
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
         muted_for: None,
         left_other_world: None,
+        account_age: Duration::ZERO,
     })
 }
 

@@ -6,10 +6,12 @@ use axum::Json;
 use axum::extract::{Query, State};
 use axum::http::StatusCode;
 use rs_admin_api::{
-    ChatLookup, ChatRecord, ModerationLookup, ModerationRecord, PlayerLookup, PlayerRecord,
-    ReportLookup, ReportRecord, Sanction, SanctionsLookup, path,
+    ChatLookup, ChatRecord, Links, LinksLookup, ModerationLookup, ModerationRecord, PlayerLookup,
+    PlayerRecord, ReportLookup, ReportRecord, Sanction, SanctionsLookup, TimelineCursor,
+    TimelineEntry, TimelineLookup, path,
 };
 use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
 use std::sync::Arc;
 
 /// Rows per page.
@@ -259,4 +261,155 @@ pub async fn reports(
         }
     }
     Ok(Json(views))
+}
+
+/// Whether `staff` may see players' addresses; others see [`address_label`]s.
+fn sees_addresses(staff: &Staff) -> bool {
+    staff.require_admin().is_ok()
+}
+
+/// A stand-in for an address: the same address gets the same label all
+/// through this console's run, so moderators can match addresses up without
+/// seeing them.
+fn address_label(app: &App, ip: &str) -> String {
+    let digest = Sha256::digest(format!("{}:{ip}", app.address_salt).as_bytes());
+    let hex: String = digest[..3].iter().map(|b| format!("{b:02x}")).collect();
+    format!("addr-{hex}")
+}
+
+#[derive(Deserialize)]
+pub struct TimelineQuery {
+    name: String,
+    /// Comma-separated; every kind when missing.
+    kinds: Option<String>,
+    before_ms: Option<i64>,
+    before_kind: Option<String>,
+    before_id: Option<i64>,
+}
+
+#[derive(Serialize)]
+pub struct TimelineView {
+    #[serde(flatten)]
+    entry: TimelineEntry,
+    world: Option<u16>,
+}
+
+/// Rows per timeline page.
+const TIMELINE_PAGE: u32 = 100;
+
+/// `GET /api/lookup/timeline?name=&kinds=&before_ms=&before_kind=&before_id=`:
+/// everything on record about a player, newest first. The first page is
+/// audited, since it includes private messages and (for admins) addresses.
+pub async fn timeline(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<TimelineQuery>,
+) -> Result<Json<Vec<TimelineView>>, ApiError> {
+    let name = checked_name(&query.name)?;
+    let kinds: Vec<String> = match &query.kinds {
+        Some(kinds) => kinds
+            .split(',')
+            .map(str::trim)
+            .filter(|k| !k.is_empty())
+            .map(str::to_owned)
+            .collect(),
+        None => [
+            "login",
+            "session",
+            "wealth",
+            "chat",
+            "moderation",
+            "reported",
+            "report",
+            "replay",
+        ]
+        .map(str::to_owned)
+        .to_vec(),
+    };
+    let before = match (query.before_ms, query.before_kind, query.before_id) {
+        (Some(at_ms), Some(kind), Some(id)) => Some(TimelineCursor { at_ms, kind, id }),
+        _ => None,
+    };
+    let first = before.is_none();
+    let entries: Vec<TimelineEntry> = app
+        .worlds
+        .ask(
+            path::TIMELINE,
+            &TimelineLookup {
+                name: name.clone(),
+                kinds,
+                before,
+                limit: TIMELINE_PAGE,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    if first {
+        app.audit.record(
+            Event::new(Some(staff.name()), staff.client.ip, "timeline_viewed").target(&name),
+        );
+    }
+    let sees = sees_addresses(&staff);
+    Ok(Json(
+        entries
+            .into_iter()
+            .map(|mut entry| {
+                if entry.kind == "login" && !sees {
+                    entry.text = entry.text.map(|ip| address_label(&app, &ip));
+                }
+                TimelineView {
+                    world: entry.node.and_then(|n| world_of(&app, n)),
+                    entry,
+                }
+            })
+            .collect(),
+    ))
+}
+
+#[derive(Serialize)]
+pub struct LinksView {
+    #[serde(flatten)]
+    links: Links,
+    /// Whether the addresses are real, or labels standing in for them.
+    addresses_shown: bool,
+}
+
+/// `GET /api/lookup/links?name=`: the addresses a player logs in from and
+/// the accounts that share them. Audited when it shows real addresses.
+pub async fn links(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<NameQuery>,
+) -> Result<Json<LinksView>, ApiError> {
+    let name = checked_name(&query.name)?;
+    let mut links: Links = app
+        .worlds
+        .ask(
+            path::LINKS,
+            &LinksLookup {
+                name: name.clone(),
+                limit: 100,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    let sees = sees_addresses(&staff);
+    if sees {
+        app.audit.record(
+            Event::new(Some(staff.name()), staff.client.ip, "addresses_viewed").target(&name),
+        );
+    } else {
+        for address in &mut links.addresses {
+            address.ip = address_label(&app, &address.ip);
+        }
+        for account in &mut links.accounts {
+            for ip in &mut account.shared {
+                *ip = address_label(&app, ip);
+            }
+        }
+    }
+    Ok(Json(LinksView {
+        links,
+        addresses_shown: sees,
+    }))
 }

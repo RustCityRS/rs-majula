@@ -1,3 +1,4 @@
+mod appeal;
 mod create;
 mod hiscores;
 mod news;
@@ -39,6 +40,11 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/client", get(play::client))
         .route("/api/v1/worldlist", get(play::worldlist))
         .route("/create", get(create::form).post(create::submit))
+        .route("/appeal", get(appeal::form).post(appeal::submit))
+        .route(
+            "/appeal/status",
+            get(appeal::status_form).post(appeal::status),
+        )
         .route("/news", get(news::index))
         .route("/news/{id}", get(news::post))
         .route("/hiscores", get(hiscores::index))

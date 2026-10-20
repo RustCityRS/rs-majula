@@ -5,6 +5,7 @@ mod active_npc;
 mod active_player;
 mod build;
 mod clients;
+pub mod controls;
 pub mod counters;
 pub mod edit;
 mod engine;

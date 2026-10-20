@@ -205,6 +205,7 @@ const state = {
   canCommand: false,
   worldsLoaded: false,
   caseSummary: null,
+  templates: null,
 };
 
 class ApiError extends Error {
@@ -243,6 +244,7 @@ async function api(method, path, body) {
 }
 
 function sessionEnded() {
+  clearReplayStore();
   state.session = { stage: 'signed_out' };
   stopPolling();
   toast('Your session ended. Sign in again.', 'error');
@@ -630,48 +632,117 @@ function maintenanceDialog(worlds, onDone) {
 
 const DURATIONS = [[1, '1 hour'], [24, '1 day'], [48, '2 days'], [168, '1 week'], [720, '30 days'], [8760, '1 year'], [87600, 'Permanent']];
 
-// `caseId`: the case it's sent from, whose timeline notes it.
-function moderateDialog(name, preset = 'kick', onDone, caseId) {
+// `caseId`: the case it's sent from, whose timeline notes it. `also`: linked
+// accounts to tick for the same mute or ban.
+function moderateDialog(name, preset = 'kick', onDone, caseId, { also = [] } = {}) {
   let action = preset;
   let hours = 48;
+  // A sanction template's id, and where the player stands on it.
+  let template = '';
+  let standing = null;
+  let linked = null;
+  const tickedAlso = new Set(also);
   const nameInput = h('input', { class: 'input', value: name || '', placeholder: 'Player name', maxlength: '12', pattern: NAME_PATTERN, 'data-invalid': NAME_RULE, required: true, autocomplete: 'off', spellcheck: 'false', autofocus: !name });
-  const reason = h('textarea', { class: 'input', placeholder: 'Optional. Saved in the audit log.', maxlength: '300', value: caseId ? `Case #${caseId}: ` : '' });
+  const reason = h('textarea', { class: 'input', placeholder: 'Optional. Saved in the audit log and the moderation history.', maxlength: '300', value: caseId ? `Case #${caseId}: ` : '' });
+  const templatePick = h('select', { class: 'input', 'aria-label': 'Template' });
+  const templateField = h('label', { class: 'field' }, h('span', {}, 'Template'), templatePick);
+  const templateInfo = h('div', {});
   const segmented = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Action' });
   const durationField = h('div', { class: 'field' });
   const custom = h('input', { class: 'input', type: 'number', min: '1', max: '87600', step: '1', placeholder: 'Custom length in hours', inputmode: 'numeric', 'data-invalid': 'Lengths are 1 to 87600 whole hours.' });
   const effect = h('div', { class: 'callout' });
+  const alsoField = h('div', { class: 'field hidden' });
   const ACTIONS = { kick: 'Kick', mute: 'Mute', ban: 'Ban', unmute: 'Unmute', unban: 'Unban' };
   let confirm;
+  let seq = 0;
 
-  const length = () => DURATIONS.find(([h]) => h === hours)?.[1].toLowerCase() ?? `${hours} hours`;
+  // With a template, the ladder decides what happens.
+  const step = () => (template && standing ? standing.step : null);
+  const effective = () => (step() ? { action: step().action, hours: step().hours } : { action, hours });
+  const length = (n) => hoursLabel(n);
+  const timed = (a) => a === 'mute' || a === 'ban';
+
   const update = () => {
+    const now = effective();
+    templateField.classList.toggle('hidden', !(state.templates || []).length || (!template && !timed(action)));
+    segmented.classList.toggle('hidden', !!template);
     replace(segmented, Object.entries(ACTIONS).map(([key, label]) =>
-      h('button', { type: 'button', 'aria-pressed': String(action === key), on: { click: () => { action = key; update(); } } }, label)));
-    const timed = action === 'mute' || action === 'ban';
-    durationField.classList.toggle('hidden', !timed);
+      h('button', { type: 'button', 'aria-pressed': String(action === key), on: { click: () => { action = key; update(); lookUp(); } } }, label)));
+    durationField.classList.toggle('hidden', !!template || !timed(action));
     replace(durationField, h('span', {}, 'Length'), h('div', { class: 'chips' }, DURATIONS.map(([h0, label]) =>
       h('button', { type: 'button', class: 'chip', 'aria-pressed': String(hours === h0 && !custom.value), on: { click: () => { custom.value = ''; hours = h0; update(); } } }, label))), custom);
+
+    const t = (state.templates || []).find((x) => x.id === template);
+    replace(templateInfo, t && (standing
+      ? h('div', { class: 'field' },
+        h('span', {}, standing.offences.length ? `${plural(standing.offences.length, 'earlier offence')} on record: this is offence ${standing.offences.length + 1}` : 'First offence'),
+        ladder(t.steps, standing.next))
+      : validName(nameInput.value.trim()) && h('div', { class: 'spinner' })));
+
     const who = nameInput.value.trim() || 'They';
     const effects = {
       kick: `${who} is logged out of whichever world they're on. They can log straight back in.`,
-      mute: `${who} can't use public or private chat for ${length()}.`,
-      ban: `${who} is logged out now and can't log in for ${length()}.`,
+      mute: `${who} can't use public or private chat for ${length(now.hours)}.`,
+      ban: `${who} is logged out now and can't log in for ${length(now.hours)}.`,
       unmute: `${who} can chat again straight away.`,
       unban: `${who} can log in again straight away.`,
     };
-    effect.className = `callout ${action === 'ban' ? 'danger' : ''}`;
-    replace(effect, icon(action === 'ban' ? 'ban' : 'alert'), h('div', {}, effects[action]));
+    effect.className = `callout ${now.action === 'ban' ? 'danger' : ''}`;
+    replace(effect, icon(now.action === 'ban' ? 'ban' : 'alert'), h('div', {}, template && !standing ? 'Looking up their record...' : effects[now.action]));
+
+    const reach = timed(now.action) && linked && linked.length;
+    alsoField.classList.toggle('hidden', !reach);
+    if (reach) {
+      replace(alsoField, h('span', {}, `Also ${now.action} linked accounts`),
+        linked.map((a) => {
+          const box = h('input', { type: 'checkbox', checked: tickedAlso.has(a.name) });
+          box.addEventListener('change', () => { if (box.checked) tickedAlso.add(a.name); else tickedAlso.delete(a.name); update(); });
+          return h('label', { class: 'check-row' }, box, h('span', {}, a.name), sanctionBadges(a),
+            h('span', { class: 'muted' }, ` shares ${plural(a.shared.length, 'address', 'addresses')}`));
+        }),
+        h('p', { class: 'hint' }, 'Accounts that logged in or registered from the same address.'));
+    }
     if (confirm?.button) {
-      replace(confirm.button, ACTIONS[action] + (nameInput.value.trim() ? ` ${nameInput.value.trim()}` : ''));
-      confirm.button.className = `btn ${action === 'ban' || action === 'kick' ? 'danger' : 'primary'}`;
+      const n = reach ? [...tickedAlso].filter((x) => linked.some((a) => a.name === x)).length : 0;
+      replace(confirm.button, ACTIONS[now.action] + (nameInput.value.trim() ? ` ${nameInput.value.trim()}` : '') + (n ? ` and ${n} linked` : ''));
+      confirm.button.className = `btn ${now.action === 'ban' || now.action === 'kick' ? 'danger' : 'primary'}`;
+      confirm.button.disabled = !!template && !standing;
     }
   };
+
+  // The player's standing on the chosen template, and their linked accounts.
+  const lookUp = debounce(async () => {
+    const mine = ++seq;
+    const target = nameInput.value.trim();
+    standing = null;
+    linked = null;
+    update();
+    if (!validName(target)) return;
+    const [stand, links] = await Promise.allSettled([
+      template ? api('GET', `/templates/standing?${query({ name: target })}`) : Promise.resolve(null),
+      api('GET', `/lookup/links?${query({ name: target })}`),
+    ]);
+    if (mine !== seq) return;
+    if (stand.status === 'fulfilled' && stand.value) standing = stand.value.find((s) => s.template === template) || null;
+    if (links.status === 'fulfilled') linked = links.value.accounts;
+    update();
+  }, 250);
+
+  const drawTemplates = () => {
+    replace(templatePick, h('option', { value: '' }, 'None: choose by hand'),
+      (state.templates || []).map((t) => h('option', { value: t.id }, t.name)));
+    templatePick.value = template;
+    update();
+  };
+  templatePick.addEventListener('change', () => { template = templatePick.value; standing = null; update(); lookUp(); });
+  (state.templates ? Promise.resolve() : loadTemplates()).then(drawTemplates).catch(() => {});
+
   custom.addEventListener('input', () => {
     const value = Math.round(Number(custom.value));
     if (custom.value && value >= 1) hours = value;
     update();
   });
-  nameInput.addEventListener('input', update);
+  nameInput.addEventListener('input', () => { update(); lookUp(); });
 
   confirm = {
     label: 'Confirm',
@@ -680,11 +751,25 @@ function moderateDialog(name, preset = 'kick', onDone, caseId) {
       const target = nameInput.value.trim();
       // "Case #12: " left as it was is just "Case #12".
       const why = reason.value.trim().replace(/:$/, '');
-      const result = action === 'kick'
+      const now = effective();
+      const others = timed(now.action) && linked ? [...tickedAlso].filter((x) => linked.some((a) => a.name === x)) : [];
+      const result = action === 'kick' && !template
         ? await api('POST', '/players/kick', { name: target, reason: why, case: caseId ?? null })
-        : await api('POST', '/players/moderate', { name: target, action, hours: action === 'mute' || action === 'ban' ? hours : null, reason: why, case: caseId ?? null });
-      const ok = action === 'kick' ? result.kicked_from.length > 0 : result.ok;
+        : await api('POST', '/players/moderate', {
+          name: target,
+          action: template ? null : action,
+          hours: !template && timed(action) ? hours : null,
+          template: template || null,
+          also: others,
+          reason: why,
+          case: caseId ?? null,
+        });
+      const ok = action === 'kick' && !template ? result.kicked_from.length > 0 : result.ok;
       toast(result.message, ok ? 'ok' : 'error');
+      if (result.also?.length) {
+        const done = result.also.filter((r) => r.ok).length;
+        toast(`Linked accounts: ${done} of ${result.also.length} done.${done < result.also.length ? ` ${result.also.find((r) => !r.ok).message}` : ''}`, done === result.also.length ? 'ok' : 'error');
+      }
       if (ok) onDone?.();
       return !ok;
     },
@@ -695,14 +780,18 @@ function moderateDialog(name, preset = 'kick', onDone, caseId) {
     subtitle: caseId ? `From case #${caseId}: noted in its timeline.` : name ? `Acting on ${name}` : 'Online or offline: it applies wherever they are.',
     body: [
       h('label', { class: 'field' }, h('span', {}, 'Player'), nameInput),
+      templateField,
+      templateInfo,
       segmented,
       durationField,
       effect,
+      alsoField,
       h('label', { class: 'field' }, h('span', {}, 'Reason'), reason),
     ],
     actions: [{ label: 'Cancel' }, confirm],
   });
   update();
+  lookUp();
 }
 
 // ---------------------------------------------------------------------------
@@ -713,6 +802,8 @@ const NAV = [
   { path: '/worlds', label: 'Worlds', icon: 'globe', page: worldsPage },
   { path: '/players', label: 'Players', icon: 'users', page: playersPage },
   { path: '/moderation', label: 'Moderation', icon: 'shield', page: moderationPage },
+  { path: '/controls', label: 'Controls', icon: 'zap', page: controlsPage },
+  { path: '/schedule', label: 'Schedule', icon: 'clock', page: schedulePage },
   { path: '/chat', label: 'Chat logs', icon: 'chat', page: chatPage },
   { path: '/replays', label: 'Replays', icon: 'play', page: replaysPage },
   { path: '/audit', label: 'Audit log', icon: 'list', page: auditPage },
@@ -793,6 +884,7 @@ function themeButton() {
 
 async function signOut() {
   try { await api('POST', '/auth/logout'); } catch { /* signed out regardless */ }
+  await clearReplayStore();
   state.session = { stage: 'signed_out' };
   history.replaceState(null, '', '/');
   render();
@@ -1032,12 +1124,16 @@ function overviewPage(ctx) {
   ctx.cleanup(onWorlds(draw));
   draw(state.worlds);
 
+  const banner = h('div', {});
+  controlsBanner(banner);
+
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
   return h('div', { class: 'page' },
     pageHead('Overview', `${greeting}, ${state.session.name}.`,
       admin && button('Broadcast', { icon: 'megaphone', on: { click: () => broadcastDialog(totals().online) } }),
       admin && button('Reboot worlds', { icon: 'power', on: { click: () => navigate('/worlds') } })),
+    banner,
     stats,
     h('div', { class: 'split' },
       h('section', { class: 'card' },
@@ -1164,6 +1260,7 @@ function worldsPage(ctx) {
     button('Broadcast', { icon: 'megaphone', on: { click: () => broadcastDialog(chosen(), clear) } }),
     button('Reboot', { icon: 'power', on: { click: () => rebootDialog(chosen().sort((a, b) => a.id - b.id), clear) } }),
     button('Cancel reboot', { icon: 'undo', on: { click: () => cancelRebootDialog(chosen(), clear) } }),
+    button('Schedule', { icon: 'clock', on: { click: () => scheduleDialog('reboot', chosen().sort((a, b) => a.id - b.id), clear) } }),
     button('Maintenance', { icon: 'lock', on: { click: () => maintenanceDialog(chosen(), clear) } }),
     button(null, { icon: 'x', 'aria-label': 'Clear selection', title: 'Clear selection', on: { click: clear } }));
 
@@ -1340,6 +1437,22 @@ const VERBS = {
   case_opened: ['opened a case on', 'briefcase', 'accent'],
   case_closed: ['closed a case on', 'check', 'ok'],
   case_reopened: ['reopened a case on', 'undo', 'accent'],
+  kill_switch_on: ['switched off', 'zap', 'danger'],
+  kill_switch_off: ['switched back on', 'zap', 'accent'],
+  lockdown_on: ['locked down logins on', 'lock', 'danger'],
+  lockdown_off: ['lifted the login lockdown on', 'unlock', 'accent'],
+  schedule_added: ['scheduled', 'clock', 'accent'],
+  schedule_removed: ['cancelled the scheduled', 'undo'],
+  scheduled_reboot: ['had a scheduled reboot go out,', 'power', 'accent'],
+  scheduled_broadcast: ['had a scheduled broadcast go out,', 'megaphone', 'accent'],
+  scheduled_missed: ['had a scheduled job skipped,', 'alert', 'danger'],
+  templates_saved: ['saved the sanction templates', 'shield'],
+  timeline_viewed: ['viewed the timeline of', 'list'],
+  addresses_viewed: ['viewed the login addresses of', 'key'],
+  appeal_received: ['took in an appeal from', 'flag', 'warn'],
+  appeal_decided: ['decided the appeal of', 'flag', 'accent'],
+  note_added: ['added a staff note on', 'edit'],
+  note_removed: ['removed a staff note on', 'trash'],
 };
 
 function auditItem(e) {
@@ -1518,7 +1631,15 @@ const MOD_VERBS = {
   kick: ['kicked', 'kick', ''],
 };
 
-const hoursLabel = (hours) => DURATIONS.find(([h0]) => h0 === hours)?.[1].toLowerCase() ?? plural(hours, 'hour');
+// `336` -> "2 weeks"; the named lengths as the pickers name them.
+const hoursLabel = (hours) => {
+  const named = DURATIONS.find(([h0]) => h0 === hours)?.[1].toLowerCase();
+  if (named) return named;
+  if (hours % 8760 === 0) return plural(hours / 8760, 'year');
+  if (hours % 168 === 0) return plural(hours / 168, 'week');
+  if (hours % 24 === 0) return plural(hours / 24, 'day');
+  return plural(hours, 'hour');
+};
 
 function moderationItem(m) {
   const [verb, iconName, tone] = MOD_VERBS[m.action] || [m.action, 'shield', ''];
@@ -1527,7 +1648,7 @@ function moderationItem(m) {
     h('div', { class: 'list-main' },
       h('div', { class: 'list-title' }, h('b', {}, playerLink(m.moderator)), ` ${verb} `, h('b', {}, playerLink(m.target)),
         m.hours ? ` for ${hoursLabel(m.hours)}` : ''),
-      h('div', { class: 'list-sub' }, m.world ? `World ${m.world}` : `Node ${m.node}`)),
+      h('div', { class: 'list-sub' }, m.world ? `World ${m.world}` : `Node ${m.node}`, m.reason ? ` · ${m.reason}` : '')),
     h('div', { class: 'list-side', title: fullTime(m.at_ms) }, ago(m.at_ms)));
 }
 
@@ -1638,8 +1759,13 @@ function playerPage(ctx) {
     (before) => api('GET', `/lookup/reports?${query({ name, before })}`),
     (r) => reportItem(r, () => { reports.reload(); loadCases(); }), 'No abuse reports against them.');
 
-  append(page, head, facts,
+  const watched = h('div', { class: 'hidden' }, h('div', { class: 'callout warn' }, icon('eye'),
+    h('div', {}, 'On the staff watchlist. See the notes below for why.')));
+  append(page, head, watched, facts,
+    notesSection(name, (on) => watched.classList.toggle('hidden', !on)),
     isDeveloper() && editSection(name),
+    timelineCard(name),
+    linksSection(name, load),
     h('div', { class: 'split' },
       card('Cases', button('Open case', { small: true, icon: 'briefcase', on: { click: () => newCaseDialog({ player: name }) } }), cases),
       card('Abuse reports against them', link(`/moderation?${query({ tab: 'triage', all: 1, name })}`, { class: 'btn small ghost' }, 'In the queue', icon('chevron')), reports.el)),
@@ -2139,7 +2265,7 @@ function caseItem(c, extra) {
     h('div', { class: `list-icon ${tone}` }, icon(closed ? 'check' : 'briefcase')),
     h('div', { class: 'list-main' },
       h('div', { class: 'list-title' }, h('span', { class: 'case-id num' }, `#${c.id}`),
-        link(caseHref(c.id), { class: 'name-link' }, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority)),
+        link(caseHref(c.id), { class: 'name-link' }, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c)),
       h('div', { class: 'list-sub' }, playerLink(c.player),
         closed ? ` · closed by ${c.closed_by} ${ago(c.closed_ms)}` : ` · opened by ${c.created_by} ${ago(c.created_ms)}`,
         counts && ` · ${counts}`, c.comments ? ` · ${plural(c.comments, 'comment')}` : ''),
@@ -2147,6 +2273,15 @@ function caseItem(c, extra) {
     h('div', { class: 'list-side stack' },
       c.assignees.length ? avatars(c.assignees) : !closed && h('span', { class: 'badge warn' }, 'Nobody'),
       h('span', { title: `Last change ${fullTime(c.updated_ms)}` }, ago(c.updated_ms))));
+}
+
+// An appeal case's badge: waiting on a decision, or how it went.
+function appealBadge(c) {
+  const decision = c.appeal?.decision;
+  if (!c.appeal) return null;
+  return decision
+    ? h('span', { class: `badge ${decision === 'overturned' ? 'accent' : 'ok'}` }, icon('flag'), decision === 'overturned' ? 'Appeal overturned' : 'Appeal upheld')
+    : h('span', { class: 'badge warn' }, icon('flag'), 'Appeal');
 }
 
 // Case counts for the nav and the center, refreshed while signed in.
@@ -2361,7 +2496,7 @@ const card = (title, actions, ...body) => h('section', { class: 'card' },
 const spinnerList = () => h('div', { class: 'list' }, h('div', { class: 'empty' }, h('div', { class: 'spinner' })));
 const failed = (el, e) => replace(el, h('div', { class: 'empty' }, e.message));
 
-const CENTER_TABS = [['overview', 'Overview'], ['triage', 'Triage'], ['cases', 'Cases'], ['sanctions', 'In force'], ['history', 'History']];
+const CENTER_TABS = [['overview', 'Overview'], ['triage', 'Triage'], ['cases', 'Cases'], ['sanctions', 'In force'], ['history', 'History'], ['templates', 'Templates']];
 
 function moderationPage(ctx) {
   let tab = CENTER_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'overview';
@@ -2414,6 +2549,8 @@ function moderationPage(ctx) {
     const triage = spinnerList();
     const actions = spinnerList();
     const closed = spinnerList();
+    const appeals = spinnerList();
+    const watchlist = spinnerList();
     const take = (c) => button('Take it', { small: true, icon: 'plus', on: { click: async () => {
       try {
         await api('POST', `/cases/${c.id}`, { op: 'join' });
@@ -2431,6 +2568,20 @@ function moderationPage(ctx) {
         : h('div', { class: 'empty' }, 'No moderation on record.'))).catch((e) => failed(actions, e));
       api('GET', '/cases?status=closed').then((rows) => replace(closed, rows.length ? rows.slice(0, 5).map((c) => caseItem(c))
         : h('div', { class: 'empty' }, 'No closed cases yet.'))).catch((e) => failed(closed, e));
+      api('GET', '/cases').then((rows) => {
+        const waiting = rows.filter((c) => c.appeal && !c.appeal.decision);
+        replace(appeals, waiting.length ? waiting.map((c) => caseItem(c, c.appeal.issued_by && isMe(c.appeal.issued_by)
+          ? h('div', { class: 'list-sub' }, 'You issued this one: someone else decides it.') : null))
+          : h('div', { class: 'empty' }, icon('check'), 'No appeals waiting.'));
+      }).catch((e) => failed(appeals, e));
+      api('GET', '/notes/watched').then((rows) => replace(watchlist, rows.length ? rows.map((n) => h('div', { class: 'list-item' },
+        h('div', { class: `list-icon ${n.world ? 'ok' : ''}` }, icon('eye')),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, h('b', {}, playerLink(n.player)), ' ',
+            n.world ? h('span', { class: 'badge ok' }, `Online · World ${n.world}`) : h('span', { class: 'badge' }, 'Offline')),
+          h('div', { class: 'list-sub' }, `${n.by}: ${clip(n.text, 140)}`)),
+        h('div', { class: 'list-side', title: fullTime(n.at_ms) }, ago(n.at_ms))))
+        : h('div', { class: 'empty' }, icon('eye'), 'Nobody is on the watchlist. Add a note with "keep an eye on them" from a player\'s page.'))).catch((e) => failed(watchlist, e));
       const { reports, flagged } = await loadCounts();
       if (reports.status === 'rejected' || flagged.status === 'rejected') {
         failed(triage, reports.reason || flagged.reason);
@@ -2450,7 +2601,9 @@ function moderationPage(ctx) {
         card('Nobody on these yet', more('Cases', 'cases', { show: 'unassigned' }), nobody),
         card('Recently closed', more('Closed', 'cases', { show: 'closed' }), closed)),
       h('div', { class: 'column' },
+        card('Appeals to decide', null, appeals),
         card('To triage', more('Queue', 'triage'), triage),
+        card('Watchlist', null, watchlist),
         card('Recent actions', more('History', 'history'), actions))) };
   };
 
@@ -2570,7 +2723,7 @@ function moderationPage(ctx) {
   const draw = () => {
     replace(tabs, CENTER_TABS.map(([k, label]) =>
       h('button', { type: 'button', 'aria-pressed': String(tab === k), on: { click: () => go(k) } }, label)));
-    current = { overview, triage: triageTab, cases: casesTab, sanctions: sanctionsTab, history: historyTab }[tab]();
+    current = { overview, triage: triageTab, cases: casesTab, sanctions: sanctionsTab, history: historyTab, templates: templatesTab }[tab]();
     replace(body, current.el);
   };
   const reload = () => current?.load();
@@ -2661,6 +2814,11 @@ function describeEntry(e, timeline) {
     }
     case 'closed': return [['closed it: ', b(RESOLUTIONS[e.resolution] || e.resolution)], 'check', 'ok', text(e.note)];
     case 'reopened': return ['reopened the case', 'undo', 'accent'];
+    case 'appeal_filed': return [['received an appeal against a ', b(e.appeal.sanction)], 'flag', 'warn',
+      h('div', { class: 'appeal-statement' }, e.appeal.statement)];
+    case 'appeal_decided': return [['decided the appeal: ', b(e.decision === 'overturned' ? 'Overturned' : 'Upheld')],
+      e.decision === 'overturned' ? 'undo' : 'check', e.decision === 'overturned' ? 'accent' : 'ok',
+      e.note && h('div', { class: 'list-sub' }, 'Told the player: ', e.note)];
     default: return [e.kind.replace(/_/g, ' '), 'activity', ''];
   }
 }
@@ -2849,6 +3007,59 @@ function casePage(ctx) {
     });
   };
 
+  // An appeal's sanction was issued by this staff member: they can't decide it.
+  const issuedByMe = () => !!c.appeal?.issued_by && isMe(c.appeal.issued_by);
+  const decideDialog = (decision) => {
+    const a = c.appeal;
+    const overturn = decision === 'overturned';
+    const note = h('textarea', { class: 'input', maxlength: '2000', placeholder: overturn
+      ? 'Optional. e.g. "We looked again and agree the ban was a mistake."'
+      : 'Optional. e.g. "Our logs show the account was botting."', autofocus: true });
+    openDialog({
+      title: overturn ? `Overturn the ${a.sanction}` : `Uphold the ${a.sanction}`,
+      subtitle: `${c.player}'s appeal #${a.id}`,
+      body: [
+        h('div', { class: `callout ${overturn ? '' : 'warn'}` }, icon(overturn ? 'undo' : 'check'), h('div', {}, overturn
+          ? `${c.player}'s ${a.sanction} is lifted now, they're told it was overturned, and the case closes.`
+          : `The ${a.sanction} stands. ${c.player} is told it was upheld, and the case closes. They can't appeal this ${a.sanction} again.`)),
+        h('label', { class: 'field' }, h('span', {}, 'Note to the player'), note,
+          h('span', { class: 'hint' }, 'Shown to them on the website\'s appeal status page, as written. Plain text.')),
+      ],
+      actions: [{ label: 'Cancel' }, {
+        label: overturn ? 'Overturn' : 'Uphold', kind: overturn ? 'primary' : 'danger', icon: overturn ? 'undo' : 'check',
+        run: async () => {
+          await op({ op: 'decide_appeal', decision, note: note.value });
+          toast(overturn ? `Overturned: ${c.player}'s ${a.sanction} is lifted.` : 'Upheld.');
+          afterAction();
+        },
+      }],
+    });
+  };
+  const appealBox = h('div', {});
+  const drawAppeal = () => {
+    const a = c.appeal;
+    if (!a) return replace(appealBox);
+    const facts = [
+      ['Appealing', `${a.sanction === 'ban' ? 'Ban' : 'Mute'} until ${fullTime(a.until_ms)}`],
+      ['Issued by', a.issued_by || 'Nobody (an abuse report\'s mute, or the anti-cheat)'],
+      a.reason && ['Their reason', a.reason],
+      ['Sent', `${fullTime(a.filed_ms)} (${ago(a.filed_ms)})`],
+      a.decision && ['Decision', `${a.decision === 'overturned' ? 'Overturned' : 'Upheld'} by ${a.decided_by}`],
+      a.note && ['Told them', a.note],
+    ].filter(Boolean);
+    const blocked = issuedByMe();
+    replace(appealBox, h('section', { class: 'card' },
+      h('div', { class: 'card-head' }, h('h2', {}, `Appeal #${a.id}`), h('div', { class: 'actions' }, appealBadge(c))),
+      h('div', { class: 'card-body' },
+        h('div', { class: 'appeal-statement' }, a.statement),
+        h('dl', { class: 'facts' }, facts.map(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
+        open() && (blocked
+          ? h('div', { class: 'callout' }, icon('shield'), h('div', {}, 'You issued this sanction, so someone else must decide the appeal.'))
+          : h('div', { class: 'chips' },
+            button('Uphold', { icon: 'check', on: { click: () => decideDialog('upheld') } }),
+            button('Overturn', { icon: 'undo', kind: 'primary', on: { click: () => decideDialog('overturned') } }))))));
+  };
+
   const assignDialog = async () => {
     const list = h('div', { class: 'chips' }, h('div', { class: 'spinner' }));
     const { close } = openDialog({ title: 'Put staff on the case', subtitle: 'It shows under Your cases for them.', body: [list], actions: [{ label: 'Done' }] });
@@ -2876,9 +3087,11 @@ function casePage(ctx) {
       open() && button(null, { icon: 'edit', 'aria-label': 'Rename', title: 'Rename', on: { click: retitleDialog } }),
       open() && button(on ? 'Leave' : 'Join', { icon: on ? 'logout' : 'plus', on: { click: run({ op: on ? 'leave' : 'join' }, on ? 'You left the case.' : 'You\'re on the case.') } }),
       open() && button('Moderate', { icon: 'shield', on: { click: () => moderateDialog(c.player, 'mute', afterAction, c.id) } }),
-      open()
-        ? button('Close case', { icon: 'check', kind: 'primary', on: { click: closeDialog } })
-        : button('Reopen', { icon: 'undo', on: { click: run({ op: 'reopen' }, 'Reopened.') } })));
+      !open()
+        ? button('Reopen', { icon: 'undo', on: { click: run({ op: 'reopen' }, 'Reopened.') } })
+        : c.appeal && !c.appeal.decision
+          ? !issuedByMe() && button('Decide appeal', { icon: 'flag', kind: 'primary', on: { click: () => appealBox.scrollIntoView({ block: 'center' }) } })
+          : button('Close case', { icon: 'check', kind: 'primary', on: { click: closeDialog } })));
   };
 
   const drawPresence = () => {
@@ -3007,6 +3220,7 @@ function casePage(ctx) {
     document.title = `#${c.id} ${c.title} · RS Admin`;
     layout.classList.remove('hidden');
     drawHead();
+    drawAppeal();
     drawEvidence();
     drawCase();
     drawTimeline();
@@ -3067,6 +3281,7 @@ function casePage(ctx) {
 
   append(layout,
     h('div', { class: 'column' },
+      appealBox,
       card('Evidence', [evidenceCount, addEvidence], evidenceList),
       card('Reports against them', h('span', { class: 'muted' }, 'All of them, in this case or not'), reportsBox),
       h('section', { class: 'card' },
@@ -3220,8 +3435,7 @@ function replayStats(r) {
 const SPEEDS = [0.5, 1, 2, 4, 8];
 
 // Finished recordings already downloaded this visit, by id: reopening one
-// starts at once. Kept in memory only (they hold private messages), up to
-// REPLAY_CACHE_BYTES, the oldest dropped first.
+// starts at once. Up to REPLAY_CACHE_BYTES, the oldest dropped first.
 const replayCache = new Map();
 const REPLAY_CACHE_BYTES = 256 * 1024 * 1024;
 
@@ -3235,6 +3449,82 @@ function cacheReplay(id, file) {
     replayCache.delete(key);
     total -= f.byteLength;
   }
+}
+
+// Finished recordings are also kept in this browser between visits (Cache
+// Storage, which only this origin reads), so going back to one doesn't
+// download it again. They hold private messages, so they're wiped when
+// staff sign out or their session ends, expire after REPLAY_STORE_DAYS, and
+// the least recently watched go first past REPLAY_STORE_BYTES. Watching a
+// kept copy is still audited. Cache Storage needs a secure origin (https, or
+// localhost); without one only the in-memory copies above are kept.
+const REPLAY_STORE = 'rs-admin-replays-v1';
+const REPLAY_STORE_BYTES = 1024 * 1024 * 1024;
+const REPLAY_STORE_DAYS = 14;
+const replayStoreKey = (id) => `/replay-store/${id}`;
+
+// What's kept, by id: { bytes, usedMs }. In localStorage, so trimming
+// doesn't have to open every copy.
+const replayIndex = {
+  read() {
+    try { return JSON.parse(prefs.get('replayStore', '{}')) || {}; } catch { return {}; }
+  },
+  write(index) { prefs.set('replayStore', JSON.stringify(index)); },
+};
+
+async function openReplayStore() {
+  try { return self.caches ? await caches.open(REPLAY_STORE) : null; } catch { return null; }
+}
+
+// A kept copy of recording `id`, or null.
+async function storedReplay(id) {
+  const store = await openReplayStore();
+  if (!store) return null;
+  try {
+    const res = await store.match(replayStoreKey(id));
+    if (!res) return null;
+    const file = await res.arrayBuffer();
+    const index = replayIndex.read();
+    index[id] = { bytes: file.byteLength, usedMs: Date.now() };
+    replayIndex.write(index);
+    return file;
+  } catch { return null; }
+}
+
+async function storeReplay(id, file) {
+  const store = await openReplayStore();
+  if (!store || file.byteLength > REPLAY_STORE_BYTES) return;
+  try {
+    await store.put(replayStoreKey(id), new Response(file, { headers: { 'Content-Type': 'application/octet-stream' } }));
+    const index = replayIndex.read();
+    index[id] = { bytes: file.byteLength, usedMs: Date.now() };
+    replayIndex.write(index);
+    await trimReplayStore();
+  } catch { /* out of space, most likely: it just isn't kept */ }
+}
+
+// Drops expired copies, then the least recently watched past the limit, and
+// anything the index and the store disagree on.
+async function trimReplayStore() {
+  const store = await openReplayStore();
+  if (!store) return;
+  const index = replayIndex.read();
+  const oldest = Date.now() - REPLAY_STORE_DAYS * 86400 * 1000;
+  const kept = new Set((await store.keys()).map((req) => new URL(req.url).pathname.split('/').pop()));
+  let total = 0;
+  const live = Object.entries(index).filter(([id, e]) => kept.has(id) && e.usedMs >= oldest)
+    .sort(([, a], [, b]) => b.usedMs - a.usedMs)
+    .filter(([, e]) => (total += e.bytes) <= REPLAY_STORE_BYTES);
+  const keep = Object.fromEntries(live);
+  for (const id of kept) if (!keep[id]) await store.delete(replayStoreKey(id));
+  replayIndex.write(keep);
+}
+
+// Wipes every kept copy, and the ones in memory.
+async function clearReplayStore() {
+  replayCache.clear();
+  replayIndex.write({});
+  try { if (self.caches) await caches.delete(REPLAY_STORE); } catch { /* nothing kept */ }
 }
 
 // ---------------------------------------------------------------------------
@@ -3799,9 +4089,12 @@ function replayPage(ctx) {
     mount(Math.min(Math.max(0, Number(ctx.params.get('t')) || 0), r.duration_ms));
     // A finished recording never changes; a live one has grown since.
     const finished = !r.live && r.ended_ms != null;
-    if (finished && replayCache.has(id)) {
-      file = replayCache.get(id);
+    const kept = !finished ? null : replayCache.get(id) || await storedReplay(id);
+    if (kept) {
+      file = kept;
       cacheReplay(id, file);
+      // Not downloaded, so not audited by the download: say it was watched.
+      api('POST', `/replays/${id}/viewed`, { player: r.player }).catch(() => {});
     } else {
       try {
         const res = await fetch(`/api/replays/${id}/file?${query({ revision: r.revision, player: r.player })}`, { credentials: 'same-origin' });
@@ -3818,7 +4111,10 @@ function replayPage(ctx) {
         status.textContent = '';
         return;
       }
-      if (finished) cacheReplay(id, file);
+      if (finished) {
+        cacheReplay(id, file);
+        storeReplay(id, file);
+      }
     }
 
     // The timeline: what they did, from the recording.
@@ -3988,6 +4284,699 @@ function staffPage() {
 }
 
 // ---------------------------------------------------------------------------
+// A player's timeline: everything on record about them, every log merged,
+// newest first.
+
+const TIMELINE_KINDS = [
+  ['login', 'Logins'],
+  ['session', 'Activity'],
+  ['wealth', 'Wealth'],
+  ['chat', 'Chat'],
+  ['moderation', 'Moderation'],
+  ['reported', 'Reports against'],
+  ['report', 'Reports sent'],
+  ['replay', 'Sessions'],
+];
+// The content's ^log_* and ^wealth_* constants.
+const SESSION_TYPES = { 0: 'Moderator log', 1: 'Adventure log' };
+const WEALTH_TYPES = { 5: 'Picked up', 6: 'Bought from a shop', 7: 'Sold to a shop', 8: 'Low alchemy', 9: 'High alchemy', 10: 'Party room' };
+const coins = (n) => `${Number(n || 0).toLocaleString()} gp`;
+const dayLabel = (ms) => new Date(ms).toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+const timeOfDay = (ms) => new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+const joined = (parts) => parts.filter(Boolean).flatMap((p, i) => (i ? [' · ', p] : [p]));
+
+function timelineItem(e) {
+  let iconName = 'activity';
+  let tone = '';
+  let title = e.text;
+  let sub = [];
+  switch (e.kind) {
+    case 'login':
+      iconName = 'key';
+      title = 'Logged in';
+      sub = [e.text && h('span', { class: 'mono' }, e.text)];
+      break;
+    case 'session':
+      sub = [SESSION_TYPES[e.event_type] || `Log type ${e.event_type}`];
+      break;
+    case 'wealth':
+      iconName = 'zap';
+      title = `${WEALTH_TYPES[e.event_type] || `Wealth event ${e.event_type}`}: ${Number(e.count).toLocaleString()} x ${e.text}`;
+      sub = [coins(e.value)];
+      break;
+    case 'chat':
+      iconName = 'chat';
+      title = e.other ? [h('span', { class: 'muted' }, 'To '), playerLink(e.other), ': ', e.text] : e.text;
+      sub = [e.other ? 'Private' : 'Public'];
+      break;
+    case 'moderation': {
+      const [verb, iconFor, toneFor] = MOD_VERBS[e.text] || [e.text, 'shield', ''];
+      iconName = iconFor;
+      tone = toneFor;
+      title = [h('b', {}, playerLink(e.other)), ` ${verb} them`, e.hours ? ` for ${hoursLabel(e.hours)}` : ''];
+      sub = [e.detail];
+      break;
+    }
+    case 'reported':
+      iconName = 'flag';
+      tone = 'warn';
+      title = ['Reported by ', playerLink(e.other)];
+      sub = [ruleName(e.event_type)];
+      break;
+    case 'report':
+      iconName = 'flag';
+      title = ['Reported ', playerLink(e.other)];
+      sub = [ruleName(e.event_type)];
+      break;
+    case 'replay': {
+      const flags = (e.text || '').split(',').filter(Boolean);
+      iconName = flags.length ? 'alert' : 'play';
+      tone = flags.length ? 'danger' : '';
+      title = [link(`/replay?${query({ id: e.id })}`, { class: 'name-link' }, 'Recorded session'), flags.length ? ' ' : '', flags.map(flagBadge)];
+      sub = [clock((e.count || 0) / 1000), e.event_type ? `score ${e.event_type}` : null];
+      break;
+    }
+    default:
+      break;
+  }
+  const place = [e.world ? `World ${e.world}` : e.node != null ? `Node ${e.node}` : null, e.x != null ? where(e.x, e.z, e.level) : null];
+  return h('div', { class: 'list-item' },
+    h('div', { class: `list-icon ${tone}` }, icon(iconName)),
+    h('div', { class: 'list-main' },
+      h('div', { class: 'list-title' }, title),
+      h('div', { class: 'list-sub' }, joined([...sub, ...place]))),
+    h('div', { class: 'list-side', title: fullTime(e.at_ms) }, timeOfDay(e.at_ms)));
+}
+
+function timelineCard(name) {
+  const all = TIMELINE_KINDS.map(([k]) => k);
+  const saved = prefs.get('timelineKinds', '').split(',').filter((k) => all.includes(k));
+  const kinds = new Set(saved.length ? saved : all);
+  const chips = h('div', { class: 'chips' });
+  const list = h('div', { class: 'list' });
+  const more = h('div', { class: 'more hidden' });
+  let cursor = null;
+  let lastDay = null;
+  let seq = 0;
+
+  const load = async (older) => {
+    const mine = ++seq;
+    if (!kinds.size) {
+      replace(list, h('div', { class: 'empty' }, 'Pick at least one kind of record.'));
+      more.classList.add('hidden');
+      return;
+    }
+    if (!older) {
+      cursor = null;
+      lastDay = null;
+      replace(list, h('div', { class: 'empty' }, h('div', { class: 'spinner' })));
+    }
+    try {
+      const rows = await api('GET', `/lookup/timeline?${query({
+        name,
+        kinds: [...kinds].join(','),
+        before_ms: older ? cursor.at_ms : null,
+        before_kind: older ? cursor.kind : null,
+        before_id: older ? cursor.id : null,
+      })}`);
+      if (mine !== seq) return;
+      if (!older) list.replaceChildren();
+      for (const e of rows) {
+        const day = new Date(e.at_ms).toDateString();
+        if (day !== lastDay) {
+          lastDay = day;
+          append(list, h('div', { class: 'list-day' }, dayLabel(e.at_ms)));
+        }
+        append(list, timelineItem(e));
+      }
+      if (!list.children.length) append(list, h('div', { class: 'empty' }, icon('list'), 'Nothing on record.'));
+      const last = rows[rows.length - 1];
+      if (last) cursor = { at_ms: last.at_ms, kind: last.kind, id: last.id };
+      more.classList.toggle('hidden', rows.length < 100);
+    } catch (e) {
+      if (mine === seq) replace(list, h('div', { class: 'empty' }, e.message));
+    }
+  };
+
+  const drawChips = () => {
+    const every = kinds.size === all.length;
+    replace(chips,
+      h('button', { type: 'button', class: 'chip', 'aria-pressed': String(every), on: { click: () => { all.forEach((k) => kinds.add(k)); changed(); } } }, 'Everything'),
+      TIMELINE_KINDS.map(([k, label]) => h('button', {
+        type: 'button', class: 'chip', 'aria-pressed': String(!every && kinds.has(k)),
+        on: { click: () => {
+          // From "everything", a click picks just that kind.
+          if (every) { kinds.clear(); kinds.add(k); } else if (kinds.has(k)) kinds.delete(k); else kinds.add(k);
+          changed();
+        } },
+      }, label)));
+  };
+  const changed = () => {
+    prefs.set('timelineKinds', [...kinds].join(','));
+    drawChips();
+    load(false);
+  };
+  append(more, button('Load older', { small: true, on: { click: () => load(true) } }));
+  drawChips();
+  load(false);
+
+  return h('section', { class: 'card' },
+    h('div', { class: 'card-head' }, h('h2', {}, 'Timeline'),
+      h('div', { class: 'actions' }, h('span', { class: 'hint hide-mobile' }, 'Every log, newest first'))),
+    h('div', { class: 'card-body' }, chips),
+    list, more);
+}
+
+// ---------------------------------------------------------------------------
+// Linked accounts: where a player logs in from, and who else does.
+
+function sanctionBadges(a) {
+  return [
+    a.banned_until_ms && h('span', { class: 'badge danger', title: `Ends ${fullTime(a.banned_until_ms)}` }, 'Banned'),
+    a.muted_until_ms && h('span', { class: 'badge warn', title: `Ends ${fullTime(a.muted_until_ms)}` }, 'Muted'),
+  ];
+}
+
+function linksSection(name, onModerated) {
+  const addresses = spinnerList();
+  const accounts = spinnerList();
+  const note = h('p', { class: 'hint' });
+  const act = h('div', { class: 'actions' });
+  const load = async () => {
+    try {
+      const links = await api('GET', `/lookup/links?${query({ name })}`);
+      note.textContent = links.addresses_shown
+        ? 'Addresses kept for 180 days. Viewing them is audited.'
+        : 'Addresses show as labels: the same label is the same address. Admins see the addresses.';
+      replace(addresses, links.addresses.length ? links.addresses.map((a) => h('div', { class: 'list-item' },
+        h('div', { class: 'list-icon' }, icon('globe')),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, h('span', { class: 'mono' }, a.ip),
+            a.others ? h('span', { class: 'badge warn' }, `${plural(a.others, 'other account')}`) : null),
+          h('div', { class: 'list-sub' }, `${plural(a.logins, 'login')} · first ${ago(a.first_ms)}`)),
+        h('div', { class: 'list-side', title: fullTime(a.last_ms) }, ago(a.last_ms))))
+        : h('div', { class: 'empty' }, icon('globe'), 'No logins on record.'));
+      replace(accounts, links.accounts.length ? links.accounts.map((a) => h('div', { class: 'list-item' },
+        h('div', { class: `list-icon ${a.banned_until_ms ? 'danger' : ''}` }, icon('user')),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, h('b', {}, playerLink(a.name)), ' ', playerBadges({ staff_level: a.staff_level }), sanctionBadges(a)),
+          h('div', { class: 'list-sub' }, joined([
+            `Shares ${a.shared.length === 1 ? a.shared[0] : plural(a.shared.length, 'address', 'addresses')}`,
+            a.logins ? plural(a.logins, 'login') : 'registered there',
+          ]))),
+        h('div', { class: 'list-side', title: fullTime(a.last_ms) }, ago(a.last_ms))))
+        : h('div', { class: 'empty' }, icon('users'), 'No other account shares an address with them.'));
+      const open = links.accounts.filter((a) => !a.banned_until_ms).map((a) => a.name);
+      replace(act, open.length
+        ? button(`Ban with ${plural(open.length, 'linked account')}`, { small: true, icon: 'ban', kind: 'danger', on: { click: () => moderateDialog(name, 'ban', () => { load(); onModerated?.(); }, undefined, { also: open }) } })
+        : null);
+    } catch (e) {
+      failed(addresses, e);
+      failed(accounts, e);
+    }
+  };
+  load();
+  return h('div', { class: 'split' },
+    h('section', { class: 'card' },
+      h('div', { class: 'card-head' }, h('h2', {}, 'Linked accounts'), act),
+      accounts),
+    h('section', { class: 'card' },
+      h('div', { class: 'card-head' }, h('h2', {}, 'Login addresses')),
+      h('div', { class: 'card-body' }, note),
+      addresses));
+}
+
+// ---------------------------------------------------------------------------
+// Controls: kill switches and the login lockdown, on every world. The
+// console keeps them and sets them again on any world that comes back
+// without them.
+
+const LOCKDOWNS = [[0, 'Off'], [1, '1 hour'], [6, '6 hours'], [24, '1 day'], [72, '3 days'], [168, '1 week']];
+const lockdownLabel = (hours) => LOCKDOWNS.find(([h0]) => h0 === hours)?.[1].toLowerCase() ?? plural(hours, 'hour');
+
+function worldSyncRow(w) {
+  const [label, tone] = !w.online ? ['Offline', '']
+    : !w.supported ? ['Too old for controls', 'warn']
+      : w.error ? ['Refused', 'danger']
+        : w.in_sync ? ['In sync', 'ok'] : ['Updating', 'warn'];
+  return h('tr', {},
+    h('td', {}, h('b', {}, `World ${w.world}`), h('span', { class: 'muted' }, ` node ${w.node}`)),
+    h('td', {}, h('span', { class: `badge ${tone}` }, label)),
+    h('td', { class: 'muted' }, w.error || (w.matched ? plural(w.matched.reduce((a, b) => a + b, 0), 'script') + ' switched off' : '')));
+}
+
+function customSwitchDialog(onDone) {
+  const label = h('input', { class: 'input', maxlength: '60', required: true, placeholder: 'e.g. Party room', autofocus: true });
+  const patterns = h('textarea', { class: 'input mono', required: true, placeholder: '[oploc1,partyroom_lever]\n[if_button,partyroom_*]', rows: '5' });
+  openDialog({
+    title: 'Custom kill switch',
+    subtitle: 'Switch off the scripts whose names match, on every world.',
+    body: [
+      h('label', { class: 'field' }, h('span', {}, 'Label'), label),
+      h('label', { class: 'field' }, h('span', {}, 'Script patterns, one per line'), patterns,
+        h('p', { class: 'hint' }, 'Names as in the content, like [opheld5,_] or [inv_button1,bank_main:inv]. * matches anything. A pattern matching over 300 scripts is refused.')),
+      h('div', { class: 'callout warn' }, icon('alert'), h('div', {}, 'Players trying a switched-off script are told it\'s switched off for now. Scripts already running finish.')),
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Switch off', kind: 'danger', icon: 'zap',
+      run: async () => {
+        const page = await api('POST', '/controls/switch', { on: true, label: label.value.trim(), patterns: patterns.value.split('\n') });
+        toast(`${label.value.trim()} is switched off.`);
+        onDone?.(page);
+      },
+    }],
+  });
+}
+
+function controlsPage(ctx) {
+  const lockdownBody = h('div', { class: 'card-body' });
+  const switches = spinnerList();
+  const worlds = h('tbody');
+  const head = h('div', {});
+  let current = null;
+
+  const setSwitch = async (body, message) => {
+    try {
+      draw(await api('POST', '/controls/switch', body));
+      toast(message);
+    } catch (e) { toast(e.message, 'error'); }
+  };
+
+  const draw = (page) => {
+    current = page;
+    const { desired, can_change: canChange } = page;
+    const lockdown = desired.lockdown;
+    const active = new Map(desired.switches.map((s) => [s.key, s]));
+    replace(head, pageHead('Controls', 'Kill switches and the login lockdown, on every world.',
+      canChange && button('Custom switch', { icon: 'plus', on: { click: () => customSwitchDialog(draw) } })),
+    !canChange && h('div', { class: 'callout' }, icon('shield'), h('div', {}, 'Changing these needs the admin role.')));
+
+    let hours = lockdown?.hours ?? 24;
+    const custom = h('input', { class: 'input', type: 'number', min: '1', max: '8760', step: '1', placeholder: 'Custom, in hours', inputmode: 'numeric' });
+    const pick = h('div', { class: 'chips' });
+    const drawPick = () => replace(pick, LOCKDOWNS.filter(([h0]) => h0).map(([h0, label]) =>
+      h('button', { type: 'button', class: 'chip', 'aria-pressed': String(hours === h0 && !custom.value), on: { click: () => { custom.value = ''; hours = h0; drawPick(); } } }, label)));
+    custom.addEventListener('input', () => { const n = Math.round(Number(custom.value)); if (n >= 1) hours = n; drawPick(); });
+    drawPick();
+    const apply = (to) => async () => {
+      try {
+        draw(await api('POST', '/controls/lockdown', { hours: to }));
+        toast(to ? `Accounts younger than ${lockdownLabel(to)} are turned away.` : 'Lockdown lifted.');
+      } catch (e) { toast(e.message, 'error'); }
+    };
+    replace(lockdownBody,
+      h('div', { class: `callout ${lockdown ? 'danger' : ''}` }, icon(lockdown ? 'lock' : 'unlock'), h('div', {}, lockdown
+        ? [h('b', {}, `On: accounts younger than ${lockdownLabel(lockdown.hours)} can't log in.`), ` Set by ${lockdown.by} ${ago(lockdown.at_ms)}. Staff and older accounts log in as usual.`]
+        : 'Off. Any account can log in.')),
+      canChange && h('div', { class: 'field' }, h('span', {}, lockdown ? 'Change to accounts younger than' : 'Turn away accounts younger than'), pick, custom,
+        h('p', { class: 'hint' }, 'For a bot wave: new accounts are refused with "could not complete login". Account creation stays open; they just can\'t play until they\'re old enough.')),
+      canChange && h('div', { class: 'chips' },
+        button(lockdown ? 'Change lockdown' : 'Lock down', { icon: 'lock', kind: 'danger', on: { click: () => confirmDialog({
+          title: 'Lock down logins',
+          subtitle: 'Every world',
+          body: [h('p', {}, `Non-staff accounts registered less than ${lockdownLabel(hours)} ago won't be able to log in. Players already on stay on.`)],
+          label: 'Lock down', kind: 'danger', run: apply(hours),
+        }) } }),
+        lockdown && button('Lift lockdown', { icon: 'unlock', on: { click: apply(0) } })));
+
+    const presetRows = page.presets.map((p) => {
+      const on = active.get(p.key);
+      return h('div', { class: 'list-item' },
+        h('div', { class: `list-icon ${on ? 'danger' : ''}` }, icon('zap')),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, h('b', {}, p.label), on && h('span', { class: 'badge danger' }, 'Switched off')),
+          h('div', { class: 'list-sub' }, p.description),
+          h('div', { class: 'list-sub mono' }, p.patterns.join('  ')),
+          on && h('div', { class: 'list-sub' }, `By ${on.by} ${ago(on.at_ms)}`)),
+        canChange && h('div', { class: 'chips' }, on
+          ? button('Turn back on', { small: true, icon: 'undo', on: { click: () => setSwitch({ key: p.key, on: false }, `${p.label} is back on.`) } })
+          : button('Switch off', { small: true, icon: 'zap', kind: 'danger', on: { click: () => confirmDialog({
+            title: `Switch off ${p.label.toLowerCase()}`,
+            subtitle: 'Every world',
+            body: [h('p', {}, p.description), h('p', { class: 'muted' }, 'Players trying it are told it\'s switched off for now. It stays off until you turn it back on, restarts included.')],
+            label: 'Switch off', kind: 'danger', run: () => setSwitch({ key: p.key, on: true }, `${p.label} is switched off.`),
+          }) } })));
+    });
+    const customRows = desired.switches.filter((s) => !page.presets.some((p) => p.key === s.key)).map((s) =>
+      h('div', { class: 'list-item' },
+        h('div', { class: 'list-icon danger' }, icon('zap')),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, h('b', {}, s.label), h('span', { class: 'badge danger' }, 'Switched off'), h('span', { class: 'badge' }, 'Custom')),
+          h('div', { class: 'list-sub mono' }, s.patterns.join('  ')),
+          h('div', { class: 'list-sub' }, `By ${s.by} ${ago(s.at_ms)}`)),
+        canChange && button('Turn back on', { small: true, icon: 'undo', on: { click: () => setSwitch({ key: s.key, on: false }, `${s.label} is back on.`) } })));
+    replace(switches, ...customRows, ...presetRows);
+    replace(worlds, page.worlds.length ? page.worlds.map(worldSyncRow) : h('tr', {}, h('td', { colspan: '3', class: 'muted' }, 'No worlds configured.')));
+  };
+
+  // Polled, but only redrawn on a change, so a lockdown length being picked
+  // isn't reset under the pointer.
+  let seen = '';
+  const load = async () => {
+    try {
+      const page = await api('GET', '/controls');
+      const json = JSON.stringify(page);
+      if (json !== seen) { seen = json; draw(page); }
+    } catch (e) { failed(switches, e); }
+  };
+  load();
+  const timer = setInterval(() => { if (!document.hidden && !document.querySelector('dialog[open]')) load(); }, 10000);
+  ctx.cleanup(() => clearInterval(timer));
+
+  return h('div', { class: 'page' },
+    head,
+    h('div', { class: 'split' },
+      h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Kill switches')), switches),
+      h('div', { class: 'column' },
+        h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Login lockdown')), lockdownBody),
+        h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Worlds')),
+          h('div', { class: 'table-wrap' }, h('table', {}, worlds))))));
+}
+
+// A banner for the overview while any control is on.
+async function controlsBanner(el) {
+  try {
+    const { desired } = await api('GET', '/controls');
+    const off = desired.switches.map((s) => s.label);
+    const parts = [
+      off.length && `${listNames(off)} ${off.length === 1 ? 'is' : 'are'} switched off`,
+      desired.lockdown && `logins are locked down to accounts older than ${lockdownLabel(desired.lockdown.hours)}`,
+    ].filter(Boolean);
+    replace(el, parts.length ? h('div', { class: 'callout danger' }, icon('zap'),
+      h('div', {}, `On every world, ${parts.join(', and ')}. `, link('/controls', { class: 'name-link' }, 'Controls'))) : null);
+  } catch { /* the page works without it */ }
+}
+
+// ---------------------------------------------------------------------------
+// Schedule: reboots and broadcasts set to go out later, once or on repeat.
+
+const REPEATS = [[null, 'Once'], [1440, 'Every day'], [10080, 'Every week']];
+const repeatLabel = (mins) => (mins ? REPEATS.find(([m]) => m === mins)?.[1] ?? `Every ${span(mins * 60)}` : 'Once');
+// A datetime-local input's value for `ms`, in this browser's time zone.
+const localInput = (ms) => {
+  const d = new Date(ms);
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
+
+function jobWorlds(job) {
+  if (!job.nodes.length) return 'Every world online';
+  const names = job.nodes.map((n) => { const w = state.worlds.find((x) => x.node === n); return w ? worldName(w) : `Node ${n}`; });
+  return names.length <= 4 ? names.join(', ') : plural(names.length, 'world');
+}
+
+function jobItem(job, canChange, onChange) {
+  const reboot = job.task.kind === 'reboot';
+  const title = reboot
+    ? [h('b', {}, 'Reboot'), ` · ${clock(job.task.countdown_secs)} countdown`, job.task.stagger_secs ? `, ${job.task.stagger_secs}s apart` : '', job.task.reason ? [' · ', h('span', { class: 'muted' }, `"${job.task.reason}"`)] : '']
+    : [h('b', {}, 'Broadcast'), ': ', job.task.message];
+  const last = job.last;
+  return h('div', { class: 'list-item' },
+    h('div', { class: `list-icon ${reboot ? 'warn' : 'accent'}` }, icon(reboot ? 'power' : 'megaphone')),
+    h('div', { class: 'list-main' },
+      h('div', { class: 'list-title' }, title),
+      h('div', { class: 'list-sub' }, joined([jobWorlds(job), repeatLabel(job.every_mins), `set by ${job.by}`])),
+      last && h('div', { class: `list-sub ${last.ok ? '' : 'tone-danger'}` }, `Last ran ${ago(last.at_ms)}: ${last.summary}`)),
+    h('div', { class: 'list-side', title: fullTime(job.next_ms) },
+      h('div', {}, shortTime(job.next_ms)), h('div', {}, 'in ', countdown(job.next_ms))),
+    canChange && button(null, { small: true, icon: 'x', 'aria-label': 'Cancel this job', title: 'Cancel', on: { click: () => confirmDialog({
+      title: 'Cancel scheduled job',
+      body: [h('p', {}, reboot ? 'This reboot won\'t go out.' : 'This broadcast won\'t go out.'), job.every_mins && h('p', { class: 'muted' }, 'Nor will any of its repeats.')],
+      label: 'Cancel job', kind: 'danger',
+      run: async () => { onChange(await api('POST', `/schedule/${job.id}/delete`)); toast('Cancelled.'); },
+    }) } }));
+}
+
+function scheduleDialog(kind = 'reboot', picked = [], onDone) {
+  let task = kind;
+  let everyWorld = !picked.length;
+  const chosen = new Set(picked.map((w) => w.node));
+  let countdown_ = 300;
+  let stagger = 0;
+  let every = null;
+  const start = new Date(Date.now() + 3600 * 1000);
+  start.setMinutes(0, 0, 0);
+  const at = h('input', { class: 'input', type: 'datetime-local', required: true, value: localInput(start.getTime()) });
+  const kindPick = h('div', { class: 'segmented', role: 'group', 'aria-label': 'What' });
+  const worldMode = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Worlds' });
+  const worldChips = h('div', { class: 'chips' });
+  const delayChips = h('div', { class: 'chips' });
+  const staggerChips = h('div', { class: 'chips' });
+  const repeatChips = h('div', { class: 'chips' });
+  const customEvery = h('input', { class: 'input', type: 'number', min: '1', max: '744', step: '1', placeholder: 'Or every N hours', inputmode: 'numeric' });
+  const reason = h('input', { class: 'input', maxlength: '80', placeholder: 'Optional, e.g. "daily restart"', autocomplete: 'off' });
+  const message = h('textarea', { class: 'input', maxlength: '400', placeholder: 'Remember to vote for us!' });
+  const rebootFields = h('div', { class: 'column' });
+  const broadcastFields = h('div', { class: 'column' });
+  const when = h('p', { class: 'hint' });
+
+  const chip = (pressed, label, onClick) => h('button', { type: 'button', class: 'chip', 'aria-pressed': String(pressed), on: { click: onClick } }, label);
+  const draw = () => {
+    replace(kindPick,
+      h('button', { type: 'button', 'aria-pressed': String(task === 'reboot'), on: { click: () => { task = 'reboot'; draw(); } } }, 'Reboot'),
+      h('button', { type: 'button', 'aria-pressed': String(task === 'broadcast'), on: { click: () => { task = 'broadcast'; draw(); } } }, 'Broadcast'));
+    replace(worldMode,
+      h('button', { type: 'button', 'aria-pressed': String(everyWorld), on: { click: () => { everyWorld = true; draw(); } } }, 'Every world'),
+      h('button', { type: 'button', 'aria-pressed': String(!everyWorld), on: { click: () => { everyWorld = false; draw(); } } }, 'Pick worlds'));
+    worldChips.classList.toggle('hidden', everyWorld);
+    replace(worldChips, state.worlds.map((w) => chip(chosen.has(w.node), worldName(w), () => { if (chosen.has(w.node)) chosen.delete(w.node); else chosen.add(w.node); draw(); })));
+    replace(delayChips, [[60, '1 min'], [300, '5 min'], [600, '10 min'], [1800, '30 min'], [3600, '1 hour']].map(([s, label]) => chip(countdown_ === s, label, () => { countdown_ = s; draw(); })));
+    replace(staggerChips, [[0, 'None'], [15, '15s'], [30, '30s'], [60, '1 min'], [300, '5 min']].map(([s, label]) => chip(stagger === s, label, () => { stagger = s; draw(); })));
+    replace(repeatChips, REPEATS.map(([m, label]) => chip(every === m && !customEvery.value, label, () => { customEvery.value = ''; every = m; draw(); })));
+    rebootFields.classList.toggle('hidden', task !== 'reboot');
+    broadcastFields.classList.toggle('hidden', task !== 'broadcast');
+    message.required = task === 'broadcast';
+    const ms = new Date(at.value).getTime();
+    when.textContent = Number.isFinite(ms)
+      ? task === 'reboot'
+        ? `The countdown starts ${fullTime(ms)}; the first world goes down at ${new Date(ms + countdown_ * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}.`
+        : `Goes out ${fullTime(ms)}.`
+      : '';
+  };
+  customEvery.addEventListener('input', () => { const n = Math.round(Number(customEvery.value)); if (n >= 1) every = n * 60; draw(); });
+  at.addEventListener('input', draw);
+
+  append(rebootFields,
+    h('div', { class: 'field' }, h('span', {}, 'Countdown'), delayChips),
+    h('div', { class: 'field' }, h('span', {}, 'Stagger between worlds'), staggerChips),
+    h('label', { class: 'field' }, h('span', {}, 'Reason'), reason));
+  append(broadcastFields, h('label', { class: 'field' }, h('span', {}, 'Message'), message));
+  draw();
+
+  openDialog({
+    title: 'Schedule',
+    subtitle: 'Runs from the console at the time you pick, in your time zone.',
+    body: [
+      kindPick,
+      h('div', { class: 'field' }, h('span', {}, 'Worlds'), worldMode, worldChips,
+        h('p', { class: 'hint' }, 'Every world means every world online when it runs.')),
+      h('label', { class: 'field' }, h('span', {}, 'When'), at, when),
+      h('div', { class: 'field' }, h('span', {}, 'Repeat'), repeatChips, customEvery),
+      rebootFields,
+      broadcastFields,
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Schedule', kind: 'primary', icon: 'clock',
+      run: async () => {
+        const nodes = everyWorld ? [] : [...chosen];
+        if (!everyWorld && !nodes.length) throw new Error('Pick at least one world.');
+        const atMs = new Date(at.value).getTime();
+        if (!Number.isFinite(atMs)) throw new Error('Pick a time.');
+        const body = {
+          task: task === 'reboot'
+            ? { kind: 'reboot', countdown_secs: countdown_, stagger_secs: stagger, reason: reason.value.trim() || null }
+            : { kind: 'broadcast', message: message.value.trim() },
+          nodes,
+          at_ms: atMs,
+          every_mins: every,
+        };
+        const page = await api('POST', '/schedule', body);
+        toast(`Scheduled for ${fullTime(atMs)}.`);
+        onDone?.(page);
+      },
+    }],
+  });
+}
+
+function schedulePage(ctx) {
+  const list = spinnerList();
+  const head = h('div', {});
+  const draw = (page) => {
+    replace(head, pageHead('Schedule', 'Reboots and broadcasts set to go out later, once or on repeat. Times are in your time zone.',
+      page.can_change && button('Schedule broadcast', { icon: 'megaphone', on: { click: () => scheduleDialog('broadcast', [], draw) } }),
+      page.can_change && button('Schedule reboot', { icon: 'power', kind: 'primary', on: { click: () => scheduleDialog('reboot', [], draw) } })),
+    !page.can_change && h('div', { class: 'callout' }, icon('shield'), h('div', {}, 'Scheduling needs the admin role.')));
+    replace(list, page.jobs.length ? page.jobs.map((j) => jobItem(j, page.can_change, draw))
+      : h('div', { class: 'empty' }, icon('clock'), 'Nothing scheduled.'));
+  };
+  const load = async () => {
+    try { draw(await api('GET', '/schedule')); } catch (e) { failed(list, e); }
+  };
+  load();
+  const timer = setInterval(() => { if (!document.hidden && !document.querySelector('dialog[open]')) load(); }, 15000);
+  ctx.cleanup(() => clearInterval(timer));
+  return h('div', { class: 'page' }, head,
+    h('div', { class: 'callout' }, icon('alert'), h('div', {}, 'A job due while the console is down is skipped if it\'s more than 5 minutes late, and noted in the audit log.')),
+    h('section', { class: 'card' }, list));
+}
+
+// ---------------------------------------------------------------------------
+// Sanction templates: a named offence with a ladder of mutes and bans. A
+// player's next offence of a template gets the next step up.
+
+const stepLabel = (s) => `${s.action === 'ban' ? 'Ban' : 'Mute'} ${hoursLabel(s.hours)}`;
+
+async function loadTemplates() {
+  state.templates = (await api('GET', '/templates')).templates;
+  return state.templates;
+}
+
+function ladder(steps, next) {
+  return h('div', { class: 'chips' }, steps.map((s, i) => h('span', {
+    class: `badge ${i === next ? (s.action === 'ban' ? 'danger' : 'warn') : ''}`,
+    title: i === next ? 'Their next offence gets this' : `Offence ${i + 1}${i === steps.length - 1 ? ' and after' : ''}`,
+  }, `${i + 1}. ${stepLabel(s)}`)));
+}
+
+function templateDialog(templates, index, onDone) {
+  const t = index === null
+    ? { id: '', name: '', description: '', steps: [{ action: 'mute', hours: 48 }], expire_days: 365 }
+    : structuredClone(templates[index]);
+  const name = h('input', { class: 'input', maxlength: '60', required: true, value: t.name, placeholder: 'e.g. Macroing', autofocus: true });
+  const description = h('textarea', { class: 'input', maxlength: '300', value: t.description, placeholder: 'What it covers, for whoever applies it.' });
+  const expire = h('input', { class: 'input', type: 'number', min: '1', max: '3650', step: '1', required: true, value: String(t.expire_days), inputmode: 'numeric' });
+  const steps = h('div', { class: 'column' });
+  const drawSteps = () => replace(steps, t.steps.map((s, i) => {
+    const custom = h('input', { class: 'input', type: 'number', min: '1', max: '87600', step: '1', placeholder: 'Hours', inputmode: 'numeric',
+      value: DURATIONS.some(([h0]) => h0 === s.hours) ? '' : String(s.hours) });
+    custom.addEventListener('input', () => { const n = Math.round(Number(custom.value)); if (n >= 1) s.hours = n; });
+    return h('div', { class: 'field' },
+      h('span', {}, `Offence ${i + 1}${i === t.steps.length - 1 ? ' and after' : ''}`),
+      h('div', { class: 'chips' },
+        h('div', { class: 'segmented', role: 'group', 'aria-label': 'Action' },
+          ['mute', 'ban'].map((a) => h('button', { type: 'button', 'aria-pressed': String(s.action === a), on: { click: () => { s.action = a; drawSteps(); } } }, a === 'ban' ? 'Ban' : 'Mute'))),
+        t.steps.length > 1 && button(null, { small: true, icon: 'x', 'aria-label': 'Remove step', on: { click: () => { t.steps.splice(i, 1); drawSteps(); } } })),
+      h('div', { class: 'chips' }, DURATIONS.map(([h0, label]) => h('button', { type: 'button', class: 'chip', 'aria-pressed': String(s.hours === h0), on: { click: () => { s.hours = h0; drawSteps(); } } }, label))),
+      custom);
+  }));
+  drawSteps();
+  const save = async (list) => {
+    await api('POST', '/templates', { templates: list }).then((page) => { state.templates = page.templates; });
+    onDone?.();
+  };
+  openDialog({
+    title: index === null ? 'New template' : `Edit ${t.name}`,
+    body: [
+      h('label', { class: 'field' }, h('span', {}, 'Name'), name),
+      h('label', { class: 'field' }, h('span', {}, 'Description'), description),
+      h('div', { class: 'field' }, h('span', {}, 'Ladder'), steps,
+        button('Add step', { small: true, icon: 'plus', on: { click: () => { const last = t.steps[t.steps.length - 1]; t.steps.push({ ...last }); drawSteps(); } } })),
+      h('label', { class: 'field' }, h('span', {}, 'Offences count for (days)'), expire,
+        h('p', { class: 'hint' }, 'Older offences of this template don\'t move them up the ladder.')),
+    ],
+    actions: [
+      index !== null && { label: 'Delete', kind: 'danger', icon: 'trash', run: async () => {
+        await save(templates.filter((_, i) => i !== index));
+        toast(`Deleted ${t.name}.`);
+      } },
+      { label: 'Cancel' },
+      { label: 'Save', kind: 'primary', run: async () => {
+        t.name = name.value.trim();
+        t.description = description.value.trim();
+        t.expire_days = Math.round(Number(expire.value));
+        const list = templates.slice();
+        if (index === null) list.push(t); else list[index] = t;
+        await save(list);
+        toast(`Saved ${t.name}.`);
+      } },
+    ].filter(Boolean),
+  });
+}
+
+function templatesTab() {
+  const list = spinnerList();
+  const head = h('div', { class: 'card-head' }, h('h2', {}, 'Sanction templates'));
+  const load = async () => {
+    try {
+      const page = await api('GET', '/templates');
+      state.templates = page.templates;
+      const edit = (i) => page.can_edit && button('Edit', { small: true, icon: 'edit', on: { click: () => templateDialog(page.templates, i, load) } });
+      replace(head, h('h2', {}, 'Sanction templates'), h('div', { class: 'actions' },
+        page.can_edit && button('New template', { small: true, icon: 'plus', on: { click: () => templateDialog(page.templates, null, load) } })));
+      replace(list, page.templates.length ? page.templates.map((t, i) => h('div', { class: 'list-item' },
+        h('div', { class: 'list-icon' }, icon('shield')),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, h('b', {}, t.name)),
+          t.description && h('div', { class: 'list-sub' }, t.description),
+          ladder(t.steps, -1),
+          h('div', { class: 'list-sub' }, `Offences count for ${plural(t.expire_days, 'day')}.`)),
+        edit(i)))
+        : h('div', { class: 'empty' }, icon('shield'), 'No templates.'));
+    } catch (e) { failed(list, e); }
+  };
+  load();
+  return { load, el: h('section', { class: 'card' }, head,
+    h('div', { class: 'card-body' }, h('p', { class: 'hint' }, 'Pick one when you mute or ban: it sets the length from how many times the player has had it before, and logs the template as the reason.')),
+    list) };
+}
+
+// ---------------------------------------------------------------------------
+// Staff notes on players: private, apart from cases. "Keep an eye on this
+// one" notes put the player on the watchlist.
+
+const watchBadge = () => h('span', { class: 'badge warn', title: 'On the staff watchlist' }, icon('eye'), 'Watched');
+
+function noteItem(n, onRemove) {
+  const mine = isMe(n.by);
+  return h('div', { class: 'list-item' },
+    h('div', { class: `list-icon ${n.watch ? 'warn' : ''}` }, icon(n.watch ? 'eye' : 'edit')),
+    h('div', { class: 'list-main' },
+      h('div', { class: 'list-title' }, h('b', {}, n.by), n.watch && [' ', watchBadge()]),
+      h('div', { class: 'note-text' }, n.text)),
+    h('div', { class: 'list-side stack' },
+      h('span', { title: fullTime(n.at_ms) }, ago(n.at_ms)),
+      (mine || state.canCommand) && button(null, { small: true, kind: 'ghost', icon: 'trash', 'aria-label': 'Remove note', title: 'Remove', on: { click: () => confirmDialog({
+        title: 'Remove note',
+        subtitle: `On ${n.player}, by ${n.by}`,
+        body: [h('p', { class: 'muted' }, n.text)],
+        label: 'Remove', kind: 'danger',
+        run: async () => { await api('POST', `/notes/${n.id}/remove`); onRemove(); },
+      }) } })));
+}
+
+// A player's notes, with a box to add one. `onWatch` hears whether they're
+// on the watchlist, each time the notes load.
+function notesSection(name, onWatch) {
+  const list = spinnerList();
+  const text = h('textarea', { class: 'input', maxlength: '1000', rows: '2', placeholder: 'A note for other staff: what to look out for, who they are, why. Only staff see it.', 'aria-label': 'New note' });
+  const watch = h('input', { type: 'checkbox' });
+  const add = button('Add note', { small: true, kind: 'primary', icon: 'plus' });
+  const load = async () => {
+    try {
+      const notes = await api('GET', `/notes?${query({ player: name })}`);
+      replace(list, notes.length ? notes.map((n) => noteItem(n, load)) : h('div', { class: 'empty' }, icon('edit'), 'No notes on them.'));
+      onWatch?.(notes.some((n) => n.watch));
+    } catch (e) { failed(list, e); }
+  };
+  add.addEventListener('click', async () => {
+    if (!text.value.trim()) return text.focus();
+    add.disabled = true;
+    try {
+      await api('POST', '/notes', { player: name, text: text.value, watch: watch.checked });
+      text.value = '';
+      watch.checked = false;
+      load();
+    } catch (e) { toast(e.message, 'error'); } finally { add.disabled = false; }
+  });
+  load();
+  return h('section', { class: 'card' },
+    h('div', { class: 'card-head' }, h('h2', {}, 'Staff notes'), h('div', { class: 'actions' }, h('span', { class: 'hint hide-mobile' }, 'Private to staff, apart from cases'))),
+    h('div', { class: 'card-body note-compose' }, text,
+      h('div', { class: 'chips' }, h('label', { class: 'check-row' }, watch, 'Keep an eye on them (adds them to the watchlist)'), add)),
+    list);
+}
+
+// ---------------------------------------------------------------------------
 // Command palette (Ctrl/Cmd+K)
 
 function paletteItems(query) {
@@ -3998,6 +4987,8 @@ function paletteItems(query) {
     admin && { group: 'Actions', label: 'Broadcast to all worlds...', icon: 'megaphone', run: () => broadcastDialog(online) },
     admin && { group: 'Actions', label: 'Reboot all worlds...', icon: 'power', run: () => online.length && rebootDialog(online) },
     admin && rebooting.length && { group: 'Actions', label: 'Cancel every scheduled reboot...', icon: 'undo', run: () => cancelRebootDialog(rebooting) },
+    admin && { group: 'Actions', label: 'Schedule a reboot or broadcast...', icon: 'clock', run: () => scheduleDialog('reboot') },
+    { group: 'Actions', label: 'Kill switches and login lockdown', icon: 'zap', run: () => navigate('/controls') },
     { group: 'Actions', label: 'Kick a player...', icon: 'kick', run: () => moderateDialog('', 'kick') },
     { group: 'Actions', label: 'Mute a player...', icon: 'mute', run: () => moderateDialog('', 'mute') },
     { group: 'Actions', label: 'Ban a player...', icon: 'ban', run: () => moderateDialog('', 'ban') },
@@ -4019,6 +5010,7 @@ function paletteItems(query) {
     matches.push({ group: 'Players', label: `Look up ${query.trim()}`, icon: 'user', run: () => navigate(`/player?name=${encodeURIComponent(query.trim())}`) });
     matches.push({ group: 'Players', label: `Find "${query.trim()}" online`, icon: 'search', run: () => navigate(`/players?q=${encodeURIComponent(query.trim())}`) });
     matches.push({ group: 'Players', label: `Chat logs of ${query.trim()}`, icon: 'chat', run: () => navigate(`/chat?name=${encodeURIComponent(query.trim())}`) });
+    matches.push({ group: 'Players', label: `Ban ${query.trim()} by template...`, icon: 'ban', run: () => moderateDialog(query.trim(), 'ban') });
     matches.push({ group: 'Players', label: `Cases on ${query.trim()}`, icon: 'briefcase', run: () => navigate(`/moderation?tab=cases&show=all&q=${encodeURIComponent(query.trim())}`) });
   }
   return matches.slice(0, 40);
@@ -4088,5 +5080,9 @@ document.addEventListener('keydown', (e) => {
     state.session = { stage: 'signed_out' };
     toast(e.message, 'error');
   }
+  // Kept recordings are only for a signed-in visit: a session that ended
+  // while the console was closed leaves none behind.
+  if (state.session?.stage === 'signed_in') trimReplayStore();
+  else if (state.session?.stage === 'signed_out') clearReplayStore();
   render();
 })();

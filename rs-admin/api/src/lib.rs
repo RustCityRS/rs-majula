@@ -27,12 +27,17 @@ pub mod path {
     pub const KICK: &str = "/v1/kick";
     pub const MODERATE: &str = "/v1/moderate";
     pub const MAINTENANCE: &str = "/v1/maintenance";
+    /// Kill switches and the login lockdown.
+    pub const CONTROLS: &str = "/v1/controls";
     /// Lookups in the game database, which any world can answer.
     pub const PLAYER: &str = "/v1/lookup/player";
     pub const MODERATION: &str = "/v1/lookup/moderation";
     pub const SANCTIONS: &str = "/v1/lookup/sanctions";
     pub const CHAT: &str = "/v1/lookup/chat";
     pub const REPORTS: &str = "/v1/lookup/reports";
+    /// A player's history across every log, and the accounts linked to them.
+    pub const TIMELINE: &str = "/v1/lookup/timeline";
+    pub const LINKS: &str = "/v1/lookup/links";
     /// Session recordings: the list, one, and one's replay file.
     pub const REPLAYS: &str = "/v1/lookup/replays";
     pub const REPLAY: &str = "/v1/lookup/replay";
@@ -50,6 +55,11 @@ pub mod path {
     /// `POST` an image or video as the raw body to store it; `GET` it back
     /// under `/<name>`.
     pub const NEWS_MEDIA: &str = "/v1/news/media";
+    /// Ban and mute appeals players send from the website: those not yet
+    /// taken into a case, noting the case, and the decision.
+    pub const APPEALS_WAITING: &str = "/v1/appeals/waiting";
+    pub const APPEAL_LINK: &str = "/v1/appeals/link";
+    pub const APPEAL_DECIDE: &str = "/v1/appeals/decide";
 }
 
 /// The largest image or video a news post or case can embed.
@@ -199,6 +209,31 @@ pub struct WorldStatus {
     pub reboot_reason: Option<String>,
     #[serde(default)]
     pub health: Option<Health>,
+    #[serde(default)]
+    pub controls: Option<WorldControls>,
+}
+
+/// A world's kill switches and login lockdown. They last until it restarts.
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct WorldControls {
+    /// Script-name patterns (`*` matches anything) that players can't start.
+    pub switches: Vec<String>,
+    /// Non-staff accounts registered less than this long ago can't log in;
+    /// 0 for no lockdown.
+    pub min_account_age_hours: u32,
+}
+
+/// `POST /v1/controls`: replaces a world's controls.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SetControls {
+    pub actor: Actor,
+    pub controls: WorldControls,
+}
+
+/// How a [`SetControls`] went: how many scripts each switch matched.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ControlsSet {
+    pub matched: Vec<u32>,
 }
 
 /// How the world is running, over roughly the last minute.
@@ -289,6 +324,9 @@ pub struct Moderate {
     pub name: String,
     pub action: ModAction,
     pub hours: Option<i32>,
+    /// Why, for the moderation log.
+    #[serde(default)]
+    pub reason: Option<String>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -342,6 +380,85 @@ pub struct ModerationRecord {
     pub hours: Option<i32>,
     pub node: u8,
     pub at_ms: i64,
+    #[serde(default)]
+    pub reason: Option<String>,
+}
+
+/// `POST /v1/lookup/timeline`: a player's history, newest first.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TimelineLookup {
+    pub name: String,
+    /// Which kinds of row to include (see [`TimelineEntry::kind`]).
+    pub kinds: Vec<String>,
+    pub before: Option<TimelineCursor>,
+    pub limit: u32,
+}
+
+/// The last row of a timeline page, to read on from.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TimelineCursor {
+    pub at_ms: i64,
+    pub kind: String,
+    pub id: i64,
+}
+
+/// One row of a player's timeline. `kind` is one of `login`, `session`,
+/// `wealth`, `chat`, `moderation`, `reported`, `report` or `replay`; which
+/// other fields are set depends on it (see `rs_db::TimelineRow`).
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TimelineEntry {
+    pub kind: String,
+    /// The row's id in its own log (for `replay`, the recording's).
+    pub id: String,
+    pub at_ms: i64,
+    pub node: Option<u8>,
+    pub x: Option<u16>,
+    pub z: Option<u16>,
+    pub level: Option<u8>,
+    pub event_type: Option<i16>,
+    pub text: Option<String>,
+    /// Another player: the moderator, reporter, recipient or offender.
+    pub other: Option<String>,
+    pub count: Option<i64>,
+    pub value: Option<i64>,
+    pub hours: Option<i32>,
+    pub detail: Option<String>,
+}
+
+/// `POST /v1/lookup/links`: where a player logs in from, and who else does.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LinksLookup {
+    pub name: String,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Links {
+    pub addresses: Vec<LoginAddress>,
+    pub accounts: Vec<LinkedAccount>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LoginAddress {
+    pub ip: String,
+    pub logins: i64,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    /// Other accounts that logged in or registered from it.
+    pub others: i64,
+}
+
+/// An account sharing at least one address with the player looked up.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LinkedAccount {
+    pub name: String,
+    pub staff_level: u8,
+    /// The addresses they share.
+    pub shared: Vec<String>,
+    pub logins: i64,
+    pub last_ms: i64,
+    pub muted_until_ms: Option<i64>,
+    pub banned_until_ms: Option<i64>,
 }
 
 /// `POST /v1/lookup/sanctions`: everyone muted or banned now.
@@ -583,6 +700,49 @@ pub struct MediaSaved {
 pub struct NewsDelete {
     pub actor: Actor,
     pub id: i32,
+}
+
+/// `POST /v1/appeals/waiting`: appeals not yet taken into a case, oldest
+/// first.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AppealsWaiting {
+    pub limit: u32,
+}
+
+/// An appeal against a mute or ban, as the player sent it.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Appeal {
+    pub id: i64,
+    pub player: String,
+    /// `mute` or `ban`.
+    pub sanction: String,
+    pub sanction_until_ms: i64,
+    /// The moderator who set it, `None` when nobody did (an abuse report's
+    /// mute, the anti-cheat's ban).
+    pub issued_by: Option<String>,
+    /// The reason they logged with it.
+    pub reason: Option<String>,
+    pub statement: String,
+    pub filed_ms: i64,
+}
+
+/// `POST /v1/appeals/link`: notes the case an appeal was taken into.
+/// Answered with an [`Outcome`].
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AppealLink {
+    pub id: i64,
+    pub case_id: u64,
+}
+
+/// `POST /v1/appeals/decide`: the decision the player sees. Answered with
+/// an [`Outcome`].
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct AppealDecide {
+    pub actor: Actor,
+    pub id: i64,
+    /// `upheld` or `overturned`.
+    pub decision: String,
+    pub note: String,
 }
 
 /// The answer to a command: whether it took, and why not.

@@ -42,6 +42,45 @@ pub enum Resolution {
     Duplicate,
 }
 
+/// An appeal a player sent from the website against a mute or ban, as its
+/// case keeps it.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Appeal {
+    pub id: i64,
+    pub sanction: String,
+    pub until_ms: i64,
+    pub issued_by: Option<String>,
+    pub reason: Option<String>,
+    pub statement: String,
+    pub filed_ms: i64,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Decision {
+    Upheld,
+    Overturned,
+}
+
+impl Decision {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::Upheld => "upheld",
+            Self::Overturned => "overturned",
+        }
+    }
+}
+
+/// An appeal, and how it was decided.
+#[derive(Clone, Debug, Serialize)]
+pub struct AppealState {
+    #[serde(flatten)]
+    pub appeal: Appeal,
+    pub decision: Option<Decision>,
+    pub decided_by: Option<String>,
+    pub note: Option<String>,
+}
+
 /// Something a case is about, copied in when it's added: recordings are
 /// pruned after a while, and the case keeps what it was.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -144,6 +183,14 @@ pub enum Change {
     Restored {
         key: String,
     },
+    AppealFiled {
+        appeal: Appeal,
+    },
+    AppealDecided {
+        decision: Decision,
+        #[serde(default, skip_serializing_if = "String::is_empty")]
+        note: String,
+    },
 }
 
 /// One line of the log.
@@ -174,6 +221,7 @@ pub struct Case {
     pub evidence: Vec<Evidence>,
     pub comments: u32,
     pub actions: u32,
+    pub appeal: Option<AppealState>,
     #[serde(skip)]
     pub timeline: Vec<Entry>,
 }
@@ -248,6 +296,27 @@ impl Inner {
         let closed = !case.is_open();
         match &entry.change {
             Change::Comment { .. } | Change::Action { .. } => Ok(()),
+            Change::AppealFiled { .. } if case.appeal.is_some() || case.timeline.len() > 1 => {
+                Err("An appeal is filed only as its case opens.".into())
+            }
+            Change::AppealDecided { .. } if case.appeal.is_none() => {
+                Err("This case isn't an appeal.".into())
+            }
+            Change::AppealDecided { .. } if closed => {
+                Err("The case is closed; reopen it first.".into())
+            }
+            Change::AppealDecided { .. }
+                if case
+                    .appeal
+                    .as_ref()
+                    .and_then(|a| a.appeal.issued_by.as_deref())
+                    .is_some_and(|by| name_key(by) == name_key(&entry.by)) =>
+            {
+                Err("You issued this sanction, so someone else must decide the appeal.".into())
+            }
+            Change::Closed { .. } if case.appeal.as_ref().is_some_and(|a| a.decision.is_none()) => {
+                Err("Decide the appeal to close its case.".into())
+            }
             _ if closed && entry.change != Change::Reopened => {
                 Err("The case is closed; reopen it first.".into())
             }
@@ -322,6 +391,7 @@ impl Inner {
                     evidence: Vec::new(),
                     comments: 0,
                     actions: 0,
+                    appeal: None,
                     timeline: vec![entry],
                 },
             );
@@ -359,6 +429,21 @@ impl Inner {
                 case.resolution = None;
                 case.closed_ms = None;
                 case.closed_by = None;
+            }
+            Change::AppealFiled { appeal } => {
+                case.appeal = Some(AppealState {
+                    appeal: appeal.clone(),
+                    decision: None,
+                    decided_by: None,
+                    note: None,
+                });
+            }
+            Change::AppealDecided { decision, note } => {
+                if let Some(state) = &mut case.appeal {
+                    state.decision = Some(*decision);
+                    state.decided_by = Some(entry.by.clone());
+                    state.note = Some(note.clone()).filter(|n| !n.is_empty());
+                }
             }
             Change::Opened { .. } | Change::Dismissed { .. } | Change::Restored { .. } => {}
         }
@@ -528,6 +613,15 @@ impl Cases {
 
     pub fn get(&self, id: u64) -> Option<Case> {
         self.lock().cases.get(&id).cloned()
+    }
+
+    /// The case opened for website appeal `id`, if there is one.
+    pub fn of_appeal(&self, id: i64) -> Option<u64> {
+        self.lock()
+            .cases
+            .values()
+            .find(|c| c.appeal.as_ref().is_some_and(|a| a.appeal.id == id))
+            .map(|c| c.id)
     }
 
     /// Every case that passes `keep`.
@@ -708,6 +802,72 @@ mod tests {
         // Only what took is in the log.
         let lines = std::fs::read_to_string(&path).unwrap().lines().count();
         assert_eq!(lines, 4);
+        let _ = std::fs::remove_file(path);
+    }
+
+    fn appeal(issued_by: Option<&str>) -> Change {
+        Change::AppealFiled {
+            appeal: Appeal {
+                id: 3,
+                sanction: "ban".into(),
+                until_ms: 1,
+                issued_by: issued_by.map(str::to_owned),
+                reason: Some("Macroing".into()),
+                statement: "It wasn't me".into(),
+                filed_ms: 1,
+            },
+        }
+    }
+
+    #[test]
+    fn appeals_are_decided_by_someone_else_before_closing() {
+        let path = temp_log("appeal");
+        let cases = Cases::open(path.clone());
+        let case = cases
+            .create(
+                "Appeals",
+                "Ban appeal".into(),
+                "Bob".into(),
+                Priority::Normal,
+                vec![appeal(Some("Mod Ash"))],
+            )
+            .unwrap();
+        assert_eq!(cases.of_appeal(3), Some(case.id));
+        assert_eq!(cases.of_appeal(4), None);
+        let close = |_: &Case| {
+            Ok(vec![Change::Closed {
+                resolution: Resolution::NoAction,
+                note: String::new(),
+            }])
+        };
+        let decide = |_: &Case| {
+            Ok(vec![Change::AppealDecided {
+                decision: Decision::Upheld,
+                note: "Stands.".into(),
+            }])
+        };
+        // Not closed without a decision, nor decided by whoever banned.
+        assert!(cases.change("Kim", case.id, close).is_err());
+        let err = cases.change("mod_ash", case.id, decide).unwrap_err();
+        assert!(err.contains("someone else"), "{err}");
+        // A second appeal can't be stuck on.
+        let refile = |_: &Case| Ok(vec![appeal(None)]);
+        assert!(cases.change("Kim", case.id, refile).is_err());
+
+        cases.change("Kim", case.id, decide).unwrap();
+        cases.change("Kim", case.id, close).unwrap();
+        let reopened = Cases::open(path.clone()).get(case.id).unwrap();
+        let state = reopened.appeal.unwrap();
+        assert_eq!(state.decision, Some(Decision::Upheld));
+        assert_eq!(state.decided_by.as_deref(), Some("Kim"));
+        assert_eq!(state.note.as_deref(), Some("Stands."));
+        assert_eq!(reopened.status, Status::Closed);
+
+        // Not an appeal: nothing to decide.
+        let plain = cases
+            .create("Kim", "T".into(), "Eve".into(), Priority::Low, vec![])
+            .unwrap();
+        assert!(cases.change("Kim", plain.id, decide).is_err());
         let _ = std::fs::remove_file(path);
     }
 

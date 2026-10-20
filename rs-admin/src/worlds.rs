@@ -391,6 +391,11 @@ impl Worlds {
         Ok((content_type, bytes.to_vec()))
     }
 
+    /// Whether the console can reach the website's admin API.
+    pub fn has_web(&self) -> bool {
+        self.web.is_some()
+    }
+
     fn web_url(&self) -> Result<&str, String> {
         self.web
             .as_deref()

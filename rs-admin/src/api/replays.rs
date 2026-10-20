@@ -157,6 +157,29 @@ pub struct FileQuery {
     player: String,
 }
 
+#[derive(Deserialize)]
+pub struct Viewed {
+    player: String,
+}
+
+/// `POST /api/replays/{id}/viewed`: audits a recording watched from the
+/// copy this browser kept, which isn't downloaded (and audited) again.
+pub async fn viewed(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Path(id): Path<String>,
+    Json(req): Json<Viewed>,
+) -> Result<StatusCode, ApiError> {
+    let id = checked_id(&id)?;
+    let player = checked_name(&req.player)?;
+    app.audit.record(
+        Event::new(Some(staff.name()), staff.client.ip, "replay_viewed")
+            .target(player)
+            .detail(format!("session {id}, from this browser's copy")),
+    );
+    Ok(StatusCode::NO_CONTENT)
+}
+
 /// `GET /api/replays/{id}/file?revision=&player=`: the replay file, for the
 /// viewer to hand to the replay page. Audited as watching it.
 pub async fn file(

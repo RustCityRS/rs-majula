@@ -204,5 +204,16 @@ pub async fn media(
         return Err(ApiError::new(StatusCode::NOT_FOUND, "No such file."));
     }
     let (content_type, bytes) = app.worlds.web_media(&name).await.map_err(unavailable)?;
-    Ok(([(header::CONTENT_TYPE, content_type)], bytes).into_response())
+    // Named by their content, so a name always means the same bytes.
+    Ok((
+        [
+            (header::CONTENT_TYPE, content_type),
+            (
+                header::CACHE_CONTROL,
+                "private, max-age=31536000, immutable".to_owned(),
+            ),
+        ],
+        bytes,
+    )
+        .into_response())
 }

@@ -171,6 +171,34 @@ impl Db {
         .await
     }
 
+    /// Logs that `name_hash` authenticated on world `node_id` from `ip`.
+    pub async fn record_login(
+        &self,
+        name_hash: u64,
+        node_id: i16,
+        ip: IpAddr,
+    ) -> Result<(), Error> {
+        sqlx::query(
+            "INSERT INTO login_logs (player_id, node_id, ip)
+             SELECT id, $2, $3::inet FROM players WHERE name_hash = $1",
+        )
+        .bind(name_hash as i64)
+        .bind(node_id)
+        .bind(ip.to_string())
+        .execute(&self.pool)
+        .await?;
+        Ok(())
+    }
+
+    /// Forgets logins older than `days`.
+    pub async fn prune_login_logs(&self, days: i32) -> Result<(), Error> {
+        sqlx::query("DELETE FROM login_logs WHERE created_at < now() - make_interval(days => $1)")
+            .bind(days)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
+    }
+
     /// Forgets failures older than `secs`.
     pub async fn prune_login_failures(&self, secs: i32) -> Result<(), Error> {
         sqlx::query("DELETE FROM login_failures WHERE at < now() - make_interval(secs => $1)")

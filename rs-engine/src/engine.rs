@@ -3,6 +3,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest, DbResponse};
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
+use crate::controls::{Controls, DISABLED_MESSAGE};
 use crate::counters::COUNTERS;
 use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
@@ -517,6 +518,8 @@ pub struct Engine {
     pub clock: u32,
     pub shutdown_clock: Option<u32>,
     pub maintenance_mode: bool,
+    /// Kill switches and the login lockdown, set from the staff console.
+    pub controls: Controls,
     date_origin_ms: i64,
     date_origin: Instant,
     cycle_date_ms: i64,
@@ -659,6 +662,7 @@ impl Engine {
             clock: 0,
             shutdown_clock: None,
             maintenance_mode: false,
+            controls: Controls::default(),
             date_origin_ms,
             date_origin: Instant::now(),
             cycle_date_ms: date_origin_ms,
@@ -1098,6 +1102,7 @@ impl Engine {
             std::ptr::write(self.cache_ptr, *new_store);
         }
         self.scripts = new_scripts;
+        self.controls.refresh(&self.scripts);
         let count = self.scripts.count();
 
         #[cfg(debug_assertions)]
@@ -1164,6 +1169,15 @@ impl Engine {
         let Some(subject) = subject else {
             return Err(ScriptError::NoSubject);
         };
+        // Only a fresh start: a suspended script resuming finishes, even
+        // under a kill switch put on since it began.
+        if let ScriptSubject::Player(uid) = subject
+            && state.execution == ExecutionState::Running
+            && self.switched_off(uid, &state.script)
+        {
+            self.reusable_script = Some(state);
+            return Ok(());
+        }
         let returned = match subject {
             ScriptSubject::Player(uid) => {
                 let protect = protect.unwrap_or(false);
@@ -1177,6 +1191,19 @@ impl Engine {
             self.reusable_script = Some(returned_state);
         }
         Ok(())
+    }
+
+    /// Whether a kill switch keeps player `uid` from starting `script`; if so,
+    /// they're told it's switched off.
+    #[inline]
+    fn switched_off(&mut self, uid: PlayerUid, script: &Script) -> bool {
+        if !self.controls.is_disabled(script.id) {
+            return false;
+        }
+        if let Some(active) = self.get_player_mut(uid.pid()) {
+            active.message_game(DISABLED_MESSAGE);
+        }
+        true
     }
 
     /// Builds a [`ScriptState`], reusing a pooled state's heap buffers when one
@@ -1342,6 +1369,11 @@ impl Engine {
             ScriptSubject::Npc(uid) => SubjectKind::Npc(*uid),
             ScriptSubject::Loc(_) | ScriptSubject::Obj(_) => SubjectKind::Other,
         };
+        if let SubjectKind::Player(uid) = kind
+            && self.switched_off(uid, &script)
+        {
+            return Ok(Ok(()));
+        }
 
         // Take the reusable state if available, otherwise allocate fresh.
         let state = if let Some(mut reusable) = self.reusable_script.take() {

@@ -7,13 +7,15 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::{Json, Router};
 use rs_admin_api::{
-    Broadcast, CancelReboot, ChatLookup, ChatRecord, Health, InvSheet, ItemLine, Kick, Maintenance,
-    ModOutcome, Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer,
-    Outcome, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, Reboot,
-    ReplayGet, ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, Sanction, SanctionsLookup,
-    SheetLookup, StatLine, Verifier, WorldStatus, path,
+    Broadcast, CancelReboot, ChatLookup, ChatRecord, ControlsSet, Health, InvSheet, ItemLine, Kick,
+    LinkedAccount, Links, LinksLookup, LoginAddress, Maintenance, ModOutcome, Moderate,
+    ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome, PlayerEdit,
+    PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, Reboot, ReplayGet, ReplayLookup,
+    ReplaySummary, ReportLookup, ReportRecord, Sanction, SanctionsLookup, SetControls, SheetLookup,
+    StatLine, TimelineEntry, TimelineLookup, Verifier, WorldControls, WorldStatus, path,
 };
-use rs_db::{Db, DbConfig, ModAction};
+use rs_db::{Db, DbConfig, ModAction, TimelineCursor};
+use rs_engine::controls::{self, Controls};
 use rs_engine::edit::{self, Change};
 use rs_engine::watch::playback;
 use rs_engine::{DbRequest, Engine, LoadResult, SaveOutcome, TickStats, profile_from_save};
@@ -50,6 +52,22 @@ const MAX_MOD_HOURS: i32 = 87_600;
 
 /// The longest reboot reason, in characters.
 const MAX_REASON_CHARS: usize = 80;
+
+/// The longest reason logged with a moderation command, in characters.
+const MAX_MOD_REASON_CHARS: usize = 300;
+
+/// The longest kill switch pattern, in characters.
+const MAX_PATTERN_CHARS: usize = 100;
+
+/// The most scripts one kill switch may turn off: more is a pattern too
+/// broad to be meant (`*` would stop every player script, logins included).
+const MAX_SWITCH_SCRIPTS: usize = 300;
+
+/// The longest login lockdown: a year.
+const MAX_LOCKDOWN_HOURS: u32 = 8760;
+
+/// The most accounts and addresses a links lookup returns.
+const MAX_LINKS: u32 = 100;
 
 /// The most rows a lookup returns.
 const MAX_LOOKUP_ROWS: u32 = 200;
@@ -157,11 +175,14 @@ pub async fn serve(
         .route(path::KICK, post(kick))
         .route(path::MODERATE, post(moderate))
         .route(path::MAINTENANCE, post(maintenance))
+        .route(path::CONTROLS, post(set_controls))
         .route(path::PLAYER, post(player_lookup))
         .route(path::MODERATION, post(moderation_lookup))
         .route(path::SANCTIONS, post(sanctions_lookup))
         .route(path::CHAT, post(chat_lookup))
         .route(path::REPORTS, post(reports_lookup))
+        .route(path::TIMELINE, post(timeline_lookup))
+        .route(path::LINKS, post(links_lookup))
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
         .route(path::REPLAY_DATA, post(replay_data))
@@ -259,6 +280,10 @@ fn world_status(state: &AdminState, engine: &Engine) -> WorldStatus {
             .then(|| state.reboot_reason.lock().ok()?.clone())
             .flatten(),
         health: Some(state.health()),
+        controls: Some(WorldControls {
+            switches: engine.controls.patterns().to_vec(),
+            min_account_age_hours: engine.controls.min_account_age_hours,
+        }),
     }
 }
 
@@ -437,6 +462,11 @@ async fn moderate(
     {
         return Err(StatusCode::UNPROCESSABLE_ENTITY);
     }
+    let reason = req
+        .reason
+        .as_deref()
+        .and_then(clean_line)
+        .map(|r| r.chars().take(MAX_MOD_REASON_CHARS).collect());
     let moderator37 = to_userhash(&req.actor.name);
     let by_level = req.actor.staff_level;
     let (reply, outcome) = oneshot::channel();
@@ -447,6 +477,7 @@ async fn moderate(
                 by_level,
                 target37,
                 action,
+                reason,
                 reply: Some(reply),
             })
             .is_ok(),
@@ -494,6 +525,70 @@ async fn maintenance(
             "Logins closed. Players already on stay, and staff can still log in."
         } else {
             "Logins open again."
+        })
+    })
+    .await
+    .map(Json)
+}
+
+/// Replaces the kill switches and login lockdown. Refuses (changing nothing)
+/// a pattern that is empty, too long, or matches too many scripts.
+async fn set_controls(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<SetControls>,
+) -> Result<Json<Result<ControlsSet, String>>, StatusCode> {
+    let controls = req.controls;
+    if controls.switches.len() > controls::MAX_SWITCHES {
+        return Ok(Json(Err(format!(
+            "A world takes at most {} kill switches.",
+            controls::MAX_SWITCHES
+        ))));
+    }
+    if let Some(bad) = controls
+        .switches
+        .iter()
+        .find(|p| p.trim().is_empty() || p.chars().count() > MAX_PATTERN_CHARS)
+    {
+        return Ok(Json(Err(format!(
+            "\"{bad}\" isn't a pattern: they're 1 to {MAX_PATTERN_CHARS} characters."
+        ))));
+    }
+    if controls.min_account_age_hours > MAX_LOCKDOWN_HOURS {
+        return Ok(Json(Err(format!(
+            "A lockdown can turn away accounts at most {MAX_LOCKDOWN_HOURS} hours old."
+        ))));
+    }
+    let actor = req.actor.name;
+    on_engine(&state, move |engine| {
+        let counts: Vec<usize> = controls
+            .switches
+            .iter()
+            .map(|p| Controls::matches(p, &engine.scripts))
+            .collect();
+        if let Some((p, n)) = controls
+            .switches
+            .iter()
+            .zip(&counts)
+            .find(|&(_, &n)| n > MAX_SWITCH_SCRIPTS)
+        {
+            return Err(format!(
+                "\"{p}\" matches {n} scripts, more than the {MAX_SWITCH_SCRIPTS} a switch may turn off."
+            ));
+        }
+        let changed = engine.controls.patterns() != controls.switches.as_slice()
+            || engine.controls.min_account_age_hours != controls.min_account_age_hours;
+        engine.controls.min_account_age_hours = controls.min_account_age_hours;
+        let matched = engine
+            .controls
+            .set_switches(controls.switches.clone(), &engine.scripts);
+        if changed {
+            info!(
+                "{} set the kill switches to {:?} and the login lockdown to {}h from the admin console",
+                actor, controls.switches, controls.min_account_age_hours
+            );
+        }
+        Ok(ControlsSet {
+            matched: matched.into_iter().map(|n| n as u32).collect(),
         })
     })
     .await
@@ -567,6 +662,7 @@ async fn moderation_lookup(
                 hours: m.hours,
                 node: node(Some(m.node_id)).unwrap_or_default(),
                 at_ms: m.at_ms,
+                reason: m.reason,
             })
             .collect(),
     ))
@@ -661,6 +757,96 @@ async fn reports_lookup(
             })
             .collect(),
     ))
+}
+
+/// The most timeline rows a page returns.
+const MAX_TIMELINE_ROWS: u32 = 200;
+
+async fn timeline_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<TimelineLookup>,
+) -> Result<Json<Vec<TimelineEntry>>, StatusCode> {
+    let player = name_hash(&req.name)?;
+    let before = req.before.map(|c| TimelineCursor {
+        at_ms: c.at_ms,
+        kind: c.kind,
+        id: c.id,
+    });
+    let rows = state
+        .db
+        .timeline(
+            player,
+            &req.kinds,
+            before.as_ref(),
+            i64::from(req.limit.clamp(1, MAX_TIMELINE_ROWS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| TimelineEntry {
+                kind: r.kind,
+                id: r.id.to_string(),
+                at_ms: r.at_ms,
+                node: node(r.node_id),
+                x: r.x.map(|x| x as u16),
+                z: r.z.map(|z| z as u16),
+                level: r.y.map(|y| y as u8),
+                event_type: r.event_type,
+                text: r.text,
+                other: r.other.or_else(|| {
+                    r.other_hash
+                        .map(|h| to_screen_name(&to_raw_username(h as u64)))
+                }),
+                count: r.count,
+                value: r.value,
+                hours: r.hours,
+                detail: r.detail,
+            })
+            .collect(),
+    ))
+}
+
+async fn links_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<LinksLookup>,
+) -> Result<Json<Links>, StatusCode> {
+    let player = name_hash(&req.name)?;
+    let limit = i64::from(req.limit.clamp(1, MAX_LINKS));
+    let addresses = state
+        .db
+        .login_addresses(player, limit)
+        .await
+        .map_err(db_failed)?;
+    let accounts = state
+        .db
+        .linked_accounts(player, limit)
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(Links {
+        addresses: addresses
+            .into_iter()
+            .map(|a| LoginAddress {
+                ip: a.ip,
+                logins: a.logins,
+                first_ms: a.first_ms,
+                last_ms: a.last_ms,
+                others: a.others,
+            })
+            .collect(),
+        accounts: accounts
+            .into_iter()
+            .map(|a| LinkedAccount {
+                name: a.display_name,
+                staff_level: a.staff_mod_level.clamp(0, 255) as u8,
+                shared: a.shared,
+                logins: a.logins,
+                last_ms: a.last_ms,
+                muted_until_ms: a.muted_until_ms,
+                banned_until_ms: a.banned_until_ms,
+            })
+            .collect(),
+    }))
 }
 
 fn replay_summary(r: rs_db::ReplayRecord) -> ReplaySummary {

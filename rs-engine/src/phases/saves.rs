@@ -47,7 +47,9 @@ impl Engine {
     ///   [`LoginResponse::AccountDisabled`]. From 254, a login within
     ///   `PROFILE_TRANSFER_DELAY` of leaving another world rejects with
     ///   `LoginResponse::ProfileTransfer` and the seconds left, which the
-    ///   client counts down before retrying on its own.
+    ///   client counts down before retrying on its own. During a lockdown
+    ///   (see [`crate::controls`]) an account too new is rejected with
+    ///   [`LoginResponse::CouldNotComplete`].
     /// * `LoadResponse` -- the session claim's outcome: attaches the loaded
     ///   profile and attempts completion, or rejects with
     ///   [`LoginResponse::AlreadyLoggedIn`] when another world owns the
@@ -108,7 +110,13 @@ impl Engine {
                                 staff_mod_level,
                                 muted_for,
                                 left_other_world,
+                                account_age,
                             } => {
+                                let staff = StaffModLevel::from_u8(staff_mod_level);
+                                if !self.controls.admits(staff, account_age) {
+                                    self.reject_pending_login(idx, LoginResponse::CouldNotComplete);
+                                    continue;
+                                }
                                 #[cfg(since_254)]
                                 if let Some(secs) =
                                     profile_transfer_wait(staff_mod_level, left_other_world)
@@ -121,8 +129,7 @@ impl Engine {
                                 }
                                 #[cfg(before_254)]
                                 let _ = left_other_world;
-                                self.pending_logins[idx].auth =
-                                    Some(StaffModLevel::from_u8(staff_mod_level));
+                                self.pending_logins[idx].auth = Some(staff);
                                 self.pending_logins[idx].muted_until =
                                     muted_for.map(ActivePlayer::mute_deadline);
                                 self.try_complete_login(idx);

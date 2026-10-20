@@ -33,6 +33,7 @@ pub struct ModerationRecord {
     pub hours: Option<i32>,
     pub node_id: i16,
     pub at_ms: i64,
+    pub reason: Option<String>,
 }
 
 /// A player under a mute or ban now, with the latest mute or ban put on
@@ -77,7 +78,276 @@ pub struct ReportRecord {
     pub at_ms: i64,
 }
 
+/// An address a player has logged in from.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct LoginAddress {
+    pub ip: String,
+    pub logins: i64,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    /// How many other accounts logged in or registered from it.
+    pub others: i64,
+}
+
+/// Another account that shares an address with a player: one of them logged
+/// in or registered from an address the other did.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct LinkedAccount {
+    pub display_name: String,
+    pub staff_mod_level: i16,
+    pub shared: Vec<String>,
+    /// Their logins from the shared addresses.
+    pub logins: i64,
+    /// Their latest login (or registration) from a shared address.
+    pub last_ms: i64,
+    pub muted_until_ms: Option<i64>,
+    pub banned_until_ms: Option<i64>,
+}
+
+/// One row of a player's timeline. Which columns are set depends on `kind`:
+///
+/// - `login`: `text` is the address.
+/// - `session`: a script's `session_log`: `event_type`, `text`.
+/// - `wealth`: a script's `wealth_event`: `event_type`, `text` (the item),
+///   `count`, `value`.
+/// - `chat`: `text`, and `other_hash` for a private message's recipient.
+/// - `moderation`: done to them: `text` (the action), `other` (the
+///   moderator), `hours`, `detail` (the reason).
+/// - `reported`: an abuse report against them: `event_type` (the rule),
+///   `other` (the reporter).
+/// - `report`: one they sent: `event_type` (the rule), `other_hash` (the
+///   offender).
+/// - `replay`: a recorded session starting: `id` (the recording), `count`
+///   (its length in ms), `event_type` (its anti-cheat score), `text` (its
+///   flags, comma-separated).
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct TimelineRow {
+    pub kind: String,
+    pub id: i64,
+    pub at_ms: i64,
+    pub node_id: Option<i16>,
+    pub x: Option<i16>,
+    pub z: Option<i16>,
+    pub y: Option<i16>,
+    pub event_type: Option<i16>,
+    pub text: Option<String>,
+    pub other: Option<String>,
+    pub other_hash: Option<i64>,
+    pub count: Option<i64>,
+    pub value: Option<i64>,
+    pub hours: Option<i32>,
+    pub detail: Option<String>,
+}
+
+/// Where a timeline page starts: rows strictly older than this one.
+#[derive(Clone, Debug)]
+pub struct TimelineCursor {
+    pub at_ms: i64,
+    pub kind: String,
+    pub id: i64,
+}
+
+/// Every kind of row a timeline can show.
+pub const TIMELINE_KINDS: [&str; 8] = [
+    "login",
+    "session",
+    "wealth",
+    "chat",
+    "moderation",
+    "reported",
+    "report",
+    "replay",
+];
+
+/// The `SELECT` for one kind of timeline row, with `$P` for the player's id,
+/// `$B` for the newest time to include and `$L` for the most rows. Each reads
+/// newest first along an index on (player, time) and stops at `$L`. Every
+/// column is typed, so any mix of kinds unions into [`TimelineRow`].
+fn timeline_select(kind: &str) -> Option<&'static str> {
+    Some(match kind {
+        "login" => concat!(
+            "SELECT 'login'::text, id, ",
+            ms!("created_at"),
+            ", node_id, NULL::smallint, NULL::smallint, NULL::smallint, NULL::smallint, ",
+            "host(ip), NULL::text, NULL::bigint, NULL::bigint, NULL::bigint, NULL::int, ",
+            "NULL::text FROM login_logs WHERE player_id = $P AND created_at <= $B ",
+            "ORDER BY created_at DESC LIMIT $L"
+        ),
+        "session" => concat!(
+            "SELECT 'session'::text, id, ",
+            ms!("created_at"),
+            ", node_id, x, z, y, event_type, event, NULL::text, NULL::bigint, NULL::bigint, ",
+            "NULL::bigint, NULL::int, NULL::text FROM session_logs ",
+            "WHERE player_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
+        ),
+        "wealth" => concat!(
+            "SELECT 'wealth'::text, id, ",
+            ms!("created_at"),
+            ", node_id, x, z, y, event_type, item, NULL::text, NULL::bigint, count::bigint, ",
+            "value::bigint, NULL::int, NULL::text FROM wealth_events ",
+            "WHERE player_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
+        ),
+        "chat" => concat!(
+            "SELECT 'chat'::text, id, ",
+            ms!("created_at"),
+            ", node_id, x, z, y, NULL::smallint, message, NULL::text, to_name_hash, ",
+            "NULL::bigint, NULL::bigint, NULL::int, NULL::text FROM chat_logs ",
+            "WHERE player_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
+        ),
+        "moderation" => concat!(
+            "SELECT 'moderation'::text, m.id, ",
+            ms!("m.created_at"),
+            ", m.node_id, NULL::smallint, NULL::smallint, NULL::smallint, NULL::smallint, ",
+            "m.action, mp.display_name, NULL::bigint, NULL::bigint, NULL::bigint, m.hours, ",
+            "m.reason FROM moderation_logs m JOIN players mp ON mp.id = m.moderator_id ",
+            "WHERE m.target_id = $P AND m.created_at <= $B ORDER BY m.created_at DESC LIMIT $L"
+        ),
+        "reported" => concat!(
+            "SELECT 'reported'::text, s.id, ",
+            ms!("s.created_at"),
+            ", s.node_id, s.x, s.z, s.y, s.reason, NULL::text, r.display_name, NULL::bigint, ",
+            "NULL::bigint, NULL::bigint, NULL::int, NULL::text FROM snapshots s ",
+            "JOIN players r ON r.id = s.reporter_id ",
+            "WHERE s.offender_name_hash = (SELECT name_hash FROM players WHERE id = $P) ",
+            "AND s.created_at <= $B ORDER BY s.created_at DESC LIMIT $L"
+        ),
+        "report" => concat!(
+            "SELECT 'report'::text, id, ",
+            ms!("created_at"),
+            ", node_id, x, z, y, reason, NULL::text, NULL::text, offender_name_hash, ",
+            "NULL::bigint, NULL::bigint, NULL::int, NULL::text FROM snapshots ",
+            "WHERE reporter_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
+        ),
+        "replay" => concat!(
+            "SELECT 'replay'::text, id, ",
+            ms!("started_at"),
+            ", node_id, NULL::smallint, NULL::smallint, NULL::smallint, score, ",
+            "array_to_string(flags, ','), NULL::text, NULL::bigint, duration_ms::bigint, ",
+            "NULL::bigint, NULL::int, NULL::text FROM replays ",
+            "WHERE player_id = $P AND started_at <= $B ORDER BY started_at DESC LIMIT $L"
+        ),
+        _ => return None,
+    })
+}
+
 impl Db {
+    /// The addresses `name_hash` has logged in from, most recent first.
+    pub async fn login_addresses(
+        &self,
+        name_hash: u64,
+        limit: i64,
+    ) -> Result<Vec<LoginAddress>, Error> {
+        sqlx::query_as(concat!(
+            "WITH me AS (SELECT id FROM players WHERE name_hash = $1) ",
+            "SELECT host(l.ip) AS ip, count(*) AS logins, ",
+            ms!("min(l.created_at)"),
+            " AS first_ms, ",
+            ms!("max(l.created_at)"),
+            " AS last_ms, (SELECT count(*) FROM (",
+            "SELECT o.player_id FROM login_logs o WHERE o.ip = l.ip ",
+            "UNION SELECT r.id FROM players r WHERE r.registration_ip = l.ip) a ",
+            "WHERE a.player_id <> (SELECT id FROM me)) AS others ",
+            "FROM login_logs l WHERE l.player_id = (SELECT id FROM me) ",
+            "GROUP BY l.ip ORDER BY max(l.created_at) DESC LIMIT $2"
+        ))
+        .bind(name_hash as i64)
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await
+    }
+
+    /// The other accounts that share an address with `name_hash` (see
+    /// [`LinkedAccount`]), those sharing the most addresses first.
+    pub async fn linked_accounts(
+        &self,
+        name_hash: u64,
+        limit: i64,
+    ) -> Result<Vec<LinkedAccount>, Error> {
+        sqlx::query_as(concat!(
+            "WITH me AS (SELECT id, registration_ip FROM players WHERE name_hash = $1), ",
+            "mine AS (SELECT ip FROM login_logs WHERE player_id = (SELECT id FROM me) ",
+            "UNION SELECT registration_ip FROM me WHERE registration_ip IS NOT NULL), ",
+            "seen AS (SELECT l.player_id, l.ip, count(*) AS logins, max(l.created_at) AS last_at ",
+            "FROM login_logs l JOIN mine m ON m.ip = l.ip ",
+            "WHERE l.player_id <> (SELECT id FROM me) GROUP BY l.player_id, l.ip ",
+            "UNION ALL SELECT p.id, p.registration_ip, 0, p.created_at FROM players p ",
+            "JOIN mine m ON m.ip = p.registration_ip WHERE p.id <> (SELECT id FROM me)) ",
+            "SELECT p.display_name, p.staff_mod_level, ",
+            "array_agg(DISTINCT host(s.ip)) AS shared, sum(s.logins)::bigint AS logins, ",
+            ms!("max(s.last_at)"),
+            " AS last_ms, CASE WHEN p.muted_until > now() THEN ",
+            ms!("p.muted_until"),
+            " END AS muted_until_ms, CASE WHEN p.banned_until > now() THEN ",
+            ms!("p.banned_until"),
+            " END AS banned_until_ms FROM seen s JOIN players p ON p.id = s.player_id ",
+            "GROUP BY p.id ORDER BY count(DISTINCT s.ip) DESC, max(s.last_at) DESC LIMIT $2"
+        ))
+        .bind(name_hash as i64)
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await
+    }
+
+    /// `name_hash`'s timeline: rows of each of `kinds` (see [`TimelineRow`]),
+    /// newest first, older than `before` when paging. Unknown kinds are
+    /// skipped.
+    pub async fn timeline(
+        &self,
+        name_hash: u64,
+        kinds: &[String],
+        before: Option<&TimelineCursor>,
+        limit: i64,
+    ) -> Result<Vec<TimelineRow>, Error> {
+        let selects: Vec<&str> = kinds.iter().filter_map(|k| timeline_select(k)).collect();
+        if selects.is_empty() {
+            return Ok(Vec::new());
+        }
+        let player_id: Option<i64> =
+            sqlx::query_scalar("SELECT id FROM players WHERE name_hash = $1")
+                .bind(name_hash as i64)
+                .fetch_optional(&self.pool)
+                .await?;
+        let Some(player_id) = player_id else {
+            return Ok(Vec::new());
+        };
+        // Each branch reads no further back than the page can reach; rows in
+        // the cursor's own millisecond are split by its kind and id below.
+        let newest = match before {
+            Some(c) => format!("to_timestamp({}::double precision / 1000)", c.at_ms + 1),
+            None => "now()".to_owned(),
+        };
+        let mut query = QueryBuilder::<Postgres>::new("SELECT * FROM (");
+        for (i, select) in selects.iter().enumerate() {
+            if i > 0 {
+                query.push(" UNION ALL ");
+            }
+            // Only numbers are spliced in.
+            let select = select
+                .replace("$P", &player_id.to_string())
+                .replace("$B", &newest)
+                .replace("$L", &limit.to_string());
+            query.push("(").push(select).push(")");
+        }
+        query.push(
+            ") AS t (kind, id, at_ms, node_id, x, z, y, event_type, text, other, other_hash, \
+             count, value, hours, detail)",
+        );
+        if let Some(c) = before {
+            query
+                .push(" WHERE (at_ms, kind, id) < (")
+                .push_bind(c.at_ms)
+                .push(", ")
+                .push_bind(c.kind.clone())
+                .push(", ")
+                .push_bind(c.id)
+                .push(")");
+        }
+        query
+            .push(" ORDER BY at_ms DESC, kind DESC, id DESC LIMIT ")
+            .push_bind(limit);
+        query.build_query_as().fetch_all(&self.pool).await
+    }
+
     /// The player with base37 name `name_hash`, if registered.
     pub async fn player_record(&self, name_hash: u64) -> Result<Option<PlayerRecord>, Error> {
         sqlx::query_as(concat!(
@@ -110,7 +380,7 @@ impl Db {
             "SELECT m.id, mp.display_name AS moderator, tp.display_name AS target, m.action, ",
             "m.hours, m.node_id, ",
             ms!("m.created_at"),
-            " AS at_ms FROM moderation_logs m ",
+            " AS at_ms, m.reason FROM moderation_logs m ",
             "JOIN players mp ON mp.id = m.moderator_id ",
             "JOIN players tp ON tp.id = m.target_id WHERE true"
         ));

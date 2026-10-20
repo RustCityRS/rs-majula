@@ -1,0 +1,25 @@
+{% with title="Appeal" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Appeal Received" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>Thank you, {{ username }}. Your appeal has been received.</p>
+
+<p>Your reference number is <b>#{{ id }}</b>. A member of staff who didn't
+  make the original decision will review it. This can take a few days, so
+  please be patient and don't send the same appeal again.</p>
+
+<p>You can check on it at any time on the
+  <a href="/appeal/status" class=c>appeal status</a> page.</p>
+
+<center><a href="/title" class=c>Main menu</a></center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

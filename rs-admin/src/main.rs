@@ -1,17 +1,27 @@
 mod api;
+mod appeals;
 mod audit;
 mod cases;
+mod controls;
 mod http;
 mod markdown;
+mod notes;
+mod schedule;
 mod sessions;
+mod store;
+mod templates;
 mod totp;
 mod users;
 mod worlds;
 
 use crate::audit::Audit;
 use crate::cases::Cases;
+use crate::controls::Controls;
 use crate::http::{App, HttpConfig};
+use crate::notes::Notes;
+use crate::schedule::Schedule;
 use crate::sessions::Sessions;
+use crate::templates::Templates;
 use crate::users::{Role, User, Users, hash_password, now_ms, password_problem};
 use crate::worlds::Worlds;
 use anyhow::{Context, Result, bail};
@@ -288,6 +298,14 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         worlds: worlds.clone(),
         audit: Audit::open(data_dir.join("audit.jsonl")),
         cases: Cases::open(data_dir.join("cases.jsonl")),
+        controls: Controls::open(data_dir.join("controls.json")),
+        notes: Notes::open(data_dir.join("notes.jsonl")),
+        schedule: Schedule::open(data_dir.join("schedule.json")),
+        templates: Templates::open(
+            data_dir.join("templates.json"),
+            data_dir.join("offences.json"),
+        ),
+        address_salt: sessions::random_token(),
         media_dir: data_dir.join("media"),
         config: HttpConfig {
             https: args.https,
@@ -299,6 +317,11 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     });
 
     tokio::spawn(worlds::poll(worlds));
+    tokio::spawn(controls::keep_in_sync(app.clone()));
+    tokio::spawn(schedule::keep_running(app.clone()));
+    if app.worlds.has_web() {
+        tokio::spawn(appeals::keep_taking_in(app.clone()));
+    }
     let pruner = app.clone();
     tokio::spawn(async move {
         let mut interval = tokio::time::interval(Duration::from_secs(60));

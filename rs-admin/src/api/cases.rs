@@ -1,9 +1,10 @@
 use super::lookup::unavailable;
-use super::players::checked_name;
+use super::players::{action_name, checked_name, moderate_one};
 use super::replays::checked_id;
 use crate::audit::Event;
 use crate::cases::{
-    Case, Change, Entry, Evidence, MAX_TEXT, MAX_TITLE, Priority, Resolution, Status, Triage,
+    Case, Change, Decision, Entry, Evidence, MAX_TEXT, MAX_TITLE, Priority, Resolution, Status,
+    Triage,
 };
 use crate::http::{ApiError, App, Staff};
 use crate::markdown::{self, MEDIA_PATH};
@@ -14,8 +15,8 @@ use axum::extract::{Path, Query, Request, State};
 use axum::http::{HeaderValue, StatusCode, header};
 use axum::response::{IntoResponse, Response};
 use rs_admin_api::{
-    ChatLookup, ChatRecord, MediaSaved, ReplayGet, ReplaySummary, ReportLookup, ReportRecord,
-    media, path,
+    AppealDecide, ChatLookup, ChatRecord, MediaSaved, ModAction, Outcome, ReplayGet, ReplaySummary,
+    ReportLookup, ReportRecord, media, path,
 };
 use serde::{Deserialize, Serialize};
 use std::cmp::Reverse;
@@ -25,6 +26,8 @@ use std::sync::Arc;
 const MAX_CASES: usize = 500;
 /// The most pieces of evidence a new case starts with.
 const MAX_NEW_EVIDENCE: usize = 25;
+/// The longest note a player is shown with an appeal's decision.
+const MAX_DECISION_NOTE: usize = 2000;
 
 /// A change the store refused: it's out of date, or doesn't apply.
 fn refused(message: String) -> ApiError {
@@ -447,6 +450,13 @@ pub enum Op {
         note: String,
     },
     Reopen,
+    /// Decides the case's appeal, tells the player, and closes the case;
+    /// overturning lifts the mute or ban first.
+    DecideAppeal {
+        decision: Decision,
+        #[serde(default)]
+        note: String,
+    },
 }
 
 /// `POST /api/cases/{id}`: one change, answered with the case as it is now.
@@ -457,6 +467,12 @@ pub async fn change(
     Json(op): Json<Op>,
 ) -> Result<Json<CaseDetail>, ApiError> {
     let me = staff.name().to_owned();
+    let op = match op {
+        Op::DecideAppeal { decision, note } => {
+            return decide_appeal(&app, &staff, id, decision, &note).await;
+        }
+        op => op,
+    };
     // What needs the game database or the accounts, before the store's lock.
     let evidence = match &op {
         Op::AddEvidence { item } => Some(resolve(&app, item).await?),
@@ -500,6 +516,7 @@ pub async fn change(
                 evidence: evidence.expect("resolved above"),
             }],
         ),
+        Op::DecideAppeal { .. } => unreachable!("decided above"),
         // These depend on who's on it now, so they're worked out under the
         // store's lock.
         Op::Join | Op::Leave | Op::Assign { .. } | Op::Unassign { .. } => {
@@ -544,6 +561,134 @@ pub async fn change(
         );
     }
     Ok(Json(detail(&app, &staff, case)))
+}
+
+/// Decides case `id`'s appeal: lifts the sanction if it's overturned, has
+/// the website show the player the decision, then records it and closes the
+/// case. Whoever issued the sanction can't (the case log refuses them too).
+/// Each step that fails stops it there, saying what did happen, and deciding
+/// again picks up where it stopped: lifting twice or telling twice is fine.
+async fn decide_appeal(
+    app: &App,
+    staff: &Staff,
+    id: u64,
+    decision: Decision,
+    note: &str,
+) -> Result<Json<CaseDetail>, ApiError> {
+    let me = staff.name().to_owned();
+    let note = text(note, MAX_DECISION_NOTE, true, "The note to the player")?;
+    let case = app
+        .cases
+        .get(id)
+        .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, format!("There's no case #{id}.")))?;
+    let appeal = case
+        .appeal
+        .as_ref()
+        .map(|a| a.appeal.clone())
+        .ok_or_else(|| ApiError::bad_request("This case isn't an appeal."))?;
+    if !case.is_open() {
+        return Err(ApiError::bad_request(
+            "The case is closed; reopen it to decide again.",
+        ));
+    }
+    if appeal
+        .issued_by
+        .as_deref()
+        .is_some_and(|by| name_key(by) == name_key(&me))
+    {
+        return Err(refused(
+            "You issued this sanction, so someone else must decide the appeal.".to_owned(),
+        ));
+    }
+
+    let mut changes = vec![Change::AppealDecided {
+        decision,
+        note: note.clone(),
+    }];
+    let what = if appeal.sanction == "mute" {
+        "mute"
+    } else {
+        "ban"
+    };
+    if decision == Decision::Overturned {
+        let action = if what == "mute" {
+            ModAction::Unmute
+        } else {
+            ModAction::Unban
+        };
+        let reason = format!("Appeal #{} overturned (case #{id})", appeal.id);
+        let (ok, message) = moderate_one(app, staff, &case.player, action, None, &reason).await;
+        app.audit.record(
+            Event::new(Some(&me), staff.client.ip, action_name(action))
+                .target(&case.player)
+                .detail(format!("{message} Reason: {reason}"))
+                .ok(ok),
+        );
+        if !ok {
+            return Err(ApiError::new(
+                StatusCode::BAD_GATEWAY,
+                format!("Couldn't lift the {what}: {message} Nothing was decided."),
+            ));
+        }
+        changes.push(Change::Action {
+            action: action_name(action).to_owned(),
+            name: case.player.clone(),
+            hours: None,
+            ok,
+            message,
+            reason,
+        });
+    }
+
+    let told: Result<Outcome, String> = app
+        .worlds
+        .web(
+            path::APPEAL_DECIDE,
+            &AppealDecide {
+                actor: staff.actor(),
+                id: appeal.id,
+                decision: decision.name().to_owned(),
+                note: note.clone(),
+            },
+        )
+        .await
+        .and_then(|o: Outcome| if o.ok { Ok(o) } else { Err(o.message) });
+    if let Err(e) = told {
+        let lifted = if decision == Decision::Overturned {
+            // The lift happened: the case keeps it, so the timeline is true.
+            let lift = changes.split_off(1);
+            let _ = app.cases.change(&me, id, |_| Ok(lift));
+            format!("The {what} was lifted, but the")
+        } else {
+            "The".to_owned()
+        };
+        return Err(ApiError::new(
+            StatusCode::BAD_GATEWAY,
+            format!("{lifted} website couldn't record the decision ({e}). Decide again to retry."),
+        ));
+    }
+
+    changes.push(Change::Closed {
+        resolution: match decision {
+            Decision::Overturned => Resolution::Actioned,
+            Decision::Upheld => Resolution::NoAction,
+        },
+        note: String::new(),
+    });
+    let case = app
+        .cases
+        .change(&me, id, |_| Ok(changes))
+        .map_err(refused)?;
+    app.audit.record(
+        Event::new(Some(&me), staff.client.ip, "appeal_decided")
+            .target(&case.player)
+            .detail(format!(
+                "{what} appeal #{} (case #{id}): {}",
+                appeal.id,
+                decision.name()
+            )),
+    );
+    Ok(Json(detail(app, staff, case)))
 }
 
 #[derive(Deserialize)]

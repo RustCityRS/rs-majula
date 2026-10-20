@@ -1,7 +1,8 @@
 use crate::audit::Event;
 use crate::cases::Change;
 use crate::http::{ApiError, App, Staff};
-use crate::users::name_key;
+use crate::templates::Offence;
+use crate::users::{name_key, now_ms};
 use crate::worlds::{Outcome, Reply};
 use axum::Json;
 use axum::extract::{Query, State};
@@ -221,22 +222,43 @@ fn reason_detail(reason: &str, message: &str) -> String {
 #[derive(Deserialize)]
 pub struct ModerateRequest {
     name: String,
-    action: ModAction,
+    /// What to do, unless a template decides.
+    #[serde(default)]
+    action: Option<ModAction>,
     #[serde(default)]
     hours: Option<i32>,
     #[serde(default)]
     reason: String,
     #[serde(default)]
     case: Option<u64>,
+    /// A sanction template: the action and length are the next step on its
+    /// ladder for this player, and the offence is recorded.
+    #[serde(default)]
+    template: Option<String>,
+    /// Linked accounts to give the same mute or ban.
+    #[serde(default)]
+    also: Vec<String>,
+}
+
+#[derive(Serialize)]
+pub struct Moderated {
+    name: String,
+    ok: bool,
+    message: String,
 }
 
 #[derive(Serialize)]
 pub struct ModerateResult {
     ok: bool,
     message: String,
+    /// How it went on each linked account.
+    also: Vec<Moderated>,
 }
 
-fn action_name(action: ModAction) -> &'static str {
+/// The most linked accounts one command reaches.
+const MAX_ALSO: usize = 25;
+
+pub(super) fn action_name(action: ModAction) -> &'static str {
     match action {
         ModAction::Mute => "mute",
         ModAction::Unmute => "unmute",
@@ -245,36 +267,23 @@ fn action_name(action: ModAction) -> &'static str {
     }
 }
 
-/// `POST /api/players/moderate`: mutes, unmutes, bans or unbans through the
-/// first world that can reach the game database, as the in-game command
-/// would. A ban also kicks them from wherever they are.
-pub async fn moderate(
-    State(app): State<Arc<App>>,
-    staff: Staff,
-    Json(req): Json<ModerateRequest>,
-) -> Result<Json<ModerateResult>, ApiError> {
-    let name = checked_name(&req.name)?;
-    check_case(&app, req.case)?;
-    let timed = matches!(req.action, ModAction::Mute | ModAction::Ban);
-    let hours = if timed {
-        match req.hours {
-            Some(h @ 1..=MAX_MOD_HOURS) => Some(h),
-            _ => {
-                return Err(ApiError::bad_request(format!(
-                    "Choose a length from 1 hour to {} years.",
-                    MAX_MOD_HOURS / 8760
-                )));
-            }
-        }
-    } else {
-        None
-    };
-
+/// Runs one moderation command through the first world that can reach the
+/// game database, as the in-game command would. A ban also kicks them from
+/// wherever they are. Returns whether it took, and what to tell staff.
+pub(super) async fn moderate_one(
+    app: &App,
+    staff: &Staff,
+    name: &str,
+    action: ModAction,
+    hours: Option<i32>,
+    reason: &str,
+) -> (bool, String) {
     let body = Moderate {
         actor: staff.actor(),
-        name: name.clone(),
-        action: req.action,
+        name: name.to_owned(),
+        action,
         hours,
+        reason: Some(reason.to_owned()).filter(|r| !r.is_empty()),
     };
     let mut outcome = None;
     for world in app.worlds.online() {
@@ -295,17 +304,17 @@ pub async fn moderate(
         }
     }
 
-    let what = match (req.action, hours) {
+    let what = match (action, hours) {
         (ModAction::Mute, Some(h)) => format!("Muted {name} for {}.", duration(h)),
         (ModAction::Ban, Some(h)) => format!("Banned {name} for {}.", duration(h)),
         (ModAction::Unmute, _) => format!("Unmuted {name}."),
         (ModAction::Unban, _) => format!("Unbanned {name}."),
         _ => String::new(),
     };
-    let (ok, message) = match outcome {
+    match outcome {
         Some(ModOutcome::Done) => {
-            if req.action == ModAction::Ban {
-                kick_everywhere(&app, &staff, &name).await;
+            if action == ModAction::Ban {
+                kick_everywhere(app, staff, name).await;
             }
             (true, what)
         }
@@ -321,25 +330,134 @@ pub async fn moderate(
             false,
             "No world could reach the game database, so nothing was changed.".to_owned(),
         ),
+    }
+}
+
+/// `POST /api/players/moderate`: mutes, unmutes, bans or unbans a player,
+/// by hand or by a sanction template, and any linked accounts with them.
+pub async fn moderate(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Json(req): Json<ModerateRequest>,
+) -> Result<Json<ModerateResult>, ApiError> {
+    let name = checked_name(&req.name)?;
+    check_case(&app, req.case)?;
+    let mut also: Vec<String> = Vec::new();
+    for other in &req.also {
+        let other = checked_name(other)?;
+        if name_key(&other) != name_key(&name)
+            && !also.iter().any(|a| name_key(a) == name_key(&other))
+        {
+            also.push(other);
+        }
+    }
+    if also.len() > MAX_ALSO {
+        return Err(ApiError::bad_request(format!(
+            "At most {MAX_ALSO} linked accounts at once."
+        )));
+    }
+
+    let typed = req.reason.trim().chars().take(300).collect::<String>();
+    let (action, hours, template, reason) = match &req.template {
+        Some(id) => {
+            let template = app
+                .templates
+                .get(id)
+                .ok_or_else(|| ApiError::bad_request("That template is gone; reload."))?;
+            let standing = app.templates.standing(&name, &template);
+            let label = format!(
+                "{} (offence {})",
+                template.name,
+                standing.offences.len() + 1
+            );
+            let reason = if typed.is_empty() {
+                label
+            } else {
+                format!("{label}: {typed}")
+            };
+            let step = standing.step;
+            (
+                step.action.mod_action(),
+                Some(step.hours),
+                Some((template, standing.next)),
+                reason,
+            )
+        }
+        None => {
+            let action = req
+                .action
+                .ok_or_else(|| ApiError::bad_request("Choose what to do."))?;
+            let hours = if matches!(action, ModAction::Mute | ModAction::Ban) {
+                match req.hours {
+                    Some(h @ 1..=MAX_MOD_HOURS) => Some(h),
+                    _ => {
+                        return Err(ApiError::bad_request(format!(
+                            "Choose a length from 1 hour to {} years.",
+                            MAX_MOD_HOURS / 8760
+                        )));
+                    }
+                }
+            } else {
+                None
+            };
+            (action, hours, None, typed)
+        }
     };
-    app.audit.record(
-        Event::new(Some(staff.name()), staff.client.ip, action_name(req.action))
-            .target(&name)
-            .detail(reason_detail(&req.reason, &message))
-            .ok(ok),
-    );
-    note_on_case(
-        &app,
-        &staff,
-        req.case,
-        action_name(req.action),
-        &name,
-        hours,
-        ok,
-        &message,
-        &req.reason,
-    );
-    Ok(Json(ModerateResult { ok, message }))
+    if !also.is_empty() && !matches!(action, ModAction::Mute | ModAction::Ban) {
+        return Err(ApiError::bad_request(
+            "Only mutes and bans reach linked accounts.",
+        ));
+    }
+
+    let mut results: Vec<Moderated> = Vec::with_capacity(1 + also.len());
+    for (i, target) in std::iter::once(&name).chain(&also).enumerate() {
+        let reason = if i == 0 {
+            reason.clone()
+        } else {
+            format!("Linked to {name}: {reason}")
+        };
+        let (ok, message) = moderate_one(&app, &staff, target, action, hours, &reason).await;
+        if ok && let Some((template, step)) = &template {
+            let recorded = app.templates.record(Offence {
+                at_ms: now_ms(),
+                player: target.clone(),
+                template: template.id.clone(),
+                step: *step,
+                by: staff.name().to_owned(),
+            });
+            if let Err(e) = recorded {
+                warn!("Couldn't record {}'s offence: {}", target, e);
+            }
+        }
+        app.audit.record(
+            Event::new(Some(staff.name()), staff.client.ip, action_name(action))
+                .target(target.as_str())
+                .detail(reason_detail(&reason, &message))
+                .ok(ok),
+        );
+        note_on_case(
+            &app,
+            &staff,
+            req.case,
+            action_name(action),
+            target,
+            hours,
+            ok,
+            &message,
+            &reason,
+        );
+        results.push(Moderated {
+            name: target.clone(),
+            ok,
+            message,
+        });
+    }
+    let first = results.remove(0);
+    Ok(Json(ModerateResult {
+        ok: first.ok,
+        message: first.message,
+        also: results,
+    }))
 }
 
 /// `48` -> `2 days`.
