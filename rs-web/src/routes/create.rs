@@ -62,7 +62,7 @@ pub async fn submit(
         "terms" => page(&app, "views/create/password.html", username, None),
         "password" => {
             if let Err(error) = check_password(&form) {
-                return page(&app, "views/create/password.html", username, Some(error));
+                return page(&app, "views/create/password.html", username, Some(&error));
             }
 
             let passwords = app.passwords.clone();
@@ -128,28 +128,20 @@ fn taken(display: &str) -> String {
     format!("The username \"{display}\" is already taken.")
 }
 
-/// Passwords must be typeable at the game's login screen: its keyboard
-/// accepts printable ASCII except the backtick (plus `£`, left out here so
-/// its encoding can't differ between the site and the game).
-fn check_password(form: &CreateForm) -> Result<(), &'static str> {
-    let len = form.password.chars().count();
-    if !(5..=20).contains(&len) {
-        return Err("Your password must be between 5 and 20 characters long.");
+/// A new password, typed twice, by the game's rule ([`rs_db::check_new_password`]):
+/// 5 to 20 characters its login screen can type.
+pub(super) fn check_new_passwords(password: &str, again: &str) -> Result<(), String> {
+    rs_db::check_new_password(password).map_err(|e| e.to_string())?;
+    if password != again {
+        return Err("Your passwords do not match.".to_owned());
     }
-    if !form
-        .password
-        .chars()
-        .all(|c| (' '..='~').contains(&c) && c != '`')
-    {
-        return Err(
-            "Your password may only contain letters, numbers, spaces and keyboard symbols.",
-        );
-    }
-    if form.password != form.password2 {
-        return Err("Your passwords do not match.");
-    }
+    Ok(())
+}
+
+fn check_password(form: &CreateForm) -> Result<(), String> {
+    check_new_passwords(&form.password, &form.password2)?;
     if form.terms != "yes" {
-        return Err("You must agree to the terms and conditions to create an account.");
+        return Err("You must agree to the terms and conditions to create an account.".to_owned());
     }
     Ok(())
 }
@@ -190,7 +182,9 @@ mod tests {
         assert!(check_password(&form("four", "four", "yes")).is_err());
         assert!(check_password(&form(&"x".repeat(21), &"x".repeat(21), "yes")).is_err());
         assert!(check_password(&form("back`tick", "back`tick", "yes")).is_err());
-        assert!(check_password(&form("pound\u{a3}1", "pound\u{a3}1", "yes")).is_err());
+        // The login screen types a pound sign, and sends it as the same character.
+        assert!(check_password(&form("pound\u{a3}1", "pound\u{a3}1", "yes")).is_ok());
+        assert!(check_password(&form("caf\u{e9}12", "caf\u{e9}12", "yes")).is_err());
         assert!(check_password(&form("hunter2", "hunter3", "yes")).is_err());
         assert!(check_password(&form("hunter2", "hunter2", "")).is_err());
     }

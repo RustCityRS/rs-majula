@@ -715,7 +715,7 @@ async fn bootstrap(
         let config = rs_engine::DbClientConfig {
             db: db_settings.clone(),
             node_id: args.node_id,
-            pepper: secrets.pepper,
+            pepper: secrets.pepper.clone(),
             auto_register: args.auto_register,
             auto_migrate: args.auto_migrate,
         };
@@ -783,6 +783,7 @@ async fn bootstrap(
             args.node_id,
             args.members,
             db_settings,
+            secrets.pepper,
             admin_stats,
             guards.game.clone(),
         ));

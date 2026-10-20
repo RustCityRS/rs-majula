@@ -1457,6 +1457,11 @@ const VERBS = {
   appeal_decided: ['decided the appeal of', 'flag', 'accent'],
   note_added: ['added a staff note on', 'edit'],
   note_removed: ['removed a staff note on', 'trash'],
+  session_freed: ['freed the session of', 'unlock', 'accent'],
+  sent_home: ['sent home', 'home'],
+  password_reset: ['issued a password reset for', 'key', 'accent'],
+  items_restored: ['restored items to', 'plus', 'accent'],
+  save_rolled_back: ['rolled back the save of', 'undo', 'danger'],
 };
 
 function auditItem(e) {
@@ -1633,6 +1638,11 @@ const MOD_VERBS = {
   ban: ['banned', 'ban', 'danger'],
   unban: ['unbanned', 'undo', ''],
   kick: ['kicked', 'kick', ''],
+  unstick: ['freed the session of', 'unlock', 'accent'],
+  send_home: ['sent home', 'home', ''],
+  password_reset: ['issued a password reset for', 'key', 'accent'],
+  restore: ['restored items to', 'plus', 'accent'],
+  rollback: ['rolled back the save of', 'undo', 'danger'],
 };
 
 // `336` -> "2 weeks"; the named lengths as the pickers name them.
@@ -1708,6 +1718,7 @@ function playerPage(ctx) {
   }
   const head = h('div', {}, pageHead(name, 'Looking them up...'));
   const facts = h('div', { class: 'stats' });
+  const support = supportSection(name);
   const fact = (iconName, label, value, sub) => h('div', { class: 'card stat' },
     h('div', { class: 'label' }, icon(iconName), label), h('div', { class: 'value' }, value), h('div', { class: 'sub' }, sub));
 
@@ -1728,6 +1739,7 @@ function playerPage(ctx) {
     const muted = p.muted_until_ms != null;
     const banned = p.banned_until_ms != null;
     const act = (action) => () => moderateDialog(p.name, action, load);
+    support.update(p);
     replace(head, pageHead(h('span', {}, p.name, ' ', playerBadges({ staff_level: p.staff_level })),
       p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
       p.online_node != null && button('Watch live', { icon: 'radio', on: { click: () => watchLive(p.name) } }),
@@ -1768,6 +1780,7 @@ function playerPage(ctx) {
     h('div', {}, 'On the staff watchlist. See the notes below for why.')));
   append(page, head, watched, facts,
     notesSection(name, (on) => watched.classList.toggle('hidden', !on)),
+    support.el,
     isDeveloper() && editSection(name),
     timelineCard(name),
     linksSection(name, load),
@@ -1821,44 +1834,12 @@ function setStatDialog(name, stat, onDone) {
 function giveDialog(name, sheet, onDone) {
   const targets = sheet.invs.filter((i) => i.name !== 'worn').map((i) => i.name);
   let inv = targets.includes('inv') ? 'inv' : targets[0];
-  let chosen = null;
   const invChips = h('div', { class: 'segmented' });
   const drawInvs = () => replace(invChips, targets.map((t) =>
     h('button', { type: 'button', 'aria-pressed': String(inv === t), on: { click: () => { inv = t; drawInvs(); } } }, invLabel(t))));
   drawInvs();
-  const search = h('input', { class: 'input', type: 'search', required: true, autofocus: true, autocomplete: 'off', spellcheck: 'false', placeholder: 'Item name, config name or id', 'data-invalid': 'Pick an item from the results.' });
-  search.setCustomValidity('Pick an item');
-  const results = h('div', { class: 'obj-results' });
+  const { search, results, chosen } = objPicker();
   const count = h('input', { class: 'input', type: 'number', min: '1', max: '2147483647', step: '1', value: '1', required: true, inputmode: 'numeric', 'data-invalid': 'Counts are 1 to 2147483647.' });
-  let timer;
-  let seq = 0;
-  const pick = (obj) => {
-    chosen = obj;
-    search.value = obj.name;
-    search.setCustomValidity('');
-    search.removeAttribute('aria-invalid');
-    replace(results, h('div', { class: 'obj-picked' }, icon('check'), h('b', {}, obj.name), h('span', { class: 'muted num' }, `${obj.debugname} · id ${obj.id}${obj.stackable ? ' · stacks' : ''}`)));
-  };
-  search.addEventListener('input', () => {
-    chosen = null;
-    search.setCustomValidity('Pick an item');
-    clearTimeout(timer);
-    const q = search.value.trim();
-    if (!q) return replace(results);
-    timer = setTimeout(async () => {
-      const mine = ++seq;
-      try {
-        const objs = await api('GET', `/objs?${query({ q })}`);
-        if (mine !== seq) return;
-        replace(results, objs.length
-          ? objs.map((o) => h('button', { type: 'button', class: 'obj-row', on: { click: () => pick(o) } },
-            h('span', {}, o.name), h('span', { class: 'muted num' }, `${o.debugname} · ${o.id}`)))
-          : h('p', { class: 'hint' }, 'No items match.'));
-      } catch (e) {
-        if (mine === seq) replace(results, h('p', { class: 'error-text' }, e.message));
-      }
-    }, 200);
-  });
   openDialog({
     title: `Give an item: ${name}`,
     subtitle: sheet.online ? 'They get it straight away.' : 'Goes into their save; they\'ll have it at their next login.',
@@ -1871,7 +1852,7 @@ function giveDialog(name, sheet, onDone) {
       label: 'Give',
       kind: 'primary',
       icon: 'plus',
-      run: () => editPlayer(name, { kind: 'give', inv, obj: chosen.id, count: Number(count.value) }, onDone),
+      run: () => editPlayer(name, { kind: 'give', inv, obj: chosen().id, count: Number(count.value) }, onDone),
     }],
   });
 }
@@ -1952,8 +1933,481 @@ function editSection(name) {
   };
   load();
   return h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'Stats and items'), where, actions),
+    h('div', { class: 'card-head wraps' }, h('h2', {}, 'Stats and items'), where, actions),
     body);
+}
+
+// ---------------------------------------------------------------------------
+// Player support on the player page: a player who can't log in (their
+// session, their password), is stuck in the game, or lost items to a bug
+// or a dupe. Restorations and rollbacks need an open case, and every action
+// is audited.
+
+const POINT_KINDS = {
+  logout: ['Logout', 'logout'],
+  session: ['During a session', 'clock'],
+  staff: ['Before a staff change', 'shield'],
+};
+// The wealth events that show a player came to have an item.
+const GAINED_WEALTH = [5, 6, 10];
+
+const worldLabel = (node, world) => (world ? `world ${world}` : `node ${node}`);
+
+// The case a support action is for: the player's open cases, `caseId`
+// picked when given. `required` for restorations and rollbacks.
+function casePicker(name, caseId, required) {
+  const select = h('select', { class: 'input', required, 'aria-label': 'Case', 'data-invalid': 'Pick the case this is for.' });
+  replace(select, h('option', { value: '' }, 'Loading their cases...'));
+  api('GET', `/cases?${query({ player: name, status: 'open' })}`).then((rows) => {
+    const options = rows.map((c) => h('option', { value: String(c.id) }, `#${c.id} ${c.title}`));
+    if (caseId && !rows.some((c) => c.id === caseId)) options.unshift(h('option', { value: String(caseId) }, `#${caseId}`));
+    replace(select, h('option', { value: '' }, required ? (options.length ? 'Pick a case' : 'No open cases on them') : 'None'), options);
+    // Their only open case is the one it's for.
+    if (caseId) select.value = String(caseId);
+    else if (required && rows.length === 1) select.value = String(rows[0].id);
+  }).catch((e) => replace(select, h('option', { value: '' }, e.message)));
+  const field = h('label', { class: 'field' }, h('span', {}, required ? 'Case' : 'Case (optional)'), select,
+    h('span', { class: 'hint' }, required ? 'Needed for this, and noted in its timeline. Open a case on them first if there isn\'t one.' : 'Noted in its timeline.'));
+  return { field, value: () => (select.value ? Number(select.value) : null) };
+}
+
+const reasonField = (required, placeholder) => {
+  const input = h('textarea', { class: 'input', maxlength: '300', required, placeholder, 'data-invalid': 'Say why.' });
+  return { field: h('label', { class: 'field' }, h('span', {}, required ? 'Reason' : 'Reason (optional)'), input), value: () => input.value.trim() };
+};
+
+function sendHomeDialog(name, online, onDone) {
+  const why = reasonField(false, 'e.g. Stuck behind the wall at the Barbarian Village mine.');
+  const picked = casePicker(name, null, false);
+  openDialog({
+    title: `Send home: ${name}`,
+    subtitle: online ? 'Teleports them now.' : 'Changes where they log in.',
+    body: [
+      h('div', { class: 'callout' }, icon('home'), h('div', {}, 'To Lumbridge, where players respawn. A player still on Tutorial Island goes back to its start instead, so they can\'t skip it.')),
+      why.field, picked.field,
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Send home',
+      kind: 'primary',
+      icon: 'home',
+      run: async () => {
+        const result = await api('POST', '/support/send-home', { name, reason: why.value(), case: picked.value() });
+        if (!result.ok) throw new Error(result.message);
+        toast(result.message);
+        onDone?.();
+      },
+    }],
+  });
+}
+
+function unstickDialog(name, message, onDone) {
+  const picked = casePicker(name, null, false);
+  const why = reasonField(false, 'e.g. Says they get "already logged in" on every world.');
+  openDialog({
+    title: `Free session: ${name}`,
+    subtitle: 'Only what nothing needs is let go: it never releases a player who is online, or whose newest save hasn\'t reached the database.',
+    body: [h('div', { class: 'callout' }, icon('unlock'), h('div', {}, message)), why.field, picked.field],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Free session',
+      kind: 'primary',
+      icon: 'unlock',
+      run: async () => {
+        const result = await api('POST', '/support/unstick', { name, reason: why.value(), case: picked.value() });
+        if (!result.ok) throw new Error(result.message);
+        toast(result.message);
+        onDone?.();
+      },
+    }],
+  });
+}
+
+function passwordResetDialog(name, onDone) {
+  const lock = h('input', { type: 'checkbox', checked: true });
+  const why = reasonField(true, 'e.g. Account stolen; confirmed ownership from their registration details. Ticket 1234.');
+  const picked = casePicker(name, null, false);
+  openDialog({
+    title: `Reset password: ${name}`,
+    subtitle: 'Only once you\'re sure the account is theirs.',
+    body: [
+      h('div', { class: 'callout warn' }, icon('alert'), h('div', {},
+        'You\'ll get a one-time code to give them. They choose a new password with it at /recover on the website, within 3 days. Staff never learn the new password.')),
+      h('label', { class: 'check-row' }, lock, h('span', {}, 'Lock their current password now')),
+      h('p', { class: 'hint' }, 'For a stolen account: whoever has the password is logged out, and can\'t log back in with it.'),
+      why.field, picked.field,
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Issue code',
+      kind: 'danger',
+      icon: 'key',
+      run: async ({ close }) => {
+        const issued = await api('POST', '/support/password-reset', { name, lock: lock.checked, reason: why.value(), case: picked.value() });
+        if (!issued.ok) throw new Error(issued.message);
+        close();
+        resetCodeDialog(name, issued);
+        onDone?.();
+        return true;
+      },
+    }],
+  });
+}
+
+// The code, shown only this once.
+function resetCodeDialog(name, issued) {
+  const copy = button('Copy', { small: true, kind: 'ghost', icon: 'copy' });
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(issued.code);
+      toast('Code copied.');
+    } catch { toast('Copy the code by hand.', 'error'); }
+  });
+  openDialog({
+    title: `Reset code for ${name}`,
+    subtitle: `Valid until ${fullTime(issued.until_ms)}. It's shown only this once.`,
+    body: [
+      h('div', { class: 'secret reset-code' }, h('span', {}, issued.code), copy),
+      h('p', {}, issued.message),
+      h('p', { class: 'hint' }, 'Give it to them privately. Lost it? Issue another: the new code replaces this one.'),
+    ],
+    actions: [{ label: 'Done', kind: 'primary' }],
+  });
+}
+
+// A search for an item to give, by name, config name or id. `onPick` gets
+// the item picked.
+function objPicker({ autofocus = true, required = true, placeholder = 'Item name, config name or id', onPick } = {}) {
+  const search = h('input', { class: 'input', type: 'search', required, autofocus, autocomplete: 'off', spellcheck: 'false', placeholder, 'data-invalid': 'Pick an item from the results.' });
+  if (required) search.setCustomValidity('Pick an item');
+  const results = h('div', { class: 'obj-results' });
+  let chosen = null;
+  let timer;
+  let seq = 0;
+  const pick = (obj) => {
+    chosen = obj;
+    search.setCustomValidity('');
+    search.removeAttribute('aria-invalid');
+    if (onPick) {
+      search.value = '';
+      replace(results);
+      onPick(obj);
+      return;
+    }
+    search.value = obj.name;
+    replace(results, h('div', { class: 'obj-picked' }, icon('check'), h('b', {}, obj.name), h('span', { class: 'muted num' }, `${obj.debugname} · id ${obj.id}${obj.stackable ? ' · stacks' : ''}`)));
+  };
+  search.addEventListener('input', () => {
+    chosen = null;
+    if (required) search.setCustomValidity('Pick an item');
+    clearTimeout(timer);
+    const q = search.value.trim();
+    if (!q) return replace(results);
+    timer = setTimeout(async () => {
+      const mine = ++seq;
+      try {
+        const objs = await api('GET', `/objs?${query({ q })}`);
+        if (mine !== seq) return;
+        replace(results, objs.length
+          ? objs.map((o) => h('button', { type: 'button', class: 'obj-row', on: { click: () => pick(o) } },
+            h('span', {}, o.name), h('span', { class: 'muted num' }, `${o.debugname} · ${o.id}`)))
+          : h('p', { class: 'hint' }, 'No items match.'));
+      } catch (e) {
+        if (mine === seq) replace(results, h('p', { class: 'error-text' }, e.message));
+      }
+    }, 200);
+  });
+  return { search, results, chosen: () => chosen };
+}
+
+// Gives back items a player lost: all of them, or none if any doesn't fit.
+// `items` start the list ({ obj, name, debugname, count }); `proof` is what
+// shows they had them (a wealth event or an earlier save), which the
+// console checks covers every item.
+function restoreDialog(name, { items = [], proof = null, proofLabel = '', caseId = null } = {}, onDone) {
+  const rows = [];
+  const list = h('div', { class: 'restore-list' });
+  const addRow = (item) => {
+    const existing = rows.find((r) => r.obj === item.obj);
+    if (existing) {
+      existing.count.value = String(Number(existing.count.value) + (item.count || 1));
+      return;
+    }
+    const row = {
+      obj: item.obj,
+      name: item.name,
+      debugname: item.debugname,
+      inv: 'bank',
+      count: h('input', { class: 'input', type: 'number', min: '1', max: '2147483647', step: '1', value: String(item.count || 1), required: true, inputmode: 'numeric', 'aria-label': `How many ${item.name}`, 'data-invalid': 'Counts are 1 to 2147483647.' }),
+    };
+    rows.push(row);
+    draw();
+  };
+  const draw = () => replace(list, rows.length
+    ? rows.map((row) => {
+      const into = h('div', { class: 'segmented small' });
+      const drawInto = () => replace(into, ['bank', 'inv'].map((inv) =>
+        h('button', { type: 'button', 'aria-pressed': String(row.inv === inv), on: { click: () => { row.inv = inv; drawInto(); } } }, invLabel(inv))));
+      drawInto();
+      return h('div', { class: 'restore-row' },
+        h('div', { class: 'grow' }, h('b', {}, row.name), h('div', { class: 'muted num' }, row.debugname ? `${row.debugname} · id ${row.obj}` : `id ${row.obj}`)),
+        row.count, into,
+        button(null, { small: true, kind: 'ghost', icon: 'x', 'aria-label': `Remove ${row.name}`, on: { click: () => { rows.splice(rows.indexOf(row), 1); draw(); } } }));
+    })
+    : h('p', { class: 'hint' }, 'Search for each item to give back.'));
+  items.forEach(addRow);
+  draw();
+  const picker = objPicker({ autofocus: !items.length, required: false, placeholder: 'Add an item: name, config name or id', onPick: (o) => addRow({ obj: o.id, name: o.name, debugname: o.debugname, count: 1 }) });
+  const why = reasonField(true, 'e.g. Lost when the bank bug wiped their tab; see the ticket.');
+  const picked = casePicker(name, caseId, true);
+  openDialog({
+    title: `Restore items: ${name}`,
+    subtitle: 'All of them, or nothing if any doesn\'t fit. Online, they get them straight away; offline, at their next login.',
+    width: 'min(640px, calc(100vw - 32px))',
+    body: [
+      proof && h('div', { class: 'callout' }, icon('check'), h('div', {}, h('b', {}, 'Proof: '), proofLabel,
+        h('div', { class: 'list-sub' }, 'The console checks it covers every item you restore.'))),
+      h('div', { class: 'field' }, h('span', {}, 'Items'), list, picker.search, picker.results),
+      why.field, picked.field,
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Restore',
+      kind: 'primary',
+      icon: 'plus',
+      run: async () => {
+        if (!rows.length) throw new Error('Add at least one item.');
+        const result = await api('POST', '/support/restore', {
+          name,
+          items: rows.map((r) => ({ inv: r.inv, obj: r.obj, count: Number(r.count.value) })),
+          reason: why.value(),
+          case: picked.value(),
+          proof,
+        });
+        if (!result.ok) throw new Error(result.message);
+        toast(result.message);
+        onDone?.();
+      },
+    }],
+  });
+}
+
+// A wealth event as the proof for restoring what it shows them getting.
+async function restoreFromWealth(name, e) {
+  try {
+    const objs = await api('GET', `/objs?${query({ q: e.text })}`);
+    const obj = objs.find((o) => o.debugname === e.text);
+    if (!obj) throw new Error(`There's no item called ${e.text} any more.`);
+    restoreDialog(name, {
+      items: [{ obj: obj.id, name: obj.name, debugname: obj.debugname, count: Number(e.count) }],
+      proof: { kind: 'wealth', id: e.id },
+      proofLabel: `${WEALTH_TYPES[e.event_type] || 'Got'}: ${Number(e.count).toLocaleString()} x ${obj.name}, ${fullTime(e.at_ms)}${e.world ? ` on world ${e.world}` : ''}.`,
+    });
+  } catch (err) {
+    toast(err.message, 'error');
+  }
+}
+
+// Every item in a sheet, by id, all inventories together.
+function itemTotals(sheet) {
+  const totals = new Map();
+  for (const inv of sheet.invs) {
+    for (const item of inv.items) {
+      const t = totals.get(item.id) || { obj: item.id, name: item.name, count: 0 };
+      t.count += item.count;
+      totals.set(item.id, t);
+    }
+  }
+  return totals;
+}
+
+// What changed between an earlier save and now.
+function sheetDiff(then, now) {
+  const before = itemTotals(then);
+  const after = itemTotals(now);
+  const lost = [];
+  const gained = [];
+  for (const [id, t] of before) {
+    const left = after.get(id)?.count || 0;
+    if (left < t.count) lost.push({ ...t, count: t.count - left });
+  }
+  for (const [id, t] of after) {
+    const had = before.get(id)?.count || 0;
+    if (t.count > had) gained.push({ ...t, count: t.count - had });
+  }
+  const stats = then.stats.map((s) => [s, now.stats.find((n) => n.id === s.id)]).filter(([s, n]) => n && n.xp !== s.xp);
+  return { lost, gained, stats, moved: then.x !== now.x || then.z !== now.z || then.level !== now.level };
+}
+
+const itemLines = (items) => h('div', { class: 'diff-items' }, items.map((i) =>
+  h('div', { class: 'diff-item' }, h('span', { class: 'num' }, `${i.count.toLocaleString()} x`), ' ', i.name)));
+
+const pointTitle = (p) => {
+  const [label] = POINT_KINDS[p.kind] || [p.kind];
+  return p.kind === 'staff' ? label : `${label} on ${worldLabel(p.node, p.world)}`;
+};
+
+// An earlier save next to their current one, to restore what they lost
+// since or roll back to it.
+async function pointDialog(name, point, onDone) {
+  let then;
+  let now;
+  try {
+    [then, now] = await Promise.all([
+      api('GET', `/support/history/sheet?${query({ name, id: point.id })}`),
+      api('GET', `/support/sheet?${query({ name })}`),
+    ]);
+  } catch (e) {
+    toast(e.message, 'error');
+    return;
+  }
+  if (!then || !now) {
+    toast('That save is gone (pruned), or they are.', 'error');
+    return;
+  }
+  const d = sheetDiff(then, now);
+  const section = (title, ...content) => h('div', { class: 'field' }, h('span', {}, title), ...content);
+  openDialog({
+    title: `Their save from ${fullTime(point.saved_ms)}`,
+    subtitle: `${pointTitle(point)} · ${ago(point.saved_ms)}${now.online ? ' · compared with them live now' : ' · compared with their save now'}`,
+    width: 'min(640px, calc(100vw - 32px))',
+    body: [
+      point.note && h('div', { class: 'callout' }, icon('shield'), h('div', {}, point.note)),
+      section('Had then, gone now', d.lost.length ? itemLines(d.lost) : h('p', { class: 'hint' }, 'Nothing.')),
+      section('Have now, not then', d.gained.length ? itemLines(d.gained) : h('p', { class: 'hint' }, 'Nothing.')),
+      section('Stats', d.stats.length
+        ? h('div', { class: 'diff-items' }, d.stats.map(([s, n]) => h('div', { class: 'diff-item' }, `${s.name} `, h('span', { class: 'num' }, `${s.base} → ${n.base}`), h('span', { class: 'muted num' }, ` (${(n.xp - s.xp).toLocaleString()} xp)`))))
+        : h('p', { class: 'hint' }, 'The same.')),
+      d.moved && section('Position', h('p', { class: 'num' }, `${where(then.x, then.z, then.level)} then, ${where(now.x, now.z, now.level)} now`)),
+    ],
+    actions: [
+      { label: 'Close' },
+      d.lost.length > 0 && {
+        label: 'Restore what\'s gone',
+        icon: 'plus',
+        run: () => {
+          restoreDialog(name, {
+            items: d.lost.map((i) => ({ obj: i.obj, name: i.name, count: i.count })),
+            proof: { kind: 'point', id: point.id },
+            proofLabel: `their save from ${fullTime(point.saved_ms)} had them.`,
+          }, onDone);
+        },
+      },
+      {
+        label: 'Roll back to this',
+        kind: 'danger',
+        icon: 'undo',
+        run: () => rollbackDialog(name, point, now.online, onDone),
+      },
+    ].filter(Boolean),
+  });
+}
+
+function rollbackDialog(name, point, online, onDone) {
+  const why = reasonField(true, 'e.g. Duped coins through the trade bug; rolling back to before the first dupe.');
+  const picked = casePicker(name, null, true);
+  openDialog({
+    title: `Roll back: ${name}`,
+    subtitle: `To their save from ${fullTime(point.saved_ms)} (${ago(point.saved_ms)}).`,
+    body: [
+      h('div', { class: 'callout danger' }, icon('undo'), h('div', {},
+        'Everything since is undone: items, experience, quests and where they are. ',
+        online ? 'They\'re online, so they\'re logged out first. ' : '',
+        'Their save as it is now is kept in the history, so this can be undone.')),
+      why.field, picked.field,
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Roll back',
+      kind: 'danger',
+      icon: 'undo',
+      run: async () => {
+        const result = await api('POST', '/support/rollback', { name, point: point.id, reason: why.value(), case: picked.value() });
+        if (!result.ok) throw new Error(result.message);
+        toast(result.message);
+        onDone?.();
+      },
+    }],
+  });
+}
+
+// What a player's session state means, and whether freeing it can help.
+function sessionSummary(s) {
+  if (!s.owner) return { tone: 'ok', text: 'No world holds their session: they can log in on any world.', free: false };
+  const o = s.owner;
+  const at = worldLabel(o.node, o.world);
+  const since = o.since_ms ? ` since ${ago(o.since_ms)}` : '';
+  if (!o.reachable || !s.hold) {
+    const silent = o.heartbeat_age_ms == null || o.heartbeat_age_ms > o.takeover_after_ms;
+    return silent
+      ? { tone: 'warn', text: `Held by ${at}${since}, which has stopped (${o.heartbeat_age_ms == null ? 'no heartbeat' : `no heartbeat for ${span(o.heartbeat_age_ms / 1000)}`}). Logging in on another world takes it over; freeing it lets them in anywhere now.`, free: true }
+      : { tone: 'danger', text: `Held by ${at}${since}, which the console can't reach but which is still running (heartbeat ${span(o.heartbeat_age_ms / 1000)} ago). It may still have them; it can only be freed once it has been silent for ${span(o.takeover_after_ms / 1000)}.`, free: true };
+  }
+  const hold = s.hold;
+  const name = at.charAt(0).toUpperCase() + at.slice(1);
+  if (hold.online) return { tone: 'ok', text: `Online on ${at}${since}.`, free: false };
+  if (hold.logging_in) return { tone: '', text: `Logging in on ${at} right now.`, free: false };
+  if (hold.editing) return { tone: '', text: `Staff are changing their save on ${at} right now.`, free: false };
+  if (hold.logout_save === true) return { tone: 'warn', text: `Logging out of ${at}, but their final save didn't reach the database. ${name} keeps their session until it does, and resends it when its database is back; freeing it sends it now.`, free: true };
+  if (hold.logout_save === false) return { tone: '', text: `Logging out of ${at}: their final save is on its way.`, free: false };
+  if (hold.local_save) return { tone: 'warn', text: `${name} kept their newest save in a local file while its database was down, and holds their session until that's stored. Freeing it stores it now.`, free: true };
+  return { tone: 'warn', text: `${name} has a claim on their session but doesn't have them: it's left over, and goes at that world's next heartbeat. Freeing it releases it now.`, free: true };
+}
+
+function supportSection(name) {
+  const session = h('div', {});
+  const reset = h('div', {});
+  const actions = h('div', { class: 'actions' });
+  let online = false;
+  const history = state.canCommand && pagedList(
+    (before) => api('GET', `/support/history?${query({ name, before })}`),
+    (p) => {
+      const [, iconName] = POINT_KINDS[p.kind] || ['', 'clock'];
+      return h('button', { type: 'button', class: 'list-item list-button', on: { click: () => pointDialog(name, p, reload) } },
+        h('div', { class: `list-icon ${p.kind === 'staff' ? 'accent' : ''}` }, icon(iconName)),
+        h('div', { class: 'list-main' },
+          h('div', { class: 'list-title' }, pointTitle(p)),
+          h('div', { class: 'list-sub' }, p.note || fullTime(p.saved_ms))),
+        h('div', { class: 'list-side', title: fullTime(p.saved_ms) }, ago(p.saved_ms)));
+    },
+    'No earlier saves kept yet: one is kept at logout and every hour they play.');
+
+  const loadSession = async () => {
+    let s;
+    try {
+      s = await api('GET', `/support/session?${query({ name })}`);
+    } catch (e) {
+      replace(session, h('div', { class: 'callout danger' }, icon('alert'), h('div', {}, e.message)));
+      return;
+    }
+    if (!s) {
+      replace(session, h('p', { class: 'muted' }, 'No registered player has this name.'));
+      return;
+    }
+    online = !!s.hold?.online;
+    const summary = sessionSummary(s);
+    replace(session, h('div', { class: `callout ${summary.tone === 'ok' ? '' : summary.tone}` },
+      icon(summary.tone === 'ok' ? 'check' : summary.tone ? 'alert' : 'activity'),
+      h('div', { class: 'grow' }, h('b', {}, 'Session: '), summary.text),
+      summary.free && button('Free session', { small: true, icon: 'unlock', on: { click: () => unstickDialog(name, summary.text, reload) } })));
+  };
+  const reload = () => {
+    loadSession();
+    history?.reload();
+  };
+  // The password reset standing, from their record on the player page.
+  const update = (record) => {
+    replace(reset, record.reset_until_ms && h('div', { class: 'callout warn' }, icon('key'),
+      h('div', { class: 'grow' }, `A password reset is waiting for them to redeem, until ${fullTime(record.reset_until_ms)}.`)));
+  };
+  replace(actions,
+    button('Send home', { small: true, icon: 'home', on: { click: () => sendHomeDialog(name, online, reload) } }),
+    state.canCommand && button('Reset password', { small: true, icon: 'key', on: { click: () => passwordResetDialog(name, reload) } }),
+    state.canCommand && button('Restore items', { small: true, icon: 'plus', on: { click: () => restoreDialog(name, {}, reload) } }),
+    button(null, { small: true, icon: 'refresh', 'aria-label': 'Reload', title: 'Reload', on: { click: reload } }));
+  loadSession();
+  const el = h('section', { class: 'card' },
+    h('div', { class: 'card-head wraps' }, h('h2', {}, 'Player support'), actions),
+    h('div', { class: 'card-body support' }, session, reset),
+    history && h('div', { class: 'card-sub' }, h('h3', {}, 'Earlier saves'),
+      h('span', { class: 'hint' }, 'Click one to compare it with now, restore what\'s gone, or roll back.')),
+    history && history.el);
+  return { el, update, reload };
 }
 
 // ---------------------------------------------------------------------------
@@ -4921,8 +5375,9 @@ const dayLabel = (ms) => new Date(ms).toLocaleDateString([], { weekday: 'short',
 const timeOfDay = (ms) => new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 const joined = (parts) => parts.filter(Boolean).flatMap((p, i) => (i ? [' · ', p] : [p]));
 
-function timelineItem(e) {
+function timelineItem(e, name) {
   let iconName = 'activity';
+  let side = null;
   let tone = '';
   let title = e.text;
   let sub = [];
@@ -4939,6 +5394,9 @@ function timelineItem(e) {
       iconName = 'zap';
       title = `${WEALTH_TYPES[e.event_type] || `Wealth event ${e.event_type}`}: ${Number(e.count).toLocaleString()} x ${e.text}`;
       sub = [coins(e.value)];
+      if (state.canCommand && GAINED_WEALTH.includes(e.event_type)) {
+        side = h('button', { type: 'button', class: 'link-button', title: 'Give it back, with this as the proof they had it', on: { click: () => restoreFromWealth(name, e) } }, icon('plus'), 'Restore');
+      }
       break;
     case 'chat':
       iconName = 'chat';
@@ -4980,7 +5438,8 @@ function timelineItem(e) {
     h('div', { class: `list-icon ${tone}` }, icon(iconName)),
     h('div', { class: 'list-main' },
       h('div', { class: 'list-title' }, title),
-      h('div', { class: 'list-sub' }, joined([...sub, ...place]))),
+      h('div', { class: 'list-sub' }, joined([...sub, ...place])),
+      side),
     h('div', { class: 'list-side', title: fullTime(e.at_ms) }, timeOfDay(e.at_ms)));
 }
 
@@ -5023,7 +5482,7 @@ function timelineCard(name) {
           lastDay = day;
           append(list, h('div', { class: 'list-day' }, dayLabel(e.at_ms)));
         }
-        append(list, timelineItem(e));
+        append(list, timelineItem(e, name));
       }
       if (!list.children.length) append(list, h('div', { class: 'empty' }, icon('list'), 'Nothing on record.'));
       const last = rows[rows.length - 1];

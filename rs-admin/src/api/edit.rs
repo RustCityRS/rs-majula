@@ -12,12 +12,12 @@ use rs_admin_api::{
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 
-fn unavailable(error: String) -> ApiError {
+pub(super) fn unavailable(error: String) -> ApiError {
     ApiError::new(StatusCode::BAD_GATEWAY, format!("{error}."))
 }
 
 /// The player's game record, which says where they're logged in.
-async fn record(app: &App, name: &str) -> Result<Option<PlayerRecord>, ApiError> {
+pub(super) async fn record(app: &App, name: &str) -> Result<Option<PlayerRecord>, ApiError> {
     app.worlds
         .ask(
             path::PLAYER,
@@ -31,7 +31,7 @@ async fn record(app: &App, name: &str) -> Result<Option<PlayerRecord>, ApiError>
 
 /// The world to ask about a player: the one they're on, or (`None`) any
 /// world while they're logged out.
-fn their_world(app: &App, record: &PlayerRecord) -> Result<Option<u8>, ApiError> {
+pub(super) fn their_world(app: &App, record: &PlayerRecord) -> Result<Option<u8>, ApiError> {
     match record.online_node {
         None => Ok(None),
         Some(node) if app.worlds.online().iter().any(|w| w.node == node) => Ok(Some(node)),
@@ -106,6 +106,8 @@ fn describe(edit: &PlayerEdit) -> String {
         PlayerEdit::Give { inv, obj, count } => format!("give {count} x obj {obj} into {inv}"),
         PlayerEdit::Take { inv, obj, count } => format!("take {count} x obj {obj} from {inv}"),
         PlayerEdit::Move { x, z, level } => format!("move to {x}, {z}, level {level}"),
+        PlayerEdit::Restore { items } => format!("restore {} items", items.len()),
+        PlayerEdit::SendHome => "send home".to_owned(),
     }
 }
 
@@ -145,6 +147,7 @@ pub async fn edit(
                 actor: staff.actor(),
                 name: record.name.clone(),
                 edit: req.edit,
+                reason: None,
             },
             EDIT_TIMEOUT,
         )
@@ -168,13 +171,15 @@ pub struct ObjQuery {
     q: String,
 }
 
-/// `GET /api/objs?q=`: items by name, config name or id.
+/// `GET /api/objs?q=`: items by name, config name or id, for developers'
+/// edits and admins' restorations.
 pub async fn objs(
     State(app): State<Arc<App>>,
     staff: Staff,
     Query(query): Query<ObjQuery>,
 ) -> Result<Json<Vec<ObjLine>>, ApiError> {
-    staff.require_developer()?;
+    // Admins search them to restore items.
+    staff.require_admin()?;
     let q = query.q.trim();
     if q.is_empty() || q.chars().count() > 40 {
         return Ok(Json(Vec::new()));

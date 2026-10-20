@@ -260,6 +260,33 @@ on phones too.
     address, or several of: registering within 15 minutes of each other,
     alike names, the same even click rhythm, the same spot and the same
     hours. Moderators see addresses as labels; admins see them, audited.
+- **Player support**, on a player's page:
+  - *Session:* why they can't log in, if a world still holds their session
+    (they're logging out and their save hasn't reached the database, the
+    world kept their save in a local file while its database was down, the
+    claim is left over, or the world holding it has stopped), and Free
+    session to finish or release it. It never lets go of a player who is
+    online or whose newest save isn't in the database; a world the console
+    can't reach is only released from once its heartbeat is a minute old,
+    as a login elsewhere would take it over.
+  - *Send home:* to Lumbridge (or Tutorial Island's start, for a player
+    still on it), now or where they next log in. Moderators can do this.
+  - *Reset password* (admins): a one-time code to give the player, which
+    sets a new password at `/recover` on the website within 3 days (wrong
+    codes count toward the per-IP login lockout). It can also lock the old
+    password at once, logging them out. Only the code's hash is stored, and
+    the code is never logged.
+  - *Restore items* (admins): give back items lost to a bug, all of them or
+    none. Needs an open case and a reason, and is noted on the case. A
+    wealth log row in the timeline, or an earlier save, can be the proof:
+    the console checks it covers what's restored.
+  - *Earlier saves* (admins): a save is kept at logout and every hour
+    through a session (at most one per 15 minutes; within that the older
+    stays, so there's always one from before a dupe), and just before every
+    staff change to a logged-out player, kept 30 days (each player's newest
+    5 always). Compare one with now, restore what's gone since, or roll
+    back to it (needs an open case; a player online is logged out first,
+    and the save replaced is kept, so a rollback can be undone).
 - **Staff** (developers only): add accounts, change roles and passwords,
   reset 2FA, disable or remove. Each change needs the developer's password
   and a fresh authenticator code.
@@ -309,8 +336,10 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   unless that player's staff level is 1 or more. Every account sets
   up an authenticator app at its first sign-in. Roles match the game's staff
   levels (0 is a player):
-  `moderator` (1) kicks, mutes, bans, looks players up and reads chat logs;
-  `admin` (2) also reboots, broadcasts and toggles maintenance; `developer` (3)
+  `moderator` (1) kicks, mutes, bans, looks players up, reads chat logs,
+  frees stuck sessions and sends stuck players home; `admin` (2) also
+  reboots, broadcasts, toggles maintenance, resets passwords, restores
+  items and rolls saves back; `developer` (3)
   also manages staff accounts, changes players' stats and items, and posts
   news. Nobody can moderate someone at or above their
   own level. Manage accounts on the Staff page, or with `rs-admin user

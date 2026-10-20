@@ -6,7 +6,7 @@ use crate::player_save::{
 };
 use rs_db::{
     Claim, Db, DbConfig, LogBatch, ModAction, NewPlayer, NewSnapshot, Passwords, PlayerSave,
-    SaveResult,
+    SaveResult, check_new_password,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
@@ -22,7 +22,7 @@ use tracing::{error, info, warn};
 /// another world may take over the sessions it owns. A dead world's saves
 /// are refused once its sessions are taken, so its stale copies can never
 /// overwrite the new owner's.
-const TAKEOVER_AFTER_SECS: i32 = 60;
+pub const TAKEOVER_AFTER_SECS: i32 = 60;
 
 /// How often the lease task renews this world's heartbeat, on a connection
 /// of its own so a backlog of saves and logins can't delay it.
@@ -102,8 +102,28 @@ pub enum DbRequest {
     EditStore {
         user37: u64,
         profile: Box<PlayerProfile>,
+        /// Who changed the save, and how, for its history.
+        note: String,
         reply: oneshot::Sender<SaveOutcome>,
     },
+    /// Stores the player's local save file now, as a reconnect would.
+    SyncLocal {
+        user37: u64,
+        reply: oneshot::Sender<SyncOutcome>,
+    },
+}
+
+/// How a [`DbRequest::SyncLocal`] went.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SyncOutcome {
+    /// Stored, and the file removed.
+    Synced,
+    /// There's no local file for them.
+    NoFile,
+    /// The session isn't this world's, so the file is stale: moved aside.
+    Orphaned,
+    /// Not stored; the file is kept.
+    Failed,
 }
 
 /// How long a moderator's in-game mute lasts, as the client's abuse report
@@ -117,6 +137,12 @@ pub const AUTO_BAN_HOURS: i32 = 48;
 /// How long logins (and the addresses they came from) are kept, for staff
 /// to link accounts by.
 const LOGIN_LOG_DAYS: i32 = 180;
+
+/// How long earlier saves are kept to roll players back to, and how many of
+/// each player's newest are kept however old, and how often they're pruned.
+const SAVE_HISTORY_DAYS: i32 = 30;
+const SAVE_HISTORY_KEEP: i64 = 5;
+const SAVE_HISTORY_PRUNE: Duration = Duration::from_secs(3600);
 
 /// The outcome of a [`DbRequest::Authenticate`].
 pub enum AuthResult {
@@ -674,6 +700,7 @@ async fn run_requests(
     response_tx: &UnboundedSender<DbResponse>,
 ) -> Result<(), rs_db::Error> {
     let node_id = i16::from(config.node_id);
+    let mut history_pruned: Option<Instant> = None;
     while let Some(req) = request_rx.recv().await {
         match req {
             DbRequest::Authenticate {
@@ -744,15 +771,30 @@ async fn run_requests(
             DbRequest::EditStore {
                 user37,
                 profile,
+                note,
                 reply,
             } => {
                 let outcome = match db
-                    .store_edit_save(user37, node_id, &to_save(&profile))
+                    .store_edit_save(user37, node_id, &to_save(&profile), &note)
                     .await?
                 {
                     SaveResult::Stored => SaveOutcome::Stored,
                     SaveResult::NotOwner => SaveOutcome::NotOwner,
                     SaveResult::Unregistered => SaveOutcome::Unregistered,
+                };
+                let _ = reply.send(outcome);
+            }
+            DbRequest::SyncLocal { user37, reply } => {
+                let username = to_raw_username(user37);
+                let outcome = match sync_local_save(db, config.node_id, user37, &username).await {
+                    Ok(None) => SyncOutcome::NoFile,
+                    Ok(Some(SaveResult::Stored)) => SyncOutcome::Synced,
+                    Ok(Some(SaveResult::NotOwner)) => SyncOutcome::Orphaned,
+                    Ok(Some(SaveResult::Unregistered)) => SyncOutcome::Failed,
+                    Err(e) => {
+                        warn!("Failed to sync local save '{}' to DB: {}", username, e);
+                        SyncOutcome::Failed
+                    }
                 };
                 let _ = reply.send(outcome);
             }
@@ -791,6 +833,18 @@ async fn run_requests(
                 }
                 db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
                 db.prune_login_logs(LOGIN_LOG_DAYS).await?;
+                if history_pruned.is_none_or(|at| at.elapsed() > SAVE_HISTORY_PRUNE) {
+                    history_pruned = Some(Instant::now());
+                    let pruned = db
+                        .prune_save_history(SAVE_HISTORY_DAYS, SAVE_HISTORY_KEEP)
+                        .await?;
+                    if pruned > 0 {
+                        info!(
+                            "Pruned {} save history rows past {} days",
+                            pruned, SAVE_HISTORY_DAYS
+                        );
+                    }
+                }
                 let sanctions = db.sanctions(&online).await?;
                 let _ = response_tx.send(DbResponse::Sanctions {
                     players: sanctions
@@ -1009,6 +1063,12 @@ async fn authenticate(
         return Ok(AuthResult::InvalidCredentials);
     }
 
+    // A new account's password follows the website's rule, so it can be used
+    // there (appeals) as well as here.
+    if let Err(e) = check_new_password(password) {
+        info!("Didn't auto-register '{}': {}", to_raw_username(user37), e);
+        return Ok(AuthResult::InvalidCredentials);
+    }
     let Some(password_hash) = passwords.hash(password) else {
         error!("Failed to hash password for user37={}", user37);
         return Ok(AuthResult::InvalidCredentials);

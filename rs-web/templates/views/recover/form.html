@@ -1,0 +1,55 @@
+{% with title="Password Support" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Set a New Password" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>If you can't get into your account, a member of staff can give you a
+  password reset code once they're sure the account is yours. Enter it here
+  with your username to choose a new password.</p>
+
+<ul>
+  <li>The code can be used once, within 3 days of being given to you.</li>
+  <li>Staff will never ask for your password, only give you a code.</li>
+  <li>Your password must be 5 to 20 characters: letters, numbers, spaces and the symbols on your keyboard (apart from `), as the game's login screen accepts.</li>
+</ul>
+
+{% if error %}
+  <p class="red">ERROR: {{ error }}</p>
+{% endif %}
+
+<center>
+  <form method="post" action="/recover">
+    <table>
+      <tr>
+        <td align=right>Username:</td>
+        <td><input type="text" name="username" value="{{ username }}" maxlength="12" size="20" autocomplete="username" required></td>
+      </tr>
+      <tr>
+        <td align=right>Reset code:</td>
+        <td><input type="text" name="code" value="" maxlength="20" size="20" autocomplete="one-time-code" spellcheck="false" placeholder="XXXX-XXXX-XXXX" required></td>
+      </tr>
+      <tr>
+        <td align=right>New password:</td>
+        <td><input type="password" name="password" value="" minlength="5" maxlength="20" pattern="[ -_a-~£]{5,20}" title="5 to 20 letters, numbers, spaces or keyboard symbols (not `)" size="20" autocomplete="new-password" required></td>
+      </tr>
+      <tr>
+        <td align=right>Confirm password:</td>
+        <td><input type="password" name="password2" value="" minlength="5" maxlength="20" pattern="[ -_a-~£]{5,20}" title="5 to 20 letters, numbers, spaces or keyboard symbols (not `)" size="20" autocomplete="new-password" required></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Set Password"></td>
+      </tr>
+    </table>
+  </form>
+</center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

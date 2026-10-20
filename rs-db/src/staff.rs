@@ -21,6 +21,23 @@ pub struct PlayerRecord {
     pub online_since_ms: Option<i64>,
     pub last_logout_node: Option<i16>,
     pub last_logout_ms: Option<i64>,
+    /// When the password reset staff issued them runs out, while it stands.
+    pub reset_until_ms: Option<i64>,
+}
+
+/// One logged `wealth_event`.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct WealthRecord {
+    pub id: i64,
+    pub node_id: i16,
+    pub x: i16,
+    pub z: i16,
+    pub y: i16,
+    pub event_type: i16,
+    pub item: String,
+    pub count: i32,
+    pub value: i32,
+    pub at_ms: i64,
 }
 
 /// One staff moderation command that took.
@@ -361,9 +378,29 @@ impl Db {
             ms!("online_since"),
             " AS online_since_ms, last_logout_node, ",
             ms!("last_logout_at"),
-            " AS last_logout_ms FROM players WHERE name_hash = $1"
+            " AS last_logout_ms, CASE WHEN reset_code_until > now() THEN ",
+            ms!("reset_code_until"),
+            " END AS reset_until_ms FROM players WHERE name_hash = $1"
         ))
         .bind(name_hash as i64)
+        .fetch_optional(&self.pool)
+        .await
+    }
+
+    /// One of a player's wealth events, by id.
+    pub async fn wealth_event(
+        &self,
+        name_hash: u64,
+        id: i64,
+    ) -> Result<Option<WealthRecord>, Error> {
+        sqlx::query_as(concat!(
+            "SELECT w.id, w.node_id, w.x, w.z, w.y, w.event_type, w.item, w.count, w.value, ",
+            ms!("w.created_at"),
+            " AS at_ms FROM wealth_events w JOIN players p ON p.id = w.player_id
+             WHERE p.name_hash = $1 AND w.id = $2"
+        ))
+        .bind(name_hash as i64)
+        .bind(id)
         .fetch_optional(&self.pool)
         .await
     }

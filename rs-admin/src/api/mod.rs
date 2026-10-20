@@ -11,6 +11,7 @@ mod players;
 mod replays;
 mod schedule;
 mod staff;
+mod support;
 mod templates;
 mod worlds;
 
@@ -86,6 +87,15 @@ pub fn router() -> Router<Arc<App>> {
         .route("/players/sheet", get(edit::player))
         .route("/players/edit", post(edit::edit))
         .route("/objs", get(edit::objs))
+        .route("/support/session", get(support::session))
+        .route("/support/unstick", post(support::unstick))
+        .route("/support/send-home", post(support::send_home))
+        .route("/support/password-reset", post(support::password_reset))
+        .route("/support/sheet", get(support::sheet))
+        .route("/support/history", get(support::history))
+        .route("/support/history/sheet", get(support::point_sheet))
+        .route("/support/rollback", post(support::rollback))
+        .route("/support/restore", post(support::restore))
         .route("/news", get(news::list))
         .route("/news/save", post(news::save))
         .route("/news/delete", post(news::delete))

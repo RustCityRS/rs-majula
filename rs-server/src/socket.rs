@@ -200,7 +200,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         bail!("{}: Invalid username: {}", client.addr, username)
     }
     let password = buf.gjstr(10);
-    if password.is_empty() || password.len() > 20 {
+    if !rs_db::is_typeable_password(&password) {
         let _ = client
             .write(&[LoginResponse::InvalidCredentials as u8])
             .await;

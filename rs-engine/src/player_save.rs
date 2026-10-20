@@ -588,6 +588,11 @@ pub fn load_from_file(username: &str) -> Option<Vec<u8>> {
     fs::read(&path).ok()
 }
 
+/// Whether there's a local save file for `username` waiting to be synced.
+pub fn has_save_file(username: &str) -> bool {
+    save_path(username).is_file()
+}
+
 /// Deletes the local save file `data/players/{username}.sav` if it exists.
 ///
 /// Silently ignores errors (e.g. file does not exist).

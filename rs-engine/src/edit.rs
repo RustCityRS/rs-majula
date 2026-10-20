@@ -56,10 +56,53 @@ pub struct SheetItem {
 }
 
 pub enum Change {
-    SetStat { stat: u8, level: u8 },
-    Give { inv: String, obj: u16, count: u32 },
-    Take { inv: String, obj: u16, count: u32 },
-    Move { x: u16, z: u16, level: u8 },
+    SetStat {
+        stat: u8,
+        level: u8,
+    },
+    Give {
+        inv: String,
+        obj: u16,
+        count: u32,
+    },
+    Take {
+        inv: String,
+        obj: u16,
+        count: u32,
+    },
+    Move {
+        x: u16,
+        z: u16,
+        level: u8,
+    },
+    /// Items given back to a player who lost them: all of them, or none if
+    /// any doesn't fit.
+    Restore {
+        items: Vec<Restored>,
+    },
+    /// To safety, for a player stuck where they are (see [`home_for`]).
+    SendHome,
+}
+
+pub struct Restored {
+    pub inv: String,
+    pub obj: u16,
+    pub count: u32,
+}
+
+/// Where players respawn, in Lumbridge.
+const HOME: (u16, u16) = (3221, 3218);
+/// Where new players start, on Tutorial Island.
+const TUTORIAL_START: (u16, u16) = (3094, 3106);
+
+/// Where to send a player stuck at `x`, `z`: Lumbridge, or the start of
+/// Tutorial Island for one still on it, who'd skip it otherwise. The island
+/// and its caves as the content's `in_tutorial_island` has them.
+pub fn home_for(x: u16, z: u16) -> (u16, u16, u8) {
+    let on_island = ((3053..=3156).contains(&x) && (3056..=3136).contains(&z))
+        || ((3072..=3118).contains(&x) && (9492..=9535).contains(&z));
+    let (x, z) = if on_island { TUTORIAL_START } else { HOME };
+    (x, z, 0)
 }
 
 pub struct ObjMatch {
@@ -177,6 +220,33 @@ fn give(
             count - left
         )),
     }
+}
+
+/// Gives all of `count` into `inventory`, or fails; says what was given.
+fn give_all(
+    cache: &CacheStore,
+    inventory: &mut Inventory,
+    inv: &str,
+    obj: u16,
+    count: u32,
+) -> Result<String, String> {
+    let Some(obj_type) = cache.objs.get_by_id(obj) else {
+        return Err(format!("There's no item {obj}."));
+    };
+    if count == 0 {
+        return Err("Restore at least 1 of each item.".to_owned());
+    }
+    let name = obj_name(cache, obj);
+    if inventory.add(obj, count, obj_type.stackable) > 0 {
+        return Err(format!(
+            "There's no room for {count} x {name} in their {inv}; nothing was restored."
+        ));
+    }
+    Ok(format!("{count} x {name}"))
+}
+
+fn restored(given: &[String]) -> String {
+    format!("Restored {}.", given.join(", "))
 }
 
 /// Takes from `inventory`, saying how it went.
@@ -319,6 +389,24 @@ impl Engine {
                 profile.y = level;
                 Ok(format!("Moved them to {x}, {z} (level {level})."))
             }
+            Change::Restore { ref items } => {
+                // A save that fails half way is never stored.
+                let mut given = Vec::with_capacity(items.len());
+                for item in items {
+                    let inv_type = giftable_inv(cache, &item.inv)?;
+                    given.push(with_profile_inv(profile, inv_type, |inventory| {
+                        give_all(cache, inventory, &item.inv, item.obj, item.count)
+                    })?);
+                }
+                Ok(restored(&given))
+            }
+            Change::SendHome => {
+                let (x, z, level) = home_for(profile.x, profile.z);
+                profile.x = x;
+                profile.z = z;
+                profile.y = level;
+                Ok(format!("They'll log in at {x}, {z}."))
+            }
         }
     }
 
@@ -351,11 +439,13 @@ impl Engine {
         Ok(answer)
     }
 
-    /// Stores an edited save, which ends the edit's claim.
+    /// Stores an edited save, which ends the edit's claim. The save it
+    /// replaces is kept in the save history, with `note` saying who and why.
     pub fn store_offline_edit(
         &self,
         user37: u64,
         profile: PlayerProfile,
+        note: String,
     ) -> Option<oneshot::Receiver<SaveOutcome>> {
         let (reply, answer) = oneshot::channel();
         self.db_tx
@@ -363,6 +453,7 @@ impl Engine {
             .send(DbRequest::EditStore {
                 user37,
                 profile: Box::new(profile),
+                note,
                 reply,
             })
             .ok()?;
@@ -522,16 +613,57 @@ fn edit_online(
         }
         Change::Move { x, z, level } => {
             check_coord(x, z, level)?;
-            if let Err(e) = active.close_modal(true) {
-                error!("error closing modal for a console move: {e}");
-            }
-            if !active.can_access() {
-                return Err("They're busy (in a cutscene or dialogue); try again.".to_owned());
-            }
-            active.player.clear_interaction();
-            active.unset_map_flag();
-            active.tele_jump(CoordGrid::new(x, level, z));
+            teleport(active, x, z, level)?;
             Ok(format!("Moved them to {x}, {z} (level {level})."))
         }
+        Change::Restore { ref items } => {
+            // Into copies first, so it's all or nothing.
+            let mut staged: Vec<(u16, Inventory)> = Vec::new();
+            let mut given = Vec::with_capacity(items.len());
+            for item in items {
+                let inv_type = giftable_inv(cache, &item.inv)?;
+                let index = match staged.iter().position(|(id, _)| *id == inv_type.id) {
+                    Some(index) => index,
+                    None => {
+                        let current = active.player.invs.get(&inv_type.id).cloned();
+                        staged.push((inv_type.id, current.unwrap_or_else(|| empty_inv(inv_type))));
+                        staged.len() - 1
+                    }
+                };
+                given.push(give_all(
+                    cache,
+                    &mut staged[index].1,
+                    &item.inv,
+                    item.obj,
+                    item.count,
+                )?);
+            }
+            for (id, inventory) in staged {
+                active.player.invs.insert(id, inventory);
+            }
+            Ok(restored(&given))
+        }
+        Change::SendHome => {
+            let coord = active.player.pathing.coord;
+            let (x, z, level) = home_for(coord.x(), coord.z());
+            teleport(active, x, z, level)?;
+            Ok(format!("Sent them to {x}, {z}."))
+        }
     }
+}
+
+fn teleport(active: &mut ActivePlayer, x: u16, z: u16, level: u8) -> Result<(), String> {
+    if let Err(e) = active.close_modal(true) {
+        error!("error closing modal for a console move: {e}");
+    }
+    if !active.can_access() {
+        return Err(
+            "They're busy (in a cutscene or dialogue); try again, or kick them and do it while they're logged out."
+                .to_owned(),
+        );
+    }
+    active.player.clear_interaction();
+    active.unset_map_flag();
+    active.tele_jump(CoordGrid::new(x, level, z));
+    Ok(())
 }

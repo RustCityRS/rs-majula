@@ -2961,7 +2961,7 @@ impl Engine {
     /// Releases this world's database claim on a player who never entered
     /// it. Never for a player who is online here or still being logged out
     /// of here: their claim is live, and their logout save ends it.
-    pub(crate) fn release_claim(&self, user37: u64) {
+    pub fn release_claim(&self, user37: u64) {
         if self.find_pid_by_user37(user37).is_some()
             || self.logout_saves.contains_key(&user37)
             || self.offline_edits.contains(&user37)

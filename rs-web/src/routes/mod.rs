@@ -4,6 +4,7 @@ mod hiscores;
 mod news;
 mod pages;
 mod play;
+mod recover;
 
 use crate::app::App;
 use crate::metrics;
@@ -41,6 +42,7 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/api/v1/worldlist", get(play::worldlist))
         .route("/create", get(create::form).post(create::submit))
         .route("/appeal", get(appeal::form).post(appeal::submit))
+        .route("/recover", get(recover::form).post(recover::submit))
         .route(
             "/appeal/status",
             get(appeal::status_form).post(appeal::status),

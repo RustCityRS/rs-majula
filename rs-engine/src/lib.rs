@@ -14,11 +14,12 @@ mod handlers;
 mod info;
 mod phases;
 mod player_save;
+pub mod support;
 pub mod watch;
 
 pub use clients::client_db::{
-    DbClientConfig, DbRequest, DbResponse, LoadResult, ModOutcome, SaveOutcome, db_client_task,
-    profile_from_save,
+    DbClientConfig, DbRequest, DbResponse, LoadResult, ModOutcome, SaveOutcome, SyncOutcome,
+    TAKEOVER_AFTER_SECS, db_client_task, profile_from_save,
 };
 pub use clients::client_ether::{EtherInbound, EtherOutbound, ether_client_task};
 pub use clients::client_game::{ClientHandle, ClientIO, create_io};

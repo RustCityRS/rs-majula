@@ -169,7 +169,7 @@ pub async fn kick(
 }
 
 /// Refuses a command sent from a case that doesn't exist.
-fn check_case(app: &App, case: Option<u64>) -> Result<(), ApiError> {
+pub(super) fn check_case(app: &App, case: Option<u64>) -> Result<(), ApiError> {
     match case {
         Some(id) if app.cases.get(id).is_none() => {
             Err(ApiError::bad_request(format!("There's no case #{id}.")))
@@ -180,7 +180,7 @@ fn check_case(app: &App, case: Option<u64>) -> Result<(), ApiError> {
 
 /// Notes a command in the timeline of the case it was sent from.
 #[allow(clippy::too_many_arguments)]
-fn note_on_case(
+pub(super) fn note_on_case(
     app: &App,
     staff: &Staff,
     case: Option<u64>,
@@ -207,7 +207,7 @@ fn note_on_case(
     }
 }
 
-fn reason_detail(reason: &str, message: &str) -> String {
+pub(super) fn reason_detail(reason: &str, message: &str) -> String {
     let reason = reason.trim();
     if reason.is_empty() {
         message.to_owned()

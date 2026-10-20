@@ -5,7 +5,7 @@ use axum::http::HeaderMap;
 use axum::response::Html;
 use minijinja::context;
 use minijinja::value::Serde;
-use rs_db::{AppealFiled, AppealLogin, NewAppeal, validate_name};
+use rs_db::{AppealFiled, AppealLogin, NewAppeal, is_typeable_password, validate_name};
 use serde::{Deserialize, Serialize};
 use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
@@ -197,9 +197,14 @@ async fn sign_in(
             "Too many incorrect logins from your address. Please wait a minute and try again.",
         ));
     }
+    // Nobody's password is one the game's login screen couldn't type.
     let Ok(name) = validate_name(&form.username) else {
         return Ok(Err(WRONG));
     };
+    if !is_typeable_password(&form.password) {
+        app.db.record_login_failure(ip).await?;
+        return Ok(Err(WRONG));
+    }
     let Some(login) = app.db.appeal_login(name.hash).await? else {
         app.db.record_login_failure(ip).await?;
         return Ok(Err(WRONG));

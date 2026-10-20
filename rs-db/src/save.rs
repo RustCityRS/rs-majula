@@ -1,4 +1,5 @@
 use crate::hiscores::update_hiscores;
+use crate::history::{keep_logout_point, keep_session_point, keep_staff_point};
 use crate::{Db, Error};
 use sqlx::postgres::PgArguments;
 use sqlx::query::Query;
@@ -54,7 +55,8 @@ impl Db {
 
     /// Writes a player's save for world `node_id`, creating the row on first
     /// save. Only the world that owns the player's session may save them.
-    /// Hiscores are left alone: they only move on logout.
+    /// Hiscores are left alone: they only move on logout. Through a long
+    /// session a copy is kept in the save history every so often.
     pub async fn store_save(
         &self,
         name_hash: u64,
@@ -67,6 +69,7 @@ impl Db {
             Err(refused) => return Ok(refused),
         };
         upsert_save(id, save).execute(&mut *tx).await?;
+        keep_session_point(&mut tx, id, node_id).await?;
         tx.commit().await?;
         Ok(SaveResult::Stored)
     }
@@ -74,7 +77,8 @@ impl Db {
     /// Writes a player's final save as they leave world `node_id`, ends their
     /// session and records the logout for the world-hop delay, all in one
     /// transaction: no other world can claim the player until their final
-    /// save has landed. This is the only live save that updates hiscores.
+    /// save has landed. This is the only live save that updates hiscores, and
+    /// a copy is kept in the save history (unless one was kept just before).
     pub async fn store_logout_save(
         &self,
         name_hash: u64,
@@ -87,6 +91,7 @@ impl Db {
             Err(refused) => return Ok(refused),
         };
         upsert_save(id, save).execute(&mut *tx).await?;
+        keep_logout_point(&mut tx, id, node_id).await?;
         update_hiscores(&mut tx, id, &save.stats).await?;
         sqlx::query(
             "UPDATE players SET online_node = NULL, online_since = NULL,
@@ -101,20 +106,23 @@ impl Db {
         Ok(SaveResult::Stored)
     }
 
-    /// Stores a save made outside a session (a developer's edit of a
-    /// logged-out player) and ends world `node_id`'s claim on them. Unlike a
+    /// Stores a save made outside a session (staff changing a logged-out
+    /// player) and ends world `node_id`'s claim on them. The save it replaces
+    /// is kept in the save history, with `note` saying who and why. Unlike a
     /// logout it leaves their last logout as it was.
     pub async fn store_edit_save(
         &self,
         name_hash: u64,
         node_id: i16,
         save: &PlayerSave,
+        note: &str,
     ) -> Result<SaveResult, Error> {
         let mut tx = self.pool.begin().await?;
         let id = match lock_session(&mut tx, name_hash, node_id).await? {
             Ok(id) => id,
             Err(refused) => return Ok(refused),
         };
+        keep_staff_point(&mut tx, id, node_id, note).await?;
         upsert_save(id, save).execute(&mut *tx).await?;
         update_hiscores(&mut tx, id, &save.stats).await?;
         sqlx::query("UPDATE players SET online_node = NULL, online_since = NULL WHERE id = $1")

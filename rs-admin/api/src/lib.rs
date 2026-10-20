@@ -55,6 +55,17 @@ pub mod path {
     pub const PLAYER_SHEET: &str = "/v1/player/sheet";
     pub const PLAYER_EDIT: &str = "/v1/player/edit";
     pub const OBJ_SEARCH: &str = "/v1/objs";
+    /// Player support. A player's session as a world holds it (the world
+    /// that owns it, or any while nobody does), and freeing it.
+    pub const SESSION: &str = "/v1/player/session";
+    pub const UNSTICK: &str = "/v1/player/unstick";
+    /// Their earlier saves, one of them as a sheet, and rolling back to one.
+    pub const SAVE_POINTS: &str = "/v1/player/history";
+    pub const SAVE_POINT: &str = "/v1/player/history/sheet";
+    pub const ROLLBACK: &str = "/v1/player/rollback";
+    pub const PASSWORD_RESET: &str = "/v1/player/password-reset";
+    /// One wealth event, by id.
+    pub const WEALTH: &str = "/v1/lookup/wealth";
     /// The website's admin API (`rs-web`), signed the same way.
     pub const NEWS: &str = "/v1/news";
     pub const NEWS_SAVE: &str = "/v1/news/save";
@@ -386,6 +397,9 @@ pub struct PlayerRecord {
     /// When the mute or ban in force ends.
     pub muted_until_ms: Option<i64>,
     pub banned_until_ms: Option<i64>,
+    /// When a password reset staff issued runs out, while it stands.
+    #[serde(default)]
+    pub reset_until_ms: Option<i64>,
 }
 
 /// `POST /v1/lookup/moderation`: moderation commands newest first, all or
@@ -715,15 +729,182 @@ pub struct PlayerEditRequest {
     pub actor: Actor,
     pub name: String,
     pub edit: PlayerEdit,
+    /// Why, for the save history when it changes a logged-out player's save
+    /// (with the case it's for).
+    #[serde(default)]
+    pub reason: Option<String>,
 }
 
+/// Developers may make any of these; [`PlayerEdit::Restore`] needs an
+/// admin and [`PlayerEdit::SendHome`] a moderator.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum PlayerEdit {
-    SetStat { stat: u8, level: u8 },
-    Give { inv: String, obj: u16, count: u32 },
-    Take { inv: String, obj: u16, count: u32 },
-    Move { x: u16, z: u16, level: u8 },
+    SetStat {
+        stat: u8,
+        level: u8,
+    },
+    Give {
+        inv: String,
+        obj: u16,
+        count: u32,
+    },
+    Take {
+        inv: String,
+        obj: u16,
+        count: u32,
+    },
+    Move {
+        x: u16,
+        z: u16,
+        level: u8,
+    },
+    /// Items given back to a player who lost them: all of them, or none if
+    /// any doesn't fit.
+    Restore {
+        items: Vec<RestoreItem>,
+    },
+    /// To Lumbridge (or Tutorial Island's start, if they're on it), for a
+    /// player stuck where they are.
+    SendHome,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct RestoreItem {
+    pub inv: String,
+    pub obj: u16,
+    pub count: u32,
+}
+
+/// The most items one restoration gives back.
+pub const MAX_RESTORE_ITEMS: usize = 28;
+
+/// `POST /v1/player/session`: answered with `Option<SessionState>`, `None`
+/// when no such player is registered.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SessionLookup {
+    pub name: String,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SessionState {
+    /// The world whose claim on their session keeps them from logging in
+    /// anywhere else, if one has.
+    pub owner: Option<SessionClaim>,
+    /// How the world that answered holds it.
+    pub here: SessionHold,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SessionClaim {
+    pub node: u8,
+    pub since_ms: Option<i64>,
+    /// How long ago the owner's heartbeat was, `None` if it has none.
+    pub heartbeat_age_ms: Option<i64>,
+    /// Without a heartbeat this long, any world may take it over.
+    pub takeover_after_ms: i64,
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct SessionHold {
+    pub online: bool,
+    pub logging_in: bool,
+    /// Their logout save hasn't landed: `Some(true)` once it failed.
+    pub logout_save: Option<bool>,
+    pub editing: bool,
+    /// Their newest data is in a local save file the database hasn't had.
+    pub local_save: bool,
+}
+
+/// `POST /v1/player/unstick`: answered with an [`Outcome`]. Sent to the
+/// world that owns their session, or to any if that world is down (which
+/// then releases it only once the owner's heartbeat has run out).
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Unstick {
+    pub actor: Actor,
+    pub name: String,
+}
+
+/// `POST /v1/player/history`: a player's earlier saves, newest first, older
+/// than point `before` when paging.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SavePointsLookup {
+    pub name: String,
+    pub before: Option<i64>,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SavePointLine {
+    pub id: i64,
+    /// `logout`, `session` or `staff` (as it was just before staff changed it).
+    pub kind: String,
+    pub node: u8,
+    pub note: Option<String>,
+    pub saved_ms: i64,
+}
+
+/// `POST /v1/player/history/sheet`: answered with `Option<PlayerSheet>`
+/// (`online` false), `None` if it isn't theirs or was pruned.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct SavePointLookup {
+    pub name: String,
+    pub id: i64,
+}
+
+/// `POST /v1/player/rollback`: puts an earlier save back in place of their
+/// current one (which is kept in the history), answered with an
+/// [`Outcome`]. Admins and up. A player online on the world it's sent to is
+/// logged out first; one online on another world is refused.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Rollback {
+    pub actor: Actor,
+    pub name: String,
+    pub point: i64,
+    pub reason: String,
+}
+
+/// `POST /v1/player/password-reset`: issues a one-time code the player
+/// redeems on the website to set a new password. Admins and up. With
+/// `lock`, their password stops working now and they're logged out of
+/// this world.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct PasswordReset {
+    pub actor: Actor,
+    pub name: String,
+    pub lock: bool,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ResetIssued {
+    pub ok: bool,
+    pub message: String,
+    /// The code: shown to the staff member once, and never stored.
+    pub code: Option<String>,
+    pub until_ms: Option<i64>,
+}
+
+/// `POST /v1/lookup/wealth`: answered with `Option<WealthLine>`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct WealthLookup {
+    pub name: String,
+    pub id: i64,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct WealthLine {
+    pub id: i64,
+    pub node: u8,
+    pub x: u16,
+    pub z: u16,
+    pub level: u8,
+    /// The script's `^wealth_*` constant.
+    pub event_type: i16,
+    /// The obj's debug name.
+    pub item: String,
+    pub count: i32,
+    pub value: i32,
+    pub at_ms: i64,
 }
 
 /// `POST /v1/objs`: items whose name or config name contains `query`.
@@ -848,6 +1029,28 @@ pub struct AppealDecide {
     pub note: String,
 }
 
+/// `ms` as a UTC date and time, as staff notes and logs give times.
+pub fn utc_time(ms: i64) -> String {
+    let secs = ms.div_euclid(1000);
+    let days = secs.div_euclid(86_400);
+    let rem = secs.rem_euclid(86_400);
+    // Days since 1970 to a civil date (Howard Hinnant's algorithm).
+    let z = days + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z.rem_euclid(146_097);
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let day = doy - (153 * mp + 2) / 5 + 1;
+    let month = if mp < 10 { mp + 3 } else { mp - 9 };
+    let year = yoe + era * 400 + i64::from(month <= 2);
+    format!(
+        "{year}-{month:02}-{day:02} {:02}:{:02} UTC",
+        rem / 3600,
+        rem % 3600 / 60
+    )
+}
+
 /// The answer to a command: whether it took, and why not.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Outcome {
@@ -874,6 +1077,13 @@ impl Outcome {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn notes_are_dated_in_utc() {
+        assert_eq!(utc_time(0), "1970-01-01 00:00 UTC");
+        assert_eq!(utc_time(1_792_497_600_000), "2026-10-20 12:00 UTC");
+        assert_eq!(utc_time(951_782_400_000), "2000-02-29 00:00 UTC");
+    }
 
     #[test]
     fn signatures_cover_every_part() {

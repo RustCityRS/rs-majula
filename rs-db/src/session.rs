@@ -15,6 +15,15 @@ pub enum Claim {
     Unregistered,
 }
 
+/// Who owns a player's session, from [`Db::session_owner`].
+#[derive(Debug, PartialEq, sqlx::FromRow)]
+pub struct SessionOwner {
+    pub node: i16,
+    pub since_ms: Option<i64>,
+    /// How long ago the owning world's heartbeat was, `None` if it has none.
+    pub heartbeat_age_ms: Option<i64>,
+}
+
 /// What [`Db::reconcile_sessions`] corrected.
 #[derive(Debug, Default, PartialEq)]
 pub struct Reconciled {
@@ -88,6 +97,49 @@ impl Db {
         .execute(&self.pool)
         .await?;
         Ok(result.rows_affected() == 1)
+    }
+
+    /// The world that owns the player's session, if one does.
+    pub async fn session_owner(&self, name_hash: u64) -> Result<Option<SessionOwner>, Error> {
+        sqlx::query_as(
+            "SELECT p.online_node AS node,
+                    (extract(epoch FROM p.online_since) * 1000)::bigint AS since_ms,
+                    (extract(epoch FROM now() - w.updated_at) * 1000)::bigint AS heartbeat_age_ms
+             FROM players p
+             LEFT JOIN world_status w ON w.node_id = p.online_node
+             WHERE p.name_hash = $1 AND p.online_node IS NOT NULL",
+        )
+        .bind(name_hash as i64)
+        .fetch_optional(&self.pool)
+        .await
+    }
+
+    /// Releases a player's session from a world that has stopped: one whose
+    /// heartbeat is older than `takeover_after_secs`, as a login elsewhere
+    /// would take it over. Returns the world it was released from, `None`
+    /// if nothing was (no claim, or its world is alive).
+    pub async fn release_dead_session(
+        &self,
+        name_hash: u64,
+        takeover_after_secs: i32,
+    ) -> Result<Option<i16>, Error> {
+        sqlx::query_scalar(
+            "WITH old AS (
+                 SELECT id, online_node FROM players WHERE name_hash = $1 FOR UPDATE
+             )
+             UPDATE players p SET online_node = NULL, online_since = NULL
+             FROM old
+             WHERE p.id = old.id AND old.online_node IS NOT NULL
+               AND NOT EXISTS (
+                   SELECT 1 FROM world_status w
+                   WHERE w.node_id = old.online_node
+                     AND w.updated_at >= now() - make_interval(secs => $2))
+             RETURNING old.online_node",
+        )
+        .bind(name_hash as i64)
+        .bind(takeover_after_secs)
+        .fetch_optional(&self.pool)
+        .await
     }
 
     /// Ends every session world `node_id` owns, as a logout, except those in

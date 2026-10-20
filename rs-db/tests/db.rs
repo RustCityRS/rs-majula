@@ -1,7 +1,7 @@
 use rs_db::{
     AppealFiled, ChatLog, Claim, Db, LogBatch, ModAction, NewAppeal, NewPlayer, NewReplay,
-    NewSnapshot, PlayerSave, Reconciled, ReplayChunk, ReplayReport, Sanctions, SaveResult,
-    SessionLog, TimelineCursor, WealthEvent, WorldStatus,
+    NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk, ReplayReport, Sanctions,
+    SavePoint, SaveResult, SessionLog, TimelineCursor, WealthEvent, WorldStatus,
 };
 use sqlx::PgPool;
 
@@ -1559,4 +1559,230 @@ async fn account_activity_covers_recent_accounts(pool: PgPool) {
     assert_eq!(a.rhythm, Some(0.05));
     assert_eq!(a.hours.len(), 24);
     assert_eq!(a.hours.iter().sum::<i32>(), 1);
+}
+
+/// Moves every save point `mins` into the past.
+async fn age_points(pool: &PgPool, mins: i32) {
+    sqlx::query("UPDATE save_history SET saved_at = saved_at - make_interval(mins => $1)")
+        .bind(mins)
+        .execute(pool)
+        .await
+        .unwrap();
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let at = |x| PlayerSave { x, ..save() };
+    let kinds = |points: &[SavePoint]| points.iter().map(|p| p.kind.clone()).collect::<Vec<_>>();
+
+    // A session's first save is kept; the next ones within the hour aren't.
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_save(42, 1, &at(1)).await.unwrap();
+    db.store_save(42, 1, &at(2)).await.unwrap();
+    // Nor a logout soon after: the older point is from before it.
+    db.store_logout_save(42, 1, &at(3)).await.unwrap();
+    let points = db.save_points(42, None, 10).await.unwrap();
+    assert_eq!(kinds(&points), ["session"]);
+    let (point, kept) = db.save_point(42, points[0].id).await.unwrap().unwrap();
+    assert_eq!((point.node_id, kept.x), (1, 1));
+    assert_eq!(kept, at(1));
+
+    // Later, a logout is kept, and a session save an hour on.
+    age_points(&pool, 20).await;
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_logout_save(42, 1, &at(4)).await.unwrap();
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_save(42, 1, &at(5)).await.unwrap();
+    age_points(&pool, 61).await;
+    db.store_save(42, 1, &at(6)).await.unwrap();
+    db.store_logout_save(42, 1, &at(7)).await.unwrap();
+    let points = db.save_points(42, None, 10).await.unwrap();
+    assert_eq!(kinds(&points), ["session", "logout", "session"]);
+
+    // A staff change keeps the save it replaces, with who and why.
+    db.claim_session(42, 1, 60).await.unwrap();
+    assert_eq!(
+        db.store_edit_save(42, 1, &at(8), "Jordan: rollback")
+            .await
+            .unwrap(),
+        SaveResult::Stored
+    );
+    let newest = &db.save_points(42, None, 10).await.unwrap()[0];
+    assert_eq!(
+        (newest.kind.as_str(), newest.note.as_deref()),
+        ("staff", Some("Jordan: rollback"))
+    );
+    assert_eq!(
+        db.save_point(42, newest.id).await.unwrap().unwrap().1,
+        at(7)
+    );
+    assert_eq!(db.load_save(42).await.unwrap().unwrap(), at(8));
+
+    // Paging, and points are only another player's own.
+    let older = db.save_points(42, Some(newest.id), 10).await.unwrap();
+    assert_eq!(older.len(), 3);
+    db.create_player(&player(43)).await.unwrap();
+    assert!(db.save_point(43, newest.id).await.unwrap().is_none());
+
+    // Pruning keeps the newest few.
+    age_points(&pool, 60 * 24 * 40).await;
+    assert_eq!(db.prune_save_history(30, 2).await.unwrap(), 2);
+    assert_eq!(db.save_points(42, None, 10).await.unwrap().len(), 2);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn password_resets_are_redeemed_once(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.password_reset(42).await.unwrap().is_none());
+    assert!(
+        !db.issue_password_reset(43, "code", 72, false)
+            .await
+            .unwrap()
+    );
+
+    // Without a lock the old password keeps working until it's redeemed.
+    assert!(
+        db.issue_password_reset(42, "code", 72, false)
+            .await
+            .unwrap()
+    );
+    let creds = db.find_credentials(42, 1).await.unwrap().unwrap();
+    assert_eq!(creds.password_hash, "$argon2id$stub");
+    let record = db.player_record(42).await.unwrap().unwrap();
+    assert!(record.reset_until_ms.is_some());
+    assert_eq!(
+        db.password_reset(42).await.unwrap().unwrap().code_hash,
+        "code"
+    );
+
+    // A new reset replaces it, and can lock the password now.
+    assert!(db.issue_password_reset(42, "new", 72, true).await.unwrap());
+    assert_eq!(
+        db.find_credentials(42, 1)
+            .await
+            .unwrap()
+            .unwrap()
+            .password_hash,
+        RESET_LOCKED
+    );
+    assert!(
+        !db.redeem_password_reset(42, "code", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.redeem_password_reset(42, "new", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert!(
+        !db.redeem_password_reset(42, "new", "$argon2id$again")
+            .await
+            .unwrap()
+    );
+    assert_eq!(
+        db.find_credentials(42, 1)
+            .await
+            .unwrap()
+            .unwrap()
+            .password_hash,
+        "$argon2id$new"
+    );
+    assert!(db.password_reset(42).await.unwrap().is_none());
+
+    // One that ran out can't be redeemed.
+    db.issue_password_reset(42, "late", 1, false).await.unwrap();
+    sqlx::query("UPDATE players SET reset_code_until = now() - interval '1 minute'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert!(db.password_reset(42).await.unwrap().is_none());
+    assert!(
+        !db.redeem_password_reset(42, "late", "$argon2id$late")
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.player_record(42)
+            .await
+            .unwrap()
+            .unwrap()
+            .reset_until_ms
+            .is_none()
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn only_dead_worlds_sessions_are_released(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.session_owner(42).await.unwrap().is_none());
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), None);
+
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.report_world_status(1, 1).await.unwrap();
+    let owner = db.session_owner(42).await.unwrap().unwrap();
+    assert_eq!(owner.node, 1);
+    assert!(owner.since_ms.is_some());
+    assert!(owner.heartbeat_age_ms.unwrap() < 5000);
+    // Alive: kept.
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), None);
+
+    sqlx::query("UPDATE world_status SET updated_at = now() - interval '2 minutes'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), Some(1));
+    assert!(db.session_owner(42).await.unwrap().is_none());
+
+    // A world with no heartbeat at all is dead too.
+    db.claim_session(42, 7, 60).await.unwrap();
+    assert_eq!(
+        db.session_owner(42)
+            .await
+            .unwrap()
+            .unwrap()
+            .heartbeat_age_ms,
+        None
+    );
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), Some(7));
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn wealth_events_are_found_by_id(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    let logs = LogBatch {
+        wealth: vec![WealthEvent {
+            name_hash: 42,
+            x: 3222,
+            z: 3218,
+            y: 0,
+            event_type: 5,
+            item: "dragon_med_helm".to_owned(),
+            count: 1,
+            value: 100_000,
+        }],
+        ..Default::default()
+    };
+    db.record_logs(2, &logs).await.unwrap();
+    let rows = db
+        .timeline(42, &["wealth".to_owned()], None, 10)
+        .await
+        .unwrap();
+    let id = rows[0].id;
+    let found = db.wealth_event(42, id).await.unwrap().unwrap();
+    assert_eq!(
+        (found.item.as_str(), found.count, found.node_id),
+        ("dragon_med_helm", 1, 2)
+    );
+    assert!(db.wealth_event(43, id).await.unwrap().is_none());
 }

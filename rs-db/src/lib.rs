@@ -1,5 +1,6 @@
 mod appeal;
 mod hiscores;
+mod history;
 mod investigate;
 mod logs;
 mod moderation;
@@ -7,6 +8,7 @@ mod name;
 mod news;
 mod password;
 mod player;
+mod recovery;
 mod replay;
 mod save;
 mod session;
@@ -16,21 +18,26 @@ mod world;
 
 pub use appeal::{AppealFiled, AppealLogin, AppealRecord, NewAppeal};
 pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
+pub use history::SavePoint;
 pub use investigate::{AccountActivity, AnticheatLeader};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsAdminPost, NewsCategory, NewsPost, NewsSummary};
-pub use password::Passwords;
+pub use password::{
+    MAX_PASSWORD_CHARS, MIN_PASSWORD_CHARS, PasswordError, Passwords, check_new_password,
+    is_password_char, is_typeable_password,
+};
 pub use player::{Credentials, NewPlayer, Sanctions};
+pub use recovery::{RESET_LOCKED, ResetCode};
 pub use replay::{NewReplay, ReplayChunk, ReplayRecord, ReplayReport};
 pub use save::{PlayerSave, SaveResult};
-pub use session::{Claim, Reconciled};
+pub use session::{Claim, Reconciled, SessionOwner};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
 pub use staff::{
     ChatRecord, LinkedAccount, LoginAddress, ModerationRecord, PlayerRecord, ReportRecord,
-    SanctionRecord, TIMELINE_KINDS, TimelineCursor, TimelineRow,
+    SanctionRecord, TIMELINE_KINDS, TimelineCursor, TimelineRow, WealthRecord,
 };
 pub use world::WorldStatus;
 
