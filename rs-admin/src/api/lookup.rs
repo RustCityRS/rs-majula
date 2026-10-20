@@ -1,16 +1,13 @@
-//! Lookups in the game database: a player's record, moderation history,
-//! who is muted or banned, and chat logs. Any online world answers them;
-//! the console itself never touches the database.
-
 use super::players::checked_name;
 use crate::audit::Event;
+use crate::cases::Triage;
 use crate::http::{ApiError, App, Staff};
 use axum::Json;
 use axum::extract::{Query, State};
 use axum::http::StatusCode;
 use rs_admin_api::{
     ChatLookup, ChatRecord, ModerationLookup, ModerationRecord, PlayerLookup, PlayerRecord,
-    Sanction, SanctionsLookup, path,
+    ReportLookup, ReportRecord, Sanction, SanctionsLookup, path,
 };
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -19,8 +16,10 @@ use std::sync::Arc;
 const PAGE: u32 = 50;
 /// The most mutes and bans listed at once.
 const MAX_SANCTIONS: u32 = 200;
+/// How many pages a triage list reads through for ones still to triage.
+pub(super) const TRIAGE_PAGES: usize = 10;
 
-fn unavailable(error: String) -> ApiError {
+pub(super) fn unavailable(error: String) -> ApiError {
     ApiError::new(StatusCode::BAD_GATEWAY, format!("{error}."))
 }
 
@@ -190,4 +189,74 @@ pub async fn chat(
             })
             .collect(),
     ))
+}
+
+#[derive(Deserialize)]
+pub struct ReportQuery {
+    name: Option<String>,
+    before: Option<i64>,
+    /// Only those in no case and not dismissed.
+    #[serde(default)]
+    untriaged: bool,
+}
+
+#[derive(Serialize)]
+pub struct ReportView {
+    #[serde(flatten)]
+    record: ReportRecord,
+    world: Option<u16>,
+    #[serde(flatten)]
+    triage: Triage,
+}
+
+/// `GET /api/lookup/reports?name=&before=&untriaged=`: abuse reports newest
+/// first, everyone's or those against `name`, with the cases each is in.
+pub async fn reports(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+    Query(query): Query<ReportQuery>,
+) -> Result<Json<Vec<ReportView>>, ApiError> {
+    let offender = query
+        .name
+        .as_deref()
+        .map(str::trim)
+        .filter(|n| !n.is_empty())
+        .map(checked_name)
+        .transpose()?;
+    let mut views = Vec::new();
+    let mut before = query.before;
+    for _ in 0..if query.untriaged { TRIAGE_PAGES } else { 1 } {
+        let rows: Vec<ReportRecord> = app
+            .worlds
+            .ask(
+                path::REPORTS,
+                &ReportLookup {
+                    offender: offender.clone(),
+                    before,
+                    limit: PAGE,
+                },
+            )
+            .await
+            .map_err(unavailable)?;
+        let full = rows.len() == PAGE as usize;
+        before = rows.last().map(|r| r.id);
+        let keys: Vec<String> = rows.iter().map(|r| format!("report:{}", r.id)).collect();
+        let mut triage = app.cases.triage_of(&keys);
+        views.extend(
+            rows.into_iter()
+                .zip(keys)
+                .map(|(record, key)| ReportView {
+                    world: world_of(&app, record.node),
+                    triage: triage.remove(&key).unwrap_or_default(),
+                    record,
+                })
+                .filter(|v| {
+                    !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
+                }),
+        );
+        if !full || views.len() >= PAGE as usize {
+            break;
+        }
+    }
+    Ok(Json(views))
 }

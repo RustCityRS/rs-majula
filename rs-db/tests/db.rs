@@ -249,6 +249,43 @@ async fn snapshots_need_a_registered_reporter(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn abuse_reports_page_newest_first(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    for (offender, reason) in [(99, 6), (43, 0), (99, 11)] {
+        let snapshot = NewSnapshot {
+            reporter_name_hash: 42,
+            offender_name_hash: offender,
+            reason,
+            node_id: 10,
+            x: 3222,
+            z: 3218,
+            y: 0,
+            muted: false,
+        };
+        assert!(db.record_snapshot(&snapshot).await.unwrap());
+    }
+
+    let all = db.abuse_reports(None, None, 10).await.unwrap();
+    assert_eq!(all.iter().map(|r| r.reason).collect::<Vec<_>>(), [11, 0, 6]);
+    assert_eq!(all[0].reporter, "Test");
+    // Only registered offenders have a name on record.
+    assert_eq!(all[0].offender, None);
+    assert_eq!(all[1].offender.as_deref(), Some("Test"));
+
+    let against = db.abuse_reports(Some(99), None, 10).await.unwrap();
+    assert_eq!(against.len(), 2);
+    let older = db
+        .abuse_reports(Some(99), Some(against[0].id), 10)
+        .await
+        .unwrap();
+    assert_eq!(older.len(), 1);
+    assert_eq!(older[0].reason, 6);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn logs_are_recorded_in_order(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();

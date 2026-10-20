@@ -80,6 +80,10 @@ const ICONS = {
   back: ['M3.5 12a8.5 8.5 0 1 0 2.5-6', 'M3.5 3v5h5'],
   forward: ['M20.5 12a8.5 8.5 0 1 1-2.5-6', 'M20.5 3v5h-5'],
   eye: ['M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z', 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'],
+  briefcase: ['M4 8h16v11H4z', 'M9 8V5h6v3', 'M4 13h16'],
+  inbox: ['M3 13h5l1.5 3h5l1.5-3h5', 'M5.5 5h13L21 13v6H3v-6z'],
+  flag: ['M5 21V4', 'M5 4h12l-2 4 2 4H5'],
+  clip: ['M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.7 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7'],
 };
 
 function icon(name, cls) {
@@ -200,6 +204,7 @@ const state = {
   worlds: [],
   canCommand: false,
   worldsLoaded: false,
+  caseSummary: null,
 };
 
 class ApiError extends Error {
@@ -394,11 +399,17 @@ function startPolling() {
   pollTimer = setInterval(() => {
     if (!document.hidden) loadWorlds();
   }, 5000);
+  loadCaseSummary();
+  caseTimer = setInterval(() => {
+    if (!document.hidden) loadCaseSummary();
+  }, 30000);
 }
 
 function stopPolling() {
   clearInterval(pollTimer);
+  clearInterval(caseTimer);
   pollTimer = null;
+  caseTimer = null;
 }
 
 const worldName = (w) => `World ${w.id}`;
@@ -619,11 +630,12 @@ function maintenanceDialog(worlds, onDone) {
 
 const DURATIONS = [[1, '1 hour'], [24, '1 day'], [48, '2 days'], [168, '1 week'], [720, '30 days'], [8760, '1 year'], [87600, 'Permanent']];
 
-function moderateDialog(name, preset = 'kick', onDone) {
+// `caseId`: the case it's sent from, whose timeline notes it.
+function moderateDialog(name, preset = 'kick', onDone, caseId) {
   let action = preset;
   let hours = 48;
   const nameInput = h('input', { class: 'input', value: name || '', placeholder: 'Player name', maxlength: '12', pattern: NAME_PATTERN, 'data-invalid': NAME_RULE, required: true, autocomplete: 'off', spellcheck: 'false', autofocus: !name });
-  const reason = h('textarea', { class: 'input', placeholder: 'Optional. Saved in the audit log.', maxlength: '300' });
+  const reason = h('textarea', { class: 'input', placeholder: 'Optional. Saved in the audit log.', maxlength: '300', value: caseId ? `Case #${caseId}: ` : '' });
   const segmented = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Action' });
   const durationField = h('div', { class: 'field' });
   const custom = h('input', { class: 'input', type: 'number', min: '1', max: '87600', step: '1', placeholder: 'Custom length in hours', inputmode: 'numeric', 'data-invalid': 'Lengths are 1 to 87600 whole hours.' });
@@ -666,9 +678,11 @@ function moderateDialog(name, preset = 'kick', onDone) {
     kind: 'danger',
     run: async () => {
       const target = nameInput.value.trim();
+      // "Case #12: " left as it was is just "Case #12".
+      const why = reason.value.trim().replace(/:$/, '');
       const result = action === 'kick'
-        ? await api('POST', '/players/kick', { name: target, reason: reason.value })
-        : await api('POST', '/players/moderate', { name: target, action, hours: action === 'mute' || action === 'ban' ? hours : null, reason: reason.value });
+        ? await api('POST', '/players/kick', { name: target, reason: why, case: caseId ?? null })
+        : await api('POST', '/players/moderate', { name: target, action, hours: action === 'mute' || action === 'ban' ? hours : null, reason: why, case: caseId ?? null });
       const ok = action === 'kick' ? result.kicked_from.length > 0 : result.ok;
       toast(result.message, ok ? 'ok' : 'error');
       if (ok) onDone?.();
@@ -678,7 +692,7 @@ function moderateDialog(name, preset = 'kick', onDone) {
   update();
   openDialog({
     title: 'Moderate player',
-    subtitle: name ? `Acting on ${name}` : 'Online or offline: it applies wherever they are.',
+    subtitle: caseId ? `From case #${caseId}: noted in its timeline.` : name ? `Acting on ${name}` : 'Online or offline: it applies wherever they are.',
     body: [
       h('label', { class: 'field' }, h('span', {}, 'Player'), nameInput),
       segmented,
@@ -711,6 +725,7 @@ const PAGES = [
   ...NAV,
   { path: '/player', label: 'Player', page: playerPage, parent: '/players' },
   { path: '/replay', label: 'Replay', page: replayPage, parent: '/replays' },
+  { path: '/case', label: 'Case', page: casePage, parent: '/moderation' },
 ];
 // The first few fit the phone tab bar; the rest go under More.
 const TABS = 4;
@@ -824,12 +839,20 @@ function moreSheet() {
   });
 }
 
+function moderationCount() {
+  const s = state.caseSummary;
+  if (!s || !s.open) return '';
+  return s.yours ? `${s.yours}/${s.open}` : String(s.open);
+}
+
 function updateNavCounts() {
   if (!shell) return;
   const { online, players } = totals();
   const counts = {
     '/worlds': state.worldsLoaded ? `${online.length}/${state.worlds.length}` : '',
     '/players': state.worldsLoaded ? players.toLocaleString() : '',
+    // Open cases, with how many are yours first when any are.
+    '/moderation': moderationCount(),
   };
   for (const el of document.querySelectorAll('[data-count]')) el.textContent = counts[el.dataset.count] || '';
 }
@@ -1314,6 +1337,9 @@ const VERBS = {
   news_deleted: ['deleted the news', 'trash', 'danger'],
   news_media_uploaded: ['uploaded an image or video for the news', 'plus'],
   replay_viewed: ['watched a session of', 'play'],
+  case_opened: ['opened a case on', 'briefcase', 'accent'],
+  case_closed: ['closed a case on', 'check', 'ok'],
+  case_reopened: ['reopened a case on', 'undo', 'accent'],
 };
 
 function auditItem(e) {
@@ -1526,7 +1552,7 @@ function pagedList(fetchPage, item, emptyText, cursor = (row) => row.id) {
       const rows = await fetchPage(older ? last : null);
       if (mine !== seq) return;
       if (!older) list.replaceChildren();
-      append(list, rows.map(item));
+      append(list, rows.map((row) => item(row)));
       if (!list.children.length) append(list, h('div', { class: 'empty' }, emptyText));
       if (rows.length) last = cursor(rows[rows.length - 1]);
       more.classList.toggle('hidden', rows.length < 50);
@@ -1581,7 +1607,8 @@ function playerPage(ctx) {
       p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
       p.online_node != null && button('Kick', { icon: 'kick', on: { click: act('kick') } }),
       button(muted ? 'Unmute' : 'Mute', { icon: muted ? 'undo' : 'mute', on: { click: act(muted ? 'unmute' : 'mute') } }),
-      button(banned ? 'Unban' : 'Ban', { icon: banned ? 'undo' : 'ban', kind: banned ? undefined : 'danger', on: { click: act(banned ? 'unban' : 'ban') } })));
+      button(banned ? 'Unban' : 'Ban', { icon: banned ? 'undo' : 'ban', kind: banned ? undefined : 'danger', on: { click: act(banned ? 'unban' : 'ban') } }),
+      button('Open case', { icon: 'briefcase', on: { click: () => newCaseDialog({ player: p.name }) } })));
     const seen = p.online_node != null
       ? fact('activity', 'Status', 'Online', `${p.online_world ? `World ${p.online_world}` : `Node ${p.online_node}`}${p.online_since_ms ? ` since ${ago(p.online_since_ms)}` : ''}`)
       : fact('clock', 'Last seen', p.last_seen_ms ? ago(p.last_seen_ms) : 'Never', p.last_seen_ms ? `${p.last_world ? `World ${p.last_world}` : 'Logged out'} · ${fullTime(p.last_seen_ms)}` : 'No logout on record');
@@ -1602,9 +1629,20 @@ function playerPage(ctx) {
   const sessions = pagedList(
     (before) => api('GET', `/replays?${query({ name, before })}`).then((rows) => { if (!before) dockWarm(rows); return rows; }),
     replayItem, 'No recorded sessions.', (r) => r.started_ms);
+  const cases = spinnerList();
+  const loadCases = () => api('GET', `/cases?${query({ player: name, status: 'all' })}`).then((rows) =>
+    replace(cases, rows.length ? rows.map((c) => caseItem(c)) : h('div', { class: 'empty' }, icon('briefcase'), 'No cases on them.')))
+    .catch((e) => failed(cases, e));
+  loadCases();
+  const reports = pagedList(
+    (before) => api('GET', `/lookup/reports?${query({ name, before })}`),
+    (r) => reportItem(r, () => { reports.reload(); loadCases(); }), 'No abuse reports against them.');
 
   append(page, head, facts,
     isDeveloper() && editSection(name),
+    h('div', { class: 'split' },
+      card('Cases', button('Open case', { small: true, icon: 'briefcase', on: { click: () => newCaseDialog({ player: name }) } }), cases),
+      card('Abuse reports against them', link(`/moderation?${query({ tab: 'triage', all: 1, name })}`, { class: 'btn small ghost' }, 'In the queue', icon('chevron')), reports.el)),
     h('section', { class: 'card' },
       h('div', { class: 'card-head' }, h('h2', {}, 'Recorded sessions'),
         h('div', { class: 'actions' }, link(`/replays?${query({ name })}`, { class: 'btn small ghost' }, 'All their sessions', icon('chevron')))),
@@ -1790,16 +1828,18 @@ function editSection(name) {
 // ---------------------------------------------------------------------------
 // News on the website (developers)
 
-// What the site's news page can embed, and the most it takes (50 MB).
+// What news posts and case comments can embed, and the most they take (50 MB).
 const MEDIA_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'video/mp4', 'video/webm'];
 const MAX_MEDIA = 50 * 1024 * 1024;
 
-async function uploadMedia(file) {
+// Uploads an image or video to `path`: the website's news media, or the
+// console's own for cases.
+async function uploadMedia(file, path = '/api/news/media') {
   if (!MEDIA_TYPES.includes(file.type)) throw new Error(`${file.name} isn't a PNG, JPEG, GIF, WebP, MP4 or WebM.`);
   if (file.size > MAX_MEDIA) throw new Error(`${file.name} is over 50 MB.`);
   let res;
   try {
-    res = await fetch('/api/news/media', {
+    res = await fetch(path, {
       method: 'POST',
       headers: { 'Content-Type': 'application/octet-stream', 'X-CSRF-Token': state.session?.csrf ?? '' },
       credentials: 'same-origin',
@@ -1817,15 +1857,65 @@ async function uploadMedia(file) {
   return data;
 }
 
-// The site's HTML for a post, rebuilt from an allow-list of elements and
-// attributes (nothing runs, nothing styles itself), with uploads loaded
-// through the console.
+// Images and videos into a Markdown field: the button, or pasting or
+// dropping files, uploads them with `upload` and puts each in where the
+// cursor was when it started.
+function mediaUploader(textarea, upload, label = 'Add image or video') {
+  const status = h('span', { class: 'hint' });
+  const input = h('input', { type: 'file', class: 'hidden', accept: MEDIA_TYPES.join(','), multiple: true });
+  const add = button(label, { small: true, icon: 'clip', on: { click: () => input.click() } });
+  let uploading = 0;
+  const insert = (text, at) => {
+    textarea.setRangeText(text, at, at, 'end');
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+  const send = async (list) => {
+    for (const file of list) {
+      const at = textarea.selectionStart ?? textarea.value.length;
+      uploading++;
+      add.disabled = true;
+      status.textContent = `Uploading ${file.name}...`;
+      try {
+        const saved = await upload(file);
+        const caption = file.name.replace(/\.[^.]+$/, '').replace(/[[\]]/g, '');
+        const before = at > 0 && textarea.value[at - 1] !== '\n' ? '\n\n' : '';
+        insert(`${before}![${caption}](${saved.url})\n\n`, at);
+        status.textContent = `Added ${file.name}.`;
+      } catch (e) {
+        status.textContent = '';
+        toast(e.message, 'error');
+      } finally {
+        uploading--;
+        add.disabled = uploading > 0;
+      }
+    }
+  };
+  input.addEventListener('change', () => { send([...input.files]); input.value = ''; });
+  textarea.addEventListener('paste', (e) => {
+    const pasted = [...(e.clipboardData?.files ?? [])];
+    if (pasted.length) { e.preventDefault(); send(pasted); }
+  });
+  textarea.addEventListener('dragover', (e) => { if (e.dataTransfer?.types.includes('Files')) e.preventDefault(); });
+  textarea.addEventListener('drop', (e) => {
+    const dropped = [...(e.dataTransfer?.files ?? [])];
+    if (dropped.length) { e.preventDefault(); send(dropped); }
+  });
+  return { button: add, status, input, busy: () => uploading > 0 };
+}
+
+// Where an embedded file loads from, or '' if it may not: news uploads come
+// through the console, and anything else is left as the post has it.
+const newsMedia = (src) => (src.startsWith('/news/media/') ? `/api${src}` : src);
+
+// HTML for a post or comment, rebuilt from an allow-list of elements and
+// attributes (nothing runs, nothing styles itself), with images and videos
+// loaded from where `mediaSrc` says.
 const PREVIEW_TAGS = new Set(['P', 'BR', 'HR', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'STRONG', 'B', 'EM', 'I', 'U', 'S', 'DEL',
   'CODE', 'PRE', 'BLOCKQUOTE', 'UL', 'OL', 'LI', 'A', 'IMG', 'VIDEO', 'TABLE', 'THEAD', 'TBODY', 'TR', 'TH', 'TD', 'CENTER',
   'SPAN', 'DIV', 'SUP', 'SUB', 'SMALL', 'BIG', 'FONT']);
 const PREVIEW_DROP = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'TEMPLATE', 'SVG', 'MATH', 'FORM', 'INPUT', 'BUTTON', 'TEXTAREA', 'SELECT']);
 
-function previewNodes(nodes) {
+function previewNodes(nodes, mediaSrc = newsMedia) {
   const out = [];
   for (const node of nodes) {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -1833,14 +1923,13 @@ function previewNodes(nodes) {
       continue;
     }
     if (node.nodeType !== Node.ELEMENT_NODE || PREVIEW_DROP.has(node.tagName)) continue;
-    const children = previewNodes(node.childNodes);
+    const children = previewNodes(node.childNodes, mediaSrc);
     if (!PREVIEW_TAGS.has(node.tagName)) {
       out.push(...children);
       continue;
     }
     const el = document.createElement(node.tagName.toLowerCase());
-    const src = node.getAttribute('src') || '';
-    const media = src.startsWith('/news/media/') ? `/api${src}` : src;
+    const media = mediaSrc(node.getAttribute('src') || '');
     if (node.tagName === 'A') {
       const href = node.getAttribute('href') || '';
       if (/^(https?:|\/|#|mailto:)/i.test(href)) el.setAttribute('href', href);
@@ -1874,52 +1963,13 @@ function newsDialog(categories, post, onDone) {
     placeholder: '## What\'s new\n\nThe **Grand Exchange** opens today.\n\n![The new trading floor](...)' });
   content.value = post?.markdown ?? '';
 
-  // Uploads land where the cursor was when they started.
-  const status = h('span', { class: 'hint' });
-  const files = h('input', { type: 'file', class: 'hidden', accept: MEDIA_TYPES.join(','), multiple: true });
-  const addButton = button('Add image or video', { small: true, icon: 'plus', on: { click: () => files.click() } });
-  let uploading = 0;
-  const insert = (text, at) => {
-    content.setRangeText(text, at, at, 'end');
-    content.dispatchEvent(new Event('input', { bubbles: true }));
-  };
-  const upload = async (list) => {
-    for (const file of list) {
-      const at = content.selectionStart ?? content.value.length;
-      uploading++;
-      addButton.disabled = true;
-      status.textContent = `Uploading ${file.name}...`;
-      try {
-        const saved = await uploadMedia(file);
-        const caption = file.name.replace(/\.[^.]+$/, '').replace(/[[\]]/g, '');
-        const before = at > 0 && content.value[at - 1] !== '\n' ? '\n\n' : '';
-        insert(`${before}![${caption}](${saved.url})\n\n`, at);
-        status.textContent = `Added ${file.name}.`;
-      } catch (e) {
-        status.textContent = '';
-        toast(e.message, 'error');
-      } finally {
-        uploading--;
-        addButton.disabled = uploading > 0;
-      }
-    }
-  };
-  files.addEventListener('change', () => { upload([...files.files]); files.value = ''; });
-  content.addEventListener('paste', (e) => {
-    const pasted = [...(e.clipboardData?.files ?? [])];
-    if (pasted.length) { e.preventDefault(); upload(pasted); }
-  });
-  content.addEventListener('dragover', (e) => { if (e.dataTransfer?.types.includes('Files')) e.preventDefault(); });
-  content.addEventListener('drop', (e) => {
-    const dropped = [...(e.dataTransfer?.files ?? [])];
-    if (dropped.length) { e.preventDefault(); upload(dropped); }
-  });
+  const media = mediaUploader(content, (file) => uploadMedia(file));
 
   // Write and Preview.
   let mode = 'write';
   const preview = h('div', { class: 'news-preview hidden' });
   const writeArea = h('div', { class: 'news-write' },
-    h('div', { class: 'news-tools' }, addButton, status, files), content,
+    h('div', { class: 'news-tools' }, media.button, media.status, media.input), content,
     h('span', { class: 'hint' }, 'Markdown: **bold**, *italic*, ## headings, - lists, [links](https://...). Add images, GIFs and videos with the button, or paste or drop them in.'));
   const tabs = h('div', { class: 'segmented tabs', role: 'group', 'aria-label': 'View' });
   const showPreview = async () => {
@@ -1956,7 +2006,7 @@ function newsDialog(categories, post, onDone) {
       kind: 'primary',
       icon: post ? 'check' : 'news',
       run: async () => {
-        if (uploading) throw new Error('Wait for the upload to finish.');
+        if (media.busy()) throw new Error('Wait for the upload to finish.');
         if (!content.value.trim()) {
           mode = 'write';
           drawTabs();
@@ -2020,12 +2070,465 @@ function newsPage() {
 }
 
 // ---------------------------------------------------------------------------
-// Moderation: who is muted or banned, and every action taken
+// Moderation center: cases staff work on together, the triage queue of abuse
+// reports and flagged sessions, mutes and bans in force, and every action.
+
+// The Report Abuse screen's 12 rules, by the index the client sends.
+const REPORT_RULES = ['Offensive language', 'Item scamming', 'Password scamming', 'Bug abuse', 'Jagex staff impersonation',
+  'Account sharing/trading', 'Macroing', 'Multiple logging in', 'Encouraging others to break rules',
+  'Misuse of customer support', 'Advertising / website', 'Real world item trading'];
+const ruleName = (reason) => `Rule ${reason + 1}: ${REPORT_RULES[reason] || 'unknown'}`;
+
+const CASE_STATUS = { open: ['Open', 'warn'], investigating: ['Investigating', 'accent'], waiting: ['Waiting', ''], closed: ['Closed', 'ok'] };
+const PRIORITIES = [['low', 'Low'], ['normal', 'Normal'], ['high', 'High'], ['urgent', 'Urgent']];
+const PRIORITY_TONE = { urgent: 'danger', high: 'warn' };
+const RESOLUTIONS = { actioned: 'Actioned', no_action: 'No action', duplicate: 'Duplicate' };
+
+const caseHref = (id) => `/case?id=${id}`;
+const caseUpload = (file) => uploadMedia(file, '/api/cases/media');
+// Only the console's own case uploads load in a comment.
+const caseMedia = (src) => (src.startsWith('/api/cases/media/') ? src : '');
+const MARKDOWN_HINT = 'Markdown works: **bold**, *italic*, - lists, [links](https://...). Paste or drop in images, GIFs and videos.';
+
+// A comment or note: its rendered Markdown, or the text as written.
+function richText(html, text) {
+  if (!html) return h('div', { class: 'comment-text' }, text);
+  return h('div', { class: 'comment-text md' }, previewNodes(new DOMParser().parseFromString(html, 'text/html').body.childNodes, caseMedia));
+}
+const nameKey = (name) => (name || '').trim().toLowerCase().replace(/_/g, ' ');
+const isMe = (name) => nameKey(name) === nameKey(state.session.name);
+const worldOf = (node) => {
+  const w = state.worlds.find((x) => x.node === node);
+  return w ? worldName(w) : `Node ${node}`;
+};
+const where = (x, z, level) => `${x}, ${z}${level ? ` · floor ${level}` : ''}`;
+const listNames = (names) => (names.length <= 2 ? names.join(' and ') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`);
+const evidenceKey = (e) => `${e.type}:${e.id}`;
+const clip = (text, n) => (text.length > n ? `${text.slice(0, n - 1)}…` : text);
+
+function statusBadge(c) {
+  const [label, tone] = CASE_STATUS[c.status] || [c.status, ''];
+  return h('span', { class: `badge ${tone}` }, c.status === 'closed' && c.resolution ? `${label} · ${RESOLUTIONS[c.resolution]}` : label);
+}
+
+// Shown only when it's out of the ordinary, unless `always`.
+function priorityBadge(priority, always) {
+  if (!always && (priority === 'normal' || priority === 'low')) return null;
+  return h('span', { class: `badge ${PRIORITY_TONE[priority] || ''}` }, PRIORITIES.find(([k]) => k === priority)?.[1] || priority);
+}
+
+const caseLinks = (ids) => (ids || []).map((id) => link(caseHref(id), { class: 'badge accent', title: `Evidence in case #${id}` }, icon('briefcase'), `#${id}`));
+
+function avatars(names) {
+  return h('div', { class: 'avatars', title: names.join(', ') },
+    names.slice(0, 4).map((n) => h('div', { class: 'avatar' }, initial(n))),
+    names.length > 4 && h('span', { class: 'num muted' }, `+${names.length - 4}`));
+}
+
+function evidenceCounts(c) {
+  const n = { report: 0, replay: 0, chat: 0 };
+  for (const e of c.evidence) n[e.type]++;
+  return [n.report && plural(n.report, 'report'), n.replay && plural(n.replay, 'session'), n.chat && plural(n.chat, 'message')].filter(Boolean).join(' · ');
+}
+
+function caseItem(c, extra) {
+  const closed = c.status === 'closed';
+  const tone = closed ? 'ok' : PRIORITY_TONE[c.priority] || (c.assignees.length ? 'accent' : '');
+  const counts = evidenceCounts(c);
+  return h('div', { class: 'list-item' },
+    h('div', { class: `list-icon ${tone}` }, icon(closed ? 'check' : 'briefcase')),
+    h('div', { class: 'list-main' },
+      h('div', { class: 'list-title' }, h('span', { class: 'case-id num' }, `#${c.id}`),
+        link(caseHref(c.id), { class: 'name-link' }, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority)),
+      h('div', { class: 'list-sub' }, playerLink(c.player),
+        closed ? ` · closed by ${c.closed_by} ${ago(c.closed_ms)}` : ` · opened by ${c.created_by} ${ago(c.created_ms)}`,
+        counts && ` · ${counts}`, c.comments ? ` · ${plural(c.comments, 'comment')}` : ''),
+      extra),
+    h('div', { class: 'list-side stack' },
+      c.assignees.length ? avatars(c.assignees) : !closed && h('span', { class: 'badge warn' }, 'Nobody'),
+      h('span', { title: `Last change ${fullTime(c.updated_ms)}` }, ago(c.updated_ms))));
+}
+
+// Case counts for the nav and the center, refreshed while signed in.
+const caseListeners = new Set();
+let caseTimer = null;
+
+function onCases(fn) {
+  caseListeners.add(fn);
+  return () => caseListeners.delete(fn);
+}
+
+async function loadCaseSummary() {
+  try {
+    state.caseSummary = await api('GET', '/cases/summary');
+    updateNavCounts();
+    for (const fn of caseListeners) fn(state.caseSummary);
+  } catch (e) {
+    if (e.status !== 401) console.warn(e);
+  }
+}
+
+async function addRefs(id, refs) {
+  let added = 0;
+  let last = null;
+  const problems = [];
+  for (const item of refs) {
+    try {
+      last = await api('POST', `/cases/${id}`, { op: 'add_evidence', item });
+      added++;
+    } catch (e) {
+      problems.push(e.message);
+    }
+  }
+  if (added) toast(`Added ${plural(added, 'item')} to case #${id}.`);
+  if (problems.length) toast(problems[0], 'error');
+  loadCaseSummary();
+  return last;
+}
+
+// A new case on `player`, starting with the evidence `refs` (`what` says
+// what they are). Any open case on them is offered first, to add to instead.
+function newCaseDialog({ player = '', title = '', refs = [], what = [], priority = 'normal' } = {}, onDone) {
+  const nameInput = h('input', { class: 'input', value: player, placeholder: 'Player name', maxlength: '12', pattern: NAME_PATTERN, 'data-invalid': NAME_RULE, required: true, autocomplete: 'off', spellcheck: 'false', autofocus: !player });
+  let titled = !!title;
+  const titleInput = h('input', { class: 'input', value: title || player, maxlength: '100', required: true, autocomplete: 'off', placeholder: 'What it\'s about, e.g. "Gold selling at the GE"', autofocus: !!player, 'aria-label': 'Title' });
+  titleInput.addEventListener('input', () => { titled = true; });
+  let prio = priority;
+  const prioChips = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Priority' });
+  const drawPrio = () => replace(prioChips, PRIORITIES.map(([k, label]) =>
+    h('button', { type: 'button', 'aria-pressed': String(prio === k), on: { click: () => { prio = k; drawPrio(); } } }, label)));
+  drawPrio();
+  const note = h('textarea', { class: 'input', maxlength: '4000', placeholder: 'Optional. What you know so far, for whoever picks it up.' });
+  const noteMedia = mediaUploader(note, caseUpload, 'Attach');
+  const join = h('input', { type: 'checkbox', checked: true });
+  const existing = h('div', {});
+  let seq = 0;
+  let close = () => {};
+
+  const lookExisting = debounce(async () => {
+    const name = nameInput.value.trim();
+    const mine = ++seq;
+    if (!titled) titleInput.value = name;
+    if (!validName(name)) return replace(existing);
+    try {
+      const cases = await api('GET', `/cases?${query({ player: name })}`);
+      if (mine !== seq) return;
+      replace(existing, cases.length > 0 && h('div', { class: 'callout warn' }, icon('briefcase'), h('div', { class: 'grow' },
+        h('div', {}, `${name} already has ${plural(cases.length, 'open case')}.`, refs.length ? ' Add to it instead?' : ''),
+        h('div', { class: 'case-picks' }, cases.slice(0, 5).map((c) => h('div', { class: 'case-pick' },
+          link(caseHref(c.id), { class: 'name-link', on: { click: () => close() } }, h('span', { class: 'num' }, `#${c.id}`), ` ${c.title}`),
+          refs.length > 0 && button(`Add to #${c.id}`, { small: true, icon: 'plus', on: { click: async () => {
+            await addRefs(c.id, refs);
+            close();
+            onDone?.();
+          } } })))))));
+    } catch {
+      replace(existing);
+    }
+  }, 250);
+  nameInput.addEventListener('input', lookExisting);
+  if (player) lookExisting();
+
+  ({ close } = openDialog({
+    title: 'Open a case',
+    subtitle: what.length ? `With ${what.join(', ')}.` : 'A case gathers the evidence on one player while staff look into it together.',
+    body: [
+      h('label', { class: 'field' }, h('span', {}, 'Player'), nameInput),
+      existing,
+      h('label', { class: 'field' }, h('span', {}, 'Title'), titleInput),
+      h('div', { class: 'field' }, h('span', {}, 'Priority'), prioChips),
+      h('div', { class: 'field' }, h('span', {}, 'First comment'), note,
+        h('div', { class: 'news-tools' }, noteMedia.button, noteMedia.status, noteMedia.input), h('span', { class: 'hint' }, MARKDOWN_HINT)),
+      h('label', { class: 'check-row' }, join, h('span', {}, 'Put me on it')),
+    ],
+    actions: [{ label: 'Cancel' }, {
+      label: 'Open case',
+      kind: 'primary',
+      icon: 'briefcase',
+      run: async () => {
+        if (noteMedia.busy()) throw new Error('Wait for the upload to finish.');
+        const c = await api('POST', '/cases', { player: nameInput.value.trim(), title: titleInput.value.trim(), priority: prio, note: note.value, evidence: refs, join: join.checked });
+        toast(`Opened case #${c.id}.`);
+        loadCaseSummary();
+        onDone?.(c);
+        navigate(caseHref(c.id));
+      },
+    }],
+  }));
+}
+
+// Adds `refs` to an open case, those on `player` listed first.
+function addToCaseDialog({ refs, player = '', what = [], title }, onDone) {
+  const search = h('input', { class: 'input', type: 'search', placeholder: 'Search open cases by title, player or #', autofocus: true, 'aria-label': 'Search cases' });
+  const list = h('div', { class: 'list pick-list' }, h('div', { class: 'empty' }, h('div', { class: 'spinner' })));
+  let cases = [];
+  let close = () => {};
+  const draw = () => {
+    const q = search.value.trim().toLowerCase();
+    const shown = cases
+      .filter((c) => !q || c.title.toLowerCase().includes(q) || c.player.toLowerCase().includes(q) || `#${c.id}` === q || String(c.id) === q)
+      .sort((a, b) => (nameKey(b.player) === nameKey(player)) - (nameKey(a.player) === nameKey(player)));
+    replace(list, shown.length
+      ? shown.map((c) => caseItem(c, h('div', { class: 'chips item-actions' }, button(`Add to #${c.id}`, { small: true, icon: 'plus', on: { click: async () => {
+        await addRefs(c.id, refs);
+        close();
+        onDone?.();
+      } } }))))
+      : h('div', { class: 'empty' }, icon('briefcase'), q ? 'No open case matches.' : 'No open cases.'));
+  };
+  api('GET', '/cases').then((rows) => { cases = rows; draw(); }).catch((e) => replace(list, h('div', { class: 'empty' }, e.message)));
+  search.addEventListener('input', draw);
+  ({ close } = openDialog({
+    title: 'Add to a case',
+    subtitle: what.length ? `Adding ${what.join(', ')}.` : null,
+    width: '600px',
+    body: [h('div', { class: 'search' }, icon('search'), search), list],
+    actions: [{ label: 'Cancel' }, { label: 'New case instead', icon: 'briefcase', run: async () => newCaseDialog({ player, refs, what, title }, onDone) }],
+  }));
+}
+
+async function setTriage(key, dismissed, onDone) {
+  try {
+    await api('POST', '/triage', { key, dismissed });
+    toast(dismissed ? 'Dismissed: out of the queue.' : 'Back in the queue.');
+    onDone?.();
+  } catch (e) {
+    toast(e.message, 'error');
+  }
+}
+
+// What can be done with a report or flagged session in the queue.
+function triageButtons({ key, refs, player, what, title, priority, triage, onDone }) {
+  const inCase = triage.cases?.length > 0;
+  return h('div', { class: 'chips item-actions' },
+    button('Open case', { small: true, icon: 'briefcase', on: { click: () => newCaseDialog({ player, refs, what, title, priority }, onDone) } }),
+    button('Add to case', { small: true, icon: 'plus', on: { click: () => addToCaseDialog({ refs, player, what, title }, onDone) } }),
+    !inCase && (triage.dismissed
+      ? button('Restore', { small: true, icon: 'undo', title: `Dismissed by ${triage.dismissed.by} ${ago(triage.dismissed.at_ms)}`, on: { click: () => setTriage(key, false, onDone) } })
+      : button('Dismiss', { small: true, icon: 'x', title: 'Looked at, nothing to do: takes it out of the queue', on: { click: () => setTriage(key, true, onDone) } })));
+}
+
+// The recording of `name` that was going at `atMs`, from a minute before:
+// what a report's snapshot covers.
+async function watchAt(name, atMs) {
+  try {
+    const [r] = await api('GET', `/replays?${query({ name, before: atMs + 1 })}`);
+    if (!r || (!r.live && r.started_ms + r.duration_ms < atMs - 60000)) {
+      toast(`No recording of ${name} covers then. Recordings are kept for a few days.`, 'error');
+      return;
+    }
+    navigate(`/replay?${query({ id: r.id, t: Math.max(0, atMs - r.started_ms - 60000) })}`);
+  } catch (e) {
+    toast(e.message, 'error');
+  }
+}
+
+const watchLink = (name, atMs, label) => h('button', { type: 'button', class: 'link-button', title: `${name}'s recorded session, from a minute before`, on: { click: () => watchAt(name, atMs) } }, icon('play'), label);
+
+function dismissedBadge(d) {
+  return d && h('span', { class: 'badge', title: `By ${d.by} ${ago(d.at_ms)}` }, 'Dismissed');
+}
+
+// `extra`: more under it, such as what a case page can do with it.
+function reportItem(r, onDone, extra) {
+  const triaged = r.cases?.length || r.dismissed;
+  return h('div', { class: 'list-item' },
+    h('div', { class: `list-icon ${triaged ? '' : 'warn'}` }, icon('flag')),
+    h('div', { class: 'list-main' },
+      h('div', { class: 'list-title' }, h('b', {}, playerLink(r.reporter)), ' reported ', h('b', {}, playerLink(r.offender)),
+        ' ', h('span', { class: 'badge' }, ruleName(r.reason)),
+        r.muted && h('span', { class: 'badge warn', title: 'The reporter, a moderator, muted them for 48 hours with it' }, 'Muted with it'),
+        caseLinks(r.cases), dismissedBadge(r.dismissed)),
+      h('div', { class: 'list-sub' }, `${r.world ? `World ${r.world}` : `Node ${r.node}`} · ${where(r.x, r.z, r.level)} · `,
+        watchLink(r.offender, r.at_ms, 'Their session'), ' ', watchLink(r.reporter, r.at_ms, 'Reporter\'s view')),
+      onDone && triageButtons({
+        key: `report:${r.id}`, refs: [{ type: 'report', id: r.id }], player: r.offender, what: ['the report'],
+        title: REPORT_RULES[r.reason] || 'Abuse report', triage: r, onDone,
+      }),
+      extra),
+    h('div', { class: 'list-side', title: fullTime(r.at_ms) }, ago(r.at_ms)));
+}
+
+function flaggedItem(r, onDone) {
+  return replayItem(r, triageButtons({
+    key: `replay:${r.id}`, refs: [{ type: 'replay', id: r.id }], player: r.player, what: ['the flagged session'],
+    title: `Flagged session: ${FLAGS[r.flags[0]]?.[0] || 'anti-cheat'}`, priority: r.score >= 100 ? 'high' : 'normal', triage: r, onDone,
+  }));
+}
+
+const card = (title, actions, ...body) => h('section', { class: 'card' },
+  h('div', { class: 'card-head' }, h('h2', {}, title), actions && h('div', { class: 'actions' }, actions)), body);
+const spinnerList = () => h('div', { class: 'list' }, h('div', { class: 'empty' }, h('div', { class: 'spinner' })));
+const failed = (el, e) => replace(el, h('div', { class: 'empty' }, e.message));
+
+const CENTER_TABS = [['overview', 'Overview'], ['triage', 'Triage'], ['cases', 'Cases'], ['sanctions', 'In force'], ['history', 'History']];
 
 function moderationPage(ctx) {
-  let tab = ctx.params.get('tab') === 'history' ? 'history' : 'current';
-  const tabs = h('div', { class: 'segmented tabs', role: 'group', 'aria-label': 'View' });
-  const body = h('section', { class: 'card' });
+  let tab = CENTER_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'overview';
+  const tabs = h('div', { class: 'segmented tabs center-tabs', role: 'group', 'aria-label': 'View' });
+  const stats = h('div', { class: 'stats' });
+  const body = h('div', { class: 'center-body' });
+  let queue = null;
+  let sanctions = null;
+  let params = ctx.params;
+
+  const go = (next, extra = {}) => {
+    tab = next;
+    params = new URLSearchParams(query(extra));
+    const q = query({ tab: next === 'overview' ? null : next, ...extra });
+    history.replaceState(null, '', `/moderation${q ? `?${q}` : ''}`);
+    draw();
+  };
+
+  const statLink = (iconName, label, value, sub, onClick) => h('button', { type: 'button', class: 'card stat stat-link', on: { click: onClick } },
+    h('div', { class: 'label' }, icon(iconName), label), h('div', { class: 'value num' }, value), h('div', { class: 'sub' }, sub));
+
+  const drawStats = () => {
+    const s = state.caseSummary;
+    const queued = queue && queue.reports.length + queue.flagged.length;
+    const capped = queue && (queue.reports.length >= 50 || queue.flagged.length >= 50);
+    replace(stats,
+      statLink('briefcase', 'Open cases', s ? s.open : '-', s ? `${s.urgent} high priority · ${s.waiting} waiting` : '', () => go('cases')),
+      statLink('user', 'Your cases', s ? s.yours : '-', s ? (s.unassigned ? `${plural(s.unassigned, 'case')} with nobody on it` : 'Every open case has someone') : '', () => go('cases', { show: 'mine' })),
+      statLink('inbox', 'To triage', queue ? `${queued}${capped ? '+' : ''}` : '-', queue ? `${plural(queue.reports.length, 'report')} · ${plural(queue.flagged.length, 'flagged session')}` : 'Reports and flagged sessions in no case', () => go('triage')),
+      statLink('shield', 'In force', sanctions ? sanctions.length : '-', sanctions
+        ? `${sanctions.filter((x) => x.banned_until_ms).length} banned · ${sanctions.filter((x) => x.muted_until_ms).length} muted`
+        : 'Mutes and bans', () => go('sanctions')));
+  };
+
+  const loadCounts = async () => {
+    const [reports, flagged, sanctioned] = await Promise.allSettled([
+      api('GET', '/lookup/reports?untriaged=true'),
+      api('GET', '/replays?flagged=true&untriaged=true'),
+      api('GET', '/lookup/sanctions'),
+    ]);
+    queue = reports.status === 'fulfilled' && flagged.status === 'fulfilled' ? { reports: reports.value, flagged: flagged.value } : null;
+    sanctions = sanctioned.status === 'fulfilled' ? sanctioned.value : null;
+    drawStats();
+    return { reports, flagged };
+  };
+
+  const overview = () => {
+    const mine = spinnerList();
+    const nobody = spinnerList();
+    const triage = spinnerList();
+    const actions = spinnerList();
+    const closed = spinnerList();
+    const take = (c) => button('Take it', { small: true, icon: 'plus', on: { click: async () => {
+      try {
+        await api('POST', `/cases/${c.id}`, { op: 'join' });
+        toast(`You're on case #${c.id}.`);
+        loadCaseSummary();
+        navigate(caseHref(c.id));
+      } catch (e) { toast(e.message, 'error'); }
+    } } });
+    const load = async () => {
+      api('GET', '/cases?mine=true').then((rows) => replace(mine, rows.length ? rows.map((c) => caseItem(c))
+        : h('div', { class: 'empty' }, icon('briefcase'), 'You\'re not on any open case.'))).catch((e) => failed(mine, e));
+      api('GET', '/cases?unassigned=true').then((rows) => replace(nobody, rows.length ? rows.slice(0, 8).map((c) => caseItem(c, h('div', { class: 'chips item-actions' }, take(c))))
+        : h('div', { class: 'empty' }, icon('check'), 'Every open case has someone on it.'))).catch((e) => failed(nobody, e));
+      api('GET', '/lookup/moderation').then((rows) => replace(actions, rows.length ? rows.slice(0, 8).map(moderationItem)
+        : h('div', { class: 'empty' }, 'No moderation on record.'))).catch((e) => failed(actions, e));
+      api('GET', '/cases?status=closed').then((rows) => replace(closed, rows.length ? rows.slice(0, 5).map((c) => caseItem(c))
+        : h('div', { class: 'empty' }, 'No closed cases yet.'))).catch((e) => failed(closed, e));
+      const { reports, flagged } = await loadCounts();
+      if (reports.status === 'rejected' || flagged.status === 'rejected') {
+        failed(triage, reports.reason || flagged.reason);
+        return;
+      }
+      const rows = [
+        ...reports.value.map((r) => ({ at: r.at_ms, el: () => reportItem(r, load) })),
+        ...flagged.value.map((r) => ({ at: r.started_ms, el: () => flaggedItem(r, load) })),
+      ].sort((a, b) => b.at - a.at).slice(0, 8);
+      replace(triage, rows.length ? rows.map((r) => r.el()) : h('div', { class: 'empty' }, icon('check'), 'Nothing waiting: every report and flagged session is in a case or dismissed.'));
+    };
+    load();
+    const more = (label, next, extra) => button(label, { small: true, kind: 'ghost', on: { click: () => go(next, extra) } });
+    return { load, el: h('div', { class: 'split' },
+      h('div', { class: 'column' },
+        card('Your cases', more('All open', 'cases'), mine),
+        card('Nobody on these yet', more('Cases', 'cases', { show: 'unassigned' }), nobody),
+        card('Recently closed', more('Closed', 'cases', { show: 'closed' }), closed)),
+      h('div', { class: 'column' },
+        card('To triage', more('Queue', 'triage'), triage),
+        card('Recent actions', more('History', 'history'), actions))) };
+  };
+
+  const triageTab = () => {
+    let kind = params.get('kind') === 'sessions' ? 'sessions' : 'reports';
+    let all = params.get('all') === '1';
+    const nameInput = h('input', { class: 'input', type: 'search', placeholder: kind === 'reports' ? 'Against (optional)' : 'Player (optional)', 'aria-label': 'Player', value: params.get('name') || '', maxlength: '12' });
+    const kinds = h('div', { class: 'chips' });
+    const show = h('div', { class: 'chips' });
+    const list = h('div', {});
+    const note = h('p', { class: 'muted' });
+    const load = () => {
+      const name = nameInput.value.trim();
+      if (name && !validName(name)) return replace(list, h('div', { class: 'empty' }, 'That isn\'t a valid player name.'));
+      const q = query({ tab: 'triage', kind: kind === 'sessions' ? 'sessions' : null, all: all ? 1 : null, name });
+      history.replaceState(null, '', `/moderation?${q}`);
+      nameInput.placeholder = kind === 'reports' ? 'Against (optional)' : 'Player (optional)';
+      note.textContent = kind === 'reports'
+        ? 'Abuse reports from the in-game Report Abuse screen. Each carries the minute before it: watch the offender\'s session, or the reporter\'s view.'
+        : 'Sessions the anti-cheat checks scored as suspicious. They flag for review only; nobody is banned automatically.';
+      if (!all) note.textContent += ' Open a case, add to one, or dismiss what needs nothing, to empty the queue.';
+      let paged;
+      paged = kind === 'reports'
+        ? pagedList((before) => api('GET', `/lookup/reports?${query({ name, before, untriaged: all ? null : true })}`),
+          (r) => reportItem(r, () => { paged.reload(); loadCounts(); }), all ? 'No reports.' : 'Nothing to triage.')
+        : pagedList((before) => api('GET', `/replays?${query({ name, flagged: true, before, untriaged: all ? null : true })}`),
+          (r) => flaggedItem(r, () => { paged.reload(); loadCounts(); }), all ? 'No flagged sessions.' : 'Nothing to triage.', (r) => r.started_ms);
+      replace(list, paged.el);
+    };
+    const chip = (label, pressed, onClick, iconName) => h('button', { type: 'button', class: 'chip', 'aria-pressed': String(pressed), on: { click: onClick } }, iconName && icon(iconName), label);
+    const drawChips = () => {
+      replace(kinds,
+        chip('Reports', kind === 'reports', () => { kind = 'reports'; drawChips(); load(); }, 'flag'),
+        chip('Flagged sessions', kind === 'sessions', () => { kind = 'sessions'; drawChips(); load(); }, 'alert'));
+      replace(show,
+        chip('Needs triage', !all, () => { all = false; drawChips(); load(); }),
+        chip('Everything', all, () => { all = true; drawChips(); load(); }));
+    };
+    nameInput.addEventListener('input', debounce(load, 400));
+    drawChips();
+    load();
+    return { load, el: [
+      h('div', { class: 'toolbar' }, h('div', { class: 'search' }, icon('search'), nameInput), kinds, h('span', { class: 'toolbar-gap' }), show),
+      note,
+      h('section', { class: 'card' }, list)] };
+  };
+
+  const casesTab = () => {
+    const SHOWS = [['open', 'Open'], ['mine', 'Yours'], ['unassigned', 'Nobody on it'], ['waiting', 'Waiting'], ['closed', 'Closed'], ['all', 'All']];
+    let show = SHOWS.some(([k]) => k === params.get('show')) ? params.get('show') : 'open';
+    const search = h('input', { class: 'input', type: 'search', placeholder: 'Title, player or #', 'aria-label': 'Search cases', value: params.get('q') || '' });
+    const chips = h('div', { class: 'chips' });
+    const list = spinnerList();
+    const count = h('span', { class: 'muted' });
+    let seq = 0;
+    const load = async () => {
+      const mine = ++seq;
+      const q = search.value.trim();
+      history.replaceState(null, '', `/moderation?${query({ tab: 'cases', show: show === 'open' ? null : show, q })}`);
+      const filter = { mine: { mine: true }, unassigned: { unassigned: true }, waiting: { status: 'waiting' }, closed: { status: 'closed' }, all: { status: 'all' } }[show] || {};
+      try {
+        const rows = await api('GET', `/cases?${query({ ...filter, q })}`);
+        if (mine !== seq) return;
+        count.textContent = plural(rows.length, 'case');
+        replace(list, rows.length ? rows.map((c) => caseItem(c)) : h('div', { class: 'empty' }, icon('briefcase'), q ? 'No case matches.' : 'No cases here.'));
+      } catch (e) {
+        if (mine === seq) failed(list, e);
+      }
+    };
+    const drawChips = () => replace(chips, SHOWS.map(([k, label]) =>
+      h('button', { type: 'button', class: 'chip', 'aria-pressed': String(show === k), on: { click: () => { show = k; drawChips(); load(); } } }, label)));
+    search.addEventListener('input', debounce(load, 250));
+    drawChips();
+    load();
+    return { load, el: [
+      h('div', { class: 'toolbar' }, h('div', { class: 'search' }, icon('search'), search), chips),
+      h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Cases'), h('div', { class: 'actions' }, count)), list)] };
+  };
 
   const sanctionItem = (s, reload) => h('div', { class: 'list-item' },
     h('div', { class: `list-icon ${s.banned_until_ms ? 'danger' : 'warn'}` }, icon(s.banned_until_ms ? 'ban' : 'mute')),
@@ -2040,36 +2543,546 @@ function moderationPage(ctx) {
       s.muted_until_ms && button('Unmute', { small: true, icon: 'undo', on: { click: () => moderateDialog(s.name, 'unmute', reload) } }),
       s.banned_until_ms && button('Unban', { small: true, icon: 'undo', on: { click: () => moderateDialog(s.name, 'unban', reload) } })));
 
-  const draw = () => {
-    replace(tabs,
-      h('button', { type: 'button', 'aria-pressed': String(tab === 'current'), on: { click: () => { tab = 'current'; history.replaceState(null, '', '/moderation'); draw(); } } }, 'Muted & banned'),
-      h('button', { type: 'button', 'aria-pressed': String(tab === 'history'), on: { click: () => { tab = 'history'; history.replaceState(null, '', '/moderation?tab=history'); draw(); } } }, 'History'));
-    if (tab === 'current') {
-      const list = h('div', { class: 'list' }, h('div', { class: 'empty' }, h('div', { class: 'spinner' })));
-      const count = h('span', { class: 'muted' });
-      const load = async () => {
-        try {
-          const rows = await api('GET', '/lookup/sanctions');
-          count.textContent = plural(rows.length, 'player');
-          replace(list, rows.length ? rows.map((s) => sanctionItem(s, load)) : h('div', { class: 'empty' }, icon('shield'), 'Nobody is muted or banned.'));
-        } catch (e) {
-          replace(list, h('div', { class: 'empty' }, e.message));
-        }
-      };
-      load();
-      replace(body, h('div', { class: 'card-head' }, h('h2', {}, 'In force now'), h('div', { class: 'actions' }, count)), list);
-    } else {
-      const paged = pagedList((before) => api('GET', `/lookup/moderation?${query({ before })}`), moderationItem, 'No moderation on record.');
-      replace(body, h('div', { class: 'card-head' }, h('h2', {}, 'Every action, newest first')), paged.el);
-    }
+  const sanctionsTab = () => {
+    const list = spinnerList();
+    const count = h('span', { class: 'muted' });
+    const load = async () => {
+      try {
+        const rows = await api('GET', '/lookup/sanctions');
+        sanctions = rows;
+        drawStats();
+        count.textContent = plural(rows.length, 'player');
+        replace(list, rows.length ? rows.map((s) => sanctionItem(s, load)) : h('div', { class: 'empty' }, icon('shield'), 'Nobody is muted or banned.'));
+      } catch (e) {
+        failed(list, e);
+      }
+    };
+    load();
+    return { load, el: h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'In force now'), h('div', { class: 'actions' }, count)), list) };
   };
+
+  const historyTab = () => {
+    const paged = pagedList((before) => api('GET', `/lookup/moderation?${query({ before })}`), moderationItem, 'No moderation on record.');
+    return { load: paged.reload, el: h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Every action, in game or here, newest first')), paged.el) };
+  };
+
+  let current = null;
+  const draw = () => {
+    replace(tabs, CENTER_TABS.map(([k, label]) =>
+      h('button', { type: 'button', 'aria-pressed': String(tab === k), on: { click: () => go(k) } }, label)));
+    current = { overview, triage: triageTab, cases: casesTab, sanctions: sanctionsTab, history: historyTab }[tab]();
+    replace(body, current.el);
+  };
+  const reload = () => current?.load();
+
+  drawStats();
+  loadCaseSummary();
+  if (tab !== 'overview') loadCounts().catch(() => {});
+  ctx.cleanup(onCases(drawStats));
+  // Kept fresh while it's open, except under a dialog or on paged lists.
+  const timer = setInterval(() => {
+    if (document.hidden || document.querySelector('dialog[open]')) return;
+    if (tab === 'overview') reload();
+    else loadCounts().catch(() => {});
+  }, 30000);
+  ctx.cleanup(() => clearInterval(timer));
   draw();
 
   return h('div', { class: 'page' },
-    pageHead('Moderation', 'Mutes and bans in force, and everything staff have done, in game or here.',
-      button('Moderate by name', { icon: 'shield', on: { click: () => moderateDialog('', 'mute', draw) } })),
+    pageHead('Moderation center', 'Cases staff work on together, the reports and flagged sessions waiting to be looked at, and every action taken.',
+      button('Moderate by name', { icon: 'shield', on: { click: () => moderateDialog('', 'mute', reload) } }),
+      button('Open a case', { icon: 'briefcase', kind: 'primary', on: { click: () => newCaseDialog({}, reload) } })),
+    stats,
     tabs,
     body);
+}
+
+// ---------------------------------------------------------------------------
+// A case: its evidence, who's on it, and a timeline of everything done,
+// comments included. It refreshes every few seconds, so staff on it together
+// see each other's changes, and who else has it open.
+
+function evidenceLabel(e) {
+  if (e.type === 'report') return `${e.reporter}'s report of ${e.offender} (${REPORT_RULES[e.reason] || 'unknown rule'})`;
+  if (e.type === 'replay') return `${e.player}'s session of ${fullTime(e.started_ms)}`;
+  return `${e.from}'s message "${clip(e.message, 60)}"`;
+}
+
+function evidenceItem(e, onRemove) {
+  const remove = onRemove && button(null, { small: true, kind: 'ghost', icon: 'x', 'aria-label': 'Remove from the case', title: 'Remove from the case', on: { click: onRemove } });
+  const row = (iconName, tone, title, sub, side) => h('div', { class: 'list-item' },
+    h('div', { class: `list-icon ${tone}` }, icon(iconName)),
+    h('div', { class: 'list-main' }, h('div', { class: 'list-title' }, title), h('div', { class: 'list-sub' }, sub)),
+    h('div', { class: 'list-side', title: fullTime(side) }, ago(side)),
+    remove);
+  if (e.type === 'report') {
+    return row('flag', 'warn',
+      [h('b', {}, playerLink(e.reporter)), ' reported ', h('b', {}, playerLink(e.offender)), ' ', h('span', { class: 'badge' }, ruleName(e.reason))],
+      [`${worldOf(e.node)} · ${where(e.x, e.z, e.level)} · `, watchLink(e.offender, e.at_ms, 'Their session'), ' ', watchLink(e.reporter, e.at_ms, 'Reporter\'s view')],
+      e.at_ms);
+  }
+  if (e.type === 'replay') {
+    return row(e.score > 0 ? 'alert' : 'play', e.score > 0 ? 'danger' : '',
+      [link(`/replay?${query({ id: e.id })}`, { class: 'name-link' }, h('b', {}, `${e.player}'s session`)), ' ', e.flags.map(flagBadge)],
+      `${worldOf(e.node)} · ${fullTime(e.started_ms)} · ${clock(e.duration_ms / 1000)}${e.score > 0 ? ` · score ${e.score}` : ''}`,
+      e.started_ms);
+  }
+  return row('chat', '',
+    [h('b', {}, playerLink(e.from)), e.to && [h('span', { class: 'muted' }, ' to '), h('b', {}, playerLink(e.to))]],
+    [h('span', { class: `chat-text ${e.to ? 'private' : ''}` }, e.message), h('br'), `${worldOf(e.node)} · ${fullTime(e.at_ms)}`],
+    e.at_ms);
+}
+
+// One timeline entry, in words: [what, icon, tone, body].
+function describeEntry(e, timeline) {
+  const b = (text) => h('b', {}, text);
+  const text = (t) => t && richText(e.html, t);
+  switch (e.kind) {
+    case 'opened': return [['opened the case on ', b(e.player)], 'briefcase', 'accent'];
+    case 'comment': return ['', 'chat', '', text(e.text)];
+    case 'assigned': return [e.name === e.by ? 'joined the case' : ['put ', b(e.name), ' on the case'], 'plus', 'accent'];
+    case 'unassigned': return [e.name === e.by ? 'left the case' : ['took ', b(e.name), ' off the case'], 'logout', ''];
+    case 'status': return [['set the status to ', b(CASE_STATUS[e.status]?.[0] || e.status)], 'activity', ''];
+    case 'priority': return [['set the priority to ', b(PRIORITIES.find(([k]) => k === e.priority)?.[1] || e.priority)], 'alert', PRIORITY_TONE[e.priority] || ''];
+    case 'retitled': return [['renamed it ', b(`"${e.title}"`)], 'edit', ''];
+    case 'evidence_added': return [['added ', b(evidenceLabel(e.evidence))], 'clip', ''];
+    case 'evidence_removed': {
+      const was = timeline.find((x) => x.kind === 'evidence_added' && evidenceKey(x.evidence) === e.key);
+      return [['removed ', b(was ? evidenceLabel(was.evidence) : e.key)], 'trash', ''];
+    }
+    case 'action': {
+      const [verb, iconName, tone] = MOD_VERBS[e.action] || [e.action, 'shield', ''];
+      const what = e.ok
+        ? [`${verb} `, playerLink(e.name), e.hours ? ` for ${hoursLabel(e.hours)}` : '']
+        : [`tried to ${e.action} `, playerLink(e.name), ' ', h('span', { class: 'badge danger' }, 'Failed')];
+      // The reason starts with the case it came from, which is this one.
+      const why = (e.reason || '').replace(/^Case #\d+:?\s*/, '');
+      return [what, iconName, e.ok ? tone : 'danger', h('div', { class: 'list-sub' }, e.message, why && ` Reason: ${why}`)];
+    }
+    case 'closed': return [['closed it: ', b(RESOLUTIONS[e.resolution] || e.resolution)], 'check', 'ok', text(e.note)];
+    case 'reopened': return ['reopened the case', 'undo', 'accent'];
+    default: return [e.kind.replace(/_/g, ' '), 'activity', ''];
+  }
+}
+
+function caseEntry(e, timeline) {
+  const [what, iconName, tone, body] = describeEntry(e, timeline);
+  const comment = e.kind === 'comment';
+  return h('div', { class: `list-item case-entry ${comment ? 'comment' : ''}` },
+    comment ? h('div', { class: 'avatar' }, initial(e.by)) : h('div', { class: `list-icon ${tone}` }, icon(iconName)),
+    h('div', { class: 'list-main' }, h('div', { class: 'list-title' }, h('b', {}, e.by), ' ', what), body),
+    h('div', { class: 'list-side', title: fullTime(e.at_ms) }, ago(e.at_ms)));
+}
+
+// Evidence to add to case `c`: reports against a player (the case's, or
+// anyone's, such as the other side of a scam), their sessions, or chat.
+function evidenceDialog(c, onAdded) {
+  let kind = 'reports';
+  const have = new Set(c.evidence.map(evidenceKey));
+  const nameInput = h('input', { class: 'input', type: 'search', value: c.player, maxlength: '12', placeholder: 'Player name', 'aria-label': 'Player' });
+  const kinds = h('div', { class: 'segmented' });
+  const body = h('div', { class: 'pick-list' });
+  const add = (item) => {
+    const key = `${item.type}:${item.id}`;
+    const done = have.has(key);
+    const btn = button(done ? 'Added' : 'Add', { small: true, icon: done ? 'check' : 'plus', disabled: done });
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      try {
+        const detail = await api('POST', `/cases/${c.id}`, { op: 'add_evidence', item });
+        have.add(key);
+        replace(btn, icon('check'), 'Added');
+        onAdded(detail);
+      } catch (e) {
+        btn.disabled = false;
+        toast(e.message, 'error');
+      }
+    });
+    return btn;
+  };
+  const pick = (iconName, title, sub, action) => h('div', { class: 'list-item' },
+    h('div', { class: 'list-icon' }, icon(iconName)),
+    h('div', { class: 'list-main' }, h('div', { class: 'list-title' }, title), h('div', { class: 'list-sub' }, sub)),
+    action);
+  const load = () => {
+    const who = nameInput.value.trim();
+    if (!validName(who)) return replace(body, h('div', { class: 'empty' }, 'Enter a player name.'));
+    const specs = {
+      reports: [(before) => api('GET', `/lookup/reports?${query({ name: who, before })}`),
+        (r) => pick('flag', [h('b', {}, r.reporter), ' reported ', h('b', {}, r.offender), ' ', h('span', { class: 'badge' }, ruleName(r.reason))],
+          `${worldOf(r.node)} · ${fullTime(r.at_ms)}`, add({ type: 'report', id: r.id })),
+        `No reports against ${who}.`, (r) => r.id],
+      sessions: [(before) => api('GET', `/replays?${query({ name: who, before })}`),
+        (r) => pick(r.score > 0 ? 'alert' : 'play', [h('b', {}, `${r.player}'s session`), ' ', r.flags.map(flagBadge)],
+          `${worldOf(r.node)} · ${fullTime(r.started_ms)} · ${clock(r.duration_ms / 1000)}${r.score > 0 ? ` · score ${r.score}` : ''}`, add({ type: 'replay', id: r.id })),
+        `No recorded sessions of ${who}.`, (r) => r.started_ms],
+      chat: [(before) => api('GET', `/lookup/chat?${query({ name: who, before })}`),
+        (m) => pick('chat', [h('b', {}, m.from), m.to && [' to ', h('b', {}, m.to)], ': ', h('span', { class: `chat-text ${m.to ? 'private' : ''}` }, m.message)],
+          `${worldOf(m.node)} · ${fullTime(m.at_ms)}`, add({ type: 'chat', id: m.id })),
+        `No chat from ${who}.`, (m) => m.id],
+    };
+    const [fetchPage, item, empty, cursor] = specs[kind];
+    replace(body, pagedList(fetchPage, item, empty, cursor).el);
+  };
+  const drawKinds = () => replace(kinds, [['reports', 'Reports against'], ['sessions', 'Sessions'], ['chat', 'Chat']].map(([k, label]) =>
+    h('button', { type: 'button', 'aria-pressed': String(kind === k), on: { click: () => { kind = k; drawKinds(); load(); } } }, label)));
+  nameInput.addEventListener('input', debounce(load, 400));
+  drawKinds();
+  load();
+  openDialog({
+    title: 'Add evidence',
+    subtitle: `To case #${c.id}. Looking at chat here is recorded in the audit log.`,
+    width: '680px',
+    body: [h('div', { class: 'evidence-tools' }, h('div', { class: 'search' }, icon('search'), nameInput), kinds), body],
+    actions: [{ label: 'Done' }],
+  });
+}
+
+function casePage(ctx) {
+  const id = Number(ctx.params.get('id'));
+  const page = h('div', { class: 'page' });
+  const head = h('div', {}, pageHead(`Case #${ctx.params.get('id') || ''}`, 'Loading...'));
+  append(page, head);
+  if (!Number.isInteger(id) || id < 1) {
+    replace(head, pageHead('Case', 'No such case.'));
+    return page;
+  }
+
+  const presence = h('div', { class: 'presence hidden', role: 'status' });
+  const evidenceList = h('div', { class: 'list' });
+  const evidenceCount = h('span', { class: 'muted' });
+  const timeline = h('div', { class: 'list case-timeline' });
+  const playerBox = h('div', { class: 'card-body' }, h('div', { class: 'spinner' }));
+  const caseBox = h('div', { class: 'card-body' });
+  const others = spinnerList();
+  const reportsBox = h('div', {}, spinnerList());
+  const pastActions = spinnerList();
+  const layout = h('div', { class: 'case-layout hidden' });
+  let c = null;
+  let record;
+
+  const draftKey = `caseDraft:${id}`;
+  const composer = h('textarea', { class: 'input composer-text', maxlength: '4000', placeholder: 'Write a comment for everyone on the case. Markdown works; paste or drop in images, GIFs and videos.', 'aria-label': 'Comment', value: prefs.get(draftKey, '') });
+  const composerMedia = mediaUploader(composer, caseUpload, 'Attach');
+  const send = button('Comment', { kind: 'primary', icon: 'chat' });
+  const previewBox = h('div', { class: 'composer-preview hidden' });
+  const previewButton = button('Preview', { small: true, kind: 'ghost', icon: 'eye', 'aria-pressed': 'false' });
+  let previewing = false;
+  const setPreview = async (on) => {
+    previewing = on;
+    previewButton.setAttribute('aria-pressed', String(on));
+    composer.classList.toggle('hidden', on);
+    previewBox.classList.toggle('hidden', !on);
+    if (!on) return composer.focus();
+    replace(previewBox, h('div', { class: 'spinner' }));
+    try {
+      const { html } = await api('POST', '/cases/preview', { markdown: composer.value });
+      replace(previewBox, composer.value.trim() ? richText(html, composer.value) : h('p', { class: 'muted' }, 'Nothing to preview yet.'));
+    } catch (e) {
+      replace(previewBox, h('p', { class: 'error-text' }, e.message));
+    }
+  };
+  previewButton.addEventListener('click', () => setPreview(!previewing));
+  const addEvidence = button('Add evidence', { small: true, icon: 'plus' });
+
+  const op = async (body) => {
+    const detail = await api('POST', `/cases/${id}`, body);
+    show(detail, true);
+    loadCaseSummary();
+    return detail;
+  };
+  const run = (body, done) => async () => {
+    try {
+      await op(body);
+      if (done) toast(done);
+    } catch (e) {
+      toast(e.message, 'error');
+    }
+  };
+  const open = () => c.status !== 'closed';
+  const afterAction = () => {
+    refresh();
+    loadPlayer();
+    loadHistory();
+  };
+
+  const retitleDialog = () => {
+    const input = h('input', { class: 'input', value: c.title, maxlength: '100', required: true, autofocus: true, autocomplete: 'off' });
+    openDialog({
+      title: 'Rename case',
+      subtitle: `#${c.id}`,
+      body: [h('label', { class: 'field' }, h('span', {}, 'Title'), input)],
+      actions: [{ label: 'Cancel' }, { label: 'Rename', kind: 'primary', run: () => op({ op: 'retitle', title: input.value.trim() }) }],
+    });
+  };
+
+  const closeDialog = () => {
+    let resolution = c.actions > 0 ? 'actioned' : 'no_action';
+    const seg = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Outcome' });
+    const hint = h('p', { class: 'hint' });
+    const note = h('textarea', { class: 'input', maxlength: '4000', placeholder: 'What was found and what was done. Optional, but the next person to look will thank you.' });
+    const noteMedia = mediaUploader(note, caseUpload, 'Attach');
+    const draw = () => {
+      replace(seg, Object.entries(RESOLUTIONS).map(([k, label]) =>
+        h('button', { type: 'button', 'aria-pressed': String(resolution === k), on: { click: () => { resolution = k; draw(); } } }, label)));
+      hint.textContent = {
+        actioned: c.actions ? `${plural(c.actions, 'action')} sent from this case.` : 'No moderation was sent from this case: say in the note what was done.',
+        no_action: 'Looked into: nothing to do.',
+        duplicate: 'Another case covers it: say which in the note.',
+      }[resolution];
+    };
+    draw();
+    openDialog({
+      title: `Close case #${c.id}`,
+      subtitle: c.title,
+      body: [
+        h('div', { class: 'field' }, h('span', {}, 'Outcome'), seg, hint),
+        h('div', { class: 'field' }, h('span', {}, 'Note'), note,
+          h('div', { class: 'news-tools' }, noteMedia.button, noteMedia.status, noteMedia.input), h('span', { class: 'hint' }, MARKDOWN_HINT)),
+        c.assignees.length > 1 && h('div', { class: 'callout' }, icon('users'), h('div', {}, `Closes it for everyone on it: ${listNames(c.assignees)}.`)),
+      ],
+      actions: [{ label: 'Cancel' }, { label: 'Close case', kind: 'primary', icon: 'check', run: async () => {
+        if (noteMedia.busy()) throw new Error('Wait for the upload to finish.');
+        await op({ op: 'close', resolution, note: note.value });
+        toast(`Closed case #${c.id}.`);
+      } }],
+    });
+  };
+
+  const assignDialog = async () => {
+    const list = h('div', { class: 'chips' }, h('div', { class: 'spinner' }));
+    const { close } = openDialog({ title: 'Put staff on the case', subtitle: 'It shows under Your cases for them.', body: [list], actions: [{ label: 'Done' }] });
+    try {
+      const staff = await api('GET', '/cases/staff');
+      const free = staff.filter((s) => !c.assignees.some((a) => nameKey(a) === nameKey(s.name)));
+      replace(list, free.length ? free.map((s) => button(s.name, { small: true, icon: 'plus', title: s.role, on: { click: async () => {
+        try {
+          await op({ op: 'assign', name: s.name });
+          toast(`${s.name} is on the case.`);
+          close();
+        } catch (e) { toast(e.message, 'error'); }
+      } } })) : h('p', { class: 'muted' }, 'Everyone is on it already.'));
+    } catch (e) {
+      replace(list, h('p', { class: 'error-text' }, e.message));
+    }
+  };
+
+  const drawHead = () => {
+    const on = c.assignees.some(isMe);
+    replace(head, pageHead(
+      h('span', {}, h('span', { class: 'case-id num' }, `#${c.id}`), c.title, ' ', statusBadge(c), ' ', priorityBadge(c.priority)),
+      h('span', {}, 'On ', playerLink(c.player), ` · opened by ${c.created_by} ${ago(c.created_ms)}`,
+        c.closed_ms ? ` · closed by ${c.closed_by} ${ago(c.closed_ms)}` : ''),
+      open() && button(null, { icon: 'edit', 'aria-label': 'Rename', title: 'Rename', on: { click: retitleDialog } }),
+      open() && button(on ? 'Leave' : 'Join', { icon: on ? 'logout' : 'plus', on: { click: run({ op: on ? 'leave' : 'join' }, on ? 'You left the case.' : 'You\'re on the case.') } }),
+      open() && button('Moderate', { icon: 'shield', on: { click: () => moderateDialog(c.player, 'mute', afterAction, c.id) } }),
+      open()
+        ? button('Close case', { icon: 'check', kind: 'primary', on: { click: closeDialog } })
+        : button('Reopen', { icon: 'undo', on: { click: run({ op: 'reopen' }, 'Reopened.') } })));
+  };
+
+  const drawPresence = () => {
+    presence.classList.toggle('hidden', !c.viewing.length);
+    replace(presence, h('span', { class: 'dot ok' }), `${listNames(c.viewing)} ${c.viewing.length === 1 ? 'has' : 'have'} this case open too.`);
+  };
+
+  const drawEvidence = () => {
+    evidenceCount.textContent = c.evidence.length ? plural(c.evidence.length, 'item') : '';
+    addEvidence.disabled = !open();
+    const remove = (e) => open() && (() => confirmDialog({
+      title: 'Remove evidence',
+      subtitle: evidenceLabel(e),
+      body: [h('p', { class: 'muted' }, 'It comes out of the case. The timeline keeps a note that it was there.')],
+      label: 'Remove',
+      kind: 'danger',
+      run: () => op({ op: 'remove_evidence', key: evidenceKey(e) }),
+    }));
+    replace(evidenceList, c.evidence.length
+      ? c.evidence.map((e) => evidenceItem(e, remove(e)))
+      : h('div', { class: 'empty' }, icon('clip'), 'No evidence yet: add reports, sessions or chat.'));
+  };
+
+  const drawTimeline = () => {
+    const shown = timeline.children.length;
+    const atEnd = timeline.getBoundingClientRect().bottom <= window.innerHeight + 40;
+    replace(timeline, c.timeline.map((e) => caseEntry(e, c.timeline)));
+    // New entries come into view if you were reading the end already.
+    if (shown && shown < c.timeline.length && atEnd) timeline.lastElementChild?.scrollIntoView({ block: 'nearest' });
+  };
+
+  const drawCase = () => {
+    const seg = (options, current, opName) => h('div', { class: 'segmented small' }, options.map(([k, label]) =>
+      h('button', { type: 'button', 'aria-pressed': String(current === k), disabled: !open(), on: { click: () => current !== k && run({ op: opName, [opName]: k })() } }, label)));
+    const people = h('div', { class: 'assignees' },
+      c.assignees.map((n) => h('span', { class: 'assignee' }, h('span', { class: 'avatar' }, initial(n)), h('span', {}, n),
+        open() && button(null, { small: true, kind: 'ghost', icon: 'x', 'aria-label': `Take ${n} off`, title: isMe(n) ? 'Leave' : `Take ${n} off`, on: { click: run({ op: 'unassign', name: n }) } }))),
+      !c.assignees.length && h('span', { class: 'muted' }, 'Nobody yet.'),
+      open() && button('Add', { small: true, icon: 'plus', on: { click: assignDialog } }));
+    const facts = [
+      ['Opened', `${fullTime(c.created_ms)} by ${c.created_by}`],
+      ['Last change', ago(c.updated_ms)],
+      c.closed_ms && ['Closed', `${fullTime(c.closed_ms)} by ${c.closed_by}`],
+      ['Moderation sent', String(c.actions)],
+      ['Comments', String(c.comments)],
+    ].filter(Boolean);
+    replace(caseBox,
+      h('div', { class: 'field' }, h('span', {}, 'Status'), c.status === 'closed'
+        ? h('div', {}, statusBadge(c))
+        : seg([['open', 'Open'], ['investigating', 'Investigating'], ['waiting', 'Waiting']], c.status, 'status')),
+      h('div', { class: 'field' }, h('span', {}, 'Priority'), seg(PRIORITIES, c.priority, 'priority')),
+      h('div', { class: 'field' }, h('span', {}, 'On it'), people),
+      h('dl', { class: 'facts' }, facts.map(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])));
+  };
+
+  const drawPlayer = () => {
+    const act = (action) => () => moderateDialog(c.player, action, afterAction, open() ? c.id : undefined);
+    const links = h('div', { class: 'chips' },
+      link(`/player?${query({ name: c.player })}`, { class: 'btn small ghost' }, icon('user'), 'Profile'),
+      link(`/chat?${query({ name: c.player })}`, { class: 'btn small ghost' }, icon('chat'), 'Chat'),
+      link(`/replays?${query({ name: c.player })}`, { class: 'btn small ghost' }, icon('play'), 'Sessions'),
+      link(`/moderation?${query({ tab: 'triage', all: 1, name: c.player })}`, { class: 'btn small ghost' }, icon('flag'), 'Reports'));
+    if (!record) {
+      replace(playerBox, h('p', { class: 'muted' }, `No registered player is called ${c.player}. Reports name whoever the reporter typed.`), links);
+      return;
+    }
+    const muted = record.muted_until_ms != null;
+    const banned = record.banned_until_ms != null;
+    const online = record.online_node != null;
+    replace(playerBox,
+      h('div', { class: 'list-title' }, h('b', {}, playerLink(record.name)), ' ', playerBadges({ staff_level: record.staff_level }),
+        online ? h('span', { class: 'badge ok' }, `Online · ${worldOf(record.online_node)}`) : h('span', { class: 'badge' }, 'Offline'),
+        muted && h('span', { class: 'badge warn' }, `Muted · ${until(record.muted_until_ms)}`),
+        banned && h('span', { class: 'badge danger' }, `Banned · ${until(record.banned_until_ms)}`)),
+      h('dl', { class: 'facts' },
+        h('dt', {}, 'Registered'), h('dd', {}, new Date(record.registered_ms).toLocaleDateString()),
+        h('dt', {}, 'Last seen'), h('dd', {}, online ? 'Now' : record.last_seen_ms ? ago(record.last_seen_ms) : 'Never')),
+      h('div', { class: 'chips' },
+        online && button('Kick', { small: true, icon: 'kick', on: { click: act('kick') } }),
+        button(muted ? 'Unmute' : 'Mute', { small: true, icon: muted ? 'undo' : 'mute', on: { click: act(muted ? 'unmute' : 'mute') } }),
+        button(banned ? 'Unban' : 'Ban', { small: true, icon: banned ? 'undo' : 'ban', kind: banned ? undefined : 'danger', on: { click: act(banned ? 'unban' : 'ban') } })),
+      links);
+  };
+
+  const loadPlayer = async () => {
+    try {
+      record = await api('GET', `/lookup/player?${query({ name: c.player })}`);
+      drawPlayer();
+    } catch (e) {
+      replace(playerBox, h('p', { class: 'error-text' }, e.message));
+    }
+  };
+  // Every report against them, in this case or not: what isn't may still
+  // say something about them.
+  let reportsShown = null;
+  const loadReports = () => {
+    const inCase = new Set(c.evidence.map(evidenceKey));
+    reportsShown = `${c.player}|${open()}|${[...inCase].filter((k) => k.startsWith('report:')).sort()}`;
+    const item = (r) => {
+      const here = inCase.has(`report:${r.id}`);
+      const elsewhere = (r.cases || []).filter((x) => x !== id);
+      const row = { ...r, cases: elsewhere };
+      return reportItem(row, null, h('div', { class: 'chips item-actions' },
+        here
+          ? h('span', { class: 'badge ok' }, icon('check'), 'In this case')
+          : open() && button('Add to case', { small: true, icon: 'plus', on: { click: run({ op: 'add_evidence', item: { type: 'report', id: r.id } }, 'Added to the case.') } })));
+    };
+    replace(reportsBox, pagedList((before) => api('GET', `/lookup/reports?${query({ name: c.player, before })}`), item, 'No abuse reports against them.').el);
+  };
+  const loadOthers = () => api('GET', `/cases?${query({ player: c.player, status: 'all' })}`).then((rows) => {
+    const rest = rows.filter((x) => x.id !== id);
+    replace(others, rest.length ? rest.map((x) => caseItem(x)) : h('div', { class: 'empty' }, 'No other cases on them.'));
+  }).catch((e) => failed(others, e));
+  const loadHistory = () => api('GET', `/lookup/moderation?${query({ name: c.player })}`).then((rows) => {
+    replace(pastActions, rows.length ? rows.slice(0, 6).map(moderationItem) : h('div', { class: 'empty' }, 'No moderation on record.'));
+  }).catch((e) => failed(pastActions, e));
+
+  // Redraws what changed; `force` after your own change.
+  const show = (detail, force) => {
+    const first = !c;
+    const changed = force || first || detail.updated_ms !== c.updated_ms || detail.timeline.length !== c.timeline.length;
+    const playerChanged = first || detail.player !== c.player;
+    c = detail;
+    drawPresence();
+    if (!changed) return;
+    document.title = `#${c.id} ${c.title} · RS Admin`;
+    layout.classList.remove('hidden');
+    drawHead();
+    drawEvidence();
+    drawCase();
+    drawTimeline();
+    if (playerChanged) {
+      loadPlayer();
+      loadOthers();
+      loadHistory();
+    }
+    const reportKeys = c.evidence.map(evidenceKey).filter((k) => k.startsWith('report:')).sort();
+    if (reportsShown !== `${c.player}|${open()}|${reportKeys}`) loadReports();
+  };
+  const refresh = async () => {
+    try {
+      show(await api('GET', `/cases/${id}`));
+    } catch (e) {
+      if (!c) replace(head, pageHead(`Case #${id}`, e.message));
+    }
+  };
+
+  const sendComment = async () => {
+    const text = composer.value.trim();
+    if (composerMedia.busy()) return toast('Wait for the upload to finish.', 'error');
+    if (!text) return setPreview(false);
+    send.disabled = true;
+    try {
+      await op({ op: 'comment', text });
+      composer.value = '';
+      prefs.set(draftKey, '');
+      if (previewing) setPreview(false);
+      timeline.lastElementChild?.scrollIntoView({ block: 'nearest' });
+    } catch (e) {
+      toast(e.message, 'error');
+    } finally {
+      send.disabled = false;
+    }
+  };
+  send.addEventListener('click', sendComment);
+  composer.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      sendComment();
+    }
+  });
+  // An unsent comment survives leaving the page, in this browser.
+  composer.addEventListener('input', debounce(() => prefs.set(draftKey, composer.value), 300));
+  addEvidence.addEventListener('click', () => evidenceDialog(c, (detail) => show(detail, true)));
+
+  refresh();
+  const timer = setInterval(() => { if (!document.hidden) refresh(); }, 5000);
+  ctx.cleanup(() => clearInterval(timer));
+  // Evidence names worlds by node until the world list first arrives.
+  let named = state.worldsLoaded;
+  ctx.cleanup(onWorlds(() => {
+    if (named || !c) return;
+    named = true;
+    drawEvidence();
+  }));
+
+  append(layout,
+    h('div', { class: 'column' },
+      card('Evidence', [evidenceCount, addEvidence], evidenceList),
+      card('Reports against them', h('span', { class: 'muted' }, 'All of them, in this case or not'), reportsBox),
+      h('section', { class: 'card' },
+        h('div', { class: 'card-head' }, h('h2', {}, 'Timeline')),
+        timeline,
+        h('div', { class: 'composer' }, composer, previewBox,
+          h('div', { class: 'composer-foot' },
+            h('div', { class: 'news-tools' }, composerMedia.button, composerMedia.status, composerMedia.input),
+            h('div', { class: 'composer-send' }, h('span', { class: 'hint' }, 'Ctrl+Enter to send. All staff can read it.'), previewButton, send))))),
+    h('div', { class: 'column' },
+      card('Player', null, playerBox),
+      card('Case', null, caseBox),
+      card('Other cases on them', null, others),
+      card('Moderation history', null, pastActions)));
+  append(page, presence, layout);
+  return page;
 }
 
 // ---------------------------------------------------------------------------
@@ -2132,7 +3145,7 @@ function kilobytes(n) {
 
 const replayHref = (r) => `/replay?${query({ id: r.id })}`;
 
-function replayItem(r) {
+function replayItem(r, extra) {
   const flagged = r.score > 0;
   return h('div', { class: 'list-item' },
     h('div', { class: `list-icon ${flagged ? 'danger' : r.live ? 'ok' : ''}` }, icon(flagged ? 'alert' : 'play')),
@@ -2141,9 +3154,10 @@ function replayItem(r) {
         link(replayHref(r), { class: 'name-link' }, r.player), ' ',
         r.live && h('span', { class: 'badge ok' }, 'Live'), ' ',
         !r.complete && h('span', { class: 'badge warn', title: 'Part of it was lost: it stops early.' }, 'Incomplete'), ' ',
-        r.flags.map(flagBadge)),
+        r.flags.map(flagBadge), caseLinks(r.cases), dismissedBadge(r.dismissed)),
       h('div', { class: 'list-sub' },
-        `${r.world ? `World ${r.world}` : `Node ${r.node}`} · ${clock(r.duration_ms / 1000)} · ${kilobytes(r.bytes)}${flagged ? ` · score ${r.score}` : ''}`)),
+        `${r.world ? `World ${r.world}` : `Node ${r.node}`} · ${clock(r.duration_ms / 1000)} · ${kilobytes(r.bytes)}${flagged ? ` · score ${r.score}` : ''}`),
+      extra),
     h('div', { class: 'list-side', title: fullTime(r.started_ms) }, ago(r.started_ms)));
 }
 
@@ -2758,10 +3772,14 @@ function replayPage(ctx) {
       return;
     }
     const r = detail.replay;
+    const refs = [{ type: 'replay', id: r.id }];
+    const caseTitle = r.flags.length ? `Flagged session: ${FLAGS[r.flags[0]]?.[0] || r.flags[0]}` : '';
     replace(head, pageHead(
-      h('span', {}, playerLink(r.player), '\'s session'),
+      h('span', {}, playerLink(r.player), '\'s session', ' ', caseLinks(r.cases)),
       `${r.world ? `World ${r.world}` : `Node ${r.node}`} · ${fullTime(r.started_ms)} · ${clock(r.duration_ms / 1000)}${r.live ? ' so far (still playing)' : ''} · revision ${r.revision}`,
-      link(`/replays?${query({ name: r.player })}`, { class: 'btn' }, 'Their sessions')));
+      link(`/replays?${query({ name: r.player })}`, { class: 'btn' }, 'Their sessions'),
+      button('Add to case', { icon: 'plus', on: { click: () => addToCaseDialog({ refs, player: r.player, what: ['this session'], title: caseTitle }) } }),
+      button('Open case', { icon: 'briefcase', on: { click: () => newCaseDialog({ player: r.player, refs, what: ['this session'], title: caseTitle, priority: r.score >= 100 ? 'high' : 'normal' }) } })));
 
     replace(checks,
       r.score > 0
@@ -2777,7 +3795,8 @@ function replayPage(ctx) {
       return;
     }
     origin = new URL(detail.player_url).origin;
-    mount(0);
+    // `t`: where to start, as from a report's "Their session".
+    mount(Math.min(Math.max(0, Number(ctx.params.get('t')) || 0), r.duration_ms));
     // A finished recording never changes; a live one has grown since.
     const finished = !r.live && r.ended_ms != null;
     if (finished && replayCache.has(id)) {
@@ -2982,6 +4001,8 @@ function paletteItems(query) {
     { group: 'Actions', label: 'Kick a player...', icon: 'kick', run: () => moderateDialog('', 'kick') },
     { group: 'Actions', label: 'Mute a player...', icon: 'mute', run: () => moderateDialog('', 'mute') },
     { group: 'Actions', label: 'Ban a player...', icon: 'ban', run: () => moderateDialog('', 'ban') },
+    { group: 'Actions', label: 'Open a case...', icon: 'briefcase', run: () => newCaseDialog({}) },
+    { group: 'Actions', label: 'Triage reports and flagged sessions', icon: 'inbox', run: () => navigate('/moderation?tab=triage') },
     ...state.worlds.map((w) => ({
       group: 'Worlds',
       label: `${worldName(w)}${w.region ? ` · ${w.region}` : ''}`,
@@ -2992,10 +4013,13 @@ function paletteItems(query) {
   ].filter(Boolean);
   const q = query.trim().toLowerCase();
   const matches = q ? items.filter((i) => i.label.toLowerCase().includes(q)) : items.filter((i) => i.group !== 'Worlds');
+  const caseId = /^#?(\d{1,9})$/.exec(query.trim());
+  if (caseId) matches.unshift({ group: 'Cases', label: `Go to case #${caseId[1]}`, icon: 'briefcase', run: () => navigate(caseHref(caseId[1])) });
   if (q && /^[a-z0-9 _]{1,12}$/i.test(query.trim())) {
     matches.push({ group: 'Players', label: `Look up ${query.trim()}`, icon: 'user', run: () => navigate(`/player?name=${encodeURIComponent(query.trim())}`) });
     matches.push({ group: 'Players', label: `Find "${query.trim()}" online`, icon: 'search', run: () => navigate(`/players?q=${encodeURIComponent(query.trim())}`) });
     matches.push({ group: 'Players', label: `Chat logs of ${query.trim()}`, icon: 'chat', run: () => navigate(`/chat?name=${encodeURIComponent(query.trim())}`) });
+    matches.push({ group: 'Players', label: `Cases on ${query.trim()}`, icon: 'briefcase', run: () => navigate(`/moderation?tab=cases&show=all&q=${encodeURIComponent(query.trim())}`) });
   }
   return matches.slice(0, 40);
 }

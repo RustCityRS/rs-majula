@@ -1,12 +1,5 @@
-//! The website's private admin API, which the staff console (`rs-admin`)
-//! calls to post, edit and delete news, and to upload the images and videos
-//! posts embed. Requests are signed with the same shared secret the worlds
-//! use (see [`rs_admin_api`]).
-//!
-//! Bind it to a private interface only (`--admin-host`, loopback by default).
-
 use crate::app::App;
-use crate::{media, news_render};
+use crate::news_render;
 use axum::body::{Body, Bytes};
 use axum::extract::{Path, Request, State};
 use axum::http::{StatusCode, header};
@@ -16,7 +9,7 @@ use axum::routing::{get, post};
 use axum::{Json, Router};
 use rs_admin_api::{
     MAX_MEDIA_BYTES, MediaSaved, NewsCategory, NewsDelete, NewsItem, NewsList, NewsPage,
-    NewsRender, NewsRendered, NewsSave, Outcome, Verifier, path,
+    NewsRender, NewsRendered, NewsSave, Outcome, Verifier, media, path,
 };
 use rs_db::NewsAdminPost;
 use std::sync::Arc;
@@ -233,13 +226,9 @@ async fn media_file(
         .await
         .map_err(|_| StatusCode::NOT_FOUND)?;
     let kind = media::sniff(&bytes).ok_or(StatusCode::NOT_FOUND)?;
-    let content_type = match kind.extension {
-        "png" => "image/png",
-        "jpg" => "image/jpeg",
-        "gif" => "image/gif",
-        "webp" => "image/webp",
-        "mp4" => "video/mp4",
-        _ => "video/webm",
-    };
-    Ok(([(header::CONTENT_TYPE, content_type)], bytes).into_response())
+    Ok((
+        [(header::CONTENT_TYPE, media::content_type(kind.extension))],
+        bytes,
+    )
+        .into_response())
 }

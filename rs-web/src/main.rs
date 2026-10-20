@@ -1,6 +1,5 @@
 mod admin;
 mod app;
-mod media;
 mod metrics;
 mod news_render;
 mod routes;

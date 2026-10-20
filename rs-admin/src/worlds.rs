@@ -1,10 +1,3 @@
-//! The worlds the console manages, and its client for their admin APIs
-//! and the website's.
-//!
-//! Each world's status is polled in the background, so pages read a cache
-//! instead of calling every world per viewer. Commands go out to all their
-//! targets at once and come back with each world's own answer.
-
 use futures_util::StreamExt;
 use futures_util::stream;
 use rs_admin_api::{

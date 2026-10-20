@@ -1,9 +1,3 @@
-//! Player editing: a player's stats, items and position, and changes to
-//! them, whether they're logged in or not. The world they're on answers and
-//! changes them live; while they're logged out, any world answers from their
-//! save and changes it under a claim on their session, so they can't log in
-//! half way through.
-
 use super::players::checked_name;
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};

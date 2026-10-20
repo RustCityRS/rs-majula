@@ -2289,6 +2289,7 @@ dependencies = [
  "futures-util",
  "getrandom 0.4.3",
  "hmac",
+ "pulldown-cmark",
  "qrcode",
  "reqwest",
  "rpassword",
@@ -2298,6 +2299,7 @@ dependencies = [
  "sha1",
  "sha2 0.11.1",
  "tokio",
+ "tower-http 0.7.1",
  "tracing",
  "tracing-subscriber",
 ]

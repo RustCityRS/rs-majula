@@ -1,22 +1,17 @@
-//! Images and videos uploaded for news posts. Each is stored once, named by
-//! its content's hash, and served under `/news/media/` for good: a name
-//! never changes what it points at, so browsers and Cloudflare can cache it
-//! forever.
-
 use sha2::{Digest, Sha256};
 use std::io;
 use std::path::Path;
 
-/// A kind of file posts can embed, told by its first bytes, never by its
-/// name or the uploader's say-so.
+/// A kind of file that can be embedded, told by its first bytes, never by
+/// its name or the uploader's say-so.
 pub struct Media {
     pub extension: &'static str,
     /// `image` or `video`.
     pub kind: &'static str,
 }
 
-/// What `bytes` are, if they're an image or video posts can embed. SVG is
-/// left out on purpose: it can carry script.
+/// What `bytes` are, if they're an image or video that can be embedded. SVG
+/// is left out on purpose: it can carry script.
 pub fn sniff(bytes: &[u8]) -> Option<Media> {
     let media = |extension, kind| Some(Media { extension, kind });
     match bytes {
@@ -44,6 +39,18 @@ pub fn sniff(bytes: &[u8]) -> Option<Media> {
     }
 }
 
+/// The `Content-Type` a stored file is served with, by its extension.
+pub fn content_type(extension: &str) -> &'static str {
+    match extension {
+        "png" => "image/png",
+        "jpg" => "image/jpeg",
+        "gif" => "image/gif",
+        "webp" => "image/webp",
+        "mp4" => "video/mp4",
+        _ => "video/webm",
+    }
+}
+
 /// Whether `name` could be one of ours (and so is safe to look up).
 pub fn valid_name(name: &str) -> bool {
     let Some((hash, extension)) = name.split_once('.') else {
@@ -67,8 +74,7 @@ pub fn store(dir: &Path, bytes: &[u8], media: &Media) -> io::Result<String> {
         return Ok(name);
     }
     std::fs::create_dir_all(dir)?;
-    // Written aside then renamed into place, so the site never serves half
-    // a file.
+    // Written aside then renamed into place, so half a file is never served.
     let partial = dir.join(format!(".{name}.partial"));
     std::fs::write(&partial, bytes)?;
     std::fs::rename(&partial, &path)?;
@@ -103,7 +109,8 @@ mod tests {
 
     #[test]
     fn stores_once_by_content() {
-        let dir = std::env::temp_dir().join(format!("rs-web-media-test-{}", std::process::id()));
+        let dir =
+            std::env::temp_dir().join(format!("rs-admin-api-media-test-{}", std::process::id()));
         let bytes = b"GIF89a-test-bytes";
         let media = sniff(bytes).unwrap();
         let a = store(&dir, bytes, &media).unwrap();

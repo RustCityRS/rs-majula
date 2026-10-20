@@ -1,6 +1,3 @@
-//! Website news, written in Markdown, posted, edited and deleted through
-//! the website's admin API, with the images and videos posts embed.
-
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
 use axum::Json;

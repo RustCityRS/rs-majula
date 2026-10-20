@@ -1,12 +1,15 @@
 mod api;
 mod audit;
+mod cases;
 mod http;
+mod markdown;
 mod sessions;
 mod totp;
 mod users;
 mod worlds;
 
 use crate::audit::Audit;
+use crate::cases::Cases;
 use crate::http::{App, HttpConfig};
 use crate::sessions::Sessions;
 use crate::users::{Role, User, Users, hash_password, now_ms, password_problem};
@@ -284,6 +287,8 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         sessions: Sessions::default(),
         worlds: worlds.clone(),
         audit: Audit::open(data_dir.join("audit.jsonl")),
+        cases: Cases::open(data_dir.join("cases.jsonl")),
+        media_dir: data_dir.join("media"),
         config: HttpConfig {
             https: args.https,
             origin: args.origin.map(|o| o.trim_end_matches('/').to_owned()),

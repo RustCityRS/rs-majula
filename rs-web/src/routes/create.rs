@@ -1,7 +1,3 @@
-//! `/create`: register a player. The original's four steps (username, terms,
-//! password, finish) are kept, but carried in the forms themselves: each
-//! posts its `step` and the chosen username, which is re-checked every time.
-
 use crate::app::{App, AppError};
 use axum::Form;
 use axum::extract::{ConnectInfo, State};

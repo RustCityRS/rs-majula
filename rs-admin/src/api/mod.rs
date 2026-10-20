@@ -1,5 +1,6 @@
 mod account;
 mod auth;
+mod cases;
 mod edit;
 mod lookup;
 mod news;
@@ -42,6 +43,18 @@ pub fn router() -> Router<Arc<App>> {
         .route("/lookup/moderation", get(lookup::moderation))
         .route("/lookup/sanctions", get(lookup::sanctions))
         .route("/lookup/chat", get(lookup::chat))
+        .route("/lookup/reports", get(lookup::reports))
+        .route("/cases", get(cases::list).post(cases::create))
+        .route("/cases/summary", get(cases::summary))
+        .route("/cases/staff", get(cases::staff))
+        .route("/cases/{id}", get(cases::get).post(cases::change))
+        .route("/cases/preview", post(cases::preview))
+        .route(
+            "/cases/media",
+            post(cases::upload).layer(DefaultBodyLimit::max(MAX_MEDIA_BYTES)),
+        )
+        .route("/cases/media/{name}", get(cases::media))
+        .route("/triage", post(cases::triage))
         .route("/replays", get(replays::list))
         .route("/replays/{id}", get(replays::get))
         .route("/replays/{id}/file", get(replays::file))

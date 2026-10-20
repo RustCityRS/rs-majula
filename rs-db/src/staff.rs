@@ -1,7 +1,3 @@
-//! Read-only lookups for the staff console: a player's record, moderation
-//! history, current mutes and bans, and chat logs. The console reaches these
-//! through a world's admin API, never the database itself.
-
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 
@@ -62,6 +58,22 @@ pub struct ChatRecord {
     pub z: i16,
     pub y: i16,
     pub message: String,
+    pub at_ms: i64,
+}
+
+/// One abuse report from the in-game Report Abuse screen.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct ReportRecord {
+    pub id: i64,
+    pub reporter: String,
+    pub offender_name_hash: i64,
+    pub offender: Option<String>,
+    pub reason: i16,
+    pub node_id: i16,
+    pub x: i16,
+    pub z: i16,
+    pub y: i16,
+    pub muted: bool,
     pub at_ms: i64,
 }
 
@@ -166,6 +178,33 @@ impl Db {
             query.push(" AND c.id < ").push_bind(before);
         }
         query.push(" ORDER BY c.id DESC LIMIT ").push_bind(limit);
+        query.build_query_as().fetch_all(&self.pool).await
+    }
+
+    /// Abuse reports newest first: all of them, or only those against the
+    /// name `offender`, older than the report `before` when paging.
+    pub async fn abuse_reports(
+        &self,
+        offender: Option<u64>,
+        before: Option<i64>,
+        limit: i64,
+    ) -> Result<Vec<ReportRecord>, Error> {
+        let mut query = QueryBuilder::<Postgres>::new(concat!(
+            "SELECT s.id, r.display_name AS reporter, s.offender_name_hash, ",
+            "o.display_name AS offender, s.reason, s.node_id, s.x, s.z, s.y, s.muted, ",
+            ms!("s.created_at"),
+            " AS at_ms FROM snapshots s JOIN players r ON r.id = s.reporter_id ",
+            "LEFT JOIN players o ON o.name_hash = s.offender_name_hash WHERE true"
+        ));
+        if let Some(offender) = offender {
+            query
+                .push(" AND s.offender_name_hash = ")
+                .push_bind(offender as i64);
+        }
+        if let Some(before) = before {
+            query.push(" AND s.id < ").push_bind(before);
+        }
+        query.push(" ORDER BY s.id DESC LIMIT ").push_bind(limit);
         query.build_query_as().fetch_all(&self.pool).await
     }
 }

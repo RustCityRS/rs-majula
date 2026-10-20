@@ -1,7 +1,3 @@
-//! Console accounts, managed from the console by developers: the same
-//! changes as `rs-admin user ...`, each confirmed with the developer's own
-//! password and authenticator code, and audited.
-
 use super::account::reauthenticate;
 use super::players::checked_name;
 use crate::audit::Event;

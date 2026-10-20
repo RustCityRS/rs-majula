@@ -1,10 +1,7 @@
-//! Session recordings: the list, the anti-cheat checks' verdicts, and the
-//! replay file the viewer hands to a world's replay page. Any world answers
-//! the lookups; only one at the recording's protocol revision can build its
-//! replay. Watching one is recorded in the audit log.
-
+use super::lookup::{TRIAGE_PAGES, unavailable};
 use super::players::checked_name;
 use crate::audit::Event;
+use crate::cases::Triage;
 use crate::http::{ApiError, App, Staff};
 use axum::Json;
 use axum::extract::{Path, Query, State};
@@ -21,30 +18,34 @@ const PAGE: u32 = 50;
 /// it this recently (worlds store every 30 seconds).
 const LIVE_WITHIN_MS: i64 = 90_000;
 
-fn unavailable(error: String) -> ApiError {
-    ApiError::new(StatusCode::BAD_GATEWAY, format!("{error}."))
-}
-
 #[derive(Serialize)]
 pub struct ReplayView {
     #[serde(flatten)]
     summary: ReplaySummary,
     world: Option<u16>,
     live: bool,
+    #[serde(flatten)]
+    triage: Triage,
 }
 
 fn view(app: &App, summary: ReplaySummary) -> ReplayView {
     let now = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map_or(0, |d| d.as_millis() as i64);
+    let key = format!("replay:{}", summary.id);
     ReplayView {
         world: app.worlds.get(summary.node).map(|w| w.id),
         live: summary.ended_ms.is_none() && now - summary.updated_ms < LIVE_WITHIN_MS,
+        triage: app
+            .cases
+            .triage_of(std::slice::from_ref(&key))
+            .remove(&key)
+            .unwrap_or_default(),
         summary,
     }
 }
 
-fn checked_id(id: &str) -> Result<String, ApiError> {
+pub(super) fn checked_id(id: &str) -> Result<String, ApiError> {
     if !id.is_empty() && id.len() <= 20 && id.bytes().all(|b| b.is_ascii_digit()) {
         Ok(id.to_owned())
     } else {
@@ -58,9 +59,13 @@ pub struct ListQuery {
     #[serde(default)]
     flagged: bool,
     before: Option<i64>,
+    /// Only those in no case and not dismissed.
+    #[serde(default)]
+    untriaged: bool,
 }
 
-/// `GET /api/replays?name=&flagged=&before=`: recordings newest first.
+/// `GET /api/replays?name=&flagged=&before=&untriaged=`: recordings newest
+/// first, with the cases each is in.
 pub async fn list(
     State(app): State<Arc<App>>,
     _staff: Staff,
@@ -73,20 +78,32 @@ pub async fn list(
         .filter(|n| !n.is_empty())
         .map(checked_name)
         .transpose()?;
-    let rows: Vec<ReplaySummary> = app
-        .worlds
-        .ask(
-            path::REPLAYS,
-            &ReplayLookup {
-                name,
-                flagged: query.flagged,
-                before: query.before,
-                limit: PAGE,
-            },
-        )
-        .await
-        .map_err(unavailable)?;
-    Ok(Json(rows.into_iter().map(|r| view(&app, r)).collect()))
+    let mut views = Vec::new();
+    let mut before = query.before;
+    for _ in 0..if query.untriaged { TRIAGE_PAGES } else { 1 } {
+        let rows: Vec<ReplaySummary> = app
+            .worlds
+            .ask(
+                path::REPLAYS,
+                &ReplayLookup {
+                    name: name.clone(),
+                    flagged: query.flagged,
+                    before,
+                    limit: PAGE,
+                },
+            )
+            .await
+            .map_err(unavailable)?;
+        let full = rows.len() == PAGE as usize;
+        before = rows.last().map(|r| r.started_ms);
+        views.extend(rows.into_iter().map(|r| view(&app, r)).filter(|v| {
+            !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
+        }));
+        if !full || views.len() >= PAGE as usize {
+            break;
+        }
+    }
+    Ok(Json(views))
 }
 
 #[derive(Serialize)]

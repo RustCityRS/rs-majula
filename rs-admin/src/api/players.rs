@@ -1,4 +1,5 @@
 use crate::audit::Event;
+use crate::cases::Change;
 use crate::http::{ApiError, App, Staff};
 use crate::users::name_key;
 use crate::worlds::{Outcome, Reply};
@@ -8,6 +9,7 @@ use futures_util::future::join_all;
 use rs_admin_api::{Kick, ModAction, ModOutcome, Moderate, path};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
+use tracing::warn;
 
 /// The most players a search returns.
 const MAX_RESULTS: usize = 500;
@@ -99,6 +101,9 @@ pub struct KickRequest {
     name: String,
     #[serde(default)]
     reason: String,
+    /// The case it's sent from, which notes it in its timeline.
+    #[serde(default)]
+    case: Option<u64>,
 }
 
 #[derive(Serialize)]
@@ -132,6 +137,7 @@ pub async fn kick(
     Json(req): Json<KickRequest>,
 ) -> Result<Json<KickResult>, ApiError> {
     let name = checked_name(&req.name)?;
+    check_case(&app, req.case)?;
     let kicked_from = kick_everywhere(&app, &staff, &name).await;
     let message = match kicked_from.as_slice() {
         [] => format!("{name} isn't online, or is staff of your level or above."),
@@ -144,10 +150,60 @@ pub async fn kick(
             .detail(reason_detail(&req.reason, &message))
             .ok(!kicked_from.is_empty()),
     );
+    note_on_case(
+        &app,
+        &staff,
+        req.case,
+        "kick",
+        &name,
+        None,
+        !kicked_from.is_empty(),
+        &message,
+        &req.reason,
+    );
     Ok(Json(KickResult {
         kicked_from,
         message,
     }))
+}
+
+/// Refuses a command sent from a case that doesn't exist.
+fn check_case(app: &App, case: Option<u64>) -> Result<(), ApiError> {
+    match case {
+        Some(id) if app.cases.get(id).is_none() => {
+            Err(ApiError::bad_request(format!("There's no case #{id}.")))
+        }
+        _ => Ok(()),
+    }
+}
+
+/// Notes a command in the timeline of the case it was sent from.
+#[allow(clippy::too_many_arguments)]
+fn note_on_case(
+    app: &App,
+    staff: &Staff,
+    case: Option<u64>,
+    action: &str,
+    name: &str,
+    hours: Option<i32>,
+    ok: bool,
+    message: &str,
+    reason: &str,
+) {
+    let Some(id) = case else {
+        return;
+    };
+    let change = Change::Action {
+        action: action.to_owned(),
+        name: name.to_owned(),
+        hours,
+        ok,
+        message: message.to_owned(),
+        reason: reason.trim().chars().take(300).collect(),
+    };
+    if let Err(e) = app.cases.change(staff.name(), id, |_| Ok(vec![change])) {
+        warn!("Couldn't note {} on case #{}: {}", action, id, e);
+    }
 }
 
 fn reason_detail(reason: &str, message: &str) -> String {
@@ -170,6 +226,8 @@ pub struct ModerateRequest {
     hours: Option<i32>,
     #[serde(default)]
     reason: String,
+    #[serde(default)]
+    case: Option<u64>,
 }
 
 #[derive(Serialize)]
@@ -196,6 +254,7 @@ pub async fn moderate(
     Json(req): Json<ModerateRequest>,
 ) -> Result<Json<ModerateResult>, ApiError> {
     let name = checked_name(&req.name)?;
+    check_case(&app, req.case)?;
     let timed = matches!(req.action, ModAction::Mute | ModAction::Ban);
     let hours = if timed {
         match req.hours {
@@ -268,6 +327,17 @@ pub async fn moderate(
             .target(&name)
             .detail(reason_detail(&req.reason, &message))
             .ok(ok),
+    );
+    note_on_case(
+        &app,
+        &staff,
+        req.case,
+        action_name(req.action),
+        &name,
+        hours,
+        ok,
+        &message,
+        &req.reason,
     );
     Ok(Json(ModerateResult { ok, message }))
 }

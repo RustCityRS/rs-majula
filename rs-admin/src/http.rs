@@ -1,5 +1,6 @@
 use crate::api;
 use crate::audit::Audit;
+use crate::cases::Cases;
 use crate::sessions::{Session, Sessions, Stage};
 use crate::users::{Role, User, Users};
 use crate::worlds::Worlds;
@@ -13,12 +14,14 @@ use axum::routing::get;
 use axum::{Json, Router};
 use serde_json::json;
 use std::net::{IpAddr, SocketAddr};
+use std::path::PathBuf;
 use std::sync::Arc;
 
 /// API request bodies are a few small JSON fields.
 const MAX_BODY: usize = 16 * 1024;
-/// Where news images and videos are uploaded, as raw bytes.
-pub const UPLOAD_PATH: &str = "/api/news/media";
+/// Where images and videos are uploaded, as raw bytes: for news, and for
+/// cases.
+pub const UPLOAD_PATHS: [&str; 2] = ["/api/news/media", "/api/cases/media"];
 
 pub struct HttpConfig {
     pub https: bool,
@@ -32,6 +35,8 @@ pub struct App {
     pub sessions: Sessions,
     pub worlds: Arc<Worlds>,
     pub audit: Audit,
+    pub cases: Cases,
+    pub media_dir: PathBuf,
     pub config: HttpConfig,
     pub dummy_hash: String,
 }
@@ -298,7 +303,7 @@ async fn same_origin(State(app): State<Arc<App>>, req: Request, next: Next) -> R
         .unwrap_or_default();
     // Uploads are the file itself; they need the CSRF token like the rest.
     let json = content_type.starts_with("application/json")
-        || (req.uri().path() == UPLOAD_PATH && content_type == "application/octet-stream");
+        || (UPLOAD_PATHS.contains(&req.uri().path()) && content_type == "application/octet-stream");
     if !json {
         return ApiError::new(StatusCode::UNSUPPORTED_MEDIA_TYPE, "Requests must be JSON.")
             .into_response();
@@ -333,13 +338,17 @@ async fn security_headers(State(app): State<Arc<App>>, req: Request, next: Next)
     let mut response = next.run(req).await;
     let headers = response.headers_mut();
     headers.insert(header::CONTENT_SECURITY_POLICY, app.config.csp.clone());
+    // Uploads, named by their content, may be kept; nothing else.
+    let cacheable = headers.contains_key(header::CACHE_CONTROL);
     let mut set = |name: HeaderName, value: &'static str| {
         headers.insert(name, HeaderValue::from_static(value));
     };
     set(header::X_CONTENT_TYPE_OPTIONS, "nosniff");
     set(header::X_FRAME_OPTIONS, "DENY");
     set(header::REFERRER_POLICY, "no-referrer");
-    set(header::CACHE_CONTROL, "no-store");
+    if !cacheable {
+        set(header::CACHE_CONTROL, "no-store");
+    }
     set(
         HeaderName::from_static("permissions-policy"),
         "camera=(), microphone=(), geolocation=(), payment=(), usb=()",

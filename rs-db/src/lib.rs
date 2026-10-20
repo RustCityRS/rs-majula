@@ -24,7 +24,7 @@ pub use save::{PlayerSave, SaveResult};
 pub use session::{Claim, Reconciled};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
-pub use staff::{ChatRecord, ModerationRecord, PlayerRecord, SanctionRecord};
+pub use staff::{ChatRecord, ModerationRecord, PlayerRecord, ReportRecord, SanctionRecord};
 pub use world::WorldStatus;
 
 use sqlx::migrate::{MigrateError, Migrator};

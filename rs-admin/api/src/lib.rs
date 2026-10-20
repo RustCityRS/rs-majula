@@ -1,3 +1,5 @@
+pub mod media;
+
 use hmac::{Hmac, KeyInit, Mac};
 use serde::{Deserialize, Serialize};
 use sha2::Sha256;
@@ -30,6 +32,7 @@ pub mod path {
     pub const MODERATION: &str = "/v1/lookup/moderation";
     pub const SANCTIONS: &str = "/v1/lookup/sanctions";
     pub const CHAT: &str = "/v1/lookup/chat";
+    pub const REPORTS: &str = "/v1/lookup/reports";
     /// Session recordings: the list, one, and one's replay file.
     pub const REPLAYS: &str = "/v1/lookup/replays";
     pub const REPLAY: &str = "/v1/lookup/replay";
@@ -49,7 +52,7 @@ pub mod path {
     pub const NEWS_MEDIA: &str = "/v1/news/media";
 }
 
-/// The largest image or video a news post can embed.
+/// The largest image or video a news post or case can embed.
 pub const MAX_MEDIA_BYTES: usize = 50 * 1024 * 1024;
 
 /// Checks signed requests for a server: signature, clock skew and replayed
@@ -382,6 +385,30 @@ pub struct ChatRecord {
     pub at_ms: i64,
 }
 
+/// `POST /v1/lookup/reports`: abuse reports from the in-game Report Abuse
+/// screen newest first, everyone's or only those against `offender`, older
+/// than the report `before` when paging.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ReportLookup {
+    pub offender: Option<String>,
+    pub before: Option<i64>,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ReportRecord {
+    pub id: i64,
+    pub reporter: String,
+    pub offender: String,
+    pub reason: u8,
+    pub node: u8,
+    pub x: u16,
+    pub z: u16,
+    pub level: u8,
+    pub muted: bool,
+    pub at_ms: i64,
+}
+
 /// `POST /v1/lookup/replays`: recorded sessions newest first, everyone's or
 /// only `name`'s, only ones the anti-cheat checks flagged if `flagged`,
 /// started before `before` (Unix ms) when paging.
@@ -404,25 +431,18 @@ pub struct ReplayGet {
 /// A recorded session.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ReplaySummary {
-    /// A 64-bit number, as text: JavaScript can't hold it exactly.
     pub id: String,
     pub player: String,
     pub node: u8,
     pub revision: String,
     pub started_ms: i64,
-    /// `None` while it goes on, or if its world stopped without ending it.
     pub ended_ms: Option<i64>,
-    /// When the world last stored any of it.
     pub updated_ms: i64,
     pub duration_ms: u32,
-    /// Stored size, compressed.
     pub bytes: u64,
-    /// False if part was lost: the replay stops there.
     pub complete: bool,
-    /// How suspicious the anti-cheat checks found it (0 = nothing found).
     pub score: i16,
     pub flags: Vec<String>,
-    /// The checks' measurements, as JSON.
     pub stats: String,
 }
 
@@ -437,13 +457,11 @@ pub struct SheetLookup {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct PlayerSheet {
     pub name: String,
-    /// Logged in on the world that answered; otherwise this is their save.
     pub online: bool,
     pub x: u16,
     pub z: u16,
     pub level: u8,
     pub stats: Vec<StatLine>,
-    /// The inventories that are saved (backpack, worn, bank, ...).
     pub invs: Vec<InvSheet>,
 }
 
@@ -451,7 +469,6 @@ pub struct PlayerSheet {
 pub struct StatLine {
     pub id: u8,
     pub name: String,
-    /// The level now, boosted or drained.
     pub level: u8,
     pub base: u8,
     pub xp: i32,
@@ -459,7 +476,6 @@ pub struct StatLine {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct InvSheet {
-    /// The inventory's config name: `inv`, `worn`, `bank`, ...
     pub name: String,
     pub size: u16,
     pub items: Vec<ItemLine>,
@@ -484,13 +500,9 @@ pub struct PlayerEditRequest {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum PlayerEdit {
-    /// Sets a stat's level, and its experience to that level's.
     SetStat { stat: u8, level: u8 },
-    /// Adds `count` of an item to an inventory, as far as it fits.
     Give { inv: String, obj: u16, count: u32 },
-    /// Removes up to `count` of an item from an inventory.
     Take { inv: String, obj: u16, count: u32 },
-    /// Moves them to a tile.
     Move { x: u16, z: u16, level: u8 },
 }
 
@@ -504,7 +516,6 @@ pub struct ObjSearch {
 pub struct ObjLine {
     pub id: u16,
     pub name: String,
-    /// The config name, as `::give` takes it.
     pub debugname: String,
     pub stackable: bool,
 }
@@ -534,8 +545,6 @@ pub struct NewsItem {
     pub id: i32,
     pub category_id: i16,
     pub title: String,
-    /// What the post is written in: Markdown (HTML in it passes through, so
-    /// posts written as HTML read back as their HTML).
     pub markdown: String,
     pub created_ms: i64,
 }
@@ -565,9 +574,7 @@ pub struct NewsRendered {
 /// The answer to a `POST /v1/news/media` upload.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct MediaSaved {
-    /// Where the website serves it, from its root: `/news/media/<name>`.
     pub url: String,
-    /// `image` or `video`.
     pub kind: String,
 }
 

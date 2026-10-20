@@ -184,7 +184,21 @@ on phones too.
   memory and connections.
 - **Players:** find anyone online, look anyone up (last seen, registered,
   mutes, bans), and kick, mute or ban.
-- **Moderation:** who is muted or banned now, and every moderation action.
+- **Moderation center:** one place to moderate from. Cases: one per player
+  being looked into, which any number of staff work on together (join one,
+  or put others on it) until someone closes it as actioned, no action or a
+  duplicate. A case holds its evidence (abuse reports, recorded sessions,
+  chat messages, copied in so it outlives pruning), a timeline of comments
+  and everything done, a status (open, investigating, waiting) and a
+  priority. Comments and closing notes are Markdown, with images, GIFs and
+  videos attached, pasted or dropped in; kicks, mutes and bans sent from it are noted in it, and it
+  refreshes every few seconds and shows who else has it open. The triage
+  queue lists abuse reports from the in-game Report Abuse screen and the
+  sessions the anti-cheat checks flagged that aren't in a case yet: open a
+  case, add to one, or dismiss what needs nothing; a report's "Their
+  session" plays the offender's recording from a minute before it. Also who
+  is muted or banned now, and every moderation action. Players' pages and
+  replays link into it.
 - **Chat logs:** public chat and private messages, by player or world.
   Viewing them is audited.
 - **Replays:** every session is recorded, and anti-cheat checks score it.
@@ -226,7 +240,7 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   `RS_ADMIN_SECRET`, which the console and every world must share; worlds
   refuse unsigned, stale or replayed requests. Mutes and bans go through a
   world exactly as the in-game `::mute`/`::ban` do. Lookups (players,
-  moderation, chat) are answered by whichever world is online, from the
+  moderation, chat, abuse reports) are answered by whichever world is online, from the
   game database; each world keeps 2 database connections for them, apart
   from the game's own.
 - `rs-admin/worlds.json` lists the worlds and where their admin APIs are
@@ -251,7 +265,12 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   the first developer); changing a password, role or authenticator signs
   that account out everywhere.
 - Everything done through it, sign-ins included, goes to
-  `rs-admin/data/audit.jsonl` and the `audit` log target.
+  `rs-admin/data/audit.jsonl` and the `audit` log target. Cases are
+  `rs-admin/data/cases.jsonl`: every change to one is appended there and the
+  cases are rebuilt from it at start, so nothing is ever rewritten. Images
+  and videos posted on cases go in `rs-admin/data/media/` (named by their
+  content, never deleted), served only to signed-in staff and never through
+  the website; back it up with the rest of the data folder.
 - Security: sessions are in memory (a restart signs everyone out), 30 minutes
   idle / 12 hours max; `HttpOnly` + `SameSite=Strict` cookies, a CSRF token
   and an Origin check on every change; strict CSP; 5 failed sign-ins lock an

@@ -1,9 +1,3 @@
-//! News posts are written in Markdown in the staff console and stored with
-//! the HTML rendered from it here. Images (GIFs included) and videos use the
-//! image syntax, `![caption](/news/media/<name>)`: a video file becomes a
-//! player. HTML written in the Markdown passes through, so older posts
-//! written as HTML render as they always did.
-
 use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
 
 /// File types that play as video rather than show as an image.

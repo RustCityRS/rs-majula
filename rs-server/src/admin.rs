@@ -1,11 +1,3 @@
-//! The world's private admin API, which the staff console (`rs-admin`) calls
-//! to reboot, broadcast, kick and moderate across worlds, and to look things
-//! up in the game database. See [`rs_admin_api`] for the routes and how
-//! requests are signed.
-//!
-//! Bind it to a private interface only (`--admin-host`, loopback by default):
-//! besides the signature check there is nothing between it and the engine.
-
 use crate::{ConnectionGuard, REVISION};
 use axum::body::Body;
 use axum::extract::{Request, State};
@@ -18,8 +10,8 @@ use rs_admin_api::{
     Broadcast, CancelReboot, ChatLookup, ChatRecord, Health, InvSheet, ItemLine, Kick, Maintenance,
     ModOutcome, Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer,
     Outcome, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, Reboot,
-    ReplayGet, ReplayLookup, ReplaySummary, Sanction, SanctionsLookup, SheetLookup, StatLine,
-    Verifier, WorldStatus, path,
+    ReplayGet, ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, Sanction, SanctionsLookup,
+    SheetLookup, StatLine, Verifier, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction};
 use rs_engine::edit::{self, Change};
@@ -169,6 +161,7 @@ pub async fn serve(
         .route(path::MODERATION, post(moderation_lookup))
         .route(path::SANCTIONS, post(sanctions_lookup))
         .route(path::CHAT, post(chat_lookup))
+        .route(path::REPORTS, post(reports_lookup))
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
         .route(path::REPLAY_DATA, post(replay_data))
@@ -631,6 +624,40 @@ async fn chat_lookup(
                 level: c.y as u8,
                 message: c.message,
                 at_ms: c.at_ms,
+            })
+            .collect(),
+    ))
+}
+
+async fn reports_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ReportLookup>,
+) -> Result<Json<Vec<ReportRecord>>, StatusCode> {
+    let offender = req.offender.as_deref().map(name_hash).transpose()?;
+    let rows = state
+        .db
+        .abuse_reports(
+            offender,
+            req.before,
+            i64::from(req.limit.clamp(1, MAX_LOOKUP_ROWS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| ReportRecord {
+                id: r.id,
+                reporter: r.reporter,
+                offender: r.offender.unwrap_or_else(|| {
+                    to_screen_name(&to_raw_username(r.offender_name_hash as u64))
+                }),
+                reason: r.reason.clamp(0, 255) as u8,
+                node: node(Some(r.node_id)).unwrap_or_default(),
+                x: r.x as u16,
+                z: r.z as u16,
+                level: r.y as u8,
+                muted: r.muted,
+                at_ms: r.at_ms,
             })
             .collect(),
     ))
