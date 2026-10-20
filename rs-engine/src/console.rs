@@ -82,6 +82,17 @@ pub struct ObjMatch {
     pub stackable: bool,
 }
 
+/// An item and the form saves also hold it in: its noted form, or the
+/// item a note is for.
+pub struct ItemForms {
+    pub id: u16,
+    pub name: String,
+    pub debugname: String,
+    /// The item first, then its other form if it has one.
+    pub forms: Vec<u16>,
+    pub debugnames: Vec<String>,
+}
+
 /// The inventories always listed, even empty, for items to be given into.
 const LISTED_INVS: [&str; 3] = ["inv", "worn", "bank"];
 
@@ -469,6 +480,40 @@ impl Engine {
         if !stored && let Some(tx) = &self.db_tx {
             let _ = tx.send(DbRequest::Release { user37 });
         }
+    }
+
+    /// `obj` and its noted or unnoted form; `None` if there's no such item.
+    /// A note is taken as the item it's for.
+    pub fn item_forms(&self, obj: u16) -> Option<ItemForms> {
+        let objs = &self.cache.objs;
+        let mut item = objs.get_by_id(obj)?;
+        if item.certtemplate.is_some()
+            && let Some(real) = item.certlink.and_then(|id| objs.get_by_id(id))
+        {
+            item = real;
+        }
+        let forms: Vec<u16> = std::iter::once(item.id)
+            .chain(item.certlink.filter(|&id| objs.get_by_id(id).is_some()))
+            .collect();
+        Some(ItemForms {
+            id: item.id,
+            name: obj_name(self.cache, item.id),
+            debugname: item.debugname().unwrap_or_default().to_owned(),
+            debugnames: forms
+                .iter()
+                .filter_map(|&id| objs.get_by_id(id)?.debugname().map(str::to_owned))
+                .collect(),
+            forms,
+        })
+    }
+
+    /// The config name of inventory type `id` (`bank`, `worn`, ...).
+    pub fn inv_name(&self, id: i32) -> String {
+        u16::try_from(id)
+            .ok()
+            .and_then(|id| self.cache.invs.get_by_id(id))
+            .and_then(|inv| inv.debugname())
+            .map_or_else(|| format!("inv_{id}"), str::to_owned)
     }
 
     /// Items whose name or config name contains `query`, at most `limit`.

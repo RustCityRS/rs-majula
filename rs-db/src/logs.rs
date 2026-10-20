@@ -24,7 +24,25 @@ pub struct SessionLog {
     pub event: String,
 }
 
-/// A script's `wealth_event` to log.
+/// The wealth event types the engine logs itself, as items pass between
+/// players or through the floor. The content's `^wealth_*` constants (a
+/// script's `wealth_event`) are all below these.
+pub mod transfer {
+    /// Handed over in a trade: to the event's counterpart.
+    pub const TRADE: i16 = 100;
+    /// Lost as a duel stake, to the winner.
+    pub const STAKE: i16 = 101;
+    /// Handed straight to another player some other way.
+    pub const GIVE: i16 = 102;
+    /// Dropped on the floor (death drops too).
+    pub const DROP: i16 = 103;
+    /// Picked up from the floor.
+    pub const TAKE: i16 = 104;
+    /// The types that hand items to a counterpart.
+    pub const HANDOVERS: [i16; 3] = [TRADE, STAKE, GIVE];
+}
+
+/// A script's `wealth_event`, or one of the engine's [`transfer`]s, to log.
 #[derive(Debug)]
 pub struct WealthEvent {
     pub name_hash: u64,
@@ -35,6 +53,8 @@ pub struct WealthEvent {
     pub item: String,
     pub count: i32,
     pub value: i32,
+    /// Who a handover went to.
+    pub counterpart: Option<u64>,
 }
 
 /// Logs gathered on a world, each kind in order.
@@ -165,13 +185,20 @@ async fn insert_wealth(
     let items: Vec<&str> = logs.iter().map(|l| l.item.as_str()).collect();
     let counts: Vec<i32> = logs.iter().map(|l| l.count).collect();
     let values: Vec<i32> = logs.iter().map(|l| l.value).collect();
+    let counterparts: Vec<Option<i64>> = logs
+        .iter()
+        .map(|l| l.counterpart.map(|h| h as i64))
+        .collect();
     sqlx::query(
-        "INSERT INTO wealth_events (player_id, node_id, x, z, y, event_type, item, count, value)
-         SELECT p.id, $1, w.x, w.z, w.y, w.event_type, w.item, w.count, w.value
+        "INSERT INTO wealth_events
+             (player_id, node_id, x, z, y, event_type, item, count, value, counterpart_id)
+         SELECT p.id, $1, w.x, w.z, w.y, w.event_type, w.item, w.count, w.value, c.id
          FROM unnest($2::bigint[], $3::smallint[], $4::smallint[], $5::smallint[],
-                     $6::smallint[], $7::text[], $8::int[], $9::int[])
-              WITH ORDINALITY AS w (name_hash, x, z, y, event_type, item, count, value, ord)
+                     $6::smallint[], $7::text[], $8::int[], $9::int[], $10::bigint[])
+              WITH ORDINALITY AS w (name_hash, x, z, y, event_type, item, count, value,
+                                    counterpart, ord)
          JOIN players p ON p.name_hash = w.name_hash
+         LEFT JOIN players c ON c.name_hash = w.counterpart
          ORDER BY w.ord",
     )
     .bind(node_id)
@@ -183,6 +210,7 @@ async fn insert_wealth(
     .bind(&items)
     .bind(&counts)
     .bind(&values)
+    .bind(&counterparts)
     .execute(conn)
     .await?;
     Ok(())

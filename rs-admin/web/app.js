@@ -93,6 +93,7 @@ const ICONS = {
     chart: ['M4 19h16', 'M7 16v-5', 'M12 16V7', 'M17 16v-8'],
     scissors: ['M6 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M20 4 8.1 15.9', 'M14.5 14.5 20 20', 'M8.1 8.1 12 12'],
     link: ['M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1', 'M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1'],
+    coins: ['M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z', 'M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6', 'M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6'],
 };
 
 function icon(name, cls) {
@@ -1117,6 +1118,7 @@ const NAV = [
     {path: '/players', label: 'Players', icon: 'users', page: playersPage},
     {path: '/moderation', label: 'Moderation', icon: 'shield', page: moderationPage},
     {path: '/investigate', label: 'Investigate', icon: 'target', page: investigatePage},
+    {path: '/economy', label: 'Economy', icon: 'coins', page: economyPage},
     {path: '/controls', label: 'Controls', icon: 'zap', page: controlsPage},
     {path: '/schedule', label: 'Schedule', icon: 'clock', page: schedulePage},
     {path: '/chat', label: 'Chat logs', icon: 'chat', page: chatPage},
@@ -1312,9 +1314,14 @@ function updateNavCounts() {
         '/players': state.worldsLoaded ? players.toLocaleString() : '',
         // Open cases, with how many are yours first when any are.
         '/moderation': moderationCount(),
+        '/economy': state.economyAlerts ? String(state.economyAlerts) : '',
     };
     for (const el of document.querySelectorAll('[data-count]')) el.textContent = counts[el.dataset.count] || '';
     // A dot when a case changed since its staff member last looked.
+    for (const el of document.querySelectorAll('[data-count="/economy"]')) {
+        el.classList.toggle('unread', !!state.economyAlerts);
+        el.title = state.economyAlerts ? `${plural(state.economyAlerts, 'economy alert')} nobody has looked at` : '';
+    }
     for (const el of document.querySelectorAll('[data-count="/moderation"]')) {
         el.classList.toggle('unread', !!state.caseSummary?.unread);
         el.title = state.caseSummary?.unread ? `${plural(state.caseSummary.unread, 'case')} changed since you last looked` : '';
@@ -1729,6 +1736,17 @@ function worldsPage(ctx) {
             on: {click: () => scheduleDialog('reboot', chosen().sort((a, b) => a.id - b.id), clear)}
         }),
         button('Maintenance', {icon: 'lock', on: {click: () => maintenanceDialog(chosen(), clear)}}),
+        isDeveloper() && button('Reload scripts', {
+            icon: 'refresh',
+            title: 'Recompile one world\'s scripts and swap them in',
+            on: {
+                click: () => {
+                    const picked = chosen();
+                    if (picked.length !== 1) return toast('Pick one world: scripts are reloaded on one at a time.', 'error');
+                    reloadScriptsDialog(picked[0], clear);
+                },
+            },
+        }),
         button(null, {icon: 'x', 'aria-label': 'Clear selection', title: 'Clear selection', on: {click: clear}}));
 
     const selectShown = () => {
@@ -2266,6 +2284,7 @@ const MOD_VERBS = {
     password_reset: ['issued a password reset for', 'key', 'accent'],
     restore: ['restored items to', 'plus', 'accent'],
     rollback: ['rolled back the save of', 'undo', 'danger'],
+    hiscores: ['changed the hiscores of', 'chart', ''],
 };
 
 // `336` -> "2 weeks"; the named lengths as the pickers name them.
@@ -2377,7 +2396,7 @@ function playerPage(ctx) {
                 return rows;
             }),
             replayItem, 'No recorded sessions.', (r) => r.started_ms);
-        replace(logsTop, progressSection(name), timelineCard(name), linksSection(name, load));
+        replace(logsTop, progressSection(name), economySection(name), timelineCard(name), linksSection(name, load));
         replace(logsBottom,
             h('section', {class: 'card'},
                 h('div', {class: 'card-head'}, h('h2', {}, 'Recorded sessions'),
@@ -2817,8 +2836,9 @@ const POINT_KINDS = {
     session: ['During a session', 'clock'],
     staff: ['Before a staff change', 'shield'],
 };
-// The wealth events that show a player came to have an item.
-const GAINED_WEALTH = [5, 6, 10];
+// The wealth events that show a player came to have an item (or had it,
+// for a drop).
+const GAINED_WEALTH = [5, 6, 10, 103, 104];
 
 const worldLabel = (node, world) => (world ? `world ${world}` : `node ${node}`);
 
@@ -3796,7 +3816,12 @@ function onCases(fn) {
 
 async function loadCaseSummary() {
     try {
-        state.caseSummary = await api('GET', '/cases/summary');
+        const [cases, economy] = await Promise.all([
+            api('GET', '/cases/summary'),
+            api('GET', '/economy/summary').catch(() => null),
+        ]);
+        state.caseSummary = cases;
+        if (economy) state.economyAlerts = economy.open_alerts;
         updateNavCounts();
         for (const fn of caseListeners) fn(state.caseSummary);
     } catch (e) {
@@ -7444,6 +7469,859 @@ function investigatePage(ctx) {
 }
 
 // ---------------------------------------------------------------------------
+// Economy: what's in circulation, who holds an item, where a player's item
+// came from and who trades with whom; rolling a dupe ring back; keeping
+// accounts off the hiscores.
+
+const ECONOMY_TABS = [
+    ['circulation', 'Circulation'],
+    ['holders', 'Who owns'],
+    ['trace', 'Item trace'],
+    ['trades', 'Trade graph'],
+    ['hiscores', 'Hiscores'],
+];
+// The wealth events the engine logs itself as items pass between players
+// (rs_db::transfer).
+const TRANSFER = {trade: 100, stake: 101, give: 102, drop: 103, take: 104};
+// A handover as the player it went to sees it.
+const RECEIVED_TYPES = {100: 'Received in a trade', 101: 'Won as a duel stake', 102: 'Handed to them'};
+// The website's hiscore tables: 0 is Overall, any other a stat id + 1.
+const HISCORE_TABLES = [
+    [0, 'Overall'], [1, 'Attack'], [2, 'Defence'], [3, 'Strength'], [4, 'Hitpoints'], [5, 'Ranged'],
+    [6, 'Prayer'], [7, 'Magic'], [8, 'Cooking'], [9, 'Woodcutting'], [10, 'Fletching'], [11, 'Fishing'],
+    [12, 'Firemaking'], [13, 'Crafting'], [14, 'Smithing'], [15, 'Mining'], [16, 'Herblore'],
+    [17, 'Agility'], [18, 'Thieving'], [21, 'Runecrafting'],
+];
+const tableName = (id) => HISCORE_TABLES.find(([t]) => t === id)?.[1] || `Table ${id}`;
+const economyHref = (tab, params = {}) => `/economy?${query({tab, ...params})}`;
+
+// How a holder came by some of an item: [what happened, icon].
+function sourceLabel(s) {
+    switch (s.event_type) {
+        case TRANSFER.trade:
+            return ['Traded to them by', 'users'];
+        case TRANSFER.stake:
+            return ['Won as a duel stake from', 'flag'];
+        case TRANSFER.give:
+            return ['Handed to them by', 'users'];
+        case TRANSFER.take:
+            return s.from ? ['Picked up what was dropped by', 'download'] : ['Picked up from the floor', 'download'];
+        default:
+            return [WEALTH_TYPES[s.event_type] || `Wealth event ${s.event_type}`, 'zap'];
+    }
+}
+
+function economyPage(ctx) {
+    const tab = ECONOMY_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'circulation';
+    const go = (next, extra = {}) => navigate(economyHref(next, extra));
+    const tabs = h('div', {class: 'segmented tabs', role: 'group', 'aria-label': 'View'},
+        ECONOMY_TABS.map(([k, label]) => h('button', {
+            type: 'button',
+            'aria-pressed': String(tab === k),
+            on: {click: () => k !== tab && go(k)},
+        }, label)));
+    const body = {
+        circulation: circulationTab,
+        holders: holdersTab,
+        trace: traceTab,
+        trades: tradesTab,
+        hiscores: hiscoresTab,
+    }[tab](ctx, ctx.params, go);
+    return h('div', {class: 'page'},
+        pageHead('Economy', 'What\'s in circulation, who holds it, where it came from and who hands items to whom.'),
+        tabs,
+        body);
+}
+
+// A count of every tracked item rose more than its threshold.
+function alertItem(a, onDone) {
+    const rise = a.to - a.from;
+    const pct = a.from ? `+${((rise / a.from) * 100).toFixed(1)}%` : 'from none';
+    return h('div', {class: 'list-item'},
+        h('div', {class: `list-icon ${a.acknowledged ? '' : 'danger'}`}, icon('alert')),
+        h('div', {class: 'list-main'},
+            h('div', {class: 'list-title'}, h('b', {}, a.name), `: ${a.from.toLocaleString()} to ${a.to.toLocaleString()} `,
+                h('span', {class: `badge ${a.acknowledged ? '' : 'danger'}`}, pct)),
+            h('div', {class: 'list-sub'}, joined([
+                `between ${shortTime(a.since_ms)} and ${shortTime(a.at_ms)}`,
+                a.acknowledged && `seen by ${a.acknowledged.by} ${ago(a.acknowledged.at_ms)}`,
+            ]))),
+        h('div', {class: 'chips nowrap'},
+            link(economyHref('holders', {obj: a.obj}), {class: 'btn small ghost'}, icon('users'), 'Who owns it'),
+            !a.acknowledged && button('Seen', {
+                small: true,
+                icon: 'check',
+                title: 'Mark it as looked at, for everyone',
+                on: {
+                    click: async () => {
+                        try {
+                            await api('POST', `/economy/alerts/${a.id}/acknowledge`);
+                            onDone();
+                        } catch (e) {
+                            toast(e.message, 'error');
+                        }
+                    },
+                },
+            })));
+}
+
+function trackDialog(tracked, onDone) {
+    const picker = tracked ? null : objPicker();
+    const pct = h('input', {
+        class: 'input',
+        type: 'number',
+        min: '0.1',
+        max: '1000',
+        step: '0.1',
+        required: true,
+        value: String(tracked?.alert_pct ?? 5),
+        'data-invalid': 'Alert on a rise of 0.1% to 1000%.',
+    });
+    openDialog({
+        title: tracked ? `Alert threshold: ${tracked.name}` : 'Track an item',
+        subtitle: 'Counted across every save every 15 minutes. A count that rises this much over the one before raises an alert.',
+        body: [
+            picker && h('label', {class: 'field'}, h('span', {}, 'Item'), picker.search, picker.results),
+            h('label', {class: 'field'}, h('span', {}, 'Alert on a rise of (%)'), pct,
+                h('span', {class: 'hint'}, 'Rares nothing in the game makes more of can be set low: any rise is a dupe or a staff spawn.')),
+        ],
+        actions: [{label: 'Cancel'}, {
+            label: tracked ? 'Save' : 'Track',
+            kind: 'primary',
+            icon: tracked ? 'check' : 'plus',
+            run: async () => {
+                const obj = tracked ? tracked.obj : picker.chosen()?.id;
+                if (obj == null) throw new Error('Pick an item from the results.');
+                await api('POST', '/economy/track', {obj, alert_pct: Number(pct.value)});
+                toast(tracked ? 'Threshold saved.' : 'Tracking it from the next count.');
+                onDone();
+            },
+        }],
+    });
+}
+
+// One tracked item's count over time.
+function circulationCard(t, samples, canChange, onDone) {
+    const points = samples.flatMap((s) => {
+        const item = s.items.find((i) => i.obj === t.obj);
+        return item ? [{at_ms: s.at_ms, total: item.total, kind: plural(item.holders, 'holder')}] : [];
+    });
+    const last = points[points.length - 1];
+    const body = points.length >= 2
+        ? lineChart(points, 'total', 'In circulation', (n) => compact(n))
+        : h('div', {class: 'empty'}, icon('chart'), last
+            ? `${last.total.toLocaleString()} in circulation; a chart once it's counted again.`
+            : 'Not counted yet.');
+    return h('section', {class: 'card'},
+        h('div', {class: 'card-head'},
+            h('h2', {}, link(economyHref('holders', {obj: t.obj}), {class: 'name-link'}, t.name)),
+            h('span', {class: 'badge', title: 'A rise this big between two counts alerts'}, `alerts at +${t.alert_pct}%`),
+            canChange && h('div', {class: 'actions'},
+                button(null, {
+                    small: true,
+                    kind: 'ghost',
+                    icon: 'edit',
+                    'aria-label': `Change the threshold for ${t.name}`,
+                    title: 'Change the threshold',
+                    on: {click: () => trackDialog(t, onDone)},
+                }),
+                button(null, {
+                    small: true,
+                    kind: 'ghost',
+                    icon: 'trash',
+                    'aria-label': `Stop tracking ${t.name}`,
+                    title: 'Stop tracking',
+                    on: {
+                        click: () => confirmDialog({
+                            title: `Stop tracking ${t.name}?`,
+                            subtitle: 'Its counts so far are kept; it\'s no longer counted or alerted on.',
+                            label: 'Stop tracking',
+                            kind: 'danger',
+                            run: async () => {
+                                await api('POST', '/economy/untrack', {obj: t.obj});
+                                onDone();
+                            },
+                        }),
+                    },
+                }))),
+        h('div', {class: 'card-body'}, body));
+}
+
+function circulationTab(ctx, params, go) {
+    const days = [7, 30, 90, 365].includes(Number(params.get('days'))) ? Number(params.get('days')) : 30;
+    const alerts = h('div');
+    const grid = h('div', {class: 'econ-grid'}, h('div', {class: 'empty'}, h('div', {class: 'spinner'})));
+    const actions = h('div', {class: 'chips'});
+    const load = async () => {
+        let d;
+        try {
+            d = await api('GET', `/economy?${query({days})}`);
+        } catch (e) {
+            return failed(grid, e);
+        }
+        const open = d.alerts.filter((a) => !a.acknowledged);
+        const seen = d.alerts.filter((a) => a.acknowledged).slice(0, 10);
+        replace(alerts,
+            open.length > 0 && h('section', {class: 'card danger-card'},
+                h('div', {class: 'card-head'}, h('h2', {}, plural(open.length, 'alert')),
+                    h('span', {class: 'hint'}, 'A count rose more than its item\'s threshold: often the first sign of a dupe.')),
+                h('div', {class: 'list'}, open.map((a) => alertItem(a, load)))),
+            seen.length > 0 && h('details', {class: 'card'},
+                h('summary', {class: 'card-head'}, h('h2', {}, 'Earlier alerts')),
+                h('div', {class: 'list'}, seen.map((a) => alertItem(a, load)))));
+        replace(actions,
+            [7, 30, 90, 365].map((n) => h('button', {
+                type: 'button',
+                class: 'chip',
+                'aria-pressed': String(n === days),
+                on: {click: () => n !== days && go('circulation', {days: n})},
+            }, n === 365 ? 'Year' : `${n} days`)),
+            d.can_change && button('Count now', {
+                small: true,
+                icon: 'refresh',
+                on: {
+                    click: async (e) => {
+                        const btn = e.currentTarget;
+                        btn.disabled = true;
+                        try {
+                            await api('POST', '/economy/sample');
+                            toast('Counted.');
+                            load();
+                        } catch (err) {
+                            toast(err.message, 'error');
+                            btn.disabled = false;
+                        }
+                    },
+                },
+            }),
+            d.can_change && button('Track an item', {small: true, icon: 'plus', on: {click: () => trackDialog(null, load)}}));
+        replace(grid, d.tracked.length
+            ? d.tracked.map((t) => circulationCard(t, d.samples, d.can_change, load))
+            : h('div', {class: 'empty'}, icon('chart'), 'Nothing is tracked yet. Coins and the holiday rares are added once a world answers.'));
+    };
+    load();
+    return h('div', {class: 'column'},
+        alerts,
+        h('div', {class: 'toolbar'}, actions,
+            h('span', {class: 'hint hide-mobile'}, 'Everything every save holds (bank, worn and noted too), counted every 15 minutes.')),
+        grid);
+}
+
+const holderBadges = (a) => [
+    a.staff_level > 0 && h('span', {class: 'badge', title: 'Game staff level'}, `Staff ${a.staff_level}`),
+    a.online_node != null && h('span', {class: 'badge ok'}, worldOf(a.online_node)),
+    a.banned_until_ms && h('span', {class: 'badge danger'}, 'Banned'),
+];
+
+function holdersTab(ctx, params, go) {
+    const obj = params.get('obj');
+    const min = Math.max(1, Number(params.get('min')) || 1);
+    const minInput = h('input', {class: 'input', type: 'number', min: '1', value: String(min), 'aria-label': 'At least', style: {width: '120px'}});
+    const picker = objPicker({
+        required: false,
+        autofocus: !obj,
+        placeholder: 'Find an item: name, config name or id',
+        onPick: (o) => go('holders', {obj: o.id, min: minInput.value > 1 ? minInput.value : ''}),
+    });
+    minInput.addEventListener('change', () => obj && go('holders', {obj, min: minInput.value > 1 ? minInput.value : ''}));
+    const result = h('div', {class: 'column'});
+    if (obj) {
+        replace(result, h('section', {class: 'card'}, spinnerList()));
+        api('GET', `/economy/holders?${query({obj, min})}`).then((r) => {
+            if (!r) return replace(result, h('div', {class: 'empty'}, 'There\'s no such item.'));
+            const rows = r.accounts.map((a) => h('tr', {},
+                h('td', {}, h('div', {class: 'name-cell'}, playerLink(a.name), holderBadges(a))),
+                h('td', {class: 'num'}, a.total.toLocaleString()),
+                h('td', {class: 'muted'}, a.held_in.map((i) => `${invLabel(i.inv)} ${i.count.toLocaleString()}`).join(' · ')),
+                h('td', {class: 'muted', title: fullTime(a.saved_ms)}, ago(a.saved_ms)),
+                h('td', {class: 'actions'},
+                    link(economyHref('trace', {name: a.name, obj: r.item.id}), {class: 'btn small ghost'}, icon('search'), 'Trace'))));
+            replace(result, h('section', {class: 'card'},
+                h('div', {class: 'card-head'},
+                    h('h2', {}, r.item.name),
+                    h('span', {class: 'hint'}, `${r.total.toLocaleString()} in circulation, in ${plural(r.holders, 'save')}${r.item.forms.length > 1 ? ', noted ones counted in' : ''}`)),
+                rows.length
+                    ? h('div', {class: 'table-wrap'}, h('table', {class: 'table holders'},
+                        h('thead', {}, h('tr', {}, h('th', {}, 'Player'), h('th', {}, 'Holds'), h('th', {}, 'Where'), h('th', {}, 'Saved'), h('th', {}))),
+                        h('tbody', {}, rows)))
+                    : h('div', {class: 'empty'}, min > 1 ? `Nobody holds ${min.toLocaleString()} or more.` : 'Nobody holds any.'),
+                h('div', {class: 'card-foot hint'}, 'As of each account\'s last save: what someone online picked up since isn\'t in yet.')));
+        }).catch((e) => replace(result, h('div', {class: 'empty'}, e.message)));
+    }
+    return h('div', {class: 'column'},
+        h('section', {class: 'card'}, h('div', {class: 'card-body form-row'},
+            h('label', {class: 'field grow'}, h('span', {}, 'Item'), picker.search, picker.results),
+            h('label', {class: 'field'}, h('span', {}, 'At least'), minInput))),
+        obj ? result : h('div', {class: 'empty'}, icon('users'), 'Pick an item to see every account holding it, the most first.'));
+}
+
+// The open cases on any of `names`, to pick the one a ring action is for.
+function ringCasePicker(names, caseId) {
+    const select = h('select', {class: 'input', required: true, 'aria-label': 'Case'});
+    const fill = async (list) => {
+        replace(select, h('option', {value: ''}, 'Loading their cases...'));
+        try {
+            const found = new Map();
+            for (const rows of await Promise.all(list.slice(0, 25).map((player) => api('GET', `/cases?${query({player, status: 'open'})}`)))) {
+                for (const c of rows) found.set(c.id, c);
+            }
+            if (caseId && !found.has(caseId)) found.set(caseId, {id: caseId, title: ''});
+            const cases = [...found.values()].sort((a, b) => b.id - a.id);
+            replace(select, h('option', {value: ''}, cases.length ? 'Pick a case' : 'No open cases on them'),
+                cases.map((c) => h('option', {value: String(c.id)}, `#${c.id} ${c.title}`)));
+            if (caseId) select.value = String(caseId);
+            else if (cases.length === 1) select.value = String(cases[0].id);
+        } catch (e) {
+            replace(select, h('option', {value: ''}, e.message));
+        }
+    };
+    fill(names);
+    return {
+        field: h('label', {class: 'field'}, h('span', {}, 'Case'), select,
+            h('span', {class: 'hint'}, 'Needed, and each account\'s rollback is noted in its timeline.')),
+        value: () => (select.value ? Number(select.value) : null),
+        refill: fill,
+    };
+}
+
+// Rolls every account of a dupe ring back to its newest save from before
+// one moment, as one action.
+function ringRollbackDialog({names = [], atMs = null, caseId = null} = {}, onDone) {
+    const namesInput = h('textarea', {
+        class: 'input',
+        rows: '2',
+        required: true,
+        placeholder: 'Account names, separated by commas',
+        'aria-label': 'Accounts',
+    });
+    namesInput.value = names.join(', ');
+    const when = h('input', {class: 'input', type: 'datetime-local', required: true, 'aria-label': 'Back to'});
+    if (atMs) when.value = localInput(atMs);
+    const preview = h('div', {class: 'list ring-preview'}, h('p', {class: 'hint'}, 'Check shows the save each account goes back to.'));
+    const why = reasonField(true, 'e.g. Coins duped through the trade screen bug; back to before the first dupe.');
+    const picked = ringCasePicker(names, caseId);
+    const parse = () => [...new Set(namesInput.value.split(/[,\n]/).map((n) => n.trim()).filter(Boolean))];
+    let checkedFor = null;
+    let ready = false;
+    const check = async () => {
+        const list = parse();
+        const at = inputTime(when.value);
+        if (list.length < 2) throw new Error('A ring is at least 2 accounts.');
+        if (Number.isNaN(at)) throw new Error('Pick the moment to go back to.');
+        const members = await api('GET', `/economy/ring?${query({names: list.join(','), at_ms: at})}`);
+        checkedFor = `${list.join(',')}@${at}`;
+        ready = members.every((m) => !m.problem);
+        replace(preview, members.map((m) => h('div', {class: 'list-item'},
+            h('div', {class: `list-icon ${m.problem ? 'danger' : ''}`}, icon(m.problem ? 'alert' : 'undo')),
+            h('div', {class: 'list-main'},
+                h('div', {class: 'list-title'}, playerLink(m.name), ' ', m.world && h('span', {class: 'badge ok'}, `W${m.world}`)),
+                h('div', {class: 'list-sub'}, m.problem
+                    ? h('span', {class: 'error-text'}, m.problem)
+                    : `To their save from ${fullTime(m.point.saved_ms)} (${(POINT_KINDS[m.point.kind] || [m.point.kind])[0].toLowerCase()})${m.world ? '; logged out first' : ''}`)))));
+        picked.refill(list);
+        return ready;
+    };
+    namesInput.addEventListener('input', () => (ready = false));
+    when.addEventListener('input', () => (ready = false));
+    openDialog({
+        title: 'Roll back a ring',
+        subtitle: 'Every account goes back to its newest save from before the same moment, in one action. Nothing is rolled back unless every account has one.',
+        width: '640px',
+        body: [
+            h('label', {class: 'field'}, h('span', {}, 'Accounts'), namesInput),
+            h('div', {class: 'form-row'},
+                h('label', {class: 'field grow'}, h('span', {}, `Back to (${inUtc() ? 'UTC' : 'your time'})`), when),
+                button('Check', {
+                    icon: 'search',
+                    on: {
+                        click: async (e) => {
+                            const btn = e.currentTarget;
+                            btn.disabled = true;
+                            try {
+                                await check();
+                            } catch (err) {
+                                replace(preview, h('p', {class: 'error-text'}, err.message));
+                            } finally {
+                                btn.disabled = false;
+                            }
+                        },
+                    },
+                })),
+            preview,
+            h('div', {class: 'callout danger'}, icon('undo'), h('div', {},
+                'Everything each account did since is undone. Their saves as they are now are kept in the history, so each can be undone on its own.')),
+            why.field,
+            picked.field,
+        ],
+        actions: [{label: 'Cancel'}, {
+            label: 'Roll back the ring',
+            kind: 'danger',
+            icon: 'undo',
+            run: async () => {
+                const list = parse();
+                const at = inputTime(when.value);
+                if (!ready || checkedFor !== `${list.join(',')}@${at}`) {
+                    if (!(await check())) throw new Error('Check the accounts: not every one can be rolled back to then.');
+                    throw new Error('Here\'s who goes back to what. Roll back again to go ahead.');
+                }
+                if (!picked.value()) throw new Error('Pick the case this is for.');
+                const results = await api('POST', '/economy/ring-rollback', {
+                    names: list,
+                    at_ms: at,
+                    reason: why.value(),
+                    case: picked.value(),
+                });
+                const failedOnes = results.filter((r) => !r.outcome.ok);
+                if (failedOnes.length) {
+                    openDialog({
+                        title: 'Some rollbacks didn\'t take',
+                        body: h('div', {class: 'list'}, results.map((r) => h('div', {class: 'list-item'},
+                            h('div', {class: `list-icon ${r.outcome.ok ? 'ok' : 'danger'}`}, icon(r.outcome.ok ? 'check' : 'alert')),
+                            h('div', {class: 'list-main'}, h('div', {class: 'list-title'}, r.name), h('div', {class: 'list-sub'}, r.outcome.message))))),
+                        actions: [{label: 'Close'}],
+                    });
+                } else {
+                    toast(`Rolled back ${plural(results.length, 'account')}.`);
+                }
+                onDone?.();
+            },
+        }],
+    });
+}
+
+// A trace's steps as a tree: each holder's sources, and under one from
+// another player, how that player came by it.
+function traceTree(steps, parent) {
+    const mine = steps.map((s, i) => [s, i]).filter(([s]) => (s.parent ?? null) === parent);
+    if (!mine.length) return null;
+    return h('div', {class: parent == null ? 'list trace' : 'trace-children'}, mine.map(([s, i]) => {
+        const [what, iconName] = sourceLabel(s);
+        const children = traceTree(steps, i);
+        const handed = [TRANSFER.trade, TRANSFER.stake, TRANSFER.give].includes(s.event_type);
+        return h('div', {class: 'trace-step'},
+            h('div', {class: 'list-item'},
+                h('div', {class: `list-icon ${handed ? 'warn' : ''}`}, icon(iconName)),
+                h('div', {class: 'list-main'},
+                    h('div', {class: 'list-title'},
+                        s.depth > 0 && h('span', {class: 'muted'}, `${s.holder}: `),
+                        what, s.from && [' ', playerLink(s.from)],
+                        h('span', {class: 'num'}, ` · ${Number(s.count).toLocaleString()}`),
+                        s.detail && h('span', {class: 'muted'}, ` from ${s.detail}`)),
+                    h('div', {class: 'list-sub'}, joined([
+                        coins(s.value),
+                        worldOf(s.node),
+                        where(s.x, s.z, s.level),
+                    ]))),
+                h('div', {class: 'list-side', title: fullTime(s.at_ms)}, shortTime(s.at_ms))),
+            children && h('div', {class: 'trace-before hint'}, `Before that, how ${s.from} came by it:`),
+            children);
+    }));
+}
+
+function traceTab(ctx, params, go) {
+    const name = params.get('name') || '';
+    const obj = params.get('obj');
+    const item = params.get('item');
+    const depth = [2, 3, 4, 5, 6].includes(Number(params.get('depth'))) ? Number(params.get('depth')) : 4;
+    const nameInput = h('input', {class: 'input', required: true, value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    const picker = objPicker({required: false, autofocus: false, placeholder: 'Item: name, config name or id'});
+    const depthSelect = h('select', {class: 'input', 'aria-label': 'How far back'},
+        [2, 3, 4, 5, 6].map((n) => h('option', {value: String(n), selected: n === depth}, `${n} holders back`)));
+    const result = h('div', {class: 'column'});
+    const run = () => {
+        const picked = picker.chosen()?.id ?? obj;
+        if (!validName(nameInput.value.trim())) return toast('Enter a player name.', 'error');
+        if (picked == null) return toast('Pick an item from the results.', 'error');
+        go('trace', {name: nameInput.value.trim(), obj: picked, depth: depthSelect.value});
+    };
+    nameInput.addEventListener('keydown', (e) => e.key === 'Enter' && run());
+    // From a timeline row: the item by its config name.
+    if (item && !obj) {
+        api('GET', `/objs?${query({q: item})}`).then((objs) => {
+            const found = objs.find((o) => o.debugname === item);
+            if (found) {
+                history.replaceState(null, '', economyHref('trace', {name, obj: found.id, depth}));
+                renderPage();
+            } else replace(result, h('div', {class: 'empty'}, `There's no item ${item}.`));
+        }).catch((e) => replace(result, h('div', {class: 'empty'}, e.message)));
+    }
+    if (name && obj) {
+        replace(result, h('section', {class: 'card'}, spinnerList()));
+        api('GET', `/economy/trace?${query({name, obj, depth})}`).then((t) => {
+            if (!t) return replace(result, h('div', {class: 'empty'}, 'There\'s no such item.'));
+            picker.search.value = t.item.name;
+            const ring = [...new Set([name, ...t.steps.map((s) => s.from).filter(Boolean)])];
+            const handovers = t.steps.filter((s) => s.from);
+            const earliest = handovers.length ? Math.min(...handovers.map((s) => s.at_ms)) : null;
+            replace(result, h('section', {class: 'card'},
+                h('div', {class: 'card-head'},
+                    h('h2', {}, `Where ${name}'s ${t.item.name} came from`),
+                    h('div', {class: 'actions'},
+                        link(economyHref('trades', {name}), {class: 'btn small ghost'}, icon('users'), 'Trade graph'),
+                        state.canCommand && ring.length > 1 && button('Roll back these accounts', {
+                            small: true,
+                            icon: 'undo',
+                            title: 'Everyone it passed through, back to before the first handover',
+                            on: {click: () => ringRollbackDialog({names: ring, atMs: earliest ? earliest - 60_000 : null})},
+                        }))),
+                t.steps.length
+                    ? traceTree(t.steps, null)
+                    : h('div', {class: 'empty'}, icon('search'), `Nothing logged shows how ${name} came by ${t.item.name}. Items from before the logs began, and drops no player made (an NPC's, or a spawn), don't show.`),
+                h('div', {class: 'card-foot hint'}, 'Newest first at each step. A pickup is matched to the latest drop of the item on that tile; each player is followed back once.')));
+        }).catch((e) => replace(result, h('div', {class: 'empty'}, e.message)));
+    }
+    return h('div', {class: 'column'},
+        h('section', {class: 'card'}, h('div', {class: 'card-body form-row'},
+            h('label', {class: 'field'}, h('span', {}, 'Player'), nameInput),
+            h('label', {class: 'field grow'}, h('span', {}, 'Item'), picker.search, picker.results),
+            h('label', {class: 'field'}, h('span', {}, 'How far back'), depthSelect),
+            button('Trace', {kind: 'primary', icon: 'search', on: {click: run}}))),
+        name && (obj || item) ? result : h('div', {class: 'empty'}, icon('search'),
+            'Follow a stack back through the trades, stakes, drops and pickups it came by: the tool to reach for first when a dupe happens.'));
+}
+
+// Partners around a player, with arrows for what's handed each way:
+// thicker for more value, amber between two partners (a ring, maybe).
+function tradeGraphSvg(graph, onPick) {
+    const W = 640;
+    const H = 420;
+    const [centre, ...partners] = graph.accounts;
+    const pos = new Map([[centre.name, [W / 2, H / 2]]]);
+    const r = Math.min(W, H) / 2 - 48;
+    partners.forEach((a, i) => {
+        const angle = -Math.PI / 2 + (2 * Math.PI * i) / Math.max(1, partners.length);
+        pos.set(a.name, [W / 2 + r * Math.cos(angle) * 1.25, H / 2 + r * Math.sin(angle)]);
+    });
+    const top = Math.max(1, ...graph.edges.map((e) => e.value));
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('class', 'trade-graph');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', `${centre.name} and ${plural(partners.length, 'trading partner')}`);
+    const make = (tag, attrs, parent = svg) => {
+        const el = document.createElementNS(SVG, tag);
+        for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+        parent.append(el);
+        return el;
+    };
+    const defs = make('defs', {});
+    for (const kind of ['main', 'ring']) {
+        const marker = make('marker', {
+            id: `arrow-${kind}`,
+            viewBox: '0 0 10 10',
+            refX: '9',
+            refY: '5',
+            markerUnits: 'userSpaceOnUse',
+            markerWidth: '9',
+            markerHeight: '9',
+            orient: 'auto-start-reverse',
+        }, defs);
+        make('path', {d: 'M0 0L10 5L0 10z', class: `arrow ${kind}`}, marker);
+    }
+    const both = new Set(graph.edges.map((e) => `${e.from}\n${e.to}`));
+    for (const e of graph.edges) {
+        const a = pos.get(e.from);
+        const b = pos.get(e.to);
+        if (!a || !b || (a[0] === b[0] && a[1] === b[1])) continue;
+        const ring = e.from !== centre.name && e.to !== centre.name;
+        // Each way bows to its own side when trades go both ways.
+        const bow = both.has(`${e.to}\n${e.from}`) ? 18 : 0;
+        const [mx, my] = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+        const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+        const [nx, ny] = [-(b[1] - a[1]) / len, (b[0] - a[0]) / len];
+        const c = [mx + nx * bow, my + ny * bow];
+        // Stop short of the node.
+        const back = 12 / Math.hypot(b[0] - c[0], b[1] - c[1]);
+        const end = [b[0] - (b[0] - c[0]) * back, b[1] - (b[1] - c[1]) * back];
+        const path = make('path', {
+            d: `M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${c[0].toFixed(1)} ${c[1].toFixed(1)} ${end[0].toFixed(1)} ${end[1].toFixed(1)}`,
+            class: `edge ${ring ? 'ring' : ''}`,
+            'stroke-width': (1 + 4 * Math.log1p(e.value) / Math.log1p(top)).toFixed(2),
+            'marker-end': `url(#arrow-${ring ? 'ring' : 'main'})`,
+        });
+        make('title', {}, path).textContent = `${e.from} to ${e.to}: ${coins(e.value)} in ${plural(e.handovers, 'handover')}\n${e.items.map((i) => `${i.count.toLocaleString()} x ${i.item}`).join('\n')}`;
+    }
+    for (const a of graph.accounts) {
+        const [x, y] = pos.get(a.name);
+        const g = make('g', {class: `node ${a === centre ? 'centre' : ''} ${a.banned_until_ms ? 'banned' : ''} ${a.staff_level > 0 ? 'staff' : ''}`, tabindex: '0', role: 'button', 'aria-label': a.name});
+        make('circle', {cx: x, cy: y, r: a === centre ? 9 : 6}, g);
+        // Partners' names on the side away from the centre, clear of the edges.
+        const above = a !== centre && y < H / 2 - 1;
+        const label = make('text', {x, y: above ? y - 12 : y + (a === centre ? 24 : 19), 'text-anchor': 'middle'}, g);
+        label.textContent = a.name;
+        if (a !== centre) {
+            const go = () => onPick(a.name);
+            g.addEventListener('click', go);
+            g.addEventListener('keydown', (e) => (e.key === 'Enter' || e.key === ' ') && go());
+        }
+    }
+    return svg;
+}
+
+function receiversCard(params, go) {
+    const days = [1, 7, 30].includes(Number(params.get('days'))) ? Number(params.get('days')) : 7;
+    const givers = [2, 3, 5, 10].includes(Number(params.get('givers'))) ? Number(params.get('givers')) : 3;
+    const body = spinnerList();
+    api('GET', `/economy/receivers?${query({days, min_givers: givers})}`).then((rows) => {
+        replace(body, rows.length
+            ? h('div', {class: 'table-wrap'}, h('table', {class: 'table receivers'},
+                h('thead', {}, h('tr', {}, h('th', {}, 'Account'), h('th', {}, 'Givers'), h('th', {}, 'Received'), h('th', {}, 'Gave'), h('th', {}, 'Last'), h('th', {}))),
+                h('tbody', {}, rows.map((r) => {
+                    const oneWay = r.received > 0 && r.given * 10 < r.received;
+                    return h('tr', {},
+                        h('td', {}, h('div', {class: 'name-cell'}, playerLink(r.name), holderBadges(r),
+                            oneWay && h('span', {class: 'badge warn', title: 'Takes in more than ten times what they give back'}, 'One way'))),
+                        h('td', {class: 'num'}, r.givers.toLocaleString()),
+                        h('td', {class: 'num'}, coins(r.received)),
+                        h('td', {class: 'num muted'}, coins(r.given)),
+                        h('td', {class: 'muted', title: fullTime(r.last_ms)}, ago(r.last_ms)),
+                        h('td', {class: 'actions'}, link(economyHref('trades', {name: r.name, days: Math.max(days, 7)}), {class: 'btn small ghost'}, icon('users'), 'Graph')));
+                }))))
+            : h('div', {class: 'empty'}, `Nobody was handed items by ${givers} or more players in this time.`));
+    }).catch((e) => failed(body, e));
+    const chip = (key, value, current, label) => h('button', {
+        type: 'button',
+        class: 'chip',
+        'aria-pressed': String(value === current),
+        on: {click: () => value !== current && go('trades', {days: key === 'days' ? value : days, givers: key === 'givers' ? value : givers})},
+    }, label);
+    return h('section', {class: 'card'},
+        h('div', {class: 'card-head'}, h('h2', {}, 'Accounts many players hand items to'),
+            h('span', {class: 'hint hide-mobile'}, 'One account fed by many that gives little back is the usual sign of real-world trading')),
+        h('div', {class: 'card-body'}, h('div', {class: 'chips'},
+            [1, 7, 30].map((n) => chip('days', n, days, n === 1 ? 'Day' : `${n} days`)),
+            h('span', {class: 'sep'}),
+            [2, 3, 5, 10].map((n) => chip('givers', n, givers, `${n}+ givers`)))),
+        body);
+}
+
+function tradesTab(ctx, params, go) {
+    const name = params.get('name') || '';
+    const days = [7, 30, 90, 365].includes(Number(params.get('days'))) ? Number(params.get('days')) : 30;
+    const nameInput = h('input', {class: 'input', value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    const daysSelect = h('select', {class: 'input', 'aria-label': 'Over'},
+        [7, 30, 90, 365].map((n) => h('option', {value: String(n), selected: n === days}, n === 365 ? 'The last year' : `The last ${n} days`)));
+    const show = () => {
+        const n = nameInput.value.trim();
+        if (n && !validName(n)) return toast('That isn\'t a valid player name.', 'error');
+        go('trades', {name: n, days: daysSelect.value});
+    };
+    nameInput.addEventListener('keydown', (e) => e.key === 'Enter' && show());
+    daysSelect.addEventListener('change', show);
+    const form = h('section', {class: 'card'}, h('div', {class: 'card-body form-row'},
+        h('label', {class: 'field grow'}, h('span', {}, 'Player'), nameInput),
+        h('label', {class: 'field'}, h('span', {}, 'Over'), daysSelect),
+        button('Show', {kind: 'primary', icon: 'users', on: {click: show}})));
+    if (!name) return h('div', {class: 'column'}, form, receiversCard(params, go));
+    const result = h('section', {class: 'card'}, spinnerList());
+    api('GET', `/economy/trades?${query({name, days})}`).then((graph) => {
+        if (!graph.accounts.length) return replace(result, h('div', {class: 'empty'}, `No player named ${name} is registered.`));
+        if (!graph.edges.length) return replace(result, h('div', {class: 'empty'}, icon('users'), `${name} handed nobody anything, and was handed nothing, in this time.`));
+        const centre = graph.accounts[0].name;
+        const net = (other) => {
+            const to = graph.edges.find((e) => e.from === centre && e.to === other)?.value || 0;
+            const from = graph.edges.find((e) => e.from === other && e.to === centre)?.value || 0;
+            return from - to;
+        };
+        const ring = graph.accounts.map((a) => a.name);
+        const rows = graph.edges.map((e) => h('tr', {},
+            h('td', {}, playerLink(e.from), h('span', {class: 'muted'}, ' to '), playerLink(e.to)),
+            h('td', {class: 'num'}, coins(e.value)),
+            h('td', {class: 'num'}, e.handovers.toLocaleString()),
+            h('td', {class: 'muted'}, e.items.map((i) => `${i.count.toLocaleString()} x ${i.item}`).join(', ')),
+            h('td', {class: 'muted', title: fullTime(e.last_ms)}, ago(e.last_ms))));
+        replace(result,
+            h('div', {class: 'card-head'},
+                h('h2', {}, `Who ${centre} trades with`),
+                h('span', {class: 'hint hide-mobile'}, 'Click someone to centre on them'),
+                h('div', {class: 'actions'},
+                    state.canCommand && graph.accounts.length > 1 && button('Roll back a ring', {
+                        small: true,
+                        icon: 'undo',
+                        title: 'Pick which of these to roll back, and to when',
+                        on: {click: () => ringRollbackDialog({names: ring})},
+                    }))),
+            h('div', {class: 'card-body'}, tradeGraphSvg(graph, (other) => go('trades', {name: other, days}))),
+            h('div', {class: 'card-body'}, h('div', {class: 'chips'}, graph.accounts.slice(1).map((a) => {
+                const n = net(a.name);
+                return n ? h('span', {class: `badge ${n > 0 ? 'ok' : 'warn'}`, title: n > 0 ? `${centre} got more from them than they gave` : `${centre} gave them more than they got back`},
+                    `${a.name} ${n > 0 ? '+' : '-'}${compact(Math.abs(n))} gp`) : null;
+            }))),
+            h('div', {class: 'table-wrap'}, h('table', {class: 'table edges'},
+                h('thead', {}, h('tr', {}, h('th', {}, 'Handed'), h('th', {}, 'Worth'), h('th', {}, 'Times'), h('th', {}, 'Items'), h('th', {}, 'Last'))),
+                h('tbody', {}, rows))),
+            h('div', {class: 'card-foot hint'}, 'Trades, duel stakes and other handovers, worth the items\' values in the cache (rares are worth little there; see the items). Between partners too, which is how rings show.'));
+    }).catch((e) => replace(result, h('div', {class: 'empty'}, e.message)));
+    return h('div', {class: 'column'}, form, result);
+}
+
+function hiscoresChangeDialog(name, standing, mode, onDone) {
+    const why = reasonField(true, mode === 'tables' ? 'e.g. Botted fishing; the XP is not earned.' : 'e.g. A test account.');
+    const picked = casePicker(name, null, false);
+    const boxes = [];
+    const tables = mode === 'tables' ? h('div', {class: 'chips wrap'}, HISCORE_TABLES
+        .filter(([id]) => standing.rows.some((r) => r.category === id) || standing.removed.includes(id))
+        .map(([id, label]) => {
+            const box = h('input', {type: 'checkbox', checked: standing.removed.includes(id)});
+            boxes.push([id, box]);
+            return h('label', {class: 'chip check'}, box, label);
+        })) : null;
+    openDialog({
+        title: mode === 'hide' ? `Hide ${name} from the hiscores` : mode === 'show' ? `Show ${name} on the hiscores` : `Hiscore entries: ${name}`,
+        subtitle: mode === 'tables'
+            ? 'Ticked tables leave their entry out. Their saves still update it, so putting it back is instant.'
+            : mode === 'hide' ? 'Kept off every table until shown again.' : 'Back on every table they aren\'t removed from.',
+        body: [tables, why.field, picked.field],
+        actions: [{label: 'Cancel'}, {
+            label: mode === 'hide' ? 'Hide' : mode === 'show' ? 'Show' : 'Save',
+            kind: mode === 'hide' ? 'danger' : 'primary',
+            icon: 'check',
+            run: async () => {
+                const body = {name, reason: why.value(), case: picked.value(), remove: [], restore: []};
+                if (mode === 'hide') body.hidden = true;
+                else if (mode === 'show') body.hidden = false;
+                else {
+                    for (const [id, box] of boxes) {
+                        const was = standing.removed.includes(id);
+                        if (box.checked && !was) body.remove.push(id);
+                        if (!box.checked && was) body.restore.push(id);
+                    }
+                    if (!body.remove.length && !body.restore.length) throw new Error('Nothing changed.');
+                }
+                const result = await api('POST', '/hiscores/change', body);
+                if (!result.ok) throw new Error(result.message);
+                toast(result.message);
+                onDone();
+            },
+        }],
+    });
+}
+
+// A player's hiscore entries, and keeping them off the tables.
+function hiscoresCard(name, extraActions) {
+    const body = h('div', {class: 'card-body'}, h('div', {class: 'spinner'}));
+    const actions = h('div', {class: 'actions'}, extraActions);
+    const load = () => api('GET', `/hiscores/player?${query({name})}`).then((s) => {
+        if (!s) return replace(body, h('div', {class: 'empty'}, `No player named ${name} is registered.`));
+        const why = s.staff_level > 0 ? 'Staff are never ranked.'
+            : s.banned ? 'Not ranked while banned.'
+                : s.hidden ? 'Hidden from every table by staff.' : null;
+        replace(actions, extraActions,
+            state.canCommand && s.staff_level === 0 && button(s.hidden ? 'Show on the hiscores' : 'Hide from the hiscores', {
+                small: true,
+                icon: s.hidden ? 'eye' : 'ban',
+                on: {click: () => hiscoresChangeDialog(name, s, s.hidden ? 'show' : 'hide', load)},
+            }),
+            state.canCommand && s.staff_level === 0 && !s.hidden && s.rows.length > 0 && button('Remove entries', {
+                small: true,
+                icon: 'trash',
+                title: 'Take a cheater off some tables',
+                on: {click: () => hiscoresChangeDialog(name, s, 'tables', load)},
+            }));
+        replace(body,
+            why && h('div', {class: 'callout'}, icon('lock'), h('div', {}, why)),
+            s.rows.length
+                ? h('div', {class: 'table-wrap'}, h('table', {class: 'table hiscores'},
+                    h('thead', {}, h('tr', {}, h('th', {}, 'Table'), h('th', {}, 'Level'), h('th', {}, 'XP'), h('th', {}, 'Rank'))),
+                    h('tbody', {}, s.rows.map((r) => h('tr', {},
+                        h('td', {}, tableName(r.category)),
+                        h('td', {class: 'num'}, r.level.toLocaleString()),
+                        h('td', {class: 'num'}, r.xp.toLocaleString()),
+                        h('td', {class: 'num'}, r.rank != null ? `#${r.rank.toLocaleString()}`
+                            : h('span', {class: `badge ${s.removed.includes(r.category) ? 'danger' : ''}`}, s.removed.includes(r.category) ? 'Removed' : 'Not ranked')))))))
+                : h('div', {class: 'empty'}, 'Nothing trained yet.'));
+    }).catch((e) => failed(body, e));
+    load();
+    return h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Hiscores'), actions), body);
+}
+
+function hiscoresTab(ctx, params, go) {
+    const name = params.get('name') || '';
+    const nameInput = h('input', {class: 'input', value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    const look = () => {
+        const n = nameInput.value.trim();
+        if (!validName(n)) return toast('That isn\'t a valid player name.', 'error');
+        go('hiscores', {name: n});
+    };
+    nameInput.addEventListener('keydown', (e) => e.key === 'Enter' && look());
+    const kept = spinnerList();
+    api('GET', '/hiscores/kept-off').then((rows) => replace(kept, rows.length
+        ? rows.map((k) => h('div', {class: 'list-item'},
+            h('div', {class: 'list-icon'}, icon(k.hidden ? 'ban' : 'trash')),
+            h('div', {class: 'list-main'},
+                h('div', {class: 'list-title'}, playerLink(k.name)),
+                h('div', {class: 'list-sub'}, joined([
+                    k.hidden && 'Hidden from every table',
+                    k.removed.length > 0 && `Removed from ${k.removed.map(tableName).join(', ')}`,
+                ]))),
+            link(economyHref('hiscores', {name: k.name}), {class: 'btn small ghost'}, 'Change', icon('chevron'))))
+        : h('div', {class: 'empty'}, 'Staff haven\'t kept anyone off.'))).catch((e) => failed(kept, e));
+    return h('div', {class: 'column'},
+        h('section', {class: 'card'}, h('div', {class: 'card-body form-row'},
+            h('label', {class: 'field grow'}, h('span', {}, 'Player'), nameInput),
+            button('Look up', {kind: 'primary', icon: 'search', on: {click: look}}))),
+        name && hiscoresCard(name, link(`/player?${query({name})}`, {class: 'btn small ghost'}, 'Player page', icon('chevron'))),
+        h('section', {class: 'card'},
+            h('div', {class: 'card-head'}, h('h2', {}, 'Kept off by staff'),
+                h('span', {class: 'hint hide-mobile'}, 'Staff (any level) and banned players are left off on their own')),
+            h('div', {class: 'list'}, kept)));
+}
+
+// The player page's economy card: their hiscores, with the trade tools.
+function economySection(name) {
+    return hiscoresCard(name, [
+        link(economyHref('trades', {name}), {class: 'btn small ghost'}, icon('users'), 'Trade graph'),
+        link(economyHref('trace', {name}), {class: 'btn small ghost'}, icon('search'), 'Trace an item'),
+    ]);
+}
+
+// Recompiles one world's scripts and swaps them in: for an emergency fix.
+function reloadScriptsDialog(world, onDone) {
+    const why = reasonField(true, 'e.g. Fixes the bank note dupe in bank.rs2.');
+    const report = h('div');
+    const show = (r) => replace(report, h('div', {class: `callout ${r.ok ? '' : 'danger'}`}, icon(r.ok ? 'check' : 'alert'),
+        h('div', {}, r.message, r.compile_ms ? h('span', {class: 'muted'}, ` (${(r.compile_ms / 1000).toFixed(1)}s)`) : null)),
+    r.errors && h('pre', {class: 'compile-errors'}, r.errors));
+    const send = async (check) => {
+        const r = await api('POST', `/worlds/${world.node}/reload-scripts`, {check_only: check, reason: why.value()});
+        show(r);
+        return r;
+    };
+    openDialog({
+        title: `Reload scripts: ${worldName(world)}`,
+        subtitle: 'Recompiles the scripts in this world\'s content folder and swaps them in, without a restart. Recorded in the audit log.',
+        width: '640px',
+        body: [
+            h('div', {class: 'callout'}, icon('alert'), h('div', {},
+                'Scripts only: the cache stays as it is, so config, map and interface changes need a restart. Scripts already running finish on the old code. Check first: nothing changes if they don\'t compile.')),
+            why.field,
+            report,
+        ],
+        actions: [{label: 'Close'}, {
+            label: 'Check',
+            icon: 'search',
+            run: async () => {
+                await send(true);
+                return true;
+            },
+        }, {
+            label: 'Reload',
+            kind: 'danger',
+            icon: 'refresh',
+            run: async () => {
+                const r = await send(false);
+                if (r.applied) {
+                    toast(r.message);
+                    onDone?.();
+                    return false;
+                }
+                return true;
+            },
+        }],
+    });
+}
+
+// ---------------------------------------------------------------------------
 // Staff accounts (developers)
 
 const ROLES = [['trial', 'Trial'], ['moderator', 'Moderator'], ['admin', 'Admin'], ['developer', 'Developer']];
@@ -7674,7 +8552,12 @@ const WEALTH_TYPES = {
     7: 'Sold to a shop',
     8: 'Low alchemy',
     9: 'High alchemy',
-    10: 'Party room'
+    10: 'Party room',
+    100: 'Traded away',
+    101: 'Lost as a duel stake',
+    102: 'Handed over',
+    103: 'Dropped',
+    104: 'Picked up from the floor',
 };
 const coins = (n) => `${Number(n || 0).toLocaleString()} gp`;
 const dayLabel = (ms) => new Date(ms).toLocaleDateString([], zoned({
@@ -7701,19 +8584,28 @@ function timelineItem(e, name) {
         case 'session':
             sub = [SESSION_TYPES[e.event_type] || `Log type ${e.event_type}`];
             break;
-        case 'wealth':
+        case 'wealth': {
             iconName = 'zap';
-            title = `${WEALTH_TYPES[e.event_type] || `Wealth event ${e.event_type}`}: ${Number(e.count).toLocaleString()} x ${e.text}`;
+            // A handover to them is logged under who gave it.
+            const received = e.detail === 'received';
+            const label = (received ? RECEIVED_TYPES : WEALTH_TYPES)[e.event_type] || `Wealth event ${e.event_type}`;
+            title = [`${label}: ${Number(e.count).toLocaleString()} x ${e.text}`,
+                e.other ? [h('span', {class: 'muted'}, received ? ' from ' : ' to '), playerLink(e.other)] : ''];
             sub = [coins(e.value)];
-            if (state.canCommand && GAINED_WEALTH.includes(e.event_type)) {
-                side = h('button', {
+            const came = received || [5, 6, 10, TRANSFER.take].includes(e.event_type);
+            side = h('div', {class: 'chips nowrap'},
+                came && link(economyHref('trace', {name, item: e.text}), {
+                    class: 'link-button',
+                    title: 'Where it came from, back through the players it passed'
+                }, icon('search'), 'Trace'),
+                !received && state.canCommand && GAINED_WEALTH.includes(e.event_type) && h('button', {
                     type: 'button',
                     class: 'link-button',
                     title: 'Give it back, with this as the proof they had it',
                     on: {click: () => restoreFromWealth(name, e)}
-                }, icon('plus'), 'Restore');
-            }
+                }, icon('plus'), 'Restore'));
             break;
+        }
         case 'chat':
             iconName = 'chat';
             title = e.other ? [h('span', {class: 'muted'}, 'To '), playerLink(e.other), ': ', e.text] : e.text;

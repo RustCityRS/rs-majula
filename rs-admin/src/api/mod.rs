@@ -3,8 +3,10 @@ mod account;
 mod auth;
 mod cases;
 mod controls;
+mod economy;
 mod edit;
 mod export;
+mod hiscores;
 mod live;
 mod lookup;
 mod news;
@@ -46,6 +48,28 @@ pub fn router() -> Router<Arc<App>> {
         .route("/worlds/cancel-reboot", post(worlds::cancel_reboot))
         .route("/worlds/broadcast", post(worlds::broadcast))
         .route("/worlds/maintenance", post(worlds::maintenance))
+        .route(
+            "/worlds/{node}/reload-scripts",
+            post(worlds::reload_scripts),
+        )
+        .route("/economy", get(economy::dashboard))
+        .route("/economy/summary", get(economy::summary))
+        .route("/economy/sample", post(economy::sample))
+        .route("/economy/track", post(economy::track))
+        .route("/economy/untrack", post(economy::untrack))
+        .route(
+            "/economy/alerts/{id}/acknowledge",
+            post(economy::acknowledge),
+        )
+        .route("/economy/holders", get(economy::holders))
+        .route("/economy/trace", get(economy::trace))
+        .route("/economy/trades", get(economy::trades))
+        .route("/economy/receivers", get(economy::receivers))
+        .route("/economy/ring", get(economy::ring_preview))
+        .route("/economy/ring-rollback", post(economy::ring_rollback))
+        .route("/hiscores/player", get(hiscores::player))
+        .route("/hiscores/change", post(hiscores::change))
+        .route("/hiscores/kept-off", get(hiscores::kept_off))
         .route("/controls", get(controls::get))
         .route("/controls/switch", post(controls::switch))
         .route("/controls/check", post(controls::check))

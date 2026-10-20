@@ -70,6 +70,21 @@ pub mod path {
     pub const PROGRESS: &str = "/v1/player/progress";
     /// How active a player has been, hour by hour.
     pub const ACTIVITY: &str = "/v1/player/activity";
+    /// The economy: where a player's item came from, who holds an item and
+    /// how much of it there is, and who hands items to whom.
+    pub const ITEM_TRACE: &str = "/v1/economy/trace";
+    pub const ITEM_HOLDERS: &str = "/v1/economy/holders";
+    pub const ITEM_TOTALS: &str = "/v1/economy/totals";
+    pub const TRADE_GRAPH: &str = "/v1/economy/trades";
+    pub const TOP_RECEIVERS: &str = "/v1/economy/receivers";
+    /// A player's hiscore entries, keeping them off the tables, and every
+    /// account kept off.
+    pub const HISCORES: &str = "/v1/hiscores/player";
+    pub const HISCORES_CHANGE: &str = "/v1/hiscores/change";
+    pub const HISCORES_KEPT_OFF: &str = "/v1/hiscores/kept-off";
+    /// Recompiles the world's scripts and swaps them in: answered by that
+    /// world only.
+    pub const RELOAD_SCRIPTS: &str = "/v1/scripts/reload";
     /// The website's admin API (`rs-web`), signed the same way.
     pub const NEWS: &str = "/v1/news";
     pub const NEWS_SAVE: &str = "/v1/news/save";
@@ -848,6 +863,10 @@ pub struct Unstick {
 pub struct SavePointsLookup {
     pub name: String,
     pub before: Option<i64>,
+    /// Only points saved at or before this (Unix ms). Worlds on an older
+    /// release ignore it, so check the points that come back.
+    #[serde(default)]
+    pub saved_by_ms: Option<i64>,
     pub limit: u32,
 }
 
@@ -1080,6 +1099,281 @@ pub struct AppealDecide {
     /// `upheld` or `overturned`.
     pub decision: String,
     pub note: String,
+}
+
+/// The wealth event types the engine logs itself as items pass between
+/// players or through the floor (`rs_db::transfer`). The content's
+/// `^wealth_*` constants are all below them.
+pub mod transfer {
+    /// Handed over in a trade.
+    pub const TRADE: i16 = 100;
+    /// Lost as a duel stake.
+    pub const STAKE: i16 = 101;
+    /// Handed straight to another player some other way.
+    pub const GIVE: i16 = 102;
+    /// Dropped on the floor.
+    pub const DROP: i16 = 103;
+    /// Picked up from the floor.
+    pub const TAKE: i16 = 104;
+}
+
+/// An item as the economy tools name it. `forms` are it and its noted
+/// form, which saves and logs hold apart.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ItemForms {
+    pub id: u16,
+    pub name: String,
+    pub debugname: String,
+    pub forms: Vec<u16>,
+}
+
+/// `POST /v1/economy/trace`: where a player's item came from, step by step
+/// back through the players it passed through, at most `depth` holders
+/// back. Answered with `Option<ItemTrace>`, `None` when there's no such
+/// item.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TraceLookup {
+    pub name: String,
+    pub obj: u16,
+    pub depth: u8,
+    /// Not back through staff above this level.
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ItemTrace {
+    pub item: ItemForms,
+    pub steps: Vec<TraceLine>,
+}
+
+/// One way a holder came by some of the item: from another player (a
+/// handover, or a pickup of what they dropped), or from the game.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TraceLine {
+    pub holder: String,
+    /// How many holders back from the player traced: 0 for their own.
+    pub depth: u8,
+    /// The step this one explains: where `holder` handed the item on.
+    pub parent: Option<u32>,
+    /// The wealth event's id.
+    pub id: i64,
+    /// A content `^wealth_*` constant, or one of [`transfer`]'s.
+    pub event_type: i16,
+    pub at_ms: i64,
+    pub count: i64,
+    pub value: i64,
+    pub node: u8,
+    pub x: u16,
+    pub z: u16,
+    pub level: u8,
+    /// Who it came from: a handover's giver, or who dropped what they
+    /// picked up.
+    pub from: Option<String>,
+    /// For coins a shop sale or alchemy made, the item turned into them.
+    pub detail: Option<String>,
+}
+
+/// `POST /v1/economy/holders`: the accounts whose saves hold at least
+/// `min_count` of an item (noted ones counted in), the most first. Answered
+/// with `Option<ItemHolders>`, `None` when there's no such item.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HoldersLookup {
+    pub obj: u16,
+    pub min_count: u32,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ItemHolders {
+    pub item: ItemForms,
+    /// Every save's between them, and how many saves hold any.
+    pub total: i64,
+    pub holders: i64,
+    pub accounts: Vec<Holder>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Holder {
+    pub name: String,
+    pub staff_level: u8,
+    pub total: i64,
+    /// Where they keep them, the most first.
+    pub held_in: Vec<HeldIn>,
+    /// When the save this is from was written.
+    pub saved_ms: i64,
+    pub online_node: Option<u8>,
+    pub banned_until_ms: Option<i64>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HeldIn {
+    /// The inventory's config name: `inv`, `bank`, `worn`, ...
+    pub inv: String,
+    pub count: i64,
+}
+
+/// `POST /v1/economy/totals`: how many of each item every save holds
+/// between them (noted ones counted in), and in how many saves. Unknown
+/// items are left out.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TotalsLookup {
+    pub objs: Vec<u16>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ItemCirculation {
+    pub item: ItemForms,
+    pub total: i64,
+    pub holders: i64,
+}
+
+/// `POST /v1/economy/trades`: who a player handed items to or got them
+/// from since `since_ms`, the `partners` they traded the most value with,
+/// and everything handed over among them all. Empty when no such player is
+/// registered.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TradeGraphLookup {
+    pub name: String,
+    pub since_ms: i64,
+    pub partners: u32,
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct TradeGraph {
+    /// The player first, then their partners.
+    pub accounts: Vec<GraphAccount>,
+    /// The most valuable first.
+    pub edges: Vec<TradeEdge>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct GraphAccount {
+    pub name: String,
+    pub staff_level: u8,
+    pub online_node: Option<u8>,
+    pub banned_until_ms: Option<i64>,
+}
+
+/// Everything one player handed another.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TradeEdge {
+    pub from: String,
+    pub to: String,
+    /// What it was worth, at the cache's values.
+    pub value: i64,
+    pub handovers: i64,
+    pub last_ms: i64,
+    /// The items and how many of each, the most valuable first.
+    pub items: Vec<EdgeItem>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct EdgeItem {
+    pub item: String,
+    pub count: i64,
+}
+
+/// `POST /v1/economy/receivers`: the accounts at least `min_givers` players
+/// handed items to since `since_ms`, those taking in the most more than they
+/// gave first.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ReceiversLookup {
+    pub since_ms: i64,
+    pub min_givers: u32,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TopReceiver {
+    pub name: String,
+    pub staff_level: u8,
+    pub givers: i64,
+    pub handovers: i64,
+    pub received: i64,
+    pub given: i64,
+    pub last_ms: i64,
+    pub online_node: Option<u8>,
+    pub banned_until_ms: Option<i64>,
+}
+
+/// `POST /v1/hiscores/player`: answered with `Option<HiscoreStanding>`,
+/// `None` when no such player is registered.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HiscoresLookup {
+    pub name: String,
+}
+
+/// A player's hiscore entries, and what keeps them off the tables: being
+/// staff or banned does on its own; staff can hide them from every table or
+/// remove their entries from some.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HiscoreStanding {
+    pub staff_level: u8,
+    pub banned: bool,
+    pub hidden: bool,
+    /// The tables their entries were removed from.
+    pub removed: Vec<i16>,
+    pub rows: Vec<HiscoreRow>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HiscoreRow {
+    /// The website's table number: 0 for Overall, else a stat id + 1.
+    pub category: i16,
+    pub level: i16,
+    pub xp: i64,
+    /// Their place in the table, `None` while they're kept off it.
+    pub rank: Option<i64>,
+}
+
+/// `POST /v1/hiscores/change`: answered with an [`Outcome`]. Admins and up.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HiscoresChange {
+    pub actor: Actor,
+    pub name: String,
+    /// Keep them off every table, or let them back on.
+    pub hidden: Option<bool>,
+    /// Tables to remove their entries from, and to put them back on.
+    pub remove: Vec<i16>,
+    pub restore: Vec<i16>,
+    pub reason: String,
+}
+
+/// `POST /v1/hiscores/kept-off`: the accounts staff keep off the hiscores.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct KeptOffLookup {
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct KeptOff {
+    pub name: String,
+    pub hidden: bool,
+    pub removed: Vec<i16>,
+}
+
+/// `POST /v1/scripts/reload`: recompiles the world's scripts from its
+/// content and, unless `check_only`, swaps them in without a restart. The
+/// cache stays as it is, so it's for script fixes only. Developers only;
+/// answered with [`ScriptsReloaded`].
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ReloadScripts {
+    pub actor: Actor,
+    pub check_only: bool,
+    pub reason: String,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ScriptsReloaded {
+    pub ok: bool,
+    pub message: String,
+    /// Whether the new scripts are running.
+    pub applied: bool,
+    pub scripts: u32,
+    pub compile_ms: u32,
+    /// What the compiler said, when they didn't compile.
+    pub errors: Option<String>,
 }
 
 /// `ms` as a UTC date and time, as staff notes and logs give times.

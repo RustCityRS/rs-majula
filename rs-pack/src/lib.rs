@@ -288,6 +288,18 @@ fn unwrap_thread<T>(name: &str, result: std::thread::Result<T>) -> T {
     })
 }
 
+/// Compiles the RuneScript sources under `source` alone, for swapping into
+/// a running world: the cache it already serves stays as it is. Errors are
+/// the compiler's, as it reports them.
+pub fn compile_scripts(
+    source: &Path,
+    pack: &Path,
+) -> anyhow::Result<cache::script::ScriptProvider> {
+    let (dat, idx) =
+        runec::compile_memory(source, Some(pack), false).map_err(|e| anyhow::anyhow!("{e}"))?;
+    Ok(cache::script::ScriptProvider::from_bytes(&dat, &idx))
+}
+
 pub fn pack_all(
     source: &Path,
     pack: &Path,

@@ -14,7 +14,7 @@ use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
-use rs_db::LogBatch;
+use rs_db::{LogBatch, transfer};
 use rs_entity::StaffModLevel;
 use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -1111,6 +1111,17 @@ impl Engine {
         #[cfg(debug_assertions)]
         self.broadcast(&format!("Hot-reload applied - {count} scripts loaded"));
         info!("Hot-reload applied - {} scripts loaded", count);
+    }
+
+    /// Swaps in recompiled scripts, leaving the cache as it is: an emergency
+    /// fix to a running world. Scripts already running finish on the code
+    /// they started with. Returns how many scripts are loaded.
+    pub fn reload_scripts(&mut self, new_scripts: ScriptProvider) -> usize {
+        self.scripts = new_scripts;
+        self.controls.refresh(&self.scripts);
+        let count = self.scripts.count();
+        info!("Script reload applied - {} scripts loaded", count);
+        count
     }
 
     /// Executes a single RuneScript VM invocation against the given script state.
@@ -4478,6 +4489,37 @@ impl ScriptPlayer for ActivePlayer {
             COUNTERS.wealth(event_type, count, value);
         }
         self.log_wealth(event_type, item, count, value);
+    }
+
+    /// Logs a handover to another player: a trade, a duel stake, or any
+    /// other inventory moved straight across.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `BOTH_MOVEINV` via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::log_transfer`
+    fn log_handover(&mut self, inv: &str, obj: u16, count: i32, to37: u64) {
+        let event_type = match inv {
+            "tradeoffer" => transfer::TRADE,
+            "dueloffer" => transfer::STAKE,
+            _ => transfer::GIVE,
+        };
+        self.log_transfer(event_type, self.coord(), obj, count, Some(to37));
+    }
+
+    /// Logs a drop on the floor, or a pickup from it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** the drop ops and `OBJ_TAKEITEM` via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::log_transfer`
+    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: u16, count: i32) {
+        let event_type = if taken {
+            transfer::TAKE
+        } else {
+            transfer::DROP
+        };
+        self.log_transfer(event_type, coord, obj, count, None);
     }
 
     /// Sends the last-login info packet (welcome screen).

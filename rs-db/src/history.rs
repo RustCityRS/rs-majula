@@ -116,11 +116,12 @@ pub(crate) async fn keep_staff_point(
 
 impl Db {
     /// A player's save points, newest first, older than point `before` when
-    /// paging.
+    /// paging, and only those saved at or before `saved_by_ms` if given.
     pub async fn save_points(
         &self,
         name_hash: u64,
         before: Option<i64>,
+        saved_by_ms: Option<i64>,
         limit: i64,
     ) -> Result<Vec<SavePoint>, Error> {
         sqlx::query_as(concat!(
@@ -129,11 +130,15 @@ impl Db {
             " AS saved_ms FROM save_history h
              JOIN players p ON p.id = h.player_id
              WHERE p.name_hash = $1 AND ($2::bigint IS NULL OR h.id < $2)
+               AND ($4::bigint IS NULL OR ",
+            ms!("h.saved_at"),
+            " <= $4)
              ORDER BY h.id DESC LIMIT $3"
         ))
         .bind(name_hash as i64)
         .bind(before)
         .bind(limit)
+        .bind(saved_by_ms)
         .fetch_all(&self.pool)
         .await
     }

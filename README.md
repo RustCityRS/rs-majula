@@ -309,6 +309,47 @@ on phones too.
     5 always). Compare one with now, restore what's gone since, or roll
     back to it (needs an open case; a player online is logged out first,
     and the save replaced is kept, so a rollback can be undone).
+- **Economy:** the tools for a dupe or real-world trading. Worlds log
+  items passing between players themselves, whatever the content does:
+  trades, duel stakes and other handovers (who to), drops and pickups, as
+  wealth events of their own beside the scripts' `wealth_event`s, valued at
+  the cache's prices.
+  - *Circulation:* coins and tracked rares (the holiday rares to start
+    with) counted across every save, bank, worn and noted ones included,
+    every 15 minutes, and charted over a week, month, quarter or year. A
+    count that rises more than its item's threshold (5% unless set) over the
+    one before raises an alert, often the first sign of a dupe: it's in the
+    sidebar until someone marks it seen, and in the audit log. Admins choose
+    what's tracked and the thresholds. Counts are kept 400 days in
+    `rs-admin/data/economy-samples.jsonl`; items and alerts in
+    `economy.json`.
+  - *Who owns:* every account holding an item (noted ones counted in), the
+    most first, where they keep it, as of their last save.
+  - *Item trace:* where a player's stack came from, back through the
+    players it passed: who traded, staked or handed it to them, whose drop
+    they picked up (matched to the latest drop of the item on that tile),
+    and where it came into the game (a shop, a spawn, alchemy for coins).
+    Up to 6 holders back; each player is followed once, and never back
+    through staff above you. Timeline rows link to it.
+  - *Trade graph:* who a player hands items to and gets them from, with what
+    passed between their partners too (rings show as amber arrows), and the
+    accounts many players feed that give little back (mules).
+  - *Ring rollback* (admins, from a trace or a graph): every account of a
+    dupe ring back to its newest save from before one moment, in one action
+    with one audit entry, noted on the case for each account. Check shows
+    the save each goes back to; nothing is rolled back unless every account
+    has one.
+  - *Hiscores:* staff of any level and banned players are never ranked.
+    Admins can hide an account from every table, or remove a cheater's
+    entries from some (their saves keep the rows current, so putting them
+    back is instant); a player's page shows their ranks.
+- **Script reload** (developers only, on the Worlds page with one world
+  picked): recompiles that world's scripts from its content folder and
+  swaps them in without a restart, for an emergency fix. Check first: if
+  they don't compile, nothing changes and the compiler's errors show.
+  Scripts only (configs, maps and interfaces need a restart); scripts
+  already running finish on the old code. A reason is required, and checks
+  and reloads are audited.
 - **Staff** (developers only): add accounts, change roles and passwords,
   reset 2FA, disable or remove. Each change needs the developer's password
   and a fresh authenticator code.
@@ -364,11 +405,13 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   page); `moderator` (1) kicks, mutes, bans, looks players up, reads chat logs,
   frees stuck sessions and sends stuck players home; `admin` (2) also
   reboots, broadcasts, toggles maintenance, resets passwords, restores
-  items and rolls saves back; `developer` (3)
-  also manages staff accounts, changes players' stats and items, and posts
-  news. Nobody can moderate someone at or above their
+  items, rolls saves back (one account or a ring), changes the hiscores and
+  what the economy tracks; `developer` (3)
+  also manages staff accounts, changes players' stats and items, reloads
+  scripts, and posts news. Nobody can moderate someone at or above their
   own level, nor see the sessions or logs (recordings, live spectating,
-  chat, timeline, login addresses, progress charts, exports) of staff above
+  chat, timeline, login addresses, progress charts, exports, item traces and
+  trade graphs) of staff above
   it: lists leave them out, and their player page says so. Manage accounts on the Staff page, or with `rs-admin user
   list|add|passwd|role|reset-2fa|disable|enable|remove` (the way to create
   the first developer); changing a password, role or authenticator signs

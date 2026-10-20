@@ -129,8 +129,10 @@ pub struct LinkedAccount {
 ///
 /// - `login`: `text` is the address.
 /// - `session`: a script's `session_log`: `event_type`, `text`.
-/// - `wealth`: a script's `wealth_event`: `event_type`, `text` (the item),
-///   `count`, `value`.
+/// - `wealth`: a script's `wealth_event` or one the engine logs as items
+///   pass between players: `event_type`, `text` (the item), `count`,
+///   `value`, and for a handover `other` (who it went to, or with `detail`
+///   "received", who it came from).
 /// - `chat`: `text`, and `other_hash` for a private message's recipient.
 /// - `moderation`: done to them: `text` (the action), `other` (the
 ///   moderator), `hours`, `detail` (the reason).
@@ -201,12 +203,21 @@ fn timeline_select(kind: &str) -> Option<&'static str> {
             "NULL::bigint, NULL::int, NULL::text FROM session_logs ",
             "WHERE player_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
         ),
+        // Their own, and handovers to them (`detail` "received").
         "wealth" => concat!(
-            "SELECT 'wealth'::text, id, ",
-            ms!("created_at"),
-            ", node_id, x, z, y, event_type, item, NULL::text, NULL::bigint, count::bigint, ",
-            "value::bigint, NULL::int, NULL::text FROM wealth_events ",
-            "WHERE player_id = $P AND created_at <= $B ORDER BY created_at DESC LIMIT $L"
+            "SELECT * FROM ((SELECT 'wealth'::text, w.id, ",
+            ms!("w.created_at"),
+            ", w.node_id, w.x, w.z, w.y, w.event_type, w.item, c.display_name, NULL::bigint, ",
+            "w.count::bigint, w.value::bigint, NULL::int, NULL::text FROM wealth_events w ",
+            "LEFT JOIN players c ON c.id = w.counterpart_id ",
+            "WHERE w.player_id = $P AND w.created_at <= $B ORDER BY w.created_at DESC LIMIT $L) ",
+            "UNION ALL (SELECT 'wealth'::text, w.id, ",
+            ms!("w.created_at"),
+            ", w.node_id, w.x, w.z, w.y, w.event_type, w.item, g.display_name, NULL::bigint, ",
+            "w.count::bigint, w.value::bigint, NULL::int, 'received'::text FROM wealth_events w ",
+            "JOIN players g ON g.id = w.player_id ",
+            "WHERE w.counterpart_id = $P AND w.created_at <= $B ",
+            "ORDER BY w.created_at DESC LIMIT $L)) AS wealth"
         ),
         "chat" => concat!(
             "SELECT 'chat'::text, id, ",

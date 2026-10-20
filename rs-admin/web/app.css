@@ -1028,3 +1028,55 @@ textarea.composer-text { min-height: 72px; }
 
 .staff-activity td { white-space: nowrap; }
 .case-refs { margin-top: 4px; gap: 4px; }
+
+/* Economy */
+
+.econ-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.danger-card { border-color: var(--danger-line); }
+.danger-card > .card-head h2 { color: var(--danger); }
+details.card > summary { cursor: pointer; list-style: none; }
+details.card > summary::-webkit-details-marker { display: none; }
+details.card:not([open]) > summary { border-bottom: 0; }
+.form-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.form-row .field { margin: 0; }
+.card-body.form-row > * + * { margin-top: 0; }
+.form-row .grow { flex: 1 1 220px; min-width: 0; }
+.card-foot { padding: 10px 14px; border-top: 1px solid var(--border); font-size: 12px; }
+.chips .sep { width: 1px; align-self: stretch; background: var(--border); margin: 0 4px; }
+.chip.check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.chip.check input { margin: 0; }
+.holders td, .receivers td, .edges td { white-space: nowrap; }
+.edges td:nth-child(4) { white-space: normal; min-width: 200px; }
+.trace .list-item { border-bottom: 1px solid var(--border); }
+.trace-children { margin-left: 22px; border-left: 1px solid var(--border-strong); }
+.trace-children .list-item { padding-left: 12px; }
+.trace-before { padding: 6px 14px 2px 36px; font-size: 11.5px; }
+.ring-preview { border: 1px solid var(--border); border-radius: var(--radius-sm); max-height: 260px; overflow-y: auto; }
+.ring-preview > .hint { padding: 10px 12px; }
+.compile-errors {
+  margin-top: 8px; max-height: 280px; overflow: auto; padding: 10px; border: 1px solid var(--danger-line);
+  border-radius: var(--radius-sm); background: var(--field); font: 12px/1.45 var(--mono); white-space: pre-wrap;
+}
+.trade-graph { width: 100%; height: auto; max-height: 460px; display: block; }
+.trade-graph .edge { fill: none; stroke: var(--accent); opacity: 0.75; }
+.trade-graph .edge.ring { stroke: var(--warn); }
+.trade-graph .edge:hover { opacity: 1; }
+.trade-graph .arrow.main { fill: var(--accent); }
+.trade-graph .arrow.ring { fill: var(--warn); }
+.trade-graph .node circle { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1.5; }
+.trade-graph .node { cursor: pointer; outline: none; }
+.trade-graph .node.centre { cursor: default; }
+.trade-graph .node.centre circle { fill: var(--sel); stroke: var(--sel-line); }
+.trade-graph .node.banned circle { stroke: var(--danger); }
+.trade-graph .node.staff circle { stroke: var(--accent); }
+.trade-graph .node:hover circle, .trade-graph .node:focus-visible circle { stroke: var(--text); }
+.trade-graph text {
+  fill: var(--muted); font: 600 11px var(--font);
+  paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+}
+.trade-graph .node.centre text { fill: var(--text); }
+@media (max-width: 900px) {
+  .segmented.tabs { overflow-x: auto; grid-auto-columns: minmax(max-content, 1fr); }
+  .segmented.tabs button { padding: 0 12px; white-space: nowrap; }
+  .econ-grid { grid-template-columns: minmax(0, 1fr); }
+}

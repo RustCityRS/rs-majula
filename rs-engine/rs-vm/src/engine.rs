@@ -747,6 +747,22 @@ pub trait ScriptPlayer {
     /// * `value` - Their worth in coins, as the script valued it.
     fn wealth_event(&mut self, event_type: i32, item: &str, count: i32, value: i32);
 
+    /// Logs items the player handed straight to another player from their
+    /// inventory `inv` (a trade offer, a duel stake), so staff can trace
+    /// where items went. Logged by the engine, whatever the script.
+    ///
+    /// # Arguments
+    /// * `inv` - The debug name of the inventory they left.
+    /// * `obj` - The obj type id.
+    /// * `count` - How many.
+    /// * `to37` - The base37 name of the player they went to.
+    fn log_handover(&mut self, inv: &str, obj: u16, count: i32, to37: u64);
+
+    /// Logs items the player dropped on the floor at `coord`, or with
+    /// `taken`, picked up from there, so a pickup can be matched to whoever
+    /// dropped it.
+    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: u16, count: i32);
+
     /// Sends the last-login info to the client (welcome screen): days since the
     /// previous login, recovery prompt code, and unread message count.
     fn last_login_info(&mut self);

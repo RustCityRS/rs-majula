@@ -10,14 +10,18 @@ use rs_admin_api::utc_time;
 use rs_admin_api::{
     AccountActivity, AccountsLookup, ActivityHour, ActivityLookup, AnticheatLeader,
     AnticheatLookup, Broadcast, CancelReboot, ChatLookup, ChatRecord, CheckPatterns, ControlsSet,
-    Health, InvSheet, ItemLine, Kick, LinkedAccount, Links, LinksLookup, LiveReplay, LoginAddress,
-    MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome, Moderate, ModerationLookup,
-    ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome, PasswordReset, PlayerEdit,
-    PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, ProgressLookup, ProgressPoint,
-    Reboot, ReplayGet, ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, ResetIssued,
-    Rollback, Sanction, SanctionsLookup, SavePointLine, SavePointLookup, SavePointsLookup,
-    SessionClaim, SessionLookup, SessionState, SetControls, SheetLookup, StatLine, TimelineEntry,
-    TimelineLookup, Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
+    EdgeItem, GraphAccount, Health, HeldIn, HiscoreRow, HiscoreStanding, HiscoresChange,
+    HiscoresLookup, Holder, HoldersLookup, InvSheet, ItemCirculation, ItemForms, ItemHolders,
+    ItemLine, ItemTrace, KeptOff, KeptOffLookup, Kick, LinkedAccount, Links, LinksLookup,
+    LiveReplay, LoginAddress, MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome,
+    Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome,
+    PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet,
+    ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup,
+    ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup,
+    SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup,
+    SessionState, SetControls, SheetLookup, StatLine, TimelineEntry, TimelineLookup, TopReceiver,
+    TotalsLookup, TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup, Unstick,
+    Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::console::{self, Change};
@@ -102,6 +106,8 @@ struct AdminState {
     spectates: Mutex<HashMap<String, Arc<tokio::sync::Mutex<Spectate>>>>,
     /// For password reset codes, hashed as passwords are.
     passwords: Passwords,
+    /// Held while scripts are recompiled, so reloads don't overlap.
+    reloading: tokio::sync::Mutex<()>,
 }
 
 impl AdminState {
@@ -176,6 +182,7 @@ pub async fn serve(
         reboot_reason: Mutex::default(),
         spectates: Mutex::default(),
         passwords: Passwords::new(&pepper),
+        reloading: tokio::sync::Mutex::new(()),
     });
     tokio::spawn(record_ticks(stats, state.clone()));
     let router = Router::new()
@@ -214,6 +221,15 @@ pub async fn serve(
         .route(path::WEALTH, post(wealth_lookup))
         .route(path::PROGRESS, post(progress_lookup))
         .route(path::ACTIVITY, post(activity_lookup))
+        .route(path::ITEM_TRACE, post(item_trace))
+        .route(path::ITEM_HOLDERS, post(item_holders))
+        .route(path::ITEM_TOTALS, post(item_totals))
+        .route(path::TRADE_GRAPH, post(trade_graph))
+        .route(path::TOP_RECEIVERS, post(top_receivers))
+        .route(path::HISCORES, post(hiscores_lookup))
+        .route(path::HISCORES_CHANGE, post(hiscores_change))
+        .route(path::HISCORES_KEPT_OFF, post(hiscores_kept_off))
+        .route(path::RELOAD_SCRIPTS, post(reload_scripts))
         .layer(middleware::from_fn_with_state(state.clone(), authenticate))
         .with_state(state);
     if let Err(e) = axum::serve(listener, router).await {
@@ -1738,6 +1754,7 @@ async fn save_points_lookup(
         .save_points(
             name_hash(&req.name)?,
             req.before,
+            req.saved_by_ms,
             i64::from(req.limit.clamp(1, MAX_SAVE_POINTS)),
         )
         .await
@@ -1954,9 +1971,449 @@ async fn wealth_lookup(
     })))
 }
 
+// The engine's own wealth event types, as the console reads them.
+const _: () = assert!(
+    rs_admin_api::transfer::TRADE == rs_db::transfer::TRADE
+        && rs_admin_api::transfer::STAKE == rs_db::transfer::STAKE
+        && rs_admin_api::transfer::GIVE == rs_db::transfer::GIVE
+        && rs_admin_api::transfer::DROP == rs_db::transfer::DROP
+        && rs_admin_api::transfer::TAKE == rs_db::transfer::TAKE
+);
+
+/// How many holders back a trace may go.
+const MAX_TRACE_DEPTH: u8 = 6;
+/// The sources each holder's step lists, and the most steps in a trace.
+const TRACE_PER_STEP: i64 = 25;
+const MAX_TRACE_STEPS: usize = 300;
+/// The most accounts an item's holders list.
+const MAX_HOLDERS: u32 = 500;
+/// The most items one totals lookup counts.
+const MAX_TOTALS: usize = 100;
+/// The most partners a trade graph shows around a player.
+const MAX_PARTNERS: u32 = 60;
+/// The most receivers listed.
+const MAX_RECEIVERS: u32 = 200;
+/// The most accounts kept off the hiscores listed.
+const MAX_KEPT_OFF: u32 = 500;
+/// The most of a compiler's report sent back.
+const MAX_ERRORS_CHARS: usize = 8000;
+
+fn forms(found: console::ItemForms) -> (ItemForms, Vec<String>) {
+    (
+        ItemForms {
+            id: found.id,
+            name: found.name,
+            debugname: found.debugname,
+            forms: found.forms,
+        },
+        found.debugnames,
+    )
+}
+
+/// Where a player's item came from, back through the players it passed.
+async fn item_trace(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<TraceLookup>,
+) -> Result<Json<Option<ItemTrace>>, StatusCode> {
+    let user37 = name_hash(&req.name)?;
+    let obj = req.obj;
+    let Some(found) = on_engine(&state, move |engine| engine.item_forms(obj)).await? else {
+        return Ok(Json(None));
+    };
+    let (item, debugnames) = forms(found);
+    let steps = state
+        .db
+        .item_trace(
+            user37,
+            &debugnames,
+            req.depth.clamp(1, MAX_TRACE_DEPTH),
+            TRACE_PER_STEP,
+            MAX_TRACE_STEPS,
+            req.max_staff_level.map(i16::from),
+        )
+        .await
+        .map_err(db_failed)?;
+    let steps = steps
+        .into_iter()
+        .map(|step| {
+            let s = step.source;
+            TraceLine {
+                holder: step.holder,
+                depth: step.depth,
+                parent: step.parent.map(|p| p as u32),
+                id: s.id,
+                event_type: s.event_type,
+                at_ms: s.at_ms,
+                count: s.count,
+                value: s.value,
+                node: node(Some(s.node_id)).unwrap_or_default(),
+                x: s.x as u16,
+                z: s.z as u16,
+                level: s.y as u8,
+                from: s.from_name,
+                detail: s.detail,
+            }
+        })
+        .collect();
+    Ok(Json(Some(ItemTrace { item, steps })))
+}
+
+/// The accounts whose saves hold an item, the most first.
+async fn item_holders(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<HoldersLookup>,
+) -> Result<Json<Option<ItemHolders>>, StatusCode> {
+    let obj = req.obj;
+    let Some(found) = on_engine(&state, move |engine| engine.item_forms(obj)).await? else {
+        return Ok(Json(None));
+    };
+    let (item, _) = forms(found);
+    let ids: Vec<i32> = item.forms.iter().map(|&id| i32::from(id)).collect();
+    let totals = state.db.item_totals(&ids).await.map_err(db_failed)?;
+    let accounts = state
+        .db
+        .item_holders(
+            &ids,
+            i64::from(req.min_count),
+            i64::from(req.limit.clamp(1, MAX_HOLDERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    let accounts = on_engine(&state, move |engine| {
+        accounts
+            .into_iter()
+            .map(|h| Holder {
+                name: h.name,
+                staff_level: h.staff_level.max(0) as u8,
+                total: h.total,
+                held_in: h
+                    .inv_types
+                    .iter()
+                    .zip(&h.inv_counts)
+                    .map(|(&inv, &count)| HeldIn {
+                        inv: engine.inv_name(inv),
+                        count,
+                    })
+                    .collect(),
+                saved_ms: h.saved_ms,
+                online_node: node(h.online_node),
+                banned_until_ms: h.banned_until_ms,
+            })
+            .collect()
+    })
+    .await?;
+    Ok(Json(Some(ItemHolders {
+        item,
+        total: totals.iter().map(|t| t.total).sum(),
+        // A save holding both forms is counted once per form; near enough
+        // for a count of holders, and exact for items without a note.
+        holders: totals.iter().map(|t| t.holders).max().unwrap_or(0),
+        accounts,
+    })))
+}
+
+/// How much of each item every save holds between them.
+async fn item_totals(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<TotalsLookup>,
+) -> Result<Json<Vec<ItemCirculation>>, StatusCode> {
+    let mut objs = req.objs;
+    objs.sort_unstable();
+    objs.dedup();
+    objs.truncate(MAX_TOTALS);
+    let items: Vec<ItemForms> = on_engine(&state, move |engine| {
+        objs.into_iter()
+            .filter_map(|obj| engine.item_forms(obj))
+            .map(|found| forms(found).0)
+            .collect()
+    })
+    .await?;
+    let ids: Vec<i32> = items
+        .iter()
+        .flat_map(|item| item.forms.iter().map(|&id| i32::from(id)))
+        .collect();
+    let totals = state.db.item_totals(&ids).await.map_err(db_failed)?;
+    Ok(Json(
+        items
+            .into_iter()
+            .map(|item| {
+                let mine = totals
+                    .iter()
+                    .filter(|t| item.forms.iter().any(|&f| i32::from(f) == t.obj));
+                let (total, holders) = mine.fold((0, 0), |(total, holders), t| {
+                    (total + t.total, holders.max(t.holders))
+                });
+                ItemCirculation {
+                    item,
+                    total,
+                    holders,
+                }
+            })
+            .collect(),
+    ))
+}
+
+/// Who a player hands items to and gets them from.
+async fn trade_graph(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<TradeGraphLookup>,
+) -> Result<Json<TradeGraph>, StatusCode> {
+    let graph = state
+        .db
+        .trade_graph(
+            name_hash(&req.name)?,
+            req.since_ms,
+            i64::from(req.partners.clamp(1, MAX_PARTNERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(TradeGraph {
+        accounts: graph
+            .accounts
+            .into_iter()
+            .map(|a| GraphAccount {
+                name: a.name,
+                staff_level: a.staff_level.max(0) as u8,
+                online_node: node(a.online_node),
+                banned_until_ms: a.banned_until_ms,
+            })
+            .collect(),
+        edges: graph
+            .edges
+            .into_iter()
+            .map(|e| TradeEdge {
+                from: e.from,
+                to: e.to,
+                value: e.value,
+                handovers: e.handovers,
+                last_ms: e.last_ms,
+                items: e
+                    .items
+                    .into_iter()
+                    .map(|(item, count)| EdgeItem { item, count })
+                    .collect(),
+            })
+            .collect(),
+    }))
+}
+
+/// The accounts many players hand items to.
+async fn top_receivers(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ReceiversLookup>,
+) -> Result<Json<Vec<TopReceiver>>, StatusCode> {
+    let rows = state
+        .db
+        .top_receivers(
+            req.since_ms,
+            i64::from(req.min_givers),
+            i64::from(req.limit.clamp(1, MAX_RECEIVERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| TopReceiver {
+                name: r.name,
+                staff_level: r.staff_level.max(0) as u8,
+                givers: r.givers,
+                handovers: r.handovers,
+                received: r.received,
+                given: r.given,
+                last_ms: r.last_ms,
+                online_node: node(r.online_node),
+                banned_until_ms: r.banned_until_ms,
+            })
+            .collect(),
+    ))
+}
+
+/// A player's hiscore entries and what keeps them off.
+async fn hiscores_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<HiscoresLookup>,
+) -> Result<Json<Option<HiscoreStanding>>, StatusCode> {
+    let standing = state
+        .db
+        .hiscore_standing(name_hash(&req.name)?)
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(standing.map(|s| {
+        HiscoreStanding {
+            staff_level: s.staff_level.max(0) as u8,
+            banned: s.banned,
+            hidden: s.hidden,
+            removed: s.removed,
+            rows: s
+                .rows
+                .into_iter()
+                .map(|r| HiscoreRow {
+                    category: r.category,
+                    level: r.level,
+                    xp: r.xp,
+                    rank: r.rank,
+                })
+                .collect(),
+        }
+    })))
+}
+
+/// Keeps a player off the hiscores, or lets them back on.
+async fn hiscores_change(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<HiscoresChange>,
+) -> Result<Json<Outcome>, StatusCode> {
+    let user37 = name_hash(&req.name)?;
+    if req.actor.staff_level < ADMIN {
+        return Ok(Json(Outcome::refused(
+            "Only admins can change the hiscores.",
+        )));
+    }
+    let known = |c: &i16| rs_db::HISCORE_CATEGORIES.contains(c);
+    if !req.remove.iter().chain(&req.restore).all(known) {
+        return Ok(Json(Outcome::refused("There's no such hiscore table.")));
+    }
+    if req.hidden.is_none() && req.remove.is_empty() && req.restore.is_empty() {
+        return Ok(Json(Outcome::refused("Nothing to change.")));
+    }
+    let found = state
+        .db
+        .change_hiscores(user37, req.hidden, &req.remove, &req.restore)
+        .await
+        .map_err(db_failed)?;
+    let name = to_screen_name(&req.name);
+    if !found {
+        return Ok(Json(Outcome::refused(format!(
+            "No player named {name} is registered."
+        ))));
+    }
+    info!(
+        "{} changed {}'s hiscores from the admin console (hidden {:?}, removed {:?}, restored {:?}): {}",
+        req.actor.name, name, req.hidden, req.remove, req.restore, req.reason
+    );
+    let message = match req.hidden {
+        Some(true) => format!("{name} is kept off every hiscore table."),
+        Some(false) => format!("{name} is back on the hiscores."),
+        None if req.restore.is_empty() => format!("Removed {name}'s entries."),
+        None => format!("Put {name}'s entries back."),
+    };
+    Ok(Json(Outcome::ok(message)))
+}
+
+/// Every account staff keep off the hiscores.
+async fn hiscores_kept_off(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<KeptOffLookup>,
+) -> Result<Json<Vec<KeptOff>>, StatusCode> {
+    let rows = state
+        .db
+        .hiscores_kept_off(i64::from(req.limit.clamp(1, MAX_KEPT_OFF)))
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|k| KeptOff {
+                name: k.name,
+                hidden: k.hidden,
+                removed: k.removed,
+            })
+            .collect(),
+    ))
+}
+
+/// `text` cut to at most `max` characters, saying so if it was.
+fn at_most(text: &str, max: usize) -> String {
+    match text.char_indices().nth(max) {
+        Some((end, _)) => format!("{}\n... (cut short)", &text[..end]),
+        None => text.to_owned(),
+    }
+}
+
+/// Recompiles this world's scripts from its content and swaps them in.
+async fn reload_scripts(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ReloadScripts>,
+) -> Result<Json<ScriptsReloaded>, StatusCode> {
+    let refused = |message: &str| ScriptsReloaded {
+        ok: false,
+        message: message.to_owned(),
+        applied: false,
+        scripts: 0,
+        compile_ms: 0,
+        errors: None,
+    };
+    if req.actor.staff_level < DEVELOPER {
+        return Ok(Json(refused("Only developers can reload scripts.")));
+    }
+    let Ok(_one_at_a_time) = state.reloading.try_lock() else {
+        return Ok(Json(refused("A script reload is already running here.")));
+    };
+    let started = Instant::now();
+    let compiled = tokio::task::spawn_blocking(|| {
+        rs_pack::compile_scripts(
+            std::path::Path::new(rs_pack::CONTENT_DIR),
+            std::path::Path::new(rs_pack::PACK_DIR),
+        )
+    })
+    .await
+    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let compile_ms = started.elapsed().as_millis() as u32;
+    let scripts = match compiled {
+        Ok(scripts) => scripts,
+        Err(e) => {
+            warn!(
+                "{}'s script reload from the admin console didn't compile: {:#}",
+                req.actor.name, e
+            );
+            return Ok(Json(ScriptsReloaded {
+                errors: Some(at_most(&format!("{e:#}"), MAX_ERRORS_CHARS)),
+                compile_ms,
+                ..refused("The scripts didn't compile; nothing was changed.")
+            }));
+        }
+    };
+    let count = scripts.count() as u32;
+    if req.check_only {
+        return Ok(Json(ScriptsReloaded {
+            ok: true,
+            message: format!("All {count} scripts compile. Nothing was changed."),
+            applied: false,
+            scripts: count,
+            compile_ms,
+            errors: None,
+        }));
+    }
+    let loaded = on_engine(&state, move |engine| engine.reload_scripts(scripts)).await? as u32;
+    crate::release_freed_memory();
+    info!(
+        "{} reloaded the scripts ({} of them) from the admin console: {}",
+        req.actor.name, loaded, req.reason
+    );
+    Ok(Json(ScriptsReloaded {
+        ok: true,
+        message: format!(
+            "Reloaded {loaded} scripts. Scripts already running finish on the old code."
+        ),
+        applied: true,
+        scripts: loaded,
+        compile_ms,
+        errors: None,
+    }))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn compiler_reports_are_cut_short() {
+        assert_eq!(at_most("short", 10), "short");
+        assert_eq!(
+            at_most("abcdef", 3),
+            "abc
+... (cut short)"
+        );
+    }
 
     #[test]
     fn reset_codes_read_out_cleanly() {

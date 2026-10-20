@@ -1104,8 +1104,40 @@ impl ActivePlayer {
                 item: item.to_owned(),
                 count,
                 value,
+                counterpart: None,
             });
         }
+    }
+
+    /// Logs items passing to another player (`to37`) or through the floor
+    /// at `coord`, as one of the engine's own wealth events
+    /// ([`rs_db::transfer`]), valued at the cache's price.
+    pub fn log_transfer(
+        &self,
+        event_type: i16,
+        coord: CoordGrid,
+        obj: u16,
+        count: i32,
+        to37: Option<u64>,
+    ) {
+        let Some((logs, ..)) = self.log_batch() else {
+            return;
+        };
+        let Some(obj_type) = engine().objs().get_by_id(obj) else {
+            return;
+        };
+        logs.wealth.push(WealthEvent {
+            name_hash: self.player.uid.username37(),
+            x: coord.x() as i16,
+            z: coord.z() as i16,
+            y: i16::from(coord.y()),
+            event_type,
+            item: obj_type.debugname().unwrap_or("null").to_owned(),
+            count,
+            value: (i64::from(obj_type.cost) * i64::from(count)).clamp(0, i64::from(i32::MAX))
+                as i32,
+            counterpart: to37,
+        });
     }
 
     /// Sends a game message to the player's chatbox.

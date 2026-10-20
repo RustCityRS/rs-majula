@@ -1,7 +1,7 @@
 use rs_db::{
     AppealFiled, ChatLog, Claim, Db, LogBatch, ModAction, NewAppeal, NewPlayer, NewReplay,
     NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk, ReplayReport, Sanctions,
-    SavePoint, SaveResult, SessionLog, TimelineCursor, WealthEvent, WorldStatus,
+    SavePoint, SaveResult, SessionLog, TimelineCursor, WealthEvent, WorldStatus, transfer,
 };
 use sqlx::PgPool;
 
@@ -334,6 +334,7 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
         item: item.to_owned(),
         count,
         value,
+        counterpart: None,
     };
     db.record_logs(
         10,
@@ -1223,6 +1224,7 @@ async fn timeline_merges_every_log_and_pages(pool: PgPool) {
                 item: "coins".to_owned(),
                 count: 5,
                 value: 5,
+                counterpart: None,
             }],
         },
     )
@@ -1707,7 +1709,7 @@ async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
     db.store_save(42, 1, &at(2)).await.unwrap();
     // Nor a logout soon after: the older point is from before it.
     db.store_logout_save(42, 1, &at(3)).await.unwrap();
-    let points = db.save_points(42, None, 10).await.unwrap();
+    let points = db.save_points(42, None, None, 10).await.unwrap();
     assert_eq!(kinds(&points), ["session"]);
     let (point, kept) = db.save_point(42, points[0].id).await.unwrap().unwrap();
     assert_eq!((point.node_id, kept.x), (1, 1));
@@ -1722,7 +1724,7 @@ async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
     age_points(&pool, 61).await;
     db.store_save(42, 1, &at(6)).await.unwrap();
     db.store_logout_save(42, 1, &at(7)).await.unwrap();
-    let points = db.save_points(42, None, 10).await.unwrap();
+    let points = db.save_points(42, None, None, 10).await.unwrap();
     assert_eq!(kinds(&points), ["session", "logout", "session"]);
 
     // A staff change keeps the save it replaces, with who and why.
@@ -1733,7 +1735,7 @@ async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
             .unwrap(),
         SaveResult::Stored
     );
-    let newest = &db.save_points(42, None, 10).await.unwrap()[0];
+    let newest = &db.save_points(42, None, None, 10).await.unwrap()[0];
     assert_eq!(
         (newest.kind.as_str(), newest.note.as_deref()),
         ("staff", Some("Jordan: rollback"))
@@ -1745,15 +1747,21 @@ async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
     assert_eq!(db.load_save(42).await.unwrap().unwrap(), at(8));
 
     // Paging, and points are only another player's own.
-    let older = db.save_points(42, Some(newest.id), 10).await.unwrap();
+    let older = db.save_points(42, Some(newest.id), None, 10).await.unwrap();
     assert_eq!(older.len(), 3);
+    // The newest point from by a moment.
+    let by = db
+        .save_points(42, None, Some(older[1].saved_ms), 10)
+        .await
+        .unwrap();
+    assert_eq!(by[0].id, older[1].id);
     db.create_player(&player(43)).await.unwrap();
     assert!(db.save_point(43, newest.id).await.unwrap().is_none());
 
     // Pruning keeps the newest few.
     age_points(&pool, 60 * 24 * 40).await;
     assert_eq!(db.prune_save_history(30, 2).await.unwrap(), 2);
-    assert_eq!(db.save_points(42, None, 10).await.unwrap().len(), 2);
+    assert_eq!(db.save_points(42, None, None, 10).await.unwrap().len(), 2);
 }
 
 #[sqlx::test]
@@ -1958,6 +1966,7 @@ async fn wealth_events_are_found_by_id(pool: PgPool) {
             item: "dragon_med_helm".to_owned(),
             count: 1,
             value: 100_000,
+            counterpart: None,
         }],
         ..Default::default()
     };
@@ -1973,4 +1982,302 @@ async fn wealth_events_are_found_by_id(pool: PgPool) {
         ("dragon_med_helm", 1, 2)
     );
     assert!(db.wealth_event(43, id).await.unwrap().is_none());
+}
+
+/// Registers a non-staff player called `name`.
+async fn named(db: &Db, name_hash: u64, name: &'static str) {
+    db.create_player(&NewPlayer {
+        display_name: name,
+        staff_mod_level: 0,
+        ..player(name_hash)
+    })
+    .await
+    .unwrap();
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn items_are_traced_back_through_players(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    named(&db, 41, "Origin").await;
+    named(&db, 42, "Mid").await;
+    named(&db, 43, "Mule").await;
+    named(&db, 44, "Feeder").await;
+    let event = |name_hash, event_type, item: &str, count, value, to| WealthEvent {
+        name_hash,
+        x: 3200,
+        z: 3200,
+        y: 0,
+        event_type,
+        item: item.to_owned(),
+        count,
+        value,
+        counterpart: to,
+    };
+    let logs = LogBatch {
+        wealth: vec![
+            event(41, 6, "rune_axe", 1, 2000, None),
+            event(41, transfer::DROP, "rune_axe", 1, 2000, None),
+            event(42, transfer::TAKE, "rune_axe", 1, 2000, None),
+            event(42, transfer::TRADE, "rune_axe", 1, 2000, Some(43)),
+            event(44, transfer::TRADE, "coins", 1000, 1000, Some(43)),
+            event(42, transfer::STAKE, "coins", 500, 500, Some(43)),
+            event(43, transfer::TRADE, "lobster", 1, 10, Some(42)),
+        ],
+        ..Default::default()
+    };
+    db.record_logs(10, &logs).await.unwrap();
+    // A minute apart, in the order they happened; then a trade of two items
+    // at once, which is one handover.
+    sqlx::query(
+        "UPDATE wealth_events SET created_at = now()
+             - make_interval(mins => (SELECT max(id) FROM wealth_events)::int - id::int + 1)",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+
+    let axe = ["rune_axe".to_owned(), "cert_rune_axe".to_owned()];
+    let both = LogBatch {
+        wealth: vec![
+            event(44, transfer::TRADE, "coins", 100, 100, Some(43)),
+            event(44, transfer::TRADE, "bread", 1, 4, Some(43)),
+        ],
+        ..Default::default()
+    };
+    db.record_logs(10, &both).await.unwrap();
+
+    let sources = db.item_sources(43, &axe, None, 10).await.unwrap();
+    assert_eq!(sources.len(), 1);
+    assert_eq!(
+        (sources[0].event_type, sources[0].from_name.as_deref()),
+        (transfer::TRADE, Some("Mid"))
+    );
+
+    // Mule had it from Mid, who picked up what Origin dropped, who bought it.
+    let trace = db.item_trace(43, &axe, 4, 10, 100, None).await.unwrap();
+    let steps: Vec<_> = trace
+        .iter()
+        .map(|s| {
+            (
+                s.holder.as_str(),
+                s.depth,
+                s.parent,
+                s.source.event_type,
+                s.source.from_name.as_deref(),
+            )
+        })
+        .collect();
+    assert_eq!(
+        steps,
+        [
+            ("Mule", 0, None, transfer::TRADE, Some("Mid")),
+            ("Mid", 1, Some(0), transfer::TAKE, Some("Origin")),
+            ("Origin", 2, Some(1), 6, None),
+        ]
+    );
+    // Not back through staff above the one looking.
+    sqlx::query("UPDATE players SET staff_mod_level = 2 WHERE name_hash = 42")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(
+        db.item_trace(43, &axe, 4, 10, 100, Some(1))
+            .await
+            .unwrap()
+            .len(),
+        1
+    );
+    // Only so far back.
+    assert_eq!(
+        db.item_trace(43, &axe, 1, 10, 100, None)
+            .await
+            .unwrap()
+            .len(),
+        1
+    );
+    assert!(
+        db.item_trace(99, &axe, 4, 10, 100, None)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+
+    // Who hands Mule what, and what passes between their partners.
+    let graph = db.trade_graph(43, 0, 10).await.unwrap();
+    let names: Vec<_> = graph.accounts.iter().map(|a| a.name.as_str()).collect();
+    assert_eq!(names, ["Mule", "Mid", "Feeder"]);
+    let edges: Vec<_> = graph
+        .edges
+        .iter()
+        .map(|e| (e.from.as_str(), e.to.as_str(), e.value, e.handovers))
+        .collect();
+    assert_eq!(
+        edges,
+        [
+            ("Mid", "Mule", 2500, 2),
+            ("Feeder", "Mule", 1104, 2),
+            ("Mule", "Mid", 10, 1)
+        ]
+    );
+    assert_eq!(
+        graph.edges[0].items,
+        [("rune_axe".to_owned(), 1), ("coins".to_owned(), 500)]
+    );
+
+    // Fed by two, giving little back.
+    let receivers = db.top_receivers(0, 2, 10).await.unwrap();
+    assert_eq!(receivers.len(), 1);
+    assert_eq!(
+        (
+            receivers[0].name.as_str(),
+            receivers[0].givers,
+            receivers[0].received,
+            receivers[0].given
+        ),
+        ("Mule", 2, 3604, 10)
+    );
+    assert_eq!(receivers[0].handovers, 4);
+
+    // Mule's timeline has what they were handed, and from whom.
+    let rows = db
+        .timeline(43, &["wealth".to_owned()], None, 10)
+        .await
+        .unwrap();
+    let received: Vec<_> = rows
+        .iter()
+        .filter(|r| r.detail.as_deref() == Some("received"))
+        .map(|r| (r.text.as_deref(), r.other.as_deref()))
+        .collect();
+    assert_eq!(
+        received,
+        [
+            (Some("bread"), Some("Feeder")),
+            (Some("coins"), Some("Feeder")),
+            (Some("coins"), Some("Mid")),
+            (Some("coins"), Some("Feeder")),
+            (Some("rune_axe"), Some("Mid"))
+        ]
+    );
+    let gave = rows.iter().find(|r| r.detail.is_none()).unwrap();
+    assert_eq!(
+        (gave.text.as_deref(), gave.other.as_deref()),
+        (Some("lobster"), Some("Mid"))
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn holders_and_totals_come_from_saves(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    named(&db, 42, "Rich").await;
+    named(&db, 43, "Saver").await;
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_logout_save(42, 1, &save()).await.unwrap();
+    let saver = PlayerSave {
+        inv_types: vec![93, 95],
+        inv_slots: vec![0, 0],
+        inv_objs: vec![995, 995],
+        inv_counts: vec![50, 100],
+        ..save()
+    };
+    db.claim_session(43, 1, 60).await.unwrap();
+    db.store_logout_save(43, 1, &saver).await.unwrap();
+
+    let holders = db.item_holders(&[995], 1, 10).await.unwrap();
+    let seen: Vec<_> = holders
+        .iter()
+        .map(|h| {
+            (
+                h.name.as_str(),
+                h.total,
+                h.inv_types.clone(),
+                h.inv_counts.clone(),
+            )
+        })
+        .collect();
+    assert_eq!(
+        seen,
+        [
+            (
+                "Rich",
+                i64::from(i32::MAX),
+                vec![93],
+                vec![i64::from(i32::MAX)]
+            ),
+            ("Saver", 150, vec![95, 93], vec![100, 50]),
+        ]
+    );
+    assert_eq!(db.item_holders(&[995], 151, 10).await.unwrap().len(), 1);
+    assert_eq!(
+        db.item_totals(&[995, 1351, 4151]).await.unwrap(),
+        [
+            rs_db::ItemTotal {
+                obj: 995,
+                total: i64::from(i32::MAX) + 150,
+                holders: 2
+            },
+            rs_db::ItemTotal {
+                obj: 1351,
+                total: 1,
+                holders: 1
+            },
+        ]
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    ranked(&db, 1, "Maxed", 0, &[(0, 130_344_310)]).await;
+    ranked(&db, 2, "Cheater", 0, &[(0, 372_240), (10, 372_240)]).await;
+    // Staff of any level are left off.
+    ranked(&db, 3, "Pmod", 1, &[(0, 200_000_000)]).await;
+    assert_eq!(
+        names(&db.hiscores_page(1, 0, 10).await.unwrap()),
+        ["Maxed", "Cheater"]
+    );
+
+    // Their attack entry removed: still on the others.
+    assert!(db.change_hiscores(2, None, &[1], &[]).await.unwrap());
+    assert_eq!(names(&db.hiscores_page(1, 0, 10).await.unwrap()), ["Maxed"]);
+    assert_eq!(
+        names(&db.hiscores_page(11, 0, 10).await.unwrap()),
+        ["Cheater"]
+    );
+    let standing = db.hiscore_standing(2).await.unwrap().unwrap();
+    assert_eq!(
+        (standing.hidden, standing.removed.clone()),
+        (false, vec![1])
+    );
+    let rank = |category| {
+        standing
+            .rows
+            .iter()
+            .find(|r| r.category == category)
+            .unwrap()
+            .rank
+    };
+    assert_eq!((rank(1), rank(11)), (None, Some(1)));
+
+    // Hidden from every table, then let back on.
+    db.change_hiscores(2, Some(true), &[], &[]).await.unwrap();
+    assert!(db.hiscores_page(11, 0, 10).await.unwrap().is_empty());
+    assert!(db.player_hiscores(2).await.unwrap().is_none());
+    let kept = db.hiscores_kept_off(10).await.unwrap();
+    assert_eq!(
+        kept.iter()
+            .map(|k| (k.name.as_str(), k.hidden, k.removed.clone()))
+            .collect::<Vec<_>>(),
+        [("Cheater", true, vec![1])]
+    );
+    db.change_hiscores(2, Some(false), &[], &[1]).await.unwrap();
+    assert_eq!(
+        names(&db.hiscores_page(1, 0, 10).await.unwrap()),
+        ["Maxed", "Cheater"]
+    );
+    assert!(db.hiscores_kept_off(10).await.unwrap().is_empty());
+    assert!(!db.change_hiscores(99, Some(true), &[], &[]).await.unwrap());
+    assert!(db.hiscore_standing(99).await.unwrap().is_none());
 }

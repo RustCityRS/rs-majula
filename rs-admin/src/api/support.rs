@@ -28,12 +28,14 @@ fn wealth_kind(event_type: i16) -> &'static str {
         8 => "low alched",
         9 => "high alched",
         10 => "got from the party room",
+        103 => "dropped",
+        104 => "picked up from the floor",
         _ => "had",
     }
 }
 
 /// The reason as it's kept: one line, trimmed.
-fn reason(text: &str, required: bool) -> Result<String, ApiError> {
+pub(super) fn reason(text: &str, required: bool) -> Result<String, ApiError> {
     let text: String = text
         .chars()
         .map(|c| if c.is_control() { ' ' } else { c })
@@ -52,7 +54,7 @@ fn reason(text: &str, required: bool) -> Result<String, ApiError> {
 }
 
 /// The open case a change to what a player owns is made for.
-fn open_case(app: &App, case: Option<u64>) -> Result<u64, ApiError> {
+pub(super) fn open_case(app: &App, case: Option<u64>) -> Result<u64, ApiError> {
     let Some(id) = case else {
         return Err(ApiError::bad_request(
             "Pick the case this is for: restorations and rollbacks need one.",
@@ -68,7 +70,7 @@ fn open_case(app: &App, case: Option<u64>) -> Result<u64, ApiError> {
 }
 
 /// The reason with its case, as the world keeps it in the save history.
-fn with_case(case: Option<u64>, reason: &str) -> String {
+pub(super) fn with_case(case: Option<u64>, reason: &str) -> String {
     match (case, reason.is_empty()) {
         (Some(id), true) => format!("Case #{id}"),
         (Some(id), false) => format!("Case #{id}: {reason}"),
@@ -76,14 +78,14 @@ fn with_case(case: Option<u64>, reason: &str) -> String {
     }
 }
 
-async fn registered(app: &App, name: &str) -> Result<PlayerRecord, ApiError> {
+pub(super) async fn registered(app: &App, name: &str) -> Result<PlayerRecord, ApiError> {
     record(app, name)
         .await?
         .ok_or_else(|| ApiError::bad_request(format!("No player named {name} is registered.")))
 }
 
 /// The world to send a change to: theirs, or any while they're logged out.
-async fn world_for(app: &App, record: &PlayerRecord) -> Result<u8, ApiError> {
+pub(super) async fn world_for(app: &App, record: &PlayerRecord) -> Result<u8, ApiError> {
     match their_world(app, record)? {
         Some(node) => Ok(node),
         None => app
@@ -97,7 +99,7 @@ async fn world_for(app: &App, record: &PlayerRecord) -> Result<u8, ApiError> {
 
 /// Sends a command to one world, never retried elsewhere, so it can't
 /// happen twice; an unanswered one may have happened.
-async fn send_once<B: Serialize>(app: &App, node: u8, path: &str, body: &B) -> Outcome {
+pub(super) async fn send_once<B: Serialize>(app: &App, node: u8, path: &str, body: &B) -> Outcome {
     app.worlds
         .ask_node(node, path, body, EDIT_TIMEOUT)
         .await
@@ -427,6 +429,7 @@ pub async fn history(
             &SavePointsLookup {
                 name,
                 before: query.before,
+                saved_by_ms: None,
                 limit: 50,
             },
         )

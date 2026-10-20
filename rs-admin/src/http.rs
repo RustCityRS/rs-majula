@@ -50,6 +50,7 @@ pub struct App {
     pub canned: CannedTexts,
     pub clips: Clips,
     pub prefs: Prefs,
+    pub economy: crate::economy::Economy,
     pub staff_levels: crate::api::access::StaffLevels,
     pub address_salt: String,
     pub media_dir: PathBuf,

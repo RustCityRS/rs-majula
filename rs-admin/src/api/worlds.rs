@@ -3,9 +3,13 @@ use crate::http::{ApiError, App, Staff};
 use crate::worlds::{Outcome, Reply, WorldConfig, WorldView};
 use axum::Json;
 use axum::extract::{Path, State};
-use rs_admin_api::{Broadcast, CancelReboot, Maintenance, OnlinePlayer, Reboot, path};
+use rs_admin_api::{
+    Broadcast, CancelReboot, Maintenance, OnlinePlayer, Reboot, ReloadScripts, ScriptsReloaded,
+    path,
+};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
+use std::time::Duration;
 
 /// The furthest ahead a reboot may land on any world, stagger included:
 /// what a world accepts (ten hours).
@@ -274,4 +278,88 @@ pub async fn maintenance(
         .ok(ok),
     );
     Ok(finish(&app, &targets, replies).await)
+}
+
+/// Time for a world to compile its scripts and swap them in.
+const RELOAD_TIMEOUT: Duration = Duration::from_secs(180);
+/// The longest reason a script reload is logged with.
+const MAX_RELOAD_REASON_CHARS: usize = 300;
+
+#[derive(Deserialize)]
+pub struct ReloadRequest {
+    #[serde(default)]
+    check_only: bool,
+    #[serde(default)]
+    reason: String,
+}
+
+/// `POST /api/worlds/{node}/reload-scripts`: recompiles one world's scripts
+/// and, unless only checking, swaps them in: an emergency fix without a
+/// restart. Developers only, and audited either way.
+pub async fn reload_scripts(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Path(node): Path<u8>,
+    Json(req): Json<ReloadRequest>,
+) -> Result<Json<ScriptsReloaded>, ApiError> {
+    staff.require_developer()?;
+    let world = app
+        .worlds
+        .get(node)
+        .ok_or_else(|| ApiError::bad_request("No such world."))?
+        .clone();
+    let reason: String = req
+        .reason
+        .chars()
+        .map(|c| if c.is_control() { ' ' } else { c })
+        .collect::<String>()
+        .trim()
+        .to_owned();
+    if !req.check_only && reason.is_empty() {
+        return Err(ApiError::bad_request("Say what the fix is for."));
+    }
+    if reason.chars().count() > MAX_RELOAD_REASON_CHARS {
+        return Err(ApiError::bad_request(format!(
+            "Keep the reason to {MAX_RELOAD_REASON_CHARS} characters."
+        )));
+    }
+    let reply: Result<ScriptsReloaded, String> = app
+        .worlds
+        .ask_node(
+            node,
+            path::RELOAD_SCRIPTS,
+            &ReloadScripts {
+                actor: staff.actor(),
+                check_only: req.check_only,
+                reason: reason.clone(),
+            },
+            RELOAD_TIMEOUT,
+        )
+        .await;
+    let (ok, message) = match &reply {
+        Ok(r) => (r.ok, r.message.clone()),
+        Err(e) => (false, format!("{e}. It may still have happened.")),
+    };
+    let detail = if reason.is_empty() {
+        message
+    } else {
+        format!("{message} Reason: {reason}")
+    };
+    app.audit.record(
+        Event::new(
+            Some(staff.name()),
+            staff.client.ip,
+            if req.check_only {
+                "scripts_checked"
+            } else {
+                "scripts_reloaded"
+            },
+        )
+        .target(format!("World {}", world.id))
+        .detail(detail)
+        .ok(ok),
+    );
+    reply
+        .map(Json)
+        .map_err(|e| ApiError::new(axum::http::StatusCode::BAD_GATEWAY, format!("{e}.")))
 }

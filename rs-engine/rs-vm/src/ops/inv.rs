@@ -56,6 +56,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if completed == 0 || !obj_type.tradeable {
                 return Ok(());
             }
+            player.log_floor(false, coord, item.obj, item.num as i32);
             engine_mut::<E>().add_obj(coord, item.obj, item.num, Some(to_uid.username37()), duration as u64)?;
         });
 
@@ -79,6 +80,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let inventory = get_inv_mut::<E>(from_inv.id, player)?;
             let items: Vec<_> = inventory.slots.iter().filter_map(|s| *s).collect();
             inventory.clear();
+            let from_name = from_inv.debugname().unwrap_or("null");
+            for item in &items {
+                player.log_handover(from_name, item.obj, item.num as i32, to_uid.username37());
+            }
 
             let to_player = engine_mut::<E>().get_player_mut(to_pid)
                 .ok_or(ScriptError::Runtime("to player not found".into()))?;
@@ -181,6 +186,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             let objs = engine::<E>().objs();
 
+            let mut dropped = Vec::new();
             for slot in 0..inventory.capacity {
                 let Some(item) = inventory.get(slot as u16).copied() else {
                     continue
@@ -191,7 +197,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 if !obj_type.tradeable {
                     continue;
                 }
+                dropped.push(item);
                 engine_mut::<E>().add_obj(coord, item.obj, item.num, None, duration as u64)?;
+            }
+            for item in dropped {
+                player.log_floor(false, coord, item.obj, item.num as i32);
             }
         });
 
@@ -208,6 +218,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if completed == 0 {
                 return Ok(());
             }
+            player.log_floor(false, coord, obj.id, completed as i32);
             engine_mut::<E>().add_obj_delayed(
                 coord,
                 obj.id,
@@ -232,6 +243,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if completed == 0 {
                 return Ok(());
             }
+            player.log_floor(false, coord, obj.id, completed as i32);
             engine_mut::<E>().add_obj(
                 coord,
                 obj.id,
@@ -265,6 +277,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let stackable = obj_type.stackable;
 
             inventory.remove(slot as u16, item.num);
+            player.log_floor(false, coord, item.obj, item.num as i32);
 
             let receiver37 = Some(player.uid().username37());
             add_obj_split::<E>(coord, item.obj, item.num, stackable, receiver37, duration as u64)?;

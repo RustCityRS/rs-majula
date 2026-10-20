@@ -42,7 +42,144 @@ impl PlayerHiscores {
     }
 }
 
+/// One of a player's hiscore rows, ranked or not.
+#[derive(Clone, Debug, Serialize)]
+pub struct StandingRow {
+    pub category: i16,
+    pub level: i16,
+    /// Real XP (the save stores 10x).
+    pub xp: i64,
+    /// Their place in the table, `None` while they're kept off it.
+    pub rank: Option<i64>,
+}
+
+/// A player's hiscore rows, and how staff keep them off the tables.
+#[derive(Clone, Debug, Serialize)]
+pub struct HiscoreStanding {
+    pub staff_level: i16,
+    pub banned: bool,
+    /// Kept off every table.
+    pub hidden: bool,
+    /// The tables their entries were removed from.
+    pub removed: Vec<i16>,
+    pub rows: Vec<StandingRow>,
+}
+
+/// An account staff keep off the hiscores, all of them or some tables.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct KeptOff {
+    pub name: String,
+    pub hidden: bool,
+    pub removed: Vec<i16>,
+}
+
 impl Db {
+    /// A player's hiscore rows with their ranks, and what keeps them off.
+    /// `None` if they aren't registered.
+    pub async fn hiscore_standing(&self, name_hash: u64) -> Result<Option<HiscoreStanding>, Error> {
+        let player: Option<(i64, i16, bool, bool)> = sqlx::query_as(
+            "SELECT id, staff_mod_level, coalesce(banned_until > now(), false), hiscores_hidden
+             FROM players WHERE name_hash = $1",
+        )
+        .bind(name_hash as i64)
+        .fetch_optional(&self.pool)
+        .await?;
+        let Some((id, staff_level, banned, hidden)) = player else {
+            return Ok(None);
+        };
+        let removed: Vec<i16> = sqlx::query_scalar(
+            "SELECT category FROM hiscores_removed WHERE player_id = $1 ORDER BY category",
+        )
+        .bind(id)
+        .fetch_all(&self.pool)
+        .await?;
+        let rows: Vec<(i16, i16, i64)> = sqlx::query_as(
+            "SELECT category, level, xp / 10 FROM hiscores
+             WHERE player_id = $1 AND xp > 0 ORDER BY category",
+        )
+        .bind(id)
+        .fetch_all(&self.pool)
+        .await?;
+        let ranked = self.player_hiscores(name_hash).await?;
+        let rows = rows
+            .into_iter()
+            .map(|(category, level, xp)| StandingRow {
+                category,
+                level,
+                xp,
+                rank: ranked
+                    .as_ref()
+                    .and_then(|r| r.rank(category))
+                    .map(|r| r.rank),
+            })
+            .collect();
+        Ok(Some(HiscoreStanding {
+            staff_level,
+            banned,
+            hidden,
+            removed,
+            rows,
+        }))
+    }
+
+    /// Keeps a player off every hiscore table (or lets them back on) with
+    /// `hidden`, and removes their entries from the tables `remove` or puts
+    /// them back on `restore`. `false` if they aren't registered.
+    pub async fn change_hiscores(
+        &self,
+        name_hash: u64,
+        hidden: Option<bool>,
+        remove: &[i16],
+        restore: &[i16],
+    ) -> Result<bool, Error> {
+        let mut tx = self.pool.begin().await?;
+        let id: Option<i64> = sqlx::query_scalar("SELECT id FROM players WHERE name_hash = $1")
+            .bind(name_hash as i64)
+            .fetch_optional(&mut *tx)
+            .await?;
+        let Some(id) = id else {
+            return Ok(false);
+        };
+        if let Some(hidden) = hidden {
+            sqlx::query("UPDATE players SET hiscores_hidden = $2 WHERE id = $1")
+                .bind(id)
+                .bind(hidden)
+                .execute(&mut *tx)
+                .await?;
+        }
+        sqlx::query(
+            "INSERT INTO hiscores_removed (player_id, category)
+             SELECT $1, unnest($2::smallint[]) ON CONFLICT DO NOTHING",
+        )
+        .bind(id)
+        .bind(remove)
+        .execute(&mut *tx)
+        .await?;
+        sqlx::query("DELETE FROM hiscores_removed WHERE player_id = $1 AND category = ANY($2)")
+            .bind(id)
+            .bind(restore)
+            .execute(&mut *tx)
+            .await?;
+        tx.commit().await?;
+        Ok(true)
+    }
+
+    /// The accounts staff keep off the hiscores, by name.
+    pub async fn hiscores_kept_off(&self, limit: i64) -> Result<Vec<KeptOff>, Error> {
+        sqlx::query_as(
+            "SELECT p.display_name AS name, p.hiscores_hidden AS hidden,
+                    ARRAY(SELECT r.category FROM hiscores_removed r
+                          WHERE r.player_id = p.id ORDER BY r.category) AS removed
+             FROM players p
+             WHERE p.hiscores_hidden
+                OR EXISTS (SELECT 1 FROM hiscores_removed r WHERE r.player_id = p.id)
+             ORDER BY lower(p.display_name) LIMIT $1",
+        )
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await
+    }
+
     /// `limit` rows of table `category`, starting after the first `offset`.
     pub async fn hiscores_page(
         &self,

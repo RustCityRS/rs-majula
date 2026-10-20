@@ -6,6 +6,7 @@ mod canned;
 mod cases;
 mod clips;
 mod controls;
+mod economy;
 mod farms;
 mod http;
 mod markdown;
@@ -316,6 +317,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         canned: CannedTexts::open(data_dir.join("canned.json")),
         clips: Clips::new(data_dir.join("clips")),
         prefs: Prefs::open(data_dir.join("prefs.json")),
+        economy: economy::Economy::open(&data_dir),
         staff_levels: Default::default(),
         address_salt: sessions::random_token(),
         media_dir: data_dir.join("media"),
@@ -331,6 +333,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     tokio::spawn(worlds::poll(worlds));
     tokio::spawn(controls::keep_in_sync(app.clone()));
     tokio::spawn(schedule::keep_running(app.clone()));
+    tokio::spawn(economy::keep_sampling(app.clone()));
     if app.worlds.has_web() {
         tokio::spawn(appeals::keep_taking_in(app.clone()));
     }

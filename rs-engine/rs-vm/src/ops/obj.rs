@@ -204,6 +204,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 })?;
 
             let user37 = player.uid().username37();
+            player.log_floor(true, obj.coord, obj_id, obj.count as i32);
             let overflow = get_inv_mut::<E>(inv_type.id, player)?.add(obj_id, obj.count, stackable);
             if overflow > 0 {
                 let player_coord = player.coord();

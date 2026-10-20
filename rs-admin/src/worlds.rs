@@ -447,7 +447,18 @@ impl Worlds {
         path: &str,
         body: &B,
     ) -> Result<T, String> {
-        self.ask_in(self.online(), path, body).await
+        self.ask_in(self.online(), path, body, REQUEST_TIMEOUT)
+            .await
+    }
+
+    /// Like [`Self::ask`], with longer for each world: for lookups across
+    /// every save or a long stretch of logs.
+    pub async fn ask_long<B: Serialize, T: DeserializeOwned>(
+        &self,
+        path: &str,
+        body: &B,
+    ) -> Result<T, String> {
+        self.ask_in(self.online(), path, body, EDIT_TIMEOUT).await
     }
 
     /// Like [`Self::ask`], trying every listed world: for the command line,
@@ -457,7 +468,8 @@ impl Worlds {
         path: &str,
         body: &B,
     ) -> Result<T, String> {
-        self.ask_in(self.worlds.clone(), path, body).await
+        self.ask_in(self.worlds.clone(), path, body, REQUEST_TIMEOUT)
+            .await
     }
 
     async fn ask_in<B: Serialize, T: DeserializeOwned>(
@@ -465,11 +477,15 @@ impl Worlds {
         worlds: Vec<WorldConfig>,
         path: &str,
         body: &B,
+        timeout: Duration,
     ) -> Result<T, String> {
         let body = serde_json::to_vec(body).expect("serialising a request");
         let mut error = "No world is online to ask".to_owned();
         for world in worlds {
-            match self.call(&world, path, Some(body.clone())).await {
+            let answer = self
+                .call_at(&world.url, Server::World, path, Some(body.clone()), timeout)
+                .await;
+            match answer {
                 Ok(answer) => return Ok(answer),
                 // A bad request is bad everywhere.
                 Err(e) if e == "That isn't a valid name" => return Err(e),
