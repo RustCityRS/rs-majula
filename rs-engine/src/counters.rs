@@ -1,10 +1,3 @@
-//! Running totals of game events for the metrics endpoint.
-//!
-//! Every total is cumulative since startup and bumped where the event
-//! happens (the engine thread or the database task), so a scrape never misses
-//! one. Labels come from the fixed lists below, which keeps each metric to a
-//! handful of series.
-
 use rs_db::ModAction;
 use std::sync::atomic::{AtomicU64, Ordering};
 
@@ -17,11 +10,8 @@ pub const CHAT_PRIVATE: usize = 1;
 /// [`Counters::auto_bans`].
 #[derive(Clone, Copy)]
 pub enum AutoBan {
-    /// An abuse report with a reason the report screen can't produce.
     ReportReason,
-    /// An abuse report naming an invalid offender.
     ReportOffender,
-    /// A private message to an invalid name.
     PrivateName,
 }
 

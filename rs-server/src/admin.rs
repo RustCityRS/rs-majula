@@ -20,8 +20,8 @@ use rs_admin_api::{
     TimelineLookup, Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
+use rs_engine::console::{self, Change};
 use rs_engine::controls::{self, Controls};
-use rs_engine::edit::{self, Change};
 use rs_engine::support;
 use rs_engine::watch::playback;
 use rs_engine::{
@@ -1251,7 +1251,7 @@ const MAX_NOTE_CHARS: usize = 400;
 /// The most items a search returns.
 const MAX_OBJ_RESULTS: usize = 30;
 
-fn sheet(name: String, sheet: edit::Sheet) -> PlayerSheet {
+fn sheet(name: String, sheet: console::Sheet) -> PlayerSheet {
     PlayerSheet {
         name,
         online: sheet.online,
@@ -1340,7 +1340,7 @@ fn change(edit: PlayerEdit) -> Change {
         PlayerEdit::Restore { items } => Change::Restore {
             items: items
                 .into_iter()
-                .map(|i| edit::Restored {
+                .map(|i| console::Restored {
                     inv: i.inv,
                     obj: i.obj,
                     count: i.count,
@@ -1366,7 +1366,7 @@ fn edit_level(edit: &PlayerEdit) -> (u8, &'static str) {
 }
 
 /// Changes a player: live if they're on this world, otherwise their save,
-/// under this world's claim on their session (see [`rs_engine::edit`]).
+/// under this world's claim on their session (see [`rs_engine::console`]).
 async fn player_edit(
     State(state): State<Arc<AdminState>>,
     Json(req): Json<PlayerEditRequest>,

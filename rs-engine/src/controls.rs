@@ -12,7 +12,6 @@ pub const MAX_SWITCHES: usize = 64;
 #[derive(Default)]
 pub struct Controls {
     patterns: Vec<String>,
-    /// How many scripts each pattern matched, when last matched.
     matched: Vec<usize>,
     disabled: FxHashSet<i32>,
     pub min_account_age_hours: u32,

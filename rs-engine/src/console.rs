@@ -1,13 +1,3 @@
-//! Player editing for the staff console: a player's stats, items and
-//! position, and changes to them, whether they're logged in here or not.
-//!
-//! A logged-out player is changed through their save, under this world's
-//! claim on their session, held exactly as a login holds it: the claim is
-//! taken with the load ([`DbRequest::EditLoad`]) and ended by the store
-//! ([`DbRequest::EditStore`]) or a release. While an edit holds it
-//! ([`Engine::offline_edits`]) the player can't log in here, the session
-//! reconcile keeps the claim, and other worlds see the session as owned.
-
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DbRequest, LoadResult, SaveOutcome};
 use crate::engine::Engine;
@@ -56,31 +46,11 @@ pub struct SheetItem {
 }
 
 pub enum Change {
-    SetStat {
-        stat: u8,
-        level: u8,
-    },
-    Give {
-        inv: String,
-        obj: u16,
-        count: u32,
-    },
-    Take {
-        inv: String,
-        obj: u16,
-        count: u32,
-    },
-    Move {
-        x: u16,
-        z: u16,
-        level: u8,
-    },
-    /// Items given back to a player who lost them: all of them, or none if
-    /// any doesn't fit.
-    Restore {
-        items: Vec<Restored>,
-    },
-    /// To safety, for a player stuck where they are (see [`home_for`]).
+    SetStat { stat: u8, level: u8 },
+    Give { inv: String, obj: u16, count: u32 },
+    Take { inv: String, obj: u16, count: u32 },
+    Move { x: u16, z: u16, level: u8 },
+    Restore { items: Vec<Restored> },
     SendHome,
 }
 
