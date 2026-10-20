@@ -574,7 +574,7 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
 /// so no request text reaches the page's JavaScript.
 ///
 /// With `version`, the page imports `client.js?v=<version>`: a client.js that
-/// changes (a new release, or `rotate-rsa.py` patching in a new login key)
+/// changes (a new release, or `deploy/patch.py` patching in a new login key)
 /// gets a new URL, so no browser or Cloudflare cache serves the old one.
 fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
     let html = CLIENT_HTML

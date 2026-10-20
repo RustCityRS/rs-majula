@@ -1,7 +1,7 @@
 use super::lookup::{TRIAGE_PAGES, unavailable};
 use super::players::checked_name;
 use crate::audit::Event;
-use crate::cases::Triage;
+use crate::cases::{ClipIn, Triage};
 use crate::http::{ApiError, App, Staff};
 use axum::Json;
 use axum::extract::{Path, Query, State};
@@ -109,6 +109,10 @@ pub async fn list(
 #[derive(Serialize)]
 pub struct ReplayDetail {
     replay: ReplayView,
+    /// Its clips in cases.
+    clips: Vec<ClipIn>,
+    /// The worlds pruned it: this is the copy the console kept for a clip.
+    kept: bool,
     /// The world page to play it on: an online world at its revision with a
     /// public address in the console's list. `None` with `why` otherwise.
     player_url: Option<String>,
@@ -122,13 +126,23 @@ pub async fn get(
     Path(id): Path<String>,
 ) -> Result<Json<ReplayDetail>, ApiError> {
     let id = checked_id(&id)?;
-    let summary: Option<ReplaySummary> = app
+    let found: Result<Option<ReplaySummary>, String> = app
         .worlds
-        .ask(path::REPLAY, &ReplayGet { id })
-        .await
-        .map_err(unavailable)?;
-    let summary =
-        summary.ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, "That recording is gone."))?;
+        .ask(path::REPLAY, &ReplayGet { id: id.clone() })
+        .await;
+    let (summary, kept) = match found {
+        Ok(Some(summary)) => (summary, false),
+        // Pruned, or the worlds can't say: the copy kept for a clip.
+        other => match app.clips.summary(&id) {
+            Some(summary) => (summary, true),
+            None => {
+                return Err(match other {
+                    Err(e) => unavailable(e),
+                    Ok(_) => ApiError::new(StatusCode::NOT_FOUND, "That recording is gone."),
+                });
+            }
+        },
+    };
     let at_revision = app.worlds.online_at(&summary.revision);
     let player_url = at_revision
         .iter()
@@ -145,6 +159,8 @@ pub async fn get(
         }
     });
     Ok(Json(ReplayDetail {
+        clips: app.cases.clips_of(&summary.id),
+        kept,
         replay: view(&app, summary),
         player_url,
         why,
@@ -190,15 +206,22 @@ pub async fn file(
 ) -> Result<Response, ApiError> {
     let id = checked_id(&id)?;
     let player = checked_name(&query.player)?;
-    let bytes = app
-        .worlds
-        .replay_file(&id, &query.revision)
-        .await
-        .map_err(unavailable)?;
+    // The worlds' copy, else (pruned) the one kept for a clip.
+    let (bytes, kept) = match app.worlds.replay_file(&id, &query.revision).await {
+        Ok(bytes) => (bytes, false),
+        Err(e) => (app.clips.file(&id).ok_or_else(|| unavailable(e))?, true),
+    };
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "replay_viewed")
             .target(player)
-            .detail(format!("session {id}")),
+            .detail(format!(
+                "session {id}{}",
+                if kept {
+                    ", the copy kept for a clip"
+                } else {
+                    ""
+                }
+            )),
     );
     Ok(([(header::CONTENT_TYPE, "application/octet-stream")], bytes).into_response())
 }

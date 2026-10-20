@@ -3,9 +3,10 @@ use super::players::{action_name, checked_name, moderate_one};
 use super::replays::checked_id;
 use crate::audit::Event;
 use crate::cases::{
-    Case, Change, Decision, Entry, Evidence, MAX_TEXT, MAX_TITLE, Priority, Resolution, Status,
-    Triage,
+    Case, Change, Decision, Entry, Evidence, MAX_DECISION_NOTE, MAX_TEXT, MAX_TITLE, Priority,
+    Resolution, Status, Triage,
 };
+use crate::clips;
 use crate::http::{ApiError, App, Staff};
 use crate::markdown::{self, MEDIA_PATH};
 use crate::users::{Role, name_key};
@@ -24,10 +25,14 @@ use std::sync::Arc;
 
 /// The most cases a list returns.
 const MAX_CASES: usize = 500;
-/// The most pieces of evidence a new case starts with.
-const MAX_NEW_EVIDENCE: usize = 25;
-/// The longest note a player is shown with an appeal's decision.
-const MAX_DECISION_NOTE: usize = 2000;
+/// The most pieces of evidence added at once, as a new case starts or from
+/// the triage queue.
+const MAX_AT_ONCE: usize = 100;
+/// How many are looked up at a time.
+const RESOLVING_AT_ONCE: usize = 8;
+/// The shortest clip.
+const MIN_CLIP_MS: u32 = 1000;
+const MAX_CLIP_LABEL: usize = 200;
 
 /// A change the store refused: it's out of date, or doesn't apply.
 fn refused(message: String) -> ApiError {
@@ -64,9 +69,22 @@ fn required(value: &str, max: usize, multiline: bool, what: &str) -> Result<Stri
 #[derive(Deserialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum EvidenceRef {
-    Report { id: i64 },
-    Replay { id: String },
-    Chat { id: i64 },
+    Report {
+        id: i64,
+    },
+    Replay {
+        id: String,
+    },
+    Chat {
+        id: i64,
+    },
+    Clip {
+        replay: String,
+        from_ms: u32,
+        to_ms: u32,
+        #[serde(default)]
+        label: String,
+    },
 }
 
 fn gone(what: &str) -> ApiError {
@@ -152,7 +170,97 @@ async fn resolve(app: &App, item: &EvidenceRef) -> Result<Evidence, ApiError> {
                 at_ms: c.at_ms,
             }
         }
+        EvidenceRef::Clip {
+            replay,
+            from_ms,
+            to_ms,
+            label,
+        } => {
+            let (from_ms, to_ms) = (*from_ms, *to_ms);
+            let id = checked_id(replay)?;
+            let label = text(label, MAX_CLIP_LABEL, false, "A clip's label")?;
+            if to_ms < from_ms.saturating_add(MIN_CLIP_MS) {
+                return Err(ApiError::bad_request(
+                    "A clip ends at least a second after it starts.",
+                ));
+            }
+            let (summary, file) = kept_recording(app, &id).await?;
+            if clips::file_duration(&file).unwrap_or(0) < u64::from(to_ms) {
+                return Err(ApiError::bad_request(
+                    "That part of the session isn't stored yet: worlds store it every 30 seconds. Try again shortly.",
+                ));
+            }
+            Evidence::Clip {
+                replay: summary.id,
+                from_ms,
+                to_ms,
+                label,
+                player: summary.player,
+                node: summary.node,
+                revision: summary.revision,
+                started_ms: summary.started_ms,
+                score: summary.score,
+                flags: summary.flags,
+            }
+        }
     })
+}
+
+/// Recording `id` and its file, kept by the console for a clip: fetched
+/// from the worlds while they have it, else the copy kept earlier.
+async fn kept_recording(app: &App, id: &str) -> Result<(ReplaySummary, Vec<u8>), ApiError> {
+    let found: Result<Option<ReplaySummary>, String> = app
+        .worlds
+        .ask(path::REPLAY, &ReplayGet { id: id.to_owned() })
+        .await;
+    let summary = match found {
+        Ok(Some(summary)) => summary,
+        other => {
+            if let (Some(kept), Some(file)) = (app.clips.summary(id), app.clips.file(id)) {
+                return Ok((kept, file));
+            }
+            return Err(match other {
+                Err(e) => unavailable(e),
+                Ok(_) => gone("recording"),
+            });
+        }
+    };
+    let file = app
+        .worlds
+        .replay_file(id, &summary.revision)
+        .await
+        .map_err(unavailable)?;
+    let clips = app.clips.clone();
+    let (summary, file) =
+        tokio::task::spawn_blocking(move || clips.keep(&summary, &file).map(|()| (summary, file)))
+            .await
+            .map_err(ApiError::internal)?
+            .map_err(ApiError::internal)?;
+    Ok((summary, file))
+}
+
+/// Looks up each of `items`, a few at a time, each once. Refused whole if
+/// any is.
+async fn resolve_all(app: &App, items: &[EvidenceRef]) -> Result<Vec<Evidence>, ApiError> {
+    if items.len() > MAX_AT_ONCE {
+        return Err(ApiError::bad_request(format!(
+            "At most {MAX_AT_ONCE} pieces of evidence at once."
+        )));
+    }
+    let mut found: Vec<Result<Evidence, ApiError>> = Vec::with_capacity(items.len());
+    for batch in items.chunks(RESOLVING_AT_ONCE) {
+        found.extend(
+            futures_util::future::join_all(batch.iter().map(|item| resolve(app, item))).await,
+        );
+    }
+    let mut out: Vec<Evidence> = Vec::with_capacity(found.len());
+    for evidence in found {
+        let evidence = evidence?;
+        if !out.iter().any(|e| e.key() == evidence.key()) {
+            out.push(evidence);
+        }
+    }
+    Ok(out)
 }
 
 /// Who may be put on a case: any console account that can sign in, by the
@@ -326,22 +434,11 @@ pub async fn create(
     let player = checked_name(&req.player)?;
     let title = required(&req.title, MAX_TITLE, false, "A title")?;
     let note = text(&req.note, MAX_TEXT, true, "A note")?;
-    if req.evidence.len() > MAX_NEW_EVIDENCE {
-        return Err(ApiError::bad_request(format!(
-            "A new case can start with at most {MAX_NEW_EVIDENCE} pieces of evidence."
-        )));
-    }
-    let mut then = Vec::new();
-    for item in &req.evidence {
-        let evidence = resolve(&app, item).await?;
-        let key = evidence.key();
-        if !then
-            .iter()
-            .any(|c| matches!(c, Change::EvidenceAdded { evidence } if evidence.key() == key))
-        {
-            then.push(Change::EvidenceAdded { evidence });
-        }
-    }
+    let mut then: Vec<Change> = resolve_all(&app, &req.evidence)
+        .await?
+        .into_iter()
+        .map(|evidence| Change::EvidenceAdded { evidence })
+        .collect();
     if !note.is_empty() {
         then.push(Change::Comment { text: note });
     }
@@ -442,6 +539,10 @@ pub enum Op {
     AddEvidence {
         item: EvidenceRef,
     },
+    /// Adds what of `items` isn't in the case already, together.
+    AddEvidenceMany {
+        items: Vec<EvidenceRef>,
+    },
     RemoveEvidence {
         key: String,
     },
@@ -478,6 +579,10 @@ pub async fn change(
     let evidence = match &op {
         Op::AddEvidence { item } => Some(resolve(&app, item).await?),
         _ => None,
+    };
+    let many = match &op {
+        Op::AddEvidenceMany { items } => resolve_all(&app, items).await?,
+        _ => Vec::new(),
     };
     let assignee = match &op {
         Op::Assign { name } => Some(staff_named(&app, name)?),
@@ -518,13 +623,28 @@ pub async fn change(
             }],
         ),
         Op::DecideAppeal { .. } => unreachable!("decided above"),
-        // These depend on who's on it now, so they're worked out under the
-        // store's lock.
-        Op::Join | Op::Leave | Op::Assign { .. } | Op::Unassign { .. } => {
+        // These depend on what's in it or who's on it now, so they're worked
+        // out under the store's lock.
+        Op::AddEvidenceMany { .. }
+        | Op::Join
+        | Op::Leave
+        | Op::Assign { .. }
+        | Op::Unassign { .. } => {
             let case = app
                 .cases
                 .change(&me, id, |case| {
                     Ok(match op {
+                        Op::AddEvidenceMany { .. } => {
+                            let added: Vec<Change> = many
+                                .into_iter()
+                                .filter(|e| !case.evidence.iter().any(|c| c.key() == e.key()))
+                                .map(|evidence| Change::EvidenceAdded { evidence })
+                                .collect();
+                            if added.is_empty() {
+                                return Err("All of that is in the case already.".to_owned());
+                            }
+                            added
+                        }
                         Op::Join => assign(case, me.clone()),
                         Op::Assign { .. } => assign(case, assignee.expect("checked above")),
                         Op::Leave => vec![Change::Unassigned { name: me.clone() }],
@@ -808,6 +928,42 @@ pub async fn triage(
             .remove(&key)
             .unwrap_or_default(),
     ))
+}
+
+#[derive(Deserialize)]
+pub struct BulkTriageRequest {
+    keys: Vec<String>,
+    dismissed: bool,
+}
+
+#[derive(Serialize)]
+pub struct BulkTriaged {
+    /// How many changed: those already that way are left as they are.
+    changed: usize,
+}
+
+/// `POST /api/triage/bulk`: [`triage`] for many reports or sessions at once.
+pub async fn triage_bulk(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Json(req): Json<BulkTriageRequest>,
+) -> Result<Json<BulkTriaged>, ApiError> {
+    if req.keys.is_empty() || req.keys.len() > MAX_AT_ONCE {
+        return Err(ApiError::bad_request(format!(
+            "Pick 1 to {MAX_AT_ONCE} at once."
+        )));
+    }
+    let keys = req
+        .keys
+        .iter()
+        .map(|k| triage_key(k).map(str::to_owned))
+        .collect::<Option<Vec<String>>>()
+        .ok_or_else(|| ApiError::bad_request("That can't be triaged."))?;
+    let changed = app
+        .cases
+        .triage_many(staff.name(), keys, req.dismissed)
+        .map_err(refused)?;
+    Ok(Json(BulkTriaged { changed }))
 }
 
 #[cfg(test)]

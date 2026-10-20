@@ -50,6 +50,10 @@ pub fn router() -> Router<Arc<App>> {
         .route("/schedule/{id}/delete", post(schedule::remove))
         .route("/templates", get(templates::list).post(templates::save))
         .route("/templates/standing", get(templates::standing))
+        .route(
+            "/canned",
+            get(templates::canned).post(templates::save_canned),
+        )
         .route("/notes", get(notes::of).post(notes::add))
         .route("/notes/watched", get(notes::watched))
         .route("/notes/{id}/remove", post(notes::remove))
@@ -74,6 +78,7 @@ pub fn router() -> Router<Arc<App>> {
         )
         .route("/cases/media/{name}", get(cases::media))
         .route("/triage", post(cases::triage))
+        .route("/triage/bulk", post(cases::triage_bulk))
         .route("/replays", get(replays::list))
         .route("/replays/{id}", get(replays::get))
         .route("/replays/{id}/file", get(replays::file))

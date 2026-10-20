@@ -52,6 +52,7 @@ pub enum DbRequest {
         user37: u64,
         password: Box<str>,
         ip: IpAddr,
+        uid: Option<i32>,
     },
     Save {
         user37: u64,
@@ -707,6 +708,7 @@ async fn run_requests(
                 user37,
                 password,
                 ip,
+                uid,
             } => {
                 let result = authenticate(
                     db,
@@ -716,6 +718,7 @@ async fn run_requests(
                     user37,
                     &password,
                     ip,
+                    uid,
                 )
                 .await?;
                 let _ = response_tx.send(DbResponse::AuthResponse { user37, result });
@@ -1020,7 +1023,7 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 /// rejected, unless `auto_register` is set, in which case the player is
 /// registered with this password and any local save file for the name is
 /// imported. Wrong passwords and unknown names count against the IP; an
-/// accepted login is logged with its IP.
+/// accepted login is logged with its IP and client uid.
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
@@ -1032,6 +1035,7 @@ async fn authenticate(
     user37: u64,
     password: &str,
     ip: IpAddr,
+    uid: Option<i32>,
 ) -> Result<AuthResult, rs_db::Error> {
     if db
         .recent_login_failures(ip, LOGIN_FAILURE_WINDOW_SECS)
@@ -1049,7 +1053,7 @@ async fn authenticate(
         if creds.banned {
             return Ok(AuthResult::Banned);
         }
-        db.record_login(user37, node_id.into(), ip).await?;
+        db.record_login(user37, node_id.into(), ip, uid).await?;
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),
@@ -1099,7 +1103,7 @@ async fn authenticate(
         info!("Imported local save for '{}'", username);
     }
 
-    db.record_login(user37, node_id.into(), ip).await?;
+    db.record_login(user37, node_id.into(), ip, uid).await?;
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
         muted_for: None,
@@ -1274,6 +1278,7 @@ mod tests {
             to_userhash(name),
             password,
             [203, 0, 113, 7].into(),
+            None,
         )
         .await
         .unwrap()
@@ -1413,6 +1418,7 @@ mod tests {
                 user37: to_userhash(HOPPER),
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
+                uid: None,
             });
             match self.next().await {
                 DbResponse::AuthResponse { result, .. } => result,
@@ -1462,6 +1468,7 @@ mod tests {
                 user37: to_userhash(HOPPER),
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
+                uid: None,
             });
             loop {
                 match self.next().await {

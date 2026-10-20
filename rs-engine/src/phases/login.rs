@@ -112,6 +112,7 @@ impl Engine {
                         user37,
                         password: request.password.clone(),
                         ip,
+                        uid: request.uid,
                     });
                 }
                 self.pending_logins.push(PendingLogin {

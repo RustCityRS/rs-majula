@@ -1,6 +1,8 @@
 use crate::api;
 use crate::audit::Audit;
+use crate::canned::CannedTexts;
 use crate::cases::Cases;
+use crate::clips::Clips;
 use crate::controls::Controls;
 use crate::notes::Notes;
 use crate::schedule::Schedule;
@@ -44,6 +46,8 @@ pub struct App {
     pub notes: Notes,
     pub schedule: Schedule,
     pub templates: Templates,
+    pub canned: CannedTexts,
+    pub clips: Clips,
     pub address_salt: String,
     pub media_dir: PathBuf,
     pub config: HttpConfig,

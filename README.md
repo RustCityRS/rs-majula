@@ -529,13 +529,16 @@ node; the nodes mesh into one cluster for cross-world social features.
    it's current. They tolerate migrations from a *newer* build, so old worlds
    keep running while you roll out, as long as each migration is backward
    compatible.
-4. **Rotate the login key on every deploy.** The repo's `.keys/private.pem`
-   is public. Copy `deploy/rotate-rsa.py` to the server, and in each extracted
-   release, before starting the world, run `python3 /path/to/rotate-rsa.py`
+4. **Patch every release you deploy.** The repo's `.keys/private.pem`
+   is public. Copy `deploy/patch.py` to the server, and in each extracted
+   release, before starting the world, run `python3 /path/to/patch.py`
    (needs `openssl`). It writes a new key and patches
    `public/<rev>/client.js` to match. Run it on the server only: the key must
    never be committed or uploaded. The Java client keeps the old key and can't
-   log in afterwards.
+   log in afterwards. It also patches the web client's login uid (a constant
+   1337 out of the build) into a random id per browser, which the worlds log
+   with each login so the staff console links accounts played from the same
+   browser, as it does by address.
 5. **Name nodes by reachable hosts.** Give each world `--node-host` (its
    private IP or hostname) and every world the same `--cluster` list, e.g.
    `world10@10.0.0.5,world11@10.0.0.6`.

@@ -897,6 +897,7 @@ async fn links_lookup(
                 name: a.display_name,
                 staff_level: a.staff_mod_level.clamp(0, 255) as u8,
                 shared: a.shared,
+                shared_clients: a.shared_clients,
                 logins: a.logins,
                 last_ms: a.last_ms,
                 muted_until_ms: a.muted_until_ms,

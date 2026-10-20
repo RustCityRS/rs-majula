@@ -11,6 +11,8 @@ use tracing::warn;
 pub const MAX_TITLE: usize = 100;
 /// The longest comment, or note on closing.
 pub const MAX_TEXT: usize = 4000;
+/// The longest note a player is shown with an appeal's decision.
+pub const MAX_DECISION_NOTE: usize = 2000;
 /// Someone looking at a case shows as there for this long after.
 const VIEWING_FOR: Duration = Duration::from_secs(20);
 
@@ -115,17 +117,57 @@ pub enum Evidence {
         message: String,
         at_ms: i64,
     },
+    /// A stretch of a recording, `from_ms` to `to_ms` into it. The console
+    /// keeps a copy of the recording, so it plays after the world prunes it.
+    Clip {
+        replay: String,
+        from_ms: u32,
+        to_ms: u32,
+        #[serde(default, skip_serializing_if = "String::is_empty")]
+        label: String,
+        player: String,
+        node: u8,
+        revision: String,
+        started_ms: i64,
+        score: i16,
+        flags: Vec<String>,
+    },
 }
 
 impl Evidence {
-    /// What it's known by: `report:12`, `replay:345`, `chat:678`.
+    /// What it's known by: `report:12`, `replay:345`, `chat:678`,
+    /// `clip:345:60000-90000`.
     pub fn key(&self) -> String {
         match self {
             Self::Report { id, .. } => format!("report:{id}"),
             Self::Replay { id, .. } => format!("replay:{id}"),
             Self::Chat { id, .. } => format!("chat:{id}"),
+            Self::Clip {
+                replay,
+                from_ms,
+                to_ms,
+                ..
+            } => format!("clip:{replay}:{from_ms}-{to_ms}"),
         }
     }
+
+    /// The triage key it takes out of the queue: its own, or for a clip,
+    /// its recording's.
+    fn triage_key(&self) -> String {
+        match self {
+            Self::Clip { replay, .. } => format!("replay:{replay}"),
+            other => other.key(),
+        }
+    }
+}
+
+/// A clip of a recording in a case, as the recording's page lists it.
+#[derive(Clone, Debug, Serialize)]
+pub struct ClipIn {
+    pub case: u64,
+    pub from_ms: u32,
+    pub to_ms: u32,
+    pub label: String,
 }
 
 /// One change, as the log records it.
@@ -611,6 +653,38 @@ impl Cases {
         self.commit(&mut inner, vec![entry])
     }
 
+    /// [`triage`](Self::triage) for many at once, skipping those already
+    /// that way. Returns how many changed.
+    pub fn triage_many(
+        &self,
+        by: &str,
+        keys: Vec<String>,
+        dismissed: bool,
+    ) -> Result<usize, String> {
+        let mut inner = self.lock();
+        let at_ms = now_ms();
+        let mut seen = std::collections::HashSet::new();
+        let entries: Vec<Entry> = keys
+            .into_iter()
+            .filter(|k| inner.dismissed.contains_key(k) != dismissed && seen.insert(k.clone()))
+            .map(|key| Entry {
+                at_ms,
+                by: by.to_owned(),
+                case: None,
+                change: if dismissed {
+                    Change::Dismissed { key }
+                } else {
+                    Change::Restored { key }
+                },
+            })
+            .collect();
+        let changed = entries.len();
+        if changed > 0 {
+            self.commit(&mut inner, entries)?;
+        }
+        Ok(changed)
+    }
+
     pub fn get(&self, id: u64) -> Option<Case> {
         self.lock().cases.get(&id).cloned()
     }
@@ -652,12 +726,42 @@ impl Cases {
             .collect();
         for case in inner.cases.values() {
             for evidence in &case.evidence {
-                if let Some(triage) = found.get_mut(&evidence.key()) {
+                if let Some(triage) = found.get_mut(&evidence.triage_key())
+                    && !triage.cases.contains(&case.id)
+                {
                     triage.cases.push(case.id);
                 }
             }
         }
         found
+    }
+
+    /// The clips of recording `replay` in cases, earliest in it first.
+    pub fn clips_of(&self, replay: &str) -> Vec<ClipIn> {
+        let inner = self.lock();
+        let mut clips: Vec<ClipIn> = inner
+            .cases
+            .values()
+            .flat_map(|case| {
+                case.evidence.iter().filter_map(move |e| match e {
+                    Evidence::Clip {
+                        replay: r,
+                        from_ms,
+                        to_ms,
+                        label,
+                        ..
+                    } if r == replay => Some(ClipIn {
+                        case: case.id,
+                        from_ms: *from_ms,
+                        to_ms: *to_ms,
+                        label: label.clone(),
+                    }),
+                    _ => None,
+                })
+            })
+            .collect();
+        clips.sort_by_key(|c| (c.from_ms, c.to_ms, c.case));
+        clips
     }
 
     /// Notes that `name` is looking at case `id`; returns who else is.
@@ -868,6 +972,72 @@ mod tests {
             .create("Kim", "T".into(), "Eve".into(), Priority::Low, vec![])
             .unwrap();
         assert!(cases.change("Kim", plain.id, decide).is_err());
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    fn bulk_triage_skips_what_is_already_that_way() {
+        let path = temp_log("bulk");
+        let cases = Cases::open(path.clone());
+        cases.triage("Ash", "report:1".into(), true).unwrap();
+        let keys = |ids: &[u8]| ids.iter().map(|i| format!("report:{i}")).collect();
+        assert_eq!(cases.triage_many("Kim", keys(&[1, 2, 3, 3]), true), Ok(2));
+        assert_eq!(cases.triage_many("Kim", keys(&[1, 2, 3]), true), Ok(0));
+        assert_eq!(cases.triage_many("Kim", keys(&[2, 4]), false), Ok(1));
+        let triage = Cases::open(path.clone()).triage_of(&keys(&[1, 2, 3]));
+        assert_eq!(triage["report:1"].dismissed.as_ref().unwrap().by, "Ash");
+        assert!(triage["report:2"].dismissed.is_none());
+        assert_eq!(triage["report:3"].dismissed.as_ref().unwrap().by, "Kim");
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    fn clips_take_their_session_out_of_triage() {
+        let path = temp_log("clips");
+        let cases = Cases::open(path.clone());
+        let clip = |from_ms, to_ms| Evidence::Clip {
+            replay: "77".into(),
+            from_ms,
+            to_ms,
+            label: "the jump".into(),
+            player: "Bob".into(),
+            node: 10,
+            revision: "289".into(),
+            started_ms: 1,
+            score: 0,
+            flags: Vec::new(),
+        };
+        assert_eq!(clip(1000, 5000).key(), "clip:77:1000-5000");
+        let case = cases
+            .create(
+                "Ash",
+                "Bot".into(),
+                "Bob".into(),
+                Priority::Normal,
+                vec![
+                    Change::EvidenceAdded {
+                        evidence: clip(9000, 12000),
+                    },
+                    Change::EvidenceAdded {
+                        evidence: clip(1000, 5000),
+                    },
+                ],
+            )
+            .unwrap();
+        // Two clips of it, one case.
+        assert_eq!(
+            cases.triage_of(&["replay:77".into()])["replay:77"].cases,
+            [case.id]
+        );
+        let clips = Cases::open(path.clone()).clips_of("77");
+        assert_eq!(
+            clips
+                .iter()
+                .map(|c| (c.from_ms, c.to_ms))
+                .collect::<Vec<_>>(),
+            [(1000, 5000), (9000, 12000)]
+        );
+        assert!(cases.clips_of("78").is_empty());
         let _ = std::fs::remove_file(path);
     }
 

@@ -489,13 +489,17 @@ pub struct LoginAddress {
     pub others: i64,
 }
 
-/// An account sharing at least one address with the player looked up.
+/// An account sharing at least one address or client install with the
+/// player looked up.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct LinkedAccount {
     pub name: String,
     pub staff_level: u8,
     /// The addresses they share.
     pub shared: Vec<String>,
+    /// How many client installs (login uids) they share.
+    #[serde(default)]
+    pub shared_clients: i64,
     pub logins: i64,
     pub last_ms: i64,
     pub muted_until_ms: Option<i64>,

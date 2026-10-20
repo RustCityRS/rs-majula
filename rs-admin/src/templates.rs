@@ -210,7 +210,7 @@ pub fn checked(templates: Vec<Template>) -> Result<Vec<Template>, String> {
     Ok(out)
 }
 
-fn slug(name: &str) -> String {
+pub fn slug(name: &str) -> String {
     let mut slug = String::new();
     for c in name.chars() {
         if c.is_ascii_alphanumeric() {

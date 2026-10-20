@@ -105,7 +105,7 @@ jobs:
           cp $bin/rs-server${{ matrix.target.ext }} $bin/rs-web${{ matrix.target.ext }} $bin/rs-admin${{ matrix.target.ext }} pkg/
           # The server reads content/<REV>/ at runtime, so ship only the matching rev.
           cp -r .keys pkg/ && cp -r content/${{ matrix.rev }} pkg/content/ && cp -r public/${{ matrix.rev }} pkg/public/
-          cp -r deploy/grafana pkg/ && cp deploy/rotate-rsa.py pkg/
+          cp -r deploy/grafana pkg/ && cp deploy/patch.py pkg/
           cp -r rs-web/templates rs-web/public rs-web/worlds.json pkg/web/
           tar -czf rs-majula-${{ matrix.rev }}-${{ matrix.target.triple }}.tar.gz -C pkg .
 

@@ -138,6 +138,9 @@ pub struct LoginRequest {
     pub password: Box<str>,
     pub low_memory: bool,
     pub remote_addr: SocketAddr,
+    /// The id the client install sent, when it sends one that tells installs
+    /// apart: logins that share it link accounts, as an address does.
+    pub uid: Option<i32>,
     pub reconnect: bool,
 }
 

@@ -1057,7 +1057,7 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
         .unwrap();
     }
     for (hash, ip) in [(1, a), (1, a), (2, a), (2, b), (3, b), (5, c), (99, c)] {
-        db.record_login(hash, 10, ip).await.unwrap();
+        db.record_login(hash, 10, ip, None).await.unwrap();
     }
 
     let addresses = db.login_addresses(1, 10).await.unwrap();
@@ -1116,6 +1116,56 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn logins_link_accounts_by_client(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let vpn: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let cafe: std::net::IpAddr = "192.0.2.9".parse().unwrap();
+    const NAMES: [&str; 4] = ["One", "Two", "Three", "Four"];
+    for (hash, name) in (1..).zip(NAMES) {
+        db.create_player(&NewPlayer {
+            display_name: name,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    // 2 shares 1's install from another address; 3 shares both; 4 nothing.
+    for (hash, ip, uid) in [
+        (1, home, Some(77)),
+        (2, vpn, Some(77)),
+        (2, vpn, Some(77)),
+        (3, home, Some(77)),
+        (4, cafe, Some(88)),
+        (4, home, None),
+    ] {
+        db.record_login(hash, 10, ip, uid).await.unwrap();
+    }
+    let links = db.linked_accounts(1, 10).await.unwrap();
+    let by_name = |hash: usize| {
+        links
+            .iter()
+            .find(|l| l.display_name == NAMES[hash - 1])
+            .map(|l| (l.shared.clone(), l.shared_clients, l.logins))
+    };
+    // 3 shares the most, so it comes first.
+    assert_eq!(links[0].display_name, "Three", "{links:?}");
+    assert_eq!(by_name(3), Some((vec!["203.0.113.7".to_owned()], 1, 1)));
+    assert_eq!(by_name(2), Some((Vec::new(), 1, 2)));
+    // 4 only shares the address; its own install doesn't count.
+    assert_eq!(by_name(4), Some((vec!["203.0.113.7".to_owned()], 0, 1)));
+    // No uid links nobody.
+    assert!(
+        db.linked_accounts(4, 10)
+            .await
+            .unwrap()
+            .iter()
+            .all(|l| l.shared_clients == 0)
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn timeline_merges_every_log_and_pages(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
@@ -1125,7 +1175,7 @@ async fn timeline_merges_every_log_and_pages(pool: PgPool) {
     })
     .await
     .unwrap();
-    db.record_login(7, 10, "203.0.113.7".parse().unwrap())
+    db.record_login(7, 10, "203.0.113.7".parse().unwrap(), None)
         .await
         .unwrap();
     let at = |x| (x, 3218, 0);
@@ -1518,8 +1568,8 @@ async fn account_activity_covers_recent_accounts(pool: PgPool) {
     }
     // Staff aren't listed.
     db.create_player(&player(3)).await.unwrap();
-    db.record_login(1, 10, ip).await.unwrap();
-    db.record_login(3, 10, ip).await.unwrap();
+    db.record_login(1, 10, ip, None).await.unwrap();
+    db.record_login(3, 10, ip, None).await.unwrap();
     db.start_replay(&NewReplay {
         id: 1,
         name_hash: 1,

@@ -1,7 +1,9 @@
 mod api;
 mod appeals;
 mod audit;
+mod canned;
 mod cases;
+mod clips;
 mod controls;
 mod farms;
 mod http;
@@ -16,7 +18,9 @@ mod users;
 mod worlds;
 
 use crate::audit::Audit;
+use crate::canned::CannedTexts;
 use crate::cases::Cases;
+use crate::clips::Clips;
 use crate::controls::Controls;
 use crate::http::{App, HttpConfig};
 use crate::notes::Notes;
@@ -306,6 +310,8 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
             data_dir.join("templates.json"),
             data_dir.join("offences.json"),
         ),
+        canned: CannedTexts::open(data_dir.join("canned.json")),
+        clips: Clips::new(data_dir.join("clips")),
         address_salt: sessions::random_token(),
         media_dir: data_dir.join("media"),
         config: HttpConfig {

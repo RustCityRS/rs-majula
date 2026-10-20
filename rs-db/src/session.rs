@@ -223,20 +223,23 @@ impl Db {
         .await
     }
 
-    /// Logs that `name_hash` authenticated on world `node_id` from `ip`.
+    /// Logs that `name_hash` authenticated on world `node_id` from `ip`,
+    /// with the client install's `uid` when it sent one worth keeping.
     pub async fn record_login(
         &self,
         name_hash: u64,
         node_id: i16,
         ip: IpAddr,
+        uid: Option<i32>,
     ) -> Result<(), Error> {
         sqlx::query(
-            "INSERT INTO login_logs (player_id, node_id, ip)
-             SELECT id, $2, $3::inet FROM players WHERE name_hash = $1",
+            "INSERT INTO login_logs (player_id, node_id, ip, uid)
+             SELECT id, $2, $3::inet, $4 FROM players WHERE name_hash = $1",
         )
         .bind(name_hash as i64)
         .bind(node_id)
         .bind(ip.to_string())
+        .bind(uid)
         .execute(&self.pool)
         .await?;
         Ok(())

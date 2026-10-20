@@ -156,6 +156,16 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     Ok(())
 }
 
+/// What the web client sends as its uid until a deploy patches it (see
+/// `deploy/patch.py`): every browser the same, so it identifies nobody.
+const UNPATCHED_UID: i32 = 1337;
+
+/// The login block's uid, if it can tell a client install apart: the
+/// desktop client's `uid.dat`, or the patched web client's per-browser id.
+fn client_uid(uid: i32) -> Option<i32> {
+    (uid != 0 && uid != UNPATCHED_UID).then_some(uid)
+}
+
 async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> anyhow::Result<()> {
     let waiting = buf.g1();
     if waiting != buf.len().saturating_sub(buf.pos) as u8 {
@@ -191,7 +201,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         bail!("{}: Invalid magic: {}", client.addr, magic)
     }
     let seed = [buf.g4s(), buf.g4s(), buf.g4s(), buf.g4s()];
-    let _ = buf.g4s(); // uid
+    let uid = client_uid(buf.g4s());
     let username = buf.gjstr(10);
     if username.is_empty() || username.len() > 12 {
         let _ = client
@@ -225,6 +235,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
             password: Box::from(password),
             low_memory,
             remote_addr: client.addr,
+            uid,
             reconnect,
         })
         .is_err()

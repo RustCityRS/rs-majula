@@ -1,5 +1,6 @@
 use super::players::checked_name;
 use crate::audit::Event;
+use crate::canned::Canned;
 use crate::http::{ApiError, App, Staff};
 use crate::templates::{Standing, Template};
 use axum::Json;
@@ -61,4 +62,41 @@ pub async fn standing(
 ) -> Result<Json<Vec<Standing>>, ApiError> {
     let name = checked_name(&query.name)?;
     Ok(Json(app.templates.standings(&name)))
+}
+
+#[derive(Serialize)]
+pub struct CannedPage {
+    canned: Vec<Canned>,
+    can_edit: bool,
+}
+
+/// `GET /api/canned`: the saved closing notes and appeal decisions.
+pub async fn canned(State(app): State<Arc<App>>, staff: Staff) -> Json<CannedPage> {
+    Json(CannedPage {
+        canned: app.canned.all(),
+        can_edit: staff.require_admin().is_ok(),
+    })
+}
+
+#[derive(Deserialize)]
+pub struct SaveCanned {
+    canned: Vec<Canned>,
+}
+
+/// `POST /api/canned`: replaces every saved text.
+pub async fn save_canned(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Json(req): Json<SaveCanned>,
+) -> Result<Json<CannedPage>, ApiError> {
+    staff.require_admin()?;
+    let canned = app.canned.save(req.canned).map_err(ApiError::bad_request)?;
+    let names: Vec<&str> = canned.iter().map(|c| c.name.as_str()).collect();
+    app.audit.record(
+        Event::new(Some(staff.name()), staff.client.ip, "canned_saved").detail(names.join(", ")),
+    );
+    Ok(Json(CannedPage {
+        canned,
+        can_edit: true,
+    }))
 }

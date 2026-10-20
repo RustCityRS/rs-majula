@@ -106,16 +106,20 @@ pub struct LoginAddress {
     pub others: i64,
 }
 
-/// Another account that shares an address with a player: one of them logged
-/// in or registered from an address the other did.
+/// Another account linked to a player: one of them logged in or registered
+/// from an address the other did, or they logged in from the same client
+/// install (its uid).
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct LinkedAccount {
     pub display_name: String,
     pub staff_mod_level: i16,
+    /// The addresses they share.
     pub shared: Vec<String>,
-    /// Their logins from the shared addresses.
+    /// How many client installs they share.
+    pub shared_clients: i64,
+    /// Their logins from the shared addresses or installs.
     pub logins: i64,
-    /// Their latest login (or registration) from a shared address.
+    /// Their latest login (or registration) from a shared address or install.
     pub last_ms: i64,
     pub muted_until_ms: Option<i64>,
     pub banned_until_ms: Option<i64>,
@@ -273,8 +277,8 @@ impl Db {
         .await
     }
 
-    /// The other accounts that share an address with `name_hash` (see
-    /// [`LinkedAccount`]), those sharing the most addresses first.
+    /// The other accounts linked to `name_hash` by an address or a client
+    /// install (see [`LinkedAccount`]), those sharing the most first.
     pub async fn linked_accounts(
         &self,
         name_hash: u64,
@@ -284,20 +288,32 @@ impl Db {
             "WITH me AS (SELECT id, registration_ip FROM players WHERE name_hash = $1), ",
             "mine AS (SELECT ip FROM login_logs WHERE player_id = (SELECT id FROM me) ",
             "UNION SELECT registration_ip FROM me WHERE registration_ip IS NOT NULL), ",
-            "seen AS (SELECT l.player_id, l.ip, count(*) AS logins, max(l.created_at) AS last_at ",
-            "FROM login_logs l JOIN mine m ON m.ip = l.ip ",
-            "WHERE l.player_id <> (SELECT id FROM me) GROUP BY l.player_id, l.ip ",
-            "UNION ALL SELECT p.id, p.registration_ip, 0, p.created_at FROM players p ",
+            "my_uids AS (SELECT DISTINCT uid FROM login_logs ",
+            "WHERE player_id = (SELECT id FROM me) AND uid IS NOT NULL), ",
+            // Their logins that share either, each once.
+            "theirs AS (SELECT l.id, l.player_id, l.ip, l.uid, l.created_at FROM login_logs l ",
+            "JOIN mine m ON m.ip = l.ip WHERE l.player_id <> (SELECT id FROM me) ",
+            "UNION SELECT l.id, l.player_id, l.ip, l.uid, l.created_at FROM login_logs l ",
+            "JOIN my_uids u ON u.uid = l.uid WHERE l.uid IS NOT NULL ",
+            "AND l.player_id <> (SELECT id FROM me)), ",
+            // What each shares: the address or install, else NULL.
+            "seen AS (SELECT t.player_id, ",
+            "CASE WHEN t.ip IN (SELECT ip FROM mine) THEN t.ip END AS ip, ",
+            "CASE WHEN t.uid IN (SELECT uid FROM my_uids) THEN t.uid END AS uid, ",
+            "1 AS logins, t.created_at AS last_at FROM theirs t ",
+            "UNION ALL SELECT p.id, p.registration_ip, NULL::int, 0, p.created_at FROM players p ",
             "JOIN mine m ON m.ip = p.registration_ip WHERE p.id <> (SELECT id FROM me)) ",
             "SELECT p.display_name, p.staff_mod_level, ",
-            "array_agg(DISTINCT host(s.ip)) AS shared, sum(s.logins)::bigint AS logins, ",
+            "COALESCE(array_agg(DISTINCT host(s.ip)) FILTER (WHERE s.ip IS NOT NULL), '{}') AS shared, ",
+            "count(DISTINCT s.uid) AS shared_clients, sum(s.logins)::bigint AS logins, ",
             ms!("max(s.last_at)"),
             " AS last_ms, CASE WHEN p.muted_until > now() THEN ",
             ms!("p.muted_until"),
             " END AS muted_until_ms, CASE WHEN p.banned_until > now() THEN ",
             ms!("p.banned_until"),
             " END AS banned_until_ms FROM seen s JOIN players p ON p.id = s.player_id ",
-            "GROUP BY p.id ORDER BY count(DISTINCT s.ip) DESC, max(s.last_at) DESC LIMIT $2"
+            "GROUP BY p.id ORDER BY count(DISTINCT s.ip) + count(DISTINCT s.uid) DESC, ",
+            "max(s.last_at) DESC LIMIT $2"
         ))
         .bind(name_hash as i64)
         .bind(limit)
