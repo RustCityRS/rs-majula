@@ -16,14 +16,14 @@ use rs_admin_api::{
     LinkBetween, LinkChainLookup, LinkedAccount, LinkedLookup, Links, LinksLookup, LiveReplay,
     LoginAddress, LoginDeviceSeen, MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome,
     Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome,
-    PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet,
-    ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup,
-    ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup,
-    SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup,
-    SessionState, SetControls, SheetLookup, StaffAccountRecord, StaffAccountsLookup, StatLine,
-    TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge,
-    TradeGraph, TradeGraphLookup, Unstick, Verifier, WealthLine, WealthLookup, WorldControls,
-    WorldStatus, path,
+    PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSearch,
+    PlayerSheet, ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet,
+    ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction,
+    SanctionsLookup, SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded,
+    SessionClaim, SessionLookup, SessionState, SetControls, SheetLookup, StaffAccountRecord,
+    StaffAccountsLookup, StatLine, TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup,
+    TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup, Unstick, Verifier, WealthLine,
+    WealthLookup, WorldControls, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::console::{self, Change};
@@ -199,6 +199,7 @@ pub async fn serve(
         .route(path::CONTROLS, post(set_controls))
         .route(path::CONTROLS_CHECK, post(check_patterns))
         .route(path::PLAYER, post(player_lookup))
+        .route(path::PLAYER_SEARCH, post(player_search))
         .route(path::MODERATION, post(moderation_lookup))
         .route(path::SANCTIONS, post(sanctions_lookup))
         .route(path::CHAT, post(chat_lookup))
@@ -705,7 +706,26 @@ async fn player_lookup(
         .player_record(name_hash(&req.name)?)
         .await
         .map_err(db_failed)?;
-    Ok(Json(record.map(|p| PlayerRecord {
+    Ok(Json(record.map(player_record)))
+}
+
+async fn player_search(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<PlayerSearch>,
+) -> Result<Json<Vec<PlayerRecord>>, StatusCode> {
+    let rows = state
+        .db
+        .players_by_prefix(
+            name_hash(&req.prefix)?,
+            i64::from(req.limit.clamp(1, MAX_LOOKUP_ROWS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(rows.into_iter().map(player_record).collect()))
+}
+
+fn player_record(p: rs_db::PlayerRecord) -> PlayerRecord {
+    PlayerRecord {
         name: p.display_name,
         staff_level: p.staff_mod_level.clamp(0, 255) as u8,
         registered_ms: p.registered_ms,
@@ -716,7 +736,7 @@ async fn player_lookup(
         muted_until_ms: p.muted_until_ms,
         banned_until_ms: p.banned_until_ms,
         reset_until_ms: p.reset_until_ms,
-    })))
+    }
 }
 
 async fn moderation_lookup(
@@ -2140,6 +2160,7 @@ const _: () = assert!(
         && rs_admin_api::transfer::GIVE == rs_db::transfer::GIVE
         && rs_admin_api::transfer::DROP == rs_db::transfer::DROP
         && rs_admin_api::transfer::TAKE == rs_db::transfer::TAKE
+        && rs_admin_api::transfer::SPAWNED == rs_db::transfer::SPAWNED
 );
 
 /// How many holders back a trace may go.

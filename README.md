@@ -411,7 +411,7 @@ on phones too.
   one has their save changed by any world, which claims their session for
   the moment it takes, exactly as a login would, so they can't log in half
   way through. Every change is audited.
-- **News** (maintainers only): write the website's news in Markdown, with
+- **News** (admins and maintainers): write the website's news in Markdown, with
   images, GIFs and videos (add them with the button, or paste or drop them
   into the text), preview it as the site shows it, and post, edit or delete
   it. It goes through the website's admin API (`--web-url`,
@@ -459,9 +459,9 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   also reboots, broadcasts, toggles maintenance, sends stuck players home,
   resets passwords, restores
   items, rolls saves back (one account or a ring), changes the hiscores and
-  what the economy tracks; `maintainer` (3)
-  also manages staff accounts, changes players' stats and items, reloads
-  scripts, and posts news. Nobody can moderate someone at or above their
+  what the economy tracks, and posts news; `maintainer` (3)
+  also manages staff accounts, changes players' stats and items and reloads
+  scripts. Nobody can moderate someone at or above their
   own level, nor see the sessions or logs (recordings, live spectating,
   chat, timeline, login addresses, progress charts, exports, item traces and
   trade graphs) of staff above

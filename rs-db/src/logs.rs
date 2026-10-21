@@ -24,6 +24,14 @@ pub struct SessionLog {
     pub event: String,
 }
 
+/// The `session_log` types the engine logs itself. The content's `^log_*`
+/// constants (a script's `session_log`) are all below these.
+pub mod log_type {
+    /// A command a jagex moderator or maintainer typed (`::give`, `::tele`, ...),
+    /// as they typed it.
+    pub const STAFF_COMMAND: i16 = 100;
+}
+
 /// The wealth event types the engine logs itself, as items pass between
 /// players or through the floor. The content's `^wealth_*` constants (a
 /// script's `wealth_event`) are all below these.
@@ -38,6 +46,8 @@ pub mod transfer {
     pub const DROP: i16 = 103;
     /// Picked up from the floor.
     pub const TAKE: i16 = 104;
+    /// Made out of nothing by a staff command (`::give` and the like).
+    pub const SPAWNED: i16 = 105;
     /// The types that hand items to a counterpart.
     pub const HANDOVERS: [i16; 3] = [TRADE, STAKE, GIVE];
 }

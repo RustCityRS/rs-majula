@@ -349,6 +349,15 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
             pruner.sessions.prune();
         }
     });
+    let lookups = app.clone();
+    tokio::spawn(async move {
+        let mut interval = tokio::time::interval(Duration::from_millis(audit::GATHER_MS / 2));
+        loop {
+            interval.tick().await;
+            lookups.audit.write_lookups(false);
+        }
+    });
+    let exiting = app.clone();
 
     let addr: SocketAddr = format!("{}:{}", args.host, args.port)
         .parse()
@@ -373,5 +382,6 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         info!("Shutting down");
     })
     .await?;
+    exiting.audit.write_lookups(true);
     Ok(())
 }

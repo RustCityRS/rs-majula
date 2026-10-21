@@ -87,6 +87,7 @@ pub fn router() -> Router<Arc<App>> {
         .route("/notes/watched", get(notes::watched))
         .route("/notes/{id}/remove", post(notes::remove))
         .route("/players", get(players::search))
+        .route("/players/names", get(search::names))
         .route("/players/kick", post(players::kick))
         .route("/players/moderate", post(players::moderate))
         .route("/lookup/player", get(lookup::player))

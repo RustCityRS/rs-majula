@@ -1,11 +1,11 @@
 use crate::engine::{ScriptEngine, ScriptPlayer, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ObjRef;
-use crate::state::ScriptState;
+use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
 use crate::{ScriptError, active_player_mut, handlers, none};
 use rs_inv::StackMode;
-use rs_pack::cache::inv::InvScope;
+use rs_pack::cache::inv::{InvScope, InvType};
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 use rs_pack::types::DummyItem;
@@ -110,6 +110,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
                 return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
             }
+            if refuses_shared::<E>(s, inv, player) {
+                return Ok(());
+            }
             let coord = player.coord();
             let obj_id = obj.id;
             let overflow = get_inv_mut::<E>(inv.id, player)?.add(obj_id, count, obj.stackable);
@@ -132,6 +135,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let find_obj = pop_obj::<E>(s)?;
             let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
+            if refuses_shared::<E>(s, inv, player) {
+                return Ok(());
+            }
             let inventory = get_inv_mut::<E>(inv.id, player)?;
             for slot in 0..inventory.capacity {
                 if let Some(item) = inventory.get(slot as u16) {
@@ -343,6 +349,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let coord = player.coord();
             if from_inv.id == to_inv.id {
                 let inv = get_inv_mut::<E>(from_inv.id, player)?;
@@ -384,6 +393,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj.id, count);
             if completed == 0 {
                 return Ok(());
@@ -404,6 +416,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj.id, count);
             if completed == 0 {
                 return Ok(());
@@ -425,6 +440,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let coord = player.coord();
             let obj_id = obj.id;
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj_id, count);
@@ -447,6 +465,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             if from_inv.id == to_inv.id {
                 get_inv_mut::<E>(from_inv.id, player)?.move_to_slot(from_slot as u16, to_slot as u16);
             } else {
@@ -464,6 +485,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             require_inv_access(s, inv, s.int_operand() as usize)?;
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
                 return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
+            }
+            if refuses_shared::<E>(s, inv, player) {
+                return Ok(());
             }
             get_inv_mut::<E>(inv.id, player)?.set(slot as u16, obj.id, count);
         });
@@ -584,4 +608,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.add_inv_other_transmit(com, inv.id, uid);
         });
     }
+}
+
+/// Whether `player`, as isolated staff, would be putting items into the
+/// shared inventory `inv` (a shop's stock, the party room chest) where
+/// others could take them. If so the whole script stops there, so nothing it
+/// does next (paying for a sale) happens either.
+fn refuses_shared<E: ScriptEngine + 'static>(
+    s: &mut ScriptState,
+    inv: &InvType,
+    player: &mut impl ScriptPlayer,
+) -> bool {
+    if inv.scope != InvScope::Shared || !engine::<E>().isolates_staff(player.staffmodlevel()) {
+        return false;
+    }
+    player.mes("Staff can't sell or give items away.");
+    s.execution = ExecutionState::Aborted;
+    true
 }

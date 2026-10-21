@@ -194,8 +194,9 @@ pub async fn chat(
             (None, Some(world)) => format!("world {world}"),
             (None, None) => "every world".to_owned(),
         };
-        app.audit
-            .record(Event::new(Some(staff.name()), staff.client.ip, "chat_viewed").target(target));
+        app.audit.record_lookup(
+            Event::new(Some(staff.name()), staff.client.ip, "chat_viewed").target(target),
+        );
     }
     Ok(Json(
         records
@@ -362,7 +363,7 @@ pub async fn timeline(
         .await
         .map_err(unavailable)?;
     if first {
-        app.audit.record(
+        app.audit.record_lookup(
             Event::new(Some(staff.name()), staff.client.ip, "timeline_viewed").target(&name),
         );
     }
@@ -413,7 +414,7 @@ pub async fn links(
         .map_err(unavailable)?;
     let sees = sees_addresses(&staff);
     if sees {
-        app.audit.record(
+        app.audit.record_lookup(
             Event::new(Some(staff.name()), staff.client.ip, "addresses_viewed").target(&name),
         );
     } else {

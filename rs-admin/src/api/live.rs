@@ -224,7 +224,7 @@ pub async fn farms(
         })
         .collect();
     if sees && !farms.is_empty() {
-        app.audit.record(
+        app.audit.record_lookup(
             Event::new(Some(staff.name()), staff.client.ip, "addresses_viewed")
                 .target("bot farm groups"),
         );

@@ -532,6 +532,12 @@ pub struct Engine {
     pub members: bool,
     pub multi_xp: u8,
     pub client_pathfinder: bool,
+    /// Whether staff of [`StaffModLevel::is_isolated`] levels are kept apart
+    /// from other players: no trades, duels, fights, or items or spells used
+    /// on each other, and their drops never revealed. On by default in
+    /// release builds; off in debug ones, where everyone logs in as a
+    /// maintainer.
+    pub staff_isolation: bool,
     pub player_list: PlayerList,
     pub npc_list: NpcList,
     pub zones: ZoneMap,
@@ -675,6 +681,7 @@ impl Engine {
             members,
             multi_xp,
             client_pathfinder,
+            staff_isolation: !cfg!(debug_assertions),
             player_list: PlayerList::new(),
             npc_list: NpcList::new(),
             zones,
@@ -1698,6 +1705,12 @@ impl Engine {
 // -----------------------------------------------------------------------
 
 impl Engine {
+    /// Whether players of staff level `level` are kept apart from others
+    /// on this world (see [`Engine::staff_isolation`]).
+    pub fn isolates(&self, level: StaffModLevel) -> bool {
+        self.staff_isolation && level.is_isolated()
+    }
+
     /// Adds a ground object to the world at its embedded coordinate.
     ///
     /// For stackable items owned by a specific receiver, attempts to merge
@@ -1748,8 +1761,13 @@ impl Engine {
         if let Some(r) = receiver37 {
             let reveal_clock = self.clock + REVEAL_TICKS;
 
-            let revealable =
-                obj_type.is_some_and(|t| obj_revealable(t.tradeable, t.members, self.members));
+            // Isolated staff's drops (their deaths and kills too) stay theirs.
+            let revealable = obj_type
+                .is_some_and(|t| obj_revealable(t.tradeable, t.members, self.members))
+                && !self
+                    .find_pid_by_user37(r)
+                    .and_then(|pid| self.player_list.get(pid))
+                    .is_some_and(|p| self.isolates(p.player.staff_mod_level));
 
             if revealable && reveal_clock < clock {
                 self.schedule_zone_event(
@@ -3661,6 +3679,28 @@ impl ScriptEngine for Engine {
     /// **Calls:** `Engine::remove_obj` (inherent)
     fn remove_obj(&mut self, coord: CoordGrid, id: u16, receiver37: Option<u64>, duration: u64) {
         self.remove_obj(coord, id, receiver37, duration);
+    }
+
+    /// Who a ground object was dropped for.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::obj_dropped_for`
+    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, user37: u64) -> Option<u64> {
+        self.zones
+            .zone(coord.x(), coord.y(), coord.z())?
+            .obj_dropped_for(coord.x(), coord.z(), id, user37)
+    }
+
+    /// Whether a staff level is kept apart from other players.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Engine::isolates`
+    fn isolates_staff(&self, staffmodlevel: u8) -> bool {
+        self.isolates(StaffModLevel::from_u8(staffmodlevel))
     }
 
     /// Finds a ground object at the given coordinate by type ID and optional

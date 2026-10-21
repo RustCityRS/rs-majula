@@ -359,6 +359,11 @@ struct Args {
     multi_xp: u8,
     #[arg(long, default_value = "true")]
     client_pathfinder: bool,
+    /// Keep jagex moderators and maintainers apart from other players (no
+    /// trades, duels, fights or shared drops). Defaults to on in release
+    /// builds and off in debug ones.
+    #[arg(long, action = clap::ArgAction::Set)]
+    staff_isolation: Option<bool>,
     #[arg(long, default_value = "false")]
     no_tui: bool,
     #[arg(long, default_value = "true")]
@@ -760,6 +765,13 @@ async fn bootstrap(
         db_rx,
     );
     engine.replay_tx = replay_tx;
+    if let Some(isolation) = args.staff_isolation {
+        engine.staff_isolation = isolation;
+    }
+    info!(
+        "Staff isolation: {}",
+        if engine.staff_isolation { "on" } else { "off" }
+    );
 
     release_freed_memory();
     trim_working_set();

@@ -56,6 +56,14 @@ impl StaffModLevel {
             _ => Self::Normal,
         }
     }
+
+    /// Whether this level is kept out of the economy and PvP where the world
+    /// isolates staff (see `Engine::staff_isolation`): jagex moderators and up
+    /// don't trade, duel, fight or use items or spells on other players, nor
+    /// they on them, and nothing they drop is ever shown to anyone else.
+    pub const fn is_isolated(self) -> bool {
+        self as u8 >= Self::JagexModerator as u8
+    }
 }
 
 /// The movement speed mode of an entity, determining how many tiles it moves per tick.
@@ -1830,5 +1838,13 @@ mod staff_mod_level_tests {
     fn from_u8_unknown_falls_back_to_normal() {
         assert_eq!(StaffModLevel::from_u8(4), StaffModLevel::Normal);
         assert_eq!(StaffModLevel::from_u8(255), StaffModLevel::Normal);
+    }
+
+    #[test]
+    fn jagex_moderators_and_up_are_isolated() {
+        assert!(!StaffModLevel::Normal.is_isolated());
+        assert!(!StaffModLevel::PlayerModerator.is_isolated());
+        assert!(StaffModLevel::JagexModerator.is_isolated());
+        assert!(StaffModLevel::Maintainer.is_isolated());
     }
 }

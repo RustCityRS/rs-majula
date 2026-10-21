@@ -300,6 +300,18 @@ pub trait ScriptEngine {
     ///   instance to remove.
     fn remove_obj(&mut self, coord: CoordGrid, id: u16, receiver37: Option<u64>, duration: u64);
 
+    /// Who the ground object the player `user37` would take at `coord` was
+    /// dropped for: themselves for their own private drop, the player it was
+    /// revealed from for one everyone can see, or `None` for one nobody
+    /// dropped (a map spawn, or one a script put down for everyone).
+    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, user37: u64) -> Option<u64>;
+
+    /// Whether staff of level `staffmodlevel` are kept apart from other
+    /// players on this world: besides the engine's own checks, they don't
+    /// take others' drops or put items into shared inventories (shops, the
+    /// party room chest).
+    fn isolates_staff(&self, staffmodlevel: u8) -> bool;
+
     /// Finds a ground object at the given coordinate by type ID.
     ///
     /// If `receiver37` is `Some`, matches objects visible to that player

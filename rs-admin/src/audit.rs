@@ -1,6 +1,6 @@
 use crate::users::now_ms;
 use serde::{Deserialize, Serialize};
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 use std::io::{BufRead, BufReader, Read, Seek, SeekFrom, Write};
 use std::net::IpAddr;
 use std::path::{Path, PathBuf};
@@ -12,6 +12,20 @@ use tracing::{error, info, warn};
 const CACHED: usize = 5000;
 /// How many entries an older page reads from the file at a time.
 const BLOCK: usize = 512;
+/// Lookups of a player by one staff member this close together, like a
+/// profile loading its timeline, chat and addresses, make one entry.
+pub const GATHER_MS: u64 = 2_000;
+/// How long after a lookup is recorded the same one again isn't.
+const REPEAT_MS: u64 = 15 * 60 * 1000;
+/// The lookups gathered, and what each one shows, in the order an entry
+/// naming several lists them.
+const LOOKUPS: [(&str, &str); 3] = [
+    ("timeline_viewed", "timeline"),
+    ("addresses_viewed", "login addresses"),
+    ("chat_viewed", "chat logs"),
+];
+/// An entry for several of [`LOOKUPS`] at once; its detail lists them.
+const RECORDS_VIEWED: &str = "records_viewed";
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Entry {
@@ -121,12 +135,26 @@ impl Inner {
     }
 }
 
+/// One staff member's lookups of one target.
+#[derive(Default)]
+struct Lookups {
+    ip: Option<IpAddr>,
+    /// When the first of `pending` was made.
+    since_ms: u64,
+    /// Made but in no entry yet.
+    pending: Vec<&'static str>,
+    /// Recorded, and when.
+    recorded: Vec<(&'static str, u64)>,
+}
+
 /// The audit trail: every entry is appended to a JSON-lines file and synced
 /// to disk before it counts, and all of it can be paged and searched, the
 /// oldest included.
 pub struct Audit {
     path: PathBuf,
     inner: Mutex<Inner>,
+    /// By actor and target.
+    lookups: Mutex<HashMap<(String, String), Lookups>>,
 }
 
 impl Audit {
@@ -198,11 +226,12 @@ impl Audit {
         Self {
             path,
             inner: Mutex::new(inner),
+            lookups: Mutex::new(HashMap::new()),
         }
     }
 
     pub fn record(&self, event: Event) {
-        let mut entry = Entry {
+        self.write(Entry {
             id: 0,
             at_ms: now_ms(),
             actor: event.actor,
@@ -211,7 +240,83 @@ impl Audit {
             target: event.target,
             detail: event.detail,
             ok: event.ok,
+        });
+    }
+
+    /// Records a look at a player's records, one of [`LOOKUPS`]: those
+    /// made within [`GATHER_MS`] of each other share an entry, written by
+    /// [`Audit::write_lookups`], and one already recorded in the last
+    /// [`REPEAT_MS`] isn't again.
+    pub fn record_lookup(&self, event: Event) {
+        let (Some(actor), Some(target)) = (event.actor, event.target) else {
+            return;
         };
+        debug_assert!(LOOKUPS.iter().any(|(a, _)| *a == event.action));
+        let now = now_ms();
+        let mut lookups = self.lookups.lock().unwrap_or_else(|e| e.into_inner());
+        let l = lookups.entry((actor, target)).or_default();
+        let recent = l
+            .recorded
+            .iter()
+            .any(|&(a, at)| a == event.action && now.saturating_sub(at) < REPEAT_MS);
+        if recent || l.pending.contains(&event.action) {
+            return;
+        }
+        if l.pending.is_empty() {
+            l.since_ms = now;
+            l.ip = event.ip;
+        }
+        l.pending.push(event.action);
+    }
+
+    /// Writes the entries for lookups gathered for [`GATHER_MS`] (or all of
+    /// them, when `all`), and forgets those too old to hold up a repeat.
+    pub fn write_lookups(&self, all: bool) {
+        let now = now_ms();
+        let mut due = Vec::new();
+        {
+            let mut lookups = self.lookups.lock().unwrap_or_else(|e| e.into_inner());
+            lookups.retain(|(actor, target), l| {
+                if !l.pending.is_empty() && (all || now.saturating_sub(l.since_ms) >= GATHER_MS) {
+                    let mut pending = std::mem::take(&mut l.pending);
+                    pending.sort_by_key(|a| LOOKUPS.iter().position(|(b, _)| a == b));
+                    let (action, detail) = match pending[..] {
+                        [one] => (one, String::new()),
+                        _ => (
+                            RECORDS_VIEWED,
+                            pending
+                                .iter()
+                                .filter_map(|a| LOOKUPS.iter().find(|(b, _)| a == b))
+                                .map(|(_, shows)| *shows)
+                                .collect::<Vec<_>>()
+                                .join(", "),
+                        ),
+                    };
+                    due.push(Entry {
+                        id: 0,
+                        at_ms: l.since_ms,
+                        actor: Some(actor.clone()),
+                        ip: l.ip,
+                        action: action.to_owned(),
+                        target: Some(target.clone()),
+                        detail,
+                        ok: true,
+                    });
+                    l.recorded.retain(|(a, _)| !pending.contains(a));
+                    l.recorded
+                        .extend(pending.into_iter().map(|a| (a, l.since_ms)));
+                }
+                l.recorded
+                    .retain(|&(_, at)| now.saturating_sub(at) < REPEAT_MS);
+                !l.pending.is_empty() || !l.recorded.is_empty()
+            });
+        }
+        for entry in due {
+            self.write(entry);
+        }
+    }
+
+    fn write(&self, mut entry: Entry) {
         info!(
             target: "audit",
             actor = entry.actor.as_deref().unwrap_or("-"),
@@ -394,6 +499,45 @@ mod tests {
         assert_eq!(failed.owner(), Some("ash"));
         let alert = entry(Event::system(None, "economy_alert").target("p1"));
         assert_eq!(alert.owner(), None);
+    }
+
+    #[test]
+    fn lookups_made_together_share_one_entry_and_repeats_none() {
+        let path = std::env::temp_dir().join(format!("rs-admin-lookups-{}.jsonl", now_ms()));
+        let ip = IpAddr::V4(Ipv4Addr::LOCALHOST);
+        let audit = Audit::open(path.clone());
+        let look = |action, target: &str| {
+            audit.record_lookup(Event::new(Some("ash"), ip, action).target(target));
+        };
+        look("chat_viewed", "p1");
+        look("timeline_viewed", "p1");
+        look("addresses_viewed", "p1");
+        look("timeline_viewed", "p2");
+        // Not yet gathered for long enough.
+        audit.write_lookups(false);
+        assert!(audit.page(None, 10, |_| true).is_empty());
+        audit.write_lookups(true);
+        look("chat_viewed", "p1");
+        look("timeline_viewed", "p2");
+        audit.write_lookups(true);
+        let mut entries = audit.page(None, 10, |_| true);
+        entries.sort_by(|a, b| a.target.cmp(&b.target));
+        let got: Vec<_> = entries
+            .iter()
+            .map(|e| (e.target.as_deref(), e.action.as_str(), e.detail.as_str()))
+            .collect();
+        assert_eq!(
+            got,
+            [
+                (
+                    Some("p1"),
+                    RECORDS_VIEWED,
+                    "timeline, login addresses, chat logs"
+                ),
+                (Some("p2"), "timeline_viewed", ""),
+            ]
+        );
+        let _ = std::fs::remove_file(path);
     }
 
     #[test]

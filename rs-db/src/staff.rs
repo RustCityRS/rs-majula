@@ -8,6 +8,47 @@ macro_rules! ms {
     };
 }
 
+/// The columns of a [`PlayerRecord`], from `players`.
+macro_rules! player_record {
+    () => {
+        concat!(
+            "SELECT name_hash, display_name, staff_mod_level, ",
+            ms!("created_at"),
+            " AS registered_ms, CASE WHEN muted_until > now() THEN ",
+            ms!("muted_until"),
+            " END AS muted_until_ms, CASE WHEN banned_until > now() THEN ",
+            ms!("banned_until"),
+            " END AS banned_until_ms, online_node, ",
+            ms!("online_since"),
+            " AS online_since_ms, last_logout_node, ",
+            ms!("last_logout_at"),
+            " AS last_logout_ms, CASE WHEN reset_code_until > now() THEN ",
+            ms!("reset_code_until"),
+            " END AS reset_until_ms FROM players"
+        )
+    };
+}
+
+/// The longest name, in base37 digits.
+const NAME_DIGITS: u32 = 12;
+
+/// The base37 ranges the names starting with `prefix_hash`'s fall in, one
+/// per length: a name `m` characters longer is the prefix times `37^m`
+/// plus those characters. Ascending, so in name order shortest first.
+fn prefix_ranges(prefix_hash: u64) -> impl Iterator<Item = (i64, i64)> {
+    let mut digits = 0;
+    let mut rest = prefix_hash;
+    while rest > 0 {
+        rest /= 37;
+        digits += 1;
+    }
+    (0..=NAME_DIGITS.saturating_sub(digits)).map(move |m| {
+        let span = 37u64.pow(m);
+        let lo = prefix_hash * span;
+        (lo as i64, (lo + span - 1) as i64)
+    })
+}
+
 /// A registered player, as staff see them.
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct PlayerRecord {
@@ -446,23 +487,30 @@ impl Db {
 
     /// The player with base37 name `name_hash`, if registered.
     pub async fn player_record(&self, name_hash: u64) -> Result<Option<PlayerRecord>, Error> {
+        sqlx::query_as(concat!(player_record!(), " WHERE name_hash = $1"))
+            .bind(name_hash as i64)
+            .fetch_optional(&self.pool)
+            .await
+    }
+
+    /// Up to `limit` registered players whose names start with the one
+    /// `prefix_hash` is the base37 of: that name first, then shortest
+    /// first, then in base37 order.
+    pub async fn players_by_prefix(
+        &self,
+        prefix_hash: u64,
+        limit: i64,
+    ) -> Result<Vec<PlayerRecord>, Error> {
+        let (lo, hi): (Vec<i64>, Vec<i64>) = prefix_ranges(prefix_hash).unzip();
         sqlx::query_as(concat!(
-            "SELECT name_hash, display_name, staff_mod_level, ",
-            ms!("created_at"),
-            " AS registered_ms, CASE WHEN muted_until > now() THEN ",
-            ms!("muted_until"),
-            " END AS muted_until_ms, CASE WHEN banned_until > now() THEN ",
-            ms!("banned_until"),
-            " END AS banned_until_ms, online_node, ",
-            ms!("online_since"),
-            " AS online_since_ms, last_logout_node, ",
-            ms!("last_logout_at"),
-            " AS last_logout_ms, CASE WHEN reset_code_until > now() THEN ",
-            ms!("reset_code_until"),
-            " END AS reset_until_ms FROM players WHERE name_hash = $1"
+            player_record!(),
+            " JOIN unnest($1::bigint[], $2::bigint[]) AS r (lo, hi)
+             ON name_hash BETWEEN r.lo AND r.hi ORDER BY name_hash LIMIT $3"
         ))
-        .bind(name_hash as i64)
-        .fetch_optional(&self.pool)
+        .bind(lo)
+        .bind(hi)
+        .bind(limit)
+        .fetch_all(&self.pool)
         .await
     }
 
@@ -620,5 +668,31 @@ impl Db {
         }
         query.push(" ORDER BY s.id DESC LIMIT ").push_bind(limit);
         query.build_query_as().fetch_all(&self.pool).await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn prefix_ranges_hold_every_longer_name() {
+        // "ab" = 1 * 37 + 2; "abc" = 39 * 37 + 3.
+        let ranges: Vec<_> = prefix_ranges(39).collect();
+        assert_eq!(ranges.len(), 11);
+        assert_eq!(ranges[0], (39, 39));
+        assert_eq!(ranges[1], (39 * 37, 39 * 37 + 36));
+        assert!(
+            ranges
+                .iter()
+                .any(|&(lo, hi)| (lo..=hi).contains(&(39 * 37 + 3)))
+        );
+        assert!(ranges.windows(2).all(|w| w[0].1 < w[1].0));
+        // A full-length name has only itself.
+        let full = 37u64.pow(12) - 1;
+        assert_eq!(
+            prefix_ranges(full).collect::<Vec<_>>(),
+            [(full as i64, full as i64)]
+        );
     }
 }

@@ -453,6 +453,27 @@ impl Engine {
         let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
             || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
 
+        // Isolated staff only follow other players: no trade, duel, attack,
+        // or item or spell on them, either way. Script-started interactions
+        // (combat's next swing) come through here too.
+        if !following
+            && let Some(InteractionTarget::Player { pid }) = active.player.interaction.target
+            && let Some(other) = engine().get_player(pid)
+        {
+            let engine = engine();
+            let staff = engine.isolates(active.player.staff_mod_level);
+            if staff || engine.isolates(other.player.staff_mod_level) {
+                active.message_game(if staff {
+                    "Staff can't trade, duel or fight other players."
+                } else {
+                    "You can't do that to a member of staff."
+                });
+                active.player.clear_interaction();
+                active.clear_waypoints();
+                return;
+            }
+        }
+
         let mut interacted = false;
 
         if active.player.interaction.target.is_some() && active.can_access() {

@@ -6,7 +6,7 @@ use crate::handlers::ClientGameHandler;
 use core::str::Split;
 use num_enum::TryFromPrimitive;
 use rs_crypto::isaac::IsaacPair;
-use rs_db::ModAction;
+use rs_db::{ModAction, log_type, transfer};
 use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
@@ -81,6 +81,12 @@ impl ClientGameHandler for ClientCheat {
                 "Client cheat command was not found for input: {}",
                 self.cheat
             )));
+        }
+
+        // What jagex moderators and maintainers do goes on their record for
+        // the console (player moderators' mutes are logged as moderation).
+        if active.player.staff_mod_level.is_isolated() {
+            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{}", self.cheat));
         }
 
         match active.player.staff_mod_level {
@@ -322,9 +328,18 @@ fn cheat_give(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), S
         .ok_or(ScriptError::InvNotFoundName("inv".into()))?;
     if let Some(inventory) = active.player.invs.get_mut(&inv.id) {
         let count = args.next().unwrap_or("1").parse::<i32>().unwrap_or(1);
-        inventory.add(obj.id, count as u32, obj.stackable);
+        let overflow = inventory.add(obj.id, count as u32, obj.stackable);
+        log_spawned(active, obj.id, (count as u32).saturating_sub(overflow));
     }
     Ok(())
+}
+
+/// Logs `count` of `obj` made by a staff command, for the economy tools.
+fn log_spawned(active: &ActivePlayer, obj: u16, count: u32) {
+    if count > 0 {
+        let coord = active.player.pathing.coord;
+        active.log_transfer(transfer::SPAWNED, coord, obj, count as i32, None);
+    }
 }
 
 /// Adds 1000 of an object to the player's backpack (`inv`).
@@ -343,7 +358,8 @@ fn cheat_give_many(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<
         .get_by_debugname("inv")
         .ok_or(ScriptError::InvNotFoundName("inv".into()))?;
     if let Some(inventory) = active.player.invs.get_mut(&inv.id) {
-        inventory.add(obj.id, 1000, obj.stackable);
+        let overflow = inventory.add(obj.id, 1000, obj.stackable);
+        log_spawned(active, obj.id, 1000u32.saturating_sub(overflow));
     }
     Ok(())
 }
@@ -468,6 +484,7 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
         return Ok(());
     };
 
+    let mut added = Vec::new();
     for _ in 0..inventory.capacity {
         loop {
             let Some(obj) = objs.get_by_id(rng.next_int_bound(count) as u16) else {
@@ -479,9 +496,14 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
             {
                 continue;
             }
-            inventory.add(obj.id, 1, obj.stackable);
+            if inventory.add(obj.id, 1, obj.stackable) == 0 {
+                added.push(obj.id);
+            }
             break;
         }
+    }
+    for obj in added {
+        log_spawned(active, obj, 1);
     }
 
     Ok(())

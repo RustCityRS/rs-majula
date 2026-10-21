@@ -8,13 +8,15 @@ use crate::users::name_key;
 use axum::Json;
 use axum::extract::{Query, State};
 use futures_util::future::join_all;
-use rs_admin_api::{PlayerLookup, PlayerRecord, ReplayGet, ReplayLookup, ReplaySummary, path};
+use rs_admin_api::{PlayerRecord, PlayerSearch, ReplayGet, ReplayLookup, ReplaySummary, path};
 use serde::{Deserialize, Serialize};
 use std::cmp::Reverse;
 use std::sync::Arc;
 
 /// The most of each kind a search shows.
 const SHOWN: usize = 6;
+/// The most names suggested for a name being typed.
+const SUGGESTED: usize = 10;
 
 #[derive(Deserialize)]
 pub struct SearchQuery {
@@ -90,32 +92,10 @@ pub async fn search(
         .map(|e| audit_view.redact(e))
         .collect();
 
-    let worlds = app.worlds.online();
-    let online = async {
-        if name.is_none() {
-            return Vec::new();
-        }
-        let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
-        worlds
-            .iter()
-            .zip(lists)
-            .filter_map(|(w, list)| list.ok().map(|list| (w.id, list)))
-            .flat_map(|(world, list)| {
-                list.into_iter()
-                    .filter(|p| name_key(&p.name).contains(&key))
-                    .map(move |p| (world, p))
-            })
-            .collect::<Vec<_>>()
-    };
-    let registered = async {
+    let players = async {
         match &name {
-            Some(name) => app
-                .worlds
-                .ask::<_, Option<PlayerRecord>>(path::PLAYER, &PlayerLookup { name: name.clone() })
-                .await
-                .ok()
-                .flatten(),
-            None => None,
+            Some(name) => find_players(&app, name, SHOWN).await,
+            None => Vec::new(),
         }
     };
     let by_id = async {
@@ -129,37 +109,7 @@ pub async fn search(
             None => None,
         }
     };
-    let (online, registered, by_id) = tokio::join!(online, registered, by_id);
-
-    let mut players: Vec<FoundPlayer> = Vec::new();
-    if let Some(record) = registered {
-        players.push(FoundPlayer {
-            online_world: online
-                .iter()
-                .find(|(_, p)| name_key(&p.name) == name_key(&record.name))
-                .map(|(w, _)| *w),
-            name: record.name,
-            registered: true,
-            staff_level: record.staff_level,
-        });
-    }
-    let mut others: Vec<FoundPlayer> = online
-        .into_iter()
-        .filter(|(_, p)| {
-            !players
-                .iter()
-                .any(|f| name_key(&f.name) == name_key(&p.name))
-        })
-        .map(|(world, p)| FoundPlayer {
-            online_world: Some(world),
-            registered: name_key(&p.name) == key,
-            staff_level: p.staff_level,
-            name: p.name,
-        })
-        .collect();
-    others.sort_by_key(|p| (!name_key(&p.name).starts_with(&key), name_key(&p.name)));
-    players.extend(others);
-    players.truncate(SHOWN);
+    let (players, by_id) = tokio::join!(players, by_id);
 
     // A recording asked for by id, else the sessions of whoever fits best.
     let replays: Vec<ReplaySummary> = match (by_id, players.first()) {
@@ -196,6 +146,97 @@ pub async fn search(
         replays: replays.into_iter().map(|r| view(&app, r)).collect(),
         audit,
     })
+}
+
+/// Up to `limit` players for the name (or part of one) `name`: registered
+/// names starting with it and anyone online whose name holds it anywhere;
+/// the name itself first, then those starting with it, online first,
+/// shortest first. What the worlds can't answer is left out.
+pub(super) async fn find_players(app: &App, name: &str, limit: usize) -> Vec<FoundPlayer> {
+    let key = name_key(name);
+    let worlds = app.worlds.online();
+    let online = async {
+        let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
+        worlds
+            .iter()
+            .zip(lists)
+            .filter_map(|(w, list)| list.ok().map(|list| (w.id, list)))
+            .flat_map(|(world, list)| {
+                list.into_iter()
+                    .filter(|p| name_key(&p.name).contains(&key))
+                    .map(move |p| (world, p))
+            })
+            .collect::<Vec<_>>()
+    };
+    let registered = async {
+        app.worlds
+            .ask::<_, Vec<PlayerRecord>>(
+                path::PLAYER_SEARCH,
+                &PlayerSearch {
+                    prefix: name.to_owned(),
+                    limit: limit as u32,
+                },
+            )
+            .await
+            .unwrap_or_default()
+    };
+    let (online, registered) = tokio::join!(online, registered);
+
+    // Registered names starting with the query, and anyone online whose
+    // name holds it anywhere.
+    let mut players: Vec<FoundPlayer> = registered
+        .into_iter()
+        .map(|record| FoundPlayer {
+            online_world: online
+                .iter()
+                .find(|(_, p)| name_key(&p.name) == name_key(&record.name))
+                .map(|(w, _)| *w),
+            name: record.name,
+            registered: true,
+            staff_level: record.staff_level,
+        })
+        .collect();
+    let others: Vec<FoundPlayer> = online
+        .into_iter()
+        .filter(|(_, p)| {
+            !players
+                .iter()
+                .any(|f| name_key(&f.name) == name_key(&p.name))
+        })
+        .map(|(world, p)| FoundPlayer {
+            online_world: Some(world),
+            registered: name_key(&p.name) == key,
+            staff_level: p.staff_level,
+            name: p.name,
+        })
+        .collect();
+    players.extend(others);
+    // The name itself, then those starting with it, online first, shortest first.
+    players.sort_by_cached_key(|p| {
+        let name = name_key(&p.name);
+        (
+            name != key,
+            !name.starts_with(&key),
+            p.online_world.is_none(),
+            name.len(),
+            name,
+        )
+    });
+    players.truncate(limit);
+    players
+}
+
+/// `GET /api/players/names?q=`: players to suggest for a name being typed.
+pub async fn names(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+    Query(query): Query<SearchQuery>,
+) -> Json<Vec<FoundPlayer>> {
+    let q = query.q.trim();
+    if !name_like(q) {
+        return Json(Vec::new());
+    }
+    Json(find_players(&app, q, SUGGESTED).await)
 }
 
 #[cfg(test)]

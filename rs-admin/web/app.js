@@ -206,6 +206,47 @@ function debounce(fn, ms) {
     };
 }
 
+// Suggests names as a player name is typed into `input`: registered names
+// starting with it and anyone online with it in their name (see
+// /api/players/names). One datalist serves every input, since only one is
+// typed in at a time. `onPick` runs with the name when one is chosen.
+const NAME_LIST = 'player-names';
+let nameSeq = 0;
+
+function nameSuggest(input, onPick) {
+    input.setAttribute('list', NAME_LIST);
+    const options = () => document.getElementById(NAME_LIST)
+        || document.body.appendChild(h('datalist', {id: NAME_LIST}));
+    const fill = debounce(async () => {
+        const q = input.value.trim();
+        const mine = ++nameSeq;
+        if (!validName(q)) return replace(options());
+        try {
+            const found = await api('GET', `/players/names?${query({q})}`);
+            if (mine !== nameSeq || document.activeElement !== input) return;
+            replace(options(), found.map((p) => h('option', {
+                value: p.name,
+                label: p.online_world ? `Online on world ${p.online_world}` : 'Offline',
+            })));
+        } catch {
+            // Suggestions are a convenience; typing the whole name still works.
+        }
+    }, 150);
+    input.addEventListener('input', (e) => {
+        // Choosing a suggestion fills the input as one replacement.
+        const chose = (!(e instanceof InputEvent) || e.inputType === 'insertReplacementText')
+            && [...options().options].some((o) => o.value === input.value);
+        if (chose) {
+            ++nameSeq;
+            replace(options());
+            onPick?.(input.value);
+        } else {
+            fill();
+        }
+    });
+    return input;
+}
+
 // ---------------------------------------------------------------------------
 // Preferences (per browser; the page works without them)
 
@@ -913,6 +954,7 @@ function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {})
         spellcheck: 'false',
         autofocus: !name
     });
+    nameSuggest(nameInput);
     const reason = h('textarea', {
         class: 'input',
         placeholder: 'Optional. Saved in the audit log and the moderation history.',
@@ -1126,7 +1168,7 @@ const NAV = [
     {path: '/chat', label: 'Chat logs', icon: 'chat', page: chatPage},
     {path: '/replays', label: 'Replays', icon: 'play', page: replaysPage},
     {path: '/audit', label: 'Audit log', icon: 'list', page: auditPage},
-    {path: '/news', label: 'News', icon: 'news', page: newsPage, maintainer: true},
+    {path: '/news', label: 'News', icon: 'news', page: newsPage, admin: true},
     {path: '/staff', label: 'Staff', icon: 'key', page: staffPage, maintainer: true},
     {path: '/account', label: 'Account', icon: 'user', page: accountPage},
 ];
@@ -1147,7 +1189,8 @@ const isTrial = () => state.session?.role === 'trial';
 // sessions and logs from you.
 const ROLE_LEVELS = {trial: 1, moderator: 1, admin: 2, maintainer: 3};
 const mayWatch = (staffLevel) => (staffLevel || 0) <= (ROLE_LEVELS[state.session?.role] || 0);
-const navItems = () => NAV.filter((n) => !n.maintainer || isMaintainer());
+const mayOpen = (n) => (!n.maintainer || isMaintainer()) && (!n.admin || state.canCommand);
+const navItems = () => NAV.filter(mayOpen);
 
 function navigate(path) {
     if (path !== location.pathname + location.search) history.pushState(null, '', path);
@@ -1349,7 +1392,7 @@ function renderPage() {
     for (const fn of pageCleanup) fn();
     pageCleanup = [];
     const path = location.pathname;
-    const allowed = PAGES.filter((n) => !n.maintainer || isMaintainer());
+    const allowed = PAGES.filter(mayOpen);
     const item = allowed.find((n) => n.path === path) || NAV[0];
     if (!allowed.some((n) => n.path === path)) history.replaceState(null, '', '/');
     const current = item.parent || item.path;
@@ -1894,19 +1937,36 @@ function playersPage(ctx) {
     const query = h('input', {
         class: 'input',
         type: 'search',
-        placeholder: 'Search online players by name',
+        placeholder: 'Search players by name',
         autofocus: true,
         'aria-label': 'Search players',
         value: ctx.params.get('q') || ''
     });
+    nameSuggest(query, (name) => navigate(`/player?name=${encodeURIComponent(name)}`));
+    const offline = h('div', {class: 'list'});
+    const offlineCard = h('section', {class: 'card hidden'},
+        h('div', {class: 'card-head'}, h('h2', {}, 'Not online'),
+            h('div', {class: 'actions'}, h('span', {class: 'muted'}, 'Accounts whose names start with the search'))),
+        offline);
     let seq = 0;
 
     const load = async () => {
         const mine = ++seq;
         const q = query.value.trim();
         try {
+            // Accounts that aren't online, with names starting with the query.
+            const accounts = validName(q)
+                ? api('GET', `/players/names?${new URLSearchParams({q})}`).catch(() => [])
+                : Promise.resolve([]);
             const data = await api('GET', `/players?q=${encodeURIComponent(q)}`);
+            const away = (await accounts).filter((p) => !p.online_world);
             if (mine !== seq) return;
+            offlineCard.classList.toggle('hidden', !away.length);
+            replace(offline, away.map((p) => h('div', {class: 'list-item'},
+                h('div', {class: 'avatar'}, initial(p.name)),
+                h('div', {class: 'list-main'},
+                    h('div', {class: 'list-title'}, playerLink(p.name)),
+                    h('div', {class: 'list-sub'}, 'Offline')))));
             if (!q) {
                 online = new Map(data.players.map((p) => [nameKey(p.name), p.world]));
                 drawMine();
@@ -1918,7 +1978,7 @@ function playersPage(ctx) {
             replace(results, data.players.length
                 ? data.players.map((p) => playerItem(p, p.world, null, load))
                 : h('div', {class: 'empty'}, icon('users'), q ? `Nobody online matches "${q}".` : 'Nobody is online.',
-                    q && validName(q) && button(`Look up ${q}`, {
+                    q && validName(q) && !away.length && button(`Look up ${q}`, {
                         small: true,
                         icon: 'search',
                         on: {click: () => navigate(`/player?name=${encodeURIComponent(q)}`)}
@@ -1928,6 +1988,8 @@ function playersPage(ctx) {
         }
     };
     const later = debounce(() => {
+        // Choosing a suggestion leaves the page before this runs.
+        if (!query.isConnected) return;
         const q = query.value.trim();
         history.replaceState(null, '', q ? `/players?q=${encodeURIComponent(q)}` : '/players');
         load();
@@ -1994,7 +2056,8 @@ function playersPage(ctx) {
         mineBox,
         h('section', {class: 'card'},
             h('div', {class: 'card-head'}, h('h2', {}, 'Online'), h('div', {class: 'actions'}, summary)),
-            results));
+            results),
+        offlineCard);
 }
 
 // ---------------------------------------------------------------------------
@@ -2019,6 +2082,7 @@ const VERBS = {
     maintenance_on: ['turned on maintenance for', 'lock', 'accent'],
     maintenance_off: ['turned off maintenance for', 'unlock', 'accent'],
     chat_viewed: ['viewed the chat logs of', 'chat'],
+    records_viewed: ['viewed the records of', 'list'],
     staff_added: ['added the account', 'key', 'accent'],
     staff_role: ['changed the role of', 'key', 'accent'],
     staff_password: ['set a new password for', 'lock'],
@@ -2063,7 +2127,10 @@ const VERBS = {
 };
 
 function auditItem(e) {
-    const [verb, iconName, tone] = VERBS[e.action] || [e.action.replace(/_/g, ' '), 'activity'];
+    let [verb, iconName, tone] = VERBS[e.action] || [e.action.replace(/_/g, ' '), 'activity'];
+    // Lookups made together share an entry, its detail listing what each showed.
+    const looked = e.action === 'records_viewed' && e.detail ? e.detail.split(', ') : null;
+    if (looked) verb = `viewed the ${looked.slice(0, -1).join(', ')} and ${looked.at(-1)} of`;
     const failed = !e.ok;
     // Sign-ins under a name that isn't an account have no actor, only the
     // name tried. Anything else without one, the console did itself.
@@ -2073,7 +2140,7 @@ function auditItem(e) {
             : ['Failed sign-in as ', h('b', {}, e.target)])
         : [h('b', {}, e.actor && isMaintainer() ? staffLink(e.actor) : e.actor || 'The console'), ` ${verb}`, e.target ? [' ', h('b', {}, e.target)] : null];
     // A sign-in's detail is the browser's user agent.
-    const detail = e.action === 'sign_in' && e.detail ? device(e.detail) : e.detail;
+    const detail = looked ? null : e.action === 'sign_in' && e.detail ? device(e.detail) : e.detail;
     return h('div', {class: 'list-item'},
         h('div', {class: `list-icon ${failed ? 'danger' : tone || ''}`}, icon(failed ? 'alert' : iconName)),
         h('div', {class: 'list-main'},
@@ -3427,7 +3494,7 @@ function supportSection(name) {
 }
 
 // ---------------------------------------------------------------------------
-// News on the website (maintainers)
+// News on the website (admins and maintainers)
 
 // What news posts and case comments can embed, and the most they take (50 MB).
 const MEDIA_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'video/mp4', 'video/webm'];
@@ -3901,6 +3968,7 @@ function newCaseDialog({player = '', title = '', refs = [], what = [], priority 
         spellcheck: 'false',
         autofocus: !player
     });
+    nameSuggest(nameInput);
     let titled = !!title;
     const titleInput = h('input', {
         class: 'input',
@@ -4306,6 +4374,7 @@ function moderationPage(ctx) {
             value: params.get('name') || '',
             maxlength: '12'
         });
+        nameSuggest(nameInput);
         const kinds = h('div', {class: 'chips'});
         const show = h('div', {class: 'chips'});
         const list = h('div', {});
@@ -4957,6 +5026,7 @@ function evidenceDialog(c, onAdded) {
         placeholder: 'Player name',
         'aria-label': 'Player'
     });
+    nameSuggest(nameInput);
     const kinds = h('div', {class: 'segmented'});
     const body = h('div', {class: 'pick-list'});
     const add = (item) => {
@@ -5562,6 +5632,7 @@ function chatPage(ctx) {
         value: ctx.params.get('name') || '',
         maxlength: '12'
     });
+    nameSuggest(nameInput);
     const worlds = h('div', {class: 'chips'});
     const body = h('div', {class: 'chat-list'});
     const note = h('p', {class: 'muted'});
@@ -5724,6 +5795,7 @@ function replaysPage(ctx) {
         value: ctx.params.get('name') || '',
         maxlength: '12'
     });
+    nameSuggest(nameInput);
     const filter = h('div', {class: 'chips'});
     const body = h('div', {});
 
@@ -8039,6 +8111,7 @@ function traceTab(ctx, params, go) {
     const item = params.get('item');
     const depth = [2, 3, 4, 5, 6].includes(Number(params.get('depth'))) ? Number(params.get('depth')) : 4;
     const nameInput = h('input', {class: 'input', required: true, value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    nameSuggest(nameInput);
     const picker = objPicker({required: false, autofocus: false, placeholder: 'Item: name, config name or id'});
     const depthSelect = h('select', {class: 'input', 'aria-label': 'How far back'},
         [2, 3, 4, 5, 6].map((n) => h('option', {value: String(n), selected: n === depth}, `${n} holders back`)));
@@ -8214,6 +8287,7 @@ function tradesTab(ctx, params, go) {
     const name = params.get('name') || '';
     const days = [7, 30, 90, 365].includes(Number(params.get('days'))) ? Number(params.get('days')) : 30;
     const nameInput = h('input', {class: 'input', value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    nameSuggest(nameInput, () => show());
     const daysSelect = h('select', {class: 'input', 'aria-label': 'Over'},
         [7, 30, 90, 365].map((n) => h('option', {value: String(n), selected: n === days}, n === 365 ? 'The last year' : `The last ${n} days`)));
     const show = () => {
@@ -8355,6 +8429,7 @@ function hiscoresCard(name, extraActions) {
 function hiscoresTab(ctx, params, go) {
     const name = params.get('name') || '';
     const nameInput = h('input', {class: 'input', value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    nameSuggest(nameInput, () => look());
     const look = () => {
         const n = nameInput.value.trim();
         if (!validName(n)) return toast('That isn\'t a valid player name.', 'error');
@@ -8517,6 +8592,7 @@ function addStaffDialog(onDone) {
         autofocus: true,
         placeholder: 'Their in-game name'
     });
+    nameSuggest(name);
     const password = h('input', {
         class: 'input',
         type: 'password',
@@ -8793,8 +8869,10 @@ const TIMELINE_KINDS = [
     ['report', 'Reports sent'],
     ['replay', 'Sessions'],
 ];
-// The content's ^log_* and ^wealth_* constants.
-const SESSION_TYPES = {0: 'Moderator log', 1: 'Adventure log'};
+// The content's ^log_* and ^wealth_* constants, then the engine's own
+// (rs_db::log_type and rs_db::transfer).
+const STAFF_COMMAND = 100;
+const SESSION_TYPES = {0: 'Moderator log', 1: 'Adventure log', [STAFF_COMMAND]: 'Staff command'};
 const WEALTH_TYPES = {
     5: 'Picked up',
     6: 'Bought from a shop',
@@ -8807,6 +8885,7 @@ const WEALTH_TYPES = {
     102: 'Handed over',
     103: 'Dropped',
     104: 'Picked up from the floor',
+    105: 'Made with a staff command',
 };
 const coins = (n) => `${Number(n || 0).toLocaleString()} gp`;
 const dayLabel = (ms) => new Date(ms).toLocaleDateString([], zoned({
@@ -8832,6 +8911,10 @@ function timelineItem(e, name) {
                 e.detail && (e.detail === 'desktop' ? 'Desktop client' : h('span', {title: e.detail}, device(e.detail)))];
             break;
         case 'session':
+            if (e.event_type === STAFF_COMMAND) {
+                iconName = 'key';
+                title = h('span', {class: 'mono'}, e.text);
+            }
             sub = [SESSION_TYPES[e.event_type] || `Log type ${e.event_type}`];
             break;
         case 'wealth': {

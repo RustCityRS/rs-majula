@@ -33,6 +33,7 @@ pub mod path {
     pub const CONTROLS_CHECK: &str = "/v1/controls/check";
     /// Lookups in the game database, which any world can answer.
     pub const PLAYER: &str = "/v1/lookup/player";
+    pub const PLAYER_SEARCH: &str = "/v1/lookup/player-search";
     pub const MODERATION: &str = "/v1/lookup/moderation";
     pub const SANCTIONS: &str = "/v1/lookup/sanctions";
     pub const CHAT: &str = "/v1/lookup/chat";
@@ -394,6 +395,15 @@ pub enum ModOutcome {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct PlayerLookup {
     pub name: String,
+}
+
+/// `POST /v1/lookup/player-search`: the registered players whose names
+/// start with `prefix`, that name first then shortest first, answered with
+/// `Vec<PlayerRecord>`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct PlayerSearch {
+    pub prefix: String,
+    pub limit: u32,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -1154,6 +1164,8 @@ pub mod transfer {
     pub const DROP: i16 = 103;
     /// Picked up from the floor.
     pub const TAKE: i16 = 104;
+    /// Made out of nothing by a staff command (`::give` and the like).
+    pub const SPAWNED: i16 = 105;
 }
 
 /// An item as the economy tools name it. `forms` are it and its noted
