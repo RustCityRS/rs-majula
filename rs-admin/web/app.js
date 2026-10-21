@@ -708,7 +708,9 @@ function targetsSummary(worlds) {
     return `${plural(worlds.length, 'world')}`;
 }
 
-function rebootDialog(worlds, onDone) {
+// Reboots `worlds`, or with `stay`, shuts them down: they stay off until a
+// maintainer starts them again.
+function rebootDialog(worlds, onDone, stay = false) {
     const presets = [[60, '1 min'], [300, '5 min'], [600, '10 min'], [1800, '30 min'], [3600, '1 hour']];
     const staggers = [[0, 'None'], [15, '15s'], [30, '30s'], [60, '1 min'], [300, '5 min']];
     let seconds = 300;
@@ -735,7 +737,10 @@ function rebootDialog(worlds, onDone) {
         autocomplete: 'off'
     });
     const preview = h('p', {class: 'hint'});
-    const confirmText = `reboot ${worlds.length} worlds`;
+    const verb = stay ? 'Shut down' : 'Reboot';
+    // A shutdown is typed out even for one world: it doesn't come back.
+    const confirm = many || stay;
+    const confirmText = `${verb.toLowerCase()} ${many ? `${worlds.length} worlds` : worldName(worlds[0]).toLowerCase()}`;
     const confirmInput = h('input', {
         class: 'input',
         placeholder: confirmText,
@@ -771,7 +776,7 @@ function rebootDialog(worlds, onDone) {
         replace(timeline, shown.map((w, i) => h('div', {}, h('span', {}, worldName(w)), h('span', {class: 'num'}, `in ${clock(seconds + stagger * i)}`))),
             worlds.length > shown.length && h('div', {class: 'muted'}, `and ${worlds.length - shown.length} more`));
         preview.textContent = reason.value.trim()
-            ? `Players also get the message: "Rebooting in ${clock(seconds)}: ${reason.value.trim()}"`
+            ? `Players also get the message: "${stay ? 'Shutting down' : 'Rebooting'} in ${clock(seconds)}: ${reason.value.trim()}"`
             : 'Players see the countdown. Add a reason to also send them a message with it.';
         if (action?.button) action.refresh(action.button);
     };
@@ -785,25 +790,25 @@ function rebootDialog(worlds, onDone) {
     update();
 
     action = {
-        label: many ? `Reboot ${worlds.length} worlds` : `Reboot ${worldName(worlds[0])}`,
+        label: many ? `${verb} ${worlds.length} worlds` : `${verb} ${worldName(worlds[0])}`,
         kind: 'danger',
         icon: 'power',
         refresh: (btn) => {
-            btn.disabled = many && confirmInput.value.trim().toLowerCase() !== confirmText;
+            btn.disabled = confirm && confirmInput.value.trim().toLowerCase() !== confirmText;
         },
         run: async () => {
-            await sendCommand('/worlds/reboot', {
+            await sendCommand(stay ? '/worlds/shutdown' : '/worlds/reboot', {
                 nodes: worlds.map((w) => w.node),
                 seconds,
                 stagger_secs: many ? stagger : 0,
                 reason: reason.value.trim() || null
-            }, 'Reboot scheduled');
+            }, stay ? 'Shutdown scheduled' : 'Reboot scheduled');
             onDone?.();
         },
     };
 
     openDialog({
-        title: many ? `Reboot ${worlds.length} worlds` : `Reboot ${worldName(worlds[0])}`,
+        title: many ? `${verb} ${worlds.length} worlds` : `${verb} ${worldName(worlds[0])}`,
         subtitle: many ? targetsSummary(worlds) : worlds[0].region,
         body: [
             h('div', {class: 'field'}, h('span', {}, 'Countdown'), delayChips, custom),
@@ -811,11 +816,39 @@ function rebootDialog(worlds, onDone) {
                 h('p', {class: 'hint'}, 'Spaces the worlds out so they don\'t all go down, and fill back up, at once.')),
             h('div', {class: 'field'}, h('span', {}, 'Schedule'), timeline),
             h('label', {class: 'field'}, h('span', {}, 'Reason'), reason, preview),
-            h('div', {class: 'callout warn'}, icon('alert'),
-                h('div', {}, 'Players see the countdown, then are saved and logged out. The world process exits when it ends; your service manager starts it again.')),
-            many && h('label', {class: 'field'}, h('span', {}, `Type "${confirmText}" to confirm`), confirmInput),
+            h('div', {class: `callout ${stay ? 'danger' : 'warn'}`}, icon('alert'),
+                h('div', {}, stay
+                    ? 'Players see the countdown, then are saved and logged out. The world then stays off: nobody can play on it until a maintainer starts it again from this page.'
+                    : 'Players see the countdown, then are saved and logged out. The world process exits when it ends; your service manager starts it again.')),
+            confirm && h('label', {class: 'field'}, h('span', {}, `Type "${confirmText}" to confirm`), confirmInput),
         ],
         actions: [{label: 'Cancel'}, action],
+    });
+}
+
+// Starts the worlds in `worlds` that are off and that the console can start
+// (it knows their systemd unit).
+function startDialog(worlds, onDone) {
+    const off = worlds.filter((w) => !w.online);
+    const targets = off.filter((w) => w.startable);
+    const notes = [
+        off.length < worlds.length && `${plural(worlds.length - off.length, 'world')} already running, left as ${worlds.length - off.length === 1 ? 'it is' : 'they are'}.`,
+        targets.length < off.length && `${plural(off.length - targets.length, 'world')} can't be started from the console: its worlds file names no systemd unit for ${off.length - targets.length === 1 ? 'it' : 'them'}.`,
+    ].filter(Boolean);
+    if (!targets.length) {
+        toast(notes.join(' ') || 'Pick a world that is off.', 'error');
+        return;
+    }
+    confirmDialog({
+        title: targets.length === 1 ? `Start ${worldName(targets[0])}` : `Start ${targets.length} worlds`,
+        subtitle: targetsSummary(targets),
+        body: [h('p', {class: 'muted'}, 'Starts the world process. It loads for a minute or so, then shows as online and players can log in.'),
+            notes.length > 0 && h('p', {class: 'hint'}, notes.join(' '))],
+        label: 'Start',
+        run: async () => {
+            await sendCommand('/worlds/start', {nodes: targets.map((w) => w.node)}, 'Start');
+            onDone?.();
+        },
     });
 }
 
@@ -1691,9 +1724,9 @@ function worldsPage(ctx) {
                 status?.shutting_down
                     ? h('span', {class: 'badge danger'}, icon('power'), 'Shutting down')
                     : w.rebootAt && h('span', {
-                    class: 'badge warn',
+                    class: `badge ${status.stays_down ? 'danger' : 'warn'}`,
                     title: status.reboot_reason || ''
-                }, icon('clock'), 'Reboot in ', countdown(w.rebootAt)),
+                }, icon('clock'), status.stays_down ? 'Shutting down in ' : 'Reboot in ', countdown(w.rebootAt)),
                 status?.maintenance && h('span', {class: 'badge warn'}, icon('lock'), 'Maintenance')),
             status?.reboot_reason && w.rebootAt && h('div', {class: 'tile-reason'}, status.reboot_reason),
             w.online && button(null, {
@@ -1796,6 +1829,16 @@ function worldsPage(ctx) {
             on: {click: () => scheduleDialog('reboot', chosen().sort((a, b) => a.id - b.id), clear)}
         }),
         button('Maintenance', {icon: 'lock', on: {click: () => maintenanceDialog(chosen(), clear)}}),
+        isMaintainer() && button('Shut down', {
+            icon: 'power',
+            title: 'Count down, save everyone and turn the worlds off until they\'re started again',
+            on: {click: () => rebootDialog(chosen().sort((a, b) => a.id - b.id), clear, true)}
+        }),
+        isMaintainer() && button('Start', {
+            icon: 'play',
+            title: 'Turn on worlds that are off',
+            on: {click: () => startDialog(chosen().sort((a, b) => a.id - b.id), clear)}
+        }),
         isMaintainer() && button('Reload scripts', {
             icon: 'refresh',
             title: 'Recompile one world\'s scripts and swap them in',
@@ -2071,6 +2114,8 @@ const VERBS = {
     '2fa_enrolled': ['set up two-factor authentication', 'shield', 'ok'],
     reboot: ['scheduled a reboot of', 'power', 'accent'],
     cancel_reboot: ['cancelled the reboot of', 'undo', 'accent'],
+    shutdown: ['scheduled a shutdown of', 'power', 'danger'],
+    start_world: ['started', 'play', 'accent'],
     broadcast: ['broadcast to', 'megaphone', 'accent'],
     kick: ['kicked', 'kick'],
     mute: ['muted', 'mute'],

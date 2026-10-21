@@ -46,6 +46,8 @@ pub fn router() -> Router<Arc<App>> {
         .route("/worlds", get(worlds::list))
         .route("/worlds/{node}/players", get(worlds::players))
         .route("/worlds/reboot", post(worlds::reboot))
+        .route("/worlds/shutdown", post(worlds::shutdown))
+        .route("/worlds/start", post(worlds::start))
         .route("/worlds/cancel-reboot", post(worlds::cancel_reboot))
         .route("/worlds/broadcast", post(worlds::broadcast))
         .route("/worlds/maintenance", post(worlds::maintenance))

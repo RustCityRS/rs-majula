@@ -36,6 +36,7 @@ use rs_engine::{
 };
 use rs_util::base37::{is_valid_userhash, to_raw_username, to_screen_name, to_userhash};
 use std::collections::{HashMap, VecDeque};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, System};
@@ -44,6 +45,14 @@ use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{oneshot, watch};
 use tokio::time::timeout;
 use tracing::{info, warn};
+
+/// The exit code of a world that was shut down rather than rebooted. Its
+/// systemd unit names it in `RestartPreventExitStatus` (and
+/// `SuccessExitStatus`), so the world stays off until it's started again.
+pub const STAY_DOWN_EXIT: i32 = 3;
+
+/// Whether the countdown going on is a shutdown (see [`STAY_DOWN_EXIT`]).
+pub static STAY_DOWN: AtomicBool = AtomicBool::new(false);
 
 /// Work for the engine task to run between ticks, with the engine to itself.
 pub type EngineJob = Box<dyn FnOnce(&mut Engine) + Send>;
@@ -323,6 +332,7 @@ fn world_status(state: &AdminState, engine: &Engine) -> WorldStatus {
             .is_pending_shutdown()
             .then(|| (engine.shutdown_ticks_remaining().max(0) as f64 * TICK_SECS) as u32),
         shutting_down: engine.is_shutdown(),
+        stays_down: engine.is_pending_shutdown() && STAY_DOWN.load(Ordering::Relaxed),
         maintenance: engine.maintenance_mode,
         reboot_reason: engine
             .is_pending_shutdown()
@@ -403,11 +413,20 @@ async fn reboot(
         if engine.is_shutdown() {
             return Outcome::refused("The world is already shutting down.");
         }
+        if let Some(refused) = shutdown_held(engine, req.actor.staff_level) {
+            return refused;
+        }
         let clocks = (u64::from(req.seconds) * 1000).div_ceil(600);
         engine.reboot_timer(clocks);
+        STAY_DOWN.store(req.stay_down, Ordering::Relaxed);
+        let what = if req.stay_down {
+            "Shutting down"
+        } else {
+            "Rebooting"
+        };
         let message = match &reason {
-            Some(reason) => format!("Rebooting in {}: {reason}", clock(req.seconds)),
-            None => format!("Rebooting in {}.", clock(req.seconds)),
+            Some(reason) => format!("{what} in {}: {reason}", clock(req.seconds)),
+            None => format!("{what} in {}.", clock(req.seconds)),
         };
         // Players see the countdown either way; a reason also goes out as a
         // message beside it.
@@ -416,13 +435,27 @@ async fn reboot(
         }
         *s.reboot_reason.lock().unwrap_or_else(|e| e.into_inner()) = reason;
         info!(
-            "{} scheduled a reboot in {}s from the admin console",
-            req.actor.name, req.seconds
+            "{} scheduled a {} in {}s from the admin console",
+            req.actor.name,
+            if req.stay_down { "shutdown" } else { "reboot" },
+            req.seconds
         );
         Outcome::ok(message)
     })
     .await
     .map(Json)
+}
+
+/// Refuses a change to a shutdown on its way unless `actor` (a staff level)
+/// is a maintainer: only they shut worlds down.
+fn shutdown_held(engine: &Engine, actor: u8) -> Option<Outcome> {
+    (engine.is_pending_shutdown() && STAY_DOWN.load(Ordering::Relaxed) && actor < MAINTAINER).then(
+        || {
+            Outcome::refused(
+                "A maintainer is shutting this world down: only a maintainer can change that.",
+            )
+        },
+    )
 }
 
 async fn cancel_reboot(
@@ -433,8 +466,11 @@ async fn cancel_reboot(
     on_engine(&state, move |engine| {
         if engine.is_shutdown() {
             Outcome::refused("The reboot has already begun.")
+        } else if let Some(refused) = shutdown_held(engine, req.actor.staff_level) {
+            refused
         } else if engine.cancel_reboot() {
             *s.reboot_reason.lock().unwrap_or_else(|e| e.into_inner()) = None;
+            STAY_DOWN.store(false, Ordering::Relaxed);
             info!(
                 "{} cancelled the reboot from the admin console",
                 req.actor.name

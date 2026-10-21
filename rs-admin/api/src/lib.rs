@@ -253,6 +253,8 @@ pub struct WorldStatus {
     pub reboot_in_secs: Option<u32>,
     pub shutting_down: bool,
     #[serde(default)]
+    pub stays_down: bool,
+    #[serde(default)]
     pub maintenance: bool,
     #[serde(default)]
     pub reboot_reason: Option<String>,
@@ -333,6 +335,10 @@ pub struct Reboot {
     pub seconds: u32,
     #[serde(default)]
     pub reason: Option<String>,
+    /// A shutdown: the world exits with `STAY_DOWN_EXIT`, which its service
+    /// manager is set not to restart, so it stays off until started again.
+    #[serde(default)]
+    pub stay_down: bool,
 }
 
 /// `POST /v1/maintenance`: closes (or reopens) the world to new logins.

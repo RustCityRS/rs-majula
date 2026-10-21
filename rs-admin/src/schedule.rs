@@ -198,6 +198,7 @@ async fn run(app: &App, job: &Job) -> LastRun {
                     actor: actor.clone(),
                     seconds: countdown_secs + stagger_secs * i as u32,
                     reason: reason.clone(),
+                    stay_down: false,
                 })
                 .await
         }

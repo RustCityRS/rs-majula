@@ -115,6 +115,9 @@ pub struct RebootRequest {
     reason: Option<String>,
 }
 
+/// How long `systemctl start` may take to answer.
+const START_TIMEOUT: Duration = Duration::from_secs(30);
+
 /// `POST /api/worlds/reboot`.
 pub async fn reboot(
     State(app): State<Arc<App>>,
@@ -122,7 +125,28 @@ pub async fn reboot(
     Json(req): Json<RebootRequest>,
 ) -> Result<Json<CommandResult>, ApiError> {
     staff.require_admin()?;
-    let targets = targets(&app, &req.nodes)?;
+    count_down(&app, &staff, req, false).await
+}
+
+/// `POST /api/worlds/shutdown`: a reboot that leaves the worlds off, until a
+/// maintainer starts them again.
+pub async fn shutdown(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Json(req): Json<RebootRequest>,
+) -> Result<Json<CommandResult>, ApiError> {
+    staff.require_maintainer()?;
+    count_down(&app, &staff, req, true).await
+}
+
+/// Starts the countdown to a reboot, or a shutdown if `stay_down`.
+async fn count_down(
+    app: &App,
+    staff: &Staff,
+    req: RebootRequest,
+    stay_down: bool,
+) -> Result<Json<CommandResult>, ApiError> {
+    let targets = targets(app, &req.nodes)?;
     if req.stagger_secs > MAX_STAGGER_SECS {
         return Err(ApiError::bad_request(format!(
             "The stagger can be at most {MAX_STAGGER_SECS} seconds."
@@ -155,12 +179,14 @@ pub async fn reboot(
             actor: actor.clone(),
             seconds: req.seconds + req.stagger_secs * i as u32,
             reason: reason.clone(),
+            stay_down,
         })
         .await;
     let (ok, summary) = tally(&replies);
     let why = reason.map(|r| format!(" (\"{r}\")")).unwrap_or_default();
+    let action = if stay_down { "shutdown" } else { "reboot" };
     app.audit.record(
-        Event::new(Some(staff.name()), staff.client.ip, "reboot")
+        Event::new(Some(staff.name()), staff.client.ip, action)
             .target(world_list(&targets))
             .detail(format!(
                 "in {}s, stagger {}s{why}: {summary}",
@@ -168,12 +194,70 @@ pub async fn reboot(
             ))
             .ok(ok),
     );
-    Ok(finish(&app, &targets, replies).await)
+    Ok(finish(app, &targets, replies).await)
 }
 
 #[derive(Deserialize)]
 pub struct Targets {
     nodes: Vec<u8>,
+}
+
+/// `POST /api/worlds/start`: starts worlds that are off through systemd, on
+/// the console's own machine (see `WorldConfig::unit`).
+pub async fn start(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Json(req): Json<Targets>,
+) -> Result<Json<CommandResult>, ApiError> {
+    staff.require_maintainer()?;
+    let targets = targets(&app, &req.nodes)?;
+    let views = app.worlds.views();
+    let mut replies = Vec::with_capacity(targets.len());
+    for world in &targets {
+        let online = views
+            .iter()
+            .any(|v| v.config.node == world.node && v.online);
+        let answer = match &world.unit {
+            _ if online => rs_admin_api::Outcome::refused("It's already running."),
+            None => rs_admin_api::Outcome::refused(
+                "The console's worlds file names no systemd unit for it, so it can't be started from here.",
+            ),
+            Some(unit) => start_unit(unit).await,
+        };
+        replies.push(Reply {
+            node: world.node,
+            world: world.id,
+            result: Outcome::Answered { answer },
+        });
+    }
+    let (ok, summary) = tally(&replies);
+    app.audit.record(
+        Event::new(Some(staff.name()), staff.client.ip, "start_world")
+            .target(world_list(&targets))
+            .detail(summary)
+            .ok(ok),
+    );
+    Ok(finish(&app, &targets, replies).await)
+}
+
+/// Starts systemd unit `unit`. The console's machine has to let its user do
+/// that: see the deploy docs' polkit rule.
+async fn start_unit(unit: &str) -> rs_admin_api::Outcome {
+    let run = tokio::process::Command::new("systemctl")
+        .args(["start", "--no-ask-password", unit])
+        .kill_on_drop(true)
+        .output();
+    match tokio::time::timeout(START_TIMEOUT, run).await {
+        Ok(Ok(out)) if out.status.success() => rs_admin_api::Outcome::ok(
+            "Started. It takes a minute or so to load before players can log in.",
+        ),
+        Ok(Ok(out)) => rs_admin_api::Outcome::refused(format!(
+            "systemd refused: {}",
+            String::from_utf8_lossy(&out.stderr).trim()
+        )),
+        Ok(Err(e)) => rs_admin_api::Outcome::refused(format!("Couldn't run systemctl: {e}")),
+        Err(_) => rs_admin_api::Outcome::refused("systemctl didn't answer within 30 seconds."),
+    }
 }
 
 /// `POST /api/worlds/cancel-reboot`.

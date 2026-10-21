@@ -36,6 +36,8 @@ pub struct WorldConfig {
     pub url: String,
     #[serde(default)]
     pub client: Option<String>,
+    #[serde(default, skip_serializing)]
+    pub unit: Option<String>,
 }
 
 pub fn load(path: &Path) -> anyhow::Result<Vec<WorldConfig>> {
@@ -44,6 +46,17 @@ pub fn load(path: &Path) -> anyhow::Result<Vec<WorldConfig>> {
     nodes.sort_unstable();
     if nodes.windows(2).any(|w| w[0] == w[1]) {
         anyhow::bail!("two worlds share a node id");
+    }
+    for world in &worlds {
+        if let Some(unit) = &world.unit
+            && (unit.is_empty()
+                || unit.starts_with('-')
+                || !unit
+                    .chars()
+                    .all(|c| c.is_ascii_alphanumeric() || "@._-".contains(c)))
+        {
+            anyhow::bail!("world {}: {unit:?} isn't a systemd unit name", world.id);
+        }
     }
     Ok(worlds)
 }
@@ -58,6 +71,8 @@ pub struct WorldView {
     pub error: Option<String>,
     pub latency_ms: Option<u64>,
     pub checked_ago_ms: u64,
+    /// Whether the console can start it (it has a unit).
+    pub startable: bool,
 }
 
 struct Snapshot {
@@ -155,6 +170,7 @@ impl Worlds {
                         .filter(|s| s.status.is_ok())
                         .map(|s| s.latency.as_millis() as u64),
                     checked_ago_ms: snapshot.map_or(0, |s| s.at.elapsed().as_millis() as u64),
+                    startable: config.unit.is_some(),
                 }
             })
             .collect()

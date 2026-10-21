@@ -1247,6 +1247,10 @@ async fn engine_tick(
                 info!("Waiting for database saves to complete...");
                 while engine.db_rx.recv().await.is_some() {}
                 finish_recordings(replay_task.take()).await;
+                if admin::STAY_DOWN.load(std::sync::atomic::Ordering::Relaxed) {
+                    info!("All saves flushed -- server offline until started again");
+                    graceful_exit(admin::STAY_DOWN_EXIT);
+                }
                 info!("All saves flushed -- server offline");
                 graceful_exit(0);
             }
