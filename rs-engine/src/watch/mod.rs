@@ -1,18 +1,3 @@
-//! Watching a player's session for moderators: a recording of everything
-//! sent each way, for the staff console to replay, and the anti-cheat
-//! checks' verdict on it.
-//!
-//! The recording is buffered per player and handed to the recording task
-//! ([`crate::clients::client_replay`]) every [`CHUNK_MS`] or
-//! [`CHUNK_BYTES`], which compresses it (zstd) and stores it. A chunk the
-//! task can't take is lost, and the recording stops there: the replay can't
-//! skip over missing packets.
-//!
-//! Every [`KEYFRAME_MS`] the recording takes a keyframe: the packets a
-//! client that has just logged in needs to show what the player's does at
-//! that point ([`keyframe`], [`state`]). A replay seeks by starting a fresh
-//! client from the nearest one, so it never plays the whole session again.
-
 pub mod anticheat;
 pub mod format;
 pub mod input;

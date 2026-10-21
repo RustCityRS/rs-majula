@@ -1,7 +1,3 @@
-//! The recording task: stores session recordings ([`crate::watch`]) on a
-//! connection of its own, so chunks never hold up saves and logins, and
-//! prunes recordings past their keeping time.
-
 use crate::counters::{self, COUNTERS};
 use crate::watch::ReplayRequest;
 use rs_db::{Db, DbConfig, NewReplay, ReplayChunk};

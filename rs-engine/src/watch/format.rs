@@ -1,10 +1,3 @@
-//! The recording format: a stream of tagged entries, grouped by tick.
-//!
-//! Each tick that has anything to record starts with a [`TICK`] entry giving
-//! how far into the session it is. Packets are stored as they cross the wire
-//! minus the ISAAC cipher, so a recording plays back in that revision's
-//! client.
-
 /// A tick begins: `varint ms` since the session started.
 pub const TICK: u8 = 0;
 /// Packets the world sent: `varint len`, then opcode, frame and body.

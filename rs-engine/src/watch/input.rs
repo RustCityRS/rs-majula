@@ -1,11 +1,3 @@
-//! Times the client's input reports (mouse, keys, focus, camera), as decoded
-//! by their protocol messages, for the anti-cheat checks and the replay's
-//! cursor.
-//!
-//! The reports arrive in batches, so each event's time is worked out from
-//! when its packet arrived and the gaps the client measured between events.
-//! Times are milliseconds into the session.
-
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
 #[cfg(since_254)]

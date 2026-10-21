@@ -1,12 +1,3 @@
-//! What a client holds on to: the last packet of each kind that sets lasting
-//! state (an interface component's text, a varp, a stat, a tab, an open
-//! interface, the camera...), and the latest chat messages. A keyframe sends
-//! them again, in the order they were last sent, so a client starting from
-//! it shows what the player's did.
-//!
-//! The world itself doesn't keep most of this (it sends an interface's text
-//! and forgets it), so it's remembered here, from the packets themselves.
-
 use rs_protocol::network::game::server_prot::ServerProt;
 use rustc_hash::FxHashMap;
 use std::collections::VecDeque;

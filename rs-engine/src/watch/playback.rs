@@ -1,12 +1,3 @@
-//! Turns a stored recording into what the replay page plays: the packets the
-//! client was sent, in timed frames, and the player's input and actions as
-//! JSON.
-//!
-//! The file is `RSRP`, a version byte, a big-endian `u32` header length, the
-//! JSON header, then frames: `u32 ms`, a [`Frame`] kind byte, `u32 len`, and
-//! the bytes. A server frame's packets are each prefixed with a `u16`
-//! length, in plaintext: ciphering the opcodes is the page's job.
-
 use super::format::{Entry, Reader};
 use super::input::{Input, InputDecoder, Timed, decode};
 use flate2::read::DeflateDecoder;

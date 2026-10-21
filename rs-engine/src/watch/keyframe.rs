@@ -1,11 +1,3 @@
-//! Building a replay keyframe: what a client that has just logged in needs
-//! to show what a player's client shows now, so a replay can start there.
-//!
-//! The map, what's on it, inventories, and the players and NPCs in view are
-//! built here from the world's own state, read-only: the messages go to the
-//! player's capture list, not to them. What only the client holds on to
-//! (interface text, varps, the camera...) comes from [`super::state`].
-
 use crate::active_player::ActivePlayer;
 use crate::engine::{Engine, engine};
 use crate::info::{NpcInfo, PlayerInfo};

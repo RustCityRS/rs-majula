@@ -1,7 +1,3 @@
-//! Session recordings: what a world sent a player and what their client sent
-//! back, stored a chunk at a time while they play, for moderators to replay
-//! in the staff console (see migration 0011).
-
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 
