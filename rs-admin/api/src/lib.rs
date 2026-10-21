@@ -238,19 +238,14 @@ pub struct WorldStatus {
     pub uptime_secs: u64,
     pub reboot_in_secs: Option<u32>,
     pub shutting_down: bool,
-    // Defaulted: worlds on an older release don't send them.
-    /// Whether new logins are refused (staff can still log in).
     #[serde(default)]
     pub maintenance: bool,
-    /// The reason given with the pending reboot, if any.
     #[serde(default)]
     pub reboot_reason: Option<String>,
     #[serde(default)]
     pub health: Option<Health>,
     #[serde(default)]
     pub controls: Option<WorldControls>,
-    /// How many scripts each of `controls.switches` matches now (after any
-    /// script reload).
     #[serde(default)]
     pub control_matches: Option<Vec<u32>>,
 }
@@ -270,10 +265,7 @@ pub struct CheckPatterns {
 /// A world's kill switches and login lockdown. They last until it restarts.
 #[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub struct WorldControls {
-    /// Script-name patterns (`*` matches anything) that players can't start.
     pub switches: Vec<String>,
-    /// Non-staff accounts registered less than this long ago can't log in;
-    /// 0 for no lockdown.
     pub min_account_age_hours: u32,
 }
 
@@ -293,15 +285,10 @@ pub struct ControlsSet {
 /// How the world is running, over roughly the last minute.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Health {
-    /// Mean time a tick's work took.
     pub tick_ms: f32,
-    /// The slowest tick.
     pub tick_max_ms: f32,
-    /// Ticks that took longer than the 600ms tick.
     pub overruns: u32,
-    /// The process's resident memory, where the platform reports it.
     pub memory_bytes: Option<u64>,
-    /// Open game connections.
     pub connections: u32,
 }
 
@@ -314,7 +301,6 @@ pub struct OnlinePlayer {
     pub z: u16,
     pub level: u8,
     pub muted: bool,
-    /// The recording of their session, to watch live.
     #[serde(default)]
     pub replay: Option<String>,
 }
@@ -331,7 +317,6 @@ pub struct Actor {
 pub struct Reboot {
     pub actor: Actor,
     pub seconds: u32,
-    /// Shown to players with the countdown: "Rebooting in 5:00: update".
     #[serde(default)]
     pub reason: Option<String>,
 }
@@ -381,7 +366,6 @@ pub struct Moderate {
     pub name: String,
     pub action: ModAction,
     pub hours: Option<i32>,
-    /// Why, for the moderation log.
     #[serde(default)]
     pub reason: Option<String>,
 }
@@ -407,16 +391,12 @@ pub struct PlayerRecord {
     pub name: String,
     pub staff_level: u8,
     pub registered_ms: i64,
-    /// The node they're on now.
     pub online_node: Option<u8>,
     pub online_since_ms: Option<i64>,
-    /// Where and when they last logged out.
     pub last_node: Option<u8>,
     pub last_seen_ms: Option<i64>,
-    /// When the mute or ban in force ends.
     pub muted_until_ms: Option<i64>,
     pub banned_until_ms: Option<i64>,
-    /// When a password reset staff issued runs out, while it stands.
     #[serde(default)]
     pub reset_until_ms: Option<i64>,
 }
@@ -426,7 +406,6 @@ pub struct PlayerRecord {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ModerationLookup {
     pub name: Option<String>,
-    /// Only those by this moderator.
     #[serde(default)]
     pub moderator: Option<String>,
     pub before: Option<i64>,
@@ -438,7 +417,6 @@ pub struct ModerationRecord {
     pub id: i64,
     pub moderator: String,
     pub target: String,
-    /// `mute`, `unmute`, `ban`, `unban` or `kick`.
     pub action: String,
     pub hours: Option<i32>,
     pub node: u8,
@@ -451,7 +429,6 @@ pub struct ModerationRecord {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct TimelineLookup {
     pub name: String,
-    /// Which kinds of row to include (see [`TimelineEntry::kind`]).
     pub kinds: Vec<String>,
     pub before: Option<TimelineCursor>,
     pub limit: u32,
@@ -471,7 +448,6 @@ pub struct TimelineCursor {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct TimelineEntry {
     pub kind: String,
-    /// The row's id in its own log (for `replay`, the recording's).
     pub id: String,
     pub at_ms: i64,
     pub node: Option<u8>,
@@ -480,7 +456,6 @@ pub struct TimelineEntry {
     pub level: Option<u8>,
     pub event_type: Option<i16>,
     pub text: Option<String>,
-    /// Another player: the moderator, reporter, recipient or offender.
     pub other: Option<String>,
     pub count: Option<i64>,
     pub value: Option<i64>,
@@ -507,7 +482,6 @@ pub struct LoginAddress {
     pub logins: i64,
     pub first_ms: i64,
     pub last_ms: i64,
-    /// Other accounts that logged in or registered from it.
     pub others: i64,
 }
 
@@ -517,9 +491,7 @@ pub struct LoginAddress {
 pub struct LinkedAccount {
     pub name: String,
     pub staff_level: u8,
-    /// The addresses they share.
     pub shared: Vec<String>,
-    /// How many client installs (login uids) they share.
     #[serde(default)]
     pub shared_clients: i64,
     pub logins: i64,
@@ -539,7 +511,6 @@ pub struct Sanction {
     pub name: String,
     pub muted_until_ms: Option<i64>,
     pub banned_until_ms: Option<i64>,
-    /// The latest mute or ban put on them, when it was logged.
     pub last_action: Option<String>,
     pub moderator: Option<String>,
     pub at_ms: Option<i64>,
@@ -556,7 +527,6 @@ pub struct ChatLookup {
     pub before: Option<i64>,
     #[serde(default)]
     pub after: Option<i64>,
-    /// Leaves out messages from or to staff above this level.
     #[serde(default)]
     pub max_staff_level: Option<u8>,
     pub limit: u32,
@@ -566,7 +536,6 @@ pub struct ChatLookup {
 pub struct ChatRecord {
     pub id: i64,
     pub from: String,
-    /// The recipient of a private message, `None` for public chat.
     pub to: Option<String>,
     pub node: u8,
     pub x: u16,
@@ -608,7 +577,6 @@ pub struct ReplayLookup {
     pub name: Option<String>,
     pub flagged: bool,
     pub before: Option<i64>,
-    /// Leaves out the sessions of staff above this level.
     #[serde(default)]
     pub max_staff_level: Option<u8>,
     pub limit: u32,
@@ -658,7 +626,6 @@ pub struct LiveReplay {
 pub struct AnticheatLookup {
     pub since_ms: i64,
     pub buckets: u32,
-    /// Leaves out staff above this level.
     #[serde(default)]
     pub max_staff_level: Option<u8>,
     pub limit: u32,
@@ -672,10 +639,8 @@ pub struct AnticheatLeader {
     pub max_score: i16,
     pub total_score: i64,
     pub play_ms: i64,
-    /// Every check they failed, each once.
     pub flags: Vec<String>,
     pub last_flagged_ms: i64,
-    /// Their highest score in each stretch, oldest first (0 for none).
     pub trend: Vec<i16>,
     pub online_node: Option<u8>,
     pub muted_until_ms: Option<i64>,
@@ -695,18 +660,13 @@ pub struct AccountActivity {
     pub name: String,
     pub registered_ms: i64,
     pub registration_ip: Option<String>,
-    /// The addresses they logged in from since.
     pub login_ips: Vec<String>,
     pub sessions: i64,
     pub play_ms: i64,
     pub flagged: i64,
     pub max_score: i16,
-    /// Their sessions' mean click rhythm (see the anti-cheat checks), where
-    /// any measured one.
     pub rhythm: Option<f64>,
-    /// Sessions started in each hour of the day (UTC), 24 of them.
     pub hours: Vec<i32>,
-    /// Where they were last saved.
     pub x: Option<u16>,
     pub z: Option<u16>,
     pub level: Option<u8>,
@@ -764,8 +724,6 @@ pub struct PlayerEditRequest {
     pub actor: Actor,
     pub name: String,
     pub edit: PlayerEdit,
-    /// Why, for the save history when it changes a logged-out player's save
-    /// (with the case it's for).
     #[serde(default)]
     pub reason: Option<String>,
 }
@@ -775,32 +733,11 @@ pub struct PlayerEditRequest {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum PlayerEdit {
-    SetStat {
-        stat: u8,
-        level: u8,
-    },
-    Give {
-        inv: String,
-        obj: u16,
-        count: u32,
-    },
-    Take {
-        inv: String,
-        obj: u16,
-        count: u32,
-    },
-    Move {
-        x: u16,
-        z: u16,
-        level: u8,
-    },
-    /// Items given back to a player who lost them: all of them, or none if
-    /// any doesn't fit.
-    Restore {
-        items: Vec<RestoreItem>,
-    },
-    /// To Lumbridge (or Tutorial Island's start, if they're on it), for a
-    /// player stuck where they are.
+    SetStat { stat: u8, level: u8 },
+    Give { inv: String, obj: u16, count: u32 },
+    Take { inv: String, obj: u16, count: u32 },
+    Move { x: u16, z: u16, level: u8 },
+    Restore { items: Vec<RestoreItem> },
     SendHome,
 }
 
@@ -823,10 +760,7 @@ pub struct SessionLookup {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SessionState {
-    /// The world whose claim on their session keeps them from logging in
-    /// anywhere else, if one has.
     pub owner: Option<SessionClaim>,
-    /// How the world that answered holds it.
     pub here: SessionHold,
 }
 
@@ -834,9 +768,7 @@ pub struct SessionState {
 pub struct SessionClaim {
     pub node: u8,
     pub since_ms: Option<i64>,
-    /// How long ago the owner's heartbeat was, `None` if it has none.
     pub heartbeat_age_ms: Option<i64>,
-    /// Without a heartbeat this long, any world may take it over.
     pub takeover_after_ms: i64,
 }
 
@@ -844,10 +776,8 @@ pub struct SessionClaim {
 pub struct SessionHold {
     pub online: bool,
     pub logging_in: bool,
-    /// Their logout save hasn't landed: `Some(true)` once it failed.
     pub logout_save: Option<bool>,
     pub editing: bool,
-    /// Their newest data is in a local save file the database hasn't had.
     pub local_save: bool,
 }
 
@@ -866,8 +796,6 @@ pub struct Unstick {
 pub struct SavePointsLookup {
     pub name: String,
     pub before: Option<i64>,
-    /// Only points saved at or before this (Unix ms). Worlds on an older
-    /// release ignore it, so check the points that come back.
     #[serde(default)]
     pub saved_by_ms: Option<i64>,
     pub limit: u32,
@@ -876,7 +804,6 @@ pub struct SavePointsLookup {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SavePointLine {
     pub id: i64,
-    /// `logout`, `session` or `staff` (as it was just before staff changed it).
     pub kind: String,
     pub node: u8,
     pub note: Option<String>,
@@ -918,7 +845,6 @@ pub struct PasswordReset {
 pub struct ResetIssued {
     pub ok: bool,
     pub message: String,
-    /// The code: shown to the staff member once, and never stored.
     pub code: Option<String>,
     pub until_ms: Option<i64>,
 }
@@ -937,9 +863,7 @@ pub struct WealthLine {
     pub x: u16,
     pub z: u16,
     pub level: u8,
-    /// The script's `^wealth_*` constant.
     pub event_type: i16,
-    /// The obj's debug name.
     pub item: String,
     pub count: i32,
     pub value: i32,
@@ -956,13 +880,10 @@ pub struct ProgressLookup {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ProgressPoint {
-    /// `logout`, `session` or `staff` as for a save point, or `now`.
     pub kind: String,
     pub at_ms: i64,
-    /// Every stat's XP added up.
     pub xp: i64,
     pub total_level: u32,
-    /// Every item they had (bank and worn too), at its value in the cache.
     pub wealth: i64,
 }
 
@@ -977,7 +898,6 @@ pub struct ActivityLookup {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ActivityHour {
-    /// The hour's start, as Unix ms.
     pub hour_ms: i64,
     pub events: i64,
 }
@@ -1073,13 +993,9 @@ pub struct AppealsWaiting {
 pub struct Appeal {
     pub id: i64,
     pub player: String,
-    /// `mute` or `ban`.
     pub sanction: String,
     pub sanction_until_ms: i64,
-    /// The moderator who set it, `None` when nobody did (an abuse report's
-    /// mute, the anti-cheat's ban).
     pub issued_by: Option<String>,
-    /// The reason they logged with it.
     pub reason: Option<String>,
     pub statement: String,
     pub filed_ms: i64,
@@ -1099,7 +1015,6 @@ pub struct AppealLink {
 pub struct AppealDecide {
     pub actor: Actor,
     pub id: i64,
-    /// `upheld` or `overturned`.
     pub decision: String,
     pub note: String,
 }
@@ -1139,7 +1054,6 @@ pub struct TraceLookup {
     pub name: String,
     pub obj: u16,
     pub depth: u8,
-    /// Not back through staff above this level.
     #[serde(default)]
     pub max_staff_level: Option<u8>,
 }
@@ -1155,13 +1069,9 @@ pub struct ItemTrace {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct TraceLine {
     pub holder: String,
-    /// How many holders back from the player traced: 0 for their own.
     pub depth: u8,
-    /// The step this one explains: where `holder` handed the item on.
     pub parent: Option<u32>,
-    /// The wealth event's id.
     pub id: i64,
-    /// A content `^wealth_*` constant, or one of [`transfer`]'s.
     pub event_type: i16,
     pub at_ms: i64,
     pub count: i64,
@@ -1170,10 +1080,7 @@ pub struct TraceLine {
     pub x: u16,
     pub z: u16,
     pub level: u8,
-    /// Who it came from: a handover's giver, or who dropped what they
-    /// picked up.
     pub from: Option<String>,
-    /// For coins a shop sale or alchemy made, the item turned into them.
     pub detail: Option<String>,
 }
 
@@ -1190,7 +1097,6 @@ pub struct HoldersLookup {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ItemHolders {
     pub item: ItemForms,
-    /// Every save's between them, and how many saves hold any.
     pub total: i64,
     pub holders: i64,
     pub accounts: Vec<Holder>,
@@ -1201,9 +1107,7 @@ pub struct Holder {
     pub name: String,
     pub staff_level: u8,
     pub total: i64,
-    /// Where they keep them, the most first.
     pub held_in: Vec<HeldIn>,
-    /// When the save this is from was written.
     pub saved_ms: i64,
     pub online_node: Option<u8>,
     pub banned_until_ms: Option<i64>,
@@ -1211,7 +1115,6 @@ pub struct Holder {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct HeldIn {
-    /// The inventory's config name: `inv`, `bank`, `worn`, ...
     pub inv: String,
     pub count: i64,
 }
@@ -1244,9 +1147,7 @@ pub struct TradeGraphLookup {
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct TradeGraph {
-    /// The player first, then their partners.
     pub accounts: Vec<GraphAccount>,
-    /// The most valuable first.
     pub edges: Vec<TradeEdge>,
 }
 
@@ -1263,11 +1164,9 @@ pub struct GraphAccount {
 pub struct TradeEdge {
     pub from: String,
     pub to: String,
-    /// What it was worth, at the cache's values.
     pub value: i64,
     pub handovers: i64,
     pub last_ms: i64,
-    /// The items and how many of each, the most valuable first.
     pub items: Vec<EdgeItem>,
 }
 
@@ -1315,18 +1214,15 @@ pub struct HiscoreStanding {
     pub staff_level: u8,
     pub banned: bool,
     pub hidden: bool,
-    /// The tables their entries were removed from.
     pub removed: Vec<i16>,
     pub rows: Vec<HiscoreRow>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct HiscoreRow {
-    /// The website's table number: 0 for Overall, else a stat id + 1.
     pub category: i16,
     pub level: i16,
     pub xp: i64,
-    /// Their place in the table, `None` while they're kept off it.
     pub rank: Option<i64>,
 }
 
@@ -1335,9 +1231,7 @@ pub struct HiscoreRow {
 pub struct HiscoresChange {
     pub actor: Actor,
     pub name: String,
-    /// Keep them off every table, or let them back on.
     pub hidden: Option<bool>,
-    /// Tables to remove their entries from, and to put them back on.
     pub remove: Vec<i16>,
     pub restore: Vec<i16>,
     pub reason: String,
@@ -1371,11 +1265,9 @@ pub struct ReloadScripts {
 pub struct ScriptsReloaded {
     pub ok: bool,
     pub message: String,
-    /// Whether the new scripts are running.
     pub applied: bool,
     pub scripts: u32,
     pub compile_ms: u32,
-    /// What the compiler said, when they didn't compile.
     pub errors: Option<String>,
 }
 
