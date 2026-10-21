@@ -484,7 +484,7 @@ td.actions { text-align: right; white-space: nowrap; }
 
 .chat-list .list { display: block; }
 .chat-row {
-  display: grid; grid-template-columns: 92px 38px minmax(90px, 200px) minmax(0, 1fr); gap: 10px; align-items: baseline;
+  display: grid; grid-template-columns: 114px 38px minmax(90px, 200px) minmax(0, 1fr); gap: 10px; align-items: baseline;
   padding: 7px 14px; border-bottom: 1px solid var(--border); font-size: 12.5px;
 }
 .chat-row:last-child { border-bottom: 0; }
