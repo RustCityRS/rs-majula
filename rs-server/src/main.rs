@@ -825,6 +825,9 @@ async fn bootstrap(
 
     info!("Accepting HTTP connections on: {}:{}", host, http);
     info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
+    if !cache.static_assets.contains_key("/mapview.js") {
+        warn!("public/mapview.js is missing: the world map and the console's live map won't load");
+    }
     if args.jaggrab_only {
         info!("--jaggrab-only: cache downloads over HTTP will 404 to force the JAGGRAB fallback");
     }
