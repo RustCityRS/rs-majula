@@ -5,6 +5,7 @@ use futures_util::SinkExt;
 use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
 use rs_crypto::rsa::{RsaKey, load_rsa_key};
+use rs_db::LoginDevice;
 use rs_engine::{CycleResult, Engine};
 use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
 use rs_engine::{LoginRequest, TickStats};
@@ -1246,6 +1247,8 @@ pub struct Socket {
     pub addr: SocketAddr,
     pub server_io: ServerIO,
     pub guard: ConnectionGuard,
+    /// What the client said about its device (the web client's browser).
+    pub device: LoginDevice,
 }
 
 enum SocketType {
@@ -1268,6 +1271,7 @@ impl Socket {
             addr,
             server_io,
             guard,
+            device: LoginDevice::default(),
         }
     }
 
@@ -1282,6 +1286,7 @@ impl Socket {
             addr,
             server_io: server_state,
             guard,
+            device: LoginDevice::default(),
         }
     }
 

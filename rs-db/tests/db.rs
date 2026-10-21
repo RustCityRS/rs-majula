@@ -1,7 +1,8 @@
 use rs_db::{
-    AppealFiled, ChatLog, Claim, Db, LogBatch, ModAction, NewAppeal, NewPlayer, NewReplay,
-    NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk, ReplayReport, Sanctions,
-    SavePoint, SaveResult, SessionLog, TimelineCursor, WealthEvent, WorldStatus, transfer,
+    AppealFiled, ChatLog, Claim, Db, LogBatch, LoginDevice, ModAction, NewAppeal, NewPlayer,
+    NewReplay, NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk, ReplayReport,
+    Sanctions, SavePoint, SaveResult, SessionLog, TimelineCursor, WealthEvent, WorldStatus,
+    transfer,
 };
 use sqlx::PgPool;
 
@@ -1069,7 +1070,9 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
         .unwrap();
     }
     for (hash, ip) in [(1, a), (1, a), (2, a), (2, b), (3, b), (5, c), (99, c)] {
-        db.record_login(hash, 10, ip, None).await.unwrap();
+        db.record_login(hash, 10, ip, None, &LoginDevice::default())
+            .await
+            .unwrap();
     }
 
     let addresses = db.login_addresses(1, 10).await.unwrap();
@@ -1151,7 +1154,9 @@ async fn logins_link_accounts_by_client(pool: PgPool) {
         (4, cafe, Some(88)),
         (4, home, None),
     ] {
-        db.record_login(hash, 10, ip, uid).await.unwrap();
+        db.record_login(hash, 10, ip, uid, &LoginDevice::default())
+            .await
+            .unwrap();
     }
     let links = db.linked_accounts(1, 10).await.unwrap();
     let by_name = |hash: usize| {
@@ -1178,6 +1183,130 @@ async fn logins_link_accounts_by_client(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn devices_group_logins_with_their_addresses(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    for (hash, name) in [(1, "One"), (2, "Two")] {
+        db.create_player(&NewPlayer {
+            display_name: name,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let work: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let phone = LoginDevice {
+        web: true,
+        user_agent: Some("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)".into()),
+        platform: None,
+        language: Some("en-GB".into()),
+        touch: true,
+    };
+    let desktop = LoginDevice::default();
+    for (hash, ip, uid, device) in [
+        (1, home, Some(5), &phone),
+        (1, work, Some(5), &phone),
+        (1, home, None, &desktop),
+        // 2 borrows 1's phone.
+        (2, home, Some(5), &phone),
+    ] {
+        db.record_login(hash, 10, ip, uid, device).await.unwrap();
+    }
+    let mut devices = db.login_devices(1, 10).await.unwrap();
+    devices.sort_by_key(|d| d.logins);
+    assert_eq!(devices.len(), 2, "{devices:?}");
+    let (desk, mobile) = (&devices[0], &devices[1]);
+    assert_eq!((desk.web, desk.uid, desk.others), (Some(false), None, 0));
+    assert_eq!(desk.ips, ["203.0.113.7"]);
+    assert_eq!(
+        (mobile.web, mobile.touch, mobile.uid),
+        (Some(true), true, Some(5))
+    );
+    assert_eq!((mobile.logins, mobile.addresses, mobile.others), (2, 2, 1));
+    assert_eq!(mobile.language.as_deref(), Some("en-GB"));
+    let mut ips = mobile.ips.clone();
+    ips.sort();
+    assert_eq!(ips, ["198.51.100.2", "203.0.113.7"]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    const NAMES: [&str; 5] = ["Mod", "Banned", "Alt", "Friend", "Far"];
+    for (hash, name) in (1..).zip(NAMES) {
+        db.create_player(&NewPlayer {
+            display_name: name,
+            staff_mod_level: if hash == 1 { 2 } else { 0 },
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let ip = |n: u8| std::net::IpAddr::from([203, 0, 113, n]);
+    let device = LoginDevice::default();
+    // Before the ban: Banned (2) plays on browser 9 at home; Friend (4)
+    // visits that home; Far (5) shares an address with Friend.
+    for (hash, at, uid) in [(2, 1, Some(9)), (4, 1, None), (4, 2, None), (5, 2, None)] {
+        db.record_login(hash, 10, ip(at), uid, &device)
+            .await
+            .unwrap();
+    }
+    sqlx::query("UPDATE login_logs SET created_at = now() - interval '1 day'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert!(
+        db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
+            .await
+            .unwrap()
+    );
+    // After it: Alt (3) logs in on Banned's browser from somewhere else.
+    db.record_login(3, 10, ip(3), Some(9), &device)
+        .await
+        .unwrap();
+
+    let alt = db.banned_links(3).await.unwrap();
+    assert_eq!(alt.len(), 1, "{alt:?}");
+    assert_eq!(
+        (alt[0].name.as_str(), alt[0].via.as_str()),
+        ("Banned", "browser")
+    );
+    assert!(alt[0].after_ban && alt[0].banned_ms.is_some());
+    let friend = db.banned_links(4).await.unwrap();
+    assert_eq!(friend.len(), 1, "{friend:?}");
+    assert_eq!(friend[0].via, "address");
+    assert!(!friend[0].after_ban);
+    assert!(db.banned_links(5).await.unwrap().is_empty());
+
+    let chain = db.link_chain(2, 3, 50).await.unwrap();
+    let found: Vec<(&str, u8, &str, &str)> = chain
+        .iter()
+        .map(|c| (c.name.as_str(), c.depth, c.via.as_str(), c.link.as_str()))
+        .collect();
+    assert_eq!(
+        found,
+        [
+            ("Alt", 1, "Banned", "browser"),
+            ("Friend", 1, "Banned", "address"),
+            ("Far", 2, "Friend", "address"),
+        ]
+    );
+    assert!(chain.iter().all(|c| c.banned_until_ms.is_none()));
+    assert_eq!(db.link_chain(2, 1, 50).await.unwrap().len(), 2);
+    assert_eq!(db.link_chain(2, 3, 1).await.unwrap().len(), 1);
+
+    let evasion = db.ban_evasion(7, 0, 10).await.unwrap();
+    assert_eq!(evasion.len(), 1, "{evasion:?}");
+    assert_eq!(
+        (evasion[0].name.as_str(), evasion[0].banned.as_str()),
+        ("Alt", "Banned")
+    );
+    assert_eq!(evasion[0].logins, 1);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn timeline_merges_every_log_and_pages(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
@@ -1187,9 +1316,15 @@ async fn timeline_merges_every_log_and_pages(pool: PgPool) {
     })
     .await
     .unwrap();
-    db.record_login(7, 10, "203.0.113.7".parse().unwrap(), None)
-        .await
-        .unwrap();
+    db.record_login(
+        7,
+        10,
+        "203.0.113.7".parse().unwrap(),
+        None,
+        &LoginDevice::default(),
+    )
+    .await
+    .unwrap();
     let at = |x| (x, 3218, 0);
     let (x, z, y) = at(3222);
     db.record_logs(
@@ -1649,8 +1784,12 @@ async fn account_activity_covers_recent_accounts(pool: PgPool) {
     }
     // Staff aren't listed.
     db.create_player(&player(3)).await.unwrap();
-    db.record_login(1, 10, ip, None).await.unwrap();
-    db.record_login(3, 10, ip, None).await.unwrap();
+    db.record_login(1, 10, ip, None, &LoginDevice::default())
+        .await
+        .unwrap();
+    db.record_login(3, 10, ip, None, &LoginDevice::default())
+        .await
+        .unwrap();
     db.start_replay(&NewReplay {
         id: 1,
         name_hash: 1,

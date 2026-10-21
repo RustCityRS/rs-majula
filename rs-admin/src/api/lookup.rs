@@ -1,15 +1,17 @@
-use super::access::{ceiling, check_player};
+use super::access::{ceiling, check_player, may_see};
 use super::players::checked_name;
 use crate::audit::Event;
 use crate::cases::Triage;
 use crate::http::{ApiError, App, Staff};
+use crate::users::name_key;
 use axum::Json;
 use axum::extract::{Query, State};
 use axum::http::StatusCode;
 use rs_admin_api::{
-    ActivityHour, ActivityLookup, ChatLookup, ChatRecord, Links, LinksLookup, ModerationLookup,
-    ModerationRecord, PlayerLookup, PlayerRecord, ProgressLookup, ProgressPoint, ReportLookup,
-    ReportRecord, Sanction, SanctionsLookup, TimelineCursor, TimelineEntry, TimelineLookup, path,
+    ActivityHour, ActivityLookup, ChainLink, ChatLookup, ChatRecord, Evasion, EvasionLookup,
+    LinkChainLookup, Links, LinksLookup, ModerationLookup, ModerationRecord, PlayerLookup,
+    PlayerRecord, ProgressLookup, ProgressPoint, ReportLookup, ReportRecord, Sanction,
+    SanctionsLookup, TimelineCursor, TimelineEntry, TimelineLookup, path,
 };
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -422,11 +424,90 @@ pub async fn links(
                 *ip = address_label(&app, ip);
             }
         }
+        // An install's id names a device as surely as an address does.
+        for device in &mut links.devices {
+            for ip in &mut device.ips {
+                *ip = address_label(&app, ip);
+            }
+            if let Some(uid) = &mut device.uid {
+                *uid = address_label(&app, &format!("uid {uid}")).replacen("addr-", "id-", 1);
+            }
+        }
     }
     Ok(Json(LinksView {
         links,
         addresses_shown: sees,
     }))
+}
+
+#[derive(Deserialize)]
+pub struct ChainQuery {
+    name: String,
+    depth: Option<u8>,
+}
+
+/// `GET /api/lookup/link-chain?name=&depth=`: every account shared browsers
+/// and addresses reach from `name`, `depth` links out at most (2 by
+/// default). Staff above the caller are left out, with everyone reached only
+/// through them, so the chain shows nothing about them.
+pub async fn link_chain(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<ChainQuery>,
+) -> Result<Json<Vec<ChainLink>>, ApiError> {
+    let name = checked_name(&query.name)?;
+    check_player(&app, &staff, &name).await?;
+    let chain: Vec<ChainLink> = app
+        .worlds
+        .ask(
+            path::LINK_CHAIN,
+            &LinkChainLookup {
+                name: name.clone(),
+                depth: query.depth.unwrap_or(2),
+                limit: 200,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    // Nearest first, so whoever an account was reached through comes before it.
+    let mut hidden = std::collections::HashSet::new();
+    let shown = chain
+        .into_iter()
+        .filter(|c| {
+            let hide = !may_see(&staff, c.staff_level) || hidden.contains(&name_key(&c.via));
+            if hide {
+                hidden.insert(name_key(&c.name));
+            }
+            !hide
+        })
+        .collect();
+    Ok(Json(shown))
+}
+
+#[derive(Deserialize)]
+pub struct EvasionQuery {
+    days: Option<u32>,
+}
+
+/// `GET /api/lookup/evasion?days=`: accounts that logged in with a banned
+/// account's browser since its ban, over the last `days` (14 by default).
+pub async fn evasion(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<EvasionQuery>,
+) -> Result<Json<Vec<Evasion>>, ApiError> {
+    app.worlds
+        .ask(
+            path::EVASION,
+            &EvasionLookup {
+                days: query.days.unwrap_or(14),
+                max_staff_level: ceiling(&staff),
+                limit: 100,
+            },
+        )
+        .await
+        .map(Json)
+        .map_err(unavailable)
 }
 
 /// How many save points the progress charts reach back over.

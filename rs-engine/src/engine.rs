@@ -14,7 +14,7 @@ use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
-use rs_db::{LogBatch, transfer};
+use rs_db::{LogBatch, LoginDevice, transfer};
 use rs_entity::StaffModLevel;
 use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -142,6 +142,9 @@ pub struct LoginRequest {
     /// apart: logins that share it link accounts, as an address does.
     pub uid: Option<i32>,
     pub reconnect: bool,
+    /// What the client said about the device it runs on. A phone or tablet
+    /// plays by touch (see [`crate::watch::AntiCheat::touch`]).
+    pub device: LoginDevice,
 }
 
 /// Per-tick performance statistics for the game engine cycle.
@@ -2734,6 +2737,8 @@ impl Engine {
                 self.node_id,
                 self.replay_tx.as_ref(),
             ));
+            active.watch.anticheat.touch = request.device.touch;
+            active.watch.anticheat.automated = crate::watch::automated(&request.device);
             active.watch.login(self.clock, &reply);
         }
         let _ = active.handle.outbox.send(reply);
@@ -2877,6 +2882,9 @@ impl Engine {
         *active.handle = request.handle;
         active.player.low_memory = request.low_memory;
         active.remote_ip = Some(request.remote_addr.ip());
+        // Taps from before the reconnect still look like jumps.
+        active.watch.anticheat.touch |= request.device.touch;
+        active.watch.anticheat.automated |= crate::watch::automated(&request.device);
 
         active.player.logout_requested = false;
         active.player.logout_idle_requested = false;

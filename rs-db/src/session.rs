@@ -24,6 +24,21 @@ pub struct SessionOwner {
     pub heartbeat_age_ms: Option<i64>,
 }
 
+/// What a login's client said about the device it ran on (see
+/// `0019_login_devices.sql`). The desktop client says nothing.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct LoginDevice {
+    /// The web client, rather than the desktop one.
+    pub web: bool,
+    pub user_agent: Option<String>,
+    /// The browser's platform hint (`Sec-CH-UA-Platform`), e.g. `Windows`.
+    pub platform: Option<String>,
+    /// The browser's first language, e.g. `en-US`.
+    pub language: Option<String>,
+    /// Whether the browser said it's a phone or tablet.
+    pub touch: bool,
+}
+
 /// What [`Db::reconcile_sessions`] corrected.
 #[derive(Debug, Default, PartialEq)]
 pub struct Reconciled {
@@ -224,22 +239,29 @@ impl Db {
     }
 
     /// Logs that `name_hash` authenticated on world `node_id` from `ip`,
-    /// with the client install's `uid` when it sent one worth keeping.
+    /// with the client install's `uid` when it sent one worth keeping, and
+    /// the `device` it ran on.
     pub async fn record_login(
         &self,
         name_hash: u64,
         node_id: i16,
         ip: IpAddr,
         uid: Option<i32>,
+        device: &LoginDevice,
     ) -> Result<(), Error> {
         sqlx::query(
-            "INSERT INTO login_logs (player_id, node_id, ip, uid)
-             SELECT id, $2, $3::inet, $4 FROM players WHERE name_hash = $1",
+            "INSERT INTO login_logs (player_id, node_id, ip, uid, web, user_agent, platform, language, touch)
+             SELECT id, $2, $3::inet, $4, $5, $6, $7, $8, $9 FROM players WHERE name_hash = $1",
         )
         .bind(name_hash as i64)
         .bind(node_id)
         .bind(ip.to_string())
         .bind(uid)
+        .bind(device.web)
+        .bind(&device.user_agent)
+        .bind(&device.platform)
+        .bind(&device.language)
+        .bind(device.touch)
         .execute(&self.pool)
         .await?;
         Ok(())

@@ -22,6 +22,20 @@ mod state;
 
 pub use anticheat::{AntiCheat, MapBase, Op};
 
+/// User agent words only automation puts there: headless Chrome (Puppeteer,
+/// Playwright, Selenium) and PhantomJS.
+const AUTOMATION: [&str; 2] = ["HeadlessChrome", "PhantomJS"];
+
+/// Whether a login's device says it's automated: a web client with no user
+/// agent, or one that names a headless browser.
+pub fn automated(device: &rs_db::LoginDevice) -> bool {
+    device.web
+        && device
+            .user_agent
+            .as_deref()
+            .is_none_or(|ua| AUTOMATION.iter().any(|word| ua.contains(word)))
+}
+
 use crate::counters::{self, COUNTERS};
 use format::{CLIENT, KEYFRAME, LOGIN, NOTE, RECONNECT, SERVER, TICK, put_bytes, put_varint};
 use rs_db::ReplayReport;
@@ -346,5 +360,29 @@ impl Watch {
 impl Drop for Watch {
     fn drop(&mut self) {
         self.flush(true);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::automated;
+    use rs_db::LoginDevice;
+
+    #[test]
+    fn headless_browsers_are_automated() {
+        let web = |ua: Option<&str>| LoginDevice {
+            web: true,
+            user_agent: ua.map(str::to_owned),
+            ..LoginDevice::default()
+        };
+        assert!(automated(&web(Some(
+            "Mozilla/5.0 (X11; Linux x86_64) HeadlessChrome/141.0.0.0"
+        ))));
+        assert!(automated(&web(None)));
+        assert!(!automated(&web(Some(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0"
+        ))));
+        // The desktop client never sends one.
+        assert!(!automated(&LoginDevice::default()));
     }
 }

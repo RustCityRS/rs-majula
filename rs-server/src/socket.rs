@@ -237,6 +237,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
             remote_addr: client.addr,
             uid,
             reconnect,
+            device: std::mem::take(&mut client.device),
         })
         .is_err()
     {

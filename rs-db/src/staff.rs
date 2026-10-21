@@ -106,6 +106,28 @@ pub struct LoginAddress {
     pub others: i64,
 }
 
+/// A device a player has logged in with: one browser (or desktop client)
+/// install, as its client described it.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct DeviceRecord {
+    /// `None` for logins from before devices were recorded.
+    pub web: Option<bool>,
+    pub user_agent: Option<String>,
+    pub platform: Option<String>,
+    pub language: Option<String>,
+    pub touch: bool,
+    /// The install's id (see `0015_login_uid.sql`), when it sent one.
+    pub uid: Option<i32>,
+    pub logins: i64,
+    /// How many addresses they used it from, and up to 20 of them.
+    pub addresses: i64,
+    pub ips: Vec<String>,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    /// How many other accounts logged in from the same install.
+    pub others: i64,
+}
+
 /// Another account linked to a player: one of them logged in or registered
 /// from an address the other did, or they logged in from the same client
 /// install (its uid).
@@ -193,7 +215,9 @@ fn timeline_select(kind: &str) -> Option<&'static str> {
             ms!("created_at"),
             ", node_id, NULL::smallint, NULL::smallint, NULL::smallint, NULL::smallint, ",
             "host(ip), NULL::text, NULL::bigint, NULL::bigint, NULL::bigint, NULL::int, ",
-            "NULL::text FROM login_logs WHERE player_id = $P AND created_at <= $B ",
+            // The device: its user agent, or `desktop` for the desktop client.
+            "CASE WHEN web THEN user_agent WHEN NOT web THEN 'desktop' END ",
+            "FROM login_logs WHERE player_id = $P AND created_at <= $B ",
             "ORDER BY created_at DESC LIMIT $L"
         ),
         "session" => concat!(
@@ -281,6 +305,34 @@ impl Db {
             "WHERE a.player_id <> (SELECT id FROM me)) AS others ",
             "FROM login_logs l WHERE l.player_id = (SELECT id FROM me) ",
             "GROUP BY l.ip ORDER BY max(l.created_at) DESC LIMIT $2"
+        ))
+        .bind(name_hash as i64)
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await
+    }
+
+    /// The devices `name_hash` has logged in with, most recent first: one row
+    /// per client install and what it said about itself.
+    pub async fn login_devices(
+        &self,
+        name_hash: u64,
+        limit: i64,
+    ) -> Result<Vec<DeviceRecord>, Error> {
+        sqlx::query_as(concat!(
+            "WITH me AS (SELECT id FROM players WHERE name_hash = $1), ",
+            "seen AS (SELECT web, user_agent, platform, language, touch, uid, ",
+            "count(*) AS logins, count(DISTINCT ip) AS addresses, ",
+            "(array_agg(DISTINCT host(ip)))[1:20] AS ips, ",
+            ms!("min(created_at)"),
+            " AS first_ms, ",
+            ms!("max(created_at)"),
+            " AS last_ms FROM login_logs WHERE player_id = (SELECT id FROM me) ",
+            "GROUP BY web, user_agent, platform, language, touch, uid) ",
+            "SELECT web, user_agent, platform, language, touch, uid, logins, addresses, ips, first_ms, last_ms, ",
+            "CASE WHEN uid IS NULL THEN 0 ELSE (SELECT count(DISTINCT o.player_id) FROM login_logs o ",
+            "WHERE o.uid = seen.uid AND o.player_id <> (SELECT id FROM me)) END AS others ",
+            "FROM seen ORDER BY last_ms DESC LIMIT $2"
         ))
         .bind(name_hash as i64)
         .bind(limit)

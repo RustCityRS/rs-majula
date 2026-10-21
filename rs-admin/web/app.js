@@ -55,6 +55,7 @@ const ICONS = {
     sun: ['M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', 'M12 2v2', 'M12 20v2', 'M4.9 4.9l1.4 1.4', 'M17.7 17.7l1.4 1.4', 'M2 12h2', 'M20 12h2', 'M4.9 19.1l1.4-1.4', 'M17.7 6.3l1.4-1.4'],
     moon: ['M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z'],
     monitor: ['M3 5h18v11H3z', 'M8 20h8', 'M12 16v4'],
+    phone: ['M7 3h10v18H7z', 'M11 18h2'],
     clock: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M12 7v5l3 2'],
     shield: ['M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z'],
     ban: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M5.6 5.6l12.8 12.8'],
@@ -5614,8 +5615,9 @@ const FLAGS = {
     missing_op_checks: ['Missing op checks', 'Left out the anti-cheat packets the real client sends with some actions once it has done them enough.'],
     actions_without_clicks: ['Actions without clicks', 'Many actions came without the click the real client reports with each one.'],
     no_mouse_movement: ['No mouse', 'Played without the client ever reporting the mouse.'],
-    cursor_jumps: ['Cursor jumps', 'Most clicks landed far from where the cursor last was: it jumps rather than moves.'],
+    cursor_jumps: ['Cursor jumps', 'Most clicks landed far from where the cursor last was: it jumps rather than moves. A touch screen does this too (a tap puts the cursor where it lands), so check the replay: an iPad or a touchscreen laptop passes as a desktop.'],
     robotic_click_timing: ['Clockwork clicks', 'Clicks came at very even intervals.'],
+    automated_browser: ['Automated browser', 'The web client ran in a browser that says it\'s headless (Puppeteer, Selenium, Playwright), or sent no user agent at all.'],
 };
 
 const flagBadge = (flag) => h('span', {
@@ -5720,6 +5722,8 @@ function replayStats(r) {
     }
     const sum = (a) => (a || []).reduce((x, y) => x + y, 0);
     const rows = [
+        ['Device', s.touch === undefined ? null : s.touch ? 'Phone or tablet (taps may jump the cursor)' : 'Desktop, or a tablet passing as one'],
+        ['Automated browser', s.automated ? 'Yes' : null],
         ['Actions', s.ops],
         ['Actions without a click', s.opsUnclicked],
         ['Clicks', s.clicks],
@@ -6852,7 +6856,8 @@ function replayPage(ctx) {
 // players the anti-cheat checks flag most, and groups of accounts that look
 // like one bot farm.
 
-const INVESTIGATE_TABS = [['map', 'Live map'], ['anticheat', 'Anti-cheat'], ['farms', 'Bot farms']];
+const INVESTIGATE_TABS = [['map', 'Live map'], ['anticheat', 'Anti-cheat'], ['farms', 'Bot farms'], ['evasion', 'Ban evasion']];
+const EVASION_WINDOWS = [[7, '7 days'], [14, '14 days'], [30, '30 days']];
 const WINDOWS = [['24h', 'Last 24 hours'], ['7d', 'Last 7 days'], ['30d', 'Last 30 days']];
 
 // The live recording of `name`'s session, watched live.
@@ -7437,6 +7442,37 @@ function farmsTab(ctx, params, go) {
     return h('div', {class: 'column'}, h('div', {class: 'toolbar'}, chips), note, body);
 }
 
+// Accounts that logged in with a banned account's browser after its ban.
+function evasionTab(ctx, params, go) {
+    const days = EVASION_WINDOWS.some(([d]) => String(d) === params.get('days')) ? Number(params.get('days')) : 14;
+    const chips = h('div', {class: 'chips'}, EVASION_WINDOWS.map(([d, label]) =>
+        h('button', {
+            type: 'button',
+            class: 'chip',
+            'aria-pressed': String(days === d),
+            on: {click: () => go('evasion', {days: d})}
+        }, label)));
+    const list = spinnerList();
+    api('GET', `/lookup/evasion?${query({days})}`).then((rows) => replace(list, rows.length
+        ? rows.map((r) => h('div', {class: 'list-item'},
+            h('div', {class: 'list-icon danger'}, icon('monitor')),
+            h('div', {class: 'list-main'},
+                h('div', {class: 'list-title'}, h('b', {}, playerLink(r.name)), ' ', playerBadges({staff_level: r.staff_level}),
+                    ' logged in with the browser of banned ', playerLink(r.banned)),
+                h('div', {class: 'list-sub'}, joined([
+                    `${plural(r.logins, 'login')} since the ban`,
+                    `first ${ago(r.first_ms)}`,
+                    h('span', {title: fullTime(r.banned_ms)}, `banned ${ago(r.banned_ms)}`),
+                ]))),
+            h('div', {class: 'list-side', title: fullTime(r.last_ms)}, ago(r.last_ms))))
+        : h('div', {class: 'empty'}, icon('check'), 'Nobody logged in with the browser of a banned account in this window.')))
+        .catch((e) => failed(list, e));
+    return h('div', {class: 'column'},
+        h('div', {class: 'toolbar'}, chips),
+        h('p', {class: 'muted'}, 'Accounts not banned themselves that logged in with the same browser (or desktop client install) as a banned account, after its ban. Shared family computers show up here too: check the player page before acting.'),
+        h('section', {class: 'card'}, list));
+}
+
 function investigatePage(ctx) {
     const tab = INVESTIGATE_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'map';
     const go = (next, extra = {}) => navigate(`/investigate?${query({tab: next, ...extra})}`);
@@ -7454,7 +7490,8 @@ function investigatePage(ctx) {
         }, label)));
     const body = tab === 'map'
         ? (state.worldsLoaded ? liveMapTab(ctx, ctx.params) : h('section', {class: 'card'}, spinnerList()))
-        : tab === 'anticheat' ? anticheatTab(ctx, ctx.params, go) : farmsTab(ctx, ctx.params, go);
+        : tab === 'anticheat' ? anticheatTab(ctx, ctx.params, go)
+            : tab === 'evasion' ? evasionTab(ctx, ctx.params, go) : farmsTab(ctx, ctx.params, go);
     if (tab === 'map' && !state.worldsLoaded) {
         // The map is framed from an online world, known once the worlds are in.
         const off = onWorlds(() => {
@@ -7464,7 +7501,7 @@ function investigatePage(ctx) {
         ctx.cleanup(off);
     }
     return h('div', {class: 'page'},
-        pageHead('Investigate', 'Everyone at once: where they are, who the checks flag most, and accounts that look like one bot farm.'),
+        pageHead('Investigate', 'Everyone at once: where they are, who the checks flag most, accounts that look like one bot farm, and banned players coming back.'),
         tabs,
         body);
 }
@@ -8714,7 +8751,8 @@ function timelineItem(e, name) {
         case 'login':
             iconName = 'key';
             title = 'Logged in';
-            sub = [e.text && h('span', {class: 'mono'}, e.text)];
+            sub = [e.text && h('span', {class: 'mono'}, e.text),
+                e.detail && (e.detail === 'desktop' ? 'Desktop client' : h('span', {title: e.detail}, device(e.detail)))];
             break;
         case 'session':
             sub = [SESSION_TYPES[e.event_type] || `Log type ${e.event_type}`];
@@ -8898,9 +8936,137 @@ function sanctionBadges(a) {
     ];
 }
 
+// User agent words only automation puts there (as the worlds check).
+const AUTOMATION = /HeadlessChrome|PhantomJS/;
+// Which platform each user agent word means, to catch hints that disagree.
+const PLATFORM_WORDS = [['Windows', /Windows/], ['macOS', /Mac OS X|Macintosh/], ['Android', /Android/], ['iOS', /iPhone|iPad|iPod/], ['Linux', /Linux|X11/], ['Chrome OS', /CrOS/]];
+// One browser used by this many accounts or more is a farm's, or a shared
+// computer's.
+const BUSY_DEVICE = 4;
+// This many different browsers in a week means storage keeps being wiped,
+// or many machines.
+const DEVICE_CHURN = 5;
+
+// What a player's devices, addresses and login ids give away: [tone, text].
+function linkFlags(links) {
+    const flags = [];
+    const banned = links.banned || [];
+    const evading = banned.filter((b) => b.after_ban);
+    for (const via of ['browser', 'address']) {
+        const names = evading.filter((b) => b.via === via).map((b) => b.name);
+        if (names.length) flags.push(['danger', `Logged in from the ${via === 'browser' ? 'browser' : 'address'} of banned ${names.join(', ')} after the ban: possible ban evasion.`]);
+    }
+    const onBrowser = banned.filter((b) => !b.after_ban && b.via === 'browser').map((b) => b.name);
+    if (onBrowser.length) flags.push(['danger', `Shares a browser with banned ${onBrowser.join(', ')}.`]);
+    const onAddress = banned.filter((b) => !b.after_ban && b.via === 'address').map((b) => b.name);
+    if (onAddress.length) flags.push(['warn', `Shares an address with banned ${onAddress.join(', ')} (could be a household).`]);
+    const devices = links.devices || [];
+    if (devices.some((d) => d.web && (!d.user_agent || AUTOMATION.test(d.user_agent)))) {
+        flags.push(['danger', 'Logged in from an automated browser (headless, or no user agent).']);
+    }
+    const busy = Math.max(0, ...devices.map((d) => d.others + 1));
+    if (busy >= BUSY_DEVICE) flags.push(['warn', `One of their browsers is used by ${busy} accounts.`]);
+    const week = Date.now() - 7 * 86_400_000;
+    const recent = devices.filter((d) => d.web !== null && d.last_ms >= week).length;
+    if (recent >= DEVICE_CHURN) flags.push(['warn', `${recent} different browsers or installs in a week (storage wiped, or many machines).`]);
+    for (const d of devices) {
+        if (!d.user_agent || !d.platform) continue;
+        const said = PLATFORM_WORDS.find(([, word]) => word.test(d.user_agent))?.[0];
+        if (said && said !== d.platform && !(said === 'Linux' && d.platform === 'Android')) {
+            flags.push(['warn', `A browser's hints disagree: its user agent says ${said}, its platform ${d.platform}. Possibly a faked user agent.`]);
+            break;
+        }
+    }
+    return flags;
+}
+
+// Every account a chain of shared browsers and addresses reaches from
+// `name`, for following a ban to the rest of a farm.
+function chainSection(name, onModerated) {
+    const list = h('div', {class: 'list'});
+    const act = h('div', {class: 'actions'});
+    let depth = 2;
+    const depthChips = h('div', {class: 'chips'});
+    const load = async () => {
+        replace(depthChips, [1, 2, 3].map((d) => h('button', {
+            type: 'button', class: 'chip', 'aria-pressed': String(depth === d), on: {
+                click: () => {
+                    depth = d;
+                    load();
+                }
+            }
+        }, plural(d, 'link'))));
+        replace(list, h('div', {class: 'empty'}, h('div', {class: 'spinner'})));
+        try {
+            const chain = await api('GET', `/lookup/link-chain?${query({name, depth})}`);
+            replace(list, chain.length ? chain.map((c) => h('div', {class: 'list-item'},
+                    h('div', {class: `list-icon ${c.banned_until_ms ? 'danger' : ''}`}, icon(c.link === 'browser' ? 'monitor' : 'globe')),
+                    h('div', {class: 'list-main'},
+                        h('div', {class: 'list-title'}, h('b', {}, playerLink(c.name)), ' ', playerBadges({staff_level: c.staff_level}), sanctionBadges(c)),
+                        h('div', {class: 'list-sub'}, joined([
+                            `${c.depth === 1 ? 'Directly' : `${c.depth} links away`}, through ${c.link === 'browser' ? 'a browser' : 'an address'} shared with `,
+                        ]), playerLink(c.via))),
+                    h('div', {class: 'list-side'}, c.last_ms ? ago(c.last_ms) : '')))
+                : h('div', {class: 'empty'}, icon('users'), 'Nothing links to them.'));
+            const open = chain.filter((c) => !c.banned_until_ms).map((c) => c.name).slice(0, 26);
+            replace(act, open.length && !isTrial() ? button(`Ban ${plural(open.length, 'unbanned account')}`, {
+                small: true,
+                icon: 'ban',
+                kind: 'danger',
+                on: {
+                    click: () => moderateDialog(open[0], 'ban', () => {
+                        load();
+                        onModerated?.();
+                    }, undefined, {also: open.slice(1)})
+                }
+            }) : null);
+        } catch (e) {
+            failed(list, e);
+        }
+    };
+    load();
+    return h('section', {class: 'card'},
+        h('div', {class: 'card-head'}, h('h2', {}, 'Ban chain'), act),
+        h('div', {class: 'card-body'},
+            h('p', {class: 'hint'}, 'Every account their browsers and addresses lead to, and the accounts those lead to. Addresses shared by more than 25 accounts (public Wi-Fi, mobile networks) are skipped.'),
+            depthChips),
+        list);
+}
+
+// One device a player logged in with: what its client said it was, its
+// login id and the addresses it was used from.
+function deviceItem(d) {
+    const what = d.web === null ? 'Before devices were recorded'
+        : !d.web ? 'Desktop client'
+            : d.user_agent ? device(d.user_agent) : 'Web client';
+    const platform = d.platform && !what.includes(d.platform) ? ` (${d.platform})` : '';
+    const more = d.addresses - d.ips.length;
+    return h('div', {class: 'list-item'},
+        h('div', {class: 'list-icon'}, icon(d.touch ? 'phone' : 'monitor')),
+        h('div', {class: 'list-main'},
+            h('div', {class: 'list-title', title: d.user_agent || ''}, h('b', {}, what + platform), ' ',
+                d.touch && h('span', {class: 'badge', title: 'The browser said it is a phone or tablet'}, 'Touch'), ' ',
+                d.others > 0 && h('span', {
+                    class: 'badge warn',
+                    title: 'Other accounts logged in from this same browser (or desktop client install)'
+                }, plural(d.others, 'other account'))),
+            h('div', {class: 'list-sub'}, joined([
+                plural(d.logins, 'login'),
+                d.language,
+                d.uid && h('span', {title: 'The id this browser or install sends at login'}, 'Login id ', h('span', {class: 'mono'}, d.uid)),
+                `first ${ago(d.first_ms)}`,
+            ])),
+            d.ips.length > 0 && h('div', {class: 'list-sub'}, 'From ',
+                joined(d.ips.map((ip) => h('span', {class: 'mono'}, ip))),
+                more > 0 ? ` and ${more} more` : '')),
+        h('div', {class: 'list-side', title: fullTime(d.last_ms)}, ago(d.last_ms)));
+}
+
 function linksSection(name, onModerated) {
     const addresses = spinnerList();
     const accounts = spinnerList();
+    const devices = spinnerList();
+    const flags = h('div', {});
     const note = h('p', {class: 'hint'});
     const act = h('div', {class: 'actions'});
     const load = async () => {
@@ -8931,6 +9097,12 @@ function linksSection(name, onModerated) {
                         ]))),
                     h('div', {class: 'list-side', title: fullTime(a.last_ms)}, ago(a.last_ms))))
                 : h('div', {class: 'empty'}, icon('users'), 'No other account shares an address or a browser with them.'));
+            replace(devices, links.devices?.length ? links.devices.map(deviceItem)
+                : h('div', {class: 'empty'}, icon('monitor'), 'No logins on record.'));
+            const raised = linkFlags(links);
+            replace(flags, raised.length > 0 && h('div', {class: `callout ${raised.some(([tone]) => tone === 'danger') ? 'danger' : 'warn'}`}, icon('alert'),
+                h('div', {}, h('b', {}, 'Their devices and links raise flags.'),
+                    h('ul', {class: 'flag-list'}, raised.map(([, text]) => h('li', {}, text))))));
             const open = links.accounts.filter((a) => !a.banned_until_ms).map((a) => a.name);
             replace(act, open.length
                 && !isTrial() ? button(`Ban with ${plural(open.length, 'linked account')}`, {
@@ -8948,17 +9120,28 @@ function linksSection(name, onModerated) {
         } catch (e) {
             failed(addresses, e);
             failed(accounts, e);
+            failed(devices, e);
         }
     };
     load();
-    return h('div', {class: 'split'},
+    return h('div', {class: 'column'},
+        flags,
+        h('div', {class: 'split'},
+            h('section', {class: 'card'},
+                h('div', {class: 'card-head'}, h('h2', {}, 'Linked accounts'), act),
+                accounts),
+            h('section', {class: 'card'},
+                h('div', {class: 'card-head'}, h('h2', {}, 'Login addresses')),
+                h('div', {class: 'card-body'}, note),
+                addresses)),
         h('section', {class: 'card'},
-            h('div', {class: 'card-head'}, h('h2', {}, 'Linked accounts'), act),
-            accounts),
-        h('section', {class: 'card'},
-            h('div', {class: 'card-head'}, h('h2', {}, 'Login addresses')),
-            h('div', {class: 'card-body'}, note),
-            addresses));
+            h('div', {class: 'card-head'}, h('h2', {}, 'Devices'),
+                h('span', {class: 'hint hide-mobile'}, 'What each browser or install said it was. Browsers can claim anything.')),
+            devices),
+        chainSection(name, () => {
+            load();
+            onModerated?.();
+        }));
 }
 
 // ---------------------------------------------------------------------------

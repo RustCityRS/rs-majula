@@ -3,6 +3,7 @@ mod economy;
 mod hiscores;
 mod history;
 mod investigate;
+mod links;
 mod logs;
 mod moderation;
 mod name;
@@ -27,6 +28,7 @@ pub use hiscores::{
 };
 pub use history::{SavePoint, SaveProgress};
 pub use investigate::{AccountActivity, AnticheatLeader};
+pub use links::{BannedLink, CROWDED_ADDRESS, ChainLink, EvasionRecord};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent, transfer};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};
@@ -39,12 +41,12 @@ pub use player::{Credentials, NewPlayer, Sanctions};
 pub use recovery::{RESET_LOCKED, ResetCode};
 pub use replay::{NewReplay, ReplayChunk, ReplayRecord, ReplayReport};
 pub use save::{PlayerSave, SaveResult};
-pub use session::{Claim, Reconciled, SessionOwner};
+pub use session::{Claim, LoginDevice, Reconciled, SessionOwner};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
 pub use staff::{
-    ChatRecord, LinkedAccount, LoginAddress, ModerationRecord, PlayerRecord, ReportRecord,
-    SanctionRecord, TIMELINE_KINDS, TimelineCursor, TimelineRow, WealthRecord,
+    ChatRecord, DeviceRecord, LinkedAccount, LoginAddress, ModerationRecord, PlayerRecord,
+    ReportRecord, SanctionRecord, TIMELINE_KINDS, TimelineCursor, TimelineRow, WealthRecord,
 };
 pub use world::WorldStatus;
 

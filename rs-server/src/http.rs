@@ -1,5 +1,6 @@
 use crate::socket::handshake;
 use crate::{ConnectionGuard, REVISION, ServerIO, Socket};
+use rs_db::LoginDevice;
 use rs_pack::cache::CacheStore;
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
@@ -194,7 +195,8 @@ async fn handle_connection(
         match timeout(HANDSHAKE_TIMEOUT, upgrade).await {
             Ok(Ok(ws)) => {
                 info!("WebSocket handshake complete for {}", addr);
-                let connection = Socket::from_ws(ws, addr, server_state, guard);
+                let mut connection = Socket::from_ws(ws, addr, server_state, guard);
+                connection.device = login_device(&raw);
                 if let Err(e) = handshake(connection).await {
                     info!("Connection {} closed: {}", addr, e);
                 }
@@ -294,22 +296,74 @@ async fn handle_connection(
 /// holds a valid IP, otherwise the socket peer. Only lines the peek read in
 /// full are searched, so a cut-off value is never parsed.
 fn client_addr(head: &str, header: Option<&str>, peer: SocketAddr) -> SocketAddr {
-    let complete = &head[..head.rfind("\r\n").unwrap_or(0)];
     header
-        .and_then(|name| {
-            complete
-                .lines()
-                .skip(1)
-                .take_while(|line| !line.is_empty())
-                .find_map(|line| {
-                    let (key, value) = line.split_once(':')?;
-                    key.trim().eq_ignore_ascii_case(name).then_some(value)
-                })
-        })
+        .and_then(|name| header_value(head, name))
         // x-forwarded-for style lists put the client first.
         .and_then(|value| value.split(',').next())
         .and_then(|value| value.trim().parse::<IpAddr>().ok())
         .map_or(peer, |ip| SocketAddr::new(ip, peer.port()))
+}
+
+/// Field `name` of the request head, if a line the peek read in full has it.
+fn header_value<'a>(head: &'a str, name: &str) -> Option<&'a str> {
+    let complete = &head[..head.rfind("\r\n").unwrap_or(0)];
+    complete
+        .lines()
+        .skip(1)
+        .take_while(|line| !line.is_empty())
+        .find_map(|line| {
+            let (key, value) = line.split_once(':')?;
+            key.trim()
+                .eq_ignore_ascii_case(name)
+                .then_some(value.trim())
+        })
+}
+
+/// What the browser says about the device, from the WebSocket request's
+/// head, for staff to see who logged in with what. Browsers can claim
+/// anything: it's a description, never proof.
+fn login_device(head: &str) -> LoginDevice {
+    // Only printable ASCII, and never more than `max` of it.
+    let clean = |value: &str, max: usize| {
+        let value: String = value
+            .chars()
+            .filter(|c| c.is_ascii_graphic() || *c == ' ')
+            .take(max)
+            .collect();
+        (!value.is_empty()).then_some(value)
+    };
+    LoginDevice {
+        web: true,
+        user_agent: header_value(head, "User-Agent").and_then(|ua| clean(ua, 300)),
+        platform: header_value(head, "Sec-CH-UA-Platform")
+            .and_then(|p| clean(p.trim_matches('"'), 32)),
+        language: header_value(head, "Accept-Language")
+            .and_then(|l| clean(l.split([',', ';']).next().unwrap_or(""), 35)),
+        touch: touch_device(head),
+    }
+}
+
+/// Whether the browser says it's a phone or tablet. The web client plays
+/// those by touch, which the anti-cheat checks allow for. Browsers can claim
+/// anything, so this only ever excuses what touch explains. iPads and
+/// touchscreen laptops pass as desktops.
+fn touch_device(head: &str) -> bool {
+    if header_value(head, "Sec-CH-UA-Mobile") == Some("?1") {
+        return true;
+    }
+    header_value(head, "User-Agent").is_some_and(|ua| {
+        [
+            "Android",
+            "iPhone",
+            "iPad",
+            "iPod",
+            "Mobile",
+            "webOS",
+            "BlackBerry",
+        ]
+        .iter()
+        .any(|word| ua.contains(word))
+    })
 }
 
 /// Sent on every HTTP response: browsers take each file as the type it's
@@ -793,6 +847,49 @@ mod tests {
         assert_eq!(query_number(&params, "plugin"), 3);
         assert_eq!(query_number(&params, "lowmem"), 0);
         assert_eq!(query_number(&params, "missing"), 0);
+    }
+
+    #[test]
+    fn login_devices_keep_what_the_browser_said() {
+        let head = "GET / HTTP/1.1\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0) Chrome/141.0\r\nSec-CH-UA-Platform: \"Windows\"\r\nAccept-Language: en-GB,en;q=0.9\r\n\r\n";
+        let device = login_device(head);
+        assert!(device.web && !device.touch);
+        assert_eq!(
+            device.user_agent.as_deref(),
+            Some("Mozilla/5.0 (Windows NT 10.0) Chrome/141.0")
+        );
+        assert_eq!(device.platform.as_deref(), Some("Windows"));
+        assert_eq!(device.language.as_deref(), Some("en-GB"));
+        // Nothing past what's printable, or past the cap.
+        let long = format!(
+            "GET / HTTP/1.1\r\nUser-Agent: \u{7}{}\r\n\r\n",
+            "a".repeat(400)
+        );
+        let ua = login_device(&long).user_agent.unwrap();
+        assert_eq!(ua, "a".repeat(300));
+        assert_eq!(login_device("GET / HTTP/1.1\r\n\r\n").user_agent, None);
+    }
+
+    #[test]
+    fn phones_and_tablets_are_touch_devices() {
+        let head = |headers: &str| format!("GET / HTTP/1.1\r\nHost: w1\r\n{headers}\r\n");
+        let android = "User-Agent: Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Mobile Safari/537.36\r\n";
+        let iphone = "User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15\r\n";
+        let desktop =
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0 Safari/537.36\r\n";
+        assert!(touch_device(&head(android)));
+        assert!(touch_device(&head(iphone)));
+        assert!(touch_device(&head(&format!(
+            "{desktop}Sec-CH-UA-Mobile: ?1\r\n"
+        ))));
+        assert!(!touch_device(&head(desktop)));
+        assert!(!touch_device(&head(&format!(
+            "{desktop}Sec-CH-UA-Mobile: ?0\r\n"
+        ))));
+        // A head cut off mid-line says nothing.
+        assert!(!touch_device(
+            "GET / HTTP/1.1\r\nUser-Agent: Mozilla/5.0 (iPh"
+        ));
     }
 
     const PEER: &str = "127.0.0.1:50000";

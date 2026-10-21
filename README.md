@@ -192,7 +192,20 @@ on phones too.
   days) and the other accounts that logged in or registered from one, with
   a button to ban them all together. Moderators see addresses as labels
   (`addr-3f9a1c`: the same label is the same address); admins see the
-  addresses, and that is audited.
+  addresses, and that is audited. Their **devices**: each browser or
+  desktop client install they logged in with, as the world heard it at login
+  (user agent, platform hint, language, phone or tablet; nothing from the
+  desktop client), with its login id and the addresses it was used from
+  (labels for moderators too). **Link flags** above them warn of logins
+  from a banned account's browser or address after its ban, a browser
+  shared with a banned account, a headless browser or none, one browser used
+  by 4 or more accounts, 5 or more browsers in a week, and a user agent
+  that disagrees with its platform. The **ban chain** follows shared
+  browsers and addresses 1 to 3 links out (addresses shared by more than 25
+  accounts don't count) and bans the unbanned ones together. Investigate's
+  **Ban evasion** tab lists every account that logged in with a banned
+  account's browser since its ban. Sessions from a headless browser are
+  flagged `automated_browser` by the anti-cheat checks.
 - **Controls:** kill switches that switch a feature off on every world
   (trading, the duel arena, dropping, picking up, shops, banking, or any
   scripts by name pattern): players trying it are told it's switched off.

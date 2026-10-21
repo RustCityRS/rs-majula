@@ -113,6 +113,7 @@ impl Engine {
                         password: request.password.clone(),
                         ip,
                         uid: request.uid,
+                        device: Box::new(request.device.clone()),
                     });
                 }
                 self.pending_logins.push(PendingLogin {

@@ -5,8 +5,8 @@ use crate::player_save::{
     orphan_save_file, save_orphan, save_to_file,
 };
 use rs_db::{
-    Claim, Db, DbConfig, LogBatch, ModAction, NewPlayer, NewSnapshot, Passwords, PlayerSave,
-    SaveResult, check_new_password,
+    Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
+    PlayerSave, SaveResult, check_new_password,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
@@ -53,6 +53,7 @@ pub enum DbRequest {
         password: Box<str>,
         ip: IpAddr,
         uid: Option<i32>,
+        device: Box<LoginDevice>,
     },
     Save {
         user37: u64,
@@ -710,6 +711,7 @@ async fn run_requests(
                 password,
                 ip,
                 uid,
+                device,
             } => {
                 let result = authenticate(
                     db,
@@ -720,6 +722,7 @@ async fn run_requests(
                     &password,
                     ip,
                     uid,
+                    &device,
                 )
                 .await?;
                 let _ = response_tx.send(DbResponse::AuthResponse { user37, result });
@@ -1026,7 +1029,7 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 /// rejected, unless `auto_register` is set, in which case the player is
 /// registered with this password and any local save file for the name is
 /// imported. Wrong passwords and unknown names count against the IP; an
-/// accepted login is logged with its IP and client uid.
+/// accepted login is logged with its IP, client uid and device.
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
@@ -1039,6 +1042,7 @@ async fn authenticate(
     password: &str,
     ip: IpAddr,
     uid: Option<i32>,
+    device: &LoginDevice,
 ) -> Result<AuthResult, rs_db::Error> {
     if db
         .recent_login_failures(ip, LOGIN_FAILURE_WINDOW_SECS)
@@ -1056,7 +1060,8 @@ async fn authenticate(
         if creds.banned {
             return Ok(AuthResult::Banned);
         }
-        db.record_login(user37, node_id.into(), ip, uid).await?;
+        db.record_login(user37, node_id.into(), ip, uid, device)
+            .await?;
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),
@@ -1106,7 +1111,8 @@ async fn authenticate(
         info!("Imported local save for '{}'", username);
     }
 
-    db.record_login(user37, node_id.into(), ip, uid).await?;
+    db.record_login(user37, node_id.into(), ip, uid, device)
+        .await?;
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
         muted_for: None,
@@ -1282,6 +1288,7 @@ mod tests {
             password,
             [203, 0, 113, 7].into(),
             None,
+            &LoginDevice::default(),
         )
         .await
         .unwrap()
@@ -1422,6 +1429,7 @@ mod tests {
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
                 uid: None,
+                device: Box::default(),
             });
             match self.next().await {
                 DbResponse::AuthResponse { result, .. } => result,
@@ -1473,6 +1481,7 @@ mod tests {
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
                 uid: None,
+                device: Box::default(),
             });
             loop {
                 match self.next().await {

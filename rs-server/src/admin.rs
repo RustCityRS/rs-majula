@@ -9,19 +9,20 @@ use axum::{Json, Router};
 use rs_admin_api::utc_time;
 use rs_admin_api::{
     AccountActivity, AccountsLookup, ActivityHour, ActivityLookup, AnticheatLeader,
-    AnticheatLookup, Broadcast, CancelReboot, ChatLookup, ChatRecord, CheckPatterns, ControlsSet,
-    EdgeItem, GraphAccount, Health, HeldIn, HiscoreRow, HiscoreStanding, HiscoresChange,
-    HiscoresLookup, Holder, HoldersLookup, InvSheet, ItemCirculation, ItemForms, ItemHolders,
-    ItemLine, ItemTrace, KeptOff, KeptOffLookup, Kick, LinkedAccount, Links, LinksLookup,
-    LiveReplay, LoginAddress, MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome,
-    Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome,
-    PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet,
-    ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup,
-    ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup,
-    SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup,
-    SessionState, SetControls, SheetLookup, StatLine, TimelineEntry, TimelineLookup, TopReceiver,
-    TotalsLookup, TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup, Unstick,
-    Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
+    AnticheatLookup, BannedLink, Broadcast, CancelReboot, ChainLink, ChatLookup, ChatRecord,
+    CheckPatterns, ControlsSet, EdgeItem, Evasion, EvasionLookup, GraphAccount, Health, HeldIn,
+    HiscoreRow, HiscoreStanding, HiscoresChange, HiscoresLookup, Holder, HoldersLookup, InvSheet,
+    ItemCirculation, ItemForms, ItemHolders, ItemLine, ItemTrace, KeptOff, KeptOffLookup, Kick,
+    LinkChainLookup, LinkedAccount, Links, LinksLookup, LiveReplay, LoginAddress, LoginDeviceSeen,
+    MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome, Moderate, ModerationLookup,
+    ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome, PasswordReset, PlayerEdit,
+    PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, ProgressLookup, ProgressPoint,
+    Reboot, ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup, ReplaySummary, ReportLookup,
+    ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup, SavePointLine, SavePointLookup,
+    SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup, SessionState, SetControls,
+    SheetLookup, StatLine, TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup, TraceLine,
+    TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup, Unstick, Verifier, WealthLine,
+    WealthLookup, WorldControls, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::console::{self, Change};
@@ -203,6 +204,8 @@ pub async fn serve(
         .route(path::REPORTS, post(reports_lookup))
         .route(path::TIMELINE, post(timeline_lookup))
         .route(path::LINKS, post(links_lookup))
+        .route(path::LINK_CHAIN, post(link_chain_lookup))
+        .route(path::EVASION, post(evasion_lookup))
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
         .route(path::REPLAY_DATA, post(replay_data))
@@ -902,6 +905,12 @@ async fn links_lookup(
         .linked_accounts(player, limit)
         .await
         .map_err(db_failed)?;
+    let devices = state
+        .db
+        .login_devices(player, limit)
+        .await
+        .map_err(db_failed)?;
+    let banned = state.db.banned_links(player).await.map_err(db_failed)?;
     Ok(Json(Links {
         addresses: addresses
             .into_iter()
@@ -926,7 +935,96 @@ async fn links_lookup(
                 banned_until_ms: a.banned_until_ms,
             })
             .collect(),
+        devices: devices
+            .into_iter()
+            .map(|d| LoginDeviceSeen {
+                web: d.web,
+                user_agent: d.user_agent,
+                platform: d.platform,
+                language: d.language,
+                touch: d.touch,
+                uid: d.uid.map(|uid| uid.to_string()),
+                logins: d.logins,
+                addresses: d.addresses,
+                ips: d.ips,
+                first_ms: d.first_ms,
+                last_ms: d.last_ms,
+                others: d.others,
+            })
+            .collect(),
+        banned: banned
+            .into_iter()
+            .map(|b| BannedLink {
+                name: b.name,
+                via: b.via,
+                banned_ms: b.banned_ms,
+                after_ban: b.after_ban,
+            })
+            .collect(),
     }))
+}
+
+/// How far a link chain reaches at most, and how many accounts it lists.
+const MAX_CHAIN_DEPTH: u8 = 3;
+const MAX_CHAIN: u32 = 200;
+
+async fn link_chain_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<LinkChainLookup>,
+) -> Result<Json<Vec<ChainLink>>, StatusCode> {
+    let player = name_hash(&req.name)?;
+    let chain = state
+        .db
+        .link_chain(
+            player,
+            req.depth.clamp(1, MAX_CHAIN_DEPTH),
+            req.limit.clamp(1, MAX_CHAIN) as usize,
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        chain
+            .into_iter()
+            .map(|c| ChainLink {
+                name: c.name,
+                staff_level: c.staff_mod_level.clamp(0, 255) as u8,
+                depth: c.depth,
+                via: c.via,
+                link: c.link,
+                muted_until_ms: c.muted_until_ms,
+                banned_until_ms: c.banned_until_ms,
+                last_ms: c.last_ms,
+            })
+            .collect(),
+    ))
+}
+
+async fn evasion_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<EvasionLookup>,
+) -> Result<Json<Vec<Evasion>>, StatusCode> {
+    let rows = state
+        .db
+        .ban_evasion(
+            req.days.clamp(1, 365) as i32,
+            req.max_staff_level.map_or(i16::MAX, i16::from),
+            i64::from(req.limit.clamp(1, MAX_LEADERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| Evasion {
+                name: r.name,
+                staff_level: r.staff_mod_level.clamp(0, 255) as u8,
+                banned: r.banned,
+                banned_ms: r.banned_ms,
+                logins: r.logins,
+                first_ms: r.first_ms,
+                last_ms: r.last_ms,
+            })
+            .collect(),
+    ))
 }
 
 fn replay_summary(r: rs_db::ReplayRecord) -> ReplaySummary {

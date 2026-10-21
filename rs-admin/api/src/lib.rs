@@ -40,6 +40,10 @@ pub mod path {
     /// A player's history across every log, and the accounts linked to them.
     pub const TIMELINE: &str = "/v1/lookup/timeline";
     pub const LINKS: &str = "/v1/lookup/links";
+    /// Every account a chain of shared browsers and addresses reaches, and
+    /// logins from banned accounts' browsers since their bans.
+    pub const LINK_CHAIN: &str = "/v1/lookup/link-chain";
+    pub const EVASION: &str = "/v1/lookup/evasion";
     /// Session recordings: the list, one, and one's replay file.
     pub const REPLAYS: &str = "/v1/lookup/replays";
     pub const REPLAY: &str = "/v1/lookup/replay";
@@ -474,6 +478,86 @@ pub struct LinksLookup {
 pub struct Links {
     pub addresses: Vec<LoginAddress>,
     pub accounts: Vec<LinkedAccount>,
+    #[serde(default)]
+    pub devices: Vec<LoginDeviceSeen>,
+    /// Banned accounts that share a browser or address with them.
+    #[serde(default)]
+    pub banned: Vec<BannedLink>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct BannedLink {
+    pub name: String,
+    /// `browser` or `address`.
+    pub via: String,
+    pub banned_ms: Option<i64>,
+    /// Whether they logged in on it after the ban.
+    pub after_ban: bool,
+}
+
+/// `POST /v1/lookup/link-chain`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LinkChainLookup {
+    pub name: String,
+    pub depth: u8,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ChainLink {
+    pub name: String,
+    pub staff_level: u8,
+    pub depth: u8,
+    /// Who it was reached from, and how: `browser` or `address`.
+    pub via: String,
+    pub link: String,
+    pub muted_until_ms: Option<i64>,
+    pub banned_until_ms: Option<i64>,
+    pub last_ms: Option<i64>,
+}
+
+/// `POST /v1/lookup/evasion`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct EvasionLookup {
+    pub days: u32,
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
+    pub limit: u32,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Evasion {
+    pub name: String,
+    pub staff_level: u8,
+    /// The banned account whose browser they logged in with.
+    pub banned: String,
+    pub banned_ms: i64,
+    pub logins: i64,
+    pub first_ms: i64,
+    pub last_ms: i64,
+}
+
+/// A device a player logged in with: one browser or desktop client install,
+/// as it described itself. Browsers can claim anything.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LoginDeviceSeen {
+    /// The web client rather than the desktop one; `None` for logins from
+    /// before devices were recorded.
+    pub web: Option<bool>,
+    pub user_agent: Option<String>,
+    pub platform: Option<String>,
+    pub language: Option<String>,
+    pub touch: bool,
+    /// The install's id, as text so the console can label it.
+    pub uid: Option<String>,
+    pub logins: i64,
+    /// How many addresses it was used from, and up to 20 of them.
+    pub addresses: i64,
+    pub ips: Vec<String>,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    /// How many other accounts logged in from the same install.
+    pub others: i64,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

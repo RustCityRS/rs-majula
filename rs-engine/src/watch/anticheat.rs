@@ -1,19 +1,3 @@
-//! Anti-cheat checks: whether what a client sends looks like the real client
-//! in a person's hands. Nothing is acted on: a session that fails checks is
-//! scored and flagged for moderators to review in its replay.
-//!
-//! - **Heartbeats.** The client sends `ANTICHEAT_CYCLELOGIC*` from inside its
-//!   game loop and drawing code every so many cycles, with fixed payloads. A
-//!   client that doesn't run that code (a packet bot) never sends the
-//!   game-loop ones; one rebuilt by hand gets the payloads wrong.
-//! - **Op checks.** The client counts certain menu actions and, once a count
-//!   passes a threshold, sends an `ANTICHEAT_OPLOGIC*` before each one. The
-//!   counts are mirrored here from the actions themselves.
-//! - **Clicks** (254+). The client reports every click it acts on, in the
-//!   same cycle as the action it starts. Actions without one weren't clicked.
-//! - **The cursor.** It should move to what's clicked, not appear there, and
-//!   clicks shouldn't come like clockwork.
-
 use super::input::{Input, InputDecoder, Timed};
 use Field::*;
 use rs_db::ReplayReport;
@@ -252,6 +236,12 @@ const RHYTHM_GAPS: usize = 200;
 #[derive(Default)]
 pub struct AntiCheat {
     pub inputs: InputDecoder,
+    /// Whether the browser said it's a phone or tablet. Taps appear where
+    /// they land, so cursor jumps are expected and don't score.
+    pub touch: bool,
+    /// Whether the web client ran in a browser that says it's automated
+    /// (headless), or sent no user agent at all.
+    pub automated: bool,
     heartbeats: [u32; 7],
     bad_heartbeats: [u32; 7],
     op_counts: [i64; 9],
@@ -456,6 +446,9 @@ impl AntiCheat {
         if self.ops >= MIN_OPS && loop_beats == 0 {
             flags.push(("no_heartbeat", 40));
         }
+        if self.automated {
+            flags.push(("automated_browser", 50));
+        }
         let missing = self
             .op_expected
             .iter()
@@ -471,8 +464,12 @@ impl AntiCheat {
             flags.push(("no_mouse_movement", 30));
         }
         // 225's web client reports presses but not moves, so every click
-        // looks like a jump.
-        if cfg!(since_244) && self.clicks >= MIN_CLICKS && self.jumps * 2 > self.clicks {
+        // looks like a jump; so does every tap.
+        if cfg!(since_244)
+            && !self.touch
+            && self.clicks >= MIN_CLICKS
+            && self.jumps * 2 > self.clicks
+        {
             flags.push(("cursor_jumps", 25));
         }
         let rhythm = self.rhythm();
@@ -482,6 +479,8 @@ impl AntiCheat {
 
         let score = flags.iter().map(|&(_, s)| s).sum::<i16>();
         let stats = json!({
+            "touch": self.touch,
+            "automated": self.automated,
             "ops": self.ops,
             "opsUnclicked": self.ops_unclicked,
             "clicks": self.clicks,
@@ -646,7 +645,46 @@ mod tests {
 
     #[test]
     fn clockwork_jumping_clicks_are_flagged() {
-        let mut ac = AntiCheat::default();
+        let flags = clockwork_jumps(false);
+        assert_eq!(
+            flags.contains(&"cursor_jumps".to_owned()),
+            cfg!(since_244),
+            "{flags:?}"
+        );
+        assert!(
+            flags.contains(&"robotic_click_timing".to_owned()),
+            "{flags:?}"
+        );
+    }
+
+    #[test]
+    fn automated_browsers_are_flagged() {
+        let ac = AntiCheat {
+            automated: true,
+            ..AntiCheat::default()
+        };
+        let report = ac.report();
+        assert_eq!(report.flags, ["automated_browser"]);
+        assert_eq!(report.score, 50);
+    }
+
+    #[test]
+    fn taps_on_a_touch_screen_may_jump() {
+        let flags = clockwork_jumps(true);
+        assert!(!flags.contains(&"cursor_jumps".to_owned()), "{flags:?}");
+        // Taps like clockwork still count.
+        assert!(
+            flags.contains(&"robotic_click_timing".to_owned()),
+            "{flags:?}"
+        );
+    }
+
+    /// The flags for 40 clicks 600 ms apart, each 300 px from the last.
+    fn clockwork_jumps(touch: bool) -> Vec<String> {
+        let mut ac = AntiCheat {
+            touch,
+            ..AntiCheat::default()
+        };
         for i in 0..40 {
             let x = (100 + (i % 2) * 300) as i16;
             #[cfg(since_254)]
@@ -664,15 +702,6 @@ mod tests {
             };
             ac.input(&Timed { ms: i * 600, input });
         }
-        let flags = ac.report().flags;
-        assert_eq!(
-            flags.contains(&"cursor_jumps".to_owned()),
-            cfg!(since_244),
-            "{flags:?}"
-        );
-        assert!(
-            flags.contains(&"robotic_click_timing".to_owned()),
-            "{flags:?}"
-        );
+        ac.report().flags
     }
 }
