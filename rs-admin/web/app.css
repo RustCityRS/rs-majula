@@ -712,6 +712,7 @@ dialog[open] { animation: pop 0.14s ease-out; }
 .replay-controls .btn.small { gap: 3px; font-variant-numeric: tabular-nums; }
 .replay-track { position: relative; flex: 1; min-width: 80px; display: flex; align-items: center; }
 .replay-scrub { width: 100%; margin: 0; accent-color: var(--accent); }
+.replay-scrub:disabled { opacity: 0.45; cursor: not-allowed; }
 .replay-marks { position: absolute; left: 7px; right: 7px; top: 0; height: 4px; pointer-events: none; }
 .replay-buffer { position: absolute; left: 7px; right: 7px; bottom: 1px; height: 3px; pointer-events: none; }
 .replay-buffer span { position: absolute; top: 0; height: 100%; background: var(--accent); opacity: 0.35; border-radius: 1px; }

@@ -25,7 +25,8 @@ pub struct ReplayReport {
     pub stats: String,
 }
 
-/// A chunk of a recording, compressed (zstd; deflate before 2026-10-21).
+/// A chunk of a recording, compressed (zstd; deflate before 2026-10-21). A
+/// finished recording is compacted into one chunk, number 0.
 #[derive(Debug)]
 pub struct ReplayChunk {
     pub seq: i32,
@@ -127,6 +128,67 @@ impl Db {
         .bind(ended)
         .execute(&mut *tx)
         .await?;
+        tx.commit().await
+    }
+
+    /// Up to `limit` of world `node_id`'s recordings to compact: ended more
+    /// than `settle_secs` ago (or not stored to in an hour, the world having
+    /// stopped without ending them) and still in more than one chunk.
+    pub async fn replays_to_compact(
+        &self,
+        node_id: i16,
+        settle_secs: i32,
+        limit: i64,
+    ) -> Result<Vec<i64>, Error> {
+        sqlx::query_scalar(
+            "SELECT r.id FROM replays r
+             WHERE r.node_id = $1
+               AND (r.ended_at < now() - make_interval(secs => $2)
+                    OR (r.ended_at IS NULL AND r.updated_at < now() - interval '1 hour'))
+               AND EXISTS (SELECT 1 FROM replay_chunks c WHERE c.replay_id = r.id AND c.seq > 0)
+             ORDER BY r.id LIMIT $3",
+        )
+        .bind(node_id)
+        .bind(f64::from(settle_secs))
+        .bind(limit)
+        .fetch_all(&self.pool)
+        .await
+    }
+
+    /// Replaces recording `id`'s chunks up to number `last_seq` with `chunk`
+    /// (number 0): the whole recording, compressed in one go.
+    pub async fn compact_replay(
+        &self,
+        id: i64,
+        last_seq: i32,
+        chunk: &ReplayChunk,
+    ) -> Result<(), Error> {
+        let mut tx = self.pool.begin().await?;
+        let freed: Option<i64> = sqlx::query_scalar(
+            "WITH gone AS (DELETE FROM replay_chunks WHERE replay_id = $1 AND seq <= $2 RETURNING data)
+             SELECT sum(length(data))::bigint FROM gone",
+        )
+        .bind(id)
+        .bind(last_seq)
+        .fetch_one(&mut *tx)
+        .await?;
+        sqlx::query(
+            "INSERT INTO replay_chunks (replay_id, seq, start_ms, end_ms, data)
+             VALUES ($1, $2, $3, $4, $5)",
+        )
+        .bind(id)
+        .bind(chunk.seq)
+        .bind(chunk.start_ms)
+        .bind(chunk.end_ms)
+        .bind(&chunk.data)
+        .execute(&mut *tx)
+        .await?;
+        sqlx::query("UPDATE replays SET bytes = GREATEST(bytes - $2 + $3, 0) WHERE id = $1")
+            .bind(id)
+            .bind(freed.unwrap_or(0))
+            .bind(chunk.data.len() as i64)
+            .execute(&mut *tx)
+            .await?;
         tx.commit().await
     }
 

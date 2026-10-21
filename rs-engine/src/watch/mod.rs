@@ -22,7 +22,9 @@ pub fn automated(device: &rs_db::LoginDevice) -> bool {
 }
 
 use crate::counters::{self, COUNTERS};
-use format::{CLIENT, KEYFRAME, LOGIN, NOTE, RECONNECT, SERVER, TICK, put_bytes, put_varint};
+use format::{
+    CLIENT, KEYFRAME, LOGIN, NOTE, RECONNECT, SERVER, TICK, TICK_DELTA, put_bytes, put_varint,
+};
 use rs_db::ReplayReport;
 use rs_protocol::network::game::client_prot::ClientProt;
 use state::ClientState;
@@ -99,6 +101,8 @@ struct Recording {
     seq: i32,
     chunk_start_ms: u32,
     tick: Option<u32>,
+    /// When the last tick entry began.
+    tick_ms: u32,
     lost: bool,
     state: ClientState,
     last_keyframe_ms: u32,
@@ -149,6 +153,7 @@ impl Watch {
                 seq: 0,
                 chunk_start_ms: 0,
                 tick: None,
+                tick_ms: 0,
                 lost: false,
                 state: ClientState::default(),
                 last_keyframe_ms: 0,
@@ -188,12 +193,16 @@ impl Watch {
     fn buf(&mut self, clock: u32) -> Option<&mut Vec<u8>> {
         let recording = self.recording.as_mut().filter(|r| !r.lost)?;
         if recording.tick != Some(clock) {
+            let ms = self.started.elapsed().as_millis() as u32;
+            if recording.tick.is_none() {
+                recording.buf.push(TICK);
+                put_varint(&mut recording.buf, ms);
+            } else {
+                recording.buf.push(TICK_DELTA);
+                put_varint(&mut recording.buf, ms.saturating_sub(recording.tick_ms));
+            }
             recording.tick = Some(clock);
-            recording.buf.push(TICK);
-            put_varint(
-                &mut recording.buf,
-                self.started.elapsed().as_millis() as u32,
-            );
+            recording.tick_ms = ms;
         }
         Some(&mut recording.buf)
     }
@@ -337,7 +346,7 @@ impl Watch {
         }
         recording.seq += 1;
         recording.chunk_start_ms = ms;
-        // A new chunk starts with its tick's entry.
+        // A new chunk starts with its tick's entry, in full.
         recording.tick = None;
     }
 }
@@ -350,8 +359,43 @@ impl Drop for Watch {
 
 #[cfg(test)]
 mod tests {
-    use super::automated;
+    use super::format::{Entry, Reader, TICK, TICK_DELTA};
+    use super::{ReplayRequest, Watch, automated};
     use rs_db::LoginDevice;
+
+    #[test]
+    fn each_chunk_starts_with_a_whole_tick() {
+        let (tx, mut rx) = tokio::sync::mpsc::channel(16);
+        let mut watch = Watch::start(42, 10, Some(&tx));
+        for clock in 0..3 {
+            watch.note(clock, "a");
+        }
+        watch.flush(false);
+        for clock in 3..5 {
+            watch.note(clock, "b");
+        }
+        drop(watch);
+        let mut chunks = Vec::new();
+        while let Ok(req) = rx.try_recv() {
+            if let ReplayRequest::Store {
+                chunk: Some(chunk), ..
+            } = req
+            {
+                chunks.push(chunk.data);
+            }
+        }
+        assert_eq!(chunks.len(), 2);
+        for (chunk, ticks) in chunks.iter().zip([3, 2]) {
+            assert_eq!(chunk[0], TICK);
+            // The note after the first tick, then the next tick's tag.
+            let next = 1 + chunk[1..].iter().position(|&b| b & 0x80 == 0).unwrap() + 1 + 3;
+            assert_eq!(chunk[next], TICK_DELTA);
+            let read = Reader::new(chunk)
+                .filter(|e| matches!(e, Entry::Tick { .. }))
+                .count();
+            assert_eq!(read, ticks);
+        }
+    }
 
     #[test]
     fn headless_browsers_are_automated() {

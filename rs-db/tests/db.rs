@@ -1021,6 +1021,71 @@ async fn replays_store_list_and_prune(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn replays_compact_once_over(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    for id in [1, 2, 3, 4] {
+        let replay = NewReplay {
+            id,
+            name_hash: 42,
+            node_id: if id == 4 { 11 } else { 10 },
+            revision: "289".into(),
+        };
+        db.start_replay(&replay).await.unwrap();
+    }
+    let chunk = |seq, data: &[u8]| ReplayChunk {
+        seq,
+        start_ms: seq * 30_000,
+        end_ms: (seq + 1) * 30_000,
+        data: data.to_vec(),
+    };
+    let clean = ReplayReport::default();
+    for id in [1, 2, 4] {
+        for (seq, data) in [(0, b"abc".as_slice()), (2, b"defg")] {
+            db.store_replay(id, Some(&chunk(seq, data)), 90_000, &clean, seq == 2, true)
+                .await
+                .unwrap();
+        }
+    }
+    // Still going on (3), over too recently (2) or another world's (4):
+    // left alone.
+    db.store_replay(3, Some(&chunk(0, b"x")), 1, &clean, false, true)
+        .await
+        .unwrap();
+    db.store_replay(3, Some(&chunk(1, b"y")), 2, &clean, false, true)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE replays SET ended_at = now() - interval '10 minutes' WHERE id IN (1, 4)")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [1]);
+
+    let whole = ReplayChunk {
+        seq: 0,
+        start_ms: 0,
+        end_ms: 90_000,
+        data: b"ab".to_vec(),
+    };
+    db.compact_replay(1, 2, &whole).await.unwrap();
+    let chunks = db.replay_chunks(1).await.unwrap();
+    assert_eq!(chunks.len(), 1);
+    assert_eq!((chunks[0].seq, chunks[0].end_ms), (0, 90_000));
+    assert_eq!(chunks[0].data, b"ab");
+    assert_eq!(db.replay(1).await.unwrap().unwrap().bytes, 2);
+    assert!(db.replays_to_compact(10, 300, 10).await.unwrap().is_empty());
+
+    // A world that stopped without ending its recording: compacted after an
+    // hour without a chunk.
+    sqlx::query("UPDATE replays SET updated_at = now() - interval '2 hours' WHERE id = 3")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [3]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn moderation_reasons_are_logged(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();

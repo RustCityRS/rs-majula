@@ -524,7 +524,6 @@ pub struct Engine {
     pub clock: u32,
     pub shutdown_clock: Option<u32>,
     pub maintenance_mode: bool,
-    /// Kill switches and the login lockdown, set from the staff console.
     pub controls: Controls,
     date_origin_ms: i64,
     date_origin: Instant,
@@ -532,11 +531,6 @@ pub struct Engine {
     pub members: bool,
     pub multi_xp: u8,
     pub client_pathfinder: bool,
-    /// Whether staff of [`StaffModLevel::is_isolated`] levels are kept apart
-    /// from other players: no trades, duels, fights, or items or spells used
-    /// on each other, and their drops never revealed. On by default in
-    /// release builds; off in debug ones, where everyone logs in as a
-    /// maintainer.
     pub staff_isolation: bool,
     pub player_list: PlayerList,
     pub npc_list: NpcList,

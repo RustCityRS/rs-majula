@@ -45,8 +45,6 @@ pub struct Zone {
     pub locs: Vec<Loc>,
     pub objs: Vec<Obj>,
     receivers: FxHashMap<u64, u64>,
-    /// By oid, who each revealed obj was first dropped for: a player's drop
-    /// stays theirs on record after everyone can see it.
     dropped_for: FxHashMap<u64, u64>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,

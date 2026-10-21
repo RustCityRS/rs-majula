@@ -6181,6 +6181,9 @@ function replayPage(ctx) {
     // (states sent before it got the seek still say where it was).
     let seekSentAt = 0;
     let seekHeard = false;
+    // While the client starts it can't seek (the page ignores it): the
+    // controls that would wait.
+    let starting = true;
     // The game's own size: 789x532 on 225, 765x503 after.
     let gameW = 765;
     let gameH = 503;
@@ -6299,6 +6302,7 @@ function replayPage(ctx) {
     };
 
     const seek = (ms) => {
+        if (starting) return;
         clipStop = false;
         seekingTo = ms;
         seekSentAt = performance.now();
@@ -6356,6 +6360,7 @@ function replayPage(ctx) {
     // The dock's client, laid over the stage. `seekTo`: where to start.
     const pageCtl = {stage, onMessage: (which, msg) => (which === 'main' ? onMain(msg) : onScout(msg))};
     const mount = (seekTo) => {
+        setStarting(true);
         dockEnsure(detail.player_url, false);
         frame = dock.main;
         scout = dock.scout;
@@ -6374,6 +6379,11 @@ function replayPage(ctx) {
         dockDetach(pageCtl);
         cover.remove();
     });
+
+    const setStarting = (on) => {
+        starting = on;
+        for (const el of [scrub, backBtn, forwardBtn, edgeBtn]) el.disabled = on;
+    };
 
     // From where it's headed, if it's on the way somewhere.
     const skip = (by) => {
@@ -6447,6 +6457,9 @@ function replayPage(ctx) {
             if (!dragging) scrub.value = String(Math.round(shownMs));
             time.textContent = `${clock(shownMs / 1000)} / ${clock(total / 1000)}`;
             playBtn.disabled = msg.loading;
+            // (A world from before `starting` only says it's loading.)
+            const nowStarting = msg.starting ?? msg.loading;
+            if (nowStarting !== starting) setStarting(nowStarting);
             if (msg.seeking) {
                 showSeek(msg.seekTo, msg.ms, msg.preview);
             } else if (!msg.loading || !loadSeek) {
@@ -6821,7 +6834,7 @@ function replayPage(ctx) {
         drawClip();
     };
     const playClip = (from = clipFrom, to = clipTo) => {
-        if (from === null || to === null) return;
+        if (from === null || to === null || starting) return;
         seek(from);
         clipTo = to;
         clipStop = true;

@@ -1,11 +1,12 @@
 use crate::counters::{self, COUNTERS};
 use crate::watch::ReplayRequest;
+use crate::watch::playback::decompress_chunk;
 use rs_db::{Db, DbConfig, NewReplay, ReplayChunk};
 use rustc_hash::FxHashSet;
 use std::time::Duration;
 use tokio::sync::mpsc::Receiver;
 use tokio::time::{Instant, MissedTickBehavior, interval_at};
-use tracing::{info, warn};
+use tracing::{debug, info, warn};
 
 /// How often old recordings are pruned.
 const PRUNE_EVERY: Duration = Duration::from_secs(60 * 60);
@@ -13,6 +14,17 @@ const PRUNE_EVERY: Duration = Duration::from_secs(60 * 60);
 const FIRST_PRUNE: Duration = Duration::from_secs(5 * 60);
 /// The zstd level chunks are stored at.
 const LEVEL: i32 = 3;
+/// How often finished recordings are compacted: recompressed whole, into
+/// one chunk, which takes about 40% off (chunks repeat each other, keyframes
+/// most).
+const COMPACT_EVERY: Duration = Duration::from_secs(5 * 60);
+/// How long a recording has been over before it's compacted: staff watching
+/// it live have read its last chunks by then.
+const COMPACT_SETTLE_SECS: i32 = 5 * 60;
+/// How many recordings to compact are looked up at a time.
+const COMPACT_BATCH: i64 = 64;
+/// The zstd level a finished recording is recompressed at.
+const COMPACT_LEVEL: i32 = 19;
 
 /// Stores what `rx` sends until every sender is gone, keeping recordings for
 /// `days` days. Recorded at protocol revision `revision`.
@@ -24,6 +36,7 @@ pub async fn replay_task(
     mut rx: Receiver<ReplayRequest>,
 ) {
     let db = Db::connect_lazy(&config, 2);
+    let compacting = tokio::spawn(compact_task(db.clone(), node_id));
     // Recordings that lost a chunk: they stop there.
     let mut broken = FxHashSet::default();
     let mut prune = interval_at(Instant::now() + FIRST_PRUNE, PRUNE_EVERY);
@@ -41,6 +54,90 @@ pub async fn replay_task(
             },
         }
     }
+    compacting.abort();
+}
+
+/// Compacts this world's finished recordings every [`COMPACT_EVERY`].
+async fn compact_task(db: Db, node_id: u8) {
+    let mut every = interval_at(Instant::now() + FIRST_PRUNE, COMPACT_EVERY);
+    every.set_missed_tick_behavior(MissedTickBehavior::Delay);
+    loop {
+        every.tick().await;
+        let (mut count, mut saved) = (0, 0);
+        'pass: loop {
+            let ids = match db
+                .replays_to_compact(node_id.into(), COMPACT_SETTLE_SECS, COMPACT_BATCH)
+                .await
+            {
+                Ok(ids) => ids,
+                Err(e) => {
+                    warn!("Looking up session recordings to compact failed: {e}");
+                    break;
+                }
+            };
+            for &id in &ids {
+                match compact(&db, id).await {
+                    Ok(bytes) => {
+                        count += 1;
+                        saved += bytes;
+                    }
+                    Err(e) => {
+                        warn!("Compacting session recording {id} failed: {e}");
+                        break 'pass;
+                    }
+                }
+            }
+            if (ids.len() as i64) < COMPACT_BATCH {
+                break;
+            }
+        }
+        if count > 0 {
+            debug!("Compacted {count} session recordings, {saved} bytes smaller");
+        }
+    }
+}
+
+/// Recompresses recording `id` whole, into one chunk. Returns how many
+/// bytes that saved.
+async fn compact(db: &Db, id: i64) -> Result<i64, rs_db::Error> {
+    let chunks = db.replay_chunks(id).await?;
+    let (Some(first), Some(last)) = (chunks.first(), chunks.last()) else {
+        return Ok(0);
+    };
+    let (start_ms, end_ms, last_seq) = (first.start_ms, last.end_ms, last.seq);
+    let before: i64 = chunks.iter().map(|c| c.data.len() as i64).sum();
+    let (data, whole) = tokio::task::spawn_blocking(move || {
+        let mut raw = Vec::new();
+        let mut whole = true;
+        for chunk in &chunks {
+            // Nothing after a chunk that doesn't decompress can play.
+            let Some(mut data) = decompress_chunk(&chunk.data) else {
+                whole = false;
+                break;
+            };
+            raw.append(&mut data);
+        }
+        (zstd::bulk::compress(&raw, COMPACT_LEVEL).ok(), whole)
+    })
+    .await
+    .unwrap_or_default();
+    // Compressing into memory only fails on running out of it: try again
+    // next time.
+    let Some(data) = data else {
+        return Ok(0);
+    };
+    if !whole {
+        warn!("Session recording {id} has a chunk that doesn't decompress: compacted up to it");
+    }
+    let after = data.len() as i64;
+    let chunk = ReplayChunk {
+        seq: 0,
+        start_ms,
+        end_ms,
+        data,
+    };
+    db.compact_replay(id, last_seq, &chunk).await?;
+    Ok(before - after)
 }
 
 async fn store(

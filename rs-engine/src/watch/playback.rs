@@ -119,22 +119,25 @@ fn type_lines(lines: &[(u32, String)], clicks: &[u32], free: &mut u32, inputs: &
 /// disagree.
 const ZSTD_MAGIC: [u8; 4] = [0x28, 0xB5, 0x2F, 0xFD];
 
+/// Decompresses one stored chunk, `None` if it doesn't decompress.
+pub fn decompress_chunk(data: &[u8]) -> Option<Vec<u8>> {
+    let mut raw = Vec::new();
+    let read = if data.starts_with(&ZSTD_MAGIC) {
+        zstd::stream::copy_decode(data, &mut raw)
+    } else {
+        DeflateDecoder::new(data).read_to_end(&mut raw).map(drop)
+    };
+    read.ok().map(|()| raw)
+}
+
 /// Decompresses `chunks` (in order) back into one recording. Stops at a
 /// chunk that doesn't decompress: nothing after it can play.
 pub fn decompress(chunks: &[ReplayChunk]) -> Vec<u8> {
     let mut out = Vec::new();
     for chunk in chunks {
-        let mut raw = Vec::new();
-        let read = if chunk.data.starts_with(&ZSTD_MAGIC) {
-            zstd::stream::copy_decode(&chunk.data[..], &mut raw)
-        } else {
-            DeflateDecoder::new(&chunk.data[..])
-                .read_to_end(&mut raw)
-                .map(drop)
-        };
-        if read.is_err() {
+        let Some(mut raw) = decompress_chunk(&chunk.data) else {
             break;
-        }
+        };
         out.append(&mut raw);
     }
     out

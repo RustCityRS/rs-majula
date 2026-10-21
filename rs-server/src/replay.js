@@ -440,6 +440,9 @@
     const replay = {
         client: null,
         ready: false,
+        // Whether this recording's first login has gone through: until then
+        // the client is starting, and seeks wait (see 'seek').
+        started: false,
         rec: null,
         socket: null,
         cipher: null,
@@ -671,6 +674,7 @@
             }
             replay.baseV = vnow();
             replay.streaming = true;
+            replay.started = true;
             replay.loggingIn = false;
             replay.closedAt = null;
             socket.deliver(reply);
@@ -1540,6 +1544,7 @@
                 forgetRecording();
             }
             replay.rec = rec;
+            replay.started = false;
             replay.cameras = rec.header.inputs.filter((i) => i[1] === 10).map(([at, , pitch, yaw]) => [at, pitch, yaw]);
             replay.camera = -1;
             replay.live = rec.header.live ? { delayMs: rec.header.live.delayMs || 0, ended: !!rec.header.live.ended } : null;
@@ -1581,6 +1586,7 @@
                 replay.socket.deliver(new Uint8Array([(replay.logoutOp + replay.cipher.next()) & 0xff]));
             }
             replay.rec = null;
+            replay.started = false;
             replay.userPaused = true;
             unhold();
             setClock(1, false);
@@ -1613,6 +1619,12 @@
         } else if (msg.type === 'freeLook') {
             setFreeLook(!!msg.on);
         } else if (msg.type === 'seek' && typeof msg.ms === 'number') {
+            // Not while the client starts: logging in again over its first
+            // login stalls it. It starts where the load said.
+            if (!replay.started) {
+                report();
+                return;
+            }
             // Going somewhere else: no need to put this spot back first.
             if (replay.freeLook) {
                 setFreeLook(false, false);
@@ -1943,6 +1955,8 @@
             seekTo: replay.seekTo ?? replay.settling?.to ?? null,
             live: replay.streaming,
             loading: !replay.streaming && replay.frame === 0,
+            // The client is starting: no seeking yet.
+            starting: !replay.started,
             // Watching live: caught up and waiting for more, and whether the
             // session has ended.
             starved: replay.starved,

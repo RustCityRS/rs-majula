@@ -1,4 +1,5 @@
-/// A tick begins: `varint ms` since the session started.
+/// A tick begins: `varint ms` since the session started. Each chunk's first
+/// tick, so a chunk reads on its own.
 pub const TICK: u8 = 0;
 /// Packets the world sent: `varint len`, then opcode, frame and body.
 pub const SERVER: u8 = 1;
@@ -14,6 +15,8 @@ pub const NOTE: u8 = 5;
 /// player's did at this point (see [`crate::watch`]). `varint len`, then
 /// packets, each a `u16` length and the packet.
 pub const KEYFRAME: u8 = 6;
+/// A later tick in the same chunk: `varint ms` since the tick before.
+pub const TICK_DELTA: u8 = 7;
 
 /// One recorded entry.
 #[derive(Debug, PartialEq, Eq)]
@@ -45,11 +48,13 @@ pub fn put_bytes(out: &mut Vec<u8>, tag: u8, bytes: &[u8]) {
 pub struct Reader<'a> {
     buf: &'a [u8],
     pos: usize,
+    /// When the last tick began.
+    ms: u32,
 }
 
 impl<'a> Reader<'a> {
     pub fn new(buf: &'a [u8]) -> Self {
-        Self { buf, pos: 0 }
+        Self { buf, pos: 0, ms: 0 }
     }
 
     fn varint(&mut self) -> Option<u32> {
@@ -81,7 +86,14 @@ impl<'a> Iterator for Reader<'a> {
         let tag = *self.buf.get(self.pos)?;
         self.pos += 1;
         Some(match tag {
-            TICK => Entry::Tick { ms: self.varint()? },
+            TICK => {
+                self.ms = self.varint()?;
+                Entry::Tick { ms: self.ms }
+            }
+            TICK_DELTA => {
+                self.ms = self.ms.wrapping_add(self.varint()?);
+                Entry::Tick { ms: self.ms }
+            }
             SERVER => Entry::Server(self.bytes()?),
             CLIENT => {
                 let opcode = *self.buf.get(self.pos)?;
@@ -116,6 +128,8 @@ mod tests {
         put_varint(&mut out, 2);
         out.extend_from_slice(&[1, 2]);
         put_bytes(&mut out, NOTE, "Walk here".as_bytes());
+        out.push(TICK_DELTA);
+        put_varint(&mut out, 600);
         let entries: Vec<Entry> = Reader::new(&out).collect();
         assert_eq!(
             entries,
@@ -128,6 +142,7 @@ mod tests {
                     data: &[1, 2]
                 },
                 Entry::Note("Walk here"),
+                Entry::Tick { ms: 300_600 },
             ]
         );
     }
