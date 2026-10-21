@@ -1040,9 +1040,15 @@ async fn moderation_reasons_are_logged(pool: PgPool) {
             .await
             .unwrap()
     );
-    let history = db.moderation_history(Some(7), None, 10).await.unwrap();
+    let history = db
+        .moderation_history(Some(7), None, None, 10)
+        .await
+        .unwrap();
     let reasons: Vec<Option<&str>> = history.iter().map(|m| m.reason.as_deref()).collect();
     assert_eq!(reasons, [None, Some("Macroing (offence 1)")]);
+    let by = |moderator| db.moderation_history(None, Some(moderator), None, 10);
+    assert_eq!(by(42).await.unwrap().len(), 2);
+    assert!(by(7).await.unwrap().is_empty());
 }
 
 #[sqlx::test]
@@ -2232,16 +2238,21 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     ranked(&db, 1, "Maxed", 0, &[(0, 130_344_310)]).await;
     ranked(&db, 2, "Cheater", 0, &[(0, 372_240), (10, 372_240)]).await;
-    // Staff of any level are left off.
-    ranked(&db, 3, "Pmod", 1, &[(0, 200_000_000)]).await;
+    // Player moderators are ranked; Jagex moderators and maintainers aren't.
+    ranked(&db, 3, "Jmod", 2, &[(0, 200_000_000)]).await;
+    ranked(&db, 4, "Dev", 3, &[(0, 200_000_000)]).await;
+    ranked(&db, 5, "Pmod", 1, &[(0, 100)]).await;
     assert_eq!(
         names(&db.hiscores_page(1, 0, 10).await.unwrap()),
-        ["Maxed", "Cheater"]
+        ["Maxed", "Cheater", "Pmod"]
     );
 
     // Their attack entry removed: still on the others.
     assert!(db.change_hiscores(2, None, &[1], &[]).await.unwrap());
-    assert_eq!(names(&db.hiscores_page(1, 0, 10).await.unwrap()), ["Maxed"]);
+    assert_eq!(
+        names(&db.hiscores_page(1, 0, 10).await.unwrap()),
+        ["Maxed", "Pmod"]
+    );
     assert_eq!(
         names(&db.hiscores_page(11, 0, 10).await.unwrap()),
         ["Cheater"]
@@ -2275,7 +2286,7 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
     db.change_hiscores(2, Some(false), &[], &[1]).await.unwrap();
     assert_eq!(
         names(&db.hiscores_page(1, 0, 10).await.unwrap()),
-        ["Maxed", "Cheater"]
+        ["Maxed", "Cheater", "Pmod"]
     );
     assert!(db.hiscores_kept_off(10).await.unwrap().is_empty());
     assert!(!db.change_hiscores(99, Some(true), &[], &[]).await.unwrap());

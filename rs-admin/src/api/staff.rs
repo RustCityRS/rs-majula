@@ -1,8 +1,10 @@
-use super::account::reauthenticate;
+use super::access::AuditView;
+use super::account::{SessionView, reauthenticate};
 use super::players::checked_name;
 use crate::activity::{self, StaffActivity};
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
+use crate::sessions::Session;
 use crate::users::{Role, User, hash_password, name_key, now_ms, password_problem};
 use crate::worlds::Worlds;
 use axum::Json;
@@ -24,37 +26,89 @@ pub struct StaffAccount {
     you: bool,
 }
 
-/// `GET /api/staff`.
-pub async fn list(
-    State(app): State<Arc<App>>,
-    staff: Staff,
-) -> Result<Json<Vec<StaffAccount>>, ApiError> {
-    staff.require_developer()?;
-    let mut accounts: Vec<StaffAccount> = app
-        .users
-        .all()
-        .map_err(ApiError::internal)?
-        .into_iter()
-        .map(|u| StaffAccount {
-            sessions: app
-                .sessions
-                .of(&u.name)
-                .iter()
-                .filter(|s| u.accepts_session(s.created_ms))
-                .count(),
+impl StaffAccount {
+    fn of(app: &App, staff: &Staff, u: User) -> Self {
+        Self {
+            sessions: open_sessions(app, &u).len(),
             you: name_key(&u.name) == name_key(staff.name()),
             name: u.name,
             role: u.role,
             two_factor: u.totp_secret.is_some(),
             disabled: u.disabled,
             created_ms: u.created_ms,
-        })
+        }
+    }
+}
+
+/// `u`'s signed-in sessions, less those signed out from the command line
+/// since (they end at their next request).
+fn open_sessions(app: &App, u: &User) -> Vec<Session> {
+    let mut sessions = app.sessions.of(&u.name);
+    sessions.retain(|s| u.accepts_session(s.created_ms));
+    sessions
+}
+
+/// `GET /api/staff`.
+pub async fn list(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+) -> Result<Json<Vec<StaffAccount>>, ApiError> {
+    staff.require_maintainer()?;
+    let mut accounts: Vec<StaffAccount> = app
+        .users
+        .all()
+        .map_err(ApiError::internal)?
+        .into_iter()
+        .map(|u| StaffAccount::of(&app, &staff, u))
         .collect();
     accounts.sort_by_key(|a| (std::cmp::Reverse(a.role), name_key(&a.name)));
     Ok(Json(accounts))
 }
 
-/// The acting developer's password and a fresh authenticator code.
+#[derive(Deserialize)]
+pub struct MemberQuery {
+    name: String,
+    days: Option<u64>,
+}
+
+#[derive(Serialize)]
+pub struct Member {
+    #[serde(flatten)]
+    account: StaffAccount,
+    open_sessions: Vec<SessionView>,
+    /// What they did over the last `days`, if anything.
+    activity: Option<StaffActivity>,
+}
+
+/// `GET /api/staff/member?name=&days=`: one staff account, where it's
+/// signed in and what they did over the last `days` (30 by default).
+pub async fn member(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<MemberQuery>,
+) -> Result<Json<Member>, ApiError> {
+    staff.require_maintainer()?;
+    let user = app
+        .users
+        .find(&query.name)
+        .map_err(ApiError::internal)?
+        .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, "There's no account by that name."))?;
+    let key = name_key(&user.name);
+    let activity = activity_rows(&app, query.days, |u| name_key(&u.name) == key)?
+        .into_iter()
+        .find(|a| name_key(&a.name) == key);
+    let open_sessions = open_sessions(&app, &user)
+        .into_iter()
+        .map(|s| SessionView::of(s, staff.session.id))
+        .collect();
+    Ok(Json(Member {
+        account: StaffAccount::of(&app, &staff, user),
+        open_sessions,
+        activity,
+    }))
+}
+
+/// The acting maintainer's password and a fresh authenticator code.
 #[derive(Deserialize)]
 pub struct Confirm {
     password: String,
@@ -81,7 +135,7 @@ fn role_name(role: Role) -> &'static str {
         Role::Trial => "trial moderator",
         Role::Moderator => "moderator",
         Role::Admin => "admin",
-        Role::Developer => "developer",
+        Role::Maintainer => "maintainer",
     }
 }
 
@@ -92,7 +146,7 @@ pub async fn add(
     staff: Staff,
     Json(req): Json<NewAccount>,
 ) -> Result<Json<serde_json::Value>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let name = checked_name(&req.name)?;
     let lookup: Option<PlayerRecord> = app
         .worlds
@@ -148,6 +202,7 @@ pub enum Change {
     Disable,
     Enable,
     Remove,
+    SignOut,
 }
 
 #[derive(Deserialize)]
@@ -164,14 +219,14 @@ pub async fn update(
     staff: Staff,
     Json(req): Json<Update>,
 ) -> Result<Json<serde_json::Value>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let target = app
         .users
         .find(&req.name)
         .map_err(ApiError::internal)?
         .ok_or_else(|| ApiError::bad_request("There's no account by that name."))?;
     // Your own account changes on the Account page; this also keeps at least
-    // one developer (you) in charge.
+    // one maintainer (you) in charge.
     if name_key(&target.name) == name_key(staff.name()) {
         return Err(ApiError::bad_request(
             "You can't change your own account here. Use the Account page.",
@@ -190,6 +245,7 @@ pub async fn update(
         Change::Disable => ("staff_disabled", String::new()),
         Change::Enable => ("staff_enabled", String::new()),
         Change::Remove => ("staff_removed", String::new()),
+        Change::SignOut => ("staff_signed_out", String::new()),
     };
     reauthenticate(
         &app,
@@ -215,7 +271,7 @@ pub async fn update(
                         Change::Reset2fa => u.totp_secret = None,
                         Change::Disable => u.disabled = true,
                         Change::Enable => u.disabled = false,
-                        Change::Password { .. } | Change::Remove => {}
+                        Change::Password { .. } | Change::Remove | Change::SignOut => {}
                     }
                     if let Some(hash) = password_hash {
                         u.password_hash = hash;
@@ -247,14 +303,27 @@ pub async fn activity(
     Query(query): Query<ActivityQuery>,
 ) -> Result<Json<Vec<StaffActivity>>, ApiError> {
     staff.require_admin()?;
-    let days = query.days.unwrap_or(30).clamp(1, 365);
+    let mut rows = activity_rows(&app, query.days, |u| !u.disabled)?;
+    let view = AuditView::new(&app, &staff);
+    rows.retain(|row| view.sees(&row.name));
+    Ok(Json(rows))
+}
+
+/// What staff did over the last `days` (30 by default): a row for each
+/// account `listed` keeps, and for anyone else who did something.
+fn activity_rows(
+    app: &App,
+    days: Option<u64>,
+    listed: impl Fn(&User) -> bool,
+) -> Result<Vec<StaffActivity>, ApiError> {
+    let days = days.unwrap_or(30).clamp(1, 365);
     let since_ms = now_ms().saturating_sub(days * 86_400_000);
     let accounts: Vec<(String, Role)> = app
         .users
         .all()
         .map_err(ApiError::internal)?
         .into_iter()
-        .filter(|u| !u.disabled)
+        .filter(|u| listed(u))
         .map(|u| (u.name, u.role))
         .collect();
     let entries = app.audit.since(since_ms, |e| {
@@ -263,7 +332,7 @@ pub async fn activity(
             "kick" | "mute" | "ban" | "unmute" | "unban"
         )
     });
-    Ok(Json(app.cases.read(|cases, dismissed| {
-        activity::of(&accounts, cases, dismissed, &entries, since_ms)
-    })))
+    Ok(app
+        .cases
+        .read(|cases, dismissed| activity::of(&accounts, cases, dismissed, &entries, since_ms)))
 }

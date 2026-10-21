@@ -321,6 +321,8 @@ pub struct ListQuery {
     #[serde(default)]
     unassigned: bool,
     player: Option<String>,
+    /// Only those this staff member opened, closed or is on.
+    staff: Option<String>,
     q: Option<String>,
 }
 
@@ -362,6 +364,7 @@ pub async fn list(
         };
         shown
             && (!query.mine || c.has(staff.name()))
+            && query.staff.as_deref().is_none_or(|s| c.involves(s))
             && (!query.unread || unread.contains(&c.id))
             && (!query.unassigned || (c.is_open() && c.assignees.is_empty()))
             && player.as_ref().is_none_or(|p| name_key(&c.player) == *p)

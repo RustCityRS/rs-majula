@@ -266,12 +266,14 @@ fn finish(
 
 /// `POST /api/support/send-home`: moves a player stuck where they are to
 /// Lumbridge (or Tutorial Island's start, if they're on it): now if they're
-/// online, otherwise where they log in.
+/// online, otherwise where they log in. Admins only: moderators change
+/// nobody.
 pub async fn send_home(
     State(app): State<Arc<App>>,
     staff: Staff,
     Json(req): Json<HelpRequest>,
 ) -> Result<Json<Outcome>, ApiError> {
+    staff.require_admin()?;
     let name = checked_name(&req.name)?;
     let why = reason(&req.reason, false)?;
     check_case(&app, req.case)?;

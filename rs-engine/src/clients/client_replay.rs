@@ -4,11 +4,8 @@
 
 use crate::counters::{self, COUNTERS};
 use crate::watch::ReplayRequest;
-use flate2::Compression;
-use flate2::write::DeflateEncoder;
 use rs_db::{Db, DbConfig, NewReplay, ReplayChunk};
 use rustc_hash::FxHashSet;
-use std::io::Write;
 use std::time::Duration;
 use tokio::sync::mpsc::Receiver;
 use tokio::time::{Instant, MissedTickBehavior, interval_at};
@@ -18,6 +15,8 @@ use tracing::{info, warn};
 const PRUNE_EVERY: Duration = Duration::from_secs(60 * 60);
 /// The first prune waits until the world is up (and its migrations ran).
 const FIRST_PRUNE: Duration = Duration::from_secs(5 * 60);
+/// The zstd level chunks are stored at.
+const LEVEL: i32 = 3;
 
 /// Stores what `rx` sends until every sender is gone, keeping recordings for
 /// `days` days. Recorded at protocol revision `revision`.
@@ -83,7 +82,7 @@ async fn store(
                 seq: raw.seq,
                 start_ms: raw.start_ms as i32,
                 end_ms: raw.end_ms as i32,
-                data: deflate(&raw.data),
+                data: compress(&raw.data),
             });
             let result = db
                 .store_replay(
@@ -115,9 +114,7 @@ async fn store(
     }
 }
 
-fn deflate(data: &[u8]) -> Vec<u8> {
-    let mut encoder = DeflateEncoder::new(Vec::with_capacity(data.len() / 4), Compression::fast());
-    // Writing to a Vec can't fail.
-    let _ = encoder.write_all(data);
-    encoder.finish().unwrap_or_default()
+fn compress(data: &[u8]) -> Vec<u8> {
+    // Compressing into memory only fails on running out of it.
+    zstd::bulk::compress(data, LEVEL).unwrap_or_default()
 }

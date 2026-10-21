@@ -125,19 +125,23 @@ impl ClientState {
     /// length, then the body).
     pub fn remember(&mut self, opcode: u8, frame: usize, rest: &[u8]) {
         let keep = table()[opcode as usize];
-        let packet = || {
-            let mut packet = Vec::with_capacity(rest.len() + 1);
+        // Into the buffer of the packet it replaces, if any, so a varp or
+        // text sent again and again doesn't allocate each time.
+        let refill = |packet: &mut Vec<u8>| {
+            packet.clear();
             packet.push(opcode);
             packet.extend_from_slice(rest);
-            packet
         };
         let key = match keep {
             Keep::No => return,
             Keep::Message => {
-                if self.messages.len() == MESSAGES {
-                    self.messages.pop_front();
-                }
-                self.messages.push_back(packet());
+                let mut packet = if self.messages.len() == MESSAGES {
+                    self.messages.pop_front().unwrap_or_default()
+                } else {
+                    Vec::with_capacity(rest.len() + 1)
+                };
+                refill(&mut packet);
+                self.messages.push_back(packet);
                 return;
             }
             Keep::One => (opcode, 0),
@@ -153,7 +157,12 @@ impl ClientState {
             }
         };
         self.seq += 1;
-        self.packets.insert(key, (self.seq, packet()));
+        let (seq, packet) = self
+            .packets
+            .entry(key)
+            .or_insert_with(|| (0, Vec::with_capacity(rest.len() + 1)));
+        *seq = self.seq;
+        refill(packet);
     }
 
     /// Everything remembered, in the order it was last sent, then the chat.

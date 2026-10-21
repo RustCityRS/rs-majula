@@ -63,7 +63,7 @@ pub async fn player(
     staff: Staff,
     Query(query): Query<NameQuery>,
 ) -> Result<Json<Option<SheetView>>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let name = checked_name(&query.name)?;
     let Some(record) = record(&app, &name).await? else {
         return Ok(Json(None));
@@ -118,7 +118,7 @@ pub async fn edit(
     staff: Staff,
     Json(req): Json<EditRequest>,
 ) -> Result<Json<Outcome>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let name = checked_name(&req.name)?;
     if let PlayerEdit::Give { count: 0, .. } | PlayerEdit::Take { count: 0, .. } = req.edit {
         return Err(ApiError::bad_request("Give or take at least 1."));
@@ -171,7 +171,7 @@ pub struct ObjQuery {
     q: String,
 }
 
-/// `GET /api/objs?q=`: items by name, config name or id, for developers'
+/// `GET /api/objs?q=`: items by name, config name or id, for maintainers'
 /// edits and admins' restorations.
 pub async fn objs(
     State(app): State<Arc<App>>,

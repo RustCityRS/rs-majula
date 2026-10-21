@@ -1,5 +1,6 @@
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
+use crate::sessions::Session;
 use crate::totp;
 use crate::users::{Role, hash_password, password_problem, verify_password};
 use axum::Json;
@@ -19,6 +20,20 @@ pub struct SessionView {
     current: bool,
 }
 
+impl SessionView {
+    /// `s`, as seen from the session `current`.
+    pub(super) fn of(s: Session, current: u64) -> Self {
+        Self {
+            id: s.id,
+            ip: s.ip.to_string(),
+            current: s.id == current,
+            created_ms: s.created_ms,
+            last_seen_ms: s.last_seen_ms(),
+            user_agent: s.user_agent,
+        }
+    }
+}
+
 #[derive(Serialize)]
 pub struct Account {
     name: String,
@@ -34,14 +49,7 @@ pub async fn get(State(app): State<Arc<App>>, staff: Staff) -> Json<Account> {
         .into_iter()
         // Signed out from the CLI since: they end at their next request.
         .filter(|s| staff.user.accepts_session(s.created_ms))
-        .map(|s| SessionView {
-            id: s.id,
-            ip: s.ip.to_string(),
-            current: s.id == staff.session.id,
-            created_ms: s.created_ms,
-            last_seen_ms: s.last_seen_ms(),
-            user_agent: s.user_agent,
-        })
+        .map(|s| SessionView::of(s, staff.session.id))
         .collect();
     Json(Account {
         name: staff.user.name.clone(),

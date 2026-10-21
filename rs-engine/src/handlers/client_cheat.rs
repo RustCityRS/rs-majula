@@ -37,12 +37,12 @@ use tracing::error;
 
 /// Handles the `ClientCheat` client protocol message.
 ///
-/// Processes developer/admin cheat commands entered via the client console.
+/// Processes maintainer/admin cheat commands entered via the client console.
 /// The cheat string is validated for length (max 80 characters), parsed into
 /// a command name and arguments, then dispatched based on the player's staff
 /// moderation level. Access is cumulative: each level can run its own commands
 /// plus those of every level below it
-/// (`Developer` > `JagexModerator` > `PlayerModerator` > `Normal`).
+/// (`Maintainer` > `JagexModerator` > `PlayerModerator` > `Normal`).
 ///
 /// # Arguments
 ///
@@ -63,7 +63,7 @@ use tracing::error;
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`cheat_normal`], [`cheat_player_moderator`], [`cheat_jagex_moderator`],
-///   or [`cheat_developer`] depending on the player's staff level
+///   or [`cheat_maintainer`] depending on the player's staff level
 impl ClientGameHandler for ClientCheat {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         if self.cheat.len() > 80 {
@@ -87,12 +87,12 @@ impl ClientGameHandler for ClientCheat {
             StaffModLevel::Normal => cheat_normal(cmd, args, active),
             StaffModLevel::PlayerModerator => cheat_player_moderator(cmd, args, active),
             StaffModLevel::JagexModerator => cheat_jagex_moderator(cmd, args, active),
-            StaffModLevel::Developer => cheat_developer(cmd, args, active),
+            StaffModLevel::Maintainer => cheat_maintainer(cmd, args, active),
         }
     }
 }
 
-/// Dispatches developer-level cheat commands, falling through to
+/// Dispatches maintainer-level cheat commands, falling through to
 /// [`cheat_jagex_moderator`] (and the levels below it) for any command this
 /// level does not handle.
 ///
@@ -116,7 +116,7 @@ impl ClientGameHandler for ClientCheat {
 ///
 /// **Called by:** `ClientCheat::handle`
 /// **Calls:** `engine_mut().run_script_by_name`, `parse_*` helpers, [`cheat_spawn_bots`]
-fn cheat_developer(
+fn cheat_maintainer(
     cmd: &str,
     mut args: Split<'_, char>,
     active: &mut ActivePlayer,
@@ -152,8 +152,8 @@ fn cheat_developer(
 /// - `ban <name> <hours>`, `unban <name>`, `kick <name>` - Bans, unbans or
 ///   kicks a player (see [`cheat_moderate`]).
 ///
-/// Reached directly by jagex moderators, and by developers cascading down from
-/// [`cheat_developer`].
+/// Reached directly by jagex moderators, and by maintainers cascading down from
+/// [`cheat_maintainer`].
 fn cheat_jagex_moderator(
     cmd: &str,
     mut args: Split<'_, char>,

@@ -22,7 +22,10 @@ pub enum Role {
     Trial,
     Moderator,
     Admin,
-    Developer,
+    /// Was `developer`: accounts files and scripts from before still say so.
+    #[serde(alias = "developer")]
+    #[value(alias = "developer")]
+    Maintainer,
 }
 
 impl Role {
@@ -32,7 +35,7 @@ impl Role {
         match self {
             Self::Trial | Self::Moderator => 1,
             Self::Admin => 2,
-            Self::Developer => 3,
+            Self::Maintainer => 3,
         }
     }
 
@@ -233,9 +236,20 @@ mod tests {
         assert_eq!(Role::Moderator.staff_level(), 1);
         assert!(Role::Trial < Role::Moderator && Role::Trial.is_trial());
         assert_eq!(Role::Admin.staff_level(), 2);
-        assert_eq!(Role::Developer.staff_level(), 3);
+        assert_eq!(Role::Maintainer.staff_level(), 3);
         assert!(!Role::Moderator.can_command());
-        assert!(Role::Admin.can_command() && Role::Developer.can_command());
+        assert!(Role::Admin.can_command() && Role::Maintainer.can_command());
+    }
+
+    #[test]
+    fn developers_from_before_are_maintainers() {
+        let role: Role = serde_json::from_str("\"developer\"").unwrap();
+        assert_eq!(role, Role::Maintainer);
+        assert_eq!(serde_json::to_string(&role).unwrap(), "\"maintainer\"");
+        assert_eq!(
+            <Role as clap::ValueEnum>::from_str("developer", false),
+            Ok(Role::Maintainer)
+        );
     }
 
     #[test]

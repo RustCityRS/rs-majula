@@ -1,5 +1,5 @@
 use super::AuditFilter;
-use super::access::{ceiling, check_player};
+use super::access::{AuditView, ceiling, check_player};
 use super::lookup::{address_label, sees_addresses, unavailable};
 use super::players::checked_name;
 use crate::audit::Event;
@@ -107,7 +107,13 @@ pub async fn audit(
     Query(query): Query<AuditQuery>,
 ) -> Response {
     let filter = AuditFilter::new(query.actor.as_deref(), query.q.as_deref());
-    let entries = app.audit.page(None, MAX_AUDIT_ROWS, |e| filter.keeps(e));
+    let view = AuditView::new(&app, &staff);
+    let entries: Vec<_> = app
+        .audit
+        .page(None, MAX_AUDIT_ROWS, |e| view.shows(e) && filter.keeps(e))
+        .into_iter()
+        .map(|e| view.redact(e))
+        .collect();
     let mut csv = Csv::new(&[
         "id", "time", "actor", "address", "action", "target", "detail", "ok",
     ]);

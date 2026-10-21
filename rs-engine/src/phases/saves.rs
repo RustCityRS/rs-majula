@@ -313,7 +313,7 @@ mod tests {
         assert_eq!(profile_transfer_wait(0, ago(0)), Some(45));
         assert_eq!(profile_transfer_wait(0, ago(44_001)), Some(1));
         assert_eq!(profile_transfer_wait(1, ago(10_500)), Some(35));
-        // Jagex moderators and developers skip it.
+        // Jagex moderators and maintainers skip it.
         assert_eq!(profile_transfer_wait(2, ago(0)), None);
         assert_eq!(profile_transfer_wait(3, ago(0)), None);
     }

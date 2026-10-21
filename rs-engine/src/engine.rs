@@ -1115,13 +1115,14 @@ impl Engine {
 
     /// Swaps in recompiled scripts, leaving the cache as it is: an emergency
     /// fix to a running world. Scripts already running finish on the code
-    /// they started with. Returns how many scripts are loaded.
-    pub fn reload_scripts(&mut self, new_scripts: ScriptProvider) -> usize {
-        self.scripts = new_scripts;
+    /// they started with. Returns how many scripts are loaded, and the old
+    /// scripts, to free off the engine thread.
+    pub fn reload_scripts(&mut self, new_scripts: ScriptProvider) -> (usize, ScriptProvider) {
+        let old = std::mem::replace(&mut self.scripts, new_scripts);
         self.controls.refresh(&self.scripts);
         let count = self.scripts.count();
         info!("Script reload applied - {} scripts loaded", count);
-        count
+        (count, old)
     }
 
     /// Executes a single RuneScript VM invocation against the given script state.
@@ -2717,11 +2718,11 @@ impl Engine {
                 StaffModLevel::Normal => LoginResponse::SuccessNormal,
                 StaffModLevel::PlayerModerator => LoginResponse::SuccessModerator,
                 #[cfg(rev = "225")]
-                StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+                StaffModLevel::JagexModerator | StaffModLevel::Maintainer => {
                     LoginResponse::SuccessModerator
                 }
                 #[cfg(since_244)]
-                StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+                StaffModLevel::JagexModerator | StaffModLevel::Maintainer => {
                     LoginResponse::SuccessJagexModerator
                 }
             };

@@ -34,7 +34,7 @@ pub async fn list(
     staff: Staff,
     Query(query): Query<PageQuery>,
 ) -> Result<Json<NewsPage>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     app.worlds
         .web(
             path::NEWS,
@@ -62,7 +62,7 @@ pub async fn save(
     staff: Staff,
     Json(req): Json<SaveRequest>,
 ) -> Result<Json<NewsItem>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let title = req.title.trim().to_owned();
     if title.is_empty() || title.chars().count() > MAX_TITLE_CHARS {
         return Err(ApiError::bad_request("Titles are 1 to 120 characters."));
@@ -113,7 +113,7 @@ pub async fn delete(
     staff: Staff,
     Json(req): Json<DeleteRequest>,
 ) -> Result<Json<Outcome>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let outcome: Outcome = app
         .worlds
         .web(
@@ -145,7 +145,7 @@ pub async fn preview(
     staff: Staff,
     Json(req): Json<PreviewRequest>,
 ) -> Result<Json<NewsRendered>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     if req.markdown.len() > MAX_CONTENT {
         return Err(ApiError::bad_request("Posts are up to 200 KB."));
     }
@@ -168,7 +168,7 @@ pub async fn upload(
     staff: Staff,
     body: Bytes,
 ) -> Result<Json<MediaSaved>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     if body.is_empty() {
         return Err(ApiError::bad_request("That file is empty."));
     }
@@ -199,7 +199,7 @@ pub async fn media(
     staff: Staff,
     Path(name): Path<String>,
 ) -> Result<Response, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     if name.len() > 64 || !name.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'.') {
         return Err(ApiError::new(StatusCode::NOT_FOUND, "No such file."));
     }

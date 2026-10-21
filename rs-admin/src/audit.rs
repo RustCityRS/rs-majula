@@ -28,6 +28,17 @@ pub struct Entry {
     pub ok: bool,
 }
 
+impl Entry {
+    /// Whose entry it is: the staff member who acted, or for a sign-in
+    /// nobody got through (one with an address but no actor), the account
+    /// it named. Entries the console made itself have neither.
+    pub fn owner(&self) -> Option<&str> {
+        self.actor
+            .as_deref()
+            .or(self.ip.and(self.target.as_deref()))
+    }
+}
+
 fn is_zero(n: &u64) -> bool {
     *n == 0
 }
@@ -363,6 +374,27 @@ fn append_bytes(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
 mod tests {
     use super::*;
     use std::net::Ipv4Addr;
+
+    #[test]
+    fn failed_sign_ins_belong_to_the_account_they_named() {
+        let ip = IpAddr::V4(Ipv4Addr::LOCALHOST);
+        let entry = |event: Event| Entry {
+            id: 0,
+            at_ms: 0,
+            actor: event.actor,
+            ip: event.ip,
+            action: event.action.into(),
+            target: event.target,
+            detail: event.detail,
+            ok: event.ok,
+        };
+        let kick = entry(Event::new(Some("ash"), ip, "kick").target("p1"));
+        assert_eq!(kick.owner(), Some("ash"));
+        let failed = entry(Event::new(None, ip, "sign_in_failed").target("ash"));
+        assert_eq!(failed.owner(), Some("ash"));
+        let alert = entry(Event::system(None, "economy_alert").target("p1"));
+        assert_eq!(alert.owner(), None);
+    }
 
     #[test]
     fn entries_survive_a_restart_and_page_newest_first() {

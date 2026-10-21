@@ -4,9 +4,9 @@
 //!
 //! The recording is buffered per player and handed to the recording task
 //! ([`crate::clients::client_replay`]) every [`CHUNK_MS`] or
-//! [`CHUNK_BYTES`], which deflates and stores it. A chunk the task can't
-//! take is lost, and the recording stops there: the replay can't skip over
-//! missing packets.
+//! [`CHUNK_BYTES`], which compresses it (zstd) and stores it. A chunk the
+//! task can't take is lost, and the recording stops there: the replay can't
+//! skip over missing packets.
 //!
 //! Every [`KEYFRAME_MS`] the recording takes a keyframe: the packets a
 //! client that has just logged in needs to show what the player's does at
@@ -85,7 +85,7 @@ pub enum ReplayRequest {
     },
 }
 
-/// A chunk of a recording, not yet deflated.
+/// A chunk of a recording, not yet compressed.
 pub struct RawChunk {
     pub seq: i32,
     pub start_ms: u32,
@@ -187,14 +187,22 @@ impl Watch {
     /// The recording to append to on tick `clock`, with the tick's entry
     /// written. `None` when not recording.
     fn buf(&mut self, clock: u32) -> Option<&mut Vec<u8>> {
-        let ms = self.ms();
         let recording = self.recording.as_mut().filter(|r| !r.lost)?;
         if recording.tick != Some(clock) {
             recording.tick = Some(clock);
             recording.buf.push(TICK);
-            put_varint(&mut recording.buf, ms);
+            put_varint(
+                &mut recording.buf,
+                self.started.elapsed().as_millis() as u32,
+            );
         }
         Some(&mut recording.buf)
+    }
+
+    /// Whether the session is being recorded (whole): notes for the replay's
+    /// timeline are only worth making then.
+    pub fn recording(&self) -> bool {
+        self.recording.as_ref().is_some_and(|r| !r.lost)
     }
 
     /// Packets sent to the client: `opcode` then `rest` (frame and body).
@@ -304,11 +312,11 @@ impl Watch {
     }
 
     fn flush(&mut self, ended: bool) {
-        let ms = self.ms();
-        let report = self.anticheat.report();
         let Some(recording) = self.recording.as_mut() else {
             return;
         };
+        let ms = self.started.elapsed().as_millis() as u32;
+        let report = self.anticheat.report();
         let chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
             seq: recording.seq,
             start_ms: recording.chunk_start_ms,

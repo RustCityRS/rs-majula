@@ -17,7 +17,7 @@ const POLL_INTERVAL: Duration = Duration::from_secs(5);
 /// How many worlds are called at once.
 const CONCURRENCY: usize = 32;
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(8);
-/// For a developer's change to a logged-out player, which the world makes
+/// For a maintainer's change to a logged-out player, which the world makes
 /// in steps through the database.
 pub const EDIT_TIMEOUT: Duration = Duration::from_secs(25);
 /// For a news image or video, up to 50 MB.

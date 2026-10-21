@@ -557,7 +557,7 @@ pub fn set_clock_rate(&self, ms: u64) {
 
 When the scheduler observes `clock_rate_rx.changed()`, it rebuilds the `Interval` at the new rate (`main.rs:724-728`). A
 `watch` channel is the right primitive here: it is lossy-but-latest (only the most recent value matters, intermediate
-values can be coalesced) and the receiver can cheaply poll the current value. This mechanism backs developer/admin speed
+values can be coalesced) and the receiver can cheaply poll the current value. This mechanism backs maintainer/admin speed
 controls — e.g. accelerating ticks for testing, or throttling under emergency load — without touching the tick logic
 itself. The original Java server hard-codes a 600ms loop; expressing the rate as a runtime-tunable channel is a modest
 improvement in operability.

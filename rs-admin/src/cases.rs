@@ -278,6 +278,17 @@ impl Case {
         self.assignees.iter().any(|a| name_key(a) == key)
     }
 
+    /// Whether `name` opened it, closed it or is on it.
+    pub fn involves(&self, name: &str) -> bool {
+        let key = name_key(name);
+        name_key(&self.created_by) == key
+            || self
+                .closed_by
+                .as_deref()
+                .is_some_and(|c| name_key(c) == key)
+            || self.has(name)
+    }
+
     fn has_evidence(&self, key: &str) -> bool {
         self.evidence.iter().any(|e| e.key() == key)
     }

@@ -29,7 +29,7 @@ pub struct ReplayReport {
     pub stats: String,
 }
 
-/// A chunk of a recording, deflated.
+/// A chunk of a recording, compressed (zstd; deflate before 2026-10-21).
 #[derive(Debug)]
 pub struct ReplayChunk {
     pub seq: i32,
@@ -188,7 +188,7 @@ impl Db {
         query.build_query_as().fetch_optional(&self.pool).await
     }
 
-    /// Recording `id`'s chunks in order, deflated.
+    /// Recording `id`'s chunks in order, compressed.
     pub async fn replay_chunks(&self, id: i64) -> Result<Vec<ReplayChunk>, Error> {
         self.replay_chunks_from(id, 0).await
     }

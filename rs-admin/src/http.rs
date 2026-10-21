@@ -227,8 +227,8 @@ impl Staff {
         }
     }
 
-    pub fn require_developer(&self) -> Result<(), ApiError> {
-        if self.user.role == Role::Developer {
+    pub fn require_maintainer(&self) -> Result<(), ApiError> {
+        if self.user.role == Role::Maintainer {
             Ok(())
         } else {
             Err(ApiError::forbidden())
@@ -357,7 +357,7 @@ pub fn csp(worlds: &[crate::worlds::WorldConfig]) -> HeaderValue {
         frames.join(" ")
     };
     HeaderValue::from_str(&format!(
-        "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob:;          media-src 'self'; font-src 'self'; connect-src 'self'; manifest-src 'self';          frame-src {frame_src}; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+        "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self'; font-src 'self'; connect-src 'self'; manifest-src 'self'; frame-src {frame_src}; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
     ))
     .expect("origins are header-safe")
 }

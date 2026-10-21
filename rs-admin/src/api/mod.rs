@@ -24,6 +24,7 @@ mod worlds;
 use crate::audit::Entry;
 use crate::http::{App, Staff};
 use crate::users::name_key;
+use access::AuditView;
 use axum::extract::{DefaultBodyLimit, Query, State};
 use axum::routing::{get, post};
 use axum::{Json, Router};
@@ -121,6 +122,7 @@ pub fn router() -> Router<Arc<App>> {
         .route("/staff", get(staff::list).post(staff::add))
         .route("/staff/update", post(staff::update))
         .route("/staff/activity", get(staff::activity))
+        .route("/staff/member", get(staff::member))
         .route("/players/sheet", get(edit::player))
         .route("/players/edit", post(edit::edit))
         .route("/objs", get(edit::objs))
@@ -165,7 +167,8 @@ struct AuditQuery {
     q: Option<String>,
 }
 
-/// Which audit entries a search keeps: by whom, and with what in them.
+/// Which audit entries a search keeps: whose (see [`Entry::owner`], so
+/// failed sign-ins as someone count as theirs), and with what in them.
 pub(super) struct AuditFilter {
     actor: Option<String>,
     needle: Option<String>,
@@ -182,7 +185,7 @@ impl AuditFilter {
     pub(super) fn keeps(&self, e: &Entry) -> bool {
         self.actor
             .as_ref()
-            .is_none_or(|a| e.actor.as_deref().map(name_key).as_ref() == Some(a))
+            .is_none_or(|a| e.owner().map(name_key).as_ref() == Some(a))
             && self.needle.as_ref().is_none_or(|n| {
                 e.action.contains(n.as_str())
                     || e.target
@@ -196,14 +199,18 @@ impl AuditFilter {
 /// `GET /api/audit`: the audit trail, newest first.
 async fn audit(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Query(query): Query<AuditQuery>,
 ) -> Json<Vec<Entry>> {
     let filter = AuditFilter::new(query.actor.as_deref(), query.q.as_deref());
+    let view = AuditView::new(&app, &staff);
     Json(
         app.audit
             .page(query.before, query.limit.unwrap_or(50).min(200), |e| {
-                filter.keeps(e)
-            }),
+                view.shows(e) && filter.keeps(e)
+            })
+            .into_iter()
+            .map(|e| view.redact(e))
+            .collect(),
     )
 }

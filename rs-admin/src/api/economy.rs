@@ -49,21 +49,6 @@ pub struct DaysQuery {
     days: Option<u32>,
 }
 
-/// Every `n`-th of `samples` (the last always) so at most `max` are left.
-fn thin(samples: Vec<Sample>, max: usize) -> Vec<Sample> {
-    if samples.len() <= max {
-        return samples;
-    }
-    let step = samples.len().div_ceil(max);
-    let last = samples.len() - 1;
-    samples
-        .into_iter()
-        .enumerate()
-        .filter(|(i, _)| i % step == 0 || *i == last)
-        .map(|(_, s)| s)
-        .collect()
-}
-
 /// `GET /api/economy?days=`: the tracked items, their counts over the last
 /// `days` (30 unless said) and the alerts.
 pub async fn dashboard(
@@ -76,7 +61,7 @@ pub async fn dashboard(
     let state = app.economy.state();
     Json(Dashboard {
         tracked: state.tracked,
-        samples: thin(app.economy.samples_since(since), MAX_CHART_POINTS),
+        samples: app.economy.samples_since(since, MAX_CHART_POINTS),
         alerts: state.alerts,
         every_ms: SAMPLE_EVERY_MS,
         can_change: staff.require_admin().is_ok(),
@@ -583,23 +568,6 @@ pub async fn ring_rollback(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn sample(at_ms: u64) -> Sample {
-        Sample {
-            at_ms,
-            items: Vec::new(),
-        }
-    }
-
-    #[test]
-    fn long_charts_are_thinned_keeping_the_last() {
-        let samples: Vec<Sample> = (0..1000).map(sample).collect();
-        let thinned = thin(samples, 600);
-        assert!(thinned.len() <= 600);
-        assert_eq!(thinned.first().unwrap().at_ms, 0);
-        assert_eq!(thinned.last().unwrap().at_ms, 999);
-        assert_eq!(thin((0..5).map(sample).collect(), 600).len(), 5);
-    }
 
     #[test]
     fn rings_are_named_once_each() {

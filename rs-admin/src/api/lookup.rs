@@ -63,12 +63,6 @@ pub async fn player(
     })))
 }
 
-#[derive(Deserialize)]
-pub struct PageQuery {
-    name: Option<String>,
-    before: Option<i64>,
-}
-
 #[derive(Serialize)]
 pub struct ModerationView {
     #[serde(flatten)]
@@ -76,20 +70,30 @@ pub struct ModerationView {
     world: Option<u16>,
 }
 
-/// `GET /api/lookup/moderation?name=&before=`: moderation commands newest
-/// first, everyone's or those on `name`.
+#[derive(Deserialize)]
+pub struct ModerationQuery {
+    name: Option<String>,
+    moderator: Option<String>,
+    before: Option<i64>,
+}
+
+/// `GET /api/lookup/moderation?name=&moderator=&before=`: moderation
+/// commands newest first, everyone's or only those on `name` and by
+/// `moderator`.
 pub async fn moderation(
     State(app): State<Arc<App>>,
     _staff: Staff,
-    Query(query): Query<PageQuery>,
+    Query(query): Query<ModerationQuery>,
 ) -> Result<Json<Vec<ModerationView>>, ApiError> {
     let name = query.name.as_deref().map(checked_name).transpose()?;
+    let moderator = query.moderator.as_deref().map(checked_name).transpose()?;
     let records: Vec<ModerationRecord> = app
         .worlds
         .ask(
             path::MODERATION,
             &ModerationLookup {
                 name,
+                moderator,
                 before: query.before,
                 limit: PAGE,
             },

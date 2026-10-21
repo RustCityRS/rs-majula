@@ -105,9 +105,16 @@ pub struct Economy {
 impl Economy {
     pub fn open(dir: &Path) -> Self {
         let samples_path = dir.join("economy-samples.jsonl");
+        let (samples, dropped) = load_samples(&samples_path);
+        // Counts past their keeping time leave the file too.
+        if dropped > 0
+            && let Err(e) = rewrite_samples(&samples_path, &samples)
+        {
+            warn!("Couldn't compact {}: {}", samples_path.display(), e);
+        }
         Self {
             state: JsonFile::open(dir.join("economy.json")),
-            samples: Mutex::new(load_samples(&samples_path)),
+            samples: Mutex::new(samples),
             samples_path,
         }
     }
@@ -116,12 +123,19 @@ impl Economy {
         self.state.get()
     }
 
-    /// The counts taken since `since_ms`, oldest first.
-    pub fn samples_since(&self, since_ms: u64) -> Vec<Sample> {
-        self.lock()
+    /// The counts taken since `since_ms`, oldest first: every `n`-th of
+    /// them (the last always), so at most `max`.
+    pub fn samples_since(&self, since_ms: u64, max: usize) -> Vec<Sample> {
+        let samples = self.lock();
+        let from = samples.partition_point(|s| s.at_ms < since_ms);
+        let wanted = &samples[from..];
+        let step = wanted.len().div_ceil(max.max(1)).max(1);
+        let last = wanted.len().saturating_sub(1);
+        wanted
             .iter()
-            .filter(|s| s.at_ms >= since_ms)
-            .cloned()
+            .enumerate()
+            .filter(|&(i, _)| i % step == 0 || i == last)
+            .map(|(_, s)| s.clone())
             .collect()
     }
 
@@ -258,23 +272,37 @@ impl Economy {
     }
 }
 
-fn load_samples(path: &Path) -> Vec<Sample> {
+/// The counts in the file still kept, and how many older ones were left out.
+fn load_samples(path: &Path) -> (Vec<Sample>, usize) {
     let Ok(file) = std::fs::File::open(path) else {
-        return Vec::new();
+        return (Vec::new(), 0);
     };
     let cutoff = now_ms().saturating_sub(KEEP_MS);
     let mut samples = Vec::new();
+    let mut dropped = 0;
     for (n, line) in BufReader::new(file).lines().enumerate() {
         let Ok(line) = line else {
             break;
         };
         match serde_json::from_str::<Sample>(&line) {
             Ok(sample) if sample.at_ms >= cutoff => samples.push(sample),
-            Ok(_) => {}
+            Ok(_) => dropped += 1,
             Err(e) => warn!("Skipped line {} of {}: {}", n + 1, path.display(), e),
         }
     }
-    samples
+    (samples, dropped)
+}
+
+/// Writes `samples` as the whole file, beside it then renamed over it.
+fn rewrite_samples(path: &Path, samples: &[Sample]) -> std::io::Result<()> {
+    let mut text = String::new();
+    for sample in samples {
+        text.push_str(&serde_json::to_string(sample)?);
+        text.push('\n');
+    }
+    let tmp = path.with_extension("jsonl.tmp");
+    std::fs::write(&tmp, text)?;
+    std::fs::rename(&tmp, path)
 }
 
 /// The tracked items whose count rose more than their threshold from
@@ -466,8 +494,41 @@ mod tests {
         assert_eq!(economy.open_alerts(), 0);
         // Read back from the file.
         let again = Economy::open(&dir);
-        assert_eq!(again.samples_since(0).len(), 2);
+        assert_eq!(again.samples_since(0, 600).len(), 2);
+        assert_eq!(again.samples_since(now - 1, 600).len(), 1);
         assert_eq!(again.state().tracked[0].alert_pct, 10.0);
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn long_charts_are_thinned_keeping_the_last() {
+        let economy = Economy {
+            state: JsonFile::open(std::env::temp_dir().join("rs-admin-economy-thin-unused.json")),
+            samples_path: PathBuf::new(),
+            samples: Mutex::new((0..1000).map(|at| sample(at, &[])).collect()),
+        };
+        let thinned = economy.samples_since(0, 600);
+        assert!(thinned.len() <= 600);
+        assert_eq!(thinned.first().unwrap().at_ms, 0);
+        assert_eq!(thinned.last().unwrap().at_ms, 999);
+        assert_eq!(economy.samples_since(995, 600).len(), 5);
+        assert!(economy.samples_since(5000, 600).is_empty());
+    }
+
+    #[test]
+    fn old_counts_leave_the_file() {
+        let dir = std::env::temp_dir().join(format!("rs-admin-economy-old-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("economy-samples.jsonl");
+        let lines: Vec<String> = [1, now_ms()]
+            .iter()
+            .map(|&at| serde_json::to_string(&sample(at, &[(995, 1)])).unwrap())
+            .collect();
+        std::fs::write(&path, lines.join("\n") + "\n").unwrap();
+        let economy = Economy::open(&dir);
+        assert_eq!(economy.samples_since(0, 600).len(), 1);
+        assert_eq!(std::fs::read_to_string(&path).unwrap().lines().count(), 1);
         let _ = std::fs::remove_dir_all(&dir);
     }
 }

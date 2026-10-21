@@ -1,4 +1,5 @@
 use super::AuditFilter;
+use super::access::AuditView;
 use super::replays::{ReplayView, view};
 use crate::audit::Entry;
 use crate::cases::Case;
@@ -79,7 +80,13 @@ pub async fn search(
     });
     cases.truncate(SHOWN);
     let filter = AuditFilter::new(None, Some(q));
-    let audit = app.audit.recent(SHOWN, |e| filter.keeps(e));
+    let audit_view = AuditView::new(&app, &staff);
+    let audit = app
+        .audit
+        .recent(SHOWN, |e| audit_view.shows(e) && filter.keeps(e))
+        .into_iter()
+        .map(|e| audit_view.redact(e))
+        .collect();
 
     let worlds = app.worlds.online();
     let online = async {

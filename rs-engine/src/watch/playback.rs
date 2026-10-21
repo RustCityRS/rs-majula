@@ -122,19 +122,29 @@ fn type_lines(lines: &[(u32, String)], clicks: &[u32], free: &mut u32, inputs: &
     }
 }
 
-/// Inflates `chunks` (in order) back into one recording. Stops at a chunk
-/// that doesn't inflate: nothing after it can play.
-pub fn inflate(chunks: &[ReplayChunk]) -> Vec<u8> {
+/// How a zstd frame starts. Chunks stored before zstd are raw deflate,
+/// which never starts this way: `0x28` opens a stored block, and its length
+/// (`0x2FB5`) and that length's complement (`0xD04A`, not `0x..FD`) would
+/// disagree.
+const ZSTD_MAGIC: [u8; 4] = [0x28, 0xB5, 0x2F, 0xFD];
+
+/// Decompresses `chunks` (in order) back into one recording. Stops at a
+/// chunk that doesn't decompress: nothing after it can play.
+pub fn decompress(chunks: &[ReplayChunk]) -> Vec<u8> {
     let mut out = Vec::new();
     for chunk in chunks {
         let mut raw = Vec::new();
-        if DeflateDecoder::new(&chunk.data[..])
-            .read_to_end(&mut raw)
-            .is_err()
-        {
+        let read = if chunk.data.starts_with(&ZSTD_MAGIC) {
+            zstd::stream::copy_decode(&chunk.data[..], &mut raw)
+        } else {
+            DeflateDecoder::new(&chunk.data[..])
+                .read_to_end(&mut raw)
+                .map(drop)
+        };
+        if read.is_err() {
             break;
         }
-        out.extend_from_slice(&raw);
+        out.append(&mut raw);
     }
     out
 }
@@ -329,6 +339,31 @@ mod tests {
         assert_eq!(second[4], Frame::Server as u8);
         assert_eq!(u32::from_be_bytes(second[5..9].try_into().unwrap()), 9);
         assert_eq!(&second[9..18], &[0, 2, 10, 1, 0, 3, 11, 2, 3]);
+    }
+
+    #[test]
+    fn old_deflate_chunks_play_after_zstd_ones() {
+        use flate2::Compression;
+        use flate2::write::DeflateEncoder;
+        use std::io::Write;
+        let chunk = |data: Vec<u8>| ReplayChunk {
+            seq: 0,
+            start_ms: 0,
+            end_ms: 0,
+            data,
+        };
+        let mut deflate = DeflateEncoder::new(Vec::new(), Compression::fast());
+        deflate.write_all(b"old ").unwrap();
+        let old = chunk(deflate.finish().unwrap());
+        let new = chunk(zstd::bulk::compress(b"new", 3).unwrap());
+        assert_eq!(decompress(&[old, new]), b"old new");
+
+        // A broken chunk ends it there, leaving nothing of itself.
+        let mut cut = zstd::bulk::compress(&[7; 4096], 3).unwrap();
+        cut.truncate(cut.len() / 2);
+        let after = chunk(zstd::bulk::compress(b"lost", 3).unwrap());
+        let first = chunk(zstd::bulk::compress(b"kept", 3).unwrap());
+        assert_eq!(decompress(&[first, chunk(cut), after]), b"kept");
     }
 
     /// A file's header and frames.

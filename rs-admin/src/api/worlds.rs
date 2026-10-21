@@ -295,14 +295,14 @@ pub struct ReloadRequest {
 
 /// `POST /api/worlds/{node}/reload-scripts`: recompiles one world's scripts
 /// and, unless only checking, swaps them in: an emergency fix without a
-/// restart. Developers only, and audited either way.
+/// restart. Maintainers only, and audited either way.
 pub async fn reload_scripts(
     State(app): State<Arc<App>>,
     staff: Staff,
     Path(node): Path<u8>,
     Json(req): Json<ReloadRequest>,
 ) -> Result<Json<ScriptsReloaded>, ApiError> {
-    staff.require_developer()?;
+    staff.require_maintainer()?;
     let world = app
         .worlds
         .get(node)

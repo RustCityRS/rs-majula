@@ -31,6 +31,7 @@ num_enum = { workspace = true }
 rustc-hash = { workspace = true }
 serde_json = { workspace = true }
 flate2 = { workspace = true }
+zstd = { workspace = true }
 
 [build-dependencies]
 rs-ver = { workspace = true }

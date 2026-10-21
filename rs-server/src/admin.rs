@@ -320,7 +320,8 @@ fn world_status(state: &AdminState, engine: &Engine) -> WorldStatus {
             .is_pending_shutdown()
             .then(|| state.reboot_reason.lock().ok()?.clone())
             .flatten(),
-        health: Some(state.health()),
+        // Filled in off the engine: reading the memory is a system call.
+        health: None,
         controls: Some(WorldControls {
             switches: engine.controls.patterns().to_vec(),
             min_account_age_hours: engine.controls.min_account_age_hours,
@@ -338,9 +339,9 @@ fn world_status(state: &AdminState, engine: &Engine) -> WorldStatus {
 
 async fn status(State(state): State<Arc<AdminState>>) -> Result<Json<WorldStatus>, StatusCode> {
     let s = state.clone();
-    on_engine(&state, move |engine| world_status(&s, engine))
-        .await
-        .map(Json)
+    let mut status = on_engine(&state, move |engine| world_status(&s, engine)).await?;
+    status.health = Some(state.health());
+    Ok(Json(status))
 }
 
 async fn players(
@@ -717,10 +718,12 @@ async fn moderation_lookup(
     Json(req): Json<ModerationLookup>,
 ) -> Result<Json<Vec<ModerationRecord>>, StatusCode> {
     let target = req.name.as_deref().map(name_hash).transpose()?;
+    let moderator = req.moderator.as_deref().map(name_hash).transpose()?;
     let rows = state
         .db
         .moderation_history(
             target,
+            moderator,
             req.before,
             i64::from(req.limit.clamp(1, MAX_LOOKUP_ROWS)),
         )
@@ -998,7 +1001,7 @@ async fn replay_data(
     extra.insert("startedMs".into(), record.started_ms.into());
     extra.insert("complete".into(), record.complete.into());
     let file =
-        tokio::task::spawn_blocking(move || playback::build(&playback::inflate(&chunks), extra))
+        tokio::task::spawn_blocking(move || playback::build(&playback::decompress(&chunks), extra))
             .await
             .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok((
@@ -1130,7 +1133,7 @@ async fn start_spectate(state: &AdminState, id: i64) -> Result<Vec<u8>, StatusCo
     extra.insert("complete".into(), true.into());
     let (builder, file) = tokio::task::spawn_blocking(move || {
         let mut builder = playback::Builder::default();
-        builder.feed(&playback::inflate(&chunks));
+        builder.feed(&playback::decompress(&chunks));
         let file = builder.take(extra);
         (builder, file)
     })
@@ -1176,7 +1179,7 @@ async fn continue_spectate(
     if let Some(last) = chunks.last() {
         spectate.next_seq = last.seq + 1;
     }
-    spectate.builder.feed(&playback::inflate(&chunks));
+    spectate.builder.feed(&playback::decompress(&chunks));
     Ok((spectate.builder.take(live_header(token, ended)), ended))
 }
 
@@ -1255,11 +1258,10 @@ async fn accounts_lookup(
 }
 
 /// The staff levels changes to players need, whatever the console allowed:
-/// sending a stuck player home, restoring items and rolling back, and the
-/// rest of player editing.
-const MODERATOR: u8 = 1;
+/// admins send stuck players home, restore items and roll back, maintainers
+/// edit the rest. Player moderators (1) change nobody.
 const ADMIN: u8 = 2;
-const DEVELOPER: u8 = 3;
+const MAINTAINER: u8 = 3;
 
 /// The longest note kept with a save staff changed, in characters.
 const MAX_NOTE_CHARS: usize = 400;
@@ -1371,14 +1373,39 @@ fn change(edit: PlayerEdit) -> Change {
 /// that is.
 fn edit_level(edit: &PlayerEdit) -> (u8, &'static str) {
     match edit {
-        PlayerEdit::SendHome => (MODERATOR, "moderators"),
+        PlayerEdit::SendHome => (ADMIN, "admins"),
         PlayerEdit::Restore { items } if !items.is_empty() && items.len() <= MAX_RESTORE_ITEMS => {
             (ADMIN, "admins")
         }
         // Over the limit: nobody.
         PlayerEdit::Restore { .. } => (u8::MAX, "nobody"),
-        _ => (DEVELOPER, "developers"),
+        _ => (MAINTAINER, "maintainers"),
     }
+}
+
+/// Whether staff of `actor` level may change a player of `target` level:
+/// only those below them, but maintainers anyone.
+fn may_change(actor: u8, target: u8) -> bool {
+    actor >= MAINTAINER || target < actor
+}
+
+/// Refuses a change to a player of the actor's staff level or above, by
+/// their record (so whether or not they're online). Unregistered players
+/// are left to the change to refuse.
+async fn check_outranked(
+    state: &AdminState,
+    user37: u64,
+    actor: u8,
+) -> Result<Option<Outcome>, StatusCode> {
+    let record = state.db.player_record(user37).await.map_err(db_failed)?;
+    Ok(record
+        .filter(|r| !may_change(actor, r.staff_mod_level.clamp(0, 255) as u8))
+        .map(|r| {
+            Outcome::refused(format!(
+                "{} is staff of your level or above.",
+                r.display_name
+            ))
+        }))
 }
 
 /// Changes a player: live if they're on this world, otherwise their save,
@@ -1393,6 +1420,9 @@ async fn player_edit(
         return Ok(Json(Outcome::refused(format!(
             "Only {who} can make that change."
         ))));
+    }
+    if let Some(refused) = check_outranked(&state, user37, req.actor.staff_level).await? {
+        return Ok(Json(refused));
     }
     // Its own task, so a dropped request can't stop an edit half way and
     // leave the claim held.
@@ -1550,7 +1580,7 @@ async fn begin_after_logout(
         else {
             return Ok(false);
         };
-        if target.player.staff_mod_level as u8 >= actor_level {
+        if !may_change(actor_level, target.player.staff_mod_level as u8) {
             return Err("They're staff of your level or above.".to_owned());
         }
         if !target.player.logout_sent {
@@ -1595,6 +1625,9 @@ async fn rollback(
     let user37 = name_hash(&req.name)?;
     if req.actor.staff_level < ADMIN {
         return Ok(Json(Outcome::refused("Only admins can roll players back.")));
+    }
+    if let Some(refused) = check_outranked(&state, user37, req.actor.staff_level).await? {
+        return Ok(Json(refused));
     }
     tokio::spawn(roll_back(state, user37, req))
         .await
@@ -2342,8 +2375,8 @@ async fn reload_scripts(
         compile_ms: 0,
         errors: None,
     };
-    if req.actor.staff_level < DEVELOPER {
-        return Ok(Json(refused("Only developers can reload scripts.")));
+    if req.actor.staff_level < MAINTAINER {
+        return Ok(Json(refused("Only maintainers can reload scripts.")));
     }
     let Ok(_one_at_a_time) = state.reloading.try_lock() else {
         return Ok(Json(refused("A script reload is already running here.")));
@@ -2383,8 +2416,13 @@ async fn reload_scripts(
             errors: None,
         }));
     }
-    let loaded = on_engine(&state, move |engine| engine.reload_scripts(scripts)).await? as u32;
-    crate::release_freed_memory();
+    let (loaded, old) = on_engine(&state, move |engine| engine.reload_scripts(scripts)).await?;
+    let loaded = loaded as u32;
+    let _ = tokio::task::spawn_blocking(move || {
+        drop(old);
+        crate::release_freed_memory();
+    })
+    .await;
     info!(
         "{} reloaded the scripts ({} of them) from the admin console: {}",
         req.actor.name, loaded, req.reason
@@ -2428,8 +2466,18 @@ mod tests {
     }
 
     #[test]
+    fn staff_change_only_those_below_them() {
+        assert!(may_change(ADMIN, 0));
+        assert!(may_change(ADMIN, 1));
+        assert!(!may_change(ADMIN, ADMIN));
+        assert!(!may_change(ADMIN, MAINTAINER));
+        // Maintainers, at the top, change anyone (their own accounts too).
+        assert!(may_change(MAINTAINER, MAINTAINER));
+    }
+
+    #[test]
     fn edits_need_their_level() {
-        assert_eq!(edit_level(&PlayerEdit::SendHome).0, MODERATOR);
+        assert_eq!(edit_level(&PlayerEdit::SendHome).0, ADMIN);
         let one = rs_admin_api::RestoreItem {
             inv: "bank".to_owned(),
             obj: 995,
@@ -2456,7 +2504,7 @@ mod tests {
                 level: 0
             })
             .0,
-            DEVELOPER
+            MAINTAINER
         );
     }
 }

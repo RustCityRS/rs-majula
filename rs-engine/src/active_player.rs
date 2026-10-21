@@ -899,6 +899,9 @@ impl ActivePlayer {
             z: CoordGrid::zone_origin(origin.z()),
         };
         self.watch.op(op, clock, base);
+        if !self.watch.recording() {
+            return;
+        }
         if let Some(note) = self.op_note(op) {
             self.watch.note(clock, &note);
         }
@@ -912,6 +915,9 @@ impl ActivePlayer {
     /// Records a "use" or spell action, e.g. "Use Bones on Altar".
     pub fn watch_use(&mut self, with: Using, on: Target) {
         self.watch_op(Op::Other);
+        if !self.watch.recording() {
+            return;
+        }
         let engine = engine();
         let obj = |id: u16| {
             engine
@@ -950,6 +956,9 @@ impl ActivePlayer {
     /// Records a click on interface component `com`.
     pub fn watch_button(&mut self, com: u16) {
         self.watch_op(Op::Other);
+        if !self.watch.recording() {
+            return;
+        }
         let note = format!("Click {}", self.component_name(com));
         self.watch_note(&note);
     }
@@ -957,6 +966,9 @@ impl ActivePlayer {
     /// Records a walk click on the game screen or the minimap.
     pub fn watch_walk(&mut self, path: &[u32], minimap: bool) {
         self.watch_op(Op::Other);
+        if !self.watch.recording() {
+            return;
+        }
         if let Some(&to) = path.last() {
             let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
             let on = if minimap { " (minimap)" } else { "" };

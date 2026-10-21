@@ -1124,8 +1124,8 @@ const NAV = [
     {path: '/chat', label: 'Chat logs', icon: 'chat', page: chatPage},
     {path: '/replays', label: 'Replays', icon: 'play', page: replaysPage},
     {path: '/audit', label: 'Audit log', icon: 'list', page: auditPage},
-    {path: '/news', label: 'News', icon: 'news', page: newsPage, developer: true},
-    {path: '/staff', label: 'Staff', icon: 'key', page: staffPage, developer: true},
+    {path: '/news', label: 'News', icon: 'news', page: newsPage, maintainer: true},
+    {path: '/staff', label: 'Staff', icon: 'key', page: staffPage, maintainer: true},
     {path: '/account', label: 'Account', icon: 'user', page: accountPage},
 ];
 // Pages reached from others, shown under their parent in the nav.
@@ -1134,17 +1134,18 @@ const PAGES = [
     {path: '/player', label: 'Player', page: playerPage, parent: '/players'},
     {path: '/replay', label: 'Replay', page: replayPage, parent: '/replays'},
     {path: '/case', label: 'Case', page: casePage, parent: '/moderation'},
+    {path: '/staff/member', label: 'Staff member', page: staffMemberPage, parent: '/staff', maintainer: true},
 ];
 // The first few fit the phone tab bar; the rest go under More.
 const TABS = 4;
 
-const isDeveloper = () => state.session?.role === 'developer';
+const isMaintainer = () => state.session?.role === 'maintainer';
 const isTrial = () => state.session?.role === 'trial';
 // The game staff level each role acts at; staff above yours keep their
 // sessions and logs from you.
-const ROLE_LEVELS = {trial: 1, moderator: 1, admin: 2, developer: 3};
+const ROLE_LEVELS = {trial: 1, moderator: 1, admin: 2, maintainer: 3};
 const mayWatch = (staffLevel) => (staffLevel || 0) <= (ROLE_LEVELS[state.session?.role] || 0);
-const navItems = () => NAV.filter((n) => !n.developer || isDeveloper());
+const navItems = () => NAV.filter((n) => !n.maintainer || isMaintainer());
 
 function navigate(path) {
     if (path !== location.pathname + location.search) history.pushState(null, '', path);
@@ -1179,7 +1180,7 @@ function render() {
             loadPrefs().then(render);
             return;
         }
-        state.canCommand = state.session.role === 'admin' || state.session.role === 'developer';
+        state.canCommand = state.session.role === 'admin' || state.session.role === 'maintainer';
         renderShell();
         renderPage();
         startPolling();
@@ -1333,7 +1334,7 @@ function renderPage() {
     for (const fn of pageCleanup) fn();
     pageCleanup = [];
     const path = location.pathname;
-    const allowed = PAGES.filter((n) => !n.developer || isDeveloper());
+    const allowed = PAGES.filter((n) => !n.maintainer || isMaintainer());
     const item = allowed.find((n) => n.path === path) || NAV[0];
     if (!allowed.some((n) => n.path === path)) history.replaceState(null, '', '/');
     const current = item.parent || item.path;
@@ -1447,7 +1448,7 @@ function authView() {
             render();
         });
         append(card, header('Staff console', 'Sign in to manage the worlds.'), form,
-            h('p', {class: 'auth-foot'}, 'No account? Ask a developer to add you.'));
+            h('p', {class: 'auth-foot'}, 'No account? Ask a maintainer to add you.'));
     } else if (stage === 'totp') {
         const code = codeInput();
         const form = h('form', {}, code, error, h('button', {type: 'submit', class: 'btn primary block'}, 'Verify'));
@@ -1736,7 +1737,7 @@ function worldsPage(ctx) {
             on: {click: () => scheduleDialog('reboot', chosen().sort((a, b) => a.id - b.id), clear)}
         }),
         button('Maintenance', {icon: 'lock', on: {click: () => maintenanceDialog(chosen(), clear)}}),
-        isDeveloper() && button('Reload scripts', {
+        isMaintainer() && button('Reload scripts', {
             icon: 'refresh',
             title: 'Recompile one world\'s scripts and swap them in',
             on: {
@@ -1828,7 +1829,7 @@ function worldPlayersDialog(world) {
 // ---------------------------------------------------------------------------
 // Players
 
-const STAFF = ['', 'Mod', 'Admin', 'Developer'];
+const STAFF = ['', 'Mod', 'Admin', 'Maintainer'];
 
 function playerBadges(p) {
     return [
@@ -2052,7 +2053,7 @@ function auditItem(e) {
         ? (e.action === 'sign_in_locked'
             ? [h('b', {}, e.target), ' was locked out after repeated failed sign-ins']
             : ['Failed sign-in as ', h('b', {}, e.target)])
-        : [h('b', {}, e.actor || 'Someone'), ` ${verb}`, e.target ? [' ', h('b', {}, e.target)] : null];
+        : [h('b', {}, e.actor && isMaintainer() ? staffLink(e.actor) : e.actor || 'Someone'), ` ${verb}`, e.target ? [' ', h('b', {}, e.target)] : null];
     // A sign-in's detail is the browser's user agent.
     const detail = e.action === 'sign_in' && e.detail ? device(e.detail) : e.detail;
     return h('div', {class: 'list-item'},
@@ -2249,7 +2250,7 @@ function accountPage() {
                     h('div', {class: 'list-main'},
                         h('div', {class: 'list-title'}, h('b', {}, name), ' ', h('span', {class: 'badge accent'}, ROLE_NAMES[role] || role)),
                         h('div', {class: 'list-sub'}, {
-                            developer: 'Can do everything, including managing staff accounts.',
+                            maintainer: 'Can do everything, including managing staff accounts.',
                             admin: 'Can reboot, broadcast, toggle maintenance, kick, mute and ban.',
                             moderator: 'Can kick, mute and ban. World controls need the admin role.',
                             trial: 'A trial moderator: can kick, and mute for up to 2 days. Bans, lifting sanctions, bulk dismissing and appeal decisions need a moderator.',
@@ -2475,7 +2476,7 @@ function playerPage(ctx) {
     append(page, head, watched, facts,
         notesSection(name, (on) => watched.classList.toggle('hidden', !on)),
         support.el,
-        isDeveloper() && editSection(name),
+        isMaintainer() && editSection(name),
         logsTop,
         h('div', {class: 'split'},
             card('Cases', button('Open case', {
@@ -3384,7 +3385,7 @@ function supportSection(name) {
             h('div', {class: 'grow'}, `A password reset is waiting for them to redeem, until ${fullTime(record.reset_until_ms)}.`)));
     };
     replace(actions,
-        button('Send home', {small: true, icon: 'home', on: {click: () => sendHomeDialog(name, online, reload)}}),
+        state.canCommand && button('Send home', {small: true, icon: 'home', on: {click: () => sendHomeDialog(name, online, reload)}}),
         state.canCommand && button('Reset password', {
             small: true,
             icon: 'key',
@@ -3407,7 +3408,7 @@ function supportSection(name) {
 }
 
 // ---------------------------------------------------------------------------
-// News on the website (developers)
+// News on the website (maintainers)
 
 // What news posts and case comments can embed, and the most they take (50 MB).
 const MEDIA_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'video/mp4', 'video/webm'];
@@ -4693,7 +4694,7 @@ function staffActivityTab(params, go) {
                 const rate = a.appealed ? a.overturned / a.appealed : 0;
                 const watch = a.appealed >= OVERTURN_WATCH.appealed && rate >= OVERTURN_WATCH.rate;
                 return h('tr', {},
-                    h('td', {}, h('div', {class: 'name-cell'}, playerLink(a.name),
+                    h('td', {}, h('div', {class: 'name-cell'}, a.role && isMaintainer() ? staffLink(a.name) : playerLink(a.name),
                         a.role ? h('span', {class: `badge ${a.role === 'trial' ? 'warn' : ''}`}, ROLE_NAMES[a.role] || a.role)
                             : h('span', {class: 'badge', title: 'No console account: their in-game sanctions were appealed'}, 'In game'))),
                     h('td', {class: 'num'}, `${a.kicks} · ${a.mutes} · ${a.bans} · ${a.lifts}`),
@@ -8203,16 +8204,18 @@ function hiscoresCard(name, extraActions) {
     const actions = h('div', {class: 'actions'}, extraActions);
     const load = () => api('GET', `/hiscores/player?${query({name})}`).then((s) => {
         if (!s) return replace(body, h('div', {class: 'empty'}, `No player named ${name} is registered.`));
-        const why = s.staff_level > 0 ? 'Staff are never ranked.'
+        // Player moderators are ranked like players; staff above aren't.
+        const ranks = s.staff_level < 2;
+        const why = !ranks ? 'Jagex moderators and maintainers are never ranked.'
             : s.banned ? 'Not ranked while banned.'
                 : s.hidden ? 'Hidden from every table by staff.' : null;
         replace(actions, extraActions,
-            state.canCommand && s.staff_level === 0 && button(s.hidden ? 'Show on the hiscores' : 'Hide from the hiscores', {
+            state.canCommand && ranks && button(s.hidden ? 'Show on the hiscores' : 'Hide from the hiscores', {
                 small: true,
                 icon: s.hidden ? 'eye' : 'ban',
                 on: {click: () => hiscoresChangeDialog(name, s, s.hidden ? 'show' : 'hide', load)},
             }),
-            state.canCommand && s.staff_level === 0 && !s.hidden && s.rows.length > 0 && button('Remove entries', {
+            state.canCommand && ranks && !s.hidden && s.rows.length > 0 && button('Remove entries', {
                 small: true,
                 icon: 'trash',
                 title: 'Take a cheater off some tables',
@@ -8322,18 +8325,18 @@ function reloadScriptsDialog(world, onDone) {
 }
 
 // ---------------------------------------------------------------------------
-// Staff accounts (developers)
+// Staff accounts (maintainers)
 
-const ROLES = [['trial', 'Trial'], ['moderator', 'Moderator'], ['admin', 'Admin'], ['developer', 'Developer']];
-const ROLE_NAMES = {trial: 'trial moderator', moderator: 'moderator', admin: 'admin', developer: 'developer'};
+const ROLES = [['trial', 'Trial'], ['moderator', 'Moderator'], ['admin', 'Admin'], ['maintainer', 'Maintainer']];
+const ROLE_NAMES = {trial: 'trial moderator', moderator: 'moderator', admin: 'admin', maintainer: 'maintainer'};
 const ROLE_HINTS = {
     trial: 'A moderator in training: kicks, and mutes of up to 2 days. No bans, lifting sanctions, bulk dismissing or deciding appeals.',
     moderator: 'Kicks, mutes and bans, looks players up and reads chat logs.',
     admin: 'Also reboots, broadcasts and toggles maintenance.',
-    developer: 'Everything, including managing these accounts.',
+    maintainer: 'Everything, including managing these accounts.',
 };
 
-// The acting developer's password and code, asked for with every change.
+// The acting maintainer's password and code, asked for with every change.
 function confirmFields() {
     const password = h('input', {
         class: 'input',
@@ -8460,8 +8463,9 @@ function staffChangeDialog(account, kind, onDone) {
             password: password.value
         })],
         reset_2fa: ['Reset 2FA', 'primary', 'shield', [h('p', {class: 'muted'}, 'They set up a new authenticator app at their next sign-in. Use this when they lose their phone.')], () => ({kind: 'reset2fa'})],
-        disable: ['Disable', 'danger', 'lock', [h('p', {class: 'muted'}, 'They can\'t sign in until a developer enables the account again.')], () => ({kind: 'disable'})],
+        disable: ['Disable', 'danger', 'lock', [h('p', {class: 'muted'}, 'They can\'t sign in until a maintainer enables the account again.')], () => ({kind: 'disable'})],
         enable: ['Enable', 'primary', 'unlock', [h('p', {class: 'muted'}, 'They can sign in again.')], () => ({kind: 'enable'})],
+        sign_out: ['Sign out everywhere', 'primary', 'logout', [h('p', {class: 'muted'}, 'Ends every session they have open. Nothing else about the account changes.')], () => ({kind: 'sign_out'})],
         remove: ['Remove account', 'danger', 'x', [h('div', {class: 'callout danger'}, icon('alert'), h('div', {}, 'The account is deleted. Its audit log entries stay.'))], () => ({kind: 'remove'})],
     };
     const [label, kindClass, iconName, body, change] = specs[kind];
@@ -8482,43 +8486,46 @@ function staffChangeDialog(account, kind, onDone) {
     });
 }
 
+const staffLink = (name, props = {}) => link(`/staff/member?${query({name})}`, {class: 'name-link', ...props}, name);
+
+const staffBadges = (a) => [
+    h('span', {class: 'badge accent'}, a.role), ' ',
+    a.you && h('span', {class: 'badge ok'}, 'You'), ' ',
+    !a.two_factor && h('span', {class: 'badge warn'}, '2FA not set up'), ' ',
+    a.disabled && h('span', {class: 'badge danger'}, 'Disabled')];
+
+// The changes a maintainer can make to someone else's account.
+function staffActions(a, onDone, {signOut = false} = {}) {
+    if (a.you) return link('/account', {class: 'btn small ghost'}, 'Your account', icon('chevron'));
+    const change = (kind) => () => staffChangeDialog(a, kind, () => onDone(kind));
+    return h('div', {class: 'chips'},
+        button('Role', {small: true, icon: 'key', on: {click: change('role')}}),
+        button('Password', {small: true, icon: 'lock', on: {click: change('password')}}),
+        a.two_factor && button('Reset 2FA', {small: true, icon: 'shield', on: {click: change('reset_2fa')}}),
+        signOut && a.sessions > 0 && button('Sign out everywhere', {small: true, icon: 'logout', on: {click: change('sign_out')}}),
+        a.disabled
+            ? button('Enable', {small: true, icon: 'unlock', on: {click: change('enable')}})
+            : button('Disable', {small: true, icon: 'lock', on: {click: change('disable')}}),
+        button(null, {
+            small: true,
+            icon: 'x',
+            'aria-label': `Remove ${a.name}`,
+            title: 'Remove',
+            on: {click: change('remove')}
+        }));
+}
+
 function staffPage() {
     const list = h('div', {class: 'list'}, h('div', {class: 'empty'}, h('div', {class: 'spinner'})));
     const load = async () => {
         try {
             const accounts = await api('GET', '/staff');
-            replace(list, accounts.map((a) => {
-                const change = (kind) => () => staffChangeDialog(a, kind, load);
-                return h('div', {class: 'list-item'},
-                    h('div', {class: 'avatar'}, initial(a.name)),
-                    h('div', {class: 'list-main'},
-                        h('div', {class: 'list-title'}, h('b', {}, a.name), ' ',
-                            h('span', {class: 'badge accent'}, a.role), ' ',
-                            a.you && h('span', {class: 'badge ok'}, 'You'), ' ',
-                            !a.two_factor && h('span', {class: 'badge warn'}, '2FA not set up'), ' ',
-                            a.disabled && h('span', {class: 'badge danger'}, 'Disabled')),
-                        h('div', {class: 'list-sub'}, `${a.sessions ? plural(a.sessions, 'session') + ' open' : 'Signed out'} · added ${a.created_ms ? dateOnly(a.created_ms) : 'from the command line'}`)),
-                    a.you
-                        ? link('/account', {class: 'btn small ghost'}, 'Your account', icon('chevron'))
-                        : h('div', {class: 'chips'},
-                            button('Role', {small: true, icon: 'key', on: {click: change('role')}}),
-                            button('Password', {small: true, icon: 'lock', on: {click: change('password')}}),
-                            a.two_factor && button('Reset 2FA', {
-                                small: true,
-                                icon: 'shield',
-                                on: {click: change('reset_2fa')}
-                            }),
-                            a.disabled
-                                ? button('Enable', {small: true, icon: 'unlock', on: {click: change('enable')}})
-                                : button('Disable', {small: true, icon: 'lock', on: {click: change('disable')}}),
-                            button(null, {
-                                small: true,
-                                icon: 'x',
-                                'aria-label': `Remove ${a.name}`,
-                                title: 'Remove',
-                                on: {click: change('remove')}
-                            })));
-            }));
+            replace(list, accounts.map((a) => h('div', {class: 'list-item'},
+                h('div', {class: 'avatar'}, initial(a.name)),
+                h('div', {class: 'list-main'},
+                    h('div', {class: 'list-title'}, h('b', {}, staffLink(a.name)), ' ', staffBadges(a)),
+                    h('div', {class: 'list-sub'}, `${a.sessions ? plural(a.sessions, 'session') + ' open' : 'Signed out'} · added ${a.created_ms ? dateOnly(a.created_ms) : 'from the command line'}`)),
+                staffActions(a, load))));
         } catch (e) {
             replace(list, h('div', {class: 'empty'}, e.message));
         }
@@ -8528,6 +8535,134 @@ function staffPage() {
         pageHead('Staff', 'Console accounts. Every change needs your password and authenticator code, and is audited.',
             button('Add account', {icon: 'plus', kind: 'primary', on: {click: () => addStaffDialog(load)}})),
         h('section', {class: 'card'}, list));
+}
+
+// One staff member, for maintainers: their account, where they're signed
+// in, what they did and every audit entry that's theirs.
+
+const MEMBER_TABS = [['audit', 'Audit log'], ['sanctions', 'Sanctions'], ['cases', 'Cases'], ['sign_ins', 'Sign-ins']];
+
+function staffMemberPage(ctx) {
+    const name = (ctx.params.get('name') || '').trim();
+    let tab = MEMBER_TABS.some(([k]) => k === ctx.params.get('tab')) ? ctx.params.get('tab') : 'audit';
+    let days = ACTIVITY_WINDOWS.some(([d]) => String(d) === ctx.params.get('days')) ? Number(ctx.params.get('days')) : 30;
+    const head = h('div', {}, pageHead(name || 'Staff member', 'Loading...'));
+    const chips = h('div', {class: 'chips'});
+    const stats = h('div', {class: 'stats'});
+    const sessions = h('div', {});
+    const tabs = h('div', {class: 'segmented tabs', role: 'group', 'aria-label': 'View'});
+    const body = h('div', {class: 'column'});
+    const keepUrl = () => history.replaceState(null, '', `/staff/member?${query({name, tab: tab === 'audit' ? null : tab, days: days === 30 ? null : days})}`);
+    const stat = (iconName, label, value, sub) => h('div', {class: 'card stat'},
+        h('div', {class: 'label'}, icon(iconName), label), h('div', {class: 'value num'}, value), h('div', {class: 'sub'}, sub));
+    const took = (ms) => (ms == null ? '-' : span(ms / 1000));
+
+    const drawStats = (a) => {
+        const rate = a.appealed ? Math.round(a.overturned / a.appealed * 100) : null;
+        replace(stats,
+            stat('shield', 'Sanctions', `${a.kicks} · ${a.mutes} · ${a.bans} · ${a.lifts}`, 'Kicks · mutes · bans · lifted, in the console'),
+            stat('briefcase', 'Cases', `${a.cases_opened} / ${a.cases_closed}`,
+                `Opened / closed · ${plural(a.comments, 'comment')} · ${a.dismissed} dismissed`),
+            stat('undo', 'Overturned', a.appealed ? `${a.overturned} / ${a.appealed}` : '-',
+                `${rate === null ? 'None of theirs appealed' : `${rate}% of their appealed sanctions`} · ${a.appeals_decided} decided`),
+            stat('clock', 'Pickup', took(a.pickup_ms), `To close ${took(a.close_ms)} · to decide ${took(a.decide_ms)}`));
+    };
+    const drawSessions = (m) => replace(sessions, m.open_sessions.length
+        ? m.open_sessions.map((s) => h('div', {class: 'session-row'},
+            h('div', {class: 'list-icon'}, icon('monitor')),
+            h('div', {class: 'list-main'},
+                h('div', {class: 'list-title'}, h('b', {}, device(s.user_agent))),
+                h('div', {class: 'list-sub'}, `${s.ip} · signed in ${ago(s.created_ms)} · active ${ago(s.last_seen_ms)}`))))
+        : h('div', {class: 'empty'}, icon('monitor'), 'Not signed in anywhere.'));
+
+    const load = async () => {
+        keepUrl();
+        replace(chips, ACTIVITY_WINDOWS.map(([d, label]) => h('button', {
+            type: 'button',
+            class: 'chip',
+            'aria-pressed': String(days === d),
+            on: {
+                click: () => {
+                    days = d;
+                    load();
+                }
+            }
+        }, label)));
+        try {
+            const m = await api('GET', `/staff/member?${query({name, days})}`);
+            const active = m.activity?.last_active_ms;
+            replace(head, pageHead(m.name,
+                [`${ROLE_NAMES[m.role] || m.role} · added ${m.created_ms ? dateOnly(m.created_ms) : 'from the command line'} · `,
+                    active ? h('span', {title: fullTime(active)}, `last moderation action ${ago(active)}`) : `no moderation actions in the last ${days} days`],
+                link(`/player?${query({name: m.name})}`, {class: 'btn small ghost'}, 'Player page', icon('chevron'))),
+            h('div', {class: 'toolbar'}, h('div', {class: 'chips'}, staffBadges(m)),
+                staffActions(m, (kind) => (kind === 'remove' ? navigate('/staff') : load()), {signOut: true})));
+            drawStats(m.activity || {
+                kicks: 0, mutes: 0, bans: 0, lifts: 0, cases_opened: 0, cases_closed: 0, comments: 0,
+                dismissed: 0, appeals_decided: 0, appealed: 0, overturned: 0
+            });
+            drawSessions(m);
+        } catch (e) {
+            replace(head, pageHead(name || 'Staff member', e.message));
+        }
+    };
+
+    const auditTab = (q, title) => {
+        const search = h('input', {
+            class: 'input',
+            type: 'search',
+            placeholder: 'Search actions, players, details',
+            'aria-label': `Search ${name}'s audit entries`,
+            value: q || ''
+        });
+        const filter = () => query({actor: name, q: q ?? search.value.trim()});
+        const paged = pagedList((before) => api('GET', `/audit?${query({limit: 50, before})}&${filter()}`), auditItem, 'No matching entries.');
+        search.addEventListener('input', debounce(paged.reload, 250));
+        return [
+            q == null && h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), search),
+                exportButton(() => `/export/audit?${filter()}`, 'Download every entry this search finds (up to 10,000) as a CSV file')),
+            h('section', {class: 'card'}, title && h('div', {class: 'card-head'}, h('h2', {}, title)), paged.el)];
+    };
+    const drawTab = () => {
+        keepUrl();
+        replace(tabs, MEMBER_TABS.map(([k, label]) => h('button', {
+            type: 'button', 'aria-pressed': String(tab === k), on: {
+                click: () => {
+                    tab = k;
+                    drawTab();
+                }
+            }
+        }, label)));
+        if (tab === 'audit') {
+            replace(body, auditTab(null));
+        } else if (tab === 'sanctions') {
+            const paged = pagedList((before) => api('GET', `/lookup/moderation?${query({moderator: name, before})}`),
+                moderationItem, 'No moderation by them on record.');
+            replace(body, h('section', {class: 'card'},
+                h('div', {class: 'card-head'}, h('h2', {}, 'Every kick, mute and ban, in game or here, newest first')), paged.el));
+        } else if (tab === 'cases') {
+            const list = spinnerList();
+            replace(body, h('section', {class: 'card'},
+                h('div', {class: 'card-head'}, h('h2', {}, 'Cases they opened, closed or are on')), list));
+            api('GET', `/cases?${query({staff: name, status: 'all'})}`).then((rows) => replace(list, rows.length
+                ? rows.map((c) => caseItem(c))
+                : h('div', {class: 'empty'}, icon('briefcase'), 'No cases.'))).catch((e) => failed(list, e));
+        } else {
+            replace(body,
+                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Signed in now')), sessions),
+                auditTab('sign_in', 'Sign-ins and failed attempts'));
+        }
+    };
+
+    const page = h('div', {class: 'page'}, head);
+    if (!validName(name)) {
+        replace(head, pageHead('Staff member', 'That isn\'t a valid name.'));
+        return page;
+    }
+    load();
+    drawTab();
+    append(page, h('div', {class: 'toolbar'}, chips), stats, tabs, body);
+    return page;
 }
 
 // ---------------------------------------------------------------------------

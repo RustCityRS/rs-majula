@@ -397,7 +397,7 @@ fn write_counters(out: &mut String) {
         ),
         (
             "rs_db_replay_bytes_total",
-            "Deflated bytes of the session recording chunks stored.",
+            "Compressed bytes of the session recording chunks stored.",
             &c.replay_bytes,
         ),
         (

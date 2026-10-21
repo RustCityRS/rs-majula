@@ -29,6 +29,7 @@ use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
 use rs_protocol::network::game::client::event_tracking::EventTracking;
 use rs_protocol::network::game::client_prot::ClientProt;
 use serde_json::json;
+use std::collections::VecDeque;
 
 /// A payload field: a fixed value, or (`Any*`) a random one.
 #[derive(Clone, Copy)]
@@ -262,7 +263,7 @@ pub struct AntiCheat {
     last_click_clock: Option<u32>,
     clicks: u32,
     jumps: u32,
-    gaps: Vec<u32>,
+    gaps: VecDeque<u32>,
     #[cfg(before_254)]
     last_press_ms: Option<u32>,
     last_cursor: Option<(i32, i32)>,
@@ -405,9 +406,9 @@ impl AntiCheat {
             return;
         }
         if self.gaps.len() == RHYTHM_GAPS {
-            self.gaps.remove(0);
+            self.gaps.pop_front();
         }
-        self.gaps.push(ms);
+        self.gaps.push_back(ms);
     }
 
     /// The player chose a menu action, on tick `clock`.

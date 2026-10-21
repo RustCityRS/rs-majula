@@ -292,7 +292,9 @@ on phones too.
     can't reach is only released from once its heartbeat is a minute old,
     as a login elsewhere would take it over.
   - *Send home:* to Lumbridge (or Tutorial Island's start, for a player
-    still on it), now or where they next log in. Moderators can do this.
+    still on it), now or where they next log in (admins). Moderators
+    (staff level 1) change nobody's account: no edits, restorations,
+    rollbacks or send-home.
   - *Reset password* (admins): a one-time code to give the player, which
     sets a new password at `/recover` on the website within 3 days (wrong
     codes count toward the per-IP login lockout). It can also lock the old
@@ -339,27 +341,33 @@ on phones too.
     with one audit entry, noted on the case for each account. Check shows
     the save each goes back to; nothing is rolled back unless every account
     has one.
-  - *Hiscores:* staff of any level and banned players are never ranked.
+  - *Hiscores:* Jagex moderators, maintainers (staff level 2 and up) and
+    banned players are never ranked; player moderators are, like players.
     Admins can hide an account from every table, or remove a cheater's
     entries from some (their saves keep the rows current, so putting them
     back is instant); a player's page shows their ranks.
-- **Script reload** (developers only, on the Worlds page with one world
+- **Script reload** (maintainers only, on the Worlds page with one world
   picked): recompiles that world's scripts from its content folder and
   swaps them in without a restart, for an emergency fix. Check first: if
   they don't compile, nothing changes and the compiler's errors show.
   Scripts only (configs, maps and interfaces need a restart); scripts
   already running finish on the old code. A reason is required, and checks
   and reloads are audited.
-- **Staff** (developers only): add accounts, change roles and passwords,
-  reset 2FA, disable or remove. Each change needs the developer's password
-  and a fresh authenticator code.
-- **Stats and items** (developers only, on a player's page): set stats, give
+- **Staff** (maintainers only): add accounts, change roles and passwords,
+  reset 2FA, sign them out everywhere, disable or remove. Each change needs
+  the maintainer's password and a fresh authenticator code. A name opens
+  their profile: where they're signed in, their numbers over 7, 30 or 90
+  days, and tabs for their audit entries (searchable, exportable), every
+  kick, mute and ban by them in game or here, the cases they opened,
+  closed or are on, and their sign-ins and failed attempts under their
+  name.
+- **Stats and items** (maintainers only, on a player's page): set stats, give
   or take items in the backpack, bank or any saved inventory, and move them.
   A logged-in player is changed live by the world they're on; a logged-out
   one has their save changed by any world, which claims their session for
   the moment it takes, exactly as a login would, so they can't log in half
   way through. Every change is audited.
-- **News** (developers only): write the website's news in Markdown, with
+- **News** (maintainers only): write the website's news in Markdown, with
   images, GIFs and videos (add them with the button, or paste or drop them
   into the text), preview it as the site shows it, and post, edit or delete
   it. It goes through the website's admin API (`--web-url`,
@@ -369,7 +377,7 @@ First-time setup, locally:
 
 ```bash
 cargo world1                                                # a world; its admin API is on 8280
-cargo run -p rs-admin -- user add <name> --role developer   # a game staff account; asks for a password (12+ characters)
+cargo run -p rs-admin -- user add <name> --role maintainer   # a game staff account; asks for a password (12+ characters)
 cargo run -p rs-admin                                       # http://127.0.0.1:8150
 ```
 
@@ -403,10 +411,11 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   but no bans, lifting mutes or bans, sanctioning linked accounts, bulk
   dismissing or deciding appeals (the console refuses them, not just the
   page); `moderator` (1) kicks, mutes, bans, looks players up, reads chat logs,
-  frees stuck sessions and sends stuck players home; `admin` (2) also
-  reboots, broadcasts, toggles maintenance, resets passwords, restores
+  and frees stuck sessions, but changes nobody's account; `admin` (2)
+  also reboots, broadcasts, toggles maintenance, sends stuck players home,
+  resets passwords, restores
   items, rolls saves back (one account or a ring), changes the hiscores and
-  what the economy tracks; `developer` (3)
+  what the economy tracks; `maintainer` (3)
   also manages staff accounts, changes players' stats and items, reloads
   scripts, and posts news. Nobody can moderate someone at or above their
   own level, nor see the sessions or logs (recordings, live spectating,
@@ -414,13 +423,17 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
   trade graphs) of staff above
   it: lists leave them out, and their player page says so. Manage accounts on the Staff page, or with `rs-admin user
   list|add|passwd|role|reset-2fa|disable|enable|remove` (the way to create
-  the first developer); changing a password, role or authenticator signs
+  the first maintainer); changing a password, role or authenticator signs
   that account out everywhere.
 - Everything done through it, sign-ins included, goes to
   `rs-admin/data/audit.jsonl` and the `audit` log target. The file is only
   ever appended to, and each entry is synced to disk before it shows; the
   Audit log page pages and searches all of it, back to the first entry (an
-  entry's number is its place in the file, so it never changes). Back the
+  entry's number is its place in the file, so it never changes). It,
+  its export, search and Staff activity leave out what staff above you did
+  (and names with no account, to all but maintainers), and show the
+  address and browser only of your own entries and those of staff below
+  you; maintainers see everything. Back the
   file up with the rest of `rs-admin/data/`. Cases are
   `rs-admin/data/cases.jsonl`: every change to one is appended there and the
   cases are rebuilt from it at start, so nothing is ever rewritten. Images
@@ -440,8 +453,9 @@ the secret `rs_admin` with debug worlds, so nothing else needs setting.
 
 Every world records each player's session (`--replay-days`, 7 by default;
 `0` records nothing): every packet it sends them, minus the ISAAC cipher,
-and every packet their client sends back, in chunks deflated by a task with
-its own database connection, so saves never wait on it. Recordings go to
+and every packet their client sends back, in chunks compressed with zstd
+by a task with its own database connection, so saves never wait on it
+(chunks stored before zstd are deflate, and still play). Recordings go to
 `replays` and `replay_chunks` and are pruned once older than the setting.
 They're a few kilobytes per minute of play.
 
@@ -631,7 +645,7 @@ node; the nodes mesh into one cluster for cross-world social features.
    a worlds file passed with `--worlds`. Serve it over HTTPS on the private
    network only (e.g. `tailscale serve --bg 8150`), start it with
    `--https true --origin https://<that host>`, and create the first account
-   with `rs-admin user add <name> --role developer` (in the console's
+   with `rs-admin user add <name> --role maintainer` (in the console's
    environment and with its `--worlds`, since it asks a world whether they're
    game staff, so with the worlds up). Never expose it or an
    admin API to the internet. Worlds restart after a console reboot only if
@@ -645,6 +659,17 @@ node; the nodes mesh into one cluster for cross-world social features.
    `https://w1.example.com`); the console's browser loads `/replay` from it.
 9. **Keep recordings out of routine backups.** Session recordings are bulky
    and short-lived: dump with `pg_dump --exclude-table-data=replay_chunks`.
+10. **Grant the website's login what appeals and recovery need.** If the
+    website runs as its own restricted database role, `/appeal` and
+    `/recover` also need, on top of news, hiscores and registration:
+
+    ```sql
+    GRANT SELECT (id, display_name, password_hash, muted_until, banned_until, reset_code_hash, reset_code_until) ON players TO rs_web;
+    GRANT UPDATE (password_hash, reset_code_hash, reset_code_until) ON players TO rs_web;
+    GRANT SELECT, INSERT, UPDATE ON appeals TO rs_web;
+    GRANT SELECT (id, moderator_id, target_id, action, hours, reason, created_at) ON moderation_logs TO rs_web;
+    GRANT SELECT, INSERT ON login_failures TO rs_web;
+    ```
 
 ----
 

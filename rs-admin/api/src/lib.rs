@@ -426,6 +426,9 @@ pub struct PlayerRecord {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ModerationLookup {
     pub name: Option<String>,
+    /// Only those by this moderator.
+    #[serde(default)]
+    pub moderator: Option<String>,
     pub before: Option<i64>,
     pub limit: u32,
 }
@@ -767,7 +770,7 @@ pub struct PlayerEditRequest {
     pub reason: Option<String>,
 }
 
-/// Developers may make any of these; [`PlayerEdit::Restore`] needs an
+/// Maintainers may make any of these; [`PlayerEdit::Restore`] needs an
 /// admin and [`PlayerEdit::SendHome`] a moderator.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
@@ -1355,7 +1358,7 @@ pub struct KeptOff {
 
 /// `POST /v1/scripts/reload`: recompiles the world's scripts from its
 /// content and, unless `check_only`, swaps them in without a restart. The
-/// cache stays as it is, so it's for script fixes only. Developers only;
+/// cache stays as it is, so it's for script fixes only. Maintainers only;
 /// answered with [`ScriptsReloaded`].
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ReloadScripts {

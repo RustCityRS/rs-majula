@@ -432,11 +432,13 @@ impl Db {
         .await
     }
 
-    /// Moderation commands newest first, all of them or only those on the
-    /// player `target`, older than the entry `before` when paging.
+    /// Moderation commands newest first: all of them, or only those on the
+    /// player `target` and those by `moderator`, older than the entry
+    /// `before` when paging.
     pub async fn moderation_history(
         &self,
         target: Option<u64>,
+        moderator: Option<u64>,
         before: Option<i64>,
         limit: i64,
     ) -> Result<Vec<ModerationRecord>, Error> {
@@ -453,6 +455,11 @@ impl Db {
                 .push(" AND m.target_id = (SELECT id FROM players WHERE name_hash = ")
                 .push_bind(target as i64)
                 .push(")");
+        }
+        if let Some(moderator) = moderator {
+            query
+                .push(" AND mp.name_hash = ")
+                .push_bind(moderator as i64);
         }
         if let Some(before) = before {
             query.push(" AND m.id < ").push_bind(before);
