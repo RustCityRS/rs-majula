@@ -196,8 +196,10 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
     }
     buf.rsadec(RsaFrame::Byte, client.server_io.rsa);
     let magic = buf.g1();
+    // Most likely a client from before a deploy changed the login key: it
+    // needs reloading.
     if magic != 10 {
-        let _ = client.write(&[LoginResponse::Rejected as u8]).await;
+        let _ = client.write(&[LoginResponse::RuneScapeUpdated as u8]).await;
         bail!("{}: Invalid magic: {}", client.addr, magic)
     }
     let seed = [buf.g4s(), buf.g4s(), buf.g4s(), buf.g4s()];
