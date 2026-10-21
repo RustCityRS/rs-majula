@@ -8,7 +8,9 @@ use axum::Json;
 use axum::extract::{Path, Query, State};
 use axum::http::{StatusCode, header};
 use axum::response::{IntoResponse, Response};
-use rs_admin_api::{ReplayGet, ReplayLookup, ReplaySummary, path};
+use rs_admin_api::{
+    ReplayGet, ReplayLookup, ReplayStorage, ReplayStorageLookup, ReplaySummary, path,
+};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -114,6 +116,18 @@ pub async fn list(
         }
     }
     Ok(Json(views))
+}
+
+/// `GET /api/replays/storage`: how much the recordings take up.
+pub async fn storage(
+    State(app): State<Arc<App>>,
+    _staff: Staff,
+) -> Result<Json<ReplayStorage>, ApiError> {
+    app.worlds
+        .ask(path::REPLAY_STORAGE, &ReplayStorageLookup {})
+        .await
+        .map(Json)
+        .map_err(unavailable)
 }
 
 #[derive(Serialize)]

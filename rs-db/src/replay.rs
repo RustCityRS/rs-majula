@@ -54,6 +54,18 @@ pub struct ReplayRecord {
     pub stats: String,
 }
 
+/// How much the recordings take up.
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct ReplayStorage {
+    pub recordings: i64,
+    pub bytes: i64,
+    pub disk_bytes: i64,
+    pub oldest_ms: Option<i64>,
+    pub play_ms: i64,
+    pub day_recordings: i64,
+    pub day_bytes: i64,
+}
+
 const RECORD_COLUMNS: &str = concat!(
     "SELECT r.id, p.display_name AS player, p.name_hash, r.node_id, r.revision, ",
     ms!("r.started_at"),
@@ -190,6 +202,20 @@ impl Db {
             .execute(&mut *tx)
             .await?;
         tx.commit().await
+    }
+
+    /// How much the recordings take up.
+    pub async fn replay_storage(&self) -> Result<ReplayStorage, Error> {
+        sqlx::query_as(concat!(
+            "SELECT count(*) AS recordings, coalesce(sum(bytes), 0)::bigint AS bytes, ",
+            "(pg_total_relation_size('replays') + pg_total_relation_size('replay_chunks'))::bigint AS disk_bytes, ",
+            ms!("min(started_at)"),
+            " AS oldest_ms, coalesce(sum(duration_ms), 0)::bigint AS play_ms, count(*) FILTER (WHERE started_at > now() - interval '1 day') AS day_recordings, ",
+            "coalesce(sum(bytes) FILTER (WHERE started_at > now() - interval '1 day'), 0)::bigint AS day_bytes ",
+            "FROM replays"
+        ))
+        .fetch_one(&self.pool)
+        .await
     }
 
     /// Deletes recordings started more than `days` days ago. Returns how many.

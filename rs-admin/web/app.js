@@ -2056,7 +2056,7 @@ function playersPage(ctx) {
         mineBox,
         h('section', {class: 'card'},
             h('div', {class: 'card-head'}, h('h2', {}, 'Online'), h('div', {class: 'actions'}, summary)),
-            results),
+            scrollWindow(results)),
         offlineCard);
 }
 
@@ -2153,6 +2153,7 @@ function auditItem(e) {
 function auditPage(ctx) {
     const list = h('div', {class: 'list'});
     const more = h('div', {class: 'more hidden'});
+    const box = scrollWindow(list, more);
     const search = h('input', {
         class: 'input',
         type: 'search',
@@ -2167,9 +2168,13 @@ function auditPage(ctx) {
     const filter = () => ({q: search.value.trim(), mine: mine ? '1' : ''});
     const filterQuery = () => query({q: filter().q, actor: mine ? state.session.name : null});
 
+    let fetching = false;
     const load = async (append_) => {
+        if (append_ && fetching) return;
         const current = ++seq;
+        fetching = true;
         if (!append_) {
+            box.scrollTop = 0;
             const q = query(filter());
             history.replaceState(null, '', `/audit${q ? `?${q}` : ''}`);
             saved.draw();
@@ -2184,6 +2189,8 @@ function auditPage(ctx) {
             more.classList.toggle('hidden', entries.length < 50);
         } catch (e) {
             replace(list, h('div', {class: 'empty'}, e.message));
+        } finally {
+            if (current === seq) fetching = false;
         }
     };
     const setMine = (on) => {
@@ -2201,6 +2208,7 @@ function auditPage(ctx) {
     drawChips();
     search.addEventListener('input', debounce(() => load(), 250));
     append(more, button('Load older', {small: true, on: {click: () => load(true)}}));
+    loadOnScroll(box, more, () => load(true));
     load();
 
     return h('div', {class: 'page'},
@@ -2208,7 +2216,7 @@ function auditPage(ctx) {
             exportButton(() => `/export/audit?${filterQuery()}`, 'Download every entry this search finds (up to 10,000) as a CSV file')),
         h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), search), chips),
         saved.el,
-        h('section', {class: 'card'}, list, more));
+        h('section', {class: 'card'}, box));
 }
 
 // ---------------------------------------------------------------------------
@@ -2407,13 +2415,46 @@ function chatItem(c) {
 }
 
 // A list that loads a page at a time, newest first, with "Load older".
+// A box a long list scrolls in, so it doesn't run down the page. The wheel
+// stays in it only while it has something to scroll: over a short list, the
+// page scrolls.
+function scrollWindow(...children) {
+    const box = h('div', {class: 'scroll-window'}, ...children);
+    const sync = () => box.classList.toggle('overflows', box.scrollHeight > box.clientHeight + 1);
+    const sizes = new ResizeObserver(sync);
+    sizes.observe(box);
+    for (const child of children.flat()) if (child instanceof Element) sizes.observe(child);
+    return box;
+}
+
+// A scroll window for a wide table: it scrolls sideways too, and its header
+// row stays in view.
+function tableWindow(...children) {
+    const box = scrollWindow(...children);
+    box.classList.add('table-wrap');
+    return box;
+}
+
+// Calls `load` as `more` (in scroll window `box`) comes into view, unless
+// it's hidden: older rows load as the bottom is reached.
+function loadOnScroll(box, more, load) {
+    new IntersectionObserver((seen) => {
+        if (seen.some((s) => s.isIntersecting) && !more.classList.contains('hidden')) load();
+    }, {root: box, rootMargin: '200px'}).observe(more);
+}
+
 function pagedList(fetchPage, item, emptyText, cursor = (row) => row.id) {
     const list = h('div', {class: 'list'}, h('div', {class: 'empty'}, h('div', {class: 'spinner'})));
     const more = h('div', {class: 'more hidden'});
+    const box = scrollWindow(list, more);
     let last = null;
     let seq = 0;
+    let fetching = false;
     const load = async (older) => {
+        if (older && fetching) return;
         const mine = ++seq;
+        if (!older) box.scrollTop = 0;
+        fetching = true;
         try {
             const rows = await fetchPage(older ? last : null);
             if (mine !== seq) return;
@@ -2424,11 +2465,14 @@ function pagedList(fetchPage, item, emptyText, cursor = (row) => row.id) {
             more.classList.toggle('hidden', rows.length < 50);
         } catch (e) {
             if (mine === seq) replace(list, h('div', {class: 'empty'}, e.message));
+        } finally {
+            if (mine === seq) fetching = false;
         }
     };
     append(more, button('Load older', {small: true, on: {click: () => load(true)}}));
+    loadOnScroll(box, more, () => load(true));
     load(false);
-    return {el: [list, more], reload: () => load(false)};
+    return {el: box, list, reload: () => load(false)};
 }
 
 const query = (params) => {
@@ -3781,10 +3825,12 @@ function newsPage() {
     };
     newButton.addEventListener('click', () => newsDialog(categories, null, () => load(false)));
     append(more, button('Load older', {small: true, on: {click: () => load(true)}}));
+    const box = scrollWindow(list, more);
+    loadOnScroll(box, more, () => load(true));
     load(false);
     return h('div', {class: 'page'},
         pageHead('News', 'Posts on the website\'s front page and news archive.', newButton),
-        h('section', {class: 'card'}, list, more));
+        h('section', {class: 'card'}, box));
 }
 
 // ---------------------------------------------------------------------------
@@ -4659,7 +4705,7 @@ function moderationPage(ctx) {
         return {
             load, el: [
                 h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), search), chips),
-                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Cases'), h('div', {class: 'actions'}, markRead, count)), list)]
+                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Cases'), h('div', {class: 'actions'}, markRead, count)), scrollWindow(list))]
         };
     };
 
@@ -4701,7 +4747,7 @@ function moderationPage(ctx) {
         load();
         return {
             load,
-            el: h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'In force now'), h('div', {class: 'actions'}, count)), list)
+            el: h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'In force now'), h('div', {class: 'actions'}, count)), scrollWindow(list))
         };
     };
 
@@ -5652,7 +5698,7 @@ function chatPage(ctx) {
             if (!before) newest = rows.length ? rows[0].id : 0;
             return rows;
         }), chatItem, 'No chat matches.');
-        feed = {list: paged.el[0], name, node};
+        feed = {list: paged.list, name, node};
         replace(body, paged.el);
     };
     // The live feed: what's come since the newest shown, at the top.
@@ -5761,7 +5807,8 @@ const flagBadge = (flag) => h('span', {
 
 function kilobytes(n) {
     if (n < 1024 * 1024) return `${Math.max(1, Math.round(n / 1024))} KB`;
-    return `${(n / 1024 / 1024).toFixed(1)} MB`;
+    if (n < 1024 * 1024 * 1024) return `${(n / 1024 / 1024).toFixed(1)} MB`;
+    return `${(n / 1024 / 1024 / 1024).toFixed(2)} GB`;
 }
 
 const replayHref = (r) => `/replay?${query({id: r.id})}`;
@@ -5798,6 +5845,18 @@ function replaysPage(ctx) {
     nameSuggest(nameInput);
     const filter = h('div', {class: 'chips'});
     const body = h('div', {});
+    const stats = h('div', {class: 'stats'});
+    const stat = (iconName, label, value, sub) => h('div', {class: 'card stat'},
+        h('div', {class: 'label'}, icon(iconName), label), h('div', {class: 'value num'}, value), h('div', {class: 'sub'}, sub));
+
+    // How much they take up: left out when no world can say.
+    const loadStorage = () => api('GET', '/replays/storage').then((s) => replace(stats,
+        stat('download', 'Storage', kilobytes(s.bytes), `${kilobytes(s.disk_bytes)} on disk, indexes and overhead included`),
+        stat('play', 'Recordings', s.recordings.toLocaleString(), s.oldest_ms ? `The oldest started ${ago(s.oldest_ms)}` : 'None kept'),
+        stat('clock', 'Last 24 hours', kilobytes(s.day_bytes), plural(s.day_recordings, 'session')),
+        stat('activity', 'Per hour played', s.play_ms ? kilobytes(s.bytes / s.play_ms * 3_600_000) : '-',
+            `Over ${plural(Math.round(s.play_ms / 3_600_000), 'hour')} recorded`)))
+        .catch(() => replace(stats));
 
     const load = () => {
         const name = nameInput.value.trim();
@@ -5839,11 +5898,20 @@ function replaysPage(ctx) {
         }, icon('alert'), 'Flagged by the checks'));
     nameInput.addEventListener('input', debounce(load, 400));
     drawFilter();
+    loadStorage();
     load();
 
     return h('div', {class: 'page'},
         pageHead('Replays', 'Every session is recorded and kept for a while. Watch one to see the game as the player did, with their mouse.',
-            button('Refresh', {icon: 'refresh', on: {click: load}})),
+            button('Refresh', {
+                icon: 'refresh', on: {
+                    click: () => {
+                        loadStorage();
+                        load();
+                    }
+                }
+            })),
+        stats,
         h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), nameInput), filter),
         h('section', {class: 'card'}, body));
 }
@@ -7418,7 +7486,7 @@ function anticheatTab(ctx, params, go) {
             'aria-pressed': String(win === k),
             on: {click: () => go('anticheat', {window: k})}
         }, label)));
-    const body = h('div', {class: 'table-wrap'}, spinnerList());
+    const body = tableWindow(spinnerList());
     const note = h('p', {class: 'muted'});
 
     api('GET', `/live/anticheat?${query({window: win})}`).then((board) => {
@@ -7545,7 +7613,7 @@ function farmCard(f) {
                     }
                 }))),
         h('div', {class: 'farm-shared'}, shared),
-        h('div', {class: 'list'}, f.members.map((m) => h('div', {class: 'list-item farm-member'},
+        scrollWindow(h('div', {class: 'list'}, f.members.map((m) => h('div', {class: 'list-item farm-member'},
             h('div', {class: 'list-main'},
                 h('div', {class: 'list-title'}, h('b', {}, playerLink(m.name)), ' ',
                     m.online_world && h('span', {class: 'badge ok'}, `W${m.online_world}`),
@@ -7577,7 +7645,7 @@ function farmCard(f) {
                     'aria-label': `Ban ${m.name}`,
                     title: 'Ban',
                     on: {click: () => moderateDialog(m.name, 'ban')}
-                }))))));
+                })))))));
 }
 
 function farmsTab(ctx, params, go) {
@@ -7632,7 +7700,7 @@ function evasionTab(ctx, params, go) {
     return h('div', {class: 'column'},
         h('div', {class: 'toolbar'}, chips),
         h('p', {class: 'muted'}, 'Accounts not banned themselves that logged in with the same browser (or desktop client install) as a banned account, or from one of its addresses, after its ban. A shared browser is the stronger sign; an address can be a household. Addresses shared by more than 25 accounts are skipped. Each one opens a case on its own. Shared family computers show up here too: check the player page before acting.'),
-        h('section', {class: 'card'}, list));
+        h('section', {class: 'card'}, scrollWindow(list)));
 }
 
 function investigatePage(ctx) {
@@ -7941,7 +8009,7 @@ function holdersTab(ctx, params, go) {
                     h('h2', {}, r.item.name),
                     h('span', {class: 'hint'}, `${r.total.toLocaleString()} in circulation, in ${plural(r.holders, 'save')}${r.item.forms.length > 1 ? ', noted ones counted in' : ''}`)),
                 rows.length
-                    ? h('div', {class: 'table-wrap'}, h('table', {class: 'table holders'},
+                    ? tableWindow(h('table', {class: 'table holders'},
                         h('thead', {}, h('tr', {}, h('th', {}, 'Player'), h('th', {}, 'Holds'), h('th', {}, 'Where'), h('th', {}, 'Saved'), h('th', {}))),
                         h('tbody', {}, rows)))
                     : h('div', {class: 'empty'}, min > 1 ? `Nobody holds ${min.toLocaleString()} or more.` : 'Nobody holds any.'),
@@ -8265,7 +8333,7 @@ function receiversCard(params, go) {
     const body = spinnerList();
     api('GET', `/economy/receivers?${query({days, min_givers: givers})}`).then((rows) => {
         replace(body, rows.length
-            ? h('div', {class: 'table-wrap'}, h('table', {class: 'table receivers'},
+            ? tableWindow(h('table', {class: 'table receivers'},
                 h('thead', {}, h('tr', {}, h('th', {}, 'Account'), h('th', {}, 'Givers'), h('th', {}, 'Received'), h('th', {}, 'Gave'), h('th', {}, 'Last'), h('th', {}))),
                 h('tbody', {}, rows.map((r) => {
                     const oneWay = r.received > 0 && r.given * 10 < r.received;
@@ -8349,7 +8417,7 @@ function tradesTab(ctx, params, go) {
                 return n ? h('span', {class: `badge ${n > 0 ? 'ok' : 'warn'}`, title: n > 0 ? `${centre} got more from them than they gave` : `${centre} gave them more than they got back`},
                     `${a.name} ${n > 0 ? '+' : '-'}${compact(Math.abs(n))} gp`) : null;
             }))),
-            h('div', {class: 'table-wrap'}, h('table', {class: 'table edges'},
+            tableWindow(h('table', {class: 'table edges'},
                 h('thead', {}, h('tr', {}, h('th', {}, 'Handed'), h('th', {}, 'Worth'), h('th', {}, 'Times'), h('th', {}, 'Items'), h('th', {}, 'Last'))),
                 h('tbody', {}, rows))),
             h('div', {class: 'card-foot hint'}, 'Trades, duel stakes and other handovers, worth the items\' values in the cache (rares are worth little there; see the items). Between partners too, which is how rings show.'));
@@ -8425,7 +8493,7 @@ function hiscoresCard(name, extraActions) {
         replace(body,
             why && h('div', {class: 'callout'}, icon('lock'), h('div', {}, why)),
             s.rows.length
-                ? h('div', {class: 'table-wrap'}, h('table', {class: 'table hiscores'},
+                ? tableWindow(h('table', {class: 'table hiscores'},
                     h('thead', {}, h('tr', {}, h('th', {}, 'Table'), h('th', {}, 'Level'), h('th', {}, 'XP'), h('th', {}, 'Rank'))),
                     h('tbody', {}, s.rows.map((r) => h('tr', {},
                         h('td', {}, tableName(r.category)),
@@ -8846,7 +8914,7 @@ function staffMemberPage(ctx) {
         } else if (tab === 'cases') {
             const list = spinnerList();
             replace(body, h('section', {class: 'card'},
-                h('div', {class: 'card-head'}, h('h2', {}, 'Cases they opened, closed or are on')), list));
+                h('div', {class: 'card-head'}, h('h2', {}, 'Cases they opened, closed or are on')), scrollWindow(list)));
             api('GET', `/cases?${query({staff: name, status: 'all'})}`).then((rows) => replace(list, rows.length
                 ? rows.map((c) => caseItem(c))
                 : h('div', {class: 'empty'}, icon('briefcase'), 'No cases.'))).catch((e) => failed(list, e));
@@ -9006,7 +9074,8 @@ function timelineCard(name) {
     const more = h('div', {class: 'more hidden'});
     // The records scroll in a box of their own, older ones loading as the
     // bottom comes into view, so a long history doesn't run down the page.
-    const box = h('div', {class: 'timeline-scroll'}, list, more);
+    const box = scrollWindow(list, more);
+    box.classList.add('timeline-scroll');
     let cursor = null;
     let lastDay = null;
     let seq = 0;
@@ -9056,9 +9125,7 @@ function timelineCard(name) {
             if (mine === seq) fetching = false;
         }
     };
-    new IntersectionObserver((seen) => {
-        if (seen.some((s) => s.isIntersecting) && !more.classList.contains('hidden')) load(true);
-    }, {root: box, rootMargin: '200px'}).observe(more);
+    loadOnScroll(box, more, () => load(true));
 
     const drawChips = () => {
         const every = kinds.size === all.length;

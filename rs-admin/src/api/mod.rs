@@ -115,6 +115,7 @@ pub fn router() -> Router<Arc<App>> {
         .route("/triage", post(cases::triage))
         .route("/triage/bulk", post(cases::triage_bulk))
         .route("/replays", get(replays::list))
+        .route("/replays/storage", get(replays::storage))
         .route("/replays/{id}", get(replays::get))
         .route("/replays/{id}/file", get(replays::file))
         .route("/replays/{id}/viewed", post(replays::viewed))

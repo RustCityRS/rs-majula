@@ -509,6 +509,12 @@ td.actions { text-align: right; white-space: nowrap; }
 .list-side { font: 500 11.5px var(--mono); color: var(--faint); white-space: nowrap; }
 
 .more { display: flex; justify-content: center; padding: 10px; border-top: 1px solid var(--border); }
+/* A long list in a box of its own (scrollWindow). Wheel scrolling stays in it
+   only while it overflows: a box with nothing to scroll would otherwise stop
+   the page scrolling under the pointer. */
+.scroll-window { max-height: min(640px, 70vh); overflow-y: auto; }
+.scroll-window.overflows { overscroll-behavior: contain; }
+.scroll-window thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 
 /* Dialogs */
 
@@ -989,7 +995,7 @@ textarea.composer-text { min-height: 72px; }
 .saved-filter[aria-pressed="true"] button { color: var(--sel-ink); }
 .saved-filter[aria-pressed="true"] .saved-forget { border-color: var(--sel-line); }
 .timeline-filters { gap: 8px; }
-.timeline-scroll { max-height: min(640px, 70vh); overflow-y: auto; border-top: 1px solid var(--border); overscroll-behavior: contain; }
+.timeline-scroll { border-top: 1px solid var(--border); }
 .timeline-scroll .list-day { position: sticky; top: 0; z-index: 1; }
 
 /* Cases changed since you last looked */

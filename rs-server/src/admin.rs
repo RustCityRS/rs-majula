@@ -18,12 +18,12 @@ use rs_admin_api::{
     Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome,
     PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSearch,
     PlayerSheet, ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet,
-    ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction,
-    SanctionsLookup, SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded,
-    SessionClaim, SessionLookup, SessionState, SetControls, SheetLookup, StaffAccountRecord,
-    StaffAccountsLookup, StatLine, TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup,
-    TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup, Unstick, Verifier, WealthLine,
-    WealthLookup, WorldControls, WorldStatus, path,
+    ReplayLookup, ReplayStorage, ReplayStorageLookup, ReplaySummary, ReportLookup, ReportRecord,
+    ResetIssued, Rollback, Sanction, SanctionsLookup, SavePointLine, SavePointLookup,
+    SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup, SessionState, SetControls,
+    SheetLookup, StaffAccountRecord, StaffAccountsLookup, StatLine, TimelineEntry, TimelineLookup,
+    TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup,
+    Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::console::{self, Change};
@@ -212,6 +212,7 @@ pub async fn serve(
         .route(path::LINKED, post(linked_lookup))
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
+        .route(path::REPLAY_STORAGE, post(replay_storage))
         .route(path::REPLAY_DATA, post(replay_data))
         .route(path::LIVE_REPLAY, post(live_replay))
         .route(path::ANTICHEAT, post(anticheat_lookup))
@@ -1126,6 +1127,23 @@ async fn replay_lookup(
     let id = replay_id(&req.id)?;
     let record = state.db.replay(id).await.map_err(db_failed)?;
     Ok(Json(record.map(replay_summary)))
+}
+
+async fn replay_storage(
+    State(state): State<Arc<AdminState>>,
+    Json(_): Json<ReplayStorageLookup>,
+) -> Result<Json<ReplayStorage>, StatusCode> {
+    let s = state.db.replay_storage().await.map_err(db_failed)?;
+    let count = |n: i64| n.max(0) as u64;
+    Ok(Json(ReplayStorage {
+        recordings: count(s.recordings),
+        bytes: count(s.bytes),
+        disk_bytes: count(s.disk_bytes),
+        oldest_ms: s.oldest_ms,
+        play_ms: count(s.play_ms),
+        day_recordings: count(s.day_recordings),
+        day_bytes: count(s.day_bytes),
+    }))
 }
 
 /// The replay file for a recording ([`playback`]). Only a world of the

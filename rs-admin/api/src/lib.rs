@@ -55,6 +55,9 @@ pub mod path {
     pub const REPLAYS: &str = "/v1/lookup/replays";
     pub const REPLAY: &str = "/v1/lookup/replay";
     pub const REPLAY_DATA: &str = "/v1/lookup/replay/data";
+    /// How much the recordings take up: `ReplayStorageLookup`, answered
+    /// with `ReplayStorage`.
+    pub const REPLAY_STORAGE: &str = "/v1/lookup/replay-storage";
     /// A session going on now, to watch live: answered by the world it's on.
     pub const LIVE_REPLAY: &str = "/v1/live/replay";
     /// The players the anti-cheat checks flag most, and accounts' activity
@@ -737,6 +740,26 @@ pub struct ReplaySummary {
     pub score: i16,
     pub flags: Vec<String>,
     pub stats: String,
+}
+
+/// `POST /v1/lookup/replay-storage`.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct ReplayStorageLookup {}
+
+/// How much the recordings take up.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ReplayStorage {
+    pub recordings: u64,
+    /// Their chunks, compressed.
+    pub bytes: u64,
+    /// The tables on disk, indexes and overhead included.
+    pub disk_bytes: u64,
+    pub oldest_ms: Option<i64>,
+    /// How long they run, all told.
+    pub play_ms: u64,
+    /// Those started in the last 24 hours.
+    pub day_recordings: u64,
+    pub day_bytes: u64,
 }
 
 /// `POST /v1/live/replay`: a session going on now on the world asked, to
