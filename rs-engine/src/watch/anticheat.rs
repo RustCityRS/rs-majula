@@ -1,6 +1,6 @@
 use super::input::{Input, InputDecoder, Timed};
 use Field::*;
-use rs_db::ReplayReport;
+use rs_db::{LoginDevice, ReplayReport};
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
 #[cfg(any(rev = "225", since_254))]
@@ -242,6 +242,8 @@ pub struct AntiCheat {
     /// Whether the web client ran in a browser that says it's automated
     /// (headless), or sent no user agent at all.
     pub automated: bool,
+    /// What the client said it was as the session started, for the stats.
+    pub device: LoginDevice,
     heartbeats: [u32; 7],
     bad_heartbeats: [u32; 7],
     op_counts: [i64; 9],
@@ -481,6 +483,10 @@ impl AntiCheat {
         let stats = json!({
             "touch": self.touch,
             "automated": self.automated,
+            "web": self.device.web,
+            "userAgent": self.device.user_agent,
+            "platform": self.device.platform,
+            "language": self.device.language,
             "ops": self.ops,
             "opsUnclicked": self.ops_unclicked,
             "clicks": self.clicks,

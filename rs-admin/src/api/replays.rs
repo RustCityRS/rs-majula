@@ -1,4 +1,4 @@
-use super::access::{ceiling, check_player, check_replay};
+use super::access::{ceiling, check_player, check_replay, hides_self};
 use super::lookup::{TRIAGE_PAGES, unavailable};
 use super::players::checked_name;
 use crate::audit::Event;
@@ -101,9 +101,14 @@ pub async fn list(
             .map_err(unavailable)?;
         let full = rows.len() == PAGE as usize;
         before = rows.last().map(|r| r.started_ms);
-        views.extend(rows.into_iter().map(|r| view(&app, r)).filter(|v| {
-            !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
-        }));
+        views.extend(
+            rows.into_iter()
+                .filter(|r| !hides_self(&staff, &r.player))
+                .map(|r| view(&app, r))
+                .filter(|v| {
+                    !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
+                }),
+        );
         if !full || views.len() >= PAGE as usize {
             break;
         }

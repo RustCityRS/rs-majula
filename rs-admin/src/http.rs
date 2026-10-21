@@ -52,6 +52,7 @@ pub struct App {
     pub prefs: Prefs,
     pub economy: crate::economy::Economy,
     pub staff_levels: crate::api::access::StaffLevels,
+    pub roster: crate::api::access::Roster,
     pub address_salt: String,
     pub media_dir: PathBuf,
     pub config: HttpConfig,

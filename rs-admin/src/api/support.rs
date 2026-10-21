@@ -325,6 +325,7 @@ pub async fn password_reset(
 ) -> Result<Json<ResetIssued>, ApiError> {
     staff.require_admin()?;
     let name = checked_name(&req.name)?;
+    super::access::check_conflict(&app, &staff, &name, "reset their password").await?;
     let why = reason(&req.reason, true)?;
     check_case(&app, req.case)?;
     let record = registered(&app, &name).await?;
@@ -488,6 +489,7 @@ pub async fn rollback(
 ) -> Result<Json<Outcome>, ApiError> {
     staff.require_admin()?;
     let name = checked_name(&req.name)?;
+    super::access::check_conflict(&app, &staff, &name, "roll back their save").await?;
     let why = reason(&req.reason, true)?;
     let case = open_case(&app, req.case)?;
     let record = registered(&app, &name).await?;
@@ -546,6 +548,7 @@ pub async fn restore(
 ) -> Result<Json<Outcome>, ApiError> {
     staff.require_admin()?;
     let name = checked_name(&req.name)?;
+    super::access::check_conflict(&app, &staff, &name, "restore their items").await?;
     let why = reason(&req.reason, true)?;
     let case = open_case(&app, req.case)?;
     if req.items.is_empty() || req.items.len() > MAX_RESTORE_ITEMS {

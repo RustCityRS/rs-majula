@@ -44,6 +44,12 @@ pub mod path {
     /// logins from banned accounts' browsers since their bans.
     pub const LINK_CHAIN: &str = "/v1/lookup/link-chain";
     pub const EVASION: &str = "/v1/lookup/evasion";
+    /// Every account with a staff level: `StaffAccountsLookup`, answered
+    /// with `Vec<StaffAccountRecord>`.
+    pub const STAFF_ACCOUNTS: &str = "/v1/lookup/staff-accounts";
+    /// Whether two accounts share a browser or address: `LinkedLookup`,
+    /// answered with `LinkBetween`.
+    pub const LINKED: &str = "/v1/lookup/linked";
     /// Session recordings: the list, one, and one's replay file.
     pub const REPLAYS: &str = "/v1/lookup/replays";
     pub const REPLAY: &str = "/v1/lookup/replay";
@@ -529,12 +535,43 @@ pub struct EvasionLookup {
 pub struct Evasion {
     pub name: String,
     pub staff_level: u8,
-    /// The banned account whose browser they logged in with.
+    /// The banned account whose browser they logged in with, or from whose
+    /// address.
     pub banned: String,
+    /// `browser` or `address`: how they're linked.
+    #[serde(default = "browser")]
+    pub via: String,
     pub banned_ms: i64,
     pub logins: i64,
     pub first_ms: i64,
     pub last_ms: i64,
+}
+
+/// `POST /v1/lookup/staff-accounts`.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct StaffAccountsLookup {}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct StaffAccountRecord {
+    pub name: String,
+    pub staff_level: u8,
+}
+
+/// `POST /v1/lookup/linked`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LinkedLookup {
+    pub name: String,
+    pub other: String,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct LinkBetween {
+    /// `browser` or `address`; `None` when they aren't linked.
+    pub via: Option<String>,
+}
+
+fn browser() -> String {
+    "browser".into()
 }
 
 /// A device a player logged in with: one browser or desktop client install,

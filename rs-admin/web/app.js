@@ -189,7 +189,7 @@ const validName = (name) => new RegExp(`^${NAME_PATTERN}$`).test(name);
 const playerLink = (name, props = {}) => link(`/player?name=${encodeURIComponent(name)}`, {class: 'name-link', ...props}, name);
 
 function device(ua) {
-    const browser = /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox'
+    const browser = /HeadlessChrome\//.test(ua) ? 'Headless Chrome' : /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox'
         : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'Browser';
     const os = /iPhone|iPad/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows'
         : /Mac OS/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : '';
@@ -299,13 +299,15 @@ function sessionEnded() {
 const toasts = h('div', {class: 'toasts', role: 'status', 'aria-live': 'polite'});
 document.body.append(toasts);
 
+// `kind` is ok, error, or alert: something staff must look at, which
+// stays up longest.
 function toast(message, kind = 'ok') {
-    const el = h('div', {class: `toast ${kind}`}, icon(kind === 'error' ? 'alert' : 'check'), h('div', {}, message));
+    const el = h('div', {class: `toast ${kind}`}, icon(kind === 'ok' ? 'check' : 'alert'), h('div', {}, message));
     toasts.append(el);
     setTimeout(() => {
         el.classList.add('leaving');
         setTimeout(() => el.remove(), 220);
-    }, kind === 'error' ? 6000 : 3500);
+    }, kind === 'alert' ? 15000 : kind === 'error' ? 6000 : 3500);
 }
 
 // ---------------------------------------------------------------------------
@@ -585,9 +587,8 @@ function startPolling() {
         if (!document.hidden) loadWorlds();
     }, 5000);
     loadCaseSummary();
-    caseTimer = setInterval(() => {
-        if (!document.hidden) loadCaseSummary();
-    }, 30000);
+    // Hidden tabs keep asking too, so the title shows new detections.
+    caseTimer = setInterval(loadCaseSummary, 15000);
 }
 
 function stopPolling() {
@@ -1324,10 +1325,23 @@ function updateNavCounts() {
         el.classList.toggle('unread', !!state.economyAlerts);
         el.title = state.economyAlerts ? `${plural(state.economyAlerts, 'economy alert')} nobody has looked at` : '';
     }
+    // Red when the console opened a case nobody is on yet.
+    const s = state.caseSummary;
     for (const el of document.querySelectorAll('[data-count="/moderation"]')) {
-        el.classList.toggle('unread', !!state.caseSummary?.unread);
-        el.title = state.caseSummary?.unread ? `${plural(state.caseSummary.unread, 'case')} changed since you last looked` : '';
+        el.classList.toggle('unread', !!s?.unread && !s?.detected);
+        el.classList.toggle('alert', !!s?.detected);
+        el.title = [s?.detected && `${plural(s.detected, 'new detection')} nobody is on yet`,
+            s?.unread && `${plural(s.unread, 'case')} changed since you last looked`].filter(Boolean).join(' · ');
     }
+    markTitle();
+}
+
+// The tab's title starts with how many detections nobody is on yet, so
+// they show from another tab too.
+function markTitle() {
+    const n = state.caseSummary?.detected || 0;
+    const bare = document.title.replace(/^\(\d+\) /, '');
+    document.title = n ? `(${n}) ${bare}` : bare;
 }
 
 function renderPage() {
@@ -1346,6 +1360,7 @@ function renderPage() {
     const underMore = !navItems().slice(0, TABS).some((n) => n.path === current);
     document.querySelector('[data-more]')?.setAttribute('aria-current', underMore ? 'page' : 'false');
     document.title = `${item.label} · RS Admin`;
+    markTitle();
     const ctx = {
         cleanup: (fn) => pageCleanup.push(fn),
         params: new URLSearchParams(location.search),
@@ -2035,6 +2050,8 @@ const VERBS = {
     timeline_viewed: ['viewed the timeline of', 'list'],
     addresses_viewed: ['viewed the login addresses of', 'key'],
     appeal_received: ['took in an appeal from', 'flag', 'warn'],
+    case_detected: ['opened a case on', 'briefcase', 'danger'],
+    case_detection_added: ['added a new detection to the case on', 'briefcase', 'warn'],
     appeal_decided: ['decided the appeal of', 'flag', 'accent'],
     note_added: ['added a staff note on', 'edit'],
     note_removed: ['removed a staff note on', 'trash'],
@@ -2049,12 +2066,12 @@ function auditItem(e) {
     const [verb, iconName, tone] = VERBS[e.action] || [e.action.replace(/_/g, ' '), 'activity'];
     const failed = !e.ok;
     // Sign-ins under a name that isn't an account have no actor, only the
-    // name tried.
-    const title = !e.actor && e.target
+    // name tried. Anything else without one, the console did itself.
+    const title = !e.actor && e.target && e.action.startsWith('sign_in')
         ? (e.action === 'sign_in_locked'
             ? [h('b', {}, e.target), ' was locked out after repeated failed sign-ins']
             : ['Failed sign-in as ', h('b', {}, e.target)])
-        : [h('b', {}, e.actor && isMaintainer() ? staffLink(e.actor) : e.actor || 'Someone'), ` ${verb}`, e.target ? [' ', h('b', {}, e.target)] : null];
+        : [h('b', {}, e.actor && isMaintainer() ? staffLink(e.actor) : e.actor || 'The console'), ` ${verb}`, e.target ? [' ', h('b', {}, e.target)] : null];
     // A sign-in's detail is the browser's user agent.
     const detail = e.action === 'sign_in' && e.detail ? device(e.detail) : e.detail;
     return h('div', {class: 'list-item'},
@@ -2428,6 +2445,7 @@ function playerPage(ctx) {
             return;
         }
         document.title = `${p.name} · RS Admin`;
+        markTitle();
         const muted = p.muted_until_ms != null;
         const banned = p.banned_until_ms != null;
         const act = (action) => () => moderateDialog(p.name, action, load);
@@ -3742,7 +3760,12 @@ const worldOf = (node) => {
 };
 const where = (x, z, level) => `${x}, ${z}${level ? ` · floor ${level}` : ''}`;
 const listNames = (names) => (names.length <= 2 ? names.join(' and ') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`);
-const evidenceKey = (e) => (e.type === 'clip' ? `clip:${e.replay}:${e.from_ms}-${e.to_ms}` : `${e.type}:${e.id}`);
+const evidenceKey = (e) => (e.type === 'clip' ? `clip:${e.replay}:${e.from_ms}-${e.to_ms}`
+    : e.type === 'evasion' ? `evasion:${nameKey(e.player)}:${nameKey(e.banned)}` : `${e.type}:${e.id}`);
+// How two accounts are linked, in words.
+const linkedHow = (via) => (via === 'browser' ? 'logged in with the same browser as' : 'shares an address with');
+// Who opens the cases the console opens on its own.
+const DETECTION = 'Detection';
 // A clip of a recording: its page, playing that stretch. Works as a link
 // from anywhere (comments, chat between staff), as the console's address.
 const clipHref = ({replay, from_ms, to_ms, label}) => `/replay?${query({id: replay, from: from_ms, to: to_ms, label})}`;
@@ -3772,10 +3795,10 @@ function avatars(names) {
 }
 
 function evidenceCounts(c) {
-    const n = {report: 0, replay: 0, chat: 0, clip: 0};
+    const n = {report: 0, replay: 0, chat: 0, clip: 0, evasion: 0, moderation: 0};
     for (const e of c.evidence) n[e.type]++;
     return [n.report && plural(n.report, 'report'), n.replay && plural(n.replay, 'session'), n.clip && plural(n.clip, 'clip'),
-        n.chat && plural(n.chat, 'message')].filter(Boolean).join(' · ');
+        n.chat && plural(n.chat, 'message'), n.evasion && plural(n.evasion, 'ban evasion link'), n.moderation && plural(n.moderation, 'lifted sanction')].filter(Boolean).join(' · ');
 }
 
 function caseItem(c, extra) {
@@ -3788,7 +3811,8 @@ function caseItem(c, extra) {
             h('div', {class: 'list-title'},
                 c.unread && h('span', {class: 'unread-dot', title: 'Changed since you last looked', 'aria-label': 'Changed since you last looked'}),
                 h('span', {class: 'case-id num'}, `#${c.id}`),
-                link(caseHref(c.id), {class: 'name-link'}, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c)),
+                link(caseHref(c.id), {class: 'name-link'}, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c),
+                c.created_by === DETECTION && [' ', h('span', {class: 'badge accent', title: 'The console opened this case on its own'}, 'Detected')]),
             h('div', {class: 'list-sub'}, playerLink(c.player),
                 closed ? ` · closed by ${c.closed_by} ${ago(c.closed_ms)}` : ` · opened by ${c.created_by} ${ago(c.created_ms)}`,
                 counts && ` · ${counts}`, c.comments ? ` · ${plural(c.comments, 'comment')}` : ''),
@@ -3825,9 +3849,27 @@ async function loadCaseSummary() {
         state.caseSummary = cases;
         if (economy) state.economyAlerts = economy.open_alerts;
         updateNavCounts();
+        announceDetections(cases);
         for (const fn of caseListeners) fn(state.caseSummary);
     } catch (e) {
         if (e.status !== 401) console.warn(e);
+    }
+}
+
+// Tells staff of cases the console opened on its own since this browser last
+// told them, while nobody is on them.
+function announceDetections(s) {
+    const heard = Number(prefs.get('detections-heard', '0')) || 0;
+    const fresh = (s.detections || []).filter((d) => d.id > heard);
+    if (!fresh.length) return;
+    prefs.set('detections-heard', String(fresh[0].id));
+    if (fresh.length === 1) {
+        const d = fresh[0];
+        toast([h('b', {}, `${d.title}: ${d.player}`), h('br'),
+            'The console opened ', link(caseHref(d.id), {class: 'name-link'}, `case #${d.id}`), '. Nobody is on it yet.'], 'alert');
+    } else {
+        toast([h('b', {}, `${plural(s.detected, 'new detection')} nobody is on yet`), h('br'),
+            link('/moderation?tab=cases&show=detected', {class: 'name-link'}, 'See the cases the console opened'), '.'], 'alert');
     }
 }
 
@@ -4175,6 +4217,7 @@ function moderationPage(ctx) {
 
     const overview = () => {
         const mine = spinnerList();
+        const detected = spinnerList();
         const nobody = spinnerList();
         const triage = spinnerList();
         const actions = spinnerList();
@@ -4198,6 +4241,8 @@ function moderationPage(ctx) {
         const load = async () => {
             api('GET', '/cases?mine=true').then((rows) => replace(mine, rows.length ? rows.map((c) => caseItem(c))
                 : h('div', {class: 'empty'}, icon('briefcase'), 'You\'re not on any open case.'))).catch((e) => failed(mine, e));
+            api('GET', '/cases?detected=true&unassigned=true').then((rows) => replace(detected, rows.length ? rows.slice(0, 8).map((c) => caseItem(c, h('div', {class: 'chips item-actions'}, take(c))))
+                : h('div', {class: 'empty'}, icon('check'), 'Nothing new. The console opens a case on its own for sessions the anti-cheat checks score 50 or more, possible ban evasion, players several others report, and staff lifting a mute or ban on an account linked to theirs. Staff are looked at too: their cases are only for staff above them.'))).catch((e) => failed(detected, e));
             api('GET', '/cases?unassigned=true').then((rows) => replace(nobody, rows.length ? rows.slice(0, 8).map((c) => caseItem(c, h('div', {class: 'chips item-actions'}, take(c))))
                 : h('div', {class: 'empty'}, icon('check'), 'Every open case has someone on it.'))).catch((e) => failed(nobody, e));
             api('GET', '/lookup/moderation').then((rows) => replace(actions, rows.length ? rows.slice(0, 8).map(moderationItem)
@@ -4238,6 +4283,7 @@ function moderationPage(ctx) {
         return {
             load, el: h('div', {class: 'split'},
                 h('div', {class: 'column'},
+                    card('New detections', more('All detected', 'cases', {show: 'detected'}), detected),
                     card('Your cases', more('All open', 'cases'), mine),
                     card('Nobody on these yet', more('Cases', 'cases', {show: 'unassigned'}), nobody),
                     card('Recently closed', more('Closed', 'cases', {show: 'closed'}), closed)),
@@ -4469,7 +4515,7 @@ function moderationPage(ctx) {
     };
 
     const casesTab = () => {
-        const SHOWS = [['open', 'Open'], ['mine', 'Yours'], ['unread', 'Changed'], ['unassigned', 'Nobody on it'], ['waiting', 'Waiting'], ['closed', 'Closed'], ['all', 'All']];
+        const SHOWS = [['open', 'Open'], ['mine', 'Yours'], ['unread', 'Changed'], ['unassigned', 'Nobody on it'], ['detected', 'Detected'], ['waiting', 'Waiting'], ['closed', 'Closed'], ['all', 'All']];
         let show = SHOWS.some(([k]) => k === params.get('show')) ? params.get('show') : 'open';
         const search = h('input', {
             class: 'input',
@@ -4512,6 +4558,7 @@ function moderationPage(ctx) {
                 mine: {mine: true},
                 unread: {unread: true, status: 'all'},
                 unassigned: {unassigned: true},
+                detected: {detected: true},
                 waiting: {status: 'waiting'},
                 closed: {status: 'closed'},
                 all: {status: 'all'}
@@ -4535,7 +4582,8 @@ function moderationPage(ctx) {
                         load();
                     }
                 }
-            }, label, k === 'unread' && state.caseSummary?.unread ? h('span', {class: 'chip-count num'}, state.caseSummary.unread) : null)));
+            }, label, k === 'unread' && state.caseSummary?.unread ? h('span', {class: 'chip-count num'}, state.caseSummary.unread) : null,
+                k === 'detected' && state.caseSummary?.detected ? h('span', {class: 'chip-count alert num', title: 'Nobody on these yet'}, state.caseSummary.detected) : null)));
         search.addEventListener('input', debounce(load, 250));
         drawChips();
         load();
@@ -4781,6 +4829,8 @@ function evidenceLabel(e) {
     if (e.type === 'report') return `${e.reporter}'s report of ${e.offender} (${REPORT_RULES[e.reason] || 'unknown rule'})`;
     if (e.type === 'replay') return `${e.player}'s session of ${fullTime(e.started_ms)}`;
     if (e.type === 'clip') return `a clip of ${e.player}'s session (${clipSpan(e.from_ms, e.to_ms)})${e.label ? `: "${clip(e.label, 60)}"` : ''}`;
+    if (e.type === 'moderation') return `${e.moderator}'s ${e.action} of ${e.target}`;
+    if (e.type === 'evasion') return `${e.player}'s logins ${e.via === 'address' ? 'from the address' : 'with the browser'} of banned ${e.banned}`;
     return `${e.from}'s message "${clip(e.message, 60)}"`;
 }
 
@@ -4815,6 +4865,19 @@ function evidenceItem(e, onRemove) {
             [link(clipHref(e), {class: 'name-link'}, h('b', {}, e.label || `${e.player}'s clip`)), ' ', e.flags.map(flagBadge)],
             [e.label && [playerLink(e.player), ' · '], `${clipSpan(e.from_ms, e.to_ms)} (${clock((e.to_ms - e.from_ms) / 1000)}) into the session of ${fullTime(e.started_ms)} · ${worldOf(e.node)}`],
             e.started_ms + e.from_ms);
+    }
+    if (e.type === 'moderation') {
+        return row(e.action === 'unmute' ? 'unlock' : 'undo', 'danger',
+            [h('b', {}, playerLink(e.moderator)), ` lifted ${e.action === 'unmute' ? 'the mute' : 'the ban'} on `, h('b', {}, playerLink(e.target))],
+            joined([`${e.target} ${linkedHow(e.via)} ${e.moderator}`, e.reason && `Reason: ${e.reason}`, fullTime(e.at_ms)]),
+            e.at_ms);
+    }
+    if (e.type === 'evasion') {
+        const address = e.via === 'address';
+        return row(address ? 'globe' : 'monitor', address ? 'warn' : 'danger',
+            [h('b', {}, playerLink(e.player)), address ? ' logged in from the address of banned ' : ' logged in with the browser of banned ', h('b', {}, playerLink(e.banned))],
+            joined([`${plural(e.logins, 'login')} since the ban`, `first ${ago(e.first_ms)}`, h('span', {title: fullTime(e.banned_ms)}, `banned ${ago(e.banned_ms)}`)]),
+            e.last_ms);
     }
     return row('chat', '',
         [h('b', {}, playerLink(e.from)), e.to && [h('span', {class: 'muted'}, ' to '), h('b', {}, playerLink(e.to))]],
@@ -5713,6 +5776,18 @@ function replaysPage(ctx) {
         h('section', {class: 'card'}, body));
 }
 
+// What a recorded session's client said it ran on, as the player page's
+// devices name it: "Chrome on Windows (en-GB)".
+function replayDevice(s) {
+    const tapNote = s.touch ? ', a phone or tablet (taps may jump the cursor)' : '';
+    if (s.web === undefined) return s.touch === undefined ? null : `Not recorded${tapNote}`;
+    if (!s.web) return 'Desktop client';
+    const what = s.userAgent ? device(s.userAgent) : 'Web client that sent no user agent';
+    const platform = s.platform && !what.includes(s.platform) ? `, says ${s.platform}` : '';
+    const language = s.language ? ` (${s.language})` : '';
+    return h('span', {title: s.userAgent || ''}, `${what}${platform}${language}${tapNote}`);
+}
+
 // The checks' measurements, in words.
 function replayStats(r) {
     let s = {};
@@ -5722,7 +5797,7 @@ function replayStats(r) {
     }
     const sum = (a) => (a || []).reduce((x, y) => x + y, 0);
     const rows = [
-        ['Device', s.touch === undefined ? null : s.touch ? 'Phone or tablet (taps may jump the cursor)' : 'Desktop, or a tablet passing as one'],
+        ['Device', replayDevice(s)],
         ['Automated browser', s.automated ? 'Yes' : null],
         ['Actions', s.ops],
         ['Actions without a click', s.opsUnclicked],
@@ -5735,7 +5810,7 @@ function replayStats(r) {
         ['Packets with wrong contents', s.badHeartbeats ? sum(s.badHeartbeats) + sum(s.badOpChecks) : null],
         ['Op checks sent / expected', s.opChecksExpected ? `${sum(s.opChecksReceived)} / ${sum(s.opChecksExpected)}` : null],
     ].filter(([, v]) => v !== undefined && v !== null);
-    return h('dl', {class: 'replay-stats'}, rows.map(([k, v]) => [h('dt', {}, k), h('dd', {class: 'num'}, String(v))]));
+    return h('dl', {class: 'replay-stats'}, rows.map(([k, v]) => [h('dt', {}, k), h('dd', {class: 'num'}, v instanceof Node ? v : String(v))]));
 }
 
 const SPEEDS = [0.5, 1, 2, 4, 8];
@@ -7442,7 +7517,8 @@ function farmsTab(ctx, params, go) {
     return h('div', {class: 'column'}, h('div', {class: 'toolbar'}, chips), note, body);
 }
 
-// Accounts that logged in with a banned account's browser after its ban.
+// Accounts that logged in with a banned account's browser, or from its
+// address, after its ban.
 function evasionTab(ctx, params, go) {
     const days = EVASION_WINDOWS.some(([d]) => String(d) === params.get('days')) ? Number(params.get('days')) : 14;
     const chips = h('div', {class: 'chips'}, EVASION_WINDOWS.map(([d, label]) =>
@@ -7455,21 +7531,22 @@ function evasionTab(ctx, params, go) {
     const list = spinnerList();
     api('GET', `/lookup/evasion?${query({days})}`).then((rows) => replace(list, rows.length
         ? rows.map((r) => h('div', {class: 'list-item'},
-            h('div', {class: 'list-icon danger'}, icon('monitor')),
+            h('div', {class: `list-icon ${r.via === 'address' ? 'warn' : 'danger'}`}, icon(r.via === 'address' ? 'globe' : 'monitor')),
             h('div', {class: 'list-main'},
                 h('div', {class: 'list-title'}, h('b', {}, playerLink(r.name)), ' ', playerBadges({staff_level: r.staff_level}),
-                    ' logged in with the browser of banned ', playerLink(r.banned)),
+                    r.via === 'address' ? ' logged in from the address of banned ' : ' logged in with the browser of banned ', playerLink(r.banned),
+                    ' ', caseLinks(r.cases)),
                 h('div', {class: 'list-sub'}, joined([
                     `${plural(r.logins, 'login')} since the ban`,
                     `first ${ago(r.first_ms)}`,
                     h('span', {title: fullTime(r.banned_ms)}, `banned ${ago(r.banned_ms)}`),
                 ]))),
             h('div', {class: 'list-side', title: fullTime(r.last_ms)}, ago(r.last_ms))))
-        : h('div', {class: 'empty'}, icon('check'), 'Nobody logged in with the browser of a banned account in this window.')))
+        : h('div', {class: 'empty'}, icon('check'), 'Nobody logged in with the browser or from the address of a banned account in this window.')))
         .catch((e) => failed(list, e));
     return h('div', {class: 'column'},
         h('div', {class: 'toolbar'}, chips),
-        h('p', {class: 'muted'}, 'Accounts not banned themselves that logged in with the same browser (or desktop client install) as a banned account, after its ban. Shared family computers show up here too: check the player page before acting.'),
+        h('p', {class: 'muted'}, 'Accounts not banned themselves that logged in with the same browser (or desktop client install) as a banned account, or from one of its addresses, after its ban. A shared browser is the stronger sign; an address can be a household. Addresses shared by more than 25 accounts are skipped. Each one opens a case on its own. Shared family computers show up here too: check the player page before acting.'),
         h('section', {class: 'card'}, list));
 }
 
@@ -8831,11 +8908,16 @@ function timelineCard(name) {
     const chips = h('div', {class: 'chips'});
     const list = h('div', {class: 'list'});
     const more = h('div', {class: 'more hidden'});
+    // The records scroll in a box of their own, older ones loading as the
+    // bottom comes into view, so a long history doesn't run down the page.
+    const box = h('div', {class: 'timeline-scroll'}, list, more);
     let cursor = null;
     let lastDay = null;
     let seq = 0;
+    let fetching = false;
 
     const load = async (older) => {
+        if (older && fetching) return;
         const mine = ++seq;
         if (!kinds.size) {
             replace(list, h('div', {class: 'empty'}, 'Pick at least one kind of record.'));
@@ -8845,8 +8927,11 @@ function timelineCard(name) {
         if (!older) {
             cursor = null;
             lastDay = null;
+            box.scrollTop = 0;
+            more.classList.add('hidden');
             replace(list, h('div', {class: 'empty'}, h('div', {class: 'spinner'})));
         }
+        fetching = true;
         try {
             const rows = await api('GET', `/lookup/timeline?${query({
                 name,
@@ -8871,8 +8956,13 @@ function timelineCard(name) {
             more.classList.toggle('hidden', rows.length < 100);
         } catch (e) {
             if (mine === seq) replace(list, h('div', {class: 'empty'}, e.message));
+        } finally {
+            if (mine === seq) fetching = false;
         }
     };
+    new IntersectionObserver((seen) => {
+        if (seen.some((s) => s.isIntersecting) && !more.classList.contains('hidden')) load(true);
+    }, {root: box, rootMargin: '200px'}).observe(more);
 
     const drawChips = () => {
         const every = kinds.size === all.length;
@@ -8919,11 +9009,11 @@ function timelineCard(name) {
 
     return h('section', {class: 'card'},
         h('div', {class: 'card-head'}, h('h2', {}, 'Timeline'),
-            h('div', {class: 'actions'}, h('span', {class: 'hint hide-mobile'}, 'Every log, newest first'),
+            h('div', {class: 'actions'}, h('span', {class: 'hint hide-mobile'}, 'Every log, newest first: scroll for older'),
                 exportButton(() => `/export/timeline?${query({name, kinds: [...kinds].join(',')})}`,
                     'Download the kinds shown (up to 5,000 rows) as a CSV file. Recorded in the audit log.'))),
         h('div', {class: 'card-body column timeline-filters'}, chips, savedBar.el),
-        list, more);
+        box);
 }
 
 // ---------------------------------------------------------------------------
@@ -9033,18 +9123,25 @@ function chainSection(name, onModerated) {
         list);
 }
 
-// One device a player logged in with: what its client said it was, its
-// login id and the addresses it was used from.
-function deviceItem(d) {
+// What a device's client said it was: "Chrome on Windows".
+function deviceName(d) {
     const what = d.web === null ? 'Before devices were recorded'
         : !d.web ? 'Desktop client'
             : d.user_agent ? device(d.user_agent) : 'Web client';
-    const platform = d.platform && !what.includes(d.platform) ? ` (${d.platform})` : '';
+    return what + (d.platform && !what.includes(d.platform) ? ` (${d.platform})` : '');
+}
+
+// A device's short name on the page, so addresses can point at it: D1, D2...
+const deviceTag = (n) => h('span', {class: 'device-tag mono', title: `Device ${n}`}, `D${n}`);
+
+// One device a player logged in with: what its client said it was, its
+// login id and the addresses it was used from. `n` is its number on the page.
+function deviceItem(d, n) {
     const more = d.addresses - d.ips.length;
     return h('div', {class: 'list-item'},
         h('div', {class: 'list-icon'}, icon(d.touch ? 'phone' : 'monitor')),
         h('div', {class: 'list-main'},
-            h('div', {class: 'list-title', title: d.user_agent || ''}, h('b', {}, what + platform), ' ',
+            h('div', {class: 'list-title', title: d.user_agent || ''}, deviceTag(n), ' ', h('b', {}, deviceName(d)), ' ',
                 d.touch && h('span', {class: 'badge', title: 'The browser said it is a phone or tablet'}, 'Touch'), ' ',
                 d.others > 0 && h('span', {
                     class: 'badge warn',
@@ -9057,9 +9154,21 @@ function deviceItem(d) {
                 `first ${ago(d.first_ms)}`,
             ])),
             d.ips.length > 0 && h('div', {class: 'list-sub'}, 'From ',
-                joined(d.ips.map((ip) => h('span', {class: 'mono'}, ip))),
+                joined(d.ips.map((ip) => h('span', {class: 'mono address-ref'}, ip))),
                 more > 0 ? ` and ${more} more` : '')),
         h('div', {class: 'list-side', title: fullTime(d.last_ms)}, ago(d.last_ms)));
+}
+
+// Lights up the rows `others()` gives while `row` is pointed at or focused.
+function lightUp(row, others) {
+    row.tabIndex = 0;
+    const set = (on) => {
+        row.classList.toggle('linked-source', on);
+        for (const el of others()) el.classList.toggle('linked', on);
+    };
+    for (const [ev, on] of [['mouseenter', true], ['mouseleave', false], ['focus', true], ['blur', false]]) {
+        row.addEventListener(ev, () => set(on));
+    }
 }
 
 function linksSection(name, onModerated) {
@@ -9075,14 +9184,28 @@ function linksSection(name, onModerated) {
             note.textContent = links.addresses_shown
                 ? 'Addresses kept for 180 days. Viewing them is audited.'
                 : 'Addresses show as labels: the same label is the same address. Admins see the addresses.';
-            replace(addresses, links.addresses.length ? links.addresses.map((a) => h('div', {class: 'list-item'},
-                    h('div', {class: 'list-icon'}, icon('globe')),
-                    h('div', {class: 'list-main'},
-                        h('div', {class: 'list-title'}, h('span', {class: 'mono'}, a.ip),
-                            a.others ? h('span', {class: 'badge warn'}, `${plural(a.others, 'other account')}`) : null),
-                        h('div', {class: 'list-sub'}, `${plural(a.logins, 'login')} · first ${ago(a.first_ms)}`)),
-                    h('div', {class: 'list-side', title: fullTime(a.last_ms)}, ago(a.last_ms))))
+            // Each address with the devices used from it, and each device
+            // with its addresses: pointing at one lights up the other side.
+            const deviceList = links.devices || [];
+            const deviceRows = deviceList.map((d, i) => deviceItem(d, i + 1));
+            const addressRows = new Map();
+            replace(addresses, links.addresses.length ? links.addresses.map((a) => {
+                    const used = deviceList.map((d, i) => [d, i]).filter(([d]) => d.ips.includes(a.ip));
+                    const row = h('div', {class: 'list-item'},
+                        h('div', {class: 'list-icon'}, icon('globe')),
+                        h('div', {class: 'list-main'},
+                            h('div', {class: 'list-title'}, h('span', {class: 'mono'}, a.ip),
+                                a.others ? h('span', {class: 'badge warn'}, `${plural(a.others, 'other account')}`) : null),
+                            h('div', {class: 'list-sub'}, `${plural(a.logins, 'login')} · first ${ago(a.first_ms)}`),
+                            used.length > 0 && h('div', {class: 'list-sub'}, 'On ',
+                                joined(used.map(([d, i]) => h('span', {class: 'device-ref'}, deviceTag(i + 1), ' ', deviceName(d)))))),
+                        h('div', {class: 'list-side', title: fullTime(a.last_ms)}, ago(a.last_ms)));
+                    addressRows.set(a.ip, row);
+                    lightUp(row, () => used.map(([, i]) => deviceRows[i]));
+                    return row;
+                })
                 : h('div', {class: 'empty'}, icon('globe'), 'No logins on record.'));
+            deviceList.forEach((d, i) => lightUp(deviceRows[i], () => d.ips.map((ip) => addressRows.get(ip)).filter(Boolean)));
             replace(accounts, links.accounts.length ? links.accounts.map((a) => h('div', {class: 'list-item'},
                     h('div', {class: `list-icon ${a.banned_until_ms ? 'danger' : ''}`}, icon('user')),
                     h('div', {class: 'list-main'},
@@ -9097,7 +9220,7 @@ function linksSection(name, onModerated) {
                         ]))),
                     h('div', {class: 'list-side', title: fullTime(a.last_ms)}, ago(a.last_ms))))
                 : h('div', {class: 'empty'}, icon('users'), 'No other account shares an address or a browser with them.'));
-            replace(devices, links.devices?.length ? links.devices.map(deviceItem)
+            replace(devices, deviceRows.length ? deviceRows
                 : h('div', {class: 'empty'}, icon('monitor'), 'No logins on record.'));
             const raised = linkFlags(links);
             replace(flags, raised.length > 0 && h('div', {class: `callout ${raised.some(([tone]) => tone === 'danger') ? 'danger' : 'warn'}`}, icon('alert'),
@@ -9136,7 +9259,7 @@ function linksSection(name, onModerated) {
                 addresses)),
         h('section', {class: 'card'},
             h('div', {class: 'card-head'}, h('h2', {}, 'Devices'),
-                h('span', {class: 'hint hide-mobile'}, 'What each browser or install said it was. Browsers can claim anything.')),
+                h('span', {class: 'hint hide-mobile'}, 'What each browser or install said it was (browsers can claim anything). Point at a device or an address to see the other side.')),
             devices),
         chainSection(name, () => {
             load();

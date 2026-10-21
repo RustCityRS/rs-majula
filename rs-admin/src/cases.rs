@@ -132,11 +132,53 @@ pub enum Evidence {
         score: i16,
         flags: Vec<String>,
     },
+    /// Logins by `player` with a banned account's browser, or from its
+    /// address (`via`), after that ban: possible ban evasion.
+    Evasion {
+        player: String,
+        banned: String,
+        via: String,
+        banned_ms: i64,
+        logins: i64,
+        first_ms: i64,
+        last_ms: i64,
+    },
+    /// A sanction `moderator` lifted on `target`, an account sharing a
+    /// browser or an address (`via`) with theirs.
+    Moderation {
+        id: i64,
+        moderator: String,
+        target: String,
+        action: String,
+        via: String,
+        at_ms: i64,
+        #[serde(default, skip_serializing_if = "String::is_empty")]
+        reason: String,
+    },
+}
+
+impl Evidence {
+    /// Who it's about: the one reported, recorded, writing, evading, or
+    /// lifting a sanction.
+    pub fn player(&self) -> &str {
+        match self {
+            Self::Report { offender, .. } => offender,
+            Self::Replay { player, .. } | Self::Clip { player, .. } => player,
+            Self::Chat { from, .. } => from,
+            Self::Evasion { player, .. } => player,
+            Self::Moderation { moderator, .. } => moderator,
+        }
+    }
+}
+
+/// The key of `player`'s evidence of evading `banned`'s ban.
+pub fn evasion_key(player: &str, banned: &str) -> String {
+    format!("evasion:{}:{}", name_key(player), name_key(banned))
 }
 
 impl Evidence {
     /// What it's known by: `report:12`, `replay:345`, `chat:678`,
-    /// `clip:345:60000-90000`.
+    /// `clip:345:60000-90000`, `evasion:alt:banned`.
     pub fn key(&self) -> String {
         match self {
             Self::Report { id, .. } => format!("report:{id}"),
@@ -148,6 +190,8 @@ impl Evidence {
                 to_ms,
                 ..
             } => format!("clip:{replay}:{from_ms}-{to_ms}"),
+            Self::Evasion { player, banned, .. } => evasion_key(player, banned),
+            Self::Moderation { id, .. } => format!("moderation:{id}"),
         }
     }
 

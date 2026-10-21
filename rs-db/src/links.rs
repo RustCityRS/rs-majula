@@ -34,12 +34,15 @@ pub struct ChainLink {
     pub last_ms: Option<i64>,
 }
 
-/// Logins from a banned account's browser by another account, after the ban.
+/// Logins from a banned account's browser or address by another account,
+/// after the ban.
 #[derive(Clone, Debug, PartialEq, sqlx::FromRow)]
 pub struct EvasionRecord {
     pub name: String,
     pub staff_mod_level: i16,
     pub banned: String,
+    /// `browser` or `address`.
+    pub via: String,
     pub banned_ms: i64,
     pub logins: i64,
     pub first_ms: i64,
@@ -53,6 +56,13 @@ struct Hop {
     link: String,
 }
 
+/// A staff account: its name and game staff level.
+#[derive(Clone, Debug, PartialEq, sqlx::FromRow)]
+pub struct StaffAccount {
+    pub name: String,
+    pub staff_mod_level: i16,
+}
+
 #[derive(sqlx::FromRow)]
 struct Account {
     id: i64,
@@ -64,6 +74,40 @@ struct Account {
 }
 
 impl Db {
+    /// Every account with a staff level.
+    pub async fn staff_accounts(&self) -> Result<Vec<StaffAccount>, Error> {
+        sqlx::query_as(
+            "SELECT display_name AS name, staff_mod_level FROM players WHERE staff_mod_level > 0 ORDER BY display_name",
+        )
+        .fetch_all(&self.pool)
+        .await
+    }
+
+    /// How `a` and `b` are linked, if they are: `browser` when they logged
+    /// in with the same one, else `address` when they share an (uncrowded)
+    /// address, by login or registration.
+    pub async fn link_between(&self, a: u64, b: u64) -> Result<Option<String>, Error> {
+        let row: Option<(String,)> = sqlx::query_as(concat!(
+            "WITH pa AS (SELECT id, registration_ip FROM players WHERE name_hash = $1), ",
+            "pb AS (SELECT id, registration_ip FROM players WHERE name_hash = $2), ",
+            "ips AS (SELECT l.player_id, l.ip FROM login_logs l WHERE l.player_id IN ((SELECT id FROM pa), (SELECT id FROM pb)) ",
+            "UNION SELECT id, registration_ip FROM pa WHERE registration_ip IS NOT NULL ",
+            "UNION SELECT id, registration_ip FROM pb WHERE registration_ip IS NOT NULL) ",
+            "SELECT 'browser'::text FROM login_logs x JOIN login_logs y ON x.uid = y.uid ",
+            "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) AND x.uid IS NOT NULL ",
+            "UNION ALL SELECT 'address'::text FROM ips x JOIN ips y ON x.ip = y.ip ",
+            "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) ",
+            "AND (SELECT count(DISTINCT c.player_id) FROM login_logs c WHERE c.ip = x.ip) <= $3 ",
+            "LIMIT 1"
+        ))
+        .bind(a as i64)
+        .bind(b as i64)
+        .bind(CROWDED_ADDRESS)
+        .fetch_optional(&self.pool)
+        .await?;
+        Ok(row.map(|(via,)| via))
+    }
+
     /// The banned accounts that logged in with one of `name_hash`'s
     /// browsers, or from one of their (uncrowded) addresses.
     pub async fn banned_links(&self, name_hash: u64) -> Result<Vec<BannedLink>, Error> {
@@ -187,8 +231,10 @@ impl Db {
     }
 
     /// Accounts that logged in, over the last `days`, with a browser a
-    /// banned account used, after that ban: possible ban evasion. Accounts
-    /// banned themselves are left out, as are staff above `max_staff_level`.
+    /// banned account used, or from one of its (uncrowded) addresses, after
+    /// that ban: possible ban evasion. `via` is `browser` when any of those
+    /// logins shared the browser, else `address`. Accounts banned themselves
+    /// are left out, as are staff above `max_staff_level`.
     pub async fn ban_evasion(
         &self,
         days: i32,
@@ -199,25 +245,33 @@ impl Db {
             "WITH banned AS (SELECT p.id, p.display_name, ",
             "(SELECT max(m.created_at) FROM moderation_logs m WHERE m.target_id = p.id AND m.action = 'ban') AS at ",
             "FROM players p WHERE p.banned_until > now()), ",
-            "devices AS (SELECT DISTINCT l.uid, b.id, b.display_name, b.at FROM login_logs l ",
-            "JOIN banned b ON b.id = l.player_id WHERE l.uid IS NOT NULL AND b.at IS NOT NULL) ",
-            "SELECT p.display_name AS name, p.staff_mod_level, d.display_name AS banned, ",
-            ms!("d.at"),
-            " AS banned_ms, count(*) AS logins, ",
-            ms!("min(l.created_at)"),
-            " AS first_ms, ",
-            ms!("max(l.created_at)"),
-            " AS last_ms FROM devices d ",
-            "JOIN login_logs l ON l.uid = d.uid AND l.player_id <> d.id ",
-            "JOIN players p ON p.id = l.player_id ",
+            "browsers AS (SELECT DISTINCT l.uid, b.id, b.display_name, b.at FROM login_logs l ",
+            "JOIN banned b ON b.id = l.player_id WHERE l.uid IS NOT NULL AND b.at IS NOT NULL), ",
+            "addresses AS (SELECT DISTINCT l.ip, b.id, b.display_name, b.at FROM login_logs l ",
+            "JOIN banned b ON b.id = l.player_id WHERE b.at IS NOT NULL ",
+            "AND (SELECT count(DISTINCT c.player_id) FROM login_logs c WHERE c.ip = l.ip) <= $4), ",
+            "hits AS (SELECT l.id, l.player_id, l.created_at, d.display_name, d.at, true AS browser ",
+            "FROM browsers d JOIN login_logs l ON l.uid = d.uid AND l.player_id <> d.id ",
             "WHERE l.created_at > d.at AND l.created_at > now() - make_interval(days => $1) ",
-            "AND NOT coalesce(p.banned_until > now(), false) AND p.staff_mod_level <= $2 ",
-            "GROUP BY p.display_name, p.staff_mod_level, d.display_name, d.at ",
-            "ORDER BY max(l.created_at) DESC LIMIT $3"
+            "UNION ALL SELECT l.id, l.player_id, l.created_at, d.display_name, d.at, false ",
+            "FROM addresses d JOIN login_logs l ON l.ip = d.ip AND l.player_id <> d.id ",
+            "WHERE l.created_at > d.at AND l.created_at > now() - make_interval(days => $1)) ",
+            "SELECT p.display_name AS name, p.staff_mod_level, h.display_name AS banned, ",
+            "CASE WHEN bool_or(h.browser) THEN 'browser' ELSE 'address' END AS via, ",
+            ms!("h.at"),
+            " AS banned_ms, count(DISTINCT h.id) AS logins, ",
+            ms!("min(h.created_at)"),
+            " AS first_ms, ",
+            ms!("max(h.created_at)"),
+            " AS last_ms FROM hits h JOIN players p ON p.id = h.player_id ",
+            "WHERE NOT coalesce(p.banned_until > now(), false) AND p.staff_mod_level <= $2 ",
+            "GROUP BY p.display_name, p.staff_mod_level, h.display_name, h.at ",
+            "ORDER BY max(h.created_at) DESC LIMIT $3"
         ))
         .bind(days)
         .bind(max_staff_level)
         .bind(limit)
+        .bind(CROWDED_ADDRESS)
         .fetch_all(&self.pool)
         .await
     }

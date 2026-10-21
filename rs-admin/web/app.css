@@ -578,6 +578,8 @@ dialog[open] { animation: pop 0.14s ease-out; }
 .toast.error { border-color: var(--danger-line); }
 .toast.ok .icon { color: var(--ok); }
 .toast.error .icon { color: var(--danger); }
+.toast.alert { border-color: var(--danger-line); }
+.toast.alert .icon { color: var(--danger); }
 .toast.leaving { opacity: 0; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(8px); } }
 
@@ -986,6 +988,8 @@ textarea.composer-text { min-height: 72px; }
 .saved-filter[aria-pressed="true"] button { color: var(--sel-ink); }
 .saved-filter[aria-pressed="true"] .saved-forget { border-color: var(--sel-line); }
 .timeline-filters { gap: 8px; }
+.timeline-scroll { max-height: min(640px, 70vh); overflow-y: auto; border-top: 1px solid var(--border); overscroll-behavior: contain; }
+.timeline-scroll .list-day { position: sticky; top: 0; z-index: 1; }
 
 /* Cases changed since you last looked */
 
@@ -999,6 +1003,22 @@ textarea.composer-text { min-height: 72px; }
   border-radius: 50%; background: var(--accent);
 }
 .chip-count { margin-left: 6px; font: 600 11px var(--mono); color: var(--accent); }
+.chip-count.alert { color: var(--danger); }
+
+/* Devices and the addresses they were used from, pointing at each other */
+.device-tag {
+  display: inline-block; padding: 0 5px; border: 1px solid var(--border-strong); border-radius: 4px;
+  font-size: 11px; line-height: 16px; color: var(--muted);
+}
+.device-ref { white-space: nowrap; }
+.list-item.linked { background: var(--sel); box-shadow: inset 0 0 0 1px var(--sel-line); }
+.list-item.linked .device-tag, .list-item.linked-source .device-tag { border-color: var(--sel-line); color: var(--text); }
+/* A case the console opened that nobody is on yet */
+.nav .count.alert { color: var(--danger); }
+.nav .count.alert::before {
+  content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 5px; vertical-align: 1px;
+  border-radius: 50%; background: var(--danger);
+}
 
 /* Player progress charts */
 

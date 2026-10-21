@@ -1302,7 +1302,37 @@ async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
         (evasion[0].name.as_str(), evasion[0].banned.as_str()),
         ("Alt", "Banned")
     );
-    assert_eq!(evasion[0].logins, 1);
+    assert_eq!((evasion[0].logins, evasion[0].via.as_str()), (1, "browser"));
+
+    // Alt then plays at Banned's home on that browser (one login, linked
+    // both ways), and Friend visits that home again: an address link.
+    db.record_login(3, 10, ip(1), Some(9), &device)
+        .await
+        .unwrap();
+    db.record_login(4, 10, ip(1), None, &device).await.unwrap();
+    let evasion = db.ban_evasion(7, 0, 10).await.unwrap();
+    let found: Vec<(&str, &str, i64)> = evasion
+        .iter()
+        .map(|e| (e.name.as_str(), e.via.as_str(), e.logins))
+        .collect();
+    assert_eq!(found, [("Friend", "address", 1), ("Alt", "browser", 2)]);
+
+    // Two accounts at a time: a shared browser first, else an address.
+    assert_eq!(
+        db.link_between(2, 3).await.unwrap().as_deref(),
+        Some("browser")
+    );
+    assert_eq!(
+        db.link_between(4, 5).await.unwrap().as_deref(),
+        Some("address")
+    );
+    assert_eq!(db.link_between(3, 5).await.unwrap(), None);
+    let staff = db.staff_accounts().await.unwrap();
+    assert_eq!(staff.len(), 1);
+    assert_eq!(
+        (staff[0].name.as_str(), staff[0].staff_mod_level),
+        ("Mod", 2)
+    );
 }
 
 #[sqlx::test]

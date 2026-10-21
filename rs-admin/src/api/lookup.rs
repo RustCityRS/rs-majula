@@ -1,7 +1,7 @@
-use super::access::{ceiling, check_player, may_see};
+use super::access::{ceiling, check_player, hides_self, may_see};
 use super::players::checked_name;
 use crate::audit::Event;
-use crate::cases::Triage;
+use crate::cases::{Triage, evasion_key};
 use crate::http::{ApiError, App, Staff};
 use crate::users::name_key;
 use axum::Json;
@@ -230,7 +230,7 @@ pub struct ReportView {
 /// first, everyone's or those against `name`, with the cases each is in.
 pub async fn reports(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Query(query): Query<ReportQuery>,
 ) -> Result<Json<Vec<ReportView>>, ApiError> {
     let offender = query
@@ -262,6 +262,7 @@ pub async fn reports(
         views.extend(
             rows.into_iter()
                 .zip(keys)
+                .filter(|(record, _)| !hides_self(&staff, &record.offender))
                 .map(|(record, key)| ReportView {
                     world: world_of(&app, record.node),
                     triage: triage.remove(&key).unwrap_or_default(),
@@ -489,14 +490,24 @@ pub struct EvasionQuery {
     days: Option<u32>,
 }
 
+#[derive(Serialize)]
+pub struct EvasionRow {
+    #[serde(flatten)]
+    evasion: Evasion,
+    /// The cases it's evidence in.
+    cases: Vec<u64>,
+}
+
 /// `GET /api/lookup/evasion?days=`: accounts that logged in with a banned
-/// account's browser since its ban, over the last `days` (14 by default).
+/// account's browser, or from its address, since its ban, over the last
+/// `days` (14 by default).
 pub async fn evasion(
     State(app): State<Arc<App>>,
     staff: Staff,
     Query(query): Query<EvasionQuery>,
-) -> Result<Json<Vec<Evasion>>, ApiError> {
-    app.worlds
+) -> Result<Json<Vec<EvasionRow>>, ApiError> {
+    let rows: Vec<Evasion> = app
+        .worlds
         .ask(
             path::EVASION,
             &EvasionLookup {
@@ -506,8 +517,22 @@ pub async fn evasion(
             },
         )
         .await
-        .map(Json)
-        .map_err(unavailable)
+        .map_err(unavailable)?;
+    let keys: Vec<String> = rows
+        .iter()
+        .map(|r| evasion_key(&r.name, &r.banned))
+        .collect();
+    let mut triage = app.cases.triage_of(&keys);
+    Ok(Json(
+        rows.into_iter()
+            .zip(keys)
+            .filter(|(evasion, _)| !hides_self(&staff, &evasion.name))
+            .map(|(evasion, key)| EvasionRow {
+                evasion,
+                cases: triage.remove(&key).map(|t| t.cases).unwrap_or_default(),
+            })
+            .collect(),
+    ))
 }
 
 /// How many save points the progress charts reach back over.

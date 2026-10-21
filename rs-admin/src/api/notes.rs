@@ -1,3 +1,4 @@
+use super::access::CaseView;
 use super::players::checked_name;
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
@@ -17,11 +18,25 @@ pub struct PlayerQuery {
 /// `GET /api/notes?player=`: the notes on a player, newest first.
 pub async fn of(
     State(app): State<Arc<App>>,
-    _staff: Staff,
+    staff: Staff,
     Query(query): Query<PlayerQuery>,
 ) -> Result<Json<Vec<Note>>, ApiError> {
     let player = checked_name(&query.player)?;
-    Ok(Json(app.notes.of(&player)))
+    let view = CaseView::new(&app, &staff);
+    Ok(Json(
+        app.notes
+            .of(&player)
+            .into_iter()
+            .filter(|n| sees(&view, &staff, n))
+            .collect(),
+    ))
+}
+
+/// Notes on staff are for those above them, as their cases are, but
+/// whoever wrote one sees it.
+fn sees(view: &CaseView, staff: &Staff, note: &Note) -> bool {
+    view.sees_subject(&note.player)
+        || crate::users::name_key(&note.by) == crate::users::name_key(staff.name())
 }
 
 #[derive(Deserialize)]
@@ -93,8 +108,14 @@ pub struct Watched {
 }
 
 /// `GET /api/notes/watched`: the watchlist, with who's online now.
-pub async fn watched(State(app): State<Arc<App>>, _staff: Staff) -> Json<Vec<Watched>> {
-    let notes = app.notes.watched();
+pub async fn watched(State(app): State<Arc<App>>, staff: Staff) -> Json<Vec<Watched>> {
+    let view = CaseView::new(&app, &staff);
+    let notes: Vec<Note> = app
+        .notes
+        .watched()
+        .into_iter()
+        .filter(|n| sees(&view, &staff, n))
+        .collect();
     let worlds = app.worlds.online();
     let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
     let online: std::collections::HashMap<String, u16> = worlds

@@ -196,7 +196,9 @@ on phones too.
   desktop client install they logged in with, as the world heard it at login
   (user agent, platform hint, language, phone or tablet; nothing from the
   desktop client), with its login id and the addresses it was used from
-  (labels for moderators too). **Link flags** above them warn of logins
+  (labels for moderators too), numbered D1, D2... so each login address
+  names the devices used from it; pointing at a device or an address
+  lights up the other side. **Link flags** above them warn of logins
   from a banned account's browser or address after its ban, a browser
   shared with a banned account, a headless browser or none, one browser used
   by 4 or more accounts, 5 or more browsers in a week, and a user agent
@@ -204,8 +206,9 @@ on phones too.
   browsers and addresses 1 to 3 links out (addresses shared by more than 25
   accounts don't count) and bans the unbanned ones together. Investigate's
   **Ban evasion** tab lists every account that logged in with a banned
-  account's browser since its ban. Sessions from a headless browser are
-  flagged `automated_browser` by the anti-cheat checks.
+  account's browser, or from one of its addresses, since its ban. Sessions
+  from a headless browser are flagged `automated_browser` by the anti-cheat
+  checks, and a session's checks name the device it ran on.
 - **Controls:** kill switches that switch a feature off on every world
   (trading, the duel arena, dropping, picking up, shops, banking, or any
   scripts by name pattern): players trying it are told it's switched off.
@@ -251,6 +254,34 @@ on phones too.
   session" plays the offender's recording from a minute before it. Also who
   is muted or banned now, and every moderation action. Players' pages and
   replays link into it.
+- **Detections:** every minute the console opens a case on its own (by
+  "Detection", with the evidence and a comment saying why) for a session
+  the anti-cheat checks score 50 or more (high priority for a modified
+  client, an automated browser or 100+), possible ban evasion (high for a
+  shared browser, normal for an address), a player reported 3 times in a
+  day by 2 or more players, and a staff member lifting a mute or ban on an
+  account that shares a browser or address with theirs (also when done in
+  game). Something new about a player with an open
+  case goes into that case instead, raising its priority to match. Nothing
+  already in a case or dismissed is filed again, and after a case on a
+  player is closed with no action, the same kind of sign opens none on them
+  for a week (it still waits in triage), and closing one with no action
+  needs a note saying why. Staff are looked at too. Staff hear of new
+  detections nobody is on yet from a toast, a red count on
+  Moderation and the tab's title (`(3) ...`, refreshed every 15 seconds,
+  hidden tabs too), and the overview lists them with "Take it".
+- **Staff who might be up to something:** cases and staff notes about a
+  staff member (and the audit entries about them) are hidden from that
+  member and from staff at or below their level; maintainers see them, as
+  do staff who opened the case or were put on it. Staff can't look up
+  their own account, and lists (sessions, reports, ban evasion, the
+  anti-cheat leaderboard) leave it out. On an account that is theirs or
+  shares a browser or (uncrowded) address with theirs, staff can only
+  comment: they can't close, join or change its cases, dismiss its reports
+  or sessions from triage, lift its mutes or bans, decide its appeals,
+  reset its password, roll back its save or restore its items; refused too
+  when no world can say. Maintainers aren't held to these (they run the
+  machines), but what they do is detected and audited like anyone's.
 - **Finding your way:** Ctrl+K (or `/`) searches players (online, or
   registered by exact name), cases, recordings and recent audit entries, as
   well as pages and actions. Pin players from their page; pinned and

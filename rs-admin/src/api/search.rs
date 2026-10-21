@@ -1,5 +1,5 @@
 use super::AuditFilter;
-use super::access::AuditView;
+use super::access::{AuditView, CaseView};
 use super::replays::{ReplayView, view};
 use crate::audit::Entry;
 use crate::cases::Case;
@@ -65,10 +65,12 @@ pub async fn search(
         .then(|| q.to_owned());
     let name = name_like(q).then(|| q.to_owned());
 
+    let case_view = CaseView::new(&app, &staff);
     let mut cases = app.cases.all(|c| {
-        Some(c.id) == case_id
-            || c.title.to_lowercase().contains(&needle)
-            || name_key(&c.player).contains(&key)
+        case_view.sees(c)
+            && (Some(c.id) == case_id
+                || c.title.to_lowercase().contains(&needle)
+                || name_key(&c.player).contains(&key))
     });
     // The case asked for by number, then open before closed, newest change first.
     cases.sort_by_key(|c| {

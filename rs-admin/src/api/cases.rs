@@ -1,4 +1,4 @@
-use super::access::{ceiling, check_player, check_replay};
+use super::access::{CaseView, ceiling, check_conflict, check_player, check_replay};
 use super::lookup::unavailable;
 use super::players::{action_name, checked_name, moderate_one};
 use super::replays::checked_id;
@@ -8,6 +8,7 @@ use crate::cases::{
     Resolution, Status, Triage,
 };
 use crate::clips;
+use crate::detect;
 use crate::http::{ApiError, App, Staff};
 use crate::markdown::{self, MEDIA_PATH};
 use crate::users::{Role, name_key};
@@ -320,6 +321,9 @@ pub struct ListQuery {
     /// Only open ones nobody is on.
     #[serde(default)]
     unassigned: bool,
+    /// Only those the console opened on its own.
+    #[serde(default)]
+    detected: bool,
     player: Option<String>,
     /// Only those this staff member opened, closed or is on.
     staff: Option<String>,
@@ -342,6 +346,7 @@ pub async fn list(
     staff: Staff,
     Query(query): Query<ListQuery>,
 ) -> Json<Vec<CaseRow>> {
+    let view = CaseView::new(&app, &staff);
     let unread = app
         .cases
         .unread(staff.name(), &app.prefs.of(staff.name()).seen);
@@ -363,10 +368,12 @@ pub async fn list(
             Show::All => true,
         };
         shown
+            && view.sees(c)
             && (!query.mine || c.has(staff.name()))
             && query.staff.as_deref().is_none_or(|s| c.involves(s))
             && (!query.unread || unread.contains(&c.id))
             && (!query.unassigned || (c.is_open() && c.assignees.is_empty()))
+            && (!query.detected || c.created_by == detect::OPENED_BY)
             && player.as_ref().is_none_or(|p| name_key(&c.player) == *p)
             && needle.as_ref().is_none_or(|n| {
                 c.title.to_lowercase().contains(n)
@@ -408,16 +415,49 @@ pub struct Summary {
     waiting: usize,
     /// Changed since the caller last looked, open or not.
     unread: usize,
+    /// Open cases the console opened on its own that nobody is on yet.
+    detected: usize,
+    /// The newest of those, newest first.
+    detections: Vec<Detection>,
 }
+
+/// A case the console opened on its own, for the alert staff get.
+#[derive(Serialize)]
+pub struct Detection {
+    id: u64,
+    title: String,
+    player: String,
+    priority: Priority,
+    created_ms: u64,
+}
+
+/// The most [`Detection`]s a summary carries.
+const MAX_DETECTIONS: usize = 5;
 
 /// `GET /api/cases/summary`: counts for the nav and the center's header.
 pub async fn summary(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
-    let open = app.cases.all(Case::is_open);
+    let view = CaseView::new(&app, &staff);
+    let open = app.cases.all(|c| c.is_open() && view.sees(c));
+    let unread = visible_unread(&app, &staff, &view);
+    let mut detected: Vec<&Case> = open
+        .iter()
+        .filter(|c| c.created_by == detect::OPENED_BY && c.assignees.is_empty())
+        .collect();
+    detected.sort_by_key(|c| Reverse(c.id));
     Json(Summary {
-        unread: app
-            .cases
-            .unread(staff.name(), &app.prefs.of(staff.name()).seen)
-            .len(),
+        unread: unread.len(),
+        detected: detected.len(),
+        detections: detected
+            .iter()
+            .take(MAX_DETECTIONS)
+            .map(|c| Detection {
+                id: c.id,
+                title: c.title.clone(),
+                player: c.player.clone(),
+                priority: c.priority,
+                created_ms: c.created_ms,
+            })
+            .collect(),
         open: open.len(),
         yours: open.iter().filter(|c| c.has(staff.name())).count(),
         unassigned: open.iter().filter(|c| c.assignees.is_empty()).count(),
@@ -426,10 +466,29 @@ pub async fn summary(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary>
     })
 }
 
+/// The cases changed since `staff` last looked that they may see.
+fn visible_unread(app: &App, staff: &Staff, view: &CaseView) -> std::collections::HashSet<u64> {
+    let unread = app
+        .cases
+        .unread(staff.name(), &app.prefs.of(staff.name()).seen);
+    app.cases
+        .all(|c| unread.contains(&c.id) && view.sees(c))
+        .into_iter()
+        .map(|c| c.id)
+        .collect()
+}
+
+/// Case `id`, if `staff` may see it; one they may not is as if it weren't.
+fn visible(app: &App, staff: &Staff, id: u64) -> Result<Case, ApiError> {
+    app.cases
+        .get(id)
+        .filter(|case| CaseView::new(app, staff).sees(case))
+        .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, format!("There's no case #{id}.")))
+}
+
 /// `POST /api/cases/read`: counts every case as looked at by the caller.
 pub async fn mark_read(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
-    let seen = app.prefs.of(staff.name()).seen;
-    let unread = app.cases.unread(staff.name(), &seen);
+    let unread = visible_unread(&app, &staff, &CaseView::new(&app, &staff));
     let updated = app
         .cases
         .all(|c| unread.contains(&c.id))
@@ -488,6 +547,11 @@ pub async fn create(
     Json(req): Json<NewCase>,
 ) -> Result<Json<Case>, ApiError> {
     let player = checked_name(&req.player)?;
+    if name_key(&player) == name_key(staff.name()) {
+        return Err(ApiError::bad_request(
+            "That's your own account: another staff member opens a case on it.",
+        ));
+    }
     let title = required(&req.title, MAX_TITLE, false, "A title")?;
     let note = text(&req.note, MAX_TEXT, true, "A note")?;
     let mut then: Vec<Change> = resolve_all(&app, &staff, &req.evidence)
@@ -564,10 +628,7 @@ pub async fn get(
     staff: Staff,
     Path(id): Path<u64>,
 ) -> Result<Json<CaseDetail>, ApiError> {
-    let case = app
-        .cases
-        .get(id)
-        .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, format!("There's no case #{id}.")))?;
+    let case = visible(&app, &staff, id)?;
     Ok(Json(detail(&app, &staff, case)))
 }
 
@@ -627,6 +688,20 @@ pub async fn change(
     Json(op): Json<Op>,
 ) -> Result<Json<CaseDetail>, ApiError> {
     let me = staff.name().to_owned();
+    let case = visible(&app, &staff, id)?;
+    // Staff linked to the player only talk about it.
+    if !matches!(op, Op::Comment { .. } | Op::Leave) {
+        check_conflict(&app, &staff, &case.player, "work this case").await?;
+    }
+    if let Op::Close { resolution, note } = &op
+        && case.created_by == detect::OPENED_BY
+        && *resolution != Resolution::Actioned
+        && note.trim().is_empty()
+    {
+        return Err(ApiError::bad_request(
+            "The console opened this case: say why it needs nothing doing in the note.",
+        ));
+    }
     let op = match op {
         Op::DecideAppeal { decision, note } => {
             return decide_appeal(&app, &staff, id, decision, &note).await;
@@ -962,6 +1037,35 @@ fn triage_key(key: &str) -> Option<&str> {
     .then_some(key)
 }
 
+/// Refuses `staff` dismissing reports or sessions (by triage key) about
+/// themselves or an account linked to theirs, which would keep them out of
+/// any case.
+async fn check_dismissing(app: &App, staff: &Staff, keys: &[String]) -> Result<(), ApiError> {
+    let refs: Vec<EvidenceRef> = keys
+        .iter()
+        .filter_map(|key| {
+            let (kind, id) = key.split_once(':')?;
+            Some(match kind {
+                "report" => EvidenceRef::Report {
+                    id: id.parse().ok()?,
+                },
+                _ => EvidenceRef::Replay { id: id.to_owned() },
+            })
+        })
+        .collect();
+    let mut players: Vec<String> = Vec::new();
+    for evidence in resolve_all(app, staff, &refs).await? {
+        let player = evidence.player();
+        if !players.iter().any(|p| name_key(p) == name_key(player)) {
+            players.push(player.to_owned());
+        }
+    }
+    for player in players {
+        check_conflict(app, staff, &player, "decide what happens to this").await?;
+    }
+    Ok(())
+}
+
 #[derive(Deserialize)]
 pub struct TriageRequest {
     key: String,
@@ -978,6 +1082,9 @@ pub async fn triage(
     let key = triage_key(&req.key)
         .ok_or_else(|| ApiError::bad_request("That can't be triaged."))?
         .to_owned();
+    if req.dismissed {
+        check_dismissing(&app, &staff, std::slice::from_ref(&key)).await?;
+    }
     app.cases
         .triage(staff.name(), key.clone(), req.dismissed)
         .map_err(refused)?;
@@ -1021,6 +1128,9 @@ pub async fn triage_bulk(
         .map(|k| triage_key(k).map(str::to_owned))
         .collect::<Option<Vec<String>>>()
         .ok_or_else(|| ApiError::bad_request("That can't be triaged."))?;
+    if req.dismissed {
+        check_dismissing(&app, &staff, &keys).await?;
+    }
     let changed = app
         .cases
         .triage_many(staff.name(), keys, req.dismissed)

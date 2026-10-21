@@ -430,6 +430,10 @@ pub async fn moderate(
         ));
     }
 
+    if matches!(action, ModAction::Unmute | ModAction::Unban) {
+        super::access::check_conflict(&app, &staff, &name, "lift their mute or ban").await?;
+    }
+
     let mut results: Vec<Moderated> = Vec::with_capacity(1 + also.len());
     for (i, target) in std::iter::once(&name).chain(&also).enumerate() {
         let reason = if i == 0 {

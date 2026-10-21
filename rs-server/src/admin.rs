@@ -13,16 +13,17 @@ use rs_admin_api::{
     CheckPatterns, ControlsSet, EdgeItem, Evasion, EvasionLookup, GraphAccount, Health, HeldIn,
     HiscoreRow, HiscoreStanding, HiscoresChange, HiscoresLookup, Holder, HoldersLookup, InvSheet,
     ItemCirculation, ItemForms, ItemHolders, ItemLine, ItemTrace, KeptOff, KeptOffLookup, Kick,
-    LinkChainLookup, LinkedAccount, Links, LinksLookup, LiveReplay, LoginAddress, LoginDeviceSeen,
-    MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome, Moderate, ModerationLookup,
-    ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome, PasswordReset, PlayerEdit,
-    PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet, ProgressLookup, ProgressPoint,
-    Reboot, ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup, ReplaySummary, ReportLookup,
-    ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup, SavePointLine, SavePointLookup,
-    SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup, SessionState, SetControls,
-    SheetLookup, StatLine, TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup, TraceLine,
-    TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup, Unstick, Verifier, WealthLine,
-    WealthLookup, WorldControls, WorldStatus, path,
+    LinkBetween, LinkChainLookup, LinkedAccount, LinkedLookup, Links, LinksLookup, LiveReplay,
+    LoginAddress, LoginDeviceSeen, MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome,
+    Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome,
+    PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSheet,
+    ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup,
+    ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup,
+    SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup,
+    SessionState, SetControls, SheetLookup, StaffAccountRecord, StaffAccountsLookup, StatLine,
+    TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge,
+    TradeGraph, TradeGraphLookup, Unstick, Verifier, WealthLine, WealthLookup, WorldControls,
+    WorldStatus, path,
 };
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::console::{self, Change};
@@ -206,6 +207,8 @@ pub async fn serve(
         .route(path::LINKS, post(links_lookup))
         .route(path::LINK_CHAIN, post(link_chain_lookup))
         .route(path::EVASION, post(evasion_lookup))
+        .route(path::STAFF_ACCOUNTS, post(staff_accounts_lookup))
+        .route(path::LINKED, post(linked_lookup))
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
         .route(path::REPLAY_DATA, post(replay_data))
@@ -999,6 +1002,33 @@ async fn link_chain_lookup(
     ))
 }
 
+async fn staff_accounts_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(_): Json<StaffAccountsLookup>,
+) -> Result<Json<Vec<StaffAccountRecord>>, StatusCode> {
+    let rows = state.db.staff_accounts().await.map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| StaffAccountRecord {
+                name: r.name,
+                staff_level: r.staff_mod_level.clamp(0, 255) as u8,
+            })
+            .collect(),
+    ))
+}
+
+async fn linked_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<LinkedLookup>,
+) -> Result<Json<LinkBetween>, StatusCode> {
+    let via = state
+        .db
+        .link_between(name_hash(&req.name)?, name_hash(&req.other)?)
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(LinkBetween { via }))
+}
+
 async fn evasion_lookup(
     State(state): State<Arc<AdminState>>,
     Json(req): Json<EvasionLookup>,
@@ -1018,6 +1048,7 @@ async fn evasion_lookup(
                 name: r.name,
                 staff_level: r.staff_mod_level.clamp(0, 255) as u8,
                 banned: r.banned,
+                via: r.via,
                 banned_ms: r.banned_ms,
                 logins: r.logins,
                 first_ms: r.first_ms,

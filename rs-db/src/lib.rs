@@ -28,7 +28,7 @@ pub use hiscores::{
 };
 pub use history::{SavePoint, SaveProgress};
 pub use investigate::{AccountActivity, AnticheatLeader};
-pub use links::{BannedLink, CROWDED_ADDRESS, ChainLink, EvasionRecord};
+pub use links::{BannedLink, CROWDED_ADDRESS, ChainLink, EvasionRecord, StaffAccount};
 pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent, transfer};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};

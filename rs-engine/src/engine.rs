@@ -2739,6 +2739,7 @@ impl Engine {
             ));
             active.watch.anticheat.touch = request.device.touch;
             active.watch.anticheat.automated = crate::watch::automated(&request.device);
+            active.watch.anticheat.device = request.device.clone();
             active.watch.login(self.clock, &reply);
         }
         let _ = active.handle.outbox.send(reply);

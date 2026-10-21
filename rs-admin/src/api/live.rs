@@ -1,4 +1,4 @@
-use super::access::{ceiling, check_replay, may_see};
+use super::access::{ceiling, check_replay, hides_self, may_see};
 use super::lookup::{address_label, sees_addresses, unavailable};
 use super::replays::checked_id;
 use crate::audit::Event;
@@ -115,6 +115,7 @@ pub async fn anticheat(
         since_ms,
         leaders: leaders
             .into_iter()
+            .filter(|leader| !hides_self(&staff, &leader.name))
             .map(|leader| LeaderView {
                 online_world: leader
                     .online_node
