@@ -838,7 +838,8 @@ pub async fn change(
 
 /// Decides case `id`'s appeal: lifts the sanction if it's overturned, has
 /// the website show the player the decision, then records it and closes the
-/// case. Whoever issued the sanction can't (the case log refuses them too).
+/// case. Whoever issued the sanction can't, unless they're a maintainer (so
+/// a lone maintainer can still decide them).
 /// Each step that fails stops it there, saying what did happen, and deciding
 /// again picks up where it stopped: lifting twice or telling twice is fine.
 async fn decide_appeal(
@@ -865,10 +866,11 @@ async fn decide_appeal(
             "The case is closed; reopen it to decide again.",
         ));
     }
-    if appeal
-        .issued_by
-        .as_deref()
-        .is_some_and(|by| name_key(by) == name_key(&me))
+    if staff.user.role != Role::Maintainer
+        && appeal
+            .issued_by
+            .as_deref()
+            .is_some_and(|by| name_key(by) == name_key(&me))
     {
         return Err(refused(
             "You issued this sanction, so someone else must decide the appeal.".to_owned(),

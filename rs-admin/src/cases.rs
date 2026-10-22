@@ -428,15 +428,6 @@ impl Inner {
             Change::AppealDecided { .. } if closed => {
                 Err("The case is closed; reopen it first.".into())
             }
-            Change::AppealDecided { .. }
-                if case
-                    .appeal
-                    .as_ref()
-                    .and_then(|a| a.appeal.issued_by.as_deref())
-                    .is_some_and(|by| name_key(by) == name_key(&entry.by)) =>
-            {
-                Err("You issued this sanction, so someone else must decide the appeal.".into())
-            }
             Change::Closed { .. } if case.appeal.as_ref().is_some_and(|a| a.decision.is_none()) => {
                 Err("Decide the appeal to close its case.".into())
             }
@@ -1130,7 +1121,7 @@ mod tests {
     }
 
     #[test]
-    fn appeals_are_decided_by_someone_else_before_closing() {
+    fn appeals_are_decided_before_closing() {
         let path = temp_log("appeal");
         let cases = Cases::open(path.clone());
         let case = cases
@@ -1156,10 +1147,8 @@ mod tests {
                 note: "Stands.".into(),
             }])
         };
-        // Not closed without a decision, nor decided by whoever banned.
+        // Not closed without a decision.
         assert!(cases.change("Kim", case.id, close).is_err());
-        let err = cases.change("mod_ash", case.id, decide).unwrap_err();
-        assert!(err.contains("someone else"), "{err}");
         // A second appeal can't be stuck on.
         let refile = |_: &Case| Ok(vec![appeal(None)]);
         assert!(cases.change("Kim", case.id, refile).is_err());

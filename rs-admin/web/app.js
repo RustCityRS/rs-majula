@@ -4560,7 +4560,7 @@ function moderationPage(ctx) {
                 : h('div', {class: 'empty'}, 'No closed cases yet.'))).catch((e) => failed(closed, e));
             api('GET', '/cases').then((rows) => {
                 const waiting = rows.filter((c) => c.appeal && !c.appeal.decision);
-                replace(appeals, waiting.length ? waiting.map((c) => caseItem(c, c.appeal.issued_by && isMe(c.appeal.issued_by)
+                replace(appeals, waiting.length ? waiting.map((c) => caseItem(c, !isMaintainer() && c.appeal.issued_by && isMe(c.appeal.issued_by)
                         ? h('div', {class: 'list-sub'}, 'You issued this one: someone else decides it.') : null))
                     : h('div', {class: 'empty'}, icon('check'), 'No appeals waiting.'));
                 const asking = rows.filter((c) => c.recovery && c.recovery.approved == null);
@@ -5527,8 +5527,9 @@ function casePage(ctx) {
         });
     };
 
-    // An appeal's sanction was issued by this staff member: they can't decide it.
-    const issuedByMe = () => !!c.appeal?.issued_by && isMe(c.appeal.issued_by);
+    // An appeal's sanction was issued by this staff member: they can't decide
+    // it, unless they're a maintainer.
+    const issuedByMe = () => !isMaintainer() && !!c.appeal?.issued_by && isMe(c.appeal.issued_by);
     const decideDialog = (decision) => {
         const a = c.appeal;
         const overturn = decision === 'overturned';
