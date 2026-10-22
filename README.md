@@ -452,6 +452,7 @@ anything, it starts again from the nearest keyframe to the same spot.
 | Missing op checks | The client sends `ANTICHEAT_OPLOGIC*` with certain actions once a hidden count passes a threshold; the world mirrors the counts and expects them. |
 | Actions without clicks | 254+: over a quarter of 20+ actions came without the click the client reports alongside each. |
 | Actions while unfocused | 3+ actions while the client said its window had lost focus (not on touch screens, whose keyboard takes focus). A real click gives the window focus first; a script's made-up click doesn't. Before 254 the click's press is judged in the input reports. |
+| Clicked what it wasn't shown | 3+ actions (including "use" and spells) on an NPC or player the world wasn't sending the client, a loc outside its map, or an obj in a zone it wasn't sent since the map was built. Something that left view or a map that moved on still counts as shown for 10 ticks, for clicks made before the update arrived. |
 | No mouse | 20+ actions and no mouse reports. |
 | Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last report. |
 | Clockwork clicks | 30+ clicks at very even intervals. |

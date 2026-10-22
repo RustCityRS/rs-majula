@@ -37,7 +37,14 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 impl ClientGameHandler for OpLocU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.watch_use(Using::Item(self.obj), Target::Loc(self.loc));
+        active.watch_use(
+            Using::Item(self.obj),
+            Target::Loc {
+                id: self.loc,
+                x: self.x,
+                z: self.z,
+            },
+        );
         if active.player.state.delayed {
             // normal: cannot interact while delayed
             active.unset_map_flag();

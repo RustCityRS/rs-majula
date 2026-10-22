@@ -1,6 +1,8 @@
+use super::Target;
 use super::input::{Input, InputDecoder, Timed};
 use Field::*;
 use rs_db::{LoginDevice, ReplayReport};
+use rs_entity::BuildArea;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
 #[cfg(any(rev = "225", since_254))]
@@ -248,6 +250,51 @@ const FOCUS_CLICK_MS: u32 = 100;
 /// Actions while the window is unfocused: a real client gets focus back
 /// before its clicks go anywhere, but the odd one can race it.
 const MIN_UNFOCUSED: u32 = 3;
+/// How many ticks after the world stops showing the client something (an
+/// NPC leaving view, the map moving on) its clicks on it still count as
+/// real: they were made before the update reached it.
+const SHOWN_GRACE: u32 = 10;
+/// Actions on things the client was never sent.
+const MIN_UNSEEN: u32 = 3;
+/// A map's width in zones.
+const MAP_ZONES: i32 = 13;
+
+/// The zones of the client's map the world has sent it: one bit for each of
+/// its 13 by 13.
+#[derive(Clone, Copy, Debug)]
+struct Zones {
+    base: MapBase,
+    sent: [u64; 3],
+}
+
+impl Zones {
+    fn new(base: MapBase) -> Zones {
+        Zones { base, sent: [0; 3] }
+    }
+
+    /// Which of the map's zones the tile is in, if it's in the map.
+    fn index(&self, x: u16, z: u16) -> Option<usize> {
+        let dx = offset(x, self.base.x) >> 3;
+        let dz = offset(z, self.base.z) >> 3;
+        ((0..MAP_ZONES).contains(&dx) && (0..MAP_ZONES).contains(&dz))
+            .then(|| (dx * MAP_ZONES + dz) as usize)
+    }
+
+    fn in_map(&self, x: u16, z: u16) -> bool {
+        self.index(x, z).is_some()
+    }
+
+    fn was_sent(&self, x: u16, z: u16) -> bool {
+        self.index(x, z)
+            .is_some_and(|i| self.sent[i / 64] >> (i % 64) & 1 != 0)
+    }
+
+    fn send(&mut self, x: u16, z: u16) {
+        if let Some(i) = self.index(x, z) {
+            self.sent[i / 64] |= 1 << (i % 64);
+        }
+    }
+}
 
 #[derive(Default)]
 pub struct AntiCheat {
@@ -293,6 +340,14 @@ pub struct AntiCheat {
     /// click can come just before the client takes a new one).
     base: Option<MapBase>,
     prev_base: Option<MapBase>,
+    /// NPCs and players the world stopped showing the client lately, with
+    /// the tick.
+    lost: VecDeque<(Target, u32)>,
+    /// The client's map and the zones it was sent, and the map before it
+    /// with the tick it was replaced.
+    zones: Option<Zones>,
+    prev_zones: Option<(Zones, u32)>,
+    unseen: u32,
     decoded: Vec<Timed>,
 }
 
@@ -524,6 +579,63 @@ impl AntiCheat {
         }
     }
 
+    /// The world stopped showing the client an NPC or player, on tick
+    /// `clock`.
+    pub fn lost(&mut self, what: Target, clock: u32) {
+        while self
+            .lost
+            .front()
+            .is_some_and(|&(_, c)| clock.wrapping_sub(c) > SHOWN_GRACE)
+        {
+            self.lost.pop_front();
+        }
+        self.lost.push_back((what, clock));
+    }
+
+    /// The client was sent a new map, from `base`, on tick `clock`.
+    pub fn rebuilt(&mut self, base: MapBase, clock: u32) {
+        if let Some(zones) = self.zones.replace(Zones::new(base)) {
+            self.prev_zones = Some((zones, clock));
+        }
+    }
+
+    /// The client was sent the zone with tile `(x, z)`, objs and all.
+    pub fn zone_sent(&mut self, x: u16, z: u16) {
+        if let Some(zones) = &mut self.zones {
+            zones.send(x, z);
+        }
+    }
+
+    /// An action on `on`, on tick `clock`: the real client can only click
+    /// what it was shown. `area` is what the world is showing it now.
+    pub fn target(&mut self, on: Target, area: &BuildArea, clock: u32) {
+        let lately = |f: &dyn Fn(&Zones) -> bool| {
+            self.zones.as_ref().is_none_or(f)
+                || self
+                    .prev_zones
+                    .as_ref()
+                    .is_some_and(|(z, c)| clock.wrapping_sub(*c) <= SHOWN_GRACE && f(z))
+        };
+        let shown = match on {
+            Target::Npc(nid) => area.npcs.contains(nid) || self.lately_lost(on, clock),
+            Target::Player(pid) => area.players.contains(pid) || self.lately_lost(on, clock),
+            // Locs are in the map the client loads; objs only come with the
+            // zones it's sent.
+            Target::Loc { x, z, .. } => lately(&|zones| zones.in_map(x, z)),
+            Target::Obj { x, z, .. } => lately(&|zones| zones.was_sent(x, z)),
+            Target::Item(_) => true,
+        };
+        if !shown {
+            self.unseen += 1;
+        }
+    }
+
+    fn lately_lost(&self, what: Target, clock: u32) -> bool {
+        self.lost
+            .iter()
+            .any(|&(t, c)| t == what && clock.wrapping_sub(c) <= SHOWN_GRACE)
+    }
+
     fn see_base(&mut self, base: MapBase) {
         if self.base != Some(base) {
             self.prev_base = self.base;
@@ -581,6 +693,9 @@ impl AntiCheat {
         {
             flags.push(("cursor_jumps", 25));
         }
+        if self.unseen >= MIN_UNSEEN {
+            flags.push(("clicked_unseen", 50));
+        }
         if self.forged_minimap >= 2 {
             flags.push(("forged_minimap_click", 100));
         }
@@ -608,6 +723,7 @@ impl AntiCheat {
             "inputReports": self.input_reports,
             "focusLost": self.focus_lost,
             "unfocusedActions": self.unfocused_actions,
+            "unseenTargets": self.unseen,
             "idleReports": self.idle_reports,
             "cameraReports": self.camera_reports,
             "minimapClicks": self.minimap_clicks,
@@ -915,6 +1031,61 @@ mod tests {
             ac.minimap(&path, &trailer, BASE, (3204 + 20, 3204));
         }
         assert_eq!(ac.report().flags, ["minimap_position_off"]);
+    }
+
+    #[test]
+    fn actions_on_what_the_client_was_never_sent_are_flagged() {
+        let mut ac = AntiCheat::default();
+        let mut area = BuildArea::new();
+        area.npcs.insert(5);
+        ac.rebuilt(BASE, 0);
+        ac.zone_sent(3200, 3200);
+        ac.lost(Target::Npc(7), 0);
+        // What it was shown: a tracked NPC, one that just left view, a loc
+        // in its map and an obj in a zone it was sent.
+        let shown = [
+            Target::Npc(5),
+            Target::Npc(7),
+            Target::Loc {
+                id: 1,
+                x: 3160,
+                z: 3250,
+            },
+            Target::Obj {
+                id: 1,
+                x: 3201,
+                z: 3203,
+            },
+        ];
+        for on in shown {
+            ac.target(on, &area, 5);
+        }
+        // Just after the map moved on, the old one still counts.
+        ac.rebuilt(MapBase { x: 3400, z: 3400 }, 6);
+        ac.target(shown[2], &area, 10);
+        assert_eq!(ac.unseen, 0);
+
+        let unseen = [
+            Target::Npc(9),
+            // Long gone.
+            Target::Npc(7),
+            Target::Loc {
+                id: 1,
+                x: 3160,
+                z: 3250,
+            },
+            // In the map, but its zone was never sent.
+            Target::Obj {
+                id: 1,
+                x: 3410,
+                z: 3410,
+            },
+        ];
+        for on in unseen {
+            ac.target(on, &area, 30);
+        }
+        assert_eq!(ac.unseen, 4);
+        assert_eq!(ac.report().flags, ["clicked_unseen"]);
     }
 
     /// A click `ms` into the session and the action it makes. Before 254

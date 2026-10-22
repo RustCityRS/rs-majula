@@ -61,11 +61,11 @@ pub enum Using {
 }
 
 /// What a "use" or spell action was done on.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Target {
     Npc(u16),
-    Loc(u16),
-    Obj(u16),
+    Loc { id: u16, x: u16, z: u16 },
+    Obj { id: u16, x: u16, z: u16 },
     Player(u16),
     Item(u16),
 }

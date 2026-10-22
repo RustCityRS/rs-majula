@@ -5919,6 +5919,7 @@ const FLAGS = {
     missing_op_checks: ['Missing op checks', 'Left out the anti-cheat packets the real client sends with some actions once it has done them enough.'],
     actions_without_clicks: ['Actions without clicks', 'Many actions came without the click the real client reports with each one.'],
     actions_while_unfocused: ['Actions while unfocused', 'Acted while the game window didn\'t have focus. A real click on the game gives it focus first, so these clicks were most likely sent in by a script.'],
+    clicked_unseen: ['Clicked what it wasn\'t shown', 'Acted on NPCs or players the world wasn\'t showing it, or on objects and items outside the map it was sent. The real client can only click what it was shown, so these came from something that knows more than the client does.'],
     no_mouse_movement: ['No mouse', 'Played without the client ever reporting the mouse.'],
     cursor_jumps: ['Cursor jumps', 'Most clicks landed far from where the cursor last was: it jumps rather than moves. A touch screen does this too (a tap puts the cursor where it lands), so check the replay: an iPad or a touchscreen laptop passes as a desktop.'],
     robotic_click_timing: ['Clockwork clicks', 'Clicks came at very even intervals.'],

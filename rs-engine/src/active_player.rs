@@ -895,6 +895,18 @@ impl ActivePlayer {
         let clock = engine().clock;
         let base = self.map_base();
         self.watch.op(op, clock, base);
+        let on = match op {
+            Op::Npc { nid, .. } => Some(Target::Npc(nid)),
+            Op::Player { pid, .. } => Some(Target::Player(pid)),
+            Op::Loc { id, x, z, .. } => Some(Target::Loc { id, x, z }),
+            Op::Obj { id, x, z, .. } => Some(Target::Obj { id, x, z }),
+            _ => None,
+        };
+        if let Some(on) = on {
+            self.watch
+                .anticheat
+                .target(on, &self.player.build_area, clock);
+        }
         if !self.watch.recording() {
             return;
         }
@@ -911,6 +923,9 @@ impl ActivePlayer {
     /// Records a "use" or spell action, e.g. "Use Bones on Altar".
     pub fn watch_use(&mut self, with: Using, on: Target) {
         self.watch_op(Op::Other);
+        self.watch
+            .anticheat
+            .target(on, &self.player.build_area, engine().clock);
         if !self.watch.recording() {
             return;
         }
@@ -934,13 +949,13 @@ impl ActivePlayer {
                 .and_then(|t| t.name.as_deref())
                 .unwrap_or("?")
                 .to_owned(),
-            Target::Loc(id) => engine
+            Target::Loc { id, .. } => engine
                 .locs()
                 .get_by_id(id)
                 .and_then(|t| t.name.as_deref())
                 .unwrap_or("?")
                 .to_owned(),
-            Target::Obj(id) | Target::Item(id) => obj(id),
+            Target::Obj { id, .. } | Target::Item(id) => obj(id),
             Target::Player(pid) => engine
                 .get_player(pid)
                 .map(|p| p.uid().username())
@@ -1234,6 +1249,8 @@ impl ActivePlayer {
         }
         let coord = self.player.pathing.coord;
         self.player.build_area.rebuild_normal(&coord);
+        let base = self.map_base();
+        self.watch.anticheat.rebuilt(base, engine().clock);
         let zone_x = self.player.pathing.coord.zone_x();
         let zone_z = self.player.pathing.coord.zone_z();
         #[cfg(rev = "225")]
@@ -2698,6 +2715,9 @@ impl EnginePlayer for ActivePlayer {
 
             if !self.player.build_area.loaded_zones.contains(&zone_coord) {
                 self.player.build_area.loaded_zones.push(zone_coord);
+                self.watch
+                    .anticheat
+                    .zone_sent(zone_coord.x(), zone_coord.z());
             }
         }
     }

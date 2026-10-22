@@ -1,6 +1,8 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
+use crate::engine::engine;
+use crate::watch::Target;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
@@ -465,6 +467,10 @@ impl PlayerInfo {
         // 1 + 2 = 3 bits
         self.bw.pbit::<3>(&mut self.buf, (1 << 2) | 3);
         active.player.build_area.players.remove_bit(other);
+        active
+            .watch
+            .anticheat
+            .lost(Target::Player(other), engine().clock);
     }
 
     /// Encodes a teleport movement entry (21 bits) with absolute position
@@ -1281,6 +1287,10 @@ impl NpcInfo {
         // 1 + 2 = 3 bits
         self.bw.pbit::<3>(&mut self.buf, (1 << 2) | 3);
         active.player.build_area.npcs.remove_bit(other);
+        active
+            .watch
+            .anticheat
+            .lost(Target::Npc(other), engine().clock);
     }
 
     /// Writes the pre-coalesced high-definition update block for an NPC with a
