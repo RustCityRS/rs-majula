@@ -111,6 +111,7 @@ impl Engine {
                                 muted_for,
                                 left_other_world,
                                 account_age,
+                                played,
                             } => {
                                 let staff = StaffModLevel::from_u8(staff_mod_level);
                                 if !self.controls.admits(staff, account_age) {
@@ -130,6 +131,7 @@ impl Engine {
                                 #[cfg(before_254)]
                                 let _ = left_other_world;
                                 self.pending_logins[idx].auth = Some(staff);
+                                self.pending_logins[idx].played = played;
                                 self.pending_logins[idx].muted_until =
                                     muted_for.map(ActivePlayer::mute_deadline);
                                 self.try_complete_login(idx);

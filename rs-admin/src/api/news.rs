@@ -17,7 +17,7 @@ const PAGE: u32 = 20;
 /// The longest title, in characters.
 const MAX_TITLE_CHARS: usize = 120;
 /// The longest post, in bytes.
-const MAX_CONTENT: usize = 200 * 1024;
+const MAX_CONTENT: usize = 200 << 10;
 
 fn unavailable(error: String) -> ApiError {
     ApiError::new(StatusCode::BAD_GATEWAY, format!("{error}."))

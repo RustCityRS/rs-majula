@@ -447,21 +447,39 @@ anything, it starts again from the nearest keyframe to the same spot.
 
 | Flag | Means |
 |---|---|
-| Modified client | An `ANTICHEAT_*` packet had the wrong contents (they're fixed per revision family: 225-245.2, 254-289). |
+| Modified client | An `ANTICHEAT_*` packet had the wrong contents (they're fixed per revision family: 225-245.2, 254-289), or a packet was shorter than any the client sends of its kind. |
+| Rejected requests | 10+ requests (and a tenth of the actions) the world turned down as ones the client wouldn't make: buttons on interfaces that aren't open or have none, objs in slots that hold something else. Mistyped cheat commands aren't counted. |
+| Auto-banned | The world banned it (48 hours) for a packet only a modified client sends: an abuse report with a reason the screen doesn't offer or an offender name that can't exist, or a private message to such a name. The stats name which. |
 | No game loop | 20+ actions and none of the heartbeats the client's game loop sends (`ANTICHEAT_CYCLELOGIC3/4`, from 254 `4/7`): it isn't running the client. |
+| Forged heartbeats | The game loop sends its two heartbeats a fixed number of cycles apart (`CYCLELOGIC4` every 111 and `3` every 128, on 244-245.2 also `5` every 86; from 254 `7` every 63 and `4` every 193), so however fast the loop runs, their counts keep to that ratio. More than 3 (and 6%) off the count the rarer one's makes the other's, once there are 15 of the rarer: something else is sending them. A real client's are within a count or two. |
+| Never drew | 254+: 20+ actions and 30 `CYCLELOGIC4`s (about 2 minutes) without one `CYCLELOGIC1`, which the client sends from drawing the game every 1175 frames. |
 | Missing op checks | The client sends `ANTICHEAT_OPLOGIC*` with certain actions once a hidden count passes a threshold; the world mirrors the counts and expects them. |
 | Actions without clicks | 254+: over a quarter of 20+ actions came without the click the client reports alongside each. |
 | Actions while unfocused | 3+ actions while the client said its window had lost focus (not on touch screens, whose keyboard takes focus). A real click gives the window focus first; a script's made-up click doesn't. Before 254 the click's press is judged in the input reports. |
-| Clicked what it wasn't shown | 3+ actions (including "use" and spells) on an NPC or player the world wasn't sending the client, a loc outside its map, or an obj in a zone it wasn't sent since the map was built. Something that left view or a map that moved on still counts as shown for 10 ticks, for clicks made before the update arrived. |
+| Clicked what it wasn't shown | Actions in 3+ separate stretches (including "use" and spells) on an NPC or player the world wasn't sending the client, a loc outside its map, or an obj in a zone it wasn't sent since the map was built. Something that left view or a map that moved on still counts as shown for 10 ticks, for clicks made before the update arrived, and the actions within 10 ticks of the first count once: one late update (a stalled connection) makes several. |
 | Menu options without right-click | Most of 5+ actions on options a left click doesn't pick (worked out from the types as the client builds its menu) came with no right press in the input reports to open the menu. Not for players' options, one-button mouse mode or touch screens. |
 | No mouse | 20+ actions and no mouse reports. |
 | Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last report. |
 | Clockwork clicks | 30+ clicks at very even intervals. |
 | Forged minimap clicks | A minimap click ends in 14 bytes: the click's spot on the minimap, the camera's yaw, the minimap's random tilt and zoom, where the client drew the player, and the fixed values 57, 89 and 63. Two or more with wrong fixed values, values out of range, or a spot that (worked out as the client does) doesn't lead to the tile walked to. |
 | Minimap position off | Most of 5+ minimap clicks drew the player over 8 tiles from where the world has them. |
+| Instant reactions | Half of 20+ reactions came faster than 180ms, network and all. A reaction is the first action after what the player was acting on went (a rock ran out, a tree fell, an NPC died) or after an obj they then took appeared, timed from when the world sent it to when the action reached it. Only counted after a second with no actions, so clicking away all the while isn't a reaction. |
+| Even reactions | 20+ reactions that hardly vary (standard deviation under 0.15 of the mean). People have a long tail. |
+| Long days | 16+ hours played on 3+ of the last 7 days (UTC), from the account's recorded sessions. |
+| No long breaks | Played 3 days back and never stopped for 4 hours since. |
+| Instant relogs | 4 in 5 of 5+ returns this week came within 15 seconds. A return is a login after a session the player didn't end: a lost connection, an idle logout, a kick or ban, or a reboot. It's timed from when the world let go of them (a lost connection keeps them in a while, and the client reconnects itself meanwhile), or from the world coming back after a reboot. Logouts are left out, as world hops are back in seconds. |
+| Repeated laps | Of 150+ recent actions, a fifth of them walks, 85%+ of the runs of 4 were seen before: the same tiles, booth and order every lap. People's walks land a tile or two off. |
+| Same pixel clicks | Half of 20+ aimed clicks on inventory slots hit the same pixel of the slot. A click only counts after the cursor moved: clicking a slot again where it already is (withdrawing one at a time) isn't aiming. Slots in a layer that scrolls (the bank) aren't judged. |
+| Even slot clicks | 50+ clicks on inventory slots spread over the whole slot (8.3+ pixels from their mean; evenly over a slot is 9.2) instead of clustering on the obj in the middle. Not for touch screens. |
+| Straight mouse moves | 254+: 60% of 30+ moves (5+ samples, 40+ pixels) went in a dead straight line. |
+| Steady mouse moves | 254+: 60% of 30+ moves no faster through their middle third than 1.3 times their ends. People speed up and slow down, about twice as fast midway. |
+| Repeated mouse curves | 254+: 40% of 20+ curved moves followed the shape of an earlier one. |
+| Anti-AFK | An hour in all of stretches of 15+ minutes with no actions, clicks or chat, no idle report from the client, and nothing but tiny mouse nudges or one or two keys at even intervals (or, from 274, where keys aren't reported, nothing at all). |
+| Camera never turned | 225, 254+: 3+ hours and 300+ actions without the camera turning once. |
 
 Each session's score is the sum of its flags' weights; the measurements
-behind them are kept with it. A real client scores 0; a packet bot that only
+behind them are kept with it. The checks on behaviour over time (from
+Instant reactions on) weigh 15 to 30 each, so none opens a case alone. A real client scores 0; a packet bot that only
 sends walks scores 110 (no game loop, actions without clicks, no mouse).
 
 ----

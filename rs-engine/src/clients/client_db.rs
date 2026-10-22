@@ -6,12 +6,12 @@ use crate::player_save::{
 };
 use rs_db::{
     Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
-    PlayerSave, SaveResult, check_new_password,
+    PlayedSession, PlayerSave, SaveResult, check_new_password,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
 use std::path::Path;
-use std::time::Instant;
+use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
 use tokio::sync::oneshot;
 use tokio::task::JoinHandle;
@@ -155,6 +155,9 @@ pub enum AuthResult {
         left_other_world: Option<Duration>,
         /// How long ago the account was registered.
         account_age: Duration,
+        /// The sessions it played over the last week, for the anti-cheat's
+        /// schedule check.
+        played: Vec<PlayedSession>,
     },
     InvalidCredentials,
     Banned,
@@ -1062,11 +1065,24 @@ async fn authenticate(
         }
         db.record_login(user37, node_id.into(), ip, uid, device)
             .await?;
+        let week_ago = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |d| d.as_millis() as i64)
+            - crate::watch::schedule::WEEK_MS;
+        let played = db.played_since(user37, week_ago).await.unwrap_or_else(|e| {
+            warn!(
+                "Couldn't read the sessions '{}' played: {}",
+                to_raw_username(user37),
+                e
+            );
+            Vec::new()
+        });
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),
             left_other_world: creds.left_other_world_ms.map(millis),
             account_age: millis(creds.age_ms),
+            played,
         });
     }
 
@@ -1118,6 +1134,7 @@ async fn authenticate(
         muted_for: None,
         left_other_world: None,
         account_age: Duration::ZERO,
+        played: Vec::new(),
     })
 }
 

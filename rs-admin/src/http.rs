@@ -25,7 +25,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 /// API request bodies are a few small JSON fields.
-const MAX_BODY: usize = 16 * 1024;
+const MAX_BODY: usize = 16 << 10;
 /// Where images and videos are uploaded, as raw bytes: for news, and for
 /// cases.
 pub const UPLOAD_PATHS: [&str; 2] = ["/api/news/media", "/api/cases/media"];

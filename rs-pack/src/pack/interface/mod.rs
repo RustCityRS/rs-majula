@@ -515,6 +515,7 @@ pub fn pack_interfaces(
                 let y = get_num::<i16>(child_src.get("y"), 0) as u16;
                 client.p2(x);
                 client.p2(y);
+                server.p2(child_id);
                 server.p2(x);
                 server.p2(y);
             }

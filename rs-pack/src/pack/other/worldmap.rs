@@ -126,7 +126,7 @@ impl WorldmapBuilder {
         }
 
         if !map.objs.is_empty() {
-            let mut present = [false; 64 * 64];
+            let mut present = [false; 1 << 12];
             for obj in map.objs.values().flatten().filter(|obj| obj.y == level) {
                 present[(obj.x as usize) << 6 | obj.z as usize] = true;
             }
@@ -156,7 +156,7 @@ impl WorldmapBuilder {
 
         let mut npc = Vec::new();
         for (mx, mz, square) in &self.npcs {
-            let mut present = [false; 64 * 64];
+            let mut present = [false; 1 << 12];
             for &(id, tile) in square {
                 if npcs.get_by_id(id).is_some_and(|npc| npc.minimap) {
                     present[tile] = true;
@@ -221,9 +221,9 @@ impl WorldmapBuilder {
 /// One square's loc.dat body: per tile, its wall shape, mapscene and
 /// mapfunction (each only if present), then 0.
 fn encode_locs(square: &[SquareLoc], locs: &TypeProvider<LocTypeRaw>, out: &mut Vec<u8>) {
-    let mut walls = [0u8; 64 * 64];
-    let mut mapscenes = [None; 64 * 64];
-    let mut mapfunctions = [None; 64 * 64];
+    let mut walls = [0u8; 1 << 12];
+    let mut mapscenes = [None; 1 << 12];
+    let mut mapfunctions = [None; 1 << 12];
 
     for loc in square {
         let Some(ty) = locs.get_by_id(loc.id) else {
@@ -245,7 +245,7 @@ fn encode_locs(square: &[SquareLoc], locs: &TypeProvider<LocTypeRaw>, out: &mut 
         }
     }
 
-    for tile in 0..64 * 64 {
+    for tile in 0..1 << 12 {
         if walls[tile] != 0 {
             out.push(walls[tile]);
         }
@@ -273,7 +273,7 @@ fn wall(shape: u8, angle: u8, active: bool) -> u8 {
         WALL_STRAIGHT => (1 + angle, 4),
         WALL_L => (9 + angle, 4),
         WALLDECOR => (17 + angle, 4),
-        WALL_DIAGONAL => (25 + angle % 2, 2),
+        WALL_DIAGONAL => (25 + (angle & 1), 2),
         _ => return 0,
     };
     if active { base + active_offset } else { base }
@@ -331,7 +331,7 @@ fn floorcol(worldmap_dir: &Path, flos: &TypeProvider<FloType>) -> Vec<u8> {
         })
         .collect();
 
-    let mut out = Vec::with_capacity(2 + flos.count() * 8);
+    let mut out = Vec::with_capacity(2 + (flos.count() << 3));
     out.extend_from_slice(&(flos.count() as u16).to_be_bytes());
     for flo in flos.types.iter() {
         let (underlay, overlay) = flo

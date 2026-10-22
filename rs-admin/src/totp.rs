@@ -79,7 +79,7 @@ const BASE32: &[u8; 32] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
 /// RFC 4648 base32 without padding, as authenticator apps take secrets.
 pub fn base32(bytes: &[u8]) -> String {
-    let mut out = String::with_capacity(bytes.len().div_ceil(5) * 8);
+    let mut out = String::with_capacity(bytes.len().div_ceil(5) << 3);
     let (mut buffer, mut bits) = (0u32, 0);
     for &b in bytes {
         buffer = (buffer << 8) | u32::from(b);
@@ -96,7 +96,7 @@ pub fn base32(bytes: &[u8]) -> String {
 }
 
 pub fn unbase32(s: &str) -> Option<Vec<u8>> {
-    let mut out = Vec::with_capacity(s.len() * 5 / 8);
+    let mut out = Vec::with_capacity((s.len() * 5) >> 3);
     let (mut buffer, mut bits) = (0u32, 0);
     for c in s.bytes().filter(|&c| c != b'=' && c != b' ') {
         let value = BASE32.iter().position(|&d| d == c.to_ascii_uppercase())? as u32;

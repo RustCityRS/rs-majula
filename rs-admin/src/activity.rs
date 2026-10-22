@@ -62,8 +62,8 @@ fn median(mut values: Vec<u64>) -> Option<u64> {
     let n = values.len();
     match n {
         0 => None,
-        _ if n % 2 == 1 => Some(values[n / 2]),
-        _ => Some((values[n / 2 - 1] + values[n / 2]) / 2),
+        _ if n & 1 == 1 => Some(values[n >> 1]),
+        _ => Some((values[(n >> 1) - 1] + values[n >> 1]) >> 1),
     }
 }
 

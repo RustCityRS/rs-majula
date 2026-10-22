@@ -21,14 +21,19 @@ pub const OPENED_BY: &str = "Detection";
 pub const CASE_SCORE: i16 = 50;
 /// The score, or the flags, that make a session's case high priority.
 const HIGH_SCORE: i16 = 100;
-const HIGH_FLAGS: [&str; 3] = [
+const HIGH_FLAGS: [&str; 5] = [
     "modified_client",
+    "auto_banned",
+    "forged_heartbeats",
     "forged_minimap_click",
     "automated_browser",
 ];
 /// How far back sessions and reports are looked through. Older ones were
 /// looked at already, while the console ran.
 const LOOK_BACK_MS: i64 = 24 * 3600 * 1000;
+/// How long before [`LOOK_BACK_MS`] a session may have started and still be
+/// scored lately.
+const LONG_SESSION_MS: i64 = 6 * 24 * 3600 * 1000;
 /// How far back logins are looked through for ban evasion.
 const EVASION_DAYS: u32 = 3;
 /// Reports against one player that open a case: at least this many over
@@ -83,10 +88,27 @@ pub fn file(cases: &Cases, finding: Finding, now_ms: u64) -> Result<Option<Filed
                 .is_none_or(|t| t.cases.is_empty() && t.dismissed.is_none())
         })
         .collect();
-    if fresh.is_empty() {
-        return Ok(None);
-    }
     let player = name_key(&finding.player);
+    if fresh.is_empty() {
+        // Already filed, but it got worse since (a session that went on to
+        // score more): its open case takes the new priority.
+        let worse = cases
+            .all(|c| name_key(&c.player) == player)
+            .into_iter()
+            .filter(|c| c.is_open() && finding.priority > c.priority)
+            .find(|c| c.evidence.iter().any(|e| keys.contains(&e.key())));
+        let Some(open) = worse else {
+            return Ok(None);
+        };
+        let changes = vec![
+            Change::Priority {
+                priority: finding.priority,
+            },
+            Change::Comment { text: finding.note },
+        ];
+        let case = cases.change(OPENED_BY, open.id, |_| Ok(changes))?;
+        return Ok(Some(Filed::Added(case.id)));
+    }
     let on_player = cases.all(|c| name_key(&c.player) == player);
     let mut changes: Vec<Change> = fresh
         .iter()
@@ -401,8 +423,12 @@ async fn recent_sessions(app: &App, since_ms: i64) -> Result<Vec<ReplaySummary>,
             .await?;
         let full = page.len() == PAGE as usize;
         before = page.last().map(|r| r.started_ms);
-        let older = page.iter().any(|r| r.started_ms < since_ms);
-        found.extend(page.into_iter().filter(|r| r.started_ms >= since_ms));
+        // A session still going was scored again lately however long ago it
+        // started (a bot runs for days); one that ended before is done with.
+        let older = page
+            .iter()
+            .any(|r| r.started_ms < since_ms - LONG_SESSION_MS);
+        found.extend(page.into_iter().filter(|r| r.updated_ms >= since_ms));
         if !full || older {
             break;
         }
@@ -677,6 +703,34 @@ mod tests {
         );
         let case = cases.get(id).unwrap();
         assert_eq!((case.evidence.len(), case.priority), (2, Priority::High));
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    fn a_session_that_gets_worse_raises_its_case() {
+        let path = temp_log("worse");
+        let cases = Cases::open(path.clone());
+        let early =
+            session_findings(vec![session("7", "Botty", 50, &["clicked_unseen"])]).remove(0);
+        let Some(Filed::Opened(id)) = file(&cases, early, now_ms()).unwrap() else {
+            panic!("no case opened");
+        };
+        assert_eq!(cases.get(id).unwrap().priority, Priority::Normal);
+        let later = session_findings(vec![session(
+            "7",
+            "Botty",
+            150,
+            &["clicked_unseen", "forged_heartbeats"],
+        )])
+        .remove(0);
+        assert_eq!(
+            file(&cases, later.clone(), now_ms()).unwrap(),
+            Some(Filed::Added(id))
+        );
+        let case = cases.get(id).unwrap();
+        assert_eq!((case.evidence.len(), case.priority), (1, Priority::High));
+        // Once it's as high as it goes, nothing more.
+        assert_eq!(file(&cases, later, now_ms()).unwrap(), None);
         let _ = std::fs::remove_file(path);
     }
 

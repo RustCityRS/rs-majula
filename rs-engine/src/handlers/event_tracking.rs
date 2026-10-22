@@ -28,7 +28,7 @@ use rs_vm::ScriptError;
 #[cfg(before_274)]
 impl ClientGameHandler for EventTracking {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let ms = active.watch.ms();
+        let ms = active.watch.packet_ms();
         active.watch.anticheat.tracking(ms, &self);
         Ok(())
     }

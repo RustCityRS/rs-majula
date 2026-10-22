@@ -67,7 +67,7 @@ impl ClientProtMessage for EventMouseMove {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         // Each sample is 2, 3 or 4 bytes, told by its first: a body cut
         // short keeps the samples before.
-        let mut samples = Vec::with_capacity(len / 2);
+        let mut samples = Vec::with_capacity(len >> 1);
         while buf.pos < len {
             let first = buf.data[buf.pos];
             let left = len - buf.pos;

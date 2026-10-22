@@ -9,7 +9,8 @@ use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
 use crate::phases::shared::panic_message;
 use crate::player_save::*;
-use crate::watch::{ReplayRequest, Watch};
+use crate::watch::schedule::{self, End, Played, Schedule};
+use crate::watch::{ReplayRequest, Target, Watch};
 use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
@@ -245,6 +246,8 @@ pub struct PendingLogin {
     pub muted_until: Option<Instant>,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
+    /// The sessions the player played over the last week, set with `auth`.
+    pub played: Vec<rs_db::PlayedSession>,
 }
 
 /// A departed player's final save, held until the database stores it.
@@ -551,6 +554,9 @@ pub struct Engine {
     pub ops: OpsRegistry,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
+    /// When each obj that appeared lately (dropped, revealed or respawned)
+    /// did, for how fast players react to it.
+    pub obj_appeared: FxHashMap<(CoordGrid, u16), Instant>,
     pub world_queue: LinkList<ScriptState>,
     pub obj_delayed_queue: LinkList<ObjDelayedRequest>,
     pub clock_rate_tx: Sender<u64>,
@@ -695,6 +701,7 @@ impl Engine {
             ops,
             zones_tracking: FxHashSet::default(),
             pending_zone_events: BTreeMap::new(),
+            obj_appeared: FxHashMap::default(),
             world_queue: LinkList::new(),
             obj_delayed_queue: LinkList::new(),
             clock_rate_tx,
@@ -1800,9 +1807,18 @@ impl Engine {
         );
 
         let (ox, oy, oz) = (coord.x(), coord.y(), coord.z());
+        self.obj_appeared.insert((coord, obj.id()), Instant::now());
         let zone = self.zones.zone_mut(ox, oy, oz);
         zone.add_obj(obj, receiver37);
         self.track_zone(ox, oy, oz);
+    }
+
+    /// Forgets objs that appeared too long ago for a reaction to them.
+    pub(crate) fn forget_appeared_objs(&mut self) {
+        const KEEP: std::time::Duration = std::time::Duration::from_secs(15);
+        if !self.obj_appeared.is_empty() {
+            self.obj_appeared.retain(|_, at| at.elapsed() < KEEP);
+        }
     }
 
     /// Attempts to merge a stackable object's count into an existing stack
@@ -2672,6 +2688,35 @@ impl Engine {
         }
     }
 
+    /// What the anti-cheat's schedule check goes by for a login now, after
+    /// the week's sessions `played`: when the last was ended for it (not by
+    /// the player), how long the player took to come back. That's from when
+    /// the world let go of them, as a lost connection keeps the player in
+    /// the world a while (and the client reconnects itself meanwhile). A
+    /// `reconnect` login is that: the client's own, not the player's.
+    fn schedule(&self, played: &[rs_db::PlayedSession], reconnect: bool) -> Schedule {
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |d| d.as_millis() as i64);
+        let end = |p: &rs_db::PlayedSession| p.started_ms + i64::from(p.duration_ms);
+        let return_ms = played.last().filter(|_| !reconnect).and_then(|last| {
+            let reason = End::from_name(last.end_reason.as_deref()?)?;
+            schedule::return_ms(end(last), reason, now, self.date_origin_ms)
+        });
+        Schedule {
+            history: played
+                .iter()
+                .map(|p| Played {
+                    start_ms: p.started_ms,
+                    end_ms: end(p),
+                    return_ms: p.return_ms.and_then(|r| u32::try_from(r).ok()),
+                })
+                .collect(),
+            login_ms: now,
+            return_ms,
+        }
+    }
+
     /// Finalises a validated login by creating the player session and entering
     /// the world.
     ///
@@ -2689,6 +2734,7 @@ impl Engine {
     /// * `staff_mod_level` -- From the player's database row, via authentication.
     /// * `muted_until` -- When the player's chat mute ends, likewise.
     /// * `pid`     -- The accepted pid to use for the active player.
+    /// * `played`  -- The sessions the player played over the last week.
     ///
     /// # Side Effects
     ///
@@ -2708,6 +2754,7 @@ impl Engine {
         staff_mod_level: StaffModLevel,
         muted_until: Option<Instant>,
         pid: u16,
+        played: &[rs_db::PlayedSession],
     ) {
         let mut active = ActivePlayer::new(
             request.handle,
@@ -2767,6 +2814,7 @@ impl Engine {
             active.watch.anticheat.touch = request.device.touch;
             active.watch.anticheat.automated = crate::watch::automated(&request.device);
             active.watch.anticheat.device = request.device.clone();
+            active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
             active.watch.login(self.clock, &reply);
         }
         let _ = active.handle.outbox.send(reply);
@@ -2914,6 +2962,7 @@ impl Engine {
         active.watch.anticheat.touch |= request.device.touch;
         active.watch.anticheat.automated |= crate::watch::automated(&request.device);
 
+        active.watch.anticheat.resumed();
         active.player.logout_requested = false;
         active.player.logout_idle_requested = false;
         active.player.logout_sent = false;
@@ -2924,6 +2973,13 @@ impl Engine {
         // NPC observer counts are decremented further down, outside this
         // borrow; the info phase re-increments them as NPCs are re-tracked.
         let nids: Vec<u16> = active.player.build_area.npcs.iter().to_vec();
+        // Clicks made before the reconnect still count as on what it showed.
+        for &nid in &nids {
+            active.watch.anticheat.lost(Target::Npc(nid), clock);
+        }
+        for pid in active.player.build_area.players.iter().to_vec() {
+            active.watch.anticheat.lost(Target::Player(pid), clock);
+        }
         active.player.build_area.players.clear();
         active.player.build_area.npcs.clear();
         active.player.build_area.appearances.fill(0);
@@ -3109,6 +3165,7 @@ impl Engine {
             staff_mod_level,
             pending.muted_until,
             pid,
+            &pending.played,
         );
     }
 

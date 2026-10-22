@@ -1,6 +1,7 @@
 use crate::engine::{Engine, PendingZoneEvent};
 use crate::game_map::apply_loc_collision;
 use rs_entity::EntityLifeTime;
+use std::time::Instant;
 
 impl Engine {
     /// Processes the zone phase of the engine tick cycle.
@@ -52,6 +53,7 @@ impl Engine {
     /// * Updates collision maps for loc changes.
     /// * Tracks modified zones in `self.zones_tracking`.
     fn process_pending_zone_events(&mut self) {
+        self.forget_appeared_objs();
         if self.pending_zone_events.is_empty() {
             return;
         }
@@ -71,6 +73,7 @@ impl Engine {
                         self.zones
                             .zone_mut(x, y, z)
                             .reveal_obj(x, z, id, receiver37, receiver_pid);
+                        self.obj_appeared.insert((coord, id), Instant::now());
                         self.track_zone(x, y, z);
                     }
                     PendingZoneEvent::ObjDelete { coord, id, clock } => {
@@ -83,6 +86,7 @@ impl Engine {
                     PendingZoneEvent::ObjAdd { coord, id } => {
                         let (x, y, z) = (coord.x(), coord.y(), coord.z());
                         self.zones.zone_mut(x, y, z).respawn_obj(x, z, id);
+                        self.obj_appeared.insert((coord, id), Instant::now());
                         self.track_zone(x, y, z);
                     }
                     PendingZoneEvent::LocDelete {

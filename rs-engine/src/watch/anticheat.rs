@@ -1,5 +1,12 @@
 use super::Target;
+use super::afk::AntiAfk;
 use super::input::{Input, InputDecoder, Timed};
+#[cfg(since_254)]
+use super::paths::MousePaths;
+use super::reaction::Reactions;
+use super::repetition::Repetition;
+use super::schedule::{End, Schedule};
+use super::slots::{Slot, SlotClicks};
 use Field::*;
 use rs_db::{LoginDevice, ReplayReport};
 use rs_entity::BuildArea;
@@ -16,8 +23,10 @@ use rs_protocol::network::game::client::event_tracking::EventTracking;
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
-use serde_json::json;
+use serde_json::{Map, Value, json};
 use std::collections::VecDeque;
+use std::hash::Hash;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 /// A payload field: a fixed value, or (`Any*`) a random one.
 #[derive(Clone, Copy)]
@@ -121,6 +130,27 @@ const HEARTBEATS: [(&[Part], bool); 7] = [
     (&[f(B(62))], false),
     (&[], true),
 ];
+
+/// Heartbeats the game loop sends every so many cycles, in pairs: one, one
+/// sent more rarely, and how many of the first come to one of the second
+/// (`CYCLELOGIC4` every 111 cycles and `3` every 128; on 244-245.2 also `5`
+/// every 86; from 254 `7` every 63 and `4` every 193). Whatever speed the
+/// loop runs at, a real client keeps to them.
+#[cfg(rev = "225")]
+const LOOP_BEATS: [(usize, usize, f64); 1] = [(3, 2, 128.0 / 111.0)];
+#[cfg(all(since_244, before_254))]
+const LOOP_BEATS: [(usize, usize, f64); 2] = [(3, 2, 128.0 / 111.0), (4, 2, 128.0 / 86.0)];
+#[cfg(since_254)]
+const LOOP_BEATS: [(usize, usize, f64); 1] = [(6, 3, 193.0 / 63.0)];
+/// Requests turned down that flag (and a tenth of the actions).
+const MIN_REJECTED: u32 = 10;
+/// Too few of the rarer heartbeat to judge their ratio by.
+const MIN_LOOP_BEATS: u32 = 15;
+/// From 254 `CYCLELOGIC1` comes from drawing the game (every 1175 frames):
+/// a client this long into playing (in `CYCLELOGIC4`s, every 193 cycles)
+/// that never sent it never drew a frame.
+#[cfg(since_254)]
+const DRAWN_BY: u32 = 30;
 
 /// Each `ANTICHEAT_OPLOGIC1..9` payload.
 #[cfg(before_254)]
@@ -248,6 +278,12 @@ const MINIMAP_OFF_TILES: i32 = 8;
 /// A click that focuses the window is logged just before it gains focus.
 #[cfg(before_254)]
 const FOCUS_CLICK_MS: u32 = 100;
+/// From 254 the desktop client can send that click's action up to a tick or
+/// two ahead of the focus.
+#[cfg(since_254)]
+const FOCUS_TICKS: u32 = 2;
+/// How many maps back a minimap click may have been drawn on.
+const BASES: usize = 4;
 /// Actions while the window is unfocused: a real client gets focus back
 /// before its clicks go anywhere, but the odd one can race it.
 const MIN_UNFOCUSED: u32 = 3;
@@ -271,6 +307,11 @@ const PRESS_WAIT_MS: u32 = 30_000;
 const MAX_PRESSES: usize = 8;
 /// A map's width in zones.
 const MAP_ZONES: i32 = 13;
+/// A session this long, with this many actions, that never turned the
+/// camera. (Whether it went idle says nothing: the client's idle report
+/// comes after 90 seconds without input, and logs the player out.)
+const UNTURNED_MS: u32 = 3 * 3_600_000;
+const UNTURNED_OPS: u32 = 300;
 
 /// The zones of the client's map the world has sent it: one bit for each of
 /// its 13 by 13.
@@ -299,12 +340,12 @@ impl Zones {
 
     fn was_sent(&self, x: u16, z: u16) -> bool {
         self.index(x, z)
-            .is_some_and(|i| self.sent[i / 64] >> (i % 64) & 1 != 0)
+            .is_some_and(|i| self.sent[i >> 6] >> (i & 63) & 1 != 0)
     }
 
     fn send(&mut self, x: u16, z: u16) {
         if let Some(i) = self.index(x, z) {
-            self.sent[i / 64] |= 1 << (i % 64);
+            self.sent[i >> 6] |= 1 << (i & 63);
         }
     }
 }
@@ -334,7 +375,10 @@ pub struct AntiCheat {
     focus_lost: u32,
     unfocused: bool,
     unfocused_actions: u32,
-    /// When the last press while unfocused came, until focus follows it.
+    #[cfg(since_254)]
+    unfocused_at: Option<(u32, u32)>,
+    #[cfg(since_254)]
+    focus_clock: u32,
     #[cfg(before_254)]
     unfocused_press: Option<u32>,
     idle_reports: u32,
@@ -343,16 +387,29 @@ pub struct AntiCheat {
     forged_minimap: u32,
     minimap_off: u32,
     base: Option<MapBase>,
-    prev_base: Option<MapBase>,
+    bases: VecDeque<MapBase>,
     lost: VecDeque<(Target, u32)>,
     zones: Option<Zones>,
     prev_zones: Option<(Zones, u32)>,
     unseen: u32,
+    unseen_since: Option<u32>,
     menu_ops: u32,
     menu_unpressed: u32,
     waiting_ops: VecDeque<u32>,
     right_presses: VecDeque<u32>,
     decoded: Vec<Timed>,
+    pub schedule: Schedule,
+    reactions: Reactions,
+    repetition: Repetition,
+    slots: SlotClicks,
+    #[cfg(since_254)]
+    paths: MousePaths,
+    afk: AntiAfk,
+    pub acting_on: Option<Target>,
+    end: Option<(End, u32)>,
+    pub auto_banned: Option<&'static str>,
+    malformed: u32,
+    rejected: u32,
 }
 
 impl AntiCheat {
@@ -377,7 +434,10 @@ impl AntiCheat {
             ClientProt::AnticheatOpLogic7 => self.op_check(6, data),
             ClientProt::AnticheatOpLogic8 => self.op_check(7, data),
             ClientProt::AnticheatOpLogic9 => self.op_check(8, data),
-            ClientProt::IdleTimer => self.idle_reports += 1,
+            ClientProt::IdleTimer => {
+                self.idle_reports += 1;
+                self.afk.idle();
+            }
             _ => {}
         }
     }
@@ -398,7 +458,8 @@ impl AntiCheat {
 
     /// An `EVENT_APPLET_FOCUS`, `ms` into the session.
     #[cfg(since_254)]
-    pub fn focus(&mut self, ms: u32, msg: &EventAppletFocus) {
+    pub fn focus(&mut self, ms: u32, clock: u32, msg: &EventAppletFocus) {
+        self.focus_clock = clock;
         self.inputs_from(|inputs, out| inputs.focus(ms, msg, out));
     }
 
@@ -446,8 +507,18 @@ impl AntiCheat {
 
     fn input(&mut self, timed: &Timed) {
         match timed.input {
-            Input::Move { x, y } => self.last_cursor = Some((x.into(), y.into())),
-            Input::Outside => self.last_cursor = None,
+            Input::Move { x, y } => {
+                self.last_cursor = Some((x.into(), y.into()));
+                self.slots.moved();
+                #[cfg(since_254)]
+                self.paths.moved(timed.ms, x, y);
+                self.afk.moved(timed.ms, x, y);
+            }
+            Input::Outside => {
+                self.last_cursor = None;
+                #[cfg(since_254)]
+                self.paths.outside();
+            }
             Input::Click {
                 x,
                 y,
@@ -455,6 +526,10 @@ impl AntiCheat {
                 right,
                 ..
             } => {
+                #[cfg(since_254)]
+                self.paths.click();
+                self.slots.press(timed.ms, x, y, right);
+                self.afk.activity(timed.ms);
                 if right {
                     self.right_press(timed.ms);
                 }
@@ -467,6 +542,8 @@ impl AntiCheat {
             // Before 254 the input report's presses are the clicks.
             #[cfg(before_254)]
             Input::Press { x, y, right } => {
+                self.slots.press(timed.ms, x, y, right);
+                self.afk.activity(timed.ms);
                 if right {
                     self.right_press(timed.ms);
                 }
@@ -485,6 +562,14 @@ impl AntiCheat {
                 if !focus {
                     self.focus_lost += 1;
                 }
+                // The actions just before were the click that focused it.
+                #[cfg(since_254)]
+                if focus
+                    && let Some((clock, count)) = self.unfocused_at.take()
+                    && self.focus_clock.wrapping_sub(clock) <= FOCUS_TICKS
+                {
+                    self.unfocused_actions -= count;
+                }
                 // The press was the click that focused it.
                 #[cfg(before_254)]
                 if focus
@@ -496,7 +581,11 @@ impl AntiCheat {
                     self.unfocused_actions -= 1;
                 }
             }
-            Input::Camera { .. } => self.camera_reports += 1,
+            Input::Camera { .. } => {
+                self.camera_reports += 1;
+                self.afk.camera(timed.ms);
+            }
+            Input::KeyDown(key) => self.afk.key(timed.ms, key),
             _ => {}
         }
     }
@@ -538,8 +627,14 @@ impl AntiCheat {
         }
         // From 254 focus has a report of its own, sent ahead of the actions
         // in the same cycle; before, presses are judged in the input reports.
-        if cfg!(since_254) && self.unfocused {
+        #[cfg(since_254)]
+        if self.unfocused {
             self.unfocused_actions += 1;
+            let count = match self.unfocused_at {
+                Some((last, count)) if clock.wrapping_sub(last) <= FOCUS_TICKS => count + 1,
+                _ => 1,
+            };
+            self.unfocused_at = Some((clock, count));
         }
         if let Some((index, count, threshold)) = op_count(op, base) {
             let add = match count {
@@ -576,9 +671,8 @@ impl AntiCheat {
                     && (i32::from(z) - i32::from(b.z) - tile_z).abs() <= reach
             })
         };
-        let matched = [Some(base), self.prev_base]
-            .into_iter()
-            .flatten()
+        let matched = std::iter::once(base)
+            .chain(self.bases.iter().rev().copied())
             .find(lands_from);
         let lands = path.len() >= MAX_STEPS || matched.is_some();
         if !plausible(trailer) || !lands {
@@ -610,6 +704,7 @@ impl AntiCheat {
 
     /// The client was sent a new map, from `base`, on tick `clock`.
     pub fn rebuilt(&mut self, base: MapBase, clock: u32) {
+        self.see_base(base);
         if let Some(zones) = self.zones.replace(Zones::new(base)) {
             self.prev_zones = Some((zones, clock));
         }
@@ -641,8 +736,13 @@ impl AntiCheat {
             Target::Obj { x, z, .. } => lately(&|zones| zones.was_sent(x, z)),
             Target::Item(_) => true,
         };
-        if !shown {
+        if !shown
+            && self
+                .unseen_since
+                .is_none_or(|since| clock.wrapping_sub(since) > SHOWN_GRACE)
+        {
             self.unseen += 1;
+            self.unseen_since = Some(clock);
         }
     }
 
@@ -691,6 +791,66 @@ impl AntiCheat {
         }
     }
 
+    /// A packet shorter than any the client sends of its kind.
+    pub fn malformed(&mut self) {
+        self.malformed += 1;
+    }
+
+    /// A request the world turned down as one the client wouldn't make.
+    pub fn rejected(&mut self) {
+        self.rejected += 1;
+    }
+
+    /// An action that arrived `ms` into the session, for how fast the
+    /// player reacts and how long they go without acting. `appeared_ms`:
+    /// when the obj it's on appeared, if it's on one that did lately.
+    pub fn acted(&mut self, ms: u32, appeared_ms: Option<u32>) {
+        self.reactions.action(ms, appeared_ms);
+        self.afk.activity(ms);
+    }
+
+    /// What the player last acted on went away, `ms` into the session.
+    pub fn gone(&mut self, ms: u32) {
+        self.acting_on = None;
+        self.reactions.gone(ms);
+    }
+
+    /// The player chatted.
+    pub fn chatted(&mut self, ms: u32) {
+        self.afk.activity(ms);
+    }
+
+    /// An action, as anything that tells it apart, to see how much the
+    /// player repeats themselves.
+    pub fn repeat(&mut self, what: impl Hash) {
+        self.repetition.action(what);
+    }
+
+    /// A walk to `(x, z)`.
+    pub fn walked(&mut self, x: u16, z: u16) {
+        self.repetition.walk(x, z);
+    }
+
+    /// An action on the obj in an inventory's `slot` (its top left on the
+    /// screen). `menu`: an option the menu was opened for.
+    pub fn slot_action(&mut self, ms: u32, slot: Slot, menu: bool) {
+        self.slots.action(ms, slot, menu);
+    }
+
+    /// The session is ending, `ms` into it (for a lost connection, when it
+    /// was lost). The first reason given stands.
+    pub fn ended(&mut self, end: End, ms: u32) {
+        self.end.get_or_insert((end, ms));
+    }
+
+    /// The client reconnected: the session goes on.
+    pub fn resumed(&mut self) {
+        self.end = None;
+        // The client only reports focus when it changes, and a report into
+        // the old connection was lost.
+        self.unfocused = false;
+    }
+
     fn lately_lost(&self, what: Target, clock: u32) -> bool {
         self.lost
             .iter()
@@ -698,22 +858,36 @@ impl AntiCheat {
     }
 
     fn see_base(&mut self, base: MapBase) {
-        if self.base != Some(base) {
-            self.prev_base = self.base;
-            self.base = Some(base);
+        if self.base == Some(base) {
+            return;
+        }
+        if let Some(old) = self.base.replace(base) {
+            if self.bases.len() == BASES {
+                self.bases.pop_front();
+            }
+            self.bases.push_back(old);
         }
     }
 
-    /// The checks' verdict so far.
-    pub fn report(&self) -> ReplayReport {
+    /// The checks' verdict so far, `ms` into the session.
+    pub fn report(&self, ms: u32) -> ReplayReport {
         let mut flags: Vec<(&str, i16)> = Vec::new();
-        if self
-            .bad_heartbeats
-            .iter()
-            .chain(&self.bad_op_checks)
-            .any(|&n| n > 0)
+        if self.malformed > 0
+            || self
+                .bad_heartbeats
+                .iter()
+                .chain(&self.bad_op_checks)
+                .any(|&n| n > 0)
         {
             flags.push(("modified_client", 100));
+        }
+        // The odd one races the world (an interface closing as it's
+        // clicked); a stream of them is something sending its own.
+        if self.rejected >= MIN_REJECTED && self.rejected * 10 > self.ops {
+            flags.push(("rejected_requests", 30));
+        }
+        if self.auto_banned.is_some() {
+            flags.push(("auto_banned", 100));
         }
         let loop_beats: u32 = HEARTBEATS
             .iter()
@@ -724,6 +898,14 @@ impl AntiCheat {
         if self.ops >= MIN_OPS && loop_beats == 0 {
             flags.push(("no_heartbeat", 40));
         }
+        let beat_ratio = self.beat_ratio();
+        if self.beats_forged() {
+            flags.push(("forged_heartbeats", 100));
+        }
+        #[cfg(since_254)]
+        if self.ops >= MIN_OPS && self.heartbeats[3] >= DRAWN_BY && self.heartbeats[0] == 0 {
+            flags.push(("never_drew", 40));
+        }
         if self.automated {
             flags.push(("automated_browser", 50));
         }
@@ -731,11 +913,11 @@ impl AntiCheat {
             .op_expected
             .iter()
             .zip(&self.op_received)
-            .any(|(&expected, &received)| expected >= 3 && received * 2 < expected);
+            .any(|(&expected, &received)| expected >= 3 && (received << 1) < expected);
         if missing {
             flags.push(("missing_op_checks", 40));
         }
-        if cfg!(since_254) && self.ops >= MIN_OPS && self.ops_unclicked * 4 > self.ops {
+        if cfg!(since_254) && self.ops >= MIN_OPS && (self.ops_unclicked << 2) > self.ops {
             flags.push(("actions_without_clicks", 40));
         }
         // A phone's keyboard takes focus from the game while it's open.
@@ -750,32 +932,69 @@ impl AntiCheat {
         if cfg!(since_244)
             && !self.touch
             && self.clicks >= MIN_CLICKS
-            && self.jumps * 2 > self.clicks
+            && (self.jumps << 1) > self.clicks
         {
             flags.push(("cursor_jumps", 25));
         }
         if self.unseen >= MIN_UNSEEN {
-            flags.push(("clicked_unseen", 50));
+            flags.push(("clicked_unseen", 40));
         }
-        if !self.touch
-            && self.menu_unpressed >= MIN_UNPRESSED
-            && self.menu_unpressed * 2 > self.menu_ops
-        {
+        // Options still waiting for their press that it's too late for. From
+        // 254 the press comes first, so once the session is over that's all
+        // of them; before, the last input report may have gone with it.
+        let ended = cfg!(since_254) && self.end.is_some();
+        let menu_unpressed = self.menu_unpressed
+            + self
+                .waiting_ops
+                .iter()
+                .filter(|&&op| ended || ms > op + PRESS_WAIT_MS)
+                .count() as u32;
+        if !self.touch && menu_unpressed >= MIN_UNPRESSED && (menu_unpressed << 1) > self.menu_ops {
             flags.push(("menu_without_right_click", 40));
         }
         if self.forged_minimap >= 2 {
             flags.push(("forged_minimap_click", 100));
         }
-        if self.minimap_clicks >= MIN_MINIMAP && self.minimap_off * 2 > self.minimap_clicks {
+        if self.minimap_clicks >= MIN_MINIMAP && (self.minimap_off << 1) > self.minimap_clicks {
             flags.push(("minimap_position_off", 30));
         }
         let rhythm = self.rhythm();
         if self.gaps.len() >= 30 && rhythm.is_some_and(|cv| cv < 0.12) {
             flags.push(("robotic_click_timing", 20));
         }
+        // How the player behaves over time.
+        let mut more = Map::new();
+        self.reactions.report(&mut flags, &mut more);
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |d| d.as_millis() as i64);
+        self.schedule.report(now, &mut flags, &mut more);
+        self.repetition.report(&mut flags, &mut more);
+        // A tap lands wherever the finger covers, and moves no cursor.
+        if !self.touch {
+            self.slots.report(&mut flags, &mut more);
+            #[cfg(since_254)]
+            self.paths.report(&mut flags, &mut more);
+        }
+        self.afk.report(ms, &mut flags, &mut more);
+        // Only 225 and 254+ report the camera.
+        if cfg!(any(rev = "225", since_254))
+            && ms >= UNTURNED_MS
+            && self.ops >= UNTURNED_OPS
+            && self.camera_reports == 0
+        {
+            flags.push(("camera_never_turned", 15));
+        }
+        if let Some(trigger) = self.auto_banned {
+            more.insert("autoBan".into(), json!(trigger));
+        }
+        if let Some((end, at)) = self.end {
+            more.insert("endReason".into(), json!(end.name()));
+            more.insert("endMs".into(), json!(at));
+        }
 
         let score = flags.iter().map(|&(_, s)| s).sum::<i16>();
-        let stats = json!({
+        let mut stats = json!({
             "touch": self.touch,
             "automated": self.automated,
             "web": self.device.web,
@@ -792,18 +1011,24 @@ impl AntiCheat {
             "unfocusedActions": self.unfocused_actions,
             "unseenTargets": self.unseen,
             "menuOps": self.menu_ops,
-            "menuUnpressed": self.menu_unpressed,
+            "menuUnpressed": menu_unpressed,
             "idleReports": self.idle_reports,
             "cameraReports": self.camera_reports,
             "minimapClicks": self.minimap_clicks,
             "forgedMinimapClicks": self.forged_minimap,
             "minimapOff": self.minimap_off,
             "heartbeats": &self.heartbeats[..HEARTBEATS.len()],
+            "heartbeatRatio": beat_ratio.map(|r| (r * 100.0).round() / 100.0),
             "badHeartbeats": &self.bad_heartbeats[..HEARTBEATS.len()],
             "opChecksExpected": self.op_expected,
             "opChecksReceived": self.op_received,
             "badOpChecks": self.bad_op_checks,
+            "malformedPackets": self.malformed,
+            "rejectedRequests": self.rejected,
         });
+        if let Value::Object(stats) = &mut stats {
+            stats.extend(more);
+        }
         ReplayReport {
             score,
             flags: flags.iter().map(|&(f, _)| f.to_owned()).collect(),
@@ -811,22 +1036,47 @@ impl AntiCheat {
         }
     }
 
+    /// Whether the game loop's heartbeats are off its beat: more than 3 (and
+    /// 6%) from what the rarer one's count makes the other's. A real
+    /// client's land within a count or two; starting from counters a past
+    /// session left part way makes up to one more.
+    fn beats_forged(&self) -> bool {
+        LOOP_BEATS.iter().any(|&(often, rarely, ratio)| {
+            let expected = f64::from(self.heartbeats[rarely]) * ratio;
+            self.heartbeats[rarely] >= MIN_LOOP_BEATS
+                && (f64::from(self.heartbeats[often]) - expected).abs() > 3.0 + expected * 0.06
+        })
+    }
+
+    /// How many of the game loop's most frequent heartbeat came to one of
+    /// the rarer, once there are enough to tell.
+    fn beat_ratio(&self) -> Option<f64> {
+        let (often, rarely, _) = LOOP_BEATS[0];
+        (self.heartbeats[rarely] >= MIN_LOOP_BEATS)
+            .then(|| f64::from(self.heartbeats[often]) / f64::from(self.heartbeats[rarely]))
+    }
+
     /// How even the click gaps are: their standard deviation over their
     /// mean. People land well above 0.3.
     fn rhythm(&self) -> Option<f64> {
-        if self.gaps.len() < 2 {
-            return None;
-        }
-        let n = self.gaps.len() as f64;
-        let mean = self.gaps.iter().map(|&g| f64::from(g)).sum::<f64>() / n;
-        let var = self
-            .gaps
-            .iter()
-            .map(|&g| (f64::from(g) - mean).powi(2))
-            .sum::<f64>()
-            / n;
-        Some(var.sqrt() / mean)
+        cv(self.gaps.iter().map(|&g| f64::from(g)))
     }
+}
+
+/// How spread out `values` are: their standard deviation over their mean.
+/// `None` for fewer than two, or a mean of 0.
+pub(super) fn cv(values: impl Iterator<Item = f64>) -> Option<f64> {
+    let values: Vec<f64> = values.collect();
+    if values.len() < 2 {
+        return None;
+    }
+    let n = values.len() as f64;
+    let mean = values.iter().sum::<f64>() / n;
+    if mean <= 0.0 {
+        return None;
+    }
+    let var = values.iter().map(|v| (v - mean).powi(2)).sum::<f64>() / n;
+    Some(var.sqrt() / mean)
 }
 
 /// A tile's offset into the client's map.
@@ -942,10 +1192,55 @@ mod tests {
                 ],
             );
         }
-        let report = ac.report();
+        let report = ac.report(0);
         assert!(report.flags.is_empty(), "{:?}", report.flags);
         ac.client(&ClientProt::AnticheatCycleLogic5, &[1]);
-        assert_eq!(ac.report().flags, ["modified_client"]);
+        assert_eq!(ac.report(0).flags, ["modified_client"]);
+    }
+
+    #[test]
+    fn heartbeats_off_the_loop_s_beat_are_forged() {
+        let beat = |index: usize| match index {
+            0 => ClientProt::AnticheatCycleLogic1,
+            2 => ClientProt::AnticheatCycleLogic3,
+            3 => ClientProt::AnticheatCycleLogic4,
+            4 => ClientProt::AnticheatCycleLogic5,
+            _ => {
+                #[cfg(since_254)]
+                {
+                    ClientProt::AnticheatCycleLogic7
+                }
+                #[cfg(before_254)]
+                unreachable!()
+            }
+        };
+        let payload = |index: usize| -> Vec<u8> {
+            match (index, cfg!(since_254)) {
+                (2, false) => vec![0x4c, 0x2b, 0x2c],
+                (3, false) => vec![0; 4],
+                (3, true) => vec![232],
+                _ => vec![],
+            }
+        };
+        // 40 of the rarest, and the rest at `per` times the real ratio.
+        let run = |per: f64| {
+            let mut ac = AntiCheat::default();
+            let rarely = LOOP_BEATS[0].1;
+            for i in 0..40 {
+                ac.client(&beat(rarely), &payload(rarely));
+                for &(often, _, ratio) in &LOOP_BEATS {
+                    let r = ratio * per;
+                    let due = ((i + 1) as f64 * r) as usize - (i as f64 * r) as usize;
+                    for _ in 0..due {
+                        ac.client(&beat(often), &payload(often));
+                    }
+                }
+            }
+            ac.report(0).flags
+        };
+        assert!(run(1.0).is_empty(), "{:?}", run(1.0));
+        // A bot sending them all as often.
+        assert_eq!(run(1.0 / LOOP_BEATS[0].2), ["forged_heartbeats"]);
     }
 
     #[test]
@@ -972,7 +1267,7 @@ mod tests {
             ac.op(op, 0, MapBase { x: 3152, z: 3152 });
         }
         assert_eq!(ac.op_expected.iter().sum::<u32>(), 10);
-        assert!(ac.report().flags.contains(&"missing_op_checks".to_owned()));
+        assert!(ac.report(0).flags.contains(&"missing_op_checks".to_owned()));
         let payload: &[u8] = if cfg!(since_254) {
             &[0x94, 0x42]
         } else {
@@ -981,8 +1276,8 @@ mod tests {
         for _ in 0..10 {
             ac.client(&check, payload);
         }
-        assert!(!ac.report().flags.contains(&"missing_op_checks".to_owned()));
-        assert!(!ac.report().flags.contains(&"modified_client".to_owned()));
+        assert!(!ac.report(0).flags.contains(&"missing_op_checks".to_owned()));
+        assert!(!ac.report(0).flags.contains(&"modified_client".to_owned()));
     }
 
     #[test]
@@ -1005,7 +1300,7 @@ mod tests {
             automated: true,
             ..AntiCheat::default()
         };
-        let report = ac.report();
+        let report = ac.report(0);
         assert_eq!(report.flags, ["automated_browser"]);
         assert_eq!(report.score, 50);
     }
@@ -1033,8 +1328,8 @@ mod tests {
             angle: 0,
             zoom: 0,
             magic2: 89,
-            fine_x: 52 * 128 + 64,
-            fine_z: 52 * 128 + 64,
+            fine_x: (52 << 7) + 64,
+            fine_z: (52 << 7) + 64,
             nearest: 0,
             magic3: 63,
         };
@@ -1052,7 +1347,7 @@ mod tests {
         for _ in 0..10 {
             ac.minimap(&path, &trailer, BASE, (3204, 3204));
         }
-        assert!(ac.report().flags.is_empty(), "{:?}", ac.report().flags);
+        assert!(ac.report(0).flags.is_empty(), "{:?}", ac.report(0).flags);
         // Just after the world moved the map on, the click still lands from
         // the old one.
         ac.see_base(MapBase { x: 3160, z: 3152 });
@@ -1079,9 +1374,9 @@ mod tests {
         for forged in forgeries {
             let mut ac = AntiCheat::default();
             ac.minimap(&path, &forged, BASE, (3204, 3204));
-            assert!(ac.report().flags.is_empty(), "one is a fluke");
+            assert!(ac.report(0).flags.is_empty(), "one is a fluke");
             ac.minimap(&path, &forged, BASE, (3204, 3204));
-            assert_eq!(ac.report().flags, ["forged_minimap_click"], "{forged:?}");
+            assert_eq!(ac.report(0).flags, ["forged_minimap_click"], "{forged:?}");
         }
         // Over 25 steps the path stops short, so only the bytes are judged.
         let mut ac = AntiCheat::default();
@@ -1089,7 +1384,7 @@ mod tests {
         for _ in 0..2 {
             ac.minimap(&long, &trailer, BASE, (3204, 3204));
         }
-        assert!(ac.report().flags.is_empty());
+        assert!(ac.report(0).flags.is_empty());
     }
 
     #[test]
@@ -1099,7 +1394,7 @@ mod tests {
         for _ in 0..5 {
             ac.minimap(&path, &trailer, BASE, (3204 + 20, 3204));
         }
-        assert_eq!(ac.report().flags, ["minimap_position_off"]);
+        assert_eq!(ac.report(0).flags, ["minimap_position_off"]);
     }
 
     #[test]
@@ -1150,11 +1445,13 @@ mod tests {
                 z: 3410,
             },
         ];
-        for on in unseen {
-            ac.target(on, &area, 30);
+        // Each in a stretch of its own: several at once are one late update.
+        for (i, on) in unseen.into_iter().enumerate() {
+            ac.target(on, &area, 30 + i as u32 * (SHOWN_GRACE + 1));
+            ac.target(on, &area, 31 + i as u32 * (SHOWN_GRACE + 1));
         }
         assert_eq!(ac.unseen, 4);
-        assert_eq!(ac.report().flags, ["clicked_unseen"]);
+        assert_eq!(ac.report(0).flags, ["clicked_unseen"]);
     }
 
     /// A right press `ms` into the session, as the input reports have it.
@@ -1193,7 +1490,7 @@ mod tests {
         right_press(&mut ac, 199_000);
         ac.menu_op(200_000);
         assert_eq!((ac.menu_ops, ac.menu_unpressed), (21, 0));
-        assert!(ac.report().flags.is_empty(), "{:?}", ac.report().flags);
+        assert!(ac.report(0).flags.is_empty(), "{:?}", ac.report(0).flags);
         // A bot picking options straight off, with the odd right press.
         for i in 0..30 {
             ac.menu_op(300_000 + i * 2_000);
@@ -1201,7 +1498,14 @@ mod tests {
         right_press(&mut ac, 320_000);
         ac.menu_op(400_000);
         assert_eq!(ac.menu_unpressed, 29);
-        assert_eq!(ac.report().flags, ["menu_without_right_click"]);
+        assert_eq!(ac.report(0).flags, ["menu_without_right_click"]);
+        // The last options count too, once it's too late for their press.
+        let mut late = AntiCheat::default();
+        for i in 0..6 {
+            late.menu_op(i * 1_000);
+        }
+        assert!(late.report(10_000).flags.is_empty());
+        assert_eq!(late.report(40_000).flags, ["menu_without_right_click"]);
     }
 
     /// A click `ms` into the session and the action it makes. Before 254
@@ -1243,14 +1547,28 @@ mod tests {
             }
         }
         assert_eq!(ac.unfocused_actions, 0);
+        // From 254 the desktop client can send the focusing click's action
+        // just ahead of the focus.
+        #[cfg(since_254)]
+        {
+            focus(&mut ac, 30_000, false);
+            act(&mut ac, 31_000);
+            ac.focus_clock = 1;
+            focus(&mut ac, 31_020, true);
+            assert_eq!(ac.unfocused_actions, 0);
+        }
         // Clicks that never focused it.
         focus(&mut ac, 40_000, false);
         for ms in [41_000, 42_000, 43_000] {
             act(&mut ac, ms);
         }
+        #[cfg(since_254)]
+        {
+            ac.focus_clock = 20;
+        }
         focus(&mut ac, 50_000, true);
         assert_eq!(ac.unfocused_actions, 3);
-        assert_eq!(ac.report().flags, ["actions_while_unfocused"]);
+        assert_eq!(ac.report(0).flags, ["actions_while_unfocused"]);
     }
 
     /// The flags for 40 clicks 600 ms apart, each 300 px from the last.
@@ -1260,7 +1578,7 @@ mod tests {
             ..AntiCheat::default()
         };
         for i in 0..40 {
-            let x = (100 + (i % 2) * 300) as i16;
+            let x = (100 + (i & 1) * 300) as i16;
             #[cfg(since_254)]
             let input = Input::Click {
                 x,
@@ -1276,6 +1594,6 @@ mod tests {
             };
             ac.input(&Timed { ms: i * 600, input });
         }
-        ac.report().flags
+        ac.report(0).flags
     }
 }

@@ -34,7 +34,7 @@ use rs_vm::ScriptError;
 #[cfg(since_254)]
 impl ClientGameHandler for EventMouseClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let ms = active.watch.ms();
+        let ms = active.watch.packet_ms();
         active
             .watch
             .anticheat
@@ -62,7 +62,7 @@ impl ClientGameHandler for EventMouseClick {
 #[cfg(since_254)]
 impl ClientGameHandler for EventMouseMove {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let ms = active.watch.ms();
+        let ms = active.watch.packet_ms();
         active.watch.anticheat.mouse_move(ms, &self);
         Ok(())
     }
@@ -87,8 +87,8 @@ impl ClientGameHandler for EventMouseMove {
 #[cfg(since_254)]
 impl ClientGameHandler for EventAppletFocus {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let ms = active.watch.ms();
-        active.watch.anticheat.focus(ms, &self);
+        let ms = active.watch.packet_ms();
+        active.watch.anticheat.focus(ms, engine().clock, &self);
         Ok(())
     }
 }
@@ -112,7 +112,7 @@ impl ClientGameHandler for EventAppletFocus {
 #[cfg(any(rev = "225", since_254))]
 impl ClientGameHandler for EventCameraPosition {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let ms = active.watch.ms();
+        let ms = active.watch.packet_ms();
         active.watch.anticheat.camera(ms, &self);
         Ok(())
     }

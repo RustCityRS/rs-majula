@@ -363,7 +363,7 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
 #[allow(clippy::collapsible_match)]
 pub async fn network_loop(
     mut client: Socket,
-    packet_tx: Sender<Vec<u8>>,
+    packet_tx: Sender<(std::time::Instant, Vec<u8>)>,
     mut bytes_rx: UnboundedReceiver<Vec<u8>>,
     recycle_tx: UnboundedSender<Vec<u8>>,
     disconnect_tx: &Sender<()>,
@@ -373,7 +373,7 @@ pub async fn network_loop(
         tokio::select! {
             result = client.read() => match result {
                 Ok(Some(bytes)) if !bytes.is_empty() => {
-                    if packet_tx.try_send(bytes).is_err() {
+                    if packet_tx.try_send((std::time::Instant::now(), bytes)).is_err() {
                         disconnect_tx.send(()).await?;
                         bail!("{addr} inbox full or closed");
                     }

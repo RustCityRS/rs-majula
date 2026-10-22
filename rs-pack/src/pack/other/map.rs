@@ -64,7 +64,7 @@ pub struct ParsedMap {
     pub(super) objs: HashMap<u16, Vec<ObjPlacement>>,
 }
 
-pub(super) const TILE_COUNT: usize = 4 * 64 * 64;
+pub(super) const TILE_COUNT: usize = 4 << 12;
 
 pub(super) fn tile_index(y: usize, x: usize, z: usize) -> usize {
     y << 12 | x << 6 | z

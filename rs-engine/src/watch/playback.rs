@@ -393,7 +393,7 @@ mod tests {
 
         // A broken chunk ends it there, leaving nothing of itself.
         let mut cut = zstd::bulk::compress(&[7; 4096], 3).unwrap();
-        cut.truncate(cut.len() / 2);
+        cut.truncate(cut.len() >> 1);
         let after = chunk(zstd::bulk::compress(b"lost", 3).unwrap());
         let first = chunk(zstd::bulk::compress(b"kept", 3).unwrap());
         assert_eq!(decompress(&[first, chunk(cut), after]), b"kept");

@@ -125,6 +125,7 @@ impl Engine {
                     muted_until: None,
                     claim_sent: false,
                     profile: None,
+                    played: Vec::new(),
                 });
             } else {
                 let _ = request

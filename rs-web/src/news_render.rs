@@ -67,7 +67,7 @@ pub fn render(markdown: &str) -> String {
         };
         out_events.push(Event::InlineHtml(html.into()));
     }
-    let mut html = String::with_capacity(markdown.len() * 3 / 2);
+    let mut html = String::with_capacity((markdown.len() * 3) >> 1);
     pulldown_cmark::html::push_html(&mut html, out_events.into_iter());
     html
 }

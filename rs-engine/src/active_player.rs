@@ -3,6 +3,7 @@ use crate::clients::client_game::ClientHandle;
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::watch::schedule::End;
 use crate::watch::{MapBase, Op, Target, Using, Watch, menu};
 use rs_cam::CamKind;
 use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
@@ -434,6 +435,7 @@ impl ActivePlayer {
             self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
         }
 
+        self.watch_acting_on();
         self.write_buffered();
         self.watch.end_tick();
     }
@@ -859,8 +861,32 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sets `player.logout_sent = true`.
     pub fn logout(&mut self) {
+        self.watch_end();
         self.player.logout_sent = true;
         self.write(rs_protocol::network::game::server::logout::Logout);
+    }
+
+    /// Notes how the session is ending, for how fast the player comes back.
+    fn watch_end(&mut self) {
+        let engine = engine();
+        let ms = self.watch.ms();
+        let silent = engine.clock.saturating_sub(self.player.last_response)
+            >= crate::phases::logout::TIMEOUT_NO_RESPONSE;
+        let (end, at) = if engine.is_shutdown() {
+            (End::Reboot, ms)
+        } else if let Some(lost) = self.player.disconnected_at {
+            let since = engine.clock.saturating_sub(lost) * 600;
+            (End::Disconnect, ms.saturating_sub(since))
+        } else if silent {
+            (End::Disconnect, ms)
+        } else if self.player.logout_idle_requested {
+            (End::Idle, ms)
+        } else if self.player.logout_requested {
+            (End::Logout, ms)
+        } else {
+            (End::Kick, ms)
+        };
+        self.watch.anticheat.ended(end, at);
     }
 
     /// When a mute lasting `d` from now ends. Capped at 100 years, so a mute
@@ -880,6 +906,7 @@ impl ActivePlayer {
     /// the logout save, so logging straight back in is refused.
     pub fn auto_ban(&mut self, trigger: AutoBan) {
         counters::add(&COUNTERS.auto_bans[trigger as usize], 1);
+        self.watch.anticheat.auto_banned = Some(counters::AUTO_BAN_TRIGGERS[trigger as usize]);
         if let Some(tx) = &engine().db_tx {
             let _ = tx.send(DbRequest::Ban {
                 user37: self.player.uid.username37(),
@@ -907,15 +934,102 @@ impl ActivePlayer {
                 .anticheat
                 .target(on, &self.player.build_area, clock);
         }
-        if self.needs_menu(op) && !self.one_mouse_button() {
+        let menu = self.needs_menu(op) && !self.one_mouse_button();
+        if menu {
             let ms = self.watch.ms();
             self.watch.anticheat.menu_op(ms);
         }
+        self.watch_behaviour(op, on, menu);
         if !self.watch.recording() {
             return;
         }
         if let Some(note) = self.op_note(op) {
             self.watch.note(clock, &note);
+        }
+    }
+
+    /// Feeds an action to the checks on how the player behaves over time:
+    /// how fast they react, how much they repeat themselves, where in its
+    /// slot they click an obj.
+    fn watch_behaviour(&mut self, op: Op, on: Option<Target>, menu: bool) {
+        let ms = self.watch.packet_ms();
+        let appeared = match op {
+            Op::Obj { id, x, z, .. } => {
+                let at = CoordGrid::new(x, self.player.pathing.coord.y(), z);
+                engine()
+                    .obj_appeared
+                    .get(&(at, id))
+                    .map(|&when| self.watch.ms_at(when))
+            }
+            _ => None,
+        };
+        let slot = match op {
+            Op::Held { slot, com, .. } | Op::InvButton { slot, com, .. } => {
+                self.slot_on_screen(com, slot)
+            }
+            _ => None,
+        };
+        let anticheat = &mut self.watch.anticheat;
+        anticheat.acted(ms, appeared);
+        anticheat.acting_on = on.filter(|t| matches!(t, Target::Loc { .. } | Target::Npc(_)));
+        match op {
+            Op::Npc { op, nid } => anticheat.repeat(("npc", op, nid)),
+            Op::Loc { op, id, x, z } => anticheat.repeat(("loc", op, id, x, z)),
+            Op::Obj { op, id, x, z } => anticheat.repeat(("obj", op, id, x, z)),
+            Op::Player { op, .. } => anticheat.repeat(("player", op)),
+            Op::Held { op, obj, slot, com } => anticheat.repeat(("held", op, obj, slot, com)),
+            Op::InvButton { op, obj, slot, com } => {
+                anticheat.repeat(("button", op, obj, slot, com))
+            }
+            Op::Other => {}
+        }
+        if let Some(slot) = slot {
+            anticheat.slot_action(ms, slot, menu);
+        }
+    }
+
+    /// Where on the client's screen an inventory's `slot` is drawn (its top
+    /// left), from where the interface it's in is open. `None` in a layer
+    /// that scrolls (the bank), whose slots move with it.
+    fn slot_on_screen(&self, com: u16, slot: u16) -> Option<(i16, i16)> {
+        // Where the client draws its main, chat and side areas.
+        #[cfg(rev = "225")]
+        const AREAS: [(i16, i16); 3] = [(8, 11), (22, 375), (562, 231)];
+        #[cfg(since_244)]
+        const AREAS: [(i16, i16); 3] = [(4, 4), (17, 357), (553, 205)];
+        let interfaces = engine().interfaces();
+        let inv = interfaces.get_by_id(com).filter(|i| !i.scrolls)?;
+        let (x, y) = inv.slot_at(slot)?;
+        let root = u16::try_from(inv.root_layer).ok();
+        let (left, top) = if root.is_some() && root == self.player.modal_main {
+            AREAS[0]
+        } else if root.is_some() && root == self.player.modal_chat {
+            AREAS[1]
+        } else {
+            AREAS[2]
+        };
+        Some((left + x, top + y))
+    }
+
+    /// At the end of each tick: whether the loc or NPC the player last acted
+    /// on went (a rock ran out, a tree fell, an NPC died), for how fast they
+    /// react to it.
+    fn watch_acting_on(&mut self) {
+        let Some(on) = self.watch.anticheat.acting_on else {
+            return;
+        };
+        let engine = engine();
+        let here = match on {
+            Target::Loc { id, x, z } => engine
+                .zones
+                .loc_at(x, self.player.pathing.coord.y(), z, id)
+                .is_some(),
+            Target::Npc(nid) => engine.get_npc(nid).is_some_and(|n| n.npc.active),
+            _ => true,
+        };
+        if !here {
+            let ms = self.watch.ms();
+            self.watch.anticheat.gone(ms);
         }
     }
 
@@ -984,6 +1098,7 @@ impl ActivePlayer {
     /// Records a "use" or spell action, e.g. "Use Bones on Altar".
     pub fn watch_use(&mut self, with: Using, on: Target) {
         self.watch_op(Op::Other);
+        self.watch.anticheat.repeat(("use", with, on));
         self.watch
             .anticheat
             .target(on, &self.player.build_area, engine().clock);
@@ -1086,6 +1201,10 @@ impl ActivePlayer {
     }
 
     pub fn watch_walk(&mut self, path: &[u32], minimap: bool) {
+        if let Some(&to) = path.last() {
+            let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
+            self.watch.anticheat.walked(x, z);
+        }
         self.watch_op(Op::Other);
         if !self.watch.recording() {
             return;
@@ -2342,6 +2461,12 @@ pub trait EnginePlayer {
     fn tele(&mut self, coord: CoordGrid);
 }
 
+/// Requests turned down that a real client makes too: a second click on a
+/// dialog's "continue" after it closed, an option the content has no script
+/// for. (A mistyped cheat command is the player's own, and isn't counted
+/// either.)
+const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an active"];
+
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets
     /// in a loop until per-category rate limits are reached or the queue
@@ -2373,11 +2498,11 @@ impl EnginePlayer for ActivePlayer {
                     Err(_) => break,
                 },
             };
-            if handle.read_queue.len() + msg.len() > 5000 {
+            if handle.read_queue.len() + msg.1.len() > 5000 {
                 handle.pending_msg = Some(msg);
                 break;
             }
-            handle.read_queue.extend(msg);
+            handle.queue(msg.0, msg.1);
         }
 
         self.client_limit = 0;
@@ -2451,11 +2576,15 @@ impl EnginePlayer for ActivePlayer {
             let data: Vec<u8> = handle.read_queue.drain(..len).collect();
             (prot, opcode, data, info, short)
         };
+        if let Some(at) = self.handle.arrived() {
+            self.watch.arrived(at);
+        }
         self.watch.client(engine().clock, &prot, opcode, &data);
 
         #[rustfmt::skip]
         let success = if short {
             warn!("Short {prot:?}: {} byte(s)", data.len());
+            self.watch.anticheat.malformed();
             false
         } else {
             let mut buf = Packet::from(data);
@@ -2561,6 +2690,12 @@ impl EnginePlayer for ActivePlayer {
                     #[cfg(debug_assertions)]
                     self.message_game_wrapped(&err.to_string());
                     error!("{err}");
+                    if let ScriptError::Client(why) = &err
+                        && !matches!(prot, ClientProt::ClientCheat)
+                        && !UNREMARKABLE.iter().any(|ok| why.starts_with(ok))
+                    {
+                        self.watch.anticheat.rejected();
+                    }
                     false
                 }
             }

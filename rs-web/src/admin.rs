@@ -18,7 +18,7 @@ use tokio::net::TcpListener;
 use tracing::{info, warn};
 
 /// News posts are long-ish text, so a request is allowed a long one.
-const MAX_BODY: usize = 256 * 1024;
+const MAX_BODY: usize = 256 << 10;
 
 /// The longest title, in characters.
 const MAX_TITLE_CHARS: usize = 120;

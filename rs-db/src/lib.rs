@@ -39,7 +39,9 @@ pub use password::{
 };
 pub use player::{Credentials, NewPlayer, Sanctions};
 pub use recovery::{RESET_LOCKED, ResetCode};
-pub use replay::{NewReplay, ReplayChunk, ReplayRecord, ReplayReport, ReplayStorage};
+pub use replay::{
+    NewReplay, PlayedSession, ReplayChunk, ReplayRecord, ReplayReport, ReplayStorage,
+};
 pub use save::{PlayerSave, SaveResult};
 pub use session::{Claim, LoginDevice, Reconciled, SessionOwner};
 pub use snapshot::NewSnapshot;

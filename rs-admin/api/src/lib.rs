@@ -115,7 +115,7 @@ pub mod path {
 }
 
 /// The largest image or video a news post or case can embed.
-pub const MAX_MEDIA_BYTES: usize = 50 * 1024 * 1024;
+pub const MAX_MEDIA_BYTES: usize = 50 << 20;
 
 /// Checks signed requests for a server: signature, clock skew and replayed
 /// nonces.
@@ -169,7 +169,7 @@ impl Verifier {
 
         // Only signed requests get this far, so only they can fill the map.
         let mut nonces = self.nonces.lock().unwrap_or_else(|e| e.into_inner());
-        let window = Duration::from_secs(MAX_SKEW_SECS * 2);
+        let window = Duration::from_secs(MAX_SKEW_SECS << 1);
         nonces.retain(|_, seen| seen.elapsed() < window);
         if nonces.insert(nonce.to_owned(), Instant::now()).is_some() {
             return Err("nonce replayed");
@@ -224,7 +224,7 @@ pub fn verify(
 
 pub fn hex(bytes: &[u8]) -> String {
     const DIGITS: &[u8; 16] = b"0123456789abcdef";
-    let mut out = String::with_capacity(bytes.len() * 2);
+    let mut out = String::with_capacity(bytes.len() << 1);
     for &b in bytes {
         out.push(DIGITS[(b >> 4) as usize] as char);
         out.push(DIGITS[(b & 0xf) as usize] as char);
@@ -1464,7 +1464,7 @@ fn civil(ms: i64) -> (i64, i64, i64, i64) {
     let era = z.div_euclid(146_097);
     let doe = z.rem_euclid(146_097);
     let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
-    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let doy = doe - (365 * yoe + (yoe >> 2) - yoe / 100);
     let mp = (5 * doy + 2) / 153;
     let day = doy - (153 * mp + 2) / 5 + 1;
     let month = if mp < 10 { mp + 3 } else { mp - 9 };

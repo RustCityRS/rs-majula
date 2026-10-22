@@ -5915,6 +5915,10 @@ function chatPage(ctx) {
 
 const FLAGS = {
     modified_client: ['Modified client', 'Sent anti-cheat packets with the wrong contents. The real client never does.'],
+    auto_banned: ['Auto-banned', 'Sent a packet only a modified client can (a report with a reason the screen doesn\'t offer, or about a name that can\'t exist; a private message to one), and the world banned it for 48 hours. The stats say which.'],
+    forged_heartbeats: ['Forged heartbeats', 'The game loop\'s two heartbeats came in the wrong proportion. The real client sends both from the same loop, a fixed number of cycles apart, so whatever speed it runs at they keep to a fixed ratio. Something other than the client is sending them.'],
+    never_drew: ['Never drew the game', 'Played on and on without sending the heartbeat the client sends from drawing the game (254+). Nothing was drawn: not the client, or one running without its graphics.'],
+    rejected_requests: ['Rejected requests', 'Many requests the world turned down as ones the client wouldn\'t make: buttons on interfaces that aren\'t open or have none, items in slots that hold something else. The odd one is a race with the world; a stream of them is something sending its own.'],
     no_heartbeat: ['No game loop', 'Acted without sending any of the anti-cheat packets the client\'s game loop sends. Usually a packet bot.'],
     missing_op_checks: ['Missing op checks', 'Left out the anti-cheat packets the real client sends with some actions once it has done them enough.'],
     actions_without_clicks: ['Actions without clicks', 'Many actions came without the click the real client reports with each one.'],
@@ -5926,7 +5930,20 @@ const FLAGS = {
     robotic_click_timing: ['Clockwork clicks', 'Clicks came at very even intervals.'],
     forged_minimap_click: ['Forged minimap clicks', 'Minimap clicks came with bytes the real client never sends: wrong fixed values, or a click spot, camera and position that don\'t lead to the tile walked to. A bot building its own packets.'],
     minimap_position_off: ['Minimap position off', 'Most minimap clicks said the player was far from where the world had them.'],
-    automated_browser: ['Automated browser', 'The web client ran in a browser that says it\'s headless (Puppeteer, Selenium, Playwright), or sent no user agent at all.'],
+    automated_browser: ['Automated browser', 'The web client ran in a browser that says it\'s headless (Puppeteer, Selenium, Playwright).'],
+    instant_reactions: ['Instant reactions', 'Half its reactions (to a rock running out, an NPC dying, an item appearing) came faster than people react.'],
+    even_reactions: ['Even reactions', 'Its reactions took about the same time every time. People\'s vary, with the odd slow one.'],
+    long_days: ['Long days', 'Played 16+ hours a day on 3 or more of the last 7 days.'],
+    no_long_breaks: ['No long breaks', 'Hasn\'t stopped for 4 hours in 3 days: nobody slept.'],
+    instant_relogs: ['Instant relogs', 'Came back within seconds nearly every time it was disconnected, kicked or rebooted out this week.'],
+    repeated_laps: ['Repeated laps', 'Repeats itself exactly: the same tiles, booth and order every lap. People drift a tile or two.'],
+    same_pixel_clicks: ['Same pixel clicks', 'Clicked inventory slots on the same pixel time after time.'],
+    even_slot_clicks: ['Even slot clicks', 'Clicked all over inventory slots, edges and corners as often as the middle. People aim at the item.'],
+    straight_mouse_moves: ['Straight mouse moves', 'The mouse moved in dead straight lines.'],
+    steady_mouse_moves: ['Steady mouse moves', 'The mouse moved at a constant speed. People speed up and slow down.'],
+    repeated_mouse_curves: ['Repeated mouse curves', 'The mouse followed the same curve again and again.'],
+    anti_afk: ['Anti-AFK', 'Went an hour or more without doing anything, kept awake by tiny mouse nudges or a key at even intervals.'],
+    camera_never_turned: ['Camera never turned', 'Played 3+ hours and 300+ actions without turning the camera once.'],
 };
 
 const flagBadge = (flag) => h('span', {
@@ -6076,8 +6093,22 @@ function replayStats(r) {
         ['Mouse reports', s.inputReports],
         ['Window lost focus', s.focusLost],
         ['Game loop heartbeats', s.heartbeats ? sum(s.heartbeats) : null],
-        ['Packets with wrong contents', s.badHeartbeats ? sum(s.badHeartbeats) + sum(s.badOpChecks) : null],
+        ['Packets with wrong contents', s.badHeartbeats ? sum(s.badHeartbeats) + sum(s.badOpChecks) + (s.malformedPackets || 0) : null],
+        ['Requests turned down', s.rejectedRequests],
         ['Op checks sent / expected', s.opChecksExpected ? `${sum(s.opChecksReceived)} / ${sum(s.opChecksExpected)}` : null],
+        ['Reactions', s.reactions?.count ? `${s.reactions.count}, median ${s.reactions.medianMs} ms, ${Math.round(s.reactions.fastShare * 100)}% instant` : null],
+        ['Hours played (last 7 days)', s.schedule ? s.schedule.dayHours.join(' / ') : null],
+        ['Longest break (3 days)', s.schedule?.longestBreakHours == null ? null : `${s.schedule.longestBreakHours} h`],
+        ['Back after a forced end', s.schedule?.returnMs == null ? null : `${Math.round(s.schedule.returnMs / 1000)} s`],
+        ['Quick returns this week', s.schedule?.returns ? `${s.schedule.quickReturns} / ${s.schedule.returns}` : null],
+        ['Ended by', s.endReason],
+        ['Auto-banned for', s.autoBan],
+        ['Repeated runs of actions', s.repetition?.actions ? `${Math.round(s.repetition.repeated * 100)}% of ${s.repetition.actions}` : null],
+        ['Slot clicks', s.slotClicks?.count ? `${s.slotClicks.count}, spread ${s.slotClicks.spread} px, ${Math.round(s.slotClicks.samePixel * 100)}% on one pixel` : null],
+        ['Mouse moves', s.mousePaths?.moves ? `${s.mousePaths.moves}: ${s.mousePaths.straight} straight, ${s.mousePaths.steady} steady, ${s.mousePaths.repeatedCurves} of ${s.mousePaths.curves} curves repeated` : null],
+        ['Kept awake', s.keptAwakeMinutes ? `${s.keptAwakeMinutes} min` : null],
+        ['Camera reports', s.cameraReports],
+        ['Idle reports', s.idleReports],
     ].filter(([, v]) => v !== undefined && v !== null);
     return h('dl', {class: 'replay-stats'}, rows.map(([k, v]) => [h('dt', {}, k), h('dd', {class: 'num'}, v instanceof Node ? v : String(v))]));
 }
@@ -9423,8 +9454,11 @@ function linkFlags(links) {
     const onAddress = banned.filter((b) => !b.after_ban && b.via === 'address').map((b) => b.name);
     if (onAddress.length) flags.push(['warn', `Shares an address with banned ${onAddress.join(', ')} (could be a household).`]);
     const devices = links.devices || [];
-    if (devices.some((d) => d.web && (!d.user_agent || AUTOMATION.test(d.user_agent)))) {
-        flags.push(['danger', 'Logged in from an automated browser (headless, or no user agent).']);
+    if (devices.some((d) => d.web && d.user_agent && AUTOMATION.test(d.user_agent))) {
+        flags.push(['danger', 'Logged in from an automated (headless) browser.']);
+    }
+    if (devices.some((d) => d.web && !d.user_agent)) {
+        flags.push(['warn', 'Logged in from a browser that sent no user agent (its headers may have been cut short, or something hid it).']);
     }
     const busy = Math.max(0, ...devices.map((d) => d.others + 1));
     if (busy >= BUSY_DEVICE) flags.push(['warn', `One of their browsers is used by ${busy} accounts.`]);

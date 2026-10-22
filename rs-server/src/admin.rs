@@ -62,7 +62,7 @@ pub type EngineJob = Box<dyn FnOnce(&mut Engine) + Send>;
 const ENGINE_TIMEOUT: Duration = Duration::from_secs(10);
 
 /// Request bodies are a few small JSON fields.
-const MAX_BODY: usize = 16 * 1024;
+const MAX_BODY: usize = 16 << 10;
 
 /// The longest a reboot may be scheduled ahead: ten hours, inside the
 /// client's countdown (a u16 of ticks, about 10.9 hours).
@@ -2096,7 +2096,7 @@ fn reset_code() -> String {
     let mut bits = rand::random::<u128>();
     let mut code = String::with_capacity(14);
     for i in 0..12 {
-        if i > 0 && i % 4 == 0 {
+        if i > 0 && i & 3 == 0 {
             code.push('-');
         }
         code.push(CODE_ALPHABET[(bits & 31) as usize] as char);

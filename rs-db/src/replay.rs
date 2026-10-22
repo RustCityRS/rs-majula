@@ -54,6 +54,20 @@ pub struct ReplayRecord {
     pub stats: String,
 }
 
+/// A session the player played, for judging when they play (see the
+/// world's anti-cheat schedule check).
+#[derive(Clone, Debug, sqlx::FromRow)]
+pub struct PlayedSession {
+    pub started_ms: i64,
+    pub duration_ms: i32,
+    /// How it ended (`logout`, `idle`, `disconnect`, `kick`, `reboot`), as
+    /// the world noted in its stats.
+    pub end_reason: Option<String>,
+    /// How long after the session before it was ended for it (not by the
+    /// player) this one began.
+    pub return_ms: Option<i32>,
+}
+
 /// How much the recordings take up.
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct ReplayStorage {
@@ -93,6 +107,28 @@ impl Db {
         .execute(&self.pool)
         .await?;
         Ok(result.rows_affected() == 1)
+    }
+
+    /// The sessions player `name_hash` started since `since_ms` (Unix ms),
+    /// oldest first.
+    pub async fn played_since(
+        &self,
+        name_hash: u64,
+        since_ms: i64,
+    ) -> Result<Vec<PlayedSession>, Error> {
+        let sql = concat!(
+            "SELECT ",
+            ms!("r.started_at"),
+            " AS started_ms, r.duration_ms, r.stats::jsonb ->> 'endReason' AS end_reason, ",
+            "(r.stats::jsonb ->> 'returnMs')::int AS return_ms ",
+            "FROM replays r JOIN players p ON p.id = r.player_id ",
+            "WHERE p.name_hash = $1 AND r.started_at >= to_timestamp($2) ORDER BY r.started_at"
+        );
+        sqlx::query_as(sql)
+            .bind(name_hash as i64)
+            .bind(since_ms as f64 / 1000.0)
+            .fetch_all(&self.pool)
+            .await
     }
 
     /// Adds `chunk` (if any) to recording `id` with the checks' verdict so

@@ -1,9 +1,16 @@
+mod afk;
 pub mod anticheat;
 pub mod format;
 pub mod input;
 mod keyframe;
 pub mod menu;
+#[cfg(since_254)]
+mod paths;
 pub mod playback;
+mod reaction;
+mod repetition;
+pub mod schedule;
+mod slots;
 mod state;
 
 pub use anticheat::{AntiCheat, MapBase, Op};
@@ -12,14 +19,15 @@ pub use anticheat::{AntiCheat, MapBase, Op};
 /// Playwright, Selenium) and PhantomJS.
 const AUTOMATION: [&str; 2] = ["HeadlessChrome", "PhantomJS"];
 
-/// Whether a login's device says it's automated: a web client with no user
-/// agent, or one that names a headless browser.
+/// Whether a login's device says it's automated: a web client whose user
+/// agent names a headless browser. One with none says nothing: the headers
+/// can be cut short before it, and a bot can send any it likes anyway.
 pub fn automated(device: &rs_db::LoginDevice) -> bool {
     device.web
         && device
             .user_agent
             .as_deref()
-            .is_none_or(|ua| AUTOMATION.iter().any(|word| ua.contains(word)))
+            .is_some_and(|ua| AUTOMATION.iter().any(|word| ua.contains(word)))
 }
 
 use crate::counters::{self, COUNTERS};
@@ -38,7 +46,7 @@ pub const CHUNK_MS: u32 = 30_000;
 /// ...or this long while staff watch it live, so they're seconds behind.
 pub const LIVE_CHUNK_MS: u32 = 2_000;
 /// ...or once it's this big, whichever comes first.
-pub const CHUNK_BYTES: usize = 64 * 1024;
+pub const CHUNK_BYTES: usize = 64 << 10;
 /// How many requests the recording task can fall behind by before chunks
 /// are lost.
 pub const QUEUE: usize = 4096;
@@ -55,14 +63,14 @@ pub const TRACKING_ENABLED: u8 =
     rs_protocol::network::game::server_prot::ServerProt::EnableTracking as u8;
 
 /// What a "use" or spell action was done with.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Hash)]
 pub enum Using {
     Item(u16),
     Spell(u16),
 }
 
 /// What a "use" or spell action was done on.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum Target {
     Npc(u16),
     Loc { id: u16, x: u16, z: u16 },
@@ -113,6 +121,8 @@ struct Recording {
 pub struct Watch {
     pub anticheat: AntiCheat,
     started: Instant,
+    /// When the client packet being handled arrived.
+    arrived: Option<Instant>,
     recording: Option<Recording>,
     /// Until when staff watch it live (see [`Self::watch_live`]).
     live_until: Option<Instant>,
@@ -123,6 +133,7 @@ impl Default for Watch {
         Self {
             anticheat: AntiCheat::default(),
             started: Instant::now(),
+            arrived: None,
             recording: None,
             live_until: None,
         }
@@ -150,7 +161,7 @@ impl Watch {
             Some(Recording {
                 id,
                 tx: tx.clone(),
-                buf: Vec::with_capacity(CHUNK_BYTES / 4),
+                buf: Vec::with_capacity(CHUNK_BYTES >> 2),
                 seq: 0,
                 chunk_start_ms: 0,
                 tick: None,
@@ -163,6 +174,7 @@ impl Watch {
         Self {
             anticheat: AntiCheat::default(),
             started: Instant::now(),
+            arrived: None,
             recording,
             live_until: None,
         }
@@ -187,6 +199,23 @@ impl Watch {
     /// Milliseconds into the session.
     pub fn ms(&self) -> u32 {
         self.started.elapsed().as_millis() as u32
+    }
+
+    /// Milliseconds into the session at `at`.
+    pub fn ms_at(&self, at: Instant) -> u32 {
+        at.saturating_duration_since(self.started).as_millis() as u32
+    }
+
+    /// The client packet being handled arrived `at`.
+    pub fn arrived(&mut self, at: Instant) {
+        self.arrived = Some(at);
+    }
+
+    /// Milliseconds into the session the client packet being handled
+    /// arrived: when the player did it, give or take the network, rather
+    /// than when the tick got to it.
+    pub fn packet_ms(&self) -> u32 {
+        self.arrived.map_or_else(|| self.ms(), |at| self.ms_at(at))
     }
 
     /// The recording to append to on tick `clock`, with the tick's entry
@@ -254,7 +283,7 @@ impl Watch {
             return;
         };
         recording.last_keyframe_ms = ms;
-        let mut payload = Vec::with_capacity(16 * 1024);
+        let mut payload = Vec::with_capacity(16 << 10);
         let kept = recording.state.packets();
         for packet in head
             .iter()
@@ -325,12 +354,12 @@ impl Watch {
             return;
         };
         let ms = self.started.elapsed().as_millis() as u32;
-        let report = self.anticheat.report();
+        let report = self.anticheat.report(ms);
         let chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
             seq: recording.seq,
             start_ms: recording.chunk_start_ms,
             end_ms: ms,
-            data: std::mem::replace(&mut recording.buf, Vec::with_capacity(CHUNK_BYTES / 4)),
+            data: std::mem::replace(&mut recording.buf, Vec::with_capacity(CHUNK_BYTES >> 2)),
         });
         let had_chunk = chunk.is_some();
         let sent = recording.tx.try_send(ReplayRequest::Store {
@@ -408,7 +437,7 @@ mod tests {
         assert!(automated(&web(Some(
             "Mozilla/5.0 (X11; Linux x86_64) HeadlessChrome/141.0.0.0"
         ))));
-        assert!(automated(&web(None)));
+        assert!(!automated(&web(None)));
         assert!(!automated(&web(Some(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0"
         ))));
