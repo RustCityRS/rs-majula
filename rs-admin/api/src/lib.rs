@@ -1216,7 +1216,6 @@ pub struct Recovery {
     pub last_played: Option<String>,
     /// `computer`, `phone` or `client`.
     pub device: Option<String>,
-    pub skills: Option<String>,
     pub items: Option<String>,
     pub location: Option<String>,
     pub friends: Option<String>,
@@ -1296,7 +1295,6 @@ pub struct RecoveryEvidence {
     /// Other accounts seen from the request's address or browser.
     pub seen_from: Vec<String>,
     /// Their answers, each checked.
-    pub skills: Vec<ClaimCheck>,
     pub items: Vec<ClaimCheck>,
     /// `None` when the friend lists couldn't be read.
     pub friends: Option<Vec<ClaimCheck>>,

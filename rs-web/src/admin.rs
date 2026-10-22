@@ -324,7 +324,6 @@ async fn recoveries_waiting(
                 created_month: r.answers.created_month,
                 last_played: r.answers.last_played,
                 device: r.answers.device,
-                skills: r.answers.skills,
                 items: r.answers.items,
                 location: r.answers.location,
                 friends: r.answers.friends,

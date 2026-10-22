@@ -1659,14 +1659,10 @@ async fn recovery_check(
         .await
         .map_err(db_failed)?;
     let sheet = sheet_of(&state, user37, &r.player).await?;
-    let against_sheet = |text: &Option<String>, f: fn(&str, &PlayerSheet) -> Vec<ClaimCheck>| match (
-        text, &sheet,
-    ) {
-        (Some(text), Some(sheet)) => f(text, sheet),
+    let items = match (&r.items, &sheet) {
+        (Some(text), Some(sheet)) => recovery::check_items(text, sheet),
         _ => Vec::new(),
     };
-    let skills = against_sheet(&r.skills, recovery::check_skills);
-    let items = against_sheet(&r.items, recovery::check_items);
     // The friend lists are the ether service's: a database login without
     // them reads nothing.
     let friends = match &r.friends {
@@ -1744,7 +1740,6 @@ async fn recovery_check(
         other_requests: facts.other_requests,
         other_requests_elsewhere: facts.other_requests_elsewhere,
         seen_from,
-        skills,
         items,
         friends,
         traded_with,

@@ -4089,9 +4089,13 @@ const RECOVERY_DEVICES = {
 function recoveryChecks(r, e) {
     const rows = [];
     const lastFrom = (n, ms) => n ? `${plural(n, 'login')}, the last ${ago(ms)}` : 'No logins';
-    rows.push(['Passwords', r.passwords_given ? plural(r.passwords_given, 'password') : 'None given',
-        r.passwords_given ? (r.password_matched ? 'One is the account\'s password now' : 'None is the account\'s password now')
-            : '', r.passwords_given ? (r.password_matched ? 'match' : 'no') : 'unknown']);
+    // Only how many they gave is kept, never the passwords.
+    const given = r.passwords_given;
+    rows.push(['Passwords', given ? `Gave ${given} to check` : 'Gave none',
+        !given ? '' : r.password_matched
+            ? (given === 1 ? 'It\'s the account\'s password now' : 'One of them is the account\'s password now')
+            : (given === 1 ? 'It isn\'t the account\'s password now' : 'None of them is the account\'s password now'),
+        given ? (r.password_matched ? 'match' : 'no') : 'unknown']);
     if (!e) return rows;
     rows.push(['Address', r.ip, e.from_ip ? lastFrom(e.from_ip, e.last_from_ip_ms)
         : e.from_network ? `${plural(e.from_network, 'login')} from its network`
@@ -4123,7 +4127,6 @@ function recoveryChecks(r, e) {
     const claims = (what, list) => {
         for (const claim of list || []) rows.push([what, claim.said, claim.detail || '', claim.verdict]);
     };
-    claims('Skill', e.skills);
     claims('Item', e.items);
     if (e.friends === null && r.friends) rows.push(['Friends', r.friends, 'The friend lists couldn\'t be read', 'unknown']);
     claims('Friend', e.friends);

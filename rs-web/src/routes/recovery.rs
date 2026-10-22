@@ -57,8 +57,6 @@ pub struct RequestForm {
     #[serde(default)]
     device: String,
     #[serde(default)]
-    skills: String,
-    #[serde(default)]
     items: String,
     #[serde(default)]
     location: String,
@@ -288,7 +286,6 @@ fn answers(form: &RequestForm) -> Option<RecoveryAnswers> {
         device: DEVICES
             .contains(&form.device.as_str())
             .then(|| form.device.clone()),
-        skills: text(&form.skills),
         items: text(&form.items),
         location: text(&form.location),
         friends: text(&form.friends),

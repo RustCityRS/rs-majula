@@ -19,7 +19,7 @@
   <li>After you send it, you're given a <b>recovery key</b>. Write it down:
     it's the only way to check on your request, and to set your new password
     if it's approved.</li>
-  <li>Staff will never ask for your password or your recovery key.</li>
+  <li>Never share your password or recovery key with anyone, including staff.</li>
 </ul>
 
 {% if error %}
@@ -75,10 +75,6 @@
             <option value="client" {% if form.device == "client" %}selected{% endif %}>The downloadable client</option>
           </select>
         </td>
-      </tr>
-      <tr>
-        <td align=right valign=top>Your highest skills<br>and their levels:</td>
-        <td><input type="text" name="skills" value="{{ form.skills }}" maxlength="{{ max_answer }}" size="46" placeholder="Woodcutting 60, Fishing 55, Combat 45"></td>
       </tr>
       <tr>
         <td align=right valign=top>Valuable or unusual items<br>you had:</td>

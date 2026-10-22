@@ -21,7 +21,6 @@ pub struct RecoveryAnswers {
     pub created_month: Option<String>,
     pub last_played: Option<String>,
     pub device: Option<String>,
-    pub skills: Option<String>,
     pub items: Option<String>,
     pub location: Option<String>,
     pub friends: Option<String>,
@@ -96,7 +95,7 @@ const RECORD: &str = concat!(
     "SELECT r.id, p.display_name AS player, p.name_hash, r.reason, r.details, ",
     "r.passwords_given, r.password_matched, ",
     "to_char(r.created_month, 'YYYY-MM') AS created_month, ",
-    "to_char(r.last_played, 'YYYY-MM-DD') AS last_played, r.device, r.skills, r.items, ",
+    "to_char(r.last_played, 'YYYY-MM-DD') AS last_played, r.device, r.items, ",
     "r.location, r.friends, r.traded_with, r.other_accounts, host(r.ip) AS ip, r.uids, ",
     "r.user_agent, r.platform, r.language, ",
     ms!("r.created_at"),
@@ -170,10 +169,10 @@ impl Db {
         let id: i64 = sqlx::query_scalar(
             "INSERT INTO recovery_requests
                  (player_id, key_hash, reason, details, passwords_given, password_matched,
-                  created_month, last_played, device, skills, items, location, friends,
+                  created_month, last_played, device, items, location, friends,
                   traded_with, other_accounts, ip, uids, user_agent, platform, language)
              VALUES ($1, $2, $3, $4, $5, $6, ($7 || '-01')::date, $8::date, $9, $10, $11, $12,
-                     $13, $14, $15, $16::inet, $17, $18, $19, $20)
+                     $13, $14, $15::inet, $16, $17, $18, $19)
              RETURNING id",
         )
         .bind(player_id)
@@ -185,7 +184,6 @@ impl Db {
         .bind(&answers.created_month)
         .bind(&answers.last_played)
         .bind(&answers.device)
-        .bind(&answers.skills)
         .bind(&answers.items)
         .bind(&answers.location)
         .bind(&answers.friends)
