@@ -5650,6 +5650,9 @@ function casePage(ctx) {
                 h('div', {class: 'appeal-statement'}, r.details),
                 h('dl', {class: 'facts'}, facts.map(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
                 warnings,
+                h('div', {class: 'callout'}, icon('shield'), h('div', {},
+                    `A reference number isn't proof of anything: they count up, so anyone can claim #${r.id} (on Discord, say). `,
+                    'The proof is the evidence below, and only whoever holds the request\'s recovery key can see the decision or set the password.')),
                 h('p', {class: 'hint'}, e
                     ? `${matched} of ${rows.length} checks match, ${against} don't. Checked ${ago(rec.checked_ms)}.`
                     : 'Not checked against the account\'s records yet: no world answered.'),
