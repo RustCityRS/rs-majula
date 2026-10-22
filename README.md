@@ -174,324 +174,188 @@ cargo run -p rs-web   # http://localhost:8000
 
 ## Running the staff console
 
-`rs-admin` is a web console for running every world from one place. It works
-on phones too.
+`rs-admin` is a web console for running every world from one place, phones
+included. It talks to each world's private admin API, never the database, and
+only game staff get accounts.
 
-- **Worlds:** reboot (with a countdown, optionally staggered across worlds,
-  and an optional reason players see with it), cancel a reboot, broadcast,
-  close a world to new logins (maintenance mode: players already on stay,
-  staff can still log in, a restart reopens it; the website's world list
-  shows it as MAINTENANCE within about 20 seconds), and each world's tick time,
-  memory and connections.
-- **Players:** find anyone online, look anyone up (last seen, registered,
-  mutes, bans), and kick, mute or ban. A player's page has their
-  **timeline**: logins, activity and wealth logs (`session_log`,
-  `wealth_event`), chat, moderation, abuse reports against them and by them,
-  and recorded sessions, merged newest first and filterable by kind. And
-  their **linked accounts**: every address they logged in from (kept 180
-  days) and the other accounts that logged in or registered from one, with
-  a button to ban them all together. Moderators see addresses as labels
-  (`addr-3f9a1c`: the same label is the same address); admins see the
-  addresses, and that is audited. Their **devices**: each browser or
-  desktop client install they logged in with, as the world heard it at login
-  (user agent, platform hint, language, phone or tablet; nothing from the
-  desktop client), with its login id and the addresses it was used from
-  (labels for moderators too), numbered D1, D2... so each login address
-  names the devices used from it; pointing at a device or an address
-  lights up the other side. **Link flags** above them warn of logins
-  from a banned account's browser or address after its ban, a browser
-  shared with a banned account, a headless browser or none, one browser used
-  by 4 or more accounts, 5 or more browsers in a week, and a user agent
-  that disagrees with its platform. The **ban chain** follows shared
-  browsers and addresses 1 to 3 links out (addresses shared by more than 25
-  accounts don't count) and bans the unbanned ones together. Investigate's
-  **Ban evasion** tab lists every account that logged in with a banned
-  account's browser, or from one of its addresses, since its ban. Sessions
-  from a headless browser are flagged `automated_browser` by the anti-cheat
-  checks, and a session's checks name the device it ran on.
-- **Controls:** kill switches that switch a feature off on every world
-  (trading, the duel arena, dropping, picking up, shops, banking, or any
-  scripts by name pattern): players trying it are told it's switched off.
-  And a login lockdown that turns away accounts younger than a set age (for
-  a bot wave; staff exempt). Both stay on until turned off: the console
-  keeps them (`controls.json`) and sets them again on any world that
-  restarts or missed the change.
-- **Schedule:** reboots and broadcasts set for later, once or repeating
-  (daily, weekly, every N hours), on every world or picked ones. A job due
-  while the console was down is skipped (not run late) if it's over 5
-  minutes overdue, and the audit log says so.
-- **Appeals:** players appeal a ban or mute on the website (`/appeal`,
-  linked from Support), signing in with their game username and password
-  (wrong passwords count toward the same per-IP lockout as game logins),
-  and follow it on `/appeal/status`. The console takes each appeal into a
-  case of its own within 30 seconds (it needs `--web-url`), with who issued
-  the sanction and why. Whoever issued it can't decide it: the case log
-  refuses them. Deciding is Uphold or Overturn with a note the player sees;
-  overturning lifts the sanction; either closes the case, which can't be
-  closed any other way while the appeal is undecided. One appeal per
-  sanction: a decided one can't be appealed again.
-- **Staff notes:** private notes on a player's page, apart from cases. A
-  note can put them on the watchlist, which the moderation center shows
-  with who's online. Kept in `rs-admin/data/notes.jsonl`; their author or
-  an admin can remove one, and adding or removing is audited.
-- **Sanction templates:** named offences with a ladder of mutes and bans
-  (e.g. Macroing: 2-day ban, then 2 weeks, then permanent). Pick one when
-  muting or banning: the length comes from how many times the player has had
-  it within its window, and the template is logged as the reason. Admins
-  edit them in the moderation center.
-- **Moderation center:** one place to moderate from. Cases: one per player
-  being looked into, which any number of staff work on together (join one,
-  or put others on it) until someone closes it as actioned, no action or a
-  duplicate. A case holds its evidence (abuse reports, recorded sessions,
-  chat messages, copied in so it outlives pruning), a timeline of comments
-  and everything done, a status (open, investigating, waiting) and a
-  priority. Comments and closing notes are Markdown, with images, GIFs and
-  videos attached, pasted or dropped in; kicks, mutes and bans sent from it are noted in it, and it
-  refreshes every few seconds and shows who else has it open. The triage
-  queue lists abuse reports from the in-game Report Abuse screen and the
-  sessions the anti-cheat checks flagged that aren't in a case yet: open a
-  case, add to one, or dismiss what needs nothing; a report's "Their
-  session" plays the offender's recording from a minute before it. Also who
-  is muted or banned now, and every moderation action. Players' pages and
-  replays link into it.
-- **Detections:** every minute the console opens a case on its own (by
-  "Detection", with the evidence and a comment saying why) for a session
-  the anti-cheat checks score 50 or more (high priority for a modified
-  client, an automated browser or 100+), possible ban evasion (high for a
-  shared browser, normal for an address), a player reported 3 times in a
-  day by 2 or more players, and a staff member lifting a mute or ban on an
-  account that shares a browser or address with theirs (also when done in
-  game). Something new about a player with an open
-  case goes into that case instead, raising its priority to match. Nothing
-  already in a case or dismissed is filed again, and after a case on a
-  player is closed with no action, the same kind of sign opens none on them
-  for a week (it still waits in triage), and closing one with no action
-  needs a note saying why. Staff are looked at too. Staff hear of new
-  detections nobody is on yet from a toast, a red count on
-  Moderation and the tab's title (`(3) ...`, refreshed every 15 seconds,
-  hidden tabs too), and the overview lists them with "Take it".
-- **Staff who might be up to something:** cases and staff notes about a
-  staff member (and the audit entries about them) are hidden from that
-  member and from staff at or below their level; maintainers see them, as
-  do staff who opened the case or were put on it. Staff can't look up
-  their own account, and lists (sessions, reports, ban evasion, the
-  anti-cheat leaderboard) leave it out. On an account that is theirs or
-  shares a browser or (uncrowded) address with theirs, staff can only
-  comment: they can't close, join or change its cases, dismiss its reports
-  or sessions from triage, lift its mutes or bans, decide its appeals,
-  reset its password, roll back its save or restore its items; refused too
-  when no world can say. Maintainers aren't held to these (they run the
-  machines), but what they do is detected and audited like anyone's.
-- **Finding your way:** Ctrl+K (or `/`) searches players (online, or
-  registered by exact name), cases, recordings and recent audit entries, as
-  well as pages and actions. Pin players from their page; pinned and
-  recently viewed players are on the Players page and open the search.
-  "Yours" and "Changed" in the moderation center list your cases and those
-  changed by someone else since you last looked (the nav shows a dot). The
-  timeline, chat logs and audit log save filters by name, and export what
-  they show as CSV (audited; formulas are defused for spreadsheets). Times
-  show in your zone or UTC (the button by your name, or Account). Pins,
-  recents, saved filters, the zone and what you've read follow your account,
-  in `rs-admin/data/prefs.json`.
-- **Progress charts**, on a player's page: total XP and wealth (every item,
-  bank included, at its value in the cache) at each save kept for
-  rollbacks, and when they play: what their scripts logged (`session_log`)
-  by weekday and hour over the last 90 days.
-- **Staff activity** (admins, in the moderation center): for each staff
-  member over 7, 30 or 90 days, their kicks, mutes, bans and lifts, cases
-  opened and closed, comments, dismissals and appeals decided; how many
-  appeals against their sanctions were overturned (linking the cases); and
-  their median pickup (a case opening to their first change on it), time
-  to close and time to decide an appeal. For coaching trial moderators.
-- **Chat logs:** public chat and private messages, by player or world.
-  Turn on Live to see new messages at the top as they're sent. Viewing them
-  is audited.
-- **Replays:** every session is recorded, and anti-cheat checks score it.
-  Watch any session in the game's own client, with the player's mouse drawn
-  on top and replayed into the client (menus, hovers and tabs show as they
-  did), at up to 8x, with a timeline of what they did ("Attack Goblin",
-  "Walk to 3222, 3218"). List only the sessions the checks flagged. A
-  session still going on can be watched live: its world then stores it
-  every 2 seconds, and the replay plays a few seconds behind it (about 14
-  before revision 274, whose client reports input in batches). Watching is
-  audited. See [Session replays and anti-cheat](#session-replays-and-anti-cheat).
-- **Investigate:** everyone at once.
-  - *Live map:* every online player as a dot on the world map (a world's
-    own `/livemap` page, framed), coloured for flagged, staff and muted.
-    Click a dot to watch live, kick, mute or ban; find a player by name; and
-    a list of hotspots, where players stand bunched together.
-  - *Anti-cheat:* the players the checks flagged most over the last day,
-    week or month, with their highest score in each stretch of it.
-  - *Bot farms:* accounts active in the window grouped where they share an
-    address, or several of: registering within 15 minutes of each other,
-    alike names, the same even click rhythm, the same spot and the same
-    hours. Moderators see addresses as labels; admins see them, audited.
-- **Player support**, on a player's page:
-  - *Session:* why they can't log in, if a world still holds their session
-    (they're logging out and their save hasn't reached the database, the
-    world kept their save in a local file while its database was down, the
-    claim is left over, or the world holding it has stopped), and Free
-    session to finish or release it. It never lets go of a player who is
-    online or whose newest save isn't in the database; a world the console
-    can't reach is only released from once its heartbeat is a minute old,
-    as a login elsewhere would take it over.
-  - *Send home:* to Lumbridge (or Tutorial Island's start, for a player
-    still on it), now or where they next log in (admins). Moderators
-    (staff level 1) change nobody's account: no edits, restorations,
-    rollbacks or send-home.
-  - *Reset password* (admins): a one-time code to give the player, which
-    sets a new password at `/recover` on the website within 3 days (wrong
-    codes count toward the per-IP login lockout). It can also lock the old
-    password at once, logging them out. Only the code's hash is stored, and
-    the code is never logged.
-  - *Restore items* (admins): give back items lost to a bug, all of them or
-    none. Needs an open case and a reason, and is noted on the case. A
-    wealth log row in the timeline, or an earlier save, can be the proof:
-    the console checks it covers what's restored.
-  - *Earlier saves* (admins): a save is kept at logout and every hour
-    through a session (at most one per 15 minutes; within that the older
-    stays, so there's always one from before a dupe), and just before every
-    staff change to a logged-out player, kept 30 days (each player's newest
-    5 always). Compare one with now, restore what's gone since, or roll
-    back to it (needs an open case; a player online is logged out first,
-    and the save replaced is kept, so a rollback can be undone).
-- **Economy:** the tools for a dupe or real-world trading. Worlds log
-  items passing between players themselves, whatever the content does:
-  trades, duel stakes and other handovers (who to), drops and pickups, as
-  wealth events of their own beside the scripts' `wealth_event`s, valued at
-  the cache's prices.
-  - *Circulation:* coins and tracked rares (the holiday rares to start
-    with) counted across every save, bank, worn and noted ones included,
-    every 15 minutes, and charted over a week, month, quarter or year. A
-    count that rises more than its item's threshold (5% unless set) over the
-    one before raises an alert, often the first sign of a dupe: it's in the
-    sidebar until someone marks it seen, and in the audit log. Admins choose
-    what's tracked and the thresholds. Counts are kept 400 days in
-    `rs-admin/data/economy-samples.jsonl`; items and alerts in
-    `economy.json`.
-  - *Who owns:* every account holding an item (noted ones counted in), the
-    most first, where they keep it, as of their last save.
-  - *Item trace:* where a player's stack came from, back through the
-    players it passed: who traded, staked or handed it to them, whose drop
-    they picked up (matched to the latest drop of the item on that tile),
-    and where it came into the game (a shop, a spawn, alchemy for coins).
-    Up to 6 holders back; each player is followed once, and never back
-    through staff above you. Timeline rows link to it.
-  - *Trade graph:* who a player hands items to and gets them from, with what
-    passed between their partners too (rings show as amber arrows), and the
-    accounts many players feed that give little back (mules).
-  - *Ring rollback* (admins, from a trace or a graph): every account of a
-    dupe ring back to its newest save from before one moment, in one action
-    with one audit entry, noted on the case for each account. Check shows
-    the save each goes back to; nothing is rolled back unless every account
-    has one.
-  - *Hiscores:* Jagex moderators, maintainers (staff level 2 and up) and
-    banned players are never ranked; player moderators are, like players.
-    Admins can hide an account from every table, or remove a cheater's
-    entries from some (their saves keep the rows current, so putting them
-    back is instant); a player's page shows their ranks.
-- **Script reload** (maintainers only, on the Worlds page with one world
-  picked): recompiles that world's scripts from its content folder and
-  swaps them in without a restart, for an emergency fix. Check first: if
-  they don't compile, nothing changes and the compiler's errors show.
-  Scripts only (configs, maps and interfaces need a restart); scripts
-  already running finish on the old code. A reason is required, and checks
-  and reloads are audited.
-- **Staff** (maintainers only): add accounts, change roles and passwords,
-  reset 2FA, sign them out everywhere, disable or remove. Each change needs
-  the maintainer's password and a fresh authenticator code. A name opens
-  their profile: where they're signed in, their numbers over 7, 30 or 90
-  days, and tabs for their audit entries (searchable, exportable), every
-  kick, mute and ban by them in game or here, the cases they opened,
-  closed or are on, and their sign-ins and failed attempts under their
-  name.
-- **Stats and items** (maintainers only, on a player's page): set stats, give
-  or take items in the backpack, bank or any saved inventory, and move them.
-  A logged-in player is changed live by the world they're on; a logged-out
-  one has their save changed by any world, which claims their session for
-  the moment it takes, exactly as a login would, so they can't log in half
-  way through. Every change is audited.
-- **News** (admins and maintainers): write the website's news in Markdown, with
-  images, GIFs and videos (add them with the button, or paste or drop them
-  into the text), preview it as the site shows it, and post, edit or delete
-  it. It goes through the website's admin API (`--web-url`,
-  `RS_ADMIN_WEB_URL`; `http://127.0.0.1:8190` in debug builds).
-
-First-time setup, locally:
+### First-time setup (local)
 
 ```bash
 cargo world1                                                # a world; its admin API is on 8280
-cargo run -p rs-admin -- user add <name> --role maintainer   # a game staff account; asks for a password (12+ characters)
+cargo run -p rs-admin -- user add <name> --role maintainer   # asks for a password (12+ characters)
 cargo run -p rs-admin                                       # http://127.0.0.1:8150
 ```
 
-Open http://127.0.0.1:8150, sign in, and scan the QR code with an
-authenticator app (Google Authenticator, 1Password, Aegis, ...); the console
-asks for its six-digit code at every sign-in after that. Debug builds share
-the secret `rs_admin` with debug worlds, so nothing else needs setting.
+`<name>` must be a player with staff level 1 or more (`user add` asks a world
+to check). Open http://127.0.0.1:8150, sign in, and scan the QR code with an
+authenticator app. Every sign-in after that asks for its six-digit code. Debug
+builds share the secret `rs_admin` with debug worlds, so nothing else needs
+setting.
 
-- It talks to each world's private admin API (`--admin-port`, `8270 +
-  node_id`), never the database. Requests are HMAC-signed with
-  `RS_ADMIN_SECRET`, which the console and every world must share; worlds
-  refuse unsigned, stale or replayed requests. Mutes and bans go through a
-  world exactly as the in-game `::mute`/`::ban` do. Lookups (players,
-  moderation, chat, abuse reports, timelines, linked accounts) are answered by whichever world is online, from the
-  game database; each world keeps 2 database connections for them, apart
-  from the game's own.
-- `rs-admin/worlds.json` lists the worlds and where their admin APIs are
-  (`url`). It isn't `rs-web/worlds.json`: those addresses are public, these
-  are private. A world's `client` is its public web address
-  (`http://127.0.0.1:8080` locally): replays play on its `/replay` page, so
-  without one that world can't show them.
-- Accounts live in `rs-admin/data/users.json` (argon2 password hashes, TOTP
-  secrets), not the game database; `RS_ADMIN_DATA` (or `--data-dir`, before
-  the subcommand) moves the folder. Only game staff get accounts: adding one
-  (on the Staff page or with `user add`, which asks the worlds in `--worlds`
-  and needs `RS_ADMIN_SECRET`) looks the name up in the game and refuses it
-  unless that player's staff level is 1 or more. Every account sets
-  up an authenticator app at its first sign-in. Roles match the game's staff
-  levels (0 is a player):
-  `trial` (1) is a moderator in training: kicks and mutes of up to 2 days,
-  but no bans, lifting mutes or bans, sanctioning linked accounts, bulk
-  dismissing or deciding appeals (the console refuses them, not just the
-  page); `moderator` (1) kicks, mutes, bans, looks players up, reads chat logs,
-  and frees stuck sessions, but changes nobody's account; `admin` (2)
-  also reboots, broadcasts, toggles maintenance, sends stuck players home,
-  resets passwords, restores
-  items, rolls saves back (one account or a ring), changes the hiscores and
-  what the economy tracks, and posts news; `maintainer` (3)
-  also manages staff accounts, changes players' stats and items and reloads
-  scripts. Nobody can moderate someone at or above their
-  own level, nor see the sessions or logs (recordings, live spectating,
-  chat, timeline, login addresses, progress charts, exports, item traces and
-  trade graphs) of staff above
-  it: lists leave them out, and their player page says so. Manage accounts on the Staff page, or with `rs-admin user
-  list|add|passwd|role|reset-2fa|disable|enable|remove` (the way to create
-  the first maintainer); changing a password, role or authenticator signs
-  that account out everywhere.
-- Everything done through it, sign-ins included, goes to
-  `rs-admin/data/audit.jsonl` and the `audit` log target. The file is only
-  ever appended to, and each entry is synced to disk before it shows; the
-  Audit log page pages and searches all of it, back to the first entry (an
-  entry's number is its place in the file, so it never changes). It,
-  its export, search and Staff activity leave out what staff above you did
-  (and names with no account, to all but maintainers), and show the
-  address and browser only of your own entries and those of staff below
-  you; maintainers see everything. Back the
-  file up with the rest of `rs-admin/data/`. Cases are
-  `rs-admin/data/cases.jsonl`: every change to one is appended there and the
-  cases are rebuilt from it at start, so nothing is ever rewritten. Images
-  and videos posted on cases go in `rs-admin/data/media/` (named by their
-  content, never deleted), served only to signed-in staff and never through
-  the website; back it up with the rest of the data folder.
-- Security: sessions are in memory (a restart signs everyone out), 30 minutes
-  idle / 12 hours max; `HttpOnly` + `SameSite=Strict` cookies, a CSRF token
-  and an Origin check on every change; strict CSP; 5 failed sign-ins lock an
-  account for 15 minutes.
-- Keep it private: it binds to `127.0.0.1` by default. On the tailnet, serve
-  it with `tailscale serve --bg 8150` and start it with `--https true
-  --origin https://<host>.<tailnet>.ts.net`. Keep each world's admin API on
-  its private address too (`--admin-host`).
+### Roles
+
+Roles match the game's staff levels, and each one adds to the one above it.
+
+| Role | Level | Can |
+|---|---|---|
+| `trial` | 1 | Kick, and mute for up to 2 days. No bans, lifting sanctions, deciding appeals, bulk dismissing or sanctioning linked accounts. |
+| `moderator` | 1 | Kick, mute and ban, look players up, read chat logs, free stuck sessions. Changes nobody's account. |
+| `admin` | 2 | Reboot, broadcast, maintenance mode, send players home, reset passwords, restore items, roll back saves, change the hiscores and what the economy tracks, post news. |
+| `maintainer` | 3 | Manage staff accounts, change players' stats and items, reload scripts, shut down and start worlds. |
+
+Nobody can moderate staff at or above their own level, or see the recordings,
+chat, timeline, addresses or other logs of staff above them.
+
+Manage accounts on the Staff page, or with `rs-admin user
+list|add|passwd|role|reset-2fa|disable|enable|remove`. Changing a password,
+role or authenticator signs that account out everywhere.
+
+### What's in it
+
+**Worlds**
+
+- Reboot with a countdown (optionally staggered, with a reason players see),
+  cancel a reboot, broadcast.
+- Maintenance mode closes a world to new logins. Players already on stay,
+  staff can still log in, and a restart reopens it.
+- Maintainers can shut a world down (it stays off) and start it again.
+- **Schedule:** reboots and broadcasts for later, once or repeating. A job
+  missed by over 5 minutes while the console was down is skipped, and the
+  audit log says so.
+- **Controls:** kill switches for trading, the duel arena, dropping, picking
+  up, shops, banking or scripts by name, and a login lockdown for accounts
+  younger than a set age (staff exempt). They stay on until turned off and are
+  set again on any world that restarts.
+
+**Players**
+
+- Look anyone up, then kick, mute or ban. **Sanction templates** pick the
+  length from a ladder (e.g. Macroing: 2 days, then 2 weeks, then permanent).
+- **Timeline:** logins, activity and wealth logs, chat, moderation, abuse
+  reports and sessions, newest first.
+- **Linked accounts:** every address they logged in from (kept 180 days) and
+  the accounts that share one, with a button to ban them all. Moderators see
+  addresses as labels (`addr-3f9a1c`); admins see the real ones, audited.
+- **Devices:** each browser or client install they used, numbered D1, D2...,
+  with the addresses it was used from.
+- **Link flags** warn of things like logins from a banned account's browser,
+  headless browsers, or one browser shared by 4+ accounts. The **ban chain**
+  follows shared browsers and addresses up to 3 links out and bans them
+  together.
+- **Staff notes** (which can put a player on the watchlist), **progress
+  charts** (XP, wealth and when they play) and **chat logs** (public and
+  private, with a Live mode; viewing them is audited).
+
+**Player support**
+
+- **Session:** why they can't log in, and Free session to release a stuck
+  one. It never lets go of a player who is online or whose newest save isn't
+  in the database.
+- **Send home** (admins): to Lumbridge, or Tutorial Island's start.
+- **Reset password** (admins): a one-time code the player uses at `/recover`
+  on the website within 3 days. Only its hash is stored.
+- **Restore items** and **earlier saves** (admins): saves are kept at logout,
+  hourly, and before every staff change, for 30 days. Compare, restore or
+  roll back. Both need an open case, and a rollback can be undone.
+
+**Moderation center**
+
+- **Cases:** one per player being looked into, worked on by any number of
+  staff. A case holds its evidence (copied in so it outlives pruning),
+  comments with images and videos, a status and a priority, and shows who
+  else has it open.
+- **Triage:** abuse reports and flagged sessions that aren't in a case yet.
+  Open a case, add to one, or dismiss.
+- **Detections:** the console opens cases by itself for anti-cheat scores of
+  50+, possible ban evasion, players reported 3 times in a day, and staff
+  lifting sanctions on accounts linked to theirs. Staff hear of new ones from
+  a toast and a count in the nav and the tab title.
+- **Appeals:** players appeal a ban or mute on the website (`/appeal`), and
+  each one becomes a case within 30 seconds (needs `--web-url`). Whoever
+  issued the sanction can't decide it.
+- **Staff activity** (admins): each staff member's actions and response times
+  over 7, 30 or 90 days, for coaching trial moderators.
+- **Conflicts:** cases and notes about a staff member are hidden from them
+  and from staff at or below their level. Staff can't look up their own
+  account, and on accounts linked to theirs they can only comment.
+  Maintainers aren't held to this, but are detected and audited like anyone.
+
+**Replays and Investigate**
+
+- **Replays:** every session is recorded and scored by anti-cheat checks.
+  Watch any of them in the game's own client with the player's mouse, at up
+  to 8x, with a timeline of what they did. A session still going can be
+  watched live, a few seconds behind. Watching is audited. See [Session
+  replays and anti-cheat](#session-replays-and-anti-cheat).
+- **Investigate:** a live map of every online player (click one to watch,
+  kick, mute or ban), the most-flagged players, ban evasion, and likely bot
+  farms grouped by shared addresses, sign-up times, names, click rhythm and
+  hours.
+
+**Economy**
+
+- Worlds log every item passing between players (trades, stakes, drops,
+  pickups), valued at the cache's prices.
+- **Circulation:** coins and tracked rares counted across every save every
+  15 minutes and charted. A jump past the item's threshold (5% by default)
+  raises an alert, often the first sign of a dupe.
+- **Who owns**, **item trace** (where a stack came from, up to 6 holders
+  back) and **trade graph** (shows rings and mules).
+- **Ring rollback** (admins): rolls a whole dupe ring back to before one
+  moment, in one action.
+- **Hiscores:** staff level 2+ and banned players are never ranked. Admins
+  can hide an account or remove some of its entries.
+
+**Maintainer tools**
+
+- **Script reload:** recompiles one world's scripts and swaps them in without
+  a restart. Check first: if they don't compile, nothing changes. Scripts
+  only; configs, maps and interfaces need a restart.
+- **Staff:** add accounts, change roles and passwords, reset 2FA, sign them
+  out everywhere. Each change needs your password and a fresh code. A name
+  opens their profile: sessions, numbers, audit entries, sanctions, cases and
+  sign-ins.
+- **Stats and items:** set stats, give or take items, move players, online or
+  offline. Audited.
+- **News** (admins too): the website's news in Markdown, with images and
+  videos, through its admin API (`--web-url`, `RS_ADMIN_WEB_URL`).
+
+**Finding your way:** Ctrl+K (or `/`) searches players, cases, recordings,
+audit entries, pages and actions. Pins, saved filters, CSV export (audited)
+and your time zone follow your account.
+
+### How it works
+
+- **Admin API:** each world serves one on `8270 + node_id` (`--admin-port`).
+  Requests are HMAC-signed with `RS_ADMIN_SECRET`, which the console and every
+  world share. Mutes and bans go through a world exactly like `::mute` and
+  `::ban`. Lookups are answered by any online world from the game database.
+- **`rs-admin/worlds.json`** lists the worlds and their admin API `url`s
+  (private, unlike `rs-web/worlds.json`). A world's `client` is its public web
+  address, which replays need. Its `unit` is its systemd unit, which Start
+  needs.
+- **Data** lives in `rs-admin/data/` (`RS_ADMIN_DATA` or `--data-dir` moves
+  it). Back up the whole folder.
+
+  | File | Holds |
+  |---|---|
+  | `users.json` | Accounts (argon2 password hashes, TOTP secrets) |
+  | `audit.jsonl` | Everything done, sign-ins included. Only ever appended to. |
+  | `cases.jsonl` | Every change to a case. Only ever appended to; cases are rebuilt from it at start. |
+  | `media/` | Images and videos posted on cases, served only to signed-in staff |
+  | `notes.jsonl`, `prefs.json`, `controls.json`, `schedule.json`, `economy.json`, `economy-samples.jsonl` | Staff notes, per-account preferences, kill switches, scheduled jobs, economy tracking |
+
+- **Audit log:** the Audit log page, its export, search and Staff activity
+  hide what staff above you did, and show addresses only for your own entries
+  and those of staff below you. Maintainers see everything.
+- **Security:** sessions are in memory (a restart signs everyone out), 30
+  minutes idle and 12 hours at most. `HttpOnly` and `SameSite=Strict` cookies,
+  a CSRF token and an Origin check on every change, a strict CSP. 5 failed
+  sign-ins lock an account for 15 minutes.
+- **Keep it private:** it binds to `127.0.0.1` by default. On a tailnet, serve
+  it with `tailscale serve --bg --https=8150 http://127.0.0.1:8150` and start
+  it with `--https true --origin https://<host>.<tailnet>.ts.net:8150`. Keep
+  each world's admin API private too (`--admin-host`).
 
 ### Session replays and anti-cheat
 
