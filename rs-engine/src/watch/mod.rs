@@ -13,7 +13,7 @@ pub mod schedule;
 mod slots;
 mod state;
 
-pub use anticheat::{AntiCheat, MapBase, Op};
+pub use anticheat::{AntiCheat, MapBase, Op, Report};
 
 /// User agent words only automation puts there: headless Chrome (Puppeteer,
 /// Playwright, Selenium) and PhantomJS.
@@ -35,10 +35,10 @@ use format::{
     CLIENT, KEYFRAME, LOGIN, NOTE, RECONNECT, SERVER, TICK, TICK_DELTA, put_bytes, put_error,
     put_flag, put_varint,
 };
-use rs_db::ReplayReport;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rustc_hash::FxHashMap;
 use state::ClientState;
+use std::fmt::{self, Write as _};
 use std::mem;
 use std::sync::atomic::{AtomicU8, Ordering};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
@@ -98,7 +98,7 @@ pub enum ReplayRequest {
         id: i64,
         chunk: Option<RawChunk>,
         duration_ms: u32,
-        report: ReplayReport,
+        report: Report,
         ended: bool,
         complete: bool,
     },
@@ -123,7 +123,10 @@ struct Recording {
     tick_ms: u32,
     lost: bool,
     state: ClientState,
-    last_keyframe_ms: u32,
+    /// When the next keyframe is due.
+    next_keyframe_ms: u32,
+    /// When the chunk is next handed over, unless it fills first.
+    next_chunk_ms: u32,
 }
 
 /// A player's session as moderators see it.
@@ -136,9 +139,11 @@ pub struct Watch {
     /// Until when staff watch it live (see [`Self::watch_live`]).
     live_until: Option<Instant>,
     /// The flags marked on the timeline as raised.
-    raised: Vec<String>,
+    raised: Vec<&'static str>,
     /// Each check's (or script error's) last mark, and how many there were.
     marks: FxHashMap<String, (u32, u16)>,
+    /// Where notes are written before they go in, kept to save allocating.
+    scratch: String,
 }
 
 impl Default for Watch {
@@ -151,6 +156,7 @@ impl Default for Watch {
             live_until: None,
             raised: Vec::new(),
             marks: FxHashMap::default(),
+            scratch: String::new(),
         }
     }
 }
@@ -166,6 +172,23 @@ fn new_id(node_id: u8) -> i64 {
     (ms << 16) | (i64::from(node_id) << 8) | i64::from(COUNT.fetch_add(1, Ordering::Relaxed))
 }
 
+/// Recording `id`'s bits, mixed (splitmix64's finaliser): where in its
+/// keyframe and chunk cycles it starts, so sessions that log in together
+/// (everyone, after a reboot) don't keyframe and hand over chunks on the
+/// same ticks.
+fn stagger(id: i64) -> u64 {
+    let mut x = id as u64;
+    x = (x ^ (x >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
+    x = (x ^ (x >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
+    x ^ (x >> 31)
+}
+
+/// Room for the next chunk: a quarter more than the last took, so a busy
+/// session's isn't grown as it fills.
+fn chunk_capacity(last: usize) -> usize {
+    (last + (last >> 2)).clamp(CHUNK_BYTES >> 4, CHUNK_BYTES + (CHUNK_BYTES >> 2))
+}
+
 impl Watch {
     /// Starts watching a session that just logged in, recording it through
     /// `tx` if given.
@@ -173,6 +196,7 @@ impl Watch {
         let recording = tx.and_then(|tx| {
             let id = new_id(node_id);
             tx.try_send(ReplayRequest::Start { id, user37 }).ok()?;
+            let stagger = stagger(id);
             Some(Recording {
                 id,
                 tx: tx.clone(),
@@ -183,7 +207,8 @@ impl Watch {
                 tick_ms: 0,
                 lost: false,
                 state: ClientState::default(),
-                last_keyframe_ms: 0,
+                next_keyframe_ms: (stagger as u32) % KEYFRAME_MS,
+                next_chunk_ms: ((stagger >> 32) as u32) % CHUNK_MS,
             })
         });
         Self {
@@ -194,6 +219,7 @@ impl Watch {
             live_until: None,
             raised: Vec::new(),
             marks: FxHashMap::default(),
+            scratch: String::new(),
         }
     }
 
@@ -285,10 +311,9 @@ impl Watch {
 
     /// Whether it's time for a keyframe.
     pub fn keyframe_due(&self) -> bool {
-        let ms = self.ms();
         self.recording
             .as_ref()
-            .is_some_and(|r| !r.lost && ms.saturating_sub(r.last_keyframe_ms) >= KEYFRAME_MS)
+            .is_some_and(|r| !r.lost && self.ms() >= r.next_keyframe_ms)
     }
 
     /// Records a keyframe on tick `clock`: `head` (the map and what's on it),
@@ -299,7 +324,7 @@ impl Watch {
         let Some(recording) = self.recording.as_mut().filter(|r| !r.lost) else {
             return;
         };
-        recording.last_keyframe_ms = ms;
+        recording.next_keyframe_ms = ms + KEYFRAME_MS;
         let mut payload = Vec::with_capacity(16 << 10);
         let kept = recording.state.packets();
         for packet in head
@@ -344,6 +369,30 @@ impl Watch {
         if let Some(buf) = self.buf(clock) {
             put_bytes(buf, NOTE, text.as_bytes());
         }
+    }
+
+    /// An empty string to write a note in, to hand back with
+    /// [`Self::note_string`].
+    pub fn note_buf(&mut self) -> String {
+        let mut text = mem::take(&mut self.scratch);
+        text.clear();
+        text
+    }
+
+    /// Notes `text` (from [`Self::note_buf`]) unless it's empty, keeping it
+    /// for the next.
+    pub fn note_string(&mut self, clock: u32, text: String) {
+        if !text.is_empty() {
+            self.note(clock, &text);
+        }
+        self.scratch = text;
+    }
+
+    /// [`Self::note`], formatted.
+    pub fn note_fmt(&mut self, clock: u32, args: fmt::Arguments<'_>) {
+        let mut text = self.note_buf();
+        _ = text.write_fmt(args);
+        self.note_string(clock, text);
     }
 
     /// Whether a mark for `what` goes on the timeline `ms` into the session:
@@ -393,15 +442,15 @@ impl Watch {
 
     /// Marks the flags `report` raises that weren't raised before, `ms`
     /// into the session.
-    fn mark_raised(&mut self, report: &ReplayReport, ms: u32) {
+    fn mark_raised(&mut self, report: &Report, ms: u32) {
         let Some(tick) = self.recording.as_ref().filter(|r| !r.lost).map(|r| r.tick) else {
             return;
         };
-        for flag in &report.flags {
-            if self.raised.contains(flag) {
+        for &flag in &report.flags {
+            if self.raised.contains(&flag) {
                 continue;
             }
-            self.raised.push(flag.clone());
+            self.raised.push(flag);
             // Within the tick being recorded, or one of its own.
             if let Some(buf) = self.buf(tick.unwrap_or(u32::MAX)) {
                 put_flag(buf, ms, flag, "");
@@ -418,14 +467,15 @@ impl Watch {
     /// over the chunk when it's due.
     pub fn end_tick(&mut self, clock: u32) {
         self.mark_incidents(clock);
+        let Some(r) = &self.recording else {
+            return;
+        };
         let ms = self.ms();
         let live = self.live_until.is_some_and(|until| Instant::now() < until);
-        let due = self.recording.as_ref().is_some_and(|r| {
-            let age = ms.saturating_sub(r.chunk_start_ms);
-            r.buf.len() >= CHUNK_BYTES
-                || age >= CHUNK_MS
-                || (live && age >= LIVE_CHUNK_MS && !r.buf.is_empty())
-        });
+        let age = ms.saturating_sub(r.chunk_start_ms);
+        let due = r.buf.len() >= CHUNK_BYTES
+            || ms >= r.next_chunk_ms
+            || (live && age >= LIVE_CHUNK_MS && !r.buf.is_empty());
         if due {
             self.flush(false);
         }
@@ -441,11 +491,12 @@ impl Watch {
         let Some(recording) = self.recording.as_mut() else {
             return;
         };
+        let capacity = chunk_capacity(recording.buf.len());
         let chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
             seq: recording.seq,
             start_ms: recording.chunk_start_ms,
             end_ms: ms,
-            data: mem::replace(&mut recording.buf, Vec::with_capacity(CHUNK_BYTES >> 2)),
+            data: mem::replace(&mut recording.buf, Vec::with_capacity(capacity)),
         });
         let had_chunk = chunk.is_some();
         let sent = recording.tx.try_send(ReplayRequest::Store {
@@ -462,6 +513,7 @@ impl Watch {
         }
         recording.seq += 1;
         recording.chunk_start_ms = ms;
+        recording.next_chunk_ms = ms + CHUNK_MS;
         // A new chunk starts with its tick's entry, in full.
         recording.tick = None;
     }

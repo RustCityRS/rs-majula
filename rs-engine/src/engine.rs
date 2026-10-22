@@ -217,12 +217,12 @@ pub enum PendingZoneEvent {
 ///
 /// Queued into `Engine::obj_delayed_queue` and processed during the world phase.
 /// Once the `delay` expires, the object is created at `coord` with the specified
-/// `id`, `count`, `receiver37`, and `duration` (despawn lifetime).
+/// `id`, `count`, `receiver`, and `duration` (despawn lifetime).
 pub struct ObjDelayedRequest {
     pub coord: CoordGrid,
     pub id: u16,
     pub count: u32,
-    pub receiver37: Option<u64>,
+    pub receiver: Option<PlayerUid>,
     pub duration: u64,
     pub delay: u64,
 }
@@ -370,6 +370,8 @@ pub struct PlayerList {
     node_map: Vec<usize>,
     cursor: u16,
     pid_scratch: Vec<u16>,
+    /// How many players in the list are staff that isolation applies to.
+    isolated: u16,
 }
 
 impl PlayerList {
@@ -382,6 +384,7 @@ impl PlayerList {
             node_map: vec![0; MAX_PLAYERS],
             cursor: (MAX_PLAYERS - 2) as u16,
             pid_scratch: Vec::with_capacity(MAX_PLAYERS),
+            isolated: 0,
         }
     }
 
@@ -411,14 +414,15 @@ impl PlayerList {
         self.cursor = pid;
         let node_idx = self.processing.put(key, pid);
         self.node_map[pid as usize] = node_idx;
+        self.isolated += active.player.staff_mod_level.is_isolated() as u16;
         self.players[pid as usize] = Some(active);
     }
 
     pub fn remove(&mut self, pid: u16) -> Option<ActivePlayer> {
-        if self.players[pid as usize].is_some() {
-            self.processing.unlink(self.node_map[pid as usize]);
-        }
-        self.players[pid as usize].take()
+        let active = self.players[pid as usize].take()?;
+        self.processing.unlink(self.node_map[pid as usize]);
+        self.isolated -= active.player.staff_mod_level.is_isolated() as u16;
+        Some(active)
     }
 
     pub fn get(&self, pid: u16) -> Option<&ActivePlayer> {
@@ -1733,6 +1737,22 @@ impl Engine {
         self.staff_isolation && level.is_isolated()
     }
 
+    /// Whether `uid` is an online player whose drops stay theirs. Free when
+    /// no isolated staff are online.
+    fn isolated_owner(&self, uid: PlayerUid) -> bool {
+        if !self.staff_isolation || self.player_list.isolated == 0 {
+            return false;
+        }
+        let user37 = uid.username37();
+        let owner = self
+            .player_list
+            .get(uid.pid())
+            .filter(|p| p.player.uid.username37() == user37)
+            // A delayed drop's owner may have relogged into another slot.
+            .or_else(|| self.player_list.get(self.find_pid_by_user37(user37)?));
+        owner.is_some_and(|p| p.player.staff_mod_level.is_isolated())
+    }
+
     /// Adds a ground object to the world at its embedded coordinate.
     ///
     /// For stackable items owned by a specific receiver, attempts to merge
@@ -1745,8 +1765,8 @@ impl Engine {
     /// # Arguments
     ///
     /// * `obj` -- The ground object to place (coordinate is embedded).
-    /// * `receiver37` -- Optional Base37-encoded username of the player who
-    ///   can see the object before it is revealed globally.
+    /// * `receiver` -- Optional player who can see the object before it is
+    ///   revealed globally.
     /// * `duration` -- Lifetime in game ticks before automatic removal.
     ///
     /// # Side Effects
@@ -1763,9 +1783,10 @@ impl Engine {
         &mut self,
         coord: CoordGrid,
         mut obj: Obj,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
     ) {
+        let receiver37 = receiver.map(|uid| uid.username37());
         let obj_type = self.cache.objs.get_by_id(obj.id());
 
         let stackable = obj_type.is_some_and(|t| t.stackable);
@@ -1780,16 +1801,14 @@ impl Engine {
 
         let clock = self.clock + duration as u32;
         obj.set_last_clock(clock);
-        if let Some(r) = receiver37 {
+        if let Some(uid) = receiver {
+            let r = uid.username37();
             let reveal_clock = self.clock + REVEAL_TICKS;
 
             // Isolated staff's drops (their deaths and kills too) stay theirs.
             let revealable = obj_type
                 .is_some_and(|t| obj_revealable(t.tradeable, t.members, self.members))
-                && !self
-                    .find_pid_by_user37(r)
-                    .and_then(|pid| self.player_list.get(pid))
-                    .is_some_and(|p| self.isolates(p.player.staff_mod_level));
+                && !self.isolated_owner(uid);
 
             if revealable && reveal_clock < clock {
                 self.schedule_zone_event(
@@ -1823,7 +1842,9 @@ impl Engine {
     pub(crate) fn forget_appeared_objs(&mut self) {
         const KEEP: std::time::Duration = std::time::Duration::from_secs(15);
         if !self.obj_appeared.is_empty() {
-            self.obj_appeared.retain(|_, at| at.elapsed() < KEEP);
+            let now = Instant::now();
+            self.obj_appeared
+                .retain(|_, at| now.saturating_duration_since(*at) < KEEP);
         }
     }
 
@@ -2819,7 +2840,7 @@ impl Engine {
             ));
             active.watch.anticheat.touch = request.device.touch;
             active.watch.anticheat.automated = crate::watch::automated(&request.device);
-            active.watch.anticheat.device = request.device.clone();
+            active.watch.anticheat.device = Arc::new(request.device.clone());
             active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
             active.watch.login(self.clock, &reply);
         }
@@ -3698,7 +3719,7 @@ impl ScriptEngine for Engine {
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
     ) -> rs_vm::Result<()> {
         if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
@@ -3710,7 +3731,7 @@ impl ScriptEngine for Engine {
         self.add_obj(
             coord,
             Obj::new(coord, EntityLifeTime::Despawn, id, count),
-            receiver37,
+            receiver,
             duration,
         );
         Ok(())
@@ -3729,7 +3750,7 @@ impl ScriptEngine for Engine {
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
         delay: u64,
     ) {
@@ -3737,7 +3758,7 @@ impl ScriptEngine for Engine {
             coord,
             id,
             count,
-            receiver37,
+            receiver,
             duration,
             delay,
         });

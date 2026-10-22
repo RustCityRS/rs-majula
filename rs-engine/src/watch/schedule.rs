@@ -149,12 +149,7 @@ impl Schedule {
             .collect()
     }
 
-    pub fn report(
-        &self,
-        now: i64,
-        flags: &mut Vec<(&'static str, i16)>,
-        stats: &mut Map<String, Value>,
-    ) {
+    pub fn report(&self, now: i64, flags: &mut Vec<(&'static str, i16)>) -> ScheduleStats {
         let sessions = self.sessions(now);
         let days = Self::days(&sessions, now);
         let long_days = days.iter().filter(|&&d| d >= LONG_DAY_MS).count();
@@ -170,15 +165,36 @@ impl Schedule {
         if returns.len() >= MIN_RETURNS && quick * 5 >= (returns.len() << 2) {
             flags.push(("instant_relogs", 25));
         }
+        ScheduleStats {
+            days,
+            longest_break,
+            return_ms: self.return_ms,
+            returns: returns.len(),
+            quick,
+        }
+    }
+}
+
+/// What [`Schedule::report`] found, for the report's stats.
+pub struct ScheduleStats {
+    days: [i64; 7],
+    longest_break: Option<i64>,
+    return_ms: Option<u32>,
+    returns: usize,
+    quick: usize,
+}
+
+impl ScheduleStats {
+    pub fn json(&self, stats: &mut Map<String, Value>) {
         let hours = |ms: i64| (ms as f64 / HOUR_MS as f64 * 10.0).round() / 10.0;
         stats.insert(
             "schedule".into(),
             json!({
-                "dayHours": days.map(hours),
-                "longestBreakHours": longest_break.map(hours),
+                "dayHours": self.days.map(hours),
+                "longestBreakHours": self.longest_break.map(hours),
                 "returnMs": self.return_ms,
-                "returns": returns.len(),
-                "quickReturns": quick,
+                "returns": self.returns,
+                "quickReturns": self.quick,
             }),
         );
         // Kept where the next login reads it back.
@@ -194,7 +210,7 @@ mod tests {
 
     fn flags(s: &Schedule) -> Vec<&'static str> {
         let mut flags = Vec::new();
-        s.report(NOW, &mut flags, &mut Map::new());
+        s.report(NOW, &mut flags);
         flags.into_iter().map(|(f, _)| f).collect()
     }
 

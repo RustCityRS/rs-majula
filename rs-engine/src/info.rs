@@ -823,10 +823,10 @@ impl PlayerInfo {
     /// bodies that bring a client that has just logged in to what `active`'s
     /// client shows now. The local player stands where they are, and the
     /// players its client tracks are added in the same order, so the next
-    /// live update applies. Players whose appearance its client already
-    /// holds (so the server won't send it again) are added and dropped
-    /// first, to hand over their appearance. More than one body when it all
-    /// doesn't fit in one.
+    /// live update applies. More than one body when it all doesn't fit in
+    /// one. Only the players in view are handed over: the caller has the
+    /// server forget the others' appearances (see
+    /// [`BuildArea::forget_untracked_appearances`]).
     ///
     /// Reads the observer's state without changing it.
     pub fn keyframe(
@@ -835,27 +835,9 @@ impl PlayerInfo {
         active: &ActivePlayer,
     ) -> Vec<Vec<u8>> {
         let build = &active.player.build_area;
-        let self_pid = active.player.uid.pid();
-        // (pid, whether its client keeps tracking it)
-        let mut queue: Vec<(u16, bool)> = Vec::new();
-        for (pid, slot) in players.iter().enumerate() {
-            let pid = pid as u16;
-            let Some(other) = slot else { continue };
-            if pid == self_pid || build.players.contains(pid) {
-                continue;
-            }
-            if let Some(last) = other.player.info.last_appearance
-                && build.has_appearance(pid, last)
-                && renderer.has(pid, PlayerInfoProt::Appearance)
-            {
-                queue.push((pid, false));
-            }
-        }
-        queue.extend(build.players.iter().iter().map(|&pid| (pid, true)));
-
+        let tracked = build.players.iter();
         let mut info = PlayerInfo::new();
-        let mut known: Vec<(u16, bool)> = Vec::new();
-        let mut next = 0;
+        let mut known = 0usize;
         let mut bodies = Vec::new();
         let coord = active.player.pathing.coord;
         loop {
@@ -877,29 +859,23 @@ impl PlayerInfo {
             } else {
                 info.idle();
             }
-            info.bw.pbit::<8>(&mut info.buf, known.len() as i32);
-            for &(_, keep) in &known {
-                if keep {
-                    info.idle();
-                } else {
-                    info.bw.pbit::<3>(&mut info.buf, (1 << 2) | 3);
-                }
+            info.bw.pbit::<8>(&mut info.buf, known as i32);
+            for _ in 0..known {
+                info.idle();
             }
-            known.retain(|&(_, keep)| keep);
-            while next < queue.len() && known.len() < 255 {
-                let (pid, keep) = queue[next];
+            while known < tracked.len() {
+                let pid = tracked[known];
                 let other = players.get(pid as usize).and_then(Option::as_ref);
                 let len = other.map_or(1, |_| renderer.lowdefinitions(pid) + 32);
                 if !info.fits(PlayerInfo::BITS_ADD, len) {
                     break;
                 }
-                let (x, z) = match other {
-                    Some(other) if keep => (
+                let (x, z) = other.map_or((0, 0), |other| {
+                    (
                         other.player.pathing.coord.x() as i32 - coord.x() as i32,
                         other.player.pathing.coord.z() as i32 - coord.z() as i32,
-                    ),
-                    _ => (0, 0),
-                };
+                    )
+                });
                 // 11 + 5 + 5 + 1 + 1 = 23 bits
                 info.bw.pbit::<23>(
                     &mut info.buf,
@@ -913,8 +889,7 @@ impl PlayerInfo {
                     // Gone this tick: the live stream drops it next.
                     None => info.updates.p1(0),
                 }
-                known.push((pid, keep));
-                next += 1;
+                known += 1;
             }
             if info.updates.pos > 0 {
                 info.bw.pbit::<11>(&mut info.buf, MAX_PLAYERS as i32 - 1);
@@ -924,7 +899,7 @@ impl PlayerInfo {
                 info.bw.finish(&mut info.buf);
             }
             bodies.push(info.buf.data[..info.buf.pos].to_vec());
-            if next >= queue.len() && known.iter().all(|&(_, keep)| keep) {
+            if known >= tracked.len() {
                 return bodies;
             }
         }

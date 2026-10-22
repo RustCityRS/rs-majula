@@ -258,15 +258,15 @@ pub trait ScriptEngine {
     /// * `coord` - The packed coordinate where the object should appear.
     /// * `id` - The object type identifier.
     /// * `count` - The stack count for the object.
-    /// * `receiver37` - Optional Base37-encoded username of the only player
-    ///   who may see the object. `None` makes it visible to everyone.
+    /// * `receiver` - Optional player who alone may see the object. `None`
+    ///   makes it visible to everyone.
     /// * `duration` - The tick at which the object should be removed.
     fn add_obj(
         &mut self,
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
     ) -> crate::Result<()>;
 
@@ -276,7 +276,7 @@ pub trait ScriptEngine {
     /// * `coord` - The packed coordinate where the object should appear.
     /// * `id` - The object type identifier.
     /// * `count` - The stack count for the object.
-    /// * `receiver37` - Optional Base37-encoded username restricting visibility.
+    /// * `receiver` - Optional player restricting visibility.
     /// * `duration` - The tick at which the object should be removed.
     /// * `delay` - The number of ticks to wait before the object becomes visible.
     fn add_obj_delayed(
@@ -284,7 +284,7 @@ pub trait ScriptEngine {
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
         delay: u64,
     );

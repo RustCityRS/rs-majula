@@ -1,4 +1,4 @@
-use serde_json::{Map, Value, json};
+use serde_json::{Value, json};
 use std::collections::{HashMap, VecDeque};
 
 /// A slot's top left on the client's screen.
@@ -139,7 +139,7 @@ impl SlotClicks {
         Some((axis(|s| s.0) + axis(|s| s.1)) / 2.0)
     }
 
-    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>, stats: &mut Map<String, Value>) {
+    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>) -> SlotStats {
         let n = self.spots.len();
         let same = self.same_share();
         let spread = self.spread();
@@ -149,14 +149,28 @@ impl SlotClicks {
         if n >= MIN_EVEN && spread.is_some_and(|s| s >= EVEN_SPREAD) {
             flags.push(("even_slot_clicks", 20));
         }
-        stats.insert(
-            "slotClicks".into(),
-            json!({
-                "count": n,
-                "samePixel": (same * 100.0).round() / 100.0,
-                "spread": spread.map(|s| (s * 10.0).round() / 10.0),
-            }),
-        );
+        SlotStats {
+            count: n,
+            same,
+            spread,
+        }
+    }
+}
+
+/// What [`SlotClicks::report`] found, for the report's stats.
+pub struct SlotStats {
+    count: usize,
+    same: f64,
+    spread: Option<f64>,
+}
+
+impl SlotStats {
+    pub fn json(&self) -> Value {
+        json!({
+            "count": self.count,
+            "samePixel": (self.same * 100.0).round() / 100.0,
+            "spread": self.spread.map(|s| (s * 10.0).round() / 10.0),
+        })
     }
 }
 
@@ -166,7 +180,7 @@ mod tests {
 
     fn flags(s: &SlotClicks) -> Vec<&'static str> {
         let mut flags = Vec::new();
-        s.report(&mut flags, &mut Map::new());
+        s.report(&mut flags);
         flags.into_iter().map(|(f, _)| f).collect()
     }
 

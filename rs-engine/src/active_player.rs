@@ -132,7 +132,9 @@ use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
+use std::borrow::Cow;
 use std::cell::RefCell;
+use std::fmt::Write as _;
 use std::net::IpAddr;
 use std::time::{Duration, Instant};
 use tracing::{error, warn};
@@ -943,9 +945,9 @@ impl ActivePlayer {
         if !self.watch.recording() {
             return;
         }
-        if let Some(note) = self.op_note(op) {
-            self.watch.note(clock, &note);
-        }
+        let mut note = self.watch.note_buf();
+        self.op_note(op, &mut note);
+        self.watch.note_string(clock, note);
     }
 
     /// Feeds an action to the checks on how the player behaves over time:
@@ -1112,32 +1114,33 @@ impl ActivePlayer {
                 .get_by_id(id)
                 .and_then(|t| t.name.as_deref())
                 .unwrap_or("?")
-                .to_owned()
         };
-        let with = match with {
-            Using::Item(id) => format!("Use {}", obj(id)),
-            Using::Spell(com) => format!("Cast {}", self.component_name(com)),
+        let (verb, with) = match with {
+            Using::Item(id) => ("Use", Cow::Borrowed(obj(id))),
+            Using::Spell(com) => ("Cast", self.component_name(com)),
         };
         let on = match on {
-            Target::Npc(nid) => engine
-                .get_npc(nid)
-                .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
-                .and_then(|t| t.name.as_deref())
-                .unwrap_or("?")
-                .to_owned(),
-            Target::Loc { id, .. } => engine
-                .locs()
-                .get_by_id(id)
-                .and_then(|t| t.name.as_deref())
-                .unwrap_or("?")
-                .to_owned(),
-            Target::Obj { id, .. } | Target::Item(id) => obj(id),
+            Target::Npc(nid) => Cow::Borrowed(
+                engine
+                    .get_npc(nid)
+                    .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
+                    .and_then(|t| t.name.as_deref())
+                    .unwrap_or("?"),
+            ),
+            Target::Loc { id, .. } => Cow::Borrowed(
+                engine
+                    .locs()
+                    .get_by_id(id)
+                    .and_then(|t| t.name.as_deref())
+                    .unwrap_or("?"),
+            ),
+            Target::Obj { id, .. } | Target::Item(id) => Cow::Borrowed(obj(id)),
             Target::Player(pid) => engine
                 .get_player(pid)
-                .map(|p| p.uid().username())
-                .unwrap_or_else(|| "?".to_owned()),
+                .map_or(Cow::Borrowed("?"), |p| Cow::Owned(p.uid().username())),
         };
-        self.watch_note(&format!("{with} on {on}"));
+        self.watch
+            .note_fmt(engine.clock, format_args!("{verb} {with} on {on}"));
     }
 
     /// Records a click on interface component `com`.
@@ -1146,8 +1149,9 @@ impl ActivePlayer {
         if !self.watch.recording() {
             return;
         }
-        let note = format!("Click {}", self.component_name(com));
-        self.watch_note(&note);
+        let name = self.component_name(com);
+        self.watch
+            .note_fmt(engine().clock, format_args!("Click {name}"));
     }
 
     /// Records a walk click on the game screen or the minimap.
@@ -1212,83 +1216,92 @@ impl ActivePlayer {
         if let Some(&to) = path.last() {
             let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
             let on = if minimap { " (minimap)" } else { "" };
-            self.watch_note(&format!("Walk to {x}, {z}{on}"));
+            self.watch
+                .note_fmt(engine().clock, format_args!("Walk to {x}, {z}{on}"));
         }
     }
 
     /// An interface component's name, e.g. `magic:wind_strike`.
-    fn component_name(&self, com: u16) -> String {
+    fn component_name(&self, com: u16) -> Cow<'static, str> {
         engine()
             .interfaces()
             .get_by_id(com)
             .and_then(|i| i.com_name.as_deref())
-            .map_or_else(|| format!("component {com}"), str::to_owned)
+            .map_or_else(|| Cow::Owned(format!("component {com}")), Cow::Borrowed)
     }
 
-    /// How the player saw `op` in their menu, e.g. "Attack Goblin".
-    fn op_note(&self, op: Op) -> Option<String> {
+    /// Writes how the player saw `op` in their menu, e.g. "Attack Goblin",
+    /// to `out`. Nothing for [`Op::Other`].
+    fn op_note(&self, op: Op, out: &mut String) {
         let engine = engine();
         fn named(
+            out: &mut String,
             ops: Option<&[Option<Box<str>>]>,
             op: u8,
             name: Option<&str>,
             kind: &str,
-        ) -> String {
-            let verb = ops
-                .and_then(|ops| ops.get(usize::from(op).checked_sub(1)?)?.as_deref())
-                .map(str::to_owned)
-                .unwrap_or_else(|| format!("{kind} op {op}"));
-            format!("{verb} {}", name.unwrap_or("?"))
+        ) {
+            match ops.and_then(|ops| ops.get(usize::from(op).checked_sub(1)?)?.as_deref()) {
+                Some(verb) => out.push_str(verb),
+                None => _ = write!(out, "{kind} op {op}"),
+            }
+            out.push(' ');
+            out.push_str(name.unwrap_or("?"));
         }
-        Some(match op {
+        match op {
             Op::Npc { op, nid } => {
                 let ty = engine
                     .get_npc(nid)
                     .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()));
                 named(
+                    out,
                     ty.and_then(|t| t.op.as_deref()),
                     op,
                     ty.and_then(|t| t.name.as_deref()),
                     "Npc",
-                )
+                );
             }
             Op::Loc { op, id, x, z } => {
                 let ty = self
                     .shown_loc(id)
                     .and_then(|id| engine.locs().get_by_id(id));
-                let what = named(
+                named(
+                    out,
                     ty.and_then(|t| t.op.as_deref()),
                     op,
                     ty.and_then(|t| t.name.as_deref()),
                     "Loc",
                 );
-                format!("{what} at {x}, {z}")
+                _ = write!(out, " at {x}, {z}");
             }
             Op::Obj { op, id, x, z } => {
                 let ty = engine.objs().get_by_id(id);
-                let what = named(
+                named(
+                    out,
                     ty.and_then(|t| t.op.as_deref()),
                     op,
                     ty.and_then(|t| t.name.as_deref()),
                     "Obj",
                 );
-                format!("{what} at {x}, {z}")
+                _ = write!(out, " at {x}, {z}");
             }
             Op::Player { op, pid } => {
                 let name = engine.get_player(pid).map(|p| p.uid().username());
-                format!("Player op {op} on {}", name.as_deref().unwrap_or("?"))
+                _ = write!(out, "Player op {op} on {}", name.as_deref().unwrap_or("?"));
             }
             Op::Held { op, obj, .. } => {
                 let ty = engine.objs().get_by_id(obj);
                 named(
+                    out,
                     ty.and_then(|t| t.iop.as_deref()),
                     op,
                     ty.and_then(|t| t.name.as_deref()),
                     "Item",
-                )
+                );
             }
             // A shop's or bank's own options, named by the interface.
             Op::InvButton { op, obj, com, .. } => named(
+                out,
                 engine
                     .interfaces()
                     .get_by_id(com)
@@ -1297,8 +1310,8 @@ impl ActivePlayer {
                 engine.objs().get_by_id(obj).and_then(|t| t.name.as_deref()),
                 "Button",
             ),
-            Op::Other => return None,
-        })
+            Op::Other => {}
+        }
     }
 
     /// This tick's [`LogBatch`], sent with [`DbRequest::Logs`], and where the

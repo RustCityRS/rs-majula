@@ -1,5 +1,3 @@
-use serde_json::{Map, Value, json};
-
 /// A stretch without actions this long (ms) is judged.
 const MIN_STRETCH_MS: u32 = 15 * 60_000;
 /// Inputs this close together are one nudge.
@@ -130,17 +128,13 @@ impl AntiAfk {
         }
     }
 
-    pub fn report(
-        &self,
-        now: u32,
-        flags: &mut Vec<(&'static str, i16)>,
-        stats: &mut Map<String, Value>,
-    ) {
+    /// Flags it, and gives how long the player was kept awake (ms).
+    pub fn report(&self, now: u32, flags: &mut Vec<(&'static str, i16)>) -> u32 {
         let awake = self.awake_ms + self.kept_awake(now);
         if awake >= FLAG_MS {
             flags.push(("anti_afk", 30));
         }
-        stats.insert("keptAwakeMinutes".into(), json!(awake / 60_000));
+        awake
     }
 }
 
@@ -152,7 +146,7 @@ mod tests {
 
     fn flags(a: &AntiAfk, now: u32) -> Vec<&'static str> {
         let mut flags = Vec::new();
-        a.report(now, &mut flags, &mut Map::new());
+        a.report(now, &mut flags);
         flags.into_iter().map(|(f, _)| f).collect()
     }
 

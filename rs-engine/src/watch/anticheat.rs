@@ -2,11 +2,11 @@ use super::Target;
 use super::afk::AntiAfk;
 use super::input::{Input, InputDecoder, Timed};
 #[cfg(since_254)]
-use super::paths::MousePaths;
-use super::reaction::Reactions;
-use super::repetition::Repetition;
-use super::schedule::{End, Schedule};
-use super::slots::{Slot, SlotClicks};
+use super::paths::{MousePaths, PathStats};
+use super::reaction::{ReactionStats, Reactions};
+use super::repetition::{Repetition, RepetitionStats};
+use super::schedule::{End, Schedule, ScheduleStats};
+use super::slots::{Slot, SlotClicks, SlotStats};
 use Field::*;
 use rs_db::{LoginDevice, ReplayReport};
 use rs_entity::BuildArea;
@@ -26,6 +26,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use serde_json::{Map, Value, json};
 use std::collections::VecDeque;
 use std::hash::Hash;
+use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// A payload field: a fixed value, or (`Any*`) a random one.
@@ -366,7 +367,7 @@ pub struct AntiCheat {
     pub inputs: InputDecoder,
     pub touch: bool,
     pub automated: bool,
-    pub device: LoginDevice,
+    pub device: Arc<LoginDevice>,
     heartbeats: [u32; 7],
     bad_heartbeats: [u32; 7],
     op_counts: [i64; 9],
@@ -425,6 +426,122 @@ pub struct AntiCheat {
     pub incidents: Vec<Incident>,
     /// Scripts aborted while running on the player.
     pub script_errors: u32,
+}
+
+/// The checks' verdict, worked out on the tick. The recording task turns
+/// it into what's stored ([`Report::stored`]), off the tick.
+pub struct Report {
+    pub score: i16,
+    pub flags: Vec<&'static str>,
+    stats: Box<Stats>,
+}
+
+/// The counts behind a [`Report`], as they were when it was made.
+struct Stats {
+    touch: bool,
+    automated: bool,
+    device: Arc<LoginDevice>,
+    ops: u32,
+    ops_unclicked: u32,
+    clicks: u32,
+    jumps: u32,
+    rhythm: Option<f64>,
+    input_reports: u32,
+    focus_lost: u32,
+    unfocused_actions: u32,
+    unseen: u32,
+    menu_ops: u32,
+    menu_unpressed: u32,
+    idle_reports: u32,
+    camera_reports: u32,
+    minimap_clicks: u32,
+    forged_minimap: u32,
+    minimap_off: u32,
+    heartbeats: [u32; 7],
+    beat_ratio: Option<f64>,
+    bad_heartbeats: [u32; 7],
+    op_expected: [u32; 9],
+    op_received: [u32; 9],
+    bad_op_checks: [u32; 9],
+    malformed: u32,
+    rejected: u32,
+    script_errors: u32,
+    reactions: ReactionStats,
+    schedule: ScheduleStats,
+    repetition: RepetitionStats,
+    slots: Option<SlotStats>,
+    #[cfg(since_254)]
+    paths: Option<PathStats>,
+    awake_ms: u32,
+    auto_banned: Option<&'static str>,
+    end: Option<(&'static str, u32)>,
+}
+
+impl Report {
+    /// The report as stored with the recording, its stats as JSON.
+    pub fn stored(self) -> ReplayReport {
+        let s = &*self.stats;
+        let mut more = Map::new();
+        more.insert("reactions".into(), s.reactions.json());
+        s.schedule.json(&mut more);
+        more.insert("repetition".into(), s.repetition.json());
+        if let Some(slots) = &s.slots {
+            more.insert("slotClicks".into(), slots.json());
+        }
+        #[cfg(since_254)]
+        if let Some(paths) = &s.paths {
+            more.insert("mousePaths".into(), paths.json());
+        }
+        more.insert("keptAwakeMinutes".into(), json!(s.awake_ms / 60_000));
+        if let Some(trigger) = s.auto_banned {
+            more.insert("autoBan".into(), json!(trigger));
+        }
+        if let Some((end, at)) = s.end {
+            more.insert("endReason".into(), json!(end));
+            more.insert("endMs".into(), json!(at));
+        }
+        let mut stats = json!({
+            "touch": s.touch,
+            "automated": s.automated,
+            "web": s.device.web,
+            "userAgent": s.device.user_agent,
+            "platform": s.device.platform,
+            "language": s.device.language,
+            "ops": s.ops,
+            "opsUnclicked": s.ops_unclicked,
+            "clicks": s.clicks,
+            "cursorJumps": s.jumps,
+            "clickRhythm": s.rhythm.map(|cv| (cv * 1000.0).round() / 1000.0),
+            "inputReports": s.input_reports,
+            "focusLost": s.focus_lost,
+            "unfocusedActions": s.unfocused_actions,
+            "unseenTargets": s.unseen,
+            "menuOps": s.menu_ops,
+            "menuUnpressed": s.menu_unpressed,
+            "idleReports": s.idle_reports,
+            "cameraReports": s.camera_reports,
+            "minimapClicks": s.minimap_clicks,
+            "forgedMinimapClicks": s.forged_minimap,
+            "minimapOff": s.minimap_off,
+            "heartbeats": &s.heartbeats[..HEARTBEATS.len()],
+            "heartbeatRatio": s.beat_ratio.map(|r| (r * 100.0).round() / 100.0),
+            "badHeartbeats": &s.bad_heartbeats[..HEARTBEATS.len()],
+            "opChecksExpected": s.op_expected,
+            "opChecksReceived": s.op_received,
+            "badOpChecks": s.bad_op_checks,
+            "malformedPackets": s.malformed,
+            "rejectedRequests": s.rejected,
+            "scriptErrors": s.script_errors,
+        });
+        if let Value::Object(stats) = &mut stats {
+            stats.extend(more);
+        }
+        ReplayReport {
+            score: self.score,
+            flags: self.flags.iter().map(|&f| f.to_owned()).collect(),
+            stats: stats.to_string(),
+        }
+    }
 }
 
 impl AntiCheat {
@@ -945,7 +1062,7 @@ impl AntiCheat {
     }
 
     /// The checks' verdict so far, `ms` into the session.
-    pub fn report(&self, ms: u32) -> ReplayReport {
+    pub fn report(&self, ms: u32) -> Report {
         let mut flags: Vec<(&str, i16)> = Vec::new();
         if self.malformed > 0
             || self
@@ -1038,20 +1155,17 @@ impl AntiCheat {
             flags.push(("robotic_click_timing", 20));
         }
         // How the player behaves over time.
-        let mut more = Map::new();
-        self.reactions.report(&mut flags, &mut more);
+        let reactions = self.reactions.report(&mut flags);
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .map_or(0, |d| d.as_millis() as i64);
-        self.schedule.report(now, &mut flags, &mut more);
-        self.repetition.report(&mut flags, &mut more);
+        let schedule = self.schedule.report(now, &mut flags);
+        let repetition = self.repetition.report(&mut flags);
         // A tap lands wherever the finger covers, and moves no cursor.
-        if !self.touch {
-            self.slots.report(&mut flags, &mut more);
-            #[cfg(since_254)]
-            self.paths.report(&mut flags, &mut more);
-        }
-        self.afk.report(ms, &mut flags, &mut more);
+        let slots = (!self.touch).then(|| self.slots.report(&mut flags));
+        #[cfg(since_254)]
+        let paths = (!self.touch).then(|| self.paths.report(&mut flags));
+        let awake_ms = self.afk.report(ms, &mut flags);
         // Only 225 and 254+ report the camera.
         if cfg!(any(rev = "225", since_254))
             && ms >= UNTURNED_MS
@@ -1060,55 +1174,49 @@ impl AntiCheat {
         {
             flags.push(("camera_never_turned", 15));
         }
-        if let Some(trigger) = self.auto_banned {
-            more.insert("autoBan".into(), json!(trigger));
-        }
-        if let Some((end, at)) = self.end {
-            more.insert("endReason".into(), json!(end.name()));
-            more.insert("endMs".into(), json!(at));
-        }
 
-        let score = flags.iter().map(|&(_, s)| s).sum::<i16>();
-        let mut stats = json!({
-            "touch": self.touch,
-            "automated": self.automated,
-            "web": self.device.web,
-            "userAgent": self.device.user_agent,
-            "platform": self.device.platform,
-            "language": self.device.language,
-            "ops": self.ops,
-            "opsUnclicked": self.ops_unclicked,
-            "clicks": self.clicks,
-            "cursorJumps": self.jumps,
-            "clickRhythm": rhythm.map(|cv| (cv * 1000.0).round() / 1000.0),
-            "inputReports": self.input_reports,
-            "focusLost": self.focus_lost,
-            "unfocusedActions": self.unfocused_actions,
-            "unseenTargets": self.unseen,
-            "menuOps": self.menu_ops,
-            "menuUnpressed": menu_unpressed,
-            "idleReports": self.idle_reports,
-            "cameraReports": self.camera_reports,
-            "minimapClicks": self.minimap_clicks,
-            "forgedMinimapClicks": self.forged_minimap,
-            "minimapOff": self.minimap_off,
-            "heartbeats": &self.heartbeats[..HEARTBEATS.len()],
-            "heartbeatRatio": beat_ratio.map(|r| (r * 100.0).round() / 100.0),
-            "badHeartbeats": &self.bad_heartbeats[..HEARTBEATS.len()],
-            "opChecksExpected": self.op_expected,
-            "opChecksReceived": self.op_received,
-            "badOpChecks": self.bad_op_checks,
-            "malformedPackets": self.malformed,
-            "rejectedRequests": self.rejected,
-            "scriptErrors": self.script_errors,
-        });
-        if let Value::Object(stats) = &mut stats {
-            stats.extend(more);
-        }
-        ReplayReport {
-            score,
-            flags: flags.iter().map(|&(f, _)| f.to_owned()).collect(),
-            stats: stats.to_string(),
+        Report {
+            score: flags.iter().map(|&(_, s)| s).sum(),
+            flags: flags.iter().map(|&(f, _)| f).collect(),
+            stats: Box::new(Stats {
+                touch: self.touch,
+                automated: self.automated,
+                device: Arc::clone(&self.device),
+                ops: self.ops,
+                ops_unclicked: self.ops_unclicked,
+                clicks: self.clicks,
+                jumps: self.jumps,
+                rhythm,
+                input_reports: self.input_reports,
+                focus_lost: self.focus_lost,
+                unfocused_actions: self.unfocused_actions,
+                unseen: self.unseen,
+                menu_ops: self.menu_ops,
+                menu_unpressed,
+                idle_reports: self.idle_reports,
+                camera_reports: self.camera_reports,
+                minimap_clicks: self.minimap_clicks,
+                forged_minimap: self.forged_minimap,
+                minimap_off: self.minimap_off,
+                heartbeats: self.heartbeats,
+                beat_ratio,
+                bad_heartbeats: self.bad_heartbeats,
+                op_expected: self.op_expected,
+                op_received: self.op_received,
+                bad_op_checks: self.bad_op_checks,
+                malformed: self.malformed,
+                rejected: self.rejected,
+                script_errors: self.script_errors,
+                reactions,
+                schedule,
+                repetition,
+                slots,
+                #[cfg(since_254)]
+                paths,
+                awake_ms,
+                auto_banned: self.auto_banned,
+                end: self.end.map(|(end, at)| (end.name(), at)),
+            }),
         }
     }
 
@@ -1343,7 +1451,7 @@ mod tests {
             ac.op(op, 0, MapBase { x: 3152, z: 3152 });
         }
         assert_eq!(ac.op_expected.iter().sum::<u32>(), 10);
-        assert!(ac.report(0).flags.contains(&"missing_op_checks".to_owned()));
+        assert!(ac.report(0).flags.contains(&"missing_op_checks"));
         let payload: &[u8] = if cfg!(since_254) {
             &[0x94, 0x42]
         } else {
@@ -1352,22 +1460,19 @@ mod tests {
         for _ in 0..10 {
             ac.client(&check, payload);
         }
-        assert!(!ac.report(0).flags.contains(&"missing_op_checks".to_owned()));
-        assert!(!ac.report(0).flags.contains(&"modified_client".to_owned()));
+        assert!(!ac.report(0).flags.contains(&"missing_op_checks"));
+        assert!(!ac.report(0).flags.contains(&"modified_client"));
     }
 
     #[test]
     fn clockwork_jumping_clicks_are_flagged() {
         let flags = clockwork_jumps(false);
         assert_eq!(
-            flags.contains(&"cursor_jumps".to_owned()),
+            flags.contains(&"cursor_jumps"),
             cfg!(since_244),
             "{flags:?}"
         );
-        assert!(
-            flags.contains(&"robotic_click_timing".to_owned()),
-            "{flags:?}"
-        );
+        assert!(flags.contains(&"robotic_click_timing"), "{flags:?}");
     }
 
     #[test]
@@ -1382,14 +1487,34 @@ mod tests {
     }
 
     #[test]
+    fn stored_reports_keep_their_stats() {
+        let ac = AntiCheat {
+            automated: true,
+            ..AntiCheat::default()
+        };
+        let stored = ac.report(0).stored();
+        assert_eq!(stored.flags, ["automated_browser"]);
+        let stats: Value = serde_json::from_str(&stored.stats).unwrap();
+        assert_eq!(stats["automated"], true);
+        for key in [
+            "heartbeats",
+            "reactions",
+            "schedule",
+            "returnMs",
+            "repetition",
+            "slotClicks",
+            "keptAwakeMinutes",
+        ] {
+            assert!(stats.get(key).is_some(), "{key} missing: {stats}");
+        }
+    }
+
+    #[test]
     fn taps_on_a_touch_screen_may_jump() {
         let flags = clockwork_jumps(true);
-        assert!(!flags.contains(&"cursor_jumps".to_owned()), "{flags:?}");
+        assert!(!flags.contains(&"cursor_jumps"), "{flags:?}");
         // Taps like clockwork still count.
-        assert!(
-            flags.contains(&"robotic_click_timing".to_owned()),
-            "{flags:?}"
-        );
+        assert!(flags.contains(&"robotic_click_timing"), "{flags:?}");
     }
 
     /// A minimap click 10 px right of and 20 px above the centre, camera
@@ -1648,7 +1773,7 @@ mod tests {
     }
 
     /// The flags for 40 clicks 600 ms apart, each 300 px from the last.
-    fn clockwork_jumps(touch: bool) -> Vec<String> {
+    fn clockwork_jumps(touch: bool) -> Vec<&'static str> {
         let mut ac = AntiCheat {
             touch,
             ..AntiCheat::default()

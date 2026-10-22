@@ -352,4 +352,19 @@ impl BuildArea {
     pub fn save_appearance(&mut self, pid: u16, clock: u32) {
         unsafe { *self.appearances.as_mut_ptr().add(pid as usize) = clock }
     }
+
+    /// Forgets the appearances of the players not tracked now, so each is
+    /// sent again when it comes back into view.
+    pub fn forget_untracked_appearances(&mut self) {
+        let kept: Vec<(u16, u32)> = self
+            .players
+            .iter()
+            .iter()
+            .map(|&pid| (pid, self.appearances[pid as usize]))
+            .collect();
+        self.appearances.fill(0);
+        for (pid, clock) in kept {
+            self.appearances[pid as usize] = clock;
+        }
+    }
 }

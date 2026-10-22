@@ -1,4 +1,4 @@
-use serde_json::{Map, Value, json};
+use serde_json::{Value, json};
 use std::collections::VecDeque;
 use std::hash::{DefaultHasher, Hash, Hasher};
 
@@ -59,21 +59,35 @@ impl Repetition {
         walks as f64 / self.actions.len().max(1) as f64
     }
 
-    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>, stats: &mut Map<String, Value>) {
+    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>) -> RepetitionStats {
         let repeated = self.repeated();
         let walk_share = self.walk_share();
         if self.actions.len() >= MIN_ACTIONS && walk_share >= MIN_WALK_SHARE && repeated >= REPEATED
         {
             flags.push(("repeated_laps", 25));
         }
-        stats.insert(
-            "repetition".into(),
-            json!({
-                "actions": self.actions.len(),
-                "repeated": (repeated * 100.0).round() / 100.0,
-                "walkShare": (walk_share * 100.0).round() / 100.0,
-            }),
-        );
+        RepetitionStats {
+            actions: self.actions.len(),
+            repeated,
+            walk_share,
+        }
+    }
+}
+
+/// What [`Repetition::report`] found, for the report's stats.
+pub struct RepetitionStats {
+    actions: usize,
+    repeated: f64,
+    walk_share: f64,
+}
+
+impl RepetitionStats {
+    pub fn json(&self) -> Value {
+        json!({
+            "actions": self.actions,
+            "repeated": (self.repeated * 100.0).round() / 100.0,
+            "walkShare": (self.walk_share * 100.0).round() / 100.0,
+        })
     }
 }
 
@@ -83,7 +97,7 @@ mod tests {
 
     fn flags(r: &Repetition) -> Vec<&'static str> {
         let mut flags = Vec::new();
-        r.report(&mut flags, &mut Map::new());
+        r.report(&mut flags);
         flags.into_iter().map(|(f, _)| f).collect()
     }
 

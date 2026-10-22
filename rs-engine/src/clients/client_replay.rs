@@ -183,7 +183,7 @@ async fn store(
                     id,
                     chunk.as_ref(),
                     duration_ms as i32,
-                    &report,
+                    &report.stored(),
                     ended,
                     complete && !lost,
                 )

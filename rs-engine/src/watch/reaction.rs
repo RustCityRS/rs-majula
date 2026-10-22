@@ -1,4 +1,4 @@
-use serde_json::{Map, Value, json};
+use serde_json::{Value, json};
 use std::collections::VecDeque;
 
 /// Only reactions to something that happened while the player had done
@@ -59,26 +59,44 @@ impl Reactions {
         super::anticheat::cv(self.times.iter().map(|&t| f64::from(t)))
     }
 
-    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>, stats: &mut Map<String, Value>) {
+    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>) -> ReactionStats {
         let enough = self.times.len() >= MIN_REACTIONS;
-        if enough && self.fast_share() >= 0.5 {
+        let fast_share = self.fast_share();
+        if enough && fast_share >= 0.5 {
             flags.push(("instant_reactions", 25));
         }
         let spread = self.spread();
         if enough && spread.is_some_and(|cv| cv < 0.15) {
             flags.push(("even_reactions", 20));
         }
-        let mut sorted: Vec<u32> = self.times.iter().copied().collect();
-        sorted.sort_unstable();
-        stats.insert(
-            "reactions".into(),
-            json!({
-                "count": self.times.len(),
-                "medianMs": sorted.get(sorted.len() >> 1),
-                "fastShare": (self.fast_share() * 100.0).round() / 100.0,
-                "spread": spread.map(|cv| (cv * 100.0).round() / 100.0),
-            }),
-        );
+        let mut times: Vec<u32> = self.times.iter().copied().collect();
+        let mid = times.len() >> 1;
+        let median_ms = (!times.is_empty()).then(|| *times.select_nth_unstable(mid).1);
+        ReactionStats {
+            count: self.times.len(),
+            median_ms,
+            fast_share,
+            spread,
+        }
+    }
+}
+
+/// What [`Reactions::report`] found, for the report's stats.
+pub struct ReactionStats {
+    count: usize,
+    median_ms: Option<u32>,
+    fast_share: f64,
+    spread: Option<f64>,
+}
+
+impl ReactionStats {
+    pub fn json(&self) -> Value {
+        json!({
+            "count": self.count,
+            "medianMs": self.median_ms,
+            "fastShare": (self.fast_share * 100.0).round() / 100.0,
+            "spread": self.spread.map(|cv| (cv * 100.0).round() / 100.0),
+        })
     }
 }
 
@@ -88,7 +106,7 @@ mod tests {
 
     fn flags(r: &Reactions) -> Vec<&'static str> {
         let mut flags = Vec::new();
-        r.report(&mut flags, &mut Map::new());
+        r.report(&mut flags);
         flags.into_iter().map(|(f, _)| f).collect()
     }
 

@@ -26,6 +26,9 @@ impl Engine {
         {
             active.player_info(&body);
         }
+        // The keyframe hands over only the appearances of the players in
+        // view, so a replay from it needs the rest sent again.
+        active.player.build_area.forget_untracked_appearances();
         for body in NpcInfo::keyframe(&mut self.npc_renderer, &self.npc_list.npcs, active) {
             active.npc_info(&body);
         }

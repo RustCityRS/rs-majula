@@ -1,4 +1,4 @@
-use serde_json::{Map, Value, json};
+use serde_json::{Value, json};
 use std::collections::VecDeque;
 
 /// A pause this long (ms) between samples ends a move.
@@ -130,7 +130,7 @@ impl MousePaths {
         self.shapes.push_back(shape);
     }
 
-    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>, stats: &mut Map<String, Value>) {
+    pub fn report(&self, flags: &mut Vec<(&'static str, i16)>) -> PathStats {
         if self.moves >= MIN_MOVES {
             if self.straight * 10 >= self.moves * 6 {
                 flags.push(("straight_mouse_moves", 25));
@@ -142,16 +142,34 @@ impl MousePaths {
         if self.curves >= MIN_CURVES && self.repeated * 10 >= (self.curves << 2) {
             flags.push(("repeated_mouse_curves", 25));
         }
-        stats.insert(
-            "mousePaths".into(),
-            json!({
-                "moves": self.moves,
-                "straight": self.straight,
-                "steady": self.steady,
-                "curves": self.curves,
-                "repeatedCurves": self.repeated,
-            }),
-        );
+        PathStats {
+            moves: self.moves,
+            straight: self.straight,
+            steady: self.steady,
+            curves: self.curves,
+            repeated: self.repeated,
+        }
+    }
+}
+
+/// What [`MousePaths::report`] found, for the report's stats.
+pub struct PathStats {
+    moves: u32,
+    straight: u32,
+    steady: u32,
+    curves: u32,
+    repeated: u32,
+}
+
+impl PathStats {
+    pub fn json(&self) -> Value {
+        json!({
+            "moves": self.moves,
+            "straight": self.straight,
+            "steady": self.steady,
+            "curves": self.curves,
+            "repeatedCurves": self.repeated,
+        })
     }
 }
 
@@ -161,7 +179,7 @@ mod tests {
 
     fn flags(p: &MousePaths) -> Vec<&'static str> {
         let mut flags = Vec::new();
-        p.report(&mut flags, &mut Map::new());
+        p.report(&mut flags);
         flags.into_iter().map(|(f, _)| f).collect()
     }
 
