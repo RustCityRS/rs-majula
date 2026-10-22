@@ -242,6 +242,12 @@ const MIN_MINIMAP: u32 = 5;
 /// A minimap click that drew the player this many tiles from where the
 /// world has them. The client trails the world by a tile or two.
 const MINIMAP_OFF_TILES: i32 = 8;
+/// A click that focuses the window is logged just before it gains focus.
+#[cfg(before_254)]
+const FOCUS_CLICK_MS: u32 = 100;
+/// Actions while the window is unfocused: a real client gets focus back
+/// before its clicks go anywhere, but the odd one can race it.
+const MIN_UNFOCUSED: u32 = 3;
 
 #[derive(Default)]
 pub struct AntiCheat {
@@ -271,6 +277,13 @@ pub struct AntiCheat {
     last_cursor: Option<(i32, i32)>,
     input_reports: u32,
     focus_lost: u32,
+    /// Whether the client last said its window lost focus. It's focused as
+    /// it logs in.
+    unfocused: bool,
+    unfocused_actions: u32,
+    /// When the last press while unfocused came, until focus follows it.
+    #[cfg(before_254)]
+    unfocused_press: Option<u32>,
     idle_reports: u32,
     camera_reports: u32,
     minimap_clicks: u32,
@@ -391,8 +404,27 @@ impl AntiCheat {
                 }
                 self.last_press_ms = Some(timed.ms);
                 self.click(x.into(), y.into());
+                if self.unfocused {
+                    self.unfocused_actions += 1;
+                    self.unfocused_press = Some(timed.ms);
+                }
             }
-            Input::Focus(false) => self.focus_lost += 1,
+            Input::Focus(focus) => {
+                self.unfocused = !focus;
+                if !focus {
+                    self.focus_lost += 1;
+                }
+                // The press was the click that focused it.
+                #[cfg(before_254)]
+                if focus
+                    && self
+                        .unfocused_press
+                        .take()
+                        .is_some_and(|ms| timed.ms.saturating_sub(ms) <= FOCUS_CLICK_MS)
+                {
+                    self.unfocused_actions -= 1;
+                }
+            }
             Input::Camera { .. } => self.camera_reports += 1,
             _ => {}
         }
@@ -432,6 +464,11 @@ impl AntiCheat {
                 .is_none_or(|c| clock.wrapping_sub(c) > 2)
         {
             self.ops_unclicked += 1;
+        }
+        // From 254 focus has a report of its own, sent ahead of the actions
+        // in the same cycle; before, presses are judged in the input reports.
+        if cfg!(since_254) && self.unfocused {
+            self.unfocused_actions += 1;
         }
         if let Some((index, count, threshold)) = op_count(op, base) {
             let add = match count {
@@ -528,6 +565,10 @@ impl AntiCheat {
         if cfg!(since_254) && self.ops >= MIN_OPS && self.ops_unclicked * 4 > self.ops {
             flags.push(("actions_without_clicks", 40));
         }
+        // A phone's keyboard takes focus from the game while it's open.
+        if !self.touch && self.unfocused_actions >= MIN_UNFOCUSED {
+            flags.push(("actions_while_unfocused", 40));
+        }
         if self.ops >= MIN_OPS && self.input_reports == 0 {
             flags.push(("no_mouse_movement", 30));
         }
@@ -566,6 +607,7 @@ impl AntiCheat {
             "clickRhythm": rhythm.map(|cv| (cv * 1000.0).round() / 1000.0),
             "inputReports": self.input_reports,
             "focusLost": self.focus_lost,
+            "unfocusedActions": self.unfocused_actions,
             "idleReports": self.idle_reports,
             "cameraReports": self.camera_reports,
             "minimapClicks": self.minimap_clicks,
@@ -873,6 +915,55 @@ mod tests {
             ac.minimap(&path, &trailer, BASE, (3204 + 20, 3204));
         }
         assert_eq!(ac.report().flags, ["minimap_position_off"]);
+    }
+
+    /// A click `ms` into the session and the action it makes. Before 254
+    /// the click's press is judged, from 254 the action.
+    fn act(ac: &mut AntiCheat, ms: u32) {
+        #[cfg(before_254)]
+        ac.input(&Timed {
+            ms,
+            input: Input::Press {
+                x: 100,
+                y: 100,
+                right: false,
+            },
+        });
+        #[cfg(since_254)]
+        let _ = ms;
+        ac.op(Op::Other, 0, BASE);
+    }
+
+    #[test]
+    fn actions_while_unfocused_are_flagged() {
+        let mut ac = AntiCheat::default();
+        let focus = |ac: &mut AntiCheat, ms, focus| {
+            ac.input(&Timed {
+                ms,
+                input: Input::Focus(focus),
+            });
+        };
+        // Clicking back into the window, three times: the press comes just
+        // before focus does, the action (from 254) after its report.
+        for ms in [0, 10_000, 20_000] {
+            focus(&mut ac, ms, false);
+            if cfg!(since_254) {
+                focus(&mut ac, ms + 5_000, true);
+                act(&mut ac, ms + 5_000);
+            } else {
+                act(&mut ac, ms + 5_000);
+                focus(&mut ac, ms + 5_000, true);
+            }
+        }
+        assert_eq!(ac.unfocused_actions, 0);
+        // Clicks that never focused it.
+        focus(&mut ac, 40_000, false);
+        for ms in [41_000, 42_000, 43_000] {
+            act(&mut ac, ms);
+        }
+        focus(&mut ac, 50_000, true);
+        assert_eq!(ac.unfocused_actions, 3);
+        assert_eq!(ac.report().flags, ["actions_while_unfocused"]);
     }
 
     /// The flags for 40 clicks 600 ms apart, each 300 px from the last.

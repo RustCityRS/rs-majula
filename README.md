@@ -451,6 +451,7 @@ anything, it starts again from the nearest keyframe to the same spot.
 | No game loop | 20+ actions and none of the heartbeats the client's game loop sends (`ANTICHEAT_CYCLELOGIC3/4`, from 254 `4/7`): it isn't running the client. |
 | Missing op checks | The client sends `ANTICHEAT_OPLOGIC*` with certain actions once a hidden count passes a threshold; the world mirrors the counts and expects them. |
 | Actions without clicks | 254+: over a quarter of 20+ actions came without the click the client reports alongside each. |
+| Actions while unfocused | 3+ actions while the client said its window had lost focus (not on touch screens, whose keyboard takes focus). A real click gives the window focus first; a script's made-up click doesn't. Before 254 the click's press is judged in the input reports. |
 | No mouse | 20+ actions and no mouse reports. |
 | Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last report. |
 | Clockwork clicks | 30+ clicks at very even intervals. |
