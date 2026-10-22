@@ -4,7 +4,9 @@ use std::collections::{HashMap, VecDeque};
 use std::io::{BufRead, BufReader, Read, Seek, SeekFrom, Write};
 use std::net::IpAddr;
 use std::path::{Path, PathBuf};
-use std::sync::Mutex;
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::mpsc::{self, Receiver, Sender};
+use std::sync::{Arc, Condvar, Mutex};
 use tracing::{error, info, warn};
 
 /// How many of the newest entries are kept in memory; older pages read
@@ -147,12 +149,24 @@ struct Lookups {
     recorded: Vec<(&'static str, u64)>,
 }
 
+/// How many entries have been written (or failed to be), for waiting on.
+#[derive(Default)]
+struct Written {
+    count: Mutex<u64>,
+    changed: Condvar,
+}
+
 /// The audit trail: every entry is appended to a JSON-lines file and synced
 /// to disk before it counts, and all of it can be paged and searched, the
-/// oldest included.
+/// oldest included. A thread of its own writes the entries, those waiting
+/// together, so recording one never waits on the disk.
 pub struct Audit {
     path: PathBuf,
-    inner: Mutex<Inner>,
+    inner: Arc<Mutex<Inner>>,
+    /// Entries for the writer, with their lines.
+    queue: Sender<(Entry, Vec<u8>)>,
+    queued: AtomicU64,
+    written: Arc<Written>,
     /// By actor and target.
     lookups: Mutex<HashMap<(String, String), Lookups>>,
 }
@@ -223,10 +237,34 @@ impl Audit {
             inner.offsets.len(),
             path.display()
         );
+        let inner = Arc::new(Mutex::new(inner));
+        let written = Arc::new(Written::default());
+        let (queue, entries) = mpsc::channel();
+        let writer = (path.clone(), inner.clone(), written.clone());
+        std::thread::Builder::new()
+            .name("audit".into())
+            .spawn(move || keep_writing(writer.0, &writer.1, &writer.2, &entries))
+            .expect("starting the audit writer");
         Self {
             path,
-            inner: Mutex::new(inner),
+            inner,
+            queue,
+            queued: AtomicU64::new(0),
+            written,
             lookups: Mutex::new(HashMap::new()),
+        }
+    }
+
+    /// Waits for every entry recorded so far to be written.
+    pub fn flush(&self) {
+        let queued = self.queued.load(Ordering::Acquire);
+        let mut count = self.written.count.lock().unwrap_or_else(|e| e.into_inner());
+        while *count < queued {
+            count = self
+                .written
+                .changed
+                .wait(count)
+                .unwrap_or_else(|e| e.into_inner());
         }
     }
 
@@ -316,7 +354,7 @@ impl Audit {
         }
     }
 
-    fn write(&self, mut entry: Entry) {
+    fn write(&self, entry: Entry) {
         info!(
             target: "audit",
             actor = entry.actor.as_deref().unwrap_or("-"),
@@ -330,36 +368,25 @@ impl Audit {
 
         let mut line = serde_json::to_vec(&entry).expect("entries serialise");
         line.push(b'\n');
-        let mut inner = self.lock();
-        // Only an entry on disk gets an id: the trail never shows what a
-        // restart would lose.
-        if let Err(e) = append_bytes(&self.path, &line) {
-            error!(
-                "Failed to write the audit log {}; this entry is only in the console's log: {}",
-                self.path.display(),
-                e
-            );
-            return;
+        self.queued.fetch_add(1, Ordering::AcqRel);
+        if self.queue.send((entry, line)).is_err() {
+            error!("The audit writer stopped; this entry is only in the console's log");
+            let mut count = self.written.count.lock().unwrap_or_else(|e| e.into_inner());
+            *count += 1;
         }
-        let at = inner.end;
-        inner.offsets.push(at);
-        inner.end += line.len() as u64;
-        entry.id = inner.offsets.len() as u64;
-        if inner.recent.len() == inner.cache {
-            inner.recent.pop_front();
-        }
-        inner.recent.push_back(entry);
     }
 
     /// Up to `limit` entries older than `before`, newest first, that pass
-    /// `keep`. Pages past the newest entries read the file, a block at a
-    /// time, without holding up new entries.
+    /// `keep`, once those recorded so far are written. Pages past the
+    /// newest entries read the file, a block at a time, without holding up
+    /// new entries.
     pub fn page(
         &self,
         before: Option<u64>,
         limit: usize,
         keep: impl Fn(&Entry) -> bool,
     ) -> Vec<Entry> {
+        self.flush();
         let mut out = Vec::new();
         // The newest id still to look at; 0 when there's none.
         let mut next = {
@@ -462,6 +489,53 @@ impl Audit {
     }
 }
 
+impl Drop for Audit {
+    fn drop(&mut self) {
+        self.flush();
+    }
+}
+
+/// Writes the entries `queue` brings until the trail is dropped: all those
+/// waiting at once, with one sync to disk. Only an entry on disk gets an
+/// id, so the trail never shows what a restart would lose.
+fn keep_writing(
+    path: PathBuf,
+    inner: &Mutex<Inner>,
+    written: &Written,
+    queue: &Receiver<(Entry, Vec<u8>)>,
+) {
+    while let Ok(first) = queue.recv() {
+        let mut batch = vec![first];
+        batch.extend(queue.try_iter());
+        let n = batch.len() as u64;
+        let bytes: Vec<u8> = batch.iter().flat_map(|(_, line)| line).copied().collect();
+        match append_bytes(&path, &bytes) {
+            Ok(()) => {
+                let mut inner = inner.lock().unwrap_or_else(|e| e.into_inner());
+                for (mut entry, line) in batch {
+                    let at = inner.end;
+                    inner.offsets.push(at);
+                    inner.end += line.len() as u64;
+                    entry.id = inner.offsets.len() as u64;
+                    if inner.recent.len() == inner.cache {
+                        inner.recent.pop_front();
+                    }
+                    inner.recent.push_back(entry);
+                }
+            }
+            Err(e) => error!(
+                "Failed to write the audit log {}; {} entries are only in the console's log: {}",
+                path.display(),
+                n,
+                e
+            ),
+        }
+        let mut count = written.count.lock().unwrap_or_else(|e| e.into_inner());
+        *count += n;
+        written.changed.notify_all();
+    }
+}
+
 /// Appends `bytes` to `path` and syncs them to disk.
 fn append_bytes(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
     if let Some(dir) = path.parent() {
@@ -548,6 +622,8 @@ mod tests {
         for i in 0..5 {
             audit.record(Event::new(Some("ash"), ip, "kick").target(format!("p{i}")));
         }
+        // Closing it writes what's waiting.
+        drop(audit);
         let reopened = Audit::open(path.clone());
         let page = reopened.page(None, 2, |_| true);
         assert_eq!(page.len(), 2);
@@ -579,6 +655,7 @@ mod tests {
             let action = if i % 100 == 0 { "ban" } else { "kick" };
             audit.record(Event::new(Some("ash"), ip, action).target(format!("p{i}")));
         }
+        audit.flush();
         for audit in [audit, Audit::with_cache(path.clone(), 3)] {
             // Ids are the order in the file, before a restart and after.
             let mut all = Vec::new();
@@ -619,6 +696,7 @@ mod tests {
 
         let audit = Audit::open(path.clone());
         audit.record(Event::new(Some("ash"), ip, "kick").target("p2"));
+        audit.flush();
         let reopened = Audit::with_cache(path.clone(), 1);
         assert_eq!(
             targets(&reopened.page(None, 10, |_| true)),

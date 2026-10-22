@@ -1,4 +1,5 @@
 use super::access::CaseView;
+use super::live;
 use super::players::checked_name;
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
@@ -6,7 +7,6 @@ use crate::notes::{MAX_TEXT, Note};
 use axum::Json;
 use axum::extract::{Path, Query, State};
 use axum::http::StatusCode;
-use futures_util::future::join_all;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 
@@ -116,14 +116,12 @@ pub async fn watched(State(app): State<Arc<App>>, staff: Staff) -> Json<Vec<Watc
         .into_iter()
         .filter(|n| sees(&view, &staff, n))
         .collect();
-    let worlds = app.worlds.online();
-    let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
-    let online: std::collections::HashMap<String, u16> = worlds
+    let online: std::collections::HashMap<String, u16> = live::online(&app)
+        .await
         .iter()
-        .zip(lists)
-        .filter_map(|(w, list)| list.ok().map(|l| (w.id, l)))
+        .filter_map(|l| l.players.as_ref().map(|list| (l.world, list)))
         .flat_map(|(world, list)| {
-            list.into_iter()
+            list.iter()
                 .map(move |p| (crate::users::name_key(&p.name), world))
         })
         .collect();

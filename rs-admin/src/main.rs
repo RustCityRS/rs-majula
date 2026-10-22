@@ -2,6 +2,7 @@ mod activity;
 mod api;
 mod appeals;
 mod audit;
+mod cache;
 mod canned;
 mod cases;
 mod clips;
@@ -307,6 +308,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     let csp = http::csp(&world_list);
     let worlds = Arc::new(Worlds::new(world_list, web_url, &secret));
     let app = Arc::new(App {
+        caches: Default::default(),
         users,
         sessions: Sessions::default(),
         worlds: worlds.clone(),
@@ -389,5 +391,6 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     })
     .await?;
     exiting.audit.write_lookups(true);
+    exiting.audit.flush();
     Ok(())
 }

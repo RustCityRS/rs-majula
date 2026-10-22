@@ -60,8 +60,11 @@ pub async fn list(
 
 /// The errors seen since `since_ms`, with their worlds and fixed marks.
 async fn views(app: &App, since_ms: i64) -> Result<Vec<ErrorView>, ApiError> {
-    let groups: Vec<ScriptErrorGroup> = app
-        .worlds
+    Ok(marked(app, groups(app, since_ms).await?))
+}
+
+async fn groups(app: &App, since_ms: i64) -> Result<Vec<ScriptErrorGroup>, ApiError> {
+    app.worlds
         .ask(
             path::SCRIPT_ERRORS,
             &ScriptErrorsLookup {
@@ -70,9 +73,13 @@ async fn views(app: &App, since_ms: i64) -> Result<Vec<ErrorView>, ApiError> {
             },
         )
         .await
-        .map_err(unavailable)?;
+        .map_err(unavailable)
+}
+
+/// `groups` with their worlds and fixed marks.
+fn marked(app: &App, groups: Vec<ScriptErrorGroup>) -> Vec<ErrorView> {
     let fixed = app.fixed_errors.all();
-    Ok(groups
+    groups
         .into_iter()
         .map(|error| {
             let fixed = fixed
@@ -90,7 +97,7 @@ async fn views(app: &App, since_ms: i64) -> Result<Vec<ErrorView>, ApiError> {
                 error,
             }
         })
-        .collect())
+        .collect()
 }
 
 #[derive(Serialize)]
@@ -102,7 +109,12 @@ pub struct Summary {
 /// `GET /api/script-errors/summary`: for the nav's count. Maintainers only.
 pub async fn summary(State(app): State<Arc<App>>, staff: Staff) -> Result<Json<Summary>, ApiError> {
     staff.require_maintainer()?;
-    let errors = views(&app, now_ms() as i64 - 24 * HOUR).await?;
+    let groups = app
+        .caches
+        .script_errors
+        .get((), || groups(&app, now_ms() as i64 - 24 * HOUR))
+        .await?;
+    let errors = marked(&app, groups);
     Ok(Json(Summary {
         open: errors
             .iter()

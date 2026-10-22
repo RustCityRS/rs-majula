@@ -108,12 +108,21 @@ pub async fn audit(
 ) -> Response {
     let filter = AuditFilter::new(query.actor.as_deref(), query.q.as_deref());
     let view = AuditView::new(&app, &staff);
-    let entries: Vec<_> = app
-        .audit
-        .page(None, MAX_AUDIT_ROWS, |e| view.shows(e) && filter.keeps(e))
-        .into_iter()
-        .map(|e| view.redact(e))
-        .collect();
+    // It reads back through the file.
+    let reader = app.clone();
+    let entries: Vec<_> = match tokio::task::spawn_blocking(move || {
+        reader
+            .audit
+            .page(None, MAX_AUDIT_ROWS, |e| view.shows(e) && filter.keeps(e))
+            .into_iter()
+            .map(|e| view.redact(e))
+            .collect()
+    })
+    .await
+    {
+        Ok(entries) => entries,
+        Err(e) => return ApiError::internal(e).into_response(),
+    };
     let mut csv = Csv::new(&[
         "id", "time", "actor", "address", "action", "target", "detail", "ok",
     ]);

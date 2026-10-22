@@ -1,3 +1,4 @@
+use super::live;
 use crate::audit::Event;
 use crate::cases::Change;
 use crate::http::{ApiError, App, Staff};
@@ -6,7 +7,6 @@ use crate::users::{TRIAL_MAX_MUTE_HOURS, name_key, now_ms};
 use crate::worlds::{Outcome, Reply};
 use axum::Json;
 use axum::extract::{Query, State};
-use futures_util::future::join_all;
 use rs_admin_api::{Kick, ModAction, ModOutcome, Moderate, path};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -64,16 +64,14 @@ pub async fn search(
     Query(query): Query<SearchQuery>,
 ) -> Json<Search> {
     let needle = name_key(&query.q);
-    let worlds = app.worlds.online();
-    let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
-
     let mut players = Vec::new();
     let mut unreachable = Vec::new();
-    for (world, list) in worlds.iter().zip(lists) {
-        match list {
-            Ok(list) => players.extend(
-                list.into_iter()
+    for listed in live::online(&app).await.iter() {
+        match &listed.players {
+            Some(list) => players.extend(
+                list.iter()
                     .filter(|p| name_key(&p.name).contains(&needle))
+                    .cloned()
                     .map(|mut player| {
                         // Nobody watches staff above them live.
                         if !super::access::may_see(&staff, player.staff_level) {
@@ -81,12 +79,12 @@ pub async fn search(
                         }
                         FoundPlayer {
                             player,
-                            world: world.id,
-                            node: world.node,
+                            world: listed.world,
+                            node: listed.node,
                         }
                     }),
             ),
-            Err(_) => unreachable.push(world.id),
+            None => unreachable.push(listed.world),
         }
     }
     // Exact matches first, then by name.

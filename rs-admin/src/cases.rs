@@ -1,7 +1,7 @@
 use crate::users::{name_key, now_ms};
 use rs_admin_api::{Recovery, RecoveryEvidence};
 use serde::{Deserialize, Serialize};
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::Mutex;
@@ -16,6 +16,9 @@ pub const MAX_TEXT: usize = 4000;
 pub const MAX_DECISION_NOTE: usize = 2000;
 /// Someone looking at a case shows as there for this long after.
 const VIEWING_FOR: Duration = Duration::from_secs(20);
+/// A case closed this long ago is settled for those not on it: when they
+/// last saw it isn't kept.
+const SETTLED_AFTER_MS: u64 = 30 * 24 * 3_600_000;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -382,6 +385,8 @@ pub struct Triage {
 struct Inner {
     cases: BTreeMap<u64, Case>,
     dismissed: HashMap<String, Dismissal>,
+    /// The cases each triage key is evidence in.
+    triaged: HashMap<String, BTreeSet<u64>>,
     next_id: u64,
 }
 
@@ -539,8 +544,34 @@ impl Inner {
             Change::Status { status } => case.status = *status,
             Change::Priority { priority } => case.priority = *priority,
             Change::Retitled { title } => case.title = title.clone(),
-            Change::EvidenceAdded { evidence } => case.evidence.push(evidence.clone()),
-            Change::EvidenceRemoved { key } => case.evidence.retain(|e| e.key() != *key),
+            Change::EvidenceAdded { evidence } => {
+                self.triaged
+                    .entry(evidence.triage_key())
+                    .or_default()
+                    .insert(id);
+                case.evidence.push(evidence.clone());
+            }
+            Change::EvidenceRemoved { key } => {
+                let gone: Vec<String> = case
+                    .evidence
+                    .iter()
+                    .filter(|e| e.key() == *key)
+                    .map(Evidence::triage_key)
+                    .collect();
+                case.evidence.retain(|e| e.key() != *key);
+                // A recording stays in the case while another clip of it is.
+                for triage_key in gone {
+                    if case.evidence.iter().any(|e| e.triage_key() == triage_key) {
+                        continue;
+                    }
+                    if let Some(ids) = self.triaged.get_mut(&triage_key) {
+                        ids.remove(&id);
+                        if ids.is_empty() {
+                            self.triaged.remove(&triage_key);
+                        }
+                    }
+                }
+            }
             Change::Action { ok, .. } => case.actions += u32::from(*ok),
             Change::Closed { resolution, .. } => {
                 case.status = Status::Closed;
@@ -667,7 +698,19 @@ impl Cases {
                 .filter_map(|e| e.case)
                 .filter_map(|id| inner.cases.get(&id).map(|c| (id, c.clone())))
                 .collect(),
-            dismissed: inner.dismissed.clone(),
+            // Only what the entries dismiss or restore is checked.
+            dismissed: entries
+                .iter()
+                .filter(|e| e.case.is_none())
+                .filter_map(|e| match &e.change {
+                    Change::Dismissed { key } | Change::Restored { key } => {
+                        inner.dismissed.get_key_value(key)
+                    }
+                    _ => None,
+                })
+                .map(|(k, d)| (k.clone(), d.clone()))
+                .collect(),
+            triaged: HashMap::new(),
             next_id: inner.next_id,
         };
         for entry in &entries {
@@ -798,6 +841,11 @@ impl Cases {
         self.lock().cases.get(&id).cloned()
     }
 
+    /// Runs `f` on case `id` as it is, without copying it out.
+    pub fn peek<R>(&self, id: u64, f: impl FnOnce(&Case) -> R) -> Option<R> {
+        self.lock().cases.get(&id).map(f)
+    }
+
     /// The case opened for website appeal `id`, if there is one.
     pub fn of_appeal(&self, id: i64) -> Option<u64> {
         self.lock()
@@ -842,26 +890,19 @@ impl Cases {
     /// How each of `keys` stands in the triage queue.
     pub fn triage_of(&self, keys: &[String]) -> HashMap<String, Triage> {
         let inner = self.lock();
-        let mut found: HashMap<String, Triage> = keys
-            .iter()
+        keys.iter()
             .map(|k| {
                 let triage = Triage {
-                    cases: Vec::new(),
+                    cases: inner
+                        .triaged
+                        .get(k)
+                        .map(|ids| ids.iter().copied().collect())
+                        .unwrap_or_default(),
                     dismissed: inner.dismissed.get(k).cloned(),
                 };
                 (k.clone(), triage)
             })
-            .collect();
-        for case in inner.cases.values() {
-            for evidence in &case.evidence {
-                if let Some(triage) = found.get_mut(&evidence.triage_key())
-                    && !triage.cases.contains(&case.id)
-                {
-                    triage.cases.push(case.id);
-                }
-            }
-        }
-        found
+            .collect()
     }
 
     /// The cases changed by someone other than `name` since they last looked
@@ -885,6 +926,17 @@ impl Cases {
                     .any(|e| name_key(&e.by) != me)
             })
             .map(|case| case.id)
+            .collect()
+    }
+
+    /// The cases closed over [`SETTLED_AFTER_MS`] ago that `name` isn't on.
+    pub fn settled(&self, name: &str) -> HashSet<u64> {
+        let before = now_ms().saturating_sub(SETTLED_AFTER_MS);
+        self.lock()
+            .cases
+            .values()
+            .filter(|c| c.closed_ms.is_some_and(|ms| ms < before) && !c.has(name))
+            .map(|c| c.id)
             .collect()
     }
 
@@ -1305,6 +1357,21 @@ mod tests {
             [(1000, 5000), (9000, 12000)]
         );
         assert!(cases.clips_of("78").is_empty());
+        // Out of the case only once neither clip is.
+        let remove = |from_ms, to_ms| {
+            let key = clip(from_ms, to_ms).key();
+            move |_: &Case| Ok(vec![Change::EvidenceRemoved { key }])
+        };
+        let in_triage = |cases: &Cases| {
+            cases.triage_of(&["replay:77".into()])["replay:77"]
+                .cases
+                .clone()
+        };
+        cases.change("Ash", case.id, remove(1000, 5000)).unwrap();
+        assert_eq!(in_triage(&cases), [case.id]);
+        cases.change("Ash", case.id, remove(9000, 12000)).unwrap();
+        assert!(in_triage(&cases).is_empty());
+        assert!(in_triage(&Cases::open(path.clone())).is_empty());
         let _ = std::fs::remove_file(path);
     }
 

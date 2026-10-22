@@ -2,7 +2,7 @@ use crate::store::JsonFile;
 use crate::templates::slug;
 use crate::users::name_key;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::path::PathBuf;
 
 /// The most players one pins.
@@ -176,12 +176,18 @@ impl Prefs {
     }
 
     pub fn of(&self, name: &str) -> StaffPrefs {
+        let key = name_key(name);
         self.file
-            .get()
-            .staff
-            .get(&name_key(name))
-            .cloned()
-            .unwrap_or_default()
+            .read(|file| file.staff.get(&key).cloned().unwrap_or_default())
+    }
+
+    /// Runs `f` on when `name` last saw each case (see [`StaffPrefs::seen`]).
+    pub fn seen<R>(&self, name: &str, f: impl FnOnce(&BTreeMap<u64, u64>) -> R) -> R {
+        let key = name_key(name);
+        self.file.read(|file| match file.staff.get(&key) {
+            Some(prefs) => f(&prefs.seen),
+            None => f(&BTreeMap::new()),
+        })
     }
 
     pub fn change(&self, name: &str, op: PrefsOp) -> Result<StaffPrefs, String> {
@@ -193,25 +199,33 @@ impl Prefs {
     }
 
     /// Notes that `name` saw case `id` as it was at `updated_ms`. Only
-    /// written when it's news.
-    pub fn saw(&self, name: &str, id: u64, updated_ms: u64) {
-        let key = name_key(name);
-        let known = self
-            .file
-            .get()
-            .staff
-            .get(&key)
-            .and_then(|p| p.seen.get(&id).copied());
+    /// written when it's news; `settled` is asked only then.
+    pub fn saw(
+        &self,
+        name: &str,
+        id: u64,
+        updated_ms: u64,
+        settled: impl FnOnce() -> HashSet<u64>,
+    ) {
+        let known = self.seen(name, |seen| seen.get(&id).copied());
         if known.is_some_and(|ms| ms >= updated_ms) {
             return;
         }
-        self.saw_all(name, [(id, updated_ms)]);
+        self.saw_all(name, [(id, updated_ms)], settled());
     }
 
-    /// [`saw`](Self::saw) for many cases.
-    pub fn saw_all(&self, name: &str, cases: impl IntoIterator<Item = (u64, u64)>) {
+    /// [`saw`](Self::saw) for many cases. Those `settled`, long closed
+    /// without them, are forgotten, so the file doesn't grow for ever: if
+    /// one is reopened, it isn't unread for them.
+    pub fn saw_all(
+        &self,
+        name: &str,
+        cases: impl IntoIterator<Item = (u64, u64)>,
+        settled: HashSet<u64>,
+    ) {
         let result = self.file.update(|file| {
             let seen = &mut file.staff.entry(name_key(name)).or_default().seen;
+            seen.retain(|id, _| !settled.contains(id));
             for (id, updated_ms) in cases {
                 let at = seen.entry(id).or_default();
                 *at = (*at).max(updated_ms);

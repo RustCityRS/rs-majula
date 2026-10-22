@@ -350,8 +350,8 @@ pub async fn list(
 ) -> Json<Vec<CaseRow>> {
     let view = CaseView::new(&app, &staff);
     let unread = app
-        .cases
-        .unread(staff.name(), &app.prefs.of(staff.name()).seen);
+        .prefs
+        .seen(staff.name(), |seen| app.cases.unread(staff.name(), seen));
     let player = query
         .player
         .as_deref()
@@ -471,8 +471,8 @@ pub async fn summary(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary>
 /// The cases changed since `staff` last looked that they may see.
 fn visible_unread(app: &App, staff: &Staff, view: &CaseView) -> std::collections::HashSet<u64> {
     let unread = app
-        .cases
-        .unread(staff.name(), &app.prefs.of(staff.name()).seen);
+        .prefs
+        .seen(staff.name(), |seen| app.cases.unread(staff.name(), seen));
     app.cases
         .all(|c| unread.contains(&c.id) && view.sees(c))
         .into_iter()
@@ -496,7 +496,8 @@ pub async fn mark_read(State(app): State<Arc<App>>, staff: Staff) -> Json<Summar
         .all(|c| unread.contains(&c.id))
         .into_iter()
         .map(|c| (c.id, c.updated_ms));
-    app.prefs.saw_all(staff.name(), updated);
+    app.prefs
+        .saw_all(staff.name(), updated, app.cases.settled(staff.name()));
     summary(State(app), staff).await
 }
 
@@ -604,7 +605,9 @@ pub struct CaseDetail {
 
 /// The case as the caller sees it, which counts as their looking at it.
 fn detail(app: &App, staff: &Staff, mut case: Case) -> CaseDetail {
-    app.prefs.saw(staff.name(), case.id, case.updated_ms);
+    app.prefs.saw(staff.name(), case.id, case.updated_ms, || {
+        app.cases.settled(staff.name())
+    });
     let timeline = std::mem::take(&mut case.timeline)
         .into_iter()
         .map(|entry| {
@@ -623,15 +626,54 @@ fn detail(app: &App, staff: &Staff, mut case: Case) -> CaseDetail {
     }
 }
 
-/// `GET /api/cases/{id}`: the case and its timeline. Looking counts as
+#[derive(Deserialize)]
+pub struct GetQuery {
+    /// The case as the caller has it: its `updated_ms` and how long its
+    /// timeline is.
+    seen: Option<u64>,
+    entries: Option<usize>,
+}
+
+#[derive(Serialize)]
+#[serde(untagged)]
+pub enum CaseReply {
+    Changed(Box<CaseDetail>),
+    /// The caller has it as it is; only who's looking may have changed.
+    Unchanged {
+        unchanged: bool,
+        viewing: Vec<String>,
+    },
+}
+
+/// `GET /api/cases/{id}?seen=&entries=`: the case and its timeline, or
+/// just who's looking when the caller has it as it is. Looking counts as
 /// viewing it, for the others on it.
 pub async fn get(
     State(app): State<Arc<App>>,
     staff: Staff,
     Path(id): Path<u64>,
-) -> Result<Json<CaseDetail>, ApiError> {
+    Query(query): Query<GetQuery>,
+) -> Result<Json<CaseReply>, ApiError> {
+    let view = CaseView::new(&app, &staff);
+    let now = app
+        .cases
+        .peek(id, |c| {
+            view.sees(c).then_some((c.updated_ms, c.timeline.len()))
+        })
+        .flatten()
+        .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, format!("There's no case #{id}.")))?;
+    if (query.seen, query.entries) == (Some(now.0), Some(now.1)) {
+        app.prefs
+            .saw(staff.name(), id, now.0, || app.cases.settled(staff.name()));
+        return Ok(Json(CaseReply::Unchanged {
+            unchanged: true,
+            viewing: app.cases.viewing(id, staff.name()),
+        }));
+    }
     let case = visible(&app, &staff, id)?;
-    Ok(Json(detail(&app, &staff, case)))
+    Ok(Json(CaseReply::Changed(Box::new(detail(
+        &app, &staff, case,
+    )))))
 }
 
 #[derive(Deserialize)]

@@ -1,5 +1,6 @@
 use super::AuditFilter;
 use super::access::{AuditView, CaseView};
+use super::live;
 use super::replays::{ReplayView, view};
 use crate::audit::Entry;
 use crate::cases::Case;
@@ -7,7 +8,6 @@ use crate::http::{App, Staff};
 use crate::users::name_key;
 use axum::Json;
 use axum::extract::{Query, State};
-use futures_util::future::join_all;
 use rs_admin_api::{PlayerRecord, PlayerSearch, ReplayGet, ReplayLookup, ReplaySummary, path};
 use serde::{Deserialize, Serialize};
 use std::cmp::Reverse;
@@ -154,17 +154,15 @@ pub async fn search(
 /// shortest first. What the worlds can't answer is left out.
 pub(super) async fn find_players(app: &App, name: &str, limit: usize) -> Vec<FoundPlayer> {
     let key = name_key(name);
-    let worlds = app.worlds.online();
     let online = async {
-        let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
-        worlds
+        live::online(app)
+            .await
             .iter()
-            .zip(lists)
-            .filter_map(|(w, list)| list.ok().map(|list| (w.id, list)))
+            .filter_map(|l| l.players.as_ref().map(|list| (l.world, list)))
             .flat_map(|(world, list)| {
-                list.into_iter()
+                list.iter()
                     .filter(|p| name_key(&p.name).contains(&key))
-                    .map(move |p| (world, p))
+                    .map(move |p| (world, p.clone()))
             })
             .collect::<Vec<_>>()
     };

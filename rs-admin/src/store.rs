@@ -46,6 +46,11 @@ impl<T: Serialize + DeserializeOwned + Default + Clone> JsonFile<T> {
         self.lock().value.clone()
     }
 
+    /// Runs `f` on the value, without copying it out.
+    pub fn read<R>(&self, f: impl FnOnce(&T) -> R) -> R {
+        f(&self.lock().value)
+    }
+
     /// Changes the value with `f` and writes it out; nothing changes if `f`
     /// refuses or the write fails.
     pub fn update<R>(&self, f: impl FnOnce(&mut T) -> Result<R, String>) -> Result<R, String> {

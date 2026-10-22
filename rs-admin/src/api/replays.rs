@@ -84,38 +84,57 @@ pub async fn list(
     if let Some(name) = &name {
         check_player(&app, &staff, name).await?;
     }
-    let mut views = Vec::new();
-    let mut before = query.before;
-    for _ in 0..if query.untriaged { TRIAGE_PAGES } else { 1 } {
-        let rows: Vec<ReplaySummary> = app
-            .worlds
-            .ask(
-                path::REPLAYS,
-                &ReplayLookup {
-                    name: name.clone(),
-                    flagged: query.flagged,
-                    before,
-                    max_staff_level: ceiling(&staff),
-                    limit: PAGE,
-                },
-            )
-            .await
-            .map_err(unavailable)?;
-        let full = rows.len() == PAGE as usize;
-        before = rows.last().map(|r| r.started_ms);
-        views.extend(
-            rows.into_iter()
-                .filter(|r| !hides_self(&staff, &r.player))
-                .map(|r| view(&app, r))
-                .filter(|v| {
-                    !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
-                }),
-        );
-        if !full || views.len() >= PAGE as usize {
-            break;
+    let page = |before| {
+        let lookup = ReplayLookup {
+            name: name.clone(),
+            flagged: query.flagged,
+            before,
+            max_staff_level: ceiling(&staff),
+            limit: PAGE,
+        };
+        let app = &app;
+        async move {
+            app.worlds
+                .ask::<_, Vec<ReplaySummary>>(path::REPLAYS, &lookup)
+                .await
+                .map_err(unavailable)
         }
+    };
+    let views = |rows: Vec<ReplaySummary>| -> Vec<ReplayView> {
+        rows.into_iter()
+            .filter(|r| !hides_self(&staff, &r.player))
+            .map(|r| view(&app, r))
+            .filter(|v| {
+                !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
+            })
+            .collect()
+    };
+    if !query.untriaged {
+        return Ok(Json(views(page(query.before).await?)));
     }
-    Ok(Json(views))
+    // Pages through to a page's worth still to triage, or as far as it goes.
+    let key = (name.clone(), query.flagged, query.before, ceiling(&staff));
+    let rows = app
+        .caches
+        .replays
+        .get(key, || async {
+            let mut rows = Vec::new();
+            let mut before = query.before;
+            let mut found = 0;
+            for _ in 0..TRIAGE_PAGES {
+                let more = page(before).await?;
+                let full = more.len() == PAGE as usize;
+                before = more.last().map(|r| r.started_ms);
+                found += views(more.clone()).len();
+                rows.extend(more);
+                if !full || found >= PAGE as usize {
+                    break;
+                }
+            }
+            Ok::<_, ApiError>(rows)
+        })
+        .await?;
+    Ok(Json(views(rows)))
 }
 
 /// `GET /api/replays/storage`: how much the recordings take up.

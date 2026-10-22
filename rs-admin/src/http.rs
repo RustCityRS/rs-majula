@@ -1,4 +1,5 @@
 use crate::api;
+use crate::api::Caches;
 use crate::api::access::{Roster, StaffLevels};
 use crate::audit::Audit;
 use crate::canned::CannedTexts;
@@ -41,6 +42,7 @@ pub struct HttpConfig {
 }
 
 pub struct App {
+    pub caches: Caches,
     pub users: Users,
     pub sessions: Sessions,
     pub worlds: Arc<Worlds>,
@@ -372,7 +374,8 @@ async fn security_headers(State(app): State<Arc<App>>, req: Request, next: Next)
     let mut response = next.run(req).await;
     let headers = response.headers_mut();
     headers.insert(header::CONTENT_SECURITY_POLICY, app.config.csp.clone());
-    // Uploads, named by their content, may be kept; nothing else.
+    // Uploads, named by their content, and the frontend's files, checked by
+    // tag, may be kept; nothing else.
     let cacheable = headers.contains_key(header::CACHE_CONTROL);
     let mut set = |name: HeaderName, value: &'static str| {
         headers.insert(name, HeaderValue::from_static(value));
@@ -408,7 +411,12 @@ async fn security_headers(State(app): State<Arc<App>>, req: Request, next: Next)
 /// The frontend's files: embedded in release builds, read from disk in
 /// debug builds so edits show on reload.
 mod assets {
+    use axum::body::Bytes;
+    use flate2::Compression;
+    use flate2::write::GzEncoder;
+    use sha2::{Digest, Sha256};
     use std::borrow::Cow;
+    use std::io::Write;
 
     pub struct Asset {
         pub name: &'static str,
@@ -438,8 +446,57 @@ mod assets {
         asset!("fonts/jetbrains-mono.woff2", "font/woff2"),
     ];
 
+    /// An asset as it's sent: tagged by its content, so browsers check
+    /// theirs is current rather than fetch it again, and gzipped when that
+    /// makes it smaller.
+    #[derive(Clone)]
+    pub struct Prepared {
+        pub body: Bytes,
+        pub gzip: Option<Bytes>,
+        pub etag: String,
+    }
+
     impl Asset {
-        pub fn body(&self) -> Cow<'static, [u8]> {
+        /// Worked out once in release builds; every time in debug builds,
+        /// whose files change.
+        pub fn prepared(&self) -> Prepared {
+            #[cfg(debug_assertions)]
+            {
+                self.prepare()
+            }
+            #[cfg(not(debug_assertions))]
+            {
+                use std::sync::OnceLock;
+                static PREPARED: [OnceLock<Prepared>; ASSETS.len()] =
+                    [const { OnceLock::new() }; ASSETS.len()];
+                let i = ASSETS
+                    .iter()
+                    .position(|a| a.name == self.name)
+                    .expect("assets are listed");
+                PREPARED[i].get_or_init(|| self.prepare()).clone()
+            }
+        }
+
+        fn prepare(&self) -> Prepared {
+            let body = Bytes::from(self.body().into_owned());
+            let digest = Sha256::digest(&body);
+            let hex: String = digest[..12].iter().map(|b| format!("{b:02x}")).collect();
+            let mut gz = GzEncoder::new(Vec::new(), Compression::best());
+            let gzip = gz
+                .write_all(&body)
+                .and_then(|()| gz.finish())
+                .ok()
+                .filter(|z| z.len() < body.len())
+                .map(Bytes::from);
+            Prepared {
+                body,
+                gzip,
+                // Weak: the gzipped and plain bodies are the same file.
+                etag: format!("W/\"{hex}\""),
+            }
+        }
+
+        fn body(&self) -> Cow<'static, [u8]> {
             #[cfg(debug_assertions)]
             {
                 let path = concat!(env!("CARGO_MANIFEST_DIR"), "/web/");
@@ -455,12 +512,62 @@ mod assets {
     }
 }
 
-fn serve_asset(name: &str) -> Response {
+fn serve_asset(name: &str, headers: &HeaderMap) -> Response {
     let asset = assets::ASSETS
         .iter()
         .find(|a| a.name == name)
         .unwrap_or(&assets::ASSETS[0]);
-    ([(header::CONTENT_TYPE, asset.content_type)], asset.body()).into_response()
+    let prepared = asset.prepared();
+    let etag = HeaderValue::from_str(&prepared.etag).expect("tags are hex");
+    // Kept, but checked with the console before each use.
+    let cache = [
+        (header::CACHE_CONTROL, HeaderValue::from_static("no-cache")),
+        (header::ETAG, etag),
+        (header::VARY, HeaderValue::from_static("accept-encoding")),
+    ];
+    let current = headers
+        .get_all(header::IF_NONE_MATCH)
+        .iter()
+        .filter_map(|v| v.to_str().ok())
+        .flat_map(|v| v.split(','))
+        .any(|tag| tag.trim() == prepared.etag || tag.trim() == "*");
+    if current {
+        return (StatusCode::NOT_MODIFIED, cache).into_response();
+    }
+    let content_type = (
+        header::CONTENT_TYPE,
+        HeaderValue::from_static(asset.content_type),
+    );
+    match prepared.gzip.filter(|_| accepts_gzip(headers)) {
+        Some(gzip) => (
+            cache,
+            [
+                content_type,
+                (header::CONTENT_ENCODING, HeaderValue::from_static("gzip")),
+            ],
+            gzip,
+        )
+            .into_response(),
+        None => (cache, [content_type], prepared.body).into_response(),
+    }
+}
+
+/// Whether the request's Accept-Encoding takes gzip.
+fn accepts_gzip(headers: &HeaderMap) -> bool {
+    headers
+        .get_all(header::ACCEPT_ENCODING)
+        .iter()
+        .filter_map(|v| v.to_str().ok())
+        .flat_map(|v| v.split(','))
+        .any(|coding| {
+            let mut parts = coding.split(';').map(str::trim);
+            parts.next().is_some_and(|c| c.eq_ignore_ascii_case("gzip"))
+                && parts.all(|p| {
+                    p.strip_prefix("q=")
+                        .and_then(|q| q.parse::<f32>().ok())
+                        .is_none_or(|q| q > 0.0)
+                })
+        })
 }
 
 /// Static files by name; any other page path is the app itself, which
@@ -473,17 +580,21 @@ async fn frontend(req: Request) -> Response {
     if req.method() != Method::GET && req.method() != Method::HEAD {
         return StatusCode::METHOD_NOT_ALLOWED.into_response();
     }
-    serve_asset(if assets::ASSETS.iter().any(|a| a.name == path) {
+    let name = if assets::ASSETS.iter().any(|a| a.name == path) {
         path
     } else {
         "index.html"
-    })
+    };
+    serve_asset(name, req.headers())
 }
 
 pub fn router(app: Arc<App>) -> Router {
     Router::new()
         .nest("/api", api::router())
-        .route("/", get(|| async { serve_asset("index.html") }))
+        .route(
+            "/",
+            get(|headers: HeaderMap| async move { serve_asset("index.html", &headers) }),
+        )
         .fallback(frontend)
         .layer(DefaultBodyLimit::max(MAX_BODY))
         .layer(middleware::from_fn_with_state(app.clone(), same_origin))
@@ -497,6 +608,30 @@ pub fn router(app: Arc<App>) -> Router {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn assets_are_gzipped_and_checked_by_tag() {
+        let get = |pairs: &[(HeaderName, &str)]| {
+            let mut headers = HeaderMap::new();
+            for (name, value) in pairs {
+                headers.append(name, HeaderValue::from_str(value).unwrap());
+            }
+            serve_asset("app.js", &headers)
+        };
+        let plain = get(&[]);
+        assert_eq!(plain.status(), StatusCode::OK);
+        assert!(!plain.headers().contains_key(header::CONTENT_ENCODING));
+        assert_eq!(plain.headers()[header::CACHE_CONTROL], "no-cache");
+        let etag = plain.headers()[header::ETAG].to_str().unwrap().to_owned();
+        let zipped = get(&[(header::ACCEPT_ENCODING, "br, gzip;q=0.8")]);
+        assert_eq!(zipped.headers()[header::CONTENT_ENCODING], "gzip");
+        let refused = get(&[(header::ACCEPT_ENCODING, "gzip;q=0")]);
+        assert!(!refused.headers().contains_key(header::CONTENT_ENCODING));
+        let current = get(&[(header::IF_NONE_MATCH, &etag)]);
+        assert_eq!(current.status(), StatusCode::NOT_MODIFIED);
+        let stale = get(&[(header::IF_NONE_MATCH, "W/\"0\"")]);
+        assert_eq!(stale.status(), StatusCode::OK);
+    }
 
     #[test]
     fn constant_time_eq_compares_whole_strings() {

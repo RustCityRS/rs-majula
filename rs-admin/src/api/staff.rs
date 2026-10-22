@@ -94,7 +94,8 @@ pub async fn member(
         .map_err(ApiError::internal)?
         .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, "There's no account by that name."))?;
     let key = name_key(&user.name);
-    let activity = activity_rows(&app, query.days, |u| name_key(&u.name) == key)?
+    let activity = activity_rows(&app, query.days, |u| name_key(&u.name) == key)
+        .await?
         .into_iter()
         .find(|a| name_key(&a.name) == key);
     let open_sessions = open_sessions(&app, &user)
@@ -303,7 +304,7 @@ pub async fn activity(
     Query(query): Query<ActivityQuery>,
 ) -> Result<Json<Vec<StaffActivity>>, ApiError> {
     staff.require_admin()?;
-    let mut rows = activity_rows(&app, query.days, |u| !u.disabled)?;
+    let mut rows = activity_rows(&app, query.days, |u| !u.disabled).await?;
     let view = AuditView::new(&app, &staff);
     rows.retain(|row| view.sees(&row.name));
     Ok(Json(rows))
@@ -311,8 +312,8 @@ pub async fn activity(
 
 /// What staff did over the last `days` (30 by default): a row for each
 /// account `listed` keeps, and for anyone else who did something.
-fn activity_rows(
-    app: &App,
+async fn activity_rows(
+    app: &Arc<App>,
     days: Option<u64>,
     listed: impl Fn(&User) -> bool,
 ) -> Result<Vec<StaffActivity>, ApiError> {
@@ -326,13 +327,18 @@ fn activity_rows(
         .filter(|u| listed(u))
         .map(|u| (u.name, u.role))
         .collect();
-    let entries = app.audit.since(since_ms, |e| {
-        matches!(
-            e.action.as_str(),
-            "kick" | "mute" | "ban" | "unmute" | "unban"
-        )
-    });
-    Ok(app
-        .cases
-        .read(|cases, dismissed| activity::of(&accounts, cases, dismissed, &entries, since_ms)))
+    let app = app.clone();
+    // It reads back through the audit file.
+    tokio::task::spawn_blocking(move || {
+        let entries = app.audit.since(since_ms, |e| {
+            matches!(
+                e.action.as_str(),
+                "kick" | "mute" | "ban" | "unmute" | "unban"
+            )
+        });
+        app.cases
+            .read(|cases, dismissed| activity::of(&accounts, cases, dismissed, &entries, since_ms))
+    })
+    .await
+    .map_err(ApiError::internal)
 }

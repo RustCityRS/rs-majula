@@ -15,7 +15,37 @@ use rs_admin_api::{
     path,
 };
 use serde::{Deserialize, Serialize};
+use std::convert::Infallible;
 use std::sync::Arc;
+
+/// Who's online on one world: `None` when it didn't answer.
+#[derive(Clone)]
+pub struct Listed {
+    pub world: u16,
+    pub node: u8,
+    pub players: Option<Vec<OnlinePlayer>>,
+}
+
+/// Everyone online on every world, as the worlds said a moment ago.
+pub(super) async fn online(app: &App) -> Arc<Vec<Listed>> {
+    let listed = app.caches.online.get((), || async {
+        let worlds = app.worlds.online();
+        let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
+        let listed = worlds
+            .iter()
+            .zip(lists)
+            .map(|(w, list)| Listed {
+                world: w.id,
+                node: w.node,
+                players: list.ok(),
+            })
+            .collect();
+        Ok::<_, Infallible>(Arc::new(listed))
+    });
+    match listed.await {
+        Ok(listed) => listed,
+    }
+}
 
 #[derive(Serialize)]
 pub struct Positioned {
@@ -33,24 +63,22 @@ pub struct Everyone {
 
 /// `GET /api/live/players`: everyone online on every world, where they are.
 pub async fn players(State(app): State<Arc<App>>, staff: Staff) -> Json<Everyone> {
-    let worlds = app.worlds.online();
-    let lists = join_all(worlds.iter().map(|w| app.worlds.players(w))).await;
     let mut players = Vec::new();
     let mut unreachable = Vec::new();
-    for (world, list) in worlds.iter().zip(lists) {
-        match list {
-            Ok(list) => players.extend(list.into_iter().map(|mut player| {
+    for listed in online(&app).await.iter() {
+        match &listed.players {
+            Some(list) => players.extend(list.iter().cloned().map(|mut player| {
                 // Nobody watches staff above them live.
                 if !may_see(&staff, player.staff_level) {
                     player.replay = None;
                 }
                 Positioned {
                     player,
-                    world: world.id,
-                    node: world.node,
+                    world: listed.world,
+                    node: listed.node,
                 }
             })),
-            Err(_) => unreachable.push(world.id),
+            None => unreachable.push(listed.world),
         }
     }
     Json(Everyone {

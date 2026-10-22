@@ -23,15 +23,47 @@ mod templates;
 mod worlds;
 
 use crate::audit::Entry;
-use crate::http::{App, Staff};
+use crate::cache::Cache;
+use crate::http::{ApiError, App, Staff};
 use crate::users::name_key;
 use access::AuditView;
 use axum::extract::{DefaultBodyLimit, Query, State};
 use axum::routing::{get, post};
 use axum::{Json, Router};
-use rs_admin_api::MAX_MEDIA_BYTES;
+use rs_admin_api::{MAX_MEDIA_BYTES, ReplaySummary, ReportRecord, ScriptErrorGroup};
 use serde::Deserialize;
 use std::sync::Arc;
+use std::time::Duration;
+
+/// What an untriaged sessions walk asked for: whose, only flagged ones,
+/// from when back, and of staff up to which level.
+type ReplaysKey = (Option<String>, bool, Option<i64>, Option<u8>);
+
+/// Answers from the worlds that requests share for a while, rather than
+/// each asking again.
+pub struct Caches {
+    /// The untriaged queues' walks through the worlds' pages, by what they
+    /// asked for. What's in them is checked against the cases afresh each
+    /// time, so only new reports and sessions wait to show.
+    reports: Cache<(Option<String>, Option<i64>), Vec<ReportRecord>>,
+    replays: Cache<ReplaysKey, Vec<ReplaySummary>>,
+    /// Who's online on each world, for every live map and search open.
+    online: Cache<(), Arc<Vec<live::Listed>>>,
+    /// The last day's script errors, for the nav's count. Fixed marks are
+    /// applied afresh.
+    script_errors: Cache<(), Vec<ScriptErrorGroup>>,
+}
+
+impl Default for Caches {
+    fn default() -> Self {
+        Self {
+            reports: Cache::new(Duration::from_secs(30)),
+            replays: Cache::new(Duration::from_secs(30)),
+            online: Cache::new(Duration::from_secs(2)),
+            script_errors: Cache::new(Duration::from_secs(60)),
+        }
+    }
+}
 
 pub fn router() -> Router<Arc<App>> {
     Router::new()
@@ -212,16 +244,19 @@ async fn audit(
     State(app): State<Arc<App>>,
     staff: Staff,
     Query(query): Query<AuditQuery>,
-) -> Json<Vec<Entry>> {
+) -> Result<Json<Vec<Entry>>, ApiError> {
     let filter = AuditFilter::new(query.actor.as_deref(), query.q.as_deref());
     let view = AuditView::new(&app, &staff);
-    Json(
+    let limit = query.limit.unwrap_or(50).min(200);
+    // Older pages and searches read the file.
+    tokio::task::spawn_blocking(move || {
         app.audit
-            .page(query.before, query.limit.unwrap_or(50).min(200), |e| {
-                view.shows(e) && filter.keeps(e)
-            })
+            .page(query.before, limit, |e| view.shows(e) && filter.keeps(e))
             .into_iter()
             .map(|e| view.redact(e))
-            .collect(),
-    )
+            .collect()
+    })
+    .await
+    .map(Json)
+    .map_err(ApiError::internal)
 }

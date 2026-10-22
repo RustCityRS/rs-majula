@@ -241,43 +241,72 @@ pub async fn reports(
         .filter(|n| !n.is_empty())
         .map(checked_name)
         .transpose()?;
-    let mut views = Vec::new();
-    let mut before = query.before;
-    for _ in 0..if query.untriaged { TRIAGE_PAGES } else { 1 } {
-        let rows: Vec<ReportRecord> = app
-            .worlds
-            .ask(
-                path::REPORTS,
-                &ReportLookup {
-                    offender: offender.clone(),
-                    before,
-                    limit: PAGE,
-                },
-            )
-            .await
-            .map_err(unavailable)?;
-        let full = rows.len() == PAGE as usize;
-        before = rows.last().map(|r| r.id);
-        let keys: Vec<String> = rows.iter().map(|r| format!("report:{}", r.id)).collect();
-        let mut triage = app.cases.triage_of(&keys);
-        views.extend(
-            rows.into_iter()
-                .zip(keys)
-                .filter(|(record, _)| !hides_self(&staff, &record.offender))
-                .map(|(record, key)| ReportView {
-                    world: world_of(&app, record.node),
-                    triage: triage.remove(&key).unwrap_or_default(),
-                    record,
-                })
-                .filter(|v| {
-                    !query.untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none())
-                }),
-        );
-        if !full || views.len() >= PAGE as usize {
-            break;
-        }
+    if !query.untriaged {
+        let rows = report_page(&app, offender, query.before).await?;
+        return Ok(Json(report_views(&app, &staff, rows, false)));
     }
-    Ok(Json(views))
+    // Pages through to a page's worth still to triage, or as far as it goes.
+    let rows = app
+        .caches
+        .reports
+        .get((offender.clone(), query.before), || async {
+            let mut rows = Vec::new();
+            let mut before = query.before;
+            let mut found = 0;
+            for _ in 0..TRIAGE_PAGES {
+                let page = report_page(&app, offender.clone(), before).await?;
+                let full = page.len() == PAGE as usize;
+                before = page.last().map(|r| r.id);
+                found += report_views(&app, &staff, page.clone(), true).len();
+                rows.extend(page);
+                if !full || found >= PAGE as usize {
+                    break;
+                }
+            }
+            Ok::<_, ApiError>(rows)
+        })
+        .await?;
+    Ok(Json(report_views(&app, &staff, rows, true)))
+}
+
+async fn report_page(
+    app: &App,
+    offender: Option<String>,
+    before: Option<i64>,
+) -> Result<Vec<ReportRecord>, ApiError> {
+    app.worlds
+        .ask(
+            path::REPORTS,
+            &ReportLookup {
+                offender,
+                before,
+                limit: PAGE,
+            },
+        )
+        .await
+        .map_err(unavailable)
+}
+
+/// `rows` as `staff` sees them, with the cases each is in; only those still
+/// to triage when `untriaged`.
+fn report_views(
+    app: &App,
+    staff: &Staff,
+    rows: Vec<ReportRecord>,
+    untriaged: bool,
+) -> Vec<ReportView> {
+    let keys: Vec<String> = rows.iter().map(|r| format!("report:{}", r.id)).collect();
+    let mut triage = app.cases.triage_of(&keys);
+    rows.into_iter()
+        .zip(keys)
+        .filter(|(record, _)| !hides_self(staff, &record.offender))
+        .map(|(record, key)| ReportView {
+            world: world_of(app, record.node),
+            triage: triage.remove(&key).unwrap_or_default(),
+            record,
+        })
+        .filter(|v| !untriaged || (v.triage.cases.is_empty() && v.triage.dismissed.is_none()))
+        .collect()
 }
 
 /// Whether `staff` may see players' addresses; others see [`address_label`]s.

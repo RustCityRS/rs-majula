@@ -4150,7 +4150,8 @@ async function loadCaseSummary() {
         const [cases, economy, scripts] = await Promise.all([
             api('GET', '/cases/summary'),
             api('GET', '/economy/summary').catch(() => null),
-            isMaintainer() ? api('GET', '/script-errors/summary').catch(() => null) : null,
+            // Only the title needs a hidden tab's attention: detections.
+            isMaintainer() && !document.hidden ? api('GET', '/script-errors/summary').catch(() => null) : null,
         ]);
         state.caseSummary = cases;
         if (economy) state.economyAlerts = economy.open_alerts;
@@ -5906,7 +5907,12 @@ function casePage(ctx) {
     };
     const refresh = async () => {
         try {
-            show(await api('GET', `/cases/${id}`));
+            // What you have already isn't sent again.
+            const have = c ? `?${query({seen: c.updated_ms, entries: c.timeline.length})}` : '';
+            const reply = await api('GET', `/cases/${id}${have}`);
+            if (!reply.unchanged) return show(reply);
+            c.viewing = reply.viewing;
+            drawPresence();
         } catch (e) {
             if (!c) replace(head, pageHead(`Case #${id}`, e.message));
         }
@@ -7891,7 +7897,11 @@ function liveMapTab(ctx, params) {
         sendPlayers();
     };
 
+    // One ask at a time: a slow world doesn't stack them up.
+    let loading = false;
     const load = async () => {
+        if (loading) return;
+        loading = true;
         try {
             const data = await api('GET', '/live/players');
             players = data.players.map(decorate);
@@ -7899,6 +7909,8 @@ function liveMapTab(ctx, params) {
             draw();
         } catch (e) {
             summary.textContent = e.message;
+        } finally {
+            loading = false;
         }
     };
     const loadFlagged = async () => {
