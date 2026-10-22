@@ -10,11 +10,13 @@ const MIN_SAMPLES: usize = 5;
 const MAX_SAMPLES: usize = 200;
 /// A move whose path is no longer than this over its straight line.
 const STRAIGHT: f64 = 1.002;
-/// A move no faster through its middle third than this over its first and
-/// last thirds. People speed up and slow down, about twice as fast midway;
-/// the samples' steps themselves vary even at a steady speed, the 50ms
-/// samples catching a step more or less of whatever moves the cursor.
-const STEADY: f64 = 1.3;
+/// A move whose 50ms steps vary less than this (their spread over their
+/// mean) went at an even pace. People's steps vary about as much as their
+/// mean, as they speed up, slow down and correct: in recorded sessions 9 in
+/// 10 of their moves were over 0.6, and 9 in 10 scripted moves under 0.35. How
+/// much faster the middle of a move is than its ends doesn't tell them
+/// apart: a third of people's moves aren't faster midway at 50ms samples.
+const STEADY: f64 = 0.45;
 /// A move that strays further than this from its straight line (over its
 /// length) is a curve...
 const CURVED: f64 = 0.05;
@@ -91,10 +93,7 @@ impl MousePaths {
         if steps.iter().sum::<f64>() <= distance * STRAIGHT {
             self.straight += 1;
         }
-        let third = steps.len() / 3;
-        let mean = |s: &[f64]| s.iter().sum::<f64>() / s.len().max(1) as f64;
-        let ends = (mean(&steps[..third]) + mean(&steps[steps.len() - third..])) / 2.0;
-        if third > 0 && mean(&steps[third..steps.len() - third]) < ends * STEADY {
+        if super::anticheat::cv(steps.iter().copied()).is_some_and(|cv| cv < STEADY) {
             self.steady += 1;
         }
         // How far off the straight line (over its length) each sample is.
@@ -233,6 +232,7 @@ mod tests {
             |_, t| ease(t),
             |_, t| (t * std::f64::consts::PI).sin() * 30.0,
         );
-        assert_eq!(flags(&p), ["repeated_mouse_curves"]);
+        // Eased at an even pace, so steady too.
+        assert_eq!(flags(&p), ["steady_mouse_moves", "repeated_mouse_curves"]);
     }
 }

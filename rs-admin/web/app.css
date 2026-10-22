@@ -682,7 +682,7 @@ dialog[open] { animation: pop 0.14s ease-out; }
 }
 
 /* Session replays */
-.replay-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+.replay-layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(320px, 22vw, 420px); gap: 16px; align-items: start; }
 .replay-card { overflow: hidden; }
 .replay-stage { position: relative; background: #000; overflow: hidden; min-height: 200px; }
 .replay-stage .empty { min-height: 240px; align-content: center; }
