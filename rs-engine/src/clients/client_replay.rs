@@ -101,7 +101,8 @@ async fn compact_task(db: Db, node_id: u8) {
 /// bytes that saved.
 async fn compact(db: &Db, id: i64) -> Result<i64, rs_db::Error> {
     let chunks = db.replay_chunks(id).await?;
-    let (Some(first), Some(last)) = (chunks.first(), chunks.last()) else {
+    let [first, .., last] = chunks.as_slice() else {
+        db.skip_compacting(id).await?;
         return Ok(0);
     };
     let (start_ms, end_ms, last_seq) = (first.start_ms, last.end_ms, last.seq);

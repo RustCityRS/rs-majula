@@ -149,6 +149,14 @@ const SAVE_HISTORY_DAYS: i32 = 30;
 const SAVE_HISTORY_KEEP: i64 = 5;
 const SAVE_HISTORY_PRUNE: Duration = Duration::from_secs(3600);
 
+/// How long chat, session logs and wealth events are kept, how often
+/// they're pruned (the first time once the world is up and its migrations
+/// ran), and how many rows a delete takes at a time.
+const LOG_DAYS: i32 = 90;
+const LOG_PRUNE: Duration = Duration::from_secs(3600);
+const FIRST_LOG_PRUNE: Duration = Duration::from_secs(5 * 60);
+const LOG_PRUNE_BATCH: i64 = 10_000;
+
 /// The outcome of a [`DbRequest::Authenticate`].
 pub enum AuthResult {
     Accepted {
@@ -283,6 +291,21 @@ async fn lease_task(config: DbConfig, node_id: u8, response_tx: UnboundedSender<
     }
 }
 
+/// Prunes the logs past [`LOG_DAYS`] every [`LOG_PRUNE`] on a connection of
+/// its own: there are a lot of them, and the deletes mustn't hold up saves.
+async fn prune_logs_task(config: DbConfig) {
+    let db = Db::connect_lazy(&config, 1);
+    sleep(FIRST_LOG_PRUNE).await;
+    loop {
+        match db.prune_logs(LOG_DAYS, LOG_PRUNE_BATCH).await {
+            Ok(0) => {}
+            Ok(n) => info!("Pruned {} log rows past {} days", n, LOG_DAYS),
+            Err(e) => warn!("Pruning logs failed: {}", e),
+        }
+        sleep(LOG_PRUNE).await;
+    }
+}
+
 /// Handles a request while the database is unreachable. Saves go straight to
 /// local files (synced on reconnect) and are acked as failed, so a crash
 /// during the outage loses nothing that reached this task; the rest is
@@ -401,6 +424,7 @@ pub async fn db_client_task(
     let max_backoff = Duration::from_secs(30);
     let mut first_connect = true;
     let mut lease: Option<AbortOnDrop> = None;
+    let _pruner = AbortOnDrop(tokio::spawn(prune_logs_task(config.db.clone())));
 
     loop {
         let delay = match Db::connect(&config.db, 2).await {

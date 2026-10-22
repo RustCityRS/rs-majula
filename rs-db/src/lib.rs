@@ -56,6 +56,7 @@ pub use world::WorldStatus;
 
 use sqlx::migrate::{MigrateError, Migrator};
 use sqlx::postgres::{PgConnectOptions, PgPool, PgPoolOptions};
+use std::time::Duration;
 
 /// The embedded schema migrations. Public so other crates' `#[sqlx::test]`s
 /// can build their throwaway databases from it.
@@ -71,8 +72,11 @@ pub struct DbConfig {
     pub pass: String,
 }
 
+/// How long a statement may run before Postgres cancels it.
+const STATEMENT_TIMEOUT: Duration = Duration::from_secs(20);
+
 impl DbConfig {
-    fn options(&self) -> PgConnectOptions {
+    fn options(&self, statement_timeout: Duration) -> PgConnectOptions {
         PgConnectOptions::new()
             .host(&self.host)
             .port(self.port)
@@ -83,8 +87,11 @@ impl DbConfig {
             // client that stalls mid-transaction is cut off so it can't hold
             // a player's row locked.
             .options([
-                ("statement_timeout", "20s"),
-                ("idle_in_transaction_session_timeout", "30s"),
+                (
+                    "statement_timeout",
+                    format!("{}ms", statement_timeout.as_millis()),
+                ),
+                ("idle_in_transaction_session_timeout", "30s".to_owned()),
             ])
     }
 }
@@ -114,7 +121,7 @@ impl Db {
     pub async fn connect(config: &DbConfig, max_connections: u32) -> Result<Self, Error> {
         let pool = PgPoolOptions::new()
             .max_connections(max_connections)
-            .connect_with(config.options())
+            .connect_with(config.options(STATEMENT_TIMEOUT))
             .await?;
         Ok(Self { pool })
     }
@@ -122,9 +129,19 @@ impl Db {
     /// Creates a pool that connects on first use, so a caller can start while
     /// the database is still down.
     pub fn connect_lazy(config: &DbConfig, max_connections: u32) -> Self {
+        Self::connect_lazy_with_timeout(config, max_connections, STATEMENT_TIMEOUT)
+    }
+
+    /// [`Db::connect_lazy`], with statements cancelled after
+    /// `statement_timeout` instead.
+    pub fn connect_lazy_with_timeout(
+        config: &DbConfig,
+        max_connections: u32,
+        statement_timeout: Duration,
+    ) -> Self {
         let pool = PgPoolOptions::new()
             .max_connections(max_connections)
-            .connect_lazy_with(config.options());
+            .connect_lazy_with(config.options(statement_timeout));
         Self { pool }
     }
 

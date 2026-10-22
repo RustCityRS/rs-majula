@@ -113,6 +113,30 @@ impl LogBatch {
     }
 }
 
+/// Deletes up to `$2` of a log table's rows older than `$1` days, oldest
+/// first, skipping the ones another world is deleting.
+macro_rules! prune_oldest {
+    ($table:literal, $keep:literal) => {
+        concat!(
+            "DELETE FROM ",
+            $table,
+            " WHERE id IN (SELECT id FROM ",
+            $table,
+            " WHERE created_at < now() - make_interval(days => $1)",
+            $keep,
+            " ORDER BY created_at LIMIT $2 FOR UPDATE SKIP LOCKED)"
+        )
+    };
+}
+
+/// The logs pruned by age. Staff commands are kept: they're what staff did.
+const PRUNED_LOGS: [&str; 3] = [
+    prune_oldest!("chat_logs", ""),
+    prune_oldest!("session_logs", " AND event_type <> 100"),
+    prune_oldest!("wealth_events", ""),
+];
+const _: () = assert!(log_type::STAFF_COMMAND == 100);
+
 impl Db {
     /// Records logs from world `node_id` in one transaction, keeping each
     /// kind's order. Logs of players who aren't registered are skipped.
@@ -131,6 +155,28 @@ impl Db {
             insert_script_errors(&mut tx, node_id, &logs.script_errors).await?;
         }
         tx.commit().await
+    }
+
+    /// Deletes the chat, session logs and wealth events older than `days`,
+    /// `batch` rows at a time so no one statement runs long. Returns how
+    /// many.
+    pub async fn prune_logs(&self, days: i32, batch: i64) -> Result<u64, Error> {
+        let mut pruned = 0;
+        for sql in PRUNED_LOGS {
+            loop {
+                let deleted = sqlx::query(sql)
+                    .bind(days)
+                    .bind(batch)
+                    .execute(&self.pool)
+                    .await?
+                    .rows_affected();
+                pruned += deleted;
+                if deleted < batch as u64 {
+                    break;
+                }
+            }
+        }
+        Ok(pruned)
     }
 
     /// How many `session_log` events a player's scripts logged in each hour

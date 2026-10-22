@@ -133,7 +133,8 @@ impl Db {
 
     /// Adds `chunk` (if any) to recording `id` with the checks' verdict so
     /// far. `ended` marks the session over; `complete: false` that a chunk
-    /// before this one was lost.
+    /// before this one was lost. A chunk stored after the recording was
+    /// compacted gets it compacted again.
     pub async fn store_replay(
         &self,
         id: i64,
@@ -163,7 +164,8 @@ impl Db {
         sqlx::query(
             "UPDATE replays SET duration_ms = GREATEST(duration_ms, $2), bytes = bytes + $3,
                  score = $4, flags = $5, stats = $6, complete = complete AND $7,
-                 ended_at = CASE WHEN $8 THEN now() ELSE ended_at END, updated_at = now()
+                 ended_at = CASE WHEN $8 THEN now() ELSE ended_at END, updated_at = now(),
+                 compacted = compacted AND NOT $9
              WHERE id = $1",
         )
         .bind(id)
@@ -174,6 +176,7 @@ impl Db {
         .bind(&report.stats)
         .bind(complete)
         .bind(ended)
+        .bind(chunk.is_some())
         .execute(&mut *tx)
         .await?;
         tx.commit().await
@@ -181,7 +184,7 @@ impl Db {
 
     /// Up to `limit` of world `node_id`'s recordings to compact: ended more
     /// than `settle_secs` ago (or not stored to in an hour, the world having
-    /// stopped without ending them) and still in more than one chunk.
+    /// stopped without ending them) and not compacted yet.
     pub async fn replays_to_compact(
         &self,
         node_id: i16,
@@ -190,10 +193,9 @@ impl Db {
     ) -> Result<Vec<i64>, Error> {
         sqlx::query_scalar(
             "SELECT r.id FROM replays r
-             WHERE r.node_id = $1
+             WHERE r.node_id = $1 AND NOT r.compacted
                AND (r.ended_at < now() - make_interval(secs => $2)
                     OR (r.ended_at IS NULL AND r.updated_at < now() - interval '1 hour'))
-               AND EXISTS (SELECT 1 FROM replay_chunks c WHERE c.replay_id = r.id AND c.seq > 0)
              ORDER BY r.id LIMIT $3",
         )
         .bind(node_id)
@@ -231,13 +233,25 @@ impl Db {
         .bind(&chunk.data)
         .execute(&mut *tx)
         .await?;
-        sqlx::query("UPDATE replays SET bytes = GREATEST(bytes - $2 + $3, 0) WHERE id = $1")
+        sqlx::query(
+            "UPDATE replays SET bytes = GREATEST(bytes - $2 + $3, 0), compacted = true WHERE id = $1",
+        )
             .bind(id)
             .bind(freed.unwrap_or(0))
             .bind(chunk.data.len() as i64)
             .execute(&mut *tx)
             .await?;
         tx.commit().await
+    }
+
+    /// Marks recording `id` compacted as it is: it's in one chunk already
+    /// (or none, every one lost).
+    pub async fn skip_compacting(&self, id: i64) -> Result<(), Error> {
+        sqlx::query("UPDATE replays SET compacted = true WHERE id = $1")
+            .bind(id)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
     }
 
     /// How much the recordings take up.

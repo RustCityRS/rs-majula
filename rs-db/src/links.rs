@@ -92,12 +92,14 @@ impl Db {
             "pb AS (SELECT id, registration_ip FROM players WHERE name_hash = $2), ",
             "ips AS (SELECT l.player_id, l.ip FROM login_logs l WHERE l.player_id IN ((SELECT id FROM pa), (SELECT id FROM pb)) ",
             "UNION SELECT id, registration_ip FROM pa WHERE registration_ip IS NOT NULL ",
-            "UNION SELECT id, registration_ip FROM pb WHERE registration_ip IS NOT NULL) ",
+            "UNION SELECT id, registration_ip FROM pb WHERE registration_ip IS NOT NULL), ",
+            "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM ips) ",
+            "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $3) ",
             "SELECT 'browser'::text FROM login_logs x JOIN login_logs y ON x.uid = y.uid ",
             "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) AND x.uid IS NOT NULL ",
             "UNION ALL SELECT 'address'::text FROM ips x JOIN ips y ON x.ip = y.ip ",
             "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) ",
-            "AND (SELECT count(DISTINCT c.player_id) FROM login_logs c WHERE c.ip = x.ip) <= $3 ",
+            "AND x.ip NOT IN (SELECT ip FROM crowded) ",
             "LIMIT 1"
         ))
         .bind(a as i64)
@@ -114,12 +116,14 @@ impl Db {
         sqlx::query_as(concat!(
             "WITH me AS (SELECT id FROM players WHERE name_hash = $1), ",
             "mine AS (SELECT uid, ip, created_at FROM login_logs WHERE player_id = (SELECT id FROM me)), ",
+            "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM mine) ",
+            "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $2), ",
             "shared AS (",
             "SELECT l.player_id, 'browser'::text AS via, l.uid, NULL::inet AS ip FROM login_logs l ",
             "WHERE l.uid IN (SELECT uid FROM mine WHERE uid IS NOT NULL) AND l.player_id <> (SELECT id FROM me) ",
             "UNION SELECT l.player_id, 'address'::text, NULL::int, l.ip FROM login_logs l ",
             "WHERE l.ip IN (SELECT ip FROM mine) AND l.player_id <> (SELECT id FROM me) ",
-            "AND (SELECT count(DISTINCT c.player_id) FROM login_logs c WHERE c.ip = l.ip) <= $2) ",
+            "AND l.ip NOT IN (SELECT ip FROM crowded)) ",
             "SELECT p.display_name AS name, s.via, ",
             ms!("ban.at"),
             " AS banned_ms, bool_or(EXISTS (SELECT 1 FROM mine m WHERE ",
@@ -163,13 +167,15 @@ impl Db {
                 break;
             }
             let hops: Vec<Hop> = sqlx::query_as(concat!(
+                "WITH mine AS (SELECT DISTINCT player_id, ip FROM login_logs WHERE player_id = ANY($1)), ",
+                "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM mine) ",
+                "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $3) ",
                 "SELECT o.player_id, f.player_id AS via_id, 'browser'::text AS link ",
                 "FROM login_logs f JOIN login_logs o ON o.uid = f.uid ",
                 "WHERE f.player_id = ANY($1) AND f.uid IS NOT NULL AND o.player_id <> ALL($2) ",
                 "UNION SELECT o.player_id, f.player_id, 'address'::text ",
-                "FROM login_logs f JOIN login_logs o ON o.ip = f.ip ",
-                "WHERE f.player_id = ANY($1) AND o.player_id <> ALL($2) ",
-                "AND (SELECT count(DISTINCT c.player_id) FROM login_logs c WHERE c.ip = f.ip) <= $3"
+                "FROM mine f JOIN login_logs o ON o.ip = f.ip ",
+                "WHERE o.player_id <> ALL($2) AND f.ip NOT IN (SELECT ip FROM crowded)"
             ))
             .bind(&frontier)
             .bind(seen.iter().copied().collect::<Vec<_>>())
@@ -247,9 +253,11 @@ impl Db {
             "FROM players p WHERE p.banned_until > now()), ",
             "browsers AS (SELECT DISTINCT l.uid, b.id, b.display_name, b.at FROM login_logs l ",
             "JOIN banned b ON b.id = l.player_id WHERE l.uid IS NOT NULL AND b.at IS NOT NULL), ",
-            "addresses AS (SELECT DISTINCT l.ip, b.id, b.display_name, b.at FROM login_logs l ",
-            "JOIN banned b ON b.id = l.player_id WHERE b.at IS NOT NULL ",
-            "AND (SELECT count(DISTINCT c.player_id) FROM login_logs c WHERE c.ip = l.ip) <= $4), ",
+            "used AS (SELECT DISTINCT l.ip, b.id, b.display_name, b.at FROM login_logs l ",
+            "JOIN banned b ON b.id = l.player_id WHERE b.at IS NOT NULL), ",
+            "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM used) ",
+            "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $4), ",
+            "addresses AS (SELECT * FROM used WHERE ip NOT IN (SELECT ip FROM crowded)), ",
             "hits AS (SELECT l.id, l.player_id, l.created_at, d.display_name, d.at, true AS browser ",
             "FROM browsers d JOIN login_logs l ON l.uid = d.uid AND l.player_id <> d.id ",
             "WHERE l.created_at > d.at AND l.created_at > now() - make_interval(days => $1) ",

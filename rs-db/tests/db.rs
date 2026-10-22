@@ -1,8 +1,8 @@
 use rs_db::{
-    AppealFiled, ChatLog, Claim, Db, LogBatch, LoginDevice, ModAction, NewAppeal, NewPlayer,
-    NewReplay, NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk, ReplayReport,
-    Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent,
-    WorldStatus, transfer,
+    AppealFiled, CROWDED_ADDRESS, ChatLog, Claim, Db, LogBatch, LoginDevice, ModAction, NewAppeal,
+    NewPlayer, NewReplay, NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk,
+    ReplayReport, Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor,
+    WealthEvent, WorldStatus, log_type, transfer,
 };
 use sqlx::PgPool;
 
@@ -1139,6 +1139,80 @@ async fn replays_compact_once_over(pool: PgPool) {
         .await
         .unwrap();
     assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [3]);
+    db.skip_compacting(3).await.unwrap();
+    assert!(db.replays_to_compact(10, 300, 10).await.unwrap().is_empty());
+
+    // A chunk stored after compacting: compacted again.
+    db.store_replay(1, Some(&chunk(3, b"h")), 120_000, &clean, true, true)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE replays SET ended_at = now() - interval '10 minutes' WHERE id = 1")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [1]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn old_logs_are_pruned(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let chat = || ChatLog {
+        name_hash: 42,
+        to_name_hash: None,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: "hi".to_owned(),
+    };
+    let session = |event_type| SessionLog {
+        name_hash: 42,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type,
+        event: "event".to_owned(),
+    };
+    let wealth = || WealthEvent {
+        name_hash: 42,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type: transfer::DROP,
+        item: "coins".to_owned(),
+        count: 1,
+        value: 1,
+        counterpart: None,
+    };
+    let batch = || LogBatch {
+        chat: vec![chat(), chat(), chat()],
+        sessions: vec![session(0), session(log_type::STAFF_COMMAND)],
+        wealth: vec![wealth(), wealth()],
+        script_errors: Vec::new(),
+    };
+    db.record_logs(10, &batch()).await.unwrap();
+    for sql in [
+        "UPDATE chat_logs SET created_at = now() - interval '100 days'",
+        "UPDATE session_logs SET created_at = now() - interval '100 days'",
+        "UPDATE wealth_events SET created_at = now() - interval '100 days'",
+    ] {
+        sqlx::query(sql).execute(&pool).await.unwrap();
+    }
+    db.record_logs(10, &batch()).await.unwrap();
+
+    // A row at a time, so every table takes a few deletes.
+    assert_eq!(db.prune_logs(90, 1).await.unwrap(), 3 + 1 + 2);
+    let counts: (i64, i64, i64) = sqlx::query_as(
+        "SELECT (SELECT count(*) FROM chat_logs), (SELECT count(*) FROM session_logs),
+                (SELECT count(*) FROM wealth_events)",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    // The old staff command is kept.
+    assert_eq!(counts, (3, 3, 2));
+    assert_eq!(db.prune_logs(90, 1).await.unwrap(), 0);
 }
 
 #[sqlx::test]
@@ -1349,6 +1423,58 @@ async fn devices_group_logins_with_their_addresses(pool: PgPool) {
     let mut ips = mobile.ips.clone();
     ips.sort();
     assert_eq!(ips, ["198.51.100.2", "203.0.113.7"]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn crowded_addresses_link_nobody(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let last = 2 + CROWDED_ADDRESS as u64;
+    for hash in 1..=last {
+        let name = format!("Player {hash}");
+        db.create_player(&NewPlayer {
+            display_name: &name,
+            staff_mod_level: if hash == 1 { 2 } else { 0 },
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let ip = std::net::IpAddr::from([203, 0, 113, 1]);
+    let device = LoginDevice::default();
+    db.record_login(2, 10, ip, None, &device).await.unwrap();
+    sqlx::query("UPDATE login_logs SET created_at = now() - interval '1 day'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert!(
+        db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
+            .await
+            .unwrap()
+    );
+    // As many accounts as an address may have, the banned one among them:
+    // every other one linked to it.
+    for hash in 3..last {
+        db.record_login(hash, 10, ip, None, &device).await.unwrap();
+    }
+    let evasion = db.ban_evasion(7, 0, 50).await.unwrap();
+    assert_eq!(evasion.len(), CROWDED_ADDRESS as usize - 1);
+    assert_eq!(db.banned_links(3).await.unwrap().len(), 1);
+    assert_eq!(
+        db.link_between(2, 3).await.unwrap().as_deref(),
+        Some("address")
+    );
+    assert_eq!(
+        db.link_chain(2, 1, 50).await.unwrap().len(),
+        CROWDED_ADDRESS as usize - 1
+    );
+
+    // One more and it's crowded: nobody is linked through it.
+    db.record_login(last, 10, ip, None, &device).await.unwrap();
+    assert!(db.ban_evasion(7, 0, 50).await.unwrap().is_empty());
+    assert!(db.banned_links(3).await.unwrap().is_empty());
+    assert_eq!(db.link_between(2, 3).await.unwrap(), None);
+    assert!(db.link_chain(2, 1, 50).await.unwrap().is_empty());
 }
 
 #[sqlx::test]

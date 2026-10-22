@@ -96,6 +96,10 @@ const MAX_LOOKUP_ROWS: u32 = 200;
 /// Database connections kept for lookups, apart from the game's own.
 const LOOKUP_CONNECTIONS: u32 = 2;
 
+/// How long a lookup's statement may run: they share the database with the
+/// game's saves, so a slow one is cut off sooner than the game's own.
+const LOOKUP_TIMEOUT: Duration = Duration::from_secs(10);
+
 /// Ticks the health summary covers: a minute's worth.
 const HEALTH_TICKS: usize = 100;
 
@@ -186,7 +190,7 @@ pub async fn serve(
         node_id,
         members,
         started: Instant::now(),
-        db: Db::connect_lazy(&db, LOOKUP_CONNECTIONS),
+        db: Db::connect_lazy_with_timeout(&db, LOOKUP_CONNECTIONS, LOOKUP_TIMEOUT),
         ticks: Mutex::new(VecDeque::with_capacity(HEALTH_TICKS)),
         connections,
         sys: Mutex::new(System::new()),
