@@ -1,3 +1,5 @@
+use std::str;
+
 /// A tick begins: `varint ms` since the session started. Each chunk's first
 /// tick, so a chunk reads on its own.
 pub const TICK: u8 = 0;
@@ -17,17 +19,58 @@ pub const NOTE: u8 = 5;
 pub const KEYFRAME: u8 = 6;
 /// A later tick in the same chunk: `varint ms` since the tick before.
 pub const TICK_DELTA: u8 = 7;
+/// Something an anti-cheat check caught, or a check first flagging the
+/// session: `varint ms` when (an incident can be judged a while after it),
+/// then `varint len` and UTF-8: the flag, a tab, and what happened (none
+/// for a flag being raised).
+pub const FLAG: u8 = 8;
+/// A script that ran on the player was aborted: `varint len`, UTF-8: the
+/// script, a tab, and the error.
+pub const ERROR: u8 = 9;
 
 /// One recorded entry.
 #[derive(Debug, PartialEq, Eq)]
 pub enum Entry<'a> {
-    Tick { ms: u32 },
+    Tick {
+        ms: u32,
+    },
     Server(&'a [u8]),
-    Client { opcode: u8, data: &'a [u8] },
+    Client {
+        opcode: u8,
+        data: &'a [u8],
+    },
     Login(&'a [u8]),
     Reconnect(&'a [u8]),
     Note(&'a str),
     Keyframe(&'a [u8]),
+    Flag {
+        ms: u32,
+        flag: &'a str,
+        detail: &'a str,
+    },
+    Error {
+        script: &'a str,
+        message: &'a str,
+    },
+}
+
+/// Writes a [`FLAG`] entry.
+pub fn put_flag(out: &mut Vec<u8>, ms: u32, flag: &str, detail: &str) {
+    out.push(FLAG);
+    put_varint(out, ms);
+    put_varint(out, (flag.len() + 1 + detail.len()) as u32);
+    out.extend_from_slice(flag.as_bytes());
+    out.push(b'\t');
+    out.extend_from_slice(detail.as_bytes());
+}
+
+/// Writes an [`ERROR`] entry.
+pub fn put_error(out: &mut Vec<u8>, script: &str, message: &str) {
+    out.push(ERROR);
+    put_varint(out, (script.len() + 1 + message.len()) as u32);
+    out.extend_from_slice(script.as_bytes());
+    out.push(b'\t');
+    out.extend_from_slice(message.as_bytes());
 }
 
 pub fn put_varint(out: &mut Vec<u8>, mut value: u32) {
@@ -105,8 +148,19 @@ impl<'a> Iterator for Reader<'a> {
             }
             LOGIN => Entry::Login(self.bytes()?),
             RECONNECT => Entry::Reconnect(self.bytes()?),
-            NOTE => Entry::Note(std::str::from_utf8(self.bytes()?).ok()?),
+            NOTE => Entry::Note(str::from_utf8(self.bytes()?).ok()?),
             KEYFRAME => Entry::Keyframe(self.bytes()?),
+            FLAG => {
+                let ms = self.varint()?;
+                let text = str::from_utf8(self.bytes()?).ok()?;
+                let (flag, detail) = text.split_once('\t').unwrap_or((text, ""));
+                Entry::Flag { ms, flag, detail }
+            }
+            ERROR => {
+                let text = str::from_utf8(self.bytes()?).ok()?;
+                let (script, message) = text.split_once('\t').unwrap_or((text, ""));
+                Entry::Error { script, message }
+            }
             _ => return None,
         })
     }
@@ -128,6 +182,8 @@ mod tests {
         put_varint(&mut out, 2);
         out.extend_from_slice(&[1, 2]);
         put_bytes(&mut out, NOTE, "Walk here".as_bytes());
+        put_flag(&mut out, 299_000, "clicked_unseen", "an NPC");
+        put_error(&mut out, "[opnpc1,man]", "Stack underflow");
         out.push(TICK_DELTA);
         put_varint(&mut out, 600);
         let entries: Vec<Entry> = Reader::new(&out).collect();
@@ -142,6 +198,15 @@ mod tests {
                     data: &[1, 2]
                 },
                 Entry::Note("Walk here"),
+                Entry::Flag {
+                    ms: 299_000,
+                    flag: "clicked_unseen",
+                    detail: "an NPC"
+                },
+                Entry::Error {
+                    script: "[opnpc1,man]",
+                    message: "Stack underflow"
+                },
                 Entry::Tick { ms: 300_600 },
             ]
         );

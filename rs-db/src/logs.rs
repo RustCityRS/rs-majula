@@ -67,17 +67,49 @@ pub struct WealthEvent {
     pub counterpart: Option<u64>,
 }
 
+/// A script error a world gathered over a minute or so: how many times it
+/// happened to one player, one kind of NPC or the world, and where the
+/// first one was.
+#[derive(Debug, Clone)]
+pub struct ScriptErrorLog {
+    /// When the first and last of them were (Unix ms).
+    pub first_ms: i64,
+    pub last_ms: i64,
+    pub count: i32,
+    /// The script, as `[trigger,subject]`, and where in it.
+    pub script: String,
+    pub file: String,
+    pub line: i32,
+    pub message: String,
+    /// The scripts that called it, innermost first, a line each.
+    pub trace: String,
+    /// The player it ran on, if any.
+    pub name_hash: Option<u64>,
+    /// The NPC it ran on, if any: its debug name.
+    pub npc: Option<String>,
+    pub x: i16,
+    pub z: i16,
+    pub y: i16,
+    /// The player's recording, and how far into it the first one was.
+    pub replay_id: Option<i64>,
+    pub replay_ms: Option<i32>,
+}
+
 /// Logs gathered on a world, each kind in order.
 #[derive(Debug, Default)]
 pub struct LogBatch {
     pub chat: Vec<ChatLog>,
     pub sessions: Vec<SessionLog>,
     pub wealth: Vec<WealthEvent>,
+    pub script_errors: Vec<ScriptErrorLog>,
 }
 
 impl LogBatch {
     pub fn is_empty(&self) -> bool {
-        self.chat.is_empty() && self.sessions.is_empty() && self.wealth.is_empty()
+        self.chat.is_empty()
+            && self.sessions.is_empty()
+            && self.wealth.is_empty()
+            && self.script_errors.is_empty()
     }
 }
 
@@ -94,6 +126,9 @@ impl Db {
         }
         if !logs.wealth.is_empty() {
             insert_wealth(&mut tx, node_id, &logs.wealth).await?;
+        }
+        if !logs.script_errors.is_empty() {
+            insert_script_errors(&mut tx, node_id, &logs.script_errors).await?;
         }
         tx.commit().await
     }
@@ -177,6 +212,62 @@ async fn insert_sessions(
     .bind(&ys)
     .bind(&event_types)
     .bind(&events)
+    .execute(conn)
+    .await?;
+    Ok(())
+}
+
+async fn insert_script_errors(
+    conn: &mut PgConnection,
+    node_id: i16,
+    logs: &[ScriptErrorLog],
+) -> Result<(), Error> {
+    let firsts: Vec<i64> = logs.iter().map(|l| l.first_ms).collect();
+    let lasts: Vec<i64> = logs.iter().map(|l| l.last_ms).collect();
+    let counts: Vec<i32> = logs.iter().map(|l| l.count).collect();
+    let scripts: Vec<&str> = logs.iter().map(|l| l.script.as_str()).collect();
+    let files: Vec<&str> = logs.iter().map(|l| l.file.as_str()).collect();
+    let lines: Vec<i32> = logs.iter().map(|l| l.line).collect();
+    let messages: Vec<&str> = logs.iter().map(|l| l.message.as_str()).collect();
+    let traces: Vec<&str> = logs.iter().map(|l| l.trace.as_str()).collect();
+    let name_hashes: Vec<Option<i64>> =
+        logs.iter().map(|l| l.name_hash.map(|h| h as i64)).collect();
+    let npcs: Vec<Option<&str>> = logs.iter().map(|l| l.npc.as_deref()).collect();
+    let xs: Vec<i16> = logs.iter().map(|l| l.x).collect();
+    let zs: Vec<i16> = logs.iter().map(|l| l.z).collect();
+    let ys: Vec<i16> = logs.iter().map(|l| l.y).collect();
+    let replay_ids: Vec<Option<i64>> = logs.iter().map(|l| l.replay_id).collect();
+    let replay_ms: Vec<Option<i32>> = logs.iter().map(|l| l.replay_ms).collect();
+    sqlx::query(
+        "INSERT INTO script_errors (node_id, first_at, last_at, count, script, file, line,
+                                    message, trace, player_id, npc, x, z, y, replay_id, replay_ms)
+         SELECT $1, to_timestamp(s.first_ms / 1000.0), to_timestamp(s.last_ms / 1000.0), s.count,
+                s.script, s.file, s.line, s.message, s.trace, p.id, s.npc, s.x, s.z, s.y,
+                s.replay_id, s.replay_ms
+         FROM unnest($2::bigint[], $3::bigint[], $4::int[], $5::text[], $6::text[], $7::int[],
+                     $8::text[], $9::text[], $10::bigint[], $11::text[], $12::smallint[],
+                     $13::smallint[], $14::smallint[], $15::bigint[], $16::int[])
+              WITH ORDINALITY AS s (first_ms, last_ms, count, script, file, line, message, trace,
+                                    name_hash, npc, x, z, y, replay_id, replay_ms, ord)
+         LEFT JOIN players p ON p.name_hash = s.name_hash
+         ORDER BY s.ord",
+    )
+    .bind(node_id)
+    .bind(&firsts)
+    .bind(&lasts)
+    .bind(&counts)
+    .bind(&scripts)
+    .bind(&files)
+    .bind(&lines)
+    .bind(&messages)
+    .bind(&traces)
+    .bind(&name_hashes)
+    .bind(&npcs)
+    .bind(&xs)
+    .bind(&zs)
+    .bind(&ys)
+    .bind(&replay_ids)
+    .bind(&replay_ms)
     .execute(conn)
     .await?;
     Ok(())

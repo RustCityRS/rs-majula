@@ -99,6 +99,10 @@ pub mod path {
     /// Recompiles the world's scripts and swaps them in: answered by that
     /// world only.
     pub const RELOAD_SCRIPTS: &str = "/v1/scripts/reload";
+    /// Scripts the worlds aborted with an error: each error summed, and one
+    /// error's rows (whom, where, and their replays).
+    pub const SCRIPT_ERRORS: &str = "/v1/scripts/errors";
+    pub const SCRIPT_ERROR: &str = "/v1/scripts/error";
     /// The website's admin API (`rs-web`), signed the same way.
     pub const NEWS: &str = "/v1/news";
     pub const NEWS_SAVE: &str = "/v1/news/save";
@@ -1431,6 +1435,56 @@ pub struct ScriptsReloaded {
     pub scripts: u32,
     pub compile_ms: u32,
     pub errors: Option<String>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ScriptErrorsLookup {
+    pub since_ms: i64,
+    pub limit: u32,
+}
+
+/// A script error, every time it happened since the lookup's start summed.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ScriptErrorGroup {
+    pub script: String,
+    pub line: i32,
+    pub message: String,
+    pub file: String,
+    /// The scripts that called it, innermost first (the latest one's).
+    pub trace: Vec<String>,
+    pub count: i64,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    pub players: i64,
+    pub npcs: Vec<String>,
+    pub nodes: Vec<u8>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ScriptErrorLookup {
+    pub script: String,
+    pub line: i32,
+    pub message: String,
+    pub limit: u32,
+}
+
+/// One row of a script error: how many times it happened over a minute or
+/// so to one player, kind of NPC or the world, and where the first was.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ScriptErrorRecord {
+    pub node: u8,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    pub count: i32,
+    pub player: Option<String>,
+    pub npc: Option<String>,
+    pub x: i16,
+    pub z: i16,
+    pub y: i16,
+    /// The player's recording, and how far into it the first was.
+    pub replay_id: Option<String>,
+    pub replay_ms: Option<i32>,
+    pub trace: Vec<String>,
 }
 
 /// `ms` as a UTC date and time, as staff notes and logs give times.

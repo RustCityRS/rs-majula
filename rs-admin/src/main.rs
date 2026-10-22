@@ -14,6 +14,7 @@ mod markdown;
 mod notes;
 mod prefs;
 mod schedule;
+mod script_errors;
 mod sessions;
 mod store;
 mod templates;
@@ -26,10 +27,12 @@ use crate::canned::CannedTexts;
 use crate::cases::Cases;
 use crate::clips::Clips;
 use crate::controls::Controls;
+use crate::economy::Economy;
 use crate::http::{App, HttpConfig};
 use crate::notes::Notes;
 use crate::prefs::Prefs;
 use crate::schedule::Schedule;
+use crate::script_errors::FixedErrors;
 use crate::sessions::Sessions;
 use crate::templates::Templates;
 use crate::users::{Role, User, Users, hash_password, now_ms, password_problem};
@@ -317,8 +320,9 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         ),
         canned: CannedTexts::open(data_dir.join("canned.json")),
         clips: Clips::new(data_dir.join("clips")),
+        fixed_errors: FixedErrors::open(data_dir.join("script_errors.json")),
         prefs: Prefs::open(data_dir.join("prefs.json")),
-        economy: economy::Economy::open(&data_dir),
+        economy: Economy::open(&data_dir),
         staff_levels: Default::default(),
         roster: Default::default(),
         address_salt: sessions::random_token(),

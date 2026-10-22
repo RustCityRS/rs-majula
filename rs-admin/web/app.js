@@ -1213,6 +1213,7 @@ const NAV = [
     {path: '/replays', label: 'Replays', icon: 'play', page: replaysPage},
     {path: '/audit', label: 'Audit log', icon: 'list', page: auditPage},
     {path: '/news', label: 'News', icon: 'news', page: newsPage, admin: true},
+    {path: '/script-errors', label: 'Script errors', icon: 'alert', page: scriptErrorsPage, maintainer: true},
     {path: '/staff', label: 'Staff', icon: 'key', page: staffPage, maintainer: true},
     {path: '/account', label: 'Account', icon: 'user', page: accountPage},
 ];
@@ -1408,12 +1409,17 @@ function updateNavCounts() {
         // Open cases, with how many are yours first when any are.
         '/moderation': moderationCount(),
         '/economy': state.economyAlerts ? String(state.economyAlerts) : '',
+        '/script-errors': state.scriptErrors ? String(state.scriptErrors) : '',
     };
     for (const el of document.querySelectorAll('[data-count]')) el.textContent = counts[el.dataset.count] || '';
     // A dot when a case changed since its staff member last looked.
     for (const el of document.querySelectorAll('[data-count="/economy"]')) {
         el.classList.toggle('unread', !!state.economyAlerts);
         el.title = state.economyAlerts ? `${plural(state.economyAlerts, 'economy alert')} nobody has looked at` : '';
+    }
+    for (const el of document.querySelectorAll('[data-count="/script-errors"]')) {
+        el.classList.toggle('alert', !!state.scriptErrors);
+        el.title = state.scriptErrors ? `${plural(state.scriptErrors, 'script error')} in the last day not marked fixed` : '';
     }
     // Red when the console opened a case nobody is on yet.
     const s = state.caseSummary;
@@ -2182,6 +2188,8 @@ const VERBS = {
     sent_home: ['sent home', 'home'],
     password_reset: ['issued a password reset for', 'key', 'accent'],
     items_restored: ['restored items to', 'plus', 'accent'],
+    script_error_fixed: ['marked fixed the script error in', 'check', 'ok'],
+    script_error_reopened: ['reopened the script error in', 'undo'],
     save_rolled_back: ['rolled back the save of', 'undo', 'danger'],
 };
 
@@ -4051,12 +4059,14 @@ function onCases(fn) {
 
 async function loadCaseSummary() {
     try {
-        const [cases, economy] = await Promise.all([
+        const [cases, economy, scripts] = await Promise.all([
             api('GET', '/cases/summary'),
             api('GET', '/economy/summary').catch(() => null),
+            isMaintainer() ? api('GET', '/script-errors/summary').catch(() => null) : null,
         ]);
         state.caseSummary = cases;
         if (economy) state.economyAlerts = economy.open_alerts;
+        if (scripts) state.scriptErrors = scripts.open;
         updateNavCounts();
         announceDetections(cases);
         for (const fn of caseListeners) fn(state.caseSummary);
@@ -6095,6 +6105,7 @@ function replayStats(r) {
         ['Game loop heartbeats', s.heartbeats ? sum(s.heartbeats) : null],
         ['Packets with wrong contents', s.badHeartbeats ? sum(s.badHeartbeats) + sum(s.badOpChecks) + (s.malformedPackets || 0) : null],
         ['Requests turned down', s.rejectedRequests],
+        ['Script errors', s.scriptErrors || null],
         ['Op checks sent / expected', s.opChecksExpected ? `${sum(s.opChecksReceived)} / ${sum(s.opChecksExpected)}` : null],
         ['Reactions', s.reactions?.count ? `${s.reactions.count}, median ${s.reactions.medianMs} ms, ${Math.round(s.reactions.fastShare * 100)}% instant` : null],
         ['Hours played (last 7 days)', s.schedule ? s.schedule.dayHours.join(' / ') : null],
@@ -6364,6 +6375,18 @@ async function dockWarm(replays) {
 }
 
 // A replay file's JSON header.
+// A timeline note in words: `[ms, text]`, or with what marked it,
+// `[ms, text, 'flag', flag]` for a check (no text: the check flagged the
+// session there) or `[ms, error, 'error', script]` for a script error.
+function noteText([, text, kind, what]) {
+    if (kind === 'flag') {
+        const name = FLAGS[what]?.[0] || what;
+        return text ? `${name}: ${text}` : `Flagged: ${name}`;
+    }
+    if (kind === 'error') return `Script error in ${what}: ${text}`;
+    return text;
+}
+
 function fileHeader(file) {
     const view = new DataView(file);
     return JSON.parse(new TextDecoder().decode(new Uint8Array(file, 9, view.getUint32(5))));
@@ -6476,6 +6499,10 @@ function replayPage(ctx) {
     const footHint = h('span', {class: 'muted'}, 'Watching is recorded in the audit log.');
     const speeds = h('div', {class: 'segmented replay-speeds', role: 'group', 'aria-label': 'Speed'});
     const timeline = h('div', {class: 'list replay-notes'});
+    // Which notes the timeline shows: everything, or only the checks' and
+    // scripts' marks.
+    let noteFilter = 'all';
+    const noteFilters = h('div', {class: 'segmented hidden', role: 'group', 'aria-label': 'Show'});
     const checks = h('div', {});
     const seekText = h('span', {});
     const seekBar = h('span', {class: 'replay-seek-bar'});
@@ -7032,18 +7059,41 @@ function replayPage(ctx) {
     };
     // The timeline's marks and notes, from what's come so far.
     const drawTimeline = () => {
-        replace(marks, notes.map(([ms]) => h('span', {style: {left: `${Math.min(100, (ms / total) * 100)}%`}})));
-        replace(timeline, notes.length
-            ? notes.map(([ms, text]) => h('button', {
-                    type: 'button',
-                    class: 'list-item replay-note',
-                    dataset: {ms},
-                    on: {click: () => seek(ms)}
-                },
-                h('span', {class: 'num muted'}, clock(ms / 1000)), h('span', {}, text)))
-            : h('div', {class: 'empty'}, 'Nothing noted.'));
+        drawMarks();
+        const marked = notes.some(([, , kind]) => kind);
+        noteFilters.classList.toggle('hidden', !marked);
+        replace(noteFilters, [['all', 'All'], ['flag', 'Checks'], ['error', 'Errors']].map(([key, label]) => h('button', {
+            type: 'button',
+            'aria-pressed': String(noteFilter === key),
+            on: {
+                click: () => {
+                    noteFilter = key;
+                    drawTimeline();
+                }
+            },
+        }, label)));
+        const shown = noteFilter === 'all' ? notes : notes.filter(([, , kind]) => kind === noteFilter);
+        replace(timeline, shown.length
+            ? shown.map((note) => {
+                const [ms, , kind] = note;
+                return h('button', {
+                        type: 'button',
+                        class: `list-item replay-note ${kind || ''}`,
+                        dataset: {ms},
+                        on: {click: () => seek(ms)}
+                    },
+                    h('span', {class: 'num muted'}, clock(ms / 1000)),
+                    kind && icon(kind === 'error' ? 'alert' : 'shield'),
+                    h('span', {}, noteText(note)));
+            })
+            : h('div', {class: 'empty'}, noteFilter === 'all' ? 'Nothing noted.' : 'None of these.'));
         drawClip();
     };
+    // The marks over the slider, placed by the length so far.
+    const drawMarks = () => replace(marks, notes.map(([ms, , kind]) => h('span', {
+        class: kind || '',
+        style: {left: `${Math.min(100, (ms / total) * 100)}%`}
+    })));
 
     // Clips: marking one, playing it, and handing it on.
     const here = () => Math.round((seekingTo ?? atMs) / 100) * 100;
@@ -7191,11 +7241,11 @@ function replayPage(ctx) {
             }
             total = Math.max(total, header.durationMs || 0);
             if (header.notes.length) {
-                notes = notes.concat(header.notes);
+                // A check's incident can be judged after what came next.
+                notes = notes.concat(header.notes).sort((a, b) => a[0] - b[0]);
                 drawTimeline();
             } else {
-                // The marks are placed by the length so far.
-                replace(marks, notes.map(([ms]) => h('span', {style: {left: `${Math.min(100, (ms / total) * 100)}%`}})));
+                drawMarks();
                 drawClip();
             }
             if (header.live?.ended) {
@@ -7237,8 +7287,156 @@ function replayPage(ctx) {
             h('div', {class: 'replay-side'},
                 h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Anti-cheat checks')), h('div', {class: 'card-body'}, checks)),
                 h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Clips in cases')), clipsList),
-                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'What they did')), timeline))));
+                h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'What they did'), h('div', {class: 'actions'}, noteFilters)), timeline))));
     return page;
+}
+
+// ---------------------------------------------------------------------------
+// Script errors: scripts the worlds aborted, each error with how often, on
+// whom and where, and the replays of players it happened to. Maintainers
+// mark one fixed to set it aside until it happens again.
+
+const SCRIPT_ERROR_WINDOWS = [['24h', 'Last 24 hours'], ['7d', 'Last 7 days'], ['30d', 'Last 30 days']];
+
+// Who an error happened to, in words.
+function scriptErrorWho(e) {
+    const who = [];
+    if (e.players) who.push(plural(e.players, 'player'));
+    if (e.npcs.length) who.push(e.npcs.length > 2 ? `${e.npcs.length} kinds of NPC` : e.npcs.join(', '));
+    return who.join(' · ') || 'The world';
+}
+
+function scriptErrorsPage(ctx) {
+    const params = ctx.params;
+    const win = SCRIPT_ERROR_WINDOWS.some(([k]) => k === params.get('window')) ? params.get('window') : '7d';
+    const showFixed = params.get('fixed') === '1';
+    const picked = params.get('script') !== null
+        ? {script: params.get('script'), line: Number(params.get('line')) || 0, message: params.get('message') || ''}
+        : null;
+    const go = (changes) => {
+        const next = {window: win, fixed: showFixed ? 1 : null, ...changes};
+        navigate(`/script-errors?${query(next)}`);
+    };
+    const keyOf = (e) => ({script: e.script, line: e.line, message: e.message});
+    const isPicked = (e) => picked && e.script === picked.script && e.line === picked.line && e.message === picked.message;
+
+    const chips = h('div', {class: 'chips'}, SCRIPT_ERROR_WINDOWS.map(([k, label]) =>
+        h('button', {type: 'button', class: 'chip', 'aria-pressed': String(win === k), on: {click: () => go({window: k, ...(picked || {})})}}, label)));
+    const fixedChip = h('button', {
+        type: 'button',
+        class: 'chip',
+        'aria-pressed': String(showFixed),
+        on: {click: () => go({fixed: showFixed ? null : 1, ...(picked || {})})}
+    }, icon('check'), 'Show fixed');
+    const note = h('p', {class: 'muted'});
+    const body = tableWindow(spinnerList());
+    const detail = h('div', {});
+
+    const drawList = (list) => {
+        const shown = list.errors.filter((e) => showFixed || !e.fixed || e.came_back);
+        const hidden = list.errors.length - shown.length;
+        note.textContent = `Scripts aborted since ${fullTime(list.since_ms)}, the latest first.${hidden ? ` ${plural(hidden, 'error')} marked fixed ${hidden === 1 ? 'is' : 'are'} hidden.` : ''}`;
+        if (!shown.length) {
+            replace(body, h('div', {class: 'empty'}, icon('check'), list.errors.length ? 'Every error in this window is marked fixed.' : 'No scripts were aborted in this window.'));
+            return;
+        }
+        replace(body, h('table', {class: 'table script-errors'},
+            h('thead', {}, h('tr', {},
+                h('th', {}, 'Script'), h('th', {}, 'Error'), h('th', {class: 'num'}, 'Times'),
+                h('th', {}, 'On'), h('th', {}, 'Worlds'), h('th', {}, 'Last seen'), h('th', {}))),
+            h('tbody', {}, shown.map((e) => h('tr', {
+                    class: `clickable ${isPicked(e) ? 'selected' : ''}`,
+                    on: {click: () => go(keyOf(e))}
+                },
+                h('td', {}, h('div', {class: 'mono'}, e.script), h('div', {class: 'list-sub mono'}, `${e.file}:${e.line}`)),
+                h('td', {class: 'script-error-message'}, e.message),
+                h('td', {class: 'num'}, e.count.toLocaleString()),
+                h('td', {}, scriptErrorWho(e)),
+                h('td', {}, e.worlds.length ? e.worlds.map((w) => `W${w}`).join(' ') : e.nodes.map((n) => `Node ${n}`).join(' ')),
+                h('td', {class: 'num muted', title: fullTime(e.last_ms)}, ago(e.last_ms)),
+                h('td', {}, e.came_back
+                    ? h('span', {class: 'badge danger', title: `Marked fixed by ${e.fixed.by} ${ago(e.fixed.at_ms)}`}, 'Came back')
+                    : e.fixed && h('span', {class: 'badge ok', title: `Marked fixed by ${e.fixed.by} ${ago(e.fixed.at_ms)}`}, icon('check'), 'Fixed')))))));
+    };
+
+    const drawDetail = (e) => {
+        if (!e) {
+            replace(detail, picked ? h('section', {class: 'card'}, h('div', {class: 'empty'}, 'That error wasn\'t seen in this window.')) : null);
+            return;
+        }
+        const rows = tableWindow(spinnerList());
+        const traceText = [`${e.script} - ${e.file}:${e.line}`, ...e.trace].join('\n');
+        const setFixed = async (fixed) => {
+            try {
+                await api('POST', '/script-errors/fixed', {...keyOf(e), fixed});
+                toast(fixed ? 'Marked fixed: it\'s set aside until it happens again.' : 'Taken off the fixed list.');
+                loadCaseSummary();
+                load();
+            } catch (err) {
+                toast(err.message, 'error');
+            }
+        };
+        replace(detail, h('section', {class: 'card'},
+            h('div', {class: 'card-head'}, h('h2', {}, 'Error'),
+                h('div', {class: 'actions'},
+                    button('Copy', {
+                        small: true,
+                        icon: 'copy',
+                        title: 'Copy the error and its trace',
+                        on: {
+                            click: async () => {
+                                await navigator.clipboard.writeText(`${e.message}\n${traceText}`);
+                                toast('Copied.');
+                            }
+                        }
+                    }),
+                    e.fixed && !e.came_back
+                        ? button('Reopen', {small: true, icon: 'undo', on: {click: () => setFixed(false)}})
+                        : button('Mark fixed', {small: true, icon: 'check', kind: 'primary', on: {click: () => setFixed(true)}}))),
+            h('div', {class: 'card-body'},
+                h('div', {class: 'mono script-error-title'}, e.script),
+                h('div', {class: 'callout danger'}, icon('alert'), h('div', {}, e.message)),
+                e.fixed && h('p', {class: e.came_back ? 'tone-danger' : 'muted'},
+                    `Marked fixed by ${e.fixed.by} ${ago(e.fixed.at_ms)}${e.came_back ? `, and it has happened since (last ${ago(e.last_ms)}).` : '.'}`),
+                h('p', {class: 'muted'}, `${plural(e.count, 'time')} on ${scriptErrorWho(e).toLowerCase()}, first ${fullTime(e.first_ms)}, last ${fullTime(e.last_ms)}.`),
+                h('pre', {class: 'compile-errors'}, traceText)),
+            h('div', {class: 'card-head'}, h('h2', {}, 'Where it happened')),
+            rows));
+        api('GET', `/script-errors/rows?${query(keyOf(e))}`).then((list) => {
+            if (!list.length) {
+                replace(rows, h('div', {class: 'empty'}, 'Nothing kept of it.'));
+                return;
+            }
+            replace(rows, h('table', {class: 'table'},
+                h('thead', {}, h('tr', {},
+                    h('th', {}, 'When'), h('th', {class: 'num'}, 'Times'), h('th', {}, 'On'),
+                    h('th', {}, 'Where'), h('th', {}, 'World'), h('th', {}))),
+                h('tbody', {}, list.map((r) => h('tr', {},
+                    h('td', {class: 'muted', title: r.count > 1 ? `${fullTime(r.first_ms)} to ${fullTime(r.last_ms)}` : fullTime(r.first_ms)}, ago(r.last_ms)),
+                    h('td', {class: 'num'}, r.count.toLocaleString()),
+                    h('td', {}, r.player ? playerLink(r.player) : r.npc ? h('span', {class: 'mono'}, r.npc) : h('span', {class: 'muted'}, 'The world')),
+                    h('td', {class: 'mono'}, r.player || r.npc ? `${r.x}, ${r.z}${r.y ? `, level ${r.y}` : ''}` : ''),
+                    h('td', {}, r.world ? `W${r.world}` : `Node ${r.node}`),
+                    h('td', {}, r.replay_id && link(`/replay?${query({id: r.replay_id, t: Math.max(0, (r.replay_ms || 0) - 5000)})}`, {
+                        class: 'btn small ghost',
+                        title: 'Their session, a few seconds before the first time'
+                    }, icon('play'), `Replay at ${clock((r.replay_ms || 0) / 1000)}`)))))));
+        }).catch((err) => failed(rows, err));
+    };
+
+    const load = () => api('GET', `/script-errors?${query({window: win})}`).then((list) => {
+        drawList(list);
+        drawDetail(picked ? list.errors.find(isPicked) : null);
+    }).catch((e) => failed(body, e));
+    load();
+
+    return h('div', {class: 'page'},
+        pageHead('Script errors', 'Scripts the worlds aborted with an error. Errors on a player are marked on their replay too.'),
+        h('div', {class: 'column'},
+            h('div', {class: 'toolbar'}, chips, h('span', {class: 'toolbar-gap'}), fixedChip),
+            note,
+            h('section', {class: 'card'}, body),
+            detail));
 }
 
 // ---------------------------------------------------------------------------

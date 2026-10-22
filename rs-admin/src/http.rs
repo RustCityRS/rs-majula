@@ -1,12 +1,15 @@
 use crate::api;
+use crate::api::access::{Roster, StaffLevels};
 use crate::audit::Audit;
 use crate::canned::CannedTexts;
 use crate::cases::Cases;
 use crate::clips::Clips;
 use crate::controls::Controls;
+use crate::economy::Economy;
 use crate::notes::Notes;
 use crate::prefs::Prefs;
 use crate::schedule::Schedule;
+use crate::script_errors::FixedErrors;
 use crate::sessions::{Session, Sessions, Stage};
 use crate::templates::Templates;
 use crate::users::{Role, User, Users};
@@ -49,10 +52,11 @@ pub struct App {
     pub templates: Templates,
     pub canned: CannedTexts,
     pub clips: Clips,
+    pub fixed_errors: FixedErrors,
     pub prefs: Prefs,
-    pub economy: crate::economy::Economy,
-    pub staff_levels: crate::api::access::StaffLevels,
-    pub roster: crate::api::access::Roster,
+    pub economy: Economy,
+    pub staff_levels: StaffLevels,
+    pub roster: Roster,
     pub address_salt: String,
     pub media_dir: PathBuf,
     pub config: HttpConfig,

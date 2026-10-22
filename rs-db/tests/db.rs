@@ -1,8 +1,8 @@
 use rs_db::{
     AppealFiled, ChatLog, Claim, Db, LogBatch, LoginDevice, ModAction, NewAppeal, NewPlayer,
     NewReplay, NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk, ReplayReport,
-    Sanctions, SavePoint, SaveResult, SessionLog, TimelineCursor, WealthEvent, WorldStatus,
-    transfer,
+    Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent,
+    WorldStatus, transfer,
 };
 use sqlx::PgPool;
 
@@ -326,6 +326,23 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
         event_type,
         event: event.to_owned(),
     };
+    let script_error = |name_hash, npc: Option<&str>, count| ScriptErrorLog {
+        first_ms: 1_800_000_000_000,
+        last_ms: 1_800_000_060_000,
+        count,
+        script: "[opnpc1,man]".to_owned(),
+        file: "man.rs2".to_owned(),
+        line: 12,
+        message: "Stack underflow".to_owned(),
+        trace: "[proc,talk] - talk.rs2:4".to_owned(),
+        name_hash,
+        npc: npc.map(str::to_owned),
+        x: 3222,
+        z: 3218,
+        y: 0,
+        replay_id: name_hash.map(|_| 7),
+        replay_ms: name_hash.map(|_| 1_500),
+    };
     let wealth = |name_hash, item: &str, count, value| WealthEvent {
         name_hash,
         x: 3222,
@@ -352,6 +369,12 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
                 session(42, 0, "Player died"),
             ],
             wealth: vec![wealth(42, "bronze_axe", 1, 16), wealth(99, "lost", 1, 1)],
+            script_errors: vec![
+                script_error(Some(42), None, 3),
+                script_error(None, Some("goblin"), 50),
+                // Not registered: kept, on no one.
+                script_error(Some(99), None, 1),
+            ],
         },
     )
     .await
@@ -388,6 +411,40 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
             .await
             .unwrap();
     assert_eq!(rows, vec![(10, 6, "bronze_axe".to_owned(), 1, 16)]);
+
+    let groups = db.script_error_groups(1_700_000_000_000, 10).await.unwrap();
+    assert_eq!(groups.len(), 1);
+    let group = &groups[0];
+    assert_eq!((group.count, group.players, group.line), (54, 1, 12));
+    assert_eq!(group.npcs, ["goblin"]);
+    assert_eq!(group.nodes, [10]);
+    assert_eq!(
+        (group.first_ms, group.last_ms),
+        (1_800_000_000_000, 1_800_000_060_000)
+    );
+    assert!(
+        db.script_error_groups(1_900_000_000_000, 10)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+    let records = db
+        .script_error_records("[opnpc1,man]", 12, "Stack underflow", 10)
+        .await
+        .unwrap();
+    assert_eq!(records.len(), 3);
+    let on_player = records.iter().find(|r| r.player.is_some()).unwrap();
+    assert_eq!(
+        (on_player.replay_id, on_player.replay_ms, on_player.count),
+        (Some(7), Some(1_500), 3)
+    );
+    assert_eq!(
+        records
+            .iter()
+            .filter(|r| r.player.is_none() && r.npc.is_none())
+            .count(),
+        1
+    );
 }
 
 #[sqlx::test]
@@ -1462,6 +1519,7 @@ async fn timeline_merges_every_log_and_pages(pool: PgPool) {
                 value: 5,
                 counterpart: None,
             }],
+            script_errors: vec![],
         },
     )
     .await

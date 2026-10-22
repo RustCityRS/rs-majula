@@ -350,6 +350,17 @@ impl Zones {
     }
 }
 
+/// Something a check caught, for the replay's timeline: which flag it
+/// counts towards, and what happened.
+#[derive(Debug, PartialEq, Eq)]
+pub struct Incident {
+    pub flag: &'static str,
+    pub detail: String,
+    /// When it happened (ms into the session), if not just now: some are
+    /// only judged a while after.
+    pub ms: Option<u32>,
+}
+
 #[derive(Default)]
 pub struct AntiCheat {
     pub inputs: InputDecoder,
@@ -410,6 +421,10 @@ pub struct AntiCheat {
     pub auto_banned: Option<&'static str>,
     malformed: u32,
     rejected: u32,
+    /// Caught since the watch last marked them.
+    pub incidents: Vec<Incident>,
+    /// Scripts aborted while running on the player.
+    pub script_errors: u32,
 }
 
 impl AntiCheat {
@@ -491,10 +506,26 @@ impl AntiCheat {
         self.decoded = decoded;
     }
 
+    /// Notes what a check caught, just now.
+    fn caught(&mut self, flag: &'static str, detail: impl Into<String>) {
+        self.incidents.push(Incident {
+            flag,
+            detail: detail.into(),
+            ms: None,
+        });
+    }
+
     fn heartbeat(&mut self, index: usize, data: &[u8]) {
         self.heartbeats[index] += 1;
         if !matches(HEARTBEATS[index].0, data) {
             self.bad_heartbeats[index] += 1;
+            self.caught(
+                "modified_client",
+                format!(
+                    "A heartbeat (CYCLELOGIC{}) the real client never sends",
+                    index + 1
+                ),
+            );
         }
     }
 
@@ -502,6 +533,13 @@ impl AntiCheat {
         self.op_received[index] += 1;
         if !matches(OP_CHECKS[index], data) {
             self.bad_op_checks[index] += 1;
+            self.caught(
+                "modified_client",
+                format!(
+                    "An op check (OPLOGIC{}) the real client never sends",
+                    index + 1
+                ),
+            );
         }
     }
 
@@ -624,6 +662,10 @@ impl AntiCheat {
                 .is_none_or(|c| clock.wrapping_sub(c) > 2)
         {
             self.ops_unclicked += 1;
+            self.caught(
+                "actions_without_clicks",
+                "An action with no click before it",
+            );
         }
         // From 254 focus has a report of its own, sent ahead of the actions
         // in the same cycle; before, presses are judged in the input reports.
@@ -677,6 +719,14 @@ impl AntiCheat {
         let lands = path.len() >= MAX_STEPS || matched.is_some();
         if !plausible(trailer) || !lands {
             self.forged_minimap += 1;
+            self.caught(
+                "forged_minimap_click",
+                if lands {
+                    "A minimap click with bytes the real client never sends"
+                } else {
+                    "A minimap click whose path doesn't end where it was clicked"
+                },
+            );
         }
         let b = matched.unwrap_or(base);
         let drawn_x = (i32::from(trailer.fine_x) >> 7) + i32::from(b.x);
@@ -686,6 +736,10 @@ impl AntiCheat {
             .max((drawn_z - i32::from(at.1)).abs());
         if off > MINIMAP_OFF_TILES {
             self.minimap_off += 1;
+            self.caught(
+                "minimap_position_off",
+                format!("A minimap click that drew the player {off} tiles from where they are"),
+            );
         }
     }
 
@@ -743,6 +797,17 @@ impl AntiCheat {
         {
             self.unseen += 1;
             self.unseen_since = Some(clock);
+            let what = match on {
+                Target::Npc(_) => "an NPC".to_owned(),
+                Target::Player(_) => "a player".to_owned(),
+                Target::Loc { id, x, z } => format!("loc {id} at {x}, {z}"),
+                Target::Obj { id, x, z } => format!("obj {id} on the floor at {x}, {z}"),
+                Target::Item(_) => "an item".to_owned(),
+            };
+            self.caught(
+                "clicked_unseen",
+                format!("Acted on {what}, which the client was never sent"),
+            );
         }
     }
 
@@ -786,19 +851,29 @@ impl AntiCheat {
             .front()
             .is_some_and(|&op| now > op + PRESS_WAIT_MS)
         {
-            self.waiting_ops.pop_front();
+            let ms = self.waiting_ops.pop_front();
             self.menu_unpressed += 1;
+            self.incidents.push(Incident {
+                flag: "menu_without_right_click",
+                detail: "A menu option picked without a right click to open the menu".into(),
+                ms,
+            });
         }
     }
 
     /// A packet shorter than any the client sends of its kind.
     pub fn malformed(&mut self) {
         self.malformed += 1;
+        self.caught(
+            "modified_client",
+            "A packet shorter than any the real client sends",
+        );
     }
 
     /// A request the world turned down as one the client wouldn't make.
     pub fn rejected(&mut self) {
         self.rejected += 1;
+        self.caught("rejected_requests", "A request the world turned down");
     }
 
     /// An action that arrived `ms` into the session, for how fast the
@@ -1025,6 +1100,7 @@ impl AntiCheat {
             "badOpChecks": self.bad_op_checks,
             "malformedPackets": self.malformed,
             "rejectedRequests": self.rejected,
+            "scriptErrors": self.script_errors,
         });
         if let Value::Object(stats) = &mut stats {
             stats.extend(more);

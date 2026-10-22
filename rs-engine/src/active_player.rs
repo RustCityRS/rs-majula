@@ -437,7 +437,7 @@ impl ActivePlayer {
 
         self.watch_acting_on();
         self.write_buffered();
-        self.watch.end_tick();
+        self.watch.end_tick(engine().clock);
     }
 
     pub fn cam_moveto(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {

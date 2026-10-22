@@ -735,6 +735,19 @@ dialog[open] { animation: pop 0.14s ease-out; }
 .replay-note:hover { background: var(--sel); }
 .replay-note.past { color: var(--muted); }
 .replay-note .num { min-width: 44px; }
+.replay-note .icon { width: 13px; height: 13px; flex: none; align-self: center; }
+.replay-note.flag .icon { color: var(--warn); }
+.replay-note.error .icon { color: var(--danger); }
+.replay-note.past.flag .icon, .replay-note.past.error .icon { opacity: 0.6; }
+.replay-marks span.flag { width: 2px; height: 6px; background: var(--warn); }
+.replay-marks span.error { width: 2px; height: 6px; background: var(--danger); }
+.card-head .segmented button { padding: 3px 8px; font-size: 12px; }
+
+/* Script errors */
+.script-errors tbody tr { cursor: pointer; }
+.script-errors tbody tr.selected td { background: var(--sel); }
+.script-error-message { max-width: 420px; overflow-wrap: anywhere; }
+.script-error-title { font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
 .replay-stats { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; margin: 0; font-size: 13px; }
 .replay-stats dt { color: var(--muted); }
 .replay-stats dd { margin: 0; text-align: right; }

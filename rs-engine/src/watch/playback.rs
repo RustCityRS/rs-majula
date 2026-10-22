@@ -10,6 +10,7 @@ use rs_util::base37::{to_raw_username, to_screen_name};
 use rs_util::wordpack;
 use serde_json::{Map, Value, json};
 use std::io::Read;
+use std::mem;
 
 /// How long the replay takes to type each key of a line the player sent.
 const KEY_MS: u32 = 70;
@@ -268,6 +269,13 @@ impl Builder {
                     }
                 }
                 Entry::Note(text) => self.notes.push(json!([self.ms, text])),
+                // `[ms, text, kind, what]`: an older page shows the text.
+                Entry::Flag { ms, flag, detail } => {
+                    self.notes.push(json!([ms, detail, "flag", flag]));
+                }
+                Entry::Error { script, message } => {
+                    self.notes.push(json!([self.ms, message, "error", script]));
+                }
                 Entry::Keyframe(bytes) => {
                     self.push(Frame::Keyframe, bytes);
                     self.open = None;
@@ -281,13 +289,13 @@ impl Builder {
     pub fn take(&mut self, extra: Map<String, Value>) -> Vec<u8> {
         // Reports arrive batched, so the clicks may be out of order.
         self.clicks.sort_unstable();
-        let lines = std::mem::take(&mut self.lines);
+        let lines = mem::take(&mut self.lines);
         type_lines(&lines, &self.clicks, &mut self.typed_to, &mut self.inputs);
-        let mut inputs = std::mem::take(&mut self.inputs);
+        let mut inputs = mem::take(&mut self.inputs);
         click_time_minimaps(&mut inputs, &self.clicks);
         // Reports arrive batched, so put the inputs in time order.
         inputs.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
-        let frames = std::mem::take(&mut self.frames);
+        let frames = mem::take(&mut self.frames);
         // What's fed next starts frames of its own, in the next file.
         self.open = None;
 
@@ -302,15 +310,12 @@ impl Builder {
             json!(ClientProt::EventCameraPosition as u8),
         );
         header.insert("durationMs".into(), json!(self.ms));
-        header.insert(
-            "frames".into(),
-            json!(std::mem::take(&mut self.frame_count)),
-        );
+        header.insert("frames".into(), json!(mem::take(&mut self.frame_count)));
         header.insert("inputs".into(), Value::Array(inputs));
-        header.insert(
-            "notes".into(),
-            Value::Array(std::mem::take(&mut self.notes)),
-        );
+        // A check's incident can be judged after what came next.
+        let mut notes = mem::take(&mut self.notes);
+        notes.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
+        header.insert("notes".into(), Value::Array(notes));
         let header = Value::Object(header).to_string();
 
         let mut out = Vec::with_capacity(9 + header.len() + frames.len());
@@ -341,7 +346,36 @@ mod tests {
         // 225's camera report isn't from a click.
         assert_eq!(inputs[2][0], 2_000);
     }
-    use crate::watch::format::{CLIENT, LOGIN, NOTE, SERVER, TICK, put_bytes, put_varint};
+    use crate::watch::format::{
+        CLIENT, LOGIN, NOTE, SERVER, TICK, put_bytes, put_error, put_flag, put_varint,
+    };
+
+    #[test]
+    fn marks_flags_and_errors_in_time_order() {
+        let mut rec = Vec::new();
+        rec.push(TICK);
+        put_varint(&mut rec, 40_000);
+        put_bytes(&mut rec, NOTE, b"Walk here");
+        put_flag(
+            &mut rec,
+            10_000,
+            "menu_without_right_click",
+            "No right click",
+        );
+        put_flag(&mut rec, 40_000, "clicked_unseen", "");
+        put_error(&mut rec, "[opnpc1,man]", "Stack underflow");
+        let file = build(&rec, Map::new());
+        let (header, _) = split(&file);
+        assert_eq!(
+            header["notes"],
+            json!([
+                [10_000, "No right click", "flag", "menu_without_right_click"],
+                [40_000, "Walk here"],
+                [40_000, "", "flag", "clicked_unseen"],
+                [40_000, "Stack underflow", "error", "[opnpc1,man]"],
+            ])
+        );
+    }
 
     #[test]
     fn builds_frames_and_notes() {

@@ -32,13 +32,16 @@ pub fn automated(device: &rs_db::LoginDevice) -> bool {
 
 use crate::counters::{self, COUNTERS};
 use format::{
-    CLIENT, KEYFRAME, LOGIN, NOTE, RECONNECT, SERVER, TICK, TICK_DELTA, put_bytes, put_varint,
+    CLIENT, KEYFRAME, LOGIN, NOTE, RECONNECT, SERVER, TICK, TICK_DELTA, put_bytes, put_error,
+    put_flag, put_varint,
 };
 use rs_db::ReplayReport;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rustc_hash::FxHashMap;
 use state::ClientState;
+use std::mem;
 use std::sync::atomic::{AtomicU8, Ordering};
-use std::time::{Instant, SystemTime, UNIX_EPOCH};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::Sender;
 
 /// A chunk is handed over after this long...
@@ -61,6 +64,12 @@ pub const TRACKING_TICKS: u32 = 17;
 #[cfg(before_274)]
 pub const TRACKING_ENABLED: u8 =
     rs_protocol::network::game::server_prot::ServerProt::EnableTracking as u8;
+
+/// How long after marking one of a check's incidents (or a script's error)
+/// on the timeline the next is left off: a bot repeats them every tick.
+const MARK_GAP_MS: u32 = 5_000;
+/// The most incidents of each check marked in a session.
+const MAX_MARKS: u16 = 200;
 
 /// What a "use" or spell action was done with.
 #[derive(Clone, Copy, Debug, Hash)]
@@ -126,6 +135,10 @@ pub struct Watch {
     recording: Option<Recording>,
     /// Until when staff watch it live (see [`Self::watch_live`]).
     live_until: Option<Instant>,
+    /// The flags marked on the timeline as raised.
+    raised: Vec<String>,
+    /// Each check's (or script error's) last mark, and how many there were.
+    marks: FxHashMap<String, (u32, u16)>,
 }
 
 impl Default for Watch {
@@ -136,6 +149,8 @@ impl Default for Watch {
             arrived: None,
             recording: None,
             live_until: None,
+            raised: Vec::new(),
+            marks: FxHashMap::default(),
         }
     }
 }
@@ -177,6 +192,8 @@ impl Watch {
             arrived: None,
             recording,
             live_until: None,
+            raised: Vec::new(),
+            marks: FxHashMap::default(),
         }
     }
 
@@ -192,7 +209,7 @@ impl Watch {
         if self.recording_id() != Some(id) {
             return false;
         }
-        self.live_until = Some(Instant::now() + std::time::Duration::from_secs(secs));
+        self.live_until = Some(Instant::now() + Duration::from_secs(secs));
         true
     }
 
@@ -329,13 +346,78 @@ impl Watch {
         }
     }
 
+    /// Whether a mark for `what` goes on the timeline `ms` into the session:
+    /// not within [`MARK_GAP_MS`] of the last, nor past [`MAX_MARKS`].
+    fn may_mark(&mut self, what: &str, ms: u32) -> bool {
+        let (last, count) = self.marks.entry(what.to_owned()).or_insert((0, 0));
+        if *count >= MAX_MARKS || (*count > 0 && ms.saturating_sub(*last) < MARK_GAP_MS) {
+            return false;
+        }
+        *last = ms;
+        *count += 1;
+        true
+    }
+
+    /// A script that ran on the player was aborted, on tick `clock`: counted
+    /// for the checks' report, and marked on the timeline.
+    pub fn script_error(&mut self, clock: u32, script: &str, message: &str) {
+        self.anticheat.script_errors += 1;
+        let ms = self.ms();
+        if !self.recording() || !self.may_mark(script, ms) {
+            return;
+        }
+        if let Some(buf) = self.buf(clock) {
+            put_error(buf, script, message);
+        }
+    }
+
+    /// Marks what the checks caught since the last tick, on tick `clock`.
+    fn mark_incidents(&mut self, clock: u32) {
+        if self.anticheat.incidents.is_empty() {
+            return;
+        }
+        let incidents = mem::take(&mut self.anticheat.incidents);
+        if !self.recording() {
+            return;
+        }
+        let now = self.ms();
+        for incident in incidents {
+            let ms = incident.ms.unwrap_or(now);
+            if self.may_mark(incident.flag, ms)
+                && let Some(buf) = self.buf(clock)
+            {
+                put_flag(buf, ms, incident.flag, &incident.detail);
+            }
+        }
+    }
+
+    /// Marks the flags `report` raises that weren't raised before, `ms`
+    /// into the session.
+    fn mark_raised(&mut self, report: &ReplayReport, ms: u32) {
+        let Some(tick) = self.recording.as_ref().filter(|r| !r.lost).map(|r| r.tick) else {
+            return;
+        };
+        for flag in &report.flags {
+            if self.raised.contains(flag) {
+                continue;
+            }
+            self.raised.push(flag.clone());
+            // Within the tick being recorded, or one of its own.
+            if let Some(buf) = self.buf(tick.unwrap_or(u32::MAX)) {
+                put_flag(buf, ms, flag, "");
+            }
+        }
+    }
+
     /// A menu action, for the checks (see [`AntiCheat::op`]).
     pub fn op(&mut self, op: Op, clock: u32, base: MapBase) {
         self.anticheat.op(op, clock, base);
     }
 
-    /// At the end of each tick: hands over the chunk when it's due.
-    pub fn end_tick(&mut self) {
+    /// At the end of tick `clock`: marks what the checks caught, and hands
+    /// over the chunk when it's due.
+    pub fn end_tick(&mut self, clock: u32) {
+        self.mark_incidents(clock);
         let ms = self.ms();
         let live = self.live_until.is_some_and(|until| Instant::now() < until);
         let due = self.recording.as_ref().is_some_and(|r| {
@@ -350,16 +432,20 @@ impl Watch {
     }
 
     fn flush(&mut self, ended: bool) {
+        if self.recording.is_none() {
+            return;
+        }
+        let ms = self.started.elapsed().as_millis() as u32;
+        let report = self.anticheat.report(ms);
+        self.mark_raised(&report, ms);
         let Some(recording) = self.recording.as_mut() else {
             return;
         };
-        let ms = self.started.elapsed().as_millis() as u32;
-        let report = self.anticheat.report(ms);
         let chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
             seq: recording.seq,
             start_ms: recording.chunk_start_ms,
             end_ms: ms,
-            data: std::mem::replace(&mut recording.buf, Vec::with_capacity(CHUNK_BYTES >> 2)),
+            data: mem::replace(&mut recording.buf, Vec::with_capacity(CHUNK_BYTES >> 2)),
         });
         let had_chunk = chunk.is_some();
         let sent = recording.tx.try_send(ReplayRequest::Store {
@@ -392,10 +478,11 @@ mod tests {
     use super::format::{Entry, Reader, TICK, TICK_DELTA};
     use super::{ReplayRequest, Watch, automated};
     use rs_db::LoginDevice;
+    use tokio::sync::mpsc;
 
     #[test]
     fn each_chunk_starts_with_a_whole_tick() {
-        let (tx, mut rx) = tokio::sync::mpsc::channel(16);
+        let (tx, mut rx) = mpsc::channel(16);
         let mut watch = Watch::start(42, 10, Some(&tx));
         for clock in 0..3 {
             watch.note(clock, "a");
@@ -425,6 +512,56 @@ mod tests {
                 .count();
             assert_eq!(read, ticks);
         }
+    }
+
+    #[test]
+    fn marks_incidents_errors_and_raised_flags() {
+        let (tx, mut rx) = mpsc::channel(16);
+        let mut watch = Watch::start(42, 10, Some(&tx));
+        // A bot repeats itself every tick: only the first goes on.
+        for clock in 0..3 {
+            watch.anticheat.malformed();
+            watch.script_error(clock, "[opnpc1,man]", "Stack underflow");
+            watch.end_tick(clock);
+        }
+        assert_eq!(watch.anticheat.script_errors, 3);
+        drop(watch);
+        let mut recording = Vec::new();
+        while let Ok(req) = rx.try_recv() {
+            if let ReplayRequest::Store {
+                chunk: Some(chunk), ..
+            } = req
+            {
+                recording.extend(chunk.data);
+            }
+        }
+        let marks: Vec<Entry> = Reader::new(&recording)
+            .filter(|e| matches!(e, Entry::Flag { .. } | Entry::Error { .. }))
+            .collect();
+        assert!(
+            matches!(
+                marks[..],
+                [
+                    Entry::Error {
+                        script: "[opnpc1,man]",
+                        message: "Stack underflow"
+                    },
+                    Entry::Flag {
+                        flag: "modified_client",
+                        detail: "A packet shorter than any the real client sends",
+                        ..
+                    },
+                    // Raised when the chunk went.
+                    Entry::Flag {
+                        flag: "modified_client",
+                        detail: "",
+                        ..
+                    },
+                    ..
+                ]
+            ),
+            "{marks:?}"
+        );
     }
 
     #[test]

@@ -77,6 +77,7 @@ pub struct Counters {
     pub replay_chunks: AtomicU64,
     pub replay_bytes: AtomicU64,
     pub replay_chunks_dropped: AtomicU64,
+    pub script_errors: AtomicU64,
 }
 
 pub static COUNTERS: Counters = Counters {
@@ -95,6 +96,7 @@ pub static COUNTERS: Counters = Counters {
     replay_chunks: AtomicU64::new(0),
     replay_bytes: AtomicU64::new(0),
     replay_chunks_dropped: AtomicU64::new(0),
+    script_errors: AtomicU64::new(0),
 };
 
 /// Adds `n` to a total.

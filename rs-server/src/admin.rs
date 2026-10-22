@@ -25,6 +25,7 @@ use rs_admin_api::{
     TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup,
     Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
 };
+use rs_admin_api::{ScriptErrorGroup, ScriptErrorLookup, ScriptErrorRecord, ScriptErrorsLookup};
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
 use rs_engine::console::{self, Change};
 use rs_engine::controls::{self, Controls};
@@ -247,6 +248,8 @@ pub async fn serve(
         .route(path::HISCORES_CHANGE, post(hiscores_change))
         .route(path::HISCORES_KEPT_OFF, post(hiscores_kept_off))
         .route(path::RELOAD_SCRIPTS, post(reload_scripts))
+        .route(path::SCRIPT_ERRORS, post(script_errors_lookup))
+        .route(path::SCRIPT_ERROR, post(script_error_lookup))
         .layer(middleware::from_fn_with_state(state.clone(), authenticate))
         .with_state(state);
     if let Err(e) = axum::serve(listener, router).await {
@@ -1422,6 +1425,79 @@ async fn anticheat_lookup(
                 online_node: node(r.online_node),
                 muted_until_ms: r.muted_until_ms,
                 banned_until_ms: r.banned_until_ms,
+            })
+            .collect(),
+    ))
+}
+
+/// The most script errors (or rows of one) a lookup returns.
+const MAX_SCRIPT_ERRORS: u32 = 500;
+
+/// A script error's trace, a caller a line.
+fn trace_lines(trace: &str) -> Vec<String> {
+    trace.lines().map(str::to_owned).collect()
+}
+
+async fn script_errors_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ScriptErrorsLookup>,
+) -> Result<Json<Vec<ScriptErrorGroup>>, StatusCode> {
+    let rows = state
+        .db
+        .script_error_groups(
+            req.since_ms,
+            i64::from(req.limit.clamp(1, MAX_SCRIPT_ERRORS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| ScriptErrorGroup {
+                trace: trace_lines(&r.trace),
+                script: r.script,
+                line: r.line,
+                message: r.message,
+                file: r.file,
+                count: r.count,
+                first_ms: r.first_ms,
+                last_ms: r.last_ms,
+                players: r.players,
+                npcs: r.npcs,
+                nodes: r.nodes.into_iter().filter_map(|n| node(Some(n))).collect(),
+            })
+            .collect(),
+    ))
+}
+
+async fn script_error_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<ScriptErrorLookup>,
+) -> Result<Json<Vec<ScriptErrorRecord>>, StatusCode> {
+    let rows = state
+        .db
+        .script_error_records(
+            &req.script,
+            req.line,
+            &req.message,
+            i64::from(req.limit.clamp(1, MAX_SCRIPT_ERRORS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| ScriptErrorRecord {
+                node: node(Some(r.node_id)).unwrap_or_default(),
+                first_ms: r.first_ms,
+                last_ms: r.last_ms,
+                count: r.count,
+                player: r.player,
+                npc: r.npc,
+                x: r.x,
+                z: r.z,
+                y: r.y,
+                replay_id: r.replay_id.map(|id| id.to_string()),
+                replay_ms: r.replay_ms,
+                trace: trace_lines(&r.trace),
             })
             .collect(),
     ))

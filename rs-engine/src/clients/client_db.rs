@@ -140,6 +140,8 @@ pub const AUTO_BAN_HOURS: i32 = 48;
 /// How long logins (and the addresses they came from) are kept, for staff
 /// to link accounts by.
 const LOGIN_LOG_DAYS: i32 = 180;
+/// How long a script error is kept after it was last seen.
+const SCRIPT_ERROR_DAYS: i32 = 30;
 
 /// How long earlier saves are kept to roll players back to, and how many of
 /// each player's newest are kept however old, and how often they're pruned.
@@ -845,6 +847,7 @@ async fn run_requests(
                 }
                 db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
                 db.prune_login_logs(LOGIN_LOG_DAYS).await?;
+                db.prune_script_errors(SCRIPT_ERROR_DAYS).await?;
                 if history_pruned.is_none_or(|at| at.elapsed() > SAVE_HISTORY_PRUNE) {
                     history_pruned = Some(Instant::now());
                     let pruned = db

@@ -4,11 +4,12 @@ use crate::clients::client_db::{DB_FENCE, DbRequest, DbResponse};
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
 use crate::controls::{Controls, DISABLED_MESSAGE};
-use crate::counters::COUNTERS;
+use crate::counters::{self, COUNTERS};
 use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
 use crate::phases::shared::panic_message;
 use crate::player_save::*;
+use crate::script_errors::{Context, ScriptErrors, Subject};
 use crate::watch::schedule::{self, End, Played, Schedule};
 use crate::watch::{ReplayRequest, Target, Watch};
 use crate::{MAX_NPCS, MAX_PLAYERS};
@@ -59,7 +60,9 @@ use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 pub use rs_vm::engine::with_engine;
-use rs_vm::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut};
+use rs_vm::engine::{
+    ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut,
+};
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
 use rs_vm::state::*;
@@ -574,6 +577,8 @@ pub struct Engine {
     pub offline_edits: FxHashSet<u64>,
     pub db_lease: Option<Instant>,
     pub logs: LogBatch,
+    /// Script errors gathered for the next [`LogBatch`].
+    pub script_errors: ScriptErrors,
     pub random: JavaRandom,
     pub vars: VarSet,
     /// A reusable [`ScriptState`] kept alive between script invocations to
@@ -719,6 +724,7 @@ impl Engine {
             offline_edits: FxHashSet::default(),
             db_lease: None,
             logs: LogBatch::default(),
+            script_errors: ScriptErrors::default(),
             random: JavaRandom::new(1084838400000),
             vars,
             reusable_script: None,
@@ -4315,6 +4321,78 @@ impl ScriptEngine for Engine {
     /// **Calls:** `VarSet::set`
     fn set_var(&mut self, id: u16, value: VarValue) {
         self.vars.set(id, value.clone());
+    }
+
+    /// Gathers a script error for staff ([`ScriptErrors`]), and marks it in
+    /// the recording of the player it ran on.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `rs_vm::vm::report_error` via `ScriptEngine`
+    /// **Calls:** `Watch::script_error`, `ScriptErrors::add`
+    fn script_error(&mut self, fault: ScriptFault) {
+        counters::add(&COUNTERS.script_errors, 1);
+        let clock = self.clock;
+        let player = fault.player.and_then(|uid| {
+            self.player_list
+                .get_mut(uid.pid())
+                .filter(|a| a.player.uid.packed() == uid.packed())
+        });
+        let context = if let Some(active) = player {
+            active
+                .watch
+                .script_error(clock, &fault.script, &fault.message);
+            let coord = active.player.pathing.coord;
+            let replay_id = active.watch.recording_id();
+            Context {
+                subject: if active.player.bot {
+                    Subject::World
+                } else {
+                    Subject::Player(active.player.uid.username37())
+                },
+                npc: None,
+                x: coord.x() as i16,
+                z: coord.z() as i16,
+                y: i16::from(coord.y()),
+                replay_id,
+                replay_ms: replay_id.map(|_| active.watch.ms() as i32),
+            }
+        } else if let Some(active) = fault.npc.and_then(|uid| {
+            self.npc_list
+                .get(uid.nid())
+                .filter(|a| a.npc.uid.packed() == uid.packed())
+        }) {
+            let coord = active.coord();
+            let id = active.npc.uid.id();
+            Context {
+                subject: Subject::Npc(id),
+                npc: Some(
+                    <Self as ScriptEngine>::npcs(self)
+                        .get_by_id(id)
+                        .and_then(|t| t.debugname())
+                        .map_or_else(|| format!("npc_{id}"), str::to_owned),
+                ),
+                x: coord.x() as i16,
+                z: coord.z() as i16,
+                y: i16::from(coord.y()),
+                replay_id: None,
+                replay_ms: None,
+            }
+        } else {
+            Context {
+                subject: Subject::World,
+                npc: None,
+                x: 0,
+                z: 0,
+                y: 0,
+                replay_id: None,
+                replay_ms: None,
+            }
+        };
+        // Without a database there's nowhere to keep them.
+        if self.db_tx.is_some() {
+            self.script_errors.add(&fault, context, self.cycle_date_ms);
+        }
     }
 }
 

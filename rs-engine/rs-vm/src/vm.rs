@@ -1,4 +1,4 @@
-use crate::engine::{ScriptEngine, ScriptPlayer};
+use crate::engine::{ScriptEngine, ScriptFault, ScriptPlayer, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::get_active_player_mut;
@@ -57,10 +57,8 @@ pub fn execute<E: ScriptEngine + 'static>(
     state.execution = ExecutionState::Running;
     while state.execution == ExecutionState::Running {
         if state.opcount >= MAX_INSTRUCTIONS {
-            error!(
-                "Script {} hit instruction limit ({MAX_INSTRUCTIONS})",
-                state.script.info.name
-            );
+            let err = format!("hit the instruction limit ({MAX_INSTRUCTIONS})");
+            report_error::<E>(state, &err);
             state.execution = ExecutionState::Aborted;
             break;
         }
@@ -69,11 +67,12 @@ pub fn execute<E: ScriptEngine + 'static>(
         state.opcount += 1;
 
         if state.pc < 0 || state.pc >= state.script.opcodes.len() as i32 {
-            error!(
-                "Invalid program counter: {}, max expected: {}",
+            let err = format!(
+                "invalid program counter: {}, max expected: {}",
                 state.pc,
                 state.script.opcodes.len()
             );
+            report_error::<E>(state, &err);
             state.execution = ExecutionState::Aborted;
             break;
         }
@@ -154,8 +153,9 @@ fn report<E: ScriptEngine + 'static>(
     }
 }
 
-/// Logs a script error with a full stack backtrace and, in debug builds,
-/// displays the same information to active players as in-game messages.
+/// Logs a script error with a full stack backtrace, hands it to the engine
+/// for staff ([`ScriptEngine::script_error`]) and, in debug builds, displays
+/// the same information to active players as in-game messages.
 ///
 /// The backtrace is constructed from the `goto_frame_stack` in `state`,
 /// walking backwards from the current frame to the root. Each frame
@@ -174,8 +174,8 @@ fn report<E: ScriptEngine + 'static>(
 ///
 /// # Call Stack
 /// **Called by:** [`execute`] (on unhandled opcodes and handler errors).
-/// **Calls:** `tracing::error!`, [`report`] (debug only),
-/// [`ScriptPlayer::message_game_wrapped`].
+/// **Calls:** `tracing::error!`, [`ScriptEngine::script_error`], [`report`]
+/// (debug only), [`ScriptPlayer::message_game_wrapped`].
 fn report_error<E: ScriptEngine + 'static>(state: &mut ScriptState, msg: &str) {
     let file_name = state.script.info.file_name().to_string();
     let name = state.script.info.name.clone();
@@ -210,6 +210,19 @@ fn report_error<E: ScriptEngine + 'static>(state: &mut ScriptState, msg: &str) {
     for line in &lines {
         error!("{line}");
     }
+
+    engine_mut::<E>().script_error(ScriptFault {
+        script: name.into(),
+        file: file_name,
+        line,
+        message: msg.to_owned(),
+        trace: frames
+            .into_iter()
+            .map(|(name, file_name, line)| format!("{name} - {file_name}:{line}"))
+            .collect(),
+        player: state.active_player.or(state.active_player2),
+        npc: state.active_npc.or(state.active_npc2),
+    });
 
     #[cfg(debug_assertions)]
     report::<E>(state, |player| {

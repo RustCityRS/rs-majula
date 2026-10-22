@@ -15,6 +15,7 @@ mod players;
 mod prefs;
 mod replays;
 mod schedule;
+mod scripts;
 mod search;
 mod staff;
 mod support;
@@ -150,6 +151,10 @@ pub fn router() -> Router<Arc<App>> {
             post(news::upload).layer(DefaultBodyLimit::max(MAX_MEDIA_BYTES)),
         )
         .route("/news/media/{name}", get(news::media))
+        .route("/script-errors", get(scripts::list))
+        .route("/script-errors/rows", get(scripts::rows))
+        .route("/script-errors/summary", get(scripts::summary))
+        .route("/script-errors/fixed", post(scripts::set_fixed))
         .route("/audit", get(audit))
         .route("/search", get(search::search))
         .route("/export/audit", get(export::audit))

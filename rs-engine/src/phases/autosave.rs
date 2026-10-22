@@ -1,6 +1,7 @@
 use crate::clients::client_db::DbRequest;
 use crate::engine::Engine;
 use crate::player_save::{extract_profile, save_binary};
+use crate::script_errors::FLUSH_TICKS;
 use rs_vm::engine::ScriptPlayer;
 use tracing::info;
 
@@ -52,6 +53,9 @@ impl Engine {
             }
         }
 
+        if self.clock.is_multiple_of(FLUSH_TICKS) {
+            self.logs.script_errors = self.script_errors.take();
+        }
         if !self.logs.is_empty()
             && let Some(tx) = &self.db_tx
         {

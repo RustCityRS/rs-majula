@@ -14,6 +14,7 @@ mod handlers;
 mod info;
 mod phases;
 mod player_save;
+mod script_errors;
 pub mod support;
 pub mod watch;
 

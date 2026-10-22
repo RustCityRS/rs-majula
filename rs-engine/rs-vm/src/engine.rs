@@ -565,6 +565,21 @@ pub trait ScriptEngine {
     /// * `id` - The vars definition ID.
     /// * `value` - The new value to set.
     fn set_var(&mut self, id: u16, value: VarValue);
+
+    /// A script was aborted: `fault` says where, why and on whom, for staff.
+    fn script_error(&mut self, fault: ScriptFault);
+}
+
+/// A script that was aborted, as [`ScriptEngine::script_error`] hears of it.
+#[derive(Debug, Clone)]
+pub struct ScriptFault {
+    pub script: String,
+    pub file: String,
+    pub line: i32,
+    pub message: String,
+    pub trace: Vec<String>,
+    pub player: Option<PlayerUid>,
+    pub npc: Option<crate::NpcUid>,
 }
 
 /// Player-level operations available to the script VM.
