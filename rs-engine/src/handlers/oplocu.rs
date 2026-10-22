@@ -63,6 +63,11 @@ impl ClientGameHandler for OpLocU {
             active.unset_map_flag();
             return Ok(());
         };
+        if active.shown_loc(self.loc).is_none() {
+            // bad client: the loc shows as nothing to click
+            active.unset_map_flag();
+            return Ok(());
+        }
 
         let target = loc_target(CoordGrid::new(self.x, y, self.z), loc);
 

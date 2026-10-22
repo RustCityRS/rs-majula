@@ -948,10 +948,13 @@ impl ActivePlayer {
                     let level = t.vislevel.map_or(-1, i32::from);
                     !menu::npc(t.op.as_deref(), op, level, self.player.combat_level.into())
                 }),
-            Op::Loc { op, id, .. } => engine
-                .locs()
-                .get_by_id(id)
-                .is_some_and(|t| !t.multi && !menu::loc(t.op.as_deref(), op)),
+            // The web client doesn't turn locs into others (from 289), so
+            // what it offers on one that turns isn't judged.
+            Op::Loc { op, id, .. } => self
+                .shown_loc(id)
+                .filter(|&shown| shown == id || !self.watch.anticheat.device.web)
+                .and_then(|id| engine.locs().get_by_id(id))
+                .is_some_and(|t| !menu::loc(t.op.as_deref(), op)),
             Op::Obj { op, id, .. } => {
                 obj(id).is_some_and(|t| !menu::ground_obj(t.op.as_deref(), op))
             }
@@ -1034,6 +1037,36 @@ impl ActivePlayer {
 
     /// Records a walk click on the game screen or the minimap.
     /// Where the client's map starts, as the world last sent it.
+    /// The loc `id` shows as to this player: from 289 a loc can turn into
+    /// another by a varbit, and the client shows that one's name and options
+    /// (while clicks on it carry `id`). `None` when it turns into nothing,
+    /// which the client offers no options on.
+    #[cfg(since_289)]
+    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+        let engine = engine();
+        let Some(ty) = engine.locs().get_by_id(id) else {
+            return Some(id);
+        };
+        let (Some(var), Some(multi)) = (ty.multivar, ty.multiloc.as_deref()) else {
+            return Some(id);
+        };
+        let varbit = engine.varbits().get_by_id(var)?;
+        let start = u32::from(varbit.start_bit);
+        let width = u32::from(varbit.end_bit) - start + 1;
+        let mask = if width >= 32 {
+            u32::MAX
+        } else {
+            (1 << width) - 1
+        };
+        let value = (self.player.vars.get(varbit.basevar).as_int() as u32 >> start) & mask;
+        u16::try_from(*multi.get(value as usize)?).ok()
+    }
+
+    #[cfg(before_289)]
+    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+        Some(id)
+    }
+
     fn map_base(&self) -> MapBase {
         let origin = self.player.build_area.origin;
         MapBase {
@@ -1101,7 +1134,9 @@ impl ActivePlayer {
                 )
             }
             Op::Loc { op, id, x, z } => {
-                let ty = engine.locs().get_by_id(id);
+                let ty = self
+                    .shown_loc(id)
+                    .and_then(|id| engine.locs().get_by_id(id));
                 let what = named(
                     ty.and_then(|t| t.op.as_deref()),
                     op,

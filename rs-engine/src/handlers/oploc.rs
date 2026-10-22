@@ -146,19 +146,25 @@ fn handle(
         return Ok(());
     };
 
-    let loc_type = engine.locs().get_by_id(loc_id);
-    if let Some(lt) = &loc_type {
-        if let Some(ops) = &lt.op {
-            if ops.get((op - 1) as usize).is_none_or(|o| o.is_none()) {
-                active.unset_map_flag();
-                active.clear_pending_action()?;
-                return Ok(());
-            }
-        } else {
-            active.unset_map_flag();
-            active.clear_pending_action()?;
-            return Ok(());
-        }
+    // From 289 a loc can turn into another by a varbit, or into nothing to
+    // click.
+    let Some(shown) = active.shown_loc(loc_id) else {
+        active.unset_map_flag();
+        active.clear_pending_action()?;
+        return Ok(());
+    };
+    let has_op = |id: u16| {
+        engine.locs().get_by_id(id).is_none_or(|lt| {
+            lt.op
+                .as_deref()
+                .and_then(|ops| ops.get(usize::from(op) - 1))
+                .is_some_and(Option::is_some)
+        })
+    };
+    if !has_op(shown) && !has_op(loc_id) {
+        active.unset_map_flag();
+        active.clear_pending_action()?;
+        return Ok(());
     }
 
     let mode = match op {

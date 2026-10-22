@@ -359,14 +359,11 @@ struct Args {
     multi_xp: u8,
     #[arg(long, default_value = "true")]
     client_pathfinder: bool,
-    /// Keep jagex moderators and maintainers apart from other players (no
-    /// trades, duels, fights or shared drops). Defaults to on in release
-    /// builds and off in debug ones.
     #[arg(long, action = clap::ArgAction::Set)]
     staff_isolation: Option<bool>,
     #[arg(long, default_value = "false")]
     no_tui: bool,
-    #[arg(long, default_value = "true")]
+    #[arg(long, default_value = "true", action = clap::ArgAction::Set)]
     verify: bool,
     #[arg(long, default_value = "false")]
     jaggrab_only: bool,

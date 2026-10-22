@@ -1074,6 +1074,21 @@ impl Engine {
         self.scripts.get_by_lookup(base).cloned()
     }
 
+    /// Whether `trigger` has a script for type `t` itself, or (with no `t`)
+    /// for category `c` itself: not counting what [`script_by_key`] would
+    /// fall back to.
+    ///
+    /// [`script_by_key`]: Self::script_by_key
+    pub fn has_script_for(&self, trigger: ServerTriggerType, t: Option<u16>, c: i32) -> bool {
+        let base = trigger as i32;
+        let key = match t {
+            Some(t) => base | (0x2 << 8) | ((t as i32) << 10),
+            None if c != -1 => base | (0x1 << 8) | (c << 10),
+            None => return false,
+        };
+        self.scripts.get_by_lookup(key).is_some()
+    }
+
     /// Hot-reloads the game cache and script provider in place.
     ///
     /// Drops the old `CacheStore` data and writes `new_store` into the same
