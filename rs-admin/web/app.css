@@ -726,6 +726,7 @@ dialog[open] { animation: pop 0.14s ease-out; }
 .replay-time { font-size: 12px; color: var(--muted); white-space: nowrap; }
 .replay-speeds { grid-auto-columns: auto; gap: 4px; }
 .replay-speeds button { padding: 4px 8px; min-width: 34px; }
+.replay-note { padding: 0 12px 12px; }
 .replay-foot { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 0 12px 10px; font-size: 12px; }
 .replay-status { min-height: 1em; }
 .replay-side { display: grid; gap: 16px; }

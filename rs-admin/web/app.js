@@ -551,7 +551,12 @@ function savedFilters(page, current, apply) {
                     class: 'saved-forget',
                     'aria-label': `Forget ${f.name}`,
                     title: 'Forget this saved filter',
-                    on: {click: () => changePrefs({op: 'remove_filter', id: f.id}).catch((e) => toast(e.message, 'error'))}
+                    on: {
+                        click: () => changePrefs({
+                            op: 'remove_filter',
+                            id: f.id
+                        }).catch((e) => toast(e.message, 'error'))
+                    }
                 }, icon('x')))),
             button('Save filter', {
                 small: true,
@@ -965,7 +970,13 @@ const TRIAL_MAX_HOURS = 48;
 function moderateDialog(name, preset = 'kick', onDone, caseId, {also = []} = {}) {
     // Trial moderators kick and give short mutes, and nothing else.
     const trial = isTrial();
-    const ACTIONS = trial ? {kick: 'Kick', mute: 'Mute'} : {kick: 'Kick', mute: 'Mute', ban: 'Ban', unmute: 'Unmute', unban: 'Unban'};
+    const ACTIONS = trial ? {kick: 'Kick', mute: 'Mute'} : {
+        kick: 'Kick',
+        mute: 'Mute',
+        ban: 'Ban',
+        unmute: 'Unmute',
+        unban: 'Unban'
+    };
     const durations = trial ? DURATIONS.filter(([h0]) => h0 <= TRIAL_MAX_HOURS) : DURATIONS;
     const maxHours = trial ? TRIAL_MAX_HOURS : 87600;
     let action = ACTIONS[preset] ? preset : 'mute';
@@ -1296,7 +1307,10 @@ function zoneButton() {
         btn.title = inUtc() ? 'Times are in UTC. Click for your own time zone.' : `Times are in your time zone (${Intl.DateTimeFormat().resolvedOptions().timeZone}). Click for UTC.`;
         btn.setAttribute('aria-label', btn.title);
     };
-    btn.addEventListener('click', () => changePrefs({op: 'utc', utc: !inUtc()}).catch((e) => toast(e.message, 'error')));
+    btn.addEventListener('click', () => changePrefs({
+        op: 'utc',
+        utc: !inUtc()
+    }).catch((e) => toast(e.message, 'error')));
     draw();
     watchPrefs(btn, draw);
     return btn;
@@ -2072,10 +2086,10 @@ function playersPage(ctx) {
                 h('div', {class: 'list'}, p.pinned.length ? p.pinned.map((n) => row(n, unpin(n)))
                     : h('div', {class: 'empty'}, icon('star'), 'Nobody pinned yet.'))),
             card('Recently viewed', p.recent.length > 0 && button('Clear', {
-                    small: true,
-                    kind: 'ghost',
-                    on: {click: () => changePrefs({op: 'forget_recent'}).catch((e) => toast(e.message, 'error'))}
-                }),
+                small: true,
+                kind: 'ghost',
+                on: {click: () => changePrefs({op: 'forget_recent'}).catch((e) => toast(e.message, 'error'))}
+            }),
                 h('div', {class: 'list'}, p.recent.length ? p.recent.map((r) => row(r.name, h('span', {class: 'list-side'}, ago(r.at_ms))))
                     : h('div', {class: 'empty'}, 'Players you look up show here.'))));
     };
@@ -2225,7 +2239,10 @@ function auditPage(ctx) {
             saved.draw();
         }
         try {
-            const entries = await api('GET', `/audit?${query({limit: 50, before: append_ && last ? last : null})}&${filterQuery()}`);
+            const entries = await api('GET', `/audit?${query({
+                limit: 50,
+                before: append_ && last ? last : null
+            })}&${filterQuery()}`);
             if (current !== seq) return;
             if (!append_) list.replaceChildren();
             append(list, entries.map(auditItem));
@@ -2244,8 +2261,18 @@ function auditPage(ctx) {
         load();
     };
     const drawChips = () => replace(chips,
-        h('button', {type: 'button', class: 'chip', 'aria-pressed': String(!mine), on: {click: () => setMine(false)}}, 'Everyone'),
-        h('button', {type: 'button', class: 'chip', 'aria-pressed': String(mine), on: {click: () => setMine(true)}}, 'Only mine'));
+        h('button', {
+            type: 'button',
+            class: 'chip',
+            'aria-pressed': String(!mine),
+            on: {click: () => setMine(false)}
+        }, 'Everyone'),
+        h('button', {
+            type: 'button',
+            class: 'chip',
+            'aria-pressed': String(mine),
+            on: {click: () => setMine(true)}
+        }, 'Only mine'));
     const saved = savedFilters('audit', filter, (params) => {
         search.value = params.q || '';
         setMine(params.mine === '1');
@@ -2608,7 +2635,10 @@ function playerPage(ctx) {
         support.update(p);
         replace(head, pageHead(h('span', {}, p.name, ' ', playerBadges({staff_level: p.staff_level})),
             p.online_node != null ? `Online on ${p.online_world ? `world ${p.online_world}` : `node ${p.online_node}`}` : 'Offline',
-            p.online_node != null && mayWatch(p.staff_level) && button('Watch live', {icon: 'radio', on: {click: () => watchLive(p.name)}}),
+            p.online_node != null && mayWatch(p.staff_level) && button('Watch live', {
+                icon: 'radio',
+                on: {click: () => watchLive(p.name)}
+            }),
             p.online_node != null && button('Kick', {icon: 'kick', on: {click: act('kick')}}),
             !(muted && isTrial()) && button(muted ? 'Unmute' : 'Mute', {
                 icon: muted ? 'undo' : 'mute',
@@ -2702,7 +2732,10 @@ function lineChart(points, key, title, format) {
         return el;
     };
     const line = xy.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ');
-    make('path', {d: `${line} L${xy[xy.length - 1][0].toFixed(1)} ${H} L${xy[0][0].toFixed(1)} ${H} Z`, class: 'chart-area'});
+    make('path', {
+        d: `${line} L${xy[xy.length - 1][0].toFixed(1)} ${H} L${xy[0][0].toFixed(1)} ${H} Z`,
+        class: 'chart-area'
+    });
     make('path', {d: line, class: 'chart-line', 'vector-effect': 'non-scaling-stroke'});
     const cursor = make('line', {y1: 0, y2: H, class: 'chart-cursor hidden', 'vector-effect': 'non-scaling-stroke'});
     const last = values[values.length - 1];
@@ -2733,7 +2766,10 @@ function lineChart(points, key, title, format) {
     return h('div', {class: 'chart'},
         h('div', {class: 'chart-head'}, h('span', {class: 'label'}, title), h('b', {class: 'num'}, format(last))),
         h('div', {class: 'chart-plot'},
-            h('div', {class: 'chart-axis num', 'aria-hidden': 'true'}, h('span', {}, format(hi)), h('span', {}, format(lo))), svg),
+            h('div', {
+                class: 'chart-axis num',
+                'aria-hidden': 'true'
+            }, h('span', {}, format(hi)), h('span', {}, format(lo))), svg),
         h('div', {class: 'chart-foot'}, readout));
 }
 
@@ -2758,7 +2794,11 @@ function heatmap(hours, days) {
     return h('div', {class: 'chart'},
         h('div', {class: 'chart-head'}, h('span', {class: 'label'}, `When they play · last ${days} days`),
             h('b', {class: 'num'}, plural(total, 'event'))),
-        h('div', {class: 'heat', role: 'img', 'aria-label': total ? `Most active ${WEEKDAYS[peak[0]]} ${hourLabel(peak[1])} ${zone}` : 'No activity'},
+        h('div', {
+                class: 'heat',
+                role: 'img',
+                'aria-label': total ? `Most active ${WEEKDAYS[peak[0]]} ${hourLabel(peak[1])} ${zone}` : 'No activity'
+            },
             h('span', {}),
             Array.from({length: 24}, (_, hr) => h('span', {class: 'heat-hour num'}, hr % 6 === 0 ? hourLabel(hr).slice(0, 2) : '')),
             grid.map((row, d) => [
@@ -3560,7 +3600,11 @@ function supportSection(name) {
             h('div', {class: 'grow'}, `A password reset is waiting for them to redeem, until ${fullTime(record.reset_until_ms)}.`)));
     };
     replace(actions,
-        state.canCommand && button('Send home', {small: true, icon: 'home', on: {click: () => sendHomeDialog(name, online, reload)}}),
+        state.canCommand && button('Send home', {
+            small: true,
+            icon: 'home',
+            on: {click: () => sendHomeDialog(name, online, reload)}
+        }),
         state.canCommand && button('Reset password', {
             small: true,
             icon: 'key',
@@ -3967,10 +4011,17 @@ function caseItem(c, extra) {
         h('div', {class: `list-icon ${tone}`}, icon(closed ? 'check' : 'briefcase')),
         h('div', {class: 'list-main'},
             h('div', {class: 'list-title'},
-                c.unread && h('span', {class: 'unread-dot', title: 'Changed since you last looked', 'aria-label': 'Changed since you last looked'}),
+                c.unread && h('span', {
+                    class: 'unread-dot',
+                    title: 'Changed since you last looked',
+                    'aria-label': 'Changed since you last looked'
+                }),
                 h('span', {class: 'case-id num'}, `#${c.id}`),
                 link(caseHref(c.id), {class: 'name-link'}, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c),
-                c.created_by === DETECTION && [' ', h('span', {class: 'badge accent', title: 'The console opened this case on its own'}, 'Detected')]),
+                c.created_by === DETECTION && [' ', h('span', {
+                    class: 'badge accent',
+                    title: 'The console opened this case on its own'
+                }, 'Detected')]),
             h('div', {class: 'list-sub'}, playerLink(c.player),
                 closed ? ` · closed by ${c.closed_by} ${ago(c.closed_ms)}` : ` · opened by ${c.created_by} ${ago(c.created_ms)}`,
                 counts && ` · ${counts}`, c.comments ? ` · ${plural(c.comments, 'comment')}` : ''),
@@ -4532,9 +4583,19 @@ function moderationPage(ctx) {
                     icon: 'briefcase',
                     disabled: tooMany,
                     title: tally.size > 1 ? `On ${player}, who most of them are about` : null,
-                    on: {click: () => newCaseDialog({...caseArgs, priority: items.some((i) => i.high) ? 'high' : 'normal'}, afterBulk)}
+                    on: {
+                        click: () => newCaseDialog({
+                            ...caseArgs,
+                            priority: items.some((i) => i.high) ? 'high' : 'normal'
+                        }, afterBulk)
+                    }
                 }),
-                button('Add to case', {small: true, icon: 'plus', disabled: tooMany, on: {click: () => addToCaseDialog(caseArgs, afterBulk)}}),
+                button('Add to case', {
+                    small: true,
+                    icon: 'plus',
+                    disabled: tooMany,
+                    on: {click: () => addToCaseDialog(caseArgs, afterBulk)}
+                }),
                 !isTrial() && dismissable.length > 0 && button(`Dismiss${dismissable.length < items.length ? ` ${dismissable.length}` : ''}`, {
                     small: true,
                     icon: 'x',
@@ -4735,15 +4796,18 @@ function moderationPage(ctx) {
         };
         const drawChips = () => replace(chips, SHOWS.map(([k, label]) =>
             h('button', {
-                type: 'button', class: 'chip', 'aria-pressed': String(show === k), on: {
-                    click: () => {
-                        show = k;
-                        drawChips();
-                        load();
+                    type: 'button', class: 'chip', 'aria-pressed': String(show === k), on: {
+                        click: () => {
+                            show = k;
+                            drawChips();
+                            load();
+                        }
                     }
-                }
-            }, label, k === 'unread' && state.caseSummary?.unread ? h('span', {class: 'chip-count num'}, state.caseSummary.unread) : null,
-                k === 'detected' && state.caseSummary?.detected ? h('span', {class: 'chip-count alert num', title: 'Nobody on these yet'}, state.caseSummary.detected) : null)));
+                }, label, k === 'unread' && state.caseSummary?.unread ? h('span', {class: 'chip-count num'}, state.caseSummary.unread) : null,
+                k === 'detected' && state.caseSummary?.detected ? h('span', {
+                    class: 'chip-count alert num',
+                    title: 'Nobody on these yet'
+                }, state.caseSummary.detected) : null)));
         search.addEventListener('input', debounce(load, 250));
         drawChips();
         load();
@@ -4894,7 +4958,10 @@ function staffActivityTab(params, go) {
                 h('th', {class: 'num', title: 'Cases opened / closed, and comments'}, 'Cases'),
                 h('th', {class: 'num', title: 'Reports and sessions set aside from triage'}, 'Dismissed'),
                 h('th', {class: 'num'}, 'Appeals decided'),
-                h('th', {class: 'num', title: 'Appeals against their mutes and bans that were overturned / decided'}, 'Overturned'),
+                h('th', {
+                    class: 'num',
+                    title: 'Appeals against their mutes and bans that were overturned / decided'
+                }, 'Overturned'),
                 h('th', {class: 'num', title: 'Median time from a case opening to their first change on it'}, 'Pickup'),
                 h('th', {class: 'num', title: 'Median time from a case opening to their closing it'}, 'To close'),
                 h('th', {class: 'num', title: 'Median time from an appeal coming in to their decision'}, 'To decide'),
@@ -4905,9 +4972,15 @@ function staffActivityTab(params, go) {
                 return h('tr', {},
                     h('td', {}, h('div', {class: 'name-cell'}, a.role && isMaintainer() ? staffLink(a.name) : playerLink(a.name),
                         a.role ? h('span', {class: `badge ${a.role === 'trial' ? 'warn' : ''}`}, ROLE_NAMES[a.role] || a.role)
-                            : h('span', {class: 'badge', title: 'No console account: their in-game sanctions were appealed'}, 'In game'))),
+                            : h('span', {
+                                class: 'badge',
+                                title: 'No console account: their in-game sanctions were appealed'
+                            }, 'In game'))),
                     h('td', {class: 'num'}, `${a.kicks} · ${a.mutes} · ${a.bans} · ${a.lifts}`),
-                    h('td', {class: 'num', title: `${a.cases_opened} opened, ${a.cases_closed} closed, ${plural(a.comments, 'comment')}`},
+                    h('td', {
+                            class: 'num',
+                            title: `${a.cases_opened} opened, ${a.cases_closed} closed, ${plural(a.comments, 'comment')}`
+                        },
                         `${a.cases_opened} / ${a.cases_closed}`, h('span', {class: 'muted'}, ` · ${a.comments}`)),
                     h('td', {class: 'num'}, a.dismissed),
                     h('td', {class: 'num'}, a.appeals_decided),
@@ -4915,10 +4988,16 @@ function staffActivityTab(params, go) {
                         a.appealed ? `${a.overturned} / ${a.appealed}` : h('span', {class: 'muted'}, '-'),
                         a.appealed > 0 && h('span', {class: 'muted'}, ` (${Math.round(rate * 100)}%)`),
                         a.overturned_cases.length > 0 && h('div', {class: 'chips nowrap case-refs'}, caseLinks(a.overturned_cases))),
-                    h('td', {class: 'num', title: a.pickups ? `Over ${plural(a.pickups, 'case')}` : ''}, took(a.pickup_ms)),
+                    h('td', {
+                        class: 'num',
+                        title: a.pickups ? `Over ${plural(a.pickups, 'case')}` : ''
+                    }, took(a.pickup_ms)),
                     h('td', {class: 'num'}, took(a.close_ms)),
                     h('td', {class: 'num'}, took(a.decide_ms)),
-                    h('td', {class: 'muted', title: a.last_active_ms ? fullTime(a.last_active_ms) : ''}, a.last_active_ms ? ago(a.last_active_ms) : 'Not in this window'));
+                    h('td', {
+                        class: 'muted',
+                        title: a.last_active_ms ? fullTime(a.last_active_ms) : ''
+                    }, a.last_active_ms ? ago(a.last_active_ms) : 'Not in this window'));
             }))));
     };
     draw();
@@ -7115,7 +7194,9 @@ function replayPage(ctx) {
                     edgeBtn,
                     lookBtn),
                 clipBar,
-                h('div', {class: 'replay-foot'}, status, footHint)),
+                h('div', {class: 'replay-foot'}, status, footHint),
+                h('div', {class: 'replay-note'}, h('div', {class: 'callout'}, icon('eye'), h('div', {},
+                    'A replay is rebuilt from the game\'s data, not a video of the player\'s screen. What the server saw is exact: where they went, what they did, chat, combat and items. The cursor between recorded points, the camera movement, open menus and typing speed are interpolated, so they can look smoother or more mechanical than they really were. Judge a player on what they did, not on how the cursor moved.')))),
             h('div', {class: 'replay-side'},
                 h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Anti-cheat checks')), h('div', {class: 'card-body'}, checks)),
                 h('section', {class: 'card'}, h('div', {class: 'card-head'}, h('h2', {}, 'Clips in cases')), clipsList),
@@ -7928,7 +8009,10 @@ function circulationCard(t, samples, canChange, onDone) {
     return h('section', {class: 'card'},
         h('div', {class: 'card-head'},
             h('h2', {}, link(economyHref('holders', {obj: t.obj}), {class: 'name-link'}, t.name)),
-            h('span', {class: 'badge', title: 'A rise this big between two counts alerts'}, `alerts at +${t.alert_pct}%`),
+            h('span', {
+                class: 'badge',
+                title: 'A rise this big between two counts alerts'
+            }, `alerts at +${t.alert_pct}%`),
             canChange && h('div', {class: 'actions'},
                 button(null, {
                     small: true,
@@ -8007,7 +8091,11 @@ function circulationTab(ctx, params, go) {
                     },
                 },
             }),
-            d.can_change && button('Track an item', {small: true, icon: 'plus', on: {click: () => trackDialog(null, load)}}));
+            d.can_change && button('Track an item', {
+                small: true,
+                icon: 'plus',
+                on: {click: () => trackDialog(null, load)}
+            }));
         replace(grid, d.tracked.length
             ? d.tracked.map((t) => circulationCard(t, d.samples, d.can_change, load))
             : h('div', {class: 'empty'}, icon('chart'), 'Nothing is tracked yet. Coins and the holiday rares are added once a world answers.'));
@@ -8029,14 +8117,24 @@ const holderBadges = (a) => [
 function holdersTab(ctx, params, go) {
     const obj = params.get('obj');
     const min = Math.max(1, Number(params.get('min')) || 1);
-    const minInput = h('input', {class: 'input', type: 'number', min: '1', value: String(min), 'aria-label': 'At least', style: {width: '120px'}});
+    const minInput = h('input', {
+        class: 'input',
+        type: 'number',
+        min: '1',
+        value: String(min),
+        'aria-label': 'At least',
+        style: {width: '120px'}
+    });
     const picker = objPicker({
         required: false,
         autofocus: !obj,
         placeholder: 'Find an item: name, config name or id',
         onPick: (o) => go('holders', {obj: o.id, min: minInput.value > 1 ? minInput.value : ''}),
     });
-    minInput.addEventListener('change', () => obj && go('holders', {obj, min: minInput.value > 1 ? minInput.value : ''}));
+    minInput.addEventListener('change', () => obj && go('holders', {
+        obj,
+        min: minInput.value > 1 ? minInput.value : ''
+    }));
     const result = h('div', {class: 'column'});
     if (obj) {
         replace(result, h('section', {class: 'card'}, spinnerList()));
@@ -8048,7 +8146,10 @@ function holdersTab(ctx, params, go) {
                 h('td', {class: 'muted'}, a.held_in.map((i) => `${invLabel(i.inv)} ${i.count.toLocaleString()}`).join(' · ')),
                 h('td', {class: 'muted', title: fullTime(a.saved_ms)}, ago(a.saved_ms)),
                 h('td', {class: 'actions'},
-                    link(economyHref('trace', {name: a.name, obj: r.item.id}), {class: 'btn small ghost'}, icon('search'), 'Trace'))));
+                    link(economyHref('trace', {
+                        name: a.name,
+                        obj: r.item.id
+                    }), {class: 'btn small ghost'}, icon('search'), 'Trace'))));
             replace(result, h('section', {class: 'card'},
                 h('div', {class: 'card-head'},
                     h('h2', {}, r.item.name),
@@ -8075,7 +8176,10 @@ function ringCasePicker(names, caseId) {
         replace(select, h('option', {value: ''}, 'Loading their cases...'));
         try {
             const found = new Map();
-            for (const rows of await Promise.all(list.slice(0, 25).map((player) => api('GET', `/cases?${query({player, status: 'open'})}`)))) {
+            for (const rows of await Promise.all(list.slice(0, 25).map((player) => api('GET', `/cases?${query({
+                player,
+                status: 'open'
+            })}`)))) {
                 for (const c of rows) found.set(c.id, c);
             }
             if (caseId && !found.has(caseId)) found.set(caseId, {id: caseId, title: ''});
@@ -8236,7 +8340,15 @@ function traceTab(ctx, params, go) {
     const obj = params.get('obj');
     const item = params.get('item');
     const depth = [2, 3, 4, 5, 6].includes(Number(params.get('depth'))) ? Number(params.get('depth')) : 4;
-    const nameInput = h('input', {class: 'input', required: true, value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    const nameInput = h('input', {
+        class: 'input',
+        required: true,
+        value: name,
+        placeholder: 'Player',
+        'aria-label': 'Player',
+        autocomplete: 'off',
+        spellcheck: 'false'
+    });
     nameSuggest(nameInput);
     const picker = objPicker({required: false, autofocus: false, placeholder: 'Item: name, config name or id'});
     const depthSelect = h('select', {class: 'input', 'aria-label': 'How far back'},
@@ -8357,7 +8469,12 @@ function tradeGraphSvg(graph, onPick) {
     }
     for (const a of graph.accounts) {
         const [x, y] = pos.get(a.name);
-        const g = make('g', {class: `node ${a === centre ? 'centre' : ''} ${a.banned_until_ms ? 'banned' : ''} ${a.staff_level > 0 ? 'staff' : ''}`, tabindex: '0', role: 'button', 'aria-label': a.name});
+        const g = make('g', {
+            class: `node ${a === centre ? 'centre' : ''} ${a.banned_until_ms ? 'banned' : ''} ${a.staff_level > 0 ? 'staff' : ''}`,
+            tabindex: '0',
+            role: 'button',
+            'aria-label': a.name
+        });
         make('circle', {cx: x, cy: y, r: a === centre ? 9 : 6}, g);
         // Partners' names on the side away from the centre, clear of the edges.
         const above = a !== centre && y < H / 2 - 1;
@@ -8384,12 +8501,18 @@ function receiversCard(params, go) {
                     const oneWay = r.received > 0 && r.given * 10 < r.received;
                     return h('tr', {},
                         h('td', {}, h('div', {class: 'name-cell'}, playerLink(r.name), holderBadges(r),
-                            oneWay && h('span', {class: 'badge warn', title: 'Takes in more than ten times what they give back'}, 'One way'))),
+                            oneWay && h('span', {
+                                class: 'badge warn',
+                                title: 'Takes in more than ten times what they give back'
+                            }, 'One way'))),
                         h('td', {class: 'num'}, r.givers.toLocaleString()),
                         h('td', {class: 'num'}, coins(r.received)),
                         h('td', {class: 'num muted'}, coins(r.given)),
                         h('td', {class: 'muted', title: fullTime(r.last_ms)}, ago(r.last_ms)),
-                        h('td', {class: 'actions'}, link(economyHref('trades', {name: r.name, days: Math.max(days, 7)}), {class: 'btn small ghost'}, icon('users'), 'Graph')));
+                        h('td', {class: 'actions'}, link(economyHref('trades', {
+                            name: r.name,
+                            days: Math.max(days, 7)
+                        }), {class: 'btn small ghost'}, icon('users'), 'Graph')));
                 }))))
             : h('div', {class: 'empty'}, `Nobody was handed items by ${givers} or more players in this time.`));
     }).catch((e) => failed(body, e));
@@ -8397,7 +8520,12 @@ function receiversCard(params, go) {
         type: 'button',
         class: 'chip',
         'aria-pressed': String(value === current),
-        on: {click: () => value !== current && go('trades', {days: key === 'days' ? value : days, givers: key === 'givers' ? value : givers})},
+        on: {
+            click: () => value !== current && go('trades', {
+                days: key === 'days' ? value : days,
+                givers: key === 'givers' ? value : givers
+            })
+        },
     }, label);
     return h('section', {class: 'card'},
         h('div', {class: 'card-head'}, h('h2', {}, 'Accounts many players hand items to'),
@@ -8412,10 +8540,20 @@ function receiversCard(params, go) {
 function tradesTab(ctx, params, go) {
     const name = params.get('name') || '';
     const days = [7, 30, 90, 365].includes(Number(params.get('days'))) ? Number(params.get('days')) : 30;
-    const nameInput = h('input', {class: 'input', value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    const nameInput = h('input', {
+        class: 'input',
+        value: name,
+        placeholder: 'Player',
+        'aria-label': 'Player',
+        autocomplete: 'off',
+        spellcheck: 'false'
+    });
     nameSuggest(nameInput, () => show());
     const daysSelect = h('select', {class: 'input', 'aria-label': 'Over'},
-        [7, 30, 90, 365].map((n) => h('option', {value: String(n), selected: n === days}, n === 365 ? 'The last year' : `The last ${n} days`)));
+        [7, 30, 90, 365].map((n) => h('option', {
+            value: String(n),
+            selected: n === days
+        }, n === 365 ? 'The last year' : `The last ${n} days`)));
     const show = () => {
         const n = nameInput.value.trim();
         if (n && !validName(n)) return toast('That isn\'t a valid player name.', 'error');
@@ -8459,7 +8597,10 @@ function tradesTab(ctx, params, go) {
             h('div', {class: 'card-body'}, tradeGraphSvg(graph, (other) => go('trades', {name: other, days}))),
             h('div', {class: 'card-body'}, h('div', {class: 'chips'}, graph.accounts.slice(1).map((a) => {
                 const n = net(a.name);
-                return n ? h('span', {class: `badge ${n > 0 ? 'ok' : 'warn'}`, title: n > 0 ? `${centre} got more from them than they gave` : `${centre} gave them more than they got back`},
+                return n ? h('span', {
+                        class: `badge ${n > 0 ? 'ok' : 'warn'}`,
+                        title: n > 0 ? `${centre} got more from them than they gave` : `${centre} gave them more than they got back`
+                    },
                     `${a.name} ${n > 0 ? '+' : '-'}${compact(Math.abs(n))} gp`) : null;
             }))),
             tableWindow(h('table', {class: 'table edges'},
@@ -8554,7 +8695,14 @@ function hiscoresCard(name, extraActions) {
 
 function hiscoresTab(ctx, params, go) {
     const name = params.get('name') || '';
-    const nameInput = h('input', {class: 'input', value: name, placeholder: 'Player', 'aria-label': 'Player', autocomplete: 'off', spellcheck: 'false'});
+    const nameInput = h('input', {
+        class: 'input',
+        value: name,
+        placeholder: 'Player',
+        'aria-label': 'Player',
+        autocomplete: 'off',
+        spellcheck: 'false'
+    });
     nameSuggest(nameInput, () => look());
     const look = () => {
         const n = nameInput.value.trim();
@@ -8598,8 +8746,8 @@ function reloadScriptsDialog(world, onDone) {
     const why = reasonField(true, 'e.g. Fixes the bank note dupe in bank.rs2.');
     const report = h('div');
     const show = (r) => replace(report, h('div', {class: `callout ${r.ok ? '' : 'danger'}`}, icon(r.ok ? 'check' : 'alert'),
-        h('div', {}, r.message, r.compile_ms ? h('span', {class: 'muted'}, ` (${(r.compile_ms / 1000).toFixed(1)}s)`) : null)),
-    r.errors && h('pre', {class: 'compile-errors'}, r.errors));
+            h('div', {}, r.message, r.compile_ms ? h('span', {class: 'muted'}, ` (${(r.compile_ms / 1000).toFixed(1)}s)`) : null)),
+        r.errors && h('pre', {class: 'compile-errors'}, r.errors));
     const send = async (check) => {
         const r = await api('POST', `/worlds/${world.node}/reload-scripts`, {check_only: check, reason: why.value()});
         show(r);
@@ -8818,7 +8966,11 @@ function staffActions(a, onDone, {signOut = false} = {}) {
         button('Role', {small: true, icon: 'key', on: {click: change('role')}}),
         button('Password', {small: true, icon: 'lock', on: {click: change('password')}}),
         a.two_factor && button('Reset 2FA', {small: true, icon: 'shield', on: {click: change('reset_2fa')}}),
-        signOut && a.sessions > 0 && button('Sign out everywhere', {small: true, icon: 'logout', on: {click: change('sign_out')}}),
+        signOut && a.sessions > 0 && button('Sign out everywhere', {
+            small: true,
+            icon: 'logout',
+            on: {click: change('sign_out')}
+        }),
         a.disabled
             ? button('Enable', {small: true, icon: 'unlock', on: {click: change('enable')}})
             : button('Disable', {small: true, icon: 'lock', on: {click: change('disable')}}),
@@ -8868,7 +9020,11 @@ function staffMemberPage(ctx) {
     const sessions = h('div', {});
     const tabs = h('div', {class: 'segmented tabs', role: 'group', 'aria-label': 'View'});
     const body = h('div', {class: 'column'});
-    const keepUrl = () => history.replaceState(null, '', `/staff/member?${query({name, tab: tab === 'audit' ? null : tab, days: days === 30 ? null : days})}`);
+    const keepUrl = () => history.replaceState(null, '', `/staff/member?${query({
+        name,
+        tab: tab === 'audit' ? null : tab,
+        days: days === 30 ? null : days
+    })}`);
     const stat = (iconName, label, value, sub) => h('div', {class: 'card stat'},
         h('div', {class: 'label'}, icon(iconName), label), h('div', {class: 'value num'}, value), h('div', {class: 'sub'}, sub));
     const took = (ms) => (ms == null ? '-' : span(ms / 1000));
@@ -8908,11 +9064,11 @@ function staffMemberPage(ctx) {
             const m = await api('GET', `/staff/member?${query({name, days})}`);
             const active = m.activity?.last_active_ms;
             replace(head, pageHead(m.name,
-                [`${ROLE_NAMES[m.role] || m.role} · added ${m.created_ms ? dateOnly(m.created_ms) : 'from the command line'} · `,
-                    active ? h('span', {title: fullTime(active)}, `last moderation action ${ago(active)}`) : `no moderation actions in the last ${days} days`],
-                link(`/player?${query({name: m.name})}`, {class: 'btn small ghost'}, 'Player page', icon('chevron'))),
-            h('div', {class: 'toolbar'}, h('div', {class: 'chips'}, staffBadges(m)),
-                staffActions(m, (kind) => (kind === 'remove' ? navigate('/staff') : load()), {signOut: true})));
+                    [`${ROLE_NAMES[m.role] || m.role} · added ${m.created_ms ? dateOnly(m.created_ms) : 'from the command line'} · `,
+                        active ? h('span', {title: fullTime(active)}, `last moderation action ${ago(active)}`) : `no moderation actions in the last ${days} days`],
+                    link(`/player?${query({name: m.name})}`, {class: 'btn small ghost'}, 'Player page', icon('chevron'))),
+                h('div', {class: 'toolbar'}, h('div', {class: 'chips'}, staffBadges(m)),
+                    staffActions(m, (kind) => (kind === 'remove' ? navigate('/staff') : load()), {signOut: true})));
             drawStats(m.activity || {
                 kicks: 0, mutes: 0, bans: 0, lifts: 0, cases_opened: 0, cases_closed: 0, comments: 0,
                 dismissed: 0, appeals_decided: 0, appealed: 0, overturned: 0
@@ -8932,7 +9088,10 @@ function staffMemberPage(ctx) {
             value: q || ''
         });
         const filter = () => query({actor: name, q: q ?? search.value.trim()});
-        const paged = pagedList((before) => api('GET', `/audit?${query({limit: 50, before})}&${filter()}`), auditItem, 'No matching entries.');
+        const paged = pagedList((before) => api('GET', `/audit?${query({
+            limit: 50,
+            before
+        })}&${filter()}`), auditItem, 'No matching entries.');
         search.addEventListener('input', debounce(paged.reload, 250));
         return [
             q == null && h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), search),
@@ -9349,7 +9508,10 @@ function deviceItem(d, n) {
     return h('div', {class: 'list-item'},
         h('div', {class: 'list-icon'}, icon(d.touch ? 'phone' : 'monitor')),
         h('div', {class: 'list-main'},
-            h('div', {class: 'list-title', title: d.user_agent || ''}, deviceTag(n), ' ', h('b', {}, deviceName(d)), ' ',
+            h('div', {
+                    class: 'list-title',
+                    title: d.user_agent || ''
+                }, deviceTag(n), ' ', h('b', {}, deviceName(d)), ' ',
                 d.touch && h('span', {class: 'badge', title: 'The browser said it is a phone or tablet'}, 'Touch'), ' ',
                 d.others > 0 && h('span', {
                     class: 'badge warn',
@@ -9436,7 +9598,7 @@ function linksSection(name, onModerated) {
                     h('ul', {class: 'flag-list'}, raised.map(([, text]) => h('li', {}, text))))));
             const open = links.accounts.filter((a) => !a.banned_until_ms).map((a) => a.name);
             replace(act, open.length
-                && !isTrial() ? button(`Ban with ${plural(open.length, 'linked account')}`, {
+            && !isTrial() ? button(`Ban with ${plural(open.length, 'linked account')}`, {
                     small: true,
                     icon: 'ban',
                     kind: 'danger',
@@ -10259,7 +10421,13 @@ function templatesTab() {
 }
 
 function cannedDialog(all, index, onDone) {
-    const t = index === null ? {id: '', name: '', use: 'close', resolution: 'no_action', text: ''} : structuredClone(all[index]);
+    const t = index === null ? {
+        id: '',
+        name: '',
+        use: 'close',
+        resolution: 'no_action',
+        text: ''
+    } : structuredClone(all[index]);
     const name = h('input', {
         class: 'input',
         maxlength: '60',
@@ -10283,7 +10451,11 @@ function cannedDialog(all, index, onDone) {
             }
         }, label)));
         outcome.classList.toggle('hidden', t.use !== 'close');
-        replace(outcome, h('span', {}, 'Outcome it picks'), h('div', {class: 'segmented', role: 'group', 'aria-label': 'Outcome'},
+        replace(outcome, h('span', {}, 'Outcome it picks'), h('div', {
+                class: 'segmented',
+                role: 'group',
+                'aria-label': 'Outcome'
+            },
             Object.entries(RESOLUTIONS).map(([k, label]) => h('button', {
                 type: 'button', 'aria-pressed': String(t.resolution === k), on: {
                     click: () => {
@@ -10551,9 +10723,19 @@ function paletteItems(query, found) {
     // that match.
     const known = [
         ...p.pinned.map((name) => ({group: 'Pinned', name})),
-        ...p.recent.filter((r) => !isPinned(r.name)).map((r) => ({group: 'Recently viewed', name: r.name, hint: ago(r.at_ms)})),
+        ...p.recent.filter((r) => !isPinned(r.name)).map((r) => ({
+            group: 'Recently viewed',
+            name: r.name,
+            hint: ago(r.at_ms)
+        })),
     ].filter((k) => !q || nameKey(k.name).includes(nameKey(q)))
-        .map((k) => ({group: k.group, label: k.name, hint: k.hint, icon: k.group === 'Pinned' ? 'star' : 'clock', run: () => navigate(`/player?name=${encodeURIComponent(k.name)}`)}));
+        .map((k) => ({
+            group: k.group,
+            label: k.name,
+            hint: k.hint,
+            icon: k.group === 'Pinned' ? 'star' : 'clock',
+            run: () => navigate(`/player?name=${encodeURIComponent(k.name)}`)
+        }));
     const ready = found && found.q === query.trim();
     const shownNames = new Set(known.map((k) => nameKey(k.label)));
     const results = ready ? foundItems(found).filter((i) => i.group !== 'Players' || !shownNames.has(nameKey(i.label))) : [];
@@ -10600,7 +10782,14 @@ function paletteItems(query, found) {
             run: () => navigate(`/moderation?tab=cases&show=all&q=${encodeURIComponent(query.trim())}`)
         });
     }
-    if (q && !ready) matches.push({group: 'Searching', label: 'Searching players, cases, replays and the audit log...', icon: 'search', run: () => {}, pending: true});
+    if (q && !ready) matches.push({
+        group: 'Searching',
+        label: 'Searching players, cases, replays and the audit log...',
+        icon: 'search',
+        run: () => {
+        },
+        pending: true
+    });
     if (q) {
         matches.push(...audit, {
             group: 'Audit log',
