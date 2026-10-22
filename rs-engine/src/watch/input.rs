@@ -10,6 +10,7 @@ use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
 use rs_protocol::network::game::client::event_mouse_move::{Cursor, EventMouseMove, MouseMoved};
 #[cfg(before_274)]
 use rs_protocol::network::game::client::event_tracking::{EventTracking, TrackedEvent};
+use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
 use rs_protocol::network::game::client_prot::ClientProt;
 
 /// `EVENT_MOUSE_MOVE` samples the cursor this often.
@@ -55,6 +56,13 @@ pub enum Input {
     Camera {
         pitch: u16,
         yaw: u16,
+    },
+    /// The client's random tilt and zoom of its minimap, and with a minimap
+    /// click, the camera's yaw.
+    Minimap {
+        angle: i8,
+        zoom: i8,
+        yaw: Option<u16>,
     },
 }
 
@@ -137,6 +145,20 @@ impl InputDecoder {
             ClientProt::EventTracking => {
                 if let Some(msg) = decode(data) {
                     self.tracking(at, &msg, out);
+                }
+            }
+            ClientProt::MoveMinimapClick => {
+                if let Some(msg) = decode::<MoveMinimapClick>(data)
+                    && super::anticheat::plausible(&msg.trailer)
+                {
+                    out.push(Timed {
+                        ms: at,
+                        input: Input::Minimap {
+                            angle: msg.trailer.angle,
+                            zoom: msg.trailer.zoom,
+                            yaw: Some(msg.trailer.yaw),
+                        },
+                    });
                 }
             }
             _ => return false,
@@ -274,8 +296,8 @@ impl InputDecoder {
         });
     }
 
-    /// `EVENT_CAMERA_POSITION`: pitch and yaw (225's minimap angle and zoom
-    /// aren't kept).
+    /// `EVENT_CAMERA_POSITION`: pitch and yaw (and on 225, the minimap's
+    /// tilt and zoom).
     #[cfg(any(rev = "225", since_254))]
     pub fn camera(&mut self, at: u32, msg: &EventCameraPosition, out: &mut Vec<Timed>) {
         out.push(Timed {
@@ -283,6 +305,15 @@ impl InputDecoder {
             input: Input::Camera {
                 pitch: msg.pitch,
                 yaw: msg.yaw,
+            },
+        });
+        #[cfg(rev = "225")]
+        out.push(Timed {
+            ms: at,
+            input: Input::Minimap {
+                angle: msg.minimap_angle as i8,
+                zoom: msg.minimap_zoom as i8,
+                yaw: None,
             },
         });
     }
@@ -395,23 +426,53 @@ mod tests {
                 &mut out
             ));
             assert_eq!(
-                out,
-                [Timed {
+                out[0],
+                Timed {
                     ms: 1_000,
                     input: Input::Camera {
                         pitch: 384,
                         yaw: 512
                     }
-                }]
+                }
             );
+            // 225's report has the minimap's too.
+            assert_eq!(out.len(), if cfg!(rev = "225") { 2 } else { 1 });
+            let decoded = out.len();
             assert!(decoder.packet(
                 &ClientProt::EventCameraPosition,
                 1_000,
                 &data[..len - 1],
                 &mut out
             ));
-            assert_eq!(out.len(), 1);
+            assert_eq!(out.len(), decoded);
         }
+    }
+
+    /// A minimap click's trailer goes to the replay, unless no real client
+    /// could have sent it.
+    #[test]
+    fn decodes_minimap_clicks() {
+        let mut decoder = InputDecoder::default();
+        let mut out = Vec::new();
+        let mut data = vec![0, 0x0c, 0x96, 0x0c, 0x92];
+        data.extend_from_slice(&[
+            10, 20, 0x01, 0x00, 57, 0xfe, 0x05, 89, 0x1a, 0x40, 0x19, 0xc0, 0, 63,
+        ]);
+        assert!(decoder.packet(&ClientProt::MoveMinimapClick, 2_000, &data, &mut out));
+        assert_eq!(
+            out,
+            [Timed {
+                ms: 2_000,
+                input: Input::Minimap {
+                    angle: -2,
+                    zoom: 5,
+                    yaw: Some(256)
+                }
+            }]
+        );
+        data[9] = 58;
+        assert!(decoder.packet(&ClientProt::MoveMinimapClick, 2_000, &data, &mut out));
+        assert_eq!(out.len(), 1);
     }
 
     #[cfg(before_274)]

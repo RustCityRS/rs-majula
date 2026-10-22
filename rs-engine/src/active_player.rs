@@ -64,7 +64,7 @@ use rs_protocol::network::game::client::map_build_complete::MapBuildComplete;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
-use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
+use rs_protocol::network::game::client::move_minimapclick::{MinimapTrailer, MoveMinimapClick};
 use rs_protocol::network::game::client::move_opclick::MoveOpClick;
 use rs_protocol::network::game::client::no_timeout::NoTimeout;
 use rs_protocol::network::game::client::opheld1::OpHeld1;
@@ -893,11 +893,7 @@ impl ActivePlayer {
     /// the replay's timeline.
     pub fn watch_op(&mut self, op: Op) {
         let clock = engine().clock;
-        let origin = self.player.build_area.origin;
-        let base = MapBase {
-            x: CoordGrid::zone_origin(origin.x()),
-            z: CoordGrid::zone_origin(origin.z()),
-        };
+        let base = self.map_base();
         self.watch.op(op, clock, base);
         if !self.watch.recording() {
             return;
@@ -964,6 +960,25 @@ impl ActivePlayer {
     }
 
     /// Records a walk click on the game screen or the minimap.
+    /// Where the client's map starts, as the world last sent it.
+    fn map_base(&self) -> MapBase {
+        let origin = self.player.build_area.origin;
+        MapBase {
+            x: CoordGrid::zone_origin(origin.x()),
+            z: CoordGrid::zone_origin(origin.z()),
+        }
+    }
+
+    /// A minimap click, for the anti-cheat to check what the client sent
+    /// with it against the path and where the world has the player.
+    pub fn watch_minimap(&mut self, path: &[u32], trailer: &MinimapTrailer) {
+        let base = self.map_base();
+        let at = self.player.pathing.coord;
+        self.watch
+            .anticheat
+            .minimap(path, trailer, base, (at.x(), at.z()));
+    }
+
     pub fn watch_walk(&mut self, path: &[u32], minimap: bool) {
         self.watch_op(Op::Other);
         if !self.watch.recording() {

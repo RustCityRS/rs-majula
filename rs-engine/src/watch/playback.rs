@@ -13,6 +13,10 @@ use std::io::Read;
 
 /// How long the replay takes to type each key of a line the player sent.
 const KEY_MS: u32 = 70;
+/// The furthest a minimap click's packet is taken after its click. Before
+/// 274 a click's time is worked out from batched input reports, and can be
+/// a couple of seconds early.
+const MINIMAP_LAG_MS: u32 = 3000;
 
 /// The prefixes the client reads a chat line's colour and effect from, by
 /// number.
@@ -53,6 +57,25 @@ fn input_json(timed: &Timed) -> Value {
         Input::Enter => json!([ms, 8]),
         Input::Leave => json!([ms, 9]),
         Input::Camera { pitch, yaw } => json!([ms, 10, pitch, yaw]),
+        Input::Minimap { angle, zoom, yaw } => json!([ms, 12, angle, zoom, yaw]),
+    }
+}
+
+/// A minimap click's packet goes out after the click, and the world takes it
+/// up to a tick later still: the camera it carries is from the click, so
+/// that's when the replay sets it.
+fn click_time_minimaps(inputs: &mut [Value], clicks: &[u32]) {
+    for input in inputs {
+        if input[1] != 12 || input[4].is_null() {
+            continue;
+        }
+        let ms = input[0].as_u64().unwrap_or(0) as u32;
+        let before = clicks.partition_point(|&c| c <= ms);
+        if let Some(&click) = before.checked_sub(1).and_then(|i| clicks.get(i))
+            && ms - click <= MINIMAP_LAG_MS
+        {
+            input[0] = json!(click);
+        }
     }
 }
 
@@ -261,6 +284,7 @@ impl Builder {
         let lines = std::mem::take(&mut self.lines);
         type_lines(&lines, &self.clicks, &mut self.typed_to, &mut self.inputs);
         let mut inputs = std::mem::take(&mut self.inputs);
+        click_time_minimaps(&mut inputs, &self.clicks);
         // Reports arrive batched, so put the inputs in time order.
         inputs.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
         let frames = std::mem::take(&mut self.frames);
@@ -302,6 +326,21 @@ impl Builder {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn minimap_cameras_move_back_to_their_click() {
+        let mut inputs = vec![
+            json!([2_000, 12, -2, 5, 256]),
+            json!([9_000, 12, -2, 5, 300]),
+            json!([2_000, 12, -2, 5, null]),
+        ];
+        click_time_minimaps(&mut inputs, &[1_000, 1_700, 5_000]);
+        assert_eq!(inputs[0][0], 1_700);
+        // No click within a few seconds before it: it stays.
+        assert_eq!(inputs[1][0], 9_000);
+        // 225's camera report isn't from a click.
+        assert_eq!(inputs[2][0], 2_000);
+    }
     use crate::watch::format::{CLIENT, LOGIN, NOTE, SERVER, TICK, put_bytes, put_varint};
 
     #[test]

@@ -11,6 +11,8 @@ use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
 #[cfg(before_274)]
 use rs_protocol::network::game::client::event_tracking::EventTracking;
+use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
+use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
 use serde_json::json;
 use std::collections::VecDeque;
@@ -209,7 +211,7 @@ pub enum Op {
 
 /// Where the client's map starts: `(x, z)` of its south-west tile. The
 /// client counts some ops by offsets into it.
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct MapBase {
     pub x: u16,
     pub z: u16,
@@ -232,6 +234,14 @@ const JUMP_PX: i32 = 40;
 const RHYTHM_MAX_MS: u32 = 10_000;
 /// How many recent click gaps are kept to judge rhythm by.
 const RHYTHM_GAPS: usize = 200;
+/// The most steps the client sends in a path: a longer one stops short of
+/// the click.
+const MAX_STEPS: usize = 25;
+/// Too few minimap clicks to judge where they drew the player by.
+const MIN_MINIMAP: u32 = 5;
+/// A minimap click that drew the player this many tiles from where the
+/// world has them. The client trails the world by a tile or two.
+const MINIMAP_OFF_TILES: i32 = 8;
 
 #[derive(Default)]
 pub struct AntiCheat {
@@ -263,6 +273,13 @@ pub struct AntiCheat {
     focus_lost: u32,
     idle_reports: u32,
     camera_reports: u32,
+    minimap_clicks: u32,
+    forged_minimap: u32,
+    minimap_off: u32,
+    /// Where the client's map starts, and where it started before that (a
+    /// click can come just before the client takes a new one).
+    base: Option<MapBase>,
+    prev_base: Option<MapBase>,
     decoded: Vec<Timed>,
 }
 
@@ -405,6 +422,7 @@ impl AntiCheat {
 
     /// The player chose a menu action, on tick `clock`.
     pub fn op(&mut self, op: Op, clock: u32, base: MapBase) {
+        self.see_base(base);
         self.ops += 1;
         // The click arrives just before its action; allow for the read
         // limit splitting them across a tick.
@@ -425,6 +443,54 @@ impl AntiCheat {
             if self.op_counts[index] >= threshold {
                 self.op_expected[index] += 1;
             }
+        }
+    }
+
+    /// A minimap click: its `path`, and the bytes the client sends after it.
+    /// `at` is the tile the world has the player on.
+    pub fn minimap(
+        &mut self,
+        path: &[u32],
+        trailer: &MinimapTrailer,
+        base: MapBase,
+        at: (u16, u16),
+    ) {
+        self.see_base(base);
+        self.minimap_clicks += 1;
+        let (tile_x, tile_z) = minimap_tile(trailer);
+        // The path ends on the tile clicked, or next to it if that can't be
+        // reached (allowing a tile for Java's slightly different sine table).
+        let reach = 1 + i32::from(trailer.nearest);
+        let lands_from = |b: &MapBase| {
+            path.last().is_some_and(|&to| {
+                let (x, z) = unpack_coord(to);
+                (i32::from(x) - i32::from(b.x) - tile_x).abs() <= reach
+                    && (i32::from(z) - i32::from(b.z) - tile_z).abs() <= reach
+            })
+        };
+        let matched = [Some(base), self.prev_base]
+            .into_iter()
+            .flatten()
+            .find(lands_from);
+        let lands = path.len() >= MAX_STEPS || matched.is_some();
+        if !plausible(trailer) || !lands {
+            self.forged_minimap += 1;
+        }
+        let b = matched.unwrap_or(base);
+        let drawn_x = (i32::from(trailer.fine_x) >> 7) + i32::from(b.x);
+        let drawn_z = (i32::from(trailer.fine_z) >> 7) + i32::from(b.z);
+        let off = (drawn_x - i32::from(at.0))
+            .abs()
+            .max((drawn_z - i32::from(at.1)).abs());
+        if off > MINIMAP_OFF_TILES {
+            self.minimap_off += 1;
+        }
+    }
+
+    fn see_base(&mut self, base: MapBase) {
+        if self.base != Some(base) {
+            self.prev_base = self.base;
+            self.base = Some(base);
         }
     }
 
@@ -474,6 +540,12 @@ impl AntiCheat {
         {
             flags.push(("cursor_jumps", 25));
         }
+        if self.forged_minimap >= 2 {
+            flags.push(("forged_minimap_click", 100));
+        }
+        if self.minimap_clicks >= MIN_MINIMAP && self.minimap_off * 2 > self.minimap_clicks {
+            flags.push(("minimap_position_off", 30));
+        }
         let rhythm = self.rhythm();
         if self.gaps.len() >= 30 && rhythm.is_some_and(|cv| cv < 0.12) {
             flags.push(("robotic_click_timing", 20));
@@ -496,6 +568,9 @@ impl AntiCheat {
             "focusLost": self.focus_lost,
             "idleReports": self.idle_reports,
             "cameraReports": self.camera_reports,
+            "minimapClicks": self.minimap_clicks,
+            "forgedMinimapClicks": self.forged_minimap,
+            "minimapOff": self.minimap_off,
             "heartbeats": &self.heartbeats[..HEARTBEATS.len()],
             "badHeartbeats": &self.bad_heartbeats[..HEARTBEATS.len()],
             "opChecksExpected": self.op_expected,
@@ -528,6 +603,39 @@ impl AntiCheat {
 }
 
 /// A tile's offset into the client's map.
+/// Whether a minimap click's trailer is one the real client could send: its
+/// fixed bytes, and everything else in the range the client keeps it to.
+pub fn plausible(t: &MinimapTrailer) -> bool {
+    (t.magic1, t.magic2, t.magic3) == (57, 89, 63)
+        && (-73..=72).contains(&t.x)
+        && (-75..=75).contains(&t.y)
+        && t.yaw < 2048
+        && (-62..=62).contains(&t.angle)
+        && (-21..=11).contains(&t.zoom)
+        && t.nearest <= 1
+}
+
+/// The tile in the client's map a minimap click lands on, worked out as the
+/// client does from what it sent.
+fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
+    let yaw = (i32::from(t.yaw) + i32::from(t.angle)) & 0x7ff;
+    let scale = i32::from(t.zoom) + 256;
+    let sin = (table(f64::sin, yaw) * scale) >> 8;
+    let cos = (table(f64::cos, yaw) * scale) >> 8;
+    let (x, y) = (i32::from(t.x), i32::from(t.y));
+    let right = (y * sin + x * cos) >> 11;
+    let up = (y * cos - x * sin) >> 11;
+    (
+        (i32::from(t.fine_x) + right) >> 7,
+        (i32::from(t.fine_z) - up) >> 7,
+    )
+}
+
+/// The client's sine or cosine table entry `i` (2048 to a turn, 16.16).
+fn table(f: fn(f64) -> f64, i: i32) -> i32 {
+    (f(f64::from(i) * std::f64::consts::PI / 1024.0) * 65536.0) as i32
+}
+
 fn offset(pos: u16, base: u16) -> i32 {
     i32::from(pos) - i32::from(base)
 }
@@ -569,6 +677,7 @@ fn op_count(op: Op, base: MapBase) -> Option<(usize, Count, i64)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_protocol::network::game::client::pack_coord;
 
     #[test]
     fn payloads_match_with_optional_fields() {
@@ -683,6 +792,87 @@ mod tests {
             flags.contains(&"robotic_click_timing".to_owned()),
             "{flags:?}"
         );
+    }
+
+    /// A minimap click 10 px right of and 20 px above the centre, camera
+    /// facing north, untilted and unzoomed: 10 * 32 and 20 * 32 fine units
+    /// from the player drawn mid-tile at (52, 52) in a map from (3152, 3152).
+    fn minimap_click() -> (Vec<u32>, MinimapTrailer) {
+        let trailer = MinimapTrailer {
+            x: 10,
+            y: -20,
+            yaw: 0,
+            magic1: 57,
+            angle: 0,
+            zoom: 0,
+            magic2: 89,
+            fine_x: 52 * 128 + 64,
+            fine_z: 52 * 128 + 64,
+            nearest: 0,
+            magic3: 63,
+        };
+        let path = vec![pack_coord(3205, 3205), pack_coord(3207, 3209)];
+        (path, trailer)
+    }
+
+    const BASE: MapBase = MapBase { x: 3152, z: 3152 };
+
+    #[test]
+    fn real_minimap_clicks_pass() {
+        let mut ac = AntiCheat::default();
+        let (path, trailer) = minimap_click();
+        assert_eq!(minimap_tile(&trailer), (55, 57));
+        for _ in 0..10 {
+            ac.minimap(&path, &trailer, BASE, (3204, 3204));
+        }
+        assert!(ac.report().flags.is_empty(), "{:?}", ac.report().flags);
+        // Just after the world moved the map on, the click still lands from
+        // the old one.
+        ac.see_base(MapBase { x: 3160, z: 3152 });
+        ac.minimap(&path, &trailer, MapBase { x: 3160, z: 3152 }, (3204, 3204));
+        assert_eq!(ac.forged_minimap, 0);
+    }
+
+    #[test]
+    fn forged_minimap_clicks_are_flagged() {
+        let (path, trailer) = minimap_click();
+        let forgeries = [
+            MinimapTrailer::default(),
+            MinimapTrailer {
+                magic3: 64,
+                ..trailer
+            },
+            MinimapTrailer {
+                angle: 100,
+                ..trailer
+            },
+            // A click somewhere the path doesn't go.
+            MinimapTrailer { x: -40, ..trailer },
+        ];
+        for forged in forgeries {
+            let mut ac = AntiCheat::default();
+            ac.minimap(&path, &forged, BASE, (3204, 3204));
+            assert!(ac.report().flags.is_empty(), "one is a fluke");
+            ac.minimap(&path, &forged, BASE, (3204, 3204));
+            assert_eq!(ac.report().flags, ["forged_minimap_click"], "{forged:?}");
+        }
+        // Over 25 steps the path stops short, so only the bytes are judged.
+        let mut ac = AntiCheat::default();
+        let long: Vec<u32> = (0..25).map(|i| pack_coord(3205 + i, 3205)).collect();
+        for _ in 0..2 {
+            ac.minimap(&long, &trailer, BASE, (3204, 3204));
+        }
+        assert!(ac.report().flags.is_empty());
+    }
+
+    #[test]
+    fn minimap_clicks_far_from_the_player_are_flagged() {
+        let mut ac = AntiCheat::default();
+        let (path, trailer) = minimap_click();
+        for _ in 0..5 {
+            ac.minimap(&path, &trailer, BASE, (3204 + 20, 3204));
+        }
+        assert_eq!(ac.report().flags, ["minimap_position_off"]);
     }
 
     /// The flags for 40 clicks 600 ms apart, each 300 px from the last.

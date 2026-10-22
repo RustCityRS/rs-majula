@@ -424,6 +424,12 @@ the last few seconds before a disconnect is lost). The 225 web client doesn't
 report mouse moves, so its replays show the cursor only where it clicked.
 The camera follows the client's `EVENT_CAMERA_POSITION` reports (225, 254+);
 244 and 245.2 have none, so their replays press the recorded arrow keys.
+A minimap click also carries the minimap's tilt and zoom (random, drifting
+a step every 10 seconds or so, against screen-reading bots) and the camera's yaw, and so
+does 225's camera report. The replay sets the client's to match, so its
+minimap looks as the player's did and a replayed minimap click puts the flag
+where theirs went; on 244 and 245.2 the yaw also corrects the camera the arrow
+keys turn.
 Chat, private messages and `::` commands are typed into the client again from
 the packets that sent them (274+ report no keys at all), a key at a time and
 ending as they were sent, so the client shows them as it did; the timeline
@@ -448,6 +454,8 @@ anything, it starts again from the nearest keyframe to the same spot.
 | No mouse | 20+ actions and no mouse reports. |
 | Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last report. |
 | Clockwork clicks | 30+ clicks at very even intervals. |
+| Forged minimap clicks | A minimap click ends in 14 bytes: the click's spot on the minimap, the camera's yaw, the minimap's random tilt and zoom, where the client drew the player, and the fixed values 57, 89 and 63. Two or more with wrong fixed values, values out of range, or a spot that (worked out as the client does) doesn't lead to the tile walked to. |
+| Minimap position off | Most of 5+ minimap clicks drew the player over 8 tiles from where the world has them. |
 
 Each session's score is the sum of its flags' weights; the measurements
 behind them are kept with it. A real client scores 0; a packet bot that only

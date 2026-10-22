@@ -39,6 +39,7 @@ impl ClientGameHandler for MoveGameClick {
 impl ClientGameHandler for MoveMinimapClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_walk(&self.path, true);
+        active.watch_minimap(&self.path, &self.trailer);
         handle(self.path, self.ctrl, false, active)
     }
 }

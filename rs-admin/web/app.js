@@ -5921,6 +5921,8 @@ const FLAGS = {
     no_mouse_movement: ['No mouse', 'Played without the client ever reporting the mouse.'],
     cursor_jumps: ['Cursor jumps', 'Most clicks landed far from where the cursor last was: it jumps rather than moves. A touch screen does this too (a tap puts the cursor where it lands), so check the replay: an iPad or a touchscreen laptop passes as a desktop.'],
     robotic_click_timing: ['Clockwork clicks', 'Clicks came at very even intervals.'],
+    forged_minimap_click: ['Forged minimap clicks', 'Minimap clicks came with bytes the real client never sends: wrong fixed values, or a click spot, camera and position that don\'t lead to the tile walked to. A bot building its own packets.'],
+    minimap_position_off: ['Minimap position off', 'Most minimap clicks said the player was far from where the world had them.'],
     automated_browser: ['Automated browser', 'The web client ran in a browser that says it\'s headless (Puppeteer, Selenium, Playwright), or sent no user agent at all.'],
 };
 

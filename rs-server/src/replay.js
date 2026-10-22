@@ -477,6 +477,12 @@
         // client's camera field names once found.
         cameras: [],
         camera: -1,
+        // The minimap's tilt and zoom as the client sent them ([ms, angle,
+        // zoom, yaw or null]), the last one passed, and the client's field
+        // names once found.
+        minimaps: [],
+        minimap: -1,
+        minimapFields: undefined,
         // When the title screen last started its flames.
         flamesAt: null,
         // How far apart the scout's sweep frames are (see frameNear).
@@ -738,6 +744,7 @@
         }
         playInputs(replay.lastMs);
         playCamera(replay.lastMs);
+        playMinimap(replay.lastMs);
         if (replay.seekTo !== null && replay.lastMs >= replay.seekTo) {
             const to = replay.seekTo;
             replay.seekTo = null;
@@ -1081,6 +1088,66 @@
         }
         replay.client[fields.pitch] = Math.round(p);
         replay.client[fields.yaw] = Math.round(y) & (YAW_TURN - 1);
+    }
+
+    // ---- The minimap ----
+    //
+    // The client tilts and zooms its minimap a little at random (drifting a
+    // step every 10 seconds or so) against bots that read the screen, and a
+    // minimap click sends what they were, with the camera's yaw; 225's camera
+    // report sends them too. The replay sets the client's to match, so its
+    // minimap shows as the player's did and a recorded minimap click puts the
+    // flag where theirs went. On 244 and 245.2, which don't report the
+    // camera, a minimap click's yaw also puts right the camera that the
+    // recorded arrow keys turn (and that a login starts at random).
+
+    function minimapsIn(inputs) {
+        return inputs.filter((i) => i[1] === 12).map(([at, , angle, zoom, yaw]) => [at, angle, zoom, yaw ?? null]);
+    }
+
+    // The client's fields, by name: those it writes into a minimap click
+    // around its fixed bytes 57 and 89.
+    function minimapFields() {
+        if (replay.minimapFields !== undefined) {
+            return replay.minimapFields;
+        }
+        replay.minimapFields = null;
+        if (!replay.client) {
+            return null;
+        }
+        const trailer = /\.p2\(this\.([\w$]+)\),this\.[\w$]+\.p1\(57\),this\.[\w$]+\.p1\(this\.([\w$]+)\),this\.[\w$]+\.p1\(this\.([\w$]+)\),this\.[\w$]+\.p1\(89\)/;
+        for (let proto = Object.getPrototypeOf(replay.client); proto && proto !== Object.prototype; proto = Object.getPrototypeOf(proto)) {
+            for (const name of Object.getOwnPropertyNames(proto)) {
+                const fn = name === 'constructor' ? null : Object.getOwnPropertyDescriptor(proto, name)?.value;
+                const match = typeof fn === 'function' && trailer.exec(Function.prototype.toString.call(fn));
+                if (match) {
+                    replay.minimapFields = { yaw: match[1], angle: match[2], zoom: match[3] };
+                    return replay.minimapFields;
+                }
+            }
+        }
+        return null;
+    }
+
+    function playMinimap(ms) {
+        const marks = replay.minimaps;
+        const fields = marks.length && replay.streaming && !replay.freeLook ? minimapFields() : null;
+        if (!fields) {
+            return;
+        }
+        const was = replay.minimap;
+        let yaw = null;
+        while (replay.minimap + 1 < marks.length && marks[replay.minimap + 1][0] <= ms) {
+            replay.minimap++;
+            yaw = marks[replay.minimap][3] ?? yaw;
+        }
+        // Before the first, the minimap is as that one found it.
+        const [, angle, zoom] = marks[Math.max(0, replay.minimap)];
+        replay.client[fields.angle] = angle;
+        replay.client[fields.zoom] = zoom;
+        if (replay.minimap !== was && yaw !== null && typeof replay.rec.header.cameraOp !== 'number') {
+            replay.client[fields.yaw] = yaw & (YAW_TURN - 1);
+        }
     }
 
     // ---- The overlay: the player's cursor over the game ----
@@ -1452,6 +1519,7 @@
             frame: 0,
             input: 0,
             camera: -1,
+            minimap: -1,
             lastMs: 0,
             ended: false,
             closedAt: null,
@@ -1547,6 +1615,8 @@
             replay.started = false;
             replay.cameras = rec.header.inputs.filter((i) => i[1] === 10).map(([at, , pitch, yaw]) => [at, pitch, yaw]);
             replay.camera = -1;
+            replay.minimaps = minimapsIn(rec.header.inputs);
+            replay.minimap = -1;
             replay.live = rec.header.live ? { delayMs: rec.header.live.delayMs || 0, ended: !!rec.header.live.ended } : null;
             replay.userSpeed = Math.min(8, Math.max(0.25, Number(msg.speed) || 1));
             replay.userPaused = !!msg.paused;
@@ -1674,6 +1744,7 @@
         rec.header.inputs = mergeFrom(rec.header.inputs, replay.input, inputs);
         const cams = inputs.filter((i) => i[1] === 10).map(([at, , pitch, yaw]) => [at, pitch, yaw]);
         replay.cameras = mergeFrom(replay.cameras, Math.max(0, replay.camera + 1), cams);
+        replay.minimaps = mergeFrom(replay.minimaps, Math.max(0, replay.minimap + 1), minimapsIn(inputs));
         rec.header.notes.push(...(more.header.notes || []));
         rec.header.durationMs = Math.max(rec.header.durationMs, more.header.durationMs || 0);
         rec.header.frames += more.frames.length;
@@ -2026,6 +2097,16 @@
                     pitch: f ? replay.client[f.pitch] : null,
                     yaw: f ? replay.client[f.yaw] : null,
                     expected: i >= 0 ? cams[i] : cams[0] ?? null,
+                };
+            })(),
+            minimap: (() => {
+                const f = minimapFields();
+                return {
+                    fields: f,
+                    marks: (replay.minimaps || []).length,
+                    angle: f ? replay.client[f.angle] : null,
+                    zoom: f ? replay.client[f.zoom] : null,
+                    yaw: f ? replay.client[f.yaw] : null,
                 };
             })(),
             socket: replay.socket?.stage ?? null,

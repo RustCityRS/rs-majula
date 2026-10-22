@@ -21,7 +21,11 @@ pub const OPENED_BY: &str = "Detection";
 pub const CASE_SCORE: i16 = 50;
 /// The score, or the flags, that make a session's case high priority.
 const HIGH_SCORE: i16 = 100;
-const HIGH_FLAGS: [&str; 2] = ["modified_client", "automated_browser"];
+const HIGH_FLAGS: [&str; 3] = [
+    "modified_client",
+    "forged_minimap_click",
+    "automated_browser",
+];
 /// How far back sessions and reports are looked through. Older ones were
 /// looked at already, while the console ran.
 const LOOK_BACK_MS: i64 = 24 * 3600 * 1000;
