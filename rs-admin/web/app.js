@@ -2182,6 +2182,8 @@ const VERBS = {
     case_detected: ['opened a case on', 'briefcase', 'danger'],
     case_detection_added: ['added a new detection to the case on', 'briefcase', 'warn'],
     appeal_decided: ['decided the appeal of', 'flag', 'accent'],
+    recovery_received: ['took in an account recovery request for', 'key', 'warn'],
+    recovery_decided: ['decided the account recovery request for', 'key', 'accent'],
     note_added: ['added a staff note on', 'edit'],
     note_removed: ['removed a staff note on', 'trash'],
     session_freed: ['freed the session of', 'unlock', 'accent'],
@@ -4025,7 +4027,7 @@ function caseItem(c, extra) {
                     'aria-label': 'Changed since you last looked'
                 }),
                 h('span', {class: 'case-id num'}, `#${c.id}`),
-                link(caseHref(c.id), {class: 'name-link'}, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c),
+                link(caseHref(c.id), {class: 'name-link'}, h('b', {}, c.title)), ' ', statusBadge(c), ' ', priorityBadge(c.priority), appealBadge(c), recoveryBadge(c),
                 c.created_by === DETECTION && [' ', h('span', {
                     class: 'badge accent',
                     title: 'The console opened this case on its own'
@@ -4046,6 +4048,89 @@ function appealBadge(c) {
     return decision
         ? h('span', {class: `badge ${decision === 'overturned' ? 'accent' : 'ok'}`}, icon('flag'), decision === 'overturned' ? 'Appeal overturned' : 'Appeal upheld')
         : h('span', {class: 'badge warn'}, icon('flag'), 'Appeal');
+}
+
+// A recovery case's badge: waiting on a decision, or how it went.
+function recoveryBadge(c) {
+    const approved = c.recovery?.approved;
+    if (!c.recovery) return null;
+    return approved === true ? h('span', {class: 'badge accent'}, icon('key'), 'Recovery approved')
+        : approved === false ? h('span', {class: 'badge ok'}, icon('key'), 'Recovery denied')
+            : h('span', {class: 'badge warn'}, icon('key'), 'Recovery');
+}
+
+// How each verdict on a recovery request's answers shows.
+const VERDICTS = {
+    match: ['ok', 'Match'],
+    close: ['warn', 'Close'],
+    no: ['danger', 'No match'],
+    unknown: ['', 'Can\'t tell'],
+};
+
+function verdictBadge(verdict) {
+    const [tone, label] = VERDICTS[verdict] || VERDICTS.unknown;
+    return h('span', {class: `badge ${tone}`}, label);
+}
+
+const RECOVERY_REASONS = {
+    forgot: 'Forgot their password',
+    hijacked: 'Someone else got into the account',
+    other: 'Something else',
+};
+
+const RECOVERY_DEVICES = {
+    computer: 'A browser on a computer',
+    phone: 'A browser on a phone or tablet',
+    client: 'The downloadable client',
+};
+
+// The checks of a recovery request, each [what, they said, the records,
+// verdict], from what it says and what the account's records said.
+function recoveryChecks(r, e) {
+    const rows = [];
+    const lastFrom = (n, ms) => n ? `${plural(n, 'login')}, the last ${ago(ms)}` : 'No logins';
+    rows.push(['Passwords', r.passwords_given ? plural(r.passwords_given, 'password') : 'None given',
+        r.passwords_given ? (r.password_matched ? 'One is the account\'s password now' : 'None is the account\'s password now')
+            : '', r.passwords_given ? (r.password_matched ? 'match' : 'no') : 'unknown']);
+    if (!e) return rows;
+    rows.push(['Address', r.ip, e.from_ip ? lastFrom(e.from_ip, e.last_from_ip_ms)
+        : e.from_network ? `${plural(e.from_network, 'login')} from its network`
+            : e.registered_from_ip ? 'Registered from it' : 'Never logged in from it or its network',
+    e.from_ip || e.registered_from_ip ? 'match' : e.from_network ? 'close' : 'no']);
+    rows.push(['Browser', r.uids.length ? 'The game\'s id in this browser' : 'None read',
+        r.uids.length ? lastFrom(e.from_browser, e.last_from_browser_ms) : 'They may not play in this browser',
+        !r.uids.length ? 'unknown' : e.from_browser ? 'match' : 'no']);
+    rows.push(['Browser said', [r.user_agent, r.platform, r.language].filter(Boolean).join(' · ') || 'Nothing',
+        e.same_agent ? `Same browser on ${plural(e.same_agent, 'login')}`
+            : e.same_platform || e.same_language ? `Same ${e.same_platform ? 'platform' : 'language'} on ${plural(e.same_platform || e.same_language, 'login')}`
+                : 'Not like any of its logins',
+        e.same_agent ? 'match' : e.same_platform || e.same_language ? 'close' : 'no']);
+    const registered = new Date(e.registered_ms);
+    const madeIn = registered.getUTCFullYear() * 12 + registered.getUTCMonth();
+    const [year, month] = (r.created_month || '').split('-').map(Number);
+    const off = r.created_month ? Math.abs(year * 12 + month - 1 - madeIn) : null;
+    rows.push(['Made the account', r.created_month || 'Not given', `Registered ${fullTime(e.registered_ms)}`,
+        off === null ? 'unknown' : off === 0 ? 'match' : off <= 2 ? 'close' : 'no']);
+    rows.push(['Last played', r.last_played || 'Not given',
+        !r.last_played ? (e.last_login_ms ? `Last login ${ago(e.last_login_ms)}` : 'Never logged in')
+            : e.logins_since ? `${plural(e.logins_since, 'login')} since, from ${plural(e.addresses_since, 'address', 'addresses')} (${e.new_addresses_since} new)`
+                : 'No logins since',
+        !r.last_played ? 'unknown' : e.new_addresses_since ? 'no' : 'match']);
+    const playedOn = {computer: e.web_logins, phone: e.phone_logins, client: e.client_logins};
+    rows.push(['Plays on', RECOVERY_DEVICES[r.device] || 'Not sure',
+        `${e.web_logins} computer, ${e.phone_logins} phone, ${e.client_logins} client logins`,
+        !r.device ? 'unknown' : playedOn[r.device] ? 'match' : 'no']);
+    const claims = (what, list) => {
+        for (const claim of list || []) rows.push([what, claim.said, claim.detail || '', claim.verdict]);
+    };
+    claims('Skill', e.skills);
+    claims('Item', e.items);
+    if (e.friends === null && r.friends) rows.push(['Friends', r.friends, 'The friend lists couldn\'t be read', 'unknown']);
+    claims('Friend', e.friends);
+    claims('Traded with', e.traded_with);
+    claims('Other account', e.other_accounts);
+    if (r.location) rows.push(['Logged out at', r.location, e.x ? `The account is at ${e.x}, ${e.z}` : 'It has no save to compare', 'unknown']);
+    return rows;
 }
 
 // Case counts for the nav and the center, refreshed while signed in.
@@ -4443,6 +4528,7 @@ function moderationPage(ctx) {
         const actions = spinnerList();
         const closed = spinnerList();
         const appeals = spinnerList();
+        const recoveries = spinnerList();
         const watchlist = spinnerList();
         const take = (c) => button('Take it', {
             small: true, icon: 'plus', on: {
@@ -4474,7 +4560,13 @@ function moderationPage(ctx) {
                 replace(appeals, waiting.length ? waiting.map((c) => caseItem(c, c.appeal.issued_by && isMe(c.appeal.issued_by)
                         ? h('div', {class: 'list-sub'}, 'You issued this one: someone else decides it.') : null))
                     : h('div', {class: 'empty'}, icon('check'), 'No appeals waiting.'));
-            }).catch((e) => failed(appeals, e));
+                const asking = rows.filter((c) => c.recovery && c.recovery.approved == null);
+                replace(recoveries, asking.length ? asking.map((c) => caseItem(c))
+                    : h('div', {class: 'empty'}, icon('check'), 'No recovery requests waiting.'));
+            }).catch((e) => {
+                failed(appeals, e);
+                failed(recoveries, e);
+            });
             api('GET', '/notes/watched').then((rows) => replace(watchlist, rows.length ? rows.map((n) => h('div', {class: 'list-item'},
                     h('div', {class: `list-icon ${n.world ? 'ok' : ''}`}, icon('eye')),
                     h('div', {class: 'list-main'},
@@ -4509,6 +4601,7 @@ function moderationPage(ctx) {
                     card('Recently closed', more('Closed', 'cases', {show: 'closed'}), closed)),
                 h('div', {class: 'column'},
                     card('Appeals to decide', null, appeals),
+                    card('Recovery requests', null, recoveries),
                     card('To triage', more('Queue', 'triage'), triage),
                     card('Watchlist', null, watchlist),
                     card('Recent actions', more('History', 'history'), actions)))
@@ -5175,6 +5268,14 @@ function describeEntry(e, timeline) {
         case 'appeal_filed':
             return [['received an appeal against a ', b(e.appeal.sanction)], 'flag', 'warn',
                 h('div', {class: 'appeal-statement'}, e.appeal.statement)];
+        case 'recovery_filed':
+            return [['received an account recovery request: ', b(RECOVERY_REASONS[e.recovery.reason] || e.recovery.reason)], 'key', 'warn',
+                h('div', {class: 'appeal-statement'}, e.recovery.details)];
+        case 'recovery_checked':
+            return ['checked the request against the account\'s records', 'refresh', ''];
+        case 'recovery_decided':
+            return [['decided the recovery request: ', b(e.approved ? 'Approved' : 'Denied')], 'key', e.approved ? 'accent' : 'ok',
+                e.note && h('div', {class: 'list-sub'}, 'Told the player: ', e.note)];
         case 'appeal_decided':
             return [['decided the appeal: ', b(e.decision === 'overturned' ? 'Overturned' : 'Upheld')],
                 e.decision === 'overturned' ? 'undo' : 'check', e.decision === 'overturned' ? 'accent' : 'ok',
@@ -5487,6 +5588,81 @@ function casePage(ctx) {
                         }))))));
     };
 
+    const recoveryDialog = (approve) => {
+        const r = c.recovery.request;
+        const note = h('textarea', {
+            class: 'input', maxlength: '2000', placeholder: approve
+                ? 'Optional. e.g. "Your account is secure again: set a new password below."'
+                : 'Optional. e.g. "We couldn\'t match enough of your answers to the account."', autofocus: true
+        });
+        openDialog({
+            title: approve ? 'Approve the recovery request' : 'Deny the recovery request',
+            subtitle: `${c.player}'s request #${r.id}`,
+            body: [
+                h('div', {class: `callout ${approve ? 'warn' : ''}`}, icon(approve ? 'key' : 'check'), h('div', {}, approve
+                    ? `${c.player}'s password stops working now and anyone on the account is logged out. Whoever sent the request sets a new password with its recovery key, once, within 3 days. The case closes.`
+                    : `${c.player}'s password is left as it is. They're told it was denied, and the case closes.`)),
+                h('div', {class: 'field'}, h('span', {}, 'Note to the player'), note,
+                    h('span', {class: 'hint'}, 'Shown to them on the website\'s request status page, as written. Plain text.')),
+            ],
+            actions: [{label: 'Cancel'}, {
+                label: approve ? 'Approve' : 'Deny',
+                kind: approve ? 'primary' : 'danger',
+                icon: approve ? 'key' : 'check',
+                run: async () => {
+                    await op({op: 'decide_recovery', approve, note: note.value});
+                    toast(approve ? `Approved: ${c.player}'s old password is locked.` : 'Denied.');
+                    afterAction();
+                },
+            }],
+        });
+    };
+    const recoveryBox = h('div', {});
+    const drawRecovery = () => {
+        const rec = c.recovery;
+        if (!rec) return replace(recoveryBox);
+        const r = rec.request;
+        const e = rec.evidence;
+        const rows = recoveryChecks(r, e);
+        const matched = rows.filter((row) => row[3] === 'match').length;
+        const against = rows.filter((row) => row[3] === 'no').length;
+        const warnings = e ? [
+            e.staff_level > 0 && h('div', {class: 'callout danger'}, icon('shield'), h('div', {}, 'This is a staff account.')),
+            e.banned_until_ms && h('div', {class: 'callout warn'}, icon('alert'), h('div', {}, `The account is banned until ${fullTime(e.banned_until_ms)}. Approving doesn't lift it.`)),
+            e.other_requests > 0 && h('div', {class: 'callout warn'}, icon('alert'), h('div', {},
+                `${plural(e.other_requests, 'other request')} for this account${e.other_requests_elsewhere ? `, ${e.other_requests_elsewhere} from other addresses` : ''}.`)),
+            e.seen_from.length > 0 && h('div', {class: 'callout'}, icon('users'), h('div', {},
+                'Other accounts seen from this address or browser: ', e.seen_from.map((name, i) => [i ? ', ' : '', playerLink(name)]))),
+        ] : [];
+        const facts = [
+            ['Why', RECOVERY_REASONS[r.reason] || r.reason],
+            ['Sent', `${fullTime(r.filed_ms)} (${ago(r.filed_ms)})`],
+            rec.approved != null && ['Decision', `${rec.approved ? 'Approved' : 'Denied'} by ${rec.decided_by}`],
+            rec.note && ['Told them', rec.note],
+        ].filter(Boolean);
+        const admin = state.canCommand;
+        replace(recoveryBox, h('section', {class: 'card'},
+            h('div', {class: 'card-head'}, h('h2', {}, `Account recovery #${r.id}`), h('div', {class: 'actions'}, recoveryBadge(c))),
+            h('div', {class: 'card-body'},
+                h('div', {class: 'appeal-statement'}, r.details),
+                h('dl', {class: 'facts'}, facts.map(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
+                warnings,
+                h('p', {class: 'hint'}, e
+                    ? `${matched} of ${rows.length} checks match, ${against} don't. Checked ${ago(rec.checked_ms)}.`
+                    : 'Not checked against the account\'s records yet: no world answered.'),
+                h('div', {class: 'table-wrap'}, h('table', {class: 'table'},
+                    h('thead', {}, h('tr', {}, h('th', {}, 'Check'), h('th', {}, 'They said'), h('th', {}, 'The records'), h('th', {}, ''))),
+                    h('tbody', {}, rows.map(([what, said, found, verdict]) => h('tr', {},
+                        h('td', {}, what), h('td', {}, said), h('td', {class: 'muted'}, found), h('td', {}, verdictBadge(verdict))))))),
+                open() && h('div', {class: 'chips'},
+                    button(e ? 'Check again' : 'Check now', {icon: 'refresh', small: true, on: {click: run({op: 'check_recovery'}, 'Checked again.')}})),
+                open() && rec.approved == null && (admin
+                    ? h('div', {class: 'chips'},
+                        button('Deny', {icon: 'check', on: {click: () => recoveryDialog(false)}}),
+                        button('Approve', {icon: 'key', kind: 'primary', on: {click: () => recoveryDialog(true)}}))
+                    : h('div', {class: 'callout'}, icon('shield'), h('div', {}, 'Admins decide recovery requests: comment with what you found, and an admin decides.'))))));
+    };
+
     const assignDialog = async () => {
         const list = h('div', {class: 'chips'}, h('div', {class: 'spinner'}));
         const {close} = openDialog({
@@ -5539,7 +5715,13 @@ function casePage(ctx) {
                     kind: 'primary',
                     on: {click: () => appealBox.scrollIntoView({block: 'center'})}
                 })
-                    : button('Close case', {icon: 'check', kind: 'primary', on: {click: closeDialog}})));
+                    : c.recovery && c.recovery.approved == null
+                        ? button('Decide request', {
+                            icon: 'key',
+                            kind: 'primary',
+                            on: {click: () => recoveryBox.scrollIntoView({block: 'center'})}
+                        })
+                        : button('Close case', {icon: 'check', kind: 'primary', on: {click: closeDialog}})));
     };
 
     const drawPresence = () => {
@@ -5703,6 +5885,7 @@ function casePage(ctx) {
         layout.classList.remove('hidden');
         drawHead();
         drawAppeal();
+        drawRecovery();
         drawEvidence();
         drawCase();
         drawTimeline();
@@ -5766,6 +5949,7 @@ function casePage(ctx) {
     append(layout,
         h('div', {class: 'column'},
             appealBox,
+            recoveryBox,
             card('Evidence', [evidenceCount, addEvidence], evidenceList),
             card('Reports against them', h('span', {class: 'muted'}, 'All of them, in this case or not'), reportsBox),
             h('section', {class: 'card'},

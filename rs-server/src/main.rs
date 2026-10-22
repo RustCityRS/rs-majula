@@ -40,6 +40,7 @@ mod admin;
 mod http;
 mod jaggrab;
 mod metrics;
+mod recovery;
 mod socket;
 pub mod tui;
 

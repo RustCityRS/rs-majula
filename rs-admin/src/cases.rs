@@ -1,4 +1,5 @@
 use crate::users::{name_key, now_ms};
+use rs_admin_api::{Recovery, RecoveryEvidence};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::io::Write;
@@ -79,6 +80,19 @@ pub struct AppealState {
     #[serde(flatten)]
     pub appeal: Appeal,
     pub decision: Option<Decision>,
+    pub decided_by: Option<String>,
+    pub note: Option<String>,
+}
+
+/// An account recovery request, what the records said about it, and how
+/// it was decided.
+#[derive(Clone, Debug, Serialize)]
+pub struct RecoveryState {
+    pub request: Recovery,
+    /// The latest check of it against the account's records.
+    pub evidence: Option<RecoveryEvidence>,
+    pub checked_ms: Option<u64>,
+    pub approved: Option<bool>,
     pub decided_by: Option<String>,
     pub note: Option<String>,
 }
@@ -277,6 +291,17 @@ pub enum Change {
         #[serde(default, skip_serializing_if = "String::is_empty")]
         note: String,
     },
+    RecoveryFiled {
+        recovery: Recovery,
+    },
+    RecoveryChecked {
+        evidence: RecoveryEvidence,
+    },
+    RecoveryDecided {
+        approved: bool,
+        #[serde(default, skip_serializing_if = "String::is_empty")]
+        note: String,
+    },
 }
 
 /// One line of the log.
@@ -308,6 +333,7 @@ pub struct Case {
     pub comments: u32,
     pub actions: u32,
     pub appeal: Option<AppealState>,
+    pub recovery: Option<RecoveryState>,
     #[serde(skip)]
     pub timeline: Vec<Entry>,
 }
@@ -414,6 +440,19 @@ impl Inner {
             Change::Closed { .. } if case.appeal.as_ref().is_some_and(|a| a.decision.is_none()) => {
                 Err("Decide the appeal to close its case.".into())
             }
+            Change::RecoveryFiled { .. } if case.recovery.is_some() || case.timeline.len() > 1 => {
+                Err("A recovery request is filed only as its case opens.".into())
+            }
+            Change::RecoveryChecked { .. } | Change::RecoveryDecided { .. }
+                if case.recovery.is_none() =>
+            {
+                Err("This case isn't a recovery request.".into())
+            }
+            Change::Closed { .. }
+                if case.recovery.as_ref().is_some_and(|r| r.approved.is_none()) =>
+            {
+                Err("Approve or deny the recovery request to close its case.".into())
+            }
             _ if closed && entry.change != Change::Reopened => {
                 Err("The case is closed; reopen it first.".into())
             }
@@ -489,6 +528,7 @@ impl Inner {
                     comments: 0,
                     actions: 0,
                     appeal: None,
+                    recovery: None,
                     timeline: vec![entry],
                 },
             );
@@ -538,6 +578,29 @@ impl Inner {
             Change::AppealDecided { decision, note } => {
                 if let Some(state) = &mut case.appeal {
                     state.decision = Some(*decision);
+                    state.decided_by = Some(entry.by.clone());
+                    state.note = Some(note.clone()).filter(|n| !n.is_empty());
+                }
+            }
+            Change::RecoveryFiled { recovery } => {
+                case.recovery = Some(RecoveryState {
+                    request: recovery.clone(),
+                    evidence: None,
+                    checked_ms: None,
+                    approved: None,
+                    decided_by: None,
+                    note: None,
+                });
+            }
+            Change::RecoveryChecked { evidence } => {
+                if let Some(state) = &mut case.recovery {
+                    state.evidence = Some(evidence.clone());
+                    state.checked_ms = Some(entry.at_ms);
+                }
+            }
+            Change::RecoveryDecided { approved, note } => {
+                if let Some(state) = &mut case.recovery {
+                    state.approved = Some(*approved);
                     state.decided_by = Some(entry.by.clone());
                     state.note = Some(note.clone()).filter(|n| !n.is_empty());
                 }
@@ -750,6 +813,15 @@ impl Cases {
             .cases
             .values()
             .find(|c| c.appeal.as_ref().is_some_and(|a| a.appeal.id == id))
+            .map(|c| c.id)
+    }
+
+    /// The case opened for website recovery request `id`, if there is one.
+    pub fn of_recovery(&self, id: i64) -> Option<u64> {
+        self.lock()
+            .cases
+            .values()
+            .find(|c| c.recovery.as_ref().is_some_and(|r| r.request.id == id))
             .map(|c| c.id)
     }
 
@@ -1106,6 +1178,78 @@ mod tests {
             .create("Kim", "T".into(), "Eve".into(), Priority::Low, vec![])
             .unwrap();
         assert!(cases.change("Kim", plain.id, decide).is_err());
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    fn recovery_requests_are_checked_and_decided_before_closing() {
+        let path = temp_log("recovery");
+        let cases = Cases::open(path.clone());
+        let filed = || Change::RecoveryFiled {
+            recovery: Recovery {
+                id: 5,
+                player: "Bob".into(),
+                reason: "hijacked".into(),
+                details: "Someone changed my password".into(),
+                ip: "203.0.113.7".into(),
+                ..Recovery::default()
+            },
+        };
+        let case = cases
+            .create(
+                "Account recovery",
+                "Account recovery #5".into(),
+                "Bob".into(),
+                Priority::High,
+                vec![filed()],
+            )
+            .unwrap();
+        assert_eq!(cases.of_recovery(5), Some(case.id));
+        assert_eq!(cases.of_recovery(6), None);
+        let close = |_: &Case| {
+            Ok(vec![Change::Closed {
+                resolution: Resolution::Actioned,
+                note: String::new(),
+            }])
+        };
+        assert!(cases.change("Kim", case.id, close).is_err());
+        assert!(cases.change("Kim", case.id, |_| Ok(vec![filed()])).is_err());
+        let checked = |from_ip| {
+            move |_: &Case| {
+                Ok(vec![Change::RecoveryChecked {
+                    evidence: RecoveryEvidence {
+                        from_ip,
+                        ..RecoveryEvidence::default()
+                    },
+                }])
+            }
+        };
+        cases
+            .change("Account recovery", case.id, checked(1))
+            .unwrap();
+        cases.change("Kim", case.id, checked(3)).unwrap();
+        cases
+            .change("Kim", case.id, |_| {
+                Ok(vec![Change::RecoveryDecided {
+                    approved: true,
+                    note: String::new(),
+                }])
+            })
+            .unwrap();
+        cases.change("Kim", case.id, close).unwrap();
+        let reopened = Cases::open(path.clone()).get(case.id).unwrap();
+        let state = reopened.recovery.unwrap();
+        // The latest check stands.
+        assert_eq!(state.evidence.unwrap().from_ip, 3);
+        assert_eq!(state.approved, Some(true));
+        assert_eq!(state.decided_by.as_deref(), Some("Kim"));
+        assert_eq!(state.note, None);
+
+        // Not a recovery request: nothing to check.
+        let plain = cases
+            .create("Kim", "T".into(), "Eve".into(), Priority::Low, vec![])
+            .unwrap();
+        assert!(cases.change("Kim", plain.id, checked(1)).is_err());
         let _ = std::fs::remove_file(path);
     }
 

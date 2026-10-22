@@ -4,6 +4,25 @@ use crate::{Db, Error};
 /// it (it isn't a PHC string), so only the reset code gets them back in.
 pub const RESET_LOCKED: &str = "!locked for a password reset";
 
+/// What reset codes and recovery keys are made of: no 0/O or 1/I to mix up
+/// when read out.
+pub const CODE_ALPHABET: &[u8; 32] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+/// A code of `groups` groups of 4 from [`CODE_ALPHABET`], as
+/// `XXXX-XXXX-XXXX`, taking 5 of `bits` a character (so at most 6 groups).
+pub fn code_from_bits(mut bits: u128, groups: usize) -> String {
+    let len = groups << 2;
+    let mut code = String::with_capacity(len + groups);
+    for i in 0..len {
+        if i > 0 && i & 3 == 0 {
+            code.push('-');
+        }
+        code.push(CODE_ALPHABET[(bits & 31) as usize] as char);
+        bits >>= 5;
+    }
+    code
+}
+
 /// A password reset waiting to be redeemed.
 #[derive(Debug, sqlx::FromRow)]
 pub struct ResetCode {

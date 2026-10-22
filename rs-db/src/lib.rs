@@ -11,6 +11,7 @@ mod news;
 mod password;
 mod player;
 mod recovery;
+mod recovery_request;
 mod replay;
 mod save;
 mod script_error;
@@ -39,7 +40,11 @@ pub use password::{
     is_password_char, is_typeable_password,
 };
 pub use player::{Credentials, NewPlayer, Sanctions};
-pub use recovery::{RESET_LOCKED, ResetCode};
+pub use recovery::{CODE_ALPHABET, RESET_LOCKED, ResetCode, code_from_bits};
+pub use recovery_request::{
+    NewRecovery, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RecoveryAnswers, RecoveryDecided,
+    RecoveryFacts, RecoveryFiled, RecoveryRecord,
+};
 pub use replay::{
     NewReplay, PlayedSession, ReplayChunk, ReplayRecord, ReplayReport, ReplayStorage,
 };

@@ -5,6 +5,7 @@ mod news;
 mod pages;
 mod play;
 mod recover;
+mod recovery;
 
 use crate::app::App;
 use crate::metrics;
@@ -43,6 +44,14 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/create", get(create::form).post(create::submit))
         .route("/appeal", get(appeal::form).post(appeal::submit))
         .route("/recover", get(recover::form).post(recover::submit))
+        .route(
+            "/recover/request",
+            get(recovery::form).post(recovery::submit),
+        )
+        .route(
+            "/recover/request/status",
+            get(recovery::status_form).post(recovery::status),
+        )
         .route(
             "/appeal/status",
             get(appeal::status_form).post(appeal::status),

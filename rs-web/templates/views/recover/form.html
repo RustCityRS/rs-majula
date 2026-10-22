@@ -8,11 +8,14 @@
 
 <br>
 
-<p>If you can't get into your account, a member of staff can give you a
-  password reset code once they're sure the account is yours. Enter it here
-  with your username to choose a new password.</p>
+<p>If staff gave you a password reset code, or approved your
+  <a href="/recover/request" class=c>recovery request</a>, enter the code
+  (or your recovery key) here with your username to choose a new
+  password.</p>
 
 <ul>
+  <li>Can't get into your account and haven't asked yet?
+    <a href="/recover/request" class=c>Send a recovery request</a>.</li>
   <li>The code can be used once, within 3 days of being given to you.</li>
   <li>Staff will never ask for your password, only give you a code.</li>
   <li>Your password must be 5 to 20 characters: letters, numbers, spaces and the symbols on your keyboard (apart from `), as the game's login screen accepts.</li>
@@ -30,8 +33,8 @@
         <td><input type="text" name="username" value="{{ username }}" maxlength="12" size="20" autocomplete="username" required></td>
       </tr>
       <tr>
-        <td align=right>Reset code:</td>
-        <td><input type="text" name="code" value="" maxlength="20" size="20" autocomplete="one-time-code" spellcheck="false" placeholder="XXXX-XXXX-XXXX" required></td>
+        <td align=right>Reset code or key:</td>
+        <td><input type="text" name="code" value="" maxlength="24" size="20" autocomplete="one-time-code" spellcheck="false" placeholder="XXXX-XXXX-XXXX" required></td>
       </tr>
       <tr>
         <td align=right>New password:</td>

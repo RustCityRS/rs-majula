@@ -13,6 +13,7 @@ mod http;
 mod markdown;
 mod notes;
 mod prefs;
+mod recoveries;
 mod schedule;
 mod script_errors;
 mod sessions;
@@ -344,6 +345,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     tokio::spawn(detect::keep_checking(app.clone()));
     if app.worlds.has_web() {
         tokio::spawn(appeals::keep_taking_in(app.clone()));
+        tokio::spawn(recoveries::keep_taking_in(app.clone()));
     }
     let pruner = app.clone();
     tokio::spawn(async move {

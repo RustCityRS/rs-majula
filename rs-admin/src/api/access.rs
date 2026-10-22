@@ -144,7 +144,7 @@ impl CaseView {
 
 /// What staff do about a player that the player mustn't see, nor staff at
 /// or below them: [`CaseView`] decides who sees these entries.
-const ABOUT_ACTIONS: [&str; 9] = [
+const ABOUT_ACTIONS: [&str; 11] = [
     "case_opened",
     "case_closed",
     "case_reopened",
@@ -154,6 +154,8 @@ const ABOUT_ACTIONS: [&str; 9] = [
     "note_removed",
     "appeal_received",
     "appeal_decided",
+    "recovery_received",
+    "recovery_decided",
 ];
 
 /// Refuses `staff` doing `what` about `name` when it's their own game

@@ -504,7 +504,7 @@ before `migrate`).
 | `--verify`                    | `true`                      | Verify packed-cache byte-identity at boot (`pack_all`).                                                        |
 | `--node-id <NODE_ID>`         | `10`                        | World node ID (10 = world 1, 11 = world 2, …); drives the derived port scheme.                                 |
 | `--real-ip-header <NAME>`     | unset                       | Header a reverse proxy puts the client IP in (e.g. `x-real-ip`). Per-IP connection limits and login rate limiting then use it instead of the proxy's address. Only set it when the HTTP port is reachable through the proxy alone, or clients can forge their address. |
-| `--site-origin <ORIGINS>`     | unset (`RS_SITE_ORIGIN`)    | The website's origins, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`): the only other sites allowed to frame the client page. Unset, any site may. WebSockets always have to come from a page this world served. |
+| `--site-origin <ORIGINS>`     | unset (`RS_SITE_ORIGIN`)    | The website's origins, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`): the only other sites allowed to frame the client page, and the only ones its `/uid` page tells the browser's game id (for the website's account recovery form). Unset, any site may frame it, and `/uid` tells nobody. WebSockets always have to come from a page this world served. |
 | `--ether-port <ETHER_PORT>`   | `5000 + node_id` (`5010`)   | Ether sidecar TCP port.                                                                                        |
 | `--db-host <DB_HOST>`         | `localhost` (`RS_DB_HOST`)  | Postgres hostname.                                                                                             |
 | `--db-port <DB_PORT>`         | `5432` (`RS_DB_PORT`)       | Postgres port.                                                                                                 |
@@ -597,13 +597,15 @@ node; the nodes mesh into one cluster for cross-world social features.
 9. **Keep recordings out of routine backups.** Session recordings are bulky
    and short-lived: dump with `pg_dump --exclude-table-data=replay_chunks`.
 10. **Grant the website's login what appeals and recovery need.** If the
-    website runs as its own restricted database role, `/appeal` and
-    `/recover` also need, on top of news, hiscores and registration:
+    website runs as its own restricted database role, `/appeal`,
+    `/recover` and `/recover/request` also need, on top of news, hiscores
+    and registration:
 
     ```sql
     GRANT SELECT (id, display_name, password_hash, muted_until, banned_until, reset_code_hash, reset_code_until) ON players TO rs_web;
     GRANT UPDATE (password_hash, reset_code_hash, reset_code_until) ON players TO rs_web;
     GRANT SELECT, INSERT, UPDATE ON appeals TO rs_web;
+    GRANT SELECT, INSERT, UPDATE ON recovery_requests TO rs_web;
     GRANT SELECT (id, moderator_id, target_id, action, hours, reason, created_at) ON moderation_logs TO rs_web;
     GRANT SELECT, INSERT ON login_failures TO rs_web;
     ```

@@ -221,7 +221,7 @@ async fn sign_in(
 
 /// The statement as it's stored: trimmed, line endings made `\n`, and no
 /// other control characters.
-fn clean_statement(text: &str) -> String {
+pub(super) fn clean_statement(text: &str) -> String {
     text.replace("\r\n", "\n")
         .chars()
         .filter(|&c| c == '\n' || !c.is_control())

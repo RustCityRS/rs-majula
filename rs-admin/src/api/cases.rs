@@ -1,7 +1,8 @@
 use super::access::{CaseView, ceiling, check_conflict, check_player, check_replay};
 use super::lookup::unavailable;
-use super::players::{action_name, checked_name, moderate_one};
+use super::players::{action_name, checked_name, kick_everywhere, moderate_one};
 use super::replays::checked_id;
+use super::support::registered;
 use crate::audit::Event;
 use crate::cases::{
     Case, Change, Decision, Entry, Evidence, MAX_DECISION_NOTE, MAX_TEXT, MAX_TITLE, Priority,
@@ -11,6 +12,7 @@ use crate::clips;
 use crate::detect;
 use crate::http::{ApiError, App, Staff};
 use crate::markdown::{self, MEDIA_PATH};
+use crate::recoveries;
 use crate::users::{Role, name_key};
 use axum::Json;
 use axum::body::{Body, Bytes};
@@ -18,8 +20,8 @@ use axum::extract::{Path, Query, Request, State};
 use axum::http::{HeaderValue, StatusCode, header};
 use axum::response::{IntoResponse, Response};
 use rs_admin_api::{
-    AppealDecide, ChatLookup, ChatRecord, MediaSaved, ModAction, Outcome, ReplayGet, ReplaySummary,
-    ReportLookup, ReportRecord, media, path,
+    AppealDecide, ChatLookup, ChatRecord, MediaSaved, ModAction, Outcome, Recovery, RecoveryDecide,
+    ReplayGet, ReplaySummary, ReportLookup, ReportRecord, media, path,
 };
 use serde::{Deserialize, Serialize};
 use std::cmp::Reverse;
@@ -678,6 +680,17 @@ pub enum Op {
         #[serde(default)]
         note: String,
     },
+    /// Decides the case's recovery request, tells the player, and closes
+    /// the case; approving issues the password reset their recovery key
+    /// redeems and logs out whoever is on the account.
+    DecideRecovery {
+        approve: bool,
+        #[serde(default)]
+        note: String,
+    },
+    /// Checks the case's recovery request against the account's records
+    /// again.
+    CheckRecovery,
 }
 
 /// `POST /api/cases/{id}`: one change, answered with the case as it is now.
@@ -706,6 +719,10 @@ pub async fn change(
         Op::DecideAppeal { decision, note } => {
             return decide_appeal(&app, &staff, id, decision, &note).await;
         }
+        Op::DecideRecovery { approve, note } => {
+            return decide_recovery(&app, &staff, id, approve, &note).await;
+        }
+        Op::CheckRecovery => return check_recovery(&app, &staff, id).await,
         op => op,
     };
     // What needs the game database or the accounts, before the store's lock.
@@ -755,7 +772,9 @@ pub async fn change(
                 evidence: evidence.expect("resolved above"),
             }],
         ),
-        Op::DecideAppeal { .. } => unreachable!("decided above"),
+        Op::DecideAppeal { .. } | Op::DecideRecovery { .. } | Op::CheckRecovery => {
+            unreachable!("handled above")
+        }
         // These depend on what's in it or who's on it now, so they're worked
         // out under the store's lock.
         Op::AddEvidenceMany { .. }
@@ -943,6 +962,135 @@ async fn decide_appeal(
                 decision.name()
             )),
     );
+    Ok(Json(detail(app, staff, case)))
+}
+
+/// Case `id`, if it's a recovery request: the case and the request.
+fn recovery_case(app: &App, id: u64) -> Result<(Case, Recovery), ApiError> {
+    let case = app
+        .cases
+        .get(id)
+        .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, format!("There's no case #{id}.")))?;
+    let request = case
+        .recovery
+        .as_ref()
+        .map(|r| r.request.clone())
+        .ok_or_else(|| ApiError::bad_request("This case isn't a recovery request."))?;
+    Ok((case, request))
+}
+
+/// Decides case `id`'s recovery request: has the website record it (an
+/// approval issues the reset the request's recovery key redeems, and stops
+/// the old password working), logs out whoever is on the account if
+/// approved, then records it and closes the case. Admins and up, as for
+/// password resets. If the website can't record it nothing changes, and
+/// deciding again is safe.
+async fn decide_recovery(
+    app: &App,
+    staff: &Staff,
+    id: u64,
+    approve: bool,
+    note: &str,
+) -> Result<Json<CaseDetail>, ApiError> {
+    staff.require_admin()?;
+    let me = staff.name().to_owned();
+    let note = text(note, MAX_DECISION_NOTE, true, "The note to the player")?;
+    let (case, request) = recovery_case(app, id)?;
+    if !case.is_open() {
+        return Err(ApiError::bad_request(
+            "The case is closed; reopen it to decide again.",
+        ));
+    }
+    if approve {
+        let record = registered(app, &case.player).await?;
+        if record.staff_level >= staff.actor().staff_level {
+            return Err(refused(format!(
+                "{} is staff of your level or above.",
+                record.name
+            )));
+        }
+    }
+    let told: Result<Outcome, String> = app
+        .worlds
+        .web(
+            path::RECOVERY_DECIDE,
+            &RecoveryDecide {
+                actor: staff.actor(),
+                id: request.id,
+                approve,
+                note: note.clone(),
+            },
+        )
+        .await
+        .and_then(|o: Outcome| if o.ok { Ok(o) } else { Err(o.message) });
+    if let Err(e) = told {
+        return Err(ApiError::new(
+            StatusCode::BAD_GATEWAY,
+            format!(
+                "The website couldn't record the decision ({e}). Nothing changed: decide again to retry."
+            ),
+        ));
+    }
+
+    let mut changes = vec![Change::RecoveryDecided {
+        approved: approve,
+        note,
+    }];
+    if approve {
+        let kicked = kick_everywhere(app, staff, &case.player).await;
+        changes.push(Change::Action {
+            action: "password_reset".to_owned(),
+            name: case.player.clone(),
+            hours: None,
+            ok: true,
+            message: format!(
+                "Issued a password reset their recovery key redeems, and locked their old password{}.",
+                if kicked.is_empty() {
+                    ""
+                } else {
+                    ", logging them out"
+                }
+            ),
+            reason: format!("Recovery request #{}", request.id),
+        });
+    }
+    changes.push(Change::Closed {
+        resolution: if approve {
+            Resolution::Actioned
+        } else {
+            Resolution::NoAction
+        },
+        note: String::new(),
+    });
+    let case = app
+        .cases
+        .change(&me, id, |_| Ok(changes))
+        .map_err(refused)?;
+    app.audit.record(
+        Event::new(Some(&me), staff.client.ip, "recovery_decided")
+            .target(&case.player)
+            .detail(format!(
+                "Recovery request #{} (case #{id}): {}",
+                request.id,
+                if approve { "approved" } else { "denied" }
+            )),
+    );
+    Ok(Json(detail(app, staff, case)))
+}
+
+/// Checks case `id`'s recovery request against the account's records again,
+/// noting what they say now.
+async fn check_recovery(app: &App, staff: &Staff, id: u64) -> Result<Json<CaseDetail>, ApiError> {
+    let (_, request) = recovery_case(app, id)?;
+    let evidence = recoveries::check(app, &request)
+        .await
+        .map_err(|e| ApiError::new(StatusCode::BAD_GATEWAY, format!("Couldn't check it: {e}")))?;
+    let case = app
+        .cases
+        .change(staff.name(), id, |_| {
+            Ok(vec![Change::RecoveryChecked { evidence }])
+        })
+        .map_err(refused)?;
     Ok(Json(detail(app, staff, case)))
 }
 

@@ -449,6 +449,18 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        "/uid" => {
+            let bytes = render_uid(site_origin).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-store\r\n{}Content-Length: {len}\r\n",
+                    frame_ancestors(site_origin)
+                ),
+                Body::Owned(bytes),
+            )
+        }
         "/livemap" => {
             let bytes = render_livemap(asset_version(cache, "/mapview.js")).into_bytes();
             let len = bytes.len();
@@ -675,6 +687,23 @@ window.__replay.start(new Client({nodeid}, 0, {members}));
 </body>
 </html>
 "#
+    )
+}
+
+/// The page the website's account recovery form frames to learn the id this
+/// world's web client gave the browser (kept in its localStorage, as the
+/// client framed on the website's play page sees it). It tells only the
+/// website, trying each of its origins (a browser delivers to the one that
+/// framed it), so says nothing without `site_origin`.
+fn render_uid(site_origin: Option<&str>) -> String {
+    let sites: Vec<&str> = site_origin.map_or_else(Vec::new, |s| s.split_whitespace().collect());
+    let sites = serde_json::to_string(&sites)
+        .unwrap_or_else(|_| "[]".to_owned())
+        .replace('<', "\\u003c");
+    format!(
+        "<!doctype html><script>(function(){{var sites={sites};if(parent===window)return;\
+         try{{var v=localStorage.getItem('rs-uid')|0;if(!v||v===1337)return;\
+         sites.forEach(function(site){{try{{parent.postMessage({{rsUid:v}},site)}}catch(e){{}}}})}}catch(e){{}}}})()</script>"
     )
 }
 

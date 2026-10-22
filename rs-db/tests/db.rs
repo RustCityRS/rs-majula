@@ -1,6 +1,7 @@
 use rs_db::{
     AppealFiled, CROWDED_ADDRESS, ChatLog, Claim, Db, LogBatch, LoginDevice, ModAction, NewAppeal,
-    NewPlayer, NewReplay, NewSnapshot, PlayerSave, RESET_LOCKED, Reconciled, ReplayChunk,
+    NewPlayer, NewRecovery, NewReplay, NewSnapshot, PlayerSave, RECOVERIES_PER_ADDRESS,
+    RESET_LOCKED, Reconciled, RecoveryAnswers, RecoveryDecided, RecoveryFiled, ReplayChunk,
     ReplayReport, Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor,
     WealthEvent, WorldStatus, log_type, transfer,
 };
@@ -2709,4 +2710,187 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
     assert!(db.hiscores_kept_off(10).await.unwrap().is_empty());
     assert!(!db.change_hiscores(99, Some(true), &[], &[]).await.unwrap());
     assert!(db.hiscore_standing(99).await.unwrap().is_none());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn recovery_requests_are_limited_decided_and_redeemed(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let away: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        registration_ip: Some(home),
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    db.create_player(&NewPlayer {
+        display_name: "Other",
+        staff_mod_level: 0,
+        ..player(8)
+    })
+    .await
+    .unwrap();
+    let phone = LoginDevice {
+        web: true,
+        user_agent: Some("Mobile Safari".into()),
+        touch: true,
+        ..LoginDevice::default()
+    };
+    db.record_login(7, 10, home, Some(77), &phone)
+        .await
+        .unwrap();
+    db.record_login(8, 10, home, None, &LoginDevice::default())
+        .await
+        .unwrap();
+    let answers = RecoveryAnswers {
+        created_month: Some("2026-03".into()),
+        last_played: Some("2026-01-02".into()),
+        device: Some("phone".into()),
+        items: Some("Rune scimitar".into()),
+        ..RecoveryAnswers::default()
+    };
+    let request = |name_hash, ip| NewRecovery {
+        name_hash,
+        key_hash: "$argon2id$key",
+        reason: "hijacked",
+        details: "Someone changed my password",
+        passwords_given: 2,
+        password_matched: false,
+        answers: &answers,
+        ip,
+        uids: &[77],
+        user_agent: Some("Mobile Safari"),
+        platform: None,
+        language: None,
+    };
+
+    assert_eq!(
+        db.file_recovery(&request(9, home)).await.unwrap(),
+        RecoveryFiled::NoSuchPlayer
+    );
+    let RecoveryFiled::Filed { id } = db.file_recovery(&request(7, home)).await.unwrap() else {
+        panic!("expected a filed request");
+    };
+    let record = db.recovery(id).await.unwrap().unwrap();
+    assert_eq!(record.player, "Test");
+    assert_eq!(record.answers, answers);
+    assert_eq!(record.ip, "203.0.113.7");
+    assert_eq!(record.reset_until_ms, None);
+
+    // What its logins say: sent from the browser and address they play on.
+    let facts = db
+        .recovery_facts(
+            id,
+            7,
+            &record.ip,
+            &record.uids,
+            Some("Mobile Safari"),
+            None,
+            None,
+            Some("2026-01-02"),
+        )
+        .await
+        .unwrap()
+        .unwrap();
+    assert!(facts.registered_from_ip);
+    assert_eq!((facts.logins, facts.from_ip, facts.from_network), (1, 1, 1));
+    assert_eq!(
+        (facts.from_browser, facts.same_agent, facts.phone_logins),
+        (1, 1, 1)
+    );
+    // Its only login came after the day they say they last played, so
+    // from an address it hadn't used before then.
+    assert_eq!((facts.logins_since, facts.new_addresses_since), (1, 1));
+    assert_eq!(facts.other_requests, 0);
+    assert_eq!(
+        db.accounts_seen_from(7, &record.ip, &record.uids, 10)
+            .await
+            .unwrap(),
+        ["Other"]
+    );
+
+    // An address only sends so many a day.
+    for _ in 1..RECOVERIES_PER_ADDRESS {
+        assert!(matches!(
+            db.file_recovery(&request(7, home)).await.unwrap(),
+            RecoveryFiled::Filed { .. }
+        ));
+    }
+    assert_eq!(
+        db.file_recovery(&request(7, home)).await.unwrap(),
+        RecoveryFiled::TooManyFromAddress
+    );
+    let facts = db
+        .recovery_facts(id, 7, "198.51.100.2", &[], None, None, None, None)
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!((facts.from_ip, facts.from_browser), (0, 0));
+    assert_eq!(
+        (facts.other_requests, facts.other_requests_elsewhere),
+        (2, 2)
+    );
+    assert!(matches!(
+        db.file_recovery(&request(7, away)).await.unwrap(),
+        RecoveryFiled::Filed { .. }
+    ));
+
+    // Taken in, then approved: the key redeems a reset, and the old
+    // password is locked.
+    assert_eq!(db.waiting_recoveries(10).await.unwrap().len(), 4);
+    assert!(db.link_recovery(id, 12).await.unwrap());
+    assert_eq!(db.waiting_recoveries(10).await.unwrap().len(), 3);
+    assert_eq!(
+        db.decide_recovery(id, true, "Approved.", "Kim", 72)
+            .await
+            .unwrap(),
+        RecoveryDecided::Decided
+    );
+    let creds = db.find_credentials(7, 10).await.unwrap().unwrap();
+    assert_eq!(creds.password_hash, RESET_LOCKED);
+    let reset = db.password_reset(7).await.unwrap().unwrap();
+    assert_eq!(reset.code_hash, "$argon2id$key");
+    assert!(
+        db.recovery(id)
+            .await
+            .unwrap()
+            .unwrap()
+            .reset_until_ms
+            .is_some()
+    );
+    assert_eq!(
+        db.decide_recovery(id, true, "", "Kim", 72).await.unwrap(),
+        RecoveryDecided::AlreadyApproved
+    );
+    assert!(
+        db.redeem_password_reset(7, &reset.code_hash, "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert_eq!(db.recovery(id).await.unwrap().unwrap().reset_until_ms, None);
+
+    // Denying an approval takes back a reset still unredeemed.
+    let RecoveryFiled::Filed { id: second } = db.file_recovery(&request(7, away)).await.unwrap()
+    else {
+        panic!("expected a filed request");
+    };
+    db.decide_recovery(second, true, "", "Kim", 72)
+        .await
+        .unwrap();
+    assert!(db.password_reset(7).await.unwrap().is_some());
+    assert_eq!(
+        db.decide_recovery(second, false, "We can't confirm it's yours.", "Kim", 72)
+            .await
+            .unwrap(),
+        RecoveryDecided::Decided
+    );
+    assert!(db.password_reset(7).await.unwrap().is_none());
+    assert_eq!(
+        db.decide_recovery(second + 99, false, "", "Kim", 72)
+            .await
+            .unwrap(),
+        RecoveryDecided::NotFound
+    );
 }

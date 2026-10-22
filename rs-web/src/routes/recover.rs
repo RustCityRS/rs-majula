@@ -35,7 +35,7 @@ pub async fn form(State(app): State<Arc<App>>) -> Result<Html<String>, AppError>
 
 /// The code as staff read it out, however it was typed: `abcd efgh-jklm`
 /// is `ABCDEFGHJKLM`.
-fn typed_code(code: &str) -> String {
+pub(super) fn typed_code(code: &str) -> String {
     code.chars()
         .filter(|c| c.is_ascii_alphanumeric())
         .map(|c| c.to_ascii_uppercase())
@@ -50,7 +50,7 @@ pub async fn submit(
     Form(form): Form<RecoverForm>,
 ) -> Result<Html<String>, AppError> {
     const WRONG: &str = "That username and code don't match a password reset. \
-                         Check the code, or ask staff for a new one if it's more than 3 days old.";
+                         Check the code. If it's more than 3 days old, send a new recovery request.";
     let ip = app.client_ip(&headers, peer);
     let username = form.username.clone();
     let refill = |error: &str| {

@@ -10,9 +10,9 @@ use axum::{Json, Router};
 use rs_admin_api::{
     Appeal, AppealDecide, AppealLink, AppealsWaiting, MAX_MEDIA_BYTES, MediaSaved, NewsCategory,
     NewsDelete, NewsItem, NewsList, NewsPage, NewsRender, NewsRendered, NewsSave, Outcome,
-    Verifier, media, path,
+    RecoveriesWaiting, Recovery, RecoveryDecide, RecoveryLink, Verifier, media, path,
 };
-use rs_db::NewsAdminPost;
+use rs_db::{NewsAdminPost, RecoveryDecided};
 use std::sync::Arc;
 use tokio::net::TcpListener;
 use tracing::{info, warn};
@@ -31,6 +31,9 @@ const MAX_APPEALS: u32 = 100;
 
 /// The longest note a player is shown with a decision, in characters.
 const MAX_DECISION_NOTE: usize = 2000;
+
+/// How long an approved recovery request's password reset can be redeemed.
+const RECOVERY_RESET_HOURS: i32 = 72;
 
 struct AdminState {
     app: Arc<App>,
@@ -60,6 +63,9 @@ pub async fn serve(host: String, port: u16, secret: String, app: Arc<App>) {
         .route(path::APPEALS_WAITING, post(appeals_waiting))
         .route(path::APPEAL_LINK, post(appeal_link))
         .route(path::APPEAL_DECIDE, post(appeal_decide))
+        .route(path::RECOVERIES_WAITING, post(recoveries_waiting))
+        .route(path::RECOVERY_LINK, post(recovery_link))
+        .route(path::RECOVERY_DECIDE, post(recovery_decide))
         .layer(middleware::from_fn_with_state(state.clone(), authenticate))
         .with_state(state);
     if let Err(e) = axum::serve(listener, router).await {
@@ -292,6 +298,106 @@ async fn appeal_decide(
         req.actor.name, req.id, req.decision
     );
     Ok(Json(Outcome::ok("Decided.")))
+}
+
+/// Recovery requests players sent that no case has taken in yet, oldest
+/// first.
+async fn recoveries_waiting(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<RecoveriesWaiting>,
+) -> Result<Json<Vec<Recovery>>, StatusCode> {
+    let rows = state
+        .app
+        .db
+        .waiting_recoveries(i64::from(req.limit.clamp(1, MAX_APPEALS)))
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| Recovery {
+                id: r.id,
+                player: r.player,
+                reason: r.reason,
+                details: r.details,
+                passwords_given: r.passwords_given.clamp(0, 255) as u8,
+                password_matched: r.password_matched,
+                created_month: r.answers.created_month,
+                last_played: r.answers.last_played,
+                device: r.answers.device,
+                skills: r.answers.skills,
+                items: r.answers.items,
+                location: r.answers.location,
+                friends: r.answers.friends,
+                traded_with: r.answers.traded_with,
+                other_accounts: r.answers.other_accounts,
+                ip: r.ip,
+                uids: r.uids,
+                user_agent: r.user_agent,
+                platform: r.platform,
+                language: r.language,
+                filed_ms: r.created_ms,
+            })
+            .collect(),
+    ))
+}
+
+async fn recovery_link(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<RecoveryLink>,
+) -> Result<Json<Outcome>, StatusCode> {
+    let case = i64::try_from(req.case_id).map_err(|_| StatusCode::UNPROCESSABLE_ENTITY)?;
+    let linked = state
+        .app
+        .db
+        .link_recovery(req.id, case)
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(if linked {
+        Outcome::ok("Linked.")
+    } else {
+        Outcome::refused("There's no such request.")
+    }))
+}
+
+/// Records a decision for the player to see on the site. Approving issues
+/// the password reset their recovery key redeems.
+async fn recovery_decide(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<RecoveryDecide>,
+) -> Result<Json<Outcome>, StatusCode> {
+    let note = req.note.trim();
+    if note.chars().count() > MAX_DECISION_NOTE {
+        return Err(StatusCode::UNPROCESSABLE_ENTITY);
+    }
+    let decided = state
+        .app
+        .db
+        .decide_recovery(
+            req.id,
+            req.approve,
+            note,
+            &req.actor.name,
+            RECOVERY_RESET_HOURS,
+        )
+        .await
+        .map_err(db_failed)?;
+    let what = if req.approve { "approved" } else { "denied" };
+    Ok(Json(match decided {
+        RecoveryDecided::NotFound => Outcome::refused("There's no such request."),
+        // Deciding again after a step failed: the reset already stands.
+        RecoveryDecided::AlreadyApproved => Outcome::ok("Already approved."),
+        RecoveryDecided::Decided => {
+            info!(
+                "{} {} recovery request {} from the admin console",
+                req.actor.name, what, req.id
+            );
+            Outcome::ok(if req.approve {
+                "Approved: their recovery key sets a new password."
+            } else {
+                "Denied."
+            })
+        }
+    }))
 }
 
 /// An upload, for the console's preview (the console can't reach the

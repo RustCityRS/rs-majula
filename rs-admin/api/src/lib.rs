@@ -116,6 +116,13 @@ pub mod path {
     pub const APPEALS_WAITING: &str = "/v1/appeals/waiting";
     pub const APPEAL_LINK: &str = "/v1/appeals/link";
     pub const APPEAL_DECIDE: &str = "/v1/appeals/decide";
+    /// Account recovery requests players send from the website, likewise.
+    pub const RECOVERIES_WAITING: &str = "/v1/recoveries/waiting";
+    pub const RECOVERY_LINK: &str = "/v1/recoveries/link";
+    pub const RECOVERY_DECIDE: &str = "/v1/recoveries/decide";
+    /// What a world's records say about a recovery request:
+    /// `RecoveryCheck`, answered with `RecoveryEvidence`.
+    pub const RECOVERY_CHECK: &str = "/v1/lookup/recovery";
 }
 
 /// The largest image or video a news post or case can embed.
@@ -1181,6 +1188,143 @@ pub struct AppealDecide {
     pub id: i64,
     pub decision: String,
     pub note: String,
+}
+
+/// `POST /v1/recoveries/waiting`: recovery requests not yet taken into a
+/// case, oldest first, answered with `Vec<Recovery>`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct RecoveriesWaiting {
+    pub limit: u32,
+}
+
+/// A request to get back into an account, as the player sent it. Answers
+/// they left out are `None`.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct Recovery {
+    pub id: i64,
+    pub player: String,
+    /// `forgot`, `hijacked` or `other`.
+    pub reason: String,
+    pub details: String,
+    /// How many passwords they remembered using, and whether one is the
+    /// account's now.
+    pub passwords_given: u8,
+    pub password_matched: bool,
+    /// When they say they made the account (`2026-03`) and last played on
+    /// it themselves (`2026-10-18`).
+    pub created_month: Option<String>,
+    pub last_played: Option<String>,
+    /// `computer`, `phone` or `client`.
+    pub device: Option<String>,
+    pub skills: Option<String>,
+    pub items: Option<String>,
+    pub location: Option<String>,
+    pub friends: Option<String>,
+    pub traded_with: Option<String>,
+    pub other_accounts: Option<String>,
+    /// Where it was sent from.
+    pub ip: String,
+    pub uids: Vec<i32>,
+    pub user_agent: Option<String>,
+    pub platform: Option<String>,
+    pub language: Option<String>,
+    pub filed_ms: i64,
+}
+
+/// `POST /v1/recoveries/link`: notes the case a recovery request was taken
+/// into. Answered with an [`Outcome`].
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct RecoveryLink {
+    pub id: i64,
+    pub case_id: u64,
+}
+
+/// `POST /v1/recoveries/decide`: approving issues a password reset the
+/// request's recovery key redeems, and stops the account's password
+/// working; denying one approved takes the reset back. Answered with an
+/// [`Outcome`].
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct RecoveryDecide {
+    pub actor: Actor,
+    pub id: i64,
+    pub approve: bool,
+    pub note: String,
+}
+
+/// `POST /v1/lookup/recovery`: checks a recovery request's answers and
+/// where it came from against the account's records. Answered with
+/// `Option<RecoveryEvidence>`, `None` if there's no such account.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct RecoveryCheck {
+    pub request: Recovery,
+}
+
+/// What the account's records say about a recovery request.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct RecoveryEvidence {
+    pub registered_ms: i64,
+    /// Whether it was registered from the request's address.
+    pub registered_from_ip: bool,
+    pub staff_level: u8,
+    pub banned_until_ms: Option<i64>,
+    pub logins: i64,
+    pub last_login_ms: Option<i64>,
+    /// Logins from the request's address, the last, and from its network
+    /// (the /24, or /48 for IPv6).
+    pub from_ip: i64,
+    pub last_from_ip_ms: Option<i64>,
+    pub from_network: i64,
+    /// Logins from the browser it was sent from, and the last.
+    pub from_browser: i64,
+    pub last_from_browser_ms: Option<i64>,
+    /// Logins whose browser described itself as the request's did.
+    pub same_agent: i64,
+    pub same_platform: i64,
+    pub same_language: i64,
+    /// Logins by device: a computer's browser, a phone's, the desktop client.
+    pub web_logins: i64,
+    pub phone_logins: i64,
+    pub client_logins: i64,
+    /// Logins after the day they say they last played, from how many
+    /// addresses, and how many of those it hadn't used before.
+    pub logins_since: i64,
+    pub addresses_since: i64,
+    pub new_addresses_since: i64,
+    /// The account's other recovery requests, and those from elsewhere.
+    pub other_requests: i64,
+    pub other_requests_elsewhere: i64,
+    /// Other accounts seen from the request's address or browser.
+    pub seen_from: Vec<String>,
+    /// Their answers, each checked.
+    pub skills: Vec<ClaimCheck>,
+    pub items: Vec<ClaimCheck>,
+    /// `None` when the friend lists couldn't be read.
+    pub friends: Option<Vec<ClaimCheck>>,
+    pub traded_with: Vec<ClaimCheck>,
+    pub other_accounts: Vec<ClaimCheck>,
+    /// Where the account is in the game now.
+    pub x: Option<u16>,
+    pub z: Option<u16>,
+}
+
+/// One thing a player said about their account, and what the records say.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ClaimCheck {
+    pub said: String,
+    pub verdict: Verdict,
+    /// What the records show, e.g. `Woodcutting is 58` or `in the bank`.
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub detail: String,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Verdict {
+    Match,
+    Close,
+    No,
+    /// Nothing to check it against.
+    Unknown,
 }
 
 /// The wealth event types the engine logs itself as items pass between

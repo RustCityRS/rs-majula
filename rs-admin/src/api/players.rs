@@ -121,7 +121,7 @@ pub struct KickResult {
 }
 
 /// Asks every online world to log `name` out.
-async fn kick_everywhere(app: &App, staff: &Staff, name: &str) -> Vec<u16> {
+pub(super) async fn kick_everywhere(app: &App, staff: &Staff, name: &str) -> Vec<u16> {
     let actor = staff.actor();
     let replies: Vec<Reply<rs_admin_api::Outcome>> = app
         .worlds

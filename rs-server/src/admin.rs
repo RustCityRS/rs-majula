@@ -1,3 +1,4 @@
+use crate::recovery;
 use crate::{ConnectionGuard, REVISION};
 use axum::body::Body;
 use axum::extract::{Request, State};
@@ -25,8 +26,9 @@ use rs_admin_api::{
     TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup,
     Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
 };
+use rs_admin_api::{ClaimCheck, RecoveryCheck, RecoveryEvidence, Verdict};
 use rs_admin_api::{ScriptErrorGroup, ScriptErrorLookup, ScriptErrorRecord, ScriptErrorsLookup};
-use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor};
+use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor, code_from_bits, validate_name};
 use rs_engine::console::{self, Change};
 use rs_engine::controls::{self, Controls};
 use rs_engine::support;
@@ -232,6 +234,7 @@ pub async fn serve(
         .route(path::ANTICHEAT, post(anticheat_lookup))
         .route(path::ACCOUNTS, post(accounts_lookup))
         .route(path::PLAYER_SHEET, post(player_sheet))
+        .route(path::RECOVERY_CHECK, post(recovery_check))
         .route(path::PLAYER_EDIT, post(player_edit))
         .route(path::OBJ_SEARCH, post(obj_search))
         .route(path::SESSION, post(session_lookup))
@@ -1552,6 +1555,9 @@ const MAX_NOTE_CHARS: usize = 400;
 /// The most items a search returns.
 const MAX_OBJ_RESULTS: usize = 30;
 
+/// The most other accounts a recovery request's address or browser lists.
+const MAX_SEEN_FROM: i64 = 20;
+
 fn sheet(name: String, sheet: console::Sheet) -> PlayerSheet {
     PlayerSheet {
         name,
@@ -1598,16 +1604,154 @@ async fn player_sheet(
     Json(req): Json<SheetLookup>,
 ) -> Result<Json<Option<PlayerSheet>>, StatusCode> {
     let user37 = name_hash(&req.name)?;
-    if let Some(live) = on_engine(&state, move |engine| engine.player_sheet(user37)).await? {
-        return Ok(Json(Some(sheet(to_screen_name(&req.name), live))));
+    Ok(Json(sheet_of(&state, user37, &req.name).await?))
+}
+
+/// `name`'s sheet: live if they're on this world, otherwise from their save.
+/// `None` if they aren't registered.
+async fn sheet_of(
+    state: &AdminState,
+    user37: u64,
+    name: &str,
+) -> Result<Option<PlayerSheet>, StatusCode> {
+    if let Some(live) = on_engine(state, move |engine| engine.player_sheet(user37)).await? {
+        return Ok(Some(sheet(to_screen_name(name), live)));
     }
     let Some(record) = state.db.player_record(user37).await.map_err(db_failed)? else {
-        return Ok(Json(None));
+        return Ok(None);
     };
     let save = state.db.load_save(user37).await.map_err(db_failed)?;
     let profile = profile_from_save(save.unwrap_or_default());
-    let saved = on_engine(&state, move |engine| engine.profile_sheet(&profile)).await?;
-    Ok(Json(Some(sheet(record.display_name, saved))))
+    let saved = on_engine(state, move |engine| engine.profile_sheet(&profile)).await?;
+    Ok(Some(sheet(record.display_name, saved)))
+}
+
+/// Checks a recovery request's answers, and where it came from, against
+/// the account's logins, sheet and contacts.
+async fn recovery_check(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<RecoveryCheck>,
+) -> Result<Json<Option<RecoveryEvidence>>, StatusCode> {
+    let r = &req.request;
+    let user37 = name_hash(&r.player)?;
+    let db = &state.db;
+    let Some(record) = db.player_record(user37).await.map_err(db_failed)? else {
+        return Ok(Json(None));
+    };
+    let Some(facts) = db
+        .recovery_facts(
+            r.id,
+            user37,
+            &r.ip,
+            &r.uids,
+            r.user_agent.as_deref(),
+            r.platform.as_deref(),
+            r.language.as_deref(),
+            r.last_played.as_deref(),
+        )
+        .await
+        .map_err(db_failed)?
+    else {
+        return Ok(Json(None));
+    };
+    let seen_from = db
+        .accounts_seen_from(user37, &r.ip, &r.uids, MAX_SEEN_FROM)
+        .await
+        .map_err(db_failed)?;
+    let sheet = sheet_of(&state, user37, &r.player).await?;
+    let against_sheet = |text: &Option<String>, f: fn(&str, &PlayerSheet) -> Vec<ClaimCheck>| match (
+        text, &sheet,
+    ) {
+        (Some(text), Some(sheet)) => f(text, sheet),
+        _ => Vec::new(),
+    };
+    let skills = against_sheet(&r.skills, recovery::check_skills);
+    let items = against_sheet(&r.items, recovery::check_items);
+    // The friend lists are the ether service's: a database login without
+    // them reads nothing.
+    let friends = match &r.friends {
+        None => Some(Vec::new()),
+        Some(text) => match db.friend_hashes(user37).await {
+            Ok(known) => Some(recovery::check_names(text, &known)),
+            Err(e) => {
+                warn!("Couldn't read {}'s friend list: {}", record.display_name, e);
+                None
+            }
+        },
+    };
+    let traded_with = match &r.traded_with {
+        None => Vec::new(),
+        Some(text) => {
+            let known = db.trade_partner_hashes(user37).await.map_err(db_failed)?;
+            recovery::check_names(text, &known)
+        }
+    };
+    let mut other_accounts = Vec::new();
+    for said in r
+        .other_accounts
+        .as_deref()
+        .map(recovery::listed)
+        .unwrap_or_default()
+    {
+        let (verdict, detail) = match validate_name(&said) {
+            Err(_) => (Verdict::Unknown, "Not a name".to_owned()),
+            Ok(other) => match db
+                .link_between(user37, other.hash)
+                .await
+                .map_err(db_failed)?
+            {
+                Some(via) => (
+                    Verdict::Match,
+                    format!(
+                        "Shares {} with it",
+                        if via == "browser" {
+                            "a browser"
+                        } else {
+                            "an address"
+                        }
+                    ),
+                ),
+                None => (Verdict::No, "Not linked".to_owned()),
+            },
+        };
+        other_accounts.push(ClaimCheck {
+            said,
+            verdict,
+            detail,
+        });
+    }
+    Ok(Json(Some(RecoveryEvidence {
+        registered_ms: facts.registered_ms,
+        registered_from_ip: facts.registered_from_ip,
+        staff_level: record.staff_mod_level.clamp(0, 255) as u8,
+        banned_until_ms: record.banned_until_ms,
+        logins: facts.logins,
+        last_login_ms: facts.last_login_ms,
+        from_ip: facts.from_ip,
+        last_from_ip_ms: facts.last_from_ip_ms,
+        from_network: facts.from_network,
+        from_browser: facts.from_browser,
+        last_from_browser_ms: facts.last_from_browser_ms,
+        same_agent: facts.same_agent,
+        same_platform: facts.same_platform,
+        same_language: facts.same_language,
+        web_logins: facts.web_logins,
+        phone_logins: facts.phone_logins,
+        client_logins: facts.client_logins,
+        logins_since: facts.logins_since,
+        addresses_since: facts.addresses_since,
+        new_addresses_since: facts.new_addresses_since,
+        other_requests: facts.other_requests,
+        other_requests_elsewhere: facts.other_requests_elsewhere,
+        seen_from,
+        skills,
+        items,
+        friends,
+        traded_with,
+        other_accounts,
+        x: sheet.as_ref().map(|s| s.x),
+        z: sheet.as_ref().map(|s| s.z),
+    })))
 }
 
 /// Items by name, config name or id.
@@ -2168,21 +2312,9 @@ async fn activity_lookup(
 /// How long a password reset code can be redeemed for.
 const RESET_HOURS: i32 = 72;
 
-/// What reset codes are made of: no 0/O or 1/I to mix up when read out.
-const CODE_ALPHABET: &[u8; 32] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
 /// A new reset code, as `XXXX-XXXX-XXXX` (60 random bits).
 fn reset_code() -> String {
-    let mut bits = rand::random::<u128>();
-    let mut code = String::with_capacity(14);
-    for i in 0..12 {
-        if i > 0 && i & 3 == 0 {
-            code.push('-');
-        }
-        code.push(CODE_ALPHABET[(bits & 31) as usize] as char);
-        bits >>= 5;
-    }
-    code
+    code_from_bits(rand::random::<u128>(), 3)
 }
 
 /// Issues a password reset: a code for the player to set a new password
@@ -2726,6 +2858,7 @@ async fn reload_scripts(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_db::CODE_ALPHABET;
 
     #[test]
     fn compiler_reports_are_cut_short() {
