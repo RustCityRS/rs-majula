@@ -3,7 +3,7 @@ use crate::clients::client_game::ClientHandle;
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
-use crate::watch::{MapBase, Op, Target, Using, Watch};
+use crate::watch::{MapBase, Op, Target, Using, Watch, menu};
 use rs_cam::CamKind;
 use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
@@ -907,12 +907,70 @@ impl ActivePlayer {
                 .anticheat
                 .target(on, &self.player.build_area, clock);
         }
+        if self.needs_menu(op) && !self.one_mouse_button() {
+            let ms = self.watch.ms();
+            self.watch.anticheat.menu_op(ms);
+        }
         if !self.watch.recording() {
             return;
         }
         if let Some(note) = self.op_note(op) {
             self.watch.note(clock, &note);
         }
+    }
+
+    /// Whether `op` is an option a left click doesn't pick, so the client had
+    /// to open its menu for it (see [`menu`]). Objs a free world shows as
+    /// members' and banknotes are passed over.
+    fn needs_menu(&self, op: Op) -> bool {
+        let engine = engine();
+        let obj = |id: u16| {
+            engine
+                .objs()
+                .get_by_id(id)
+                .filter(|t| (engine.members || !t.members) && t.certtemplate.is_none())
+        };
+        let inv_top = |com: u16, id: u16| {
+            let interface = engine.interfaces().get_by_id(com)?;
+            let obj = obj(id)?;
+            Some(menu::inv_top(
+                interface.iop.as_deref(),
+                interface.operable,
+                interface.usable,
+                obj.iop.as_deref(),
+            ))
+        };
+        match op {
+            Op::Npc { op, nid } => engine
+                .get_npc(nid)
+                .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
+                .is_some_and(|t| {
+                    let level = t.vislevel.map_or(-1, i32::from);
+                    !menu::npc(t.op.as_deref(), op, level, self.player.combat_level.into())
+                }),
+            Op::Loc { op, id, .. } => engine
+                .locs()
+                .get_by_id(id)
+                .is_some_and(|t| !t.multi && !menu::loc(t.op.as_deref(), op)),
+            Op::Obj { op, id, .. } => {
+                obj(id).is_some_and(|t| !menu::ground_obj(t.op.as_deref(), op))
+            }
+            Op::Held { op, obj, com, .. } => {
+                inv_top(com, obj).is_some_and(|top| top != menu::InvOp::Obj(usize::from(op) - 1))
+            }
+            Op::InvButton { op, obj, com, .. } => inv_top(com, obj)
+                .is_some_and(|top| top != menu::InvOp::Interface(usize::from(op) - 1)),
+            Op::Player { .. } | Op::Other => false,
+        }
+    }
+
+    /// Whether the player set the game to one mouse button: a left click
+    /// then opens the menu.
+    fn one_mouse_button(&self) -> bool {
+        engine()
+            .varps()
+            .get_by_debugname("option_mouse")
+            .is_some_and(|varp| self.player.vars.get(varp.id).as_int() == 1)
     }
 
     /// Notes something the player did for the replay's timeline.

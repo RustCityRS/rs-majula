@@ -2,6 +2,7 @@ pub mod anticheat;
 pub mod format;
 pub mod input;
 mod keyframe;
+pub mod menu;
 pub mod playback;
 mod state;
 

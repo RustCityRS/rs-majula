@@ -24,6 +24,7 @@ pub struct LocType {
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub category: Option<u16>,
     pub forceapproach: ForceApproach,
+    pub multi: bool,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -48,6 +49,10 @@ impl From<LocTypeRaw> for LocType {
             op: raw.op,
             category: raw.category,
             forceapproach: raw.forceapproach,
+            #[cfg(since_289)]
+            multi: raw.multiloc.is_some(),
+            #[cfg(before_289)]
+            multi: false,
             params: raw.params,
             debugname: raw.debugname,
         }

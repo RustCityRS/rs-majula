@@ -128,6 +128,7 @@ fn handle(
         op: op as u8,
         obj,
         slot,
+        com,
     });
     if active.player.state.delayed {
         return Ok(());

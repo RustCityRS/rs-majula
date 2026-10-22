@@ -453,6 +453,7 @@ anything, it starts again from the nearest keyframe to the same spot.
 | Actions without clicks | 254+: over a quarter of 20+ actions came without the click the client reports alongside each. |
 | Actions while unfocused | 3+ actions while the client said its window had lost focus (not on touch screens, whose keyboard takes focus). A real click gives the window focus first; a script's made-up click doesn't. Before 254 the click's press is judged in the input reports. |
 | Clicked what it wasn't shown | 3+ actions (including "use" and spells) on an NPC or player the world wasn't sending the client, a loc outside its map, or an obj in a zone it wasn't sent since the map was built. Something that left view or a map that moved on still counts as shown for 10 ticks, for clicks made before the update arrived. |
+| Menu options without right-click | Most of 5+ actions on options a left click doesn't pick (worked out from the types as the client builds its menu) came with no right press in the input reports to open the menu. Not for players' options, one-button mouse mode or touch screens. |
 | No mouse | 20+ actions and no mouse reports. |
 | Cursor jumps | 244+: most of 20+ clicks landed over 40 pixels from the cursor's last report. |
 | Clockwork clicks | 30+ clicks at very even intervals. |

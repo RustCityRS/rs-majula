@@ -201,6 +201,7 @@ pub enum Op {
         op: u8,
         obj: u16,
         slot: u16,
+        com: u16,
     },
     InvButton {
         op: u8,
@@ -256,6 +257,18 @@ const MIN_UNFOCUSED: u32 = 3;
 const SHOWN_GRACE: u32 = 10;
 /// Actions on things the client was never sent.
 const MIN_UNSEEN: u32 = 3;
+/// Actions on options that need the menu (no right press to open it).
+const MIN_UNPRESSED: u32 = 5;
+/// How long a menu may stay open before its option is picked.
+const MENU_MS: u32 = 30_000;
+/// How far after an action its right press may seem to come (before 254
+/// the input reports time presses a little off).
+const PRESS_SLACK_MS: u32 = 3_000;
+/// How long an action waits for its press to be reported before it counts
+/// as having none (before 254 they're reported every 10 seconds or so).
+const PRESS_WAIT_MS: u32 = 30_000;
+/// Right presses kept waiting for their action.
+const MAX_PRESSES: usize = 8;
 /// A map's width in zones.
 const MAP_ZONES: i32 = 13;
 
@@ -299,13 +312,8 @@ impl Zones {
 #[derive(Default)]
 pub struct AntiCheat {
     pub inputs: InputDecoder,
-    /// Whether the browser said it's a phone or tablet. Taps appear where
-    /// they land, so cursor jumps are expected and don't score.
     pub touch: bool,
-    /// Whether the web client ran in a browser that says it's automated
-    /// (headless), or sent no user agent at all.
     pub automated: bool,
-    /// What the client said it was as the session started, for the stats.
     pub device: LoginDevice,
     heartbeats: [u32; 7],
     bad_heartbeats: [u32; 7],
@@ -324,8 +332,6 @@ pub struct AntiCheat {
     last_cursor: Option<(i32, i32)>,
     input_reports: u32,
     focus_lost: u32,
-    /// Whether the client last said its window lost focus. It's focused as
-    /// it logs in.
     unfocused: bool,
     unfocused_actions: u32,
     /// When the last press while unfocused came, until focus follows it.
@@ -336,18 +342,16 @@ pub struct AntiCheat {
     minimap_clicks: u32,
     forged_minimap: u32,
     minimap_off: u32,
-    /// Where the client's map starts, and where it started before that (a
-    /// click can come just before the client takes a new one).
     base: Option<MapBase>,
     prev_base: Option<MapBase>,
-    /// NPCs and players the world stopped showing the client lately, with
-    /// the tick.
     lost: VecDeque<(Target, u32)>,
-    /// The client's map and the zones it was sent, and the map before it
-    /// with the tick it was replaced.
     zones: Option<Zones>,
     prev_zones: Option<(Zones, u32)>,
     unseen: u32,
+    menu_ops: u32,
+    menu_unpressed: u32,
+    waiting_ops: VecDeque<u32>,
+    right_presses: VecDeque<u32>,
     decoded: Vec<Timed>,
 }
 
@@ -444,7 +448,16 @@ impl AntiCheat {
         match timed.input {
             Input::Move { x, y } => self.last_cursor = Some((x.into(), y.into())),
             Input::Outside => self.last_cursor = None,
-            Input::Click { x, y, gap_ms, .. } => {
+            Input::Click {
+                x,
+                y,
+                gap_ms,
+                right,
+                ..
+            } => {
+                if right {
+                    self.right_press(timed.ms);
+                }
                 // The first click's gap counts from before login.
                 if self.clicks > 0 {
                     self.gap(gap_ms);
@@ -453,7 +466,10 @@ impl AntiCheat {
             }
             // Before 254 the input report's presses are the clicks.
             #[cfg(before_254)]
-            Input::Press { x, y, .. } => {
+            Input::Press { x, y, right } => {
+                if right {
+                    self.right_press(timed.ms);
+                }
                 if let Some(last) = self.last_press_ms {
                     self.gap(timed.ms.saturating_sub(last));
                 }
@@ -630,6 +646,51 @@ impl AntiCheat {
         }
     }
 
+    /// An action, `ms` into the session, on an option a left click doesn't
+    /// pick: the menu was opened for it, by a right press just before.
+    pub fn menu_op(&mut self, ms: u32) {
+        self.menu_ops += 1;
+        self.expire_menu_ops(ms);
+        let pressed = self
+            .right_presses
+            .iter()
+            .position(|&p| p <= ms + PRESS_SLACK_MS && ms <= p + MENU_MS);
+        match pressed {
+            Some(i) => {
+                self.right_presses.remove(i);
+            }
+            None => self.waiting_ops.push_back(ms),
+        }
+    }
+
+    fn right_press(&mut self, ms: u32) {
+        let waiting = self
+            .waiting_ops
+            .iter()
+            .position(|&op| ms <= op + PRESS_SLACK_MS && op <= ms + MENU_MS);
+        if let Some(i) = waiting {
+            self.waiting_ops.remove(i);
+            return;
+        }
+        if self.right_presses.len() == MAX_PRESSES {
+            self.right_presses.pop_front();
+        }
+        self.right_presses.push_back(ms);
+        self.expire_menu_ops(ms);
+    }
+
+    /// Actions whose press hasn't come by now never had one.
+    fn expire_menu_ops(&mut self, now: u32) {
+        while self
+            .waiting_ops
+            .front()
+            .is_some_and(|&op| now > op + PRESS_WAIT_MS)
+        {
+            self.waiting_ops.pop_front();
+            self.menu_unpressed += 1;
+        }
+    }
+
     fn lately_lost(&self, what: Target, clock: u32) -> bool {
         self.lost
             .iter()
@@ -696,6 +757,12 @@ impl AntiCheat {
         if self.unseen >= MIN_UNSEEN {
             flags.push(("clicked_unseen", 50));
         }
+        if !self.touch
+            && self.menu_unpressed >= MIN_UNPRESSED
+            && self.menu_unpressed * 2 > self.menu_ops
+        {
+            flags.push(("menu_without_right_click", 40));
+        }
         if self.forged_minimap >= 2 {
             flags.push(("forged_minimap_click", 100));
         }
@@ -724,6 +791,8 @@ impl AntiCheat {
             "focusLost": self.focus_lost,
             "unfocusedActions": self.unfocused_actions,
             "unseenTargets": self.unseen,
+            "menuOps": self.menu_ops,
+            "menuUnpressed": self.menu_unpressed,
             "idleReports": self.idle_reports,
             "cameraReports": self.camera_reports,
             "minimapClicks": self.minimap_clicks,
@@ -1086,6 +1155,53 @@ mod tests {
         }
         assert_eq!(ac.unseen, 4);
         assert_eq!(ac.report().flags, ["clicked_unseen"]);
+    }
+
+    /// A right press `ms` into the session, as the input reports have it.
+    fn right_press(ac: &mut AntiCheat, ms: u32) {
+        #[cfg(since_254)]
+        let input = Input::Click {
+            x: 100,
+            y: 100,
+            right: true,
+            gap_ms: 600,
+        };
+        #[cfg(before_254)]
+        let input = Input::Press {
+            x: 100,
+            y: 100,
+            right: true,
+        };
+        ac.input(&Timed { ms, input });
+    }
+
+    #[test]
+    fn menu_options_without_a_right_press_are_flagged() {
+        let mut ac = AntiCheat::default();
+        // The press opens the menu, then the option is picked; before 254
+        // the input report with the press only comes after the action.
+        for i in 0..10 {
+            let ms = i * 5_000;
+            right_press(&mut ac, ms);
+            ac.menu_op(ms + 800);
+        }
+        for i in 10..20 {
+            let ms = i * 5_000;
+            ac.menu_op(ms + 800);
+            right_press(&mut ac, ms);
+        }
+        right_press(&mut ac, 199_000);
+        ac.menu_op(200_000);
+        assert_eq!((ac.menu_ops, ac.menu_unpressed), (21, 0));
+        assert!(ac.report().flags.is_empty(), "{:?}", ac.report().flags);
+        // A bot picking options straight off, with the odd right press.
+        for i in 0..30 {
+            ac.menu_op(300_000 + i * 2_000);
+        }
+        right_press(&mut ac, 320_000);
+        ac.menu_op(400_000);
+        assert_eq!(ac.menu_unpressed, 29);
+        assert_eq!(ac.report().flags, ["menu_without_right_click"]);
     }
 
     /// A click `ms` into the session and the action it makes. Before 254
