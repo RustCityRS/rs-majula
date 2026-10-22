@@ -6,6 +6,12 @@ use minijinja::context;
 use minijinja::value::Serde;
 use serde::Deserialize;
 use std::sync::Arc;
+use tracing::warn;
+
+/// The news category the support page lists (`news_categories`).
+const CUSTOMER_SUPPORT: i16 = 3;
+/// How many of its posts it lists.
+const SUPPORT_NEWS: i64 = 5;
 
 /// Serves `templates/pages/<path>.html` or `templates/pages/<path>/index.html`.
 pub async fn page(State(app): State<Arc<App>>, uri: Uri) -> Result<Response, AppError> {
@@ -22,6 +28,22 @@ pub async fn page(State(app): State<Arc<App>>, uri: Uri) -> Result<Response, App
         ]
     };
     render_first(&app, &candidates)
+}
+
+/// `/support`, with the latest Customer Support news.
+pub async fn support(State(app): State<Arc<App>>) -> Result<Response, AppError> {
+    let news = app
+        .db
+        .news_page(Some(CUSTOMER_SUPPORT), 0, SUPPORT_NEWS)
+        .await
+        .unwrap_or_else(|e| {
+            warn!("Loading news for the support page failed: {e}");
+            Vec::new()
+        });
+    let html = app
+        .templates
+        .render("pages/support.html", context! { news => Serde(news) })?;
+    Ok(html.into_response())
 }
 
 #[derive(Deserialize)]

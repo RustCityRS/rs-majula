@@ -46,7 +46,19 @@ A.c:hover {text-decoration:underline}
         </table>
         <table>
           <tr><td><img src=/img/title/mm_scroll.jpg border=0 width=77 height=120></td>
-            <td><iframe src="/news/cs" width="370" height="130" scrolling="no" border="0" frameborder="no"></iframe></td>
+            <td width=370 valign=top>
+              <table width=360>
+                {% for post in news %}
+                <tr>
+                  <td><a href="/news/{{ post.id }}" class=c>{{ post.title }}</a></td>
+                  <td align="right">{{ post.short_date }}</td>
+                </tr>
+                {% else %}
+                <tr><td>There's no customer support news yet.</td></tr>
+                {% endfor %}
+              </table>
+              <br><a href="/news?cat=3" class=c>All customer support news</a>
+            </td>
           </tr>
         </table>
       </td></tr>

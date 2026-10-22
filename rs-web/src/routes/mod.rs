@@ -64,6 +64,7 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/index_lite.ws", get(hiscores::lite))
         .route("/results", get(pages::poll_results))
         .route("/worldmap", get(pages::worldmap))
+        .route("/support", get(pages::support))
         .fallback_service(ServeDir::new(public).fallback(pages))
         .layer(middleware::from_fn_with_state(app.clone(), metrics::track))
         .layer(header(header::X_CONTENT_TYPE_OPTIONS, "nosniff"))
