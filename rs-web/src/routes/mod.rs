@@ -1,3 +1,4 @@
+mod account;
 mod appeal;
 mod create;
 mod hiscores;
@@ -6,12 +7,13 @@ mod pages;
 mod play;
 mod recover;
 mod recovery;
+mod sign_in;
 
 use crate::app::App;
 use crate::metrics;
-use axum::http::{HeaderName, HeaderValue, header};
+use axum::http::{HeaderName, HeaderValue, Response, header};
 use axum::response::Redirect;
-use axum::routing::get;
+use axum::routing::{get, post};
 use axum::{Router, middleware};
 use std::path::Path;
 use std::sync::Arc;
@@ -35,6 +37,21 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
             ),
         );
     }
+    // The site's own pictures change only when one is fixed, so a month
+    // is long enough to cache them and short enough to see a fix. Only
+    // what's found: a missing one shouldn't stay missing once it's added.
+    router = router.nest_service(
+        "/img",
+        SetResponseHeader::overriding(
+            ServeDir::new(public.join("img")),
+            header::CACHE_CONTROL,
+            |res: &Response<_>| {
+                res.status()
+                    .is_success()
+                    .then(|| HeaderValue::from_static("public, max-age=2592000"))
+            },
+        ),
+    );
     router
         .route("/title", get(play::title))
         .route("/play", get(|| async { Redirect::to("/detail") }))
@@ -42,6 +59,10 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/client", get(play::client))
         .route("/api/v1/worldlist", get(play::worldlist))
         .route("/create", get(create::form).post(create::submit))
+        .route("/account", get(account::form).post(account::show))
+        .route("/account/password", post(account::password))
+        .route("/account/data", post(account::data))
+        .route("/account/delete", post(account::delete))
         .route("/appeal", get(appeal::form).post(appeal::submit))
         .route("/recover", get(recover::form).post(recover::submit))
         .route(

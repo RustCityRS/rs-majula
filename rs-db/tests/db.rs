@@ -1,11 +1,12 @@
 use rs_db::{
-    AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch, LoginDevice,
-    MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot, PlayerSave,
-    RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED, Reconciled, RecoveryAnswers,
-    RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, ReplayStore, Sanctions, SavePoint,
-    SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent, WorldStatus, log_type,
-    transfer,
+    AccountDeleted, AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch,
+    LoginDevice, MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot,
+    PlayerSave, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED, Reconciled,
+    RecoveryAnswers, RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, ReplayStore,
+    Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent,
+    WorldStatus, log_type, transfer,
 };
+use rs_util::base37::to_userhash;
 use sqlx::PgPool;
 
 fn claimed(save: Option<PlayerSave>) -> Claim {
@@ -42,6 +43,89 @@ fn save() -> PlayerSave {
         inv_counts: vec![i32::MAX, 1, 1],
         ..Default::default()
     }
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn players_see_change_export_and_delete_their_account(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let sql = |q: &'static str| {
+        let pool = pool.clone();
+        async move { sqlx::query(q).execute(&pool).await.unwrap() }
+    };
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(42)
+    })
+    .await
+    .unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    sql(
+        "INSERT INTO login_logs (player_id, node_id, ip, web, platform)
+         SELECT id, 10, '203.0.113.7', true, 'Windows' FROM players WHERE name_hash = 42",
+    )
+    .await;
+    // The social server keeps its lists in the same database on a world.
+    sql("CREATE TABLE friends (owner_hash BIGINT PRIMARY KEY, friend_hashes BIGINT[] NOT NULL)")
+        .await;
+    let friend = to_userhash("zezima") as i64;
+    sqlx::query("INSERT INTO friends VALUES (42, ARRAY[$1])")
+        .bind(friend)
+        .execute(&pool)
+        .await
+        .unwrap();
+
+    let account = db.account(42).await.unwrap().unwrap();
+    assert!(!account.staff && !account.online && !account.banned && !account.muted);
+    let logins = db.account_logins(42, 50).await.unwrap();
+    assert_eq!(logins.len(), 1);
+    assert_eq!(
+        (logins[0].ip.as_str(), logins[0].world),
+        ("203.0.113.7", 10)
+    );
+
+    // Only from the password it still has.
+    assert!(
+        !db.change_password(42, "$argon2id$wrong", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.change_password(42, "$argon2id$stub", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+
+    let json = db.export_account(42).await.unwrap().unwrap();
+    assert!(
+        json.contains("203.0.113.7") && json.contains("Zezima"),
+        "{json}"
+    );
+    assert!(!json.contains("argon2id"), "{json}");
+    assert!(db.export_account(7).await.unwrap().is_none());
+
+    // Not staff, nor while logged in, banned or muted.
+    assert_eq!(db.delete_account(43).await.unwrap(), AccountDeleted::Staff);
+    sql("UPDATE players SET online_node = 10 WHERE name_hash = 42").await;
+    assert_eq!(db.delete_account(42).await.unwrap(), AccountDeleted::Online);
+    sql("UPDATE players SET online_node = NULL, muted_until = now() + interval '1 day' WHERE name_hash = 42").await;
+    assert_eq!(
+        db.delete_account(42).await.unwrap(),
+        AccountDeleted::Sanctioned
+    );
+    sql("UPDATE players SET muted_until = NULL WHERE name_hash = 42").await;
+    assert_eq!(
+        db.delete_account(42).await.unwrap(),
+        AccountDeleted::Deleted
+    );
+    assert!(db.account(42).await.unwrap().is_none());
+    let left: (i64, i64) =
+        sqlx::query_as("SELECT (SELECT count(*) FROM login_logs), (SELECT count(*) FROM friends)")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(left, (0, 0));
+    assert_eq!(db.delete_account(42).await.unwrap(), AccountDeleted::Gone);
 }
 
 #[sqlx::test]

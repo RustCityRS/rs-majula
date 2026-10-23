@@ -1,0 +1,22 @@
+{#- A boxed section of a page, with a stone title bar if `heading` is given:
+    {% from "layout/section.html" import section %}
+    {% call section("Heading") %}...{% endcall %} -#}
+{% macro section(heading="") %}
+<table width=500 bgcolor=black cellpadding=4 border=0>
+    <tr>
+        <td class=e width=500>
+            {% if heading %}
+            <center>
+                <table width=250 bgcolor=black cellpadding=2>
+                    <tr>
+                        <td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>{{ heading }}</h2></td>
+                    </tr>
+                </table>
+            </center>
+            {% endif %}
+            <div align=left>{{ caller() }}</div>
+        </td>
+    </tr>
+</table>
+<br>
+{% endmacro %}

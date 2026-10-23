@@ -6,14 +6,17 @@
   <table>
     <tr>
       <td>
-        <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: relative;">
-          <DIV STYLE="LEFT: 0px; TOP: 0px; width:100%; POSITION: absolute;">
+        {#- The picture, with everything placed on it. Everything stays inside
+            it: past its edge the frame's own background shows, and it looks cut. #}
+        <div style="position: relative; width: 522px; height: 668px;">
+          <img alt="" src="/img/playgame/detailwithad.jpg" width=522 height=668 border=0>
+          <div style="position:absolute; left:0; top:0; width:100%;">
             <center>
               <table width=250 bgcolor=black cellpadding=4>
                 <tr>
                   <td class=e>
                     <center>
-                      <b>Select Detail Level</b><br>
+                      <h1 class=title>Select Detail Level</h1>
                       <a href="/title" class=c>Main Menu</a>
                     </center>
                   </td>
@@ -21,46 +24,91 @@
               </table>
             </center>
           </div>
-        </div>
-
-        <DIV STYLE="LEFT: 0px; TOP: 180px; POSITION: relative;">
-          <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <INPUT type=image name='hires' src='/img/gamewin/rs2blank.gif' width=185 height=105 border=0>
-          </div>
-        </div>
-        <DIV STYLE="LEFT: 336px; TOP: 180px; POSITION: relative;">
-          <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <INPUT type=image name='lores' src='/img/gamewin/rs2blank.gif' width=185 height=105 border=0>
-          </div>
-        </div>
-        <DIV STYLE="LEFT: 109px; TOP: 306px; POSITION: relative;">
-          <DIV STYLE="LEFT: 0px; TOP: 0px; POSITION: absolute;">
-            <IFRAME SRC="banner?size=300" WIDTH=300 HEIGHT=250 MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no></IFRAME>
-          </div>
-        </div>
-
-        <DIV STYLE="LEFT: 0px; TOP: 571px; POSITION: relative;">
-          <DIV STYLE="LEFT: 0px; TOP: 0px; width:100%; POSITION: absolute;">
+          <input type=image alt="High detail" name='hires' src='/img/gamewin/rs2blank.gif' width=185 height=105 border=0 style="position:absolute; left:0; top:180px;">
+          <input type=image alt="Low detail" name='lores' src='/img/gamewin/rs2blank.gif' width=185 height=105 border=0 style="position:absolute; left:336px; top:180px;">
+          <iframe title="Advert" src="banner?size=300" width=300 height=250 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="position:absolute; left:109px; top:306px;"></iframe>
+          {#- On the scroll... #}
+          <div style="position:absolute; left:0; top:571px; width:100%;">
             <center>
               <table width=518 height=88>
                 <tr>
                   <td align=center>
-                    <span style="font-size:11px" color="white">Select a method to play</span><br>
+                    <label for="method" id="method-label" style="font-size:11px">Select a method to play</label><br>
                     <select name='method' id='method' style="background-color: #B1977E;">
                       <option value='0'> In your browser</option>
+                      <option value='app'> Install as an app</option>
                     </select>
                   </td>
                 </tr>
               </table>
             </center>
           </div>
+          {#- ...and under it. The same as clicking a picture above: they send
+              `hires.x` or `lores.x`. #}
+          <div id="play-buttons" style="position:absolute; text-align:center; left:36px; bottom:2px; width:450px;">
+            <button type="submit" name="hires.x" value="1" style="background-color: white; color: black;">High Detail</button>
+            <button type="submit" name="lores.x" value="1" style="background-color: white; color: black;">Low Detail</button>
+          </div>
+          <div id="install" hidden style="position:absolute; text-align:center; left:36px; bottom:2px; width:450px;">
+            <button type="button" style="background-color: white; color: black;">Install</button>
+          </div>
         </div>
-
-        <img src="/img/playgame/detailwithad.jpg" width=522 height=668 border=0>
       </td>
     </tr>
   </table>
 </form>
+
+<script>
+  // "Install as an app": the browser's own install prompt where it gives
+  // one (Chrome, Edge), else how to add the site by hand. The installed app
+  // is this same site in its own window.
+  (() => {
+    const method = document.getElementById('method');
+    const app = method.querySelector('option[value=app]');
+    const label = document.getElementById('method-label');
+    const play = document.getElementById('play-buttons');
+    const install = document.getElementById('install');
+    const said = label.textContent;
+    let deferred = null;
+    // Already running as the app: nothing to install.
+    if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+      app.remove();
+    }
+    addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferred = e;
+    });
+    addEventListener('appinstalled', () => {
+      label.textContent = 'Installed! Open Rust City from your desktop or home screen.';
+    });
+    const update = () => {
+      const installing = method.value === 'app';
+      play.hidden = installing;
+      install.hidden = !installing;
+      label.textContent = said;
+    };
+    method.addEventListener('change', update);
+    // The pictures above still submit the form: not with this picked.
+    method.form.addEventListener('submit', (e) => {
+      if (method.value === 'app') e.preventDefault();
+    });
+    install.querySelector('button').addEventListener('click', async () => {
+      if (deferred) {
+        deferred.prompt();
+        await deferred.userChoice;
+        deferred = null;
+        return;
+      }
+      const ua = navigator.userAgent;
+      const apple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      label.textContent = apple ? 'On iPhone or iPad: tap Share, then Add to Home Screen.'
+        : /Firefox\//.test(ua) ? "Firefox can't install sites as apps. Open this page in Chrome or Edge."
+        : /Safari\//.test(ua) && !/Chrome\//.test(ua) ? 'In Safari: choose File, then Add to Dock.'
+        : "Use the install button in your browser's address bar, or Install in its menu.";
+    });
+    update();
+  })();
+</script>
 
 {% with nobr=true %}{% include "layout/content-end.html" %}{% endwith %}
 {% include "layout/footer.html" %}

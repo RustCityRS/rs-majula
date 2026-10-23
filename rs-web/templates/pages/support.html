@@ -1,10 +1,11 @@
-<html><head>  
+<html><head>
+{% with title="Customer Support" %}{% include "layout/meta.html" %}{% endwith %}  
 <META HTTP-EQUIV="Expires" CONTENT="0">  
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">  
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">  
 <meta name="MSSmartTagsPreventParsing" content="TRUE">   
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>  
+<title>Customer Support | RuneScape</title>  
 
 <STYLE>  
 BODY, TD, P  
@@ -23,9 +24,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -34,18 +35,18 @@ A.c:hover {text-decoration:underline}
 <center>
 <br>
 <table width=300 bgcolor=black cellpadding=4>
-  <tr><td class=e><center>  <b>Customer Support</b><br>  <a href="/title" class=c>Main menu</a>  </center></td></tr>
+  <tr><td class=e><center>  <h1 class=title>Customer Support</h1>  <a href="/title" class=c>Main menu</a>  </center></td></tr>
 </table>
 <br>
 <table>
   <tr><td colspan=3>
-    <table width=507 bgcolor=black cellpadding=4>
+    <table width=100% bgcolor=black cellpadding=4 cellspacing=0>
       <tr><td class=e><center>  
         <table width=250 bgcolor=black cellpadding=2>
-          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center>Recent Customer Support News</td></tr>
+          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>Recent Customer Support News</h2></td></tr>
         </table>
         <table>
-          <tr><td><img src=/img/title/mm_scroll.jpg border=0 width=77 height=120></td>
+          <tr><td><img alt="" src=/img/title/mm_scroll.jpg border=0 width=77 height=120></td>
             <td width=370 valign=top>
               <table width=360>
                 {% for post in news %}
@@ -64,67 +65,62 @@ A.c:hover {text-decoration:underline}
       </td></tr>
     </table>
   </td></tr>
-  <tr><td>
-    <table width=240 bgcolor=black cellpadding=4>
-      <tr><td class=e><center>  
+  <tr><td class=e valign=top width=232 bgcolor=black style="padding:4px"><center>  
         <table width=150 bgcolor=black cellpadding=2>
-          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center>Password Support</td></tr>
+          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>Password Support</h2></td></tr>
         </table>
         <table>
-          <tr><td>  <a href='/recover/request' class=c><img src=/img/support/password.jpg width=95 height=65 border=0></a>  </td>
+          <tr><td>  <a href='/recover/request' class=c><img loading="lazy" alt="Password support" src=/img/support/password.jpg width=95 height=65 border=0></a>  </td>
             <td>Can't log in? Ask us to recover your account<br><a href='/recover/request' class=c>Click here</a><br><br>Have a reset code?<br><a href='/recover' class=c>Set a new password</a></td>
           </tr>
         </table>
-      </td></tr>
-    </table>
-  </td>
+      </td>
   <td width=10></td>
-  <td>
-    <table width=240 bgcolor=black cellpadding=4>
-      <tr><td class=e><center>  
+  <td class=e valign=top width=232 bgcolor=black style="padding:4px"><center>  
         <table width=150 bgcolor=black cellpadding=2>
-          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center>Query Tracking</td></tr>
+          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>Query Tracking</h2></td></tr>
         </table>
         <table>
-          <tr><td>  <a href='/appeal/status' class=c><img src='/img/support/lk_qtracking.jpg' width=95 height=65 border=0></a>  </td>
+          <tr><td>  <a href='/appeal/status' class=c><img loading="lazy" alt="Query tracking" src='/img/support/lk_qtracking.jpg' width=95 height=65 border=0></a>  </td>
             <td>View the status of your ban or mute appeal<br><a href='/appeal/status' class=c>Click here</a><br><br>Or of your account recovery request<br><a href='/recover/request/status' class=c>Click here</a></td>
           </tr>
         </table>
       </td></tr>
-    </table>
-  </td></tr>
   
-  <tr><td colspan=3>
-    <table width=507 bgcolor=black cellpadding=4>
-      <tr><td class=e><center>  
+  <tr><td class=e valign=top width=232 bgcolor=black style="padding:4px"><center>
         <table width=150 bgcolor=black cellpadding=2>
-          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center>Send a Query</td></tr>
+          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>Send a Query</h2></td></tr>
         </table>
         <table>
-          <tr><td>  <a href='/appeal' class=c><img src=/img/support/feedback.jpg width=95 height=65 border=0></a>  </td>
-            <td>Log-in to appeal a ban or mute on your account<br>(reviewed by a member of staff who didn't make the original decision)<br><a href='/appeal' class=c>Click here</a></td>
+          <tr><td>  <a href='/appeal' class=c><img loading="lazy" alt="Send a query" src=/img/support/feedback.jpg width=95 height=65 border=0></a>  </td>
+            <td>Appeal a ban or mute on your account<br><a href='/appeal' class=c>Click here</a></td>
+          </tr>
+        </table>
+      </td>
+  <td width=10></td>
+  <td class=e valign=top width=232 bgcolor=black style="padding:4px"><center>
+        <table width=150 bgcolor=black cellpadding=2>
+          <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>Your Account</h2></td></tr>
+        </table>
+        <table>
+          <tr><td>  <a href='/account' class=c><img loading="lazy" alt="Your account" src=/img/support/password.jpg width=95 height=65 border=0></a>  </td>
+            <td>See your logins, change your password, download your data or delete your account<br><a href='/account' class=c>Click here</a></td>
           </tr>
         </table>
       </td></tr>
-    </table>
-  </td></tr>
 </table>
 <br>
 </td></tr></table>
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 </td></tr></table>

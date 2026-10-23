@@ -1,3 +1,4 @@
+mod account;
 mod appeal;
 mod economy;
 mod hiscores;
@@ -20,6 +21,7 @@ mod snapshot;
 mod staff;
 mod world;
 
+pub use account::{Account, AccountDeleted, AccountLogin};
 pub use appeal::{AppealFiled, AppealLogin, AppealRecord, NewAppeal};
 pub use economy::{
     GraphAccount, ItemHolder, ItemSource, ItemTotal, TopReceiver, TraceStep, TradeEdge, TradeGraph,

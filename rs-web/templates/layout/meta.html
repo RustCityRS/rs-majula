@@ -1,0 +1,31 @@
+{#- What every page's <head> has besides its title: the scaling phones need,
+    and the preview other sites (Discord, search) show of a link to it.
+    Takes `title`, and optionally `og_description` and `og_image` (a path on
+    this site, or a full URL). -#}
+{%- set description = og_description if og_description else "A fan-made recreation that preserves RuneScape as it was in 2004." %}
+{%- set image = og_image if og_image else "/img/title/rslogo.gif" %}
+        {#- The pages are a 600px frame: phones scale all of it to fit. #}
+        <meta name="viewport" content="width=620">
+        <meta name="description" content="{{ description }}">
+        <meta name="theme-color" content="#000000">
+        <meta property="og:site_name" content="Rust City">
+        <meta property="og:type" content="{{ og_type if og_type else 'website' }}">
+        <meta property="og:title" content="{{ title if title else 'RuneScape' }}">
+        <meta property="og:description" content="{{ description }}">
+        <meta property="og:image" content="{{ image if image is startingwith('http') else site_url ~ image }}">
+        {#- A page's title (its box) and its sections' titles (the stone bars)
+            are headings for screen readers, drawn as the plain bold text and
+            label they always were. #}
+        <style>h1.title, h2.bar {font-size:inherit; margin:0} h2.bar {font-weight:inherit; text-align:center}</style>
+        {#- What lets the site be installed as an app (see /detail). #}
+        <link rel="icon" href="/favicon.ico?v=2">
+        <link rel="apple-touch-icon" href="/img/app/sword-192.png">
+        <link rel="manifest" href="/manifest.webmanifest">
+        <script>
+            if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+            // Installing moves this tab into the app's own window, on whatever
+            // page it was: start the app on the title screen instead.
+            matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+                if (e.matches && location.pathname !== '/title') location.replace('/title');
+            });
+        </script>

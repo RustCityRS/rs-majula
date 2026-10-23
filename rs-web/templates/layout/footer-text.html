@@ -1,0 +1,8 @@
+{% if not nodisclaimer %}<a href="/disclaimer">View our non-affiliation disclaimer here.</a><br>{% endif %}
+{% if noterms %}<a href="/privacy">Privacy policy</a><br>
+{% elif noprivacy %}<a href="/terms">Terms and conditions</a><br>
+{% else %}<a href="/terms">Terms and conditions</a> + <a href="/privacy">Privacy policy</a><br>
+{% endif %}
+{#- No blank lines after: the text has to fit the footer's 82px corners
+    above the 42px edge, or a black bar opens above them. #}
+Recreated and preserved 2023 - 2026.

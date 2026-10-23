@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Duelling" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Duelling | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -35,7 +36,7 @@ A.c:hover {text-decoration:underline}
 <!-- title box -->
 
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Duelling</b><br>
+<h1 class=title>Duelling</h1>
 <a href="/title" class=c>Main menu</a>
 -
 <a href="/rs2/skills" class=c>Skills Index</a>
@@ -57,12 +58,12 @@ for an agreed prize, or just for fun.
 <br>
 All duels take place in the Duel Arena east of Al Kharid. You can challenge players from the walkways that overlook the six duel arenas. Right click on their character and select the 'duel-with' option. The other player will be informed of your request, and to accept your duel they must click on your character and also select the 'duel-with' option.
 </td><td>
-<img src=/img/rs2/manual/fighting/duelscreen.gif>
+<img loading="lazy" alt="Duel screen" src=/img/rs2/manual/fighting/duelscreen.gif>
 </td></tr></table>
 
 <br>
 <p>Both players will then be shown a screen where they can decide how the duel will work. First of all each player decides which items they would like to risk in the duel. If you win the duel you get all the items the other player has offered, but if you lose then the other player gets your offered items. For instance you might decide that you will wager your ruby against your opponents sword. If you wish to just duel to see who is strongest there is no need to add any items.<br><br>
-<center><img src=/img/rs2/manual/fighting/duelstake.gif></center>
+<center><img loading="lazy" alt="Duels take" src=/img/rs2/manual/fighting/duelstake.gif></center>
 
 <p>In addition to deciding on the stake there are some options you can set:
 <br><br><table border=0>
@@ -111,7 +112,7 @@ the accept button.
 
 
 <table><tr><td>
-<img src=/img/rs2/manual/fighting/duelopponent.gif>
+<img loading="lazy" alt="Duel opponent" src=/img/rs2/manual/fighting/duelopponent.gif>
 <p></td><td valign=top>
 A final confirmation box will appear. This clearly lists what the duel will involve and gives you one last chance to check it is what you expected. You should read this information carefully, and then once you are sure you are happy, press the green "accept" button to begin the fight.
 <br>
@@ -129,17 +130,13 @@ The duel will continue until a player forfeits (if allowed), or until one player
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 

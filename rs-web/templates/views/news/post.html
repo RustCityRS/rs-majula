@@ -1,15 +1,15 @@
-{% with title=post.title %}{% include "layout/header.html" %}{% endwith %}
+{% with title=post.title, og_type="article", og_description=excerpt, og_image=image %}{% include "layout/header.html" %}{% endwith %}
 
 {% include "layout/frame-top.html" %}
 {% include "layout/content-start.html" %}
 
 {% include "layout/news-nav.html" %}
 
-<img src='/img/title/blank.gif' width=1 height=3><br>
+<img alt="" src='/img/title/blank.gif' width=1 height=3><br>
 
 {% include "layout/news-categories.html" %}
 
-<img src='/img/title/blank.gif' width=1 height=3><br>
+<img alt="" src='/img/title/blank.gif' width=1 height=3><br>
 
 {# Posts written in Markdown in the staff console: keep their images and
    videos inside the 500px column, and give the elements Markdown makes the

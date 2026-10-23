@@ -68,15 +68,22 @@ impl App {
 
     /// The site's own base URL, e.g. `http://localhost:8000`.
     pub fn base_url(&self) -> String {
-        let (scheme, default_port) = if self.site.https {
+        self.site.base_url()
+    }
+}
+
+impl SiteConfig {
+    /// See [`App::base_url`].
+    pub fn base_url(&self) -> String {
+        let (scheme, default_port) = if self.https {
             ("https", 443)
         } else {
             ("http", 80)
         };
-        if self.site.port == default_port {
-            format!("{scheme}://{}", self.site.public_host)
+        if self.port == default_port {
+            format!("{scheme}://{}", self.public_host)
         } else {
-            format!("{scheme}://{}:{}", self.site.public_host, self.site.port)
+            format!("{scheme}://{}:{}", self.public_host, self.port)
         }
     }
 }

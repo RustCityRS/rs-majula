@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Tales from the Tavern" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Tales from the Tavern | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -34,7 +35,7 @@ A.c:hover {text-decoration:underline}
 <br>
 <!-- title box -->
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Tales from the Tavern</b><br>
+<h1 class=title>Tales from the Tavern</h1>
 <a href="/title" class=c>Main menu</a> - <a href='/varrock' class=c>Library Of Varrock</a><br><a href='/varrock/tales' class=c>Tales Index</a>
 </center></td></tr></table>
 <!-- end title box -->
@@ -46,11 +47,11 @@ Reldo writes: <br>
 I think all of us can relate to this tale of a frustrating task that finally pays off...<br>
 <p align=left>
 </i>
-<center><img src='/img/newsletter/smstones.jpg'></center><p>
+<center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <u><h3>The Miners' Tale by DoomRanger5</u></h3>
 <p align=justify>
 <table><tr><td></center>
-<img src='/img/varrock/elaborate/elaboratet.gif' width=100 height=100 align=top></td><td>
+<img loading="lazy" alt="T" src='/img/varrock/elaborate/elaboratet.gif' width=100 height=100 align=top></td><td>
 he miner halted his relentless smashing of a mithril 
 rock and took a deep draught of stout, he gazed down at the rocky outcrop, 
 was the meager scratch he saw the only fruits of his long days effort?
@@ -85,9 +86,9 @@ over his shoulder and strode off....
 <br>
 </center>
     <br>
-    <center><img src='/img/newsletter/smstones.jpg'></center><p>
+    <center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <i>If you have discovered an interesting manuscript detailing RuneScape history, please</i>
-<center><img src='/img/newsletter/reldoemail.gif'></center><br>
+<center><img loading="lazy" alt="Reldo email" src='/img/newsletter/reldoemail.gif'></center><br>
 <p align=left>
 <font color="white" size="1"><i>
 Copyright notice: All user submitted articles are the property of their respective authors and
@@ -101,17 +102,13 @@ Copyright notice: All user submitted articles are the property of their respecti
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 </center>

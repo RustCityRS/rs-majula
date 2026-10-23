@@ -149,21 +149,22 @@ async fn main() -> Result<()> {
         Some(dir) => info!("News media in: {}", dir.display()),
         None => warn!("No --media-dir, so news can't have images or videos uploaded"),
     }
+    let site = SiteConfig {
+        https: args.https,
+        public_host: args.public_host,
+        port: args.port,
+        real_ip_header: args.real_ip_header,
+    };
     let app = Arc::new(App {
         db,
         media_dir,
         passwords: Passwords::new(&pepper),
         hashing: Semaphore::new(HASHING_AT_ONCE),
-        templates: Templates::new(args.root.join("templates"), args.https),
+        templates: Templates::new(args.root.join("templates"), args.https, &site.base_url()),
         worlds,
         live_worlds: Default::default(),
         wordenc,
-        site: SiteConfig {
-            https: args.https,
-            public_host: args.public_host,
-            port: args.port,
-            real_ip_header: args.real_ip_header,
-        },
+        site,
         metrics: Default::default(),
     });
 

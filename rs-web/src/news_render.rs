@@ -96,9 +96,79 @@ pub fn sanitize(html: &str) -> String {
         .to_string()
 }
 
+/// The text of a post's (sanitized) `html`, for a link preview: tags taken
+/// out, whitespace collapsed, and cut at a word to at most `max` characters.
+pub fn excerpt(html: &str, max: usize) -> String {
+    // Tags that end a line of text, so the words either side stay apart.
+    const BREAKS: [&str; 12] = [
+        "p", "br", "div", "li", "td", "th", "tr", "h1", "h2", "h3", "h4", "hr",
+    ];
+    let mut text = String::with_capacity(html.len());
+    let mut tag: Option<String> = None;
+    for c in html.chars() {
+        match (&mut tag, c) {
+            (None, '<') => tag = Some(String::new()),
+            (Some(name), '>') => {
+                let name = name.trim_start_matches('/');
+                let name = name.split([' ', '/']).next().unwrap_or("");
+                if BREAKS.contains(&name.to_ascii_lowercase().as_str()) {
+                    text.push(' ');
+                }
+                tag = None;
+            }
+            (Some(name), c) => name.push(c),
+            (None, c) => text.push(c),
+        }
+    }
+    let text = text
+        .replace("&lt;", "<")
+        .replace("&gt;", ">")
+        .replace("&quot;", "\"")
+        .replace("&#39;", "'")
+        .replace("&nbsp;", " ")
+        .replace("&amp;", "&");
+    let words: Vec<&str> = text.split_whitespace().collect();
+    let mut out = String::new();
+    for word in words {
+        if out.chars().count() + word.chars().count() + 1 > max {
+            out.push_str("...");
+            break;
+        }
+        if !out.is_empty() {
+            out.push(' ');
+        }
+        out.push_str(word);
+    }
+    out
+}
+
+/// Where a post's (sanitized) `html` shows its first image, if it has one.
+pub fn first_image(html: &str) -> Option<String> {
+    let tag = &html[html.find("<img ")?..];
+    let tag = &tag[..tag.find('>')?];
+    let src = &tag[tag.find(" src=\"")? + 6..];
+    let src = &src[..src.find('"')?];
+    Some(src.replace("&amp;", "&"))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn previews_take_the_text_and_first_image() {
+        let html = render(
+            "Hello **there**, &amp; welcome.\n\n![Map](/news/media/ab.gif)\n\n![x](/news/media/cd.png)",
+        );
+        assert_eq!(excerpt(&html, 200), "Hello there, & welcome.");
+        assert_eq!(
+            excerpt("<p>one</p><p>two<br>three</p>", 200),
+            "one two three"
+        );
+        assert_eq!(excerpt(&html, 12), "Hello there,...");
+        assert_eq!(first_image(&html).as_deref(), Some("/news/media/ab.gif"));
+        assert_eq!(first_image("<p>none</p>"), None);
+    }
 
     #[test]
     fn renders_markdown() {

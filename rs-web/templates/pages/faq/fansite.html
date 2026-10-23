@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Fan Site FAQ" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Fan Site FAQ | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -34,7 +35,7 @@ A.c:hover {text-decoration:underline}
 <br>
 <!-- title box -->
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Fan Site FAQ</b><br>
+<h1 class=title>Fan Site FAQ</h1>
 <a href="/title" class=c>Main menu</a> - <a href="/faq" class=c>FAQ Index</a>
 </center></td></tr></table>
 <!-- end title box -->
@@ -52,19 +53,19 @@ Click a frequently asked question below to jump to the answer:<br>
 <li><a href='#fanfaq6' class=c>Can I use graphics from the RuneScape website?</a><br>
 </ul>
 
-<p><center><img src='/img/newsletter/smstones.jpg'></center><p>
+<p><center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <a name="fanfaq1">
 <p><b><font color='#ffbb22'>Is it ok for me to make a fan site?</b></font>
 
 <p>Yes, of course. We encourage the creation of fan sites and many of our players use them to gain information about our game.
 
-<p><center><img src='/img/newsletter/smstones.jpg'></center><p>
+<p><center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <a name="fanfaq2">
 <p><b><font color='#ffbb22'>What sort of information should I display?</b></font>
 
 <p>Well that's up to you. Most fan sites provide detailed information on most aspects of our game including things like items, skills, quests, monsters, developments etc..
 
-<p><center><img src='/img/newsletter/smstones.jpg'></center><p>
+<p><center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <a name="fanfaq3">
 <p><b><font color='#ffbb22'>Do you have any conditions that you would like Fan Sites to abide by?</b></font>
 
@@ -78,7 +79,7 @@ Click a frequently asked question below to jump to the answer:<br>
 <li>The site should not promote any sites or information that provide or support hacking, software piracy, or other illegal activities. 
 </ul>
 
-<p><center><img src='/img/newsletter/smstones.jpg'></center><p>
+<p><center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <a name="fanfaq4">
 <p><b><font color='#ffbb22'>Can I advertise my website in RuneScape?</b></font>
 
@@ -88,7 +89,7 @@ Click a frequently asked question below to jump to the answer:<br>
 
 <p>Clearly this does an injustice against players who create websites designed to help the RuneScape Community, however, we need to ensure that player accounts are absolutely secure and to this end we have developed this policy. We hope that at some point in the future, this can change and more community sites will take the place of hack sites, for the time being though, account security is absolutely essential.
 
-<p><center><img src='/img/newsletter/smstones.jpg'></center><p>
+<p><center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <a name="fanfaq5">
 <p><b><font color='#ffbb22'>Is it possible to get a link on RuneScape.com?</b></font>
 
@@ -98,7 +99,7 @@ Click a frequently asked question below to jump to the answer:<br>
 
 <p>What we can tell you now is that when we do go ahead with this system Jagex will handpick "official" fan sites and we will contact you if we would like your site to receive an official acceptance. Please do not contact us regarding becoming an "official" fan site. Just concentrate on making your fan site high in quality and you will be doing your best to become accepted.
 
-<p><center><img src='/img/newsletter/smstones.jpg'></center><p>
+<p><center><img alt="" src='/img/newsletter/smstones.jpg'></center><p>
 <a name="fanfaq6">
 <p><b><font color='#ffbb22'>Can I use graphics from the RuneScape website?</b></font>
 
@@ -119,17 +120,13 @@ Click a frequently asked question below to jump to the answer:<br>
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 </td></tr></table>

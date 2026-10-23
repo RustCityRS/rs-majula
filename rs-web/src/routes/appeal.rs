@@ -1,3 +1,4 @@
+use super::sign_in::{SignIn, sign_in};
 use crate::app::{App, AppError};
 use axum::Form;
 use axum::extract::{ConnectInfo, State};
@@ -5,27 +6,14 @@ use axum::http::HeaderMap;
 use axum::response::Html;
 use minijinja::context;
 use minijinja::value::Serde;
-use rs_db::{AppealFiled, AppealLogin, NewAppeal, is_typeable_password, validate_name};
+use rs_db::{AppealFiled, NewAppeal};
 use serde::{Deserialize, Serialize};
-use std::net::{IpAddr, SocketAddr};
+use std::net::SocketAddr;
 use std::sync::Arc;
 use tracing::info;
 
-/// Wrong passwords an IP may give, here or at the game's login (the same
-/// count), before it's refused for [`FAILURE_WINDOW_SECS`].
-const MAX_FAILURES: i64 = 5;
-const FAILURE_WINDOW_SECS: i32 = 60;
-
 const MIN_STATEMENT_CHARS: usize = 20;
 const MAX_STATEMENT_CHARS: usize = 2000;
-
-#[derive(Deserialize)]
-pub struct SignIn {
-    #[serde(default)]
-    username: String,
-    #[serde(default)]
-    password: String,
-}
 
 #[derive(Deserialize)]
 pub struct AppealForm {
@@ -175,47 +163,6 @@ pub async fn status(
             signed_in => true,
         },
     )
-}
-
-/// The player whose username and password these are, or what to say.
-/// Wrong passwords count against the IP alongside the game's own logins,
-/// so this can't be used to guess passwords faster than the game allows.
-async fn sign_in(
-    app: &App,
-    form: &SignIn,
-    ip: IpAddr,
-) -> Result<Result<(u64, AppealLogin), &'static str>, AppError> {
-    const WRONG: &str = "Invalid username or password.";
-    let Ok(name) = validate_name(&form.username) else {
-        return Ok(Err(WRONG));
-    };
-    // Counted as wrong until it's found right.
-    let Some(attempt) = app
-        .db
-        .claim_login_attempt(ip, FAILURE_WINDOW_SECS, MAX_FAILURES)
-        .await?
-    else {
-        return Ok(Err(
-            "Too many incorrect logins from your address. Please wait a minute and try again.",
-        ));
-    };
-    // Nobody's password is one the game's login screen couldn't type.
-    if !is_typeable_password(&form.password) {
-        return Ok(Err(WRONG));
-    }
-    let Some(login) = app.db.appeal_login(name.hash).await? else {
-        return Ok(Err(WRONG));
-    };
-    let password = form.password.clone();
-    let hash = login.password_hash.clone();
-    if !app
-        .with_passwords(move |p| p.verify(&password, &hash))
-        .await?
-    {
-        return Ok(Err(WRONG));
-    }
-    app.db.forgive_login_attempt(attempt).await?;
-    Ok(Ok((name.hash, login)))
 }
 
 /// The statement as it's stored: trimmed, line endings made `\n`, and no

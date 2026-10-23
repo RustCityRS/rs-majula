@@ -16,11 +16,14 @@ pub struct Templates {
 }
 
 impl Templates {
-    pub fn new(dir: PathBuf, https: bool) -> Self {
+    /// `site_url` is the site's base URL, for the links a page gives of
+    /// itself to other sites (its preview's image).
+    pub fn new(dir: PathBuf, https: bool, site_url: &str) -> Self {
         let mut env = Environment::new();
         env.set_loader(path_loader(dir));
         env.set_auto_reload(cfg!(debug_assertions));
         env.add_global("https_enabled", https);
+        env.add_global("site_url", site_url.to_owned());
         env.add_filter("commas", commas);
         Self { env }
     }
@@ -89,7 +92,7 @@ mod tests {
     #[test]
     fn every_template_compiles_and_every_page_renders() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("templates");
-        let templates = Templates::new(root.clone(), false);
+        let templates = Templates::new(root.clone(), false, "http://localhost:8000");
         let mut names = Vec::new();
         template_names(&root, &root, &mut names);
         assert!(names.iter().any(|n| n == "pages/index.html"));
