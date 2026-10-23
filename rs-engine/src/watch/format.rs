@@ -91,12 +91,8 @@ pub fn put_bytes(out: &mut Vec<u8>, tag: u8, bytes: &[u8]) {
 pub struct Reader<'a> {
     buf: &'a [u8],
     pos: usize,
-    /// When the last tick began.
     ms: u32,
-    /// Where the last whole entry read ends.
     read: usize,
-    /// Whether it stopped at something that isn't an entry, rather than at
-    /// the end (or an entry cut short by it).
     broken: bool,
 }
 
