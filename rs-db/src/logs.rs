@@ -134,6 +134,28 @@ macro_rules! prune_oldest {
 }
 pub(crate) use prune_oldest;
 
+/// Deletes up to `$2` of a login pair table's rows (`login_ips` or
+/// `login_uids`, keyed by `$key` and player) whose latest login is older
+/// than `$1` days, like [`prune_oldest!`].
+macro_rules! prune_pairs {
+    ($table:literal, $key:literal) => {
+        concat!(
+            "DELETE FROM ",
+            $table,
+            " d USING (SELECT ",
+            $key,
+            ", player_id FROM ",
+            $table,
+            " WHERE last_at < now() - make_interval(days => $1) ORDER BY last_at",
+            " LIMIT $2 FOR UPDATE SKIP LOCKED) o WHERE d.",
+            $key,
+            " = o.",
+            $key,
+            " AND d.player_id = o.player_id"
+        )
+    };
+}
+
 /// The logs pruned by age. Staff commands are kept: they're what staff did.
 const PRUNED_LOGS: [&str; 3] = [
     prune_oldest!("chat_logs", "created_at", ""),
@@ -141,6 +163,10 @@ const PRUNED_LOGS: [&str; 3] = [
     prune_oldest!("wealth_events", "created_at", ""),
 ];
 const PRUNED_LOGINS: &str = prune_oldest!("login_logs", "created_at", "");
+const PRUNED_LOGIN_PAIRS: [&str; 2] = [
+    prune_pairs!("login_ips", "ip"),
+    prune_pairs!("login_uids", "uid"),
+];
 const PRUNED_SCRIPT_ERRORS: &str = prune_oldest!("script_errors", "last_at", "");
 const _: () = assert!(log_type::STAFF_COMMAND == 100);
 
@@ -175,9 +201,15 @@ impl Db {
         Ok(pruned)
     }
 
-    /// Forgets logins older than `days`, `batch` at a time. Returns how many.
+    /// Forgets logins older than `days`, `batch` at a time, and the
+    /// addresses and installs no login kept was from. Returns how many
+    /// logins.
     pub async fn prune_login_logs(&self, days: i32, batch: i64) -> Result<u64, Error> {
-        self.prune_oldest(PRUNED_LOGINS, days, batch).await
+        let pruned = self.prune_oldest(PRUNED_LOGINS, days, batch).await?;
+        for sql in PRUNED_LOGIN_PAIRS {
+            self.prune_oldest(sql, days, batch).await?;
+        }
+        Ok(pruned)
     }
 
     /// Deletes script errors last seen over `days` ago, `batch` at a time.

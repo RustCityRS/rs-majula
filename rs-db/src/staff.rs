@@ -347,10 +347,10 @@ impl Db {
             ms!("min(l.created_at)"),
             " AS first_ms, ",
             ms!("max(l.created_at)"),
-            " AS last_ms, least($3 + 1, (SELECT count(*) FROM (SELECT DISTINCT o.player_id ",
-            "FROM login_logs o WHERE o.ip = l.ip AND o.player_id <> (SELECT id FROM me) LIMIT $3 + 1) a) ",
+            " AS last_ms, least($3 + 1, (SELECT count(*) FROM (SELECT o.player_id ",
+            "FROM login_ips o WHERE o.ip = l.ip AND o.player_id <> (SELECT id FROM me) LIMIT $3 + 1) a) ",
             "+ (SELECT count(*) FROM players r WHERE r.registration_ip = l.ip AND r.id <> (SELECT id FROM me) ",
-            "AND NOT EXISTS (SELECT 1 FROM login_logs o WHERE o.ip = l.ip AND o.player_id = r.id))) AS others ",
+            "AND NOT EXISTS (SELECT 1 FROM login_ips o WHERE o.ip = l.ip AND o.player_id = r.id))) AS others ",
             "FROM login_logs l WHERE l.player_id = (SELECT id FROM me) ",
             "GROUP BY l.ip ORDER BY max(l.created_at) DESC LIMIT $2"
         ))
@@ -379,8 +379,8 @@ impl Db {
             " AS last_ms FROM login_logs WHERE player_id = (SELECT id FROM me) ",
             "GROUP BY web, user_agent, platform, language, touch, uid) ",
             "SELECT web, user_agent, platform, language, touch, uid, logins, addresses, ips, first_ms, last_ms, ",
-            "CASE WHEN uid IS NULL THEN 0 ELSE (SELECT count(*) FROM (SELECT DISTINCT o.player_id ",
-            "FROM login_logs o WHERE o.uid = seen.uid AND o.player_id <> (SELECT id FROM me) ",
+            "CASE WHEN uid IS NULL THEN 0 ELSE (SELECT count(*) FROM (SELECT o.player_id ",
+            "FROM login_uids o WHERE o.uid = seen.uid AND o.player_id <> (SELECT id FROM me) ",
             "LIMIT $3 + 1) a) END AS others ",
             "FROM seen ORDER BY last_ms DESC LIMIT $2"
         ))
@@ -401,37 +401,35 @@ impl Db {
     ) -> Result<Vec<LinkedAccount>, Error> {
         sqlx::query_as(concat!(
             "WITH me AS (SELECT id, registration_ip FROM players WHERE name_hash = $1), ",
-            "mine AS (SELECT a.ip FROM (SELECT ip FROM login_logs WHERE player_id = (SELECT id FROM me) ",
+            "mine AS (SELECT a.ip FROM (SELECT ip FROM login_ips WHERE player_id = (SELECT id FROM me) ",
             "UNION SELECT registration_ip FROM me WHERE registration_ip IS NOT NULL) a WHERE ",
             uncrowded!("ip", "a.ip", "$3"),
-            "), my_uids AS (SELECT u.uid FROM (SELECT DISTINCT uid FROM login_logs ",
-            "WHERE player_id = (SELECT id FROM me) AND uid IS NOT NULL) u WHERE ",
+            "), my_uids AS (SELECT u.uid FROM login_uids u WHERE u.player_id = (SELECT id FROM me) AND ",
             uncrowded!("uid", "u.uid", "$4"),
             "), ",
-            // Their logins that share either, each once.
-            "theirs AS (SELECT l.id, l.player_id, l.ip, l.uid, l.created_at FROM login_logs l ",
+            // What each shares, and their latest login (or registration) with it.
+            "seen AS (SELECT l.player_id, l.ip, NULL::int AS uid, l.last_at FROM login_ips l ",
             "JOIN mine m ON m.ip = l.ip WHERE l.player_id <> (SELECT id FROM me) ",
-            "UNION SELECT l.id, l.player_id, l.ip, l.uid, l.created_at FROM login_logs l ",
-            "JOIN my_uids u ON u.uid = l.uid WHERE l.uid IS NOT NULL ",
-            "AND l.player_id <> (SELECT id FROM me)), ",
-            // What each shares: the address or install, else NULL.
-            "seen AS (SELECT t.player_id, ",
-            "CASE WHEN t.ip IN (SELECT ip FROM mine) THEN t.ip END AS ip, ",
-            "CASE WHEN t.uid IN (SELECT uid FROM my_uids) THEN t.uid END AS uid, ",
-            "1 AS logins, t.created_at AS last_at FROM theirs t ",
-            "UNION ALL SELECT p.id, p.registration_ip, NULL::int, 0, p.created_at FROM players p ",
-            "JOIN mine m ON m.ip = p.registration_ip WHERE p.id <> (SELECT id FROM me)) ",
+            "UNION ALL SELECT l.player_id, NULL, l.uid, l.last_at FROM login_uids l ",
+            "JOIN my_uids u ON u.uid = l.uid WHERE l.player_id <> (SELECT id FROM me) ",
+            "UNION ALL SELECT p.id, p.registration_ip, NULL, p.created_at FROM players p ",
+            "JOIN mine m ON m.ip = p.registration_ip WHERE p.id <> (SELECT id FROM me)), ",
+            "top AS (SELECT player_id, array_agg(DISTINCT ip) FILTER (WHERE ip IS NOT NULL) AS ips, ",
+            "array_agg(DISTINCT uid) FILTER (WHERE uid IS NOT NULL) AS uids, ",
+            "count(DISTINCT ip) + count(DISTINCT uid) AS shares, max(last_at) AS last_at ",
+            "FROM seen GROUP BY player_id ORDER BY shares DESC, last_at DESC LIMIT $2) ",
             "SELECT p.display_name, p.staff_mod_level, ",
-            "COALESCE(array_agg(DISTINCT host(s.ip)) FILTER (WHERE s.ip IS NOT NULL), '{}') AS shared, ",
-            "count(DISTINCT s.uid) AS shared_clients, sum(s.logins)::bigint AS logins, ",
-            ms!("max(s.last_at)"),
+            "ARRAY(SELECT host(i) FROM unnest(coalesce(t.ips, '{}')) i ORDER BY 1) AS shared, ",
+            "coalesce(cardinality(t.uids), 0)::bigint AS shared_clients, ",
+            "(SELECT count(*) FROM login_logs l WHERE l.player_id = t.player_id ",
+            "AND (l.ip = ANY(t.ips) OR l.uid = ANY(t.uids))) AS logins, ",
+            ms!("t.last_at"),
             " AS last_ms, CASE WHEN p.muted_until > now() THEN ",
             ms!("p.muted_until"),
             " END AS muted_until_ms, CASE WHEN p.banned_until > now() THEN ",
             ms!("p.banned_until"),
-            " END AS banned_until_ms FROM seen s JOIN players p ON p.id = s.player_id ",
-            "GROUP BY p.id ORDER BY count(DISTINCT s.ip) + count(DISTINCT s.uid) DESC, ",
-            "max(s.last_at) DESC LIMIT $2"
+            " END AS banned_until_ms FROM top t JOIN players p ON p.id = t.player_id ",
+            "ORDER BY t.shares DESC, t.last_at DESC"
         ))
         .bind(name_hash as i64)
         .bind(limit)

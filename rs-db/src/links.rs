@@ -17,12 +17,15 @@ pub const CROWDED_ADDRESS: i64 = 25;
 pub const CROWDED_BROWSER: i64 = 25;
 
 /// The accounts that logged in with `$value` in `$column` (`ip` or
-/// `uid`), as an array: `$cap` + 1 of them at most, read along the index on
-/// (`$column`, player). More than `$cap` is crowded.
+/// `uid`), as an array: `$cap` + 1 of them at most, read from that column's
+/// pair table (`login_ips` or `login_uids`, one row per account). More than
+/// `$cap` is crowded.
 macro_rules! accounts_on {
     ($column:literal, $value:literal, $cap:literal) => {
         concat!(
-            "ARRAY(SELECT DISTINCT c.player_id FROM login_logs c WHERE c.",
+            "ARRAY(SELECT c.player_id FROM login_",
+            $column,
+            "s c WHERE c.",
             $column,
             " = ",
             $value,
@@ -125,14 +128,12 @@ impl Db {
         let row: Option<(String,)> = sqlx::query_as(concat!(
             "WITH pa AS (SELECT id, registration_ip FROM players WHERE name_hash = $1), ",
             "pb AS (SELECT id, registration_ip FROM players WHERE name_hash = $2), ",
-            "ips AS (SELECT l.player_id, l.ip FROM login_logs l WHERE l.player_id IN ((SELECT id FROM pa), (SELECT id FROM pb)) ",
+            "ips AS (SELECT l.player_id, l.ip FROM login_ips l WHERE l.player_id IN ((SELECT id FROM pa), (SELECT id FROM pb)) ",
             "UNION SELECT id, registration_ip FROM pa WHERE registration_ip IS NOT NULL ",
-            "UNION SELECT id, registration_ip FROM pb WHERE registration_ip IS NOT NULL), ",
-            "a_uids AS (SELECT DISTINCT uid FROM login_logs ",
-            "WHERE player_id = (SELECT id FROM pa) AND uid IS NOT NULL) ",
-            "SELECT 'browser'::text FROM a_uids u WHERE EXISTS (SELECT 1 FROM login_logs y ",
-            "WHERE y.player_id = (SELECT id FROM pb) AND y.uid = u.uid) AND ",
-            uncrowded!("uid", "u.uid", "$4"),
+            "UNION SELECT id, registration_ip FROM pb WHERE registration_ip IS NOT NULL) ",
+            "SELECT 'browser'::text FROM login_uids x JOIN login_uids y ON y.uid = x.uid ",
+            "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) AND ",
+            uncrowded!("uid", "x.uid", "$4"),
             " UNION ALL SELECT 'address'::text FROM ips x JOIN ips y ON x.ip = y.ip ",
             "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) AND ",
             uncrowded!("ip", "x.ip", "$3"),
@@ -152,22 +153,20 @@ impl Db {
     pub async fn banned_links(&self, name_hash: u64) -> Result<Vec<BannedLink>, Error> {
         sqlx::query_as(concat!(
             "WITH me AS (SELECT id FROM players WHERE name_hash = $1), ",
-            "mine AS (SELECT uid, ip, created_at FROM login_logs WHERE player_id = (SELECT id FROM me)), ",
-            "uids AS (SELECT u.uid, ",
+            "uids AS (SELECT u.uid, u.last_at, ",
             accounts_on!("uid", "u.uid", "$3"),
-            " AS ids FROM (SELECT DISTINCT uid FROM mine WHERE uid IS NOT NULL) u), ",
-            "ips AS (SELECT a.ip, ",
+            " AS ids FROM login_uids u WHERE u.player_id = (SELECT id FROM me)), ",
+            "ips AS (SELECT a.ip, a.last_at, ",
             accounts_on!("ip", "a.ip", "$2"),
-            " AS ids FROM (SELECT DISTINCT ip FROM mine) a), ",
+            " AS ids FROM login_ips a WHERE a.player_id = (SELECT id FROM me)), ",
             "shared AS (SELECT * FROM (",
-            "SELECT unnest(ids) AS player_id, 'browser'::text AS via, uid, NULL::inet AS ip ",
-            "FROM uids WHERE cardinality(ids) <= $3 ",
-            "UNION ALL SELECT unnest(ids), 'address'::text, NULL::int, ip FROM ips ",
+            "SELECT unnest(ids) AS player_id, 'browser'::text AS via, last_at FROM uids ",
+            "WHERE cardinality(ids) <= $3 ",
+            "UNION ALL SELECT unnest(ids), 'address'::text, last_at FROM ips ",
             "WHERE cardinality(ids) <= $2) s WHERE player_id <> (SELECT id FROM me)) ",
             "SELECT p.display_name AS name, s.via, ",
             ms!("ban.at"),
-            " AS banned_ms, bool_or(EXISTS (SELECT 1 FROM mine m WHERE ",
-            "(m.uid = s.uid OR m.ip = s.ip) AND m.created_at > ban.at)) AS after_ban ",
+            " AS banned_ms, coalesce(bool_or(s.last_at > ban.at), false) AS after_ban ",
             "FROM shared s JOIN players p ON p.id = s.player_id AND p.banned_until > now() ",
             "LEFT JOIN LATERAL (SELECT max(created_at) AS at FROM moderation_logs ",
             "WHERE target_id = p.id AND action = 'ban') ban ON true ",
@@ -209,10 +208,10 @@ impl Db {
             }
             // Each browser and address the frontier used, through one of them.
             let hops: Vec<Hop> = sqlx::query_as(concat!(
-                "WITH mine AS (SELECT DISTINCT player_id, ip, uid FROM login_logs WHERE player_id = ANY($1)), ",
-                "uids AS (SELECT DISTINCT ON (uid) uid, player_id FROM mine WHERE uid IS NOT NULL ",
-                "ORDER BY uid, player_id), ",
-                "ips AS (SELECT DISTINCT ON (ip) ip, player_id FROM mine ORDER BY ip, player_id) ",
+                "WITH uids AS (SELECT DISTINCT ON (uid) uid, player_id FROM login_uids ",
+                "WHERE player_id = ANY($1) ORDER BY uid, player_id), ",
+                "ips AS (SELECT DISTINCT ON (ip) ip, player_id FROM login_ips ",
+                "WHERE player_id = ANY($1) ORDER BY ip, player_id) ",
                 "SELECT * FROM (SELECT unnest(a.ids) AS player_id, a.via_id, a.link FROM (",
                 "SELECT f.player_id AS via_id, 'browser'::text AS link, ",
                 accounts_on!("uid", "f.uid", "$4"),

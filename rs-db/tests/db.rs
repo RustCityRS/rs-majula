@@ -1365,6 +1365,18 @@ async fn moderation_reasons_are_logged(pool: PgPool) {
     assert!(by(7).await.unwrap().is_empty());
 }
 
+/// Moves every login back a day, and each address's and install's latest
+/// login with them.
+async fn logins_a_day_ago(pool: &PgPool) {
+    for sql in [
+        "UPDATE login_logs SET created_at = now() - interval '1 day'",
+        "UPDATE login_ips SET last_at = now() - interval '1 day'",
+        "UPDATE login_uids SET last_at = now() - interval '1 day'",
+    ] {
+        sqlx::query(sql).execute(pool).await.unwrap();
+    }
+}
+
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
 async fn logins_link_accounts_by_address(pool: PgPool) {
@@ -1429,16 +1441,21 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
         1
     );
 
-    // Old logins are pruned.
-    sqlx::query(
+    // Old logins are pruned, and the links only they made.
+    assert_eq!(db.linked_accounts(3, 10).await.unwrap().len(), 1);
+    for sql in [
         "UPDATE login_logs SET created_at = now() - interval '200 days' WHERE ip = $1::inet",
-    )
-    .bind(b.to_string())
-    .execute(&pool)
-    .await
-    .unwrap();
+        "UPDATE login_ips SET last_at = now() - interval '200 days' WHERE ip = $1::inet",
+    ] {
+        sqlx::query(sql)
+            .bind(b.to_string())
+            .execute(&pool)
+            .await
+            .unwrap();
+    }
     assert_eq!(db.prune_login_logs(180, 1).await.unwrap(), 2);
     assert!(db.login_addresses(3, 10).await.unwrap().is_empty());
+    assert!(db.linked_accounts(3, 10).await.unwrap().is_empty());
     assert_eq!(db.login_addresses(1, 10).await.unwrap().len(), 1);
 }
 
@@ -1560,10 +1577,7 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
     let ip = std::net::IpAddr::from([203, 0, 113, 1]);
     let device = LoginDevice::default();
     db.record_login(2, 10, ip, None, &device).await.unwrap();
-    sqlx::query("UPDATE login_logs SET created_at = now() - interval '1 day'")
-        .execute(&pool)
-        .await
-        .unwrap();
+    logins_a_day_ago(&pool).await;
     assert!(
         db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
             .await
@@ -1625,10 +1639,7 @@ async fn crowded_browsers_link_nobody(pool: PgPool) {
     db.record_login(2, 10, ip(2), Some(77), &device)
         .await
         .unwrap();
-    sqlx::query("UPDATE login_logs SET created_at = now() - interval '1 day'")
-        .execute(&pool)
-        .await
-        .unwrap();
+    logins_a_day_ago(&pool).await;
     assert!(
         db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
             .await
@@ -1721,10 +1732,7 @@ async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
             .await
             .unwrap();
     }
-    sqlx::query("UPDATE login_logs SET created_at = now() - interval '1 day'")
-        .execute(&pool)
-        .await
-        .unwrap();
+    logins_a_day_ago(&pool).await;
     assert!(
         db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
             .await
