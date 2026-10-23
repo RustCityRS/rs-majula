@@ -11,6 +11,41 @@ macro_rules! ms {
 /// An address shared by more accounts than this is a public one (a school,
 /// a mobile carrier, a VPN exit), and links nobody.
 pub const CROWDED_ADDRESS: i64 = 25;
+/// A browser (or desktop client install) more accounts than this logged in
+/// with links nobody either: a bot farm's, or one that never got an id of
+/// its own.
+pub const CROWDED_BROWSER: i64 = 25;
+
+/// The accounts that logged in with `$value` in `$column` (`ip` or
+/// `uid`), as an array: `$cap` + 1 of them at most, read along the index on
+/// (`$column`, player). More than `$cap` is crowded.
+macro_rules! accounts_on {
+    ($column:literal, $value:literal, $cap:literal) => {
+        concat!(
+            "ARRAY(SELECT DISTINCT c.player_id FROM login_logs c WHERE c.",
+            $column,
+            " = ",
+            $value,
+            " LIMIT ",
+            $cap,
+            " + 1)"
+        )
+    };
+}
+
+/// Whether at most `$cap` accounts logged in with `$value` in `$column`
+/// (see [`accounts_on!`]).
+macro_rules! uncrowded {
+    ($column:literal, $value:literal, $cap:literal) => {
+        concat!(
+            "cardinality(",
+            $crate::links::accounts_on!($column, $value, $cap),
+            ") <= ",
+            $cap
+        )
+    };
+}
+pub(crate) use {accounts_on, uncrowded};
 
 /// A banned account that shares a browser or an address with a player.
 #[derive(Clone, Debug, PartialEq, sqlx::FromRow)]
@@ -93,18 +128,20 @@ impl Db {
             "ips AS (SELECT l.player_id, l.ip FROM login_logs l WHERE l.player_id IN ((SELECT id FROM pa), (SELECT id FROM pb)) ",
             "UNION SELECT id, registration_ip FROM pa WHERE registration_ip IS NOT NULL ",
             "UNION SELECT id, registration_ip FROM pb WHERE registration_ip IS NOT NULL), ",
-            "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM ips) ",
-            "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $3) ",
-            "SELECT 'browser'::text FROM login_logs x JOIN login_logs y ON x.uid = y.uid ",
-            "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) AND x.uid IS NOT NULL ",
-            "UNION ALL SELECT 'address'::text FROM ips x JOIN ips y ON x.ip = y.ip ",
-            "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) ",
-            "AND x.ip NOT IN (SELECT ip FROM crowded) ",
-            "LIMIT 1"
+            "a_uids AS (SELECT DISTINCT uid FROM login_logs ",
+            "WHERE player_id = (SELECT id FROM pa) AND uid IS NOT NULL) ",
+            "SELECT 'browser'::text FROM a_uids u WHERE EXISTS (SELECT 1 FROM login_logs y ",
+            "WHERE y.player_id = (SELECT id FROM pb) AND y.uid = u.uid) AND ",
+            uncrowded!("uid", "u.uid", "$4"),
+            " UNION ALL SELECT 'address'::text FROM ips x JOIN ips y ON x.ip = y.ip ",
+            "WHERE x.player_id = (SELECT id FROM pa) AND y.player_id = (SELECT id FROM pb) AND ",
+            uncrowded!("ip", "x.ip", "$3"),
+            " LIMIT 1"
         ))
         .bind(a as i64)
         .bind(b as i64)
         .bind(CROWDED_ADDRESS)
+        .bind(CROWDED_BROWSER)
         .fetch_optional(&self.pool)
         .await?;
         Ok(row.map(|(via,)| via))
@@ -116,14 +153,17 @@ impl Db {
         sqlx::query_as(concat!(
             "WITH me AS (SELECT id FROM players WHERE name_hash = $1), ",
             "mine AS (SELECT uid, ip, created_at FROM login_logs WHERE player_id = (SELECT id FROM me)), ",
-            "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM mine) ",
-            "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $2), ",
-            "shared AS (",
-            "SELECT l.player_id, 'browser'::text AS via, l.uid, NULL::inet AS ip FROM login_logs l ",
-            "WHERE l.uid IN (SELECT uid FROM mine WHERE uid IS NOT NULL) AND l.player_id <> (SELECT id FROM me) ",
-            "UNION SELECT l.player_id, 'address'::text, NULL::int, l.ip FROM login_logs l ",
-            "WHERE l.ip IN (SELECT ip FROM mine) AND l.player_id <> (SELECT id FROM me) ",
-            "AND l.ip NOT IN (SELECT ip FROM crowded)) ",
+            "uids AS (SELECT u.uid, ",
+            accounts_on!("uid", "u.uid", "$3"),
+            " AS ids FROM (SELECT DISTINCT uid FROM mine WHERE uid IS NOT NULL) u), ",
+            "ips AS (SELECT a.ip, ",
+            accounts_on!("ip", "a.ip", "$2"),
+            " AS ids FROM (SELECT DISTINCT ip FROM mine) a), ",
+            "shared AS (SELECT * FROM (",
+            "SELECT unnest(ids) AS player_id, 'browser'::text AS via, uid, NULL::inet AS ip ",
+            "FROM uids WHERE cardinality(ids) <= $3 ",
+            "UNION ALL SELECT unnest(ids), 'address'::text, NULL::int, ip FROM ips ",
+            "WHERE cardinality(ids) <= $2) s WHERE player_id <> (SELECT id FROM me)) ",
             "SELECT p.display_name AS name, s.via, ",
             ms!("ban.at"),
             " AS banned_ms, bool_or(EXISTS (SELECT 1 FROM mine m WHERE ",
@@ -136,6 +176,7 @@ impl Db {
         ))
         .bind(name_hash as i64)
         .bind(CROWDED_ADDRESS)
+        .bind(CROWDED_BROWSER)
         .fetch_all(&self.pool)
         .await
     }
@@ -166,20 +207,25 @@ impl Db {
             if frontier.is_empty() || reached.len() >= limit {
                 break;
             }
+            // Each browser and address the frontier used, through one of them.
             let hops: Vec<Hop> = sqlx::query_as(concat!(
-                "WITH mine AS (SELECT DISTINCT player_id, ip FROM login_logs WHERE player_id = ANY($1)), ",
-                "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM mine) ",
-                "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $3) ",
-                "SELECT o.player_id, f.player_id AS via_id, 'browser'::text AS link ",
-                "FROM login_logs f JOIN login_logs o ON o.uid = f.uid ",
-                "WHERE f.player_id = ANY($1) AND f.uid IS NOT NULL AND o.player_id <> ALL($2) ",
-                "UNION SELECT o.player_id, f.player_id, 'address'::text ",
-                "FROM mine f JOIN login_logs o ON o.ip = f.ip ",
-                "WHERE o.player_id <> ALL($2) AND f.ip NOT IN (SELECT ip FROM crowded)"
+                "WITH mine AS (SELECT DISTINCT player_id, ip, uid FROM login_logs WHERE player_id = ANY($1)), ",
+                "uids AS (SELECT DISTINCT ON (uid) uid, player_id FROM mine WHERE uid IS NOT NULL ",
+                "ORDER BY uid, player_id), ",
+                "ips AS (SELECT DISTINCT ON (ip) ip, player_id FROM mine ORDER BY ip, player_id) ",
+                "SELECT * FROM (SELECT unnest(a.ids) AS player_id, a.via_id, a.link FROM (",
+                "SELECT f.player_id AS via_id, 'browser'::text AS link, ",
+                accounts_on!("uid", "f.uid", "$4"),
+                " AS ids, $4 AS cap FROM uids f ",
+                "UNION ALL SELECT f.player_id, 'address'::text, ",
+                accounts_on!("ip", "f.ip", "$3"),
+                ", $3 FROM ips f) a WHERE cardinality(a.ids) <= a.cap) o ",
+                "WHERE o.player_id <> ALL($2)"
             ))
             .bind(&frontier)
             .bind(seen.iter().copied().collect::<Vec<_>>())
             .bind(CROWDED_ADDRESS)
+            .bind(CROWDED_BROWSER)
             .fetch_all(&self.pool)
             .await?;
             let mut next: HashMap<i64, (i64, String)> = HashMap::new();
@@ -240,7 +286,9 @@ impl Db {
     /// banned account used, or from one of its (uncrowded) addresses, after
     /// that ban: possible ban evasion. `via` is `browser` when any of those
     /// logins shared the browser, else `address`. Accounts banned themselves
-    /// are left out, as are staff above `max_staff_level`.
+    /// are left out, as are staff above `max_staff_level`. It starts from
+    /// the logins over those days, and looks up only the banned accounts
+    /// their browsers and addresses lead to.
     pub async fn ban_evasion(
         &self,
         days: i32,
@@ -248,22 +296,29 @@ impl Db {
         limit: i64,
     ) -> Result<Vec<EvasionRecord>, Error> {
         sqlx::query_as(concat!(
-            "WITH banned AS (SELECT p.id, p.display_name, ",
-            "(SELECT max(m.created_at) FROM moderation_logs m WHERE m.target_id = p.id AND m.action = 'ban') AS at ",
-            "FROM players p WHERE p.banned_until > now()), ",
-            "browsers AS (SELECT DISTINCT l.uid, b.id, b.display_name, b.at FROM login_logs l ",
-            "JOIN banned b ON b.id = l.player_id WHERE l.uid IS NOT NULL AND b.at IS NOT NULL), ",
-            "used AS (SELECT DISTINCT l.ip, b.id, b.display_name, b.at FROM login_logs l ",
-            "JOIN banned b ON b.id = l.player_id WHERE b.at IS NOT NULL), ",
-            "crowded AS (SELECT c.ip FROM login_logs c WHERE c.ip IN (SELECT ip FROM used) ",
-            "GROUP BY c.ip HAVING count(DISTINCT c.player_id) > $4), ",
-            "addresses AS (SELECT * FROM used WHERE ip NOT IN (SELECT ip FROM crowded)), ",
-            "hits AS (SELECT l.id, l.player_id, l.created_at, d.display_name, d.at, true AS browser ",
-            "FROM browsers d JOIN login_logs l ON l.uid = d.uid AND l.player_id <> d.id ",
-            "WHERE l.created_at > d.at AND l.created_at > now() - make_interval(days => $1) ",
-            "UNION ALL SELECT l.id, l.player_id, l.created_at, d.display_name, d.at, false ",
-            "FROM addresses d JOIN login_logs l ON l.ip = d.ip AND l.player_id <> d.id ",
-            "WHERE l.created_at > d.at AND l.created_at > now() - make_interval(days => $1)) ",
+            "WITH recent AS (SELECT l.id, l.player_id, l.ip, l.uid, l.created_at FROM login_logs l ",
+            "JOIN players p ON p.id = l.player_id ",
+            "WHERE l.created_at > now() - make_interval(days => $1) ",
+            "AND NOT coalesce(p.banned_until > now(), false) AND p.staff_mod_level <= $2), ",
+            "uids AS (SELECT u.uid, ",
+            accounts_on!("uid", "u.uid", "$5"),
+            " AS ids FROM (SELECT DISTINCT uid FROM recent WHERE uid IS NOT NULL) u), ",
+            "ips AS (SELECT a.ip, ",
+            accounts_on!("ip", "a.ip", "$4"),
+            " AS ids FROM (SELECT DISTINCT ip FROM recent) a), ",
+            "shared AS (SELECT uid, NULL::inet AS ip, unnest(ids) AS player_id FROM uids ",
+            "WHERE cardinality(ids) <= $5 ",
+            "UNION ALL SELECT NULL::int, ip, unnest(ids) FROM ips WHERE cardinality(ids) <= $4), ",
+            "banned AS (SELECT s.uid, s.ip, b.id, b.display_name, ban.at FROM shared s ",
+            "JOIN players b ON b.id = s.player_id AND b.banned_until > now() ",
+            "JOIN LATERAL (SELECT max(m.created_at) AS at FROM moderation_logs m ",
+            "WHERE m.target_id = b.id AND m.action = 'ban') ban ON ban.at IS NOT NULL), ",
+            "hits AS (SELECT r.id, r.player_id, r.created_at, d.display_name, d.at, true AS browser ",
+            "FROM banned d JOIN recent r ON r.uid = d.uid AND r.player_id <> d.id ",
+            "WHERE r.created_at > d.at ",
+            "UNION ALL SELECT r.id, r.player_id, r.created_at, d.display_name, d.at, false ",
+            "FROM banned d JOIN recent r ON r.ip = d.ip AND r.player_id <> d.id ",
+            "WHERE r.created_at > d.at) ",
             "SELECT p.display_name AS name, p.staff_mod_level, h.display_name AS banned, ",
             "CASE WHEN bool_or(h.browser) THEN 'browser' ELSE 'address' END AS via, ",
             ms!("h.at"),
@@ -272,7 +327,6 @@ impl Db {
             " AS first_ms, ",
             ms!("max(h.created_at)"),
             " AS last_ms FROM hits h JOIN players p ON p.id = h.player_id ",
-            "WHERE NOT coalesce(p.banned_until > now(), false) AND p.staff_mod_level <= $2 ",
             "GROUP BY p.display_name, p.staff_mod_level, h.display_name, h.at ",
             "ORDER BY max(h.created_at) DESC LIMIT $3"
         ))
@@ -280,6 +334,7 @@ impl Db {
         .bind(max_staff_level)
         .bind(limit)
         .bind(CROWDED_ADDRESS)
+        .bind(CROWDED_BROWSER)
         .fetch_all(&self.pool)
         .await
     }

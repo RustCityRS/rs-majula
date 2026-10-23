@@ -1,3 +1,4 @@
+use crate::links::{CROWDED_ADDRESS, CROWDED_BROWSER, uncrowded};
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 
@@ -48,6 +49,10 @@ fn prefix_ranges(prefix_hash: u64) -> impl Iterator<Item = (i64, i64)> {
         (lo as i64, (lo + span - 1) as i64)
     })
 }
+
+/// How far the other accounts on an address or install are counted: past
+/// it, it's crowded anyway.
+pub const MAX_OTHERS: i64 = 100;
 
 /// A registered player, as staff see them.
 #[derive(Clone, Debug, sqlx::FromRow)]
@@ -143,7 +148,8 @@ pub struct LoginAddress {
     pub logins: i64,
     pub first_ms: i64,
     pub last_ms: i64,
-    /// How many other accounts logged in or registered from it.
+    /// How many other accounts logged in or registered from it, counted up
+    /// to [`MAX_OTHERS`] + 1.
     pub others: i64,
 }
 
@@ -165,7 +171,8 @@ pub struct DeviceRecord {
     pub ips: Vec<String>,
     pub first_ms: i64,
     pub last_ms: i64,
-    /// How many other accounts logged in from the same install.
+    /// How many other accounts logged in from the same install, counted up
+    /// to [`MAX_OTHERS`] + 1.
     pub others: i64,
 }
 
@@ -340,15 +347,16 @@ impl Db {
             ms!("min(l.created_at)"),
             " AS first_ms, ",
             ms!("max(l.created_at)"),
-            " AS last_ms, (SELECT count(*) FROM (",
-            "SELECT o.player_id FROM login_logs o WHERE o.ip = l.ip ",
-            "UNION SELECT r.id FROM players r WHERE r.registration_ip = l.ip) a ",
-            "WHERE a.player_id <> (SELECT id FROM me)) AS others ",
+            " AS last_ms, least($3 + 1, (SELECT count(*) FROM (SELECT DISTINCT o.player_id ",
+            "FROM login_logs o WHERE o.ip = l.ip AND o.player_id <> (SELECT id FROM me) LIMIT $3 + 1) a) ",
+            "+ (SELECT count(*) FROM players r WHERE r.registration_ip = l.ip AND r.id <> (SELECT id FROM me) ",
+            "AND NOT EXISTS (SELECT 1 FROM login_logs o WHERE o.ip = l.ip AND o.player_id = r.id))) AS others ",
             "FROM login_logs l WHERE l.player_id = (SELECT id FROM me) ",
             "GROUP BY l.ip ORDER BY max(l.created_at) DESC LIMIT $2"
         ))
         .bind(name_hash as i64)
         .bind(limit)
+        .bind(MAX_OTHERS)
         .fetch_all(&self.pool)
         .await
     }
@@ -371,18 +379,21 @@ impl Db {
             " AS last_ms FROM login_logs WHERE player_id = (SELECT id FROM me) ",
             "GROUP BY web, user_agent, platform, language, touch, uid) ",
             "SELECT web, user_agent, platform, language, touch, uid, logins, addresses, ips, first_ms, last_ms, ",
-            "CASE WHEN uid IS NULL THEN 0 ELSE (SELECT count(DISTINCT o.player_id) FROM login_logs o ",
-            "WHERE o.uid = seen.uid AND o.player_id <> (SELECT id FROM me)) END AS others ",
+            "CASE WHEN uid IS NULL THEN 0 ELSE (SELECT count(*) FROM (SELECT DISTINCT o.player_id ",
+            "FROM login_logs o WHERE o.uid = seen.uid AND o.player_id <> (SELECT id FROM me) ",
+            "LIMIT $3 + 1) a) END AS others ",
             "FROM seen ORDER BY last_ms DESC LIMIT $2"
         ))
         .bind(name_hash as i64)
         .bind(limit)
+        .bind(MAX_OTHERS)
         .fetch_all(&self.pool)
         .await
     }
 
     /// The other accounts linked to `name_hash` by an address or a client
     /// install (see [`LinkedAccount`]), those sharing the most first.
+    /// Crowded ones ([`CROWDED_ADDRESS`], [`CROWDED_BROWSER`]) link nobody.
     pub async fn linked_accounts(
         &self,
         name_hash: u64,
@@ -390,10 +401,13 @@ impl Db {
     ) -> Result<Vec<LinkedAccount>, Error> {
         sqlx::query_as(concat!(
             "WITH me AS (SELECT id, registration_ip FROM players WHERE name_hash = $1), ",
-            "mine AS (SELECT ip FROM login_logs WHERE player_id = (SELECT id FROM me) ",
-            "UNION SELECT registration_ip FROM me WHERE registration_ip IS NOT NULL), ",
-            "my_uids AS (SELECT DISTINCT uid FROM login_logs ",
-            "WHERE player_id = (SELECT id FROM me) AND uid IS NOT NULL), ",
+            "mine AS (SELECT a.ip FROM (SELECT ip FROM login_logs WHERE player_id = (SELECT id FROM me) ",
+            "UNION SELECT registration_ip FROM me WHERE registration_ip IS NOT NULL) a WHERE ",
+            uncrowded!("ip", "a.ip", "$3"),
+            "), my_uids AS (SELECT u.uid FROM (SELECT DISTINCT uid FROM login_logs ",
+            "WHERE player_id = (SELECT id FROM me) AND uid IS NOT NULL) u WHERE ",
+            uncrowded!("uid", "u.uid", "$4"),
+            "), ",
             // Their logins that share either, each once.
             "theirs AS (SELECT l.id, l.player_id, l.ip, l.uid, l.created_at FROM login_logs l ",
             "JOIN mine m ON m.ip = l.ip WHERE l.player_id <> (SELECT id FROM me) ",
@@ -421,6 +435,8 @@ impl Db {
         ))
         .bind(name_hash as i64)
         .bind(limit)
+        .bind(CROWDED_ADDRESS)
+        .bind(CROWDED_BROWSER)
         .fetch_all(&self.pool)
         .await
     }

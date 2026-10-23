@@ -9838,6 +9838,9 @@ const PLATFORM_WORDS = [['Windows', /Windows/], ['macOS', /Mac OS X|Macintosh/],
 // One browser used by this many accounts or more is a farm's, or a shared
 // computer's.
 const BUSY_DEVICE = 4;
+// The worlds count the other accounts on an address or browser this far.
+const MAX_OTHERS = 100;
+const otherAccounts = (n) => n > MAX_OTHERS ? `${MAX_OTHERS}+ other accounts` : plural(n, 'other account');
 // This many different browsers in a week means storage keeps being wiped,
 // or many machines.
 const DEVICE_CHURN = 5;
@@ -9957,7 +9960,7 @@ function deviceItem(d, n) {
                 d.others > 0 && h('span', {
                     class: 'badge warn',
                     title: 'Other accounts logged in from this same browser (or desktop client install)'
-                }, plural(d.others, 'other account'))),
+                }, otherAccounts(d.others))),
             h('div', {class: 'list-sub'}, joined([
                 plural(d.logins, 'login'),
                 d.language,
@@ -10006,7 +10009,7 @@ function linksSection(name, onModerated) {
                         h('div', {class: 'list-icon'}, icon('globe')),
                         h('div', {class: 'list-main'},
                             h('div', {class: 'list-title'}, h('span', {class: 'mono'}, a.ip),
-                                a.others ? h('span', {class: 'badge warn'}, `${plural(a.others, 'other account')}`) : null),
+                                a.others ? h('span', {class: 'badge warn'}, otherAccounts(a.others)) : null),
                             h('div', {class: 'list-sub'}, `${plural(a.logins, 'login')} · first ${ago(a.first_ms)}`),
                             used.length > 0 && h('div', {class: 'list-sub'}, 'On ',
                                 joined(used.map(([d, i]) => h('span', {class: 'device-ref'}, deviceTag(i + 1), ' ', deviceName(d)))))),

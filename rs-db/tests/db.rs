@@ -1,9 +1,9 @@
 use rs_db::{
-    AppealFiled, CROWDED_ADDRESS, ChatLog, Claim, Db, LogBatch, LoginDevice, ModAction, NewAppeal,
-    NewPlayer, NewRecovery, NewReplay, NewSnapshot, PlayerSave, RECOVERIES_PER_ADDRESS,
-    RESET_LOCKED, Reconciled, RecoveryAnswers, RecoveryDecided, RecoveryFiled, ReplayChunk,
-    ReplayReport, Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor,
-    WealthEvent, WorldStatus, log_type, transfer,
+    AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch, LoginDevice,
+    MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot, PlayerSave,
+    RECOVERIES_PER_ADDRESS, RESET_LOCKED, Reconciled, RecoveryAnswers, RecoveryDecided,
+    RecoveryFiled, ReplayChunk, ReplayReport, Sanctions, SavePoint, SaveResult, ScriptErrorLog,
+    SessionLog, TimelineCursor, WealthEvent, WorldStatus, log_type, transfer,
 };
 use sqlx::PgPool;
 
@@ -1526,6 +1526,10 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
         db.link_chain(2, 1, 50).await.unwrap().len(),
         CROWDED_ADDRESS as usize - 1
     );
+    assert_eq!(
+        db.linked_accounts(3, 50).await.unwrap().len(),
+        CROWDED_ADDRESS as usize - 1
+    );
 
     // One more and it's crowded: nobody is linked through it.
     db.record_login(last, 10, ip, None, &device).await.unwrap();
@@ -1533,6 +1537,106 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
     assert!(db.banned_links(3).await.unwrap().is_empty());
     assert_eq!(db.link_between(2, 3).await.unwrap(), None);
     assert!(db.link_chain(2, 1, 50).await.unwrap().is_empty());
+    assert!(db.linked_accounts(3, 50).await.unwrap().is_empty());
+    // It still says how many share it.
+    assert_eq!(
+        db.login_addresses(3, 10).await.unwrap()[0].others,
+        CROWDED_ADDRESS
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn crowded_browsers_link_nobody(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let last = 2 + CROWDED_BROWSER as u64;
+    for hash in 1..=last {
+        let name = format!("Player {hash}");
+        db.create_player(&NewPlayer {
+            display_name: &name,
+            staff_mod_level: if hash == 1 { 2 } else { 0 },
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    // Each from an address of its own, on one browser.
+    let ip = |hash: u64| std::net::IpAddr::from([10, 0, (hash >> 8) as u8, hash as u8]);
+    let device = LoginDevice::default();
+    db.record_login(2, 10, ip(2), Some(77), &device)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE login_logs SET created_at = now() - interval '1 day'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert!(
+        db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
+            .await
+            .unwrap()
+    );
+    for hash in 3..last {
+        db.record_login(hash, 10, ip(hash), Some(77), &device)
+            .await
+            .unwrap();
+    }
+    let evasion = db.ban_evasion(7, 0, 50).await.unwrap();
+    assert_eq!(evasion.len(), CROWDED_BROWSER as usize - 1);
+    assert!(evasion.iter().all(|e| e.via == "browser"));
+    assert_eq!(db.banned_links(3).await.unwrap().len(), 1);
+    assert_eq!(
+        db.link_between(2, 3).await.unwrap().as_deref(),
+        Some("browser")
+    );
+    assert_eq!(
+        db.link_chain(2, 1, 50).await.unwrap().len(),
+        CROWDED_BROWSER as usize - 1
+    );
+    assert_eq!(
+        db.linked_accounts(3, 50).await.unwrap().len(),
+        CROWDED_BROWSER as usize - 1
+    );
+
+    db.record_login(last, 10, ip(last), Some(77), &device)
+        .await
+        .unwrap();
+    assert!(db.ban_evasion(7, 0, 50).await.unwrap().is_empty());
+    assert!(db.banned_links(3).await.unwrap().is_empty());
+    assert_eq!(db.link_between(2, 3).await.unwrap(), None);
+    assert!(db.link_chain(2, 1, 50).await.unwrap().is_empty());
+    assert!(db.linked_accounts(3, 50).await.unwrap().is_empty());
+    assert_eq!(
+        db.login_devices(3, 10).await.unwrap()[0].others,
+        CROWDED_BROWSER
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn others_are_counted_only_so_far(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let ip = std::net::IpAddr::from([203, 0, 113, 9]);
+    let device = LoginDevice::default();
+    for hash in 1..=MAX_OTHERS as u64 + 3 {
+        let name = format!("Player {hash}");
+        db.create_player(&NewPlayer {
+            display_name: &name,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+        db.record_login(hash, 10, ip, Some(5), &device)
+            .await
+            .unwrap();
+    }
+    assert_eq!(
+        db.login_addresses(1, 10).await.unwrap()[0].others,
+        MAX_OTHERS + 1
+    );
+    assert_eq!(
+        db.login_devices(1, 10).await.unwrap()[0].others,
+        MAX_OTHERS + 1
+    );
 }
 
 #[sqlx::test]

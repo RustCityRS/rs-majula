@@ -623,7 +623,8 @@ pub struct LoginDeviceSeen {
     pub ips: Vec<String>,
     pub first_ms: i64,
     pub last_ms: i64,
-    /// How many other accounts logged in from the same install.
+    /// How many other accounts logged in from the same install, counted up
+    /// to 101 (more than 100).
     pub others: i64,
 }
 
@@ -633,6 +634,8 @@ pub struct LoginAddress {
     pub logins: i64,
     pub first_ms: i64,
     pub last_ms: i64,
+    /// How many other accounts logged in or registered from it, counted up
+    /// to 101 (more than 100).
     pub others: i64,
 }
 
