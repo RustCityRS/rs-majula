@@ -446,6 +446,27 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
             .count(),
         1
     );
+    // The group shows the latest row's file and trace.
+    let later = ScriptErrorLog {
+        last_ms: 1_800_000_120_000,
+        file: "man2.rs2".to_owned(),
+        trace: "[proc,greet] - greet.rs2:9".to_owned(),
+        ..script_error(None, None, 1)
+    };
+    db.record_logs(
+        10,
+        &LogBatch {
+            script_errors: vec![later],
+            ..LogBatch::default()
+        },
+    )
+    .await
+    .unwrap();
+    let group = &db.script_error_groups(1_700_000_000_000, 10).await.unwrap()[0];
+    assert_eq!(
+        (group.file.as_str(), group.trace.as_str(), group.count),
+        ("man2.rs2", "[proc,greet] - greet.rs2:9", 55)
+    );
 }
 
 #[sqlx::test]

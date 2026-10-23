@@ -48,20 +48,26 @@ impl Db {
         since_ms: i64,
         limit: i64,
     ) -> Result<Vec<ScriptErrorGroup>, Error> {
+        // The file and trace are the latest row's, looked up only for the
+        // groups shown.
         let sql = concat!(
-            "SELECT script, line, message, ",
-            "(array_agg(file ORDER BY last_at DESC))[1] AS file, ",
-            "(array_agg(trace ORDER BY last_at DESC))[1] AS trace, ",
-            "sum(count)::bigint AS count, ",
-            ms!("min(first_at)"),
+            "SELECT g.script, g.line, g.message, l.file, l.trace, g.count, ",
+            ms!("g.first_at"),
             " AS first_ms, ",
-            ms!("max(last_at)"),
+            ms!("g.last_at"),
             " AS last_ms, ",
+            "g.players, g.npcs, g.nodes FROM (",
+            "SELECT script, line, message, sum(count)::bigint AS count, ",
+            "min(first_at) AS first_at, max(last_at) AS last_at, ",
             "count(DISTINCT player_id) AS players, ",
             "coalesce(array_agg(DISTINCT npc) FILTER (WHERE npc IS NOT NULL), '{}') AS npcs, ",
             "array_agg(DISTINCT node_id) AS nodes ",
             "FROM script_errors WHERE last_at >= to_timestamp($1 / 1000.0) ",
-            "GROUP BY script, line, message ORDER BY max(last_at) DESC LIMIT $2"
+            "GROUP BY script, line, message ORDER BY max(last_at) DESC LIMIT $2) g ",
+            "CROSS JOIN LATERAL (SELECT file, trace FROM script_errors e ",
+            "WHERE e.script = g.script AND e.line = g.line AND e.message = g.message ",
+            "ORDER BY e.last_at DESC, e.id DESC LIMIT 1) l ",
+            "ORDER BY g.last_at DESC"
         );
         sqlx::query_as(sql)
             .bind(since_ms)
