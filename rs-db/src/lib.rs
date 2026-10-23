@@ -48,7 +48,7 @@ pub use recovery_request::{
     RecoveryFacts, RecoveryFiled, RecoveryRecord,
 };
 pub use replay::{
-    NewReplay, PlayedSession, ReplayChunk, ReplayRecord, ReplayReport, ReplayStorage,
+    NewReplay, PlayedSession, ReplayChunk, ReplayRecord, ReplayReport, ReplayStorage, ReplayStore,
 };
 pub use save::{PlayerSave, SaveResult};
 pub use script_error::{ScriptErrorGroup, ScriptErrorRecord};

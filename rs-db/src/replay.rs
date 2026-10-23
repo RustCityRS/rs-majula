@@ -1,6 +1,7 @@
 use crate::logs::prune_oldest;
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
+use std::slice;
 
 /// A timestamp column as Unix milliseconds.
 macro_rules! ms {
@@ -28,13 +29,32 @@ pub struct ReplayReport {
 
 /// A chunk of a recording, compressed (zstd; deflate before 2026-10-21). A
 /// finished recording is compacted into one chunk, number 0.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct ReplayChunk {
     pub seq: i32,
     pub start_ms: i32,
     pub end_ms: i32,
     pub data: Vec<u8>,
 }
+
+/// What a world stores to one of its recordings at once (see
+/// [`Db::store_replays`]).
+#[derive(Debug, Default)]
+pub struct ReplayStore {
+    pub id: i64,
+    /// Its new chunks.
+    pub chunks: Vec<ReplayChunk>,
+    pub duration_ms: i32,
+    /// The checks' verdict so far, if one was due (else the last stays).
+    pub report: Option<ReplayReport>,
+    /// The session is over.
+    pub ended: bool,
+    /// `false`: a chunk before these was lost.
+    pub complete: bool,
+}
+
+/// Between a report's flags in one text: no flag has it.
+const FLAG_SEPARATOR: &str = "\u{1f}";
 
 /// A recorded session, as staff see it.
 #[derive(Clone, Debug, sqlx::FromRow)]
@@ -98,18 +118,31 @@ impl Db {
     /// Starts a recording. Returns `false` if the player isn't registered,
     /// and nothing is recorded.
     pub async fn start_replay(&self, replay: &NewReplay) -> Result<bool, Error> {
+        Ok(self.start_replays(slice::from_ref(replay)).await? == 1)
+    }
+
+    /// Starts recordings, in one statement. Those of players who aren't
+    /// registered aren't. Returns how many were.
+    pub async fn start_replays(&self, replays: &[NewReplay]) -> Result<u64, Error> {
+        let ids: Vec<i64> = replays.iter().map(|r| r.id).collect();
+        let hashes: Vec<i64> = replays.iter().map(|r| r.name_hash as i64).collect();
+        let nodes: Vec<i16> = replays.iter().map(|r| r.node_id).collect();
+        let revisions: Vec<&str> = replays.iter().map(|r| r.revision.as_str()).collect();
         let result = sqlx::query(
             "INSERT INTO replays (id, player_id, node_id, revision)
-             SELECT $1, id, $3, $4 FROM players WHERE name_hash = $2
+             SELECT r.id, p.id, r.node_id, r.revision
+             FROM unnest($1::bigint[], $2::bigint[], $3::smallint[], $4::text[])
+                 r (id, name_hash, node_id, revision)
+             JOIN players p ON p.name_hash = r.name_hash
              ON CONFLICT (id) DO NOTHING",
         )
-        .bind(replay.id)
-        .bind(replay.name_hash as i64)
-        .bind(replay.node_id)
-        .bind(&replay.revision)
+        .bind(&ids)
+        .bind(&hashes)
+        .bind(&nodes)
+        .bind(&revisions)
         .execute(&self.pool)
         .await?;
-        Ok(result.rows_affected() == 1)
+        Ok(result.rows_affected())
     }
 
     /// The newest `limit` sessions player `name_hash` started since
@@ -140,9 +173,8 @@ impl Db {
     }
 
     /// Adds `chunk` (if any) to recording `id`, with the checks' verdict so
-    /// far if given (else the last stays). `ended` marks the session over; `complete: false` that a chunk
-    /// before this one was lost. A chunk stored after the recording was
-    /// compacted gets it compacted again.
+    /// far if given (else the last stays). `ended` marks the session over;
+    /// `complete: false` that a chunk before this one was lost.
     pub async fn store_replay(
         &self,
         id: i64,
@@ -152,40 +184,93 @@ impl Db {
         ended: bool,
         complete: bool,
     ) -> Result<(), Error> {
+        self.store_replays(&[ReplayStore {
+            id,
+            chunks: chunk.into_iter().cloned().collect(),
+            duration_ms,
+            report: report.cloned(),
+            ended,
+            complete,
+        }])
+        .await
+    }
+
+    /// Stores to recordings, one [`ReplayStore`] each, in one transaction
+    /// of two statements. A chunk stored after its recording was compacted
+    /// gets it compacted again; one for a recording that wasn't started is
+    /// dropped.
+    pub async fn store_replays(&self, stores: &[ReplayStore]) -> Result<(), Error> {
+        let chunks = || {
+            stores
+                .iter()
+                .flat_map(|s| s.chunks.iter().map(move |c| (s.id, c)))
+        };
+        let chunk_ids: Vec<i64> = chunks().map(|(id, _)| id).collect();
+        let seqs: Vec<i32> = chunks().map(|(_, c)| c.seq).collect();
+        let starts: Vec<i32> = chunks().map(|(_, c)| c.start_ms).collect();
+        let ends: Vec<i32> = chunks().map(|(_, c)| c.end_ms).collect();
+        let data: Vec<&[u8]> = chunks().map(|(_, c)| c.data.as_slice()).collect();
+
+        let ids: Vec<i64> = stores.iter().map(|s| s.id).collect();
+        let durations: Vec<i32> = stores.iter().map(|s| s.duration_ms).collect();
+        let bytes: Vec<i64> = stores
+            .iter()
+            .map(|s| s.chunks.iter().map(|c| c.data.len() as i64).sum())
+            .collect();
+        let scores: Vec<Option<i16>> = stores
+            .iter()
+            .map(|s| s.report.as_ref().map(|r| r.score))
+            .collect();
+        let flags: Vec<Option<String>> = stores
+            .iter()
+            .map(|s| s.report.as_ref().map(|r| r.flags.join(FLAG_SEPARATOR)))
+            .collect();
+        let stats: Vec<Option<&str>> = stores
+            .iter()
+            .map(|s| s.report.as_ref().map(|r| r.stats.as_str()))
+            .collect();
+        let complete: Vec<bool> = stores.iter().map(|s| s.complete).collect();
+        let ended: Vec<bool> = stores.iter().map(|s| s.ended).collect();
+        let chunked: Vec<bool> = stores.iter().map(|s| !s.chunks.is_empty()).collect();
+
         let mut tx = self.pool.begin().await?;
-        let mut bytes = 0i64;
-        if let Some(chunk) = chunk {
+        if !chunk_ids.is_empty() {
             sqlx::query(
                 "INSERT INTO replay_chunks (replay_id, seq, start_ms, end_ms, data)
-                 SELECT $1, $2, $3, $4, $5 WHERE EXISTS (SELECT 1 FROM replays WHERE id = $1)
+                 SELECT c.* FROM unnest($1::bigint[], $2::int[], $3::int[], $4::int[], $5::bytea[])
+                     c (replay_id, seq, start_ms, end_ms, data)
+                 WHERE EXISTS (SELECT 1 FROM replays WHERE id = c.replay_id)
                  ON CONFLICT DO NOTHING",
             )
-            .bind(id)
-            .bind(chunk.seq)
-            .bind(chunk.start_ms)
-            .bind(chunk.end_ms)
-            .bind(&chunk.data)
+            .bind(&chunk_ids)
+            .bind(&seqs)
+            .bind(&starts)
+            .bind(&ends)
+            .bind(&data)
             .execute(&mut *tx)
             .await?;
-            bytes = chunk.data.len() as i64;
         }
         sqlx::query(
-            "UPDATE replays SET duration_ms = GREATEST(duration_ms, $2), bytes = bytes + $3,
-                 score = coalesce($4, score), flags = coalesce($5, flags),
-                 stats = coalesce($6, stats), complete = complete AND $7,
-                 ended_at = CASE WHEN $8 THEN now() ELSE ended_at END, updated_at = now(),
-                 compacted = compacted AND NOT $9
-             WHERE id = $1",
+            "UPDATE replays r SET duration_ms = GREATEST(r.duration_ms, u.duration_ms),
+                 bytes = r.bytes + u.bytes, score = coalesce(u.score, r.score),
+                 flags = coalesce(string_to_array(u.flags, chr(31)), r.flags),
+                 stats = coalesce(u.stats, r.stats), complete = r.complete AND u.complete,
+                 ended_at = CASE WHEN u.ended THEN now() ELSE r.ended_at END, updated_at = now(),
+                 compacted = r.compacted AND NOT u.chunked
+             FROM unnest($1::bigint[], $2::int[], $3::bigint[], $4::smallint[], $5::text[],
+                     $6::text[], $7::bool[], $8::bool[], $9::bool[])
+                 u (id, duration_ms, bytes, score, flags, stats, complete, ended, chunked)
+             WHERE r.id = u.id",
         )
-        .bind(id)
-        .bind(duration_ms)
-        .bind(bytes)
-        .bind(report.map(|r| r.score))
-        .bind(report.map(|r| &r.flags))
-        .bind(report.map(|r| &r.stats))
-        .bind(complete)
-        .bind(ended)
-        .bind(chunk.is_some())
+        .bind(&ids)
+        .bind(&durations)
+        .bind(&bytes)
+        .bind(&scores)
+        .bind(&flags)
+        .bind(&stats)
+        .bind(&complete)
+        .bind(&ended)
+        .bind(&chunked)
         .execute(&mut *tx)
         .await?;
         tx.commit().await

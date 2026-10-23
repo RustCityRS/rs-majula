@@ -1317,17 +1317,37 @@ impl AntiCheat {
 /// `None` for fewer than two, or a mean of 0. One pass (Welford's), so
 /// nothing is collected.
 pub(super) fn cv(values: impl Iterator<Item = f64>) -> Option<f64> {
-    let (mut n, mut mean, mut m2) = (0.0, 0.0, 0.0);
+    let mut spread = Spread::default();
     for v in values {
-        n += 1.0;
-        let d = v - mean;
-        mean += d / n;
-        m2 += d * (v - mean);
+        spread.push(v);
     }
-    if n < 2.0 || mean <= 0.0 {
-        return None;
+    spread.cv()
+}
+
+/// Values' count, mean and squared deviations so far (Welford's), for
+/// their [`cv`] without keeping them.
+#[derive(Clone, Copy, Default)]
+pub(super) struct Spread {
+    n: f64,
+    mean: f64,
+    m2: f64,
+}
+
+impl Spread {
+    pub(super) fn push(&mut self, v: f64) {
+        self.n += 1.0;
+        let d = v - self.mean;
+        self.mean += d / self.n;
+        self.m2 += d * (v - self.mean);
     }
-    Some((m2 / n).sqrt() / mean)
+
+    /// See [`cv`].
+    pub(super) fn cv(&self) -> Option<f64> {
+        if self.n < 2.0 || self.mean <= 0.0 {
+            return None;
+        }
+        Some((self.m2 / self.n).sqrt() / self.mean)
+    }
 }
 
 /// A tile's offset into the client's map.

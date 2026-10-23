@@ -1,8 +1,8 @@
 use crate::counters::{self, COUNTERS};
 use crate::watch::playback::decompress_chunk;
-use crate::watch::{ReplayRequest, Report, unqueue_bytes};
-use rs_db::{Db, DbConfig, NewReplay, ReplayChunk};
-use rustc_hash::FxHashSet;
+use crate::watch::{RawChunk, ReplayRequest, unqueue_bytes};
+use rs_db::{Db, DbConfig, NewReplay, ReplayChunk, ReplayStore};
+use rustc_hash::{FxHashMap, FxHashSet};
 use std::time::Duration;
 use tokio::sync::mpsc::Receiver;
 use tokio::time::{Instant, MissedTickBehavior, interval_at};
@@ -16,6 +16,8 @@ const FIRST_PRUNE: Duration = Duration::from_secs(5 * 60);
 const PRUNE_BATCH: i64 = 100;
 /// The zstd level chunks are stored at.
 const LEVEL: i32 = 3;
+/// The most requests stored in one go: whatever waits, up to this many.
+const BATCH: usize = 256;
 /// How often finished recordings are compacted: recompressed whole, into
 /// one chunk, which takes about 40% off (chunks repeat each other, keyframes
 /// most).
@@ -43,8 +45,9 @@ pub async fn replay_task(
     let pruning = tokio::spawn(prune_task(db.clone(), days));
     // Recordings that lost a chunk: they stop there.
     let mut broken = FxHashSet::default();
-    while let Some(req) = rx.recv().await {
-        store(&db, node_id, revision, req, &mut broken).await;
+    let mut reqs = Vec::with_capacity(BATCH);
+    while rx.recv_many(&mut reqs, BATCH).await > 0 {
+        store(&db, node_id, revision, &mut reqs, &mut broken).await;
     }
     compacting.abort();
     pruning.abort();
@@ -149,70 +152,105 @@ async fn compact(db: &Db, id: i64) -> Result<i64, rs_db::Error> {
     Ok(before - after)
 }
 
+/// Stores `reqs` (emptying it): the recordings started, then everything
+/// stored to each recording, together.
 async fn store(
     db: &Db,
     node_id: u8,
     revision: &str,
-    req: ReplayRequest,
+    reqs: &mut Vec<ReplayRequest>,
     broken: &mut FxHashSet<i64>,
 ) {
-    match req {
-        ReplayRequest::Start { id, user37 } => {
-            let replay = NewReplay {
+    let mut starts = Vec::new();
+    let mut stores: Vec<ReplayStore> = Vec::new();
+    let mut store_of: FxHashMap<i64, usize> = FxHashMap::default();
+    let mut raw: Vec<(usize, RawChunk)> = Vec::new();
+    for req in reqs.drain(..) {
+        match req {
+            ReplayRequest::Start { id, user37 } => starts.push(NewReplay {
                 id,
                 name_hash: user37,
                 node_id: node_id.into(),
                 revision: revision.to_owned(),
-            };
-            if let Err(e) = db.start_replay(&replay).await {
-                warn!("Starting a session recording failed: {e}");
+            }),
+            ReplayRequest::Store {
+                id,
+                chunk,
+                duration_ms,
+                report,
+                ended,
+                complete,
+            } => {
+                let lost = broken.contains(&id);
+                if ended {
+                    broken.remove(&id);
+                }
+                let at = *store_of.entry(id).or_insert_with(|| {
+                    stores.push(ReplayStore {
+                        id,
+                        complete: true,
+                        ..ReplayStore::default()
+                    });
+                    stores.len() - 1
+                });
+                let store = &mut stores[at];
+                store.duration_ms = store.duration_ms.max(duration_ms as i32);
+                if let Some(report) = report {
+                    store.report = Some(report.stored());
+                }
+                store.ended |= ended;
+                store.complete &= complete && !lost;
+                if let Some(chunk) = chunk {
+                    unqueue_bytes(chunk.data.capacity());
+                    if !lost {
+                        raw.push((at, chunk));
+                    }
+                }
             }
         }
-        ReplayRequest::Store {
-            id,
-            chunk,
-            duration_ms,
-            report,
-            ended,
-            complete,
-        } => {
-            let lost = broken.contains(&id);
-            if ended {
-                broken.remove(&id);
-            }
-            if let Some(raw) = &chunk {
-                unqueue_bytes(raw.data.capacity());
-            }
-            let chunk = chunk.filter(|_| !lost).map(|raw| ReplayChunk {
-                seq: raw.seq,
-                start_ms: raw.start_ms as i32,
-                end_ms: raw.end_ms as i32,
-                data: compress(&raw.data),
-            });
-            let result = db
-                .store_replay(
-                    id,
-                    chunk.as_ref(),
-                    duration_ms as i32,
-                    report.map(Report::stored).as_ref(),
-                    ended,
-                    complete && !lost,
-                )
-                .await;
-            match (result, chunk) {
-                (Ok(()), Some(chunk)) => {
-                    counters::add(&COUNTERS.replay_chunks, 1);
-                    counters::add(&COUNTERS.replay_bytes, chunk.data.len() as u64);
-                }
-                (Ok(()), None) => {}
-                (Err(e), chunk) => {
-                    warn!("Storing a session recording failed: {e}");
-                    if chunk.is_some() {
-                        counters::add(&COUNTERS.replay_chunks_dropped, 1);
-                        if !ended {
-                            broken.insert(id);
-                        }
-                    }
+    }
+    if !starts.is_empty()
+        && let Err(e) = db.start_replays(&starts).await
+    {
+        warn!("Starting {} session recordings failed: {e}", starts.len());
+    }
+    if stores.is_empty() {
+        return;
+    }
+    // Off the runtime's threads: a busy batch is a lot to compress.
+    let compressed = tokio::task::spawn_blocking(move || {
+        raw.into_iter()
+            .map(|(at, raw)| {
+                let chunk = ReplayChunk {
+                    seq: raw.seq,
+                    start_ms: raw.start_ms as i32,
+                    end_ms: raw.end_ms as i32,
+                    data: compress(&raw.data),
+                };
+                (at, chunk)
+            })
+            .collect::<Vec<_>>()
+    })
+    .await
+    .unwrap_or_default();
+    let (chunks, bytes) = (
+        compressed.len(),
+        compressed.iter().map(|(_, c)| c.data.len()).sum::<usize>(),
+    );
+    for (at, chunk) in compressed {
+        stores[at].chunks.push(chunk);
+    }
+    match db.store_replays(&stores).await {
+        Ok(()) => {
+            counters::add(&COUNTERS.replay_chunks, chunks as u64);
+            counters::add(&COUNTERS.replay_bytes, bytes as u64);
+        }
+        Err(e) => {
+            warn!("Storing {} session recordings failed: {e}", stores.len());
+            counters::add(&COUNTERS.replay_chunks_dropped, chunks as u64);
+            for store in &stores {
+                if !store.chunks.is_empty() && !store.ended {
+                    broken.insert(store.id);
                 }
             }
         }

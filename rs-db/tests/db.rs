@@ -2,8 +2,9 @@ use rs_db::{
     AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch, LoginDevice,
     MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot, PlayerSave,
     RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED, Reconciled, RecoveryAnswers,
-    RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, Sanctions, SavePoint, SaveResult,
-    ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent, WorldStatus, log_type, transfer,
+    RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, ReplayStore, Sanctions, SavePoint,
+    SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent, WorldStatus, log_type,
+    transfer,
 };
 use sqlx::PgPool;
 
@@ -1064,6 +1065,85 @@ async fn hiscores_backfill_matches_saves(pool: PgPool) {
     let backfilled: Vec<(i64, i16, i16, i64)> =
         sqlx::query_as(rows).fetch_all(&pool).await.unwrap();
     assert_eq!(backfilled, saved);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replays_are_started_and_stored_together(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    // The unregistered player's isn't started.
+    let started = db
+        .start_replays(&[replay(1, 42), replay(2, 42), replay(3, 7)])
+        .await
+        .unwrap();
+    assert_eq!(started, 2);
+
+    let chunk = |seq, data: &[u8]| ReplayChunk {
+        seq,
+        start_ms: seq * 30_000,
+        end_ms: (seq + 1) * 30_000,
+        data: data.to_vec(),
+    };
+    let report = |score, flags: &[&str]| ReplayReport {
+        score,
+        flags: flags.iter().map(|&f| f.to_owned()).collect(),
+        stats: "{}".into(),
+    };
+    db.store_replays(&[
+        ReplayStore {
+            id: 1,
+            chunks: vec![chunk(0, b"ab"), chunk(1, b"cde")],
+            duration_ms: 60_000,
+            report: Some(report(40, &["no_heartbeat", "anti_afk"])),
+            ended: false,
+            complete: true,
+        },
+        ReplayStore {
+            id: 2,
+            chunks: vec![chunk(0, b"x")],
+            duration_ms: 30_000,
+            report: Some(report(0, &[])),
+            ended: true,
+            complete: false,
+        },
+        // Not started: dropped.
+        ReplayStore {
+            id: 3,
+            chunks: vec![chunk(0, b"y")],
+            ..ReplayStore::default()
+        },
+    ])
+    .await
+    .unwrap();
+    // No verdict and no chunks: only the duration moves.
+    db.store_replays(&[ReplayStore {
+        id: 1,
+        duration_ms: 61_000,
+        complete: true,
+        ..ReplayStore::default()
+    }])
+    .await
+    .unwrap();
+
+    let one = db.replay(1).await.unwrap().unwrap();
+    assert_eq!((one.duration_ms, one.bytes, one.score), (61_000, 5, 40));
+    assert_eq!(one.flags, ["no_heartbeat", "anti_afk"]);
+    assert!(one.ended_ms.is_none() && one.complete);
+    let chunks = db.replay_chunks(1).await.unwrap();
+    assert_eq!(
+        chunks.iter().map(|c| c.data.as_slice()).collect::<Vec<_>>(),
+        [b"ab".as_slice(), b"cde"]
+    );
+    let two = db.replay(2).await.unwrap().unwrap();
+    assert!(two.flags.is_empty() && two.ended_ms.is_some() && !two.complete);
+    assert!(db.replay(3).await.unwrap().is_none());
 }
 
 #[sqlx::test]
