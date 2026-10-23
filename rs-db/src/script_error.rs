@@ -103,13 +103,4 @@ impl Db {
             .fetch_all(&self.pool)
             .await
     }
-
-    /// Deletes script errors last seen over `days` ago.
-    pub async fn prune_script_errors(&self, days: i32) -> Result<(), Error> {
-        sqlx::query("DELETE FROM script_errors WHERE last_at < now() - make_interval(days => $1)")
-            .bind(days)
-            .execute(&self.pool)
-            .await?;
-        Ok(())
-    }
 }

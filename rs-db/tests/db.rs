@@ -467,6 +467,17 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
         (group.file.as_str(), group.trace.as_str(), group.count),
         ("man2.rs2", "[proc,greet] - greet.rs2:9", 55)
     );
+    // Old ones are pruned, a batch at a time.
+    sqlx::query("UPDATE script_errors SET last_at = now() - interval '40 days' WHERE count <> 50")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.prune_script_errors(30, 2).await.unwrap(), 3);
+    let left: i64 = sqlx::query_scalar("SELECT count(*) FROM script_errors")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(left, 1);
 }
 
 #[sqlx::test]
@@ -1367,7 +1378,7 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
     .execute(&pool)
     .await
     .unwrap();
-    db.prune_login_logs(180).await.unwrap();
+    assert_eq!(db.prune_login_logs(180, 1).await.unwrap(), 2);
     assert!(db.login_addresses(3, 10).await.unwrap().is_empty());
     assert_eq!(db.login_addresses(1, 10).await.unwrap().len(), 1);
 }
@@ -2233,7 +2244,7 @@ async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
 
     // Pruning keeps the newest few.
     age_points(&pool, 60 * 24 * 40).await;
-    assert_eq!(db.prune_save_history(30, 2).await.unwrap(), 2);
+    assert_eq!(db.prune_save_history(30, 2, 1).await.unwrap(), 2);
     assert_eq!(db.save_points(42, None, None, 10).await.unwrap().len(), 2);
 }
 

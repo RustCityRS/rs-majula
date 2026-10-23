@@ -144,14 +144,13 @@ const LOGIN_LOG_DAYS: i32 = 180;
 const SCRIPT_ERROR_DAYS: i32 = 30;
 
 /// How long earlier saves are kept to roll players back to, and how many of
-/// each player's newest are kept however old, and how often they're pruned.
+/// each player's newest are kept however old.
 const SAVE_HISTORY_DAYS: i32 = 30;
 const SAVE_HISTORY_KEEP: i64 = 5;
-const SAVE_HISTORY_PRUNE: Duration = Duration::from_secs(3600);
 
-/// How long chat, session logs and wealth events are kept, how often
-/// they're pruned (the first time once the world is up and its migrations
-/// ran), and how many rows a delete takes at a time.
+/// How long chat, session logs and wealth events are kept, how often they
+/// and the rest above are pruned (the first time once the world is up and
+/// its migrations ran), and how many rows a delete takes at a time.
 const LOG_DAYS: i32 = 90;
 const LOG_PRUNE: Duration = Duration::from_secs(3600);
 const FIRST_LOG_PRUNE: Duration = Duration::from_secs(5 * 60);
@@ -291,16 +290,43 @@ async fn lease_task(config: DbConfig, node_id: u8, response_tx: UnboundedSender<
     }
 }
 
-/// Prunes the logs past [`LOG_DAYS`] every [`LOG_PRUNE`] on a connection of
-/// its own: there are a lot of them, and the deletes mustn't hold up saves.
+/// Prunes the logs, logins, script errors and save history past their days
+/// every [`LOG_PRUNE`], on a connection of its own: there are a lot of
+/// them, and the deletes mustn't hold up saves and logins.
 async fn prune_logs_task(config: DbConfig) {
     let db = Db::connect_lazy(&config, 1);
     sleep(FIRST_LOG_PRUNE).await;
     loop {
-        match db.prune_logs(LOG_DAYS, LOG_PRUNE_BATCH).await {
-            Ok(0) => {}
-            Ok(n) => info!("Pruned {} log rows past {} days", n, LOG_DAYS),
-            Err(e) => warn!("Pruning logs failed: {}", e),
+        let prunes = [
+            (
+                "log",
+                LOG_DAYS,
+                db.prune_logs(LOG_DAYS, LOG_PRUNE_BATCH).await,
+            ),
+            (
+                "login log",
+                LOGIN_LOG_DAYS,
+                db.prune_login_logs(LOGIN_LOG_DAYS, LOG_PRUNE_BATCH).await,
+            ),
+            (
+                "script error",
+                SCRIPT_ERROR_DAYS,
+                db.prune_script_errors(SCRIPT_ERROR_DAYS, LOG_PRUNE_BATCH)
+                    .await,
+            ),
+            (
+                "save history",
+                SAVE_HISTORY_DAYS,
+                db.prune_save_history(SAVE_HISTORY_DAYS, SAVE_HISTORY_KEEP, LOG_PRUNE_BATCH)
+                    .await,
+            ),
+        ];
+        for (what, days, pruned) in prunes {
+            match pruned {
+                Ok(0) => {}
+                Ok(n) => info!("Pruned {} {} rows past {} days", n, what, days),
+                Err(e) => warn!("Pruning {} rows failed: {}", what, e),
+            }
         }
         sleep(LOG_PRUNE).await;
     }
@@ -732,7 +758,6 @@ async fn run_requests(
     response_tx: &UnboundedSender<DbResponse>,
 ) -> Result<(), rs_db::Error> {
     let node_id = i16::from(config.node_id);
-    let mut history_pruned: Option<Instant> = None;
     while let Some(req) = request_rx.recv().await {
         match req {
             DbRequest::Authenticate {
@@ -870,20 +895,6 @@ async fn run_requests(
                     });
                 }
                 db.prune_login_failures(LOGIN_FAILURE_WINDOW_SECS).await?;
-                db.prune_login_logs(LOGIN_LOG_DAYS).await?;
-                db.prune_script_errors(SCRIPT_ERROR_DAYS).await?;
-                if history_pruned.is_none_or(|at| at.elapsed() > SAVE_HISTORY_PRUNE) {
-                    history_pruned = Some(Instant::now());
-                    let pruned = db
-                        .prune_save_history(SAVE_HISTORY_DAYS, SAVE_HISTORY_KEEP)
-                        .await?;
-                    if pruned > 0 {
-                        info!(
-                            "Pruned {} save history rows past {} days",
-                            pruned, SAVE_HISTORY_DAYS
-                        );
-                    }
-                }
                 let sanctions = db.sanctions(&online).await?;
                 let _ = response_tx.send(DbResponse::Sanctions {
                     players: sanctions

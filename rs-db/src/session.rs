@@ -267,15 +267,6 @@ impl Db {
         Ok(())
     }
 
-    /// Forgets logins older than `days`.
-    pub async fn prune_login_logs(&self, days: i32) -> Result<(), Error> {
-        sqlx::query("DELETE FROM login_logs WHERE created_at < now() - make_interval(days => $1)")
-            .bind(days)
-            .execute(&self.pool)
-            .await?;
-        Ok(())
-    }
-
     /// Forgets failures older than `secs`.
     pub async fn prune_login_failures(&self, secs: i32) -> Result<(), Error> {
         sqlx::query("DELETE FROM login_failures WHERE at < now() - make_interval(secs => $1)")
