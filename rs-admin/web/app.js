@@ -4149,8 +4149,8 @@ async function loadCaseSummary() {
     try {
         const [cases, economy, scripts] = await Promise.all([
             api('GET', '/cases/summary'),
-            api('GET', '/economy/summary').catch(() => null),
             // Only the title needs a hidden tab's attention: detections.
+            document.hidden ? null : api('GET', '/economy/summary').catch(() => null),
             isMaintainer() && !document.hidden ? api('GET', '/script-errors/summary').catch(() => null) : null,
         ]);
         state.caseSummary = cases;

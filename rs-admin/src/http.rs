@@ -27,6 +27,8 @@ use serde_json::json;
 use std::net::{IpAddr, SocketAddr};
 use std::path::PathBuf;
 use std::sync::Arc;
+use tower_http::compression::CompressionLayer;
+use tower_http::compression::predicate::{DefaultPredicate, NotForContentType, Predicate};
 
 /// API request bodies are a few small JSON fields.
 const MAX_BODY: usize = 16 << 10;
@@ -590,7 +592,15 @@ async fn frontend(req: Request) -> Response {
 
 pub fn router(app: Arc<App>) -> Router {
     Router::new()
-        .nest("/api", api::router())
+        // Answers, recordings included, are gzipped when asked for; the
+        // assets have theirs made once (see `serve_asset`), and media
+        // already is.
+        .nest(
+            "/api",
+            api::router().layer(CompressionLayer::new().gzip(true).compress_when(
+                DefaultPredicate::new().and(NotForContentType::const_new("video/")),
+            )),
+        )
         .route(
             "/",
             get(|headers: HeaderMap| async move { serve_asset("index.html", &headers) }),

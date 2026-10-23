@@ -286,7 +286,9 @@ async fn authenticate(State(state): State<Arc<AdminState>>, req: Request, next: 
     next.run(Request::from_parts(parts, Body::from(body))).await
 }
 
-/// Runs `f` on the engine between ticks and returns what it does.
+/// Runs `f` on the engine between ticks and returns what it does. Once
+/// nobody waits for it (timed out, or the request was dropped) it's skipped,
+/// so a stall doesn't leave the engine a backlog of answers nobody wants.
 async fn on_engine<T: Send + 'static>(
     state: &AdminState,
     f: impl FnOnce(&mut Engine) -> T + Send + 'static,
@@ -295,7 +297,9 @@ async fn on_engine<T: Send + 'static>(
     state
         .jobs
         .send(Box::new(move |engine| {
-            let _ = tx.send(f(engine));
+            if !tx.is_closed() {
+                let _ = tx.send(f(engine));
+            }
         }))
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
     match timeout(ENGINE_TIMEOUT, rx).await {

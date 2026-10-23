@@ -780,7 +780,7 @@
         // reconnect to come.
         const sent = replay.frame >= replay.rec.frames.length;
         const loggedOut = !replay.streaming && replay.closedAt !== null && vnow() - replay.closedAt > 5000
-            && !replay.rec.frames.slice(replay.frame).some((f) => f.kind === FRAME_RECONNECT);
+            && !(markedFrames().reconnects.at(-1) >= replay.frame);
         if (!replay.ended && !replay.loggingIn && ((sent && replay.lastMs >= duration) || loggedOut)) {
             replay.ended = true;
             replay.userPaused = true;
@@ -1253,17 +1253,33 @@
         }, true);
     }
 
+    // What the overlay shows, and the time what's faded was dropped at: it's
+    // drawn again only when that changes, not every frame paused.
+    let drawn = null;
+    let fadedAt = null;
     function draw() {
         requestAnimationFrame(draw);
-        const ctx = overlay.getContext('2d');
-        ctx.clearRect(0, 0, overlay.width, overlay.height);
-        if (!replay.rec || !replay.streaming && replay.frame === 0) {
+        const showing = replay.rec && (replay.streaming || replay.frame !== 0);
+        const ms = replay.lastMs;
+        if (showing && ms !== fadedAt) {
+            fadedAt = ms;
+            replay.trail = replay.trail.filter(([t]) => ms - t < 1000);
+            replay.clicks = replay.clicks.filter(([t]) => ms - t < 600);
+            replay.keys = replay.keys.filter(([t]) => ms - t < 1500);
+        }
+        const now = showing
+            ? [ms, replay.trail.length, replay.clicks.length, replay.keys.length, replay.cursor?.[0],
+                replay.cursor?.[1], replay.outside, replay.focus, overlay.width, overlay.height].join()
+            : '';
+        if (now === drawn) {
             return;
         }
-        const ms = replay.lastMs;
-        replay.trail = replay.trail.filter(([t]) => ms - t < 1000);
-        replay.clicks = replay.clicks.filter(([t]) => ms - t < 600);
-        replay.keys = replay.keys.filter(([t]) => ms - t < 1500);
+        drawn = now;
+        const ctx = overlay.getContext('2d');
+        ctx.clearRect(0, 0, overlay.width, overlay.height);
+        if (!showing) {
+            return;
+        }
 
         if (replay.trail.length > 1) {
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
@@ -1464,16 +1480,41 @@
     // reload: the client keeps its loaded cache.
     // The keyframe to start from to reach `ms`: the last one at or before it.
     function keyframeFor(ms) {
-        let best = null;
         if (replay.noKeyframes) {
             return null;
         }
-        replay.rec.frames.forEach((f, i) => {
-            if (f.kind === FRAME_KEYFRAME && f.ms <= ms) {
-                best = i;
+        const { keyframes } = markedFrames();
+        const frames = replay.rec.frames;
+        let lo = 0;
+        let hi = keyframes.length;
+        while (lo < hi) {
+            const mid = (lo + hi) >> 1;
+            if (frames[keyframes[mid]].ms <= ms) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
             }
-        });
-        return best;
+        }
+        return lo ? keyframes[lo - 1] : null;
+    }
+
+    // Where the recording's keyframes and reconnects are (frame indexes,
+    // in order), found once: frames only ever come after those there.
+    let marks = null;
+    function markedFrames() {
+        const frames = replay.rec.frames;
+        if (marks?.of !== frames) {
+            marks = { of: frames, seen: 0, keyframes: [], reconnects: [] };
+        }
+        for (; marks.seen < frames.length; marks.seen++) {
+            const kind = frames[marks.seen].kind;
+            if (kind === FRAME_KEYFRAME) {
+                marks.keyframes.push(marks.seen);
+            } else if (kind === FRAME_RECONNECT) {
+                marks.reconnects.push(marks.seen);
+            }
+        }
+        return marks;
     }
 
     // How long after a logout the client has to set up its title screen.
@@ -1716,22 +1757,32 @@
 
     // `b` (sorted by time) merged into `a` (the same) from index `from`: what
     // comes before that has been played.
+    // Only what comes after `b`'s first is touched: it's mostly all after.
     function mergeFrom(a, from, b) {
         if (!b.length) {
             return a;
         }
-        const rest = a.slice(from);
-        const merged = a.slice(0, from);
+        let lo = from;
+        let hi = a.length;
+        while (lo < hi) {
+            const mid = (lo + hi) >> 1;
+            if (a[mid][0] <= b[0][0]) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        const rest = a.splice(lo);
         let i = 0;
         let j = 0;
         while (i < rest.length || j < b.length) {
             if (j >= b.length || (i < rest.length && rest[i][0] <= b[j][0])) {
-                merged.push(rest[i++]);
+                a.push(rest[i++]);
             } else {
-                merged.push(b[j++]);
+                a.push(b[j++]);
             }
         }
-        return merged;
+        return a;
     }
 
     // What's been recorded since, watching live. Input reports come in

@@ -1194,7 +1194,9 @@ async fn engine_tick(
                 }
             }
         } else {
+            // A tick that's due goes first, ahead of any admin jobs queued.
             tokio::select! {
+                biased;
                 _ = interval.tick() => {}
                 Some(()) = shutdown_rx.recv() => {
                     begin_shutdown(&mut engine);

@@ -439,45 +439,64 @@ const MAX_DETECTIONS: usize = 5;
 /// `GET /api/cases/summary`: counts for the nav and the center's header.
 pub async fn summary(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
     let view = CaseView::new(&app, &staff);
-    let open = app.cases.all(|c| c.is_open() && view.sees(c));
     let unread = visible_unread(&app, &staff, &view);
-    let mut detected: Vec<&Case> = open
-        .iter()
-        .filter(|c| c.created_by == detect::OPENED_BY && c.assignees.is_empty())
-        .collect();
-    detected.sort_by_key(|c| Reverse(c.id));
-    Json(Summary {
-        unread: unread.len(),
-        detected: detected.len(),
-        detections: detected
+    // Counted where they are: this is polled.
+    Json(app.cases.read(|cases, _| {
+        let open: Vec<&Case> = cases
+            .values()
+            .filter(|c| c.is_open() && view.sees(c))
+            .collect();
+        let mut detected: Vec<&Case> = open
             .iter()
-            .take(MAX_DETECTIONS)
-            .map(|c| Detection {
-                id: c.id,
-                title: c.title.clone(),
-                player: c.player.clone(),
-                priority: c.priority,
-                created_ms: c.created_ms,
-            })
-            .collect(),
-        open: open.len(),
-        yours: open.iter().filter(|c| c.has(staff.name())).count(),
-        unassigned: open.iter().filter(|c| c.assignees.is_empty()).count(),
-        urgent: open.iter().filter(|c| c.priority >= Priority::High).count(),
-        waiting: open.iter().filter(|c| c.status == Status::Waiting).count(),
-    })
+            .copied()
+            .filter(|c| c.created_by == detect::OPENED_BY && c.assignees.is_empty())
+            .collect();
+        detected.sort_by_key(|c| Reverse(c.id));
+        Summary {
+            unread: unread.len(),
+            detected: detected.len(),
+            detections: detected
+                .iter()
+                .take(MAX_DETECTIONS)
+                .map(|c| Detection {
+                    id: c.id,
+                    title: c.title.clone(),
+                    player: c.player.clone(),
+                    priority: c.priority,
+                    created_ms: c.created_ms,
+                })
+                .collect(),
+            open: open.len(),
+            yours: open.iter().filter(|c| c.has(staff.name())).count(),
+            unassigned: open.iter().filter(|c| c.assignees.is_empty()).count(),
+            urgent: open.iter().filter(|c| c.priority >= Priority::High).count(),
+            waiting: open.iter().filter(|c| c.status == Status::Waiting).count(),
+        }
+    }))
 }
 
-/// The cases changed since `staff` last looked that they may see.
-fn visible_unread(app: &App, staff: &Staff, view: &CaseView) -> std::collections::HashSet<u64> {
+/// The cases changed since `staff` last looked that they may see, and when
+/// each last changed.
+fn visible_unread(app: &App, staff: &Staff, view: &CaseView) -> Vec<(u64, u64)> {
     let unread = app
         .prefs
         .seen(staff.name(), |seen| app.cases.unread(staff.name(), seen));
-    app.cases
-        .all(|c| unread.contains(&c.id) && view.sees(c))
-        .into_iter()
-        .map(|c| c.id)
-        .collect()
+    app.cases.read(|cases, _| {
+        unread
+            .iter()
+            .filter_map(|id| cases.get(id))
+            .filter(|c| view.sees(c))
+            .map(|c| (c.id, c.updated_ms))
+            .collect()
+    })
+}
+
+/// `POST /api/cases/read`: counts every case as looked at by the caller.
+pub async fn mark_read(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
+    let updated = visible_unread(&app, &staff, &CaseView::new(&app, &staff));
+    app.prefs
+        .saw_all(staff.name(), updated, app.cases.settled(staff.name()));
+    summary(State(app), staff).await
 }
 
 /// Case `id`, if `staff` may see it; one they may not is as if it weren't.
@@ -486,19 +505,6 @@ fn visible(app: &App, staff: &Staff, id: u64) -> Result<Case, ApiError> {
         .get(id)
         .filter(|case| CaseView::new(app, staff).sees(case))
         .ok_or_else(|| ApiError::new(StatusCode::NOT_FOUND, format!("There's no case #{id}.")))
-}
-
-/// `POST /api/cases/read`: counts every case as looked at by the caller.
-pub async fn mark_read(State(app): State<Arc<App>>, staff: Staff) -> Json<Summary> {
-    let unread = visible_unread(&app, &staff, &CaseView::new(&app, &staff));
-    let updated = app
-        .cases
-        .all(|c| unread.contains(&c.id))
-        .into_iter()
-        .map(|c| (c.id, c.updated_ms));
-    app.prefs
-        .saw_all(staff.name(), updated, app.cases.settled(staff.name()));
-    summary(State(app), staff).await
 }
 
 #[derive(Serialize)]

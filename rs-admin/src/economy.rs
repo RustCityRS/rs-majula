@@ -246,12 +246,13 @@ impl Economy {
 
     /// Alerts nobody has acknowledged yet.
     pub fn open_alerts(&self) -> usize {
-        self.state
-            .get()
-            .alerts
-            .iter()
-            .filter(|a| a.acknowledged.is_none())
-            .count()
+        self.state.read(|state| {
+            state
+                .alerts
+                .iter()
+                .filter(|a| a.acknowledged.is_none())
+                .count()
+        })
     }
 
     fn append(&self, sample: &Sample) -> std::io::Result<()> {

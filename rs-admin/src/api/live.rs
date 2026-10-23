@@ -158,6 +158,14 @@ pub async fn anticheat(
 /// The most accounts the farm search weighs.
 const FARM_ACCOUNTS: u32 = 3000;
 
+/// The accounts weighed over a window and how they group, shared for a
+/// while: weighing them is a big lookup and every pair compared.
+pub(super) struct Grouped {
+    since_ms: i64,
+    accounts: Vec<AccountActivity>,
+    farms: Vec<farms::Farm>,
+}
+
 #[derive(Serialize)]
 pub struct Member {
     #[serde(flatten)]
@@ -191,31 +199,47 @@ pub async fn farms(
     Query(query): Query<WindowQuery>,
 ) -> Result<Json<Farms>, ApiError> {
     let (span, _) = window(query.window.as_deref())?;
-    let since_ms = now_ms() as i64 - span;
-    let accounts: Vec<AccountActivity> = app
-        .worlds
-        .ask(
-            path::ACCOUNTS,
-            &AccountsLookup {
-                since_ms,
-                limit: FARM_ACCOUNTS,
-            },
-        )
-        .await
-        .map_err(unavailable)?;
-    let weighed = accounts.len();
-    let found = tokio::task::spawn_blocking({
-        let accounts = accounts.clone();
-        move || farms::group(&accounts, 2)
-    })
-    .await
-    .map_err(|_| ApiError::new(StatusCode::INTERNAL_SERVER_ERROR, "Grouping failed."))?;
+    let grouped = app
+        .caches
+        .farms
+        .get(span, || async {
+            let since_ms = now_ms() as i64 - span;
+            let accounts: Vec<AccountActivity> = app
+                .worlds
+                .ask(
+                    path::ACCOUNTS,
+                    &AccountsLookup {
+                        since_ms,
+                        limit: FARM_ACCOUNTS,
+                    },
+                )
+                .await
+                .map_err(unavailable)?;
+            tokio::task::spawn_blocking(move || {
+                let farms = farms::group(&accounts, 2);
+                Arc::new(Grouped {
+                    since_ms,
+                    accounts,
+                    farms,
+                })
+            })
+            .await
+            .map_err(|_| ApiError::new(StatusCode::INTERNAL_SERVER_ERROR, "Grouping failed."))
+        })
+        .await?;
+    let weighed = grouped.accounts.len();
 
     let sees = sees_addresses(&staff);
     let mask = |ip: String| if sees { ip } else { address_label(&app, &ip) };
-    let mut accounts: Vec<Option<AccountActivity>> = accounts.into_iter().map(Some).collect();
-    let farms: Vec<FarmView> = found
-        .into_iter()
+    let mut accounts: Vec<Option<AccountActivity>> = vec![None; weighed];
+    for farm in &grouped.farms {
+        for &i in &farm.members {
+            accounts[i] = Some(grouped.accounts[i].clone());
+        }
+    }
+    let farms: Vec<FarmView> = grouped
+        .farms
+        .iter()
         .map(|farm| FarmView {
             members: farm
                 .members
@@ -238,7 +262,8 @@ pub async fn farms(
                 .collect(),
             shared: farm
                 .shared
-                .into_iter()
+                .iter()
+                .cloned()
                 .map(|mut s| {
                     if let farms::Reason::Registered { ip } | farms::Reason::LoggedIn { ip } =
                         &mut s.reason
@@ -258,7 +283,7 @@ pub async fn farms(
         );
     }
     Ok(Json(Farms {
-        since_ms,
+        since_ms: grouped.since_ms,
         accounts: weighed,
         capped: weighed == FARM_ACCOUNTS as usize,
         farms,

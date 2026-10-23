@@ -52,6 +52,8 @@ pub struct Caches {
     /// The last day's script errors, for the nav's count. Fixed marks are
     /// applied afresh.
     script_errors: Cache<(), Vec<ScriptErrorGroup>>,
+    /// Bot farm groups, by how far back they look.
+    farms: Cache<i64, Arc<live::Grouped>>,
 }
 
 impl Default for Caches {
@@ -61,6 +63,7 @@ impl Default for Caches {
             replays: Cache::new(Duration::from_secs(30)),
             online: Cache::new(Duration::from_secs(2)),
             script_errors: Cache::new(Duration::from_secs(60)),
+            farms: Cache::new(Duration::from_secs(60)),
         }
     }
 }

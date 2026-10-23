@@ -47,7 +47,7 @@ impl Reason {
 }
 
 /// One shared trait of a group, and how many of its accounts share it.
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct Shared {
     #[serde(flatten)]
     pub reason: Reason,
@@ -173,6 +173,15 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
         };
     address_pairs(&registered, |ip| Reason::Registered { ip }, &mut reasons);
     address_pairs(&logged_in, |ip| Reason::LoggedIn { ip }, &mut reasons);
+    // By the first of each pair, the second in order, to walk alongside
+    // every pair rather than look each up.
+    let mut by_first: Vec<Vec<(usize, Vec<Reason>)>> = vec![Vec::new(); n];
+    for ((i, j), why) in reasons {
+        by_first[i].push((j, why));
+    }
+    for pairs in &mut by_first {
+        pairs.sort_unstable_by_key(|&(j, _)| j);
+    }
 
     let traits: Vec<Traits> = accounts
         .iter()
@@ -185,6 +194,7 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
     let mut links: Vec<(usize, usize, Vec<Reason>)> = Vec::new();
     let mut found = Vec::new();
     for i in 0..n {
+        let mut shared = std::mem::take(&mut by_first[i]).into_iter().peekable();
         for j in i + 1..n {
             found.clear();
             behaviours(
@@ -192,7 +202,10 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
                 (&accounts[j], &traits[j]),
                 &mut found,
             );
-            let by_address = reasons.remove(&(i, j)).unwrap_or_default();
+            let by_address = shared
+                .next_if(|&(k, _)| k == j)
+                .map(|(_, why)| why)
+                .unwrap_or_default();
             if found.is_empty() && by_address.is_empty() {
                 continue;
             }

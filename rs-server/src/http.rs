@@ -4,7 +4,7 @@ use rs_db::LoginDevice;
 use rs_pack::cache::CacheStore;
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
-use std::sync::Arc;
+use std::sync::{Arc, LazyLock};
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
@@ -472,14 +472,7 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
-        "/livemap.js" => (
-            "200 OK",
-            format!(
-                "Content-Type: application/javascript\r\nCache-Control: no-cache\r\nContent-Length: {}\r\n",
-                LIVEMAP_JS.len()
-            ),
-            Body::Owned(LIVEMAP_JS.as_bytes().to_vec()),
-        ),
+        "/livemap.js" => LIVEMAP_SCRIPT.serve(query),
         "/replay" => {
             let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
             let len = bytes.len();
@@ -491,14 +484,7 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
-        "/replay.js" => (
-            "200 OK",
-            format!(
-                "Content-Type: application/javascript\r\nCache-Control: no-cache\r\nContent-Length: {}\r\n",
-                REPLAY_JS.len()
-            ),
-            Body::Owned(REPLAY_JS.as_bytes().to_vec()),
-        ),
+        "/replay.js" => REPLAY_SCRIPT.serve(query),
         p if matches_cache(p) => match read_cache(p, cache) {
             Some(body) => {
                 let len = body.len();
@@ -653,8 +639,45 @@ fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>
     }
 }
 
+/// A script of the world's own pages, which name it with its CRC: asked for
+/// by that, it's kept for good, as it changes only with the world.
+struct Script {
+    body: Arc<[u8]>,
+    version: String,
+}
+
+impl Script {
+    fn new(source: &str) -> Self {
+        let body: Arc<[u8]> = source.as_bytes().into();
+        let crc = rs_io::crc::getcrc(&body, 0, body.len()) as u32;
+        Self {
+            body,
+            version: format!("{crc:08x}"),
+        }
+    }
+
+    fn serve(&self, query: &str) -> (&'static str, String, Body) {
+        let current = query
+            .split('&')
+            .any(|p| p.strip_prefix("v=") == Some(self.version.as_str()));
+        let cache = if current {
+            "public, max-age=31536000, immutable"
+        } else {
+            "no-cache"
+        };
+        (
+            "200 OK",
+            format!(
+                "Content-Type: application/javascript\r\nCache-Control: {cache}\r\nContent-Length: {}\r\n",
+                self.body.len()
+            ),
+            Body::Shared(Arc::clone(&self.body)),
+        )
+    }
+}
+
 /// Plays a recorded session in this revision's client, for the staff console.
-const REPLAY_JS: &str = include_str!("replay.js");
+static REPLAY_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("replay.js")));
 
 /// The replay page: this revision's client, with replay.js loaded first to
 /// stand in for the world.
@@ -665,6 +688,7 @@ fn render_replay(nodeid: &str, members: bool, version: Option<u32>) -> String {
         (765, 503)
     };
     let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    let script = &REPLAY_SCRIPT.version;
     format!(
         r#"<!DOCTYPE html>
 <html data-rev="{REVISION}">
@@ -676,7 +700,7 @@ html, body {{ margin: 0; width: 100%; height: 100%; background: #000; overflow: 
 #game {{ position: relative; width: 100vw; height: 100vh; }}
 #canvas {{ display: block; width: 100%; height: 100%; image-rendering: pixelated; }}
 </style>
-<script src="/replay.js"></script>
+<script src="/replay.js?v={script}"></script>
 </head>
 <body>
 <div id="game"><canvas id="canvas" width="{width}" height="{height}"></canvas></div>
@@ -732,12 +756,13 @@ new MapView();
 }
 
 /// Draws the players the staff console sends over the world map.
-const LIVEMAP_JS: &str = include_str!("livemap.js");
+static LIVEMAP_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("livemap.js")));
 
 /// The world map viewer with livemap.js drawing players over it, for the
 /// staff console's live map. Sized to the frame it loads in.
 fn render_livemap(version: Option<u32>) -> String {
     let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    let script = &LIVEMAP_SCRIPT.version;
     format!(
         r#"<!DOCTYPE html>
 <html>
@@ -745,7 +770,7 @@ fn render_livemap(version: Option<u32>) -> String {
 <meta charset="utf-8">
 <title>Live Map</title>
 <style>html, body {{ margin: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }} #map {{ position: relative; width: 100%; height: 100%; }} #canvas {{ display: block; width: 100%; height: 100%; }}</style>
-<script src="/livemap.js"></script>
+<script src="/livemap.js?v={script}"></script>
 </head>
 <body>
 <div id="map"><canvas id="canvas" width="635" height="503"></canvas></div>
@@ -824,6 +849,17 @@ fn parse_query(query: &str) -> HashMap<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn scripts_are_kept_only_when_named_by_their_crc() {
+        let page = render_replay("10", true, None);
+        let version = &REPLAY_SCRIPT.version;
+        assert!(page.contains(&format!("/replay.js?v={version}")));
+        let cache = |query: &str| REPLAY_SCRIPT.serve(query).1;
+        assert!(cache(&format!("v={version}")).contains("immutable"));
+        assert!(cache("").contains("no-cache"));
+        assert!(cache("v=00000000").contains("no-cache"));
+    }
 
     #[test]
     fn client_page_fills_every_marker() {
