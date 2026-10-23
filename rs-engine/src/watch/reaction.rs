@@ -69,7 +69,11 @@ impl Reactions {
         if enough && spread.is_some_and(|cv| cv < 0.15) {
             flags.push(("even_reactions", 20));
         }
-        let mut times: Vec<u32> = self.times.iter().copied().collect();
+        let mut kept = [0; KEPT];
+        let times = &mut kept[..self.times.len()];
+        for (to, &t) in times.iter_mut().zip(&self.times) {
+            *to = t;
+        }
         let mid = times.len() >> 1;
         let median_ms = (!times.is_empty()).then(|| *times.select_nth_unstable(mid).1);
         ReactionStats {

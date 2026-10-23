@@ -98,7 +98,8 @@ pub enum ReplayRequest {
         id: i64,
         chunk: Option<RawChunk>,
         duration_ms: u32,
-        report: Report,
+        /// The checks' verdict, when one was due (see `next_report_ms`).
+        report: Option<Report>,
         ended: bool,
         complete: bool,
     },
@@ -127,6 +128,9 @@ struct Recording {
     next_keyframe_ms: u32,
     /// When the chunk is next handed over, unless it fills first.
     next_chunk_ms: u32,
+    /// When the checks are next reported with a chunk: every [`CHUNK_MS`]
+    /// however often the chunks fill, live, and at the end.
+    next_report_ms: u32,
 }
 
 /// A player's session as moderators see it.
@@ -197,6 +201,7 @@ impl Watch {
             let id = new_id(node_id);
             tx.try_send(ReplayRequest::Start { id, user37 }).ok()?;
             let stagger = stagger(id);
+            let next_chunk_ms = ((stagger >> 32) as u32) % CHUNK_MS;
             Some(Recording {
                 id,
                 tx: tx.clone(),
@@ -208,7 +213,8 @@ impl Watch {
                 lost: false,
                 state: ClientState::default(),
                 next_keyframe_ms: (stagger as u32) % KEYFRAME_MS,
-                next_chunk_ms: ((stagger >> 32) as u32) % CHUNK_MS,
+                next_chunk_ms,
+                next_report_ms: next_chunk_ms,
             })
         });
         Self {
@@ -486,11 +492,21 @@ impl Watch {
             return;
         }
         let ms = self.started.elapsed().as_millis() as u32;
-        let report = self.anticheat.report(ms);
-        self.mark_raised(&report, ms);
+        let live = self.live_until.is_some_and(|until| Instant::now() < until);
+        let due = self
+            .recording
+            .as_ref()
+            .is_some_and(|r| ended || live || ms >= r.next_report_ms);
+        let report = due.then(|| self.anticheat.report(ms));
+        if let Some(report) = &report {
+            self.mark_raised(report, ms);
+        }
         let Some(recording) = self.recording.as_mut() else {
             return;
         };
+        if due {
+            recording.next_report_ms = ms + CHUNK_MS;
+        }
         let capacity = chunk_capacity(recording.buf.len());
         let chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
             seq: recording.seq,

@@ -1,6 +1,7 @@
+use rustc_hash::FxHasher;
 use serde_json::{Value, json};
 use std::collections::VecDeque;
-use std::hash::{DefaultHasher, Hash, Hasher};
+use std::hash::{Hash, Hasher};
 
 /// The actions kept.
 const KEPT: usize = 400;
@@ -31,7 +32,7 @@ impl Repetition {
     }
 
     fn push(&mut self, what: impl Hash, walk: bool) {
-        let mut hasher = DefaultHasher::new();
+        let mut hasher = FxHasher::default();
         (walk, what).hash(&mut hasher);
         if self.actions.len() == KEPT {
             self.actions.pop_front();
@@ -39,19 +40,23 @@ impl Repetition {
         self.actions.push_back((hasher.finish(), walk));
     }
 
-    /// The share of runs of [`RUN`] actions seen earlier in the sequence.
+    /// The share of runs of [`RUN`] actions seen earlier in the sequence:
+    /// each run hashed to one number, and those sorted in place, a repeat
+    /// being every run past the first of its kind.
     fn repeated(&self) -> f64 {
-        let actions: Vec<u64> = self.actions.iter().map(|&(a, _)| a).collect();
-        let mut seen = std::collections::HashSet::new();
-        let mut runs = 0;
-        let mut repeats = 0;
-        for run in actions.windows(RUN) {
-            runs += 1;
-            if !seen.insert(run) {
-                repeats += 1;
+        let n = (self.actions.len() + 1).saturating_sub(RUN);
+        let mut kept = [0u64; KEPT];
+        let runs = &mut kept[..n];
+        for (i, run) in runs.iter_mut().enumerate() {
+            let mut hasher = FxHasher::default();
+            for k in 0..RUN {
+                hasher.write_u64(self.actions[i + k].0);
             }
+            *run = hasher.finish();
         }
-        f64::from(repeats) / f64::from(runs.max(1))
+        runs.sort_unstable();
+        let repeats = runs.windows(2).filter(|w| w[0] == w[1]).count();
+        repeats as f64 / n.max(1) as f64
     }
 
     fn walk_share(&self) -> f64 {

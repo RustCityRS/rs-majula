@@ -75,7 +75,13 @@ impl MousePaths {
     }
 
     fn end(&mut self) {
-        let samples = std::mem::take(&mut self.samples);
+        self.judge();
+        self.samples.clear();
+    }
+
+    /// Judges the move the samples make, in one pass over them.
+    fn judge(&mut self) {
+        let samples = &self.samples;
         let Some(&(_, x0, y0)) = samples.first() else {
             return;
         };
@@ -86,29 +92,33 @@ impl MousePaths {
             return;
         }
         self.moves += 1;
-        let steps: Vec<f64> = samples
-            .windows(2)
-            .map(|w| (w[1].1 - w[0].1).hypot(w[1].2 - w[0].2))
-            .collect();
-        if steps.iter().sum::<f64>() <= distance * STRAIGHT {
+        // How far off the straight line (over its length) a sample is.
+        let off = |i: usize| {
+            let (_, x, y) = samples[i];
+            ((x - x0) * dy - (y - y0) * dx) / (distance * distance)
+        };
+        // The first sample is on the line, so each step's end covers the rest.
+        let (mut path, mut curved) = (0.0, false);
+        let steps = samples.windows(2).enumerate().map(|(i, w)| {
+            curved |= off(i + 1).abs() > CURVED;
+            (w[1].1 - w[0].1).hypot(w[1].2 - w[0].2)
+        });
+        let cv = super::anticheat::cv(steps.inspect(|step| path += step));
+        if path <= distance * STRAIGHT {
             self.straight += 1;
         }
-        if super::anticheat::cv(steps.iter().copied()).is_some_and(|cv| cv < STEADY) {
+        if cv.is_some_and(|cv| cv < STEADY) {
             self.steady += 1;
         }
-        // How far off the straight line (over its length) each sample is.
-        let off: Vec<f64> = samples
-            .iter()
-            .map(|&(_, x, y)| ((x - x0) * dy - (y - y0) * dx) / (distance * distance))
-            .collect();
-        if off.iter().all(|o| o.abs() <= CURVED) {
+        if !curved {
             return;
         }
         self.curves += 1;
+        let last = samples.len() - 1;
         let at = |f: f64| {
-            let i = f * (off.len() - 1) as f64;
+            let i = f * last as f64;
             let (lo, t) = (i.floor() as usize, i.fract());
-            off[lo] + (off[(lo + 1).min(off.len() - 1)] - off[lo]) * t
+            off(lo) + (off((lo + 1).min(last)) - off(lo)) * t
         };
         let shape: Shape = (
             std::array::from_fn(|i| at((i + 1) as f64 / 8.0)),

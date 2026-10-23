@@ -1,5 +1,5 @@
 use serde_json::{Value, json};
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
 
 /// A slot's top left on the client's screen.
 pub type Slot = (i16, i16);
@@ -110,39 +110,37 @@ impl SlotClicks {
         self.spots.push_back(spot);
     }
 
-    /// The share of clicks on the most clicked pixel.
-    fn same_share(&self) -> f64 {
-        let mut counts: HashMap<(u8, u8), usize> = HashMap::new();
-        for &spot in &self.spots {
-            *counts.entry(spot).or_default() += 1;
+    /// The share of clicks on the most clicked pixel, and how far clicks
+    /// spread from their mean, across and down, averaged: in one pass, the
+    /// pixels (32 by 32) counted in place.
+    fn same_and_spread(&self) -> (f64, Option<f64>) {
+        let mut counts = [0u16; 32 * 32];
+        let mut most = 0;
+        let (mut sx, mut sy, mut sxx, mut syy) = (0u32, 0u32, 0u32, 0u32);
+        for &(x, y) in &self.spots {
+            let count = &mut counts[(usize::from(y) << 5) | usize::from(x)];
+            *count += 1;
+            most = most.max(*count);
+            let (x, y) = (u32::from(x), u32::from(y));
+            sx += x;
+            sy += y;
+            sxx += x * x;
+            syy += y * y;
         }
-        let most = counts.values().copied().max().unwrap_or(0);
-        most as f64 / self.spots.len().max(1) as f64
-    }
-
-    /// How far clicks spread from their mean, across and down, averaged.
-    fn spread(&self) -> Option<f64> {
         let n = self.spots.len() as f64;
-        if n < 2.0 {
-            return None;
-        }
-        let axis = |f: fn(&(u8, u8)) -> u8| {
-            let mean = self.spots.iter().map(|s| f64::from(f(s))).sum::<f64>() / n;
-            let var = self
-                .spots
-                .iter()
-                .map(|s| (f64::from(f(s)) - mean).powi(2))
-                .sum::<f64>()
-                / n;
-            var.sqrt()
+        let same = f64::from(most) / n.max(1.0);
+        // Whole sums: exact, so the variance is too.
+        let axis = |s: u32, ss: u32| {
+            let mean = f64::from(s) / n;
+            (f64::from(ss) / n - mean * mean).max(0.0).sqrt()
         };
-        Some((axis(|s| s.0) + axis(|s| s.1)) / 2.0)
+        let spread = (n >= 2.0).then(|| (axis(sx, sxx) + axis(sy, syy)) / 2.0);
+        (same, spread)
     }
 
     pub fn report(&self, flags: &mut Vec<(&'static str, i16)>) -> SlotStats {
         let n = self.spots.len();
-        let same = self.same_share();
-        let spread = self.spread();
+        let (same, spread) = self.same_and_spread();
         if n >= MIN_SAME && same >= 0.5 {
             flags.push(("same_pixel_clicks", 30));
         }
@@ -214,7 +212,7 @@ mod tests {
         for press_first in [true, false] {
             let s = clicks(|i| (10 + rand(i, 12), 9 + rand(i + 99, 13)), press_first);
             assert_eq!(s.spots.len(), 60);
-            assert!(flags(&s).is_empty(), "{:?}", s.spread());
+            assert!(flags(&s).is_empty(), "{:?}", s.same_and_spread().1);
         }
     }
 

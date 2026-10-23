@@ -131,8 +131,8 @@ impl Db {
             .await
     }
 
-    /// Adds `chunk` (if any) to recording `id` with the checks' verdict so
-    /// far. `ended` marks the session over; `complete: false` that a chunk
+    /// Adds `chunk` (if any) to recording `id`, with the checks' verdict so
+    /// far if given (else the last stays). `ended` marks the session over; `complete: false` that a chunk
     /// before this one was lost. A chunk stored after the recording was
     /// compacted gets it compacted again.
     pub async fn store_replay(
@@ -140,7 +140,7 @@ impl Db {
         id: i64,
         chunk: Option<&ReplayChunk>,
         duration_ms: i32,
-        report: &ReplayReport,
+        report: Option<&ReplayReport>,
         ended: bool,
         complete: bool,
     ) -> Result<(), Error> {
@@ -163,7 +163,8 @@ impl Db {
         }
         sqlx::query(
             "UPDATE replays SET duration_ms = GREATEST(duration_ms, $2), bytes = bytes + $3,
-                 score = $4, flags = $5, stats = $6, complete = complete AND $7,
+                 score = coalesce($4, score), flags = coalesce($5, flags),
+                 stats = coalesce($6, stats), complete = complete AND $7,
                  ended_at = CASE WHEN $8 THEN now() ELSE ended_at END, updated_at = now(),
                  compacted = compacted AND NOT $9
              WHERE id = $1",
@@ -171,9 +172,9 @@ impl Db {
         .bind(id)
         .bind(duration_ms)
         .bind(bytes)
-        .bind(report.score)
-        .bind(&report.flags)
-        .bind(&report.stats)
+        .bind(report.map(|r| r.score))
+        .bind(report.map(|r| &r.flags))
+        .bind(report.map(|r| &r.stats))
         .bind(complete)
         .bind(ended)
         .bind(chunk.is_some())

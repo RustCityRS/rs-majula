@@ -1,6 +1,6 @@
 use crate::counters::{self, COUNTERS};
-use crate::watch::ReplayRequest;
 use crate::watch::playback::decompress_chunk;
+use crate::watch::{ReplayRequest, Report};
 use rs_db::{Db, DbConfig, NewReplay, ReplayChunk};
 use rustc_hash::FxHashSet;
 use std::time::Duration;
@@ -183,7 +183,7 @@ async fn store(
                     id,
                     chunk.as_ref(),
                     duration_ms as i32,
-                    &report.stored(),
+                    report.map(Report::stored).as_ref(),
                     ended,
                     complete && !lost,
                 )

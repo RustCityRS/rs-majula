@@ -1030,19 +1030,37 @@ async fn replays_store_list_and_prune(pool: PgPool) {
         data: data.to_vec(),
     };
     let clean = ReplayReport::default();
-    db.store_replay(1, Some(&chunk(0, b"abc")), 30_000, &clean, false, true)
-        .await
-        .unwrap();
+    db.store_replay(
+        1,
+        Some(&chunk(0, b"abc")),
+        30_000,
+        Some(&clean),
+        false,
+        true,
+    )
+    .await
+    .unwrap();
     let flagged = ReplayReport {
         score: 40,
         flags: vec!["no_heartbeat".into()],
         stats: "{}".into(),
     };
-    db.store_replay(1, Some(&chunk(1, b"defg")), 41_000, &flagged, true, true)
+    db.store_replay(
+        1,
+        Some(&chunk(1, b"defg")),
+        41_000,
+        Some(&flagged),
+        false,
+        true,
+    )
+    .await
+    .unwrap();
+    // No verdict with it: the last one stays.
+    db.store_replay(1, None, 41_000, None, true, true)
         .await
         .unwrap();
     // A chunk for a recording that isn't there is dropped.
-    db.store_replay(99, Some(&chunk(0, b"x")), 1, &clean, true, true)
+    db.store_replay(99, Some(&chunk(0, b"x")), 1, Some(&clean), true, true)
         .await
         .unwrap();
 
@@ -1100,17 +1118,24 @@ async fn replays_compact_once_over(pool: PgPool) {
     let clean = ReplayReport::default();
     for id in [1, 2, 4] {
         for (seq, data) in [(0, b"abc".as_slice()), (2, b"defg")] {
-            db.store_replay(id, Some(&chunk(seq, data)), 90_000, &clean, seq == 2, true)
-                .await
-                .unwrap();
+            db.store_replay(
+                id,
+                Some(&chunk(seq, data)),
+                90_000,
+                Some(&clean),
+                seq == 2,
+                true,
+            )
+            .await
+            .unwrap();
         }
     }
     // Still going on (3), over too recently (2) or another world's (4):
     // left alone.
-    db.store_replay(3, Some(&chunk(0, b"x")), 1, &clean, false, true)
+    db.store_replay(3, Some(&chunk(0, b"x")), 1, Some(&clean), false, true)
         .await
         .unwrap();
-    db.store_replay(3, Some(&chunk(1, b"y")), 2, &clean, false, true)
+    db.store_replay(3, Some(&chunk(1, b"y")), 2, Some(&clean), false, true)
         .await
         .unwrap();
     sqlx::query("UPDATE replays SET ended_at = now() - interval '10 minutes' WHERE id IN (1, 4)")
@@ -1144,7 +1169,7 @@ async fn replays_compact_once_over(pool: PgPool) {
     assert!(db.replays_to_compact(10, 300, 10).await.unwrap().is_empty());
 
     // A chunk stored after compacting: compacted again.
-    db.store_replay(1, Some(&chunk(3, b"h")), 120_000, &clean, true, true)
+    db.store_replay(1, Some(&chunk(3, b"h")), 120_000, Some(&clean), true, true)
         .await
         .unwrap();
     sqlx::query("UPDATE replays SET ended_at = now() - interval '10 minutes' WHERE id = 1")
@@ -1973,7 +1998,7 @@ async fn replay_chunks_page_from_a_seq(pool: PgPool) {
             end_ms: (seq + 1) * 2000,
             data: vec![seq as u8],
         };
-        db.store_replay(1, Some(&chunk), (seq + 1) * 2000, &clean, false, true)
+        db.store_replay(1, Some(&chunk), (seq + 1) * 2000, Some(&clean), false, true)
             .await
             .unwrap();
     }
@@ -2019,7 +2044,7 @@ async fn anticheat_leaders_rank_and_trend(pool: PgPool) {
         })
         .await
         .unwrap();
-        db.store_replay(id, None, 60_000, &report(score, flags), true, true)
+        db.store_replay(id, None, 60_000, Some(&report(score, flags)), true, true)
             .await
             .unwrap();
         sqlx::query(
@@ -2083,7 +2108,7 @@ async fn account_activity_covers_recent_accounts(pool: PgPool) {
         flags: vec!["robotic_click_timing".into()],
         stats: r#"{"clickRhythm":0.05}"#.into(),
     };
-    db.store_replay(1, None, 90_000, &report, true, true)
+    db.store_replay(1, None, 90_000, Some(&report), true, true)
         .await
         .unwrap();
     sqlx::query("UPDATE players SET created_at = now() - interval '30 days' WHERE name_hash = 2")

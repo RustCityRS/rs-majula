@@ -1248,19 +1248,20 @@ impl AntiCheat {
 }
 
 /// How spread out `values` are: their standard deviation over their mean.
-/// `None` for fewer than two, or a mean of 0.
+/// `None` for fewer than two, or a mean of 0. One pass (Welford's), so
+/// nothing is collected.
 pub(super) fn cv(values: impl Iterator<Item = f64>) -> Option<f64> {
-    let values: Vec<f64> = values.collect();
-    if values.len() < 2 {
+    let (mut n, mut mean, mut m2) = (0.0, 0.0, 0.0);
+    for v in values {
+        n += 1.0;
+        let d = v - mean;
+        mean += d / n;
+        m2 += d * (v - mean);
+    }
+    if n < 2.0 || mean <= 0.0 {
         return None;
     }
-    let n = values.len() as f64;
-    let mean = values.iter().sum::<f64>() / n;
-    if mean <= 0.0 {
-        return None;
-    }
-    let var = values.iter().map(|v| (v - mean).powi(2)).sum::<f64>() / n;
-    Some(var.sqrt() / mean)
+    Some((m2 / n).sqrt() / mean)
 }
 
 /// A tile's offset into the client's map.
