@@ -433,6 +433,7 @@ pub async fn moderate(
     }
 
     let mut results: Vec<Moderated> = Vec::with_capacity(1 + also.len());
+    let mut offences = Vec::new();
     for (i, target) in std::iter::once(&name).chain(&also).enumerate() {
         let reason = if i == 0 {
             reason.clone()
@@ -441,16 +442,13 @@ pub async fn moderate(
         };
         let (ok, message) = moderate_one(&app, &staff, target, action, hours, &reason).await;
         if ok && let Some((template, step)) = &template {
-            let recorded = app.templates.record(Offence {
+            offences.push(Offence {
                 at_ms: now_ms(),
                 player: target.clone(),
                 template: template.id.clone(),
                 step: *step,
                 by: staff.name().to_owned(),
             });
-            if let Err(e) = recorded {
-                warn!("Couldn't record {}'s offence: {}", target, e);
-            }
         }
         app.audit.record(
             Event::new(Some(staff.name()), staff.client.ip, action_name(action))
@@ -474,6 +472,14 @@ pub async fn moderate(
             ok,
             message,
         });
+    }
+    let players: Vec<String> = offences.iter().map(|o| o.player.clone()).collect();
+    if let Err(e) = app.templates.record(offences) {
+        warn!(
+            "Couldn't record the offences of {}: {}",
+            players.join(", "),
+            e
+        );
     }
     let first = results.remove(0);
     Ok(Json(ModerateResult {

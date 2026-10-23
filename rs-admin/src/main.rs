@@ -319,7 +319,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         schedule: Schedule::open(data_dir.join("schedule.json")),
         templates: Templates::open(
             data_dir.join("templates.json"),
-            data_dir.join("offences.json"),
+            data_dir.join("offences.jsonl"),
         ),
         canned: CannedTexts::open(data_dir.join("canned.json")),
         clips: Clips::new(data_dir.join("clips")),

@@ -387,6 +387,8 @@ struct Inner {
     dismissed: HashMap<String, Dismissal>,
     /// The cases each triage key is evidence in.
     triaged: HashMap<String, BTreeSet<u64>>,
+    /// The cases on each player, by name key.
+    on_player: HashMap<String, BTreeSet<u64>>,
     next_id: u64,
 }
 
@@ -505,6 +507,10 @@ impl Inner {
         } = &entry.change
         {
             self.next_id = self.next_id.max(id + 1);
+            self.on_player
+                .entry(name_key(player))
+                .or_default()
+                .insert(id);
             self.cases.insert(
                 id,
                 Case {
@@ -711,6 +717,7 @@ impl Cases {
                 .map(|(k, d)| (k.clone(), d.clone()))
                 .collect(),
             triaged: HashMap::new(),
+            on_player: HashMap::new(),
             next_id: inner.next_id,
         };
         for entry in &entries {
@@ -870,6 +877,22 @@ impl Cases {
             .cases
             .values()
             .filter(|c| keep(c))
+            .map(|c| Case {
+                timeline: Vec::new(),
+                ..c.clone()
+            })
+            .collect()
+    }
+
+    /// Every case on `player`.
+    pub fn of_player(&self, player: &str) -> Vec<Case> {
+        let inner = self.lock();
+        inner
+            .on_player
+            .get(&name_key(player))
+            .into_iter()
+            .flatten()
+            .filter_map(|id| inner.cases.get(id))
             .map(|c| Case {
                 timeline: Vec::new(),
                 ..c.clone()

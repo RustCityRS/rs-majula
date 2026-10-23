@@ -117,6 +117,13 @@ impl Schedule {
     /// crash can't run a job twice. Returns the jobs to run and those
     /// skipped for being too late.
     fn take_due(&self, now: u64) -> (Vec<Job>, Vec<Job>) {
+        // Mostly nothing is: no need to write the file again.
+        if self
+            .file
+            .read(|file| file.jobs.iter().all(|j| j.next_ms > now))
+        {
+            return (Vec::new(), Vec::new());
+        }
         let taken = self.file.update(|file| {
             let mut run = Vec::new();
             let mut missed = Vec::new();
@@ -318,5 +325,32 @@ mod tests {
         // Many periods missed: the first one in the future.
         assert_eq!(next_after(0, 10, 95 * min), 100 * min);
         assert_eq!(next_after(0, 10, 100 * min), 110 * min);
+    }
+
+    #[test]
+    fn nothing_due_writes_nothing() {
+        let path = std::env::temp_dir().join(format!("rs-admin-schedule-{}.json", now_ms()));
+        let schedule = Schedule::open(path.clone());
+        let job = |next_ms| Job {
+            id: 0,
+            task: Task::Broadcast {
+                message: "Hi".into(),
+            },
+            nodes: Vec::new(),
+            next_ms,
+            every_mins: None,
+            by: "Ash".into(),
+            by_level: 2,
+            created_ms: 0,
+            last: None,
+        };
+        schedule.add(job(1000)).unwrap();
+        std::fs::remove_file(&path).unwrap();
+        let (due, missed) = schedule.take_due(999);
+        assert!(due.is_empty() && missed.is_empty());
+        assert!(!path.exists());
+        assert_eq!(schedule.take_due(1000).0.len(), 1);
+        assert!(path.exists());
+        let _ = std::fs::remove_file(path);
     }
 }

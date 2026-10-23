@@ -342,6 +342,7 @@ and your time zone follow your account.
   | `users.json` | Accounts (argon2 password hashes, TOTP secrets) |
   | `audit.jsonl` | Everything done, sign-ins included. Only ever appended to. |
   | `cases.jsonl` | Every change to a case. Only ever appended to; cases are rebuilt from it at start. |
+  | `offences.jsonl` | Sanctions given by template, which the template ladders count. Appended to; trimmed to the newest 20,000 now and then. |
   | `media/` | Images and videos posted on cases, served only to signed-in staff |
   | `notes.jsonl`, `prefs.json`, `controls.json`, `schedule.json`, `economy.json`, `economy-samples.jsonl` | Staff notes, per-account preferences, kill switches, scheduled jobs, economy tracking |
 

@@ -2,7 +2,12 @@ use crate::store::JsonFile;
 use crate::users::{name_key, now_ms};
 use rs_admin_api::ModAction;
 use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
+use std::fs;
+use std::io::{ErrorKind, Write};
+use std::mem;
+use std::path::{Path, PathBuf};
+use std::sync::{Mutex, MutexGuard};
+use tracing::{error, warn};
 
 /// The longest mute or ban: 10 years, as in game.
 const MAX_HOURS: i32 = 87_600;
@@ -10,8 +15,11 @@ const MAX_TEMPLATES: usize = 50;
 const MAX_STEPS: usize = 10;
 const MAX_NAME_CHARS: usize = 60;
 const MAX_DESCRIPTION_CHARS: usize = 300;
-/// How many offences are kept; the oldest go first.
+/// How many offences are kept at least; the oldest go first.
 const MAX_OFFENCES: usize = 20_000;
+/// How many more are kept before the oldest go, all at once: the log is
+/// only rewritten then, and appended to otherwise.
+const SPARE_OFFENCES: usize = MAX_OFFENCES >> 1;
 
 /// Offences older than this stop counting, unless a template says otherwise.
 const DEFAULT_EXPIRE_DAYS: u32 = 365;
@@ -227,16 +235,154 @@ pub fn slug(name: &str) -> String {
     }
 }
 
+/// The offences given, as a log of a JSON line each.
+struct Offences {
+    path: PathBuf,
+    inner: Mutex<OffenceLog>,
+}
+
+struct OffenceLog {
+    /// What the log holds, oldest first.
+    all: Vec<Offence>,
+    /// It couldn't be read, so it isn't added to until it's fixed.
+    broken: bool,
+}
+
+impl Offences {
+    /// Opens the log at `path`, starting it from the whole-file JSON the
+    /// console kept before (beside it, `.json`) if there's none yet.
+    fn open(path: PathBuf) -> Self {
+        let (all, broken) = match fs::read_to_string(&path) {
+            Ok(text) => (lines(&path, &text), false),
+            Err(e) if e.kind() == ErrorKind::NotFound => match from_json(&path) {
+                Ok(all) => (all, false),
+                Err(e) => {
+                    error!("{e}; offences are refused until it's fixed");
+                    (Vec::new(), true)
+                }
+            },
+            Err(e) => {
+                error!(
+                    "Couldn't read {}, so offences are refused until it's fixed: {e}",
+                    path.display()
+                );
+                (Vec::new(), true)
+            }
+        };
+        Self {
+            path,
+            inner: Mutex::new(OffenceLog { all, broken }),
+        }
+    }
+
+    fn lock(&self) -> MutexGuard<'_, OffenceLog> {
+        self.inner.lock().unwrap_or_else(|e| e.into_inner())
+    }
+
+    /// Adds `offences` to the log in one write, so they land together or
+    /// not at all.
+    fn record(&self, offences: Vec<Offence>) -> Result<(), String> {
+        let mut log = self.lock();
+        if log.broken {
+            return Err(format!(
+                "{} is unreadable; fix or remove it first.",
+                self.path.display()
+            ));
+        }
+        let saved = if log.all.len() + offences.len() > MAX_OFFENCES + SPARE_OFFENCES {
+            let mut all = log.all.clone();
+            all.extend(offences);
+            all.drain(..all.len() - MAX_OFFENCES);
+            rewrite(&self.path, &all).map(|()| all)
+        } else {
+            append(&self.path, &offences).map(|()| {
+                let mut all = mem::take(&mut log.all);
+                all.extend(offences);
+                all
+            })
+        };
+        match saved {
+            Ok(all) => {
+                log.all = all;
+                Ok(())
+            }
+            Err(e) => {
+                warn!("Couldn't write {}: {e}", self.path.display());
+                Err("The console couldn't save that.".to_owned())
+            }
+        }
+    }
+}
+
+/// The offences in log `text`, skipping lines that don't read.
+fn lines(path: &Path, text: &str) -> Vec<Offence> {
+    text.lines()
+        .filter(|l| !l.trim().is_empty())
+        .filter_map(|line| match serde_json::from_str(line) {
+            Ok(offence) => Some(offence),
+            Err(e) => {
+                warn!("Skipping an unreadable line of {}: {e}", path.display());
+                None
+            }
+        })
+        .collect()
+}
+
+/// The offences kept the old way beside log `path`, written into it.
+fn from_json(path: &Path) -> Result<Vec<Offence>, String> {
+    let old = path.with_extension("json");
+    let all: Vec<Offence> = match fs::read_to_string(&old) {
+        Ok(text) => serde_json::from_str(&text)
+            .map_err(|e| format!("{} is unreadable: {e}", old.display()))?,
+        Err(e) if e.kind() == ErrorKind::NotFound => return Ok(Vec::new()),
+        Err(e) => return Err(format!("Couldn't read {}: {e}", old.display())),
+    };
+    rewrite(path, &all).map_err(|e| format!("Couldn't write {}: {e}", path.display()))?;
+    Ok(all)
+}
+
+fn to_lines(offences: &[Offence]) -> std::io::Result<Vec<u8>> {
+    let mut out = Vec::new();
+    for offence in offences {
+        serde_json::to_writer(&mut out, offence)?;
+        out.push(b'\n');
+    }
+    Ok(out)
+}
+
+fn append(path: &Path, offences: &[Offence]) -> std::io::Result<()> {
+    if let Some(dir) = path.parent() {
+        fs::create_dir_all(dir)?;
+    }
+    fs::OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(path)?
+        .write_all(&to_lines(offences)?)
+}
+
+/// Writes beside the log and renames over it, so a crash never leaves it
+/// half written.
+fn rewrite(path: &Path, offences: &[Offence]) -> std::io::Result<()> {
+    if let Some(dir) = path.parent() {
+        fs::create_dir_all(dir)?;
+    }
+    let tmp = path.with_extension("jsonl.tmp");
+    fs::write(&tmp, to_lines(offences)?)?;
+    fs::rename(&tmp, path)
+}
+
 pub struct Templates {
     file: JsonFile<TemplateFile>,
-    offences: JsonFile<Vec<Offence>>,
+    offences: Offences,
 }
 
 impl Templates {
+    /// `offences` is the log of offences given (see [`Offences::open`]).
     pub fn open(templates: PathBuf, offences: PathBuf) -> Self {
         Self {
             file: JsonFile::open(templates),
-            offences: JsonFile::open(offences),
+            offences: Offences::open(offences),
         }
     }
 
@@ -258,26 +404,26 @@ impl Templates {
 
     /// Where `player` stands on `template` now.
     pub fn standing(&self, player: &str, template: &Template) -> Standing {
-        standing(&self.offences.get(), player, template, now_ms())
+        standing(&self.offences.lock().all, player, template, now_ms())
     }
 
     /// Where `player` stands on every template.
     pub fn standings(&self, player: &str) -> Vec<Standing> {
-        let offences = self.offences.get();
+        let templates = self.all();
         let now = now_ms();
-        self.all()
+        let log = self.offences.lock();
+        templates
             .iter()
-            .map(|t| standing(&offences, player, t, now))
+            .map(|t| standing(&log.all, player, t, now))
             .collect()
     }
 
-    pub fn record(&self, offence: Offence) -> Result<(), String> {
-        self.offences.update(|all| {
-            all.push(offence);
-            let excess = all.len().saturating_sub(MAX_OFFENCES);
-            all.drain(..excess);
-            Ok(())
-        })
+    /// Records `offences`, given together (to linked accounts too).
+    pub fn record(&self, offences: Vec<Offence>) -> Result<(), String> {
+        if offences.is_empty() {
+            return Ok(());
+        }
+        self.offences.record(offences)
     }
 }
 
@@ -310,6 +456,50 @@ mod tests {
             step: 0,
             by: "mod".to_owned(),
         }
+    }
+
+    #[test]
+    fn offences_are_appended_and_trimmed_now_and_then() {
+        let dir = std::env::temp_dir().join(format!("rs-admin-offences-{}", now_ms()));
+        let path = dir.join("offences.jsonl");
+        fs::create_dir_all(&dir).unwrap();
+        // The whole-file JSON from before is read in.
+        let old = vec![offence("Bot", "macroing", 1)];
+        fs::write(
+            dir.join("offences.json"),
+            serde_json::to_string(&old).unwrap(),
+        )
+        .unwrap();
+        let log = Offences::open(path.clone());
+        assert_eq!(log.lock().all.len(), 1);
+        log.record(vec![
+            offence("Alt", "macroing", 2),
+            offence("Pal", "macroing", 2),
+        ])
+        .unwrap();
+        assert_eq!(fs::read_to_string(&path).unwrap().lines().count(), 3);
+        let reopened = Offences::open(path.clone());
+        let players: Vec<String> = reopened
+            .lock()
+            .all
+            .iter()
+            .map(|o| o.player.clone())
+            .collect();
+        assert_eq!(players, ["Bot", "Alt", "Pal"]);
+
+        let many = (0..MAX_OFFENCES + SPARE_OFFENCES - 3)
+            .map(|i| offence("Spam", "spam", i as u64))
+            .collect();
+        reopened.record(many).unwrap();
+        assert_eq!(reopened.lock().all.len(), MAX_OFFENCES + SPARE_OFFENCES);
+        // One more and the oldest go.
+        reopened.record(vec![offence("Last", "spam", 0)]).unwrap();
+        assert_eq!(reopened.lock().all.len(), MAX_OFFENCES);
+        let read = Offences::open(path);
+        let all = &read.lock().all;
+        assert_eq!(all.len(), MAX_OFFENCES);
+        assert_eq!(all[all.len() - 1].player, "Last");
+        let _ = fs::remove_dir_all(dir);
     }
 
     #[test]

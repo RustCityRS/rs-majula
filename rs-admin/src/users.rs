@@ -2,8 +2,10 @@ use crate::totp;
 use anyhow::{Context, Result, bail};
 use argon2::{Argon2, PasswordHash, PasswordHasher, PasswordVerifier};
 use serde::{Deserialize, Serialize};
+use std::fs;
+use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
-use std::sync::Mutex;
+use std::sync::{Mutex, MutexGuard};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// The shortest password a console account may have.
@@ -94,9 +96,15 @@ pub fn now_ms() -> u64 {
         .map_or(0, |d| d.as_millis() as u64)
 }
 
+/// When a file was last changed and how long it was then (`None` while
+/// there's none): it's read again only when that changes.
+type Stamp = Option<(SystemTime, u64)>;
+
 pub struct Users {
     path: PathBuf,
     lock: Mutex<()>,
+    /// The accounts as last read or written, and the file's stamp then.
+    loaded: Mutex<Option<(Stamp, Vec<User>)>>,
 }
 
 impl Users {
@@ -104,6 +112,7 @@ impl Users {
         Self {
             path,
             lock: Mutex::new(()),
+            loaded: Mutex::new(None),
         }
     }
 
@@ -112,79 +121,112 @@ impl Users {
     }
 
     fn read(&self) -> Result<UsersFile> {
-        match std::fs::read_to_string(&self.path) {
+        match fs::read_to_string(&self.path) {
             Ok(text) => serde_json::from_str(&text)
                 .with_context(|| format!("parsing {}", self.path.display())),
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(UsersFile::default()),
+            Err(e) if e.kind() == ErrorKind::NotFound => Ok(UsersFile::default()),
             Err(e) => Err(e).with_context(|| format!("reading {}", self.path.display())),
         }
+    }
+
+    fn stamp(&self) -> Result<Stamp> {
+        match fs::metadata(&self.path) {
+            Ok(meta) => Ok(Some((meta.modified()?, meta.len()))),
+            Err(e) if e.kind() == ErrorKind::NotFound => Ok(None),
+            Err(e) => Err(e).with_context(|| format!("reading {}", self.path.display())),
+        }
+    }
+
+    fn loaded(&self) -> MutexGuard<'_, Option<(Stamp, Vec<User>)>> {
+        self.loaded.lock().unwrap_or_else(|e| e.into_inner())
+    }
+
+    /// Runs `f` on the accounts, reading the file again only when it has
+    /// changed (the command line changes it too).
+    fn with<R>(&self, f: impl FnOnce(&[User]) -> R) -> Result<R> {
+        let stamp = self.stamp()?;
+        let mut loaded = self.loaded();
+        match &*loaded {
+            Some((at, users)) if *at == stamp => Ok(f(users)),
+            _ => {
+                let users = self.read()?.users;
+                let result = f(&users);
+                *loaded = Some((stamp, users));
+                Ok(result)
+            }
+        }
+    }
+
+    /// Reads the file afresh to change it with `f`, then writes it.
+    fn change<R>(&self, f: impl FnOnce(&mut Vec<User>) -> Result<R>) -> Result<R> {
+        let _guard = self.lock.lock().unwrap_or_else(|e| e.into_inner());
+        let mut file = self.read()?;
+        let result = f(&mut file.users)?;
+        self.write(&file)?;
+        // Two writes can land within one tick of the clock at the same
+        // length, so what was written is kept rather than read back.
+        *self.loaded() = Some((self.stamp()?, file.users));
+        Ok(result)
     }
 
     /// Writes beside the file and renames over it, so a reader never sees a
     /// half-written file. Owner-only where the platform has modes.
     fn write(&self, file: &UsersFile) -> Result<()> {
         if let Some(dir) = self.path.parent() {
-            std::fs::create_dir_all(dir)?;
+            fs::create_dir_all(dir)?;
         }
         let tmp = self.path.with_extension("json.tmp");
-        std::fs::write(&tmp, serde_json::to_string_pretty(file)?)?;
+        fs::write(&tmp, serde_json::to_string_pretty(file)?)?;
         #[cfg(unix)]
         {
             use std::os::unix::fs::PermissionsExt;
-            std::fs::set_permissions(&tmp, std::fs::Permissions::from_mode(0o600))?;
+            fs::set_permissions(&tmp, fs::Permissions::from_mode(0o600))?;
         }
-        std::fs::rename(&tmp, &self.path)
-            .with_context(|| format!("replacing {}", self.path.display()))
+        fs::rename(&tmp, &self.path).with_context(|| format!("replacing {}", self.path.display()))
     }
 
     pub fn all(&self) -> Result<Vec<User>> {
-        Ok(self.read()?.users)
+        self.with(<[User]>::to_vec)
     }
 
     pub fn find(&self, name: &str) -> Result<Option<User>> {
         let key = name_key(name);
-        Ok(self
-            .read()?
-            .users
-            .into_iter()
-            .find(|u| name_key(&u.name) == key))
+        self.with(|users| users.iter().find(|u| name_key(&u.name) == key).cloned())
     }
 
     /// Changes the account `name` with `f`. Fails if there is none.
     pub fn update(&self, name: &str, f: impl FnOnce(&mut User)) -> Result<User> {
-        let _guard = self.lock.lock().unwrap_or_else(|e| e.into_inner());
-        let mut file = self.read()?;
         let key = name_key(name);
-        let Some(user) = file.users.iter_mut().find(|u| name_key(&u.name) == key) else {
-            bail!("no account named {name}");
-        };
-        f(user);
-        let user = user.clone();
-        self.write(&file)?;
-        Ok(user)
+        self.change(|users| {
+            let Some(user) = users.iter_mut().find(|u| name_key(&u.name) == key) else {
+                bail!("no account named {name}");
+            };
+            f(user);
+            Ok(user.clone())
+        })
     }
 
     pub fn add(&self, user: User) -> Result<()> {
-        let _guard = self.lock.lock().unwrap_or_else(|e| e.into_inner());
-        let mut file = self.read()?;
         let key = name_key(&user.name);
-        if file.users.iter().any(|u| name_key(&u.name) == key) {
-            bail!("an account named {} already exists", user.name);
-        }
-        file.users.push(user);
-        self.write(&file)
+        self.change(|users| {
+            if users.iter().any(|u| name_key(&u.name) == key) {
+                bail!("an account named {} already exists", user.name);
+            }
+            users.push(user);
+            Ok(())
+        })
     }
 
     pub fn remove(&self, name: &str) -> Result<()> {
-        let _guard = self.lock.lock().unwrap_or_else(|e| e.into_inner());
-        let mut file = self.read()?;
         let key = name_key(name);
-        let before = file.users.len();
-        file.users.retain(|u| name_key(&u.name) != key);
-        if file.users.len() == before {
-            bail!("no account named {name}");
-        }
-        self.write(&file)
+        self.change(|users| {
+            let before = users.len();
+            users.retain(|u| name_key(&u.name) != key);
+            if users.len() == before {
+                bail!("no account named {name}");
+            }
+            Ok(())
+        })
     }
 }
 
@@ -287,6 +329,15 @@ mod tests {
         assert!(users.find("mod ash").unwrap().unwrap().disabled);
         users.remove("mod_ash").unwrap();
         assert!(users.find("mod ash").unwrap().is_none());
+        // Changed from the command line: read again.
+        std::fs::write(
+            users.path(),
+            r#"{"users":[{"name":"Mod Kat","role":"moderator","password_hash":"y"}]}"#,
+        )
+        .unwrap();
+        assert_eq!(users.all().unwrap()[0].name, "Mod Kat");
+        std::fs::remove_file(users.path()).unwrap();
+        assert!(users.all().unwrap().is_empty());
         let _ = std::fs::remove_dir_all(dir);
     }
 }

@@ -88,12 +88,11 @@ pub fn file(cases: &Cases, finding: Finding, now_ms: u64) -> Result<Option<Filed
                 .is_none_or(|t| t.cases.is_empty() && t.dismissed.is_none())
         })
         .collect();
-    let player = name_key(&finding.player);
+    let on_player = cases.of_player(&finding.player);
     if fresh.is_empty() {
         // Already filed, but it got worse since (a session that went on to
         // score more): its open case takes the new priority.
-        let worse = cases
-            .all(|c| name_key(&c.player) == player)
+        let worse = on_player
             .into_iter()
             .filter(|c| c.is_open() && finding.priority > c.priority)
             .find(|c| c.evidence.iter().any(|e| keys.contains(&e.key())));
@@ -109,7 +108,6 @@ pub fn file(cases: &Cases, finding: Finding, now_ms: u64) -> Result<Option<Filed
         let case = cases.change(OPENED_BY, open.id, |_| Ok(changes))?;
         return Ok(Some(Filed::Added(case.id)));
     }
-    let on_player = cases.all(|c| name_key(&c.player) == player);
     let mut changes: Vec<Change> = fresh
         .iter()
         .map(|evidence| Change::EvidenceAdded {
@@ -370,22 +368,34 @@ async fn recent_lifts(app: &App, since_ms: i64) -> Result<Vec<ModerationRecord>,
 }
 
 /// The lifts over the last day by staff linked to whoever they lifted,
-/// each looked into once.
-async fn lift_findings(app: &App, since_ms: i64) -> Result<Vec<Finding>, String> {
+/// each looked into once: `unlinked` holds those found not to be, for as
+/// long as they're that recent.
+async fn lift_findings(
+    app: &App,
+    since_ms: i64,
+    unlinked: &mut HashSet<i64>,
+) -> Result<Vec<Finding>, String> {
     let lifts = recent_lifts(app, since_ms).await?;
+    unlinked.retain(|id| lifts.iter().any(|l| l.id == *id));
     let keys: Vec<String> = lifts
         .iter()
         .map(|l| format!("moderation:{}", l.id))
         .collect();
     let triage = app.cases.triage_of(&keys);
+    let unchecked: Vec<ModerationRecord> = lifts
+        .into_iter()
+        .zip(keys)
+        .filter(|(lift, key)| {
+            let seen = triage
+                .get(key)
+                .is_some_and(|t| !t.cases.is_empty() || t.dismissed.is_some());
+            !seen && !lift.moderator.is_empty() && !unlinked.contains(&lift.id)
+        })
+        .map(|(lift, _)| lift)
+        .take(MAX_LINK_CHECKS)
+        .collect();
     let mut findings = Vec::new();
-    for (lift, key) in lifts.into_iter().zip(keys).take(MAX_LINK_CHECKS) {
-        let seen = triage
-            .get(&key)
-            .is_some_and(|t| !t.cases.is_empty() || t.dismissed.is_some());
-        if seen || lift.moderator.is_empty() {
-            continue;
-        }
+    for lift in unchecked {
         let link: LinkBetween = app
             .worlds
             .ask(
@@ -396,8 +406,11 @@ async fn lift_findings(app: &App, since_ms: i64) -> Result<Vec<Finding>, String>
                 },
             )
             .await?;
-        if let Some(via) = link.via {
-            findings.push(lift_finding(lift, via));
+        match link.via {
+            Some(via) => findings.push(lift_finding(lift, via)),
+            None => {
+                unlinked.insert(lift.id);
+            }
         }
     }
     Ok(findings)
@@ -464,9 +477,10 @@ async fn recent_reports(app: &App, since_ms: i64) -> Result<Vec<ReportRecord>, S
 }
 
 /// Looks for what's new once, staff included: a case on a staff member is
-/// only for staff above them (see `CaseView`). Returns how many cases it
-/// opened or added to.
-pub async fn check(app: &App) -> Result<usize, String> {
+/// only for staff above them (see `CaseView`). `unlinked` carries the lifts
+/// already looked into from one check to the next. Returns how many cases
+/// it opened or added to.
+pub async fn check(app: &App, unlinked: &mut HashSet<i64>) -> Result<usize, String> {
     let since_ms = now_ms() as i64 - LOOK_BACK_MS;
     let mut findings = session_findings(recent_sessions(app, since_ms).await?);
     let evasion: Vec<Evasion> = app
@@ -482,7 +496,7 @@ pub async fn check(app: &App) -> Result<usize, String> {
         .await?;
     findings.extend(evasion_findings(evasion));
     findings.extend(report_findings(recent_reports(app, since_ms).await?));
-    findings.extend(lift_findings(app, since_ms).await?);
+    findings.extend(lift_findings(app, since_ms, unlinked).await?);
 
     let mut filed = 0;
     for finding in findings {
@@ -513,9 +527,10 @@ pub async fn keep_checking(app: Arc<App>) {
     let mut interval = tokio::time::interval(CHECK_INTERVAL);
     interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
     let mut failing = false;
+    let mut unlinked = HashSet::new();
     loop {
         interval.tick().await;
-        match check(&app).await {
+        match check(&app, &mut unlinked).await {
             Ok(_) => failing = false,
             Err(e) if !failing => {
                 warn!("Couldn't check the worlds for detections: {}", e);
