@@ -332,11 +332,22 @@ impl Db {
     /// stores a recording's chunks one after another, so once one is here
     /// every one before it is (or was lost).
     pub async fn replay_chunks_from(&self, id: i64, seq: i32) -> Result<Vec<ReplayChunk>, Error> {
+        self.replay_chunks_page(id, seq, i64::MAX).await
+    }
+
+    /// Like [`Self::replay_chunks_from`], the first `limit` of them.
+    pub async fn replay_chunks_page(
+        &self,
+        id: i64,
+        seq: i32,
+        limit: i64,
+    ) -> Result<Vec<ReplayChunk>, Error> {
         let rows: Vec<(i32, i32, i32, Vec<u8>)> = sqlx::query_as(
-            "SELECT seq, start_ms, end_ms, data FROM replay_chunks WHERE replay_id = $1 AND seq >= $2 ORDER BY seq",
+            "SELECT seq, start_ms, end_ms, data FROM replay_chunks WHERE replay_id = $1 AND seq >= $2 ORDER BY seq LIMIT $3",
         )
         .bind(id)
         .bind(seq)
+        .bind(limit)
         .fetch_all(&self.pool)
         .await?;
         Ok(rows

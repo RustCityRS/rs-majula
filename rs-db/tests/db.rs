@@ -2006,6 +2006,8 @@ async fn replay_chunks_page_from_a_seq(pool: PgPool) {
     assert_eq!(seqs(db.replay_chunks_from(1, 1).await.unwrap()), [2, 3]);
     assert_eq!(seqs(db.replay_chunks_from(1, 3).await.unwrap()), [3]);
     assert!(db.replay_chunks_from(1, 4).await.unwrap().is_empty());
+    assert_eq!(seqs(db.replay_chunks_page(1, 0, 2).await.unwrap()), [0, 2]);
+    assert_eq!(seqs(db.replay_chunks_page(1, 3, 2).await.unwrap()), [3]);
 }
 
 #[sqlx::test]

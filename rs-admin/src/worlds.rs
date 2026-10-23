@@ -8,6 +8,7 @@ use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::Path;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, RwLock};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tracing::{info, warn};
@@ -126,6 +127,8 @@ pub struct Worlds {
     secret: Box<[u8]>,
     client: reqwest::Client,
     snapshots: RwLock<HashMap<u8, Snapshot>>,
+    /// Which world a lookup asks first, turn by turn.
+    turn: AtomicUsize,
 }
 
 impl Worlds {
@@ -142,7 +145,18 @@ impl Worlds {
             secret: secret.as_bytes().into(),
             client,
             snapshots: RwLock::default(),
+            turn: AtomicUsize::new(0),
         }
+    }
+
+    /// `worlds` starting at the next one's turn, so lookups any of them can
+    /// answer are spread over them.
+    fn in_turn(&self, mut worlds: Vec<WorldConfig>) -> Vec<WorldConfig> {
+        if !worlds.is_empty() {
+            let first = self.turn.fetch_add(1, Ordering::Relaxed) % worlds.len();
+            worlds.rotate_left(first);
+        }
+        worlds
     }
 
     pub fn get(&self, node: u8) -> Option<&WorldConfig> {
@@ -196,7 +210,7 @@ impl Worlds {
         let body =
             serde_json::to_vec(&ReplayGet { id: id.to_owned() }).expect("serialising a request");
         let mut error = format!("No world on revision {revision} is online to play it");
-        for world in self.online_at(revision) {
+        for world in self.in_turn(self.online_at(revision)) {
             let response = self
                 .send(
                     &world.url,
@@ -456,8 +470,9 @@ impl Worlds {
         self.call(world, path::PLAYERS, None).await
     }
 
-    /// Asks the online worlds in turn until one answers: for lookups in the
-    /// game database, which any of them can make.
+    /// Asks the online worlds in turn until one answers, starting at a
+    /// different one each time: for lookups in the game database, which any
+    /// of them can make.
     pub async fn ask<B: Serialize, T: DeserializeOwned>(
         &self,
         path: &str,
@@ -497,7 +512,7 @@ impl Worlds {
     ) -> Result<T, String> {
         let body = serde_json::to_vec(body).expect("serialising a request");
         let mut error = "No world is online to ask".to_owned();
-        for world in worlds {
+        for world in self.in_turn(worlds) {
             let answer = self
                 .call_at(&world.url, Server::World, path, Some(body.clone()), timeout)
                 .await;
@@ -606,5 +621,36 @@ pub async fn poll(worlds: Arc<Worlds>) {
     loop {
         interval.tick().await;
         worlds.refresh(None).await;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn lookups_take_turns_between_worlds() {
+        let world = |node| WorldConfig {
+            id: u16::from(node),
+            node,
+            region: String::new(),
+            url: format!("http://127.0.0.1:{}", 18_000 + u16::from(node)),
+            client: None,
+            unit: None,
+        };
+        let worlds = Worlds::new(vec![], None, "secret");
+        let firsts: Vec<u8> = (0..4)
+            .map(|_| worlds.in_turn(vec![world(1), world(2), world(3)])[0].node)
+            .collect();
+        assert_eq!(firsts, [1, 2, 3, 1]);
+        assert_eq!(
+            worlds
+                .in_turn(vec![world(1), world(2)])
+                .iter()
+                .map(|w| w.node)
+                .collect::<Vec<_>>(),
+            [1, 2]
+        );
+        assert!(worlds.in_turn(vec![]).is_empty());
     }
 }

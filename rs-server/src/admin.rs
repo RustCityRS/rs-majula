@@ -1,8 +1,8 @@
 use crate::recovery;
 use crate::{ConnectionGuard, REVISION};
-use axum::body::Body;
+use axum::body::{Body, Bytes};
 use axum::extract::{Request, State};
-use axum::http::StatusCode;
+use axum::http::{StatusCode, header};
 use axum::middleware::{self, Next};
 use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
@@ -39,6 +39,8 @@ use rs_engine::{
 };
 use rs_util::base37::{is_valid_userhash, to_raw_username, to_screen_name, to_userhash};
 use std::collections::{HashMap, VecDeque};
+use std::convert::Infallible;
+use std::mem;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
@@ -47,6 +49,7 @@ use tokio::net::TcpListener;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{oneshot, watch};
 use tokio::time::timeout;
+use tower_http::compression::CompressionLayer;
 use tracing::{info, warn};
 
 /// The exit code of a world that was shut down rather than rebooted. Its
@@ -126,6 +129,9 @@ struct AdminState {
     passwords: Passwords,
     /// Held while scripts are recompiled, so reloads don't overlap.
     reloading: tokio::sync::Mutex<()>,
+    /// Held while a replay file is built from what's stored, so only one is
+    /// in memory at a time.
+    building: tokio::sync::Mutex<()>,
 }
 
 impl AdminState {
@@ -201,6 +207,7 @@ pub async fn serve(
         spectates: Mutex::default(),
         passwords: Passwords::new(&pepper),
         reloading: tokio::sync::Mutex::new(()),
+        building: tokio::sync::Mutex::new(()),
     });
     tokio::spawn(record_ticks(stats, state.clone()));
     let router = Router::new()
@@ -229,8 +236,14 @@ pub async fn serve(
         .route(path::REPLAYS, post(replays_lookup))
         .route(path::REPLAY, post(replay_lookup))
         .route(path::REPLAY_STORAGE, post(replay_storage))
-        .route(path::REPLAY_DATA, post(replay_data))
-        .route(path::LIVE_REPLAY, post(live_replay))
+        .route(
+            path::REPLAY_DATA,
+            post(replay_data).layer(CompressionLayer::new()),
+        )
+        .route(
+            path::LIVE_REPLAY,
+            post(live_replay).layer(CompressionLayer::new()),
+        )
         .route(path::ANTICHEAT, post(anticheat_lookup))
         .route(path::ACCOUNTS, post(accounts_lookup))
         .route(path::PLAYER_SHEET, post(player_sheet))
@@ -1196,6 +1209,65 @@ async fn replay_storage(
     }))
 }
 
+/// Stored chunks read at a time, building a replay file.
+const REPLAY_PAGE: i64 = 32;
+
+/// How much of a replay file is sent (and gzipped) at a time.
+const SEND_PIECE: usize = 64 << 10;
+
+/// Feeds recording `id`'s chunks from `seq` on to `builder`, a page at a
+/// time. Returns the seq after the last read and how many bytes were read.
+async fn feed_stored(
+    state: &AdminState,
+    builder: &mut playback::Builder,
+    id: i64,
+    mut seq: i32,
+) -> Result<(i32, i64), StatusCode> {
+    let mut bytes = 0;
+    loop {
+        let page = state
+            .db
+            .replay_chunks_page(id, seq, REPLAY_PAGE)
+            .await
+            .map_err(db_failed)?;
+        let Some(last) = page.last() else {
+            return Ok((seq, bytes));
+        };
+        seq = last.seq + 1;
+        bytes += page.iter().map(|c| c.data.len() as i64).sum::<i64>();
+        let full = page.len() as i64 == REPLAY_PAGE;
+        let mut fed = mem::take(builder);
+        let (fed, whole) = tokio::task::spawn_blocking(move || {
+            let whole = page.iter().all(|c| fed.feed_chunk(&c.data));
+            (fed, whole)
+        })
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+        *builder = fed;
+        if !whole || !full {
+            return Ok((seq, bytes));
+        }
+    }
+}
+
+/// A replay file ([`playback::Builder::take_parts`]) to send, its frames in
+/// pieces so each is gzipped without holding up the runtime for long.
+fn replay_response((start, frames): (Vec<u8>, Vec<u8>)) -> Response {
+    let frames = Bytes::from(frames);
+    let len = frames.len();
+    let pieces = (0..len)
+        .step_by(SEND_PIECE)
+        .map(move |at| frames.slice(at..(at + SEND_PIECE).min(len)));
+    let body = std::iter::once(Bytes::from(start))
+        .chain(pieces)
+        .map(Ok::<_, Infallible>);
+    (
+        [(header::CONTENT_TYPE, "application/octet-stream")],
+        Body::from_stream(futures_util::stream::iter(body)),
+    )
+        .into_response()
+}
+
 /// The replay file for a recording ([`playback`]). Only a world of the
 /// revision it was recorded at can read it.
 async fn replay_data(
@@ -1203,29 +1275,32 @@ async fn replay_data(
     Json(req): Json<ReplayGet>,
 ) -> Result<Response, StatusCode> {
     let id = replay_id(&req.id)?;
-    let Some(record) = state.db.replay(id).await.map_err(db_failed)? else {
-        return Err(StatusCode::NOT_FOUND);
-    };
-    if record.revision != REVISION {
-        return Err(StatusCode::CONFLICT);
+    let _building = state.building.lock().await;
+    let mut retried = false;
+    loop {
+        let Some(record) = state.db.replay(id).await.map_err(db_failed)? else {
+            return Err(StatusCode::NOT_FOUND);
+        };
+        if record.revision != REVISION {
+            return Err(StatusCode::CONFLICT);
+        }
+        let mut builder = playback::Builder::default();
+        let (_, bytes) = feed_stored(&state, &mut builder, id, 0).await?;
+        // An ended recording changes only by being compacted: one compacted
+        // between its pages may have come cut short, so it's read again.
+        if record.ended_ms.is_some() && bytes != record.bytes && !retried {
+            retried = true;
+            continue;
+        }
+        let mut extra = serde_json::Map::new();
+        extra.insert("id".into(), record.id.to_string().into());
+        extra.insert("player".into(), record.player.into());
+        extra.insert("node".into(), record.node_id.into());
+        extra.insert("revision".into(), record.revision.into());
+        extra.insert("startedMs".into(), record.started_ms.into());
+        extra.insert("complete".into(), record.complete.into());
+        return Ok(replay_response(builder.take_parts(extra)));
     }
-    let chunks = state.db.replay_chunks(id).await.map_err(db_failed)?;
-    let mut extra = serde_json::Map::new();
-    extra.insert("id".into(), record.id.to_string().into());
-    extra.insert("player".into(), record.player.into());
-    extra.insert("node".into(), record.node_id.into());
-    extra.insert("revision".into(), record.revision.into());
-    extra.insert("startedMs".into(), record.started_ms.into());
-    extra.insert("complete".into(), record.complete.into());
-    let file =
-        tokio::task::spawn_blocking(move || playback::build(&playback::decompress(&chunks), extra))
-            .await
-            .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-    Ok((
-        [(axum::http::header::CONTENT_TYPE, "application/octet-stream")],
-        file,
-    )
-        .into_response())
 }
 
 /// How long a live watch keeps a session's chunks coming every couple of
@@ -1285,7 +1360,10 @@ async fn live_replay(
                 .map_or(true, |s| s.used.elapsed() < SPECTATE_IDLE)
         });
     let file = match req.token {
-        None => start_spectate(&state, id).await?,
+        None => {
+            let _building = state.building.lock().await;
+            start_spectate(&state, id).await?
+        }
         Some(token) => {
             let spectate = state
                 .spectates
@@ -1310,11 +1388,7 @@ async fn live_replay(
             file
         }
     };
-    Ok((
-        [(axum::http::header::CONTENT_TYPE, "application/octet-stream")],
-        file,
-    )
-        .into_response())
+    Ok(replay_response(file))
 }
 
 /// Whether recording `id` is going on on this world, keeping its chunks
@@ -1331,15 +1405,15 @@ async fn keep_live(state: &AdminState, id: i64) -> Result<bool, StatusCode> {
     .await
 }
 
-async fn start_spectate(state: &AdminState, id: i64) -> Result<Vec<u8>, StatusCode> {
+async fn start_spectate(state: &AdminState, id: i64) -> Result<(Vec<u8>, Vec<u8>), StatusCode> {
     let Some(record) = state.db.replay(id).await.map_err(db_failed)? else {
         return Err(StatusCode::NOT_FOUND);
     };
     if record.revision != REVISION || !record.complete || !keep_live(state, id).await? {
         return Err(StatusCode::CONFLICT);
     }
-    let chunks = state.db.replay_chunks(id).await.map_err(db_failed)?;
-    let next_seq = chunks.last().map_or(0, |c| c.seq + 1);
+    let mut builder = playback::Builder::default();
+    let (next_seq, _) = feed_stored(state, &mut builder, id, 0).await?;
     let token = format!("{:032x}", rand::random::<u128>());
     let mut extra = live_header(&token, false);
     extra.insert("id".into(), record.id.to_string().into());
@@ -1348,14 +1422,7 @@ async fn start_spectate(state: &AdminState, id: i64) -> Result<Vec<u8>, StatusCo
     extra.insert("revision".into(), record.revision.into());
     extra.insert("startedMs".into(), record.started_ms.into());
     extra.insert("complete".into(), true.into());
-    let (builder, file) = tokio::task::spawn_blocking(move || {
-        let mut builder = playback::Builder::default();
-        builder.feed(&playback::decompress(&chunks));
-        let file = builder.take(extra);
-        (builder, file)
-    })
-    .await
-    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let file = builder.take_parts(extra);
     let spectate = Spectate {
         id,
         builder,
@@ -1376,7 +1443,7 @@ async fn continue_spectate(
     state: &AdminState,
     spectate: &mut Spectate,
     token: &str,
-) -> Result<(Vec<u8>, bool), StatusCode> {
+) -> Result<((Vec<u8>, Vec<u8>), bool), StatusCode> {
     let id = spectate.id;
     // Over once it's no longer going on here and its end is stored: that's
     // read before the chunks, so the last of them come with it.
@@ -1388,16 +1455,12 @@ async fn continue_spectate(
             Some(r) => r.ended_ms.is_some() || !r.complete || now_ms() - r.updated_ms > STALE_MS,
         }
     };
-    let chunks = state
-        .db
-        .replay_chunks_from(id, spectate.next_seq)
-        .await
-        .map_err(db_failed)?;
-    if let Some(last) = chunks.last() {
-        spectate.next_seq = last.seq + 1;
-    }
-    spectate.builder.feed(&playback::decompress(&chunks));
-    Ok((spectate.builder.take(live_header(token, ended)), ended))
+    let (next_seq, _) = feed_stored(state, &mut spectate.builder, id, spectate.next_seq).await?;
+    spectate.next_seq = next_seq;
+    Ok((
+        spectate.builder.take_parts(live_header(token, ended)),
+        ended,
+    ))
 }
 
 /// The most players the anti-cheat leaderboard lists.
@@ -2922,5 +2985,36 @@ mod tests {
             .0,
             MAINTAINER
         );
+    }
+
+    #[tokio::test]
+    async fn replay_files_go_gzipped_in_pieces() {
+        use flate2::read::GzDecoder;
+        use std::io::Read;
+        use tower::ServiceExt;
+        let start = b"RSRP header".to_vec();
+        let frames: Vec<u8> = (0..SEND_PIECE * 3 + 7).map(|i| (i % 251) as u8).collect();
+        let whole = [start.clone(), frames.clone()].concat();
+        let router = Router::new().route(
+            "/",
+            post(move || {
+                let file = (start.clone(), frames.clone());
+                async move { replay_response(file) }
+            })
+            .layer(CompressionLayer::new()),
+        );
+        let request = axum::http::Request::post("/")
+            .header(header::ACCEPT_ENCODING, "gzip")
+            .body(Body::empty())
+            .unwrap();
+        let response = router.oneshot(request).await.unwrap();
+        assert_eq!(response.headers()[header::CONTENT_ENCODING], "gzip");
+        let body = axum::body::to_bytes(response.into_body(), usize::MAX)
+            .await
+            .unwrap();
+        assert!(body.len() < whole.len() >> 2);
+        let mut sent = Vec::new();
+        GzDecoder::new(&body[..]).read_to_end(&mut sent).unwrap();
+        assert_eq!(sent, whole);
     }
 }

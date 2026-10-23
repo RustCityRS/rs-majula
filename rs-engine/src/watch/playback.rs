@@ -1,7 +1,6 @@
 use super::format::{Entry, Reader};
 use super::input::{Input, InputDecoder, Timed, decode};
 use flate2::read::DeflateDecoder;
-use rs_db::ReplayChunk;
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
 use rs_protocol::network::game::client::message_public::MessagePublic;
@@ -11,6 +10,9 @@ use rs_util::wordpack;
 use serde_json::{Map, Value, json};
 use std::io::Read;
 use std::mem;
+
+/// How much of a stored chunk is decompressed at a time.
+const PIECE: u64 = 256 << 10;
 
 /// How long the replay takes to type each key of a line the player sent.
 const KEY_MS: u32 = 70;
@@ -154,19 +156,6 @@ pub fn decompress_chunk(data: &[u8]) -> Option<Vec<u8>> {
     read.ok().map(|()| raw)
 }
 
-/// Decompresses `chunks` (in order) back into one recording. Stops at a
-/// chunk that doesn't decompress: nothing after it can play.
-pub fn decompress(chunks: &[ReplayChunk]) -> Vec<u8> {
-    let mut out = Vec::new();
-    for chunk in chunks {
-        let Some(mut raw) = decompress_chunk(&chunk.data) else {
-            break;
-        };
-        out.append(&mut raw);
-    }
-    out
-}
-
 /// Builds the replay file from a recording, with `extra` (who, where,
 /// the verdict) added to its header.
 pub fn build(recording: &[u8], extra: Map<String, Value>) -> Vec<u8> {
@@ -212,7 +201,42 @@ impl Builder {
 
     /// More of the recording: whole entries, carrying on from the last feed.
     pub fn feed(&mut self, recording: &[u8]) {
-        for entry in Reader::new(recording) {
+        self.feed_entries(&mut Reader::new(recording));
+    }
+
+    /// The next stored chunk, decompressed a piece at a time so the whole
+    /// recording is never in memory at once. False where it stops being
+    /// readable: nothing after that can play.
+    pub fn feed_chunk(&mut self, data: &[u8]) -> bool {
+        if data.starts_with(&ZSTD_MAGIC) {
+            zstd::stream::read::Decoder::with_buffer(data).is_ok_and(|raw| self.feed_from(raw))
+        } else {
+            self.feed_from(DeflateDecoder::new(data))
+        }
+    }
+
+    fn feed_from(&mut self, mut raw: impl Read) -> bool {
+        let (mut buf, mut ms) = (Vec::new(), 0);
+        loop {
+            match raw.by_ref().take(PIECE).read_to_end(&mut buf) {
+                Ok(0) => return true,
+                Ok(_) => {}
+                Err(_) => return false,
+            }
+            let mut entries = Reader::resume(&buf, ms);
+            self.feed_entries(&mut entries);
+            if entries.broken() {
+                return false;
+            }
+            ms = entries.ms();
+            // An entry cut short by the piece's end is read with the next.
+            let read = entries.read();
+            buf.drain(..read);
+        }
+    }
+
+    fn feed_entries(&mut self, entries: &mut Reader) {
+        for entry in entries {
             match entry {
                 Entry::Tick { ms } => {
                     self.ms = ms;
@@ -287,6 +311,14 @@ impl Builder {
     /// A replay file of everything fed since the last take (from the start
     /// on the first), with `extra` added to its header.
     pub fn take(&mut self, extra: Map<String, Value>) -> Vec<u8> {
+        let (mut file, frames) = self.take_parts(extra);
+        file.extend_from_slice(&frames);
+        file
+    }
+
+    /// [`Self::take`] as the file's start and its frames, which follow it:
+    /// to send without copying the frames.
+    pub fn take_parts(&mut self, extra: Map<String, Value>) -> (Vec<u8>, Vec<u8>) {
         // Reports arrive batched, so the clicks may be out of order.
         self.clicks.sort_unstable();
         let lines = mem::take(&mut self.lines);
@@ -318,13 +350,12 @@ impl Builder {
         header.insert("notes".into(), Value::Array(notes));
         let header = Value::Object(header).to_string();
 
-        let mut out = Vec::with_capacity(9 + header.len() + frames.len());
-        out.extend_from_slice(MAGIC);
-        out.push(VERSION);
-        out.extend_from_slice(&(header.len() as u32).to_be_bytes());
-        out.extend_from_slice(header.as_bytes());
-        out.extend_from_slice(&frames);
-        out
+        let mut start = Vec::with_capacity(9 + header.len());
+        start.extend_from_slice(MAGIC);
+        start.push(VERSION);
+        start.extend_from_slice(&(header.len() as u32).to_be_bytes());
+        start.extend_from_slice(header.as_bytes());
+        (start, frames)
     }
 }
 
@@ -347,7 +378,8 @@ mod tests {
         assert_eq!(inputs[2][0], 2_000);
     }
     use crate::watch::format::{
-        CLIENT, LOGIN, NOTE, SERVER, TICK, put_bytes, put_error, put_flag, put_varint,
+        CLIENT, KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag,
+        put_varint,
     };
 
     #[test]
@@ -408,29 +440,56 @@ mod tests {
         assert_eq!(&second[9..18], &[0, 2, 10, 1, 0, 3, 11, 2, 3]);
     }
 
+    /// A recording of one tick at `ms` with a note.
+    fn noted(ms: u32, note: &str) -> Vec<u8> {
+        let mut rec = vec![TICK];
+        put_varint(&mut rec, ms);
+        put_bytes(&mut rec, NOTE, note.as_bytes());
+        rec
+    }
+
     #[test]
     fn old_deflate_chunks_play_after_zstd_ones() {
         use flate2::Compression;
         use flate2::write::DeflateEncoder;
         use std::io::Write;
-        let chunk = |data: Vec<u8>| ReplayChunk {
-            seq: 0,
-            start_ms: 0,
-            end_ms: 0,
-            data,
+        let notes = |b: &mut Builder| {
+            let (header, _) = split(&b.take(Map::new()));
+            header["notes"].clone()
         };
         let mut deflate = DeflateEncoder::new(Vec::new(), Compression::fast());
-        deflate.write_all(b"old ").unwrap();
-        let old = chunk(deflate.finish().unwrap());
-        let new = chunk(zstd::bulk::compress(b"new", 3).unwrap());
-        assert_eq!(decompress(&[old, new]), b"old new");
+        deflate.write_all(&noted(0, "old")).unwrap();
+        let old = deflate.finish().unwrap();
+        let new = zstd::bulk::compress(&noted(600, "new"), 3).unwrap();
+        let mut b = Builder::default();
+        assert!(b.feed_chunk(&old) && b.feed_chunk(&new));
+        assert_eq!(notes(&mut b), json!([[0, "old"], [600, "new"]]));
 
-        // A broken chunk ends it there, leaving nothing of itself.
+        // A broken chunk ends it there.
         let mut cut = zstd::bulk::compress(&[7; 4096], 3).unwrap();
         cut.truncate(cut.len() >> 1);
-        let after = chunk(zstd::bulk::compress(b"lost", 3).unwrap());
-        let first = chunk(zstd::bulk::compress(b"kept", 3).unwrap());
-        assert_eq!(decompress(&[first, chunk(cut), after]), b"kept");
+        assert!(!b.feed_chunk(&cut));
+        assert!(!b.feed_chunk(&noted(0, "not a chunk")));
+    }
+
+    #[test]
+    fn a_chunk_reads_the_same_a_piece_at_a_time() {
+        // Entries of every size, some longer than a piece, across many.
+        let mut rec = vec![TICK];
+        put_varint(&mut rec, 0);
+        for i in 0..3_000u32 {
+            rec.push(TICK_DELTA);
+            put_varint(&mut rec, 600);
+            put_bytes(&mut rec, SERVER, &vec![i as u8; (i as usize * 37) % 900]);
+            put_bytes(&mut rec, NOTE, format!("Step {i}").as_bytes());
+        }
+        put_bytes(&mut rec, KEYFRAME, &vec![9; (PIECE as usize) * 2 + 5]);
+        put_bytes(&mut rec, NOTE, b"Done");
+        assert!(rec.len() as u64 > PIECE * 4);
+        let whole = build(&rec, Map::new());
+        let mut pieces = Builder::default();
+        assert!(pieces.feed_chunk(&zstd::bulk::compress(&rec, 3).unwrap()));
+        assert_eq!(pieces.take(Map::new()), whole);
     }
 
     /// A file's header and frames.

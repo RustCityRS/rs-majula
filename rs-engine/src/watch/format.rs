@@ -93,11 +93,42 @@ pub struct Reader<'a> {
     pos: usize,
     /// When the last tick began.
     ms: u32,
+    /// Where the last whole entry read ends.
+    read: usize,
+    /// Whether it stopped at something that isn't an entry, rather than at
+    /// the end (or an entry cut short by it).
+    broken: bool,
 }
 
 impl<'a> Reader<'a> {
     pub fn new(buf: &'a [u8]) -> Self {
-        Self { buf, pos: 0, ms: 0 }
+        Self::resume(buf, 0)
+    }
+
+    /// Reads on from where another reader of the same chunk stopped, with
+    /// its [`Self::ms`].
+    pub fn resume(buf: &'a [u8], ms: u32) -> Self {
+        Self {
+            buf,
+            pos: 0,
+            ms,
+            read: 0,
+            broken: false,
+        }
+    }
+
+    /// When the last tick read began.
+    pub fn ms(&self) -> u32 {
+        self.ms
+    }
+
+    /// How much of the buffer the entries read so far take up.
+    pub fn read(&self) -> usize {
+        self.read
+    }
+
+    pub fn broken(&self) -> bool {
+        self.broken
     }
 
     fn varint(&mut self) -> Option<u32> {
@@ -110,6 +141,7 @@ impl<'a> Reader<'a> {
                 return Some(value);
             }
         }
+        self.broken = true;
         None
     }
 
@@ -119,13 +151,14 @@ impl<'a> Reader<'a> {
         self.pos += len;
         Some(bytes)
     }
-}
 
-impl<'a> Iterator for Reader<'a> {
-    type Item = Entry<'a>;
+    fn text(&mut self) -> Option<&'a str> {
+        let text = str::from_utf8(self.bytes()?).ok();
+        self.broken |= text.is_none();
+        text
+    }
 
-    /// The next entry, `None` at the end or where the stream is cut short.
-    fn next(&mut self) -> Option<Entry<'a>> {
+    fn entry(&mut self) -> Option<Entry<'a>> {
         let tag = *self.buf.get(self.pos)?;
         self.pos += 1;
         Some(match tag {
@@ -148,21 +181,37 @@ impl<'a> Iterator for Reader<'a> {
             }
             LOGIN => Entry::Login(self.bytes()?),
             RECONNECT => Entry::Reconnect(self.bytes()?),
-            NOTE => Entry::Note(str::from_utf8(self.bytes()?).ok()?),
+            NOTE => Entry::Note(self.text()?),
             KEYFRAME => Entry::Keyframe(self.bytes()?),
             FLAG => {
                 let ms = self.varint()?;
-                let text = str::from_utf8(self.bytes()?).ok()?;
+                let text = self.text()?;
                 let (flag, detail) = text.split_once('\t').unwrap_or((text, ""));
                 Entry::Flag { ms, flag, detail }
             }
             ERROR => {
-                let text = str::from_utf8(self.bytes()?).ok()?;
+                let text = self.text()?;
                 let (script, message) = text.split_once('\t').unwrap_or((text, ""));
                 Entry::Error { script, message }
             }
-            _ => return None,
+            _ => {
+                self.broken = true;
+                return None;
+            }
         })
+    }
+}
+
+impl<'a> Iterator for Reader<'a> {
+    type Item = Entry<'a>;
+
+    /// The next entry, `None` at the end or where the stream is cut short.
+    fn next(&mut self) -> Option<Entry<'a>> {
+        let entry = self.entry();
+        if entry.is_some() {
+            self.read = self.pos;
+        }
+        entry
     }
 }
 

@@ -38,6 +38,7 @@ mimalloc = { workspace = true }
 libmimalloc-sys = { workspace = true }
 rand = "0.10"
 serde_json = { workspace = true }
+tower-http = { workspace = true, features = ["compression-gzip"] }
 
 [build-dependencies]
 rs-ver = { workspace = true }
@@ -46,3 +47,5 @@ rs-ver = { workspace = true }
 workspace = true
 
 [dev-dependencies]
+flate2 = { workspace = true }
+tower = { version = "0.5", features = ["util"] }
