@@ -1,6 +1,6 @@
 use crate::counters::{self, COUNTERS};
 use crate::watch::playback::decompress_chunk;
-use crate::watch::{ReplayRequest, Report};
+use crate::watch::{ReplayRequest, Report, unqueue_bytes};
 use rs_db::{Db, DbConfig, NewReplay, ReplayChunk};
 use rustc_hash::FxHashSet;
 use std::time::Duration;
@@ -12,6 +12,8 @@ use tracing::{debug, info, warn};
 const PRUNE_EVERY: Duration = Duration::from_secs(60 * 60);
 /// The first prune waits until the world is up (and its migrations ran).
 const FIRST_PRUNE: Duration = Duration::from_secs(5 * 60);
+/// How many recordings a prune deletes at once, with their chunks.
+const PRUNE_BATCH: i64 = 100;
 /// The zstd level chunks are stored at.
 const LEVEL: i32 = 3;
 /// How often finished recordings are compacted: recompressed whole, into
@@ -35,26 +37,32 @@ pub async fn replay_task(
     days: u32,
     mut rx: Receiver<ReplayRequest>,
 ) {
-    let db = Db::connect_lazy(&config, 2);
+    // One connection each for storing, compacting and pruning.
+    let db = Db::connect_lazy(&config, 3);
     let compacting = tokio::spawn(compact_task(db.clone(), node_id));
+    let pruning = tokio::spawn(prune_task(db.clone(), days));
     // Recordings that lost a chunk: they stop there.
     let mut broken = FxHashSet::default();
-    let mut prune = interval_at(Instant::now() + FIRST_PRUNE, PRUNE_EVERY);
-    prune.set_missed_tick_behavior(MissedTickBehavior::Delay);
-    loop {
-        tokio::select! {
-            req = rx.recv() => {
-                let Some(req) = req else { break };
-                store(&db, node_id, revision, req, &mut broken).await;
-            }
-            _ = prune.tick() => match db.prune_replays(days as i32).await {
-                Ok(0) => {}
-                Ok(n) => info!("Pruned {n} session recordings older than {days} days"),
-                Err(e) => warn!("Pruning session recordings failed: {e}"),
-            },
-        }
+    while let Some(req) = rx.recv().await {
+        store(&db, node_id, revision, req, &mut broken).await;
     }
     compacting.abort();
+    pruning.abort();
+}
+
+/// Deletes recordings older than `days` every [`PRUNE_EVERY`], apart from
+/// storing them, so a long prune doesn't hold up the chunks.
+async fn prune_task(db: Db, days: u32) {
+    let mut every = interval_at(Instant::now() + FIRST_PRUNE, PRUNE_EVERY);
+    every.set_missed_tick_behavior(MissedTickBehavior::Delay);
+    loop {
+        every.tick().await;
+        match db.prune_replays(days as i32, PRUNE_BATCH).await {
+            Ok(0) => {}
+            Ok(n) => info!("Pruned {n} session recordings older than {days} days"),
+            Err(e) => warn!("Pruning session recordings failed: {e}"),
+        }
+    }
 }
 
 /// Compacts this world's finished recordings every [`COMPACT_EVERY`].
@@ -171,6 +179,9 @@ async fn store(
             let lost = broken.contains(&id);
             if ended {
                 broken.remove(&id);
+            }
+            if let Some(raw) = &chunk {
+                unqueue_bytes(raw.data.capacity());
             }
             let chunk = chunk.filter(|_| !lost).map(|raw| ReplayChunk {
                 seq: raw.seq,

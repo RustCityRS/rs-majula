@@ -4,6 +4,7 @@ use crate::player_save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
     orphan_save_file, save_orphan, save_to_file,
 };
+use crate::watch::schedule::{MAX_PLAYED, WEEK_MS};
 use rs_db::{
     Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
     PlayedSession, PlayerSave, SaveResult, check_new_password,
@@ -1106,15 +1107,18 @@ async fn authenticate(
         let week_ago = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .map_or(0, |d| d.as_millis() as i64)
-            - crate::watch::schedule::WEEK_MS;
-        let played = db.played_since(user37, week_ago).await.unwrap_or_else(|e| {
-            warn!(
-                "Couldn't read the sessions '{}' played: {}",
-                to_raw_username(user37),
-                e
-            );
-            Vec::new()
-        });
+            - WEEK_MS;
+        let played = db
+            .played_since(user37, week_ago, MAX_PLAYED)
+            .await
+            .unwrap_or_else(|e| {
+                warn!(
+                    "Couldn't read the sessions '{}' played: {}",
+                    to_raw_username(user37),
+                    e
+                );
+                Vec::new()
+            });
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),

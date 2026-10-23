@@ -256,7 +256,8 @@ impl Db {
             "WITH held AS (SELECT s.player_id, i.inv, sum(i.count::bigint)::bigint AS count ",
             "FROM player_saves s CROSS JOIN LATERAL ",
             "unnest(s.inv_types, s.inv_objs, s.inv_counts) AS i (inv, obj, count) ",
-            "WHERE i.obj = ANY($1) GROUP BY s.player_id, i.inv), ",
+            // `&&` first, along the index on the saves' items.
+            "WHERE s.inv_objs && $1 AND i.obj = ANY($1) GROUP BY s.player_id, i.inv), ",
             "totals AS (SELECT player_id, sum(count)::bigint AS total, ",
             "array_agg(inv ORDER BY count DESC) AS inv_types, ",
             "array_agg(count ORDER BY count DESC) AS inv_counts FROM held ",
@@ -285,7 +286,7 @@ impl Db {
                     count(DISTINCT s.player_id) AS holders
              FROM player_saves s
              CROSS JOIN LATERAL unnest(s.inv_objs, s.inv_counts) AS i (obj, count)
-             WHERE i.obj = ANY($1)
+             WHERE s.inv_objs && $1 AND i.obj = ANY($1)
              GROUP BY i.obj ORDER BY i.obj",
         )
         .bind(objs)

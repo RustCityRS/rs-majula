@@ -361,12 +361,14 @@ and your time zone follow your account.
 ### Session replays and anti-cheat
 
 Every world records each player's session (`--replay-days`, 7 by default;
-`0` records nothing): every packet it sends them, minus the ISAAC cipher,
+`0` records nothing, and runs no checks): every packet it sends them, minus the ISAAC cipher,
 and every packet their client sends back, in chunks compressed with zstd
 by a task with its own database connection, so saves never wait on it
 (chunks stored before zstd are deflate, and still play). Recordings go to
 `replays` and `replay_chunks` and are pruned once older than the setting.
-They're a few kilobytes per minute of play.
+They're a few kilobytes per minute of play. A recording (and the checks
+with it) ends after 20 days of one session, and chunks are dropped once
+32 MB of them wait to be stored.
 
 **Replaying.** A world serves `/replay`: its own `client.js` with
 `replay.js` loaded first. The console frames it and hands it the recording.

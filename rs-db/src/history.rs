@@ -23,6 +23,8 @@ macro_rules! columns {
 /// whatever the player did since, which a rollback wants.
 const LOGOUT_GAP_MINS: i32 = 15;
 const SESSION_GAP_MINS: i32 = 60;
+/// The players [`Db::prune_save_history`] prunes at once.
+const PRUNE_PLAYERS: usize = 1000;
 
 /// One earlier copy of a player's save.
 #[derive(Clone, Debug, sqlx::FromRow)]
@@ -204,32 +206,42 @@ impl Db {
 
     /// Forgets save points older than `days`, but never a player's newest
     /// `keep`, `batch` at a time. Returns how many. Only the players with
-    /// points that old are ranked.
+    /// points that old are looked at, [`PRUNE_PLAYERS`] at a time, each
+    /// along the index on (player, id) from its `keep`-th newest point.
     pub async fn prune_save_history(&self, days: i32, keep: i64, batch: i64) -> Result<u64, Error> {
+        let players: Vec<i64> = sqlx::query_scalar(
+            "SELECT DISTINCT player_id FROM save_history
+             WHERE saved_at < now() - make_interval(days => $1)",
+        )
+        .bind(days)
+        .fetch_all(&self.pool)
+        .await?;
         let mut pruned = 0;
-        loop {
-            let deleted = sqlx::query(
-                "DELETE FROM save_history WHERE id IN (
-                   SELECT id FROM (
-                     SELECT id, saved_at,
-                            row_number() OVER (PARTITION BY player_id ORDER BY id DESC) AS newest
-                     FROM save_history
-                     WHERE player_id IN (SELECT player_id FROM save_history
-                                         WHERE saved_at < now() - make_interval(days => $1))
-                   ) h
-                   WHERE newest > $2 AND saved_at < now() - make_interval(days => $1)
-                   LIMIT $3)",
-            )
-            .bind(days)
-            .bind(keep)
-            .bind(batch)
-            .execute(&self.pool)
-            .await?
-            .rows_affected();
-            pruned += deleted;
-            if deleted < batch as u64 {
-                return Ok(pruned);
+        for players in players.chunks(PRUNE_PLAYERS) {
+            loop {
+                let deleted = sqlx::query(
+                    "DELETE FROM save_history WHERE id IN (
+                       SELECT h.id FROM unnest($1::bigint[]) o (player_id)
+                       CROSS JOIN LATERAL (
+                         SELECT id FROM save_history s WHERE s.player_id = o.player_id
+                         ORDER BY id DESC OFFSET $2 LIMIT 1) k
+                       JOIN save_history h ON h.player_id = o.player_id AND h.id <= k.id
+                       WHERE h.saved_at < now() - make_interval(days => $3)
+                       LIMIT $4)",
+                )
+                .bind(players)
+                .bind(keep)
+                .bind(days)
+                .bind(batch)
+                .execute(&self.pool)
+                .await?
+                .rows_affected();
+                pruned += deleted;
+                if deleted < batch as u64 {
+                    break;
+                }
             }
         }
+        Ok(pruned)
     }
 }

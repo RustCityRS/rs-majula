@@ -921,6 +921,9 @@ impl ActivePlayer {
     /// Records a menu action the player chose, for the anti-cheat checks and
     /// the replay's timeline.
     pub fn watch_op(&mut self, op: Op) {
+        if !self.watch.checking() {
+            return;
+        }
         let clock = engine().clock;
         let base = self.map_base();
         self.watch.op(op, clock, base);
@@ -1099,6 +1102,9 @@ impl ActivePlayer {
 
     /// Records a "use" or spell action, e.g. "Use Bones on Altar".
     pub fn watch_use(&mut self, with: Using, on: Target) {
+        if !self.watch.checking() {
+            return;
+        }
         self.watch_op(Op::Other);
         self.watch.anticheat.repeat(("use", with, on));
         self.watch

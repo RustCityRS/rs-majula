@@ -40,7 +40,7 @@ use rustc_hash::FxHashMap;
 use state::ClientState;
 use std::fmt::{self, Write as _};
 use std::mem;
-use std::sync::atomic::{AtomicU8, Ordering};
+use std::sync::atomic::{AtomicU8, AtomicUsize, Ordering};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::Sender;
 
@@ -53,6 +53,31 @@ pub const CHUNK_BYTES: usize = 64 << 10;
 /// How many requests the recording task can fall behind by before chunks
 /// are lost.
 pub const QUEUE: usize = 4096;
+/// How much chunk memory the recording task can fall behind by before
+/// chunks are lost: what the queue holds while the database is down.
+pub const QUEUED_BYTES: usize = 32 << 20;
+
+/// The chunk memory handed to the recording task and not yet stored.
+static QUEUED: AtomicUsize = AtomicUsize::new(0);
+
+/// Counts `bytes` more chunk memory as queued, unless that's more than
+/// [`QUEUED_BYTES`].
+fn queue_bytes(bytes: usize) -> bool {
+    QUEUED
+        .try_update(Ordering::Relaxed, Ordering::Relaxed, |queued| {
+            (queued + bytes <= QUEUED_BYTES).then_some(queued + bytes)
+        })
+        .is_ok()
+}
+
+/// Takes `bytes` of chunk memory off the queued count, once they're stored
+/// (or given up on).
+pub fn unqueue_bytes(bytes: usize) {
+    QUEUED.fetch_sub(bytes, Ordering::Relaxed);
+}
+/// How long a recording runs before it's ended, well short of where its
+/// times (stored as `i32` milliseconds) would wrap. The checks end with it.
+pub const MAX_RECORDED_MS: u32 = 20 * 24 * 3_600_000;
 /// How often a recording takes a keyframe: a replay seeking anywhere plays
 /// at most this much to get there.
 pub const KEYFRAME_MS: u32 = 60_000;
@@ -187,6 +212,12 @@ fn stagger(id: i64) -> u64 {
     x ^ (x >> 31)
 }
 
+/// `elapsed` in milliseconds, held at `u32::MAX` past 49 days rather than
+/// wrapping.
+fn millis(elapsed: Duration) -> u32 {
+    u32::try_from(elapsed.as_millis()).unwrap_or(u32::MAX)
+}
+
 /// Room for the next chunk: a quarter more than the last took, so a busy
 /// session's isn't grown as it fills.
 fn chunk_capacity(last: usize) -> usize {
@@ -217,8 +248,10 @@ impl Watch {
                 next_report_ms: next_chunk_ms,
             })
         });
+        let mut anticheat = AntiCheat::default();
+        anticheat.off = recording.is_none();
         Self {
-            anticheat: AntiCheat::default(),
+            anticheat,
             started: Instant::now(),
             arrived: None,
             recording,
@@ -247,12 +280,12 @@ impl Watch {
 
     /// Milliseconds into the session.
     pub fn ms(&self) -> u32 {
-        self.started.elapsed().as_millis() as u32
+        millis(self.started.elapsed())
     }
 
     /// Milliseconds into the session at `at`.
     pub fn ms_at(&self, at: Instant) -> u32 {
-        at.saturating_duration_since(self.started).as_millis() as u32
+        millis(at.saturating_duration_since(self.started))
     }
 
     /// The client packet being handled arrived `at`.
@@ -272,7 +305,7 @@ impl Watch {
     fn buf(&mut self, clock: u32) -> Option<&mut Vec<u8>> {
         let recording = self.recording.as_mut().filter(|r| !r.lost)?;
         if recording.tick != Some(clock) {
-            let ms = self.started.elapsed().as_millis() as u32;
+            let ms = millis(self.started.elapsed());
             if recording.tick.is_none() {
                 recording.buf.push(TICK);
                 put_varint(&mut recording.buf, ms);
@@ -284,6 +317,11 @@ impl Watch {
             recording.tick_ms = ms;
         }
         Some(&mut recording.buf)
+    }
+
+    /// Whether the checks are fed: only while the session is recorded.
+    pub fn checking(&self) -> bool {
+        !self.anticheat.off
     }
 
     /// Whether the session is being recorded (whole): notes for the replay's
@@ -477,6 +515,12 @@ impl Watch {
             return;
         };
         let ms = self.ms();
+        if ms >= MAX_RECORDED_MS {
+            self.flush(true);
+            self.recording = None;
+            self.anticheat.off = true;
+            return;
+        }
         let live = self.live_until.is_some_and(|until| Instant::now() < until);
         let age = ms.saturating_sub(r.chunk_start_ms);
         let due = r.buf.len() >= CHUNK_BYTES
@@ -491,7 +535,7 @@ impl Watch {
         if self.recording.is_none() {
             return;
         }
-        let ms = self.started.elapsed().as_millis() as u32;
+        let ms = self.ms();
         let live = self.live_until.is_some_and(|until| Instant::now() < until);
         let due = self
             .recording
@@ -508,12 +552,18 @@ impl Watch {
             recording.next_report_ms = ms + CHUNK_MS;
         }
         let capacity = chunk_capacity(recording.buf.len());
-        let chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
+        let mut chunk = (!recording.lost && !recording.buf.is_empty()).then(|| RawChunk {
             seq: recording.seq,
             start_ms: recording.chunk_start_ms,
             end_ms: ms,
             data: mem::replace(&mut recording.buf, Vec::with_capacity(capacity)),
         });
+        let queued = chunk.as_ref().map_or(0, |c| c.data.capacity());
+        if queued > 0 && !queue_bytes(queued) {
+            chunk = None;
+            recording.lost = true;
+            counters::add(&COUNTERS.replay_chunks_dropped, 1);
+        }
         let had_chunk = chunk.is_some();
         let sent = recording.tx.try_send(ReplayRequest::Store {
             id: recording.id,
@@ -524,6 +574,7 @@ impl Watch {
             complete: !recording.lost,
         });
         if sent.is_err() && had_chunk {
+            unqueue_bytes(queued);
             recording.lost = true;
             counters::add(&COUNTERS.replay_chunks_dropped, 1);
         }

@@ -1148,10 +1148,42 @@ async fn replays_store_list_and_prune(pool: PgPool) {
         .execute(&pool)
         .await
         .unwrap();
-    assert_eq!(db.prune_replays(7).await.unwrap(), 1);
+    assert_eq!(db.prune_replays(7, 100).await.unwrap(), 1);
     assert!(db.replay(1).await.unwrap().is_none());
     assert!(db.replay_chunks(1).await.unwrap().is_empty());
     assert!(db.replay(2).await.unwrap().is_some());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn only_the_newest_sessions_played_are_read(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    for id in 1..=3 {
+        db.start_replay(&NewReplay {
+            id,
+            name_hash: 42,
+            node_id: 10,
+            revision: "289".into(),
+        })
+        .await
+        .unwrap();
+    }
+    sqlx::query(
+        "UPDATE replays SET started_at = now() - id * interval '1 hour', duration_ms = id,
+                stats = '{\"endReason\":\"kick\",\"returnMs\":' || id || '}'",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+    let played = db.played_since(42, 0, 2).await.unwrap();
+    // The newest two (ids 2 and 1), oldest first.
+    assert_eq!(
+        played.iter().map(|p| p.duration_ms).collect::<Vec<_>>(),
+        [2, 1]
+    );
+    assert_eq!(played[0].end_reason.as_deref(), Some("kick"));
+    assert_eq!(played[0].return_ms, Some(2));
 }
 
 #[sqlx::test]

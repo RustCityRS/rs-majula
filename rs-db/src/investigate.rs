@@ -85,17 +85,24 @@ impl Db {
             "sum(score)::bigint AS total_score, sum(duration_ms)::bigint AS play_ms, ",
             "max(started_at) FILTER (WHERE score > 0) AS last_flagged ",
             "FROM r GROUP BY player_id HAVING max(score) > 0 ",
-            "ORDER BY count(*) FILTER (WHERE score > 0) DESC, sum(score) DESC LIMIT $4) ",
+            "ORDER BY count(*) FILTER (WHERE score > 0) DESC, sum(score) DESC LIMIT $4), ",
+            // One pass over the window for the leaders' flags, and one for
+            // their highest score in each stretch.
+            "fl AS (SELECT r.player_id, array_agg(DISTINCT f ORDER BY f) AS flags ",
+            "FROM r JOIN top USING (player_id), unnest(r.flags) f GROUP BY r.player_id), ",
+            "hi AS (SELECT r.player_id, r.b, max(r.score) AS score ",
+            "FROM r JOIN top USING (player_id) GROUP BY r.player_id, r.b), ",
+            "tr AS (SELECT t.player_id, array_agg(coalesce(hi.score, 0)::smallint ORDER BY g) AS trend ",
+            "FROM top t CROSS JOIN generate_series(0, $3 - 1) g ",
+            "LEFT JOIN hi ON hi.player_id = t.player_id AND hi.b = g GROUP BY t.player_id) ",
             "SELECT p.display_name AS name, t.sessions, t.flagged, t.max_score, t.total_score, ",
             "t.play_ms, ",
             ms!("t.last_flagged"),
-            " AS last_flagged_ms, ",
-            "ARRAY(SELECT DISTINCT f FROM r, unnest(r.flags) f WHERE r.player_id = t.player_id ORDER BY f) AS flags, ",
-            "ARRAY(SELECT coalesce(max(r.score), 0)::smallint FROM generate_series(0, $3 - 1) g ",
-            "LEFT JOIN r ON r.player_id = t.player_id AND r.b = g GROUP BY g ORDER BY g) AS trend, ",
+            " AS last_flagged_ms, coalesce(fl.flags, '{}') AS flags, tr.trend, ",
             "p.online_node, ",
             sanctions!(),
-            " FROM top t JOIN players p ON p.id = t.player_id ",
+            " FROM top t JOIN players p ON p.id = t.player_id JOIN tr ON tr.player_id = t.player_id ",
+            "LEFT JOIN fl ON fl.player_id = t.player_id ",
             "ORDER BY t.flagged DESC, t.total_score DESC"
         );
         sqlx::query_as(sql)

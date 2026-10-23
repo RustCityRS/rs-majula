@@ -426,6 +426,9 @@ pub struct AntiCheat {
     pub incidents: Vec<Incident>,
     /// Scripts aborted while running on the player.
     pub script_errors: u32,
+    /// The session isn't recorded, so nothing would read the checks: what
+    /// it does isn't fed to them.
+    pub off: bool,
 }
 
 /// The checks' verdict, worked out on the tick. The recording task turns
@@ -548,6 +551,9 @@ impl AntiCheat {
     /// A packet from the client. (Input reports come in decoded, by their
     /// handlers.)
     pub fn client(&mut self, prot: &ClientProt, data: &[u8]) {
+        if self.off {
+            return;
+        }
         match prot {
             ClientProt::AnticheatCycleLogic1 => self.heartbeat(0, data),
             ClientProt::AnticheatCycleLogic2 => self.heartbeat(1, data),
@@ -577,6 +583,9 @@ impl AntiCheat {
     /// An `EVENT_MOUSE_MOVE`, `ms` into the session.
     #[cfg(since_254)]
     pub fn mouse_move(&mut self, ms: u32, msg: &EventMouseMove) {
+        if self.off {
+            return;
+        }
         self.input_reports += 1;
         self.inputs_from(|inputs, out| inputs.mouse_move(ms, msg, out));
     }
@@ -584,6 +593,9 @@ impl AntiCheat {
     /// An `EVENT_MOUSE_CLICK`, `ms` into the session on tick `clock`.
     #[cfg(since_254)]
     pub fn mouse_click(&mut self, ms: u32, clock: u32, msg: &EventMouseClick) {
+        if self.off {
+            return;
+        }
         self.last_click_clock = Some(clock);
         self.inputs_from(|inputs, out| inputs.mouse_click(ms, msg, out));
     }
@@ -591,6 +603,9 @@ impl AntiCheat {
     /// An `EVENT_APPLET_FOCUS`, `ms` into the session.
     #[cfg(since_254)]
     pub fn focus(&mut self, ms: u32, clock: u32, msg: &EventAppletFocus) {
+        if self.off {
+            return;
+        }
         self.focus_clock = clock;
         self.inputs_from(|inputs, out| inputs.focus(ms, msg, out));
     }
@@ -598,6 +613,9 @@ impl AntiCheat {
     /// An `EVENT_CAMERA_POSITION`, `ms` into the session.
     #[cfg(any(rev = "225", since_254))]
     pub fn camera(&mut self, ms: u32, msg: &EventCameraPosition) {
+        if self.off {
+            return;
+        }
         self.inputs_from(|inputs, out| inputs.camera(ms, msg, out));
     }
 
@@ -605,6 +623,9 @@ impl AntiCheat {
     /// input report.
     #[cfg(before_274)]
     pub fn tracking(&mut self, ms: u32, msg: &EventTracking) {
+        if self.off {
+            return;
+        }
         #[cfg(before_254)]
         {
             self.input_reports += 1;
@@ -769,6 +790,9 @@ impl AntiCheat {
 
     /// The player chose a menu action, on tick `clock`.
     pub fn op(&mut self, op: Op, clock: u32, base: MapBase) {
+        if self.off {
+            return;
+        }
         self.see_base(base);
         self.ops += 1;
         // The click arrives just before its action; allow for the read
@@ -817,6 +841,9 @@ impl AntiCheat {
         base: MapBase,
         at: (u16, u16),
     ) {
+        if self.off {
+            return;
+        }
         self.see_base(base);
         self.minimap_clicks += 1;
         let (tile_x, tile_z) = minimap_tile(trailer);
@@ -863,6 +890,9 @@ impl AntiCheat {
     /// The world stopped showing the client an NPC or player, on tick
     /// `clock`.
     pub fn lost(&mut self, what: Target, clock: u32) {
+        if self.off {
+            return;
+        }
         while self
             .lost
             .front()
@@ -875,6 +905,9 @@ impl AntiCheat {
 
     /// The client was sent a new map, from `base`, on tick `clock`.
     pub fn rebuilt(&mut self, base: MapBase, clock: u32) {
+        if self.off {
+            return;
+        }
         self.see_base(base);
         if let Some(zones) = self.zones.replace(Zones::new(base)) {
             self.prev_zones = Some((zones, clock));
@@ -883,6 +916,9 @@ impl AntiCheat {
 
     /// The client was sent the zone with tile `(x, z)`, objs and all.
     pub fn zone_sent(&mut self, x: u16, z: u16) {
+        if self.off {
+            return;
+        }
         if let Some(zones) = &mut self.zones {
             zones.send(x, z);
         }
@@ -891,6 +927,9 @@ impl AntiCheat {
     /// An action on `on`, on tick `clock`: the real client can only click
     /// what it was shown. `area` is what the world is showing it now.
     pub fn target(&mut self, on: Target, area: &BuildArea, clock: u32) {
+        if self.off {
+            return;
+        }
         let lately = |f: &dyn Fn(&Zones) -> bool| {
             self.zones.as_ref().is_none_or(f)
                 || self
@@ -937,6 +976,9 @@ impl AntiCheat {
     /// An action, `ms` into the session, on an option a left click doesn't
     /// pick: the menu was opened for it, by a right press just before.
     pub fn menu_op(&mut self, ms: u32) {
+        if self.off {
+            return;
+        }
         self.menu_ops += 1;
         self.expire_menu_ops(ms);
         let pressed = self
@@ -1003,35 +1045,53 @@ impl AntiCheat {
     /// player reacts and how long they go without acting. `appeared_ms`:
     /// when the obj it's on appeared, if it's on one that did lately.
     pub fn acted(&mut self, ms: u32, appeared_ms: Option<u32>) {
+        if self.off {
+            return;
+        }
         self.reactions.action(ms, appeared_ms);
         self.afk.activity(ms);
     }
 
     /// What the player last acted on went away, `ms` into the session.
     pub fn gone(&mut self, ms: u32) {
+        if self.off {
+            return;
+        }
         self.acting_on = None;
         self.reactions.gone(ms);
     }
 
     /// The player chatted.
     pub fn chatted(&mut self, ms: u32) {
+        if self.off {
+            return;
+        }
         self.afk.activity(ms);
     }
 
     /// An action, as anything that tells it apart, to see how much the
     /// player repeats themselves.
     pub fn repeat(&mut self, what: impl Hash) {
+        if self.off {
+            return;
+        }
         self.repetition.action(what);
     }
 
     /// A walk to `(x, z)`.
     pub fn walked(&mut self, x: u16, z: u16) {
+        if self.off {
+            return;
+        }
         self.repetition.walk(x, z);
     }
 
     /// An action on the obj in an inventory's `slot` (its top left on the
     /// screen). `menu`: an option the menu was opened for.
     pub fn slot_action(&mut self, ms: u32, slot: Slot, menu: bool) {
+        if self.off {
+            return;
+        }
         self.slots.action(ms, slot, menu);
     }
 

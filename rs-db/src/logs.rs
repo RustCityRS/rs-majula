@@ -132,6 +132,7 @@ macro_rules! prune_oldest {
         )
     };
 }
+pub(crate) use prune_oldest;
 
 /// The logs pruned by age. Staff commands are kept: they're what staff did.
 const PRUNED_LOGS: [&str; 3] = [
@@ -187,7 +188,12 @@ impl Db {
 
     /// Runs [`prune_oldest!`] statement `sql` until it deletes less than a
     /// whole batch.
-    async fn prune_oldest(&self, sql: &'static str, days: i32, batch: i64) -> Result<u64, Error> {
+    pub(crate) async fn prune_oldest(
+        &self,
+        sql: &'static str,
+        days: i32,
+        batch: i64,
+    ) -> Result<u64, Error> {
         let mut pruned = 0;
         loop {
             let deleted = sqlx::query(sql)

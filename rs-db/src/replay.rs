@@ -1,3 +1,4 @@
+use crate::logs::prune_oldest;
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 
@@ -91,6 +92,8 @@ const RECORD_COLUMNS: &str = concat!(
     "FROM replays r JOIN players p ON p.id = r.player_id"
 );
 
+const PRUNED_REPLAYS: &str = prune_oldest!("replays", "started_at", "");
+
 impl Db {
     /// Starts a recording. Returns `false` if the player isn't registered,
     /// and nothing is recorded.
@@ -109,24 +112,29 @@ impl Db {
         Ok(result.rows_affected() == 1)
     }
 
-    /// The sessions player `name_hash` started since `since_ms` (Unix ms),
-    /// oldest first.
+    /// The newest `limit` sessions player `name_hash` started since
+    /// `since_ms` (Unix ms), oldest first.
     pub async fn played_since(
         &self,
         name_hash: u64,
         since_ms: i64,
+        limit: i64,
     ) -> Result<Vec<PlayedSession>, Error> {
         let sql = concat!(
-            "SELECT ",
+            "SELECT * FROM (SELECT ",
             ms!("r.started_at"),
-            " AS started_ms, r.duration_ms, r.stats::jsonb ->> 'endReason' AS end_reason, ",
-            "(r.stats::jsonb ->> 'returnMs')::int AS return_ms ",
-            "FROM replays r JOIN players p ON p.id = r.player_id ",
-            "WHERE p.name_hash = $1 AND r.started_at >= to_timestamp($2) ORDER BY r.started_at"
+            " AS started_ms, r.duration_ms, s.stats ->> 'endReason' AS end_reason, ",
+            "(s.stats ->> 'returnMs')::int AS return_ms FROM replays r ",
+            // Parsed once a row (`OFFSET 0` keeps it from being inlined).
+            "CROSS JOIN LATERAL (SELECT r.stats::jsonb AS stats OFFSET 0) s ",
+            "WHERE r.player_id = (SELECT id FROM players WHERE name_hash = $1) ",
+            "AND r.started_at >= to_timestamp($2) ORDER BY r.started_at DESC LIMIT $3) p ",
+            "ORDER BY started_ms"
         );
         sqlx::query_as(sql)
             .bind(name_hash as i64)
             .bind(since_ms as f64 / 1000.0)
+            .bind(limit)
             .fetch_all(&self.pool)
             .await
     }
@@ -269,14 +277,10 @@ impl Db {
         .await
     }
 
-    /// Deletes recordings started more than `days` days ago. Returns how many.
-    pub async fn prune_replays(&self, days: i32) -> Result<u64, Error> {
-        let result =
-            sqlx::query("DELETE FROM replays WHERE started_at < now() - make_interval(days => $1)")
-                .bind(days)
-                .execute(&self.pool)
-                .await?;
-        Ok(result.rows_affected())
+    /// Deletes recordings started more than `days` days ago, `batch` at a
+    /// time (their chunks go with them). Returns how many.
+    pub async fn prune_replays(&self, days: i32, batch: i64) -> Result<u64, Error> {
+        self.prune_oldest(PRUNED_REPLAYS, days, batch).await
     }
 
     /// Recordings newest first: everyone's or only `player`'s, only flagged

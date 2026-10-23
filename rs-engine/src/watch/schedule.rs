@@ -4,6 +4,9 @@ const HOUR_MS: i64 = 3_600_000;
 const DAY_MS: i64 = 24 * HOUR_MS;
 /// How far back the account's play is looked at.
 pub const WEEK_MS: i64 = 7 * DAY_MS;
+/// The most of those sessions looked at, the newest: an account that
+/// relogs all day has thousands.
+pub const MAX_PLAYED: i64 = 1000;
 /// A day played this long.
 const LONG_DAY_MS: i64 = 16 * HOUR_MS;
 /// Long days in a week that flag.
