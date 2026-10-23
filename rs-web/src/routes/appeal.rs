@@ -9,7 +9,6 @@ use rs_db::{AppealFiled, AppealLogin, NewAppeal, is_typeable_password, validate_
 use serde::{Deserialize, Serialize};
 use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
-use tokio::task::spawn_blocking;
 use tracing::info;
 
 /// Wrong passwords an IP may give, here or at the game's login (the same
@@ -187,35 +186,35 @@ async fn sign_in(
     ip: IpAddr,
 ) -> Result<Result<(u64, AppealLogin), &'static str>, AppError> {
     const WRONG: &str = "Invalid username or password.";
-    if app
-        .db
-        .recent_login_failures(ip, FAILURE_WINDOW_SECS)
-        .await?
-        >= MAX_FAILURES
-    {
-        return Ok(Err(
-            "Too many incorrect logins from your address. Please wait a minute and try again.",
-        ));
-    }
-    // Nobody's password is one the game's login screen couldn't type.
     let Ok(name) = validate_name(&form.username) else {
         return Ok(Err(WRONG));
     };
+    // Counted as wrong until it's found right.
+    let Some(attempt) = app
+        .db
+        .claim_login_attempt(ip, FAILURE_WINDOW_SECS, MAX_FAILURES)
+        .await?
+    else {
+        return Ok(Err(
+            "Too many incorrect logins from your address. Please wait a minute and try again.",
+        ));
+    };
+    // Nobody's password is one the game's login screen couldn't type.
     if !is_typeable_password(&form.password) {
-        app.db.record_login_failure(ip).await?;
         return Ok(Err(WRONG));
     }
     let Some(login) = app.db.appeal_login(name.hash).await? else {
-        app.db.record_login_failure(ip).await?;
         return Ok(Err(WRONG));
     };
-    let passwords = app.passwords.clone();
     let password = form.password.clone();
     let hash = login.password_hash.clone();
-    if !spawn_blocking(move || passwords.verify(&password, &hash)).await? {
-        app.db.record_login_failure(ip).await?;
+    if !app
+        .with_passwords(move |p| p.verify(&password, &hash))
+        .await?
+    {
         return Ok(Err(WRONG));
     }
+    app.db.forgive_login_attempt(attempt).await?;
     Ok(Ok((name.hash, login)))
 }
 

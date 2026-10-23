@@ -1,4 +1,6 @@
+use ammonia::Builder;
 use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
+use std::collections::HashSet;
 
 /// File types that play as video rather than show as an image.
 const VIDEO_EXTENSIONS: [&str; 3] = [".mp4", ".webm", ".m4v"];
@@ -69,7 +71,29 @@ pub fn render(markdown: &str) -> String {
     }
     let mut html = String::with_capacity((markdown.len() * 3) >> 1);
     pulldown_cmark::html::push_html(&mut html, out_events.into_iter());
-    html
+    sanitize(&html)
+}
+
+/// `html` with only what a post may show: the formatting old posts were
+/// written in, and none of what runs scripts or dresses up the page
+/// (event handlers, `javascript:` links, styles beyond alignment).
+pub fn sanitize(html: &str) -> String {
+    Builder::default()
+        .add_tags(["font", "video"])
+        .add_generic_attributes(["align", "valign", "width", "height", "bgcolor", "style"])
+        .filter_style_properties(HashSet::from(["text-align"]))
+        .add_tag_attributes("font", ["color", "size", "face"])
+        .add_tag_attributes("img", ["border", "loading"])
+        .add_tag_attributes("table", ["border", "cellpadding", "cellspacing"])
+        .add_tag_attributes(
+            "video",
+            ["src", "controls", "preload", "playsinline", "aria-label"],
+        )
+        .add_allowed_classes("img", ["news-media"])
+        .add_allowed_classes("video", ["news-media"])
+        .url_schemes(HashSet::from(["http", "https", "mailto"]))
+        .clean(html)
+        .to_string()
 }
 
 #[cfg(test)]
@@ -83,7 +107,7 @@ mod tests {
         assert!(html.contains("<h1>Update</h1>"), "{html}");
         assert!(html.contains("<strong>bold</strong>"), "{html}");
         assert!(
-            html.contains("<a href=\"https://example.com\">link</a>"),
+            html.contains("<a href=\"https://example.com\" rel=\"noopener noreferrer\">link</a>"),
             "{html}"
         );
         assert!(html.contains("<li>one</li>"), "{html}");
@@ -117,11 +141,41 @@ mod tests {
     }
 
     #[test]
-    fn html_passes_through() {
-        let html = render("<p align=center><b>Old post</b></p>");
+    fn old_formatting_passes_through() {
+        let html = render("<p align=center><b>Old post</b> <font color=red>here</font></p>");
         assert!(
-            html.contains("<p align=center><b>Old post</b></p>"),
+            html.contains(
+                "<p align=\"center\"><b>Old post</b> <font color=\"red\">here</font></p>"
+            ),
             "{html}"
         );
+        let html = render(
+            "| a | b |
+|:-:|--|
+| 1 | 2 |",
+        );
+        assert!(
+            html.contains("<th style=\"text-align:center\">a</th>"),
+            "{html}"
+        );
+    }
+
+    #[test]
+    fn scripts_never_get_through() {
+        let html = render(concat!(
+            "<script>alert(1)</script>
+
+",
+            "<img src=x onerror=alert(2)> <a href=\"javascript:alert(3)\">a</a>
+
+",
+            "[b](javascript:alert(4)) <div style=\"position:fixed;top:0\">c</div>
+
+",
+            "<iframe src=\"https://example.com\"></iframe>",
+        ));
+        for bad in ["script", "alert", "onerror", "position", "iframe"] {
+            assert!(!html.contains(bad), "{bad}: {html}");
+        }
     }
 }

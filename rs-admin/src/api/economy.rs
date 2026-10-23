@@ -1,4 +1,4 @@
-use super::access::{ceiling, check_player, may_see};
+use super::access::{ceiling, check_conflict, check_player, may_see};
 use super::lookup::unavailable;
 use super::players::{checked_name, note_on_case};
 use super::support::{open_case, reason, registered, send_once, with_case, world_for};
@@ -479,6 +479,10 @@ pub async fn ring_rollback(
     let why = reason(&req.reason, true)?;
     let case = open_case(&app, req.case)?;
     let names = ring_names(&req.names)?;
+    // As with one rollback: none of them may be the admin's own accounts.
+    for name in &names {
+        check_conflict(&app, &staff, name, "roll back this ring").await?;
+    }
     let members = ring_members(&app, names, req.at_ms).await?;
     let problems: Vec<String> = members
         .iter()

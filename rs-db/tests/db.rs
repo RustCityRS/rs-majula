@@ -1,9 +1,9 @@
 use rs_db::{
     AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch, LoginDevice,
     MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot, PlayerSave,
-    RECOVERIES_PER_ADDRESS, RESET_LOCKED, Reconciled, RecoveryAnswers, RecoveryDecided,
-    RecoveryFiled, ReplayChunk, ReplayReport, Sanctions, SavePoint, SaveResult, ScriptErrorLog,
-    SessionLog, TimelineCursor, WealthEvent, WorldStatus, log_type, transfer,
+    RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED, Reconciled, RecoveryAnswers,
+    RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, Sanctions, SavePoint, SaveResult,
+    ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent, WorldStatus, log_type, transfer,
 };
 use sqlx::PgPool;
 
@@ -702,6 +702,33 @@ async fn imports_only_fill_an_empty_offline_player(pool: PgPool) {
     db.create_player(&player(43)).await.unwrap();
     db.claim_session(43, 1, 60).await.unwrap();
     assert!(!db.import_save(43, &save()).await.unwrap());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn login_attempts_are_counted_before_they_are_checked(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    // All at once, as if checked in parallel: no more than 5 get through
+    // (fewer when refused ones are counted for a moment), and no more
+    // after them.
+    let mut claims = tokio::task::JoinSet::new();
+    for _ in 0..20 {
+        let db = db.clone();
+        claims.spawn(async move { db.claim_login_attempt(ip, 60, 5).await.unwrap() });
+    }
+    let mut held: Vec<_> = claims.join_all().await.into_iter().flatten().collect();
+    assert!((1..=5).contains(&held.len()), "{}", held.len());
+    while let Some(attempt) = db.claim_login_attempt(ip, 60, 5).await.unwrap() {
+        held.push(attempt);
+    }
+    assert_eq!(held.len(), 5);
+    // The refused ones don't count, and a right one is taken back.
+    assert_eq!(db.recent_login_failures(ip, 60).await.unwrap(), 5);
+    db.forgive_login_attempt(held.pop().unwrap()).await.unwrap();
+    assert_eq!(db.recent_login_failures(ip, 60).await.unwrap(), 4);
+    assert!(db.claim_login_attempt(ip, 60, 5).await.unwrap().is_some());
+    assert!(db.claim_login_attempt(ip, 60, 5).await.unwrap().is_none());
 }
 
 #[sqlx::test]
@@ -3055,5 +3082,63 @@ async fn recovery_requests_are_limited_decided_and_redeemed(pool: PgPool) {
             .await
             .unwrap(),
         RecoveryDecided::NotFound
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn strangers_cant_crowd_out_an_owners_recovery(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    db.record_login(7, 10, home, Some(77), &LoginDevice::default())
+        .await
+        .unwrap();
+    let answers = RecoveryAnswers::default();
+    let request = |ip, uids| NewRecovery {
+        name_hash: 7,
+        key_hash: "$argon2id$key",
+        reason: "forgot",
+        details: "I forgot my password",
+        passwords_given: 0,
+        password_matched: false,
+        answers: &answers,
+        ip,
+        uids,
+        user_agent: None,
+        platform: None,
+        language: None,
+    };
+    for i in 0..RECOVERIES_WAITING {
+        let stranger = std::net::IpAddr::from([198, 51, 100, i as u8]);
+        assert!(matches!(
+            db.file_recovery(&request(stranger, &[])).await.unwrap(),
+            RecoveryFiled::Filed { .. }
+        ));
+    }
+    let stranger = std::net::IpAddr::from([198, 51, 100, 99]);
+    assert_eq!(
+        db.recovery_refusal(7, stranger, &[]).await.unwrap(),
+        Some(RecoveryFiled::TooManyWaiting)
+    );
+    assert_eq!(
+        db.file_recovery(&request(stranger, &[])).await.unwrap(),
+        RecoveryFiled::TooManyWaiting
+    );
+    // From where they played, by address or by browser, it's taken.
+    assert_eq!(db.recovery_refusal(7, home, &[]).await.unwrap(), None);
+    assert_eq!(db.recovery_refusal(7, stranger, &[77]).await.unwrap(), None);
+    assert!(matches!(
+        db.file_recovery(&request(stranger, &[77])).await.unwrap(),
+        RecoveryFiled::Filed { .. }
+    ));
+    assert_eq!(
+        db.recovery_refusal(9, home, &[]).await.unwrap(),
+        Some(RecoveryFiled::NoSuchPlayer)
     );
 }

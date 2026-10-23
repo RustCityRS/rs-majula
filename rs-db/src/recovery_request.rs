@@ -1,5 +1,6 @@
 use crate::recovery::RESET_LOCKED;
 use crate::{Db, Error};
+use sqlx::PgConnection;
 use std::net::IpAddr;
 
 /// A timestamp column as Unix milliseconds.
@@ -11,7 +12,10 @@ macro_rules! ms {
 
 /// The most requests one address may send in a day.
 pub const RECOVERIES_PER_ADDRESS: i64 = 3;
-/// The most requests an account may have waiting on a decision at once.
+/// The most requests an account may have waiting on a decision at once,
+/// from where it was never played: a request from an address or browser
+/// it logged in from is always taken, so strangers can't crowd out its
+/// owner.
 pub const RECOVERIES_WAITING: i64 = 5;
 
 /// What a player answered about their account. Each is `None` if they
@@ -91,6 +95,54 @@ pub struct RecoveryRecord {
     pub reset_until_ms: Option<i64>,
 }
 
+/// The class of the advisory locks taken per address on filing.
+const RECOVERY_LOCK: i32 = 0x5245_4356;
+
+/// The account a request for `name_hash` from `ip` and `uids` is for, or
+/// why it can't be filed. `lock` holds the account's row to the end of
+/// the transaction.
+async fn refusal(
+    conn: &mut PgConnection,
+    name_hash: u64,
+    ip: IpAddr,
+    uids: &[i32],
+    lock: bool,
+) -> Result<Result<i64, RecoveryFiled>, Error> {
+    let sql = if lock {
+        "SELECT id FROM players WHERE name_hash = $1 FOR UPDATE"
+    } else {
+        "SELECT id FROM players WHERE name_hash = $1"
+    };
+    let player: Option<i64> = sqlx::query_scalar(sql)
+        .bind(name_hash as i64)
+        .fetch_optional(&mut *conn)
+        .await?;
+    let Some(player_id) = player else {
+        return Ok(Err(RecoveryFiled::NoSuchPlayer));
+    };
+    let (from_address, waiting, played_here): (i64, i64, bool) = sqlx::query_as(
+        "SELECT
+             (SELECT count(*) FROM recovery_requests
+              WHERE ip = $2::inet AND created_at > now() - interval '1 day'),
+             (SELECT count(*) FROM recovery_requests
+              WHERE player_id = $1 AND decision IS NULL),
+             EXISTS (SELECT 1 FROM login_logs WHERE ip = $2::inet AND player_id = $1)
+                 OR EXISTS (SELECT 1 FROM login_logs WHERE uid = ANY($3) AND player_id = $1)",
+    )
+    .bind(player_id)
+    .bind(ip.to_string())
+    .bind(uids)
+    .fetch_one(&mut *conn)
+    .await?;
+    Ok(if from_address >= RECOVERIES_PER_ADDRESS {
+        Err(RecoveryFiled::TooManyFromAddress)
+    } else if waiting >= RECOVERIES_WAITING && !played_here {
+        Err(RecoveryFiled::TooManyWaiting)
+    } else {
+        Ok(player_id)
+    })
+}
+
 const RECORD: &str = concat!(
     "SELECT r.id, p.display_name AS player, p.name_hash, r.reason, r.details, ",
     "r.passwords_given, r.password_matched, ",
@@ -140,31 +192,17 @@ impl Db {
     /// address or the account has sent too many already.
     pub async fn file_recovery(&self, request: &NewRecovery<'_>) -> Result<RecoveryFiled, Error> {
         let mut tx = self.pool.begin().await?;
-        let player: Option<i64> =
-            sqlx::query_scalar("SELECT id FROM players WHERE name_hash = $1 FOR UPDATE")
-                .bind(request.name_hash as i64)
-                .fetch_optional(&mut *tx)
-                .await?;
-        let Some(player_id) = player else {
-            return Ok(RecoveryFiled::NoSuchPlayer);
-        };
-        let (from_address, waiting): (i64, i64) = sqlx::query_as(
-            "SELECT
-                 (SELECT count(*) FROM recovery_requests
-                  WHERE ip = $2::inet AND created_at > now() - interval '1 day'),
-                 (SELECT count(*) FROM recovery_requests
-                  WHERE player_id = $1 AND decision IS NULL)",
-        )
-        .bind(player_id)
-        .bind(request.ip.to_string())
-        .fetch_one(&mut *tx)
-        .await?;
-        if from_address >= RECOVERIES_PER_ADDRESS {
-            return Ok(RecoveryFiled::TooManyFromAddress);
-        }
-        if waiting >= RECOVERIES_WAITING {
-            return Ok(RecoveryFiled::TooManyWaiting);
-        }
+        // One at a time from an address, so its count holds.
+        sqlx::query("SELECT pg_advisory_xact_lock($1, hashtext($2))")
+            .bind(RECOVERY_LOCK)
+            .bind(request.ip.to_string())
+            .execute(&mut *tx)
+            .await?;
+        let player_id =
+            match refusal(&mut tx, request.name_hash, request.ip, request.uids, true).await? {
+                Ok(id) => id,
+                Err(refused) => return Ok(refused),
+            };
         let answers = request.answers;
         let id: i64 = sqlx::query_scalar(
             "INSERT INTO recovery_requests
@@ -200,15 +238,17 @@ impl Db {
         Ok(RecoveryFiled::Filed { id })
     }
 
-    /// How many recovery requests `ip` sent in the last day.
-    pub async fn recent_recoveries_from(&self, ip: IpAddr) -> Result<i64, Error> {
-        sqlx::query_scalar(
-            "SELECT count(*) FROM recovery_requests
-             WHERE ip = $1::inet AND created_at > now() - interval '1 day'",
-        )
-        .bind(ip.to_string())
-        .fetch_one(&self.pool)
-        .await
+    /// Why [`Db::file_recovery`] would refuse a request for `name_hash`
+    /// from `ip` and `uids` now, if it would: asked first, before the work
+    /// of making one.
+    pub async fn recovery_refusal(
+        &self,
+        name_hash: u64,
+        ip: IpAddr,
+        uids: &[i32],
+    ) -> Result<Option<RecoveryFiled>, Error> {
+        let mut conn = self.pool.acquire().await?;
+        Ok(refusal(&mut conn, name_hash, ip, uids, false).await?.err())
     }
 
     /// Recovery request `id`.

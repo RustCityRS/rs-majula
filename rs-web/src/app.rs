@@ -7,12 +7,19 @@ use rs_db::{Db, Passwords};
 use rs_pack::cache::wordenc::WordEncProvider;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
+use tokio::sync::Semaphore;
+use tokio::task::spawn_blocking;
 use tracing::error;
+
+/// Passwords hashed or checked at once: argon2 takes 19 MiB for each.
+pub const HASHING_AT_ONCE: usize = 4;
 
 pub struct App {
     pub db: Db,
     pub media_dir: Option<PathBuf>,
     pub passwords: Passwords,
+    /// [`HASHING_AT_ONCE`] permits, one for each hash running.
+    pub hashing: Semaphore,
     pub templates: Templates,
     pub worlds: Vec<World>,
     pub live_worlds: LiveWorlds,
@@ -41,6 +48,17 @@ impl App {
             .and_then(|v| v.split(',').next())
             .and_then(|v| v.trim().parse().ok())
             .unwrap_or(peer.ip())
+    }
+
+    /// Runs `work` with the passwords on a blocking thread, no more than
+    /// [`HASHING_AT_ONCE`] at a time.
+    pub async fn with_passwords<T: Send + 'static>(
+        &self,
+        work: impl FnOnce(&Passwords) -> T + Send + 'static,
+    ) -> Result<T, AppError> {
+        let _permit = self.hashing.acquire().await?;
+        let passwords = self.passwords.clone();
+        Ok(spawn_blocking(move || work(&passwords)).await?)
     }
 
     /// Every world with its current player count and online state.

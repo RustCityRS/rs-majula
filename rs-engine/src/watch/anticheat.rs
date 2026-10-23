@@ -9,7 +9,7 @@ use super::schedule::{End, Schedule, ScheduleStats};
 use super::slots::{Slot, SlotClicks, SlotStats};
 use Field::*;
 use rs_db::{LoginDevice, ReplayReport};
-use rs_entity::BuildArea;
+use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
 #[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
 #[cfg(any(rev = "225", since_254))]
@@ -898,9 +898,15 @@ impl AntiCheat {
                     .as_ref()
                     .is_some_and(|(z, c)| clock.wrapping_sub(*c) <= SHOWN_GRACE && f(z))
         };
+        // The id comes from the client: `contains` doesn't check its range.
         let shown = match on {
-            Target::Npc(nid) => area.npcs.contains(nid) || self.lately_lost(on, clock),
-            Target::Player(pid) => area.players.contains(pid) || self.lately_lost(on, clock),
+            Target::Npc(nid) => {
+                (nid as usize) < MAX_NPCS && area.npcs.contains(nid) || self.lately_lost(on, clock)
+            }
+            Target::Player(pid) => {
+                (pid as usize) < MAX_PLAYERS && area.players.contains(pid)
+                    || self.lately_lost(on, clock)
+            }
             // Locs are in the map the client loads; objs only come with the
             // zones it's sent.
             Target::Loc { x, z, .. } => lately(&|zones| zones.in_map(x, z)),
@@ -1654,6 +1660,15 @@ mod tests {
         }
         assert_eq!(ac.unseen, 4);
         assert_eq!(ac.report(0).flags, ["clicked_unseen"]);
+    }
+
+    #[test]
+    fn ids_past_the_end_are_unseen() {
+        let mut ac = AntiCheat::default();
+        let area = BuildArea::new();
+        ac.target(Target::Player(u16::MAX), &area, 0);
+        ac.target(Target::Npc(u16::MAX), &area, SHOWN_GRACE + 1);
+        assert_eq!(ac.unseen, 2);
     }
 
     /// A right press `ms` into the session, as the input reports have it.

@@ -46,6 +46,15 @@ pub struct Reconciled {
     pub lost: Vec<u64>,
 }
 
+/// A wrong password counted before it was checked (see
+/// [`Db::claim_login_attempt`]).
+#[derive(Debug)]
+pub struct LoginAttempt {
+    ip: IpAddr,
+    /// Its row in `login_failures`, which has no id of its own.
+    row: String,
+}
+
 impl Db {
     /// Claims a player's session for world `node_id` and loads their save,
     /// atomically: the save returned is the one the claim protects.
@@ -221,6 +230,43 @@ impl Db {
     pub async fn record_login_failure(&self, ip: IpAddr) -> Result<(), Error> {
         sqlx::query("INSERT INTO login_failures (ip) VALUES ($1::inet)")
             .bind(ip.to_string())
+            .execute(&self.pool)
+            .await?;
+        Ok(())
+    }
+
+    /// Counts a wrong password from `ip` before it's checked: `None` if
+    /// `ip` already gave `max` in the last `secs`. Counted first, requests
+    /// sent at once can't all get past the limit while their passwords are
+    /// checked. [`Db::forgive_login_attempt`] takes it back when the
+    /// password was right.
+    pub async fn claim_login_attempt(
+        &self,
+        ip: IpAddr,
+        secs: i32,
+        max: i64,
+    ) -> Result<Option<LoginAttempt>, Error> {
+        let row: String = sqlx::query_scalar(
+            "INSERT INTO login_failures (ip) VALUES ($1::inet) RETURNING ctid::text",
+        )
+        .bind(ip.to_string())
+        .fetch_one(&self.pool)
+        .await?;
+        let attempt = LoginAttempt { ip, row };
+        // Its own statement, so it sees every attempt counted before this one.
+        if self.recent_login_failures(ip, secs).await? > max {
+            // A refused one doesn't count: it was never checked.
+            self.forgive_login_attempt(attempt).await?;
+            return Ok(None);
+        }
+        Ok(Some(attempt))
+    }
+
+    /// Takes back an attempt [`Db::claim_login_attempt`] counted.
+    pub async fn forgive_login_attempt(&self, attempt: LoginAttempt) -> Result<(), Error> {
+        sqlx::query("DELETE FROM login_failures WHERE ctid = $1::tid AND ip = $2::inet")
+            .bind(attempt.row)
+            .bind(attempt.ip.to_string())
             .execute(&self.pool)
             .await?;
         Ok(())

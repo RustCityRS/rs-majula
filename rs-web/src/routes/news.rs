@@ -1,4 +1,5 @@
 use crate::app::{App, AppError};
+use crate::news_render;
 use axum::extract::{Path, Query, State};
 use axum::response::{IntoResponse, Redirect, Response};
 use minijinja::context;
@@ -72,9 +73,12 @@ pub async fn post(
     let Ok(id) = id.parse::<i32>() else {
         return Ok(Redirect::to("/news").into_response());
     };
-    let Some(post) = app.db.news_post(id).await? else {
+    let Some(mut post) = app.db.news_post(id).await? else {
         return Ok(Redirect::to("/news").into_response());
     };
+    // Cleaned again as shown: a post written straight to the table may
+    // hold anything.
+    post.content = news_render::sanitize(&post.content);
     let categories = app.db.news_categories().await?;
 
     let html = app.templates.render(

@@ -52,7 +52,7 @@ pub use replay::{
 };
 pub use save::{PlayerSave, SaveResult};
 pub use script_error::{ScriptErrorGroup, ScriptErrorRecord};
-pub use session::{Claim, LoginDevice, Reconciled, SessionOwner};
+pub use session::{Claim, LoginAttempt, LoginDevice, Reconciled, SessionOwner};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
 pub use staff::{

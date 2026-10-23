@@ -9,7 +9,6 @@ use rs_db::validate_name;
 use serde::Deserialize;
 use std::net::SocketAddr;
 use std::sync::Arc;
-use tokio::task::spawn_blocking;
 use tracing::info;
 
 /// Wrong codes an IP may give, here or at the game's login (the same
@@ -57,44 +56,37 @@ pub async fn submit(
         app.templates
             .render("views/recover/form.html", context! { error, username })
     };
-    if app
-        .db
-        .recent_login_failures(ip, FAILURE_WINDOW_SECS)
-        .await?
-        >= MAX_FAILURES
-    {
-        return refill(
-            "Too many incorrect attempts from your address. Please wait a minute and try again.",
-        );
-    }
     if let Err(error) = check_new_passwords(&form.password, &form.password2) {
         return refill(&error);
     }
     let Ok(name) = validate_name(&form.username) else {
         return refill(WRONG);
     };
+    // Counted as wrong until it's found right.
+    let Some(attempt) = app
+        .db
+        .claim_login_attempt(ip, FAILURE_WINDOW_SECS, MAX_FAILURES)
+        .await?
+    else {
+        return refill(
+            "Too many incorrect attempts from your address. Please wait a minute and try again.",
+        );
+    };
     let Some(reset) = app.db.password_reset(name.hash).await? else {
-        app.db.record_login_failure(ip).await?;
         return refill(WRONG);
     };
-    let passwords = app.passwords.clone();
     let code = typed_code(&form.code);
     let code_hash = reset.code_hash.clone();
     let password = form.password.clone();
-    let checked = spawn_blocking(move || {
-        passwords
-            .verify(&code, &code_hash)
-            .then(|| passwords.hash(&password))
-    })
-    .await?;
+    let checked = app
+        .with_passwords(move |p| p.verify(&code, &code_hash).then(|| p.hash(&password)))
+        .await?;
     let password_hash = match checked {
-        None => {
-            app.db.record_login_failure(ip).await?;
-            return refill(WRONG);
-        }
+        None => return refill(WRONG),
         Some(None) => return Err(anyhow::anyhow!("password hashing failed").into()),
         Some(Some(hash)) => hash,
     };
+    app.db.forgive_login_attempt(attempt).await?;
     if !app
         .db
         .redeem_password_reset(name.hash, &reset.code_hash, &password_hash)

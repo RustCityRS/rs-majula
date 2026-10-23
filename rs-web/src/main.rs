@@ -6,7 +6,7 @@ mod routes;
 mod templates;
 mod worlds;
 
-use crate::app::{App, SiteConfig};
+use crate::app::{App, HASHING_AT_ONCE, SiteConfig};
 use crate::templates::Templates;
 use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
@@ -15,6 +15,7 @@ use rs_db::{Db, DbConfig, Passwords};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
+use tokio::sync::Semaphore;
 use tracing::{info, warn};
 
 /// The game website: registration, news, world select and the archived
@@ -152,6 +153,7 @@ async fn main() -> Result<()> {
         db,
         media_dir,
         passwords: Passwords::new(&pepper),
+        hashing: Semaphore::new(HASHING_AT_ONCE),
         templates: Templates::new(args.root.join("templates"), args.https),
         worlds,
         live_worlds: Default::default(),

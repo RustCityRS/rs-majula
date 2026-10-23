@@ -8,13 +8,12 @@ use axum::response::Html;
 use minijinja::context;
 use minijinja::value::Serde;
 use rs_db::{
-    NewRecovery, RECOVERIES_PER_ADDRESS, RecoveryAnswers, RecoveryFiled, code_from_bits,
-    is_typeable_password, validate_name,
+    NewRecovery, RecoveryAnswers, RecoveryFiled, code_from_bits, is_typeable_password,
+    validate_name,
 };
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use std::sync::Arc;
-use tokio::task::spawn_blocking;
 use tracing::info;
 
 /// Wrong recovery keys an IP may give, here or at the game's login (the
@@ -99,11 +98,13 @@ pub async fn submit(
     let Some(answers) = answers(&form) else {
         return refill("Check the dates you gave: they can't be in the future.");
     };
-    if app.db.recent_recoveries_from(ip).await? >= RECOVERIES_PER_ADDRESS {
-        return refill(TOO_MANY);
+    let uids = uids(&form.uids);
+    // Before the hashing, which is the costly part.
+    if let Some(refused) = app.db.recovery_refusal(name.hash, ip, &uids).await? {
+        return refill(refusal(&refused));
     }
     let Some(login) = app.db.appeal_login(name.hash).await? else {
-        return refill("There's no account with that username.");
+        return refill(refusal(&RecoveryFiled::NoSuchPlayer));
     };
 
     // Checked against the account's password as it is now; a hijacker who
@@ -116,17 +117,16 @@ pub async fn submit(
         .collect();
     let passwords_given = guesses.len() as i16;
     let key = new_key()?;
-    let passwords = app.passwords.clone();
     let hash = login.password_hash;
     let typed = typed_code(&key);
-    let (password_matched, key_hash) = spawn_blocking(move || {
-        let matched = guesses.iter().any(|g| passwords.verify(g, &hash));
-        (matched, passwords.hash(&typed))
-    })
-    .await?;
+    let (password_matched, key_hash) = app
+        .with_passwords(move |p| {
+            let matched = guesses.iter().any(|g| p.verify(g, &hash));
+            (matched, p.hash(&typed))
+        })
+        .await?;
     let key_hash = key_hash.ok_or_else(|| anyhow::anyhow!("hashing a recovery key failed"))?;
 
-    let uids = uids(&form.uids);
     let header = |name: &str| headers.get(name).and_then(|v| v.to_str().ok());
     let user_agent = header("user-agent").and_then(|ua| clean_header(ua, 300));
     let platform = header("sec-ch-ua-platform").and_then(|p| clean_header(p.trim_matches('"'), 32));
@@ -160,17 +160,25 @@ pub async fn submit(
                 context! { id, key, username => login.display_name },
             )
         }
-        RecoveryFiled::NoSuchPlayer => refill("There's no account with that username."),
-        RecoveryFiled::TooManyFromAddress => refill(TOO_MANY),
-        RecoveryFiled::TooManyWaiting => refill(
-            "There are already several requests waiting for this account. \
-             Check on yours on the request status page, with its reference and recovery key.",
-        ),
+        refused => refill(refusal(&refused)),
     }
 }
 
-const TOO_MANY: &str = "You've sent as many requests as you can today. \
-                        Check on the one you sent with its reference and recovery key.";
+/// What to say when a request can't be filed.
+fn refusal(refused: &RecoveryFiled) -> &'static str {
+    match refused {
+        RecoveryFiled::NoSuchPlayer => "There's no account with that username.",
+        RecoveryFiled::TooManyFromAddress | RecoveryFiled::Filed { .. } => {
+            "You've sent as many requests as you can today. \
+             Check on the one you sent with its reference and recovery key."
+        }
+        RecoveryFiled::TooManyWaiting => {
+            "There are already several requests waiting for this account. \
+             Check on yours on the request status page, with its reference and recovery key, \
+             or send this one from a computer or phone you've played on."
+        }
+    }
+}
 
 #[derive(Deserialize)]
 pub struct StatusForm {
@@ -216,31 +224,29 @@ pub async fn status(
             context! { error, reference => reference.as_str() },
         )
     };
-    if app
+    // Counted as wrong until it's found right.
+    let Some(attempt) = app
         .db
-        .recent_login_failures(ip, FAILURE_WINDOW_SECS)
+        .claim_login_attempt(ip, FAILURE_WINDOW_SECS, MAX_FAILURES)
         .await?
-        >= MAX_FAILURES
-    {
+    else {
         return refill(
             "Too many incorrect attempts from your address. Please wait a minute and try again.",
         );
-    }
+    };
     let key = typed_code(&form.key);
     let found = match reference.parse::<i64>() {
         Ok(id) if !key.is_empty() => app.db.recovery(id).await?,
         _ => None,
     };
     let Some(request) = found else {
-        app.db.record_login_failure(ip).await?;
         return refill(WRONG);
     };
-    let passwords = app.passwords.clone();
     let hash = request.key_hash.clone();
-    if !spawn_blocking(move || passwords.verify(&key, &hash)).await? {
-        app.db.record_login_failure(ip).await?;
+    if !app.with_passwords(move |p| p.verify(&key, &hash)).await? {
         return refill(WRONG);
     }
+    app.db.forgive_login_attempt(attempt).await?;
     let status = RequestStatus {
         id: request.id,
         username: request.player,

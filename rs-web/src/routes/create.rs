@@ -9,7 +9,6 @@ use serde::Deserialize;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use std::sync::atomic::Ordering;
-use tokio::task::spawn_blocking;
 use tracing::info;
 
 /// Registrations allowed per IP per [`RATE_LIMIT_HOURS`].
@@ -65,10 +64,8 @@ pub async fn submit(
                 return page(&app, "views/create/password.html", username, Some(&error));
             }
 
-            let passwords = app.passwords.clone();
             let password = form.password;
-            let Some(password_hash) = spawn_blocking(move || passwords.hash(&password)).await?
-            else {
+            let Some(password_hash) = app.with_passwords(move |p| p.hash(&password)).await? else {
                 return Err(anyhow::anyhow!("password hashing failed").into());
             };
             let created = app
