@@ -2905,6 +2905,13 @@ impl Engine {
         if result.is_err() {
             error!("{:?}", result);
         }
+
+        // Visibility isn't saved, so whoever can hide starts every login seen.
+        if let Some(active) = self.get_player_mut(pid)
+            && active.player.staff_mod_level.is_isolated()
+        {
+            active.message_game("You're visible to other players. Use ::setvis 2 to hide.");
+        }
     }
 
     /// Attaches a reconnecting client to its still-in-world player session.

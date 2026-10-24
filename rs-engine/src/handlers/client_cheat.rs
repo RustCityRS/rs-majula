@@ -654,17 +654,23 @@ fn cheat_spawn_bots(_player: &ActivePlayer) -> Result<(), ScriptError> {
     Ok(())
 }
 
-/// Sets the player's visibility -- `0` = default, `1` = soft-hide, `2` = hard-hide.
-/// Any other or missing value is ignored.
+/// Sets the player's visibility -- `0` = default, `1` = soft-hide, `2` = hard-hide --
+/// and tells them what it is now. Any other or missing value changes nothing.
 ///
 /// Usage: `::setvis <level>` (e.g. `::setvis 2`).
 fn cheat_setvis(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-    active.player.info.vis = match args.next() {
-        Some("0") => Visibility::Default,
-        Some("1") => Visibility::Soft,
-        Some("2") => Visibility::Hard,
-        _ => return Ok(()),
+    match args.next() {
+        Some("0") => active.player.info.vis = Visibility::Default,
+        Some("1") => active.player.info.vis = Visibility::Soft,
+        Some("2") => active.player.info.vis = Visibility::Hard,
+        _ => active.message_game("Usage: ::setvis <0 visible, 1 soft-hidden, 2 hidden>"),
+    }
+    let now = match active.player.info.vis {
+        Visibility::Default => "0 (visible)",
+        Visibility::Soft => "1 (soft-hidden)",
+        Visibility::Hard => "2 (hidden from other players)",
     };
+    active.message_game(&format!("Your visibility is {now}."));
     Ok(())
 }
 
