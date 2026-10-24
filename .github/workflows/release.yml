@@ -50,8 +50,45 @@ jobs:
       - name: Compile and pack content
         run: cargo run --release -p rs-pack -- pack
 
+  test:
+    needs: revs
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rev: ${{ fromJSON(needs.revs.outputs.list) }}
+    env:
+      REV: ${{ matrix.rev }}
+      RUSTFLAGS: "-C target-cpu=x86-64-v3"
+      # The database tests are #[ignore]d without one; each makes its own scratch database here.
+      DATABASE_URL: postgres://postgres:password@localhost/postgres
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: test-${{ matrix.rev }}
+
+      - name: Test
+        run: cargo test --workspace -- --include-ignored
+
   build:
-    needs: [ validate, revs ]
+    needs: [ validate, test, revs ]
     strategy:
       fail-fast: false
       matrix:
