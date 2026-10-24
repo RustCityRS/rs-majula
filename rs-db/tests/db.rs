@@ -994,6 +994,12 @@ async fn world_status_goes_stale(pool: PgPool) {
 
 /// Registers a player and logs them in and out with these stats (XP x10,
 /// indexed by stat id).
+/// The player's rank on the Attack table.
+async fn attack_rank(db: &Db, name_hash: u64) -> i64 {
+    let ranks = db.player_hiscores(name_hash).await.unwrap().unwrap();
+    ranks.rank(1).unwrap().rank
+}
+
 async fn ranked(db: &Db, name_hash: u64, name: &'static str, staff: i16, stats: &[(usize, i32)]) {
     db.create_player(&NewPlayer {
         display_name: name,
@@ -3069,6 +3075,9 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
         names(&db.hiscores_page(1, 0, 10).await.unwrap()),
         ["Maxed", "Cheater", "Pmod"]
     );
+    // The staff ahead don't count towards a rank.
+    assert_eq!(attack_rank(&db, 1).await, 1);
+    assert_eq!(attack_rank(&db, 5).await, 3);
 
     // Their attack entry removed: still on the others.
     assert!(db.change_hiscores(2, None, &[1], &[]).await.unwrap());
@@ -3080,6 +3089,7 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
         names(&db.hiscores_page(11, 0, 10).await.unwrap()),
         ["Cheater"]
     );
+    assert_eq!(attack_rank(&db, 5).await, 2);
     let standing = db.hiscore_standing(2).await.unwrap().unwrap();
     assert_eq!(
         (standing.hidden, standing.removed.clone()),
@@ -3112,6 +3122,20 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
         ["Maxed", "Cheater", "Pmod"]
     );
     assert!(db.hiscores_kept_off(10).await.unwrap().is_empty());
+    assert_eq!(attack_rank(&db, 5).await, 3);
+
+    // A banned player is left off until the ban runs out.
+    let ban = |until: &'static str| {
+        let pool = pool.clone();
+        async move {
+            sqlx::query(until).execute(&pool).await.unwrap();
+        }
+    };
+    ban("UPDATE players SET banned_until = now() + interval '1 day' WHERE name_hash = 1").await;
+    assert_eq!(attack_rank(&db, 5).await, 2);
+    ban("UPDATE players SET banned_until = now() - interval '1 day' WHERE name_hash = 1").await;
+    assert_eq!(attack_rank(&db, 5).await, 3);
+
     assert!(!db.change_hiscores(99, Some(true), &[], &[]).await.unwrap());
     assert!(db.hiscore_standing(99).await.unwrap().is_none());
 }

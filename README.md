@@ -719,6 +719,8 @@ node, and the nodes join into one cluster for cross-world social features.
     GRANT SELECT (id, player_id, node_id, started_at, ended_at, duration_ms) ON replays TO rs_web;
     GRANT SELECT (node_id) ON moderation_logs TO rs_web;
     GRANT SELECT, DELETE ON friends, ignores TO rs_web;
+    -- a player's hiscores ranks (/hiscorepersonal, /index_lite.ws)
+    GRANT SELECT ON hiscores_removed TO rs_web;
     ```
 
 ----

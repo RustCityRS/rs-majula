@@ -221,10 +221,26 @@ impl Db {
     /// A player's ranks by base37 name. `None` if they aren't on the
     /// hiscores at all.
     pub async fn player_hiscores(&self, name_hash: u64) -> Result<Option<PlayerHiscores>, Error> {
+        // A rank is every row ahead, counted from the rank index alone, less
+        // the few ahead that ranked_hiscores leaves off: staff, hidden and
+        // banned players' rows, and rows taken off one table.
         let rows: Vec<(String, i16, i64, i16, i64)> = sqlx::query_as(
-            "SELECT me.display_name, me.category, 1 + (
-                        SELECT count(*) FROM ranked_hiscores o
-                        WHERE o.category = me.category
+            "WITH unranked AS MATERIALIZED (
+                 SELECT id FROM players
+                 WHERE staff_mod_level >= 2 OR hiscores_hidden OR banned_until > now()
+             )
+             SELECT me.display_name, me.category, 1 + (
+                        SELECT count(*) FROM hiscores o
+                        WHERE o.category = me.category AND o.xp > 0
+                          AND (-o.level, -o.xp, o.reached_at, o.player_id)
+                            < (-me.level, -me.xp, me.reached_at, me.player_id)
+                    ) - (
+                        SELECT count(*) FROM hiscores o
+                        JOIN (SELECT id FROM unranked
+                              UNION SELECT player_id FROM hiscores_removed r
+                                    WHERE r.category = me.category) off
+                          ON o.player_id = off.id AND o.category = me.category
+                        WHERE o.xp > 0
                           AND (-o.level, -o.xp, o.reached_at, o.player_id)
                             < (-me.level, -me.xp, me.reached_at, me.player_id)
                     ), me.level, me.xp / 10

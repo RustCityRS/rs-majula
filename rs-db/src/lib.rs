@@ -104,6 +104,9 @@ impl DbConfig {
                     format!("{}ms", statement_timeout.as_millis()),
                 ),
                 ("idle_in_transaction_session_timeout", "30s".to_owned()),
+                // Every query here is small: compiling one costs far more
+                // (hundreds of ms for a hiscores rank) than it ever saves.
+                ("jit", "off".to_owned()),
             ])
     }
 }
