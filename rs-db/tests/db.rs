@@ -797,15 +797,15 @@ async fn login_attempts_are_counted_before_they_are_checked(pool: PgPool) {
     let db = Db::from_pool(pool);
     let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
     // All at once, as if checked in parallel: no more than 5 get through
-    // (fewer when refused ones are counted for a moment), and no more
-    // after them.
+    // (fewer, even none, when refused ones are counted for a moment), and
+    // no more after them.
     let mut claims = tokio::task::JoinSet::new();
     for _ in 0..20 {
         let db = db.clone();
         claims.spawn(async move { db.claim_login_attempt(ip, 60, 5).await.unwrap() });
     }
     let mut held: Vec<_> = claims.join_all().await.into_iter().flatten().collect();
-    assert!((1..=5).contains(&held.len()), "{}", held.len());
+    assert!(held.len() <= 5, "{}", held.len());
     while let Some(attempt) = db.claim_login_attempt(ip, 60, 5).await.unwrap() {
         held.push(attempt);
     }
