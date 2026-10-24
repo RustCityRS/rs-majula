@@ -70,6 +70,14 @@ const MAX_CONNECTIONS_PER_IP: usize = 2;
 
 const MAX_GAME_CONNECTIONS: usize = 8192;
 
+/// Cache downloads (JS5) are limited apart from logins: a fresh client's
+/// downloads run for minutes, and mustn't turn its own login away.
+#[cfg(debug_assertions)]
+const MAX_JS5_PER_IP: usize = 8;
+#[cfg(not(debug_assertions))]
+const MAX_JS5_PER_IP: usize = 4;
+const MAX_JS5_CONNECTIONS: usize = 8192;
+
 const MAX_HTTP_PER_IP: usize = 16;
 const MAX_HTTP_CONNECTIONS: usize = 8192;
 
@@ -92,6 +100,7 @@ pub struct ConnectionGuard {
 #[derive(Clone)]
 pub struct ConnectionGuards {
     pub game: ConnectionGuard,
+    pub js5: ConnectionGuard,
     pub http: ConnectionGuard,
     pub jaggrab: ConnectionGuard,
 }
@@ -100,6 +109,7 @@ impl ConnectionGuards {
     fn new() -> Self {
         Self {
             game: ConnectionGuard::new(MAX_CONNECTIONS_PER_IP, MAX_GAME_CONNECTIONS),
+            js5: ConnectionGuard::new(MAX_JS5_PER_IP, MAX_JS5_CONNECTIONS),
             http: ConnectionGuard::new(MAX_HTTP_PER_IP, MAX_HTTP_CONNECTIONS),
             jaggrab: ConnectionGuard::new(MAX_JAGGRAB_PER_IP, MAX_JAGGRAB_CONNECTIONS),
         }
@@ -830,6 +840,7 @@ async fn bootstrap(
 
     let ConnectionGuards {
         game: guard,
+        js5: js5_guard,
         http: http_guard,
         jaggrab: jaggrab_guard,
     } = guards;
@@ -849,6 +860,7 @@ async fn bootstrap(
         args.members,
         server_state.clone(),
         guard.clone(),
+        js5_guard.clone(),
         http_guard,
         args.jaggrab_only,
         args.real_ip_header
@@ -868,7 +880,7 @@ async fn bootstrap(
     ));
 
     info!("Accepting TCP connections on: {}:{}", host, tcp);
-    socket::serve(host, tcp, server_state, guard).await
+    socket::serve(host, tcp, server_state, guard, js5_guard).await
 }
 
 /// Fetches ether's dependencies before running it from source. Its schema is
@@ -1263,6 +1275,7 @@ pub struct Socket {
     pub addr: SocketAddr,
     pub server_io: ServerIO,
     pub guard: ConnectionGuard,
+    pub js5_guard: ConnectionGuard,
     /// What the client said about its device (the web client's browser).
     pub device: LoginDevice,
 }
@@ -1281,12 +1294,14 @@ impl Socket {
         addr: SocketAddr,
         server_io: ServerIO,
         guard: ConnectionGuard,
+        js5_guard: ConnectionGuard,
     ) -> Self {
         Self {
             socket_type: SocketType::Tcp(stream),
             addr,
             server_io,
             guard,
+            js5_guard,
             device: LoginDevice::default(),
         }
     }
@@ -1296,12 +1311,14 @@ impl Socket {
         addr: SocketAddr,
         server_state: ServerIO,
         guard: ConnectionGuard,
+        js5_guard: ConnectionGuard,
     ) -> Self {
         Self {
             socket_type: SocketType::WebSocket(Box::new(stream)),
             addr,
             server_io: server_state,
             guard,
+            js5_guard,
             device: LoginDevice::default(),
         }
     }

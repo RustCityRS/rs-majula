@@ -33,6 +33,7 @@ pub async fn serve(
     port: u16,
     server_state: ServerIO,
     guard: ConnectionGuard,
+    js5_guard: ConnectionGuard,
 ) -> anyhow::Result<()> {
     let listener = TcpListener::bind((host.as_str(), port)).await?;
 
@@ -51,8 +52,9 @@ pub async fn serve(
         info!("TCP connection from {}", addr);
         let server_state = server_state.clone();
         let guard = guard.clone();
+        let js5_guard = js5_guard.clone();
         tokio::spawn(async move {
-            let connection = Socket::from_tcp(stream, addr, server_state, guard);
+            let connection = Socket::from_tcp(stream, addr, server_state, guard, js5_guard);
             if let Err(e) = handshake(connection).await {
                 info!("TCP connection {} closed: {}", addr, e);
             }
@@ -70,22 +72,56 @@ fn make_seed() -> Packet {
     seed
 }
 
-async fn acquire_permit(client: &mut Socket) -> anyhow::Result<ConnectionPermit> {
-    match client.guard.try_acquire(client.addr.ip()) {
-        Some(permit) => Ok(permit),
-        None => {
-            let _ = client
-                .write(&[LoginResponse::TooManyConnections as u8])
-                .await;
-            bail!("{} connection limit reached", client.addr);
-        }
+/// Holds a place for this connection under its address's limit, logins and
+/// cache downloads (`js5`) apart, or sends `refusal` and closes it.
+async fn acquire_permit(
+    client: &mut Socket,
+    js5: bool,
+    refusal: &[u8],
+) -> anyhow::Result<ConnectionPermit> {
+    let guard = if js5 {
+        &client.js5_guard
+    } else {
+        &client.guard
+    };
+    if let Some(permit) = guard.try_acquire(client.addr.ip()) {
+        return Ok(permit);
     }
+    if !refusal.is_empty() {
+        let _ = client.write(refusal).await;
+    }
+    bail!("{} connection limit reached", client.addr);
 }
+
+/// The reply to a session-key exchange: 8 bytes the client skips, then
+/// `status`, 0 to go on with the login or a [`LoginResponse`] code. A code
+/// sent any sooner is skipped, and the client shows "Unexpected server
+/// response".
+#[cfg(since_244)]
+const fn key_exchange_reply(status: u8) -> [u8; 9] {
+    let mut reply = [0; 9];
+    reply[8] = status;
+    reply
+}
+
+/// Go on with the login.
+#[cfg(since_244)]
+const PROCEED: u8 = 0;
+
+/// A login turned away for its address's limit.
+#[cfg(since_244)]
+const LIMIT_REACHED: [u8; 9] = key_exchange_reply(LoginResponse::TooManyConnections as u8);
 
 #[cfg(rev = "225")]
 pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     client.write(&make_seed().data).await?;
-    let permit = acquire_permit(&mut client).await?;
+    // The seed is out, so the client reads this as its login's reply.
+    let permit = acquire_permit(
+        &mut client,
+        false,
+        &[LoginResponse::TooManyConnections as u8],
+    )
+    .await?;
     // A connection that never speaks must not hold its permit forever.
     let Ok(result) = timeout(HANDSHAKE_TIMEOUT, client.read()).await else {
         bail!("{}: handshake timeout", client.addr)
@@ -109,8 +145,9 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
 
 #[cfg(since_244)]
 pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
-    let permit = acquire_permit(&mut client).await?;
-
+    // Taken once the first message says which limit the connection counts
+    // against. Until then the handshake timeout bounds it.
+    let mut permit = None;
     let mut key_exchanges = 0;
     let (handshake, buf) = loop {
         // A connection that never speaks must not hold its permit forever.
@@ -124,7 +161,18 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
             bail!("empty bytes")
         }
         let mut buf = Packet::from(bytes);
-        match HandshakeType::try_from(buf.g1())? {
+        let kind = HandshakeType::try_from(buf.g1())?;
+        if permit.is_none() {
+            permit = Some(match kind {
+                HandshakeType::Js5 => acquire_permit(&mut client, true, &[]).await?,
+                HandshakeType::New => acquire_permit(&mut client, false, &LIMIT_REACHED).await?,
+                _ => {
+                    let refusal = [LoginResponse::TooManyConnections as u8];
+                    acquire_permit(&mut client, false, &refusal).await?
+                }
+            });
+        }
+        match kind {
             HandshakeType::New => {
                 // The client requests one seed per login attempt; a stream of
                 // them is someone keeping the loop (and its permit) spinning.
@@ -133,7 +181,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                     bail!("{}: repeated session-key exchanges", client.addr);
                 }
                 let _name_hash = buf.g1();
-                let mut resp = vec![0u8; 9]; // 8 ignored bytes + status 0 (proceed)
+                let mut resp = key_exchange_reply(PROCEED).to_vec();
                 resp.extend_from_slice(&make_seed().data);
                 client.write(&resp).await?;
                 continue;

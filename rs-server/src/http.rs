@@ -74,6 +74,7 @@ pub async fn serve(
     members: bool,
     server_state: ServerIO,
     guard: ConnectionGuard,
+    js5_guard: ConnectionGuard,
     http_guard: ConnectionGuard,
     jaggrab_only: bool,
     real_ip_header: Option<&'static str>,
@@ -99,6 +100,7 @@ pub async fn serve(
         let nodeid = nodeid.clone();
         let server_state = server_state.clone();
         let guard = guard.clone();
+        let js5_guard = js5_guard.clone();
         let http_guard = http_guard.clone();
 
         tokio::spawn(async move {
@@ -109,6 +111,7 @@ pub async fn serve(
                 server_state,
                 addr,
                 guard,
+                js5_guard,
                 http_guard,
                 jaggrab_only,
                 real_ip_header,
@@ -127,6 +130,7 @@ async fn handle_connection(
     server_state: ServerIO,
     peer: SocketAddr,
     guard: ConnectionGuard,
+    js5_guard: ConnectionGuard,
     http_guard: ConnectionGuard,
     jaggrab_only: bool,
     real_ip_header: Option<&'static str>,
@@ -195,7 +199,7 @@ async fn handle_connection(
         match timeout(HANDSHAKE_TIMEOUT, upgrade).await {
             Ok(Ok(ws)) => {
                 info!("WebSocket handshake complete for {}", addr);
-                let mut connection = Socket::from_ws(ws, addr, server_state, guard);
+                let mut connection = Socket::from_ws(ws, addr, server_state, guard, js5_guard);
                 connection.device = login_device(&raw);
                 if let Err(e) = handshake(connection).await {
                     info!("Connection {} closed: {}", addr, e);

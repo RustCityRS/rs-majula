@@ -224,6 +224,7 @@ impl Metrics {
 
         let guards = [
             ("game", &self.guards.game),
+            ("js5", &self.guards.js5),
             ("http", &self.guards.http),
             ("jaggrab", &self.guards.jaggrab),
         ];
