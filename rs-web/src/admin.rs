@@ -172,6 +172,7 @@ async fn save(
     }
     .map_err(db_failed)?
     .ok_or(StatusCode::UNPROCESSABLE_ENTITY)?;
+    state.app.latest_news.clear();
     info!(
         "{} {} news post {} from the admin console",
         req.actor.name,
@@ -194,6 +195,7 @@ async fn delete(
     {
         return Ok(Json(Outcome::refused("That post is already gone.")));
     }
+    state.app.latest_news.clear();
     info!(
         "{} deleted news post {} from the admin console",
         req.actor.name, req.id

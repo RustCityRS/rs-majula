@@ -1,5 +1,6 @@
 mod admin;
 mod app;
+mod cached;
 mod metrics;
 mod news_render;
 mod rate_limit;
@@ -10,6 +11,7 @@ mod turnstile;
 mod worlds;
 
 use crate::app::{App, HASHING_AT_ONCE, SiteConfig};
+use crate::cached::Cached;
 use crate::rate_limit::RateLimit;
 use crate::templates::Templates;
 use crate::token::SignInTokens;
@@ -187,6 +189,9 @@ async fn main() -> Result<()> {
         passwords: Passwords::new(&pepper),
         hashing: Semaphore::new(HASHING_AT_ONCE),
         templates: Templates::new(args.root.join("templates"), args.https, &site.base_url()),
+        // Long enough to spare the database in a rush; a post edited by
+        // hand in SQL shows within it.
+        latest_news: Cached::new(Duration::from_secs(300)),
         tokens: SignInTokens::new(),
         turnstile,
         // A registration takes 3; the rest is room for names already taken.

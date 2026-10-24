@@ -1,3 +1,4 @@
+use crate::cached::Cached;
 use crate::metrics::Metrics;
 use crate::rate_limit::RateLimit;
 use crate::templates::Templates;
@@ -6,7 +7,7 @@ use crate::turnstile::Turnstile;
 use crate::worlds::{LiveWorlds, World};
 use axum::http::{HeaderMap, HeaderName, StatusCode};
 use axum::response::{IntoResponse, Response};
-use rs_db::{Db, Passwords};
+use rs_db::{Db, NewsSummary, Passwords};
 use rs_pack::cache::wordenc::WordEncProvider;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
@@ -24,6 +25,9 @@ pub struct App {
     /// [`HASHING_AT_ONCE`] permits, one for each hash running.
     pub hashing: Semaphore,
     pub templates: Templates,
+    /// The title page's latest posts; cleared whenever news is saved or
+    /// deleted.
+    pub latest_news: Cached<Vec<NewsSummary>>,
     /// The Message Centre's sign-ins, carried from page to page.
     pub tokens: SignInTokens,
     /// Registration's person check; `None` leaves it off.
