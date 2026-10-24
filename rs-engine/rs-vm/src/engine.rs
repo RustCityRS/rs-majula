@@ -422,8 +422,8 @@ pub trait ScriptEngine {
     /// * `dst_z` - The destination tile Z coordinate.
     /// * `target` - The target index (positive = player, negative = NPC, 0 = none).
     /// * `id` - The spotanim (graphic) identifier.
-    /// * `src_height` - The height offset at the source.
-    /// * `dst_height` - The height offset at the destination.
+    /// * `src_height` - The height at the source, as the script gives it.
+    /// * `dst_height` - The height at the destination, as the script gives it.
     /// * `start` - The start delay in client ticks.
     /// * `end` - The end delay in client ticks.
     /// * `peak` - The peak arc height.

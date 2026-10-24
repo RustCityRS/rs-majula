@@ -4049,7 +4049,10 @@ impl ScriptEngine for Engine {
     /// Creates a projectile animation between two map positions.
     ///
     /// Computes relative deltas from source to destination and queues a
-    /// `MapProjAnim` zone message.
+    /// `MapProjAnim` zone message. A script's height `h` means `h * 4` units
+    /// above the ground. Clients from 254 multiply the byte by 4 themselves,
+    /// so they're sent `h`; earlier ones take the byte as it is, so they're
+    /// sent `h * 4`.
     ///
     /// # Call Stack
     ///
@@ -4074,6 +4077,8 @@ impl ScriptEngine for Engine {
         let coord = CoordGrid::packed_zone_coord(x, z);
         let dx = (dst_x as i32 - x as i32) as i8;
         let dz = (dst_z as i32 - z as i32) as i8;
+        #[cfg(before_254)]
+        let (src_height, dst_height) = (src_height << 2, dst_height << 2);
         let message = ZoneMessage::MapProjAnim(
             rs_protocol::network::game::server::map_projanim::MapProjAnim {
                 coord,
