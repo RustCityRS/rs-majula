@@ -1017,6 +1017,7 @@ impl Engine {
         let active = unsafe { &mut *active };
 
         if !has_op && !has_ap {
+            #[cfg(debug_assertions)]
             if let Some(target) = &active.player.interaction.target
                 && let Some(target_op) = active.player.interaction.target_op
             {
