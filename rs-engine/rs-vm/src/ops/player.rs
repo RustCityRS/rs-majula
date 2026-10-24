@@ -1342,7 +1342,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2145
         #[cfg(since_244)]
         active_player_mut!(m, IF_OPENOVERLAY => |s, player| {
-            player.if_openoverlay(s.pop_int_as::<u16>()?);
+            // com can be null to close it: wilderness_exit
+            player.if_openoverlay(s.pop_int() as u16);
         });
 
         // 2146
