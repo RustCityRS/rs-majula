@@ -1,0 +1,568 @@
+use super::format::{Entry, Reader};
+use super::input::{Input, InputDecoder, Timed, decode};
+use flate2::read::DeflateDecoder;
+use rs_protocol::network::game::client::client_cheat::ClientCheat;
+use rs_protocol::network::game::client::message_private::MessagePrivate;
+use rs_protocol::network::game::client::message_public::MessagePublic;
+use rs_protocol::network::game::client_prot::ClientProt;
+use rs_util::base37::{to_raw_username, to_screen_name};
+use rs_util::wordpack;
+use serde_json::{Map, Value, json};
+use std::io::Read;
+use std::mem;
+
+/// How much of a stored chunk is decompressed at a time.
+const PIECE: u64 = 256 << 10;
+
+/// How long the replay takes to type each key of a line the player sent.
+const KEY_MS: u32 = 70;
+/// The furthest a minimap click's packet is taken after its click. Before
+/// 274 a click's time is worked out from batched input reports, and can be
+/// a couple of seconds early.
+const MINIMAP_LAG_MS: u32 = 3000;
+
+/// The prefixes the client reads a chat line's colour and effect from, by
+/// number.
+const CHAT_COLOURS: [&str; 12] = [
+    "", "red:", "green:", "cyan:", "purple:", "white:", "flash1:", "flash2:", "flash3:", "glow1:",
+    "glow2:", "glow3:",
+];
+#[cfg(before_289)]
+const CHAT_EFFECTS: [&str; 3] = ["", "wave:", "scroll:"];
+#[cfg(since_289)]
+const CHAT_EFFECTS: [&str; 6] = ["", "wave:", "wave2:", "shake:", "scroll:", "slide:"];
+
+pub const MAGIC: &[u8; 4] = b"RSRP";
+pub const VERSION: u8 = 1;
+
+/// A frame's kind.
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Frame {
+    Server = 0,
+    Login = 1,
+    Reconnect = 2,
+    Keyframe = 3,
+}
+
+/// An input as the page reads it: `[ms, code, ...]`.
+fn input_json(timed: &Timed) -> Value {
+    let ms = timed.ms;
+    match timed.input {
+        Input::Move { x, y } => json!([ms, 0, x, y]),
+        Input::Outside => json!([ms, 1]),
+        Input::Press { x, y, right } => json!([ms, 2, x, y, u8::from(right)]),
+        Input::Release { right } => json!([ms, 3, u8::from(right)]),
+        Input::Click { x, y, right, .. } => json!([ms, 4, x, y, u8::from(right)]),
+        Input::KeyDown(key) => json!([ms, 5, key]),
+        Input::KeyUp(key) => json!([ms, 6, key]),
+        Input::Focus(focus) => json!([ms, 7, u8::from(focus)]),
+        Input::Enter => json!([ms, 8]),
+        Input::Leave => json!([ms, 9]),
+        Input::Camera { pitch, yaw } => json!([ms, 10, pitch, yaw]),
+        Input::Minimap { angle, zoom, yaw } => json!([ms, 12, angle, zoom, yaw]),
+    }
+}
+
+/// A minimap click's packet goes out after the click, and the world takes it
+/// up to a tick later still: the camera it carries is from the click, so
+/// that's when the replay sets it.
+fn click_time_minimaps(inputs: &mut [Value], clicks: &[u32]) {
+    for input in inputs {
+        if input[1] != 12 || input[4].is_null() {
+            continue;
+        }
+        let ms = input[0].as_u64().unwrap_or(0) as u32;
+        let before = clicks.partition_point(|&c| c <= ms);
+        if let Some(&click) = before.checked_sub(1).and_then(|i| clicks.get(i))
+            && ms - click <= MINIMAP_LAG_MS
+        {
+            input[0] = json!(click);
+        }
+    }
+}
+
+/// A line the player typed and sent: what to type for the client to send it
+/// again, and how the timeline puts it.
+fn typed_line(prot: &ClientProt, data: &[u8]) -> Option<(String, String)> {
+    match prot {
+        ClientProt::MessagePublic => {
+            let msg: MessagePublic = decode(data)?;
+            let text = wordpack::unpack(&msg.bytes);
+            let colour = CHAT_COLOURS
+                .get(usize::from(msg.colour))
+                .copied()
+                .unwrap_or_default();
+            let effect = CHAT_EFFECTS
+                .get(usize::from(msg.effect))
+                .copied()
+                .unwrap_or_default();
+            Some((format!("{colour}{effect}{text}"), format!("Say \"{text}\"")))
+        }
+        ClientProt::MessagePrivate => {
+            let msg: MessagePrivate = decode(data)?;
+            let text = wordpack::unpack(&msg.bytes);
+            let to = to_screen_name(&to_raw_username(msg.user37 as u64));
+            Some((text.clone(), format!("Message {to}: \"{text}\"")))
+        }
+        ClientProt::ClientCheat => {
+            let text = decode::<ClientCheat>(data)?.cheat;
+            Some((format!("::{text}"), format!("Command ::{text}")))
+        }
+        _ => None,
+    }
+}
+
+/// Types each line in `lines` (`(sent at, text)`) into `inputs`: one key at
+/// a time, ending with Enter as it was sent. Typing starts no earlier than
+/// the last of `clicks` before it (which may have opened the box it's typed
+/// into) or `free`, the end of the line before.
+fn type_lines(lines: &[(u32, String)], clicks: &[u32], free: &mut u32, inputs: &mut Vec<Value>) {
+    for (sent, text) in lines {
+        let keys = text.chars().count() as u32;
+        let click = clicks
+            .iter()
+            .rev()
+            .find(|&&c| c < *sent)
+            .map_or(0, |c| c + KEY_MS);
+        let start = sent
+            .saturating_sub(keys * KEY_MS)
+            .max(click)
+            .max(*free)
+            .min(*sent);
+        let step = (sent - start) / (keys + 1);
+        for (i, ch) in text.chars().enumerate() {
+            inputs.push(json!([start + step * i as u32, 11, ch.to_string()]));
+        }
+        inputs.push(json!([sent, 11, "Enter"]));
+        *free = sent + 1;
+    }
+}
+
+/// How a zstd frame starts. Chunks stored before zstd are raw deflate,
+/// which never starts this way: `0x28` opens a stored block, and its length
+/// (`0x2FB5`) and that length's complement (`0xD04A`, not `0x..FD`) would
+/// disagree.
+const ZSTD_MAGIC: [u8; 4] = [0x28, 0xB5, 0x2F, 0xFD];
+
+/// Decompresses one stored chunk, `None` if it doesn't decompress.
+pub fn decompress_chunk(data: &[u8]) -> Option<Vec<u8>> {
+    let mut raw = Vec::new();
+    let read = if data.starts_with(&ZSTD_MAGIC) {
+        zstd::stream::copy_decode(data, &mut raw)
+    } else {
+        DeflateDecoder::new(data).read_to_end(&mut raw).map(drop)
+    };
+    read.ok().map(|()| raw)
+}
+
+/// Builds the replay file from a recording, with `extra` (who, where,
+/// the verdict) added to its header.
+pub fn build(recording: &[u8], extra: Map<String, Value>) -> Vec<u8> {
+    let mut builder = Builder::default();
+    builder.feed(recording);
+    builder.take(extra)
+}
+
+/// Builds a replay file a piece at a time, for watching a session live: the
+/// first [`Self::take`] is the whole file so far, each later one a file of
+/// only what was fed since, for the page to add on.
+#[derive(Default)]
+pub struct Builder {
+    frames: Vec<u8>,
+    frame_count: u32,
+    inputs: Vec<Value>,
+    notes: Vec<Value>,
+    decoder: InputDecoder,
+    decoded: Vec<Timed>,
+    /// Lines sent since the last take, still to type.
+    lines: Vec<(u32, String)>,
+    /// When every click so far was, for typing lines after them.
+    clicks: Vec<u32>,
+    /// Where the last line typed ended.
+    typed_to: u32,
+    ms: u32,
+    /// The open server frame: its time, and where its length is (to grow
+    /// it).
+    open: Option<(u32, usize)>,
+}
+
+impl Builder {
+    fn push(&mut self, kind: Frame, bytes: &[u8]) -> usize {
+        self.frames.extend_from_slice(&self.ms.to_be_bytes());
+        self.frames.push(kind as u8);
+        let len_at = self.frames.len();
+        self.frames
+            .extend_from_slice(&(bytes.len() as u32).to_be_bytes());
+        self.frames.extend_from_slice(bytes);
+        self.frame_count += 1;
+        len_at
+    }
+
+    /// More of the recording: whole entries, carrying on from the last feed.
+    pub fn feed(&mut self, recording: &[u8]) {
+        self.feed_entries(&mut Reader::new(recording));
+    }
+
+    /// The next stored chunk, decompressed a piece at a time so the whole
+    /// recording is never in memory at once. False where it stops being
+    /// readable: nothing after that can play.
+    pub fn feed_chunk(&mut self, data: &[u8]) -> bool {
+        if data.starts_with(&ZSTD_MAGIC) {
+            zstd::stream::read::Decoder::with_buffer(data).is_ok_and(|raw| self.feed_from(raw))
+        } else {
+            self.feed_from(DeflateDecoder::new(data))
+        }
+    }
+
+    fn feed_from(&mut self, mut raw: impl Read) -> bool {
+        let (mut buf, mut ms) = (Vec::new(), 0);
+        loop {
+            match raw.by_ref().take(PIECE).read_to_end(&mut buf) {
+                Ok(0) => return true,
+                Ok(_) => {}
+                Err(_) => return false,
+            }
+            let mut entries = Reader::resume(&buf, ms);
+            self.feed_entries(&mut entries);
+            if entries.broken() {
+                return false;
+            }
+            ms = entries.ms();
+            // An entry cut short by the piece's end is read with the next.
+            let read = entries.read();
+            buf.drain(..read);
+        }
+    }
+
+    fn feed_entries(&mut self, entries: &mut Reader) {
+        for entry in entries {
+            match entry {
+                Entry::Tick { ms } => {
+                    self.ms = ms;
+                    self.open = None;
+                }
+                Entry::Server(bytes) => {
+                    #[cfg(before_274)]
+                    if bytes.first() == Some(&super::TRACKING_ENABLED) {
+                        self.decoder.tracking_restarted(self.ms);
+                    }
+                    let len_at = match self.open {
+                        Some((at, len_at)) if at == self.ms => len_at,
+                        _ => {
+                            let len_at = self.push(Frame::Server, &[]);
+                            self.open = Some((self.ms, len_at));
+                            len_at
+                        }
+                    };
+                    let packet_len = bytes.len().min(usize::from(u16::MAX));
+                    let frames = &mut self.frames;
+                    frames.extend_from_slice(&(packet_len as u16).to_be_bytes());
+                    frames.extend_from_slice(&bytes[..packet_len]);
+                    let len = u32::from_be_bytes(
+                        frames[len_at..len_at + 4].try_into().unwrap_or_default(),
+                    );
+                    frames[len_at..len_at + 4]
+                        .copy_from_slice(&(len + 2 + packet_len as u32).to_be_bytes());
+                }
+                Entry::Login(bytes) => {
+                    self.push(Frame::Login, bytes);
+                    self.open = None;
+                    self.notes.push(json!([self.ms, "Logged in"]));
+                }
+                Entry::Reconnect(bytes) => {
+                    self.push(Frame::Reconnect, bytes);
+                    self.open = None;
+                    self.notes.push(json!([self.ms, "Reconnected"]));
+                }
+                Entry::Client { opcode, data } => {
+                    let Ok(prot) = ClientProt::try_from(opcode) else {
+                        continue;
+                    };
+                    self.decoded.clear();
+                    if self.decoder.packet(&prot, self.ms, data, &mut self.decoded) {
+                        for timed in &self.decoded {
+                            if matches!(timed.input, Input::Press { .. } | Input::Click { .. }) {
+                                self.clicks.push(timed.ms);
+                            }
+                            self.inputs.push(input_json(timed));
+                        }
+                    } else if let Some((text, note)) = typed_line(&prot, data) {
+                        self.lines.push((self.ms, text));
+                        self.notes.push(json!([self.ms, note]));
+                    }
+                }
+                Entry::Note(text) => self.notes.push(json!([self.ms, text])),
+                // `[ms, text, kind, what]`: an older page shows the text.
+                Entry::Flag { ms, flag, detail } => {
+                    self.notes.push(json!([ms, detail, "flag", flag]));
+                }
+                Entry::Error { script, message } => {
+                    self.notes.push(json!([self.ms, message, "error", script]));
+                }
+                Entry::Keyframe(bytes) => {
+                    self.push(Frame::Keyframe, bytes);
+                    self.open = None;
+                }
+            }
+        }
+    }
+
+    /// A replay file of everything fed since the last take (from the start
+    /// on the first), with `extra` added to its header.
+    pub fn take(&mut self, extra: Map<String, Value>) -> Vec<u8> {
+        let (mut file, frames) = self.take_parts(extra);
+        file.extend_from_slice(&frames);
+        file
+    }
+
+    /// [`Self::take`] as the file's start and its frames, which follow it:
+    /// to send without copying the frames.
+    pub fn take_parts(&mut self, extra: Map<String, Value>) -> (Vec<u8>, Vec<u8>) {
+        // Reports arrive batched, so the clicks may be out of order.
+        self.clicks.sort_unstable();
+        let lines = mem::take(&mut self.lines);
+        type_lines(&lines, &self.clicks, &mut self.typed_to, &mut self.inputs);
+        let mut inputs = mem::take(&mut self.inputs);
+        click_time_minimaps(&mut inputs, &self.clicks);
+        // Reports arrive batched, so put the inputs in time order.
+        inputs.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
+        let frames = mem::take(&mut self.frames);
+        // What's fed next starts frames of its own, in the next file.
+        self.open = None;
+
+        let mut header = extra;
+        header.insert(
+            "logout".into(),
+            json!(rs_protocol::network::game::server_prot::ServerProt::Logout as u8),
+        );
+        #[cfg(any(rev = "225", since_254))]
+        header.insert(
+            "cameraOp".into(),
+            json!(ClientProt::EventCameraPosition as u8),
+        );
+        header.insert("durationMs".into(), json!(self.ms));
+        header.insert("frames".into(), json!(mem::take(&mut self.frame_count)));
+        header.insert("inputs".into(), Value::Array(inputs));
+        // A check's incident can be judged after what came next.
+        let mut notes = mem::take(&mut self.notes);
+        notes.sort_by_key(|v| v[0].as_u64().unwrap_or(0));
+        header.insert("notes".into(), Value::Array(notes));
+        let header = Value::Object(header).to_string();
+
+        let mut start = Vec::with_capacity(9 + header.len());
+        start.extend_from_slice(MAGIC);
+        start.push(VERSION);
+        start.extend_from_slice(&(header.len() as u32).to_be_bytes());
+        start.extend_from_slice(header.as_bytes());
+        (start, frames)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn minimap_cameras_move_back_to_their_click() {
+        let mut inputs = vec![
+            json!([2_000, 12, -2, 5, 256]),
+            json!([9_000, 12, -2, 5, 300]),
+            json!([2_000, 12, -2, 5, null]),
+        ];
+        click_time_minimaps(&mut inputs, &[1_000, 1_700, 5_000]);
+        assert_eq!(inputs[0][0], 1_700);
+        // No click within a few seconds before it: it stays.
+        assert_eq!(inputs[1][0], 9_000);
+        // 225's camera report isn't from a click.
+        assert_eq!(inputs[2][0], 2_000);
+    }
+    use crate::watch::format::{
+        CLIENT, KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag,
+        put_varint,
+    };
+
+    #[test]
+    fn marks_flags_and_errors_in_time_order() {
+        let mut rec = Vec::new();
+        rec.push(TICK);
+        put_varint(&mut rec, 40_000);
+        put_bytes(&mut rec, NOTE, b"Walk here");
+        put_flag(
+            &mut rec,
+            10_000,
+            "menu_without_right_click",
+            "No right click",
+        );
+        put_flag(&mut rec, 40_000, "clicked_unseen", "");
+        put_error(&mut rec, "[opnpc1,man]", "Stack underflow");
+        let file = build(&rec, Map::new());
+        let (header, _) = split(&file);
+        assert_eq!(
+            header["notes"],
+            json!([
+                [10_000, "No right click", "flag", "menu_without_right_click"],
+                [40_000, "Walk here"],
+                [40_000, "", "flag", "clicked_unseen"],
+                [40_000, "Stack underflow", "error", "[opnpc1,man]"],
+            ])
+        );
+    }
+
+    #[test]
+    fn builds_frames_and_notes() {
+        let mut rec = Vec::new();
+        rec.push(TICK);
+        put_varint(&mut rec, 0);
+        put_bytes(&mut rec, LOGIN, &[2]);
+        put_bytes(&mut rec, SERVER, &[10, 1]);
+        put_bytes(&mut rec, SERVER, &[11, 2, 3]);
+        rec.push(TICK);
+        put_varint(&mut rec, 600);
+        put_bytes(&mut rec, NOTE, b"Walk to 3200, 3200");
+        put_bytes(&mut rec, SERVER, &[12]);
+
+        let file = build(&rec, Map::new());
+        assert_eq!(&file[..4], MAGIC);
+        let header_len = u32::from_be_bytes(file[5..9].try_into().unwrap()) as usize;
+        let header: Value = serde_json::from_slice(&file[9..9 + header_len]).unwrap();
+        assert_eq!(header["frames"], 3);
+        assert_eq!(header["durationMs"], 600);
+        assert_eq!(header["notes"][1], json!([600, "Walk to 3200, 3200"]));
+
+        let frames = &file[9 + header_len..];
+        // Login frame, then one server frame with both tick-0 packets merged.
+        assert_eq!(frames[4], Frame::Login as u8);
+        let second = &frames[4 + 1 + 4 + 1..];
+        assert_eq!(u32::from_be_bytes(second[..4].try_into().unwrap()), 0);
+        assert_eq!(second[4], Frame::Server as u8);
+        assert_eq!(u32::from_be_bytes(second[5..9].try_into().unwrap()), 9);
+        assert_eq!(&second[9..18], &[0, 2, 10, 1, 0, 3, 11, 2, 3]);
+    }
+
+    /// A recording of one tick at `ms` with a note.
+    fn noted(ms: u32, note: &str) -> Vec<u8> {
+        let mut rec = vec![TICK];
+        put_varint(&mut rec, ms);
+        put_bytes(&mut rec, NOTE, note.as_bytes());
+        rec
+    }
+
+    #[test]
+    fn old_deflate_chunks_play_after_zstd_ones() {
+        use flate2::Compression;
+        use flate2::write::DeflateEncoder;
+        use std::io::Write;
+        let notes = |b: &mut Builder| {
+            let (header, _) = split(&b.take(Map::new()));
+            header["notes"].clone()
+        };
+        let mut deflate = DeflateEncoder::new(Vec::new(), Compression::fast());
+        deflate.write_all(&noted(0, "old")).unwrap();
+        let old = deflate.finish().unwrap();
+        let new = zstd::bulk::compress(&noted(600, "new"), 3).unwrap();
+        let mut b = Builder::default();
+        assert!(b.feed_chunk(&old) && b.feed_chunk(&new));
+        assert_eq!(notes(&mut b), json!([[0, "old"], [600, "new"]]));
+
+        // A broken chunk ends it there.
+        let mut cut = zstd::bulk::compress(&[7; 4096], 3).unwrap();
+        cut.truncate(cut.len() >> 1);
+        assert!(!b.feed_chunk(&cut));
+        assert!(!b.feed_chunk(&noted(0, "not a chunk")));
+    }
+
+    #[test]
+    fn a_chunk_reads_the_same_a_piece_at_a_time() {
+        // Entries of every size, some longer than a piece, across many.
+        let mut rec = vec![TICK];
+        put_varint(&mut rec, 0);
+        for i in 0..3_000u32 {
+            rec.push(TICK_DELTA);
+            put_varint(&mut rec, 600);
+            put_bytes(&mut rec, SERVER, &vec![i as u8; (i as usize * 37) % 900]);
+            put_bytes(&mut rec, NOTE, format!("Step {i}").as_bytes());
+        }
+        put_bytes(&mut rec, KEYFRAME, &vec![9; (PIECE as usize) * 2 + 5]);
+        put_bytes(&mut rec, NOTE, b"Done");
+        assert!(rec.len() as u64 > PIECE * 4);
+        let whole = build(&rec, Map::new());
+        let mut pieces = Builder::default();
+        assert!(pieces.feed_chunk(&zstd::bulk::compress(&rec, 3).unwrap()));
+        assert_eq!(pieces.take(Map::new()), whole);
+    }
+
+    /// A file's header and frames.
+    fn split(file: &[u8]) -> (Value, &[u8]) {
+        let header_len = u32::from_be_bytes(file[5..9].try_into().unwrap()) as usize;
+        (
+            serde_json::from_slice(&file[9..9 + header_len]).unwrap(),
+            &file[9 + header_len..],
+        )
+    }
+
+    #[test]
+    fn builds_live_a_piece_at_a_time() {
+        let mut first = Vec::new();
+        first.push(TICK);
+        put_varint(&mut first, 0);
+        put_bytes(&mut first, LOGIN, &[2]);
+        put_bytes(&mut first, SERVER, &[10, 1]);
+        put_bytes(&mut first, NOTE, b"Walk here");
+        let mut second = Vec::new();
+        second.push(TICK);
+        put_varint(&mut second, 600);
+        put_bytes(&mut second, SERVER, &[11, 2]);
+        put_bytes(&mut second, NOTE, b"Take Logs");
+
+        let whole = build(&[first.clone(), second.clone()].concat(), Map::new());
+        let mut live = Builder::default();
+        live.feed(&first);
+        let start = live.take(Map::new());
+        live.feed(&second);
+        let next = live.take(Map::new());
+        let nothing = live.take(Map::new());
+
+        let (whole_header, whole_frames) = split(&whole);
+        let (start_header, start_frames) = split(&start);
+        let (next_header, next_frames) = split(&next);
+        assert_eq!([start_frames, next_frames].concat(), whole_frames);
+        assert_eq!(start_header["frames"], 2);
+        assert_eq!(next_header["frames"], 1);
+        assert_eq!(next_header["durationMs"], whole_header["durationMs"]);
+        assert_eq!(next_header["notes"], json!([[600, "Take Logs"]]));
+        let (nothing_header, nothing_frames) = split(&nothing);
+        assert!(nothing_frames.is_empty());
+        assert_eq!(nothing_header["notes"], json!([]));
+    }
+
+    #[test]
+    fn types_sent_chat_again() {
+        let mut rec = Vec::new();
+        rec.push(TICK);
+        put_varint(&mut rec, 6000);
+        let mut body = vec![1, 1];
+        body.extend(wordpack::pack("hi"));
+        rec.push(CLIENT);
+        rec.push(ClientProt::MessagePublic as u8);
+        put_varint(&mut rec, body.len() as u32);
+        rec.extend_from_slice(&body);
+
+        let file = build(&rec, Map::new());
+        let header_len = u32::from_be_bytes(file[5..9].try_into().unwrap()) as usize;
+        let header: Value = serde_json::from_slice(&file[9..9 + header_len]).unwrap();
+        let keys: Vec<&str> = header["inputs"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter(|i| i[1] == 11)
+            .map(|i| i[2].as_str().unwrap())
+            .collect();
+        assert_eq!(keys.concat(), "red:wave:HiEnter");
+        assert_eq!(
+            header["inputs"].as_array().unwrap().last().unwrap()[0],
+            6000
+        );
+        assert_eq!(header["notes"][0], json!([6000, "Say \"Hi\""]));
+    }
+}

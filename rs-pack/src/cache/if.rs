@@ -15,6 +15,39 @@ pub struct IfType {
     pub usable: bool,
     pub iop: Option<Box<[Option<Box<str>>]>>,
     pub action_target: u16,
+    /// Where it's drawn, from its interface's top left.
+    pub x: i16,
+    pub y: i16,
+    /// An inventory's gaps between its 32 by 32 slots, and how far each of
+    /// its first 20 slots is moved.
+    pub margin_x: u8,
+    pub margin_y: u8,
+    pub slot_offsets: Option<Box<[(i16, i16)]>>,
+    /// Whether it's in a layer that scrolls, so where it's drawn depends on
+    /// how far.
+    pub scrolls: bool,
+}
+
+impl IfType {
+    /// Where an inventory's slot is drawn, from its interface's top left:
+    /// a 32 by 32 square from there.
+    pub fn slot_at(&self, slot: u16) -> Option<(i16, i16)> {
+        let columns = self.width.max(1);
+        let (col, row) = (slot % columns, slot / columns);
+        if row >= self.height {
+            return None;
+        }
+        let (dx, dy) = self
+            .slot_offsets
+            .as_deref()
+            .and_then(|o| o.get(usize::from(slot)))
+            .copied()
+            .unwrap_or_default();
+        Some((
+            self.x + col as i16 * (32 + i16::from(self.margin_x)) + dx,
+            self.y + row as i16 * (32 + i16::from(self.margin_y)) + dy,
+        ))
+    }
 }
 
 impl From<IfTypeRaw> for IfType {
@@ -32,6 +65,15 @@ impl From<IfTypeRaw> for IfType {
             usable: raw.usable,
             iop: raw.iop,
             action_target: raw.action_target,
+            x: 0,
+            y: 0,
+            margin_x: raw.margin_x,
+            margin_y: raw.margin_y,
+            scrolls: false,
+            slot_offsets: raw
+                .inventory_slot_offset_x
+                .zip(raw.inventory_slot_offset_y)
+                .map(|(x, y)| x.iter().copied().zip(y.iter().copied()).collect()),
         }
     }
 }
@@ -89,6 +131,7 @@ pub struct IfTypeRaw {
     pub option: Option<Box<str>>,
     pub child_x: Option<Box<[i16]>>,
     pub child_y: Option<Box<[i16]>>,
+    pub children: Option<Box<[u16]>>,
 }
 
 pub struct IfTypeProvider {
@@ -105,6 +148,9 @@ impl IfTypeProvider {
         let mut types: Vec<Option<Box<IfType>>> = (0..count).map(|_| None).collect();
 
         let mut root_layer: i32 = -1;
+        // Each layer's children and where it puts them: (layer, child, x, y).
+        let mut placed: Vec<(u16, u16, i16, i16)> = Vec::new();
+        let mut scrolling = std::collections::HashSet::new();
 
         while buf.remaining() > 0 {
             let mut id = buf.g2();
@@ -166,6 +212,7 @@ impl IfTypeProvider {
                 option: None,
                 child_x: None,
                 child_y: None,
+                children: None,
             };
 
             com.com_name = Some(buf.gjstr(10).into_boxed_str());
@@ -216,12 +263,15 @@ impl IfTypeProvider {
                     let child_count = buf.g1() as usize;
                     #[cfg(since_244)]
                     let child_count = buf.g2() as usize;
+                    let mut children = Vec::with_capacity(child_count);
                     let mut child_x = Vec::with_capacity(child_count);
                     let mut child_y = Vec::with_capacity(child_count);
                     for _ in 0..child_count {
+                        children.push(buf.g2());
                         child_x.push(buf.g2s());
                         child_y.push(buf.g2s());
                     }
+                    com.children = Some(children.into_boxed_slice());
                     com.child_x = Some(child_x.into_boxed_slice());
                     com.child_y = Some(child_y.into_boxed_slice());
                 }
@@ -350,8 +400,40 @@ impl IfTypeProvider {
                 names.insert(name.clone(), id);
             }
 
+            if com.com_type == IfComponentType::Layer && com.scroll > com.height {
+                scrolling.insert(id);
+            }
+            if let (Some(children), Some(xs), Some(ys)) =
+                (&com.children, &com.child_x, &com.child_y)
+            {
+                for ((&child, &x), &y) in children.iter().zip(xs).zip(ys) {
+                    placed.push((id, child, x, y));
+                }
+            }
             if (id as usize) < types.len() {
                 types[id as usize] = Some(Box::new(IfType::from(com)));
+            }
+        }
+
+        // Each component's place: its own in its layer, plus its layers'.
+        let parents: HashMap<u16, (u16, i16, i16)> = placed
+            .into_iter()
+            .map(|(layer, child, x, y)| (child, (layer, x, y)))
+            .collect();
+        for (id, com) in types.iter_mut().enumerate() {
+            let Some(com) = com else {
+                continue;
+            };
+            let mut at = id as u16;
+            // A layer can't hold itself, but stop all the same if one does.
+            for _ in 0..32 {
+                let Some(&(layer, x, y)) = parents.get(&at) else {
+                    break;
+                };
+                com.x += x;
+                com.y += y;
+                com.scrolls |= scrolling.contains(&layer);
+                at = layer;
             }
         }
 

@@ -1,6 +1,8 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
+use crate::engine::engine;
+use crate::watch::Target;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
@@ -465,6 +467,10 @@ impl PlayerInfo {
         // 1 + 2 = 3 bits
         self.bw.pbit::<3>(&mut self.buf, (1 << 2) | 3);
         active.player.build_area.players.remove_bit(other);
+        active
+            .watch
+            .anticheat
+            .lost(Target::Player(other), engine().clock);
     }
 
     /// Encodes a teleport movement entry (21 bits) with absolute position
@@ -812,6 +818,125 @@ impl PlayerInfo {
         ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add
             <= Self::BYTES_LIMIT - 3
     }
+
+    /// A session replay's keyframe (see [`crate::watch`]): `PLAYER_INFO`
+    /// bodies that bring a client that has just logged in to what `active`'s
+    /// client shows now. The local player stands where they are, and the
+    /// players its client tracks are added in the same order, so the next
+    /// live update applies. More than one body when it all doesn't fit in
+    /// one. Only the players in view are handed over: the caller has the
+    /// server forget the others' appearances (see
+    /// [`BuildArea::forget_untracked_appearances`]).
+    ///
+    /// Reads the observer's state without changing it.
+    pub fn keyframe(
+        renderer: &mut PlayerRenderer,
+        players: &[Option<ActivePlayer>],
+        active: &ActivePlayer,
+    ) -> Vec<Vec<u8>> {
+        let build = &active.player.build_area;
+        let tracked = build.players.iter();
+        let mut info = PlayerInfo::new();
+        let mut known = 0usize;
+        let mut bodies = Vec::new();
+        let coord = active.player.pathing.coord;
+        loop {
+            info.updates.pos = 0;
+            info.bw.reset();
+            if bodies.is_empty() {
+                // 1 + 2 + 2 + 7 + 7 + 1 + 1 = 21 bits: teleport, jump, update.
+                info.bw.pbit::<21>(
+                    &mut info.buf,
+                    (((1 << 2) | 3) << 18)
+                        | ((coord.y() as i32 & 0x3) << 16)
+                        | (((coord.x() as i32 - build.origin.zone_origin_x() as i32) & 0x7F) << 9)
+                        | (((coord.z() as i32 - build.origin.zone_origin_z() as i32) & 0x7F) << 2)
+                        | (1 << 1)
+                        | 1,
+                );
+                let masks = Self::keyframe_masks(renderer, active);
+                info.write_blocks(renderer, active, active, masks);
+            } else {
+                info.idle();
+            }
+            info.bw.pbit::<8>(&mut info.buf, known as i32);
+            for _ in 0..known {
+                info.idle();
+            }
+            while known < tracked.len() {
+                let pid = tracked[known];
+                let other = players.get(pid as usize).and_then(Option::as_ref);
+                let len = other.map_or(1, |_| renderer.lowdefinitions(pid) + 32);
+                if !info.fits(PlayerInfo::BITS_ADD, len) {
+                    break;
+                }
+                let (x, z) = other.map_or((0, 0), |other| {
+                    (
+                        other.player.pathing.coord.x() as i32 - coord.x() as i32,
+                        other.player.pathing.coord.z() as i32 - coord.z() as i32,
+                    )
+                });
+                // 11 + 5 + 5 + 1 + 1 = 23 bits
+                info.bw.pbit::<23>(
+                    &mut info.buf,
+                    ((pid as i32) << 12) | ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | (1 << 1) | 1,
+                );
+                match other {
+                    Some(other) => {
+                        let masks = Self::keyframe_masks(renderer, other);
+                        info.write_blocks(renderer, active, other, masks);
+                    }
+                    // Gone this tick: the live stream drops it next.
+                    None => info.updates.p1(0),
+                }
+                known += 1;
+            }
+            if info.updates.pos > 0 {
+                info.bw.pbit::<11>(&mut info.buf, MAX_PLAYERS as i32 - 1);
+                info.bw.finish(&mut info.buf);
+                info.buf.pdata(&info.updates.data, 0, info.updates.pos);
+            } else {
+                info.bw.finish(&mut info.buf);
+            }
+            bodies.push(info.buf.data[..info.buf.pos].to_vec());
+            if known >= tracked.len() {
+                return bodies;
+            }
+        }
+    }
+
+    /// What a keyframe shows of `other`: its appearance and which way it
+    /// faces, as a new observer's add does.
+    fn keyframe_masks(renderer: &mut PlayerRenderer, other: &ActivePlayer) -> u16 {
+        let pid = other.player.uid.pid();
+        let mut masks = 0;
+        if renderer.has(pid, PlayerInfoProt::Appearance) {
+            masks |= PlayerInfoProt::Appearance as u16;
+        }
+        if let Some(face_entity) = other.player.info.face_entity {
+            if !renderer.has(pid, PlayerInfoProt::FaceEntity) {
+                renderer.cache_face_entity(pid, face_entity);
+            }
+            masks |= PlayerInfoProt::FaceEntity as u16;
+        }
+        if !renderer.has(pid, PlayerInfoProt::FaceCoord) {
+            if let (Some(x), Some(z)) = (other.player.info.face_x, other.player.info.face_z) {
+                renderer.cache_face_coord(pid, x, z);
+            } else if let (Some(x), Some(z)) = (
+                other.player.info.orientation_x,
+                other.player.info.orientation_z,
+            ) {
+                renderer.cache_face_coord(pid, x, z);
+            } else {
+                renderer.cache_face_coord(
+                    pid,
+                    CoordGrid::fine(other.player.pathing.coord.x(), 1),
+                    CoordGrid::fine(other.player.pathing.coord.z(), 1),
+                );
+            }
+        }
+        masks | PlayerInfoProt::FaceCoord as u16
+    }
 }
 
 /// Encodes the NPC info update packet for a single game tick.
@@ -1137,6 +1262,10 @@ impl NpcInfo {
         // 1 + 2 = 3 bits
         self.bw.pbit::<3>(&mut self.buf, (1 << 2) | 3);
         active.player.build_area.npcs.remove_bit(other);
+        active
+            .watch
+            .anticheat
+            .lost(Target::Npc(other), engine().clock);
     }
 
     /// Writes the pre-coalesced high-definition update block for an NPC with a
@@ -1256,5 +1385,112 @@ impl NpcInfo {
     fn fits(&self, bits_to_add: usize, bytes_to_add: usize) -> bool {
         ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add
             <= Self::BYTES_LIMIT - 3
+    }
+
+    /// A session replay's keyframe (see [`PlayerInfo::keyframe`]): `NPC_INFO`
+    /// bodies that add the NPCs `active`'s client tracks, in the same order.
+    /// More than one when they don't all fit in one.
+    ///
+    /// Reads the observer's state without changing it.
+    pub fn keyframe(
+        renderer: &mut NpcRenderer,
+        npcs: &[Option<Box<ActiveNpc>>],
+        active: &ActivePlayer,
+    ) -> Vec<Vec<u8>> {
+        let tracked = active.player.build_area.npcs.iter();
+        let coord = active.player.pathing.coord;
+        let mut info = NpcInfo::new();
+        let mut known = 0usize;
+        let mut bodies = Vec::new();
+        loop {
+            info.updates.pos = 0;
+            info.bw.reset();
+            info.bw.pbit::<8>(&mut info.buf, known as i32);
+            for _ in 0..known {
+                info.bw.pbit::<1>(&mut info.buf, 0);
+            }
+            let first = known;
+            while known < tracked.len() {
+                let nid = tracked[known];
+                let other = npcs.get(nid as usize).and_then(Option::as_ref);
+                let len = other.map_or(1, |_| renderer.lowdefinitions(nid) + 16);
+                if !info.fits(NpcInfo::BITS_ADD, len) {
+                    break;
+                }
+                let (ntype, x, z) = other.map_or((0, 0, 0), |n| {
+                    (
+                        n.npc.uid.id() as i32,
+                        n.npc.pathing.coord.x() as i32 - coord.x() as i32,
+                        n.npc.pathing.coord.z() as i32 - coord.z() as i32,
+                    )
+                });
+                #[cfg(before_254)]
+                info.bw
+                    .pbit::<24>(&mut info.buf, ((nid as i32) << 11) | ntype);
+                #[cfg(since_254)]
+                info.bw
+                    .pbit::<25>(&mut info.buf, ((nid as i32) << 11) | ntype);
+                #[cfg(before_274)]
+                info.bw
+                    .pbit::<11>(&mut info.buf, ((x & 0x1F) << 6) | ((z & 0x1F) << 1) | 1);
+                #[cfg(since_274)]
+                info.bw
+                    .pbit::<12>(&mut info.buf, ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | 2 | 1);
+                match other {
+                    Some(other) => {
+                        let masks = Self::keyframe_masks(renderer, other);
+                        info.write_blocks(renderer, nid, masks);
+                    }
+                    // Gone this tick: the live stream drops it next.
+                    None => info.updates.p1(0),
+                }
+                known += 1;
+            }
+            if info.updates.pos > 0 {
+                #[cfg(before_254)]
+                info.bw.pbit::<13>(&mut info.buf, MAX_NPCS as i32 - 1);
+                #[cfg(since_254)]
+                info.bw.pbit::<14>(&mut info.buf, MAX_NPCS as i32 - 1);
+                info.bw.finish(&mut info.buf);
+                info.buf.pdata(&info.updates.data, 0, info.updates.pos);
+            } else {
+                info.bw.finish(&mut info.buf);
+            }
+            bodies.push(info.buf.data[..info.buf.pos].to_vec());
+            // A body that couldn't fit even one more stops here rather than
+            // loop forever.
+            if known >= tracked.len() || known == first {
+                return bodies;
+            }
+        }
+    }
+
+    /// What a keyframe shows of `other`: which way it faces, as a new
+    /// observer's add does.
+    fn keyframe_masks(renderer: &mut NpcRenderer, other: &ActiveNpc) -> u16 {
+        let nid = other.npc.uid.nid();
+        let mut masks = 0;
+        if let Some(face_entity) = other.npc.info.face_entity {
+            if !renderer.has(nid, NpcInfoProt::FaceEntity) {
+                renderer.cache_face_entity(nid, face_entity);
+            }
+            masks |= NpcInfoProt::FaceEntity as u16;
+        }
+        if !renderer.has(nid, NpcInfoProt::FaceCoord) {
+            if let (Some(x), Some(z)) = (other.npc.info.face_x, other.npc.info.face_z) {
+                renderer.cache_face_coord(nid, x, z);
+            } else if let (Some(x), Some(z)) =
+                (other.npc.info.orientation_x, other.npc.info.orientation_z)
+            {
+                renderer.cache_face_coord(nid, x, z);
+            } else {
+                renderer.cache_face_coord(
+                    nid,
+                    CoordGrid::fine(other.npc.pathing.coord.x(), 1),
+                    CoordGrid::fine(other.npc.pathing.coord.z(), 1),
+                );
+            }
+        }
+        masks | NpcInfoProt::FaceCoord as u16
     }
 }

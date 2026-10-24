@@ -1,10 +1,3 @@
-//! Running totals of game events for the metrics endpoint.
-//!
-//! Every total is cumulative since startup and bumped where the event
-//! happens (the engine thread or the database task), so a scrape never misses
-//! one. Labels come from the fixed lists below, which keeps each metric to a
-//! handful of series.
-
 use rs_db::ModAction;
 use std::sync::atomic::{AtomicU64, Ordering};
 
@@ -17,11 +10,8 @@ pub const CHAT_PRIVATE: usize = 1;
 /// [`Counters::auto_bans`].
 #[derive(Clone, Copy)]
 pub enum AutoBan {
-    /// An abuse report with a reason the report screen can't produce.
     ReportReason,
-    /// An abuse report naming an invalid offender.
     ReportOffender,
-    /// A private message to an invalid name.
     PrivateName,
 }
 
@@ -73,21 +63,21 @@ pub const LOG_KINDS: [&str; 3] = ["chat", "session", "wealth"];
 
 pub struct Counters {
     pub chat: [AtomicU64; 2],
-    /// Chat a muted player tried to send.
     pub chat_muted: [AtomicU64; 2],
     pub auto_bans: [AtomicU64; 3],
     pub reports: [AtomicU64; 12],
-    /// Mutes moderators made from this world that took.
     pub mutes: AtomicU64,
     pub mod_actions: [AtomicU64; 5],
     pub wealth_coins: [AtomicU64; 6],
     pub wealth_items: [AtomicU64; 6],
-    /// Log rows written to the database, by kind.
     pub log_rows: [AtomicU64; 3],
     pub log_batches: AtomicU64,
-    /// Log batches lost to a failed write or an offline database.
     pub log_batches_dropped: AtomicU64,
     pub log_rows_dropped: AtomicU64,
+    pub replay_chunks: AtomicU64,
+    pub replay_bytes: AtomicU64,
+    pub replay_chunks_dropped: AtomicU64,
+    pub script_errors: AtomicU64,
 }
 
 pub static COUNTERS: Counters = Counters {
@@ -103,6 +93,10 @@ pub static COUNTERS: Counters = Counters {
     log_batches: AtomicU64::new(0),
     log_batches_dropped: AtomicU64::new(0),
     log_rows_dropped: AtomicU64::new(0),
+    replay_chunks: AtomicU64::new(0),
+    replay_bytes: AtomicU64::new(0),
+    replay_chunks_dropped: AtomicU64::new(0),
+    script_errors: AtomicU64::new(0),
 };
 
 /// Adds `n` to a total.

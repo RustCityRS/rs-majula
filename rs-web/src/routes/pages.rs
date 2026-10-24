@@ -1,9 +1,17 @@
 use crate::app::{App, AppError};
 use axum::extract::{Query, State};
-use axum::http::{StatusCode, Uri};
+use axum::http::{StatusCode, Uri, header};
 use axum::response::{IntoResponse, Response};
+use minijinja::context;
+use minijinja::value::Serde;
 use serde::Deserialize;
 use std::sync::Arc;
+use tracing::warn;
+
+/// The news category the support page lists (`news_categories`).
+const CUSTOMER_SUPPORT: i16 = 3;
+/// How many of its posts it lists.
+const SUPPORT_NEWS: i64 = 5;
 
 /// Serves `templates/pages/<path>.html` or `templates/pages/<path>/index.html`.
 pub async fn page(State(app): State<Arc<App>>, uri: Uri) -> Result<Response, AppError> {
@@ -22,6 +30,22 @@ pub async fn page(State(app): State<Arc<App>>, uri: Uri) -> Result<Response, App
     render_first(&app, &candidates)
 }
 
+/// `/support`, with the latest Customer Support news.
+pub async fn support(State(app): State<Arc<App>>) -> Result<Response, AppError> {
+    let news = app
+        .db
+        .news_page(Some(CUSTOMER_SUPPORT), 0, SUPPORT_NEWS)
+        .await
+        .unwrap_or_else(|e| {
+            warn!("Loading news for the support page failed: {e}");
+            Vec::new()
+        });
+    let html = app
+        .templates
+        .render("pages/support.html", context! { news => Serde(news) })?;
+    Ok(html.into_response())
+}
+
 #[derive(Deserialize)]
 pub struct PollQuery {
     pollid: Option<String>,
@@ -38,8 +62,29 @@ pub async fn poll_results(
     }
 }
 
+/// Frames a world's map viewer, which draws that world's revision. Prefers a
+/// world that is online and open, then one that is online.
 pub async fn worldmap(State(app): State<Arc<App>>) -> Result<Response, AppError> {
-    render_first(&app, &["pages/worldmap/applet.html".to_string()])
+    let worlds = app.worlds_now();
+    let world = worlds
+        .iter()
+        .find(|w| w.online && !w.maintenance)
+        .or_else(|| worlds.iter().find(|w| w.online))
+        .or(worlds.first());
+    let html = app.templates.render(
+        "pages/worldmap/applet.html",
+        context! { world => world.map(Serde) },
+    )?;
+    Ok(html.into_response())
+}
+
+/// `/manifest.webmanifest`, which makes the site installable as an app.
+/// Its `id` names the installed app, so it must never change.
+pub async fn manifest(State(app): State<Arc<App>>) -> Result<Response, AppError> {
+    let body = app
+        .templates
+        .render_text("views/manifest.webmanifest", context! {})?;
+    Ok(([(header::CONTENT_TYPE, "application/manifest+json")], body).into_response())
 }
 
 fn render_first(app: &App, names: &[String]) -> Result<Response, AppError> {

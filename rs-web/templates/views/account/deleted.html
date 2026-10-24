@@ -1,0 +1,19 @@
+{% with title="Account Deleted" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Account Deleted" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+<p>The account <b>{{ username }}</b> has been deleted, along with everything we kept with it.</p>
+<p>Moderation cases staff opened about the account are kept, as our <a href="/privacy" class=c>privacy policy</a>
+  explains. Thanks for playing.</p>
+<br>
+<center><a href="/title" class=c>Main menu</a></center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

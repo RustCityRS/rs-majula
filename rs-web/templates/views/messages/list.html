@@ -1,0 +1,44 @@
+{% from "layout/section.html" import section %}
+{% with title="Message Centre" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Message Centre" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% call section() %}
+<p>Logged in as <b>{{ username }}</b>. These are the messages our staff have sent you, the newest first (times are
+  UTC). They can't be replied to here.</p>
+<p>Our staff will never ask for your password. If a message asks for it, it isn't from us.</p>
+{% if error %}<p class="red">ERROR: {{ error }}</p>{% endif %}
+{% endcall %}
+
+{% call section("Your messages from our staff") %}
+{% if messages %}
+<form method="post" action="/messages/view">
+  <input type="hidden" name="token" value="{{ token }}">
+  <table width=100% cellpadding=3 cellspacing=1>
+    <tr>
+      <th align=left style="background-color:#35210F;">Subject</th>
+      <th align=left style="background-color:#35210F;">Sent</th>
+      <th style="background-color:#35210F;"></th>
+    </tr>
+    {% for m in messages %}
+    <tr>
+      <td valign=top>{% if m.unread %}<font color="#ffbb22"><b>New</b></font> {% endif %}<b>{{ m.subject }}</b></td>
+      <td valign=top>{{ m.sent }}</td>
+      <td valign=top align=right><button type="submit" name="id" value="{{ m.id }}">Read</button></td>
+    </tr>
+    {% endfor %}
+  </table>
+</form>
+{% if messages|length >= shown %}<p>Only your {{ shown }} most recent messages are listed.</p>{% endif %}
+{% else %}
+<p>You don't have any messages from our staff.</p>
+{% endif %}
+{% endcall %}
+
+<center><a href="/title" class=c>Main menu</a></center>
+<br>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

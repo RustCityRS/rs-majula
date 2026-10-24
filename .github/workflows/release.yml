@@ -90,7 +90,7 @@ jobs:
           sudo apt-get install -y gcc-aarch64-linux-gnu
 
       - name: Build release binaries
-        run: cargo build --release --target ${{ matrix.target.triple }} -p rs-server -p rs-web
+        run: cargo build --release --target ${{ matrix.target.triple }} -p rs-server -p rs-web -p rs-console
         env:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
           RUSTFLAGS: ${{ matrix.target.rustflags }}
@@ -101,10 +101,11 @@ jobs:
           # The same layout as the deploy docs' hand-built pkg/, tarred flat.
           bin=target/${{ matrix.target.triple }}/release
           mkdir -p pkg/content pkg/public pkg/web
-          cp $bin/rs-server${{ matrix.target.ext }} $bin/rs-web${{ matrix.target.ext }} pkg/
+          # rs-console embeds its web files, so the binary is all it needs.
+          cp $bin/rs-server${{ matrix.target.ext }} $bin/rs-web${{ matrix.target.ext }} $bin/rs-console${{ matrix.target.ext }} pkg/
           # The server reads content/<REV>/ at runtime, so ship only the matching rev.
           cp -r .keys pkg/ && cp -r content/${{ matrix.rev }} pkg/content/ && cp -r public/${{ matrix.rev }} pkg/public/
-          cp -r deploy/grafana pkg/ && cp deploy/rotate-rsa.py pkg/
+          cp -r deploy/grafana pkg/ && cp deploy/patch.py pkg/
           cp -r rs-web/templates rs-web/public rs-web/worlds.json pkg/web/
           tar -czf rs-majula-${{ matrix.rev }}-${{ matrix.target.triple }}.tar.gz -C pkg .
 

@@ -1,21 +1,41 @@
-{% with title=post.title %}{% include "layout/header.html" %}{% endwith %}
+{% with title=post.title, og_type="article", og_description=excerpt, og_image=image %}{% include "layout/header.html" %}{% endwith %}
 
 {% include "layout/frame-top.html" %}
 {% include "layout/content-start.html" %}
 
 {% include "layout/news-nav.html" %}
 
-<img src='/img/title/blank.gif' width=1 height=3><br>
+<img alt="" src='/img/title/blank.gif' width=1 height=3><br>
 
 {% include "layout/news-categories.html" %}
 
-<img src='/img/title/blank.gif' width=1 height=3><br>
+<img alt="" src='/img/title/blank.gif' width=1 height=3><br>
 
-<table width=500 bgcolor=black cellpadding=4>
+{# Posts written in Markdown in the staff console: keep their images and
+   videos inside the 500px column, and give the elements Markdown makes the
+   site's look. #}
+<style>
+  .news-body { overflow-wrap: anywhere; }
+  .news-body .news-media, .news-body img, .news-body video { max-width: 100%; height: auto; }
+  .news-body .news-media { display: block; margin: 8px auto; }
+  .news-body h1, .news-body h2, .news-body h3 { font-size: 15px; margin: 14px 0 6px; color: #FFE139; }
+  .news-body h1 { font-size: 17px; }
+  .news-body p { margin: 0 0 10px; }
+  .news-body ul, .news-body ol { margin: 0 0 10px; padding-left: 22px; }
+  .news-body blockquote { margin: 0 0 10px; padding: 2px 10px; border-left: 3px solid #382418; color: #c8c8c8; }
+  .news-body code { font-family: Courier New, monospace; background: #1a120c; padding: 0 3px; }
+  .news-body pre { background: #1a120c; padding: 8px; overflow-x: auto; }
+  .news-body pre code { padding: 0; }
+  .news-body table { border-collapse: collapse; margin: 0 0 10px; }
+  .news-body th, .news-body td { border: 1px solid #382418; padding: 3px 6px; }
+  .news-body hr { border: 0; border-top: 1px solid #382418; }
+</style>
+
+<table width=500 bgcolor=black cellpadding=4 style="table-layout: fixed">
   <tr>
     <td class=e>
       <center><b>{{ post.long_date }} - {{ post.title }}</b></center><br>
-      {{ post.content|safe }}
+      <div class=news-body>{{ post.content|safe }}</div>
     </td>
   </tr>
 </table>

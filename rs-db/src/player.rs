@@ -9,13 +9,14 @@ pub struct Credentials {
     pub banned: bool,
     pub muted_ms: Option<i64>,
     pub left_other_world_ms: Option<i64>,
+    pub age_ms: i64,
+    pub unread_messages: i64,
 }
 
 /// A player's current mute and ban, from [`Db::sanctions`].
 #[derive(Debug, PartialEq, Eq)]
 pub struct Sanctions {
     pub name_hash: u64,
-    /// Milliseconds left on a chat mute, `None` while not muted.
     pub muted_ms: Option<i64>,
     pub banned: bool,
 }
@@ -46,7 +47,10 @@ impl Db {
                     END AS muted_ms,
                     CASE WHEN last_logout_node <> $2
                          THEN (extract(epoch FROM now() - last_logout_at) * 1000)::bigint
-                    END AS left_other_world_ms
+                    END AS left_other_world_ms,
+                    (extract(epoch FROM now() - created_at) * 1000)::bigint AS age_ms,
+                    (SELECT count(*) FROM staff_messages m
+                     WHERE m.player_id = players.id AND m.read_at IS NULL) AS unread_messages
              FROM players WHERE name_hash = $1) p",
         )
         .bind(name_hash as i64)
@@ -142,11 +146,14 @@ impl Db {
             .await
     }
 
-    /// How many players were registered from `ip` in the last `hours`.
+    /// How many players were registered from `ip` in the last `hours`. An
+    /// IPv6 address counts with the rest of its /64, which one household or
+    /// phone is handed whole.
     pub async fn recent_registrations(&self, ip: IpAddr, hours: i32) -> Result<i64, Error> {
         sqlx::query_scalar(
             "SELECT count(*) FROM players
-             WHERE registration_ip = $1::inet
+             WHERE registration_ip <<= network(set_masklen($1::inet,
+                     CASE family($1::inet) WHEN 6 THEN 64 ELSE 32 END))
                AND created_at > now() - make_interval(hours => $2)",
         )
         .bind(ip.to_string())

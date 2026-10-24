@@ -1,0 +1,15 @@
+[package]
+name = "rs-admin-api"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+hmac = { workspace = true }
+serde = { workspace = true }
+sha2 = { workspace = true }
+
+[lints]
+workspace = true

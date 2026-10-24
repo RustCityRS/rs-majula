@@ -1,69 +1,195 @@
+{% from "layout/section.html" import section %}
 {% with title="Privacy policy" %}{% include "layout/header.html" %}{% endwith %}
 {% include "layout/frame-top.html" %}
 {% include "layout/content-start.html" %}
 {% with title="Privacy policy" %}{% include "layout/title-box.html" %}{% endwith %}
 
-{% include "layout/content-body-start.html" %}
-<p><b>Jagex Privacy Policy</b></p>
-<p>Jagex Limited (Jagex) is committed to your privacy and makes every effort to ensure the confidentiality of your personally identifiable information.<p>
-<p>We respect the privacy rights of our online visitors and recognise the importance of protecting the information collected about you. We have adopted a corporate wide Privacy Policy that guides how we collect, store and use the information you provide.</p>
-<p>
-   Jagex currently operates the following web sites and subdomains thereof: 
-   <li>jagex.com
-   <li>runescape.com
-   <li>jagex.co.uk
-   <li>runescape.co.uk
-   <li>runescape.net
-   <li>runescape.org
-</p>
-<p>Please read this privacy policy carefully, as once you use any of our web sites, you will be deemed to have read and accepted this privacy policy.</p>
+{% call section() %}
+<p><i>Last updated 23 October 2026.</i></p>
+<p><i>Most of this site recreates the RuneScape website as it was in {{ game_year }}, and this page used to show Jagex's privacy
+    policy from that time. That policy was about Jagex's own services: their billing partners, their adverts and their
+    offices. None of it described this server. We've replaced it with our own policy below, which covers what this
+    server actually does.</i></p>
+<p>This website and its game worlds are run independently and have no connection to Jagex. This page covers what we keep
+    about you when you make an account, play, or use the support pages, why we keep it, how long for, and who can see
+    it.</p>
+<p>We don't sell your information, we don't show adverts, and we don't use any tracking or analytics services.</p>
+<p>This server is run by Rust City, from the United States. Rust City is responsible for everything this page describes
+    (the "controller", in the words of data protection law). You can reach us at
+    <a href="mailto:contact@rustcity.org" class=c>contact@rustcity.org</a>.</p>
+{% endcall %}
 
-<p><b>What personal information is collected?</b></p>
-<p>The only personal information we collect about you is information which you provide yourself via forms on our website, or our billing partners websites. (e.g. when you register with us, contact customer support, or sign up for membership)</p>
-<p>No personal information is collected when you access the public areas of our website</p>
-<p>No personal information is collected when you play our single player games</p>
-<p>To play our multiplayer board games you will need to create an account and provide a username,password and email address</p>
-<p>To play RuneScape or use certain areas of our websites you will need to create an account and provide a username & password</p>
-<p>To sign up for RuneScape membership you will need to provide contact information including: your name, a valid email address, gender, home address, phone/fax number, zip/postal code, and country.</p>
-<p>
-   To make use of our customer support service you will need to provide an email address and information relating to your query. To enable us to provide a better customer support service we may also ask you provide contact information including: your name, email, postcode and country, and to provide a number of security questions which we can use to verify your identity if you require assistance in the future. The questions and the answers you provide are up to you. You may opt-out of providing some of this information but it will limit the effectiveness of our support service if you do.
-   We also sometimes collect and store other information by way of a questionnaire to assist our advertisers and partners.
-</p>
-<p>You may opt-out of providing any information by simply choosing not to complete the form requesting the information, and hence choosing not to use that particular service.</p>
+{% call section("Your account") %}
+<p>To make an account you choose a username and a password. That's all we ask for: no email address, real name or date
+    of birth. Your password is never stored as you typed it. It's hashed with
+    <a href="https://en.wikipedia.org/wiki/Argon2" class=c>Argon2id</a>, using a random
+    <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)" class=c>salt</a> for each password and a
+    <a href="https://en.wikipedia.org/wiki/Pepper_(cryptography)" class=c>pepper</a>: a secret key that only our game
+    and website servers know, kept out of the database. A hash
+    can't be turned back into the password, not even by staff, and someone who got hold of a copy of our database
+    couldn't even start guessing passwords without that key as well.</p>
+<p>With the account we keep the date it was made, the internet address it was made from, any staff role it has, and
+    whether it's banned or muted and until when.</p>
+<p>We keep your game save: your stats, items, bank, quest progress, where you are, your appearance and your game
+    settings. We keep your friends and ignore lists too. We also keep your earlier saves for 30 days, so staff can put
+    your account back if it was hijacked or something went wrong. The newest 5 are kept however old they are.</p>
+<p>The hiscores show your username and your stats to everyone. Staff accounts aren't listed.</p>
+{% endcall %}
 
-<p><b>What other information is stored?</b>
-<p>We use cookies, ip-addresses, and other unique identifiers in order to identify specific computers that access our services.</p>
-<p>We generate and store logs indicating usage of our site and activity in our games.</p>
-<p>We store 'save game' and 'game settings' information to enable us to provide a better games service in which your activities and achievements are remembered in the game.</p>
+{% call section("When you log in") %}
+<p>With each login we keep the time, the world, and these details about your connection:</p>
+<ul>
+    <li>Your internet (IP) address.</li>
+    <li>A browser ID. The web client makes up a random number the first time it runs, keeps it in your browser's local
+        storage, and sends it when you log in. It's only for telling browsers apart, and it's gone if you clear your
+        site data.
+    </li>
+    <li>If you play in the browser, what your browser says about itself: its user agent, its platform (such as
+        "Windows"), its preferred language, and whether it looks like a phone or tablet. Browsers can claim anything, so
+        staff treat this as a description, not proof.
+    </li>
+</ul>
+<p>We keep these for 180 days. They let staff see when accounts share an address or browser, which is how we find ban
+    evasion, bot farms, and the accounts a hijacker came from. Many people share an address (a household, a school, a
+    mobile network), and staff know that, so a shared address on its own is never treated as proof of anything.</p>
+<p>Failed login attempts are counted by address for a minute, to slow down password guessing, and then forgotten.</p>
+{% endcall %}
 
-<p><b>What happens to the information provided/collected?</b></p>
-<p>The information may be used:</p>
-<p>a) To provide our customer support service, and to verify any claims or requests you make if you use our customer support service.</p>
-<p>b) To enforce our terms and conditions, and prevent hacking activities against our site.</p>
-<p>c) To send service announcements which contain important information about our service, our site, or your account. (For example an email reminder is sent to members if a subscription payment is due)</p>
-<p>d) To aggregate information to generate anonymous statistics regarding use of our services. We may share this anonymous information with our partners and advertisers. This is not linked to any personal information that can identify any individual person.</p>
-<p>e) For our own internal marketing and demographic studies, so we can consistently improve our sites to better meet our visitors' needs</p>
-<p>f) To disclose information to the extent required by law, court order, as requested by other government or law enforcement authority, or to enforce legal rights.</p>
-<p>We respect your privacy, except as specified above we will not sell, rent, or disclose your personal information to other companies. We will not use your email address to send you 'spam'.</p>
+{% call section("Session recordings") %}
+<p>Every game session on our worlds is recorded on the server. This is the part people ask about most, so here is
+    exactly what that means.</p>
+<p>The game client and the world talk to each other in small messages called packets. The world sends packets that tell
+    your client what to show: the map, the players and NPCs near you, your inventory, chat and interfaces. Your client
+    sends packets back when you do something: clicking to walk, choosing a menu option, typing a chat message. The
+    client also reports some input on its own, as the original game did, for example samples of where your mouse moved
+    and clicked, the camera angle, whether the game window has focus, and on some game versions which keys were pressed.
+    As those packets pass through the world, it writes them down with a timestamp. That stream is the recording. It's
+    compressed and stored in our database, at a few kilobytes per minute of play.</p>
+<p>What a recording does not contain:</p>
+<ul>
+    <li>Anything from outside the game: no screenshots, no other windows or tabs, no camera or microphone, nothing about
+        the rest of your device. Nothing runs on your computer apart from the game client, and that's the same client
+        everybody plays with.
+    </li>
+    <li>Your password. It's sent once, encrypted, when you log in, and recording starts after that.</li>
+</ul>
+<p>To watch a recording, the staff console runs the normal game client and feeds it the recorded packets in place of a
+    live world. Staff see roughly what your client would have shown. It's a rebuilt view of the game, not a video of
+    your screen. Staff can also watch a session that's still going, a couple of seconds behind.</p>
+<p>Why we record:</p>
+<ul>
+    <li><b>Bots and macros.</b> Automated checks read the same stream as it's recorded, look at how a session plays, and
+        score it. A high score puts the session in front of a staff member. It doesn't ban anyone by itself. We don't
+        publish how the checks work, because that would only help people get around them.
+    </li>
+    <li><b>Disputes.</b> Scams, "my account was hijacked", items that went missing, harassment. A recording shows what
+        actually happened, which is fairer than one person's word against another's.
+    </li>
+    <li><b>Bugs.</b> When something breaks in the game, a recording shows what led up to it.</li>
+</ul>
+<p>Recordings are deleted after 7 days. When a staff member saves part of one as evidence in a moderation case, that
+    part is kept with the case.</p>
+<p>One check acts by itself: if a client sends something the real client can't send, the account is banned for a short
+    time automatically. If you think that was a mistake, appeal it and a member of staff will look at it. Every other ban
+    is decided by a person, and you can appeal those too.</p>
+{% endcall %}
 
-<p><b>Cookies</b></p>
-<p>This website uses cookies to track your country (to enable locale enhanced information) and to track where you entered our site from. If you wish to opt-out of the use of these cookies <a href="/cookies" class=c>click here</a> for clear instructions.</p>
+{% call section("Chat and game activity") %}
+<p>We log the chat you send, public and private, as you typed it (before the word filter), along with where you were and
+    who a private message went to. We also log trades, duel stakes, items you drop or pick up, and some other game
+    events. These help staff deal with scams, rule breaking and lost items, and let us undo the damage when an account
+    is cleaned out. They're kept for 90 days.</p>
+{% endcall %}
 
-<p><b>A special note about children 12 years old and under</b></p>
-<p>Jagex encourages parents to spend time online with their children.  We urge parents to instruct their children to never give out their real names, addresses or phone numbers, without permission, when using the Internet. No information may be submitted to Jagex by persons under the age of 18 without the consent of a parent or guardian, unless permitted by applicable laws.</p>
+{% call section("Reports, appeals and recovery") %}
+<p>When you report abuse we keep who reported whom, the rule, when, and where. When you appeal a ban or mute we keep
+    your statement and the address you sent it from. When you ask for an account to be recovered we keep what you tell
+    us on the form, plus your address, browser ID and browser details from the request, so staff can compare them with
+    the account's past logins. When staff send you a message in the Message Centre we keep it, and when you first
+    read it, until you delete your account.</p>
+<p>These records, staff's decisions on them, and the moderation cases built from them are kept for as long as they're
+    needed to run moderation fairly: to enforce a ban, to handle an appeal later, and to see someone's history. The
+    commands staff use in game are kept too, so staff can be held to account.</p>
+{% endcall %}
 
-<p><b>Third party sites</b>
-<p>We partner with third parties to provide specific services. As part of these services Jagex might store information, that was entered via the third party's site in our database.</p>
-<p>We use outside billing companies (worldpay.com, paybycash.com, BT Click and Buy, metacharge.com) to process membership payments securely. These companies do not retain, share, store or use your personally identifiable information for any secondary purposes.</p>
-<p>We use outside companies (real.com, realmedia.com, advertising.com, ad2-one.co.uk) to provide and serve the adverts on our website. These companies privacy policies can be found on the real.com, realmedia.com, ad2-one.co.uk, and advertising.com websites respectively.</p>
+{% call section("Who can see it") %}
+<p>Only staff, through a private staff console that isn't reachable from the public internet. What they can see depends
+    on their role. Moderators see stand-in labels in place of internet addresses, which lets them tell when two accounts
+    share an address without seeing the address itself. Admins and above see the addresses.</p>
+<p>Staff can't look into their own account, or into staff above their role. Opening a recording, looking someone up, and
+    every other staff action is written to an audit log that more senior staff can read.</p>
+{% endcall %}
 
-<p>Please note that this policy applies only to sites maintained by Jagex, and not to web sites maintained by other companies or organisations to which we link. Furthermore, from time to time Jagex may employ third parties who may collect personal information on Jagex's behalf. In such cases, such third parties will be instructed by Jagex to comply with the Jagex Privacy Policy as set forth herein.</p>
-<p>Jagex Limited is not responsible for the privacy practices of third party sites. Whenever you provide registration information on co-branded or private label sites, that data may be shared with the third-party company providing the service. You should make every effort to read the individual privacy policies of such third parties and make an informed decision on your own whether or not to continue based upon these sites' privacy practices and your own discretion. You may opt-out of sharing your information with such providers by choosing not to use that service or content.</p>
+{% call section("Your browser") %}
+<p>This website doesn't set any cookies. The game client keeps a few things in your browser's local storage: the browser
+    ID above, and your display settings (window size, scaling, and the phone keyboard mode). It also keeps the game's
+    files in your browser's storage so they don't download again each time. You can clear all of this from your
+    browser's site settings at any time.</p>
+{% endcall %}
 
-<p><b>Safeguarding your personally identifiable information</b></p>
-<p>Jagex will only collect personally identifiable information to the extent deemed reasonably necessary to serve our legitimate business purposes, and Jagex will maintain appropriate safeguards to ensure the security, integrity and privacy of the information you have provided. In addition, Jagex will take reasonable steps to assure that third parties to whom Jagex transfer any data will provide sufficient protection of that personal information.</p>
+{% call section("Services we use") %}
+<p>We rent our servers from netcup. We send server metrics (such as tick
+    times and request counts) and our servers' own logs to Grafana Cloud, so we can tell when something is wrong. Those
+    logs include connection addresses, and sometimes usernames.</p>
+<p>The last step of making an account has a security check from
+    <a href="https://www.cloudflare.com/application-services/products/turnstile/" class=c>Cloudflare Turnstile</a>, to
+    stop scripts making accounts in bulk. It runs in your browser, which sends Cloudflare details about itself, and we
+    send Cloudflare your internet address with the check's answer. Cloudflare handles these under its
+    <a href="https://www.cloudflare.com/turnstile-privacy-policy/" class=c>Turnstile privacy policy</a>, and tells us
+    only whether the check passed. Nobody else gets your information unless the law requires it.</p>
+<p>Everything we keep is stored in the United States: our servers are in netcup's US data centre, and our Grafana Cloud
+    account is in a US region. If you play from another country, your information is sent to the US to be stored
+    there.</p>
+{% endcall %}
 
-{% include "layout/content-body-end.html" %}
+{% call section("Why we're allowed to") %}
+<p>If you're in the EU or the UK, data protection law needs a reason for each thing we do with your information. Ours
+    are:</p>
+<ul>
+    <li><b>Running the game you signed up for.</b> Your account, password hash, game save, friends and ignore lists, and
+        the hiscores. Without these there's no game to play.
+    </li>
+    <li><b>Keeping the game fair and safe</b> (our "legitimate interests"). Login records, session recordings and the
+        checks on them, chat and activity logs, reports, appeals, recovery requests, moderation cases, and our servers'
+        logs. We've weighed these against your privacy, which is why recordings last only a week, moderators don't see
+        internet addresses, and every look staff take is logged.
+    </li>
+    <li><b>The law.</b> If we're legally required to hand something over, we do.</li>
+</ul>
+{% endcall %}
+
+{% call section("Your rights") %}
+<p>You can ask us to:</p>
+<ul>
+    <li><b>Give you a copy</b> of what we hold about you.</li>
+    <li><b>Correct</b> something that's wrong.</li>
+    <li><b>Delete</b> your account and what goes with it.</li>
+    <li><b>Hold off</b> using your information while a complaint about it is sorted out.</li>
+    <li><b>Send you your data</b> (your account and save) in a form a computer can read.</li>
+    <li><b>Stop</b> anything we do under "keeping the game fair and safe". We'll look at your reasons. Recordings and
+        checks only work if they cover everyone, so we may not be able to switch them off for one account while it
+        still plays, and if so we'll tell you why.
+    </li>
+    <li><b>Have a person review</b> the automatic ban described under Session recordings.</li>
+</ul>
+<p>You can do the most common of these yourself, straight away, on <a href="/account" class=c>your account page</a>:
+    see your recent logins, change your password, download a copy of your data, or delete your account.</p>
+<p>For anything else, email us at <a href="mailto:contact@rustcity.org" class=c>contact@rustcity.org</a>, or ask a staff
+    member on our <a href="https://discord.rustcity.org/" class=c>Discord</a>. We'll need you to prove the account is
+    yours first, and we'll answer within a month. When we delete an account its save, logins, recordings, chat and logs go with it. We may keep a
+    record of a ban or an open case for as long as it's still needed, for example so a ban can't be dodged by deleting
+    the account and making it again.</p>
+<p>If you're in the EU or the UK and you're not happy with how we've handled your information, you can complain to the
+    data protection authority where you live: the <a href="https://ico.org.uk/make-a-complaint/" class=c>ICO</a> in
+    the UK, or <a href="https://www.edpb.europa.eu/about-edpb/about-edpb/members_en" class=c>your country's
+    authority</a> in the EU. We'd rather you told us first, so we can try to put it right.</p>
+<p>The game isn't meant for children under 13, and we don't knowingly keep accounts for them. If you think a child under
+    13 has an account, tell us and we'll delete it.</p>
+{% endcall %}
+
+{% call section("Changes") %}
+<p>When we change what we collect, or how long we keep it, we'll update this page and post about it in the news.</p>
+{% endcall %}
 
 {% include "layout/content-end.html" %}
-{% include "layout/footer.html" %}
+{% with noprivacy=true %}{% include "layout/footer.html" %}{% endwith %}

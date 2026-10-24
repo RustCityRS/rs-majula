@@ -24,6 +24,11 @@ pub struct LocType {
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub category: Option<u16>,
     pub forceapproach: ForceApproach,
+    /// The varbit it turns into another loc by, and the loc for each of its
+    /// values (-1: none, so the client shows nothing). The client shows that
+    /// loc's name and options, but clicks on it carry this one's id.
+    pub multivar: Option<u16>,
+    pub multiloc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -48,6 +53,14 @@ impl From<LocTypeRaw> for LocType {
             op: raw.op,
             category: raw.category,
             forceapproach: raw.forceapproach,
+            #[cfg(since_289)]
+            multivar: raw.multivar,
+            #[cfg(since_289)]
+            multiloc: raw.multiloc,
+            #[cfg(before_289)]
+            multivar: None,
+            #[cfg(before_289)]
+            multiloc: None,
             params: raw.params,
             debugname: raw.debugname,
         }

@@ -453,6 +453,27 @@ impl Engine {
         let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
             || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
 
+        // Isolated staff only follow other players: no trade, duel, attack,
+        // or item or spell on them, either way. Script-started interactions
+        // (combat's next swing) come through here too.
+        if !following
+            && let Some(InteractionTarget::Player { pid }) = active.player.interaction.target
+            && let Some(other) = engine().get_player(pid)
+        {
+            let engine = engine();
+            let staff = engine.isolates(active.player.staff_mod_level);
+            if staff || engine.isolates(other.player.staff_mod_level) {
+                active.message_game(if staff {
+                    "Staff can't trade, duel or fight other players."
+                } else {
+                    "You can't do that to a member of staff."
+                });
+                active.player.clear_interaction();
+                active.clear_waypoints();
+                return;
+            }
+        }
+
         let mut interacted = false;
 
         if active.player.interaction.target.is_some() && active.can_access() {
@@ -752,9 +773,27 @@ impl Engine {
                 }
             }
             InteractionTarget::Loc { id, .. } => {
-                if let Some(loc_type) = engine().locs().get_by_id(*id) {
-                    type_id = loc_type.id as i32;
-                    category_id = loc_type.category.map(|c| c as i32).unwrap_or(-1);
+                let loc = |id: u16| {
+                    let loc_type = engine().locs().get_by_id(id)?;
+                    Some((id, loc_type.category.map(|c| c as i32).unwrap_or(-1)))
+                };
+                let mut chosen = loc(*id);
+                // From 289 a loc can turn into another, which is what the
+                // player saw and clicked: its scripts come first, then the
+                // loc's own (type, then category).
+                if let Some(shown) = active.shown_loc(*id).filter(|s| s != id).and_then(loc) {
+                    let com = active.player.interaction.target_subject_com;
+                    let script =
+                        |t: u16| engine().has_script_for(trigger, Some(com.unwrap_or(t)), -1);
+                    let category = |c| engine().has_script_for(trigger, None, c);
+                    let base = chosen.is_some_and(|(t, _)| script(t));
+                    if script(shown.0) || (!base && category(shown.1)) {
+                        chosen = Some(shown);
+                    }
+                }
+                if let Some((t, c)) = chosen {
+                    type_id = t as i32;
+                    category_id = c;
                 }
             }
             InteractionTarget::Npc { nid } => {

@@ -10,7 +10,7 @@
     <tr>
       <td width=160 valign=top>
         <center>
-          <img src="/img/title/blank.gif" width=1 height=16><b>Select hiscore table</b><br>
+          <img alt="" src="/img/title/blank.gif" width=1 height=16><b>Select hiscore table</b><br>
           <table width=150 height=400 bgcolor=black cellpadding=4>
             <tr>
               <td class=e>
@@ -18,7 +18,7 @@
                   <table height=380 cellspacing="1" cellpadding="0">
                     {% for c in categories %}
                     <tr>
-                      <td><img src="{{ c.icon }}" valign="bottom" width=16 height=16></td>
+                      <td><img alt="" src="{{ c.icon }}" valign="bottom" width=16 height=16></td>
                       <td>&nbsp;</td>
                       <td>
                         {% if user %}
@@ -40,7 +40,7 @@
       </td>
       <td width=290 valign=top>
         <center>
-          <img src="{{ category.icon }}" valign="bottom" width=16 height=16>&nbsp;
+          <img alt="" src="{{ category.icon }}" valign="bottom" width=16 height=16>&nbsp;
           <b>{{ category.name }} Hiscores</b><br>
           <table width=270 height=400 bgcolor=black cellpadding=4>
             <tr>

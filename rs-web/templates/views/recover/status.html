@@ -1,0 +1,99 @@
+{% with title="Account Recovery" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Recovery Request Status" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+{% if request %}
+  <p>Request <b>#{{ request.id }}</b> to recover <b>{{ request.username }}</b>, sent on {{ request.filed }}:</p>
+
+  <p>
+    {% if request.status == "received" %}
+      <font color="#ffbb22">Received</font>: waiting to be looked at.
+    {% elif request.status == "reviewing" %}
+      <font color="#ffbb22">Under review</font>: a member of staff is looking at it.
+    {% elif request.status == "approved" %}
+      <font color="#90c040"><b>Approved</b></font> on {{ request.decided }}.
+    {% else %}
+      <font color="#ff5555"><b>Denied</b></font> on {{ request.decided }}: we couldn't be sure the account is yours.
+    {% endif %}
+    {% if request.note %}
+      <br><br><i>From staff:</i> {{ request.note }}
+    {% endif %}
+  </p>
+
+  {% if request.status == "approved" %}
+    {% if request.can_reset %}
+      <p>Choose a new password for {{ request.username }}. Your password must be
+        5 to 20 characters: letters, numbers, spaces and the symbols on your
+        keyboard (apart from `). This can be done once, within 3 days of the
+        approval.</p>
+      <center>
+        <form method="post" action="/recover">
+          <input type="hidden" name="username" value="{{ request.username }}">
+          <input type="hidden" name="code" value="{{ key }}">
+          <table>
+            <tr>
+              <td align=right>New password:</td>
+              <td><input type="password" name="password" value="" minlength="5" maxlength="20" pattern="[ -_a-~£]{5,20}" title="5 to 20 letters, numbers, spaces or keyboard symbols (not `)" size="20" autocomplete="new-password" required></td>
+            </tr>
+            <tr>
+              <td align=right>Confirm password:</td>
+              <td><input type="password" name="password2" value="" minlength="5" maxlength="20" pattern="[ -_a-~£]{5,20}" title="5 to 20 letters, numbers, spaces or keyboard symbols (not `)" size="20" autocomplete="new-password" required></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><input type="submit" value="Set Password"></td>
+            </tr>
+          </table>
+        </form>
+      </center>
+    {% else %}
+      <p>A new password has been set with this request, or the 3 days to set
+        one have passed. If you still can't log in, please
+        <a href="/recover/request" class=c>send a new request</a>.</p>
+    {% endif %}
+  {% elif request.status == "denied" %}
+    <p>If you have more to tell us, you can <a href="/recover/request" class=c>send a new request</a>.</p>
+  {% endif %}
+
+  <br>
+  <center><a href="/title" class=c>Main menu</a></center>
+{% else %}
+  <p>Enter the reference and recovery key you were given when you sent your
+    request.</p>
+
+  {% if error %}
+    <p class="red">ERROR: {{ error }}</p>
+  {% endif %}
+
+  <center>
+    <form method="post" action="/recover/request/status">
+      <table>
+        <tr>
+          <td align=right>Reference:</td>
+          <td><input type="text" name="reference" value="{{ reference }}" maxlength="20" size="20" inputmode="numeric" placeholder="#123" required></td>
+        </tr>
+        <tr>
+          <td align=right>Recovery key:</td>
+          <td><input type="text" name="key" value="" maxlength="24" size="20" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX" required></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" value="Check Status"></td>
+        </tr>
+      </table>
+    </form>
+  </center>
+
+  <p>Can't log in and haven't asked yet? <a href="/recover/request" class=c>Send a recovery request</a>.</p>
+{% endif %}
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

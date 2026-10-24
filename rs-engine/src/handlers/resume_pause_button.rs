@@ -1,6 +1,7 @@
 use crate::active_player::ActivePlayer;
 use crate::engine::engine_mut;
 use crate::handlers::ClientGameHandler;
+use crate::watch::Op;
 use rs_protocol::network::game::client::resume_pause_button::ResumePauseButton;
 use rs_vm::ScriptError;
 use rs_vm::state::ExecutionState;
@@ -33,6 +34,8 @@ use rs_vm::subject::ScriptSubject;
 /// **Calls:** `engine_mut().run_script_by_state`
 impl ClientGameHandler for ResumePauseButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_op(Op::Other);
+        active.watch_note("Click here to continue");
         let Some(state) = &active.player.state.active_script else {
             return Err(ScriptError::Client(
                 "Player does not have an active script!".to_string(),

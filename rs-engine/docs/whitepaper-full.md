@@ -1110,7 +1110,7 @@ pub fn set_clock_rate(&self, ms: u64) {
 
 When the scheduler observes `clock_rate_rx.changed()`, it rebuilds the `Interval` at the new rate (`main.rs:724-728`). A
 `watch` channel is the right primitive here: it is lossy-but-latest (only the most recent value matters, intermediate
-values can be coalesced) and the receiver can cheaply poll the current value. This mechanism backs developer/admin speed
+values can be coalesced) and the receiver can cheaply poll the current value. This mechanism backs maintainer/admin speed
 controls — e.g. accelerating ticks for testing, or throttling under emergency load — without touching the tick logic
 itself. The original Java server hard-codes a 600ms loop; expressing the rate as a runtime-tunable channel is a modest
 improvement in operability.
@@ -3989,7 +3989,7 @@ field access (and the cache locality of one contiguous allocation) matters more
 than shrinking it. Fields group into:
 
 - **Identity / flags**: `uid`, `bot`, `active`, `low_memory`, `is_member`,
-  `staff_mod_level` (defaults to `Developer` under `debug_assertions`, `Normal`
+  `staff_mod_level` (defaults to `Maintainer` under `debug_assertions`, `Normal`
   otherwise — `player.rs:217-220`), `allow_design`.
 - **Embedded components**: `info: EntityMasks`, `pathing: PathingEntity`,
   `state: EntityState`, `interaction: InteractionState`, `build_area: BuildArea`,
@@ -8645,10 +8645,10 @@ and case-insensitive.
   `data_loc`, terminated by a `*_done` packet (`rebuild_get_maps.rs:45`). It finishes by rebuilding the build-area zones
   around the current coord.
 - **`ClientCheat`** (`client_cheat.rs:59`): the dev console. Caps input at 80 chars, lowercases, splits on space, and —
-  *only* for `StaffModLevel::Developer` — dispatches in `cheat_developer` (`client_cheat.rs:127`). Commands include
+  *only* for `StaffModLevel::Maintainer` — dispatches in `cheat_maintainer` (`client_cheat.rs:127`). Commands include
   `~<name>` (run `[debugproc,<name>]` with typed args parsed by `ScriptVarType`: Int/String/Boolean/Stat/NpcStat),
   `reload`, `give <obj> [count]`, `setvar <varp> <value>`, `speed <ms>` (mutate the engine clock rate), `bots` (spawn up
-  to 2000 bot players), and `pickup` (clear nearby ground objects). Non-developers fall through to a no-op match arm —
+  to 2000 bot players), and `pickup` (clear nearby ground objects). Non-maintainers fall through to a no-op match arm —
   the gate is staff level, enforced server-side regardless of what the client believes.
 
 ### Engineering rationale and fidelity notes
@@ -8691,7 +8691,7 @@ Several recurring decisions distinguish this port from a naive translation:
   summarized here.
 - `path_to_target` and `entity_path_to_target` (`phases/player.rs:664`) were read for the op→path handshake but their
   full pathfinder integration is documented in the pathing/movement section.
-- The exact set and argument grammar of every `client_cheat` developer subcommand beyond those enumerated (the file is ~
+- The exact set and argument grammar of every `client_cheat` maintainer subcommand beyond those enumerated (the file is ~
   900 lines) was sampled, not exhaustively transcribed; the dispatch entry points and parsing helpers are cited but
   individual parse_* bodies are not reproduced.
 

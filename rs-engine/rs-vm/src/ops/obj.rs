@@ -52,9 +52,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             let id = obj_id as u16;
             let count = count as u32;
-            let receiver37 = s.active_player.map(|uid| uid.username37());
+            let receiver = s.active_player;
 
-            add_obj_split::<E>(coord, id, count, obj_type.stackable, receiver37, duration as u64)?;
+            add_obj_split::<E>(coord, id, count, obj_type.stackable, receiver, duration as u64)?;
 
             set_active_obj(s, ObjRef { coord, id, count }, s.int_operand() != 0);
         });
@@ -204,10 +204,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 })?;
 
             let user37 = player.uid().username37();
+            // Isolated staff take only their own drops and what nobody dropped.
+            if engine::<E>().isolates_staff(player.staffmodlevel())
+                && engine::<E>()
+                    .obj_dropped_for(obj.coord, obj_id, user37)
+                    .is_some_and(|r| r != user37)
+            {
+                player.mes("Staff can't pick up other players' items.");
+                return Ok(());
+            }
+            player.log_floor(true, obj.coord, obj_id, obj.count as i32);
             let overflow = get_inv_mut::<E>(inv_type.id, player)?.add(obj_id, obj.count, stackable);
             if overflow > 0 {
                 let player_coord = player.coord();
-                add_obj_split::<E>(player_coord, obj_id, overflow, stackable, Some(user37), LOOTDROP_DURATION)?;
+                add_obj_split::<E>(player_coord, obj_id, overflow, stackable, Some(uid), LOOTDROP_DURATION)?;
             }
 
             engine_mut::<E>().remove_obj(obj.coord, obj_id, Some(user37), obj_type.respawnrate as u64);

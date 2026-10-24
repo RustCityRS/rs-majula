@@ -1,0 +1,59 @@
+{% with title="Appeal" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Appeal a Ban or Mute" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>If you think your account was banned or muted by mistake, you can ask
+  us to look at it again. A member of staff who didn't make the original
+  decision will review your appeal.</p>
+
+<ul>
+  <li>Log in with your RuneScape username and password.</li>
+  <li>Explain clearly why you think the decision was wrong. Be honest: appeals with false information will be upheld.</li>
+  <li>You can appeal each ban or mute once. You will be able to see the result on the
+    <a href="/appeal/status" class=c>appeal status</a> page.</li>
+</ul>
+
+{% if error %}
+  <p class="red">ERROR: {{ error }}</p>
+{% endif %}
+
+<center>
+  <form method="post" action="/appeal">
+    <table>
+      <tr>
+        <td align=right>Username:</td>
+        <td><input type="text" name="username" value="{{ username }}" maxlength="12" size="20" autocomplete="username" required></td>
+      </tr>
+      <tr>
+        <td align=right>Password:</td>
+        <td><input type="password" name="password" value="" maxlength="20" pattern="[ -_a-~£]{1,20}" title="Up to 20 letters, numbers, spaces or keyboard symbols" size="20" autocomplete="current-password" required></td>
+      </tr>
+      <tr>
+        <td align=right valign=top>I am appealing:</td>
+        <td>
+          <label><input type="radio" name="sanction" value="ban" {% if sanction != "mute" %}checked{% endif %}> A ban</label><br>
+          <label><input type="radio" name="sanction" value="mute" {% if sanction == "mute" %}checked{% endif %}> A mute</label>
+        </td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Your appeal:</td>
+        <td><textarea name="statement" rows="10" cols="46" maxlength="{{ max }}" required>{{ statement }}</textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Send Appeal"></td>
+      </tr>
+    </table>
+  </form>
+</center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

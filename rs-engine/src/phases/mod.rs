@@ -4,7 +4,7 @@ mod ether;
 mod info;
 mod input;
 pub(crate) mod login;
-mod logout;
+pub(crate) mod logout;
 mod npc;
 mod output;
 mod player;

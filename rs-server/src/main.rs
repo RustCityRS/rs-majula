@@ -5,6 +5,7 @@ use futures_util::SinkExt;
 use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
 use rs_crypto::rsa::{RsaKey, load_rsa_key};
+use rs_db::LoginDevice;
 use rs_engine::{CycleResult, Engine};
 use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
 use rs_engine::{LoginRequest, TickStats};
@@ -35,9 +36,11 @@ use mimalloc::MiMalloc;
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use time::MissedTickBehavior;
 
+mod admin;
 mod http;
 mod jaggrab;
 mod metrics;
+mod recovery;
 mod socket;
 pub mod tui;
 
@@ -187,6 +190,7 @@ struct Secrets {
     db_pass: String,
     pepper: String,
     cookie: String,
+    admin: String,
 }
 
 impl Secrets {
@@ -196,6 +200,8 @@ impl Secrets {
             pepper: rs_db::require_secret(args.pepper.clone(), "RS_PEPPER", "localhost")
                 .map_err(|e| anyhow!(e))?,
             cookie: rs_db::require_secret(args.cookie.clone(), "RS_COOKIE", "rs_secret")
+                .map_err(|e| anyhow!(e))?,
+            admin: rs_db::require_secret(args.admin_secret.clone(), "RS_ADMIN_SECRET", "rs_admin")
                 .map_err(|e| anyhow!(e))?,
         })
     }
@@ -354,9 +360,11 @@ struct Args {
     multi_xp: u8,
     #[arg(long, default_value = "true")]
     client_pathfinder: bool,
+    #[arg(long, action = clap::ArgAction::Set)]
+    staff_isolation: Option<bool>,
     #[arg(long, default_value = "false")]
     no_tui: bool,
-    #[arg(long, default_value = "true")]
+    #[arg(long, default_value = "true", action = clap::ArgAction::Set)]
     verify: bool,
     #[arg(long, default_value = "false")]
     jaggrab_only: bool,
@@ -370,6 +378,12 @@ struct Args {
     metrics_port: Option<u16>,
     #[arg(long, default_value = "127.0.0.1")]
     metrics_host: String,
+    #[arg(long)]
+    admin_port: Option<u16>,
+    #[arg(long, default_value = "127.0.0.1")]
+    admin_host: String,
+    #[arg(long, env = "RS_ADMIN_SECRET", hide_env_values = true)]
+    admin_secret: Option<String>,
     #[arg(long, value_enum, default_value_t = LogFormat::Text)]
     log_format: LogFormat,
     #[arg(long, default_value = "rs-server.log")]
@@ -402,6 +416,8 @@ struct Args {
     auto_register: bool,
     #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
     auto_migrate: bool,
+    #[arg(long, env = "RS_REPLAY_DAYS", default_value_t = 7)]
+    replay_days: u32,
     #[command(subcommand)]
     command: Option<Cmd>,
 }
@@ -632,6 +648,7 @@ async fn bootstrap(
 
     // Subscribed before the engine starts, so the metrics see every tick.
     let metrics_stats = stats_tx.subscribe();
+    let admin_stats = stats_tx.subscribe();
 
     info!("Compiling content assets & building cache...");
     let (store, scripts) = rs_pack::pack_all(
@@ -695,13 +712,14 @@ async fn bootstrap(
         (Some(outbound_tx), inbound_rx)
     };
 
+    let db_settings = db_config(&args, secrets.db_pass);
     let (db_tx, db_rx) = {
         let (req_tx, req_rx) = unbounded_channel::<rs_engine::DbRequest>();
         let (resp_tx, resp_rx) = unbounded_channel::<rs_engine::DbResponse>();
         let config = rs_engine::DbClientConfig {
-            db: db_config(&args, secrets.db_pass),
+            db: db_settings.clone(),
             node_id: args.node_id,
-            pepper: secrets.pepper,
+            pepper: secrets.pepper.clone(),
             auto_register: args.auto_register,
             auto_migrate: args.auto_migrate,
         };
@@ -709,11 +727,26 @@ async fn bootstrap(
         (Some(req_tx), resp_rx)
     };
 
+    // Session recordings, for the staff console's replays.
+    let (replay_tx, replay_task) = if args.replay_days > 0 {
+        let (tx, rx) = tokio::sync::mpsc::channel(rs_engine::watch::QUEUE);
+        let task = tokio::spawn(rs_engine::replay_task(
+            db_settings.clone(),
+            args.node_id,
+            REVISION,
+            args.replay_days,
+            rx,
+        ));
+        (Some(tx), Some(task))
+    } else {
+        (None, None)
+    };
+
     let (new_player_tx, new_player_rx) = unbounded_channel();
     let (reload_tx, reload_rx) = unbounded_channel();
     let (reload_world_tx, reload_world_rx) = unbounded_channel();
 
-    let (engine, clock_rate_rx) = Engine::new(
+    let (mut engine, clock_rate_rx) = Engine::new(
         args.members,
         args.multi_xp,
         args.client_pathfinder,
@@ -729,11 +762,43 @@ async fn bootstrap(
         db_tx,
         db_rx,
     );
+    engine.replay_tx = replay_tx;
+    if let Some(isolation) = args.staff_isolation {
+        engine.staff_isolation = isolation;
+    }
+    info!(
+        "Staff isolation: {}",
+        if engine.staff_isolation { "on" } else { "off" }
+    );
 
     release_freed_memory();
     trim_working_set();
 
-    tokio::spawn(engine_tick(engine, reload_rx, clock_rate_rx, shutdown_rx));
+    let (admin_tx, admin_rx) = unbounded_channel();
+    tokio::spawn(engine_tick(
+        engine,
+        reload_rx,
+        clock_rate_rx,
+        shutdown_rx,
+        admin_rx,
+        replay_task,
+    ));
+
+    let admin_port = args.admin_port.unwrap_or(8270 + args.node_id as u16);
+    if admin_port != 0 {
+        tokio::spawn(admin::serve(
+            args.admin_host.clone(),
+            admin_port,
+            secrets.admin,
+            admin_tx,
+            args.node_id,
+            args.members,
+            db_settings,
+            secrets.pepper,
+            admin_stats,
+            guards.game.clone(),
+        ));
+    }
 
     #[cfg(debug_assertions)]
     tokio::spawn(reload_coordinator(
@@ -771,6 +836,9 @@ async fn bootstrap(
 
     info!("Accepting HTTP connections on: {}:{}", host, http);
     info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
+    if !cache.static_assets.contains_key("/mapview.js") {
+        warn!("public/mapview.js is missing: the world map and the console's live map won't load");
+    }
     if args.jaggrab_only {
         info!("--jaggrab-only: cache downloads over HTTP will 404 to force the JAGGRAB fallback");
     }
@@ -1070,15 +1138,32 @@ fn begin_shutdown(engine: &mut Engine) {
     rs_engine::with_engine(engine, || unsafe { &mut *ptr }.reboot_timer(0));
 }
 
+/// Runs an admin API request on the engine, between ticks.
+fn run_admin_job(engine: &mut Engine, job: admin::EngineJob) {
+    let ptr = &raw mut *engine;
+    rs_engine::with_engine(engine, || job(unsafe { &mut *ptr }));
+}
+
 /// World tick task - runs Engine::cycle() every 600ms.
 ///
 /// Also wakes immediately when a hot-reload result arrives to swap the
 /// CacheStore + scripts between ticks, or when a shutdown is requested.
+/// Lets the recording task store what it was sent, for a few seconds at
+/// most (a fatal stop can leave recordings open, and the task waiting).
+async fn finish_recordings(task: Option<tokio::task::JoinHandle<()>>) {
+    if let Some(task) = task {
+        info!("Storing session recordings...");
+        let _ = time::timeout(Duration::from_secs(10), task).await;
+    }
+}
+
 async fn engine_tick(
     mut engine: Engine,
     mut reload_rx: UnboundedReceiver<(Box<CacheStore>, ScriptProvider)>,
     mut clock_rate_rx: Receiver<u64>,
     mut shutdown_rx: UnboundedReceiver<()>,
+    mut admin_rx: UnboundedReceiver<admin::EngineJob>,
+    mut replay_task: Option<tokio::task::JoinHandle<()>>,
 ) {
     ENGINE_RUNNING.store(true, Ordering::Release);
     let mut clock_ms: u64 = 600;
@@ -1089,6 +1174,9 @@ async fn engine_tick(
             tokio::task::yield_now().await;
             if shutdown_rx.try_recv().is_ok() {
                 begin_shutdown(&mut engine);
+            }
+            while let Ok(job) = admin_rx.try_recv() {
+                run_admin_job(&mut engine, job);
             }
             while let Ok((store, scripts)) = reload_rx.try_recv() {
                 let ptr = &raw mut engine;
@@ -1106,10 +1194,16 @@ async fn engine_tick(
                 }
             }
         } else {
+            // A tick that's due goes first, ahead of any admin jobs queued.
             tokio::select! {
+                biased;
                 _ = interval.tick() => {}
                 Some(()) = shutdown_rx.recv() => {
                     begin_shutdown(&mut engine);
+                    continue;
+                }
+                Some(job) = admin_rx.recv() => {
+                    run_admin_job(&mut engine, job);
                     continue;
                 }
                 Some((store, scripts)) = reload_rx.recv() => {
@@ -1138,8 +1232,10 @@ async fn engine_tick(
                 error!("Engine shutting down due to fatal phase panic");
                 engine.ether_tx = None;
                 engine.db_tx = None;
+                engine.replay_tx = None;
                 info!("Waiting for database saves to complete...");
                 while engine.db_rx.recv().await.is_some() {}
+                finish_recordings(replay_task.take()).await;
                 info!("All saves flushed -- shutting down");
                 graceful_exit(1);
             }
@@ -1147,8 +1243,14 @@ async fn engine_tick(
                 info!("Reboot complete -- taking the world offline");
                 engine.ether_tx = None;
                 engine.db_tx = None;
+                engine.replay_tx = None;
                 info!("Waiting for database saves to complete...");
                 while engine.db_rx.recv().await.is_some() {}
+                finish_recordings(replay_task.take()).await;
+                if admin::STAY_DOWN.load(std::sync::atomic::Ordering::Relaxed) {
+                    info!("All saves flushed -- server offline until started again");
+                    graceful_exit(admin::STAY_DOWN_EXIT);
+                }
                 info!("All saves flushed -- server offline");
                 graceful_exit(0);
             }
@@ -1161,6 +1263,8 @@ pub struct Socket {
     pub addr: SocketAddr,
     pub server_io: ServerIO,
     pub guard: ConnectionGuard,
+    /// What the client said about its device (the web client's browser).
+    pub device: LoginDevice,
 }
 
 enum SocketType {
@@ -1183,6 +1287,7 @@ impl Socket {
             addr,
             server_io,
             guard,
+            device: LoginDevice::default(),
         }
     }
 
@@ -1197,6 +1302,7 @@ impl Socket {
             addr,
             server_io: server_state,
             guard,
+            device: LoginDevice::default(),
         }
     }
 

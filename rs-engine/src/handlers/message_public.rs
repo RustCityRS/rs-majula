@@ -65,6 +65,8 @@ impl ClientGameHandler for MessagePublic {
             return Ok(());
         }
 
+        let ms = active.watch.packet_ms();
+        active.watch.anticheat.chatted(ms);
         let text = unpack(&self.bytes);
         let message = engine().wordenc().filter(&text);
         active.player.info.chat_bytes = Some(pack(&message).into_boxed_slice());

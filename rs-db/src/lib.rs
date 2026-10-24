@@ -1,30 +1,74 @@
+mod account;
+mod appeal;
+mod economy;
 mod hiscores;
+mod history;
+mod investigate;
+mod links;
 mod logs;
+mod messages;
 mod moderation;
 mod name;
 mod news;
 mod password;
 mod player;
+mod recovery;
+mod recovery_request;
+mod replay;
 mod save;
+mod script_error;
 mod session;
 mod snapshot;
+mod staff;
 mod world;
 
-pub use hiscores::{HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, PlayerHiscores};
-pub use logs::{ChatLog, LogBatch, SessionLog, WealthEvent};
+pub use account::{Account, AccountDeleted, AccountLogin};
+pub use appeal::{AppealFiled, AppealLogin, AppealRecord, NewAppeal};
+pub use economy::{
+    GraphAccount, ItemHolder, ItemSource, ItemTotal, TopReceiver, TraceStep, TradeEdge, TradeGraph,
+};
+pub use hiscores::{
+    HISCORE_CATEGORIES, HiscoreEntry, HiscoreRank, HiscoreStanding, KeptOff, PlayerHiscores,
+    StandingRow,
+};
+pub use history::{SavePoint, SaveProgress};
+pub use investigate::{AccountActivity, AnticheatLeader};
+pub use links::{
+    BannedLink, CROWDED_ADDRESS, CROWDED_BROWSER, ChainLink, EvasionRecord, StaffAccount,
+};
+pub use logs::{ChatLog, LogBatch, ScriptErrorLog, SessionLog, WealthEvent, log_type, transfer};
+pub use messages::{PlayerMessage, StaffMessageRecord};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};
-pub use news::{NewsCategory, NewsPost, NewsSummary};
-pub use password::Passwords;
+pub use news::{NewsAdminPost, NewsCategory, NewsPost, NewsSummary};
+pub use password::{
+    MAX_PASSWORD_CHARS, MIN_PASSWORD_CHARS, PasswordError, Passwords, check_new_password,
+    is_password_char, is_typeable_password,
+};
 pub use player::{Credentials, NewPlayer, Sanctions};
+pub use recovery::{CODE_ALPHABET, RESET_LOCKED, ResetCode, code_from_bits};
+pub use recovery_request::{
+    NewRecovery, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RecoveryAnswers, RecoveryDecided,
+    RecoveryFacts, RecoveryFiled, RecoveryRecord,
+};
+pub use replay::{
+    NewReplay, PlayedSession, ReplayChunk, ReplayRecord, ReplayReport, ReplayStorage, ReplayStore,
+};
 pub use save::{PlayerSave, SaveResult};
-pub use session::{Claim, Reconciled};
+pub use script_error::{ScriptErrorGroup, ScriptErrorRecord};
+pub use session::{Claim, LoginAttempt, LoginDevice, Reconciled, SessionOwner};
 pub use snapshot::NewSnapshot;
 pub use sqlx::Error;
+pub use staff::{
+    ChatRecord, DeviceRecord, LinkedAccount, LoginAddress, MAX_OTHERS, ModerationRecord,
+    PlayerRecord, ReportRecord, SanctionRecord, TIMELINE_KINDS, TimelineCursor, TimelineRow,
+    WealthRecord,
+};
 pub use world::WorldStatus;
 
 use sqlx::migrate::{MigrateError, Migrator};
 use sqlx::postgres::{PgConnectOptions, PgPool, PgPoolOptions};
+use std::time::Duration;
 
 /// The embedded schema migrations. Public so other crates' `#[sqlx::test]`s
 /// can build their throwaway databases from it.
@@ -40,8 +84,11 @@ pub struct DbConfig {
     pub pass: String,
 }
 
+/// How long a statement may run before Postgres cancels it.
+const STATEMENT_TIMEOUT: Duration = Duration::from_secs(20);
+
 impl DbConfig {
-    fn options(&self) -> PgConnectOptions {
+    fn options(&self, statement_timeout: Duration) -> PgConnectOptions {
         PgConnectOptions::new()
             .host(&self.host)
             .port(self.port)
@@ -52,8 +99,14 @@ impl DbConfig {
             // client that stalls mid-transaction is cut off so it can't hold
             // a player's row locked.
             .options([
-                ("statement_timeout", "20s"),
-                ("idle_in_transaction_session_timeout", "30s"),
+                (
+                    "statement_timeout",
+                    format!("{}ms", statement_timeout.as_millis()),
+                ),
+                ("idle_in_transaction_session_timeout", "30s".to_owned()),
+                // Every query here is small: compiling one costs far more
+                // (hundreds of ms for a hiscores rank) than it ever saves.
+                ("jit", "off".to_owned()),
             ])
     }
 }
@@ -83,7 +136,7 @@ impl Db {
     pub async fn connect(config: &DbConfig, max_connections: u32) -> Result<Self, Error> {
         let pool = PgPoolOptions::new()
             .max_connections(max_connections)
-            .connect_with(config.options())
+            .connect_with(config.options(STATEMENT_TIMEOUT))
             .await?;
         Ok(Self { pool })
     }
@@ -91,9 +144,19 @@ impl Db {
     /// Creates a pool that connects on first use, so a caller can start while
     /// the database is still down.
     pub fn connect_lazy(config: &DbConfig, max_connections: u32) -> Self {
+        Self::connect_lazy_with_timeout(config, max_connections, STATEMENT_TIMEOUT)
+    }
+
+    /// [`Db::connect_lazy`], with statements cancelled after
+    /// `statement_timeout` instead.
+    pub fn connect_lazy_with_timeout(
+        config: &DbConfig,
+        max_connections: u32,
+        statement_timeout: Duration,
+    ) -> Self {
         let pool = PgPoolOptions::new()
             .max_connections(max_connections)
-            .connect_lazy_with(config.options());
+            .connect_lazy_with(config.options(statement_timeout));
         Self { pool }
     }
 

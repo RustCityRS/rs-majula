@@ -3,7 +3,7 @@
     <tr>
         <td class=e>
             <center>
-                <b>{{ title }}</b><br>
+                <h1 class=title>{{ title }}</h1>
                 {% if not nomenu %}<a href="/title" class=c>Main menu</a>{% endif %}
                 {% for link in links %}
                     {% if link.br %}<br>{% else %}- {% endif %}<a href="{{ link.href }}" class=c>{{ link.text }}</a>

@@ -3,16 +3,20 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest, DbResponse};
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
-use crate::counters::COUNTERS;
+use crate::controls::{Controls, DISABLED_MESSAGE};
+use crate::counters::{self, COUNTERS};
 use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
 use crate::phases::shared::panic_message;
 use crate::player_save::*;
+use crate::script_errors::{Context, ScriptErrors, Subject};
+use crate::watch::schedule::{self, End, Played, Schedule};
+use crate::watch::{ReplayRequest, Target, Watch};
 use crate::{MAX_NPCS, MAX_PLAYERS};
 use mpsc::{UnboundedReceiver, UnboundedSender};
 use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
-use rs_db::LogBatch;
+use rs_db::{LogBatch, LoginDevice, transfer};
 use rs_entity::StaffModLevel;
 use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
@@ -56,7 +60,9 @@ use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 pub use rs_vm::engine::with_engine;
-use rs_vm::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut};
+use rs_vm::engine::{
+    ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut,
+};
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
 use rs_vm::state::*;
@@ -136,7 +142,13 @@ pub struct LoginRequest {
     pub password: Box<str>,
     pub low_memory: bool,
     pub remote_addr: SocketAddr,
+    /// The id the client install sent, when it sends one that tells installs
+    /// apart: logins that share it link accounts, as an address does.
+    pub uid: Option<i32>,
     pub reconnect: bool,
+    /// What the client said about the device it runs on. A phone or tablet
+    /// plays by touch (see [`crate::watch::AntiCheat::touch`]).
+    pub device: LoginDevice,
 }
 
 /// Per-tick performance statistics for the game engine cycle.
@@ -205,12 +217,12 @@ pub enum PendingZoneEvent {
 ///
 /// Queued into `Engine::obj_delayed_queue` and processed during the world phase.
 /// Once the `delay` expires, the object is created at `coord` with the specified
-/// `id`, `count`, `receiver37`, and `duration` (despawn lifetime).
+/// `id`, `count`, `receiver`, and `duration` (despawn lifetime).
 pub struct ObjDelayedRequest {
     pub coord: CoordGrid,
     pub id: u16,
     pub count: u32,
-    pub receiver37: Option<u64>,
+    pub receiver: Option<PlayerUid>,
     pub duration: u64,
     pub delay: u64,
 }
@@ -235,8 +247,12 @@ pub struct PendingLogin {
     pub auth: Option<StaffModLevel>,
     /// When the player's chat mute ends, set with `auth`.
     pub muted_until: Option<Instant>,
+    /// Their unread Message Centre messages, set with `auth`.
+    pub unread_messages: u16,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
+    /// The sessions the player played over the last week, set with `auth`.
+    pub played: Vec<rs_db::PlayedSession>,
 }
 
 /// A departed player's final save, held until the database stores it.
@@ -356,6 +372,8 @@ pub struct PlayerList {
     node_map: Vec<usize>,
     cursor: u16,
     pid_scratch: Vec<u16>,
+    /// How many players in the list are staff that isolation applies to.
+    isolated: u16,
 }
 
 impl PlayerList {
@@ -368,6 +386,7 @@ impl PlayerList {
             node_map: vec![0; MAX_PLAYERS],
             cursor: (MAX_PLAYERS - 2) as u16,
             pid_scratch: Vec::with_capacity(MAX_PLAYERS),
+            isolated: 0,
         }
     }
 
@@ -397,14 +416,15 @@ impl PlayerList {
         self.cursor = pid;
         let node_idx = self.processing.put(key, pid);
         self.node_map[pid as usize] = node_idx;
+        self.isolated += active.player.staff_mod_level.is_isolated() as u16;
         self.players[pid as usize] = Some(active);
     }
 
     pub fn remove(&mut self, pid: u16) -> Option<ActivePlayer> {
-        if self.players[pid as usize].is_some() {
-            self.processing.unlink(self.node_map[pid as usize]);
-        }
-        self.players[pid as usize].take()
+        let active = self.players[pid as usize].take()?;
+        self.processing.unlink(self.node_map[pid as usize]);
+        self.isolated -= active.player.staff_mod_level.is_isolated() as u16;
+        Some(active)
     }
 
     pub fn get(&self, pid: u16) -> Option<&ActivePlayer> {
@@ -515,12 +535,15 @@ impl NpcList {
 pub struct Engine {
     pub clock: u32,
     pub shutdown_clock: Option<u32>,
+    pub maintenance_mode: bool,
+    pub controls: Controls,
     date_origin_ms: i64,
     date_origin: Instant,
     cycle_date_ms: i64,
     pub members: bool,
     pub multi_xp: u8,
     pub client_pathfinder: bool,
+    pub staff_isolation: bool,
     pub player_list: PlayerList,
     pub npc_list: NpcList,
     pub zones: ZoneMap,
@@ -540,6 +563,9 @@ pub struct Engine {
     pub ops: OpsRegistry,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
+    /// When each obj that appeared lately (dropped, revealed or respawned)
+    /// did, for how fast players react to it.
+    pub obj_appeared: FxHashMap<(CoordGrid, u16), Instant>,
     pub world_queue: LinkList<ScriptState>,
     pub obj_delayed_queue: LinkList<ObjDelayedRequest>,
     pub clock_rate_tx: Sender<u64>,
@@ -548,15 +574,17 @@ pub struct Engine {
     pub ether_rx: UnboundedReceiver<EtherInbound>,
     pub db_tx: Option<UnboundedSender<DbRequest>>,
     pub db_rx: UnboundedReceiver<DbResponse>,
+    pub replay_tx: Option<tokio::sync::mpsc::Sender<ReplayRequest>>,
     pub db_ready: bool,
     pub ether_ready: bool,
     pub pending_logins: Vec<PendingLogin>,
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
     pub logout_saves: FxHashMap<u64, LogoutSave>,
+    pub offline_edits: FxHashSet<u64>,
     pub db_lease: Option<Instant>,
-    /// This tick's chat, session logs and wealth events, sent to the database
-    /// in one [`DbRequest::Logs`] at the end of the tick.
     pub logs: LogBatch,
+    /// Script errors gathered for the next [`LogBatch`].
+    pub script_errors: ScriptErrors,
     pub random: JavaRandom,
     pub vars: VarSet,
     /// A reusable [`ScriptState`] kept alive between script invocations to
@@ -656,12 +684,15 @@ impl Engine {
         let mut engine = Self {
             clock: 0,
             shutdown_clock: None,
+            maintenance_mode: false,
+            controls: Controls::default(),
             date_origin_ms,
             date_origin: Instant::now(),
             cycle_date_ms: date_origin_ms,
             members,
             multi_xp,
             client_pathfinder,
+            staff_isolation: !cfg!(debug_assertions),
             player_list: PlayerList::new(),
             npc_list: NpcList::new(),
             zones,
@@ -681,6 +712,7 @@ impl Engine {
             ops,
             zones_tracking: FxHashSet::default(),
             pending_zone_events: BTreeMap::new(),
+            obj_appeared: FxHashMap::default(),
             world_queue: LinkList::new(),
             obj_delayed_queue: LinkList::new(),
             clock_rate_tx,
@@ -689,13 +721,16 @@ impl Engine {
             ether_rx,
             db_tx,
             db_rx,
+            replay_tx: None,
             db_ready: false,
             ether_ready: false,
             pending_logins: Vec::new(),
             login_failures: FxHashMap::default(),
             logout_saves: FxHashMap::default(),
+            offline_edits: FxHashSet::default(),
             db_lease: None,
             logs: LogBatch::default(),
+            script_errors: ScriptErrors::default(),
             random: JavaRandom::new(1084838400000),
             vars,
             reusable_script: None,
@@ -941,6 +976,21 @@ impl Engine {
         );
     }
 
+    /// Calls off a scheduled reboot and clears every player's countdown.
+    /// Returns `false` if none is scheduled, or it has already begun (players
+    /// are being logged out), when it can no longer be stopped.
+    pub fn cancel_reboot(&mut self) -> bool {
+        if !self.is_pending_shutdown() || self.is_shutdown() {
+            return false;
+        }
+        self.shutdown_clock = None;
+        for active in self.player_list.players.iter_mut().flatten() {
+            active.write(UpdateRebootTimer { clocks: 0 });
+        }
+        info!("Scheduled reboot cancelled");
+        true
+    }
+
     /// Drives a triggered shutdown towards process exit. Run once per cycle from
     /// [`Engine::cycle`] (after the clock increment) while [`Engine::is_shutdown`]
     /// holds.
@@ -1043,6 +1093,21 @@ impl Engine {
         self.scripts.get_by_lookup(base).cloned()
     }
 
+    /// Whether `trigger` has a script for type `t` itself, or (with no `t`)
+    /// for category `c` itself: not counting what [`script_by_key`] would
+    /// fall back to.
+    ///
+    /// [`script_by_key`]: Self::script_by_key
+    pub fn has_script_for(&self, trigger: ServerTriggerType, t: Option<u16>, c: i32) -> bool {
+        let base = trigger as i32;
+        let key = match t {
+            Some(t) => base | (0x2 << 8) | ((t as i32) << 10),
+            None if c != -1 => base | (0x1 << 8) | (c << 10),
+            None => return false,
+        };
+        self.scripts.get_by_lookup(key).is_some()
+    }
+
     /// Hot-reloads the game cache and script provider in place.
     ///
     /// Drops the old `CacheStore` data and writes `new_store` into the same
@@ -1078,11 +1143,24 @@ impl Engine {
             std::ptr::write(self.cache_ptr, *new_store);
         }
         self.scripts = new_scripts;
+        self.controls.refresh(&self.scripts);
         let count = self.scripts.count();
 
         #[cfg(debug_assertions)]
         self.broadcast(&format!("Hot-reload applied - {count} scripts loaded"));
         info!("Hot-reload applied - {} scripts loaded", count);
+    }
+
+    /// Swaps in recompiled scripts, leaving the cache as it is: an emergency
+    /// fix to a running world. Scripts already running finish on the code
+    /// they started with. Returns how many scripts are loaded, and the old
+    /// scripts, to free off the engine thread.
+    pub fn reload_scripts(&mut self, new_scripts: ScriptProvider) -> (usize, ScriptProvider) {
+        let old = std::mem::replace(&mut self.scripts, new_scripts);
+        self.controls.refresh(&self.scripts);
+        let count = self.scripts.count();
+        info!("Script reload applied - {} scripts loaded", count);
+        (count, old)
     }
 
     /// Executes a single RuneScript VM invocation against the given script state.
@@ -1144,6 +1222,15 @@ impl Engine {
         let Some(subject) = subject else {
             return Err(ScriptError::NoSubject);
         };
+        // Only a fresh start: a suspended script resuming finishes, even
+        // under a kill switch put on since it began.
+        if let ScriptSubject::Player(uid) = subject
+            && state.execution == ExecutionState::Running
+            && self.switched_off(uid, &state.script)
+        {
+            self.reusable_script = Some(state);
+            return Ok(());
+        }
         let returned = match subject {
             ScriptSubject::Player(uid) => {
                 let protect = protect.unwrap_or(false);
@@ -1157,6 +1244,19 @@ impl Engine {
             self.reusable_script = Some(returned_state);
         }
         Ok(())
+    }
+
+    /// Whether a kill switch keeps player `uid` from starting `script`; if so,
+    /// they're told it's switched off.
+    #[inline]
+    fn switched_off(&mut self, uid: PlayerUid, script: &Script) -> bool {
+        if !self.controls.is_disabled(script.id) {
+            return false;
+        }
+        if let Some(active) = self.get_player_mut(uid.pid()) {
+            active.message_game(DISABLED_MESSAGE);
+        }
+        true
     }
 
     /// Builds a [`ScriptState`], reusing a pooled state's heap buffers when one
@@ -1322,6 +1422,11 @@ impl Engine {
             ScriptSubject::Npc(uid) => SubjectKind::Npc(*uid),
             ScriptSubject::Loc(_) | ScriptSubject::Obj(_) => SubjectKind::Other,
         };
+        if let SubjectKind::Player(uid) = kind
+            && self.switched_off(uid, &script)
+        {
+            return Ok(Ok(()));
+        }
 
         // Take the reusable state if available, otherwise allocate fresh.
         let state = if let Some(mut reusable) = self.reusable_script.take() {
@@ -1628,6 +1733,28 @@ impl Engine {
 // -----------------------------------------------------------------------
 
 impl Engine {
+    /// Whether players of staff level `level` are kept apart from others
+    /// on this world (see [`Engine::staff_isolation`]).
+    pub fn isolates(&self, level: StaffModLevel) -> bool {
+        self.staff_isolation && level.is_isolated()
+    }
+
+    /// Whether `uid` is an online player whose drops stay theirs. Free when
+    /// no isolated staff are online.
+    fn isolated_owner(&self, uid: PlayerUid) -> bool {
+        if !self.staff_isolation || self.player_list.isolated == 0 {
+            return false;
+        }
+        let user37 = uid.username37();
+        let owner = self
+            .player_list
+            .get(uid.pid())
+            .filter(|p| p.player.uid.username37() == user37)
+            // A delayed drop's owner may have relogged into another slot.
+            .or_else(|| self.player_list.get(self.find_pid_by_user37(user37)?));
+        owner.is_some_and(|p| p.player.staff_mod_level.is_isolated())
+    }
+
     /// Adds a ground object to the world at its embedded coordinate.
     ///
     /// For stackable items owned by a specific receiver, attempts to merge
@@ -1640,8 +1767,8 @@ impl Engine {
     /// # Arguments
     ///
     /// * `obj` -- The ground object to place (coordinate is embedded).
-    /// * `receiver37` -- Optional Base37-encoded username of the player who
-    ///   can see the object before it is revealed globally.
+    /// * `receiver` -- Optional player who can see the object before it is
+    ///   revealed globally.
     /// * `duration` -- Lifetime in game ticks before automatic removal.
     ///
     /// # Side Effects
@@ -1658,9 +1785,10 @@ impl Engine {
         &mut self,
         coord: CoordGrid,
         mut obj: Obj,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
     ) {
+        let receiver37 = receiver.map(|uid| uid.username37());
         let obj_type = self.cache.objs.get_by_id(obj.id());
 
         let stackable = obj_type.is_some_and(|t| t.stackable);
@@ -1675,11 +1803,14 @@ impl Engine {
 
         let clock = self.clock + duration as u32;
         obj.set_last_clock(clock);
-        if let Some(r) = receiver37 {
+        if let Some(uid) = receiver {
+            let r = uid.username37();
             let reveal_clock = self.clock + REVEAL_TICKS;
 
-            let revealable =
-                obj_type.is_some_and(|t| obj_revealable(t.tradeable, t.members, self.members));
+            // Isolated staff's drops (their deaths and kills too) stay theirs.
+            let revealable = obj_type
+                .is_some_and(|t| obj_revealable(t.tradeable, t.members, self.members))
+                && !self.isolated_owner(uid);
 
             if revealable && reveal_clock < clock {
                 self.schedule_zone_event(
@@ -1703,9 +1834,20 @@ impl Engine {
         );
 
         let (ox, oy, oz) = (coord.x(), coord.y(), coord.z());
+        self.obj_appeared.insert((coord, obj.id()), Instant::now());
         let zone = self.zones.zone_mut(ox, oy, oz);
         zone.add_obj(obj, receiver37);
         self.track_zone(ox, oy, oz);
+    }
+
+    /// Forgets objs that appeared too long ago for a reaction to them.
+    pub(crate) fn forget_appeared_objs(&mut self) {
+        const KEEP: std::time::Duration = std::time::Duration::from_secs(15);
+        if !self.obj_appeared.is_empty() {
+            let now = Instant::now();
+            self.obj_appeared
+                .retain(|_, at| now.saturating_duration_since(*at) < KEEP);
+        }
     }
 
     /// Attempts to merge a stackable object's count into an existing stack
@@ -2563,7 +2705,7 @@ impl Engine {
     /// # Side Effects
     ///
     /// Calls `message_game_wrapped` on every active player.
-    fn broadcast(&mut self, text: &str) {
+    pub fn broadcast(&mut self, text: &str) {
         for active in self.player_list.players.iter_mut().flatten() {
             if text.contains('\n') {
                 for line in text.split('\n') {
@@ -2572,6 +2714,35 @@ impl Engine {
             } else {
                 active.message_game_wrapped(text);
             }
+        }
+    }
+
+    /// What the anti-cheat's schedule check goes by for a login now, after
+    /// the week's sessions `played`: when the last was ended for it (not by
+    /// the player), how long the player took to come back. That's from when
+    /// the world let go of them, as a lost connection keeps the player in
+    /// the world a while (and the client reconnects itself meanwhile). A
+    /// `reconnect` login is that: the client's own, not the player's.
+    fn schedule(&self, played: &[rs_db::PlayedSession], reconnect: bool) -> Schedule {
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |d| d.as_millis() as i64);
+        let end = |p: &rs_db::PlayedSession| p.started_ms + i64::from(p.duration_ms);
+        let return_ms = played.last().filter(|_| !reconnect).and_then(|last| {
+            let reason = End::from_name(last.end_reason.as_deref()?)?;
+            schedule::return_ms(end(last), reason, now, self.date_origin_ms)
+        });
+        Schedule {
+            history: played
+                .iter()
+                .map(|p| Played {
+                    start_ms: p.started_ms,
+                    end_ms: end(p),
+                    return_ms: p.return_ms.and_then(|r| u32::try_from(r).ok()),
+                })
+                .collect(),
+            login_ms: now,
+            return_ms,
         }
     }
 
@@ -2591,7 +2762,9 @@ impl Engine {
     /// * `profile` -- The player's saved profile, or `None` for a new player.
     /// * `staff_mod_level` -- From the player's database row, via authentication.
     /// * `muted_until` -- When the player's chat mute ends, likewise.
+    /// * `unread_messages` -- Their unread Message Centre messages, likewise.
     /// * `pid`     -- The accepted pid to use for the active player.
+    /// * `played`  -- The sessions the player played over the last week.
     ///
     /// # Side Effects
     ///
@@ -2610,7 +2783,9 @@ impl Engine {
         profile: Option<PlayerProfile>,
         staff_mod_level: StaffModLevel,
         muted_until: Option<Instant>,
+        unread_messages: u16,
         pid: u16,
+        played: &[rs_db::PlayedSession],
     ) {
         let mut active = ActivePlayer::new(
             request.handle,
@@ -2628,6 +2803,7 @@ impl Engine {
         }
         active.player.staff_mod_level = staff_mod_level;
         active.muted_until = muted_until;
+        active.unread_messages = unread_messages;
 
         active.player.last_date = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -2641,29 +2817,39 @@ impl Engine {
         let uid = active.player.uid;
 
         #[cfg(since_254)]
-        {
+        let reply = {
             let level = (active.player.staff_mod_level as u8).min(2);
-            let _ = active
-                .handle
-                .outbox
-                .send(vec![LoginResponse::SuccessNormal as u8, level, 1]);
-        }
+            vec![LoginResponse::SuccessNormal as u8, level, 1]
+        };
         #[cfg(before_254)]
-        {
+        let reply = {
             let response = match active.player.staff_mod_level {
                 StaffModLevel::Normal => LoginResponse::SuccessNormal,
                 StaffModLevel::PlayerModerator => LoginResponse::SuccessModerator,
                 #[cfg(rev = "225")]
-                StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+                StaffModLevel::JagexModerator | StaffModLevel::Maintainer => {
                     LoginResponse::SuccessModerator
                 }
                 #[cfg(since_244)]
-                StaffModLevel::JagexModerator | StaffModLevel::Developer => {
+                StaffModLevel::JagexModerator | StaffModLevel::Maintainer => {
                     LoginResponse::SuccessJagexModerator
                 }
             };
-            let _ = active.handle.outbox.send(vec![response as u8]);
+            vec![response as u8]
+        };
+        if !active.player.bot {
+            active.watch = Box::new(Watch::start(
+                uid.username37(),
+                self.node_id,
+                self.replay_tx.as_ref(),
+            ));
+            active.watch.anticheat.touch = request.device.touch;
+            active.watch.anticheat.automated = crate::watch::automated(&request.device);
+            active.watch.anticheat.device = Arc::new(request.device.clone());
+            active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
+            active.watch.login(self.clock, &reply);
         }
+        let _ = active.handle.outbox.send(reply);
 
         info!(
             "Player '{}' joined at ({},{},{}) (uid={:?}, pid={})",
@@ -2793,6 +2979,9 @@ impl Engine {
             .handle
             .outbox
             .send(vec![LoginResponse::Reconnect as u8]);
+        active
+            .watch
+            .reconnect(clock, &[LoginResponse::Reconnect as u8]);
 
         // Swapping the handle drops the old one: its channels close and the
         // old socket task (dead or alive) shuts down. Buffered packets queued
@@ -2801,7 +2990,11 @@ impl Engine {
         *active.handle = request.handle;
         active.player.low_memory = request.low_memory;
         active.remote_ip = Some(request.remote_addr.ip());
+        // Taps from before the reconnect still look like jumps.
+        active.watch.anticheat.touch |= request.device.touch;
+        active.watch.anticheat.automated |= crate::watch::automated(&request.device);
 
+        active.watch.anticheat.resumed();
         active.player.logout_requested = false;
         active.player.logout_idle_requested = false;
         active.player.logout_sent = false;
@@ -2812,6 +3005,13 @@ impl Engine {
         // NPC observer counts are decremented further down, outside this
         // borrow; the info phase re-increments them as NPCs are re-tracked.
         let nids: Vec<u16> = active.player.build_area.npcs.iter().to_vec();
+        // Clicks made before the reconnect still count as on what it showed.
+        for &nid in &nids {
+            active.watch.anticheat.lost(Target::Npc(nid), clock);
+        }
+        for pid in active.player.build_area.players.iter().to_vec() {
+            active.watch.anticheat.lost(Target::Player(pid), clock);
+        }
         active.player.build_area.players.clear();
         active.player.build_area.npcs.clear();
         active.player.build_area.appearances.fill(0);
@@ -2900,8 +3100,11 @@ impl Engine {
     /// Releases this world's database claim on a player who never entered
     /// it. Never for a player who is online here or still being logged out
     /// of here: their claim is live, and their logout save ends it.
-    pub(crate) fn release_claim(&self, user37: u64) {
-        if self.find_pid_by_user37(user37).is_some() || self.logout_saves.contains_key(&user37) {
+    pub fn release_claim(&self, user37: u64) {
+        if self.find_pid_by_user37(user37).is_some()
+            || self.logout_saves.contains_key(&user37)
+            || self.offline_edits.contains(&user37)
+        {
             return;
         }
         if let Some(tx) = &self.db_tx {
@@ -2948,7 +3151,9 @@ impl Engine {
             return;
         }
 
-        if self.is_shutdown_soon() {
+        if self.is_shutdown_soon()
+            || (self.maintenance_mode && staff_mod_level == StaffModLevel::Normal)
+        {
             self.reject_pending_login(idx, LoginResponse::ServerUpdating);
             return;
         }
@@ -2991,7 +3196,9 @@ impl Engine {
             profile,
             staff_mod_level,
             pending.muted_until,
+            pending.unread_messages,
             pid,
+            &pending.played,
         );
     }
 
@@ -3518,7 +3725,7 @@ impl ScriptEngine for Engine {
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
     ) -> rs_vm::Result<()> {
         if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
@@ -3530,7 +3737,7 @@ impl ScriptEngine for Engine {
         self.add_obj(
             coord,
             Obj::new(coord, EntityLifeTime::Despawn, id, count),
-            receiver37,
+            receiver,
             duration,
         );
         Ok(())
@@ -3549,7 +3756,7 @@ impl ScriptEngine for Engine {
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
         delay: u64,
     ) {
@@ -3557,7 +3764,7 @@ impl ScriptEngine for Engine {
             coord,
             id,
             count,
-            receiver37,
+            receiver,
             duration,
             delay,
         });
@@ -3571,6 +3778,28 @@ impl ScriptEngine for Engine {
     /// **Calls:** `Engine::remove_obj` (inherent)
     fn remove_obj(&mut self, coord: CoordGrid, id: u16, receiver37: Option<u64>, duration: u64) {
         self.remove_obj(coord, id, receiver37, duration);
+    }
+
+    /// Who a ground object was dropped for.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::obj_dropped_for`
+    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, user37: u64) -> Option<u64> {
+        self.zones
+            .zone(coord.x(), coord.y(), coord.z())?
+            .obj_dropped_for(coord.x(), coord.z(), id, user37)
+    }
+
+    /// Whether a staff level is kept apart from other players.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Engine::isolates`
+    fn isolates_staff(&self, staffmodlevel: u8) -> bool {
+        self.isolates(StaffModLevel::from_u8(staffmodlevel))
     }
 
     /// Finds a ground object at the given coordinate by type ID and optional
@@ -3820,7 +4049,10 @@ impl ScriptEngine for Engine {
     /// Creates a projectile animation between two map positions.
     ///
     /// Computes relative deltas from source to destination and queues a
-    /// `MapProjAnim` zone message.
+    /// `MapProjAnim` zone message. A script's height `h` means `h * 4` units
+    /// above the ground. Clients from 254 multiply the byte by 4 themselves,
+    /// so they're sent `h`; earlier ones take the byte as it is, so they're
+    /// sent `h * 4`.
     ///
     /// # Call Stack
     ///
@@ -3845,6 +4077,8 @@ impl ScriptEngine for Engine {
         let coord = CoordGrid::packed_zone_coord(x, z);
         let dx = (dst_x as i32 - x as i32) as i8;
         let dz = (dst_z as i32 - z as i32) as i8;
+        #[cfg(before_254)]
+        let (src_height, dst_height) = (src_height << 2, dst_height << 2);
         let message = ZoneMessage::MapProjAnim(
             rs_protocol::network::game::server::map_projanim::MapProjAnim {
                 coord,
@@ -4119,6 +4353,78 @@ impl ScriptEngine for Engine {
     /// **Calls:** `VarSet::set`
     fn set_var(&mut self, id: u16, value: VarValue) {
         self.vars.set(id, value.clone());
+    }
+
+    /// Gathers a script error for staff ([`ScriptErrors`]), and marks it in
+    /// the recording of the player it ran on.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `rs_vm::vm::report_error` via `ScriptEngine`
+    /// **Calls:** `Watch::script_error`, `ScriptErrors::add`
+    fn script_error(&mut self, fault: ScriptFault) {
+        counters::add(&COUNTERS.script_errors, 1);
+        let clock = self.clock;
+        let player = fault.player.and_then(|uid| {
+            self.player_list
+                .get_mut(uid.pid())
+                .filter(|a| a.player.uid.packed() == uid.packed())
+        });
+        let context = if let Some(active) = player {
+            active
+                .watch
+                .script_error(clock, &fault.script, &fault.message);
+            let coord = active.player.pathing.coord;
+            let replay_id = active.watch.recording_id();
+            Context {
+                subject: if active.player.bot {
+                    Subject::World
+                } else {
+                    Subject::Player(active.player.uid.username37())
+                },
+                npc: None,
+                x: coord.x() as i16,
+                z: coord.z() as i16,
+                y: i16::from(coord.y()),
+                replay_id,
+                replay_ms: replay_id.map(|_| active.watch.ms() as i32),
+            }
+        } else if let Some(active) = fault.npc.and_then(|uid| {
+            self.npc_list
+                .get(uid.nid())
+                .filter(|a| a.npc.uid.packed() == uid.packed())
+        }) {
+            let coord = active.coord();
+            let id = active.npc.uid.id();
+            Context {
+                subject: Subject::Npc(id),
+                npc: Some(
+                    <Self as ScriptEngine>::npcs(self)
+                        .get_by_id(id)
+                        .and_then(|t| t.debugname())
+                        .map_or_else(|| format!("npc_{id}"), str::to_owned),
+                ),
+                x: coord.x() as i16,
+                z: coord.z() as i16,
+                y: i16::from(coord.y()),
+                replay_id: None,
+                replay_ms: None,
+            }
+        } else {
+            Context {
+                subject: Subject::World,
+                npc: None,
+                x: 0,
+                z: 0,
+                y: 0,
+                replay_id: None,
+                replay_ms: None,
+            }
+        };
+        // Without a database there's nowhere to keep them.
+        if self.db_tx.is_some() {
+            self.script_errors.add(&fault, context, self.cycle_date_ms);
+        }
     }
 }
 
@@ -4409,6 +4715,37 @@ impl ScriptPlayer for ActivePlayer {
             COUNTERS.wealth(event_type, count, value);
         }
         self.log_wealth(event_type, item, count, value);
+    }
+
+    /// Logs a handover to another player: a trade, a duel stake, or any
+    /// other inventory moved straight across.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `BOTH_MOVEINV` via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::log_transfer`
+    fn log_handover(&mut self, inv: &str, obj: u16, count: i32, to37: u64) {
+        let event_type = match inv {
+            "tradeoffer" => transfer::TRADE,
+            "dueloffer" => transfer::STAKE,
+            _ => transfer::GIVE,
+        };
+        self.log_transfer(event_type, self.coord(), obj, count, Some(to37));
+    }
+
+    /// Logs a drop on the floor, or a pickup from it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** the drop ops and `OBJ_TAKEITEM` via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::log_transfer`
+    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: u16, count: i32) {
+        let event_type = if taken {
+            transfer::TAKE
+        } else {
+            transfer::DROP
+        };
+        self.log_transfer(event_type, coord, obj, count, None);
     }
 
     /// Sends the last-login info packet (welcome screen).

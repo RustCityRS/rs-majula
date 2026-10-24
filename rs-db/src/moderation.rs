@@ -31,17 +31,19 @@ impl ModAction {
 }
 
 impl Db {
-    /// Applies `action` to `target` for a moderator of `by_level`, and logs it.
-    /// Refused (`false`, nothing changed or logged) if the target isn't a
-    /// registered player, or is staff of `by_level` or above.
+    /// Applies `action` to `target` for a moderator of `by_level`, and logs it
+    /// with `reason`. Refused (`false`, nothing changed or logged) if the
+    /// target isn't a registered player, or is staff of `by_level` or above.
     pub async fn moderate(
         &self,
         moderator: u64,
         by_level: i16,
         target: u64,
         action: ModAction,
+        reason: Option<&str>,
         node_id: i16,
     ) -> Result<bool, Error> {
+        let reason = reason.map(str::trim).filter(|r| !r.is_empty());
         // Each is rank-checked and returns the target's id.
         let query = match action {
             ModAction::Mute { .. } => {
@@ -74,14 +76,15 @@ impl Db {
             return Ok(false);
         };
         sqlx::query(
-            "INSERT INTO moderation_logs (moderator_id, target_id, action, hours, node_id)
-             SELECT id, $2, $3, $4, $5 FROM players WHERE name_hash = $1",
+            "INSERT INTO moderation_logs (moderator_id, target_id, action, hours, node_id, reason)
+             SELECT id, $2, $3, $4, $5, $6 FROM players WHERE name_hash = $1",
         )
         .bind(moderator as i64)
         .bind(target_id)
         .bind(action.name())
         .bind(action.hours())
         .bind(node_id)
+        .bind(reason)
         .execute(&mut *tx)
         .await?;
         tx.commit().await?;

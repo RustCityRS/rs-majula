@@ -1,0 +1,21 @@
+{% with title="Password Support" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Password Changed" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>Thank you, {{ username }}. Your new password is set, and you can log in
+  with it now. Your reset code has been used up.</p>
+
+<p>Keep your password to yourself: never tell it to anyone, staff included.</p>
+
+<center><a href="/title" class=c>Main menu</a></center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

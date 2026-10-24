@@ -1,7 +1,12 @@
 use rs_db::{
-    ChatLog, Claim, Db, LogBatch, ModAction, NewPlayer, NewSnapshot, PlayerSave, Reconciled,
-    Sanctions, SaveResult, SessionLog, WealthEvent, WorldStatus,
+    AccountDeleted, AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch,
+    LoginDevice, MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot,
+    PlayerSave, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED, Reconciled,
+    RecoveryAnswers, RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, ReplayStore,
+    Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent,
+    WorldStatus, log_type, transfer,
 };
+use rs_util::base37::to_userhash;
 use sqlx::PgPool;
 
 fn claimed(save: Option<PlayerSave>) -> Claim {
@@ -38,6 +43,91 @@ fn save() -> PlayerSave {
         inv_counts: vec![i32::MAX, 1, 1],
         ..Default::default()
     }
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn players_see_change_export_and_delete_their_account(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let sql = |q: &'static str| {
+        let pool = pool.clone();
+        async move { sqlx::query(q).execute(&pool).await.unwrap() }
+    };
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(42)
+    })
+    .await
+    .unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    sql(
+        "INSERT INTO login_logs (player_id, node_id, ip, web, platform)
+         SELECT id, 10, '203.0.113.7', true, 'Windows' FROM players WHERE name_hash = 42",
+    )
+    .await;
+    // The social server keeps its lists in the same database on a world.
+    sql("CREATE TABLE friends (owner_hash BIGINT PRIMARY KEY, friend_hashes BIGINT[] NOT NULL)")
+        .await;
+    let friend = to_userhash("zezima") as i64;
+    sqlx::query("INSERT INTO friends VALUES (42, ARRAY[$1])")
+        .bind(friend)
+        .execute(&pool)
+        .await
+        .unwrap();
+
+    let account = db.account(42).await.unwrap().unwrap();
+    assert!(!account.staff && !account.online && !account.banned && !account.muted);
+    let logins = db.account_logins(42, 50).await.unwrap();
+    assert_eq!(logins.len(), 1);
+    assert_eq!((logins[0].ip.as_str(), logins[0].node), ("203.0.113.7", 10));
+
+    // Only from the password it still has.
+    assert!(
+        !db.change_password(42, "$argon2id$wrong", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.change_password(42, "$argon2id$stub", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+
+    let json = db.export_account(42).await.unwrap().unwrap();
+    assert!(
+        json.contains("203.0.113.7") && json.contains("Zezima"),
+        "{json}"
+    );
+    assert!(!json.contains("argon2id"), "{json}");
+    // Worlds by the number players know: node 10 is world 1.
+    assert!(
+        json.contains(r#""world": 1"#) && !json.contains("node_id"),
+        "{json}"
+    );
+    assert!(db.export_account(7).await.unwrap().is_none());
+
+    // Not staff, nor while logged in, banned or muted.
+    assert_eq!(db.delete_account(43).await.unwrap(), AccountDeleted::Staff);
+    sql("UPDATE players SET online_node = 10 WHERE name_hash = 42").await;
+    assert_eq!(db.delete_account(42).await.unwrap(), AccountDeleted::Online);
+    sql("UPDATE players SET online_node = NULL, muted_until = now() + interval '1 day' WHERE name_hash = 42").await;
+    assert_eq!(
+        db.delete_account(42).await.unwrap(),
+        AccountDeleted::Sanctioned
+    );
+    sql("UPDATE players SET muted_until = NULL WHERE name_hash = 42").await;
+    assert_eq!(
+        db.delete_account(42).await.unwrap(),
+        AccountDeleted::Deleted
+    );
+    assert!(db.account(42).await.unwrap().is_none());
+    let left: (i64, i64) =
+        sqlx::query_as("SELECT (SELECT count(*) FROM login_logs), (SELECT count(*) FROM friends)")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(left, (0, 0));
+    assert_eq!(db.delete_account(42).await.unwrap(), AccountDeleted::Gone);
 }
 
 #[sqlx::test]
@@ -149,33 +239,53 @@ async fn moderation_respects_rank_and_is_logged(pool: PgPool) {
     };
 
     // A J-Mod can't act on a J-Mod, an unknown name, or themselves.
-    assert!(!db.moderate(42, 2, 42, ModAction::Kick, 10).await.unwrap());
-    assert!(!db.moderate(42, 2, 99, ModAction::Unban, 10).await.unwrap());
+    assert!(
+        !db.moderate(42, 2, 42, ModAction::Kick, None, 10)
+            .await
+            .unwrap()
+    );
+    assert!(
+        !db.moderate(42, 2, 99, ModAction::Unban, None, 10)
+            .await
+            .unwrap()
+    );
 
     assert!(
-        db.moderate(42, 2, 7, ModAction::Mute { hours: 48 }, 10)
+        db.moderate(42, 2, 7, ModAction::Mute { hours: 48 }, None, 10)
             .await
             .unwrap()
     );
     assert_eq!(state(db.clone()).await, (Some(48), false));
     // A command sets the length outright, shorter included.
     assert!(
-        db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, 10)
+        db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, None, 10)
             .await
             .unwrap()
     );
     assert_eq!(state(db.clone()).await, (Some(2), false));
-    assert!(db.moderate(42, 2, 7, ModAction::Unmute, 10).await.unwrap());
     assert!(
-        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, 10)
+        db.moderate(42, 2, 7, ModAction::Unmute, None, 10)
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, None, 10)
             .await
             .unwrap()
     );
     assert_eq!(state(db.clone()).await, (None, true));
     assert!(db.find_credentials(7, 1).await.unwrap().unwrap().banned);
-    assert!(db.moderate(42, 2, 7, ModAction::Unban, 10).await.unwrap());
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Unban, None, 10)
+            .await
+            .unwrap()
+    );
     assert_eq!(state(db.clone()).await, (None, false));
-    assert!(db.moderate(42, 2, 7, ModAction::Kick, 10).await.unwrap());
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Kick, None, 10)
+            .await
+            .unwrap()
+    );
 
     let logged: Vec<(String, Option<i32>, i16)> = sqlx::query_as(
         "SELECT l.action, l.hours, l.node_id FROM moderation_logs l
@@ -248,6 +358,43 @@ async fn snapshots_need_a_registered_reporter(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn abuse_reports_page_newest_first(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    for (offender, reason) in [(99, 6), (43, 0), (99, 11)] {
+        let snapshot = NewSnapshot {
+            reporter_name_hash: 42,
+            offender_name_hash: offender,
+            reason,
+            node_id: 10,
+            x: 3222,
+            z: 3218,
+            y: 0,
+            muted: false,
+        };
+        assert!(db.record_snapshot(&snapshot).await.unwrap());
+    }
+
+    let all = db.abuse_reports(None, None, 10).await.unwrap();
+    assert_eq!(all.iter().map(|r| r.reason).collect::<Vec<_>>(), [11, 0, 6]);
+    assert_eq!(all[0].reporter, "Test");
+    // Only registered offenders have a name on record.
+    assert_eq!(all[0].offender, None);
+    assert_eq!(all[1].offender.as_deref(), Some("Test"));
+
+    let against = db.abuse_reports(Some(99), None, 10).await.unwrap();
+    assert_eq!(against.len(), 2);
+    let older = db
+        .abuse_reports(Some(99), Some(against[0].id), 10)
+        .await
+        .unwrap();
+    assert_eq!(older.len(), 1);
+    assert_eq!(older[0].reason, 6);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn logs_are_recorded_in_order(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
@@ -267,6 +414,23 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
         event_type,
         event: event.to_owned(),
     };
+    let script_error = |name_hash, npc: Option<&str>, count| ScriptErrorLog {
+        first_ms: 1_800_000_000_000,
+        last_ms: 1_800_000_060_000,
+        count,
+        script: "[opnpc1,man]".to_owned(),
+        file: "man.rs2".to_owned(),
+        line: 12,
+        message: "Stack underflow".to_owned(),
+        trace: "[proc,talk] - talk.rs2:4".to_owned(),
+        name_hash,
+        npc: npc.map(str::to_owned),
+        x: 3222,
+        z: 3218,
+        y: 0,
+        replay_id: name_hash.map(|_| 7),
+        replay_ms: name_hash.map(|_| 1_500),
+    };
     let wealth = |name_hash, item: &str, count, value| WealthEvent {
         name_hash,
         x: 3222,
@@ -276,6 +440,7 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
         item: item.to_owned(),
         count,
         value,
+        counterpart: None,
     };
     db.record_logs(
         10,
@@ -292,6 +457,12 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
                 session(42, 0, "Player died"),
             ],
             wealth: vec![wealth(42, "bronze_axe", 1, 16), wealth(99, "lost", 1, 1)],
+            script_errors: vec![
+                script_error(Some(42), None, 3),
+                script_error(None, Some("goblin"), 50),
+                // Not registered: kept, on no one.
+                script_error(Some(99), None, 1),
+            ],
         },
     )
     .await
@@ -328,6 +499,72 @@ async fn logs_are_recorded_in_order(pool: PgPool) {
             .await
             .unwrap();
     assert_eq!(rows, vec![(10, 6, "bronze_axe".to_owned(), 1, 16)]);
+
+    let groups = db.script_error_groups(1_700_000_000_000, 10).await.unwrap();
+    assert_eq!(groups.len(), 1);
+    let group = &groups[0];
+    assert_eq!((group.count, group.players, group.line), (54, 1, 12));
+    assert_eq!(group.npcs, ["goblin"]);
+    assert_eq!(group.nodes, [10]);
+    assert_eq!(
+        (group.first_ms, group.last_ms),
+        (1_800_000_000_000, 1_800_000_060_000)
+    );
+    assert!(
+        db.script_error_groups(1_900_000_000_000, 10)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+    let records = db
+        .script_error_records("[opnpc1,man]", 12, "Stack underflow", 10)
+        .await
+        .unwrap();
+    assert_eq!(records.len(), 3);
+    let on_player = records.iter().find(|r| r.player.is_some()).unwrap();
+    assert_eq!(
+        (on_player.replay_id, on_player.replay_ms, on_player.count),
+        (Some(7), Some(1_500), 3)
+    );
+    assert_eq!(
+        records
+            .iter()
+            .filter(|r| r.player.is_none() && r.npc.is_none())
+            .count(),
+        1
+    );
+    // The group shows the latest row's file and trace.
+    let later = ScriptErrorLog {
+        last_ms: 1_800_000_120_000,
+        file: "man2.rs2".to_owned(),
+        trace: "[proc,greet] - greet.rs2:9".to_owned(),
+        ..script_error(None, None, 1)
+    };
+    db.record_logs(
+        10,
+        &LogBatch {
+            script_errors: vec![later],
+            ..LogBatch::default()
+        },
+    )
+    .await
+    .unwrap();
+    let group = &db.script_error_groups(1_700_000_000_000, 10).await.unwrap()[0];
+    assert_eq!(
+        (group.file.as_str(), group.trace.as_str(), group.count),
+        ("man2.rs2", "[proc,greet] - greet.rs2:9", 55)
+    );
+    // Old ones are pruned, a batch at a time.
+    sqlx::query("UPDATE script_errors SET last_at = now() - interval '40 days' WHERE count <> 50")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.prune_script_errors(30, 2).await.unwrap(), 3);
+    let left: i64 = sqlx::query_scalar("SELECT count(*) FROM script_errors")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(left, 1);
 }
 
 #[sqlx::test]
@@ -428,7 +665,7 @@ async fn only_the_owning_world_saves(pool: PgPool) {
 
     db.claim_session(42, 1, 60).await.unwrap();
     // World 1 is alive (fresh heartbeat), so world 2 can't claim or save.
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
     assert_eq!(
         db.claim_session(42, 2, 60).await.unwrap(),
         Claim::Busy { node: 1 }
@@ -464,7 +701,7 @@ async fn dead_worlds_lose_their_sessions(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     db.create_player(&player(42)).await.unwrap();
     db.claim_session(42, 1, 60).await.unwrap();
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
 
     sqlx::query("UPDATE world_status SET updated_at = now() - interval '2 minutes'")
         .execute(&pool)
@@ -496,7 +733,7 @@ async fn sessions_are_released_and_reconciled(pool: PgPool) {
         db.create_player(&player(hash)).await.unwrap();
         db.claim_session(hash, 1, 60).await.unwrap();
     }
-    db.report_world_status(1, 1).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
 
     assert!(db.release_session(4, 1).await.unwrap());
     assert!(!db.release_session(4, 1).await.unwrap());
@@ -556,6 +793,33 @@ async fn imports_only_fill_an_empty_offline_player(pool: PgPool) {
 
 #[sqlx::test]
 #[ignore = "needs DATABASE_URL"]
+async fn login_attempts_are_counted_before_they_are_checked(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    // All at once, as if checked in parallel: no more than 5 get through
+    // (fewer, even none, when refused ones are counted for a moment), and
+    // no more after them.
+    let mut claims = tokio::task::JoinSet::new();
+    for _ in 0..20 {
+        let db = db.clone();
+        claims.spawn(async move { db.claim_login_attempt(ip, 60, 5).await.unwrap() });
+    }
+    let mut held: Vec<_> = claims.join_all().await.into_iter().flatten().collect();
+    assert!(held.len() <= 5, "{}", held.len());
+    while let Some(attempt) = db.claim_login_attempt(ip, 60, 5).await.unwrap() {
+        held.push(attempt);
+    }
+    assert_eq!(held.len(), 5);
+    // The refused ones don't count, and a right one is taken back.
+    assert_eq!(db.recent_login_failures(ip, 60).await.unwrap(), 5);
+    db.forgive_login_attempt(held.pop().unwrap()).await.unwrap();
+    assert_eq!(db.recent_login_failures(ip, 60).await.unwrap(), 4);
+    assert!(db.claim_login_attempt(ip, 60, 5).await.unwrap().is_some());
+    assert!(db.claim_login_attempt(ip, 60, 5).await.unwrap().is_none());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
 async fn login_failures_are_counted_per_ip(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
     let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
@@ -601,6 +865,13 @@ async fn registrations_are_counted_per_ip(pool: PgPool) {
     assert!(!db.name_taken(99).await.unwrap());
     assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 2);
     assert_eq!(db.recent_registrations(other, 1).await.unwrap(), 1);
+    // IPv6 counts by /64, and IPv4 by the address alone.
+    let neighbour: std::net::IpAddr = "2001:db8::ffff:1".parse().unwrap();
+    let next_net: std::net::IpAddr = "2001:db8:0:1::1".parse().unwrap();
+    assert_eq!(db.recent_registrations(neighbour, 1).await.unwrap(), 1);
+    assert_eq!(db.recent_registrations(next_net, 1).await.unwrap(), 0);
+    let next_ip: std::net::IpAddr = "203.0.113.8".parse().unwrap();
+    assert_eq!(db.recent_registrations(next_ip, 1).await.unwrap(), 0);
 
     // Registrations older than the window don't count.
     sqlx::query("UPDATE players SET created_at = now() - interval '2 hours' WHERE name_hash = 1")
@@ -608,6 +879,7 @@ async fn registrations_are_counted_per_ip(pool: PgPool) {
         .await
         .unwrap();
     assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 1);
+    assert_eq!(db.recent_registrations(ip, 24).await.unwrap(), 2);
 }
 
 #[sqlx::test]
@@ -677,9 +949,10 @@ async fn schema_check_tracks_this_build(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn world_status_goes_stale(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    db.report_world_status(10, 3).await.unwrap();
-    db.report_world_status(11, 0).await.unwrap();
-    db.report_world_status(10, 5).await.unwrap();
+    db.report_world_status(10, 3, false).await.unwrap();
+    db.report_world_status(11, 0, false).await.unwrap();
+    // The latest heartbeat says whether it's in maintenance.
+    db.report_world_status(10, 5, true).await.unwrap();
     sqlx::query(
         "UPDATE world_status SET updated_at = now() - interval '1 minute' WHERE node_id = 11",
     )
@@ -692,7 +965,8 @@ async fn world_status_goes_stale(pool: PgPool) {
         live,
         vec![WorldStatus {
             node_id: 10,
-            players: 5
+            players: 5,
+            maintenance: true,
         }]
     );
 
@@ -720,6 +994,12 @@ async fn world_status_goes_stale(pool: PgPool) {
 
 /// Registers a player and logs them in and out with these stats (XP x10,
 /// indexed by stat id).
+/// The player's rank on the Attack table.
+async fn attack_rank(db: &Db, name_hash: u64) -> i64 {
+    let ranks = db.player_hiscores(name_hash).await.unwrap().unwrap();
+    ranks.rank(1).unwrap().rank
+}
+
 async fn ranked(db: &Db, name_hash: u64, name: &'static str, staff: i16, stats: &[(usize, i32)]) {
     db.create_player(&NewPlayer {
         display_name: name,
@@ -885,4 +1165,2318 @@ async fn hiscores_backfill_matches_saves(pool: PgPool) {
     let backfilled: Vec<(i64, i16, i16, i64)> =
         sqlx::query_as(rows).fetch_all(&pool).await.unwrap();
     assert_eq!(backfilled, saved);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replays_are_started_and_stored_together(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    // The unregistered player's isn't started.
+    let started = db
+        .start_replays(&[replay(1, 42), replay(2, 42), replay(3, 7)])
+        .await
+        .unwrap();
+    assert_eq!(started, 2);
+
+    let chunk = |seq, data: &[u8]| ReplayChunk {
+        seq,
+        start_ms: seq * 30_000,
+        end_ms: (seq + 1) * 30_000,
+        data: data.to_vec(),
+    };
+    let report = |score, flags: &[&str]| ReplayReport {
+        score,
+        flags: flags.iter().map(|&f| f.to_owned()).collect(),
+        stats: "{}".into(),
+    };
+    db.store_replays(&[
+        ReplayStore {
+            id: 1,
+            chunks: vec![chunk(0, b"ab"), chunk(1, b"cde")],
+            duration_ms: 60_000,
+            report: Some(report(40, &["no_heartbeat", "anti_afk"])),
+            ended: false,
+            complete: true,
+        },
+        ReplayStore {
+            id: 2,
+            chunks: vec![chunk(0, b"x")],
+            duration_ms: 30_000,
+            report: Some(report(0, &[])),
+            ended: true,
+            complete: false,
+        },
+        // Not started: dropped.
+        ReplayStore {
+            id: 3,
+            chunks: vec![chunk(0, b"y")],
+            ..ReplayStore::default()
+        },
+    ])
+    .await
+    .unwrap();
+    // No verdict and no chunks: only the duration moves.
+    db.store_replays(&[ReplayStore {
+        id: 1,
+        duration_ms: 61_000,
+        complete: true,
+        ..ReplayStore::default()
+    }])
+    .await
+    .unwrap();
+
+    let one = db.replay(1).await.unwrap().unwrap();
+    assert_eq!((one.duration_ms, one.bytes, one.score), (61_000, 5, 40));
+    assert_eq!(one.flags, ["no_heartbeat", "anti_afk"]);
+    assert!(one.ended_ms.is_none() && one.complete);
+    let chunks = db.replay_chunks(1).await.unwrap();
+    assert_eq!(
+        chunks.iter().map(|c| c.data.as_slice()).collect::<Vec<_>>(),
+        [b"ab".as_slice(), b"cde"]
+    );
+    let two = db.replay(2).await.unwrap().unwrap();
+    assert!(two.flags.is_empty() && two.ended_ms.is_some() && !two.complete);
+    assert!(db.replay(3).await.unwrap().is_none());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replays_store_list_and_prune(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    // Only registered players are recorded.
+    assert!(!db.start_replay(&replay(1, 42)).await.unwrap());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.start_replay(&replay(1, 42)).await.unwrap());
+    assert!(db.start_replay(&replay(2, 42)).await.unwrap());
+
+    let chunk = |seq, data: &[u8]| ReplayChunk {
+        seq,
+        start_ms: seq * 30_000,
+        end_ms: (seq + 1) * 30_000,
+        data: data.to_vec(),
+    };
+    let clean = ReplayReport::default();
+    db.store_replay(
+        1,
+        Some(&chunk(0, b"abc")),
+        30_000,
+        Some(&clean),
+        false,
+        true,
+    )
+    .await
+    .unwrap();
+    let flagged = ReplayReport {
+        score: 40,
+        flags: vec!["no_heartbeat".into()],
+        stats: "{}".into(),
+    };
+    db.store_replay(
+        1,
+        Some(&chunk(1, b"defg")),
+        41_000,
+        Some(&flagged),
+        false,
+        true,
+    )
+    .await
+    .unwrap();
+    // No verdict with it: the last one stays.
+    db.store_replay(1, None, 41_000, None, true, true)
+        .await
+        .unwrap();
+    // A chunk for a recording that isn't there is dropped.
+    db.store_replay(99, Some(&chunk(0, b"x")), 1, Some(&clean), true, true)
+        .await
+        .unwrap();
+
+    let one = db.replay(1).await.unwrap().unwrap();
+    assert_eq!(one.player, "Test");
+    assert_eq!((one.duration_ms, one.bytes, one.score), (41_000, 7, 40));
+    assert_eq!(one.flags, ["no_heartbeat"]);
+    assert!(one.ended_ms.is_some() && one.complete);
+    let chunks = db.replay_chunks(1).await.unwrap();
+    assert_eq!(
+        chunks.iter().map(|c| c.data.as_slice()).collect::<Vec<_>>(),
+        [b"abc".as_slice(), b"defg"]
+    );
+
+    assert_eq!(
+        db.replays(Some(42), false, None, None, 10)
+            .await
+            .unwrap()
+            .len(),
+        2
+    );
+    let only_flagged = db.replays(None, true, None, None, 10).await.unwrap();
+    assert_eq!(only_flagged.iter().map(|r| r.id).collect::<Vec<_>>(), [1]);
+
+    sqlx::query("UPDATE replays SET started_at = now() - interval '8 days' WHERE id = 1")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.prune_replays(7, 100).await.unwrap(), 1);
+    assert!(db.replay(1).await.unwrap().is_none());
+    assert!(db.replay_chunks(1).await.unwrap().is_empty());
+    assert!(db.replay(2).await.unwrap().is_some());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn only_the_newest_sessions_played_are_read(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    for id in 1..=3 {
+        db.start_replay(&NewReplay {
+            id,
+            name_hash: 42,
+            node_id: 10,
+            revision: "289".into(),
+        })
+        .await
+        .unwrap();
+    }
+    sqlx::query(
+        "UPDATE replays SET started_at = now() - id * interval '1 hour', duration_ms = id,
+                stats = '{\"endReason\":\"kick\",\"returnMs\":' || id || '}'",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+    let played = db.played_since(42, 0, 2).await.unwrap();
+    // The newest two (ids 2 and 1), oldest first.
+    assert_eq!(
+        played.iter().map(|p| p.duration_ms).collect::<Vec<_>>(),
+        [2, 1]
+    );
+    assert_eq!(played[0].end_reason.as_deref(), Some("kick"));
+    assert_eq!(played[0].return_ms, Some(2));
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replays_compact_once_over(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    for id in [1, 2, 3, 4] {
+        let replay = NewReplay {
+            id,
+            name_hash: 42,
+            node_id: if id == 4 { 11 } else { 10 },
+            revision: "289".into(),
+        };
+        db.start_replay(&replay).await.unwrap();
+    }
+    let chunk = |seq, data: &[u8]| ReplayChunk {
+        seq,
+        start_ms: seq * 30_000,
+        end_ms: (seq + 1) * 30_000,
+        data: data.to_vec(),
+    };
+    let clean = ReplayReport::default();
+    for id in [1, 2, 4] {
+        for (seq, data) in [(0, b"abc".as_slice()), (2, b"defg")] {
+            db.store_replay(
+                id,
+                Some(&chunk(seq, data)),
+                90_000,
+                Some(&clean),
+                seq == 2,
+                true,
+            )
+            .await
+            .unwrap();
+        }
+    }
+    // Still going on (3), over too recently (2) or another world's (4):
+    // left alone.
+    db.store_replay(3, Some(&chunk(0, b"x")), 1, Some(&clean), false, true)
+        .await
+        .unwrap();
+    db.store_replay(3, Some(&chunk(1, b"y")), 2, Some(&clean), false, true)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE replays SET ended_at = now() - interval '10 minutes' WHERE id IN (1, 4)")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [1]);
+
+    let whole = ReplayChunk {
+        seq: 0,
+        start_ms: 0,
+        end_ms: 90_000,
+        data: b"ab".to_vec(),
+    };
+    db.compact_replay(1, 2, &whole).await.unwrap();
+    let chunks = db.replay_chunks(1).await.unwrap();
+    assert_eq!(chunks.len(), 1);
+    assert_eq!((chunks[0].seq, chunks[0].end_ms), (0, 90_000));
+    assert_eq!(chunks[0].data, b"ab");
+    assert_eq!(db.replay(1).await.unwrap().unwrap().bytes, 2);
+    assert!(db.replays_to_compact(10, 300, 10).await.unwrap().is_empty());
+
+    // A world that stopped without ending its recording: compacted after an
+    // hour without a chunk.
+    sqlx::query("UPDATE replays SET updated_at = now() - interval '2 hours' WHERE id = 3")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [3]);
+    db.skip_compacting(3).await.unwrap();
+    assert!(db.replays_to_compact(10, 300, 10).await.unwrap().is_empty());
+
+    // A chunk stored after compacting: compacted again.
+    db.store_replay(1, Some(&chunk(3, b"h")), 120_000, Some(&clean), true, true)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE replays SET ended_at = now() - interval '10 minutes' WHERE id = 1")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.replays_to_compact(10, 300, 10).await.unwrap(), [1]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn old_logs_are_pruned(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let chat = || ChatLog {
+        name_hash: 42,
+        to_name_hash: None,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: "hi".to_owned(),
+    };
+    let session = |event_type| SessionLog {
+        name_hash: 42,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type,
+        event: "event".to_owned(),
+    };
+    let wealth = || WealthEvent {
+        name_hash: 42,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type: transfer::DROP,
+        item: "coins".to_owned(),
+        count: 1,
+        value: 1,
+        counterpart: None,
+    };
+    let batch = || LogBatch {
+        chat: vec![chat(), chat(), chat()],
+        sessions: vec![session(0), session(log_type::STAFF_COMMAND)],
+        wealth: vec![wealth(), wealth()],
+        script_errors: Vec::new(),
+    };
+    db.record_logs(10, &batch()).await.unwrap();
+    for sql in [
+        "UPDATE chat_logs SET created_at = now() - interval '100 days'",
+        "UPDATE session_logs SET created_at = now() - interval '100 days'",
+        "UPDATE wealth_events SET created_at = now() - interval '100 days'",
+    ] {
+        sqlx::query(sql).execute(&pool).await.unwrap();
+    }
+    db.record_logs(10, &batch()).await.unwrap();
+
+    // A row at a time, so every table takes a few deletes.
+    assert_eq!(db.prune_logs(90, 1).await.unwrap(), 3 + 1 + 2);
+    let counts: (i64, i64, i64) = sqlx::query_as(
+        "SELECT (SELECT count(*) FROM chat_logs), (SELECT count(*) FROM session_logs),
+                (SELECT count(*) FROM wealth_events)",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    // The old staff command is kept.
+    assert_eq!(counts, (3, 3, 2));
+    assert_eq!(db.prune_logs(90, 1).await.unwrap(), 0);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn moderation_reasons_are_logged(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    let ban = ModAction::Ban { hours: 48 };
+    assert!(
+        db.moderate(42, 2, 7, ban, Some(" Macroing (offence 1) "), 10)
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Unban, Some("  "), 10)
+            .await
+            .unwrap()
+    );
+    let history = db
+        .moderation_history(Some(7), None, None, 10)
+        .await
+        .unwrap();
+    let reasons: Vec<Option<&str>> = history.iter().map(|m| m.reason.as_deref()).collect();
+    assert_eq!(reasons, [None, Some("Macroing (offence 1)")]);
+    let by = |moderator| db.moderation_history(None, Some(moderator), None, 10);
+    assert_eq!(by(42).await.unwrap().len(), 2);
+    assert!(by(7).await.unwrap().is_empty());
+}
+
+/// Moves every login back a day, and each address's and install's latest
+/// login with them.
+async fn logins_a_day_ago(pool: &PgPool) {
+    for sql in [
+        "UPDATE login_logs SET created_at = now() - interval '1 day'",
+        "UPDATE login_ips SET last_at = now() - interval '1 day'",
+        "UPDATE login_uids SET last_at = now() - interval '1 day'",
+    ] {
+        sqlx::query(sql).execute(pool).await.unwrap();
+    }
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn logins_link_accounts_by_address(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let a: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let b: std::net::IpAddr = "2001:db8::1".parse().unwrap();
+    let c: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    // 1 registered from a; 4 registered from a but never logged in.
+    for (hash, from) in [(1, Some(a)), (2, None), (3, None), (4, Some(a)), (5, None)] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            registration_ip: from,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    for (hash, ip) in [(1, a), (1, a), (2, a), (2, b), (3, b), (5, c), (99, c)] {
+        db.record_login(hash, 10, ip, None, &LoginDevice::default())
+            .await
+            .unwrap();
+    }
+
+    let addresses = db.login_addresses(1, 10).await.unwrap();
+    assert_eq!(addresses.len(), 1);
+    assert_eq!(
+        (addresses[0].ip.as_str(), addresses[0].logins),
+        ("203.0.113.7", 2)
+    );
+    // 2 logged in from it and 4 registered from it.
+    assert_eq!(addresses[0].others, 2);
+
+    let names = |links: Vec<rs_db::LinkedAccount>| {
+        let mut names: Vec<(i64, Vec<String>)> =
+            links.into_iter().map(|l| (l.logins, l.shared)).collect();
+        names.sort();
+        names
+    };
+    // 1 shares a with 2 (a login) and 4 (a registration); not 3, who only
+    // shares b with 2.
+    assert_eq!(
+        names(db.linked_accounts(1, 10).await.unwrap()),
+        vec![
+            (0, vec!["203.0.113.7".to_owned()]),
+            (1, vec!["203.0.113.7".to_owned()]),
+        ]
+    );
+    assert_eq!(db.linked_accounts(2, 10).await.unwrap().len(), 3);
+    assert!(db.linked_accounts(5, 10).await.unwrap().is_empty());
+
+    // Bans show on the linked account.
+    sqlx::query("UPDATE players SET banned_until = now() + interval '1 day' WHERE name_hash = 3")
+        .execute(&pool)
+        .await
+        .unwrap();
+    let banned = db.linked_accounts(2, 10).await.unwrap();
+    assert_eq!(
+        banned
+            .iter()
+            .filter(|l| l.banned_until_ms.is_some())
+            .count(),
+        1
+    );
+
+    // Old logins are pruned, and the links only they made.
+    assert_eq!(db.linked_accounts(3, 10).await.unwrap().len(), 1);
+    for sql in [
+        "UPDATE login_logs SET created_at = now() - interval '200 days' WHERE ip = $1::inet",
+        "UPDATE login_ips SET last_at = now() - interval '200 days' WHERE ip = $1::inet",
+    ] {
+        sqlx::query(sql)
+            .bind(b.to_string())
+            .execute(&pool)
+            .await
+            .unwrap();
+    }
+    assert_eq!(db.prune_login_logs(180, 1).await.unwrap(), 2);
+    assert!(db.login_addresses(3, 10).await.unwrap().is_empty());
+    assert!(db.linked_accounts(3, 10).await.unwrap().is_empty());
+    assert_eq!(db.login_addresses(1, 10).await.unwrap().len(), 1);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn logins_link_accounts_by_client(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let vpn: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let cafe: std::net::IpAddr = "192.0.2.9".parse().unwrap();
+    const NAMES: [&str; 4] = ["One", "Two", "Three", "Four"];
+    for (hash, name) in (1..).zip(NAMES) {
+        db.create_player(&NewPlayer {
+            display_name: name,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    // 2 shares 1's install from another address; 3 shares both; 4 nothing.
+    for (hash, ip, uid) in [
+        (1, home, Some(77)),
+        (2, vpn, Some(77)),
+        (2, vpn, Some(77)),
+        (3, home, Some(77)),
+        (4, cafe, Some(88)),
+        (4, home, None),
+    ] {
+        db.record_login(hash, 10, ip, uid, &LoginDevice::default())
+            .await
+            .unwrap();
+    }
+    let links = db.linked_accounts(1, 10).await.unwrap();
+    let by_name = |hash: usize| {
+        links
+            .iter()
+            .find(|l| l.display_name == NAMES[hash - 1])
+            .map(|l| (l.shared.clone(), l.shared_clients, l.logins))
+    };
+    // 3 shares the most, so it comes first.
+    assert_eq!(links[0].display_name, "Three", "{links:?}");
+    assert_eq!(by_name(3), Some((vec!["203.0.113.7".to_owned()], 1, 1)));
+    assert_eq!(by_name(2), Some((Vec::new(), 1, 2)));
+    // 4 only shares the address; its own install doesn't count.
+    assert_eq!(by_name(4), Some((vec!["203.0.113.7".to_owned()], 0, 1)));
+    // No uid links nobody.
+    assert!(
+        db.linked_accounts(4, 10)
+            .await
+            .unwrap()
+            .iter()
+            .all(|l| l.shared_clients == 0)
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn devices_group_logins_with_their_addresses(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    for (hash, name) in [(1, "One"), (2, "Two")] {
+        db.create_player(&NewPlayer {
+            display_name: name,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let work: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let phone = LoginDevice {
+        web: true,
+        user_agent: Some("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)".into()),
+        platform: None,
+        language: Some("en-GB".into()),
+        touch: true,
+    };
+    let desktop = LoginDevice::default();
+    for (hash, ip, uid, device) in [
+        (1, home, Some(5), &phone),
+        (1, work, Some(5), &phone),
+        (1, home, None, &desktop),
+        // 2 borrows 1's phone.
+        (2, home, Some(5), &phone),
+    ] {
+        db.record_login(hash, 10, ip, uid, device).await.unwrap();
+    }
+    let mut devices = db.login_devices(1, 10).await.unwrap();
+    devices.sort_by_key(|d| d.logins);
+    assert_eq!(devices.len(), 2, "{devices:?}");
+    let (desk, mobile) = (&devices[0], &devices[1]);
+    assert_eq!((desk.web, desk.uid, desk.others), (Some(false), None, 0));
+    assert_eq!(desk.ips, ["203.0.113.7"]);
+    assert_eq!(
+        (mobile.web, mobile.touch, mobile.uid),
+        (Some(true), true, Some(5))
+    );
+    assert_eq!((mobile.logins, mobile.addresses, mobile.others), (2, 2, 1));
+    assert_eq!(mobile.language.as_deref(), Some("en-GB"));
+    let mut ips = mobile.ips.clone();
+    ips.sort();
+    assert_eq!(ips, ["198.51.100.2", "203.0.113.7"]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn crowded_addresses_link_nobody(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let last = 2 + CROWDED_ADDRESS as u64;
+    for hash in 1..=last {
+        let name = format!("Player {hash}");
+        db.create_player(&NewPlayer {
+            display_name: &name,
+            staff_mod_level: if hash == 1 { 2 } else { 0 },
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let ip = std::net::IpAddr::from([203, 0, 113, 1]);
+    let device = LoginDevice::default();
+    db.record_login(2, 10, ip, None, &device).await.unwrap();
+    logins_a_day_ago(&pool).await;
+    assert!(
+        db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
+            .await
+            .unwrap()
+    );
+    // As many accounts as an address may have, the banned one among them:
+    // every other one linked to it.
+    for hash in 3..last {
+        db.record_login(hash, 10, ip, None, &device).await.unwrap();
+    }
+    let evasion = db.ban_evasion(7, 0, 50).await.unwrap();
+    assert_eq!(evasion.len(), CROWDED_ADDRESS as usize - 1);
+    assert_eq!(db.banned_links(3).await.unwrap().len(), 1);
+    assert_eq!(
+        db.link_between(2, 3).await.unwrap().as_deref(),
+        Some("address")
+    );
+    assert_eq!(
+        db.link_chain(2, 1, 50).await.unwrap().len(),
+        CROWDED_ADDRESS as usize - 1
+    );
+    assert_eq!(
+        db.linked_accounts(3, 50).await.unwrap().len(),
+        CROWDED_ADDRESS as usize - 1
+    );
+
+    // One more and it's crowded: nobody is linked through it.
+    db.record_login(last, 10, ip, None, &device).await.unwrap();
+    assert!(db.ban_evasion(7, 0, 50).await.unwrap().is_empty());
+    assert!(db.banned_links(3).await.unwrap().is_empty());
+    assert_eq!(db.link_between(2, 3).await.unwrap(), None);
+    assert!(db.link_chain(2, 1, 50).await.unwrap().is_empty());
+    assert!(db.linked_accounts(3, 50).await.unwrap().is_empty());
+    // It still says how many share it.
+    assert_eq!(
+        db.login_addresses(3, 10).await.unwrap()[0].others,
+        CROWDED_ADDRESS
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn crowded_browsers_link_nobody(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let last = 2 + CROWDED_BROWSER as u64;
+    for hash in 1..=last {
+        let name = format!("Player {hash}");
+        db.create_player(&NewPlayer {
+            display_name: &name,
+            staff_mod_level: if hash == 1 { 2 } else { 0 },
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    // Each from an address of its own, on one browser.
+    let ip = |hash: u64| std::net::IpAddr::from([10, 0, (hash >> 8) as u8, hash as u8]);
+    let device = LoginDevice::default();
+    db.record_login(2, 10, ip(2), Some(77), &device)
+        .await
+        .unwrap();
+    logins_a_day_ago(&pool).await;
+    assert!(
+        db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
+            .await
+            .unwrap()
+    );
+    for hash in 3..last {
+        db.record_login(hash, 10, ip(hash), Some(77), &device)
+            .await
+            .unwrap();
+    }
+    let evasion = db.ban_evasion(7, 0, 50).await.unwrap();
+    assert_eq!(evasion.len(), CROWDED_BROWSER as usize - 1);
+    assert!(evasion.iter().all(|e| e.via == "browser"));
+    assert_eq!(db.banned_links(3).await.unwrap().len(), 1);
+    assert_eq!(
+        db.link_between(2, 3).await.unwrap().as_deref(),
+        Some("browser")
+    );
+    assert_eq!(
+        db.link_chain(2, 1, 50).await.unwrap().len(),
+        CROWDED_BROWSER as usize - 1
+    );
+    assert_eq!(
+        db.linked_accounts(3, 50).await.unwrap().len(),
+        CROWDED_BROWSER as usize - 1
+    );
+
+    db.record_login(last, 10, ip(last), Some(77), &device)
+        .await
+        .unwrap();
+    assert!(db.ban_evasion(7, 0, 50).await.unwrap().is_empty());
+    assert!(db.banned_links(3).await.unwrap().is_empty());
+    assert_eq!(db.link_between(2, 3).await.unwrap(), None);
+    assert!(db.link_chain(2, 1, 50).await.unwrap().is_empty());
+    assert!(db.linked_accounts(3, 50).await.unwrap().is_empty());
+    assert_eq!(
+        db.login_devices(3, 10).await.unwrap()[0].others,
+        CROWDED_BROWSER
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn others_are_counted_only_so_far(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let ip = std::net::IpAddr::from([203, 0, 113, 9]);
+    let device = LoginDevice::default();
+    for hash in 1..=MAX_OTHERS as u64 + 3 {
+        let name = format!("Player {hash}");
+        db.create_player(&NewPlayer {
+            display_name: &name,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+        db.record_login(hash, 10, ip, Some(5), &device)
+            .await
+            .unwrap();
+    }
+    assert_eq!(
+        db.login_addresses(1, 10).await.unwrap()[0].others,
+        MAX_OTHERS + 1
+    );
+    assert_eq!(
+        db.login_devices(1, 10).await.unwrap()[0].others,
+        MAX_OTHERS + 1
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    const NAMES: [&str; 5] = ["Mod", "Banned", "Alt", "Friend", "Far"];
+    for (hash, name) in (1..).zip(NAMES) {
+        db.create_player(&NewPlayer {
+            display_name: name,
+            staff_mod_level: if hash == 1 { 2 } else { 0 },
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let ip = |n: u8| std::net::IpAddr::from([203, 0, 113, n]);
+    let device = LoginDevice::default();
+    // Before the ban: Banned (2) plays on browser 9 at home; Friend (4)
+    // visits that home; Far (5) shares an address with Friend.
+    for (hash, at, uid) in [(2, 1, Some(9)), (4, 1, None), (4, 2, None), (5, 2, None)] {
+        db.record_login(hash, 10, ip(at), uid, &device)
+            .await
+            .unwrap();
+    }
+    logins_a_day_ago(&pool).await;
+    assert!(
+        db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
+            .await
+            .unwrap()
+    );
+    // After it: Alt (3) logs in on Banned's browser from somewhere else.
+    db.record_login(3, 10, ip(3), Some(9), &device)
+        .await
+        .unwrap();
+
+    let alt = db.banned_links(3).await.unwrap();
+    assert_eq!(alt.len(), 1, "{alt:?}");
+    assert_eq!(
+        (alt[0].name.as_str(), alt[0].via.as_str()),
+        ("Banned", "browser")
+    );
+    assert!(alt[0].after_ban && alt[0].banned_ms.is_some());
+    let friend = db.banned_links(4).await.unwrap();
+    assert_eq!(friend.len(), 1, "{friend:?}");
+    assert_eq!(friend[0].via, "address");
+    assert!(!friend[0].after_ban);
+    assert!(db.banned_links(5).await.unwrap().is_empty());
+
+    let chain = db.link_chain(2, 3, 50).await.unwrap();
+    let found: Vec<(&str, u8, &str, &str)> = chain
+        .iter()
+        .map(|c| (c.name.as_str(), c.depth, c.via.as_str(), c.link.as_str()))
+        .collect();
+    assert_eq!(
+        found,
+        [
+            ("Alt", 1, "Banned", "browser"),
+            ("Friend", 1, "Banned", "address"),
+            ("Far", 2, "Friend", "address"),
+        ]
+    );
+    assert!(chain.iter().all(|c| c.banned_until_ms.is_none()));
+    assert_eq!(db.link_chain(2, 1, 50).await.unwrap().len(), 2);
+    assert_eq!(db.link_chain(2, 3, 1).await.unwrap().len(), 1);
+
+    let evasion = db.ban_evasion(7, 0, 10).await.unwrap();
+    assert_eq!(evasion.len(), 1, "{evasion:?}");
+    assert_eq!(
+        (evasion[0].name.as_str(), evasion[0].banned.as_str()),
+        ("Alt", "Banned")
+    );
+    assert_eq!((evasion[0].logins, evasion[0].via.as_str()), (1, "browser"));
+
+    // Alt then plays at Banned's home on that browser (one login, linked
+    // both ways), and Friend visits that home again: an address link.
+    db.record_login(3, 10, ip(1), Some(9), &device)
+        .await
+        .unwrap();
+    db.record_login(4, 10, ip(1), None, &device).await.unwrap();
+    let evasion = db.ban_evasion(7, 0, 10).await.unwrap();
+    let found: Vec<(&str, &str, i64)> = evasion
+        .iter()
+        .map(|e| (e.name.as_str(), e.via.as_str(), e.logins))
+        .collect();
+    assert_eq!(found, [("Friend", "address", 1), ("Alt", "browser", 2)]);
+
+    // Two accounts at a time: a shared browser first, else an address.
+    assert_eq!(
+        db.link_between(2, 3).await.unwrap().as_deref(),
+        Some("browser")
+    );
+    assert_eq!(
+        db.link_between(4, 5).await.unwrap().as_deref(),
+        Some("address")
+    );
+    assert_eq!(db.link_between(3, 5).await.unwrap(), None);
+    let staff = db.staff_accounts().await.unwrap();
+    assert_eq!(staff.len(), 1);
+    assert_eq!(
+        (staff[0].name.as_str(), staff[0].staff_mod_level),
+        ("Mod", 2)
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn timeline_merges_every_log_and_pages(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    db.record_login(
+        7,
+        10,
+        "203.0.113.7".parse().unwrap(),
+        None,
+        &LoginDevice::default(),
+    )
+    .await
+    .unwrap();
+    let at = |x| (x, 3218, 0);
+    let (x, z, y) = at(3222);
+    db.record_logs(
+        10,
+        &LogBatch {
+            chat: vec![
+                ChatLog {
+                    name_hash: 7,
+                    to_name_hash: None,
+                    x,
+                    z,
+                    y,
+                    message: "hello".to_owned(),
+                },
+                ChatLog {
+                    name_hash: 7,
+                    to_name_hash: Some(42),
+                    x,
+                    z,
+                    y,
+                    message: "psst".to_owned(),
+                },
+            ],
+            sessions: vec![SessionLog {
+                name_hash: 7,
+                x,
+                z,
+                y,
+                event_type: 0,
+                event: "Deposited coins x5 into bank".to_owned(),
+            }],
+            wealth: vec![WealthEvent {
+                name_hash: 7,
+                x,
+                z,
+                y,
+                event_type: 5,
+                item: "coins".to_owned(),
+                count: 5,
+                value: 5,
+                counterpart: None,
+            }],
+            script_errors: vec![],
+        },
+    )
+    .await
+    .unwrap();
+    db.moderate(42, 2, 7, ModAction::Mute { hours: 2 }, Some("Spam"), 10)
+        .await
+        .unwrap();
+    // One against them, one they sent.
+    for (reporter, offender) in [(42, 7), (7, 42)] {
+        db.record_snapshot(&NewSnapshot {
+            reporter_name_hash: reporter,
+            offender_name_hash: offender,
+            reason: 6,
+            node_id: 10,
+            x,
+            z,
+            y,
+            muted: false,
+        })
+        .await
+        .unwrap();
+    }
+
+    let every: Vec<String> = rs_db::TIMELINE_KINDS
+        .iter()
+        .map(|k| k.to_string())
+        .collect();
+    let all = db.timeline(7, &every, None, 100).await.unwrap();
+    let mut kinds: Vec<&str> = all.iter().map(|r| r.kind.as_str()).collect();
+    kinds.sort();
+    assert_eq!(
+        kinds,
+        [
+            "chat",
+            "chat",
+            "login",
+            "moderation",
+            "report",
+            "reported",
+            "session",
+            "wealth"
+        ]
+    );
+    assert!(all.windows(2).all(|w| w[0].at_ms >= w[1].at_ms));
+    let moderation = all.iter().find(|r| r.kind == "moderation").unwrap();
+    assert_eq!(moderation.other.as_deref(), Some("Test"));
+    assert_eq!(moderation.detail.as_deref(), Some("Spam"));
+    assert_eq!(moderation.hours, Some(2));
+    let login = all.iter().find(|r| r.kind == "login").unwrap();
+    assert_eq!(login.text.as_deref(), Some("203.0.113.7"));
+
+    // Paging two at a time reads the same rows in the same order, even
+    // though many share a millisecond.
+    let mut paged = Vec::new();
+    let mut cursor: Option<TimelineCursor> = None;
+    loop {
+        let page = db.timeline(7, &every, cursor.as_ref(), 2).await.unwrap();
+        let Some(last) = page.last() else { break };
+        cursor = Some(TimelineCursor {
+            at_ms: last.at_ms,
+            kind: last.kind.clone(),
+            id: last.id,
+        });
+        paged.extend(page);
+    }
+    let key = |r: &rs_db::TimelineRow| (r.kind.clone(), r.id);
+    assert_eq!(
+        paged.iter().map(key).collect::<Vec<_>>(),
+        all.iter().map(key).collect::<Vec<_>>()
+    );
+
+    // Only the kinds asked for; none known reads nothing.
+    let chat = db
+        .timeline(7, &["chat".to_owned()], None, 100)
+        .await
+        .unwrap();
+    assert_eq!(chat.len(), 2);
+    assert_eq!(chat.iter().filter(|r| r.other_hash == Some(42)).count(), 1);
+    assert!(
+        db.timeline(7, &["nope".to_owned()], None, 100)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+    assert!(db.timeline(99, &every, None, 100).await.unwrap().is_empty());
+
+    // Account age comes with the credentials.
+    let creds = db.find_credentials(7, 10).await.unwrap().unwrap();
+    assert!((0..60_000).contains(&creds.age_ms));
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn appeals_are_filed_once_and_decided(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    let appeal = |sanction| NewAppeal {
+        name_hash: 7,
+        sanction,
+        statement: "It wasn't me",
+        ip: Some("203.0.113.7".parse().unwrap()),
+    };
+
+    // Nothing to appeal yet.
+    assert_eq!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::NotSanctioned
+    );
+    let login = db.appeal_login(7).await.unwrap().unwrap();
+    assert_eq!((login.muted_until_ms, login.banned_until_ms), (None, None));
+
+    // A moderator's ban: the appeal knows who set it, and why.
+    let ban = ModAction::Ban { hours: 48 };
+    assert!(
+        db.moderate(42, 2, 7, ban, Some("Macroing"), 10)
+            .await
+            .unwrap()
+    );
+    let AppealFiled::Filed { id } = db.file_appeal(&appeal("ban")).await.unwrap() else {
+        panic!("expected a filed appeal");
+    };
+    assert_eq!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::AlreadyOpen { id }
+    );
+    let waiting = db.waiting_appeals(10).await.unwrap();
+    assert_eq!(waiting.len(), 1);
+    let filed = &waiting[0];
+    assert_eq!(filed.issued_by.as_deref(), Some("Test"));
+    assert_eq!(filed.reason.as_deref(), Some("Macroing"));
+    assert_eq!(filed.statement, "It wasn't me");
+    assert!(filed.decision.is_none() && filed.case_id.is_none());
+
+    // Taken into a case, then decided.
+    assert!(db.link_appeal(id, 12).await.unwrap());
+    assert!(db.waiting_appeals(10).await.unwrap().is_empty());
+    assert!(
+        db.decide_appeal(id, "upheld", "Stands.", "Kim")
+            .await
+            .unwrap()
+    );
+    assert!(
+        !db.decide_appeal(id + 99, "upheld", "", "Kim")
+            .await
+            .unwrap()
+    );
+    let mine = db.appeals_of(7).await.unwrap();
+    assert_eq!(mine[0].case_id, Some(12));
+    assert_eq!(mine[0].decision.as_deref(), Some("upheld"));
+    assert_eq!(mine[0].decided_by.as_deref(), Some("Kim"));
+
+    // The same ban can't be appealed again; a new one can.
+    assert_eq!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::AlreadyDecided { id }
+    );
+    assert!(
+        db.moderate(42, 2, 7, ModAction::Ban { hours: 24 }, None, 10)
+            .await
+            .unwrap()
+    );
+    assert!(matches!(
+        db.file_appeal(&appeal("ban")).await.unwrap(),
+        AppealFiled::Filed { .. }
+    ));
+
+    // An abuse report's mute has no moderator on record.
+    db.mute_player(7, 48, 3).await.unwrap();
+    let AppealFiled::Filed { id: mute } = db.file_appeal(&appeal("mute")).await.unwrap() else {
+        panic!("expected a filed appeal");
+    };
+    let mute = db
+        .appeals_of(7)
+        .await
+        .unwrap()
+        .into_iter()
+        .find(|a| a.id == mute)
+        .unwrap();
+    assert_eq!(mute.issued_by, None);
+    assert_eq!(mute.sanction, "mute");
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn staff_above_a_level_are_left_out(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    // A player, and an admin.
+    sqlx::query("UPDATE players SET staff_mod_level = (name_hash - 42) * 2")
+        .execute(&pool)
+        .await
+        .unwrap();
+    let chat = |name_hash, to_name_hash, message: &str| ChatLog {
+        name_hash,
+        to_name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: message.to_owned(),
+    };
+    let logs = LogBatch {
+        chat: vec![
+            chat(42, None, "public"),
+            chat(42, Some(43), "to the admin"),
+            chat(43, None, "from the admin"),
+        ],
+        ..Default::default()
+    };
+    db.record_logs(10, &logs).await.unwrap();
+    let said =
+        |rows: Vec<rs_db::ChatRecord>| rows.into_iter().map(|c| c.message).collect::<Vec<_>>();
+    assert_eq!(
+        said(
+            db.chat_history(None, None, None, None, Some(1), 10)
+                .await
+                .unwrap()
+        ),
+        ["public"]
+    );
+    assert_eq!(
+        db.chat_history(None, None, None, None, Some(2), 10)
+            .await
+            .unwrap()
+            .len(),
+        3
+    );
+
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    db.start_replay(&replay(1, 42)).await.unwrap();
+    db.start_replay(&replay(2, 43)).await.unwrap();
+    let ids = |rows: Vec<rs_db::ReplayRecord>| rows.into_iter().map(|r| r.id).collect::<Vec<_>>();
+    assert_eq!(
+        ids(db.replays(None, false, None, Some(1), 10).await.unwrap()),
+        [1]
+    );
+    assert_eq!(
+        db.replays(None, false, None, None, 10).await.unwrap().len(),
+        2
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn chat_feeds_on_from_a_message(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    let chat = |message: &str| ChatLog {
+        name_hash: 42,
+        to_name_hash: None,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        message: message.to_owned(),
+    };
+    let batch = |lines: &[&str]| LogBatch {
+        chat: lines.iter().map(|m| chat(m)).collect(),
+        ..Default::default()
+    };
+    db.record_logs(10, &batch(&["one", "two"])).await.unwrap();
+    db.record_logs(11, &batch(&["three"])).await.unwrap();
+    let newest = db
+        .chat_history(None, None, None, None, None, 10)
+        .await
+        .unwrap();
+    let first = newest.last().unwrap().id;
+    let messages =
+        |rows: Vec<rs_db::ChatRecord>| rows.into_iter().map(|c| c.message).collect::<Vec<_>>();
+    // Newer than the first, oldest first.
+    assert_eq!(
+        messages(
+            db.chat_history(None, None, None, Some(first), None, 10)
+                .await
+                .unwrap()
+        ),
+        ["two", "three"]
+    );
+    assert_eq!(
+        messages(
+            db.chat_history(None, Some(11), None, Some(first), None, 10)
+                .await
+                .unwrap()
+        ),
+        ["three"]
+    );
+    assert!(
+        db.chat_history(None, None, None, Some(newest[0].id), None, 10)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn replay_chunks_page_from_a_seq(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    db.start_replay(&NewReplay {
+        id: 1,
+        name_hash: 42,
+        node_id: 10,
+        revision: "289".into(),
+    })
+    .await
+    .unwrap();
+    let clean = ReplayReport::default();
+    // Seq 1 was empty, so never stored.
+    for seq in [0, 2, 3] {
+        let chunk = ReplayChunk {
+            seq,
+            start_ms: seq * 2000,
+            end_ms: (seq + 1) * 2000,
+            data: vec![seq as u8],
+        };
+        db.store_replay(1, Some(&chunk), (seq + 1) * 2000, Some(&clean), false, true)
+            .await
+            .unwrap();
+    }
+    let seqs = |chunks: Vec<ReplayChunk>| chunks.into_iter().map(|c| c.seq).collect::<Vec<_>>();
+    assert_eq!(seqs(db.replay_chunks_from(1, 1).await.unwrap()), [2, 3]);
+    assert_eq!(seqs(db.replay_chunks_from(1, 3).await.unwrap()), [3]);
+    assert!(db.replay_chunks_from(1, 4).await.unwrap().is_empty());
+    assert_eq!(seqs(db.replay_chunks_page(1, 0, 2).await.unwrap()), [0, 2]);
+    assert_eq!(seqs(db.replay_chunks_page(1, 3, 2).await.unwrap()), [3]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn anticheat_leaders_rank_and_trend(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    for name_hash in [1, 2, 3] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            ..player(name_hash)
+        })
+        .await
+        .unwrap();
+    }
+    let report = |score, flags: &[&str]| ReplayReport {
+        score,
+        flags: flags.iter().map(|f| (*f).to_owned()).collect(),
+        stats: "{}".into(),
+    };
+    // (id, player, hours ago, score, flags)
+    let sessions: [(i64, u64, i32, i16, &[&str]); 6] = [
+        (1, 1, 20, 40, &["no_heartbeat"]),
+        (2, 1, 2, 100, &["modified_client", "no_heartbeat"]),
+        (3, 2, 5, 20, &["robotic_click_timing"]),
+        (4, 2, 3, 0, &[]),
+        (5, 3, 1, 0, &[]),
+        // Before the window.
+        (6, 3, 30, 100, &["modified_client"]),
+    ];
+    for (id, name_hash, hours, score, flags) in sessions {
+        db.start_replay(&NewReplay {
+            id,
+            name_hash,
+            node_id: 10,
+            revision: "289".into(),
+        })
+        .await
+        .unwrap();
+        db.store_replay(id, None, 60_000, Some(&report(score, flags)), true, true)
+            .await
+            .unwrap();
+        sqlx::query(
+            "UPDATE replays SET started_at = now() - make_interval(hours => $2) WHERE id = $1",
+        )
+        .bind(id)
+        .bind(hours)
+        .execute(&pool)
+        .await
+        .unwrap();
+    }
+    let since = (std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_millis() as i64)
+        - 24 * 3_600_000;
+    let leaders = db.anticheat_leaders(since, 4, None, 10).await.unwrap();
+    let summary: Vec<_> = leaders
+        .iter()
+        .map(|l| (l.sessions, l.flagged, l.max_score, l.total_score))
+        .collect();
+    assert_eq!(summary, [(2, 2, 100, 140), (2, 1, 20, 20)]);
+    assert_eq!(leaders[0].flags, ["modified_client", "no_heartbeat"]);
+    // Six-hour stretches: 20 hours ago, then 2 hours ago.
+    assert_eq!(leaders[0].trend, [40, 0, 0, 100]);
+    assert_eq!(leaders[1].trend, [0, 0, 0, 20]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn account_activity_covers_recent_accounts(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    for name_hash in [1, 2] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            registration_ip: Some(ip),
+            ..player(name_hash)
+        })
+        .await
+        .unwrap();
+    }
+    // Staff aren't listed.
+    db.create_player(&player(3)).await.unwrap();
+    db.record_login(1, 10, ip, None, &LoginDevice::default())
+        .await
+        .unwrap();
+    db.record_login(3, 10, ip, None, &LoginDevice::default())
+        .await
+        .unwrap();
+    db.start_replay(&NewReplay {
+        id: 1,
+        name_hash: 1,
+        node_id: 10,
+        revision: "289".into(),
+    })
+    .await
+    .unwrap();
+    let report = ReplayReport {
+        score: 20,
+        flags: vec!["robotic_click_timing".into()],
+        stats: r#"{"clickRhythm":0.05}"#.into(),
+    };
+    db.store_replay(1, None, 90_000, Some(&report), true, true)
+        .await
+        .unwrap();
+    sqlx::query("UPDATE players SET created_at = now() - interval '30 days' WHERE name_hash = 2")
+        .execute(&pool)
+        .await
+        .unwrap();
+
+    let since = (std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_millis() as i64)
+        - 7 * 86_400_000;
+    let accounts = db.account_activity(since, 10).await.unwrap();
+    // Account 2 registered before the window and hasn't logged in since.
+    assert_eq!(accounts.len(), 1);
+    let a = &accounts[0];
+    assert_eq!(a.registration_ip.as_deref(), Some("203.0.113.7"));
+    assert_eq!(a.login_ips, ["203.0.113.7"]);
+    assert_eq!(
+        (a.sessions, a.play_ms, a.flagged, a.max_score),
+        (1, 90_000, 1, 20)
+    );
+    assert_eq!(a.rhythm, Some(0.05));
+    assert_eq!(a.hours.len(), 24);
+    assert_eq!(a.hours.iter().sum::<i32>(), 1);
+}
+
+/// Moves every save point `mins` into the past.
+async fn age_points(pool: &PgPool, mins: i32) {
+    sqlx::query("UPDATE save_history SET saved_at = saved_at - make_interval(mins => $1)")
+        .bind(mins)
+        .execute(pool)
+        .await
+        .unwrap();
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn saves_keep_a_history_to_roll_back_to(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    let at = |x| PlayerSave { x, ..save() };
+    let kinds = |points: &[SavePoint]| points.iter().map(|p| p.kind.clone()).collect::<Vec<_>>();
+
+    // A session's first save is kept; the next ones within the hour aren't.
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_save(42, 1, &at(1)).await.unwrap();
+    db.store_save(42, 1, &at(2)).await.unwrap();
+    // Nor a logout soon after: the older point is from before it.
+    db.store_logout_save(42, 1, &at(3)).await.unwrap();
+    let points = db.save_points(42, None, None, 10).await.unwrap();
+    assert_eq!(kinds(&points), ["session"]);
+    let (point, kept) = db.save_point(42, points[0].id).await.unwrap().unwrap();
+    assert_eq!((point.node_id, kept.x), (1, 1));
+    assert_eq!(kept, at(1));
+
+    // Later, a logout is kept, and a session save an hour on.
+    age_points(&pool, 20).await;
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_logout_save(42, 1, &at(4)).await.unwrap();
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_save(42, 1, &at(5)).await.unwrap();
+    age_points(&pool, 61).await;
+    db.store_save(42, 1, &at(6)).await.unwrap();
+    db.store_logout_save(42, 1, &at(7)).await.unwrap();
+    let points = db.save_points(42, None, None, 10).await.unwrap();
+    assert_eq!(kinds(&points), ["session", "logout", "session"]);
+
+    // A staff change keeps the save it replaces, with who and why.
+    db.claim_session(42, 1, 60).await.unwrap();
+    assert_eq!(
+        db.store_edit_save(42, 1, &at(8), "Jordan: rollback")
+            .await
+            .unwrap(),
+        SaveResult::Stored
+    );
+    let newest = &db.save_points(42, None, None, 10).await.unwrap()[0];
+    assert_eq!(
+        (newest.kind.as_str(), newest.note.as_deref()),
+        ("staff", Some("Jordan: rollback"))
+    );
+    assert_eq!(
+        db.save_point(42, newest.id).await.unwrap().unwrap().1,
+        at(7)
+    );
+    assert_eq!(db.load_save(42).await.unwrap().unwrap(), at(8));
+
+    // Paging, and points are only another player's own.
+    let older = db.save_points(42, Some(newest.id), None, 10).await.unwrap();
+    assert_eq!(older.len(), 3);
+    // The newest point from by a moment.
+    let by = db
+        .save_points(42, None, Some(older[1].saved_ms), 10)
+        .await
+        .unwrap();
+    assert_eq!(by[0].id, older[1].id);
+    db.create_player(&player(43)).await.unwrap();
+    assert!(db.save_point(43, newest.id).await.unwrap().is_none());
+
+    // Pruning keeps the newest few.
+    age_points(&pool, 60 * 24 * 40).await;
+    assert_eq!(db.prune_save_history(30, 2, 1).await.unwrap(), 2);
+    assert_eq!(db.save_points(42, None, None, 10).await.unwrap().len(), 2);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn progress_is_each_point_then_the_save_now(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.save_progress(42, 10).await.unwrap().is_empty());
+    let with_xp = |xp| {
+        let mut save = save();
+        save.stats[0] = xp;
+        save
+    };
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_save(42, 1, &with_xp(100)).await.unwrap();
+    age_points(&pool, 61).await;
+    db.store_save(42, 1, &with_xp(200)).await.unwrap();
+    db.store_save(42, 1, &with_xp(300)).await.unwrap();
+    let rows = db.save_progress(42, 10).await.unwrap();
+    let seen: Vec<(&str, i32)> = rows.iter().map(|r| (r.kind.as_str(), r.stats[0])).collect();
+    assert_eq!(seen, [("session", 100), ("session", 200), ("now", 300)]);
+    assert!(rows.windows(2).all(|w| w[0].saved_ms <= w[1].saved_ms));
+    assert_eq!(rows[2].inv_objs.len(), rows[2].inv_counts.len());
+    // The newest points only, and always the save now.
+    let newest = db.save_progress(42, 1).await.unwrap();
+    assert_eq!(
+        newest.iter().map(|r| r.stats[0]).collect::<Vec<_>>(),
+        [200, 300]
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn activity_counts_session_logs_by_hour(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    let event = |name_hash| SessionLog {
+        name_hash,
+        x: 3222,
+        z: 3218,
+        y: 0,
+        event_type: 0,
+        event: "Deposited coins x5 into bank".to_owned(),
+    };
+    let logs = LogBatch {
+        sessions: vec![event(42), event(42), event(43)],
+        ..Default::default()
+    };
+    db.record_logs(10, &logs).await.unwrap();
+    // One of them from two days ago.
+    sqlx::query(
+        "UPDATE session_logs SET created_at = created_at - interval '2 days'
+         WHERE id = (SELECT min(id) FROM session_logs)",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+    let hours = db.activity_hours(42, 30).await.unwrap();
+    assert_eq!(hours.len(), 2);
+    assert!(hours.iter().all(|(ms, _)| ms % 3_600_000 == 0));
+    assert_eq!(hours.iter().map(|(_, n)| n).sum::<i64>(), 2);
+    assert!(hours[0].0 < hours[1].0);
+    assert_eq!(db.activity_hours(42, 1).await.unwrap().len(), 1);
+    assert!(db.activity_hours(44, 30).await.unwrap().is_empty());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn password_resets_are_redeemed_once(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.password_reset(42).await.unwrap().is_none());
+    assert!(
+        !db.issue_password_reset(43, "code", 72, false)
+            .await
+            .unwrap()
+    );
+
+    // Without a lock the old password keeps working until it's redeemed.
+    assert!(
+        db.issue_password_reset(42, "code", 72, false)
+            .await
+            .unwrap()
+    );
+    let creds = db.find_credentials(42, 1).await.unwrap().unwrap();
+    assert_eq!(creds.password_hash, "$argon2id$stub");
+    let record = db.player_record(42).await.unwrap().unwrap();
+    assert!(record.reset_until_ms.is_some());
+    assert_eq!(
+        db.password_reset(42).await.unwrap().unwrap().code_hash,
+        "code"
+    );
+
+    // A new reset replaces it, and can lock the password now.
+    assert!(db.issue_password_reset(42, "new", 72, true).await.unwrap());
+    assert_eq!(
+        db.find_credentials(42, 1)
+            .await
+            .unwrap()
+            .unwrap()
+            .password_hash,
+        RESET_LOCKED
+    );
+    assert!(
+        !db.redeem_password_reset(42, "code", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.redeem_password_reset(42, "new", "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert!(
+        !db.redeem_password_reset(42, "new", "$argon2id$again")
+            .await
+            .unwrap()
+    );
+    assert_eq!(
+        db.find_credentials(42, 1)
+            .await
+            .unwrap()
+            .unwrap()
+            .password_hash,
+        "$argon2id$new"
+    );
+    assert!(db.password_reset(42).await.unwrap().is_none());
+
+    // One that ran out can't be redeemed.
+    db.issue_password_reset(42, "late", 1, false).await.unwrap();
+    sqlx::query("UPDATE players SET reset_code_until = now() - interval '1 minute'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert!(db.password_reset(42).await.unwrap().is_none());
+    assert!(
+        !db.redeem_password_reset(42, "late", "$argon2id$late")
+            .await
+            .unwrap()
+    );
+    assert!(
+        db.player_record(42)
+            .await
+            .unwrap()
+            .unwrap()
+            .reset_until_ms
+            .is_none()
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn only_dead_worlds_sessions_are_released(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    db.create_player(&player(42)).await.unwrap();
+    assert!(db.session_owner(42).await.unwrap().is_none());
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), None);
+
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.report_world_status(1, 1, false).await.unwrap();
+    let owner = db.session_owner(42).await.unwrap().unwrap();
+    assert_eq!(owner.node, 1);
+    assert!(owner.since_ms.is_some());
+    assert!(owner.heartbeat_age_ms.unwrap() < 5000);
+    // Alive: kept.
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), None);
+
+    sqlx::query("UPDATE world_status SET updated_at = now() - interval '2 minutes'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), Some(1));
+    assert!(db.session_owner(42).await.unwrap().is_none());
+
+    // A world with no heartbeat at all is dead too.
+    db.claim_session(42, 7, 60).await.unwrap();
+    assert_eq!(
+        db.session_owner(42)
+            .await
+            .unwrap()
+            .unwrap()
+            .heartbeat_age_ms,
+        None
+    );
+    assert_eq!(db.release_dead_session(42, 60).await.unwrap(), Some(7));
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn wealth_events_are_found_by_id(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    db.create_player(&player(42)).await.unwrap();
+    db.create_player(&player(43)).await.unwrap();
+    let logs = LogBatch {
+        wealth: vec![WealthEvent {
+            name_hash: 42,
+            x: 3222,
+            z: 3218,
+            y: 0,
+            event_type: 5,
+            item: "dragon_med_helm".to_owned(),
+            count: 1,
+            value: 100_000,
+            counterpart: None,
+        }],
+        ..Default::default()
+    };
+    db.record_logs(2, &logs).await.unwrap();
+    let rows = db
+        .timeline(42, &["wealth".to_owned()], None, 10)
+        .await
+        .unwrap();
+    let id = rows[0].id;
+    let found = db.wealth_event(42, id).await.unwrap().unwrap();
+    assert_eq!(
+        (found.item.as_str(), found.count, found.node_id),
+        ("dragon_med_helm", 1, 2)
+    );
+    assert!(db.wealth_event(43, id).await.unwrap().is_none());
+}
+
+/// Registers a non-staff player called `name`.
+async fn named(db: &Db, name_hash: u64, name: &'static str) {
+    db.create_player(&NewPlayer {
+        display_name: name,
+        staff_mod_level: 0,
+        ..player(name_hash)
+    })
+    .await
+    .unwrap();
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn items_are_traced_back_through_players(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    named(&db, 41, "Origin").await;
+    named(&db, 42, "Mid").await;
+    named(&db, 43, "Mule").await;
+    named(&db, 44, "Feeder").await;
+    let event = |name_hash, event_type, item: &str, count, value, to| WealthEvent {
+        name_hash,
+        x: 3200,
+        z: 3200,
+        y: 0,
+        event_type,
+        item: item.to_owned(),
+        count,
+        value,
+        counterpart: to,
+    };
+    let logs = LogBatch {
+        wealth: vec![
+            event(41, 6, "rune_axe", 1, 2000, None),
+            event(41, transfer::DROP, "rune_axe", 1, 2000, None),
+            event(42, transfer::TAKE, "rune_axe", 1, 2000, None),
+            event(42, transfer::TRADE, "rune_axe", 1, 2000, Some(43)),
+            event(44, transfer::TRADE, "coins", 1000, 1000, Some(43)),
+            event(42, transfer::STAKE, "coins", 500, 500, Some(43)),
+            event(43, transfer::TRADE, "lobster", 1, 10, Some(42)),
+        ],
+        ..Default::default()
+    };
+    db.record_logs(10, &logs).await.unwrap();
+    // A minute apart, in the order they happened; then a trade of two items
+    // at once, which is one handover.
+    sqlx::query(
+        "UPDATE wealth_events SET created_at = now()
+             - make_interval(mins => (SELECT max(id) FROM wealth_events)::int - id::int + 1)",
+    )
+    .execute(&pool)
+    .await
+    .unwrap();
+
+    let axe = ["rune_axe".to_owned(), "cert_rune_axe".to_owned()];
+    let both = LogBatch {
+        wealth: vec![
+            event(44, transfer::TRADE, "coins", 100, 100, Some(43)),
+            event(44, transfer::TRADE, "bread", 1, 4, Some(43)),
+        ],
+        ..Default::default()
+    };
+    db.record_logs(10, &both).await.unwrap();
+
+    let sources = db.item_sources(43, &axe, None, 10).await.unwrap();
+    assert_eq!(sources.len(), 1);
+    assert_eq!(
+        (sources[0].event_type, sources[0].from_name.as_deref()),
+        (transfer::TRADE, Some("Mid"))
+    );
+
+    // Mule had it from Mid, who picked up what Origin dropped, who bought it.
+    let trace = db.item_trace(43, &axe, 4, 10, 100, None).await.unwrap();
+    let steps: Vec<_> = trace
+        .iter()
+        .map(|s| {
+            (
+                s.holder.as_str(),
+                s.depth,
+                s.parent,
+                s.source.event_type,
+                s.source.from_name.as_deref(),
+            )
+        })
+        .collect();
+    assert_eq!(
+        steps,
+        [
+            ("Mule", 0, None, transfer::TRADE, Some("Mid")),
+            ("Mid", 1, Some(0), transfer::TAKE, Some("Origin")),
+            ("Origin", 2, Some(1), 6, None),
+        ]
+    );
+    // Not back through staff above the one looking.
+    sqlx::query("UPDATE players SET staff_mod_level = 2 WHERE name_hash = 42")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(
+        db.item_trace(43, &axe, 4, 10, 100, Some(1))
+            .await
+            .unwrap()
+            .len(),
+        1
+    );
+    // Only so far back.
+    assert_eq!(
+        db.item_trace(43, &axe, 1, 10, 100, None)
+            .await
+            .unwrap()
+            .len(),
+        1
+    );
+    assert!(
+        db.item_trace(99, &axe, 4, 10, 100, None)
+            .await
+            .unwrap()
+            .is_empty()
+    );
+
+    // Who hands Mule what, and what passes between their partners.
+    let graph = db.trade_graph(43, 0, 10).await.unwrap();
+    let names: Vec<_> = graph.accounts.iter().map(|a| a.name.as_str()).collect();
+    assert_eq!(names, ["Mule", "Mid", "Feeder"]);
+    let edges: Vec<_> = graph
+        .edges
+        .iter()
+        .map(|e| (e.from.as_str(), e.to.as_str(), e.value, e.handovers))
+        .collect();
+    assert_eq!(
+        edges,
+        [
+            ("Mid", "Mule", 2500, 2),
+            ("Feeder", "Mule", 1104, 2),
+            ("Mule", "Mid", 10, 1)
+        ]
+    );
+    assert_eq!(
+        graph.edges[0].items,
+        [("rune_axe".to_owned(), 1), ("coins".to_owned(), 500)]
+    );
+
+    // Fed by two, giving little back.
+    let receivers = db.top_receivers(0, 2, 10).await.unwrap();
+    assert_eq!(receivers.len(), 1);
+    assert_eq!(
+        (
+            receivers[0].name.as_str(),
+            receivers[0].givers,
+            receivers[0].received,
+            receivers[0].given
+        ),
+        ("Mule", 2, 3604, 10)
+    );
+    assert_eq!(receivers[0].handovers, 4);
+
+    // Mule's timeline has what they were handed, and from whom.
+    let rows = db
+        .timeline(43, &["wealth".to_owned()], None, 10)
+        .await
+        .unwrap();
+    let received: Vec<_> = rows
+        .iter()
+        .filter(|r| r.detail.as_deref() == Some("received"))
+        .map(|r| (r.text.as_deref(), r.other.as_deref()))
+        .collect();
+    assert_eq!(
+        received,
+        [
+            (Some("bread"), Some("Feeder")),
+            (Some("coins"), Some("Feeder")),
+            (Some("coins"), Some("Mid")),
+            (Some("coins"), Some("Feeder")),
+            (Some("rune_axe"), Some("Mid"))
+        ]
+    );
+    let gave = rows.iter().find(|r| r.detail.is_none()).unwrap();
+    assert_eq!(
+        (gave.text.as_deref(), gave.other.as_deref()),
+        (Some("lobster"), Some("Mid"))
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn holders_and_totals_come_from_saves(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    named(&db, 42, "Rich").await;
+    named(&db, 43, "Saver").await;
+    db.claim_session(42, 1, 60).await.unwrap();
+    db.store_logout_save(42, 1, &save()).await.unwrap();
+    let saver = PlayerSave {
+        inv_types: vec![93, 95],
+        inv_slots: vec![0, 0],
+        inv_objs: vec![995, 995],
+        inv_counts: vec![50, 100],
+        ..save()
+    };
+    db.claim_session(43, 1, 60).await.unwrap();
+    db.store_logout_save(43, 1, &saver).await.unwrap();
+
+    let holders = db.item_holders(&[995], 1, 10).await.unwrap();
+    let seen: Vec<_> = holders
+        .iter()
+        .map(|h| {
+            (
+                h.name.as_str(),
+                h.total,
+                h.inv_types.clone(),
+                h.inv_counts.clone(),
+            )
+        })
+        .collect();
+    assert_eq!(
+        seen,
+        [
+            (
+                "Rich",
+                i64::from(i32::MAX),
+                vec![93],
+                vec![i64::from(i32::MAX)]
+            ),
+            ("Saver", 150, vec![95, 93], vec![100, 50]),
+        ]
+    );
+    assert_eq!(db.item_holders(&[995], 151, 10).await.unwrap().len(), 1);
+    assert_eq!(
+        db.item_totals(&[995, 1351, 4151]).await.unwrap(),
+        [
+            rs_db::ItemTotal {
+                obj: 995,
+                total: i64::from(i32::MAX) + 150,
+                holders: 2
+            },
+            rs_db::ItemTotal {
+                obj: 1351,
+                total: 1,
+                holders: 1
+            },
+        ]
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    ranked(&db, 1, "Maxed", 0, &[(0, 130_344_310)]).await;
+    ranked(&db, 2, "Cheater", 0, &[(0, 372_240), (10, 372_240)]).await;
+    // Player moderators are ranked; Jagex moderators and maintainers aren't.
+    ranked(&db, 3, "Jmod", 2, &[(0, 200_000_000)]).await;
+    ranked(&db, 4, "Dev", 3, &[(0, 200_000_000)]).await;
+    ranked(&db, 5, "Pmod", 1, &[(0, 100)]).await;
+    assert_eq!(
+        names(&db.hiscores_page(1, 0, 10).await.unwrap()),
+        ["Maxed", "Cheater", "Pmod"]
+    );
+    // The staff ahead don't count towards a rank.
+    assert_eq!(attack_rank(&db, 1).await, 1);
+    assert_eq!(attack_rank(&db, 5).await, 3);
+
+    // Their attack entry removed: still on the others.
+    assert!(db.change_hiscores(2, None, &[1], &[]).await.unwrap());
+    assert_eq!(
+        names(&db.hiscores_page(1, 0, 10).await.unwrap()),
+        ["Maxed", "Pmod"]
+    );
+    assert_eq!(
+        names(&db.hiscores_page(11, 0, 10).await.unwrap()),
+        ["Cheater"]
+    );
+    assert_eq!(attack_rank(&db, 5).await, 2);
+    let standing = db.hiscore_standing(2).await.unwrap().unwrap();
+    assert_eq!(
+        (standing.hidden, standing.removed.clone()),
+        (false, vec![1])
+    );
+    let rank = |category| {
+        standing
+            .rows
+            .iter()
+            .find(|r| r.category == category)
+            .unwrap()
+            .rank
+    };
+    assert_eq!((rank(1), rank(11)), (None, Some(1)));
+
+    // Hidden from every table, then let back on.
+    db.change_hiscores(2, Some(true), &[], &[]).await.unwrap();
+    assert!(db.hiscores_page(11, 0, 10).await.unwrap().is_empty());
+    assert!(db.player_hiscores(2).await.unwrap().is_none());
+    let kept = db.hiscores_kept_off(10).await.unwrap();
+    assert_eq!(
+        kept.iter()
+            .map(|k| (k.name.as_str(), k.hidden, k.removed.clone()))
+            .collect::<Vec<_>>(),
+        [("Cheater", true, vec![1])]
+    );
+    db.change_hiscores(2, Some(false), &[], &[1]).await.unwrap();
+    assert_eq!(
+        names(&db.hiscores_page(1, 0, 10).await.unwrap()),
+        ["Maxed", "Cheater", "Pmod"]
+    );
+    assert!(db.hiscores_kept_off(10).await.unwrap().is_empty());
+    assert_eq!(attack_rank(&db, 5).await, 3);
+
+    // A banned player is left off until the ban runs out.
+    let ban = |until: &'static str| {
+        let pool = pool.clone();
+        async move {
+            sqlx::query(until).execute(&pool).await.unwrap();
+        }
+    };
+    ban("UPDATE players SET banned_until = now() + interval '1 day' WHERE name_hash = 1").await;
+    assert_eq!(attack_rank(&db, 5).await, 2);
+    ban("UPDATE players SET banned_until = now() - interval '1 day' WHERE name_hash = 1").await;
+    assert_eq!(attack_rank(&db, 5).await, 3);
+
+    assert!(!db.change_hiscores(99, Some(true), &[], &[]).await.unwrap());
+    assert!(db.hiscore_standing(99).await.unwrap().is_none());
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn recovery_requests_are_limited_decided_and_redeemed(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let away: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        registration_ip: Some(home),
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    db.create_player(&NewPlayer {
+        display_name: "Other",
+        staff_mod_level: 0,
+        ..player(8)
+    })
+    .await
+    .unwrap();
+    let phone = LoginDevice {
+        web: true,
+        user_agent: Some("Mobile Safari".into()),
+        touch: true,
+        ..LoginDevice::default()
+    };
+    db.record_login(7, 10, home, Some(77), &phone)
+        .await
+        .unwrap();
+    db.record_login(8, 10, home, None, &LoginDevice::default())
+        .await
+        .unwrap();
+    let answers = RecoveryAnswers {
+        created_month: Some("2026-03".into()),
+        last_played: Some("2026-01-02".into()),
+        device: Some("phone".into()),
+        items: Some("Rune scimitar".into()),
+        ..RecoveryAnswers::default()
+    };
+    let request = |name_hash, ip| NewRecovery {
+        name_hash,
+        key_hash: "$argon2id$key",
+        reason: "hijacked",
+        details: "Someone changed my password",
+        passwords_given: 2,
+        password_matched: false,
+        answers: &answers,
+        ip,
+        uids: &[77],
+        user_agent: Some("Mobile Safari"),
+        platform: None,
+        language: None,
+    };
+
+    assert_eq!(
+        db.file_recovery(&request(9, home)).await.unwrap(),
+        RecoveryFiled::NoSuchPlayer
+    );
+    let RecoveryFiled::Filed { id } = db.file_recovery(&request(7, home)).await.unwrap() else {
+        panic!("expected a filed request");
+    };
+    let record = db.recovery(id).await.unwrap().unwrap();
+    assert_eq!(record.player, "Test");
+    assert_eq!(record.answers, answers);
+    assert_eq!(record.ip, "203.0.113.7");
+    assert_eq!(record.reset_until_ms, None);
+
+    // What its logins say: sent from the browser and address they play on.
+    let facts = db
+        .recovery_facts(
+            id,
+            7,
+            &record.ip,
+            &record.uids,
+            Some("Mobile Safari"),
+            None,
+            None,
+            Some("2026-01-02"),
+        )
+        .await
+        .unwrap()
+        .unwrap();
+    assert!(facts.registered_from_ip);
+    assert_eq!((facts.logins, facts.from_ip, facts.from_network), (1, 1, 1));
+    assert_eq!(
+        (facts.from_browser, facts.same_agent, facts.phone_logins),
+        (1, 1, 1)
+    );
+    // Its only login came after the day they say they last played, so
+    // from an address it hadn't used before then.
+    assert_eq!((facts.logins_since, facts.new_addresses_since), (1, 1));
+    assert_eq!(facts.other_requests, 0);
+    assert_eq!(
+        db.accounts_seen_from(7, &record.ip, &record.uids, 10)
+            .await
+            .unwrap(),
+        ["Other"]
+    );
+
+    // An address only sends so many a day.
+    for _ in 1..RECOVERIES_PER_ADDRESS {
+        assert!(matches!(
+            db.file_recovery(&request(7, home)).await.unwrap(),
+            RecoveryFiled::Filed { .. }
+        ));
+    }
+    assert_eq!(
+        db.file_recovery(&request(7, home)).await.unwrap(),
+        RecoveryFiled::TooManyFromAddress
+    );
+    let facts = db
+        .recovery_facts(id, 7, "198.51.100.2", &[], None, None, None, None)
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!((facts.from_ip, facts.from_browser), (0, 0));
+    assert_eq!(
+        (facts.other_requests, facts.other_requests_elsewhere),
+        (2, 2)
+    );
+    assert!(matches!(
+        db.file_recovery(&request(7, away)).await.unwrap(),
+        RecoveryFiled::Filed { .. }
+    ));
+
+    // Taken in, then approved: the key redeems a reset, and the old
+    // password is locked.
+    assert_eq!(db.waiting_recoveries(10).await.unwrap().len(), 4);
+    assert!(db.link_recovery(id, 12).await.unwrap());
+    assert_eq!(db.waiting_recoveries(10).await.unwrap().len(), 3);
+    assert_eq!(
+        db.decide_recovery(id, true, "Approved.", "Kim", 72)
+            .await
+            .unwrap(),
+        RecoveryDecided::Decided
+    );
+    let creds = db.find_credentials(7, 10).await.unwrap().unwrap();
+    assert_eq!(creds.password_hash, RESET_LOCKED);
+    let reset = db.password_reset(7).await.unwrap().unwrap();
+    assert_eq!(reset.code_hash, "$argon2id$key");
+    assert!(
+        db.recovery(id)
+            .await
+            .unwrap()
+            .unwrap()
+            .reset_until_ms
+            .is_some()
+    );
+    assert_eq!(
+        db.decide_recovery(id, true, "", "Kim", 72).await.unwrap(),
+        RecoveryDecided::AlreadyApproved
+    );
+    assert!(
+        db.redeem_password_reset(7, &reset.code_hash, "$argon2id$new")
+            .await
+            .unwrap()
+    );
+    assert_eq!(db.recovery(id).await.unwrap().unwrap().reset_until_ms, None);
+
+    // Denying an approval takes back a reset still unredeemed.
+    let RecoveryFiled::Filed { id: second } = db.file_recovery(&request(7, away)).await.unwrap()
+    else {
+        panic!("expected a filed request");
+    };
+    db.decide_recovery(second, true, "", "Kim", 72)
+        .await
+        .unwrap();
+    assert!(db.password_reset(7).await.unwrap().is_some());
+    assert_eq!(
+        db.decide_recovery(second, false, "We can't confirm it's yours.", "Kim", 72)
+            .await
+            .unwrap(),
+        RecoveryDecided::Decided
+    );
+    assert!(db.password_reset(7).await.unwrap().is_none());
+    assert_eq!(
+        db.decide_recovery(second + 99, false, "", "Kim", 72)
+            .await
+            .unwrap(),
+        RecoveryDecided::NotFound
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn strangers_cant_crowd_out_an_owners_recovery(pool: PgPool) {
+    let db = Db::from_pool(pool);
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    db.create_player(&NewPlayer {
+        staff_mod_level: 0,
+        ..player(7)
+    })
+    .await
+    .unwrap();
+    db.record_login(7, 10, home, Some(77), &LoginDevice::default())
+        .await
+        .unwrap();
+    let answers = RecoveryAnswers::default();
+    let request = |ip, uids| NewRecovery {
+        name_hash: 7,
+        key_hash: "$argon2id$key",
+        reason: "forgot",
+        details: "I forgot my password",
+        passwords_given: 0,
+        password_matched: false,
+        answers: &answers,
+        ip,
+        uids,
+        user_agent: None,
+        platform: None,
+        language: None,
+    };
+    for i in 0..RECOVERIES_WAITING {
+        let stranger = std::net::IpAddr::from([198, 51, 100, i as u8]);
+        assert!(matches!(
+            db.file_recovery(&request(stranger, &[])).await.unwrap(),
+            RecoveryFiled::Filed { .. }
+        ));
+    }
+    let stranger = std::net::IpAddr::from([198, 51, 100, 99]);
+    assert_eq!(
+        db.recovery_refusal(7, stranger, &[]).await.unwrap(),
+        Some(RecoveryFiled::TooManyWaiting)
+    );
+    assert_eq!(
+        db.file_recovery(&request(stranger, &[])).await.unwrap(),
+        RecoveryFiled::TooManyWaiting
+    );
+    // From where they played, by address or by browser, it's taken.
+    assert_eq!(db.recovery_refusal(7, home, &[]).await.unwrap(), None);
+    assert_eq!(db.recovery_refusal(7, stranger, &[77]).await.unwrap(), None);
+    assert!(matches!(
+        db.file_recovery(&request(stranger, &[77])).await.unwrap(),
+        RecoveryFiled::Filed { .. }
+    ));
+    assert_eq!(
+        db.recovery_refusal(9, home, &[]).await.unwrap(),
+        Some(RecoveryFiled::NoSuchPlayer)
+    );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn staff_messages_are_read_by_their_player_only(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    for hash in [7, 8] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let first = db
+        .send_staff_message(7, "Mod Ash", "Your appeal", "We looked again.")
+        .await
+        .unwrap()
+        .unwrap();
+    let second = db
+        .send_staff_message(7, "Mod Ash", "Welcome", "Hello")
+        .await
+        .unwrap()
+        .unwrap();
+    db.send_staff_message(8, "Mod Ash", "Other", "Hi")
+        .await
+        .unwrap()
+        .unwrap();
+    assert!(
+        db.send_staff_message(9, "Mod Ash", "Nobody", "Hi")
+            .await
+            .unwrap()
+            .is_none()
+    );
+
+    // Theirs, newest first, unread until opened.
+    let row = |hash: u64| {
+        let db = &db;
+        async move { db.appeal_login(hash).await.unwrap().unwrap().id }
+    };
+    let (seven, eight) = (row(7).await, row(8).await);
+    assert_eq!(db.login_by_id(seven).await.unwrap().unwrap().id, seven);
+    let theirs = db.messages_of(seven, 10).await.unwrap();
+    assert_eq!(
+        theirs.iter().map(|m| m.id).collect::<Vec<_>>(),
+        [second, first]
+    );
+    assert!(theirs.iter().all(|m| !m.read));
+    // The game's welcome screen counts what's unread.
+    let unread = |hash: u64| {
+        let db = &db;
+        async move {
+            let creds = db.find_credentials(hash, 1).await.unwrap().unwrap();
+            creds.unread_messages
+        }
+    };
+    assert_eq!((unread(7).await, unread(8).await), (2, 1));
+    // Only its player opens it.
+    assert!(db.open_message(eight, first).await.unwrap().is_none());
+    assert!(
+        db.staff_message(first)
+            .await
+            .unwrap()
+            .unwrap()
+            .read_ms
+            .is_none()
+    );
+    let opened = db.open_message(seven, first).await.unwrap().unwrap();
+    assert_eq!(opened.body, "We looked again.");
+    let seen = db.staff_message(first).await.unwrap().unwrap();
+    assert!(seen.read_ms.is_some());
+    assert_eq!(unread(7).await, 1);
+    assert_eq!(
+        (seen.player.as_str(), seen.staff_name.as_str()),
+        ("Test", "Mod Ash")
+    );
+    assert!(db.messages_of(seven, 10).await.unwrap()[1].read);
+
+    // The console's list: newest first, paged, and filtered to one player.
+    let all = db.staff_messages(None, None, 10).await.unwrap();
+    assert_eq!(all.len(), 3);
+    assert_eq!(
+        db.staff_messages(None, Some(second), 10).await.unwrap()[0].id,
+        first
+    );
+    assert_eq!(db.staff_messages(Some(8), None, 10).await.unwrap().len(), 1);
+
+    // In their export without who sent them, and gone with the account.
+    let json = db.export_account(7).await.unwrap().unwrap();
+    assert!(
+        json.contains("Your appeal") && json.contains("read_at"),
+        "{json}"
+    );
+    assert!(!json.contains("Mod Ash"), "{json}");
+    assert_eq!(db.delete_account(7).await.unwrap(), AccountDeleted::Deleted);
+    let left: i64 = sqlx::query_scalar("SELECT count(*) FROM staff_messages")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(left, 1);
 }

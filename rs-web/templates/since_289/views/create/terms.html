@@ -1,0 +1,56 @@
+{% with title="Create Account" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Terms and Conditions" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<center>
+  <table cellpadding=3 cellspacing=0 style="border: 1px solid #382418">
+    <tr>
+      <td style="background: #282418;">Choose A Username</td>
+      <td>&gt;</td>
+      <td style="background: #382418; color: #FFBB22; font-weight: bold;">Terms And Conditions</td>
+      <td>&gt;</td>
+      <td style="background: #282418; color:#AAAAAA;">Choose A Password</td>
+      <td>&gt;</td>
+      <td style="background: #282418; color:#AAAAAA;">Finish</td>
+    </tr>
+  </table>
+</center>
+
+{% if error %}
+  <p class="red">ERROR: {{ error }}</p>
+{% endif %}
+
+<p>The username <a href="/create" class=c>{{ username }}</a> is currently available. To sign up for an account you must agree to our Terms and Conditions.</p>
+
+<p><hr></p>
+<p>In short:</p>
+<ul>
+  <li>You must be at least 13 years old.</li>
+  <li>Follow the <a href="/guides/rules" class=c target=_blank>rules of conduct</a>: no bots or macros, no scamming, no trading for real money, and no account sharing.</li>
+  <li>Staff can mute, ban or roll back accounts that break the rules, and you can appeal.</li>
+  <li>The game is free, run by fans, and provided as it is. It's not connected to Jagex.</li>
+</ul>
+<p>Read the full <a href="/terms" class=c target=_blank>terms and conditions</a> and our <a href="/privacy" class=c target=_blank>privacy policy</a>, which explains what we keep about you and why.</p>
+<p><hr></p>
+
+<p>We don't sell your information or show adverts. This is just a hobby project to preserve a game we all love.</p>
+
+<center>
+  <form method="post">
+    <input type="hidden" name="step" value="terms">
+    <input type="hidden" value="{{ username }}" name="username">
+    <input type="submit" value="I Agree">
+    <input type="button" value="I Do Not Agree" onClick="window.location.href='/title'">
+  </form>
+</center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

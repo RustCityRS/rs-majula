@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Lores and Histories of RuneScape" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Lores and Histories of RuneScape | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -34,7 +35,7 @@ A.c:hover {text-decoration:underline}
 <br>
 <!-- title box -->
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Lores and Histories of RuneScape</b><br>
+<h1 class=title>Lores and Histories of RuneScape</h1>
 <a href="/title" class=c>Main menu</a> - <a href='/varrock' class=c>Library Of Varrock</a><br><a href='/varrock/histories' class=c>Histories Index</a>
 </center></td></tr></table>
 <!-- end title box -->
@@ -47,7 +48,7 @@ A.c:hover {text-decoration:underline}
 
 <p align=justify>
 <table><tr><td></center>
-<img src='/img/varrock/elaborate/elaboratey.gif' width=100 height=100 align=top></td><td>ou  must be  careful walking  through the  underground
+<img loading="lazy" alt="Y" src='/img/varrock/elaborate/elaboratey.gif' width=100 height=100 align=top></td><td>ou  must be  careful walking  through the  underground
     pass... it is filled with the spirit of Zamorak. You can
     feel it as you wind your way round the stalactites- like
     an icy chill that threatens to penetrate the very fabric
@@ -71,7 +72,7 @@ A.c:hover {text-decoration:underline}
     truly unlock your potential." 
  <p align=justify>  
 <table><tr><td></center>
-<img src='/img/varrock/elaborate/elaboratei.gif' width=100 height=100 align=top></td><td>n time these voices became visions. Visions of human armies,
+<img loading="lazy" alt="I" src='/img/varrock/elaborate/elaboratei.gif' width=100 height=100 align=top></td><td>n time these voices became visions. Visions of human armies,
     wasted by some unseen hand. Their bodies lie heaped 
     together like some amorphous mass of mutilated flesh. 
     And standing on top of this great heap stood Randas,
@@ -116,17 +117,13 @@ A.c:hover {text-decoration:underline}
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 </center>

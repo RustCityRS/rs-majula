@@ -1,0 +1,30 @@
+{% from "layout/section.html" import section %}
+{% with title="Message Centre" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Message Centre" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% call section(subject) %}
+<table width=100% cellpadding=3 cellspacing=1>
+  <tr>
+    <td style="background-color:#35210F;">From: <b><font color="#ffbb22">Our staff</font></b></td>
+    <td align=right style="background-color:#35210F;">{{ sent }} UTC</td>
+  </tr>
+  <tr>
+    <td colspan=2><div style="white-space:pre-wrap; overflow-wrap:anywhere;">{{ body }}</div></td>
+  </tr>
+</table>
+<p><i>This message can't be replied to. Our staff will never ask for your password.</i></p>
+{% endcall %}
+
+<form method="post" action="/messages">
+  <input type="hidden" name="token" value="{{ token }}">
+  <center><input type="submit" value="Back to your messages"></center>
+</form>
+<br>
+<center><a href="/title" class=c>Main menu</a></center>
+<br>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

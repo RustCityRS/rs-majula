@@ -39,6 +39,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `engine_mut().run_script_by_state` (resume), `engine_mut().run_script_by_trigger`
 impl ClientGameHandler for IfButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_button(self.com);
         let interfaces = engine().interfaces();
 
         let Some(interface) = interfaces.get_by_id(self.com) else {

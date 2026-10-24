@@ -60,15 +60,15 @@ pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
     id: u16,
     count: u32,
     stackable: bool,
-    receiver37: Option<u64>,
+    receiver: Option<PlayerUid>,
     duration: u64,
 ) -> Result<()> {
     if !stackable || count == 1 {
         for _ in 0..count {
-            engine_mut::<E>().add_obj(coord, id, 1, receiver37, duration)?;
+            engine_mut::<E>().add_obj(coord, id, 1, receiver, duration)?;
         }
     } else {
-        engine_mut::<E>().add_obj(coord, id, count, receiver37, duration)?;
+        engine_mut::<E>().add_obj(coord, id, count, receiver, duration)?;
     }
     Ok(())
 }

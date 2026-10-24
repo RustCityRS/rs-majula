@@ -1,0 +1,130 @@
+{% with title="Account Recovery" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Recover Your Account" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>If you can't log in because you forgot your password, or someone else
+  got into your account, tell us about it here. A member of staff checks
+  what you tell us against the account's records, and if they're sure it's
+  yours, you can set a new password.</p>
+
+<ul>
+  <li>Answer as many questions as you can. If you aren't sure of something,
+    leave it blank rather than guess.</li>
+  <li>After you send it, you're given a <b>recovery key</b>. Write it down:
+    it's the only way to check on your request, and to set your new password
+    if it's approved.</li>
+  <li>Never share your password or recovery key with anyone, including staff.</li>
+</ul>
+
+{% if error %}
+  <p class="red">ERROR: {{ error }}</p>
+{% endif %}
+
+<center>
+  <form method="post" action="/recover/request">
+    <input type="hidden" name="uids" id="uids" value="">
+    <table cellpadding=3>
+      <tr>
+        <td align=right>Username:</td>
+        <td><input type="text" name="username" value="{{ form.username }}" maxlength="12" size="20" autocomplete="username" required></td>
+      </tr>
+      <tr>
+        <td align=right valign=top>What happened?</td>
+        <td>
+          <label><input type="radio" name="reason" value="forgot" {% if form.reason != "hijacked" and form.reason != "other" %}checked{% endif %}> I forgot my password</label><br>
+          <label><input type="radio" name="reason" value="hijacked" {% if form.reason == "hijacked" %}checked{% endif %}> Someone else got into my account</label><br>
+          <label><input type="radio" name="reason" value="other" {% if form.reason == "other" %}checked{% endif %}> Something else</label>
+        </td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Tell us about it:</td>
+        <td><textarea name="details" rows="6" cols="46" maxlength="{{ max }}" required placeholder="When did you notice? Did anything else change?">{{ form.details }}</textarea></td>
+      </tr>
+
+      <tr><td colspan=2><br><b>Help us check the account is yours</b></td></tr>
+      <tr>
+        <td align=right valign=top>Passwords you've used<br>on this account:</td>
+        <td>
+          <input type="password" name="password1" value="" maxlength="20" size="20" autocomplete="off"><br>
+          <input type="password" name="password2" value="" maxlength="20" size="20" autocomplete="off"><br>
+          <input type="password" name="password3" value="" maxlength="20" size="20" autocomplete="off"><br>
+          <small>Up to 3. They're checked against the account, then forgotten: never kept or shown to anyone.</small>
+        </td>
+      </tr>
+      <tr>
+        <td align=right>When you made the account:</td>
+        <td><input type="month" name="created_month" value="{{ form.created_month }}" placeholder="2026-03"></td>
+      </tr>
+      <tr>
+        <td align=right>When you last played on it:</td>
+        <td><input type="date" name="last_played" value="{{ form.last_played }}"></td>
+      </tr>
+      <tr>
+        <td align=right>What you usually play on:</td>
+        <td>
+          <select name="device">
+            <option value="" {% if not form.device %}selected{% endif %}>Not sure</option>
+            <option value="computer" {% if form.device == "computer" %}selected{% endif %}>A web browser on a computer</option>
+            <option value="phone" {% if form.device == "phone" %}selected{% endif %}>A web browser on a phone or tablet</option>
+            <option value="client" {% if form.device == "client" %}selected{% endif %}>The downloadable client</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Valuable or unusual items<br>you had:</td>
+        <td><input type="text" name="items" value="{{ form.items }}" maxlength="{{ max_answer }}" size="46" placeholder="Rune scimitar, Amulet of power, 50k coins"></td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Where you were when you<br>last logged out:</td>
+        <td><input type="text" name="location" value="{{ form.location }}" maxlength="{{ max_answer }}" size="46" placeholder="Varrock west bank"></td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Some names on your<br>friends list:</td>
+        <td><input type="text" name="friends" value="{{ form.friends }}" maxlength="{{ max_answer }}" size="46"></td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Players you traded<br>with lately:</td>
+        <td><input type="text" name="traded_with" value="{{ form.traded_with }}" maxlength="{{ max_answer }}" size="46"></td>
+      </tr>
+      <tr>
+        <td align=right valign=top>Other accounts<br>you play on:</td>
+        <td><input type="text" name="other_accounts" value="{{ form.other_accounts }}" maxlength="{{ max_answer }}" size="46"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><br><input type="submit" value="Send Request"></td>
+      </tr>
+    </table>
+  </form>
+</center>
+
+<p>Already sent one? <a href="/recover/request/status" class=c>Check on your request</a>.</p>
+
+{# Each world tells the page the id it gave this browser's game, if any, to
+   match against the account's logins. #}
+{% for page in uid_pages %}<iframe class="uid-page" src="{{ page }}" hidden></iframe>{% endfor %}
+<script>
+  (function () {
+    var origins = Array.prototype.map.call(document.querySelectorAll('iframe.uid-page'), function (f) {
+      return new URL(f.src).origin;
+    });
+    var field = document.getElementById('uids');
+    var seen = [];
+    window.addEventListener('message', function (e) {
+      if (origins.indexOf(e.origin) < 0 || !e.data || typeof e.data.rsUid !== 'number') return;
+      if (seen.indexOf(e.data.rsUid) < 0) seen.push(e.data.rsUid);
+      field.value = seen.join(',');
+    });
+  })();
+</script>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

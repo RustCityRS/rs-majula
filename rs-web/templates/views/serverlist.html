@@ -6,9 +6,9 @@
         <td align=center width=165>
         <table>
       {% endif %}
-          <tr><td colspan=2>&nbsp;&nbsp;<img align=absmiddle src=/img/gamewin/{{ region.flag }}flag.gif width=30 height=15 border=0> {{ region.name }}</td></tr>
+          <tr><td colspan=2>&nbsp;&nbsp;<img alt="" align=absmiddle src=/img/gamewin/{{ region.flag }}flag.gif width=30 height=15 border=0> {{ region.name }}</td></tr>
           {% for world in region.worlds %}
-            <tr><td valign=center><a href="/client?world={{ world.id }}&detail={{ detail }}&method={{ method }}" oncontextmenu=return(false) target="_parent" class=c>World {{ world.id }}</a></td><td align=right>{% if world.online %}{{ world.players }} player{{ "s" if world.players != 1 }}{% else %}OFFLINE{% endif %}</td></tr>
+            <tr><td valign=center><a href="/client?world={{ world.id }}&detail={{ detail }}&method={{ method }}" oncontextmenu=return(false) target="_parent" class=c>World {{ world.id }}</a></td><td align=right>{% if world.maintenance %}MAINTENANCE{% elif world.online %}{{ world.players }} player{{ "s" if world.players != 1 }}{% else %}OFFLINE{% endif %}</td></tr>
           {% endfor %}
           {% if not loop.last %}
             <tr><td colspan=2>&nbsp;</td></tr>
@@ -86,7 +86,7 @@
 <tr>
 <td width="150">&nbsp;</td>
 <td width="150" align="center">
-<img src="/img/playgame/swordarrow.gif" border="0">
+<img loading="lazy" alt="Sword arrow" src="/img/playgame/swordarrow.gif" border="0">
 </td>
 <td width="150">&nbsp;</td>
 </tr></table>

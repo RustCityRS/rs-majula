@@ -38,8 +38,8 @@ pub enum StaffModLevel {
     PlayerModerator = 1,
     /// Jagex moderator with full moderation capabilities.
     JagexModerator = 2,
-    /// Developer with unrestricted access.
-    Developer = 3,
+    /// Maintainer with unrestricted access.
+    Maintainer = 3,
 }
 
 impl StaffModLevel {
@@ -52,9 +52,17 @@ impl StaffModLevel {
         match value {
             1 => Self::PlayerModerator,
             2 => Self::JagexModerator,
-            3 => Self::Developer,
+            3 => Self::Maintainer,
             _ => Self::Normal,
         }
+    }
+
+    /// Whether this level is kept out of the economy and PvP where the world
+    /// isolates staff (see `Engine::staff_isolation`): jagex moderators and up
+    /// don't trade, duel, fight or use items or spells on other players, nor
+    /// they on them, and nothing they drop is ever shown to anyone else.
+    pub const fn is_isolated(self) -> bool {
+        self as u8 >= Self::JagexModerator as u8
     }
 }
 
@@ -233,7 +241,7 @@ impl Player {
     /// Creates a new player at the given coordinate with the specified identity and variables.
     ///
     /// The player starts with teleport enabled (so the client receives the initial
-    /// position), default walk speed, developer staff level, member status, and all
+    /// position), default walk speed, maintainer staff level, member status, and all
     /// interfaces closed.
     ///
     /// # Arguments
@@ -271,7 +279,7 @@ impl Player {
             interaction: InteractionState::new(),
             cam_queue: CamQueue::new(),
             #[cfg(debug_assertions)]
-            staff_mod_level: StaffModLevel::Developer,
+            staff_mod_level: StaffModLevel::Maintainer,
             #[cfg(not(debug_assertions))]
             staff_mod_level: StaffModLevel::Normal,
             is_member: true,
@@ -1820,7 +1828,7 @@ mod staff_mod_level_tests {
             StaffModLevel::Normal,
             StaffModLevel::PlayerModerator,
             StaffModLevel::JagexModerator,
-            StaffModLevel::Developer,
+            StaffModLevel::Maintainer,
         ] {
             assert_eq!(StaffModLevel::from_u8(level as u8), level);
         }
@@ -1830,5 +1838,13 @@ mod staff_mod_level_tests {
     fn from_u8_unknown_falls_back_to_normal() {
         assert_eq!(StaffModLevel::from_u8(4), StaffModLevel::Normal);
         assert_eq!(StaffModLevel::from_u8(255), StaffModLevel::Normal);
+    }
+
+    #[test]
+    fn jagex_moderators_and_up_are_isolated() {
+        assert!(!StaffModLevel::Normal.is_isolated());
+        assert!(!StaffModLevel::PlayerModerator.is_isolated());
+        assert!(StaffModLevel::JagexModerator.is_isolated());
+        assert!(StaffModLevel::Maintainer.is_isolated());
     }
 }

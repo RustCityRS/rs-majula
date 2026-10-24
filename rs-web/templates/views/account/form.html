@@ -1,0 +1,44 @@
+{% with title="Your Account" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Your Account" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>Log in with your RuneScape username and password to see your recent logins, change your password, download
+  everything we keep about you, or delete your account.</p>
+
+{% if error %}
+  <p class="red">ERROR: {{ error }}</p>
+{% endif %}
+
+<center>
+  <form method="post" action="/account">
+    <table>
+      <tr>
+        <td align=right><label for="username">Username:</label></td>
+        <td><input type="text" id="username" name="username" value="{{ username }}" maxlength="12" size="20" autocomplete="username" required></td>
+      </tr>
+      <tr>
+        <td align=right><label for="password">Password:</label></td>
+        <td><input type="password" id="password" name="password" value="" maxlength="20" pattern="[ -_a-~£]{1,20}" title="Up to 20 letters, numbers, spaces or keyboard symbols" size="20" autocomplete="current-password" required></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Log in"></td>
+      </tr>
+    </table>
+  </form>
+</center>
+
+<p>Forgotten your password? <a href="/recover/request" class=c>Recover your account</a>.</p>
+<p>This page sets no cookies: you log in again for each thing you do here. See our
+  <a href="/privacy" class=c>privacy policy</a> for what we keep and why.</p>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

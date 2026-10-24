@@ -1,6 +1,7 @@
 use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_io::Packet;
 use std::collections::VecDeque;
+use std::time::Instant;
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::{Receiver, Sender, UnboundedReceiver, UnboundedSender};
 
@@ -17,13 +18,19 @@ const DISCONNECT_CAPACITY: usize = 1;
 /// state for opcode encryption/decryption, and an intermediate read queue
 /// for reassembling fragmented messages.
 pub struct ClientHandle {
-    pub inbox: Receiver<Vec<u8>>,
+    /// What the socket read, with when it read it.
+    pub inbox: Receiver<(Instant, Vec<u8>)>,
     pub outbox: UnboundedSender<Vec<u8>>,
     pub recycle_rx: UnboundedReceiver<Vec<u8>>,
     pub buffer_pool: Vec<Vec<u8>>,
     pub write_queue: Packet,
     pub read_queue: VecDeque<u8>,
-    pub pending_msg: Option<Vec<u8>>,
+    pub pending_msg: Option<(Instant, Vec<u8>)>,
+    /// When the bytes in `read_queue` arrived: how many had been queued in
+    /// all once each read's were, and when it came.
+    pub arrivals: VecDeque<(u64, Instant)>,
+    /// How many bytes have been put in `read_queue` in all.
+    pub queued: u64,
     pub isaac_encode: Isaac,
     pub isaac_decode: Isaac,
     pub disconnect_rx: Receiver<()>,
@@ -34,7 +41,7 @@ pub struct ClientHandle {
 /// disconnection.
 pub struct ClientIO {
     pub handle: ClientHandle,
-    pub packet_tx: Sender<Vec<u8>>,
+    pub packet_tx: Sender<(Instant, Vec<u8>)>,
     pub bytes_rx: UnboundedReceiver<Vec<u8>>,
     pub recycle_tx: UnboundedSender<Vec<u8>>,
     pub disconnect_tx: Sender<()>,
@@ -71,6 +78,8 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
             write_queue: Packet::new(5000),
             read_queue: VecDeque::new(),
             pending_msg: None,
+            arrivals: VecDeque::new(),
+            queued: 0,
             isaac_encode,
             isaac_decode,
             disconnect_rx,
@@ -79,5 +88,23 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
         bytes_rx,
         recycle_tx,
         disconnect_tx,
+    }
+}
+
+impl ClientHandle {
+    /// Puts a read from the socket in the read queue.
+    pub fn queue(&mut self, at: Instant, bytes: Vec<u8>) {
+        self.queued += bytes.len() as u64;
+        self.arrivals.push_back((self.queued, at));
+        self.read_queue.extend(bytes);
+    }
+
+    /// When the last byte taken from the read queue arrived.
+    pub fn arrived(&mut self) -> Option<Instant> {
+        let taken = self.queued - self.read_queue.len() as u64;
+        while self.arrivals.front().is_some_and(|&(end, _)| end < taken) {
+            self.arrivals.pop_front();
+        }
+        self.arrivals.front().map(|&(_, at)| at)
     }
 }

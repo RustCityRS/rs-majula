@@ -4,15 +4,17 @@ use crate::player_save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
     orphan_save_file, save_orphan, save_to_file,
 };
+use crate::watch::schedule::{MAX_PLAYED, WEEK_MS};
 use rs_db::{
-    Claim, Db, DbConfig, LogBatch, ModAction, NewPlayer, NewSnapshot, Passwords, PlayerSave,
-    SaveResult,
+    Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
+    PlayedSession, PlayerSave, SaveResult, check_new_password,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
 use std::path::Path;
-use std::time::Instant;
+use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
+use tokio::sync::oneshot;
 use tokio::task::JoinHandle;
 use tokio::time::{Duration, sleep, timeout};
 use tracing::{error, info, warn};
@@ -21,7 +23,7 @@ use tracing::{error, info, warn};
 /// another world may take over the sessions it owns. A dead world's saves
 /// are refused once its sessions are taken, so its stale copies can never
 /// overwrite the new owner's.
-const TAKEOVER_AFTER_SECS: i32 = 60;
+pub const TAKEOVER_AFTER_SECS: i32 = 60;
 
 /// How often the lease task renews this world's heartbeat, on a connection
 /// of its own so a backlog of saves and logins can't delay it.
@@ -51,6 +53,8 @@ pub enum DbRequest {
         user37: u64,
         password: Box<str>,
         ip: IpAddr,
+        uid: Option<i32>,
+        device: Box<LoginDevice>,
     },
     Save {
         user37: u64,
@@ -67,11 +71,10 @@ pub enum DbRequest {
     },
     WorldStatus {
         players: u32,
+        maintenance: bool,
         online: Vec<u64>,
         held: Vec<u64>,
     },
-    /// An abuse report, made at `(x, z, y)`. With `mute_by`, the reporter is a
-    /// moderator of that level who also mutes the offender for [`MUTE_HOURS`].
     Snapshot {
         reporter37: u64,
         offender37: u64,
@@ -85,17 +88,46 @@ pub enum DbRequest {
         user37: u64,
         hours: i32,
     },
-    /// A staff command (`::mute`, `::ban`, ...) by a moderator of `by_level`.
     Moderate {
         moderator37: u64,
         by_level: u8,
         target37: u64,
         action: ModAction,
+        reason: Option<String>,
+        reply: Option<oneshot::Sender<ModOutcome>>,
     },
-    /// A tick's chat, session logs and wealth events.
     Logs {
         logs: LogBatch,
     },
+    EditLoad {
+        user37: u64,
+        reply: oneshot::Sender<LoadResult>,
+    },
+    EditStore {
+        user37: u64,
+        profile: Box<PlayerProfile>,
+        /// Who changed the save, and how, for its history.
+        note: String,
+        reply: oneshot::Sender<SaveOutcome>,
+    },
+    /// Stores the player's local save file now, as a reconnect would.
+    SyncLocal {
+        user37: u64,
+        reply: oneshot::Sender<SyncOutcome>,
+    },
+}
+
+/// How a [`DbRequest::SyncLocal`] went.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SyncOutcome {
+    /// Stored, and the file removed.
+    Synced,
+    /// There's no local file for them.
+    NoFile,
+    /// The session isn't this world's, so the file is stale: moved aside.
+    Orphaned,
+    /// Not stored; the file is kept.
+    Failed,
 }
 
 /// How long a moderator's in-game mute lasts, as the client's abuse report
@@ -106,12 +138,38 @@ pub const MUTE_HOURS: i32 = 48;
 /// can.
 pub const AUTO_BAN_HOURS: i32 = 48;
 
+/// How long logins (and the addresses they came from) are kept, for staff
+/// to link accounts by.
+const LOGIN_LOG_DAYS: i32 = 180;
+/// How long a script error is kept after it was last seen.
+const SCRIPT_ERROR_DAYS: i32 = 30;
+
+/// How long earlier saves are kept to roll players back to, and how many of
+/// each player's newest are kept however old.
+const SAVE_HISTORY_DAYS: i32 = 30;
+const SAVE_HISTORY_KEEP: i64 = 5;
+
+/// How long chat, session logs and wealth events are kept, how often they
+/// and the rest above are pruned (the first time once the world is up and
+/// its migrations ran), and how many rows a delete takes at a time.
+const LOG_DAYS: i32 = 90;
+const LOG_PRUNE: Duration = Duration::from_secs(3600);
+const FIRST_LOG_PRUNE: Duration = Duration::from_secs(5 * 60);
+const LOG_PRUNE_BATCH: i64 = 10_000;
+
 /// The outcome of a [`DbRequest::Authenticate`].
 pub enum AuthResult {
     Accepted {
         staff_mod_level: u8,
         muted_for: Option<Duration>,
         left_other_world: Option<Duration>,
+        /// How long ago the account was registered.
+        account_age: Duration,
+        /// Unread Message Centre messages, for the welcome screen.
+        unread_messages: u16,
+        /// The sessions it played over the last week, for the anti-cheat's
+        /// schedule check.
+        played: Vec<PlayedSession>,
     },
     InvalidCredentials,
     Banned,
@@ -235,6 +293,48 @@ async fn lease_task(config: DbConfig, node_id: u8, response_tx: UnboundedSender<
     }
 }
 
+/// Prunes the logs, logins, script errors and save history past their days
+/// every [`LOG_PRUNE`], on a connection of its own: there are a lot of
+/// them, and the deletes mustn't hold up saves and logins.
+async fn prune_logs_task(config: DbConfig) {
+    let db = Db::connect_lazy(&config, 1);
+    sleep(FIRST_LOG_PRUNE).await;
+    loop {
+        let prunes = [
+            (
+                "log",
+                LOG_DAYS,
+                db.prune_logs(LOG_DAYS, LOG_PRUNE_BATCH).await,
+            ),
+            (
+                "login log",
+                LOGIN_LOG_DAYS,
+                db.prune_login_logs(LOGIN_LOG_DAYS, LOG_PRUNE_BATCH).await,
+            ),
+            (
+                "script error",
+                SCRIPT_ERROR_DAYS,
+                db.prune_script_errors(SCRIPT_ERROR_DAYS, LOG_PRUNE_BATCH)
+                    .await,
+            ),
+            (
+                "save history",
+                SAVE_HISTORY_DAYS,
+                db.prune_save_history(SAVE_HISTORY_DAYS, SAVE_HISTORY_KEEP, LOG_PRUNE_BATCH)
+                    .await,
+            ),
+        ];
+        for (what, days, pruned) in prunes {
+            match pruned {
+                Ok(0) => {}
+                Ok(n) => info!("Pruned {} {} rows past {} days", n, what, days),
+                Err(e) => warn!("Pruning {} rows failed: {}", what, e),
+            }
+        }
+        sleep(LOG_PRUNE).await;
+    }
+}
+
 /// Handles a request while the database is unreachable. Saves go straight to
 /// local files (synced on reconnect) and are acked as failed, so a crash
 /// during the outage loses nothing that reached this task; the rest is
@@ -249,9 +349,13 @@ fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
         moderator37,
         target37,
         action,
+        reply,
         ..
     } = req
     {
+        if let Some(reply) = reply {
+            let _ = reply.send(ModOutcome::Offline);
+        }
         let _ = response_tx.send(DbResponse::Moderated {
             moderator37,
             target37,
@@ -349,6 +453,7 @@ pub async fn db_client_task(
     let max_backoff = Duration::from_secs(30);
     let mut first_connect = true;
     let mut lease: Option<AbortOnDrop> = None;
+    let _pruner = AbortOnDrop(tokio::spawn(prune_logs_task(config.db.clone())));
 
     loop {
         let delay = match Db::connect(&config.db, 2).await {
@@ -662,6 +767,8 @@ async fn run_requests(
                 user37,
                 password,
                 ip,
+                uid,
+                device,
             } => {
                 let result = authenticate(
                     db,
@@ -671,6 +778,8 @@ async fn run_requests(
                     user37,
                     &password,
                     ip,
+                    uid,
+                    &device,
                 )
                 .await?;
                 let _ = response_tx.send(DbResponse::AuthResponse { user37, result });
@@ -720,6 +829,39 @@ async fn run_requests(
                 let result = claim(db, config.node_id, user37).await?;
                 let _ = response_tx.send(DbResponse::LoadResponse { user37, result });
             }
+            DbRequest::EditLoad { user37, reply } => {
+                let _ = reply.send(claim(db, config.node_id, user37).await?);
+            }
+            DbRequest::EditStore {
+                user37,
+                profile,
+                note,
+                reply,
+            } => {
+                let outcome = match db
+                    .store_edit_save(user37, node_id, &to_save(&profile), &note)
+                    .await?
+                {
+                    SaveResult::Stored => SaveOutcome::Stored,
+                    SaveResult::NotOwner => SaveOutcome::NotOwner,
+                    SaveResult::Unregistered => SaveOutcome::Unregistered,
+                };
+                let _ = reply.send(outcome);
+            }
+            DbRequest::SyncLocal { user37, reply } => {
+                let username = to_raw_username(user37);
+                let outcome = match sync_local_save(db, config.node_id, user37, &username).await {
+                    Ok(None) => SyncOutcome::NoFile,
+                    Ok(Some(SaveResult::Stored)) => SyncOutcome::Synced,
+                    Ok(Some(SaveResult::NotOwner)) => SyncOutcome::Orphaned,
+                    Ok(Some(SaveResult::Unregistered)) => SyncOutcome::Failed,
+                    Err(e) => {
+                        warn!("Failed to sync local save '{}' to DB: {}", username, e);
+                        SyncOutcome::Failed
+                    }
+                };
+                let _ = reply.send(outcome);
+            }
             DbRequest::Release { user37 } => {
                 // Unsynced local data means the database copy is stale:
                 // keep the claim so no other world loads it.
@@ -734,11 +876,13 @@ async fn run_requests(
             }
             DbRequest::WorldStatus {
                 players,
+                maintenance,
                 online,
                 mut held,
             } => {
                 let at = Instant::now();
-                db.report_world_status(node_id, players as i32).await?;
+                db.report_world_status(node_id, players as i32, maintenance)
+                    .await?;
                 let _ = response_tx.send(DbResponse::Lease { at });
                 held.extend(local_save_users());
                 let fixed = db.reconcile_sessions(node_id, &online, &held).await?;
@@ -819,9 +963,18 @@ async fn run_requests(
                 by_level,
                 target37,
                 action,
+                reason,
+                reply,
             } => {
                 let done = db
-                    .moderate(moderator37, i16::from(by_level), target37, action, node_id)
+                    .moderate(
+                        moderator37,
+                        i16::from(by_level),
+                        target37,
+                        action,
+                        reason.as_deref(),
+                        node_id,
+                    )
                     .await?;
                 if done {
                     counters::add(&COUNTERS.mod_actions[mod_action_index(action)], 1);
@@ -832,15 +985,19 @@ async fn run_requests(
                         to_raw_username(target37)
                     );
                 }
+                let outcome = if done {
+                    ModOutcome::Done
+                } else {
+                    ModOutcome::Refused
+                };
+                if let Some(reply) = reply {
+                    let _ = reply.send(outcome);
+                }
                 let _ = response_tx.send(DbResponse::Moderated {
                     moderator37,
                     target37,
                     action,
-                    outcome: if done {
-                        ModOutcome::Done
-                    } else {
-                        ModOutcome::Refused
-                    },
+                    outcome,
                 });
             }
             DbRequest::Ban { user37, hours } => {
@@ -903,7 +1060,7 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
         }
     }
     Ok(LoadResult::Loaded(
-        save.map(|save| Box::new(from_save(*save))),
+        save.map(|save| Box::new(profile_from_save(*save))),
     ))
 }
 
@@ -915,7 +1072,8 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 /// so a ban is never revealed to a wrong password). An unknown name is
 /// rejected, unless `auto_register` is set, in which case the player is
 /// registered with this password and any local save file for the name is
-/// imported. Wrong passwords and unknown names count against the IP.
+/// imported. Wrong passwords and unknown names count against the IP; an
+/// accepted login is logged with its IP, client uid and device.
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
@@ -927,6 +1085,8 @@ async fn authenticate(
     user37: u64,
     password: &str,
     ip: IpAddr,
+    uid: Option<i32>,
+    device: &LoginDevice,
 ) -> Result<AuthResult, rs_db::Error> {
     if db
         .recent_login_failures(ip, LOGIN_FAILURE_WINDOW_SECS)
@@ -944,10 +1104,30 @@ async fn authenticate(
         if creds.banned {
             return Ok(AuthResult::Banned);
         }
+        db.record_login(user37, node_id.into(), ip, uid, device)
+            .await?;
+        let week_ago = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_or(0, |d| d.as_millis() as i64)
+            - WEEK_MS;
+        let played = db
+            .played_since(user37, week_ago, MAX_PLAYED)
+            .await
+            .unwrap_or_else(|e| {
+                warn!(
+                    "Couldn't read the sessions '{}' played: {}",
+                    to_raw_username(user37),
+                    e
+                );
+                Vec::new()
+            });
         return Ok(AuthResult::Accepted {
             staff_mod_level: creds.staff_mod_level as u8,
             muted_for: creds.muted_ms.map(millis),
             left_other_world: creds.left_other_world_ms.map(millis),
+            account_age: millis(creds.age_ms),
+            unread_messages: u16::try_from(creds.unread_messages).unwrap_or(u16::MAX),
+            played,
         });
     }
 
@@ -956,6 +1136,12 @@ async fn authenticate(
         return Ok(AuthResult::InvalidCredentials);
     }
 
+    // A new account's password follows the website's rule, so it can be used
+    // there (appeals) as well as here.
+    if let Err(e) = check_new_password(password) {
+        info!("Didn't auto-register '{}': {}", to_raw_username(user37), e);
+        return Ok(AuthResult::InvalidCredentials);
+    }
     let Some(password_hash) = passwords.hash(password) else {
         error!("Failed to hash password for user37={}", user37);
         return Ok(AuthResult::InvalidCredentials);
@@ -986,10 +1172,15 @@ async fn authenticate(
         info!("Imported local save for '{}'", username);
     }
 
+    db.record_login(user37, node_id.into(), ip, uid, device)
+        .await?;
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
         muted_for: None,
         left_other_world: None,
+        account_age: Duration::ZERO,
+        unread_messages: 0,
+        played: Vec::new(),
     })
 }
 
@@ -1036,7 +1227,7 @@ fn to_save(profile: &PlayerProfile) -> PlayerSave {
 /// Rebuilds a [`PlayerProfile`] from its `player_saves` row. Short arrays are
 /// padded with defaults; the flattened `inv_*` arrays are regrouped per
 /// inventory (in any order).
-fn from_save(save: PlayerSave) -> PlayerProfile {
+pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
     fn fill<T: Copy, const N: usize>(default: T, values: impl Iterator<Item = T>) -> [T; N] {
         let mut out = [default; N];
         for (slot, v) in out.iter_mut().zip(values) {
@@ -1127,7 +1318,7 @@ mod tests {
             last_date: 1_700_000_000,
         };
 
-        let back = from_save(to_save(&profile));
+        let back = profile_from_save(to_save(&profile));
         assert_eq!((back.x, back.z, back.y), (3222, 3218, 1));
         assert_eq!(back.body, profile.body);
         assert_eq!(back.colors, profile.colors);
@@ -1159,6 +1350,8 @@ mod tests {
             to_userhash(name),
             password,
             [203, 0, 113, 7].into(),
+            None,
+            &LoginDevice::default(),
         )
         .await
         .unwrap()
@@ -1298,6 +1491,8 @@ mod tests {
                 user37: to_userhash(HOPPER),
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
+                uid: None,
+                device: Box::default(),
             });
             match self.next().await {
                 DbResponse::AuthResponse { result, .. } => result,
@@ -1316,7 +1511,7 @@ mod tests {
         }
 
         async fn save(&mut self, x: i16, logout: bool) -> SaveOutcome {
-            let profile = from_save(PlayerSave {
+            let profile = profile_from_save(PlayerSave {
                 x,
                 ..PlayerSave::default()
             });
@@ -1339,6 +1534,7 @@ mod tests {
         async fn heartbeat_online(&mut self) -> Vec<u64> {
             let _ = self.tx.send(DbRequest::WorldStatus {
                 players: 1,
+                maintenance: false,
                 online: vec![to_userhash(HOPPER)],
                 held: Vec::new(),
             });
@@ -1347,6 +1543,8 @@ mod tests {
                 user37: to_userhash(HOPPER),
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
+                uid: None,
+                device: Box::default(),
             });
             loop {
                 match self.next().await {
@@ -1487,7 +1685,7 @@ mod tests {
 
     #[test]
     fn short_arrays_are_padded() {
-        let back = from_save(PlayerSave::default());
+        let back = profile_from_save(PlayerSave::default());
         assert_eq!(back.levels, [1; 21]);
         assert_eq!(back.stats, [0; 21]);
         assert!(back.invs.is_empty());

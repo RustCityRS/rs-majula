@@ -1,0 +1,85 @@
+{% with title="Appeal Status" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Appeal Status" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+{% if signed_in %}
+  <p>Your appeals, {{ username }}:</p>
+
+  {% if appeals %}
+    <center>
+      <table width=90% cellpadding=4 cellspacing=1>
+        <tr>
+          <td style="background-color:35210F;"><b>Ref</b></td>
+          <td style="background-color:35210F;"><b>Appealing</b></td>
+          <td style="background-color:35210F;"><b>Sent</b></td>
+          <td style="background-color:35210F;"><b>Status</b></td>
+        </tr>
+        {% for appeal in appeals %}
+          <tr>
+            <td valign=top>#{{ appeal.id }}</td>
+            <td valign=top>{% if appeal.sanction == "ban" %}Ban{% else %}Mute{% endif %}</td>
+            <td valign=top>{{ appeal.filed }}</td>
+            <td valign=top>
+              {% if appeal.status == "received" %}
+                <font color="#ffbb22">Received</font>: waiting to be looked at.
+              {% elif appeal.status == "reviewing" %}
+                <font color="#ffbb22">Under review</font>: a member of staff is looking at it.
+              {% elif appeal.status == "overturned" %}
+                <font color="#90c040"><b>Overturned</b></font> on {{ appeal.decided }}: the {{ appeal.sanction }} has been removed.
+              {% else %}
+                <font color="#ff5555"><b>Upheld</b></font> on {{ appeal.decided }}: the {{ appeal.sanction }} stands.
+              {% endif %}
+              {% if appeal.note %}
+                <br><br><i>From staff:</i> {{ appeal.note }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </center>
+  {% else %}
+    <p>You haven't sent any appeals. If your account is banned or muted, you can
+      <a href="/appeal" class=c>appeal it here</a>.</p>
+  {% endif %}
+
+  <br>
+  <center><a href="/title" class=c>Main menu</a></center>
+{% else %}
+  <p>Log in with your RuneScape username and password to see how your appeals stand.</p>
+
+  {% if error %}
+    <p class="red">ERROR: {{ error }}</p>
+  {% endif %}
+
+  <center>
+    <form method="post" action="/appeal/status">
+      <table>
+        <tr>
+          <td align=right>Username:</td>
+          <td><input type="text" name="username" value="{{ username }}" maxlength="12" size="20" autocomplete="username" required></td>
+        </tr>
+        <tr>
+          <td align=right>Password:</td>
+          <td><input type="password" name="password" value="" maxlength="20" pattern="[ -_a-~£]{1,20}" title="Up to 20 letters, numbers, spaces or keyboard symbols" size="20" autocomplete="current-password" required></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" value="Check Status"></td>
+        </tr>
+      </table>
+    </form>
+  </center>
+
+  <p>Want to appeal a ban or mute? <a href="/appeal" class=c>Send an appeal</a>.</p>
+{% endif %}
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

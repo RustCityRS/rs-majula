@@ -1430,10 +1430,10 @@ and case-insensitive.
   `data_loc`, terminated by a `*_done` packet (`rebuild_get_maps.rs:45`). It finishes by rebuilding the build-area zones
   around the current coord.
 - **`ClientCheat`** (`client_cheat.rs:59`): the dev console. Caps input at 80 chars, lowercases, splits on space, and —
-  *only* for `StaffModLevel::Developer` — dispatches in `cheat_developer` (`client_cheat.rs:127`). Commands include
+  *only* for `StaffModLevel::Maintainer` — dispatches in `cheat_maintainer` (`client_cheat.rs:127`). Commands include
   `~<name>` (run `[debugproc,<name>]` with typed args parsed by `ScriptVarType`: Int/String/Boolean/Stat/NpcStat),
   `reload`, `give <obj> [count]`, `setvar <varp> <value>`, `speed <ms>` (mutate the engine clock rate), `bots` (spawn up
-  to 2000 bot players), and `pickup` (clear nearby ground objects). Non-developers fall through to a no-op match arm —
+  to 2000 bot players), and `pickup` (clear nearby ground objects). Non-maintainers fall through to a no-op match arm —
   the gate is staff level, enforced server-side regardless of what the client believes.
 
 ### Engineering rationale and fidelity notes
@@ -1476,7 +1476,7 @@ Several recurring decisions distinguish this port from a naive translation:
   summarized here.
 - `path_to_target` and `entity_path_to_target` (`phases/player.rs:664`) were read for the op→path handshake but their
   full pathfinder integration is documented in the pathing/movement section.
-- The exact set and argument grammar of every `client_cheat` developer subcommand beyond those enumerated (the file is ~
+- The exact set and argument grammar of every `client_cheat` maintainer subcommand beyond those enumerated (the file is ~
   900 lines) was sampled, not exhaustively transcribed; the dispatch entry points and parsing helpers are cited but
   individual parse_* bodies are not reproduced.
 

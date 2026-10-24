@@ -104,6 +104,9 @@ impl Engine {
         active.update_stats();
         active.player.update_afk_zones();
         active.encode();
+        if active.watch.keyframe_due() {
+            self.replay_keyframe(&mut active);
+        }
 
         self.player_list.players[pid as usize] = Some(active);
     }

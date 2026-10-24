@@ -1,0 +1,35 @@
+{% with title="Account Recovery" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Request Received" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<p>Thank you. Your request to recover <b>{{ username }}</b> has been
+  received.</p>
+
+<center>
+  <table cellpadding=6 style="border: 1px solid #ffbb22;">
+    <tr><td align=right>Reference:</td><td><b>#{{ id }}</b></td></tr>
+    <tr><td align=right>Recovery key:</td><td><b style="font-family: monospace; font-size: 16px;">{{ key }}</b></td></tr>
+  </table>
+</center>
+
+<p class="red"><b>Write your recovery key down now.</b> This is the only
+  time it's shown, and nobody, staff included, can see it again. You need it
+  to check on your request and, if it's approved, to set your new password.</p>
+
+<p>A member of staff will look at your request. This can take a few days,
+  so please be patient and don't send another. You can check on it at any
+  time on the <a href="/recover/request/status" class=c>request status</a>
+  page.</p>
+
+<center><a href="/title" class=c>Main menu</a></center>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

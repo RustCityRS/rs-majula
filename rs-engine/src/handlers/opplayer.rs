@@ -1,6 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::player_target_ok;
+use crate::watch::Op;
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opplayer1::OpPlayer1;
 use rs_protocol::network::game::client::opplayer2::OpPlayer2;
@@ -82,16 +83,16 @@ impl ClientGameHandler for OpPlayer5 {
     }
 }
 
-/// Shared handler for player-on-player operations (ops 1-4).
+/// Shared handler for player-on-player operations (ops 1-5).
 ///
 /// Processes a right-click menu operation on another player (e.g., trade, follow,
 /// challenge). Validates the target player exists and is within the active player's
-/// build area, then sets up an approach-style interaction (`ApPlayer1`-`ApPlayer4`)
+/// build area, then sets up an approach-style interaction (`ApPlayer1`-`ApPlayer5`)
 /// that will trigger the corresponding script once the active player reaches the target.
 ///
 /// # Arguments
 ///
-/// * `op` - The operation number (1-4), corresponding to a right-click menu option.
+/// * `op` - The operation number (1-5), corresponding to a right-click menu option.
 /// * `pid` - The player ID (slot index) of the target player.
 /// * `active` - The active player whose client sent this message.
 ///
@@ -107,9 +108,10 @@ impl ClientGameHandler for OpPlayer5 {
 ///
 /// # Call Stack
 ///
-/// **Called by:** `OpPlayer1::handle` through `OpPlayer4::handle`
+/// **Called by:** `OpPlayer1::handle` through `OpPlayer5::handle`
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 fn handle(op: u8, pid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    active.watch_op(Op::Player { op, pid });
     if active.player.state.delayed {
         active.unset_map_flag();
         return Ok(());
@@ -125,7 +127,8 @@ fn handle(op: u8, pid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         1 => ServerTriggerType::ApPlayer1,
         2 => ServerTriggerType::ApPlayer2,
         3 => ServerTriggerType::ApPlayer3,
-        _ => ServerTriggerType::ApPlayer4,
+        4 => ServerTriggerType::ApPlayer4,
+        _ => ServerTriggerType::ApPlayer5,
     };
 
     let target = InteractionTarget::Player { pid };

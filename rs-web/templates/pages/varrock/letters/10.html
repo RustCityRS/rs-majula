@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Letters #10 - Zamorak does one" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Letters #10 - Zamorak does one | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -34,7 +35,7 @@ A.c:hover {text-decoration:underline}
 <br>
 <!-- title box -->
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Letters #10 - Zamorak does one</b><br>
+<h1 class=title>Letters #10 - Zamorak does one</h1>
 <a href="/title" class=c>Main menu</a> - <a href='/varrock/letters' class=c>Archive Index</a>
 </center></td></tr></table>
 <!-- end title box -->
@@ -45,7 +46,7 @@ A.c:hover {text-decoration:underline}
 <p>
 <center><b>Zamorak retaliates!</center></b><p><table><tr><td>
 <p align=center>
-<img src=/img/newsletter/zamorak.jpg width=164 height=150></td><td>
+<img loading="lazy" alt="Zamorak" src=/img/newsletter/zamorak.jpg width=164 height=150></td><td>
 <font color=white>
 <p align=justify>
 <b>ZAMORAK MAINTAINS HIS VICELIKE GRIP OVER THE LETTERS SPREADING HIS MESSAGE OF HATE AND DESTRUCTION TO THOSE WHO APPRECIATE SUCH THINGS, AND ANSWERS A FEW QUESTIONS IN HIS OWN UNIQUE STYLE INCLUDING A WILDERNESS SURVIVAL GUIDE, AND VALENTINES DAY BLUES...</b>
@@ -84,7 +85,7 @@ Zamorak are of course illegal in the Saradominist states of Runescape. But
 rumour has it that a few have been smuggled in, and can be found in the 
 recently released Observatory Quest.</td><td>
 <P Align=center>
-<img src=/img/newsletter/zamarocksymbol.jpg width=192 height=288 border="0"></td></tr></table>
+<img loading="lazy" alt="Zamorak a rock symbol" src=/img/newsletter/zamarocksymbol.jpg width=192 height=288 border="0"></td></tr></table>
 <p align=justify>  
 <i>Dear Zamorak,<p align=justify>
  If you think you can just take over, you're wrong, soon i will have 
@@ -126,7 +127,7 @@ chat about PKing.
 <p align=justify>  Don't you think there should be some sort of safe spots 
 or houses in the wilderness?
 <center><P Align=center><table><tr><td>
-<img src=/img/newsletter/wilderness.jpg width=200 height=240 border="0"></center></td><td>
+<img loading="lazy" alt="Wilderness" src=/img/newsletter/wilderness.jpg width=200 height=240 border="0"></center></td><td>
 <i>Everytime i go into the wilderness, i almost 
 get killed by level 50 people when im only on level 28! I really need to 
 refuge from these people! Can you erect some sort of house or town or 
@@ -187,7 +188,7 @@ PS: since you aren't omniscient you probably won't get this message and
 probably won't do anything. So I have no worries.
 </i></td><td>
 <p align=center>
-<img src=/img/newsletter/uglyknight.jpg width=192 height=288 border="0"></center></td></tr></table>
+<img loading="lazy" alt="Ugly knight" src=/img/newsletter/uglyknight.jpg width=192 height=288 border="0"></center></td></tr></table>
 <p align=justify>    
 <font color=white> 
 I didn't forget Valentines and nor did Saradomin. We both gave and received
@@ -250,7 +251,7 @@ against all this fairness, but he wasn't having it.
     DISCLAIMER: The views of Zamorak do not reflect the views of
     Jagex Ltd or it's employees. We'd ban him, but he's a god.
     But if you would like to converse with the dastardly one...</font> 
-<p><center><img src='/img/newsletter/zamemail.gif' width=280 height=20></center> 
+<p><center><img loading="lazy" alt="Zamorak email" src='/img/newsletter/zamemail.gif' width=280 height=20></center> 
 
 
 
@@ -277,17 +278,13 @@ against all this fairness, but he wasn't having it.
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 

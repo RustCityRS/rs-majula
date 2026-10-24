@@ -1037,7 +1037,7 @@ field access (and the cache locality of one contiguous allocation) matters more
 than shrinking it. Fields group into:
 
 - **Identity / flags**: `uid`, `bot`, `active`, `low_memory`, `is_member`,
-  `staff_mod_level` (defaults to `Developer` under `debug_assertions`, `Normal`
+  `staff_mod_level` (defaults to `Maintainer` under `debug_assertions`, `Normal`
   otherwise — `player.rs:217-220`), `allow_design`.
 - **Embedded components**: `info: EntityMasks`, `pathing: PathingEntity`,
   `state: EntityState`, `interaction: InteractionState`, `build_area: BuildArea`,

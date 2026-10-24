@@ -6,6 +6,9 @@ unpack-tga = "run -p rs-pack -- to-pyxel"
 
 world1 = "run -p rs-server --profile dev-opt -- --node-id 10 --cluster world10@127.0.0.1,world11@127.0.0.1"
 world2 = "run -p rs-server --profile dev-opt -- --node-id 11 --cluster world10@127.0.0.1,world11@127.0.0.1"
+# Release builds against the local database: the dev secrets go in as flags because release refuses to default them.
+world1-release = "run -p rs-server --release -- --node-id 10 --cluster world10@127.0.0.1,world11@127.0.0.1 --db-pass password --pepper localhost --cookie rs_secret --admin-secret rs_admin --auto-register true --auto-migrate true"
+world2-release = "run -p rs-server --release -- --node-id 11 --cluster world10@127.0.0.1,world11@127.0.0.1 --db-pass password --pepper localhost --cookie rs_secret --admin-secret rs_admin --auto-register true --auto-migrate true"
 
 [env]
 REV = "289"

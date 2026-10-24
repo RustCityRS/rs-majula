@@ -3,6 +3,8 @@ use crate::clients::client_game::ClientHandle;
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::watch::schedule::End;
+use crate::watch::{MapBase, Op, Target, Using, Watch, menu};
 use rs_cam::CamKind;
 use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
@@ -63,7 +65,7 @@ use rs_protocol::network::game::client::map_build_complete::MapBuildComplete;
 use rs_protocol::network::game::client::message_private::MessagePrivate;
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
-use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
+use rs_protocol::network::game::client::move_minimapclick::{MinimapTrailer, MoveMinimapClick};
 use rs_protocol::network::game::client::move_opclick::MoveOpClick;
 use rs_protocol::network::game::client::no_timeout::NoTimeout;
 use rs_protocol::network::game::client::opheld1::OpHeld1;
@@ -130,7 +132,9 @@ use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
+use std::borrow::Cow;
 use std::cell::RefCell;
+use std::fmt::Write as _;
 use std::net::IpAddr;
 use std::time::{Duration, Instant};
 use tracing::{error, warn};
@@ -161,13 +165,12 @@ pub struct ActivePlayer {
     pub user_limit: u8,
     pub restricted_limit: u8,
     pub remote_ip: Option<IpAddr>,
-    /// When the player's chat mute ends, `None` if not muted. Kept in step
-    /// with the database's `players.muted_until`.
     pub muted_until: Option<Instant>,
-    /// The tick of the player's last abuse report: one per tick.
+    pub unread_messages: u16,
     pub last_report: Option<u32>,
-    /// The tick of the player's last public or private chat: one per tick.
     pub last_social: Option<u32>,
+    pub watch: Box<Watch>,
+    pub(crate) capture: Option<Vec<Vec<u8>>>,
 }
 
 impl ActivePlayer {
@@ -212,8 +215,11 @@ impl ActivePlayer {
             restricted_limit: 0,
             remote_ip: None,
             muted_until: None,
+            unread_messages: 0,
             last_report: None,
             last_social: None,
+            watch: Box::default(),
+            capture: None,
         }
     }
 
@@ -234,6 +240,12 @@ impl ActivePlayer {
     where
         M: ServerProtMessage,
     {
+        if let Some(capture) = &mut self.capture {
+            if let Some(buf) = Self::plaintext(message) {
+                capture.push(buf.data);
+            }
+            return;
+        }
         match M::PRIORITY {
             ServerProtPriority::Buffered => self.queue_buffered(message),
             ServerProtPriority::Immediate => self.write_immediate(message),
@@ -258,10 +270,24 @@ impl ActivePlayer {
     where
         M: ServerProtMessage,
     {
+        let Some(buf) = Self::plaintext(message) else {
+            return;
+        };
+        self.watch
+            .remember(M::PROT as u8, M::FRAME as usize, &buf.data[1..]);
+        self.buffered.push(buf);
+    }
+
+    /// A message as a packet: opcode (unciphered), frame and body. `None`
+    /// past 5000 bytes.
+    fn plaintext<M>(message: M) -> Option<Packet>
+    where
+        M: ServerProtMessage,
+    {
         let frame = M::FRAME as usize;
         let len = 1 + frame + message.sizeof();
         if len > 5000 {
-            return;
+            return None;
         }
         let mut buf = Packet::new(len);
         buf.p1(M::PROT as u8);
@@ -274,7 +300,7 @@ impl ActivePlayer {
             PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
         }
         buf.data.truncate(buf.pos);
-        self.buffered.push(buf);
+        Some(buf)
     }
 
     /// Flushes all queued buffered packets to the network outbox.
@@ -288,7 +314,9 @@ impl ActivePlayer {
     /// **Called by:** [`encode`](Self::encode)
     fn write_buffered(&mut self) {
         let handle = &mut self.handle;
+        let clock = engine().clock;
         for mut buf in self.buffered.drain(..) {
+            self.watch.server(clock, buf.data[0], &buf.data[1..]);
             buf.data[0] = (buf.data[0] as u32 + handle.isaac_encode.next_int()) as u8;
             let _ = handle.outbox.send(buf.data);
         }
@@ -327,6 +355,10 @@ impl ActivePlayer {
             PacketFrame::VarByte => buf.psize1((buf.pos - start) as u8),
             PacketFrame::VarShort => buf.psize2((buf.pos - start) as u16),
         }
+        self.watch
+            .server(engine().clock, M::PROT as u8, &buf.data[1..buf.pos]);
+        self.watch
+            .remember(M::PROT as u8, frame, &buf.data[1..buf.pos]);
         // Reuse a recycled outbound buffer instead of allocating a fresh
         // Vec per immediate message. The TCP net task returns drained buffers
         // via recycle_rx; copy the encoded bytes into one and send it. (The
@@ -400,7 +432,16 @@ impl ActivePlayer {
             self.player.refresh_modal = false;
         }
 
+        // The client's input report: sent now, then from a fresh start.
+        #[cfg(before_274)]
+        if engine().clock.is_multiple_of(crate::watch::TRACKING_TICKS) {
+            self.write(rs_protocol::network::game::server::finish_tracking::FinishTracking);
+            self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
+        }
+
+        self.watch_acting_on();
         self.write_buffered();
+        self.watch.end_tick(engine().clock);
     }
 
     pub fn cam_moveto(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
@@ -698,6 +739,8 @@ impl ActivePlayer {
     ///
     /// The source IP is hardcoded to loopback (`127.0.0.1` = `2130706433`) and
     /// the recovery code to `201`, which shows the standard welcome screen.
+    /// The message count is the player's unread Message Centre messages as of
+    /// this login.
     pub fn last_login_info(&mut self) {
         let previous = if self.player.last_login_date == 0 {
             self.player.last_date
@@ -710,7 +753,7 @@ impl ActivePlayer {
                 ip: 2130706433,
                 login: days_since_login,
                 recovery: 201,
-                messages: 0,
+                messages: self.unread_messages,
                 #[cfg(since_244)]
                 warn_members_in_non_members: !engine().members && self.member(),
             },
@@ -824,8 +867,32 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sets `player.logout_sent = true`.
     pub fn logout(&mut self) {
+        self.watch_end();
         self.player.logout_sent = true;
         self.write(rs_protocol::network::game::server::logout::Logout);
+    }
+
+    /// Notes how the session is ending, for how fast the player comes back.
+    fn watch_end(&mut self) {
+        let engine = engine();
+        let ms = self.watch.ms();
+        let silent = engine.clock.saturating_sub(self.player.last_response)
+            >= crate::phases::logout::TIMEOUT_NO_RESPONSE;
+        let (end, at) = if engine.is_shutdown() {
+            (End::Reboot, ms)
+        } else if let Some(lost) = self.player.disconnected_at {
+            let since = engine.clock.saturating_sub(lost) * 600;
+            (End::Disconnect, ms.saturating_sub(since))
+        } else if silent {
+            (End::Disconnect, ms)
+        } else if self.player.logout_idle_requested {
+            (End::Idle, ms)
+        } else if self.player.logout_requested {
+            (End::Logout, ms)
+        } else {
+            (End::Kick, ms)
+        };
+        self.watch.anticheat.ended(end, at);
     }
 
     /// When a mute lasting `d` from now ends. Capped at 100 years, so a mute
@@ -845,6 +912,7 @@ impl ActivePlayer {
     /// the logout save, so logging straight back in is refused.
     pub fn auto_ban(&mut self, trigger: AutoBan) {
         counters::add(&COUNTERS.auto_bans[trigger as usize], 1);
+        self.watch.anticheat.auto_banned = Some(counters::AUTO_BAN_TRIGGERS[trigger as usize]);
         if let Some(tx) = &engine().db_tx {
             let _ = tx.send(DbRequest::Ban {
                 user37: self.player.uid.username37(),
@@ -852,6 +920,408 @@ impl ActivePlayer {
             });
         }
         self.logout();
+    }
+
+    /// Records a menu action the player chose, for the anti-cheat checks and
+    /// the replay's timeline.
+    pub fn watch_op(&mut self, op: Op) {
+        if !self.watch.checking() {
+            return;
+        }
+        let clock = engine().clock;
+        let base = self.map_base();
+        self.watch.op(op, clock, base);
+        let on = match op {
+            Op::Npc { nid, .. } => Some(Target::Npc(nid)),
+            Op::Player { pid, .. } => Some(Target::Player(pid)),
+            Op::Loc { id, x, z, .. } => Some(Target::Loc { id, x, z }),
+            Op::Obj { id, x, z, .. } => Some(Target::Obj { id, x, z }),
+            _ => None,
+        };
+        if let Some(on) = on {
+            self.watch
+                .anticheat
+                .target(on, &self.player.build_area, clock);
+        }
+        let menu = self.needs_menu(op) && !self.one_mouse_button();
+        if menu {
+            let ms = self.watch.ms();
+            self.watch.anticheat.menu_op(ms);
+        }
+        self.watch_behaviour(op, on, menu);
+        if !self.watch.recording() {
+            return;
+        }
+        let mut note = self.watch.note_buf();
+        self.op_note(op, &mut note);
+        self.watch.note_string(clock, note);
+    }
+
+    /// Feeds an action to the checks on how the player behaves over time:
+    /// how fast they react, how much they repeat themselves, where in its
+    /// slot they click an obj.
+    fn watch_behaviour(&mut self, op: Op, on: Option<Target>, menu: bool) {
+        let ms = self.watch.packet_ms();
+        let appeared = match op {
+            Op::Obj { id, x, z, .. } => {
+                let at = CoordGrid::new(x, self.player.pathing.coord.y(), z);
+                engine()
+                    .obj_appeared
+                    .get(&(at, id))
+                    .map(|&when| self.watch.ms_at(when))
+            }
+            _ => None,
+        };
+        let slot = match op {
+            Op::Held { slot, com, .. } | Op::InvButton { slot, com, .. } => {
+                self.slot_on_screen(com, slot)
+            }
+            _ => None,
+        };
+        let anticheat = &mut self.watch.anticheat;
+        anticheat.acted(ms, appeared);
+        anticheat.acting_on = on.filter(|t| matches!(t, Target::Loc { .. } | Target::Npc(_)));
+        match op {
+            Op::Npc { op, nid } => anticheat.repeat(("npc", op, nid)),
+            Op::Loc { op, id, x, z } => anticheat.repeat(("loc", op, id, x, z)),
+            Op::Obj { op, id, x, z } => anticheat.repeat(("obj", op, id, x, z)),
+            Op::Player { op, .. } => anticheat.repeat(("player", op)),
+            Op::Held { op, obj, slot, com } => anticheat.repeat(("held", op, obj, slot, com)),
+            Op::InvButton { op, obj, slot, com } => {
+                anticheat.repeat(("button", op, obj, slot, com))
+            }
+            Op::Other => {}
+        }
+        if let Some(slot) = slot {
+            anticheat.slot_action(ms, slot, menu);
+        }
+    }
+
+    /// Where on the client's screen an inventory's `slot` is drawn (its top
+    /// left), from where the interface it's in is open. `None` in a layer
+    /// that scrolls (the bank), whose slots move with it.
+    fn slot_on_screen(&self, com: u16, slot: u16) -> Option<(i16, i16)> {
+        // Where the client draws its main, chat and side areas.
+        #[cfg(rev = "225")]
+        const AREAS: [(i16, i16); 3] = [(8, 11), (22, 375), (562, 231)];
+        #[cfg(since_244)]
+        const AREAS: [(i16, i16); 3] = [(4, 4), (17, 357), (553, 205)];
+        let interfaces = engine().interfaces();
+        let inv = interfaces.get_by_id(com).filter(|i| !i.scrolls)?;
+        let (x, y) = inv.slot_at(slot)?;
+        let root = u16::try_from(inv.root_layer).ok();
+        let (left, top) = if root.is_some() && root == self.player.modal_main {
+            AREAS[0]
+        } else if root.is_some() && root == self.player.modal_chat {
+            AREAS[1]
+        } else {
+            AREAS[2]
+        };
+        Some((left + x, top + y))
+    }
+
+    /// At the end of each tick: whether the loc or NPC the player last acted
+    /// on went (a rock ran out, a tree fell, an NPC died), for how fast they
+    /// react to it.
+    fn watch_acting_on(&mut self) {
+        let Some(on) = self.watch.anticheat.acting_on else {
+            return;
+        };
+        let engine = engine();
+        let here = match on {
+            Target::Loc { id, x, z } => engine
+                .zones
+                .loc_at(x, self.player.pathing.coord.y(), z, id)
+                .is_some(),
+            Target::Npc(nid) => engine.get_npc(nid).is_some_and(|n| n.npc.active),
+            _ => true,
+        };
+        if !here {
+            let ms = self.watch.ms();
+            self.watch.anticheat.gone(ms);
+        }
+    }
+
+    /// Whether `op` is an option a left click doesn't pick, so the client had
+    /// to open its menu for it (see [`menu`]). Objs a free world shows as
+    /// members' and banknotes are passed over.
+    fn needs_menu(&self, op: Op) -> bool {
+        let engine = engine();
+        let obj = |id: u16| {
+            engine
+                .objs()
+                .get_by_id(id)
+                .filter(|t| (engine.members || !t.members) && t.certtemplate.is_none())
+        };
+        let inv_top = |com: u16, id: u16| {
+            let interface = engine.interfaces().get_by_id(com)?;
+            let obj = obj(id)?;
+            Some(menu::inv_top(
+                interface.iop.as_deref(),
+                interface.operable,
+                interface.usable,
+                obj.iop.as_deref(),
+            ))
+        };
+        match op {
+            Op::Npc { op, nid } => engine
+                .get_npc(nid)
+                .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
+                .is_some_and(|t| {
+                    let level = t.vislevel.map_or(-1, i32::from);
+                    !menu::npc(t.op.as_deref(), op, level, self.player.combat_level.into())
+                }),
+            // The web client doesn't turn locs into others (from 289), so
+            // what it offers on one that turns isn't judged.
+            Op::Loc { op, id, .. } => self
+                .shown_loc(id)
+                .filter(|&shown| shown == id || !self.watch.anticheat.device.web)
+                .and_then(|id| engine.locs().get_by_id(id))
+                .is_some_and(|t| !menu::loc(t.op.as_deref(), op)),
+            Op::Obj { op, id, .. } => {
+                obj(id).is_some_and(|t| !menu::ground_obj(t.op.as_deref(), op))
+            }
+            Op::Held { op, obj, com, .. } => {
+                inv_top(com, obj).is_some_and(|top| top != menu::InvOp::Obj(usize::from(op) - 1))
+            }
+            Op::InvButton { op, obj, com, .. } => inv_top(com, obj)
+                .is_some_and(|top| top != menu::InvOp::Interface(usize::from(op) - 1)),
+            Op::Player { .. } | Op::Other => false,
+        }
+    }
+
+    /// Whether the player set the game to one mouse button: a left click
+    /// then opens the menu.
+    fn one_mouse_button(&self) -> bool {
+        engine()
+            .varps()
+            .get_by_debugname("option_mouse")
+            .is_some_and(|varp| self.player.vars.get(varp.id).as_int() == 1)
+    }
+
+    /// Notes something the player did for the replay's timeline.
+    pub fn watch_note(&mut self, note: &str) {
+        self.watch.note(engine().clock, note);
+    }
+
+    /// Records a "use" or spell action, e.g. "Use Bones on Altar".
+    pub fn watch_use(&mut self, with: Using, on: Target) {
+        if !self.watch.checking() {
+            return;
+        }
+        self.watch_op(Op::Other);
+        self.watch.anticheat.repeat(("use", with, on));
+        self.watch
+            .anticheat
+            .target(on, &self.player.build_area, engine().clock);
+        if !self.watch.recording() {
+            return;
+        }
+        let engine = engine();
+        let obj = |id: u16| {
+            engine
+                .objs()
+                .get_by_id(id)
+                .and_then(|t| t.name.as_deref())
+                .unwrap_or("?")
+        };
+        let (verb, with) = match with {
+            Using::Item(id) => ("Use", Cow::Borrowed(obj(id))),
+            Using::Spell(com) => ("Cast", self.component_name(com)),
+        };
+        let on = match on {
+            Target::Npc(nid) => Cow::Borrowed(
+                engine
+                    .get_npc(nid)
+                    .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
+                    .and_then(|t| t.name.as_deref())
+                    .unwrap_or("?"),
+            ),
+            Target::Loc { id, .. } => Cow::Borrowed(
+                engine
+                    .locs()
+                    .get_by_id(id)
+                    .and_then(|t| t.name.as_deref())
+                    .unwrap_or("?"),
+            ),
+            Target::Obj { id, .. } | Target::Item(id) => Cow::Borrowed(obj(id)),
+            Target::Player(pid) => engine
+                .get_player(pid)
+                .map_or(Cow::Borrowed("?"), |p| Cow::Owned(p.uid().username())),
+        };
+        self.watch
+            .note_fmt(engine.clock, format_args!("{verb} {with} on {on}"));
+    }
+
+    /// Records a click on interface component `com`.
+    pub fn watch_button(&mut self, com: u16) {
+        self.watch_op(Op::Other);
+        if !self.watch.recording() {
+            return;
+        }
+        let name = self.component_name(com);
+        self.watch
+            .note_fmt(engine().clock, format_args!("Click {name}"));
+    }
+
+    /// Records a walk click on the game screen or the minimap.
+    /// Where the client's map starts, as the world last sent it.
+    /// The loc `id` shows as to this player: from 289 a loc can turn into
+    /// another by a varbit, and the client shows that one's name and options
+    /// (while clicks on it carry `id`). `None` when it turns into nothing,
+    /// which the client offers no options on.
+    #[cfg(since_289)]
+    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+        let engine = engine();
+        let Some(ty) = engine.locs().get_by_id(id) else {
+            return Some(id);
+        };
+        let (Some(var), Some(multi)) = (ty.multivar, ty.multiloc.as_deref()) else {
+            return Some(id);
+        };
+        let varbit = engine.varbits().get_by_id(var)?;
+        let start = u32::from(varbit.start_bit);
+        let width = u32::from(varbit.end_bit) - start + 1;
+        let mask = if width >= 32 {
+            u32::MAX
+        } else {
+            (1 << width) - 1
+        };
+        let value = (self.player.vars.get(varbit.basevar).as_int() as u32 >> start) & mask;
+        u16::try_from(*multi.get(value as usize)?).ok()
+    }
+
+    #[cfg(before_289)]
+    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+        Some(id)
+    }
+
+    fn map_base(&self) -> MapBase {
+        let origin = self.player.build_area.origin;
+        MapBase {
+            x: CoordGrid::zone_origin(origin.x()),
+            z: CoordGrid::zone_origin(origin.z()),
+        }
+    }
+
+    /// A minimap click, for the anti-cheat to check what the client sent
+    /// with it against the path and where the world has the player.
+    pub fn watch_minimap(&mut self, path: &[u32], trailer: &MinimapTrailer) {
+        let base = self.map_base();
+        let at = self.player.pathing.coord;
+        self.watch
+            .anticheat
+            .minimap(path, trailer, base, (at.x(), at.z()));
+    }
+
+    pub fn watch_walk(&mut self, path: &[u32], minimap: bool) {
+        if let Some(&to) = path.last() {
+            let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
+            self.watch.anticheat.walked(x, z);
+        }
+        self.watch_op(Op::Other);
+        if !self.watch.recording() {
+            return;
+        }
+        if let Some(&to) = path.last() {
+            let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
+            let on = if minimap { " (minimap)" } else { "" };
+            self.watch
+                .note_fmt(engine().clock, format_args!("Walk to {x}, {z}{on}"));
+        }
+    }
+
+    /// An interface component's name, e.g. `magic:wind_strike`.
+    fn component_name(&self, com: u16) -> Cow<'static, str> {
+        engine()
+            .interfaces()
+            .get_by_id(com)
+            .and_then(|i| i.com_name.as_deref())
+            .map_or_else(|| Cow::Owned(format!("component {com}")), Cow::Borrowed)
+    }
+
+    /// Writes how the player saw `op` in their menu, e.g. "Attack Goblin",
+    /// to `out`. Nothing for [`Op::Other`].
+    fn op_note(&self, op: Op, out: &mut String) {
+        let engine = engine();
+        fn named(
+            out: &mut String,
+            ops: Option<&[Option<Box<str>>]>,
+            op: u8,
+            name: Option<&str>,
+            kind: &str,
+        ) {
+            match ops.and_then(|ops| ops.get(usize::from(op).checked_sub(1)?)?.as_deref()) {
+                Some(verb) => out.push_str(verb),
+                None => _ = write!(out, "{kind} op {op}"),
+            }
+            out.push(' ');
+            out.push_str(name.unwrap_or("?"));
+        }
+        match op {
+            Op::Npc { op, nid } => {
+                let ty = engine
+                    .get_npc(nid)
+                    .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()));
+                named(
+                    out,
+                    ty.and_then(|t| t.op.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Npc",
+                );
+            }
+            Op::Loc { op, id, x, z } => {
+                let ty = self
+                    .shown_loc(id)
+                    .and_then(|id| engine.locs().get_by_id(id));
+                named(
+                    out,
+                    ty.and_then(|t| t.op.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Loc",
+                );
+                _ = write!(out, " at {x}, {z}");
+            }
+            Op::Obj { op, id, x, z } => {
+                let ty = engine.objs().get_by_id(id);
+                named(
+                    out,
+                    ty.and_then(|t| t.op.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Obj",
+                );
+                _ = write!(out, " at {x}, {z}");
+            }
+            Op::Player { op, pid } => {
+                let name = engine.get_player(pid).map(|p| p.uid().username());
+                _ = write!(out, "Player op {op} on {}", name.as_deref().unwrap_or("?"));
+            }
+            Op::Held { op, obj, .. } => {
+                let ty = engine.objs().get_by_id(obj);
+                named(
+                    out,
+                    ty.and_then(|t| t.iop.as_deref()),
+                    op,
+                    ty.and_then(|t| t.name.as_deref()),
+                    "Item",
+                );
+            }
+            // A shop's or bank's own options, named by the interface.
+            Op::InvButton { op, obj, com, .. } => named(
+                out,
+                engine
+                    .interfaces()
+                    .get_by_id(com)
+                    .and_then(|i| i.iop.as_deref()),
+                op,
+                engine.objs().get_by_id(obj).and_then(|t| t.name.as_deref()),
+                "Button",
+            ),
+            Op::Other => {}
+        }
     }
 
     /// This tick's [`LogBatch`], sent with [`DbRequest::Logs`], and where the
@@ -911,8 +1381,40 @@ impl ActivePlayer {
                 item: item.to_owned(),
                 count,
                 value,
+                counterpart: None,
             });
         }
+    }
+
+    /// Logs items passing to another player (`to37`) or through the floor
+    /// at `coord`, as one of the engine's own wealth events
+    /// ([`rs_db::transfer`]), valued at the cache's price.
+    pub fn log_transfer(
+        &self,
+        event_type: i16,
+        coord: CoordGrid,
+        obj: u16,
+        count: i32,
+        to37: Option<u64>,
+    ) {
+        let Some((logs, ..)) = self.log_batch() else {
+            return;
+        };
+        let Some(obj_type) = engine().objs().get_by_id(obj) else {
+            return;
+        };
+        logs.wealth.push(WealthEvent {
+            name_hash: self.player.uid.username37(),
+            x: coord.x() as i16,
+            z: coord.z() as i16,
+            y: i16::from(coord.y()),
+            event_type,
+            item: obj_type.debugname().unwrap_or("null").to_owned(),
+            count,
+            value: (i64::from(obj_type.cost) * i64::from(count)).clamp(0, i64::from(i32::MAX))
+                as i32,
+            counterpart: to37,
+        });
     }
 
     /// Sends a game message to the player's chatbox.
@@ -982,6 +1484,8 @@ impl ActivePlayer {
         }
         let coord = self.player.pathing.coord;
         self.player.build_area.rebuild_normal(&coord);
+        let base = self.map_base();
+        self.watch.anticheat.rebuilt(base, engine().clock);
         let zone_x = self.player.pathing.coord.zone_x();
         let zone_z = self.player.pathing.coord.zone_z();
         #[cfg(rev = "225")]
@@ -1980,6 +2484,12 @@ pub trait EnginePlayer {
     fn tele(&mut self, coord: CoordGrid);
 }
 
+/// Requests turned down that a real client makes too: a second click on a
+/// dialog's "continue" after it closed, an option the content has no script
+/// for. (A mistyped cheat command is the player's own, and isn't counted
+/// either.)
+const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an active"];
+
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets
     /// in a loop until per-category rate limits are reached or the queue
@@ -2011,11 +2521,11 @@ impl EnginePlayer for ActivePlayer {
                     Err(_) => break,
                 },
             };
-            if handle.read_queue.len() + msg.len() > 5000 {
+            if handle.read_queue.len() + msg.1.len() > 5000 {
                 handle.pending_msg = Some(msg);
                 break;
             }
-            handle.read_queue.extend(msg);
+            handle.queue(msg.0, msg.1);
         }
 
         self.client_limit = 0;
@@ -2055,7 +2565,7 @@ impl EnginePlayer for ActivePlayer {
     /// # Call Stack
     /// **Called by:** [`decode`](Self::decode)
     fn read(&mut self) -> Option<()> {
-        let (prot, data, info, short) = {
+        let (prot, opcode, data, info, short) = {
             let handle = &mut self.handle;
 
             let opcode = handle
@@ -2087,12 +2597,17 @@ impl EnginePlayer for ActivePlayer {
             let short = len < info.frame.min();
 
             let data: Vec<u8> = handle.read_queue.drain(..len).collect();
-            (prot, data, info, short)
+            (prot, opcode, data, info, short)
         };
+        if let Some(at) = self.handle.arrived() {
+            self.watch.arrived(at);
+        }
+        self.watch.client(engine().clock, &prot, opcode, &data);
 
         #[rustfmt::skip]
         let success = if short {
             warn!("Short {prot:?}: {} byte(s)", data.len());
+            self.watch.anticheat.malformed();
             false
         } else {
             let mut buf = Packet::from(data);
@@ -2198,6 +2713,12 @@ impl EnginePlayer for ActivePlayer {
                     #[cfg(debug_assertions)]
                     self.message_game_wrapped(&err.to_string());
                     error!("{err}");
+                    if let ScriptError::Client(why) = &err
+                        && !matches!(prot, ClientProt::ClientCheat)
+                        && !UNREMARKABLE.iter().any(|ok| why.starts_with(ok))
+                    {
+                        self.watch.anticheat.rejected();
+                    }
                     false
                 }
             }
@@ -2255,6 +2776,9 @@ impl EnginePlayer for ActivePlayer {
         }
         self.update_runenergy(self.player.runenergy);
         self.reset_anims();
+        // The client's own input report, for the replay and the checks.
+        #[cfg(before_274)]
+        self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
         let coord = self.player.pathing.coord;
         let snapshot_coord = CoordGrid::new(coord.x().saturating_sub(1), coord.y(), coord.z());
         self.player.pathing.last_step_coord = snapshot_coord;
@@ -2442,6 +2966,9 @@ impl EnginePlayer for ActivePlayer {
 
             if !self.player.build_area.loaded_zones.contains(&zone_coord) {
                 self.player.build_area.loaded_zones.push(zone_coord);
+                self.watch
+                    .anticheat
+                    .zone_sent(zone_coord.x(), zone_coord.z());
             }
         }
     }

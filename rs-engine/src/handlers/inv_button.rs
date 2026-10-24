@@ -1,6 +1,7 @@
 use crate::active_player::ActivePlayer;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::watch::Op;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::inv_button1::InvButton1;
 use rs_protocol::network::game::client::inv_button2::InvButton2;
@@ -120,6 +121,12 @@ fn handle(
     com: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
+    active.watch_op(Op::InvButton {
+        op: op as u8,
+        obj,
+        slot,
+        com,
+    });
     if active.player.state.delayed {
         return Ok(());
     }

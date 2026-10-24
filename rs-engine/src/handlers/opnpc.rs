@@ -1,6 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
+use crate::watch::Op;
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opnpc1::OpNpc1;
 use rs_protocol::network::game::client::opnpc2::OpNpc2;
@@ -109,6 +110,7 @@ impl ClientGameHandler for OpNpc5 {
 /// **Called by:** `OpNpc1::handle` through `OpNpc5::handle`
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    active.watch_op(Op::Npc { op, nid });
     if active.player.state.delayed {
         active.unset_map_flag();
         return Ok(());

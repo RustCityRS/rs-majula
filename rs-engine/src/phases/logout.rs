@@ -21,7 +21,7 @@ const TIMEOUT_NO_CONNECTION: u32 = 50;
 /// connections (no FIN/RST ever arrives, so no disconnect signal fires): a
 /// live client always sends keepalives well within this window. Bots are
 /// exempt (they never send packets).
-const TIMEOUT_NO_RESPONSE: u32 = 100;
+pub(crate) const TIMEOUT_NO_RESPONSE: u32 = 100;
 
 impl Engine {
     /// Processes the logout phase of the engine tick cycle.

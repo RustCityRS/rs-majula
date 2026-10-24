@@ -1,0 +1,112 @@
+{% from "layout/section.html" import section %}
+{% with title="Your Account" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Your Account" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{#- The username and password fields each form here needs: you give your
+    password again for every change, as the site keeps no session. -#}
+{% macro credentials(id) %}
+<tr>
+  <td align=right><label for="{{ id }}-password">Your password:</label></td>
+  <td>
+    <input type="hidden" name="username" value="{{ username }}">
+    <input type="password" id="{{ id }}-password" name="password" value="" maxlength="20" pattern="[ -_a-~£]{1,20}" title="Up to 20 letters, numbers, spaces or keyboard symbols" size="20" autocomplete="current-password" required>
+  </td>
+</tr>
+{% endmacro %}
+
+{% call section() %}
+<p>Logged in as <b>{{ username }}</b>. Your account was made on {{ created }}.</p>
+{% if message %}<p><font color="#90c040"><b>{{ message }}</b></font></p>{% endif %}
+{% if error %}<p class="red">ERROR: {{ error }}</p>{% endif %}
+{% if online %}<p>You're logged in to the game right now.</p>{% endif %}
+<p>Each form below asks for your password again, because this site keeps no session or cookies.</p>
+{% endcall %}
+
+{% call section("Your recent logins") %}
+<p>Your last {{ shown }} logins, newest first, with the address and device each came from (times are UTC). If you
+  see one that wasn't you, change your password below.</p>
+{% if logins %}
+<table width=100% cellpadding=3 cellspacing=1>
+  <tr>
+    <th align=left style="background-color:#35210F;">When</th>
+    <th align=left style="background-color:#35210F;">World</th>
+    <th align=left style="background-color:#35210F;">Address</th>
+    <th align=left style="background-color:#35210F;">Device</th>
+  </tr>
+  {% for login in logins %}
+  <tr>
+    <td>{{ login.at }}</td>
+    <td>{{ login.world }}</td>
+    <td>{{ login.ip }}</td>
+    <td>{{ login.device }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>You haven't logged in to the game in the last 180 days.</p>
+{% endif %}
+{% endcall %}
+
+{% call section("Change your password") %}
+<form method="post" action="/account/password">
+  <table>
+    {{ credentials("change") }}
+    <tr>
+      <td align=right><label for="new-password">New password:</label></td>
+      <td><input type="password" id="new-password" name="new_password" value="" minlength="5" maxlength="20" pattern="[ -_a-~£]{5,20}" title="5 to 20 letters, numbers, spaces or keyboard symbols" size="20" autocomplete="new-password" required></td>
+    </tr>
+    <tr>
+      <td align=right><label for="new-password2">New password again:</label></td>
+      <td><input type="password" id="new-password2" name="new_password2" value="" minlength="5" maxlength="20" size="20" autocomplete="new-password" required></td>
+    </tr>
+    <tr><td></td><td><input type="submit" value="Change password"></td></tr>
+  </table>
+</form>
+{% endcall %}
+
+{% call section("Download your data") %}
+<p>A file (JSON) of everything we keep about you in our database: your account, game save and earlier saves,
+  hiscores, friends and ignore lists, logins, chat, game and item events, when you were recorded, the reports you
+  made, sanctions on your account, your appeals and recovery requests, and the messages our staff sent you. The recordings themselves and what the
+  checks made of them aren't in it: email <a href="mailto:contact@rustcity.org" class=c>contact@rustcity.org</a> if you
+  want those.</p>
+<form method="post" action="/account/data">
+  <table>
+    {{ credentials("data") }}
+    <tr><td></td><td><input type="submit" value="Download my data"></td></tr>
+  </table>
+</form>
+{% endcall %}
+
+{% call section("Delete your account") %}
+<p>This deletes your account for good: your character, items, stats, friends lists, logins, chat, recordings and
+  everything else above. It can't be undone, and your username becomes free for anyone to take.</p>
+{% if staff %}
+<p>Staff accounts are deleted by another member of staff. Email
+  <a href="mailto:contact@rustcity.org" class=c>contact@rustcity.org</a>.</p>
+{% elif sanctioned %}
+<p>Your account is banned or muted, so it can't be deleted here. Email
+  <a href="mailto:contact@rustcity.org" class=c>contact@rustcity.org</a> if you still want it deleted.</p>
+{% else %}
+<p>Log out of the game first.</p>
+<form method="post" action="/account/delete">
+  <table>
+    {{ credentials("delete") }}
+    <tr>
+      <td align=right><label for="confirm">Type your username:</label></td>
+      <td><input type="text" id="confirm" name="confirm" value="" maxlength="12" size="20" autocomplete="off" required></td>
+    </tr>
+    <tr><td></td><td><input type="submit" value="Delete my account forever"></td></tr>
+  </table>
+</form>
+{% endif %}
+{% endcall %}
+
+<center><a href="/title" class=c>Main menu</a></center>
+<br>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

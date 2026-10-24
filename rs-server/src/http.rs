@@ -1,9 +1,10 @@
 use crate::socket::handshake;
 use crate::{ConnectionGuard, REVISION, ServerIO, Socket};
+use rs_db::LoginDevice;
 use rs_pack::cache::CacheStore;
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
-use std::sync::Arc;
+use std::sync::{Arc, LazyLock};
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
@@ -194,7 +195,8 @@ async fn handle_connection(
         match timeout(HANDSHAKE_TIMEOUT, upgrade).await {
             Ok(Ok(ws)) => {
                 info!("WebSocket handshake complete for {}", addr);
-                let connection = Socket::from_ws(ws, addr, server_state, guard);
+                let mut connection = Socket::from_ws(ws, addr, server_state, guard);
+                connection.device = login_device(&raw);
                 if let Err(e) = handshake(connection).await {
                     info!("Connection {} closed: {}", addr, e);
                 }
@@ -294,22 +296,74 @@ async fn handle_connection(
 /// holds a valid IP, otherwise the socket peer. Only lines the peek read in
 /// full are searched, so a cut-off value is never parsed.
 fn client_addr(head: &str, header: Option<&str>, peer: SocketAddr) -> SocketAddr {
-    let complete = &head[..head.rfind("\r\n").unwrap_or(0)];
     header
-        .and_then(|name| {
-            complete
-                .lines()
-                .skip(1)
-                .take_while(|line| !line.is_empty())
-                .find_map(|line| {
-                    let (key, value) = line.split_once(':')?;
-                    key.trim().eq_ignore_ascii_case(name).then_some(value)
-                })
-        })
+        .and_then(|name| header_value(head, name))
         // x-forwarded-for style lists put the client first.
         .and_then(|value| value.split(',').next())
         .and_then(|value| value.trim().parse::<IpAddr>().ok())
         .map_or(peer, |ip| SocketAddr::new(ip, peer.port()))
+}
+
+/// Field `name` of the request head, if a line the peek read in full has it.
+fn header_value<'a>(head: &'a str, name: &str) -> Option<&'a str> {
+    let complete = &head[..head.rfind("\r\n").unwrap_or(0)];
+    complete
+        .lines()
+        .skip(1)
+        .take_while(|line| !line.is_empty())
+        .find_map(|line| {
+            let (key, value) = line.split_once(':')?;
+            key.trim()
+                .eq_ignore_ascii_case(name)
+                .then_some(value.trim())
+        })
+}
+
+/// What the browser says about the device, from the WebSocket request's
+/// head, for staff to see who logged in with what. Browsers can claim
+/// anything: it's a description, never proof.
+fn login_device(head: &str) -> LoginDevice {
+    // Only printable ASCII, and never more than `max` of it.
+    let clean = |value: &str, max: usize| {
+        let value: String = value
+            .chars()
+            .filter(|c| c.is_ascii_graphic() || *c == ' ')
+            .take(max)
+            .collect();
+        (!value.is_empty()).then_some(value)
+    };
+    LoginDevice {
+        web: true,
+        user_agent: header_value(head, "User-Agent").and_then(|ua| clean(ua, 300)),
+        platform: header_value(head, "Sec-CH-UA-Platform")
+            .and_then(|p| clean(p.trim_matches('"'), 32)),
+        language: header_value(head, "Accept-Language")
+            .and_then(|l| clean(l.split([',', ';']).next().unwrap_or(""), 35)),
+        touch: touch_device(head),
+    }
+}
+
+/// Whether the browser says it's a phone or tablet. The web client plays
+/// those by touch, which the anti-cheat checks allow for. Browsers can claim
+/// anything, so this only ever excuses what touch explains. iPads and
+/// touchscreen laptops pass as desktops.
+fn touch_device(head: &str) -> bool {
+    if header_value(head, "Sec-CH-UA-Mobile") == Some("?1") {
+        return true;
+    }
+    header_value(head, "User-Agent").is_some_and(|ua| {
+        [
+            "Android",
+            "iPhone",
+            "iPad",
+            "iPod",
+            "Mobile",
+            "webOS",
+            "BlackBerry",
+        ]
+        .iter()
+        .any(|word| ua.contains(word))
+    })
 }
 
 /// Sent on every HTTP response: browsers take each file as the type it's
@@ -383,6 +437,54 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        "/worldmap" => {
+            let bytes = render_worldmap(asset_version(cache, "/mapview.js")).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\n{}Content-Length: {len}\r\n",
+                    frame_ancestors(site_origin)
+                ),
+                Body::Owned(bytes),
+            )
+        }
+        "/uid" => {
+            let bytes = render_uid(site_origin).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-store\r\n{}Content-Length: {len}\r\n",
+                    frame_ancestors(site_origin)
+                ),
+                Body::Owned(bytes),
+            )
+        }
+        "/livemap" => {
+            let bytes = render_livemap(asset_version(cache, "/mapview.js")).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                ),
+                Body::Owned(bytes),
+            )
+        }
+        "/livemap.js" => LIVEMAP_SCRIPT.serve(query),
+        "/replay" => {
+            let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
+            let len = bytes.len();
+            (
+                "200 OK",
+                format!(
+                    "Content-Type: text/html; charset=UTF-8\r\nCache-Control: no-cache\r\nContent-Length: {len}\r\n"
+                ),
+                Body::Owned(bytes),
+            )
+        }
+        "/replay.js" => REPLAY_SCRIPT.serve(query),
         p if matches_cache(p) => match read_cache(p, cache) {
             Some(body) => {
                 let len = body.len();
@@ -419,6 +521,7 @@ fn matches_cache(path: &str) -> bool {
         "/textures",
         "/wordenc",
         "/sounds",
+        "/worldmap.jag",
         "/crc",
         #[cfg(since_244)]
         "/versionlist",
@@ -463,6 +566,7 @@ pub(crate) fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body>
         p if p.starts_with("/textures") => "textures",
         p if p.starts_with("/wordenc") => "wordenc",
         p if p.starts_with("/sounds") => "sounds",
+        p if p.starts_with("/worldmap.jag") => "worldmap",
         _ => return None,
     };
 
@@ -522,7 +626,7 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
 /// so no request text reaches the page's JavaScript.
 ///
 /// With `version`, the page imports `client.js?v=<version>`: a client.js that
-/// changes (a new release, or `rotate-rsa.py` patching in a new login key)
+/// changes (a new release, or `deploy/patch.py` patching in a new login key)
 /// gets a new URL, so no browser or Cloudflare cache serves the old one.
 fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
     let html = CLIENT_HTML
@@ -533,6 +637,159 @@ fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>
         Some(v) => html.replace("client.js'", &format!("client.js?v={v:08x}'")),
         None => html,
     }
+}
+
+/// A script of the world's own pages, which name it with its CRC: asked for
+/// by that, it's kept for good, as it changes only with the world.
+struct Script {
+    body: Arc<[u8]>,
+    version: String,
+}
+
+impl Script {
+    fn new(source: &str) -> Self {
+        let body: Arc<[u8]> = source.as_bytes().into();
+        let crc = rs_io::crc::getcrc(&body, 0, body.len()) as u32;
+        Self {
+            body,
+            version: format!("{crc:08x}"),
+        }
+    }
+
+    fn serve(&self, query: &str) -> (&'static str, String, Body) {
+        let current = query
+            .split('&')
+            .any(|p| p.strip_prefix("v=") == Some(self.version.as_str()));
+        let cache = if current {
+            "public, max-age=31536000, immutable"
+        } else {
+            "no-cache"
+        };
+        (
+            "200 OK",
+            format!(
+                "Content-Type: application/javascript\r\nCache-Control: {cache}\r\nContent-Length: {}\r\n",
+                self.body.len()
+            ),
+            Body::Shared(Arc::clone(&self.body)),
+        )
+    }
+}
+
+/// Plays a recorded session in this revision's client, for the staff console.
+static REPLAY_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("replay.js")));
+
+/// The replay page: this revision's client, with replay.js loaded first to
+/// stand in for the world.
+fn render_replay(nodeid: &str, members: bool, version: Option<u32>) -> String {
+    let (width, height) = if cfg!(rev = "225") {
+        (789, 532)
+    } else {
+        (765, 503)
+    };
+    let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    let script = &REPLAY_SCRIPT.version;
+    format!(
+        r#"<!DOCTYPE html>
+<html data-rev="{REVISION}">
+<head>
+<meta charset="utf-8">
+<title>Replay</title>
+<style>
+html, body {{ margin: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }}
+#game {{ position: relative; width: 100vw; height: 100vh; }}
+#canvas {{ display: block; width: 100%; height: 100%; image-rendering: pixelated; }}
+</style>
+<script src="/replay.js?v={script}"></script>
+</head>
+<body>
+<div id="game"><canvas id="canvas" width="{width}" height="{height}"></canvas></div>
+<script type="module">
+import {{ Client }} from './{REVISION}/client.js{query}';
+window.__replay.start(new Client({nodeid}, 0, {members}));
+</script>
+</body>
+</html>
+"#
+    )
+}
+
+/// The page the website's account recovery form frames to learn the id this
+/// world's web client gave the browser (kept in its localStorage, as the
+/// client framed on the website's play page sees it). It tells only the
+/// website, trying each of its origins (a browser delivers to the one that
+/// framed it), so says nothing without `site_origin`.
+fn render_uid(site_origin: Option<&str>) -> String {
+    let sites: Vec<&str> = site_origin.map_or_else(Vec::new, |s| s.split_whitespace().collect());
+    let sites = serde_json::to_string(&sites)
+        .unwrap_or_else(|_| "[]".to_owned())
+        .replace('<', "\\u003c");
+    format!(
+        "<!doctype html><script>(function(){{var sites={sites};if(parent===window)return;\
+         try{{var v=localStorage.getItem('rs-uid')|0;if(!v||v===1337)return;\
+         sites.forEach(function(site){{try{{parent.postMessage({{rsUid:v}},site)}}catch(e){{}}}})}}catch(e){{}}}})()</script>"
+    )
+}
+
+/// The world map viewer for this revision's `worldmap.jag`, framed by the
+/// website's world map page. `mapview.js` is shared by every revision.
+fn render_worldmap(version: Option<u32>) -> String {
+    let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    format!(
+        r#"<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Map</title>
+<style>html, body {{ margin: 0; background: #000; overflow: hidden; }} #canvas {{ display: block; }}</style>
+</head>
+<body>
+<canvas id="canvas" width="635" height="503"></canvas>
+<script type="module">
+import {{ MapView }} from '/mapview.js{query}';
+new MapView();
+</script>
+</body>
+</html>
+"#
+    )
+}
+
+/// Draws the players the staff console sends over the world map.
+static LIVEMAP_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("livemap.js")));
+
+/// The world map viewer with livemap.js drawing players over it, for the
+/// staff console's live map. Sized to the frame it loads in.
+fn render_livemap(version: Option<u32>) -> String {
+    let query = version.map_or_else(String::new, |v| format!("?v={v:08x}"));
+    let script = &LIVEMAP_SCRIPT.version;
+    format!(
+        r#"<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Live Map</title>
+<style>html, body {{ margin: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }} #map {{ position: relative; width: 100%; height: 100%; }} #canvas {{ display: block; width: 100%; height: 100%; }}</style>
+<script src="/livemap.js?v={script}"></script>
+</head>
+<body>
+<div id="map"><canvas id="canvas" width="635" height="503"></canvas></div>
+<script>
+// The viewer draws at the canvas's size: the frame's, with a width that
+// isn't also the height (livemap.js tells the two apart by it).
+const c = document.getElementById('canvas');
+c.width = Math.max(320, Math.min(2560, innerWidth));
+c.height = Math.max(240, Math.min(1600, innerHeight));
+if (c.width === c.height) c.width += 1;
+</script>
+<script type="module">
+import {{ MapView }} from '/mapview.js{query}';
+window.__livemap.start(new MapView());
+</script>
+</body>
+</html>
+"#
+    )
 }
 
 /// The client page's framing rule: only this host and the website (which
@@ -547,10 +804,13 @@ fn frame_ancestors(site_origin: Option<&str>) -> String {
 
 /// The CRC of the client.js this world serves, `None` if it has none.
 fn client_version(cache: &CacheStore) -> Option<u32> {
-    let js = cache
-        .static_assets
-        .get(format!("/{REVISION}/client.js").as_str())?;
-    Some(rs_io::crc::getcrc(js, 0, js.len()) as u32)
+    asset_version(cache, &format!("/{REVISION}/client.js"))
+}
+
+/// The CRC of a static asset, `None` if this world doesn't have it.
+fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
+    let data = cache.static_assets.get(path)?;
+    Some(rs_io::crc::getcrc(data, 0, data.len()) as u32)
 }
 
 /// A numeric query parameter; missing or non-numeric reads as 0.
@@ -589,6 +849,17 @@ fn parse_query(query: &str) -> HashMap<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn scripts_are_kept_only_when_named_by_their_crc() {
+        let page = render_replay("10", true, None);
+        let version = &REPLAY_SCRIPT.version;
+        assert!(page.contains(&format!("/replay.js?v={version}")));
+        let cache = |query: &str| REPLAY_SCRIPT.serve(query).1;
+        assert!(cache(&format!("v={version}")).contains("immutable"));
+        assert!(cache("").contains("no-cache"));
+        assert!(cache("v=00000000").contains("no-cache"));
+    }
 
     #[test]
     fn client_page_fills_every_marker() {
@@ -641,6 +912,49 @@ mod tests {
         assert_eq!(query_number(&params, "plugin"), 3);
         assert_eq!(query_number(&params, "lowmem"), 0);
         assert_eq!(query_number(&params, "missing"), 0);
+    }
+
+    #[test]
+    fn login_devices_keep_what_the_browser_said() {
+        let head = "GET / HTTP/1.1\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0) Chrome/141.0\r\nSec-CH-UA-Platform: \"Windows\"\r\nAccept-Language: en-GB,en;q=0.9\r\n\r\n";
+        let device = login_device(head);
+        assert!(device.web && !device.touch);
+        assert_eq!(
+            device.user_agent.as_deref(),
+            Some("Mozilla/5.0 (Windows NT 10.0) Chrome/141.0")
+        );
+        assert_eq!(device.platform.as_deref(), Some("Windows"));
+        assert_eq!(device.language.as_deref(), Some("en-GB"));
+        // Nothing past what's printable, or past the cap.
+        let long = format!(
+            "GET / HTTP/1.1\r\nUser-Agent: \u{7}{}\r\n\r\n",
+            "a".repeat(400)
+        );
+        let ua = login_device(&long).user_agent.unwrap();
+        assert_eq!(ua, "a".repeat(300));
+        assert_eq!(login_device("GET / HTTP/1.1\r\n\r\n").user_agent, None);
+    }
+
+    #[test]
+    fn phones_and_tablets_are_touch_devices() {
+        let head = |headers: &str| format!("GET / HTTP/1.1\r\nHost: w1\r\n{headers}\r\n");
+        let android = "User-Agent: Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Mobile Safari/537.36\r\n";
+        let iphone = "User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15\r\n";
+        let desktop =
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0 Safari/537.36\r\n";
+        assert!(touch_device(&head(android)));
+        assert!(touch_device(&head(iphone)));
+        assert!(touch_device(&head(&format!(
+            "{desktop}Sec-CH-UA-Mobile: ?1\r\n"
+        ))));
+        assert!(!touch_device(&head(desktop)));
+        assert!(!touch_device(&head(&format!(
+            "{desktop}Sec-CH-UA-Mobile: ?0\r\n"
+        ))));
+        // A head cut off mid-line says nothing.
+        assert!(!touch_device(
+            "GET / HTTP/1.1\r\nUser-Agent: Mozilla/5.0 (iPh"
+        ));
     }
 
     const PEER: &str = "127.0.0.1:50000";

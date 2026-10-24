@@ -21,7 +21,7 @@
           </tr>
           {% for row in rows %}
           <tr>
-            <td><img src="{{ row.category.icon }}" valign="bottom" width=16 height=16></td>
+            <td><img alt="" src="{{ row.category.icon }}" valign="bottom" width=16 height=16></td>
             <td>&nbsp;</td>
             <td><a href="/hiscores?user={{ name|lower|replace(' ', '_') }}&category={{ row.category.id }}" class=c>{{ row.category.name }}</a></td>
             <td align="right">{{ row.rank.rank|commas }}</td>

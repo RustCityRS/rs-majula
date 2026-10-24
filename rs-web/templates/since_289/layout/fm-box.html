@@ -1,0 +1,29 @@
+{#- A box in the 2005 title screen's stone frame, its six-pixel corners and
+    edges round a black middle:
+    {% from "layout/fm-box.html" import fm_box %}
+    {% call fm_box(380) %}...{% endcall %}
+    `width` is the whole box's, or none to fit the contents. -#}
+{% macro fm_box(width=none, style="") %}
+<table bgcolor=black cellpadding=0 cellspacing=0 border=0{% if width %} width={{ width }}{% endif %}{% if style %} style="{{ style }}"{% endif %} class=fm-box>
+    <tr>
+        <td><img alt="" src=/img/title/fm_topleft.gif width=6 height=6></td>
+        <td background=/img/title/fm_top2.gif width=100%><img alt="" src=/img/title/blank.gif width=1 height=6></td>
+        <td><img alt="" src=/img/title/fm_topright.gif width=6 height=6></td>
+    </tr>
+    <tr>
+        <td background=/img/title/fm_left.gif><img alt="" src=/img/title/blank.gif width=6 height=1></td>
+        <td>
+            <center>
+                <img alt="" src=/img/title/blank.gif height=7 width=1><br>
+                {{ caller() }}
+            </center>
+        </td>
+        <td background=/img/title/fm_right.gif><img alt="" src=/img/title/blank.gif width=6 height=1></td>
+    </tr>
+    <tr>
+        <td><img alt="" src=/img/title/fm_bottomleft.gif width=6 height=6></td>
+        <td background=/img/title/fm_bottom2.gif><img alt="" src=/img/title/blank.gif width=1 height=6></td>
+        <td><img alt="" src=/img/title/fm_bottomright.gif width=6 height=6></td>
+    </tr>
+</table>
+{% endmacro %}

@@ -156,6 +156,16 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
     Ok(())
 }
 
+/// What the web client sends as its uid until a deploy patches it (see
+/// `deploy/patch.py`): every browser the same, so it identifies nobody.
+const UNPATCHED_UID: i32 = 1337;
+
+/// The login block's uid, if it can tell a client install apart: the
+/// desktop client's `uid.dat`, or the patched web client's per-browser id.
+fn client_uid(uid: i32) -> Option<i32> {
+    (uid != 0 && uid != UNPATCHED_UID).then_some(uid)
+}
+
 async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> anyhow::Result<()> {
     let waiting = buf.g1();
     if waiting != buf.len().saturating_sub(buf.pos) as u8 {
@@ -186,12 +196,14 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
     }
     buf.rsadec(RsaFrame::Byte, client.server_io.rsa);
     let magic = buf.g1();
+    // Most likely a client from before a deploy changed the login key: it
+    // needs reloading.
     if magic != 10 {
-        let _ = client.write(&[LoginResponse::Rejected as u8]).await;
+        let _ = client.write(&[LoginResponse::RuneScapeUpdated as u8]).await;
         bail!("{}: Invalid magic: {}", client.addr, magic)
     }
     let seed = [buf.g4s(), buf.g4s(), buf.g4s(), buf.g4s()];
-    let _ = buf.g4s(); // uid
+    let uid = client_uid(buf.g4s());
     let username = buf.gjstr(10);
     if username.is_empty() || username.len() > 12 {
         let _ = client
@@ -200,7 +212,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         bail!("{}: Invalid username: {}", client.addr, username)
     }
     let password = buf.gjstr(10);
-    if password.is_empty() || password.len() > 20 {
+    if !rs_db::is_typeable_password(&password) {
         let _ = client
             .write(&[LoginResponse::InvalidCredentials as u8])
             .await;
@@ -225,7 +237,9 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
             password: Box::from(password),
             low_memory,
             remote_addr: client.addr,
+            uid,
             reconnect,
+            device: std::mem::take(&mut client.device),
         })
         .is_err()
     {
@@ -349,7 +363,7 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
 #[allow(clippy::collapsible_match)]
 pub async fn network_loop(
     mut client: Socket,
-    packet_tx: Sender<Vec<u8>>,
+    packet_tx: Sender<(std::time::Instant, Vec<u8>)>,
     mut bytes_rx: UnboundedReceiver<Vec<u8>>,
     recycle_tx: UnboundedSender<Vec<u8>>,
     disconnect_tx: &Sender<()>,
@@ -359,7 +373,7 @@ pub async fn network_loop(
         tokio::select! {
             result = client.read() => match result {
                 Ok(Some(bytes)) if !bytes.is_empty() => {
-                    if packet_tx.try_send(bytes).is_err() {
+                    if packet_tx.try_send((std::time::Instant::now(), bytes)).is_err() {
                         disconnect_tx.send(()).await?;
                         bail!("{addr} inbox full or closed");
                     }

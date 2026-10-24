@@ -45,6 +45,7 @@ pub struct Zone {
     pub locs: Vec<Loc>,
     pub objs: Vec<Obj>,
     receivers: FxHashMap<u64, u64>,
+    dropped_for: FxHashMap<u64, u64>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
 }
@@ -83,6 +84,7 @@ impl Zone {
             locs: Vec::new(),
             objs: Vec::new(),
             receivers: FxHashMap::default(),
+            dropped_for: FxHashMap::default(),
             events: Vec::new(),
             shared: Vec::new(),
         }
@@ -905,6 +907,22 @@ impl Zone {
         })
     }
 
+    /// Who the obj that `user37` would take at `(x, z)` was dropped for: `user37`
+    /// themselves for their own private drop, the player it was revealed from
+    /// for one everyone can now see, or `None` for one nobody dropped (a map
+    /// spawn, or one a script put down for everyone).
+    ///
+    /// Matches the obj as [`remove_obj`](Self::remove_obj) does for a take.
+    pub fn obj_dropped_for(&self, x: u16, z: u16, id: u16, user37: u64) -> Option<u64> {
+        let obj = &self.objs[self.get_obj(x, z, id, Some(user37))?];
+        let oid = obj.oid();
+        if obj.has_receiver() {
+            self.receivers.get(&oid).copied()
+        } else {
+            self.dropped_for.get(&oid).copied()
+        }
+    }
+
     /// Reveals a privately-owned obj to all players and queues an enclosed `ObjReveal` event.
     ///
     /// Transitions an obj from player-private visibility to public visibility by
@@ -946,7 +964,9 @@ impl Zone {
         self.clear_queued_events(oid);
         let count = self.objs[idx].count();
         self.objs[idx].set_has_receiver(false);
-        self.receivers.remove(&oid);
+        if let Some(receiver37) = self.receivers.remove(&oid) {
+            self.dropped_for.insert(oid, receiver37);
+        }
         self.queue_event(
             Some(oid),
             ZoneEventType::Enclosed,
@@ -1081,6 +1101,7 @@ impl Zone {
         };
         self.clear_queued_events(oid);
         self.receivers.remove(&oid);
+        self.dropped_for.remove(&oid);
         if self.objs[idx].lifetime() == EntityLifeTime::Despawn {
             self.objs.remove(idx);
         } else {
@@ -1428,6 +1449,27 @@ mod tests {
         push_private_obj(&mut z, obj, 111);
         z.reveal_obj(3222, 3222, 100, 111, 1);
         assert!(!z.objs[0].has_receiver());
+    }
+
+    #[test]
+    fn revealed_obj_stays_on_record_as_its_droppers() {
+        let mut z = zone();
+        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        obj.set_last_clock(200);
+        push_private_obj(&mut z, obj, 111);
+        assert_eq!(z.obj_dropped_for(3222, 3222, 100, 111), Some(111));
+        assert_eq!(
+            z.obj_dropped_for(3222, 3222, 100, 222),
+            None,
+            "not visible to them yet"
+        );
+        z.reveal_obj(3222, 3222, 100, 111, 1);
+        assert_eq!(z.obj_dropped_for(3222, 3222, 100, 222), Some(111));
+        z.remove_obj(3222, 3222, 100, Some(222), None);
+        assert!(z.dropped_for.is_empty(), "forgotten once it's gone");
+        // Nobody dropped a public spawn.
+        z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        assert_eq!(z.obj_dropped_for(3222, 3222, 100, 222), None);
     }
 
     #[test]

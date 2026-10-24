@@ -91,6 +91,7 @@ impl Engine {
             // be loaded before its final save lands.
             let busy = (self.find_pid_by_user37(user37).is_some() && !request.reconnect)
                 || self.logout_saves.contains_key(&user37)
+                || self.offline_edits.contains(&user37)
                 || self.pending_logins.iter().any(|p| p.user37 == user37);
             if busy {
                 let _ = request
@@ -111,6 +112,8 @@ impl Engine {
                         user37,
                         password: request.password.clone(),
                         ip,
+                        uid: request.uid,
+                        device: Box::new(request.device.clone()),
                     });
                 }
                 self.pending_logins.push(PendingLogin {
@@ -120,8 +123,10 @@ impl Engine {
                     ether_allowed: false,
                     auth: None,
                     muted_until: None,
+                    unread_messages: 0,
                     claim_sent: false,
                     profile: None,
+                    played: Vec::new(),
                 });
             } else {
                 let _ = request

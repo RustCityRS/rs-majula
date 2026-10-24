@@ -2,6 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{in_build_area, loc_target, zone_loc};
+use crate::watch::Op;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::oploc1::OpLoc1;
 use rs_protocol::network::game::client::oploc2::OpLoc2;
@@ -119,6 +120,12 @@ fn handle(
     loc_id: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
+    active.watch_op(Op::Loc {
+        op,
+        id: loc_id,
+        x,
+        z,
+    });
     if active.player.state.delayed {
         active.unset_map_flag();
         return Ok(());
@@ -139,19 +146,25 @@ fn handle(
         return Ok(());
     };
 
-    let loc_type = engine.locs().get_by_id(loc_id);
-    if let Some(lt) = &loc_type {
-        if let Some(ops) = &lt.op {
-            if ops.get((op - 1) as usize).is_none_or(|o| o.is_none()) {
-                active.unset_map_flag();
-                active.clear_pending_action()?;
-                return Ok(());
-            }
-        } else {
-            active.unset_map_flag();
-            active.clear_pending_action()?;
-            return Ok(());
-        }
+    // From 289 a loc can turn into another by a varbit, or into nothing to
+    // click.
+    let Some(shown) = active.shown_loc(loc_id) else {
+        active.unset_map_flag();
+        active.clear_pending_action()?;
+        return Ok(());
+    };
+    let has_op = |id: u16| {
+        engine.locs().get_by_id(id).is_none_or(|lt| {
+            lt.op
+                .as_deref()
+                .and_then(|ops| ops.get(usize::from(op) - 1))
+                .is_some_and(Option::is_some)
+        })
+    };
+    if !has_op(shown) && !has_op(loc_id) {
+        active.unset_map_flag();
+        active.clear_pending_action()?;
+        return Ok(());
     }
 
     let mode = match op {

@@ -6,7 +6,7 @@ use crate::handlers::ClientGameHandler;
 use core::str::Split;
 use num_enum::TryFromPrimitive;
 use rs_crypto::isaac::IsaacPair;
-use rs_db::ModAction;
+use rs_db::{ModAction, log_type, transfer};
 use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
@@ -37,12 +37,12 @@ use tracing::error;
 
 /// Handles the `ClientCheat` client protocol message.
 ///
-/// Processes developer/admin cheat commands entered via the client console.
+/// Processes maintainer/admin cheat commands entered via the client console.
 /// The cheat string is validated for length (max 80 characters), parsed into
 /// a command name and arguments, then dispatched based on the player's staff
 /// moderation level. Access is cumulative: each level can run its own commands
 /// plus those of every level below it
-/// (`Developer` > `JagexModerator` > `PlayerModerator` > `Normal`).
+/// (`Maintainer` > `JagexModerator` > `PlayerModerator` > `Normal`).
 ///
 /// # Arguments
 ///
@@ -63,7 +63,7 @@ use tracing::error;
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`cheat_normal`], [`cheat_player_moderator`], [`cheat_jagex_moderator`],
-///   or [`cheat_developer`] depending on the player's staff level
+///   or [`cheat_maintainer`] depending on the player's staff level
 impl ClientGameHandler for ClientCheat {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         if self.cheat.len() > 80 {
@@ -83,16 +83,22 @@ impl ClientGameHandler for ClientCheat {
             )));
         }
 
+        // What jagex moderators and maintainers do goes on their record for
+        // the console (player moderators' mutes are logged as moderation).
+        if active.player.staff_mod_level.is_isolated() {
+            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{}", self.cheat));
+        }
+
         match active.player.staff_mod_level {
             StaffModLevel::Normal => cheat_normal(cmd, args, active),
             StaffModLevel::PlayerModerator => cheat_player_moderator(cmd, args, active),
             StaffModLevel::JagexModerator => cheat_jagex_moderator(cmd, args, active),
-            StaffModLevel::Developer => cheat_developer(cmd, args, active),
+            StaffModLevel::Maintainer => cheat_maintainer(cmd, args, active),
         }
     }
 }
 
-/// Dispatches developer-level cheat commands, falling through to
+/// Dispatches maintainer-level cheat commands, falling through to
 /// [`cheat_jagex_moderator`] (and the levels below it) for any command this
 /// level does not handle.
 ///
@@ -116,7 +122,7 @@ impl ClientGameHandler for ClientCheat {
 ///
 /// **Called by:** `ClientCheat::handle`
 /// **Calls:** `engine_mut().run_script_by_name`, `parse_*` helpers, [`cheat_spawn_bots`]
-fn cheat_developer(
+fn cheat_maintainer(
     cmd: &str,
     mut args: Split<'_, char>,
     active: &mut ActivePlayer,
@@ -152,8 +158,8 @@ fn cheat_developer(
 /// - `ban <name> <hours>`, `unban <name>`, `kick <name>` - Bans, unbans or
 ///   kicks a player (see [`cheat_moderate`]).
 ///
-/// Reached directly by jagex moderators, and by developers cascading down from
-/// [`cheat_developer`].
+/// Reached directly by jagex moderators, and by maintainers cascading down from
+/// [`cheat_maintainer`].
 fn cheat_jagex_moderator(
     cmd: &str,
     mut args: Split<'_, char>,
@@ -322,9 +328,18 @@ fn cheat_give(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), S
         .ok_or(ScriptError::InvNotFoundName("inv".into()))?;
     if let Some(inventory) = active.player.invs.get_mut(&inv.id) {
         let count = args.next().unwrap_or("1").parse::<i32>().unwrap_or(1);
-        inventory.add(obj.id, count as u32, obj.stackable);
+        let overflow = inventory.add(obj.id, count as u32, obj.stackable);
+        log_spawned(active, obj.id, (count as u32).saturating_sub(overflow));
     }
     Ok(())
+}
+
+/// Logs `count` of `obj` made by a staff command, for the economy tools.
+fn log_spawned(active: &ActivePlayer, obj: u16, count: u32) {
+    if count > 0 {
+        let coord = active.player.pathing.coord;
+        active.log_transfer(transfer::SPAWNED, coord, obj, count as i32, None);
+    }
 }
 
 /// Adds 1000 of an object to the player's backpack (`inv`).
@@ -343,7 +358,8 @@ fn cheat_give_many(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<
         .get_by_debugname("inv")
         .ok_or(ScriptError::InvNotFoundName("inv".into()))?;
     if let Some(inventory) = active.player.invs.get_mut(&inv.id) {
-        inventory.add(obj.id, 1000, obj.stackable);
+        let overflow = inventory.add(obj.id, 1000, obj.stackable);
+        log_spawned(active, obj.id, 1000u32.saturating_sub(overflow));
     }
     Ok(())
 }
@@ -468,6 +484,7 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
         return Ok(());
     };
 
+    let mut added = Vec::new();
     for _ in 0..inventory.capacity {
         loop {
             let Some(obj) = objs.get_by_id(rng.next_int_bound(count) as u16) else {
@@ -479,9 +496,14 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
             {
                 continue;
             }
-            inventory.add(obj.id, 1, obj.stackable);
+            if inventory.add(obj.id, 1, obj.stackable) == 0 {
+                added.push(obj.id);
+            }
             break;
         }
+    }
+    for obj in added {
+        log_spawned(active, obj, 1);
     }
 
     Ok(())
@@ -713,6 +735,8 @@ fn cheat_moderate(
         by_level: active.player.staff_mod_level as u8,
         target37,
         action,
+        reason: None,
+        reply: None,
     });
     Ok(())
 }

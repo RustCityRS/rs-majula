@@ -21,6 +21,7 @@ use rsmod::rsmod::collision::collision_strategy::CollisionType;
 /// **Calls:** [`handle`]
 impl ClientGameHandler for MoveGameClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_walk(&self.path, false);
         handle(self.path, self.ctrl, false, active)
     }
 }
@@ -37,6 +38,8 @@ impl ClientGameHandler for MoveGameClick {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for MoveMinimapClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_walk(&self.path, true);
+        active.watch_minimap(&self.path, &self.trailer);
         handle(self.path, self.ctrl, false, active)
     }
 }

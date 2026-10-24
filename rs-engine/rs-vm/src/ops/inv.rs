@@ -1,11 +1,11 @@
 use crate::engine::{ScriptEngine, ScriptPlayer, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ObjRef;
-use crate::state::ScriptState;
+use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
 use crate::{ScriptError, active_player_mut, handlers, none};
 use rs_inv::StackMode;
-use rs_pack::cache::inv::InvScope;
+use rs_pack::cache::inv::{InvScope, InvType};
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 use rs_pack::types::DummyItem;
@@ -56,7 +56,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if completed == 0 || !obj_type.tradeable {
                 return Ok(());
             }
-            engine_mut::<E>().add_obj(coord, item.obj, item.num, Some(to_uid.username37()), duration as u64)?;
+            player.log_floor(false, coord, item.obj, item.num as i32);
+            engine_mut::<E>().add_obj(coord, item.obj, item.num, Some(to_uid), duration as u64)?;
         });
 
         // 4301
@@ -75,10 +76,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let to_uid = if secondary != 0 { s.active_player } else { s.active_player2 }
                 .ok_or(ScriptError::Runtime("player is null".into()))?;
             let to_pid = to_uid.pid();
-            let to_receiver37 = Some(to_uid.username37());
+            let to_receiver = Some(to_uid);
             let inventory = get_inv_mut::<E>(from_inv.id, player)?;
             let items: Vec<_> = inventory.slots.iter().filter_map(|s| *s).collect();
             inventory.clear();
+            let from_name = from_inv.debugname().unwrap_or("null");
+            for item in &items {
+                player.log_handover(from_name, item.obj, item.num as i32, to_uid.username37());
+            }
 
             let to_player = engine_mut::<E>().get_player_mut(to_pid)
                 .ok_or(ScriptError::Runtime("to player not found".into()))?;
@@ -91,7 +96,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
                 let overflow = get_inv_mut::<E>(to_inv.id, to_player)?.add(item.obj, item.num, obj_type.stackable);
                 if overflow > 0 {
-                    add_obj_split::<E>(to_coord, item.obj, overflow, obj_type.stackable, to_receiver37, LOOTDROP_DURATION)?;
+                    add_obj_split::<E>(to_coord, item.obj, overflow, obj_type.stackable, to_receiver, LOOTDROP_DURATION)?;
                 }
             }
         });
@@ -105,12 +110,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
                 return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
             }
+            if refuses_shared::<E>(s, inv, player) {
+                return Ok(());
+            }
             let coord = player.coord();
             let obj_id = obj.id;
             let overflow = get_inv_mut::<E>(inv.id, player)?.add(obj_id, count, obj.stackable);
             if overflow > 0 {
-                let receiver37 = Some(player.uid().username37());
-                add_obj_split::<E>(coord, obj_id, overflow, obj.stackable, receiver37, LOOTDROP_DURATION)?;
+                let receiver = Some(player.uid());
+                add_obj_split::<E>(coord, obj_id, overflow, obj.stackable, receiver, LOOTDROP_DURATION)?;
             }
         });
 
@@ -127,6 +135,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let find_obj = pop_obj::<E>(s)?;
             let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
+            if refuses_shared::<E>(s, inv, player) {
+                return Ok(());
+            }
             let inventory = get_inv_mut::<E>(inv.id, player)?;
             for slot in 0..inventory.capacity {
                 if let Some(item) = inventory.get(slot as u16) {
@@ -181,6 +192,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             let objs = engine::<E>().objs();
 
+            let mut dropped = Vec::new();
             for slot in 0..inventory.capacity {
                 let Some(item) = inventory.get(slot as u16).copied() else {
                     continue
@@ -191,7 +203,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 if !obj_type.tradeable {
                     continue;
                 }
+                dropped.push(item);
                 engine_mut::<E>().add_obj(coord, item.obj, item.num, None, duration as u64)?;
+            }
+            for item in dropped {
+                player.log_floor(false, coord, item.obj, item.num as i32);
             }
         });
 
@@ -208,11 +224,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if completed == 0 {
                 return Ok(());
             }
+            player.log_floor(false, coord, obj.id, completed as i32);
             engine_mut::<E>().add_obj_delayed(
                 coord,
                 obj.id,
                 completed,
-                Some(player.uid().username37()),
+                Some(player.uid()),
                 duration as u64,
                 delay as u64,
             );
@@ -232,11 +249,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if completed == 0 {
                 return Ok(());
             }
+            player.log_floor(false, coord, obj.id, completed as i32);
             engine_mut::<E>().add_obj(
                 coord,
                 obj.id,
                 completed,
-                Some(player.uid().username37()),
+                Some(player.uid()),
                 duration as u64
             )?;
             set_active_obj(s, ObjRef { coord, id: obj.id, count: completed }, secondary != 0);
@@ -265,9 +283,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let stackable = obj_type.stackable;
 
             inventory.remove(slot as u16, item.num);
+            player.log_floor(false, coord, item.obj, item.num as i32);
 
-            let receiver37 = Some(player.uid().username37());
-            add_obj_split::<E>(coord, item.obj, item.num, stackable, receiver37, duration as u64)?;
+            let receiver = Some(player.uid());
+            add_obj_split::<E>(coord, item.obj, item.num, stackable, receiver, duration as u64)?;
             set_active_obj(s, ObjRef { coord, id: item.obj, count: item.num }, secondary != 0);
         });
 
@@ -330,6 +349,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let coord = player.coord();
             if from_inv.id == to_inv.id {
                 let inv = get_inv_mut::<E>(from_inv.id, player)?;
@@ -342,8 +364,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     .is_some_and(|o| o.stackable);
                 let overflow = inv.move_from_slot(slot as u16, stackable);
                 if overflow > 0 {
-                    let receiver37 = Some(player.uid().username37());
-                    add_obj_split::<E>(coord, item.obj, overflow, stackable, receiver37, LOOTDROP_DURATION)?;
+                    let receiver = Some(player.uid());
+                    add_obj_split::<E>(coord, item.obj, overflow, stackable, receiver, LOOTDROP_DURATION)?;
                 }
             } else {
                 let (from, to) = get_inv_pair_mut::<E>(from_inv.id, to_inv.id, player)?;
@@ -356,8 +378,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     .is_some_and(|o| o.stackable);
                 let overflow = from.move_from_slot_to(to, slot as u16, stackable);
                 if overflow > 0 {
-                    let receiver37 = Some(player.uid().username37());
-                    add_obj_split::<E>(coord, item.obj, overflow, stackable, receiver37, LOOTDROP_DURATION)?;
+                    let receiver = Some(player.uid());
+                    add_obj_split::<E>(coord, item.obj, overflow, stackable, receiver, LOOTDROP_DURATION)?;
                 }
             }
         });
@@ -371,6 +393,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj.id, count);
             if completed == 0 {
                 return Ok(());
@@ -378,7 +403,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let cert_id = cert(obj);
             let overflow = get_inv_mut::<E>(to_inv.id, player)?.add(cert_id, completed, true);
             if overflow > 0 {
-                engine_mut::<E>().add_obj(player.coord(), cert_id, overflow, Some(player.uid().username37()), LOOTDROP_DURATION)?;
+                engine_mut::<E>().add_obj(player.coord(), cert_id, overflow, Some(player.uid()), LOOTDROP_DURATION)?;
             }
         });
 
@@ -391,6 +416,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj.id, count);
             if completed == 0 {
                 return Ok(());
@@ -412,6 +440,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             let coord = player.coord();
             let obj_id = obj.id;
             let completed = get_inv_mut::<E>(from_inv.id, player)?.delete(obj_id, count);
@@ -420,8 +451,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
             let overflow = get_inv_mut::<E>(to_inv.id, player)?.add(obj_id, completed, obj.stackable);
             if overflow > 0 {
-                let receiver37 = Some(player.uid().username37());
-                add_obj_split::<E>(coord, obj_id, overflow, obj.stackable, receiver37, LOOTDROP_DURATION)?;
+                let receiver = Some(player.uid());
+                add_obj_split::<E>(coord, obj_id, overflow, obj.stackable, receiver, LOOTDROP_DURATION)?;
             }
         });
 
@@ -434,6 +465,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             require_inv_access(s, from_inv, s.int_operand() as usize)?;
             require_inv_access(s, to_inv, s.int_operand() as usize)?;
+            if from_inv.id != to_inv.id && refuses_shared::<E>(s, to_inv, player) {
+                return Ok(());
+            }
             if from_inv.id == to_inv.id {
                 get_inv_mut::<E>(from_inv.id, player)?.move_to_slot(from_slot as u16, to_slot as u16);
             } else {
@@ -451,6 +485,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             require_inv_access(s, inv, s.int_operand() as usize)?;
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
                 return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
+            }
+            if refuses_shared::<E>(s, inv, player) {
+                return Ok(());
             }
             get_inv_mut::<E>(inv.id, player)?.set(slot as u16, obj.id, count);
         });
@@ -571,4 +608,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.add_inv_other_transmit(com, inv.id, uid);
         });
     }
+}
+
+/// Whether `player`, as isolated staff, would be putting items into the
+/// shared inventory `inv` (a shop's stock, the party room chest) where
+/// others could take them. If so the whole script stops there, so nothing it
+/// does next (paying for a sale) happens either.
+fn refuses_shared<E: ScriptEngine + 'static>(
+    s: &mut ScriptState,
+    inv: &InvType,
+    player: &mut impl ScriptPlayer,
+) -> bool {
+    if inv.scope != InvScope::Shared || !engine::<E>().isolates_staff(player.staffmodlevel()) {
+        return false;
+    }
+    player.mes("Staff can't sell or give items away.");
+    s.execution = ExecutionState::Aborted;
+    true
 }

@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Inventory" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Inventory | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -34,7 +35,7 @@ A.c:hover {text-decoration:underline}
 <br>
 <!-- title box -->
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Inventory</b><br>
+<h1 class=title>Inventory</h1>
 <a href="/title" class=c>Main menu</a> - <a href="/rs2/controls" class=c>Controls index</a>
 </center></td></tr></table>
 <!-- end title box -->
@@ -49,7 +50,7 @@ A.c:hover {text-decoration:underline}
 Whenever you pick-up or purchase an item it will be added to your inventory. To view the items in your inventory, just click your mouse on the backpack icon on the player interface.
 Your inventory has 28 slots available, plus separate spaces for clothes and weapons and other adornments. Large items will take up one inventory slot each. Small items such as money can all be stored in just one slot, in which case a yellow number at the top left of the slot indicates how many of that item you are currently holding.
 </td><td>
-<img src="/img/rs2/manual/controls/inventory2.gif">
+<img loading="lazy" alt="Inventory" src="/img/rs2/manual/controls/inventory2.gif">
 </td></tr></table>
 <p>
 </td></tr></table>
@@ -59,7 +60,7 @@ To use an item you are holding, open your inventory, and then click on the item 
 <p>
 Armour and weapons are an important aspect of the game. The weaponry you are wielding can often make the difference between winning and losing a battle. To wield a weapon, go to your inventory screen and click on the item that you wish to wield. If the item can be worn it will then move to your equipment screen.
 </td><td>
-<img src="/img/rs2/manual/controls/inventory_clicked2.gif">
+<img loading="lazy" alt="Inventory clicked" src="/img/rs2/manual/controls/inventory_clicked2.gif">
 </td></tr>
 
 </center>
@@ -67,7 +68,7 @@ Armour and weapons are an important aspect of the game. The weaponry you are wie
 
 <p>
 <table border=0><tr><td valign=top>
-<img src="/img/rs2/manual/controls/weapon_equip.gif">
+<img loading="lazy" alt="Weapon equip" src="/img/rs2/manual/controls/weapon_equip.gif">
 </td><td valign=top>
 Your character has separate slots for each type of weapon or clothing. 
 To view what you have equipped, click the man icon on the player interface. Separate slots show what you are holding on your person at
@@ -91,17 +92,13 @@ bonuses up and down, dependant on that particular item's strengths or weaknesses
 
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 

@@ -21,14 +21,18 @@ const REGION_FLAGS: &[(&str, &str)] = &[
 ];
 
 pub async fn title(State(app): State<Arc<App>>) -> Result<Response, AppError> {
-    let news = app.db.news_page(None, 0, 5).await.unwrap_or_else(|e| {
-        warn!("Loading news for the title page failed: {e}");
-        Vec::new()
-    });
+    let news = app
+        .latest_news
+        .get(async || app.db.news_page(None, 0, 5).await)
+        .await
+        .unwrap_or_else(|e| {
+            warn!("Loading news for the title page failed: {e}");
+            Default::default()
+        });
     let player_count: u32 = app.worlds_now().iter().map(|w| w.players).sum();
     let html = app.templates.render(
         "views/title.html",
-        context! { news => Serde(news), player_count },
+        context! { news => Serde(news.as_slice()), player_count },
     )?;
     Ok(html.into_response())
 }

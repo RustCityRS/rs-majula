@@ -1,10 +1,11 @@
 <html><head>
+{% with title="Magic" %}{% include "layout/meta.html" %}{% endwith %}
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
 
-<title>RuneScape - the massive online adventure game by Jagex Ltd</title>
+<title>Magic | RuneScape</title>
 <STYLE>
 BODY, TD, P
 { 
@@ -22,9 +23,9 @@ A.c:hover {text-decoration:underline}
 
 <!--border top-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=top><img src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=top><img src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_a.jpg width=100 height=43 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=top><img alt="" src=/img/edge_d.jpg width=100 height=43 hspace=0 vspace=0></td>
 </tr></table>
 <!--end border top-->
 
@@ -35,7 +36,7 @@ A.c:hover {text-decoration:underline}
 <!-- title box -->
 
 <table width=250 bgcolor=black cellpadding=4><tr><td class=e><center>
-<b>Magic</b><br>
+<h1 class=title>Magic</h1>
 <a href="/title" class=c>Main menu</a>
 -
 <a href="/rs2/skills" class=c>Skills Index</a>
@@ -50,7 +51,7 @@ A.c:hover {text-decoration:underline}
 Pointing at the spell book item brings up the magic menu. From here you can select spells to cast. <p>
 This will bring up a screen of all spells available to you within the game. If the picture of a spell is darkened, it means that you do not yet have a high enough level to cast it or you do not have the runes in your inventory to do so. If a spell is lit up on this screen, then it means that you are a high enough level to cast it and you have enough runes in your inventory. 
 </td><td>
-<img src="/img/rs2/manual/magic/magictab.gif">
+<img loading="lazy" alt="Magic tab" src="/img/rs2/manual/magic/magictab.gif">
 </td></tr></table>
 <p>
 To cast the spell just click on the spell picture, and then click on your desired target
@@ -65,38 +66,38 @@ list of which are runes are required is shown at the bottom of the window. Each 
 indicates how many you require. The numbers will be drawn in red for runes which you do not have a sufficient
 number of to cast the spell. Runes can be obtained in a number of ways. Mages can make their own runes using the runecrafting skill (see the <a href="/rs2/skills/runecraft" class=c>runecrafting</a> guide). Other ways to get runes include buying them in magic shops in towns such as Varrock and Port Sarim or by killing monsters.
 </td><td>
-<img src="/img/rs2/manual/magic/magictab2.gif">
+<img loading="lazy" alt="Magic tab" src="/img/rs2/manual/magic/magictab2.gif">
 </td></tr></table>
 
 <p><center><b>Rune Types</b></center><p>
 To cast spells in the game you need the correct runes. Each of the runes has a different power, and is used
 for a different category of spell. Information about each of the runes is shown below:<br><br><br>
 <table cellpadding=4>
-<tr><td><img src=/img/rs2/manual/magic/earthrune.gif></td>
+<tr><td><img loading="lazy" alt="Earth rune" src=/img/rs2/manual/runecraft/earthrune.gif></td>
 <td>Earth rune - One of the 4 elemental runes. Can be replaced by a staff of earth.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/airrune.gif></td>
+<tr><td><img loading="lazy" alt="Air rune" src=/img/rs2/manual/runecraft/airrune.gif></td>
 <td>Air rune - One of the 4 elemental runes. Can be replaced by a staff of air.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/waterrune.gif></td>
+<tr><td><img loading="lazy" alt="Water rune" src=/img/rs2/manual/runecraft/waterrune.gif></td>
 <td>Water rune - One of the 4 elemental runes. Can be replaced by a staff of water.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/firerune.gif></td>
+<tr><td><img loading="lazy" alt="Fire rune" src=/img/rs2/manual/runecraft/firerune.gif></td>
 <td>Fire rune - One of the 4 elemental runes. Can be replaced by a staff of fire.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/bodyrune.gif></td>
+<tr><td><img loading="lazy" alt="Body rune" src=/img/rs2/manual/runecraft/bodyrune.gif></td>
 <td>Body rune - Required for curse spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/mindrune.gif></td>
+<tr><td><img loading="lazy" alt="Mind rune" src=/img/rs2/manual/runecraft/mindrune.gif></td>
 <td>Mind rune - Required for strike spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/cosmicrune.gif></td>
+<tr><td><img loading="lazy" alt="Cosmic rune" src=/img/rs2/manual/runecraft/cosmicrune.gif></td>
 <td>Cosmic rune - Required for amulet enchant spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/chaosrune.gif></td>
+<tr><td><img loading="lazy" alt="Chaos rune" src=/img/rs2/manual/runecraft/chaosrune.gif></td>
 <td>Chaos rune - Required for bolt spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/naturerune.gif></td>
+<tr><td><img loading="lazy" alt="Nature rune" src=/img/rs2/manual/runecraft/naturerune.gif></td>
 <td>Nature rune - Required for object conversion spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/deathrune.gif></td>
+<tr><td><img loading="lazy" alt="Death rune" src=/img/rs2/manual/magic/deathrune.gif></td>
 <td>Death rune - Required for blast spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/lawrune.gif></td>
+<tr><td><img loading="lazy" alt="Law rune" src=/img/rs2/manual/runecraft/lawrune.gif></td>
 <td>Law rune - Required for teleport spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/soulrune.gif></td>
+<tr><td><img loading="lazy" alt="Soul rune" src=/img/rs2/manual/magic/soulrune.gif></td>
 <td>Soul rune - Required for high level curse spells.</td></tr>
-<tr><td><img src=/img/rs2/manual/magic/bloodrune.gif></td>
+<tr><td><img loading="lazy" alt="Blood rune" src=/img/rs2/manual/magic/bloodrune.gif></td>
 <td>Blood rune - Required for high level strike spells.</td></tr>
 </table>
 
@@ -107,7 +108,7 @@ If you want to cast many spells against opponents without clicking repeatedly, t
 If you wield a staff and select the combat style menu (the crossed sword icon on the player interface) you will see a book in the bottom left corner. <br>
 Clicking on that will allow you to chose any of the elemental spells you are able to cast and tie them to your staff. If you then select the "attack with" combat style on your staff you will automatically fight by casting that spell when you enter combat.
 </td><td><p align=justify>
-<img src=/img/rs2/manual/magic/staff.gif>
+<img loading="lazy" alt="Staff" src=/img/rs2/manual/magic/staff.gif>
 </td></tr></table>
 
 <p>
@@ -121,17 +122,13 @@ Sometimes spells will fail to work. If a spell fails, you will still gain the ex
 <br>
 <!-- border footer-->
 <table cellpadding=0 cellspacing=0><tr>
-<td valign=bottom><img src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_g2.jpg width=100 height=82 hspace=0 vspace=0></td>
 <td valign=bottom>
 <div align=center style="font-family:Arial,Helvetica,sans-serif; font-size:11px;">
-This webpage and its contents is copyright 2004 Jagex Ltd<br>
-To use our service you must agree to our
-<a href="/terms" class=c>Terms+Conditions</a>
-+ 
-<a href="/privacy" class=c>Privacy policy</a>
+{% include "layout/footer-text.html" %}
 </div>
-<img src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
-<td valign=bottom><img src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
+<img alt="" src=/img/edge_c.jpg width=400 height=42 hspace=0 vspace=0></td>
+<td valign=bottom><img alt="" src=/img/edge_h2.jpg width=100 height=82 hspace=0 vspace=0></td>
 </tr></table>
 <!-- border footer-->
 

@@ -258,15 +258,15 @@ pub trait ScriptEngine {
     /// * `coord` - The packed coordinate where the object should appear.
     /// * `id` - The object type identifier.
     /// * `count` - The stack count for the object.
-    /// * `receiver37` - Optional Base37-encoded username of the only player
-    ///   who may see the object. `None` makes it visible to everyone.
+    /// * `receiver` - Optional player who alone may see the object. `None`
+    ///   makes it visible to everyone.
     /// * `duration` - The tick at which the object should be removed.
     fn add_obj(
         &mut self,
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
     ) -> crate::Result<()>;
 
@@ -276,7 +276,7 @@ pub trait ScriptEngine {
     /// * `coord` - The packed coordinate where the object should appear.
     /// * `id` - The object type identifier.
     /// * `count` - The stack count for the object.
-    /// * `receiver37` - Optional Base37-encoded username restricting visibility.
+    /// * `receiver` - Optional player restricting visibility.
     /// * `duration` - The tick at which the object should be removed.
     /// * `delay` - The number of ticks to wait before the object becomes visible.
     fn add_obj_delayed(
@@ -284,7 +284,7 @@ pub trait ScriptEngine {
         coord: CoordGrid,
         id: u16,
         count: u32,
-        receiver37: Option<u64>,
+        receiver: Option<PlayerUid>,
         duration: u64,
         delay: u64,
     );
@@ -299,6 +299,18 @@ pub trait ScriptEngine {
     /// * `duration` - The remaining duration used to identify the specific object
     ///   instance to remove.
     fn remove_obj(&mut self, coord: CoordGrid, id: u16, receiver37: Option<u64>, duration: u64);
+
+    /// Who the ground object the player `user37` would take at `coord` was
+    /// dropped for: themselves for their own private drop, the player it was
+    /// revealed from for one everyone can see, or `None` for one nobody
+    /// dropped (a map spawn, or one a script put down for everyone).
+    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, user37: u64) -> Option<u64>;
+
+    /// Whether staff of level `staffmodlevel` are kept apart from other
+    /// players on this world: besides the engine's own checks, they don't
+    /// take others' drops or put items into shared inventories (shops, the
+    /// party room chest).
+    fn isolates_staff(&self, staffmodlevel: u8) -> bool;
 
     /// Finds a ground object at the given coordinate by type ID.
     ///
@@ -410,8 +422,8 @@ pub trait ScriptEngine {
     /// * `dst_z` - The destination tile Z coordinate.
     /// * `target` - The target index (positive = player, negative = NPC, 0 = none).
     /// * `id` - The spotanim (graphic) identifier.
-    /// * `src_height` - The height offset at the source.
-    /// * `dst_height` - The height offset at the destination.
+    /// * `src_height` - The height at the source, as the script gives it.
+    /// * `dst_height` - The height at the destination, as the script gives it.
     /// * `start` - The start delay in client ticks.
     /// * `end` - The end delay in client ticks.
     /// * `peak` - The peak arc height.
@@ -553,6 +565,21 @@ pub trait ScriptEngine {
     /// * `id` - The vars definition ID.
     /// * `value` - The new value to set.
     fn set_var(&mut self, id: u16, value: VarValue);
+
+    /// A script was aborted: `fault` says where, why and on whom, for staff.
+    fn script_error(&mut self, fault: ScriptFault);
+}
+
+/// A script that was aborted, as [`ScriptEngine::script_error`] hears of it.
+#[derive(Debug, Clone)]
+pub struct ScriptFault {
+    pub script: String,
+    pub file: String,
+    pub line: i32,
+    pub message: String,
+    pub trace: Vec<String>,
+    pub player: Option<PlayerUid>,
+    pub npc: Option<crate::NpcUid>,
 }
 
 /// Player-level operations available to the script VM.
@@ -746,6 +773,22 @@ pub trait ScriptPlayer {
     /// * `count` - How many of the obj.
     /// * `value` - Their worth in coins, as the script valued it.
     fn wealth_event(&mut self, event_type: i32, item: &str, count: i32, value: i32);
+
+    /// Logs items the player handed straight to another player from their
+    /// inventory `inv` (a trade offer, a duel stake), so staff can trace
+    /// where items went. Logged by the engine, whatever the script.
+    ///
+    /// # Arguments
+    /// * `inv` - The debug name of the inventory they left.
+    /// * `obj` - The obj type id.
+    /// * `count` - How many.
+    /// * `to37` - The base37 name of the player they went to.
+    fn log_handover(&mut self, inv: &str, obj: u16, count: i32, to37: u64);
+
+    /// Logs items the player dropped on the floor at `coord`, or with
+    /// `taken`, picked up from there, so a pickup can be matched to whoever
+    /// dropped it.
+    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: u16, count: i32);
 
     /// Sends the last-login info to the client (welcome screen): days since the
     /// previous login, recovery prompt code, and unread message count.

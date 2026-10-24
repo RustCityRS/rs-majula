@@ -1,7 +1,3 @@
-//! `/create`: register a player. The original's four steps (username, terms,
-//! password, finish) are kept, but carried in the forms themselves: each
-//! posts its `step` and the chosen username, which is re-checked every time.
-
 use crate::app::{App, AppError};
 use axum::Form;
 use axum::extract::{ConnectInfo, State};
@@ -10,15 +6,15 @@ use axum::response::Html;
 use minijinja::context;
 use rs_db::{NewPlayer, PlayerName, validate_name};
 use serde::Deserialize;
-use std::net::SocketAddr;
+use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
 use std::sync::atomic::Ordering;
-use tokio::task::spawn_blocking;
-use tracing::info;
+use tracing::{info, warn};
 
-/// Registrations allowed per IP per [`RATE_LIMIT_HOURS`].
-const RATE_LIMIT: i64 = 3;
-const RATE_LIMIT_HOURS: i32 = 1;
+/// Registrations allowed from one address (an IPv6 address's whole /64)
+/// in an hour, and in a day.
+const PER_HOUR: i64 = 3;
+const PER_DAY: i64 = 5;
 
 pub async fn form(State(app): State<Arc<App>>) -> Result<Html<String>, AppError> {
     username_page(&app, None)
@@ -36,6 +32,9 @@ pub struct CreateForm {
     password2: String,
     #[serde(default)]
     terms: String,
+    /// The Turnstile widget's token.
+    #[serde(default, rename = "cf-turnstile-response")]
+    challenge: String,
 }
 
 pub async fn submit(
@@ -45,7 +44,18 @@ pub async fn submit(
     Form(form): Form<CreateForm>,
 ) -> Result<Html<String>, AppError> {
     let ip = app.client_ip(&headers, peer);
-    if app.db.recent_registrations(ip, RATE_LIMIT_HOURS).await? >= RATE_LIMIT {
+    if !app.name_checks.allow(ip) {
+        app.metrics
+            .registrations_rate_limited
+            .fetch_add(1, Ordering::Relaxed);
+        return username_page(
+            &app,
+            Some("You have checked too many usernames. Please wait a minute and try again."),
+        );
+    }
+    if app.db.recent_registrations(ip, 1).await? >= PER_HOUR
+        || app.db.recent_registrations(ip, 24).await? >= PER_DAY
+    {
         app.metrics
             .registrations_rate_limited
             .fetch_add(1, Ordering::Relaxed);
@@ -66,13 +76,14 @@ pub async fn submit(
         "terms" => page(&app, "views/create/password.html", username, None),
         "password" => {
             if let Err(error) = check_password(&form) {
+                return page(&app, "views/create/password.html", username, Some(&error));
+            }
+            if let Err(error) = check_person(&app, &form.challenge, ip).await {
                 return page(&app, "views/create/password.html", username, Some(error));
             }
 
-            let passwords = app.passwords.clone();
             let password = form.password;
-            let Some(password_hash) = spawn_blocking(move || passwords.hash(&password)).await?
-            else {
+            let Some(password_hash) = app.with_passwords(move |p| p.hash(&password)).await? else {
                 return Err(anyhow::anyhow!("password hashing failed").into());
             };
             let created = app
@@ -132,30 +143,43 @@ fn taken(display: &str) -> String {
     format!("The username \"{display}\" is already taken.")
 }
 
-/// Passwords must be typeable at the game's login screen: its keyboard
-/// accepts printable ASCII except the backtick (plus `£`, left out here so
-/// its encoding can't differ between the site and the game).
-fn check_password(form: &CreateForm) -> Result<(), &'static str> {
-    let len = form.password.chars().count();
-    if !(5..=20).contains(&len) {
-        return Err("Your password must be between 5 and 20 characters long.");
-    }
-    if !form
-        .password
-        .chars()
-        .all(|c| (' '..='~').contains(&c) && c != '`')
-    {
-        return Err(
-            "Your password may only contain letters, numbers, spaces and keyboard symbols.",
-        );
-    }
-    if form.password != form.password2 {
-        return Err("Your passwords do not match.");
-    }
-    if form.terms != "yes" {
-        return Err("You must agree to the terms and conditions to create an account.");
+/// A new password, typed twice, by the game's rule ([`rs_db::check_new_password`]):
+/// 5 to 20 characters its login screen can type.
+pub(super) fn check_new_passwords(password: &str, again: &str) -> Result<(), String> {
+    rs_db::check_new_password(password).map_err(|e| e.to_string())?;
+    if password != again {
+        return Err("Your passwords do not match.".to_owned());
     }
     Ok(())
+}
+
+fn check_password(form: &CreateForm) -> Result<(), String> {
+    check_new_passwords(&form.password, &form.password2)?;
+    if form.terms != "yes" {
+        return Err("You must agree to the terms and conditions to create an account.".to_owned());
+    }
+    Ok(())
+}
+
+/// Passes if Turnstile is off or says `challenge` was solved from `ip`;
+/// otherwise the error to show.
+async fn check_person(app: &App, challenge: &str, ip: IpAddr) -> Result<(), &'static str> {
+    let Some(turnstile) = &app.turnstile else {
+        return Ok(());
+    };
+    match turnstile.passed(challenge, ip).await {
+        Ok(true) => Ok(()),
+        Ok(false) => {
+            app.metrics
+                .registrations_challenge_failed
+                .fetch_add(1, Ordering::Relaxed);
+            Err("Please wait for the security check to pass (or tick its box), then try again.")
+        }
+        Err(e) => {
+            warn!("Turnstile check failed: {e:#}");
+            Err("The security check couldn't be finished just now. Please try again in a moment.")
+        }
+    }
 }
 
 fn username_page(app: &App, error: Option<&str>) -> Result<Html<String>, AppError> {
@@ -169,7 +193,9 @@ fn page(
     username: &str,
     error: Option<&str>,
 ) -> Result<Html<String>, AppError> {
-    app.templates.render(template, context! { username, error })
+    let turnstile = app.turnstile.as_ref().map(|t| t.site_key());
+    app.templates
+        .render(template, context! { username, error, turnstile })
 }
 
 #[cfg(test)]
@@ -183,6 +209,7 @@ mod tests {
             password: password.into(),
             password2: password2.into(),
             terms: terms.into(),
+            challenge: String::new(),
         }
     }
 
@@ -194,7 +221,9 @@ mod tests {
         assert!(check_password(&form("four", "four", "yes")).is_err());
         assert!(check_password(&form(&"x".repeat(21), &"x".repeat(21), "yes")).is_err());
         assert!(check_password(&form("back`tick", "back`tick", "yes")).is_err());
-        assert!(check_password(&form("pound\u{a3}1", "pound\u{a3}1", "yes")).is_err());
+        // The login screen types a pound sign, and sends it as the same character.
+        assert!(check_password(&form("pound\u{a3}1", "pound\u{a3}1", "yes")).is_ok());
+        assert!(check_password(&form("caf\u{e9}12", "caf\u{e9}12", "yes")).is_err());
         assert!(check_password(&form("hunter2", "hunter3", "yes")).is_err());
         assert!(check_password(&form("hunter2", "hunter2", "")).is_err());
     }

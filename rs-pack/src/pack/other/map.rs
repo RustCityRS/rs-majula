@@ -1,3 +1,4 @@
+use super::worldmap::WorldmapBuilder;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
 use rs_io::Packet;
 use rs_io::bz2::bz2_compress_with_size;
@@ -7,16 +8,22 @@ use std::path::Path;
 use std::sync::Arc;
 use tracing::{debug, warn};
 
-type PackedMapSquare = (MapSquares, MapSquareCrcs, MapSquareCsv, MapSquareCsv);
+type PackedMapSquare = (
+    MapSquares,
+    MapSquareCrcs,
+    MapSquareCsv,
+    MapSquareCsv,
+    WorldmapBuilder,
+);
 
 #[derive(Clone, Copy)]
-struct TileData {
+pub(super) struct TileData {
     height: i32,
-    overlay: i32,
-    shape: i32,
-    rotation: i32,
-    flags: i32,
-    underlay: i32,
+    pub(super) overlay: i32,
+    pub(super) shape: i32,
+    pub(super) rotation: i32,
+    pub(super) flags: i32,
+    pub(super) underlay: i32,
 }
 
 impl TileData {
@@ -30,36 +37,36 @@ impl TileData {
     };
 }
 
-struct LocPlacement {
-    y: u8,
-    x: u8,
-    z: u8,
-    shape: u8,
-    angle: u8,
+pub(super) struct LocPlacement {
+    pub(super) y: u8,
+    pub(super) x: u8,
+    pub(super) z: u8,
+    pub(super) shape: u8,
+    pub(super) angle: u8,
 }
 
-struct NpcPlacement {
-    y: u8,
-    x: u8,
-    z: u8,
+pub(super) struct NpcPlacement {
+    pub(super) y: u8,
+    pub(super) x: u8,
+    pub(super) z: u8,
 }
 
-struct ObjPlacement {
-    y: u8,
-    x: u8,
-    z: u8,
+pub(super) struct ObjPlacement {
+    pub(super) y: u8,
+    pub(super) x: u8,
+    pub(super) z: u8,
     count: u16,
 }
 
 pub struct ParsedMap {
-    locs: HashMap<u16, Vec<LocPlacement>>,
-    npcs: HashMap<u16, Vec<NpcPlacement>>,
-    objs: HashMap<u16, Vec<ObjPlacement>>,
+    pub(super) locs: HashMap<u16, Vec<LocPlacement>>,
+    pub(super) npcs: HashMap<u16, Vec<NpcPlacement>>,
+    pub(super) objs: HashMap<u16, Vec<ObjPlacement>>,
 }
 
-const TILE_COUNT: usize = 4 * 64 * 64;
+pub(super) const TILE_COUNT: usize = 4 << 12;
 
-fn tile_index(y: usize, x: usize, z: usize) -> usize {
+pub(super) fn tile_index(y: usize, x: usize, z: usize) -> usize {
     y << 12 | x << 6 | z
 }
 
@@ -407,6 +414,11 @@ pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
+/// The key a zone (8x8 tiles) has in a `MapSquareCsv`.
+pub(super) fn zone_key(y: u8, x: u16, z: u16) -> u32 {
+    ((x >> 3) & 0x7FF) as u32 | ((((z >> 3) & 0x7FF) as u32) << 11) | (((y & 0x3) as u32) << 22)
+}
+
 fn load_csv_zones(path: &Path) -> MapSquareCsv {
     let mut set = HashSet::default();
     let Ok(content) = std::fs::read_to_string(path) else {
@@ -439,12 +451,7 @@ fn load_csv_zones(path: &Path) -> MapSquareCsv {
         if lx % 8 != 0 || lz % 8 != 0 {
             warn!("CSV map line not aligned to zone: {}", line);
         }
-        let x = (mx << 6) + lx;
-        let z = (mz << 6) + lz;
-        let zone_key = ((x >> 3) & 0x7FF) as u32
-            | ((((z >> 3) & 0x7FF) as u32) << 11)
-            | (((y & 0x3) as u32) << 22);
-        set.insert(zone_key);
+        set.insert(zone_key(y, (mx << 6) + lx, (mz << 6) + lz));
     }
     set
 }
@@ -478,13 +485,14 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
         multimap.len(),
         freemap.len()
     );
+    let mut worldmap = WorldmapBuilder::new(load_csv_zones(&maps_dir.join("ignore.csv")));
 
     if !maps_dir.exists() {
-        return (mapsquares, mapcrcs, multimap, freemap);
+        return (mapsquares, mapcrcs, multimap, freemap, worldmap);
     }
 
     let Ok(entries) = std::fs::read_dir(&maps_dir) else {
-        return (mapsquares, mapcrcs, multimap, freemap);
+        return (mapsquares, mapcrcs, multimap, freemap, worldmap);
     };
 
     let mut jm2_files: Vec<_> = entries
@@ -533,6 +541,7 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
         };
 
         let map_data = read_map(&file_bytes, &mut tiles);
+        worldmap.add_square(map_x, map_z, &tiles, &map_data);
 
         encode_terrain(&tiles, &mut terrain_buf);
         let terrain_compressed = bz2_compress_with_size(&terrain_buf.data[..terrain_buf.pos]);
@@ -566,5 +575,5 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
     }
 
     debug!("Packed {} map squares ({} files)", count, mapsquares.len());
-    (mapsquares, mapcrcs, multimap, freemap)
+    (mapsquares, mapcrcs, multimap, freemap, worldmap)
 }

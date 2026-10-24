@@ -1,4 +1,5 @@
 use crate::app::{App, AppError};
+use crate::news_render;
 use axum::extract::{Path, Query, State};
 use axum::response::{IntoResponse, Redirect, Response};
 use minijinja::context;
@@ -7,6 +8,8 @@ use serde::Deserialize;
 use std::sync::Arc;
 
 const PAGE_SIZE: i64 = 17;
+/// The most of a post's text its link preview shows.
+const PREVIEW_CHARS: usize = 200;
 
 #[derive(Deserialize)]
 pub struct NewsQuery {
@@ -72,14 +75,19 @@ pub async fn post(
     let Ok(id) = id.parse::<i32>() else {
         return Ok(Redirect::to("/news").into_response());
     };
-    let Some(post) = app.db.news_post(id).await? else {
+    let Some(mut post) = app.db.news_post(id).await? else {
         return Ok(Redirect::to("/news").into_response());
     };
+    // Cleaned again as shown: a post written straight to the table may
+    // hold anything.
+    post.content = news_render::sanitize(&post.content);
     let categories = app.db.news_categories().await?;
 
     let html = app.templates.render(
         "views/news/post.html",
         context! {
+            excerpt => news_render::excerpt(&post.content, PREVIEW_CHARS),
+            image => news_render::first_image(&post.content),
             heading => format!("Latest {} News", post.category_name),
             prev_href => post.prev_id.map(|id| format!("/news/{id}")),
             next_href => post.next_id.map(|id| format!("/news/{id}")),
