@@ -2818,7 +2818,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "rs-admin"
+name = "rs-admin-api"
+version = "0.1.13"
+dependencies = [
+ "hmac",
+ "serde",
+ "sha2 0.11.1",
+]
+
+[[package]]
+name = "rs-cam"
+version = "0.1.13"
+dependencies = [
+ "rs-datastruct",
+ "rs-ver",
+ "rs-vm",
+]
+
+[[package]]
+name = "rs-console"
 version = "0.1.13"
 dependencies = [
  "anyhow",
@@ -2842,24 +2860,6 @@ dependencies = [
  "tower-http 0.7.1",
  "tracing",
  "tracing-subscriber",
-]
-
-[[package]]
-name = "rs-admin-api"
-version = "0.1.13"
-dependencies = [
- "hmac",
- "serde",
- "sha2 0.11.1",
-]
-
-[[package]]
-name = "rs-cam"
-version = "0.1.13"
-dependencies = [
- "rs-datastruct",
- "rs-ver",
- "rs-vm",
 ]
 
 [[package]]

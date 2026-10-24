@@ -70,6 +70,8 @@ pub struct App {
 impl App {
     pub fn cookie_name(&self) -> &'static str {
         // `__Host-` makes the browser insist on Secure, Path=/ and no Domain.
+        // Named `rs-admin`, as are the page's stored settings and replays:
+        // renaming it would sign every staff member out.
         if self.config.https {
             "__Host-rs-admin"
         } else {

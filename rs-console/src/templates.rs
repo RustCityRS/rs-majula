@@ -460,7 +460,7 @@ mod tests {
 
     #[test]
     fn offences_are_appended_and_trimmed_now_and_then() {
-        let dir = std::env::temp_dir().join(format!("rs-admin-offences-{}", now_ms()));
+        let dir = std::env::temp_dir().join(format!("rs-console-offences-{}", now_ms()));
         let path = dir.join("offences.jsonl");
         fs::create_dir_all(&dir).unwrap();
         // The whole-file JSON from before is read in.

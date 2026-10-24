@@ -1016,7 +1016,7 @@ mod tests {
     use super::*;
 
     fn temp_log(tag: &str) -> PathBuf {
-        std::env::temp_dir().join(format!("rs-admin-cases-{tag}-{}.jsonl", now_ms()))
+        std::env::temp_dir().join(format!("rs-console-cases-{tag}-{}.jsonl", now_ms()))
     }
 
     fn chat(id: i64) -> Evidence {

@@ -15,8 +15,8 @@ members = [
     "rs-engine/rs-info",
     "rs-engine/rs-timer",
     "rs-engine/rs-stat",
-    "rs-admin",
-    "rs-admin/api",
+    "rs-console",
+    "rs-console/api",
     "rs-db",
     "rs-pack",
     "rs-protocol",
@@ -124,7 +124,7 @@ rs-timer = { path = "rs-engine/rs-timer" }
 rs-stat = { path = "rs-engine/rs-stat" }
 rs-pack = { path = "rs-pack" }
 rs-db = { path = "rs-db" }
-rs-admin-api = { path = "rs-admin/api" }
+rs-admin-api = { path = "rs-console/api" }
 rs-ver = { path = "rs-ver" }
 
 [workspace.lints]

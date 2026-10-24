@@ -195,7 +195,7 @@ cargo run -p rs-web   # http://localhost:8000
 
 ## Running the staff console
 
-`rs-admin` is a web console for running every world from one place, phones
+`rs-console` is a web console for running every world from one place, phones
 included. It talks to each world's private admin API, never the database, and
 only game staff get accounts.
 
@@ -203,8 +203,8 @@ only game staff get accounts.
 
 ```bash
 cargo world1                                                # a world; its admin API is on 8280
-cargo run -p rs-admin -- user add <name> --role maintainer   # asks for a password (12+ characters)
-cargo run -p rs-admin                                       # http://127.0.0.1:8150
+cargo run -p rs-console -- user add <name> --role maintainer   # asks for a password (12+ characters)
+cargo run -p rs-console                                       # http://127.0.0.1:8150
 ```
 
 `<name>` must be a player with staff level 1 or more (`user add` asks a world
@@ -227,7 +227,7 @@ Roles match the game's staff levels, and each one adds to the one above it.
 Nobody can moderate staff at or above their own level, or see the recordings,
 chat, timeline, addresses or other logs of staff above them.
 
-Manage accounts on the Staff page, or with `rs-admin user
+Manage accounts on the Staff page, or with `rs-console user
 list|add|passwd|role|reset-2fa|disable|enable|remove`. Changing a password,
 role or authenticator signs that account out everywhere.
 
@@ -351,11 +351,11 @@ and your time zone follow your account.
   Requests are HMAC-signed with `RS_ADMIN_SECRET`, which the console and every
   world share. Mutes and bans go through a world exactly like `::mute` and
   `::ban`. Lookups are answered by any online world from the game database.
-- **`rs-admin/worlds.json`** lists the worlds and their admin API `url`s
+- **`rs-console/worlds.json`** lists the worlds and their admin API `url`s
   (private, unlike `rs-web/worlds.json`). A world's `client` is its public web
   address, which replays need. Its `unit` is its systemd unit, which Start
   needs.
-- **Data** lives in `rs-admin/data/` (`RS_ADMIN_DATA` or `--data-dir` moves
+- **Data** lives in `rs-console/data/` (`RS_ADMIN_DATA` or `--data-dir` moves
   it). Back up the whole folder.
 
   | File | Holds |
@@ -537,9 +537,9 @@ before `migrate`).
 | `--db-pass <DB_PASS>`         | `RS_DB_PASS`; `password` in debug only | Postgres password. Required in release builds.                                                      |
 | `--pepper <PEPPER>`           | `RS_PEPPER`; `localhost` in debug only | Server-side pepper for password hashing. Required in release builds.                                |
 | `--cookie <COOKIE>`           | `RS_COOKIE`; `rs_secret` in debug only | Erlang cookie shared by every ether node in the cluster. Required in release builds.                |
-| `--admin-port <ADMIN_PORT>`   | `8270 + node_id` (`8280`)   | Private admin API the staff console (`rs-admin`) calls. `0` turns it off.                                     |
+| `--admin-port <ADMIN_PORT>`   | `8270 + node_id` (`8280`)   | Private admin API the staff console (`rs-console`) calls. `0` turns it off.                                     |
 | `--admin-host <ADMIN_HOST>`   | `127.0.0.1`                 | Bind address for the admin API. Keep it private (loopback or the Tailscale address).                          |
-| `--admin-secret <SECRET>`     | `RS_ADMIN_SECRET`; `rs_admin` in debug only | Shared with `rs-admin`, which signs every request with it. Required in release builds.        |
+| `--admin-secret <SECRET>`     | `RS_ADMIN_SECRET`; `rs_admin` in debug only | Shared with `rs-console`, which signs every request with it. Required in release builds.        |
 | `--node-host <NODE_HOST>`     | `127.0.0.1` (`RS_NODE_HOST`) | Host part of this world's ether node name (`world<id>@<host>`); other worlds must be able to reach it.       |
 | `--cluster <CLUSTER>`         | `""` (`RS_CLUSTER_HOSTS`)   | Comma-separated ether node list (e.g. `world10@10.0.0.5,world11@10.0.0.6`). Empty means `world10`..`world20` on `--node-host`. |
 | `--ether-release <PATH>`      | unset (`RS_ETHER_RELEASE`)  | A built ether release (`rs-ether/_build/prod/rel/rs_ether`) to run instead of `mix` from source.               |
@@ -600,14 +600,14 @@ node; the nodes mesh into one cluster for cross-world social features.
    `proxy_set_header X-Real-IP $remote_addr;`), start the world with
    `--real-ip-header x-real-ip`, and bind it where only the proxy can reach it
    (e.g. `--host 127.0.0.1`).
-8. **Run one staff console, privately.** Put `rs-admin` on a host that can
+8. **Run one staff console, privately.** Put `rs-console` on a host that can
    reach every world's admin API over the private network (on the worlds'
    host, they can stay on `127.0.0.1`), with the same `RS_ADMIN_SECRET` and
    `RS_ADMIN_DATA` on persistent disk. List the worlds' private admin URLs in
    a worlds file passed with `--worlds`. Serve it over HTTPS on the private
    network only (e.g. `tailscale serve --bg 8150`), start it with
    `--https true --origin https://<that host>`, and create the first account
-   with `rs-admin user add <name> --role maintainer` (in the console's
+   with `rs-console user add <name> --role maintainer` (in the console's
    environment and with its `--worlds`, since it asks a world whether they're
    game staff, so with the worlds up). Never expose it or an
    admin API to the internet. Worlds restart after a console reboot only if

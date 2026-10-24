@@ -50,9 +50,9 @@ use std::time::Duration;
 use tracing::{info, warn};
 
 #[derive(Parser, Debug)]
-#[command(name = "rs-admin", about = "The staff console")]
+#[command(name = "rs-console", about = "The staff console")]
 struct Args {
-    #[arg(long, env = "RS_ADMIN_DATA", default_value = "rs-admin/data")]
+    #[arg(long, env = "RS_ADMIN_DATA", default_value = "rs-console/data")]
     data_dir: PathBuf,
     #[command(subcommand)]
     command: Option<Cmd>,
@@ -66,7 +66,7 @@ struct ServeArgs {
     host: String,
     #[arg(long, default_value = "8150")]
     port: u16,
-    #[arg(long, default_value = "rs-admin/worlds.json")]
+    #[arg(long, default_value = "rs-console/worlds.json")]
     worlds: PathBuf,
     #[arg(long, default_value_t = false, action = clap::ArgAction::Set)]
     https: bool,
@@ -294,7 +294,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     let accounts = users.all()?;
     if !accounts.iter().any(|u| u.role.can_command() && !u.disabled) {
         warn!(
-            "No admin account yet; add one with `rs-admin user add <name> --role admin` (accounts: {})",
+            "No admin account yet; add one with `rs-console user add <name> --role admin` (accounts: {})",
             users.path().display()
         );
     }

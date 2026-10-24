@@ -181,7 +181,7 @@ mod tests {
 
     #[test]
     fn notes_rebuild_and_only_their_author_or_an_admin_removes_them() {
-        let path = std::env::temp_dir().join(format!("rs-admin-notes-{}.jsonl", now_ms()));
+        let path = std::env::temp_dir().join(format!("rs-console-notes-{}.jsonl", now_ms()));
         let notes = Notes::open(path.clone());
         let first = notes
             .add("Ash", "Bob", "Asks for gold a lot", false)

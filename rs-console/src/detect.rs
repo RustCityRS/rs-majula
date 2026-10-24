@@ -547,7 +547,7 @@ mod tests {
     use std::path::PathBuf;
 
     fn temp_log(tag: &str) -> PathBuf {
-        std::env::temp_dir().join(format!("rs-admin-detect-{tag}-{}.jsonl", now_ms()))
+        std::env::temp_dir().join(format!("rs-console-detect-{tag}-{}.jsonl", now_ms()))
     }
 
     fn session(id: &str, player: &str, score: i16, flags: &[&str]) -> ReplaySummary {

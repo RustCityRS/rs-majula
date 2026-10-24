@@ -75,7 +75,7 @@ mod tests {
 
     #[test]
     fn marks_replace_and_old_ones_go() {
-        let path = env::temp_dir().join(format!("rs-admin-fixed-{}.json", process::id()));
+        let path = env::temp_dir().join(format!("rs-console-fixed-{}.json", process::id()));
         let _ = fs::remove_file(&path);
         let fixed = FixedErrors::open(path.clone());
         fixed.set("[proc,a]", 1, "boom", Some(("Ash", 0))).unwrap();

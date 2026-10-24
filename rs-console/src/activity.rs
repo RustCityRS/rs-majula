@@ -210,7 +210,7 @@ mod tests {
 
     #[test]
     fn activity_counts_commands_cases_and_appeals() {
-        let path = std::env::temp_dir().join(format!("rs-admin-activity-{}.jsonl", now_ms()));
+        let path = std::env::temp_dir().join(format!("rs-console-activity-{}.jsonl", now_ms()));
         let cases = Cases::open(path.clone());
         let opened = cases
             .create("Kim", "Spam".into(), "Bob".into(), Priority::Normal, vec![])

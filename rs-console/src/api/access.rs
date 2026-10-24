@@ -410,7 +410,7 @@ mod tests {
 
         // The case log: a peer's case seen only once they're on it.
         let path = std::env::temp_dir().join(format!(
-            "rs-admin-caseview-{}.jsonl",
+            "rs-console-caseview-{}.jsonl",
             crate::users::now_ms()
         ));
         let log = crate::cases::Cases::open(path.clone());

@@ -97,7 +97,7 @@ mod tests {
 
     #[test]
     fn keeps_the_longest_copy() {
-        let dir = std::env::temp_dir().join(format!("rs-admin-clips-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("rs-console-clips-{}", std::process::id()));
         let clips = Clips::new(dir.clone());
         assert_eq!(file_duration(&file(5000)), Some(5000));
         assert_eq!(file_duration(b"short"), None);

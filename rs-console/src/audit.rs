@@ -577,7 +577,7 @@ mod tests {
 
     #[test]
     fn lookups_made_together_share_one_entry_and_repeats_none() {
-        let path = std::env::temp_dir().join(format!("rs-admin-lookups-{}.jsonl", now_ms()));
+        let path = std::env::temp_dir().join(format!("rs-console-lookups-{}.jsonl", now_ms()));
         let ip = IpAddr::V4(Ipv4Addr::LOCALHOST);
         let audit = Audit::open(path.clone());
         let look = |action, target: &str| {
@@ -616,7 +616,7 @@ mod tests {
 
     #[test]
     fn entries_survive_a_restart_and_page_newest_first() {
-        let path = std::env::temp_dir().join(format!("rs-admin-audit-{}.jsonl", now_ms()));
+        let path = std::env::temp_dir().join(format!("rs-console-audit-{}.jsonl", now_ms()));
         let ip = IpAddr::V4(Ipv4Addr::LOCALHOST);
         let audit = Audit::open(path.clone());
         for i in 0..5 {
@@ -635,7 +635,7 @@ mod tests {
     }
 
     fn temp_path(name: &str) -> PathBuf {
-        std::env::temp_dir().join(format!("rs-admin-audit-{name}-{}.jsonl", now_ms()))
+        std::env::temp_dir().join(format!("rs-console-audit-{name}-{}.jsonl", now_ms()))
     }
 
     fn targets(entries: &[Entry]) -> Vec<(u64, String)> {

@@ -311,7 +311,7 @@ mod tests {
 
     #[test]
     fn file_changes_round_trip() {
-        let dir = std::env::temp_dir().join(format!("rs-admin-users-{}", now_ms()));
+        let dir = std::env::temp_dir().join(format!("rs-console-users-{}", now_ms()));
         let users = Users::new(dir.join("users.json"));
         users
             .add(User {

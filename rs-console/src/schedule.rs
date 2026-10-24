@@ -329,7 +329,7 @@ mod tests {
 
     #[test]
     fn nothing_due_writes_nothing() {
-        let path = std::env::temp_dir().join(format!("rs-admin-schedule-{}.json", now_ms()));
+        let path = std::env::temp_dir().join(format!("rs-console-schedule-{}.json", now_ms()));
         let schedule = Schedule::open(path.clone());
         let job = |next_ms| Job {
             id: 0,
