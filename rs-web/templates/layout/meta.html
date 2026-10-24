@@ -2,7 +2,7 @@
     and the preview other sites (Discord, search) show of a link to it.
     Takes `title`, and optionally `og_description` and `og_image` (a path on
     this site, or a full URL). -#}
-{%- set description = og_description if og_description else "A fan-made recreation that preserves RuneScape as it was in 2004." %}
+{%- set description = og_description if og_description else "A fan-made recreation that preserves RuneScape as it was in " ~ game_year ~ "." %}
 {%- set image = og_image if og_image else "/img/title/rslogo.gif" %}
         {#- The pages are a 600px frame: phones scale all of it to fit. A page
             laid out for another width gives it as `viewport_width`. #}

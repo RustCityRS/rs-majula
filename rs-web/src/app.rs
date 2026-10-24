@@ -82,17 +82,16 @@ impl App {
 }
 
 impl SiteConfig {
-    /// See [`App::base_url`].
+    /// See [`App::base_url`]. The site doesn't serve HTTPS itself, so with
+    /// `https` it's behind a proxy on the standard port, whatever `port` it
+    /// listens on.
     pub fn base_url(&self) -> String {
-        let (scheme, default_port) = if self.https {
-            ("https", 443)
+        if self.https {
+            format!("https://{}", self.public_host)
+        } else if self.port == 80 {
+            format!("http://{}", self.public_host)
         } else {
-            ("http", 80)
-        };
-        if self.port == default_port {
-            format!("{scheme}://{}", self.public_host)
-        } else {
-            format!("{scheme}://{}:{}", self.public_host, self.port)
+            format!("http://{}:{}", self.public_host, self.port)
         }
     }
 }
@@ -117,5 +116,27 @@ impl IntoResponse for AppError {
     fn into_response(self) -> Response {
         error!("{:#}", self.0);
         (StatusCode::INTERNAL_SERVER_ERROR, "Internal Server Error").into_response()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn site(https: bool, port: u16) -> SiteConfig {
+        SiteConfig {
+            https,
+            public_host: "rustcity.org".to_owned(),
+            port,
+            real_ip_header: None,
+        }
+    }
+
+    #[test]
+    fn base_url_leaves_out_ports_a_visitor_never_uses() {
+        // Behind a TLS proxy, the port it listens on isn't the public one.
+        assert_eq!(site(true, 8000).base_url(), "https://rustcity.org");
+        assert_eq!(site(false, 80).base_url(), "http://rustcity.org");
+        assert_eq!(site(false, 8000).base_url(), "http://rustcity.org:8000");
     }
 }

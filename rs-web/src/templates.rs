@@ -47,12 +47,24 @@ impl Templates {
         env.set_auto_reload(cfg!(debug_assertions));
         env.add_global("https_enabled", https);
         env.add_global("site_url", site_url.to_owned());
+        // The year the game (and the site it recreates) is from.
+        let year = if overlays.contains(&"since_289") {
+            "2005"
+        } else {
+            "2004"
+        };
+        env.add_global("game_year", year);
         env.add_filter("commas", commas);
         Self { env }
     }
 
     pub fn render(&self, name: &str, ctx: Value) -> Result<Html<String>, AppError> {
-        Ok(Html(self.env.get_template(name)?.render(ctx)?))
+        Ok(Html(self.render_text(name, ctx)?))
+    }
+
+    /// [`Templates::render`] for a template that isn't a page.
+    pub fn render_text(&self, name: &str, ctx: Value) -> Result<String, AppError> {
+        Ok(self.env.get_template(name)?.render(ctx)?)
     }
 
     /// Renders `name` if it exists; `None` if there is no such template.

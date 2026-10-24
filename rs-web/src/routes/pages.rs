@@ -1,6 +1,6 @@
 use crate::app::{App, AppError};
 use axum::extract::{Query, State};
-use axum::http::{StatusCode, Uri};
+use axum::http::{StatusCode, Uri, header};
 use axum::response::{IntoResponse, Response};
 use minijinja::context;
 use minijinja::value::Serde;
@@ -76,6 +76,15 @@ pub async fn worldmap(State(app): State<Arc<App>>) -> Result<Response, AppError>
         context! { world => world.map(Serde) },
     )?;
     Ok(html.into_response())
+}
+
+/// `/manifest.webmanifest`, which makes the site installable as an app.
+/// Its `id` names the installed app, so it must never change.
+pub async fn manifest(State(app): State<Arc<App>>) -> Result<Response, AppError> {
+    let body = app
+        .templates
+        .render_text("views/manifest.webmanifest", context! {})?;
+    Ok(([(header::CONTENT_TYPE, "application/manifest+json")], body).into_response())
 }
 
 fn render_first(app: &App, names: &[String]) -> Result<Response, AppError> {
