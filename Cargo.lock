@@ -2692,7 +2692,7 @@ dependencies = [
 
 [[package]]
 name = "rs-admin-api"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "hmac",
  "serde",
@@ -2701,7 +2701,7 @@ dependencies = [
 
 [[package]]
 name = "rs-cam"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-datastruct",
  "rs-ver",
@@ -2710,7 +2710,7 @@ dependencies = [
 
 [[package]]
 name = "rs-console"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "anyhow",
  "argon2",
@@ -2749,14 +2749,14 @@ dependencies = [
 
 [[package]]
 name = "rs-datastruct"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-db"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "argon2",
  "rs-stat",
@@ -2768,7 +2768,7 @@ dependencies = [
 
 [[package]]
 name = "rs-engine"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "flate2",
  "num_enum",
@@ -2800,7 +2800,7 @@ dependencies = [
 
 [[package]]
 name = "rs-entity"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-cam",
  "rs-grid",
@@ -2820,21 +2820,21 @@ dependencies = [
 
 [[package]]
 name = "rs-grid"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-hero"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-info"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-io",
  "rs-protocol",
@@ -2843,7 +2843,7 @@ dependencies = [
 
 [[package]]
 name = "rs-inv"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-ver",
 ]
@@ -2861,7 +2861,7 @@ dependencies = [
 
 [[package]]
 name = "rs-pack"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "anyhow",
  "clap",
@@ -2889,7 +2889,7 @@ dependencies = [
 
 [[package]]
 name = "rs-protocol"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-io",
  "rs-protocol-macros",
@@ -2898,7 +2898,7 @@ dependencies = [
 
 [[package]]
 name = "rs-protocol-macros"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2907,7 +2907,7 @@ dependencies = [
 
 [[package]]
 name = "rs-queue"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-datastruct",
  "rs-ver",
@@ -2927,7 +2927,7 @@ dependencies = [
 
 [[package]]
 name = "rs-server"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "anyhow",
  "axum",
@@ -2963,11 +2963,11 @@ dependencies = [
 
 [[package]]
 name = "rs-stat"
-version = "0.1.13"
+version = "0.1.14"
 
 [[package]]
 name = "rs-timer"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-ver",
  "rs-vm",
@@ -2976,14 +2976,14 @@ dependencies = [
 
 [[package]]
 name = "rs-util"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-var"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-pack",
  "rs-ver",
@@ -2991,11 +2991,11 @@ dependencies = [
 
 [[package]]
 name = "rs-ver"
-version = "0.1.13"
+version = "0.1.14"
 
 [[package]]
 name = "rs-vm"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "itoa",
  "num_enum",
@@ -3011,7 +3011,7 @@ dependencies = [
 
 [[package]]
 name = "rs-web"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "ammonia",
  "anyhow",
@@ -3037,7 +3037,7 @@ dependencies = [
 
 [[package]]
 name = "rs-zone"
-version = "0.1.13"
+version = "0.1.14"
 dependencies = [
  "rs-entity",
  "rs-grid",
