@@ -6,14 +6,15 @@ use axum::response::Html;
 use minijinja::context;
 use rs_db::{NewPlayer, PlayerName, validate_name};
 use serde::Deserialize;
-use std::net::SocketAddr;
+use std::net::{IpAddr, SocketAddr};
 use std::sync::Arc;
 use std::sync::atomic::Ordering;
-use tracing::info;
+use tracing::{info, warn};
 
-/// Registrations allowed per IP per [`RATE_LIMIT_HOURS`].
-const RATE_LIMIT: i64 = 3;
-const RATE_LIMIT_HOURS: i32 = 1;
+/// Registrations allowed from one address (an IPv6 address's whole /64)
+/// in an hour, and in a day.
+const PER_HOUR: i64 = 3;
+const PER_DAY: i64 = 5;
 
 pub async fn form(State(app): State<Arc<App>>) -> Result<Html<String>, AppError> {
     username_page(&app, None)
@@ -31,6 +32,9 @@ pub struct CreateForm {
     password2: String,
     #[serde(default)]
     terms: String,
+    /// The Turnstile widget's token.
+    #[serde(default, rename = "cf-turnstile-response")]
+    challenge: String,
 }
 
 pub async fn submit(
@@ -40,7 +44,9 @@ pub async fn submit(
     Form(form): Form<CreateForm>,
 ) -> Result<Html<String>, AppError> {
     let ip = app.client_ip(&headers, peer);
-    if app.db.recent_registrations(ip, RATE_LIMIT_HOURS).await? >= RATE_LIMIT {
+    if app.db.recent_registrations(ip, 1).await? >= PER_HOUR
+        || app.db.recent_registrations(ip, 24).await? >= PER_DAY
+    {
         app.metrics
             .registrations_rate_limited
             .fetch_add(1, Ordering::Relaxed);
@@ -62,6 +68,9 @@ pub async fn submit(
         "password" => {
             if let Err(error) = check_password(&form) {
                 return page(&app, "views/create/password.html", username, Some(&error));
+            }
+            if let Err(error) = check_person(&app, &form.challenge, ip).await {
+                return page(&app, "views/create/password.html", username, Some(error));
             }
 
             let password = form.password;
@@ -143,6 +152,27 @@ fn check_password(form: &CreateForm) -> Result<(), String> {
     Ok(())
 }
 
+/// Passes if Turnstile is off or says `challenge` was solved from `ip`;
+/// otherwise the error to show.
+async fn check_person(app: &App, challenge: &str, ip: IpAddr) -> Result<(), &'static str> {
+    let Some(turnstile) = &app.turnstile else {
+        return Ok(());
+    };
+    match turnstile.passed(challenge, ip).await {
+        Ok(true) => Ok(()),
+        Ok(false) => {
+            app.metrics
+                .registrations_challenge_failed
+                .fetch_add(1, Ordering::Relaxed);
+            Err("Please wait for the security check to pass (or tick its box), then try again.")
+        }
+        Err(e) => {
+            warn!("Turnstile check failed: {e:#}");
+            Err("The security check couldn't be finished just now. Please try again in a moment.")
+        }
+    }
+}
+
 fn username_page(app: &App, error: Option<&str>) -> Result<Html<String>, AppError> {
     app.templates
         .render("views/create/username.html", context! { error })
@@ -154,7 +184,9 @@ fn page(
     username: &str,
     error: Option<&str>,
 ) -> Result<Html<String>, AppError> {
-    app.templates.render(template, context! { username, error })
+    let turnstile = app.turnstile.as_ref().map(|t| t.site_key());
+    app.templates
+        .render(template, context! { username, error, turnstile })
 }
 
 #[cfg(test)]
@@ -168,6 +200,7 @@ mod tests {
             password: password.into(),
             password2: password2.into(),
             terms: terms.into(),
+            challenge: String::new(),
         }
     }
 

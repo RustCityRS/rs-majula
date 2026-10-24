@@ -130,8 +130,13 @@
 {% call section("Services we use") %}
 <p>We rent our servers from netcup. We send server metrics (such as tick
     times and request counts) and our servers' own logs to Grafana Cloud, so we can tell when something is wrong. Those
-    logs include connection addresses, and sometimes usernames. Nobody else gets your information unless the law
-    requires it.</p>
+    logs include connection addresses, and sometimes usernames.</p>
+<p>The last step of making an account has a security check from
+    <a href="https://www.cloudflare.com/application-services/products/turnstile/" class=c>Cloudflare Turnstile</a>, to
+    stop scripts making accounts in bulk. It runs in your browser, which sends Cloudflare details about itself, and we
+    send Cloudflare your internet address with the check's answer. Cloudflare handles these under its
+    <a href="https://www.cloudflare.com/turnstile-privacy-policy/" class=c>Turnstile privacy policy</a>, and tells us
+    only whether the check passed. Nobody else gets your information unless the law requires it.</p>
 <p>Everything we keep is stored in the United States: our servers are in netcup's US data centre, and our Grafana Cloud
     account is in a US region. If you play from another country, your information is sent to the US to be stored
     there.</p>

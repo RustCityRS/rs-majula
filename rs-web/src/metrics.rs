@@ -52,6 +52,7 @@ pub struct Metrics {
     requests: Mutex<Requests>,
     pub registrations: AtomicU64,
     pub registrations_rate_limited: AtomicU64,
+    pub registrations_challenge_failed: AtomicU64,
 }
 
 impl Default for Metrics {
@@ -63,6 +64,7 @@ impl Default for Metrics {
             requests: Mutex::default(),
             registrations: AtomicU64::new(0),
             registrations_rate_limited: AtomicU64::new(0),
+            registrations_challenge_failed: AtomicU64::new(0),
         }
     }
 }
@@ -158,6 +160,17 @@ impl Metrics {
             "rs_web_registrations_rate_limited_total {}",
             self.registrations_rate_limited.load(Ordering::Relaxed)
         );
+        family(
+            out,
+            "rs_web_registrations_challenge_failed_total",
+            "counter",
+            "/create submissions refused by the Turnstile check.",
+        );
+        let _ = writeln!(
+            out,
+            "rs_web_registrations_challenge_failed_total {}",
+            self.registrations_challenge_failed.load(Ordering::Relaxed)
+        );
 
         family(
             out,
@@ -250,6 +263,7 @@ mod tests {
             "rs_web_request_duration_seconds_count{route=\"/create\"} 1",
             "rs_web_registrations_total 1",
             "rs_web_registrations_rate_limited_total 0",
+            "rs_web_registrations_challenge_failed_total 0",
         ] {
             assert!(out.contains(line), "missing {line}");
         }

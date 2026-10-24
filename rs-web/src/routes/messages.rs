@@ -1,10 +1,3 @@
-//! The Message Centre: messages staff send a player, which they read here.
-//! One way only: players can't reply. The site keeps no session, so after
-//! one sign-in each page carries a short-lived token (see [`SignInTokens`])
-//! in a hidden field of its forms, to move between the list and a message.
-//!
-//! [`SignInTokens`]: crate::token::SignInTokens
-
 use super::appeal::clean_statement;
 use super::sign_in::{SignIn, sign_in};
 use crate::app::{App, AppError};

@@ -1,0 +1,28 @@
+{# Cloudflare Turnstile's check as a row of a form's table; `turnstile` is
+   its site key, and the row is left out when the check is off. The widget
+   stays hidden unless the visitor has to click it; a line of text says how
+   the check is going instead. #}
+{% if turnstile %}
+<tr>
+  <td align=right valign=top>Security check:</td>
+  <td>
+    <span id="turnstile-status"></span>
+    <noscript>Needs JavaScript turned on.</noscript>
+    <script>
+      function turnstileStatus(text) {
+        document.getElementById("turnstile-status").textContent = text;
+      }
+      turnstileStatus("Checking your browser...");
+      function turnstilePassed() { turnstileStatus("Passed"); }
+      function turnstileWaiting() { turnstileStatus("Checking your browser..."); }
+      function turnstileAsk() { turnstileStatus("Please tick the box below."); }
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    {# Cloudflare's smallest size is 300x65; scaled down to sit with the
+       form's fields. #}
+    <div class="cf-turnstile" style="zoom: 0.75" data-sitekey="{{ turnstile }}" data-action="register"
+      data-theme="dark" data-appearance="interaction-only" data-callback="turnstilePassed"
+      data-expired-callback="turnstileWaiting" data-before-interactive-callback="turnstileAsk"></div>
+  </td>
+</tr>
+{% endif %}

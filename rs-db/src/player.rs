@@ -146,11 +146,14 @@ impl Db {
             .await
     }
 
-    /// How many players were registered from `ip` in the last `hours`.
+    /// How many players were registered from `ip` in the last `hours`. An
+    /// IPv6 address counts with the rest of its /64, which one household or
+    /// phone is handed whole.
     pub async fn recent_registrations(&self, ip: IpAddr, hours: i32) -> Result<i64, Error> {
         sqlx::query_scalar(
             "SELECT count(*) FROM players
-             WHERE registration_ip = $1::inet
+             WHERE registration_ip <<= network(set_masklen($1::inet,
+                     CASE family($1::inet) WHEN 6 THEN 64 ELSE 32 END))
                AND created_at > now() - make_interval(hours => $2)",
         )
         .bind(ip.to_string())

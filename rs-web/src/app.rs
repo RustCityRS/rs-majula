@@ -1,6 +1,7 @@
 use crate::metrics::Metrics;
 use crate::templates::Templates;
 use crate::token::SignInTokens;
+use crate::turnstile::Turnstile;
 use crate::worlds::{LiveWorlds, World};
 use axum::http::{HeaderMap, HeaderName, StatusCode};
 use axum::response::{IntoResponse, Response};
@@ -24,6 +25,8 @@ pub struct App {
     pub templates: Templates,
     /// The Message Centre's sign-ins, carried from page to page.
     pub tokens: SignInTokens,
+    /// Registration's person check; `None` leaves it off.
+    pub turnstile: Option<Turnstile>,
     pub worlds: Vec<World>,
     pub live_worlds: LiveWorlds,
     pub wordenc: Option<WordEncProvider>,

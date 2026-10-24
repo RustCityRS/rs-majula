@@ -865,6 +865,13 @@ async fn registrations_are_counted_per_ip(pool: PgPool) {
     assert!(!db.name_taken(99).await.unwrap());
     assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 2);
     assert_eq!(db.recent_registrations(other, 1).await.unwrap(), 1);
+    // IPv6 counts by /64, and IPv4 by the address alone.
+    let neighbour: std::net::IpAddr = "2001:db8::ffff:1".parse().unwrap();
+    let next_net: std::net::IpAddr = "2001:db8:0:1::1".parse().unwrap();
+    assert_eq!(db.recent_registrations(neighbour, 1).await.unwrap(), 1);
+    assert_eq!(db.recent_registrations(next_net, 1).await.unwrap(), 0);
+    let next_ip: std::net::IpAddr = "203.0.113.8".parse().unwrap();
+    assert_eq!(db.recent_registrations(next_ip, 1).await.unwrap(), 0);
 
     // Registrations older than the window don't count.
     sqlx::query("UPDATE players SET created_at = now() - interval '2 hours' WHERE name_hash = 1")
@@ -872,6 +879,7 @@ async fn registrations_are_counted_per_ip(pool: PgPool) {
         .await
         .unwrap();
     assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 1);
+    assert_eq!(db.recent_registrations(ip, 24).await.unwrap(), 2);
 }
 
 #[sqlx::test]

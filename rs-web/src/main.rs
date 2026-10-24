@@ -5,11 +5,13 @@ mod news_render;
 mod routes;
 mod templates;
 mod token;
+mod turnstile;
 mod worlds;
 
 use crate::app::{App, HASHING_AT_ONCE, SiteConfig};
 use crate::templates::Templates;
 use crate::token::SignInTokens;
+use crate::turnstile::Turnstile;
 use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
 use clap::{Parser, Subcommand, ValueEnum};
@@ -48,6 +50,11 @@ struct Args {
     admin_host: String,
     #[arg(long, env = "RS_ADMIN_SECRET", hide_env_values = true)]
     admin_secret: Option<String>,
+    /// Cloudflare Turnstile's site key, for the check on registration.
+    #[arg(long, env = "RS_TURNSTILE_SITE_KEY")]
+    turnstile_site_key: Option<String>,
+    #[arg(long, env = "RS_TURNSTILE_SECRET", hide_env_values = true)]
+    turnstile_secret: Option<String>,
     #[arg(long, env = "RS_WEB_MEDIA_DIR")]
     media_dir: Option<PathBuf>,
     #[arg(long, value_enum, default_value_t = LogFormat::Text)]
@@ -151,6 +158,20 @@ async fn main() -> Result<()> {
         Some(dir) => info!("News media in: {}", dir.display()),
         None => warn!("No --media-dir, so news can't have images or videos uploaded"),
     }
+    let turnstile = match (args.turnstile_site_key, args.turnstile_secret) {
+        (Some(key), Some(secret)) => Some(Turnstile::new(key, secret)?),
+        (None, None) => {
+            if !cfg!(debug_assertions) {
+                warn!("No Turnstile keys, so registration has no person check");
+            }
+            None
+        }
+        _ => {
+            return Err(anyhow!(
+                "Turnstile needs both RS_TURNSTILE_SITE_KEY and RS_TURNSTILE_SECRET"
+            ));
+        }
+    };
     let site = SiteConfig {
         https: args.https,
         public_host: args.public_host,
@@ -164,6 +185,7 @@ async fn main() -> Result<()> {
         hashing: Semaphore::new(HASHING_AT_ONCE),
         templates: Templates::new(args.root.join("templates"), args.https, &site.base_url()),
         tokens: SignInTokens::new(),
+        turnstile,
         worlds,
         live_worlds: Default::default(),
         wordenc,

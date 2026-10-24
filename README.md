@@ -150,6 +150,21 @@ cargo run -p rs-web   # http://localhost:8000
 - Flags: `--port` (`8000`), `--root` (`rs-web`), `--public-host`, `--https`,
   and `--real-ip-header` (e.g. `cf-connecting-ip`) when behind a proxy, so the
   per-IP registration limit sees the real client.
+- Registration allows 3 accounts an hour and 5 a day from one address (an
+  IPv6 address counts with its whole /64). Its last step has a
+  [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) check
+  when `RS_TURNSTILE_SITE_KEY` and `RS_TURNSTILE_SECRET` are set (a Turnstile
+  widget's keys, from the Cloudflare dashboard, with the site's hostname
+  added to it); without them it's off. The widget stays hidden unless
+  Cloudflare wants a click. To try it locally with Cloudflare's test keys:
+
+  ```bash
+  RS_TURNSTILE_SITE_KEY=1x00000000000000000000AA RS_TURNSTILE_SECRET=1x0000000000000000000000000000000AA cargo run -p rs-web
+  ```
+
+  That site key shows the box and passes; `1x00000000000000000000BB` passes
+  without showing it, and `3x00000000000000000000FF` always asks for a click.
+  The secret `2x0000000000000000000000000000000AA` fails every check.
 - Prometheus metrics (requests by route and status, response times,
   registrations) are on `http://127.0.0.1:8160/metrics`, apart from the public
   port; `--metrics-host`/`--metrics-port` move it and `--metrics-port 0` turns
@@ -548,7 +563,8 @@ node; the nodes mesh into one cluster for cross-world social features.
    `RS_COOKIE` and `RS_ADMIN_SECRET` (the website needs the first two, the
    staff console only the last). Release builds refuse to
    start without them. Flags would also work, but anyone who can list
-   processes can read them.
+   processes can read them. Give the website `RS_TURNSTILE_SITE_KEY` and
+   `RS_TURNSTILE_SECRET` too, or registration has no person check.
 2. **Build ether once.** In `rs-ether/`: `MIX_ENV=prod mix deps.get` then
    `MIX_ENV=prod mix release`, and point each world at the result with
    `RS_ETHER_RELEASE=rs-ether/_build/prod/rel/rs_ether`. The release needs no
