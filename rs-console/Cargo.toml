@@ -23,7 +23,7 @@ getrandom = { workspace = true }
 hmac = { workspace = true }
 pulldown-cmark = { workspace = true }
 qrcode = { version = "0.14", default-features = false, features = ["svg"] }
-reqwest = { workspace = true, features = ["gzip"] }
+reqwest = { workspace = true, features = ["gzip", "rustls"] }
 rpassword = "7"
 serde = { workspace = true }
 serde_json = { workspace = true }

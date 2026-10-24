@@ -3,6 +3,7 @@ use crate::controls::{
     self, ActiveSwitch, Desired, Lockdown, MAX_LOCKDOWN_HOURS, PRESETS, PatternCheck, Preset,
     checked_label, checked_patterns,
 };
+use crate::discord::{escape, span};
 use crate::http::{ApiError, App, Staff};
 use crate::users::now_ms;
 use axum::Json;
@@ -219,6 +220,16 @@ pub async fn switch(
             .target(&switch.label)
             .detail(switch.patterns.join(" ")),
         );
+        let mut said = format!(
+            "Kill switch **{}** on every world: **{}**",
+            if req.on { "on" } else { "off" },
+            escape(&switch.label)
+        );
+        // A preset's name says what it covers; a custom one's patterns do.
+        if !PRESETS.iter().any(|p| p.key == switch.key) {
+            said.push_str(&format!(" ({})", escape(&switch.patterns.join(", "))));
+        }
+        app.discord.post_by(staff.name(), said);
         controls::sync(&app, staff.name(), None).await;
     }
     Ok(Json(ControlsPage {
@@ -275,6 +286,17 @@ pub async fn lockdown(
             } else {
                 String::new()
             }),
+        );
+        app.discord.post_by(
+            staff.name(),
+            if req.hours > 0 {
+                format!(
+                    "**Every world** is in lockdown: accounts younger than {} can't log in",
+                    span(req.hours * 3600)
+                )
+            } else {
+                "**Every world**'s lockdown is lifted".to_owned()
+            },
         );
         controls::sync(&app, staff.name(), None).await;
     }

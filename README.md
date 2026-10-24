@@ -692,6 +692,11 @@ node, and the nodes join into one cluster for cross-world social features.
      the name is game staff.
    - Worlds come back after a console reboot only if their service manager restarts them
      (systemd `Restart=always`).
+   - To post world actions to a Discord channel (reboots, shutdowns, starts, cancelled reboots,
+     broadcasts, maintenance, scheduled jobs, kill switches and lockdowns), make a webhook in the
+     channel's settings (Integrations, then Webhooks) and give its URL as
+     `RS_ADMIN_DISCORD_WEBHOOK`. Each action is one message, however many worlds it covered.
+     The URL lets anyone post to the channel, so keep it as secret as `RS_ADMIN_SECRET`.
    - For news, give `rs-web` the same `RS_ADMIN_SECRET` and an admin port the console can reach
      privately (`--admin-host`, `--admin-port`), and point the console at it with
      `RS_ADMIN_WEB_URL`. Give the website a `--media-dir` outside the release folder for news

@@ -1,4 +1,5 @@
 use crate::audit::Event;
+use crate::discord::{escape, from_now, span};
 use crate::http::{ApiError, App, Staff};
 use crate::worlds::{Outcome, Reply, WorldConfig, WorldView};
 use axum::Json;
@@ -183,6 +184,25 @@ async fn count_down(
         })
         .await;
     let (ok, summary) = tally(&replies);
+    app.discord
+        .world_action(staff.name(), &replies, |worlds, are| {
+            let doing = if stay_down {
+                "shutting down"
+            } else {
+                "rebooting"
+            };
+            let mut said = format!("{worlds} {are} {doing} {}", from_now(req.seconds));
+            if req.stagger_secs > 0 && replies.len() > 1 {
+                said.push_str(&format!(", one every {}", span(req.stagger_secs)));
+            }
+            if stay_down {
+                said.push_str(", and will stay off until started again");
+            }
+            if let Some(reason) = &reason {
+                said.push_str(&format!(": \"{}\"", escape(reason)));
+            }
+            said
+        });
     let why = reason.map(|r| format!(" (\"{r}\")")).unwrap_or_default();
     let action = if stay_down { "shutdown" } else { "reboot" };
     app.audit.record(
@@ -231,6 +251,10 @@ pub async fn start(
         });
     }
     let (ok, summary) = tally(&replies);
+    app.discord
+        .world_action(staff.name(), &replies, |worlds, are| {
+            format!("{worlds} {are} starting up")
+        });
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "start_world")
             .target(world_list(&targets))
@@ -276,6 +300,10 @@ pub async fn cancel_reboot(
         })
         .await;
     let (ok, summary) = tally(&replies);
+    app.discord
+        .world_action(staff.name(), &replies, |worlds, are| {
+            format!("{worlds} {are} no longer rebooting")
+        });
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "cancel_reboot")
             .target(world_list(&targets))
@@ -314,6 +342,10 @@ pub async fn broadcast(
         })
         .await;
     let (ok, summary) = tally(&replies);
+    app.discord
+        .world_action(staff.name(), &replies, |worlds, _| {
+            format!("Broadcast to {worlds}: \"{}\"", escape(&message))
+        });
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "broadcast")
             .target(world_list(&targets))
@@ -347,6 +379,14 @@ pub async fn maintenance(
         })
         .await;
     let (ok, summary) = tally(&replies);
+    app.discord
+        .world_action(staff.name(), &replies, |worlds, are| {
+            if req.enabled {
+                format!("{worlds} {are} closed to new logins for maintenance")
+            } else {
+                format!("{worlds} {are} open to logins again")
+            }
+        });
     app.audit.record(
         Event::new(
             Some(staff.name()),

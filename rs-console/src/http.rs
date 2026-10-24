@@ -6,6 +6,7 @@ use crate::canned::CannedTexts;
 use crate::cases::Cases;
 use crate::clips::Clips;
 use crate::controls::Controls;
+use crate::discord::Discord;
 use crate::economy::Economy;
 use crate::notes::Notes;
 use crate::prefs::Prefs;
@@ -49,6 +50,7 @@ pub struct App {
     pub sessions: Sessions,
     pub worlds: Arc<Worlds>,
     pub audit: Audit,
+    pub discord: Discord,
     pub cases: Cases,
     pub controls: Controls,
     pub notes: Notes,

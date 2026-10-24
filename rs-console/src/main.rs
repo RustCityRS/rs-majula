@@ -8,6 +8,7 @@ mod cases;
 mod clips;
 mod controls;
 mod detect;
+mod discord;
 mod economy;
 mod farms;
 mod http;
@@ -29,6 +30,7 @@ use crate::canned::CannedTexts;
 use crate::cases::Cases;
 use crate::clips::Clips;
 use crate::controls::Controls;
+use crate::discord::Discord;
 use crate::economy::Economy;
 use crate::http::{App, HttpConfig};
 use crate::notes::Notes;
@@ -78,6 +80,10 @@ struct ServeArgs {
     admin_secret: Option<String>,
     #[arg(long, env = "RS_ADMIN_WEB_URL")]
     web_url: Option<String>,
+    /// A Discord webhook that's told of reboots, broadcasts and the other
+    /// world actions.
+    #[arg(long, env = "RS_ADMIN_DISCORD_WEBHOOK", hide_env_values = true)]
+    discord_webhook: Option<String>,
     #[arg(long, value_enum, default_value_t = LogFormat::Text)]
     log_format: LogFormat,
 }
@@ -305,6 +311,13 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     if web_url.is_none() {
         warn!("No --web-url, so news can't be posted from the console");
     }
+    if args
+        .discord_webhook
+        .as_deref()
+        .is_some_and(|url| !url.starts_with("https://"))
+    {
+        bail!("RS_ADMIN_DISCORD_WEBHOOK must be an https:// address");
+    }
     let csp = http::csp(&world_list);
     let worlds = Arc::new(Worlds::new(world_list, web_url, &secret));
     let app = Arc::new(App {
@@ -313,6 +326,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         sessions: Sessions::default(),
         worlds: worlds.clone(),
         audit: Audit::open(data_dir.join("audit.jsonl")),
+        discord: Discord::new(args.discord_webhook),
         cases: Cases::open(data_dir.join("cases.jsonl")),
         controls: Controls::open(data_dir.join("controls.json")),
         notes: Notes::open(data_dir.join("notes.jsonl")),
