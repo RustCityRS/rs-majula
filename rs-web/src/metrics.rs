@@ -153,7 +153,7 @@ impl Metrics {
             out,
             "rs_web_registrations_rate_limited_total",
             "counter",
-            "/create submissions refused by the per-IP registration limit.",
+            "/create submissions refused by the per-address limits.",
         );
         let _ = writeln!(
             out,

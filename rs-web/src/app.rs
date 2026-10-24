@@ -1,4 +1,5 @@
 use crate::metrics::Metrics;
+use crate::rate_limit::RateLimit;
 use crate::templates::Templates;
 use crate::token::SignInTokens;
 use crate::turnstile::Turnstile;
@@ -27,6 +28,8 @@ pub struct App {
     pub tokens: SignInTokens,
     /// Registration's person check; `None` leaves it off.
     pub turnstile: Option<Turnstile>,
+    /// `/create` submissions, each of which checks a username.
+    pub name_checks: RateLimit,
     pub worlds: Vec<World>,
     pub live_worlds: LiveWorlds,
     pub wordenc: Option<WordEncProvider>,

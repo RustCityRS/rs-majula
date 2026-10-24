@@ -2,6 +2,7 @@ mod admin;
 mod app;
 mod metrics;
 mod news_render;
+mod rate_limit;
 mod routes;
 mod templates;
 mod token;
@@ -9,6 +10,7 @@ mod turnstile;
 mod worlds;
 
 use crate::app::{App, HASHING_AT_ONCE, SiteConfig};
+use crate::rate_limit::RateLimit;
 use crate::templates::Templates;
 use crate::token::SignInTokens;
 use crate::turnstile::Turnstile;
@@ -19,6 +21,7 @@ use rs_db::{Db, DbConfig, Passwords};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
+use std::time::Duration;
 use tokio::sync::Semaphore;
 use tracing::{info, warn};
 
@@ -186,6 +189,8 @@ async fn main() -> Result<()> {
         templates: Templates::new(args.root.join("templates"), args.https, &site.base_url()),
         tokens: SignInTokens::new(),
         turnstile,
+        // A registration takes 3; the rest is room for names already taken.
+        name_checks: RateLimit::new(30, Duration::from_secs(60)),
         worlds,
         live_worlds: Default::default(),
         wordenc,

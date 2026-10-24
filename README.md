@@ -151,7 +151,7 @@ cargo run -p rs-web   # http://localhost:8000
   and `--real-ip-header` (e.g. `cf-connecting-ip`) when behind a proxy, so the
   per-IP registration limit sees the real client.
 - Registration allows 3 accounts an hour and 5 a day from one address (an
-  IPv6 address counts with its whole /64). Its last step has a
+  IPv6 address counts with its whole /64), and 30 username checks a minute. Its last step has a
   [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) check
   when `RS_TURNSTILE_SITE_KEY` and `RS_TURNSTILE_SECRET` are set (a Turnstile
   widget's keys, from the Cloudflare dashboard, with the site's hostname

@@ -44,6 +44,15 @@ pub async fn submit(
     Form(form): Form<CreateForm>,
 ) -> Result<Html<String>, AppError> {
     let ip = app.client_ip(&headers, peer);
+    if !app.name_checks.allow(ip) {
+        app.metrics
+            .registrations_rate_limited
+            .fetch_add(1, Ordering::Relaxed);
+        return username_page(
+            &app,
+            Some("You have checked too many usernames. Please wait a minute and try again."),
+        );
+    }
     if app.db.recent_registrations(ip, 1).await? >= PER_HOUR
         || app.db.recent_registrations(ip, 24).await? >= PER_DAY
     {
