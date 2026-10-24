@@ -9,6 +9,7 @@ mod export;
 mod hiscores;
 mod live;
 mod lookup;
+mod messages;
 mod news;
 mod notes;
 mod players;
@@ -186,6 +187,9 @@ pub fn router() -> Router<Arc<App>> {
             post(news::upload).layer(DefaultBodyLimit::max(MAX_MEDIA_BYTES)),
         )
         .route("/news/media/{name}", get(news::media))
+        .route("/messages", get(messages::list))
+        .route("/messages/send", post(messages::send))
+        .route("/messages/{id}", get(messages::get))
         .route("/script-errors", get(scripts::list))
         .route("/script-errors/rows", get(scripts::rows))
         .route("/script-errors/summary", get(scripts::summary))

@@ -111,6 +111,7 @@ impl Engine {
                                 muted_for,
                                 left_other_world,
                                 account_age,
+                                unread_messages,
                                 played,
                             } => {
                                 let staff = StaffModLevel::from_u8(staff_mod_level);
@@ -134,6 +135,7 @@ impl Engine {
                                 self.pending_logins[idx].played = played;
                                 self.pending_logins[idx].muted_until =
                                     muted_for.map(ActivePlayer::mute_deadline);
+                                self.pending_logins[idx].unread_messages = unread_messages;
                                 self.try_complete_login(idx);
                             }
                             AuthResult::InvalidCredentials => {

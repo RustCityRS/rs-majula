@@ -45,23 +45,29 @@ A.c:hover {text-decoration:underline}
         <table width=250 bgcolor=black cellpadding=2>
           <tr><td class=b bgcolor=#474747 background=/img/stoneback.gif align=center><h2 class=bar>Recent Customer Support News</h2></td></tr>
         </table>
-        <table>
-          <tr><td><img alt="" src=/img/title/mm_scroll.jpg border=0 width=77 height=120></td>
-            <td width=370 valign=top>
-              <table width=360>
-                {% for post in news %}
-                <tr>
-                  <td><a href="/news/{{ post.id }}" class=c>{{ post.title }}</a></td>
-                  <td align="right">{{ post.short_date }}</td>
-                </tr>
-                {% else %}
-                <tr><td>There's no customer support news yet.</td></tr>
-                {% endfor %}
+        {#- As the title screen's news: the list beside the scroll, the link to
+            the rest under both. #}
+        <table cellpadding=0 cellspacing=0>
+          <tr valign=top><td width=100 align=center><a href='/news?cat=3'><img alt="Customer support news" src=/img/title/mm_scroll.jpg border=0 width=77 height=120></a></td>
+            <td width=370>
+              <table height=130>
+                <tr><td valign=top>
+                  <table width=360>
+                    {% for post in news %}
+                    <tr>
+                      <td><a href="/news/{{ post.id }}" class=c>{{ post.title }}</a></td>
+                      <td align="right">{{ post.short_date }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td>There's no customer support news yet.</td></tr>
+                    {% endfor %}
+                  </table>
+                </td></tr>
               </table>
-              <br><a href="/news?cat=3" class=c>All customer support news</a>
             </td>
           </tr>
         </table>
+        To view all customer support news, <a href="/news?cat=3" class=c>Click Here</a>.
       </td></tr>
     </table>
   </td></tr>

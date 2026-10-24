@@ -12,10 +12,25 @@ macro_rules! ms {
 /// What the appeal form needs to check who's appealing, and what against.
 #[derive(Debug, sqlx::FromRow)]
 pub struct AppealLogin {
+    /// The player's row, which is never reused, unlike their name.
+    pub id: i64,
     pub display_name: String,
     pub password_hash: String,
     pub muted_until_ms: Option<i64>,
     pub banned_until_ms: Option<i64>,
+}
+
+/// The query behind an [`AppealLogin`], to finish with its `WHERE`.
+macro_rules! login_query {
+    () => {
+        concat!(
+            "SELECT id, display_name, password_hash, CASE WHEN muted_until > now() THEN ",
+            ms!("muted_until"),
+            " END AS muted_until_ms, CASE WHEN banned_until > now() THEN ",
+            ms!("banned_until"),
+            " END AS banned_until_ms FROM players"
+        )
+    };
 }
 
 /// An appeal to file.
@@ -73,16 +88,19 @@ const RECORD: &str = concat!(
 impl Db {
     /// The player `name_hash`, for the appeal form, if registered.
     pub async fn appeal_login(&self, name_hash: u64) -> Result<Option<AppealLogin>, Error> {
-        sqlx::query_as(concat!(
-            "SELECT display_name, password_hash, CASE WHEN muted_until > now() THEN ",
-            ms!("muted_until"),
-            " END AS muted_until_ms, CASE WHEN banned_until > now() THEN ",
-            ms!("banned_until"),
-            " END AS banned_until_ms FROM players WHERE name_hash = $1"
-        ))
-        .bind(name_hash as i64)
-        .fetch_optional(&self.pool)
-        .await
+        sqlx::query_as(concat!(login_query!(), " WHERE name_hash = $1"))
+            .bind(name_hash as i64)
+            .fetch_optional(&self.pool)
+            .await
+    }
+
+    /// The player with row `id`, as [`Db::appeal_login`] has them: for
+    /// checking a sign-in carried by their row rather than their name.
+    pub async fn login_by_id(&self, id: i64) -> Result<Option<AppealLogin>, Error> {
+        sqlx::query_as(concat!(login_query!(), " WHERE id = $1"))
+            .bind(id)
+            .fetch_optional(&self.pool)
+            .await
     }
 
     /// Files an appeal against the player's current mute or ban, noting the

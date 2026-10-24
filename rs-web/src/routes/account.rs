@@ -1,6 +1,7 @@
 use super::create::check_new_passwords;
 use super::sign_in::{SignIn, sign_in};
 use crate::app::{App, AppError};
+use crate::worlds::world_of_node;
 use axum::Form;
 use axum::extract::{ConnectInfo, State};
 use axum::http::{HeaderMap, HeaderValue, header};
@@ -53,7 +54,7 @@ impl From<AccountLogin> for LoginRow {
         };
         Self {
             at: l.at,
-            world: l.world,
+            world: world_of_node(l.node),
             ip: l.ip,
             device,
         }

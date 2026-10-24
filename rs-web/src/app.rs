@@ -1,5 +1,6 @@
 use crate::metrics::Metrics;
 use crate::templates::Templates;
+use crate::token::SignInTokens;
 use crate::worlds::{LiveWorlds, World};
 use axum::http::{HeaderMap, HeaderName, StatusCode};
 use axum::response::{IntoResponse, Response};
@@ -21,6 +22,8 @@ pub struct App {
     /// [`HASHING_AT_ONCE`] permits, one for each hash running.
     pub hashing: Semaphore,
     pub templates: Templates,
+    /// The Message Centre's sign-ins, carried from page to page.
+    pub tokens: SignInTokens,
     pub worlds: Vec<World>,
     pub live_worlds: LiveWorlds,
     pub wordenc: Option<WordEncProvider>,

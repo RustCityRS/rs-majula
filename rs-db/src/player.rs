@@ -9,15 +9,14 @@ pub struct Credentials {
     pub banned: bool,
     pub muted_ms: Option<i64>,
     pub left_other_world_ms: Option<i64>,
-    /// How long ago the account was registered.
     pub age_ms: i64,
+    pub unread_messages: i64,
 }
 
 /// A player's current mute and ban, from [`Db::sanctions`].
 #[derive(Debug, PartialEq, Eq)]
 pub struct Sanctions {
     pub name_hash: u64,
-    /// Milliseconds left on a chat mute, `None` while not muted.
     pub muted_ms: Option<i64>,
     pub banned: bool,
 }
@@ -49,7 +48,9 @@ impl Db {
                     CASE WHEN last_logout_node <> $2
                          THEN (extract(epoch FROM now() - last_logout_at) * 1000)::bigint
                     END AS left_other_world_ms,
-                    (extract(epoch FROM now() - created_at) * 1000)::bigint AS age_ms
+                    (extract(epoch FROM now() - created_at) * 1000)::bigint AS age_ms,
+                    (SELECT count(*) FROM staff_messages m
+                     WHERE m.player_id = players.id AND m.read_at IS NULL) AS unread_messages
              FROM players WHERE name_hash = $1) p",
         )
         .bind(name_hash as i64)

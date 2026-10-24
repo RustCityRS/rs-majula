@@ -149,9 +149,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 1011
         none!(m, MAP_LIVE => |s| {
-            #[cfg(debug_assertions)]
-            s.push_int(0);
-            #[cfg(not(debug_assertions))]
             s.push_int(1);
         });
 

@@ -167,6 +167,12 @@ cargo run -p rs-web   # http://localhost:8000
   and served at `/news/media/` with a year-long cache and range requests.
   Keep that folder outside the release directory and back it up: it isn't in
   the database.
+- The Message Centre (`/messages`) is where players read messages staff
+  send them from the console's Messages page, through the admin API. It's
+  one way: players can't reply, and never see which staff member sent one.
+  The site still sets no cookies: after one sign-in each page carries a
+  token in a hidden form field, signed with a key made at startup, that
+  lasts 30 minutes from the last click (a restart signs everyone out).
 - Ctrl+C or SIGTERM stops taking connections and finishes open requests
   before exiting.
 
@@ -599,10 +605,11 @@ node; the nodes mesh into one cluster for cross-world social features.
    `https://w1.example.com`); the console's browser loads `/replay` from it.
 9. **Keep recordings out of routine backups.** Session recordings are bulky
    and short-lived: dump with `pg_dump --exclude-table-data=replay_chunks`.
-10. **Grant the website's login what appeals and recovery need.** If the
-    website runs as its own restricted database role, `/appeal`,
-    `/recover` and `/recover/request` also need, on top of news, hiscores
-    and registration:
+10. **Grant the website's login what appeals, recovery and messages need.**
+    If the website runs as its own restricted database role, `/appeal`,
+    `/recover`, `/recover/request` and `/messages` (and the console's
+    Messages page, through the admin API) also need, on top of news,
+    hiscores and registration:
 
     ```sql
     GRANT SELECT (id, display_name, password_hash, muted_until, banned_until, reset_code_hash, reset_code_until) ON players TO rs_web;
@@ -611,6 +618,7 @@ node; the nodes mesh into one cluster for cross-world social features.
     GRANT SELECT, INSERT, UPDATE ON recovery_requests TO rs_web;
     GRANT SELECT (id, moderator_id, target_id, action, hours, reason, created_at) ON moderation_logs TO rs_web;
     GRANT SELECT, INSERT ON login_failures TO rs_web;
+    GRANT SELECT, INSERT, UPDATE (read_at) ON staff_messages TO rs_web;
     ```
 
 ----

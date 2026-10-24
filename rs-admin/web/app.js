@@ -1213,6 +1213,7 @@ const NAV = [
     {path: '/replays', label: 'Replays', icon: 'play', page: replaysPage},
     {path: '/audit', label: 'Audit log', icon: 'list', page: auditPage},
     {path: '/news', label: 'News', icon: 'news', page: newsPage, admin: true},
+    {path: '/messages', label: 'Messages', icon: 'inbox', page: messagesPage},
     {path: '/script-errors', label: 'Script errors', icon: 'alert', page: scriptErrorsPage, maintainer: true},
     {path: '/staff', label: 'Staff', icon: 'key', page: staffPage, maintainer: true},
     {path: '/account', label: 'Account', icon: 'user', page: accountPage},
@@ -1223,6 +1224,7 @@ const PAGES = [
     {path: '/player', label: 'Player', page: playerPage, parent: '/players'},
     {path: '/replay', label: 'Replay', page: replayPage, parent: '/replays'},
     {path: '/case', label: 'Case', page: casePage, parent: '/moderation'},
+    {path: '/message', label: 'Message', page: messagePage, parent: '/messages'},
     {path: '/staff/member', label: 'Staff member', page: staffMemberPage, parent: '/staff', maintainer: true},
 ];
 // The first few fit the phone tab bar; the rest go under More.
@@ -2160,6 +2162,7 @@ const VERBS = {
     news_edited: ['edited the news', 'edit'],
     news_deleted: ['deleted the news', 'trash', 'danger'],
     news_media_uploaded: ['uploaded an image or video for the news', 'plus'],
+    message_sent: ['sent a message to', 'inbox', 'accent'],
     replay_viewed: ['watched a session of', 'play'],
     case_opened: ['opened a case on', 'briefcase', 'accent'],
     case_closed: ['closed a case on', 'check', 'ok'],
@@ -3930,6 +3933,146 @@ function newsPage() {
     return h('div', {class: 'page'},
         pageHead('News', 'Posts on the website\'s front page and news archive.', newButton),
         h('section', {class: 'card'}, box));
+}
+
+// ---------------------------------------------------------------------------
+// Messages: what staff send players, who read them in the website's Message
+// Centre. One way only: players can't reply, and see them as from "our
+// staff", never with a name.
+
+const messageHref = (id) => `/message?id=${id}`;
+
+function messageRead(m) {
+    return m.read_ms
+        ? h('span', {class: 'badge ok', title: `Read ${fullTime(m.read_ms)}`}, icon('check'), 'Read')
+        : h('span', {class: 'badge'}, 'Unread');
+}
+
+function messageItem(m) {
+    return h('div', {class: 'list-item'},
+        h('div', {class: `list-icon ${m.read_ms ? 'ok' : ''}`}, icon('inbox')),
+        h('div', {class: 'list-main'},
+            h('div', {class: 'list-title'},
+                h('span', {class: 'case-id num'}, `#${m.id}`),
+                link(messageHref(m.id), {class: 'name-link'}, h('b', {}, m.subject)), ' ', messageRead(m)),
+            h('div', {class: 'list-sub'}, 'To ', playerLink(m.player), ` · sent by ${m.staff_name}`)),
+        h('div', {class: 'list-side', title: `Sent ${fullTime(m.sent_ms)}`}, ago(m.sent_ms)));
+}
+
+function newMessageDialog(name) {
+    const player = nameSuggest(h('input', {
+        class: 'input',
+        value: name || '',
+        placeholder: 'Player name',
+        maxlength: '12',
+        pattern: NAME_PATTERN,
+        'data-invalid': NAME_RULE,
+        required: true,
+        autocomplete: 'off',
+        spellcheck: 'false',
+        autofocus: !name
+    }));
+    const subject = h('input', {class: 'input', maxlength: '80', required: true, autocomplete: 'off', autofocus: !!name});
+    const text = h('textarea', {class: 'input', maxlength: '4000', rows: '8', required: true, 'aria-label': 'Text'});
+    openDialog({
+        title: 'New message',
+        subtitle: 'They read it in the website\'s Message Centre, and can\'t reply.',
+        body: [
+            h('label', {class: 'field'}, h('span', {}, 'Player'), player),
+            h('label', {class: 'field'}, h('span', {}, 'Subject'), subject),
+            h('label', {class: 'field'}, h('span', {}, 'Text'), text,
+                h('span', {class: 'hint'}, 'Plain text. They see it as from our staff, never with your name.')),
+        ],
+        actions: [{label: 'Cancel'}, {
+            label: 'Send',
+            kind: 'primary',
+            icon: 'inbox',
+            run: async () => {
+                const sent = await api('POST', '/messages/send', {
+                    player: player.value.trim(),
+                    subject: subject.value.trim(),
+                    body: text.value
+                });
+                if (!sent.ok) throw new Error(sent.message);
+                toast(`Sent to ${player.value.trim()}.`);
+                navigate(messageHref(sent.id));
+            },
+        }],
+    });
+}
+
+function messagesPage(ctx) {
+    const player = ctx.params.get('player') || '';
+    const list = h('div', {class: 'list'}, h('div', {class: 'empty'}, h('div', {class: 'spinner'})));
+    const more = h('div', {class: 'more hidden'});
+    let next = null;
+    let fetching = false;
+    const load = async (older) => {
+        if (fetching) return;
+        fetching = true;
+        try {
+            const page = await api('GET', `/messages?${query({player, before: older ? next : null})}`);
+            if (!older) list.replaceChildren();
+            list.querySelector(':scope > .empty')?.remove();
+            append(list, page.messages.map(messageItem));
+            if (!list.children.length) append(list, h('div', {class: 'empty'}, icon('inbox'), player ? `Nothing sent to ${player}.` : 'No messages sent yet.'));
+            next = page.next;
+            more.classList.toggle('hidden', next == null);
+        } catch (e) {
+            replace(list, h('div', {class: 'empty'}, e.message));
+        } finally {
+            fetching = false;
+        }
+    };
+    const nameInput = nameSuggest(h('input', {
+        class: 'input',
+        type: 'search',
+        value: player,
+        maxlength: '12',
+        placeholder: 'Sent to player',
+        'aria-label': 'Sent to player'
+    }), (name) => navigate(`/messages?${query({player: name})}`));
+    nameInput.addEventListener('change', () => {
+        const name = nameInput.value.trim();
+        if (name !== player && (!name || validName(name))) navigate(`/messages?${query({player: name})}`);
+    });
+    append(more, button('Load older', {small: true, on: {click: () => load(true)}}));
+    const box = scrollWindow(list, more);
+    loadOnScroll(box, more, () => load(true));
+    load(false);
+    return h('div', {class: 'page'},
+        pageHead('Messages', 'What staff sent players, newest first. They read them in the website\'s Message Centre, from our staff, and can\'t reply.',
+            button('Refresh', {icon: 'refresh', on: {click: () => load(false)}}),
+            button('New message', {icon: 'plus', kind: 'primary', on: {click: () => newMessageDialog(player)}})),
+        h('div', {class: 'toolbar'}, h('div', {class: 'search'}, icon('search'), nameInput)),
+        h('section', {class: 'card'}, box));
+}
+
+function messagePage(ctx) {
+    const id = Number(ctx.params.get('id'));
+    const page = h('div', {class: 'page'});
+    const head = h('div', {}, pageHead(`Message #${ctx.params.get('id') || ''}`, 'Loading...'));
+    append(page, head);
+    if (!Number.isInteger(id) || id < 1) {
+        replace(head, pageHead('Message', 'No such message.'));
+        return page;
+    }
+    const body = h('div', {});
+    append(page, body);
+    api('GET', `/messages/${id}`).then((m) => {
+        document.title = `#${m.id} ${m.subject} · RS Admin`;
+        replace(head, pageHead(
+            h('span', {}, h('span', {class: 'case-id num'}, `#${m.id}`), m.subject, ' ', messageRead(m)),
+            h('span', {}, 'To ', playerLink(m.player), ` · sent by ${m.staff_name} ${ago(m.sent_ms)}`),
+            button('New message', {icon: 'plus', on: {click: () => newMessageDialog(m.player)}})));
+        replace(body, h('section', {class: 'card'},
+            h('div', {class: 'card-body'},
+                h('div', {class: 'comment-text'}, m.body),
+                h('dl', {class: 'facts'},
+                    h('dt', {}, 'Sent'), h('dd', {}, `${fullTime(m.sent_ms)} by ${m.staff_name}`),
+                    h('dt', {}, 'Read'), h('dd', {}, m.read_ms ? fullTime(m.read_ms) : 'Not yet')))));
+    }).catch((e) => replace(head, pageHead(`Message #${id}`, e.message)));
+    return page;
 }
 
 // ---------------------------------------------------------------------------
@@ -11147,6 +11290,7 @@ function paletteItems(query, found) {
         {group: 'Actions', label: 'Mute a player...', icon: 'mute', run: () => moderateDialog('', 'mute')},
         !isTrial() && {group: 'Actions', label: 'Ban a player...', icon: 'ban', run: () => moderateDialog('', 'ban')},
         {group: 'Actions', label: 'Open a case...', icon: 'briefcase', run: () => newCaseDialog({})},
+        {group: 'Actions', label: 'Message a player...', icon: 'inbox', run: () => newMessageDialog('')},
         {
             group: 'Actions',
             label: 'Triage reports and flagged sessions',

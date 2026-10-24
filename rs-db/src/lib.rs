@@ -6,6 +6,7 @@ mod history;
 mod investigate;
 mod links;
 mod logs;
+mod messages;
 mod moderation;
 mod name;
 mod news;
@@ -36,6 +37,7 @@ pub use links::{
     BannedLink, CROWDED_ADDRESS, CROWDED_BROWSER, ChainLink, EvasionRecord, StaffAccount,
 };
 pub use logs::{ChatLog, LogBatch, ScriptErrorLog, SessionLog, WealthEvent, log_type, transfer};
+pub use messages::{PlayerMessage, StaffMessageRecord};
 pub use moderation::ModAction;
 pub use name::{NameError, PlayerName, validate_name};
 pub use news::{NewsAdminPost, NewsCategory, NewsPost, NewsSummary};

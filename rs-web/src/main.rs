@@ -4,10 +4,12 @@ mod metrics;
 mod news_render;
 mod routes;
 mod templates;
+mod token;
 mod worlds;
 
 use crate::app::{App, HASHING_AT_ONCE, SiteConfig};
 use crate::templates::Templates;
+use crate::token::SignInTokens;
 use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
 use clap::{Parser, Subcommand, ValueEnum};
@@ -161,6 +163,7 @@ async fn main() -> Result<()> {
         passwords: Passwords::new(&pepper),
         hashing: Semaphore::new(HASHING_AT_ONCE),
         templates: Templates::new(args.root.join("templates"), args.https, &site.base_url()),
+        tokens: SignInTokens::new(),
         worlds,
         live_worlds: Default::default(),
         wordenc,

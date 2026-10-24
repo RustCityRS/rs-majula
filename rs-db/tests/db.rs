@@ -79,10 +79,7 @@ async fn players_see_change_export_and_delete_their_account(pool: PgPool) {
     assert!(!account.staff && !account.online && !account.banned && !account.muted);
     let logins = db.account_logins(42, 50).await.unwrap();
     assert_eq!(logins.len(), 1);
-    assert_eq!(
-        (logins[0].ip.as_str(), logins[0].world),
-        ("203.0.113.7", 10)
-    );
+    assert_eq!((logins[0].ip.as_str(), logins[0].node), ("203.0.113.7", 10));
 
     // Only from the password it still has.
     assert!(
@@ -102,6 +99,11 @@ async fn players_see_change_export_and_delete_their_account(pool: PgPool) {
         "{json}"
     );
     assert!(!json.contains("argon2id"), "{json}");
+    // Worlds by the number players know: node 10 is world 1.
+    assert!(
+        json.contains(r#""world": 1"#) && !json.contains("node_id"),
+        "{json}"
+    );
     assert!(db.export_account(7).await.unwrap().is_none());
 
     // Not staff, nor while logged in, banned or muted.
@@ -3345,4 +3347,104 @@ async fn strangers_cant_crowd_out_an_owners_recovery(pool: PgPool) {
         db.recovery_refusal(9, home, &[]).await.unwrap(),
         Some(RecoveryFiled::NoSuchPlayer)
     );
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn staff_messages_are_read_by_their_player_only(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    for hash in [7, 8] {
+        db.create_player(&NewPlayer {
+            staff_mod_level: 0,
+            ..player(hash)
+        })
+        .await
+        .unwrap();
+    }
+    let first = db
+        .send_staff_message(7, "Mod Ash", "Your appeal", "We looked again.")
+        .await
+        .unwrap()
+        .unwrap();
+    let second = db
+        .send_staff_message(7, "Mod Ash", "Welcome", "Hello")
+        .await
+        .unwrap()
+        .unwrap();
+    db.send_staff_message(8, "Mod Ash", "Other", "Hi")
+        .await
+        .unwrap()
+        .unwrap();
+    assert!(
+        db.send_staff_message(9, "Mod Ash", "Nobody", "Hi")
+            .await
+            .unwrap()
+            .is_none()
+    );
+
+    // Theirs, newest first, unread until opened.
+    let row = |hash: u64| {
+        let db = &db;
+        async move { db.appeal_login(hash).await.unwrap().unwrap().id }
+    };
+    let (seven, eight) = (row(7).await, row(8).await);
+    assert_eq!(db.login_by_id(seven).await.unwrap().unwrap().id, seven);
+    let theirs = db.messages_of(seven, 10).await.unwrap();
+    assert_eq!(
+        theirs.iter().map(|m| m.id).collect::<Vec<_>>(),
+        [second, first]
+    );
+    assert!(theirs.iter().all(|m| !m.read));
+    // The game's welcome screen counts what's unread.
+    let unread = |hash: u64| {
+        let db = &db;
+        async move {
+            let creds = db.find_credentials(hash, 1).await.unwrap().unwrap();
+            creds.unread_messages
+        }
+    };
+    assert_eq!((unread(7).await, unread(8).await), (2, 1));
+    // Only its player opens it.
+    assert!(db.open_message(eight, first).await.unwrap().is_none());
+    assert!(
+        db.staff_message(first)
+            .await
+            .unwrap()
+            .unwrap()
+            .read_ms
+            .is_none()
+    );
+    let opened = db.open_message(seven, first).await.unwrap().unwrap();
+    assert_eq!(opened.body, "We looked again.");
+    let seen = db.staff_message(first).await.unwrap().unwrap();
+    assert!(seen.read_ms.is_some());
+    assert_eq!(unread(7).await, 1);
+    assert_eq!(
+        (seen.player.as_str(), seen.staff_name.as_str()),
+        ("Test", "Mod Ash")
+    );
+    assert!(db.messages_of(seven, 10).await.unwrap()[1].read);
+
+    // The console's list: newest first, paged, and filtered to one player.
+    let all = db.staff_messages(None, None, 10).await.unwrap();
+    assert_eq!(all.len(), 3);
+    assert_eq!(
+        db.staff_messages(None, Some(second), 10).await.unwrap()[0].id,
+        first
+    );
+    assert_eq!(db.staff_messages(Some(8), None, 10).await.unwrap().len(), 1);
+
+    // In their export without who sent them, and gone with the account.
+    let json = db.export_account(7).await.unwrap().unwrap();
+    assert!(
+        json.contains("Your appeal") && json.contains("read_at"),
+        "{json}"
+    );
+    assert!(!json.contains("Mod Ash"), "{json}");
+    assert_eq!(db.delete_account(7).await.unwrap(), AccountDeleted::Deleted);
+    let left: i64 = sqlx::query_scalar("SELECT count(*) FROM staff_messages")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(left, 1);
 }

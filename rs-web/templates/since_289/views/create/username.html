@@ -1,0 +1,66 @@
+{% with title="Create Account" %}{% include "layout/header.html" %}{% endwith %}
+
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Choose a username" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% include "layout/content-body-start-left.html" %}
+
+<br>
+
+<center>
+  <table cellpadding=3 cellspacing=0 style="border: 1px solid #382418">
+    <tr>
+      <td style="background: #382418; color: #FFBB22; font-weight: bold;">Choose A Username</td>
+      <td>&gt;</td>
+      <td style="background: #282418; color:#AAAAAA;">Terms And Conditions</td>
+      <td>&gt;</td>
+      <td style="background: #282418; color:#AAAAAA;">Choose A Password</td>
+      <td>&gt;</td>
+      <td style="background: #282418; color:#AAAAAA;">Finish</td>
+    </tr>
+  </table>
+</center>
+
+{% if error %}
+  <p class="red">ERROR: {{ error }}</p>
+{% endif %}
+
+<p>Creating an account for RuneScape is a very simple process.</p>
+<p>To begin you must first select a username. Once you have found a username that you like and is not already taken, you will be asked to choose a password.</p>
+<p>When you have done that, you are ready to play!</p>
+<p>Remember creating an account is totally free, and you may play on any world absolutely free of charge. "Free" and "Members" only control the type of content restrictions you want to experience. Some parts of the website have not been updated to reflect the recreation aspect of the project here.</p>
+<p>Usernames can be a maximum of 12 characters long and may contain letters, numbers and underscores. When playing RuneScape, underscores in usernames are translated into spaces and first letters are capitalised. For example the username red_rooster would appear as Red&nbsp;Rooster.</p>
+
+<center>
+  <table>
+    <tr>
+      <td>
+        <table cellSpacing=1 border=0>
+          <form method="post">
+            <input type="hidden" name="step" value="username">
+            <tbody>
+              <tr>
+                <td>Desired Username:</td>
+                <td><input type="text" name="username" value="" maxlength="12" size="20"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td align=left>
+                  <input type="submit" value="Check Availability">
+                </td>
+              </tr>
+            </form>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </table>
+</center>
+
+<br>
+
+{% include "layout/content-body-end-left.html" %}
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

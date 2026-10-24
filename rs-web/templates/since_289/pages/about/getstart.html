@@ -1,0 +1,93 @@
+{% with title="Getting Started" %}{% include "layout/header.html" %}{% endwith %}
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Getting Started", links=[{"text": "Manual", "href": "/manual"}] %}{% include "layout/title-box.html" %}{% endwith %}
+
+<table>
+  <tr valign=top>
+    <td>
+    <table width=240 bgcolor=black cellpadding=4>
+      <tr>
+        <td class=e>
+          <center>
+            <table width=150 bgcolor=black cellpadding=2>
+              <tr>
+                <td class=b bgcolor=#474747 background=/img/stoneback.gif><h2 class=bar>First Steps</h2></td></tr></table>
+                <table>
+                  <tr>
+                    <td>
+                      <a href=/about/firststeps><img loading="lazy" alt="Getting started" src=/img/about/gettingstarted.jpg width=95 height=65 border=0></a>
+                    </td>
+                    <td>
+                    Taking your first steps in RuneScape.<br>
+                    <a href=/about/firststeps class=c>Click Here</a>
+                  </td>
+                </tr>
+              </table>
+            </center>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td width=10></td>
+
+    <td>
+    <table width=240 bgcolor=black cellpadding=4>
+      <tr>
+        <td class=e>
+          <center>
+            <table width=150 bgcolor=black cellpadding=2>
+              <tr>
+                <td class=b bgcolor=#474747 background=/img/stoneback.gif><h2 class=bar>About Runescape</h2></td></tr></table>
+                <table>
+                  <tr>
+                    <td>
+                      <a href=/about><img loading="lazy" alt="What is RuneScape" src=/img/about/whatisrs.jpg width=95 height=65 border=0></a>
+                    </td>
+                    <td>
+                    Information on RuneScape the game.<br>
+                    <a href=/about class=c>Click Here</a>
+                  </td>
+                </tr>
+              </table>
+            </center>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr><td colspan=3>&nbsp;</td></tr>
+
+  <tr valign=top>
+    <td>
+      <table width=240 bgcolor=black cellpadding=4>
+        <tr>
+          <td class=e>
+            <center>
+              <table width=150 bgcolor=black cellpadding=2><tr><td class=b bgcolor=#474747 background=/img/stoneback.gif><h2 class=bar>What is a virtual world?</h2></td></tr></table>
+              <table>
+                <tr>
+                  <td>
+                    <a href=/about/virtual class=c><img loading="lazy" alt="Virtual world" src='/img/about/virtualworld.jpg' width=95 height=65 border=0></a></td>
+                    <td>
+                      Information on virtual worlds.<br>
+                      <a href=/about/virtual class=c>Click Here</a>
+                    </td>
+                  </tr>
+              </table>
+            </center>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td width=10></td>
+
+    <td width=240>&nbsp;</td>
+  </tr>
+</table>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

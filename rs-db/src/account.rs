@@ -21,7 +21,8 @@ pub struct Account {
 pub struct AccountLogin {
     /// As `23 Oct 2026 18:04` (UTC).
     pub at: String,
-    pub world: i16,
+    /// The game server's node id: the website names it as its world.
+    pub node: i16,
     pub ip: String,
     pub web: Option<bool>,
     pub user_agent: Option<String>,
@@ -41,43 +42,45 @@ pub enum AccountDeleted {
     Gone,
 }
 
-/// Everything kept about a player, as JSON, for [`Db::export_account`]: the
+/// Everything kept about a player, as JSON, for [`Db::export_account`]
+/// (worlds by the number players know, world N being node N + 9): the
 /// account (no password or reset code), the save and earlier ones, the
 /// hiscores, logins, chat, game events, item events, recordings (when and
 /// where, not the anti-cheat checks' verdicts), the reports they made, the
-/// sanctions given them, their appeals and recovery requests. `$2` is their
+/// sanctions given them, their appeals and recovery requests, and the
+/// messages staff sent them (never naming who sent them). `$2` is their
 /// friends list and `$3` their ignore list, as names.
 const EXPORT: &str = "
 SELECT jsonb_build_object(
   'exported_at', now(),
   'account', to_jsonb(p) - ARRAY['id', 'name_hash', 'password_hash', 'reset_code_hash', 'reset_code_until'],
   'save', (SELECT to_jsonb(s) - 'player_id' FROM player_saves s WHERE s.player_id = p.id),
-  'earlier_saves', (SELECT coalesce(jsonb_agg(to_jsonb(h) - ARRAY['id', 'player_id'] ORDER BY h.saved_at), '[]')
+  'earlier_saves', (SELECT coalesce(jsonb_agg((to_jsonb(h) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', h.node_id - 9) ORDER BY h.saved_at), '[]')
                     FROM save_history h WHERE h.player_id = p.id),
   'hiscores', (SELECT coalesce(jsonb_agg(to_jsonb(s) - 'player_id' ORDER BY s.category), '[]')
                FROM hiscores s WHERE s.player_id = p.id),
   'friends', to_jsonb($2::text[]),
   'ignores', to_jsonb($3::text[]),
-  'logins', (SELECT coalesce(jsonb_agg(to_jsonb(l) - ARRAY['id', 'player_id'] ORDER BY l.created_at), '[]')
+  'logins', (SELECT coalesce(jsonb_agg((to_jsonb(l) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', l.node_id - 9) ORDER BY l.created_at), '[]')
              FROM login_logs l WHERE l.player_id = p.id),
-  'chat', (SELECT coalesce(jsonb_agg((to_jsonb(c) - ARRAY['id', 'player_id', 'to_name_hash'])
-                                     || jsonb_build_object('to', t.display_name) ORDER BY c.created_at), '[]')
+  'chat', (SELECT coalesce(jsonb_agg((to_jsonb(c) - ARRAY['id', 'player_id', 'to_name_hash', 'node_id'])
+                                     || jsonb_build_object('to', t.display_name, 'world', c.node_id - 9) ORDER BY c.created_at), '[]')
            FROM chat_logs c LEFT JOIN players t ON t.name_hash = c.to_name_hash WHERE c.player_id = p.id),
-  'game_events', (SELECT coalesce(jsonb_agg(to_jsonb(e) - ARRAY['id', 'player_id'] ORDER BY e.created_at), '[]')
+  'game_events', (SELECT coalesce(jsonb_agg((to_jsonb(e) - ARRAY['id', 'player_id', 'node_id']) || jsonb_build_object('world', e.node_id - 9) ORDER BY e.created_at), '[]')
                   FROM session_logs e WHERE e.player_id = p.id),
-  'item_events', (SELECT coalesce(jsonb_agg((to_jsonb(w) - ARRAY['id', 'player_id', 'counterpart_id'])
-                                            || jsonb_build_object('with', o.display_name) ORDER BY w.created_at), '[]')
+  'item_events', (SELECT coalesce(jsonb_agg((to_jsonb(w) - ARRAY['id', 'player_id', 'counterpart_id', 'node_id'])
+                                            || jsonb_build_object('with', o.display_name, 'world', w.node_id - 9) ORDER BY w.created_at), '[]')
                   FROM wealth_events w LEFT JOIN players o ON o.id = w.counterpart_id WHERE w.player_id = p.id),
   'recordings', (SELECT coalesce(jsonb_agg(jsonb_build_object(
-                     'id', r.id::text, 'world', r.node_id, 'started_at', r.started_at,
+                     'id', r.id::text, 'world', r.node_id - 9, 'started_at', r.started_at,
                      'ended_at', r.ended_at, 'duration_ms', r.duration_ms) ORDER BY r.started_at), '[]')
                  FROM replays r WHERE r.player_id = p.id),
-  'reports_made', (SELECT coalesce(jsonb_agg((to_jsonb(s) - ARRAY['id', 'reporter_id', 'offender_name_hash'])
-                                             || jsonb_build_object('reported', o.display_name) ORDER BY s.created_at), '[]')
+  'reports_made', (SELECT coalesce(jsonb_agg((to_jsonb(s) - ARRAY['id', 'reporter_id', 'offender_name_hash', 'node_id'])
+                                             || jsonb_build_object('reported', o.display_name, 'world', s.node_id - 9) ORDER BY s.created_at), '[]')
                    FROM snapshots s LEFT JOIN players o ON o.name_hash = s.offender_name_hash
                    WHERE s.reporter_id = p.id),
   'sanctions', (SELECT coalesce(jsonb_agg(jsonb_build_object(
-                    'action', m.action, 'hours', m.hours, 'reason', m.reason, 'world', m.node_id,
+                    'action', m.action, 'hours', m.hours, 'reason', m.reason, 'world', m.node_id - 9,
                     'at', m.created_at) ORDER BY m.created_at), '[]')
                 FROM moderation_logs m WHERE m.target_id = p.id),
   'appeals', (SELECT coalesce(jsonb_agg(to_jsonb(a) - ARRAY['player_id', 'moderation_log_id', 'case_id', 'decided_by']
@@ -85,7 +88,11 @@ SELECT jsonb_build_object(
               FROM appeals a WHERE a.player_id = p.id),
   'recovery_requests', (SELECT coalesce(jsonb_agg(to_jsonb(r) - ARRAY['player_id', 'key_hash', 'case_id', 'decided_by']
                                                   ORDER BY r.created_at), '[]')
-                        FROM recovery_requests r WHERE r.player_id = p.id)
+                        FROM recovery_requests r WHERE r.player_id = p.id),
+  'messages', (SELECT coalesce(jsonb_agg(jsonb_build_object(
+                   'subject', m.subject, 'text', m.body, 'sent_at', m.created_at, 'read_at', m.read_at)
+                   ORDER BY m.id), '[]')
+               FROM staff_messages m WHERE m.player_id = p.id)
 )::text
 FROM players p WHERE p.name_hash = $1";
 
@@ -113,7 +120,7 @@ impl Db {
     ) -> Result<Vec<AccountLogin>, Error> {
         sqlx::query_as(
             "SELECT to_char(l.created_at AT TIME ZONE 'UTC', 'DD Mon YYYY HH24:MI') AS at,
-                    l.node_id AS world, host(l.ip) AS ip, l.web, l.user_agent, l.platform
+                    l.node_id AS node, host(l.ip) AS ip, l.web, l.user_agent, l.platform
              FROM login_logs l JOIN players p ON p.id = l.player_id
              WHERE p.name_hash = $1 ORDER BY l.created_at DESC LIMIT $2",
         )

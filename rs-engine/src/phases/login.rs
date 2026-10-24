@@ -123,6 +123,7 @@ impl Engine {
                     ether_allowed: false,
                     auth: None,
                     muted_until: None,
+                    unread_messages: 0,
                     claim_sent: false,
                     profile: None,
                     played: Vec::new(),

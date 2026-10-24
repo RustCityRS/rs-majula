@@ -165,6 +165,8 @@ pub enum AuthResult {
         left_other_world: Option<Duration>,
         /// How long ago the account was registered.
         account_age: Duration,
+        /// Unread Message Centre messages, for the welcome screen.
+        unread_messages: u16,
         /// The sessions it played over the last week, for the anti-cheat's
         /// schedule check.
         played: Vec<PlayedSession>,
@@ -1124,6 +1126,7 @@ async fn authenticate(
             muted_for: creds.muted_ms.map(millis),
             left_other_world: creds.left_other_world_ms.map(millis),
             account_age: millis(creds.age_ms),
+            unread_messages: u16::try_from(creds.unread_messages).unwrap_or(u16::MAX),
             played,
         });
     }
@@ -1176,6 +1179,7 @@ async fn authenticate(
         muted_for: None,
         left_other_world: None,
         account_age: Duration::ZERO,
+        unread_messages: 0,
         played: Vec::new(),
     })
 }

@@ -166,6 +166,7 @@ pub struct ActivePlayer {
     pub restricted_limit: u8,
     pub remote_ip: Option<IpAddr>,
     pub muted_until: Option<Instant>,
+    pub unread_messages: u16,
     pub last_report: Option<u32>,
     pub last_social: Option<u32>,
     pub watch: Box<Watch>,
@@ -214,6 +215,7 @@ impl ActivePlayer {
             restricted_limit: 0,
             remote_ip: None,
             muted_until: None,
+            unread_messages: 0,
             last_report: None,
             last_social: None,
             watch: Box::default(),
@@ -737,6 +739,8 @@ impl ActivePlayer {
     ///
     /// The source IP is hardcoded to loopback (`127.0.0.1` = `2130706433`) and
     /// the recovery code to `201`, which shows the standard welcome screen.
+    /// The message count is the player's unread Message Centre messages as of
+    /// this login.
     pub fn last_login_info(&mut self) {
         let previous = if self.player.last_login_date == 0 {
             self.player.last_date
@@ -749,7 +753,7 @@ impl ActivePlayer {
                 ip: 2130706433,
                 login: days_since_login,
                 recovery: 201,
-                messages: 0,
+                messages: self.unread_messages,
                 #[cfg(since_244)]
                 warn_members_in_non_members: !engine().members && self.member(),
             },

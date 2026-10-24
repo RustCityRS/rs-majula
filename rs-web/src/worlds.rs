@@ -42,6 +42,12 @@ impl World {
     }
 }
 
+/// The world number players know node `node` by: the inverse of
+/// [`World::node_id`].
+pub fn world_of_node(node: i16) -> i16 {
+    node - 9
+}
+
 pub fn load(path: &Path) -> anyhow::Result<Vec<World>> {
     Ok(serde_json::from_str(&std::fs::read_to_string(path)?)?)
 }

@@ -2,6 +2,7 @@ mod account;
 mod appeal;
 mod create;
 mod hiscores;
+pub(crate) mod messages;
 mod news;
 mod pages;
 mod play;
@@ -59,10 +60,21 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         .route("/client", get(play::client))
         .route("/api/v1/worldlist", get(play::worldlist))
         .route("/create", get(create::form).post(create::submit))
-        .route("/account", get(account::form).post(account::show))
-        .route("/account/password", post(account::password))
-        .route("/account/data", post(account::data))
-        .route("/account/delete", post(account::delete))
+        .route(
+            "/account",
+            get(account::form).post(account::show).layer(no_store()),
+        )
+        .route(
+            "/account/password",
+            post(account::password).layer(no_store()),
+        )
+        .route("/account/data", post(account::data).layer(no_store()))
+        .route("/account/delete", post(account::delete).layer(no_store()))
+        .route(
+            "/messages",
+            get(messages::form).post(messages::list).layer(no_store()),
+        )
+        .route("/messages/view", post(messages::view).layer(no_store()))
         .route("/appeal", get(appeal::form).post(appeal::submit))
         .route("/recover", get(recover::form).post(recover::submit))
         .route(
@@ -99,6 +111,13 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
         ))
         .layer(header(header::X_FRAME_OPTIONS, "SAMEORIGIN"))
         .with_state(app)
+}
+
+/// Keeps a page out of the browser's cache and history snapshots: a
+/// signed-in page (an account, its messages) shouldn't come back on the
+/// back button after it's left.
+fn no_store() -> SetResponseHeaderLayer<HeaderValue> {
+    SetResponseHeaderLayer::overriding(header::CACHE_CONTROL, HeaderValue::from_static("no-store"))
 }
 
 /// Sets `name` on every response that hasn't set it itself.

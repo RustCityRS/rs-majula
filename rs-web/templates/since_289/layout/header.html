@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+{% include "layout/meta.html" %}
+        {% if title is defined %}
+            <title>{{ title }} | RuneScape</title>
+        {% else %}
+            <title>RuneScape - the massive online adventure game</title>
+        {% endif %}
+
+        <style>
+            BODY, P, TD { font-family:Arial,Helvetica,sans-serif; font-size:13px; }
+            .b {border-style: outset; border-width:3pt; border-color:#373737}
+            .b2 {border-style: outset; border-width:3pt; border-color:#570700}
+            .e {border:2px solid #382418}
+            .c {text-decoration:none}
+            .white {text-decoration:none; color:#FFFFFF;}
+            .red {text-decoration:none; color:#E10505;}
+            .lblue {text-decoration:none; color:#9DB8C3;}
+            .dblue {text-decoration:none; color:#0D6083;}
+            .yellow {text-decoration:none; color:#FFE139;}
+            .green {text-decoration:none; color:#04A800;}
+            .purple {text-decoration:none; color:#C503FD;}
+            .pink {text-decoration:none; color:#FAA8AA;}
+            A.c:hover {text-decoration:underline}
+            A.white:hover {text-decoration:underline}
+            A.red:hover {text-decoration:underline}
+            A.lblue:hover {text-decoration:underline}
+            A.dblue:hover {text-decoration:underline}
+            A.yellow:hover {text-decoration:underline}
+            A.green:hover {text-decoration:underline}
+            A.purple:hover {text-decoration:underline}
+            A.pink:hover {text-decoration:underline}
+            .whitelink { color: white; text-decoration: none }
+        </style>
+    </head>
+</html>
+{#- `wide`: the full-width title screen on the tiled background, without
+    the 600px stone frame the other pages sit in. #}
+{%- if wide %}
+<body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 style="margin:0" background=/img/background.jpg>
+{%- else %}
+<body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 topmargin=0 leftmargin=0>
+{%- endif %}
+    {# https://stackoverflow.com/a/4723302 #}
+    {# https://stackoverflow.com/a/6222280 #}
+    {# Moves http visitors to https once this host is seen answering on it. #}
+    {% if https_enabled %}
+        <script>
+            if (location.protocol !== 'https:') {
+                const probe = new Image();
+                probe.onload = () => location.replace(`https://${location.hostname}${location.pathname}${location.search}${location.hash}`);
+                probe.src = `https://${location.hostname}/img/blank.gif`;
+            }
+        </script>
+    {% endif %}
+    <table width=100% height=100% cellpadding=0 cellspacing=0>
+        <tr>
+            <td valign=middle>
+                <center>
+                    {%- if not wide %}
+                    <DIV STYLE="LEFT: 0px; TOP: 0px; WIDTH: 600px; POSITION: relative;">
+                    {%- endif %}

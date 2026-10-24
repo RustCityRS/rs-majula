@@ -1,0 +1,221 @@
+{#- The title screen as it was redrawn for 2005: the logo and news side by
+    side over the main features, then the secure services and other features
+    in two columns. Narrow screens stack it all in one 430px column. -#}
+{% from "layout/fm-box.html" import fm_box %}
+
+{#- A main feature: picture, stone button, blurb and link. #}
+{% macro feature(href, img, label, text, sub="", red=false, w=none, h=none) %}
+<span class=item>
+    <table cellpadding=0 cellspacing=0 class=itemtable>
+        <tr>
+            <td width=100 align=center><a href='{{ href|safe }}'><img alt="" src={{ img|safe }}{% if w %} width={{ w }} height={{ h }}{% endif %} border=0></a></td>
+            <td width=120 valign=top>
+                <a href='{{ href|safe }}' class=whitelink>
+                    <table width=110 height=45 bgcolor=black cellpadding=2>
+                        <tr>
+                            {% if red %}
+                            <td class=b2 bgcolor=#570700 background=/img/title/shinystonered.jpg>
+                            {% else %}
+                            <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+                            {% endif %}
+                                <center><b>{{ label|safe }}</b>{% if sub %}<br>{{ sub|safe }}{% endif %}</center>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
+                {{ text|safe }}<br>
+                <a href='{{ href|safe }}' class=c>Click Here</a>
+            </td>
+        </tr>
+    </table>
+</span>
+{% endmacro %}
+
+{#- A service: stone bar, small picture, blurb and link. #}
+{% macro service(href, img, label, text, link="Click Here") %}
+<td width=160 valign=top align=center class=service>
+    <a href='{{ href|safe }}' class=whitelink>
+        <table width=160 bgcolor=black cellpadding=2 class=service-bar>
+            <tr>
+                <td class=b bgcolor=#474747 background=/img/stoneback.gif>
+                    <center><b>{{ label|safe }}</b></center>
+                </td>
+            </tr>
+        </table>
+    </a>
+    <table>
+        <tr>
+            <td><a href='{{ href|safe }}'><img alt="" src={{ img|safe }} width=48 height=75 border=0></a></td>
+            <td>{{ text|safe }}<br><a href='{{ href|safe }}' class=c>{{ link }}</a></td>
+        </tr>
+    </table>
+</td>
+{% endmacro %}
+
+{#- Phones lay it out 500px wide, the one column below filling it. #}
+{% with wide=true, viewport_width=500 %}{% include "layout/header.html" %}{% endwith %}
+
+<style>
+    .item { width: 220px; padding: 5px 10px 5px 0; display: inline-block; }
+    .itemtable { width: 220px; display: inline; }
+    {#- The buttons light up under the pointer, as the 2005 page's script made them. #}
+    a.whitelink:hover .b, a.whitelink:focus-visible .b { border-color: #878787; background-color: #777777; background-image: url(/img/title/ssgreybright.png); }
+    a.whitelink:hover .b2, a.whitelink:focus-visible .b2 { border-color: #A70700; background-color: #A70700; background-image: url(/img/title/ssredbright.jpg); }
+    {#- Too narrow for the two-column layout: one 470px column, with the main
+        features two to a row. #}
+    @media (max-width: 801px) {
+        .section-other { margin: 0 0 10px 0 !important; display: block !important; }
+    }
+    @media (max-width: 796px) {
+        .section-features { display: block; width: 470px; }
+        .section-news { margin: 0 !important; display: block !important; }
+        .section-news, .section-news .fm-box, .section-other, .section-other .fm-box { width: 470px !important; }
+        .features-spacer { display: none; }
+        .item { padding: 5px 2px; }
+        .service { width: 215px; }
+        .service-bar { width: 100%; }
+    }
+</style>
+
+<table style="padding: 0 15px 0 15px; min-width: 500px; width: 100%" cellpadding=0 cellspacing=0>
+    <tr>
+        <td>
+            <center>
+                <table cellpadding=0 cellspacing=0 border=0>
+                    <tr>
+                        <td>
+                            <center>
+                                <br>
+                                <span style="width: 312px; display: inline-block; vertical-align: top;">
+                                    <table cellpadding=0 cellspacing=0 style="width: 312px;">
+                                        <tr>
+                                            <td height=150 valign=top>
+                                                <img alt="RuneScape logo" style="display: block;" src=/img/title/rslogo.gif width=312 height=100>
+                                                <br>
+                                                <center><span style="font-size:14px; color:white;">There {{ "is" if player_count == 1 else "are" }} currently {{ player_count }} {{ "person" if player_count == 1 else "people" }} playing!</span></center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </span>
+
+                                <span style="width: 430px; margin: 0 0 0 20px; display: inline-block; vertical-align: top;" class=section-news>
+                                    {% call fm_box(430) %}
+                                    <h2 class=bar><b>Latest News and Updates</b></h2>
+                                    <table bgcolor=black cellpadding=0 cellspacing=0>
+                                        <tr valign=top>
+                                            <td width=100 align=center><a href='/news'><img alt="News" src=/img/title/mm_scroll.jpg border=0></a></td>
+                                            <td width=320>
+                                                <center>
+                                                    <table height=130>
+                                                        <tr>
+                                                            <td valign=top>
+                                                                <table width=320>
+                                                                    {% for post in news %}
+                                                                    <tr>
+                                                                        <td><a href="/news/{{ post.id }}" class=c>{{ post.title }}</a></td>
+                                                                        <td align=right>{{ post.short_date }}</td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    To view a full list of news and updates, <a href="/news" class=c>Click Here</a>.
+                                    <br><br>
+                                    {% endcall %}
+                                </span>
+
+                                <div style="max-width: 770px;" class=section-features>
+                                    {% call fm_box(style="margin-top: 10px; max-width: 770px;") %}
+                                    <img alt="" src=/img/title/blank.gif height=1 width=505 class=features-spacer><br>
+                                    <h2 class=bar><b>Main Features</b></h2>
+                                    <br>
+                                    {{ feature("/detail", "/img/title/mm_sword.jpg", "Play Game", "Play RuneScape right now!", sub="(Existing&nbsp;User)", red=true) }}
+                                    {{ feature("/create?reset", "/img/title/mm_player.jpg", "Create&nbsp;Account", "Create a free account for both the game &amp; website.", sub="(New User)", red=true) }}
+                                    {{ feature("/members", "/img/title/mm_members.jpg", "Benefits for Members", "Find out what extras are available to members.") }}
+                                    {{ feature("/manual", "/img/title/mm_howtoplay.jpg", "Manual", "Detailed info on all aspects of the game.", w=77, h=120) }}
+                                    {{ feature("/hiscores", "/img/title/mm_chalice.jpg", "Full<br>Hiscores", "Is your character in the top 500,000?") }}
+                                    {{ feature("/varrock", "/img/title/mm_lov.jpg", "Library of Varrock", "Stories and letters about RuneScape.", w=77, h=120) }}
+                                    {{ feature("/worldmap", "/img/manual/worldmap.jpg", "World Map", "Great for finding your way around.") }}
+                                    {#- Fillers, so the last row lines up under the others. #}
+                                    {% for _ in range(2) %}
+                                    <span class=item>
+                                        <table cellpadding=0 cellspacing=0 class=itemtable>
+                                            <tr>
+                                                <td width=100><img alt="" src=/img/title/blank.gif width=77 height=1></td>
+                                                <td width=120><img alt="" src=/img/title/blank.gif width=110 height=1></td>
+                                            </tr>
+                                        </table>
+                                    </span>
+                                    {% endfor %}
+                                    <br><br>
+                                    {% endcall %}
+                                </div>
+
+                                <span style="width: 380px; margin: 0 7px 10px 0; display: inline-block; vertical-align: top;" class=section-other>
+                                    <br>
+                                    {% call fm_box(380) %}
+                                    <h2 class=bar><b>Secure Services</b></h2>
+                                    <br>
+                                    <table cellpadding=0 cellspacing=5 class=services>
+                                        <tr>
+                                            {{ service("/account", "/img/title/mm_accman.jpg", "Account Management", "Manage your password, logins and data.", link="Login") }}
+                                            <td>&nbsp;</td>
+                                            {{ service("/support", "/img/title/mm_support.jpg", "Customer Support", "Questions?<br>Contact our staff.") }}
+                                        </tr>
+                                        <tr>
+                                            {{ service("/messages", "/img/title/mm_inbox.jpg", "Message Centre", "Your messages from our staff.", link="Login") }}
+                                            <td>&nbsp;</td>
+                                            {{ service("https://discord.rustcity.org/", "/img/title/mm_forums.jpg", "Discord", "Discuss the game with fellow players!", link="Join") }}
+                                        </tr>
+                                        <tr>
+                                            {{ service("/hiscorepersonal", "/img/title/mm_chalice.jpg", "Personal Hiscores", "How do you rank compared to your friends?") }}
+                                            <td>&nbsp;</td>
+                                            {{ service("/polls", "/img/title/mm_vote.jpg", "Polls", "What did players vote for?") }}
+                                        </tr>
+                                    </table>
+                                    {% endcall %}
+                                </span>
+
+                                <span style="width: 380px; margin: 0 0 10px 0; display: inline-block; vertical-align: top;" class=section-other>
+                                    <br>
+                                    {% call fm_box(380) %}
+                                    <h2 class=bar><b>Other Features</b></h2>
+                                    <br>
+                                    <table cellpadding=0 cellspacing=5 class=services>
+                                        <tr>
+                                            {{ service("/recover", "/img/title/mm_subscribe.jpg", "Password Support", "If you lose/forget your password help is at hand.") }}
+                                            <td>&nbsp;</td>
+                                            {{ service("/faq", "/img/title/mm_faq.jpg", "F.A.Q.", "Answers to Frequently Asked Questions.") }}
+                                        </tr>
+                                        <tr>
+                                            {{ service("/guides", "/img/title/mm_rules.jpg", "Rules &amp; Security", "Learn our rules and stay safe online.") }}
+                                            <td>&nbsp;</td>
+                                            {{ service("/downloads", "/img/title/mm_unsubscribe.jpg", "Extra Files", "Download optional extras for RuneScape.") }}
+                                        </tr>
+                                        <tr>
+                                            {{ service("https://github.com/RustCityRS", "/img/title/mm2_rs2b.jpg", "Source Code", "Download our source code.") }}
+                                            <td>&nbsp;</td>
+                                            {#- Empty, as the 2005 page left its odd slot, so both boxes stay the same height. #}
+                                            <td width=160 valign=top align=center class=service>
+                                                <table width=160 cellpadding=2 class=service-bar style="border: solid 4px transparent"><tr><td><b>&nbsp;</b></td></tr></table>
+                                                <table><tr><td><img alt="" src=/img/title/blank.gif width=48 height=75></td></tr></table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    {% endcall %}
+                                </span>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </td>
+    </tr>
+</table>
+
+{% with wide=true %}{% include "layout/footer.html" %}{% endwith %}

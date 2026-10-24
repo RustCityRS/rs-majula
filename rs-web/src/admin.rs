@@ -1,5 +1,6 @@
 use crate::app::App;
 use crate::news_render;
+use crate::routes::messages::{message_text, subject_text};
 use axum::body::{Body, Bytes};
 use axum::extract::{Path, Request, State};
 use axum::http::{StatusCode, header};
@@ -8,11 +9,12 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::{Json, Router};
 use rs_admin_api::{
-    Appeal, AppealDecide, AppealLink, AppealsWaiting, MAX_MEDIA_BYTES, MediaSaved, NewsCategory,
-    NewsDelete, NewsItem, NewsList, NewsPage, NewsRender, NewsRendered, NewsSave, Outcome,
-    RecoveriesWaiting, Recovery, RecoveryDecide, RecoveryLink, Verifier, media, path,
+    Appeal, AppealDecide, AppealLink, AppealsWaiting, MAX_MEDIA_BYTES, MediaSaved, MessageGet,
+    MessageList, MessageSend, MessageSent, NewsCategory, NewsDelete, NewsItem, NewsList, NewsPage,
+    NewsRender, NewsRendered, NewsSave, Outcome, RecoveriesWaiting, Recovery, RecoveryDecide,
+    RecoveryLink, StaffMessage, Verifier, media, path,
 };
-use rs_db::{NewsAdminPost, RecoveryDecided};
+use rs_db::{NewsAdminPost, RecoveryDecided, StaffMessageRecord, validate_name};
 use std::sync::Arc;
 use tokio::net::TcpListener;
 use tracing::{info, warn};
@@ -34,6 +36,9 @@ const MAX_DECISION_NOTE: usize = 2000;
 
 /// How long an approved recovery request's password reset can be redeemed.
 const RECOVERY_RESET_HOURS: i32 = 72;
+
+/// The most messages a page lists.
+const MAX_MESSAGES: u32 = 100;
 
 struct AdminState {
     app: Arc<App>,
@@ -66,6 +71,9 @@ pub async fn serve(host: String, port: u16, secret: String, app: Arc<App>) {
         .route(path::RECOVERIES_WAITING, post(recoveries_waiting))
         .route(path::RECOVERY_LINK, post(recovery_link))
         .route(path::RECOVERY_DECIDE, post(recovery_decide))
+        .route(path::MESSAGES, post(messages))
+        .route(path::MESSAGE_GET, post(message_get))
+        .route(path::MESSAGE_SEND, post(message_send))
         .layer(middleware::from_fn_with_state(state.clone(), authenticate))
         .with_state(state);
     if let Err(e) = axum::serve(listener, router).await {
@@ -396,6 +404,90 @@ async fn recovery_decide(
                 "Denied."
             })
         }
+    }))
+}
+
+fn staff_message(m: StaffMessageRecord) -> StaffMessage {
+    StaffMessage {
+        id: m.id,
+        player: m.player,
+        subject: m.subject,
+        body: m.body,
+        staff_name: m.staff_name,
+        sent_ms: m.sent_ms,
+        read_ms: m.read_ms,
+    }
+}
+
+/// Messages staff sent players, newest first.
+async fn messages(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<MessageList>,
+) -> Result<Json<Vec<StaffMessage>>, StatusCode> {
+    let to = match req.player.as_deref().map(validate_name) {
+        None => None,
+        Some(Ok(name)) => Some(name.hash),
+        // Nobody can be called that, so nobody was sent anything.
+        Some(Err(_)) => return Ok(Json(Vec::new())),
+    };
+    let rows = state
+        .app
+        .db
+        .staff_messages(to, req.before, i64::from(req.limit.clamp(1, MAX_MESSAGES)))
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(rows.into_iter().map(staff_message).collect()))
+}
+
+async fn message_get(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<MessageGet>,
+) -> Result<Json<Option<StaffMessage>>, StatusCode> {
+    let found = state
+        .app
+        .db
+        .staff_message(req.id)
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(found.map(staff_message)))
+}
+
+/// A message to a player, which they read in the Message Centre.
+async fn message_send(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<MessageSend>,
+) -> Result<Json<MessageSent>, StatusCode> {
+    let refused = |message: String| {
+        Json(MessageSent {
+            ok: false,
+            message,
+            id: None,
+        })
+    };
+    let Ok(name) = validate_name(&req.player) else {
+        return Ok(refused("There's no such player.".to_owned()));
+    };
+    let (subject, body) = match (subject_text(&req.subject), message_text(&req.body)) {
+        (Ok(subject), Ok(body)) => (subject, body),
+        (Err(error), _) | (_, Err(error)) => return Ok(refused(error)),
+    };
+    let sent = state
+        .app
+        .db
+        .send_staff_message(name.hash, &req.actor.name, &subject, &body)
+        .await
+        .map_err(db_failed)?;
+    let Some(id) = sent else {
+        return Ok(refused("There's no such player.".to_owned()));
+    };
+    info!(
+        "{} sent message {} to {} from the admin console",
+        req.actor.name, id, name.display
+    );
+    Ok(Json(MessageSent {
+        ok: true,
+        message: "Sent.".to_owned(),
+        id: Some(id),
     }))
 }
 

@@ -120,6 +120,11 @@ pub mod path {
     pub const RECOVERIES_WAITING: &str = "/v1/recoveries/waiting";
     pub const RECOVERY_LINK: &str = "/v1/recoveries/link";
     pub const RECOVERY_DECIDE: &str = "/v1/recoveries/decide";
+    /// The website's Message Centre, where players read what staff send
+    /// them: the messages sent, one of them, and sending one.
+    pub const MESSAGES: &str = "/v1/messages";
+    pub const MESSAGE_GET: &str = "/v1/messages/get";
+    pub const MESSAGE_SEND: &str = "/v1/messages/send";
     /// What a world's records say about a recovery request:
     /// `RecoveryCheck`, answered with `RecoveryEvidence`.
     pub const RECOVERY_CHECK: &str = "/v1/lookup/recovery";
@@ -1251,6 +1256,60 @@ pub struct RecoveryDecide {
     pub id: i64,
     pub approve: bool,
     pub note: String,
+}
+
+/// The longest Message Centre subject, in characters.
+pub const MAX_MESSAGE_SUBJECT_CHARS: usize = 80;
+/// The longest Message Centre message, in characters.
+pub const MAX_MESSAGE_CHARS: usize = 4000;
+
+/// `POST /v1/messages`: messages staff sent, newest first, older than
+/// message `before` when paging, and only to `player` if given. Answered
+/// with `Vec<StaffMessage>`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct MessageList {
+    pub player: Option<String>,
+    pub before: Option<i64>,
+    pub limit: u32,
+}
+
+/// A message staff sent a player. The player sees it from "our staff",
+/// never with `staff_name`.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct StaffMessage {
+    pub id: i64,
+    pub player: String,
+    pub subject: String,
+    pub body: String,
+    pub staff_name: String,
+    pub sent_ms: i64,
+    /// When the player first opened it.
+    pub read_ms: Option<i64>,
+}
+
+/// `POST /v1/messages/get`: answered with `Option<StaffMessage>`, `None`
+/// if there's no such message.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct MessageGet {
+    pub id: i64,
+}
+
+/// `POST /v1/messages/send`: a message to a player, which they read in the
+/// website's Message Centre. Answered with a [`MessageSent`].
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct MessageSend {
+    pub actor: Actor,
+    pub player: String,
+    pub subject: String,
+    pub body: String,
+}
+
+/// How a [`MessageSend`] went: an [`Outcome`], and the message sent.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct MessageSent {
+    pub ok: bool,
+    pub message: String,
+    pub id: Option<i64>,
 }
 
 /// `POST /v1/lookup/recovery`: checks a recovery request's answers and

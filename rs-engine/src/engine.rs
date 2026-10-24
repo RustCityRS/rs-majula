@@ -247,6 +247,8 @@ pub struct PendingLogin {
     pub auth: Option<StaffModLevel>,
     /// When the player's chat mute ends, set with `auth`.
     pub muted_until: Option<Instant>,
+    /// Their unread Message Centre messages, set with `auth`.
+    pub unread_messages: u16,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
     /// The sessions the player played over the last week, set with `auth`.
@@ -2760,6 +2762,7 @@ impl Engine {
     /// * `profile` -- The player's saved profile, or `None` for a new player.
     /// * `staff_mod_level` -- From the player's database row, via authentication.
     /// * `muted_until` -- When the player's chat mute ends, likewise.
+    /// * `unread_messages` -- Their unread Message Centre messages, likewise.
     /// * `pid`     -- The accepted pid to use for the active player.
     /// * `played`  -- The sessions the player played over the last week.
     ///
@@ -2780,6 +2783,7 @@ impl Engine {
         profile: Option<PlayerProfile>,
         staff_mod_level: StaffModLevel,
         muted_until: Option<Instant>,
+        unread_messages: u16,
         pid: u16,
         played: &[rs_db::PlayedSession],
     ) {
@@ -2799,6 +2803,7 @@ impl Engine {
         }
         active.player.staff_mod_level = staff_mod_level;
         active.muted_until = muted_until;
+        active.unread_messages = unread_messages;
 
         active.player.last_date = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -3191,6 +3196,7 @@ impl Engine {
             profile,
             staff_mod_level,
             pending.muted_until,
+            pending.unread_messages,
             pid,
             &pending.played,
         );
