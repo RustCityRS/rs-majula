@@ -1,5 +1,5 @@
 use crate::audit::Event;
-use crate::discord::{escape, from_now, span};
+use crate::discord::{Card, ORANGE, PURPLE, countdown, escape};
 use crate::http::App;
 use crate::store::JsonFile;
 use crate::users::now_ms;
@@ -219,29 +219,24 @@ async fn run(app: &App, job: &Job) -> LastRun {
                 .await
         }
     };
-    app.discord
-        .world_action(&job.by, &replies, |worlds, are| match &job.task {
-            Task::Reboot {
-                countdown_secs,
-                stagger_secs,
-                reason,
-            } => {
-                let mut said = format!(
-                    "{worlds} {are} rebooting {}, as scheduled",
-                    from_now(*countdown_secs)
-                );
-                if *stagger_secs > 0 && replies.len() > 1 {
-                    said.push_str(&format!(", one every {}", span(*stagger_secs)));
-                }
-                if let Some(reason) = reason {
-                    said.push_str(&format!(": \"{}\"", escape(reason)));
-                }
-                said
-            }
-            Task::Broadcast { message } => {
-                format!("Scheduled broadcast to {worlds}: \"{}\"", escape(message))
-            }
-        });
+    let card = match &job.task {
+        Task::Reboot {
+            countdown_secs,
+            stagger_secs,
+            reason,
+        } => countdown(
+            "Scheduled reboot",
+            ORANGE,
+            *countdown_secs,
+            *stagger_secs,
+            targets.len(),
+            reason.as_deref(),
+        ),
+        Task::Broadcast { message } => {
+            Card::new("Scheduled broadcast", PURPLE).text(escape(message))
+        }
+    };
+    app.discord.world_action(&job.by, &replies, card);
     let failed: Vec<String> = replies
         .iter()
         .filter_map(|r| match &r.result {

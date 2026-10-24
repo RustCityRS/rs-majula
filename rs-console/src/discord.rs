@@ -1,7 +1,9 @@
+use crate::users::now_ms;
 use crate::worlds::{Outcome, Reply};
 use reqwest::Client;
 use reqwest::header::{CONTENT_TYPE, RETRY_AFTER};
-use serde_json::json;
+use rs_admin_api::iso_time;
+use serde_json::{Value, json};
 use std::time::Duration;
 use tokio::sync::mpsc::{self, Receiver, Sender};
 use tracing::warn;
@@ -13,10 +15,102 @@ const QUEUE: usize = 64;
 /// The longest a rate limit is waited out before one retry.
 const MAX_RETRY_WAIT: Duration = Duration::from_secs(30);
 
+/// The cards' edge colours, GitHub's.
+pub const GREEN: u32 = 0x2da44e;
+pub const RED: u32 = 0xcf222e;
+pub const ORANGE: u32 = 0xbf8700;
+pub const BLUE: u32 = 0x0969da;
+pub const PURPLE: u32 = 0x8250df;
+
+/// Discord's limits on a card's parts, in characters.
+const MAX_TITLE: usize = 256;
+const MAX_TEXT: usize = 4096;
+const MAX_FIELD: usize = 1024;
+
+/// One message: a card (a Discord embed) with a coloured edge, a title, and
+/// fields under it, like GitHub's.
+pub struct Card {
+    title: String,
+    colour: u32,
+    text: Option<String>,
+    fields: Vec<(String, String, bool)>,
+}
+
+impl Card {
+    pub fn new(title: impl Into<String>, colour: u32) -> Self {
+        Self {
+            title: title.into(),
+            colour,
+            text: None,
+            fields: Vec::new(),
+        }
+    }
+
+    /// The text under the title.
+    pub fn text(mut self, text: impl Into<String>) -> Self {
+        self.text = Some(text.into());
+        self
+    }
+
+    /// A short field, side by side with the others.
+    pub fn field(mut self, name: &str, value: impl Into<String>) -> Self {
+        self.fields.push((name.to_owned(), value.into(), true));
+        self
+    }
+
+    /// A field across the card.
+    pub fn wide(mut self, name: &str, value: impl Into<String>) -> Self {
+        self.fields.push((name.to_owned(), value.into(), false));
+        self
+    }
+
+    /// The embed, with `by` at the top and the time at the bottom.
+    fn embed(&self, by: &str) -> Value {
+        let fields: Vec<Value> = self
+            .fields
+            .iter()
+            .map(|(name, value, inline)| {
+                json!({ "name": name, "value": clip(value, MAX_FIELD), "inline": inline })
+            })
+            .collect();
+        let mut embed = json!({
+            "author": { "name": by },
+            "title": clip(&self.title, MAX_TITLE),
+            "color": self.colour,
+            "fields": fields,
+            "timestamp": iso_time(now_ms() as i64),
+        });
+        if let Some(text) = &self.text {
+            embed["description"] = Value::from(clip(text, MAX_TEXT));
+        }
+        embed
+    }
+}
+
+/// A countdown's card, `title` and when ("Reboot in 5 minutes"), with
+/// how far apart the `worlds` go and why.
+pub fn countdown(
+    title: &str,
+    colour: u32,
+    seconds: u32,
+    stagger_secs: u32,
+    worlds: usize,
+    reason: Option<&str>,
+) -> Card {
+    let mut card = Card::new(format!("{title} {}", from_now(seconds)), colour);
+    if stagger_secs > 0 && worlds > 1 {
+        card = card.field("Stagger", format!("{} apart", span(stagger_secs)));
+    }
+    if let Some(reason) = reason {
+        card = card.wide("Reason", escape(reason));
+    }
+    card
+}
+
 /// Tells a Discord channel, through its webhook, what staff did to the
-/// worlds: one message per action, however many worlds it covered.
+/// worlds: one card per action, however many worlds it covered.
 pub struct Discord {
-    queue: Option<Sender<String>>,
+    queue: Option<Sender<Value>>,
 }
 
 impl Discord {
@@ -36,64 +130,60 @@ impl Discord {
         Self { queue }
     }
 
-    /// Posts what `by` did to the worlds that took it, in one message, with
-    /// any that didn't under it. `say` gets those worlds ("Worlds 1 and 2")
-    /// and the verb to go with them ("is" or "are"). Nothing is posted if no
-    /// world took it.
-    pub fn world_action(
-        &self,
-        by: &str,
-        replies: &[Reply<rs_admin_api::Outcome>],
-        say: impl FnOnce(&str, &str) -> String,
-    ) {
+    /// Posts `card` for what `by` did, naming the worlds that took it first
+    /// and any that didn't at the bottom. Nothing is posted if no world
+    /// took it.
+    pub fn world_action(&self, by: &str, replies: &[Reply<rs_admin_api::Outcome>], card: Card) {
         if self.queue.is_some()
-            && let Some(message) = world_notice(replies, say)
+            && let Some(card) = world_card(replies, card)
         {
-            self.post_by(by, message);
+            self.post(by, &card);
         }
     }
 
-    /// Posts `message`, signed by `by`.
-    pub fn post_by(&self, by: &str, message: String) {
+    /// Posts `card`, from `by`.
+    pub fn post(&self, by: &str, card: &Card) {
         let Some(queue) = &self.queue else {
             return;
         };
-        let content = format!("{message}\n-# by {}", escape(by));
-        if queue.try_send(content).is_err() {
+        if queue.try_send(card.embed(by)).is_err() {
             warn!("Dropped a Discord world notice: too many waiting");
         }
     }
 }
 
-/// [`Discord::world_action`]'s message, unsigned.
-fn world_notice(
-    replies: &[Reply<rs_admin_api::Outcome>],
-    say: impl FnOnce(&str, &str) -> String,
-) -> Option<String> {
+/// [`Discord::world_action`]'s card.
+fn world_card(replies: &[Reply<rs_admin_api::Outcome>], mut card: Card) -> Option<Card> {
     let mut took = Vec::new();
     let mut refused = Vec::new();
     for reply in replies {
         match &reply.result {
             Outcome::Answered { answer } if answer.ok => took.push(reply.world),
-            Outcome::Answered { answer } => refused.push((reply.world, answer.message.as_str())),
-            Outcome::Failed { error } => refused.push((reply.world, error.as_str())),
+            Outcome::Answered { answer } => refused.push(format!(
+                "World {}: {}",
+                reply.world,
+                escape(&answer.message)
+            )),
+            Outcome::Failed { error } => {
+                refused.push(format!("World {}: {}", reply.world, escape(error)))
+            }
         }
     }
     if took.is_empty() {
         return None;
     }
-    let verb = if took.len() == 1 { "is" } else { "are" };
-    let mut message = say(&format!("**{}**", worlds(&took)), verb);
-    for (world, why) in refused {
-        message.push_str(&format!("\n-# World {world} didn't: {}", escape(why)));
+    let name = if took.len() == 1 { "World" } else { "Worlds" };
+    card.fields.insert(0, (name.to_owned(), list(&took), true));
+    if !refused.is_empty() {
+        card = card.wide("Didn't take it", refused.join("\n"));
     }
-    Some(message)
+    Some(card)
 }
 
-async fn send_all(client: Client, url: String, mut messages: Receiver<String>) {
-    while let Some(content) = messages.recv().await {
+async fn send_all(client: Client, url: String, mut messages: Receiver<Value>) {
+    while let Some(embed) = messages.recv().await {
         // Nobody gets pinged, whatever a reason or broadcast says.
-        let body = json!({ "content": content, "allowed_mentions": { "parse": [] } }).to_string();
+        let body = json!({ "embeds": [embed], "allowed_mentions": { "parse": [] } }).to_string();
         for attempt in 0..2 {
             let sent = client
                 .post(&url)
@@ -128,15 +218,23 @@ async fn send_all(client: Client, url: String, mut messages: Receiver<String>) {
     }
 }
 
-/// "World 1", "Worlds 1 and 2", "Worlds 1, 2 and 3".
-pub fn worlds(ids: &[u16]) -> String {
+/// "1", "1 and 2", "1, 2 and 3".
+fn list(ids: &[u16]) -> String {
     match ids {
-        [] => "No worlds".to_owned(),
-        [one] => format!("World {one}"),
+        [] => String::new(),
+        [one] => one.to_string(),
         [rest @ .., last] => {
             let rest: Vec<String> = rest.iter().map(u16::to_string).collect();
-            format!("Worlds {} and {last}", rest.join(", "))
+            format!("{} and {last}", rest.join(", "))
         }
+    }
+}
+
+/// `text`, cut to `max` characters.
+fn clip(text: &str, max: usize) -> String {
+    match text.char_indices().nth(max) {
+        Some((cut, _)) => text[..cut].to_owned(),
+        None => text.to_owned(),
     }
 }
 
@@ -187,9 +285,9 @@ mod tests {
 
     #[test]
     fn worlds_read_as_a_list() {
-        assert_eq!(worlds(&[1]), "World 1");
-        assert_eq!(worlds(&[1, 2]), "Worlds 1 and 2");
-        assert_eq!(worlds(&[1, 2, 3]), "Worlds 1, 2 and 3");
+        assert_eq!(list(&[1]), "1");
+        assert_eq!(list(&[1, 2]), "1 and 2");
+        assert_eq!(list(&[1, 2, 3]), "1, 2 and 3");
     }
 
     #[test]
@@ -215,18 +313,32 @@ mod tests {
     }
 
     #[test]
-    fn one_message_covers_every_world() {
+    fn one_card_covers_every_world() {
         let replies = [reply(1, true), reply(2, true), reply(3, false)];
-        let notice = world_notice(&replies, |worlds, are| {
-            format!("{worlds} {are} starting up")
-        });
+        let card = world_card(&replies, Card::new("Starting up", GREEN)).unwrap();
+        let embed = card.embed("Jordan");
+        assert_eq!(embed["author"]["name"], "Jordan");
+        assert_eq!(embed["title"], "Starting up");
+        assert_eq!(embed["color"], GREEN);
+        assert_eq!(embed["fields"][0]["name"], "Worlds");
+        assert_eq!(embed["fields"][0]["value"], "1 and 2");
+        assert_eq!(embed["fields"][1]["name"], "Didn't take it");
         assert_eq!(
-            notice.as_deref(),
-            Some("**Worlds 1 and 2** are starting up\n-# World 3 didn't: It's already running.")
+            embed["fields"][1]["value"],
+            "World 3: It's already running."
         );
-        let one = world_notice(&replies[..1], |worlds, are| format!("{worlds} {are} up"));
-        assert_eq!(one.as_deref(), Some("**World 1** is up"));
-        assert!(world_notice(&replies[2..], |_, _| String::new()).is_none());
+        assert_eq!(embed["fields"][1]["inline"], false);
+
+        let one = world_card(&replies[..1], Card::new("Up", GREEN)).unwrap();
+        assert_eq!(one.embed("Jordan")["fields"][0]["name"], "World");
+        assert!(world_card(&replies[2..], Card::new("Up", GREEN)).is_none());
+    }
+
+    #[test]
+    fn long_parts_are_cut_to_fit() {
+        assert_eq!(clip("abcdef", 3), "abc");
+        assert_eq!(clip("\u{e9}\u{20ac}", 1), "\u{e9}");
+        assert_eq!(clip("ab", 3), "ab");
     }
 
     #[test]

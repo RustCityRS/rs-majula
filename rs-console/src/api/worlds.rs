@@ -1,5 +1,5 @@
 use crate::audit::Event;
-use crate::discord::{escape, from_now, span};
+use crate::discord::{BLUE, Card, GREEN, ORANGE, PURPLE, RED, countdown, escape};
 use crate::http::{ApiError, App, Staff};
 use crate::worlds::{Outcome, Reply, WorldConfig, WorldView};
 use axum::Json;
@@ -184,25 +184,23 @@ async fn count_down(
         })
         .await;
     let (ok, summary) = tally(&replies);
-    app.discord
-        .world_action(staff.name(), &replies, |worlds, are| {
-            let doing = if stay_down {
-                "shutting down"
-            } else {
-                "rebooting"
-            };
-            let mut said = format!("{worlds} {are} {doing} {}", from_now(req.seconds));
-            if req.stagger_secs > 0 && replies.len() > 1 {
-                said.push_str(&format!(", one every {}", span(req.stagger_secs)));
-            }
-            if stay_down {
-                said.push_str(", and will stay off until started again");
-            }
-            if let Some(reason) = &reason {
-                said.push_str(&format!(": \"{}\"", escape(reason)));
-            }
-            said
-        });
+    let (title, colour) = if stay_down {
+        ("Shutdown", RED)
+    } else {
+        ("Reboot", ORANGE)
+    };
+    let mut card = countdown(
+        title,
+        colour,
+        req.seconds,
+        req.stagger_secs,
+        targets.len(),
+        reason.as_deref(),
+    );
+    if stay_down {
+        card = card.text("They stay off until a maintainer starts them again.");
+    }
+    app.discord.world_action(staff.name(), &replies, card);
     let why = reason.map(|r| format!(" (\"{r}\")")).unwrap_or_default();
     let action = if stay_down { "shutdown" } else { "reboot" };
     app.audit.record(
@@ -252,9 +250,7 @@ pub async fn start(
     }
     let (ok, summary) = tally(&replies);
     app.discord
-        .world_action(staff.name(), &replies, |worlds, are| {
-            format!("{worlds} {are} starting up")
-        });
+        .world_action(staff.name(), &replies, Card::new("Starting up", GREEN));
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "start_world")
             .target(world_list(&targets))
@@ -301,9 +297,7 @@ pub async fn cancel_reboot(
         .await;
     let (ok, summary) = tally(&replies);
     app.discord
-        .world_action(staff.name(), &replies, |worlds, are| {
-            format!("{worlds} {are} no longer rebooting")
-        });
+        .world_action(staff.name(), &replies, Card::new("Reboot cancelled", BLUE));
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "cancel_reboot")
             .target(world_list(&targets))
@@ -342,10 +336,8 @@ pub async fn broadcast(
         })
         .await;
     let (ok, summary) = tally(&replies);
-    app.discord
-        .world_action(staff.name(), &replies, |worlds, _| {
-            format!("Broadcast to {worlds}: \"{}\"", escape(&message))
-        });
+    let card = Card::new("Broadcast", PURPLE).text(escape(&message));
+    app.discord.world_action(staff.name(), &replies, card);
     app.audit.record(
         Event::new(Some(staff.name()), staff.client.ip, "broadcast")
             .target(world_list(&targets))
@@ -379,14 +371,12 @@ pub async fn maintenance(
         })
         .await;
     let (ok, summary) = tally(&replies);
-    app.discord
-        .world_action(staff.name(), &replies, |worlds, are| {
-            if req.enabled {
-                format!("{worlds} {are} closed to new logins for maintenance")
-            } else {
-                format!("{worlds} {are} open to logins again")
-            }
-        });
+    let card = if req.enabled {
+        Card::new("Maintenance on", ORANGE).text("Closed to new logins.")
+    } else {
+        Card::new("Maintenance off", GREEN).text("Open to logins again.")
+    };
+    app.discord.world_action(staff.name(), &replies, card);
     app.audit.record(
         Event::new(
             Some(staff.name()),
