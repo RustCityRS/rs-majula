@@ -621,9 +621,9 @@ node; the nodes mesh into one cluster for cross-world social features.
    `https://w1.example.com`); the console's browser loads `/replay` from it.
 9. **Keep recordings out of routine backups.** Session recordings are bulky
    and short-lived: dump with `pg_dump --exclude-table-data=replay_chunks`.
-10. **Grant the website's login what appeals, recovery and messages need.**
+10. **Grant the website's login what appeals, recovery, the account page and messages need.**
     If the website runs as its own restricted database role, `/appeal`,
-    `/recover`, `/recover/request` and `/messages` (and the console's
+    `/recover`, `/recover/request`, `/account` and `/messages` (and the console's
     Messages page, through the admin API) also need, on top of news,
     hiscores and registration:
 
@@ -633,8 +633,14 @@ node; the nodes mesh into one cluster for cross-world social features.
     GRANT SELECT, INSERT, UPDATE ON appeals TO rs_web;
     GRANT SELECT, INSERT, UPDATE ON recovery_requests TO rs_web;
     GRANT SELECT (id, moderator_id, target_id, action, hours, reason, created_at) ON moderation_logs TO rs_web;
-    GRANT SELECT, INSERT ON login_failures TO rs_web;
+    GRANT SELECT, INSERT, DELETE ON login_failures TO rs_web;
     GRANT SELECT, INSERT, UPDATE (read_at) ON staff_messages TO rs_web;
+    -- the account page (/account)
+    GRANT SELECT, DELETE ON players TO rs_web;
+    GRANT SELECT ON login_logs, player_saves, save_history, hiscores, chat_logs, session_logs, wealth_events, snapshots TO rs_web;
+    GRANT SELECT (id, player_id, node_id, started_at, ended_at, duration_ms) ON replays TO rs_web;
+    GRANT SELECT (node_id) ON moderation_logs TO rs_web;
+    GRANT SELECT, DELETE ON friends, ignores TO rs_web;
     ```
 
 ----
