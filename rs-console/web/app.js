@@ -10217,6 +10217,10 @@ function linksSection(name, onModerated) {
         h('section', {class: 'card'},
             h('div', {class: 'card-head'}, h('h2', {}, 'Devices'),
                 h('span', {class: 'hint hide-mobile'}, 'What each browser or install said it was (browsers can claim anything). Point at a device or an address to see the other side.')),
+            // The web client keeps its login id in localStorage (`rs-uid`,
+            // from deploy/patch.py), so anything that empties it makes a new one.
+            h('div', {class: 'card-body'}, h('p', {class: 'hint'},
+                'A browser keeps its login id in its site storage, so the same computer can show up as a new device: in a private (incognito) window, after clearing browsing data, in another browser or browser profile, or with storage blocked (then there\'s no id at all). A desktop client\'s id changes if its cache folder is deleted. A few devices with different ids aren\'t a sign of anything on their own.')),
             devices),
         chainSection(name, () => {
             load();
