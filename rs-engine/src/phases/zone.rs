@@ -60,6 +60,12 @@ impl Engine {
         let due = self.pending_zone_events.split_off(&(self.clock + 1));
         let ready = std::mem::replace(&mut self.pending_zone_events, due);
 
+        // Locs come back only once every expiring loc's collision is cleared:
+        // collision flags aren't counted, so a temporary loc over part of the
+        // static one it stood in for (the gnome stronghold gate's open halves)
+        // despawning after the static one came back would clear that part of
+        // its footprint.
+        let mut restores = Vec::new();
         for (_, events) in ready {
             for event in events {
                 match event {
@@ -105,15 +111,32 @@ impl Engine {
                         if loc.lifetime() == EntityLifeTime::Despawn {
                             self.remove_loc(coord, layer, 0);
                         } else if !loc.visible() {
-                            zone.respawn_loc(idx);
-                            let reverted = zone.locs[idx];
-                            apply_loc_collision(&reverted, coord, true);
-                            self.track_zone(x, y, z);
+                            restores.push((coord, layer, clock));
                         } else if loc.is_changed() {
-                            self.revert_loc(coord, layer);
+                            apply_loc_collision(&loc, coord, false);
+                            restores.push((coord, layer, clock));
                         }
                     }
                 }
+            }
+        }
+
+        for (coord, layer, clock) in restores {
+            let (x, y, z) = (coord.x(), coord.y(), coord.z());
+            let zone = self.zones.zone_mut(x, y, z);
+            // Found again: despawning locs above swap-removed theirs.
+            let Some(idx) = zone.locs.iter().position(|loc| {
+                loc.is_at(x, z) && loc.layer() == layer && loc.last_clock() == clock
+            }) else {
+                continue;
+            };
+            if !zone.locs[idx].visible() {
+                zone.respawn_loc(idx);
+                let reverted = zone.locs[idx];
+                apply_loc_collision(&reverted, coord, true);
+                self.track_zone(x, y, z);
+            } else {
+                self.revert_loc(coord, layer);
             }
         }
     }

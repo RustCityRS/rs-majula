@@ -2162,10 +2162,10 @@ impl Engine {
     /// Reverts a loc at the given coordinate and layer to its original state.
     ///
     /// Undoes any `change` that was applied to the loc, restoring its original
-    /// type, shape, and angle. Updates collision accordingly: removes the
-    /// current collision, calls `revert()` on the loc, then applies the
-    /// reverted loc's collision. Clears the loc's `last_clock` so no further
-    /// timed events will fire for it.
+    /// type, shape, and angle, and applies the reverted loc's collision. The
+    /// caller has already cleared the changed loc's collision (see
+    /// `process_pending_zone_events`). Clears the loc's `last_clock` so no
+    /// further timed events will fire for it.
     ///
     /// # Arguments
     ///
@@ -2174,7 +2174,7 @@ impl Engine {
     ///
     /// # Side Effects
     ///
-    /// - Updates the collision map (removes current, applies reverted).
+    /// - Applies the reverted loc's collision.
     /// - Reverts the loc's properties in the zone.
     /// - Queues a zone change event for client updates.
     /// - Marks the zone as dirty.
@@ -2185,8 +2185,6 @@ impl Engine {
         let Some(idx) = zone.get_loc_by_layer(x, z, layer) else {
             return;
         };
-
-        apply_loc_collision(&zone.locs[idx], coord, false);
 
         zone.locs[idx].revert();
 
