@@ -218,15 +218,20 @@
     // crawl: the browser takes turns between this page's tasks and the
     // other replay's. The scout's slices are short, so the replay being
     // watched stays smooth; the replay's own, behind its seek cover, long.
+    // Sweeping (nothing asked for), the scout rests between its slices: it
+    // shares a thread with the replay being watched (and with any other of
+    // this site's pages in the process), which keeps most of it.
     const turns = new MessageChannel();
     let turnPending = false;
     let sliceStart = 0;
     const sliceMs = () => (SCOUT ? 6 : 40);
-    turns.port1.onmessage = () => {
+    const SCOUT_REST_MS = 18;
+    const nextSlice = () => {
         turnPending = false;
         sliceStart = realNow();
         runTimers();
     };
+    turns.port1.onmessage = nextSlice;
     function requestTurn() {
         if (turnPending) {
             return;
@@ -237,6 +242,8 @@
                 turnPending = false;
                 runTimers();
             });
+        } else if (SCOUT && scouting.sweeping) {
+            realSetTimeout(nextSlice, SCOUT_REST_MS);
         } else {
             turns.port2.postMessage(0);
         }
@@ -1540,7 +1547,7 @@
         scouting.current = null;
         scouting.pending = null;
         scouting.sweeping = false;
-        Object.assign(sweep, { fine: 0, step: 0, from: 0, done: false, sent: [] });
+        Object.assign(sweep, { fine: 0, done: false, sent: [] });
         replay.scoutStep = 0;
         replay.live = null;
         replay.starved = false;
@@ -1934,21 +1941,12 @@
     const scouting = { current: null, pending: null, sweeping: false };
 
     // With nothing asked for, the scout sweeps the recording: a frame every
-    // `step` ms, coarse first (about a twelfth of it apart), then halving
-    // the gaps down to `fine` (5 seconds, or wider so it's at most ~600
-    // frames), each pass forward from the start. What's asked for comes
-    // first.
-    const sweep = { fine: 0, step: 0, from: 0, done: false, sent: [] };
-
-    function sweepStart() {
-        const duration = replay.rec.header.durationMs || 0;
-        sweep.fine = Math.max(5000, Math.ceil(duration / 600 / 1000) * 1000);
-        sweep.step = sweep.fine;
-        while (sweep.step * 12 < duration) {
-            sweep.step *= 2;
-        }
-        sweep.from = sweep.step;
-    }
+    // `fine` ms (5 seconds, or wider so it's at most ~600 frames), forward
+    // from where it is, then what it passed over before. Only forward: going
+    // back logs the client in again and loads its map, and passes from the
+    // start each time did that hundreds of times over a long recording,
+    // minutes of a whole core. What's asked for comes first.
+    const sweep = { fine: 0, done: false, sent: [] };
 
     // A frame was sent within half a fine step of `ms`.
     function swept(ms) {
@@ -1970,22 +1968,20 @@
     function sweepNext() {
         const duration = replay.rec.header.durationMs || 0;
         if (!sweep.fine) {
-            sweepStart();
+            sweep.fine = Math.max(5000, Math.ceil(duration / 600 / 1000) * 1000);
         }
-        while (!sweep.done) {
-            for (let t = sweep.from; t < duration; t += sweep.step) {
+        if (sweep.done) {
+            return null;
+        }
+        const here = Math.max(sweep.fine, Math.ceil(replay.lastMs / sweep.fine) * sweep.fine);
+        for (const [from, to] of [[here, duration], [sweep.fine, here]]) {
+            for (let t = from; t < to; t += sweep.fine) {
                 if (!swept(t)) {
-                    sweep.from = t + sweep.step;
                     return t;
                 }
             }
-            if (sweep.step <= sweep.fine) {
-                sweep.done = true;
-            } else {
-                sweep.step /= 2;
-                sweep.from = sweep.step;
-            }
         }
+        sweep.done = true;
         return null;
     }
 
