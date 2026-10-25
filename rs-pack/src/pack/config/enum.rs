@@ -3,7 +3,7 @@ use crate::pack::config::param::get_param_value_for_type;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_script_var_type;
+use crate::types::ScriptVarType;
 use anyhow::Result;
 use std::collections::HashMap;
 use tracing::debug;
@@ -58,21 +58,17 @@ pub fn pack_enums(
                 "inputtype" => {
                     server.p1(1);
                     if inputtype == "autoint" {
-                        parse_script_var_type("int", |v| {
-                            server.p1(v as u8);
-                        });
+                        server.p1(ScriptVarType::Int as u8);
                     } else {
-                        parse_script_var_type(value, |v| {
-                            server.p1(v as u8);
-                        });
+                        server.p1(enum_var_type(value) as u8);
                     }
                 }
 
                 // 2
-                "outputtype" => parse_script_var_type(value, |v| {
+                "outputtype" => {
                     server.p1(2);
-                    server.p1(v as u8);
-                }),
+                    server.p1(enum_var_type(value) as u8);
+                }
 
                 // 3 or 4
                 "default" => {
@@ -158,4 +154,14 @@ pub fn pack_enums(
         server,
         client: None,
     })
+}
+
+/// An enum's key or value type as packed. As in 2004scape, namedobj keeps its
+/// own type ('O'), the one the compiler pushes for `enum(int, namedobj, ...)`,
+/// where other configs pack it as obj.
+fn enum_var_type(name: &str) -> ScriptVarType {
+    match name {
+        "namedobj" => ScriptVarType::NamedObj,
+        _ => ScriptVarType::from_type_name(name),
+    }
 }
