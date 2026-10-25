@@ -1,4 +1,5 @@
 use crate::app::AppError;
+use crate::theme::Theme;
 use axum::response::Html;
 use minijinja::{Environment, Error, ErrorKind, TemplateSource, Value};
 use std::fs;
@@ -33,13 +34,19 @@ pub struct Templates {
 impl Templates {
     /// `site_url` is the site's base URL, for the links a page gives of
     /// itself to other sites (its preview's image).
-    pub fn new(dir: PathBuf, https: bool, site_url: &str) -> Self {
-        Self::with_overlays(dir, ACTIVE_OVERLAYS, https, site_url)
+    pub fn new(dir: PathBuf, https: bool, site_url: &str, theme: Theme) -> Self {
+        Self::with_overlays(dir, ACTIVE_OVERLAYS, https, site_url, theme)
     }
 
     /// [`Templates::new`] with `overlays` (oldest first) instead of this
     /// build's.
-    fn with_overlays(dir: PathBuf, overlays: &[&str], https: bool, site_url: &str) -> Self {
+    fn with_overlays(
+        dir: PathBuf,
+        overlays: &[&str],
+        https: bool,
+        site_url: &str,
+        theme: Theme,
+    ) -> Self {
         let mut env = Environment::new();
         let mut roots: Vec<PathBuf> = overlays.iter().rev().map(|o| dir.join(o)).collect();
         roots.push(dir);
@@ -55,6 +62,12 @@ impl Templates {
         };
         env.add_global("game_year", year);
         env.add_filter("commas", commas);
+        // Asked at each render, so the look changes on the day without a
+        // restart: `{% if christmas() %}`, `src={{ img("edge_a.jpg") }}`.
+        env.add_function("christmas", move || theme.christmas());
+        env.add_function("img", move |path: &str| {
+            Value::from_safe_string(theme.img(path))
+        });
         Self { env }
     }
 
@@ -167,15 +180,22 @@ mod tests {
     /// catches syntax errors, missing includes and filters misapplied to
     /// undefined values. Views and partials need a handler's data, so they
     /// are only compiled. Checked for the base site and for each revision's
-    /// stack of overlays, whichever revision this is built for.
+    /// stack of overlays, whichever revision this is built for, plain and
+    /// at Christmas.
     #[test]
     fn every_template_compiles_and_every_page_renders() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("templates");
         let mut failures = Vec::new();
-        for active in 0..=OVERLAYS.len() {
+        let sites = (0..=OVERLAYS.len()).flat_map(|n| [(n, Theme::Plain), (n, Theme::Christmas)]);
+        for (active, theme) in sites {
             let overlays = &OVERLAYS[..active];
-            let templates =
-                Templates::with_overlays(root.clone(), overlays, false, "http://localhost:8000");
+            let templates = Templates::with_overlays(
+                root.clone(),
+                overlays,
+                false,
+                "http://localhost:8000",
+                theme,
+            );
             let mut names = Vec::new();
             template_names(&root, &root, &mut names);
             for overlay in overlays {
@@ -186,7 +206,7 @@ mod tests {
             names.dedup();
             assert!(names.iter().any(|n| n == "pages/index.html"));
 
-            let site = overlays.last().copied().unwrap_or("base");
+            let site = format!("{} {theme:?}", overlays.last().copied().unwrap_or("base"));
             failures.extend(names.iter().filter_map(|name| {
                 let template = match templates.env.get_template(name) {
                     Ok(t) => t,
@@ -220,7 +240,7 @@ mod tests {
             let mut names = Vec::new();
             let dir = root.join(overlay);
             template_names(&dir, &dir, &mut names);
-            let with = Templates::with_overlays(root.clone(), &[overlay], false, "");
+            let with = Templates::with_overlays(root.clone(), &[overlay], false, "", Theme::Plain);
             for name in names {
                 let source = fs::read_to_string(dir.join(&name)).unwrap();
                 assert_eq!(
@@ -230,7 +250,7 @@ mod tests {
                 );
             }
         }
-        let base = Templates::with_overlays(root.clone(), &[], false, "");
+        let base = Templates::with_overlays(root.clone(), &[], false, "", Theme::Plain);
         assert!(base.env.get_template("since_289/pages/index.html").is_err());
         assert!(base.env.get_template("../Cargo.toml").is_err());
     }

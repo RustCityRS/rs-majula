@@ -1,11 +1,13 @@
 mod admin;
 mod app;
 mod cached;
+mod date;
 mod metrics;
 mod news_render;
 mod rate_limit;
 mod routes;
 mod templates;
+mod theme;
 mod token;
 mod turnstile;
 mod worlds;
@@ -14,6 +16,7 @@ use crate::app::{App, HASHING_AT_ONCE, SiteConfig};
 use crate::cached::Cached;
 use crate::rate_limit::RateLimit;
 use crate::templates::Templates;
+use crate::theme::Theme;
 use crate::token::SignInTokens;
 use crate::turnstile::Turnstile;
 use anyhow::{Context, Result, anyhow};
@@ -62,6 +65,10 @@ struct Args {
     turnstile_secret: Option<String>,
     #[arg(long, env = "RS_WEB_MEDIA_DIR")]
     media_dir: Option<PathBuf>,
+    /// The site's look: `auto` is the 2004 winter one from 7 December to
+    /// 5 January, as it was up then, and plain the rest of the year.
+    #[arg(long, env = "RS_WEB_THEME", value_enum, default_value_t = Theme::Auto)]
+    theme: Theme,
     #[arg(long, value_enum, default_value_t = LogFormat::Text)]
     log_format: LogFormat,
     #[arg(long, env = "RS_DB_HOST", default_value = "localhost")]
@@ -188,7 +195,12 @@ async fn main() -> Result<()> {
         media_dir,
         passwords: Passwords::new(&pepper),
         hashing: Semaphore::new(HASHING_AT_ONCE),
-        templates: Templates::new(args.root.join("templates"), args.https, &site.base_url()),
+        templates: Templates::new(
+            args.root.join("templates"),
+            args.https,
+            &site.base_url(),
+            args.theme,
+        ),
         // Long enough to spare the database in a rush; a post edited by
         // hand in SQL shows within it.
         latest_news: Cached::new(Duration::from_secs(300)),

@@ -1,0 +1,54 @@
+{#- An index page of the 2005 site's game screenshots: links to every page,
+    free game's then members', over six thumbnails in rows of two. -#}
+{% with title="Screenshots" %}{% include "layout/header.html" %}{% endwith %}
+{% include "layout/frame-top.html" %}
+{% include "layout/content-start.html" %}
+{% with title="Screenshots" %}{% include "layout/title-box.html" %}{% endwith %}
+
+{% macro page_links(pages, page) %}
+{%- for n in pages %}{% if not loop.first %} | {% endif %}{% if n == page %}<i>Page {{ loop.index }}</i>{% else %}<a href="/screenshots?page={{ n }}" class=c>Page {{ loop.index }}</a>{% endif %}{% endfor %}
+{%- endmacro %}
+
+<center>
+    <table width=500 bgcolor=black cellpadding=4 border=0>
+        <tr>
+            <td class=e>
+                <center>
+                    <b>Free Game</b> : {{ page_links(free_pages, page) }}<br>
+                    <b>Member Game</b> : {{ page_links(members_pages, page) }}
+                </center>
+            </td>
+        </tr>
+    </table>
+    <br>
+</center>
+<center>
+    <table width=500 bgcolor=black cellpadding=4 border=0>
+        <tr>
+            <td class=e>
+                <table>
+                    {% for row in rows %}
+                    <tr>
+                        {% for shot in row %}
+                        <td><center><a href="/screenshots/{{ shot.name }}"><img loading="lazy" alt="{{ shot.caption }}" src="/img/screenshots/thumbs/{{ shot.thumb }}" width=240 height=162 border=0></a></center></td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for shot in row %}
+                        <td><center>{{ shot.caption }}</center></td>
+                        {% endfor %}
+                    </tr>
+                    {% if not loop.last %}
+                    <tr><td colspan=2>&nbsp;</td></tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+                <br>
+            </td>
+        </tr>
+    </table>
+    <br>
+</center>
+
+{% include "layout/content-end.html" %}
+{% include "layout/footer.html" %}

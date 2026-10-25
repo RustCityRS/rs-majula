@@ -1,0 +1,30 @@
+{#- One of the 2005 site's game screenshots, full size on plain black, with
+    the ones before and after it. Where only its thumbnail survives, that's
+    shown instead. -#}
+{% with title=shot.caption, wide=true, bare=true %}{% include "layout/header.html" %}{% endwith %}
+
+<center>
+    <br>
+    {% with title=shot.caption, links=[{"text": "Screenshots Index", "href": "/screenshots"}] %}{% include "layout/title-box.html" %}{% endwith %}
+    <table width=500 bgcolor=black cellpadding=4 border=0>
+        <tr>
+            <td class=e>
+                <table width="100%">
+                    <tr>
+                        <td width="33%">{% if prev %}<a href="/screenshots/{{ prev }}" class=c>&lt; Previous Screenshot</a>{% endif %}</td>
+                        <td width="34%"><center><b>{{ shot.caption }}</b></center></td>
+                        <td align=right width="33%">{% if next %}<a href="/screenshots/{{ next }}" class=c>Next Screenshot &gt;</a>{% endif %}</td>
+                    </tr>
+                </table>
+                <p>
+                {% if shot.full %}
+                <img alt="{{ shot.caption }}" src="/img/screenshots/shots/{{ shot.full }}" width=765 height=503 border=0>
+                {% else %}
+                <center><img alt="{{ shot.caption }}" src="/img/screenshots/thumbs/{{ shot.thumb }}" width=240 height=162 border=0></center>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+</center>
+
+{% with wide=true %}{% include "layout/footer.html" %}{% endwith %}

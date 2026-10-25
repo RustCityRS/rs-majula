@@ -8,6 +8,8 @@ mod pages;
 mod play;
 mod recover;
 mod recovery;
+#[cfg(since_289)]
+mod screenshots;
 mod sign_in;
 
 use crate::app::App;
@@ -53,6 +55,13 @@ pub fn router(app: Arc<App>, public: &Path) -> Router {
             },
         ),
     );
+    // The 2005 title screen's game screenshots; the 2004 one didn't link any.
+    #[cfg(since_289)]
+    {
+        router = router
+            .route("/screenshots", get(screenshots::index))
+            .route("/screenshots/{name}", get(screenshots::shot));
+    }
     router
         .route("/title", get(play::title))
         .route("/play", get(|| async { Redirect::to("/detail") }))

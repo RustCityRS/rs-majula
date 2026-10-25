@@ -1,5 +1,5 @@
 {#- A box in the 2005 title screen's stone frame, its six-pixel corners and
-    edges round a black middle:
+    edges round a black middle, with snow along its foot at Christmas:
     {% from "layout/fm-box.html" import fm_box %}
     {% call fm_box(380) %}...{% endcall %}
     `width` is the whole box's, or none to fit the contents. -#}
@@ -20,6 +20,21 @@
         </td>
         <td background=/img/title/fm_right.gif><img alt="" src=/img/title/blank.gif width=6 height=1></td>
     </tr>
+    {%- if christmas() %}
+    <tr>
+        <td background=/img/title/fm_left.gif><img alt="" src=/img/title/blank.gif width=6 height=1></td>
+        <td background=/img/themes/christmas/2004/snowy.jpg>
+            <table cellpadding=0 cellspacing=0 width=100%>
+                <tr>
+                    <td><img alt="" src=/img/themes/christmas/2004/snowyleft.jpg width=19 height=24></td>
+                    <td width=100%></td>
+                    <td><img alt="" src=/img/themes/christmas/2004/snowyright.jpg width=19 height=24></td>
+                </tr>
+            </table>
+        </td>
+        <td background=/img/title/fm_right.gif><img alt="" src=/img/title/blank.gif width=6 height=1></td>
+    </tr>
+    {%- endif %}
     <tr>
         <td><img alt="" src=/img/title/fm_bottomleft.gif width=6 height=6></td>
         <td background=/img/title/fm_bottom2.gif><img alt="" src=/img/title/blank.gif width=1 height=6></td>

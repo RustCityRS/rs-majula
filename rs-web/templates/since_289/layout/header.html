@@ -36,9 +36,10 @@
     </head>
 </html>
 {#- `wide`: the full-width title screen on the tiled background, without
-    the 600px stone frame the other pages sit in. #}
+    the 600px stone frame the other pages sit in; `bare` leaves the
+    background plain black, as a single screenshot's page had it. #}
 {%- if wide %}
-<body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 style="margin:0" background=/img/background.jpg>
+<body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 style="margin:0"{% if not bare %} background={{ img("background.jpg") }}{% endif %}>
 {%- else %}
 <body bgcolor=black text="white" link=#90c040 alink=#90c040 vlink=#90c040 topmargin=0 leftmargin=0>
 {%- endif %}

@@ -169,6 +169,7 @@ check it, and `rs-web migrate` applies any changes.
 | `--admin-host`, `--admin-port` | `127.0.0.1`, `8190` | The private admin API the staff console uses for news and messages. Port `0` turns it off. |
 | `--media-dir` | `rs-web/media` in debug builds (`RS_WEB_MEDIA_DIR`) | Where news images and videos go. Release builds without it take no uploads. |
 | `--log-format` | `text` | `json` writes JSON lines for journald and Loki. `deploy/grafana/web.alloy` ships those and the metrics. |
+| `--theme` | `auto` (`RS_WEB_THEME`) | `auto` gives the site Jagex's 2004 winter look from 7 December to 5 January (snow on the logo and title boxes, snowflakes behind them, holly on every page's frame) and the plain look otherwise. `christmas` or `plain` keeps one look all year. |
 
 ### How it works
 
