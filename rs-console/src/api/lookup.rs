@@ -1,7 +1,8 @@
 use super::access::{ceiling, check_player, hides_self, may_see};
 use super::players::checked_name;
 use crate::audit::Event;
-use crate::cases::{Triage, evasion_key};
+use crate::cases::{Triage, evasion_key, multilog_key, transfer_key};
+use crate::detect::{CASE_TRANSFER_VALUE, MIN_OVERLAP_SECS, TIMING_VALUE};
 use crate::http::{ApiError, App, Staff};
 use crate::users::name_key;
 use axum::Json;
@@ -9,9 +10,10 @@ use axum::extract::{Query, State};
 use axum::http::StatusCode;
 use rs_admin_api::{
     ActivityHour, ActivityLookup, ChainLink, ChatLookup, ChatRecord, Evasion, EvasionLookup,
-    LinkChainLookup, Links, LinksLookup, ModerationLookup, ModerationRecord, PlayerLookup,
-    PlayerRecord, ProgressLookup, ProgressPoint, ReportLookup, ReportRecord, Sanction,
-    SanctionsLookup, TimelineCursor, TimelineEntry, TimelineLookup, path,
+    LinkChainLookup, LinkedTransfer, Links, LinksLookup, ModerationLookup, ModerationRecord,
+    Multilog, MultilogLookup, PlayerLookup, PlayerRecord, ProgressLookup, ProgressPoint,
+    ReportLookup, ReportRecord, Sanction, SanctionsLookup, TimelineCursor, TimelineEntry,
+    TimelineLookup, TransferLookup, path,
 };
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -465,6 +467,14 @@ pub async fn links(
             }
         }
     }
+    // A fingerprint is only ever matched up, never read: a label for
+    // everyone.
+    for device in &mut links.devices {
+        if let Some(fingerprint) = &mut device.fingerprint {
+            *fingerprint =
+                address_label(&app, &format!("fp {fingerprint}")).replacen("addr-", "fp-", 1);
+        }
+    }
     Ok(Json(LinksView {
         links,
         addresses_shown: sees,
@@ -559,6 +569,125 @@ pub async fn evasion(
             .filter(|(evasion, _)| !hides_self(&staff, &evasion.name))
             .map(|(evasion, key)| EvasionRow {
                 evasion,
+                cases: triage.remove(&key).map(|t| t.cases).unwrap_or_default(),
+            })
+            .collect(),
+    ))
+}
+
+#[derive(Deserialize)]
+pub struct LinkedPlayQuery {
+    /// Only this player's.
+    name: Option<String>,
+    days: Option<u32>,
+}
+
+#[derive(Serialize)]
+pub struct MultilogRow {
+    #[serde(flatten)]
+    multilog: Multilog,
+    /// The cases it's evidence in.
+    cases: Vec<u64>,
+}
+
+/// `GET /api/lookup/multilog?days=&name=`: accounts that played at the same
+/// time from one browser, device or address (or were refused a login for
+/// it) over the last `days` (7 by default), by pair and day.
+pub async fn multilog(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<LinkedPlayQuery>,
+) -> Result<Json<Vec<MultilogRow>>, ApiError> {
+    let name = match &query.name {
+        Some(name) => {
+            let name = checked_name(name)?;
+            check_player(&app, &staff, &name).await?;
+            Some(name)
+        }
+        None => None,
+    };
+    let rows: Vec<Multilog> = app
+        .worlds
+        .ask(
+            path::MULTILOG,
+            &MultilogLookup {
+                name,
+                days: query.days.unwrap_or(7),
+                min_overlap_secs: MIN_OVERLAP_SECS,
+                max_staff_level: ceiling(&staff),
+                limit: 200,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    let keys: Vec<String> = rows
+        .iter()
+        .map(|r| multilog_key(&r.name, &r.other, r.day_ms))
+        .collect();
+    let mut triage = app.cases.triage_of(&keys);
+    Ok(Json(
+        rows.into_iter()
+            .zip(keys)
+            .filter(|(r, _)| !hides_self(&staff, &r.name) && !hides_self(&staff, &r.other))
+            .map(|(multilog, key)| MultilogRow {
+                multilog,
+                cases: triage.remove(&key).map(|t| t.cases).unwrap_or_default(),
+            })
+            .collect(),
+    ))
+}
+
+#[derive(Serialize)]
+pub struct TransferRow {
+    #[serde(flatten)]
+    transfer: LinkedTransfer,
+    cases: Vec<u64>,
+    /// Whether it's worth enough to open a case on its own.
+    case_worthy: bool,
+}
+
+/// `GET /api/lookup/linked-transfers?days=&name=`: items passed between
+/// linked accounts over the last `days` (7 by default), and hand-offs
+/// between unlinked ones, by pair and day.
+pub async fn linked_transfers(
+    State(app): State<Arc<App>>,
+    staff: Staff,
+    Query(query): Query<LinkedPlayQuery>,
+) -> Result<Json<Vec<TransferRow>>, ApiError> {
+    let name = match &query.name {
+        Some(name) => {
+            let name = checked_name(name)?;
+            check_player(&app, &staff, &name).await?;
+            Some(name)
+        }
+        None => None,
+    };
+    let rows: Vec<LinkedTransfer> = app
+        .worlds
+        .ask(
+            path::LINKED_TRANSFERS,
+            &TransferLookup {
+                name,
+                days: query.days.unwrap_or(7),
+                timing_value: TIMING_VALUE,
+                max_staff_level: ceiling(&staff),
+                limit: 200,
+            },
+        )
+        .await
+        .map_err(unavailable)?;
+    let keys: Vec<String> = rows
+        .iter()
+        .map(|r| transfer_key(&r.from, &r.to, r.day_ms))
+        .collect();
+    let mut triage = app.cases.triage_of(&keys);
+    Ok(Json(
+        rows.into_iter()
+            .zip(keys)
+            .filter(|(r, _)| !hides_self(&staff, &r.from) && !hides_self(&staff, &r.to))
+            .map(|(transfer, key)| TransferRow {
+                case_worthy: transfer.value >= CASE_TRANSFER_VALUE,
+                transfer,
                 cases: triage.remove(&key).map(|t| t.cases).unwrap_or_default(),
             })
             .collect(),

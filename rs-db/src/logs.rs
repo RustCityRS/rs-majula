@@ -134,9 +134,9 @@ macro_rules! prune_oldest {
 }
 pub(crate) use prune_oldest;
 
-/// Deletes up to `$2` of a login pair table's rows (`login_ips` or
-/// `login_uids`, keyed by `$key` and player) whose latest login is older
-/// than `$1` days, like [`prune_oldest!`].
+/// Deletes up to `$2` of a login pair table's rows (`login_ips`,
+/// `login_uids` or `login_fingerprints`, keyed by `$key` and player) whose
+/// latest login is older than `$1` days, like [`prune_oldest!`].
 macro_rules! prune_pairs {
     ($table:literal, $key:literal) => {
         concat!(
@@ -163,9 +163,10 @@ const PRUNED_LOGS: [&str; 3] = [
     prune_oldest!("wealth_events", "created_at", ""),
 ];
 const PRUNED_LOGINS: &str = prune_oldest!("login_logs", "created_at", "");
-const PRUNED_LOGIN_PAIRS: [&str; 2] = [
+const PRUNED_LOGIN_PAIRS: [&str; 3] = [
     prune_pairs!("login_ips", "ip"),
     prune_pairs!("login_uids", "uid"),
+    prune_pairs!("login_fingerprints", "fingerprint"),
 ];
 const PRUNED_SCRIPT_ERRORS: &str = prune_oldest!("script_errors", "last_at", "");
 const _: () = assert!(log_type::STAFF_COMMAND == 100);

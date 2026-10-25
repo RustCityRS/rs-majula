@@ -14,17 +14,18 @@ use rs_admin_api::{
     CheckPatterns, ControlsSet, EdgeItem, Evasion, EvasionLookup, GraphAccount, Health, HeldIn,
     HiscoreRow, HiscoreStanding, HiscoresChange, HiscoresLookup, Holder, HoldersLookup, InvSheet,
     ItemCirculation, ItemForms, ItemHolders, ItemLine, ItemTrace, KeptOff, KeptOffLookup, Kick,
-    LinkBetween, LinkChainLookup, LinkedAccount, LinkedLookup, Links, LinksLookup, LiveReplay,
-    LoginAddress, LoginDeviceSeen, MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance, ModOutcome,
-    Moderate, ModerationLookup, ModerationRecord, ObjLine, ObjSearch, OnlinePlayer, Outcome,
-    PasswordReset, PlayerEdit, PlayerEditRequest, PlayerLookup, PlayerRecord, PlayerSearch,
-    PlayerSheet, ProgressLookup, ProgressPoint, Reboot, ReceiversLookup, ReloadScripts, ReplayGet,
-    ReplayLookup, ReplayStorage, ReplayStorageLookup, ReplaySummary, ReportLookup, ReportRecord,
-    ResetIssued, Rollback, Sanction, SanctionsLookup, SavePointLine, SavePointLookup,
-    SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup, SessionState, SetControls,
-    SheetLookup, StaffAccountRecord, StaffAccountsLookup, StatLine, TimelineEntry, TimelineLookup,
-    TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge, TradeGraph, TradeGraphLookup,
-    Unstick, Verifier, WealthLine, WealthLookup, WorldControls, WorldStatus, path,
+    LinkBetween, LinkChainLookup, LinkedAccount, LinkedLookup, LinkedTransfer, Links, LinksLookup,
+    LiveReplay, LoginAddress, LoginDeviceSeen, MAX_RESTORE_ITEMS, MAX_SWITCH_SCRIPTS, Maintenance,
+    ModOutcome, Moderate, ModerationLookup, ModerationRecord, Multilog, MultilogLookup, ObjLine,
+    ObjSearch, OnlinePlayer, Outcome, PasswordReset, PlayTurns, PlayerEdit, PlayerEditRequest,
+    PlayerLookup, PlayerRecord, PlayerSearch, PlayerSheet, ProgressLookup, ProgressPoint, Reboot,
+    ReceiversLookup, ReloadScripts, ReplayGet, ReplayLookup, ReplayStorage, ReplayStorageLookup,
+    ReplaySummary, ReportLookup, ReportRecord, ResetIssued, Rollback, Sanction, SanctionsLookup,
+    SavePointLine, SavePointLookup, SavePointsLookup, ScriptsReloaded, SessionClaim, SessionLookup,
+    SessionState, SetControls, SheetLookup, StaffAccountRecord, StaffAccountsLookup, StatLine,
+    TimelineEntry, TimelineLookup, TopReceiver, TotalsLookup, TraceLine, TraceLookup, TradeEdge,
+    TradeGraph, TradeGraphLookup, TransferLookup, Unstick, Verifier, WealthLine, WealthLookup,
+    WorldControls, WorldStatus, path,
 };
 use rs_admin_api::{ClaimCheck, RecoveryCheck, RecoveryEvidence, Verdict};
 use rs_admin_api::{ScriptErrorGroup, ScriptErrorLookup, ScriptErrorRecord, ScriptErrorsLookup};
@@ -231,6 +232,8 @@ pub async fn serve(
         .route(path::LINKS, post(links_lookup))
         .route(path::LINK_CHAIN, post(link_chain_lookup))
         .route(path::EVASION, post(evasion_lookup))
+        .route(path::MULTILOG, post(multilog_lookup))
+        .route(path::LINKED_TRANSFERS, post(transfers_lookup))
         .route(path::STAFF_ACCOUNTS, post(staff_accounts_lookup))
         .route(path::LINKED, post(linked_lookup))
         .route(path::REPLAYS, post(replays_lookup))
@@ -1016,6 +1019,7 @@ async fn links_lookup(
                 staff_level: a.staff_mod_level.clamp(0, 255) as u8,
                 shared: a.shared,
                 shared_clients: a.shared_clients,
+                shared_fingerprints: a.shared_fingerprints,
                 logins: a.logins,
                 last_ms: a.last_ms,
                 muted_until_ms: a.muted_until_ms,
@@ -1031,12 +1035,18 @@ async fn links_lookup(
                 language: d.language,
                 touch: d.touch,
                 uid: d.uid.map(|uid| uid.to_string()),
+                fingerprint: d.fingerprint.map(|f| format!("{:016x}", f as u64)),
+                engine: d.engine,
+                js_platform: d.js_platform,
+                gpu: d.gpu,
+                tamper: d.tamper,
                 logins: d.logins,
                 addresses: d.addresses,
                 ips: d.ips,
                 first_ms: d.first_ms,
                 last_ms: d.last_ms,
                 others: d.others,
+                fingerprint_others: d.fingerprint_others,
             })
             .collect(),
         banned: banned
@@ -1135,6 +1145,105 @@ async fn evasion_lookup(
                 via: r.via,
                 banned_ms: r.banned_ms,
                 logins: r.logins,
+                first_ms: r.first_ms,
+                last_ms: r.last_ms,
+            })
+            .collect(),
+    ))
+}
+
+async fn multilog_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<MultilogLookup>,
+) -> Result<Json<Vec<Multilog>>, StatusCode> {
+    let rows = state
+        .db
+        .multilogging(
+            req.name.as_deref().map(name_hash).transpose()?,
+            req.days.clamp(1, 365) as i32,
+            req.min_overlap_secs.min(86_400) as i32,
+            req.max_staff_level.map_or(i16::MAX, i16::from),
+            i64::from(req.limit.clamp(1, MAX_LEADERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    // Whether they took turns, where their sessions overlapped.
+    let mut turns = Vec::with_capacity(rows.len());
+    for r in &rows {
+        let t = if r.sessions > 0 {
+            let t = state
+                .db
+                .turns_between(r.player_id, r.other_id, r.first_ms, r.last_ms)
+                .await
+                .map_err(db_failed)?;
+            (t.moments > 0).then(|| PlayTurns {
+                moments: t.moments,
+                active: t.active,
+                other_active: t.other_active,
+                both: t.both,
+                expected_both: t.expected_both(),
+                alternating: t.alternating(),
+            })
+        } else {
+            None
+        };
+        turns.push(t);
+    }
+    Ok(Json(
+        rows.into_iter()
+            .zip(turns)
+            .map(|(r, turns)| Multilog {
+                name: r.name,
+                staff_level: r.staff_mod_level.clamp(0, 255) as u8,
+                created_ms: r.created_ms,
+                other: r.other,
+                other_staff_level: r.other_staff_mod_level.clamp(0, 255) as u8,
+                other_created_ms: r.other_created_ms,
+                via: r.via,
+                day_ms: r.day_ms,
+                sessions: r.sessions,
+                overlap_ms: r.overlap_ms,
+                attempts: r.attempts,
+                first_ms: r.first_ms,
+                last_ms: r.last_ms,
+                live: r.live,
+                nodes: r.nodes.into_iter().filter_map(|n| node(Some(n))).collect(),
+                turns,
+            })
+            .collect(),
+    ))
+}
+
+async fn transfers_lookup(
+    State(state): State<Arc<AdminState>>,
+    Json(req): Json<TransferLookup>,
+) -> Result<Json<Vec<LinkedTransfer>>, StatusCode> {
+    let rows = state
+        .db
+        .linked_transfers(
+            req.name.as_deref().map(name_hash).transpose()?,
+            req.days.clamp(1, 365) as i32,
+            req.timing_value.max(0),
+            req.max_staff_level.map_or(i16::MAX, i16::from),
+            i64::from(req.limit.clamp(1, MAX_LEADERS)),
+        )
+        .await
+        .map_err(db_failed)?;
+    Ok(Json(
+        rows.into_iter()
+            .map(|r| LinkedTransfer {
+                from: r.from,
+                from_staff_level: r.from_staff_mod_level.clamp(0, 255) as u8,
+                to: r.to,
+                to_staff_level: r.to_staff_mod_level.clamp(0, 255) as u8,
+                via: r.via,
+                day_ms: r.day_ms,
+                transfers: r.transfers,
+                value: r.value,
+                methods: r.methods,
+                swaps: r.swaps,
+                items: r.items,
+                counts: r.counts,
                 first_ms: r.first_ms,
                 last_ms: r.last_ms,
             })

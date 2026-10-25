@@ -12,6 +12,7 @@ use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
 use std::collections::HashMap;
+use std::fs;
 use std::io::IsTerminal;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
@@ -37,6 +38,7 @@ use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use time::MissedTickBehavior;
 
 mod admin;
+mod device;
 mod http;
 mod jaggrab;
 mod metrics;
@@ -426,6 +428,10 @@ struct Args {
     auto_register: bool,
     #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
     auto_migrate: bool,
+    /// Refuses a login while another account is online from the same
+    /// browser. On by default in release builds.
+    #[arg(long, env = "RS_BLOCK_MULTILOG", default_value_t = !cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    block_multilog: bool,
     #[arg(long, env = "RS_REPLAY_DAYS", default_value_t = 7)]
     replay_days: u32,
     #[command(subcommand)]
@@ -686,6 +692,8 @@ async fn bootstrap(
 
     let rsa_path = Path::new(&args.private_key);
     let rsa: &'static RsaKey = Box::leak(Box::new(load_rsa_key(rsa_path)?));
+    // The client page's device check changes with the login key, every deploy.
+    device::init(&fs::read(rsa_path)?);
 
     let (ether_tx, ether_rx) = {
         let (outbound_tx, outbound_rx) = unbounded_channel::<EtherOutbound>();
@@ -732,7 +740,16 @@ async fn bootstrap(
             pepper: secrets.pepper.clone(),
             auto_register: args.auto_register,
             auto_migrate: args.auto_migrate,
+            block_multilog: args.block_multilog,
         };
+        info!(
+            "Multi-logging from one browser: {}",
+            if args.block_multilog {
+                "refused"
+            } else {
+                "allowed"
+            }
+        );
         tokio::spawn(rs_engine::db_client_task(config, req_rx, resp_tx));
         (Some(req_tx), resp_rx)
     };

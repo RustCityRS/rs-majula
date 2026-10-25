@@ -138,6 +138,8 @@ pub fn router() -> Router<Arc<App>> {
         .route("/lookup/links", get(lookup::links))
         .route("/lookup/link-chain", get(lookup::link_chain))
         .route("/lookup/evasion", get(lookup::evasion))
+        .route("/lookup/multilog", get(lookup::multilog))
+        .route("/lookup/linked-transfers", get(lookup::linked_transfers))
         .route("/lookup/progress", get(lookup::progress))
         .route("/lookup/activity", get(lookup::activity))
         .route("/cases", get(cases::list).post(cases::create))

@@ -510,6 +510,10 @@ impl Report {
             "userAgent": s.device.user_agent,
             "platform": s.device.platform,
             "language": s.device.language,
+            "engine": s.device.engine,
+            "jsPlatform": s.device.js_platform,
+            "gpu": s.device.gpu,
+            "tampering": s.device.tampering(),
             "ops": s.ops,
             "opsUnclicked": s.ops_unclicked,
             "clicks": s.clicks,
@@ -1167,6 +1171,15 @@ impl AntiCheat {
         if self.automated {
             flags.push(("automated_browser", 50));
         }
+        // A web client whose device check was forged, or whose browser's
+        // claims disagree with what its page measured; or one that sent no
+        // check at all (its script blocked, or the check stripped).
+        let tampering = self.device.tampering();
+        if tampering.iter().any(|&t| t != "no_check") {
+            flags.push(("spoofed_browser", 50));
+        } else if !tampering.is_empty() {
+            flags.push(("device_check_missing", 30));
+        }
         let missing = self
             .op_expected
             .iter()
@@ -1425,6 +1438,7 @@ fn op_count(op: Op, base: MapBase) -> Option<(usize, Count, i64)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_db::DeviceCheck;
     use rs_protocol::network::game::client::pack_coord;
 
     #[test]
@@ -1571,6 +1585,34 @@ mod tests {
         let report = ac.report(0);
         assert_eq!(report.flags, ["automated_browser"]);
         assert_eq!(report.score, 50);
+    }
+
+    #[test]
+    fn spoofed_browsers_are_flagged() {
+        let spoofed = |check, agent_differs| AntiCheat {
+            device: Arc::new(LoginDevice {
+                web: true,
+                user_agent: Some("Mozilla/5.0 (Windows NT 10.0) Chrome/141.0".into()),
+                engine: Some("blink".into()),
+                check: Some(check),
+                agent_differs,
+                ..LoginDevice::default()
+            }),
+            ..AntiCheat::default()
+        };
+        let report = spoofed(DeviceCheck::Sealed, false).report(0);
+        assert!(report.flags.is_empty(), "{:?}", report.flags);
+        let report = spoofed(DeviceCheck::Sealed, true).report(0);
+        assert_eq!((report.flags, report.score), (vec!["spoofed_browser"], 50));
+        let report = spoofed(DeviceCheck::Broken, false).report(0);
+        assert_eq!(report.flags, ["spoofed_browser"]);
+        let report = spoofed(DeviceCheck::Missing, false).report(0);
+        assert_eq!(
+            (report.flags.clone(), report.score),
+            (vec!["device_check_missing"], 30)
+        );
+        let stats: Value = serde_json::from_str(&report.stored().stats).unwrap();
+        assert_eq!(stats["tampering"], json!(["no_check"]));
     }
 
     #[test]

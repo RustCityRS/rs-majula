@@ -1,4 +1,4 @@
-use crate::links::{CROWDED_ADDRESS, CROWDED_BROWSER, uncrowded};
+use crate::links::{CROWDED_ADDRESS, CROWDED_BROWSER, CROWDED_FINGERPRINT, uncrowded};
 use crate::{Db, Error};
 use sqlx::{Postgres, QueryBuilder};
 
@@ -165,6 +165,15 @@ pub struct DeviceRecord {
     pub touch: bool,
     /// The install's id (see `0015_login_uid.sql`), when it sent one.
     pub uid: Option<i32>,
+    /// The device's fingerprint (see `0042_multilogging.sql`), when the
+    /// client page sent one, and what else it measured.
+    pub fingerprint: Option<i64>,
+    pub engine: Option<String>,
+    pub js_platform: Option<String>,
+    pub gpu: Option<String>,
+    /// How the check and the browser's claims disagreed, on any of these
+    /// logins.
+    pub tamper: Vec<String>,
     pub logins: i64,
     /// How many addresses they used it from, and up to 20 of them.
     pub addresses: i64,
@@ -174,6 +183,8 @@ pub struct DeviceRecord {
     /// How many other accounts logged in from the same install, counted up
     /// to [`MAX_OTHERS`] + 1.
     pub others: i64,
+    /// And with the same device fingerprint, counted the same way.
+    pub fingerprint_others: i64,
 }
 
 /// Another account linked to a player: one of them logged in or registered
@@ -187,6 +198,8 @@ pub struct LinkedAccount {
     pub shared: Vec<String>,
     /// How many client installs they share.
     pub shared_clients: i64,
+    /// How many (uncrowded) device fingerprints they share.
+    pub shared_fingerprints: i64,
     /// Their logins from the shared addresses or installs.
     pub logins: i64,
     /// Their latest login (or registration) from a shared address or install.
@@ -370,18 +383,26 @@ impl Db {
     ) -> Result<Vec<DeviceRecord>, Error> {
         sqlx::query_as(concat!(
             "WITH me AS (SELECT id FROM players WHERE name_hash = $1), ",
-            "seen AS (SELECT web, user_agent, platform, language, touch, uid, ",
+            "seen AS (SELECT web, user_agent, platform, language, touch, uid, fingerprint, ",
+            "engine, js_platform, gpu, ",
+            "ARRAY(SELECT DISTINCT t FROM unnest(string_to_array(string_agg(array_to_string(tamper, ','), ','), ',')) t ",
+            "WHERE t <> '' ORDER BY 1) AS tamper, ",
             "count(*) AS logins, count(DISTINCT ip) AS addresses, ",
             "(array_agg(DISTINCT host(ip)))[1:20] AS ips, ",
             ms!("min(created_at)"),
             " AS first_ms, ",
             ms!("max(created_at)"),
             " AS last_ms FROM login_logs WHERE player_id = (SELECT id FROM me) ",
-            "GROUP BY web, user_agent, platform, language, touch, uid) ",
-            "SELECT web, user_agent, platform, language, touch, uid, logins, addresses, ips, first_ms, last_ms, ",
+            "GROUP BY web, user_agent, platform, language, touch, uid, fingerprint, engine, js_platform, gpu) ",
+            "SELECT web, user_agent, platform, language, touch, uid, fingerprint, engine, js_platform, gpu, ",
+            "tamper, logins, addresses, ips, ",
+            "first_ms, last_ms, ",
             "CASE WHEN uid IS NULL THEN 0 ELSE (SELECT count(*) FROM (SELECT o.player_id ",
             "FROM login_uids o WHERE o.uid = seen.uid AND o.player_id <> (SELECT id FROM me) ",
-            "LIMIT $3 + 1) a) END AS others ",
+            "LIMIT $3 + 1) a) END AS others, ",
+            "CASE WHEN fingerprint IS NULL THEN 0 ELSE (SELECT count(*) FROM (SELECT o.player_id ",
+            "FROM login_fingerprints o WHERE o.fingerprint = seen.fingerprint ",
+            "AND o.player_id <> (SELECT id FROM me) LIMIT $3 + 1) a) END AS fingerprint_others ",
             "FROM seen ORDER BY last_ms DESC LIMIT $2"
         ))
         .bind(name_hash as i64)
@@ -393,7 +414,8 @@ impl Db {
 
     /// The other accounts linked to `name_hash` by an address or a client
     /// install (see [`LinkedAccount`]), those sharing the most first.
-    /// Crowded ones ([`CROWDED_ADDRESS`], [`CROWDED_BROWSER`]) link nobody.
+    /// Crowded ones ([`CROWDED_ADDRESS`], [`CROWDED_BROWSER`],
+    /// [`CROWDED_FINGERPRINT`]) link nobody.
     pub async fn linked_accounts(
         &self,
         name_hash: u64,
@@ -406,23 +428,31 @@ impl Db {
             uncrowded!("ip", "a.ip", "$3"),
             "), my_uids AS (SELECT u.uid FROM login_uids u WHERE u.player_id = (SELECT id FROM me) AND ",
             uncrowded!("uid", "u.uid", "$4"),
+            "), my_fps AS (SELECT f.fingerprint FROM login_fingerprints f ",
+            "WHERE f.player_id = (SELECT id FROM me) AND ",
+            uncrowded!("fingerprint", "f.fingerprint", "$5"),
             "), ",
             // What each shares, and their latest login (or registration) with it.
-            "seen AS (SELECT l.player_id, l.ip, NULL::int AS uid, l.last_at FROM login_ips l ",
-            "JOIN mine m ON m.ip = l.ip WHERE l.player_id <> (SELECT id FROM me) ",
-            "UNION ALL SELECT l.player_id, NULL, l.uid, l.last_at FROM login_uids l ",
+            "seen AS (SELECT l.player_id, l.ip, NULL::int AS uid, NULL::bigint AS fingerprint, l.last_at ",
+            "FROM login_ips l JOIN mine m ON m.ip = l.ip WHERE l.player_id <> (SELECT id FROM me) ",
+            "UNION ALL SELECT l.player_id, NULL, l.uid, NULL, l.last_at FROM login_uids l ",
             "JOIN my_uids u ON u.uid = l.uid WHERE l.player_id <> (SELECT id FROM me) ",
-            "UNION ALL SELECT p.id, p.registration_ip, NULL, p.created_at FROM players p ",
+            "UNION ALL SELECT l.player_id, NULL, NULL, l.fingerprint, l.last_at FROM login_fingerprints l ",
+            "JOIN my_fps f ON f.fingerprint = l.fingerprint WHERE l.player_id <> (SELECT id FROM me) ",
+            "UNION ALL SELECT p.id, p.registration_ip, NULL, NULL, p.created_at FROM players p ",
             "JOIN mine m ON m.ip = p.registration_ip WHERE p.id <> (SELECT id FROM me)), ",
             "top AS (SELECT player_id, array_agg(DISTINCT ip) FILTER (WHERE ip IS NOT NULL) AS ips, ",
             "array_agg(DISTINCT uid) FILTER (WHERE uid IS NOT NULL) AS uids, ",
-            "count(DISTINCT ip) + count(DISTINCT uid) AS shares, max(last_at) AS last_at ",
+            "array_agg(DISTINCT fingerprint) FILTER (WHERE fingerprint IS NOT NULL) AS fps, ",
+            "count(DISTINCT ip) + count(DISTINCT uid) + count(DISTINCT fingerprint) AS shares, ",
+            "max(last_at) AS last_at ",
             "FROM seen GROUP BY player_id ORDER BY shares DESC, last_at DESC LIMIT $2) ",
             "SELECT p.display_name, p.staff_mod_level, ",
             "ARRAY(SELECT host(i) FROM unnest(coalesce(t.ips, '{}')) i ORDER BY 1) AS shared, ",
             "coalesce(cardinality(t.uids), 0)::bigint AS shared_clients, ",
+            "coalesce(cardinality(t.fps), 0)::bigint AS shared_fingerprints, ",
             "(SELECT count(*) FROM login_logs l WHERE l.player_id = t.player_id ",
-            "AND (l.ip = ANY(t.ips) OR l.uid = ANY(t.uids))) AS logins, ",
+            "AND (l.ip = ANY(t.ips) OR l.uid = ANY(t.uids) OR l.fingerprint = ANY(t.fps))) AS logins, ",
             ms!("t.last_at"),
             " AS last_ms, CASE WHEN p.muted_until > now() THEN ",
             ms!("p.muted_until"),
@@ -435,6 +465,7 @@ impl Db {
         .bind(limit)
         .bind(CROWDED_ADDRESS)
         .bind(CROWDED_BROWSER)
+        .bind(CROWDED_FINGERPRINT)
         .fetch_all(&self.pool)
         .await
     }

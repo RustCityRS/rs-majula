@@ -149,6 +149,9 @@ impl Engine {
                             AuthResult::TooManyAttempts => {
                                 self.reject_pending_login(idx, LoginResponse::TooManyAttempts);
                             }
+                            AuthResult::MultiLogging => {
+                                self.reject_pending_login(idx, LoginResponse::TooManyConnections);
+                            }
                         }
                     }
                 }

@@ -160,6 +160,38 @@ pub enum Evidence {
         first_ms: i64,
         last_ms: i64,
     },
+    /// `player` and `other` played at the same time from one browser,
+    /// device fingerprint or address (`via`) on the UTC day starting
+    /// `day_ms`, or one was refused a login for it (`attempts`).
+    Multilog {
+        player: String,
+        other: String,
+        via: String,
+        day_ms: i64,
+        sessions: i64,
+        overlap_ms: i64,
+        attempts: i64,
+        first_ms: i64,
+        last_ms: i64,
+    },
+    /// Items `from` passed to `player` on the UTC day starting `day_ms`,
+    /// accounts linked by `via` (or `timing`: a hand-off by logging out and
+    /// in). `swaps` of them were taken after `from` logged out and `player`
+    /// in.
+    Transfer {
+        player: String,
+        from: String,
+        via: String,
+        day_ms: i64,
+        transfers: i64,
+        value: i64,
+        methods: Vec<String>,
+        swaps: i64,
+        items: Vec<String>,
+        counts: Vec<i64>,
+        first_ms: i64,
+        last_ms: i64,
+    },
     /// A sanction `moderator` lifted on `target`, an account sharing a
     /// browser or an address (`via`) with theirs.
     Moderation {
@@ -182,7 +214,9 @@ impl Evidence {
             Self::Report { offender, .. } => offender,
             Self::Replay { player, .. } | Self::Clip { player, .. } => player,
             Self::Chat { from, .. } => from,
-            Self::Evasion { player, .. } => player,
+            Self::Evasion { player, .. }
+            | Self::Multilog { player, .. }
+            | Self::Transfer { player, .. } => player,
             Self::Moderation { moderator, .. } => moderator,
         }
     }
@@ -193,9 +227,23 @@ pub fn evasion_key(player: &str, banned: &str) -> String {
     format!("evasion:{}:{}", name_key(player), name_key(banned))
 }
 
+/// The key of `a` and `b` playing at once on the day starting `day_ms`,
+/// whichever way round they're named.
+pub fn multilog_key(a: &str, b: &str, day_ms: i64) -> String {
+    let (a, b) = (name_key(a), name_key(b));
+    let (first, second) = if a <= b { (a, b) } else { (b, a) };
+    format!("multilog:{first}:{second}:{day_ms}")
+}
+
+/// The key of what `from` passed to `to` on the day starting `day_ms`.
+pub fn transfer_key(from: &str, to: &str, day_ms: i64) -> String {
+    format!("transfer:{}:{}:{day_ms}", name_key(from), name_key(to))
+}
+
 impl Evidence {
     /// What it's known by: `report:12`, `replay:345`, `chat:678`,
-    /// `clip:345:60000-90000`, `evasion:alt:banned`.
+    /// `clip:345:60000-90000`, `evasion:alt:banned`,
+    /// `multilog:alt:main:<day>`, `transfer:main:alt:<day>`.
     pub fn key(&self) -> String {
         match self {
             Self::Report { id, .. } => format!("report:{id}"),
@@ -208,6 +256,18 @@ impl Evidence {
                 ..
             } => format!("clip:{replay}:{from_ms}-{to_ms}"),
             Self::Evasion { player, banned, .. } => evasion_key(player, banned),
+            Self::Multilog {
+                player,
+                other,
+                day_ms,
+                ..
+            } => multilog_key(player, other, *day_ms),
+            Self::Transfer {
+                player,
+                from,
+                day_ms,
+                ..
+            } => transfer_key(from, player, *day_ms),
             Self::Moderation { id, .. } => format!("moderation:{id}"),
         }
     }

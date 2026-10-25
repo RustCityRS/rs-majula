@@ -4115,10 +4115,43 @@ const worldOf = (node) => {
 };
 const where = (x, z, level) => `${x}, ${z}${level ? ` · floor ${level}` : ''}`;
 const listNames = (names) => (names.length <= 2 ? names.join(' and ') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`);
-const evidenceKey = (e) => (e.type === 'clip' ? `clip:${e.replay}:${e.from_ms}-${e.to_ms}`
-    : e.type === 'evasion' ? `evasion:${nameKey(e.player)}:${nameKey(e.banned)}` : `${e.type}:${e.id}`);
+// As the console keys them (cases.rs): a pair playing at once either way
+// round is one key.
+const evidenceKey = (e) => {
+    if (e.type === 'clip') return `clip:${e.replay}:${e.from_ms}-${e.to_ms}`;
+    if (e.type === 'evasion') return `evasion:${nameKey(e.player)}:${nameKey(e.banned)}`;
+    if (e.type === 'multilog') return `multilog:${[nameKey(e.player), nameKey(e.other)].sort().join(':')}:${e.day_ms}`;
+    if (e.type === 'transfer') return `transfer:${nameKey(e.from)}:${nameKey(e.player)}:${e.day_ms}`;
+    return `${e.type}:${e.id}`;
+};
 // How two accounts are linked, in words.
-const linkedHow = (via) => (via === 'browser' ? 'logged in with the same browser as' : 'shares an address with');
+const linkedHow = (via) => (via === 'browser' ? 'logged in with the same browser as'
+    : via === 'fingerprint' ? 'logged in from the same device as' : 'shares an address with');
+// What two accounts share, as a short label.
+const VIA_LABELS = {
+    browser: 'Same browser',
+    fingerprint: 'Same device fingerprint',
+    address: 'Same address',
+    timing: 'Linked only by timing',
+};
+const viaTone = (via) => (via === 'browser' ? 'danger' : 'warn');
+// What each way of passing items is, in words.
+const TRANSFER_METHODS = {
+    drop: 'dropped and picked up',
+    trade: 'traded',
+    stake: 'staked in a duel',
+    give: 'handed over',
+    shop: 'sold to a shop and bought back',
+};
+// An item's debug name as words: `cert_rune_platebody` is noted rune platebody.
+const itemWords = (debugname) => debugname.replace(/^cert_/, 'noted ').replace(/_/g, ' ');
+const itemsLabel = (items, counts) => items.map((item, i) => (counts[i] > 1 ? `${counts[i].toLocaleString()} × ${itemWords(item)}` : itemWords(item))).join(', ');
+// Hours and minutes: 1h 20m, 5m.
+function spanLabel(ms) {
+    const mins = Math.max(1, Math.floor(ms / 60_000));
+    const [hours, rest] = [Math.floor(mins / 60), mins % 60];
+    return hours ? (rest ? `${hours}h ${rest}m` : `${hours}h`) : `${rest}m`;
+}
 // Who opens the cases the console opens on its own.
 const DETECTION = 'Detection';
 // A clip of a recording: its page, playing that stretch. Works as a link
@@ -4150,10 +4183,12 @@ function avatars(names) {
 }
 
 function evidenceCounts(c) {
-    const n = {report: 0, replay: 0, chat: 0, clip: 0, evasion: 0, moderation: 0};
+    const n = {report: 0, replay: 0, chat: 0, clip: 0, evasion: 0, moderation: 0, multilog: 0, transfer: 0};
     for (const e of c.evidence) n[e.type]++;
     return [n.report && plural(n.report, 'report'), n.replay && plural(n.replay, 'session'), n.clip && plural(n.clip, 'clip'),
-        n.chat && plural(n.chat, 'message'), n.evasion && plural(n.evasion, 'ban evasion link'), n.moderation && plural(n.moderation, 'lifted sanction')].filter(Boolean).join(' · ');
+        n.chat && plural(n.chat, 'message'), n.evasion && plural(n.evasion, 'ban evasion link'), n.moderation && plural(n.moderation, 'lifted sanction'),
+        n.multilog && plural(n.multilog, 'day played at once', 'days played at once'),
+        n.transfer && plural(n.transfer, 'day of linked transfers', 'days of linked transfers')].filter(Boolean).join(' · ');
 }
 
 function caseItem(c, extra) {
@@ -4695,7 +4730,7 @@ function moderationPage(ctx) {
             api('GET', '/cases?mine=true').then((rows) => replace(mine, rows.length ? rows.map((c) => caseItem(c))
                 : h('div', {class: 'empty'}, icon('briefcase'), 'You\'re not on any open case.'))).catch((e) => failed(mine, e));
             api('GET', '/cases?detected=true&unassigned=true').then((rows) => replace(detected, rows.length ? rows.slice(0, 8).map((c) => caseItem(c, h('div', {class: 'chips item-actions'}, take(c))))
-                : h('div', {class: 'empty'}, icon('check'), 'Nothing new. The console opens a case on its own for sessions the anti-cheat checks score 50 or more, possible ban evasion, players several others report, and staff lifting a mute or ban on an account linked to theirs. Staff are looked at too: their cases are only for staff above them.'))).catch((e) => failed(detected, e));
+                : h('div', {class: 'empty'}, icon('check'), 'Nothing new. The console opens a case on its own for sessions the anti-cheat checks score 50 or more, possible ban evasion, accounts played at once from one browser or device, items passed between linked accounts, players several others report, and staff lifting a mute or ban on an account linked to theirs. Staff are looked at too: their cases are only for staff above them.'))).catch((e) => failed(detected, e));
             api('GET', '/cases?unassigned=true').then((rows) => replace(nobody, rows.length ? rows.slice(0, 8).map((c) => caseItem(c, h('div', {class: 'chips item-actions'}, take(c))))
                 : h('div', {class: 'empty'}, icon('check'), 'Every open case has someone on it.'))).catch((e) => failed(nobody, e));
             api('GET', '/lookup/moderation').then((rows) => replace(actions, rows.length ? rows.slice(0, 8).map(moderationItem)
@@ -5314,12 +5349,51 @@ function cannedChips(use, c, textarea, onPick) {
 // comments included. It refreshes every few seconds, so staff on it together
 // see each other's changes, and who else has it open.
 
+// Where a ban evader logged in from, in words: "from the address" of banned X.
+const evasionHow = (via) => (via === 'address' ? 'from the address' : via === 'fingerprint' ? 'from the device' : 'with the browser');
+
+// Whether two accounts took turns while both were online, as a badge.
+function turnsBadge(t) {
+    if (!t) return null;
+    const detail = `Over ${spanLabel(t.moments * 3000)} online together, one acted in ${t.active} moments of 3 seconds and the other in ${t.other_active}; both at once in ${t.both}, where two people playing would have in about ${Math.round(t.expected_both)}.`;
+    return t.alternating
+        ? h('span', {class: 'badge danger', title: `${detail} One person playing both.`}, 'Took turns')
+        : h('span', {class: 'badge', title: detail}, 'Played at once');
+}
+
+// Two accounts played at once (a row of the multilog lookup, or evidence).
+function multilogSub(r) {
+    return joined([
+        VIA_LABELS[r.via] || r.via,
+        r.sessions > 0 && `${plural(r.sessions, 'session')} at once, ${spanLabel(r.overlap_ms)} together`,
+        r.attempts > 0 && `${plural(r.attempts, 'login')} refused while the other played`,
+        turnsBadge(r.turns),
+        dayLabel(r.day_ms),
+    ]);
+}
+
+// Items passed between two accounts in a day (a transfer row, or evidence).
+function transferSub(r, from, to) {
+    return [
+        joined([
+            `${plural(r.transfers, 'item')} worth ${coins(r.value)}`,
+            r.methods.map((m) => TRANSFER_METHODS[m] || m).join(', '),
+            VIA_LABELS[r.via] || r.via,
+            dayLabel(r.day_ms),
+        ]),
+        r.swaps > 0 && [h('br'), h('span', {class: 'badge danger'}, 'Hand-off'), ` ${plural(r.swaps, 'drop')} taken after ${from} logged out and ${to} logged in`],
+        r.items.length > 0 && [h('br'), itemsLabel(r.items, r.counts)],
+    ];
+}
+
 function evidenceLabel(e) {
     if (e.type === 'report') return `${e.reporter}'s report of ${e.offender} (${REPORT_RULES[e.reason] || 'unknown rule'})`;
     if (e.type === 'replay') return `${e.player}'s session of ${fullTime(e.started_ms)}`;
     if (e.type === 'clip') return `a clip of ${e.player}'s session (${clipSpan(e.from_ms, e.to_ms)})${e.label ? `: "${clip(e.label, 60)}"` : ''}`;
     if (e.type === 'moderation') return `${e.moderator}'s ${e.action} of ${e.target}`;
-    if (e.type === 'evasion') return `${e.player}'s logins ${e.via === 'address' ? 'from the address' : 'with the browser'} of banned ${e.banned}`;
+    if (e.type === 'evasion') return `${e.player}'s logins ${evasionHow(e.via)} of banned ${e.banned}`;
+    if (e.type === 'multilog') return `${e.player} and ${e.other} playing at once on ${dayLabel(e.day_ms)}`;
+    if (e.type === 'transfer') return `items ${e.from} passed to ${e.player} on ${dayLabel(e.day_ms)}`;
     return `${e.from}'s message "${clip(e.message, 60)}"`;
 }
 
@@ -5361,10 +5435,20 @@ function evidenceItem(e, onRemove) {
             joined([`${e.target} ${linkedHow(e.via)} ${e.moderator}`, e.reason && `Reason: ${e.reason}`, fullTime(e.at_ms)]),
             e.at_ms);
     }
+    if (e.type === 'multilog') {
+        return row('users', viaTone(e.via),
+            [h('b', {}, playerLink(e.player)), ' played at the same time as ', h('b', {}, playerLink(e.other))],
+            multilogSub(e), e.last_ms);
+    }
+    if (e.type === 'transfer') {
+        return row('coins', e.swaps > 0 ? 'danger' : 'warn',
+            [h('b', {}, playerLink(e.from)), ' passed items to ', h('b', {}, playerLink(e.player))],
+            transferSub(e, e.from, e.player), e.last_ms);
+    }
     if (e.type === 'evasion') {
         const address = e.via === 'address';
         return row(address ? 'globe' : 'monitor', address ? 'warn' : 'danger',
-            [h('b', {}, playerLink(e.player)), address ? ' logged in from the address of banned ' : ' logged in with the browser of banned ', h('b', {}, playerLink(e.banned))],
+            [h('b', {}, playerLink(e.player)), ` logged in ${evasionHow(e.via)} of banned `, h('b', {}, playerLink(e.banned))],
             joined([`${plural(e.logins, 'login')} since the ban`, `first ${ago(e.first_ms)}`, h('span', {title: fullTime(e.banned_ms)}, `banned ${ago(e.banned_ms)}`)]),
             e.last_ms);
     }
@@ -6281,6 +6365,8 @@ const FLAGS = {
     forged_minimap_click: ['Forged minimap clicks', 'Minimap clicks came with bytes the real client never sends: wrong fixed values, or a click spot, camera and position that don\'t lead to the tile walked to. A bot building its own packets.'],
     minimap_position_off: ['Minimap position off', 'Most minimap clicks said the player was far from where the world had them.'],
     automated_browser: ['Automated browser', 'The web client ran in a browser that says it\'s headless (Puppeteer, Selenium, Playwright).'],
+    spoofed_browser: ['Faked browser', 'The client page\'s device check was forged or edited, or what it measured disagrees with what the browser claims to be (its user agent, engine, system or graphics card). User agent switchers and tools that fake a browser do this.'],
+    device_check_missing: ['No device check', 'The web client logged in without the device check its page always sends: the page\'s script was blocked, or the check was stripped from the connection. A page left open from before a deploy can do it once.'],
     instant_reactions: ['Instant reactions', 'Half its reactions (to a rock running out, an NPC dying, an item appearing) came faster than people react.'],
     even_reactions: ['Even reactions', 'Its reactions took about the same time every time. People\'s vary, with the odd slow one.'],
     long_days: ['Long days', 'Played 16+ hours a day on 3 or more of the last 7 days.'],
@@ -7785,7 +7871,9 @@ function scriptErrorsPage(ctx) {
 // players the anti-cheat checks flag most, and groups of accounts that look
 // like one bot farm.
 
-const INVESTIGATE_TABS = [['map', 'Live map'], ['anticheat', 'Anti-cheat'], ['farms', 'Bot farms'], ['evasion', 'Ban evasion']];
+const INVESTIGATE_TABS = [['map', 'Live map'], ['anticheat', 'Anti-cheat'], ['farms', 'Bot farms'], ['evasion', 'Ban evasion'],
+    ['multilog', 'Multi-logging'], ['transfers', 'Linked transfers']];
+const LINKED_WINDOWS = [[1, '1 day'], [7, '7 days'], [30, '30 days']];
 const EVASION_WINDOWS = [[7, '7 days'], [14, '14 days'], [30, '30 days']];
 const WINDOWS = [['24h', 'Last 24 hours'], ['7d', 'Last 7 days'], ['30d', 'Last 30 days']];
 
@@ -8394,7 +8482,7 @@ function evasionTab(ctx, params, go) {
             h('div', {class: `list-icon ${r.via === 'address' ? 'warn' : 'danger'}`}, icon(r.via === 'address' ? 'globe' : 'monitor')),
             h('div', {class: 'list-main'},
                 h('div', {class: 'list-title'}, h('b', {}, playerLink(r.name)), ' ', playerBadges({staff_level: r.staff_level}),
-                    r.via === 'address' ? ' logged in from the address of banned ' : ' logged in with the browser of banned ', playerLink(r.banned),
+                    ` logged in ${evasionHow(r.via)} of banned `, playerLink(r.banned),
                     ' ', caseLinks(r.cases)),
                 h('div', {class: 'list-sub'}, joined([
                     `${plural(r.logins, 'login')} since the ban`,
@@ -8406,7 +8494,69 @@ function evasionTab(ctx, params, go) {
         .catch((e) => failed(list, e));
     return h('div', {class: 'column'},
         h('div', {class: 'toolbar'}, chips),
-        h('p', {class: 'muted'}, 'Accounts not banned themselves that logged in with the same browser (or desktop client install) as a banned account, or from one of its addresses, after its ban. A shared browser is the stronger sign; an address can be a household. Addresses shared by more than 25 accounts are skipped. Each one opens a case on its own. Shared family computers show up here too: check the player page before acting.'),
+        h('p', {class: 'muted'}, 'Accounts not banned themselves that logged in with the same browser (or desktop client install) as a banned account, from the same device (its fingerprint, which survives a private window or cleared storage), or from one of its addresses, after its ban. A shared browser is the strongest sign; an address can be a household. Addresses shared by more than 25 accounts, and device fingerprints by more than 10, are skipped. Each one opens a case on its own. Shared family computers show up here too: check the player page before acting.'),
+        h('section', {class: 'card'}, scrollWindow(list)));
+}
+
+// The window chips of a linked-play tab.
+function windowChips(tab, days, go) {
+    return h('div', {class: 'chips'}, LINKED_WINDOWS.map(([d, label]) =>
+        h('button', {
+            type: 'button',
+            class: 'chip',
+            'aria-pressed': String(days === d),
+            on: {click: () => go(tab, {days: d})}
+        }, label)));
+}
+const windowOf = (params, fallback) => (LINKED_WINDOWS.some(([d]) => String(d) === params.get('days')) ? Number(params.get('days')) : fallback);
+
+// One pair of accounts that played at once.
+function multilogItem(r) {
+    return h('div', {class: 'list-item'},
+        h('div', {class: `list-icon ${viaTone(r.via)}`}, icon('users')),
+        h('div', {class: 'list-main'},
+            h('div', {class: 'list-title'}, h('b', {}, playerLink(r.name)), ' ', playerBadges({staff_level: r.staff_level}),
+                ' and ', h('b', {}, playerLink(r.other)), ' ', playerBadges({staff_level: r.other_staff_level}),
+                r.live && [' ', h('span', {class: 'badge danger', title: 'Both are online now'}, 'Both online')], ' ', caseLinks(r.cases)),
+            h('div', {class: 'list-sub'}, multilogSub(r), r.nodes.length > 0 && ` · ${r.nodes.map(worldOf).join(', ')}`)),
+        h('div', {class: 'list-side', title: fullTime(r.last_ms)}, ago(r.last_ms)));
+}
+
+// What one account passed another in a day.
+function transferItem(r) {
+    return h('div', {class: 'list-item'},
+        h('div', {class: `list-icon ${r.swaps > 0 ? 'danger' : r.case_worthy === false ? '' : 'warn'}`}, icon('coins')),
+        h('div', {class: 'list-main'},
+            h('div', {class: 'list-title'}, h('b', {}, playerLink(r.from)), ' ', playerBadges({staff_level: r.from_staff_level}),
+                ' passed items to ', h('b', {}, playerLink(r.to)), ' ', playerBadges({staff_level: r.to_staff_level}), ' ', caseLinks(r.cases)),
+            h('div', {class: 'list-sub'}, transferSub(r, r.from, r.to)),
+            r.case_worthy === false && h('div', {class: 'list-sub muted'}, 'Too little to open a case on its own.')),
+        h('div', {class: 'list-side', title: fullTime(r.last_ms)}, ago(r.last_ms)));
+}
+
+// Accounts played at the same time from one browser, device or address.
+function multilogTab(ctx, params, go) {
+    const days = windowOf(params, 7);
+    const list = spinnerList();
+    api('GET', `/lookup/multilog?${query({days})}`).then((rows) => replace(list, rows.length ? rows.map(multilogItem)
+        : h('div', {class: 'empty'}, icon('check'), 'No two accounts played at the same time from one browser, device or address in this window.')))
+        .catch((e) => failed(list, e));
+    return h('div', {class: 'column'},
+        h('div', {class: 'toolbar'}, windowChips('multilog', days, go)),
+        h('p', {class: 'muted'}, 'Accounts whose sessions overlapped by a minute or more, logged in with the same browser, from the same device (its fingerprint, which survives a private window or cleared storage) or from the same address, and logins the worlds refused because another account was already playing from that browser. "Took turns" means that while both were online, only one acted at a time, far more than two people would: one person on both, whatever they share. A browser or device opens a case on its own, on the older account; an address alone doesn\'t, as a household can play together, unless they took turns. Identical devices (the same phone model) can share a fingerprint: check the addresses before acting.'),
+        h('section', {class: 'card'}, scrollWindow(list)));
+}
+
+// Items passed between linked accounts, and hand-offs by logging out and in.
+function transfersTab(ctx, params, go) {
+    const days = windowOf(params, 7);
+    const list = spinnerList();
+    api('GET', `/lookup/linked-transfers?${query({days})}`).then((rows) => replace(list, rows.length ? rows.map(transferItem)
+        : h('div', {class: 'empty'}, icon('check'), 'No items passed between linked accounts in this window.')))
+        .catch((e) => failed(list, e));
+    return h('div', {class: 'column'},
+        h('div', {class: 'toolbar'}, windowChips('transfers', days, go)),
+        h('p', {class: 'muted'}, 'Items one account passed to another that shares its browser, device or address: traded, staked, dropped and picked up, or sold to a shop and bought back. A hand-off is a drop picked up after the dropper logged out and the other account logged in, the way one person moves items between their own accounts. Hand-offs between accounts that share nothing show too when worth 50,000 gp or more (a VPN and a second browser hide the link). A day worth 1,000 gp or more opens a case on whoever got the items.'),
         h('section', {class: 'card'}, scrollWindow(list)));
 }
 
@@ -8428,7 +8578,9 @@ function investigatePage(ctx) {
     const body = tab === 'map'
         ? (state.worldsLoaded ? liveMapTab(ctx, ctx.params) : h('section', {class: 'card'}, spinnerList()))
         : tab === 'anticheat' ? anticheatTab(ctx, ctx.params, go)
-            : tab === 'evasion' ? evasionTab(ctx, ctx.params, go) : farmsTab(ctx, ctx.params, go);
+            : tab === 'evasion' ? evasionTab(ctx, ctx.params, go)
+                : tab === 'multilog' ? multilogTab(ctx, ctx.params, go)
+                    : tab === 'transfers' ? transfersTab(ctx, ctx.params, go) : farmsTab(ctx, ctx.params, go);
     if (tab === 'map' && !state.worldsLoaded) {
         // The map is framed from an online world, known once the worlds are in.
         const off = onWorlds(() => {
@@ -9988,17 +10140,35 @@ const otherAccounts = (n) => n > MAX_OTHERS ? `${MAX_OTHERS}+ other accounts` : 
 // or many machines.
 const DEVICE_CHURN = 5;
 
+// How a device check and its browser's claims disagreed, in words.
+const TAMPER_WORDS = {
+    no_check: 'sent no device check (its page\'s script blocked, or the check stripped)',
+    bad_seal: 'sent a forged or edited device check',
+    user_agent: 'had its page see another user agent than the browser sent',
+    engine: 'claimed one browser but draws pages like another',
+    platform: 'claimed one system but its page reports another',
+    graphics: 'has a graphics card its claimed system can\'t have',
+};
+// Graphics drawn in software: a virtual machine, a headless browser, or
+// hardware acceleration turned off.
+const SOFTWARE_GPU = /SwiftShader|llvmpipe|softpipe|Software/;
+// This many fingerprints from one browser means they're randomized.
+const FINGERPRINT_CHURN = 3;
+
 // What a player's devices, addresses and login ids give away: [tone, text].
 function linkFlags(links) {
     const flags = [];
     const banned = links.banned || [];
     const evading = banned.filter((b) => b.after_ban);
-    for (const via of ['browser', 'address']) {
+    for (const via of ['browser', 'fingerprint', 'address']) {
         const names = evading.filter((b) => b.via === via).map((b) => b.name);
-        if (names.length) flags.push(['danger', `Logged in from the ${via === 'browser' ? 'browser' : 'address'} of banned ${names.join(', ')} after the ban: possible ban evasion.`]);
+        const what = via === 'fingerprint' ? 'device' : via;
+        if (names.length) flags.push([via === 'address' ? 'warn' : 'danger', `Logged in from the ${what} of banned ${names.join(', ')} after the ban: possible ban evasion.`]);
     }
     const onBrowser = banned.filter((b) => !b.after_ban && b.via === 'browser').map((b) => b.name);
     if (onBrowser.length) flags.push(['danger', `Shares a browser with banned ${onBrowser.join(', ')}.`]);
+    const onDevice = banned.filter((b) => !b.after_ban && b.via === 'fingerprint').map((b) => b.name);
+    if (onDevice.length) flags.push(['warn', `Shares a device fingerprint with banned ${onDevice.join(', ')} (or an identical device).`]);
     const onAddress = banned.filter((b) => !b.after_ban && b.via === 'address').map((b) => b.name);
     if (onAddress.length) flags.push(['warn', `Shares an address with banned ${onAddress.join(', ')} (could be a household).`]);
     const devices = links.devices || [];
@@ -10008,8 +10178,26 @@ function linkFlags(links) {
     if (devices.some((d) => d.web && !d.user_agent)) {
         flags.push(['warn', 'Logged in from a browser that sent no user agent (its headers may have been cut short, or something hid it).']);
     }
+    const tampered = [...new Set(devices.flatMap((d) => d.tamper || []))];
+    if (tampered.length) {
+        const forged = tampered.some((t) => t !== 'no_check');
+        flags.push([forged ? 'danger' : 'warn', `A browser of theirs ${listNames(tampered.map((t) => TAMPER_WORDS[t] || t))}.`]);
+    }
+    const fingerprints = new Map();
+    for (const d of devices) {
+        if (!d.uid || !d.fingerprint) continue;
+        if (!fingerprints.has(d.uid)) fingerprints.set(d.uid, new Set());
+        fingerprints.get(d.uid).add(d.fingerprint);
+    }
+    const churn = Math.max(0, ...[...fingerprints.values()].map((s) => s.size));
+    if (churn >= FINGERPRINT_CHURN) flags.push(['warn', `One browser of theirs gave ${churn} different device fingerprints: it randomizes them (Brave, Firefox's fingerprint resistance) or something fakes them.`]);
+    if (devices.some((d) => d.gpu && SOFTWARE_GPU.test(d.gpu))) {
+        flags.push(['warn', 'Played on graphics drawn in software: a virtual machine, a headless browser, or hardware acceleration turned off.']);
+    }
     const busy = Math.max(0, ...devices.map((d) => d.others + 1));
     if (busy >= BUSY_DEVICE) flags.push(['warn', `One of their browsers is used by ${busy} accounts.`]);
+    const crowd = Math.max(0, ...devices.map((d) => (d.fingerprint_others || 0) + 1));
+    if (crowd >= BUSY_DEVICE && crowd > busy) flags.push(['warn', `One of their devices (by its fingerprint) is used by ${crowd} accounts: one computer, or a common phone model.`]);
     const week = Date.now() - 7 * 86_400_000;
     const recent = devices.filter((d) => d.web !== null && d.last_ms >= week).length;
     if (recent >= DEVICE_CHURN) flags.push(['warn', `${recent} different browsers or installs in a week (storage wiped, or many machines).`]);
@@ -10103,11 +10291,21 @@ function deviceItem(d, n) {
                 d.others > 0 && h('span', {
                     class: 'badge warn',
                     title: 'Other accounts logged in from this same browser (or desktop client install)'
-                }, otherAccounts(d.others))),
+                }, otherAccounts(d.others)), ' ',
+                (d.tamper || []).length > 0 && h('span', {
+                    class: `badge ${d.tamper.some((t) => t !== 'no_check') ? 'danger' : 'warn'}`,
+                    title: `This browser ${listNames(d.tamper.map((t) => TAMPER_WORDS[t] || t))}.`
+                }, d.tamper.some((t) => t !== 'no_check') ? 'Faked' : 'No check'), ' ',
+                d.fingerprint_others > 0 && h('span', {
+                    class: 'badge',
+                    title: 'Other accounts logged in from a device with the same fingerprint: this computer in another browser profile or private window, or an identical device'
+                }, `Device: ${otherAccounts(d.fingerprint_others)}`)),
             h('div', {class: 'list-sub'}, joined([
                 plural(d.logins, 'login'),
                 d.language,
                 d.uid && h('span', {title: 'The id this browser or install sends at login'}, 'Login id ', h('span', {class: 'mono'}, d.uid)),
+                d.fingerprint && h('span', {title: 'The device\'s fingerprint, the same in a private window or after clearing storage'}, 'Device ', h('span', {class: 'mono'}, d.fingerprint)),
+                d.gpu && h('span', {title: `What its page measured: ${d.engine || 'unknown'} engine, platform ${d.js_platform || 'unknown'}`}, d.gpu),
                 `first ${ago(d.first_ms)}`,
             ])),
             d.ips.length > 0 && h('div', {class: 'list-sub'}, 'From ',
@@ -10126,6 +10324,23 @@ function lightUp(row, others) {
     for (const [ev, on] of [['mouseenter', true], ['mouseleave', false], ['focus', true], ['blur', false]]) {
         row.addEventListener(ev, () => set(on));
     }
+}
+
+// The last 30 days of `name` playing at once with linked accounts, and the
+// items passed between them. Hidden when there's none.
+function linkedPlaySection(name) {
+    const el = h('div', {});
+    Promise.all([
+        api('GET', `/lookup/multilog?${query({name, days: 30})}`),
+        api('GET', `/lookup/linked-transfers?${query({name, days: 30})}`),
+    ]).then(([together, passed]) => {
+        if (!together.length && !passed.length) return;
+        replace(el, h('section', {class: 'card'},
+            h('div', {class: 'card-head'}, h('h2', {}, 'Played with linked accounts'),
+                h('span', {class: 'hint hide-mobile'}, 'The last 30 days: sessions at once and items passed between accounts that share a browser, device or address.')),
+            h('div', {class: 'list'}, together.map(multilogItem), passed.map(transferItem))));
+    }).catch((e) => replace(el, h('div', {class: 'callout warn'}, icon('alert'), `Couldn't check for linked play: ${e.message}`)));
+    return el;
 }
 
 function linksSection(name, onModerated) {
@@ -10170,13 +10385,17 @@ function linksSection(name, onModerated) {
                             a.shared_clients > 0 && h('span', {
                                 class: 'badge warn',
                                 title: 'Logged in from the same browser (or desktop client install) as them'
-                            }, icon('monitor'), 'Same browser')),
+                            }, icon('monitor'), 'Same browser'), ' ',
+                            a.shared_fingerprints > 0 && h('span', {
+                                class: 'badge',
+                                title: 'Logged in from a device with the same fingerprint as theirs'
+                            }, icon('monitor'), 'Same device')),
                         h('div', {class: 'list-sub'}, joined([
                             a.shared.length > 0 && `Shares ${a.shared.length === 1 ? a.shared[0] : plural(a.shared.length, 'address', 'addresses')}`,
                             a.logins ? plural(a.logins, 'login') : 'registered there',
                         ]))),
                     h('div', {class: 'list-side', title: fullTime(a.last_ms)}, ago(a.last_ms))))
-                : h('div', {class: 'empty'}, icon('users'), 'No other account shares an address or a browser with them.'));
+                : h('div', {class: 'empty'}, icon('users'), 'No other account shares an address, a browser or a device with them.'));
             replace(devices, deviceRows.length ? deviceRows
                 : h('div', {class: 'empty'}, icon('monitor'), 'No logins on record.'));
             const raised = linkFlags(links);
@@ -10206,6 +10425,7 @@ function linksSection(name, onModerated) {
     load();
     return h('div', {class: 'column'},
         flags,
+        linkedPlaySection(name),
         h('div', {class: 'split'},
             h('section', {class: 'card'},
                 h('div', {class: 'card-head'}, h('h2', {}, 'Linked accounts'), act),

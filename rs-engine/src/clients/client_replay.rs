@@ -180,6 +180,7 @@ async fn store(
                 report,
                 ended,
                 complete,
+                activity,
             } => {
                 let lost = broken.contains(&id);
                 if ended {
@@ -200,6 +201,9 @@ async fn store(
                 }
                 store.ended |= ended;
                 store.complete &= complete && !lost;
+                if activity.is_some() {
+                    store.activity = activity;
+                }
                 if let Some(chunk) = chunk {
                     unqueue_bytes(chunk.data.capacity());
                     if !lost {

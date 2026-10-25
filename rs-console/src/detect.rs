@@ -3,8 +3,9 @@ use crate::cases::{Case, Cases, Change, Evidence, Priority, Resolution};
 use crate::http::App;
 use crate::users::{name_key, now_ms};
 use rs_admin_api::{
-    Evasion, EvasionLookup, LinkBetween, LinkedLookup, ModerationLookup, ModerationRecord,
-    ReplayLookup, ReplaySummary, ReportLookup, ReportRecord, path,
+    Evasion, EvasionLookup, LinkBetween, LinkedLookup, LinkedTransfer, ModerationLookup,
+    ModerationRecord, Multilog, MultilogLookup, ReplayLookup, ReplaySummary, ReportLookup,
+    ReportRecord, TransferLookup, path,
 };
 use std::collections::{BTreeMap, HashSet};
 use std::sync::Arc;
@@ -21,12 +22,13 @@ pub const OPENED_BY: &str = "Detection";
 pub const CASE_SCORE: i16 = 50;
 /// The score, or the flags, that make a session's case high priority.
 const HIGH_SCORE: i16 = 100;
-const HIGH_FLAGS: [&str; 5] = [
+const HIGH_FLAGS: [&str; 6] = [
     "modified_client",
     "auto_banned",
     "forged_heartbeats",
     "forged_minimap_click",
     "automated_browser",
+    "spoofed_browser",
 ];
 /// How far back sessions and reports are looked through. Older ones were
 /// looked at already, while the console ran.
@@ -48,6 +50,23 @@ const MAX_PAGES: usize = 5;
 /// The most lifted sanctions checked for links in one go; the rest wait for
 /// the next check.
 const MAX_LINK_CHECKS: usize = 50;
+/// How far back sessions played at once, and items passed between linked
+/// accounts, are looked for.
+const LINKED_DAYS: u32 = 1;
+/// Sessions that overlap less than this are one account logging out as the
+/// other logs in, or a world hop.
+pub const MIN_OVERLAP_SECS: u32 = 60;
+/// What one account must pass another linked to it in a day, in coins, to
+/// open a case: less is a stray drop. Every transfer still shows on the
+/// Investigate page.
+pub const CASE_TRANSFER_VALUE: i64 = 1_000;
+/// And from this much, or with a hand-off by logging out and in, the case is
+/// high priority.
+const HIGH_TRANSFER_VALUE: i64 = 100_000;
+/// What a hand-off between accounts that share nothing must be worth to be
+/// looked at: a drop, a logout within minutes, another account's login
+/// within minutes of that and the pickup happen by chance with cheap items.
+pub const TIMING_VALUE: i64 = 50_000;
 
 /// Something found about a player that moderators must look at.
 #[derive(Clone, Debug)]
@@ -217,10 +236,10 @@ pub fn evasion_findings(rows: Vec<Evasion>) -> Vec<Finding> {
             let lines: Vec<String> = rows
                 .iter()
                 .map(|r| {
-                    let how = if r.via == "browser" {
-                        "with the browser"
-                    } else {
-                        "from the address"
+                    let how = match r.via.as_str() {
+                        "browser" => "with the browser",
+                        "fingerprint" => "from the device",
+                        _ => "from the address",
                     };
                     let times = if r.logins == 1 {
                         "once".to_owned()
@@ -232,6 +251,9 @@ pub fn evasion_findings(rows: Vec<Evasion>) -> Vec<Finding> {
                 .collect();
             let caution = if browser {
                 "A shared browser is a strong sign, but a family computer looks the same."
+            } else if rows.iter().any(|r| r.via == "fingerprint") {
+                "A device's fingerprint survives a private window or cleared storage, but an \
+                 identical device (the same phone model) can share it."
             } else {
                 "An address can be a household or a shared connection."
             };
@@ -303,6 +325,256 @@ pub fn report_findings(reports: Vec<ReportRecord>) -> Vec<Finding> {
         .collect()
 }
 
+/// A duration as hours and minutes: `1h 20m`, `5m`.
+fn duration(ms: i64) -> String {
+    let mins = (ms / 60_000).max(1);
+    match (mins / 60, mins % 60) {
+        (0, m) => format!("{m}m"),
+        (h, 0) => format!("{h}h"),
+        (h, m) => format!("{h}h {m}m"),
+    }
+}
+
+/// Coins with thousands separators: `1,250,000`.
+fn coins(value: i64) -> String {
+    let digits = value.unsigned_abs().to_string();
+    let mut out = String::new();
+    for (i, c) in digits.chars().enumerate() {
+        if i > 0 && (digits.len() - i).is_multiple_of(3) {
+            out.push(',');
+        }
+        out.push(c);
+    }
+    if value < 0 { format!("-{out}") } else { out }
+}
+
+/// How two accounts are linked, in words: they `{}` each other.
+fn shared(via: &str) -> &'static str {
+    match via {
+        "browser" => "logged in with the same browser",
+        "fingerprint" => "logged in from the same device (its fingerprint)",
+        _ => "logged in from the same address",
+    }
+}
+
+/// Whether two accounts took turns: one person on both.
+fn alternating(r: &Multilog) -> bool {
+    r.turns.as_ref().is_some_and(|t| t.alternating)
+}
+
+/// Accounts played at once from one browser or device, or in turns, and
+/// logins refused for it, each on the older of the two accounts: the main
+/// one, as a rule. An address alone isn't enough (a household plays
+/// together) unless they took turns; it shows on the Investigate page, and
+/// items passed between them open a case anyway.
+pub fn multilog_findings(rows: Vec<Multilog>) -> Vec<Finding> {
+    let mut by_player: BTreeMap<String, Vec<(String, Multilog)>> = BTreeMap::new();
+    for r in rows
+        .into_iter()
+        .filter(|r| r.via != "address" || r.attempts > 0 || alternating(r))
+    {
+        let (main, other) = if r.other_created_ms < r.created_ms {
+            (r.other.clone(), r.name.clone())
+        } else {
+            (r.name.clone(), r.other.clone())
+        };
+        by_player
+            .entry(name_key(&main))
+            .or_default()
+            .push((main, Multilog { other, ..r }));
+    }
+    by_player
+        .into_values()
+        .map(|rows| {
+            let player = rows[0].0.clone();
+            let high = rows
+                .iter()
+                .any(|(_, r)| (r.via == "browser" && r.sessions > 0) || alternating(r));
+            let lines: Vec<String> = rows
+                .iter()
+                .map(|(_, r)| {
+                    let mut line = String::new();
+                    if r.sessions > 0 {
+                        let times = if r.sessions == 1 {
+                            "a session".to_owned()
+                        } else {
+                            format!("{} sessions", r.sessions)
+                        };
+                        line.push_str(&format!(
+                            "Played at the same time as **{}** ({times}, {} together); they {}.",
+                            r.other,
+                            duration(r.overlap_ms),
+                            shared(&r.via)
+                        ));
+                    }
+                    if let Some(t) = r.turns.as_ref().filter(|t| t.alternating) {
+                        line.push_str(&format!(
+                            " **They took turns:** over {} together, each acted on their own \
+                             ({} and {} moments of 3 seconds) but both at once in only {}, where \
+                             two people playing would have in about {:.0}.",
+                            duration(t.moments * 3_000),
+                            t.active,
+                            t.other_active,
+                            t.both,
+                            t.expected_both
+                        ));
+                    }
+                    if r.attempts > 0 {
+                        let times = if r.attempts == 1 {
+                            "a login".to_owned()
+                        } else {
+                            format!("{} logins", r.attempts)
+                        };
+                        line.push_str(&format!(
+                            "{}Refused {times} between them from one browser while the other played.",
+                            if line.is_empty() { "" } else { " " }
+                        ));
+                    }
+                    line
+                })
+                .collect();
+            Finding {
+                player: player.clone(),
+                title: "Multi-logging".to_owned(),
+                priority: if high { Priority::High } else { Priority::Normal },
+                note: format!(
+                    "**Possibly playing several accounts at once.** {} \
+                     One browser playing two accounts at once is one person, or one computer: \
+                     siblings taking turns don't overlap. A device fingerprint can also be an \
+                     identical device elsewhere (the same phone model), so check the addresses \
+                     on the player page.",
+                    lines.join(" ")
+                ),
+                evidence: rows
+                    .into_iter()
+                    .map(|(player, r)| Evidence::Multilog {
+                        player,
+                        other: r.other,
+                        via: r.via,
+                        day_ms: r.day_ms,
+                        sessions: r.sessions,
+                        overlap_ms: r.overlap_ms,
+                        attempts: r.attempts,
+                        first_ms: r.first_ms,
+                        last_ms: r.last_ms,
+                    })
+                    .collect(),
+            }
+        })
+        .collect()
+}
+
+/// What each way of passing items is, in words.
+fn method_words(methods: &[String]) -> String {
+    let words: Vec<&str> = methods
+        .iter()
+        .map(|m| match m.as_str() {
+            "drop" => "dropped and picked up",
+            "trade" => "traded",
+            "stake" => "staked in a duel",
+            "shop" => "sold to a shop and bought back",
+            _ => "handed over",
+        })
+        .collect();
+    words.join(", ")
+}
+
+/// Items passed between linked accounts worth [`CASE_TRANSFER_VALUE`] or
+/// more in a day, and hand-offs between unlinked ones, each on whoever got
+/// the items.
+pub fn transfer_findings(rows: Vec<LinkedTransfer>) -> Vec<Finding> {
+    let mut by_player: BTreeMap<String, Vec<LinkedTransfer>> = BTreeMap::new();
+    for r in rows.into_iter().filter(|r| r.value >= CASE_TRANSFER_VALUE) {
+        by_player.entry(name_key(&r.to)).or_default().push(r);
+    }
+    by_player
+        .into_values()
+        .map(|rows| {
+            let linked = rows.iter().any(|r| r.via != "timing");
+            let high = rows
+                .iter()
+                .any(|r| (r.via != "timing" && r.swaps > 0) || r.value >= HIGH_TRANSFER_VALUE);
+            let lines: Vec<String> = rows
+                .iter()
+                .map(|r| {
+                    let items = if r.transfers == 1 {
+                        "an item".to_owned()
+                    } else {
+                        format!("{} items", r.transfers)
+                    };
+                    if r.via == "timing" {
+                        return format!(
+                            "**{}** dropped {items} worth {} coins and logged out, and they logged \
+                             in within minutes and picked {} up. The accounts share no browser, \
+                             device or address, which a VPN and a second browser would give too.",
+                            r.from,
+                            coins(r.value),
+                            if r.transfers == 1 { "it" } else { "them" }
+                        );
+                    }
+                    let mut line = format!(
+                        "**{}** passed them {items} worth {} coins ({}); they {}.",
+                        r.from,
+                        coins(r.value),
+                        method_words(&r.methods),
+                        shared(&r.via)
+                    );
+                    if r.swaps > 0 {
+                        line.push_str(&format!(
+                            " {} picked up after {} logged out and they logged in: \
+                             a hand-off between accounts on one computer.",
+                            if r.swaps == 1 {
+                                "One was".to_owned()
+                            } else {
+                                format!("{} were", r.swaps)
+                            },
+                            r.from
+                        ));
+                    }
+                    line
+                })
+                .collect();
+            let caution = if linked {
+                "Passing items between your own accounts isn't allowed, but a family shares a \
+                 computer and an address too: watch their sessions around it before acting."
+            } else {
+                "Watch both sessions around it before acting."
+            };
+            Finding {
+                player: rows[0].to.clone(),
+                title: if linked {
+                    "Items from a linked account".to_owned()
+                } else {
+                    "Possible hand-off between accounts".to_owned()
+                },
+                priority: if high {
+                    Priority::High
+                } else {
+                    Priority::Normal
+                },
+                note: format!("{} {caution}", lines.join(" ")),
+                evidence: rows
+                    .into_iter()
+                    .map(|r| Evidence::Transfer {
+                        player: r.to,
+                        from: r.from,
+                        via: r.via,
+                        day_ms: r.day_ms,
+                        transfers: r.transfers,
+                        value: r.value,
+                        methods: r.methods,
+                        swaps: r.swaps,
+                        items: r.items,
+                        counts: r.counts,
+                        first_ms: r.first_ms,
+                        last_ms: r.last_ms,
+                    })
+                    .collect(),
+            }
+        })
+        .collect()
+}
+
 /// A sanction a staff member lifted on an account linked to theirs (`via`):
 /// their own alt, or someone they play beside.
 pub fn lift_finding(lift: ModerationRecord, via: String) -> Finding {
@@ -311,10 +583,10 @@ pub fn lift_finding(lift: ModerationRecord, via: String) -> Finding {
     } else {
         "ban"
     };
-    let how = if via == "browser" {
-        "logged in with the same browser as"
-    } else {
-        "shares an address with"
+    let how = match via.as_str() {
+        "browser" => "logged in with the same browser as",
+        "fingerprint" => "logged in from the same device as",
+        _ => "shares an address with",
     };
     Finding {
         player: lift.moderator.clone(),
@@ -495,6 +767,34 @@ pub async fn check(app: &App, unlinked: &mut HashSet<i64>) -> Result<usize, Stri
         )
         .await?;
     findings.extend(evasion_findings(evasion));
+    let multilog: Vec<Multilog> = app
+        .worlds
+        .ask(
+            path::MULTILOG,
+            &MultilogLookup {
+                name: None,
+                days: LINKED_DAYS,
+                min_overlap_secs: MIN_OVERLAP_SECS,
+                max_staff_level: None,
+                limit: PAGE,
+            },
+        )
+        .await?;
+    findings.extend(multilog_findings(multilog));
+    let transfers: Vec<LinkedTransfer> = app
+        .worlds
+        .ask(
+            path::LINKED_TRANSFERS,
+            &TransferLookup {
+                name: None,
+                days: LINKED_DAYS,
+                timing_value: TIMING_VALUE,
+                max_staff_level: None,
+                limit: PAGE,
+            },
+        )
+        .await?;
+    findings.extend(transfer_findings(transfers));
     findings.extend(report_findings(recent_reports(app, since_ms).await?));
     findings.extend(lift_findings(app, since_ms, unlinked).await?);
 
@@ -544,6 +844,7 @@ pub async fn keep_checking(app: Arc<App>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_admin_api::PlayTurns;
     use std::path::PathBuf;
 
     fn temp_log(tag: &str) -> PathBuf {
@@ -695,6 +996,126 @@ mod tests {
             "{}",
             found.note
         );
+    }
+
+    fn multilog(name: &str, other: &str, via: &str, sessions: i64, attempts: i64) -> Multilog {
+        Multilog {
+            name: name.into(),
+            staff_level: 0,
+            created_ms: 100,
+            other: other.into(),
+            other_staff_level: 0,
+            other_created_ms: 200,
+            via: via.into(),
+            day_ms: 86_400_000,
+            sessions,
+            overlap_ms: 80 * 60_000,
+            attempts,
+            first_ms: 1,
+            last_ms: 2,
+            live: false,
+            nodes: vec![10],
+            turns: None,
+        }
+    }
+
+    fn transfer(from: &str, to: &str, via: &str, value: i64, swaps: i64) -> LinkedTransfer {
+        LinkedTransfer {
+            from: from.into(),
+            from_staff_level: 0,
+            to: to.into(),
+            to_staff_level: 0,
+            via: via.into(),
+            day_ms: 86_400_000,
+            transfers: 2,
+            value,
+            methods: vec!["drop".into(), "shop".into()],
+            swaps,
+            items: vec!["rune_platebody".into()],
+            counts: vec![1],
+            first_ms: 1,
+            last_ms: 2,
+        }
+    }
+
+    #[test]
+    fn playing_at_once_is_on_the_older_account() {
+        let found = multilog_findings(vec![
+            multilog("Main", "Alt", "browser", 2, 0),
+            // The other way round: Old was made first.
+            Multilog {
+                other_created_ms: 50,
+                ..multilog("Young", "Old", "fingerprint", 1, 0)
+            },
+            // A household: no case.
+            multilog("Mum", "Kid", "address", 3, 0),
+            // Unless they took turns.
+            Multilog {
+                turns: Some(PlayTurns {
+                    moments: 1200,
+                    active: 300,
+                    other_active: 200,
+                    both: 2,
+                    expected_both: 50.0,
+                    alternating: true,
+                }),
+                ..multilog("Solo", "Second", "address", 1, 0)
+            },
+            multilog("Main", "Sib", "browser", 0, 2),
+        ]);
+        assert_eq!(found.len(), 3, "{found:?}");
+        let solo = found.iter().find(|f| f.player == "Solo").unwrap();
+        assert_eq!(solo.priority, Priority::High);
+        assert!(
+            solo.note.contains("**They took turns:** over 1h together"),
+            "{}",
+            solo.note
+        );
+        let main = found.iter().find(|f| f.player == "Main").unwrap();
+        assert_eq!((main.priority, main.evidence.len()), (Priority::High, 2));
+        assert!(
+            main.note.contains("**Alt** (2 sessions, 1h 20m together)"),
+            "{}",
+            main.note
+        );
+        assert!(main.note.contains("Refused 2 logins"), "{}", main.note);
+        let old = found.iter().find(|f| f.player == "Old").unwrap();
+        assert_eq!(old.priority, Priority::Normal);
+        assert_eq!(old.evidence[0].key(), "multilog:old:young:86400000");
+        assert_eq!(old.evidence[0].player(), "Old");
+    }
+
+    #[test]
+    fn items_between_linked_accounts_are_on_whoever_got_them() {
+        let found = transfer_findings(vec![
+            transfer("Main", "Alt", "browser", 54_000, 1),
+            transfer("Main", "Alt", "browser", 999, 0),
+            transfer("Mum", "Kid", "address", 5_000, 0),
+            transfer("Stranger", "Taker", "timing", 60_000, 1),
+        ]);
+        assert_eq!(found.len(), 3, "{found:?}");
+        let alt = found.iter().find(|f| f.player == "Alt").unwrap();
+        assert_eq!((alt.priority, alt.evidence.len()), (Priority::High, 1));
+        assert!(
+            alt.note.contains(
+                "worth 54,000 coins (dropped and picked up, sold to a shop and bought back)"
+            ),
+            "{}",
+            alt.note
+        );
+        assert!(
+            alt.note.contains("One was picked up after Main logged out"),
+            "{}",
+            alt.note
+        );
+        assert_eq!(alt.evidence[0].key(), "transfer:main:alt:86400000");
+        let kid = found.iter().find(|f| f.player == "Kid").unwrap();
+        assert_eq!(kid.priority, Priority::Normal);
+        let taker = found.iter().find(|f| f.player == "Taker").unwrap();
+        assert_eq!(taker.title, "Possible hand-off between accounts");
+        assert_eq!(taker.priority, Priority::Normal);
+        assert_eq!(coins(1_250_000), "1,250,000");
+        assert_eq!(duration(5 * 60_000), "5m");
     }
 
     #[test]

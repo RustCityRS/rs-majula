@@ -550,6 +550,7 @@ before `migrate`).
 | `--auto-register <BOOL>` | `true` in debug, `false` in release | Create an account the first time an unknown name logs in (debug builds also make it staff level 3). In release, players register on the website. |
 | `--auto-migrate <BOOL>` | `true` in debug, `false` in release | Apply database changes at startup. When off, the server only checks the schema and keeps logins offline until `rs-server migrate` has run. |
 | `--replay-days <DAYS>` | `7` (`RS_REPLAY_DAYS`) | Days to keep session recordings. `0` records nothing. |
+| `--block-multilog <BOOL>` | `false` in debug, `true` in release (`RS_BLOCK_MULTILOG`) | Refuse a login ("Login limit exceeded") while another account is online, on any world, from the same browser. Needs the web client patched by `deploy/patch.py`, which gives each browser its id. |
 
 **Network**
 

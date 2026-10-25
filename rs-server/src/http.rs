@@ -1,3 +1,4 @@
+use crate::device;
 use crate::socket::handshake;
 use crate::{ConnectionGuard, REVISION, ServerIO, Socket};
 use rs_db::LoginDevice;
@@ -336,6 +337,7 @@ fn login_device(head: &str) -> LoginDevice {
             .collect();
         (!value.is_empty()).then_some(value)
     };
+    let measured = device::read(handshake_query(head), header_value(head, "User-Agent"));
     LoginDevice {
         web: true,
         user_agent: header_value(head, "User-Agent").and_then(|ua| clean(ua, 300)),
@@ -344,7 +346,19 @@ fn login_device(head: &str) -> LoginDevice {
         language: header_value(head, "Accept-Language")
             .and_then(|l| clean(l.split([',', ';']).next().unwrap_or(""), 35)),
         touch: touch_device(head),
+        fingerprint: measured.fingerprint,
+        engine: measured.engine,
+        js_platform: measured.js_platform,
+        gpu: measured.gpu,
+        check: Some(measured.check),
+        agent_differs: measured.agent_differs,
     }
+}
+
+/// The query of a handshake's address: where device.js puts its check.
+fn handshake_query(head: &str) -> Option<&str> {
+    let target = head.lines().next()?.split(' ').nth(1)?;
+    target.split_once('?').map(|(_, query)| query)
 }
 
 /// Whether the browser says it's a phone or tablet. The web client plays
@@ -477,6 +491,7 @@ async fn route(
             )
         }
         "/livemap.js" => LIVEMAP_SCRIPT.serve(query),
+        "/device.js" => DEVICE_SCRIPT.serve(query),
         "/replay" => {
             let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
             let len = bytes.len();
@@ -633,7 +648,12 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
 /// changes (a new release, or `deploy/patch.py` patching in a new login key)
 /// gets a new URL, so no browser or Cloudflare cache serves the old one.
 fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
+    let device = format!(
+        "<script src=\"/device.js?v={}\"></script>\n    <script type=\"module\">",
+        DEVICE_SCRIPT.version
+    );
     let html = CLIENT_HTML
+        .replacen("<script type=\"module\">", &device, 1)
         .replace("{{nodeid}}", nodeid)
         .replace("{{lowmem}}", if lowmem { "1" } else { "0" })
         .replace("{{members}}", if members { "true" } else { "false" });
@@ -762,6 +782,11 @@ new MapView();
 /// Draws the players the staff console sends over the world map.
 static LIVEMAP_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("livemap.js")));
 
+/// Measures the device and keeps the browser's id for the client page (see
+/// device.js), with this deploy's key and names. Only the game's own page
+/// loads it: replays play without it.
+static DEVICE_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(&device::setup().source));
+
 /// The world map viewer with livemap.js drawing players over it, for the
 /// staff console's live map. Sized to the frame it loads in.
 fn render_livemap(version: Option<u32>) -> String {
@@ -853,6 +878,7 @@ fn parse_query(query: &str) -> HashMap<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_db::DeviceCheck;
 
     #[test]
     fn scripts_are_kept_only_when_named_by_their_crc() {
@@ -870,6 +896,33 @@ mod tests {
         let html = render_client("10", true, false, None);
         assert!(html.contains("new Client(10, 1, false);"));
         assert!(!html.contains("{{"));
+    }
+
+    #[test]
+    fn client_page_measures_the_device_before_the_client_loads() {
+        assert!(!device::setup().source.contains("__DEVICE_"));
+        let html = render_client("10", true, false, None);
+        let script = format!("/device.js?v={}", DEVICE_SCRIPT.version);
+        let device = html.find(&script).expect("no device.js");
+        let client = html.find("import { Client }").unwrap();
+        assert!(device < client);
+        assert_eq!(html.matches("device.js").count(), 1);
+    }
+
+    #[test]
+    fn device_checks_come_from_the_handshake_address() {
+        let ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0";
+        let head =
+            |target: &str| format!("GET {target} HTTP/1.1\r\nHost: w1\r\nUser-Agent: {ua}\r\n\r\n");
+        let agent = &device::hash64(ua)[..8];
+        let query = device::tests::query(["00000000000000ff", "blink", "Win32", "", agent]);
+        let device = login_device(&head(&format!("/?{query}")));
+        assert_eq!(device.check, Some(DeviceCheck::Sealed));
+        assert_eq!(device.fingerprint, Some(255));
+        assert!(device.tampering().is_empty(), "{device:?}");
+        let device = login_device(&head("/"));
+        assert_eq!(device.check, Some(DeviceCheck::Missing));
+        assert_eq!(device.tampering(), ["no_check"]);
     }
 
     fn ws_request(origin: Option<&str>, host: &str) -> Request {
@@ -907,7 +960,7 @@ mod tests {
     fn client_page_versions_its_client_js() {
         let html = render_client("10", true, false, Some(0xab12));
         assert_eq!(html.matches("/client.js?v=0000ab12'").count(), 1);
-        assert!(!render_client("10", true, false, None).contains("?v="));
+        assert!(!render_client("10", true, false, None).contains("client.js?v="));
     }
 
     #[test]

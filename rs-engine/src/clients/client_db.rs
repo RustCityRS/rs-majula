@@ -7,7 +7,7 @@ use crate::player_save::{
 use crate::watch::schedule::{MAX_PLAYED, WEEK_MS};
 use rs_db::{
     Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
-    PlayedSession, PlayerSave, SaveResult, check_new_password,
+    PlayedSession, PlayerSave, SaveResult, check_new_password, refusal,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
@@ -45,6 +45,9 @@ pub struct DbClientConfig {
     pub pepper: String,
     pub auto_register: bool,
     pub auto_migrate: bool,
+    /// Refuses a login while another account is online, on any world, from
+    /// the same browser: one person on two accounts at once.
+    pub block_multilog: bool,
 }
 
 /// A request sent from the engine to the database client task.
@@ -174,6 +177,8 @@ pub enum AuthResult {
     InvalidCredentials,
     Banned,
     TooManyAttempts,
+    /// Another account is online from the same browser.
+    MultiLogging,
 }
 
 /// Where a [`DbRequest::Save`] ended up.
@@ -774,6 +779,7 @@ async fn run_requests(
                     db,
                     passwords,
                     config.auto_register,
+                    config.block_multilog,
                     config.node_id,
                     user37,
                     &password,
@@ -1073,7 +1079,9 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 /// rejected, unless `auto_register` is set, in which case the player is
 /// registered with this password and any local save file for the name is
 /// imported. Wrong passwords and unknown names count against the IP; an
-/// accepted login is logged with its IP, client uid and device.
+/// accepted login is logged with its IP, client uid and device. With
+/// `block_multilog`, a login is refused (and logged as such) while another
+/// account is online from the same browser.
 ///
 /// # Call Stack
 /// **Called by:** [`run_requests`]
@@ -1081,6 +1089,7 @@ async fn authenticate(
     db: &Db,
     passwords: &Passwords,
     auto_register: bool,
+    block_multilog: bool,
     node_id: u8,
     user37: u64,
     password: &str,
@@ -1104,7 +1113,27 @@ async fn authenticate(
         if creds.banned {
             return Ok(AuthResult::Banned);
         }
-        db.record_login(user37, node_id.into(), ip, uid, device)
+        if block_multilog
+            && let Some(uid) = uid
+            && let Some(other) = db.online_from_browser(user37, uid).await?
+        {
+            info!(
+                "Refused '{}': '{}' is online from the same browser",
+                to_raw_username(user37),
+                other
+            );
+            db.record_login(
+                user37,
+                node_id.into(),
+                ip,
+                Some(uid),
+                device,
+                Some(refusal::MULTILOG),
+            )
+            .await?;
+            return Ok(AuthResult::MultiLogging);
+        }
+        db.record_login(user37, node_id.into(), ip, uid, device, None)
             .await?;
         let week_ago = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -1142,6 +1171,19 @@ async fn authenticate(
         info!("Didn't auto-register '{}': {}", to_raw_username(user37), e);
         return Ok(AuthResult::InvalidCredentials);
     }
+    // Nor while another account plays from this browser (an account that
+    // doesn't exist yet has no login to log the refusal against).
+    if block_multilog
+        && let Some(uid) = uid
+        && let Some(other) = db.online_from_browser(user37, uid).await?
+    {
+        info!(
+            "Didn't auto-register '{}': '{}' is online from the same browser",
+            to_raw_username(user37),
+            other
+        );
+        return Ok(AuthResult::MultiLogging);
+    }
     let Some(password_hash) = passwords.hash(password) else {
         error!("Failed to hash password for user37={}", user37);
         return Ok(AuthResult::InvalidCredentials);
@@ -1172,7 +1214,7 @@ async fn authenticate(
         info!("Imported local save for '{}'", username);
     }
 
-    db.record_login(user37, node_id.into(), ip, uid, device)
+    db.record_login(user37, node_id.into(), ip, uid, device, None)
         .await?;
     Ok(AuthResult::Accepted {
         staff_mod_level: staff_mod_level as u8,
@@ -1346,6 +1388,7 @@ mod tests {
             db,
             &passwords,
             auto_register,
+            false,
             1,
             to_userhash(name),
             password,
@@ -1463,6 +1506,7 @@ mod tests {
                 pepper: AUTH_PEPPER.to_owned(),
                 auto_register: false,
                 auto_migrate: false,
+                block_multilog: false,
             };
             tokio::spawn(db_client_task(config, req_rx, resp_tx));
             let mut world = World { tx, rx, leases: 0 };

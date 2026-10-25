@@ -1,3 +1,5 @@
+use crate::device::DeviceCheck;
+use crate::links::{CROWDED_BROWSER, uncrowded};
 use crate::save::PlayerSave;
 use crate::{Db, Error};
 use std::net::IpAddr;
@@ -37,6 +39,24 @@ pub struct LoginDevice {
     pub language: Option<String>,
     /// Whether the browser said it's a phone or tablet.
     pub touch: bool,
+    /// The hash of what the client page measured about the device (see
+    /// `0042_multilogging.sql`), if it sent one.
+    pub fingerprint: Option<i64>,
+    /// What else the page measured: its rendering engine,
+    /// `navigator.platform` and graphics card.
+    pub engine: Option<String>,
+    pub js_platform: Option<String>,
+    pub gpu: Option<String>,
+    /// How the page's check came back; `None` from a client without one.
+    pub check: Option<DeviceCheck>,
+    /// The page's `navigator.userAgent` isn't the one the browser sent.
+    pub agent_differs: bool,
+}
+
+/// Why a login with the right password was turned away (`login_logs.refused`).
+pub mod refusal {
+    /// Another account was online from the same browser.
+    pub const MULTILOG: &str = "multilog";
 }
 
 /// What [`Db::reconcile_sessions`] corrected.
@@ -92,11 +112,20 @@ impl Db {
             return Ok(Claim::Busy { node });
         }
 
-        sqlx::query("UPDATE players SET online_node = $2, online_since = now() WHERE id = $1")
-            .bind(id)
-            .bind(node_id)
-            .execute(&mut *tx)
-            .await?;
+        // The session is the login this world just let in: the newest the
+        // account made here, moments ago.
+        sqlx::query(
+            "UPDATE players SET online_node = $2, online_since = now(),
+                    online_login = (SELECT l.id FROM login_logs l
+                                    WHERE l.player_id = $1 AND l.node_id = $2 AND l.refused IS NULL
+                                      AND l.created_at > now() - interval '5 minutes'
+                                    ORDER BY l.id DESC LIMIT 1)
+             WHERE id = $1",
+        )
+        .bind(id)
+        .bind(node_id)
+        .execute(&mut *tx)
+        .await?;
         let save: Option<PlayerSave> =
             sqlx::query_as("SELECT * FROM player_saves WHERE player_id = $1")
                 .bind(id)
@@ -294,10 +323,13 @@ impl Db {
         ip: IpAddr,
         uid: Option<i32>,
         device: &LoginDevice,
+        refused: Option<&str>,
     ) -> Result<(), Error> {
         sqlx::query(
-            "INSERT INTO login_logs (player_id, node_id, ip, uid, web, user_agent, platform, language, touch)
-             SELECT id, $2, $3::inet, $4, $5, $6, $7, $8, $9 FROM players WHERE name_hash = $1",
+            "INSERT INTO login_logs (player_id, node_id, ip, uid, web, user_agent, platform, language, touch,
+                                     fingerprint, refused, engine, js_platform, gpu, tamper)
+             SELECT id, $2, $3::inet, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+             FROM players WHERE name_hash = $1",
         )
         .bind(name_hash as i64)
         .bind(node_id)
@@ -308,9 +340,37 @@ impl Db {
         .bind(&device.platform)
         .bind(&device.language)
         .bind(device.touch)
+        .bind(device.fingerprint)
+        .bind(refused)
+        .bind(&device.engine)
+        .bind(&device.js_platform)
+        .bind(&device.gpu)
+        .bind(device.tamper_column())
         .execute(&self.pool)
         .await?;
         Ok(())
+    }
+
+    /// Another account online now (on any world) that logged in with
+    /// browser `uid`, other than `name_hash`: its name. A browser shared by
+    /// more than [`CROWDED_BROWSER`] accounts never counts, as it links
+    /// nobody.
+    pub async fn online_from_browser(
+        &self,
+        name_hash: u64,
+        uid: i32,
+    ) -> Result<Option<String>, Error> {
+        sqlx::query_scalar(concat!(
+            "SELECT p.display_name FROM login_logs l JOIN players p ON p.online_login = l.id ",
+            "WHERE l.uid = $2 AND p.online_node IS NOT NULL AND p.name_hash <> $1 AND ",
+            uncrowded!("uid", "$2", "$3"),
+            " LIMIT 1"
+        ))
+        .bind(name_hash as i64)
+        .bind(uid)
+        .bind(CROWDED_BROWSER)
+        .fetch_optional(&self.pool)
+        .await
     }
 
     /// Forgets failures older than `secs`.

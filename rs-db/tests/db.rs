@@ -1,10 +1,10 @@
 use rs_db::{
-    AccountDeleted, AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog, Claim, Db, LogBatch,
-    LoginDevice, MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery, NewReplay, NewSnapshot,
-    PlayerSave, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED, Reconciled,
-    RecoveryAnswers, RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport, ReplayStore,
-    Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor, WealthEvent,
-    WorldStatus, log_type, transfer,
+    ACTIVITY_STEP_MS, AccountDeleted, AppealFiled, CROWDED_ADDRESS, CROWDED_BROWSER, ChatLog,
+    Claim, Db, LogBatch, LoginDevice, MAX_OTHERS, ModAction, NewAppeal, NewPlayer, NewRecovery,
+    NewReplay, NewSnapshot, PlayerSave, RECOVERIES_PER_ADDRESS, RECOVERIES_WAITING, RESET_LOCKED,
+    Reconciled, RecoveryAnswers, RecoveryDecided, RecoveryFiled, ReplayChunk, ReplayReport,
+    ReplayStore, Sanctions, SavePoint, SaveResult, ScriptErrorLog, SessionLog, TimelineCursor,
+    Turns, WealthEvent, WorldStatus, log_type, refusal, transfer,
 };
 use rs_util::base37::to_userhash;
 use sqlx::PgPool;
@@ -1204,6 +1204,7 @@ async fn replays_are_started_and_stored_together(pool: PgPool) {
             report: Some(report(40, &["no_heartbeat", "anti_afk"])),
             ended: false,
             complete: true,
+            activity: Some(vec![0b101]),
         },
         ReplayStore {
             id: 2,
@@ -1212,6 +1213,7 @@ async fn replays_are_started_and_stored_together(pool: PgPool) {
             report: Some(report(0, &[])),
             ended: true,
             complete: false,
+            activity: None,
         },
         // Not started: dropped.
         ReplayStore {
@@ -1231,6 +1233,12 @@ async fn replays_are_started_and_stored_together(pool: PgPool) {
     }])
     .await
     .unwrap();
+    // The activity kept is the last sent.
+    let activity: Option<Vec<u8>> = sqlx::query_scalar("SELECT activity FROM replays WHERE id = 1")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(activity, Some(vec![0b101]));
 
     let one = db.replay(1).await.unwrap().unwrap();
     assert_eq!((one.duration_ms, one.bytes, one.score), (61_000, 5, 40));
@@ -1575,7 +1583,7 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
         .unwrap();
     }
     for (hash, ip) in [(1, a), (1, a), (2, a), (2, b), (3, b), (5, c), (99, c)] {
-        db.record_login(hash, 10, ip, None, &LoginDevice::default())
+        db.record_login(hash, 10, ip, None, &LoginDevice::default(), None)
             .await
             .unwrap();
     }
@@ -1664,7 +1672,7 @@ async fn logins_link_accounts_by_client(pool: PgPool) {
         (4, cafe, Some(88)),
         (4, home, None),
     ] {
-        db.record_login(hash, 10, ip, uid, &LoginDevice::default())
+        db.record_login(hash, 10, ip, uid, &LoginDevice::default(), None)
             .await
             .unwrap();
     }
@@ -1711,6 +1719,7 @@ async fn devices_group_logins_with_their_addresses(pool: PgPool) {
         platform: None,
         language: Some("en-GB".into()),
         touch: true,
+        ..LoginDevice::default()
     };
     let desktop = LoginDevice::default();
     for (hash, ip, uid, device) in [
@@ -1720,7 +1729,9 @@ async fn devices_group_logins_with_their_addresses(pool: PgPool) {
         // 2 borrows 1's phone.
         (2, home, Some(5), &phone),
     ] {
-        db.record_login(hash, 10, ip, uid, device).await.unwrap();
+        db.record_login(hash, 10, ip, uid, device, None)
+            .await
+            .unwrap();
     }
     let mut devices = db.login_devices(1, 10).await.unwrap();
     devices.sort_by_key(|d| d.logins);
@@ -1756,7 +1767,9 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
     }
     let ip = std::net::IpAddr::from([203, 0, 113, 1]);
     let device = LoginDevice::default();
-    db.record_login(2, 10, ip, None, &device).await.unwrap();
+    db.record_login(2, 10, ip, None, &device, None)
+        .await
+        .unwrap();
     logins_a_day_ago(&pool).await;
     assert!(
         db.moderate(1, 2, 2, ModAction::Ban { hours: 48 }, Some("Botting"), 10)
@@ -1766,7 +1779,9 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
     // As many accounts as an address may have, the banned one among them:
     // every other one linked to it.
     for hash in 3..last {
-        db.record_login(hash, 10, ip, None, &device).await.unwrap();
+        db.record_login(hash, 10, ip, None, &device, None)
+            .await
+            .unwrap();
     }
     let evasion = db.ban_evasion(7, 0, 50).await.unwrap();
     assert_eq!(evasion.len(), CROWDED_ADDRESS as usize - 1);
@@ -1785,7 +1800,9 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
     );
 
     // One more and it's crowded: nobody is linked through it.
-    db.record_login(last, 10, ip, None, &device).await.unwrap();
+    db.record_login(last, 10, ip, None, &device, None)
+        .await
+        .unwrap();
     assert!(db.ban_evasion(7, 0, 50).await.unwrap().is_empty());
     assert!(db.banned_links(3).await.unwrap().is_empty());
     assert_eq!(db.link_between(2, 3).await.unwrap(), None);
@@ -1816,7 +1833,7 @@ async fn crowded_browsers_link_nobody(pool: PgPool) {
     // Each from an address of its own, on one browser.
     let ip = |hash: u64| std::net::IpAddr::from([10, 0, (hash >> 8) as u8, hash as u8]);
     let device = LoginDevice::default();
-    db.record_login(2, 10, ip(2), Some(77), &device)
+    db.record_login(2, 10, ip(2), Some(77), &device, None)
         .await
         .unwrap();
     logins_a_day_ago(&pool).await;
@@ -1826,7 +1843,7 @@ async fn crowded_browsers_link_nobody(pool: PgPool) {
             .unwrap()
     );
     for hash in 3..last {
-        db.record_login(hash, 10, ip(hash), Some(77), &device)
+        db.record_login(hash, 10, ip(hash), Some(77), &device, None)
             .await
             .unwrap();
     }
@@ -1847,7 +1864,7 @@ async fn crowded_browsers_link_nobody(pool: PgPool) {
         CROWDED_BROWSER as usize - 1
     );
 
-    db.record_login(last, 10, ip(last), Some(77), &device)
+    db.record_login(last, 10, ip(last), Some(77), &device, None)
         .await
         .unwrap();
     assert!(db.ban_evasion(7, 0, 50).await.unwrap().is_empty());
@@ -1875,7 +1892,7 @@ async fn others_are_counted_only_so_far(pool: PgPool) {
         })
         .await
         .unwrap();
-        db.record_login(hash, 10, ip, Some(5), &device)
+        db.record_login(hash, 10, ip, Some(5), &device, None)
             .await
             .unwrap();
     }
@@ -1908,7 +1925,7 @@ async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
     // Before the ban: Banned (2) plays on browser 9 at home; Friend (4)
     // visits that home; Far (5) shares an address with Friend.
     for (hash, at, uid) in [(2, 1, Some(9)), (4, 1, None), (4, 2, None), (5, 2, None)] {
-        db.record_login(hash, 10, ip(at), uid, &device)
+        db.record_login(hash, 10, ip(at), uid, &device, None)
             .await
             .unwrap();
     }
@@ -1919,7 +1936,7 @@ async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
             .unwrap()
     );
     // After it: Alt (3) logs in on Banned's browser from somewhere else.
-    db.record_login(3, 10, ip(3), Some(9), &device)
+    db.record_login(3, 10, ip(3), Some(9), &device, None)
         .await
         .unwrap();
 
@@ -1963,10 +1980,12 @@ async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
 
     // Alt then plays at Banned's home on that browser (one login, linked
     // both ways), and Friend visits that home again: an address link.
-    db.record_login(3, 10, ip(1), Some(9), &device)
+    db.record_login(3, 10, ip(1), Some(9), &device, None)
         .await
         .unwrap();
-    db.record_login(4, 10, ip(1), None, &device).await.unwrap();
+    db.record_login(4, 10, ip(1), None, &device, None)
+        .await
+        .unwrap();
     let evasion = db.ban_evasion(7, 0, 10).await.unwrap();
     let found: Vec<(&str, &str, i64)> = evasion
         .iter()
@@ -2009,6 +2028,7 @@ async fn timeline_merges_every_log_and_pages(pool: PgPool) {
         "203.0.113.7".parse().unwrap(),
         None,
         &LoginDevice::default(),
+        None,
     )
     .await
     .unwrap();
@@ -2474,10 +2494,10 @@ async fn account_activity_covers_recent_accounts(pool: PgPool) {
     }
     // Staff aren't listed.
     db.create_player(&player(3)).await.unwrap();
-    db.record_login(1, 10, ip, None, &LoginDevice::default())
+    db.record_login(1, 10, ip, None, &LoginDevice::default(), None)
         .await
         .unwrap();
-    db.record_login(3, 10, ip, None, &LoginDevice::default())
+    db.record_login(3, 10, ip, None, &LoginDevice::default(), None)
         .await
         .unwrap();
     db.start_replay(&NewReplay {
@@ -3166,10 +3186,10 @@ async fn recovery_requests_are_limited_decided_and_redeemed(pool: PgPool) {
         touch: true,
         ..LoginDevice::default()
     };
-    db.record_login(7, 10, home, Some(77), &phone)
+    db.record_login(7, 10, home, Some(77), &phone, None)
         .await
         .unwrap();
-    db.record_login(8, 10, home, None, &LoginDevice::default())
+    db.record_login(8, 10, home, None, &LoginDevice::default(), None)
         .await
         .unwrap();
     let answers = RecoveryAnswers {
@@ -3334,7 +3354,7 @@ async fn strangers_cant_crowd_out_an_owners_recovery(pool: PgPool) {
     })
     .await
     .unwrap();
-    db.record_login(7, 10, home, Some(77), &LoginDevice::default())
+    db.record_login(7, 10, home, Some(77), &LoginDevice::default(), None)
         .await
         .unwrap();
     let answers = RecoveryAnswers::default();
@@ -3479,4 +3499,323 @@ async fn staff_messages_are_read_by_their_player_only(pool: PgPool) {
         .await
         .unwrap();
     assert_eq!(left, 1);
+}
+
+/// Sets `name_hash`'s latest login to have started (and ended, if given)
+/// that many minutes ago.
+async fn login_at(pool: &PgPool, name_hash: u64, started_mins: i32, ended_mins: Option<i32>) {
+    sqlx::query(
+        "UPDATE login_logs SET created_at = now() - make_interval(mins => $2),
+                ended_at = now() - make_interval(mins => $3)
+         WHERE id = (SELECT max(l.id) FROM login_logs l JOIN players p ON p.id = l.player_id
+                     WHERE p.name_hash = $1)",
+    )
+    .bind(name_hash as i64)
+    .bind(started_mins)
+    .bind(ended_mins)
+    .execute(pool)
+    .await
+    .unwrap();
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn sessions_played_at_once_are_found(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    named(&db, 1, "Main").await;
+    named(&db, 2, "Alt").await;
+    named(&db, 3, "Sibling").await;
+    named(&db, 4, "Twin").await;
+    named(&db, 5, "Stranger").await;
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let laptop = LoginDevice {
+        web: true,
+        fingerprint: Some(-42),
+        ..LoginDevice::default()
+    };
+    for (hash, ip, uid, device) in [
+        (1, home, 77, &laptop),
+        (2, home, 77, &laptop),
+        // The same laptop in a private window: a new browser id, elsewhere.
+        (4, "198.51.100.9".parse().unwrap(), 55, &laptop),
+        (5, "192.0.2.1".parse().unwrap(), 99, &LoginDevice::default()),
+    ] {
+        db.record_login(hash, 10, ip, Some(uid), device, None)
+            .await
+            .unwrap();
+        db.claim_session(hash, 10, 60).await.unwrap();
+    }
+    sqlx::query("UPDATE login_logs SET created_at = now() - interval '10 minutes'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    let online: i64 = sqlx::query_scalar(
+        "SELECT count(*) FROM players p JOIN login_logs l ON l.id = p.online_login",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert_eq!(online, 4);
+
+    let found = db.multilogging(None, 1, 60, 3, 50).await.unwrap();
+    let pair = |a: &str, b: &str| {
+        found
+            .iter()
+            .find(|r| r.name == a && r.other == b)
+            .unwrap_or_else(|| panic!("no {a}/{b} in {found:?}"))
+            .clone()
+    };
+    let main_alt = pair("Main", "Alt");
+    assert_eq!(
+        (main_alt.via.as_str(), main_alt.sessions, main_alt.live),
+        ("browser", 1, true)
+    );
+    assert!(main_alt.overlap_ms >= 9 * 60_000, "{main_alt:?}");
+    assert_eq!(main_alt.nodes, vec![10]);
+    assert_eq!(pair("Main", "Twin").via, "fingerprint");
+    assert_eq!(pair("Alt", "Twin").via, "fingerprint");
+    assert!(!found.iter().any(|r| r.other == "Stranger"), "{found:?}");
+    assert_eq!(found.len(), 3);
+    let twin = db.multilogging(Some(4), 1, 60, 3, 50).await.unwrap();
+    assert_eq!(twin.len(), 2);
+    assert!(twin.iter().all(|r| r.other == "Twin"));
+    // Staff above the ceiling are left out.
+    sqlx::query("UPDATE players SET staff_mod_level = 2 WHERE name_hash = 4")
+        .execute(&pool)
+        .await
+        .unwrap();
+    assert_eq!(db.multilogging(None, 1, 60, 1, 50).await.unwrap().len(), 1);
+
+    // A logout ends the session: still found, no longer live.
+    assert_eq!(
+        db.store_logout_save(2, 10, &save()).await.unwrap(),
+        SaveResult::Stored
+    );
+    let ended: (bool, bool) = sqlx::query_as(
+        "SELECT l.ended_at IS NOT NULL, p.online_login IS NULL FROM login_logs l
+         JOIN players p ON p.id = l.player_id WHERE p.name_hash = 2",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert_eq!(ended, (true, true));
+    let found = db.multilogging(None, 1, 60, 3, 50).await.unwrap();
+    let main_alt = found.iter().find(|r| r.other == "Alt").unwrap();
+    assert!(!main_alt.live);
+
+    // Another account turned away from the same browser while Main plays.
+    assert_eq!(
+        db.online_from_browser(3, 77).await.unwrap().as_deref(),
+        Some("Main")
+    );
+    assert_eq!(db.online_from_browser(1, 77).await.unwrap(), None);
+    db.record_login(3, 10, home, Some(77), &laptop, Some(refusal::MULTILOG))
+        .await
+        .unwrap();
+    // A claim never takes a refused login for its session.
+    db.claim_session(3, 10, 60).await.unwrap();
+    let current: Option<i64> =
+        sqlx::query_scalar("SELECT online_login FROM players WHERE name_hash = 3")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(current, None);
+    db.release_session(3, 10).await.unwrap();
+    let found = db.multilogging(None, 1, 60, 3, 50).await.unwrap();
+    let tried = found.iter().find(|r| r.other == "Sibling").unwrap();
+    assert_eq!((tried.attempts, tried.sessions), (1, 0));
+
+    // Sessions apart, or overlapping less than the minimum, aren't.
+    login_at(&pool, 1, 60, Some(30)).await;
+    login_at(&pool, 4, 32, Some(29)).await;
+    let found = db.multilogging(None, 1, 300, 3, 50).await.unwrap();
+    assert!(!found.iter().any(|r| r.other == "Twin"), "{found:?}");
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn items_passed_between_linked_accounts_are_found(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    named(&db, 1, "Main").await;
+    named(&db, 2, "Alt").await;
+    named(&db, 3, "Dropper").await;
+    named(&db, 4, "Taker").await;
+    named(&db, 5, "Buddy").await;
+    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let device = LoginDevice::default();
+    // Main and Alt on one browser; the others each on their own.
+    for (hash, ip, uid) in [
+        (1, home, 77),
+        (2, home, 77),
+        (3, "198.51.100.3".parse().unwrap(), 3),
+        (4, "198.51.100.4".parse().unwrap(), 4),
+        (5, "198.51.100.5".parse().unwrap(), 5),
+    ] {
+        db.record_login(hash, 10, ip, Some(uid), &device, None)
+            .await
+            .unwrap();
+    }
+    // Main played, dropped, logged out; Alt logged in and took it.
+    login_at(&pool, 1, 30, Some(19)).await;
+    login_at(&pool, 2, 18, None).await;
+    // Dropper left right after dropping, and Taker came straight on.
+    login_at(&pool, 3, 40, Some(11)).await;
+    login_at(&pool, 4, 10, None).await;
+
+    let event = |name_hash, event_type, item: &str, value, to| WealthEvent {
+        name_hash,
+        x: 3210,
+        z: 3240,
+        y: 0,
+        event_type,
+        item: item.to_owned(),
+        count: 1,
+        value,
+        counterpart: to,
+    };
+    // Each with how many minutes ago it happened.
+    let events = [
+        (event(1, transfer::DROP, "rune_scimitar", 15000, None), 20),
+        (event(2, transfer::TAKE, "rune_scimitar", 15000, None), 15),
+        (event(1, 7, "rune_platebody", 39000, None), 14),
+        (event(2, 6, "rune_platebody", 65000, None), 13),
+        (event(2, transfer::STAKE, "coins", 5000, Some(1)), 12),
+        (event(1, transfer::TRADE, "lobster", 150, Some(5)), 12),
+        (event(3, transfer::DROP, "dragon_med_helm", 60000, None), 12),
+        (event(4, transfer::TAKE, "dragon_med_helm", 60000, None), 9),
+        (event(3, transfer::DROP, "bones", 1, None), 12),
+        (event(4, transfer::TAKE, "bones", 1, None), 9),
+    ];
+    for (e, mins) in events {
+        let (item, event_type) = (e.item.clone(), e.event_type);
+        let batch = LogBatch {
+            wealth: vec![e],
+            ..Default::default()
+        };
+        db.record_logs(10, &batch).await.unwrap();
+        sqlx::query(
+            "UPDATE wealth_events SET created_at = now() - make_interval(mins => $1)
+             WHERE item = $2 AND event_type = $3",
+        )
+        .bind(mins)
+        .bind(item)
+        .bind(event_type)
+        .execute(&pool)
+        .await
+        .unwrap();
+    }
+
+    let found = db.linked_transfers(None, 1, 50_000, 3, 50).await.unwrap();
+    // By pair, whatever UTC days they fell on: (via, transfers, swaps, methods).
+    type Pair = (String, i64, i64, Vec<String>);
+    let mut pairs: std::collections::BTreeMap<(String, String), Pair> = Default::default();
+    for r in &found {
+        let p = pairs.entry((r.from.clone(), r.to.clone())).or_insert((
+            r.via.clone(),
+            0,
+            0,
+            Vec::new(),
+        ));
+        p.1 += r.transfers;
+        p.2 += r.swaps;
+        p.3.extend(r.methods.iter().cloned());
+        p.3.sort();
+        p.3.dedup();
+    }
+    let get = |a: &str, b: &str| {
+        pairs
+            .get(&(a.to_owned(), b.to_owned()))
+            .unwrap_or_else(|| panic!("no {a} -> {b} in {found:?}"))
+            .clone()
+    };
+    let methods = |m: &[&str]| m.iter().map(|m| m.to_string()).collect::<Vec<_>>();
+    assert_eq!(
+        get("Main", "Alt"),
+        ("browser".into(), 2, 1, methods(&["drop", "shop"]))
+    );
+    assert_eq!(
+        get("Alt", "Main"),
+        ("browser".into(), 1, 0, methods(&["stake"]))
+    );
+    // Not linked at all: only the hand-off worth enough.
+    assert_eq!(
+        get("Dropper", "Taker"),
+        ("timing".into(), 1, 1, methods(&["drop"]))
+    );
+    assert_eq!(pairs.len(), 3, "{found:?}");
+    let taker = db
+        .linked_transfers(Some(4), 1, 50_000, 3, 50)
+        .await
+        .unwrap();
+    assert!(taker.iter().all(|r| r.to == "Taker"), "{taker:?}");
+    let main = found
+        .iter()
+        .find(|r| r.from == "Main" && r.items.len() == 2)
+        .unwrap();
+    assert_eq!(main.items, ["rune_platebody", "rune_scimitar"]);
+}
+
+#[sqlx::test]
+#[ignore = "needs DATABASE_URL"]
+async fn accounts_played_in_turns_are_told_apart(pool: PgPool) {
+    let db = Db::from_pool(pool.clone());
+    named(&db, 1, "Main").await;
+    named(&db, 2, "Alt").await;
+    let replay = |id, name_hash| NewReplay {
+        id,
+        name_hash,
+        node_id: 10,
+        revision: "289".into(),
+    };
+    db.start_replays(&[replay(1, 1), replay(2, 2)])
+        .await
+        .unwrap();
+    // An hour each, started together: Main acts in the first ten minutes of
+    // every twenty, Alt in the other ten, a click every 9 seconds.
+    let moments = 1200usize;
+    let bits = |on: &dyn Fn(usize) -> bool| {
+        let mut bytes = vec![0u8; moments.div_ceil(8)];
+        for i in (0..moments).filter(|&i| on(i) && i % 3 == 0) {
+            bytes[i >> 3] |= 1 << (i & 7);
+        }
+        bytes
+    };
+    let store = |id, activity| ReplayStore {
+        id,
+        duration_ms: (moments as u32 * ACTIVITY_STEP_MS) as i32,
+        complete: true,
+        activity: Some(activity),
+        ..ReplayStore::default()
+    };
+    db.store_replays(&[
+        store(1, bits(&|i| (i / 200) % 2 == 0)),
+        store(2, bits(&|i| (i / 200) % 2 == 1)),
+    ])
+    .await
+    .unwrap();
+    sqlx::query("UPDATE replays SET started_at = now() - interval '2 hours'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    let ids: Vec<i64> = sqlx::query_scalar("SELECT id FROM players ORDER BY name_hash")
+        .fetch_all(&pool)
+        .await
+        .unwrap();
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_millis() as i64;
+    let day = 24 * 3600 * 1000;
+    let turns = db
+        .turns_between(ids[0], ids[1], now - day, now)
+        .await
+        .unwrap();
+    assert_eq!((turns.moments, turns.both), (1200, 0), "{turns:?}");
+    assert!(turns.alternating(), "{turns:?}");
+    // Outside their sessions there's nothing to compare.
+    let before = db
+        .turns_between(ids[0], ids[1], now - 2 * day, now - day)
+        .await
+        .unwrap();
+    assert_eq!(before, Turns::default());
 }

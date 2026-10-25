@@ -180,7 +180,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                 if key_exchanges > 3 {
                     bail!("{}: repeated session-key exchanges", client.addr);
                 }
-                let _name_hash = buf.g1();
+                let _login_server_node = buf.g1();
                 let mut resp = key_exchange_reply(PROCEED).to_vec();
                 resp.extend_from_slice(&make_seed().data);
                 client.write(&resp).await?;

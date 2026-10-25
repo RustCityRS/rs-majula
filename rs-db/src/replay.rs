@@ -51,7 +51,15 @@ pub struct ReplayStore {
     pub ended: bool,
     /// `false`: a chunk before these was lost.
     pub complete: bool,
+    /// When the player chose an action so far (see [`ACTIVITY_STEP_MS`]),
+    /// whole, if it changed.
+    pub activity: Option<Vec<u8>>,
 }
+
+/// How long each bit of a recording's `activity` covers: one bit per this
+/// many milliseconds from its start, lowest bit first, set when the player
+/// chose an action then.
+pub const ACTIVITY_STEP_MS: u32 = 3_000;
 
 /// Between a report's flags in one text: no flag has it.
 const FLAG_SEPARATOR: &str = "\u{1f}";
@@ -191,6 +199,7 @@ impl Db {
             report: report.cloned(),
             ended,
             complete,
+            activity: None,
         }])
         .await
     }
@@ -232,6 +241,7 @@ impl Db {
         let complete: Vec<bool> = stores.iter().map(|s| s.complete).collect();
         let ended: Vec<bool> = stores.iter().map(|s| s.ended).collect();
         let chunked: Vec<bool> = stores.iter().map(|s| !s.chunks.is_empty()).collect();
+        let activity: Vec<Option<&[u8]>> = stores.iter().map(|s| s.activity.as_deref()).collect();
 
         let mut tx = self.pool.begin().await?;
         if !chunk_ids.is_empty() {
@@ -256,10 +266,11 @@ impl Db {
                  flags = coalesce(string_to_array(u.flags, chr(31)), r.flags),
                  stats = coalesce(u.stats, r.stats), complete = r.complete AND u.complete,
                  ended_at = CASE WHEN u.ended THEN now() ELSE r.ended_at END, updated_at = now(),
-                 compacted = r.compacted AND NOT u.chunked
+                 compacted = r.compacted AND NOT u.chunked,
+                 activity = coalesce(u.activity, r.activity)
              FROM unnest($1::bigint[], $2::int[], $3::bigint[], $4::smallint[], $5::text[],
-                     $6::text[], $7::bool[], $8::bool[], $9::bool[])
-                 u (id, duration_ms, bytes, score, flags, stats, complete, ended, chunked)
+                     $6::text[], $7::bool[], $8::bool[], $9::bool[], $10::bytea[])
+                 u (id, duration_ms, bytes, score, flags, stats, complete, ended, chunked, activity)
              WHERE r.id = u.id",
         )
         .bind(&ids)
@@ -271,6 +282,7 @@ impl Db {
         .bind(&complete)
         .bind(&ended)
         .bind(&chunked)
+        .bind(&activity)
         .execute(&mut *tx)
         .await?;
         tx.commit().await

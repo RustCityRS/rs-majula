@@ -45,6 +45,12 @@ pub mod path {
     /// logins from banned accounts' browsers since their bans.
     pub const LINK_CHAIN: &str = "/v1/lookup/link-chain";
     pub const EVASION: &str = "/v1/lookup/evasion";
+    /// Accounts played at once from one browser, device or address:
+    /// `MultilogLookup`, answered with `Vec<Multilog>`.
+    pub const MULTILOG: &str = "/v1/lookup/multilog";
+    /// Items passed between linked accounts: `TransferLookup`, answered
+    /// with `Vec<LinkedTransfer>`.
+    pub const LINKED_TRANSFERS: &str = "/v1/lookup/linked-transfers";
     /// Every account with a staff level: `StaffAccountsLookup`, answered
     /// with `Vec<StaffAccountRecord>`.
     pub const STAFF_ACCOUNTS: &str = "/v1/lookup/staff-accounts";
@@ -549,7 +555,8 @@ pub struct ChainLink {
     pub name: String,
     pub staff_level: u8,
     pub depth: u8,
-    /// Who it was reached from, and how: `browser` or `address`.
+    /// Who it was reached from, and how: `browser`, `fingerprint` or
+    /// `address`.
     pub via: String,
     pub link: String,
     pub muted_until_ms: Option<i64>,
@@ -573,7 +580,7 @@ pub struct Evasion {
     /// The banned account whose browser they logged in with, or from whose
     /// address.
     pub banned: String,
-    /// `browser` or `address`: how they're linked.
+    /// `browser`, `fingerprint` or `address`: how they're linked.
     #[serde(default = "browser")]
     pub via: String,
     pub banned_ms: i64,
@@ -601,8 +608,106 @@ pub struct LinkedLookup {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct LinkBetween {
-    /// `browser` or `address`; `None` when they aren't linked.
+    /// `browser`, `fingerprint` or `address`; `None` when they aren't
+    /// linked.
     pub via: Option<String>,
+}
+
+/// `POST /v1/lookup/multilog`: accounts that played at the same time, for
+/// `min_overlap_secs` or more, over the last `days`.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct MultilogLookup {
+    /// Only this player's, if given.
+    #[serde(default)]
+    pub name: Option<String>,
+    pub days: u32,
+    pub min_overlap_secs: u32,
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
+    pub limit: u32,
+}
+
+/// Two accounts played at once from the same browser, device or address on
+/// one UTC day, or one was refused a login for it while the other played.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Multilog {
+    pub name: String,
+    pub staff_level: u8,
+    pub created_ms: i64,
+    pub other: String,
+    pub other_staff_level: u8,
+    pub other_created_ms: i64,
+    /// `browser`, `fingerprint` or `address`.
+    pub via: String,
+    pub day_ms: i64,
+    /// Pairs of sessions that overlapped, and for how long in all.
+    pub sessions: i64,
+    pub overlap_ms: i64,
+    /// Logins refused because the other was on.
+    pub attempts: i64,
+    pub first_ms: i64,
+    pub last_ms: i64,
+    /// Both online now.
+    pub live: bool,
+    pub nodes: Vec<u8>,
+    /// How their play lined up while both were online, from the
+    /// recordings; `None` without any to compare.
+    #[serde(default)]
+    pub turns: Option<PlayTurns>,
+}
+
+/// How two accounts' play lined up while both were online, in 3-second
+/// moments: how many, in how many each chose an action, in how many both
+/// did, and how many two people playing would both have acted in.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct PlayTurns {
+    pub moments: i64,
+    pub active: i64,
+    pub other_active: i64,
+    pub both: i64,
+    pub expected_both: f64,
+    /// They took turns: far fewer moments both acted in than two people
+    /// would, with enough play to tell. One person on two accounts.
+    pub alternating: bool,
+}
+
+/// `POST /v1/lookup/linked-transfers`: items passed between linked accounts
+/// over the last `days`, and hand-offs between unlinked ones worth
+/// `timing_value` or more.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct TransferLookup {
+    /// Only this player's, if given.
+    #[serde(default)]
+    pub name: Option<String>,
+    pub days: u32,
+    pub timing_value: i64,
+    #[serde(default)]
+    pub max_staff_level: Option<u8>,
+    pub limit: u32,
+}
+
+/// What one account passed to another linked to it on one UTC day.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct LinkedTransfer {
+    pub from: String,
+    pub from_staff_level: u8,
+    pub to: String,
+    pub to_staff_level: u8,
+    /// `browser`, `fingerprint` or `address`; `timing` when they aren't
+    /// linked, but one logged out and the other in to pick it up.
+    pub via: String,
+    pub day_ms: i64,
+    pub transfers: i64,
+    pub value: i64,
+    /// `trade`, `stake`, `give`, `drop` and `shop`.
+    pub methods: Vec<String>,
+    /// Drops or sales taken after the giver logged out and the taker in.
+    pub swaps: i64,
+    /// The most valuable items, with how many of each.
+    pub items: Vec<String>,
+    pub counts: Vec<i64>,
+    pub first_ms: i64,
+    pub last_ms: i64,
 }
 
 fn browser() -> String {
@@ -622,6 +727,21 @@ pub struct LoginDeviceSeen {
     pub touch: bool,
     /// The install's id, as text so the console can label it.
     pub uid: Option<String>,
+    /// The device's fingerprint, as hex, labelled the same way.
+    #[serde(default)]
+    pub fingerprint: Option<String>,
+    /// What else its page measured: rendering engine, `navigator.platform`
+    /// and graphics card.
+    #[serde(default)]
+    pub engine: Option<String>,
+    #[serde(default)]
+    pub js_platform: Option<String>,
+    #[serde(default)]
+    pub gpu: Option<String>,
+    /// How its check and its browser's claims disagreed (`no_check`,
+    /// `bad_seal`, `user_agent`, `engine`, `platform`, `graphics`).
+    #[serde(default)]
+    pub tamper: Vec<String>,
     pub logins: i64,
     /// How many addresses it was used from, and up to 20 of them.
     pub addresses: i64,
@@ -631,6 +751,9 @@ pub struct LoginDeviceSeen {
     /// How many other accounts logged in from the same install, counted up
     /// to 101 (more than 100).
     pub others: i64,
+    /// And with the same device fingerprint.
+    #[serde(default)]
+    pub fingerprint_others: i64,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -653,6 +776,8 @@ pub struct LinkedAccount {
     pub shared: Vec<String>,
     #[serde(default)]
     pub shared_clients: i64,
+    #[serde(default)]
+    pub shared_fingerprints: i64,
     pub logins: i64,
     pub last_ms: i64,
     pub muted_until_ms: Option<i64>,

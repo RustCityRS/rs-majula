@@ -127,6 +127,9 @@ pub enum ReplayRequest {
         report: Option<Report>,
         ended: bool,
         complete: bool,
+        /// When the player chose an action, whole, if it changed (see
+        /// [`rs_db::ACTIVITY_STEP_MS`]).
+        activity: Option<Vec<u8>>,
     },
 }
 
@@ -173,6 +176,10 @@ pub struct Watch {
     marks: FxHashMap<String, (u32, u16)>,
     /// Where notes are written before they go in, kept to save allocating.
     scratch: String,
+    /// When the player chose an action: a bit per [`rs_db::ACTIVITY_STEP_MS`]
+    /// from the start, and whether it changed since it was last stored.
+    activity: Vec<u8>,
+    activity_changed: bool,
 }
 
 impl Default for Watch {
@@ -186,6 +193,8 @@ impl Default for Watch {
             raised: Vec::new(),
             marks: FxHashMap::default(),
             scratch: String::new(),
+            activity: Vec::new(),
+            activity_changed: false,
         }
     }
 }
@@ -259,6 +268,8 @@ impl Watch {
             raised: Vec::new(),
             marks: FxHashMap::default(),
             scratch: String::new(),
+            activity: Vec::new(),
+            activity_changed: false,
         }
     }
 
@@ -502,9 +513,21 @@ impl Watch {
         }
     }
 
-    /// A menu action, for the checks (see [`AntiCheat::op`]).
+    /// A menu action, for the checks (see [`AntiCheat::op`]), and the
+    /// moment it was chosen in, for telling one person on two accounts.
     pub fn op(&mut self, op: Op, clock: u32, base: MapBase) {
         self.anticheat.op(op, clock, base);
+        if self.recording.is_some() {
+            let moment = (self.ms() / rs_db::ACTIVITY_STEP_MS) as usize;
+            let (byte, bit) = (moment >> 3, 1 << (moment & 7));
+            if byte >= self.activity.len() {
+                self.activity.resize(byte + 1, 0);
+            }
+            if self.activity[byte] & bit == 0 {
+                self.activity[byte] |= bit;
+                self.activity_changed = true;
+            }
+        }
     }
 
     /// At the end of tick `clock`: marks what the checks caught, and hands
@@ -565,6 +588,7 @@ impl Watch {
             counters::add(&COUNTERS.replay_chunks_dropped, 1);
         }
         let had_chunk = chunk.is_some();
+        let activity = mem::take(&mut self.activity_changed).then(|| self.activity.clone());
         let sent = recording.tx.try_send(ReplayRequest::Store {
             id: recording.id,
             chunk,
@@ -572,6 +596,7 @@ impl Watch {
             report,
             ended,
             complete: !recording.lost,
+            activity,
         });
         if sent.is_err() && had_chunk {
             unqueue_bytes(queued);
@@ -595,7 +620,7 @@ impl Drop for Watch {
 #[cfg(test)]
 mod tests {
     use super::format::{Entry, Reader, TICK, TICK_DELTA};
-    use super::{ReplayRequest, Watch, automated};
+    use super::{MapBase, Op, ReplayRequest, Watch, automated};
     use rs_db::LoginDevice;
     use tokio::sync::mpsc;
 
@@ -631,6 +656,25 @@ mod tests {
                 .count();
             assert_eq!(read, ticks);
         }
+    }
+
+    #[test]
+    fn activity_is_stored_when_it_changes() {
+        let (tx, mut rx) = mpsc::channel(16);
+        let mut watch = Watch::start(42, 10, Some(&tx));
+        watch.op(Op::Other, 0, MapBase::default());
+        watch.flush(false);
+        // Nothing chosen since: the last stored stands.
+        watch.flush(false);
+        watch.op(Op::Other, 0, MapBase::default());
+        watch.flush(false);
+        let mut sent = Vec::new();
+        while let Ok(req) = rx.try_recv() {
+            if let ReplayRequest::Store { activity, .. } = req {
+                sent.push(activity);
+            }
+        }
+        assert_eq!(sent, [Some(vec![1]), None, None]);
     }
 
     #[test]
