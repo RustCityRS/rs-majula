@@ -297,7 +297,9 @@ pub fn pack_objs(
                         panic!("Weight out of range: {value}");
                     }
                     server.p1(75);
-                    server.p2(grams as u16);
+                    // Signed (boots of lightness weigh -10lb): `as u16` would
+                    // saturate a negative weight to 0.
+                    server.p2(grams as i16 as u16);
                 }
 
                 // 78
