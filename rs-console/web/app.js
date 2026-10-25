@@ -352,6 +352,108 @@ function toast(message, kind = 'ok') {
 }
 
 // ---------------------------------------------------------------------------
+// Hover tips
+
+// Every `title` shows as a styled tip, sooner than the browser's own and on
+// keyboard focus too. The title comes off while its tip is up, so the
+// browser's doesn't also show, and goes back after (screen readers keep it).
+const tip = h('div', {class: 'tip', id: 'tip', role: 'tooltip'});
+document.body.append(tip);
+const TIP_DELAY_MS = 300;
+// Moving straight on to another titled thing shows its tip at once.
+const TIP_WARM_MS = 400;
+const tipState = {el: null, title: '', described: false, timer: 0, hiddenAt: 0};
+
+const tipWatch = new MutationObserver(() => {
+    const el = tipState.el;
+    const title = el?.getAttribute('title');
+    // Our own lifting it off, or the page setting it again while it's up.
+    if (title === null || title === undefined) return;
+    tipState.title = title;
+    if (!title) {
+        hideTip();
+        return;
+    }
+    el.removeAttribute('title');
+    tip.textContent = title;
+    placeTip(el);
+});
+
+function placeTip(el) {
+    const r = el.getBoundingClientRect();
+    const t = tip.getBoundingClientRect();
+    const gap = 6;
+    const left = Math.min(Math.max(8, r.left + r.width / 2 - t.width / 2), innerWidth - t.width - 8);
+    const below = r.bottom + gap + t.height <= innerHeight - 8;
+    tip.style.left = `${left}px`;
+    tip.style.top = `${below ? r.bottom + gap : Math.max(8, r.top - gap - t.height)}px`;
+}
+
+function showTip(el) {
+    hideTip();
+    const title = el.getAttribute('title');
+    if (!title || !el.isConnected) return;
+    tipState.el = el;
+    tipState.title = title;
+    el.removeAttribute('title');
+    tipState.described = !el.hasAttribute('aria-describedby');
+    if (tipState.described) el.setAttribute('aria-describedby', 'tip');
+    // A modal dialog sits above the page, so its tips go inside it.
+    const host = el.closest('dialog[open]') ?? document.body;
+    if (tip.parentNode !== host) host.append(tip);
+    tip.textContent = title;
+    tip.classList.add('shown');
+    placeTip(el);
+    tipWatch.observe(el, {attributes: true, attributeFilter: ['title']});
+    // Gone from under it (a redraw) without the pointer moving.
+    const check = () => {
+        if (tipState.el !== el) return;
+        if (!el.isConnected) hideTip();
+        else requestAnimationFrame(check);
+    };
+    requestAnimationFrame(check);
+}
+
+function hideTip() {
+    clearTimeout(tipState.timer);
+    const el = tipState.el;
+    if (!el) return;
+    tipWatch.disconnect();
+    if (tipState.title) el.setAttribute('title', tipState.title);
+    if (tipState.described) el.removeAttribute('aria-describedby');
+    tipState.el = null;
+    tipState.hiddenAt = performance.now();
+    tip.classList.remove('shown');
+}
+
+const titled = (target) => target?.closest?.('[title]:not([title=""])') ?? null;
+
+document.addEventListener('pointerover', (e) => {
+    if (e.pointerType === 'touch') return;
+    const el = titled(e.target);
+    // Still on the shown one (its own title is off), unless on a titled
+    // thing inside it.
+    if (tipState.el?.contains(e.target) && !(el && tipState.el.contains(el))) return;
+    const warm = tipState.el !== null || performance.now() - tipState.hiddenAt < TIP_WARM_MS;
+    hideTip();
+    if (!el) return;
+    if (warm) showTip(el);
+    else tipState.timer = setTimeout(() => showTip(el), TIP_DELAY_MS);
+});
+document.addEventListener('focusin', (e) => {
+    const el = titled(e.target);
+    if (el && e.target.matches(':focus-visible')) showTip(el);
+});
+document.documentElement.addEventListener('pointerleave', hideTip);
+for (const event of ['focusout', 'pointerdown', 'scroll', 'wheel']) {
+    document.addEventListener(event, hideTip, {capture: true, passive: true});
+}
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideTip();
+}, true);
+window.addEventListener('blur', hideTip);
+
+// ---------------------------------------------------------------------------
 // Dialogs
 
 // What's wrong with a dialog field, or null: empty when it's required, or
@@ -8265,10 +8367,8 @@ function trendBars(trend, sinceMs) {
         hit.setAttribute('width', bw + gap);
         hit.setAttribute('height', hgt);
         hit.setAttribute('class', 'trend-hit');
-        const title = document.createElementNS(SVG, 'title');
         const from = sinceMs + (span * i) / n;
-        title.textContent = `${shortTime(from)}: ${v ? `highest score ${v}` : 'nothing flagged'}`;
-        hit.append(title);
+        hit.setAttribute('title', `${shortTime(from)}: ${v ? `highest score ${v}` : 'nothing flagged'}`);
         const bar = document.createElementNS(SVG, 'rect');
         const bh = v ? Math.max(2, (v / top) * (hgt - 2)) : 1;
         bar.setAttribute('x', x);

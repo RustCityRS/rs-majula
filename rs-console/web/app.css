@@ -589,6 +589,16 @@ dialog[open] { animation: pop 0.14s ease-out; }
 .toast.leaving { opacity: 0; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(8px); } }
 
+/* Hover tips */
+
+.tip {
+  position: fixed; left: 0; top: 0; z-index: 70; max-width: min(320px, calc(100vw - 16px)); padding: 6px 9px;
+  border-radius: var(--radius-sm); background: var(--surface-3); border: 1px solid var(--border-strong);
+  color: var(--text); font-size: 12px; line-height: 1.45; white-space: pre-line; overflow-wrap: anywhere;
+  pointer-events: none; visibility: hidden; opacity: 0;
+}
+.tip.shown { visibility: visible; opacity: 1; transition: opacity 0.12s; }
+
 /* Account */
 
 .session-row { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); }
