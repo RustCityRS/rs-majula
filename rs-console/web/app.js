@@ -8008,7 +8008,13 @@ function liveMapTab(ctx, params) {
     }
     const url = `${host.client.replace(/\/+$/, '')}/livemap`;
     const origin = new URL(url).origin;
-    const frame = h('iframe', {class: 'livemap-frame', src: url, title: 'Live map', referrerpolicy: 'no-referrer'});
+    const frame = h('iframe', {
+        class: 'livemap-frame',
+        src: url,
+        title: 'Live map',
+        referrerpolicy: 'no-referrer',
+        allow: 'clipboard-write'
+    });
     const stage = h('div', {class: 'livemap-stage'}, frame);
     const summary = h('div', {class: 'livemap-summary muted'}, 'Loading players...');
     const searchInput = h('input', {
@@ -8024,6 +8030,7 @@ function liveMapTab(ctx, params) {
     const sizeChips = h('div', {class: 'segmented livemap-sizes', role: 'group', 'aria-label': 'Hotspot size'});
     let node = null;
     let spotSize = 4;
+    let heat = prefs.get('livemap-heat', '0') === '1';
     let players = [];
     let flagged = new Map();
     let ready = false;
@@ -8159,12 +8166,17 @@ function liveMapTab(ctx, params) {
         const msg = e.data;
         if (msg.type === 'ready') {
             ready = true;
+            post({type: 'heatmap', on: heat});
             sendPlayers();
             if (selected.length) {
                 const first = players.find((p) => selected.includes(p.name));
                 post({type: 'select', names: selected});
                 if (first && onSurface(first)) post({type: 'focus', x: first.x, z: first.z});
             }
+        } else if (msg.type === 'copied' && typeof msg.coord === 'string') {
+            toast(`Copied ${msg.coord}`);
+        } else if (msg.type === 'copy-failed' && typeof msg.coord === 'string') {
+            toast(`Couldn't copy ${msg.coord}: the browser blocked it.`, 'error');
         } else if (msg.type === 'pick' && Array.isArray(msg.names)) {
             const picked = msg.names.map((n) => players.find((p) => p.name === n)).filter(Boolean);
             if (!picked.length) return;
@@ -8200,10 +8212,25 @@ function liveMapTab(ctx, params) {
         document.querySelector('.popover')?.remove();
     });
 
+    const heatKey = h('span', {class: heat ? 'muted' : 'muted hidden'}, '1', h('i', {class: 'heat-key'}), '10+');
+    const heatChip = h('button', {
+        type: 'button', class: 'chip', 'aria-pressed': String(heat),
+        title: 'Shade where players gather: blue for one, red for ten or more',
+        on: {
+            click: () => {
+                heat = !heat;
+                prefs.set('livemap-heat', heat ? '1' : '0');
+                heatChip.setAttribute('aria-pressed', String(heat));
+                heatKey.classList.toggle('hidden', !heat);
+                post({type: 'heatmap', on: heat});
+            }
+        }
+    }, 'Heatmap');
     const legend = h('div', {class: 'livemap-legend'},
+        heatChip, heatKey,
         [['normal', 'Player'], ['flagged', 'Flagged in the last day'], ['staff', 'Staff'], ['muted', 'Muted']]
             .map(([t, label]) => h('span', {}, h('i', {class: `map-dot ${t}`}), label)),
-        h('span', {class: 'muted'}, 'Click a dot for what you can do. Drag to move, 1-4 to zoom.'));
+        h('span', {class: 'muted'}, 'Click a dot for what you can do, anywhere else to copy its coordinate. Drag to move, 1-4 to zoom.'));
     return h('div', {class: 'livemap-layout'},
         h('section', {class: 'card livemap-card'}, stage, h('div', {class: 'livemap-foot'}, summary, legend)),
         h('div', {class: 'column'},

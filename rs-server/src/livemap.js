@@ -4,9 +4,12 @@
 //
 // The console frames this page and talks to it with postMessage: it sends
 // {type: 'players', players: [{name, x, z, level, tone}]}, {type: 'select',
-// names} (ringed, and named if just one) and {type: 'focus', x, z}; the page
+// names} (ringed, and named if just one), {type: 'focus', x, z} and
+// {type: 'heatmap', on} (shades where players gather, under the dots); the page
 // answers 'ready' once it has found its way around the viewer, and {type: 'pick', names, x, y} for a click on dots (x, y in the
-// page's own pixels).
+// page's own pixels). A click away from the dots copies the tile under it,
+// as level_mapX_mapZ_localX_localZ, and answers {type: 'copied', coord} (or
+// 'copy-failed').
 //
 // The viewer is minified, so the fields this reads (where it's looking) are
 // found from its own code: its view is `focusX - (sWid / zoom | 0)` across,
@@ -24,6 +27,15 @@
     // Dots this close together (in page pixels) are drawn as one, with a count.
     const GROUP_PX = 6;
 
+    // The heatmap: how far each player's warmth reaches, in tiles (and at
+    // least in page pixels, zoomed out), and how much one player adds at its
+    // middle, of 255: about ten together reach red.
+    const HEAT_TILES = 28;
+    const HEAT_MIN_PX = 24;
+    const HEAT_STEP = 24;
+    // Page pixels per heat pixel: it's blurry anyway.
+    const HEAT_SHRINK = 2;
+
     const TONES = {
         flagged: '#ff5a52',
         staff: '#5d9cff',
@@ -39,7 +51,31 @@
         hover: null,
         mouse: null,
         drawn: '',
+        heat: false,
     };
+
+    // Warmth (0-255) to colour: blue for one player, through green and
+    // yellow, to red. Faint at a lone player's edge, the map still showing
+    // through the hottest.
+    const PALETTE = (() => {
+        const c = document.createElement('canvas');
+        c.width = 256;
+        c.height = 1;
+        const ctx = c.getContext('2d');
+        const g = ctx.createLinearGradient(0, 0, 256, 0);
+        for (const [at, colour] of [[0, '#2f6fe0'], [0.25, '#1fb5a8'], [0.45, '#4ccf3c'], [0.65, '#f0dc2c'], [0.8, '#ff8c00'], [1, '#ff3214']]) {
+            g.addColorStop(at, colour);
+        }
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, 256, 1);
+        return ctx.getImageData(0, 0, 256, 1).data;
+    })();
+    const ALPHA = Uint8ClampedArray.from({ length: 256 }, (_, v) =>
+        255 * (v < HEAT_STEP ? (v / HEAT_STEP) * 0.45 : 0.45 + (0.3 * v) / 255));
+
+    // Drawn again only when the view or the players change, not as the mouse
+    // moves.
+    const heat = { canvas: document.createElement('canvas'), key: '' };
 
     const canvas = () => document.getElementById('canvas');
     const overlay = document.createElement('canvas');
@@ -120,6 +156,57 @@
         return out;
     }
 
+    // Each player's warmth added up (as alpha), then coloured.
+    function heatLayer(b, scale, width, height) {
+        const key = [width, height, b.left, b.top, b.sx, live.version].join();
+        const c = heat.canvas;
+        if (heat.key === key) {
+            return c;
+        }
+        heat.key = key;
+        const w = Math.ceil(width / HEAT_SHRINK);
+        const h = Math.ceil(height / HEAT_SHRINK);
+        if (c.width !== w || c.height !== h) {
+            c.width = w;
+            c.height = h;
+        }
+        const ctx = c.getContext('2d', { willReadFrequently: true });
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.clearRect(0, 0, w, h);
+        ctx.globalCompositeOperation = 'lighter';
+        const r = Math.max(HEAT_MIN_PX, (HEAT_TILES * b.sx) / scale) / HEAT_SHRINK;
+        const full = `rgba(0, 0, 0, ${HEAT_STEP / 255})`;
+        for (const p of live.players) {
+            const x = ((p.x - ORIGIN_X - b.left + 0.5) * b.sx) / scale / HEAT_SHRINK;
+            const y = ((TOP_Z - p.z - b.top - 0.5) * b.sy) / scale / HEAT_SHRINK;
+            if (x < -r || y < -r || x > w + r || y > h + r) {
+                continue;
+            }
+            // Flat to half way, then fading out.
+            const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+            g.addColorStop(0, full);
+            g.addColorStop(0.5, full);
+            g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = g;
+            ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
+        }
+        ctx.globalCompositeOperation = 'source-over';
+        const img = ctx.getImageData(0, 0, w, h);
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+            const v = d[i + 3];
+            if (v) {
+                const k = v << 2;
+                d[i] = PALETTE[k];
+                d[i + 1] = PALETTE[k + 1];
+                d[i + 2] = PALETTE[k + 2];
+                d[i + 3] = ALPHA[v];
+            }
+        }
+        ctx.putImageData(img, 0, 0);
+        return c;
+    }
+
     const tone = (g) => {
         for (const t of ['flagged', 'staff', 'muted']) {
             if (g.players.some((p) => p.tone === t)) {
@@ -148,7 +235,7 @@
         const rect = c.getBoundingClientRect();
         const dpr = window.devicePixelRatio || 1;
         const b = bounds();
-        const key = [rect.width, rect.height, dpr, b.left, b.top, b.sx, live.players.length, live.version, [...live.selected].join('|'), live.mouse?.x, live.mouse?.y].join();
+        const key = [rect.width, rect.height, dpr, b.left, b.top, b.sx, live.players.length, live.version, live.heat, [...live.selected].join('|'), live.mouse?.x, live.mouse?.y].join();
         if (key === live.drawn) {
             return;
         }
@@ -164,6 +251,10 @@
         ctx.clearRect(0, 0, rect.width, rect.height);
 
         const scale = c.width / rect.width;
+        if (live.heat) {
+            const layer = heatLayer(b, scale, rect.width, rect.height);
+            ctx.drawImage(layer, 0, 0, layer.width * HEAT_SHRINK, layer.height * HEAT_SHRINK);
+        }
         const all = groups(b, scale);
         live.groups = all;
         const radius = Math.max(2.5, Math.min(5, (b.sx / scale) * 0.6));
@@ -206,16 +297,25 @@
             label(ctx, text, hover.x, hover.y - radius - 6);
         }
         if (live.mouse) {
-            const x = Math.floor(live.mouse.x * scale / b.sx + b.left) + ORIGIN_X;
-            const z = TOP_Z - Math.floor(live.mouse.y * scale / b.sy + b.top) - 1;
             ctx.font = '500 11px "JetBrains Mono", ui-monospace, monospace';
-            const text = `${x}, ${z}`;
+            const text = coordAt(live.mouse.x, live.mouse.y);
             const w = ctx.measureText(text).width + 10;
             ctx.fillStyle = 'rgba(12, 13, 15, 0.85)';
             ctx.fillRect(rect.width - w - 6, 6, w, 18);
             ctx.fillStyle = '#e8eaed';
             ctx.fillText(text, rect.width - w + 1, 19);
         }
+    }
+
+    // The tile at page pixel (x, y) as Jagex writes it: level, then the 64x64
+    // map square, then the tile in it (the surface map is level 0).
+    function coordAt(px, py) {
+        const b = bounds();
+        const c = canvas();
+        const scale = c.width / c.getBoundingClientRect().width;
+        const x = Math.floor(px * scale / b.sx + b.left) + ORIGIN_X;
+        const z = TOP_Z - Math.floor(py * scale / b.sy + b.top) - 1;
+        return `0_${x >> 6}_${z >> 6}_${x & 63}_${z & 63}`;
     }
 
     // The dots at page pixel (x, y), nearest first.
@@ -248,6 +348,11 @@
             const g = hit(up.x, up.y);
             if (g) {
                 post({ type: 'pick', names: g.players.map((p) => p.name), x: e.clientX, y: e.clientY });
+            } else if (live.fields) {
+                const coord = coordAt(up.x, up.y);
+                navigator.clipboard.writeText(coord).then(
+                    () => post({ type: 'copied', coord }),
+                    () => post({ type: 'copy-failed', coord }));
             }
         }
         down = null;
@@ -291,6 +396,8 @@
             live.version = (live.version || 0) + 1;
         } else if (msg.type === 'select') {
             live.selected = new Set(Array.isArray(msg.names) ? msg.names.filter((n) => typeof n === 'string') : []);
+        } else if (msg.type === 'heatmap') {
+            live.heat = msg.on === true;
         } else if (msg.type === 'focus' && typeof msg.x === 'number' && typeof msg.z === 'number') {
             focus(msg.x, msg.z);
         }

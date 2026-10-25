@@ -875,6 +875,7 @@ textarea.composer-text { min-height: 72px; }
 .map-dot.flagged { background: #ff5a52; }
 .map-dot.staff { background: #5d9cff; }
 .map-dot.muted { background: #f2b33d; }
+.heat-key { width: 56px; height: 8px; border-radius: 4px; display: inline-block; background: linear-gradient(90deg, #2f6fe0, #1fb5a8 25%, #4ccf3c 45%, #f0dc2c 65%, #ff8c00 80%, #ff3214); }
 .livemap-tools { display: grid; gap: 10px; padding: 14px; }
 .livemap-sizes { grid-auto-columns: auto; gap: 4px; }
 .livemap-sizes button { height: 26px; padding: 0 8px; font-size: 12px; }
