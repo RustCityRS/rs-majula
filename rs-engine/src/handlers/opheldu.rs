@@ -4,7 +4,6 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::watch::{Target, Using};
 use rs_protocol::network::game::client::opheldu::OpHeldU;
-use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ScriptState;
@@ -183,43 +182,11 @@ impl ClientGameHandler for OpHeldU {
             return Ok(());
         }
 
-        let base = ServerTriggerType::OpHeldU as i32;
-
-        // [opheldu,b]
-        let key = base | (0x2 << 8) | ((obj.id as i32) << 10);
-        let mut script = engine_mut().scripts.get_by_lookup(key).cloned();
-
-        // [opheldu,a]
-        // The swap happens even when [opheldu,a] doesn't exist, so a matched
-        // category script sees its own obj as `last_useitem`: content such as
-        // [opheldu,_murder_flourobj] relies on that.
-        if script.is_none() {
-            let key = base | (0x2 << 8) | ((obj2.id as i32) << 10);
-            script = engine_mut().scripts.get_by_lookup(key).cloned();
-            std::mem::swap(
-                &mut active.player.last_item,
-                &mut active.player.last_use_item,
-            );
-            std::mem::swap(
-                &mut active.player.last_slot,
-                &mut active.player.last_use_slot,
-            );
-        }
-
-        // [opheld,b_category]
-        if script.is_none()
-            && let Some(cat) = obj.category
-        {
-            let key = base | (0x1 << 8) | ((cat as i32) << 10);
-            script = engine_mut().scripts.get_by_lookup(key).cloned();
-        }
-
-        // [opheld,a_category]
-        if script.is_none()
-            && let Some(cat) = obj2.category
-        {
-            let key = base | (0x1 << 8) | ((cat as i32) << 10);
-            script = engine_mut().scripts.get_by_lookup(key).cloned();
+        let (script, swapped) =
+            find_script((obj.id, obj.category), (obj2.id, obj2.category), |key| {
+                engine_mut().scripts.get_by_lookup(key).cloned()
+            });
+        if swapped {
             std::mem::swap(
                 &mut active.player.last_item,
                 &mut active.player.last_use_item,
@@ -249,5 +216,149 @@ impl ClientGameHandler for OpHeldU {
         }
 
         Ok(())
+    }
+}
+
+fn obj_key(id: u16) -> i32 {
+    ServerTriggerType::OpHeldU as i32 | (0x2 << 8) | ((id as i32) << 10)
+}
+
+fn category_key(category: u16) -> i32 {
+    ServerTriggerType::OpHeldU as i32 | (0x1 << 8) | ((category as i32) << 10)
+}
+
+/// Looks up the `[opheldu]` script for `obj` (the target) and `obj2` (the
+/// used item), each with its category, in the order listed on the handler.
+///
+/// Returns the script and whether `last_item`/`last_use_item` and the slots
+/// end up swapped. A miss on `[opheldu,b]` swaps them even when `[opheldu,a]`
+/// doesn't exist either, so a matched category script sees its own obj as
+/// `last_useitem`: content such as `[opheldu,_murder_flourobj]` relies on
+/// that. Looking up `[opheldu,a_category]` swaps them back.
+fn find_script<T>(
+    (obj, category): (u16, Option<u16>),
+    (obj2, category2): (u16, Option<u16>),
+    mut get: impl FnMut(i32) -> Option<T>,
+) -> (Option<T>, bool) {
+    // [opheldu,b]
+    if let Some(script) = get(obj_key(obj)) {
+        return (Some(script), false);
+    }
+
+    // [opheldu,a]
+    let mut script = get(obj_key(obj2));
+    let mut swapped = true;
+
+    // [opheldu,b_category]
+    if script.is_none()
+        && let Some(category) = category
+    {
+        script = get(category_key(category));
+    }
+
+    // [opheldu,a_category]
+    if script.is_none()
+        && let Some(category) = category2
+    {
+        script = get(category_key(category));
+        swapped = false;
+    }
+
+    (script, swapped)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{category_key, find_script, obj_key};
+
+    const MURDERNECKLACEDUST: u16 = 1797;
+    const MURDERPAPER: u16 = 1811;
+    const POT_FLOUR: u16 = 1933;
+    const MURDER_FLOUROBJ: u16 = 50;
+    const MURDER_PROOFOBJ: u16 = 51;
+    const STRENGTH3: u16 = 115;
+    const STRENGTH2: u16 = 117;
+    const POTION: u16 = 175;
+
+    /// Runs the lookup against a script set, returning the matched key and
+    /// the obj the script sees as `last_item`.
+    fn run(
+        target: (u16, Option<u16>),
+        used: (u16, Option<u16>),
+        scripts: &[i32],
+    ) -> (Option<i32>, u16) {
+        let (key, swapped) = find_script(target, used, |key| scripts.contains(&key).then_some(key));
+        (key, if swapped { used.0 } else { target.0 })
+    }
+
+    #[test]
+    fn target_obj_trigger_keeps_the_order() {
+        let scripts = [obj_key(MURDERNECKLACEDUST)];
+        let found = run((MURDERNECKLACEDUST, None), (MURDERPAPER, None), &scripts);
+        assert_eq!(
+            found,
+            (Some(obj_key(MURDERNECKLACEDUST)), MURDERNECKLACEDUST)
+        );
+    }
+
+    #[test]
+    fn used_obj_trigger_swaps() {
+        let scripts = [obj_key(POT_FLOUR)];
+        let found = run((MURDERNECKLACEDUST, None), (POT_FLOUR, None), &scripts);
+        assert_eq!(found, (Some(obj_key(POT_FLOUR)), POT_FLOUR));
+    }
+
+    #[test]
+    fn flypaper_dragged_onto_the_flour_covered_item() {
+        let scripts = [category_key(MURDER_FLOUROBJ)];
+        let found = run(
+            (MURDERNECKLACEDUST, Some(MURDER_FLOUROBJ)),
+            (MURDERPAPER, None),
+            &scripts,
+        );
+        assert_eq!(found, (Some(category_key(MURDER_FLOUROBJ)), MURDERPAPER));
+    }
+
+    #[test]
+    fn flour_covered_item_dragged_onto_the_flypaper() {
+        let scripts = [category_key(MURDER_FLOUROBJ)];
+        let found = run(
+            (MURDERPAPER, None),
+            (MURDERNECKLACEDUST, Some(MURDER_FLOUROBJ)),
+            &scripts,
+        );
+        assert_eq!(found, (Some(category_key(MURDER_FLOUROBJ)), MURDERPAPER));
+    }
+
+    #[test]
+    fn target_category_wins_over_used_category() {
+        let scripts = [category_key(MURDER_FLOUROBJ), category_key(MURDER_PROOFOBJ)];
+        let found = run(
+            (MURDERNECKLACEDUST, Some(MURDER_FLOUROBJ)),
+            (POT_FLOUR, Some(MURDER_PROOFOBJ)),
+            &scripts,
+        );
+        assert_eq!(found, (Some(category_key(MURDER_FLOUROBJ)), POT_FLOUR));
+    }
+
+    #[test]
+    fn strength_potion_dragged_onto_another() {
+        let scripts = [category_key(POTION)];
+        let found = run(
+            (STRENGTH3, Some(POTION)),
+            (STRENGTH2, Some(POTION)),
+            &scripts,
+        );
+        assert_eq!(found, (Some(category_key(POTION)), STRENGTH2));
+    }
+
+    #[test]
+    fn no_trigger() {
+        let found = run(
+            (MURDERNECKLACEDUST, Some(MURDER_FLOUROBJ)),
+            (MURDERPAPER, None),
+            &[],
+        );
+        assert_eq!(found.0, None);
     }
 }

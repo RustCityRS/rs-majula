@@ -1193,3 +1193,68 @@ pub struct ObjRef {
     pub id: u16,
     pub count: u32,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rs_pack::cache::script::ScriptInfo;
+
+    fn state() -> ScriptState {
+        let script = Script {
+            id: 0,
+            int_arg_count: 0,
+            string_arg_count: 0,
+            int_local_count: 0,
+            string_local_count: 0,
+            opcodes: Box::default(),
+            int_operands: Box::default(),
+            string_operands: Box::default(),
+            switch_tables: Box::default(),
+            info: ScriptInfo {
+                name: "test".into(),
+                path: "test".into(),
+                lookup: -1,
+                params: Box::default(),
+                pcs: Box::default(),
+                lines: Box::default(),
+            },
+        };
+        ScriptState::new(Arc::new(script), None)
+    }
+
+    /// The values in `args`, in order.
+    fn describe(args: &[ScriptArgument]) -> Vec<String> {
+        args.iter()
+            .map(|arg| match arg {
+                ScriptArgument::Int(v) => v.to_string(),
+                ScriptArgument::String(v) => format!("{v:?}"),
+            })
+            .collect()
+    }
+
+    #[test]
+    fn multibyte_type_chars_keep_args_in_place() {
+        let mut s = state();
+        for v in [7, 1129, 5, 1741, 1, 14] {
+            s.push_int(v);
+        }
+        s.push_string("Ðoioii");
+        assert_eq!(
+            describe(&s.pop_script_args()),
+            ["7", "1129", "5", "1741", "1", "14"]
+        );
+        assert_eq!((s.isp, s.ssp), (0, 0));
+    }
+
+    #[test]
+    fn mixed_int_and_string_args() {
+        let mut s = state();
+        s.push_int(3);
+        s.push_string("a");
+        s.push_int(9);
+        s.push_string("b");
+        s.push_string("þsis");
+        assert_eq!(describe(&s.pop_script_args()), ["3", "\"a\"", "9", "\"b\""]);
+        assert_eq!((s.isp, s.ssp), (0, 0));
+    }
+}
