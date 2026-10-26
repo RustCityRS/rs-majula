@@ -1019,16 +1019,18 @@ impl ScriptState {
     /// timer operations that forward arguments to future script invocations.
     #[inline(always)]
     pub(crate) fn pop_script_args(&mut self) -> Vec<ScriptArgument> {
+        // Count chars, not bytes. type chars such as dbrows `Ð` are two bytes,
+        // and a byte count would shift every later argument one slot along.
         let types = self.pop_string();
-        let count = types.len();
-        let mut args = Vec::with_capacity(count);
-        args.resize(count, ScriptArgument::Int(0));
-        for (i, c) in types.chars().rev().enumerate() {
-            args[count - 1 - i] = match c {
+        let mut args: Vec<ScriptArgument> = types
+            .chars()
+            .rev()
+            .map(|c| match c {
                 's' => ScriptArgument::String(self.pop_string()),
                 _ => ScriptArgument::Int(self.pop_int()),
-            };
-        }
+            })
+            .collect();
+        args.reverse();
         args
     }
 }
