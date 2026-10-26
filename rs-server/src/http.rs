@@ -492,6 +492,7 @@ async fn route(
         }
         "/livemap.js" => LIVEMAP_SCRIPT.serve(query),
         "/device.js" => DEVICE_SCRIPT.serve(query),
+        "/gpu.js" => GPU_SCRIPT.serve(query),
         "/replay" => {
             let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
             let len = bytes.len();
@@ -649,8 +650,8 @@ async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static 
 /// gets a new URL, so no browser or Cloudflare cache serves the old one.
 fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>) -> String {
     let device = format!(
-        "<script src=\"/device.js?v={}\"></script>\n    <script type=\"module\">",
-        DEVICE_SCRIPT.version
+        "<script src=\"/device.js?v={}\"></script>\n    <script src=\"/gpu.js?v={}\"></script>\n    <script type=\"module\">",
+        DEVICE_SCRIPT.version, GPU_SCRIPT.version
     );
     let html = CLIENT_HTML
         .replacen("<script type=\"module\">", &device, 1)
@@ -786,6 +787,11 @@ static LIVEMAP_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_s
 /// device.js), with this deploy's key and names. Only the game's own page
 /// loads it: replays play without it.
 static DEVICE_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(&device::setup().source));
+
+/// GPU scaling options for the game's page: WebGPU draws the client's frames
+/// again, scaled by a shader, over its canvas. Only the game's own page loads
+/// it.
+static GPU_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("gpu.js")));
 
 /// The world map viewer with livemap.js drawing players over it, for the
 /// staff console's live map. Sized to the frame it loads in.
