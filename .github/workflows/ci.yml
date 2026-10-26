@@ -83,3 +83,12 @@ jobs:
 
       - name: Validate content pack
         run: cargo run -p rs-pack -- pack
+
+  # Runs deploy/patch.py on the web clients, as a deploy would.
+  web-client-patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test the web client patches
+        run: python3 deploy/test_patch.py

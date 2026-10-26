@@ -24,12 +24,18 @@ build it assumes anything fullscreen is a letterboxed canvas, so with Stretch
 to Fit (object-fit: fill), or the GPU scaling's fullscreen box, clicks land off
 target; patched, those map the mouse like a windowed canvas.
 
+And it patches the web client's system update countdown. Out of the build it
+counts down one client cycle per game update, so a minimized or background tab,
+which the browser slows down, falls behind and shows too much time left when it
+comes back; patched, it counts down to the time the update was announced for.
+
 The Java client (client.jar) keeps the old key and can't log in after this.
 """
 
 import base64
 import glob
 import os
+import re
 import subprocess
 import sys
 
@@ -61,6 +67,18 @@ FULLSCREEN_CHECKS = (
     ("(){return null!==document.fullscreenElement}",
      "(){return null!==document.fullscreenElement" + LETTERBOXED + "}"),
 )
+
+# The system update countdown, in 20 ms client cycles: where the packet sets it
+# (server ticks * 30), where each game update takes one off, holding at 1, and
+# where it is drawn. Patched, the packet also notes when the countdown ends, and
+# each update sets the cycles left to that moment instead. All three must name
+# the same variable, so a lookalike line elsewhere can't be patched by mistake.
+REBOOT_SET = re.compile(r"this\.([\w$]+)=(?:30\*this\.in\.[\w$]+\(\)|this\.in\.[\w$]+\(\)\*30)")
+REBOOT_TICK = re.compile(r"(this\.([\w$]+)>1&&)this\.\2--|(if\(this\.([\w$]+)>1\))this\.\4--")
+REBOOT_DRAW = re.compile(r"if\((?:0!==this\.([\w$]+)|this\.([\w$]+)!==0)\)\{let [\w$]+=this\.([\w$]+)/50\|0"
+                         r"[^\"]{0,120}\"System update in: \"")
+REBOOT_AT = "this.rebootAt=Date.now()+20*this.{}"
+REBOOT_LEFT = "this.{}=Math.max(1,Math.ceil((this.rebootAt-Date.now())/20))"
 
 
 def der_read(data, i):
@@ -109,6 +127,32 @@ def patch_once(js, shapes):
     return None
 
 
+def patch_reboot_timer(js):
+    """Points the countdown at the time it ends, or leaves an already patched
+    client as it is. None unless its set, its tick and its draw are there
+    exactly once, on the same variable."""
+    sets = list(REBOOT_SET.finditer(js))
+    draws = list(REBOOT_DRAW.finditer(js))
+    if len(sets) != 1 or len(draws) != 1:
+        return None
+    name = sets[0].group(1)
+    draw = draws[0]
+    if (draw.group(1) or draw.group(2)) != name or draw.group(3) != name:
+        return None
+    patched = REBOOT_AT.format(name)
+    if js.count(patched) == 1 and js.count(REBOOT_LEFT.format(name)) == 1:
+        return js
+    ticks = list(REBOOT_TICK.finditer(js))
+    if "this.rebootAt" in js or len(ticks) != 1:
+        return None
+    tick = ticks[0]
+    if (tick.group(2) or tick.group(4)) != name:
+        return None
+    js = js[:tick.start()] + (tick.group(1) or tick.group(3)) + "(" + REBOOT_LEFT.format(name) + ")" + js[tick.end():]
+    end = REBOOT_SET.search(js).end()
+    return js[:end] + "," + patched + js[end:]
+
+
 def openssl(*args):
     result = subprocess.run(["openssl", *args], capture_output=True, text=True)
     if result.returncode != 0:
@@ -155,6 +199,12 @@ def main():
                     os.remove(tmp)
                 sys.exit(f"{path}: expected its {what} once")
             js = patched
+        patched = patch_reboot_timer(js)
+        if patched is None:
+            for tmp in staged:
+                os.remove(tmp)
+            sys.exit(f"{path}: expected its system update countdown once")
+        js = patched
         staged.append(write_atomic(path, js))
 
     for tmp in staged:
@@ -162,7 +212,7 @@ def main():
     openssl("pkey", "-in", PRIVATE, "-pubout", "-out", PUBLIC)
     os.chmod(PRIVATE, 0o600)
 
-    print(f"New {KEY_BITS}-bit login key in {PRIVATE}; patched {', '.join(clients)} (key, uid and fullscreen).")
+    print(f"New {KEY_BITS}-bit login key in {PRIVATE}; patched {', '.join(clients)} (key, uid, fullscreen and update countdown).")
     print("Restart the world to load it.")
 
 

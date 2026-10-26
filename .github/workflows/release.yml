@@ -87,8 +87,17 @@ jobs:
       - name: Test
         run: cargo test --workspace -- --include-ignored
 
+  # Every release ships deploy/patch.py; this runs it on the release's web clients.
+  web-client-patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test the web client patches
+        run: python3 deploy/test_patch.py
+
   build:
-    needs: [ validate, test, revs ]
+    needs: [ validate, test, web-client-patch, revs ]
     strategy:
       fail-fast: false
       matrix:
