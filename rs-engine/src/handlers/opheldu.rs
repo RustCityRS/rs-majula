@@ -19,7 +19,8 @@ use rs_vm::trigger::ServerTriggerType;
 /// then searches for a matching script trigger in priority order:
 ///
 /// 1. `[opheldu,b]` - Script keyed on the target object ID.
-/// 2. `[opheldu,a]` - Script keyed on the source object ID (swaps item/slot tracking).
+/// 2. `[opheldu,a]` - Script keyed on the source object ID (swaps item/slot tracking,
+///    found or not, so categories 3 and 4 see their own object as `last_useitem`).
 /// 3. `[opheldu,b_category]` - Script keyed on the target object's category.
 /// 4. `[opheldu,a_category]` - Script keyed on the source object's category (swaps item/slot tracking).
 ///
@@ -40,8 +41,8 @@ use rs_vm::trigger::ServerTriggerType;
 /// # Side Effects
 ///
 /// * Sets `last_item`, `last_slot`, `last_use_item`, and `last_use_slot` on the player.
-/// * May swap `last_item`/`last_use_item` and `last_slot`/`last_use_slot` if a trigger
-///   is found on the alternate object.
+/// * Swaps `last_item`/`last_use_item` and `last_slot`/`last_use_slot` once when
+///   `[opheldu,b]` is missing, and again when `[opheldu,a_category]` is looked up.
 /// * Clears pending action and face entity.
 /// * Runs the matched `OpHeldU` trigger script.
 ///
@@ -126,7 +127,7 @@ impl ClientGameHandler for OpHeldU {
                 return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
             }
             HeldCheck::NotHeld => {
-                active.player.move_request = true;
+                active.player.move_request = false; // removed early osrs
                 active.clear_pending_action()?;
                 return Ok(());
             }
@@ -157,7 +158,7 @@ impl ClientGameHandler for OpHeldU {
                 return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot2)));
             }
             HeldCheck::NotHeld => {
-                active.player.move_request = true;
+                active.player.move_request = false; // removed early osrs
                 active.clear_pending_action()?;
                 return Ok(());
             }
@@ -176,8 +177,6 @@ impl ClientGameHandler for OpHeldU {
         active.player.last_use_slot = Some(self.slot2);
 
         active.clear_pending_action()?;
-        active.player.info.face_entity = None;
-        active.player.info.masks |= PlayerInfoProt::FaceEntity as u16;
 
         if (obj.members || obj2.members) && !engine.members {
             active.message_game("To use this item please login to a members' server.");
@@ -191,19 +190,20 @@ impl ClientGameHandler for OpHeldU {
         let mut script = engine_mut().scripts.get_by_lookup(key).cloned();
 
         // [opheldu,a]
+        // The swap happens even when [opheldu,a] doesn't exist, so a matched
+        // category script sees its own obj as `last_useitem`: content such as
+        // [opheldu,_murder_flourobj] relies on that.
         if script.is_none() {
             let key = base | (0x2 << 8) | ((obj2.id as i32) << 10);
             script = engine_mut().scripts.get_by_lookup(key).cloned();
-            if script.is_some() {
-                std::mem::swap(
-                    &mut active.player.last_item,
-                    &mut active.player.last_use_item,
-                );
-                std::mem::swap(
-                    &mut active.player.last_slot,
-                    &mut active.player.last_use_slot,
-                );
-            }
+            std::mem::swap(
+                &mut active.player.last_item,
+                &mut active.player.last_use_item,
+            );
+            std::mem::swap(
+                &mut active.player.last_slot,
+                &mut active.player.last_use_slot,
+            );
         }
 
         // [opheld,b_category]
@@ -220,16 +220,14 @@ impl ClientGameHandler for OpHeldU {
         {
             let key = base | (0x1 << 8) | ((cat as i32) << 10);
             script = engine_mut().scripts.get_by_lookup(key).cloned();
-            if script.is_some() {
-                std::mem::swap(
-                    &mut active.player.last_item,
-                    &mut active.player.last_use_item,
-                );
-                std::mem::swap(
-                    &mut active.player.last_slot,
-                    &mut active.player.last_use_slot,
-                );
-            }
+            std::mem::swap(
+                &mut active.player.last_item,
+                &mut active.player.last_use_item,
+            );
+            std::mem::swap(
+                &mut active.player.last_slot,
+                &mut active.player.last_use_slot,
+            );
         }
 
         if let Some(script) = script {

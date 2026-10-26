@@ -8535,7 +8535,7 @@ so the script always reads "a on b" consistently:
 | Order                     | Lookup key | On match |
 |---------------------------|------------|----------|
 | 1. `[opheldu,b]`          | `base      | 0x2<<8   | obj.id<<10` | use as-is |
-| 2. `[opheldu,a]`          | `base      | 0x2<<8   | obj2.id<<10` | swap item/use_item + slot/use_slot |
+| 2. `[opheldu,a]`          | `base      | 0x2<<8   | obj2.id<<10` | swap item/use_item + slot/use_slot (also on a miss, so 3 sees the swapped pair) |
 | 3. `[opheldu,b_category]` | `base      | 0x1<<8   | obj.category<<10` | use as-is |
 | 4. `[opheldu,a_category]` | `base      | 0x1<<8   | obj2.category<<10` | swap item/use_item + slot/use_slot |
 
