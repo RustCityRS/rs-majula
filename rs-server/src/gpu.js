@@ -10,8 +10,8 @@
     'use strict';
 
     const MODES = [
-        ['sharp', 'GPU Sharp'],
         ['smooth', 'GPU Smooth'],
+        ['sharp', 'GPU Sharp'],
         ['crt', 'GPU CRT'],
     ];
     const MODE_IDS = { sharp: 0, smooth: 1, crt: 2 };
@@ -149,6 +149,7 @@ fn fs(in: Out) -> @location(0) vec4f {
             width: min(100vw, calc(100vh * 765 / 503)) !important; height: min(100vh, calc(100vw * 503 / 765)) !important;
             max-width: none !important; max-height: none !important;
         }
+        #game:fullscreen #canvas.stretch { width: 100vw !important; height: 100vh !important; }
     `;
     document.head.append(style);
     source.after(layer);
