@@ -93,7 +93,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 1009
         // Picks a random walkable tile in the square ring [minRadius, maxRadius] (Chebyshev distance)
-        // around `coord`. `type` controls reachability: NONE = any open tile, LINEOFWALK / LINEOFSIGHT =
+        // around `coord`. `type` (map_findsquare.constant: 0 = LINEOFWALK, 1 = LINEOFSIGHT, 2 = NONE)
+        // controls reachability: NONE = any open tile, LINEOFWALK / LINEOFSIGHT =
         // the tile must also have a clear walk/sight path back to the origin. Returns the input coord
         // unchanged when no tile qualifies (caller treats "result === coord" as "no square found").
         none!(m, MAP_FINDSQUARE => |s| {
@@ -109,8 +110,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             // because line-of-walk/sight tracing is far more expensive than the other filters, so we
             // only pay for it on tiles that already passed the cheap checks.
             let passes_type = |src: CoordGrid| match find_type {
-                1 => engine.lineofwalk(src, coord).unwrap_or(false),
-                2 => engine.lineofsight(src, coord).unwrap_or(false),
+                0 => engine.lineofwalk(src, coord).unwrap_or(false),
+                1 => engine.lineofsight(src, coord).unwrap_or(false),
                 _ => true,
             };
 
