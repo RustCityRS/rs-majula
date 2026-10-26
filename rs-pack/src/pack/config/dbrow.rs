@@ -138,6 +138,14 @@ pub fn pack_dbrows(
                                 char::from(type_char)
                             );
                         };
+                        // A name that resolves to nothing packs as -1, which only fails
+                        // at runtime ("Song not found: -1"): catch it here instead.
+                        if matches!(value, ParamValue::Int(-1)) && val != "null" && val != "-1" {
+                            return Err(anyhow::anyhow!(
+                                "{debugname}: {col_name} has unknown {} [{val}]",
+                                svt.type_name()
+                            ));
+                        }
                         match value {
                             ParamValue::Int(value) => {
                                 server.p4(value);
