@@ -138,6 +138,53 @@ impl PathingEntity {
         self.waypoint_index != -1
     }
 
+    /// Hints the CPU to start fetching the collision zone entry this entity's next step
+    /// will read. Pair with [`Self::prefetch_step_tile`] a little later; never changes
+    /// any result.
+    ///
+    /// # Call Stack
+    /// **Called by:** `Engine::npcs` (for npcs a few ahead in processing order)
+    /// **Calls:** `next_step_hint`, `rsmod::prefetch_zone`
+    pub fn prefetch_step_zone(&self) {
+        if let Some((x, z)) = self.next_step_hint() {
+            rsmod::prefetch_zone(x, z, self.coord.y());
+        }
+    }
+
+    /// Hints the CPU to start fetching the collision tile flags this entity's next step
+    /// will read. Reads the zone entry, so [`Self::prefetch_step_zone`] should have been
+    /// called for this entity some time before; never changes any result.
+    ///
+    /// # Call Stack
+    /// **Called by:** `Engine::npcs` (for npcs a few ahead in processing order)
+    /// **Calls:** `next_step_hint`, `rsmod::prefetch_tile`
+    pub fn prefetch_step_tile(&self) {
+        if let Some((x, z)) = self.next_step_hint() {
+            rsmod::prefetch_tile(x, z, self.coord.y());
+        }
+    }
+
+    /// The tile this entity's next step most likely tests: one tile toward the current
+    /// waypoint, or its own tile when it has none yet (npc modes often queue one during
+    /// processing). `None` when it can't move at all.
+    fn next_step_hint(&self) -> Option<(u16, u16)> {
+        if self.move_restrict == MoveRestrict::NoMove {
+            return None;
+        }
+        let x = self.coord.x() as i32;
+        let z = self.coord.z() as i32;
+        let Some(dest) = usize::try_from(self.waypoint_index)
+            .ok()
+            .and_then(|i| self.waypoints.get(i))
+        else {
+            return Some((x as u16, z as u16));
+        };
+        Some((
+            (x + (dest.x() as i32 - x).signum()) as u16,
+            (z + (dest.z() as i32 - z).signum()) as u16,
+        ))
+    }
+
     /// Returns `true` if the entity is on its last waypoint or has no waypoints at all.
     ///
     /// Used by the interaction engine to determine whether the entity has reached (or

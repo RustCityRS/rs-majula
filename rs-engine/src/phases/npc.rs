@@ -18,6 +18,12 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
+/// How many npcs ahead in processing order the collision lookups for a step are
+/// prefetched: the zone table entry this far ahead, the tile flags at half the distance,
+/// so both dependent cache misses resolve while earlier npcs are processed. Raise it if
+/// per-npc work gets cheaper, lower it if it gets much heavier.
+const NPC_PREFETCH_AHEAD: usize = 6;
+
 impl Engine {
     /// Processes the NPC phase of the engine tick cycle.
     ///
@@ -62,6 +68,14 @@ impl Engine {
         loop {
             let result = catch_unwind(AssertUnwindSafe(|| {
                 for &nid in &nids[start..] {
+                    self.prefetch_npc_step(
+                        nids.get(start + NPC_PREFETCH_AHEAD),
+                        PathingEntity::prefetch_step_zone,
+                    );
+                    self.prefetch_npc_step(
+                        nids.get(start + NPC_PREFETCH_AHEAD / 2),
+                        PathingEntity::prefetch_step_tile,
+                    );
                     Self::process_npc(self, nid);
                     start += 1;
                 }
@@ -78,6 +92,23 @@ impl Engine {
             }
         }
         self.npc_list.put_nids(nids);
+    }
+
+    /// Runs a collision prefetch hint for npc `nid`'s next step (see
+    /// [`PathingEntity::prefetch_step_zone`]). Called for npcs ahead of the one being
+    /// processed, inside that npc's panic boundary, so every lookup here is checked and
+    /// it can never panic.
+    #[inline(always)]
+    fn prefetch_npc_step(&self, nid: Option<&u16>, prefetch: fn(&PathingEntity)) {
+        let Some(active) = nid
+            .and_then(|&nid| self.npc_list.npcs.get(nid as usize))
+            .and_then(|npc| npc.as_deref())
+        else {
+            return;
+        };
+        if active.npc.active {
+            prefetch(&active.npc.pathing);
+        }
     }
 
     #[inline(always)]
