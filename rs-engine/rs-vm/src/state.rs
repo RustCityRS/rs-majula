@@ -753,19 +753,21 @@ impl ScriptState {
     ///
     /// # Returns
     ///
-    /// A `&str` reference to the string operand at `self.script.string_operands[self.pc]`.
+    /// A `&str` reference to `self.script.strings[int_operand]`: a string
+    /// push's int operand is its index into the script's string table.
     ///
     /// # Safety
     ///
-    /// Uses `unsafe` pointer access into `string_operands`. The caller must
-    /// ensure `self.pc` is a valid index. In release builds, an out-of-bounds
-    /// `pc` causes undefined behavior.
+    /// Uses `unsafe` pointer access into `strings`. The caller must ensure
+    /// `self.pc` is a string push. In release builds, any other `pc` causes
+    /// undefined behavior.
     ///
     /// **Called by:** The `PushConstantString` opcode handler in `ops::core`.
     #[inline(always)]
     pub(crate) fn string_operand(&self) -> &str {
-        debug_assert!((self.pc as usize) < self.script.string_operands.len());
-        unsafe { &*self.script.string_operands.as_ptr().add(self.pc as usize) }
+        let index = self.int_operand() as usize;
+        debug_assert!(index < self.script.strings.len());
+        unsafe { &*self.script.strings.as_ptr().add(index) }
     }
 
     /// Pushes a string slice onto the string operand stack.
@@ -1208,7 +1210,7 @@ mod tests {
             string_local_count: 0,
             opcodes: Box::default(),
             int_operands: Box::default(),
-            string_operands: Box::default(),
+            strings: Box::default(),
             switch_tables: Box::default(),
             info: ScriptInfo {
                 name: "test".into(),
@@ -1230,6 +1232,21 @@ mod tests {
                 ScriptArgument::String(v) => format!("{v:?}"),
             })
             .collect()
+    }
+
+    #[test]
+    fn string_operand_reads_the_string_table() {
+        let script = Script {
+            opcodes: Box::new([3, 0, 3]),
+            int_operands: Box::new([0, 7, 1]),
+            strings: Box::new(["hi".into(), "yo".into()]),
+            ..Arc::into_inner(state().script).unwrap()
+        };
+        let mut s = ScriptState::new(Arc::new(script), None);
+        s.pc = 2;
+        assert_eq!(s.string_operand(), "yo");
+        s.pc = 0;
+        assert_eq!(s.string_operand(), "hi");
     }
 
     #[test]

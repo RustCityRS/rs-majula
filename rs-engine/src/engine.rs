@@ -602,6 +602,15 @@ pub struct Engine {
 // which runs exclusively on that task.
 unsafe impl Send for Engine {}
 
+/// Builds rs-pathfinder's collision and zone flag tables (144 MiB, nearly all
+/// of it never written) while the heap is still fresh. Built after the cache
+/// pack, on memory the pack already used, mimalloc has to zero them by hand,
+/// and every page of them stays resident.
+pub fn init_collision() {
+    rsmod::is_zone_allocated(0, 0, 0);
+    rsmod::is_zone_flagged(0, 0, 0, ZoneFlag::Free as u8);
+}
+
 impl Engine {
     /// Constructs a new [`Engine`], loading the game map and spawning all
     /// static NPCs defined in the cache.

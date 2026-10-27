@@ -123,7 +123,7 @@ pub struct Script {
     pub string_local_count: u16,
     pub opcodes: Box<[u16]>,
     pub int_operands: Box<[i32]>,
-    pub string_operands: Box<[Box<str>]>,
+    pub strings: Box<[Box<str>]>,
     pub switch_tables: Box<[FxHashMap<i32, i32>]>,
     pub info: ScriptInfo,
 }
@@ -198,15 +198,15 @@ impl Script {
 
         let mut opcodes: Vec<u16> = vec![0; instructions];
         let mut int_operands: Vec<i32> = vec![0; instructions];
-        let empty: Box<str> = String::new().into_boxed_str();
-        let mut string_operands: Vec<Box<str>> = vec![empty; instructions];
+        let mut strings: Vec<Box<str>> = Vec::new();
 
         let mut pc: usize = 0;
         while trailer_pos > dat.pos {
             let code = dat.g2();
 
             if code == PUSH_CONSTANT_STRING {
-                string_operands[pc] = dat.gjstr(0).into_boxed_str();
+                int_operands[pc] = strings.len() as i32;
+                strings.push(dat.gjstr(0).into_boxed_str());
             } else if is_large_operand(code) {
                 int_operands[pc] = dat.g4s();
             } else {
@@ -225,7 +225,7 @@ impl Script {
             string_local_count,
             opcodes: opcodes.into_boxed_slice(),
             int_operands: int_operands.into_boxed_slice(),
-            string_operands: string_operands.into_boxed_slice(),
+            strings: strings.into_boxed_slice(),
             switch_tables: switch_tables.into_boxed_slice(),
             info,
         }
@@ -747,4 +747,36 @@ pub fn is_branch(opcode: u16) -> bool {
             | BRANCH_LESS_THAN_OR_EQUALS
             | BRANCH_GREATER_THAN_OR_EQUALS
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn string_pushes_index_the_string_table() {
+        let mut bytes = b"test\0test\0".to_vec();
+        bytes.extend((-1i32).to_be_bytes()); // lookup
+        bytes.push(0); // params
+        bytes.extend(0u16.to_be_bytes()); // lines
+        bytes.extend(PUSH_CONSTANT_STRING.to_be_bytes());
+        bytes.extend(b"hi\0");
+        bytes.extend(PUSH_CONSTANT_INT.to_be_bytes());
+        bytes.extend(7i32.to_be_bytes());
+        bytes.extend(PUSH_CONSTANT_STRING.to_be_bytes());
+        bytes.extend(b"yo\0");
+        bytes.extend(3i32.to_be_bytes()); // instructions
+        bytes.extend([0; 8]); // locals and args
+        bytes.push(0); // switches
+        bytes.extend(1u16.to_be_bytes()); // trailer length
+        let length = bytes.len();
+
+        let script = Script::new(&mut Packet::from(bytes), 0, length);
+
+        assert_eq!(*script.int_operands, [0, 7, 1]);
+        assert_eq!(
+            script.strings.iter().map(|s| &**s).collect::<Vec<_>>(),
+            ["hi", "yo"]
+        );
+    }
 }

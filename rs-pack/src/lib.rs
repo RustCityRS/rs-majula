@@ -674,19 +674,29 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     if !dir.exists() {
         return assets;
     }
-    load_assets_recursive(dir, dir, &mut assets);
+    // The shared files at the top, then only this revision's folder: a world
+    // never serves another revision's client.
+    load_assets_recursive(dir, dir, false, &mut assets);
+    load_assets_recursive(dir, &dir.join(env!("REV")), true, &mut assets);
     debug!("Loaded {} static assets into memory", assets.len());
     assets
 }
 
-fn load_assets_recursive(base: &Path, dir: &Path, assets: &mut HashMap<Box<str>, Arc<[u8]>>) {
+fn load_assets_recursive(
+    base: &Path,
+    dir: &Path,
+    recurse: bool,
+    assets: &mut HashMap<Box<str>, Arc<[u8]>>,
+) {
     let Ok(entries) = std::fs::read_dir(dir) else {
         return;
     };
     for entry in entries.flatten() {
         let path = entry.path();
         if path.is_dir() {
-            load_assets_recursive(base, &path, assets);
+            if recurse {
+                load_assets_recursive(base, &path, recurse, assets);
+            }
         } else if let Ok(data) = std::fs::read(&path) {
             let key = path
                 .strip_prefix(base)

@@ -53,17 +53,17 @@ fn release_freed_memory() {
     unsafe { libmimalloc_sys::mi_collect(true) };
 }
 
-#[cfg(windows)]
-fn trim_working_set() {
-    unsafe extern "system" {
-        fn GetCurrentProcess() -> isize;
-        fn SetProcessWorkingSetSize(handle: isize, min: usize, max: usize) -> i32;
+#[cfg(target_os = "linux")]
+fn disable_huge_pages() {
+    const PR_SET_THP_DISABLE: i32 = 41;
+    unsafe extern "C" {
+        fn prctl(option: i32, ...) -> i32;
     }
-    unsafe { SetProcessWorkingSetSize(GetCurrentProcess(), usize::MAX, usize::MAX) };
+    unsafe { prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0) };
 }
 
-#[cfg(not(windows))]
-fn trim_working_set() {}
+#[cfg(not(target_os = "linux"))]
+fn disable_huge_pages() {}
 
 #[cfg(debug_assertions)]
 const MAX_CONNECTIONS_PER_IP: usize = 4;
@@ -478,6 +478,7 @@ pub struct ServerIO {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    disable_huge_pages();
     let _shutdown_guard = ShutdownGuard;
     let args = Args::parse();
 
@@ -666,6 +667,8 @@ async fn bootstrap(
     let metrics_stats = stats_tx.subscribe();
     let admin_stats = stats_tx.subscribe();
 
+    // Before the pack churns the heap: see init_collision.
+    rs_engine::init_collision();
     info!("Compiling content assets & building cache...");
     let (store, scripts) = rs_pack::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
@@ -799,7 +802,6 @@ async fn bootstrap(
     );
 
     release_freed_memory();
-    trim_working_set();
 
     let (admin_tx, admin_rx) = unbounded_channel();
     tokio::spawn(engine_tick(
