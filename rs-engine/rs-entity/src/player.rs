@@ -984,6 +984,7 @@ mod combat_level_tests {
 #[cfg(test)]
 mod interaction_tests {
     use super::*;
+    use crate::ObjSerial;
     use crate::interaction::InteractionTarget;
     use rs_pack::types::{LocAngle, LocLayer, LocShape};
     use rs_vm::trigger::ServerTriggerType;
@@ -998,7 +999,7 @@ mod interaction_tests {
         InteractionTarget::Obj {
             coord: CoordGrid::new(3225, 0, 3222),
             id: 100,
-            count: 1,
+            serial: ObjSerial::FIRST,
         }
     }
 

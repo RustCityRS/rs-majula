@@ -487,7 +487,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 }
             } else if mode >= NpcMode::OpObj1 as i32 {
                 match s.active_obj {
-                    Some(obj) => npc.set_interaction_obj(obj.coord, obj.id, obj.count, op),
+                    Some(obj) => npc.set_interaction_obj(obj.coord, obj.id, obj.serial, op),
                     None => npc.reset_defaults(),
                 }
             } else if mode >= NpcMode::OpLoc1 as i32 {

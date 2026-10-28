@@ -1,6 +1,6 @@
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
-use crate::{NpcUid, PlayerUid, Result, ScriptError};
+use crate::{NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, STACK_LIMIT, StackMode};
 use rs_pack::ParamValue;
@@ -55,6 +55,9 @@ pub(crate) fn require_inv_access(state: &ScriptState, inv: &InvType, idx: usize)
 /// inventory and obj opcodes expect: a non-stackable object (or a lone item) is
 /// dropped as individual single-count piles, while a stackable amount is dropped
 /// as one combined pile.
+///
+/// Returns the serial of the last pile, the one a script's active obj becomes,
+/// or `None` if nothing was dropped.
 pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
     coord: CoordGrid,
     id: u16,
@@ -62,15 +65,16 @@ pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
     stackable: bool,
     receiver: Option<PlayerUid>,
     duration: u64,
-) -> Result<()> {
+) -> Result<Option<ObjSerial>> {
+    let mut serial = None;
     if !stackable || count == 1 {
         for _ in 0..count {
-            engine_mut::<E>().add_obj(coord, id, 1, receiver, duration)?;
+            serial = Some(engine_mut::<E>().add_obj(coord, id, 1, receiver, duration)?);
         }
     } else {
-        engine_mut::<E>().add_obj(coord, id, count, receiver, duration)?;
+        serial = Some(engine_mut::<E>().add_obj(coord, id, count, receiver, duration)?);
     }
-    Ok(())
+    Ok(serial)
 }
 
 /// Returns a mutable reference to the active player entity from the global engine.
@@ -446,6 +450,18 @@ pub(crate) fn require_protected_active_player(state: &ScriptState) -> Result<()>
     state
         .pointers
         .check(ScriptState::PROTECTED_ACTIVE_PLAYER[state.int_operand() as usize])
+}
+
+/// Rejects a ground obj stack count outside `1..=STACK_LIMIT`, so no empty
+/// stack is ever put on the floor.
+pub(crate) fn check_obj_stack(count: i32) -> Result<()> {
+    if !(1..=STACK_LIMIT as i32).contains(&count) {
+        return Err(ScriptError::Runtime(format!(
+            "count is out of range: {}",
+            count
+        )));
+    }
+    Ok(())
 }
 
 /// Pops an integer from the script stack and validates it as a non-negative count.

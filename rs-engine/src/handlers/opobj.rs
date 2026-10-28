@@ -180,7 +180,7 @@ fn handle(
     let target = InteractionTarget::Obj {
         coord: CoordGrid::new(x, y, z),
         id: obj_id,
-        count: obj.count(),
+        serial: obj.serial(),
     };
 
     active.clear_pending_action()?;

@@ -16,7 +16,7 @@ pub use interaction::InteractionTarget;
 pub use lifetime::EntityLifeTime;
 pub use loc::Loc;
 pub use npc::{Npc, NpcUid};
-pub use obj::{NO_RECEIVER, Obj, REVEAL_TICKS};
+pub use obj::{NO_RECEIVER, Obj, ObjSerial, REVEAL_TICKS};
 pub use pathing::{MoveStrategy, PathingEntity, can_travel, dir_delta, dir_to_direction, face_dir};
 pub use player::{
     ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, MODAL_CHAT, MODAL_MAIN,

@@ -2,6 +2,7 @@ pub mod engine;
 pub mod iterators;
 pub mod macros;
 pub mod npc_uid;
+pub mod obj_serial;
 pub mod ops;
 pub mod player_uid;
 pub mod pointer;
@@ -13,6 +14,7 @@ pub mod util;
 pub mod vm;
 
 pub use npc_uid::NpcUid;
+pub use obj_serial::ObjSerial;
 pub use player_uid::PlayerUid;
 
 use crate::trigger::ServerTriggerType;

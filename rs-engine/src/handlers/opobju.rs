@@ -70,7 +70,7 @@ impl ClientGameHandler for OpObjU {
         let target = InteractionTarget::Obj {
             coord: CoordGrid::new(self.x, y, self.z),
             id: self.obj,
-            count: obj.count(),
+            serial: obj.serial(),
         };
 
         if !use_component_ok(active, self.com) {

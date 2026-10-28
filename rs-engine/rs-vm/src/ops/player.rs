@@ -844,7 +844,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.queue_waypoint(obj.coord);
-            player.set_interaction_obj(obj.coord, obj.id, obj.count, ServerTriggerType::ApObj1 as u8 + op as u8);
+            player.set_interaction_obj(obj.coord, obj.id, obj.serial, ServerTriggerType::ApObj1 as u8 + op as u8);
         });
 
         // 2081

@@ -76,7 +76,7 @@ impl ClientGameHandler for OpObjT {
         let target = InteractionTarget::Obj {
             coord: CoordGrid::new(self.x, y, self.z),
             id: self.obj,
-            count: obj.count(),
+            serial: obj.serial(),
         };
 
         active.clear_pending_action()?;

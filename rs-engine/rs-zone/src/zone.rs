@@ -1,7 +1,7 @@
 use crate::zone_event::ZoneEvent;
 use crate::zone_event_type::ZoneEventType;
 use crate::zone_message::ZoneMessage;
-use rs_entity::{EntityLifeTime, Loc, Obj};
+use rs_entity::{EntityLifeTime, Loc, Obj, ObjSerial};
 use rs_grid::ZoneCoordGrid;
 use rs_io::Packet;
 use rs_pack::types::LocLayer;
@@ -48,6 +48,7 @@ pub struct Zone {
     dropped_for: FxHashMap<u64, u64>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
+    next_serial: ObjSerial,
 }
 
 impl Zone {
@@ -87,6 +88,7 @@ impl Zone {
             dropped_for: FxHashMap::default(),
             events: Vec::new(),
             shared: Vec::new(),
+            next_serial: ObjSerial::FIRST,
         }
     }
 
@@ -203,21 +205,21 @@ impl Zone {
     ///
     /// # Side Effects
     ///
-    /// Assigns the obj an instance slot (so its [`oid`](Obj::oid) is zone-unique)
-    /// and appends it to `self.objs`.
-    ///
-    /// The obj is dropped if its `(tile, id)` slot space is already full (256 objs),
-    /// since admitting it would alias another obj's oid. This is unreachable with
-    /// legitimate map data (it would require 256 identical static objs on one tile).
+    /// Gives the obj a serial (so its [`oid`](Obj::oid) is zone-unique) and
+    /// appends it to `self.objs`.
     ///
     /// **Called by:** `GameMap::load` during server startup.
     #[inline]
     pub fn add_static_obj(&mut self, mut obj: Obj) {
-        let Some(slot) = self.assign_obj_slot(obj.local_x(), obj.local_z(), obj.id()) else {
-            return;
-        };
-        obj.set_slot(slot);
+        obj.set_serial(self.next_obj_serial());
         self.objs.push(obj);
+    }
+
+    /// Hands out the next obj [`ObjSerial`].
+    fn next_obj_serial(&mut self) -> ObjSerial {
+        let serial = self.next_serial;
+        self.next_serial = serial.next();
+        serial
     }
 
     // ---- zone events ----
@@ -762,30 +764,36 @@ impl Zone {
     /// [`make_room_for_obj`](Self::make_room_for_obj)). Unlike locs, objs carry no
     /// collision, so eviction is fully handled here.
     ///
-    /// The obj is then stamped with an instance slot (see
-    /// [`assign_obj_slot`](Self::assign_obj_slot)) so its [`oid`](Obj::oid) is
-    /// unique within the zone before the `ObjAdd` event is queued.
+    /// The obj is then given a serial, so its [`oid`](Obj::oid) is unique within
+    /// the zone before the `ObjAdd` event is queued.
     ///
     /// # Side Effects
     ///
     /// - Evicts the oldest despawn obj (queuing its `ObjDel`) if at [`Self::MAX_OBJS`].
-    /// - Stamps the obj with a zone-unique instance slot.
+    /// - Gives the obj a zone-unique serial.
     /// - Pushes the obj to `self.objs` if it has `Despawn` lifetime.
     /// - Queues an `ObjAdd` event (enclosed or follows depending on receiver).
+    ///
+    /// # Returns
+    ///
+    /// The serial the obj was given, or [`ObjSerial::NONE`] for a respawn obj,
+    /// which isn't kept.
     ///
     /// **Called by:** `Engine::add_obj` when scripts or game logic drop a ground item.
     ///
     /// **Calls:** [`make_room_for_obj`](Self::make_room_for_obj),
     /// [`queue_event`](Self::queue_event).
-    pub fn add_obj(&mut self, mut obj: Obj, receiver37: Option<u64>) {
+    pub fn add_obj(&mut self, mut obj: Obj, receiver37: Option<u64>) -> ObjSerial {
         let despawn = obj.lifetime() == EntityLifeTime::Despawn;
         if despawn {
             self.make_room_for_obj();
         }
-        let Some(slot) = self.assign_obj_slot(obj.local_x(), obj.local_z(), obj.id()) else {
-            return;
+        let serial = if despawn {
+            self.next_obj_serial()
+        } else {
+            ObjSerial::NONE
         };
-        obj.set_slot(slot);
+        obj.set_serial(serial);
         let oid = obj.oid();
         let message = ZoneMessage::ObjAdd(ObjAdd {
             coord: obj.packed_zone_coord(),
@@ -805,6 +813,7 @@ impl Zone {
             (ZoneEventType::Follows, receiver37)
         };
         self.queue_event(Some(oid), event_type, event_receiver, message);
+        serial
     }
 
     /// Evicts the oldest despawn obj when the zone is at the obj cap.
@@ -828,33 +837,6 @@ impl Zone {
         }
     }
 
-    /// Returns the lowest instance slot not already used by an obj at the same
-    /// local tile and type id (giving the new obj a zone-unique [`oid`](Obj::oid)),
-    /// or `None` if all 256 slots at that `(tile, id)` are taken.
-    ///
-    /// Objs that share a tile and id -- two identical non-stackable drops, or
-    /// different players' private stacks of the same item -- would otherwise share
-    /// an oid; the slot disambiguates them. Slots freed by removal are reused, so
-    /// values stay small. The dynamic add path is bounded by the per-zone obj cap
-    /// ([`Self::MAX_OBJS`] = 127), so it always finds a slot; the static path is
-    /// unbounded, so a caller that gets `None` must drop the obj rather than admit a
-    /// colliding oid.
-    fn assign_obj_slot(&self, local_x: u8, local_z: u8, id: u16) -> Option<u8> {
-        let mut used = [0; 4];
-        for obj in &self.objs {
-            if obj.local_x() == local_x && obj.local_z() == local_z && obj.id() == id {
-                let slot = obj.slot();
-                used[(slot >> 6) as usize] |= 1 << (slot & 0x3F);
-            }
-        }
-        for (slot, &bits) in used.iter().enumerate() {
-            if bits != u64::MAX {
-                return Some((((slot as u32) << 6) | (!bits).trailing_zeros()) as u8);
-            }
-        }
-        None
-    }
-
     /// Finds the index of an obj matching exact coordinates, type id, and receiver.
     ///
     /// Unlike [`get_obj`](Self::get_obj), this requires an exact receiver match
@@ -875,12 +857,16 @@ impl Zone {
     /// objs before merging or stacking.
     pub fn get_obj_of_receiver(&self, x: u16, z: u16, id: u16, receiver37: u64) -> Option<usize> {
         let receivers = &self.receivers;
-        self.objs
-            .iter()
-            .position(|obj| obj.is_at(x, z) && obj.id() == id && owns(receivers, obj, receiver37))
+        self.objs.iter().position(|obj| {
+            obj.is_valid() && obj.is_at(x, z) && obj.id() == id && owns(receivers, obj, receiver37)
+        })
     }
 
-    /// Finds the index of an obj matching coordinates, type id, and optional receiver.
+    /// Finds the index of the first [valid](Obj::is_valid) obj matching
+    /// coordinates, type id, and optional receiver.
+    ///
+    /// A respawning obj that was taken and hasn't come back yet never matches,
+    /// nor does an empty stack.
     ///
     /// Receiver matching behavior:
     /// - `None`: matches only public objs (those with `NO_RECEIVER`).
@@ -898,23 +884,55 @@ impl Zone {
     ///
     /// `Some(index)` if a matching obj is found, `None` otherwise.
     ///
-    /// **Called by:** `Engine` shared phase for obj interaction checks,
-    /// op handlers (`opobj`).
+    /// **Called by:** op handlers (`opobj`), `OBJ_FIND`.
     pub fn get_obj(&self, x: u16, z: u16, id: u16, receiver37: Option<u64>) -> Option<usize> {
         let receivers = &self.receivers;
         self.objs.iter().position(|obj| {
-            obj.is_at(x, z) && obj.id() == id && matches_receiver(receivers, obj, receiver37)
+            obj.is_valid()
+                && obj.is_at(x, z)
+                && obj.id() == id
+                && matches_receiver(receivers, obj, receiver37)
         })
     }
 
-    /// Who the obj that `user37` would take at `(x, z)` was dropped for: `user37`
-    /// themselves for their own private drop, the player it was revealed from
-    /// for one everyone can now see, or `None` for one nobody dropped (a map
-    /// spawn, or one a script put down for everyone).
+    /// Finds the index of the obj with this [`serial`](Obj::serial), while it
+    /// is [on the floor](Obj::is_active).
     ///
-    /// Matches the obj as [`remove_obj`](Self::remove_obj) does for a take.
-    pub fn obj_dropped_for(&self, x: u16, z: u16, id: u16, user37: u64) -> Option<u64> {
-        let obj = &self.objs[self.get_obj(x, z, id, Some(user37))?];
+    /// The tile and id are checked too, so a reference into another zone finds
+    /// nothing.
+    pub fn obj_index(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> Option<usize> {
+        self.objs.iter().position(|obj| {
+            obj.serial() == serial && obj.is_at(x, z) && obj.id() == id && obj.is_active()
+        })
+    }
+
+    /// Finds the index of the obj with this [`serial`](Obj::serial), if it can
+    /// be counted or taken: [valid](Obj::is_valid), and not private to someone
+    /// other than `receiver37`.
+    ///
+    /// `None` skips the receiver check: an npc, or a script with no player,
+    /// may count any obj.
+    pub fn valid_obj(
+        &self,
+        x: u16,
+        z: u16,
+        id: u16,
+        serial: ObjSerial,
+        receiver37: Option<u64>,
+    ) -> Option<usize> {
+        let idx = self.obj_index(x, z, id, serial)?;
+        let obj = &self.objs[idx];
+        let hidden =
+            receiver37.is_some_and(|r| obj.has_receiver() && !owns(&self.receivers, obj, r));
+        (obj.count() > 0 && !hidden).then_some(idx)
+    }
+
+    /// Who the obj with this [`serial`](Obj::serial) was dropped for: the
+    /// player for their own private drop, the player it was revealed from for
+    /// one everyone can now see, or `None` for one nobody dropped (a map spawn,
+    /// or one a script put down for everyone).
+    pub fn obj_dropped_for(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> Option<u64> {
+        let obj = &self.objs[self.obj_index(x, z, id, serial)?];
         let oid = obj.oid();
         if obj.has_receiver() {
             self.receivers.get(&oid).copied()
@@ -1009,13 +1027,12 @@ impl Zone {
         self.remove_obj_at(idx, None);
     }
 
-    /// Removes an obj by position, type, and receiver, with an optional respawn clock.
+    /// Removes the obj with this [`serial`](Obj::serial), with an optional
+    /// respawn clock.
     ///
     /// Used for player-initiated removal (e.g., picking up a ground item) and
-    /// engine-driven removal. Only matches objs that have `Despawn` lifetime or
-    /// whose `last_clock` is `u64::MAX` (currently visible respawn objs).
-    ///
-    /// Receiver matching follows the same rules as [`get_obj`](Self::get_obj).
+    /// engine-driven removal. Removes the obj [`obj_index`](Self::obj_index)
+    /// finds, whatever its count or receiver.
     ///
     /// No-op if no matching obj is found.
     ///
@@ -1024,15 +1041,20 @@ impl Zone {
     /// * `x` -- The absolute x coordinate of the obj.
     /// * `z` -- The absolute z coordinate of the obj.
     /// * `id` -- The obj type id.
-    /// * `receiver37` -- The receiver to match, or `None` for public-only.
+    /// * `serial` -- The obj's serial.
     /// * `respawn_at` -- For respawn objs, the clock tick at which the obj should
     ///   reappear. Ignored for despawn objs.
+    ///
+    /// # Returns
+    ///
+    /// The obj as it was before removal and who it was private to, or `None`
+    /// if nothing matched.
     ///
     /// # Side Effects
     ///
     /// Delegates to [`remove_obj_at`](Self::remove_obj_at) if a match is found.
     ///
-    /// **Called by:** `Engine::remove_obj`, cheat handlers.
+    /// **Called by:** `Engine::remove_obj`.
     ///
     /// **Calls:** [`remove_obj_at`](Self::remove_obj_at).
     pub fn remove_obj(
@@ -1040,22 +1062,14 @@ impl Zone {
         x: u16,
         z: u16,
         id: u16,
-        receiver37: Option<u64>,
+        serial: ObjSerial,
         respawn_at: Option<u32>,
-    ) {
-        let idx = {
-            let receivers = &self.receivers;
-            self.objs.iter().position(|obj| {
-                obj.is_at(x, z)
-                    && obj.id() == id
-                    && (obj.lifetime() == EntityLifeTime::Despawn || obj.last_clock() == u32::MAX)
-                    && matches_receiver(receivers, obj, receiver37)
-            })
-        };
-        let Some(idx) = idx else {
-            return;
-        };
+    ) -> Option<(Obj, Option<u64>)> {
+        let idx = self.obj_index(x, z, id, serial)?;
+        let obj = self.objs[idx];
+        let receiver37 = self.receivers.get(&obj.oid()).copied();
         self.remove_obj_at(idx, respawn_at);
+        Some((obj, receiver37))
     }
 
     /// Internal helper that removes the obj at the given index and queues an `ObjDel` event.
@@ -1287,10 +1301,7 @@ mod tests {
     }
 
     fn push_private_obj(z: &mut Zone, mut obj: Obj, receiver37: u64) {
-        let slot = z
-            .assign_obj_slot(obj.local_x(), obj.local_z(), obj.id())
-            .unwrap();
-        obj.set_slot(slot);
+        obj.set_serial(z.next_obj_serial());
         obj.set_has_receiver(true);
         z.objs.push(obj);
         let oid = z.objs.last().unwrap().oid();
@@ -1457,19 +1468,20 @@ mod tests {
         let mut obj = despawn_obj(3222, 3222, 100, 5);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        assert_eq!(z.obj_dropped_for(3222, 3222, 100, 111), Some(111));
         assert_eq!(
-            z.obj_dropped_for(3222, 3222, 100, 222),
-            None,
-            "not visible to them yet"
+            z.obj_dropped_for(3222, 3222, 100, ObjSerial::FIRST),
+            Some(111)
         );
         z.reveal_obj(3222, 3222, 100, 111, 1);
-        assert_eq!(z.obj_dropped_for(3222, 3222, 100, 222), Some(111));
-        z.remove_obj(3222, 3222, 100, Some(222), None);
+        assert_eq!(
+            z.obj_dropped_for(3222, 3222, 100, ObjSerial::FIRST),
+            Some(111)
+        );
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert!(z.dropped_for.is_empty(), "forgotten once it's gone");
         // Nobody dropped a public spawn.
-        z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
-        assert_eq!(z.obj_dropped_for(3222, 3222, 100, 222), None);
+        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        assert_eq!(z.obj_dropped_for(3222, 3222, 100, serial), None);
     }
 
     #[test]
@@ -1546,7 +1558,7 @@ mod tests {
         let mut obj = despawn_obj(3222, 3222, 100, 1);
         obj.set_last_clock(200);
         z.objs.push(obj);
-        z.remove_obj(3222, 3222, 100, None, None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 0);
     }
 
@@ -1554,7 +1566,7 @@ mod tests {
     fn remove_obj_respawn_stays_in_vec() {
         let mut z = zone();
         z.objs.push(respawn_obj(3222, 3222, 100, 1));
-        z.remove_obj(3222, 3222, 100, None, Some(50));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.objs[0].last_clock(), 50);
     }
@@ -1563,7 +1575,7 @@ mod tests {
     fn remove_obj_respawn_hidden_until_respawn() {
         let mut z = zone();
         z.objs.push(respawn_obj(3222, 3222, 100, 1));
-        z.remove_obj(3222, 3222, 100, None, Some(50));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
         assert_eq!(z.visible_objs(0, 49).count(), 0);
         assert_eq!(z.visible_objs(0, 50).count(), 1);
     }
@@ -1574,17 +1586,17 @@ mod tests {
         let mut obj = despawn_obj(3222, 3222, 100, 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.remove_obj(3222, 3222, 100, Some(111), None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 0);
     }
 
     #[test]
-    fn remove_obj_wrong_receiver_is_noop() {
+    fn remove_obj_wrong_serial_is_noop() {
         let mut z = zone();
         let mut obj = despawn_obj(3222, 3222, 100, 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.remove_obj(3222, 3222, 100, Some(222), None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::from_packed(1), None);
         assert_eq!(z.objs.len(), 1);
     }
 
@@ -1596,7 +1608,7 @@ mod tests {
         push_private_obj(&mut z, obj, 111);
         z.reveal_obj(3222, 3222, 100, 111, 1);
         z.reset();
-        z.remove_obj(3222, 3222, 100, None, None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert!(
             z.enclosed_events()
                 .any(|e| matches!(&e.message, ZoneMessage::ObjDel(_)))
@@ -1610,7 +1622,7 @@ mod tests {
         let mut obj = despawn_obj(3222, 3222, 100, 1);
         obj.set_last_clock(200);
         push_private_obj(&mut z, obj, 111);
-        z.remove_obj(3222, 3222, 100, Some(111), None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert!(
             z.follows_events()
                 .any(|e| matches!(&e.message, ZoneMessage::ObjDel(_)))
@@ -1622,10 +1634,134 @@ mod tests {
         let mut z = zone();
         let obj = respawn_obj(3222, 3222, 100, 1);
         z.objs.push(obj);
-        z.remove_obj(3222, 3222, 100, None, Some(50));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
         z.reset();
-        z.remove_obj(3222, 3222, 100, None, Some(100));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(100));
         assert_eq!(count_enclosed(&z), 0);
+    }
+
+    #[test]
+    fn remove_obj_returns_what_it_removed() {
+        let mut z = zone();
+        z.objs.push(respawn_obj(3222, 3222, 100, 7));
+        assert_eq!(
+            z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50))
+                .map(|(o, _)| o.count()),
+            Some(7)
+        );
+        // Taken and not back yet: a second take gets nothing.
+        assert!(
+            z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50))
+                .is_none()
+        );
+    }
+
+    #[test]
+    fn get_obj_skips_hidden_respawn() {
+        let mut z = zone();
+        z.add_static_obj(respawn_obj(3222, 3222, 100, 1));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        assert!(z.get_obj(3222, 3222, 100, None).is_none());
+
+        // A drop of the same id on that tile is found past the hidden spawn.
+        let mut drop = despawn_obj(3222, 3222, 100, 3);
+        drop.set_last_clock(200);
+        z.add_obj(drop, None);
+        let idx = z.get_obj(3222, 3222, 100, None).unwrap();
+        assert_eq!(z.objs[idx].count(), 3);
+
+        z.respawn_obj(3222, 3222, 100);
+        assert_eq!(z.objs[z.get_obj(3222, 3222, 100, None).unwrap()].count(), 1);
+    }
+
+    #[test]
+    fn get_obj_skips_empty_stack() {
+        let mut z = zone();
+        z.add_obj(despawn_obj(3222, 3222, 100, 0), None);
+        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 4), Some(111));
+        let idx = z.get_obj(3222, 3222, 100, Some(111)).unwrap();
+        assert_eq!(z.objs[idx].serial(), serial);
+    }
+
+    // ---- obj: serials ----
+
+    #[test]
+    fn serials_are_unique_and_never_handed_out_twice() {
+        let mut z = zone();
+        z.add_static_obj(respawn_obj(3222, 3222, 100, 1));
+        let a = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        z.remove_obj(3222, 3222, 100, a, None);
+        let b = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        assert_eq!(
+            (a, b),
+            (ObjSerial::from_packed(1), ObjSerial::from_packed(2))
+        );
+        // The old reference doesn't find the drop that took its place.
+        assert!(z.obj_index(3222, 3222, 100, a).is_none());
+        assert!(z.obj_index(3222, 3222, 100, b).is_some());
+    }
+
+    #[test]
+    fn serial_survives_respawn() {
+        let mut z = zone();
+        z.add_static_obj(respawn_obj(3222, 3222, 100, 1));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
+        assert!(
+            z.obj_index(3222, 3222, 100, ObjSerial::FIRST).is_none(),
+            "taken"
+        );
+        z.respawn_obj(3222, 3222, 100);
+        assert!(
+            z.obj_index(3222, 3222, 100, ObjSerial::FIRST).is_some(),
+            "back"
+        );
+    }
+
+    #[test]
+    fn serial_survives_restack_and_reveal() {
+        let mut z = zone();
+        let mut obj = despawn_obj(3222, 3222, 100, 5);
+        obj.set_last_clock(200);
+        let serial = z.add_obj(obj, Some(111));
+        z.objs[0].set_count(9);
+        z.reveal_obj(3222, 3222, 100, 111, 1);
+        let idx = z.valid_obj(3222, 3222, 100, serial, Some(222)).unwrap();
+        assert_eq!(z.objs[idx].count(), 9);
+    }
+
+    #[test]
+    fn valid_obj_hides_others_private_objs() {
+        let mut z = zone();
+        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 1), Some(111));
+        assert!(z.valid_obj(3222, 3222, 100, serial, Some(111)).is_some());
+        assert!(z.valid_obj(3222, 3222, 100, serial, Some(222)).is_none());
+        assert!(
+            z.valid_obj(3222, 3222, 100, serial, None).is_some(),
+            "no player: no receiver check"
+        );
+    }
+
+    #[test]
+    fn valid_obj_rejects_empty_stack() {
+        let mut z = zone();
+        let serial = z.add_obj(despawn_obj(3222, 3222, 100, 0), None);
+        assert!(z.valid_obj(3222, 3222, 100, serial, None).is_none());
+        assert!(
+            z.obj_index(3222, 3222, 100, serial).is_some(),
+            "still removable"
+        );
+    }
+
+    #[test]
+    fn valid_obj_keeps_drop_until_removed() {
+        let mut z = zone();
+        let mut obj = despawn_obj(3222, 3222, 100, 1);
+        obj.set_last_clock(200);
+        let serial = z.add_obj(obj, None);
+        // Due to despawn this tick, but the zone phase hasn't run yet.
+        assert!(z.valid_obj(3222, 3222, 100, serial, None).is_some());
+        z.remove_obj_by_clock(3222, 3222, 100, 200);
+        assert!(z.valid_obj(3222, 3222, 100, serial, None).is_none());
     }
 
     #[test]
@@ -1644,7 +1780,7 @@ mod tests {
         );
 
         // Pick up X (oldest, index 0). The A,B stack must stay A-then-B.
-        z.remove_obj(3216, 3216, 10, None, None);
+        z.remove_obj(3216, 3216, 10, ObjSerial::FIRST, None);
         assert_eq!(
             z.visible_objs(0, 100).map(|o| o.id()).collect::<Vec<_>>(),
             vec![20, 30],
@@ -1738,7 +1874,7 @@ mod tests {
         z.objs.push(respawn_obj(3222, 3222, 100, 5));
         assert_eq!(z.visible_objs(0, 0).count(), 1);
 
-        z.remove_obj(3222, 3222, 100, None, Some(50));
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, Some(50));
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.visible_objs(0, 49).count(), 0);
 
@@ -2297,19 +2433,32 @@ mod tests {
     // ---- entity keys ----
 
     #[test]
-    fn obj_entity_key_differs_by_slot() {
+    fn obj_entity_key_differs_for_identical_objs() {
         let mut z = zone();
         z.add_obj(despawn_obj(3222, 3222, 100, 1), Some(111));
         z.add_obj(despawn_obj(3222, 3222, 100, 1), Some(222));
-        assert_eq!((z.objs[0].slot(), z.objs[1].slot()), (0, 1));
         assert_ne!(z.objs[0].oid(), z.objs[1].oid());
     }
 
     #[test]
-    fn obj_entity_key_differs_by_type() {
-        let o1 = despawn_obj(3222, 3222, 100, 1);
-        let o2 = despawn_obj(3222, 3222, 200, 1);
-        assert_ne!(o1.oid(), o2.oid());
+    fn obj_entity_key_not_reused_on_the_same_tile() {
+        let mut z = zone();
+        let first = z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        let oid = z.objs[0].oid();
+        z.remove_obj(3222, 3222, 100, first, None);
+        z.add_obj(despawn_obj(3222, 3222, 100, 1), None);
+        assert_ne!(z.objs[0].oid(), oid);
+    }
+
+    #[test]
+    fn obj_entity_key_never_equals_a_loc_key() {
+        // Obj id 2 used to make the same key as the layer 2 (ground) loc on its
+        // tile, so removing one cancelled the other's queued events.
+        let mut z = zone();
+        z.add_obj(despawn_obj(3222, 3222, 2, 1), None);
+        let loc = despawn_loc(3222, 3222, 1);
+        assert_eq!(loc.layer(), LocLayer::Ground);
+        assert_ne!(z.objs[0].oid(), loc.lid());
     }
 
     #[test]
@@ -2340,7 +2489,7 @@ mod tests {
         o2.set_last_clock(200);
         z.objs.push(o1);
         z.objs.push(o2);
-        z.remove_obj(3222, 3222, 100, None, None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.objs[0].id(), 200);
     }
@@ -2354,7 +2503,7 @@ mod tests {
         o2.set_last_clock(200);
         push_private_obj(&mut z, o1, 111);
         push_private_obj(&mut z, o2, 222);
-        z.remove_obj(3222, 3222, 100, Some(111), None);
+        z.remove_obj(3222, 3222, 100, ObjSerial::FIRST, None);
         assert_eq!(z.objs.len(), 1);
         assert_eq!(z.receivers.get(&z.objs[0].oid()), Some(&222));
     }

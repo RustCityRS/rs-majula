@@ -2,7 +2,7 @@ pub use crate::iterators::*;
 use crate::pointer::{ScriptPointer, ScriptPointerSet};
 use crate::subject::ScriptSubject;
 use crate::trigger::ServerTriggerType;
-use crate::{NpcUid, PlayerUid, ScriptError};
+use crate::{NpcUid, ObjSerial, PlayerUid, ScriptError};
 use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
@@ -1185,15 +1185,20 @@ pub struct LocRef {
     pub layer: LocLayer,
 }
 
-/// A snapshot reference to a ground object (item) entity in the game world.
+/// A reference to a ground object (item) entity in the game world.
 ///
 /// Stored in [`ScriptState::active_obj`] / [`ScriptState::active_obj2`] to
 /// give the running script access to a specific ground item.
+///
+/// It names one obj by the serial its zone gave it, so it keeps finding that
+/// obj as it restacks, is revealed or respawns, and finds nothing once the obj
+/// is gone, even if another of the same id lands on the tile. Ops that need
+/// the count or the obj itself look it up through the serial.
 #[derive(Debug, Clone, Copy)]
 pub struct ObjRef {
     pub coord: CoordGrid,
     pub id: u16,
-    pub count: u32,
+    pub serial: ObjSerial,
 }
 
 #[cfg(test)]

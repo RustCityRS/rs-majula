@@ -2,7 +2,7 @@ use crate::active_npc::ActiveNpc;
 use crate::engine::Engine;
 use crate::engine::{engine, engine_mut};
 use crate::phases::shared::EntityId;
-use rs_entity::{Direction, InteractionTarget, PathingEntity};
+use rs_entity::{Direction, InteractionTarget, ObjSerial, PathingEntity};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
 use rs_pack::cache::CacheStore;
@@ -870,10 +870,10 @@ impl Engine {
 
     /// Scans nearby zones for ground-item (Obj) hunt targets.
     ///
-    /// Searches visible objects within the hunt range, filtering by
-    /// optional object type ID and/or category. Only considers objects
-    /// whose visibility clock has passed. Applies distance and visibility
-    /// checks. Uses reservoir sampling for uniform random selection.
+    /// Searches valid objects (on the floor, not empty, anyone's) within the
+    /// hunt range, newest first in each zone, filtering by optional object
+    /// type ID and/or category. Applies distance and visibility checks. Uses
+    /// reservoir sampling for uniform random selection.
     ///
     /// # Returns
     ///
@@ -890,12 +890,11 @@ impl Engine {
         let center_zx = CoordGrid::zone(coord.x()) as i32;
         let center_zz = CoordGrid::zone(coord.z()) as i32;
         let radius = 1 + (distance >> 3);
-        let mut chosen: Option<(CoordGrid, u16, u32)> = None;
+        let mut chosen: Option<(CoordGrid, u16, ObjSerial)> = None;
         let mut count: u32 = 0;
 
         let engine = engine();
         let objs = engine.objs();
-        let clock = engine.clock();
 
         for zx in ((center_zx - radius)..=(center_zx + radius)).rev() {
             for zz in ((center_zz - radius)..=(center_zz + radius)).rev() {
@@ -907,8 +906,8 @@ impl Engine {
                 let Some(zone) = engine.zones.zone(zone_x, coord.y(), zone_z) else {
                     continue;
                 };
-                for obj in &zone.objs {
-                    if !obj.visible(clock) {
+                for obj in zone.objs.iter().rev() {
+                    if !obj.is_valid() {
                         continue;
                     }
                     if let Some(id) = check_obj
@@ -941,16 +940,16 @@ impl Engine {
                     }
                     count += 1;
                     if engine_mut().random.next_int_bound(count as i32) == 0 {
-                        chosen = Some((obj_coord, obj.id(), obj.count()));
+                        chosen = Some((obj_coord, obj.id(), obj.serial()));
                     }
                 }
             }
         }
 
-        chosen.map(|(c, id, count)| InteractionTarget::Obj {
+        chosen.map(|(c, id, serial)| InteractionTarget::Obj {
             coord: c,
             id,
-            count,
+            serial,
         })
     }
 

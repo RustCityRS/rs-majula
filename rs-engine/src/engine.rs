@@ -18,7 +18,7 @@ use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
 use rs_db::{LogBatch, LoginDevice, transfer};
 use rs_entity::StaffModLevel;
-use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, REVEAL_TICKS};
+use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, ObjSerial, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::{NpcRenderer, PlayerRenderer};
@@ -1778,6 +1778,12 @@ impl Engine {
     ///   revealed globally.
     /// * `duration` -- Lifetime in game ticks before automatic removal.
     ///
+    /// # Returns
+    ///
+    /// The serial the object was given, or [`ObjSerial::NONE`] when
+    /// it merged into a stack already there: a script's reference to the drop
+    /// then finds nothing, as the drop itself never reached the floor.
+    ///
     /// # Side Effects
     ///
     /// - Inserts the object into the zone's obj list.
@@ -1794,7 +1800,7 @@ impl Engine {
         mut obj: Obj,
         receiver: Option<PlayerUid>,
         duration: u64,
-    ) {
+    ) -> ObjSerial {
         let receiver37 = receiver.map(|uid| uid.username37());
         let obj_type = self.cache.objs.get_by_id(obj.id());
 
@@ -1805,7 +1811,7 @@ impl Engine {
             && let Some(r) = receiver37
             && self.merge_obj(coord, &obj, r, duration)
         {
-            return;
+            return ObjSerial::NONE;
         }
 
         let clock = self.clock + duration as u32;
@@ -1843,8 +1849,9 @@ impl Engine {
         let (ox, oy, oz) = (coord.x(), coord.y(), coord.z());
         self.obj_appeared.insert((coord, obj.id()), Instant::now());
         let zone = self.zones.zone_mut(ox, oy, oz);
-        zone.add_obj(obj, receiver37);
+        let serial = zone.add_obj(obj, receiver37);
         self.track_zone(ox, oy, oz);
+        serial
     }
 
     /// Forgets objs that appeared too long ago for a reaction to them.
@@ -1932,14 +1939,18 @@ impl Engine {
     ///
     /// * `coord` -- World coordinate of the object.
     /// * `id` -- Object type id.
-    /// * `receiver37` -- Optional Base37 username to identify which instance
-    ///   to remove when multiple stacks exist at the same tile.
+    /// * `serial` -- The object's [`serial`](Obj::serial).
     /// * `duration` -- Respawn delay in game ticks (0 = no respawn).
+    ///
+    /// # Returns
+    ///
+    /// The count removed, or `None` if that object wasn't there.
     ///
     /// # Side Effects
     ///
     /// - Removes the object from the zone's obj list.
-    /// - Schedules an `ObjAdd` respawn event if `duration > 0`.
+    /// - Schedules an `ObjAdd` respawn event if `duration > 0` and the object
+    ///   respawns.
     /// - Marks the zone as dirty.
     ///
     /// # Call Stack
@@ -1950,9 +1961,9 @@ impl Engine {
         &mut self,
         coord: CoordGrid,
         id: u16,
-        receiver37: Option<u64>,
+        serial: ObjSerial,
         duration: u64,
-    ) {
+    ) -> Option<u32> {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
         let respawn_at = if duration > 0 {
             let scaled = self.scale_by_player_count(duration);
@@ -1960,16 +1971,23 @@ impl Engine {
         } else {
             None
         };
-        self.zones
+        let (obj, receiver37) = self
+            .zones
             .zone_mut(x, y, z)
-            .remove_obj(x, z, id, receiver37, respawn_at);
+            .remove_obj(x, z, id, serial, respawn_at)?;
+        // Only a private obj has a reveal pending.
         if let Some(receiver) = receiver37 {
             cancel_one_pending_obj_reveal(&mut self.pending_zone_events, coord, id, receiver);
         }
-        if let Some(clock) = respawn_at {
+        // A dropped obj never comes back; the event would bring back a taken
+        // map spawn of the same id on this tile early.
+        if let Some(clock) = respawn_at
+            && obj.lifetime() == EntityLifeTime::Respawn
+        {
             self.schedule_zone_event(clock, PendingZoneEvent::ObjAdd { coord, id });
         }
         self.track_zone(x, y, z);
+        Some(obj.count())
     }
 }
 
@@ -3740,20 +3758,19 @@ impl ScriptEngine for Engine {
         count: u32,
         receiver: Option<PlayerUid>,
         duration: u64,
-    ) -> rs_vm::Result<()> {
+    ) -> rs_vm::Result<ObjSerial> {
         if !rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
             return Err(ScriptError::Runtime(format!(
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
         }
-        self.add_obj(
+        Ok(self.add_obj(
             coord,
             Obj::new(coord, EntityLifeTime::Despawn, id, count),
             receiver,
             duration,
-        );
-        Ok(())
+        ))
     }
 
     /// Enqueues a ground object to be spawned after a delay.
@@ -3789,8 +3806,32 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Engine::remove_obj` (inherent)
-    fn remove_obj(&mut self, coord: CoordGrid, id: u16, receiver37: Option<u64>, duration: u64) {
-        self.remove_obj(coord, id, receiver37, duration);
+    fn remove_obj(
+        &mut self,
+        coord: CoordGrid,
+        id: u16,
+        serial: ObjSerial,
+        duration: u64,
+    ) -> Option<u32> {
+        self.remove_obj(coord, id, serial, duration)
+    }
+
+    /// The count of a ground object that can be counted or taken.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::valid_obj`
+    fn valid_obj_count(
+        &self,
+        coord: CoordGrid,
+        id: u16,
+        serial: ObjSerial,
+        receiver37: Option<u64>,
+    ) -> Option<u32> {
+        let zone = self.zones.zone(coord.x(), coord.y(), coord.z())?;
+        let idx = zone.valid_obj(coord.x(), coord.z(), id, serial, receiver37)?;
+        Some(zone.objs[idx].count())
     }
 
     /// Who a ground object was dropped for.
@@ -3799,10 +3840,10 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::obj_dropped_for`
-    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, user37: u64) -> Option<u64> {
+    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> Option<u64> {
         self.zones
             .zone(coord.x(), coord.y(), coord.z())?
-            .obj_dropped_for(coord.x(), coord.z(), id, user37)
+            .obj_dropped_for(coord.x(), coord.z(), id, serial)
     }
 
     /// Whether a staff level is kept apart from other players.
@@ -3830,11 +3871,12 @@ impl ScriptEngine for Engine {
         Some(ObjRef {
             coord: obj.world_coord(zone.coord),
             id: obj.id(),
-            count: obj.count(),
+            serial: obj.serial(),
         })
     }
 
-    /// Returns all ground objects present in the specified zone.
+    /// Returns the valid ground objects in the specified zone, any player's,
+    /// newest first.
     ///
     /// # Call Stack
     ///
@@ -3846,10 +3888,12 @@ impl ScriptEngine for Engine {
         };
         zone.objs
             .iter()
+            .rev()
+            .filter(|obj| obj.is_valid())
             .map(|obj| ObjRef {
                 coord: obj.world_coord(zone.coord),
                 id: obj.id(),
-                count: obj.count(),
+                serial: obj.serial(),
             })
             .collect()
     }
@@ -6204,8 +6248,8 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `EnginePlayer::set_interaction`
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, count: u32, op: u8) {
-        let target = InteractionTarget::Obj { coord, id, count };
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8) {
+        let target = InteractionTarget::Obj { coord, id, serial };
         self.player.set_interaction(target, op, false);
     }
 
@@ -6465,8 +6509,8 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `Npc::set_interaction`
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, count: u32, op: u8) {
-        let target = InteractionTarget::Obj { coord, id, count };
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8) {
+        let target = InteractionTarget::Obj { coord, id, serial };
         self.npc.set_interaction(target, op, false);
     }
 

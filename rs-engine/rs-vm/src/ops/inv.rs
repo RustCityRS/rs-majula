@@ -250,14 +250,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             player.log_floor(false, coord, obj.id, completed as i32);
-            engine_mut::<E>().add_obj(
+            let serial = engine_mut::<E>().add_obj(
                 coord,
                 obj.id,
                 completed,
                 Some(player.uid()),
                 duration as u64
             )?;
-            set_active_obj(s, ObjRef { coord, id: obj.id, count: completed }, secondary != 0);
+            set_active_obj(s, ObjRef { coord, id: obj.id, serial }, secondary != 0);
         });
 
         // 4312
@@ -286,8 +286,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.log_floor(false, coord, item.obj, item.num as i32);
 
             let receiver = Some(player.uid());
-            add_obj_split::<E>(coord, item.obj, item.num, stackable, receiver, duration as u64)?;
-            set_active_obj(s, ObjRef { coord, id: item.obj, count: item.num }, secondary != 0);
+            if let Some(serial) =
+                add_obj_split::<E>(coord, item.obj, item.num, stackable, receiver, duration as u64)?
+            {
+                set_active_obj(s, ObjRef { coord, id: item.obj, serial }, secondary != 0);
+            }
         });
 
         // 4313

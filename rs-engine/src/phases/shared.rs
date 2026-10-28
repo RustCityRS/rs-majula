@@ -26,7 +26,7 @@ impl Engine {
     /// Maps each target variant to its script-VM representation:
     ///
     /// * `Obj` -> `ScriptSubject::Obj` with packed coordinate, ID, and
-    ///   count.
+    ///   serial.
     /// * `Npc` -> `ScriptSubject::Npc` with the NPC's UID.
     /// * `Player` -> `ScriptSubject::Player` with the player's UID.
     /// * `Loc` -> `ScriptSubject::Loc` with packed coordinate, ID, shape,
@@ -37,10 +37,10 @@ impl Engine {
     /// `None` if the referenced entity no longer exists in the engine.
     pub(crate) fn target_to_subject(target: &InteractionTarget) -> Option<ScriptSubject> {
         match target {
-            InteractionTarget::Obj { coord, id, count } => Some(ScriptSubject::Obj(ObjRef {
+            InteractionTarget::Obj { coord, id, serial } => Some(ScriptSubject::Obj(ObjRef {
                 coord: *coord,
                 id: *id,
-                count: *count,
+                serial: *serial,
             })),
             InteractionTarget::Npc { nid } => {
                 let npc_active = engine().get_npc(*nid)?;
@@ -100,9 +100,9 @@ impl Engine {
     ///   `allow_delayed_npc` is `false` (player validators) a delayed NPC --
     ///   e.g. one mid death sequence -- is treated as invalid. NPC validators pass
     ///   `true` because NPCs may interact with delayed NPCs.
-    /// * **Obj:** Must exist in the zone at the stored coordinate, be
-    ///   visible at the current clock, and share the same Y-level. Uses
-    ///   `user37` to check receiver-specific visibility.
+    /// * **Obj:** The exact obj that was targeted (by serial) must still be
+    ///   on the floor, not empty, and share the same Y-level. Uses `user37`
+    ///   to keep others' private objs out; `None` (npcs) skips that check.
     /// * **Loc:** Must exist in the zone at the stored coordinate and
     ///   layer, match the expected ID, and share the same Y-level.
     ///
@@ -151,11 +151,10 @@ impl Engine {
                     false
                 }
             }
-            InteractionTarget::Obj { coord, id, .. } => {
+            InteractionTarget::Obj { coord, id, serial } => {
                 if coord.y() != y {
                     return false;
                 }
-                let clock = engine().clock();
                 let Some(zone) = engine().zones.zone(coord.x(), coord.y(), coord.z()) else {
                     debug_assert!(
                         false,
@@ -166,8 +165,8 @@ impl Engine {
                     );
                     return false;
                 };
-                zone.get_obj(coord.x(), coord.z(), *id, user37)
-                    .is_some_and(|idx| zone.objs[idx].visible(clock))
+                zone.valid_obj(coord.x(), coord.z(), *id, *serial, user37)
+                    .is_some()
             }
             InteractionTarget::Loc {
                 coord, id, layer, ..

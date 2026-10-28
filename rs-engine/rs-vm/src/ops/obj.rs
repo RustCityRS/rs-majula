@@ -42,6 +42,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .objs()
                 .get_by_id(obj_id as u16)
                 .ok_or(ScriptError::ObjNotFound(obj_id))?;
+            check_obj_stack(count)?;
 
             if obj_type.dummyitem as u8 != 0 {
                 return Err(ScriptError::Runtime(format!(
@@ -50,13 +51,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 )));
             }
 
+            // A free world puts no members objs on the floor.
+            if obj_type.members && !engine::<E>().members() {
+                return Ok(());
+            }
+
             let id = obj_id as u16;
             let count = count as u32;
             let receiver = s.active_player;
 
-            add_obj_split::<E>(coord, id, count, obj_type.stackable, receiver, duration as u64)?;
-
-            set_active_obj(s, ObjRef { coord, id, count }, s.int_operand() != 0);
+            if let Some(serial) =
+                add_obj_split::<E>(coord, id, count, obj_type.stackable, receiver, duration as u64)?
+            {
+                set_active_obj(s, ObjRef { coord, id, serial }, s.int_operand() != 0);
+            }
         });
 
         // 3501
@@ -75,13 +83,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .objs()
                 .get_by_id(obj_id as u16)
                 .ok_or(ScriptError::ObjNotFound(obj_id))?;
+            check_obj_stack(count)?;
+
+            // A free world puts no members objs on the floor.
+            if obj_type.members && !engine::<E>().members() {
+                return Ok(());
+            }
 
             let id = obj_id as u16;
             let count = count as u32;
 
-            add_obj_split::<E>(coord, id, count, obj_type.stackable, None, duration as u64)?;
-
-            set_active_obj(s, ObjRef { coord, id, count }, s.int_operand() != 0);
+            if let Some(serial) =
+                add_obj_split::<E>(coord, id, count, obj_type.stackable, None, duration as u64)?
+            {
+                set_active_obj(s, ObjRef { coord, id, serial }, s.int_operand() != 0);
+            }
         });
 
         // 3502
@@ -91,7 +107,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3503
         active_obj!(m, OBJ_COUNT => |s, obj| {
-            s.push_int(if obj.count > 0 { obj.count as i32 } else { 0 });
+            let receiver37 = s.active_player.map(|uid| uid.username37());
+            let count = engine::<E>()
+                .valid_obj_count(obj.coord, obj.id, obj.serial, receiver37)
+                .unwrap_or(0);
+            s.push_int(count as i32);
         });
 
         // 3504
@@ -101,8 +121,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .get_by_id(obj.id)
                 .map(|t| t.respawnrate as u64)
                 .unwrap_or(100);
-            let user37 = s.active_player.map(|uid| uid.username37());
-            engine_mut::<E>().remove_obj(obj.coord, obj.id, user37, respawnrate);
+            engine_mut::<E>().remove_obj(obj.coord, obj.id, obj.serial, respawnrate);
         });
 
         // 3505
@@ -181,10 +200,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let inv_type = pop_inv::<E>(s)?;
 
             let obj = active_obj_ref(s)?;
-            if obj.count == 0 {
-                return Ok(());
-            }
-
             let obj_type = engine::<E>()
                 .objs()
                 .get_by_id(obj.id)
@@ -204,23 +219,30 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 })?;
 
             let user37 = player.uid().username37();
+            // Nothing to take once the obj is gone or emptied, even if another
+            // like it was dropped on the tile since.
+            let Some(count) =
+                engine::<E>().valid_obj_count(obj.coord, obj_id, obj.serial, Some(user37))
+            else {
+                return Ok(());
+            };
             // Isolated staff take only their own drops and what nobody dropped.
             if engine::<E>().isolates_staff(player.staffmodlevel())
                 && engine::<E>()
-                    .obj_dropped_for(obj.coord, obj_id, user37)
+                    .obj_dropped_for(obj.coord, obj_id, obj.serial)
                     .is_some_and(|r| r != user37)
             {
                 player.mes("Staff can't pick up other players' items.");
                 return Ok(());
             }
-            player.log_floor(true, obj.coord, obj_id, obj.count as i32);
-            let overflow = get_inv_mut::<E>(inv_type.id, player)?.add(obj_id, obj.count, stackable);
+            player.log_floor(true, obj.coord, obj_id, count as i32);
+            let overflow = get_inv_mut::<E>(inv_type.id, player)?.add(obj_id, count, stackable);
             if overflow > 0 {
                 let player_coord = player.coord();
                 add_obj_split::<E>(player_coord, obj_id, overflow, stackable, Some(uid), LOOTDROP_DURATION)?;
             }
 
-            engine_mut::<E>().remove_obj(obj.coord, obj_id, Some(user37), obj_type.respawnrate as u64);
+            engine_mut::<E>().remove_obj(obj.coord, obj_id, obj.serial, obj_type.respawnrate as u64);
         });
 
         // 3511

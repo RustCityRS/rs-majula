@@ -1,5 +1,5 @@
-use crate::PlayerUid;
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
+use crate::{ObjSerial, PlayerUid};
 use rs_grid::CoordGrid;
 use rs_inv::Inventory;
 use rs_pack::cache::VarValue;
@@ -261,6 +261,10 @@ pub trait ScriptEngine {
     /// * `receiver` - Optional player who alone may see the object. `None`
     ///   makes it visible to everyone.
     /// * `duration` - The tick at which the object should be removed.
+    ///
+    /// # Returns
+    /// The serial of the object put down, or [`ObjSerial::NONE`] when it
+    /// merged into a stack already there.
     fn add_obj(
         &mut self,
         coord: CoordGrid,
@@ -268,7 +272,7 @@ pub trait ScriptEngine {
         count: u32,
         receiver: Option<PlayerUid>,
         duration: u64,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<ObjSerial>;
 
     /// Adds a ground object that becomes visible after a delay.
     ///
@@ -294,17 +298,35 @@ pub trait ScriptEngine {
     /// # Arguments
     /// * `coord` - The packed coordinate of the object.
     /// * `id` - The object type identifier.
-    /// * `receiver37` - Optional Base37-encoded username that originally owned
-    ///   the object.
-    /// * `duration` - The remaining duration used to identify the specific object
-    ///   instance to remove.
-    fn remove_obj(&mut self, coord: CoordGrid, id: u16, receiver37: Option<u64>, duration: u64);
+    /// * `serial` - The object's serial.
+    /// * `duration` - Respawn delay in ticks, for an object that respawns.
+    ///
+    /// # Returns
+    /// The count removed, or `None` if that object wasn't there.
+    fn remove_obj(
+        &mut self,
+        coord: CoordGrid,
+        id: u16,
+        serial: ObjSerial,
+        duration: u64,
+    ) -> Option<u32>;
 
-    /// Who the ground object the player `user37` would take at `coord` was
-    /// dropped for: themselves for their own private drop, the player it was
-    /// revealed from for one everyone can see, or `None` for one nobody
-    /// dropped (a map spawn, or one a script put down for everyone).
-    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, user37: u64) -> Option<u64>;
+    /// The count of a ground object, if it can be counted or taken: still on
+    /// the floor, not empty, and not private to anyone but `receiver37`.
+    /// `None` skips the private check (an npc, or a script with no player).
+    fn valid_obj_count(
+        &self,
+        coord: CoordGrid,
+        id: u16,
+        serial: ObjSerial,
+        receiver37: Option<u64>,
+    ) -> Option<u32>;
+
+    /// Who a ground object was dropped for: a player for their own private
+    /// drop, the player it was revealed from for one everyone can see, or
+    /// `None` for one nobody dropped (a map spawn, or one a script put down
+    /// for everyone).
+    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> Option<u64>;
 
     /// Whether staff of level `staffmodlevel` are kept apart from other
     /// players on this world: besides the engine's own checks, they don't
@@ -319,7 +341,8 @@ pub trait ScriptEngine {
     /// globally visible objects.
     fn find_obj(&self, coord: CoordGrid, id: u16, receiver37: Option<u64>) -> Option<ObjRef>;
 
-    /// Returns all ground objects present in the specified zone.
+    /// Returns the valid ground objects in the specified zone, any player's,
+    /// newest first.
     fn get_zone_objs(&self, coord: CoordGrid) -> Vec<ObjRef>;
 
     /// Returns all locations (locs) present in the specified zone.
@@ -1639,9 +1662,9 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `coord` - The packed coordinate of the target object.
     /// * `id` - The object type identifier.
-    /// * `count` - The stack count used to identify the specific object instance.
+    /// * `serial` - The serial of the exact object.
     /// * `op` - The interaction opcode.
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, count: u32, op: u8);
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8);
 
     /// Sets the player's interaction target to another player.
     ///
@@ -1802,9 +1825,9 @@ pub trait ScriptNpc {
     /// # Arguments
     /// * `coord` - The packed coordinate of the target object.
     /// * `id` - The object type identifier.
-    /// * `count` - The stack count used to identify the specific object instance.
+    /// * `serial` - The serial of the exact object.
     /// * `op` - The interaction opcode.
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, count: u32, op: u8);
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8);
 
     /// Plays an animation on the NPC's model.
     ///

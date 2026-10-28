@@ -1,12 +1,13 @@
 use crate::lifetime::EntityLifeTime;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
+pub use rs_vm::ObjSerial;
 
 /// Number of ticks after which a private ground object becomes visible to all players.
 pub const REVEAL_TICKS: u32 = 100;
 /// Sentinel value indicating that a ground object has no specific receiver (visible to all).
 pub const NO_RECEIVER: u64 = u64::MAX;
 
-// ---- THE BELOW SECTION IS FOR BUILDING THE ENTIRE PACKED `u128` -- 95 bits wide.
+// ---- THE BELOW SECTION IS FOR BUILDING THE ENTIRE PACKED `u128` -- 119 bits wide.
 
 /// Bit offset for the local zone X (`x & 0x7`) within the packed `u128`.
 const LOCAL_X_SHIFT: u32 = 0;
@@ -18,12 +19,12 @@ const LIFETIME_SHIFT: u32 = 6;
 const ID_SHIFT: u32 = 7;
 /// Bit offset for the stack count within the packed `u128`.
 const COUNT_SHIFT: u32 = 23;
-/// Bit offset for the per-(tile, id) instance slot within the packed `u128`.
-const SLOT_SHIFT: u32 = 54;
 /// Bit offset for the "has a private receiver" flag within the packed `u128`.
-const HAS_RECEIVER_SHIFT: u32 = 62;
+const HAS_RECEIVER_SHIFT: u32 = 54;
 /// Bit offset for the `last_clock` field within the packed `u128`.
-const LAST_CLOCK_SHIFT: u32 = 63;
+const LAST_CLOCK_SHIFT: u32 = 55;
+/// Bit offset for the zone-unique serial within the packed `u128`.
+const SERIAL_SHIFT: u32 = 87;
 
 /// Mask for the 3-bit local-coordinate fields.
 const COORD_MASK: u128 = 0x7;
@@ -33,13 +34,17 @@ const LIFETIME_MASK: u128 = 0x1;
 const ID_MASK: u128 = 0xFFFF;
 /// Mask for the 31-bit stack count.
 const COUNT_MASK: u128 = 0x7FFFFFFF;
-/// Mask for the 8-bit instance slot.
-const SLOT_MASK: u128 = 0xFF;
 /// Mask for the single-bit "has receiver" flag.
 const HAS_RECEIVER_MASK: u128 = 0x1;
 /// Mask for the 32-bit `last_clock` field. Its all-ones value is the `u32::MAX`
-/// "no timer" sentinel. Bits `95..128` of the `u128` are reserved (unused).
+/// "no timer" sentinel.
 const LAST_CLOCK_MASK: u128 = 0xFFFFFFFF;
+/// Mask for the 32-bit serial. Bits `119..128` of the `u128` are reserved (unused).
+const SERIAL_MASK: u128 = 0xFFFFFFFF;
+
+/// Set in every [`oid`](Obj::oid). A zone keys its queued events by oid for
+/// objs and by lid for locs, and a lid never has this bit.
+const OID_TAG: u64 = 1 << 63;
 
 /// A ground object (item on the floor) in the game world.
 ///
@@ -56,7 +61,7 @@ const LAST_CLOCK_MASK: u128 = 0xFFFFFFFF;
 /// [`Zone`](crate::zone::Zone) keeps the actual receiver in a side map keyed by
 /// [`oid`](Self::oid). Public objs never touch that map.
 ///
-/// `last_clock` is a `u32` packed into bits `63..95` (a tick clock; the engine
+/// `last_clock` is a `u32` packed into bits `55..87` (a tick clock; the engine
 /// clock is `u32`). Its all-ones value is the `u32::MAX` "no timer" sentinel.
 ///
 /// Packed layout (bit offsets):
@@ -65,10 +70,10 @@ const LAST_CLOCK_MASK: u128 = 0xFFFFFFFF;
 /// - `6`       lifetime
 /// - `7..23`   obj type id (16 bits)
 /// - `23..54`  stack count (31 bits)
-/// - `54..62`  instance slot (8 bits)
-/// - `62`      has_receiver flag
-/// - `63..95`  last_clock (32 bits)
-/// - `95..128` reserved
+/// - `54`      has_receiver flag
+/// - `55..87`  last_clock (32 bits)
+/// - `87..119` serial (32 bits)
+/// - `119..128` reserved
 #[derive(Debug, Clone, Copy)]
 pub struct Obj(u128);
 
@@ -168,26 +173,35 @@ impl Obj {
             | (((count as u128) & COUNT_MASK) << COUNT_SHIFT);
     }
 
-    /// Returns this obj's instance slot.
-    ///
-    /// The slot disambiguates objs that share the same tile and type id within a
-    /// zone (two identical non-stackable drops, or two players' private stacks of
-    /// the same item), so [`oid`](Self::oid) is unique per obj within its zone. The
-    /// zone assigns it when the obj is inserted; it is `0` until then and never
-    /// changes afterward.
+    /// Returns this obj's [`ObjSerial`], given by the zone when it was inserted.
     #[inline(always)]
-    pub const fn slot(&self) -> u8 {
-        ((self.0 >> SLOT_SHIFT) & SLOT_MASK) as u8
+    pub const fn serial(&self) -> ObjSerial {
+        ObjSerial::from_packed(((self.0 >> SERIAL_SHIFT) & SERIAL_MASK) as u32)
     }
 
-    /// Sets this obj's instance slot.
-    ///
-    /// Called by the zone when the obj is inserted, to give it a slot unused by
-    /// any other obj sharing its tile and id. See [`slot`](Self::slot).
+    /// Sets this obj's serial. See [`serial`](Self::serial).
     #[inline(always)]
-    pub const fn set_slot(&mut self, slot: u8) {
-        self.0 =
-            (self.0 & !(SLOT_MASK << SLOT_SHIFT)) | (((slot as u128) & SLOT_MASK) << SLOT_SHIFT);
+    pub const fn set_serial(&mut self, serial: ObjSerial) {
+        self.0 = (self.0 & !(SERIAL_MASK << SERIAL_SHIFT))
+            | (((serial.packed() as u128) & SERIAL_MASK) << SERIAL_SHIFT);
+    }
+
+    /// Returns whether this obj is on the floor: a dropped obj until it is
+    /// removed, a respawning one unless it was taken and hasn't come back yet.
+    ///
+    /// The clock doesn't come into it. A drop due to despawn this tick stays
+    /// until the zone phase removes it, after the players have had their turn.
+    #[inline(always)]
+    pub const fn is_active(&self) -> bool {
+        matches!(self.lifetime(), EntityLifeTime::Despawn) || self.last_clock() == u32::MAX
+    }
+
+    /// Returns whether this obj can be seen, counted or taken at all: on the
+    /// floor with something in the stack. Who may see a private one is the
+    /// zone's to check.
+    #[inline(always)]
+    pub const fn is_valid(&self) -> bool {
+        self.is_active() && self.count() > 0
     }
 
     /// Returns whether this obj is privately owned (visible to a single receiver).
@@ -249,18 +263,14 @@ impl Obj {
 
     /// Returns a unique identifier for this object within its zone.
     ///
-    /// Composed of the local x and z coordinates (3 bits each), the obj type id
-    /// (16 bits), and the instance [`slot`](Self::slot) (8 bits), packed into a
-    /// `u64` (30 bits used). Because the zone gives each obj the lowest free slot
-    /// among objs sharing its tile and id, every obj in a zone -- stackable or not,
-    /// public or private -- gets a distinct oid. Used as the entity key for zone
-    /// event dedup/cancellation and for the zone's receiver side map.
+    /// It is the obj's [`serial`](Self::serial) with a tag bit set, so it never
+    /// equals a loc's [`lid`](crate::Loc::lid). A serial isn't handed out twice,
+    /// so neither is an oid, even to another obj dropped where this one lay.
+    /// Used as the entity key for zone event dedup/cancellation and for the
+    /// zone's receiver side map.
     #[inline(always)]
     pub const fn oid(&self) -> u64 {
-        ((self.local_x() as u64) << LOCAL_X_SHIFT)
-            | ((self.local_z() as u64) << LOCAL_Z_SHIFT)
-            | ((self.id() as u64) << 6)
-            | ((self.slot() as u64) << 22)
+        OID_TAG | self.serial().packed() as u64
     }
 
     /// Returns the local zone-relative coordinate packed into a single byte.

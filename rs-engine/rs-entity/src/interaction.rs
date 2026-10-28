@@ -1,6 +1,7 @@
 use rs_grid::CoordGrid;
 use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_vm::ObjSerial;
 use rs_vm::trigger::ServerTriggerType;
 
 /// Represents the target of an entity's interaction action.
@@ -11,11 +12,12 @@ use rs_vm::trigger::ServerTriggerType;
 /// range, pathfinding, and which script triggers fire.
 #[derive(Debug, Clone, Copy)]
 pub enum InteractionTarget {
-    /// A ground object target, identified by its coordinate, type id, and stack count.
+    /// A ground object target, identified by its coordinate, type id, and the
+    /// serial of the exact obj that was clicked.
     Obj {
         coord: CoordGrid,
         id: u16,
-        count: u32,
+        serial: ObjSerial,
     },
     /// A placed location target, identified by its coordinate, type id, dimensions,
     /// shape, angle, and layer.
@@ -258,7 +260,7 @@ mod tests {
         InteractionTarget::Obj {
             coord: CoordGrid::new(x, 0, z),
             id: 100,
-            count: 1,
+            serial: ObjSerial::FIRST,
         }
     }
 
