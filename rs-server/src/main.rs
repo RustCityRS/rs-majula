@@ -33,7 +33,9 @@ use watch::{Receiver, Sender, channel};
 
 use crossterm::execute;
 use crossterm::terminal::{LeaveAlternateScreen, disable_raw_mode};
+use libmimalloc_sys::mi_option_t;
 use mimalloc::MiMalloc;
+use std::ffi::c_long;
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use time::MissedTickBehavior;
 
@@ -51,6 +53,24 @@ static GLOBAL: MiMalloc = MiMalloc;
 
 fn release_freed_memory() {
     unsafe { libmimalloc_sys::mi_collect(true) };
+}
+
+/// mimalloc's `mi_option_purge_delay`; libmimalloc-sys has no constant for it.
+const PURGE_DELAY: mi_option_t = 15;
+
+/// Makes mimalloc give freed pages back to the OS at once, for the boot. The
+/// pack and the map load free hundreds of MB, and with the usual delay about
+/// 10 MB of it is never given back. Returns the delay to restore.
+fn purge_freed_at_once() -> c_long {
+    let delay = unsafe { libmimalloc_sys::mi_option_get(PURGE_DELAY) };
+    unsafe { libmimalloc_sys::mi_option_set(PURGE_DELAY, 0) };
+    delay
+}
+
+/// Puts the delay back once booted, so the churn of every tick isn't
+/// decommitted and committed again.
+fn restore_purge_delay(delay: c_long) {
+    unsafe { libmimalloc_sys::mi_option_set(PURGE_DELAY, delay) };
 }
 
 #[cfg(target_os = "linux")]
@@ -667,6 +687,7 @@ async fn bootstrap(
     let metrics_stats = stats_tx.subscribe();
     let admin_stats = stats_tx.subscribe();
 
+    let purge_delay = purge_freed_at_once();
     // Before the pack churns the heap: see init_collision.
     rs_engine::init_collision();
     info!("Compiling content assets & building cache...");
@@ -802,6 +823,7 @@ async fn bootstrap(
     );
 
     release_freed_memory();
+    restore_purge_delay(purge_delay);
 
     let (admin_tx, admin_rx) = unbounded_channel();
     tokio::spawn(engine_tick(
