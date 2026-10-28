@@ -240,18 +240,16 @@ pub struct ObjDelayedRequest {
 /// - `Some(None)` -- profile was fetched but does not exist (new player).
 /// - `Some(Some(..))` -- profile was fetched and contains saved data.
 pub struct PendingLogin {
+    pub id: u32,
     pub user37: u64,
     pub request: LoginRequest,
     pub clock: u32,
     pub ether_allowed: bool,
     pub auth: Option<StaffModLevel>,
-    /// When the player's chat mute ends, set with `auth`.
     pub muted_until: Option<Instant>,
-    /// Their unread Message Centre messages, set with `auth`.
     pub unread_messages: u16,
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
-    /// The sessions the player played over the last week, set with `auth`.
     pub played: Vec<rs_db::PlayedSession>,
 }
 
@@ -266,7 +264,6 @@ pub struct LogoutSave {
 /// [`LoginResponse::TooManyAttempts`] lockout.
 pub struct LoginFailures {
     pub count: u8,
-    /// Clock of the most recent failure; the lockout runs from here.
     pub last: u32,
 }
 
@@ -578,12 +575,12 @@ pub struct Engine {
     pub db_ready: bool,
     pub ether_ready: bool,
     pub pending_logins: Vec<PendingLogin>,
+    pub next_login_id: u32,
     pub login_failures: FxHashMap<IpAddr, LoginFailures>,
     pub logout_saves: FxHashMap<u64, LogoutSave>,
     pub offline_edits: FxHashSet<u64>,
     pub db_lease: Option<Instant>,
     pub logs: LogBatch,
-    /// Script errors gathered for the next [`LogBatch`].
     pub script_errors: ScriptErrors,
     pub random: JavaRandom,
     pub vars: VarSet,
@@ -734,6 +731,7 @@ impl Engine {
             db_ready: false,
             ether_ready: false,
             pending_logins: Vec::new(),
+            next_login_id: 0,
             login_failures: FxHashMap::default(),
             logout_saves: FxHashMap::default(),
             offline_edits: FxHashSet::default(),
@@ -3187,6 +3185,7 @@ impl Engine {
                 && let Some(tx) = &self.db_tx
             {
                 let _ = tx.send(DbRequest::Load {
+                    login: pending.id,
                     user37: pending.user37,
                 });
                 self.pending_logins[idx].claim_sent = true;

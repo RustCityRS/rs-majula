@@ -12,10 +12,11 @@ use rs_db::{
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 use std::net::IpAddr;
 use std::path::Path;
+use std::sync::Arc;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
-use tokio::sync::oneshot;
-use tokio::task::JoinHandle;
+use tokio::sync::{Semaphore, oneshot};
+use tokio::task::{JoinHandle, JoinSet, spawn_blocking};
 use tokio::time::{Duration, sleep, timeout};
 use tracing::{error, info, warn};
 
@@ -38,6 +39,16 @@ pub const DB_FENCE: Duration = Duration::from_secs(30);
 
 const _: () = assert!(DB_FENCE.as_secs() * 2 <= TAKEOVER_AFTER_SECS as u64);
 
+/// Password checks a world runs at once. Each is an argon2 hash, slow by
+/// design, on a blocking thread. The cores belong to the game loops, so a
+/// flood of guesses gets one.
+const MAX_AUTH_RUNNING: usize = 1;
+
+/// Logins that may wait for a password check. Past that the world is being
+/// flooded with them, and a login is turned away at once
+/// ([`AuthResult::Busy`]) rather than left to time out.
+const MAX_AUTH_WAITING: usize = 32;
+
 /// Settings for [`db_client_task`].
 pub struct DbClientConfig {
     pub db: DbConfig,
@@ -53,6 +64,7 @@ pub struct DbClientConfig {
 /// A request sent from the engine to the database client task.
 pub enum DbRequest {
     Authenticate {
+        login: u32,
         user37: u64,
         password: Box<str>,
         ip: IpAddr,
@@ -67,6 +79,7 @@ pub enum DbRequest {
         logout: bool,
     },
     Load {
+        login: u32,
         user37: u64,
     },
     Release {
@@ -166,19 +179,15 @@ pub enum AuthResult {
         staff_mod_level: u8,
         muted_for: Option<Duration>,
         left_other_world: Option<Duration>,
-        /// How long ago the account was registered.
         account_age: Duration,
-        /// Unread Message Centre messages, for the welcome screen.
         unread_messages: u16,
-        /// The sessions it played over the last week, for the anti-cheat's
-        /// schedule check.
         played: Vec<PlayedSession>,
     },
     InvalidCredentials,
     Banned,
     TooManyAttempts,
-    /// Another account is online from the same browser.
     MultiLogging,
+    Busy,
 }
 
 /// Where a [`DbRequest::Save`] ended up.
@@ -202,17 +211,17 @@ pub enum DbResponse {
     DbReady,
     DbDisconnected,
     AuthResponse {
-        user37: u64,
+        login: u32,
         result: AuthResult,
     },
     SaveAck {
         user37: u64,
         username: String,
         outcome: SaveOutcome,
-        /// Echoes [`DbRequest::Save::logout`].
         logout: bool,
     },
     LoadResponse {
+        login: u32,
         user37: u64,
         result: LoadResult,
     },
@@ -222,19 +231,13 @@ pub enum DbResponse {
     Lease {
         at: Instant,
     },
-    /// A [`DbRequest::Mute`] took: the player is muted for `remaining`.
     Muted {
         user37: u64,
         remaining: Duration,
     },
-    /// The mute and ban of each online player, as of a
-    /// [`DbRequest::WorldStatus`]: how long is left on a mute (`None` while not
-    /// muted), and whether they are banned. Carries what was done elsewhere
-    /// (another world, or by hand in the database).
     Sanctions {
         players: Vec<(u64, Option<Duration>, bool)>,
     },
-    /// How a [`DbRequest::Moderate`] went.
     Moderated {
         moderator37: u64,
         target37: u64,
@@ -247,9 +250,7 @@ pub enum DbResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ModOutcome {
     Done,
-    /// No such player, or they are staff of the moderator's level or above.
     Refused,
-    /// The database was unreachable.
     Offline,
 }
 
@@ -441,7 +442,8 @@ async fn prepare_schema(db: &Db, auto_migrate: bool) -> Result<(), String> {
 /// the first connect ends every session a previous run of this world left
 /// claimed. It then signals readiness via [`DbResponse::DbReady`] and serves
 /// requests in order. Requests are handled one at a time so a player's save
-/// always lands before a later load or claim.
+/// always lands before a later load or claim; only password checks run
+/// beside them (see [`run_requests`]).
 ///
 /// If a query fails, a [`DbResponse::DbDisconnected`] is sent and the task
 /// reconnects.
@@ -453,7 +455,7 @@ pub async fn db_client_task(
     mut request_rx: UnboundedReceiver<DbRequest>,
     response_tx: UnboundedSender<DbResponse>,
 ) {
-    let passwords = Passwords::new(&config.pepper);
+    let passwords = Arc::new(Passwords::new(&config.pepper));
     let mut backoff = Duration::from_secs(1);
     let max_backoff = Duration::from_secs(30);
     let mut first_connect = true;
@@ -461,7 +463,8 @@ pub async fn db_client_task(
     let _pruner = AbortOnDrop(tokio::spawn(prune_logs_task(config.db.clone())));
 
     loop {
-        let delay = match Db::connect(&config.db, 2).await {
+        // The password checks query beside the requests in order.
+        let delay = match Db::connect(&config.db, 2 + MAX_AUTH_RUNNING as u32).await {
             Ok(db) => match serve(
                 &db,
                 &passwords,
@@ -529,7 +532,7 @@ enum Served {
 /// moment it accepts logins.
 async fn serve(
     db: &Db,
-    passwords: &Passwords,
+    passwords: &Arc<Passwords>,
     config: &DbClientConfig,
     first_connect: &mut bool,
     lease: &mut Option<AbortOnDrop>,
@@ -750,6 +753,13 @@ async fn sync_local_save(
 ///
 /// On save failure, falls back to writing a local `.sav` file.
 ///
+/// Password checks run beside the other requests, so a flood of logins
+/// never holds up a save: [`MAX_AUTH_RUNNING`] at once, [`MAX_AUTH_WAITING`]
+/// more queued, and any login past those answered [`AuthResult::Busy`] at
+/// once. Nothing needs them in order: a login's claim is only sent once its
+/// check is answered, and every request before the check was handled before
+/// it started.
+///
 /// # Returns
 /// `Ok(())` when the channel closes, or the database error that caused the
 /// connection to be considered lost. A request that hits an error gets no
@@ -760,35 +770,69 @@ async fn sync_local_save(
 /// **Calls:** [`authenticate`], [`claim`]
 async fn run_requests(
     db: &Db,
-    passwords: &Passwords,
+    passwords: &Arc<Passwords>,
     config: &DbClientConfig,
     request_rx: &mut UnboundedReceiver<DbRequest>,
     response_tx: &UnboundedSender<DbResponse>,
 ) -> Result<(), rs_db::Error> {
     let node_id = i16::from(config.node_id);
-    while let Some(req) = request_rx.recv().await {
+    let running = Arc::new(Semaphore::new(MAX_AUTH_RUNNING));
+    // Dropped with the connection, abandoning the checks still in it.
+    let mut auths = JoinSet::<Result<(), rs_db::Error>>::new();
+    loop {
+        let req = tokio::select! {
+            req = request_rx.recv() => match req {
+                Some(req) => req,
+                None => return Ok(()),
+            },
+            Some(done) = auths.join_next() => {
+                match done {
+                    // A failed query loses the connection, as in order.
+                    Ok(result) => result?,
+                    // Its login times out.
+                    Err(e) => error!("Password check died: {}", e),
+                }
+                continue;
+            }
+        };
         match req {
             DbRequest::Authenticate {
+                login,
                 user37,
                 password,
                 ip,
                 uid,
                 device,
             } => {
-                let result = authenticate(
-                    db,
-                    passwords,
-                    config.auto_register,
-                    config.block_multilog,
-                    config.node_id,
-                    user37,
-                    &password,
-                    ip,
-                    uid,
-                    &device,
-                )
-                .await?;
-                let _ = response_tx.send(DbResponse::AuthResponse { user37, result });
+                if auths.len() >= MAX_AUTH_RUNNING + MAX_AUTH_WAITING {
+                    let result = AuthResult::Busy;
+                    let _ = response_tx.send(DbResponse::AuthResponse { login, result });
+                    continue;
+                }
+                let db = db.clone();
+                let passwords = passwords.clone();
+                let running = running.clone();
+                let response_tx = response_tx.clone();
+                let (auto_register, block_multilog, node) =
+                    (config.auto_register, config.block_multilog, config.node_id);
+                auths.spawn(async move {
+                    let _turn = running.acquire_owned().await;
+                    let result = authenticate(
+                        &db,
+                        &passwords,
+                        auto_register,
+                        block_multilog,
+                        node,
+                        user37,
+                        &password,
+                        ip,
+                        uid,
+                        &device,
+                    )
+                    .await?;
+                    let _ = response_tx.send(DbResponse::AuthResponse { login, result });
+                    Ok(())
+                });
             }
             DbRequest::Save {
                 user37,
@@ -831,9 +875,13 @@ async fn run_requests(
                 });
                 result?;
             }
-            DbRequest::Load { user37 } => {
+            DbRequest::Load { login, user37 } => {
                 let result = claim(db, config.node_id, user37).await?;
-                let _ = response_tx.send(DbResponse::LoadResponse { user37, result });
+                let _ = response_tx.send(DbResponse::LoadResponse {
+                    login,
+                    user37,
+                    result,
+                });
             }
             DbRequest::EditLoad { user37, reply } => {
                 let _ = reply.send(claim(db, config.node_id, user37).await?);
@@ -1013,7 +1061,6 @@ async fn run_requests(
             }
         }
     }
-    Ok(())
 }
 
 /// Claims a player's session for this world and loads their profile.
@@ -1087,7 +1134,7 @@ async fn claim(db: &Db, node_id: u8, user37: u64) -> Result<LoadResult, rs_db::E
 /// **Called by:** [`run_requests`]
 async fn authenticate(
     db: &Db,
-    passwords: &Passwords,
+    passwords: &Arc<Passwords>,
     auto_register: bool,
     block_multilog: bool,
     node_id: u8,
@@ -1106,7 +1153,7 @@ async fn authenticate(
     }
 
     if let Some(creds) = db.find_credentials(user37, node_id.into()).await? {
-        if !passwords.verify(password, &creds.password_hash) {
+        if !verify_password(passwords, password, &creds.password_hash).await {
             db.record_login_failure(ip).await?;
             return Ok(AuthResult::InvalidCredentials);
         }
@@ -1184,7 +1231,7 @@ async fn authenticate(
         );
         return Ok(AuthResult::MultiLogging);
     }
-    let Some(password_hash) = passwords.hash(password) else {
+    let Some(password_hash) = hash_password(passwords, password).await else {
         error!("Failed to hash password for user37={}", user37);
         return Ok(AuthResult::InvalidCredentials);
     };
@@ -1224,6 +1271,24 @@ async fn authenticate(
         unread_messages: 0,
         played: Vec::new(),
     })
+}
+
+/// [`Passwords::verify`] on a blocking thread: argon2 is slow by design, and
+/// would stall the async threads. A check that panics fails.
+async fn verify_password(passwords: &Arc<Passwords>, password: &str, stored: &str) -> bool {
+    let (passwords, password, stored) = (passwords.clone(), password.to_owned(), stored.to_owned());
+    spawn_blocking(move || passwords.verify(&password, &stored))
+        .await
+        .unwrap_or(false)
+}
+
+/// [`Passwords::hash`] on a blocking thread, as [`verify_password`].
+async fn hash_password(passwords: &Arc<Passwords>, password: &str) -> Option<String> {
+    let (passwords, password) = (passwords.clone(), password.to_owned());
+    spawn_blocking(move || passwords.hash(&password))
+        .await
+        .ok()
+        .flatten()
 }
 
 /// A database millisecond count as a [`Duration`], clamping negatives to zero.
@@ -1383,7 +1448,7 @@ mod tests {
     const AUTH_PEPPER: &str = "pepper";
 
     async fn auth(db: &Db, auto_register: bool, name: &str, password: &str) -> AuthResult {
-        let passwords = Passwords::new(AUTH_PEPPER);
+        let passwords = Arc::new(Passwords::new(AUTH_PEPPER));
         authenticate(
             db,
             &passwords,
@@ -1530,14 +1595,19 @@ mod tests {
             }
         }
 
-        async fn auth(&mut self) -> AuthResult {
+        fn send_auth(&self, login: u32) {
             let _ = self.tx.send(DbRequest::Authenticate {
+                login,
                 user37: to_userhash(HOPPER),
                 password: "secret".into(),
                 ip: [198, 51, 100, 1].into(),
                 uid: None,
                 device: Box::default(),
             });
+        }
+
+        async fn auth(&mut self) -> AuthResult {
+            self.send_auth(0);
             match self.next().await {
                 DbResponse::AuthResponse { result, .. } => result,
                 _ => panic!("expected an auth response"),
@@ -1546,6 +1616,7 @@ mod tests {
 
         async fn load(&mut self) -> LoadResult {
             let _ = self.tx.send(DbRequest::Load {
+                login: 0,
                 user37: to_userhash(HOPPER),
             });
             match self.next().await {
@@ -1554,7 +1625,7 @@ mod tests {
             }
         }
 
-        async fn save(&mut self, x: i16, logout: bool) -> SaveOutcome {
+        fn send_save(&self, x: i16, logout: bool) {
             let profile = profile_from_save(PlayerSave {
                 x,
                 ..PlayerSave::default()
@@ -1566,6 +1637,10 @@ mod tests {
                 binary: Vec::new(),
                 logout,
             });
+        }
+
+        async fn save(&mut self, x: i16, logout: bool) -> SaveOutcome {
+            self.send_save(x, logout);
             match self.next().await {
                 DbResponse::SaveAck { outcome, .. } => outcome,
                 _ => panic!("expected a save ack"),
@@ -1583,13 +1658,7 @@ mod tests {
                 held: Vec::new(),
             });
             let mut lost = Vec::new();
-            let _ = self.tx.send(DbRequest::Authenticate {
-                user37: to_userhash(HOPPER),
-                password: "secret".into(),
-                ip: [198, 51, 100, 1].into(),
-                uid: None,
-                device: Box::default(),
-            });
+            self.send_auth(0);
             loop {
                 match self.next().await {
                     DbResponse::SessionsLost { users37 } => lost = users37,
@@ -1704,6 +1773,55 @@ mod tests {
                 .any(|w| w.node_id == 2)
         );
         assert_eq!(loaded_x(one.load().await), Some(3200));
+    }
+
+    /// A flood of logins never holds up a save, and a login past the queue
+    /// is turned away at once.
+    #[sqlx::test(migrator = "rs_db::MIGRATOR")]
+    #[ignore = "needs DATABASE_URL"]
+    async fn login_flood_spares_saves(pool: sqlx::PgPool) {
+        let db = Db::from_pool(pool.clone());
+        let hash = Passwords::new(AUTH_PEPPER).hash("secret").unwrap();
+        db.create_player(&NewPlayer {
+            name_hash: to_userhash(HOPPER),
+            display_name: "Hopper",
+            password_hash: &hash,
+            staff_mod_level: 0,
+            registration_ip: None,
+        })
+        .await
+        .unwrap();
+
+        let mut world = World::start(&pool, 1).await;
+        assert!(matches!(world.auth().await, AuthResult::Accepted { .. }));
+        assert_eq!(loaded_x(world.load().await), Some(0));
+
+        let flood = (MAX_AUTH_RUNNING + MAX_AUTH_WAITING + 1) as u32;
+        for login in 1..=flood {
+            world.send_auth(login);
+        }
+        world.send_save(3100, false);
+        let mut checked = 0;
+        let mut busy = Vec::new();
+        loop {
+            match world.next().await {
+                DbResponse::AuthResponse {
+                    login,
+                    result: AuthResult::Busy,
+                } => busy.push(login),
+                DbResponse::AuthResponse { .. } => checked += 1,
+                DbResponse::SaveAck { outcome, .. } => {
+                    assert_eq!(outcome, SaveOutcome::Stored);
+                    break;
+                }
+                _ => panic!("unexpected response"),
+            }
+        }
+        assert_eq!(busy, [flood]);
+        assert!(
+            checked < flood - 1,
+            "the save waited on all {checked} password checks"
+        );
     }
 
     /// With the database down, the task must still finish once the engine

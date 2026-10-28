@@ -38,8 +38,8 @@ impl Engine {
     ///   resends any logout save that failed while it was away.
     /// * `DbDisconnected` -- marks the database as unavailable, rejects
     ///   all pending logins with [`LoginResponse::LoginServerOffline`].
-    /// * `AuthResponse` -- completes authentication for a pending login.
-    ///   On success, records the player's staff level and attempts
+    /// * `AuthResponse` -- completes authentication for the pending login
+    ///   it names. On success, records the player's staff level and attempts
     ///   completion. A wrong password or unknown name rejects with
     ///   [`LoginResponse::InvalidCredentials`] and counts toward the IP's
     ///   [`LoginResponse::TooManyAttempts`] lockout, which the database also
@@ -49,7 +49,8 @@ impl Engine {
     ///   `LoginResponse::ProfileTransfer` and the seconds left, which the
     ///   client counts down before retrying on its own. During a lockdown
     ///   (see [`crate::controls`]) an account too new is rejected with
-    ///   [`LoginResponse::CouldNotComplete`].
+    ///   [`LoginResponse::CouldNotComplete`], as is a login the world had no
+    ///   room to check while flooded with them.
     /// * `LoadResponse` -- the session claim's outcome: attaches the loaded
     ///   profile and attempts completion, or rejects with
     ///   [`LoginResponse::AlreadyLoggedIn`] when another world owns the
@@ -103,8 +104,8 @@ impl Engine {
                         self.reject_pending_login(idx, LoginResponse::LoginServerOffline);
                     }
                 }
-                DbResponse::AuthResponse { user37, result } => {
-                    if let Some(idx) = self.pending_logins.iter().position(|p| p.user37 == user37) {
+                DbResponse::AuthResponse { login, result } => {
+                    if let Some(idx) = self.pending_logins.iter().position(|p| p.id == login) {
                         match result {
                             AuthResult::Accepted {
                                 staff_mod_level,
@@ -152,11 +153,18 @@ impl Engine {
                             AuthResult::MultiLogging => {
                                 self.reject_pending_login(idx, LoginResponse::TooManyConnections);
                             }
+                            AuthResult::Busy => {
+                                self.reject_pending_login(idx, LoginResponse::CouldNotComplete);
+                            }
                         }
                     }
                 }
-                DbResponse::LoadResponse { user37, result } => {
-                    let idx = self.pending_logins.iter().position(|p| p.user37 == user37);
+                DbResponse::LoadResponse {
+                    login,
+                    user37,
+                    result,
+                } => {
+                    let idx = self.pending_logins.iter().position(|p| p.id == login);
                     match (idx, result) {
                         (Some(idx), LoadResult::Loaded(profile)) => {
                             self.pending_logins[idx].profile = Some(profile.map(|p| *p));
