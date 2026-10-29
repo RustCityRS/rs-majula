@@ -72,22 +72,21 @@ impl WordEncProvider {
         let mut chars: Vec<char> = input.chars().collect();
         format_chars(&mut chars);
         let trimmed: String = chars.into_iter().collect::<String>().trim().to_string();
-        let lowercase = trimmed.to_lowercase();
-        let mut filtered: Vec<char> = lowercase.chars().collect();
+        let lowercase: Vec<char> = trimmed.to_lowercase().chars().collect();
+        let mut filtered = lowercase.clone();
 
         self.filter_tlds(&mut filtered);
         self.filter_bad_words(&mut filtered);
         self.filter_domains(&mut filtered);
         self.filter_fragments(&mut filtered);
 
+        // Matched by char, not byte: '£' and '€' are wider than one byte.
         for word in WHITELIST {
-            let mut offset = 0;
-            while let Some(pos) = lowercase[offset..].find(word) {
-                let abs_pos = offset + pos;
-                for (i, ch) in word.chars().enumerate() {
-                    filtered[abs_pos + i] = ch;
+            let word: Vec<char> = word.chars().collect();
+            for (start, window) in lowercase.windows(word.len()).enumerate() {
+                if window == word.as_slice() {
+                    filtered[start..start + word.len()].copy_from_slice(&word);
                 }
-                offset = abs_pos + 1;
             }
         }
 
@@ -1159,5 +1158,13 @@ mod tests {
     fn long_digit_run_does_not_panic() {
         let provider = empty_provider();
         assert_eq!(provider.filter("999999999999"), "999999999999");
+    }
+
+    #[test]
+    fn whitelist_after_wide_chars_does_not_panic() {
+        let provider = empty_provider();
+        assert_eq!(provider.filter("£cook"), "£cook");
+        assert_eq!(provider.filter("£5 cooks"), "£5 cooks");
+        assert_eq!(provider.filter("€€€ sheet"), "€€€ sheet");
     }
 }
