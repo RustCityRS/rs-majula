@@ -2991,6 +2991,7 @@ name = "rs-util"
 version = "0.1.22"
 dependencies = [
  "rs-ver",
+ "tokio",
 ]
 
 [[package]]
@@ -3037,6 +3038,7 @@ dependencies = [
  "rs-admin-api",
  "rs-db",
  "rs-pack",
+ "rs-util",
  "rs-ver",
  "serde",
  "serde_json",

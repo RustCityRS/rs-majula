@@ -11,6 +11,7 @@ use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
 use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
+use rs_util::os::{disable_huge_pages, raise_open_files, shutdown_signal};
 use std::collections::HashMap;
 use std::fs;
 use std::io::IsTerminal;
@@ -72,18 +73,6 @@ fn purge_freed_at_once() -> c_long {
 fn restore_purge_delay(delay: c_long) {
     unsafe { libmimalloc_sys::mi_option_set(PURGE_DELAY, delay) };
 }
-
-#[cfg(target_os = "linux")]
-fn disable_huge_pages() {
-    const PR_SET_THP_DISABLE: i32 = 41;
-    unsafe extern "C" {
-        fn prctl(option: i32, ...) -> i32;
-    }
-    unsafe { prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0) };
-}
-
-#[cfg(not(target_os = "linux"))]
-fn disable_huge_pages() {}
 
 #[cfg(debug_assertions)]
 const MAX_CONNECTIONS_PER_IP: usize = 4;
@@ -499,6 +488,7 @@ pub struct ServerIO {
 #[tokio::main]
 async fn main() -> Result<()> {
     disable_huge_pages();
+    raise_open_files();
     let _shutdown_guard = ShutdownGuard;
     let args = Args::parse();
 
@@ -590,27 +580,6 @@ async fn main() -> Result<()> {
         registry.with(tui_layer).init();
 
         run_with_tui(args, secrets, log_buf).await
-    }
-}
-
-/// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
-/// managers (systemd, Docker) stop a process with. Returns which one came.
-async fn shutdown_signal() -> &'static str {
-    #[cfg(unix)]
-    {
-        use tokio::signal::unix::{SignalKind, signal};
-        let mut term = signal(SignalKind::terminate()).expect("SIGTERM handler");
-        tokio::select! {
-            Ok(()) = tokio::signal::ctrl_c() => "Ctrl+C",
-            _ = term.recv() => "SIGTERM",
-        }
-    }
-    #[cfg(not(unix))]
-    {
-        if tokio::signal::ctrl_c().await.is_err() {
-            std::future::pending::<()>().await;
-        }
-        "Ctrl+C"
     }
 }
 

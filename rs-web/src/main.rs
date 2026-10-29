@@ -23,6 +23,7 @@ use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
 use clap::{Parser, Subcommand, ValueEnum};
 use rs_db::{Db, DbConfig, Passwords};
+use rs_util::os::{raise_open_files, shutdown_signal};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -103,6 +104,7 @@ enum Cmd {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    raise_open_files();
     let args = Args::parse();
     let logs = tracing_subscriber::fmt().with_env_filter(
         tracing_subscriber::EnvFilter::try_from_default_env()
@@ -262,25 +264,4 @@ async fn main() -> Result<()> {
     .await?;
     info!("Website stopped");
     Ok(())
-}
-
-/// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
-/// managers (systemd, Docker) stop a process with. Returns which one came.
-async fn shutdown_signal() -> &'static str {
-    #[cfg(unix)]
-    {
-        use tokio::signal::unix::{SignalKind, signal};
-        let mut term = signal(SignalKind::terminate()).expect("SIGTERM handler");
-        tokio::select! {
-            Ok(()) = tokio::signal::ctrl_c() => "Ctrl+C",
-            _ = term.recv() => "SIGTERM",
-        }
-    }
-    #[cfg(not(unix))]
-    {
-        if tokio::signal::ctrl_c().await.is_err() {
-            std::future::pending::<()>().await;
-        }
-        "Ctrl+C"
-    }
 }

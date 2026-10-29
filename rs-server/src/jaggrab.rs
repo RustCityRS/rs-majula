@@ -24,7 +24,8 @@ pub async fn serve(host: String, port: u16, cache: &'static CacheStore, guard: C
         let (stream, addr) = match listener.accept().await {
             Ok(conn) => conn,
             Err(e) => {
-                debug!("JAGGRAB accept error: {}", e);
+                warn!("JAGGRAB accept error: {e}");
+                tokio::time::sleep(Duration::from_millis(100)).await;
                 continue;
             }
         };

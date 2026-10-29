@@ -102,14 +102,14 @@ impl ClientGameHandler for InvButtonD {
         }
 
         if inventory.get(self.slot).is_none() {
-            let partial = &resync_partial_slots(&self, &inventory);
+            let partial = &resync_partial_slots(&self, inventory);
             active.update_inv_partial(self.com, partial);
             // return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
             return Ok(());
         }
 
         if delayed {
-            let partial = &resync_partial_slots(&self, &inventory);
+            let partial = &resync_partial_slots(&self, inventory);
             active.update_inv_partial(self.com, partial);
             return Ok(());
         }

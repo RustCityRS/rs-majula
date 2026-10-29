@@ -94,7 +94,8 @@ pub async fn serve(
         let (stream, addr) = match listener.accept().await {
             Ok(conn) => conn,
             Err(e) => {
-                debug!("HTTP accept error: {}", e);
+                warn!("HTTP accept error: {e}");
+                tokio::time::sleep(Duration::from_millis(100)).await;
                 continue;
             }
         };
