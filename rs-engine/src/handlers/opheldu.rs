@@ -57,8 +57,16 @@ impl ClientGameHandler for OpHeldU {
         }
 
         if self.com != self.com2 {
+            // Should this be an error?
             return Ok(());
         }
+
+        if self.slot == self.slot2 {
+            return Err(ScriptError::Client(format!(
+                "Slot used on itself: {}",
+                self.slot
+            )));
+        };
 
         let engine = engine();
         let interfaces = engine.interfaces();
