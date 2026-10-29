@@ -180,7 +180,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                 if key_exchanges > 3 {
                     bail!("{}: repeated session-key exchanges", client.addr);
                 }
-                let _login_server_node = buf.g1();
+                // Its second byte, the login server node, isn't used.
                 let mut resp = key_exchange_reply(PROCEED).to_vec();
                 resp.extend_from_slice(&make_seed().data);
                 client.write(&resp).await?;
@@ -215,8 +215,22 @@ fn client_uid(uid: i32) -> Option<i32> {
 }
 
 async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> anyhow::Result<()> {
-    let waiting = buf.g1();
-    if waiting != buf.len().saturating_sub(buf.pos) as u8 {
+    // `Packet` reads don't check bounds, so every length is checked before
+    // anything is read: past the end is UB, not a panic.
+    if buf.pos >= buf.len() || usize::from(buf.g1()) != buf.len() - buf.pos {
+        let _ = client.write(&[LoginResponse::Rejected as u8]).await;
+        bail!("{} Not enough bytes to read", client.addr);
+    }
+    // The version (1 byte, or 255 and 2), the info byte, the CRCs and the
+    // RSA block's length byte.
+    let head = if buf.data.get(buf.pos) == Some(&255) {
+        3
+    } else {
+        1
+    } + 1
+        + 9 * 4
+        + 1;
+    if buf.len() - buf.pos < head {
         let _ = client.write(&[LoginResponse::Rejected as u8]).await;
         bail!("{} Not enough bytes to read", client.addr);
     }
@@ -242,7 +256,19 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
             client.server_io.cache.crc_buffer32
         )
     }
+    if usize::from(buf.data[buf.pos]) > buf.len() - buf.pos - 1 {
+        let _ = client.write(&[LoginResponse::Rejected as u8]).await;
+        bail!("{} Not enough bytes to read", client.addr);
+    }
+    // The plaintext is written over the start of the buffer, and it can be
+    // as long as the modulus however short the ciphertext was.
+    let modulus = client.server_io.rsa.n.bits().div_ceil(8) as usize;
+    if buf.data.len() < modulus {
+        buf.data.resize(modulus, 0);
+    }
     buf.rsadec(RsaFrame::Byte, client.server_io.rsa);
+    // Two terminators after the plaintext stop both strings inside the buffer.
+    buf.data.extend_from_slice(b"\n\n");
     let magic = buf.g1();
     // Most likely a client from before a deploy changed the login key: it
     // needs reloading.
@@ -257,7 +283,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         let _ = client
             .write(&[LoginResponse::InvalidCredentials as u8])
             .await;
-        bail!("{}: Invalid username: {}", client.addr, username)
+        bail!("{}: Invalid username: {:?}", client.addr, username)
     }
     let password = buf.gjstr(10);
     if !rs_db::is_typeable_password(&password) {
