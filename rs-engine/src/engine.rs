@@ -2932,7 +2932,7 @@ impl Engine {
     ///
     /// - Sends `LoginResponse::Success` (or `WorldFull`) to the client.
     /// - Calls `add_player` and `on_login`.
-    /// - Sends `PlayerLogin` and `RequestLists` to ether.
+    /// - Sends `PlayerLogin`, `ChatModeUpdate` and `RequestLists` to ether.
     /// - Executes the `Login` trigger script.
     ///
     /// # Call Stack
@@ -3034,7 +3034,11 @@ impl Engine {
 
         let login_info = if let Some(active) = self.get_player_mut(pid) {
             active.on_login();
-            Some((active.uid().username37(), active.player.is_member))
+            Some((
+                active.uid().username37(),
+                active.player.is_member,
+                active.player.private as u8,
+            ))
         } else {
             None
         };
@@ -3046,12 +3050,18 @@ impl Engine {
             }
         }
 
-        if let (Some((user37, is_member)), Some(tx)) = (login_info, &self.ether_tx) {
+        if let (Some((user37, is_member, private_mode)), Some(tx)) = (login_info, &self.ether_tx) {
             let _ = tx.send(EtherOutbound::PlayerLogin {
                 user37,
                 pid,
                 max_friends: max_friends_cap(is_member),
                 ip: remote_ip.to_string(),
+            });
+            // Ether starts a session with private chat on; the saved mode has
+            // to reach it before the lists announce the player as online.
+            let _ = tx.send(EtherOutbound::ChatModeUpdate {
+                user37,
+                private_mode,
             });
             let _ = tx.send(EtherOutbound::RequestLists { user37 });
         }
