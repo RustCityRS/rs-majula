@@ -1,8 +1,10 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_ether::EtherOutbound;
+use crate::counters::AutoBan;
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::ignorelist_del::IgnoreListDel;
+use rs_util::base37::is_valid_userhash;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 
@@ -32,7 +34,22 @@ use rs_vm::engine::ScriptPlayer;
 /// **Calls:** `EtherOutbound::IgnoreDel` via channel send
 impl ClientGameHandler for IgnoreListDel {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let Some(tx) = &engine().ether_tx else {
+        let engine = engine();
+
+        // The client only sends names from the ignore list: a bad one means a
+        // modified client.
+        if !is_valid_userhash(self.user37 as u64) {
+            active.auto_ban(AutoBan::PrivateName);
+            return Ok(());
+        }
+
+        if !active.ignores.contains(&self.user37) {
+            return Ok(());
+        }
+
+        active.ignores.retain(|&i| i != self.user37);
+
+        let Some(tx) = &engine.ether_tx else {
             return Ok(());
         };
 

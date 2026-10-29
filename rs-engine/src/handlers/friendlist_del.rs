@@ -1,8 +1,10 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_ether::EtherOutbound;
+use crate::counters::AutoBan;
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::friendlist_del::FriendListDel;
+use rs_util::base37::is_valid_userhash;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 
@@ -33,7 +35,23 @@ use rs_vm::engine::ScriptPlayer;
 /// **Calls:** `EtherOutbound::FriendDel` via channel send
 impl ClientGameHandler for FriendListDel {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let Some(tx) = &engine().ether_tx else {
+        let engine = engine();
+
+        // The client only sends names from the friend list: a bad one means a
+        // modified client.
+        if !is_valid_userhash(self.user37 as u64) {
+            active.auto_ban(AutoBan::PrivateName);
+            return Ok(());
+        }
+
+        if !active.friends.contains(&self.user37) {
+            return Ok(());
+        }
+
+        // The client drops the name from its own list as it sends this.
+        active.friends.retain(|&f| f != self.user37);
+
+        let Some(tx) = &engine.ether_tx else {
             return Ok(());
         };
 

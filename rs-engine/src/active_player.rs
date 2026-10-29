@@ -169,6 +169,8 @@ pub struct ActivePlayer {
     pub unread_messages: u16,
     pub last_report: Option<u32>,
     pub last_social: Option<u32>,
+    pub friends: Vec<i64>,
+    pub ignores: Vec<i64>,
     pub watch: Box<Watch>,
     pub(crate) capture: Option<Vec<Vec<u8>>>,
 }
@@ -218,6 +220,8 @@ impl ActivePlayer {
             unread_messages: 0,
             last_report: None,
             last_social: None,
+            friends: Vec::new(),
+            ignores: Vec::new(),
             watch: Box::default(),
             capture: None,
         }

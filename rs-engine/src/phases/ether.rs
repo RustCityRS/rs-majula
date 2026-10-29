@@ -53,8 +53,12 @@ impl Engine {
                     if let Some(pid) = self.find_pid_by_user37(target37)
                         && let Some(active) = self.get_player_mut(pid)
                     {
+                        let friend37 = friend37 as i64;
+                        if !active.friends.contains(&friend37) {
+                            active.friends.push(friend37);
+                        }
                         active.write(UpdateFriendList {
-                            user37: friend37 as i64,
+                            user37: friend37,
                             node,
                         });
                     }
@@ -65,6 +69,7 @@ impl Engine {
                     {
                         let signed: Vec<i64> = users37.iter().map(|&h| h as i64).collect();
                         active.write(UpdateIgnoreList { users37: &signed });
+                        active.ignores = signed;
                     }
                 }
                 EtherInbound::MessagePrivate {
