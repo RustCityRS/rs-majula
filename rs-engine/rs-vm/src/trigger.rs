@@ -189,8 +189,7 @@ impl ServerTriggerType {
     ///
     /// # Returns
     /// `true` for all `Op*U` and `Ap*U` triggers, `false` otherwise.
-    #[allow(unused)]
-    pub(crate) fn allows_last_use(self) -> bool {
+    pub fn allows_last_use(self) -> bool {
         matches!(
             self,
             Self::OpHeldU

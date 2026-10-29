@@ -29,7 +29,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// # Side Effects
 ///
 /// * Clears pending action and unsets the map flag on early exit conditions.
-/// * Sets `last_use_item` and `last_use_slot` on the player.
+/// * Sets `last_use_item`, `last_use_slot` and `last_use_com` on the player.
 /// * Sets up an `InteractionTarget::Player` interaction with approach mode, records
 ///   the used object as the interaction subject, and sets `opcalled`.
 ///
@@ -72,6 +72,7 @@ impl ClientGameHandler for OpPlayerU {
 
         active.player.last_use_item = Some(self.obj);
         active.player.last_use_slot = Some(self.slot);
+        active.player.last_use_com = Some(self.com);
 
         active.player.set_interaction(
             InteractionTarget::Player { pid: self.pid },

@@ -1,6 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::Engine;
 use crate::engine::{engine, engine_mut};
+use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::phases::shared::EntityId;
 use rs_entity::MoveSpeed;
 use rs_entity::interaction::InteractionTarget;
@@ -703,10 +704,10 @@ impl Engine {
     }
 
     /// Validates that the player's current interaction target still exists and
-    /// is on the same level.
+    /// is on the same level, and that an item used on it is still held.
     ///
     /// Delegates to the shared [`entity_validate_target`] with the player's
-    /// current Y-level and username hash.
+    /// current Y-level and username hash, then [`use_item_held`].
     ///
     /// # Safety Note
     ///
@@ -727,7 +728,35 @@ impl Engine {
             None,
             Some(active.uid().username37()),
             false,
-        )
+        ) && Self::use_item_held(active)
+    }
+
+    /// Returns `false` when an `Ap*U` interaction's item is no longer at
+    /// `last_useslot`.
+    ///
+    /// The `*U` handlers check the item only when the packet arrives. The
+    /// client can still drag it to another slot (`InvButtonD`) while the player
+    /// walks over, and the script would then act on whatever is in that slot.
+    #[inline(always)]
+    fn use_item_held(active: &mut ActivePlayer) -> bool {
+        let uses_item = active
+            .player
+            .interaction
+            .target_op
+            .and_then(|op| ServerTriggerType::try_from(op).ok())
+            .is_some_and(ServerTriggerType::allows_last_use);
+        if !uses_item {
+            return true;
+        }
+        let player = &active.player;
+        let (Some(com), Some(slot), Some(obj)) = (
+            player.last_use_com,
+            player.last_use_slot,
+            player.last_use_item,
+        ) else {
+            return false;
+        };
+        check_held(active, com, slot, obj) == HeldCheck::Ok
     }
 
     /// Resolves the RuneScript trigger for the player's current interaction
