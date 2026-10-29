@@ -5474,9 +5474,10 @@ save-file fidelity.
 `ScriptSubject` (`subject.rs:15`) is the tagged sum the engine hands to `ScriptState::init` —
 `Player(PlayerUid)`, `Npc(NpcUid)`, `Loc(LocRef)`, `Obj(ObjRef)` — translated into the
 appropriate active-entity slot by the subject/target binding logic of §3.4.
-`LocRef`/`ObjRef`/`NpcRef` (`state.rs:1139`–`1167`) are the small `Copy` snapshot structs
-(`coord`, `id`, plus shape/angle/layer or count/size) that opcodes read; they are captured
-into the active slots and into iterator result sets.
+`LocRef`/`ObjRef`/`NpcRef` (`state.rs`) are the small `Copy` structs that opcodes read; they
+are captured into the active slots and into iterator result sets. `LocRef` and `ObjRef` name one
+entity by its tile and the serial its zone gave it (plus the layer for a loc), so ops follow that
+exact loc or obj and read it as it is now rather than as it was when captured.
 
 ### 10. Search iterators
 

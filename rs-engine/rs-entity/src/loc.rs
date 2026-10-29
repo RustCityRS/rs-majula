@@ -1,8 +1,9 @@
 use crate::lifetime::EntityLifeTime;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+pub use rs_vm::LocSerial;
 
-// ---- THE BELOW SECTION IS FOR BUILDING THE ENTIRE PACKED `u128` -- 113 bits wide.
+// ---- THE BELOW SECTION IS FOR BUILDING THE ENTIRE PACKED `u128` -- all 128 bits.
 
 /// Bit offset for the local zone X (`x & 0x7`) within the packed `u128`.
 const LOCAL_X_SHIFT: u32 = 0;
@@ -16,6 +17,10 @@ const BASE_INFO_SHIFT: u32 = 7;
 const CURRENT_INFO_SHIFT: u32 = 44;
 /// Bit offset for the `last_clock` field within the packed `u128`.
 const LAST_CLOCK_SHIFT: u32 = 81;
+/// Bit offset for the removed flag within the packed `u128`.
+const REMOVED_SHIFT: u32 = 113;
+/// Bit offset for the [`LocSerial`] within the packed `u128`.
+const SERIAL_SHIFT: u32 = 114;
 
 /// Mask for the 3-bit local-coordinate fields.
 const COORD_MASK: u128 = 0x7;
@@ -24,8 +29,12 @@ const LIFETIME_MASK: u128 = 0x1;
 /// Mask for the 37-bit info field (id, shape, angle, blockwalk, blockrange, width, length).
 const INFO_MASK: u128 = 0x1FFFFFFFFF;
 /// Mask for the 32-bit `last_clock` field. Its all-ones value is the `u32::MAX`
-/// "no timer" sentinel. Bits `113..128` of the `u128` are reserved (unused).
+/// "no timer" sentinel.
 const LAST_CLOCK_MASK: u128 = 0xFFFFFFFF;
+/// Mask for the single-bit removed flag.
+const REMOVED_MASK: u128 = 0x1;
+/// Mask for the [`LocSerial`] field.
+const SERIAL_MASK: u128 = (1 << LocSerial::BITS) - 1;
 
 // ---- THE BELOW SECTION IS FOR BUILDING THE INDIVIDUAL INFO BITS `u64` -- 37 bits wide.
 
@@ -89,7 +98,12 @@ const LENGTH_MASK: u64 = 0x3F;
 /// `last_clock` is a `u32` packed into bits `81..113` (a tick clock; the engine
 /// clock is `u32`). Its all-ones value is the `u32::MAX` "no timer" sentinel,
 /// returned by [`last_clock`](Self::last_clock) / set by
-/// [`set_last_clock`](Self::set_last_clock). Bits `113..128` are reserved.
+/// [`set_last_clock`](Self::set_last_clock).
+///
+/// Bit `113` marks a removed map loc, which stays in its zone until it
+/// respawns. It keeps the type it had when removed, as in the reference
+/// engine, so the flag can't be read off the info or the clock. Bits `114..128`
+/// hold the [`LocSerial`] the zone gave it.
 ///
 /// Layout (bit offsets):
 /// - `0..3`    local X (`x & 0x7`)
@@ -98,7 +112,8 @@ const LENGTH_MASK: u64 = 0x3F;
 /// - `7..44`   base info    (`id16 | shape5 | angle2 | blockwalk1 | blockrange1 | width6 | length6`)
 /// - `44..81`  current info (`id16 | shape5 | angle2 | blockwalk1 | blockrange1 | width6 | length6`)
 /// - `81..113` last_clock (32 bits)
-/// - `113..128` reserved
+/// - `113`     removed
+/// - `114..128` serial (14 bits)
 #[derive(Debug, Clone, Copy)]
 pub struct Loc(u128);
 
@@ -112,8 +127,9 @@ impl Loc {
     /// Only the loc's position *within its 8x8 zone* (`coord.x() & 0x7`,
     /// `coord.z() & 0x7`) is stored; the level and zone base are recovered from the
     /// owning zone. Both the base info and current info are initialized to the
-    /// same values, and `last_clock` is set to its `u32::MAX` sentinel (not yet
-    /// modified).
+    /// same values, `last_clock` is set to its `u32::MAX` sentinel (not yet
+    /// modified), and the loc is visible with serial [`LocSerial::FIRST`] until its
+    /// zone gives it one.
     ///
     /// # Arguments
     /// * `coord` - Grid coordinate where this loc is placed (only the intra-zone offset is kept).
@@ -151,20 +167,38 @@ impl Loc {
         Self(packed)
     }
 
-    /// Returns whether this loc should be visible to players.
+    /// Returns whether this loc is in the world.
     ///
-    /// Despawn-type locs are always visible (they exist until removed). Respawn-type
-    /// locs are visible when they have been changed from their base state or have
-    /// never had their clock set (i.e., freshly loaded from the map).
+    /// A despawn-type loc leaves its zone when removed, so it is visible while
+    /// stored. A respawn-type (map) loc stays stored while removed and is
+    /// hidden until it respawns or a change brings it back.
     ///
     /// # Returns
     /// `true` if the loc should be sent to nearby players.
     #[inline(always)]
     pub const fn visible(&self) -> bool {
-        match self.lifetime() {
-            EntityLifeTime::Despawn => true,
-            EntityLifeTime::Respawn => self.is_changed() || self.last_clock() == u32::MAX,
-        }
+        (self.0 >> REMOVED_SHIFT) & REMOVED_MASK == 0
+    }
+
+    /// Shows or hides this loc. Hiding leaves its type alone, so a removed map
+    /// loc reads as the type it had when removed until it respawns.
+    #[inline(always)]
+    pub const fn set_visible(&mut self, visible: bool) {
+        self.0 =
+            (self.0 & !(REMOVED_MASK << REMOVED_SHIFT)) | ((!visible as u128) << REMOVED_SHIFT);
+    }
+
+    /// Returns this loc's [`LocSerial`], given by the zone when it was inserted.
+    #[inline(always)]
+    pub const fn serial(&self) -> LocSerial {
+        LocSerial::from_packed(((self.0 >> SERIAL_SHIFT) & SERIAL_MASK) as u16)
+    }
+
+    /// Sets this loc's [`LocSerial`]. Only the zone does this, as the loc goes in.
+    #[inline(always)]
+    pub const fn set_serial(&mut self, serial: LocSerial) {
+        self.0 = (self.0 & !(SERIAL_MASK << SERIAL_SHIFT))
+            | ((serial.packed() as u128 & SERIAL_MASK) << SERIAL_SHIFT);
     }
 
     /// Returns the loc's local X offset (`0..=7`) within its owning zone.
@@ -329,8 +363,7 @@ impl Loc {
     /// Returns `true` if the current info differs from the base info.
     ///
     /// A changed loc needs to be communicated to clients so they see the updated
-    /// type, shape, angle, flags or dimensions. Respawn-type locs use this to
-    /// determine visibility.
+    /// type, shape, angle, flags or dimensions.
     #[inline(always)]
     pub const fn is_changed(&self) -> bool {
         self.current_info() != self.base_info()

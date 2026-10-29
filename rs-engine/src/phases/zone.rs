@@ -109,7 +109,7 @@ impl Engine {
                         };
                         let loc = zone.locs[idx];
                         if loc.lifetime() == EntityLifeTime::Despawn {
-                            self.remove_loc(coord, layer, 0);
+                            self.remove_loc(coord, layer, loc.serial(), 0);
                         } else if !loc.visible() {
                             restores.push((coord, layer, clock));
                         } else if loc.is_changed() {

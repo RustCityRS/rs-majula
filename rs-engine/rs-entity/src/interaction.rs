@@ -1,8 +1,8 @@
 use rs_grid::CoordGrid;
 use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
-use rs_vm::ObjSerial;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{LocSerial, ObjSerial};
 
 /// Represents the target of an entity's interaction action.
 ///
@@ -20,7 +20,7 @@ pub enum InteractionTarget {
         serial: ObjSerial,
     },
     /// A placed location target, identified by its coordinate, type id, dimensions,
-    /// shape, angle, and layer.
+    /// shape, angle, layer, and the serial of the exact loc that was clicked.
     Loc {
         coord: CoordGrid,
         id: u16,
@@ -29,6 +29,7 @@ pub enum InteractionTarget {
         shape: LocShape,
         angle: LocAngle,
         layer: LocLayer,
+        serial: LocSerial,
     },
     /// An NPC target, identified by its NPC index.
     Npc { nid: u16 },
@@ -273,6 +274,7 @@ mod tests {
             shape: LocShape::CentrepieceStraight,
             angle: LocAngle::North,
             layer: LocLayer::Ground,
+            serial: LocSerial::FIRST,
         }
     }
 

@@ -692,7 +692,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let end = s.pop_int_as::<u16>()?;
             let start = s.pop_int_as::<u16>()?;
 
-            let loc = get_active_loc(s, s.int_operand() != 0)?;
+            let loc = engine::<E>().live_loc(get_active_loc(s, s.int_operand() != 0)?);
             let pid = player.uid().pid();
 
             engine_mut::<E>().merge_loc(
@@ -730,6 +730,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             let loc = s.active_loc
                 .ok_or_else(|| ScriptError::Runtime("no active_loc".into()))?;
+            let loc = engine::<E>().live_loc(loc);
 
             let loc_type = engine::<E>()
                 .locs()
@@ -756,13 +757,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 player.queue_waypoint(loc.coord);
             }
             player.set_interaction_loc(
-                loc.coord,
-                loc.id,
+                loc,
                 loc_type.width,
                 loc_type.length,
-                loc.shape,
-                loc.angle,
-                loc.layer,
                 ServerTriggerType::ApLoc1 as u8 + op as u8,
             );
         });

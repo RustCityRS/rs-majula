@@ -79,8 +79,8 @@ pub fn zone_obj(x: u16, y: u8, z: u16, id: u16, receiver37: u64) -> Option<&'sta
 
 /// Builds the [`InteractionTarget::Loc`] for a placed location.
 ///
-/// Id, dimensions, shape, angle and layer all come from the placed location
-/// itself. The zone lookup already matched on the loc's *current* id, and every
+/// Id, dimensions, shape, angle, layer and serial all come from the placed
+/// location itself. The zone lookup already matched on the loc's *current* id, and every
 /// add/change path keeps the packed width/length in sync with that id, so no loc
 /// type lookup is needed here.
 ///
@@ -101,6 +101,7 @@ pub fn loc_target(coord: CoordGrid, loc: &Loc) -> InteractionTarget {
         shape: loc.shape(),
         angle: loc.angle(),
         layer: loc.layer(),
+        serial: loc.serial(),
     }
 }
 

@@ -984,8 +984,8 @@ mod combat_level_tests {
 #[cfg(test)]
 mod interaction_tests {
     use super::*;
-    use crate::ObjSerial;
     use crate::interaction::InteractionTarget;
+    use crate::{LocSerial, ObjSerial};
     use rs_pack::types::{LocAngle, LocLayer, LocShape};
     use rs_vm::trigger::ServerTriggerType;
 
@@ -1012,6 +1012,7 @@ mod interaction_tests {
             shape: LocShape::CentrepieceStraight,
             angle: LocAngle::North,
             layer: LocLayer::Ground,
+            serial: LocSerial::FIRST,
         }
     }
 

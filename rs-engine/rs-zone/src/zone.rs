@@ -1,7 +1,7 @@
 use crate::zone_event::ZoneEvent;
 use crate::zone_event_type::ZoneEventType;
 use crate::zone_message::ZoneMessage;
-use rs_entity::{EntityLifeTime, Loc, Obj, ObjSerial};
+use rs_entity::{EntityLifeTime, Loc, LocSerial, Obj, ObjSerial};
 use rs_grid::ZoneCoordGrid;
 use rs_io::Packet;
 use rs_pack::types::LocLayer;
@@ -49,6 +49,7 @@ pub struct Zone {
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
     next_serial: ObjSerial,
+    next_loc_serial: LocSerial,
 }
 
 impl Zone {
@@ -89,6 +90,7 @@ impl Zone {
             events: Vec::new(),
             shared: Vec::new(),
             next_serial: ObjSerial::FIRST,
+            next_loc_serial: LocSerial::FIRST,
         }
     }
 
@@ -185,11 +187,13 @@ impl Zone {
     ///
     /// # Side Effects
     ///
-    /// Appends `loc` to `self.locs`.
+    /// Gives the loc a serial, which it keeps for good, and appends it to
+    /// `self.locs`.
     ///
     /// **Called by:** `GameMap::load` during server startup.
     #[inline]
-    pub fn add_static_loc(&mut self, loc: Loc) {
+    pub fn add_static_loc(&mut self, mut loc: Loc) {
+        loc.set_serial(self.take_loc_serial());
         self.locs.push(loc);
     }
 
@@ -219,6 +223,13 @@ impl Zone {
     fn next_obj_serial(&mut self) -> ObjSerial {
         let serial = self.next_serial;
         self.next_serial = serial.next();
+        serial
+    }
+
+    /// Hands out the next loc [`LocSerial`].
+    fn take_loc_serial(&mut self) -> LocSerial {
+        let serial = self.next_loc_serial;
+        self.next_loc_serial = serial.next();
         serial
     }
 
@@ -459,9 +470,10 @@ impl Zone {
 
     /// Dynamically adds a loc to this zone and queues an enclosed `LocAddChange` event.
     ///
-    /// The loc is reverted to its base state and its clock is cleared before insertion.
-    /// Only locs with [`EntityLifeTime::Despawn`] are stored in `self.locs`; respawn
-    /// locs are assumed to already exist in storage (as static locs loaded from the map).
+    /// The loc is reverted to its base state, shown, and its clock is cleared before
+    /// insertion. Only locs with [`EntityLifeTime::Despawn`] are stored in `self.locs`,
+    /// each with a new serial; respawn locs are assumed to already exist in storage
+    /// (as static locs loaded from the map).
     ///
     /// If the zone already holds [`Self::MAX_LOCS`] locs in total (respawn +
     /// despawn), the oldest despawn loc is evicted first (see
@@ -489,10 +501,12 @@ impl Zone {
     /// [`queue_event`](Self::queue_event).
     pub fn add_loc(&mut self, mut loc: Loc) -> Option<Loc> {
         loc.revert();
+        loc.set_visible(true);
         loc.set_last_clock(u32::MAX);
         let mut evicted = None;
         if loc.lifetime() == EntityLifeTime::Despawn {
             evicted = self.make_room_for_loc();
+            loc.set_serial(self.take_loc_serial());
             self.locs.push(loc);
         }
         self.queue_event(
@@ -528,9 +542,11 @@ impl Zone {
 
     /// Notifies clients that a loc at the given index has changed its type/shape/angle.
     ///
-    /// The loc's `last_clock` is cleared and an enclosed `LocAddChange` event is
-    /// queued with the loc's current (changed) state. The caller is responsible
-    /// for having already called `loc.change(...)` on the loc before invoking this.
+    /// The loc is shown (a change brings a removed map loc back, as in the
+    /// reference engine), its `last_clock` is cleared and an enclosed
+    /// `LocAddChange` event is queued with the loc's current (changed) state. The
+    /// caller is responsible for having already called `loc.change(...)` on the loc
+    /// before invoking this.
     ///
     /// # Arguments
     ///
@@ -542,7 +558,7 @@ impl Zone {
     ///
     /// # Side Effects
     ///
-    /// - Clears `self.locs[idx].last_clock`.
+    /// - Shows `self.locs[idx]` and clears its `last_clock`.
     /// - Queues an enclosed `LocAddChange` event.
     ///
     /// **Called by:** `Engine` methods when scripts change a loc's type.
@@ -550,6 +566,7 @@ impl Zone {
     /// **Calls:** [`queue_event`](Self::queue_event).
     pub fn change_loc(&mut self, idx: usize) {
         let loc = &mut self.locs[idx];
+        loc.set_visible(true);
         loc.set_last_clock(u32::MAX);
         let lid = loc.lid();
         let message = loc_add_change_msg(loc);
@@ -564,8 +581,9 @@ impl Zone {
     /// - [`EntityLifeTime::Despawn`]: The loc is removed from `self.locs` with an
     ///   order-preserving remove, so the remaining locs keep their relative order
     ///   (a zone reload re-sends locs in their original add order).
-    /// - [`EntityLifeTime::Respawn`]: The loc remains in storage but is reverted to its
-    ///   base state (it will be invisible until respawned).
+    /// - [`EntityLifeTime::Respawn`]: The loc remains in storage, hidden until it
+    ///   respawns. It keeps its current type (as in the reference engine) until
+    ///   [`respawn_loc`](Self::respawn_loc) reverts it.
     ///
     /// Any previously queued events for this loc are cancelled before the
     /// delete event is queued.
@@ -581,7 +599,7 @@ impl Zone {
     /// # Side Effects
     ///
     /// - Cancels prior events via [`clear_queued_events`](Self::clear_queued_events).
-    /// - Removes or reverts the loc depending on its lifetime.
+    /// - Removes or hides the loc depending on its lifetime.
     /// - Queues an enclosed `LocDel` event.
     ///
     /// **Called by:** `Engine::remove_loc`, zone phase `LocDelete` processing.
@@ -598,7 +616,7 @@ impl Zone {
         if lifetime == EntityLifeTime::Despawn {
             self.locs.remove(idx);
         } else {
-            self.locs[idx].revert();
+            self.locs[idx].set_visible(false);
         }
         self.queue_event(
             Some(lid),
@@ -653,10 +671,22 @@ impl Zone {
             .position(|loc| loc.is_at(x, z) && loc.layer() == layer && loc.visible())
     }
 
+    /// Finds the index of the exact loc with `serial` at the given position and
+    /// layer, shown or not: a removed map loc is still found until it respawns,
+    /// a loc a script added is not once it is gone.
+    ///
+    /// **Called by:** `Engine` loc ops and interaction validation, which follow
+    /// one loc by the serial its reference holds.
+    pub fn loc_index(&self, x: u16, z: u16, layer: LocLayer, serial: LocSerial) -> Option<usize> {
+        self.locs
+            .iter()
+            .position(|loc| loc.serial() == serial && loc.is_at(x, z) && loc.layer() == layer)
+    }
+
     /// Respawns a previously removed loc, restoring it to its base state.
     ///
-    /// Reverts the loc to its original type/shape/angle, clears its clock,
-    /// and queues an enclosed `LocAddChange` event to notify clients.
+    /// Reverts the loc to its original type/shape/angle, shows it, clears its
+    /// clock, and queues an enclosed `LocAddChange` event to notify clients.
     ///
     /// # Arguments
     ///
@@ -668,7 +698,7 @@ impl Zone {
     ///
     /// # Side Effects
     ///
-    /// - Calls `revert()` on the loc and clears `last_clock`.
+    /// - Calls `revert()` on the loc, shows it and clears `last_clock`.
     /// - Queues an enclosed `LocAddChange` event.
     ///
     /// **Called by:** Zone phase `LocDelete` processing when a respawn timer expires.
@@ -677,6 +707,7 @@ impl Zone {
     pub fn respawn_loc(&mut self, idx: usize) {
         let loc = &mut self.locs[idx];
         loc.revert();
+        loc.set_visible(true);
         loc.set_last_clock(u32::MAX);
         let lid = loc.lid();
         let message = loc_add_change_msg(loc);
@@ -1961,14 +1992,14 @@ mod tests {
     }
 
     #[test]
-    fn loc_inactive_removed_respawn() {
+    fn loc_clock_alone_does_not_hide() {
         let mut loc = respawn_loc(3222, 3222, 100);
         loc.set_last_clock(999);
-        assert!(!loc.visible());
+        assert!(loc.visible());
     }
 
     #[test]
-    fn loc_inactive_reverted_with_clock() {
+    fn loc_hidden_keeps_its_type() {
         let mut loc = respawn_loc(3222, 3222, 100);
         loc.change(
             200,
@@ -1979,9 +2010,29 @@ mod tests {
             1,
             1,
         );
-        loc.revert();
-        loc.set_last_clock(999);
+        loc.set_visible(false);
         assert!(!loc.visible());
+        assert_eq!(loc.id(), 200);
+        loc.set_visible(true);
+        assert!(loc.visible());
+    }
+
+    #[test]
+    fn loc_serial_and_flag_leave_other_bits_alone() {
+        let mut loc = respawn_loc(3222, 3222, 100);
+        loc.set_last_clock(1234);
+        loc.set_serial(LocSerial::from_packed((1 << LocSerial::BITS) - 1));
+        loc.set_visible(false);
+        assert_eq!(loc.id(), 100);
+        assert_eq!(loc.last_clock(), 1234);
+        assert_eq!(loc.layer(), LocLayer::Ground);
+        assert_eq!(
+            loc.serial(),
+            LocSerial::from_packed((1 << LocSerial::BITS) - 1)
+        );
+        loc.set_serial(LocSerial::FIRST);
+        assert!(!loc.visible());
+        assert_eq!(loc.last_clock(), 1234);
     }
 
     // ---- loc: change ----
@@ -2161,7 +2212,7 @@ mod tests {
     }
 
     #[test]
-    fn remove_respawn_loc_reverts() {
+    fn remove_respawn_loc_keeps_changed_type() {
         let mut z = zone();
         z.locs.push(respawn_loc(3222, 3222, 100));
         z.locs[0].change(
@@ -2174,8 +2225,9 @@ mod tests {
             1,
         );
         z.remove_loc(0);
-        assert!(!z.locs[0].is_changed());
-        assert_eq!(z.locs[0].id(), 100);
+        assert!(!z.locs[0].visible());
+        assert!(z.locs[0].is_changed());
+        assert_eq!(z.locs[0].id(), 200);
     }
 
     #[test]
@@ -2248,7 +2300,7 @@ mod tests {
     fn get_loc_skips_inactive() {
         let mut z = zone();
         let mut loc = respawn_loc(3222, 3222, 100);
-        loc.set_last_clock(50);
+        loc.set_visible(false);
         z.locs.push(loc);
         assert!(z.get_loc(3222, 3222, 100).is_none());
     }
@@ -2284,6 +2336,16 @@ mod tests {
     fn respawn_loc_reverts_and_clears_clock() {
         let mut z = zone();
         let mut loc = respawn_loc(3222, 3222, 100);
+        loc.change(
+            200,
+            LocShape::CentrepieceStraight,
+            LocAngle::North,
+            true,
+            true,
+            1,
+            1,
+        );
+        loc.set_visible(false);
         loc.set_last_clock(50);
         z.locs.push(loc);
         assert!(!z.locs[0].visible());
@@ -2297,6 +2359,7 @@ mod tests {
     fn respawn_loc_queues_add_change_event() {
         let mut z = zone();
         let mut loc = respawn_loc(3222, 3222, 100);
+        loc.set_visible(false);
         loc.set_last_clock(50);
         z.locs.push(loc);
         z.respawn_loc(0);
@@ -2378,13 +2441,100 @@ mod tests {
         z.remove_loc(0);
         z.locs[0].set_last_clock(100);
         assert!(!z.locs[0].visible());
-        assert!(!z.locs[0].is_changed());
-        assert_eq!(z.locs[0].id(), 100);
+        assert!(z.locs[0].is_changed());
+        assert_eq!(z.locs[0].id(), 200);
 
         z.reset();
         z.respawn_loc(0);
         assert!(z.locs[0].visible());
+        assert!(!z.locs[0].is_changed());
         assert_eq!(z.locs[0].id(), 100);
+    }
+
+    // ---- loc: serials ----
+
+    #[test]
+    fn locs_get_distinct_serials() {
+        let mut z = zone();
+        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        z.add_static_loc(respawn_loc(3223, 3222, 100));
+        z.add_loc(despawn_loc(3224, 3222, 100));
+        assert_ne!(z.locs[0].serial(), z.locs[1].serial());
+        assert_ne!(z.locs[1].serial(), z.locs[2].serial());
+        assert_ne!(z.locs[0].serial(), z.locs[2].serial());
+    }
+
+    #[test]
+    fn map_loc_keeps_serial_through_change_remove_respawn() {
+        let mut z = zone();
+        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        let serial = z.locs[0].serial();
+        z.locs[0].change(
+            200,
+            LocShape::CentrepieceStraight,
+            LocAngle::North,
+            true,
+            true,
+            1,
+            1,
+        );
+        z.change_loc(0);
+        z.remove_loc(0);
+        assert_eq!(z.loc_index(3222, 3222, LocLayer::Ground, serial), Some(0));
+        z.respawn_loc(0);
+        assert_eq!(z.locs[0].serial(), serial);
+    }
+
+    #[test]
+    fn loc_index_finds_removed_map_loc() {
+        let mut z = zone();
+        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        let serial = z.locs[0].serial();
+        z.remove_loc(0);
+        assert!(z.get_loc_by_layer(3222, 3222, LocLayer::Ground).is_none());
+        assert_eq!(z.loc_index(3222, 3222, LocLayer::Ground, serial), Some(0));
+    }
+
+    #[test]
+    fn loc_index_misses_a_replaced_added_loc() {
+        let mut z = zone();
+        z.add_loc(despawn_loc(3222, 3222, 100));
+        let first = z.locs[0].serial();
+        z.remove_loc(0);
+        z.add_loc(despawn_loc(3222, 3222, 100));
+        let second = z.locs[0].serial();
+        assert_ne!(first, second);
+        assert_eq!(z.loc_index(3222, 3222, LocLayer::Ground, first), None);
+        assert_eq!(z.loc_index(3222, 3222, LocLayer::Ground, second), Some(0));
+    }
+
+    #[test]
+    fn loc_index_checks_tile_and_layer() {
+        let mut z = zone();
+        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        let serial = z.locs[0].serial();
+        assert_eq!(z.loc_index(3223, 3222, LocLayer::Ground, serial), None);
+        assert_eq!(z.loc_index(3222, 3222, LocLayer::Wall, serial), None);
+    }
+
+    #[test]
+    fn change_loc_brings_back_a_removed_map_loc() {
+        let mut z = zone();
+        z.add_static_loc(respawn_loc(3222, 3222, 100));
+        z.remove_loc(0);
+        assert!(!z.locs[0].visible());
+        z.locs[0].change(
+            200,
+            LocShape::CentrepieceStraight,
+            LocAngle::North,
+            true,
+            true,
+            1,
+            1,
+        );
+        z.change_loc(0);
+        assert!(z.locs[0].visible());
+        assert_eq!(z.locs[0].id(), 200);
     }
 
     #[test]

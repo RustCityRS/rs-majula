@@ -1034,6 +1034,7 @@ impl Engine {
                             shape: loc_ref.shape,
                             angle: loc_ref.angle,
                             layer: loc_ref.layer,
+                            serial: loc_ref.serial,
                         });
                     }
                 }

@@ -18,7 +18,7 @@ use rs_cam::CamKind;
 use rs_datastruct::{HashTable, LinkList};
 use rs_db::{LogBatch, LoginDevice, transfer};
 use rs_entity::StaffModLevel;
-use rs_entity::{EntityLifeTime, InteractionTarget, Loc, Obj, ObjSerial, REVEAL_TICKS};
+use rs_entity::{EntityLifeTime, InteractionTarget, Loc, LocSerial, Obj, ObjSerial, REVEAL_TICKS};
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::{NpcRenderer, PlayerRenderer};
@@ -1996,12 +1996,12 @@ impl Engine {
 // -----------------------------------------------------------------------
 
 impl Engine {
-    /// Adds a new loc or changes an existing loc at the given coordinate and layer.
+    /// Adds a new loc or changes the existing loc at the given coordinate and layer.
     ///
-    /// If a loc already exists on the same layer at the target fine coordinate,
-    /// it is changed in place: the old collision is removed, the loc's type/shape/angle
-    /// are updated, and new collision is applied. Otherwise a brand-new `Despawn`
-    /// loc is created.
+    /// If a loc is already stored on the same layer at the target tile (a removed
+    /// map loc included, which comes back), it is changed in place by
+    /// [`change_loc_at`](Self::change_loc_at) and keeps its serial. Otherwise a
+    /// brand-new `Despawn` loc is created with a new serial.
     ///
     /// When `duration > 0`, a `LocDelete` event is scheduled to revert or remove
     /// the loc after the specified number of ticks.
@@ -2012,7 +2012,12 @@ impl Engine {
     /// * `id` -- Loc type id (indexes into `cache.locs`).
     /// * `shape` -- The visual/collision shape of the loc.
     /// * `angle` -- Rotation angle of the loc (0-3).
+    /// * `width`, `length`, `blockwalk`, `blockrange` -- From the loc type.
     /// * `duration` -- Lifetime in game ticks before automatic revert (0 = permanent).
+    ///
+    /// # Returns
+    ///
+    /// The added or changed loc.
     ///
     /// # Side Effects
     ///
@@ -2025,8 +2030,9 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** `ScriptEngine::add_or_change_loc`, loc interaction scripts.
-    /// **Calls:** `apply_loc_collision`, `schedule_zone_event`,
+    /// **Calls:** `change_loc_at`, `apply_loc_collision`, `schedule_zone_event`,
     /// `track_zone`.
+    #[allow(clippy::too_many_arguments)]
     pub fn add_or_change_loc(
         &mut self,
         coord: CoordGrid,
@@ -2038,8 +2044,7 @@ impl Engine {
         blockwalk: bool,
         blockrange: bool,
         duration: u64,
-        create_if_missing: bool,
-    ) {
+    ) -> Loc {
         let layer = shape.layer();
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
         let zone = self.zones.zone_mut(x, y, z);
@@ -2050,126 +2055,137 @@ impl Engine {
             .position(|loc| loc.is_at(x, z) && loc.layer() == layer);
 
         if let Some(idx) = existing {
-            let old_loc = zone.locs[idx];
-            if old_loc.visible() {
-                apply_loc_collision(&old_loc, coord, false);
-            }
-
-            zone.locs[idx].change(id, shape, angle, blockwalk, blockrange, width, length);
-
-            // Apply collision from the *stored* loc. The change above stored the new
-            // id/angle/flags; only shape is shared (a change can't alter it). Reading
-            // the loc back keeps the footprint added here identical to the one a later
-            // revert/remove will remove from the same loc.
-            let updated = zone.locs[idx];
-            apply_loc_collision(&updated, coord, true);
-
-            zone.change_loc(idx);
-
-            let is_changed = zone.locs[idx].is_changed();
-            let is_despawn = zone.locs[idx].lifetime() == EntityLifeTime::Despawn;
-            if is_changed || is_despawn {
-                let clock = self.clock + duration as u32;
-                zone.locs[idx].set_last_clock(clock);
-                self.schedule_zone_event(
-                    clock,
-                    PendingZoneEvent::LocDelete {
-                        coord,
-                        layer,
-                        clock,
-                    },
-                );
-            } else {
-                zone.locs[idx].set_last_clock(u32::MAX);
-            }
-            self.track_zone(x, y, z);
-        } else {
-            if !create_if_missing {
-                return;
-            }
-
-            let loc = Loc::new(
-                coord,
-                EntityLifeTime::Despawn,
-                id,
-                shape,
-                angle,
-                blockwalk,
-                blockrange,
-                width,
-                length,
+            return self.change_loc_at(
+                coord, idx, id, shape, angle, width, length, blockwalk, blockrange, duration,
             );
-
-            apply_loc_collision(&loc, coord, true);
-
-            // `add_loc` evicts the oldest despawn loc when the zone is at the loc
-            // cap; clear that evicted loc's collision (owned by the engine, not
-            // the zone) at its own tile.
-            if let Some(evicted) = zone.add_loc(loc) {
-                apply_loc_collision(&evicted, evicted.world_coord(zone.coord), false);
-            }
-            self.track_zone(x, y, z);
-
-            if duration > 0 {
-                let clock = self.clock + duration as u32;
-                if let Some(l) = self.zones.zone_mut(x, y, z).locs.last_mut() {
-                    l.set_last_clock(clock);
-                }
-                self.schedule_zone_event(
-                    clock,
-                    PendingZoneEvent::LocDelete {
-                        coord,
-                        layer,
-                        clock,
-                    },
-                );
-            }
         }
+
+        let loc = Loc::new(
+            coord,
+            EntityLifeTime::Despawn,
+            id,
+            shape,
+            angle,
+            blockwalk,
+            blockrange,
+            width,
+            length,
+        );
+
+        apply_loc_collision(&loc, coord, true);
+
+        // `add_loc` evicts the oldest despawn loc when the zone is at the loc
+        // cap; clear that evicted loc's collision (owned by the engine, not
+        // the zone) at its own tile.
+        if let Some(evicted) = zone.add_loc(loc) {
+            apply_loc_collision(&evicted, evicted.world_coord(zone.coord), false);
+        }
+
+        // `add_loc` pushed the new loc last, with its serial.
+        let added = zone.locs.len() - 1;
+        if duration > 0 {
+            let clock = self.clock + duration as u32;
+            zone.locs[added].set_last_clock(clock);
+            self.schedule_zone_event(
+                clock,
+                PendingZoneEvent::LocDelete {
+                    coord,
+                    layer,
+                    clock,
+                },
+            );
+        }
+        self.track_zone(x, y, z);
+        self.zones.zone_mut(x, y, z).locs[added]
     }
 
-    /// Removes a visible loc at the given coordinate and layer.
+    /// Changes the exact loc with `serial` on `layer` at `coord` to type `id`,
+    /// keeping its shape and angle (`loc_change`).
     ///
-    /// Clears the loc's collision from the pathfinding map and marks it as
-    /// removed in the zone. If the loc has a `Respawn` lifetime and `duration`
-    /// is non-zero, a `LocDelete` event is scheduled to restore it after the
-    /// specified number of ticks.
+    /// A removed map loc comes back as the new type, as in the reference engine;
+    /// a loc a script added that is gone is left alone.
     ///
-    /// # Arguments
+    /// # Returns
     ///
-    /// * `coord` -- World coordinate of the loc.
-    /// * `layer` -- The loc layer to target (e.g. wall, ground decoration).
-    /// * `duration` -- Respawn delay in game ticks (0 = permanent removal).
+    /// The loc as changed, or `None` if it is gone.
+    #[allow(clippy::too_many_arguments)]
+    pub fn change_loc(
+        &mut self,
+        coord: CoordGrid,
+        layer: LocLayer,
+        serial: LocSerial,
+        id: u16,
+        width: u8,
+        length: u8,
+        blockwalk: bool,
+        blockrange: bool,
+        duration: u64,
+    ) -> Option<Loc> {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        let zone = self.zones.zone_mut(x, y, z);
+        let idx = zone.loc_index(x, z, layer, serial)?;
+        let loc = zone.locs[idx];
+        Some(self.change_loc_at(
+            coord,
+            idx,
+            id,
+            loc.shape(),
+            loc.angle(),
+            width,
+            length,
+            blockwalk,
+            blockrange,
+            duration,
+        ))
+    }
+
+    /// Changes the stored loc `locs[idx]` of the zone holding `coord` in place.
     ///
-    /// # Side Effects
+    /// The old collision is removed if the loc was shown, its type, shape, angle,
+    /// flags and size are updated, the new collision is applied and the loc is
+    /// shown. A loc left changed, or any loc a script added, gets a `LocDelete`
+    /// timer for `duration`; a map loc changed back to its own type gets none.
     ///
-    /// - Removes collision for the loc from the pathfinding map.
-    /// - Marks the loc as removed in the zone.
-    /// - Schedules a `LocDelete` respawn event if applicable.
-    /// - Marks the zone as dirty.
+    /// # Returns
     ///
-    /// # Call Stack
-    ///
-    /// **Called by:** loc interaction scripts, `ScriptEngine::remove_loc` (if present).
-    /// **Calls:** `apply_loc_collision`, `schedule_zone_event`, `track_zone`.
-    pub fn remove_loc(&mut self, coord: CoordGrid, layer: LocLayer, duration: u64) {
+    /// The changed loc, which keeps its serial.
+    #[allow(clippy::too_many_arguments)]
+    fn change_loc_at(
+        &mut self,
+        coord: CoordGrid,
+        idx: usize,
+        id: u16,
+        shape: LocShape,
+        angle: LocAngle,
+        width: u8,
+        length: u8,
+        blockwalk: bool,
+        blockrange: bool,
+        duration: u64,
+    ) -> Loc {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
         let zone = self.zones.zone_mut(x, y, z);
 
-        let Some(idx) = zone.get_loc_by_layer(x, z, layer) else {
-            return;
-        };
+        let old_loc = zone.locs[idx];
+        let layer = old_loc.layer();
+        if old_loc.visible() {
+            apply_loc_collision(&old_loc, coord, false);
+        }
 
-        // Copy the loc out before removal: `remove_loc` swap-removes despawn locs
-        // (shrinking `locs`), so `zone.locs[idx]` is invalid afterward. Respawn
-        // locs are reverted in place, so indexing `locs[idx]` stays valid in the
-        // respawn branch below.
-        let loc = zone.locs[idx];
+        zone.locs[idx].change(id, shape, angle, blockwalk, blockrange, width, length);
 
-        apply_loc_collision(&loc, coord, false);
+        // Apply collision from the *stored* loc. The change above stored the new
+        // id/angle/flags; only shape is shared (a change can't alter it). Reading
+        // the loc back keeps the footprint added here identical to the one a later
+        // revert/remove will remove from the same loc.
+        let updated = zone.locs[idx];
+        apply_loc_collision(&updated, coord, true);
 
-        zone.remove_loc(idx);
+        zone.change_loc(idx);
 
-        if loc.lifetime() == EntityLifeTime::Respawn && duration > 0 {
+        let is_changed = zone.locs[idx].is_changed();
+        let is_despawn = zone.locs[idx].lifetime() == EntityLifeTime::Despawn;
+        if is_changed || is_despawn {
             let clock = self.clock + duration as u32;
             zone.locs[idx].set_last_clock(clock);
             self.schedule_zone_event(
@@ -2180,6 +2196,128 @@ impl Engine {
                     clock,
                 },
             );
+        } else {
+            zone.locs[idx].set_last_clock(u32::MAX);
+        }
+        self.track_zone(x, y, z);
+        self.zones.zone_mut(x, y, z).locs[idx]
+    }
+
+    /// Looks up loc type `id` for placing at `coord` with `angle`, checking that
+    /// every zone its footprint covers exists.
+    ///
+    /// # Returns
+    ///
+    /// The type's `(width, length, blockwalk, blockrange)`.
+    fn placeable_loc_type(
+        &self,
+        coord: CoordGrid,
+        id: u16,
+        angle: LocAngle,
+    ) -> rs_vm::Result<(u8, u8, bool, bool)> {
+        let loc_type = self
+            .cache
+            .locs
+            .get_by_id(id)
+            .ok_or(ScriptError::LocNotFound(id as i32))?;
+        let (size_x, size_z) = match angle {
+            LocAngle::North | LocAngle::South => (loc_type.length, loc_type.width),
+            _ => (loc_type.width, loc_type.length),
+        };
+        let (max_x, max_z) = (
+            coord.x() + size_x.max(1) as u16 - 1,
+            coord.z() + size_z.max(1) as u16 - 1,
+        );
+        for zone_x in CoordGrid::zone(coord.x())..=CoordGrid::zone(max_x) {
+            for zone_z in CoordGrid::zone(coord.z())..=CoordGrid::zone(max_z) {
+                if !rsmod::is_zone_allocated(zone_x << 3, zone_z << 3, coord.y()) {
+                    return Err(ScriptError::Runtime(format!(
+                        "Zone does not exist at coord: {:?}",
+                        CoordGrid::new(zone_x << 3, coord.y(), zone_z << 3)
+                    )));
+                }
+            }
+        }
+        Ok((
+            loc_type.width,
+            loc_type.length,
+            loc_type.blockwalk,
+            loc_type.blockrange,
+        ))
+    }
+
+    /// Removes the exact loc with `serial` on `layer` at `coord`, if it is shown.
+    ///
+    /// Clears the loc's collision from the pathfinding map and removes it from
+    /// the zone. A loc a script added is gone for good. A map (`Respawn`) loc
+    /// stays stored, hidden and keeping its current type; with a non-zero
+    /// `duration` a `LocDelete` event respawns it after that many ticks, and with
+    /// zero it stays removed.
+    ///
+    /// # Arguments
+    ///
+    /// * `coord` -- World coordinate of the loc.
+    /// * `layer` -- The loc layer to target (e.g. wall, ground decoration).
+    /// * `serial` -- The serial of the loc to remove.
+    /// * `duration` -- Respawn delay in game ticks (0 = never).
+    ///
+    /// # Side Effects
+    ///
+    /// - Removes collision for the loc from the pathfinding map.
+    /// - Marks the loc as removed in the zone.
+    /// - Schedules a `LocDelete` respawn event if applicable.
+    /// - Marks the zone as dirty.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** loc interaction scripts, the zone phase when a despawn
+    /// timer expires.
+    /// **Calls:** `apply_loc_collision`, `schedule_zone_event`, `track_zone`.
+    pub fn remove_loc(
+        &mut self,
+        coord: CoordGrid,
+        layer: LocLayer,
+        serial: LocSerial,
+        duration: u64,
+    ) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        let zone = self.zones.zone_mut(x, y, z);
+
+        let Some(idx) = zone.loc_index(x, z, layer, serial) else {
+            return;
+        };
+
+        // Copy the loc out before removal: `remove_loc` removes despawn locs
+        // (shrinking `locs`), so `zone.locs[idx]` is invalid afterward. Respawn
+        // locs stay in place, so indexing `locs[idx]` stays valid in the
+        // respawn branch below.
+        let loc = zone.locs[idx];
+        if !loc.visible() {
+            return;
+        }
+
+        apply_loc_collision(&loc, coord, false);
+
+        zone.remove_loc(idx);
+
+        if loc.lifetime() == EntityLifeTime::Respawn {
+            // A pending change timer must not bring the loc back early.
+            let clock = if duration > 0 {
+                self.clock + duration as u32
+            } else {
+                u32::MAX
+            };
+            zone.locs[idx].set_last_clock(clock);
+            if duration > 0 {
+                self.schedule_zone_event(
+                    clock,
+                    PendingZoneEvent::LocDelete {
+                        coord,
+                        layer,
+                        clock,
+                    },
+                );
+            }
         }
         self.track_zone(x, y, z);
     }
@@ -3333,6 +3471,18 @@ impl Engine {
 // ScriptEngine implementation
 // -----------------------------------------------------------------------
 
+/// Builds the [`LocRef`] for the stored loc `loc` at `coord`, as it is now.
+fn loc_ref(coord: CoordGrid, loc: &Loc) -> LocRef {
+    LocRef {
+        coord,
+        id: loc.id(),
+        shape: loc.shape(),
+        angle: loc.angle(),
+        layer: loc.layer(),
+        serial: loc.serial(),
+    }
+}
+
 impl ScriptEngine for Engine {
     /// Returns the current game clock tick.
     ///
@@ -3923,13 +4073,7 @@ impl ScriptEngine for Engine {
         zone.locs
             .iter()
             .filter(|loc| loc.visible())
-            .map(|loc| LocRef {
-                coord: loc.world_coord(zone.coord),
-                id: loc.id(),
-                shape: loc.shape(),
-                angle: loc.angle(),
-                layer: loc.layer(),
-            })
+            .map(|loc| loc_ref(loc.world_coord(zone.coord), loc))
             .collect()
     }
 
@@ -3953,19 +4097,14 @@ impl ScriptEngine for Engine {
     fn find_loc(&self, coord: CoordGrid, id: u16) -> Option<LocRef> {
         let (zone, idx) = self.zones.find_loc(coord.x(), coord.y(), coord.z(), id)?;
         let loc = &zone.locs[idx];
-        Some(LocRef {
-            coord: loc.world_coord(zone.coord),
-            id: loc.id(),
-            shape: loc.shape(),
-            angle: loc.angle(),
-            layer: loc.layer(),
-        })
+        Some(loc_ref(loc.world_coord(zone.coord), loc))
     }
 
-    /// Adds a new location or changes an existing one at the given coordinate.
+    /// Adds a new location or changes the one already on the shape's layer at
+    /// the given coordinate.
     ///
-    /// Transmutes raw `u8` shape and angle values to their enum representations
-    /// and delegates to the inherent `Engine::add_or_change_loc`.
+    /// Looks the loc type up, checks its footprint's zones exist and delegates to
+    /// the inherent `Engine::add_or_change_loc`.
     ///
     /// # Call Stack
     ///
@@ -3978,44 +4117,45 @@ impl ScriptEngine for Engine {
         shape: LocShape,
         angle: LocAngle,
         duration: u64,
-        create_if_missing: bool,
-    ) -> rs_vm::Result<()> {
-        let loc_type = self
-            .cache
-            .locs
-            .get_by_id(id)
-            .ok_or(ScriptError::LocNotFound(id as i32))?;
-        let (size_x, size_z) = match angle {
-            LocAngle::North | LocAngle::South => (loc_type.length, loc_type.width),
-            _ => (loc_type.width, loc_type.length),
-        };
-        let (max_x, max_z) = (
-            coord.x() + size_x.max(1) as u16 - 1,
-            coord.z() + size_z.max(1) as u16 - 1,
+    ) -> rs_vm::Result<LocRef> {
+        let (width, length, blockwalk, blockrange) = self.placeable_loc_type(coord, id, angle)?;
+        let loc = self.add_or_change_loc(
+            coord, id, shape, angle, width, length, blockwalk, blockrange, duration,
         );
-        for zone_x in CoordGrid::zone(coord.x())..=CoordGrid::zone(max_x) {
-            for zone_z in CoordGrid::zone(coord.z())..=CoordGrid::zone(max_z) {
-                if !rsmod::is_zone_allocated(zone_x << 3, zone_z << 3, coord.y()) {
-                    return Err(ScriptError::Runtime(format!(
-                        "Zone does not exist at coord: {:?}",
-                        CoordGrid::new(zone_x << 3, coord.y(), zone_z << 3)
-                    )));
-                }
-            }
-        }
-        self.add_or_change_loc(
-            coord,
-            id,
-            shape,
-            angle,
-            loc_type.width,
-            loc_type.length,
-            loc_type.blockwalk,
-            loc_type.blockrange,
-            duration,
-            create_if_missing,
+        Ok(loc_ref(coord, &loc))
+    }
+
+    /// Changes the loc `loc` names to type `id`, keeping its shape and angle.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Engine::change_loc` (inherent)
+    fn change_loc(&mut self, loc: LocRef, id: u16, duration: u64) -> rs_vm::Result<Option<LocRef>> {
+        let live = self.live_loc(loc);
+        let (width, length, blockwalk, blockrange) =
+            self.placeable_loc_type(loc.coord, id, live.angle)?;
+        let changed = self.change_loc(
+            loc.coord, loc.layer, loc.serial, id, width, length, blockwalk, blockrange, duration,
         );
-        Ok(())
+        Ok(changed.map(|changed| loc_ref(loc.coord, &changed)))
+    }
+
+    /// Returns `loc` as the loc it names is now, or unchanged once it is gone.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::loc_index`
+    fn live_loc(&self, loc: LocRef) -> LocRef {
+        let (x, y, z) = (loc.coord.x(), loc.coord.y(), loc.coord.z());
+        self.zones
+            .zone(x, y, z)
+            .and_then(|zone| {
+                let idx = zone.loc_index(x, z, loc.layer, loc.serial)?;
+                Some(loc_ref(loc.coord, &zone.locs[idx]))
+            })
+            .unwrap_or(loc)
     }
 
     /// Merges a location so that it is only visible to one player within a bounded area.
@@ -4076,28 +4216,30 @@ impl ScriptEngine for Engine {
         }
     }
 
-    /// Removes a location from the given coordinate and collision layer.
+    /// Removes the loc `loc` names, if it is still in the world.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Engine::remove_loc` (inherent)
-    fn remove_loc(&mut self, coord: CoordGrid, layer: LocLayer, duration: u64) {
-        self.remove_loc(coord, layer, duration);
+    fn remove_loc(&mut self, loc: LocRef, duration: u64) {
+        self.remove_loc(loc.coord, loc.layer, loc.serial, duration);
     }
 
-    /// Plays a sequence animation on a location.
+    /// Plays a sequence animation on the loc `loc` names.
     ///
-    /// Looks up the location in the zone by type ID and queues the animation.
+    /// The reference engine animates the loc whether or not it is shown, so a
+    /// removed map loc still gets the event; a loc a script added that is gone
+    /// does not.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `Zone::get_loc`, `Zone::anim_loc`, `Engine::track_zone`
-    fn anim_loc(&mut self, coord: CoordGrid, id: u16, seq: u16) {
-        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+    /// **Calls:** `Zone::loc_index`, `Zone::anim_loc`, `Engine::track_zone`
+    fn anim_loc(&mut self, loc: LocRef, seq: u16) {
+        let (x, y, z) = (loc.coord.x(), loc.coord.y(), loc.coord.z());
         let zone = self.zones.zone_mut(x, y, z);
-        if let Some(idx) = zone.get_loc(x, z, id) {
+        if let Some(idx) = zone.loc_index(x, z, loc.layer, loc.serial) {
             zone.anim_loc(idx, seq);
             self.track_zone(x, y, z);
         }
@@ -6205,26 +6347,17 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `EnginePlayer::set_interaction`
-    fn set_interaction_loc(
-        &mut self,
-        coord: CoordGrid,
-        id: u16,
-        width: u8,
-        length: u8,
-        shape: LocShape,
-        angle: LocAngle,
-        layer: LocLayer,
-        op: u8,
-    ) {
+    fn set_interaction_loc(&mut self, loc: LocRef, width: u8, length: u8, op: u8) {
         self.player.set_interaction(
             InteractionTarget::Loc {
-                coord,
-                id,
+                coord: loc.coord,
+                id: loc.id,
                 width,
                 length,
-                shape,
-                angle,
-                layer,
+                shape: loc.shape,
+                angle: loc.angle,
+                layer: loc.layer,
+                serial: loc.serial,
             },
             op,
             false,
@@ -6477,26 +6610,17 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `Npc::set_interaction`
-    fn set_interaction_loc(
-        &mut self,
-        coord: CoordGrid,
-        id: u16,
-        width: u8,
-        length: u8,
-        shape: LocShape,
-        angle: LocAngle,
-        layer: LocLayer,
-        op: u8,
-    ) {
+    fn set_interaction_loc(&mut self, loc: LocRef, width: u8, length: u8, op: u8) {
         self.npc.set_interaction(
             InteractionTarget::Loc {
-                coord,
-                id,
+                coord: loc.coord,
+                id: loc.id,
                 width,
                 length,
-                shape,
-                angle,
-                layer,
+                shape: loc.shape,
+                angle: loc.angle,
+                layer: loc.layer,
+                serial: loc.serial,
             },
             op,
             false,

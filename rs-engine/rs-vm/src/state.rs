@@ -2,7 +2,7 @@ pub use crate::iterators::*;
 use crate::pointer::{ScriptPointer, ScriptPointerSet};
 use crate::subject::ScriptSubject;
 use crate::trigger::ServerTriggerType;
-use crate::{NpcUid, ObjSerial, PlayerUid, ScriptError};
+use crate::{LocSerial, NpcUid, ObjSerial, PlayerUid, ScriptError};
 use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
@@ -1172,10 +1172,16 @@ pub struct NpcRef {
     pub coord: CoordGrid,
 }
 
-/// A snapshot reference to a location (interactable world object) entity.
+/// A reference to a location (interactable world object) entity.
 ///
 /// Stored in [`ScriptState::active_loc`] / [`ScriptState::active_loc2`] to
 /// give the running script access to a specific location on the map.
+///
+/// It names one loc by its tile, layer and the serial its zone gave it, so it
+/// keeps finding that loc as it changes, is removed or respawns, and finds
+/// nothing once a loc a script added is gone, even if another lands on the
+/// tile. `id`, `shape` and `angle` are the loc as last seen; ops that read
+/// them get the loc as it is now through `ScriptEngine::live_loc`.
 #[derive(Debug, Clone, Copy)]
 pub struct LocRef {
     pub coord: CoordGrid,
@@ -1183,6 +1189,7 @@ pub struct LocRef {
     pub shape: LocShape,
     pub angle: LocAngle,
     pub layer: LocLayer,
+    pub serial: LocSerial,
 }
 
 /// A reference to a ground object (item) entity in the game world.

@@ -30,7 +30,7 @@ use rs_pack::cache::varn::VarnTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
-use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_pack::types::{LocAngle, LocShape};
 use rs_util::random::JavaRandom;
 use std::cell::Cell;
 use std::sync::Arc;
@@ -368,7 +368,8 @@ pub trait ScriptEngine {
     /// `Some(LocRef)` if a matching location exists, `None` otherwise.
     fn find_loc(&self, coord: CoordGrid, id: u16) -> Option<LocRef>;
 
-    /// Adds a new location or changes an existing one at the given coordinate.
+    /// Adds a new location, or changes the one already on the shape's layer at
+    /// the given coordinate (a removed map loc included, which comes back).
     ///
     /// # Arguments
     /// * `coord` - The packed coordinate.
@@ -376,9 +377,9 @@ pub trait ScriptEngine {
     /// * `shape` - The location shape (e.g. wall, centrepiece, ground decor).
     /// * `angle` - The rotation angle (0--3).
     /// * `duration` - How many ticks until the change reverts (0 = permanent).
-    /// * `create_if_missing` - When `true` (LOC_ADD), a loc is created if none
-    ///   exists on the layer. When `false` (LOC_CHANGE), a missing loc is left
-    ///   untouched so a deleted dynamic loc is never resurrected.
+    ///
+    /// # Returns
+    /// The added or changed loc.
     fn add_or_change_loc(
         &mut self,
         coord: CoordGrid,
@@ -386,8 +387,21 @@ pub trait ScriptEngine {
         shape: LocShape,
         angle: LocAngle,
         duration: u64,
-        create_if_missing: bool,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<LocRef>;
+
+    /// Changes the loc `loc` names to type `id`, keeping its shape and angle.
+    ///
+    /// A removed map loc comes back as the new type; a loc a script added that
+    /// is gone is left alone.
+    ///
+    /// # Returns
+    /// The loc as changed, or `None` if it is gone.
+    fn change_loc(&mut self, loc: LocRef, id: u16, duration: u64) -> crate::Result<Option<LocRef>>;
+
+    /// Returns `loc` with the type, shape and angle the loc has now (a removed
+    /// map loc reads as the type it had when removed), or `loc` unchanged once
+    /// a loc a script added is gone.
+    fn live_loc(&self, loc: LocRef) -> LocRef;
 
     /// Merges a location so that it is only visible to one player.
     ///
@@ -419,21 +433,19 @@ pub trait ScriptEngine {
         west: u16,
     );
 
-    /// Removes a location from the given coordinate and collision layer.
+    /// Removes the loc `loc` names, if it is still in the world.
     ///
     /// # Arguments
-    /// * `coord` - The packed coordinate.
-    /// * `layer` - The collision layer of the location to remove.
-    /// * `duration` - The tick at which the removal should revert.
-    fn remove_loc(&mut self, coord: CoordGrid, layer: LocLayer, duration: u64);
+    /// * `loc` - The location to remove.
+    /// * `duration` - Ticks until a map loc respawns (0 = never).
+    fn remove_loc(&mut self, loc: LocRef, duration: u64);
 
-    /// Plays a sequence animation on a location.
+    /// Plays a sequence animation on the loc `loc` names, if it is still stored.
     ///
     /// # Arguments
-    /// * `coord` - The packed coordinate of the location.
-    /// * `id` - The location type identifier.
+    /// * `loc` - The location to animate.
     /// * `seq` - The sequence (animation) identifier to play.
-    fn anim_loc(&mut self, coord: CoordGrid, id: u16, seq: u16);
+    fn anim_loc(&mut self, loc: LocRef, seq: u16);
 
     /// Creates a projectile animation between two map positions.
     ///
@@ -1629,26 +1641,11 @@ pub trait ScriptPlayer {
     /// Sets the player's interaction target to a location.
     ///
     /// # Arguments
-    /// * `coord` - The packed coordinate of the target location.
-    /// * `id` - The location type identifier.
+    /// * `loc` - The target location, as it is now.
     /// * `width` - The location width in tiles.
     /// * `length` - The location length in tiles.
-    /// * `shape` - The location shape.
-    /// * `angle` - The rotation angle (0--3).
-    /// * `layer` - The collision layer.
     /// * `op` - The interaction opcode.
-    #[allow(clippy::too_many_arguments)]
-    fn set_interaction_loc(
-        &mut self,
-        coord: CoordGrid,
-        id: u16,
-        width: u8,
-        length: u8,
-        shape: LocShape,
-        angle: LocAngle,
-        layer: LocLayer,
-        op: u8,
-    );
+    fn set_interaction_loc(&mut self, loc: LocRef, width: u8, length: u8, op: u8);
 
     /// Sets the player's interaction target to an NPC.
     ///
@@ -1799,26 +1796,11 @@ pub trait ScriptNpc {
     /// Sets the NPC's interaction target to a location.
     ///
     /// # Arguments
-    /// * `coord` - The packed coordinate of the target location.
-    /// * `id` - The location type identifier.
+    /// * `loc` - The target location, as it is now.
     /// * `width` - The location width in tiles.
     /// * `length` - The location length in tiles.
-    /// * `shape` - The location shape.
-    /// * `angle` - The rotation angle (0--3).
-    /// * `layer` - The collision layer.
     /// * `op` - The interaction opcode.
-    #[allow(clippy::too_many_arguments)]
-    fn set_interaction_loc(
-        &mut self,
-        coord: CoordGrid,
-        id: u16,
-        width: u8,
-        length: u8,
-        shape: LocShape,
-        angle: LocAngle,
-        layer: LocLayer,
-        op: u8,
-    );
+    fn set_interaction_loc(&mut self, loc: LocRef, width: u8, length: u8, op: u8);
 
     /// Sets the NPC's interaction target to a ground object.
     ///

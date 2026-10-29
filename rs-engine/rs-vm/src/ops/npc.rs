@@ -493,10 +493,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else if mode >= NpcMode::OpLoc1 as i32 {
                 match s.active_loc {
                     Some(loc) => {
+                        let loc = engine::<E>().live_loc(loc);
                         let loc_type = engine::<E>().locs().get_by_id(loc.id);
                         let width = loc_type.map(|lt| lt.width).unwrap_or(1);
                         let length = loc_type.map(|lt| lt.length).unwrap_or(1);
-                        npc.set_interaction_loc(loc.coord, loc.id, width, length, loc.shape, loc.angle, loc.layer, op);
+                        npc.set_interaction_loc(loc, width, length, op);
                     }
                     None => npc.reset_defaults(),
                 }

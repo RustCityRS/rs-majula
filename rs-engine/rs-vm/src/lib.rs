@@ -1,5 +1,6 @@
 pub mod engine;
 pub mod iterators;
+pub mod loc_serial;
 pub mod macros;
 pub mod npc_uid;
 pub mod obj_serial;
@@ -13,6 +14,7 @@ pub mod trigger;
 pub mod util;
 pub mod vm;
 
+pub use loc_serial::LocSerial;
 pub use npc_uid::NpcUid;
 pub use obj_serial::ObjSerial;
 pub use player_uid::PlayerUid;

@@ -56,6 +56,7 @@ impl Engine {
                 shape,
                 angle,
                 layer,
+                serial,
                 ..
             } => Some(ScriptSubject::Loc(LocRef {
                 coord: *coord,
@@ -63,6 +64,7 @@ impl Engine {
                 shape: *shape,
                 angle: *angle,
                 layer: *layer,
+                serial: *serial,
             })),
         }
     }
@@ -103,8 +105,9 @@ impl Engine {
     /// * **Obj:** The exact obj that was targeted (by serial) must still be
     ///   on the floor, not empty, and share the same Y-level. Uses `user37`
     ///   to keep others' private objs out; `None` (npcs) skips that check.
-    /// * **Loc:** Must exist in the zone at the stored coordinate and
-    ///   layer, match the expected ID, and share the same Y-level.
+    /// * **Loc:** The exact loc that was targeted (by serial) must still be
+    ///   in the world at the stored coordinate and layer, still be the
+    ///   expected type (a change cancels), and share the same Y-level.
     ///
     /// # Returns
     ///
@@ -169,7 +172,11 @@ impl Engine {
                     .is_some()
             }
             InteractionTarget::Loc {
-                coord, id, layer, ..
+                coord,
+                id,
+                layer,
+                serial,
+                ..
             } => {
                 if coord.y() != y {
                     return false;
@@ -184,7 +191,9 @@ impl Engine {
                     );
                     return false;
                 };
-                if let Some(idx) = zone.get_loc_by_layer(coord.x(), coord.z(), *layer) {
+                if let Some(idx) = zone.loc_index(coord.x(), coord.z(), *layer, *serial)
+                    && zone.locs[idx].visible()
+                {
                     if zone.locs[idx].id() != *id {
                         return false;
                     }
