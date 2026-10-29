@@ -18,13 +18,14 @@ use tracing::{debug, info, warn};
 
 const HANDSHAKE_TIMEOUT: Duration = Duration::from_secs(10);
 const WRITE_TIMEOUT: Duration = Duration::from_secs(30);
+const MAX_MESSAGE_SIZE: usize = 5000;
 
 #[allow(clippy::field_reassign_with_default)]
 fn ws_config() -> WebSocketConfig {
     let mut config = WebSocketConfig::default();
     config.read_buffer_size = 4 * 1024;
-    config.max_message_size = Some(64 * 1024);
-    config.max_frame_size = Some(64 * 1024);
+    config.max_message_size = Some(MAX_MESSAGE_SIZE);
+    config.max_frame_size = Some(MAX_MESSAGE_SIZE);
     config
 }
 
