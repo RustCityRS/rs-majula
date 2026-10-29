@@ -303,8 +303,7 @@ async fn handle_connection(
 fn client_addr(head: &str, header: Option<&str>, peer: SocketAddr) -> SocketAddr {
     header
         .and_then(|name| header_value(head, name))
-        // x-forwarded-for style lists put the client first.
-        .and_then(|value| value.split(',').next())
+        .and_then(|value| value.rsplit(',').next())
         .and_then(|value| value.trim().parse::<IpAddr>().ok())
         .map_or(peer, |ip| SocketAddr::new(ip, peer.port()))
 }
@@ -1034,8 +1033,8 @@ mod tests {
     }
 
     #[test]
-    fn forwarded_for_lists_take_the_client() {
-        let head = "GET / HTTP/1.1\r\nx-forwarded-for: 2001:db8::1, 10.0.0.2\r\n\r\n";
+    fn forwarded_for_lists_take_the_proxys_entry() {
+        let head = "GET / HTTP/1.1\r\nx-forwarded-for: 203.0.113.9, 2001:db8::1\r\n\r\n";
         assert_eq!(client(head, Some("X-Forwarded-For")), "[2001:db8::1]:50000");
     }
 

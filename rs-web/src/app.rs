@@ -57,8 +57,7 @@ impl App {
             .as_ref()
             .and_then(|name| headers.get(name))
             .and_then(|v| v.to_str().ok())
-            // x-forwarded-for style lists put the client first.
-            .and_then(|v| v.split(',').next())
+            .and_then(|v| v.rsplit(',').next())
             .and_then(|v| v.trim().parse().ok())
             .unwrap_or(peer.ip())
     }

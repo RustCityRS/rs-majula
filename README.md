@@ -164,7 +164,7 @@ check it, and `rs-web migrate` applies any changes.
 | `--root` | `rs-web` | Where the templates, `public/` and `worlds.json` are. |
 | `--public-host` | `localhost` | The site's hostname, for links it gives out. |
 | `--https` | `false` | Set when the site is served over HTTPS. |
-| `--real-ip-header` | unset | The header a proxy puts the visitor's address in (e.g. `cf-connecting-ip`), so per-address limits see the visitor, not the proxy. |
+| `--real-ip-header` | unset | The header a proxy puts the visitor's address in (e.g. `cf-connecting-ip`), so per-address limits see the visitor, not the proxy. Only set it when the proxy is the only way in, or visitors can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
 | `--metrics-host`, `--metrics-port` | `127.0.0.1`, `8160` | Prometheus metrics (requests, response times, registrations), away from the public port. Port `0` turns them off. |
 | `--admin-host`, `--admin-port` | `127.0.0.1`, `8190` | The private admin API the staff console uses for news and messages. Port `0` turns it off. |
 | `--media-dir` | `rs-web/media` in debug builds (`RS_WEB_MEDIA_DIR`) | Where news images and videos go. Release builds without it take no uploads. |
@@ -560,7 +560,7 @@ before `migrate`).
 | `--http-port <PORT>` | `8070 + node_id` (`8080`) | The web client and cache files. |
 | `--tcp-port <PORT>` | `43584 + node_id` (`43594`) | The game protocol port. |
 | `--private-key <PATH>` | `.keys/private.pem` | The RSA private key for the login handshake. |
-| `--real-ip-header <NAME>` | unset | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. |
+| `--real-ip-header <NAME>` | unset | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
 | `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`) | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. |
 
 **Database**

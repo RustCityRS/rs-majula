@@ -170,7 +170,7 @@ impl FromRequestParts<Arc<App>> for Client {
             .as_ref()
             .and_then(|name| parts.headers.get(name))
             .and_then(|v| v.to_str().ok())
-            .and_then(|v| v.split(',').next())
+            .and_then(|v| v.rsplit(',').next())
             .and_then(|v| v.trim().parse().ok())
             .unwrap_or(peer);
         let user_agent = parts
