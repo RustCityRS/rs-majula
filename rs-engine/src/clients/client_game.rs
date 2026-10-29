@@ -18,7 +18,6 @@ const DISCONNECT_CAPACITY: usize = 1;
 /// state for opcode encryption/decryption, and an intermediate read queue
 /// for reassembling fragmented messages.
 pub struct ClientHandle {
-    /// What the socket read, with when it read it.
     pub inbox: Receiver<(Instant, Vec<u8>)>,
     pub outbox: UnboundedSender<Vec<u8>>,
     pub recycle_rx: UnboundedReceiver<Vec<u8>>,
@@ -26,13 +25,11 @@ pub struct ClientHandle {
     pub write_queue: Packet,
     pub read_queue: VecDeque<u8>,
     pub pending_msg: Option<(Instant, Vec<u8>)>,
-    /// When the bytes in `read_queue` arrived: how many had been queued in
-    /// all once each read's were, and when it came.
     pub arrivals: VecDeque<(u64, Instant)>,
-    /// How many bytes have been put in `read_queue` in all.
     pub queued: u64,
     pub isaac_encode: Isaac,
     pub isaac_decode: Isaac,
+    pub opcode: Option<u8>,
     pub disconnect_rx: Receiver<()>,
 }
 
@@ -82,6 +79,7 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
             queued: 0,
             isaac_encode,
             isaac_decode,
+            opcode: None,
             disconnect_rx,
         },
         packet_tx,
@@ -97,6 +95,17 @@ impl ClientHandle {
         self.queued += bytes.len() as u64;
         self.arrivals.push_back((self.queued, at));
         self.read_queue.extend(bytes);
+    }
+
+    /// Closes the connection: dropping this end of its channels stops the
+    /// socket task. Whatever was read and not yet decoded is thrown away.
+    pub fn close(&mut self) {
+        self.inbox = mpsc::channel(1).1;
+        self.outbox = mpsc::unbounded_channel().0;
+        self.read_queue.clear();
+        self.arrivals.clear();
+        self.pending_msg = None;
+        self.opcode = None;
     }
 
     /// When the last byte taken from the read queue arrived.

@@ -137,7 +137,7 @@ use std::cell::RefCell;
 use std::fmt::Write as _;
 use std::net::IpAddr;
 use std::time::{Duration, Instant};
-use tracing::{error, warn};
+use tracing::{debug, error, warn};
 
 /// Maximum number of recycled outbound byte buffers kept per client in
 /// [`ClientHandle::buffer_pool`]. Caps memory if a client's network task
@@ -924,6 +924,14 @@ impl ActivePlayer {
             });
         }
         self.logout();
+    }
+
+    /// Closes the connection, as if the socket had dropped. The player stays
+    /// for the reconnect window under the usual logout rules, so this is no
+    /// way out of combat.
+    fn disconnect(&mut self) {
+        self.handle.close();
+        self.player.disconnected_at.get_or_insert(engine().clock);
     }
 
     /// Records a menu action the player chose, for the anti-cheat checks and
@@ -2494,13 +2502,16 @@ pub trait EnginePlayer {
 /// either.)
 const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an active"];
 
+/// How many bytes the read queue holds before the next message waits a tick.
+const READ_QUEUE_LIMIT: usize = 5000;
+
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets
-    /// in a loop until per-category rate limits are reached or the queue
-    /// is empty.
+    /// in a loop until per-category rate limits are reached or no whole
+    /// packet is left.
     ///
-    /// Messages that would exceed the 5000-byte read queue limit are held
-    /// as pending for the next tick.
+    /// Messages that would exceed the [`READ_QUEUE_LIMIT`] are held as
+    /// pending for the next tick.
     ///
     /// # Returns
     /// `true` if at least one new message arrived from the network inbox
@@ -2525,7 +2536,7 @@ impl EnginePlayer for ActivePlayer {
                     Err(_) => break,
                 },
             };
-            if handle.read_queue.len() + msg.1.len() > 5000 {
+            if handle.read_queue.len() + msg.1.len() > READ_QUEUE_LIMIT {
                 handle.pending_msg = Some(msg);
                 break;
             }
@@ -2539,10 +2550,8 @@ impl EnginePlayer for ActivePlayer {
         while self.client_limit < ClientProtCategory::ClientEvent as u8
             && self.user_limit < ClientProtCategory::UserEvent as u8
             && self.restricted_limit < ClientProtCategory::RestrictedEvent as u8
-            && !self.handle.read_queue.is_empty()
-        {
-            self.read();
-        }
+            && self.read().is_some()
+        {}
 
         received
     }
@@ -2552,15 +2561,21 @@ impl EnginePlayer for ActivePlayer {
     ///
     /// Decrypts the opcode byte using the ISAAC cipher, determines the
     /// packet length from the frame type (fixed, var-byte, var-short),
-    /// and routes to the matching `ClientProt` handler. On success,
-    /// increments the appropriate rate-limit counter.
+    /// and routes to the matching `ClientProt` handler. Then counts the
+    /// packet against the rate limits.
+    ///
+    /// A packet whose payload hasn't all arrived is left in the queue, its
+    /// opcode kept on the handle for the next tick. An unknown opcode, or
+    /// a length the read queue can never hold, closes the connection: the
+    /// rest of the stream can't be read after it. Every revision's table
+    /// holds every opcode its client sends.
     ///
     /// A var-frame payload shorter than the decoder's declared minimum is
     /// drained and dropped rather than decoded.
     ///
     /// # Returns
-    /// `Some(())` if a message was processed, `None` if the queue is
-    /// empty or incomplete.
+    /// `Some(())` if a message was processed, `None` if no whole packet
+    /// is left or the connection was closed.
     ///
     /// # Side Effects
     /// * Increments `client_limit`, `user_limit`, or `restricted_limit`.
@@ -2569,40 +2584,50 @@ impl EnginePlayer for ActivePlayer {
     /// # Call Stack
     /// **Called by:** [`decode`](Self::decode)
     fn read(&mut self) -> Option<()> {
-        let (prot, opcode, data, info, short) = {
-            let handle = &mut self.handle;
-
-            let opcode = handle
-                .read_queue
-                .pop_front()?
-                .wrapping_sub(handle.isaac_decode.next_int() as u8);
-
-            let prot = ClientProt::try_from(opcode).ok().or_else(|| {
-                warn!("Unknown opcode: {}", opcode);
-                None
-            })?;
-
-            let info = prot.info();
-
-            let len: usize = match info.frame {
-                ClientProtFrame::VarByte { .. } => handle.read_queue.pop_front()? as usize,
-                ClientProtFrame::VarShort { .. } => {
-                    let hi = handle.read_queue.pop_front()? as usize;
-                    let lo = handle.read_queue.pop_front()? as usize;
-                    (hi << 8) | lo
-                }
-                ClientProtFrame::Fixed(len) => len as usize,
-            };
-
-            if handle.read_queue.len() < len {
-                return None;
+        let handle = &mut self.handle;
+        let opcode = match handle.opcode {
+            Some(opcode) => opcode,
+            None => {
+                let byte = handle.read_queue.pop_front()?;
+                let opcode = byte.wrapping_sub(handle.isaac_decode.next_int() as u8);
+                handle.opcode = Some(opcode);
+                opcode
             }
-
-            let short = len < info.frame.min();
-
-            let data: Vec<u8> = handle.read_queue.drain(..len).collect();
-            (prot, opcode, data, info, short)
         };
+
+        let Ok(prot) = ClientProt::try_from(opcode) else {
+            warn!("Unknown opcode {opcode}, closing the connection");
+            self.disconnect();
+            return None;
+        };
+        let info = prot.info();
+
+        let queue = &self.handle.read_queue;
+        let (head, len) = match info.frame {
+            ClientProtFrame::VarByte { .. } => (1, *queue.front()? as usize),
+            ClientProtFrame::VarShort { .. } => {
+                let hi = *queue.front()? as usize;
+                let lo = *queue.get(1)? as usize;
+                (2, (hi << 8) | lo)
+            }
+            ClientProtFrame::Fixed(len) => (0, len as usize),
+        };
+
+        if head + len > READ_QUEUE_LIMIT {
+            warn!("{prot:?} of {len} bytes, closing the connection");
+            self.disconnect();
+            return None;
+        }
+        if queue.len() < head + len {
+            return None;
+        }
+
+        let handle = &mut self.handle;
+        handle.opcode = None;
+        handle.read_queue.drain(..head);
+        let data: Vec<u8> = handle.read_queue.drain(..len).collect();
+        let short = len < info.frame.min();
+
         if let Some(at) = self.handle.arrived() {
             self.watch.arrived(at);
         }
@@ -2610,7 +2635,7 @@ impl EnginePlayer for ActivePlayer {
 
         #[rustfmt::skip]
         let success = if short {
-            warn!("Short {prot:?}: {} byte(s)", data.len());
+            debug!("Short {prot:?}: {} byte(s)", data.len());
             self.watch.anticheat.malformed();
             false
         } else {
@@ -2716,26 +2741,29 @@ impl EnginePlayer for ActivePlayer {
                 Err(err) => {
                     #[cfg(debug_assertions)]
                     self.message_game_wrapped(&err.to_string());
-                    error!("{err}");
-                    if let ScriptError::Client(why) = &err
-                        && !matches!(prot, ClientProt::ClientCheat)
-                        && !UNREMARKABLE.iter().any(|ok| why.starts_with(ok))
-                    {
-                        self.watch.anticheat.rejected();
+                    // The client's own doing: the anticheat counts it, and a
+                    // log line each would let a client flood the log.
+                    if let ScriptError::Client(why) = &err {
+                        debug!("{prot:?}: {why}");
+                        if !matches!(prot, ClientProt::ClientCheat)
+                            && !UNREMARKABLE.iter().any(|ok| why.starts_with(ok))
+                        {
+                            self.watch.anticheat.rejected();
+                        }
+                    } else {
+                        error!("{err}");
                     }
                     false
                 }
             }
         };
 
+        // A turned-down user event counts as a client event, as in the
+        // reference, so rejections stop at that limit.
         match info.category {
-            ClientProtCategory::ClientEvent => self.client_limit += 1,
-            ClientProtCategory::UserEvent => {
-                if success {
-                    self.user_limit += 1
-                }
-            }
+            ClientProtCategory::UserEvent if success => self.user_limit += 1,
             ClientProtCategory::RestrictedEvent => self.restricted_limit += 1,
+            _ => self.client_limit += 1,
         }
 
         Some(())
