@@ -309,6 +309,23 @@ impl ServerTriggerType {
                 | Self::OpPlayerU
         )
     }
+
+    /// Returns whether this trigger type is a click on an interface button.
+    ///
+    /// # Returns
+    /// `true` for `IfButton` and all `InvButton*` triggers, `false` otherwise.
+    pub(crate) fn is_button(self) -> bool {
+        matches!(
+            self,
+            Self::IfButton
+                | Self::InvButton1
+                | Self::InvButton2
+                | Self::InvButton3
+                | Self::InvButton4
+                | Self::InvButton5
+                | Self::InvButtonD
+        )
+    }
 }
 
 #[cfg(test)]

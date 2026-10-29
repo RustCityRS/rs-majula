@@ -177,7 +177,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let c = s.pop_int();
             let b = s.pop_int();
             let a = s.pop_int();
-            s.push_int(a.wrapping_mul(c).wrapping_div(b));
+            s.push_int((a as i64 * c as i64 / b as i64) as i32);
         });
 
         // 4619

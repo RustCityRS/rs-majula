@@ -404,9 +404,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             let cert_id = cert(obj);
-            let overflow = get_inv_mut::<E>(to_inv.id, player)?.add(cert_id, completed, true);
+            let stackable = engine::<E>()
+                .objs()
+                .get_by_id(cert_id)
+                .is_some_and(|o| o.stackable);
+            let overflow = get_inv_mut::<E>(to_inv.id, player)?.add(cert_id, completed, stackable);
             if overflow > 0 {
-                engine_mut::<E>().add_obj(player.coord(), cert_id, overflow, Some(player.uid()), LOOTDROP_DURATION)?;
+                let receiver = Some(player.uid());
+                add_obj_split::<E>(player.coord(), cert_id, overflow, stackable, receiver, LOOTDROP_DURATION)?;
             }
         });
 

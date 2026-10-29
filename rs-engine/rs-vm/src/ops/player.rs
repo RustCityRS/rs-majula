@@ -313,26 +313,45 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.if_close(true)?;
         });
 
+        // A side-tab button opening a modal over another closes that one
+        // properly first: dropping a trade or duel screen without its
+        // [if_close] leaves the partner able to complete it.
+
         // 2034
         active_player_mut!(m, IF_OPENCHAT => |s, player| {
-            player.if_openchat(s.pop_int_as::<u16>()?);
+            let com = s.pop_int_as::<u16>()?;
+            if overlay_button(s) {
+                player.if_close_others(com)?;
+            }
+            player.if_openchat(com);
         });
 
         // 2035
         active_player_mut!(m, IF_OPENMAIN_SIDE => |s, player| {
             let side = s.pop_int_as::<u16>()?;
             let com = s.pop_int_as::<u16>()?;
+            if overlay_button(s) {
+                player.if_close_others(com)?;
+            }
             player.if_openmain_side(com, side);
         });
 
         // 2036
         active_player_mut!(m, IF_OPENMAIN => |s, player| {
-            player.if_openmain(s.pop_int_as::<u16>()?);
+            let com = s.pop_int_as::<u16>()?;
+            if overlay_button(s) {
+                player.if_close_others(com)?;
+            }
+            player.if_openmain(com);
         });
 
         // 2037
         active_player_mut!(m, IF_OPENSIDE => |s, player| {
-            player.if_openside(s.pop_int_as::<u16>()?);
+            let com = s.pop_int_as::<u16>()?;
+            if overlay_button(s) {
+                player.if_close_others(com)?;
+            }
+            player.if_openside(com);
         });
 
         // 2038
@@ -672,7 +691,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
             let player = engine::<E>().get_player(pid);
             match player {
-                Some(player) => {
+                Some(player) if player.uid().packed() as i32 == uid => {
                     if !player.can_access() {
                         s.push_int(0); return Ok(());
                     }
@@ -680,7 +699,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     s.pointers.add(ScriptState::PROTECTED_ACTIVE_PLAYER[operand as usize]);
                     s.push_int(1);
                 }
-                None => s.push_int(0)
+                _ => s.push_int(0)
             }
         });
 

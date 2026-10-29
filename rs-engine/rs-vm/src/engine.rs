@@ -1161,6 +1161,17 @@ pub trait ScriptPlayer {
     /// close triggers an error.
     fn if_close(&mut self, clear: bool) -> crate::Result<()>;
 
+    /// Closes every open modal, as [`if_close`](Self::if_close) does, unless
+    /// the only one open is `com`.
+    ///
+    /// # Arguments
+    /// * `com` - The interface component ID about to be opened.
+    ///
+    /// # Returns
+    /// `Ok(())` on success, or a [`ScriptError`](crate::ScriptError) if the
+    /// close triggers an error.
+    fn if_close_others(&mut self, com: u16) -> crate::Result<()>;
+
     /// Opens a chatbox interface (e.g. a dialog).
     ///
     /// # Arguments

@@ -5607,6 +5607,24 @@ impl ScriptPlayer for ActivePlayer {
         self.close_modal(clear)
     }
 
+    /// Closes any open modal interface unless `com` is the only one open.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::close_modal`
+    fn if_close_others(&mut self, com: u16) -> rs_vm::Result<()> {
+        let open = [
+            self.player.modal_main,
+            self.player.modal_chat,
+            self.player.modal_side,
+        ];
+        if open.into_iter().flatten().all(|modal| modal == com) {
+            return Ok(());
+        }
+        self.close_modal(true)
+    }
+
     /// Opens a chatbox interface (e.g. a dialog).
     ///
     /// # Call Stack

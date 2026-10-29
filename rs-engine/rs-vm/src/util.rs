@@ -384,6 +384,16 @@ pub(crate) fn require_active_player(state: &ScriptState) -> Result<()> {
         .check(ScriptState::ACTIVE_PLAYER[state.int_operand() as usize])
 }
 
+/// Whether `state` runs a side-tab button click. Those run without protected
+/// access, even over an open modal.
+///
+/// # Call Stack
+/// **Called by:** the `IF_OPEN*` ops in `ops::player`.
+pub(crate) fn overlay_button(state: &ScriptState) -> bool {
+    state.trigger.is_some_and(|trigger| trigger.is_button())
+        && !state.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[0])
+}
+
 /// Validates that the active NPC pointer is set for the current operand slot.
 ///
 /// # Arguments
