@@ -1,6 +1,7 @@
 use crate::active_player::ActivePlayer;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use rs_inv::Inventory;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client::inv_buttond::InvButtonD;
 use rs_vm::ScriptError;
@@ -101,21 +102,15 @@ impl ClientGameHandler for InvButtonD {
         }
 
         if inventory.get(self.slot).is_none() {
-            return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
+            let partial = &resync_partial_slots(&self, &inventory);
+            active.update_inv_partial(self.com, partial);
+            // return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
+            return Ok(());
         }
 
         if delayed {
-            let partial = [
-                (
-                    self.slot,
-                    inventory.get(self.slot).map(|i| (i.obj, i.num as i32)),
-                ),
-                (
-                    self.slot2,
-                    inventory.get(self.slot2).map(|i| (i.obj, i.num as i32)),
-                ),
-            ];
-            active.update_inv_partial(self.com, &partial);
+            let partial = &resync_partial_slots(&self, &inventory);
+            active.update_inv_partial(self.com, partial);
             return Ok(());
         }
 
@@ -151,4 +146,10 @@ impl ClientGameHandler for InvButtonD {
 
         Ok(())
     }
+}
+
+fn resync_partial_slots(f: &InvButtonD, inventory: &Inventory) -> [(u16, Option<(u16, i32)>); 2] {
+    let slot1 = inventory.get(f.slot).map(|i| (i.obj, i.num as i32));
+    let slot2 = inventory.get(f.slot2).map(|i| (i.obj, i.num as i32));
+    [(f.slot, slot1), (f.slot2, slot2)]
 }
