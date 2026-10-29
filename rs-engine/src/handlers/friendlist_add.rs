@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::clients::client_ether::EtherOutbound;
+use crate::clients::client_ether::{EtherOutbound, max_friends_cap};
 use crate::counters::AutoBan;
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
@@ -50,6 +50,10 @@ impl ClientGameHandler for FriendListAdd {
         }
 
         if active.friends.contains(&self.user37) {
+            return Ok(());
+        }
+
+        if active.friends.len() >= max_friends_cap(active.player.is_member) as usize {
             return Ok(());
         }
 

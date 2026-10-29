@@ -364,6 +364,14 @@ impl Watch {
         }
     }
 
+    /// A friend taken off the client's list (see
+    /// [`ClientState::forget_friend`]).
+    pub fn forget_friend(&mut self, user37: u64) {
+        if let Some(recording) = self.recording.as_mut() {
+            recording.state.forget_friend(user37);
+        }
+    }
+
     /// Whether it's time for a keyframe.
     pub fn keyframe_due(&self) -> bool {
         self.recording

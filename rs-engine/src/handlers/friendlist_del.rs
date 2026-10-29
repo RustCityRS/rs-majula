@@ -50,6 +50,7 @@ impl ClientGameHandler for FriendListDel {
 
         // The client drops the name from its own list as it sends this.
         active.friends.retain(|&f| f != self.user37);
+        active.watch.forget_friend(self.user37 as u64);
 
         let Some(tx) = &engine.ether_tx else {
             return Ok(());

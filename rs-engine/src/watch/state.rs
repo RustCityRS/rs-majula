@@ -156,6 +156,13 @@ impl ClientState {
         refill(packet);
     }
 
+    /// A friend the client took off its list. Nothing is sent for that, so
+    /// the friend's last status update goes here instead.
+    pub fn forget_friend(&mut self, user37: u64) {
+        self.packets
+            .remove(&(ServerProt::UpdateFriendList as u8, user37));
+    }
+
     /// Everything remembered, in the order it was last sent, then the chat.
     pub fn packets(&self) -> Vec<&[u8]> {
         let mut kept: Vec<&(u64, Vec<u8>)> = self.packets.values().collect();
@@ -196,5 +203,15 @@ mod tests {
                 &[varp_large, 0, 7, 0, 0, 1, 0][..],
             ]
         );
+    }
+
+    #[test]
+    fn a_deleted_friend_is_forgotten() {
+        let mut state = ClientState::default();
+        let friend = ServerProt::UpdateFriendList as u8;
+        state.remember(friend, 0, &[0, 0, 0, 0, 0, 0, 0, 7, 10]);
+        state.remember(friend, 0, &[0, 0, 0, 0, 0, 0, 0, 8, 0]);
+        state.forget_friend(7);
+        assert_eq!(state.packets(), [&[friend, 0, 0, 0, 0, 0, 0, 0, 8, 0][..]]);
     }
 }

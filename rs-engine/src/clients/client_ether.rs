@@ -24,6 +24,9 @@ pub enum EtherOutboundOp {
     LoginAbort = 13,
 }
 
+/// The most names an ignore list holds, as in the client and ether.
+pub const MAX_IGNORES: usize = 100;
+
 #[cfg_attr(rev = "225", allow(unused_variables))]
 pub fn max_friends_cap(is_member: bool) -> u16 {
     #[cfg(since_244)]

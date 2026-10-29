@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::clients::client_ether::EtherOutbound;
+use crate::clients::client_ether::{EtherOutbound, MAX_IGNORES};
 use crate::counters::AutoBan;
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
@@ -50,6 +50,10 @@ impl ClientGameHandler for IgnoreListAdd {
         }
 
         if active.ignores.contains(&self.user37) {
+            return Ok(());
+        }
+
+        if active.ignores.len() >= MAX_IGNORES {
             return Ok(());
         }
 
