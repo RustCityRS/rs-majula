@@ -2,6 +2,8 @@ use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_io::Packet;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use std::collections::VecDeque;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Instant;
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::{Receiver, Sender, UnboundedReceiver, UnboundedSender};
@@ -13,6 +15,11 @@ const INBOX_CAPACITY: usize = 128;
 /// Channel capacity for the disconnect signal (only one signal is ever sent).
 const DISCONNECT_CAPACITY: usize = 1;
 
+/// The most bytes a client can leave unwritten before it's disconnected: one
+/// that reads slower than the game writes would otherwise queue without end.
+/// About a minute of output in a crowd.
+pub const MAX_UNSENT: usize = 1 << 20;
+
 /// The engine-side handle for a single game client connection.
 ///
 /// Holds the decoded packet inbox, the outbound byte sender, ISAAC cipher
@@ -20,7 +27,8 @@ const DISCONNECT_CAPACITY: usize = 1;
 /// for reassembling fragmented messages.
 pub struct ClientHandle {
     pub inbox: Receiver<(Instant, Vec<u8>)>,
-    pub outbox: UnboundedSender<Vec<u8>>,
+    outbox: UnboundedSender<Vec<u8>>,
+    unsent: Arc<AtomicUsize>,
     pub recycle_rx: UnboundedReceiver<Vec<u8>>,
     pub buffer_pool: Vec<Vec<u8>>,
     pub write_queue: Packet,
@@ -43,6 +51,7 @@ pub struct ClientIO {
     pub bytes_rx: UnboundedReceiver<Vec<u8>>,
     pub recycle_tx: UnboundedSender<Vec<u8>>,
     pub disconnect_tx: Sender<()>,
+    pub unsent: Arc<AtomicUsize>,
 }
 
 /// Creates the paired I/O channels for a new game client connection.
@@ -66,11 +75,13 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
     let (bytes_tx, bytes_rx) = mpsc::unbounded_channel();
     let (recycle_tx, recycle_rx) = mpsc::unbounded_channel();
     let (disconnect_tx, disconnect_rx) = mpsc::channel(DISCONNECT_CAPACITY);
+    let unsent = Arc::new(AtomicUsize::new(0));
 
     ClientIO {
         handle: ClientHandle {
             inbox: packet_rx,
             outbox: bytes_tx,
+            unsent: unsent.clone(),
             recycle_rx,
             buffer_pool: Vec::new(),
             write_queue: Packet::new(MAX_PACKET_SIZE),
@@ -87,10 +98,22 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
         bytes_rx,
         recycle_tx,
         disconnect_tx,
+        unsent,
     }
 }
 
 impl ClientHandle {
+    /// Hands `bytes` to the socket task to write.
+    pub fn send(&self, bytes: Vec<u8>) {
+        self.unsent.fetch_add(bytes.len(), Ordering::Relaxed);
+        let _ = self.outbox.send(bytes);
+    }
+
+    /// Whether the socket task is over [`MAX_UNSENT`] bytes behind.
+    pub fn backlogged(&self) -> bool {
+        !self.outbox.is_closed() && self.unsent.load(Ordering::Relaxed) > MAX_UNSENT
+    }
+
     /// Puts a read from the socket in the read queue.
     pub fn queue(&mut self, at: Instant, bytes: Vec<u8>) {
         self.queued += bytes.len() as u64;

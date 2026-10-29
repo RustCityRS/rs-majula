@@ -1,5 +1,5 @@
 use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
-use crate::clients::client_game::ClientHandle;
+use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
@@ -313,7 +313,7 @@ impl ActivePlayer {
     /// Each packet's opcode byte is ISAAC-encrypted before sending.
     ///
     /// # Side Effects
-    /// * Drains `self.buffered` and sends each packet via `handle.outbox`.
+    /// * Drains `self.buffered` and sends each packet to the socket task.
     ///
     /// # Call Stack
     /// **Called by:** [`encode`](Self::encode)
@@ -323,7 +323,7 @@ impl ActivePlayer {
         for mut buf in self.buffered.drain(..) {
             self.watch.server(clock, buf.data[0], &buf.data[1..]);
             buf.data[0] = (buf.data[0] as u32 + handle.isaac_encode.next_int()) as u8;
-            let _ = handle.outbox.send(buf.data);
+            handle.send(buf.data);
         }
     }
 
@@ -378,7 +378,7 @@ impl ActivePlayer {
         let mut out = handle.buffer_pool.pop().unwrap_or_default();
         out.clear();
         out.extend_from_slice(&handle.write_queue.data[0..pos]);
-        let _ = handle.outbox.send(out);
+        handle.send(out);
     }
 
     /// Flushes pending modal UI state changes and all buffered packets for
@@ -446,6 +446,10 @@ impl ActivePlayer {
 
         self.watch_acting_on();
         self.write_buffered();
+        if self.handle.backlogged() {
+            warn!("Over {MAX_UNSENT} bytes left unwritten, closing the connection");
+            self.disconnect();
+        }
         self.watch.end_tick(engine().clock);
     }
 

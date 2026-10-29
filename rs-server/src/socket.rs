@@ -5,7 +5,7 @@ use num_enum::TryFromPrimitive;
 use rand::RngExt;
 use rs_crypto::isaac::IsaacPair;
 use rs_engine::LoginRequest;
-use rs_engine::{ClientIO, create_io};
+use rs_engine::{ClientIO, MAX_UNSENT, create_io};
 use rs_io::Packet;
 use rs_io::packet::RsaFrame;
 use rs_protocol::LoginResponse;
@@ -13,6 +13,7 @@ use rs_protocol::LoginResponse;
 use std::collections::VecDeque;
 #[cfg(since_244)]
 use std::net::SocketAddr;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
 use tokio::net::TcpListener;
 use tokio::sync::mpsc;
@@ -301,6 +302,7 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
         bytes_rx,
         recycle_tx,
         disconnect_tx,
+        unsent,
     } = io;
     if client
         .server_io
@@ -319,7 +321,15 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
     {
         bail!("{}: Invalid login request", client.addr)
     }
-    network_loop(client, packet_tx, bytes_rx, recycle_tx, &disconnect_tx).await
+    network_loop(
+        client,
+        packet_tx,
+        bytes_rx,
+        recycle_tx,
+        &disconnect_tx,
+        &unsent,
+    )
+    .await
 }
 #[cfg(since_244)]
 const MAX_QUEUED_REQUESTS: usize = 8192;
@@ -441,6 +451,7 @@ pub async fn network_loop(
     mut bytes_rx: UnboundedReceiver<Vec<u8>>,
     recycle_tx: UnboundedSender<Vec<u8>>,
     disconnect_tx: &Sender<()>,
+    unsent: &AtomicUsize,
 ) -> anyhow::Result<()> {
     let addr = client.addr;
     loop {
@@ -460,8 +471,14 @@ pub async fn network_loop(
             },
             msg = bytes_rx.recv() => match msg {
                 Some(bytes) => {
+                    if unsent.load(Ordering::Relaxed) > MAX_UNSENT {
+                        disconnect_tx.send(()).await?;
+                        bail!("{addr} over {MAX_UNSENT} bytes behind writing");
+                    }
+                    let len = bytes.len();
                     match tokio::time::timeout(WRITE_STALL_TIMEOUT, client.write_owned(bytes)).await {
                         Ok(result) => {
+                            unsent.fetch_sub(len, Ordering::Relaxed);
                             if let Some(returned) = result? {
                                 let _ = recycle_tx.send(returned);
                             }

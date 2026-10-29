@@ -23,7 +23,7 @@ pub use clients::client_db::{
     TAKEOVER_AFTER_SECS, db_client_task, profile_from_save,
 };
 pub use clients::client_ether::{EtherInbound, EtherOutbound, ether_client_task};
-pub use clients::client_game::{ClientHandle, ClientIO, create_io};
+pub use clients::client_game::{ClientHandle, ClientIO, MAX_UNSENT, create_io};
 pub use clients::client_replay::replay_task;
 pub use engine::{CycleResult, Engine, LoginRequest, TickStats, init_collision, with_engine};
 pub use player_save::PlayerProfile;

@@ -3011,7 +3011,7 @@ impl Engine {
             active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
             active.watch.login(self.clock, &reply);
         }
-        let _ = active.handle.outbox.send(reply);
+        active.handle.send(reply);
 
         info!(
             "Player '{}' joined at ({},{},{}) (uid={:?}, pid={})",
@@ -3137,17 +3137,13 @@ impl Engine {
             // find_pid_by_user37 returned this pid in the same phase, so the
             // slot cannot be empty; guard anyway rather than panic.
             error!("adopt_session: pid {pid} vanished before adoption");
-            let _ = request
+            request
                 .handle
-                .outbox
                 .send(vec![LoginResponse::CouldNotComplete as u8]);
             return;
         };
 
-        let _ = request
-            .handle
-            .outbox
-            .send(vec![LoginResponse::Reconnect as u8]);
+        request.handle.send(vec![LoginResponse::Reconnect as u8]);
         active
             .watch
             .reconnect(clock, &[LoginResponse::Reconnect as u8]);
@@ -3252,7 +3248,7 @@ impl Engine {
     /// that carries a payload after its code byte.
     pub(crate) fn reject_pending_login_with(&mut self, idx: usize, reply: Vec<u8>) {
         let pending = self.pending_logins.swap_remove(idx);
-        let _ = pending.request.handle.outbox.send(reply);
+        pending.request.handle.send(reply);
         if pending.ether_allowed
             && let Some(tx) = &self.ether_tx
         {

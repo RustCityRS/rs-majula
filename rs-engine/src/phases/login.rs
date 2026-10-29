@@ -70,18 +70,16 @@ impl Engine {
             let user37 = to_userhash(&request.username);
 
             if !self.db_ready || !self.ether_ready || self.lease_expired() {
-                let _ = request
+                request
                     .handle
-                    .outbox
                     .send(vec![LoginResponse::LoginServerOffline as u8]);
                 continue;
             }
 
             let ip = request.remote_addr.ip();
             if self.login_attempts_exceeded(ip) {
-                let _ = request
+                request
                     .handle
-                    .outbox
                     .send(vec![LoginResponse::TooManyAttempts as u8]);
                 continue;
             }
@@ -94,9 +92,8 @@ impl Engine {
                 || self.offline_edits.contains(&user37)
                 || self.pending_logins.iter().any(|p| p.user37 == user37);
             if busy {
-                let _ = request
+                request
                     .handle
-                    .outbox
                     .send(vec![LoginResponse::AlreadyLoggedIn as u8]);
                 continue;
             }
@@ -133,9 +130,8 @@ impl Engine {
                     played: Vec::new(),
                 });
             } else {
-                let _ = request
+                request
                     .handle
-                    .outbox
                     .send(vec![LoginResponse::LoginServerOffline as u8]);
             }
         }
