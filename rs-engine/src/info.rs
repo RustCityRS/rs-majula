@@ -141,6 +141,7 @@ impl PlayerInfo {
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
     const BITS_WALK: usize = 1 + 2 + 3 + 1;
     const BITS_EXTEND: usize = 1 + 2;
+    const BITS_END: usize = 11;
     const BYTES_LIMIT: usize = 5000;
 
     /// Creates a new `PlayerInfo` encoder with pre-allocated buffers.
@@ -217,12 +218,14 @@ impl PlayerInfo {
         self.write_players(players, snap, renderer, active);
         self.write_new_players(map, players, snap, renderer, active);
         if self.updates.pos > 0 {
-            self.bw.pbit::<11>(&mut self.buf, MAX_PLAYERS as i32 - 1);
+            self.bw
+                .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_PLAYERS as i32 - 1);
             self.bw.finish(&mut self.buf);
             self.buf.pdata(&self.updates.data, 0, self.updates.pos);
         } else {
             self.bw.finish(&mut self.buf);
         }
+        debug_assert!(self.buf.pos <= Self::BYTES_LIMIT - 3);
         unsafe { self.buf.data.get_unchecked(0..self.buf.pos) }
     }
 
@@ -309,9 +312,10 @@ impl PlayerInfo {
             }
 
             let len: usize = s.len as usize;
+            let later = (self.tracked.len() - i - 1) * PlayerInfo::BITS_RUN + PlayerInfo::BITS_END;
             if s.run_dir != -1 {
                 // 1 + 2 + 3 + 3 + 1 = 10 bits (matches `run`)
-                let extend = len > 0 && self.fits(PlayerInfo::BITS_RUN, len);
+                let extend = len > 0 && self.fits(PlayerInfo::BITS_RUN + later, len);
                 self.bw.pbit::<10>(
                     &mut self.buf,
                     (((1 << 2) | 2) << 7)
@@ -324,7 +328,7 @@ impl PlayerInfo {
                 }
             } else if s.walk_dir != -1 {
                 // 1 + 2 + 3 + 1 = 7 bits (matches `walk`)
-                let extend = len > 0 && self.fits(PlayerInfo::BITS_WALK, len);
+                let extend = len > 0 && self.fits(PlayerInfo::BITS_WALK + later, len);
                 self.bw.pbit::<7>(
                     &mut self.buf,
                     (((1 << 2) | 1) << 4) | ((s.walk_dir as i32) << 1) | (extend as i32),
@@ -332,7 +336,7 @@ impl PlayerInfo {
                 if extend {
                     self.highdefinition_tracked(players, renderer, active, pid, s.flags);
                 }
-            } else if len > 0 && self.fits(PlayerInfo::BITS_EXTEND, len) {
+            } else if len > 0 && self.fits(PlayerInfo::BITS_EXTEND + later, len) {
                 // 1 + 2 = 3 bits (matches `extend`)
                 self.bw.pbit::<3>(&mut self.buf, 1 << 2);
                 self.highdefinition_tracked(players, renderer, active, pid, s.flags);
@@ -388,7 +392,7 @@ impl PlayerInfo {
                     continue;
                 }
                 let len: usize = renderer.lowdefinitions(pid) + renderer.highdefinitions(pid);
-                if !self.fits(PlayerInfo::BITS_ADD, len) {
+                if !self.fits(PlayerInfo::BITS_ADD + PlayerInfo::BITS_END, len) {
                     return;
                 }
                 self.add(
@@ -867,7 +871,7 @@ impl PlayerInfo {
                 let pid = tracked[known];
                 let other = players.get(pid as usize).and_then(Option::as_ref);
                 let len = other.map_or(1, |_| renderer.lowdefinitions(pid) + 32);
-                if !info.fits(PlayerInfo::BITS_ADD, len) {
+                if !info.fits(PlayerInfo::BITS_ADD + PlayerInfo::BITS_END, len) {
                     break;
                 }
                 let (x, z) = other.map_or((0, 0), |other| {
@@ -892,7 +896,8 @@ impl PlayerInfo {
                 known += 1;
             }
             if info.updates.pos > 0 {
-                info.bw.pbit::<11>(&mut info.buf, MAX_PLAYERS as i32 - 1);
+                info.bw
+                    .pbit::<{ PlayerInfo::BITS_END }>(&mut info.buf, MAX_PLAYERS as i32 - 1);
                 info.bw.finish(&mut info.buf);
                 info.buf.pdata(&info.updates.data, 0, info.updates.pos);
             } else {
@@ -954,11 +959,17 @@ pub struct NpcInfo {
 impl NpcInfo {
     #[cfg(before_254)]
     const BITS_ADD: usize = 13 + 11 + 5 + 5 + 1;
-    #[cfg(since_254)]
+    #[cfg(all(since_254, before_274))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1;
+    #[cfg(since_274)]
+    const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1 + 1;
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
     const BITS_WALK: usize = 1 + 2 + 3 + 1;
     const BITS_EXTEND: usize = 1 + 2;
+    #[cfg(before_254)]
+    const BITS_END: usize = 13;
+    #[cfg(since_254)]
+    const BITS_END: usize = 14;
     const BYTES_LIMIT: usize = 5000;
 
     /// Creates a new `NpcInfo` encoder with pre-allocated buffers.
@@ -1027,15 +1038,14 @@ impl NpcInfo {
         self.write_npcs(npcs, nsnap, renderer, active);
         self.write_new_npcs(map, npcs, nsnap, renderer, active);
         if self.updates.pos > 0 {
-            #[cfg(before_254)]
-            self.bw.pbit::<13>(&mut self.buf, MAX_NPCS as i32 - 1);
-            #[cfg(since_254)]
-            self.bw.pbit::<14>(&mut self.buf, MAX_NPCS as i32 - 1);
+            self.bw
+                .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_NPCS as i32 - 1);
             self.bw.finish(&mut self.buf);
             self.buf.pdata(&self.updates.data, 0, self.updates.pos);
         } else {
             self.bw.finish(&mut self.buf);
         }
+        debug_assert!(self.buf.pos <= Self::BYTES_LIMIT - 3);
         unsafe { self.buf.data.get_unchecked(0..self.buf.pos) }
     }
 
@@ -1094,9 +1104,10 @@ impl NpcInfo {
             }
 
             let len: usize = s.len as usize;
+            let later = (self.tracked.len() - i - 1) * NpcInfo::BITS_RUN + NpcInfo::BITS_END;
             if s.run_dir != -1 {
                 // 1 + 2 + 3 + 3 + 1 = 10 bits
-                let extend = len > 0 && self.fits(NpcInfo::BITS_RUN, len);
+                let extend = len > 0 && self.fits(NpcInfo::BITS_RUN + later, len);
                 self.bw.pbit::<10>(
                     &mut self.buf,
                     (((1 << 2) | 2) << 7)
@@ -1109,7 +1120,7 @@ impl NpcInfo {
                 }
             } else if s.walk_dir != -1 {
                 // 1 + 2 + 3 + 1 = 7 bits
-                let extend = len > 0 && self.fits(NpcInfo::BITS_WALK, len);
+                let extend = len > 0 && self.fits(NpcInfo::BITS_WALK + later, len);
                 self.bw.pbit::<7>(
                     &mut self.buf,
                     (((1 << 2) | 1) << 4) | ((s.walk_dir as i32) << 1) | (extend as i32),
@@ -1117,7 +1128,7 @@ impl NpcInfo {
                 if extend {
                     self.highdefinition(renderer, nid);
                 }
-            } else if len > 0 && self.fits(NpcInfo::BITS_EXTEND, len) {
+            } else if len > 0 && self.fits(NpcInfo::BITS_EXTEND + later, len) {
                 // 1 + 2 = 3 bits
                 self.bw.pbit::<3>(&mut self.buf, 1 << 2);
                 self.highdefinition(renderer, nid);
@@ -1172,8 +1183,8 @@ impl NpcInfo {
                 return;
             }
             if let Some(other) = unsafe { &mut *npcs.as_mut_ptr().add(nid as usize) } {
-                let len: usize = renderer.lowdefinitions(nid) + renderer.highdefinitions(nid);
-                if !self.fits(NpcInfo::BITS_ADD, len) {
+                let len: usize = NpcRenderer::LOW_LEN + renderer.highdefinitions(nid);
+                if !self.fits(NpcInfo::BITS_ADD + NpcInfo::BITS_END, len) {
                     return;
                 }
                 self.add(
@@ -1413,8 +1424,8 @@ impl NpcInfo {
             while known < tracked.len() {
                 let nid = tracked[known];
                 let other = npcs.get(nid as usize).and_then(Option::as_ref);
-                let len = other.map_or(1, |_| renderer.lowdefinitions(nid) + 16);
-                if !info.fits(NpcInfo::BITS_ADD, len) {
+                let len = other.map_or(1, |_| NpcRenderer::LOW_LEN + 16);
+                if !info.fits(NpcInfo::BITS_ADD + NpcInfo::BITS_END, len) {
                     break;
                 }
                 let (ntype, x, z) = other.map_or((0, 0, 0), |n| {
@@ -1447,10 +1458,8 @@ impl NpcInfo {
                 known += 1;
             }
             if info.updates.pos > 0 {
-                #[cfg(before_254)]
-                info.bw.pbit::<13>(&mut info.buf, MAX_NPCS as i32 - 1);
-                #[cfg(since_254)]
-                info.bw.pbit::<14>(&mut info.buf, MAX_NPCS as i32 - 1);
+                info.bw
+                    .pbit::<{ NpcInfo::BITS_END }>(&mut info.buf, MAX_NPCS as i32 - 1);
                 info.bw.finish(&mut info.buf);
                 info.buf.pdata(&info.updates.data, 0, info.updates.pos);
             } else {

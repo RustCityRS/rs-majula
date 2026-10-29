@@ -942,9 +942,10 @@ impl PlayerRenderer {
 /// stored in inline [`Slot`] buffers, while the variable-length Say field
 /// uses a heap-allocated `Vec<u8>` buffer.
 ///
-/// Two accumulated byte-size counters (`highs` and `lows`) track the total
-/// serialized size of high-definition and low-definition updates per NPC,
-/// enabling the info output phase to perform capacity checks before writing.
+/// A byte-size counter (`highs`) tracks the serialized size of each NPC's
+/// high-definition update, and a low-definition update is never more than
+/// [`LOW_LEN`](Self::LOW_LEN), so the info output phase can check capacity
+/// before writing.
 ///
 /// This mirrors [`PlayerRenderer`] but with NPC-specific protocol types
 /// (7 protocols instead of 8) and a larger index space.
@@ -961,7 +962,6 @@ pub struct NpcRenderer {
     says: Vec<Option<Vec<u8>>>,
     high_blocks: Vec<Vec<u8>>,
     highs: Box<[u16; MAX_NPCS]>,
-    lows: Box<[u16; MAX_NPCS]>,
     written: Vec<u16>,
 }
 
@@ -970,8 +970,7 @@ impl NpcRenderer {
     ///
     /// Allocates the fixed-size slot arrays on the heap via `Box`, and
     /// initializes the variable-length say vector with `None` for all
-    /// NPC indices. All high-def and low-def byte-size counters
-    /// start at zero.
+    /// NPC indices. All high-def byte-size counters start at zero.
     ///
     /// # Returns
     ///
@@ -987,7 +986,6 @@ impl NpcRenderer {
             says: vec![None; MAX_NPCS],
             high_blocks: vec![Vec::new(); MAX_NPCS],
             highs: Box::new([0; MAX_NPCS]),
-            lows: Box::new([0; MAX_NPCS]),
             written: Vec::new(),
         }
     }
@@ -997,8 +995,8 @@ impl NpcRenderer {
     /// Iterates over every flag set in `info.masks` and serializes the
     /// corresponding field data into the appropriate slot or variable-length
     /// buffer for the given NPC index. Also accumulates the total
-    /// high-definition and low-definition byte sizes (including the mask
-    /// header) into `self.highs[nid]` and `self.lows[nid]`.
+    /// high-definition byte size (including the mask header) into
+    /// `self.highs[nid]`.
     ///
     /// Returns immediately if `info.masks` is zero (no updates pending).
     ///
@@ -1010,8 +1008,8 @@ impl NpcRenderer {
     /// # Side Effects
     ///
     /// Writes serialized data into the fixed slots and/or variable-length
-    /// buffers for `nid`. Updates `self.highs[nid]` and `self.lows[nid]`
-    /// with the total byte sizes. The say buffer is reused if already
+    /// buffers for `nid`. Updates `self.highs[nid]` with the total
+    /// byte size. The say buffer is reused if already
     /// allocated, avoiding repeated heap allocation.
     ///
     /// # Panics
@@ -1046,7 +1044,6 @@ impl NpcRenderer {
     unsafe fn compute_info_inner(&mut self, nid: usize, masks: u16, info: &EntityMasks) {
         unsafe {
             let mut highs: u16 = 0;
-            let mut lows: u16 = 0;
 
             if masks & NpcInfoProt::Anim as u16 != 0 {
                 self.fixed
@@ -1061,7 +1058,6 @@ impl NpcRenderer {
                     .get_unchecked_mut(nid)
                     .set_p2(info.face_entity.unwrap_or(u16::MAX));
                 highs += 2;
-                lows += 2;
             }
             if masks & NpcInfoProt::Say as u16 != 0 {
                 let say = info.say.as_ref().unwrap();
@@ -1119,7 +1115,6 @@ impl NpcRenderer {
                     .get_unchecked_mut(nid)
                     .set_p2_p2(info.face_x.unwrap(), info.face_z.unwrap());
                 highs += 4;
-                lows += 4;
             }
             #[cfg(since_244)]
             if masks & NpcInfoProt::Damage2 as u16 != 0 {
@@ -1137,12 +1132,6 @@ impl NpcRenderer {
 
             if highs > 0 {
                 *self.highs.get_unchecked_mut(nid) = highs + Self::header(masks);
-            }
-
-            if lows > 0 {
-                let header =
-                    Self::header(NpcInfoProt::FaceEntity as u16 | NpcInfoProt::FaceCoord as u16);
-                *self.lows.get_unchecked_mut(nid) = header + 2 + 4;
             }
 
             // Pre-coalesce the full high-definition update block once per tick.
@@ -1385,19 +1374,13 @@ impl NpcRenderer {
         unsafe { *self.highs.as_ptr().add(id as usize) as usize }
     }
 
-    /// Returns the total pre-computed low-definition byte size for an NPC.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to query.
-    ///
-    /// # Returns
-    ///
-    /// The total byte count for a low-definition update, or zero if none pending.
-    #[inline(always)]
-    pub const fn lowdefinitions(&self, id: u16) -> usize {
-        unsafe { *self.lows.as_ptr().add(id as usize) as usize }
-    }
+    /// The most a low-definition update can be: the face coord is always
+    /// sent, and the face entity with it when the NPC has one, under one
+    /// mask header.
+    pub const LOW_LEN: usize =
+        Self::header(NpcInfoProt::FaceEntity as u16 | NpcInfoProt::FaceCoord as u16) as usize
+            + 2
+            + 4;
 
     /// Clears per-tick temporary data for every NPC written this tick.
     ///
@@ -1406,9 +1389,7 @@ impl NpcRenderer {
     /// high-definition byte-size counter and clears every temporary
     /// protocol slot (Anim, FaceEntity, Damage, ChangeType, SpotAnim,
     /// FaceCoord) back to `Slot::EMPTY`. Also clears the variable-length
-    /// Say buffer. Low-definition counters are preserved because they
-    /// persist across ticks. NPCs that were never written this tick cost
-    /// nothing.
+    /// Say buffer. NPCs that were never written this tick cost nothing.
     ///
     /// # Side Effects
     ///
@@ -1464,7 +1445,7 @@ impl NpcRenderer {
     /// Performs a full cleanup of all renderer data for an NPC.
     ///
     /// Called when an NPC despawns or is otherwise permanently removed
-    /// from the game. Resets both byte-size counters to zero. Unlike
+    /// from the game. Resets the byte-size counter to zero. Unlike
     /// `PlayerRenderer::remove_permanent`, no variable-length buffer
     /// is dropped here because NPCs do not have persistent appearance
     /// data.
@@ -1475,7 +1456,7 @@ impl NpcRenderer {
     ///
     /// # Side Effects
     ///
-    /// Zeroes `self.highs[id]` and `self.lows[id]`.
+    /// Zeroes `self.highs[id]`.
     ///
     /// # Call Stack
     ///
@@ -1486,7 +1467,6 @@ impl NpcRenderer {
         let idx = id as usize;
         unsafe {
             *self.highs.get_unchecked_mut(idx) = 0;
-            *self.lows.get_unchecked_mut(idx) = 0;
         }
     }
 
