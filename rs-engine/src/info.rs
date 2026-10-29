@@ -9,8 +9,12 @@ use rs_info::Visibility;
 use rs_info::{NpcRenderer, PlayerRenderer};
 use rs_io::Packet;
 use rs_io::packet::BitWriter;
+use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_zone::zone_map::ZoneMap;
+
+/// The most an info packet's body holds: its opcode and length take 3 bytes.
+const BYTES_LIMIT: usize = MAX_PACKET_SIZE - 3;
 
 /// Compact per-tick snapshot of the handful of player fields the hot
 /// `write_players` loop reads, indexed by pid.
@@ -142,19 +146,18 @@ impl PlayerInfo {
     const BITS_WALK: usize = 1 + 2 + 3 + 1;
     const BITS_EXTEND: usize = 1 + 2;
     const BITS_END: usize = 11;
-    const BYTES_LIMIT: usize = 5000;
 
     /// Creates a new `PlayerInfo` encoder with pre-allocated buffers.
     ///
     /// # Returns
     /// A `PlayerInfo` with empty bit/byte buffers sized to
-    /// [`BYTES_LIMIT`](Self::BYTES_LIMIT) and a tracked-player vec
+    /// [`MAX_PACKET_SIZE`] and a tracked-player vec
     /// pre-allocated to [`BuildArea::PREFERRED_PLAYERS`].
     #[inline(always)]
     pub fn new() -> PlayerInfo {
         PlayerInfo {
-            buf: Packet::new(Self::BYTES_LIMIT),
-            updates: Packet::new(Self::BYTES_LIMIT),
+            buf: Packet::new(MAX_PACKET_SIZE),
+            updates: Packet::new(MAX_PACKET_SIZE),
             tracked: Vec::with_capacity(BuildArea::PREFERRED_PLAYERS as usize),
             bw: BitWriter::new(),
         }
@@ -225,7 +228,7 @@ impl PlayerInfo {
         } else {
             self.bw.finish(&mut self.buf);
         }
-        debug_assert!(self.buf.pos <= Self::BYTES_LIMIT - 3);
+        debug_assert!(self.buf.pos <= BYTES_LIMIT);
         unsafe { self.buf.data.get_unchecked(0..self.buf.pos) }
     }
 
@@ -816,11 +819,10 @@ impl PlayerInfo {
     ///
     /// # Returns
     /// `true` if the combined bit buffer (rounded up to bytes) plus the
-    /// update buffer plus the new data fits within `BYTES_LIMIT - 3`.
+    /// update buffer plus the new data fits within [`BYTES_LIMIT`].
     #[inline(always)]
     fn fits(&self, bits_to_add: usize, bytes_to_add: usize) -> bool {
-        ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add
-            <= Self::BYTES_LIMIT - 3
+        ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add <= BYTES_LIMIT
     }
 
     /// A session replay's keyframe (see [`crate::watch`]): `PLAYER_INFO`
@@ -970,19 +972,18 @@ impl NpcInfo {
     const BITS_END: usize = 13;
     #[cfg(since_254)]
     const BITS_END: usize = 14;
-    const BYTES_LIMIT: usize = 5000;
 
     /// Creates a new `NpcInfo` encoder with pre-allocated buffers.
     ///
     /// # Returns
     /// An `NpcInfo` with empty bit/byte buffers sized to
-    /// [`BYTES_LIMIT`](Self::BYTES_LIMIT) and a tracked-NPC vec
+    /// [`MAX_PACKET_SIZE`] and a tracked-NPC vec
     /// pre-allocated to [`BuildArea::PREFERRED_NPCS`].
     #[inline(always)]
     pub fn new() -> NpcInfo {
         NpcInfo {
-            buf: Packet::new(Self::BYTES_LIMIT),
-            updates: Packet::new(Self::BYTES_LIMIT),
+            buf: Packet::new(MAX_PACKET_SIZE),
+            updates: Packet::new(MAX_PACKET_SIZE),
             tracked: Vec::with_capacity(BuildArea::PREFERRED_NPCS as usize),
             bw: BitWriter::new(),
         }
@@ -1045,7 +1046,7 @@ impl NpcInfo {
         } else {
             self.bw.finish(&mut self.buf);
         }
-        debug_assert!(self.buf.pos <= Self::BYTES_LIMIT - 3);
+        debug_assert!(self.buf.pos <= BYTES_LIMIT);
         unsafe { self.buf.data.get_unchecked(0..self.buf.pos) }
     }
 
@@ -1391,11 +1392,10 @@ impl NpcInfo {
     ///
     /// # Returns
     /// `true` if the combined bit buffer (rounded up to bytes) plus the
-    /// update buffer plus the new data fits within `BYTES_LIMIT - 3`.
+    /// update buffer plus the new data fits within [`BYTES_LIMIT`].
     #[inline(always)]
     fn fits(&self, bits_to_add: usize, bytes_to_add: usize) -> bool {
-        ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add
-            <= Self::BYTES_LIMIT - 3
+        ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add <= BYTES_LIMIT
     }
 
     /// A session replay's keyframe (see [`PlayerInfo::keyframe`]): `NPC_INFO`

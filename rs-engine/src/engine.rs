@@ -53,6 +53,7 @@ use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::cache::{CacheStore, VarValue};
 use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
+use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
@@ -4867,8 +4868,8 @@ impl ScriptPlayer for ActivePlayer {
         self.player.runweight
     }
 
-    /// Reports whether the buffered-packet queue has reached the 5000-byte soft
-    /// bandwidth limit.
+    /// Reports whether the buffered-packet queue has reached the soft
+    /// bandwidth limit of [`MAX_PACKET_SIZE`].
     ///
     /// Each queued [`Packet`]'s backing buffer is exactly its on-wire size
     /// (opcode byte + frame header + payload), so summing their lengths yields
@@ -4879,7 +4880,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sums `Packet::len` over `self.buffered`
     fn buffer_full(&self) -> bool {
-        self.buffered.iter().map(|p| p.len()).sum::<usize>() >= 5000
+        self.buffered.iter().map(|p| p.len()).sum::<usize>() >= MAX_PACKET_SIZE
     }
 
     /// Makes the player say a message as overhead forced chat.

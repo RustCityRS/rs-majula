@@ -16,6 +16,7 @@ use rs_io::{Packet, PacketFrame};
 use rs_pack::cache::inv::InvScope;
 use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{Font, PlayerStat};
+use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::client::ClientProtMessage;
 use rs_protocol::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
 use rs_protocol::network::game::client::anticheat_cyclelogic2::AnticheatCycleLogic2;
@@ -260,7 +261,7 @@ impl ActivePlayer {
     /// sending at end-of-tick.
     ///
     /// The opcode byte, frame header, and payload are written into a new
-    /// [`Packet`]. Messages larger than 5000 bytes are silently dropped.
+    /// [`Packet`]. Messages larger than [`MAX_PACKET_SIZE`] are silently dropped.
     ///
     /// # Arguments
     /// * `message` - The server protocol message to queue.
@@ -283,14 +284,14 @@ impl ActivePlayer {
     }
 
     /// A message as a packet: opcode (unciphered), frame and body. `None`
-    /// past 5000 bytes.
+    /// past [`MAX_PACKET_SIZE`].
     fn plaintext<M>(message: M) -> Option<Packet>
     where
         M: ServerProtMessage,
     {
         let frame = M::FRAME as usize;
         let len = 1 + frame + message.sizeof();
-        if len > 5000 {
+        if len > MAX_PACKET_SIZE {
             return None;
         }
         let mut buf = Packet::new(len);
@@ -330,8 +331,8 @@ impl ActivePlayer {
     /// bypassing the buffered queue.
     ///
     /// Uses the shared `handle.write_queue` buffer. The opcode byte is
-    /// ISAAC-encrypted before sending. Messages larger than 5000 bytes are
-    /// silently dropped.
+    /// ISAAC-encrypted before sending. Messages larger than [`MAX_PACKET_SIZE`]
+    /// are silently dropped.
     ///
     /// # Arguments
     /// * `message` - The server protocol message to send immediately.
@@ -345,7 +346,7 @@ impl ActivePlayer {
         let handle = &mut self.handle;
         let frame = M::FRAME as usize;
         let len = 1 + frame + message.sizeof();
-        if len > 5000 {
+        if len > MAX_PACKET_SIZE {
             return;
         }
         let buf = &mut handle.write_queue;
@@ -2503,7 +2504,7 @@ pub trait EnginePlayer {
 const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an active"];
 
 /// How many bytes the read queue holds before the next message waits a tick.
-const READ_QUEUE_LIMIT: usize = 5000;
+const READ_QUEUE_LIMIT: usize = MAX_PACKET_SIZE;
 
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets

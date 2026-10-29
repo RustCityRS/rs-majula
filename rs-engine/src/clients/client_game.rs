@@ -1,5 +1,6 @@
 use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_io::Packet;
+use rs_protocol::network::game::MAX_PACKET_SIZE;
 use std::collections::VecDeque;
 use std::time::Instant;
 use tokio::sync::mpsc;
@@ -48,7 +49,7 @@ pub struct ClientIO {
 ///
 /// Returns a [`ClientIO`] containing:
 /// * A [`ClientHandle`] (engine side) with the packet inbox receiver, byte
-///   outbox sender, a 5000-byte write queue, and the ISAAC cipher pair.
+///   outbox sender, a [`MAX_PACKET_SIZE`] write queue, and the ISAAC cipher pair.
 /// * The corresponding network-side senders/receivers (`packet_tx`,
 ///   `bytes_rx`, `disconnect_tx`) that the socket task uses.
 ///
@@ -72,7 +73,7 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
             outbox: bytes_tx,
             recycle_rx,
             buffer_pool: Vec::new(),
-            write_queue: Packet::new(5000),
+            write_queue: Packet::new(MAX_PACKET_SIZE),
             read_queue: VecDeque::new(),
             pending_msg: None,
             arrivals: VecDeque::new(),
