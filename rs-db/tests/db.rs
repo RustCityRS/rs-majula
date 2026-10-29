@@ -1435,6 +1435,8 @@ async fn replays_compact_once_over(pool: PgPool) {
     assert_eq!((chunks[0].seq, chunks[0].end_ms), (0, 90_000));
     assert_eq!(chunks[0].data, b"ab");
     assert_eq!(db.replay(1).await.unwrap().unwrap().bytes, 2);
+    assert_eq!(db.replay_bytes(1).await.unwrap(), 2);
+    assert_eq!(db.replay_bytes(99).await.unwrap(), 0);
     assert!(db.replays_to_compact(10, 300, 10).await.unwrap().is_empty());
 
     // A world that stopped without ending its recording: compacted after an

@@ -29,6 +29,10 @@ const COMPACT_SETTLE_SECS: i32 = 5 * 60;
 const COMPACT_BATCH: i64 = 64;
 /// The zstd level a finished recording is recompressed at.
 const COMPACT_LEVEL: i32 = 19;
+/// The most a recording's chunks can take up and still be compacted: it's
+/// all held in memory, compressed and not, while that's done. Bigger ones
+/// stay in the chunks they were stored in, which play the same.
+const COMPACT_MAX_BYTES: i64 = 16 << 20;
 
 /// Stores what `rx` sends until every sender is gone, keeping recordings for
 /// `days` days. Recorded at protocol revision `revision`.
@@ -111,6 +115,10 @@ async fn compact_task(db: Db, node_id: u8) {
 /// Recompresses recording `id` whole, into one chunk. Returns how many
 /// bytes that saved.
 async fn compact(db: &Db, id: i64) -> Result<i64, rs_db::Error> {
+    if db.replay_bytes(id).await? > COMPACT_MAX_BYTES {
+        db.skip_compacting(id).await?;
+        return Ok(0);
+    }
     let chunks = db.replay_chunks(id).await?;
     let [first, .., last] = chunks.as_slice() else {
         db.skip_compacting(id).await?;

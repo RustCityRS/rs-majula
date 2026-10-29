@@ -75,6 +75,11 @@ fn queue_bytes(bytes: usize) -> bool {
 pub fn unqueue_bytes(bytes: usize) {
     QUEUED.fetch_sub(bytes, Ordering::Relaxed);
 }
+/// The most of the client's packets recorded in a tick. A real client sends
+/// far less (its biggest, the input report before 274, is about 500 bytes),
+/// so past this a modified one is flooding and the rest of the tick is left
+/// out.
+const CLIENT_BYTES_PER_TICK: usize = 1 << 10;
 /// How long a recording runs before it's ended, well short of where its
 /// times (stored as `i32` milliseconds) would wrap. The checks end with it.
 pub const MAX_RECORDED_MS: u32 = 20 * 24 * 3_600_000;
@@ -148,16 +153,12 @@ struct Recording {
     seq: i32,
     chunk_start_ms: u32,
     tick: Option<u32>,
-    /// When the last tick entry began.
     tick_ms: u32,
+    client_bytes: usize,
     lost: bool,
     state: ClientState,
-    /// When the next keyframe is due.
     next_keyframe_ms: u32,
-    /// When the chunk is next handed over, unless it fills first.
     next_chunk_ms: u32,
-    /// When the checks are next reported with a chunk: every [`CHUNK_MS`]
-    /// however often the chunks fill, live, and at the end.
     next_report_ms: u32,
 }
 
@@ -165,19 +166,12 @@ struct Recording {
 pub struct Watch {
     pub anticheat: AntiCheat,
     started: Instant,
-    /// When the client packet being handled arrived.
     arrived: Option<Instant>,
     recording: Option<Recording>,
-    /// Until when staff watch it live (see [`Self::watch_live`]).
     live_until: Option<Instant>,
-    /// The flags marked on the timeline as raised.
     raised: Vec<&'static str>,
-    /// Each check's (or script error's) last mark, and how many there were.
     marks: FxHashMap<String, (u32, u16)>,
-    /// Where notes are written before they go in, kept to save allocating.
     scratch: String,
-    /// When the player chose an action: a bit per [`rs_db::ACTIVITY_STEP_MS`]
-    /// from the start, and whether it changed since it was last stored.
     activity: Vec<u8>,
     activity_changed: bool,
 }
@@ -250,6 +244,7 @@ impl Watch {
                 chunk_start_ms: 0,
                 tick: None,
                 tick_ms: 0,
+                client_bytes: 0,
                 lost: false,
                 state: ClientState::default(),
                 next_keyframe_ms: (stagger as u32) % KEYFRAME_MS,
@@ -326,6 +321,7 @@ impl Watch {
             }
             recording.tick = Some(clock);
             recording.tick_ms = ms;
+            recording.client_bytes = 0;
         }
         Some(&mut recording.buf)
     }
@@ -407,11 +403,36 @@ impl Watch {
     /// A packet from the client: `prot`, sent as `opcode`.
     pub fn client(&mut self, clock: u32, prot: &ClientProt, opcode: u8, data: &[u8]) {
         self.anticheat.client(prot, data);
-        if let Some(buf) = self.buf(clock) {
-            buf.push(CLIENT);
-            buf.push(opcode);
-            put_varint(buf, data.len() as u32);
-            buf.extend_from_slice(data);
+        if self.buf(clock).is_none() {
+            return;
+        }
+        let Some(recording) = self.recording.as_mut() else {
+            return;
+        };
+        let before = recording.client_bytes;
+        recording.client_bytes += data.len();
+        if recording.client_bytes > CLIENT_BYTES_PER_TICK {
+            if before <= CLIENT_BYTES_PER_TICK {
+                self.flooded(clock);
+            }
+            return;
+        }
+        let buf = &mut recording.buf;
+        buf.push(CLIENT);
+        buf.push(opcode);
+        put_varint(buf, data.len() as u32);
+        buf.extend_from_slice(data);
+    }
+
+    /// Notes on the timeline, now and then, that the client sent more than
+    /// [`CLIENT_BYTES_PER_TICK`] in tick `clock` and the rest isn't recorded.
+    fn flooded(&mut self, clock: u32) {
+        let ms = self.ms();
+        if self.may_mark("unrecorded", ms) {
+            self.note(
+                clock,
+                "The client sent over 1 KiB this tick: the rest isn't recorded",
+            );
         }
     }
 
@@ -630,7 +651,45 @@ mod tests {
     use super::format::{Entry, Reader, TICK, TICK_DELTA};
     use super::{MapBase, Op, ReplayRequest, Watch, automated};
     use rs_db::LoginDevice;
+    use rs_protocol::network::game::client_prot::ClientProt;
     use tokio::sync::mpsc;
+
+    #[test]
+    fn a_flooding_client_is_recorded_up_to_a_kib_a_tick() {
+        let (tx, mut rx) = mpsc::channel(16);
+        let mut watch = Watch::start(42, 10, Some(&tx));
+        for clock in 0..2 {
+            for _ in 0..20 {
+                watch.client(clock, &ClientProt::MessagePublic, 1, &[0; 200]);
+            }
+        }
+        drop(watch);
+        let (mut ticks, mut recorded, mut notes) = (Vec::new(), 0, 0);
+        while let Ok(req) = rx.try_recv() {
+            let ReplayRequest::Store {
+                chunk: Some(chunk), ..
+            } = req
+            else {
+                continue;
+            };
+            for entry in Reader::new(&chunk.data) {
+                match entry {
+                    Entry::Tick { .. } if recorded > 0 => {
+                        ticks.push(recorded);
+                        recorded = 0;
+                    }
+                    Entry::Client { data, .. } => recorded += data.len(),
+                    Entry::Note(_) => notes += 1,
+                    _ => {}
+                }
+            }
+        }
+        ticks.push(recorded);
+        // Five of each tick's twenty fit; the gap is noted once, the second
+        // being too soon after.
+        assert_eq!(ticks, [1000, 1000]);
+        assert_eq!(notes, 1);
+    }
 
     #[test]
     fn each_chunk_starts_with_a_whole_tick() {

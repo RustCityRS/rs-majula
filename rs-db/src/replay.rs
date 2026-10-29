@@ -351,13 +351,21 @@ impl Db {
     }
 
     /// Marks recording `id` compacted as it is: it's in one chunk already
-    /// (or none, every one lost).
+    /// (or none, every one lost), or too big to compact.
     pub async fn skip_compacting(&self, id: i64) -> Result<(), Error> {
         sqlx::query("UPDATE replays SET compacted = true WHERE id = $1")
             .bind(id)
             .execute(&self.pool)
             .await?;
         Ok(())
+    }
+
+    /// How many bytes recording `id`'s chunks take up (0 if it's gone).
+    pub async fn replay_bytes(&self, id: i64) -> Result<i64, Error> {
+        sqlx::query_scalar("SELECT coalesce((SELECT bytes FROM replays WHERE id = $1), 0)")
+            .bind(id)
+            .fetch_one(&self.pool)
+            .await
     }
 
     /// How much the recordings take up.
