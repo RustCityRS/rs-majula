@@ -704,10 +704,10 @@ impl Engine {
     }
 
     /// Validates that the player's current interaction target still exists and
-    /// is on the same level, and that an item used on it is still held.
+    /// is on the same level.
     ///
     /// Delegates to the shared [`entity_validate_target`] with the player's
-    /// current Y-level and username hash, then [`use_item_held`].
+    /// current Y-level and username hash.
     ///
     /// # Safety Note
     ///
@@ -728,7 +728,7 @@ impl Engine {
             None,
             Some(active.uid().username37()),
             false,
-        ) && Self::use_item_held(active)
+        )
     }
 
     /// Returns `false` when an `Ap*U` interaction's item is no longer at
@@ -737,6 +737,8 @@ impl Engine {
     /// The `*U` handlers check the item only when the packet arrives. The
     /// client can still drag it to another slot (`InvButtonD`) while the player
     /// walks over, and the script would then act on whatever is in that slot.
+    /// Checked only when the interaction fires, so the player still walks to
+    /// the target.
     #[inline(always)]
     fn use_item_held(active: &mut ActivePlayer) -> bool {
         let uses_item = active
@@ -915,6 +917,9 @@ impl Engine {
     ///    operable distance, executes `default_op` (shows "Nothing
     ///    interesting happens.").
     ///
+    /// Whichever fires, an `Ap*U` interaction whose item has left its slot
+    /// ends there instead, silently ([`drop_unheld_use`]).
+    ///
     /// After script execution, checks for `next_target` set by script
     /// commands like `p_oploc` / `p_opobj`.
     ///
@@ -948,6 +953,10 @@ impl Engine {
         let in_op = Self::in_operable_distance(active);
 
         if has_op && (is_pathing || allow_op_scenery) && in_op {
+            if Self::drop_unheld_use(active) {
+                return true;
+            }
+
             let target = active.player.interaction.target.unwrap();
             let target_subject = Self::target_to_subject(&target);
             let uid = active.player.uid;
@@ -974,6 +983,10 @@ impl Engine {
         }
 
         if has_ap && Self::in_approach_distance(active) {
+            if Self::drop_unheld_use(active) {
+                return true;
+            }
+
             active.player.interaction.ap_range_called = false;
 
             let target = active.player.interaction.target.unwrap();
@@ -1019,11 +1032,30 @@ impl Engine {
         }
 
         if (is_pathing || allow_op_scenery) && in_op {
-            Self::default_op(active, has_op, has_ap);
+            if !Self::drop_unheld_use(active) {
+                Self::default_op(active, has_op, has_ap);
+            }
             return true;
         }
 
         false
+    }
+
+    /// Ends an `Ap*U` interaction that reached its target after the used item
+    /// left its slot (see [`use_item_held`]): no script runs and no message is
+    /// shown.
+    ///
+    /// # Returns
+    ///
+    /// `true` if the interaction was dropped.
+    #[inline(always)]
+    fn drop_unheld_use(active: &mut ActivePlayer) -> bool {
+        if Self::use_item_held(active) {
+            return false;
+        }
+        active.player.clear_interaction();
+        active.player.clear_waypoints();
+        true
     }
 
     /// Handles the fallback case when no OP or AP trigger script exists for
