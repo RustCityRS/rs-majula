@@ -58,6 +58,10 @@ impl ClientGameHandler for MessagePrivate {
             return Ok(());
         }
 
+        if !active.friends.contains(&self.user37) {
+            return Ok(());
+        }
+
         let Some(tx) = &engine.ether_tx else {
             return Ok(());
         };
