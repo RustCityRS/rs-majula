@@ -19,7 +19,7 @@ use std::io::IsTerminal;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, PoisonError, RwLock};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tokio::sync::mpsc::UnboundedSender;
@@ -480,9 +480,25 @@ enum Cmd {
     Migrate,
 }
 
+/// Held for writing while a debug reload replaces the cache in place, and
+/// for reading by the network tasks, so none of them sees it half-replaced.
+static CACHE_SWAP: RwLock<()> = RwLock::new(());
+
+/// The cache the network tasks serve from. A debug reload replaces it in
+/// place, so nothing borrowed from it may outlive a [`read`](Self::read).
+#[derive(Clone, Copy)]
+pub struct SharedCache(&'static CacheStore);
+
+impl SharedCache {
+    pub fn read<R>(self, f: impl FnOnce(&CacheStore) -> R) -> R {
+        let _swap = CACHE_SWAP.read().unwrap_or_else(PoisonError::into_inner);
+        f(self.0)
+    }
+}
+
 #[derive(Clone)]
 pub struct ServerIO {
-    cache: &'static CacheStore,
+    cache: SharedCache,
     rsa: &'static RsaKey,
     new_player_tx: UnboundedSender<LoginRequest>,
 }
@@ -834,7 +850,7 @@ async fn bootstrap(
     drop(trigger_rx);
 
     let server_state = ServerIO {
-        cache,
+        cache: SharedCache(cache),
         rsa,
         new_player_tx,
     };
@@ -887,7 +903,7 @@ async fn bootstrap(
     tokio::spawn(jaggrab::serve(
         host.to_string(),
         jaggrab,
-        cache,
+        server_state.cache,
         jaggrab_guard,
     ));
 
@@ -1203,6 +1219,7 @@ async fn engine_tick(
                 run_admin_job(&mut engine, job);
             }
             while let Ok((store, scripts)) = reload_rx.try_recv() {
+                let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
                 let ptr = &raw mut engine;
                 rs_engine::with_engine(&mut engine, || {
                     unsafe { &mut *ptr }.reload_assets(store, scripts);
@@ -1231,6 +1248,7 @@ async fn engine_tick(
                     continue;
                 }
                 Some((store, scripts)) = reload_rx.recv() => {
+                    let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
                     let ptr = &raw mut engine;
                     rs_engine::with_engine(&mut engine, || {
                         unsafe { &mut *ptr }.reload_assets(store, scripts);

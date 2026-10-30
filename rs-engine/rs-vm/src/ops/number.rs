@@ -55,7 +55,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, DIVIDE => |s| {
             let b = s.pop_int();
             let a = s.pop_int();
-            s.push_int(a.wrapping_div(b));
+            s.push_int(if b == 0 { 0 } else { a.wrapping_div(b) });
         });
 
         // 4604
@@ -117,7 +117,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, MODULO => |s| {
             let b = s.pop_int();
             let a = s.pop_int();
-            s.push_int(a.wrapping_rem(b));
+            s.push_int(if b == 0 { 0 } else { a.wrapping_rem(b) });
         });
 
         // 4612
@@ -177,7 +177,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let c = s.pop_int();
             let b = s.pop_int();
             let a = s.pop_int();
-            s.push_int((a as i64 * c as i64 / b as i64) as i32);
+            s.push_int(if b == 0 { 0 } else { (a as i64 * c as i64 / b as i64) as i32 });
         });
 
         // 4619

@@ -1,6 +1,6 @@
 use crate::device;
 use crate::socket::handshake;
-use crate::{ConnectionGuard, REVISION, ServerIO, Socket};
+use crate::{ConnectionGuard, REVISION, ServerIO, SharedCache, Socket};
 use rs_db::LoginDevice;
 use rs_pack::cache::CacheStore;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
@@ -15,10 +15,13 @@ use tokio_tungstenite::accept_hdr_async_with_config;
 use tokio_tungstenite::tungstenite::handshake::server::{ErrorResponse, Request, Response};
 use tokio_tungstenite::tungstenite::http::StatusCode;
 use tokio_tungstenite::tungstenite::protocol::WebSocketConfig;
-use tracing::{debug, info, warn};
+use tracing::{debug, warn};
 
 const HANDSHAKE_TIMEOUT: Duration = Duration::from_secs(10);
 const WRITE_TIMEOUT: Duration = Duration::from_secs(30);
+
+const MAX_HEAD: usize = 8 * 1024;
+const PEEK_RETRY: Duration = Duration::from_millis(5);
 
 #[allow(clippy::field_reassign_with_default)]
 fn ws_config() -> WebSocketConfig {
@@ -155,8 +158,9 @@ async fn handle_connection(
     };
 
     // Peek first to check if it's a WebSocket upgrade
-    let mut buf = [0; 4096];
-    let n = match timeout(HANDSHAKE_TIMEOUT, stream.peek(&mut buf)).await {
+    let mut buf = vec![0; MAX_HEAD];
+    let n = match timeout(HANDSHAKE_TIMEOUT, peek_head(&stream, &mut buf)).await {
+        Ok(Ok(0)) => return,
         Ok(Ok(n)) => n,
         Ok(Err(e)) => {
             debug!("peek error: {}", e);
@@ -167,14 +171,22 @@ async fn handle_connection(
             return;
         }
     };
+    if !head_ends(&buf[..n]) {
+        debug!("HTTP {} request head over {} bytes refused", peer, MAX_HEAD);
+        let _ = stream
+            .write_all(b"HTTP/1.1 431 Request Header Fields Too Large\r\nConnection: close\r\nContent-Length: 0\r\n\r\n")
+            .await;
+        return;
+    }
 
-    let raw = String::from_utf8_lossy(&buf[..n]);
+    let raw = String::from_utf8_lossy(&buf[..n]).into_owned();
+    drop(buf);
     let addr = client_addr(&raw, real_ip_header, peer);
     let Some(_permit) = permit.or_else(|| http_guard.try_acquire(addr.ip())) else {
         debug!("HTTP {} connection limit reached", addr);
         return;
     };
-    info!("HTTP {:?} connected", addr);
+    debug!("HTTP {:?} connected", addr);
 
     if raw.to_ascii_lowercase().contains("upgrade: websocket") {
         #[allow(clippy::result_large_err)]
@@ -182,7 +194,7 @@ async fn handle_connection(
             stream,
             |req: &Request, mut res: Response| {
                 if !same_origin(req) {
-                    info!(
+                    debug!(
                         "WebSocket from {} refused: origin {:?} isn't this host",
                         addr,
                         req.headers().get("Origin")
@@ -201,18 +213,18 @@ async fn handle_connection(
         );
         match timeout(HANDSHAKE_TIMEOUT, upgrade).await {
             Ok(Ok(ws)) => {
-                info!("WebSocket handshake complete for {}", addr);
+                debug!("WebSocket handshake complete for {}", addr);
                 let mut connection = Socket::from_ws(ws, addr, server_state, guard, js5_guard);
                 connection.device = login_device(&raw);
                 if let Err(e) = handshake(connection).await {
-                    info!("Connection {} closed: {}", addr, e);
+                    debug!("Connection {} closed: {}", addr, e);
                 }
             }
             Ok(Err(e)) => {
-                info!("WebSocket handshake failed: {}", e);
+                debug!("WebSocket handshake failed: {}", e);
             }
             Err(_) => {
-                info!("WebSocket handshake timed out for {}", addr);
+                debug!("WebSocket handshake timed out for {}", addr);
             }
         }
         return;
@@ -224,7 +236,7 @@ async fn handle_connection(
         // Disconnect if idle for 30 seconds
         let n = match timeout(Duration::from_secs(30), stream.read(&mut buf)).await {
             Ok(Ok(0)) | Err(_) | Ok(Err(_)) => {
-                info!("HTTP {:?} closed", addr);
+                debug!("HTTP {:?} closed", addr);
                 break;
             } // connection closed
             Ok(Ok(n)) => n,
@@ -287,16 +299,33 @@ async fn handle_connection(
         match timeout(WRITE_TIMEOUT, write).await {
             Ok(Ok(())) => {}
             Ok(Err(_)) | Err(_) => {
-                info!("HTTP {:?} write failed or stalled", addr);
+                debug!("HTTP {:?} write failed or stalled", addr);
                 break;
             }
         }
 
         if connection_close {
-            info!("HTTP {:?} closed", addr);
+            debug!("HTTP {:?} closed", addr);
             break;
         }
     }
+}
+
+/// Peeks at the request until its head ends or fills `buf`: the bytes read.
+/// A peek before more arrives returns the same bytes at once, so it waits.
+async fn peek_head(stream: &TcpStream, buf: &mut [u8]) -> std::io::Result<usize> {
+    loop {
+        let n = stream.peek(buf).await?;
+        if n == 0 || n == buf.len() || head_ends(&buf[..n]) {
+            return Ok(n);
+        }
+        tokio::time::sleep(PEEK_RETRY).await;
+    }
+}
+
+/// Whether `head` runs to the blank line that ends a request's head.
+fn head_ends(head: &[u8]) -> bool {
+    head.windows(4).any(|w| w == b"\r\n\r\n")
 }
 
 /// The client's address: the `header` field of the request head when it
@@ -410,7 +439,7 @@ async fn route(
     query: &str,
     nodeid: &str,
     members: bool,
-    cache: &'static CacheStore,
+    cache: SharedCache,
     jaggrab_only: bool,
     site_origin: Option<&'static str>,
 ) -> (&'static str, String, Body) {
@@ -444,7 +473,8 @@ async fn route(
                 );
             }
 
-            let bytes = render_client(nodeid, lowmem, members, client_version(cache)).into_bytes();
+            let bytes =
+                render_client(nodeid, lowmem, members, cache.read(client_version)).into_bytes();
             let len = bytes.len();
             (
                 "200 OK",
@@ -457,7 +487,8 @@ async fn route(
             )
         }
         "/worldmap" => {
-            let bytes = render_worldmap(asset_version(cache, "/mapview.js")).into_bytes();
+            let bytes = render_worldmap(cache.read(|cache| asset_version(cache, "/mapview.js")))
+                .into_bytes();
             let len = bytes.len();
             (
                 "200 OK",
@@ -481,7 +512,8 @@ async fn route(
             )
         }
         "/livemap" => {
-            let bytes = render_livemap(asset_version(cache, "/mapview.js")).into_bytes();
+            let bytes = render_livemap(cache.read(|cache| asset_version(cache, "/mapview.js")))
+                .into_bytes();
             let len = bytes.len();
             (
                 "200 OK",
@@ -495,7 +527,7 @@ async fn route(
         "/device.js" => DEVICE_SCRIPT.serve(query),
         "/gpu.js" => GPU_SCRIPT.serve(query),
         "/replay" => {
-            let bytes = render_replay(nodeid, members, client_version(cache)).into_bytes();
+            let bytes = render_replay(nodeid, members, cache.read(client_version)).into_bytes();
             let len = bytes.len();
             (
                 "200 OK",
@@ -506,7 +538,7 @@ async fn route(
             )
         }
         "/replay.js" => REPLAY_SCRIPT.serve(query),
-        p if matches_cache(p) => match read_cache(p, cache) {
+        p if matches_cache(p) => match cache.read(|cache| read_cache(p, cache)) {
             Some(body) => {
                 let len = body.len();
                 (
@@ -517,7 +549,7 @@ async fn route(
             }
             None => bad_request(),
         },
-        p if is_asset(p) => match read_asset(p, cache).await {
+        p if is_asset(p) => match cache.read(|cache| read_asset(p, cache)) {
             Some((content_type, body)) => {
                 let len = body.len();
                 (
@@ -555,7 +587,7 @@ fn matches_cache(path: &str) -> bool {
     .any(|p| path.starts_with(p))
 }
 
-pub(crate) fn read_cache(path: &str, cache: &'static CacheStore) -> Option<Body> {
+pub(crate) fn read_cache(path: &str, cache: &CacheStore) -> Option<Body> {
     if path.starts_with("/crc") {
         return Some(Body::Shared(Arc::clone(&cache.crctable_bytes)));
     }
@@ -610,7 +642,7 @@ fn is_asset(path: &str) -> bool {
         || path.ends_with(".mid")
 }
 
-async fn read_asset(path: &str, cache: &'static CacheStore) -> Option<(&'static str, Body)> {
+fn read_asset(path: &str, cache: &CacheStore) -> Option<(&'static str, Body)> {
     if path.ends_with(".mid") {
         let filename = path.split('/').next_back().unwrap_or(path);
         let stem = filename.strip_suffix(".mid").unwrap_or(filename);

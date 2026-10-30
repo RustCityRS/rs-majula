@@ -1,4 +1,4 @@
-use crate::active_player::EnginePlayer;
+use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::Engine;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
@@ -38,10 +38,17 @@ impl Engine {
     pub(crate) fn outputs(&mut self) {
         let pids = self.player_list.take_pids();
         let mut start = 0;
+        // Held out here, so a panic mid-encode can't drop the player: they
+        // go back in their slot for the emergency removal to save.
+        let mut taken = None;
         loop {
             let result = catch_unwind(AssertUnwindSafe(|| {
                 for &pid in &pids[start..] {
-                    Self::process_output(self, pid);
+                    taken = self.player_list.players[pid as usize].take();
+                    if let Some(active) = &mut taken {
+                        self.process_output(active);
+                    }
+                    self.player_list.players[pid as usize] = taken.take();
                     start += 1;
                 }
             }));
@@ -49,6 +56,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let pid = pids[start];
+                    self.player_list.players[pid as usize] = taken.take();
                     let msg = crate::phases::shared::panic_message(&panic);
                     error!("panic during output processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
@@ -60,11 +68,7 @@ impl Engine {
     }
 
     #[inline(always)]
-    fn process_output(&mut self, pid: u16) {
-        let Some(mut active) = self.player_list.players[pid as usize].take() else {
-            return;
-        };
-
+    fn process_output(&mut self, active: &mut ActivePlayer) {
         let dx = (active.player.pathing.last_coord.x() as i32
             - active.player.pathing.coord.x() as i32)
             .abs();
@@ -78,7 +82,7 @@ impl Engine {
             &self.player_list.players,
             &self.player_snapshots[..],
             &self.zones,
-            &mut active,
+            active,
             dx,
             dz,
             rebuild,
@@ -89,7 +93,7 @@ impl Engine {
             &mut self.npc_list.npcs,
             &self.npc_snapshots[..],
             &self.zones,
-            &mut active,
+            active,
             dx,
             dz,
             rebuild,
@@ -105,9 +109,7 @@ impl Engine {
         active.player.update_afk_zones();
         active.encode();
         if active.watch.keyframe_due() {
-            self.replay_keyframe(&mut active);
+            self.replay_keyframe(active);
         }
-
-        self.player_list.players[pid as usize] = Some(active);
     }
 }

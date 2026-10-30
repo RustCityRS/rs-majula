@@ -1,17 +1,16 @@
-use crate::ConnectionGuard;
 use crate::http::read_cache;
-use rs_pack::cache::CacheStore;
+use crate::{ConnectionGuard, SharedCache};
 use std::net::SocketAddr;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
 use tokio::time::timeout;
-use tracing::{debug, info, warn};
+use tracing::{debug, warn};
 
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(10);
 const RESPONSE_TIMEOUT: Duration = Duration::from_secs(30);
 
-pub async fn serve(host: String, port: u16, cache: &'static CacheStore, guard: ConnectionGuard) {
+pub async fn serve(host: String, port: u16, cache: SharedCache, guard: ConnectionGuard) {
     let listener = match TcpListener::bind((host.as_str(), port)).await {
         Ok(l) => l,
         Err(e) => {
@@ -42,11 +41,7 @@ pub async fn serve(host: String, port: u16, cache: &'static CacheStore, guard: C
     }
 }
 
-async fn handle(
-    mut stream: TcpStream,
-    addr: SocketAddr,
-    cache: &'static CacheStore,
-) -> anyhow::Result<()> {
+async fn handle(mut stream: TcpStream, addr: SocketAddr, cache: SharedCache) -> anyhow::Result<()> {
     stream.set_nodelay(true)?;
 
     let line = timeout(REQUEST_TIMEOUT, read_request_line(&mut stream)).await??;
@@ -59,7 +54,7 @@ async fn handle(
     };
 
     let path = format!("/{file}");
-    match read_cache(&path, cache) {
+    match cache.read(|cache| read_cache(&path, cache)) {
         Some(body) => {
             timeout(RESPONSE_TIMEOUT, async {
                 stream.write_all(body.as_bytes()).await?;
@@ -67,7 +62,7 @@ async fn handle(
             })
             .await
             .map_err(|_| anyhow::anyhow!("response write stalled"))??;
-            info!(
+            debug!(
                 "JAGGRAB {} served {} ({} bytes)",
                 addr,
                 path,

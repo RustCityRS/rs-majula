@@ -8,6 +8,8 @@ use rs_engine::LoginRequest;
 use rs_engine::{ClientIO, MAX_UNSENT, create_io};
 use rs_io::Packet;
 use rs_io::packet::RsaFrame;
+#[cfg(since_244)]
+use rs_pack::cache::CacheStore;
 use rs_protocol::LoginResponse;
 #[cfg(since_244)]
 use std::collections::VecDeque;
@@ -18,7 +20,7 @@ use std::time::Duration;
 use tokio::net::TcpListener;
 use tokio::sync::mpsc;
 use tokio::time::timeout;
-use tracing::{info, warn};
+use tracing::{debug, warn};
 
 #[repr(u8)]
 #[derive(TryFromPrimitive)]
@@ -50,14 +52,14 @@ pub async fn serve(
         if stream.set_nodelay(true).is_err() {
             continue; // peer already gone
         }
-        info!("TCP connection from {}", addr);
+        debug!("TCP connection from {}", addr);
         let server_state = server_state.clone();
         let guard = guard.clone();
         let js5_guard = js5_guard.clone();
         tokio::spawn(async move {
             let connection = Socket::from_tcp(stream, addr, server_state, guard, js5_guard);
             if let Err(e) = handshake(connection).await {
-                info!("TCP connection {} closed: {}", addr, e);
+                debug!("TCP connection {} closed: {}", addr, e);
             }
         });
     }
@@ -187,6 +189,12 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                 client.write(&resp).await?;
                 continue;
             }
+            HandshakeType::Js5 if key_exchanges > 0 => {
+                bail!(
+                    "{}: cache request after a session-key exchange",
+                    client.addr
+                )
+            }
             other => break (other, buf),
         }
     };
@@ -248,13 +256,14 @@ async fn process_login(mut client: Socket, mut buf: Packet, reconnect: bool) -> 
     let mut crc_block = [0; 9 * 4];
     buf.gdata(&mut crc_block, 0, 9 * 4);
     let client_crc = rs_io::crc::getcrc(&crc_block, 0, 9 * 4);
-    if client_crc != client.server_io.cache.crc_buffer32 {
+    let expected = client.server_io.cache.read(|cache| cache.crc_buffer32);
+    if client_crc != expected {
         let _ = client.write(&[LoginResponse::RuneScapeUpdated as u8]).await;
         bail!(
             "{}: CRC mismatch: client={} expected={}",
             client.addr,
             client_crc,
-            client.server_io.cache.crc_buffer32
+            expected
         )
     }
     if usize::from(buf.data[buf.pos]) > buf.len() - buf.pos - 1 {
@@ -406,9 +415,23 @@ fn enqueue_requests(
 
 #[cfg(since_244)]
 async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::Result<()> {
-    let blob: &[u8] = client
+    // Built before the first write: a debug reload can replace the cache
+    // while one waits.
+    let packets = client
         .server_io
         .cache
+        .read(|cache| js5_packets(cache, archive, file));
+    for pkt in packets {
+        client.write(&pkt.data).await?;
+    }
+    Ok(())
+}
+
+/// A cache file in parts of up to 500 bytes, or one empty part if it's
+/// missing or too big for the length field.
+#[cfg(since_244)]
+fn js5_packets(cache: &CacheStore, archive: u8, file: u16) -> Vec<Packet> {
+    let blob: &[u8] = cache
         .ondemand
         .get(archive as usize)
         .and_then(|files| files.get(file as usize))
@@ -423,10 +446,10 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
         pkt.p2(file);
         pkt.p2(0);
         pkt.p1(0);
-        client.write(&pkt.data).await?;
-        return Ok(());
+        return vec![pkt];
     }
 
+    let mut packets = Vec::with_capacity(len.div_ceil(500));
     let mut pos = 0;
     let mut part = 0;
     while pos < len {
@@ -437,11 +460,11 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
         pkt.p2(len as u16);
         pkt.p1(part);
         pkt.pdata(blob, pos, chunk);
-        client.write(&pkt.data).await?;
+        packets.push(pkt);
         pos += chunk;
         part = part.wrapping_add(1);
     }
-    Ok(())
+    packets
 }
 
 #[allow(clippy::collapsible_match)]
