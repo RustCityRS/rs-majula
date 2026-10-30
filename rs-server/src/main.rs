@@ -11,6 +11,7 @@ use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
 use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
+use rs_util::net::limit_address;
 use rs_util::os::{disable_huge_pages, raise_open_files, shutdown_signal};
 use std::collections::HashMap;
 use std::fs;
@@ -149,6 +150,7 @@ impl ConnectionGuard {
     }
 
     fn try_acquire(&self, ip: IpAddr) -> Option<ConnectionPermit> {
+        let ip = limit_address(ip);
         let mut counts = self.counts.lock().unwrap();
         if counts.total >= self.max_total {
             return None;

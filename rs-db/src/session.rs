@@ -2,6 +2,7 @@ use crate::device::DeviceCheck;
 use crate::links::{CROWDED_BROWSER, uncrowded};
 use crate::save::PlayerSave;
 use crate::{Db, Error};
+use rs_util::net::limit_address;
 use std::net::IpAddr;
 
 /// The outcome of [`Db::claim_session`].
@@ -255,10 +256,11 @@ impl Db {
         })
     }
 
-    /// Counts a wrong-password login from `ip`.
+    /// Counts a wrong-password login from `ip`. Failures are kept by
+    /// [`limit_address`], so an IPv6 address counts with its /64.
     pub async fn record_login_failure(&self, ip: IpAddr) -> Result<(), Error> {
         sqlx::query("INSERT INTO login_failures (ip) VALUES ($1::inet)")
-            .bind(ip.to_string())
+            .bind(limit_address(ip).to_string())
             .execute(&self.pool)
             .await?;
         Ok(())
@@ -275,6 +277,7 @@ impl Db {
         secs: i32,
         max: i64,
     ) -> Result<Option<LoginAttempt>, Error> {
+        let ip = limit_address(ip);
         let row: String = sqlx::query_scalar(
             "INSERT INTO login_failures (ip) VALUES ($1::inet) RETURNING ctid::text",
         )
@@ -307,7 +310,7 @@ impl Db {
             "SELECT count(*) FROM login_failures
              WHERE ip = $1::inet AND at > now() - make_interval(secs => $2)",
         )
-        .bind(ip.to_string())
+        .bind(limit_address(ip).to_string())
         .bind(secs)
         .fetch_one(&self.pool)
         .await

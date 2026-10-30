@@ -1,3 +1,4 @@
+use rs_util::net::limit_address;
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::sync::Mutex;
@@ -34,22 +35,13 @@ impl RateLimit {
         if seen.len() >= PRUNE_AT {
             seen.retain(|_, (start, _)| now.duration_since(*start) < self.window);
         }
-        let (start, count) = seen.entry(address(ip)).or_insert((now, 0));
+        let (start, count) = seen.entry(limit_address(ip)).or_insert((now, 0));
         if now.duration_since(*start) >= self.window {
             *start = now;
             *count = 0;
         }
         *count += 1;
         *count <= self.max
-    }
-}
-
-/// The address a limit counts `ip` as: an IPv6 address with the rest of its
-/// /64, which one household or phone is handed whole.
-fn address(ip: IpAddr) -> IpAddr {
-    match ip {
-        IpAddr::V4(_) => ip,
-        IpAddr::V6(v6) => IpAddr::V6((v6.to_bits() & u128::MAX << 64).into()),
     }
 }
 

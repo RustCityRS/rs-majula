@@ -149,10 +149,7 @@ impl Engine {
                                     pid,
                                     private_mode: active.player.private as u8,
                                     max_friends: max_friends_cap(active.player.is_member),
-                                    ip: active
-                                        .remote_ip
-                                        .map(|ip| ip.to_string())
-                                        .unwrap_or_default(),
+                                    ip: active.remote_ip,
                                 });
                             }
                         }

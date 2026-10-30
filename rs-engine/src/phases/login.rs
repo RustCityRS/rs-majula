@@ -3,6 +3,7 @@ use crate::clients::client_ether::EtherOutbound;
 use crate::engine::{Engine, LoginFailures, PendingLogin};
 use rs_protocol::LoginResponse;
 use rs_util::base37::to_userhash;
+use rs_util::net::limit_address;
 use std::net::IpAddr;
 use tracing::warn;
 
@@ -104,7 +105,7 @@ impl Engine {
                 let _ = tx.send(EtherOutbound::LoginCheck {
                     user37,
                     max_per_ip: MAX_PLAYING_PER_IP,
-                    ip: ip.to_string(),
+                    ip: Some(ip),
                 });
                 if let Some(db_tx) = &self.db_tx {
                     let _ = db_tx.send(DbRequest::Authenticate {
@@ -155,14 +156,17 @@ impl Engine {
         }
     }
 
-    /// Counts a wrong-password attempt against `ip`, restarting the count
-    /// if the previous failure has aged out of the window.
+    /// Counts a wrong-password attempt against `ip` (by [`limit_address`]),
+    /// restarting the count if the previous failure has aged out of the window.
     pub(crate) fn record_login_failure(&mut self, ip: IpAddr) {
         let clock = self.clock;
-        let failures = self.login_failures.entry(ip).or_insert(LoginFailures {
-            count: 0,
-            last: clock,
-        });
+        let failures = self
+            .login_failures
+            .entry(limit_address(ip))
+            .or_insert(LoginFailures {
+                count: 0,
+                last: clock,
+            });
         if clock - failures.last >= LOGIN_FAILURE_WINDOW_TICKS {
             failures.count = 0;
         }
@@ -172,8 +176,10 @@ impl Engine {
 
     /// Whether `ip` is locked out by recent wrong-password attempts.
     fn login_attempts_exceeded(&self, ip: IpAddr) -> bool {
-        self.login_failures.get(&ip).is_some_and(|f| {
-            f.count >= MAX_LOGIN_FAILURES && self.clock - f.last < LOGIN_FAILURE_WINDOW_TICKS
-        })
+        self.login_failures
+            .get(&limit_address(ip))
+            .is_some_and(|f| {
+                f.count >= MAX_LOGIN_FAILURES && self.clock - f.last < LOGIN_FAILURE_WINDOW_TICKS
+            })
     }
 }

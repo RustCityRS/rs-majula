@@ -3055,7 +3055,7 @@ impl Engine {
                 user37,
                 pid,
                 max_friends: max_friends_cap(is_member),
-                ip: remote_ip.to_string(),
+                ip: Some(remote_ip),
             });
             // Ether starts a session with private chat on; the saved mode has
             // to reach it before the lists announce the player as online.
@@ -3217,7 +3217,7 @@ impl Engine {
                 pid,
                 private_mode,
                 max_friends: max_friends_cap(is_member),
-                ip: request.remote_addr.ip().to_string(),
+                ip: Some(request.remote_addr.ip()),
             });
         }
 
@@ -3264,7 +3264,7 @@ impl Engine {
         {
             let _ = tx.send(EtherOutbound::LoginAbort {
                 user37: pending.user37,
-                ip: pending.request.remote_addr.ip().to_string(),
+                ip: Some(pending.request.remote_addr.ip()),
             });
         }
         if pending.claim_sent {

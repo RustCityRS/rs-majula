@@ -1,3 +1,5 @@
+use rs_util::net::limit_address;
+use std::net::IpAddr;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
@@ -61,7 +63,7 @@ pub enum EtherOutbound {
         user37: u64,
         pid: u16,
         max_friends: u16,
-        ip: String,
+        ip: Option<IpAddr>,
     },
     PlayerLogout {
         user37: u64,
@@ -100,16 +102,16 @@ pub enum EtherOutbound {
         pid: u16,
         private_mode: u8,
         max_friends: u16,
-        ip: String,
+        ip: Option<IpAddr>,
     },
     LoginCheck {
         user37: u64,
         max_per_ip: u8,
-        ip: String,
+        ip: Option<IpAddr>,
     },
     LoginAbort {
         user37: u64,
-        ip: String,
+        ip: Option<IpAddr>,
     },
     RefreshAll,
 }
@@ -150,6 +152,14 @@ pub enum EtherInbound {
     EtherDisconnected,
 }
 
+/// Writes the address ether counts `ip` under for its per-address limits
+/// (see [`limit_address`]), or nothing for a player without one.
+fn put_ip(buf: &mut Vec<u8>, ip: Option<IpAddr>) {
+    if let Some(ip) = ip {
+        buf.extend_from_slice(limit_address(ip).to_string().as_bytes());
+    }
+}
+
 impl EtherOutbound {
     /// Serializes this outbound message into the given byte buffer.
     ///
@@ -174,7 +184,7 @@ impl EtherOutbound {
                 buf.extend_from_slice(&user37.to_be_bytes());
                 buf.extend_from_slice(&pid.to_be_bytes());
                 buf.extend_from_slice(&max_friends.to_be_bytes());
-                buf.extend_from_slice(ip.as_bytes());
+                put_ip(buf, *ip);
             }
             Self::PlayerLogout { user37 } => {
                 buf.push(EtherOutboundOp::PlayerLogout as u8);
@@ -236,7 +246,7 @@ impl EtherOutbound {
                 buf.extend_from_slice(&pid.to_be_bytes());
                 buf.push(*private_mode);
                 buf.extend_from_slice(&max_friends.to_be_bytes());
-                buf.extend_from_slice(ip.as_bytes());
+                put_ip(buf, *ip);
             }
             Self::LoginCheck {
                 user37,
@@ -246,12 +256,12 @@ impl EtherOutbound {
                 buf.push(EtherOutboundOp::LoginCheck as u8);
                 buf.extend_from_slice(&user37.to_be_bytes());
                 buf.push(*max_per_ip);
-                buf.extend_from_slice(ip.as_bytes());
+                put_ip(buf, *ip);
             }
             Self::LoginAbort { user37, ip } => {
                 buf.push(EtherOutboundOp::LoginAbort as u8);
                 buf.extend_from_slice(&user37.to_be_bytes());
-                buf.extend_from_slice(ip.as_bytes());
+                put_ip(buf, *ip);
             }
             Self::RefreshAll => {
                 buf.push(EtherOutboundOp::RefreshAll as u8);
