@@ -550,6 +550,7 @@ pub struct Engine {
     pub cache: &'static CacheStore,
     cache_ptr: *mut CacheStore,
     tick_stats_tx: Option<Sender<TickStats>>,
+    pub(crate) gather_output: bool,
     pub reload_tx: UnboundedSender<()>,
     pub player_renderer: PlayerRenderer,
     pub npc_renderer: NpcRenderer,
@@ -561,8 +562,6 @@ pub struct Engine {
     pub ops: OpsRegistry,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
-    /// When each obj that appeared lately (dropped, revealed or respawned)
-    /// did, for how fast players react to it.
     pub obj_appeared: FxHashMap<(CoordGrid, u16), Instant>,
     pub world_queue: LinkList<ScriptState>,
     pub obj_delayed_queue: LinkList<ObjDelayedRequest>,
@@ -708,6 +707,7 @@ impl Engine {
             cache,
             cache_ptr,
             tick_stats_tx: Some(stats_tx),
+            gather_output: false,
             reload_tx,
             player_renderer: PlayerRenderer::new(),
             npc_renderer: NpcRenderer::new(),
@@ -825,6 +825,7 @@ impl Engine {
                 }};
             }
 
+            engine.gather_output = true;
             let _ = phase!("fence", engine.fence());
             let world = phase!("world", engine.world());
             let _ = phase!("fence", engine.fence());
@@ -840,6 +841,7 @@ impl Engine {
             let zones = phase!("zones", engine.zones());
             let info = phase!("info", engine.infos());
             let out = phase!("out", engine.outputs());
+            engine.gather_output = false;
             let cleanup = phase!("cleanup", engine.cleanups());
             engine.clock += 1;
 
@@ -3135,7 +3137,7 @@ impl Engine {
     ///
     /// **Called by:** [`try_complete_login`](Engine::try_complete_login)
     /// **Calls:** `EnginePlayer::on_reconnect`
-    pub(crate) fn adopt_session(&mut self, pid: u16, request: LoginRequest) {
+    pub(crate) fn adopt_session(&mut self, pid: u16, mut request: LoginRequest) {
         let clock = self.clock;
 
         let Some(active) = self
@@ -3257,7 +3259,7 @@ impl Engine {
     /// [`reject_pending_login`](Engine::reject_pending_login) for a response
     /// that carries a payload after its code byte.
     pub(crate) fn reject_pending_login_with(&mut self, idx: usize, reply: Vec<u8>) {
-        let pending = self.pending_logins.swap_remove(idx);
+        let mut pending = self.pending_logins.swap_remove(idx);
         pending.request.handle.send(reply);
         if pending.ether_allowed
             && let Some(tx) = &self.ether_tx

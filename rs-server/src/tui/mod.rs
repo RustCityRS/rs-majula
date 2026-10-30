@@ -126,7 +126,7 @@ struct App {
     mem_peak_mb: u64,
     mem_rss_bytes: u64,
     mem_rss_delta: i64,
-    sys: System,
+    sys: Option<System>,
     pid: Pid,
     roast_index: usize,
     pet_frame: usize,
@@ -141,7 +141,8 @@ impl App {
     fn new(log_buf: LogBuffer, sinks: TuiSinks, guards: crate::ConnectionGuards) -> Self {
         let sys = System::new_with_specifics(
             RefreshKind::nothing().with_processes(ProcessRefreshKind::nothing().with_memory()),
-        );
+        )
+        .ok();
         let pid = Pid::from_u32(std::process::id());
         Self {
             log_buf,
@@ -194,14 +195,16 @@ impl App {
         }
 
         // Memory: poll at most every 1s - sysinfo refresh isn't free.
-        if self.last_mem_poll.elapsed() >= Duration::from_secs(1) {
+        if self.last_mem_poll.elapsed() >= Duration::from_secs(1)
+            && let Some(sys) = &mut self.sys
+        {
             self.last_mem_poll = Instant::now();
-            self.sys.refresh_processes_specifics(
+            sys.refresh_processes_specifics(
                 sysinfo::ProcessesToUpdate::Some(&[self.pid]),
                 true,
                 ProcessRefreshKind::nothing().with_memory(),
             );
-            if let Some(p) = self.sys.process(self.pid) {
+            if let Some(p) = sys.process(self.pid) {
                 let bytes = p.memory();
                 let mb = bytes / (1024 * 1024);
                 if mb > self.mem_peak_mb {

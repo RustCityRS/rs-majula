@@ -140,11 +140,6 @@ use std::net::IpAddr;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
 
-/// Maximum number of recycled outbound byte buffers kept per client in
-/// [`ClientHandle::buffer_pool`]. Caps memory if a client's network task
-/// returns buffers faster than they're reused; extras are dropped (freed).
-const OUTPUT_POOL_CAP: usize = 8;
-
 type PartialInvUpdate = Vec<(u16, Option<(u16, i32)>)>;
 type FullInvUpdate = Vec<Option<(u16, i32)>>;
 
@@ -233,7 +228,8 @@ impl ActivePlayer {
     ///
     /// Buffered-priority messages are queued and flushed at the end of the
     /// tick via [`encode`](Self::encode). Immediate-priority messages are
-    /// sent to the network layer right away.
+    /// sent right away, or during a tick join the player's output, which goes
+    /// out as one write.
     ///
     /// # Arguments
     /// * `message` - The server protocol message to send.
@@ -308,12 +304,13 @@ impl ActivePlayer {
         Some(buf)
     }
 
-    /// Flushes all queued buffered packets to the network outbox.
+    /// Flushes all queued buffered packets to the network outbox, with the
+    /// rest of the tick's output, as one write.
     ///
     /// Each packet's opcode byte is ISAAC-encrypted before sending.
     ///
     /// # Side Effects
-    /// * Drains `self.buffered` and sends each packet to the socket task.
+    /// * Drains `self.buffered` and sends the tick's output to the socket task.
     ///
     /// # Call Stack
     /// **Called by:** [`encode`](Self::encode)
@@ -323,8 +320,9 @@ impl ActivePlayer {
         for mut buf in self.buffered.drain(..) {
             self.watch.server(clock, buf.data[0], &buf.data[1..]);
             buf.data[0] = (buf.data[0] as u32 + handle.isaac_encode.next_int()) as u8;
-            handle.send(buf.data);
+            handle.gather(&buf.data);
         }
+        handle.flush();
     }
 
     /// Encodes and immediately sends a server protocol message to the client,
@@ -332,7 +330,9 @@ impl ActivePlayer {
     ///
     /// Uses the shared `handle.write_queue` buffer. The opcode byte is
     /// ISAAC-encrypted before sending. Messages larger than [`MAX_PACKET_SIZE`]
-    /// are silently dropped.
+    /// are silently dropped. During a tick the message joins the player's
+    /// output instead (see
+    /// [`Engine::gather_output`](crate::engine::Engine::gather_output)).
     ///
     /// # Arguments
     /// * `message` - The server protocol message to send immediately.
@@ -364,21 +364,11 @@ impl ActivePlayer {
             .server(engine().clock, M::PROT as u8, &buf.data[1..buf.pos]);
         self.watch
             .remember(M::PROT as u8, frame, &buf.data[1..buf.pos]);
-        // Reuse a recycled outbound buffer instead of allocating a fresh
-        // Vec per immediate message. The TCP net task returns drained buffers
-        // via recycle_rx; copy the encoded bytes into one and send it. (The
-        // copy from write_queue is unchanged from the old to_vec(); only the
-        // per-message allocation is eliminated.)
         let pos = buf.pos;
-        while let Ok(returned) = handle.recycle_rx.try_recv() {
-            if handle.buffer_pool.len() < OUTPUT_POOL_CAP {
-                handle.buffer_pool.push(returned);
-            }
+        handle.gather_written(pos);
+        if !engine().gather_output {
+            handle.flush();
         }
-        let mut out = handle.buffer_pool.pop().unwrap_or_default();
-        out.clear();
-        out.extend_from_slice(&handle.write_queue.data[0..pos]);
-        handle.send(out);
     }
 
     /// Flushes pending modal UI state changes and all buffered packets for

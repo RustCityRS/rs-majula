@@ -100,7 +100,7 @@ struct Metrics {
     guards: ConnectionGuards,
     members: bool,
     started_secs: u64,
-    sys: Mutex<System>,
+    sys: Mutex<Option<System>>,
     pid: Option<Pid>,
 }
 
@@ -125,7 +125,7 @@ pub async fn serve(
         guards,
         members,
         started_secs: unix_secs(),
-        sys: Mutex::new(System::new()),
+        sys: Mutex::new(System::new().ok()),
         pid: sysinfo::get_current_pid().ok(),
     });
     tokio::spawn(record_ticks(stats, metrics.clone()));
@@ -274,6 +274,7 @@ impl Metrics {
     fn resident_bytes(&self) -> Option<u64> {
         let pid = self.pid?;
         let mut sys = self.sys.lock().ok()?;
+        let sys = sys.as_mut()?;
         sys.refresh_processes_specifics(
             ProcessesToUpdate::Some(&[pid]),
             true,

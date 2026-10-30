@@ -121,17 +121,12 @@ struct AdminState {
     db: Db,
     ticks: Mutex<VecDeque<f32>>,
     connections: ConnectionGuard,
-    sys: Mutex<System>,
+    sys: Mutex<Option<System>>,
     pid: Option<Pid>,
     reboot_reason: Mutex<Option<String>>,
-    /// Sessions staff are watching live, by token.
     spectates: Mutex<HashMap<String, Arc<tokio::sync::Mutex<Spectate>>>>,
-    /// For password reset codes, hashed as passwords are.
     passwords: Passwords,
-    /// Held while scripts are recompiled, so reloads don't overlap.
     reloading: tokio::sync::Mutex<()>,
-    /// Held while a replay file is built from what's stored, so only one is
-    /// in memory at a time.
     building: tokio::sync::Mutex<()>,
 }
 
@@ -151,6 +146,7 @@ impl AdminState {
     fn resident_bytes(&self) -> Option<u64> {
         let pid = self.pid?;
         let mut sys = self.sys.lock().ok()?;
+        let sys = sys.as_mut()?;
         sys.refresh_processes_specifics(
             ProcessesToUpdate::Some(&[pid]),
             true,
@@ -202,7 +198,7 @@ pub async fn serve(
         db: Db::connect_lazy_with_timeout(&db, LOOKUP_CONNECTIONS, LOOKUP_TIMEOUT),
         ticks: Mutex::new(VecDeque::with_capacity(HEALTH_TICKS)),
         connections,
-        sys: Mutex::new(System::new()),
+        sys: Mutex::new(System::new().ok()),
         pid: sysinfo::get_current_pid().ok(),
         reboot_reason: Mutex::default(),
         spectates: Mutex::default(),

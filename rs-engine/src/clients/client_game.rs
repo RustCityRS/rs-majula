@@ -2,6 +2,7 @@ use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_io::Packet;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use std::collections::VecDeque;
+use std::mem;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Instant;
@@ -20,6 +21,9 @@ const DISCONNECT_CAPACITY: usize = 1;
 /// About a minute of output in a crowd.
 pub const MAX_UNSENT: usize = 1 << 20;
 
+/// Most recycled output buffers a client keeps for reuse; extras are freed.
+const OUTPUT_POOL_CAP: usize = 8;
+
 /// The engine-side handle for a single game client connection.
 ///
 /// Holds the decoded packet inbox, the outbound byte sender, ISAAC cipher
@@ -29,8 +33,9 @@ pub struct ClientHandle {
     pub inbox: Receiver<(Instant, Vec<u8>)>,
     outbox: UnboundedSender<Vec<u8>>,
     unsent: Arc<AtomicUsize>,
-    pub recycle_rx: UnboundedReceiver<Vec<u8>>,
-    pub buffer_pool: Vec<Vec<u8>>,
+    recycle_rx: UnboundedReceiver<Vec<u8>>,
+    buffer_pool: Vec<Vec<u8>>,
+    gathered: Vec<u8>,
     pub write_queue: Packet,
     pub read_queue: VecDeque<u8>,
     pub pending_msg: Option<(Instant, Vec<u8>)>,
@@ -84,6 +89,7 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
             unsent: unsent.clone(),
             recycle_rx,
             buffer_pool: Vec::new(),
+            gathered: Vec::new(),
             write_queue: Packet::new(MAX_PACKET_SIZE),
             read_queue: VecDeque::new(),
             pending_msg: None,
@@ -103,10 +109,52 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
 }
 
 impl ClientHandle {
-    /// Hands `bytes` to the socket task to write.
-    pub fn send(&self, bytes: Vec<u8>) {
+    /// Hands `bytes` to the socket task to write, after anything gathered.
+    pub fn send(&mut self, bytes: Vec<u8>) {
+        self.flush();
+        self.push(bytes);
+    }
+
+    /// Adds `bytes` to the output [`flush`](Self::flush) writes in one go.
+    pub fn gather(&mut self, bytes: &[u8]) {
+        self.reuse_buffer();
+        self.gathered.extend_from_slice(bytes);
+    }
+
+    /// [`gather`](Self::gather)s the first `len` bytes of the write queue.
+    pub fn gather_written(&mut self, len: usize) {
+        self.reuse_buffer();
+        self.gathered
+            .extend_from_slice(&self.write_queue.data[..len]);
+    }
+
+    /// Hands the gathered output to the socket task as one write.
+    pub fn flush(&mut self) {
+        if !self.gathered.is_empty() {
+            let bytes = mem::take(&mut self.gathered);
+            self.push(bytes);
+        }
+    }
+
+    fn push(&self, bytes: Vec<u8>) {
         self.unsent.fetch_add(bytes.len(), Ordering::Relaxed);
         let _ = self.outbox.send(bytes);
+    }
+
+    /// Starts the gathered output in a buffer the socket task gave back.
+    fn reuse_buffer(&mut self) {
+        if self.gathered.capacity() > 0 {
+            return;
+        }
+        while let Ok(returned) = self.recycle_rx.try_recv() {
+            if self.buffer_pool.len() < OUTPUT_POOL_CAP {
+                self.buffer_pool.push(returned);
+            }
+        }
+        if let Some(mut buf) = self.buffer_pool.pop() {
+            buf.clear();
+            self.gathered = buf;
+        }
     }
 
     /// Whether the socket task is over [`MAX_UNSENT`] bytes behind.
@@ -124,6 +172,7 @@ impl ClientHandle {
     /// Closes the connection: dropping this end of its channels stops the
     /// socket task. Whatever was read and not yet decoded is thrown away.
     pub fn close(&mut self) {
+        self.flush();
         self.inbox = mpsc::channel(1).1;
         self.outbox = mpsc::unbounded_channel().0;
         self.read_queue.clear();
@@ -139,5 +188,11 @@ impl ClientHandle {
             self.arrivals.pop_front();
         }
         self.arrivals.front().map(|&(_, at)| at)
+    }
+}
+
+impl Drop for ClientHandle {
+    fn drop(&mut self) {
+        self.flush();
     }
 }

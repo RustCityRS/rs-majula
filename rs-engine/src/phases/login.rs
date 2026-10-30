@@ -67,7 +67,7 @@ impl Engine {
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `EtherOutbound::LoginCheck`, `DbRequest::Authenticate`
     pub(crate) fn logins(&mut self) {
-        while let Ok(request) = self.new_player_rx.try_recv() {
+        while let Ok(mut request) = self.new_player_rx.try_recv() {
             let user37 = to_userhash(&request.username);
 
             if !self.db_ready || !self.ether_ready || self.lease_expired() {

@@ -28,7 +28,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "0.1.22"
+version = "0.1.23"
 edition = "2024"
 rust-version = "1.95"
 authors = ["RustCityRS"]
@@ -94,7 +94,7 @@ clap = { version = "4.6", features = ["derive", "env"] }
 # Terminal UI
 ratatui = "0.30"
 crossterm = { version = "0.29", features = ["event-stream"] }
-sysinfo = { version = "0.39", default-features = false, features = ["system"] }
+sysinfo = { version = "0.40", default-features = false, features = ["system"] }
 
 # Sprite authoring docs (PyxelEdit .pyxel = zip of PNGs + JSON)
 zip = { version = "9.0", default-features = false, features = ["deflate"] }
