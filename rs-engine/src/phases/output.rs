@@ -102,7 +102,7 @@ impl Engine {
         active.update_map();
         active.player_info(player_info);
         active.npc_info(npc_info);
-        active.update_zones(&self.zones, self.clock);
+        active.update_zones(&self.zones, &self.zones_tracking, self.clock);
         active.update_invs(&mut self.invs);
         active.update_other_invs(&self.player_list.players);
         active.update_stats();

@@ -9,7 +9,7 @@ use rs_cam::CamKind;
 use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
 use rs_entity::{EntityLifeTime, Player};
-use rs_grid::CoordGrid;
+use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::FocusKind;
 use rs_inv::Inventory;
 use rs_io::{Packet, PacketFrame};
@@ -132,7 +132,7 @@ use rs_vm::trigger::ServerTriggerType;
 use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
-use rustc_hash::FxHashMap;
+use rustc_hash::{FxHashMap, FxHashSet};
 use std::borrow::Cow;
 use std::cell::RefCell;
 use std::fmt::Write as _;
@@ -369,6 +369,70 @@ impl ActivePlayer {
         if !engine().gather_output {
             handle.flush();
         }
+    }
+
+    /// [`update_zones`](EnginePlayer::update_zones) when neither zone list
+    /// has changed since its last full pass and no zone it couldn't load has
+    /// collision data now: no zone needs loading, so only the zones in
+    /// `changed` can have updates. `false` if it needs the full pass.
+    fn update_settled_zones(
+        &mut self,
+        zones: &ZoneMap,
+        changed: &FxHashSet<ZoneCoordGrid>,
+    ) -> bool {
+        let Some(unloaded) = self.player.build_area.zones_settled else {
+            return false;
+        };
+        let mut bits = unloaded;
+        while bits != 0 {
+            let zone = self.player.build_area.active_zones[bits.trailing_zeros() as usize];
+            if rsmod::is_zone_allocated(zone.x(), zone.z(), zone.y()) {
+                return false;
+            }
+            bits &= bits - 1;
+        }
+        if changed.is_empty() {
+            return true;
+        }
+
+        let origin_x = self.player.build_area.origin.zone_origin_x();
+        let origin_z = self.player.build_area.origin.zone_origin_z();
+        let user37 = self.uid().username37();
+        for i in 0..self.player.build_area.active_zones.len() {
+            let zone_coord = self.player.build_area.active_zones[i];
+            if unloaded >> i & 1 != 0 {
+                continue;
+            }
+            if !changed.contains(&zone_coord) {
+                debug_assert!(
+                    zones
+                        .zone(zone_coord.x(), zone_coord.y(), zone_coord.z())
+                        .is_none_or(
+                            |zone| zone.shared_bytes().is_none() && !zone.has_follows_events()
+                        ),
+                    "zone {zone_coord:?} has updates but isn't tracked"
+                );
+                continue;
+            }
+            if !rsmod::is_zone_allocated(zone_coord.x(), zone_coord.z(), zone_coord.y()) {
+                continue;
+            }
+            let Some(zone) = zones.zone(zone_coord.x(), zone_coord.y(), zone_coord.z()) else {
+                continue;
+            };
+            let x = zone_coord.x().wrapping_sub(origin_x) as u8;
+            let z = zone_coord.z().wrapping_sub(origin_z) as u8;
+            if let Some(bytes) = zone.shared_bytes() {
+                self.write(UpdateZonePartialEnclosed { x, z, bytes });
+            }
+            if zone.has_follows_events() {
+                self.write(UpdateZonePartialFollows { x, z });
+                for message in zone.visible_follows_events(user37) {
+                    self.write_zone_message(message);
+                }
+            }
+        }
+        true
     }
 
     /// Flushes pending modal UI state changes and all buffered packets for
@@ -2471,8 +2535,9 @@ pub trait EnginePlayer {
     fn write_zone_message(&mut self, message: &ZoneMessage);
 
     /// Sends full and incremental zone updates (objects, locs, events) to
-    /// the client for all zones in the build area.
-    fn update_zones(&mut self, zones: &ZoneMap, clock: u32);
+    /// the client for all zones in the build area. `changed` holds the zones
+    /// with events this tick.
+    fn update_zones(&mut self, zones: &ZoneMap, changed: &FxHashSet<ZoneCoordGrid>, clock: u32);
 
     /// Closes any open modal interface, optionally clearing the weak script
     /// queue, and fires `IfClose` triggers.
@@ -2895,12 +2960,16 @@ impl EnginePlayer for ActivePlayer {
     ///
     /// # Arguments
     /// * `zones` - The zone map containing zone state and events.
+    /// * `changed` - The zones with events this tick.
     /// * `clock` - The current game tick, used for object visibility checks.
     ///
     /// # Side Effects
     /// * Marks zones as loaded in the player's build area.
     /// * Sends zone update packets to the client.
-    fn update_zones(&mut self, zones: &ZoneMap, clock: u32) {
+    fn update_zones(&mut self, zones: &ZoneMap, changed: &FxHashSet<ZoneCoordGrid>, clock: u32) {
+        if self.update_settled_zones(zones, changed) {
+            return;
+        }
         let origin_x = self.player.build_area.origin.zone_origin_x();
         let origin_z = self.player.build_area.origin.zone_origin_z();
         let user37 = self.uid().username37();
@@ -2998,6 +3067,16 @@ impl EnginePlayer for ActivePlayer {
                     .zone_sent(zone_coord.x(), zone_coord.z());
             }
         }
+
+        let build_area = &mut self.player.build_area;
+        debug_assert!(build_area.active_zones.len() <= 64);
+        let mut unloaded = 0;
+        for (i, zone) in build_area.active_zones.iter().enumerate() {
+            if !build_area.loaded_zones.contains(zone) {
+                unloaded |= 1 << i;
+            }
+        }
+        build_area.zones_settled = Some(unloaded);
     }
 
     /// Closes all open modal interfaces (main, chat, side) and fires

@@ -137,6 +137,7 @@ impl IdBitSet {
 pub struct BuildArea {
     pub loaded_zones: Vec<ZoneCoordGrid>,
     pub active_zones: Vec<ZoneCoordGrid>,
+    pub zones_settled: Option<u64>,
     pub mapsquares: Vec<u16>,
     pub origin: CoordGrid,
     pub players: IdBitSet,
@@ -165,6 +166,7 @@ impl BuildArea {
         BuildArea {
             loaded_zones: Vec::with_capacity(7 * 7),
             active_zones: Vec::with_capacity(7 * 7),
+            zones_settled: None,
             mapsquares: Vec::with_capacity(3 * 3),
             origin: CoordGrid::new(0, 0, 0),
             players: IdBitSet::new(MAX_PLAYERS, BuildArea::PREFERRED_PLAYERS as usize),
@@ -194,6 +196,7 @@ impl BuildArea {
         }
         self.loaded_zones.clear();
         self.active_zones.clear();
+        self.zones_settled = None;
         self.mapsquares.clear();
         self.players.clear();
         self.npcs.clear();
@@ -212,6 +215,7 @@ impl BuildArea {
     /// * Clears and repopulates `self.active_zones`.
     pub fn rebuild_zones(&mut self, coord: CoordGrid) {
         self.active_zones.clear();
+        self.zones_settled = None;
 
         let center_x = coord.zone_x();
         let center_z = coord.zone_z();
@@ -271,6 +275,7 @@ impl BuildArea {
 
         self.origin = CoordGrid::from(coord.packed());
         self.loaded_zones.clear();
+        self.zones_settled = None;
     }
 
     /// Returns `true` if the player has moved far enough from the build area origin
