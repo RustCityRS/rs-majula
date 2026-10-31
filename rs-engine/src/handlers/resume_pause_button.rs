@@ -26,6 +26,7 @@ use rs_vm::subject::ScriptSubject;
 ///
 /// # Side Effects
 ///
+/// * Records the clicked component in `last_com` (parity with `IfButton`).
 /// * Resumes the paused script execution via `run_script_by_state`.
 ///
 /// # Call Stack
@@ -36,6 +37,7 @@ impl ClientGameHandler for ResumePauseButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
         active.watch_note("Click here to continue");
+        active.player.last_com = Some(self.com);
         let Some(state) = &active.player.state.active_script else {
             return Err(ScriptError::Client(
                 "Player does not have an active script!".to_string(),
