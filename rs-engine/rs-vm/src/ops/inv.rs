@@ -70,7 +70,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             require_inv_access(s, from_inv, secondary)?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[if secondary != 0 { 0 } else { 1 }])
                 && to_inv.protect
-                && from_inv.scope != InvScope::Shared {
+                && to_inv.scope != InvScope::Shared {
                 return Err(ScriptError::Runtime(format!("Inv: {:?} requires protected access!", to_inv.debugname())));
             }
             let to_uid = if secondary != 0 { s.active_player } else { s.active_player2 }
@@ -436,7 +436,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .objs()
                 .get_by_id(uncert_id)
                 .is_some_and(|o| o.stackable);
-            get_inv_mut::<E>(to_inv.id, player)?.add(uncert_id, completed, stackable);
+            let overflow = get_inv_mut::<E>(to_inv.id, player)?.add(uncert_id, completed, stackable);
+            if overflow > 0 {
+                let receiver = Some(player.uid());
+                add_obj_split::<E>(player.coord(), uncert_id, overflow, stackable, receiver, LOOTDROP_DURATION)?;
+            }
         });
 
         // 4321
