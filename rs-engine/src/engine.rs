@@ -2974,6 +2974,7 @@ impl Engine {
             .map(|d| d.as_secs() as i64)
             .unwrap_or(0);
         active.player.last_response = self.clock;
+        active.player.last_active = self.clock;
 
         let remote_ip = request.remote_addr.ip();
         active.remote_ip = Some(remote_ip);
@@ -3177,6 +3178,7 @@ impl Engine {
         active.player.logout_sent = false;
         active.player.disconnected_at = None;
         active.player.last_response = clock;
+        active.player.last_active = clock;
 
         // Forget the per-observer view state (reference: cleanupPlayerBuildArea).
         // NPC observer counts are decremented further down, outside this

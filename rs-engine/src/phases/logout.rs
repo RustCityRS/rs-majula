@@ -23,6 +23,29 @@ const TIMEOUT_NO_CONNECTION: u32 = 50;
 /// exempt (they never send packets).
 pub(crate) const TIMEOUT_NO_RESPONSE: u32 = 100;
 
+/// Ticks without any real player action (a successful `UserEvent`: movement,
+/// interaction, button, chat, ...) before an idle logout is *requested*
+/// (5 minutes). This is a server-authoritative backstop that does NOT trust
+/// the client's `IdleTimer` packet: a connected client spamming only
+/// keepalives/passive packets never refreshes `last_active`, so it is still
+/// logged out here.
+///
+/// The authentic client self-reports idle at ~90s of zero input (4500 cycles
+/// at 50 Hz, `Client.idleCycles > 4500` -> sends `IdleTimer`), but it resets
+/// on bare mouse movement. The server cannot count mouse movement, because the
+/// mouse/tracking packets are `ClientEvent`s a modified client could spoof to
+/// stay alive -- the exact evasion this closes -- so `last_active` keys on real
+/// actions only. That makes the server timer stricter per event, hence a
+/// window wider than 90s: 5 minutes sits above typical non-combat
+/// power-skilling gaps between actions while still being a real control.
+///
+/// Unlike [`TIMEOUT_NO_RESPONSE`] this respects logout prevention (it routes
+/// through `logout_idle_requested`, so a player in combat or another gated
+/// auto-action is not yanked out), and it re-requests every tick while idle.
+/// Honest clients still self-logout earlier via their own `IdleTimer`; this
+/// only catches clients that suppress it. Tune here if it is too aggressive.
+const TIMEOUT_NO_INPUT: u32 = 500;
+
 impl Engine {
     /// Processes the logout phase of the engine tick cycle.
     ///
@@ -83,6 +106,9 @@ impl Engine {
                 if let Some(at) = active.player.disconnected_at
                     && self.clock - at >= TIMEOUT_NO_CONNECTION
                 {
+                    active.player.logout_idle_requested = true;
+                }
+                if self.clock.saturating_sub(active.player.last_active) >= TIMEOUT_NO_INPUT {
                     active.player.logout_idle_requested = true;
                 }
             }

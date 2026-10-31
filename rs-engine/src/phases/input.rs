@@ -80,6 +80,9 @@ impl Engine {
         if active.decode() {
             active.player.last_response = self.clock;
         }
+        if active.user_limit > 0 {
+            active.player.last_active = self.clock;
+        }
         Self::post_process(active, self.client_pathfinder);
 
         Engine::check_zones_and_collision(
