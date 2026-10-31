@@ -57,6 +57,8 @@ impl ClientGameHandler for IgnoreListAdd {
             return Ok(());
         }
 
+        // ignores doesnt get a self check.
+
         active.ignores.push(self.user37);
 
         let Some(tx) = &engine.ether_tx else {

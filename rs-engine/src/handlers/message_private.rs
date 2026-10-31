@@ -68,13 +68,12 @@ impl ClientGameHandler for MessagePrivate {
 
         let text = unpack(&self.bytes);
         let message = engine.wordenc().filter(&text);
-        let filtered_bytes = pack(&message);
 
         let _ = tx.send(EtherOutbound::PrivateMessage {
             sender37: active.uid().username37(),
             target37: self.user37 as u64,
-            level: active.player.staff_mod_level as u8,
-            bytes: filtered_bytes,
+            level: active.staffmodlevel(),
+            bytes: pack(&message),
         });
 
         active.last_social = Some(engine.clock);

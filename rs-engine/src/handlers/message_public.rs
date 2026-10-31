@@ -6,7 +6,7 @@ use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 
 /// Highest chat effect this revision's client can render.
 ///
@@ -72,7 +72,7 @@ impl ClientGameHandler for MessagePublic {
         active.player.info.chat_bytes = Some(pack(&message).into_boxed_slice());
         active.player.info.chat_colour = Some(self.colour);
         active.player.info.chat_effects = Some(self.effect);
-        active.player.info.chat_ignored = Some((active.player.staff_mod_level as u8).min(2));
+        active.player.info.chat_ignored = Some(active.staffmodlevel().min(2));
         active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);

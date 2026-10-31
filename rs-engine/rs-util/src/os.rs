@@ -1,3 +1,8 @@
+#[cfg(target_os = "linux")]
+use std::ffi::c_ulong;
+#[cfg(windows)]
+use std::ffi::c_void;
+use std::io;
 #[cfg(unix)]
 use tokio::signal::unix::{SignalKind, signal};
 
@@ -45,6 +50,67 @@ pub fn disable_huge_pages() {
 
 #[cfg(not(target_os = "linux"))]
 pub fn disable_huge_pages() {}
+
+/// The realtime priority [`raise_thread_priority`] asks for on Linux: above
+/// every normal thread, just under the kernel's interrupt threads (50).
+#[cfg(target_os = "linux")]
+const REALTIME_PRIORITY: i32 = 49;
+
+/// Puts the calling thread ahead of every normal thread on the machine.
+///
+/// On Linux it takes the realtime `SCHED_FIFO` policy at
+/// [`REALTIME_PRIORITY`], which needs root, `CAP_SYS_NICE` or an
+/// `RLIMIT_RTPRIO` that high (systemd's `LimitRTPRIO=`). The kernel still
+/// keeps 5% of each core for normal threads (`kernel.sched_rt_runtime_us`).
+/// Threads it starts inherit the policy, so it should start none.
+///
+/// On Windows it takes `THREAD_PRIORITY_TIME_CRITICAL`, the top of the
+/// normal range; anything higher needs the realtime class and admin rights.
+#[cfg(target_os = "linux")]
+pub fn raise_thread_priority() -> io::Result<()> {
+    const SCHED_FIFO: i32 = 1;
+    const EPERM: i32 = 1;
+    #[repr(C)]
+    struct SchedParam {
+        priority: i32,
+    }
+    unsafe extern "C" {
+        fn pthread_self() -> c_ulong;
+        fn pthread_setschedparam(thread: c_ulong, policy: i32, param: *const SchedParam) -> i32;
+    }
+    let param = SchedParam {
+        priority: REALTIME_PRIORITY,
+    };
+    match unsafe { pthread_setschedparam(pthread_self(), SCHED_FIFO, &param) } {
+        0 => Ok(()),
+        EPERM => Err(io::Error::new(
+            io::ErrorKind::PermissionDenied,
+            format!(
+                "SCHED_FIFO {REALTIME_PRIORITY} refused; allow it with LimitRTPRIO={REALTIME_PRIORITY} in the systemd unit"
+            ),
+        )),
+        code => Err(io::Error::from_raw_os_error(code)),
+    }
+}
+
+#[cfg(windows)]
+pub fn raise_thread_priority() -> io::Result<()> {
+    const THREAD_PRIORITY_TIME_CRITICAL: i32 = 15;
+    #[link(name = "kernel32")]
+    unsafe extern "system" {
+        fn GetCurrentThread() -> *mut c_void;
+        fn SetThreadPriority(thread: *mut c_void, priority: i32) -> i32;
+    }
+    if unsafe { SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL) } == 0 {
+        return Err(io::Error::last_os_error());
+    }
+    Ok(())
+}
+
+#[cfg(not(any(target_os = "linux", windows)))]
+pub fn raise_thread_priority() -> io::Result<()> {
+    Err(io::ErrorKind::Unsupported.into())
+}
 
 /// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
 /// managers (systemd, Docker) stop a process with. Returns which one came.

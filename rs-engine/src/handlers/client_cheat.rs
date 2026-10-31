@@ -736,8 +736,8 @@ fn cheat_moderate(
         return Ok(());
     };
     let _ = tx.send(DbRequest::Moderate {
-        moderator37: active.player.uid.username37(),
-        by_level: active.player.staff_mod_level as u8,
+        moderator37: active.uid().username37(),
+        by_level: active.staffmodlevel(),
         target37,
         action,
         reason: None,

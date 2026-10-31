@@ -49,6 +49,10 @@ impl ClientGameHandler for FriendListAdd {
             return Ok(());
         }
 
+        if active.uid().username37() == self.user37 as u64 {
+            return Ok(());
+        }
+
         if active.friends.contains(&self.user37) {
             return Ok(());
         }

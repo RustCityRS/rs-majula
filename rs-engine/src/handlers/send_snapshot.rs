@@ -7,6 +7,7 @@ use rs_entity::StaffModLevel;
 use rs_protocol::network::game::client::send_snapshot::SendSnapshot;
 use rs_util::base37::is_valid_userhash;
 use rs_vm::ScriptError;
+use rs_vm::engine::ScriptPlayer;
 
 /// Highest rule index the report screen offers: 0 (offensive language) to
 /// 11 (real-world trading).
@@ -44,12 +45,16 @@ impl ClientGameHandler for SendSnapshot {
             return Ok(());
         }
 
-        let level = active.player.staff_mod_level as u8;
+        if active.uid().username37() == self.offender as u64 {
+            return Ok(());
+        }
+
+        let level = active.staffmodlevel();
         let mute_by = (self.mute && level >= StaffModLevel::PlayerModerator as u8).then_some(level);
         if let Some(tx) = &engine.db_tx {
             let coord = active.player.pathing.coord;
             let _ = tx.send(DbRequest::Snapshot {
-                reporter37: active.player.uid.username37(),
+                reporter37: active.uid().username37(),
                 offender37: self.offender as u64,
                 reason: self.reason,
                 x: coord.x(),

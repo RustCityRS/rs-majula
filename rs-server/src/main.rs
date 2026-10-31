@@ -12,7 +12,7 @@ use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
 use rs_util::net::limit_address;
-use rs_util::os::{disable_huge_pages, raise_open_files, shutdown_signal};
+use rs_util::os::{disable_huge_pages, raise_open_files, raise_thread_priority, shutdown_signal};
 use std::collections::HashMap;
 use std::fs;
 use std::io::IsTerminal;
@@ -20,8 +20,10 @@ use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex, PoisonError, RwLock};
+use std::thread;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
+use tokio::runtime;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, watch};
 use tokio::time::{self, Duration};
@@ -813,14 +815,29 @@ async fn bootstrap(
     restore_purge_delay(purge_delay);
 
     let (admin_tx, admin_rx) = unbounded_channel();
-    tokio::spawn(engine_tick(
-        engine,
-        reload_rx,
-        clock_rate_rx,
-        shutdown_rx,
-        admin_rx,
-        replay_task,
-    ));
+    // The tick has a thread and a timer of its own: busy network workers
+    // can't hold up a tick, and a tick never holds up a network worker.
+    thread::Builder::new()
+        .name("engine".into())
+        .spawn(move || {
+            match raise_thread_priority() {
+                Ok(()) => info!("Game tick thread runs at top priority"),
+                Err(e) => warn!("Game tick thread runs at normal priority: {e}"),
+            }
+            runtime::Builder::new_current_thread()
+                .enable_time()
+                .build()
+                .expect("engine tick runtime")
+                .block_on(engine_tick(
+                    engine,
+                    reload_rx,
+                    clock_rate_rx,
+                    shutdown_rx,
+                    admin_rx,
+                    replay_task,
+                ));
+        })
+        .context("couldn't start the engine thread")?;
 
     let admin_port = args.admin_port.unwrap_or(8270 + args.node_id as u16);
     if admin_port != 0 {
@@ -1184,10 +1201,6 @@ fn run_admin_job(engine: &mut Engine, job: admin::EngineJob) {
     rs_engine::with_engine(engine, || job(unsafe { &mut *ptr }));
 }
 
-/// World tick task - runs Engine::cycle() every 600ms.
-///
-/// Also wakes immediately when a hot-reload result arrives to swap the
-/// CacheStore + scripts between ticks, or when a shutdown is requested.
 /// Lets the recording task store what it was sent, for a few seconds at
 /// most (a fatal stop can leave recordings open, and the task waiting).
 async fn finish_recordings(task: Option<tokio::task::JoinHandle<()>>) {
@@ -1197,6 +1210,10 @@ async fn finish_recordings(task: Option<tokio::task::JoinHandle<()>>) {
     }
 }
 
+/// World tick loop, on the engine thread - runs Engine::cycle() every 600ms.
+///
+/// Also wakes immediately when a hot-reload result arrives to swap the
+/// CacheStore + scripts between ticks, or when a shutdown is requested.
 async fn engine_tick(
     mut engine: Engine,
     mut reload_rx: UnboundedReceiver<(Box<CacheStore>, ScriptProvider)>,

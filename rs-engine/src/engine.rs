@@ -2982,7 +2982,7 @@ impl Engine {
 
         #[cfg(since_254)]
         let reply = {
-            let level = (active.player.staff_mod_level as u8).min(2);
+            let level = active.staffmodlevel().min(2);
             vec![LoginResponse::SuccessNormal as u8, level, 1]
         };
         #[cfg(before_254)]

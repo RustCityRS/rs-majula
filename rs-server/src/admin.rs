@@ -61,7 +61,7 @@ pub const STAY_DOWN_EXIT: i32 = 3;
 /// Whether the countdown going on is a shutdown (see [`STAY_DOWN_EXIT`]).
 pub static STAY_DOWN: AtomicBool = AtomicBool::new(false);
 
-/// Work for the engine task to run between ticks, with the engine to itself.
+/// Work for the engine thread to run between ticks, with the engine to itself.
 pub type EngineJob = Box<dyn FnOnce(&mut Engine) + Send>;
 
 /// How long a request waits on the engine (or its database) before it's
