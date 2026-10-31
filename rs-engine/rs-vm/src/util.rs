@@ -161,13 +161,17 @@ pub(crate) fn get_active_player<E: ScriptEngine + 'static>(
 ///   otherwise sets the primary (`active_player`).
 ///
 /// # Side Effects
-/// Adds the corresponding `ACTIVE_PLAYER` pointer flag to `state.pointers`.
+/// Adds the corresponding `ACTIVE_PLAYER` pointer flag and clears the matching
+/// `PROTECTED_ACTIVE_PLAYER` flag on `state.pointers` (see below).
 pub(crate) fn set_active_player(state: &mut ScriptState, uid: PlayerUid, secondary: bool) {
     if secondary {
         state.active_player2 = Some(uid);
     } else {
         state.active_player = Some(uid);
     }
+    state
+        .pointers
+        .remove(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]);
     state
         .pointers
         .add(ScriptState::ACTIVE_PLAYER[secondary as usize]);
