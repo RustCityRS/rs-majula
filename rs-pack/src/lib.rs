@@ -10,8 +10,11 @@ pub mod unpack;
 pub mod versionlist;
 
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 use crate::pack::pack_registry::PackRegistry;
 use cache::CacheStore;
@@ -32,6 +35,7 @@ use cache::npc::{NpcType, NpcTypeRaw};
 use cache::obj::{ObjContext, ObjType, ObjTypeRaw};
 use cache::param::ParamType;
 use cache::provider::TypeProvider;
+use cache::script::ScriptProvider;
 use cache::seq::{SeqType, SeqTypeRaw};
 use cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
 use cache::r#struct::StructType;
@@ -46,7 +50,7 @@ use pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
 use pack::other;
 use rs_io::crc;
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::debug;
+use tracing::{debug, warn};
 #[cfg(since_244)]
 use types::OndemandBlobs;
 pub use types::ParamValue;
@@ -291,13 +295,62 @@ fn unwrap_thread<T>(name: &str, result: std::thread::Result<T>) -> T {
 /// Compiles the RuneScript sources under `source` alone, for swapping into
 /// a running world: the cache it already serves stays as it is. Errors are
 /// the compiler's, as it reports them.
-pub fn compile_scripts(
-    source: &Path,
-    pack: &Path,
-) -> anyhow::Result<cache::script::ScriptProvider> {
-    let (dat, idx) =
-        runec::compile_memory(source, Some(pack), false).map_err(|e| anyhow::anyhow!("{e}"))?;
-    Ok(cache::script::ScriptProvider::from_bytes(&dat, &idx))
+pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvider> {
+    let (dat, idx) = compile_runescript(source, pack)?;
+    Ok(ScriptProvider::from_bytes(&dat, &idx))
+}
+
+fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
+    static NEXT: AtomicU64 = AtomicU64::new(0);
+    let nanos = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
+    let private = std::env::temp_dir().join(format!(
+        "rs-pack-{}-{nanos}-{}",
+        std::process::id(),
+        NEXT.fetch_add(1, Ordering::Relaxed)
+    ));
+    fs::create_dir(&private).map_err(|e| anyhow::anyhow!("creating {}: {e}", private.display()))?;
+    let compiled = copy_pack(pack, &private).and_then(|()| {
+        let bytes = runec::compile_memory(source, Some(&private), false)
+            .map_err(|e| anyhow::anyhow!("{e}"))?;
+        pin_script_ids(pack, &private);
+        Ok(bytes)
+    });
+    if let Err(e) = fs::remove_dir_all(&private) {
+        warn!("Couldn't remove {}: {e}", private.display());
+    }
+    compiled
+}
+
+/// Copies the files of `pack` into the empty directory `to`.
+fn copy_pack(pack: &Path, to: &Path) -> anyhow::Result<()> {
+    let copy = || -> std::io::Result<()> {
+        for entry in fs::read_dir(pack)? {
+            let entry = entry?;
+            if entry.file_type()?.is_file() {
+                fs::copy(entry.path(), to.join(entry.file_name()))?;
+            }
+        }
+        Ok(())
+    };
+    copy().map_err(|e| anyhow::anyhow!("copying {} to compile against: {e}", pack.display()))
+}
+
+fn pin_script_ids(pack: &Path, private: &Path) {
+    let Ok(pinned) = fs::read(private.join("script.pack")) else {
+        return;
+    };
+    let shipped = pack.join("script.pack");
+    if fs::read(&shipped).is_ok_and(|old| old == pinned) {
+        return;
+    }
+    let tag = private.file_name().unwrap_or_default().to_string_lossy();
+    let tmp = pack.join(format!("script.pack.{tag}.tmp"));
+    if let Err(e) = fs::write(&tmp, &pinned).and_then(|()| fs::rename(&tmp, &shipped)) {
+        warn!("Couldn't update {}: {e}", shipped.display());
+        let _ = fs::remove_file(&tmp);
+    }
 }
 
 pub fn pack_all(
@@ -305,7 +358,7 @@ pub fn pack_all(
     pack: &Path,
     verify: bool,
     members: bool,
-) -> anyhow::Result<(Box<CacheStore>, cache::script::ScriptProvider)> {
+) -> anyhow::Result<(Box<CacheStore>, ScriptProvider)> {
     debug!("Packing assets...");
     debug!("  source: {}", source.display());
     debug!("  pack:   {}", pack.display());
@@ -342,7 +395,7 @@ pub fn pack_all(
     ) = std::thread::scope(|s| {
         let h_scripts = s.spawn(|| {
             debug!("Compiling RuneScript sources...");
-            match runec::compile_memory(source, Some(pack), false) {
+            match compile_runescript(source, pack) {
                 Ok(bytes) => bytes,
                 Err(e) => panic!("RuneScript compilation failed: {}", e),
             }
@@ -601,7 +654,7 @@ pub fn pack_all(
     );
 
     // Script bytecode -> ScriptProvider
-    let scripts = cache::script::ScriptProvider::from_bytes(&script_dat, &script_idx);
+    let scripts = ScriptProvider::from_bytes(&script_dat, &script_idx);
     debug!("Scripts: {} loaded", scripts.count());
 
     #[cfg(all(since_244, before_274))]
