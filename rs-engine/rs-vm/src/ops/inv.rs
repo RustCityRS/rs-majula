@@ -222,7 +222,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 completed,
                 Some(player.uid()),
                 duration as u64,
-                delay as u64,
+                delay,
             );
         });
 

@@ -225,7 +225,7 @@ pub struct ObjDelayedRequest {
     pub count: u32,
     pub receiver: Option<PlayerUid>,
     pub duration: u64,
-    pub delay: u64,
+    pub delay: i32,
 }
 
 /// Tracks the state of a login that is waiting for asynchronous validation.
@@ -3948,7 +3948,7 @@ impl ScriptEngine for Engine {
         count: u32,
         receiver: Option<PlayerUid>,
         duration: u64,
-        delay: u64,
+        delay: i32,
     ) {
         self.obj_delayed_queue.add_tail(ObjDelayedRequest {
             coord,

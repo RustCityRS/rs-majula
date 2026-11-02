@@ -290,7 +290,7 @@ pub trait ScriptEngine {
         count: u32,
         receiver: Option<PlayerUid>,
         duration: u64,
-        delay: u64,
+        delay: i32,
     );
 
     /// Removes a ground object from the given coordinate.
