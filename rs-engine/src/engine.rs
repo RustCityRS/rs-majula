@@ -1533,26 +1533,7 @@ impl Engine {
             }
         }
 
-        if state.pointers.has(ScriptPointer::ProtectedActivePlayer) && state.active_player.is_some()
-        {
-            if let Some(uid) = state.active_player {
-                if let Some(active) = &mut self.player_list.players[uid.pid() as usize] {
-                    active.player.state.protect = false;
-                }
-            }
-            state.pointers.remove(ScriptPointer::ProtectedActivePlayer);
-        }
-
-        if state.pointers.has(ScriptPointer::ProtectedActivePlayer2)
-            && state.active_player2.is_some()
-        {
-            if let Some(uid) = state.active_player2 {
-                if let Some(active) = &mut self.player_list.players[uid.pid() as usize] {
-                    active.player.state.protect = false;
-                }
-            }
-            state.pointers.remove(ScriptPointer::ProtectedActivePlayer2);
-        }
+        self.release_protected_players(&mut state);
 
         if result != ExecutionState::Finished && result != ExecutionState::Aborted {
             if result == ExecutionState::WorldSuspended {
@@ -1627,26 +1608,7 @@ impl Engine {
     ) -> Option<ScriptState> {
         let result = self.runescript_vm_execute(&mut state);
 
-        if state.pointers.has(ScriptPointer::ProtectedActivePlayer) && state.active_player.is_some()
-        {
-            if let Some(uid) = state.active_player {
-                if let Some(active) = &mut self.player_list.players[uid.pid() as usize] {
-                    active.player.state.protect = false;
-                }
-            }
-            state.pointers.remove(ScriptPointer::ProtectedActivePlayer);
-        }
-
-        if state.pointers.has(ScriptPointer::ProtectedActivePlayer2)
-            && state.active_player2.is_some()
-        {
-            if let Some(uid) = state.active_player2 {
-                if let Some(active) = &mut self.player_list.players[uid.pid() as usize] {
-                    active.player.state.protect = false;
-                }
-            }
-            state.pointers.remove(ScriptPointer::ProtectedActivePlayer2);
-        }
+        self.release_protected_players(&mut state);
 
         if result != ExecutionState::Finished && result != ExecutionState::Aborted {
             if result == ExecutionState::WorldSuspended {
@@ -1675,6 +1637,41 @@ impl Engine {
                 }
             }
             Some(state)
+        }
+    }
+
+    /// Drops the protected access a script holds on its active players.
+    ///
+    /// For each `ProtectedActivePlayer` / `ProtectedActivePlayer2` pointer
+    /// with a bound player, clears that player's `protect` flag and removes
+    /// the pointer. Runs after every VM execution so a script that suspends
+    /// (`p_delay`, `npc_delay`, `world_delay`) must `p_finduid` again before
+    /// it can touch protected state on resume.
+    ///
+    /// # Arguments
+    ///
+    /// * `state` -- The script state that just returned from the VM.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `runescript_execute_script_player`,
+    /// `runescript_execute_script_npc`, `process_world_queue`.
+    pub(crate) fn release_protected_players(&mut self, state: &mut ScriptState) {
+        let players = [state.active_player, state.active_player2];
+        for (pointer, uid) in ScriptState::PROTECTED_ACTIVE_PLAYER
+            .into_iter()
+            .zip(players)
+        {
+            let Some(uid) = uid else {
+                continue;
+            };
+            if !state.pointers.has(pointer) {
+                continue;
+            }
+            if let Some(active) = &mut self.player_list.players[uid.pid() as usize] {
+                active.player.state.protect = false;
+            }
+            state.pointers.remove(pointer);
         }
     }
 }

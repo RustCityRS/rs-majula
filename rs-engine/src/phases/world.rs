@@ -54,6 +54,8 @@ impl Engine {
     /// # Side Effects
     ///
     /// * Executes RuneScript VM instructions.
+    /// * Releases any protected player access the script took, so a
+    ///   `world_delay` resume must `p_finduid` again.
     /// * May modify player or NPC `active_script` state.
     fn process_world_queue(&mut self) {
         let mut h = self.world_queue.head();
@@ -68,6 +70,7 @@ impl Engine {
             h = self.world_queue.next();
             let mut script = self.world_queue.unlink(idx);
             let result = engine_mut().runescript_vm_execute(&mut script);
+            self.release_protected_players(&mut script);
 
             match result {
                 ExecutionState::WorldSuspended => {
