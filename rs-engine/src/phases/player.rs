@@ -149,10 +149,11 @@ impl Engine {
     /// Fires all player timers of the given priority whose interval has
     /// elapsed.
     ///
-    /// For each timer entry, if the current clock minus the timer's last
-    /// fire clock meets or exceeds the configured interval, the associated
-    /// RuneScript is executed. Normal-priority timers require the player to
-    /// be accessible (not in a modal); soft timers fire unconditionally.
+    /// Walks the timers in the order they were set. For each timer entry, if
+    /// the current clock minus the timer's last fire clock meets or exceeds
+    /// the configured interval, the associated RuneScript is executed.
+    /// Normal-priority timers require the player to be accessible (not in a
+    /// modal); soft timers fire unconditionally.
     ///
     /// # Safety Note
     ///
@@ -172,28 +173,30 @@ impl Engine {
         }
 
         let uid = active.player.uid;
-        let can_access = active.can_access();
-        let accessible = priority == TimerPriority::Soft || can_access;
-
-        let timers = match priority {
-            TimerPriority::Normal => &mut active.player.state.timers.normal,
-            TimerPriority::Soft => &mut active.player.state.timers.soft,
-        };
-
-        for timer in timers.values_mut() {
-            if clock < timer.clock + timer.interval as u32 || !accessible {
+        // The timer scripts set and clear timers, so no borrow of the list is
+        // held across a script: each step looks the next timer up again.
+        let mut cursor = 0;
+        loop {
+            // Checked per timer like the reference engine: a timer that just
+            // ran can open a modal or delay the player.
+            let accessible = priority == TimerPriority::Soft || active.can_access();
+            let Some(timer) = active.player.state.timers.next_from(&mut cursor) else {
+                break;
+            };
+            if timer.priority != priority
+                || clock < timer.clock + timer.interval as u32
+                || !accessible
+            {
                 continue;
             }
 
             timer.clock = clock;
+            let script_id = timer.script_id;
+            let args = timer.args.clone();
 
-            if let Some(script) = engine().get_script(timer.script_id).cloned() {
-                let state = engine_mut().build_state(
-                    script,
-                    Some(ScriptSubject::Player(uid)),
-                    None,
-                    timer.args.clone(),
-                );
+            if let Some(script) = engine().get_script(script_id).cloned() {
+                let state =
+                    engine_mut().build_state(script, Some(ScriptSubject::Player(uid)), None, args);
                 if let Err(e) = engine_mut().run_script_by_state(
                     state,
                     Some(ScriptSubject::Player(uid)),

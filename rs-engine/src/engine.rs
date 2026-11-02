@@ -6113,9 +6113,9 @@ impl ScriptPlayer for ActivePlayer {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** `ScriptTimer::remove_any`
+    /// **Calls:** `ScriptTimer::remove`
     fn cleartimer(&mut self, script_id: i32) {
-        self.player.state.timers.remove_any(script_id);
+        self.player.state.timers.remove(script_id);
     }
 
     /// Removes all queued (normal and weak) scripts matching the given script.
