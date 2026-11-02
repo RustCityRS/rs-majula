@@ -245,8 +245,6 @@ impl ScriptState {
     /// All fields are overwritten. The `int_stack` and `string_stack`
     /// backing buffers are *not* reallocated; stack pointers are simply
     /// reset to 0 (stale values are overwritten before they are read).
-    /// The `string_stack` slots are cleared to release any large string
-    /// buffers that might have accumulated.
     ///
     /// # Call Stack
     ///
@@ -291,11 +289,6 @@ impl ScriptState {
         // -- Stacks: just reset pointers. Values are overwritten before read. --
         self.isp = 0;
         self.ssp = 0;
-
-        // -- Clear string stack slots to free any large string buffers --
-        for s in self.string_stack.iter_mut() {
-            s.clear();
-        }
 
         // -- Frame stacks: clear contents, retain capacity --
         self.gosub_frame_stack.clear();
@@ -865,7 +858,7 @@ impl ScriptState {
     ///
     /// # Safety
     ///
-    /// Uses `unsafe` `get_unchecked` / `get_unchecked_mut` for stack access.
+    /// Uses a raw pointer into the stack for disjoint source and destination slots.
     /// `count` must not exceed `ssp`; only `debug_assert!` guards are present.
     ///
     /// # Panics
@@ -877,7 +870,7 @@ impl ScriptState {
     /// Mutates the string at position `ssp - count` (appends subsequent
     /// strings) and sets `ssp` to `ssp - count + 1`.
     ///
-    /// **Called by:** The `JoinString` opcode handler in `ops::core`.
+    /// **Called by:** `JoinString` in `ops::core` and `APPEND` in `ops::string`.
     #[inline(always)]
     pub(crate) fn join_strings(&mut self, count: usize) {
         debug_assert!(
@@ -888,10 +881,11 @@ impl ScriptState {
             return;
         }
         let start = self.ssp as usize - count;
+        let slots = self.string_stack.as_mut_ptr();
+        let dst = unsafe { &mut *slots.add(start) };
         for i in (start + 1)..self.ssp as usize {
-            let src = unsafe { self.string_stack.get_unchecked(i) } as *const String;
-            let dst = unsafe { self.string_stack.get_unchecked_mut(start) };
-            dst.push_str(unsafe { &*src });
+            let src = unsafe { &*slots.add(i) };
+            dst.push_str(src);
         }
         self.ssp = (start + 1) as i32;
     }
@@ -1320,5 +1314,35 @@ mod tests {
         assert_eq!((s.int_base, s.string_base), (0, 0));
         assert_eq!(s.int_locals, [0, 7]);
         assert_eq!(s.string_locals, ["root"]);
+    }
+
+    #[test]
+    fn reused_state_overwrites_discarded_and_joined_strings() {
+        let script = proc(0, 0, 1, 1);
+        let mut s = ScriptState::new(Arc::clone(script), None);
+        for text in ["long stale contents", "", "rune ü 水", "x"] {
+            s.push_string("discarded");
+            s.drop_strings(1);
+            s.push_string("old left");
+            s.push_string("old right");
+            s.join_strings(2);
+
+            s.reset(
+                Arc::clone(script),
+                None,
+                None,
+                Some(vec![ScriptArgument::String(text.into())]),
+            );
+
+            assert_eq!(s.ssp, 0);
+            s.push_string("new ");
+            s.push_string_local(0);
+            s.join_strings(2);
+            assert_eq!(s.peek_string(0), format!("new {text}"));
+            s.drop_strings(1);
+            s.push_string(text);
+            assert_eq!(s.pop_string(), text);
+            assert_eq!(s.ssp, 0);
+        }
     }
 }

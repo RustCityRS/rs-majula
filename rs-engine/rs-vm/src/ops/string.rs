@@ -37,10 +37,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4501
         none!(m, APPEND => |s| {
-            let b = s.pop_string();
-            let mut a = s.pop_string();
-            a.push_str(&b);
-            s.push_string(&a);
+            s.join_strings(2);
         });
 
         // 4502

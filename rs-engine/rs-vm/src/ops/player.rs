@@ -446,9 +446,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2050
         active_player_mut!(m, IF_SETTEXT => |s, player| {
-            let text = s.pop_string();
             let com = s.pop_int_as::<u16>()?;
-            player.if_settext(com, &text);
+            player.if_settext(com, s.peek_string(0));
+            s.drop_strings(1);
         });
 
         // 2051
@@ -894,10 +894,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2084
         protected_active_player_mut!(m, P_PREVENTLOGOUT => |s, player| {
-            let message = s.pop_string();
             let duration = s.pop_int();
             let clock = engine::<E>().clock();
-            player.prevent_logout(&message, clock + duration as u32);
+            player.prevent_logout(s.peek_string(0), clock + duration as u32);
+            s.drop_strings(1);
         });
 
         // 2085
@@ -1011,9 +1011,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2098
         active_player_mut!(m, SESSION_LOG => |s, player| {
-            let event = s.pop_string();
             let event_type = s.pop_int();
-            player.session_log(event_type, &event);
+            player.session_log(event_type, s.peek_string(0));
+            s.drop_strings(1);
         });
 
         // 2099
@@ -1247,11 +1247,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2131
         active_player_mut!(m, WEALTH_EVENT => |s, player| {
-            let name = s.pop_string();
             let value = s.pop_int();
             let count = s.pop_int();
             let event_type = s.pop_int();
-            player.wealth_event(event_type, &name, count, value);
+            player.wealth_event(event_type, s.peek_string(0), count, value);
+            s.drop_strings(1);
         });
 
         // 2132
@@ -1391,10 +1391,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2148
         #[cfg(since_254)]
         active_player_mut!(m, SET_PLAYER_OP => |s, player| {
-            let text = s.pop_string();
             let primary = s.pop_int_as::<u8>()?;
             let index = s.pop_int_as::<u8>()?;
-            player.set_player_op(index, &text, primary);
+            player.set_player_op(index, s.peek_string(0), primary);
+            s.drop_strings(1);
         });
 
         // 2149
