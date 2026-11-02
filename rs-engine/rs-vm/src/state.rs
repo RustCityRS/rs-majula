@@ -43,9 +43,7 @@ pub struct ScriptState {
     pub(crate) int_locals: Vec<i32>,
     pub(crate) string_locals: Vec<String>,
     pub(crate) gosub_frame_stack: Vec<GoSubFrame>,
-    pub(crate) gsfsp: i32,
     pub(crate) goto_frame_stack: Vec<GoToFrame>,
-    pub(crate) gtfsp: i32,
     pub execution: ExecutionState,
     pub trigger: Option<ServerTriggerType>,
     pub pointers: ScriptPointerSet,
@@ -145,9 +143,7 @@ impl ScriptState {
             int_locals,
             string_locals,
             gosub_frame_stack: Vec::with_capacity(256),
-            gsfsp: 0,
             goto_frame_stack: Vec::with_capacity(256),
-            gtfsp: 0,
             execution: ExecutionState::Running,
             trigger,
             pointers: ScriptPointerSet::new(),
@@ -297,9 +293,7 @@ impl ScriptState {
 
         // -- Frame stacks: clear contents, retain capacity --
         self.gosub_frame_stack.clear();
-        self.gsfsp = 0;
         self.goto_frame_stack.clear();
-        self.gtfsp = 0;
 
         // -- Execution --
         self.execution = ExecutionState::Running;
@@ -494,7 +488,8 @@ impl ScriptState {
     ///
     /// # Side Effects
     ///
-    /// * Decrements `gsfsp`.
+    /// * Pops the [`GoToFrame`] that [`gosub_frame`](Self::gosub_frame)
+    ///   pushed, so the backtrace only lists procs still on the call stack.
     /// * Replaces `self.script`, `self.pc`, `self.int_locals`, and
     ///   `self.string_locals` with the saved frame values.
     ///
@@ -502,7 +497,7 @@ impl ScriptState {
     #[inline(always)]
     pub(crate) fn pop_frame(&mut self) {
         let frame = self.gosub_frame_stack.pop().unwrap();
-        self.gsfsp -= 1;
+        self.goto_frame_stack.pop();
         self.script = frame.script;
         self.pc = frame.pc;
         self.int_locals = frame.int_locals;
@@ -527,8 +522,9 @@ impl ScriptState {
     ///
     /// # Side Effects
     ///
-    /// * Pushes a [`GoSubFrame`] onto `gosub_frame_stack` (increments `gsfsp`).
-    /// * Pushes a [`GoToFrame`] onto `goto_frame_stack` (increments `gtfsp`).
+    /// * Pushes a [`GoSubFrame`] onto `gosub_frame_stack`.
+    /// * Pushes a [`GoToFrame`] onto `goto_frame_stack` for the backtrace;
+    ///   [`pop_frame`](Self::pop_frame) pops it on return.
     /// * Takes ownership of `int_locals` and `string_locals` via `std::mem::take`.
     /// * Pops argument values from operand stacks into the new locals.
     /// * Resets `pc` to `-1`.
@@ -545,14 +541,12 @@ impl ScriptState {
             script: Arc::clone(&old_script),
             pc: self.pc,
         });
-        self.gtfsp += 1;
         self.gosub_frame_stack.push(GoSubFrame {
             script: old_script, // move, no clone
             pc: self.pc,
             int_locals: std::mem::take(&mut self.int_locals),
             string_locals: std::mem::take(&mut self.string_locals),
         });
-        self.gsfsp += 1;
         // Setup new program inline without calling new_program (which would Arc::clone again)
         let int_count = script.int_local_count as usize;
         let str_count = script.string_local_count as usize;
@@ -591,8 +585,8 @@ impl ScriptState {
     ///
     /// # Side Effects
     ///
-    /// * Pushes a [`GoToFrame`] onto `goto_frame_stack` (increments `gtfsp`).
-    /// * Clears `gosub_frame_stack` and resets `gsfsp` to `0`.
+    /// * Pushes a [`GoToFrame`] onto `goto_frame_stack`.
+    /// * Clears `gosub_frame_stack`.
     /// * Delegates to [`new_program`](Self::new_program) to reset locals and PC.
     ///
     /// # Call Stack
@@ -606,9 +600,7 @@ impl ScriptState {
             script: Arc::clone(&self.script),
             pc: self.pc,
         });
-        self.gtfsp += 1;
         self.gosub_frame_stack.clear();
-        self.gsfsp = 0;
         self.new_program(script)
     }
 
@@ -1091,11 +1083,12 @@ pub(crate) struct GoSubFrame {
     pub string_locals: Vec<String>,
 }
 
-/// A saved call frame for a `goto` (jump) instruction.
+/// A backtrace entry for a `goto` (jump) or `gosub` instruction.
 ///
-/// Unlike [`GoSubFrame`], a `goto` does not preserve local variables because
-/// control never returns to the calling script. Only the script reference and
-/// program counter are saved for debugging and stack-trace purposes.
+/// Unlike [`GoSubFrame`], it does not preserve local variables. Only the
+/// script reference and program counter are saved, for stack traces. A
+/// `goto` entry stays for the rest of the run; a `gosub` entry is popped by
+/// [`ScriptState::pop_frame`] when the proc returns.
 #[derive(Debug, Clone)]
 pub(crate) struct GoToFrame {
     pub script: Arc<Script>,

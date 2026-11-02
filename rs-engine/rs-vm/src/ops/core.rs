@@ -153,7 +153,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 21
         none!(m, RETURN => |s| {
-            if s.gsfsp == 0 {
+            if s.gosub_frame_stack.is_empty() {
                 s.execution = ExecutionState::Finished;
             } else {
                 s.pop_frame();
@@ -162,7 +162,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 22
         none!(m, GOSUB => |s| {
-            if s.gsfsp >= 50 {
+            if s.gosub_frame_stack.len() >= 50 {
                 return Err(ScriptError::StackOverflow);
             }
             let script = pop_script::<E>(s)?;
@@ -281,7 +281,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 40
         none!(m, GOSUB_WITH_PARAMS => |s| {
-            if s.gsfsp >= 50 {
+            if s.gosub_frame_stack.len() >= 50 {
                 return Err(ScriptError::StackOverflow);
             }
             let id = s.int_operand();

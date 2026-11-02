@@ -182,8 +182,6 @@ fn report_error<E: ScriptEngine + 'static>(state: &mut ScriptState, msg: &str) {
     let line = state.script.info.line_number(state.pc);
     let frames: Vec<_> = state
         .goto_frame_stack
-        .get(..state.gtfsp.max(0) as usize)
-        .unwrap_or_default()
         .iter()
         .rev()
         .map(|f| {
