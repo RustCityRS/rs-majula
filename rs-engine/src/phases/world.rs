@@ -74,7 +74,7 @@ impl Engine {
 
             match result {
                 ExecutionState::WorldSuspended => {
-                    let delay = script.pop_int() as u16;
+                    let delay = script.pop_int();
                     engine_mut().enqueue_world_script(script, delay);
                 }
                 ExecutionState::Suspended => {

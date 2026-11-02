@@ -1537,7 +1537,7 @@ impl Engine {
 
         if result != ExecutionState::Finished && result != ExecutionState::Aborted {
             if result == ExecutionState::WorldSuspended {
-                let delay = state.pop_int() as u16;
+                let delay = state.pop_int();
                 self.enqueue_world_script(state, delay);
             } else if result == ExecutionState::NpcSuspended {
                 let npc_uid = if state.int_operand() == 0 {
@@ -1612,7 +1612,7 @@ impl Engine {
 
         if result != ExecutionState::Finished && result != ExecutionState::Aborted {
             if result == ExecutionState::WorldSuspended {
-                let delay = state.pop_int().max(0) as u16;
+                let delay = state.pop_int();
                 self.enqueue_world_script(state, delay);
             } else if result == ExecutionState::NpcSuspended {
                 if let Some(active) = &mut self.npc_list.npcs[uid.nid() as usize] {
@@ -1720,6 +1720,8 @@ impl Engine {
     /// World scripts are not bound to a specific player or NPC -- they execute
     /// in the world phase and can interact with any entity. The delay is
     /// incremented by 1 internally (so `delay=0` fires on the next tick).
+    /// Negative delays are kept as they are, like the reference engine's
+    /// `enqueueScript`; the world queue runs them on its next pass.
     ///
     /// # Arguments
     ///
@@ -1729,8 +1731,8 @@ impl Engine {
     /// # Side Effects
     ///
     /// Appends the script to `self.world_queue`.
-    pub fn enqueue_world_script(&mut self, mut script: ScriptState, delay: u16) {
-        script.delay = (delay + 1) as i32;
+    pub fn enqueue_world_script(&mut self, mut script: ScriptState, delay: i32) {
+        script.delay = delay.saturating_add(1);
         self.world_queue.add_tail(script);
     }
 }
