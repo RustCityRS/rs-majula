@@ -508,27 +508,51 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     Ok(())
 }
 
-/// Sets a player variable (varp). For a protected varp, first closes any open modal
-/// and clears interaction, aborting with a message if the player is busy.
+/// Sets a player variable: a varbit when the name is one, otherwise a varp. For a
+/// protected varp (or a varbit of one), first closes any open modal and clears
+/// interaction, aborting with a message if the player is busy.
 ///
-/// Usage: `::setvar <varp> <value>` (e.g. `::setvar testvar 5`).
+/// Usage: `::setvar <varp|varbit> <value>` (e.g. `::setvar testvar 5`).
 fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-    parse_varp(args.next(), |v| {
-        if v.protect {
-            if let Err(e) = active.close_modal(true) {
-                error!("error closing modal during setvar: {e}");
-            }
-            if !active.can_access() {
-                active.message_game("Please finish what you are doing first.");
-                return;
-            }
-            active.player.clear_interaction();
-            active.unset_map_flag();
+    let name = args.next();
+    #[cfg(since_254)]
+    if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
+        let varp = engine()
+            .varps()
+            .get_by_id(varbit.basevar)
+            .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
+        if varp.protect && !take_protected_access(active) {
+            return Ok(());
+        }
+        let value = args.next().unwrap_or("0").parse::<i32>().unwrap_or(0);
+        active.message_game(&format!("Set {:?}: to {:?}", varbit.debugname(), value));
+        active.set_varbit(varbit, value);
+        return Ok(());
+    }
+    parse_varp(name, |v| {
+        if v.protect && !take_protected_access(active) {
+            return;
         }
         let value = build_var_value(v, args);
         active.message_game(&format!("Set {:?}: to {:?}", v.debugname(), value));
         active.set_varp(v.id, value, v.transmit);
     })
+}
+
+/// Gets the player ready for a write to a protected var: closes any open modal
+/// and clears interaction. Returns `false`, after telling the player, when they
+/// are busy.
+fn take_protected_access(active: &mut ActivePlayer) -> bool {
+    if let Err(e) = active.close_modal(true) {
+        error!("error closing modal during setvar: {e}");
+    }
+    if !active.can_access() {
+        active.message_game("Please finish what you are doing first.");
+        return false;
+    }
+    active.player.clear_interaction();
+    active.unset_map_flag();
+    true
 }
 
 /// Builds a [`VarValue`] for `v` from the next argument token: a raw string for
@@ -545,12 +569,20 @@ fn build_var_value(v: &VarPlayerType, args: &mut Split<char>) -> VarValue {
     }
 }
 
-/// Reports a player variable (varp) back to the player as a game message.
+/// Reports a player variable back to the player as a game message: a varbit when
+/// the name is one, otherwise a varp.
 ///
-/// Usage: `::getvar <varp>` (e.g. `::getvar testvar`).
+/// Usage: `::getvar <varp|varbit>` (e.g. `::getvar testvar`).
 fn cheat_getvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-    parse_varp(args.next(), |v| {
-        let value = build_var_value(v, args);
+    let name = args.next();
+    #[cfg(since_254)]
+    if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
+        let value = active.varbit(varbit);
+        active.message_game(&format!("Get {:?}: {:?}", varbit.debugname(), value));
+        return Ok(());
+    }
+    parse_varp(name, |v| {
+        let value = active.player.vars.get(v.id);
         active.message_game(&format!("Get {:?}: {:?}", v.debugname(), value));
     })
 }

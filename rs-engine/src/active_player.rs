@@ -14,6 +14,8 @@ use rs_info::FocusKind;
 use rs_inv::Inventory;
 use rs_io::{Packet, PacketFrame};
 use rs_pack::cache::inv::InvScope;
+#[cfg(since_254)]
+use rs_pack::cache::varbit::VarbitType;
 use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{Font, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
@@ -1251,15 +1253,7 @@ impl ActivePlayer {
             return Some(id);
         };
         let varbit = engine.varbits().get_by_id(var)?;
-        let start = u32::from(varbit.start_bit);
-        let width = u32::from(varbit.end_bit) - start + 1;
-        let mask = if width >= 32 {
-            u32::MAX
-        } else {
-            (1 << width) - 1
-        };
-        let value = (self.player.vars.get(varbit.basevar).as_int() as u32 >> start) & mask;
-        u16::try_from(*multi.get(value as usize)?).ok()
+        u16::try_from(*multi.get(self.varbit(varbit) as usize)?).ok()
     }
 
     #[cfg(before_289)]
@@ -2499,6 +2493,38 @@ impl ActivePlayer {
         true
     }
 
+    /// Reads a varbit: its bit range out of the base varp.
+    #[cfg(since_254)]
+    pub fn varbit(&self, varbit: &VarbitType) -> i32 {
+        let base = self.player.vars.get(varbit.basevar).as_int() as u32;
+        ((base >> varbit.start_bit) & varbit_mask(varbit)) as i32
+    }
+
+    /// Writes a varbit into its bit range of the base varp, leaving the other
+    /// bits alone. A value outside the range stores 0, like the reference
+    /// engine's `setVarBit`. The base varp's `transmit` flag decides whether
+    /// the client is sent the change.
+    #[cfg(since_254)]
+    pub fn set_varbit(&mut self, varbit: &VarbitType, value: i32) {
+        let Some(varp) = engine().varps().get_by_id(varbit.basevar) else {
+            return;
+        };
+        let mask = varbit_mask(varbit);
+        let value = if value < 0 || value as u32 > mask {
+            0
+        } else {
+            value as u32
+        };
+        let shifted = mask << varbit.start_bit;
+        let current = self.player.vars.get(varbit.basevar).as_int() as u32;
+        let new_value = (shifted & (value << varbit.start_bit)) | (current & !shifted);
+        self.set_varp(
+            varbit.basevar,
+            VarValue::from_int(varp.var_type, new_value as i32),
+            varp.transmit,
+        );
+    }
+
     /// Synchronizes the client's `run` varp with the player's current `run`
     /// flag.
     ///
@@ -2564,6 +2590,17 @@ const UNREMARKABLE: [&str; 2] = ["Trigger not found", "Player does not have an a
 
 /// How many bytes the read queue holds before the next message waits a tick.
 const READ_QUEUE_LIMIT: usize = MAX_PACKET_SIZE;
+
+/// The unshifted mask for a varbit's `start_bit..=end_bit` range.
+#[cfg(since_254)]
+fn varbit_mask(varbit: &VarbitType) -> u32 {
+    let width = u32::from(varbit.end_bit) - u32::from(varbit.start_bit) + 1;
+    if width >= 32 {
+        u32::MAX
+    } else {
+        (1 << width) - 1
+    }
+}
 
 impl EnginePlayer for ActivePlayer {
     /// Drains the network inbox into a read queue, then processes packets
