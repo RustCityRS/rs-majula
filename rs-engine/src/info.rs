@@ -706,10 +706,10 @@ impl PlayerInfo {
             masks &= !(PlayerInfoProt::Appearance as u16);
         }
 
-        if let Some(face_entity) = other.player.info.face_entity
-            && !renderer.has(pid, PlayerInfoProt::FaceEntity)
-        {
-            renderer.cache_face_entity(pid, face_entity);
+        if let Some(face_entity) = other.player.info.face_entity {
+            if !renderer.has(pid, PlayerInfoProt::FaceEntity) {
+                renderer.cache_face_entity(pid, face_entity);
+            }
             masks |= PlayerInfoProt::FaceEntity as u16;
         }
 
@@ -1310,10 +1310,10 @@ impl NpcInfo {
         let nid = other.npc.uid.nid();
         let mut masks = other.npc.info.masks;
 
-        if let Some(face_entity) = other.npc.info.face_entity
-            && !renderer.has(nid, NpcInfoProt::FaceEntity)
-        {
-            renderer.cache_face_entity(nid, face_entity);
+        if let Some(face_entity) = other.npc.info.face_entity {
+            if !renderer.has(nid, NpcInfoProt::FaceEntity) {
+                renderer.cache_face_entity(nid, face_entity);
+            }
             masks |= NpcInfoProt::FaceEntity as u16;
         }
 
