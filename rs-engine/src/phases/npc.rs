@@ -9,7 +9,7 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::hunt::{HuntType, check_hunt_condition};
 use rs_pack::types::*;
 use rs_vm::engine::{ScriptEngine, ScriptNpc};
-use rs_vm::state::{ExecutionState, ScriptArgument, ScriptState};
+use rs_vm::state::{ExecutionState, ScriptArgument};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
@@ -131,7 +131,7 @@ impl Engine {
         let Some(uid) = self.npc_list.get(nid).map(|active| active.npc.uid) else {
             return;
         };
-        let state = ScriptState::init(event.script, Some(ScriptSubject::Npc(uid)), None, None);
+        let state = self.build_state(event.script, Some(ScriptSubject::Npc(uid)), None, None);
         let result = catch_unwind(AssertUnwindSafe(|| {
             self.run_script_by_state(state, Some(ScriptSubject::Npc(uid)), None, None)
         }));
@@ -680,19 +680,6 @@ impl Engine {
                     if coord.distance(player_coord) > distance {
                         continue;
                     }
-                    match vis {
-                        HuntCheckVis::LineOfSight => {
-                            if !engine.lineofsight(coord, player_coord).unwrap_or(false) {
-                                continue;
-                            }
-                        }
-                        HuntCheckVis::LineOfWalk => {
-                            if !engine.lineofwalk(coord, player_coord).unwrap_or(false) {
-                                continue;
-                            }
-                        }
-                        HuntCheckVis::Off => {}
-                    }
 
                     if hunt.check_notbusy == HuntCheckNotBusy::On && player.player.busy() {
                         continue;
@@ -709,6 +696,20 @@ impl Engine {
                         {
                             continue;
                         }
+                    }
+
+                    match vis {
+                        HuntCheckVis::LineOfSight => {
+                            if !engine.lineofsight(coord, player_coord).unwrap_or(false) {
+                                continue;
+                            }
+                        }
+                        HuntCheckVis::LineOfWalk => {
+                            if !engine.lineofwalk(coord, player_coord).unwrap_or(false) {
+                                continue;
+                            }
+                        }
+                        HuntCheckVis::Off => {}
                     }
 
                     let is_current_target = matches!(

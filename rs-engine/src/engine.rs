@@ -393,9 +393,9 @@ pub struct PlayerList {
     pub players: Vec<Option<ActivePlayer>>,
     pub processing: HashTable<u16>,
     node_map: Vec<usize>,
+    by_user37: FxHashMap<u64, u16>,
     cursor: u16,
     pid_scratch: Vec<u16>,
-    /// How many players in the list are staff that isolation applies to.
     isolated: u16,
 }
 
@@ -407,6 +407,7 @@ impl PlayerList {
             players,
             processing: HashTable::new(8),
             node_map: vec![0; MAX_PLAYERS],
+            by_user37: FxHashMap::default(),
             cursor: (MAX_PLAYERS - 2) as u16,
             pid_scratch: Vec::with_capacity(MAX_PLAYERS),
             isolated: 0,
@@ -440,6 +441,7 @@ impl PlayerList {
         let node_idx = self.processing.put(key, pid);
         self.node_map[pid as usize] = node_idx;
         self.isolated += active.player.staff_mod_level.is_isolated() as u16;
+        self.by_user37.insert(active.player.uid.username37(), pid);
         self.players[pid as usize] = Some(active);
     }
 
@@ -447,6 +449,10 @@ impl PlayerList {
         let active = self.players[pid as usize].take()?;
         self.processing.unlink(self.node_map[pid as usize]);
         self.isolated -= active.player.staff_mod_level.is_isolated() as u16;
+        let user37 = active.player.uid.username37();
+        if self.by_user37.get(&user37) == Some(&pid) {
+            self.by_user37.remove(&user37);
+        }
         Some(active)
     }
 
@@ -458,12 +464,52 @@ impl PlayerList {
         self.players.get_mut(pid as usize)?.as_mut()
     }
 
+    /// Player `pid` in its slot, and every other slot.
+    pub fn split(&mut self, pid: u16) -> Option<(&mut ActivePlayer, OtherPlayers<'_>)> {
+        let (before, rest) = self.players.split_at_mut(pid as usize);
+        let (slot, after) = rest.split_first_mut()?;
+        Some((slot.as_mut()?, OtherPlayers { before, after }))
+    }
+
+    /// The pid of the player in the list named `user37`, if any.
+    pub fn find_by_user37(&self, user37: u64) -> Option<u16> {
+        let pid = *self.by_user37.get(&user37)?;
+        self.players[pid as usize].is_some().then_some(pid)
+    }
+
     pub fn pids(&self) -> Vec<u16> {
         self.processing.iter().copied().collect()
     }
 
     pub fn count(&self) -> usize {
         self.processing.len()
+    }
+}
+
+/// The player slots but one, so the output phase can encode a player in its
+/// slot while reading the others. The missing slot reads as empty.
+#[derive(Clone, Copy)]
+pub struct OtherPlayers<'a> {
+    before: &'a [Option<ActivePlayer>],
+    after: &'a [Option<ActivePlayer>],
+}
+
+impl<'a> OtherPlayers<'a> {
+    /// Every slot.
+    pub fn all(players: &'a [Option<ActivePlayer>]) -> Self {
+        Self {
+            before: players,
+            after: &[],
+        }
+    }
+
+    pub fn get(&self, pid: u16) -> Option<&'a ActivePlayer> {
+        let pid = pid as usize;
+        let split = self.before.len();
+        match self.before.get(pid) {
+            Some(slot) => slot.as_ref(),
+            None => self.after.get(pid.wrapping_sub(split + 1))?.as_ref(),
+        }
     }
 }
 
@@ -3398,8 +3444,8 @@ impl Engine {
 
     /// Finds the pid of an online player by their Base37-encoded username.
     ///
-    /// Scans the active player list and returns the pid of the first player
-    /// whose `username37` matches the given value.
+    /// A map lookup ([`PlayerList::find_by_user37`]): object reveals and
+    /// every ether message (PMs, friend updates) call this.
     ///
     /// # Arguments
     ///
@@ -3409,11 +3455,7 @@ impl Engine {
     ///
     /// `Some(pid)` if a matching player is online, `None` otherwise.
     pub fn find_pid_by_user37(&self, user37: u64) -> Option<u16> {
-        self.player_list.processing.iter().copied().find(|&pid| {
-            self.player_list.players[pid as usize]
-                .as_ref()
-                .is_some_and(|p| p.uid().username37() == user37)
-        })
+        self.player_list.find_by_user37(user37)
     }
 
     /// Scales a duration inversely by the current online player count.
@@ -3783,40 +3825,27 @@ impl ScriptEngine for Engine {
             .and_then(|pid| self.player_list.get(pid).map(|p| p.player.uid))
     }
 
-    /// Returns all NPCs present in the specified zone.
+    /// Appends every NPC in the zone containing `coord` to `out`.
     ///
     /// Iterates the zone's NPC slot list and resolves each to an `NpcRef`
-    /// containing the slot index, current type ID, and packed coordinate.
-    ///
-    /// # Arguments
-    ///
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
-    ///
-    /// # Returns
-    ///
-    /// A `Vec<NpcRef>` of NPC references in the zone.
+    /// containing the slot index, current type ID, and coordinate.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `ZoneMap::zone`, `ActiveNpc::current_type`, `CoordGrid::packed`
-    fn get_zone_npcs(&self, coord: CoordGrid) -> Vec<NpcRef> {
+    /// **Calls:** `ZoneMap::zone`
+    fn extend_zone_npcs(&self, coord: CoordGrid, out: &mut Vec<NpcRef>) {
         let Some(zone) = self.zones.zone(coord.x(), coord.y(), coord.z()) else {
-            return Vec::new();
+            return;
         };
-        zone.npcs
-            .iter()
-            .filter_map(|&nid| {
-                let active = self.npc_list.get(nid)?;
-                Some(NpcRef {
-                    nid,
-                    id: active.npc.uid.id(),
-                    coord: active.npc.pathing.coord,
-                })
+        out.extend(zone.npcs.iter().filter_map(|&nid| {
+            let active = self.npc_list.get(nid)?;
+            Some(NpcRef {
+                nid,
+                id: active.npc.uid.id(),
+                coord: active.npc.pathing.coord,
             })
-            .collect()
+        }));
     }
 
     /// Returns the packed coordinates of all players in the specified zone.
@@ -5335,7 +5364,9 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.logout_prevented_message` and `logout_prevented_until`
     fn prevent_logout(&mut self, message: &str, until: u32) {
-        self.player.logout_prevented_message = Some(message.into());
+        if self.player.logout_prevented_message.as_deref() != Some(message) {
+            self.player.logout_prevented_message = Some(message.into());
+        }
         self.player.logout_prevented_until = Some(until);
     }
 

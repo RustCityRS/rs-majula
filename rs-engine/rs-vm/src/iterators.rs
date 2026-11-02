@@ -102,7 +102,7 @@ pub fn player_zone<E: ScriptEngine + 'static>(coord: CoordGrid) -> Vec<u16> {
 ///
 /// # Call Stack
 /// **Called by:** [`npc_distance`], [`npc_distance_any`]
-/// **Calls:** [`ScriptEngine::get_zone_npcs`], [`rsmod::has_line_of_sight`],
+/// **Calls:** [`ScriptEngine::extend_zone_npcs`], [`rsmod::has_line_of_sight`],
 /// [`rsmod::has_line_of_walk`]
 fn npc_distance_inner<E: ScriptEngine + 'static>(
     id: Option<u16>,
@@ -116,18 +116,19 @@ fn npc_distance_inner<E: ScriptEngine + 'static>(
 
     let engine = engine::<E>();
     let mut matches = Vec::new();
+    let mut npcs = Vec::new();
 
     for zx in ((center_zx - radius)..=(center_zx + radius)).rev() {
         for zz in ((center_zz - radius)..=(center_zz + radius)).rev() {
             if zx < 0 || zz < 0 {
                 continue;
             }
-            let npcs = engine.get_zone_npcs(CoordGrid::new(
-                (zx as u16) << 3,
-                coord.y(),
-                (zz as u16) << 3,
-            ));
-            for npc_ref in npcs {
+            npcs.clear();
+            engine.extend_zone_npcs(
+                CoordGrid::new((zx as u16) << 3, coord.y(), (zz as u16) << 3),
+                &mut npcs,
+            );
+            for &npc_ref in &npcs {
                 let npc_coord = npc_ref.coord;
                 if coord.distance(npc_coord) > distance {
                     continue;

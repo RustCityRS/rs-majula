@@ -196,16 +196,16 @@ pub trait ScriptEngine {
     where
         Self: Sized;
 
-    /// Returns all NPCs present in the specified zone.
-    ///
-    /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
-    ///
-    /// # Returns
-    /// A `Vec<NpcRef>` of NPC references in the zone.
-    fn get_zone_npcs(&self, coord: CoordGrid) -> Vec<NpcRef>;
+    /// Appends every NPC in the zone containing `coord` to `out`, so a
+    /// search over many zones can reuse one buffer.
+    fn extend_zone_npcs(&self, coord: CoordGrid, out: &mut Vec<NpcRef>);
+
+    /// Returns all NPCs present in the zone containing `coord`.
+    fn get_zone_npcs(&self, coord: CoordGrid) -> Vec<NpcRef> {
+        let mut npcs = Vec::new();
+        self.extend_zone_npcs(coord, &mut npcs);
+        npcs
+    }
 
     /// Returns the packed coordinates of all players in the specified zone.
     ///

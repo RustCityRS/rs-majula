@@ -1,4 +1,4 @@
-use crate::active_player::{ActivePlayer, EnginePlayer};
+use crate::active_player::EnginePlayer;
 use crate::engine::Engine;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
@@ -20,9 +20,9 @@ impl Engine {
     /// 9. Updates AFK zone tracking.
     /// 10. Flushes the player's output buffer to the network channel.
     ///
-    /// The player is temporarily `take()`-n from the slot for the duration
-    /// of encoding and always restored afterward, even after a panic.
-    /// Players that panic are emergency-removed.
+    /// Each player is encoded in their slot. Only a replay keyframe takes
+    /// them out of it, and they always go back, even after a panic. Players
+    /// that panic are emergency-removed.
     ///
     /// # Side Effects
     ///
@@ -38,17 +38,19 @@ impl Engine {
     pub(crate) fn outputs(&mut self) {
         let pids = self.player_list.take_pids();
         let mut start = 0;
-        // Held out here, so a panic mid-encode can't drop the player: they
+        // Held out here, so a panic mid-keyframe can't drop the player: they
         // go back in their slot for the emergency removal to save.
         let mut taken = None;
         loop {
             let result = catch_unwind(AssertUnwindSafe(|| {
                 for &pid in &pids[start..] {
-                    taken = self.player_list.players[pid as usize].take();
-                    if let Some(active) = &mut taken {
-                        self.process_output(active);
+                    if self.process_output(pid) {
+                        taken = self.player_list.players[pid as usize].take();
+                        if let Some(active) = &mut taken {
+                            self.replay_keyframe(active);
+                        }
+                        self.player_list.players[pid as usize] = taken.take();
                     }
-                    self.player_list.players[pid as usize] = taken.take();
                     start += 1;
                 }
             }));
@@ -56,7 +58,9 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let pid = pids[start];
-                    self.player_list.players[pid as usize] = taken.take();
+                    if let Some(active) = taken.take() {
+                        self.player_list.players[pid as usize] = Some(active);
+                    }
                     let msg = crate::phases::shared::panic_message(&panic);
                     error!("panic during output processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
@@ -67,8 +71,13 @@ impl Engine {
         self.player_list.put_pids(pids);
     }
 
+    /// Encodes player `pid`'s output in their slot. Whether a replay
+    /// keyframe is due.
     #[inline(always)]
-    fn process_output(&mut self, active: &mut ActivePlayer) {
+    fn process_output(&mut self, pid: u16) -> bool {
+        let Some((active, others)) = self.player_list.split(pid) else {
+            return false;
+        };
         let dx = (active.player.pathing.last_coord.x() as i32
             - active.player.pathing.coord.x() as i32)
             .abs();
@@ -79,7 +88,7 @@ impl Engine {
 
         let player_info = self.player_info.encode(
             &mut self.player_renderer,
-            &self.player_list.players,
+            others,
             &self.player_snapshots[..],
             &self.zones,
             active,
@@ -100,16 +109,14 @@ impl Engine {
         );
 
         active.update_map();
-        active.player_info(player_info);
-        active.npc_info(npc_info);
+        active.player_info_parts(player_info.into());
+        active.npc_info_parts(npc_info.into());
         active.update_zones(&self.zones, &self.zones_tracking, self.clock);
         active.update_invs(&mut self.invs);
-        active.update_other_invs(&self.player_list.players);
+        active.update_other_invs(others);
         active.update_stats();
         active.player.update_afk_zones();
         active.encode();
-        if active.watch.keyframe_due() {
-            self.replay_keyframe(active);
-        }
+        active.watch.keyframe_due()
     }
 }

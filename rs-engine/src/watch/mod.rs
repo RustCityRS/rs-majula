@@ -482,7 +482,10 @@ impl Watch {
     /// Whether a mark for `what` goes on the timeline `ms` into the session:
     /// not within [`MARK_GAP_MS`] of the last, nor past [`MAX_MARKS`].
     fn may_mark(&mut self, what: &str, ms: u32) -> bool {
-        let (last, count) = self.marks.entry(what.to_owned()).or_insert((0, 0));
+        let Some((last, count)) = self.marks.get_mut(what) else {
+            self.marks.insert(what.to_owned(), (ms, 1));
+            return true;
+        };
         if *count >= MAX_MARKS || (*count > 0 && ms.saturating_sub(*last) < MARK_GAP_MS) {
             return false;
         }

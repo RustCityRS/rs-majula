@@ -38,6 +38,7 @@ pub struct ClientHandle {
     gathered: Vec<u8>,
     pub write_queue: Packet,
     pub read_queue: VecDeque<u8>,
+    pub read_buf: Vec<u8>,
     pub pending_msg: Option<(Instant, Vec<u8>)>,
     pub arrivals: VecDeque<(u64, Instant)>,
     pub queued: u64,
@@ -92,6 +93,7 @@ pub fn create_io(isaac: IsaacPair) -> ClientIO {
             gathered: Vec::new(),
             write_queue: Packet::new(MAX_PACKET_SIZE),
             read_queue: VecDeque::new(),
+            read_buf: Vec::new(),
             pending_msg: None,
             arrivals: VecDeque::new(),
             queued: 0,
@@ -126,6 +128,22 @@ impl ClientHandle {
         self.reuse_buffer();
         self.gathered
             .extend_from_slice(&self.write_queue.data[..len]);
+    }
+
+    /// Gathers a var-short packet: `opcode` (already ciphered), the body's
+    /// length, then the body, `parts` in order. Returns the length and body
+    /// as gathered.
+    pub fn gather_varshort(&mut self, opcode: u8, parts: [&[u8]; 2]) -> &[u8] {
+        self.reuse_buffer();
+        let size = parts[0].len() + parts[1].len();
+        self.gathered.reserve(3 + size);
+        self.gathered.push(opcode);
+        let start = self.gathered.len();
+        self.gathered
+            .extend_from_slice(&(size as u16).to_be_bytes());
+        self.gathered.extend_from_slice(parts[0]);
+        self.gathered.extend_from_slice(parts[1]);
+        &self.gathered[start..]
     }
 
     /// Hands the gathered output to the socket task as one write.
@@ -194,5 +212,31 @@ impl ClientHandle {
 impl Drop for ClientHandle {
     fn drop(&mut self) {
         self.flush();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The parts land as the one var-short packet the write queue would
+    /// have built from their join.
+    #[test]
+    fn gather_varshort_matches_a_joined_packet() {
+        let bits: Vec<u8> = (0..300).map(|i| i as u8).collect();
+        let updates: Vec<u8> = (0..41).map(|i| (i * 7) as u8).collect();
+        for parts in [[&bits[..], &updates[..]], [&bits[..], &[]], [&[], &[]]] {
+            let body = parts.concat();
+            let mut joined = Packet::new(MAX_PACKET_SIZE);
+            joined.p1(0xAB);
+            joined.pos += 2;
+            joined.pdata(&body, 0, body.len());
+            joined.psize2(body.len() as u16);
+
+            let mut handle = create_io(IsaacPair::new(&[0; 4], &[0; 4])).handle;
+            let rest = handle.gather_varshort(0xAB, parts).to_vec();
+            assert_eq!(handle.gathered, joined.data[..joined.pos]);
+            assert_eq!(rest, joined.data[1..joined.pos]);
+        }
     }
 }

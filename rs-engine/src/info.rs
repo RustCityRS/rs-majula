@@ -1,7 +1,7 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
-use crate::engine::engine;
+use crate::engine::{OtherPlayers, engine};
 use crate::watch::Target;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
 use rs_grid::CoordGrid;
@@ -180,8 +180,9 @@ impl PlayerInfo {
     /// * `rebuild` - Whether a full build area rebuild is forced.
     ///
     /// # Returns
-    /// A byte slice containing the encoded player info payload, valid until
-    /// the next call to `encode`.
+    /// The payload in two parts, the bit section and then the update blocks,
+    /// valid until the next call to `encode`. They go out as one packet
+    /// without being joined (see `ActivePlayer::player_info_parts`).
     ///
     /// # Call Stack
     /// **Calls:** [`write_local_player`](Self::write_local_player),
@@ -192,14 +193,14 @@ impl PlayerInfo {
     pub fn encode(
         &mut self,
         renderer: &mut PlayerRenderer,
-        players: &[Option<ActivePlayer>],
+        players: OtherPlayers<'_>,
         snap: &[PlayerSnapshot],
         map: &ZoneMap,
         active: &mut ActivePlayer,
         dx: i32,
         dz: i32,
         rebuild: bool,
-    ) -> &[u8] {
+    ) -> (&[u8], &[u8]) {
         let (px, py, pz) = (
             active.player.pathing.coord.x(),
             active.player.pathing.coord.y(),
@@ -223,13 +224,15 @@ impl PlayerInfo {
         if self.updates.pos > 0 {
             self.bw
                 .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_PLAYERS as i32 - 1);
-            self.bw.finish(&mut self.buf);
-            self.buf.pdata(&self.updates.data, 0, self.updates.pos);
-        } else {
-            self.bw.finish(&mut self.buf);
         }
-        debug_assert!(self.buf.pos <= BYTES_LIMIT);
-        unsafe { self.buf.data.get_unchecked(0..self.buf.pos) }
+        self.bw.finish(&mut self.buf);
+        debug_assert!(self.buf.pos + self.updates.pos <= BYTES_LIMIT);
+        unsafe {
+            (
+                self.buf.data.get_unchecked(..self.buf.pos),
+                self.updates.data.get_unchecked(..self.updates.pos),
+            )
+        }
     }
 
     /// Writes the local (observing) player's movement and update block.
@@ -283,7 +286,7 @@ impl PlayerInfo {
     #[inline(always)]
     fn write_players(
         &mut self,
-        players: &[Option<ActivePlayer>],
+        players: OtherPlayers<'_>,
         snap: &[PlayerSnapshot],
         renderer: &mut PlayerRenderer,
         active: &mut ActivePlayer,
@@ -365,7 +368,7 @@ impl PlayerInfo {
     fn write_new_players(
         &mut self,
         map: &ZoneMap,
-        players: &[Option<ActivePlayer>],
+        players: OtherPlayers<'_>,
         snap: &[PlayerSnapshot],
         renderer: &mut PlayerRenderer,
         active: &mut ActivePlayer,
@@ -390,7 +393,7 @@ impl PlayerInfo {
             if active.player.build_area.players.len() >= BuildArea::PREFERRED_PLAYERS as usize {
                 return;
             }
-            if let Some(other) = unsafe { &*players.as_ptr().add(pid as usize) } {
+            if let Some(other) = players.get(pid) {
                 if other.player.info.vis == Visibility::Hard {
                     continue;
                 }
@@ -653,18 +656,14 @@ impl PlayerInfo {
     #[inline(always)]
     fn highdefinition_tracked(
         &mut self,
-        players: &[Option<ActivePlayer>],
+        players: OtherPlayers<'_>,
         renderer: &mut PlayerRenderer,
         active: &ActivePlayer,
         pid: u16,
         flags: u8,
     ) {
         if pid == active.player.uid.pid() || flags & PlayerSnapshot::HAS_EXACTMOVE != 0 {
-            let other = unsafe {
-                (*players.as_ptr().add(pid as usize))
-                    .as_ref()
-                    .unwrap_unchecked()
-            };
+            let other = unsafe { players.get(pid).unwrap_unchecked() };
             self.highdefinition(renderer, active, other);
         } else {
             let blk = renderer.high_block(pid);
@@ -837,7 +836,7 @@ impl PlayerInfo {
     /// Reads the observer's state without changing it.
     pub fn keyframe(
         renderer: &mut PlayerRenderer,
-        players: &[Option<ActivePlayer>],
+        players: OtherPlayers<'_>,
         active: &ActivePlayer,
     ) -> Vec<Vec<u8>> {
         let build = &active.player.build_area;
@@ -871,7 +870,7 @@ impl PlayerInfo {
             }
             while known < tracked.len() {
                 let pid = tracked[known];
-                let other = players.get(pid as usize).and_then(Option::as_ref);
+                let other = players.get(pid);
                 let len = other.map_or(1, |_| renderer.lowdefinitions(pid) + 32);
                 if !info.fits(PlayerInfo::BITS_ADD + PlayerInfo::BITS_END, len) {
                     break;
@@ -1005,8 +1004,9 @@ impl NpcInfo {
     /// * `rebuild` - Whether a full NPC build area rebuild is forced.
     ///
     /// # Returns
-    /// A byte slice containing the encoded NPC info payload, valid until
-    /// the next call to `encode`.
+    /// The payload in two parts, the bit section and then the update blocks,
+    /// valid until the next call to `encode`. They go out as one packet
+    /// without being joined (see `ActivePlayer::npc_info_parts`).
     ///
     /// # Call Stack
     /// **Calls:** [`write_npcs`](Self::write_npcs),
@@ -1023,7 +1023,7 @@ impl NpcInfo {
         dx: i32,
         dz: i32,
         rebuild: bool,
-    ) -> &[u8] {
+    ) -> (&[u8], &[u8]) {
         let build: &mut BuildArea = &mut active.player.build_area;
 
         if rebuild
@@ -1041,13 +1041,15 @@ impl NpcInfo {
         if self.updates.pos > 0 {
             self.bw
                 .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_NPCS as i32 - 1);
-            self.bw.finish(&mut self.buf);
-            self.buf.pdata(&self.updates.data, 0, self.updates.pos);
-        } else {
-            self.bw.finish(&mut self.buf);
         }
-        debug_assert!(self.buf.pos <= BYTES_LIMIT);
-        unsafe { self.buf.data.get_unchecked(0..self.buf.pos) }
+        self.bw.finish(&mut self.buf);
+        debug_assert!(self.buf.pos + self.updates.pos <= BYTES_LIMIT);
+        unsafe {
+            (
+                self.buf.data.get_unchecked(..self.buf.pos),
+                self.updates.data.get_unchecked(..self.updates.pos),
+            )
+        }
     }
 
     /// Writes movement and update blocks for all previously tracked NPCs.

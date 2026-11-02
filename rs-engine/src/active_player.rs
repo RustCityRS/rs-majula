@@ -1,7 +1,7 @@
 use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
 use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
 use crate::counters::{self, AutoBan, COUNTERS};
-use crate::engine::{engine, engine_mut};
+use crate::engine::{OtherPlayers, engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use crate::watch::schedule::End;
 use crate::watch::{MapBase, Op, Target, Using, Watch, menu};
@@ -124,6 +124,7 @@ use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 use rs_var::VarSet;
 use rs_vm::ScriptError;
@@ -137,7 +138,9 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::borrow::Cow;
 use std::cell::RefCell;
+use std::fmt;
 use std::fmt::Write as _;
+use std::mem;
 use std::net::IpAddr;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
@@ -616,9 +619,14 @@ impl ActivePlayer {
 
     /// Looks up a coordinate-keyed trigger script by name and, if one is registered,
     /// enqueues it on the engine queue. A no-op when no script matches (e.g. the sentinel
-    /// exit triggers fired for the initial `(0, 0, 0)` zone on spawn).
-    fn enqueue_zone_trigger(&mut self, name: &str) {
-        let script_id = engine().scripts.get_by_name(name).map(|s| s.id);
+    /// exit triggers fired for the initial `(0, 0, 0)` zone on spawn). The name is
+    /// formatted on the stack: this runs on every zone crossing.
+    fn enqueue_zone_trigger(&mut self, name: fmt::Arguments<'_>) {
+        let mut buf = TriggerName::new();
+        if buf.write_fmt(name).is_err() {
+            return;
+        }
+        let script_id = engine().scripts.get_by_name(buf.as_str()).map(|s| s.id);
         if let Some(id) = script_id {
             let _ = self
                 .player
@@ -630,14 +638,12 @@ impl ActivePlayer {
 
     /// Fires the `[mapzone,...]` trigger for the mapsquare containing `(x, z)`.
     fn trigger_mapzone(&mut self, x: u16, z: u16) {
-        let name = format!("[mapzone,0_{}_{}]", x >> 6, z >> 6);
-        self.enqueue_zone_trigger(&name);
+        self.enqueue_zone_trigger(format_args!("[mapzone,0_{}_{}]", x >> 6, z >> 6));
     }
 
     /// Fires the `[mapzoneexit,...]` trigger for the mapsquare containing `(x, z)`.
     fn trigger_mapzone_exit(&mut self, x: u16, z: u16) {
-        let name = format!("[mapzoneexit,0_{}_{}]", x >> 6, z >> 6);
-        self.enqueue_zone_trigger(&name);
+        self.enqueue_zone_trigger(format_args!("[mapzoneexit,0_{}_{}]", x >> 6, z >> 6));
     }
 
     /// Fires the `[zone,...]` trigger for the zone containing `(x, z)` on `level`.
@@ -646,8 +652,7 @@ impl ActivePlayer {
         let mz = z >> 6;
         let lx = ((x & 0x3f) >> 3) << 3;
         let lz = ((z & 0x3f) >> 3) << 3;
-        let name = format!("[zone,{}_{}_{}_{}_{}]", level, mx, mz, lx, lz);
-        self.enqueue_zone_trigger(&name);
+        self.enqueue_zone_trigger(format_args!("[zone,{level}_{mx}_{mz}_{lx}_{lz}]"));
     }
 
     /// Fires the `[zoneexit,...]` trigger for the zone containing `(x, z)` on `level`.
@@ -656,8 +661,7 @@ impl ActivePlayer {
         let mz = z >> 6;
         let lx = ((x & 0x3f) >> 3) << 3;
         let lz = ((z & 0x3f) >> 3) << 3;
-        let name = format!("[zoneexit,{}_{}_{}_{}_{}]", level, mx, mz, lx, lz);
-        self.enqueue_zone_trigger(&name);
+        self.enqueue_zone_trigger(format_args!("[zoneexit,{level}_{mx}_{mz}_{lx}_{lz}]"));
     }
 
     /// Sends a camera reset packet to the client, restoring the default camera.
@@ -1521,6 +1525,45 @@ impl ActivePlayer {
         self.write(rs_protocol::network::game::server::player_info::PlayerInfo { bytes });
     }
 
+    /// [`player_info`](Self::player_info) for a payload in two parts, the
+    /// bit section and the update blocks, as `PlayerInfo::encode` builds it.
+    pub fn player_info_parts(&mut self, parts: [&[u8]; 2]) {
+        if self.capture.is_some() {
+            self.player_info(&parts.concat());
+            return;
+        }
+        self.write_varshort_parts(ServerProt::PlayerInfo as u8, parts);
+    }
+
+    /// [`npc_info`](Self::npc_info) for a payload in two parts, the bit
+    /// section and the update blocks, as `NpcInfo::encode` builds it.
+    pub fn npc_info_parts(&mut self, parts: [&[u8]; 2]) {
+        if self.capture.is_some() {
+            self.npc_info(&parts.concat());
+            return;
+        }
+        self.write_varshort_parts(ServerProt::NpcInfo as u8, parts);
+    }
+
+    /// [`write_immediate`](Self::write_immediate) for a var-short message
+    /// whose body is `parts` in order. The parts go straight into the gathered
+    /// output, so each byte is copied once, not joined and then copied
+    /// through the write queue.
+    fn write_varshort_parts(&mut self, prot: u8, parts: [&[u8]; 2]) {
+        let size = parts[0].len() + parts[1].len();
+        if 1 + 2 + size > MAX_PACKET_SIZE {
+            return;
+        }
+        let handle = &mut self.handle;
+        let opcode = (prot as u32 + handle.isaac_encode.next_int()) as u8;
+        let rest = handle.gather_varshort(opcode, parts);
+        self.watch.server(engine().clock, prot, rest);
+        self.watch.remember(prot, 2, rest);
+        if !engine().gather_output {
+            self.handle.flush();
+        }
+    }
+
     /// Opens the count dialog (number input) on the client.
     pub fn p_countdialog(&mut self) {
         self.write(rs_protocol::network::game::server::p_countdialog::PCountDialog);
@@ -1850,7 +1893,7 @@ impl ActivePlayer {
     ///
     /// # Side Effects
     /// * Sends `update_inv_full` / `update_inv_partial` packets for each resolved listener.
-    pub fn update_other_invs(&mut self, players: &[Option<ActivePlayer>]) {
+    pub fn update_other_invs(&mut self, players: OtherPlayers<'_>) {
         if self.player.inv_other_transmits.is_empty() {
             return;
         }
@@ -1865,8 +1908,7 @@ impl ActivePlayer {
         let transmits = std::mem::take(&mut self.player.inv_other_transmits);
 
         for (&com, &(uid, inv_id)) in &transmits {
-            let pid = (uid & 0x7FF) as usize;
-            let Some(source) = players.get(pid).and_then(|p| p.as_ref()) else {
+            let Some(source) = players.get((uid & 0x7FF) as u16) else {
                 continue;
             };
             // Guard against a reused player slot: the live uid must still match.
@@ -2722,21 +2764,22 @@ impl EnginePlayer for ActivePlayer {
         let handle = &mut self.handle;
         handle.opcode = None;
         handle.read_queue.drain(..head);
-        let data: Vec<u8> = handle.read_queue.drain(..len).collect();
+        let mut buf = Packet::from(mem::take(&mut handle.read_buf));
+        buf.data.clear();
+        buf.data.extend(handle.read_queue.drain(..len));
         let short = len < info.frame.min();
 
         if let Some(at) = self.handle.arrived() {
             self.watch.arrived(at);
         }
-        self.watch.client(engine().clock, &prot, opcode, &data);
+        self.watch.client(engine().clock, &prot, opcode, &buf.data);
 
         #[rustfmt::skip]
         let success = if short {
-            debug!("Short {prot:?}: {} byte(s)", data.len());
+            debug!("Short {prot:?}: {} byte(s)", buf.len());
             self.watch.anticheat.malformed();
             false
         } else {
-            let mut buf = Packet::from(data);
             let len = buf.len();
             let result = match prot {
                 ClientProt::AnticheatCycleLogic1 => AnticheatCycleLogic1::decode(&mut buf, len).handle(self),
@@ -2863,6 +2906,7 @@ impl EnginePlayer for ActivePlayer {
             _ => self.client_limit += 1,
         }
 
+        self.handle.read_buf = buf.data;
         Some(())
     }
 
@@ -3290,5 +3334,37 @@ impl EnginePlayer for ActivePlayer {
                 );
             }
         }
+    }
+}
+
+/// A zone trigger's script name, formatted on the stack. The longest,
+/// `[zoneexit,3_255_255_56_56]`, is 26 bytes.
+struct TriggerName {
+    buf: [u8; 32],
+    len: usize,
+}
+
+impl TriggerName {
+    const fn new() -> Self {
+        Self {
+            buf: [0; 32],
+            len: 0,
+        }
+    }
+
+    fn as_str(&self) -> &str {
+        std::str::from_utf8(&self.buf[..self.len]).unwrap_or_default()
+    }
+}
+
+impl fmt::Write for TriggerName {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        let end = self.len + s.len();
+        let Some(dst) = self.buf.get_mut(self.len..end) else {
+            return Err(fmt::Error);
+        };
+        dst.copy_from_slice(s.as_bytes());
+        self.len = end;
+        Ok(())
     }
 }

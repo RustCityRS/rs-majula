@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::{Engine, engine};
+use crate::engine::{Engine, OtherPlayers, engine};
 use crate::info::{NpcInfo, PlayerInfo};
 use rs_entity::EntityLifeTime;
 use rs_inv::Inventory;
@@ -21,9 +21,11 @@ impl Engine {
         active.keyframe_zones(&self.zones, self.clock);
         let head = active.capture.replace(Vec::new()).unwrap_or_default();
         active.keyframe_invs(&self.invs);
-        for body in
-            PlayerInfo::keyframe(&mut self.player_renderer, &self.player_list.players, active)
-        {
+        for body in PlayerInfo::keyframe(
+            &mut self.player_renderer,
+            OtherPlayers::all(&self.player_list.players),
+            active,
+        ) {
             active.player_info(&body);
         }
         // The keyframe hands over only the appearances of the players in
