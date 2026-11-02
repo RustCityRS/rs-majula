@@ -77,7 +77,34 @@ pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
     Ok(serial)
 }
 
+/// Returns the uid held in the chosen active player slot.
+///
+/// # Panics / Errors
+/// Returns `ScriptError::Runtime` if no active player is set for that slot.
+fn active_player_uid(state: &ScriptState, secondary: bool) -> Result<PlayerUid> {
+    if secondary {
+        state.active_player2
+    } else {
+        state.active_player
+    }
+    .ok_or_else(|| {
+        ScriptError::Runtime(format!(
+            "no {} active_player",
+            if secondary { "secondary" } else { "primary" }
+        ))
+    })
+}
+
+/// The error for an active player whose slot is empty or now holds someone else.
+fn active_player_gone(uid: PlayerUid) -> ScriptError {
+    ScriptError::Runtime(format!("active player no longer in slot: {}", uid.pid()))
+}
+
 /// Returns a mutable reference to the active player entity from the global engine.
+///
+/// The player in the slot must still have the script's uid. A script that
+/// outlives its player (a world queue `world_delay`, an npc's parked script)
+/// would otherwise act on whoever was given the slot next.
 ///
 /// # Arguments
 /// * `state` - The current script execution state, which holds the active player UID.
@@ -89,33 +116,28 @@ pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::Runtime` if no active player is set for the chosen slot,
-/// or if the player's slot in the engine is empty.
+/// or if the slot is empty or holds a different player.
 ///
 /// # Call Stack
-/// **Called by:** player opcode handlers via `active_player_mut!` and utility functions.
+/// **Called by:** player opcode handlers via `active_player_mut!` /
+/// `protected_active_player_mut!` and utility functions.
 /// **Calls:** [`engine_mut`], [`ScriptEngine::get_player_mut`]
-#[allow(clippy::mut_from_ref)]
+#[inline(always)]
 pub(crate) fn get_active_player_mut<E: ScriptEngine + 'static>(
     state: &ScriptState,
     secondary: bool,
-) -> Result<&mut (impl ScriptPlayer + use<E>)> {
-    let uid = if secondary {
-        state.active_player2
-    } else {
-        state.active_player
-    }
-    .ok_or_else(|| {
-        ScriptError::Runtime(format!(
-            "no {} active_player",
-            if secondary { "secondary" } else { "primary" }
-        ))
-    })?;
+) -> Result<&'static mut (impl ScriptPlayer + use<E>)> {
+    let uid = active_player_uid(state, secondary)?;
     engine_mut::<E>()
         .get_player_mut(uid.pid())
-        .ok_or_else(|| ScriptError::Runtime(format!("active player slot empty: {}", uid.pid())))
+        .filter(|player| player.uid().packed() == uid.packed())
+        .ok_or_else(|| active_player_gone(uid))
 }
 
 /// Returns an immutable reference to the active player entity from the global engine.
+///
+/// The player in the slot must still have the script's uid; see
+/// [`get_active_player_mut`].
 ///
 /// # Arguments
 /// * `state` - The current script execution state, which holds the active player UID.
@@ -127,29 +149,22 @@ pub(crate) fn get_active_player_mut<E: ScriptEngine + 'static>(
 ///
 /// # Panics / Errors
 /// Returns `ScriptError::Runtime` if no active player is set for the chosen slot,
-/// or if the player's slot in the engine is empty.
+/// or if the slot is empty or holds a different player.
 ///
 /// # Call Stack
-/// **Called by:** player opcode handlers via `active_player!` and utility functions.
+/// **Called by:** player opcode handlers via `active_player!` /
+/// `protected_active_player!` and utility functions.
 /// **Calls:** [`engine`], [`ScriptEngine::get_player`]
+#[inline(always)]
 pub(crate) fn get_active_player<E: ScriptEngine + 'static>(
     state: &ScriptState,
     secondary: bool,
-) -> Result<&(impl ScriptPlayer + use<E>)> {
-    let uid = if secondary {
-        state.active_player2
-    } else {
-        state.active_player
-    }
-    .ok_or_else(|| {
-        ScriptError::Runtime(format!(
-            "no {} active_player",
-            if secondary { "secondary" } else { "primary" }
-        ))
-    })?;
+) -> Result<&'static (impl ScriptPlayer + use<E>)> {
+    let uid = active_player_uid(state, secondary)?;
     engine::<E>()
         .get_player(uid.pid())
-        .ok_or_else(|| ScriptError::Runtime(format!("active player slot empty: {}", uid.pid())))
+        .filter(|player| player.uid().packed() == uid.packed())
+        .ok_or_else(|| active_player_gone(uid))
 }
 
 /// Sets the active player pointer on the script state and updates the pointer flags.
@@ -177,6 +192,34 @@ pub(crate) fn set_active_player(state: &mut ScriptState, uid: PlayerUid, seconda
         .add(ScriptState::ACTIVE_PLAYER[secondary as usize]);
 }
 
+/// Returns the slot index held in the chosen active npc slot.
+///
+/// Only the slot is used, not the full uid: the uid carries the npc's
+/// current type, which `npc_changetype` and its timed revert rewrite while
+/// scripts still hold the npc.
+///
+/// # Panics / Errors
+/// Returns `ScriptError::Runtime` if no active npc is set for that slot.
+fn active_npc_nid(state: &ScriptState, secondary: bool) -> Result<u16> {
+    if secondary {
+        state.active_npc2
+    } else {
+        state.active_npc
+    }
+    .map(|uid| uid.nid())
+    .ok_or_else(|| {
+        ScriptError::Runtime(format!(
+            "no {} active_npc",
+            if secondary { "secondary" } else { "primary" }
+        ))
+    })
+}
+
+/// The error for an active npc whose slot is empty.
+fn active_npc_gone(nid: u16) -> ScriptError {
+    ScriptError::Runtime(format!("active npc slot empty: {}", nid))
+}
+
 /// Returns a mutable reference to the active NPC entity from the global engine.
 ///
 /// # Arguments
@@ -194,24 +237,15 @@ pub(crate) fn set_active_player(state: &mut ScriptState, uid: PlayerUid, seconda
 /// # Call Stack
 /// **Called by:** NPC opcode handlers via `active_npc_mut!` and utility functions.
 /// **Calls:** [`engine_mut`], [`ScriptEngine::get_npc_mut`]
+#[inline(always)]
 pub(crate) fn get_active_npc_mut<E: ScriptEngine + 'static>(
     state: &ScriptState,
     secondary: bool,
-) -> Result<&mut (impl ScriptNpc + use<E>)> {
-    let uid = if secondary {
-        state.active_npc2
-    } else {
-        state.active_npc
-    }
-    .ok_or_else(|| {
-        ScriptError::Runtime(format!(
-            "no {} active_npc",
-            if secondary { "secondary" } else { "primary" }
-        ))
-    })?;
+) -> Result<&'static mut (impl ScriptNpc + use<E>)> {
+    let nid = active_npc_nid(state, secondary)?;
     engine_mut::<E>()
-        .get_npc_mut(uid.nid())
-        .ok_or_else(|| ScriptError::Runtime(format!("active npc slot empty: {}", uid.nid())))
+        .get_npc_mut(nid)
+        .ok_or_else(|| active_npc_gone(nid))
 }
 
 /// Returns an immutable reference to the active NPC entity from the global engine.
@@ -231,24 +265,15 @@ pub(crate) fn get_active_npc_mut<E: ScriptEngine + 'static>(
 /// # Call Stack
 /// **Called by:** NPC opcode handlers via `active_npc!` and utility functions.
 /// **Calls:** [`engine`], [`ScriptEngine::get_npc`]
+#[inline(always)]
 pub(crate) fn get_active_npc<E: ScriptEngine + 'static>(
     state: &ScriptState,
     secondary: bool,
-) -> Result<&(impl ScriptNpc + use<E>)> {
-    let uid = if secondary {
-        state.active_npc2
-    } else {
-        state.active_npc
-    }
-    .ok_or_else(|| {
-        ScriptError::Runtime(format!(
-            "no {} active_npc",
-            if secondary { "secondary" } else { "primary" }
-        ))
-    })?;
+) -> Result<&'static (impl ScriptNpc + use<E>)> {
+    let nid = active_npc_nid(state, secondary)?;
     engine::<E>()
-        .get_npc(uid.nid())
-        .ok_or_else(|| ScriptError::Runtime(format!("active npc slot empty: {}", uid.nid())))
+        .get_npc(nid)
+        .ok_or_else(|| active_npc_gone(nid))
 }
 
 /// Sets the active NPC pointer on the script state and updates the pointer flags.

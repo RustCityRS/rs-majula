@@ -205,20 +205,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .get_by_id(obj.id)
                 .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
 
-            let uid = s
-                .active_player
-                .ok_or_else(|| ScriptError::Runtime("no active_player".into()))?;
-
             let stackable = obj_type.stackable;
             let obj_id = obj.id;
 
-            let player = engine_mut::<E>()
-                .get_player_mut(uid.pid())
-                .ok_or_else(|| {
-                    ScriptError::Runtime(format!("active player slot empty: {}", uid.pid()))
-                })?;
-
-            let user37 = player.uid().username37();
+            let player = get_active_player_mut::<E>(s, s.int_operand() != 0)?;
+            let uid = player.uid();
+            let user37 = uid.username37();
             // Nothing to take once the obj is gone or emptied, even if another
             // like it was dropped on the tile since.
             let Some(count) =

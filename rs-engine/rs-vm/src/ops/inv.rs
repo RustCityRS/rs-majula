@@ -73,10 +73,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 && to_inv.scope != InvScope::Shared {
                 return Err(ScriptError::Runtime(format!("Inv: {:?} requires protected access!", to_inv.debugname())));
             }
-            let to_uid = if secondary != 0 { s.active_player } else { s.active_player2 }
-                .ok_or(ScriptError::Runtime("player is null".into()))?;
-            let to_pid = to_uid.pid();
-            let to_receiver = Some(to_uid);
+            let to_player = get_active_player_mut::<E>(s, secondary == 0)?;
+            let to_uid = to_player.uid();
+            let to_coord = to_player.coord();
             let inventory = get_inv_mut::<E>(from_inv.id, player)?;
             let items: Vec<_> = inventory.slots.iter().filter_map(|s| *s).collect();
             inventory.clear();
@@ -85,10 +84,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 player.log_handover(from_name, item.obj, item.num as i32, to_uid.username37());
             }
 
-            let to_player = engine_mut::<E>().get_player_mut(to_pid)
-                .ok_or(ScriptError::Runtime("to player not found".into()))?;
-                let to_coord = to_player.coord();
-
             let objs = engine::<E>().objs();
 
             for item in items {
@@ -96,7 +91,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
                 let overflow = get_inv_mut::<E>(to_inv.id, to_player)?.add(item.obj, item.num, obj_type.stackable);
                 if overflow > 0 {
-                    add_obj_split::<E>(to_coord, item.obj, overflow, obj_type.stackable, to_receiver, LOOTDROP_DURATION)?;
+                    add_obj_split::<E>(to_coord, item.obj, overflow, obj_type.stackable, Some(to_uid), LOOTDROP_DURATION)?;
                 }
             }
         });

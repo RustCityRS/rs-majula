@@ -68,14 +68,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let damage = s.pop_int();
             let secondary = s.int_operand() == 1;
             let from_uid = if secondary { s.active_player2 } else { s.active_player };
-            let to_uid = if secondary { s.active_player } else { s.active_player2 };
             let from = from_uid.ok_or(ScriptError::Runtime("from player is null".into()))?;
-            let to = to_uid.ok_or(ScriptError::Runtime("to player is null".into()))?;
-            let user37 = from.username37();
-            engine_mut::<E>()
-                .get_player_mut(to.pid())
-                .ok_or(ScriptError::Runtime("to player not found".into()))?
-                .heropoints(user37, damage);
+            get_active_player_mut::<E>(s, !secondary)?.heropoints(from.username37(), damage);
         });
 
         // 2004
@@ -791,14 +785,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Invalid opnpc: {}", op + 1)));
             }
 
-            let npc_uid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
-                .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?;
-
-            let npc = engine::<E>()
-                .get_npc(npc_uid.nid())
-                .ok_or_else(|| ScriptError::Runtime(format!("active npc slot empty: {}", npc_uid.nid())))?;
-
-            let id = npc.uid().id();
+            let npc_uid = get_active_npc::<E>(s, s.int_operand() != 0)?.uid();
+            let id = npc_uid.id();
 
             let npc_type = engine::<E>()
                 .npcs()
