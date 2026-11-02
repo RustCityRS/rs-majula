@@ -48,8 +48,8 @@ impl ClientGameHandler for MoveMinimapClick {
 ///
 /// Processes a movement request initiated as part of an entity operation
 /// (e.g., walking to an NPC or object before interacting). Unlike game/minimap
-/// clicks, this does not clear pending actions or process walk triggers, as the
-/// movement is a precursor to an interaction.
+/// clicks, this does not clear pending actions, as the movement is a precursor
+/// to an interaction.
 ///
 /// # Call Stack
 ///
@@ -61,15 +61,17 @@ impl ClientGameHandler for MoveOpClick {
     }
 }
 
-/// Shared handler for all movement click types (game click, minimap click, operation click).
+/// Shared handler for all movement click types (game click, minimap click, operation click),
+/// following the reference engine's `MoveClickHandler`.
 ///
 /// Validates the path is non-empty and within 104 tiles of the player, then
 /// queues waypoints for the player's pathing system. When the engine uses
-/// client-side pathfinding, the full client path is used directly; otherwise
-/// the server computes a path to the final destination using the rsmod pathfinder.
+/// client-side pathfinding, the full client path is used directly and the walk
+/// trigger runs; otherwise the server computes a path to the final destination
+/// using the rsmod pathfinder.
 ///
-/// For non-operation clicks, this also clears pending actions, manages temporary
-/// run state (ctrl-click to run), and processes walk triggers.
+/// Every click sets temporary run (ctrl-click to run); only non-operation clicks
+/// clear pending actions.
 ///
 /// # Arguments
 ///
@@ -85,13 +87,16 @@ impl ClientGameHandler for MoveOpClick {
 ///
 /// # Side Effects
 ///
-/// * Updates the player's waypoint queue.
-/// * For non-op clicks: clears pending actions, sets temp run flag, processes walk triggers.
+/// * Updates the player's waypoint queue and sets `move_clicked`, which the
+///   input phase reads (see `Engine::post_process`).
+/// * Sets the temp run flag. For non-op clicks, clears pending actions.
+/// * With client-side pathfinding, processes the walk trigger.
 ///
 /// # Call Stack
 ///
 /// **Called by:** `MoveGameClick::handle`, `MoveMinimapClick::handle`, `MoveOpClick::handle`
-/// **Calls:** [`path_to_move_click`], `ActivePlayer::clear_pending_action`, `ActivePlayer::process_walktrigger`
+/// **Calls:** `ActivePlayer::clear_pending_action`, `ActivePlayer::process_walktrigger`,
+/// `rsmod::find_path` (server-side)
 fn handle(
     path: Vec<u32>,
     ctrl: bool,
@@ -103,7 +108,7 @@ fn handle(
     }
 
     if active.player.state.delayed {
-        active.clear_waypoints();
+        active.unset_map_flag();
         return Ok(());
     }
 
@@ -117,89 +122,45 @@ fn handle(
         .in_distance(CoordGrid::new(x, y, z), 104)
     {
         active.clear_waypoints();
+        active.player.move_clicked = false;
         return Ok(());
     }
 
-    let client_pathfinder = engine().client_pathfinder;
-
-    if client_pathfinder {
-        if path.len() != 1
-            || x != active.player.pathing.coord.x()
-            || z != active.player.pathing.coord.z()
-        {
-            active.player.path = Some(
-                path.iter()
-                    .map(|&p| {
-                        let (px, pz) = unpack_coord(p);
-                        CoordGrid::new(px, y, pz)
-                    })
-                    .collect(),
-            );
-        } else {
-            active.clear_waypoints();
-        }
-    } else {
-        let (dest_x, dest_z) = unpack_coord(path[path.len() - 1]);
-        active.player.path = Some(vec![CoordGrid::new(dest_x, y, dest_z)]);
-    }
-
-    path_to_move_click(active, client_pathfinder);
-
+    // Not for op clicks: the op packet that follows clears and sets the
+    // interaction itself.
     if !op {
         active.clear_pending_action()?;
-        // ctrl-click temporarily runs for this move; a normal click leaves
-        // temp-run off (so movement follows the persistent run toggle). Low
-        // energy (<100) cancels a ctrl temp-run.
-        active.player.temprun = if active.player.runenergy < 100 && ctrl {
-            false
-        } else {
-            ctrl
-        };
-        if active.player.pathing.has_waypoints() {
-            active.process_walktrigger();
-        }
     }
 
-    Ok(())
-}
-
-/// Converts the player's pending path into waypoints for the pathing system.
-///
-/// When server-side pathfinding is used (`client_pathfinder` is `false`), this
-/// runs the rsmod `find_path` algorithm from the player's current position to
-/// the destination coordinate, generating up to 25 waypoints with normal
-/// collision. When client-side pathfinding is used, the packed path coordinates
-/// from the client are directly queued as waypoints (up to 25).
-///
-/// # Arguments
-///
-/// * `active` - The active player whose path is being processed.
-/// * `client_pathfinder` - Whether the engine is configured to trust client-side paths.
-///
-/// # Side Effects
-///
-/// * Consumes the player's `path` field (takes ownership via `take()`).
-/// * Queues waypoints into the player's pathing system.
-///
-/// # Call Stack
-///
-/// **Called by:** [`handle`]
-/// **Calls:** `rsmod::find_path` (server-side), `player.pathing.queue_waypoints`
-fn path_to_move_click(active: &mut ActivePlayer, client_pathfinder: bool) {
-    let Some(path) = active.player.path.take() else {
-        return;
+    // ctrl-click temporarily runs for this move; a normal click leaves
+    // temp-run off (so movement follows the persistent run toggle). Low
+    // energy (<100) cancels a ctrl temp-run.
+    active.player.temprun = if active.player.runenergy < 100 && ctrl {
+        false
+    } else {
+        ctrl
     };
-    if path.is_empty() {
-        return;
-    }
-    if !client_pathfinder {
-        let coord = path[0];
+
+    active.player.move_clicked = true;
+
+    if engine().client_pathfinder {
+        let path: Vec<u32> = path
+            .into_iter()
+            .map(|p| {
+                let (px, pz) = unpack_coord(p);
+                CoordGrid::new(px, y, pz).packed()
+            })
+            .collect();
+        active.player.pathing.queue_waypoints(&path);
+        active.process_walktrigger();
+    } else {
+        let (dest_x, dest_z) = unpack_coord(path[path.len() - 1]);
         active.player.pathing.queue_waypoints(rsmod::find_path(
-            coord.y(),
+            y,
             active.player.pathing.coord.x(),
             active.player.pathing.coord.z(),
-            coord.x(),
-            coord.z(),
+            dest_x,
+            dest_z,
             1,
             1,
             1,
@@ -210,12 +171,7 @@ fn path_to_move_click(active: &mut ActivePlayer, client_pathfinder: bool) {
             25,
             CollisionType::Normal,
         ));
-    } else {
-        let mut packed = [0; 25];
-        let len = path.len().min(25);
-        for (i, coord) in path.iter().enumerate().take(len) {
-            packed[i] = coord.packed();
-        }
-        active.player.pathing.queue_waypoints(&packed[..len]);
     }
+
+    Ok(())
 }

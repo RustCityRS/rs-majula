@@ -1248,7 +1248,7 @@ impl NpcInfo {
         #[cfg(since_274)]
         self.bw.pbit::<12>(
             &mut self.buf,
-            ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | if jump { 1 } else { 0 } | 1,
+            ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | ((jump as i32) << 1) | 1,
         );
         self.lowdefinition(renderer, other);
         active.player.build_area.npcs.insert(other.npc.uid.nid());

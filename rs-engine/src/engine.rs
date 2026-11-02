@@ -214,6 +214,22 @@ pub enum PendingZoneEvent {
     },
 }
 
+/// Which trigger a queued [`NpcEvent`] runs (the reference engine's
+/// `NpcEventType`).
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum NpcEventKind {
+    Spawn,
+    Despawn,
+}
+
+/// An `ai_spawn` or `ai_despawn` script waiting to run (the reference
+/// engine's `NpcEventRequest`), queued on `Engine::npc_events`.
+pub struct NpcEvent {
+    pub kind: NpcEventKind,
+    pub uid: NpcUid,
+    pub script: Arc<Script>,
+}
+
 /// A request to spawn a ground object after a delay (measured in game ticks).
 ///
 /// Queued into `Engine::obj_delayed_queue` and processed during the world phase.
@@ -283,6 +299,15 @@ fn next_free_id(cursor: u16, upper: u16, lower: u16, is_free: impl Fn(u16) -> bo
 /// despawn); members objs are revealed only on a members world.
 const fn obj_revealable(tradeable: bool, members: bool, world_members: bool) -> bool {
     tradeable && (!members || world_members)
+}
+
+/// The clock a loc or obj timer of `duration` ticks fires at, set at `clock`.
+/// The reference engine counts these down in `processZones` starting on the
+/// tick they were set, so a timer fires `duration - 1` ticks later (a 500-tick
+/// loc shows for 499 ticks), and 1 means later the same tick.
+const fn lifecycle_clock(clock: u32, duration: u64) -> u32 {
+    let duration = if duration > 0 { duration - 1 } else { 0 };
+    clock + duration as u32
 }
 
 /// Cancels the earliest pending [`PendingZoneEvent::ObjReveal`] scheduled for the
@@ -564,6 +589,7 @@ pub struct Engine {
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
     pub obj_appeared: FxHashMap<(CoordGrid, u16), Instant>,
     pub world_queue: LinkList<ScriptState>,
+    pub npc_events: LinkList<NpcEvent>,
     pub obj_delayed_queue: LinkList<ObjDelayedRequest>,
     pub clock_rate_tx: Sender<u64>,
     pub node_id: u8,
@@ -721,6 +747,7 @@ impl Engine {
             pending_zone_events: BTreeMap::new(),
             obj_appeared: FxHashMap::default(),
             world_queue: LinkList::new(),
+            npc_events: LinkList::new(),
             obj_delayed_queue: LinkList::new(),
             clock_rate_tx,
             node_id,
@@ -1816,11 +1843,11 @@ impl Engine {
             return ObjSerial::NONE;
         }
 
-        let clock = self.clock + duration as u32;
+        let clock = lifecycle_clock(self.clock, duration);
         obj.set_last_clock(clock);
         if let Some(uid) = receiver {
             let r = uid.username37();
-            let reveal_clock = self.clock + REVEAL_TICKS;
+            let reveal_clock = lifecycle_clock(self.clock, REVEAL_TICKS as u64);
 
             // Isolated staff's drops (their deaths and kills too) stay theirs.
             let revealable = obj_type
@@ -1893,6 +1920,7 @@ impl Engine {
     /// - Schedules a new `ObjDelete` event for the merged stack.
     /// - Marks the zone as dirty.
     fn merge_obj(&mut self, coord: CoordGrid, obj: &Obj, receiver: u64, duration: u64) -> bool {
+        let clock = lifecycle_clock(self.clock, duration);
         let zone = self.zones.zone_mut(coord.x(), coord.y(), coord.z());
         let Some(idx) = zone.get_obj_of_receiver(coord.x(), coord.z(), obj.id(), receiver) else {
             return false;
@@ -1907,7 +1935,6 @@ impl Engine {
 
         let old_count = zone.objs[idx].count();
         zone.objs[idx].set_count(next_count);
-        let clock = self.clock + duration as u32;
         zone.objs[idx].set_last_clock(clock);
 
         let oid = zone.objs[idx].oid();
@@ -1969,7 +1996,7 @@ impl Engine {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
         let respawn_at = if duration > 0 {
             let scaled = self.scale_by_player_count(duration);
-            Some(self.clock + scaled as u32)
+            Some(lifecycle_clock(self.clock, scaled))
         } else {
             None
         };
@@ -2086,7 +2113,7 @@ impl Engine {
         // `add_loc` pushed the new loc last, with its serial.
         let added = zone.locs.len() - 1;
         if duration > 0 {
-            let clock = self.clock + duration as u32;
+            let clock = lifecycle_clock(self.clock, duration);
             zone.locs[added].set_last_clock(clock);
             self.schedule_zone_event(
                 clock,
@@ -2188,7 +2215,7 @@ impl Engine {
         let is_changed = zone.locs[idx].is_changed();
         let is_despawn = zone.locs[idx].lifetime() == EntityLifeTime::Despawn;
         if is_changed || is_despawn {
-            let clock = self.clock + duration as u32;
+            let clock = lifecycle_clock(self.clock, duration);
             zone.locs[idx].set_last_clock(clock);
             self.schedule_zone_event(
                 clock,
@@ -2305,7 +2332,7 @@ impl Engine {
         if loc.lifetime() == EntityLifeTime::Respawn {
             // A pending change timer must not bring the loc back early.
             let clock = if duration > 0 {
-                self.clock + duration as u32
+                lifecycle_clock(self.clock, duration)
             } else {
                 u32::MAX
             };
@@ -2451,79 +2478,66 @@ impl Engine {
         Some(uid)
     }
 
-    /// Fires the `AiSpawn` trigger script for an NPC, if one is bound.
-    ///
-    /// Looks up the script by trigger key (type id, category) and executes
-    /// it with the NPC as the subject.
-    ///
-    /// # Arguments
-    ///
-    /// * `uid` -- The NPC's unique identifier.
-    /// * `type_id` -- The NPC's base type id (used for trigger lookup).
-    ///
-    /// # Side Effects
-    ///
-    /// Executes the `AiSpawn` script, which may set NPC variables, timers,
-    /// or initial behavior modes.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `add_npc`.
-    /// **Calls:** `trigger_lookup_key`, `run_script_by_state`.
-    pub fn ai_spawn(&mut self, uid: NpcUid, type_id: u16) {
+    /// The NPC's `ai_spawn` / `ai_despawn` script, if one is bound to its
+    /// type or category.
+    fn npc_trigger(&self, trigger: ServerTriggerType, type_id: u16) -> Option<Arc<Script>> {
         let category = self
             .cache
             .npcs
             .get_by_id(type_id)
             .and_then(|t| t.category)
             .map(|c| c as i32);
-        if let Some(script) =
-            self.script_by_key(ServerTriggerType::AiSpawn, Some(type_id), category)
-        {
-            let state = ScriptState::init(script, Some(ScriptSubject::Npc(uid)), None, None);
-            if let Err(e) =
-                self.run_script_by_state(state, Some(ScriptSubject::Npc(uid)), None, None)
-            {
-                error!("error running ai_spawn script for npc {}: {e}", uid.nid());
-            }
+        self.script_by_key(trigger, Some(type_id), category)
+    }
+
+    /// Queues the NPC's `ai_spawn` script, if it has one. Like the reference
+    /// engine's `addNpc`, it doesn't run here: the NPC phase runs queued
+    /// events before any NPC turns (see `Engine::process_npc_events`), so a
+    /// spawn during input runs the same tick and a later one the next tick.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `add_npc`, the NPC phase's respawn.
+    pub fn ai_spawn(&mut self, uid: NpcUid, type_id: u16) {
+        if let Some(script) = self.npc_trigger(ServerTriggerType::AiSpawn, type_id) {
+            self.npc_events.add_tail(NpcEvent {
+                kind: NpcEventKind::Spawn,
+                uid,
+                script,
+            });
         }
     }
 
-    /// Fires the `AiDespawn` trigger script for an NPC, if one is bound.
-    ///
-    /// Called just before an `npc_add` NPC despawns at the end of its
-    /// duration, allowing scripts to perform cleanup such as dropping loot or
-    /// resetting state. `npc_del` doesn't fire it, as in the reference engine.
-    ///
-    /// # Arguments
-    ///
-    /// * `uid` -- The NPC's unique identifier.
-    /// * `type_id` -- The NPC's base type id (used for trigger lookup).
-    ///
-    /// # Side Effects
-    ///
-    /// Executes the `AiDespawn` script if one exists for this NPC type/category.
+    /// An `npc_add` NPC's duration ran out: takes it out of the world now and
+    /// queues its `ai_despawn` script, which runs before the NPCs next tick,
+    /// as in the reference engine. The slot stays taken (and the NPC
+    /// readable) until that script has run; with no script, cleanup frees it
+    /// this tick. `npc_del` never fires `ai_despawn`.
     ///
     /// # Call Stack
     ///
     /// **Called by:** `Engine::process_npc` (`phases/npc.rs`).
-    /// **Calls:** `trigger_lookup_key`, `run_script_by_state`.
-    pub fn ai_despawn(&mut self, uid: NpcUid, type_id: u16) {
-        let category = self
-            .cache
-            .npcs
-            .get_by_id(type_id)
-            .and_then(|t| t.category)
-            .map(|c| c as i32);
-        if let Some(script) =
-            self.script_by_key(ServerTriggerType::AiDespawn, Some(type_id), category)
-        {
-            let state = ScriptState::init(script, Some(ScriptSubject::Npc(uid)), None, None);
-            if let Err(e) =
-                self.run_script_by_state(state, Some(ScriptSubject::Npc(uid)), None, None)
-            {
-                error!("error running ai_despawn script for npc {}: {e}", uid.nid());
-            }
+    /// **Calls:** `deactivate_npc_common`.
+    pub(crate) fn despawn_npc(&mut self, nid: u16) {
+        let Some((uid, type_id)) = self
+            .npc_list
+            .get(nid)
+            .filter(|active| active.npc.active)
+            .map(|active| (active.npc.uid, active.npc.base_type))
+        else {
+            return;
+        };
+        let script = self.npc_trigger(ServerTriggerType::AiDespawn, type_id);
+        if !self.deactivate_npc_common(nid) {
+            return;
+        }
+        match script {
+            Some(script) => self.npc_events.add_tail(NpcEvent {
+                kind: NpcEventKind::Despawn,
+                uid,
+                script,
+            }),
+            None => self.npc_list.despawn_pending.push(nid),
         }
     }
 
@@ -2557,6 +2571,17 @@ impl Engine {
     /// **Called by:** `deactivate_npc`, `emergency_deactivate_npc`.
     /// **Calls:** `rsmod::change_npc`, `rsmod::change_player`.
     fn deactivate_npc_common(&mut self, nid: u16) -> bool {
+        // Its type's respawn rate, scaled down by the player count like the
+        // reference engine's `removeNpc`.
+        let Some(rate) = self.npc_list.get(nid).map(|active| {
+            self.cache
+                .npcs
+                .get_by_id(active.npc.uid.id())
+                .map_or(100, |t| t.respawnrate as u64)
+        }) else {
+            return false;
+        };
+        let respawn = self.scale_by_player_count(rate) as u32;
         let Some(active) = self.npc_list.npcs[nid as usize].as_mut() else {
             return false;
         };
@@ -2591,13 +2616,7 @@ impl Engine {
         self.npc_snapshots[nid as usize].clear();
 
         if active.npc.lifecycle == EntityLifeTime::Respawn {
-            let respawnrate = self
-                .cache
-                .npcs
-                .get_by_id(active.npc.uid.id())
-                .map(|t| t.respawnrate as u64)
-                .unwrap_or(100);
-            active.npc.lifecycle_at = Some(respawnrate as u32);
+            active.npc.lifecycle_at = Some(respawn);
             false
         } else {
             true

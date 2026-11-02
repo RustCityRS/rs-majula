@@ -1146,10 +1146,11 @@ impl Engine {
 
         // Players cannot walk if they have a pending move-click *and* are busy
         // (a modal is open or they are delayed) *and* still have something
-        // queued. Confirmed as far back as 2005.
+        // queued, normal or engine. Confirmed as far back as 2005.
         if active.player.move_request
             && active.player.busy()
-            && (!active.player.state.queues.queue.is_empty())
+            && (!active.player.state.queues.queue.is_empty()
+                || !active.player.state.queues.engine.is_empty())
         {
             return false;
         }

@@ -215,7 +215,7 @@ pub struct Player {
     pub last_response: u32,
     pub last_active: u32,
     pub active: bool,
-    pub path: Option<Vec<CoordGrid>>,
+    pub move_clicked: bool,
     pub block_walk: BlockWalk,
     pub gender: u8,
     pub headicons: u8,
@@ -323,7 +323,7 @@ impl Player {
             last_response: 0,
             last_active: 0,
             active: true,
-            path: None,
+            move_clicked: false,
             block_walk: BlockWalk::Npc,
             gender: 0,
             headicons: 0,
@@ -586,14 +586,12 @@ impl Player {
         );
     }
 
-    /// Clears all queued waypoints and the pre-computed path, stopping movement.
+    /// Clears all queued waypoints, stopping movement.
     ///
     /// # Side Effects
     /// * Calls `self.pathing.clear_waypoints()`.
-    /// * Sets `self.path` to `None`.
     pub fn clear_waypoints(&mut self) {
         self.pathing.clear_waypoints();
-        self.path = None;
     }
 
     /// Opens a chatbox modal interface, closing any conflicting main or side modals.
@@ -814,7 +812,7 @@ impl Player {
     /// When `respawn` is `true`, also calls `unfocus` to reset orientation (used when
     /// the player respawns after death).
     ///
-    /// Always resets: info masks, walk step, jump flag, teleport flag, path, walk/run
+    /// Always resets: info masks, walk step, jump flag, teleport flag, move_clicked, walk/run
     /// directions, last coordinate, steps taken, protect flag, opcalled flag,
     /// ap_range_called flag, and movement speed (based on the `run` flag).
     /// Also calls `set_face_entity` to update the face-entity mask.
@@ -825,8 +823,8 @@ impl Player {
     pub fn reset_pathing_entity(&mut self) {
         self.info.reset();
         self.pathing.reset();
-        if self.path.is_some() {
-            self.path = None;
+        if self.move_clicked {
+            self.move_clicked = false;
         }
         if self.state.protect {
             self.state.protect = false;

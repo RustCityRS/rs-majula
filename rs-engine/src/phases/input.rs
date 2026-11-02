@@ -2,7 +2,6 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::{Engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_vm::engine::ScriptPlayer;
-use rs_vm::trigger::ServerTriggerType;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
@@ -83,7 +82,7 @@ impl Engine {
         if active.user_limit > 0 {
             active.player.last_active = self.clock;
         }
-        Self::post_process(active, self.client_pathfinder);
+        Self::post_process(active);
 
         Engine::check_zones_and_collision(
             &mut self.zones,
@@ -117,25 +116,25 @@ impl Engine {
         }
     }
 
-    /// Post-processes decoded client input for a single player.
+    /// Post-processes decoded client input for a single player, like the
+    /// reference engine's `processClientsIn`.
     ///
-    /// If the player has an active path or a pending op-call and is not in
-    /// a delayed state, computes a server-side path to the interaction
-    /// target. Clears waypoints if the player is currently delayed.
+    /// After a move click or an op this tick, records whether it counts as a
+    /// move request: anything but an op made while not busy. A busy player
+    /// with a move request and a queued script can't walk (see
+    /// `process_movement`). Clears waypoints if the player is delayed.
     ///
-    /// Skips players that are following another player (ApPlayer3 /
-    /// OpPlayer3 triggers), since their pathing is handled during the
-    /// interaction phase.
+    /// The move click handlers already queued the waypoints. An op's route
+    /// comes from the move click the client sends with it; the player phase
+    /// re-paths only to a moving target.
     ///
     /// # Side Effects
     ///
-    /// * May modify the player's waypoint queue via [`path_to_target`].
+    /// * Sets `active.player.move_request`.
     /// * Clears waypoints when the player is delayed.
     #[inline(always)]
-    fn post_process(active: &mut ActivePlayer, client_pathfinder: bool) {
-        let has_path = active.player.path.as_ref().is_some_and(|p| !p.is_empty());
-
-        if !has_path && !active.player.opcalled {
+    fn post_process(active: &mut ActivePlayer) {
+        if !active.player.move_clicked && !active.player.opcalled {
             return;
         }
 
@@ -144,14 +143,6 @@ impl Engine {
             return;
         }
 
-        let target_op = active.player.interaction.target_op;
-        let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
-            || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
-
         active.player.move_request = active.busy() || !active.player.opcalled;
-
-        if !following && active.player.opcalled && (!has_path || !client_pathfinder) {
-            Self::path_to_target(active, client_pathfinder);
-        }
     }
 }

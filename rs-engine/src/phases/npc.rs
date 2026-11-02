@@ -1,5 +1,5 @@
 use crate::active_npc::ActiveNpc;
-use crate::engine::Engine;
+use crate::engine::{Engine, NpcEvent, NpcEventKind};
 use crate::engine::{engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_entity::{Direction, EntityLifeTime, InteractionTarget, ObjSerial, PathingEntity};
@@ -9,7 +9,7 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::hunt::{HuntType, check_hunt_condition};
 use rs_pack::types::*;
 use rs_vm::engine::{ScriptEngine, ScriptNpc};
-use rs_vm::state::{ExecutionState, ScriptArgument};
+use rs_vm::state::{ExecutionState, ScriptArgument, ScriptState};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
@@ -63,6 +63,9 @@ impl Engine {
     ///   `npc_process_regen`, `npc_process_timers`, `npc_process_queue`,
     ///   `npc_process_movement_interaction`, `check_zones_and_collision`
     pub(crate) fn npcs(&mut self) {
+        // - npc events (ai_spawn, ai_despawn)
+        self.process_npc_events();
+
         let nids = self.npc_list.take_nids();
         let mut start = 0;
         loop {
@@ -92,6 +95,57 @@ impl Engine {
             }
         }
         self.npc_list.put_nids(nids);
+    }
+
+    /// Runs the queued `ai_spawn` / `ai_despawn` scripts, like the reference
+    /// engine's `processNpcEventQueue`: after input, before any NPC turns. An
+    /// event waits while its NPC is delayed, and events queued by these
+    /// scripts that land behind the cursor run this pass too.
+    ///
+    /// # Side Effects
+    ///
+    /// * Executes RuneScript spawn/despawn scripts.
+    /// * Releases a despawned NPC's slot once its `ai_despawn` has run.
+    fn process_npc_events(&mut self) {
+        let mut h = self.npc_events.head();
+        while let Some(idx) = h {
+            let nid = self.npc_events[idx].uid.nid();
+            match self.npc_list.get(nid) {
+                // Freed before its event ran (npc_del'd right after npc_add).
+                None => drop(self.npc_events.unlink(idx)),
+                Some(active) if active.npc.state.delayed => {}
+                Some(_) => {
+                    let event = self.npc_events.unlink(idx);
+                    self.run_npc_event(event);
+                }
+            }
+            h = self.npc_events.next();
+        }
+    }
+
+    /// Runs one NPC event's script with the NPC as its subject. A panic is
+    /// logged and dropped so the rest of the queue still runs.
+    fn run_npc_event(&mut self, event: NpcEvent) {
+        let nid = event.uid.nid();
+        // The NPC as it is now: its type may have changed since it queued.
+        let Some(uid) = self.npc_list.get(nid).map(|active| active.npc.uid) else {
+            return;
+        };
+        let state = ScriptState::init(event.script, Some(ScriptSubject::Npc(uid)), None, None);
+        let result = catch_unwind(AssertUnwindSafe(|| {
+            self.run_script_by_state(state, Some(ScriptSubject::Npc(uid)), None, None)
+        }));
+        match result {
+            Ok(Ok(_)) => {}
+            Ok(Err(e)) => error!("error running npc event script for npc {nid}: {e}"),
+            Err(panic) => {
+                let msg = crate::phases::shared::panic_message(&panic);
+                error!("panic in npc event script for npc {nid}: {msg}");
+            }
+        }
+        if event.kind == NpcEventKind::Despawn {
+            self.npc_list.despawn_pending.push(nid);
+        }
     }
 
     /// Runs a collision prefetch hint for npc `nid`'s next step (see
@@ -164,12 +218,10 @@ impl Engine {
                     }
                     // npc_changetype
                     (EntityLifeTime::Respawn, true) => active.revert_type(),
-                    // npc_add, the only way `ai_despawn` fires.
+                    // npc_add, the only way `ai_despawn` fires (next tick).
                     // Gone from the world now, so nothing more to do this turn.
                     (EntityLifeTime::Despawn, true) => {
-                        let (uid, base_type) = (active.npc.uid, active.npc.base_type);
-                        engine_mut().ai_despawn(uid, base_type);
-                        engine_mut().deactivate_npc(nid);
+                        engine_mut().despawn_npc(nid);
                         return;
                     }
                     _ => {}
