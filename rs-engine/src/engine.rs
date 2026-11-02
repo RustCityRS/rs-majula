@@ -2491,8 +2491,9 @@ impl Engine {
 
     /// Fires the `AiDespawn` trigger script for an NPC, if one is bound.
     ///
-    /// Called just before an NPC is deactivated, allowing scripts to perform
-    /// cleanup such as dropping loot or resetting state.
+    /// Called just before an `npc_add` NPC despawns at the end of its
+    /// duration, allowing scripts to perform cleanup such as dropping loot or
+    /// resetting state. `npc_del` doesn't fire it, as in the reference engine.
     ///
     /// # Arguments
     ///
@@ -2505,7 +2506,7 @@ impl Engine {
     ///
     /// # Call Stack
     ///
-    /// **Called by:** `deactivate_npc`.
+    /// **Called by:** `Engine::process_npc` (`phases/npc.rs`).
     /// **Calls:** `trigger_lookup_key`, `run_script_by_state`.
     pub fn ai_despawn(&mut self, uid: NpcUid, type_id: u16) {
         let category = self
@@ -2605,10 +2606,11 @@ impl Engine {
 
     /// Deactivates an NPC, removing it from the world without freeing its slot.
     ///
-    /// Fires the `AiDespawn` script, marks the NPC as inactive, removes it
-    /// from its zone, clears its collision flags, and removes it from the
-    /// renderer. If the NPC has a `Respawn` lifecycle, sets `lifecycle_at` so
-    /// the NPC phase can re-activate it later.
+    /// Marks the NPC as inactive, removes it from its zone, clears its
+    /// collision flags, and removes it from the renderer. If the NPC has a
+    /// `Respawn` lifecycle, sets `lifecycle_at` so the NPC phase can
+    /// re-activate it later. Doesn't fire `ai_despawn`: only an `npc_add`
+    /// NPC's despawn does, in the NPC phase.
     ///
     /// # Arguments
     ///
@@ -2616,7 +2618,6 @@ impl Engine {
     ///
     /// # Side Effects
     ///
-    /// - Executes the `AiDespawn` script.
     /// - Sets `active.npc.active = false`.
     /// - Clears `active_script`, `delayed` and `delayed_until`.
     /// - Removes the NPC from its zone and from the collision map.
@@ -2627,20 +2628,15 @@ impl Engine {
     ///
     /// # Call Stack
     ///
-    /// **Called by:** `ScriptEngine::remove_npc`, NPC death logic.
-    /// **Calls:** `ai_despawn`, `deactivate_npc_common`.
+    /// **Called by:** `ScriptEngine::remove_npc`, the NPC phase's despawn.
+    /// **Calls:** `deactivate_npc_common`.
     pub fn deactivate_npc(&mut self, nid: u16) {
-        let (uid, type_id) = {
-            let Some(active) = self.npc_list.npcs[nid as usize].as_ref() else {
-                return;
-            };
-            if !active.npc.active {
-                return;
-            }
-            (active.npc.uid, active.npc.base_type)
-        };
-
-        self.ai_despawn(uid, type_id);
+        if !self.npc_list.npcs[nid as usize]
+            .as_ref()
+            .is_some_and(|active| active.npc.active)
+        {
+            return;
+        }
 
         if self.deactivate_npc_common(nid) {
             self.npc_list.despawn_pending.push(nid);

@@ -164,9 +164,11 @@ impl Engine {
                     }
                     // npc_changetype
                     (EntityLifeTime::Respawn, true) => active.revert_type(),
-                    // npc_add. Gone from the world now, so nothing more to do
-                    // this turn.
+                    // npc_add, the only way `ai_despawn` fires.
+                    // Gone from the world now, so nothing more to do this turn.
                     (EntityLifeTime::Despawn, true) => {
+                        let (uid, base_type) = (active.npc.uid, active.npc.base_type);
+                        engine_mut().ai_despawn(uid, base_type);
                         engine_mut().deactivate_npc(nid);
                         return;
                     }
