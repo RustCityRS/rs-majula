@@ -41,7 +41,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let duration = s.pop_int();
             let id = s.pop_int_as::<u16>()?;
             let coord = pop_coord(s)?;
-            if let Some(uid) = engine_mut::<E>().add_npc_spawned(coord, id, duration as u64)? {
+            if let Some(uid) = engine_mut::<E>().add_npc_spawned(coord, id, duration)? {
                 set_active_npc(s, uid, s.int_operand() != 0);
             }
         });

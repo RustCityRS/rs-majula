@@ -234,7 +234,7 @@ pub trait ScriptEngine {
     /// # Arguments
     /// * `coord` - The packed coordinate where the NPC should appear.
     /// * `id` - The NPC type identifier.
-    /// * `duration` - The tick at which the NPC should be removed.
+    /// * `duration` - Ticks until the NPC despawns.
     ///
     /// # Returns
     /// `Some(NpcUid)` with the unique identifier of the spawned NPC, or `None`
@@ -243,7 +243,7 @@ pub trait ScriptEngine {
         &mut self,
         coord: CoordGrid,
         id: u16,
-        duration: u64,
+        duration: i32,
     ) -> crate::Result<Option<crate::NpcUid>>;
 
     /// Removes an NPC from the world by its slot index.

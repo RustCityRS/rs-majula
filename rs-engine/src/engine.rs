@@ -2596,7 +2596,7 @@ impl Engine {
                 .get_by_id(active.npc.uid.id())
                 .map(|t| t.respawnrate as u64)
                 .unwrap_or(100);
-            active.npc.respawn_at = Some(respawnrate as u32);
+            active.npc.lifecycle_at = Some(respawnrate as u32);
             false
         } else {
             true
@@ -2607,8 +2607,8 @@ impl Engine {
     ///
     /// Fires the `AiDespawn` script, marks the NPC as inactive, removes it
     /// from its zone, clears its collision flags, and removes it from the
-    /// renderer. If the NPC has a `Respawn` lifecycle, sets `respawn_at` so
-    /// the cleanup phase can re-activate it later.
+    /// renderer. If the NPC has a `Respawn` lifecycle, sets `lifecycle_at` so
+    /// the NPC phase can re-activate it later.
     ///
     /// # Arguments
     ///
@@ -2621,7 +2621,7 @@ impl Engine {
     /// - Clears `active_script`, `delayed` and `delayed_until`.
     /// - Removes the NPC from its zone and from the collision map.
     /// - Removes the nid from the NPC renderer.
-    /// - Sets `respawn_at` for `Respawn` lifecycle NPCs.
+    /// - Sets `lifecycle_at` for `Respawn` lifecycle NPCs.
     /// - Queues `Despawn` lifecycle NPCs on `despawn_pending` so the
     ///   cleanup phase frees their slots without a full-list scan.
     ///
@@ -2839,7 +2839,7 @@ impl Engine {
     /// - Clears `active_script`, `delayed` and `delayed_until`.
     /// - Removes the NPC from its zone and collision map.
     /// - Removes the nid from the NPC renderer.
-    /// - For `Respawn` NPCs, sets `respawn_at`.
+    /// - For `Respawn` NPCs, sets `lifecycle_at`.
     /// - For `Despawn` NPCs, removes the nid from `active_npcs` and frees the slot.
     ///
     /// # Call Stack
@@ -3852,7 +3852,8 @@ impl ScriptEngine for Engine {
     ///
     /// * `coord` - The packed coordinate where the NPC should appear.
     /// * `id` - The NPC type identifier.
-    /// * `_duration` - Unused (reserved for future lifetime control).
+    /// * `duration` - Ticks until the NPC despawns and fires `ai_despawn`. Like
+    ///   the reference engine's `setLifeCycle`, anything below 1 counts as 1.
     ///
     /// # Returns
     ///
@@ -3870,7 +3871,7 @@ impl ScriptEngine for Engine {
         &mut self,
         coord: CoordGrid,
         id: u16,
-        _duration: u64,
+        duration: i32,
     ) -> rs_vm::Result<Option<NpcUid>> {
         let npc_type = self
             .cache
@@ -3892,6 +3893,7 @@ impl ScriptEngine for Engine {
         let vars = VarSet::new(self.cache.varns.types.iter().map(|v| v.var_type));
         let mut active = ActiveNpc::new(id, 0, coord, npc_type.size, vars, self.cache);
         active.npc.lifecycle = EntityLifeTime::Despawn;
+        active.npc.lifecycle_at = Some(duration.max(1) as u32);
         Ok(self.add_npc(active))
     }
 

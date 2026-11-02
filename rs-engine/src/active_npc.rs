@@ -229,8 +229,9 @@ impl ActiveNpc {
     ///   `NpcInfoProt::ChangeType` mask.
     /// * When `reset` is true, adjusts `npc.levels` and `npc.base_levels` to
     ///   match the new type's stats.
-    /// * Schedules a revert `duration` ticks from now (a relative countdown
-    ///   stored in `npc.revert_at`, decremented only while the NPC is processed).
+    /// * Sets the lifecycle countdown (`npc.lifecycle_at`) to `duration`: a
+    ///   revert for a `Respawn` NPC, and for a `Despawn` NPC its despawn, as in
+    ///   the reference engine where both share `lifecycleTick`.
     pub fn change_type(&mut self, new_type: u16, duration: u64, reset: bool) {
         if duration < 1 {
             return;
@@ -262,9 +263,9 @@ impl ActiveNpc {
         }
 
         if new_type == self.npc.base_type && self.npc.lifecycle == EntityLifeTime::Respawn {
-            self.npc.revert_at = None;
+            self.npc.lifecycle_at = None;
         } else {
-            self.npc.revert_at = Some(duration as u32);
+            self.npc.lifecycle_at = Some(duration as u32);
             self.npc.revert_reset = reset;
         }
     }
@@ -278,11 +279,11 @@ impl ActiveNpc {
     /// # Side Effects
     /// * Resets `npc.current_type` and `npc.uid` to the base type.
     /// * Sets the `NpcInfoProt::ChangeType` mask.
-    /// * Clears `npc.revert_at`.
+    /// * Clears `npc.lifecycle_at`.
     /// * When `revert_reset` is true, restores all stat levels and clears hero
     ///   points.
     pub fn revert_type(&mut self) {
-        self.npc.revert_at = None;
+        self.npc.lifecycle_at = None;
 
         self.npc.uid = NpcUid::new(self.npc.base_type, self.npc.uid.nid());
         self.npc.info.changetype = Some(self.npc.base_type);

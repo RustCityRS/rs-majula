@@ -2,7 +2,7 @@ use crate::active_npc::ActiveNpc;
 use crate::engine::Engine;
 use crate::engine::{engine, engine_mut};
 use crate::phases::shared::EntityId;
-use rs_entity::{Direction, InteractionTarget, ObjSerial, PathingEntity};
+use rs_entity::{Direction, EntityLifeTime, InteractionTarget, ObjSerial, PathingEntity};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
 use rs_pack::cache::CacheStore;
@@ -147,24 +147,30 @@ impl Engine {
             }
         }
 
-        if !active.npc.state.delayed && !active.npc.active {
-            if let Some(remaining) = active.npc.respawn_at {
-                if remaining <= 1 {
-                    active.npc.respawn_at = None;
-                    Self::respawn_npc(&mut self.zones, active, self.cache);
-                    engine_mut().ai_spawn(active.npc.uid, active.npc.base_type);
-                } else {
-                    active.npc.respawn_at = Some(remaining - 1);
-                }
-            }
-        }
-
-        if !active.npc.state.delayed && active.npc.active {
-            if let Some(remaining) = active.npc.revert_at {
-                if remaining <= 1 {
-                    active.revert_type();
-                } else {
-                    active.npc.revert_at = Some(remaining - 1);
+        // Npc events (respawn, revert, despawn), one countdown like the
+        // reference engine's `lifecycleTick`.
+        if !active.npc.state.delayed
+            && let Some(remaining) = active.npc.lifecycle_at
+        {
+            if remaining > 1 {
+                active.npc.lifecycle_at = Some(remaining - 1);
+            } else {
+                active.npc.lifecycle_at = None;
+                match (active.npc.lifecycle, active.npc.active) {
+                    // npc_del
+                    (EntityLifeTime::Respawn, false) => {
+                        Self::respawn_npc(&mut self.zones, active, self.cache);
+                        engine_mut().ai_spawn(active.npc.uid, active.npc.base_type);
+                    }
+                    // npc_changetype
+                    (EntityLifeTime::Respawn, true) => active.revert_type(),
+                    // npc_add. Gone from the world now, so nothing more to do
+                    // this turn.
+                    (EntityLifeTime::Despawn, true) => {
+                        engine_mut().deactivate_npc(nid);
+                        return;
+                    }
+                    _ => {}
                 }
             }
         }
@@ -222,7 +228,7 @@ impl Engine {
         let active = unsafe { &mut *active };
         active.npc.pathing.coord = active.npc.spawn_coord;
         active.npc.active = true;
-        active.npc.respawn_at = None;
+        active.npc.lifecycle_at = None;
         active.npc.state.delayed = false;
         active.npc.state.delayed_until = 0;
         active.npc.state.active_script = None;

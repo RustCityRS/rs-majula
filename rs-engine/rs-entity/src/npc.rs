@@ -39,7 +39,7 @@ pub struct Npc {
     pub hero_points: HeroPoints,
     pub active: bool,
     pub lifecycle: EntityLifeTime,
-    pub respawn_at: Option<u32>,
+    pub lifecycle_at: Option<u32>,
     pub base_type: u16,
     pub hunt_mode: Option<u16>,
     pub hunt_range: u8,
@@ -51,7 +51,6 @@ pub struct Npc {
     pub next_patrol_point: u8,
     pub patrol_delay_ticks_remaining: i64,
     pub observers: u16,
-    pub revert_at: Option<u32>,
     pub revert_reset: bool,
     pub walktrigger: Option<i32>,
     pub walktrigger_arg: i32,
@@ -98,7 +97,7 @@ impl Npc {
             hero_points: HeroPoints::new(),
             active: true,
             lifecycle: EntityLifeTime::Respawn,
-            respawn_at: None,
+            lifecycle_at: None,
             base_type: id,
             hunt_mode: None,
             hunt_range: 0,
@@ -110,7 +109,6 @@ impl Npc {
             next_patrol_point: 0,
             patrol_delay_ticks_remaining: -1,
             observers: 0,
-            revert_at: None,
             revert_reset: false,
             walktrigger: None,
             walktrigger_arg: 0,
@@ -263,7 +261,7 @@ impl Npc {
             self.pathing.clear_waypoints();
             self.pathing.tele = true;
             self.pathing.jump = true;
-            self.revert_at = None;
+            self.lifecycle_at = None;
             self.revert_reset = false;
         } else {
             self.info.reset();
