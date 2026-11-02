@@ -1,5 +1,6 @@
 pub use rs_entity::build::*;
 
+use crate::active_npc::ActiveNpc;
 use crate::info::{NpcSnapshot, PlayerSnapshot};
 use rs_grid::CoordGrid;
 use rs_zone::zone_map::ZoneMap;
@@ -23,6 +24,10 @@ pub trait ActiveBuildArea {
         z: u16,
         self_pid: u16,
     );
+
+    /// Clears the tracked NPC set and releases this observer from each NPC in
+    /// it, so every NPC is re-evaluated on the next NPC info cycle.
+    fn rebuild_npcs(&mut self, npcs: &mut [Option<Box<ActiveNpc>>]);
 
     /// Scans surrounding zones to populate `nearby_players` with player IDs
     /// that pass the visibility filter and are within view distance. Reads the
@@ -98,6 +103,26 @@ impl ActiveBuildArea for BuildArea {
         if self.nearby_players.len() >= BuildArea::PREFERRED_PLAYERS as usize {
             self.view_distance -= 1;
         }
+    }
+
+    /// Decrements `observers` on every tracked NPC that is still present, then
+    /// clears the tracked NPC set. Upstream's rsbuf only clears the set, so its
+    /// counts grow on every teleport or level change.
+    ///
+    /// # Arguments
+    /// * `npcs` - The full world NPC array.
+    ///
+    /// # Side Effects
+    /// * Decrements `npc.observers` for each tracked NPC.
+    /// * Clears `self.npcs`.
+    #[inline]
+    fn rebuild_npcs(&mut self, npcs: &mut [Option<Box<ActiveNpc>>]) {
+        for &nid in self.npcs.iter() {
+            if let Some(other) = npcs[nid as usize].as_mut() {
+                other.npc.observers = other.npc.observers.saturating_sub(1);
+            }
+        }
+        self.npcs.clear();
     }
 
     /// Populates `self.nearby_players` with player IDs found in zones within

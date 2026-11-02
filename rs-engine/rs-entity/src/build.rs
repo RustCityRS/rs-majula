@@ -329,13 +329,6 @@ impl BuildArea {
         }
     }
 
-    /// Clears the tracked NPC set, forcing all NPCs to be re-evaluated for visibility
-    /// on the next NPC info cycle.
-    #[inline]
-    pub fn rebuild_npcs(&mut self) {
-        self.npcs.clear();
-    }
-
     /// Returns `true` if the stored appearance clock for the given player matches
     /// the provided clock, meaning the client already has the latest appearance data.
     ///

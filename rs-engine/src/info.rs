@@ -1030,7 +1030,7 @@ impl NpcInfo {
             || dx > BuildArea::PREFERRED_VIEW_DISTANCE as i32
             || dz > BuildArea::PREFERRED_VIEW_DISTANCE as i32
         {
-            build.rebuild_npcs();
+            build.rebuild_npcs(npcs);
         }
 
         self.updates.pos = 0;
