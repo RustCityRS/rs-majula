@@ -638,7 +638,7 @@ impl Engine {
                         continue;
                     }
 
-                    if hunt.check_afk == HuntCheckAfk::On && player.player.afk_event_ready {
+                    if hunt.check_afk == HuntCheckAfk::On && player.player.zones_afk() {
                         continue;
                     }
 

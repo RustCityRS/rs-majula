@@ -775,6 +775,16 @@ impl Player {
         self.last_afk_zone = 0;
     }
 
+    /// Returns `true` once the player has stayed inside their AFK zones for 1000
+    /// ticks. Aggressive NPCs with `check_afk` stop hunting such players.
+    ///
+    /// # Call Stack
+    /// **Called by:** `Engine::check_afk`, `Engine::npc_hunt_players`
+    #[inline(always)]
+    pub fn zones_afk(&self) -> bool {
+        self.last_afk_zone == 1000
+    }
+
     /// Returns `true` if the player's current position is within either of the two
     /// tracked 21x21 AFK zones.
     ///
@@ -982,6 +992,36 @@ mod combat_level_tests {
                 "real get_combat_level disagrees with float ref for {c:?}",
             );
         }
+    }
+}
+
+#[cfg(test)]
+mod afk_zone_tests {
+    use super::*;
+
+    /// `zones_afk` turns on after 1000 ticks inside the AFK zones and resets
+    /// once the player leaves them, like 2004scape's `zonesAfk()`.
+    #[test]
+    fn zones_afk_after_1000_ticks_in_place() {
+        let uid = PlayerUid::new("test".into(), 1);
+        let varps = VarSet::new(std::iter::empty());
+        let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
+
+        // First tick records the zone and resets the counter.
+        player.update_afk_zones();
+        assert_eq!(player.last_afk_zone, 0);
+
+        for _ in 0..999 {
+            player.update_afk_zones();
+        }
+        assert!(!player.zones_afk());
+        player.update_afk_zones();
+        assert!(player.zones_afk());
+
+        // Walking out of both zones resets it.
+        player.pathing.coord = CoordGrid::new(3300, 0, 3300);
+        player.update_afk_zones();
+        assert!(!player.zones_afk());
     }
 }
 

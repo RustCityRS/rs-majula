@@ -108,7 +108,7 @@ impl Engine {
     #[inline(always)]
     fn check_afk(clock: u32, active: &mut ActivePlayer) {
         if clock.is_multiple_of(500) {
-            let chance = if active.player.last_afk_zone == 1000 {
+            let chance = if active.player.zones_afk() {
                 AFK_CHANCE2
             } else {
                 AFK_CHANCE1
