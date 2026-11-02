@@ -42,6 +42,8 @@ pub struct ScriptState {
     pub(crate) ssp: i32,
     pub(crate) int_locals: Vec<i32>,
     pub(crate) string_locals: Vec<String>,
+    pub(crate) int_base: usize,
+    pub(crate) string_base: usize,
     pub(crate) gosub_frame_stack: Vec<GoSubFrame>,
     pub(crate) goto_frame_stack: Vec<GoToFrame>,
     pub execution: ExecutionState,
@@ -142,6 +144,8 @@ impl ScriptState {
             ssp: 0,
             int_locals,
             string_locals,
+            int_base: 0,
+            string_base: 0,
             gosub_frame_stack: Vec::new(),
             goto_frame_stack: Vec::new(),
             execution: ExecutionState::Running,
@@ -260,6 +264,8 @@ impl ScriptState {
         // -- Locals: clear and repopulate from args --
         self.int_locals.clear();
         self.string_locals.clear();
+        self.int_base = 0;
+        self.string_base = 0;
         if let Some(args) = args {
             for arg in args {
                 match arg {
@@ -425,11 +431,10 @@ impl ScriptState {
 
     /// Resets the execution context for a new script program (used by `goto`).
     ///
-    /// Clears and reinitializes the local variable vectors to match the new
-    /// script's declared local counts, then pops the new script's expected
-    /// arguments from the operand stacks into the local slots (in reverse
-    /// order to preserve argument ordering). The program counter is reset to
-    /// `-1` so the interpreter loop begins at the first opcode.
+    /// Drops every frame's locals, since a `goto` has no return path, then
+    /// sets up the new script's locals with [`push_locals`](Self::push_locals).
+    /// The program counter is reset to `-1` so the interpreter loop begins at
+    /// the first opcode.
     ///
     /// # Arguments
     ///
@@ -441,45 +446,55 @@ impl ScriptState {
     ///
     /// # Side Effects
     ///
-    /// * Clears and resizes `int_locals` and `string_locals`.
+    /// * Clears `int_locals` and `string_locals` and resets their bases to 0.
     /// * Pops argument values from `int_stack` / `string_stack`.
     /// * Resets `pc` to `-1` and replaces `self.script`.
     ///
     /// # Call Stack
     ///
-    /// **Calls:** [`pop_int`](Self::pop_int), [`pop_string`](Self::pop_string).
+    /// **Calls:** [`push_locals`](Self::push_locals).
     ///
     /// **Called by:** [`goto_frame`](Self::goto_frame).
     #[inline(always)]
     fn new_program(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
-        let int_count = script.int_local_count as usize;
-        let str_count = script.string_local_count as usize;
-
         self.int_locals.clear();
-        self.int_locals.resize(int_count, 0);
-        if script.int_arg_count > 0 {
-            for i in (0..script.int_arg_count as usize).rev() {
-                self.int_locals[i] = self.pop_int();
-            }
-        }
-
         self.string_locals.clear();
-        self.string_locals.resize(str_count, String::new());
-        if script.string_arg_count > 0 {
-            for i in (0..script.string_arg_count as usize).rev() {
-                self.string_locals[i] = self.pop_string();
-            }
-        }
-
+        self.int_base = 0;
+        self.string_base = 0;
+        self.push_locals(script);
         self.pc = -1;
         self.script = Arc::clone(script);
         Ok(())
     }
 
+    /// Appends `script`'s locals at the current bases and pops its arguments
+    /// from the operand stacks into the first slots (in reverse order to
+    /// preserve argument ordering).
+    ///
+    /// The locals buffers must end at the bases, which holds after
+    /// [`new_program`](Self::new_program) clears them and after
+    /// [`gosub_frame`](Self::gosub_frame) moves the bases to their ends.
+    #[inline(always)]
+    fn push_locals(&mut self, script: &Script) {
+        self.int_locals
+            .resize(self.int_base + script.int_local_count as usize, 0);
+        for i in (0..script.int_arg_count as usize).rev() {
+            self.int_locals[self.int_base + i] = self.pop_int();
+        }
+        self.string_locals.resize(
+            self.string_base + script.string_local_count as usize,
+            String::new(),
+        );
+        for i in (0..script.string_arg_count as usize).rev() {
+            self.string_locals[self.string_base + i] = self.pop_string();
+        }
+    }
+
     /// Restores execution context from the most recent `gosub` call frame.
     ///
-    /// Pops the top [`GoSubFrame`] from the gosub frame stack and restores
-    /// the saved script reference, program counter, and local variables,
+    /// Pops the top [`GoSubFrame`] from the gosub frame stack, drops the
+    /// returning proc's locals off the end of the locals buffers, and restores
+    /// the caller's script reference, program counter, and locals bases,
     /// effectively returning from a subroutine.
     ///
     /// # Panics
@@ -490,27 +505,31 @@ impl ScriptState {
     ///
     /// * Pops the [`GoToFrame`] that [`gosub_frame`](Self::gosub_frame)
     ///   pushed, so the backtrace only lists procs still on the call stack.
-    /// * Replaces `self.script`, `self.pc`, `self.int_locals`, and
-    ///   `self.string_locals` with the saved frame values.
+    /// * Truncates `int_locals` and `string_locals` to the returning proc's
+    ///   bases, then replaces `self.script`, `self.pc`, `self.int_base`, and
+    ///   `self.string_base` with the saved frame values.
     ///
     /// **Called by:** The `Return` opcode handler in `ops::core`.
     #[inline(always)]
     pub(crate) fn pop_frame(&mut self) {
         let frame = self.gosub_frame_stack.pop().unwrap();
         self.goto_frame_stack.pop();
+        self.int_locals.truncate(self.int_base);
+        self.string_locals.truncate(self.string_base);
+        self.int_base = frame.int_base;
+        self.string_base = frame.string_base;
         self.script = frame.script;
         self.pc = frame.pc;
-        self.int_locals = frame.int_locals;
-        self.string_locals = frame.string_locals;
     }
 
     /// Pushes a `gosub` call frame and enters a subroutine script.
     ///
-    /// Saves the current script, program counter, and local variables onto
-    /// both the gosub and goto frame stacks, then sets up the new script's
-    /// locals by popping arguments from the operand stacks. The current
-    /// `script` is replaced without an extra `Arc::clone` by using
-    /// `std::mem::replace`.
+    /// Saves the current script, program counter, and locals bases onto
+    /// both the gosub and goto frame stacks, then appends the new script's
+    /// locals after the caller's and pops its arguments into them. The caller's
+    /// locals stay where they are, so a call allocates nothing once the
+    /// buffers have grown. The current `script` is replaced without an extra
+    /// `Arc::clone` by using `std::mem::replace`.
     ///
     /// # Arguments
     ///
@@ -525,13 +544,13 @@ impl ScriptState {
     /// * Pushes a [`GoSubFrame`] onto `gosub_frame_stack`.
     /// * Pushes a [`GoToFrame`] onto `goto_frame_stack` for the backtrace;
     ///   [`pop_frame`](Self::pop_frame) pops it on return.
-    /// * Takes ownership of `int_locals` and `string_locals` via `std::mem::take`.
+    /// * Moves `int_base` and `string_base` to the ends of the locals buffers.
     /// * Pops argument values from operand stacks into the new locals.
     /// * Resets `pc` to `-1`.
     ///
     /// # Call Stack
     ///
-    /// **Calls:** [`pop_int`](Self::pop_int), [`pop_string`](Self::pop_string).
+    /// **Calls:** [`push_locals`](Self::push_locals).
     ///
     /// **Called by:** The `GoSub` / `GoSubWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
@@ -544,26 +563,12 @@ impl ScriptState {
         self.gosub_frame_stack.push(GoSubFrame {
             script: old_script, // move, no clone
             pc: self.pc,
-            int_locals: std::mem::take(&mut self.int_locals),
-            string_locals: std::mem::take(&mut self.string_locals),
+            int_base: self.int_base,
+            string_base: self.string_base,
         });
-        // Setup new program inline without calling new_program (which would Arc::clone again)
-        let int_count = script.int_local_count as usize;
-        let str_count = script.string_local_count as usize;
-        self.int_locals.clear();
-        self.int_locals.resize(int_count, 0);
-        if script.int_arg_count > 0 {
-            for i in (0..script.int_arg_count as usize).rev() {
-                self.int_locals[i] = self.pop_int();
-            }
-        }
-        self.string_locals.clear();
-        self.string_locals.resize(str_count, String::new());
-        if script.string_arg_count > 0 {
-            for i in (0..script.string_arg_count as usize).rev() {
-                self.string_locals[i] = self.pop_string();
-            }
-        }
+        self.int_base = self.int_locals.len();
+        self.string_base = self.string_locals.len();
+        self.push_locals(script);
         self.pc = -1;
         Ok(())
     }
@@ -804,13 +809,13 @@ impl ScriptState {
 
     /// Pushes a copy of a string local variable onto the string operand stack.
     ///
-    /// Copies from `string_locals[idx]` to the stack slot at `ssp`. Uses raw
-    /// pointer indirection to avoid borrow checker conflicts (both
-    /// `string_locals` and `string_stack` are fields of `self`).
+    /// Copies from `string_locals[string_base + idx]` to the stack slot at
+    /// `ssp`. Uses raw pointer indirection to avoid borrow checker conflicts
+    /// (both `string_locals` and `string_stack` are fields of `self`).
     ///
     /// # Arguments
     ///
-    /// * `idx` - The index into `string_locals` to copy from.
+    /// * `idx` - The running script's string local to copy from.
     ///
     /// # Safety
     ///
@@ -830,6 +835,7 @@ impl ScriptState {
     /// **Called by:** The `PushStringLocal` opcode handler in `ops::core`.
     #[inline(always)]
     pub(crate) fn push_string_local(&mut self, idx: usize) {
+        let idx = self.string_base + idx;
         debug_assert!(idx < self.string_locals.len(), "string local out of bounds");
         debug_assert!(
             (self.ssp as usize) < self.string_stack.len(),
@@ -1072,15 +1078,16 @@ pub enum ScriptArgument {
 /// A saved call frame for a `gosub` instruction.
 ///
 /// When the VM executes a `gosub`, the current script reference, program
-/// counter, and all local variables are captured into a `GoSubFrame` and
-/// pushed onto `gosub_frame_stack`. When the subroutine returns, the frame
-/// is popped by [`ScriptState::pop_frame`] to restore execution context.
+/// counter, and where its locals start are captured into a `GoSubFrame` and
+/// pushed onto `gosub_frame_stack`. The locals themselves stay in the shared
+/// buffers. When the subroutine returns, the frame is popped by
+/// [`ScriptState::pop_frame`] to restore execution context.
 #[derive(Debug, Clone)]
 pub(crate) struct GoSubFrame {
     pub script: Arc<Script>,
     pub pc: i32,
-    pub int_locals: Vec<i32>,
-    pub string_locals: Vec<String>,
+    pub int_base: usize,
+    pub string_base: usize,
 }
 
 /// A backtrace entry for a `goto` (jump) or `gosub` instruction.
@@ -1278,5 +1285,40 @@ mod tests {
         s.push_string("þsis");
         assert_eq!(describe(&s.pop_script_args()), ["3", "\"a\"", "9", "\"b\""]);
         assert_eq!((s.isp, s.ssp), (0, 0));
+    }
+
+    /// A script with these local and arg counts, leaked so it can be gosub'd.
+    fn proc(ints: u16, int_args: u16, strings: u16, string_args: u16) -> &'static Arc<Script> {
+        Box::leak(Box::new(Arc::new(Script {
+            int_local_count: ints,
+            int_arg_count: int_args,
+            string_local_count: strings,
+            string_arg_count: string_args,
+            ..Arc::into_inner(state().script).unwrap()
+        })))
+    }
+
+    #[test]
+    fn gosub_keeps_each_frames_locals() {
+        let mut s = ScriptState::new(Arc::clone(proc(2, 0, 1, 0)), None);
+        s.int_locals[1] = 7;
+        s.string_locals[0] = "root".into();
+
+        s.push_int(5);
+        s.push_string("arg");
+        s.gosub_frame(proc(3, 1, 1, 1)).unwrap();
+        s.int_locals[s.int_base + 2] = 9;
+        assert_eq!(s.int_locals[s.int_base..], [5, 0, 9]);
+        assert_eq!(s.string_locals[s.string_base..], ["arg"]);
+
+        s.gosub_frame(proc(1, 0, 0, 0)).unwrap();
+        assert_eq!(s.int_locals[s.int_base..], [0]);
+        s.pop_frame();
+        assert_eq!(s.int_locals[s.int_base..], [5, 0, 9]);
+        s.pop_frame();
+
+        assert_eq!((s.int_base, s.string_base), (0, 0));
+        assert_eq!(s.int_locals, [0, 7]);
+        assert_eq!(s.string_locals, ["root"]);
     }
 }

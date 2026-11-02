@@ -242,13 +242,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 33
         none!(m, PUSH_INT_LOCAL => |s| {
-            s.push_int(s.int_locals[s.int_operand() as usize]);
+            s.push_int(s.int_locals[s.int_base + s.int_operand() as usize]);
         });
 
         // 34
         none!(m, POP_INT_LOCAL => |s| {
-            let operand = s.int_operand() as usize;
-            s.int_locals[operand] = s.pop_int();
+            let idx = s.int_base + s.int_operand() as usize;
+            s.int_locals[idx] = s.pop_int();
         });
 
         // 35
@@ -259,8 +259,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 36
         none!(m, POP_STRING_LOCAL => |s| {
-            let operand = s.int_operand() as usize;
-            s.string_locals[operand] = s.pop_string();
+            let idx = s.string_base + s.int_operand() as usize;
+            s.string_locals[idx] = s.pop_string();
         });
 
         // 37
