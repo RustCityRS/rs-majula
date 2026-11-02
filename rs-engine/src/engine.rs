@@ -4461,7 +4461,8 @@ impl ScriptEngine for Engine {
         Ok(rsmod::has_line_of_walk(sy, sx, sz, dx, dz, 1, 1, 1, 1, 0))
     }
 
-    /// Indicates if this coord has a `CollisionFlag::WalkBlocked` on it.
+    /// Indicates if this coord has a `CollisionFlag::WalkBlocked` on it. On a free
+    /// world, members tiles count as blocked.
     ///
     /// # Call Stack
     ///
@@ -4475,7 +4476,7 @@ impl ScriptEngine for Engine {
             )));
         }
         if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
-            return Ok(false);
+            return Ok(true);
         }
         Ok(rsmod::is_flagged(
             x,
@@ -4497,9 +4498,6 @@ impl ScriptEngine for Engine {
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
-        }
-        if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
-            return Ok(false);
         }
         Ok(rsmod::is_flagged(x, z, y, CollisionFlag::Roof as u32))
     }
@@ -4535,9 +4533,6 @@ impl ScriptEngine for Engine {
                 "Zone does not exist at coord: {:?}",
                 coord
             )));
-        }
-        if !self.members && !rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8) {
-            return Ok(false);
         }
         Ok(rsmod::is_zone_flagged(x, z, y, ZoneFlag::Multi as u8))
     }
