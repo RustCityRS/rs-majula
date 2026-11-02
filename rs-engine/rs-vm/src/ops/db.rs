@@ -70,7 +70,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Dbtable {table} does not have any types!")));
             };
             let value_types = types.get(column)
-                .ok_or(ScriptError::Runtime(format!("Dbtable type {column} out of bounds!")))?;
+                .ok_or_else(|| ScriptError::Runtime(format!("Dbtable type {column} out of bounds!")))?;
             let (off, len) = if tuple >= 0 {
                 if tuple as usize >= value_types.len() {
                     return Err(ScriptError::Runtime(format!("Tuple index {tuple} out of bounds for {}!", value_types.len())));
@@ -101,7 +101,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 }
             } else {
                 let defaults = dbtable.get_default(column)
-                    .ok_or(ScriptError::Runtime(format!("Dbtable {table} column {column} has no defaults!")))?;
+                    .ok_or_else(|| ScriptError::Runtime(format!("Dbtable {table} column {column} has no defaults!")))?;
                 for val in &defaults[off..len] {
                     match val {
                         DbTableValue::Int(v) => s.push_int(*v),
@@ -128,12 +128,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Err(ScriptError::Runtime(format!("Dbtable columns {column} is not defined!")));
             };
             let values = columns.get(column as usize)
-                .ok_or(ScriptError::Runtime(format!("Dbrow column {column} out of bounds!")))?;
+                .ok_or_else(|| ScriptError::Runtime(format!("Dbrow column {column} out of bounds!")))?;
             let Some(types) = &dbtable.types else {
                 return Err(ScriptError::Runtime(format!("Dbtable types for {table} is not defined!")));
             };
             let types = types.get(column as usize)
-                .ok_or(ScriptError::Runtime(format!("Dbtable type at column {column} out of bounds!")))?;
+                .ok_or_else(|| ScriptError::Runtime(format!("Dbtable type at column {column} out of bounds!")))?;
             s.push_int(values.as_ref().map_or(0, |v| (v.len() / types.len()) as i32));
         });
 

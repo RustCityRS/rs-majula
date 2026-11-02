@@ -58,8 +58,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let varp = engine::<E>()
                 .varps()
                 .get_by_id(id)
-                .ok_or(ScriptError::Runtime(format!("Varp with id: {id} not found!")))?;
-            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[((operand >> 16) & 0x1) as usize]) && varp.protect {
+                .ok_or(ScriptError::VarpNotFound(id as i32))?;
+            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && varp.protect {
                 return Err(ScriptError::Runtime(format!("Varp: {:?} requires protected access!", varp.debugname())))
             }
             let value = if varp.var_type == ScriptVarType::String {
@@ -97,7 +97,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let varn = engine::<E>()
                 .varns()
                 .get_by_id(id)
-                .ok_or(ScriptError::Runtime(format!("Varn with id: {id} not found!")))?;
+                .ok_or(ScriptError::VarnNotFound(id as i32))?;
             let value = if varn.var_type == ScriptVarType::String {
                 VarValue::String(s.pop_string())
             } else {
@@ -142,7 +142,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let vars = engine::<E>()
                 .varss()
                 .get_by_id(id)
-                .ok_or(ScriptError::Runtime(format!("Vars with id: {id} not found!")))?;
+                .ok_or(ScriptError::VarsNotFound(id as i32))?;
             let value = if vars.var_type == ScriptVarType::String {
                 VarValue::String(s.pop_string())
             } else {
@@ -195,7 +195,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let varbit = engine::<E>()
                 .varbits()
                 .get_by_id(id)
-                .ok_or(ScriptError::Runtime(format!("Varbit with id: {id} not found!")))?;
+                .ok_or(ScriptError::VarbitNotFound(id as i32))?;
             let start = varbit.start_bit as u32;
             let width = varbit.end_bit as u32 - start + 1;
             let mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
@@ -212,12 +212,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let varbit = engine::<E>()
                 .varbits()
                 .get_by_id(id)
-                .ok_or(ScriptError::Runtime(format!("Varbit with id: {id} not found!")))?;
+                .ok_or(ScriptError::VarbitNotFound(id as i32))?;
             let basevar = engine::<E>()
                 .varps()
                 .get_by_id(varbit.basevar)
-                .ok_or(ScriptError::Runtime(format!("Varp with id: {} not found!", varbit.basevar)))?;
-            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[((operand >> 16) & 0x1) as usize]) && basevar.protect {
+                .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
+            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && basevar.protect {
                 return Err(ScriptError::Runtime(format!("Varbit: {:?} requires protected access!", varbit.debugname())))
             }
             let start = varbit.start_bit as u32;

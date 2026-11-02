@@ -182,6 +182,15 @@ pub enum ScriptError {
     #[error("Varp not found: {0}")]
     VarpNotFoundName(String),
 
+    #[error("Varn not found: {0}")]
+    VarnNotFound(i32),
+
+    #[error("Vars not found: {0}")]
+    VarsNotFound(i32),
+
+    #[error("Varbit not found: {0}")]
+    VarbitNotFound(i32),
+
     #[error("Npc not found: {0}")]
     NpcNotFound(i32),
 

@@ -314,7 +314,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, NPC_HEROPOINTS => |s, npc| {
             require_active_player(s)?;
             let points = s.pop_int();
-            let player_uid = s.active_player.ok_or(ScriptError::Runtime("no active player".into()))?;
+            let player_uid = s.active_player.ok_or_else(|| ScriptError::Runtime("no active player".into()))?;
             npc.heropoints(player_uid.username37(), points);
         });
 
@@ -434,7 +434,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2532
         active_npc_mut!(m, NPC_SAY => |s, npc| {
-            npc.say(&s.pop_string());
+            npc.say(s.peek_string(0));
+            s.drop_strings(1);
         });
 
         // 2533

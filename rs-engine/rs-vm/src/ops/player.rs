@@ -68,7 +68,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let damage = s.pop_int();
             let secondary = s.int_operand() == 1;
             let from_uid = if secondary { s.active_player2 } else { s.active_player };
-            let from = from_uid.ok_or(ScriptError::Runtime("from player is null".into()))?;
+            let from = from_uid.ok_or_else(|| ScriptError::Runtime("from player is null".into()))?;
             get_active_player_mut::<E>(s, !secondary)?.heropoints(from.username37(), damage);
         });
 
@@ -550,7 +550,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2062
         active_player_mut!(m, MES => |s, player| {
-            player.mes(&s.pop_string());
+            player.mes(s.peek_string(0));
+            s.drop_strings(1);
         });
 
         // 2063
@@ -1004,7 +1005,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2097
         active_player_mut!(m, SAY => |s, player| {
-            player.say(&s.pop_string());
+            player.say(s.peek_string(0));
+            s.drop_strings(1);
         });
 
         // 2098

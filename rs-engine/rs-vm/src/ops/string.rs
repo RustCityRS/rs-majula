@@ -211,10 +211,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let page = s.pop_int();
             let pages = s.split_pages
                 .as_deref()
-                .ok_or(ScriptError::Runtime("Split pages not found!".to_string()))?;
+                .ok_or_else(|| ScriptError::Runtime("Split pages not found!".to_string()))?;
             let page = pages
                 .get(page as usize)
-                .ok_or(ScriptError::Runtime(format!("Split page {} not found!", page)))?;
+                .ok_or_else(|| ScriptError::Runtime(format!("Split page {} not found!", page)))?;
             s.push_int(page.len() as i32);
         });
 
@@ -222,7 +222,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, SPLIT_PAGECOUNT => |s| {
             let pages = s.split_pages
                 .as_deref()
-                .ok_or(ScriptError::Runtime("Split pages not found!".to_string()))?;
+                .ok_or_else(|| ScriptError::Runtime("Split pages not found!".to_string()))?;
             s.push_int(pages.len() as i32);
         });
     }

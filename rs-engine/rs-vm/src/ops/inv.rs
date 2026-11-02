@@ -44,11 +44,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let secondary = s.int_operand() as usize;
             require_inv_access(s, inv, secondary)?;
             let to_uid = if secondary != 0 { s.active_player } else { s.active_player2 }
-                .ok_or(ScriptError::Runtime("player is null".into()))?;
+                .ok_or_else(|| ScriptError::Runtime("player is null".into()))?;
 
             let inventory = get_inv_mut::<E>(inv.id, player)?;
             let item = inventory.get(slot as u16).copied()
-                .ok_or(ScriptError::Runtime(format!("Slot: {} is empty", slot)))?;
+                .ok_or_else(|| ScriptError::Runtime(format!("Slot: {} is empty", slot)))?;
             let obj_type = engine::<E>().objs().get_by_id(item.obj)
                 .ok_or_else(|| ScriptError::Runtime(format!("Invalid obj: {}", item.obj)))?;
 
@@ -68,11 +68,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from_inv = pop_inv::<E>(s)?;
             let secondary = s.int_operand() as usize;
             require_inv_access(s, from_inv, secondary)?;
-            if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[if secondary != 0 { 0 } else { 1 }])
-                && to_inv.protect
-                && to_inv.scope != InvScope::Shared {
-                return Err(ScriptError::Runtime(format!("Inv: {:?} requires protected access!", to_inv.debugname())));
-            }
+            require_inv_access(s, to_inv, secondary ^ 1)?;
             let to_player = get_active_player_mut::<E>(s, secondary == 0)?;
             let to_uid = to_player.uid();
             let to_coord = to_player.coord();
