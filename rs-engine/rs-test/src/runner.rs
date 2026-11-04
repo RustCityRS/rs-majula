@@ -117,6 +117,13 @@ pub fn on_loaded_engine<R: Send + 'static>(f: impl FnOnce(&mut Engine) -> R + Se
             CollisionType::Normal,
         );
     });
+    // Those statics are shared by every engine in the process, and the
+    // initializing pathfind above does not stop two engines touching them at
+    // once: CI still poisoned them with two tests of one binary running
+    // (equip, doors). Engines take turns. A test that panicked leaves the
+    // lock poisoned; the next one carries on.
+    static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    let _turn = TURN.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
     std::thread::Builder::new()
         .stack_size(16 * 1024 * 1024)
         .spawn(move || {
