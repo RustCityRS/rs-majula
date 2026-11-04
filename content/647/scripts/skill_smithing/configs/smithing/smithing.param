@@ -1,6 +1,9 @@
-// 289's [name] (string, null) param is left out: registered, it shadows the
-// `name` command (the player's name) where names are strictly checked. The
-// anvil port, which reads it, waits for that.
+// 289's [name] (string, null) param is name_text here: registered as name, it
+// shadows the `name` command (the player's name) where names are strictly
+// checked (#testscript), and every engine load failed.
+[name_text]
+type=string
+default=null
 
 [xpperbar]
 type=int

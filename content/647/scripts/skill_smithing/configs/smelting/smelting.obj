@@ -1,13 +1,13 @@
 // 289's bars (skill_smithing/configs/smelting/smelting.obj): their examine
 // (moved here from general/configs/examine.obj) and 289's server keys on
-// 2011's objs. smithing_anvil_struct waits for the smithing port.
+// 2011's objs.
 
 [bronze_bar]
 desc=It's a bar of bronze.
 weight=4lb
 category=category_151
 param=smelting_struct,smelting_bronze_bar
-// param=smithing_anvil_struct,smithing_bronze_bar
+param=smithing_anvil_struct,smithing_bronze_bar
 
 [iron_bar]
 desc=It's a bar of iron.
@@ -15,14 +15,14 @@ weight=4lb
 category=category_151
 respawnrate=500
 param=smelting_struct,smelting_iron_bar
-// param=smithing_anvil_struct,smithing_iron_bar
+param=smithing_anvil_struct,smithing_iron_bar
 
 [steel_bar]
 desc=It's a bar of steel.
 weight=4lb
 category=category_151
 param=smelting_struct,smelting_steel_bar
-// param=smithing_anvil_struct,smithing_steel_bar
+param=smithing_anvil_struct,smithing_steel_bar
 
 [silver_bar]
 desc=It's a bar of silver.
@@ -42,21 +42,21 @@ desc=It's a bar of mithril.
 weight=56oz
 category=category_151
 param=smelting_struct,smelting_mithril_bar
-// param=smithing_anvil_struct,smithing_mithril_bar
+param=smithing_anvil_struct,smithing_mithril_bar
 
 [adamant_bar]
 desc=It's a bar of adamant.
 weight=72oz
 category=category_151
 param=smelting_struct,smelting_adamantite_bar
-// param=smithing_anvil_struct,smithing_adamantite_bar
+param=smithing_anvil_struct,smithing_adamantite_bar
 
 [rune_bar]
 desc=It's a bar of rune.
 weight=4lb
 category=category_151
 param=smelting_struct,smelting_runite_bar
-// param=smithing_anvil_struct,smithing_runite_bar
+param=smithing_anvil_struct,smithing_runite_bar
 
 [perfect__gold_bar]
 desc=It's a bar of 'perfect' gold.

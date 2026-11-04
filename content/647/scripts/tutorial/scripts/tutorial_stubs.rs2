@@ -31,3 +31,7 @@ stat_advance($skill, $xp);
 // 289's magic hands a spell cast on the island to the tutorial's own; with
 // none ported, nothing happens.
 [proc,pvm_tutorial_spell](int _$spell)
+
+// 289's anvil hands smithing on the island to the tutorial's own (a bronze
+// dagger for its step); with none ported, nothing is made there.
+[proc,tut_smithing_anvil](int _$count)
