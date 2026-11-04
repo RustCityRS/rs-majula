@@ -55,6 +55,8 @@ use rs_pack::cache::{CacheStore, VarValue};
 use rs_pack::startup::InterfaceLayout;
 use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
+#[cfg(since_647)]
+use rs_protocol::login::game_login_reply;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::server::obj_count::ObjCount;
@@ -150,12 +152,6 @@ pub struct LoginRequest {
     pub uid: Option<i32>,
     pub reconnect: bool,
     pub device: LoginDevice,
-    /// Rev-647 login responses are `[2] + payload(pid)` written by the socket
-    /// task, so the engine reports the assigned pid (or the reject response
-    /// byte) back through this instead of writing raw bytes to the outbox.
-    #[cfg(since_647)]
-    pub pid_tx: tokio::sync::oneshot::Sender<Result<u16, u8>>,
-    /// Client window mode from the login block (0 = fixed, 1 = resizable).
     #[cfg(since_647)]
     pub display_mode: u8,
 }
@@ -3073,8 +3069,6 @@ impl Engine {
         pid: u16,
         played: &[rs_db::PlayedSession],
     ) {
-        #[cfg(since_647)]
-        let pid_tx = request.pid_tx;
         let mut active = ActivePlayer::new(
             request.handle,
             pid,
@@ -3105,14 +3099,10 @@ impl Engine {
 
         let uid = active.player.uid;
 
+        #[cfg(since_254)]
+        let level = active.staffmodlevel().min(2);
         #[cfg(all(since_254, before_647))]
-        let reply = {
-            let level = active.staffmodlevel().min(2);
-            vec![LoginResponse::SuccessNormal as u8, level, 1]
-        };
-        // Rev-647: seed the 4-pass GPI slot state for the fresh session. The
-        // socket task writes `[2] + payload(pid)` once the pid arrives
-        // (below), so `reply` is only what the watch records.
+        let reply = vec![LoginResponse::SuccessNormal as u8, level, 1];
         #[cfg(since_647)]
         let reply = {
             active.player.window_mode = request.display_mode;
@@ -3120,7 +3110,7 @@ impl Engine {
                 .player
                 .build_area
                 .init_nsn_state(pid, active.player.pathing.coord);
-            vec![LoginResponse::SuccessNormal as u8]
+            game_login_reply(level, pid)
         };
         #[cfg(before_254)]
         let reply = {
@@ -3150,10 +3140,7 @@ impl Engine {
             active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
             active.watch.login(self.clock, &reply);
         }
-        #[cfg(before_647)]
         active.handle.send(reply);
-        #[cfg(since_647)]
-        let _ = pid_tx.send(Ok(pid));
 
         info!(
             "Player '{}' joined at ({},{},{}) (uid={:?}, pid={})",
@@ -3277,7 +3264,6 @@ impl Engine {
     ///
     /// **Called by:** [`try_complete_login`](Engine::try_complete_login)
     /// **Calls:** `EnginePlayer::on_reconnect`
-    #[cfg_attr(since_647, allow(unused_mut))]
     pub(crate) fn adopt_session(&mut self, pid: u16, mut request: LoginRequest) {
         let clock = self.clock;
 
@@ -3290,26 +3276,18 @@ impl Engine {
             // find_pid_by_user37 returned this pid in the same phase, so the
             // slot cannot be empty; guard anyway rather than panic.
             error!("adopt_session: pid {pid} vanished before adoption");
-            #[cfg(before_647)]
             request
                 .handle
                 .send(vec![LoginResponse::CouldNotComplete as u8]);
-            #[cfg(since_647)]
-            let _ = request
-                .pid_tx
-                .send(Err(LoginResponse::CouldNotComplete as u8));
             return;
         };
 
         #[cfg(before_647)]
-        request.handle.send(vec![LoginResponse::Reconnect as u8]);
-        // Rev-647: report the reclaimed pid; the socket task writes the
-        // `[2] + payload` success response and on_reconnect refreshes state.
+        let reply = vec![LoginResponse::Reconnect as u8];
         #[cfg(since_647)]
-        let _ = request.pid_tx.send(Ok(pid));
-        active
-            .watch
-            .reconnect(clock, &[LoginResponse::Reconnect as u8]);
+        let reply = game_login_reply(active.staffmodlevel().min(2), pid);
+        active.watch.reconnect(clock, &reply);
+        request.handle.send(reply);
 
         // Swapping the handle drops the old one: its channels close and the
         // old socket task (dead or alive) shuts down. Buffered packets queued
@@ -3409,20 +3387,10 @@ impl Engine {
     }
 
     /// [`reject_pending_login`](Engine::reject_pending_login) for a response
-    /// that carries a payload after its code byte. From rev 647 the socket
-    /// task writes the response, so only the code goes back to it.
+    /// that carries a payload after its code byte.
     pub(crate) fn reject_pending_login_with(&mut self, idx: usize, reply: Vec<u8>) {
-        #[cfg(before_647)]
         let mut pending = self.pending_logins.swap_remove(idx);
-        #[cfg(before_647)]
         pending.request.handle.send(reply);
-        #[cfg(since_647)]
-        let pending = self.pending_logins.swap_remove(idx);
-        #[cfg(since_647)]
-        let _ = pending.request.pid_tx.send(Err(reply
-            .first()
-            .copied()
-            .unwrap_or(LoginResponse::CouldNotComplete as u8)));
         if pending.ether_allowed
             && let Some(tx) = &self.ether_tx
         {

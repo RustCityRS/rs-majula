@@ -1,669 +1,511 @@
-//! Login protocol
-//!
-//! Handles the login handshake and player authentication for revision 647.
-
+use crate::LoginResponse;
 use rs_crypto::rsa::RsaKey;
+#[cfg(since_647)]
+use rs_crypto::xtea::Xtea;
 use rs_io::Packet;
+#[cfg(before_647)]
+use rs_io::crc::getcrc;
 use rs_io::packet::RsaFrame;
 
-use crate::{LoginResponse as LoginResponseCode, ProtocolError, Result};
-
-// ── Protocol payload limits ─────────────────────────────────────────────────
-// Derived from the rev-647 client wire format (Class164.create_account,
-// AClass7.check_name, Static276.method4437). Each constant documents what
-// the client actually writes so the server can reject oversized frames.
-
-/// Max email/username length in bytes (CP-1252 encoded, excluding null terminator).
-pub const MAX_USERNAME_LEN: usize = 320;
-
-/// Max password length in bytes.
-const MAX_PASSWORD_LEN: usize = 128;
-
-/// Max additional_info string length in create-account.
-const MAX_ADDITIONAL_INFO_LEN: usize = 256;
-
-/// RSA ciphertext max size: 2-byte length prefix + 257 bytes (2048-bit key
-/// modulus = 256 bytes, +1 for Java BigInteger sign byte).
+#[cfg(before_647)]
+pub const LOGIN_MAX_PAYLOAD: usize = u8::MAX as usize;
+#[cfg(since_647)]
+pub const LOGIN_MAX_PAYLOAD: usize = 4 + RSA_BLOCK_MAX + MAX_USERNAME_LEN + 1 + 6 + 140 + 8;
+#[cfg(before_647)]
+const MAX_USERNAME_LEN: usize = 12;
+#[cfg(since_647)]
+const MAX_USERNAME_LEN: usize = 320;
+#[cfg(since_647)]
 const RSA_BLOCK_MAX: usize = 2 + 257;
+#[cfg(since_647)]
+pub const CREATE_ACCOUNT_MAX_PAYLOAD: usize =
+    2 + RSA_BLOCK_MAX + 2 + 8 + 1 + 1 + 24 + 1 + 1 + 1 + 7 + 321 + 129 + 257;
+#[cfg(since_647)]
+pub const CHECK_NAME_MAX_PAYLOAD: usize = 2 + RSA_BLOCK_MAX + 1 + 7 + 321;
 
-/// Create-account XTEA fixed fields (Class164.create_account):
-/// affiliate(2) + user_flow(8) + language(1) + serial_id(1) +
-/// device_info(24) + has_additional(1) + age(1) + newsletter(1) + padding(7)
-const CREATE_ACCOUNT_XTEA_FIXED: usize = 2 + 8 + 1 + 1 + 24 + 1 + 1 + 1 + 7;
-
-/// Max payload for create-account (service byte 22).
-/// revision(2) + RSA block + XTEA(fixed + username + password + additional_info)
-pub const CREATE_ACCOUNT_MAX_PAYLOAD: usize = 2
-    + RSA_BLOCK_MAX
-    + CREATE_ACCOUNT_XTEA_FIXED
-    + (MAX_USERNAME_LEN + 1)
-    + (MAX_PASSWORD_LEN + 1)
-    + (MAX_ADDITIONAL_INFO_LEN + 1);
-
-/// Check-name XTEA fixed fields (AClass7.check_name): language(1) + padding(7)
-const CHECK_NAME_XTEA_FIXED: usize = 1 + 7;
-
-/// Max payload for check-name (service byte 28).
-/// revision(2) + RSA block + XTEA(fixed + name)
-pub const CHECK_NAME_MAX_PAYLOAD: usize =
-    2 + RSA_BLOCK_MAX + CHECK_NAME_XTEA_FIXED + (MAX_USERNAME_LEN + 1);
-
-/// Login XTEA fixed fields (Static276.method4437):
-/// settings(6) + 35×CRC(140) + tail padding(up to 7)
-const LOGIN_XTEA_FIXED: usize = 6 + 140 + 8;
-
-/// Max payload for login (service byte 14).
-/// revision(4) + RSA block + XTEA(username + fixed)
-pub const LOGIN_MAX_PAYLOAD: usize = 4 + RSA_BLOCK_MAX + (MAX_USERNAME_LEN + 1) + LOGIN_XTEA_FIXED;
-
-/// Login request from client
-#[derive(Debug, Clone)]
-pub struct LoginRequest {
-    /// Login type (new or reconnect)
-    pub login_type: LoginType,
-    /// Protocol revision
-    pub revision: u32,
-    /// Username
+pub struct LoginBlock {
     pub username: String,
-    /// Password
     pub password: String,
-    /// ISAAC seeds (for encrypting game packets; signed, as sent by the client)
-    pub isaac_seeds: [i32; 4],
-    /// Client settings
+    pub seed: [i32; 4],
+    pub low_memory: bool,
+    pub uid: Option<i32>,
+    #[cfg(since_647)]
     pub settings: ClientSettings,
-    /// Archive CRCs sent by the client (35 values matching Class130.method834 order)
+    #[cfg(since_647)]
     pub archive_crcs: [i32; 35],
 }
 
-/// Login type
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum LoginType {
-    /// New game world login
-    New = 16,
-    /// Reconnect (after disconnect)
-    Reconnect = 18,
-    /// Lobby login
-    Lobby = 19,
-}
-
-impl TryFrom<u8> for LoginType {
-    type Error = ProtocolError;
-
-    fn try_from(value: u8) -> std::result::Result<Self, Self::Error> {
-        match value {
-            16 => Ok(LoginType::New),
-            18 => Ok(LoginType::Reconnect),
-            19 => Ok(LoginType::Lobby),
-            _ => Err(ProtocolError::Login(format!(
-                "Invalid login type: {}",
-                value
-            ))),
+impl LoginBlock {
+    #[cfg(before_647)]
+    pub fn decode(
+        mut buf: Packet,
+        rsa: &'static RsaKey,
+        expected_crc: i32,
+    ) -> Result<Self, LoginResponse> {
+        require(&buf, 1)?;
+        let mut revision = u16::from(buf.g1());
+        if revision == 255 {
+            require(&buf, 2)?;
+            revision = buf.g2();
         }
-    }
-}
-
-/// Client settings
-#[derive(Debug, Clone, Default)]
-pub struct ClientSettings {
-    /// Window mode (0 = fixed, 1 = resizable)
-    pub window_mode: u8,
-    /// Screen width
-    pub screen_width: u16,
-    /// Screen height
-    pub screen_height: u16,
-    /// Detail settings
-    pub detail: u8,
-}
-
-/// Login response to client
-#[derive(Debug, Clone)]
-pub struct LoginResponse {
-    /// Response code
-    pub code: u8,
-    /// Player rights (0 = normal, 1 = player mod, 2 = mod, etc.)
-    pub rights: u8,
-    /// Player is flagged
-    pub flagged: bool,
-    /// Player index
-    pub player_index: u16,
-}
-
-impl LoginResponse {
-    /// Successful login
-    pub fn success(player_index: u16) -> Self {
-        Self {
-            code: LoginResponseCode::SuccessNormal as u8,
-            rights: 0,
-            flagged: false,
-            player_index,
+        if revision.to_string() != env!("REV").split('.').next().unwrap() {
+            return Err(LoginResponse::RuneScapeUpdated);
         }
-    }
-
-    /// Failed login with specific code
-    pub fn failed(code: LoginResponseCode) -> Self {
-        Self {
-            code: code as u8,
-            rights: 0,
-            flagged: false,
-            player_index: 0,
+        require(&buf, 1 + 9 * 4)?;
+        let low_memory = buf.g1() & 0x1 != 0;
+        let crc = getcrc(&buf.data, buf.pos, buf.pos + 9 * 4);
+        buf.pos += 9 * 4;
+        if crc != expected_crc {
+            return Err(LoginResponse::RuneScapeUpdated);
         }
-    }
-
-    /// Encode into `out`.
-    pub fn encode(&self, out: &mut rs_io::Packet) {
-        out.p1(self.code);
-        out.p1(self.rights);
-        out.p1(if self.flagged { 1 } else { 0 });
-        out.p2(self.player_index);
-    }
-}
-
-/// Login decoder state machine
-#[derive(Debug)]
-pub struct LoginDecoder {
-    /// RSA key for decrypting login blocks
-    rsa_keys: &'static RsaKey,
-}
-
-impl LoginDecoder {
-    /// Create a new login decoder with RSA keys
-    pub fn new(rsa_keys: &'static RsaKey) -> Self {
-        Self { rsa_keys }
-    }
-
-    /// Decode a login request from raw bytes.
-    ///
-    /// Rev 647 outer frame (from Static276.method4437, state 3):
-    /// ```text
-    /// login_type  : u8        (16 = new, 18 = reconnect)
-    /// payload_len : u16 BE
-    /// -- payload --
-    /// revision    : i32 BE    (647)
-    /// rsa_len     : u16 BE    (written by method8045 → method8040)
-    /// rsa_data    : [u8; rsa_len]
-    /// xtea_data   : [u8; ...]  (XTEA-encrypted with client seeds)
-    /// ```
-    ///
-    /// RSA inner block (after decrypt):
-    /// ```text
-    /// magic       : u8        (10)
-    /// seeds[0..4] : [i32; 4]  (16 bytes, ISAAC seeds)
-    /// uid         : i64 BE    (8 bytes)
-    /// password    : CString
-    /// padding     : i64 BE    (0)
-    /// client_rand : i64 BE    (random)
-    /// ```
-    ///
-    /// XTEA inner block (after decrypt with seeds):
-    /// ```text
-    /// username    : CString
-    /// ... client settings ...
-    /// ```
-    pub fn decode(&self, data: &[u8]) -> Result<LoginRequest> {
-        if data.len() < 3 {
-            return Err(ProtocolError::Login("Login packet too short".to_string()));
-        }
-
-        let mut buf = Packet::from(data.to_vec());
-
-        // ── Outer frame ──────────────────────────────────────────────────────
-        let login_type = buf.g1().try_into()?;
-        let payload_len = buf.g2() as usize;
-
-        let remaining = buf.data.len() - buf.pos;
-        if remaining < payload_len {
-            return Err(ProtocolError::Login(format!(
-                "Login payload truncated: need {payload_len}, have {}",
-                remaining
-            )));
-        }
-        let payload_end = buf.pos + payload_len;
-
-        // Revision (i32 BE, not u16)
-        if payload_end - buf.pos < 4 {
-            return Err(ProtocolError::Login("Missing revision".to_string()));
-        }
-        let revision = buf.g4s();
-        if revision != 647 {
-            return Err(ProtocolError::Login(format!(
-                "Wrong revision: client={revision}, server=647"
-            )));
-        }
-
-        // ── RSA block ────────────────────────────────────────────────────────
-        let rsa_start = buf.pos;
-        let rsa_len = buf.g2() as usize;
-        if payload_end - buf.pos < rsa_len {
-            return Err(ProtocolError::Login(format!(
-                "RSA block truncated: need {rsa_len}, have {}",
-                payload_end - buf.pos
-            )));
-        }
-
-        let xtea_data = buf.data[buf.pos + rsa_len..payload_end].to_vec();
-
-        tracing::debug!(
-            "Login packet: type={:?}, revision={}, rsa_len={}, total_payload={}, xtea_remaining={}",
-            login_type,
-            revision,
-            rsa_len,
-            payload_len,
-            xtea_data.len()
-        );
-
-        buf.pos = rsa_start;
-        buf.rsadec(RsaFrame::Short, self.rsa_keys);
-
-        tracing::debug!(
-            "RSA decrypted: first bytes: {:02x?}",
-            &buf.data[..buf.data.len().min(20)]
-        );
-
-        Self::parse_decrypted_block(login_type, &buf.data, &xtea_data)
-    }
-
-    /// Parse the decrypted RSA inner block and XTEA-encrypted section.
-    ///
-    /// RSA block: magic(10) | seeds[4×i32] | uid(i64) | username(CStr) | i64 | i64
-    /// XTEA block (decrypted): password(CStr) | ... settings ...
-    fn parse_decrypted_block(
-        login_type: LoginType,
-        rsa_data: &[u8],
-        xtea_data: &[u8],
-    ) -> Result<LoginRequest> {
-        if rsa_data.len() < 25 {
-            return Err(ProtocolError::Login(
-                "Decrypted RSA block too short".to_string(),
-            ));
-        }
-
-        let mut buf = Packet::from(rsa_data.to_vec());
-
-        let magic = buf.g1();
-        if magic != 10 {
-            return Err(ProtocolError::Login(format!("Bad RSA magic: {magic}")));
-        }
-
-        // ISAAC seeds — signed i32s as the client transmits them
-        let isaac_seeds = [buf.g4s(), buf.g4s(), buf.g4s(), buf.g4s()];
-
-        // uid + password + two i64s
-        let _uid = buf.g8s();
-        let password = buf.gjstr(0).to_lowercase();
-        // Skip the two trailing i64 values (padding + client random)
-        if buf.data.len() - buf.pos >= 16 {
-            let _ = buf.g8s();
-            let _ = buf.g8s();
-        }
-
-        // ── XTEA section: decrypt with client seeds to get username + settings ──
-        let (username, settings, archive_crcs) = if !xtea_data.is_empty() {
-            let xtea_keys = [
-                isaac_seeds[0] as u32,
-                isaac_seeds[1] as u32,
-                isaac_seeds[2] as u32,
-                isaac_seeds[3] as u32,
-            ];
-            let mut decrypted = xtea_data.to_vec();
-            let xtea_len = decrypted.len();
-            // tinyenc only encrypts complete 8-byte blocks; tail bytes are plaintext
-            let enc_len = xtea_len & !7;
-            if enc_len > 0 {
-                let _ = rs_crypto::xtea::Xtea::decrypt(&mut decrypted[..enc_len], &xtea_keys);
-            }
-            let mut dbuf = Packet::from(decrypted[..xtea_len].to_vec());
-            let username = dbuf.gjstr(0).to_lowercase();
-
-            let mut cs = ClientSettings::default();
-            if login_type != LoginType::Lobby && dbuf.data.len() - dbuf.pos >= 5 {
-                let _auth_type = dbuf.g1();
-                cs.window_mode = dbuf.g1();
-                cs.screen_width = dbuf.g2();
-                cs.screen_height = dbuf.g2();
-                tracing::debug!(
-                    "Display settings: mode={} {}x{}",
-                    cs.window_mode,
-                    cs.screen_width,
-                    cs.screen_height
-                );
-            }
-
-            // CRCs: 35 × i32 written by Class130.method834 as the last thing
-            // before tinyenc. Read from the known end of the original XTEA data.
-            let mut archive_crcs = [0i32; 35];
-            let crc_bytes = 35 * 4;
-            if xtea_len >= crc_bytes {
-                let mut crc_buf = Packet::from(decrypted[xtea_len - crc_bytes..xtea_len].to_vec());
-                for crc in &mut archive_crcs {
-                    *crc = crc_buf.g4s();
-                }
-                tracing::debug!(
-                    "Client CRCs (first 5): [{:#010x}, {:#010x}, {:#010x}, {:#010x}, {:#010x}]",
-                    archive_crcs[0],
-                    archive_crcs[1],
-                    archive_crcs[2],
-                    archive_crcs[3],
-                    archive_crcs[4],
-                );
-            }
-            (username, cs, archive_crcs)
-        } else {
-            (String::new(), ClientSettings::default(), [0i32; 35])
-        };
-
+        let (mut buf, seed) = decrypt_rsa(&mut buf, rsa)?;
+        require(&buf, 4)?;
+        let uid = buf.g4s();
+        let username = read_string(&mut buf, 10, MAX_USERNAME_LEN)?;
+        let password = read_string(&mut buf, 10, 20)?;
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(ProtocolError::Login("Invalid username length".to_string()));
+            return Err(LoginResponse::InvalidCredentials);
         }
-
-        tracing::info!(
-            "Login: user='{}' type={:?} display_mode={}",
-            username,
-            login_type,
-            settings.window_mode
-        );
-
-        Ok(LoginRequest {
-            login_type,
-            revision: 647,
+        Ok(Self {
             username,
             password,
-            isaac_seeds,
+            seed,
+            low_memory,
+            uid: (uid != 0 && uid != 1337).then_some(uid),
+        })
+    }
+
+    #[cfg(since_647)]
+    pub fn decode(
+        mut buf: Packet,
+        rsa: &'static RsaKey,
+        lobby: bool,
+    ) -> Result<Self, LoginResponse> {
+        require(&buf, 4)?;
+        if buf.g4s() != 647 {
+            return Err(LoginResponse::InvalidCredentials);
+        }
+        let (mut rsa_buf, seed) = decrypt_rsa(&mut buf, rsa)?;
+        require(&rsa_buf, 8)?;
+        rsa_buf.pos += 8;
+        let password = read_string(&mut rsa_buf, 0, 128)?.to_lowercase();
+        require(&rsa_buf, 16)?;
+        let mut buf = decrypt_xtea(buf, seed)?;
+        let username = read_string(&mut buf, 0, MAX_USERNAME_LEN)?.to_lowercase();
+        if username.is_empty() || username.len() > MAX_USERNAME_LEN {
+            return Err(LoginResponse::InvalidCredentials);
+        }
+        let mut settings = ClientSettings::default();
+        if !lobby {
+            require(&buf, 7)?;
+            buf.pos += 1;
+            settings.window_mode = buf.g1();
+            settings.screen_width = buf.g2();
+            settings.screen_height = buf.g2();
+            settings.detail = buf.g1();
+        }
+        let mut archive_crcs = [0; 35];
+        require(&buf, size_of_val(&archive_crcs))?;
+        buf.pos = buf.len() - size_of_val(&archive_crcs);
+        for crc in &mut archive_crcs {
+            *crc = buf.g4s();
+        }
+        Ok(Self {
+            username,
+            password,
+            seed,
+            low_memory: false,
+            uid: None,
             settings,
             archive_crcs,
         })
     }
-
-    /// Decode a create account request from the payload bytes (length prefix
-    /// already consumed by the caller).
-    ///
-    /// Payload layout:
-    /// ```text
-    /// revision    : u16 BE   (647)
-    /// rsa_data    : [u8; rsa_len]  (contains magic + 4 XTEA keys + padding)
-    /// xtea_data   : [u8; ...]      (username, affiliate, password, metadata)
-    /// ```
-    pub fn decode_create_account(&self, data: &[u8]) -> Result<CreateAccountRequest> {
-        if data.len() < 4 {
-            return Err(ProtocolError::Login(
-                "Create account packet too short".to_string(),
-            ));
-        }
-
-        let mut buf = Packet::from(data.to_vec());
-        let payload_end = data.len();
-
-        let revision = buf.g2();
-        if revision != 647 {
-            return Err(ProtocolError::Login(format!(
-                "Wrong revision: client={revision}, server=647"
-            )));
-        }
-
-        let rsa_start = buf.pos;
-        let rsa_len = buf.g2() as usize;
-        if payload_end - buf.pos < rsa_len {
-            return Err(ProtocolError::Login(format!(
-                "RSA block truncated: need {rsa_len}, have {}",
-                payload_end - buf.pos
-            )));
-        }
-
-        let xtea_data = buf.data[buf.pos + rsa_len..payload_end].to_vec();
-
-        buf.pos = rsa_start;
-        buf.rsadec(RsaFrame::Short, self.rsa_keys);
-
-        let magic = buf.g1();
-        if magic != 10 {
-            return Err(ProtocolError::Login(format!("Bad RSA magic: {magic}")));
-        }
-
-        let xtea_keys = [
-            buf.g4s() as u32,
-            buf.g4s() as u32,
-            buf.g4s() as u32,
-            buf.g4s() as u32,
-        ];
-
-        if xtea_data.is_empty() {
-            return Err(ProtocolError::Login(
-                "Missing XTEA data in create account".to_string(),
-            ));
-        }
-
-        let mut decrypted = xtea_data;
-        let enc_len = decrypted.len() & !7;
-        if enc_len > 0 {
-            let _ = rs_crypto::xtea::Xtea::decrypt(&mut decrypted[..enc_len], &xtea_keys);
-        }
-        let mut dbuf = Packet::from(decrypted);
-
-        let username = dbuf.gjstr(0).to_lowercase();
-        let _affiliate_id = dbuf.g2();
-        let password = dbuf.gjstr(0);
-        let _user_flow = dbuf.g8s();
-        let _language = dbuf.g1();
-        let _serial_id = dbuf.g1();
-        // Skip 24 bytes of device info
-        for _ in 0..24 {
-            if dbuf.data.len() - dbuf.pos > 0 {
-                dbuf.g1();
-            }
-        }
-        let has_additional = if dbuf.data.len() - dbuf.pos > 0 {
-            dbuf.g1() != 0
-        } else {
-            false
-        };
-        if has_additional {
-            let _ = dbuf.gjstr(0);
-        }
-        let age = if dbuf.data.len() - dbuf.pos > 0 {
-            dbuf.g1()
-        } else {
-            0
-        };
-
-        if username.is_empty() || username.len() > MAX_USERNAME_LEN {
-            return Err(ProtocolError::Login("Invalid username length".to_string()));
-        }
-
-        Ok(CreateAccountRequest {
-            username,
-            password,
-            age,
-        })
-    }
-
-    /// Decode a check-name request (service byte 28).
-    ///
-    /// Same RSA+XTEA structure as create account, but the XTEA payload
-    /// contains only the name + language + padding.
-    pub fn decode_check_name(&self, data: &[u8]) -> Result<CheckNameRequest> {
-        if data.len() < 4 {
-            return Err(ProtocolError::Login(
-                "Check name packet too short".to_string(),
-            ));
-        }
-
-        let mut buf = Packet::from(data.to_vec());
-        let payload_end = data.len();
-
-        let revision = buf.g2();
-        if revision != 647 {
-            return Err(ProtocolError::Login(format!(
-                "Wrong revision: client={revision}, server=647"
-            )));
-        }
-
-        let rsa_start = buf.pos;
-        let rsa_len = buf.g2() as usize;
-        if payload_end - buf.pos < rsa_len {
-            return Err(ProtocolError::Login(format!(
-                "RSA block truncated: need {rsa_len}, have {}",
-                payload_end - buf.pos
-            )));
-        }
-
-        let xtea_data = buf.data[buf.pos + rsa_len..payload_end].to_vec();
-
-        buf.pos = rsa_start;
-        buf.rsadec(RsaFrame::Short, self.rsa_keys);
-
-        let magic = buf.g1();
-        if magic != 10 {
-            return Err(ProtocolError::Login(format!("Bad RSA magic: {magic}")));
-        }
-
-        let xtea_keys = [
-            buf.g4s() as u32,
-            buf.g4s() as u32,
-            buf.g4s() as u32,
-            buf.g4s() as u32,
-        ];
-
-        if xtea_data.is_empty() {
-            return Err(ProtocolError::Login(
-                "Missing XTEA data in check name".to_string(),
-            ));
-        }
-
-        let mut decrypted = xtea_data;
-        let enc_len = decrypted.len() & !7;
-        if enc_len > 0 {
-            let _ = rs_crypto::xtea::Xtea::decrypt(&mut decrypted[..enc_len], &xtea_keys);
-        }
-        let mut dbuf = Packet::from(decrypted);
-
-        let name = dbuf.gjstr(0).to_lowercase();
-
-        if name.is_empty() || name.len() > MAX_USERNAME_LEN {
-            return Err(ProtocolError::Login("Invalid name length".to_string()));
-        }
-
-        Ok(CheckNameRequest { name })
-    }
-
-    /// Get the RSA public key modulus (for client configuration)
-    pub fn public_key_modulus(&self) -> Vec<u8> {
-        self.rsa_keys.n.to_bytes_be().1
-    }
-
-    /// Get the RSA public key exponent (for client configuration)
-    pub fn public_key_exponent(&self) -> Vec<u8> {
-        self.rsa_keys.e.to_bytes_be().1
-    }
 }
 
-/// Check name availability request (service byte 28)
-#[derive(Debug, Clone)]
-pub struct CheckNameRequest {
-    pub name: String,
+fn require(buf: &Packet, len: usize) -> Result<(), LoginResponse> {
+    if buf.len().saturating_sub(buf.pos) < len {
+        return Err(LoginResponse::Rejected);
+    }
+    Ok(())
 }
 
-/// Create account request from client (service byte 22)
-#[derive(Debug, Clone)]
+fn read_string(buf: &mut Packet, terminator: u8, max: usize) -> Result<String, LoginResponse> {
+    let len = buf.data[buf.pos..]
+        .iter()
+        .position(|&b| b == terminator)
+        .ok_or(LoginResponse::InvalidCredentials)?;
+    if len > max {
+        return Err(LoginResponse::InvalidCredentials);
+    }
+    Ok(buf.gjstr(terminator))
+}
+
+fn decrypt_rsa(
+    buf: &mut Packet,
+    rsa: &'static RsaKey,
+) -> Result<(Packet, [i32; 4]), LoginResponse> {
+    let start = buf.pos;
+    #[cfg(before_647)]
+    let len = {
+        require(buf, 1)?;
+        buf.g1() as usize
+    };
+    #[cfg(since_647)]
+    let len = {
+        require(buf, 2)?;
+        buf.g2() as usize
+    };
+    require(buf, len)?;
+    if len == 0 {
+        return Err(LoginResponse::Rejected);
+    }
+    buf.pos += len;
+    let mut decrypted = Packet::from(buf.data[start..buf.pos].to_vec());
+    let modulus = rsa.n.bits().div_ceil(8) as usize;
+    decrypted.data.resize(decrypted.len().max(modulus), 0);
+    #[cfg(before_647)]
+    decrypted.rsadec(RsaFrame::Byte, rsa);
+    #[cfg(since_647)]
+    decrypted.rsadec(RsaFrame::Short, rsa);
+    require(&decrypted, 17)?;
+    if decrypted.g1() != 10 {
+        return Err(LoginResponse::RuneScapeUpdated);
+    }
+    let seed = [
+        decrypted.g4s(),
+        decrypted.g4s(),
+        decrypted.g4s(),
+        decrypted.g4s(),
+    ];
+    Ok((decrypted, seed))
+}
+
+#[cfg(since_647)]
+fn decrypt_xtea(buf: Packet, seed: [i32; 4]) -> Result<Packet, LoginResponse> {
+    let mut data = buf.data;
+    data.drain(..buf.pos);
+    let len = data.len() & !7;
+    Xtea::decrypt(&mut data[..len], &seed.map(|key| key as u32))
+        .map_err(|_| LoginResponse::Rejected)?;
+    Ok(Packet::from(data))
+}
+
+#[cfg(since_647)]
+fn decode_account(mut buf: Packet, rsa: &'static RsaKey) -> Result<Packet, LoginResponse> {
+    require(&buf, 2)?;
+    if buf.g2() != 647 {
+        return Err(LoginResponse::RuneScapeUpdated);
+    }
+    let (_, seed) = decrypt_rsa(&mut buf, rsa)?;
+    decrypt_xtea(buf, seed)
+}
+
+#[cfg(since_647)]
+#[derive(Default)]
+pub struct ClientSettings {
+    pub window_mode: u8,
+    pub screen_width: u16,
+    pub screen_height: u16,
+    pub detail: u8,
+}
+
+#[cfg(since_647)]
 pub struct CreateAccountRequest {
     pub username: String,
     pub password: String,
     pub age: u8,
 }
 
-/// Structural email validation: `local@domain.tld`.
-pub fn is_valid_email(s: &str) -> bool {
-    let Some((local, domain)) = s.split_once('@') else {
-        return false;
-    };
-    if local.is_empty() || domain.is_empty() || s.matches('@').count() != 1 {
-        return false;
+#[cfg(since_647)]
+impl CreateAccountRequest {
+    pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
+        let mut buf = decode_account(buf, rsa)?;
+        let username = read_string(&mut buf, 0, MAX_USERNAME_LEN)?.to_lowercase();
+        require(&buf, 2)?;
+        buf.pos += 2;
+        let password = read_string(&mut buf, 0, 128)?;
+        require(&buf, 8 + 1 + 1 + 24 + 1)?;
+        buf.pos += 8 + 1 + 1 + 24;
+        if buf.g1() != 0 {
+            read_string(&mut buf, 0, 256)?;
+        }
+        require(&buf, 2 + 7)?;
+        let age = buf.g1();
+        if username.is_empty() || username.len() > MAX_USERNAME_LEN {
+            return Err(LoginResponse::InvalidCredentials);
+        }
+        Ok(Self {
+            username,
+            password,
+            age,
+        })
     }
-    if local.starts_with('.') || local.ends_with('.') || local.contains("..") {
-        return false;
+}
+
+#[cfg(since_647)]
+pub struct CheckNameRequest {
+    pub name: String,
+}
+
+#[cfg(since_647)]
+impl CheckNameRequest {
+    pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
+        let mut buf = decode_account(buf, rsa)?;
+        let name = read_string(&mut buf, 0, MAX_USERNAME_LEN)?.to_lowercase();
+        require(&buf, 1 + 7)?;
+        if name.is_empty() || name.len() > MAX_USERNAME_LEN {
+            return Err(LoginResponse::InvalidCredentials);
+        }
+        Ok(Self { name })
     }
-    if !local
-        .bytes()
-        .all(|b| b.is_ascii_alphanumeric() || b"._-+".contains(&b))
-    {
-        return false;
-    }
-    if domain.starts_with('.')
-        || domain.starts_with('-')
-        || domain.ends_with('.')
-        || domain.ends_with('-')
-    {
-        return false;
-    }
-    if !domain.contains('.') {
-        return false;
-    }
-    if !domain
-        .bytes()
-        .all(|b| b.is_ascii_alphanumeric() || b".-".contains(&b))
-    {
-        return false;
-    }
-    let tld = domain.rsplit('.').next().unwrap_or("");
-    if tld.len() < 2 || !tld.bytes().all(|b| b.is_ascii_alphabetic()) {
-        return false;
-    }
-    true
+}
+
+#[cfg(since_647)]
+pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
+    let mut buf = Packet::new(15);
+    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(13);
+    buf.p1(staffmodlevel);
+    buf.p1(0);
+    buf.p1(0);
+    buf.p1(0);
+    buf.p1(1);
+    buf.p1(0);
+    buf.p2(pid);
+    buf.p1(1);
+    buf.p3(0);
+    buf.p1(1);
+    buf.data
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_crypto::rsa::parse_rsa_key_from_pem;
+    use std::sync::LazyLock;
 
+    static KEY: LazyLock<RsaKey> = LazyLock::new(|| {
+        parse_rsa_key_from_pem(
+            "-----BEGIN PRIVATE KEY-----
+MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAzLUczq12qOSGm+Pv
+HSiJ+BPm/Z7vKITVMcUbipwycMcYZF8TjWiiShYLuVtWLA5mEE86FKvrmaf79/tG
+RTB6LQIDAQABAkEAu3ZgGyTfNWuRmdDyeFFXh8cyEbAqc4CxfBJ1VkoUJxGJDM+z
+m9DXk/vYvL5G+PbNOOHIE2VKNkWbdgX3OQ8GQQIhAOWUQkJEfVYNX8whrjFEzd9j
+SprujROHi4IKxzI1o4mrAiEA5EQY/mqL8LIEM7+1UXBN8dPJlSmcxcyRGwL39pTh
+o4cCIB0xw1NF/mJJBRuiVNJzG3MC32PgXhRTskvxLu+VnpxNAiBm59BAufXWj9pX
+HgD28uMgtzK0fSsA/QUZoU/6KQpD9wIgGDW/g+ztlu98aA9+zzaKbU77J/pDsAdN
+Az5KOlJPE6c=
+-----END PRIVATE KEY-----",
+        )
+        .unwrap()
+    });
+    const SEED: [i32; 4] = [1, -2, 3, i32::MIN];
+
+    fn rsa_block(uid: i32) -> Packet {
+        let mut buf = Packet::new(256);
+        buf.p1(10);
+        for key in SEED {
+            buf.p4(key);
+        }
+        #[cfg(before_647)]
+        {
+            buf.p4(uid);
+            buf.pjstr("Player", 10);
+            buf.pjstr("Password£", 10);
+            buf.rsaenc(RsaFrame::Byte, &KEY);
+        }
+        #[cfg(since_647)]
+        {
+            buf.p8(uid as i64);
+            buf.pjstr("Password£", 0);
+            buf.p8(0);
+            buf.p8(123);
+            buf.rsaenc(RsaFrame::Short, &KEY);
+        }
+        buf.data.truncate(buf.pos);
+        buf
+    }
+
+    #[cfg(before_647)]
+    fn login_payload(uid: i32) -> Packet {
+        let rsa = rsa_block(uid);
+        let mut buf = Packet::new(300);
+        let revision = env!("REV")
+            .split('.')
+            .next()
+            .unwrap()
+            .parse::<u16>()
+            .unwrap();
+        if revision >= 255 {
+            buf.p1(255);
+            buf.p2(revision);
+        } else {
+            buf.p1(revision as u8);
+        }
+        buf.p1(1);
+        for crc in 0..9 {
+            buf.p4(crc);
+        }
+        buf.pdata(&rsa.data, 0, rsa.pos);
+        buf.data.truncate(buf.pos);
+        buf.pos = 0;
+        buf
+    }
+
+    #[cfg(since_647)]
+    fn login_payload(lobby: bool, extra: usize) -> Packet {
+        let rsa = rsa_block(123);
+        let mut body = Packet::new(512);
+        body.pjstr("Player", 0);
+        if !lobby {
+            body.p1(0);
+            body.p1(2);
+            body.p2(800);
+            body.p2(600);
+            body.p1(4);
+        }
+        body.pdata(&[42; 24], 0, 24);
+        body.pos += extra;
+        for crc in 0..35 {
+            body.p4(crc - 17);
+        }
+        let len = body.pos & !7;
+        Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
+        let mut buf = Packet::new(4 + rsa.pos + body.pos);
+        buf.p4(647);
+        buf.pdata(&rsa.data, 0, rsa.pos);
+        buf.pdata(&body.data, 0, body.pos);
+        buf.pos = 0;
+        buf
+    }
+
+    #[cfg(before_647)]
     #[test]
-    fn test_login_type_from_u8() {
-        assert!(matches!(LoginType::try_from(16), Ok(LoginType::New)));
-        assert!(matches!(LoginType::try_from(18), Ok(LoginType::Reconnect)));
-        assert!(LoginType::try_from(99).is_err());
+    fn login_preserves_credentials_seeds_crc_and_install_id() {
+        for uid in [0, 1337, 123456] {
+            let payload = login_payload(uid);
+            let crc_start = if payload.data[0] == 255 { 4 } else { 2 };
+            let crc = getcrc(&payload.data[crc_start..crc_start + 36], 0, 36);
+            let login = LoginBlock::decode(payload, &KEY, crc).unwrap();
+            assert_eq!(login.username, "Player");
+            assert_eq!(login.password, "Password£");
+            assert_eq!(login.seed, SEED);
+            assert!(login.low_memory);
+            assert_eq!(login.uid, (uid == 123456).then_some(uid));
+            assert!(matches!(
+                LoginBlock::decode(login_payload(uid), &KEY, crc ^ 1),
+                Err(LoginResponse::RuneScapeUpdated)
+            ));
+        }
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn game_and_lobby_login_keep_plaintext_xtea_tail_and_crcs() {
+        for lobby in [false, true] {
+            for extra in 0..8 {
+                let login = LoginBlock::decode(login_payload(lobby, extra), &KEY, lobby).unwrap();
+                assert_eq!(login.username, "player");
+                assert_eq!(login.password, "password£");
+                assert_eq!(login.seed, SEED);
+                assert!(!login.low_memory);
+                assert_eq!(login.uid, None);
+                assert_eq!(login.archive_crcs, std::array::from_fn(|i| i as i32 - 17));
+                if !lobby {
+                    assert_eq!(login.settings.window_mode, 2);
+                    assert_eq!(login.settings.screen_width, 800);
+                    assert_eq!(login.settings.screen_height, 600);
+                    assert_eq!(login.settings.detail, 4);
+                }
+            }
+        }
     }
 
     #[test]
-    fn test_login_response_encode() {
-        let response = LoginResponse::success(42);
-        let mut pkt = rs_io::Packet::new(16);
-        response.encode(&mut pkt);
-        let encoded = &pkt.data[..pkt.pos];
-
-        assert_eq!(encoded[0], 2); // Success code
-        assert_eq!(encoded[1], 0); // Rights
-        assert_eq!(encoded[2], 0); // Not flagged
-        assert_eq!(&encoded[3..5], &[0, 42]); // Player index (big endian)
+    fn login_rejects_truncated_headers_and_rsa_frames() {
+        #[cfg(before_647)]
+        let payload = login_payload(123);
+        #[cfg(since_647)]
+        let payload = login_payload(false, 0);
+        #[cfg(before_647)]
+        let end = payload.len();
+        #[cfg(since_647)]
+        let end = 6 + u16::from_be_bytes([payload.data[4], payload.data[5]]) as usize;
+        for len in 0..end {
+            let result = LoginBlock::decode(
+                Packet::from(payload.data[..len].to_vec()),
+                &KEY,
+                #[cfg(before_647)]
+                {
+                    let start = if payload.data[0] == 255 { 4 } else { 2 };
+                    getcrc(&payload.data[start..start + 36], 0, 36)
+                },
+                #[cfg(since_647)]
+                false,
+            );
+            assert!(result.is_err(), "accepted truncation at {len}");
+        }
+        let mut string = Packet::from(vec![65; 32]);
+        assert!(read_string(&mut string, 0, 320).is_err());
     }
 
+    #[cfg(since_647)]
     #[test]
-    fn test_login_response_failed() {
-        let response = LoginResponse::failed(LoginResponseCode::InvalidCredentials);
-        assert_eq!(response.code, 3);
+    fn account_services_share_the_rsa_and_xtea_envelope() {
+        for create in [false, true] {
+            let mut rsa = Packet::new(256);
+            rsa.p1(10);
+            for key in SEED {
+                rsa.p4(key);
+            }
+            rsa.pos += 42;
+            rsa.rsaenc(RsaFrame::Short, &KEY);
+            let mut body = Packet::new(512);
+            body.pjstr("Player@Example.com", 0);
+            if create {
+                body.p2(12);
+                body.pjstr("PassWord£", 0);
+                body.p8(100);
+                body.p1(0);
+                body.p1(0);
+                body.pos += 24;
+                body.p1(1);
+                body.pjstr("additional", 0);
+                body.p1(25);
+                body.p1(1);
+            } else {
+                body.p1(0);
+            }
+            body.pos += 7;
+            let len = body.pos & !7;
+            Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
+            let mut payload = Packet::new(2 + rsa.pos + body.pos);
+            payload.p2(647);
+            payload.pdata(&rsa.data, 0, rsa.pos);
+            payload.pdata(&body.data, 0, body.pos);
+            payload.pos = 0;
+            if create {
+                let request = CreateAccountRequest::decode(payload, &KEY).unwrap();
+                assert_eq!(request.username, "player@example.com");
+                assert_eq!(request.password, "PassWord£");
+                assert_eq!(request.age, 25);
+            } else {
+                assert_eq!(
+                    CheckNameRequest::decode(payload, &KEY).unwrap().name,
+                    "player@example.com"
+                );
+            }
+        }
     }
 
+    #[cfg(since_647)]
     #[test]
-    fn test_valid_emails() {
-        assert!(is_valid_email("user@example.com"));
-        assert!(is_valid_email("user.name@example.com"));
-        assert!(is_valid_email("user+tag@example.co.uk"));
-        assert!(is_valid_email("a@b.cc"));
-        assert!(is_valid_email("user-name@sub.domain.com"));
-    }
-
-    #[test]
-    fn test_invalid_emails() {
-        assert!(!is_valid_email("@@@"));
-        assert!(!is_valid_email(""));
-        assert!(!is_valid_email("noatsign"));
-        assert!(!is_valid_email("@domain.com"));
-        assert!(!is_valid_email("user@"));
-        assert!(!is_valid_email("user@@domain.com"));
-        assert!(!is_valid_email("user@domain"));
-        assert!(!is_valid_email("user@.domain.com"));
-        assert!(!is_valid_email("user@domain."));
-        assert!(!is_valid_email("user@domain.c"));
-        assert!(!is_valid_email(".user@domain.com"));
-        assert!(!is_valid_email("user.@domain.com"));
-        assert!(!is_valid_email("us..er@domain.com"));
-        assert!(!is_valid_email("user@-domain.com"));
-        assert!(!is_valid_email("user name@domain.com"));
+    fn game_login_reply_matches_the_client_fields() {
+        for level in 0..=2 {
+            assert_eq!(
+                game_login_reply(level, 0x123),
+                [2, 13, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 1]
+            );
+        }
     }
 }

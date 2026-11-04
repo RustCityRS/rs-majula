@@ -67,34 +67,21 @@ impl Engine {
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `EtherOutbound::LoginCheck`, `DbRequest::Authenticate`
     pub(crate) fn logins(&mut self) {
-        while let Ok(request) = self.new_player_rx.try_recv() {
-            // Before 647 the replies go out on the request's own handle.
-            #[cfg(before_647)]
-            let mut request = request;
+        while let Ok(mut request) = self.new_player_rx.try_recv() {
             let user37 = to_userhash(&request.username);
 
             if !self.db_ready || !self.ether_ready || self.lease_expired() {
-                #[cfg(before_647)]
                 request
                     .handle
                     .send(vec![LoginResponse::LoginServerOffline as u8]);
-                #[cfg(since_647)]
-                let _ = request
-                    .pid_tx
-                    .send(Err(LoginResponse::LoginServerOffline as u8));
                 continue;
             }
 
             let ip = request.remote_addr.ip();
             if self.login_attempts_exceeded(ip) {
-                #[cfg(before_647)]
                 request
                     .handle
                     .send(vec![LoginResponse::TooManyAttempts as u8]);
-                #[cfg(since_647)]
-                let _ = request
-                    .pid_tx
-                    .send(Err(LoginResponse::TooManyAttempts as u8));
                 continue;
             }
 
@@ -106,14 +93,9 @@ impl Engine {
                 || self.offline_edits.contains(&user37)
                 || self.pending_logins.iter().any(|p| p.user37 == user37);
             if busy {
-                #[cfg(before_647)]
                 request
                     .handle
                     .send(vec![LoginResponse::AlreadyLoggedIn as u8]);
-                #[cfg(since_647)]
-                let _ = request
-                    .pid_tx
-                    .send(Err(LoginResponse::AlreadyLoggedIn as u8));
                 continue;
             }
 
@@ -149,14 +131,9 @@ impl Engine {
                     played: Vec::new(),
                 });
             } else {
-                #[cfg(before_647)]
                 request
                     .handle
                     .send(vec![LoginResponse::LoginServerOffline as u8]);
-                #[cfg(since_647)]
-                let _ = request
-                    .pid_tx
-                    .send(Err(LoginResponse::LoginServerOffline as u8));
             }
         }
 

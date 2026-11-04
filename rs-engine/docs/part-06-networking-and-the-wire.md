@@ -983,8 +983,8 @@ active (they are not encrypted):
 | 9    | `TooManyConnections` |      |                    |
 | 10   | `BadSession`         |      |                    |
 
-`ServiceOpcode::GameLogin = 14` (`lib.rs:32`) is the top-level service byte; this codebase implements only the
-game-login service.
+`HandshakeType` in `rs-server/src/socket.rs` selects login and cache services. Revision 647 also
+dispatches lobby login and the account-service stubs. Login blocks decode in `rs-protocol/src/login.rs`.
 
 ```mermaid
 sequenceDiagram

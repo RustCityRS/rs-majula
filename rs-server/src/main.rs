@@ -17,6 +17,7 @@ use rs_util::os::{disable_huge_pages, raise_open_files, raise_thread_priority, s
 use std::collections::HashMap;
 use std::fs;
 use std::io::IsTerminal;
+use std::mem::{replace, take};
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
@@ -1423,6 +1424,7 @@ async fn engine_tick(
 
 pub struct Socket {
     socket_type: SocketType,
+    read_buf: Vec<u8>,
     pub addr: SocketAddr,
     pub server_io: ServerIO,
     pub guard: ConnectionGuard,
@@ -1449,6 +1451,7 @@ impl Socket {
     ) -> Self {
         Self {
             socket_type: SocketType::Tcp(stream),
+            read_buf: Vec::new(),
             addr,
             server_io,
             guard,
@@ -1466,6 +1469,7 @@ impl Socket {
     ) -> Self {
         Self {
             socket_type: SocketType::WebSocket(Box::new(stream)),
+            read_buf: Vec::new(),
             addr,
             server_io: server_state,
             guard,
@@ -1475,6 +1479,24 @@ impl Socket {
     }
 
     pub async fn read(&mut self) -> Result<Option<Vec<u8>>> {
+        if !self.read_buf.is_empty() {
+            return Ok(Some(take(&mut self.read_buf)));
+        }
+        self.read_transport().await
+    }
+
+    pub async fn read_exact(&mut self, len: usize) -> Result<Vec<u8>> {
+        while self.read_buf.len() < len {
+            let Some(bytes) = self.read_transport().await? else {
+                bail!("{}: connection closed", self.addr);
+            };
+            self.read_buf.extend_from_slice(&bytes);
+        }
+        let remaining = self.read_buf.split_off(len);
+        Ok(replace(&mut self.read_buf, remaining))
+    }
+
+    async fn read_transport(&mut self) -> Result<Option<Vec<u8>>> {
         match &mut self.socket_type {
             SocketType::Tcp(stream) => {
                 let mut buf = vec![0u8; 512];

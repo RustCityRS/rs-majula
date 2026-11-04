@@ -244,8 +244,7 @@ impl Engine {
         profile: Option<PlayerProfile>,
     ) -> Option<HarnessClient> {
         let pid = self.player_list.next_pid()?;
-        let io = create_io(IsaacPair::new(&SEED, &SEED));
-        let (pid_tx, _pid_rx) = tokio::sync::oneshot::channel();
+        let mut io = create_io(IsaacPair::new(&SEED, &SEED));
         let request = LoginRequest {
             handle: io.handle,
             username: username.into(),
@@ -255,7 +254,6 @@ impl Engine {
             reconnect: false,
             uid: None,
             device: rs_db::LoginDevice::default(),
-            pid_tx,
             // Fixed, the client's default: content opens `toplevel` (548) for
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
@@ -274,6 +272,11 @@ impl Engine {
                 &[],
             )
         });
+        let reply = io.bytes_rx.try_recv().expect("login response");
+        assert_eq!(reply[0], 2);
+        assert_eq!(reply[2], 0);
+        assert_eq!(reply.len(), 2 + reply[1] as usize);
+        assert_eq!(u16::from_be_bytes([reply[8], reply[9]]), pid);
         Some(HarnessClient {
             pid,
             packet_tx: io.packet_tx,
