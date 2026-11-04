@@ -247,7 +247,7 @@ impl From<c647::NpcType> for NpcType {
             moverestrict: MoveRestrict::try_from(n.move_restrict).unwrap_or(MoveRestrict::Normal),
             attackrange: u8::try_from(n.attack_range).unwrap_or(u8::MAX),
             blockwalk: BlockWalk::try_from(n.block_walk).unwrap_or(BlockWalk::Npc),
-            huntmode: (n.hunt_mode > 0).then_some(n.hunt_mode as u16),
+            huntmode: (n.hunt_mode > 0).then_some(n.hunt_mode),
             defaultmode: NpcMode::try_from(n.default_mode).unwrap_or(NpcMode::None),
             members: n.members,
             patrol: n.patrol.map(|p| {

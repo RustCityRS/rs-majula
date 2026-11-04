@@ -103,3 +103,20 @@ fn every_2011_song_and_jingle_has_a_length() {
         assert!(lengths[10152].is_some_and(|t| t > 1), "quest complete 1");
     });
 }
+
+/// An npc keeps its 289 hunt mode. The server's hunt modes are numbered after
+/// the 2011 cache's 397 hunt ids (`cowardly` is 404), and the npc packer wrote
+/// the mode in one byte (opcode 209): 404 came back as 148, an empty 2011 hunt,
+/// and no npc hunted. The green dragon's is `cowardly`, a player hunt.
+#[test]
+fn an_npc_keeps_its_hunt_mode() {
+    runner::on_loaded_engine(|engine| {
+        let cowardly = pack_ids("hunt")["cowardly"];
+        assert!(cowardly > 255, "cowardly is hunt {cowardly}");
+        let dragon = pack_ids("npc")["green_dragon"];
+        let mode = engine.cache.npcs.get_by_id(dragon).and_then(|t| t.huntmode);
+        assert_eq!(mode, Some(cowardly), "green_dragon's huntmode");
+        let hunt = engine.cache.hunts.get_by_id(cowardly).expect("hunt 404");
+        assert_eq!(hunt.hunt_type, rs_pack::types::HuntModeType::Player);
+    });
+}

@@ -19,6 +19,26 @@
 [ai_opplayer2,red_dragon] @dragon_ai_opplayer2;
 [ai_opplayer2,black_dragon] @dragon_ai_opplayer2;
 
+// 2011's other chromatic dragons, 4669-4684 (cache 786 names each a Red, Black,
+// Green or Blue dragon), take 289's dragon configs (npc_clones_2011.npc: void-634's
+// clones, or the 2011 npc of that name and level), so they fight as 289's do.
+[ai_opplayer2,red_dragon_4669] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon_4670] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon_4671] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon_4672] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4673] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4674] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4675] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4676] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4677] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4678] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4679] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4680] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4681] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4682] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4683] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4684] @dragon_ai_opplayer2;
+
 // edit: elvarg was reworked after the dragon slayer rework.
 // [label,dragon_ai_applayer2]
 // // mes("<tostring(map_clock)>: Ap");

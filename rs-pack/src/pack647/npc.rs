@@ -1039,14 +1039,15 @@ pub fn pack_npcs(
                 }
             }
         }
-        // Opcode 209: huntmode
+        // Opcode 209: huntmode, two bytes: the server's hunt modes come after
+        // the 2011 cache's 397 hunt ids, so they do not fit in one.
         if let Some((_, v)) = prop_list.iter().find(|(k, _)| k == "huntmode") {
             if let Some(hunt_id) = registry.hunt.get_by_name(v) {
                 server.p1(209);
-                server.p1(hunt_id as u8);
-            } else if let Ok(val) = v.parse::<u8>() {
+                server.p2(hunt_id as u16);
+            } else if let Ok(val) = v.parse::<u16>() {
                 server.p1(209);
-                server.p1(val);
+                server.p2(val);
             } else {
                 warn!("Unknown huntmode '{}' for [{}]", v, name);
             }

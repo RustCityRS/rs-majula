@@ -14,6 +14,7 @@
 use crate::active_player::EnginePlayer;
 use crate::clients::client_game::create_io;
 use crate::engine::{Engine, LoginRequest, engine_mut};
+use crate::phases::shared::EntityId;
 use crate::player_save::PlayerProfile;
 use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_entity::{EntityLifeTime, Obj, Player};
@@ -297,12 +298,33 @@ impl Engine {
 
     /// Moves a player as `p_telejump` does: placed, not walked, and the
     /// client's scene rebuilt around the new tile on the next tick.
+    ///
+    /// The game moves a player inside the input or player phase, which then
+    /// moves it between zones (`check_zones_and_collision`); this runs outside
+    /// both, so it does that itself. Without it the player stayed in its old
+    /// zone, where a zone scan (an npc's hunt) never found it.
     pub fn harness_telejump(&mut self, pid: u16, x: u16, y: u8, z: u16) {
         let engine = self as *mut Engine;
         rs_vm::engine::with_engine(self, || {
-            if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
-                active.tele_jump(CoordGrid::new(x, y, z));
-            }
+            let engine = unsafe { &mut *engine };
+            let Some(active) = engine.get_player_mut(pid) else {
+                return;
+            };
+            let prev = active.player.pathing.coord;
+            active.tele_jump(CoordGrid::new(x, y, z));
+            let (next, size, block_walk) = (
+                active.player.pathing.coord,
+                active.player.pathing.size,
+                active.player.block_walk,
+            );
+            Engine::check_zones_and_collision(
+                &mut engine.zones,
+                prev,
+                next,
+                EntityId::Player(pid),
+                size,
+                block_walk,
+            );
         });
     }
 

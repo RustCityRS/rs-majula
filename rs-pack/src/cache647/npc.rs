@@ -104,7 +104,7 @@ pub struct NpcType {
     pub move_restrict: u8,
     pub attack_range: u16,
     pub block_walk: u8,
-    pub hunt_mode: u8,
+    pub hunt_mode: u16,
     pub default_mode: u8,
     pub members: bool,
     pub patrol: Option<Box<[(i32, u8)]>>,
@@ -525,7 +525,7 @@ impl NpcType {
             206 => self.move_restrict = buf.g1(),
             207 => self.attack_range = buf.g2(),
             208 => self.block_walk = buf.g1(),
-            209 => self.hunt_mode = buf.g1(),
+            209 => self.hunt_mode = buf.g2(),
             210 => self.default_mode = buf.g1(),
             211 => self.members = true,
             212 => {
