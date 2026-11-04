@@ -77,7 +77,9 @@ if ($king_worm_count = 4 & $onion_count = 2 & $gnome_spice_count = 1 & $total = 
 }
 // tangled toad legs
 if ($toad_legs_count = 4 & $cheese_count = 2 & $equa_leaves_count = 2 & $gnome_spice_count = 2 & $dwellberry_count = 1 & $total = 11) {
-    stat_advance(cooking, 600); // finishes the cuisine
+    // 289 pays with stat_advance, here and below; 2011's xp counter
+    // counts what ~givexp pays (player/scripts/xp.rs2).
+    ~givexp(cooking, 600); // finishes the cuisine
     return(tangled_toads__legs);
 }
 return(spoilt_gnomebowl);

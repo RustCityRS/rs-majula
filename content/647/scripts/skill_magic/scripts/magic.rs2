@@ -106,7 +106,9 @@ if ($rune_count3 > 0) {
 }
 
 [proc,give_spell_xp](dbrow $spell_data)
-stat_advance(magic, db_getfield($spell_data, magic_spell_table:experience, 0));
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(magic, db_getfield($spell_data, magic_spell_table:experience, 0));
 
 // spells that convert one item into another are generalized
 // spell dbrows with the convertobj field are spells that convertobj

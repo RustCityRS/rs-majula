@@ -52,11 +52,13 @@ if (%action_delay = calc(map_clock + 3)) {
 } else if (%action_delay = map_clock) {
     if (stat_random(fishing, 100, 250) = true) {
         inv_add(inv, raw_karambwanji, 1);
-        stat_advance(fishing, 50);
+        // 289 pays with stat_advance, here and below; 2011's xp counter
+        // counts what ~givexp pays (player/scripts/xp.rs2).
+        ~givexp(fishing, 50);
         mes("You catch a Karambwanji.");
     } else if (stat_random(fishing, 48, 256) = true) {
         inv_add(inv, raw_shrimps, 1);
-        stat_advance(fishing, 100);
+        ~givexp(fishing, 100);
         mes("You catch some shrimp.");
     }
 }
@@ -87,11 +89,11 @@ if (%action_delay < map_clock) {
     anim(human_smallnet, 0);
     if (stat_random(fishing, 100, 250) = true) {
         inv_add(inv, raw_karambwanji, 1);
-        stat_advance(fishing, 50);
+        ~givexp(fishing, 50);
         mes("You catch a Karambwanji.");
     } else if (stat_random(fishing, 48, 256) = true) {
         inv_add(inv, raw_shrimps, 1);
-        stat_advance(fishing, 100);
+        ~givexp(fishing, 100);
         mes("You catch some shrimp.");
     }
 }
@@ -128,7 +130,7 @@ if (stat_random(fishing, 5, 160) = true) {
     inv_del(inv, tbwt_karambwan_vessel_loaded_with_karambwanji, 1);
     inv_add(inv, karambwan_vessel, 1);
     inv_add(inv, raw_karambwan, 1);
-    stat_advance(fishing, 1050);
+    ~givexp(fishing, 1050);
     mes("You catch a Karambwan!");
 } else {
     mes("A Karambwan deftly snatches the Karambwanji from your vessel!");

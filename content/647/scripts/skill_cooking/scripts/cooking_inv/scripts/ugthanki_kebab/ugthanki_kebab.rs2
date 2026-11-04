@@ -132,4 +132,6 @@ if (stat_random(cooking, 118, 492) = false) { // ash: "46% at level 1, 193% at l
 inv_add(inv, ugthanki_kebab_1885, 1);
 mes("You make a delicious ugthanki kebab.");
 // gives 120 xp each, the case in rsc too. https://web.archive.org/web/20040905213850/http://www.runehq.com/CookingSkillGuide.php
-stat_advance(cooking, 1200);
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(cooking, 1200);

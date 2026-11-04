@@ -17,6 +17,8 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 
 const MINING: usize = 14;
+/// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
+const XP_COUNTER: u16 = 1801;
 const ROCK: (u16, u16, u16) = (9708, 2977, 3247);
 const DEPLETED: u16 = 9723;
 
@@ -76,6 +78,7 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
         player.stats.levels[MINING] = level;
         player.stats.base_levels[MINING] = level;
         let xp = player.stats.xp[MINING];
+        let counter = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
 
@@ -103,6 +106,11 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
             rock.0
         );
         assert_eq!(player.stats.xp[MINING] - xp, exp, "{ore_name}'s rock_exp");
+        assert_eq!(
+            player.vars.get(XP_COUNTER).as_int() - counter,
+            exp * 10,
+            "2011's xp counter counts the {ore_name}"
+        );
         assert_eq!(
             said.first().map(String::as_str),
             Some("You swing your pick at the rock.")

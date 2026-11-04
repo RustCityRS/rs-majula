@@ -69,7 +69,9 @@ if ($spicy_worm_count = 1 & $cheese_count = 1 & $total = 2) {
 }
 // toad legs batta
 if ($seasoned_toad_legs_count = 1 & $cheese_count = 1 & $total = 2) {
-    stat_advance(cooking, 600); // finish
+    // 289 pays with stat_advance, here and below; 2011's xp counter
+    // counts what ~givexp pays (player/scripts/xp.rs2).
+    ~givexp(cooking, 600); // finish
     return(toad_batta);
 }
 // cheese & tomato batta

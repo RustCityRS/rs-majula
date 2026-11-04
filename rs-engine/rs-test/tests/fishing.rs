@@ -27,6 +27,8 @@ use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 
 const FISHING: usize = 10;
+/// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
+const XP_COUNTER: u16 = 1801;
 const SPOT: u16 = 4908;
 const KARAMBWANJI: u16 = 1174;
 const KARAMBWAN: u16 = 1177;
@@ -66,6 +68,7 @@ fn a_2011_spot_gives_shrimps() {
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&inv).unwrap().set(0, net, 1);
         let xp = player.stats.xp[FISHING];
+        let counter = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
 
@@ -92,6 +95,11 @@ fn a_2011_spot_gives_shrimps() {
             "one raw shrimp; the game said {said:?}"
         );
         assert_eq!(player.stats.xp[FISHING] - xp, 100, "shrimps' productexp");
+        assert_eq!(
+            player.vars.get(XP_COUNTER).as_int() - counter,
+            1000,
+            "2011's xp counter counts the shrimps"
+        );
         assert_eq!(
             said.first().map(String::as_str),
             Some("You cast out your net...")

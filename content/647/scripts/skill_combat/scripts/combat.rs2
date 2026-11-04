@@ -97,28 +97,30 @@ def_int $base = $damage;
 if(npc_type = black_knight_titan) { 
     switch_int($damagestyle) {
         case ^style_melee_accurate :
-            stat_advance(attack, $base);
+            // 289 pays with stat_advance, here and below; 2011's xp counter
+            // counts what ~givexp pays (player/scripts/xp.rs2).
+            ~givexp(attack, $base);
         case ^style_melee_aggressive :
-            stat_advance(strength, $base);
+            ~givexp(strength, $base);
         case ^style_melee_defensive :
-            stat_advance(defence, $base);
+            ~givexp(defence, $base);
         case ^style_melee_controlled :
-            stat_advance(attack, $base);
-            stat_advance(strength, $base);
-            stat_advance(defence, $base);
+            ~givexp(attack, $base);
+            ~givexp(strength, $base);
+            ~givexp(defence, $base);
         case ^style_ranged_accurate, ^style_ranged_rapid :
-            stat_advance(ranged, $base);
+            ~givexp(ranged, $base);
         case ^style_ranged_longrange :
-            stat_advance(ranged, $base);
-            stat_advance(defence, $base);
+            ~givexp(ranged, $base);
+            ~givexp(defence, $base);
         case ^style_magic_normal :
-            stat_advance(magic, $base);
+            ~givexp(magic, $base);
         case ^style_magic_defensive :
-            stat_advance(magic, $base);
-            stat_advance(defence, $base);
+            ~givexp(magic, $base);
+            ~givexp(defence, $base);
         case default : return;
     }
-    stat_advance(hitpoints, scale(133, 100, $base));
+    ~givexp(hitpoints, scale(133, 100, $base));
     return;
 } else if (npc_type = newbiegiantrat) { // on sailing release you could attack sailing npcs on tutorial island for xp... So its probably an npc type check
     switch_int($damagestyle) {
@@ -148,28 +150,28 @@ if(npc_type = black_knight_titan) {
 } else {
     switch_int($damagestyle) {
         case ^style_melee_accurate :
-            stat_advance(attack, scale($multiplier, 1000, scale(400, 100, $base)));
+            ~givexp(attack, scale($multiplier, 1000, scale(400, 100, $base)));
         case ^style_melee_aggressive :
-            stat_advance(strength, scale($multiplier, 1000, scale(400, 100, $base)));
+            ~givexp(strength, scale($multiplier, 1000, scale(400, 100, $base)));
         case ^style_melee_defensive :
-            stat_advance(defence, scale($multiplier, 1000, scale(400, 100, $base)));
+            ~givexp(defence, scale($multiplier, 1000, scale(400, 100, $base)));
         case ^style_melee_controlled :
-            stat_advance(attack, scale($multiplier, 1000, scale(133, 100, $base)));
-            stat_advance(strength, scale($multiplier, 1000, scale(133, 100, $base)));
-            stat_advance(defence, scale($multiplier, 1000, scale(133, 100, $base)));
+            ~givexp(attack, scale($multiplier, 1000, scale(133, 100, $base)));
+            ~givexp(strength, scale($multiplier, 1000, scale(133, 100, $base)));
+            ~givexp(defence, scale($multiplier, 1000, scale(133, 100, $base)));
         case ^style_ranged_accurate, ^style_ranged_rapid :
-            stat_advance(ranged, scale($multiplier, 1000, scale(400, 100, $base)));
+            ~givexp(ranged, scale($multiplier, 1000, scale(400, 100, $base)));
         case ^style_ranged_longrange :
-            stat_advance(ranged, scale($multiplier, 1000, scale(200, 100, $base)));
-            stat_advance(defence, scale($multiplier, 1000, scale(200, 100, $base)));
+            ~givexp(ranged, scale($multiplier, 1000, scale(200, 100, $base)));
+            ~givexp(defence, scale($multiplier, 1000, scale(200, 100, $base)));
         case ^style_magic_normal :
-            stat_advance(magic, scale($multiplier, 1000, scale(200, 100, $base)));
+            ~givexp(magic, scale($multiplier, 1000, scale(200, 100, $base)));
         case ^style_magic_defensive :
-            stat_advance(magic, scale($multiplier, 1000, scale(133, 100, $base)));
-            stat_advance(defence, scale($multiplier, 1000, scale(100, 100, $base)));
+            ~givexp(magic, scale($multiplier, 1000, scale(133, 100, $base)));
+            ~givexp(defence, scale($multiplier, 1000, scale(100, 100, $base)));
         case default : return;
     }
-    stat_advance(hitpoints, scale($multiplier, 1000, scale(133, 100, $base)));
+    ~givexp(hitpoints, scale($multiplier, 1000, scale(133, 100, $base)));
 }
 
 

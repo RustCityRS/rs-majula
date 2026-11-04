@@ -24,6 +24,9 @@ use std::collections::HashMap;
 
 const COW: u16 = 12362;
 const ATTACK: usize = 0;
+const HITPOINTS: usize = 3;
+/// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
+const XP_COUNTER: u16 = 1801;
 const COW_LIFE_POINTS: u16 = 80;
 const UNARMED_MAX_HIT: u16 = 14;
 /// 2011's field cow covers 2x2 tiles (its cache config's `size`).
@@ -65,6 +68,13 @@ fn a_fight_runs_on_life_points() {
             engine.cycle();
         }
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK];
+        let hp_xp = engine.harness_player(client.pid).unwrap().stats.xp[HITPOINTS];
+        let counter = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .vars
+            .get(XP_COUNTER)
+            .as_int();
 
         let mut p = ClientPacket::new();
         p.p1_alt1(0).ip2_alt1(nid as i32);
@@ -82,6 +92,15 @@ fn a_fight_runs_on_life_points() {
         );
         let gained = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK] - xp;
         assert_eq!(gained, dealt as i32 * 4, "4 tenths of xp per life point");
+        // 2011's xp counter (varp 1801) counts both, ten for each xp `~givexp` pays.
+        let player = engine.harness_player(client.pid).unwrap();
+        let hp_gained = player.stats.xp[HITPOINTS] - hp_xp;
+        assert!(hp_gained > 0, "Constitution xp for the hit");
+        assert_eq!(
+            player.vars.get(XP_COUNTER).as_int() - counter,
+            (gained + hp_gained) * 10,
+            "2011's xp counter counts the fight's xp"
+        );
     });
 }
 

@@ -31,7 +31,9 @@ if ($ingredient ! $req_ingredient) {
 inv_add(inv, $product, 1);
 
 if (oc_param($product, gnome_cooking_type) = null) { // finished
-    stat_advance(cooking, 300);
+    // 289 pays with stat_advance, here and below; 2011's xp counter
+    // counts what ~givexp pays (player/scripts/xp.rs2).
+    ~givexp(cooking, 300);
 }
 
 

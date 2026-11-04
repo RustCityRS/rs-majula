@@ -143,7 +143,9 @@ if (random($chance) = ^true) {
         $output = perfect__gold_ore;
     }
     inv_add(inv, $output, 1);
-    stat_advance(mining, db_getfield($data, mining_table:rock_exp, 0));
+    // 289 pays with stat_advance, here and below; 2011's xp counter
+    // counts what ~givexp pays (player/scripts/xp.rs2).
+    ~givexp(mining, db_getfield($data, mining_table:rock_exp, 0));
     mes("You manage to mine some <db_getfield($data, mining_table:ore_name, 0)>.");
     return;
 }
@@ -180,7 +182,7 @@ if (random($chance) = ^true) {
     // 289 plays `mine` here ("Sudden says its mine"); its 2011 id is not known.
     anim(null, 0);
     inv_add(inv, db_getfield($data, mining_table:rock_output, 0), 1);
-    stat_advance(mining, db_getfield($data, mining_table:rock_exp, 0));
+    ~givexp(mining, db_getfield($data, mining_table:rock_exp, 0));
     mes("You manage to mine some <db_getfield($data, mining_table:ore_name, 0)>.");
     return;
 }
@@ -195,7 +197,7 @@ if ($data = null) {
     return;
 }
 inv_add(inv, db_getfield($data, mining_table:rock_output, 0), 1);
-stat_advance(mining, db_getfield($data, mining_table:rock_exp, 0));
+~givexp(mining, db_getfield($data, mining_table:rock_exp, 0));
 // mes("You manage to mine an unbound rune stone."); probably removed with law altar?
 p_oploc(3);
 
@@ -229,7 +231,7 @@ if (stat_random(mining, $low, $high) = true) {
     def_int $count;
     $gem, $count = ~roll_on_drop_table(gem_rock_table);
     inv_add(inv, $gem, 1);
-    stat_advance(mining, db_getfield($data, mining_table:rock_exp, 0));
+    ~givexp(mining, db_getfield($data, mining_table:rock_exp, 0));
 
     db_find(gem_cutting_table:uncut_gem, $gem);
     $data = db_findnext;
