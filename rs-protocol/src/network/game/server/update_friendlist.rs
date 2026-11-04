@@ -1,6 +1,8 @@
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
+use crate::network::game::server_prot_message::ServerProtMessageInfo;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::jstr_len;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;

@@ -51,6 +51,7 @@ use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::cache::{CacheStore, VarValue};
+#[cfg(since_647)]
 use rs_pack::startup::InterfaceLayout;
 use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
@@ -4528,6 +4529,8 @@ impl ScriptEngine for Engine {
         let dz = (dst_z as i32 - z as i32) as i8;
         #[cfg(before_254)]
         let (src_height, dst_height) = (src_height << 2, dst_height << 2);
+        #[cfg(since_647)]
+        let arc = u16::from(arc);
         let message = ZoneMessage::MapProjAnim(
             rs_protocol::network::game::server::map_projanim::MapProjAnim {
                 coord,
@@ -4540,7 +4543,7 @@ impl ScriptEngine for Engine {
                 start_delay: start,
                 end_delay: end,
                 peak,
-                arc: arc.into(),
+                arc,
             },
         );
         self.zones.zone_mut(x, y, z).map_proj_anim(message);

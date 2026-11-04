@@ -1,3 +1,4 @@
+#[cfg(since_647)]
 use crate::markup::markup;
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
