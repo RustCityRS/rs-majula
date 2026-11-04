@@ -2,9 +2,11 @@
 scope=perm
 transmit=yes
 
+// 289's Tai Bwo Wannai Trio sub-varps (321-325 at 289). Their 2011 client
+// ids are not known, so these are server-only (2181 up), and a server-only
+// varp is never sent: the client has 2181 varps.
 [tbwt_tiadeche]
 scope=perm
-transmit=yes
 
 [tbwt_tinsay]
 scope=perm

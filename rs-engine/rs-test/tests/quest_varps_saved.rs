@@ -37,3 +37,30 @@ fn every_shared_quest_varp_is_saved() {
         assert!(temp.is_empty(), "quest varps a save would drop: {temp:?}");
     });
 }
+
+/// Tai Bwo Wannai Trio's sub-varps, 289's 321-325, whose 2011 client ids are
+/// not known: each is registered past the client's 2181 varps, saved, and
+/// never sent (a varp the client lacks breaks its login).
+#[test]
+fn tai_bwo_wannai_trios_varps_are_server_only_and_saved() {
+    runner::on_loaded_engine(|engine| {
+        for name in [
+            "tbwt_tiadeche",
+            "tbwt_tinsay",
+            "tbwt_tamayu",
+            "tbwt_lubufu",
+            "tbwt_bits",
+        ] {
+            let id = *engine
+                .cache
+                .varps
+                .debugnames
+                .get(name)
+                .unwrap_or_else(|| panic!("{name} is not registered"));
+            assert!(id >= 2181, "{name} ({id}) is past the client's varps");
+            let varp = engine.cache.varps.get_by_id(id).unwrap();
+            assert_eq!(varp.scope, VarPlayerScope::Perm, "{name} is saved");
+            assert!(!varp.transmit, "{name} is never sent");
+        }
+    });
+}
