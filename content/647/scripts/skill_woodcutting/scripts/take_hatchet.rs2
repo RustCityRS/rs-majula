@@ -6,13 +6,15 @@
 // respawn) mechanic our trees use to deplete to a stump and grow back. Global
 // (shared) respawn, like all RS ground spawns.
 //
-// Both locs are already in the map landscape at (3232, 3296); this was just
-// missing its [oploc1] handler. Symbol names from ref/rs3/config/dump.loc.
+// 36974 is in the map landscape at (3232, 3296) (cache 786; 36975 is placed
+// nowhere, it is only swapped to); this was just missing its [oploc1]
+// handler. Symbol names from ref/rs3/config/dump.loc.
 //
-// Faithful to OSRS (captured via rsprox): the interaction always plays synth
-// `take_axe` (647 synth 2733); if you already own any axe you get the plain
-// mesbox "You already have an axe."; otherwise the bronze axe is added and shown
-// in an objbox. Sound 2733 verified from a live OSRS sound_synth packet.
+// After OSRS (captured via rsprox), not 2011: if you already own any axe you
+// get a plain mesbox (OSRS's "You already have an axe.", here "You already
+// have a hatchet."); otherwise the bronze axe is added, synth `take_axe`
+// plays and it is shown in an objbox. 2733 is the id of OSRS's live
+// sound_synth packet; no 2011 source found for the sound id or the messages.
 
 [oploc1,fai_lumbridge_log_withaxe]
 if (~has_axe = true) {

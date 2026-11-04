@@ -1,7 +1,8 @@
 // 289's tables, with 2011's trees and its dragon hatchet. Each dragon_hatchet
 // chance is void-634's: its Woodcutting.kt hatchet steps over
 // log.tables.toml, which give 289's own numbers for bronze to rune.
-// 289's tree3 and deadtree3 (1279, 1290) are no locs in 2011.
+// 289's tree3 and deadtree3 (1279, 1290) are no trees in 2011: cache 786
+// has them nameless and opless (loc_1279, loc_1290).
 [normal_tree_table]
 table=woodcutting_trees
 data=tree,tree_1276

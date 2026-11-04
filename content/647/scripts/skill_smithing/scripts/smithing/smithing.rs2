@@ -2,7 +2,8 @@
 // anvil interface, smithing_new (300, cache 786). 289 transmitted the products
 // in inv columns (smithing.inv) and its interface coloured their names and bars
 // itself from %modified_smith and %smithbars. 2011's has a slot per product,
-// with Make All, X, 5 and 1 under it, and no script of its own: the server
+// with Make All, X, 5 and 1 under it, and no script to fill them (its one
+// onload, cs2 870, places its scrollbar): the server
 // puts each product in its slot (if_setobject) and colours its name and bars,
 // as void-634's Anvil.kt does. smithing.dbtable gives each of 289's products
 // its slot; the buttons below find the product by the slot and the bar.
@@ -141,12 +142,13 @@ if ($data = null) {
     return;
 }
 if ($count = ^smithing_make_x) {
-    // 2011 asks how many (void-634's Anvil.kt, "Enter amount:").
+    // 2011's Make X (cache 786) asks how many, as void-634's Anvil.kt does
+    // ("Enter amount:").
     p_countdialog;
     if (last_int <= 0) return;
     $count = last_int;
 } else if ($count = ^smithing_make_all) {
-    // 2011 makes as many as the bars make (void-634's Anvil.kt).
+    // As many as the bars make, as void-634's Anvil.kt makes.
     $count = divide(inv_total(inv, db_getfield($data, smithing:bar, 0)), db_getfield($data, smithing:bar_amount, 0));
 }
 @attempt_smithing(db_getfield($data, smithing:ifproduct, 0), $count);
@@ -354,7 +356,8 @@ if (stat(smithing) < $levelrequired) {
 }
 // play anim and sound
 // 2011's human_smithing (seq 898) strikes the anvil itself: its frames 11 and
-// 23 play synth 3190 (cache 786), and void-634's Anvil.kt sends no sound.
+// 23 each play one of synths 3190, 3188 and 3189 at random (cache 786), and
+// void-634's Anvil.kt sends no sound.
 // 289's anvil_4 is left out, here and below.
 anim(human_smithing, 0);
 // sound_synth(anvil_4, 1, 0);

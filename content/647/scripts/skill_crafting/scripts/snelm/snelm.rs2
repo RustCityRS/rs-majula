@@ -1,7 +1,7 @@
 // 289's snelms (skill_crafting/scripts/snelm/snelm.rs2), their objs as 2011
-// names them (configs/snelm/snelm.obj). The chisel's sound is 2011's (synth
-// 2586, as gem cutting has it). snelm_reduction serves Mort Myre's snails,
-// which wait for their port.
+// names them (configs/snelm/snelm.obj). The chisel's sound is void-634's
+// cut_gem (synth 2586, as gem cutting has it). snelm_reduction serves Mort
+// Myre's snails, which wait for their port.
 [opheldu,_category_3]
 if(last_useitem = chisel) @craft_snelm(last_item);
 ~displaymessage(^dm_default);

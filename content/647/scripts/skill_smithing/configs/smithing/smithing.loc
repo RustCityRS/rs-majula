@@ -1,7 +1,10 @@
 // 289's anvils (skill_smithing/configs/smithing/smithing.loc) on 2011's: the
-// locs named Anvil in cache 786 that 2011 smiths at, outside Daemonheim and
-// Barbarian Training. 289's anvil (2783), doric_anvil (2782) and viking_anvil
-// (4306) keep their ids; the rest are 2011's. Their examines moved here from
+// locs named Anvil in cache 786 that are placed in the decoded map, outside
+// Daemonheim (37316 and the 50195+ anvils) and the Ancient Cavern of
+// Barbarian Training (39458 and 40200, by its rough hewn steps and dragon
+// heads); 24744 and 24765 are placed nowhere. 289's anvil (2783),
+// doric_anvil (2782) and viking_anvil (4306) keep their ids; the rest are
+// 2011's. Their examines moved here from
 // examine.loc; those examine.loc lacked take 289's anvil's. 289's
 // forceapproach and model are the client's, so they are left to the cache.
 

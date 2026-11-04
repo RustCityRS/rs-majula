@@ -2,9 +2,9 @@
 // wheels and pottery ovens (potters_wheels.loc). 289's seqs keep their ids
 // (human_potterywheel 883, the oven's 1317, the furnace's 899, placeholders
 // for the last two: the unpacked seqs are keyed by them). The wheel's sound is
-// 2011's pottery (synth 2588, void-634's crafting.sounds.toml), the oven's
-// 2011's furnace (2725, as smelting has it); sound ids moved between 289 and
-// 2011.
+// void-634's pottery (synth 2588, crafting.sounds.toml), the oven's
+// void-634's smelt_bar (2725, as smelting has it); sound ids moved between
+// 289 and 2011.
 [opheldu,clay]
 switch_obj (last_useitem)
 {

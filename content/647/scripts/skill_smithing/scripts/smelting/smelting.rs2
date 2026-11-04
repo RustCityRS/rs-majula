@@ -1,5 +1,6 @@
-// 289's smelting on 2011's furnaces. 289's human_furnace and furnace sound
-// are 2011's seq 899 and synth 2725 (void-634's furnace_smelt and smelt_bar).
+// 289's smelting on 2011's furnaces. 289's human_furnace keeps its id, seq
+// 899 (void-634's furnace_smelt); its furnace sound is void-634's smelt_bar,
+// synth 2725 (no cache source: seq 899 carries no sound).
 // The seq keeps its placeholder name, seq_899: the unpacked seqs are keyed by
 // it, so a new name would lose the seq's data.
 [oplocu,_smithing_furnace]
@@ -51,9 +52,13 @@ if(loc_type = viking_furnace) { // 289's viking_furnace2 (4305) is nameless in 2
 [label,smelting_interface]
 // https://youtu.be/IKcLMkk50VU?si=9nCY28zLperwnJgM&t=62, interface was always brought up originally
 // osrs will auto make a single bar if you have ores for only 1 in inventory
-// 2011 asks in its make-X dialogue (skillmulti2010, void-634's Furnace.kt
-// "Make"), where 289 opened its own smelting interface with Make 1/5/10/X
-// under each bar; the amount is chosen in the dialogue's number panel.
+// This asks in the make-X dialogue (skillmulti2010), as void-634's Furnace.kt
+// does ("Make"), where 289 opened its own smelting interface with Make
+// 1/5/10/X under each bar; the amount is chosen in the dialogue's number
+// panel. No source found that 2011's furnaces opened skillmulti2010: cache
+// 786 still has a smelting interface like 289's, 941 ("What would you like to
+// smelt?", Smelt 1/5/10/X under each of nine bars), which void-634 calls
+// dungeoneering_smelt.
 def_namedobj $bar;
 def_int $count;
 $bar, $count = ~skill_make10(^skill_make_text, ^skill_make_make, 28, bronze_bar, iron_bar, silver_bar, steel_bar, gold_bar, mithril_bar, adamant_bar, rune_bar, null, null);
@@ -61,8 +66,9 @@ if ($bar = null | $count < 1) return;
 @smelt_ore($bar, $count);
 
 // 289's smelting interface buttons ([if_button,smelting:com_12] to com_43,
-// Make 1/5/10/X per bar) and @smelt_ore_makex have no 2011 counterpart: the
-// make-X dialogue above chooses the bar and the amount together.
+// Make 1/5/10/X per bar) and @smelt_ore_makex are not ported (cache 786's
+// 941, above, has their layout): the make-X dialogue above chooses the bar
+// and the amount together.
 
 [label,smelt_ore_single](obj $last)
 def_namedobj $bar = oc_param($last, smeltsto);

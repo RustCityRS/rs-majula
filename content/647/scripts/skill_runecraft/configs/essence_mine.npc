@@ -1,7 +1,9 @@
 // 289's way out of the essence mine is a loc, blankrunestone_exit_portal
 // (2492). In 2011 that loc is "Compacted snow" with no op, left where the
-// four portals stood, and the portals are these four npcs: "Portal", op1
-// Enter, each name in its own near-cyan.
+// four portals stood (cache 786), and the portals are these four npcs:
+// "Portal", op1 Enter, each name in its own near-cyan. The cache has no npc
+// spawns there, so their standing on the snow's four tiles (maps/spawns
+// n45_75) is inferred; void-634 still has 2492 as the portal loc.
 [col_00ffff_portal__col]
 desc=A portal from this mystical place.
 category=blankrunestone_exit_portal

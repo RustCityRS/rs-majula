@@ -47,7 +47,7 @@ if (%action_delay = calc(map_clock + 3)) {
     mes("You cast out your net...");
     anim(human_smallnet, 0);
     // 289 plays `net` here; 2011's fishing animations carry
-    // their own splash (synths 4990-4994), which the client plays.
+    // their own splash (synths 4990-4995), which the client plays.
     p_opnpc(4);
 } else if (%action_delay = map_clock) {
     if (stat_random(fishing, 100, 250) = true) {
@@ -122,9 +122,9 @@ if (inv_freespace(inv) < 1) {
 // https://youtu.be/vVAfKCvmrz4?si=t3jLmmVAP_Jp1ht-&t=105 6t here, prob no interaction loop
 anim(human_octopus_pot, 0);
 mes("You lower the Karambwan vessel.");
-// 289 plays `fishing_cast` here. 2011's human_octopus_pot carries no splash,
-// unlike its other fishing animations, and fishing_cast's 2011 id is not
-// known, so it is left out.
+// 289 plays `fishing_cast` here. 2011's human_octopus_pot carries no splash
+// (its frame 5 plays synth 2600, not one of 4990-4995 as its other fishing
+// animations do), and fishing_cast's 2011 id is not known, so it is left out.
 p_delay(5);
 if (stat_random(fishing, 5, 160) = true) {
     inv_del(inv, tbwt_karambwan_vessel_loaded_with_karambwanji, 1);

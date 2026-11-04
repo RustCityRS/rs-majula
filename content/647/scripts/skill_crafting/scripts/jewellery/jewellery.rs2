@@ -137,7 +137,8 @@ def_int $dragonstone_total = inv_total(inv, dragonstone);
 // emptied the slot (inv_delslot) where not; 2011 shows the item in its model
 // and its button over it, or 289's black stand-in with no button. 289's
 // if_setobject zooms (110, 100, 75) are 2011's counts: 2011 zooms each item
-// as its obj does.
+// as its obj does (the 647 client's IF_SETOBJECT reads a count and takes
+// the zoom from the obj's zoom2d).
 if (inv_total(inv, ring_mould) > 0) {
     if_sethide(crafting_gold:com17, true); // hide "You need a ring mould to craft rings."
     if_sethide(crafting_gold:com18, false);
@@ -320,8 +321,9 @@ if ($gem = dragonstone) {
         return;
     }
 }
-// 2011's Make X asks how many (void-634's Jewellery.kt, "Enter amount:"); its
-// Make All makes as many as the bars and gems make.
+// 2011's Make X (op4 in cache 786) asks how many, as void-634's Jewellery.kt
+// does ("Enter amount:"); its Make All makes as many as the bars and gems
+// make.
 if ($count = ^crafting_make_x) {
     p_countdialog;
     if (last_int <= 0) return;
@@ -356,8 +358,8 @@ if (afk_event = ^true) {
 def_int $productexp = struct_param($struct, productexp);
 def_namedobj $product = struct_param($struct, product);
 if_close;
-// 289's human_furnace and furnace sound are 2011's seq 899 and synth 2725, as
-// smelting has them (smelting.rs2).
+// 289's human_furnace keeps its id, seq 899, and its furnace sound is
+// void-634's smelt_bar, synth 2725, as smelting has them (smelting.rs2).
 anim(seq_899, 0);
 sound_synth(furnace, 1, 0);
 p_delay(2);
@@ -487,8 +489,8 @@ if (inv_total(inv, $mould) > 0) {
 
 // 289's craft_silver from its choice on.
 [label,craft_silver_make](namedobj $product, int $count)
-// 2011's Make X asks how many (void-634's SilverCasting.kt); its Make All makes
-// as many as the bars make.
+// 2011's Make X (op4 in cache 786) asks how many, as void-634's
+// SilverCasting.kt does; its Make All makes as many as the bars make.
 if ($count = ^crafting_make_x) {
     p_countdialog;
     if (last_int <= 0) return;

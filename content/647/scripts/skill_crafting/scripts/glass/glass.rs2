@@ -2,11 +2,12 @@
 // pits (sandpit.loc), glass at the furnace (smelting.rs2) and glassblowing.
 // 289's seqs keep their ids under their placeholder names (the unpacked seqs
 // are keyed by them): the glassblower 884, the
-// furnace 899. The furnace's sound is 2011's furnace (synth 2725, as smelting
-// has it); sound ids moved between 289 and 2011.
+// furnace 899. The furnace's sound is void-634's smelt_bar (synth 2725, as
+// smelting has it); sound ids moved between 289 and 2011.
 //
 // 2011's glassblowing also makes fishbowls, lantern lenses, light orbs and
-// candle and oil lanterns, which 289 does not; they wait for their port.
+// candle and oil lanterns, which 289 does not; they wait for their port (2011
+// wiki, Glassblowing pipe, 26 March 2011, lists all but the oil lantern).
 [oplocu,_sand_pit]
 if (last_useitem = bucket) @sand_fill;
 ~displaymessage(^dm_default);

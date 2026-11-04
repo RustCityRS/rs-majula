@@ -94,8 +94,8 @@ def_int $mining_rate = oc_param($pickaxe, mining_rate);
 
 // sounds and skill anim is based off https://youtu.be/ix4_VVi9Xm4
 // 289 plays `mine_quick` on every swing. The 2011 swing animations carry the
-// clink themselves (seq 625's frame 5 picks one of five synths), and the client
-// plays it, so a second sound here would double it.
+// clink themselves (seq 625's frame 5 picks one of six synths, 2876-2881),
+// and the client plays it, so a second sound here would double it.
 
 // if roll is due
 if (%action_delay < map_clock) {

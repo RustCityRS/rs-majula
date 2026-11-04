@@ -81,8 +81,10 @@ if (stat(cooking) < $levelrequired) {
     ~mesbox($levelrequired_message);
     return;
 }
-// 2011 asks how many, as void-634's Cooking does, when more than one is held;
-// 289 cooks one per use.
+// 2011 asks how many when more than one is held (2011 wiki, Cooking, 18 May
+// 2011: "a picture of the food item will appear in the dialogue box"), as
+// void-634's Cooking does; 289 cooks one per use. The prompt text is
+// void-634's.
 def_int $count = 1;
 if (inv_total(inv, $uncooked_item) > 1) {
     def_namedobj $chosen;
@@ -94,8 +96,8 @@ if (inv_total(inv, $uncooked_item) > 1) {
 @cook_items($uncooked_item, $data, $count);
 
 // One cook, as 289's attempt_cook_item goes on, then the next while the
-// count, the raw food and the fire or range last: 2011 cooks one every four
-// ticks (void-634's Cooking).
+// count, the raw food and the fire or range last: one every four ticks, as
+// void-634's Cooking does (no 2011 source found for the four ticks).
 [label,cook_items](obj $uncooked_item, dbrow $data, int $count)
 def_coord $source_coord = loc_coord;
 def_loc $source = loc_type;

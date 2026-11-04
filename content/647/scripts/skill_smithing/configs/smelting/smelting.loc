@@ -1,9 +1,10 @@
 // 289's furnaces (skill_smithing/configs/smelting/smelting.loc) on 2011's:
 // 289's furnace1 and furnace2 (2781, 2785) are no furnaces in 2011, which
-// smelts at the locs below (cache 786: named Furnace with a Smelt op, outside
-// Daemonheim). The tutorial, Legends' Quest and Underground Pass furnaces
-// keep 289's ids. 289's forceapproach is the client's, so it is left to
-// the cache.
+// smelts at the locs below (cache 786: named Furnace with a Smelt op, placed
+// in the map outside Daemonheim; 11010, 12809, 30510 and 36956 are placed
+// nowhere in the decoded map, and viking_furnace is quest_viking's). The
+// tutorial, Legends' Quest and Underground Pass furnaces keep 289's ids.
+// 289's forceapproach is the client's, so it is left to the cache.
 
 [newbiefurnace]
 desc=A hot place for forging things in.
@@ -36,7 +37,8 @@ category=smithing_furnace
 [furnace_37651]
 category=smithing_furnace
 
-// Lumbridge's, from the 2009 rebuild
+// Lumbridge's (3226,3256); no source found for its coming from a 2009
+// rebuild
 [furnace_45310]
 desc=A hot furnace.
 category=smithing_furnace

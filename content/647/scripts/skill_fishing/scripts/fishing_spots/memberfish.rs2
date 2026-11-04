@@ -31,7 +31,7 @@ if (%action_delay = calc(map_clock + 4)) {
     mes("You start Harpooning fish.");
     anim(human_harpoon, 0);
     // 289 plays `fishing_cast` here; 2011's fishing animations carry
-    // their own splash (synths 4990-4994), which the client plays.
+    // their own splash (synths 4990-4995), which the client plays.
     p_opnpc(5);
 } else if (%action_delay = map_clock) { 
     anim(human_harpoon, 0);
@@ -95,7 +95,7 @@ if (%action_delay = calc(map_clock + 3)) {
     mes("You cast out your net...");
     anim(human_largenet, 0);
     // 289 plays `net` here; 2011's fishing animations carry
-    // their own splash (synths 4990-4994), which the client plays.
+    // their own splash (synths 4990-4995), which the client plays.
     p_opnpc(4);
 } else if (%action_delay = map_clock) { 
     ~fish_roll_big_net;

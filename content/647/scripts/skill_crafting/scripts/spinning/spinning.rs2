@@ -3,8 +3,8 @@
 // and the wheel's turning (seq 466) keep their ids, which 2011's cache still
 // has, under their placeholder names (the unpacked seqs are keyed by them);
 // void-634 spins with seq 896, which is 289's human_cooking, so 289's stays.
-// The sound is 2011's spinning (synth 2590, void-634's crafting.sounds.toml);
-// sound ids moved between 289 and 2011.
+// The sound is void-634's spinning (synth 2590, crafting.sounds.toml); sound
+// ids moved between 289 and 2011.
 [oplocu,_spinning_wheel]
 if(loc_type = viking_spinningwheel) {
     if(%viking < ^viking_complete) {

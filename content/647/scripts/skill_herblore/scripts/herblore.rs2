@@ -6,8 +6,9 @@
 def_int $experience = oc_param($identified_herb, identified_herb_exp);
 inv_setslot(inv, $slot, $identified_herb, 1);
 // 289 names the herb here (identified_herb_message, "This herb is a Guam Leaf.").
-// 2011's herbs are grimy, already named, and Clean says nothing: void-634's
-// HerbCleaning, as the 2007 game.
+// 2011's herbs are grimy and already named (cache 786: "Grimy guam", op
+// Clean; 2011 wiki, Herblore), and Clean says nothing, as in void-634's
+// HerbCleaning (no 2011 source found for the silence).
 ~givexp(herblore, $experience);
 
 /** Brew a potion. */

@@ -102,10 +102,11 @@ if ($axe = null) {
 // sound on first chop
 anim(oc_param($axe, woodcutting_anim), 0);
 // 289 plays `woodchop` here. 2011's chopping animations carry the chop
-// themselves (seq 879's frame 7 picks one of synths 2869, 2873 and 2875), and
+// themselves (seq 879's frame 7 picks one of synths 2870, 2873, 2875 and
+// 2869: the client picks the head's or a tail's at random), and
 // the client plays it, so a second sound would double it.
 // 2011 says hatchet (2011 wiki, Woodcutting: "You swing your hatchet at the
-// tree."); at ivy it swings at the ivy (void-634 Woodcutting.kt).
+// tree."); "at the ivy" at ivy is void-634's (Woodcutting.kt).
 if ($product = null) {
     mes("You swing your hatchet at the ivy.");
 } else {
@@ -275,7 +276,7 @@ if (($obj1 = bronze_hatchet | inv_total(inv, bronze_hatchet) > 0) & $level > 0) 
 // https://imgur.com/Cj7w6y9
 // https://imgur.com/fnmlJ7R
 if ($print_mes = true) {
-    // 289: "You do not have an axe which you have the level to use." 2011's
+    // 289: "You do not have an axe which you have the level to use." This
     // wording is void-634's (Woodcutting.kt).
     mes("You do not have a hatchet which you have the woodcutting level to use.");
 }

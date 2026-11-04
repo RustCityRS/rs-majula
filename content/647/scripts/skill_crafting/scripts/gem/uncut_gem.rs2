@@ -1,8 +1,9 @@
 // 289's gem cutting (skill_crafting/scripts/gem/uncut_gem.rs2), its objs as
 // 2011 names them. 289's gem seqs keep their ids and names (885-892); the
-// chisel's sound is 2011's (synth 2586, void-634's crafting.sounds.toml
-// cut_gem), which takes 289's name in synth.pack. Sound ids moved between 289
-// and 2011.
+// chisel's sound is void-634's cut_gem (synth 2586, crafting.sounds.toml),
+// which takes 289's name in synth.pack. Sound ids moved between 289 and 2011.
+// 2011's gem seqs carry a sound of their own too (cache 786: frames 6, 10
+// and 14 each play one of synths 3596, 3602 and 3600).
 [opheldu,chisel]
 switch_obj (last_useitem)
 {

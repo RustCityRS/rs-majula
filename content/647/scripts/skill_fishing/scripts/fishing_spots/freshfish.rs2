@@ -47,7 +47,7 @@ if (%action_delay = calc(map_clock + 3)) {
 }
 if (%action_delay = calc(map_clock + 2)) {
     // 289 plays `fishing_cast` here; 2011's fishing animations carry
-    // their own splash (synths 4990-4994), which the client plays.
+    // their own splash (synths 4990-4995), which the client plays.
     mes("You attempt to catch a fish.");
 }
 p_opnpc(4);
@@ -113,7 +113,7 @@ if (%action_delay = calc(map_clock + 3)) {
 }
 if (%action_delay = calc(map_clock + 2)) {
     // 289 plays `fishing_cast` here; 2011's fishing animations carry
-    // their own splash (synths 4990-4994), which the client plays.
+    // their own splash (synths 4990-4995), which the client plays.
     mes("You attempt to catch a fish.");
 }
 p_opnpc(5);
