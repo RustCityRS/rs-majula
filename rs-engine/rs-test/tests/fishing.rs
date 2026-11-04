@@ -8,6 +8,11 @@
 //! up. The catch's numbers come from 289's `fishing_struct_shrimps`, a
 //! server-only struct, which only loads since structs past the cache's range
 //! are appended at startup.
+//!
+//! 289's karambwan fishing (tbwt.rs2) at 2011's Karamja spots: the
+//! karambwanji spot nets karambwanji or shrimps; a karambwan spot refuses a
+//! player Lubufu has not taught, and takes the loaded vessel from one he has.
+//! And 289's Fishing Guild master fisher turns away a player below 68.
 
 #![cfg(since_647)]
 
@@ -15,15 +20,25 @@
 mod client_packet;
 
 use client_packet::ClientPacket;
+use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 
 const FISHING: usize = 10;
 const SPOT: u16 = 4908;
+const KARAMBWANJI: u16 = 1174;
+const KARAMBWAN: u16 = 1177;
+const MASTER_FISHER: u16 = 308;
+
+// The cases share one loaded engine and each starts with a reset, which would
+// log the others' fishers out: one at a time.
+static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 #[test]
 fn a_2011_spot_gives_shrimps() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let net = *engine
             .cache
@@ -84,6 +99,258 @@ fn a_2011_spot_gives_shrimps() {
         assert_eq!(
             said.last().map(String::as_str),
             Some("You catch some shrimps.")
+        );
+    });
+}
+
+/// The spawned npc `id` nearest `near`: its nid and tile.
+fn spot(engine: &Engine, id: u16, near: (u16, u16)) -> (u16, u16, u16) {
+    engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .filter(|n| n.npc.uid.id() == id)
+        .map(|n| (n.npc.uid.nid(), n.npc.pathing.coord))
+        .map(|(nid, c)| (nid, c.x(), c.z()))
+        .min_by_key(|&(_, x, z)| x.abs_diff(near.0) as u32 + z.abs_diff(near.1) as u32)
+        .unwrap_or_else(|| panic!("npc {id} is spawned"))
+}
+
+/// A player beside `(x, z)` at Fishing `level`, holding `held`, its login
+/// packets drained.
+fn fisher(
+    engine: &mut Engine,
+    name: &str,
+    (x, z): (u16, u16),
+    level: u16,
+    held: &[&str],
+) -> HarnessClient {
+    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let held: Vec<u16> = held
+        .iter()
+        .map(|o| *engine.cache.objs.debugnames.get(*o).unwrap())
+        .collect();
+    engine.harness_reset();
+    let mut client = engine.harness_login_returning(name).expect("login");
+    engine.cycle();
+    let (sx, sz) = (1..=3i32)
+        .flat_map(|r| (-r..=r).flat_map(move |dx| (-r..=r).map(move |dz| (dx, dz))))
+        .map(|(dx, dz)| {
+            (
+                x.wrapping_add_signed(dx as i16),
+                z.wrapping_add_signed(dz as i16),
+            )
+        })
+        .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+        .expect("a walkable tile beside the spot");
+    engine.harness_telejump(client.pid, sx, 0, sz);
+    let player = engine.harness_player_mut(client.pid).unwrap();
+    for (slot, obj) in (0u16..).zip(held.iter()) {
+        player.invs.get_mut(&inv).unwrap().set(slot, *obj, 1);
+    }
+    player.stats.levels[FISHING] = level;
+    player.stats.base_levels[FISHING] = level;
+    engine.cycle();
+    client.packets();
+    client
+}
+
+fn op_npc1(client: &mut HarnessClient, nid: u16) {
+    let mut p = ClientPacket::new();
+    p.p1_alt2(0).p2(nid as i32);
+    client.send(ClientProt::OpNpc1, &p.finish());
+}
+
+/// Every IF_SETTEXT's text in `packets`: what a mesbox or chat line says.
+fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
+    let opcode = ServerProt::IfSetText as u16;
+    packets
+        .iter()
+        .filter(|(op, _)| *op == opcode)
+        .map(|(_, p)| {
+            let end = p[4..]
+                .iter()
+                .position(|&b| b == 0)
+                .map_or(p.len(), |i| 4 + i);
+            String::from_utf8_lossy(&p[4..end]).into_owned()
+        })
+        .collect()
+}
+
+/// Cycles up to `n` ticks, or until `done`: the game messages and the texts set.
+fn run(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    n: usize,
+    done: impl Fn(&Engine) -> bool,
+) -> (Vec<String>, Vec<String>) {
+    let (mut said, mut texts) = (Vec::new(), Vec::new());
+    for _ in 0..n {
+        engine.cycle();
+        let packets = client.packets();
+        said.extend(
+            HarnessClient::game_messages(&packets)
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+        texts.extend(settexts(&packets));
+        if done(engine) {
+            break;
+        }
+    }
+    (said, texts)
+}
+
+/// 289's tbwt.rs2 at 2011's Karamja spots: npc 1174 nets karambwanji (or
+/// shrimps), as 289's `category_632`.
+#[test]
+fn a_karambwanji_spot_nets_karambwanji_or_shrimps() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let karambwanji = *engine.cache.objs.debugnames.get("raw_karambwanji").unwrap();
+        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimps").unwrap();
+        let (nid, x, z) = spot(engine, KARAMBWANJI, (2791, 3019));
+        let mut client = fisher(engine, "netter", (x, z), 5, &["small_fishing_net"]);
+        let pid = client.pid;
+        let xp = engine.harness_player(pid).unwrap().stats.xp[FISHING];
+        op_npc1(&mut client, nid);
+        let caught = |e: &Engine| {
+            let b = e.harness_player(pid).unwrap().invs.get(&inv).unwrap();
+            b.total(karambwanji) + b.total(shrimps) > 0
+        };
+        let (said, _) = run(engine, &mut client, 200, caught);
+        let player = engine.harness_player(pid).unwrap();
+        let backpack = player.invs.get(&inv).unwrap();
+        assert_eq!(
+            said.first().map(String::as_str),
+            Some("You cast out your net..."),
+            "{said:?}"
+        );
+        if backpack.total(karambwanji) == 1 {
+            assert_eq!(player.stats.xp[FISHING] - xp, 50);
+            assert_eq!(
+                said.last().map(String::as_str),
+                Some("You catch a Karambwanji.")
+            );
+        } else {
+            assert_eq!(
+                backpack.total(shrimps),
+                1,
+                "a catch; the game said {said:?}"
+            );
+            assert_eq!(player.stats.xp[FISHING] - xp, 100);
+            assert_eq!(
+                said.last().map(String::as_str),
+                Some("You catch some shrimp.")
+            );
+        }
+    });
+}
+
+/// A karambwan spot (npc 1177) turns a player away until Lubufu has taught
+/// the vessel (Tai Bwo Wannai Trio, not ported: 289's `%tbwt_lubufu`).
+#[test]
+fn a_karambwan_spot_wants_lubufus_teaching() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (nid, x, z) = spot(engine, KARAMBWAN, (2899, 3119));
+        let mut client = fisher(
+            engine,
+            "vesseller",
+            (x, z),
+            65,
+            &["tbwt_karambwan_vessel_loaded_with_karambwanji"],
+        );
+        op_npc1(&mut client, nid);
+        let (said, texts) = run(engine, &mut client, 20, |_| false);
+        assert!(
+            texts
+                .iter()
+                .any(|t| t == "You don't even know how to use the vessel!"),
+            "the mesbox; texts {texts:?}, said {said:?}"
+        );
+    });
+}
+
+/// Once taught, the loaded vessel goes down and comes up five ticks later with
+/// a karambwan or without its bait, empty either way.
+#[test]
+fn a_taught_player_lowers_the_karambwan_vessel() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let empty = *engine
+            .cache
+            .objs
+            .debugnames
+            .get("karambwan_vessel")
+            .unwrap();
+        let karambwan = *engine.cache.objs.debugnames.get("raw_karambwan").unwrap();
+        let (nid, x, z) = spot(engine, KARAMBWAN, (2899, 3119));
+        let mut client = fisher(
+            engine,
+            "apprentice",
+            (x, z),
+            65,
+            &["tbwt_karambwan_vessel_loaded_with_karambwanji"],
+        );
+        let pid = client.pid;
+        let lubufu = *engine.cache.varps.debugnames.get("tbwt_lubufu").unwrap();
+        engine
+            .harness_player_mut(pid)
+            .unwrap()
+            .vars
+            .set(lubufu, rs_pack::cache::VarValue::Int(31));
+        op_npc1(&mut client, nid);
+        let emptied = |e: &Engine| {
+            e.harness_player(pid)
+                .unwrap()
+                .invs
+                .get(&inv)
+                .unwrap()
+                .total(empty)
+                > 0
+        };
+        let (said, _) = run(engine, &mut client, 30, emptied);
+        let backpack = engine.harness_player(pid).unwrap().invs.get(&inv).unwrap();
+        assert_eq!(
+            backpack.total(empty),
+            1,
+            "the vessel comes back; said {said:?}"
+        );
+        assert_eq!(
+            said.first().map(String::as_str),
+            Some("You lower the Karambwan vessel.")
+        );
+        let last = said.last().map(String::as_str);
+        if backpack.total(karambwan) == 1 {
+            assert_eq!(last, Some("You catch a Karambwan!"));
+        } else {
+            assert_eq!(
+                last,
+                Some("A Karambwan deftly snatches the Karambwanji from your vessel!")
+            );
+        }
+    });
+}
+
+/// 289's Fishing Guild master fisher, at 2011's guild: below 68 he turns the
+/// player away.
+#[test]
+fn the_master_fisher_turns_away_a_low_level() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (nid, x, z) = spot(engine, MASTER_FISHER, (2613, 3394));
+        let mut client = fisher(engine, "hopeful", (x, z), 1, &[]);
+        op_npc1(&mut client, nid);
+        let (_, texts) = run(engine, &mut client, 20, |_| false);
+        assert!(
+            texts
+                .iter()
+                .any(|t| t.contains("only the top fishers are allowed")),
+            "texts {texts:?}"
         );
     });
 }
