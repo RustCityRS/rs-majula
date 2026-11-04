@@ -64,3 +64,25 @@ while ($i < 20) {
 }
 assert_gt($worst, 50);
 assert_lte($worst, 500);
+
+// Under antifire (289's anti_fire.rs2 sets %dragonresist) an unprotected
+// breath is 150 less: at most 350 (289's 35), and in twenty breaths past 50.
+[label,test_dragonfire_under_antifire_takes_at_most_350]
+def_player_uid $uid = setup_player("test_player");
+p_telejump(0_50_50_40_48);
+stat_advance(hitpoints, 130344310);
+npc_add(movecoord(coord, 3, 0, 0), green_dragon, 100);
+def_int $worst = 0;
+def_int $i = 0;
+while ($i < 20) {
+    %life_points = 990;
+    %dragonresist = add(map_clock, 600);
+    ~dragon_fire;
+    test_tick(2);
+    if_close;
+    assert_true(p_finduid($uid));
+    $worst = max($worst, sub(990, %life_points));
+    $i = add($i, 1);
+}
+assert_gt($worst, 50);
+assert_lte($worst, 350);
