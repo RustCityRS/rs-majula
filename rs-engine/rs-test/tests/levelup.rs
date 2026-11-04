@@ -160,6 +160,19 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
             is_open(engine, &client, LEVELUP_DETAILS),
             "lvl_scroll; said {said:?}"
         );
+        // In the full-size slot like the guide: its root is the same
+        // backdrop sized to its parent.
+        let player = engine.harness_player(client.pid).unwrap();
+        let wide = match player.toplevel {
+            548 => 8,
+            746 => 6,
+            other => panic!("toplevel {other}"),
+        };
+        assert_eq!(
+            player.modal_main_parent,
+            (player.toplevel as i32) << 16 | wide,
+            "lvl_scroll in the full-size slot"
+        );
         assert_eq!(
             varp(engine, &client, LEVEL_UP_DETAILS),
             8,
