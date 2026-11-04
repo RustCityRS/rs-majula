@@ -1,4 +1,10 @@
 [label,pvm_dragon_spear_sa]
+// 289's Castle Wars check waits for the Castle Wars port.
+// if (npc_category = castlewars_barricade) {
+//     mes("You can't use this special attack on the barricades.");
+//     %sa_attack = ^false;
+//     return;
+// }
 p_stopaction;
 ~set_sa_vars(oc_param(inv_getobj(worn, ^wearpos_rhand), sa_energy));
 // 289's shove gfx is spotanim 253, which 2011's cache no longer has

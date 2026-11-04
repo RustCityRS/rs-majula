@@ -375,11 +375,15 @@ param=rangebonus,31
 param=levelrequire,30
 param=proj_launch,fire_arrow_launch
 param=proj_travel,fire_arrow_travel
-param=next_obj_stage,adamant_litarrow
+param=next_obj_stage,adamant_fire_arrows_2539
 param=unlit_arrow,^true
 
-[adamant_litarrow]
-desc=These adamant headed arrows are ablaze with fire.
+// 289's adamant_litarrow, obj 2539, which 289 names "Adamnt fire arrows": 2011's
+// lit adamant fire arrows, 2539 (cache 786: "Adamant fire arrows", the litarrow
+// models). Its examine is 2011's (void-634's, as general/configs/examine.obj
+// gave it).
+[adamant_fire_arrows_2539]
+desc=An easy to make, adamant-headed fire arrow.
 wearpos=quiver
 weight=18g
 category=arrows

@@ -185,3 +185,20 @@ if ($shield ! null & oc_param($shield, defend_anim) ! human_unarmed_def & (map_m
     return(oc_param($weapon, defend_anim));
 }
 return(human_unarmedblock);
+
+// returns the block sound to use, depending on armour
+// 289's block sounds are cache 786's synths of the same bytes (synth.pack names
+// them, the armour's configs give them). An armour without one has the param's
+// default, 289's human_hit, which is 647's human_hit4 (npc_combat.param).
+// 289's last resort, human_block_1, matches no cache 786 synth: no 2011 id is
+// known for it, so a block without armour stays silent (sound_synth skips null).
+[proc,combat_defend_sound](obj $shield)(synth)
+def_obj $body = inv_getobj(worn, ^wearpos_torso);
+
+if ($shield ! null & oc_param($shield, defend_sound) ! human_hit4 & (map_members ! ^false | oc_members($shield) = true)) {
+    return(oc_param($shield, defend_sound));
+} else if ($body ! null & oc_param($body, defend_sound) ! human_hit4 & (map_members ! ^false | oc_members($body) = true)) {
+    return(oc_param($body, defend_sound));
+}
+// return(human_block_1);
+return(null);

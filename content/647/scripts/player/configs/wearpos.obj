@@ -14,6 +14,8 @@ wearpos=hat
 [khazard_armour]
 desc=Armour, as worn by the minions of General Khazard.
 wearpos=torso
+// 289's block sound (quests/quest_arena/configs/quest_arena.obj)
+param=defend_sound,blade3
 
 [pendant_of_lucien]
 desc=An amulet made by Lucien.
@@ -439,20 +441,28 @@ wearpos=legs
 [leather_body]
 desc=Better than no armour!
 wearpos=torso
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [hardleather_body]
 desc=Harder than normal leather.
 wearpos=torso
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [studded_body]
 desc=Those studs should provide a bit more protection.
 wearpos=torso
 // 289's studding key (skill_crafting/configs/leather/leather_gear.obj)
 param=crafting_studded_struct,studded_body
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [green_d_hide_body]
 desc=Made from 100% real dragonhide.
 wearpos=torso
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [leather_cowl]
 desc=Better than no armour!
@@ -481,10 +491,6 @@ wearpos=hands
 [gas_mask]
 desc=Stops me from breathing nasty stuff!
 wearpos=hat
-
-[anti_dragon_shield]
-desc=This provides partial protection from dragonbreath attacks.
-wearpos=lefthand
 
 [stake]
 desc=A very pointy stick.
@@ -658,14 +664,20 @@ wearpos=legs
 [blue_d_hide_body]
 desc=Made from 100% real dragonhide.
 wearpos=torso
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [red_d_hide_body]
 desc=Made from 100% real dragonhide.
 wearpos=torso
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [black_d_hide_body]
 desc=Made from 100% real dragonhide.
 wearpos=torso
+// 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
+param=defend_sound,leather_hit
 
 [a_stone_bowl]
 desc=This is an empty stone bowl.
@@ -678,6 +690,8 @@ wearpos=righthand
 [elemental_shield]
 desc=A shield made in the Elemental Workshop.
 wearpos=lefthand
+// 289's block sound (quests/quest_elemental_workshop/configs/quest_elemental_workshop.obj)
+param=defend_sound,blade4
 
 [boots]
 desc=Very stylish!
@@ -1008,6 +1022,8 @@ wearpos=righthand
 [fremennik_shield]
 desc=A shield worn by Fremennik warriors.
 wearpos=lefthand
+// 289's block sound (quests/quest_viking/configs/viking.obj)
+param=defend_sound,wood_armour3_1
 
 [fremennik_cloak]
 desc=The latest fashion in Rellekka.

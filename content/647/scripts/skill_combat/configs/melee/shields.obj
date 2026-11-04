@@ -9,6 +9,7 @@ param=crushdefence,3
 param=magicdefence,1
 param=rangedefence,4
 param=defend_anim,human_shield_defence
+param=defend_sound,wood_armour3_1
 
 [bronze_sq_shield]
 desc=A medium square shield.
@@ -23,6 +24,7 @@ param=slashdefence,6
 param=crushdefence,4
 param=rangedefence,5
 param=defend_anim,human_shield_defence
+param=defend_sound,brassclash
 
 [iron_sq_shield]
 desc=An iron square shield.
@@ -36,6 +38,8 @@ param=slashdefence,9
 param=crushdefence,7
 param=rangedefence,8
 param=defend_anim,human_shield_defence
+// 289's brassclash2: cache 786's 1976, its bytes (647's brassclash2, 513, is another sound)
+param=defend_sound,synth_1976
 
 [steel_sq_shield]
 desc=A medium square shield.
@@ -49,6 +53,7 @@ param=slashdefence,13
 param=crushdefence,11
 param=rangedefence,12
 param=defend_anim,human_shield_defence
+param=defend_sound,blade4
 
 [black_sq_shield]
 desc=A medium square shield.
@@ -62,6 +67,7 @@ param=slashdefence,16
 param=crushdefence,14
 param=rangedefence,15
 param=defend_anim,human_shield_defence
+param=defend_sound,blade5
 
 [mithril_sq_shield]
 desc=A medium square shield.
@@ -75,6 +81,7 @@ param=slashdefence,19
 param=crushdefence,15
 param=rangedefence,17
 param=defend_anim,human_shield_defence
+param=defend_sound,swordclash2
 
 [adamant_sq_shield]
 desc=A medium square shield.
@@ -88,6 +95,7 @@ param=slashdefence,26
 param=crushdefence,22
 param=rangedefence,24
 param=defend_anim,human_shield_defence
+param=defend_sound,swordclash5
 
 [rune_sq_shield]
 desc=A medium square shield.
@@ -101,6 +109,7 @@ param=slashdefence,40
 param=crushdefence,36
 param=rangedefence,38
 param=defend_anim,human_shield_defence
+param=defend_sound,swordclash6
 
 [dragon_sq_shield]
 desc=An ancient and powerful looking Dragon Square shield.
@@ -114,9 +123,14 @@ param=slashdefence,52
 param=crushdefence,48
 param=rangedefence,50
 param=defend_anim,human_shield_defence
+param=defend_sound,swordclash6
 
-[antidragonbreathshield]
-desc=This shield is said to have magical properties against dragon flames.
+// 289's antidragonbreathshield, obj 1540, which 289 names "Dragonfire shield":
+// 2011's anti-dragon shield, 1540 (the 2011 wiki's Anti-dragon shield, 22 May
+// 2011: "formerly named the dragonfire shield"). Its examine is 2011's
+// (void-634's, as player/configs/wearpos.obj gave it).
+[anti_dragon_shield]
+desc=This provides partial protection from dragonbreath attacks.
 wearpos=lefthand
 category=armour_shield
 weight=12lb
@@ -126,6 +140,8 @@ param=crushdefence,8
 param=magicdefence,2
 param=rangedefence,8
 param=defend_anim,human_shield_defence
+// 289's brassclash2: cache 786's 1976, its bytes (647's brassclash2, 513, is another sound)
+param=defend_sound,synth_1976
 
 [granite_shield]
 desc=A solid stone shield.
@@ -139,3 +155,4 @@ param=slashdefence,42
 param=crushdefence,38
 param=magicdefence,-2
 param=rangedefence,65
+param=defend_sound,stone_armour1

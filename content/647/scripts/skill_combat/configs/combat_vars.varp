@@ -28,6 +28,12 @@ protect=no
 protect=no
 type=seq
 
+// 289's armourhitsound is its varp 375; 786's varp 375 is the client's, so this
+// one is server-only.
+[armourhitsound]
+protect=no
+type=synth
+
 [com_magicattack]
 protect=no
 

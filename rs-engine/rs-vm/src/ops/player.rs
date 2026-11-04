@@ -1350,6 +1350,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if player.lowmem() || synth == -1 {
                 return Ok(());
             }
+            #[cfg(since_647)]
+            if crate::ops::test::recording() {
+                let arg = format!("{synth},{loops},{delay}");
+                crate::ops::test::record_call(SOUND_SYNTH, "sound_synth", &arg);
+            }
             player.sound_synth(synth as u16, loops, delay);
         });
 
