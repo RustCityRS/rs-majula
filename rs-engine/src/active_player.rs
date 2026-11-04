@@ -619,6 +619,10 @@ impl ActivePlayer {
             let z = zone_coord.z().wrapping_sub(origin_z) as u8;
             #[cfg(since_647)]
             let level = zone_coord.y();
+            // Rev-647 zone headers carry the zone index, as in `update_zones`:
+            // a tile offset here put every change outside the build area.
+            #[cfg(since_647)]
+            let (x, z) = (x >> 3, z >> 3);
             if let Some(bytes) = zone.shared_bytes() {
                 #[cfg(before_647)]
                 self.write(UpdateZonePartialEnclosed { x, z, bytes });
