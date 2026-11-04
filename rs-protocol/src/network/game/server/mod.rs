@@ -39,8 +39,6 @@ pub mod data_loc;
 pub mod data_loc_done;
 #[cfg(before_274)]
 pub mod enable_tracking;
-#[cfg(since_647)]
-pub mod encoder;
 #[cfg(before_274)]
 pub mod finish_tracking;
 #[cfg(since_254)]
@@ -230,9 +228,5 @@ pub use crate::network::game::server_prot::ServerProt;
 pub use crate::network::game::server_prot_message::ServerProtMessageInfo;
 #[cfg(since_647)]
 pub use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
-pub use encoder::{
-    BufferedPacket, MAX_SERVER_FRAME_SIZE, encode_buffered, encode_immediate, encode_server_packet,
-};
 #[cfg(since_647)]
 pub use server_game_zone_message::ServerGameZoneMessage;
