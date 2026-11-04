@@ -37,10 +37,10 @@ pub struct IfSetText<'a> {
 impl ServerProtMessage for IfSetText<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p4(self.com);
-        buf.pjstr(&markup(&self.text), 0);
+        buf.pjstr(&markup(self.text), 0);
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.com) + jstr_len(&markup(&self.text))
+        size_of_val(&self.com) + jstr_len(&markup(self.text))
     }
 }

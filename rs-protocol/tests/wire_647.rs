@@ -586,7 +586,7 @@ fn text_carries_2011_markup() {
 
     let settext = IfSetText {
         com: 275 << 16 | 2,
-        text: "@dre@Cook@dbl@'s Assistant".into(),
+        text: "@dre@Cook@dbl@'s Assistant",
     };
     let bytes = encode(&settext);
     assert_eq!(&bytes[4..], b"<col=800000>Cook<col=000080>'s Assistant\0");
@@ -594,7 +594,7 @@ fn text_carries_2011_markup() {
 
     let message = MessageGame {
         kind: 0,
-        text: "@str@Quest complete!".into(),
+        text: "@str@Quest complete!",
     };
     let bytes = encode(&message);
     assert_eq!(&bytes[6..], b"<str>Quest complete!\0");
@@ -613,7 +613,7 @@ fn trade_request_is_2011s_type_100() {
 
     let message = MessageGame {
         kind: 0,
-        text: "Bob Smith:tradereq:".into(),
+        text: "Bob Smith:tradereq:",
     };
     let bytes = encode(&message);
     let mut p = ClientPacket::new(&bytes);
@@ -627,7 +627,7 @@ fn trade_request_is_2011s_type_100() {
 
     let plain = MessageGame {
         kind: 0,
-        text: "Sending trade offer...".into(),
+        text: "Sending trade offer...",
     };
     let bytes = encode(&plain);
     let mut p = ClientPacket::new(&bytes);

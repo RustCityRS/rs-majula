@@ -2401,7 +2401,7 @@ impl ActivePlayer {
         #[cfg(since_647)]
         self.write(
             rs_protocol::network::game::server::synth_sound::SynthSound {
-                synth: synth,
+                synth,
                 loops,
                 delay,
                 volume: 255,

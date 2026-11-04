@@ -1,3 +1,4 @@
+use crate::markup::markup;
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
 use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
@@ -42,7 +43,7 @@ impl MessageGame<'_> {
         {
             return (100, Some(name), "wishes to trade with you.".into());
         }
-        (self.kind, None, crate::markup::markup(&self.text))
+        (self.kind, None, markup(self.text))
     }
 }
 
@@ -66,6 +67,6 @@ impl ServerProtMessage for MessageGame<'_> {
     fn sizeof(&self) -> usize {
         let (msg_type, name, text) = self.parts();
         let smart = if msg_type < 128 { 1 } else { 2 };
-        smart + 4 + 1 + name.map_or(0, |n| jstr_len(n)) + jstr_len(&text)
+        smart + 4 + 1 + name.map_or(0, jstr_len) + jstr_len(&text)
     }
 }
