@@ -271,7 +271,7 @@ impl Xtea {
 
         let delta: u32 = 0x9E3779B9;
 
-        for chunk in data.chunks_exact_mut(8) {
+        for chunk in data.as_chunks_mut::<8>().0 {
             let mut v0 = u32::from_be_bytes([chunk[0], chunk[1], chunk[2], chunk[3]]);
             let mut v1 = u32::from_be_bytes([chunk[4], chunk[5], chunk[6], chunk[7]]);
 
@@ -305,7 +305,7 @@ impl Xtea {
 
         let delta: u32 = 0x9E3779B9;
 
-        for chunk in data.chunks_exact_mut(8) {
+        for chunk in data.as_chunks_mut::<8>().0 {
             let mut v0 = u32::from_be_bytes([chunk[0], chunk[1], chunk[2], chunk[3]]);
             let mut v1 = u32::from_be_bytes([chunk[4], chunk[5], chunk[6], chunk[7]]);
 
