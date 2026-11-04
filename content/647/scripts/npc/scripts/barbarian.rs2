@@ -1,0 +1,17 @@
+[ai_opplayer2,barbarian] @barbarian_default_attack;
+// 2011 has no barbarian woman: Barbarian Village's barbarians are re-issued as
+// 17 named npcs, 3246-3263, men and women alike (cache 786; void-634's
+// barbarian_outpost.npcs.toml). 289's two barbarians are its whole barbarian
+// category, so the category keeps 289's set and takes in 2011's.
+[ai_opplayer2,_barbarian] @barbarian_default_attack;
+
+[label,barbarian_default_attack]
+if (%npc_action_delay > map_clock) return;
+// https://youtu.be/RdilejVd-cQ
+// total hits: 36 
+// hits with yeargh: 8
+// hits without: 28
+if (random(4) = 0) {
+    npc_say("YYEEEEEAAARRRRGGHHHH!!!");
+}
+~npc_default_attack;
