@@ -2,6 +2,18 @@
 [ai_queue3,dwarf_mountain] @dwarf_drop_table;
 [ai_queue3,dwarf_mountain2] @dwarf_drop_table;
 
+// 2011's Black Guards 3276-3279 by the Dwarven Mine (cache 786: "Black Guard",
+// level 25) fight as 289's dwarf_mountain (npc_clones_2011.npc: void-634's
+// combat_def dwarf_hammer). The 2011 wiki's Black Guard (18 May 2011) lists most
+// of this table (bronze pickaxe, med helm and battleaxe, iron battleaxe, bronze
+// bolts, 2 chaos and 2 nature runes, coins, hammer, bronze and iron bars, copper
+// ore, coal, gems); its bronze and black warhammers are not in 289's, which
+// stays as it is.
+[ai_queue3,black_guard_3276] @dwarf_drop_table;
+[ai_queue3,black_guard_3277] @dwarf_drop_table;
+[ai_queue3,black_guard_3278] @dwarf_drop_table;
+[ai_queue3,black_guard_3279] @dwarf_drop_table;
+
 [label,dwarf_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {

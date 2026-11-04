@@ -42,3 +42,17 @@
 [opnpc3,woman_7882] @attempt_pick_pocket(npc_type); // lumbridge_woman_3 (7882), woman
 [opnpc3,woman_7883] @attempt_pick_pocket(npc_type); // lumbridge_woman_4 (7883), woman
 [opnpc3,woman_7884] @attempt_pick_pocket(npc_type); // lumbridge_woman_5 (7884), woman
+
+// 2011's npcs that fight as 289's man, woman or guard (npc_clones_2011.npc) and
+// that the 647 cache gives Pickpocket (memberop3; op3 on 8173), so 289's
+// pickpocketing of their kind. Not the thieves, muggers, monks, crafters,
+// strangers or King Roald who fight as 289's man: the cache gives them no
+// Pickpocket.
+[opnpc3,hengel] @attempt_pick_pocket(npc_type); // hengel (2683), man
+[opnpc3,anja] @attempt_pick_pocket(npc_type); // anja (2684), woman
+[opnpc3,drunken_man] @attempt_pick_pocket(npc_type); // drunken_man_falador (3222), man
+[opnpc3,cuffs] @attempt_pick_pocket(npc_type); // cuffs (3237), man
+[opnpc3,narf] @attempt_pick_pocket(npc_type); // narf (3238), man
+[opnpc3,rusty] @attempt_pick_pocket(npc_type); // rusty (3239), man
+[opnpc3,jeff] @attempt_pick_pocket(npc_type); // jeff (3240), man
+[opnpc3,guard_8173] @attempt_pick_pocket(npc_type); // guard_defender_of_varrock (8173), guard

@@ -1,4 +1,16 @@
-[ai_queue3,moss_giant]
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,moss_giant] @moss_giant_drop_table;
+
+// 2011's moss giants 1587, 1588, 4688 (cache 786: "Moss giant", level 42, as
+// 289's) and 4706 (level 48) are 289's moss giant (npc_clones_2011.npc: void-634's
+// clones). The 2011 wiki's Moss giant (20 May 2011) gives levels 42 and 48 one
+// drop list, so 289's table.
+[ai_queue3,moss_giant_1587] @moss_giant_drop_table;
+[ai_queue3,moss_giant_1588] @moss_giant_drop_table;
+[ai_queue3,moss_giant_4688] @moss_giant_drop_table;
+[ai_queue3,moss_giant_4706] @moss_giant_drop_table;
+
+[label,moss_giant_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

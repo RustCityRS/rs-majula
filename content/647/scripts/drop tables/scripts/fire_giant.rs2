@@ -1,4 +1,16 @@
-[ai_queue3,fire_giant]
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,fire_giant] @fire_giant_drop_table;
+
+// 2011's fire giants 1582-1586 (cache 786: "Fire giant", level 86, as 289's)
+// are 289's fire giant (npc_clones_2011.npc; 1583 and 1584 by way of 1582), so
+// its table.
+[ai_queue3,fire_giant_1582] @fire_giant_drop_table;
+[ai_queue3,fire_giant_1583] @fire_giant_drop_table;
+[ai_queue3,fire_giant_1584] @fire_giant_drop_table;
+[ai_queue3,fire_giant_1585] @fire_giant_drop_table;
+[ai_queue3,fire_giant_1586] @fire_giant_drop_table;
+
+[label,fire_giant_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

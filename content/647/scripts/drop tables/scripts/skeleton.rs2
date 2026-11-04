@@ -60,6 +60,30 @@ if ($random < 7) {
 [ai_queue3,skeleton_armed] @skeleton_armed;
 [ai_queue3,giantskeleton] @skeleton_armed;
 
+// 2011's other skeletons that are, or fight as, 289's skeleton_armed or 2011's
+// skeleton_5333 and 5338, whose table this is (npc_clones_2011.npc, by
+// void-634's clones and combat defs): 5337-5340 (level 25, as 289's), the
+// Barrows' and Chaos Tunnels' 2036, 2037, 5381, 5386 and 5422 (level 77), and
+// the Stronghold of Security's 4384-4386 and 5365-5368 (levels 60, 68 and 85).
+// The 2011 wiki's Skeleton (18 May 2011) gives every level one drop list, so
+// 289's.
+[ai_queue3,skeleton_5337] @skeleton_armed;
+[ai_queue3,skeleton_5338] @skeleton_armed;
+[ai_queue3,skeleton_5339] @skeleton_armed;
+[ai_queue3,skeleton_5340] @skeleton_armed;
+[ai_queue3,skeleton_2036] @skeleton_armed;
+[ai_queue3,skeleton_2037] @skeleton_armed;
+[ai_queue3,skeleton_5381] @skeleton_armed;
+[ai_queue3,skeleton_5422] @skeleton_armed;
+[ai_queue3,skeleton_5386] @skeleton_armed;
+[ai_queue3,skeleton_4384] @skeleton_armed;
+[ai_queue3,skeleton_4385] @skeleton_armed;
+[ai_queue3,skeleton_4386] @skeleton_armed;
+[ai_queue3,skeleton_5365] @skeleton_armed;
+[ai_queue3,skeleton_5366] @skeleton_armed;
+[ai_queue3,skeleton_5367] @skeleton_armed;
+[ai_queue3,skeleton_5368] @skeleton_armed;
+
 [label,skeleton_armed]
 gosub(npc_death);
 if (npc_findhero = ^false) {

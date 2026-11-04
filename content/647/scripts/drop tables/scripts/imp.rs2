@@ -1,4 +1,12 @@
-[ai_queue3,imp]
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,imp] @imp_drop_table;
+
+// 2011's God Wars imp 6211 (cache 786: "Imp", level 7) fights as 289's imp
+// (npc_clones_2011.npc: void-634's imp_god_wars). The 2011 wiki's Imp (21 May
+// 2011) gives levels 2 and 7 one drop list, so 289's table.
+[ai_queue3,imp_6211] @imp_drop_table;
+
+[label,imp_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

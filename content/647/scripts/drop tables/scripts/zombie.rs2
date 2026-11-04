@@ -2,6 +2,26 @@
 [ai_queue3,zombie] @unarmed_zombie;
 [ai_queue3,zombie2] @unarmed_zombie;
 
+// 2011's other zombies that fight as 289's zombie (npc_clones_2011.npc: void-634's
+// clones): 5293-5307 (level 13, as 289's) and the Stronghold of Security's 4392,
+// 5375 and 5376 (level 30). The 2011 wiki's Zombie (18 May 2011) lists one table,
+// its herbs "dropped by level 13, 18, 24, and 30 zombies", so 289's.
+[ai_queue3,zombie_5293] @unarmed_zombie;
+[ai_queue3,zombie_5294] @unarmed_zombie;
+[ai_queue3,zombie_5295] @unarmed_zombie;
+[ai_queue3,zombie_5296] @unarmed_zombie;
+[ai_queue3,zombie_5297] @unarmed_zombie;
+[ai_queue3,zombie_5298] @unarmed_zombie;
+[ai_queue3,zombie_5300] @unarmed_zombie;
+[ai_queue3,zombie_5303] @unarmed_zombie;
+[ai_queue3,zombie_5304] @unarmed_zombie;
+[ai_queue3,zombie_5305] @unarmed_zombie;
+[ai_queue3,zombie_5306] @unarmed_zombie;
+[ai_queue3,zombie_5307] @unarmed_zombie;
+[ai_queue3,zombie_4392] @unarmed_zombie;
+[ai_queue3,zombie_5375] @unarmed_zombie;
+[ai_queue3,zombie_5376] @unarmed_zombie;
+
 [label,unarmed_zombie]
 gosub(npc_death);
 if (npc_findhero = ^false) {

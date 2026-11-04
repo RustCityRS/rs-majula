@@ -1,4 +1,14 @@
-[ai_applayer2,chaos_druid]
+// Labels, so 2011's chaos druids share them: 2547 and 7105 (cache 786: "Chaos
+// druid", level 13, as 289's) are 289's chaos druid (npc_clones_2011.npc:
+// void-634's clones).
+[ai_applayer2,chaos_druid] @chaos_druid_ai_applayer2;
+[ai_opplayer2,chaos_druid] @chaos_druid_ai_opplayer2;
+[ai_applayer2,chaos_druid_2547] @chaos_druid_ai_applayer2;
+[ai_opplayer2,chaos_druid_2547] @chaos_druid_ai_opplayer2;
+[ai_applayer2,chaos_druid_7105] @chaos_druid_ai_applayer2;
+[ai_opplayer2,chaos_druid_7105] @chaos_druid_ai_opplayer2;
+
+[label,chaos_druid_ai_applayer2]
 if (%npc_action_delay > map_clock) {
     return;
 }
@@ -12,7 +22,7 @@ if (~npc_check_notcombat_self = false) {
 ~chaos_druid_spell;
 if(random(4) ! 0) npc_setmode(opplayer2);
 
-[ai_opplayer2,chaos_druid]
+[label,chaos_druid_ai_opplayer2]
 if (%npc_action_delay > map_clock) {
     return;
 }

@@ -1,4 +1,14 @@
-[ai_queue3,ice_giant]
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,ice_giant] @ice_giant_drop_table;
+
+// 2011's ice giants 3072 and 4685-4687 (cache 786: "Ice giant", level 53, as
+// 289's) are 289's ice giant (npc_clones_2011.npc: void-634's clones), so its table.
+[ai_queue3,ice_giant_3072] @ice_giant_drop_table;
+[ai_queue3,ice_giant_4685] @ice_giant_drop_table;
+[ai_queue3,ice_giant_4686] @ice_giant_drop_table;
+[ai_queue3,ice_giant_4687] @ice_giant_drop_table;
+
+[label,ice_giant_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

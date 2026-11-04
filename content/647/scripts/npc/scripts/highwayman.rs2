@@ -1,5 +1,12 @@
+// 2011's highwayman 7443 (cache 786: "Highwayman", level 5, as 289's) is 289's
+// highwayman (npc_clones_2011.npc), so his triggers too. His line is 2011's as
+// 289's: the 2011 wiki's Highwayman (18 May 2011), "They always will attack by
+// saying "Stand and deliver!"".
 [ai_queue1,highwayman] ~npc_default_retaliate_ap;
+[ai_queue1,highwayman_7443] ~npc_default_retaliate_ap;
+[ai_applayer2,highwayman] @highwayman_ai_applayer2;
+[ai_applayer2,highwayman_7443] @highwayman_ai_applayer2;
 
-[ai_applayer2,highwayman]
+[label,highwayman_ai_applayer2]
 npc_say("Stand and deliver!");
 npc_setmode(opplayer2);

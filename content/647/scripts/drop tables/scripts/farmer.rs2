@@ -1,4 +1,12 @@
-[ai_queue3,farmer]
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,farmer] @farmer_drop_table;
+
+// 2011's Lumbridge farmers 1757 and 1758 (cache 786: "Farmer", level 7, as
+// 289's) are 289's farmer (npc_clones_2011.npc), so its table.
+[ai_queue3,farmer_1757] @farmer_drop_table;
+[ai_queue3,farmer_1758] @farmer_drop_table;
+
+[label,farmer_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

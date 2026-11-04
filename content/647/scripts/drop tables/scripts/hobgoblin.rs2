@@ -1,4 +1,18 @@
-[ai_queue3,hobgoblin] // LVL 28 Hobgoblins
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,hobgoblin] @hobgoblin_drop_table; // LVL 28 Hobgoblins
+
+// 2011's hobgoblins 2685-2687 (cache 786: "Hobgoblin", level 28, as 289's) are
+// 289's hobgoblin (npc_clones_2011.npc: void-634's clones), so its table. 2688
+// is void-634's clone of 289's hobgoblin_armed, but cache 786 gives it level 28,
+// not 42 (the 2011 wiki's Hobgoblin, 18 May 2011, has a level-28 hobgoblin
+// wield a spear too), so 289's table for its level, as drop_reissues_2011.rs2
+// joins by name and level.
+[ai_queue3,hobgoblin_2685] @hobgoblin_drop_table;
+[ai_queue3,hobgoblin_2686] @hobgoblin_drop_table;
+[ai_queue3,hobgoblin_2687] @hobgoblin_drop_table;
+[ai_queue3,hobgoblin_2688] @hobgoblin_drop_table;
+
+[label,hobgoblin_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

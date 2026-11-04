@@ -1,4 +1,12 @@
-[ai_queue3,chaos_dwarf]
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,chaos_dwarf] @chaos_dwarf_drop_table;
+
+// 2011's chaos dwarves 8778 and 8779 (cache 786: "Chaos dwarf", level 48, as
+// 289's) are 289's chaos dwarf (npc_clones_2011.npc), so its table.
+[ai_queue3,chaos_dwarf_8778] @chaos_dwarf_drop_table;
+[ai_queue3,chaos_dwarf_8779] @chaos_dwarf_drop_table;
+
+[label,chaos_dwarf_drop_table]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;

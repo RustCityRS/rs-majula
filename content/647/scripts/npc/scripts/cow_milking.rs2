@@ -1,12 +1,19 @@
 // 2011 milks dairy cows, which are locs: "Dairy cows were introduced because
 // players could attack and kill a cow whilst another player was milking it"
 // (2011 wiki, Dairy cow). A cow turns a bucket away like anything else.
-[opnpcu,cow]
-switch_obj(last_useitem) {
-    // case bucket : @milk_cow;
-    case default : mes("The cow doesn't want that."); // osrs
-}
-[opnpcu,cow2]
+[opnpcu,cow] @cow_use;
+[opnpcu,cow2] @cow_use;
+
+// 2011's other cows (cache 786 names each "Cow", level 2, as 289's): 1767, 3309,
+// 12362, 12363 and 12365 are 289's cow (npc_clones_2011.npc: void-634's clones
+// of cow_default), so 289's cow's use.
+[opnpcu,cow_1767] @cow_use;
+[opnpcu,cow_3309] @cow_use;
+[opnpcu,cow_12362] @cow_use;
+[opnpcu,cow_12363] @cow_use;
+[opnpcu,cow_12365] @cow_use;
+
+[label,cow_use]
 switch_obj(last_useitem) {
     // case bucket : @milk_cow;
     case default : mes("The cow doesn't want that."); // osrs
