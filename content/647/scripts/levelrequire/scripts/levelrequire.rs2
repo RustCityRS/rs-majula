@@ -83,6 +83,14 @@ if (stat_base(strength) < $level | stat_base(defence) < $level) {
 }
 ~equip($slot);
 
+[label,levelrequire_magic_and_defence](int $magic_level, int $defence_level, int $slot)
+if (stat_base(magic) < $magic_level | stat_base(defence) < $defence_level) {
+    mes("You are not a high enough level to use this item.");
+    mes("You need to have a magic level of <tostring($magic_level)> and a defence level of <tostring($defence_level)>.");
+    return;
+}
+~equip($slot);
+
 [label,levelrequire_dragon_slayer_quest_defence](int $level, int $slot)
 if (~levelrequire_dragon_slayer_quest = false) {
     return;
@@ -112,6 +120,14 @@ if (~levelrequire_zanaris_quest = false) {
     return;
 }
 @levelrequire_attack_caps($level, $slot);
+
+[label,levelrequire_viking_quest_helm](int $level, int $slot)
+if (%viking < ^viking_complete) {
+    mes("Only Fremenniks are worthy of wearing this helm.");
+    mes("You need to complete The Fremennik Trials first."); // todo confirm for 2004
+    return;
+}
+@levelrequire_defence($level, $slot);
 
 [proc,levelrequire_dragon_slayer_quest]()(boolean)
 if (%dragonquest < ^dragon_complete) {
@@ -145,18 +161,38 @@ if (%zanaris < ^zanaris_complete) {
 }
 return(true);
 
+[proc,levelrequire_regicide_quest]()(boolean)
+if (%regicide_quest < ^regicide_complete) {
+    mes("You have not earned the right to wear this yet.");
+    mes("You need to complete the Regicide quest."); // todo confirm for 2004
+    return(false);
+}
+return(true);
+
 [label,levelrequire_iban_staff](int $slot)
-// https://oldschool.runescape.wiki/w/Update:Various_tweaks_to_the_game
-// > Fixed a bug which meant the Iban-staff could be wielded at level 49, despite stating a requirement of 50.
 // https://youtu.be/FKFdDdH5rlE?si=rTj214wpX9RKHiMy&t=188
-if (stat(magic) < 50) {
+if (stat_base(magic) < 50) {
     mes("You are not a high enough level to use this item,");
     mes("You need to have a Magic level of 50.");
     return;
 }
-if (stat(attack) < 50) {
+if (stat_base(attack) < 50) {
     mes("You are not a high enough level to use this item.");
     mes("You need to have an Attack level of 50.");
     return;
 }
 ~equip($slot);
+
+[label,levelrequire_attack_and_strength](int $attack_level, int $strength_level, int $slot)
+if (stat_base(attack) < $attack_level | stat_base(strength) < $strength_level) {
+    mes("You are not a high enough level to use this item.");
+    mes("You need to have an attack level of <tostring($attack_level)> and a strength level of <tostring($strength_level)>.");
+    return;
+}
+~equip($slot);
+
+[label,levelrequire_regicide_quest_attack_strength](int $attack, int $strength, int $slot)
+if (~levelrequire_regicide_quest = false) {
+    return;
+}
+@levelrequire_attack_and_strength($attack, $strength, $slot);

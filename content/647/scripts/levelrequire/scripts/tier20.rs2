@@ -12,7 +12,10 @@
 [opheld2,mithril_spear] @levelrequire_attack(20, last_slot);
 [opheld2,mithril_spear__p] @levelrequire_attack(20, last_slot);
 [opheld2,mithril_2h_sword] @levelrequire_attack(20, last_slot);
+[opheld2,mithril_claws] @levelrequire_attack(20, last_slot);
 [opheld2,excalibur] @levelrequire_attack(20, last_slot);
+[opheld2,mithril_spear__kp] @levelrequire_attack(20, last_slot);
+[opheld2,mithril_halberd] @levelrequire_attack_and_strength(20, 10, last_slot);
 
 [opheld2,mithril_med_helm] @levelrequire_defence(20, last_slot);
 [opheld2,mithril_full_helm] @levelrequire_defence(20, last_slot);
@@ -39,5 +42,4 @@
 [opheld2,mithril_javelin__p] @levelrequire_ranged(20, last_slot);
 
 // Magic
-//TODO fix boots wizard
-// [opheld2,boots_wizard] @levelrequire_magic(20, last_slot);
+[opheld2,wizard_boots] @levelrequire_magic(20, last_slot);

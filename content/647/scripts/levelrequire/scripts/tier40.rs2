@@ -12,6 +12,9 @@
 [opheld2,rune_spear] @levelrequire_attack(40, last_slot);
 [opheld2,rune_spear__p] @levelrequire_attack(40, last_slot);
 [opheld2,rune_2h_sword] @levelrequire_attack(40, last_slot);
+[opheld2,rune_claws] @levelrequire_attack(40, last_slot);
+[opheld2,rune_spear__kp] @levelrequire_attack(40, last_slot);
+[opheld2,rune_halberd] @levelrequire_attack_and_strength(40, 20, last_slot);
 
 [opheld2,rune_med_helm] @levelrequire_defence(40, last_slot);
 [opheld2,rune_full_helm] @levelrequire_defence(40, last_slot);
@@ -30,6 +33,8 @@
 [opheld2,rune_platelegs__g] @levelrequire_defence(40, last_slot);
 [opheld2,rune_full_helm__g] @levelrequire_defence(40, last_slot);
 [opheld2,rune_kiteshield__g] @levelrequire_defence(40, last_slot);
+[opheld2,rune_plateskirt__t] @levelrequire_defence(40, last_slot);
+[opheld2,rune_plateskirt__g] @levelrequire_defence(40, last_slot);
 
 [opheld2,zamorak_platebody] @levelrequire_dragon_slayer_quest_defence(40, last_slot);
 [opheld2,zamorak_platelegs] @levelrequire_defence(40, last_slot);
@@ -43,6 +48,14 @@
 [opheld2,guthix_platelegs] @levelrequire_defence(40, last_slot);
 [opheld2,guthix_full_helm] @levelrequire_defence(40, last_slot);
 [opheld2,guthix_kiteshield] @levelrequire_defence(40, last_slot);
+[opheld2,gilded_platebody] @levelrequire_dragon_slayer_quest_defence(40, last_slot);
+[opheld2,gilded_platelegs] @levelrequire_defence(40, last_slot);
+[opheld2,gilded_full_helm] @levelrequire_defence(40, last_slot);
+[opheld2,gilded_kiteshield] @levelrequire_defence(40, last_slot);
+[opheld2,guthix_plateskirt] @levelrequire_defence(40, last_slot);
+[opheld2,saradomin_plateskirt] @levelrequire_defence(40, last_slot);
+[opheld2,zamorak_plateskirt] @levelrequire_defence(40, last_slot);
+[opheld2,gilded_plateskirt] @levelrequire_defence(40, last_slot);
 
 // Ranged
 [opheld2,robin_hood_hat] @levelrequire_ranged_lower(40, last_slot);
@@ -66,3 +79,10 @@
 [opheld2,mystic_water_staff] @levelrequire_magic_and_attack(40, 40, last_slot);
 [opheld2,mystic_air_staff] @levelrequire_magic_and_attack(40, 40, last_slot);
 [opheld2,mystic_earth_staff] @levelrequire_magic_and_attack(40, 40, last_slot);
+[opheld2,mystic_lava_staff] @levelrequire_magic_and_attack(40, 40, last_slot);
+
+[opheld2,splitbark_helm] @levelrequire_magic_and_defence(40, 40, last_slot);
+[opheld2,splitbark_body] @levelrequire_magic_and_defence(40, 40, last_slot);
+[opheld2,splitbark_legs] @levelrequire_magic_and_defence(40, 40, last_slot);
+[opheld2,splitbark_boots] @levelrequire_magic_and_defence(40, 40, last_slot);
+[opheld2,splitbark_gauntlets] @levelrequire_magic_and_defence(40, 40, last_slot);

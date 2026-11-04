@@ -82,6 +82,40 @@ fn the_renamed_items_keep_their_wield_levels() {
     });
 }
 
+/// 289's wield requirements that 647's first port dropped, because the names
+/// did not resolve then: rune claws (40 Attack), the rune halberd (40 Attack
+/// and 20 Strength), the trimmed rune platebody (Dragon Slayer and 40
+/// Defence), and the Fremennik helms (The Fremennik Trials and 45 Defence):
+/// a berserker helm stays in the backpack even at 99 without the quest.
+#[test]
+fn the_wield_requirements_the_first_port_dropped_hold() {
+    runner::on_loaded_engine(|engine| {
+        for name in [
+            "rune_claws",
+            "rune_halberd",
+            "rune_platebody__t",
+            "berserker_helm",
+        ] {
+            assert!(
+                wield(engine, name, 1),
+                "{name} stays in the backpack at level 1"
+            );
+            assert!(refused(), "{name}: the wield trigger answered");
+        }
+        assert!(
+            wield(engine, "berserker_helm", 99),
+            "no helm without the Trials"
+        );
+        assert!(
+            rs_vm::ops::test::calls_for("mes")
+                .iter()
+                .any(|m| m.contains("Only Fremenniks are worthy of wearing this helm.")),
+            "289's Fremennik message"
+        );
+        assert!(!wield(engine, "rune_claws", 40), "rune claws at Attack 40");
+    });
+}
+
 /// A wielded weapon brings its 2011 stance: the render anim (BAS) its cache
 /// param 644 names (`void-634`'s RENDER_EMOTE), which the appearance carries in
 /// place of 289's seven base animations. A two-handed sword stands as 124, a

@@ -1,8 +1,8 @@
 // Melee
-// TODO tutorial equip
+// 289's Tutorial Island equip check (tutorial/) waits for the tutorial port.
 // [opheld2,bronze_dagger] @tutorial_island_equip(last_slot);
-// [opheld2,bronze_dagger_p] @levelrequire_attack(1, last_slot);
-// [opheld2,bronze_axe] @tutorial_island_equip(last_slot);
+[opheld2,bronze_dagger__p] @levelrequire_attack(1, last_slot);
+// [opheld2,bronze_hatchet] @tutorial_island_equip(last_slot);
 // [opheld2,bronze_pickaxe] @tutorial_island_equip(last_slot);
 [opheld2,bronze_mace] @levelrequire_attack(1, last_slot);
 [opheld2,bronze_sword] @levelrequire_attack(1, last_slot);
@@ -13,6 +13,9 @@
 [opheld2,bronze_spear] @levelrequire_attack(1, last_slot);
 [opheld2,bronze_spear__p] @levelrequire_attack(1, last_slot);
 [opheld2,bronze_2h_sword] @levelrequire_attack(1, last_slot);
+[opheld2,bronze_claws] @levelrequire_attack(1, last_slot);
+[opheld2,bronze_spear__kp] @levelrequire_attack(1, last_slot);
+[opheld2,bronze_halberd] @levelrequire_attack_and_strength(1, 1, last_slot);
 
 [opheld2,bronze_med_helm] @levelrequire_defence(1, last_slot);
 [opheld2,bronze_full_helm] @levelrequire_defence(1, last_slot);
@@ -36,6 +39,9 @@
 [opheld2,iron_spear] @levelrequire_attack(1, last_slot);
 [opheld2,iron_spear__p] @levelrequire_attack(1, last_slot);
 [opheld2,iron_2h_sword] @levelrequire_attack(1, last_slot);
+[opheld2,iron_claws] @levelrequire_attack(1, last_slot);
+[opheld2,iron_spear__kp] @levelrequire_attack(1, last_slot);
+[opheld2,iron_halberd] @levelrequire_attack_and_strength(1, 1, last_slot);
 
 [opheld2,iron_med_helm] @levelrequire_defence(1, last_slot);
 [opheld2,iron_full_helm] @levelrequire_defence(1, last_slot);
@@ -74,10 +80,10 @@
 [opheld2,iron_javelin__p] @levelrequire_ranged(1, last_slot);
 
 // Magic
-// TODO staff unsure lots of them
 [opheld2,staff] @levelrequire_magic_and_attack(1, 1, last_slot);
 [opheld2,staff_of_air] @levelrequire_magic_and_attack(1, 1, last_slot);
 [opheld2,staff_of_water] @levelrequire_magic_and_attack(1, 1, last_slot);
 [opheld2,staff_of_earth] @levelrequire_magic_and_attack(1, 1, last_slot);
 [opheld2,staff_of_fire] @levelrequire_magic_and_attack(1, 1, last_slot);
 [opheld2,magic_staff] @levelrequire_magic_and_attack(1, 1, last_slot);
+[opheld2,elemental_shield] @levelrequire_defence(1, last_slot); // quest requirement was added with rework
