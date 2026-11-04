@@ -15,17 +15,25 @@
 // layout, which names each item by its own name.
 
 [proc,skill_make](string $text, int $verb, int $maximum, namedobj $obj1, namedobj $obj2, namedobj $obj3, namedobj $obj4, namedobj $obj5)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make10($text, $verb, $maximum, $obj1, $obj2, $obj3, $obj4, $obj5, null, null, null, null, null);
+return($product, $count);
+
+// All ten of the dialogue's items (choices com14 to com23, void-634's
+// dialogue_skill_creation), for makes with more than five, such as smelting.
+[proc,skill_make10](string $text, int $verb, int $maximum, namedobj $obj1, namedobj $obj2, namedobj $obj3, namedobj $obj4, namedobj $obj5, namedobj $obj6, namedobj $obj7, namedobj $obj8, namedobj $obj9, namedobj $obj10)(namedobj, int)
 sendvarc(754, $verb); // the verb: ^skill_make_make, ^skill_make_cook, ...
 ~skill_make_item(755, 132, $obj1);
 ~skill_make_item(756, 133, $obj2);
 ~skill_make_item(757, 134, $obj3);
 ~skill_make_item(758, 135, $obj4);
 ~skill_make_item(759, 136, $obj5);
-sendvarc(760, -1);
-sendvarc(1139, -1);
-sendvarc(1140, -1);
-sendvarc(1141, -1);
-sendvarc(1142, -1);
+~skill_make_item(760, 137, $obj6);
+~skill_make_item(1139, 280, $obj7);
+~skill_make_item(1140, 281, $obj8);
+~skill_make_item(1141, 282, $obj9);
+~skill_make_item(1142, 283, $obj10);
 %skill_creation_maximum = $maximum;
 if (%skill_creation_amount = 0 | %skill_creation_amount > $maximum) {
     %skill_creation_amount = min(1, $maximum);
@@ -44,6 +52,11 @@ switch_component ($com) {
     case skillmulti2010:com16 : return($obj3, $amount);
     case skillmulti2010:com17 : return($obj4, $amount);
     case skillmulti2010:com18 : return($obj5, $amount);
+    case skillmulti2010:com19 : return($obj6, $amount);
+    case skillmulti2010:com20 : return($obj7, $amount);
+    case skillmulti2010:com21 : return($obj8, $amount);
+    case skillmulti2010:com22 : return($obj9, $amount);
+    case skillmulti2010:com23 : return($obj10, $amount);
     case default : return(null, 0);
 }
 
