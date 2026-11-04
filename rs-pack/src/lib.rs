@@ -63,6 +63,7 @@ pub mod unpack;
 pub mod validate;
 #[cfg(all(since_244, before_647))]
 pub mod versionlist;
+pub mod zone_csv;
 
 /// Expected per-archive CRCs for the rev-647 js5 cache, from the idx255
 /// master index of OpenRS2 cache 786 (https://archive.openrs2.org/caches/runescape/786).

@@ -121,8 +121,12 @@ impl CacheStore {
             },
             midi_ids: load_midi_ids(),
             midi_tick_lengths: load_midi_tick_lengths(cache),
-            multimap: Default::default(),
-            freemap: Default::default(),
+            multimap: crate::zone_csv::load_csv_zones(
+                &std::path::Path::new(crate::CONTENT_DIR).join("maps/multiway.csv"),
+            ),
+            freemap: crate::zone_csv::load_csv_zones(
+                &std::path::Path::new(crate::CONTENT_DIR).join("maps/free2play.csv"),
+            ),
             huffman,
         }))
     }

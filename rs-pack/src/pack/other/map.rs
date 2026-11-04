@@ -1,12 +1,14 @@
 use super::worldmap::WorldmapBuilder;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
+use crate::zone_csv::load_csv_zones;
+pub(super) use crate::zone_csv::zone_key;
 use rs_io::Packet;
 use rs_io::bz2::bz2_compress_with_size;
 use rs_io::crc;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::path::Path;
 use std::sync::Arc;
-use tracing::{debug, warn};
+use tracing::debug;
 
 type PackedMapSquare = (
     MapSquares,
@@ -412,48 +414,6 @@ pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
     }
 
     out.psmart1or2(0);
-}
-
-/// The key a zone (8x8 tiles) has in a `MapSquareCsv`.
-pub(super) fn zone_key(y: u8, x: u16, z: u16) -> u32 {
-    ((x >> 3) & 0x7FF) as u32 | ((((z >> 3) & 0x7FF) as u32) << 11) | (((y & 0x3) as u32) << 22)
-}
-
-fn load_csv_zones(path: &Path) -> MapSquareCsv {
-    let mut set = HashSet::default();
-    let Ok(content) = std::fs::read_to_string(path) else {
-        return set;
-    };
-    for line in content.lines() {
-        let line = line.trim();
-        if line.is_empty() || line.starts_with("//") {
-            continue;
-        }
-        let parts: Vec<&str> = line.split('_').collect();
-        if parts.len() != 5 {
-            continue;
-        }
-        let Ok(y) = parts[0].parse::<u8>() else {
-            continue;
-        };
-        let Ok(mx) = parts[1].parse::<u16>() else {
-            continue;
-        };
-        let Ok(mz) = parts[2].parse::<u16>() else {
-            continue;
-        };
-        let Ok(lx) = parts[3].parse::<u16>() else {
-            continue;
-        };
-        let Ok(lz) = parts[4].parse::<u16>() else {
-            continue;
-        };
-        if lx % 8 != 0 || lz % 8 != 0 {
-            warn!("CSV map line not aligned to zone: {}", line);
-        }
-        set.insert(zone_key(y, (mx << 6) + lx, (mz << 6) + lz));
-    }
-    set
 }
 
 #[cfg(since_244)]
