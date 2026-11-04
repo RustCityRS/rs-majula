@@ -11,7 +11,7 @@
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
 
-use anyhow::Result;
+use anyhow::{Result, bail};
 use tracing::{info, warn};
 
 use crate::cache647::{
@@ -19,6 +19,8 @@ use crate::cache647::{
     LocType, MesAnimType, NpcType, ObjContext, ObjType, ParamType, SeqType, SpotAnimType,
     StructType, TypeProvider, VarBitType, VarnType, VarpType,
 };
+use crate::pack_registry::PackRegistry;
+use crate::validate::{Severity, check_pack_content_sync};
 
 // ── mtime utilities ──────────────────────────────────────────────────────────
 
@@ -257,42 +259,32 @@ fn pack_all_inner(
 
     require_derived_content(content_dir)?;
 
+    {
+        let registry = PackRegistry::load(&pack_dir)?;
+        let diags = check_pack_content_sync(content_dir, &registry);
+        let errors = diags
+            .iter()
+            .filter(|d| d.severity == Severity::Error)
+            .map(ToString::to_string)
+            .collect::<Vec<_>>()
+            .join("\n");
+        if !errors.is_empty() {
+            bail!(
+                "pack registries and content are out of sync:\n{errors}\n\
+                 After registry renames, regenerate cache-derived content with \
+                 `REV=647 cargo regen-content`."
+            );
+        }
+        if !diags.is_empty() {
+            info!(
+                "pack_all: {} unregistered content section(s) won't be packed",
+                diags.len()
+            );
+        }
+    }
+
     std::fs::create_dir_all(&server_dir)?;
     std::fs::create_dir_all(&client_dir)?;
-
-    // ── Step 0: pack↔content sync check (warn-only) ──────────────────────
-    // A `.pack` registry rename not propagated to the content that references
-    // it by name silently changes packed bytes (see `crate::validate`). Surface
-    // it loudly at startup; `just test` (pack_sync) gates it hard in CI.
-    match crate::pack_registry::PackRegistry::load(&pack_dir) {
-        Ok(reg) => {
-            let diags = crate::validate::check_pack_content_sync(content_dir, &reg);
-            let errors = diags
-                .iter()
-                .filter(|d| d.severity == crate::validate::Severity::Error)
-                .count();
-            for d in diags
-                .iter()
-                .filter(|d| d.severity == crate::validate::Severity::Error)
-            {
-                warn!("pack_all: pack↔content desync: {d}");
-            }
-            if errors > 0 {
-                warn!(
-                    "pack_all: {errors} pack↔content desync error(s) — these change packed bytes \
-                     and will break the crc-gate; fix before relying on the cache"
-                );
-            }
-            let warnings = diags.len() - errors;
-            if warnings > 0 {
-                info!(
-                    "pack_all: {warnings} unregistered content section(s) won't be packed \
-                     (run `cargo test -p rs-pack --test pack_sync` for details)"
-                );
-            }
-        }
-        Err(e) => warn!("pack_all: skipped pack↔content sync check (registry load failed: {e})"),
-    }
 
     // ── Step 1: Pack text configs → server .dat/.idx + client blobs ───────
     let unpack_dir = scripts_dir.join("_unpack");

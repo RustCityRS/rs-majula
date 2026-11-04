@@ -1,6 +1,4 @@
 #[cfg(since_647)]
-pub mod appearance;
-#[cfg(since_647)]
 pub mod cam_forceangle;
 #[cfg(before_647)]
 pub mod cam_look_at;

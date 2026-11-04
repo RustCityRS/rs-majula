@@ -678,13 +678,16 @@ fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
         bot.player.pathing.tele = true;
         bot.player.pathing.jump = true;
 
-        bot.player.info.readyanim = Some(808);
-        bot.player.info.turnanim = Some(823);
-        bot.player.info.walkanim = Some(819);
-        bot.player.info.walkanim_b = Some(820);
-        bot.player.info.walkanim_l = Some(821);
-        bot.player.info.walkanim_r = Some(822);
-        bot.player.info.runanim = Some(824);
+        #[cfg(before_647)]
+        {
+            bot.player.info.readyanim = Some(808);
+            bot.player.info.turnanim = Some(823);
+            bot.player.info.walkanim = Some(819);
+            bot.player.info.walkanim_b = Some(820);
+            bot.player.info.walkanim_l = Some(821);
+            bot.player.info.walkanim_r = Some(822);
+            bot.player.info.runanim = Some(824);
+        }
 
         bot.buildappearance(0);
 

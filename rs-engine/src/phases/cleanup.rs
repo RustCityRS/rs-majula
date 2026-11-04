@@ -81,22 +81,8 @@ impl Engine {
     ///
     /// * Modifies `self.player_renderer` and `self.npc_renderer`.
     fn reset_renderers(&mut self) {
-        #[cfg(before_647)]
-        {
-            self.player_renderer.remove_temporary();
-            self.npc_renderer.remove_temporary();
-        }
-        // The 647 renderers drop the temporary blocks of the entities active
-        // this tick only.
-        #[cfg(since_647)]
-        {
-            let pids = self.player_list.take_pids();
-            self.player_renderer.remove_temporary(&pids);
-            self.player_list.put_pids(pids);
-            let nids = self.npc_list.take_nids();
-            self.npc_renderer.remove_temporary(&nids);
-            self.npc_list.put_nids(nids);
-        }
+        self.player_renderer.remove_temporary();
+        self.npc_renderer.remove_temporary();
     }
 
     /// Resets per-tick pathing-entity state on all active players.

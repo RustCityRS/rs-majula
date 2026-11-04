@@ -1,6 +1,8 @@
 use crate::engine::Engine;
 use crate::info::{NpcSnapshot, PlayerSnapshot};
 use rs_entity::InteractionTarget;
+#[cfg(since_647)]
+use rs_entity::MoveSpeed;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
@@ -79,12 +81,6 @@ impl Engine {
         if active.player.info.masks & PlayerInfoProt::Appearance as u16 != 0 {
             active.generateappearance(self.clock);
         }
-        #[cfg(before_647)]
-        self.player_renderer
-            .compute_info(active.player.uid.pid() as usize, &active.player.info);
-        // Rev-647: the FaceCoord block carries a precomputed angle, derived
-        // from the player's current tile at encode time.
-        #[cfg(since_647)]
         self.player_renderer.compute_info(
             active.player.uid.pid() as usize,
             &active.player.info,
@@ -171,6 +167,10 @@ impl Engine {
         }
         if n.pathing.tele {
             flags |= NpcSnapshot::TELE;
+        }
+        #[cfg(since_647)]
+        if n.pathing.move_speed == MoveSpeed::Crawl {
+            flags |= NpcSnapshot::CRAWL;
         }
         self.npc_snapshots[nid as usize] = NpcSnapshot {
             coord: n.pathing.coord.packed(),

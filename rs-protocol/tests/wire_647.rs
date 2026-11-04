@@ -728,30 +728,3 @@ fn run_client_script_matches_client() {
     assert_eq!(&strs[2..], &["Value".to_string(), "Sell 1".to_string()]);
     p.done(bytes.len());
 }
-
-/// 289's protect prayers (head icon bits 3, 4 and 5) as 2011's prayer icon,
-/// read as the client reads the appearance (`PlayerEntity.method4076`): after
-/// its length, `g1 flags, g1b title, g1b skull, g1b prayer`, -1 for none.
-#[test]
-fn appearance_draws_289s_protect_prayers_as_2011s_icon() {
-    use rs_protocol::network::game::server::appearance::{AppearanceInput, build_appearance_block};
-    let equipment = [0i16; 12];
-    for (headicons, icon) in [(0u8, -1), (1 << 3, 0), (1 << 4, 1), (1 << 5, 2)] {
-        let block = build_appearance_block(&AppearanceInput {
-            gender: 0,
-            body: [0; 7],
-            equipment: &equipment,
-            colors: [0; 5],
-            skipped_slots: [false; 12],
-            render_anim: 1426,
-            display_name: "Prayer",
-            combat_level: 3,
-            headicons,
-        });
-        let mut p = ClientPacket::new(&block[1..]);
-        p.g1();
-        p.g1b();
-        assert_eq!(p.g1b(), -1, "no skull");
-        assert_eq!(p.g1b(), icon, "head icons {headicons:#b}");
-    }
-}

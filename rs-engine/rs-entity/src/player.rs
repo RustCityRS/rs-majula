@@ -7,6 +7,8 @@ use crate::state::EntityState;
 use rs_cam::CamQueue;
 use rs_grid::CoordGrid;
 use rs_hero::HeroPoints;
+#[cfg(since_647)]
+use rs_info::PlayerInfoProt;
 use rs_info::{EntityMasks, FocusKind};
 use rs_inv::Inventory;
 use rs_pack::types::{BlockWalk, MoveRestrict, PlayerStat};
@@ -1229,7 +1231,7 @@ impl Player {
         if self.client_move_type != Some(stored) {
             self.client_move_type = Some(stored);
             self.info.move_type = Some(stored);
-            self.info.masks |= rs_info::MASK_MOVE_TYPE;
+            self.info.masks |= PlayerInfoProt::MoveType as u16;
         }
         let step = if self.pathing.tele {
             // 289's `p_teleport` is not a jump: its client walks a move of up
@@ -1255,7 +1257,7 @@ impl Player {
         };
         if step != stored {
             self.info.temp_move_type = Some(step);
-            self.info.masks |= rs_info::MASK_TEMP_MOVE_TYPE;
+            self.info.masks |= PlayerInfoProt::TempMoveType as u16;
         }
     }
 }
@@ -1263,7 +1265,7 @@ impl Player {
 #[cfg(all(test, since_647))]
 mod move_type_tests {
     use super::*;
-    use rs_info::{MASK_MOVE_TYPE, MASK_TEMP_MOVE_TYPE};
+    use rs_info::PlayerInfoProt;
 
     fn make_player() -> Player {
         let uid = PlayerUid::new("test".into(), 1);
@@ -1283,11 +1285,12 @@ mod move_type_tests {
     }
 
     fn stored(p: &Player) -> Option<u8> {
-        (p.info.masks & MASK_MOVE_TYPE != 0).then(|| p.info.move_type.unwrap())
+        (p.info.masks & (PlayerInfoProt::MoveType as u16) != 0).then(|| p.info.move_type.unwrap())
     }
 
     fn temp(p: &Player) -> Option<u8> {
-        (p.info.masks & MASK_TEMP_MOVE_TYPE != 0).then(|| p.info.temp_move_type.unwrap())
+        (p.info.masks & (PlayerInfoProt::TempMoveType as u16) != 0)
+            .then(|| p.info.temp_move_type.unwrap())
     }
 
     #[test]

@@ -3138,127 +3138,89 @@ impl ActivePlayer {
         }
     }
 
-    /// Generates the binary appearance block for this player.
+    /// Generates and caches this player's appearance body.
     ///
-    /// Encodes gender, head icons, equipped items (with slot-skip logic
-    /// for items that hide other slots), body part model IDs, color,
-    /// movement animation IDs, the base-37 username, and combat level into
-    /// a byte buffer. Stores the result in `player.info.last_appearance_info`.
+    /// Includes equipment, body kits, colours, animations, name and levels
+    /// in the revision's wire format.
     ///
     /// # Arguments
     /// * `clock` - The current game tick, stored as the appearance timestamp.
-    ///
-    /// # Side Effects
-    /// * Updates `player.info.last_appearance` and
-    ///   `player.info.last_appearance_info`.
-    ///
-    /// # Panics
-    /// Panics if any of the required animation fields (`readyanim`, `turnanim`,
-    /// `walkanim`, `walkanim_b`, `walkanim_l`, `walkanim_r`, `runanim`)
-    /// are `None`.
-    /// Rev-647 appearance block: built by the shared rs-protocol encoder
-    /// (`build_appearance_block`), which owns the 647 wire layout including
-    /// the length prefix. This method just gathers the equipment/kit view.
-    #[cfg(since_647)]
     pub fn generateappearance(&mut self, clock: u32) {
-        use rs_protocol::network::game::server::appearance::{
-            AppearanceInput, build_appearance_block,
-        };
-
-        let worn_inv_id = self.player.info.appearance.unwrap_or(0);
-        let mut equipment = [0i16; 12];
-        let mut skipped_slots = [false; 12];
-        if let Some(worn) = self.player.invs.get(&worn_inv_id) {
-            for (i, slot) in worn.slots.iter().enumerate().take(12) {
-                if let Some(item) = slot {
-                    equipment[i] = item.obj as i16;
-                }
-            }
-            for item in worn.slots.iter().flatten() {
-                if let Some(obj) = engine().cache.objs.get_by_id(item.obj) {
-                    if let Some(wp2) = obj.wearpos2.map(|w| w as usize).filter(|&w| w < 12) {
-                        skipped_slots[wp2] = true;
-                    }
-                    if let Some(wp3) = obj.wearpos3.map(|w| w as usize).filter(|&w| w < 12) {
-                        skipped_slots[wp3] = true;
-                    }
-                }
-            }
-        }
-
-        let body_i16: [i16; 7] = [
-            self.player.body[0] as i16,
-            self.player.body[1] as i16,
-            self.player.body[2] as i16,
-            self.player.body[3] as i16,
-            self.player.body[4] as i16,
-            self.player.body[5] as i16,
-            self.player.body[6] as i16,
-        ];
-        // A claimed display name (p_setdisplayname) renders over the base-37
-        // login name.
-        let name = self.player.shown_name();
-        let input = AppearanceInput {
-            gender: self.player.gender,
-            body: body_i16,
-            equipment: &equipment,
-            colors: self.player.colours,
-            skipped_slots,
-            render_anim: self.player.info.readyanim.unwrap_or(1426),
-            display_name: &name,
-            combat_level: self.player.combat_level,
-            headicons: self.player.headicons,
-        };
-
-        let block = build_appearance_block(&input);
-
-        self.player.info.last_appearance = Some(clock);
-        self.player.info.last_appearance_info = Some(Box::from(block));
-    }
-
-    #[cfg(before_647)]
-    pub fn generateappearance(&mut self, clock: u32) {
-        use std::cell::RefCell;
-        // Reused per-thread scratch buffer so each appearance rebuild doesn't
-        // allocate (and zero) a fresh Packet. Only the final boxed slice -- the
-        // value actually stored on the player -- is allocated. The engine is
-        // single-threaded, so a thread-local is sound and contention-free.
         thread_local! {
             static SCRATCH: RefCell<Packet> = RefCell::new(Packet::new(256));
         }
 
         let appearance: Box<[u8]> = SCRATCH.with_borrow_mut(|buf| {
             buf.pos = 0;
-            buf.p1(self.player.gender);
-            buf.p1(self.player.headicons);
+            #[cfg(before_647)]
+            {
+                buf.p1(self.player.gender);
+                buf.p1(self.player.headicons);
+            }
+            #[cfg(since_647)]
+            {
+                buf.p1((self.player.gender & 0x1) | ((self.player.skill_level != 0) as u8) << 2);
+                buf.p1(u8::MAX);
+                buf.p1(u8::MAX);
+                let prayer = if self.player.headicons & (1 << 5) != 0 {
+                    2
+                } else if self.player.headicons & (1 << 4) != 0 {
+                    1
+                } else if self.player.headicons & (1 << 3) != 0 {
+                    0
+                } else {
+                    u8::MAX
+                };
+                buf.p1(prayer);
+                buf.p1(0);
+            }
 
             #[cfg(before_254)]
             self.put_appearance_inv(buf);
-
             #[cfg(since_254)]
             match self.player.transmog {
                 None => self.put_appearance_inv(buf),
                 Some(transmog) => {
                     buf.p2(u16::MAX);
                     buf.p2(transmog);
+                    #[cfg(since_647)]
+                    buf.p1(0);
                 }
             }
 
-            for &color in &self.player.colours {
-                buf.p1(color);
+            for &colour in &self.player.colours {
+                buf.p1(colour);
             }
 
-            buf.p2(self.player.info.readyanim.unwrap());
-            buf.p2(self.player.info.turnanim.unwrap());
-            buf.p2(self.player.info.walkanim.unwrap());
-            buf.p2(self.player.info.walkanim_b.unwrap());
-            buf.p2(self.player.info.walkanim_l.unwrap());
-            buf.p2(self.player.info.walkanim_r.unwrap());
-            buf.p2(self.player.info.runanim.unwrap());
-            buf.p8(self.uid().username37() as i64);
+            #[cfg(before_647)]
+            {
+                buf.p2(self.player.info.readyanim.unwrap());
+                buf.p2(self.player.info.turnanim.unwrap());
+                buf.p2(self.player.info.walkanim.unwrap());
+                buf.p2(self.player.info.walkanim_b.unwrap());
+                buf.p2(self.player.info.walkanim_l.unwrap());
+                buf.p2(self.player.info.walkanim_r.unwrap());
+                buf.p2(self.player.info.runanim.unwrap());
+                buf.p8(self.uid().username37() as i64);
+            }
+            #[cfg(since_647)]
+            {
+                buf.p2(self.player.info.readyanim.unwrap_or(1426));
+                buf.pjstr(&self.player.shown_name(), 0);
+            }
             buf.p1(self.player.combat_level);
-            #[cfg(since_274)]
+            #[cfg(all(since_274, before_647))]
             buf.p2(self.player.skill_level);
+            #[cfg(since_647)]
+            {
+                if self.player.skill_level != 0 {
+                    buf.p2(self.player.skill_level);
+                } else {
+                    buf.p1(0);
+                    buf.p1(u8::MAX);
+                }
+                buf.p1(0);
+            }
 
             Box::from(&buf.data[..buf.pos])
         });
@@ -3267,44 +3229,17 @@ impl ActivePlayer {
         self.player.info.last_appearance_info = Some(appearance);
     }
 
-    /// Encodes the twelve on-model equipment slots (`WearPos::Hat` through
-    /// `WearPos::Jaw`) of this player's appearance into `buf`, one entry per
-    /// slot in wear-position order. (`Ring` and `Quiver` are not drawn on the
-    /// model and so are excluded.)
+    /// Writes the visible equipment and body kits in wear-position order.
     ///
-    /// Each slot is written in one of three forms, matching the client's
-    /// appearance decoder:
-    /// - **Worn item:** `0x200 + obj` as a `u16`; the `0x200` flag marks the
-    ///   value as an equipped object id.
-    /// - **Bare body part:** the kit value from `get_appearance_in_slot`
-    ///   (`0x100 + body_part`) as a `u16`, used when the slot holds no item but
-    ///   the character model has a body part there (hair, torso, arms, ...).
-    /// - **Empty:** a single `0` byte, for slots with neither an item nor a
-    ///   visible body part.
-    ///
-    /// Items can cover more than their primary slot: an obj's `wearpos2` /
-    /// `wearpos3` name the extra slots it visually hides (e.g. a full helm hides
-    /// the hair and jaw, a platebody hides the arms). A first pass flags every
-    /// such covered slot so the encoding pass emits an empty `0` for it, keeping
-    /// the body part beneath from poking through the worn item.
-    ///
-    /// The worn equipment is read from the inventory named by
-    /// `player.info.appearance` (defaulting to inventory `0`).
-    ///
-    /// # Arguments
-    /// * `buf` - The appearance buffer to append the twelve slot entries to.
-    ///
-    /// # Side Effects
-    /// Advances `buf.pos` by 12 to 24 bytes (1 byte per empty slot, 2 per
-    /// filled slot).
-    #[cfg(before_647)]
-    fn put_appearance_inv(&mut self, buf: &mut Packet) {
-        let mut skipped_slots = [false; 12];
-        if let Some(worn) = self
+    /// Items hide the additional slots named by their wearpos2/wearpos3.
+    /// Empty visible slots fall back to the player's body kits.
+    fn put_appearance_inv(&self, buf: &mut Packet) {
+        let worn = self
             .player
             .invs
-            .get(&self.player.info.appearance.unwrap_or(0))
-        {
+            .get(&self.player.info.appearance.unwrap_or(0));
+        let mut skipped_slots = [false; 12];
+        if let Some(worn) = worn {
             let objs = engine().objs();
             for item in worn.slots.iter().flatten() {
                 if let Some(obj) = objs.get_by_id(item.obj) {
@@ -3318,19 +3253,13 @@ impl ActivePlayer {
             }
         }
 
-        let worn_inv_id = self.player.info.appearance.unwrap_or(0);
         for slot in 0..12 {
             if skipped_slots[slot as usize] {
                 buf.p1(0);
                 continue;
             }
-            let equip = self
-                .player
-                .invs
-                .get(&worn_inv_id)
-                .and_then(|inv| inv.get(slot));
-            if let Some(item) = equip {
-                buf.p2(0x200 + item.obj);
+            if let Some(item) = worn.and_then(|inv| inv.get(slot)) {
+                buf.p2(if cfg!(since_647) { 0x4000 } else { 0x200 } + item.obj);
             } else {
                 let appearance_value = self.get_appearance_in_slot(slot as usize);
                 if appearance_value < 1 {
@@ -3340,6 +3269,8 @@ impl ActivePlayer {
                 }
             }
         }
+        #[cfg(since_647)]
+        buf.p2(0);
     }
 
     /// Returns the body model kit value for the given equipment slot when
@@ -3354,7 +3285,6 @@ impl ActivePlayer {
     ///
     /// # Returns
     /// The kit model value (0x100 + body_part), or 0 if hidden/unmapped.
-    #[cfg(before_647)]
     fn get_appearance_in_slot(&self, slot: usize) -> i32 {
         let part = match slot {
             8 => self.player.body[0],

@@ -304,7 +304,7 @@ fn a_prayer_above_the_level_says_2011s_requirement() {
 }
 
 /// Protect from Melee draws 2011's prayer head icon 0 (the appearance's
-/// fourth byte after its length: flags, title, skull, prayer).
+/// fourth body byte: flags, title, skull, prayer).
 #[test]
 fn protect_from_melee_shows_its_head_icon() {
     runner::on_loaded_engine(|engine| {
@@ -316,7 +316,7 @@ fn protect_from_melee_shows_its_head_icon() {
             .last_appearance_info
             .as_ref()
             .expect("appearance");
-        assert_eq!(block[4] as i8, 0, "headicons_prayer[0]");
+        assert_eq!(block[3] as i8, 0, "headicons_prayer[0]");
 
         click(engine, &mut client, PROTECT_FROM_MELEE.0);
         let player = engine.harness_player(client.pid).unwrap();
@@ -325,7 +325,7 @@ fn protect_from_melee_shows_its_head_icon() {
             .last_appearance_info
             .as_ref()
             .expect("appearance");
-        assert_eq!(block[4] as i8, -1, "none");
+        assert_eq!(block[3] as i8, -1, "none");
     });
 }
 

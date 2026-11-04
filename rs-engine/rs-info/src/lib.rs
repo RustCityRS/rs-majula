@@ -1,37 +1,13 @@
 use std::ops::{Deref, DerefMut};
-#[cfg(before_647)]
-mod renderer;
-/// Rev-647 renderer: same cache-and-write architecture, but the wire blocks,
-/// mask bit values (u32 with two extension bytes) and block sizes follow the
-/// 647 client. The engine-side [`EntityMasks`] keeps its compact `info_prot`
-/// mask language at every revision; this module translates at encode time.
-#[cfg(since_647)]
-#[path = "renderer647.rs"]
 mod renderer;
 
-#[cfg(since_647)]
-pub use renderer::{
-    NPC_MASK_EXTENDED, NPC_MASK_EXTENDED2, NpcInfoProt647, PLAYER_MASK_EXTENDED,
-    PLAYER_MASK_EXTENDED2, PlayerInfoProt647,
-};
 pub use renderer::{NpcRenderer, PlayerRenderer};
-use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
-
-/// Rev-647-only engine-side mask bits, carved from the unused upper range of
-/// the u16 `info_prot` mask space (player masks end at `Damage2 = 0x400`).
-#[cfg(since_647)]
-pub const MASK_MOVE_TYPE: u16 = 0x800;
-#[cfg(since_647)]
-pub const MASK_TEMP_MOVE_TYPE: u16 = 0x1000;
+pub use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 
 /// Discriminator for selecting the correct protocol mask bits when setting
 /// face-entity or face-coord updates on an entity.
 ///
-/// NPC and Player info protocols use different bitmask values for the same
-/// logical operations (e.g., `FaceEntity` is `0x4` for both, but `FaceCoord`
-/// is `0x80` for NPCs and `0x20` for Players). This enum abstracts over
-/// that difference so that shared logic in [`EntityMasks`] can operate
-/// generically on either entity type.
+/// Selects the revision's NPC or player mask values for shared [`EntityMasks`] logic.
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum FocusKind {
@@ -47,8 +23,8 @@ impl FocusKind {
     ///
     /// # Returns
     ///
-    /// * `NpcInfoProt::FaceEntity as u16` (`0x4`) when `self` is [`FocusKind::Npc`].
-    /// * `PlayerInfoProt::FaceEntity as u16` (`0x4`) when `self` is [`FocusKind::Player`].
+    /// * `NpcInfoProt::FaceEntity as u16` when `self` is [`FocusKind::Npc`].
+    /// * `PlayerInfoProt::FaceEntity as u16` when `self` is [`FocusKind::Player`].
     ///
     /// # Call Stack
     ///
@@ -66,8 +42,8 @@ impl FocusKind {
     ///
     /// # Returns
     ///
-    /// * `NpcInfoProt::FaceCoord as u16` (`0x80`) when `self` is [`FocusKind::Npc`].
-    /// * `PlayerInfoProt::FaceCoord as u16` (`0x20`) when `self` is [`FocusKind::Player`].
+    /// * `NpcInfoProt::FaceCoord as u16` when `self` is [`FocusKind::Npc`].
+    /// * `PlayerInfoProt::FaceCoord as u16` when `self` is [`FocusKind::Player`].
     ///
     /// # Call Stack
     ///
@@ -178,8 +154,6 @@ pub struct EntityMasksCold {
     pub exactmove_finish: Option<u16>,
     pub exactmove_dir: Option<u8>,
     pub changetype: Option<u16>,
-    /// Rev-647 move-speed setting (0 stationary / 1 walk / 2 run) for the
-    /// MoveType and TempMoveType mask blocks.
     #[cfg(since_647)]
     pub move_type: Option<u8>,
     #[cfg(since_647)]

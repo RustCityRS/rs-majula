@@ -47,6 +47,46 @@ fn pack_refuses_to_run_without_the_derived_content() {
     rs_pack::startup::require_derived_content(&content).unwrap();
 }
 
+#[test]
+fn a_registry_rename_stops_packing_before_outputs_change() {
+    let content = scratch("renamed");
+    let pack = content.join("pack");
+    let output = content.join("output");
+    fs::create_dir_all(&pack).unwrap();
+    fs::create_dir_all(content.join("scripts/_unpack")).unwrap();
+    fs::create_dir_all(content.join("maps/_unpack")).unwrap();
+    fs::create_dir_all(output.join("server")).unwrap();
+    fs::write(pack.join("seq.pack"), "893=human_shearing\n").unwrap();
+    fs::write(
+        content.join("scripts/_unpack/all.seq"),
+        "[seq_893]\npriority=5\n",
+    )
+    .unwrap();
+    fs::write(content.join("scripts/_unpack/all.loc"), "").unwrap();
+    fs::write(content.join("maps/_unpack/manifest.json"), "{}").unwrap();
+    fs::write(output.join("server/seq.dat"), b"previous output").unwrap();
+
+    for verify in [false, true] {
+        let err = rs_pack::startup::pack_all(&content, &pack, &output, verify)
+            .err()
+            .expect("stale generated names must stop packing")
+            .to_string();
+        for expected in [
+            "all.seq",
+            "seq_893",
+            "human_shearing",
+            "cargo regen-content",
+        ] {
+            assert!(err.contains(expected), "{err}");
+        }
+        assert_eq!(
+            fs::read(output.join("server/seq.dat")).unwrap(),
+            b"previous output"
+        );
+        assert!(!output.join("client").exists());
+    }
+}
+
 /// One authored overlay of every kind, read back out of the packed configs.
 #[test]
 #[ignore = "runs the full pack pipeline against content/647 (minutes)"]

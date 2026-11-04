@@ -162,16 +162,8 @@ impl Engine {
         );
 
         active.update_map();
-        #[cfg(before_647)]
-        {
-            active.player_info_parts(player_info.into());
-            active.npc_info_parts(npc_info.into());
-        }
-        #[cfg(since_647)]
-        {
-            active.player_info(player_info);
-            active.npc_info(npc_info);
-        }
+        active.player_info_parts(player_info.into());
+        active.npc_info_parts(npc_info.into());
         active.update_zones(&self.zones, &self.zones_tracking, self.clock);
         active.update_invs(&mut self.invs);
         active.update_other_invs(others);

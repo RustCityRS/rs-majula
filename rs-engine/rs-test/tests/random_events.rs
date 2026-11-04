@@ -349,7 +349,7 @@ fn the_mime_s_audience_faces_the_stage() {
             .flatten()
             .filter(|n| (1057..=1059).contains(&n.npc.base_type))
             .map(|n| {
-                // As NPC_INFO's add block reports it (info647.rs).
+                // As NPC_INFO's add block reports it (info.rs).
                 let c = n.npc.pathing.coord;
                 let facing = n.npc.facing().map(|(fx, fz)| {
                     (
