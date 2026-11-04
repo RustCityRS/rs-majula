@@ -25,20 +25,24 @@ fn obj(engine: &Engine, name: &str) -> u16 {
         .unwrap_or_else(|| panic!("no obj {name}"))
 }
 
-/// The unshorn sheep nearest Lumbridge's pen (3205,3262): its index and tile.
-fn sheep(engine: &Engine) -> (u16, u16, u16) {
+/// The sheep of `kind` nearest Lumbridge's pen (3205,3262): index and tile.
+fn sheep_of(engine: &Engine, kind: u16) -> (u16, u16, u16) {
     engine
         .npc_list
         .npcs
         .iter()
         .flatten()
-        .filter(|n| n.npc.base_type == UNSHORN)
+        .filter(|n| n.npc.base_type == kind)
         .map(|n| {
             let c = n.npc.pathing.coord;
             (n.npc.uid.nid(), c.x(), c.z())
         })
         .min_by_key(|&(_, x, z)| (x as i32 - 3205).abs() + (z as i32 - 3262).abs())
-        .expect("an unshorn sheep by Lumbridge")
+        .expect("a sheep of that kind by Lumbridge")
+}
+
+fn sheep(engine: &Engine) -> (u16, u16, u16) {
+    sheep_of(engine, UNSHORN)
 }
 
 fn shear(client: &mut HarnessClient, nid: u16) {
@@ -107,5 +111,52 @@ fn shear_takes_wool_with_shears_and_asks_for_them_without() {
             }
         }
         assert!(shorn, "Shear with shears gave wool");
+    });
+}
+
+/// 2011's other shearable sheep shear as 289's do, to their own shorn sheep:
+/// Lumbridge's sheep_1765 (eight in the pen) to 1764 (void-634's pair).
+#[test]
+fn a_2011_sheep_shears_to_its_own_shorn_sheep() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("shepherd2").expect("login");
+        engine.cycle();
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let (wool, shears) = (obj(engine, "wool"), obj(engine, "shears"));
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        player.invs.get_mut(&inv).unwrap().set(0, shears, 1);
+        let mut shorn = None;
+        for _ in 0..12 {
+            let (nid, x, z) = sheep_of(engine, 1765);
+            engine.harness_telejump(client.pid, x, 0, z + 1);
+            for _ in 0..3 {
+                engine.cycle();
+            }
+            client.packets();
+            shear(&mut client, nid);
+            for _ in 0..15 {
+                engine.cycle();
+            }
+            let got = engine
+                .harness_player(client.pid)
+                .unwrap()
+                .invs
+                .get(&inv)
+                .unwrap()
+                .total(wool)
+                > 0;
+            if got {
+                shorn = engine
+                    .npc_list
+                    .npcs
+                    .iter()
+                    .flatten()
+                    .find(|n| n.npc.uid.nid() == nid)
+                    .map(|n| n.npc.uid.id());
+                break;
+            }
+        }
+        assert_eq!(shorn, Some(1764), "sheared, and now 1764");
     });
 }

@@ -2,7 +2,9 @@
 // https://youtu.be/597gMc5j14E?si=oXUOSwc7dvzmwOMl&t=237 this video shows sheep baa!'ing after ~objbox is called, so its defintely not baaing from the opnpcu script.
 // Also here: https://www.youtube.com/watch?v=597gMc5j14E&t=323s, the sheep baa!'s after finishing its retreat (defaultMode is called)
 
-[opnpcu,sheepunsheered]
+[opnpcu,sheepunsheered] @shear_sheep_use;
+
+[label,shear_sheep_use]
 if(last_useitem ! shears) {
     ~displaymessage(^dm_default);
     return;
@@ -12,7 +14,9 @@ if(last_useitem ! shears) {
 // 2011's unshorn sheep have Shear (op1, cache 786), which shears with shears in
 // the pack (2011 wiki, Wool: "right-clicks on them with a pair of shears in
 // their inventory"); without them, void-634's message (Sheep.kt).
-[opnpc1,sheepunsheered]
+[opnpc1,sheepunsheered] @shear_sheep_op1;
+
+[label,shear_sheep_op1]
 if (inv_total(inv, shears) < 1) {
     mes("You need a set of shears to do this.");
     return;
@@ -31,14 +35,59 @@ npc_setmode(playerfaceclose);
 p_delay(0);
 npc_setmode(null);
 p_delay(0);
-npc_changetype_keepall(sheep, 100);
+// 2011's other shearable sheep shear to their own shorn sheep (void-634
+// sheep.npcs.toml pairs each with its _shorn); 289's shears to `sheep`.
+def_npc $shorn = sheep;
+if (npc_type = sheep_1763) {
+    $shorn = sheep_1762;
+} else if (npc_type = sheep_1765) {
+    $shorn = sheep_1764;
+} else if (npc_type = sheep_5156) {
+    $shorn = sheep_5148;
+} else if (npc_type = sheep_5157) {
+    $shorn = sheep_5149;
+} else if (npc_type = sheep_5158) {
+    $shorn = sheep_5150;
+} else if (npc_type = sheep_5159) {
+    $shorn = sheep_5151;
+} else if (npc_type = sheep_5160) {
+    $shorn = sheep_5152;
+}
+npc_changetype_keepall($shorn, 100);
 inv_add(inv, wool, 1);
 mes("You get some wool.");
 ~objbox(wool, "You get some wool.", 250, 0, divide(^objbox_height, 2));
 
-[opnpcu,sheep]
+[opnpcu,sheep] @shorn_sheep_use;
+
+[label,shorn_sheep_use]
 if(last_useitem = shears) {
     mes("This sheep has already been shorn.");
     return;
 }
 ~displaymessage(^dm_default);
+
+// 2011's other shearable sheep (cache 786: Shear on op1; void-634 sheep.npcs.toml),
+// as 289's unshorn sheep. 3579 is void's sheep_penguin, not a sheep at all:
+// it waits for its own port.
+[opnpc1,sheep_1763] @shear_sheep_op1;
+[opnpc1,sheep_1765] @shear_sheep_op1;
+[opnpc1,sheep_5156] @shear_sheep_op1;
+[opnpc1,sheep_5157] @shear_sheep_op1;
+[opnpc1,sheep_5158] @shear_sheep_op1;
+[opnpc1,sheep_5159] @shear_sheep_op1;
+[opnpc1,sheep_5160] @shear_sheep_op1;
+[opnpcu,sheep_1763] @shear_sheep_use;
+[opnpcu,sheep_1765] @shear_sheep_use;
+[opnpcu,sheep_5156] @shear_sheep_use;
+[opnpcu,sheep_5157] @shear_sheep_use;
+[opnpcu,sheep_5158] @shear_sheep_use;
+[opnpcu,sheep_5159] @shear_sheep_use;
+[opnpcu,sheep_5160] @shear_sheep_use;
+[opnpcu,sheep_1762] @shorn_sheep_use;
+[opnpcu,sheep_1764] @shorn_sheep_use;
+[opnpcu,sheep_5148] @shorn_sheep_use;
+[opnpcu,sheep_5149] @shorn_sheep_use;
+[opnpcu,sheep_5150] @shorn_sheep_use;
+[opnpcu,sheep_5151] @shorn_sheep_use;
+[opnpcu,sheep_5152] @shorn_sheep_use;
