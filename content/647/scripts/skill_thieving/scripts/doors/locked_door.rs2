@@ -176,7 +176,9 @@ if ($locked = true) {
     mes("You manage to pick the lock.");
 
     def_int $experience = db_getfield($data, locked_door:experience, 0);
-    stat_advance(thieving, $experience);
+    // 289 pays with stat_advance, here and below; 2011's xp counter
+    // counts what ~givexp pays (player/scripts/xp.rs2).
+    ~givexp(thieving, $experience);
 
     if ($gate = true) {
         ~open_and_close_metal_gate2($replacement, $entering, $mirror);

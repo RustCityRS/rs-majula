@@ -16,6 +16,9 @@
 //!   searched for traps it gives 10 coins and 7.8 xp; opened without, its trap
 //!   takes 289's damage (a tenth of the current life points times 12/100,
 //!   plus 3 hitpoints) as life points.
+//!
+//! Thieving pays through `~givexp`, so 2011's xp counter (varp 1801, in tenths
+//! of the xp) counts each award.
 
 #![cfg(since_647)]
 
@@ -106,6 +109,11 @@ fn xp(engine: &Engine, pid: u16) -> i32 {
     engine.harness_player(pid).unwrap().stats.xp[THIEVING]
 }
 
+/// 2011's xp counter, which counts ten times what `~givexp` pays.
+fn counted(engine: &Engine, pid: u16) -> i32 {
+    engine.harness_player(pid).unwrap().vars.get(1801).as_int()
+}
+
 #[test]
 fn a_lumbridge_man_s_pocket_pays_three_coins() {
     runner::on_loaded_engine(|engine| {
@@ -129,6 +137,7 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
             "the game said {said:?}"
         );
         assert_eq!(xp(engine, client.pid), 80, "8 xp");
+        assert_eq!(counted(engine, client.pid), 800, "the xp counter counts it");
         assert_eq!(
             said.iter().map(String::as_str).collect::<Vec<_>>(),
             [
@@ -151,6 +160,11 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
             .sum();
         assert_eq!(goods, 1, "one of the stall's goods; the game said {said:?}");
         assert_eq!(xp(engine, client.pid), 160, "16 xp");
+        assert_eq!(
+            counted(engine, client.pid),
+            1600,
+            "the xp counter counts it"
+        );
         assert!(said.iter().any(|s| s.starts_with("You steal ")), "{said:?}");
 
         // In the baker's sight, beside him, he stops the theft.
@@ -203,6 +217,7 @@ fn a_chest_opened_unsearched_springs_its_trap_and_a_searched_one_pays() {
             "the game said {said:?}"
         );
         assert_eq!(xp(engine, client.pid), 78, "7.8 xp");
+        assert_eq!(counted(engine, client.pid), 780, "the xp counter counts it");
         assert!(
             said.contains(&"You find treasure inside!".to_string()),
             "{said:?}"

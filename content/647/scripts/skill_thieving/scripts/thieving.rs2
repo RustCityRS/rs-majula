@@ -19,7 +19,9 @@ if (~check_if_success_pick_pocket($data) = false) {
 def_int $experience = db_getfield($data, pickpocket:experience, 0);
 ~pick_pocket_check_for_reward($data);
 anim(human_pickpocket, 0);
-stat_advance(thieving, $experience);
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(thieving, $experience);
 sound_synth(pick, 1, 0);
 mes("You pick the <$pocket>.");
 
@@ -96,7 +98,7 @@ switch_loc (loc_type) {
         %thieving_stall_timer = setbit(%thieving_stall_timer, ^vikingfish_stall_index);
 }
 ~stealing_check_for_reward($data);
-stat_advance(thieving, $experience);
+~givexp(thieving, $experience);
 // Temp note: dur does not need updated
 if(loc_type = viking_fur_market | loc_type = fish_stall) loc_change(viking_market, $respawn_ticks);
 else if(loc_type = tea_stall) loc_change(market_stall, $respawn_ticks);
@@ -134,7 +136,7 @@ mes("You find treasure inside!");
 anim(human_openchest, 0);
 ~trapped_chest_check_for_reward($data);
 def_int $experience = db_getfield($data, trapped_chest:experience, 0);
-stat_advance(thieving, $experience);
+~givexp(thieving, $experience);
 def_int $respawn_ticks = ~scale_by_playercount(db_getfield($data, trapped_chest:respawn_ticks, 0));
 loc_change(loc_2574, 4); //opened chest
 p_delay(2);

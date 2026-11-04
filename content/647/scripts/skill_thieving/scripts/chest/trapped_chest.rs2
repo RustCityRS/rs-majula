@@ -101,7 +101,9 @@ sound_synth(chest_open, 1, 0);
 p_delay(1);
 mes("You find treasure inside!");
 anim(human_openchest, 0);
-stat_advance(thieving, $experience);
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(thieving, $experience);
 ~trapped_chest_check_for_reward($data);
 loc_change(loc_2574, 4); //opened chest
 p_delay(2);
