@@ -42,6 +42,9 @@ switch_int(oc_param(last_useitem, gnome_cooking_type)) {
     case ^gnome_bowl, ^gnome_batta, ^gnome_crunchies : @finish_gnome_food(last_useitem, last_item);
 }
 switch_obj (last_useitem) {
+    // 289 no longer lets chocolate dust make a chocolate cake (it dates the
+    // change to Desert Treasure, 18 Apr 2005); 2011 does (2011 wiki, Chocolate
+    // dust, 2011-04-17; Chocolate cake, 2011-04-21).
     case cake : @make_chocolate_cake(last_slot);
     case bucket_of_milk : @make_chocolate_milk(last_slot);
     case harralander_potion__unf : ~attempt_brew_potion(last_useslot, last_slot);
@@ -54,6 +57,9 @@ switch_obj (last_useitem) {
     case default : ~attempt_brew_potion(last_useslot, last_slot);
 }
 
+// using chocolate dust to make cakes seem to be added with this update (18 Apr 2005): https://oldschool.runescape.wiki/w/Update:Desert_Treasure
+// 289 takes only the chocolate bar here; 2011 takes the dust too (2011 wiki,
+// Chocolate cake, 2011-04-21: "a chocolate bar or chocolate dust").
 [opheldu,cake]
 switch_obj (last_useitem) {
     case chocolate_bar, chocolate_dust : @make_chocolate_cake(last_useslot);

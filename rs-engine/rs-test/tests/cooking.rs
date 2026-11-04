@@ -234,3 +234,28 @@ fn the_guild_door_lets_anyone_out() {
         assert!(player.pathing.coord.z() <= CHEFDOOR.1, "out on the street");
     });
 }
+
+/// The PR's 289 keeps the Cooks' Guild's head chef within 3 of his spawn
+/// (`maxrange=3`, beside `wanderrange=3`), and files its cooked chicken, meat
+/// and ugthanki meat under a new `meat` category.
+#[test]
+fn the_head_chef_and_cooked_meats_take_289s_configs() {
+    runner::on_loaded_engine(|engine| {
+        let chef = *engine.cache.npcs.debugnames.get("head_chef").unwrap();
+        let chef = engine.cache.npcs.get_by_id(chef).unwrap();
+        assert_eq!((chef.wanderrange, chef.maxrange), (3, 3));
+        let meat: u16 = std::fs::read_to_string(format!(
+            "{}/../../content/647/pack/category.pack",
+            env!("CARGO_MANIFEST_DIR")
+        ))
+        .unwrap()
+        .lines()
+        .find_map(|l| l.strip_suffix("=meat")?.parse().ok())
+        .expect("meat is in category.pack");
+        for name in ["cooked_chicken", "cooked_meat", "ugthanki_meat"] {
+            let obj = *engine.cache.objs.debugnames.get(name).expect(name);
+            let category = engine.cache.objs.get_by_id(obj).and_then(|o| o.category);
+            assert_eq!(category, Some(meat), "{name}");
+        }
+    });
+}
