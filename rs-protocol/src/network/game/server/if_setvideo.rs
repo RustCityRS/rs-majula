@@ -1,32 +1,29 @@
-//! `IfSetVideo` — attach a video stream to an interface component.
-//! Rev-647 opcode 65 (IF_SETVIDEO), fixed 6.
-//!
-//! Client read order (`MapAreaConfig.java`):
-//! `ig2 video_id; g4 component_hash`.
-
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 #[server_prot(IfSetVideo, Buffered, Fixed)]
 pub struct IfSetVideo {
-    /// Video-source id.
-    pub video_id: u16,
-    /// Packed `(interface_id << 16) | component_id`.
-    pub component_hash: i32,
+    pub video: u16,
+    pub com: i32,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for IfSetVideo {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.video_id);
-        buf.p4(self.component_hash);
+        buf.ip2(self.video);
+        buf.p4(self.com);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.video_id) + size_of_val(&self.component_hash)
+        size_of_val(&self.video) + size_of_val(&self.com)
     }
 }

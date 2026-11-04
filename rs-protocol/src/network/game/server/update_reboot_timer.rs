@@ -5,13 +5,11 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_647)]
 #[server_prot(UpdateRebootTimer, Buffered, Fixed)] // TODO: what should priority be?
 pub struct UpdateRebootTimer {
     pub clocks: u16,
 }
 
-#[cfg(before_647)]
 impl ServerProtMessage for UpdateRebootTimer {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.clocks);
@@ -19,33 +17,5 @@ impl ServerProtMessage for UpdateRebootTimer {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.clocks)
-    }
-}
-
-// `UpdateRebootTimer` — countdown to server reboot.
-// Rev-647 opcode 5 (UPDATE_REBOOT_TIMER), fixed 2.
-//
-// The client multiplies the raw value by either 2.5 (lobby/login) or
-// 30 (in-game). Pass the **raw** countdown in ticks; the client does
-// the scaling.
-//
-// Client read order (`MapAreaConfig.java`):
-// `g2 ticks`.
-
-#[cfg(since_647)]
-#[server_prot(UpdateRebootTimer, Buffered, Fixed)]
-pub struct UpdateRebootTimer {
-    pub ticks: u16,
-}
-
-#[cfg(since_647)]
-impl ServerProtMessage for UpdateRebootTimer {
-    fn encode(&self, buf: &mut Packet) {
-        buf.p2(self.ticks);
-    }
-
-    fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.ticks)
     }
 }

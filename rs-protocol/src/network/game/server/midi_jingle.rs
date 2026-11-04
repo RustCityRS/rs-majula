@@ -43,10 +43,6 @@ impl ServerProtMessage for MidiJingle {
     }
 }
 
-// `MidiJingle` — play a short MIDI jingle overlay, then return to prior song.
-// Rev-647 opcode 88 (MIDI_JINGLE), fixed 6.
-// Wire layout: `[ip2_alt1 song_id][p3_alt2 duration][p1 volume]`.
-
 #[cfg(since_647)]
 #[server_prot(MidiJingle, Buffered, Fixed)]
 pub struct MidiJingle {
@@ -64,7 +60,6 @@ impl ServerProtMessage for MidiJingle {
     }
 
     fn sizeof(&self) -> usize {
-        // u16 song_id + 3-byte duration + u8 volume = 6
-        6
+        size_of_val(&self.song_id) + 3 + size_of_val(&self.volume)
     }
 }

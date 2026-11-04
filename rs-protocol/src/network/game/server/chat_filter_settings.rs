@@ -29,18 +29,18 @@ impl ServerProtMessage for ChatFilterSettings {
 #[cfg(since_647)]
 #[server_prot(ChatFilterSettings, Buffered, Fixed)]
 pub struct ChatFilterSettings {
-    pub public_filter: u8,
-    pub trade_filter: u8,
+    pub public: u8,
+    pub trade: u8,
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for ChatFilterSettings {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt2(self.public_filter);
-        buf.p1_alt1(self.trade_filter);
+        buf.p1_alt2(self.public);
+        buf.p1_alt1(self.trade);
     }
 
     fn sizeof(&self) -> usize {
-        2
+        size_of_val(&self.public) + size_of_val(&self.trade)
     }
 }

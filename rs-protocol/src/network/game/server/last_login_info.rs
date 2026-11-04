@@ -60,23 +60,19 @@ impl ServerProtMessage for LastLoginInfo {
     }
 }
 
-// `LastLoginInfo` — tell the client how many days since last login.
-// Rev-647 opcode 35 (LAST_LOGIN_INFO), fixed 4.
-
 #[cfg(since_647)]
 #[server_prot(LastLoginInfo, Buffered, Fixed)]
 pub struct LastLoginInfo {
-    pub last_login_days: i32,
+    pub login: i32,
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for LastLoginInfo {
     fn encode(&self, buf: &mut Packet) {
-        buf.p4(self.last_login_days);
+        buf.p4(self.login);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.last_login_days)
+        size_of_val(&self.login)
     }
 }

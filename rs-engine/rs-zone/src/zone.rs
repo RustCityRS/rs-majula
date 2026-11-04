@@ -5,22 +5,12 @@ use rs_entity::{EntityLifeTime, Loc, LocSerial, Obj, ObjSerial};
 use rs_grid::ZoneCoordGrid;
 use rs_io::Packet;
 use rs_pack::types::LocLayer;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_anim::LocAnim;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_del::LocDel;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_add::ObjAdd;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_del::ObjDel;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::zone_message::{
-    ZoneLocAddChange, ZoneLocAnim, ZoneLocDel, ZoneObjAdd, ZoneObjDel, ZoneObjReveal,
-};
 use rustc_hash::FxHashMap;
 
 /// An 8x8 tile region that manages all entities and events within its bounds.
@@ -628,15 +618,12 @@ impl Zone {
         } else {
             self.locs[idx].set_visible(false);
         }
-        #[cfg(before_647)]
-        let message = ZoneMessage::LocDel(LocDel { coord, shape_angle });
-        // Rev-647: same packed coord/shape-angle bytes, field named `shape_rot`.
-        #[cfg(since_647)]
-        let message = ZoneMessage::LocDel(ZoneLocDel {
-            coord,
-            shape_rot: shape_angle,
-        });
-        self.queue_event(Some(lid), ZoneEventType::Enclosed, None, message);
+        self.queue_event(
+            Some(lid),
+            ZoneEventType::Enclosed,
+            None,
+            ZoneMessage::LocDel(LocDel { coord, shape_angle }),
+        );
     }
 
     /// Finds the index of a visible loc at the given position with the given type id.
@@ -747,19 +734,16 @@ impl Zone {
     /// **Calls:** [`queue_event`](Self::queue_event).
     pub fn anim_loc(&mut self, idx: usize, seq: u16) {
         let loc = &self.locs[idx];
-        #[cfg(before_647)]
-        let message = ZoneMessage::LocAnim(LocAnim {
-            coord: loc.packed_zone_coord(),
-            shape_angle: loc.packed_shape_angle(),
-            seq,
-        });
-        #[cfg(since_647)]
-        let message = ZoneMessage::LocAnim(ZoneLocAnim {
-            coord: loc.packed_zone_coord(),
-            shape_rot: loc.packed_shape_angle(),
-            seq_id: seq,
-        });
-        self.queue_event(Some(loc.lid()), ZoneEventType::Enclosed, None, message);
+        self.queue_event(
+            Some(loc.lid()),
+            ZoneEventType::Enclosed,
+            None,
+            ZoneMessage::LocAnim(LocAnim {
+                coord: loc.packed_zone_coord(),
+                shape_angle: loc.packed_shape_angle(),
+                seq,
+            }),
+        );
     }
 
     /// Queues a pre-built zone message for a loc merge operation.
@@ -842,16 +826,9 @@ impl Zone {
         };
         obj.set_serial(serial);
         let oid = obj.oid();
-        #[cfg(before_647)]
         let message = ZoneMessage::ObjAdd(ObjAdd {
             coord: obj.packed_zone_coord(),
             id: obj.id(),
-            count: clamp_count(obj.count()),
-        });
-        #[cfg(since_647)]
-        let message = ZoneMessage::ObjAdd(ZoneObjAdd {
-            coord: obj.packed_zone_coord(),
-            obj_id: obj.id(),
             count: clamp_count(obj.count()),
         });
         if despawn {
@@ -1039,21 +1016,17 @@ impl Zone {
         if let Some(receiver37) = self.receivers.remove(&oid) {
             self.dropped_for.insert(oid, receiver37);
         }
-        #[cfg(before_647)]
-        let message = ZoneMessage::ObjReveal(ObjReveal {
-            coord: self.objs[idx].packed_zone_coord(),
-            id,
-            count: clamp_count(count),
-            receiver: receiver_pid,
-        });
-        #[cfg(since_647)]
-        let message = ZoneMessage::ObjReveal(ZoneObjReveal {
-            coord: self.objs[idx].packed_zone_coord(),
-            obj_id: id,
-            count: clamp_count(count),
-            receiver: receiver_pid,
-        });
-        self.queue_event(Some(oid), ZoneEventType::Enclosed, None, message);
+        self.queue_event(
+            Some(oid),
+            ZoneEventType::Enclosed,
+            None,
+            ZoneMessage::ObjReveal(ObjReveal {
+                coord: self.objs[idx].packed_zone_coord(),
+                id,
+                count: clamp_count(count),
+                receiver: receiver_pid,
+            }),
+        );
     }
 
     /// Removes an obj whose `last_clock` matches the expected clock value.
@@ -1179,11 +1152,12 @@ impl Zone {
         } else {
             self.objs[idx].set_last_clock(respawn_at.unwrap_or(u32::MAX));
         }
-        #[cfg(before_647)]
-        let message = ZoneMessage::ObjDel(ObjDel { coord, id });
-        #[cfg(since_647)]
-        let message = ZoneMessage::ObjDel(ZoneObjDel { coord, obj_id: id });
-        self.queue_event(Some(oid), event_type, event_receiver, message);
+        self.queue_event(
+            Some(oid),
+            event_type,
+            event_receiver,
+            ZoneMessage::ObjDel(ObjDel { coord, id }),
+        );
     }
 
     /// Respawns a previously removed obj, making it visible again.
@@ -1220,19 +1194,16 @@ impl Zone {
         self.objs[idx].set_last_clock(u32::MAX);
         let count = self.objs[idx].count();
         let oid = self.objs[idx].oid();
-        #[cfg(before_647)]
-        let message = ZoneMessage::ObjAdd(ObjAdd {
-            coord: self.objs[idx].packed_zone_coord(),
-            id,
-            count: clamp_count(count),
-        });
-        #[cfg(since_647)]
-        let message = ZoneMessage::ObjAdd(ZoneObjAdd {
-            coord: self.objs[idx].packed_zone_coord(),
-            obj_id: id,
-            count: clamp_count(count),
-        });
-        self.queue_event(Some(oid), ZoneEventType::Enclosed, None, message);
+        self.queue_event(
+            Some(oid),
+            ZoneEventType::Enclosed,
+            None,
+            ZoneMessage::ObjAdd(ObjAdd {
+                coord: self.objs[idx].packed_zone_coord(),
+                id,
+                count: clamp_count(count),
+            }),
+        );
     }
 
     // ---- non-entity events ----
@@ -1312,17 +1283,10 @@ fn clamp_count(n: u32) -> u16 {
 /// Captures the identical payload constructed when a loc is added, changed, or
 /// respawned.
 fn loc_add_change_msg(loc: &Loc) -> ZoneMessage {
-    #[cfg(before_647)]
-    return ZoneMessage::LocAddChange(LocAddChange {
+    ZoneMessage::LocAddChange(LocAddChange {
         coord: loc.packed_zone_coord(),
         id: loc.id(),
         shape_angle: loc.packed_shape_angle(),
-    });
-    #[cfg(since_647)]
-    ZoneMessage::LocAddChange(ZoneLocAddChange {
-        coord: loc.packed_zone_coord(),
-        loc_id: loc.id(),
-        shape_rot: loc.packed_shape_angle(),
     })
 }
 
@@ -2222,10 +2186,7 @@ mod tests {
         let shape = z
             .enclosed_events()
             .find_map(|e| match &e.message {
-                #[cfg(before_647)]
                 ZoneMessage::LocAddChange(lac) => Some(lac.shape_angle >> 2),
-                #[cfg(since_647)]
-                ZoneMessage::LocAddChange(lac) => Some(lac.shape_rot >> 2),
                 _ => None,
             })
             .expect("a LocAddChange event should be queued");

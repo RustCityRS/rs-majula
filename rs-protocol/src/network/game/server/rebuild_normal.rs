@@ -61,31 +61,6 @@ impl ServerProtMessage for RebuildNormal {
     }
 }
 
-// `RebuildNormal` — rev-647 REBUILD_NORMAL (opcode 73, VarShort).
-// Tells the client to rebuild its local map region.
-//
-// Carries structured inputs only; the engine supplies the XTEA key
-// blocks for every mapsquare covering the 104-tile build area, in the
-// order the client expects.
-//
-// Wire layout (per rev-647 client handler `GLXTextureCubeMap.method3249`):
-//
-// Login only — PlayerInfo init bit-stream:
-//   * 30 bits: `[level:2 | x:14 | z:14]` for self
-//   * For every slot in `player_regions` except slot 0 and `self_index`,
-//     18 bits: `[level:2 | x/64:8 | z/64:8]` last-known region
-//     (0 for empty slots). Count derives from `player_regions.len()`
-//     — matches Void's `MapRegionEncoders.mapInit` pattern.
-//   * pad to byte boundary
-//
-// Header (6 bytes):
-//   * `ip2`      chunk_x
-//   * `p1_alt1`  login                (negated)
-//   * `p1_alt1`  build_area_idx       (negated; always 0)
-//   * `ip2_alt1` chunk_z
-//
-// Trailing — the caller-supplied XTEA key blocks (4 × i32 BE each).
-
 /// Maximum number of player slots (matches xlite-2 client). Slot 0 is
 /// reserved; valid player indices are `1..MAX_PLAYERS`.
 #[cfg(since_647)]

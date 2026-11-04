@@ -1,10 +1,16 @@
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+use crate::network::game::server_prot_message::jstr_len;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 #[server_prot(MessageQuickchatPrivate, Buffered, VarByte)]
 pub struct MessageQuickchatPrivate {
     pub sender: String,
@@ -16,6 +22,7 @@ pub struct MessageQuickchatPrivate {
     pub quickchat_data: Vec<u8>,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for MessageQuickchatPrivate {
     fn encode(&self, buf: &mut Packet) {
         if let Some(ref display) = self.display_name {
@@ -34,8 +41,12 @@ impl ServerProtMessage for MessageQuickchatPrivate {
     }
 
     fn sizeof(&self) -> usize {
-        let name_len =
-            1 + self.sender.len() + 1 + self.display_name.as_ref().map_or(0, |d| d.len() + 1);
-        name_len + 2 + 3 + 1 + 2 + self.quickchat_data.len()
+        1 + jstr_len(&self.sender)
+            + self.display_name.as_ref().map_or(0, |d| jstr_len(d))
+            + size_of_val(&self.msg_uid_hi)
+            + 3 // msg_uid_lo
+            + size_of_val(&self.tier)
+            + size_of_val(&self.phrase_id)
+            + self.quickchat_data.len()
     }
 }

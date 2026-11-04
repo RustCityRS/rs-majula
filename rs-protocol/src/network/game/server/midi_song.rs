@@ -45,14 +45,10 @@ impl ServerProtMessage for MidiSong {
     }
 }
 
-// `MidiSong` — play a MIDI song (the map-loop music).
-// Rev-647 opcode 15 (MIDI_SONG), fixed 4.
-// Wire layout: `[p1_alt2 volume][ip2_alt1 song_id][p1_alt3 delay]`.
-
 #[cfg(since_647)]
 #[server_prot(MidiSong, Buffered, Fixed)]
 pub struct MidiSong {
-    pub song_id: u16,
+    pub id: u16,
     pub volume: u8,
     pub delay: u8,
 }
@@ -61,12 +57,11 @@ pub struct MidiSong {
 impl ServerProtMessage for MidiSong {
     fn encode(&self, buf: &mut Packet) {
         buf.p1_alt2(self.volume);
-        buf.ip2_alt1(self.song_id);
+        buf.ip2_alt1(self.id);
         buf.p1_alt3(self.delay);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.song_id) + size_of_val(&self.volume) + size_of_val(&self.delay)
+        size_of_val(&self.id) + size_of_val(&self.volume) + size_of_val(&self.delay)
     }
 }

@@ -5,7 +5,6 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_647)]
 #[server_prot(MapAnim, Immediate, Fixed)]
 #[derive(Debug, Clone)]
 pub struct MapAnim {
@@ -29,5 +28,24 @@ impl ServerProtMessage for MapAnim {
             + size_of_val(&self.spotanim)
             + size_of_val(&self.height)
             + size_of_val(&self.delay)
+    }
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for MapAnim {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1(self.coord);
+        buf.p2(self.spotanim);
+        buf.p1(self.height);
+        buf.p2(self.delay);
+        buf.p1(0);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord)
+            + size_of_val(&self.spotanim)
+            + size_of_val(&self.height)
+            + size_of_val(&self.delay)
+            + size_of::<u8>()
     }
 }

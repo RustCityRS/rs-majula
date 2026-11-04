@@ -5,6 +5,7 @@ use crate::engine::{OtherPlayers, engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use crate::watch::schedule::End;
 use crate::watch::{MapBase, Op, Target, Using, Watch, menu};
+use mem::take;
 use rs_cam::CamKind;
 use rs_db::{ChatLog, LogBatch, SessionLog, WealthEvent};
 use rs_entity::player::*;
@@ -248,12 +249,6 @@ use rs_protocol::network::game::server::hint_arrow::HintArrowKind;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::obj_count::ObjCount;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::obj_del::ObjDel;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
@@ -618,7 +613,7 @@ impl ActivePlayer {
             let x = zone_coord.x().wrapping_sub(origin_x) as u8;
             let z = zone_coord.z().wrapping_sub(origin_z) as u8;
             #[cfg(since_647)]
-            let level = zone_coord.y();
+            let y = zone_coord.y();
             // Rev-647 zone headers carry the zone index, as in `update_zones`:
             // a tile offset here put every change outside the build area.
             #[cfg(since_647)]
@@ -627,22 +622,13 @@ impl ActivePlayer {
                 #[cfg(before_647)]
                 self.write(UpdateZonePartialEnclosed { x, z, bytes });
                 #[cfg(since_647)]
-                self.write(UpdateZonePartialEnclosed {
-                    x_off: x,
-                    z_off: z,
-                    level,
-                    bytes,
-                });
+                self.write(UpdateZonePartialEnclosed { x, z, y, bytes });
             }
             if zone.has_follows_events() {
                 #[cfg(before_647)]
                 self.write(UpdateZonePartialFollows { x, z });
                 #[cfg(since_647)]
-                self.write(UpdateZonePartialFollows {
-                    x_off: x,
-                    z_off: z,
-                    level,
-                });
+                self.write(UpdateZonePartialFollows { x, z, y });
                 for message in zone.visible_follows_events(user37) {
                     self.write_zone_message(message);
                 }
@@ -773,7 +759,7 @@ impl ActivePlayer {
         // as the pre-647 client began every shake at cycle 0.
         #[cfg(since_647)]
         self.write(rs_protocol::network::game::server::cam_shake::CamShake {
-            shake_type: direction,
+            direction,
             jitter,
             amplitude,
             frequency,
@@ -928,13 +914,13 @@ impl ActivePlayer {
         {
             self.write(
                 rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings {
-                    public_filter: public,
-                    trade_filter: trade,
+                    public,
+                    trade,
                 },
             );
             self.write(
                 rs_protocol::network::game::server::chat_filter_settings_privatechat::ChatFilterSettingsPrivatechat {
-                    private_filter: private,
+                    private,
                 },
             );
         }
@@ -1076,9 +1062,9 @@ impl ActivePlayer {
         // modal actually opened in rather than to a single screen-wide modal.
         #[cfg(since_647)]
         for parent in [
-            std::mem::take(&mut self.player.modal_chat_parent),
-            std::mem::take(&mut self.player.modal_main_parent),
-            std::mem::take(&mut self.player.modal_side_parent),
+            take(&mut self.player.modal_chat_parent),
+            take(&mut self.player.modal_main_parent),
+            take(&mut self.player.modal_side_parent),
         ] {
             if parent != 0 {
                 self.if_close_sub(parent);
@@ -1225,7 +1211,7 @@ impl ActivePlayer {
         #[cfg(since_647)]
         self.write(
             rs_protocol::network::game::server::last_login_info::LastLoginInfo {
-                last_login_days: days_since_login as i32,
+                login: days_since_login as i32,
             },
         );
     }
@@ -1238,10 +1224,7 @@ impl ActivePlayer {
             seq,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim {
-            component_hash: com,
-            seq_id: seq as i16,
-        });
+        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim { com, seq });
     }
 
     /// Sets the color of an interface component.
@@ -1254,12 +1237,7 @@ impl ActivePlayer {
             },
         );
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setcolour::IfSetColour {
-                component_hash: com,
-                colour,
-            },
-        );
+        self.write(rs_protocol::network::game::server::if_setcolour::IfSetColour { com, colour });
     }
 
     /// Sets the visibility of an interface component.
@@ -1270,10 +1248,7 @@ impl ActivePlayer {
             hide,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide {
-            component_hash: com,
-            hidden: hide,
-        });
+        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide { com, hidden: hide });
     }
 
     /// Sets the model displayed on an interface component.
@@ -1286,12 +1261,7 @@ impl ActivePlayer {
             },
         );
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setmodel::IfSetModel {
-                component_hash: com,
-                model_id: model as i16,
-            },
-        );
+        self.write(rs_protocol::network::game::server::if_setmodel::IfSetModel { com, model });
     }
 
     /// Sets an NPC head model on an interface component.
@@ -1304,31 +1274,22 @@ impl ActivePlayer {
             },
         );
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead {
-                component_hash: com,
-                npc_id: npc,
-            },
-        );
+        self.write(rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead { com, npc });
     }
 
     /// Sets an item model on an interface component with a given zoom scale.
-    pub fn if_setobject(&mut self, com: i32, obj: u16, scale: u16) {
+    pub fn if_setobject(&mut self, com: i32, obj: u16, scale: i32) {
         #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::if_setobject::IfSetObject {
                 com: com as u16,
                 obj,
-                scale,
+                scale: scale as u16,
             },
         );
         #[cfg(since_647)]
         self.write(
-            rs_protocol::network::game::server::if_setobject::IfSetObject {
-                component_hash: com,
-                item_id: obj,
-                zoom: scale as i32,
-            },
+            rs_protocol::network::game::server::if_setobject::IfSetObject { com, obj, scale },
         );
     }
 
@@ -1341,11 +1302,7 @@ impl ActivePlayer {
             },
         );
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead {
-                component_hash: com,
-            },
-        );
+        self.write(rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead { com });
     }
 
     /// Sets the position of an interface component.
@@ -1359,13 +1316,7 @@ impl ActivePlayer {
             },
         );
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setposition::IfSetPosition {
-                component_hash: com,
-                x: x as i16,
-                y: y as i16,
-            },
-        );
+        self.write(rs_protocol::network::game::server::if_setposition::IfSetPosition { com, x, y });
     }
 
     /// Sets the scrollbar position on an interface component.
@@ -1379,12 +1330,7 @@ impl ActivePlayer {
             },
         );
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos {
-                component_hash: com,
-                scroll_pos: y,
-            },
-        );
+        self.write(rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos { com, y });
     }
 
     /// Opens an overlay interface over the game view (a minigame's timer, the
@@ -1420,17 +1366,8 @@ impl ActivePlayer {
     /// other players on this player's context menu.
     #[cfg(since_254)]
     pub fn set_player_op(&mut self, op: u8, value: &str, primary: u8) {
-        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::set_player_op::SetPlayerOp { op, value, primary },
-        );
-        #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::set_player_op::SetPlayerOp {
-                index: op,
-                text: value.to_string(),
-                primary,
-            },
         );
     }
 
@@ -1499,10 +1436,7 @@ impl ActivePlayer {
             text,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_settext::IfSetText {
-            component_hash: com,
-            text: text.to_string(),
-        });
+        self.write(rs_protocol::network::game::server::if_settext::IfSetText { com, text });
     }
 
     /// Sends the logout packet and marks the player as having received it.
@@ -2088,8 +2022,8 @@ impl ActivePlayer {
     pub fn message_game_typed(&mut self, msg_type: i32, text: &str) {
         self.write(
             rs_protocol::network::game::server::message_game::MessageGame {
-                msg_type,
-                text: text.to_string(),
+                kind: msg_type,
+                text,
             },
         );
     }
@@ -2132,7 +2066,7 @@ impl ActivePlayer {
         // nothing) and a delay; full volume, at once.
         #[cfg(since_647)]
         self.write(rs_protocol::network::game::server::midi_song::MidiSong {
-            song_id: id,
+            id,
             volume: 255,
             delay: 0,
         });
@@ -2142,9 +2076,9 @@ impl ActivePlayer {
     /// component-hash lookups (main-screen mounts, tab slots) resolve
     /// against the right layout row.
     #[cfg(since_647)]
-    pub fn if_open_top(&mut self, com: u16) {
-        self.player.toplevel = com;
-        self.write(rs_protocol::network::game::server::if_opentop::IfOpentop { interface_id: com });
+    pub fn if_open_top(&mut self, interface: u16) {
+        self.player.toplevel = interface;
+        self.write(rs_protocol::network::game::server::if_opentop::IfOpentop { interface });
     }
 
     /// Rev-647: mounts a sub-interface at a parent component hash, and
@@ -2152,11 +2086,11 @@ impl ActivePlayer {
     /// lives in the open paths that choose the slot, so permanent subs (tabs,
     /// orbs, chatbox) are never mistaken for modals.
     #[cfg(since_647)]
-    pub fn if_open_sub(&mut self, sub_id: u16, parent_hash: i32, walkable: u8) {
-        self.player.sub_opened(parent_hash, sub_id, walkable);
+    pub fn if_open_sub(&mut self, interface: u16, com: i32, walkable: u8) {
+        self.player.sub_opened(com, interface, walkable);
         self.write(rs_protocol::network::game::server::if_opensub::IfOpensub {
-            sub_id,
-            parent_hash,
+            interface,
+            com,
             walkable,
         });
     }
@@ -2164,20 +2098,17 @@ impl ActivePlayer {
     /// Rev-647: closes whatever sub-interface is mounted at the parent
     /// component hash.
     #[cfg(since_647)]
-    pub fn if_close_sub(&mut self, component_hash: i32) {
-        self.player.sub_closed(component_hash);
-        self.write(rs_protocol::network::game::server::if_closesub::IfClosesub { component_hash });
+    pub fn if_close_sub(&mut self, com: i32) {
+        self.player.sub_closed(com);
+        self.write(rs_protocol::network::game::server::if_closesub::IfClosesub { com });
     }
 
     /// Rev-647: moves the sub-interface mounted at `from` onto `to`, as a
     /// window-mode switch carries the gameframe from one toplevel to the other.
     #[cfg(since_647)]
-    pub fn if_move_sub(&mut self, from: i32, to: i32) {
-        self.player.sub_moved(from, to);
-        self.write(rs_protocol::network::game::server::if_movesub::IfMovesub {
-            from_hash: from,
-            to_hash: to,
-        });
+    pub fn if_move_sub(&mut self, com: i32, com2: i32) {
+        self.player.sub_moved(com, com2);
+        self.write(rs_protocol::network::game::server::if_movesub::IfMovesub { com, com2 });
     }
 
     /// Rev-647: the hash of a gameframe slot on the current toplevel, or 0 if
@@ -2192,18 +2123,12 @@ impl ActivePlayer {
 
     /// Rev-647: sets the client-side event mask for a component slot range.
     #[cfg(since_647)]
-    pub fn if_set_events(
-        &mut self,
-        component_hash: i32,
-        from_slot: i32,
-        to_slot: i32,
-        settings: i32,
-    ) {
+    pub fn if_set_events(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
         self.write(
             rs_protocol::network::game::server::if_setevents::IfSetEvents {
-                component_hash,
-                from_slot,
-                to_slot,
+                com,
+                slot1,
+                slot2,
                 settings,
             },
         );
@@ -2213,24 +2138,22 @@ impl ActivePlayer {
     /// packet by value range. The value is mirrored on the player so
     /// server-side consumers (`applydesign`) can read the design preview back.
     #[cfg(since_647)]
-    pub fn varc_transmit(&mut self, varc: u16, value: i32) {
-        self.player.varcs.insert(varc, value);
-        if (-128..=127).contains(&value) {
-            self.write(rs_protocol::network::game::server::varc_small::VarcSmall { varc, value });
+    pub fn varc_transmit(&mut self, id: u16, val: i32) {
+        self.player.varcs.insert(id, val);
+        if (-128..=127).contains(&val) {
+            self.write(rs_protocol::network::game::server::varc_small::VarcSmall {
+                id,
+                val: val as u8,
+            });
         } else {
-            self.write(rs_protocol::network::game::server::varc_large::VarcLarge { varc, value });
+            self.write(rs_protocol::network::game::server::varc_large::VarcLarge { id, val });
         }
     }
 
     /// Rev-647: transmits a string client variable.
     #[cfg(since_647)]
-    pub fn varc_str_transmit(&mut self, varc: u16, value: &str) {
-        self.write(
-            rs_protocol::network::game::server::varc_str_small::VarcStrSmall {
-                varc,
-                value: value.to_string(),
-            },
-        );
+    pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
+        self.write(rs_protocol::network::game::server::varc_str_small::VarcStrSmall { id, val });
     }
 
     /// Rev-647: invokes a clientscript (cs2) with no parameters.
@@ -2276,7 +2199,7 @@ impl ActivePlayer {
         &mut self,
         from_index: u16,
         effects: u16,
-        rights: u8,
+        staffmodlevel: u8,
         char_count: usize,
         huffman_data: Vec<u8>,
     ) {
@@ -2284,7 +2207,7 @@ impl ActivePlayer {
             rs_protocol::network::game::server::message_public::MessagePublic {
                 from_index,
                 effects,
-                rights,
+                staffmodlevel,
                 char_count,
                 huffman_data,
             },
@@ -2478,7 +2401,7 @@ impl ActivePlayer {
         #[cfg(since_647)]
         self.write(
             rs_protocol::network::game::server::synth_sound::SynthSound {
-                synth_id: synth,
+                synth: synth,
                 loops,
                 delay,
                 volume: 255,
@@ -2618,21 +2541,11 @@ impl ActivePlayer {
 
     /// Sends a single stat update packet to the client.
     pub fn update_stat(&mut self, stat: usize) {
-        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::update_stat::UpdateStat {
                 stat: stat as u8,
                 exp: self.player.stats.xp[stat] / 10,
                 lvl: self.player.stats.levels[stat] as u8,
-            },
-        );
-        // Same values, rev-647 field names (internal xp is stored x10).
-        #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::update_stat::UpdateStat {
-                skill_id: stat as u8,
-                xp: (self.player.stats.xp[stat] / 10) as u32,
-                level: self.player.stats.levels[stat] as u8,
             },
         );
     }
@@ -2642,15 +2555,8 @@ impl ActivePlayer {
     /// The energy value is divided by 100 to convert from internal
     /// representation to the client's 0-100 percentage scale.
     pub fn update_runenergy(&mut self, energy: u16) {
-        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::update_runenergy::UpdateRunEnergy {
-                energy: (energy / 100) as u8,
-            },
-        );
-        #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::update_run_energy::UpdateRunEnergy {
                 energy: (energy / 100) as u8,
             },
         );
@@ -2660,19 +2566,6 @@ impl ActivePlayer {
     /// choosing the small (1-byte) or large (4-byte) encoding based on the
     /// value range.
     pub fn varp_transmit(&mut self, id: u16, val: i32) {
-        #[cfg(before_647)]
-        if val <= u8::MAX as i32 {
-            self.varp_small(id, val as u8);
-        } else {
-            self.varp_large(id, val);
-        }
-
-        // Rev-647: the client decodes the small varp's payload as a *signed*
-        // byte, so only `-128..=127` survives the 1-byte encoding. Anything in
-        // `128..=255` used to take the small path and came back negative --
-        // e.g. life_points 100 packs to varp_1240 = 200, which arrived as -56
-        // and made the HP orb read `(-56 >> 1) & 0x7FFF` = 32740.
-        #[cfg(since_647)]
         if (-128..=127).contains(&val) {
             self.varp_small(id, val as u8);
         } else {
@@ -2682,24 +2575,12 @@ impl ActivePlayer {
 
     /// Sends a varp update using the 4-byte (large) encoding.
     pub fn varp_large(&mut self, id: u16, val: i32) {
-        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::varp_large::VarpLarge { id, val });
-        #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::varp_large::VarpLarge {
-            varp: id,
-            value: val,
-        });
     }
 
     /// Sends a varp update using the 1-byte (small) encoding.
     pub fn varp_small(&mut self, id: u16, val: u8) {
-        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::varp_small::VarpSmall { id, val });
-        #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::varp_small::VarpSmall {
-            varp: id,
-            value: val as i32,
-        });
     }
 
     /// Synchronizes dirty inventories to the client.
@@ -2727,7 +2608,7 @@ impl ActivePlayer {
         // calling `&mut self` methods (update_inv_full), then put it back. This
         // avoids cloning the whole map + every `coms` Vec each tick per player.
         // Nothing in the loop mutates `inv_transmits`, so taking it is safe.
-        let transmits = std::mem::take(&mut self.player.inv_transmits);
+        let transmits = take(&mut self.player.inv_transmits);
 
         // A `runweight` inventory changed (recompute & maybe send weight).
         let mut runweight_changed = false;
@@ -2873,7 +2754,7 @@ impl ActivePlayer {
 
         // Take the map out so `&mut self` methods (update_inv_full) can be called
         // while iterating, then restore it. Nothing in the loop mutates the map.
-        let transmits = std::mem::take(&mut self.player.inv_other_transmits);
+        let transmits = take(&mut self.player.inv_other_transmits);
         // From 647 one update goes per inv, however many components show it.
         #[cfg(since_647)]
         let mut sent: Vec<u16> = Vec::new();
@@ -3863,7 +3744,7 @@ impl EnginePlayer for ActivePlayer {
         let handle = &mut self.handle;
         handle.opcode = None;
         handle.read_queue.drain(..head);
-        let mut buf = Packet::from(mem::take(&mut handle.read_buf));
+        let mut buf = Packet::from(take(&mut handle.read_buf));
         buf.data.clear();
         buf.data.extend(handle.read_queue.drain(..len));
         let short = len < info.frame.min();
@@ -4270,7 +4151,6 @@ impl EnginePlayer for ActivePlayer {
     ///
     /// # Arguments
     /// * `message` - The zone event to relay to the client.
-    #[cfg(before_647)]
     fn write_zone_message(&mut self, message: &ZoneMessage) {
         match message {
             ZoneMessage::ObjAdd(m) => self.write(m.clone()),
@@ -4280,54 +4160,12 @@ impl EnginePlayer for ActivePlayer {
             ZoneMessage::LocAddChange(m) => self.write(m.clone()),
             ZoneMessage::LocDel(m) => self.write(m.clone()),
             ZoneMessage::LocAnim(m) => self.write(m.clone()),
+            #[cfg(before_647)]
             ZoneMessage::LocMerge(m) => self.write(m.clone()),
             ZoneMessage::MapAnim(m) => self.write(m.clone()),
             ZoneMessage::MapProjAnim(m) => self.write(m.clone()),
             #[cfg(since_289)]
             ZoneMessage::SoundArea(m) => self.write(m.clone()),
-        }
-    }
-
-    /// Rev-647 follows path: zone payloads are re-emitted as the matching
-    /// direct server packets (mirrors the 647 reference server). The
-    /// remaining variants are only ever delivered via the enclosed shared
-    /// buffer, never as standalone follows packets.
-    #[cfg(since_647)]
-    fn write_zone_message(&mut self, message: &ZoneMessage) {
-        match message {
-            ZoneMessage::ObjAdd(m) => self.write(ObjAdd {
-                coord: m.coord,
-                obj_id: m.obj_id,
-                count: m.count,
-            }),
-            ZoneMessage::ObjDel(m) => self.write(ObjDel {
-                coord: m.coord,
-                obj_id: m.obj_id,
-            }),
-            ZoneMessage::ObjCount(m) => self.write(ObjCount {
-                coord: m.coord,
-                obj_id: m.obj_id,
-                old_count: m.old_count,
-                new_count: m.new_count,
-            }),
-            ZoneMessage::ObjReveal(m) => self.write(ObjReveal {
-                coord: m.coord,
-                obj_id: m.obj_id,
-                count: m.count,
-                receiver: m.receiver,
-            }),
-            ZoneMessage::LocAddChange(m) => self.write(LocAddChange {
-                coord: m.coord,
-                shape_rot: m.shape_rot,
-                id: m.loc_id,
-            }),
-            ZoneMessage::LocDel(m) => self.write(LocDel {
-                coord: m.coord,
-                shape_rot: m.shape_rot,
-            }),
-            ZoneMessage::LocAnim(_) | ZoneMessage::MapAnim(_) | ZoneMessage::MapProjanim(_) => {
-                // Only sent via enclosed (shared bytes), not as standalone follows.
-            }
         }
     }
 
@@ -4377,7 +4215,7 @@ impl EnginePlayer for ActivePlayer {
             let z = zone_coord.z().wrapping_sub(origin_z) as u8;
             // Rev-647 zone-update headers carry the level explicitly.
             #[cfg(since_647)]
-            let level = zone_coord.y();
+            let y = zone_coord.y();
             // Rev-647 zone headers carry the zone INDEX, not the tile offset the
             // 2004-era protocol sends: the client rebuilds the base with
             // `g1b() << 3` (see `MapAreaConfig` UPDATE_ZONE_*_FOLLOWS /
@@ -4399,11 +4237,7 @@ impl EnginePlayer for ActivePlayer {
                         #[cfg(before_647)]
                         self.write(UpdateZoneFullFollows { x, z });
                         #[cfg(since_647)]
-                        self.write(UpdateZoneFullFollows {
-                            x_off: x,
-                            z_off: z,
-                            level,
-                        });
+                        self.write(UpdateZoneFullFollows { x, z, y });
 
                         let mut wrote_follows = false;
 
@@ -4412,23 +4246,12 @@ impl EnginePlayer for ActivePlayer {
                                 #[cfg(before_647)]
                                 self.write(UpdateZonePartialFollows { x, z });
                                 #[cfg(since_647)]
-                                self.write(UpdateZonePartialFollows {
-                                    x_off: x,
-                                    z_off: z,
-                                    level,
-                                });
+                                self.write(UpdateZonePartialFollows { x, z, y });
                                 wrote_follows = true;
                             }
-                            #[cfg(before_647)]
                             self.write(ObjAdd {
                                 coord: obj.packed_zone_coord(),
                                 id: obj.id(),
-                                count: obj.count() as u16,
-                            });
-                            #[cfg(since_647)]
-                            self.write(ObjAdd {
-                                coord: obj.packed_zone_coord(),
-                                obj_id: obj.id(),
                                 count: obj.count() as u16,
                             });
                         }
@@ -4441,43 +4264,22 @@ impl EnginePlayer for ActivePlayer {
                                     #[cfg(before_647)]
                                     self.write(UpdateZonePartialFollows { x, z });
                                     #[cfg(since_647)]
-                                    self.write(UpdateZonePartialFollows {
-                                        x_off: x,
-                                        z_off: z,
-                                        level,
-                                    });
+                                    self.write(UpdateZonePartialFollows { x, z, y });
                                     wrote_follows = true;
                                 }
-                                #[cfg(before_647)]
                                 self.write(LocDel { coord, shape_angle });
-                                #[cfg(since_647)]
-                                self.write(LocDel {
-                                    coord,
-                                    shape_rot: shape_angle,
-                                });
                             } else if loc.lifetime() == EntityLifeTime::Despawn || loc.is_changed()
                             {
                                 if !wrote_follows {
                                     #[cfg(before_647)]
                                     self.write(UpdateZonePartialFollows { x, z });
                                     #[cfg(since_647)]
-                                    self.write(UpdateZonePartialFollows {
-                                        x_off: x,
-                                        z_off: z,
-                                        level,
-                                    });
+                                    self.write(UpdateZonePartialFollows { x, z, y });
                                     wrote_follows = true;
                                 }
-                                #[cfg(before_647)]
                                 self.write(LocAddChange {
                                     coord,
                                     shape_angle,
-                                    id: loc.id(),
-                                });
-                                #[cfg(since_647)]
-                                self.write(LocAddChange {
-                                    coord,
-                                    shape_rot: shape_angle,
                                     id: loc.id(),
                                 });
                             }
@@ -4487,23 +4289,14 @@ impl EnginePlayer for ActivePlayer {
                             #[cfg(before_647)]
                             self.write(UpdateZonePartialEnclosed { x, z, bytes });
                             #[cfg(since_647)]
-                            self.write(UpdateZonePartialEnclosed {
-                                x_off: x,
-                                z_off: z,
-                                level,
-                                bytes,
-                            });
+                            self.write(UpdateZonePartialEnclosed { x, z, y, bytes });
                         }
 
                         if zone.has_follows_events() {
                             #[cfg(before_647)]
                             self.write(UpdateZonePartialFollows { x, z });
                             #[cfg(since_647)]
-                            self.write(UpdateZonePartialFollows {
-                                x_off: x,
-                                z_off: z,
-                                level,
-                            });
+                            self.write(UpdateZonePartialFollows { x, z, y });
                             for message in zone.visible_follows_events(user37) {
                                 self.write_zone_message(message);
                             }
@@ -4515,11 +4308,7 @@ impl EnginePlayer for ActivePlayer {
                         #[cfg(before_647)]
                         self.write(UpdateZoneFullFollows { x, z });
                         #[cfg(since_647)]
-                        self.write(UpdateZoneFullFollows {
-                            x_off: x,
-                            z_off: z,
-                            level,
-                        });
+                        self.write(UpdateZoneFullFollows { x, z, y });
                     }
                 }
             }

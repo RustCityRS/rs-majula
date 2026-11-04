@@ -1,4 +1,4 @@
-use crate::network::game::server::ServerProtMessage;
+﻿use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
@@ -103,18 +103,6 @@ impl UpdateInvFull<'_> {
             .map_or(0, |i| i + 1)
     }
 }
-
-// `UpdateInvFull` — replace a client inventory's full contents.
-// Rev-647 opcode 16 (UPDATE_INV_FULL), VarShort framing.
-//
-// Carries the structured per-slot data; the encoder owns the wire
-// format (previously the engine's `player::send_inventory` was hand-
-// serializing slot bytes — moved here to keep encoding in rs-protocol).
-//
-// Wire layout (per slot):
-//   - count:    1 byte if < 255, else `255` + `u32` little-endian.
-//   - id+1:     2 bytes — high byte, then low byte `+ 128` (p1_alt3).
-//   - empty:    3 bytes `0x00 0x00 0x80`.
 
 /// One populated inventory slot. `None` in `UpdateInvFull::slots`
 /// represents an empty slot.

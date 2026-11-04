@@ -1104,15 +1104,15 @@ pub trait ScriptPlayer {
 
     /// Rev-647: sets the client-side event mask for a component slot range.
     #[cfg(since_647)]
-    fn if_setevents(&mut self, component_hash: i32, from_slot: i32, to_slot: i32, settings: i32);
+    fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32);
 
     /// Rev-647: transmits a client variable (varc).
     #[cfg(since_647)]
-    fn sendvarc(&mut self, id: u16, value: i32);
+    fn sendvarc(&mut self, id: u16, val: i32);
 
     /// Rev-647: transmits a string client variable (varc string).
     #[cfg(since_647)]
-    fn sendvarc_str(&mut self, id: u16, value: &str);
+    fn sendvarc_str(&mut self, id: u16, val: &str);
 
     /// Rev-647: invokes a clientscript (cs2) with no parameters.
     #[cfg(since_647)]
@@ -1345,8 +1345,8 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `obj` - The object (item) type ID.
-    /// * `zoom` - The zoom level for the model display.
-    fn if_setobject(&mut self, com: i32, obj: u16, zoom: u16);
+    /// * `scale` - The zoom level for the model display.
+    fn if_setobject(&mut self, com: i32, obj: u16, scale: i32);
 
     /// Sets the player's own chathead model on an interface component.
     ///

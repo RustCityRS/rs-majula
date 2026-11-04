@@ -26,16 +26,12 @@ impl ServerProtMessage for IfSetPosition {
     }
 }
 
-// `IfSetPosition` — move an interface component.
-// Rev-647 opcode 37 (IF_SETPOSITION), fixed 8.
-// Layout: `[ip4 component_hash][p2 x][p2 y]`.
-
 #[cfg(since_647)]
 #[server_prot(IfSetPosition, Buffered, Fixed)]
 pub struct IfSetPosition {
-    pub component_hash: i32,
-    pub x: i16,
-    pub y: i16,
+    pub com: i32,
+    pub x: u16,
+    pub y: u16,
 }
 
 #[cfg(since_647)]
@@ -48,13 +44,12 @@ impl ServerProtMessage for IfSetPosition {
     // as x and y (`VarbitType`: `x = anInt5264`, `y = anInt5267`, both modes
     // 0, so the position is set outright, not offset).
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt1(self.component_hash);
-        buf.ip2_alt1(self.x as u16);
-        buf.ip2_alt1(self.y as u16);
+        buf.p4_alt1(self.com);
+        buf.ip2_alt1(self.x);
+        buf.ip2_alt1(self.y);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.component_hash) + size_of_val(&self.x) + size_of_val(&self.y)
+        size_of_val(&self.com) + size_of_val(&self.x) + size_of_val(&self.y)
     }
 }

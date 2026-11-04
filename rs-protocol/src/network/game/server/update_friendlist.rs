@@ -1,6 +1,6 @@
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::ServerProtMessageInfo;
+use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
@@ -70,9 +70,14 @@ impl ServerProtMessage for UpdateFriendlist {
         self.friends
             .iter()
             .map(|f| {
-                let base = 1 + f.name.len() + 1 + f.previous_name.len() + 1 + 2 + 1;
+                let base = 1
+                    + jstr_len(&f.name)
+                    + jstr_len(&f.previous_name)
+                    + size_of_val(&f.world)
+                    + size_of_val(&f.rank);
                 if f.world > 0 {
-                    base + f.world_name.as_ref().map_or(1, |s| s.len() + 1) + 1
+                    base + f.world_name.as_ref().map_or(1, |s| jstr_len(s))
+                        + size_of_val(&f.world_flag)
                 } else {
                     base
                 }

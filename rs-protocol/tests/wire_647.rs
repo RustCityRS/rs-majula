@@ -20,6 +20,8 @@
 
 use rs_io::Packet;
 use rs_protocol::network::game::server::ServerProtMessage;
+use rs_protocol::network::game::server::loc_anim::LocAnim;
+use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 
 // ---------------------------------------------------------------------------
 // Client `Packet` reader port. Line-for-line from the deob-647 client.
@@ -184,7 +186,10 @@ fn encode<M: ServerProtMessage>(msg: &M) -> Vec<u8> {
 fn varp_small_matches_client() {
     use rs_protocol::network::game::server::varp_small::VarpSmall;
     for value in [0i32, 1, 127, -1, -128] {
-        let bytes = encode(&VarpSmall { varp: 1240, value });
+        let bytes = encode(&VarpSmall {
+            id: 1240,
+            val: value as u8,
+        });
         let mut p = ClientPacket::new(&bytes);
         // g1b_alt2 == g1_alt2 sign-extended
         let raw = p.g1_alt2();
@@ -200,8 +205,8 @@ fn varp_small_matches_client() {
 fn varp_large_matches_client() {
     use rs_protocol::network::game::server::varp_large::VarpLarge;
     let bytes = encode(&VarpLarge {
-        varp: 1240,
-        value: 0x0123_4567,
+        id: 1240,
+        val: 0x0123_4567,
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2(), 1240);
@@ -217,11 +222,7 @@ fn varp_large_matches_client() {
 #[test]
 fn update_zone_partial_follows_matches_client() {
     use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
-    let bytes = encode(&UpdateZonePartialFollows {
-        x_off: 6,
-        z_off: 9,
-        level: 2,
-    });
+    let bytes = encode(&UpdateZonePartialFollows { x: 6, z: 9, y: 2 });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g1_alt1(), 2, "level");
     assert_eq!(p.g1() << 3, 48, "x base tiles (zone 6 -> 48)");
@@ -233,11 +234,7 @@ fn update_zone_partial_follows_matches_client() {
 #[test]
 fn update_zone_full_follows_matches_client() {
     use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
-    let bytes = encode(&UpdateZoneFullFollows {
-        x_off: 6,
-        z_off: 9,
-        level: 2,
-    });
+    let bytes = encode(&UpdateZoneFullFollows { x: 6, z: 9, y: 2 });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g1_alt3(), 2, "level");
     assert_eq!(p.g1(), 6, "x zone index");
@@ -255,7 +252,7 @@ fn obj_add_matches_client() {
     use rs_protocol::network::game::server::obj_add::ObjAdd;
     let bytes = encode(&ObjAdd {
         coord: 0x35,
-        obj_id: 995,
+        id: 995,
         count: 1000,
     });
     let mut p = ClientPacket::new(&bytes);
@@ -271,7 +268,7 @@ fn obj_del_matches_client() {
     use rs_protocol::network::game::server::obj_del::ObjDel;
     let bytes = encode(&ObjDel {
         coord: 0x35,
-        obj_id: 995,
+        id: 995,
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g1_alt1(), 0x35, "packed local coord");
@@ -285,7 +282,7 @@ fn obj_count_matches_client() {
     use rs_protocol::network::game::server::obj_count::ObjCount;
     let bytes = encode(&ObjCount {
         coord: 0x35,
-        obj_id: 995,
+        id: 995,
         old_count: 5,
         new_count: 9,
     });
@@ -308,8 +305,8 @@ fn if_opensub_matches_client() {
     // 746:177 -- the resizable summoning-orb slot.
     let parent_hash = (746i32 << 16) | 177;
     let bytes = encode(&IfOpensub {
-        sub_id: 747,
-        parent_hash,
+        interface: 747,
+        com: parent_hash,
         walkable: 1,
     });
     let mut p = ClientPacket::new(&bytes);
@@ -323,7 +320,7 @@ fn if_opensub_matches_client() {
 #[test]
 fn if_opentop_matches_client() {
     use rs_protocol::network::game::server::if_opentop::IfOpentop;
-    let bytes = encode(&IfOpentop { interface_id: 746 });
+    let bytes = encode(&IfOpentop { interface: 746 });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.ig2(), 746, "toplevel interface id");
     assert_eq!(p.g1_alt3(), 0, "mode flag");
@@ -338,7 +335,7 @@ fn if_setcolour_matches_client() {
     use rs_protocol::network::game::server::if_setcolour::IfSetColour;
     let hash = (548i32 << 16) | 42;
     let bytes = encode(&IfSetColour {
-        component_hash: hash,
+        com: hash,
         colour: 0x7ABC,
     });
     let mut p = ClientPacket::new(&bytes);
@@ -355,7 +352,7 @@ fn if_setposition_matches_client() {
     use rs_protocol::network::game::server::if_setposition::IfSetPosition;
     let hash = (548i32 << 16) | 42;
     let bytes = encode(&IfSetPosition {
-        component_hash: hash,
+        com: hash,
         x: 120,
         y: 250,
     });
@@ -389,9 +386,9 @@ fn create_check_name_matches_client() {
 fn update_stat_matches_client() {
     use rs_protocol::network::game::server::update_stat::UpdateStat;
     let bytes = encode(&UpdateStat {
-        skill_id: 23, // summoning
-        level: 42,
-        xp: 123_456,
+        stat: 23, // summoning
+        lvl: 42,
+        exp: 123_456,
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g4_alt2(), 123_456, "xp");
@@ -415,108 +412,37 @@ fn set_map_flag_matches_client() {
 // Zone messages. `AClass17` decodes them; `ZoneProt.java` sizes them.
 // ---------------------------------------------------------------------------
 
-use rs_protocol::network::game::server::zone_message::{
-    ZoneLocAddChange, ZoneLocAnim, ZoneLocDel, ZoneMapAnim, ZoneMapProjanim, ZoneMessage,
-    ZoneObjAdd, ZoneObjCount, ZoneObjDel, ZoneObjReveal, pack_projanim_coord,
-};
-
-/// `ZoneProt.java`: every rev-647 zone sub-prot, `(id, size)`. There is no 15.
-const CLIENT_ZONE_PROTS: [(u8, i32); 15] = [
-    (0, -1),  // LOC_CUSTOMISE
-    (1, 3),   // OBJ_DEL
-    (2, 8),   // SOUND_AREA
-    (3, 4),   // LOC_ANIM
-    (4, 7),   // OBJ_COUNT
-    (5, 3),   // LOC_PREFETCH
-    (6, 7),   // MAP_ANIM
-    (7, 7),   // OBJ_REVEAL
-    (8, 2),   // LOC_DEL
-    (9, -1),  // TEXT_COORD
-    (10, 8),  // SOUND_VORBIS_AREA
-    (11, 5),  // OBJ_ADD
-    (12, 19), // MAP_PROJANIM_HALFSQ
-    (13, 4),  // LOC_ADD_CHANGE
-    (14, 16), // MAP_PROJANIM
-];
-
-fn every_zone_message() -> Vec<ZoneMessage> {
-    vec![
-        ZoneMessage::LocAddChange(ZoneLocAddChange {
+#[test]
+fn loc_anim_matches_client() {
+    for seq in [0, 733, 0x1234, u16::MAX] {
+        let message = LocAnim {
             coord: 0x35,
-            shape_rot: 10 << 2 | 1,
-            loc_id: 1276,
-        }),
-        ZoneMessage::LocDel(ZoneLocDel {
-            coord: 0x35,
-            shape_rot: 10 << 2 | 1,
-        }),
-        ZoneMessage::LocAnim(ZoneLocAnim {
-            coord: 0x35,
-            shape_rot: 10 << 2 | 1,
-            seq_id: 733,
-        }),
-        ZoneMessage::ObjAdd(ZoneObjAdd {
-            coord: 0x35,
-            obj_id: 1511,
-            count: 3,
-        }),
-        ZoneMessage::ObjDel(ZoneObjDel {
-            coord: 0x35,
-            obj_id: 1511,
-        }),
-        ZoneMessage::ObjCount(ZoneObjCount {
-            coord: 0x35,
-            obj_id: 995,
-            old_count: 1,
-            new_count: 7,
-        }),
-        ZoneMessage::ObjReveal(ZoneObjReveal {
-            coord: 0x35,
-            obj_id: 1511,
-            count: 3,
-            receiver: 42,
-        }),
-        ZoneMessage::MapAnim(ZoneMapAnim {
-            coord: 0x35,
-            spotanim: 90,
-            height: 100,
-            delay: 30,
-        }),
-        ZoneMessage::MapProjanim(projanim()),
-    ]
+            shape_angle: 10 << 2 | 1,
+            seq,
+        };
+        let bytes = encode(&message);
+        let mut p = ClientPacket::new(&bytes);
+        assert_eq!(p.g1_alt1(), 0x35);
+        assert_eq!(p.g1(), 10 << 2 | 1);
+        assert_eq!(p.ig2(), seq as i32);
+        p.done(4);
+        assert_eq!(message.sizeof(), bytes.len());
+    }
 }
 
-fn projanim() -> ZoneMapProjanim {
-    ZoneMapProjanim {
-        coord: pack_projanim_coord(3, 5),
-        dst_dx: -4,
-        dst_dz: 6,
-        target_uid: -(42 + 1),
-        spotanim_id: 91,
+fn projanim() -> MapProjAnim {
+    MapProjAnim {
+        coord: 0x35,
+        dx: -4,
+        dz: 6,
+        target: -(42 + 1),
+        spotanim: 91,
         src_height: 43,
         dst_height: 31,
         start_delay: 51,
         end_delay: 70,
-        angle: 16,
-        distance_offset: 64,
-    }
-}
-
-/// Each message writes its client sub-prot id, then exactly the bytes
-/// `ZoneProt.java` says that prot carries, and `sizeof_zone` agrees -- the
-/// enclosed zone update is sized from it, so a short count overruns.
-#[test]
-fn every_zone_message_writes_its_client_size() {
-    for message in every_zone_message() {
-        let mut buf = Packet::new(64);
-        message.encode_zone(&mut buf);
-        let id = buf.data[0];
-        let (_, size) = CLIENT_ZONE_PROTS
-            .iter()
-            .find(|(i, _)| *i == id)
-            .unwrap_or_else(|| panic!("{message:?} writes sub-prot {id}, which 647 does not have"));
-        assert_eq!(buf.pos, 1 + *size as usize, "{message:?} payload size");
-        assert_eq!(message.sizeof_zone(), buf.pos, "{message:?} sizeof_zone");
+        peak: 16,
+        arc: 0x1234,
     }
 }
 
@@ -524,12 +450,11 @@ fn every_zone_message_writes_its_client_size() {
 /// `x << 4 | z`: x sits in bits 3-5 under a flag in bit 7.
 #[test]
 fn map_projanim_matches_client() {
-    let message = ZoneMessage::MapProjanim(projanim());
-    let mut buf = Packet::new(64);
-    message.encode_zone(&mut buf);
-    let bytes = &buf.data[1..buf.pos];
+    let message = projanim();
+    let bytes = encode(&message);
+    assert_eq!(message.sizeof(), bytes.len());
 
-    let mut c = ClientPacket::new(bytes);
+    let mut c = ClientPacket::new(&bytes);
     let coord = c.g1();
     assert_eq!(coord & 0x80, 0, "flag");
     assert_eq!(coord >> 3 & 0x7, 3, "x within the zone");
@@ -543,7 +468,7 @@ fn map_projanim_matches_client() {
     assert_eq!(c.g2(), 51, "start");
     assert_eq!(c.g2(), 70, "end");
     assert_eq!(c.g1(), 16, "angle");
-    assert_eq!(c.g2(), 64, "distance offset");
+    assert_eq!(c.g2(), 0x1234, "distance offset");
     c.done(16);
 }
 
@@ -600,7 +525,7 @@ fn cam_moveto_matches_client() {
 fn cam_shake_matches_client() {
     use rs_protocol::network::game::server::cam_shake::CamShake;
     let bytes = encode(&CamShake {
-        shake_type: 4,
+        direction: 4,
         jitter: 3,
         amplitude: 25,
         frequency: 60,
@@ -660,7 +585,7 @@ fn text_carries_2011_markup() {
     use rs_protocol::network::game::server::message_game::MessageGame;
 
     let settext = IfSetText {
-        component_hash: 275 << 16 | 2,
+        com: 275 << 16 | 2,
         text: "@dre@Cook@dbl@'s Assistant".into(),
     };
     let bytes = encode(&settext);
@@ -668,7 +593,7 @@ fn text_carries_2011_markup() {
     assert_eq!(settext.sizeof(), bytes.len());
 
     let message = MessageGame {
-        msg_type: 0,
+        kind: 0,
         text: "@str@Quest complete!".into(),
     };
     let bytes = encode(&message);
@@ -687,7 +612,7 @@ fn trade_request_is_2011s_type_100() {
     use rs_protocol::network::game::server::message_game::MessageGame;
 
     let message = MessageGame {
-        msg_type: 0,
+        kind: 0,
         text: "Bob Smith:tradereq:".into(),
     };
     let bytes = encode(&message);
@@ -701,7 +626,7 @@ fn trade_request_is_2011s_type_100() {
     assert_eq!(message.sizeof(), bytes.len());
 
     let plain = MessageGame {
-        msg_type: 0,
+        kind: 0,
         text: "Sending trade offer...".into(),
     };
     let bytes = encode(&plain);

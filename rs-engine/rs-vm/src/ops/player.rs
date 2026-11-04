@@ -437,7 +437,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2043
         active_player_mut!(m, IF_SETOBJECT => |s, player| {
-            let scale = s.pop_int_as::<u16>()?;
+            let scale = s.pop_int();
             let obj = s.pop_int_as::<u16>()?;
             // Before 647 a component id must fit a u16, as upstream checks.
             #[cfg(before_647)]
@@ -686,9 +686,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let depth = s.pop_int();
             let useon_flags = s.pop_int();
             let ops = s.pop_int();
-            let to_slot = s.pop_int();
-            let from_slot = s.pop_int();
-            let component_hash = s.pop_int();
+            let slot2 = s.pop_int();
+            let slot1 = s.pop_int();
+            let com = s.pop_int();
 
             let mut settings = (ops & 0x3FF) << 1;
             settings |= (useon_flags & 0x7F) << 11;
@@ -700,7 +700,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 settings |= 1 << 22;
             }
 
-            player.if_setevents(component_hash, from_slot, to_slot, settings);
+            player.if_setevents(com, slot1 as u16, slot2 as u16, settings);
         });
 
         // 5002

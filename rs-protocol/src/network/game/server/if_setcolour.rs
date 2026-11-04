@@ -24,14 +24,10 @@ impl ServerProtMessage for IfSetColour {
     }
 }
 
-// `IfSetColour` — set colour of an interface component.
-// Rev-647 opcode 43 (IF_SETCOLOUR), fixed 6.
-// Layout: `[ip4 component_hash][p2 colour]`.
-
 #[cfg(since_647)]
 #[server_prot(IfSetColour, Buffered, Fixed)]
 pub struct IfSetColour {
-    pub component_hash: i32,
+    pub com: i32,
     pub colour: u16,
 }
 
@@ -42,12 +38,11 @@ impl ServerProtMessage for IfSetColour {
     // of bytes in the wrong order, so the component hash and colour both
     // arrived scrambled.
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt2(self.component_hash);
+        buf.p4_alt2(self.com);
         buf.ip2_alt1(self.colour);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.component_hash) + size_of_val(&self.colour)
+        size_of_val(&self.com) + size_of_val(&self.colour)
     }
 }

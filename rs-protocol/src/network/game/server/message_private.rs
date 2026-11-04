@@ -1,6 +1,6 @@
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::ServerProtMessageInfo;
+use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
@@ -32,7 +32,7 @@ impl ServerProtMessage for MessagePrivate<'_> {
 }
 
 #[cfg(since_647)]
-#[server_prot(MessagePrivate, Buffered, VarByte)]
+#[server_prot(MessagePrivate, Immediate, VarByte)]
 pub struct MessagePrivate {
     pub sender: String,
     pub display_name: Option<String>,
@@ -60,8 +60,11 @@ impl ServerProtMessage for MessagePrivate {
     }
 
     fn sizeof(&self) -> usize {
-        let name_len =
-            1 + self.sender.len() + 1 + self.display_name.as_ref().map_or(0, |d| d.len() + 1);
-        name_len + 2 + 3 + 1 + self.message_data.len()
+        1 + jstr_len(&self.sender)
+            + self.display_name.as_ref().map_or(0, |d| jstr_len(d))
+            + size_of_val(&self.msg_uid_hi)
+            + 3 // msg_uid_lo
+            + size_of_val(&self.tier)
+            + self.message_data.len()
     }
 }

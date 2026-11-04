@@ -1,26 +1,27 @@
-//! `IfClosesub` — close a sub-interface by component hash.
-//! Rev-647 opcode 74 (IF_CLOSESUB), fixed 4.
-//! Layout: `[p4_alt3 component_hash]`.
-
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 #[server_prot(IfClosesub, Buffered, Fixed)]
 pub struct IfClosesub {
-    pub component_hash: i32,
+    pub com: i32,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for IfClosesub {
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt3(self.component_hash);
+        buf.p4_alt3(self.com);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.component_hash)
+        size_of_val(&self.com)
     }
 }

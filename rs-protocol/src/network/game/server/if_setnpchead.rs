@@ -24,26 +24,21 @@ impl ServerProtMessage for IfSetNpcHead {
     }
 }
 
-// `IfSetNpcHead` — show an NPC's head model on an interface.
-// Rev-647 opcode 129 (IF_SETNPCHEAD), fixed 6.
-// Layout: `[ip2 npc_id][p4_alt2 component_hash]`.
-
 #[cfg(since_647)]
 #[server_prot(IfSetNpcHead, Buffered, Fixed)]
 pub struct IfSetNpcHead {
-    pub component_hash: i32,
-    pub npc_id: u16,
+    pub com: i32,
+    pub npc: u16,
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetNpcHead {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.npc_id);
-        buf.p4_alt2(self.component_hash);
+        buf.ip2(self.npc);
+        buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {
-        use std::mem::size_of_val;
-        size_of_val(&self.component_hash) + size_of_val(&self.npc_id)
+        size_of_val(&self.com) + size_of_val(&self.npc)
     }
 }

@@ -97,7 +97,6 @@ pub mod if_setvideo;
 pub mod jcoins_update;
 pub mod last_login_info;
 pub mod loc_add_change;
-#[cfg(before_647)]
 pub mod loc_anim;
 #[cfg(since_647)]
 pub mod loc_anim_specific;
@@ -106,9 +105,7 @@ pub mod loc_del;
 pub mod loc_merge;
 #[cfg(before_647)]
 pub mod logout;
-#[cfg(before_647)]
 pub mod map_anim;
-#[cfg(before_647)]
 pub mod map_projanim;
 #[cfg(since_647)]
 pub mod message_clanchannel;
@@ -152,8 +149,6 @@ pub mod reset_client_varcache;
 #[cfg(since_647)]
 pub mod run_client_script;
 #[cfg(since_647)]
-pub mod server_game_zone_message;
-#[cfg(since_647)]
 pub mod set_map_flag;
 #[cfg(since_647)]
 pub mod set_moveaction;
@@ -163,7 +158,7 @@ pub mod set_multiway;
 pub mod set_player_op;
 #[cfg(since_647)]
 pub mod setdraworder;
-#[cfg(all(since_289, before_647))]
+#[cfg(since_289)]
 pub mod sound_area;
 #[cfg(since_647)]
 pub mod sound_vorbis_area;
@@ -193,9 +188,6 @@ pub mod update_inv_stop_transmit;
 #[cfg(before_647)]
 pub mod update_pid;
 pub mod update_reboot_timer;
-#[cfg(since_647)]
-pub mod update_run_energy;
-#[cfg(before_647)]
 pub mod update_runenergy;
 #[cfg(before_647)]
 pub mod update_runweight;
@@ -217,8 +209,6 @@ pub mod varp_large;
 pub mod varp_small;
 #[cfg(since_647)]
 pub mod vorbis_sound;
-#[cfg(since_647)]
-pub mod zone_message;
 
 pub use crate::network::game::server_prot_message::ServerProtMessage;
 
@@ -228,5 +218,3 @@ pub use crate::network::game::server_prot::ServerProt;
 pub use crate::network::game::server_prot_message::ServerProtMessageInfo;
 #[cfg(since_647)]
 pub use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
-pub use server_game_zone_message::ServerGameZoneMessage;

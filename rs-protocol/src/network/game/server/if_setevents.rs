@@ -1,36 +1,36 @@
-//! `IfSetEvents` — enable interface component events (clicks, drag, etc.).
-//!
-//! Rev-647 opcode 57, fixed 12. ⚠️ Rev-647-specific — 2004scape has no
-//! equivalent packet (that revision used `SET_PLAYER_OP` + varp masks
-//! instead).
-//!
-//! Layout:
-//!   `[p2_alt1 from_slot][p4_alt3 settings][p4_alt3 component_hash][ip2_alt1 to_slot]`.
-
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 #[server_prot(IfSetEvents, Buffered, Fixed)]
 pub struct IfSetEvents {
-    pub component_hash: i32,
-    pub from_slot: i32,
-    pub to_slot: i32,
+    pub com: i32,
+    pub slot1: u16,
+    pub slot2: u16,
     pub settings: i32,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for IfSetEvents {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt1(self.from_slot as u16);
+        buf.p2_alt1(self.slot1);
         buf.p4_alt3(self.settings);
-        buf.p4_alt3(self.component_hash);
-        buf.ip2_alt1(self.to_slot as u16);
+        buf.p4_alt3(self.com);
+        buf.ip2_alt1(self.slot2);
     }
 
     fn sizeof(&self) -> usize {
-        12
+        size_of_val(&self.com)
+            + size_of_val(&self.slot1)
+            + size_of_val(&self.slot2)
+            + size_of_val(&self.settings)
     }
 }

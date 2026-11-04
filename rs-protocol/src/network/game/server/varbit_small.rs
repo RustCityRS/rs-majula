@@ -1,27 +1,29 @@
-//! `VarbitSmall` — update a varbit with a value in `0..=255`.
-//! Layout: `[p1_alt3 value][ip2 varbit]` — fixed 3 bytes, opcode 28.
-
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
-#[server_prot(VarbitSmall, Buffered, Fixed)]
+#[cfg(since_647)]
+#[server_prot(VarbitSmall, Immediate, Fixed)]
 pub struct VarbitSmall {
-    pub varbit: u16,
-    pub value: i32,
+    pub id: u16,
+    pub val: u8,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for VarbitSmall {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt3(self.value as u8);
-        buf.ip2(self.varbit);
+        buf.p1_alt3(self.val);
+        buf.ip2(self.id);
     }
 
     fn sizeof(&self) -> usize {
-        // u8 value byte + u16 varbit = 3
-        3
+        size_of_val(&self.id) + size_of_val(&self.val)
     }
 }

@@ -51,17 +51,13 @@ use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::cache::{CacheStore, VarValue};
+use rs_pack::startup::InterfaceLayout;
 use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
-#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::zone_message::{
-    ZoneMapAnim, ZoneMapProjanim, ZoneObjCount, pack_projanim_coord,
-};
 use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
@@ -658,7 +654,7 @@ pub struct Engine {
     /// Rev-647 component lookups (toplevel mounts, dialogue slots) derived
     /// from interface.pack at pack time.
     #[cfg(since_647)]
-    pub layout: rs_pack::startup::InterfaceLayout,
+    pub layout: InterfaceLayout,
     cache_ptr: *mut CacheStore,
     tick_stats_tx: Option<Sender<TickStats>>,
     pub(crate) gather_output: bool,
@@ -766,7 +762,7 @@ impl Engine {
         scripts: ScriptProvider,
         cache: &'static CacheStore,
         cache_ptr: *mut CacheStore,
-        #[cfg(since_647)] layout: rs_pack::startup::InterfaceLayout,
+        #[cfg(since_647)] layout: InterfaceLayout,
         stats_tx: Sender<TickStats>,
         reload_tx: UnboundedSender<()>,
         node_id: u8,
@@ -1105,10 +1101,7 @@ impl Engine {
         self.shutdown_clock = Some(self.clock + duration as u32);
         let clocks = self.reboot_timer_clocks();
         for active in self.player_list.players.iter_mut().flatten() {
-            #[cfg(before_647)]
             active.write(UpdateRebootTimer { clocks });
-            #[cfg(since_647)]
-            active.write(UpdateRebootTimer { ticks: clocks });
         }
         info!(
             "Reboot scheduled in {duration} tick(s) (fires at tick {})",
@@ -1125,10 +1118,7 @@ impl Engine {
         }
         self.shutdown_clock = None;
         for active in self.player_list.players.iter_mut().flatten() {
-            #[cfg(before_647)]
             active.write(UpdateRebootTimer { clocks: 0 });
-            #[cfg(since_647)]
-            active.write(UpdateRebootTimer { ticks: 0 });
         }
         info!("Scheduled reboot cancelled");
         true
@@ -2051,17 +2041,9 @@ impl Engine {
         zone.objs[idx].set_last_clock(clock);
 
         let oid = zone.objs[idx].oid();
-        #[cfg(before_647)]
         let message = ZoneMessage::ObjCount(ObjCount {
             coord: obj.packed_zone_coord(),
             id: obj.id(),
-            old_count: old_count.clamp(0, 65535) as u16,
-            new_count: next_count.clamp(0, 65535) as u16,
-        });
-        #[cfg(since_647)]
-        let message = ZoneMessage::ObjCount(ZoneObjCount {
-            coord: obj.packed_zone_coord(),
-            obj_id: obj.id(),
             old_count: old_count.clamp(0, 65535) as u16,
             new_count: next_count.clamp(0, 65535) as u16,
         });
@@ -3205,10 +3187,7 @@ impl Engine {
         if self.is_pending_shutdown() {
             let clocks = self.reboot_timer_clocks();
             if let Some(active) = self.get_player_mut(pid) {
-                #[cfg(before_647)]
                 active.write(UpdateRebootTimer { clocks });
-                #[cfg(since_647)]
-                active.write(UpdateRebootTimer { ticks: clocks });
             }
         }
 
@@ -4544,16 +4523,11 @@ impl ScriptEngine for Engine {
         peak: u8,
         arc: u8,
     ) {
-        #[cfg(before_647)]
         let coord = CoordGrid::packed_zone_coord(x, z);
-        // 647 packs this one coord byte differently (`pack_projanim_coord`).
-        #[cfg(since_647)]
-        let coord = pack_projanim_coord((x & 7) as u8, (z & 7) as u8);
         let dx = (dst_x as i32 - x as i32) as i8;
         let dz = (dst_z as i32 - z as i32) as i8;
         #[cfg(before_254)]
         let (src_height, dst_height) = (src_height << 2, dst_height << 2);
-        #[cfg(before_647)]
         let message = ZoneMessage::MapProjAnim(
             rs_protocol::network::game::server::map_projanim::MapProjAnim {
                 coord,
@@ -4566,25 +4540,9 @@ impl ScriptEngine for Engine {
                 start_delay: start,
                 end_delay: end,
                 peak,
-                arc,
+                arc: arc.into(),
             },
         );
-        // Rev-647 MAP_PROJANIM: peak is the client's angle and arc its
-        // distance offset, which 647 widened to two bytes (`AClass17`).
-        #[cfg(since_647)]
-        let message = ZoneMessage::MapProjanim(ZoneMapProjanim {
-            coord,
-            dst_dx: dx,
-            dst_dz: dz,
-            target_uid: target,
-            spotanim_id: id,
-            src_height,
-            dst_height,
-            start_delay: start,
-            end_delay: end,
-            angle: peak,
-            distance_offset: arc as u16,
-        });
         self.zones.zone_mut(x, y, z).map_proj_anim(message);
         self.track_zone(x, y, z);
     }
@@ -4597,16 +4555,7 @@ impl ScriptEngine for Engine {
     /// **Calls:** `Zone::anim_map`, `Engine::track_zone`
     fn anim_map(&mut self, y: u8, x: u16, z: u16, spotanim: u16, height: u8, delay: u16) {
         let coord = CoordGrid::packed_zone_coord(x, z);
-        #[cfg(before_647)]
         let message = ZoneMessage::MapAnim(rs_protocol::network::game::server::map_anim::MapAnim {
-            coord,
-            spotanim,
-            height,
-            delay,
-        });
-        // Rev-647 MAP_ANIM zone message carries the identical fields.
-        #[cfg(since_647)]
-        let message = ZoneMessage::MapAnim(ZoneMapAnim {
             coord,
             spotanim,
             height,
@@ -5721,8 +5670,8 @@ impl ScriptPlayer for ActivePlayer {
     }
 
     #[cfg(since_647)]
-    fn if_setevents(&mut self, component_hash: i32, from_slot: i32, to_slot: i32, settings: i32) {
-        self.if_set_events(component_hash, from_slot, to_slot, settings);
+    fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
+        self.if_set_events(com, slot1, slot2, settings);
     }
 
     #[cfg(since_647)]
@@ -6229,8 +6178,8 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setobject`
-    fn if_setobject(&mut self, com: i32, obj: u16, zoom: u16) {
-        self.if_setobject(com, obj, zoom);
+    fn if_setobject(&mut self, com: i32, obj: u16, scale: i32) {
+        self.if_setobject(com, obj, scale);
     }
 
     /// Sets the player's own chathead model on an interface component.

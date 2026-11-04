@@ -1,32 +1,28 @@
-//! `RunClientScript` — invoke a CS2 client-side script by ID with typed params.
-//! Rev-647 opcode 122 (RUNCLIENTSCRIPT), VarShort framing.
-//!
-//! Wire layout: `[pstr type_string][params in reverse][p4 script_id]`.
-//!
-//! `type_string` describes the params in argument order — `'i'` for int,
-//! `'s'` for string. The params follow last first (i32 big-endian for
-//! ints, null-terminated string for strings): the client reads the types
-//! from the end of the string back, each value into its type's position
-//! (`MapAreaConfig`, RUNCLIENTSCRIPT).
-
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 pub enum ScriptParam {
     Int(i32),
     Str(String),
 }
 
+#[cfg(since_647)]
 #[server_prot(RunClientScript, Buffered, VarShort)]
 pub struct RunClientScript {
     pub script_id: i32,
     pub params: Vec<ScriptParam>,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for RunClientScript {
     fn encode(&self, buf: &mut Packet) {
         let types: String = self

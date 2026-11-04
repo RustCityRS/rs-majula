@@ -1,10 +1,16 @@
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+use crate::network::game::server_prot_message::jstr_len;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 pub struct FriendchatMember {
     pub name: String,
     pub display_name: Option<String>,
@@ -13,6 +19,7 @@ pub struct FriendchatMember {
     pub title: String,
 }
 
+#[cfg(since_647)]
 #[server_prot(UpdateFriendchatChannelFull, Buffered, VarShort)]
 pub struct UpdateFriendchatChannelFull {
     pub owner: String,
@@ -22,6 +29,7 @@ pub struct UpdateFriendchatChannelFull {
     pub members: Vec<FriendchatMember>,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for UpdateFriendchatChannelFull {
     fn encode(&self, buf: &mut Packet) {
         buf.pjstr(&self.owner, 0);
@@ -52,17 +60,17 @@ impl ServerProtMessage for UpdateFriendchatChannelFull {
         let header = self.owner.len()
             + 1
             + 1
-            + self.alt_owner.as_ref().map_or(0, |s| s.len() + 1)
-            + 8
-            + 1
+            + self.alt_owner.as_ref().map_or(0, |s| jstr_len(s))
+            + size_of_val(&self.channel_id)
+            + size_of_val(&self.min_rank)
             + 1;
         let members: usize = self
             .members
             .iter()
             .map(|m| {
-                let base = m.name.len() + 1 + 1;
-                let display = m.display_name.as_ref().map_or(0, |d| d.len() + 1 + 2);
-                base + display + 1 + m.title.len() + 1
+                let base = jstr_len(&m.name) + 1;
+                let display = m.display_name.as_ref().map_or(0, |d| jstr_len(d) + 2);
+                base + display + size_of_val(&m.rank) + jstr_len(&m.title)
             })
             .sum();
         header + members

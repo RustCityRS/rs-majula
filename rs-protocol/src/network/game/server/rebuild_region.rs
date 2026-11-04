@@ -1,32 +1,15 @@
-//! `RebuildRegion` — rev-647 REBUILD_REGION (opcode 77, VarShort).
-//! Sent for instance / controller-area rebuilds.
-//!
-//! Carries structured inputs only; the encoder owns the wire layout
-//! (header bytes, bit-packed template grid, XTEA key block). The
-//! engine supplies the XTEA key blocks for the unique source
-//! mapsquares in caller-supplied order.
-//!
-//! Wire layout (per rev-647 client handler `Class280.method1819`):
-//!
-//! Header (7 bytes):
-//!   * `p1_alt3`  build_area_idx
-//!   * `p1_alt2`  instance_type
-//!   * `ip2`      chunk_x
-//!   * `ip2`      chunk_z
-//!   * `p1_alt3`  login_flag
-//!
-//! Bit-packed chunk templates (4 × 13 × 13):
-//!   1 flag bit; if set, 26 bits of packed template.
-//!
-//! Trailing — the caller-supplied XTEA key blocks (4 × i32 BE each).
-
+#[cfg(since_647)]
+use crate::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
+#[cfg(since_647)]
+use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
+#[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-use crate::network::game::server_prot_priority::ServerProtPriority;
-
+#[cfg(since_647)]
 #[server_prot(RebuildRegion, Immediate, VarShort)]
 pub struct RebuildRegion {
     pub player_x: u16,
@@ -45,6 +28,7 @@ pub struct RebuildRegion {
     pub xtea_keys: Vec<[i32; 4]>,
 }
 
+#[cfg(since_647)]
 impl ServerProtMessage for RebuildRegion {
     fn encode(&self, buf: &mut Packet) {
         let chunk_x = self.player_x >> 3;
