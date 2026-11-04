@@ -203,6 +203,8 @@
 2145=if_openoverlay
 2148=set_player_op
 2149=if_addresumebutton
+2151=set_skill_level
+2153=p_temprun
 2251=applydesign
 2500=npc_add
 2501=npc_anim
@@ -252,6 +254,7 @@
 2545=npc_walktrigger
 2546=projanim_npc
 2547=spotanim_npc
+2548=npc_destination
 3000=loc_add
 3001=loc_angle
 3002=loc_anim
@@ -407,6 +410,8 @@
 4625=sin_deg
 4626=cos_deg
 4628=abs
+4629=date_minutes
+4630=date_runeday
 4700=struct_param
 5000=runclientscript
 5001=if_setevents

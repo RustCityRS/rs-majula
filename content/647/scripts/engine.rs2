@@ -293,6 +293,9 @@
 [command,tut_flash](int $tab)
 // info: Set a component's model animation
 [command,if_setanim](component $component, seq $anim)
+// info: Set a component's model animation for the secondary player
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,.if_setanim](component $component, seq $anim)
 // info: Set a side tab to a specific interface
 [command,if_settab](interface $interface, int $tab)
 // info: Set a side tab to a specific interface for the secondary player
@@ -329,6 +332,9 @@
 [command,if_setnpchead](component $component, npc $npc)
 // info: Reposition a component
 [command,if_setposition](component $component, int $x, int $y);
+// info: Reposition a component for the secondary player
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,.if_setposition](component $component, int $x, int $y)
 // info: Set the scrollbar position on a component
 [command,if_setscrollpos](component $component, int $y);
 // info: Give xp in a stat
@@ -500,6 +506,12 @@
 [command,lowmem]()(boolean)
 // info: Set the player's identity kit
 [command,setidkit](idkit $kit, int $color)
+// info: Set the player's skill level for games room
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,set_skill_level](int $level)
+// info: Set the player's skill level for games room
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,.set_skill_level](int $level)
 // info: Set the active_player to the hero that's done the most damage to the current active_player
 [command,findhero]()(boolean)
 // info: Set the secondary active_player to the hero that's done the most damage to the current secondary active_player
@@ -530,6 +542,9 @@
 [command,wealth_event](int $eventType, string $name, int $count, int $value)
 // info: Toggle the player's run-mode
 [command,p_run](int $state)
+// info: Temporarily set player to run for 1 tick
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,p_temprun]
 // info: Requires protected access - put the player into rest mode. If $near_musician != 0, uses the music-listening variant.
 [command,p_rest](int $near_musician)
 // info: Check player's membership status
@@ -685,6 +700,12 @@
 [command,.npc_hasop](int $op)(boolean)
 // info: check if the npc's target is within the npc's maxrange
 [command,npc_inrange]()(boolean)
+// info: Get the current npc's destination
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,npc_destination]()(coord)
+// info: Get the secondary npc's destination
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,.npc_destination]()(coord)
 
 // Loc ops (3000-3499)
 // info: Spawn a loc at $coord
@@ -695,6 +716,9 @@
 [command,loc_angle]()(int)
 // info: Play an animation on the loc
 [command,loc_anim](seq $anim)
+// info: Play an animation on the secondary loc
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,.loc_anim](seq $anim)
 // info: Get the current loc's category
 [command,loc_category]()(category)
 // info: Get the secondary loc's category
@@ -1035,6 +1059,12 @@
 [command,atan2_deg](int $x, int $y)(int)
 // info: Get the absolute value of a number
 [command,abs](int $num)(int)
+// info: Get number of minutes elapsed since Unix epoch (Jan 1, 1970)
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,date_minutes]()(int)
+// info: Get 'runeday': number of days since membership started (Feb 27, 2002)
+// (289's declaration: content ported from 289 calls it; the engine has the op)
+[command,date_runeday]()(int)
 
 // DB ops (7500-7599)
 [command,db_find_with_count]
