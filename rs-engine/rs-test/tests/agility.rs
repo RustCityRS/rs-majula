@@ -12,6 +12,12 @@
 //! The Barbarian Outpost's obstacle net (loc 20211 at 2538,3545) pays 2011's
 //! 8.2 xp (2011 wiki, Barbarian Outpost), where 289 pays 7.5, and lifts the
 //! climber to the ledge level above.
+//!
+//! The PR's 289 gives each of the course's two obstacle pipes its own "being
+//! used" timer, so two players squeeze through 2011's two pipes (43543 at
+//! 2487,3431 and 43544 at 2483,3431) side by side. And the Wilderness course's
+//! stepping stones wait for the player to arrive and land the last jump a tick
+//! sooner.
 
 #![cfg(since_647)]
 
@@ -19,6 +25,7 @@
 mod client_packet;
 
 use client_packet::ClientPacket;
+use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
@@ -140,5 +147,104 @@ fn the_barbarian_net_pays_2011s_xp() {
             (x - 1, 1, z + 1),
             "on the ledge level"
         );
+    });
+}
+
+/// A logged-in player at `x`,`z` (level 0) with `agility`, its packets drained.
+fn athlete(engine: &mut Engine, name: &str, x: u16, z: u16, agility: u16) -> HarnessClient {
+    let mut client = engine.harness_login_returning(name).expect("login");
+    engine.cycle();
+    assert!(
+        !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000),
+        "{x},{z} is walkable"
+    );
+    engine.harness_telejump(client.pid, x, 0, z);
+    let player = engine.harness_player_mut(client.pid).unwrap();
+    player.stats.levels[AGILITY] = agility;
+    player.stats.base_levels[AGILITY] = agility;
+    engine.cycle();
+    engine.cycle();
+    client.packets();
+    client
+}
+
+fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
+    let mut p = ClientPacket::new();
+    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    client.send(ClientProt::OpLoc1, &p.finish());
+}
+
+#[test]
+fn two_players_squeeze_through_the_two_gnome_pipes_at_once() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut east = athlete(engine, "pipeeast", 2487, 3430, 99);
+        let mut west = athlete(engine, "pipewest", 2483, 3430, 99);
+        op_loc1(&mut east, (43543, 2487, 3431));
+        op_loc1(&mut west, (43544, 2483, 3431));
+        let mut said = Vec::new();
+        for _ in 0..20 {
+            engine.cycle();
+            for client in [&mut east, &mut west] {
+                said.extend(
+                    HarnessClient::game_messages(&client.packets())
+                        .into_iter()
+                        .map(|(_, t)| t),
+                );
+            }
+        }
+        assert!(
+            !said.iter().any(|s| s == "The pipe is being used"),
+            "{said:?}"
+        );
+        for (client, x) in [(&east, 2487), (&west, 2483)] {
+            let c = engine.harness_player(client.pid).unwrap().pathing.coord;
+            assert_eq!((c.x(), c.z()), (x, 3437), "through the pipe");
+        }
+    });
+}
+
+/// 786 places the course's stepping stone (37704) at 3001,3960. From the tile
+/// east of it, the ticks from the op to the first message, and from it to the
+/// last, of a crossing that does not fall.
+#[test]
+fn the_wilderness_stepping_stones_wait_for_arrival_and_land_sooner() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let stone = (37704u16, 3001u16, 3960u16);
+        let mut timings = Vec::new();
+        // 99 Agility still falls about one crossing in 43: up to five tries.
+        for attempt in 0..5 {
+            engine.harness_reset();
+            let mut client = athlete(engine, &format!("stones{attempt}"), 3003, 3960, 99);
+            op_loc1(&mut client, stone);
+            let (mut first, mut last, mut fell) = (None, None, false);
+            for tick in 1..40 {
+                engine.cycle();
+                for (_, t) in HarnessClient::game_messages(&client.packets()) {
+                    if t == "You carefully start crossing the stepping stones..." {
+                        first = Some(tick);
+                    } else if t == "...You safely cross to the other side." {
+                        last = Some(tick);
+                    } else if t.contains("lose your footing") {
+                        fell = true;
+                    }
+                }
+                if last.is_some() || fell {
+                    break;
+                }
+            }
+            if fell {
+                continue;
+            }
+            let (first, last) = (
+                first.expect("crossing starts"),
+                last.expect("crossing ends"),
+            );
+            timings.push((first, last - first));
+            break;
+        }
+        assert_eq!(timings, [(3, 11)], "(op to start, start to end)");
     });
 }
