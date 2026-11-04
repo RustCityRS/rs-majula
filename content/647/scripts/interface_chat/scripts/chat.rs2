@@ -330,6 +330,53 @@ switch_component (last_com) {
     case default : return($ret5);
 }
 
+// 289's choice labels (interface_chat/scripts/chat.rs2): ask, then jump to the
+// label of the option picked. 289's multi5_header waits for a 5-option
+// p_choice5_header, which 647 does not have yet.
+[label,multi2](string $string1, label $label1, string $string2, label $label2)
+def_int $choice = ~p_choice2($string1, 1, $string2, 2);
+if ($choice = 1) jump($label1);
+jump($label2);
+
+[label,multi3](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3)
+def_int $choice = ~p_choice3($string1, 1, $string2, 2, $string3, 3);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+jump($label3);
+
+[label,multi4](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4)
+def_int $choice = ~p_choice4($string1, 1, $string2, 2, $string3, 3, $string4, 4);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+jump($label4);
+
+[label,multi5](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4, string $string5, label $label5)
+def_int $choice = ~p_choice5($string1, 1, $string2, 2, $string3, 3, $string4, 4, $string5, 5);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+if ($choice = 4) jump($label4);
+jump($label5);
+
+[label,multi2_header](string $string1, label $label1, string $string2, label $label2, string $headertext)
+def_int $choice = ~p_choice2_header($string1, 1, $string2, 2, $headertext);
+if ($choice = 1) jump($label1);
+jump($label2);
+
+[label,multi3_header](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $headertext)
+def_int $choice = ~p_choice3_header($string1, 1, $string2, 2, $string3, 3, $headertext);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+jump($label3);
+
+[label,multi4_header](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4, string $headertext)
+def_int $choice = ~p_choice4_header($string1, 1, $string2, 2, $string3, 3, $string4, 4, $headertext);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+jump($label4);
+
 // ── Convenience wrappers (auto-detect active NPC) ─────────────────────────
 
 [proc,chatnpc](string $string)
