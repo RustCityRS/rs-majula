@@ -301,3 +301,101 @@ fn a_table_takes_an_item_and_a_tap_barrel_fills_a_glass() {
         assert!(said("You fill the glass with beer."));
     });
 }
+
+/// Backpack slot `slot`'s item's op `op` (647 sends an inventory op as an
+/// `IF_BUTTON` on `inventory:inv`, which `[if_button,inventory:inv]` hands to
+/// the item's `opheld` script).
+fn op_held(client: &mut HarnessClient, op: u8, obj: u16, slot: u16) {
+    let prot = match op {
+        1 => ClientProt::IfButton1,
+        _ => ClientProt::IfButton2,
+    };
+    let mut p = ClientPacket::new();
+    p.p4(BACKPACK).ip2_alt1(obj as i32).ip2(slot as i32);
+    client.send(prot, &p.finish());
+}
+
+/// 2011's own searchable hay, on 289's hay spots, searches as 289's.
+#[test]
+fn hay_searches_as_289_s() {
+    runner::on_loaded_engine(|engine| {
+        // hay_bale_36892 at 0_49_51_11_40, on 289's haybail spot.
+        const HAY_BALE: (u16, u8, u16) = (3147, 0, 3304);
+        let mut client = beside_loc(engine, "farmhand", HAY_BALE, &[]);
+        op_loc1(
+            &mut client,
+            loc_id("hay_bale_36892"),
+            HAY_BALE.0,
+            HAY_BALE.2,
+        );
+        cycles(engine, 6);
+        assert!(said("You search the hay bale..."), "2011's hay_bale_36892");
+    });
+}
+
+/// The mithril seeds plant one of 289's flowers at the player's feet, and
+/// church_organ_30754 (organs.rs2) plays 289's church music.
+#[test]
+fn mithril_seeds_plant_flowers_and_the_paterdomus_organ_plays() {
+    runner::on_loaded_engine(|engine| {
+        let seeds = obj(engine, "mithril_seeds");
+        let (x, z) = (3222, 3219);
+        let mut client = holding(engine, "gardener", x, z, &[seeds]);
+        op_held(&mut client, 1, seeds, 0);
+        cycles(engine, 3);
+        assert!(said("You drop a seed by your feet."));
+        let flowers = [
+            "flower_waterfall_quest",
+            "flower_waterfall_quest_red",
+            "flower_waterfall_quest_blue",
+            "flower_waterfall_quest_yellow",
+            "flower_waterfall_quest_purple",
+            "flower_waterfall_quest_orange",
+            "flower_waterfall_quest_mixed",
+            "flower_waterfall_quest_white",
+            "flower_waterfall_quest_black",
+        ];
+        assert!(
+            flowers.iter().any(|f| loc_at(engine, f, x, 0, z)),
+            "flowers where the seed fell"
+        );
+
+        const ORGAN: (u16, u8, u16) = (3414, 0, 3494);
+        let mut client = beside_loc(engine, "organist", ORGAN, &[]);
+        op_loc1(&mut client, loc_id("church_organ_30754"), ORGAN.0, ORGAN.2);
+        cycles(engine, 6);
+        let songs = rs_vm::ops::test::calls_for("midi_song");
+        assert!(
+            songs.iter().any(|s| s == "39" || s == "40"),
+            "church music 1 or 2: {songs:?}"
+        );
+    });
+}
+
+fn coord(engine: &Engine, pid: u16) -> (u16, u8, u16) {
+    let c = engine.harness_player(pid).unwrap().pathing.coord;
+    (c.x(), c.y(), c.z())
+}
+
+/// 289's mournerstewfence, 2011's fence (2068, op1 Squeeze-through, on 289's
+/// spot), takes the player through to the other side and back.
+#[test]
+fn the_fence_squeezes_through_both_ways() {
+    runner::on_loaded_engine(|engine| {
+        const FENCE: (u16, u8, u16) = (2541, 0, 3331);
+        let mut client = holding(engine, "squeezer", FENCE.0, FENCE.2, &[]);
+        let start = coord(engine, client.pid);
+        op_loc1(&mut client, loc_id("fence"), FENCE.0, FENCE.2);
+        cycles(engine, 8);
+        let through = coord(engine, client.pid);
+        assert_ne!(through, start, "through the fence");
+        assert_eq!(
+            through.0.abs_diff(start.0) + through.2.abs_diff(start.2),
+            1,
+            "a tile across: {start:?} -> {through:?}"
+        );
+        op_loc1(&mut client, loc_id("fence"), FENCE.0, FENCE.2);
+        cycles(engine, 8);
+        assert_eq!(coord(engine, client.pid), start, "and back");
+    });
+}
