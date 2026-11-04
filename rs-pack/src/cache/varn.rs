@@ -7,7 +7,7 @@ pub type VarnTypeProvider = TypeProvider<VarnType>;
 pub struct VarnType {
     pub id: u16,
     pub var_type: ScriptVarType,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for VarnType {
@@ -28,7 +28,7 @@ impl CacheType for VarnType {
                 0 => break,
                 1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized varn config code: {code}"),
+                _ => crate::unknown_opcode!("varn", code),
             }
         }
     }

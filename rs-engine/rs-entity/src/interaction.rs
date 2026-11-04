@@ -75,11 +75,44 @@ impl InteractionTarget {
                 coord,
                 width,
                 length,
+                shape,
+                angle,
                 ..
-            } => Some((
-                CoordGrid::fine(coord.x(), *width),
-                CoordGrid::fine(coord.z(), *length),
-            )),
+            } => {
+                let cx = CoordGrid::fine(coord.x(), *width);
+                let cz = CoordGrid::fine(coord.z(), *length);
+                // A wall does not sit in the middle of its tile -- it sits on one
+                // edge of it, chosen by the loc's angle. Facing the tile centre is
+                // wrong for a door, and when the player is standing on the door's
+                // own tile it is worse than wrong: the face vector is zero, and the
+                // 647 encoder turns a zero vector into angle 0, snapping the player
+                // to face south. Offsetting to the wall's edge (one half-tile, the
+                // unit CoordGrid::fine works in) keeps the vector meaningful from
+                // either side and from the tile itself.
+                //
+                // Only wall_straight is adjusted. A wall_diagonal runs corner to
+                // corner, so its midpoint really is the tile centre and there is no
+                // edge to move to; every other shape is a floor-standing loc whose
+                // centre is already the right thing to face.
+                //
+                // Before 647 the face goes to the tile centre, as it always has.
+                #[cfg(before_647)]
+                let face = {
+                    let _ = (shape, angle);
+                    (cx, cz)
+                };
+                #[cfg(since_647)]
+                let face = match shape {
+                    LocShape::WallStraight => match angle {
+                        LocAngle::West => (cx.wrapping_sub(1), cz),
+                        LocAngle::North => (cx, cz.wrapping_add(1)),
+                        LocAngle::East => (cx.wrapping_add(1), cz),
+                        LocAngle::South => (cx, cz.wrapping_sub(1)),
+                    },
+                    _ => (cx, cz),
+                };
+                Some(face)
+            }
             Self::Npc { .. } | Self::Player { .. } => None,
         }
     }
@@ -95,7 +128,9 @@ pub struct InteractionState {
     pub target: Option<InteractionTarget>,
     pub target_op: Option<u8>,
     pub target_subject_type: Option<u16>,
-    pub target_subject_com: Option<u16>,
+    /// The spell or used component the interaction is keyed on, for triggers
+    /// such as `[opnpct,<spell>]`.
+    pub target_subject_com: Option<rs_vm::ComId>,
     pub ap_range: Option<u16>,
     pub ap_range_called: bool,
     pub target_x: i32,

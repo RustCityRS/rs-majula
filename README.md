@@ -626,6 +626,48 @@ REV = "289"
 | **254** | 7 Sep 2004 | [Quest Journals and Chompy Hats](https://runescape.wiki/w/Update:Quest_Journals_and_Chompy_Hats), [Agility, Potions and Parties!](https://runescape.wiki/w/Update:Agility,_Potions_and_Parties!), [New Random Events!](https://runescape.wiki/w/Update:New_Random_Events!), [Death Plateau](https://runescape.wiki/w/Update:Death_Plateau_Quest), [Troll Stronghold](https://runescape.wiki/w/Update:Troll_Stronghold_Quest), [Herblore Additions](https://runescape.wiki/w/Update:Herblore_Additions), [Situation in the Sands](https://runescape.wiki/w/Update:Situation_in_the_Sands) |
 | **274** | 24 Nov 2004 | [Tai Bwo Wannai Trio](https://runescape.wiki/w/Update:Tai_Bwo_Wannai_Trio), [Plague City Part 4](https://runescape.wiki/w/Update:Plague_City_Part_4_Released), [Skills, Duels and the Kalphite](https://runescape.wiki/w/Update:Skills,_Duels_and_the_Kalphite), [Eadgar's Ruse](https://runescape.wiki/w/Update:Eadgars_Ruse), [Morytania Expansion](https://runescape.wiki/w/Update:Morytania_Expansion), [Mort'ton, Shades and Mage Armour](https://runescape.wiki/w/Update:Mortton_Shades_and_Mage_Armour), [Mage Armour Updated](https://runescape.wiki/w/Update:Mage_Armour_Updated), [Treasure Trails and Changes](https://runescape.wiki/w/Update:Treasure_Trails_and_Changes), [The Fremennik Trials](https://runescape.wiki/w/Update:The_Fremennik_Trials), [Horror From The Deep](https://runescape.wiki/w/Update:Horror_From_The_Deep), [Burthorpe Games Room](https://runescape.wiki/w/Update:Burthorpe_Games_Room) |
 | **289** | 17 Jan 2005 | [Throne Of Miscellania](https://runescape.wiki/w/Update:Throne_Of_Miscellania), [Monkey Madness](https://runescape.wiki/w/Update:Monkey_Madness), [Various Small Changes](https://runescape.wiki/w/Update:Various_Small_Changes.), [More Small Changes](https://runescape.wiki/w/Update:More_Small_Changes), [Castle Wars](https://runescape.wiki/w/Update:Castle_Wars), [Changes to Castle Wars](https://runescape.wiki/w/Update:Changes_to_Castle_Wars), [Santa, Flax and Castlewars](https://runescape.wiki/w/Update:Santa,_Flax_and_Castlewars), [The Haunted Mine](https://runescape.wiki/w/Update:The_Haunted_Mine), [Troll Romance, Banks and Chat](https://runescape.wiki/w/Update:Troll_Romance,_Banks_and_Chat), [In Search Of The Myreque](https://runescape.wiki/w/Update:In_Search_Of_The_Myreque), [Trawler Game Update](https://runescape.wiki/w/Update:Trawler_Game_Update), [Karamja Dungeon](https://runescape.wiki/w/Update:Karamja_Dungeon) |
+| **647** | 17 May 2011 | The 2011 game, from [OpenRS2 cache 786](https://archive.openrs2.org/caches/runescape/786), with 289's content ported to it and 2011's changes made where they are known. See [Revision 647](#revision-647). |
+
+### Revision 647
+
+647 is a JS5 (dat2) revision. Its cache is built from `content/647/` when the server starts
+and goes to the client over JS5, so there is no JAGGRAB, no HTTP cache and no web client. It
+plays through the deobfuscated Java desktop client in `public/647/client.jar`, which reads its
+settings from `http://127.0.0.1/jav_config.ws`, so the server's HTTP listener goes on port 80.
+
+`REV` in `.cargo/config.toml` says 289, and an environment variable overrides it, so prefix
+each command (in PowerShell, run `$env:REV = "647"` first instead):
+
+```bash
+REV=647 cargo fetch-expected     # once: the reference cache, into expected/
+REV=647 cargo regen-content      # once: what is derived from it, into content/647
+docker compose up -d
+REV=647 cargo run --profile dev-opt -p rs-server -- --http-port 80
+java -jar public/647/client.jar
+```
+
+The reference cache (OpenRS2 cache [786](https://archive.openrs2.org/caches/runescape/786))
+is not kept in git, and neither is anything derived from it. `cargo fetch-expected`
+downloads it into `expected/` and checks it against OpenRS2's own reference tables and XTEA
+keys. `cargo regen-content` unpacks it into the `_unpack` directories under `content/647`:
+the cache's configs, map squares, models, clientscripts, sprites and the rest.
+
+Everything authored sits beside those directories and is laid over them when the cache is
+packed:
+
+- A section in an authored config adds to, or overrides, the cache's section of the same name.
+- `content/647/maps/spawns` (npc and ground-item spawns) and `content/647/maps/donor`
+  (squares rebuilt from donor caches, whose 786 copies nobody can decrypt) replace the
+  cache's squares.
+- `content/647/models/donor` holds models from donor caches that 786 lacks, for the server's
+  configs that use them.
+
+Never edit `_unpack`: the next `cargo regen-content` clears it. To check a build against
+OpenRS2, group by group:
+
+```bash
+REV=647 cargo test -p rs-pack --release --test crc_gate -- --ignored
+```
 
 ----
 

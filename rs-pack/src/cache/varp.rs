@@ -12,7 +12,7 @@ pub struct VarPlayerType {
     pub protect: bool,
     pub clientcode: u16,
     pub transmit: bool,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for VarPlayerType {
@@ -41,7 +41,7 @@ impl CacheType for VarPlayerType {
                 5 => self.clientcode = buf.g2(),
                 6 => self.transmit = true,
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized varp config code: {code}"),
+                _ => crate::unknown_opcode!("varp", code),
             }
         }
     }

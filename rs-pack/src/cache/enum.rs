@@ -13,7 +13,7 @@ pub struct EnumType {
     pub default_int: i32,
     pub default_str: Option<Box<str>>,
     pub values: FxHashMap<i32, ParamValue>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for EnumType {
@@ -56,7 +56,7 @@ impl CacheType for EnumType {
                     }
                 }
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized enum config code: {code}"),
+                _ => crate::unknown_opcode!("enum", code),
             }
         }
     }

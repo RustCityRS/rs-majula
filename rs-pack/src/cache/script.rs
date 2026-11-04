@@ -403,6 +403,49 @@ pub const SETGENDER: u16 = 2099;
 pub const SETIDKIT: u16 = 2100;
 pub const SETSKINCOLOUR: u16 = 2101;
 pub const SETTIMER: u16 = 2102;
+// ── Rev-647-only commands (numbers match content/647/pack/command.pack) ──
+#[cfg(since_647)]
+pub const APPLYDESIGN: u16 = 2251;
+#[cfg(since_647)]
+pub const IF_OPENTOP: u16 = 3512;
+#[cfg(since_647)]
+pub const LAST_STRING: u16 = 3515;
+#[cfg(since_647)]
+pub const P_STRINGDIALOG: u16 = 3516;
+#[cfg(since_647)]
+pub const P_SETDISPLAYNAME: u16 = 3517;
+#[cfg(since_647)]
+pub const P_GET_SUGGESTION: u16 = 3518;
+#[cfg(since_647)]
+pub const P_NEXT_SUGGESTIONS: u16 = 3519;
+#[cfg(since_647)]
+pub const P_PREV_SUGGESTIONS: u16 = 3520;
+#[cfg(since_647)]
+pub const P_REQUEST_MORE_SUGGESTIONS: u16 = 3521;
+#[cfg(since_647)]
+pub const MUSIC_PLAYJINGLE: u16 = 3523;
+#[cfg(since_647)]
+pub const MUSIC_PLAYSONG: u16 = 3524;
+#[cfg(since_647)]
+pub const GETWINDOWMODE: u16 = 3529;
+#[cfg(since_647)]
+pub const RUNCLIENTSCRIPT: u16 = 5000;
+#[cfg(since_647)]
+pub const IF_SETEVENTS: u16 = 5001;
+#[cfg(since_647)]
+pub const SENDVARC: u16 = 5002;
+#[cfg(since_647)]
+pub const IF_OPENSUB: u16 = 5003;
+#[cfg(since_647)]
+pub const IF_CLOSESUB: u16 = 5004;
+#[cfg(since_647)]
+pub const IF_MOVESUB: u16 = 5012;
+#[cfg(since_647)]
+pub const RUNCLIENTSCRIPT_STAR: u16 = 5013;
+#[cfg(since_647)]
+pub const SENDVARC_STR: u16 = 5015;
+#[cfg(since_647)]
+pub const LAST_TARGETCOM: u16 = 5016;
 pub const SOFTTIMER: u16 = 2103;
 pub const SOUND_SYNTH: u16 = 2104;
 pub const SPOTANIM_PL: u16 = 2105;
@@ -720,9 +763,64 @@ pub const MAP_LAST_BANDWIDTHOUT: u16 = 10018;
 pub const MAP_PRODUCTION: u16 = 10019; // TODO.
 pub const OBJCOUNT: u16 = 10020;
 
-// ── DO NOT ADD ANY OPCODES AFTER THIS ONE (11000) ─────────────────────────────────────────────────
+// ── Test framework (50000-50100, rev-647 `#testscript` only) ────────────────
+//
+// Declared by `content/647/scripts/engine.rs2` and used only below a
+// `#testscript` line, which production compiles leave out. The headless
+// runner (`rs-test`) is the only thing that registers handlers for them, so a
+// script that reaches one anywhere else fails as an unknown opcode.
 
+#[cfg(since_647)]
+pub const ASSERT_EQ: u16 = 50000;
+#[cfg(since_647)]
+pub const ASSERT_NOT_EQ: u16 = 50001;
+#[cfg(since_647)]
+pub const ASSERT_STR_EQ: u16 = 50002;
+#[cfg(since_647)]
+pub const ASSERT_TRUE: u16 = 50003;
+#[cfg(since_647)]
+pub const ASSERT_FALSE: u16 = 50004;
+#[cfg(since_647)]
+pub const ASSERT_GT: u16 = 50005;
+#[cfg(since_647)]
+pub const ASSERT_LT: u16 = 50006;
+#[cfg(since_647)]
+pub const ASSERT_GTE: u16 = 50007;
+#[cfg(since_647)]
+pub const ASSERT_LTE: u16 = 50008;
+#[cfg(since_647)]
+pub const ASSERT_NULL: u16 = 50009;
+#[cfg(since_647)]
+pub const ASSERT_NOT_NULL: u16 = 50010;
+#[cfg(since_647)]
+pub const TEST_FAIL: u16 = 50011;
+#[cfg(since_647)]
+pub const ASSERT_CALLED: u16 = 50012;
+#[cfg(since_647)]
+pub const ASSERT_CALLED_WITH: u16 = 50013;
+#[cfg(since_647)]
+pub const TEST_EXPECT_FAIL: u16 = 50014;
+#[cfg(since_647)]
+pub const TEST_TICK: u16 = 50050;
+#[cfg(since_647)]
+pub const TEST_TRIGGER: u16 = 50051;
+#[cfg(since_647)]
+pub const TEST_FIRE_INPUT: u16 = 50052;
+#[cfg(since_647)]
+pub const VERIFY_CALLS: u16 = 50053;
+#[cfg(since_647)]
+pub const WAIT_FOR: u16 = 50054;
+#[cfg(since_647)]
+pub const TEST_OP: u16 = 50055;
+#[cfg(since_647)]
+pub const SETUP_PLAYER: u16 = 50100;
+
+// ── DO NOT ADD ANY OPCODES AFTER THIS ONE (11000; 50101 at rev 647) ─────────────
+
+#[cfg(before_647)]
 pub const LAST: u16 = 11000;
+#[cfg(since_647)]
+pub const LAST: u16 = 50101;
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 

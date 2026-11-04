@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+#[cfg(before_647)]
 use std::sync::Arc;
 
 use crate::cache::category::CategoryTypeProvider;
@@ -23,7 +24,7 @@ use crate::cache::varbit::VarbitTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
 use dbtable::DbTableIndex;
@@ -43,6 +44,7 @@ pub mod hunt;
 pub mod idk;
 pub mod r#if;
 pub mod inv;
+pub mod lenient;
 pub mod loc;
 pub mod mesanim;
 pub mod midi;
@@ -54,6 +56,10 @@ pub mod script;
 pub mod seq;
 pub mod seq_frame;
 pub mod spotanim;
+#[cfg(since_647)]
+mod store647;
+#[cfg(since_647)]
+pub use store647::MIDI_JINGLE_BASE;
 pub mod r#struct;
 #[cfg(since_254)]
 pub mod varbit;
@@ -63,15 +69,19 @@ pub mod vars;
 pub mod wordenc;
 
 pub struct CacheStore {
+    #[cfg(before_647)]
     pub crctable_bytes: Arc<[u8]>,
+    #[cfg(before_647)]
     pub crc_buffer32: i32,
     #[cfg(all(since_244, before_274))]
     pub ondemand_zip: Arc<[u8]>,
     #[cfg(all(since_244, before_274))]
     pub build: Arc<[u8]>,
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_647))]
     pub ondemand: OndemandBlobs,
+    #[cfg(before_647)]
     pub crcs: HashMap<&'static str, i32>,
+    #[cfg(before_647)]
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
     pub mapcrcs: MapSquareCrcs,
@@ -108,9 +118,13 @@ pub struct CacheStore {
     pub midi_ids: HashMap<Box<str>, u16>,
     #[cfg(since_254)]
     pub midi_tick_lengths: Box<[Option<u16>]>,
+    #[cfg(before_647)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,
+    /// Huffman codec for chat message compression (loaded from JS5 archive 10).
+    #[cfg(since_647)]
+    pub huffman: rs_crypto::huffman::Huffman,
 }
 
 pub use crate::types::ScriptVarType;

@@ -241,6 +241,15 @@ impl Npc {
             .unfocus(&mut self.info, self.pathing.coord, self.pathing.size);
     }
 
+    /// The fine coord the npc faces: its pending face coord, else its standing
+    /// orientation; `None` when it has neither.
+    pub fn facing(&self) -> Option<(u16, u16)> {
+        match (self.info.face_x, self.info.face_z) {
+            (Some(x), Some(z)) => Some((x, z)),
+            _ => self.info.orientation_x.zip(self.info.orientation_z),
+        }
+    }
+
     /// Updates the NPC's facing direction toward its current interaction target.
     /// `pathing_face` is the live fine coordinate of a player/NPC target (resolved by the
     /// caller), or `None`; a non-pathing target falls back to its stored stationary

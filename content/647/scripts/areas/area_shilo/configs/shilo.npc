@@ -1,0 +1,41 @@
+[kaleb_paramaya]
+desc=This is Kaleb Paramaya, a warm and friendly inn owner.
+wanderrange=3
+
+[yohnus]
+desc=This is Yohnus, he runs the local smithery.
+wanderrange=1
+
+[obli]
+desc=An intelligent-looking shop owner.
+wanderrange=2
+param=owned_shop,shilojunglestore
+param=shop_sell_multiplier,1500
+param=shop_buy_multiplier,500
+param=shop_delta,20
+param=shop_title,Obli's General Store.
+category=shop_keeper
+
+[fernahei]
+desc=This is Fernahei; he owns the local fishing tackle shop.
+wanderrange=2
+param=owned_shop,shilofishingshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,700
+param=shop_delta,20
+param=shop_title,Fernahai's Fishing Hut.
+category=shop_keeper
+// https://web.archive.org/web/20051215235633/http://runevillage.com/images/rsshilovillagetown5.gif (Fernahai's Fishing Hut.)
+
+[vigroy]
+desc=A cart driver; it looks like he's quite experienced.
+wanderrange=3
+
+[seravel]
+desc=This is Seravel, he sells tickets for the 'Lady of the Waves'.
+wanderrange=0
+moverestrict=nomove
+
+[yanni_salika]
+desc=Yanni Salika; he buys and sells antiques.
+wanderrange=2

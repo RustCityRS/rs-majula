@@ -1,0 +1,36 @@
+#testscript
+
+// 289's puzzle box is done when its pieces are in order with the gap last:
+// the order 2011's hint shows (inv 207). The npc who gave the box takes it
+// back once this holds (289's area scripts, not yet ported).
+[label,test_trail_puzzle_is_complete_when_solved]
+setup_player("test_player")
+inv_clear(trail_puzzleinv)
+inv_setslot(trail_puzzleinv, 0, sliding_piece, 1)
+inv_setslot(trail_puzzleinv, 1, trail_slidingpuzzleb02, 1)
+inv_setslot(trail_puzzleinv, 2, trail_slidingpuzzleb03, 1)
+inv_setslot(trail_puzzleinv, 3, trail_slidingpuzzleb04, 1)
+inv_setslot(trail_puzzleinv, 4, trail_slidingpuzzleb05, 1)
+inv_setslot(trail_puzzleinv, 5, trail_slidingpuzzleb06, 1)
+inv_setslot(trail_puzzleinv, 6, trail_slidingpuzzleb07, 1)
+inv_setslot(trail_puzzleinv, 7, trail_slidingpuzzleb08, 1)
+inv_setslot(trail_puzzleinv, 8, trail_slidingpuzzleb09, 1)
+inv_setslot(trail_puzzleinv, 9, trail_slidingpuzzleb10, 1)
+inv_setslot(trail_puzzleinv, 10, trail_slidingpuzzleb11, 1)
+inv_setslot(trail_puzzleinv, 11, trail_slidingpuzzleb12, 1)
+inv_setslot(trail_puzzleinv, 12, trail_slidingpuzzleb13, 1)
+inv_setslot(trail_puzzleinv, 13, trail_slidingpuzzleb14, 1)
+inv_setslot(trail_puzzleinv, 14, trail_slidingpuzzleb15, 1)
+inv_setslot(trail_puzzleinv, 15, trail_slidingpuzzleb16, 1)
+inv_setslot(trail_puzzleinv, 16, trail_slidingpuzzleb17, 1)
+inv_setslot(trail_puzzleinv, 17, trail_slidingpuzzleb18, 1)
+inv_setslot(trail_puzzleinv, 18, trail_slidingpuzzleb19, 1)
+inv_setslot(trail_puzzleinv, 19, trail_slidingpuzzleb20, 1)
+inv_setslot(trail_puzzleinv, 20, trail_slidingpuzzleb21, 1)
+inv_setslot(trail_puzzleinv, 21, trail_slidingpuzzleb22, 1)
+inv_setslot(trail_puzzleinv, 22, trail_slidingpuzzleb23, 1)
+inv_setslot(trail_puzzleinv, 23, trail_slidingpuzzleb24, 1)
+assert_true(~trail_puzzle_complete(puzzle_box))
+// One piece slid into the gap: not done.
+inv_movetoslot(trail_puzzleinv, trail_puzzleinv, 23, 24)
+assert_false(~trail_puzzle_complete(puzzle_box))

@@ -1,0 +1,20 @@
+// Persistence and run-weight for the player's own inventories. Laid over
+// _unpack/all.inv.
+
+[inv]
+scope=perm
+protect=no
+runweight=yes
+
+[worn]
+scope=perm
+runweight=yes
+
+[tradeoffer]
+// From 289's player.inv: what a player offers in a trade (inv 90 at 2011
+// too, 28 slots in the cache).
+protect=no
+
+[deathkeep]
+// From 289's player.inv: what a player keeps while they die.
+size=4

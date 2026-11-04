@@ -1,0 +1,9 @@
+// From 289's quest_murder.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,flour_proofobj](obj $proof_obj)
+inv_del(inv, $proof_obj, 1);
+inv_add(inv, oc_param($proof_obj, product), 1);
+inv_del(inv, pot_of_flour, 1);
+inv_add(inv, empty_pot, 1);
+mes(oc_param($proof_obj, game_message));
+mes(oc_param($proof_obj, game_message2));
+

@@ -1,18 +1,18 @@
-#[cfg(any(rev = "225", since_254))]
+#[cfg(any(rev = "225", all(since_254, before_647)))]
 use crate::active_player::ActivePlayer;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use crate::engine::engine;
-#[cfg(any(rev = "225", since_254))]
+#[cfg(any(rev = "225", all(since_254, before_647)))]
 use crate::handlers::ClientGameHandler;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
-#[cfg(any(rev = "225", since_254))]
+#[cfg(any(rev = "225", all(since_254, before_647)))]
 use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
-#[cfg(any(rev = "225", since_254))]
+#[cfg(any(rev = "225", all(since_254, before_647)))]
 use rs_vm::ScriptError;
 
 /// Handles the `EventMouseClick` client protocol message.
@@ -31,7 +31,7 @@ use rs_vm::ScriptError;
 /// # Call Stack
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ClientGameHandler for EventMouseClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let ms = active.watch.packet_ms();
@@ -59,7 +59,7 @@ impl ClientGameHandler for EventMouseClick {
 /// # Call Stack
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ClientGameHandler for EventMouseMove {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let ms = active.watch.packet_ms();
@@ -84,7 +84,7 @@ impl ClientGameHandler for EventMouseMove {
 /// # Call Stack
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ClientGameHandler for EventAppletFocus {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let ms = active.watch.packet_ms();
@@ -109,11 +109,40 @@ impl ClientGameHandler for EventAppletFocus {
 /// # Call Stack
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-#[cfg(any(rev = "225", since_254))]
+#[cfg(any(rev = "225", all(since_254, before_647)))]
 impl ClientGameHandler for EventCameraPosition {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let ms = active.watch.packet_ms();
         active.watch.anticheat.camera(ms, &self);
         Ok(())
     }
+}
+
+/// Rev 647's input reports. Read, and dropped: the anti-cheat judges the
+/// jag-era reports only.
+#[cfg(since_647)]
+mod since_647 {
+    use crate::active_player::ActivePlayer;
+    use crate::handlers::ClientGameHandler;
+    use rs_protocol::network::game::client_prot::{
+        EventAppletFocus, EventCameraPosition, EventMouseClick, EventMouseMove,
+    };
+    use rs_vm::ScriptError;
+
+    macro_rules! dropped {
+        ($($packet:ty),*) => {$(
+            impl ClientGameHandler for $packet {
+                fn handle(self, _: &mut ActivePlayer) -> Result<(), ScriptError> {
+                    Ok(())
+                }
+            }
+        )*};
+    }
+
+    dropped!(
+        EventMouseMove,
+        EventMouseClick,
+        EventAppletFocus,
+        EventCameraPosition
+    );
 }

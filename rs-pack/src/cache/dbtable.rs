@@ -22,7 +22,7 @@ pub struct DbTableType {
     pub defaults: DbTableDefaults,
     pub columns: DbTableColumns,
     pub props: Option<Box<[u8]>>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl DbTableType {
@@ -123,7 +123,7 @@ impl CacheType for DbTableType {
                             .into_boxed_slice(),
                     )
                 }
-                _ => panic!("Unrecognized dbtable config code: {code}"),
+                _ => crate::unknown_opcode!("dbtable", code),
             }
         }
     }

@@ -4,6 +4,7 @@ use rs_entity::{EntityLifeTime, Loc, Obj};
 use rs_grid::CoordGrid;
 use rs_grid::mapsquare_coord::MapsquareCoordGrid;
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::bz2::bz2_decompress;
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::dbrow::DbRowValue;
@@ -51,6 +52,7 @@ pub struct GameMap;
 ///
 /// # Returns
 /// A [`Packet`] wrapping the decompressed bytes.
+#[cfg(before_647)]
 fn decompress_map(data: &[u8]) -> Packet {
     let size = u32::from_be_bytes(data[..4].try_into().unwrap()) as usize;
     Packet::from(bz2_decompress(&data[4..], size, true, 0))
@@ -198,6 +200,43 @@ struct MapsquareData {
     locs: Vec<MapLocEntry>,
     npcs: Vec<MapNpcEntry>,
     objs: Vec<MapObjEntry>,
+}
+
+/// Rev-647 mapsquares are stored as JS5 compression containers
+/// (`[type:1][len:4][payload]`, gzip or uncompressed) by the cache bridge.
+#[cfg(since_647)]
+fn decompress_map(data: &[u8]) -> Packet {
+    match rs_dat2::compression::decompress(data) {
+        Ok(bytes) => Packet::from(bytes.to_vec()),
+        Err(e) => {
+            tracing::warn!("Failed to decompress map data: {e}");
+            Packet::new(0)
+        }
+    }
+}
+
+/// Rev-647 landscape id deltas can exceed the 15-bit smart range, so they
+/// are encoded as a chain of smarts summed until a non-32767 terminator.
+#[cfg(since_647)]
+fn glargesmart(buf: &mut Packet) -> i32 {
+    let mut total = 0i32;
+    loop {
+        let seg = buf.gsmart1or2();
+        if seg != 32767 {
+            return total + seg;
+        }
+        total += 32767;
+    }
+}
+
+#[cfg(before_647)]
+fn read_loc_id_offset(buf: &mut Packet) -> i32 {
+    buf.gsmart1or2()
+}
+
+#[cfg(since_647)]
+fn read_loc_id_offset(buf: &mut Packet) -> i32 {
+    glargesmart(buf)
 }
 
 impl GameMap {
@@ -481,7 +520,7 @@ impl GameMap {
         out: &mut Vec<MapLocEntry>,
     ) {
         let mut id: i32 = -1;
-        let mut id_offset = buf.gsmart1or2();
+        let mut id_offset = read_loc_id_offset(buf);
         while id_offset != 0 {
             id += id_offset;
 
@@ -522,7 +561,7 @@ impl GameMap {
                 let (x0, z0, x1, z1) = loc_zone_rect(shape, absolute_x, absolute_z, extent);
                 marks.mark_rect(x0, z0, x1, z1, bridge as u8);
             }
-            id_offset = buf.gsmart1or2();
+            id_offset = read_loc_id_offset(buf);
         }
     }
 
@@ -539,6 +578,7 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
+    #[cfg(before_647)]
     fn decode_npcs(
         buf: &mut Packet,
         cache: &CacheStore,
@@ -598,6 +638,7 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
+    #[cfg(before_647)]
     fn decode_objs(
         buf: &mut Packet,
         marks: &mut ZoneMarks,
@@ -634,6 +675,74 @@ impl GameMap {
                 );
             }
             id_offset = buf.gsmart1or2();
+        }
+    }
+
+    /// Rev-647 NPC spawns come from the server `map.dat` overlay as flat
+    /// `(u16 packed_pos, u16 npc_id)` pairs, where the position packs as
+    /// `(level << 14) | (local_x << 7) | local_z` -- matching the deob client
+    /// and the rs-pack map_format codec that writes `map.dat`. Decoded into
+    /// the same entries, and marked the same way, as [`decode_npcs`] above.
+    #[cfg(since_647)]
+    fn decode_npcs(
+        buf: &mut Packet,
+        cache: &CacheStore,
+        marks: &mut ZoneMarks,
+        originx: u16,
+        originz: u16,
+        out: &mut Vec<MapNpcEntry>,
+    ) {
+        while buf.len().saturating_sub(buf.pos) >= 4 {
+            let pos_key = buf.g2();
+            let id = buf.g2();
+
+            let level = pos_key >> 14;
+            let lx = (pos_key >> 7) & 0x3f;
+            let lz = pos_key & 0x3f;
+            out.push(MapNpcEntry {
+                id,
+                coord: (level << 12) | (lx << 6) | lz,
+            });
+
+            let Some(npc) = cache.npcs.get_by_id(id) else {
+                continue;
+            };
+            let size = npc.size.max(1) as u16;
+            let (absolute_x, absolute_z) = (originx + lx, originz + lz);
+            marks.mark_rect(
+                absolute_x,
+                absolute_z,
+                absolute_x + size - 1,
+                absolute_z + size - 1,
+                level as u8,
+            );
+        }
+    }
+
+    /// Rev-647 ground-item spawns come from the server `objspawn.dat` overlay
+    /// as flat `(u16 packed_pos, u16 obj_id, u16 count)` triples, the position
+    /// packed as the jag-era files pack it (`(level << 12) | (local_x << 6) |
+    /// local_z`). Decoded into the same entries as [`decode_objs`] above.
+    #[cfg(since_647)]
+    fn decode_objs(
+        buf: &mut Packet,
+        marks: &mut ZoneMarks,
+        originx: u16,
+        originz: u16,
+        out: &mut Vec<MapObjEntry>,
+    ) {
+        while buf.len().saturating_sub(buf.pos) >= 6 {
+            let coord = buf.g2();
+            let id = buf.g2();
+            let count = buf.g2();
+            out.push(MapObjEntry { id, coord, count });
+
+            let coord = MapsquareCoordGrid::from(coord);
+            marks.mark(
+                originx + coord.x() as u16,
+                originz + coord.z() as u16,
+                coord.y(),
+            );
         }
     }
 

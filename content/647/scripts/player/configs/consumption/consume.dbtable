@@ -1,0 +1,6 @@
+// Ported/adapted from Jordan's rev-225: player/configs/consumption/consume.dbtable
+// MVP (single-bite staple foods): just the heal list. consume_sound, stat_change
+// (stat boosts) and the messages table are deferred with multi-bite/potions.
+[consume_table]
+column=consumable,obj,LIST,INDEXED,REQUIRED
+column=stat_heal,stat,int,int,LIST

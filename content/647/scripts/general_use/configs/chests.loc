@@ -1,0 +1,19 @@
+[chestclosed]
+desc=I wonder what's inside.
+category=chest_closed
+param=chest_other,chestopen
+
+[chestclosedgold]
+desc=I wonder what's inside.
+category=chest_closed
+param=chest_other,chestopengold
+
+[chestopen]
+desc=Perhaps I should search it.
+category=chest_open
+param=chest_other,chestclosed
+
+[chestopengold]
+desc=Perhaps I should search it.
+category=chest_open
+param=chest_other,chestclosedgold

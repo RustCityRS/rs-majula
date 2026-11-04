@@ -1,0 +1,59 @@
+// Ported/adapted from Jordan's rev-225: consumption/effects/scripts/consume_effects.rs2
+// Single-bite eat: remove the item, play the eat anim, apply the heal.
+
+[label,consume_effect_stat]
+def_obj $consumable = last_item;
+inv_delslot(inv, last_slot);
+anim(human_eat, 0);
+sound_synth(eat, 1, 0);
+~consume_effect_apply($consumable);
+
+// Multi-bite eat (pies/cakes/pizzas): delete the eaten stage, then add the next
+// stage via inv_add (not inv_setslot — matches rev-225 consume_effect_stat2, the
+// post-"Zoom & Herb Sack" behaviour). The next stage is the obj's next_obj_stage
+// param (null on the final bite -> nothing added, e.g. cake slice, half pizza).
+// pie_dish is the terminal "empty" item for pies. Heal routing is identical to
+// single-bite (~consume_effect_apply -> %life_points).
+[label,consume_effect_stat2]
+def_obj $consumable = last_item;
+inv_delslot(inv, last_slot);
+if (oc_param($consumable, next_obj_stage) ! null) {
+    inv_add(inv, oc_param($consumable, next_obj_stage), 1);
+}
+anim(human_eat, 0);
+sound_synth(eat, 1, 0);
+~consume_effect_apply($consumable);
+
+// Reads the food's heal list from consume_table and applies it. Hitpoints heals
+// route to the granular life-points pool (%life_points); any other stat uses the
+// normal stat_heal (kept for future boost-foods / potions).
+[proc,consume_effect_apply](obj $consumable)
+def_int $hp_before = %life_points;
+db_find(consume_table:consumable, $consumable);
+def_dbrow $effect_data = db_findnext;
+if ($effect_data = null) {
+    return;
+}
+def_stat $stat;
+def_int $constant;
+def_int $percent;
+def_int $i = 0;
+while ($i < db_getfieldcount($effect_data, consume_table:stat_heal)) {
+    $stat, $constant, $percent = db_getfield($effect_data, consume_table:stat_heal, $i);
+    if ($stat = hitpoints) {
+        ~heal_lifepoints(calc($constant + scale($percent, 100, calc(stat(hitpoints) * 10))));
+    } else {
+        stat_heal($stat, $constant, $percent);
+    }
+    $i = calc($i + 1);
+}
+mes("You eat the <lowercase(oc_name($consumable))>.");
+if (%life_points > $hp_before) {
+    mes("It heals some health.");
+}
+
+// Adds life points to the granular pool (varbit %life_points), clamped to the
+// max (Constitution level x10). The rev-647 life-points heal primitive — keep
+// HP changes in content/rs2 (matches regen/login; no engine heal command).
+[proc,heal_lifepoints](int $amount)
+%life_points = min(calc(%life_points + $amount), calc(stat(hitpoints) * 10));

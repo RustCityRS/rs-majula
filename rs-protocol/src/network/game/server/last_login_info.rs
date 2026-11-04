@@ -1,4 +1,4 @@
-﻿use crate::network::game::server::ServerProtMessage;
+use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
@@ -31,7 +31,7 @@ impl ServerProtMessage for LastLoginInfo {
     }
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 #[server_prot(LastLoginInfo, Buffered, Fixed)]
 pub struct LastLoginInfo {
     pub ip: i32,
@@ -41,7 +41,7 @@ pub struct LastLoginInfo {
     pub warn_members_in_non_members: bool,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 impl ServerProtMessage for LastLoginInfo {
     fn encode(&self, buf: &mut Packet) {
         buf.p4(self.ip);
@@ -57,5 +57,26 @@ impl ServerProtMessage for LastLoginInfo {
             + size_of_val(&self.recovery)
             + size_of_val(&self.messages)
             + size_of_val(&self.warn_members_in_non_members)
+    }
+}
+
+// `LastLoginInfo` — tell the client how many days since last login.
+// Rev-647 opcode 35 (LAST_LOGIN_INFO), fixed 4.
+
+#[cfg(since_647)]
+#[server_prot(LastLoginInfo, Buffered, Fixed)]
+pub struct LastLoginInfo {
+    pub last_login_days: i32,
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for LastLoginInfo {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.last_login_days);
+    }
+
+    fn sizeof(&self) -> usize {
+        use std::mem::size_of_val;
+        size_of_val(&self.last_login_days)
     }
 }

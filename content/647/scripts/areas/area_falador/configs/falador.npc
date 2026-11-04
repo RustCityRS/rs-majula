@@ -1,0 +1,125 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[white_knight]
+desc=The knight seems to be watching something.
+respawnrate=100
+hitpoints=520
+attack=27
+strength=29
+defence=21
+param=attackrate,7
+param=attackbonus,30
+param=strengthbonus,31
+param=stabdefence,83
+param=slashdefence,76
+param=crushdefence,70
+param=magicdefence,-11
+param=rangedefence,74
+param=damagetype,^slash_style
+param=attack_anim,seq_7041
+param=defend_anim,human_unarmedblock
+param=attack_sound,2H_crush
+param=defend_sound,blade3
+// osrs defend anim seq_410 (2005)
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1798
+param=death_anim,human_death
+
+[wyson_the_gardener]
+desc=The head gardener.
+respawnrate=50
+hitpoints=70
+attack=2
+defence=5
+param=damagetype,^stab_style
+param=attack_anim,human_farmersfork_stab
+param=defend_anim,human_farmersfork_def
+param=attack_sound,farmersfork_stab
+// stats taken 3lv Gardener (Falador) Vislvl match.
+// Also Hitpoints match RSC version.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3276
+
+[generalshopkeeper4]
+desc=A product of a consumerist society.
+category=shop_keeper
+param=owned_shop,generalshop4
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Falador General Store
+moverestrict=indoors
+
+[generalassistant4]
+desc=Likes you more, the more you spend.
+category=shop_keeper
+param=owned_shop,generalshop4
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Falador General Store
+moverestrict=indoors
+
+[cassie]
+desc=Nice eyes.
+category=shop_keeper
+param=owned_shop,shieldshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,20
+param=shop_title,Cassies' Shield Shop.
+moverestrict=indoors
+
+[flynn]
+desc=The mace salesman.
+category=shop_keeper
+param=owned_shop,maceshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,10
+param=shop_title,Flynn's Mace Market.
+moverestrict=indoors
+
+[wayne]
+desc=An armourer.
+category=shop_keeper
+param=owned_shop,chainmailshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,650
+param=shop_delta,10
+param=shop_title,Wayne's Chains! - Chainmail specialist.
+moverestrict=indoors
+
+[herquin]
+desc=Seems very well-off.
+category=shop_keeper
+param=owned_shop,gemshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Herquin's Gems.
+moverestrict=indoors
+
+[hairdresser]
+desc=Anyone fancy a trim?
+moverestrict=indoors
+
+// 289's makeover_mage is 2011's make_over_mage.
+[make_over_mage]
+desc=Master of the mystical make-over.
+wanderrange=4
+moverestrict=indoors
+
+[sir_vyvin]
+desc=A White Knight officer with an injured eye.
+wanderrange=8
+
+[squire]
+desc=Indentured servant of a Knight.
+wanderrange=4
+
+[sir_amik_varze]
+desc=Leader of the White Knights.
+
+[emily]
+desc=Works in the Rising Sun.
+moverestrict=indoors
+wanderrange=4

@@ -72,7 +72,7 @@ impl CacheType for SpotAnimTypeRaw {
                         [code as usize - 50] = buf.g2();
                 }
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized spotanim config code: {code}"),
+                _ => crate::unknown_opcode!("spotanim", code),
             }
         }
     }

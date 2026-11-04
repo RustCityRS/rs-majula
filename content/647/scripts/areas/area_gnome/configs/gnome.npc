@@ -1,0 +1,543 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[gnome]
+desc=Like a mini man!
+attackrange=6
+respawnrate=120
+hitpoints=30
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,midget_attackbow
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6094
+
+[browclothedgnome]
+desc=Like a mini man!
+attackrange=6
+respawnrate=120
+hitpoints=30
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,midget_attackbow
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6095
+
+[darkskinned_gnome]
+desc=Like a mini man!
+attackrange=6
+respawnrate=120
+hitpoints=30
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,midget_attackbow
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6096
+
+[terrorbird]
+desc=A giant raptor.
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=340
+attack=23
+strength=23
+defence=19
+param=damagetype,^stab_style
+param=attack_anim,seq_1010
+param=defend_anim,terrorbird_block
+param=death_anim,terrorbird_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2064
+
+[terrorbird2]
+desc=These gnomes know how to get around!
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=360
+attack=25
+strength=25
+defence=25
+param=stabdefence,16
+param=slashdefence,16
+param=crushdefence,18
+param=magicdefence,15
+param=rangedefence,10
+param=damagetype,^stab_style
+param=attack_anim,terrorbird_mounted_attack
+param=defend_anim,terrorbird_mounted_block
+param=death_anim,terrorbird_mounted_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2067
+
+[terrorbird3]
+desc=These gnomes know how to get around!
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=550
+attack=40
+strength=40
+defence=40
+param=rangebonus,2
+param=stabdefence,16
+param=slashdefence,16
+param=crushdefence,18
+param=magicdefence,15
+param=rangedefence,10
+param=damagetype,^stab_style
+param=attack_anim,terrorbird_mounted_attack_spear
+param=defend_anim,terrorbird_mounted_block
+param=death_anim,terrorbird_mounted_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2068
+
+[gnome_trainer]
+desc=He can advise on training.
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[blurberry]
+desc=He seems to run the cocktail bar.
+wanderrange=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[barman]
+desc=He serves cocktails.
+wanderrange=3
+category=shop_keeper
+param=owned_shop,blurberrybar
+param=shop_title,Blurberry Bar
+param=shop_buy_multiplier,250
+param=shop_sell_multiplier,1000
+param=shop_delta,10
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[aluft_gianne]
+desc=It's a tree gnome chef.
+wanderrange=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[gnome_waiter]
+desc=He can serve you gnome food.
+wanderrange=3
+category=shop_keeper
+param=owned_shop,giannerestaurant
+param=shop_title,Gianne's Restaurant
+param=shop_buy_multiplier,250
+param=shop_sell_multiplier,1000
+param=shop_delta,10
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[gnome_child]
+desc=Small, even by gnome standards.
+respawnrate=100
+hitpoints=20
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=attack_sound,gnome_attack
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6077
+
+[gnomechildblue]
+desc=Small, even by gnome standards.
+respawnrate=100
+hitpoints=20
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=attack_sound,gnome_attack
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6078
+
+[gnomechild]
+desc=Small, even by gnome standards.
+respawnrate=100
+hitpoints=20
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=attack_sound,gnome_attack
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6079
+
+[gnome_guard]
+desc=A tree gnome guard.
+respawnrate=60
+hitpoints=310
+attack=17
+strength=17
+defence=17
+param=attackrate,6
+param=attackbonus,8
+param=strengthbonus,13
+param=damagetype,^slash_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=attack_sound,gnome_attack
+param=defend_sound,scythe_slash
+param=death_sound,gnome_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6081
+
+[gnomekingsguard2]
+desc=A tree gnome guard.
+respawnrate=60
+hitpoints=310
+attack=18
+strength=18
+defence=18
+param=attackbonus,6
+param=strengthbonus,7
+param=stabdefence,8
+param=slashdefence,9
+param=crushdefence,7
+param=rangedefence,8
+param=damagetype,^slash_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=attack_sound,hacksword_slash
+param=defend_sound,brassclash
+param=death_sound,gnome_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6082
+
+[gnomeshopkeeper]
+desc=Sells gnomish things.
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[gnome_banker]
+desc=Banks gnomish things.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+category=bank_teller
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[gnomeballer]
+desc=A professional gnome baller.
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[gnome_woman]
+desc=A female gnome.
+attackrange=1
+respawnrate=100
+hitpoints=20
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6086
+
+[gnomefemale_dskinned]
+desc=A female gnome.
+attackrange=1
+respawnrate=100
+hitpoints=20
+param=attackbonus,-42
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,seq_192
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6087
+
+[gnomepilot]
+desc=He can fly the glider.
+wanderrange=1
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[brimstail]
+desc=Small but wise, he is.
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[hudo]
+desc=It's another jolly tree gnome.
+wanderrange=2
+category=shop_keeper
+param=owned_shop,gnomeshop_hudo
+param=shop_title,Grand Tree Groceries
+param=shop_buy_multiplier,550
+param=shop_sell_multiplier,1000
+param=shop_delta,10
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[rometti]
+desc=It's a well-dressed tree gnome.
+category=shop_keeper
+param=owned_shop,gnomeshop_rometti
+param=shop_title,Fine Fashions
+param=shop_buy_multiplier,550
+param=shop_sell_multiplier,1000
+param=shop_delta,10
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[gulluck]
+desc=He sells weapons.
+param=death_anim,midget_death
+param=death_sound,gnome_death
+category=shop_keeper
+param=owned_shop,gnomeshop_gulluck
+param=shop_title,Gulluck and Sons
+param=shop_buy_multiplier,250
+param=shop_sell_multiplier,1000
+param=shop_delta,10
+
+[heckel_funch]
+desc=It's another jolly tree gnome.
+category=shop_keeper
+param=owned_shop,gnomeshop_heck
+param=shop_title,Funch's Fine Groceries
+param=shop_buy_multiplier,550
+param=shop_sell_multiplier,1000
+param=shop_delta,10
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[king_bolren]
+desc=It's a gnome. He looks important.
+wanderrange=2
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[commander_montai]
+desc=It's a tree gnome.
+timer=10
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[bolkoy]
+desc=It's a tree gnome.
+category=shop_keeper
+param=owned_shop,gnomeshop
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Bolkoy's Village Shop
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[remsai]
+desc=It's a tree gnome.
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[elkoy]
+desc=It's a tree gnome.
+wanderrange=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[elkoy_village]
+desc=It's a tree gnome.
+wanderrange=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+
+[local_gnome]
+desc=It's a young tree gnome.
+wanderrange=0
+moverestrict=nomove
+hitpoints=30
+attack=3
+strength=3
+defence=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4978
+
+[chantergnome]
+desc=It's a young tree gnome.
+wanderrange=0
+moverestrict=nomove
+hitpoints=30
+attack=3
+strength=3
+defence=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4979
+
+[kalron]
+desc=He looks lost.
+hitpoints=30
+attack=3
+strength=3
+defence=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4980
+
+[gnome_troop]
+desc=It's a tree gnome trooper.
+attackrange=6
+respawnrate=60
+hitpoints=30
+param=attackbonus,2
+param=strengthbonus,3
+param=rangebonus,2
+param=stabdefence,3
+param=slashdefence,4
+param=crushdefence,5
+param=magicdefence,2
+param=rangedefence,4
+param=damagetype,^crush_style
+param=attack_anim,midget_attackbow
+param=defend_anim,seq_193
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+category=gnome_troop
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4973
+
+[d_skingnomeknight]
+desc=It's a tree gnome trooper.
+attackrange=6
+respawnrate=60
+hitpoints=30
+param=attackbonus,2
+param=strengthbonus,3
+param=rangebonus,2
+param=stabdefence,3
+param=slashdefence,4
+param=crushdefence,5
+param=magicdefence,2
+param=rangedefence,4
+param=damagetype,^crush_style
+param=attack_anim,midget_attackbow
+param=defend_anim,midget_block
+param=death_anim,midget_death
+param=rangeattack_sound,arrowlaunch2
+param=defend_sound,gnome_hit
+param=death_sound,gnome_death
+param=proj_launch,iron_arrow_launch
+param=proj_travel,iron_arrow_travel
+param=proj_height,48
+category=gnome_troop
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4974

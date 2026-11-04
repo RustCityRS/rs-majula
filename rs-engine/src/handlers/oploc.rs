@@ -4,10 +4,25 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{in_build_area, loc_target, zone_loc};
 use crate::watch::Op;
 use rs_grid::CoordGrid;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_loc1::OpLoc1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_loc2::OpLoc2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_loc3::OpLoc3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_loc4::OpLoc4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_loc5::OpLoc5;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::oploc1::OpLoc1;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::oploc2::OpLoc2;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::oploc3::OpLoc3;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::oploc4::OpLoc4;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::oploc5::OpLoc5;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
@@ -23,7 +38,11 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpLoc1 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(1, self.x, self.z, self.loc, active)
+        #[cfg(before_647)]
+        let loc = self.loc;
+        #[cfg(since_647)]
+        let loc = self.loc_id;
+        handle(1, self.x, self.z, loc, active)
     }
 }
 
@@ -37,7 +56,11 @@ impl ClientGameHandler for OpLoc1 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpLoc2 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(2, self.x, self.z, self.loc, active)
+        #[cfg(before_647)]
+        let loc = self.loc;
+        #[cfg(since_647)]
+        let loc = self.loc_id;
+        handle(2, self.x, self.z, loc, active)
     }
 }
 
@@ -51,7 +74,11 @@ impl ClientGameHandler for OpLoc2 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpLoc3 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(3, self.x, self.z, self.loc, active)
+        #[cfg(before_647)]
+        let loc = self.loc;
+        #[cfg(since_647)]
+        let loc = self.loc_id;
+        handle(3, self.x, self.z, loc, active)
     }
 }
 
@@ -65,7 +92,11 @@ impl ClientGameHandler for OpLoc3 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpLoc4 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(4, self.x, self.z, self.loc, active)
+        #[cfg(before_647)]
+        let loc = self.loc;
+        #[cfg(since_647)]
+        let loc = self.loc_id;
+        handle(4, self.x, self.z, loc, active)
     }
 }
 
@@ -79,7 +110,11 @@ impl ClientGameHandler for OpLoc4 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpLoc5 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(5, self.x, self.z, self.loc, active)
+        #[cfg(before_647)]
+        let loc = self.loc;
+        #[cfg(since_647)]
+        let loc = self.loc_id;
+        handle(5, self.x, self.z, loc, active)
     }
 }
 
@@ -182,4 +217,29 @@ fn handle(
     active.player.opcalled = true;
 
     Ok(())
+}
+
+/// The value of a rev-647 multiloc's var for `player`: its varbit's bits, as
+/// `PUSH_VARBIT` reads them, else its varp; -1 with neither, which picks the
+/// default.
+#[cfg(since_647)]
+pub(crate) fn multiloc_var(
+    lt: &rs_pack::cache::loc::LocType,
+    player: &rs_entity::player::Player,
+) -> i32 {
+    if let Some(id) = lt.multivar {
+        let Some(varbit) = engine().varbits().get_by_id(id) else {
+            return -1;
+        };
+        let start = varbit.start_bit as u32;
+        let width = varbit.end_bit as u32 - start + 1;
+        let mask = if width >= 32 {
+            u32::MAX
+        } else {
+            (1u32 << width) - 1
+        };
+        return ((player.vars.get(varbit.basevar).as_int() as u32 >> start) & mask) as i32;
+    }
+    lt.multivarp
+        .map_or(-1, |varp| player.vars.get(varp).as_int())
 }

@@ -1,0 +1,29 @@
+// 289's maze doors, from its cache-derived configs (_unpack/254/all.loc): a
+// door opens from the side its approach direction names (0 either side; 1
+// and 2 one side each, macro_event_maze.rs2), and the safe ones are 289's
+// one-way doors. 2011's maze keeps 289's locs at their ids.
+
+[macro_maze_walllow]
+desc=It looks very sturdy.
+param=approach_direction,0
+category=macro_maze_wall_door
+
+[macro_maze_walllow_safe1]
+desc=It looks very sturdy.
+param=approach_direction,1
+category=macro_maze_wall_door
+
+[macro_maze_walllow_safe2]
+desc=It looks very sturdy.
+param=approach_direction,2
+category=macro_maze_wall_door
+
+[macro_maze_walllow_safe3]
+desc=It looks very sturdy.
+param=approach_direction,2
+category=macro_maze_wall_door
+
+[macor_maze_walllow_safe4]
+desc=It looks very sturdy.
+param=approach_direction,1
+category=macro_maze_wall_door

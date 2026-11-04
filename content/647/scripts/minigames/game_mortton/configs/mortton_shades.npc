@@ -1,0 +1,303 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[loar_shadow]
+desc=A shadowy sort of entity, kind of creepy looking.
+wanderrange=30
+maxrange=60
+moverestrict=blocked+normal
+respawnrate=35
+hitpoints=380
+attack=45
+strength=30
+defence=26
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,loar_remains
+param=undead,^true
+huntmode=shades
+timer=1
+param=next_npc_type,loar_shade
+// guess
+huntrange=3
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1276
+
+[loar_shade]
+desc=The shadowy remains of a long departed soul.
+wanderrange=30
+maxrange=60
+moverestrict=blocked+normal
+respawnrate=35
+hitpoints=380
+attack=45
+strength=30
+defence=26
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,loar_remains
+param=undead,^true
+param=shadeshadow,loar_shadow
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1277
+
+// 289's shade_heaven is 2011's shade_spirit.
+[shade_spirit]
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[phrin_shadow]
+desc=A shadowy sort of entity, kind of creepy looking.
+wanderrange=5
+maxrange=11
+blockwalk=none
+respawnrate=50
+hitpoints=560
+attack=64
+strength=47
+defence=42
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,phrin_remains
+param=undead,^true
+param=next_npc_type,phrin_shade
+huntmode=shades
+// guess
+huntrange=3
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1279
+
+[phrin_shade]
+desc=The shadowy remains of a long departed soul.
+wanderrange=5
+maxrange=11
+respawnrate=50
+hitpoints=560
+attack=64
+strength=47
+defence=42
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,phrin_remains
+param=undead,^true
+param=shadeshadow,phrin_shadow
+huntmode=cowardly
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1280
+
+[riyl_shadow]
+desc=A shadowy sort of entity, kind of creepy looking.
+wanderrange=5
+maxrange=11
+blockwalk=none
+respawnrate=50
+hitpoints=760
+attack=88
+strength=55
+defence=60
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,riyl_remains
+param=undead,^true
+param=next_npc_type,riyl_shade
+huntmode=shades
+// guess
+huntrange=3
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1281
+
+[riyl_shade]
+desc=The shadowy remains of a long departed soul.
+wanderrange=5
+maxrange=11
+respawnrate=50
+hitpoints=760
+attack=88
+strength=55
+defence=60
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,riyl_remains
+param=undead,^true
+param=shadeshadow,riyl_shadow
+huntmode=cowardly
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1282
+
+[asyn_shadow]
+desc=The shadowy remains of a long-departed soul.
+wanderrange=7
+maxrange=11
+blockwalk=none
+respawnrate=50
+// void-634 has 940; 289's 90 hitpoints would be 900.
+hitpoints=940
+attack=102
+strength=84
+defence=70
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,asyn_remains
+param=undead,^true
+param=next_npc_type,asyn_shade
+huntmode=shades
+// guess
+huntrange=3
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1283
+
+[asyn_shade]
+desc=The shadowy remains of a long departed soul.
+wanderrange=7
+maxrange=11
+respawnrate=50
+hitpoints=900
+attack=102
+strength=84
+defence=70
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,asyn_remains
+param=undead,^true
+param=shadeshadow,asyn_shadow
+huntmode=cowardly
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1284
+
+[fiyr_shadow]
+desc=A shadowy sort of entity, kind of creepy looking.
+wanderrange=7
+maxrange=11
+blockwalk=none
+respawnrate=50
+// void-634 has 900; 289's 110 hitpoints would be 1100.
+hitpoints=900
+attack=120
+strength=100
+defence=85
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,fiyr_remains
+param=undead,^true
+param=next_npc_type,fiyr_shade
+huntmode=shades
+// guess
+huntrange=3
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1285
+
+[fiyr_shade]
+desc=The shadowy remains of a long departed soul.
+wanderrange=7
+maxrange=11
+respawnrate=50
+hitpoints=1100
+attack=120
+strength=100
+defence=85
+magic=0
+ranged=0
+param=damagetype,^crush_style
+param=attack_anim,shade_attack
+param=defend_anim,shade_block
+param=death_anim,shade_sink
+param=attack_sound,shade_attack
+param=defend_sound,shade_hit
+param=death_sound,shade_death
+param=death_drop,fiyr_remains
+param=undead,^true
+param=shadeshadow,fiyr_shadow
+huntmode=cowardly
+timer=1
+category=shade
+// TODO immune to poison
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1286

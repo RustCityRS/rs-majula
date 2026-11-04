@@ -1,60 +1,208 @@
 pub mod back;
 pub mod cache;
+#[cfg(before_647)]
 pub mod pack;
+// Sprite authoring over the jag-era sprite sheets (`unpack`).
+#[cfg(before_647)]
 pub mod pyxel;
 pub mod sheet;
 pub mod tga;
 pub mod types;
+#[cfg(before_647)]
 pub mod unpack;
-#[cfg(since_244)]
+// --- rev-647 dat2 pipeline ---------------------------------------------
+// Ported from the rev-647 source repo's rs-pack (rs_cache → rs_dat2).
+// `unpack` / `pack` reuse the era-neutral module names via #[path] so the
+// CLI's `rs_pack::unpack::unpack_all` call compiles in both eras; the
+// jag-era directories (src/unpack/, src/pack/) stay untouched.
+#[cfg(since_647)]
+pub mod assemble;
+#[cfg(since_647)]
+pub mod asset_roundtrip;
+#[cfg(since_647)]
+#[path = "build647/mod.rs"]
+pub mod build;
+/// Rev-647 cache config decoders (NpcType, ObjType, LocType, …). Named
+/// `cache647` because the jag-era `cache` module is era-neutral in this
+/// crate and stays in scope at 647.
+#[cfg(since_647)]
+pub mod cache647;
+#[cfg(since_647)]
+pub mod config_blob;
+#[cfg(since_647)]
+pub mod cs2;
+#[cfg(since_647)]
+pub mod discover;
+#[cfg(since_647)]
+pub mod interface_format;
+#[cfg(since_647)]
+pub mod map_format;
+#[cfg(since_647)]
+pub mod openrs2;
+#[cfg(since_647)]
+#[path = "pack647/mod.rs"]
+pub mod pack;
+#[cfg(since_647)]
+pub mod pack_registry;
+#[cfg(since_647)]
+pub mod packed_data;
+#[cfg(since_647)]
+pub mod repack;
+#[cfg(since_647)]
+pub mod seed;
+#[cfg(since_647)]
+pub mod startup;
+#[cfg(since_647)]
+pub mod texture_format;
+#[cfg(since_647)]
+pub mod types647;
+#[cfg(since_647)]
+#[path = "unpack647/mod.rs"]
+pub mod unpack;
+#[cfg(since_647)]
+pub mod validate;
+#[cfg(all(since_244, before_647))]
 pub mod versionlist;
 
+/// Expected per-archive CRCs for the rev-647 js5 cache, from the idx255
+/// master index of OpenRS2 cache 786 (https://archive.openrs2.org/caches/runescape/786).
+///
+/// IMPORTANT: entries are indexed by POSITION in the idx255 master index
+/// (= the client's login-CRC order), NOT by archive id. OpenRS2 786 ships no
+/// idx34/idx35, so the final entry (position 34) is archive id 36
+/// (worldmap_locs). See `startup::MASTER_INDEX_ORDER` for the position →
+/// archive-id mapping.
+///
+/// This table serves the offline startup check only. The CRC gate
+/// (`rs-pack/tests/crc_gate.rs`) reads OpenRS2's API instead and pins each
+/// divergence below to the exact groups that cause it.
+///
+/// `None` skips verification (same convention as `jag_crc::MODELS`) for the
+/// archives that intentionally diverge from OpenRS2:
+///   5  maps          — landscape groups restored from donor caches
+///   7  models        — server overlay configs reference models Jagex didn't ship
+///   12 clientscripts — reference table compression differs
+///   16 config_loc    — restored loc groups from donor caches + tree overlays
+#[cfg(rev = "647")]
+pub mod archive_crc {
+    pub const EXPECTED: [Option<i32>; 35] = [
+        Some(0xea49a80a_u32 as i32), // [ 0] anims
+        Some(0x30012ff1_u32 as i32), // [ 1] bases
+        Some(0xfc33c82a_u32 as i32), // [ 2] config
+        Some(0x7cfecb48_u32 as i32), // [ 3] interfaces
+        Some(0xe67d0ac1_u32 as i32), // [ 4] synths
+        None,                        // [ 5] maps (0x83bd3157)
+        Some(0x35c79755_u32 as i32), // [ 6] music
+        None,                        // [ 7] models (0x99bc666e)
+        Some(0x746d69f2_u32 as i32), // [ 8] sprites
+        Some(0x89dc3959_u32 as i32), // [ 9] textures
+        Some(0x2976276a_u32 as i32), // [10] binary
+        Some(0xa4581da5_u32 as i32), // [11] jingles
+        None,                        // [12] clientscripts (0xac5b8029)
+        Some(0x986d3e87_u32 as i32), // [13] fontmetrics
+        Some(0x9590ca32_u32 as i32), // [14] vorbis
+        Some(0x2ec553fe_u32 as i32), // [15] instruments
+        None,                        // [16] config_loc (0x63048bf1)
+        Some(0x01eb855a_u32 as i32), // [17] config_enum
+        Some(0x28a3b763_u32 as i32), // [18] config_npc
+        Some(0xb1a2e4b3_u32 as i32), // [19] config_obj
+        Some(0x77875c75_u32 as i32), // [20] config_seq
+        Some(0xa9bd75c4_u32 as i32), // [21] config_spot
+        Some(0x7119beac_u32 as i32), // [22] config_varbit
+        Some(0x2bf6b94c_u32 as i32), // [23] worldmap
+        Some(0xeee10630_u32 as i32), // [24] quickchat
+        Some(0xf9537a6b_u32 as i32), // [25] quickchat_global
+        Some(0x674801f9_u32 as i32), // [26] materials
+        Some(0x1ef1d58f_u32 as i32), // [27] config_particle
+        Some(0x586d0a23_u32 as i32), // [28] defaults
+        Some(0x8f918825_u32 as i32), // [29] config_billboard
+        Some(0x90d538d0_u32 as i32), // [30] dlls
+        Some(0xd397dfdb_u32 as i32), // [31] shaders
+        Some(0x907d8a9e_u32 as i32), // [32] loading_sprites
+        Some(0x8c760e1c_u32 as i32), // [33] loading_screens
+        Some(0x2457425c_u32 as i32), // [34] worldmap_locs (archive id 36 — no idx34/idx35)
+    ];
+}
+
+#[cfg(before_647)]
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
+#[cfg(before_647)]
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 
+#[cfg(before_647)]
 use crate::pack::pack_registry::PackRegistry;
+#[cfg(before_647)]
 use cache::CacheStore;
+#[cfg(before_647)]
 use cache::category::CategoryType;
+#[cfg(before_647)]
 use cache::dbrow::DbRowType;
+#[cfg(before_647)]
 use cache::dbtable::{DbTableIndex, DbTableType};
+#[cfg(before_647)]
 use cache::r#enum::EnumType;
+#[cfg(before_647)]
 use cache::flo::FloType;
+#[cfg(before_647)]
 use cache::font::FontTypeProvider;
+#[cfg(before_647)]
 use cache::hunt::HuntType;
+#[cfg(before_647)]
 use cache::idk::{IdkType, IdkTypeRaw};
+#[cfg(before_647)]
 use cache::r#if::IfTypeProvider;
+#[cfg(before_647)]
 use cache::inv::InvType;
+#[cfg(before_647)]
 use cache::loc::{LocType, LocTypeRaw};
+#[cfg(before_647)]
 use cache::mesanim::MesAnimType;
+#[cfg(before_647)]
 use cache::midi::MidiProvider;
+#[cfg(before_647)]
 use cache::npc::{NpcType, NpcTypeRaw};
+#[cfg(before_647)]
 use cache::obj::{ObjContext, ObjType, ObjTypeRaw};
+#[cfg(before_647)]
 use cache::param::ParamType;
+#[cfg(before_647)]
 use cache::provider::TypeProvider;
 use cache::script::ScriptProvider;
+#[cfg(before_647)]
 use cache::seq::{SeqType, SeqTypeRaw};
+#[cfg(before_647)]
 use cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
+#[cfg(before_647)]
 use cache::r#struct::StructType;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use cache::varbit::VarbitType;
+#[cfg(before_647)]
 use cache::varn::VarnType;
+#[cfg(before_647)]
 use cache::varp::VarPlayerType;
+#[cfg(before_647)]
 use cache::vars::VarsType;
+#[cfg(before_647)]
 use cache::wordenc::WordEncProvider;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
+#[cfg(before_647)]
 use pack::other;
+#[cfg(before_647)]
 use rs_io::crc;
+#[cfg(before_647)]
 use rs_io::jag::{JagCompression, JagFile};
-use tracing::{debug, warn};
-#[cfg(since_244)]
+#[cfg(before_647)]
+use tracing::debug;
+use tracing::warn;
+#[cfg(all(since_244, before_647))]
 use types::OndemandBlobs;
 pub use types::ParamValue;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use unpack::model::load_existing_pack;
 
 macro_rules! rev_content_path {
@@ -244,7 +392,7 @@ const CRC_KEYS: [&str; 8] = [
     "sounds",
 ];
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 const CRC_KEYS: [&str; 8] = [
     "title",
     "config",
@@ -256,6 +404,7 @@ const CRC_KEYS: [&str; 8] = [
     "sounds",
 ];
 
+#[cfg(before_647)]
 fn insert_jag(
     crcs: &mut HashMap<&'static str, i32>,
     packs: &mut HashMap<&'static str, Arc<[u8]>>,
@@ -279,6 +428,7 @@ fn insert_jag(
     packs.insert(name, Arc::from(data));
 }
 
+#[cfg(before_647)]
 fn unwrap_thread<T>(name: &str, result: std::thread::Result<T>) -> T {
     result.unwrap_or_else(|e| {
         let msg = if let Some(s) = e.downcast_ref::<&str>() {
@@ -353,6 +503,25 @@ fn pin_script_ids(pack: &Path, private: &Path) {
     }
 }
 
+/// Rev-647 pack path: run the full dat2 pipeline — pack text configs +
+/// animations, compile RuneScript, assemble the 35-archive JS5 cache from
+/// `content/647`, CRC-gate it against OpenRS2 786 (`archive_crc::EXPECTED`,
+/// panicking on divergence when `verify`), and load the config TypeProviders.
+///
+/// The built cache + server/client artifacts land under `target/pack/<REV>`
+/// (kept inside the repo's target dir; incremental via stamp files).
+#[cfg(since_647)]
+pub fn pack_all(
+    source: &Path,
+    pack: &Path,
+    verify: bool,
+    _members: bool,
+) -> anyhow::Result<startup::PackResult> {
+    let output_dir = Path::new(concat!("target/pack/", env!("REV")));
+    startup::pack_all(source, pack, output_dir, verify)
+}
+
+#[cfg(before_647)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
@@ -721,6 +890,7 @@ pub fn pack_all(
     Ok((store, scripts))
 }
 
+#[cfg(before_647)]
 fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     let dir = Path::new("public");
     let mut assets = HashMap::new();
@@ -735,6 +905,7 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     assets
 }
 
+#[cfg(before_647)]
 fn load_assets_recursive(
     base: &Path,
     dir: &Path,
@@ -762,6 +933,7 @@ fn load_assets_recursive(
     }
 }
 
+#[cfg(before_647)]
 fn build_type_provider<T: cache::provider::CacheType>(
     assets: &HashMap<String, pack::pack_registry::PackedFile>,
     name: &str,
@@ -770,6 +942,7 @@ fn build_type_provider<T: cache::provider::CacheType>(
     build_type_provider_into::<T, T>(assets, name, ctx)
 }
 
+#[cfg(before_647)]
 fn build_type_provider_into<Raw, Stored>(
     assets: &HashMap<String, pack::pack_registry::PackedFile>,
     name: &str,
@@ -785,6 +958,7 @@ where
     TypeProvider::from_bytes::<Raw>(&packed_file.server.dat, ctx)
 }
 
+#[cfg(before_647)]
 fn assemble_config_jag(
     assets: &mut HashMap<String, pack::pack_registry::PackedFile>,
     pack_dir: &Path,
@@ -830,6 +1004,7 @@ fn assemble_config_jag(
     }
 }
 
+#[cfg(before_647)]
 fn assemble_interface_jag(
     assets: &mut HashMap<String, pack::pack_registry::PackedFile>,
 ) -> Vec<u8> {
@@ -843,7 +1018,7 @@ fn assemble_interface_jag(
     Vec::new()
 }
 
-#[cfg(since_274)]
+#[cfg(all(since_274, before_647))]
 fn crc_table_footer(crctable: &[i32]) -> i32 {
     let mut acc: i32 = 1234;
     for &c in crctable {

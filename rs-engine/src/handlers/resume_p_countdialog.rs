@@ -1,6 +1,9 @@
 use crate::active_player::ActivePlayer;
 use crate::engine::engine_mut;
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::resume_p_count_dialog::ResumePCountDialog;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::resume_p_countdialog::ResumePCountDialog;
 use rs_vm::ScriptError;
 use rs_vm::state::ExecutionState;
@@ -34,6 +37,10 @@ use rs_vm::subject::ScriptSubject;
 /// **Calls:** `engine_mut().run_script_by_state`
 impl ClientGameHandler for ResumePCountDialog {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(before_647)]
+        let dialog_value = self.input;
+        #[cfg(since_647)]
+        let dialog_value = self.value;
         let Some(state) = &mut active.player.state.active_script else {
             return Err(ScriptError::Client(
                 "Player does not have an active script!".to_string(),
@@ -46,7 +53,7 @@ impl ClientGameHandler for ResumePCountDialog {
             ));
         }
 
-        state.last_int = Some(self.input.clamp(0, i32::MAX));
+        state.last_int = Some(dialog_value.clamp(0, i32::MAX));
         engine_mut().run_script_by_state(
             (**state).clone(),
             Some(ScriptSubject::Player(active.player.uid)),

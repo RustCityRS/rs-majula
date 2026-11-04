@@ -1,0 +1,33 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[abbot_langley]
+desc=A holy man.
+wanderrange=3
+hitpoints=150
+attack=2
+strength=2
+defence=3
+param=damagetype,^crush_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2577
+
+[brother_jered]
+desc=A holy man.
+wanderrange=3
+hitpoints=150
+attack=2
+strength=2
+defence=3
+param=damagetype,^crush_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2578
+
+[monk_803]
+desc=A holy man.
+wanderrange=3
+maxrange=5
+respawnrate=50
+hitpoints=150
+attack=2
+strength=2
+defence=3
+param=damagetype,^crush_style
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2579

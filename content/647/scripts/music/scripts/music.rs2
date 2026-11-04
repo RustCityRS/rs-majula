@@ -1,0 +1,18 @@
+// 289's music/scripts/music.rs2, as far as ported content needs it: a jingle
+// (content/647/pack/midi.pack names 2011's by 289's names). The music tab,
+// area music and unlocks wait for their port.
+
+[proc,music_jingle](midi $jingle)
+// we only offset for music looping
+// the client will handle playing the last song after this jingle ends
+%musicstart = add(map_clock, midi_length($jingle));
+midi_jingle($jingle);
+
+[proc,.music_jingle](midi $jingle)
+.%musicstart = add(map_clock, midi_length($jingle));
+.midi_jingle($jingle);
+
+// 289's area music: the song linked to a coord's mapsquare (musicregion).
+// 2011's music tab, area music and unlocks wait for the music port; until
+// then a region plays nothing, as everywhere else.
+[label,music_playbyregion](coord $coord)

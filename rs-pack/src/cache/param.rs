@@ -12,7 +12,7 @@ pub struct ParamType {
     pub default_int: i32,
     pub default_str: Option<Box<str>>,
     pub autodisable: bool,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl ParamType {
@@ -68,7 +68,7 @@ impl CacheType for ParamType {
                 4 => self.autodisable = false,
                 5 => self.default_str = Some(buf.gjstr(10).into_boxed_str()),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized param config code: {code}"),
+                _ => crate::unknown_opcode!("param", code),
             }
         }
     }

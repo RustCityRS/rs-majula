@@ -518,7 +518,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4326
         active_player_mut!(m, INV_STOPTRANSMIT => |s, player| {
-            let com = s.pop_int() as u16;
+            let com = s.pop_int() as crate::ComId;
             if player.has_inv_transmit(com).is_some() {
                 player.clear_inv_transmits(com);
             }
@@ -573,7 +573,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4331
         active_player_mut!(m, INV_TRANSMIT => |s, player| {
-            let com = s.pop_int() as u16;
+            let com = s.pop_int() as crate::ComId;
             let inv = pop_inv::<E>(s)?;
             if player.has_inv_transmit(com).is_some_and(|id| id == inv.id) {
                 return Ok(());
@@ -603,7 +603,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if com == -1 {
                 return Err(ScriptError::Runtime("invother_transmit: com is null".into()));
             }
-            let com = com as u16;
+            let com = com as crate::ComId;
             if player.has_inv_other_transmit(com) == Some((uid, inv.id)) {
                 return Ok(());
             }

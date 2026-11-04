@@ -1,0 +1,35 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[al_shabim]
+desc=He's the leader of the Bedabin tribe.
+wanderrange=3
+
+[bedabin_nomad]
+desc=A bedabin nomad, they live in the harshest extremes in the desert.
+wanderrange=3
+param=owned_shop,bedabincampshop
+param=shop_sell_multiplier,1200
+param=shop_buy_multiplier,800
+param=shop_delta,30
+param=shop_title,Bedabin Village Bartering
+category=shop_keeper
+
+[bedabin_nomad_guard]
+desc=A bedabin nomad guard - it looks like he's protecting an area.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+respawnrate=100
+hitpoints=700
+attack=51
+strength=47
+defence=60
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+// attackbonus is guess // seqs taken npc Bedabin nomad fighter.
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4639

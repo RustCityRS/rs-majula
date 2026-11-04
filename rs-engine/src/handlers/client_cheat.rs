@@ -66,27 +66,32 @@ use tracing::{error, info};
 ///   or [`cheat_maintainer`] depending on the player's staff level
 impl ClientGameHandler for ClientCheat {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        if self.cheat.len() > 80 {
+        // Rev-647 renamed the payload field `cheat` -> `input`; same meaning.
+        #[cfg(before_647)]
+        let input = self.cheat;
+        #[cfg(since_647)]
+        let input = self.input;
+        if input.len() > 80 {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was too long: {}",
-                self.cheat.len()
+                input.len()
             )));
         }
 
-        let input_lower = self.cheat.to_lowercase();
+        let input_lower = input.to_lowercase();
         let mut args = input_lower.split(' ');
         let cmd = args.next().unwrap_or_default();
         if cmd.is_empty() {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was not found for input: {}",
-                self.cheat
+                input
             )));
         }
 
         // What jagex moderators and maintainers do goes on their record for
         // the console (player moderators' mutes are logged as moderation).
         if active.player.staff_mod_level.is_isolated() {
-            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{}", self.cheat));
+            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{input}"));
         }
 
         match active.player.staff_mod_level {
@@ -183,6 +188,9 @@ fn cheat_jagex_moderator(
 ///   [`cheat_moderate`]).
 ///
 /// Reached directly by player moderators, and by higher staff cascading down.
+// The single-binding match is intentional scaffolding: new commands slot in
+// as arms above the fall-through.
+#[allow(clippy::match_single_binding)]
 fn cheat_player_moderator(
     cmd: &str,
     mut args: Split<'_, char>,
@@ -199,6 +207,9 @@ fn cheat_player_moderator(
 ///
 /// This is the base of the staff-level fall-through chain that all higher
 /// levels cascade down to.
+// The single-binding match is intentional scaffolding: new commands slot in
+// as arms above the fall-through.
+#[allow(clippy::match_single_binding)]
 fn cheat_normal(
     _cmd: &str,
     _args: Split<'_, char>,

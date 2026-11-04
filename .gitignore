@@ -33,3 +33,20 @@ pkg
 /rs-web/media/
 
 *.tar.gz
+
+# rev-647 build outputs: pack_anims writes per-anim blobs next to the model sources
+content/647/models/*.anim
+
+# rev-647 reference cache (OpenRS2 786). Not kept in git: `cargo fetch-expected`
+# downloads it from archive.openrs2.org and verifies it.
+/expected/
+
+# rev-647 cache-derived content: every content/647/<kind>/_unpack is
+# regenerated from expected/ (`cargo fetch-expected`, then `cargo
+# regen-content`), never edited by hand. Authored content sits beside it and
+# is laid over it at pack time.
+/content/647/*/_unpack/
+# The unpacker's decompiled clientscripts (read back for varp analysis) and
+# its run report.
+/content/647/clientscript/_decompiled/
+/content/647/unpack_report.txt

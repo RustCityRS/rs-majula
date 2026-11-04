@@ -1,0 +1,105 @@
+[bones]
+desc=Bones are for burying.
+weight=500g
+category=bones
+param=bone_exp,45
+
+[burnt_bones]
+desc=Bones are for burying.
+weight=500g
+category=bones
+param=bone_exp,45
+
+[bat_bones]
+desc=Ew, it's a pile of bones.
+category=bones
+weight=300g
+param=bone_exp,45
+param=grindable_ingredient_refined,ground_bat_bones
+param=grindable_ingredient_message,You grind the bones to a powder.
+
+[big_bones]
+desc=Ew, it's a pile of bones. Bury for Prayer XP.
+weight=800g
+category=bones
+respawnrate=50
+param=bone_exp,150
+
+[babydragon_bones]
+desc=Ew, it's a pile of bones.
+weight=800g
+category=bones
+param=bone_exp,300
+
+[dragon_bones]
+desc=These would feed a dog for months.
+weight=1500g
+category=bones
+param=bone_exp,720
+
+[wolf_bones]
+desc=Bones of a recently slain wolf.
+weight=500g
+category=bones
+param=bone_exp,45
+
+[shaikahan_bones]
+desc=Large glistening bones which glow with a pale yellow aura.
+weight=800g
+category=bones
+param=bone_exp,250
+
+[jogre_bones]
+desc=Fairly big bones which smell distinctly of Jogre.
+weight=800g
+category=bones
+param=bone_exp,150
+
+[burnt_jogre_bones]
+tradeable=no
+desc=These blackened Jogre bones have been somehow burnt.
+weight=800g
+category=bones
+param=bone_exp,160
+
+[pasty_jogre_bones]
+tradeable=no
+desc=Burnt Jogre bones smothered with raw Karambwanji Paste.
+weight=800g
+category=bones
+param=bone_exp,170
+
+[tbwt_burnt_jogre_bones_in_cooked_karambwanji_paste]
+tradeable=no
+desc=Burnt Jogre bones smothered with cooked Karambwanji paste.
+weight=800g
+category=bones
+param=bone_exp,160
+
+[marinated_j__bones]
+tradeable=no
+desc=Burnt Jogre bones marinated in a lovely Karambwanji sauce. Perfect.
+weight=800g
+category=bones
+param=bone_exp,180
+
+[tbwt_jogre_bones_in_raw_karambwanji_paste]
+tradeable=no
+desc=Jogre bones smothered with raw Karambwanji paste.
+weight=800g
+category=bones
+param=bone_exp,160
+
+[tbwt_jogre_bones_in_cooked_karambwanji_paste]
+tradeable=no
+desc=Jogre bones smothered with cooked Karambwanji paste.
+weight=800g
+category=bones
+param=bone_exp,160
+
+[tbwt_jogre_bones_marinated_in_karambwanji]
+tradeable=no
+desc=Jogre Bones marinated in Karambwanji sauce. Not quite right.
+weight=800g
+category=bones
+param=bone_exp,170

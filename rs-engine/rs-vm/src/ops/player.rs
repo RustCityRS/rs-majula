@@ -143,6 +143,28 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2015
+        // 647's damage(uid, type, amount, healthbar) only paints: content owns
+        // the life points (content/647/scripts/player/scripts/damage.rs2).
+        #[cfg(since_647)]
+        none!(m, DAMAGE => |s| {
+            let healthbar = s.pop_int_as::<u8>()?;
+            let amount = s.pop_int_as::<u16>()?;
+            let hitmark = s.pop_int_as::<u8>()?;
+            let uid = s.pop_int();
+            if crate::ops::test::recording() {
+                let arg = format!("{hitmark},{amount},{healthbar}");
+                crate::ops::test::record_call(DAMAGE, "damage", &arg);
+            }
+            let pid = (uid & 0x7FF) as u16;
+            if let Some(target) = engine_mut::<E>().get_player_mut(pid)
+                && target.uid().packed() as i32 == uid
+            {
+                target.hit(amount, hitmark, healthbar);
+            }
+        });
+
+        // 2015
+        #[cfg(before_647)]
         none!(m, DAMAGE => |s| {
             let amount = s.pop_int_as::<u8>()?;
             let damage_type = s.pop_int_as::<u8>()?;
@@ -157,7 +179,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2016
         active_player!(m, DISPLAYNAME => |s, player| {
-            s.push_string(&player.uid().screen_name());
+            s.push_string(&player.display_name());
         });
 
         // 2017
@@ -349,9 +371,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2038
+        // Interface components are u16 ids pre-647 and 32-bit hashes
+        // (iface<<16|com) at 647; the com parameter is i32 end-to-end and the
+        // pre-647 packet write narrows it (see ActivePlayer::if_set*).
         active_player_mut!(m, IF_SETANIM => |s, player| {
             let seq = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             if seq == -1 {
                 return Ok(());
             }
@@ -365,28 +394,44 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2039
         active_player_mut!(m, IF_SETCOLOUR => |s, player| {
             let colour = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_setcolour(com, rgb24_to_15(colour));
         });
 
         // 2040
         active_player_mut!(m, IF_SETHIDE => |s, player| {
             let hide = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_sethide(com, hide == 1);
         });
 
         // 2041
         active_player_mut!(m, IF_SETMODEL => |s, player| {
             let model = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_setmodel(com, model);
         });
 
         // 2042
         active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
             let npc = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_setnpchead(com, npc);
         });
 
@@ -394,20 +439,33 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, IF_SETOBJECT => |s, player| {
             let scale = s.pop_int_as::<u16>()?;
             let obj = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_setobject(com, obj, scale);
         });
 
         // 2044
         active_player_mut!(m, IF_SETPLAYERHEAD => |s, player| {
-            player.if_setplayerhead(s.pop_int_as::<u16>()?);
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
+            player.if_setplayerhead(com);
         });
 
         // 2045
         active_player_mut!(m, IF_SETPOSITION => |s, player| {
             let y = s.pop_int();
             let x = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_setposition(com, x as u16, y as u16);
         });
 
@@ -446,7 +504,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2050
         active_player_mut!(m, IF_SETTEXT => |s, player| {
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_settext(com, s.peek_string(0));
             s.drop_strings(1);
         });
@@ -497,6 +559,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(player.last_targetslot());
         });
 
+        // 5016
+        // 647's drag (IF_BUTTOND) carries the component it ended on, which
+        // the bank's tabs need: an item dropped on a tab's button goes into
+        // that tab. Safe where `last_targetslot` is.
+        #[cfg(since_647)]
+        active_player!(m, LAST_TARGETCOM => |s, player| {
+            if let Some(trigger) = s.trigger && !trigger.allows_last_targetslot() {
+                return Err(ScriptError::Runtime(
+                    format!("{} is not safe to use in this trigger: {:?}", LAST_TARGETCOM, s.trigger)
+                ))
+            }
+            s.push_int(player.last_targetcom());
+        });
+
         // 2057
         active_player!(m, LAST_USEITEM => |s, player| {
             if let Some(trigger) = s.trigger && !trigger.allows_last_useitem() {
@@ -515,6 +591,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 ))
             }
             s.push_int(player.last_useslot());
+        });
+
+        // 3515
+        #[cfg(since_647)]
+        none!(m, LAST_STRING => |s| {
+            let val = s.last_string.clone().unwrap_or_default();
+            s.push_string(&val);
         });
 
         // 2059
@@ -550,8 +633,107 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2062
         active_player_mut!(m, MES => |s, player| {
+            #[cfg(since_647)]
+            crate::ops::test::record_call(MES, "mes", s.peek_string(0));
             player.mes(s.peek_string(0));
             s.drop_strings(1);
+        });
+
+        // ── Rev-647-only commands ────────────────────────────────────────
+
+        // 3529
+        #[cfg(since_647)]
+        active_player!(m, GETWINDOWMODE => |s, player| {
+            s.push_int(player.window_mode() as i32);
+        });
+
+        // 3512
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_OPENTOP => |s, player| {
+            let com = s.pop_int_as::<u16>()?;
+            player.if_opentop(com);
+        });
+
+        // 5003
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_OPENSUB => |s, player| {
+            let walkable = s.pop_int();
+            let parent_hash = s.pop_int();
+            let sub_id = s.pop_int_as::<u16>()?;
+            player.if_opensub(sub_id, parent_hash, walkable as u8);
+        });
+
+        // 5004
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_CLOSESUB => |s, player| {
+            let component_hash = s.pop_int();
+            player.if_closesub(component_hash);
+        });
+
+        // 5012
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_MOVESUB => |s, player| {
+            let to = s.pop_int();
+            let from = s.pop_int();
+            player.if_movesub(from, to);
+        });
+
+        // 5001
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_SETEVENTS => |s, player| {
+            let can_target = s.pop_int() != 0;
+            let allow_drag = s.pop_int() != 0;
+            let depth = s.pop_int();
+            let useon_flags = s.pop_int();
+            let ops = s.pop_int();
+            let to_slot = s.pop_int();
+            let from_slot = s.pop_int();
+            let component_hash = s.pop_int();
+
+            let mut settings = (ops & 0x3FF) << 1;
+            settings |= (useon_flags & 0x7F) << 11;
+            settings |= (depth & 0x7) << 18;
+            if allow_drag {
+                settings |= 1 << 21;
+            }
+            if can_target {
+                settings |= 1 << 22;
+            }
+
+            player.if_setevents(component_hash, from_slot, to_slot, settings);
+        });
+
+        // 5002
+        #[cfg(since_647)]
+        active_player_mut!(m, SENDVARC => |s, player| {
+            let value = s.pop_int();
+            let varc_id = s.pop_int_as::<u16>()?;
+            player.sendvarc(varc_id, value);
+        });
+
+        // 5015
+        #[cfg(since_647)]
+        active_player_mut!(m, SENDVARC_STR => |s, player| {
+            let value = s.pop_string();
+            let varc_id = s.pop_int_as::<u16>()?;
+            player.sendvarc_str(varc_id, &value);
+        });
+
+        // 5000
+        #[cfg(since_647)]
+        active_player_mut!(m, RUNCLIENTSCRIPT => |s, player| {
+            let script_id = s.pop_int();
+            player.runclientscript(script_id);
+        });
+
+        // 5013
+        // runclientscript*(id)(args...): vararg CS2 invocation with typed
+        // params (int/string), encoded on the wire in reverse stack order.
+        #[cfg(since_647)]
+        active_player_mut!(m, RUNCLIENTSCRIPT_STAR => |s, player| {
+            let args = s.pop_script_args();
+            let script_id = s.pop_int();
+            player.runclientscript_with_params(script_id, args);
         });
 
         // 2063
@@ -578,6 +760,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 {
                     #[cfg(since_254)]
                     let delay = midi_tick_length::<E>(id as i32)?;
+                    // 2011 keeps jingles apart from songs: a jingle's `midi`
+                    // id is its own plus MIDI_JINGLE_BASE (a song plays none).
+                    #[cfg(since_647)]
+                    let Some(id) = id.checked_sub(rs_pack::cache::MIDI_JINGLE_BASE as u16) else {
+                        return Ok(());
+                    };
+                    #[cfg(since_647)]
+                    crate::ops::test::record_call(MIDI_JINGLE, "midi_jingle", &id.to_string());
                     #[allow(clippy::unnecessary_cast)]
                     player.midi_jingle(id, delay as u16);
                 }
@@ -600,11 +790,38 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 #[cfg(since_254)]
                 let id = Some(s.pop_int_as::<u16>()?);
 
+                // A `midi` id past the songs is a jingle (MIDI_JINGLE_BASE).
+                #[cfg(since_647)]
+                let id = id.filter(|&id| (id as usize) < rs_pack::cache::MIDI_JINGLE_BASE);
                 if !player.lowmem()
                     && let Some(id) = id
                 {
+                    #[cfg(since_647)]
+                    crate::ops::test::record_call(MIDI_SONG, "midi_song", &id.to_string());
                     player.midi_song(id);
                 }
+            }
+        });
+
+        // 3523: 2011's music_playjingle(jingle id, duration) -- a cache jingle
+        // by id, the client resuming its song after `duration`.
+        #[cfg(since_647)]
+        active_player_mut!(m, MUSIC_PLAYJINGLE => |s, player| {
+            let duration = s.pop_int_as::<u16>()?;
+            let id = s.pop_int_as::<u16>()?;
+            if !player.lowmem() {
+                crate::ops::test::record_call(MUSIC_PLAYJINGLE, "music_playjingle", &id.to_string());
+                player.midi_jingle(id, duration);
+            }
+        });
+
+        // 3524: 2011's music_playsong(song id) -- a cache song by id.
+        #[cfg(since_647)]
+        active_player_mut!(m, MUSIC_PLAYSONG => |s, player| {
+            let id = s.pop_int_as::<u16>()?;
+            if !player.lowmem() {
+                crate::ops::test::record_call(MUSIC_PLAYSONG, "music_playsong", &id.to_string());
+                player.midi_song(id);
             }
         });
 
@@ -641,6 +858,57 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, P_COUNTDIALOG => |s, player| {
             player.countdialog();
             s.execution = ExecutionState::CountDialog;
+        });
+
+        // 3516
+        #[cfg(since_647)]
+        active_player_mut!(m, P_STRINGDIALOG => |s, _player| {
+            s.execution = ExecutionState::StringDialog;
+        });
+
+        // 3517
+        // Suspends until the display-name DB check completes; the saves phase
+        // resumes the script with last_int (1 = set, 0 = taken, -1 = error)
+        // and last_string (the formatted screen name).
+        #[cfg(since_647)]
+        active_player_mut!(m, P_SETDISPLAYNAME => |s, player| {
+            let name = s.pop_string();
+            let uid = player.uid();
+            engine_mut::<E>().request_set_display_name(uid, name);
+            s.execution = ExecutionState::DisplayNamePending;
+        });
+
+        // 3518
+        #[cfg(since_647)]
+        active_player!(m, P_GET_SUGGESTION => |s, player| {
+            let slot = s.pop_int() as usize;
+            let page = player.suggestion_page();
+            let index = page * 3 + slot;
+            let suggestion = player
+                .name_suggestions()
+                .get(index)
+                .map(|s| s.as_str())
+                .unwrap_or("");
+            s.push_string(suggestion);
+        });
+
+        // 3519
+        #[cfg(since_647)]
+        active_player_mut!(m, P_NEXT_SUGGESTIONS => |_s, player| {
+            player.next_suggestion_page();
+        });
+
+        // 3520
+        #[cfg(since_647)]
+        active_player_mut!(m, P_PREV_SUGGESTIONS => |_s, player| {
+            player.prev_suggestion_page();
+        });
+
+        // 3521
+        #[cfg(since_647)]
+        active_player_mut!(m, P_REQUEST_MORE_SUGGESTIONS => |_s, player| {
+            let uid = player.uid();
+            engine_mut::<E>().request_more_suggestions(uid);
         });
 
         // 2071
@@ -730,8 +998,29 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2076
+        #[cfg(before_647)]
         active_player!(m, P_OPHELD => |s, _player| {
             Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        });
+
+        // 2076
+        // Rev-647: inventory item ops arrive as IfButton{op} packets and route
+        // through [if_button{op},inventory:inv] content, which calls
+        // p_opheld($op, $inv, $slot). Runs the opheld{op} trigger for the item
+        // at $slot in $inv (ops 1-5; 6-10 have no opheld trigger -> no-op).
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_OPHELD => |s, player| {
+            let slot = s.pop_int();
+            let inv = pop_inv::<E>(s)?;
+            let op = s.pop_int();
+            let Some(obj_id) = get_inv::<E>(inv, player)?
+                .get(slot as u16)
+                .map(|item| item.obj)
+            else {
+                return Ok(());
+            };
+            let uid = player.uid();
+            engine_mut::<E>().run_opheld(uid, op, obj_id, slot);
         });
 
         // 2077
@@ -766,7 +1055,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 loc_type.length,
                 loc.shape,
                 loc.angle,
-                loc_type.forceapproach as u8,
+                loc_type.forceapproach_flags(),
             ) {
                 player.queue_waypoint(loc.coord);
             }
@@ -819,7 +1108,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_npc(nid, ServerTriggerType::ApNpcT as u8);
-            player.set_interaction_spell(spell as u16);
+            player.set_interaction_spell(spell as crate::ComId);
         });
 
         // 2080
@@ -883,7 +1172,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_player(target.pid(), ServerTriggerType::ApPlayerT as u8);
-            player.set_interaction_spell(spell as u16);
+            player.set_interaction_spell(spell as crate::ComId);
         });
 
         // 2083
@@ -1266,6 +1555,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.setidkcolour(slot, colour)?;
         });
 
+        // 2251
+        // Applies the character-design preview varcs (1008-1019) to the
+        // player's body kit and colours; buildappearance then makes it render.
+        #[cfg(since_647)]
+        active_player_mut!(m, APPLYDESIGN => |_s, player| {
+            player.applydesign();
+        });
+
         // 2134
         // https://x.com/JagexAsh/status/1694990340669747261
         active_player!(m, BUFFER_FULL => |s, player| {
@@ -1341,7 +1638,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_245_2)]
         active_player_mut!(m, IF_SETSCROLLPOS => |s, player| {
             let y = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            // Before 647 a component id must fit a u16, as upstream checks.
+            #[cfg(before_647)]
+            let com = i32::from(s.pop_int_as::<u16>()?);
+            #[cfg(since_647)]
+            let com = s.pop_int();
             player.if_setscrollpos(com, y);
         });
 

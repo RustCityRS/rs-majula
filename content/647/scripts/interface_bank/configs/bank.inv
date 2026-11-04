@@ -1,0 +1,7 @@
+[bank]
+scope=perm
+// 2011: 516 slots, the cache's size for inv 95, which 2011's bank lays out
+// (289's ^bank_total_slots, 240).
+// size=^bank_total_slots
+size=516
+stackall=yes

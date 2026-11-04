@@ -1,0 +1,16 @@
+// From 289's duel_arena_settings.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,duel_arena_magic_check]()(boolean)
+if (~in_duel_arena(coord) = false) {
+    return(true);
+}
+if (testbit(%dueloptions, ^no_magic) = ^true) {
+    mes("Magic has been turned off for this duel."); // RS3 message: https://archive.org/details/runelibris
+    return(false);
+}
+if (testbit(%dueloptions, ^flower_power) = ^true) {
+    mes("This is a 'flower power' duel. You can only use flowers."); // guess based off of 2006 vid
+    // 2006: "This is a 'fun weapon' duel. You can only use flowers or a rubber|chicken."
+    return(false);
+}
+return(true);

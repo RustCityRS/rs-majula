@@ -18,7 +18,7 @@ pub struct DbRowType {
     pub types: DbRowTypes,
     pub columns: DbRowColumns,
     pub table: u16,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl DbRowType {
@@ -77,7 +77,7 @@ impl CacheType for DbRowType {
                 }
                 4 => self.table = buf.g2(),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized dbrow config code: {code}"),
+                _ => crate::unknown_opcode!("dbrow", code),
             }
         }
     }

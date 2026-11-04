@@ -1,0 +1,47 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[sanfew]
+desc=An old druid.
+
+[kaqemeex]
+desc=A wise druid.
+
+[gaius]
+desc=Ironically, makes a living from swords.
+category=shop_keeper
+param=owned_shop,2handedshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,20
+param=shop_title,Gaius' Two Handed Shop.
+moverestrict=indoors
+
+[jatix]
+desc=Master of herbs and potions.
+category=shop_keeper
+param=owned_shop,herbloreshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Jatix's Herblore Shop.
+moverestrict=indoors
+
+[the_lady_of_the_lake]
+desc=A powerful sorceress who guards Excalibur.
+wanderrange=1
+
+[boy]
+desc=A sad looking child...
+param=death_anim,midget_death
+
+[druid]
+desc=Loves nature.
+attackrange=8
+respawnrate=50
+hitpoints=300
+attack=28
+strength=28
+defence=32
+magic=25
+param=damagetype,^crush_style
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3258

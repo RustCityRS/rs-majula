@@ -1,0 +1,75 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[ceril_carnillean]
+desc=Head of the Carnillean household.
+
+[claus_the_chef]
+desc=The Carnillean family chef.
+
+[guard_carnillean]
+desc=On special duty to protect the Carnilleans.
+
+[philipe_carnillean]
+desc=The newest member of the Carnillean family.
+param=death_anim,midget_death
+
+[henryeta_carnillean]
+desc=Ceril Carnillean's wife.
+
+[butler_jones]
+desc=The Carnillean family butler.
+
+[alomone]
+desc=Leader of the Hazeel Cult.
+wanderrange=3
+maxrange=7
+respawnrate=100
+hitpoints=250
+attack=10
+strength=10
+defence=4
+param=stabdefence,5
+param=slashdefence,6
+param=crushdefence,8
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_slash
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_12093
+
+[hazeel]
+desc=An evil being raised from the dead.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[clivet]
+desc=A member of the Hazeel cult.
+respawnrate=100
+hitpoints=250
+attack=10
+strength=10
+defence=4
+param=stabdefence,5
+param=slashdefence,6
+param=crushdefence,8
+param=attack_anim,human_staff_pummel
+param=defend_anim,human_staff_block
+param=attack_sound,staff_hit
+// The npc in question is no longer killable after the release of the Secrets of the North quest.
+// sounds are guess and The animations are taken from the video.
+
+[hazeel_cultist]
+desc=A member of the Hazeel cult.
+respawnrate=100
+hitpoints=250
+attack=10
+strength=10
+defence=4
+param=stabdefence,5
+param=slashdefence,6
+param=crushdefence,8
+param=attack_anim,human_staff_pummel
+param=defend_anim,human_staff_block
+param=attack_sound,staff_hit
+// TODO try to get information about the wanderrange/maxrange
+// The npc in question is no longer killable after the release of the Secrets of the North quest.

@@ -1,0 +1,355 @@
+[vodka]
+desc=An absolutely clear spirit sold by well-stocked bars.
+weight=1kg
+category=alcoholic_drinks
+param=gnome_cocktail_ingredient,^true
+
+[whisky]
+desc=This Draynor malt is sold by well-stocked bars.
+weight=1kg
+category=alcoholic_drinks
+param=gnome_cocktail_ingredient,^true
+
+[gin]
+desc=A strong spirit that tastes of juniper; sold at well-stocked bars.
+weight=1kg
+category=alcoholic_drinks
+param=gnome_cocktail_ingredient,^true
+
+[brandy]
+desc=A strong spirit sold by well-stocked bars; best served in a large glass.
+weight=1kg
+category=alcoholic_drinks
+param=gnome_cocktail_ingredient,^true
+
+[cocktail_guide]
+desc=A book on tree gnome cocktails.
+weight=18oz
+
+[cocktail_shaker]
+tradeable=no
+desc=Used for mixing cocktails.
+weight=150g
+
+[cocktail_glass]
+desc=For sipping cocktails.
+weight=100g
+
+[premade_blurb__sp]
+desc=A premade Blurberry Special
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[premade_choc_s_dy]
+desc=A premade Chocolate Saturday.
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[premade_dr__dragon]
+desc=A premade Drunk Dragon.
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[premade_fr__blast]
+desc=A premade Fruit Blast.
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[premade_p__punch]
+desc=A premade Pineapple punch.
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[premade_sgg]
+desc=A premade Short Green Guy.
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[premade_wiz_blz_d]
+desc=A Premade Wizard Blizzard.
+category=gnome_cocktail
+weight=450g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_pineapple_punch1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_pineapple_punch2]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_pineapple_punch3]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[pineapple_punch]
+desc=A fresh healthy fruit mix.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_wizard_blizzard1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_wizard_blizzard2]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[wizard_blizzard]
+desc=This looks like a strange mix.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_blurberry_special1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_blurberry_special2]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_blurberry_special3]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_blurberry_special4]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[blurberry_special]
+desc=Looks good... smells strong.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_chocolate_saturday1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_chocolate_saturday2]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_chocolate_saturday3]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_chocolate_saturday4]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[choc_saturday]
+desc=A warm creamy alcoholic beverage.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_sgg1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_sgg2]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[short_green_guy]
+desc=A Short Green Guy... looks good.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_fruit_blast1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[fruit_blast]
+desc=A cool refreshing fruit mix.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[unfinished_drunk_dragon1]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_drunk_dragon2]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[unfinished_drunk_dragon3]
+desc=This cocktail is just missing those little finishing touches.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+param=gnome_cooking_type,0
+
+[drunk_dragon]
+desc=A warm creamy alcoholic beverage.
+category=gnome_cocktail
+weight=500g
+param=next_obj_stage,cocktail_glass
+
+[spoilt_cocktail]
+desc=I'm not completely sure what this contains.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+
+[spoilt_cocktail_fruity]
+desc=I'm not completely sure what this contains.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+
+[spoilt_cocktail_creamy]
+desc=I'm not completely sure what this contains.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+
+[spoilt_cocktail_slice]
+desc=I'm not completely sure what this contains.
+weight=400g
+category=gnome_unf_odd_cocktail
+param=next_obj_stage,cocktail_glass
+
+[lemon]
+desc=A common fruit, popularly used in cocktails.
+category=category_120
+weight=100g
+param=gnome_cocktail_ingredient,^true
+
+[lemon_chunks]
+desc=The not-too-surprising result of using a knife with a lemon!
+category=category_120
+weight=80g
+param=gnome_topping,^true
+param=cocktail_message,You add the diced lemon to the drink.
+
+[lemon_slices]
+desc=The not-too-surprising result of using a knife with a lemon!
+category=category_120
+weight=80g
+param=gnome_topping,^true
+param=cocktail_message,You add a lemon slice to the drink.
+
+[orange]
+desc=A common fruit.
+category=category_120
+weight=110g
+param=gnome_cocktail_ingredient,^true
+
+[orange_chunks]
+desc=The not-too-surprising result of using a knife with an orange!
+category=category_120
+weight=90g
+param=gnome_topping,^true
+param=cocktail_message,You add the diced orange to the drink.
+
+[orange_slices]
+desc=The not-too-surprising result of using a knife with an orange!
+category=category_120
+weight=90g
+param=gnome_topping,^true
+param=cocktail_message,You add an orange slice to the dirnk.
+
+[pineapple]
+desc=It can be cut up into something more manageable with a knife.
+category=category_120
+weight=150g
+param=gnome_cocktail_ingredient,^true
+
+[pineapple_chunks]
+desc=The not-too-surprising result of using a knife with a pineapple!
+category=category_120
+weight=120g
+param=gnome_topping,^true
+param=pizza_topping_struct,pineapple_topping
+
+[pineapple_ring]
+desc=The not-too-surprising result of using a knife with a pineapple!
+category=category_120
+weight=30g
+param=pizza_topping_struct,pineapple_topping
+
+[lime]
+desc=A common fruit, popularly used in cocktails.
+category=category_120
+weight=100g
+param=gnome_cocktail_ingredient,^true
+
+[lime_chunks]
+desc=The not-too-surprising result of using a knife with a lime!
+category=category_120
+weight=80g
+param=gnome_topping,^true
+
+[lime_slices]
+desc=The not-too-surprising result of using a knife with a lime!
+category=category_120
+weight=80g
+param=gnome_topping,^true
+param=cocktail_message,You add a lime slice to the drink.

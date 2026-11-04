@@ -43,7 +43,7 @@ pub struct NpcType {
     #[cfg(since_289)]
     pub turnspeed: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl NpcType {
@@ -149,7 +149,7 @@ pub struct NpcTypeRaw {
     #[cfg(since_289)]
     pub turnspeed: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for NpcTypeRaw {
@@ -321,7 +321,7 @@ impl CacheType for NpcTypeRaw {
                         .get_or_insert_with(|| Box::new(FxHashMap::default())),
                 ),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized npc config code: {code}"),
+                _ => crate::unknown_opcode!("npc", code),
             }
         }
     }

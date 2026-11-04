@@ -60,7 +60,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if npc.last_movement() < clock.saturating_sub(1) {
                 return Ok(());
             }
-            if npc.last_movement() == clock - 1 {
+            // On the world's first tick there is no tick before it; at 647 a
+            // move then is as recent as one on the last tick.
+            #[cfg(before_647)]
+            let last_tick = clock - 1;
+            #[cfg(since_647)]
+            let last_tick = clock.saturating_sub(1);
+            if npc.last_movement() == last_tick {
                 npc.delay(clock + 1);
             } else {
                 npc.delay(clock + 2);
@@ -115,8 +121,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
-            let amount = s.pop_int_as::<u8>()?;
+            // 2011's npc hits are life points, which pass a byte.
+            #[cfg(since_647)]
+            let amount = s.pop_int_as::<u16>()?;
+            #[cfg(before_647)]
+            let amount = u16::from(s.pop_int_as::<u8>()?);
             let damage_type = s.pop_int_as::<u8>()?;
+            #[cfg(since_647)]
+            if crate::ops::test::recording() {
+                let arg = format!("{damage_type},{amount}");
+                crate::ops::test::record_call(NPC_DAMAGE, "npc_damage", &arg);
+            }
             npc.damage(amount, damage_type);
         });
 
@@ -612,7 +627,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, SPOTANIM_NPC => |s, npc| {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u16>()?;
+            // At 647 `null` is no spotanim: 65535, which the client reads as
+            // -1. 289's ranged npcs pass their `proj_launch`, null for one with
+            // none. Before 647 it is a script error, as upstream has it.
+            #[cfg(before_647)]
             let id = s.pop_int_as::<u16>()?;
+            #[cfg(since_647)]
+            let id = u16::try_from(s.pop_int()).unwrap_or(u16::MAX);
             npc.spotanim(id, height, delay);
         });
 

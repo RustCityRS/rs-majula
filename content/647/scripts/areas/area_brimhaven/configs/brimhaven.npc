@@ -1,0 +1,35 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[kangai_mau]
+desc=A happening kind of guy!
+wanderrange=2
+
+[alfonse_the_waiter]
+desc=Smartly dressed, and ready to deliver food.
+hitpoints=70
+param=damagetype,^crush_style
+category=shop_keeper
+param=owned_shop,karamja_fishrestaurant
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,750
+param=shop_delta,30
+param=shop_title,The Shrimp and Parrot
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4920
+
+[deadmans_bartender]
+desc=I could get a beer from him.
+
+[davon]
+desc=An amulet trader.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+category=shop_keeper
+param=owned_shop,amuletshop
+param=shop_sell_multiplier,1200
+param=shop_buy_multiplier,900
+param=shop_delta,20
+param=shop_title,Davon's Amulet Store.
+
+[hajedy]
+desc=A cart driver; it looks like he's quite experienced.
+wanderrange=3

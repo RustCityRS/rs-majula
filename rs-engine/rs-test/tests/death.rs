@@ -1,0 +1,146 @@
+//! The backpack keeps its ops after a death.
+//!
+//! 289's death runs `~initalltabs` again, which at 647 re-opens every tab.
+//! Opening a sub where one is open closes it first, and the client's close
+//! drops every event the server set on that interface (`Class83.method563`),
+//! so a tab's IF_SETEVENTS must follow its IF_OPENSUB. The case keeps the
+//! client's event table from the packets the server sends, as the client
+//! does, and kills the player.
+
+#![cfg(since_647)]
+
+use std::collections::{HashMap, HashSet};
+
+use rs_engine::Engine;
+use rs_engine::harness::HarnessClient;
+use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::runner;
+use rs_vm::subject::ScriptSubject;
+
+/// `inventory:inv`, the backpack.
+const BACKPACK: i32 = 149 << 16;
+
+/// The client's `Packet` readers the three packets use (deob-647 `Packet`).
+struct Reader<'a>(&'a [u8], usize);
+
+impl Reader<'_> {
+    fn b(&self, i: usize) -> i32 {
+        self.0[i] as i8 as i32
+    }
+
+    /// `(b[-1] - 128 & 0xFF) + (b[-2] & 0xFF) << 8`
+    fn g2_alt1(&mut self) -> i32 {
+        self.1 += 2;
+        ((self.b(self.1 - 1) - 128) & 0xFF) + ((self.b(self.1 - 2) & 0xFF) << 8)
+    }
+
+    /// `(b[-1] & 0xFF) << 8 + (b[-2] - 128 & 0xFF)`
+    fn ig2_alt1(&mut self) -> i32 {
+        self.1 += 2;
+        ((self.b(self.1 - 1) & 0xFF) << 8) + ((self.b(self.1 - 2) - 128) & 0xFF)
+    }
+
+    /// `b[-2] | b[-3] << 24 | b[-4] << 16 | b[-1] << 8`
+    fn g4_alt1(&mut self) -> i32 {
+        self.1 += 4;
+        (self.b(self.1 - 2) & 0xFF)
+            + ((self.b(self.1 - 3) & 0xFF) << 24)
+            + ((self.b(self.1 - 4) & 0xFF) << 16)
+            + ((self.b(self.1 - 1) & 0xFF) << 8)
+    }
+}
+
+/// The client's open subs (parent -> interface) and server-set events
+/// (component, slot), kept as `MapAreaConfig` keeps them.
+#[derive(Default)]
+struct ClientInterfaces {
+    subs: HashMap<i32, i32>,
+    events: HashSet<(i32, i32)>,
+}
+
+impl ClientInterfaces {
+    fn close(&mut self, iface: i32) {
+        self.events
+            .retain(|(com, _)| (*com as u32 >> 16) as i32 != iface);
+    }
+
+    fn read(&mut self, packets: &[(u16, Vec<u8>)]) {
+        for (op, p) in packets {
+            let mut r = Reader(p, 0);
+            if *op == ServerProt::IfOpensub as u16 {
+                let iface = r.ig2_alt1();
+                let parent = r.g4_alt1();
+                if let Some(old) = self.subs.insert(parent, iface) {
+                    self.close(old);
+                }
+            } else if *op == ServerProt::IfClosesub as u16 {
+                if let Some(old) = self.subs.remove(&r.g4_alt1()) {
+                    self.close(old);
+                }
+            } else if *op == ServerProt::IfSetEvents as u16 {
+                let from = r.g2_alt1();
+                let _events = r.g4_alt1();
+                let com = r.g4_alt1();
+                let to = r.ig2_alt1();
+                for slot in from..=to {
+                    self.events.insert((com, slot));
+                }
+            }
+        }
+    }
+}
+
+fn ticks(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    ui: &mut ClientInterfaces,
+    n: usize,
+) -> Vec<String> {
+    let mut said = Vec::new();
+    for _ in 0..n {
+        engine.cycle();
+        let packets = client.packets();
+        ui.read(&packets);
+        said.extend(
+            HarnessClient::game_messages(&packets)
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+    }
+    said
+}
+
+#[test]
+fn the_backpack_keeps_its_ops_after_a_death() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("mortal").expect("login");
+        let mut ui = ClientInterfaces::default();
+        ticks(engine, &mut client, &mut ui, 2);
+        assert!(
+            ui.events.contains(&(BACKPACK, 0)),
+            "login gives the backpack its ops"
+        );
+
+        let uid = engine.harness_player(client.pid).unwrap().uid;
+        engine
+            .run_script_by_name(
+                "[queue,player_death]",
+                Some(ScriptSubject::Player(uid)),
+                None,
+                Some(true),
+                Some(true),
+                None,
+            )
+            .expect("death");
+        let said = ticks(engine, &mut client, &mut ui, 8);
+        assert!(
+            said.iter().any(|m| m == "Oh dear, you are dead!"),
+            "the player died; the game said {said:?}"
+        );
+        assert!(
+            (0..28).all(|slot| ui.events.contains(&(BACKPACK, slot))),
+            "every backpack slot keeps its ops after the death"
+        );
+    });
+}

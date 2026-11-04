@@ -1,3 +1,7 @@
+// The jag-era targeted ops' checks; rev 647's targeted ops (`op_t.rs`)
+// check their own packet shapes.
+#![cfg_attr(since_647, allow(dead_code))]
+
 use crate::active_player::ActivePlayer;
 use crate::engine::{engine, engine_mut};
 use rs_entity::{InteractionTarget, Loc, Obj};
@@ -233,12 +237,14 @@ pub enum HeldCheck {
 ///
 /// [`HeldCheck::Ok`] when the item is really there, otherwise the specific
 /// reason the claim was rejected.
-pub fn check_held(active: &mut ActivePlayer, com: u16, slot: u16, obj: u16) -> HeldCheck {
+pub fn check_held(active: &mut ActivePlayer, com: rs_vm::ComId, slot: u16, obj: u16) -> HeldCheck {
     let inv_id = active
         .player
         .inv_transmits
         .iter()
-        .find(|(_, coms)| coms.contains(&com))
+        // A component's id is its own before 647 and its interface hash from
+        // 647 (`rs_vm::ComId`).
+        .find(|(_, coms)| coms.iter().any(|&c| i64::from(c) == i64::from(com)))
         .map(|(id, _)| *id);
 
     let Some(inv_id) = inv_id else {

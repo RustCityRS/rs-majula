@@ -1,0 +1,92 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[master_chef]
+desc=An expert on all things culinary.
+wanderrange=2
+
+[survival_expert]
+desc=Very much an outdoors type.
+wanderrange=2
+
+[combat_instructor]
+desc=An expert on all forms of combat.
+wanderrange=2
+
+[runescape_guide]
+desc=Your introduction to the world of RuneScape.
+wanderrange=2
+
+[magic_instructor]
+desc=A Master of Magic.
+wanderrange=2
+moverestrict=indoors
+
+[financial_advisor]
+desc=A professional when it comes to accounts.
+wanderrange=2
+
+[mining_instructor]
+desc=An expert on Mining-related skills.
+wanderrange=2
+
+[quest_guide]
+desc=Your introduction to the world of Gielinor.
+wanderrange=2
+
+[newbiegiantrat]
+desc=Overgrown vermin.
+wanderrange=6
+maxrange=8
+respawnrate=60
+hitpoints=30
+attack=3
+strength=3
+defence=3
+param=damagetype,^stab_style
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+param=death_drop,newbiebones
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3313
+
+[newbiechicken]
+desc=Yep. Definitely a chicken.
+hitpoints=30
+attack=3
+strength=3
+defence=3
+param=attack_anim,chicken_attack
+param=defend_anim,chicken_block
+param=death_anim,chicken_death
+param=attack_sound,chicken_attack
+param=defend_sound,chicken_hit
+param=death_sound,chicken_death
+param=death_drop,newbiebones
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3316
+
+[0_48_48_newbiefishing]
+desc=I can see fish swimming in the water.
+op3=hidden
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+category=category_453
+
+[noobbanker]
+desc=He can look after my money.
+defaultmode=none
+wanderrange=0
+maxrange=2
+moverestrict=nomove
+
+[brother_brace]
+desc=A holy man.
+wanderrange=2
+hitpoints=150
+attack=2
+strength=2
+defence=3
+param=damagetype,^crush_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3319

@@ -1,0 +1,29 @@
+[generallegends]
+// https://classic.runescape.wiki/w/Legends%27_Guild_General_Store
+// https://storage.googleapis.com/tannerdino/images/legends4.png (full stocks)
+scope=shared
+size=40
+restock=yes
+stackall=yes
+allstock=yes
+stock1=swordfish,20,200
+stock2=apple_pie,5,200
+stock3=attack_potion__3,3,100
+stock4=steel_arrow,500,100
+
+[legendsguildshop]
+// https://classic.runescape.wiki/w/Legends%27_Guild_Shop
+// https://storage.googleapis.com/tannerdino/images/rslegendguild9.gif (full stocks)
+// https://web.archive.org/web/20041217081814/http://www.runehq.com/cacheguides/viewguildguide00242.htm (legend guild guide 2004)
+scope=shared
+size=5
+// 2011's shop holds 5 (the cache's inventory 84; void-634's list):
+// and no longer stocks 289's silverlight.
+restock=yes
+stackall=yes
+allstock=no
+stock1=mithril_seeds,6,50
+stock2=dusty_key,5,100
+stock3=maze_key,3,300
+stock4=shield_right_half,1,500
+stock5=cape_of_legends,3,500

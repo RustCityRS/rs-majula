@@ -1,0 +1,192 @@
+// 2011's Random event gift (2011 wiki, Random event gift): a solved random
+// event gives a gift instead of 289's reward. Opening it offers a choice of
+// rewards on interface ame_rewards (202): the client draws a choice per filled
+// slot of inventory ame_rewards (307), slots 0-25 an obj and its count, slot
+// 26 the event's emote and slot 27 a costume point (clientscripts 2116 and
+// 2117). A choice is the layer com_15's slot `choice * 7`, op 1 Choose and op
+// 10 Examine (Explain on the emote and the costume point).
+//
+// Grade C beyond the wiki: how many of each reward (its range, by total
+// level), which rewards are offered, and the texts the wiki does not quote.
+
+[proc,macro_event_give_gift](int $event)
+%random_event_gift_event = $event;
+// "If you have a full inventory upon completing the random event, the gift
+// will appear on the ground beneath you"
+if (inv_freespace(inv) = 0) {
+    mes("A random event gift has been placed on the ground for you to take!");
+}
+inv_add(inv, random_event_gift, 1);
+
+[opheld1,random_event_gift]
+if (add(%lastcombat, 8) > map_clock) {
+    mes("You won't be able to choose a reward during combat.");
+    return;
+}
+~random_event_gift_fill;
+inv_transmit(ame_rewards, ame_rewards:com_15);
+if_openmain(ame_rewards);
+// The choices are clientscript-built children of com_15 (choice * 7); the
+// client sends their ops only on the slots the server grants.
+if_setevents(ame_rewards:com_15, 0, 195, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
+
+// "members are given a choice of 6-14 random items to choose from.
+// Non-members are given a choice of 4-11 items to choose from." 2011 offers
+// one reward per category, each in its category's slot, which the client
+// labels by slot (cache-786 enum 2238: 0 Cash, 1 Runes, 2 Coal, 3 Essence, 4
+// Ore, 5 Bars, 6 Gems, 7 Herbs, 8 Seeds, 9 Charms, 10 XP item, 24 Other, 25
+// Surprise, 26 Emote, 27 Costume); which categories, a random choice of that
+// many. Herbs, seeds and charms are members' (their objs are).
+[proc,random_event_gift_fill]
+inv_clear(ame_rewards);
+def_int $choices = ~random_range(6, 14);
+def_int $categories = 8; // cash, runes, coal, essence, ore, bars, gems, other
+if (map_members = ^false) {
+    $choices = ~random_range(4, 11);
+} else {
+    $categories = add($categories, 3);
+}
+if (~random_event_gift_has_emotes(%random_event_gift_event) = true) {
+    inv_setslot(ame_rewards, 26, random_event_gift, 1);
+    inv_setslot(ame_rewards, 27, random_event_gift, 1);
+    $choices = sub($choices, 2);
+}
+// The lamp (XP item) and the mystery box (Surprise) are not offered
+// (random_event_gift.dbrow), so a gift offers at most the other categories.
+$choices = min($choices, $categories);
+def_int $total_level = ~total_level;
+def_int $slot = 0;
+def_int $left = $categories;
+while ($slot <= 24 & $choices > 0) {
+    if (~random_event_gift_category($slot) = true) {
+        // Each category in turn, kept with the odds of the choices still to
+        // fill among the categories still to see: that many, all equally likely.
+        if (random($left) < $choices & ~random_event_gift_offer($slot, $total_level) = true) {
+            $choices = sub($choices, 1);
+        }
+        $left = sub($left, 1);
+    }
+    $slot = add($slot, 1);
+}
+
+// Whether category `$slot` (enum 2238) is offered on this world.
+[proc,random_event_gift_category](int $slot)(boolean)
+if ($slot = 7 | $slot = 8 | $slot = 9) {
+    if (map_members = ^false) {
+        return(false);
+    }
+    return(true);
+}
+if ($slot <= 6 | $slot = 24) {
+    return(true);
+}
+return(false);
+
+// One of category `$slot`'s rewards, in its slot; false when the category
+// has none this world offers.
+[proc,random_event_gift_offer](int $slot, int $total_level)(boolean)
+// The category's rewards this world offers: count them, then take a random one.
+def_int $rows = 0;
+def_dbrow $row;
+db_find(random_event_gift:slot, $slot);
+$row = db_findnext;
+while ($row ! null) {
+    if (map_members = ^true | oc_members(db_getfield($row, random_event_gift:reward, 0)) = false) {
+        $rows = add($rows, 1);
+    }
+    $row = db_findnext;
+}
+if ($rows <= 0) {
+    return(false);
+}
+def_int $pick = random($rows);
+db_find(random_event_gift:slot, $slot);
+$row = db_findnext;
+while ($row ! null) {
+    if (map_members = ^true | oc_members(db_getfield($row, random_event_gift:reward, 0)) = false) {
+        if ($pick = 0) {
+            return(~random_event_gift_offer_row($slot, $row, $total_level));
+        }
+        $pick = sub($pick, 1);
+    }
+    $row = db_findnext;
+}
+return(false);
+
+[proc,random_event_gift_offer_row](int $slot, dbrow $row, int $total_level)(boolean)
+def_namedobj $reward = db_getfield($row, random_event_gift:reward, 0);
+def_int $min = db_getfield($row, random_event_gift:min, 0);
+def_int $max = db_getfield($row, random_event_gift:max, 0);
+// "The number of each item a player is offered seems to depend on their total
+// level. This is most easily seen with coins, where the amount offered is
+// equal to a third of their total level, rounded down."
+def_int $count = add($min, scale($total_level, 2496, sub($max, $min)));
+if ($reward = coins) {
+    $count = divide($total_level, 3);
+}
+inv_setslot(ame_rewards, $slot, $reward, max($count, 1));
+return(true);
+
+[proc,random_event_gift_has_emotes](int $event)(boolean)
+if ($event = ^macro_mime) {
+    return(true);
+}
+return(false);
+
+[if_button1,ame_rewards:com_15]
+def_int $choice = divide(last_slot, 7);
+if ($choice < 0 | $choice >= inv_size(ame_rewards) | inv_getnum(ame_rewards, $choice) <= 0) {
+    return;
+}
+// "If you choose to get a new emote while already having all the emotes from
+// that particular random, it will say: "You've already unlocked all the ...
+// emotes. Please choose something else.""
+if ($choice = 26 & ~has_all_mime_emotes = true) {
+    mes("You've already unlocked all the Mime emotes. Please choose something else.");
+    return;
+}
+if_close;
+if (p_finduid(uid) = false) {
+    return;
+}
+if (inv_total(inv, random_event_gift) = 0) {
+    return;
+}
+inv_del(inv, random_event_gift, 1);
+// "When players have confirmed their selection a message in the chatbox
+// says: Enjoy your gift."
+mes("Enjoy your gift.");
+if ($choice = 26) {
+    ~unlock_mime_emote;
+    return;
+}
+if ($choice = 27) {
+    %macro_mime_costume_points = add(%macro_mime_costume_points, 1);
+    // "Players who choose the Costume point award will receive a message
+    // telling them to go to Thessalia's Fine Clothes in Varrock and talk to
+    // Iffie for their reward."
+    mes("You have received a costume point. Talk to Iffie at Thessalia's Fine Clothes in Varrock to claim your reward.");
+    return;
+}
+def_obj $reward = inv_getobj(ame_rewards, $choice);
+def_int $count = inv_getnum(ame_rewards, $choice);
+// More than one of an obj that does not stack comes noted.
+if ($count > 1 & oc_stackable($reward) = false) {
+    $reward = oc_cert($reward);
+}
+inv_add(inv, $reward, $count);
+
+[if_button10,ame_rewards:com_15]
+def_int $choice = divide(last_slot, 7);
+if ($choice < 0 | $choice >= inv_size(ame_rewards) | inv_getnum(ame_rewards, $choice) <= 0) {
+    return;
+}
+if ($choice = 26) {
+    mes("Choose this to unlock one of the Mime's emotes.");
+    return;
+}
+if ($choice = 27) {
+    mes("Save up costume points to exchange with Iffie at Thessalia's Fine Clothes in Varrock for pieces of the Mime's costume.");
+    return;
+}
+mes(oc_desc(inv_getobj(ame_rewards, $choice)));

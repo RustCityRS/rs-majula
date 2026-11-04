@@ -11,6 +11,15 @@ pub mod counters;
 mod engine;
 mod game_map;
 mod handlers;
+/// Headless harness for `rs-test`; see [`harness::HarnessClient`].
+#[cfg(all(feature = "harness", since_647))]
+pub mod harness;
+#[cfg(before_647)]
+mod info;
+/// Rev-647 info: the 4-pass NSN player protocol and the 647 NPC bit layouts,
+/// with the same public surface (PlayerInfo/NpcInfo encoders + snapshots).
+#[cfg(since_647)]
+#[path = "info647.rs"]
 mod info;
 mod phases;
 mod player_save;

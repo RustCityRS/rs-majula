@@ -1,0 +1,239 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[khazard_guard]
+desc=He's guarding the door.
+wanderrange=3
+maxrange=5
+respawnrate=100
+hitpoints=250
+attack=20
+strength=18
+defence=20
+param=attackbonus,10
+param=strengthbonus,14
+param=stabdefence,44
+param=slashdefence,38
+param=crushdefence,30
+param=damagetype,^slash_style
+param=attack_anim,human_axe_hack
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_slash
+param=defend_sound,blade3_mail
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1208
+
+[arena_guard2]
+desc=He's been guarding the tavern for a bit too long.
+wanderrange=4
+maxrange=6
+respawnrate=100
+hitpoints=250
+attack=20
+strength=18
+defence=20
+param=attackbonus,10
+param=strengthbonus,14
+param=stabdefence,44
+param=slashdefence,38
+param=crushdefence,30
+param=damagetype,^slash_style
+param=attack_anim,human_axe_hack
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_slash
+param=defend_sound,blade3_mail
+// osrs stats and Vislvl match 1:1
+// The NPC in question has been replaced by another NPC that no longer has an attack option or stats. npc_1209
+// stats and params is guess.
+
+[arena_guard3]
+desc=His armour indicates he's a Khazard Guard.
+wanderrange=4
+maxrange=6
+respawnrate=100
+hitpoints=250
+attack=20
+strength=18
+defence=20
+param=attackbonus,10
+param=strengthbonus,14
+param=stabdefence,35
+param=slashdefence,29
+param=crushdefence,21
+param=damagetype,^slash_style
+param=attack_anim,human_axe_hack
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_slash
+param=defend_sound,blade3_mail
+// osrs stats and Vislvl match 1:1
+// The NPC in question has been replaced by another NPC that no longer has an attack option or stats. npc_1210
+// stats and params is guess.
+
+[arena_guard4]
+desc=It's one of General Khazard's guards.
+wanderrange=4
+maxrange=6
+respawnrate=100
+hitpoints=250
+attack=20
+strength=18
+defence=20
+param=attackbonus,10
+param=strengthbonus,14
+param=stabdefence,35
+param=slashdefence,29
+param=crushdefence,21
+param=damagetype,^slash_style
+param=attack_anim,human_axe_hack
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_slash
+param=defend_sound,blade3_mail
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1211
+
+[arena_leadguard]
+desc=It's one of General Khazard's guards.
+wanderrange=0
+respawnrate=100
+hitpoints=250
+attack=20
+strength=18
+defence=20
+param=attackbonus,10
+param=strengthbonus,14
+param=stabdefence,44
+param=slashdefence,38
+param=crushdefence,30
+param=damagetype,^slash_style
+param=attack_anim,human_axe_hack
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_slash
+param=defend_sound,blade3_mail
+// https://chisel.weirdgloop.org/moid/npc_id.html#1212 npc_1212
+
+[general_khazard]
+desc=He looks really nasty. Smells bad too.
+wanderrange=1
+// copying bouncers but guessed (OSRS and RS3 are both changed)
+maxrange=25
+hitpoints=1700
+attack=75
+strength=78
+defence=80
+param=damagetype,^slash_style
+param=attack_anim,human_dhsword_chop
+param=defend_anim,human_dhsword_def
+param=attack_sound,2H_slash
+// TODO monster examine spell
+// Stats match osrs version but our version Vislvl is different.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_12025
+
+[angor]
+desc=A tough-looking Khazard barman.
+
+[kelvin]
+desc=A slave fighter. He looks mistreated and weak.
+wanderrange=1
+
+[joe]
+desc=A slave fighter. He looks mistreated and weak.
+wanderrange=1
+
+[slave_fighter]
+desc=A slave fighter. He looks mistreated and weak.
+wanderrange=1
+
+[hengrad]
+desc=He looks mistreated but he hasn't given up.
+wanderrange=1
+
+[lady_servil]
+desc=She looks wealthy.
+
+[jeremy_servil]
+desc=A young squire. He looks worse for wear.
+wanderrange=1
+param=death_anim,midget_death
+
+[jeremy_servil_arena]
+desc=A young squire. He looks worse for wear.
+wanderrange=1
+param=death_anim,midget_death
+
+[justin_servil]
+desc=Jeremy's father Sir Servil.
+wanderrange=7
+hitpoints=200
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_12035
+
+[local]
+desc=A scruffy-looking chap.
+
+[bouncer]
+desc=Postie Pete's worst nightmare.
+maxrange=25
+respawnrate=100
+hitpoints=1160
+attack=120
+strength=120
+defence=120
+param=damagetype,^stab_style
+param=attack_anim,hell_attack
+param=defend_anim,hell_block
+param=death_anim,hell_death
+param=attack_sound,growl6
+param=defend_sound,growl5
+huntmode=aggressive_melee
+huntrange=2
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1224
+
+[khazard_ogre]
+desc=Khazard's strongest ogre warrior.
+maxrange=25
+// TODO respawnrate might be wrong, copying bouncers
+respawnrate=100
+hitpoints=600
+attack=54
+strength=53
+defence=53
+param=attackrate,6
+param=attackbonus,22
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=attack_anim,ogre_attack
+param=defend_anim,ogre_block
+param=death_anim,ogre_death
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
+huntmode=aggressive_melee
+huntrange=2
+// TODO monster examine spell
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1225
+
+[khazard_scorpion]
+desc=A large angry scorpion.
+maxrange=25
+// TODO respawnrate might be wrong, copying bouncers
+respawnrate=100
+hitpoints=400
+attack=40
+strength=39
+defence=34
+param=stabdefence,5
+param=slashdefence,15
+param=crushdefence,15
+param=rangedefence,5
+param=damagetype,^stab_style
+param=attack_anim,scorpion_attack
+param=defend_anim,scorpion_parry
+param=death_anim,scorpion_death
+param=attack_sound,synth_3611
+param=defend_sound,synth_3612
+param=death_sound,synth_3610
+param=death_drop,null
+huntmode=aggressive_melee
+huntrange=2
+// TODO monster examine spell
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1226

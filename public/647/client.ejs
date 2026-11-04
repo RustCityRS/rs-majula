@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RuneScape</title>
+
+    <meta charset="utf-8">
+
+    <style>
+        body,
+        td,
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            color: white;
+        }
+
+        body {
+            margin: 0px 0px;
+            overflow: auto;
+            background-color: black;
+        }
+
+        center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        a {
+            color: #90b8e0;
+        }
+
+        .panel {
+            max-width: 560px;
+            text-align: left;
+            border: 1px solid #382418;
+            padding: 16px 24px;
+            background-color: #101010;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: #c8e0a0;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="panel">
+            <h2>RuneScape &mdash; revision 647 (May 2011)</h2>
+            <p>
+                Revision 647 has no browser port &mdash; it plays through the
+                deobfuscated Java desktop client, which streams the cache from
+                this server over JS5.
+            </p>
+            <p>
+                1. <a href="/client.jar">Download client.jar</a>
+                (requires Java 11+)
+            </p>
+            <p>
+                2. The client fetches its configuration from
+                <code>http://127.0.0.1/jav_config.ws</code>, so this server's
+                HTTP listener must be on port 80:
+            </p>
+            <p><code>cargo run -p rs-server -- --http-port 80</code></p>
+            <p>
+                3. Launch the client (world <%= nodeid %>):
+            </p>
+            <p><code>java -jar client.jar</code></p>
+            <p>
+                Log in with any username and password &mdash; accounts are
+                created on first login.
+            </p>
+        </div>
+    </center>
+</body>
+
+</html>

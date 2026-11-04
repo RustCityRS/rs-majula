@@ -1,0 +1,297 @@
+// 289's bank on 2011's: bank_v2_main (762) and bank_v2_side (763). The bank
+// is com93 of bank_v2_main, showing 289's inventory (inv 95); 2011's client
+// draws it and gives each item Withdraw-1, -5, -10, -<last X> (op4), -X
+// (op5), -All (op6), -All but one (op7) and Examine (op10) (void-634
+// bank.ifaces.toml; 289's ops 1-5 were 1, 5, 10, All, X). 289's two buttons
+// each for notes and for swap/insert are one toggle each at 2011 (com19 and
+// com15). 289's triggers follow, commented, where 2011's replace them.
+[if_button1,bank_v2_main:com93] @bank_withdraw(last_slot, 1);
+[if_button2,bank_v2_main:com93] @bank_withdraw(last_slot, 5);
+[if_button3,bank_v2_main:com93] @bank_withdraw(last_slot, 10);
+// 2011: Withdraw-<the last X> (varp 1249, void-634 last_bank_amount).
+[if_button4,bank_v2_main:com93] @bank_withdraw(last_slot, %last_bank_amount);
+[if_button5,bank_v2_main:com93] @bank_withdraw(last_slot, null);
+[if_button6,bank_v2_main:com93] @bank_withdraw(last_slot, ^max_32bit_int);
+// 2011: Withdraw-All but one (void-634 BankWithdraw).
+[if_button7,bank_v2_main:com93]
+def_int $number = inv_total(bank, inv_getobj(bank, last_slot));
+if ($number > 1) {
+    @bank_withdraw(last_slot, calc($number - 1));
+}
+// 2011's examine is the server's (op10).
+[if_button10,bank_v2_main:com93]
+def_obj $obj = inv_getobj(bank, last_slot);
+if ($obj ! null) {
+    mes(oc_desc($obj));
+}
+[inv_buttond,bank_v2_main:com93]
+// 2011: dropped on a tab's button, the item goes into that tab
+// (bank_tabs.rs2); the buttons are drop targets in the cache.
+def_int $to_tab = ~bank_tab_of_com(last_targetcom);
+if ($to_tab >= 0) {
+    ~bank_drag_to_tab(last_slot, $to_tab);
+    return;
+}
+// 2011's bank keeps no gaps, and its tabs are counted by slot.
+if (inv_getobj(bank, last_targetslot) = null) {
+    return;
+}
+if(%bankinsert = 1) {
+    // 2011: an item inserted into another tab moves to it.
+    ~bank_tab_moved(~bank_slot_tab(last_slot), ~bank_slot_tab(last_targetslot));
+    @insert_bank(last_slot, last_targetslot);
+} else {
+    inv_movetoslot(bank, bank, last_slot, last_targetslot);
+}
+[if_button,bank_v2_main:com19] %bankcert = calc(1 - %bankcert);
+[if_button,bank_v2_main:com15] %bankinsert = calc(1 - %bankinsert);
+[if_close,bank_v2_main] @closebank;
+
+// 2011's deposit buttons under the bank (void-634 bank.ifaces.toml): the
+// backpack (com33), what is worn (com35), a beast of burden's pack (com37).
+// 289's bank has none; each item goes through 289's deposit, so its checks
+// and messages stand. Messages from void-634 (grade B).
+[if_button,bank_v2_main:com33] @bank_deposit_all(inv, "You have no items in your inventory to deposit.");
+[if_button,bank_v2_main:com35] @bank_deposit_all(worn, "You have no equipped items to deposit.");
+// No familiars are ported (summoning, post-289): there is no beast of burden
+// to empty. void-634's own message for this is a placeholder (grade C).
+[if_button,bank_v2_main:com37] mes("You do not have a beast of burden.");
+// 2011: "Show Equipment Stats" (com117) swaps the bank for the Equipment
+// Stats screen (player/scripts/equip.rs2), whose "Show bank" brings it back.
+// Its client hides the bank on the click (clientscript 2318); with no screen
+// sent, 2011's bank stood blank.
+[if_button,bank_v2_main:com117] ~equip_screen_open(true);
+
+[label,bank_deposit_all](inv $inv, string $empty)
+if (inv_freespace($inv) = inv_size($inv)) {
+    mes($empty);
+    return;
+}
+def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
+def_int $slot = 0;
+while ($slot < inv_size($inv)) {
+    def_obj $obj = inv_getobj($inv, $slot);
+    if ($obj ! null) {
+        if (~bank_check_allowed($obj, ^true) = true) {
+            if (~bank_deposit_request($inv, $obj, inv_getnum($inv, $slot), $slot, ^true) = false) {
+                $slot = inv_size($inv);
+            }
+        }
+    }
+    $slot = calc($slot + 1);
+}
+if ($inv = worn) {
+    ~update_all($weapon);
+}
+~bank_spaces_used;
+
+// [inv_button1,bank_main:inv] @bank_withdraw(last_slot, 1);
+// [inv_button2,bank_main:inv] @bank_withdraw(last_slot, 5);
+// [inv_button3,bank_main:inv] @bank_withdraw(last_slot, 10);
+// [inv_button4,bank_main:inv] @bank_withdraw(last_slot, ^max_32bit_int);
+// [inv_button5,bank_main:inv] @bank_withdraw(last_slot, null);
+// [inv_buttond,bank_main:inv]
+// if(%bankinsert = 1) {
+//     @insert_bank(last_slot, last_targetslot);
+// } else {
+//     inv_movetoslot(bank, bank, last_slot, last_targetslot);
+// }
+// [if_button,bank_main:com_94] %bankcert = 0;
+// [if_button,bank_main:com_93] %bankcert = 1;
+// [if_button,bank_main:com_99] %bankinsert = 0;
+// [if_button,bank_main:com_100] %bankinsert = 1;
+// [if_close,bank_main] @closebank;
+
+[label,openbank]
+%bankcert = 0;
+// 2011: the bank opens on a tab, 1 for all of it (varbit 4893, void-634
+// open_bank_tab, default 1); at 0 its client shows a search's results
+// (clientscript 1664). 289's bank has the one view.
+%open_bank_tab = 1;
+// 2011: the bank shows (varbit 8348, void-634 bank_hidden). Its equipment
+// button hides it client-side (clientscript 2318), and nothing set it back,
+// so the bank opened hidden from then on.
+%bank_hidden = 0;
+~reorganize_inv(bank);
+// inv_transmit(inv, bank_side:inv);
+// inv_transmit(bank, bank_main:inv);
+// if_openmain_side(bank_main, bank_side);
+inv_transmit(inv, bank_v2_side:com0);
+inv_transmit(bank, bank_v2_main:com93);
+if_openmain_side(bank_v2_main, bank_v2_side);
+// 2011: the client sends an item's op only for slots the server enables
+// (IF_SETEVENTS; 289's inventories were interactable in their .if). The
+// bank: ops 1-7 and 10, dragged within itself (depth 2, its tabs); the
+// backpack beside it: ops 1-6 and 10 (void-634 BankOpen).
+if_setevents(bank_v2_main:com93, 0, 515, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op7 + ^if_op10), 0, 2, ^true, ^false);
+if_setevents(bank_v2_side:com0, 0, 27, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op10), 0, 0, ^false, ^false);
+// 2011's client lays out the bank's slots (clientscript 1465, void-634
+// update_bank_slots), counted below it, and its search starts unset (varc
+// 190, void-634 bank_search_reset: the Search button's op, clientscript 1472;
+// unset, the title shows a search for 'null').
+~bank_spaces_used;
+runclientscript(1465);
+sendvarc(190, 1);
+
+[label,closebank]
+// inv_stoptransmit(bank_side:inv);
+// inv_stoptransmit(bank_main:inv);
+inv_stoptransmit(bank_v2_side:com0);
+inv_stoptransmit(bank_v2_main:com93);
+queue(reorganize_bank, 0, 0); // confirmed queued
+
+// reorganize the bank like when you open the bank.
+// this is because a player can move objs around in the bank
+// to any slot that is available. so when they open the bank
+// we reorganize all of the slots towards the left of the bank.
+[queue,reorganize_bank]
+~reorganize_inv(bank);
+
+[label,bank_withdraw](int $slot, int $requested_number)
+// Check if the slot was empty.
+def_obj $item = inv_getobj(bank, $slot);
+// How many did they want to withdraw?
+if ($requested_number <= 0) {
+    p_countdialog;
+    if (last_int <= 0) return;
+    $requested_number = last_int;
+    // 2011: the X is remembered for Withdraw-<X> (void-634 BankWithdraw).
+    %last_bank_amount = last_int;
+}
+// How many have they got?
+def_int $number = inv_total(bank, $item);
+// How many should we withdraw?
+if ($requested_number < $number) $number = $requested_number;
+// 2011: the tab it is in, for when it goes whole (bank_tabs.rs2).
+def_int $tab = ~bank_slot_tab($slot);
+// Okay, withdraw it from the bank.
+~bank_withdraw_request(inv, $item, $number, $slot);
+if ($item ! null & inv_getobj(bank, $slot) = null) {
+    ~bank_close_gap($slot);
+    ~bank_tab_decrease($tab);
+}
+// 2011: the counts under the bank.
+~bank_spaces_used;
+
+[proc,bank_withdraw_request](inv $inv, obj $obj, int $amount, int $slot)
+def_obj $cert_or_uncert = oc_uncert($obj);
+if (%bankcert ! 0) {
+    $cert_or_uncert = oc_cert($obj);
+}
+
+if (%bankcert = ^true & oc_cert($obj) = $obj) {
+    mes("This item can not be withdrawn as a note."); // 2005
+}
+
+if (inv_itemspace($inv, $cert_or_uncert, $amount, inv_size($inv)) = false){
+    if (inv_freespace($inv) = 0) {
+        // https://youtu.be/Zv7Wh3TIDOc?t=22
+        mes("You don't have enough inventory space.");
+        return;
+    } else if (oc_stackable($cert_or_uncert) = true) {
+        // https://youtu.be/8vNeG5bHg0Q?t=443
+        mes("You're not going to be able to carry all that!");
+    } else {
+        // https://youtu.be/HnEZFSGbYqM?t=79
+        mes("You don't have enough inventory space to withdraw that many.");
+    }
+}
+
+def_int $overflow = inv_itemspace2($inv, $cert_or_uncert, $amount, inv_size($inv));
+def_int $withdraw = sub($amount, $overflow);
+if ($withdraw > 0) {
+    session_log(^log_moderator, "Withdrew <oc_debugname($obj)> x<tostring($withdraw)> from bank");
+    switch_int (%bankcert) {
+        case 0 : inv_moveitem_uncert(bank, $inv, $obj, $withdraw);
+        case default : inv_moveitem_cert(bank, $inv, $obj, $withdraw);
+    }
+}
+
+[proc,bank_deposit_request](inv $inv, obj $obj, int $amount, int $slot, int $mes)(boolean)
+def_int $overflow = inv_itemspace2(bank, oc_uncert($obj), $amount, ^max_32bit_int);
+if (sub(^max_32bit_int, $amount) < inv_total(bank, oc_uncert($obj))) {
+    if($mes = ^true) mes("You already have a full stack of that item in the bank."); // 2024 osrs
+    return(false);
+}
+if ($overflow >= $amount) {
+    // https://youtu.be/2BgXLZD-xgo?t=28
+    // https://youtu.be/Ep4gaI5ic1s?t=197
+    if($mes = ^true) mes("You don't have enough space in your bank account."); // osrs
+    return(false);
+}
+def_int $deposit = sub($amount, $overflow);
+if ($deposit > 0) {
+    session_log(^log_moderator, "Deposited <oc_debugname($obj)> x<tostring($deposit)> into bank");
+    // 2011: an item new to the bank goes into the tab on view (bank_tabs.rs2).
+    def_boolean $new = false;
+    if (inv_total(bank, oc_uncert($obj)) = 0) {
+        $new = true;
+    }
+    inv_moveitem_uncert($inv, bank, $obj, $deposit);
+    if ($new = true) {
+        ~bank_deposit_to_tab(oc_uncert($obj));
+    }
+    if($inv = worn) {
+        ~unequip_effect($obj);
+    }
+}
+return(true);
+
+[proc,bank_check_allowed](obj $obj, int $send_mes)(boolean)
+if (oc_param($obj, unbankable) = ^true) {
+    if($send_mes = ^true) mes("A magical force prevents you from banking this item!"); // osrs
+    return(false);
+}
+
+// https://www.youtube.com/watch?v=W5iZgykts2A // No mes when creating boxes via actions
+// 2011 has no Strange box random event (only the Maze and the Mime).
+// if ($obj = macro_cube) {
+//     ~try_add_macro_cube;
+//     return(false);
+// }
+
+if (playermember = ^false) {
+    // check for f2p bank limits, use the player's membership status rather than world type
+    if ((inv_total(bank, oc_uncert($obj)) = 0) & (sub(inv_size(bank), inv_freespace(bank)) >= ^bank_free_slots)) {
+        // https://youtu.be/yv-H5-IoRLs?t=9 (2006)
+        // https://web.archive.org/web/20041126073829/http://img39.imageshack.us/img39/3412/firemaking.jpg (2004)
+        mes("You need to subscribe for a members account if you want to");
+        mes("store any more items in the bank.");
+        return(false);
+    }
+}
+return(true);
+
+[label,insert_bank](int $start_slot, int $target_slot)
+def_int $src = $start_slot;
+def_int $dst = $target_slot;
+
+while ($src ! $dst) {
+    if ($src > $dst) {
+        inv_movetoslot(bank, bank, sub($src, 1), $src);
+        $src = sub($src, 1);
+    } else if ($src < $dst) {
+        inv_movetoslot(bank, bank, add($src, 1), $src);
+        $src = add($src, 1);
+    }
+}
+
+// 2011: the bank's slot counts, shown under it: clientscript 1465 reads varc
+// 1038 (the free-to-play items stored) and varc 192 (all of them) (void-634
+// BankTabs).
+[proc,bank_spaces_used]
+def_int $free = 0;
+def_int $used = 0;
+def_int $slot = 0;
+while ($slot < inv_size(bank)) {
+    def_obj $obj = inv_getobj(bank, $slot);
+    if ($obj ! null) {
+        $used = calc($used + 1);
+        if (oc_members($obj) = false) {
+            $free = calc($free + 1);
+        }
+    }
+    $slot = calc($slot + 1);
+}
+sendvarc(1038, $free);
+sendvarc(192, $used);

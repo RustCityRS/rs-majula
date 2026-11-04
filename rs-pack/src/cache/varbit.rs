@@ -12,7 +12,7 @@ pub struct VarbitType {
     pub basevar: u16,
     pub start_bit: u8,
     pub end_bit: u8,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 #[cfg(since_254)]
@@ -40,7 +40,7 @@ impl CacheType for VarbitType {
                     self.end_bit = buf.g1();
                 }
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized varbit config code: {code}"),
+                _ => crate::unknown_opcode!("varbit", code),
             }
         }
     }

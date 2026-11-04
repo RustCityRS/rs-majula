@@ -228,6 +228,7 @@ mod tests {
         assert!(check_password(&form("hunter2", "hunter2", "")).is_err());
     }
 
+    #[cfg(before_647)]
     #[test]
     fn game_word_filter_catches_names() {
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))

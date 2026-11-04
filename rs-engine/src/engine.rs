@@ -55,8 +55,13 @@ use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, 
 use rs_protocol::LoginResponse;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::zone_message::{
+    ZoneMapAnim, ZoneMapProjanim, ZoneObjCount, pack_projanim_coord,
+};
 use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
@@ -69,7 +74,7 @@ use rs_vm::register::OpsRegistry;
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
-use rs_vm::{ScriptError, ops, vm};
+use rs_vm::{ComId, ScriptError, ops, vm};
 use rs_zone::zone_map::ZoneMap;
 use rs_zone::{ZoneEventType, ZoneMessage};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
@@ -148,6 +153,14 @@ pub struct LoginRequest {
     pub uid: Option<i32>,
     pub reconnect: bool,
     pub device: LoginDevice,
+    /// Rev-647 login responses are `[2] + payload(pid)` written by the socket
+    /// task, so the engine reports the assigned pid (or the reject response
+    /// byte) back through this instead of writing raw bytes to the outbox.
+    #[cfg(since_647)]
+    pub pid_tx: tokio::sync::oneshot::Sender<Result<u16, u8>>,
+    /// Client window mode from the login block (0 = fixed, 1 = resizable).
+    #[cfg(since_647)]
+    pub display_mode: u8,
 }
 
 /// Per-tick performance statistics for the game engine cycle.
@@ -642,6 +655,10 @@ pub struct Engine {
     pub new_player_rx: UnboundedReceiver<LoginRequest>,
     pub scripts: ScriptProvider,
     pub cache: &'static CacheStore,
+    /// Rev-647 component lookups (toplevel mounts, dialogue slots) derived
+    /// from interface.pack at pack time.
+    #[cfg(since_647)]
+    pub layout: rs_pack::startup::InterfaceLayout,
     cache_ptr: *mut CacheStore,
     tick_stats_tx: Option<Sender<TickStats>>,
     pub(crate) gather_output: bool,
@@ -749,6 +766,7 @@ impl Engine {
         scripts: ScriptProvider,
         cache: &'static CacheStore,
         cache_ptr: *mut CacheStore,
+        #[cfg(since_647)] layout: rs_pack::startup::InterfaceLayout,
         stats_tx: Sender<TickStats>,
         reload_tx: UnboundedSender<()>,
         node_id: u8,
@@ -757,6 +775,17 @@ impl Engine {
         db_tx: Option<UnboundedSender<DbRequest>>,
         db_rx: UnboundedReceiver<DbResponse>,
     ) -> (Self, watch::Receiver<u64>) {
+        // Rev-647 move clicks carry ONLY the destination tile -- the client has
+        // no waypoint list to hand us (see `handlers/move_click.rs`). Trusting
+        // it would queue that single tile as the whole route and walk the
+        // player straight into the first wall, so the server always pathfinds.
+        // Pre-647 clients do send a full client-side path, which stays trusted.
+        #[cfg(since_647)]
+        let client_pathfinder = {
+            let _ = client_pathfinder;
+            false
+        };
+
         let ops = register_ops();
 
         for &key in &cache.freemap {
@@ -801,6 +830,8 @@ impl Engine {
             scripts,
             cache,
             cache_ptr,
+            #[cfg(since_647)]
+            layout,
             tick_stats_tx: Some(stats_tx),
             gather_output: false,
             reload_tx,
@@ -1074,7 +1105,10 @@ impl Engine {
         self.shutdown_clock = Some(self.clock + duration as u32);
         let clocks = self.reboot_timer_clocks();
         for active in self.player_list.players.iter_mut().flatten() {
+            #[cfg(before_647)]
             active.write(UpdateRebootTimer { clocks });
+            #[cfg(since_647)]
+            active.write(UpdateRebootTimer { ticks: clocks });
         }
         info!(
             "Reboot scheduled in {duration} tick(s) (fires at tick {})",
@@ -1091,7 +1125,10 @@ impl Engine {
         }
         self.shutdown_clock = None;
         for active in self.player_list.players.iter_mut().flatten() {
+            #[cfg(before_647)]
             active.write(UpdateRebootTimer { clocks: 0 });
+            #[cfg(since_647)]
+            active.write(UpdateRebootTimer { ticks: 0 });
         }
         info!("Scheduled reboot cancelled");
         true
@@ -1178,13 +1215,17 @@ impl Engine {
     pub fn script_by_key(
         &self,
         trigger: ServerTriggerType,
-        t: Option<u16>,
+        t: Option<i32>,
         c: Option<i32>,
     ) -> Option<Arc<Script>> {
         let base = trigger as i32;
 
         if let Some(t) = t {
-            let key = base | (0x2 << 8) | ((t as i32) << 10);
+            // Widen through i64 before truncating: rev-647 interface triggers
+            // key by the 32-bit component hash, and the compiler computes the
+            // same wrapped key. For sub-2^21 subjects (all 2004-era ids) this
+            // is bit-identical to the old u16 shift.
+            let key = (((t as i64) << 10) | (0x2 << 8) | base as i64) as i32;
             if let Some(script) = self.scripts.get_by_lookup(key) {
                 return Some(Arc::clone(script));
             }
@@ -1207,10 +1248,10 @@ impl Engine {
     /// fall back to.
     ///
     /// [`script_by_key`]: Self::script_by_key
-    pub fn has_script_for(&self, trigger: ServerTriggerType, t: Option<u16>, c: i32) -> bool {
+    pub fn has_script_for(&self, trigger: ServerTriggerType, t: Option<i32>, c: i32) -> bool {
         let base = trigger as i32;
         let key = match t {
-            Some(t) => base | (0x2 << 8) | ((t as i32) << 10),
+            Some(t) => base | (0x2 << 8) | (t << 10),
             None if c != -1 => base | (0x1 << 8) | (c << 10),
             None => return false,
         };
@@ -1417,7 +1458,7 @@ impl Engine {
     /// **Calls:** `trigger_lookup_key`, `run_script_inner`.
     pub fn run_script_by_trigger(
         &mut self,
-        trigger: (ServerTriggerType, Option<u16>, Option<i32>),
+        trigger: (ServerTriggerType, Option<i32>, Option<i32>),
         subject: Option<ScriptSubject>,
         target: Option<ScriptSubject>,
         protect: Option<bool>,
@@ -2010,9 +2051,17 @@ impl Engine {
         zone.objs[idx].set_last_clock(clock);
 
         let oid = zone.objs[idx].oid();
+        #[cfg(before_647)]
         let message = ZoneMessage::ObjCount(ObjCount {
             coord: obj.packed_zone_coord(),
             id: obj.id(),
+            old_count: old_count.clamp(0, 65535) as u16,
+            new_count: next_count.clamp(0, 65535) as u16,
+        });
+        #[cfg(since_647)]
+        let message = ZoneMessage::ObjCount(ZoneObjCount {
+            coord: obj.packed_zone_coord(),
+            obj_id: obj.id(),
             old_count: old_count.clamp(0, 65535) as u16,
             new_count: next_count.clamp(0, 65535) as u16,
         });
@@ -2559,7 +2608,7 @@ impl Engine {
             .get_by_id(type_id)
             .and_then(|t| t.category)
             .map(|c| c as i32);
-        self.script_by_key(trigger, Some(type_id), category)
+        self.script_by_key(trigger, Some(type_id as i32), category)
     }
 
     /// Queues the NPC's `ai_spawn` script, if it has one. Like the reference
@@ -3041,6 +3090,8 @@ impl Engine {
         pid: u16,
         played: &[rs_db::PlayedSession],
     ) {
+        #[cfg(since_647)]
+        let pid_tx = request.pid_tx;
         let mut active = ActivePlayer::new(
             request.handle,
             pid,
@@ -3071,10 +3122,22 @@ impl Engine {
 
         let uid = active.player.uid;
 
-        #[cfg(since_254)]
+        #[cfg(all(since_254, before_647))]
         let reply = {
             let level = active.staffmodlevel().min(2);
             vec![LoginResponse::SuccessNormal as u8, level, 1]
+        };
+        // Rev-647: seed the 4-pass GPI slot state for the fresh session. The
+        // socket task writes `[2] + payload(pid)` once the pid arrives
+        // (below), so `reply` is only what the watch records.
+        #[cfg(since_647)]
+        let reply = {
+            active.player.window_mode = request.display_mode;
+            active
+                .player
+                .build_area
+                .init_nsn_state(pid, active.player.pathing.coord);
+            vec![LoginResponse::SuccessNormal as u8]
         };
         #[cfg(before_254)]
         let reply = {
@@ -3104,7 +3167,10 @@ impl Engine {
             active.watch.anticheat.schedule = self.schedule(played, request.reconnect);
             active.watch.login(self.clock, &reply);
         }
+        #[cfg(before_647)]
         active.handle.send(reply);
+        #[cfg(since_647)]
+        let _ = pid_tx.send(Ok(pid));
 
         info!(
             "Player '{}' joined at ({},{},{}) (uid={:?}, pid={})",
@@ -3139,7 +3205,10 @@ impl Engine {
         if self.is_pending_shutdown() {
             let clocks = self.reboot_timer_clocks();
             if let Some(active) = self.get_player_mut(pid) {
+                #[cfg(before_647)]
                 active.write(UpdateRebootTimer { clocks });
+                #[cfg(since_647)]
+                active.write(UpdateRebootTimer { ticks: clocks });
             }
         }
 
@@ -3228,6 +3297,7 @@ impl Engine {
     ///
     /// **Called by:** [`try_complete_login`](Engine::try_complete_login)
     /// **Calls:** `EnginePlayer::on_reconnect`
+    #[cfg_attr(since_647, allow(unused_mut))]
     pub(crate) fn adopt_session(&mut self, pid: u16, mut request: LoginRequest) {
         let clock = self.clock;
 
@@ -3240,13 +3310,23 @@ impl Engine {
             // find_pid_by_user37 returned this pid in the same phase, so the
             // slot cannot be empty; guard anyway rather than panic.
             error!("adopt_session: pid {pid} vanished before adoption");
+            #[cfg(before_647)]
             request
                 .handle
                 .send(vec![LoginResponse::CouldNotComplete as u8]);
+            #[cfg(since_647)]
+            let _ = request
+                .pid_tx
+                .send(Err(LoginResponse::CouldNotComplete as u8));
             return;
         };
 
+        #[cfg(before_647)]
         request.handle.send(vec![LoginResponse::Reconnect as u8]);
+        // Rev-647: report the reclaimed pid; the socket task writes the
+        // `[2] + payload` success response and on_reconnect refreshes state.
+        #[cfg(since_647)]
+        let _ = request.pid_tx.send(Ok(pid));
         active
             .watch
             .reconnect(clock, &[LoginResponse::Reconnect as u8]);
@@ -3349,10 +3429,20 @@ impl Engine {
     }
 
     /// [`reject_pending_login`](Engine::reject_pending_login) for a response
-    /// that carries a payload after its code byte.
+    /// that carries a payload after its code byte. From rev 647 the socket
+    /// task writes the response, so only the code goes back to it.
     pub(crate) fn reject_pending_login_with(&mut self, idx: usize, reply: Vec<u8>) {
+        #[cfg(before_647)]
         let mut pending = self.pending_logins.swap_remove(idx);
+        #[cfg(before_647)]
         pending.request.handle.send(reply);
+        #[cfg(since_647)]
+        let pending = self.pending_logins.swap_remove(idx);
+        #[cfg(since_647)]
+        let _ = pending.request.pid_tx.send(Err(reply
+            .first()
+            .copied()
+            .unwrap_or(LoginResponse::CouldNotComplete as u8)));
         if pending.ether_allowed
             && let Some(tx) = &self.ether_tx
         {
@@ -3855,6 +3945,74 @@ impl ScriptEngine for Engine {
             .and_then(|pid| self.player_list.get(pid).map(|p| p.player.uid))
     }
 
+    #[cfg(since_647)]
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj_id: u16, slot: i32) {
+        // Rev-647 has no opheld beyond 5; inventory ops 6-10 are handled inline
+        // by the if_button{op} content, not a per-item opheld trigger.
+        let trigger = match op {
+            1 => ServerTriggerType::OpHeld1,
+            2 => ServerTriggerType::OpHeld2,
+            3 => ServerTriggerType::OpHeld3,
+            4 => ServerTriggerType::OpHeld4,
+            5 => ServerTriggerType::OpHeld5,
+            _ => return,
+        };
+        let category = self
+            .cache
+            .objs
+            .get_by_id(obj_id)
+            .and_then(|o| o.category)
+            .map(|c| c as i32)
+            .unwrap_or(-1);
+        // Bind the held-item context the opheld script reads (last_item/last_slot).
+        // A caller on a modal (the stats screen's backpack) already holds
+        // protected access: its handler ran it protected. The item's op runs
+        // within that access, as it does from the backpack tab, whose caller
+        // took it with p_finduid; skipped as "busy" otherwise.
+        let held = match self.player_list.get_mut(uid.pid()) {
+            Some(active) => {
+                active.player.last_item = obj_id as i32;
+                active.player.last_slot = slot;
+                active.player.state.protect
+            }
+            None => false,
+        };
+        if let Err(e) = self.run_script_by_trigger(
+            (trigger, Some(obj_id as i32), Some(category)),
+            Some(ScriptSubject::Player(uid)),
+            None,
+            Some(true),
+            Some(held),
+            None,
+        ) && !matches!(e, ScriptError::TriggerNotFound(_))
+        {
+            tracing::warn!(error = %e, op, obj_id, "[P_OPHELD] opheld script error");
+        }
+        // The nested run clears the flag it found set; the caller still holds it.
+        if held && let Some(active) = self.player_list.get_mut(uid.pid()) {
+            active.player.state.protect = true;
+        }
+    }
+
+    #[cfg(since_647)]
+    fn request_set_display_name(&mut self, uid: PlayerUid, name: String) {
+        if let Some(tx) = &self.db_tx {
+            let _ = tx.send(DbRequest::SetDisplayName {
+                user37: uid.username37(),
+                display_name: name,
+            });
+        }
+    }
+
+    #[cfg(since_647)]
+    fn request_more_suggestions(&mut self, uid: PlayerUid) {
+        if let Some(tx) = &self.db_tx {
+            let _ = tx.send(DbRequest::MoreSuggestions {
+                user37: uid.username37(),
+            });
+        }
+    }
+
     /// Appends every NPC in the zone containing `coord` to `out`.
     ///
     /// Iterates the zone's NPC slot list and resolves each to an `NpcRef`
@@ -4257,6 +4415,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::merge_loc`, `Engine::track_zone`
+    #[cfg(before_647)]
     fn merge_loc(
         &mut self,
         coord: CoordGrid,
@@ -4300,6 +4459,32 @@ impl ScriptEngine for Engine {
             self.zones.zone_mut(x, y, z).merge_loc(idx, message);
             self.track_zone(x, y, z);
         }
+    }
+
+    /// Rev 647: does nothing, because 647 has no way to merge a loc into a
+    /// player model. 225/289 send LOC_MERGE, and the client keeps the merged loc on the player and
+    /// splices it into the player's model while drawing. The 647 client
+    /// has none of that: `PlayerEntity` holds no loc model and builds its
+    /// model from appearance alone, no server prot carries the merge, and
+    /// `ZoneProt` ends at 14 -- a sub-prot 15 inside an enclosed zone update
+    /// indexes past `ZoneProt.toSerialArray()` and throws mid-packet.
+    /// `void-634` has no merge either. So `p_locmerge` does nothing here,
+    /// and the obstacle plays as the exact move it travels with.
+    #[cfg(since_647)]
+    fn merge_loc(
+        &mut self,
+        _coord: CoordGrid,
+        _shape: LocShape,
+        _angle: LocAngle,
+        _id: u16,
+        _start: u16,
+        _end: u16,
+        _pid: u16,
+        _south: u16,
+        _east: u16,
+        _north: u16,
+        _west: u16,
+    ) {
     }
 
     /// Removes the loc `loc` names, if it is still in the world.
@@ -4359,11 +4544,16 @@ impl ScriptEngine for Engine {
         peak: u8,
         arc: u8,
     ) {
+        #[cfg(before_647)]
         let coord = CoordGrid::packed_zone_coord(x, z);
+        // 647 packs this one coord byte differently (`pack_projanim_coord`).
+        #[cfg(since_647)]
+        let coord = pack_projanim_coord((x & 7) as u8, (z & 7) as u8);
         let dx = (dst_x as i32 - x as i32) as i8;
         let dz = (dst_z as i32 - z as i32) as i8;
         #[cfg(before_254)]
         let (src_height, dst_height) = (src_height << 2, dst_height << 2);
+        #[cfg(before_647)]
         let message = ZoneMessage::MapProjAnim(
             rs_protocol::network::game::server::map_projanim::MapProjAnim {
                 coord,
@@ -4379,6 +4569,22 @@ impl ScriptEngine for Engine {
                 arc,
             },
         );
+        // Rev-647 MAP_PROJANIM: peak is the client's angle and arc its
+        // distance offset, which 647 widened to two bytes (`AClass17`).
+        #[cfg(since_647)]
+        let message = ZoneMessage::MapProjanim(ZoneMapProjanim {
+            coord,
+            dst_dx: dx,
+            dst_dz: dz,
+            target_uid: target,
+            spotanim_id: id,
+            src_height,
+            dst_height,
+            start_delay: start,
+            end_delay: end,
+            angle: peak,
+            distance_offset: arc as u16,
+        });
         self.zones.zone_mut(x, y, z).map_proj_anim(message);
         self.track_zone(x, y, z);
     }
@@ -4391,7 +4597,16 @@ impl ScriptEngine for Engine {
     /// **Calls:** `Zone::anim_map`, `Engine::track_zone`
     fn anim_map(&mut self, y: u8, x: u16, z: u16, spotanim: u16, height: u8, delay: u16) {
         let coord = CoordGrid::packed_zone_coord(x, z);
+        #[cfg(before_647)]
         let message = ZoneMessage::MapAnim(rs_protocol::network::game::server::map_anim::MapAnim {
+            coord,
+            spotanim,
+            height,
+            delay,
+        });
+        // Rev-647 MAP_ANIM zone message carries the identical fields.
+        #[cfg(since_647)]
+        let message = ZoneMessage::MapAnim(ZoneMapAnim {
             coord,
             spotanim,
             height,
@@ -4412,7 +4627,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::sound_area`, `Engine::track_zone`
-    #[cfg(since_289)]
+    #[cfg(all(since_289, before_647))]
     fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8, delay: u8) {
         let coord = CoordGrid::packed_zone_coord(x, z);
         let info = ((range & 0xF) << 4) | (loops & 0x7);
@@ -4425,6 +4640,22 @@ impl ScriptEngine for Engine {
             });
         self.zones.zone_mut(x, y, z).sound_area(message);
         self.track_zone(x, y, z);
+    }
+
+    /// TODO(647): port with the zone milestone — rev-647 SOUND_AREA is a
+    /// distinct zone sub-prot (`zone_prot::SOUND_AREA`) not yet modelled as a
+    /// `ZoneMessage` variant.
+    #[cfg(since_647)]
+    fn sound_area(
+        &mut self,
+        _y: u8,
+        _x: u16,
+        _z: u16,
+        _sound: u16,
+        _range: u8,
+        _loops: u8,
+        _delay: u8,
+    ) {
     }
 
     /// Checks whether adding a location at the given coordinate is unsafe, i.e.
@@ -4723,6 +4954,13 @@ impl ScriptPlayer for ActivePlayer {
         self.player.uid
     }
 
+    /// The name the player is drawn with (the appearance block): the
+    /// display name they claimed, else their login name as 289 shows it.
+    #[cfg(since_647)]
+    fn display_name(&self) -> String {
+        self.player.shown_name()
+    }
+
     /// Returns the player's current coordinate as a packed `u32`.
     ///
     /// # Call Stack
@@ -4739,8 +4977,20 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
+    #[cfg(before_647)]
     fn last_com(&self) -> i32 {
         self.player.last_com.map(|v| v as i32).unwrap_or(-1)
+    }
+
+    /// Returns the 32-bit component hash of the last interface button clicked,
+    /// or `-1` if none.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    #[cfg(since_647)]
+    fn last_com(&self) -> i32 {
+        self.player.last_com
     }
 
     /// Returns the inventory slot index from the last interaction, or `-1` if none.
@@ -4749,8 +4999,15 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
+    #[cfg(before_647)]
     fn last_slot(&self) -> i32 {
         self.player.last_slot.map(|v| v as i32).unwrap_or(-1)
+    }
+
+    /// Rev-647: slot carried by the IfButton1-10 packet; -1 = none.
+    #[cfg(since_647)]
+    fn last_slot(&self) -> i32 {
+        self.player.last_slot
     }
 
     /// Returns the use-slot index from an item-on-X interaction, or `-1` if none.
@@ -4773,14 +5030,31 @@ impl ScriptPlayer for ActivePlayer {
         self.player.last_target_slot.map(|v| v as i32).unwrap_or(-1)
     }
 
+    /// Returns the component the last drag ended on, or `-1` if none.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    #[cfg(since_647)]
+    fn last_targetcom(&self) -> i32 {
+        self.player.last_target_com.unwrap_or(-1)
+    }
+
     /// Returns the item type ID from the last interaction, or `-1` if none.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
+    #[cfg(before_647)]
     fn last_item(&self) -> i32 {
         self.player.last_item.map(|v| v as i32).unwrap_or(-1)
+    }
+
+    /// Rev-647: obj id carried by the IfButton1-10 packet; -1 = none.
+    #[cfg(since_647)]
+    fn last_item(&self) -> i32 {
+        self.player.last_item
     }
 
     /// Returns the use-item type ID from an item-on-X interaction, or `-1` if none.
@@ -5084,7 +5358,7 @@ impl ScriptPlayer for ActivePlayer {
         }
         self.change_stat(stat);
         if let Some(script) =
-            engine().script_by_key(ServerTriggerType::AdvanceStat, Some(stat as u16), None)
+            engine().script_by_key(ServerTriggerType::AdvanceStat, Some(stat as i32), None)
         {
             let _ = self
                 .player
@@ -5202,7 +5476,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `engine().trigger_lookup_key`, `QueueSet::add`
     fn change_stat(&mut self, stat: usize) {
         if let Some(script) =
-            engine().script_by_key(ServerTriggerType::ChangeStat, Some(stat as u16), None)
+            engine().script_by_key(ServerTriggerType::ChangeStat, Some(stat as i32), None)
         {
             let _ = self
                 .player
@@ -5230,6 +5504,17 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `ActivePlayer::damage`
     fn damage(&mut self, amount: u8, damage_type: u8) {
         self.damage(amount, damage_type);
+    }
+
+    /// Paints a 647 hitsplat.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::hit`
+    #[cfg(since_647)]
+    fn hit(&mut self, amount: u16, hitmark: u8, healthbar: u8) {
+        self.hit(amount, hitmark, healthbar);
     }
 
     /// Finds the player with the most hero points on this entity.
@@ -5408,6 +5693,143 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `ActivePlayer::message_game`
     fn mes(&mut self, msg: &str) {
         self.message_game(msg);
+    }
+
+    #[cfg(since_647)]
+    fn window_mode(&self) -> u8 {
+        self.player.window_mode
+    }
+
+    #[cfg(since_647)]
+    fn if_opentop(&mut self, com: u16) {
+        self.if_open_top(com);
+    }
+
+    #[cfg(since_647)]
+    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32, walkable: u8) {
+        self.if_open_sub(sub_id, parent_hash, walkable);
+    }
+
+    #[cfg(since_647)]
+    fn if_closesub(&mut self, component_hash: i32) {
+        self.if_close_sub(component_hash);
+    }
+
+    #[cfg(since_647)]
+    fn if_movesub(&mut self, from: i32, to: i32) {
+        self.if_move_sub(from, to);
+    }
+
+    #[cfg(since_647)]
+    fn if_setevents(&mut self, component_hash: i32, from_slot: i32, to_slot: i32, settings: i32) {
+        self.if_set_events(component_hash, from_slot, to_slot, settings);
+    }
+
+    #[cfg(since_647)]
+    fn sendvarc(&mut self, id: u16, value: i32) {
+        self.varc_transmit(id, value);
+    }
+
+    #[cfg(since_647)]
+    fn sendvarc_str(&mut self, id: u16, value: &str) {
+        self.varc_str_transmit(id, value);
+    }
+
+    #[cfg(since_647)]
+    fn runclientscript(&mut self, script_id: i32) {
+        self.run_client_script(script_id);
+    }
+
+    #[cfg(since_647)]
+    fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
+        self.run_client_script_with_params(script_id, args);
+    }
+
+    /// Applies the character-design preview varcs (1008-1019) to the player's
+    /// body kit and colours. `sendvarc` mirrors each design varc server-side;
+    /// this reads them back and commits the design, the rev-647 replacement
+    /// for the 2004-era IdkSaveDesign packet (the 647 client never sends one).
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait (`applydesign`)
+    /// **Calls:** `setidkit`, writes `self.player.colours`
+    #[cfg(since_647)]
+    fn applydesign(&mut self) {
+        let varc = |id: u16| -> i32 { self.player.varcs.get(&id).copied().unwrap_or(0) };
+
+        let hair = varc(1008);
+        let beard = varc(1009);
+        let top = varc(1010);
+        let arms = varc(1011);
+        let hands = varc(1012);
+        let legs = varc(1013);
+        let feet = varc(1014);
+
+        let c_hair = varc(1015) as u8;
+        let c_top = varc(1016) as u8;
+        let c_legs = varc(1017) as u8;
+        let c_feet = varc(1018) as u8;
+        let c_skin = varc(1019) as u8;
+
+        let female = self.player.gender == 1;
+        let mut apply = |id: i32, colour: u8| {
+            if id < 0 {
+                return;
+            }
+            if let Some(idk) = engine().cache.idks.get_by_id(id as u16) {
+                self.setidkit(idk.body_type as u8, id as u16, colour);
+            }
+        };
+
+        apply(hair, c_hair);
+        apply(beard, c_hair);
+        apply(top, c_top);
+        if arms >= 0 {
+            apply(arms, c_top);
+        } else {
+            let default_arms = if female { 61 } else { 26 };
+            apply(default_arms, c_top);
+        }
+        if hands >= 0 {
+            apply(hands, c_top);
+        } else {
+            let default_hands = if female { 68 } else { 34 };
+            apply(default_hands, c_top);
+        }
+        apply(legs, c_legs);
+        apply(feet, c_feet);
+
+        self.player.colours[0] = c_hair;
+        self.player.colours[1] = c_top;
+        self.player.colours[2] = c_legs;
+        self.player.colours[3] = c_feet;
+        self.player.colours[4] = c_skin;
+    }
+
+    #[cfg(since_647)]
+    fn name_suggestions(&self) -> &[String] {
+        &self.player.name_suggestions
+    }
+
+    #[cfg(since_647)]
+    fn suggestion_page(&self) -> usize {
+        self.player.name_suggestion_page
+    }
+
+    #[cfg(since_647)]
+    fn next_suggestion_page(&mut self) {
+        let max_page = self.player.name_suggestions.len().saturating_sub(1) / 3;
+        if self.player.name_suggestion_page < max_page {
+            self.player.name_suggestion_page += 1;
+        }
+    }
+
+    #[cfg(since_647)]
+    fn prev_suggestion_page(&mut self) {
+        if self.player.name_suggestion_page > 0 {
+            self.player.name_suggestion_page -= 1;
+        }
     }
 
     /// Sends a game message to the player's chatbox with automatic line wrapping.
@@ -5757,7 +6179,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setanim`
-    fn if_setanim(&mut self, com: u16, seq: u16) {
+    fn if_setanim(&mut self, com: i32, seq: u16) {
         self.if_setanim(com, seq);
     }
 
@@ -5767,7 +6189,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setcolour`
-    fn if_setcolour(&mut self, com: u16, colour: u16) {
+    fn if_setcolour(&mut self, com: i32, colour: u16) {
         self.if_setcolour(com, colour);
     }
 
@@ -5777,7 +6199,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_sethide`
-    fn if_sethide(&mut self, com: u16, hide: bool) {
+    fn if_sethide(&mut self, com: i32, hide: bool) {
         self.if_sethide(com, hide);
     }
 
@@ -5787,7 +6209,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setmodel`
-    fn if_setmodel(&mut self, com: u16, model: u16) {
+    fn if_setmodel(&mut self, com: i32, model: u16) {
         self.if_setmodel(com, model);
     }
 
@@ -5797,7 +6219,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setnpchead`
-    fn if_setnpchead(&mut self, com: u16, npc: u16) {
+    fn if_setnpchead(&mut self, com: i32, npc: u16) {
         self.if_setnpchead(com, npc);
     }
 
@@ -5807,7 +6229,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setobject`
-    fn if_setobject(&mut self, com: u16, obj: u16, zoom: u16) {
+    fn if_setobject(&mut self, com: i32, obj: u16, zoom: u16) {
         self.if_setobject(com, obj, zoom);
     }
 
@@ -5817,7 +6239,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setplayerhead`
-    fn if_setplayerhead(&mut self, com: u16) {
+    fn if_setplayerhead(&mut self, com: i32) {
         self.if_setplayerhead(com);
     }
 
@@ -5827,13 +6249,13 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setposition`
-    fn if_setposition(&mut self, com: u16, x: u16, y: u16) {
+    fn if_setposition(&mut self, com: i32, x: u16, y: u16) {
         self.if_setposition(com, x, y);
     }
 
     /// Sets the scrollbar position on an interface component.
     #[cfg(since_245_2)]
-    fn if_setscrollpos(&mut self, com: u16, y: u16) {
+    fn if_setscrollpos(&mut self, com: i32, y: u16) {
         self.if_setscrollpos(com, y);
     }
 
@@ -5904,7 +6326,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_settext`
-    fn if_settext(&mut self, com: u16, text: &str) {
+    fn if_settext(&mut self, com: i32, text: &str) {
         if text.contains("\\n") && text.contains('@') {
             self.if_settext(com, &preserve_settext_colors(text));
         } else {
@@ -6330,7 +6752,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `FxHashMap::entry`
-    fn add_inv_transmit(&mut self, inv_id: u16, com: u16) {
+    fn add_inv_transmit(&mut self, inv_id: u16, com: ComId) {
         self.player
             .inv_transmits
             .entry(inv_id)
@@ -6348,7 +6770,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** iterates `self.player.inv_transmits`
-    fn has_inv_transmit(&self, com: u16) -> Option<u16> {
+    fn has_inv_transmit(&self, com: ComId) -> Option<u16> {
         self.player
             .inv_transmits
             .iter()
@@ -6366,7 +6788,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `EnginePlayer::clear_inv_transmits`, `ActivePlayer::update_inv_stop_transmit`
-    fn clear_inv_transmits(&mut self, com: u16) {
+    fn clear_inv_transmits(&mut self, com: ComId) {
         self.player.clear_inv_transmits(com);
         self.update_inv_stop_transmit(com);
     }
@@ -6377,7 +6799,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait (`INVOTHER_TRANSMIT`)
     /// **Calls:** `HashMap::insert`
-    fn add_inv_other_transmit(&mut self, com: u16, inv_id: u16, uid: i32) {
+    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: u16, uid: i32) {
         self.player.inv_other_transmits.insert(com, (uid, inv_id));
     }
 
@@ -6387,7 +6809,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait (`INVOTHER_TRANSMIT`)
     /// **Calls:** `HashMap::get`
-    fn has_inv_other_transmit(&self, com: u16) -> Option<(i32, u16)> {
+    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, u16)> {
         self.player.inv_other_transmits.get(&com).copied()
     }
 
@@ -6504,7 +6926,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.interaction.target_subject_com`
-    fn set_interaction_spell(&mut self, com: u16) {
+    fn set_interaction_spell(&mut self, com: ComId) {
         self.player.interaction.target_subject_com = Some(com);
     }
 
@@ -6785,7 +7207,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `ActiveNpc::damage`
-    fn damage(&mut self, amount: u8, damage_type: u8) {
+    fn damage(&mut self, amount: u16, damage_type: u8) {
         self.damage(amount, damage_type);
     }
 

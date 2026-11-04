@@ -7,7 +7,7 @@ pub struct SeqType {
     pub id: u16,
     pub duration: u32,
     pub priority: u8,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl SeqType {
@@ -46,7 +46,7 @@ pub struct SeqTypeRaw {
     #[cfg(since_244)]
     pub duplicatebehaviour: Option<u8>,
     pub duration: u32,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for SeqTypeRaw {
@@ -118,7 +118,7 @@ impl CacheType for SeqTypeRaw {
                 #[cfg(since_244)]
                 11 => self.duplicatebehaviour = Some(buf.g1()),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized seq config code: {code}"),
+                _ => crate::unknown_opcode!("seq", code),
             }
         }
     }

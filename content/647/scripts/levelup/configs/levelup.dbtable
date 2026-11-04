@@ -1,0 +1,15 @@
+[levelup]
+column=stat,stat,INDEXED,REQUIRED
+column=interface,interface
+column=title,component
+column=body,component
+column=message,string
+column=level_prefix,string
+column=levelup_jingle,midi
+column=unlocks_jingle,midi
+column=unlocks_levels,enum
+// 2011: the box's first line (title holds the component), the stat's bit of
+// %skill_stat_flash and its index in 2011's skill menu.
+column=title_text,string
+column=flash_bit,int
+column=icon,int

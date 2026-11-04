@@ -73,12 +73,23 @@ impl Engine {
         };
 
         active.player.reorient(pathing_face);
+        #[cfg(since_647)]
+        active.player.sync_move_types();
         active.rebuild_normal(false);
         if active.player.info.masks & PlayerInfoProt::Appearance as u16 != 0 {
             active.generateappearance(self.clock);
         }
+        #[cfg(before_647)]
         self.player_renderer
             .compute_info(active.player.uid.pid() as usize, &active.player.info);
+        // Rev-647: the FaceCoord block carries a precomputed angle, derived
+        // from the player's current tile at encode time.
+        #[cfg(since_647)]
+        self.player_renderer.compute_info(
+            active.player.uid.pid() as usize,
+            &active.player.info,
+            active.player.pathing.coord,
+        );
 
         // Snapshot exactly the fields `PlayerInfo::write_players` branches on.
         // Movement/visibility are finalized before the info phase and unchanged

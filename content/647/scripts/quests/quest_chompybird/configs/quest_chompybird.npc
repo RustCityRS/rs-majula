@@ -1,0 +1,42 @@
+[rantz]
+desc=A large dim looking humanoid.
+wanderrange=2
+param=damagetype,^crush_style
+param=death_anim,ogre_death
+param=death_sound,giant_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1470
+
+[fycie]
+desc=This must be Rantz's daughter.
+wanderrange=3
+param=damagetype,^crush_style
+param=death_anim,ogre_death
+param=death_sound,giant_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1471
+
+[bugs]
+desc=This must be Rantz's son.
+wanderrange=3
+param=damagetype,^crush_style
+param=death_anim,ogre_death
+param=death_sound,giant_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1472
+
+[swamp_toad]
+desc=A green skinned croaker, loves the swamp.
+timer=30
+
+[bloated_toad]
+desc=A green skinned croaker.
+wanderrange=0
+moverestrict=nomove
+
+// 289's chompy_bird (1015, the live one; 2011's 1015 is not a chompy) matched 2011's `chompy_bird` by name only; 2011's
+// `chompy_bird` is the same-id npc below, so 289's section waits for its
+// 2011 counterpart.
+
+[chompy_bird]
+desc=A once boisterous bird, closer to being an ogre delicacy.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove

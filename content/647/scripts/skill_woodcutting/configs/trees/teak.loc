@@ -1,0 +1,41 @@
+[teak]
+desc=A beautiful, old teak tree.
+model1=10,8902
+name=Teak
+occlude=yes
+op1=Chop down
+op3=hidden
+hillskew_t2=42
+cursor1=0,59
+msi_id=1
+category=tree
+param=next_loc_stage,tree_stump_9037
+param=wc_levelreq,35
+param=wc_xp,850
+param=wc_product,teak_logs
+param=wc_chance_low,16
+param=wc_chance_high,50
+param=wc_respawn,30
+
+[mahogany]
+desc=A beautiful, old mahogany tree.
+model1=10,8900
+name=Mahogany
+width=3
+length=3
+occlude=yes
+op1=Chop down
+op3=hidden
+recol1s=3470
+recol1d=8070
+hillskew_t2=64
+cursor1=0,59
+msi_id=1
+category=tree
+param=next_loc_stage,tree_stump_9035
+param=wc_levelreq,50
+param=wc_xp,1250
+param=wc_product,mahogany_logs
+param=wc_chance_low,8
+param=wc_chance_high,25
+param=wc_respawn,120

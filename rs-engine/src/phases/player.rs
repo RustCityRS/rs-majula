@@ -807,7 +807,7 @@ impl Engine {
     fn get_trigger(
         active: *mut ActivePlayer,
         offset: u8,
-    ) -> Option<(ServerTriggerType, Option<u16>, Option<i32>)> {
+    ) -> Option<(ServerTriggerType, Option<i32>, Option<i32>)> {
         let active = unsafe { &mut *active };
         let target = active.player.interaction.target.as_ref()?;
         let base = active
@@ -839,8 +839,13 @@ impl Engine {
                 // loc's own (type, then category).
                 if let Some(shown) = active.shown_loc(*id).filter(|s| s != id).and_then(loc) {
                     let com = active.player.interaction.target_subject_com;
-                    let script =
-                        |t: u16| engine().has_script_for(trigger, Some(com.unwrap_or(t)), -1);
+                    // A 647 component is already the `i32` hash scripts are
+                    // keyed on.
+                    #[cfg(before_647)]
+                    let com = com.map(i32::from);
+                    let script = |t: u16| {
+                        engine().has_script_for(trigger, Some(com.unwrap_or(i32::from(t))), -1)
+                    };
                     let category = |c| engine().has_script_for(trigger, None, c);
                     let base = chosen.is_some_and(|(t, _)| script(t));
                     if script(shown.0) || (!base && category(shown.1)) {
@@ -865,14 +870,13 @@ impl Engine {
         }
 
         if let Some(com) = active.player.interaction.target_subject_com {
-            type_id = com as i32;
+            // A 647 component is already the `i32` hash scripts are keyed on.
+            #[cfg(before_647)]
+            let com = com as i32;
+            type_id = com;
         }
 
-        let t = if type_id >= 0 {
-            Some(type_id as u16)
-        } else {
-            None
-        };
+        let t = if type_id >= 0 { Some(type_id) } else { None };
         let c = if category_id >= 0 {
             Some(category_id)
         } else {
@@ -976,6 +980,18 @@ impl Engine {
             .as_ref()
             .is_some_and(|t| t.is_pathing_entity());
         let in_op = Self::in_operable_distance(active);
+        // Why an interaction did or did not run is invisible from outside: a
+        // loc op that is refused here looks exactly like content with no
+        // handler -- no message, no error, nothing on the wire. This was an
+        // unconditional `info!` for objs only; at debug level it covers every
+        // target kind without shouting, which is what you want the first time a
+        // "the bot just stands there" report comes in.
+        tracing::debug!(
+            target: "interact",
+            "{:?}: has_op={has_op} has_ap={has_ap} is_pathing={is_pathing} \
+             in_op={in_op} allow_op_scenery={allow_op_scenery}",
+            active.player.interaction.target
+        );
 
         if has_op && (is_pathing || allow_op_scenery) && in_op {
             if Self::drop_unheld_use(active) {
@@ -1183,10 +1199,25 @@ impl Engine {
             active.player.pathing.move_speed = MoveSpeed::Walk;
         }
 
+        // 2004-era: running needs a script-set runanim (the appearance has no
+        // movement anims); temp-run upgrades a walk.
+        #[cfg(before_647)]
         if active.player.info.runanim.is_none() {
             active.player.pathing.move_speed = MoveSpeed::Walk;
         } else if active.player.temprun {
             active.player.pathing.move_speed = MoveSpeed::Run;
+        }
+
+        // Rev-647: movement anims come from the appearance render anim, and
+        // temp-run *toggles* the persistent run mode rather than upgrading it
+        // (`should_run = run XOR temprun` in the reference server).
+        #[cfg(since_647)]
+        {
+            active.player.pathing.move_speed = if active.player.run != active.player.temprun {
+                MoveSpeed::Run
+            } else {
+                MoveSpeed::Walk
+            };
         }
 
         let members = engine().members;
@@ -1195,6 +1226,10 @@ impl Engine {
             &mut active.player.info,
             FocusKind::Player,
         );
+
+        // Rev-647: the speed the client plays this step at is settled in the
+        // info phase (`Player::sync_move_types`), once run energy and every
+        // teleport for the tick have had their say.
 
         if !steps_taken {
             active.player.temprun = false;

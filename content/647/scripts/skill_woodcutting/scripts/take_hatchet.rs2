@@ -1,0 +1,42 @@
+// Take a free bronze axe from the pile of logs at the chicken farm by the
+// Lumbridge cow field (local 2011 wiki: "pick one up at the chicken farm by the
+// Lumbridge cow field"). The loc `fai_lumbridge_log_withaxe` (36974) shows a
+// hatchet; taking it swaps to the empty pile `fai_lumbridge_log_withoutaxe`
+// (36975) and reverts after a respawn delay — the same loc_change(stage,
+// respawn) mechanic our trees use to deplete to a stump and grow back. Global
+// (shared) respawn, like all RS ground spawns.
+//
+// Both locs are already in the map landscape at (3232, 3296); this was just
+// missing its [oploc1] handler. Symbol names from ref/rs3/config/dump.loc.
+//
+// Faithful to OSRS (captured via rsprox): the interaction always plays synth
+// `take_axe` (647 synth 2733); if you already own any axe you get the plain
+// mesbox "You already have an axe."; otherwise the bronze axe is added and shown
+// in an objbox. Sound 2733 verified from a live OSRS sound_synth packet.
+
+[oploc1,fai_lumbridge_log_withaxe]
+if (~has_axe = true) {
+    ~mesbox("You already have a hatchet.");
+    return;
+}
+if (inv_freespace(inv) < 1) {
+    ~mesbox("You don't have enough inventory space to take the hatchet.");
+    return;
+}
+inv_add(inv, bronze_hatchet, 1);
+loc_change(fai_lumbridge_log_withoutaxe, 100);
+sound_synth(take_axe, 1, 0);
+~objbox(bronze_hatchet, "You take a bronze hatchet from the logs.", 400, 0, 0);
+
+// Returns true if the player already owns any axe (worn weapon slot or inv).
+// Mirrors OSRS's "you already have an axe" gate; obj names are the 647 `_hatchet`
+// family (rs-majula uses the `_axe` aliases).
+[proc,has_axe]()(boolean)
+def_obj $worn = inv_getobj(worn, ^weapon_slot);
+if ($worn = bronze_hatchet | $worn = iron_hatchet | $worn = steel_hatchet | $worn = black_hatchet | $worn = mithril_hatchet | $worn = adamant_hatchet | $worn = rune_hatchet | $worn = dragon_hatchet) {
+    return(true);
+}
+if (inv_total(inv, bronze_hatchet) > 0 | inv_total(inv, iron_hatchet) > 0 | inv_total(inv, steel_hatchet) > 0 | inv_total(inv, black_hatchet) > 0 | inv_total(inv, mithril_hatchet) > 0 | inv_total(inv, adamant_hatchet) > 0 | inv_total(inv, rune_hatchet) > 0 | inv_total(inv, dragon_hatchet) > 0) {
+    return(true);
+}
+return(false);

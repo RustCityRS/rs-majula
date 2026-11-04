@@ -1,0 +1,105 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[lucien]
+desc=He walks with a slight limp.
+respawnrate=52
+hitpoints=170
+attack=12
+strength=11
+defence=10
+param=attackbonus,5
+param=strengthbonus,4
+param=stabdefence,6
+param=slashdefence,8
+param=crushdefence,7
+param=magicdefence,-1
+param=rangedefence,4
+param=damagetype,^stab_style
+param=attack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_stab
+// animations is guess.
+// osrs stats and Vislvl match 1:1
+// https://oldschool.runescape.wiki/w/Lucien#Attackable_(disguised)
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_13607
+
+[ikov_lucien1]
+desc=He walks with a slight limp.
+
+[guardian_of_armadyl]
+desc=A guard who has devoted their life to Armadyl.
+blockwalk=all
+respawnrate=100
+hitpoints=500
+attack=37
+strength=37
+defence=37
+param=attackrate,5
+param=attackbonus,14
+param=strengthbonus,16
+param=stabdefence,43
+param=slashdefence,55
+param=crushdefence,50
+param=magicdefence,-12
+param=rangedefence,51
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_slash
+param=defend_sound,steel2
+category=guardian_of_armadyl
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3445
+
+[ikov_guardianfemale]
+desc=A guard who has devoted their life to Armadyl.
+blockwalk=all
+respawnrate=100
+hitpoints=400
+attack=37
+strength=37
+defence=37
+param=attackrate,5
+param=attackbonus,14
+param=strengthbonus,16
+param=stabdefence,43
+param=slashdefence,55
+param=crushdefence,50
+param=magicdefence,-12
+param=rangedefence,51
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_slash
+param=defend_sound,steel2
+category=guardian_of_armadyl
+// this npc havent female_death sound...
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3446
+
+[winelda]
+desc=A witch.
+
+[fire_warrior_of_lesarkus]
+desc=Intimidating!
+wanderrange=2
+maxrange=4
+attackrange=6
+blockwalk=all
+hitpoints=590
+attack=78
+strength=78
+defence=78
+magic=62
+param=attackbonus,-12
+param=stabdefence,34
+param=slashdefence,37
+param=crushdefence,35
+param=magicdefence,-7
+param=rangedefence,35
+param=damagetype,^crush_style
+param=defend_anim,null
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3448

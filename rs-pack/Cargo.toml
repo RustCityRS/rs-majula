@@ -5,6 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 authors.workspace = true
 license.workspace = true
+default-run = "rs-pack"
 
 [lib]
 path = "src/lib.rs"
@@ -16,6 +17,7 @@ path = "src/main.rs"
 [dependencies]
 rs-io = { workspace = true }
 rs-runec = { workspace = true }
+rs-dat2 = { workspace = true }
 
 clap = { workspace = true }
 anyhow = { workspace = true }
@@ -28,9 +30,21 @@ rustc-hash = { workspace = true }
 zip = { workspace = true }
 png = { workspace = true }
 serde_json = { workspace = true }
+serde = { workspace = true }
+image = { version = "0.25", default-features = false, features = ["png"] }
+zune-jpeg = "0.4"
+zune-core = "0.4"
+rayon = "1"
+rs-crypto = "0.2"
+ureq = { workspace = true }
 
 [build-dependencies]
 rs-ver = { workspace = true }
+
+[dev-dependencies]
+# Tests walk every revision listed in REVS, not only the one REV selects.
+rs-ver = { workspace = true }
+rs-runec = { workspace = true }
 
 [lints]
 workspace = true

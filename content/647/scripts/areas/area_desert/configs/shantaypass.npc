@@ -1,0 +1,63 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[irena]
+desc=A resident of Al-Kharid.
+wanderrange=2
+
+[shantay]
+desc=He's in control of the Shantay Pass.
+wanderrange=3
+param=owned_shop,shantayshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,700
+param=shop_delta,10
+param=shop_title,Shantay Pass Shop
+
+[shantay_guard]
+desc=He patrols the Shantay Pass.
+wanderrange=3
+maxrange=5
+respawnrate=100
+hitpoints=320
+attack=17
+strength=16
+defence=16
+magic=0
+ranged=0
+param=attackbonus,11
+param=strengthbonus,12
+param=stabdefence,12
+param=slashdefence,15
+param=crushdefence,18
+param=magicdefence,6
+param=rangedefence,15
+param=damagetype,^stab_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_slash
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4643
+
+[shantay_guard_still]
+desc=He patrols the Shantay Pass.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+respawnrate=100
+hitpoints=320
+attack=17
+strength=16
+defence=16
+magic=0
+ranged=0
+param=attackbonus,11
+param=strengthbonus,12
+param=stabdefence,12
+param=slashdefence,15
+param=crushdefence,18
+param=magicdefence,6
+param=rangedefence,15
+param=damagetype,^stab_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_slash
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4648

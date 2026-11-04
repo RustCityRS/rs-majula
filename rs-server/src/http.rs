@@ -1,11 +1,16 @@
+#[cfg(before_647)]
+use crate::REVISION;
 use crate::device;
 use crate::socket::handshake;
-use crate::{ConnectionGuard, REVISION, ServerIO, SharedCache, Socket};
+use crate::{ConnectionGuard, ServerIO, SharedCache, Socket};
 use rs_db::LoginDevice;
+#[cfg(before_647)]
 use rs_pack::cache::CacheStore;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
+#[cfg(before_647)]
 use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
+#[cfg(before_647)]
 use std::sync::{Arc, LazyLock};
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
@@ -35,10 +40,13 @@ fn ws_config() -> WebSocketConfig {
 pub(crate) enum Body {
     Empty,
     Owned(Vec<u8>),
+    // Rev-647 serves no shared cache blobs over HTTP — only jav_config.ws.
+    #[cfg(before_647)]
     Shared(Arc<[u8]>),
 }
 
 impl Body {
+    #[cfg(before_647)]
     fn len(&self) -> usize {
         match self {
             Body::Empty => 0,
@@ -51,6 +59,7 @@ impl Body {
         match self {
             Body::Empty => &[],
             Body::Owned(v) => v,
+            #[cfg(before_647)]
             Body::Shared(a) => a,
         }
     }
@@ -311,6 +320,10 @@ async fn handle_connection(
     }
 }
 
+/// The rev-647 desktop client bootstraps from `/jav_config.ws` and fetches the
+/// cache over JS5 — the jag-era cache/CRC endpoints don't exist in that era.
+#[cfg(since_647)]
+const JAV_CONFIG: &[u8] = include_bytes!("../../public/647/jav_config.ws");
 /// Peeks at the request until its head ends or fills `buf`: the bytes read.
 /// A peek before more arrives returns the same bytes at once, so it waits.
 async fn peek_head(stream: &TcpStream, buf: &mut [u8]) -> std::io::Result<usize> {
@@ -443,17 +456,47 @@ async fn route(
     jaggrab_only: bool,
     site_origin: Option<&'static str>,
 ) -> (&'static str, String, Body) {
+    // A 647 world serves only its client config and jar here.
+    #[cfg(since_647)]
+    let _ = (query, nodeid, members, cache, jaggrab_only, site_origin);
     // Test hook: refusing cache downloads over HTTP makes a stock desktop
     // client toggle its archive loader onto the JAGGRAB fallback.
+    #[cfg(before_647)]
     if jaggrab_only && matches_cache(path) {
         return not_found();
     }
     match path {
+        #[cfg(since_647)]
+        "/jav_config.ws" => (
+            "200 OK",
+            format!(
+                "Content-Type: text/plain; charset=ISO-8859-1\r\nContent-Length: {}\r\n",
+                JAV_CONFIG.len()
+            ),
+            Body::Owned(JAV_CONFIG.to_vec()),
+        ),
+        // The deob-647 Java desktop client, downloadable from the launcher
+        // page. Read from disk per request — it is a 2.4 MB LFS artifact,
+        // too heavy to embed in the binary like jav_config.
+        #[cfg(since_647)]
+        "/client.jar" => match tokio::fs::read("public/647/client.jar").await {
+            Ok(bytes) => {
+                let len = bytes.len();
+                (
+                    "200 OK",
+                    format!("Content-Type: application/java-archive\r\nContent-Length: {len}\r\n"),
+                    Body::Owned(bytes),
+                )
+            }
+            Err(_) => not_found(),
+        },
+        #[cfg(before_647)]
         "/" => (
             "302 Found",
             "Location: /rs2.cgi?lowmem=0&plugin=0\r\nContent-Length: 0\r\n".into(),
             Body::Empty,
         ),
+        #[cfg(before_647)]
         "/rs2.cgi" => {
             let params = parse_query(query);
             // Only ever echoed as parsed numbers: they end up in a redirect
@@ -486,6 +529,7 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        #[cfg(before_647)]
         "/worldmap" => {
             let bytes = render_worldmap(cache.read(|cache| asset_version(cache, "/mapview.js")))
                 .into_bytes();
@@ -499,6 +543,7 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        #[cfg(before_647)]
         "/uid" => {
             let bytes = render_uid(site_origin).into_bytes();
             let len = bytes.len();
@@ -511,6 +556,7 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        #[cfg(before_647)]
         "/livemap" => {
             let bytes = render_livemap(cache.read(|cache| asset_version(cache, "/mapview.js")))
                 .into_bytes();
@@ -523,9 +569,13 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        #[cfg(before_647)]
         "/livemap.js" => LIVEMAP_SCRIPT.serve(query),
+        #[cfg(before_647)]
         "/device.js" => DEVICE_SCRIPT.serve(query),
+        #[cfg(before_647)]
         "/gpu.js" => GPU_SCRIPT.serve(query),
+        #[cfg(before_647)]
         "/replay" => {
             let bytes = render_replay(nodeid, members, cache.read(client_version)).into_bytes();
             let len = bytes.len();
@@ -537,7 +587,9 @@ async fn route(
                 Body::Owned(bytes),
             )
         }
+        #[cfg(before_647)]
         "/replay.js" => REPLAY_SCRIPT.serve(query),
+        #[cfg(before_647)]
         p if matches_cache(p) => match cache.read(|cache| read_cache(p, cache)) {
             Some(body) => {
                 let len = body.len();
@@ -549,6 +601,7 @@ async fn route(
             }
             None => bad_request(),
         },
+        #[cfg(before_647)]
         p if is_asset(p) => match cache.read(|cache| read_asset(p, cache)) {
             Some((content_type, body)) => {
                 let len = body.len();
@@ -564,6 +617,7 @@ async fn route(
     }
 }
 
+#[cfg(before_647)]
 fn matches_cache(path: &str) -> bool {
     [
         "/title",
@@ -587,6 +641,7 @@ fn matches_cache(path: &str) -> bool {
     .any(|p| path.starts_with(p))
 }
 
+#[cfg(before_647)]
 pub(crate) fn read_cache(path: &str, cache: &CacheStore) -> Option<Body> {
     if path.starts_with("/crc") {
         return Some(Body::Shared(Arc::clone(&cache.crctable_bytes)));
@@ -633,6 +688,7 @@ pub(crate) fn read_cache(path: &str, cache: &CacheStore) -> Option<Body> {
     cache.jags.get(key).map(|arc| Body::Shared(Arc::clone(arc)))
 }
 
+#[cfg(before_647)]
 fn is_asset(path: &str) -> bool {
     path.ends_with(".js")
         || path.ends_with(".wasm")
@@ -642,6 +698,9 @@ fn is_asset(path: &str) -> bool {
         || path.ends_with(".mid")
 }
 
+// The jag-era web client's pages and assets; a 647 world serves only
+// jav_config.ws and the client jar.
+#[cfg(before_647)]
 fn read_asset(path: &str, cache: &CacheStore) -> Option<(&'static str, Body)> {
     if path.ends_with(".mid") {
         let filename = path.split('/').next_back().unwrap_or(path);
@@ -675,6 +734,7 @@ fn read_asset(path: &str, cache: &CacheStore) -> Option<(&'static str, Body)> {
     None
 }
 
+#[cfg(before_647)]
 /// Fills in this revision's client page. Every value is a number or a bool,
 /// so no request text reaches the page's JavaScript.
 ///
@@ -697,6 +757,7 @@ fn render_client(nodeid: &str, lowmem: bool, members: bool, version: Option<u32>
     }
 }
 
+#[cfg(before_647)]
 /// A script of the world's own pages, which name it with its CRC: asked for
 /// by that, it's kept for good, as it changes only with the world.
 struct Script {
@@ -704,6 +765,7 @@ struct Script {
     version: String,
 }
 
+#[cfg(before_647)]
 impl Script {
     fn new(source: &str) -> Self {
         let body: Arc<[u8]> = source.as_bytes().into();
@@ -734,9 +796,11 @@ impl Script {
     }
 }
 
+#[cfg(before_647)]
 /// Plays a recorded session in this revision's client, for the staff console.
 static REPLAY_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("replay.js")));
 
+#[cfg(before_647)]
 /// The replay page: this revision's client, with replay.js loaded first to
 /// stand in for the world.
 fn render_replay(nodeid: &str, members: bool, version: Option<u32>) -> String {
@@ -772,6 +836,7 @@ window.__replay.start(new Client({nodeid}, 0, {members}));
     )
 }
 
+#[cfg(before_647)]
 /// The page the website's account recovery form frames to learn the id this
 /// world's web client gave the browser (kept in its localStorage, as the
 /// client framed on the website's play page sees it). It tells only the
@@ -789,6 +854,7 @@ fn render_uid(site_origin: Option<&str>) -> String {
     )
 }
 
+#[cfg(before_647)]
 /// The world map viewer for this revision's `worldmap.jag`, framed by the
 /// website's world map page. `mapview.js` is shared by every revision.
 fn render_worldmap(version: Option<u32>) -> String {
@@ -813,19 +879,23 @@ new MapView();
     )
 }
 
+#[cfg(before_647)]
 /// Draws the players the staff console sends over the world map.
 static LIVEMAP_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("livemap.js")));
 
+#[cfg(before_647)]
 /// Measures the device and keeps the browser's id for the client page (see
 /// device.js), with this deploy's key and names. Only the game's own page
 /// loads it: replays play without it.
 static DEVICE_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(&device::setup().source));
 
+#[cfg(before_647)]
 /// GPU scaling options for the game's page: WebGPU draws the client's frames
 /// again, scaled by a shader, over its canvas. Only the game's own page loads
 /// it.
 static GPU_SCRIPT: LazyLock<Script> = LazyLock::new(|| Script::new(include_str!("gpu.js")));
 
+#[cfg(before_647)]
 /// The world map viewer with livemap.js drawing players over it, for the
 /// staff console's live map. Sized to the frame it loads in.
 fn render_livemap(version: Option<u32>) -> String {
@@ -860,6 +930,7 @@ window.__livemap.start(new MapView());
     )
 }
 
+#[cfg(before_647)]
 /// The client page's framing rule: only this host and the website (which
 /// frames it on its play page) may show it, so no other site can wrap the
 /// game in its own page. Without a website origin, framing is left open (a
@@ -870,11 +941,13 @@ fn frame_ancestors(site_origin: Option<&str>) -> String {
     })
 }
 
+#[cfg(before_647)]
 /// The CRC of the client.js this world serves, `None` if it has none.
 fn client_version(cache: &CacheStore) -> Option<u32> {
     asset_version(cache, &format!("/{REVISION}/client.js"))
 }
 
+#[cfg(before_647)]
 /// The CRC of a static asset, `None` if this world doesn't have it.
 fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
     let data = cache.static_assets.get(path)?;
@@ -882,6 +955,7 @@ fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
 }
 
 /// A numeric query parameter; missing or non-numeric reads as 0.
+#[cfg(before_647)]
 fn query_number(params: &HashMap<String, String>, key: &str) -> u8 {
     params.get(key).and_then(|v| v.parse().ok()).unwrap_or(0)
 }
@@ -898,6 +972,7 @@ fn not_found() -> (&'static str, String, Body) {
     ("404 Not Found", "Content-Length: 0\r\n".into(), Body::Empty)
 }
 
+#[cfg(before_647)]
 fn parse_query(query: &str) -> HashMap<String, String> {
     query
         .split('&')
@@ -919,6 +994,7 @@ mod tests {
     use super::*;
     use rs_db::DeviceCheck;
 
+    #[cfg(before_647)]
     #[test]
     fn scripts_are_kept_only_when_named_by_their_crc() {
         let page = render_replay("10", true, None);
@@ -930,6 +1006,7 @@ mod tests {
         assert!(cache("v=00000000").contains("no-cache"));
     }
 
+    #[cfg(before_647)]
     #[test]
     fn client_page_fills_every_marker() {
         let html = render_client("10", true, false, None);
@@ -937,6 +1014,7 @@ mod tests {
         assert!(!html.contains("{{"));
     }
 
+    #[cfg(before_647)]
     #[test]
     fn client_page_measures_the_device_before_the_client_loads() {
         assert!(!device::setup().source.contains("__DEVICE_"));
@@ -986,6 +1064,7 @@ mod tests {
         assert!(same(None, "w1.rustcity.org"));
     }
 
+    #[cfg(before_647)]
     #[test]
     fn client_page_framing_names_the_website() {
         assert_eq!(
@@ -995,6 +1074,7 @@ mod tests {
         assert_eq!(frame_ancestors(None), "");
     }
 
+    #[cfg(before_647)]
     #[test]
     fn client_page_versions_its_client_js() {
         let html = render_client("10", true, false, Some(0xab12));
@@ -1002,6 +1082,7 @@ mod tests {
         assert!(!render_client("10", true, false, None).contains("client.js?v="));
     }
 
+    #[cfg(before_647)]
     #[test]
     fn query_numbers_never_echo_text() {
         let params = parse_query("plugin=3&lowmem=0);alert(document.cookie);(0");

@@ -1,3 +1,7 @@
+//! The jag-era client packets (225 to 289). Rev 647's decoders are bounds-
+//! checked in `wire_647_inbound.rs`.
+#![cfg(before_647)]
+
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
 use rs_protocol::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;

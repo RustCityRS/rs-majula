@@ -1,0 +1,126 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[fat_tony]
+desc=A pizza expert; in both making and eating.
+wanderrange=3
+category=shop_keeper
+param=owned_shop,pizzabaseshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,30
+param=shop_title,Tony's Pizza Bases
+moverestrict=indoors
+
+[noterazzo]
+desc=The lawless shopkeeper.
+wanderrange=3
+category=shop_keeper
+param=owned_shop,taxfree
+param=shop_sell_multiplier,900
+param=shop_buy_multiplier,600
+param=shop_delta,30
+param=shop_title,Bandit Duty Free
+moverestrict=indoors
+
+[black_heather]
+desc=Has a fearsome scowl. Moreso, after being told to smile once in a while.
+respawnrate=100
+hitpoints=370
+attack=32
+strength=26
+defence=27
+param=attackbonus,9
+param=strengthbonus,9
+param=stabdefence,9
+param=slashdefence,8
+param=crushdefence,10
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+category=bandit_camp_leader
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_301
+// this npc havent female_hit or female_death sound...
+
+[donny_the_lad]
+desc=Has a fearsome posture, and a fearsome pair of weapons!
+respawnrate=100
+hitpoints=370
+attack=32
+strength=26
+defence=27
+param=attackbonus,9
+param=strengthbonus,9
+param=stabdefence,9
+param=slashdefence,8
+param=crushdefence,10
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+category=bandit_camp_leader
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_302
+
+[speedy_keith]
+desc=Refuses to accept his hairstyle has gone out of fashion.
+respawnrate=100
+hitpoints=370
+attack=32
+strength=26
+defence=27
+param=attackbonus,9
+param=strengthbonus,9
+param=stabdefence,9
+param=slashdefence,8
+param=crushdefence,10
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+category=bandit_camp_leader
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_303
+
+[bandit]
+desc=A wilderness outlaw.
+hitpoints=270
+attack=17
+strength=17
+defence=17
+param=attackbonus,11
+param=strengthbonus,12
+param=slashdefence,3
+param=crushdefence,2
+param=damagetype,^stab_style
+param=attack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_stab
+huntmode=cowardly
+huntrange=6
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1026
+
+[guard_bandit]
+desc=A wilderness outlaw.
+hitpoints=270
+attack=17
+strength=17
+defence=17
+param=attackbonus,11
+param=strengthbonus,12
+param=stabdefence,4
+param=slashdefence,8
+param=crushdefence,5
+param=magicdefence,1
+param=rangedefence,4
+param=damagetype,^stab_style
+param=attack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=attack_sound,stabsword_stab
+param=defend_sound,brassclash
+huntmode=ranged
+huntrange=1
+attackrange=1
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1027

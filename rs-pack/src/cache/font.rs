@@ -299,6 +299,14 @@ fn decode_draw_width(jag: &JagFile, font: Font) -> [u8; 256] {
 
 pub struct FontTypeProvider {
     pub fonts: Vec<FontType>,
+    /// Cache-group id -> index into `fonts`.
+    ///
+    /// Before 647 a script's font id *is* the [`Font`] ordinal, so this stays
+    /// empty and lookups index `fonts` directly. From 647 the compiler resolves
+    /// a font name through `fontmetrics.pack`, which yields the font's **cache
+    /// group id** (`p12_full` = 495), and that has nothing to do with the
+    /// ordinal -- so the id has to be mapped rather than indexed.
+    pub id_index: std::collections::HashMap<u16, usize>,
 }
 
 impl FontTypeProvider {
@@ -311,7 +319,15 @@ impl FontTypeProvider {
                 draw_width: decode_draw_width(&jag, font_id),
             })
             .collect();
-        FontTypeProvider { fonts }
+        FontTypeProvider::from_slots(fonts)
+    }
+
+    /// Ordinal-indexed slots only; script font ids are assumed to be ordinals.
+    pub fn from_slots(fonts: Vec<FontType>) -> FontTypeProvider {
+        FontTypeProvider {
+            fonts,
+            id_index: std::collections::HashMap::new(),
+        }
     }
 
     pub fn get(&self, id: Font) -> Option<&FontType> {
@@ -319,6 +335,12 @@ impl FontTypeProvider {
     }
 
     pub fn get_by_id(&self, id: u16) -> Option<&FontType> {
+        // An id map, once populated, is authoritative: falling back to the
+        // ordinal would silently hand back the wrong font for any cache id that
+        // happens to be small.
+        if !self.id_index.is_empty() {
+            return self.id_index.get(&id).and_then(|&i| self.fonts.get(i));
+        }
         self.fonts.get(id as usize)
     }
 

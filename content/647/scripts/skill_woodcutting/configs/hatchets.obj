@@ -1,0 +1,263 @@
+[bronze_hatchet]
+cost=16
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+iop2=Wield
+wearpos=righthand
+manwear=model_510
+womanwear=model_510
+stockmarket=yes
+recol1s=61
+recol1d=5652
+name=Bronze hatchet
+womanwearoff=3,-11,6
+certlink=cert_bronze_axe
+paramint=param_686,2
+paramint=param_1397,1
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_bronze_hatchet
+desc=A woodcutter's hatchet.
+
+[iron_hatchet]
+cost=56
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+iop2=Wield
+wearpos=righthand
+manwear=model_510
+womanwear=model_510
+stockmarket=yes
+recol1s=61
+recol1d=33
+name=Iron hatchet
+womanwearoff=3,-11,6
+certlink=cert_iron_axe
+paramint=param_686,2
+paramint=param_1397,1
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_iron_hatchet
+desc=A woodcutter's hatchet.
+
+[steel_hatchet]
+cost=200
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+iop2=Wield
+wearpos=righthand
+manwear=model_510
+womanwear=model_510
+stockmarket=yes
+name=Steel hatchet
+womanwearoff=3,-11,6
+certlink=cert_steel_axe
+paramint=param_686,2
+paramint=param_749,0
+paramint=param_750,5
+paramint=param_770,8
+paramint=param_771,6
+paramint=param_1397,1
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_steel_hatchet
+desc=A woodcutter's hatchet.
+
+[black_hatchet]
+model=2544
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+manwear=model_510
+womanwear=model_510
+cost=384
+iop2=Wield
+wearpos=righthand
+stockmarket=yes
+recol1s=61
+recol1d=0
+name=Black hatchet
+womanwearoff=3,-11,6
+certlink=cert_black_axe
+paramint=param_686,2
+paramint=param_749,0
+paramint=param_750,10
+paramint=param_770,8
+paramint=param_771,6
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_black_hatchet
+desc=A sinister looking hatchet.
+
+[mithril_hatchet]
+cost=520
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+iop2=Wield
+wearpos=righthand
+manwear=model_510
+womanwear=model_510
+stockmarket=yes
+recol1s=61
+recol1d=43297
+name=Mithril hatchet
+womanwearoff=3,-11,6
+certlink=cert_mithril_axe
+paramint=param_686,2
+paramint=param_749,0
+paramint=param_750,20
+paramint=param_770,8
+paramint=param_771,21
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_mithril_hatchet
+desc=A powerful hatchet.
+
+[adamant_hatchet]
+cost=1280
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+iop2=Wield
+wearpos=righthand
+manwear=model_510
+womanwear=model_510
+stockmarket=yes
+recol1s=61
+recol1d=21662
+name=Adamant hatchet
+womanwearoff=3,-11,6
+certlink=cert_adamant_axe
+paramint=param_686,2
+paramint=param_749,0
+paramint=param_750,30
+paramint=param_770,8
+paramint=param_771,31
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_adamant_hatchet
+desc=A powerful hatchet.
+
+[rune_hatchet]
+model=model_2544
+2dxof=-15
+2dzoom=1060
+2dyan=1196
+2dxan=520
+iop2=Wield
+wearpos=righthand
+manwear=model_510
+womanwear=model_510
+cost=12800
+stockmarket=yes
+recol1s=61
+recol1d=36133
+name=Rune hatchet
+womanwearoff=3,-11,6
+certlink=cert_rune_axe
+lentlink=rune_hatchet_13469
+paramint=param_686,2
+paramint=param_749,0
+paramint=param_750,40
+paramint=param_770,8
+paramint=param_771,41
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_rune_hatchet
+desc=A powerful hatchet.
+
+[dragon_hatchet]
+model=model_9959
+manwear=model_9957
+womanwear=model_9957
+iop2=Wield
+wearpos=righthand
+cost=55000
+2dxof=-6
+2dyof=6
+2dzoom=1450
+2dyan=1288
+2dxan=520
+members=yes
+stockmarket=yes
+name=Dragon hatchet
+womanwearoff=3,-11,6
+certlink=dragon_hatchet_6740
+lentlink=dragon_hatchet_13470
+paramint=param_686,2
+paramint=param_687,1
+paramint=param_749,0
+paramint=param_750,60
+paramint=param_770,8
+paramint=param_771,61
+icursor1=1,51
+cursor1=2,45
+param=woodcutting_anim,human_woodcutting_dragon_hatchet
+desc=A very powerful hatchet.
+
+[cert_bronze_axe]
+certlink=bronze_hatchet
+certtemplate=template_for_cert
+desc=A woodcutter's hatchet.
+
+[cert_iron_axe]
+certlink=iron_hatchet
+certtemplate=template_for_cert
+desc=A woodcutter's hatchet.
+
+[cert_steel_axe]
+certlink=steel_hatchet
+certtemplate=template_for_cert
+desc=A woodcutter's hatchet.
+
+[cert_black_axe]
+certlink=black_hatchet
+certtemplate=template_for_cert
+desc=A sinister looking hatchet.
+
+[cert_mithril_axe]
+certlink=mithril_hatchet
+certtemplate=template_for_cert
+desc=A powerful hatchet.
+
+[cert_adamant_axe]
+certlink=adamant_hatchet
+certtemplate=template_for_cert
+desc=A powerful hatchet.
+
+[cert_rune_axe]
+certlink=rune_hatchet
+certtemplate=template_for_cert
+desc=A powerful hatchet.
+
+[rune_hatchet_13469]
+lentlink=rune_hatchet
+lenttemplate=obj_13009
+desc=A powerful hatchet.
+
+[dragon_hatchet_6740]
+certlink=dragon_hatchet
+certtemplate=template_for_cert
+desc=A very powerful hatchet.
+
+[dragon_hatchet_13470]
+lentlink=dragon_hatchet
+lenttemplate=obj_13009
+desc=A very powerful hatchet.
+

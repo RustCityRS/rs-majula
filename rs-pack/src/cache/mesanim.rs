@@ -6,7 +6,7 @@ pub type MesAnimTypeProvider = TypeProvider<MesAnimType>;
 pub struct MesAnimType {
     pub id: u16,
     pub len: [Option<u16>; 4],
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for MesAnimType {
@@ -27,7 +27,7 @@ impl CacheType for MesAnimType {
                 0 => break,
                 1..=4 => self.len[code as usize - 1] = Some(buf.g2()),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized mesanim config code: {code}"),
+                _ => crate::unknown_opcode!("mesanim", code),
             }
         }
     }

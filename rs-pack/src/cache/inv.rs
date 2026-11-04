@@ -17,7 +17,7 @@ pub struct InvType {
     pub protect: bool,
     pub runweight: bool,
     pub dummyinv: bool,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for InvType {
@@ -69,7 +69,7 @@ impl CacheType for InvType {
                 8 => self.runweight = true,
                 9 => self.dummyinv = true,
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized inv config code: {code}"),
+                _ => crate::unknown_opcode!("inv", code),
             }
         }
     }

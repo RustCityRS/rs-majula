@@ -1,0 +1,173 @@
+[kittens_mew]
+desc=Can I hear kittens?
+wanderrange=0
+members=yes
+moverestrict=nomove
+blockwalk=all
+timer=25
+
+[gertrudescat]
+desc=A friendly feline?
+members=yes
+param=attack_anim,cat_attack
+param=death_anim,cat_death
+
+[lostkitten]
+desc=It looks lost.
+param=death_anim,cat_death
+
+[kitten]
+desc=A friendly little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,pet_kitten
+param=cat_next_id,cat
+blockwalk=none
+
+[kittenpet_light]
+desc=A friendly little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,kittenobject_light
+param=cat_next_id,growncat_light
+blockwalk=none
+
+[kittenpet_brown]
+desc=A friendly little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,kittenobject_brown
+param=cat_next_id,growncat_brown
+blockwalk=none
+
+[kittenpet_black]
+desc=A friendly little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,kittenobject_black
+param=cat_next_id,growncat_black
+blockwalk=none
+
+[kittenpet_browngrey]
+desc=A friendly little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,kittenobject_browngrey
+param=cat_next_id,growncat_browngrey
+blockwalk=none
+
+[kittenpet_bluegrey]
+desc=A friendly little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,kittenobject_bluegrey
+param=cat_next_id,growncat_bluegrey
+blockwalk=none
+
+[cat]
+desc=A fully grown feline.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,pet_cat
+param=cat_next_id,overgrown_cat
+blockwalk=none
+
+[growncat_light]
+desc=A fully grown feline.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,growncatobject_light
+param=cat_next_id,overgrowncat_light
+blockwalk=none
+
+[growncat_brown]
+desc=A fully grown feline.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,growncatobject_brown
+param=cat_next_id,overgrowncat_brown
+blockwalk=none
+
+[growncat_black]
+desc=A fully grown feline.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,growncatobject_black
+param=cat_next_id,overgrowncat_black
+blockwalk=none
+
+[growncat_browngrey]
+desc=A fully grown feline.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,growncatobject_browngrey
+param=cat_next_id,overgrowncat_browngrey
+blockwalk=none
+
+[growncat_bluegrey]
+desc=A fully grown feline.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,growncatobject_bluegrey
+param=cat_next_id,overgrowncat_bluegrey
+blockwalk=none
+
+[overgrown_cat]
+desc=A friendly not-so little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,overgrowncatobject
+blockwalk=none
+
+[overgrowncat_light]
+desc=A friendly not-so little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,overgrowncatobject_light
+blockwalk=none
+
+[overgrowncat_brown]
+desc=A friendly not-so little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,overgrowncatobject_brown
+blockwalk=none
+
+[overgrowncat_black]
+desc=A friendly not-so little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,overgrowncatobject_black
+blockwalk=none
+
+[overgrowncat_browngrey]
+desc=A friendly not-so little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,overgrowncatobject_browngrey
+blockwalk=none
+
+[overgrowncat_bluegrey]
+desc=A friendly not-so little pet.
+param=death_anim,cat_death
+category=petcat
+timer=1
+param=pet_item_id,overgrowncatobject_bluegrey
+blockwalk=none

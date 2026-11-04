@@ -1,0 +1,32 @@
+// From 289's viking_peer.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,clear_peer_trial_items]
+inv_del(inv, viking_pointless_magnet, ^max_32bit_int);
+inv_del(inv, viking_pointless_thread, ^max_32bit_int);
+inv_del(inv, pick, ^max_32bit_int);
+inv_del(inv, ship_toy, ^max_32bit_int);
+inv_del(inv, full_bucket, ^max_32bit_int);
+inv_del(inv, 4_5ths_full_bucket, ^max_32bit_int);
+inv_del(inv, 3_5ths_full_bucket, ^max_32bit_int);
+inv_del(inv, 2_5ths_full_bucket, ^max_32bit_int);
+inv_del(inv, 1_5ths_full_bucket, ^max_32bit_int);
+inv_del(inv, empty_bucket, ^max_32bit_int);
+inv_del(inv, frozen_bucket, ^max_32bit_int);
+inv_del(inv, full_jug, ^max_32bit_int);
+inv_del(inv, 2_3rds_full_jug, ^max_32bit_int);
+inv_del(inv, 1_3rds_full_jug, ^max_32bit_int);
+inv_del(inv, empty_jug, ^max_32bit_int);
+inv_del(inv, frozen_jug, ^max_32bit_int);
+inv_del(inv, viking_airtight_vase, ^max_32bit_int);
+inv_del(inv, vase_of_water, ^max_32bit_int);
+inv_del(inv, frozen_vase, ^max_32bit_int);
+inv_del(inv, vase_lid, ^max_32bit_int);
+inv_del(inv, sealed_vase, ^max_32bit_int);
+inv_del(inv, viking_airtight_vase_with_lid_frozen, ^max_32bit_int);
+inv_del(inv, viking_airtight_vase_with_lid_water, ^max_32bit_int);
+inv_del(inv, frozen_key, ^max_32bit_int);
+inv_del(inv, red_herring, ^max_32bit_int);
+inv_del(inv, red_disk, ^max_32bit_int);
+inv_del(inv, wooden_disk, ^max_32bit_int);
+inv_del(inv, seer_s_key, ^max_32bit_int);
+inv_del(inv, sticky_red_goop, ^max_32bit_int);

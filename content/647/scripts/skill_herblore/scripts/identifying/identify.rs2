@@ -1,0 +1,73 @@
+[opheld1,grimy_guam]
+~attempt_identify_herb(clean_guam, last_slot());
+
+[opheld1,grimy_marrentill]
+~attempt_identify_herb(clean_marrentill, last_slot());
+
+[opheld1,grimy_tarromin]
+~attempt_identify_herb(clean_tarromin, last_slot());
+
+[opheld1,grimy_harralander]
+~attempt_identify_herb(clean_harralander, last_slot());
+
+[opheld1,grimy_ranarr]
+~attempt_identify_herb(clean_ranarr, last_slot());
+
+[opheld1,grimy_irit]
+~attempt_identify_herb(clean_irit, last_slot());
+
+[opheld1,grimy_avantoe]
+~attempt_identify_herb(clean_avantoe, last_slot());
+
+[opheld1,grimy_kwuarm]
+~attempt_identify_herb(clean_kwuarm, last_slot());
+
+[opheld1,grimy_cadantine]
+~attempt_identify_herb(clean_cadantine, last_slot());
+
+[opheld1,grimy_lantadyme]
+~attempt_identify_herb(clean_lantadyme, last_slot());
+
+[opheld1,grimy_dwarf_weed]
+~attempt_identify_herb(clean_dwarf_weed, last_slot());
+
+[opheld1,grimy_torstol]
+~attempt_identify_herb(clean_torstol, last_slot());
+
+[opheld1,grimy_snake_weed]
+~attempt_identify_herb(clean_snake_weed, last_slot());
+
+[opheld1,grimy_ardrigal]
+~attempt_identify_herb(clean_ardrigal, last_slot());
+
+[opheld1,grimy_sito_foil]
+~attempt_identify_herb(clean_sito_foil, last_slot());
+
+[opheld1,grimy_volencia_moss]
+~attempt_identify_herb(clean_volencia_moss, last_slot());
+
+[opheld1,grimy_rogue_s_purse]
+~attempt_identify_herb(clean_rogue_s_purse, last_slot());
+
+[opheld1,grimy_toadflax]
+~attempt_identify_herb(clean_toadflax, last_slot());
+
+[opheld1,grimy_snapdragon]
+~attempt_identify_herb(clean_snapdragon, last_slot());
+
+/** Attempt to identify herb and identify if able. **/
+[proc,attempt_identify_herb](namedobj $identified_herb, int $slot)
+if (map_members = ^false) {
+    mes(^mes_members_herblore);
+    return;
+}
+
+// early osrs had no druidic ritual check. This is how level 2 herblore accounts were possible
+def_int $current_level = stat(herblore);
+def_int $herb_level = oc_param($identified_herb, identified_herb_level);
+if ($current_level < $herb_level) {
+    mes("You cannot identify this herb."); // https://youtu.be/_CEkzXSdnh4?t=86
+    mes("You need a higher Herblore level.");
+    return;
+}
+~identify_herb($identified_herb, $slot);

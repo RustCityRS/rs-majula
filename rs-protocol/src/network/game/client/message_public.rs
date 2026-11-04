@@ -6,6 +6,7 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 // Minimum covers colour + effect.
+#[cfg(before_647)]
 #[client_prot(VarByte { min: 2 }, UserEvent)]
 pub struct MessagePublic {
     pub colour: u8,
@@ -13,6 +14,7 @@ pub struct MessagePublic {
     pub bytes: Vec<u8>,
 }
 
+#[cfg(before_647)]
 impl ClientProtMessage for MessagePublic {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         let colour = buf.g1();
@@ -24,5 +26,24 @@ impl ClientProtMessage for MessagePublic {
             effect,
             bytes,
         }
+    }
+}
+
+// `MessagePublic` — rev-647 MESSAGE_PUBLIC (opcode 38, var_byte).
+
+#[cfg(since_647)]
+#[client_prot(VarByte { min: 0 }, UserEvent)]
+pub struct MessagePublic {
+    pub payload: Vec<u8>,
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for MessagePublic {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let mut payload = Vec::with_capacity(buf.remaining() as usize);
+        while buf.remaining() > 0 {
+            payload.push(buf.g1());
+        }
+        MessagePublic { payload }
     }
 }

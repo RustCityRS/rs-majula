@@ -9,7 +9,7 @@ pub type StructTypeProvider = TypeProvider<StructType>;
 pub struct StructType {
     pub id: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for StructType {
@@ -34,7 +34,7 @@ impl CacheType for StructType {
                         .get_or_insert_with(|| Box::new(FxHashMap::default())),
                 ),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized struct config code: {code}"),
+                _ => crate::unknown_opcode!("struct", code),
             }
         }
     }

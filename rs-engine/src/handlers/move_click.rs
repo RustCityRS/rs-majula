@@ -2,9 +2,18 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_grid::CoordGrid;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::move_gameclick::MoveGameclick;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::move_minimapclick::MoveMinimapclick;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_opclick::MoveOpClick;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::pack_coord;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_vm::ScriptError;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
@@ -19,10 +28,28 @@ use rsmod::rsmod::collision::collision_strategy::CollisionType;
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
+#[cfg(before_647)]
 impl ClientGameHandler for MoveGameClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_walk(&self.path, false);
         handle(self.path, self.ctrl, false, active)
+    }
+}
+
+/// Handles the rev-647 `MoveGameclick` client protocol message.
+///
+/// The rev-647 client sends only the destination tile (no waypoint list);
+/// the server pathfinds to it. Mapped onto the shared [`handle`] as a
+/// single-coordinate path.
+#[cfg(since_647)]
+impl ClientGameHandler for MoveGameclick {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(
+            vec![pack_coord(self.x, self.z)],
+            self.ctrl_run,
+            false,
+            active,
+        )
     }
 }
 
@@ -36,11 +63,27 @@ impl ClientGameHandler for MoveGameClick {
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
+#[cfg(before_647)]
 impl ClientGameHandler for MoveMinimapClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_walk(&self.path, true);
         active.watch_minimap(&self.path, &self.trailer);
         handle(self.path, self.ctrl, false, active)
+    }
+}
+
+/// Handles the rev-647 `MoveMinimapclick` client protocol message.
+///
+/// Destination-only, same as [`MoveGameclick`].
+#[cfg(since_647)]
+impl ClientGameHandler for MoveMinimapclick {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(
+            vec![pack_coord(self.x, self.z)],
+            self.ctrl_run,
+            false,
+            active,
+        )
     }
 }
 
@@ -55,6 +98,7 @@ impl ClientGameHandler for MoveMinimapClick {
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
+#[cfg(before_647)]
 impl ClientGameHandler for MoveOpClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(self.path, self.ctrl, true, active)
@@ -135,11 +179,17 @@ fn handle(
     // ctrl-click temporarily runs for this move; a normal click leaves
     // temp-run off (so movement follows the persistent run toggle). Low
     // energy (<100) cancels a ctrl temp-run.
-    active.player.temprun = if active.player.runenergy < 100 && ctrl {
-        false
-    } else {
-        ctrl
-    };
+    #[cfg(before_647)]
+    {
+        active.player.temprun = if active.player.runenergy < 100 && ctrl {
+            false
+        } else {
+            ctrl
+        };
+    }
+    // Rev-647: ctrl flips the run orb for this walk; a plain click follows it.
+    #[cfg(since_647)]
+    active.player.click_temprun(ctrl);
 
     active.player.move_clicked = true;
 

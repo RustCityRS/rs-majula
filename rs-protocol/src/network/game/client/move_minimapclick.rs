@@ -1,4 +1,6 @@
-use crate::network::game::client::{ClientProtMessage, pack_coord};
+use crate::network::game::client::ClientProtMessage;
+#[cfg(before_647)]
+use crate::network::game::client::pack_coord;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -36,6 +38,7 @@ pub struct MinimapTrailer {
 
 // Minimum covers ctrl + x + z, plus the 14 trailing camera bytes that the
 // waypoint count is measured against.
+#[cfg(before_647)]
 #[client_prot(VarByte { min: 19 }, UserEvent)]
 pub struct MoveMinimapClick {
     pub path: Vec<u32>,
@@ -43,6 +46,7 @@ pub struct MoveMinimapClick {
     pub trailer: MinimapTrailer,
 }
 
+#[cfg(before_647)]
 impl ClientProtMessage for MoveMinimapClick {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         let ctrl = buf.g1();
@@ -83,7 +87,7 @@ impl ClientProtMessage for MoveMinimapClick {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, before_647))]
 mod tests {
     use super::*;
 
@@ -116,5 +120,29 @@ mod tests {
                 magic3: 63,
             }
         );
+    }
+}
+
+// `MoveMinimapclick` — rev-647 MOVE_MINIMAPCLICK (opcode 39, fixed 18).
+// The trailing camera/step data after the first three fields is discarded.
+
+#[cfg(since_647)]
+#[client_prot(Fixed(18), UserEvent)]
+pub struct MoveMinimapclick {
+    pub x: u16,
+    pub z: u16,
+    pub ctrl_run: bool,
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for MoveMinimapclick {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let x = buf.ig2();
+        let ctrl_run = buf.g1_alt3() != 0;
+        let z = buf.g2();
+        // The client appends 13 bytes of minimap camera state the server has
+        // no use for; step over them so the decoder reads its whole frame.
+        buf.pos += 13;
+        MoveMinimapclick { x, z, ctrl_run }
     }
 }

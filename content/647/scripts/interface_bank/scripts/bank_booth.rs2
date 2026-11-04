@@ -1,0 +1,11 @@
+// 2011 has twenty booths besides 289's one (2213), all Use and Use-quickly
+// (cache 786); they share the category bank_booth (configs/bank_booth.loc).
+// [oploc1,bankbooth]
+[oploc1,_bank_booth]
+if (npc_findcat(loc_coord, bank_teller, 2, 0) = true) {
+    @talk_to_banker;
+}
+@openbank; // default to just open bank if a bank teller was not found to start dialogue.
+
+// [oploc2,bankbooth] @openbank;
+[oploc2,_bank_booth] @openbank;

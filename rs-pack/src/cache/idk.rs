@@ -79,7 +79,7 @@ impl CacheType for IdkTypeRaw {
                         [code as usize - 60] = buf.g2();
                 }
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized idk config code: {code}"),
+                _ => crate::unknown_opcode!("idk", code),
             }
         }
     }

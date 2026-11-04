@@ -1,17 +1,37 @@
+#[cfg(before_647)]
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::ServerProtMessage;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_anim::LocAnim;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::map_anim::MapAnim;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_add::ObjAdd;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_count::ObjCount;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_del::ObjDel;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
-#[cfg(since_289)]
+#[cfg(all(since_289, before_647))]
 use rs_protocol::network::game::server::sound_area::SoundArea;
+
+/// Rev-647 zone messages are not direct server prots: they are sub-opcode
+/// framed payloads multiplexed inside `UPDATE_ZONE_*` packets. The enum,
+/// its payload structs, and the `zone_prot` sub-opcode table all live in
+/// rs-protocol; re-export the enum so the rest of the engine keeps using
+/// `rs_zone::ZoneMessage` uniformly across revisions.
+#[cfg(since_647)]
+pub use rs_protocol::network::game::server::zone_message::ZoneMessage;
 
 /// Generates the [`ZoneMessage`] enum and its mechanical `encode_zone` /
 /// `sizeof_zone` matches from a single variant list.
@@ -19,6 +39,7 @@ use rs_protocol::network::game::server::sound_area::SoundArea;
 /// Each variant wraps a single newtype payload, and both generated matches
 /// dispatch uniformly over the variants, so the only per-variant information is
 /// the variant name and its payload type.
+#[cfg(before_647)]
 macro_rules! zone_messages {
     ($($(#[$meta:meta])* $variant:ident($payload:ty)),+ $(,)?) => {
         /// A protocol message payload representing a zone update to be sent to clients.
@@ -70,6 +91,7 @@ macro_rules! zone_messages {
     };
 }
 
+#[cfg(before_647)]
 zone_messages! {
     ObjAdd(ObjAdd),
     ObjDel(ObjDel),
@@ -95,6 +117,7 @@ zone_messages! {
 /// # Side Effects
 ///
 /// Advances `buf.pos` by `1 + message.sizeof()` bytes.
+#[cfg(before_647)]
 fn encode<M: ServerProtMessage>(message: &M, buf: &mut Packet) {
     buf.p1(M::PROT as u8);
     message.encode(buf);

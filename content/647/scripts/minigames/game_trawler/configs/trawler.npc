@@ -1,0 +1,73 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[gull1]
+desc=A sea bird.
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_284
+
+[gull2]
+desc=A sea bird.
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_285
+
+[murphy]
+desc=Salty old sea dog.
+wanderrange=2
+
+[murphy_normal]
+desc=Salty old sea dog.
+wanderrange=7
+defaultmode=patrol
+timer=5
+patrol1=^trawler_start_patrol1
+patrol2=^trawler_start_patrol2
+
+[murphy_halfsunk]
+desc=Salty old sea dog.
+wanderrange=7
+defaultmode=patrol
+timer=5
+patrol1=^trawler_flood_patrol1
+patrol2=^trawler_flood_patrol2
+
+[murphy_sunk]
+desc=Salty old sea dog.
+wanderrange=1
+timer=1
+
+[fin1]
+desc=Let's not go skinny dipping eh?
+moverestrict=nomove
+timer=30
+
+[fin2]
+desc=Let's not go skinny dipping eh?
+moverestrict=nomove
+timer=30

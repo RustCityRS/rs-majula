@@ -1,0 +1,76 @@
+[duke_horacio]
+desc=Duke Horacio of Lumbridge.
+
+[cook]
+desc=Lumbridge Castle's head cook.
+moverestrict=indoors
+
+[father_aereck]
+desc=He seems to be very devout.
+moverestrict=indoors
+
+[father_urhney]
+desc=Very holy.
+moverestrict=indoors
+
+[bob]
+desc=An expert on axes.
+category=shop_keeper
+param=owned_shop,axeshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,20
+param=shop_title,Bob's Brilliant Axes.
+moverestrict=indoors
+
+[hans]
+desc=Servant of the Duke of Lumbridge.
+maxrange=50
+moverestrict=outdoors
+defaultmode=patrol
+patrol1=0_50_50_7_33,0
+patrol2=0_50_50_11_30,0
+patrol3=0_50_50_19_30,0
+patrol4=0_50_50_19_22,10
+patrol5=0_50_50_21_22,0
+patrol6=0_50_50_21_12,0
+patrol7=0_50_50_18_9,0
+patrol8=0_50_50_14_5,0
+patrol9=0_50_50_2_5,0
+patrol10=0_50_50_2_32,0
+
+[fred_the_farmer]
+desc=A well-fed farmer.
+// https://imgur.com/1euDriv fred the farmer is not indoors
+
+[shopkeeper]
+desc=Sells stuff.
+category=shop_keeper
+param=owned_shop,generalshop1
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Lumbridge General Store
+moverestrict=indoors
+
+[shop_assistant]
+desc=Helps sell stuff.
+category=shop_keeper
+param=owned_shop,generalshop1
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Lumbridge General Store
+moverestrict=indoors
+
+[archeradventurerpg]
+desc=She looks quite experienced.
+
+[warrior]
+desc=He looks big and dumb.
+
+[monkadventurerpg]
+desc=He looks holy.
+
+[wizardadventuterpg]
+desc=He looks kind of puny...

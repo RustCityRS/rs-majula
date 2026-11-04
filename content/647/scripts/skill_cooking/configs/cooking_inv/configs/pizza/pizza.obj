@@ -1,0 +1,70 @@
+[1_2_plain_pizza]
+desc=Half of this plain pizza has been eaten.
+weight=400g
+category=category_132
+
+[meat_pizza]
+desc=A pizza with bits of meat on it.
+weight=900g
+category=category_132
+param=next_obj_stage,1_2_meat_pizza
+
+[1_2_meat_pizza]
+desc=Half of this meat pizza has been eaten.
+weight=450g
+category=category_132
+
+[anchovy_pizza]
+desc=A pizza with anchovies.
+weight=900g
+category=category_132
+param=next_obj_stage,1_2_anchovy_pizza
+
+[1_2_anchovy_pizza]
+desc=Half of this anchovy pizza has been eaten.
+weight=450g
+category=category_132
+
+[pineapple_pizza]
+desc=A tropicana pizza.
+weight=900g
+category=category_132
+param=next_obj_stage,1_2_p_apple_pizza
+
+[1_2_p_apple_pizza]
+desc=Half of this pineapple pizza has been eaten.
+weight=450g
+category=category_132
+
+[plain_pizza]
+desc=A cheese and tomato pizza.
+weight=800g
+category=category_132
+param=next_obj_stage,1_2_plain_pizza
+
+[burnt_pizza]
+desc=Oh dear!
+weight=700g
+
+[tomato]
+desc=This would make good ketchup.
+weight=80g
+category=category_86
+category=category_131
+param=gnome_cooking_ingredient,^true
+param=ugthanki_kebab_struct,tomato_kebab
+
+[cheese]
+desc=It's got holes in it.
+weight=200g
+category=category_59
+param=gnome_cooking_ingredient,^true
+param=batta_message,You crumble cheese over the gnome batta.
+
+[pizza_base]
+desc=I need to add some tomato next.
+weight=100g
+
+[incomplete_pizza]
+desc=I need to add some cheese next.
+weight=600g

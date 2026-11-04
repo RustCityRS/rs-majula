@@ -1,0 +1,72 @@
+[cake]
+desc=A plain sponge cake.
+weight=300g
+category=category_130
+param=next_obj_stage,2_3_cake
+
+[2_3_cake]
+desc=Someone has eaten a big chunk of this cake.
+weight=200g
+category=category_130
+param=next_obj_stage,slice_of_cake
+
+[slice_of_cake]
+desc=I'd rather have a whole cake.
+weight=100g
+category=category_130
+
+[chocolate_cake]
+desc=This looks very tasty.
+weight=300g
+category=category_130
+param=next_obj_stage,2_3_chocolate_cake
+
+[2_3_chocolate_cake]
+desc=Someone has eaten a big chunk of this cake.
+weight=200g
+category=category_130
+param=next_obj_stage,chocolate_slice
+
+[chocolate_slice]
+desc=I'd rather have a whole cake.
+weight=100g
+category=category_130
+
+//guess
+[burnt_cake]
+desc=Argh, what a mess! This is a terrible failure!
+weight=150g
+
+[pot_of_flour]
+desc=There is flour in this pot.
+weight=3lb
+
+[bucket_of_milk]
+desc=It's a bucket of milk.
+weight=2200g
+param=next_obj_stage,bucket
+param=gnome_cocktail_ingredient,^true
+
+[egg]
+desc=A nice fresh egg.
+weight=20g
+respawnrate=25
+
+[chocolate_bar]
+desc=Mmmmmmm chocolate.
+weight=150g
+category=category_59
+param=gnome_topping,^true
+param=gnome_cooking_ingredient,^true
+param=grindable_ingredient_refined,chocolate_dust
+param=grindable_ingredient_message,You grind the chocolate to dust.
+param=cocktail_message,You crumble the chocolate into the drink.
+param=crunchies_message,You crumble the chocolate into the dough.
+
+[pastry_dough]
+desc=Potentially pastry.
+weight=6oz
+
+[cake_tin]
+desc=Useful for baking cakes.
+weight=100g

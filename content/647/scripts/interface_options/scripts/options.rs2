@@ -1,0 +1,18 @@
+[if_button,options:com14]
+if (p_finduid(uid) = true) {
+    if_close;
+    if_openmain(graphics_options);
+} else {
+    @please_finish;
+}
+
+[if_button,options:com16]
+if (p_finduid(uid) = true) {
+    if_close;
+    if_openmain(sound_options);
+} else {
+    @please_finish;
+}
+
+[label, please_finish]
+mes("Please finish what you're doing first!");

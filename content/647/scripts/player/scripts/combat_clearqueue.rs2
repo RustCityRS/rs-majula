@@ -1,0 +1,22 @@
+[proc,combat_clearqueue]
+clearqueue(playerhit_n_retaliate);
+clearqueue(combat_damage_player);
+clearqueue(pvp_damage);
+clearqueue(damage_player);
+clearqueue(pvp_retaliate);
+// 289 also does clearqueue(combat_viking_damage_player): Thorvald's hit in the
+// Fremennik Trials (quest_viking/scripts/viking_thorvald.rs2), not ported yet.
+// todo: verify these in osrs
+clearqueue(recoil_damage);
+clearqueue(poison_damage);
+
+[proc,.combat_clearqueue]
+.clearqueue(playerhit_n_retaliate);
+.clearqueue(combat_damage_player);
+.clearqueue(pvp_damage);
+.clearqueue(damage_player);
+.clearqueue(pvp_retaliate);
+.clearqueue(recoil_damage);
+.clearqueue(poison_damage);
+// 289 also does .clearqueue(combat_viking_damage_player): Thorvald's hit in the
+// Fremennik Trials (quest_viking/scripts/viking_thorvald.rs2), not ported yet.

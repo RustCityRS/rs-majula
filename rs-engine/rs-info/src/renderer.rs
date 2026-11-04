@@ -382,7 +382,7 @@ impl PlayerRenderer {
                     .get_unchecked_mut(PlayerInfoProt::Damage.to_index())
                     .get_unchecked_mut(pid)
                     .set_p1_p1_p1_p1(
-                        info.damage_taken.unwrap(),
+                        info.damage_taken.unwrap() as u8,
                         info.damage_type.unwrap(),
                         info.damage_current.unwrap(),
                         info.damage_base.unwrap(),
@@ -442,7 +442,7 @@ impl PlayerRenderer {
                     .get_unchecked_mut(PlayerInfoProt::Damage2.to_index())
                     .get_unchecked_mut(pid)
                     .set_p1_p1_p1_p1(
-                        info.damage2_taken.unwrap(),
+                        info.damage2_taken.unwrap() as u8,
                         info.damage2_type.unwrap(),
                         info.damage2_current.unwrap(),
                         info.damage2_base.unwrap(),
@@ -1084,7 +1084,7 @@ impl NpcRenderer {
                     .get_unchecked_mut(NpcInfoProt::Damage.to_index())
                     .get_unchecked_mut(nid)
                     .set_p1_p1_p1_p1(
-                        info.damage_taken.unwrap(),
+                        info.damage_taken.unwrap() as u8,
                         info.damage_type.unwrap(),
                         info.damage_current.unwrap(),
                         info.damage_base.unwrap(),
@@ -1122,7 +1122,7 @@ impl NpcRenderer {
                     .get_unchecked_mut(NpcInfoProt::Damage2.to_index())
                     .get_unchecked_mut(nid)
                     .set_p1_p1_p1_p1(
-                        info.damage2_taken.unwrap(),
+                        info.damage2_taken.unwrap() as u8,
                         info.damage2_type.unwrap(),
                         info.damage2_current.unwrap(),
                         info.damage2_base.unwrap(),

@@ -1,3 +1,4 @@
+#[cfg(before_647)]
 use rs_protocol::network::game::server_prot::ServerProt;
 use rustc_hash::FxHashMap;
 use std::collections::VecDeque;
@@ -8,6 +9,7 @@ const MESSAGES: usize = 100;
 
 /// What to keep of a packet.
 #[derive(Clone, Copy)]
+#[cfg_attr(since_647, allow(dead_code))]
 enum Keep {
     No,
     One,
@@ -18,87 +20,93 @@ enum Keep {
 fn table() -> &'static [Keep; 256] {
     static TABLE: OnceLock<[Keep; 256]> = OnceLock::new();
     TABLE.get_or_init(|| {
+        #[cfg_attr(since_647, allow(unused_mut))]
         let mut table = [Keep::No; 256];
-        let key = |prot: u8, at: u8, len: u8| Keep::Key {
-            group: prot,
-            at,
-            len,
-        };
-        let varps = ServerProt::VarpSmall as u8;
-        let mut set = |prot: u8, keep: Keep| table[prot as usize] = keep;
-        // An interface component's state, by component.
-        for prot in [
-            ServerProt::IfSetText as u8,
-            ServerProt::IfSetColour as u8,
-            ServerProt::IfSetHide as u8,
-            ServerProt::IfSetModel as u8,
-            ServerProt::IfSetAnim as u8,
-            ServerProt::IfSetObject as u8,
-            ServerProt::IfSetNpcHead as u8,
-            ServerProt::IfSetPlayerHead as u8,
-            ServerProt::IfSetPosition as u8,
-        ] {
-            set(prot, key(prot, 0, 2));
+        // The jag-era opcodes. Rev 647's replay keyframes aren't kept yet, so
+        // its client state remembers nothing.
+        #[cfg(before_647)]
+        {
+            let key = |prot: u8, at: u8, len: u8| Keep::Key {
+                group: prot,
+                at,
+                len,
+            };
+            let varps = ServerProt::VarpSmall as u8;
+            let mut set = |prot: u8, keep: Keep| table[prot as usize] = keep;
+            // An interface component's state, by component.
+            for prot in [
+                ServerProt::IfSetText as u8,
+                ServerProt::IfSetColour as u8,
+                ServerProt::IfSetHide as u8,
+                ServerProt::IfSetModel as u8,
+                ServerProt::IfSetAnim as u8,
+                ServerProt::IfSetObject as u8,
+                ServerProt::IfSetNpcHead as u8,
+                ServerProt::IfSetPlayerHead as u8,
+                ServerProt::IfSetPosition as u8,
+            ] {
+                set(prot, key(prot, 0, 2));
+            }
+            #[cfg(since_245_2)]
+            set(
+                ServerProt::IfSetScrollPos as u8,
+                key(ServerProt::IfSetScrollPos as u8, 0, 2),
+            );
+            #[cfg(before_245_2)]
+            set(
+                ServerProt::IfSetRecol as u8,
+                key(ServerProt::IfSetRecol as u8, 0, 2),
+            );
+            // Sidebar tabs, by tab (after the component).
+            set(
+                ServerProt::IfSetTab as u8,
+                key(ServerProt::IfSetTab as u8, 2, 1),
+            );
+            set(ServerProt::VarpSmall as u8, key(varps, 0, 2));
+            set(ServerProt::VarpLarge as u8, key(varps, 0, 2));
+            set(
+                ServerProt::UpdateStat as u8,
+                key(ServerProt::UpdateStat as u8, 0, 1),
+            );
+            set(
+                ServerProt::UpdateFriendList as u8,
+                key(ServerProt::UpdateFriendList as u8, 0, 8),
+            );
+            #[cfg(since_254)]
+            set(
+                ServerProt::SetPlayerOp as u8,
+                key(ServerProt::SetPlayerOp as u8, 0, 1),
+            );
+            for prot in [
+                ServerProt::IfOpenMain as u8,
+                ServerProt::IfOpenSide as u8,
+                ServerProt::IfOpenChat as u8,
+                ServerProt::IfOpenMainSide as u8,
+                ServerProt::IfClose as u8,
+                ServerProt::TutOpen as u8,
+                ServerProt::TutFlash as u8,
+                ServerProt::UpdatePid as u8,
+                ServerProt::UpdateRunEnergy as u8,
+                ServerProt::UpdateRunWeight as u8,
+                ServerProt::ChatFilterSettings as u8,
+                ServerProt::UpdateIgnoreList as u8,
+                ServerProt::SetMultiway as u8,
+                ServerProt::HintArrow as u8,
+                ServerProt::MidiSong as u8,
+                ServerProt::CamReset as u8,
+                ServerProt::CamLookAt as u8,
+                ServerProt::CamMoveTo as u8,
+            ] {
+                set(prot, Keep::One);
+            }
+            set(ServerProt::IfSetTabActive as u8, Keep::One);
+            #[cfg(since_254)]
+            set(ServerProt::FriendListLoaded as u8, Keep::One);
+            #[cfg(since_274)]
+            set(ServerProt::MinimapToggle as u8, Keep::One);
+            set(ServerProt::MessageGame as u8, Keep::Message);
+            set(ServerProt::MessagePrivate as u8, Keep::Message);
         }
-        #[cfg(since_245_2)]
-        set(
-            ServerProt::IfSetScrollPos as u8,
-            key(ServerProt::IfSetScrollPos as u8, 0, 2),
-        );
-        #[cfg(before_245_2)]
-        set(
-            ServerProt::IfSetRecol as u8,
-            key(ServerProt::IfSetRecol as u8, 0, 2),
-        );
-        // Sidebar tabs, by tab (after the component).
-        set(
-            ServerProt::IfSetTab as u8,
-            key(ServerProt::IfSetTab as u8, 2, 1),
-        );
-        set(ServerProt::VarpSmall as u8, key(varps, 0, 2));
-        set(ServerProt::VarpLarge as u8, key(varps, 0, 2));
-        set(
-            ServerProt::UpdateStat as u8,
-            key(ServerProt::UpdateStat as u8, 0, 1),
-        );
-        set(
-            ServerProt::UpdateFriendList as u8,
-            key(ServerProt::UpdateFriendList as u8, 0, 8),
-        );
-        #[cfg(since_254)]
-        set(
-            ServerProt::SetPlayerOp as u8,
-            key(ServerProt::SetPlayerOp as u8, 0, 1),
-        );
-        for prot in [
-            ServerProt::IfOpenMain as u8,
-            ServerProt::IfOpenSide as u8,
-            ServerProt::IfOpenChat as u8,
-            ServerProt::IfOpenMainSide as u8,
-            ServerProt::IfClose as u8,
-            ServerProt::TutOpen as u8,
-            ServerProt::TutFlash as u8,
-            ServerProt::UpdatePid as u8,
-            ServerProt::UpdateRunEnergy as u8,
-            ServerProt::UpdateRunWeight as u8,
-            ServerProt::ChatFilterSettings as u8,
-            ServerProt::UpdateIgnoreList as u8,
-            ServerProt::SetMultiway as u8,
-            ServerProt::HintArrow as u8,
-            ServerProt::MidiSong as u8,
-            ServerProt::CamReset as u8,
-            ServerProt::CamLookAt as u8,
-            ServerProt::CamMoveTo as u8,
-        ] {
-            set(prot, Keep::One);
-        }
-        set(ServerProt::IfSetTabActive as u8, Keep::One);
-        #[cfg(since_254)]
-        set(ServerProt::FriendListLoaded as u8, Keep::One);
-        #[cfg(since_274)]
-        set(ServerProt::MinimapToggle as u8, Keep::One);
-        set(ServerProt::MessageGame as u8, Keep::Message);
-        set(ServerProt::MessagePrivate as u8, Keep::Message);
         table
     })
 }
@@ -159,8 +167,11 @@ impl ClientState {
     /// A friend the client took off its list. Nothing is sent for that, so
     /// the friend's last status update goes here instead.
     pub fn forget_friend(&mut self, user37: u64) {
+        #[cfg(before_647)]
         self.packets
             .remove(&(ServerProt::UpdateFriendList as u8, user37));
+        #[cfg(since_647)]
+        let _ = user37;
     }
 
     /// Everything remembered, in the order it was last sent, then the chat.
@@ -174,7 +185,7 @@ impl ClientState {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, before_647))]
 mod tests {
     use super::*;
 

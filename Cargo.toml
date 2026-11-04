@@ -18,6 +18,8 @@ members = [
     "rs-console",
     "rs-console/api",
     "rs-db",
+    "rs-engine/rs-test",
+    "rs-dat2",
     "rs-pack",
     "rs-protocol",
     "rs-protocol/macros",
@@ -47,6 +49,9 @@ axum = "0.8"
 tower-http = { version = "0.7", features = ["fs", "set-header"] }
 minijinja = { version = "3", features = ["serde"] }
 
+# Serialization
+sailfish = "0.11"
+
 # Security
 argon2 = "0.6"
 
@@ -70,6 +75,7 @@ getrandom = "0.4"
 
 # HTTP/Networking
 reqwest = { version = "0.13", default-features = false, features = ["json"] }
+ureq = "3.5"
 
 # Fast hashing for integer keys
 rustc-hash = "2"
@@ -82,6 +88,8 @@ mimalloc = "0.1"
 libmimalloc-sys = { version = "0.1", features = ["extended"] }
 
 # MISC
+bytes = "1"
+lzma-rs = "0.3"
 rs-io = "0.3"
 rs-pathfinder = "0.1"
 rs-runec = "0.4"
@@ -105,6 +113,7 @@ flate2 = "1"
 zstd = "0.14"
 
 # Internal crates
+rs-dat2 = { path = "rs-dat2" }
 rs-protocol = { path = "rs-protocol" }
 rs-protocol-macros = { path = "rs-protocol/macros" }
 rs-cam = { path = "rs-engine/rs-cam" }

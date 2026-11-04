@@ -1,0 +1,2468 @@
+// Doors and gates: the category each barrier is wired to, and the loc it
+// becomes when operated. Laid over the cache's own definitions in
+// _unpack/all.loc (rs-pack pack::overlay_section).
+
+[fishinggateclosedl]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,inacfishinggateclosedl
+
+[fishinggateclosedr]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,inacfishinggateclosedr
+
+[cosmic_door_708]
+desc=Some kind of pulley system.
+category=door_closed
+param=next_loc_stage,cosmic_door_709
+
+[cosmic_door_709]
+desc=Suprisingly rope shaped.
+category=door_opened
+param=next_loc_stage,cosmic_door_708
+
+[doors]
+desc=A door to a grand place.
+category=door_closed
+param=next_loc_stage,openpalacedoor_r
+
+[openpalacedoor_r]
+desc=A door to a grand place.
+category=door_opened
+param=next_loc_stage,doors
+
+[palacedoor_l]
+desc=A door to a grand place.
+category=door_closed
+param=next_loc_stage,openpalacedoor_l
+
+[openpalacedoor_l]
+desc=A door to a grand place.
+category=door_opened
+param=next_loc_stage,palacedoor_l
+
+[wooden_gate]
+desc=The gate is closed.
+category=gate_main_closed
+param=next_loc_stage,zqwoodengateclosed_l_inactive
+
+[zqwoodengateclosed_r]
+desc=The gate is closed.
+category=gate_outer_closed
+param=next_loc_stage,zqwoodengateclosed_r_inactive
+
+[w_ardougnedoubledoorl]
+desc=A door.
+category=door_left_closed
+param=next_loc_stage,w_ardougnedoubledoorlopen
+
+[w_ardougnedoubledoorlopen]
+desc=A door.
+category=door_left_opened
+param=next_loc_stage,w_ardougnedoubledoorl
+
+[w_ardougnedoubledoorr]
+desc=A door.
+category=door_right_closed
+param=next_loc_stage,w_ardougnedoubledoorropen
+
+[w_ardougnedoubledoorropen]
+desc=A door.
+category=door_right_opened
+param=next_loc_stage,w_ardougnedoubledoorr
+
+[door_2997]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_2998
+
+[door_2998]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_2997
+
+[death_fencegate_l]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,death_openfencegate_l
+
+[death_fencegate_r]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,death_openfencegate_r
+
+[death_openfencegate_l]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,death_fencegate_l
+
+[death_openfencegate_r]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,death_fencegate_r
+
+[troll_celldoor]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,troll_celldoor_open
+
+[troll_celldoor_open]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,troll_celldoor
+
+[troll_stronghold_interior_door]
+desc=A door in the Stronghold.
+category=door_closed
+param=next_loc_stage,troll_stronghold_interior_door_open
+
+[troll_stronghold_interior_door_open]
+desc=A door in the Stronghold.
+category=door_opened
+param=next_loc_stage,troll_stronghold_interior_door
+
+[viking_abode_door]
+desc=Keeps the cold winds out.
+category=door_closed
+param=next_loc_stage,viking_abode_door_open
+
+[viking_abode_door_open]
+desc=Doesn't keep the wind out if it's open!
+category=door_opened
+param=next_loc_stage,viking_abode_door
+
+[door_4490]
+category=door_closed
+param=next_loc_stage,door_4492
+
+[door_4492]
+category=door_opened
+param=next_loc_stage,door_4490
+
+[throne_room_door]
+desc=The door into the throne room.
+category=door_closed
+param=next_loc_stage,loc_4673
+
+[door_4696]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_4697
+
+[door_4697]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_4696
+
+[door_5172]
+desc=The door to the Tower.
+category=door_closed
+param=next_loc_stage,loc_5173
+
+[door_5174]
+desc=The door to the garden shed.
+category=door_closed
+param=next_loc_stage,loc_5175
+
+[door_5186]
+desc=Looks wooden. Feels wooden. I wonder is it wooden?
+category=door_closed
+param=next_loc_stage,door_5188
+
+[door_5188]
+desc=Looks wooden. Feels wooden. I wonder is it wooden?
+category=door_opened
+param=next_loc_stage,door_5186
+
+[door_5244]
+desc=Looks a bit tatty...
+category=door_closed
+param=next_loc_stage,door_5245
+
+[door_5245]
+desc=Looks a bit tatty...
+category=door_opened
+param=next_loc_stage,door_5244
+
+[ogre_stone_door]
+desc=A bulky door made from solid rock.
+category=door_right_closed
+param=next_loc_stage,loc_6873
+
+[ogre_stone_door_6872]
+desc=A bulky door made from solid rock.
+category=door_left_closed
+param=next_loc_stage,loc_6874
+
+[door_6975]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_6976
+
+[door_6976]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_6975
+
+[gate_7049]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_7051
+
+[gate_7050]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_7052
+
+[gate_7051]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_7049
+
+[gate_7052]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_7050
+
+[door_7222]
+desc=This way to the viewing gallery.
+category=door_closed
+param=next_loc_stage,door_7223
+
+[door_7259]
+desc=This way to exit.
+category=door_closed
+param=next_loc_stage,door_7260
+
+[door_7260]
+desc=This way to exit.
+category=door_opened
+param=next_loc_stage,door_7259
+
+[door_8695]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_8696
+
+[door_8696]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_8695
+
+[door_8789]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_8791
+
+[door_8791]
+category=door_opened
+param=next_loc_stage,door_8789
+
+[gate_8810]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_8812
+
+[gate_8811]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_8813
+
+[gate_8812]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_8810
+
+[gate_8813]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_8811
+
+[dagannoth_pressure_door]
+desc=There must be some trick to opening this...
+category=dagannoth_pressure_door
+param=next_loc_stage,dagannoth_pressure_opening2
+
+[dagannoth_pressure_door2]
+desc=There must be some trick to opening this...
+category=dagannoth_pressure_door
+param=next_loc_stage,dagannoth_pressure_opening2
+
+[dagannoth_pressure_door3]
+desc=There must be some trick to opening this...
+category=dagannoth_pressure_door
+param=next_loc_stage,dagannoth_pressure_opening2
+
+[ardougne_wall_door_9738]
+desc=You can walk through these doors.
+category=door_closed
+param=next_loc_stage,loc_9740
+
+[gate_10172]
+desc=This gate is closed.
+category=gate_main_closed
+param=next_loc_stage,loc_10173
+
+[door_10260]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_10261
+
+[door_10261]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_10260
+
+[door_10262]
+desc=The door is closed.
+category=door_left_closed
+param=next_loc_stage,door_10263
+
+[door_10263]
+desc=The door is open.
+category=door_left_opened
+param=next_loc_stage,door_10262
+
+[door_10264]
+desc=The door is closed.
+category=door_right_closed
+param=next_loc_stage,door_10265
+
+[door_10265]
+desc=The door is open.
+category=door_right_opened
+param=next_loc_stage,door_10264
+
+[door_10325]
+desc=A magical device that enables one to walk through walls.
+category=door_closed
+param=next_loc_stage,door_10327
+
+[door_10327]
+category=door_opened
+param=next_loc_stage,door_10325
+
+[door_10423]
+desc=A wooden door.
+category=door_closed
+param=next_loc_stage,loc_10424
+
+[door_10427]
+desc=A wooden door.
+category=door_closed
+param=next_loc_stage,loc_10428
+
+[door_10431]
+desc=A wooden door.
+category=door_closed
+param=next_loc_stage,loc_10432
+
+[door_10527]
+desc=a door.
+category=door_left_closed
+param=next_loc_stage,door_10528
+
+[door_10528]
+desc=a door.
+category=door_left_opened
+param=next_loc_stage,door_10527
+
+[door_10529]
+desc=a door.
+category=door_right_closed
+param=next_loc_stage,door_10530
+
+[door_10530]
+desc=a door.
+category=door_right_opened
+param=next_loc_stage,door_10529
+
+[door_11051]
+desc=There's a recess in it in the shape of a Z.
+category=door_closed
+param=next_loc_stage,door_11052
+
+[door_11053]
+desc=There's a recess in it in the shape of an M.
+category=door_closed
+param=next_loc_stage,door_11054
+
+[door_11055]
+desc=There's a recess in it in the shape of an R.
+category=door_closed
+param=next_loc_stage,door_11056
+
+[door_11057]
+desc=There's a recess in it in the shape of a K.
+category=door_closed
+param=next_loc_stage,door_11058
+
+[door_11064]
+desc=There's a recess in it in the shape of a left arm.
+category=door_closed
+param=next_loc_stage,door_11065
+
+[door_11066]
+desc=There's a recess in it in the shape of a right arm.
+category=door_closed
+param=next_loc_stage,door_11067
+
+[door_11068]
+desc=There's a recess in it in the shape of a left leg.
+category=door_closed
+param=next_loc_stage,door_11069
+
+[door_11070]
+desc=There's a recess in it in the shape of a right leg.
+category=door_closed
+param=next_loc_stage,door_11071
+
+[door_11458]
+desc=A prison door.
+category=door_closed
+param=next_loc_stage,loc_11459
+
+[door_11616]
+desc=Keeps the wind out.
+category=door_closed
+param=next_loc_stage,door_11617
+
+[door_11617]
+desc=It would keep the wind out better if it were closed.
+category=door_opened
+param=next_loc_stage,door_11616
+
+[door_11707]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_11708
+
+[door_11708]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_11707
+
+[castle_door_11721]
+desc=A grand door.
+category=door_closed
+param=next_loc_stage,castle_door_11723
+
+[castle_door_11723]
+desc=A grand door.
+category=door_opened
+param=next_loc_stage,castle_door_11721
+
+[door_11993]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_11994
+
+[door_11994]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_11993
+
+[magic_door_12045]
+desc=A magic door.
+category=door_closed
+param=next_loc_stage,magic_door_12046
+
+[magic_door_12046]
+desc=A magic door.
+category=door_opened
+param=next_loc_stage,magic_door_12045
+
+[door_12444]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_12445
+
+[door_12445]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_12444
+
+[large_door_12446]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_12447
+
+[large_door_12447]
+desc=A large double door.
+category=door_left_opened
+param=next_loc_stage,large_door_12446
+
+[large_door_12448]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_12449
+
+[large_door_12449]
+desc=A large double door.
+category=door_right_opened
+param=next_loc_stage,large_door_12448
+
+[pen_door]
+desc=Ze pen door, a wonderful example of ze underwater craftsmanship.
+category=door_left_closed
+param=next_loc_stage,loc_12469
+
+[pen_door_12468]
+desc=Ze pen door, a wonderful example of ze underwater craftsmanship.
+category=door_right_closed
+param=next_loc_stage,loc_12470
+
+[gate_12816]
+category=gate_main_closed
+param=next_loc_stage,gate_12818
+
+[gate_12817]
+category=gate_outer_closed
+param=next_loc_stage,loc_12819
+
+[gate_12986]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_12988
+
+[gate_12987]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_12989
+
+[gate_12988]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_12986
+
+[gate_12989]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_12987
+
+[door_13001]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_13002
+
+[door_13002]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_13001
+
+[door_13006]
+desc=A desert door.
+category=door_closed
+param=next_loc_stage,door_13008
+
+[door_13007]
+desc=A desert door.
+category=door_closed
+param=next_loc_stage,door_13009
+
+[door_13008]
+desc=A desert door.
+category=door_opened
+param=next_loc_stage,door_13006
+
+[door_13009]
+desc=A desert door.
+category=door_opened
+param=next_loc_stage,door_13007
+
+[door_13015]
+desc=A timber door.
+category=door_closed
+param=next_loc_stage,door_13017
+
+[door_13016]
+desc=A timber door.
+category=door_closed
+param=next_loc_stage,door_13018
+
+[door_13017]
+desc=A timber door.
+category=door_opened
+param=next_loc_stage,door_13015
+
+[door_13018]
+desc=A timber door.
+category=door_opened
+param=next_loc_stage,door_13016
+
+[large_door_13094]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_13095
+
+[large_door_13095]
+desc=A large double door.
+category=door_right_opened
+param=next_loc_stage,large_door_13094
+
+[large_door_13096]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_13097
+
+[large_door_13097]
+desc=A large double door.
+category=door_left_opened
+param=next_loc_stage,large_door_13096
+
+[door_13100]
+desc=A way in to the house.
+category=door_closed
+param=next_loc_stage,door_13102
+
+[door_13101]
+desc=A way in to the house.
+category=door_closed
+param=next_loc_stage,door_13103
+
+[door_13102]
+desc=A way in to the house.
+category=door_opened
+param=next_loc_stage,door_13100
+
+[door_13103]
+desc=A way in to the house.
+category=door_opened
+param=next_loc_stage,door_13101
+
+[door_13107]
+desc=I'm sure the tree is glad its wood was put to good use.
+category=door_closed
+param=next_loc_stage,door_13108
+
+[door_13108]
+desc=I'm sure the tree is glad its wood was put to good use.
+category=door_opened
+param=next_loc_stage,door_13107
+
+[door_13109]
+desc=I'm sure the tree is glad its wood was put to good use.
+category=door_closed
+param=next_loc_stage,door_13110
+
+[door_13110]
+desc=I'm sure the tree is glad its wood was put to good use.
+category=door_opened
+param=next_loc_stage,door_13109
+
+[door_13118]
+desc=A posh door.
+category=door_closed
+param=next_loc_stage,door_13120
+
+[door_13119]
+desc=A posh door.
+category=door_closed
+param=next_loc_stage,door_13121
+
+[door_13120]
+desc=A posh door.
+category=door_opened
+param=next_loc_stage,door_13118
+
+[door_13121]
+desc=A posh door.
+category=door_opened
+param=next_loc_stage,door_13119
+
+[gate_14233]
+desc=A strong gate.
+category=gate_main_closed
+param=next_loc_stage,gate_14234
+
+[gate_14234]
+desc=A strong gate.
+category=gate_main_open
+param=next_loc_stage,gate_14233
+
+[gate_14235]
+desc=A strong gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_14236
+
+[gate_14236]
+desc=A strong gate.
+category=gate_outer_open
+param=next_loc_stage,gate_14235
+
+[chaos_door_14444]
+category=door_closed
+param=next_loc_stage,chaos_door_14445
+
+[chaos_door_14445]
+category=door_opened
+param=next_loc_stage,chaos_door_14444
+
+[door_14749]
+desc=A tatty old door.
+category=door_closed
+param=next_loc_stage,door_14750
+
+[door_14750]
+desc=A tatty old door.
+category=door_opened
+param=next_loc_stage,door_14749
+
+[door_14751]
+desc=Ominous.
+category=door_left_closed
+param=next_loc_stage,door_14753
+
+[door_14752]
+desc=Ominous.
+category=door_right_closed
+param=next_loc_stage,door_14754
+
+[door_14753]
+desc=Ominous.
+category=door_left_opened
+param=next_loc_stage,door_14751
+
+[door_14754]
+desc=Ominous.
+category=door_right_opened
+param=next_loc_stage,door_14752
+
+[door_14923]
+desc=A simple door.
+category=door_closed
+param=next_loc_stage,door_14924
+
+[door_14924]
+desc=A simple door, now open.
+category=door_opened
+param=next_loc_stage,door_14923
+
+[colony_gate]
+desc=The gate of the Piscatoris Fishing Colony.
+category=gate_main_closed
+param=next_loc_stage,loc_14930
+
+[colony_gate_14931]
+desc=The gate of the Piscatoris Fishing Colony.
+category=gate_outer_closed
+param=next_loc_stage,loc_14932
+
+[door_14982]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,loc_14983
+
+[loc_14983]
+category=door_opened
+param=next_loc_stage,door_14982
+
+[door_15204]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_15205
+
+[door_15205]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_15204
+
+[gate_15510]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_15511
+
+[gate_15511]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_15510
+
+[gate_15512]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_15513
+
+[gate_15513]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_15512
+
+[gate_15514]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_15515
+
+[gate_15515]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_15514
+
+[gate_15516]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_15517
+
+[gate_15517]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_15516
+
+[door_15535]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_15536
+
+[door_15536]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_15535
+
+[gate_15604]
+desc=A secure gate.
+category=gate_main_closed
+param=next_loc_stage,loc_15607
+
+[gate_15605]
+desc=A secure gate.
+category=gate_outer_closed
+param=next_loc_stage,loc_15606
+
+[heavy_door]
+desc=It looks like it's made from lead. Heavy, man.
+category=door_left_closed
+param=next_loc_stage,loc_15659
+
+[heavy_door_15660]
+desc=It looks like it's made from lead. Heavy, man.
+category=door_right_closed
+param=next_loc_stage,loc_15661
+
+[door_16343]
+desc=A metal door, firmly shut.
+category=door_closed
+param=next_loc_stage,door_16344
+
+[door_16344]
+desc=An open door.
+category=door_opened
+param=next_loc_stage,door_16343
+
+[door_16776]
+desc=Lets you walk through walls.
+category=door_closed
+param=next_loc_stage,door_16777
+
+[door_16777]
+desc=Lets you walk through walls.
+category=door_opened
+param=next_loc_stage,door_16776
+
+[door_16778]
+desc=Lets you walk through walls.
+category=door_closed
+param=next_loc_stage,door_16779
+
+[door_16779]
+desc=Lets you walk through walls.
+category=door_opened
+param=next_loc_stage,door_16778
+
+[large_door_17089]
+desc=A sturdy wooden door.
+category=door_closed
+param=next_loc_stage,large_door_17090
+
+[large_door_17090]
+desc=A sturdy wooden door.
+category=door_opened
+param=next_loc_stage,large_door_17089
+
+[large_door_17091]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_17092
+
+[large_door_17092]
+desc=A large double door.
+category=door_left_opened
+param=next_loc_stage,large_door_17091
+
+[large_door_17093]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_17094
+
+[large_door_17094]
+desc=A large double door.
+category=door_right_opened
+param=next_loc_stage,large_door_17093
+
+[door_17114]
+desc=Keeps the wind out.
+category=door_closed
+param=next_loc_stage,door_17115
+
+[door_17115]
+desc=It would keep the wind out better if it were closed.
+category=door_opened
+param=next_loc_stage,door_17114
+
+[door_17316]
+desc=A door.
+category=door_closed
+param=next_loc_stage,door_17317
+
+[door_17317]
+desc=A door.
+category=door_opened
+param=next_loc_stage,door_17316
+
+[door_18047]
+desc=A solid-looking wooden door.
+category=door_closed
+param=next_loc_stage,door_18048
+
+[door_18057]
+desc=This door is made out of very poor looking planks of wood.
+category=door_closed
+param=next_loc_stage,door_18058
+
+[mind_door]
+desc=Has a mind symbol on it.
+category=door_right_closed
+param=next_loc_stage,mind_door_18699
+
+[mind_door_18699]
+desc=Has a mind symbol on it.
+category=door_right_opened
+param=next_loc_stage,mind_door
+
+[mind_door_18700]
+desc=Has a mind symbol on it.
+category=door_left_closed
+param=next_loc_stage,mind_door_18701
+
+[mind_door_18701]
+desc=Has a mind symbol on it.
+category=door_left_opened
+param=next_loc_stage,mind_door_18700
+
+[door_18978]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_18979
+
+[door_21167]
+desc=Door-like.
+category=door_closed
+param=next_loc_stage,loc_21168
+
+[gate_21172]
+desc=A gate.
+category=gate_main_closed
+param=next_loc_stage,loc_21173
+
+[door_21243]
+desc=Door-like.
+category=door_closed
+param=next_loc_stage,loc_21244
+
+[gate_21403]
+desc=A closed, sturdy metal door.
+category=gate_main_closed
+param=next_loc_stage,gate_21404
+
+[gate_21404]
+desc=An open, sturdy metal door.
+category=gate_main_open
+param=next_loc_stage,gate_21403
+
+[gate_21405]
+desc=A closed, sturdy metal door.
+category=gate_outer_closed
+param=next_loc_stage,gate_21406
+
+[gate_21406]
+desc=An open, sturdy metal door.
+category=gate_outer_open
+param=next_loc_stage,gate_21405
+
+[door_21505]
+desc=Keeps the trolls out.
+category=door_right_closed
+param=next_loc_stage,door_21506
+
+[door_21506]
+desc=Doesn't keep the trolls out if it's open!
+category=door_right_opened
+param=next_loc_stage,door_21505
+
+[door_21507]
+desc=Keeps the trolls out.
+category=door_left_closed
+param=next_loc_stage,door_21508
+
+[door_21508]
+desc=Doesn't keep the trolls out if it's open!
+category=door_left_opened
+param=next_loc_stage,door_21507
+
+[gate_21600]
+desc=A flimsy, wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_21601
+
+[gate_21601]
+desc=An open gate.
+category=gate_main_open
+param=next_loc_stage,gate_21600
+
+[tower_door]
+desc=This door is closed.
+category=door_closed
+param=next_loc_stage,loc_21815
+
+[gate_22778]
+desc=Lets the littlest goblins out of their enclosure.
+category=gate_main_open
+param=next_loc_stage,gate_22779
+
+[gate_22779]
+desc=Keeps the littlest goblins in their enclosure.
+category=gate_main_closed
+param=next_loc_stage,gate_22778
+
+[door_22913]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_22914
+
+[door_22914]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_22913
+
+[gate_23216]
+desc=A rusty gate.
+category=gate_main_closed
+param=next_loc_stage,gate_23217
+
+[gate_23217]
+desc=A rusty gate.
+category=gate_main_open
+param=next_loc_stage,gate_23216
+
+[door_24379]
+desc=A solid looking door.
+category=door_opened
+param=next_loc_stage,door_24381
+
+[door_24381]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_24379
+
+[door_24383]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_24384
+
+[door_24384]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_24383
+
+[door_24565]
+desc=A thick wooden door.
+category=door_right_closed
+param=next_loc_stage,door_24566
+
+[door_24567]
+desc=A thick wooden door.
+category=door_left_closed
+param=next_loc_stage,door_24568
+
+[door_24685]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_24686
+
+[door_24686]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_24685
+
+[door_24935]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_24936
+
+[door_24936]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_24935
+
+[magic_door_25115]
+desc=There is something in this door for me to put objects in.
+category=door_closed
+param=next_loc_stage,magic_door_25116
+
+[door_25417]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_25418
+
+[door_25418]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_25417
+
+[large_door_25638]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_25639
+
+[large_door_25639]
+category=door_left_opened
+param=next_loc_stage,large_door_25638
+
+[large_door_25640]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_25641
+
+[large_door_25641]
+category=door_right_opened
+param=next_loc_stage,large_door_25640
+
+[door_25642]
+desc=A nicely-fitted door.
+category=door_closed
+param=next_loc_stage,door_25643
+
+[door_25643]
+desc=A nicely-fitted door.
+category=door_opened
+param=next_loc_stage,door_25642
+
+[door_25716]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_25717
+
+[door_25717]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_25716
+
+[door_25718]
+desc=A nicely-fitted door.
+category=door_closed
+param=next_loc_stage,door_25719
+
+[door_25719]
+desc=A nicely-fitted door.
+category=door_opened
+param=next_loc_stage,door_25718
+
+[large_door_25748]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,loc_25749
+
+[loc_25749]
+category=door_left_opened
+param=next_loc_stage,large_door_25748
+
+[large_door_25750]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,loc_25751
+
+[loc_25751]
+category=door_right_opened
+param=next_loc_stage,large_door_25750
+
+[large_door_25788]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_25789
+
+[large_door_25789]
+category=door_left_opened
+param=next_loc_stage,large_door_25788
+
+[large_door_25790]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_25791
+
+[large_door_25791]
+category=door_right_opened
+param=next_loc_stage,large_door_25790
+
+[door_25799]
+desc=A nicely-fitted door.
+category=door_closed
+param=next_loc_stage,door_25800
+
+[door_25800]
+desc=A nicely-fitted door.
+category=door_opened
+param=next_loc_stage,door_25799
+
+[large_door_25813]
+desc=A sturdy wooden door.
+category=door_right_closed
+param=next_loc_stage,large_door_25815
+
+[large_door_25814]
+desc=A sturdy wooden door.
+category=door_left_closed
+param=next_loc_stage,large_door_25816
+
+[large_door_25815]
+desc=A sturdy wooden door.
+category=door_right_opened
+param=next_loc_stage,large_door_25813
+
+[large_door_25816]
+desc=A sturdy wooden door.
+category=door_left_opened
+param=next_loc_stage,large_door_25814
+
+[door_25819]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_25820
+
+[door_25820]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_25819
+
+[door_25825]
+desc=A door.
+category=door_left_closed
+param=next_loc_stage,door_25826
+
+[door_25826]
+desc=A door.
+category=door_left_opened
+param=next_loc_stage,door_25825
+
+[door_25827]
+desc=A door.
+category=door_right_closed
+param=next_loc_stage,door_25828
+
+[door_25828]
+desc=A door.
+category=door_right_opened
+param=next_loc_stage,door_25827
+
+[gate_26081]
+desc=A wrought iron gate.
+category=gate_main_closed
+param=next_loc_stage,loc_26083
+
+[gate_26082]
+desc=A wrought iron gate.
+category=gate_outer_closed
+param=next_loc_stage,loc_26084
+
+[loc_26083]
+category=gate_main_open
+param=next_loc_stage,gate_26081
+
+[loc_26084]
+category=gate_outer_open
+param=next_loc_stage,gate_26082
+
+[metal_door_26560]
+desc=A strong metal door.
+category=door_closed
+param=next_loc_stage,metal_door_26561
+
+[metal_door_26561]
+desc=A strong metal door.
+category=door_opened
+param=next_loc_stage,metal_door_26560
+
+[metal_door_26706]
+desc=A strong metal door.
+category=door_closed
+param=next_loc_stage,metal_door_26707
+
+[metal_door_26707]
+desc=A strong metal door.
+category=door_opened
+param=next_loc_stage,metal_door_26706
+
+[door_26810]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,loc_26811
+
+[large_door_26908]
+desc=A large double door.
+category=door_closed
+param=next_loc_stage,large_door_26909
+
+[large_door_26909]
+desc=A large double door.
+category=door_opened
+param=next_loc_stage,large_door_26908
+
+[large_door_26913]
+desc=A large double door.
+category=door_closed
+param=next_loc_stage,large_door_26914
+
+[large_door_26914]
+desc=A large double door.
+category=door_opened
+param=next_loc_stage,large_door_26913
+
+[door_26916]
+category=door_opened
+param=next_loc_stage,door_26917
+
+[door_26917]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_26916
+
+[gate_27851]
+desc=This allows one to walk through walls.
+category=gate_main_open
+param=next_loc_stage,gate_27852
+
+[gate_27852]
+desc=This allows one to walk through walls.
+category=gate_main_closed
+param=next_loc_stage,gate_27851
+
+[gate_27853]
+desc=This allows one to walk through walls.
+category=gate_outer_open
+param=next_loc_stage,gate_27854
+
+[gate_27854]
+desc=This allows one to walk through walls.
+category=gate_outer_closed
+param=next_loc_stage,gate_27853
+
+[door_27988]
+desc=A shut door.
+category=door_closed
+param=next_loc_stage,door_27989
+
+[door_27989]
+desc=An open door.
+category=door_opened
+param=next_loc_stage,door_27988
+
+[door_28588]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_28589
+
+[door_28589]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_28588
+
+[gate_28690]
+desc=A thick wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_28692
+
+[gate_28691]
+desc=A thick wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_28693
+
+[gate_28692]
+desc=A thick wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_28690
+
+[gate_28693]
+desc=A thick wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_28691
+
+[metal_door_29261]
+desc=A strong metal door.
+category=door_closed
+param=next_loc_stage,metal_door_29262
+
+[metal_door_29262]
+desc=A strong metal door.
+category=door_opened
+param=next_loc_stage,metal_door_29261
+
+[door_29732]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,loc_29733
+
+[door_30864]
+desc=A nicely-fitted door.
+category=door_closed
+param=next_loc_stage,door_30865
+
+[door_30865]
+desc=A nicely-fitted door.
+category=door_opened
+param=next_loc_stage,door_30864
+
+[door_31340]
+desc=An old, carved door.
+category=door_closed
+param=next_loc_stage,door_31341
+
+[door_31341]
+desc=An old, carved door.
+category=door_opened
+param=next_loc_stage,door_31340
+
+[door_31342]
+desc=An old, carved door.
+category=door_closed
+param=next_loc_stage,door_31343
+
+[door_31343]
+desc=An old, carved door.
+category=door_opened
+param=next_loc_stage,door_31342
+
+[large_door_31808]
+desc=A large single door.
+category=door_closed
+param=next_loc_stage,large_door_31809
+
+[large_door_31809]
+desc=A large single door.
+category=door_opened
+param=next_loc_stage,large_door_31808
+
+[large_door_31811]
+desc=A large single door.
+category=door_closed
+param=next_loc_stage,large_door_31812
+
+[large_door_31812]
+desc=A large single door.
+category=door_opened
+param=next_loc_stage,large_door_31811
+
+[large_door_31814]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_31816
+
+[large_door_31815]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_31817
+
+[large_door_31816]
+desc=A large double door.
+category=door_right_opened
+param=next_loc_stage,large_door_31814
+
+[large_door_31817]
+category=door_left_opened
+param=next_loc_stage,large_door_31815
+
+[large_door_31820]
+desc=A large double door.
+category=door_right_closed
+param=next_loc_stage,large_door_31821
+
+[large_door_31821]
+desc=A large double door.
+category=door_right_opened
+param=next_loc_stage,large_door_31820
+
+[large_door_31822]
+desc=A large double door.
+category=door_left_closed
+param=next_loc_stage,large_door_31823
+
+[large_door_31823]
+desc=A large double door.
+category=door_left_opened
+param=next_loc_stage,large_door_31822
+
+[door_31824]
+desc=A wooden door.
+category=door_left_opened
+param=next_loc_stage,door_31825
+
+[door_31825]
+desc=A wooden door.
+category=door_left_closed
+param=next_loc_stage,door_31824
+
+[door_31826]
+desc=A wooden door.
+category=door_right_opened
+param=next_loc_stage,door_31827
+
+[door_31827]
+desc=A wooden door.
+category=door_right_closed
+param=next_loc_stage,door_31826
+
+[door_31829]
+desc=The door is open.
+category=door_left_opened
+param=next_loc_stage,door_31830
+
+[door_31830]
+desc=The door is open.
+category=door_left_closed
+param=next_loc_stage,door_31829
+
+[door_31831]
+desc=The door is open.
+category=door_right_opened
+param=next_loc_stage,door_31832
+
+[door_31832]
+desc=The door is open.
+category=door_right_closed
+param=next_loc_stage,door_31831
+
+[door_31838]
+desc=A single door.
+category=door_closed
+param=next_loc_stage,door_31839
+
+[door_31839]
+desc=A single door.
+category=door_opened
+param=next_loc_stage,door_31838
+
+[door_31841]
+desc=Stops people getting out.
+category=door_closed
+param=next_loc_stage,loc_31840
+
+[exit_door_32968]
+desc=Probably the nicest door in this ghastly place.
+category=door_closed
+param=next_loc_stage,loc_32969
+
+[door_34042]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_34043
+
+[door_34043]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_34042
+
+[door_34044]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_34045
+
+[door_34045]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_34044
+
+[door_34234]
+desc=An ornate-fashioned door.
+category=door_closed
+param=next_loc_stage,loc_34236
+
+[door_34353]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_34354
+
+[door_34354]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_34353
+
+[door_34811]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_34813
+
+[door_34813]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_34811
+
+[door_34819]
+desc=A heavy wooden door.
+category=door_left_closed
+param=next_loc_stage,door_34820
+
+[door_34820]
+desc=A heavy wooden door.
+category=door_left_opened
+param=next_loc_stage,door_34819
+
+[door_34822]
+desc=A heavily built wooden door.
+category=door_right_closed
+param=next_loc_stage,door_34823
+
+[door_34823]
+desc=A heavily built wooden door.
+category=door_right_opened
+param=next_loc_stage,door_34822
+
+[wooden_door]
+desc=A heavy wooden door.
+category=door_left_closed
+param=next_loc_stage,wooden_door_34826
+
+[wooden_door_34826]
+desc=A heavy wooden door.
+category=door_left_opened
+param=next_loc_stage,wooden_door
+
+[wooden_door_34827]
+desc=A heavy wooden door.
+category=door_right_closed
+param=next_loc_stage,wooden_door_34828
+
+[wooden_door_34828]
+desc=A heavy wooden door.
+category=door_right_opened
+param=next_loc_stage,wooden_door_34827
+
+[cell_door_35540]
+desc=This looks sturdier than the rest of the building.
+category=door_closed
+param=next_loc_stage,cell_door_35541
+
+[cell_door_35541]
+desc=This looks sturdier than the rest of the building.
+category=door_opened
+param=next_loc_stage,cell_door_35540
+
+[door_35630]
+desc=A shut door.
+category=door_closed
+param=next_loc_stage,door_35631
+
+[door_35631]
+desc=An open door.
+category=door_opened
+param=next_loc_stage,door_35630
+
+[door_35991]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_35992
+
+[door_36021]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36022
+
+[door_36022]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36021
+
+[door_36315]
+desc=Big and sturdy to keep others out.
+category=door_closed
+param=next_loc_stage,door_36316
+
+[door_36316]
+desc=Big and sturdy to keep others out.
+category=door_opened
+param=next_loc_stage,door_36315
+
+[door_36317]
+desc=Big and sturdy to keep others out.
+category=door_closed
+param=next_loc_stage,door_36318
+
+[door_36318]
+desc=Big and sturdy to keep others out.
+category=door_opened
+param=next_loc_stage,door_36317
+
+[door_36319]
+desc=Security seems somewhat lax.
+category=door_opened
+param=next_loc_stage,door_36320
+
+[door_36320]
+desc=Simple, but secure.
+category=door_closed
+param=next_loc_stage,door_36319
+
+[door_36343]
+desc=Security seems somewhat lax.
+category=door_opened
+param=next_loc_stage,door_36344
+
+[door_36344]
+desc=Simple, but secure.
+category=door_closed
+param=next_loc_stage,door_36343
+
+[door_36359]
+desc=Security seems somewhat lax.
+category=door_opened
+param=next_loc_stage,door_36360
+
+[door_36360]
+desc=Simple, but secure.
+category=door_closed
+param=next_loc_stage,door_36359
+
+[door_36844]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36845
+
+[door_36845]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36844
+
+[door_36862]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36864
+
+[door_36863]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_36865
+
+[door_36864]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36862
+
+[door_36865]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_36863
+
+[gate_36912]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_36913
+
+[gate_36913]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_36912
+
+[gate_36914]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_36915
+
+[gate_36915]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_36914
+
+[church_door]
+desc=A heavy-built wooden door.
+category=door_left_closed
+param=next_loc_stage,church_door_37000
+
+[church_door_37000]
+desc=A heavy-built wooden door.
+category=door_left_opened
+param=next_loc_stage,church_door
+
+[church_door_37002]
+desc=A heavy-built wooden door.
+category=door_right_closed
+param=next_loc_stage,church_door_37003
+
+[church_door_37003]
+desc=A heavy-built wooden door.
+category=door_right_opened
+param=next_loc_stage,church_door_37002
+
+[gate_37351]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_37352
+
+[gate_37352]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_37351
+
+[gate_37353]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_37354
+
+[gate_37354]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_37353
+
+[door_37995]
+desc=Looks a bit tatty...
+category=door_closed
+param=next_loc_stage,door_37996
+
+[door_37996]
+category=door_opened
+param=next_loc_stage,door_37995
+
+[door_38123]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_38124
+
+[door_38124]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_38123
+
+[door_38141]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_38142
+
+[door_38142]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_38141
+
+[large_door_39469]
+desc=A large door.
+category=door_closed
+param=next_loc_stage,large_door_39470
+
+[large_door_39470]
+desc=A large door.
+category=door_opened
+param=next_loc_stage,large_door_39469
+
+[church_door_39975]
+desc=A heavy-built wooden door.
+category=door_left_closed
+param=next_loc_stage,church_door_39976
+
+[church_door_39976]
+desc=A heavy-built wooden door.
+category=door_left_opened
+param=next_loc_stage,church_door_39975
+
+[church_door_39978]
+desc=A heavy-built wooden door.
+category=door_right_closed
+param=next_loc_stage,church_door_39979
+
+[church_door_39979]
+desc=A heavy-built wooden door.
+category=door_right_opened
+param=next_loc_stage,church_door_39978
+
+[door_40108]
+desc=A door.
+category=door_closed
+param=next_loc_stage,door_40109
+
+[door_40109]
+desc=A door.
+category=door_opened
+param=next_loc_stage,door_40108
+
+[cell_door_40184]
+desc=A locked prison cell door.
+category=door_closed
+param=next_loc_stage,cell_door_40185
+
+[cell_door_40185]
+desc=A prison cell door.
+category=door_opened
+param=next_loc_stage,cell_door_40184
+
+[large_doors]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,large_doors_40362
+
+[large_doors_40362]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,large_doors
+
+[gate_40746]
+desc=The metal bars look strong.
+category=gate_main_closed
+param=next_loc_stage,gate_40747
+
+[gate_40747]
+desc=The metal bars look strong.
+category=gate_main_open
+param=next_loc_stage,gate_40746
+
+[door_40893]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_40894
+
+[door_40894]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_40893
+
+[door_40902]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_40903
+
+[gate_40930]
+desc=The metal bars look strong.
+category=gate_main_closed
+param=next_loc_stage,gate_40931
+
+[gate_40931]
+desc=The metal bars look strong.
+category=gate_main_open
+param=next_loc_stage,gate_40930
+
+[cell_door_40990]
+desc=A cell door.
+category=door_closed
+param=next_loc_stage,loc_40991
+
+[door_41127]
+desc=A nicely fitted door.
+category=door_closed
+param=next_loc_stage,door_41128
+
+[door_41128]
+desc=A nicely fitted door.
+category=door_opened
+param=next_loc_stage,door_41127
+
+[door_41129]
+desc=A nicely fitted door.
+category=door_closed
+param=next_loc_stage,door_41130
+
+[door_41130]
+desc=A nicely fitted door.
+category=door_opened
+param=next_loc_stage,door_41129
+
+[large_door_41131]
+desc=Large double doors.
+category=door_left_closed
+param=next_loc_stage,large_door_41132
+
+[large_door_41132]
+desc=Large double doors.
+category=door_left_opened
+param=next_loc_stage,large_door_41131
+
+[large_door_41133]
+desc=Large double doors.
+category=door_right_closed
+param=next_loc_stage,large_door_41134
+
+[large_door_41134]
+desc=Large double doors.
+category=door_right_opened
+param=next_loc_stage,large_door_41133
+
+[cell_door_41276]
+desc=Stops people getting out.
+category=door_closed
+param=next_loc_stage,cell_oor
+
+[door_41463]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_41464
+
+[door_41464]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_41463
+
+[door_41509]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_41510
+
+[door_41510]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_41509
+
+[door_41522]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_41523
+
+[door_41523]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_41522
+
+[door_41529]
+desc=A magical device that enables one to walk through walls.
+category=door_closed
+param=next_loc_stage,door_41530
+
+[door_41530]
+desc=A magical device that enables one to walk through walls.
+category=door_opened
+param=next_loc_stage,door_41529
+
+[door_42480]
+desc=Stops people getting out.
+category=door_closed
+param=next_loc_stage,door_42481
+
+[door_42481]
+category=door_opened
+param=next_loc_stage,door_42480
+
+[door_43176]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_43177
+
+[door_43177]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_43176
+
+[door_43178]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_43179
+
+[door_43179]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_43178
+
+[door_43180]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_43181
+
+[door_43181]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_43180
+
+[door_43401]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_43402
+
+[door_43402]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_43401
+
+[door_43459]
+desc=Door-like.
+category=door_closed
+param=next_loc_stage,door_43460
+
+[door_43460]
+desc=Door-like.
+category=door_opened
+param=next_loc_stage,door_43459
+
+[metal_door_44215]
+desc=A massive, reinforced metal door.
+category=door_right_closed
+param=next_loc_stage,loc_44217
+
+[metal_door_44216]
+desc=A massive, reinforced metal door.
+category=door_left_closed
+param=next_loc_stage,loc_44218
+
+[door_45003]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_45004
+
+[door_45018]
+desc=This door is unremarkable.
+category=door_closed
+param=next_loc_stage,door_45019
+
+[prison_door_45024]
+desc=It looks like it can be opened pretty easily from the outside.
+category=door_closed
+param=next_loc_stage,prison_door_45025
+
+[gate_45206]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_45207
+
+[gate_45207]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_45206
+
+[gate_45208]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_45209
+
+[gate_45209]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_45208
+
+[gate_45210]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_45211
+
+[gate_45211]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_45210
+
+[gate_45212]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_45213
+
+[gate_45213]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_45212
+
+[door_45476]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_45477
+
+[door_45477]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_45476
+
+[door_45537]
+desc=Keeps the wind out.
+category=door_closed
+param=next_loc_stage,door_45538
+
+[door_45538]
+desc=Keeps the wind out.
+category=door_opened
+param=next_loc_stage,door_45537
+
+[door_45539]
+desc=Keeps the wind out.
+category=door_closed
+param=next_loc_stage,door_45540
+
+[door_45540]
+desc=Keeps the wind out.
+category=door_opened
+param=next_loc_stage,door_45539
+
+[cupboard_door]
+desc=The door of a small cupboard.
+category=door_closed
+param=next_loc_stage,cupboard_door_45790
+
+[cupboard_door_45790]
+desc=The door of a small cupboard.
+category=door_opened
+param=next_loc_stage,cupboard_door
+
+[door_45964]
+desc=The door is closed.
+category=door_right_closed
+param=next_loc_stage,door_45965
+
+[door_45965]
+desc=The door is open.
+category=door_right_opened
+param=next_loc_stage,door_45964
+
+[door_45966]
+desc=The door is closed.
+category=door_left_closed
+param=next_loc_stage,door_45967
+
+[door_45967]
+desc=The door is open.
+category=door_left_opened
+param=next_loc_stage,door_45966
+
+[door_46251]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_46252
+
+[door_46252]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_46251
+
+[door_46305]
+desc=A solid looking door.
+category=door_opened
+param=next_loc_stage,door_46306
+
+[door_46306]
+desc=A door.
+category=door_closed
+param=next_loc_stage,door_46305
+
+[large_door_47424]
+desc=A large double door.
+category=door_closed
+param=next_loc_stage,large_door_47425
+
+[door_47443]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_47444
+
+[door_47444]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_47443
+
+[door_47512]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_47513
+
+[door_47513]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_47512
+
+[door_48938]
+desc=A heavily built wooden door.
+category=door_left_closed
+param=next_loc_stage,door_48939
+
+[door_48939]
+desc=A heavily built wooden door.
+category=door_left_opened
+param=next_loc_stage,door_48938
+
+[door_48940]
+desc=A heavily built wooden door.
+category=door_right_closed
+param=next_loc_stage,door_48941
+
+[door_48941]
+desc=A heavily built wooden door.
+category=door_right_opened
+param=next_loc_stage,door_48940
+
+[door_48942]
+desc=A heavily built wooden door.
+category=door_left_closed
+param=next_loc_stage,door_48943
+
+[door_48943]
+desc=A heavily built wooden door.
+category=door_left_opened
+param=next_loc_stage,door_48942
+
+[door_48944]
+desc=A heavily built wooden door.
+category=door_right_closed
+param=next_loc_stage,door_48945
+
+[door_48945]
+desc=A heavily built wooden door.
+category=door_right_opened
+param=next_loc_stage,door_48944
+
+[door_48961]
+desc=The door is closed.
+category=door_closed
+param=next_loc_stage,door_48962
+
+[door_48962]
+desc=The door is open.
+category=door_opened
+param=next_loc_stage,door_48961
+
+[gate_49014]
+desc=A gate.
+category=gate_main_closed
+param=next_loc_stage,loc_49015
+
+[gate_49016]
+desc=A gate.
+category=gate_outer_closed
+param=next_loc_stage,loc_49017
+
+[door_52302]
+desc=A door on which to practise lockpicking technique.
+category=door_closed
+param=next_loc_stage,loc_52303
+
+[door_52304]
+desc=A securely-locked practice door.
+category=door_closed
+param=next_loc_stage,loc_52305
+
+[door_52474]
+desc=It's quite small.
+category=door_closed
+param=next_loc_stage,door_52475
+
+[door_52475]
+category=door_opened
+param=next_loc_stage,door_52474
+
+[door_52778]
+desc=A heavy door of dark wood.
+category=door_closed
+param=next_loc_stage,door_52780
+
+[door_52779]
+desc=A heavy door of dark wood.
+category=door_closed
+param=next_loc_stage,door_52781
+
+[door_52780]
+desc=A heavy door of dark wood.
+category=door_opened
+param=next_loc_stage,door_52778
+
+[door_52781]
+desc=A heavy door of dark wood.
+category=door_opened
+param=next_loc_stage,door_52779
+
+[door_55444]
+desc=A door.
+category=door_closed
+param=next_loc_stage,door_55445
+
+[door_55445]
+desc=A door.
+category=door_opened
+param=next_loc_stage,door_55444
+
+[door_57137]
+desc=A door.
+category=door_closed
+param=next_loc_stage,door_57138
+
+[door_57138]
+desc=A door.
+category=door_opened
+param=next_loc_stage,door_57137
+
+[big_door_57257]
+desc=Looks foreboding!
+category=door_opened
+param=next_loc_stage,big_door_57258
+
+[big_door_57258]
+desc=Looks foreboding!
+category=door_closed
+param=next_loc_stage,big_door_57257
+
+// 289's cache-side door and gate categories (content/289/scripts/_unpack),
+// at 2011's names. 289's hauntedbackdoor and Elemental Workshop odd walls have
+// no 2011 match (2011's ids 136 and 3390-3393 are other locs).
+[sturdy_door]
+desc=This door is very sturdy looking.
+category=door_open_and_close
+param=next_loc_stage,loc_1535
+
+[bkfortressdoor2]
+desc=This door is closed.
+category=door_open_and_close
+param=next_loc_stage,loc_1532
+
+[bkfortressdoor3]
+desc=This door is very sturdy looking.
+category=door_open_and_close
+param=next_loc_stage,loc_1535
+
+[bksecretdoor]
+desc=There is something strange about this wall...
+category=door_open_and_close
+param=next_loc_stage,inactivesecretdoor2
+
+[lockedmetalgatel]
+desc=A wrought-iron gate.
+category=locked_gate
+
+[lockedmetalgater]
+desc=A wrought-iron gate.
+category=locked_gate
+
+[miningcampgateclosedl]
+desc=A solid looking gate.
+category=double_door_open_and_close_left
+param=next_loc_stage,loc_1562
+
+[miningcampgateclosedr]
+desc=A solid looking gate.
+category=double_door_open_and_close_right
+param=next_loc_stage,loc_1563
+
+[oddwall_l]
+desc=A strange crack cuts into the wall.
+category=double_door_open_and_close_left
+param=next_loc_stage,openoddwall_l
+
+[odd_looking_wall]
+desc=A strange crack cuts into the wall.
+category=double_door_open_and_close_right
+param=next_loc_stage,openoddwall_r
+
+[thttmineexitl]
+desc=Large solid, thick set oak doors - they lead outside.
+category=double_door_open_and_close_left
+param=next_loc_stage,loc_1522
+
+[thttmineexitr]
+desc=Large solid, thick set oak doors - they lead outside.
+category=double_door_open_and_close_right
+param=next_loc_stage,loc_1523
+
+[undergroundcellgatel]
+category=double_door_open_and_close_left
+param=next_loc_stage,loc_1562
+
+[undergroundcellgater]
+category=double_door_open_and_close_right
+param=next_loc_stage,loc_1563
+
+[undergroundniceminel]
+category=double_door_open_and_close_left
+param=next_loc_stage,loc_1562
+
+[undergroundniceminer]
+category=double_door_open_and_close_right
+param=next_loc_stage,loc_1563

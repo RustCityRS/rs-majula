@@ -1,0 +1,82 @@
+// 289's player/scripts/damage.rs2, on 2011's life points. 289's engine owns
+// hitpoints, and its damage(uid, type, amount) takes them off. At 647 the pool
+// is content (%life_points, varbit 7198, ten to a hitpoint), so ~player_damage
+// takes them off and hands the engine the hitsplat and the health bar's fill
+// (0-255) to paint.
+[proc,player_damage](int $type, int $amount)
+def_int $dealt = $amount;
+if ($dealt > %life_points) {
+    $dealt = %life_points;
+}
+if ($dealt < 0) {
+    $dealt = 0;
+}
+%life_points = calc(%life_points - $dealt);
+def_int $max = calc(stat_base(hitpoints) * 10);
+damage(uid, $type, $dealt, calc(%life_points * 255 / $max));
+
+[proc,damage_self](int $amount)
+~damage_self_hitmark($amount, ^hitmark_damage);
+
+// A hit with its 2011 hitmark: a combat style's, its crit, or the plain one.
+[proc,damage_self_hitmark](int $amount, int $hitmark)
+if (%life_points = 0) {
+    return;
+}
+if_close;
+if ($amount > 0) {
+    ~player_damage($hitmark, $amount);
+    ~human_hit_sound;
+} else {
+    ~player_damage(^hitmark_block, 0);
+}
+
+if (%life_points = 0) {
+    queue(player_death, 0, 0);
+    return;
+}
+
+~ring_of_life_check;
+
+[queue,damage_player](int $amount)
+~damage_self($amount);
+
+[proc,human_hit_sound]
+def_int $rand;
+def_synth $sound;
+if (gender() = 0) {
+    $rand = random(3);
+    switch_int($rand) {
+        case 0 : $sound = human_hit2;
+        case 1 : $sound = human_hit3;
+        case 2 : $sound = human_hit4;
+        case default : $sound = human_hit2;
+    }
+} else {
+    $rand = random(2);
+    switch_int($rand) {
+        case 0 : $sound = female_hit;
+        case 1 : $sound = female_hit2;
+        case default : $sound = female_hit;
+    }
+}
+sound_synth($sound, 1, 20);
+
+// Dev: `::hit [amount]` renders a hitsplat on yourself and drains the life-point
+// pool, refilling to full first when the hit would be lethal so repeated calls stay
+// observable. Replaces the old Rust `::hit` cheat (the engine no longer owns HP).
+// Defaults to 10 damage.
+[debugproc,hit](int $amount)
+if (p_finduid(uid) = false) {
+    return;
+}
+def_int $hit = $amount;
+if ($hit <= 0) {
+    $hit = 10;
+}
+def_int $max = calc(stat_base(hitpoints) * 10);
+if (%life_points <= $hit) {
+    %life_points = $max;
+}
+~damage_self($hit);
+mes("Hitsplat: <tostring($hit)> (life <tostring(%life_points)> / <tostring($max)>)");

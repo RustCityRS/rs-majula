@@ -1,0 +1,21 @@
+// From 289's eadgar_zoo_keeper_aviary.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,make_alco_chunks](obj $liquor)
+if(%eadgar_quest = ^eadgar_complete) {
+    mes("You don't need to make any more.");
+    return;
+}
+if (testbit(%eadgar_bits, ^eadgar_pete_dialog_1) = ^true) { // no message is given at all if only the first dialog is triggered
+    if (testbit(%eadgar_bits, ^eadgar_pete_dialog_2) = ^true) {
+        // in OSRS you cannot make more alco-chunks if the parrot is held in inventory or bank
+        if(inv_total(inv, drunk_parrot) > 0 | inv_total(bank, drunk_parrot) > 0) {
+            mes("You don't need to make any more.");
+        } else {
+            inv_del(inv, pineapple_chunks, 1);
+            inv_del(inv, $liquor, 1);
+            inv_add(inv, alco_chunks, 1);
+        }
+    }
+} else {
+    mes("Why would you want to do that?");
+}
+

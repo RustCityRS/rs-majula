@@ -20,107 +20,240 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{Font, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::client::ClientProtMessage;
-use rs_protocol::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
-use rs_protocol::network::game::client::anticheat_cyclelogic2::AnticheatCycleLogic2;
-use rs_protocol::network::game::client::anticheat_cyclelogic3::AnticheatCycleLogic3;
-use rs_protocol::network::game::client::anticheat_cyclelogic4::AnticheatCycleLogic4;
-use rs_protocol::network::game::client::anticheat_cyclelogic5::AnticheatCycleLogic5;
-use rs_protocol::network::game::client::anticheat_cyclelogic6::AnticheatCycleLogic6;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::anticheat_cyclelogic7::AnticheatCycleLogic7;
-use rs_protocol::network::game::client::anticheat_oplogic1::AnticheatOpLogic1;
-use rs_protocol::network::game::client::anticheat_oplogic2::AnticheatOpLogic2;
-use rs_protocol::network::game::client::anticheat_oplogic3::AnticheatOpLogic3;
-use rs_protocol::network::game::client::anticheat_oplogic4::AnticheatOpLogic4;
-use rs_protocol::network::game::client::anticheat_oplogic5::AnticheatOpLogic5;
-use rs_protocol::network::game::client::anticheat_oplogic6::AnticheatOpLogic6;
-use rs_protocol::network::game::client::anticheat_oplogic7::AnticheatOpLogic7;
-use rs_protocol::network::game::client::anticheat_oplogic8::AnticheatOpLogic8;
-use rs_protocol::network::game::client::anticheat_oplogic9::AnticheatOpLogic9;
-use rs_protocol::network::game::client::chat_setmode::ChatSetMode;
-use rs_protocol::network::game::client::client_cheat::ClientCheat;
-use rs_protocol::network::game::client::close_modal::CloseModal;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
-#[cfg(any(rev = "225", since_254))]
-use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
-#[cfg(before_274)]
-use rs_protocol::network::game::client::event_tracking::EventTracking;
-use rs_protocol::network::game::client::friendlist_add::FriendListAdd;
-use rs_protocol::network::game::client::friendlist_del::FriendListDel;
-use rs_protocol::network::game::client::idk_savedesign::IdkSaveDesign;
-use rs_protocol::network::game::client::idle_timer::IdleTimer;
-use rs_protocol::network::game::client::if_button::IfButton;
-use rs_protocol::network::game::client::ignorelist_add::IgnoreListAdd;
-use rs_protocol::network::game::client::ignorelist_del::IgnoreListDel;
-use rs_protocol::network::game::client::inv_button1::InvButton1;
-use rs_protocol::network::game::client::inv_button2::InvButton2;
-use rs_protocol::network::game::client::inv_button3::InvButton3;
-use rs_protocol::network::game::client::inv_button4::InvButton4;
-use rs_protocol::network::game::client::inv_button5::InvButton5;
-use rs_protocol::network::game::client::inv_buttond::InvButtonD;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::map_build_complete::MapBuildComplete;
-use rs_protocol::network::game::client::message_private::MessagePrivate;
-use rs_protocol::network::game::client::message_public::MessagePublic;
-use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
-use rs_protocol::network::game::client::move_minimapclick::{MinimapTrailer, MoveMinimapClick};
-use rs_protocol::network::game::client::move_opclick::MoveOpClick;
-use rs_protocol::network::game::client::no_timeout::NoTimeout;
-use rs_protocol::network::game::client::opheld1::OpHeld1;
-use rs_protocol::network::game::client::opheld2::OpHeld2;
-use rs_protocol::network::game::client::opheld3::OpHeld3;
-use rs_protocol::network::game::client::opheld4::OpHeld4;
-use rs_protocol::network::game::client::opheld5::OpHeld5;
-use rs_protocol::network::game::client::opheldt::OpHeldT;
-use rs_protocol::network::game::client::opheldu::OpHeldU;
-use rs_protocol::network::game::client::oploc1::OpLoc1;
-use rs_protocol::network::game::client::oploc2::OpLoc2;
-use rs_protocol::network::game::client::oploc3::OpLoc3;
-use rs_protocol::network::game::client::oploc4::OpLoc4;
-use rs_protocol::network::game::client::oploc5::OpLoc5;
-use rs_protocol::network::game::client::oploct::OpLocT;
-use rs_protocol::network::game::client::oplocu::OpLocU;
-use rs_protocol::network::game::client::opnpc1::OpNpc1;
-use rs_protocol::network::game::client::opnpc2::OpNpc2;
-use rs_protocol::network::game::client::opnpc3::OpNpc3;
-use rs_protocol::network::game::client::opnpc4::OpNpc4;
-use rs_protocol::network::game::client::opnpc5::OpNpc5;
-use rs_protocol::network::game::client::opnpct::OpNpcT;
-use rs_protocol::network::game::client::opnpcu::OpNpcU;
-use rs_protocol::network::game::client::opobj1::OpObj1;
-use rs_protocol::network::game::client::opobj2::OpObj2;
-use rs_protocol::network::game::client::opobj3::OpObj3;
-use rs_protocol::network::game::client::opobj4::OpObj4;
-use rs_protocol::network::game::client::opobj5::OpObj5;
-use rs_protocol::network::game::client::opobjt::OpObjT;
-use rs_protocol::network::game::client::opobju::OpObjU;
-use rs_protocol::network::game::client::opplayer1::OpPlayer1;
-use rs_protocol::network::game::client::opplayer2::OpPlayer2;
-use rs_protocol::network::game::client::opplayer3::OpPlayer3;
-use rs_protocol::network::game::client::opplayer4::OpPlayer4;
-#[cfg(since_254)]
-use rs_protocol::network::game::client::opplayer5::OpPlayer5;
-use rs_protocol::network::game::client::opplayert::OpPlayerT;
-use rs_protocol::network::game::client::opplayeru::OpPlayerU;
-#[cfg(rev = "225")]
-use rs_protocol::network::game::client::rebuild_get_maps::RebuildGetMaps;
-use rs_protocol::network::game::client::resume_p_countdialog::ResumePCountDialog;
-use rs_protocol::network::game::client::resume_pause_button::ResumePauseButton;
-use rs_protocol::network::game::client::send_snapshot::SendSnapshot;
-use rs_protocol::network::game::client::tut_clickside::TutClickSide;
+use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic6;
+#[cfg(all(since_254, before_647))]
+use rs_protocol::network::game::client_prot::AnticheatCycleLogic7;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic6;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic7;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic8;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::AnticheatOpLogic9;
+use rs_protocol::network::game::client_prot::ChatSetMode;
+use rs_protocol::network::game::client_prot::ClientCheat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client_prot::CloseModal;
+#[cfg(since_254)]
+use rs_protocol::network::game::client_prot::EventAppletFocus;
+#[cfg(any(rev = "225", since_254))]
+use rs_protocol::network::game::client_prot::EventCameraPosition;
+#[cfg(since_254)]
+use rs_protocol::network::game::client_prot::EventMouseClick;
+#[cfg(since_254)]
+use rs_protocol::network::game::client_prot::EventMouseMove;
+#[cfg(before_274)]
+use rs_protocol::network::game::client_prot::EventTracking;
+use rs_protocol::network::game::client_prot::FriendListAdd;
+use rs_protocol::network::game::client_prot::FriendListDel;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::IdkSaveDesign;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::IdleTimer;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::IfButton;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::IfButtonD;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::IfButtonT;
+use rs_protocol::network::game::client_prot::IgnoreListAdd;
+use rs_protocol::network::game::client_prot::IgnoreListDel;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::InvButton1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::InvButton2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::InvButton3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::InvButton4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::InvButton5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::InvButtonD;
+#[cfg(since_254)]
+use rs_protocol::network::game::client_prot::MapBuildComplete;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::MessagePrivate;
+use rs_protocol::network::game::client_prot::MessagePublic;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::MoveGameClick;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::MoveGameclick;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::MoveMinimapClick;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::MoveMinimapclick;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::MoveOpClick;
+use rs_protocol::network::game::client_prot::NoTimeout;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeld1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeld2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeld3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeld4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeld5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeldT;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpHeldU;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpLoc1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpLoc1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpLoc2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpLoc2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpLoc3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpLoc3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpLoc4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpLoc4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpLoc5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpLoc5;
+use rs_protocol::network::game::client_prot::OpLocT;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpLocU;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpNpc1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpNpc1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpNpc2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpNpc2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpNpc3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpNpc3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpNpc4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpNpc4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpNpc5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpNpc5;
+use rs_protocol::network::game::client_prot::OpNpcT;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpNpcU;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpObj1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpObj1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpObj2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpObj2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpObj3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpObj3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpObj4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpObj4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpObj5;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpObj5;
+use rs_protocol::network::game::client_prot::OpObjT;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpObjU;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpPlayer1;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpPlayer1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpPlayer2;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpPlayer2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpPlayer3;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpPlayer3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpPlayer4;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpPlayer4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::OpPlayer5;
+#[cfg(since_254)]
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpPlayer5;
+use rs_protocol::network::game::client_prot::OpPlayerT;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::OpPlayerU;
+#[cfg(rev = "225")]
+use rs_protocol::network::game::client_prot::RebuildGetMaps;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::ResumePCountDialog;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::ResumePCountDialog;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::ResumePStringDialog;
+use rs_protocol::network::game::client_prot::ResumePauseButton;
+use rs_protocol::network::game::client_prot::SendSnapshot;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::SetChatfiltersettings;
+#[cfg(before_647)]
+use rs_protocol::network::game::client_prot::TutClickSide;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::WindowStatus;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::{ExamineLoc, ExamineNpc, ExamineObj};
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::{
+    IfButton1, IfButton2, IfButton3, IfButton4, IfButton5, IfButton6, IfButton7, IfButton8,
+    IfButton9, IfButton10,
+};
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::hint_arrow::HintArrowKind;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::obj_count::ObjCount;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::obj_del::ObjDel;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
@@ -174,6 +307,13 @@ pub struct ActivePlayer {
     pub ignores: Vec<i64>,
     pub watch: Box<Watch>,
     pub(crate) capture: Option<Vec<Vec<u8>>>,
+}
+
+/// From 647 a component is addressed as `interface << 16 | component`, so its
+/// interface is the hash's high half.
+#[cfg(since_647)]
+fn root_layer(com: rs_vm::ComId) -> Option<i32> {
+    Some(com >> 16)
 }
 
 impl ActivePlayer {
@@ -291,12 +431,28 @@ impl ActivePlayer {
         M: ServerProtMessage,
     {
         let frame = M::FRAME as usize;
-        let len = 1 + frame + message.sizeof();
+        #[cfg(before_647)]
+        let opcode_bytes = 1;
+        // Rev-647 opcodes are 1-or-2-byte SMART values on the wire.
+        #[cfg(since_647)]
+        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
+        let len = opcode_bytes + frame + message.sizeof();
         if len > MAX_PACKET_SIZE {
             return None;
         }
         let mut buf = Packet::new(len);
+        #[cfg(before_647)]
         buf.p1(M::PROT as u8);
+        #[cfg(since_647)]
+        {
+            let opcode = M::PROT as u16;
+            if opcode < 128 {
+                buf.p1(opcode as u8);
+            } else {
+                buf.p1((opcode >> 8) as u8 + 128);
+                buf.p1(opcode as u8);
+            }
+        }
         buf.pos += frame;
         let start = buf.pos;
         message.encode(&mut buf);
@@ -324,6 +480,24 @@ impl ActivePlayer {
         let clock = engine().clock;
         for mut buf in self.buffered.drain(..) {
             self.watch.server(clock, buf.data[0], &buf.data[1..]);
+            // Packet::new pre-sizes `data` from sizeof(); send only the bytes
+            // actually encoded so a sizeof over-estimate can't leak zero
+            // padding into the ISAAC stream.
+            #[cfg(since_647)]
+            buf.data.truncate(buf.pos);
+            // Rev-647 opcodes were queued as plaintext SMART: a first byte
+            // >= 128 marks a 2-byte opcode, which consumes two ISAAC values.
+            // ISAAC is applied here (at flush) rather than at queue time so
+            // the cipher stays in wire order relative to immediate packets.
+            #[cfg(since_647)]
+            if buf.data[0] >= 128 {
+                let i0 = handle.isaac_encode.next_int();
+                let i1 = handle.isaac_encode.next_int();
+                buf.data[0] = (buf.data[0] as u32 + i0) as u8;
+                buf.data[1] = (buf.data[1] as u32 + i1) as u8;
+                handle.gather(&buf.data);
+                continue;
+            }
             buf.data[0] = (buf.data[0] as u32 + handle.isaac_encode.next_int()) as u8;
             handle.gather(&buf.data);
         }
@@ -350,13 +524,29 @@ impl ActivePlayer {
     {
         let handle = &mut self.handle;
         let frame = M::FRAME as usize;
-        let len = 1 + frame + message.sizeof();
+        #[cfg(before_647)]
+        let opcode_bytes = 1;
+        #[cfg(since_647)]
+        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
+        let len = opcode_bytes + frame + message.sizeof();
         if len > MAX_PACKET_SIZE {
             return;
         }
         let buf = &mut handle.write_queue;
         buf.pos = 0;
+        #[cfg(before_647)]
         buf.p1((M::PROT as u32 + handle.isaac_encode.next_int()) as u8);
+        // 1-or-2-byte SMART opcode, ISAAC applied per byte.
+        #[cfg(since_647)]
+        {
+            let opcode = M::PROT as u16;
+            if opcode < 128 {
+                buf.p1((opcode as u32 + handle.isaac_encode.next_int()) as u8);
+            } else {
+                buf.p1((((opcode >> 8) + 128) as u32 + handle.isaac_encode.next_int()) as u8);
+                buf.p1(((opcode & 0xFF) as u32 + handle.isaac_encode.next_int()) as u8);
+            }
+        }
         buf.pos += frame;
         let start = buf.pos;
         message.encode(buf);
@@ -427,11 +617,28 @@ impl ActivePlayer {
             };
             let x = zone_coord.x().wrapping_sub(origin_x) as u8;
             let z = zone_coord.z().wrapping_sub(origin_z) as u8;
+            #[cfg(since_647)]
+            let level = zone_coord.y();
             if let Some(bytes) = zone.shared_bytes() {
+                #[cfg(before_647)]
                 self.write(UpdateZonePartialEnclosed { x, z, bytes });
+                #[cfg(since_647)]
+                self.write(UpdateZonePartialEnclosed {
+                    x_off: x,
+                    z_off: z,
+                    level,
+                    bytes,
+                });
             }
             if zone.has_follows_events() {
+                #[cfg(before_647)]
                 self.write(UpdateZonePartialFollows { x, z });
+                #[cfg(since_647)]
+                self.write(UpdateZonePartialFollows {
+                    x_off: x,
+                    z_off: z,
+                    level,
+                });
                 for message in zone.visible_follows_events(user37) {
                     self.write_zone_message(message);
                 }
@@ -513,32 +720,61 @@ impl ActivePlayer {
     }
 
     pub fn cam_moveto(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::cam_move_to::CamMoveTo {
             x,
             z,
             height,
             rate,
             rate2,
-        })
+        });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::cam_moveto::CamMoveto {
+            local_x: x,
+            local_z: z,
+            height,
+            const_speed: rate,
+            var_speed: rate2,
+        });
     }
 
     pub fn cam_lookat(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::cam_look_at::CamLookAt {
             x,
             z,
             height,
             rate,
             rate2,
-        })
+        });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::cam_lookat::CamLookat {
+            local_x: x,
+            local_z: z,
+            height,
+            const_speed: rate,
+            var_speed: rate2,
+        });
     }
 
     pub fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::cam_shake::CamShake {
             direction,
             jitter,
             amplitude,
             frequency,
-        })
+        });
+        // 647 adds the wobble's starting phase; a shake starts at the start,
+        // as the pre-647 client began every shake at cycle 0.
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::cam_shake::CamShake {
+            shake_type: direction,
+            jitter,
+            amplitude,
+            frequency,
+            cycle: 0,
+        });
     }
 
     /// Flushes queued camera updates and refreshes the player's map view. Runs once per
@@ -606,11 +842,14 @@ impl ActivePlayer {
             let now_multi =
                 rsmod::is_zone_flagged(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8);
             if was_multi != now_multi {
+                #[cfg(before_647)]
                 self.write(
                     rs_protocol::network::game::server::set_multiway::SetMultiway {
                         hide: now_multi,
                     },
                 );
+                // TODO(647): rev-647 drives the multiway crossed-swords
+                // indicator through varbits/content, not a dedicated packet.
             }
             self.trigger_zone_exit(old_zone.y(), old_zone.x(), old_zone.z());
             self.trigger_zone(coord.y(), zone.x(), zone.z());
@@ -671,6 +910,7 @@ impl ActivePlayer {
 
     /// Sends the chat filter settings (public, private, trade) to the client.
     pub fn chat_filter_settings(&mut self, public: u8, private: u8, trade: u8) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings {
                 public,
@@ -678,6 +918,22 @@ impl ActivePlayer {
                 trade,
             },
         );
+        // Rev-647 splits the settings across two packets: public/trade in
+        // CHAT_FILTER_SETTINGS and private in its own packet.
+        #[cfg(since_647)]
+        {
+            self.write(
+                rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings {
+                    public_filter: public,
+                    trade_filter: trade,
+                },
+            );
+            self.write(
+                rs_protocol::network::game::server::chat_filter_settings_privatechat::ChatFilterSettingsPrivatechat {
+                    private_filter: private,
+                },
+            );
+        }
     }
 
     /// Sends a chunk of land (ground texture) map data to the client.
@@ -723,11 +979,17 @@ impl ActivePlayer {
     /// # Arguments
     /// * `nid` - The world index of the NPC to highlight.
     pub fn hint_npc(&mut self, nid: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
             hint: 1,
             arg1: nid,
             arg2: 0,
             arg3: 0,
+        });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+            kind: HintArrowKind::Npc { npc_index: nid },
+            model_id: 0xFFFF,
         });
     }
 
@@ -740,12 +1002,29 @@ impl ActivePlayer {
     /// * `z` - The absolute tile Z coordinate.
     /// * `height` - The vertical offset of the arrow above the tile.
     pub fn hint_tile(&mut self, offset: u8, x: u16, z: u16, height: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
             hint: offset,
             arg1: x,
             arg2: z,
             arg3: height,
         });
+        // Rev-647 coord hints carry the level explicitly (the 2004-era packet
+        // implied the player's plane) and have no centre/edge offset variants.
+        #[cfg(since_647)]
+        {
+            let _ = offset;
+            let level = self.player.pathing.coord.y();
+            self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+                kind: HintArrowKind::Coord {
+                    x,
+                    z,
+                    level,
+                    height,
+                },
+                model_id: 0xFFFF,
+            });
+        }
     }
 
     /// Sends a hint arrow pointing at another player.
@@ -753,50 +1032,159 @@ impl ActivePlayer {
     /// # Arguments
     /// * `slot` - The player index (pid) to highlight.
     pub fn hint_player(&mut self, slot: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
             hint: 10,
             arg1: slot,
             arg2: 0,
             arg3: 0,
         });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+            kind: HintArrowKind::Player { player_index: slot },
+            model_id: 0xFFFF,
+        });
     }
 
     /// Clears any active hint arrow on the client. The wire type `-1` (`0xFF`) tells the
     /// client to remove the arrow.
     pub fn stop_hint(&mut self) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
             hint: 0xFF,
             arg1: 0,
             arg2: 0,
             arg3: 0,
         });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+            kind: HintArrowKind::Stop,
+            model_id: 0xFFFF,
+        });
     }
 
     /// Sends an interface close packet to the client.
     pub fn if_close(&mut self) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_close::IfClose {});
+        // Rev-647 closes per-slot: IF_CLOSESUB names the parent component hash
+        // the sub-interface was mounted on, so a close goes to each slot a
+        // modal actually opened in rather than to a single screen-wide modal.
+        #[cfg(since_647)]
+        for parent in [
+            std::mem::take(&mut self.player.modal_chat_parent),
+            std::mem::take(&mut self.player.modal_main_parent),
+            std::mem::take(&mut self.player.modal_side_parent),
+        ] {
+            if parent != 0 {
+                self.if_close_sub(parent);
+            }
+        }
     }
 
     /// Sends a packet to open both a main interface and a side interface.
     pub fn if_open_main_side(&mut self, com: u16, side: u16) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::if_openmain_side::IfOpenMainSide { com, side },
         );
+        #[cfg(since_647)]
+        {
+            self.if_open_main(com);
+            self.if_open_side(side);
+        }
     }
 
     /// Sends a packet to open a main (fullscreen) interface.
+    ///
+    /// Rev-647 has no screen-wide main modal: the interface is mounted with
+    /// IF_OPENSUB on the toplevel's main-screen slot (`com_main_screen`,
+    /// 548:18 fixed and 746:9 resizable, `void-634`'s `main_screen` with
+    /// 746's +1 drift), as a type-0 modal. An interface the content's
+    /// `wide_screen_enum` lists mounts on the full-size `com_wide_screen`
+    /// slot instead (548:8, 746:6): 2011's skill guide fills it with its own
+    /// backdrop, which in the main slot showed as a tinted box.
     pub fn if_open_main(&mut self, com: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_openmain::IfOpenMain { com });
+        #[cfg(since_647)]
+        {
+            let layout = &engine().layout;
+            let slots = if layout.wide_screen_ifaces.contains(&com) {
+                &layout.wide_screen
+            } else {
+                &layout.main_screen
+            };
+            let parent = self.toplevel_slot(slots);
+            if parent == 0 {
+                warn!(
+                    "if_open_main({com}): toplevel {} has no main screen",
+                    self.player.toplevel
+                );
+                return;
+            }
+            self.player.modal_main_parent = parent;
+            self.if_open_sub(com, parent, 0);
+        }
     }
 
     /// Sends a packet to open a chat-area interface.
+    ///
+    /// Rev-647 has no screen-wide chat modal: a dialogue is a *sub-interface*
+    /// mounted on a child of the chatbox frame, so it goes out as `IF_OPENSUB`
+    /// against that child's component hash. Which child depends on the
+    /// interface — most use the default `dialogue_box` slot, while the small
+    /// ones (`objbox`, `doubleobjbox`) override it — and the mapping comes from
+    /// the content `dialogue_slot_enum` via `layout.dialogue_slot`, so the engine
+    /// carries no interface ids of its own.
+    ///
+    /// The slot actually used is recorded on the player: `IF_CLOSESUB` closes by
+    /// parent hash, so closing the default slot while an objbox is open in the
+    /// small one leaves the dialogue on screen.
     pub fn if_open_chat(&mut self, com: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_openchat::IfOpenChat { com });
+        #[cfg(since_647)]
+        {
+            let parent_hash = engine().layout.dialogue_slot(com);
+            if parent_hash == 0 {
+                warn!("if_open_chat({com}): no dialogue slot; chatbox interface not found");
+                return;
+            }
+            self.player.modal_chat_parent = parent_hash;
+            self.if_open_sub(com, parent_hash, 0);
+        }
     }
 
     /// Sends a packet to open a side-panel interface.
+    ///
+    /// Rev-647 mounts it with IF_OPENSUB on the toplevel's slot over the side
+    /// panels (`com_overlay_tab`, 548:198 fixed and 746:84 resizable:
+    /// `void-634`'s `overlay_tab` 197/83 plus the revision drift, both the
+    /// 190x261 of a tab), where the bank and shop inventories go.
+    ///
+    /// As type 1, not a modal: `void-634`'s `overlay_tab` is permanent. The
+    /// client's own close (a modal's close button) closes only type-0 subs,
+    /// and without re-running the toplevel's scripts (`Class194.method1298`);
+    /// the panel is left to the server's IF_CLOSESUB, which re-runs them
+    /// (`LightDetailClientOption.method2499`) and so brings the tabs back. A
+    /// type-0 panel went with the client's close and left the tabs hidden.
     pub fn if_open_side(&mut self, com: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_openside::IfOpenSide { com });
+        #[cfg(since_647)]
+        {
+            let parent = self.toplevel_slot(&engine().layout.overlay_tab);
+            if parent == 0 {
+                warn!(
+                    "if_open_side({com}): toplevel {} has no side slot",
+                    self.player.toplevel
+                );
+                return;
+            }
+            self.player.modal_side_parent = parent;
+            self.if_open_sub(com, parent, 1);
+        }
     }
 
     /// Sends the last-login info to the client (welcome screen).
@@ -817,6 +1205,7 @@ impl ActivePlayer {
             self.player.last_login_date
         };
         let days_since_login = ((self.player.last_date - previous) / (60 * 60 * 24)) as u16;
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::last_login_info::LastLoginInfo {
                 ip: 2130706433,
@@ -827,68 +1216,217 @@ impl ActivePlayer {
                 warn_members_in_non_members: !engine().members && self.member(),
             },
         );
+        // Rev-647 only reports the day count; the welcome-screen extras
+        // (ip/recovery/messages) are gone from the packet.
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::last_login_info::LastLoginInfo {
+                last_login_days: days_since_login as i32,
+            },
+        );
     }
 
     /// Sets the animation playing on an interface component.
-    pub fn if_setanim(&mut self, com: u16, seq: u16) {
-        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim { com, seq });
+    pub fn if_setanim(&mut self, com: i32, seq: u16) {
+        #[cfg(before_647)]
+        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim {
+            com: com as u16,
+            seq,
+        });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim {
+            component_hash: com,
+            seq_id: seq as i16,
+        });
     }
 
     /// Sets the color of an interface component.
-    pub fn if_setcolour(&mut self, com: u16, colour: u16) {
-        self.write(rs_protocol::network::game::server::if_setcolour::IfSetColour { com, colour });
+    pub fn if_setcolour(&mut self, com: i32, colour: u16) {
+        #[cfg(before_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setcolour::IfSetColour {
+                com: com as u16,
+                colour,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setcolour::IfSetColour {
+                component_hash: com,
+                colour,
+            },
+        );
     }
 
     /// Sets the visibility of an interface component.
-    pub fn if_sethide(&mut self, com: u16, hide: bool) {
-        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide { com, hide });
+    pub fn if_sethide(&mut self, com: i32, hide: bool) {
+        #[cfg(before_647)]
+        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide {
+            com: com as u16,
+            hide,
+        });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide {
+            component_hash: com,
+            hidden: hide,
+        });
     }
 
     /// Sets the model displayed on an interface component.
-    pub fn if_setmodel(&mut self, com: u16, model: u16) {
-        self.write(rs_protocol::network::game::server::if_setmodel::IfSetModel { com, model });
+    pub fn if_setmodel(&mut self, com: i32, model: u16) {
+        #[cfg(before_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setmodel::IfSetModel {
+                com: com as u16,
+                model,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setmodel::IfSetModel {
+                component_hash: com,
+                model_id: model as i16,
+            },
+        );
     }
 
     /// Sets an NPC head model on an interface component.
-    pub fn if_setnpchead(&mut self, com: u16, npc: u16) {
-        self.write(rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead { com, npc });
+    pub fn if_setnpchead(&mut self, com: i32, npc: u16) {
+        #[cfg(before_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead {
+                com: com as u16,
+                npc,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead {
+                component_hash: com,
+                npc_id: npc,
+            },
+        );
     }
 
     /// Sets an item model on an interface component with a given zoom scale.
-    pub fn if_setobject(&mut self, com: u16, obj: u16, scale: u16) {
+    pub fn if_setobject(&mut self, com: i32, obj: u16, scale: u16) {
+        #[cfg(before_647)]
         self.write(
-            rs_protocol::network::game::server::if_setobject::IfSetObject { com, obj, scale },
+            rs_protocol::network::game::server::if_setobject::IfSetObject {
+                com: com as u16,
+                obj,
+                scale,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setobject::IfSetObject {
+                component_hash: com,
+                item_id: obj,
+                zoom: scale as i32,
+            },
         );
     }
 
     /// Sets the local player's head model on an interface component.
-    pub fn if_setplayerhead(&mut self, com: u16) {
-        self.write(rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead { com });
+    pub fn if_setplayerhead(&mut self, com: i32) {
+        #[cfg(before_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead {
+                com: com as u16,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead {
+                component_hash: com,
+            },
+        );
     }
 
     /// Sets the position of an interface component.
-    pub fn if_setposition(&mut self, com: u16, x: u16, y: u16) {
-        self.write(rs_protocol::network::game::server::if_setposition::IfSetPosition { com, x, y });
+    pub fn if_setposition(&mut self, com: i32, x: u16, y: u16) {
+        #[cfg(before_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setposition::IfSetPosition {
+                com: com as u16,
+                x,
+                y,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setposition::IfSetPosition {
+                component_hash: com,
+                x: x as i16,
+                y: y as i16,
+            },
+        );
     }
 
     /// Sets the scrollbar position on an interface component.
     #[cfg(since_245_2)]
-    pub fn if_setscrollpos(&mut self, com: u16, y: u16) {
-        self.write(rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos { com, y });
+    pub fn if_setscrollpos(&mut self, com: i32, y: u16) {
+        #[cfg(before_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos {
+                com: com as u16,
+                y,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos {
+                component_hash: com,
+                scroll_pos: y,
+            },
+        );
     }
 
-    /// Opens a modal overlay interface component.
+    /// Opens an overlay interface over the game view (a minigame's timer, the
+    /// wilderness level), or with `u16::MAX` (`null`) closes the one open.
+    ///
+    /// Rev-647 mounts it with IF_OPENSUB on the toplevel's full-size overlay
+    /// slot (`com_overlay`, 548:7 fixed and 746:8 resizable: `void-634`'s
+    /// `overlay` index 7, with 746's +1 drift), as type 1: an overlay is no
+    /// modal, and stays while the player walks and talks.
     #[cfg(since_244)]
     pub fn if_openoverlay(&mut self, com: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_openoverlay::IfOpenOverlay { com });
+        #[cfg(since_647)]
+        {
+            let parent = self.toplevel_slot(&engine().layout.overlay);
+            if parent == 0 {
+                warn!(
+                    "if_openoverlay({com}): toplevel {} has no overlay slot",
+                    self.player.toplevel
+                );
+                return;
+            }
+            if com == u16::MAX {
+                self.if_close_sub(parent);
+            } else {
+                self.if_open_sub(com, parent, 1);
+            }
+        }
     }
 
     /// Sets (or clears, when `value` is empty) a right-click option shown to
     /// other players on this player's context menu.
     #[cfg(since_254)]
     pub fn set_player_op(&mut self, op: u8, value: &str, primary: u8) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::set_player_op::SetPlayerOp { op, value, primary },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::set_player_op::SetPlayerOp {
+                index: op,
+                text: value.to_string(),
+                primary,
+            },
         );
     }
 
@@ -896,18 +1434,30 @@ impl ActivePlayer {
     /// `2` loaded/online).
     #[cfg(since_254)]
     pub fn friendlist_loaded(&mut self, status: u8) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::friendlist_loaded::FriendListLoaded { status },
         );
+        // Rev-647 FRIENDLIST_LOADED carries no payload and only signals the
+        // loaded state; the "connecting" (1) state has no 647 equivalent.
+        #[cfg(since_647)]
+        if status == 2 {
+            self.write(rs_protocol::network::game::server::friendlist_loaded::FriendlistLoaded);
+        }
     }
 
     /// Sets the client minimap state (`0` normal, `1` disable click, `2`
     /// blacked out).
     #[cfg(since_274)]
     pub fn minimap_toggle(&mut self, minimap_type: u8) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::minimap_toggle::MinimapToggle { minimap_type },
         );
+        // TODO(647): port with the interface milestone — no rev-647
+        // MINIMAP_TOGGLE packet is modelled yet.
+        #[cfg(since_647)]
+        let _ = minimap_type;
     }
 
     /// Recolors an interface component model, remapping `src` color to `dst`.
@@ -918,17 +1468,37 @@ impl ActivePlayer {
 
     /// Assigns an interface component to a tab slot on the client.
     pub fn if_settab(&mut self, com: u16, tab: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_settab::IfSetTab { com, tab });
+        // TODO(647): rev-647 has no tab packets — tabs are laid out via
+        // IF_OPENSUB by content (interface milestone).
+        #[cfg(since_647)]
+        let _ = (com, tab);
     }
 
     /// Switches the client's currently selected (active) tab.
     pub fn if_settabactive(&mut self, tab: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::if_settab_active::IfSetTabActive { tab });
+        // 2011's client has no tab packet: it keeps its selected tab in varc
+        // 168, in the same order as the tabs (clientscript 71, called by 1302
+        // with it), and void-634 switches tabs by setting it.
+        #[cfg(since_647)]
+        self.varc_transmit(168, tab as i32);
     }
 
     /// Sets the text content of an interface component.
-    pub fn if_settext(&mut self, com: u16, text: &str) {
-        self.write(rs_protocol::network::game::server::if_settext::IfSetText { com, text });
+    pub fn if_settext(&mut self, com: i32, text: &str) {
+        #[cfg(before_647)]
+        self.write(rs_protocol::network::game::server::if_settext::IfSetText {
+            com: com as u16,
+            text,
+        });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::if_settext::IfSetText {
+            component_hash: com,
+            text: text.to_string(),
+        });
     }
 
     /// Sends the logout packet and marks the player as having received it.
@@ -938,7 +1508,10 @@ impl ActivePlayer {
     pub fn logout(&mut self) {
         self.watch_end();
         self.player.logout_sent = true;
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::logout::Logout);
+        // TODO(647): port with the network milestone — the rev-647 logout
+        // packet is not modelled yet.
     }
 
     /// Notes how the session is ending, for how fast the player comes back.
@@ -1247,7 +1820,7 @@ impl ActivePlayer {
     /// another by a varbit, and the client shows that one's name and options
     /// (while clicks on it carry `id`). `None` when it turns into nothing,
     /// which the client offers no options on.
-    #[cfg(since_289)]
+    #[cfg(all(since_289, before_647))]
     pub fn shown_loc(&self, id: u16) -> Option<u16> {
         let engine = engine();
         let Some(ty) = engine.locs().get_by_id(id) else {
@@ -1263,6 +1836,17 @@ impl ActivePlayer {
     #[cfg(before_289)]
     pub fn shown_loc(&self, id: u16) -> Option<u16> {
         Some(id)
+    }
+
+    /// From 647 a multiloc turns by a varbit or else a varp, and an
+    /// out-of-range value shows its default, the last entry
+    /// (`LocType.get_multi_loc`).
+    #[cfg(since_647)]
+    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+        let Some(ty) = engine().locs().get_by_id(id) else {
+            return Some(id);
+        };
+        ty.multi_loc(crate::handlers::oploc::multiloc_var(ty, &self.player))
     }
 
     fn map_base(&self) -> MapBase {
@@ -1488,7 +2072,22 @@ impl ActivePlayer {
 
     /// Sends a game message to the player's chatbox.
     pub fn message_game(&mut self, text: &str) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::message_game::MessageGame { text });
+        #[cfg(since_647)]
+        self.message_game_typed(0, text);
+    }
+
+    /// Rev-647: a game message on a given chat channel, MESSAGE_GAME's type --
+    /// 0 for the game channel, 11 for the clan chat's (`void-634` `ChatType`).
+    #[cfg(since_647)]
+    pub fn message_game_typed(&mut self, msg_type: i32, text: &str) {
+        self.write(
+            rs_protocol::network::game::server::message_game::MessageGame {
+                msg_type,
+                text: text.to_string(),
+            },
+        );
     }
 
     /// Plays a MIDI jingle sound effect on the client.
@@ -1500,7 +2099,18 @@ impl ActivePlayer {
     /// Plays a MIDI jingle sound effect on the client.
     #[cfg(since_244)]
     pub fn midi_jingle(&mut self, id: u16, delay: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::midi_jingle::MidiJingle { id, delay });
+        // Rev-647 adds a volume byte (255 = full, mirroring the 647
+        // reference server's default) and widens the delay/duration word.
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::midi_jingle::MidiJingle {
+                song_id: id,
+                duration: delay as u32,
+                volume: 255,
+            },
+        );
     }
 
     /// Starts playing a MIDI song on the client
@@ -1512,7 +2122,169 @@ impl ActivePlayer {
     /// Starts playing a MIDI song on the client
     #[cfg(since_244)]
     pub fn midi_song(&mut self, id: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::midi_song::MidiSong { id });
+        // Rev-647 MIDI_SONG carries a volume (0 loads the track but plays
+        // nothing) and a delay; full volume, at once.
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::midi_song::MidiSong {
+            song_id: id,
+            volume: 255,
+            delay: 0,
+        });
+    }
+
+    /// Rev-647: opens a toplevel (root) interface and remembers it so later
+    /// component-hash lookups (main-screen mounts, tab slots) resolve
+    /// against the right layout row.
+    #[cfg(since_647)]
+    pub fn if_open_top(&mut self, com: u16) {
+        self.player.toplevel = com;
+        self.write(rs_protocol::network::game::server::if_opentop::IfOpentop { interface_id: com });
+    }
+
+    /// Rev-647: mounts a sub-interface at a parent component hash, and
+    /// records it as the client will (`Player::sub_opened`). Modal tracking
+    /// lives in the open paths that choose the slot, so permanent subs (tabs,
+    /// orbs, chatbox) are never mistaken for modals.
+    #[cfg(since_647)]
+    pub fn if_open_sub(&mut self, sub_id: u16, parent_hash: i32, walkable: u8) {
+        self.player.sub_opened(parent_hash, sub_id, walkable);
+        self.write(rs_protocol::network::game::server::if_opensub::IfOpensub {
+            sub_id,
+            parent_hash,
+            walkable,
+        });
+    }
+
+    /// Rev-647: closes whatever sub-interface is mounted at the parent
+    /// component hash.
+    #[cfg(since_647)]
+    pub fn if_close_sub(&mut self, component_hash: i32) {
+        self.player.sub_closed(component_hash);
+        self.write(rs_protocol::network::game::server::if_closesub::IfClosesub { component_hash });
+    }
+
+    /// Rev-647: moves the sub-interface mounted at `from` onto `to`, as a
+    /// window-mode switch carries the gameframe from one toplevel to the other.
+    #[cfg(since_647)]
+    pub fn if_move_sub(&mut self, from: i32, to: i32) {
+        self.player.sub_moved(from, to);
+        self.write(rs_protocol::network::game::server::if_movesub::IfMovesub {
+            from_hash: from,
+            to_hash: to,
+        });
+    }
+
+    /// Rev-647: the hash of a gameframe slot on the current toplevel, or 0 if
+    /// the toplevel has no such slot.
+    #[cfg(since_647)]
+    fn toplevel_slot(&self, slots: &std::collections::HashMap<u16, u16>) -> i32 {
+        let top = self.player.toplevel;
+        slots
+            .get(&top)
+            .map_or(0, |&com| ((top as i32) << 16) | com as i32)
+    }
+
+    /// Rev-647: sets the client-side event mask for a component slot range.
+    #[cfg(since_647)]
+    pub fn if_set_events(
+        &mut self,
+        component_hash: i32,
+        from_slot: i32,
+        to_slot: i32,
+        settings: i32,
+    ) {
+        self.write(
+            rs_protocol::network::game::server::if_setevents::IfSetEvents {
+                component_hash,
+                from_slot,
+                to_slot,
+                settings,
+            },
+        );
+    }
+
+    /// Rev-647: transmits a client variable, picking the small or large
+    /// packet by value range. The value is mirrored on the player so
+    /// server-side consumers (`applydesign`) can read the design preview back.
+    #[cfg(since_647)]
+    pub fn varc_transmit(&mut self, varc: u16, value: i32) {
+        self.player.varcs.insert(varc, value);
+        if (-128..=127).contains(&value) {
+            self.write(rs_protocol::network::game::server::varc_small::VarcSmall { varc, value });
+        } else {
+            self.write(rs_protocol::network::game::server::varc_large::VarcLarge { varc, value });
+        }
+    }
+
+    /// Rev-647: transmits a string client variable.
+    #[cfg(since_647)]
+    pub fn varc_str_transmit(&mut self, varc: u16, value: &str) {
+        self.write(
+            rs_protocol::network::game::server::varc_str_small::VarcStrSmall {
+                varc,
+                value: value.to_string(),
+            },
+        );
+    }
+
+    /// Rev-647: invokes a clientscript (cs2) with no parameters.
+    #[cfg(since_647)]
+    pub fn run_client_script(&mut self, script_id: i32) {
+        self.write(
+            rs_protocol::network::game::server::run_client_script::RunClientScript {
+                script_id,
+                params: Vec::new(),
+            },
+        );
+    }
+
+    /// Rev-647 `runclientscript*`: invokes a CS2 script with typed int/string
+    /// parameters.
+    #[cfg(since_647)]
+    pub fn run_client_script_with_params(
+        &mut self,
+        script_id: i32,
+        args: Vec<rs_vm::state::ScriptArgument>,
+    ) {
+        use rs_protocol::network::game::server::run_client_script::ScriptParam;
+        let params = args
+            .into_iter()
+            .map(|a| match a {
+                rs_vm::state::ScriptArgument::Int(v) => ScriptParam::Int(v),
+                rs_vm::state::ScriptArgument::String(s) => ScriptParam::Str(s),
+            })
+            .collect();
+        self.write(
+            rs_protocol::network::game::server::run_client_script::RunClientScript {
+                script_id,
+                params,
+            },
+        );
+    }
+
+    /// Rev-647 public chat delivery: one MESSAGE_PUBLIC server packet per
+    /// nearby hearer (including the speaker), written by the broadcast step
+    /// of the output phase.
+    #[cfg(since_647)]
+    pub fn message_public(
+        &mut self,
+        from_index: u16,
+        effects: u16,
+        rights: u8,
+        char_count: usize,
+        huffman_data: Vec<u8>,
+    ) {
+        self.write(
+            rs_protocol::network::game::server::message_public::MessagePublic {
+                from_index,
+                effects,
+                rights,
+                char_count,
+                huffman_data,
+            },
+        );
     }
 
     /// Sends the pre-encoded NPC info update payload to the client.
@@ -1566,7 +2338,22 @@ impl ActivePlayer {
 
     /// Opens the count dialog (number input) on the client.
     pub fn p_countdialog(&mut self) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::p_countdialog::PCountDialog);
+        // Rev-647 asks for a number with clientscript 108 (void-634
+        // `int_entry`): it shows its text in the chat box and takes digits
+        // (varc 5 = 7), and the client answers RESUME_P_COUNTDIALOG. The text
+        // is 289's client's prompt.
+        #[cfg(since_647)]
+        {
+            use rs_protocol::network::game::server::run_client_script::{
+                RunClientScript, ScriptParam,
+            };
+            self.write(RunClientScript {
+                script_id: 108,
+                params: vec![ScriptParam::Str("Enter amount:".into())],
+            });
+        }
     }
 
     /// Sends the rebuild (map region) packet to the client if the player has
@@ -1620,26 +2407,61 @@ impl ActivePlayer {
                 },
             );
         }
-        #[cfg(since_244)]
+        #[cfg(all(since_244, before_647))]
         self.write(
             rs_protocol::network::game::server::rebuild_normal::RebuildNormal { zone_x, zone_z },
         );
+        // Rev-647: the rebuild carries the PlayerInfo init bit-stream on the
+        // first login (self position + 18-bit packed regions per slot) and
+        // the XTEA key blocks for every mapsquare covering the build area.
+        #[cfg(since_647)]
+        {
+            let _ = (zone_x, zone_z);
+            let first_login = self.player.pending_login;
+            let player_regions = if first_login {
+                vec![0u32; rs_protocol::network::game::server::rebuild_normal::MAX_PLAYERS]
+            } else {
+                Vec::new()
+            };
+            let xtea_keys = rs_dat2::xtea::XteaKeyStore::global()
+                .map(|s| s.snapshot_build_area(coord.x(), coord.z()))
+                .unwrap_or_default();
+            self.write(
+                rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
+                    self_index: self.player.uid.pid(),
+                    player_x: coord.x(),
+                    player_z: coord.z(),
+                    player_plane: coord.y(),
+                    login: first_login,
+                    player_regions,
+                    xtea_keys,
+                },
+            );
+            if first_login {
+                self.player.pending_login = false;
+            }
+        }
     }
 
     /// Sends an animation reset packet to the client, clearing all playing
     /// entity animations.
     pub fn reset_anims(&mut self) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::reset_anims::ResetAnims);
+        // TODO(647): rev-647 has no RESET_ANIMS packet modelled yet.
     }
 
     /// Tells the client to clear its cached varp values, forcing a full
     /// resync on the next varp transmit.
     pub fn reset_client_varcache(&mut self) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::reset_client_varcache::ResetClientVarCache);
+        // TODO(647): rev-647 has no RESET_CLIENT_VARCACHE packet modelled yet.
     }
 
     /// Plays a synthesised sound effect on the client.
     pub fn synth_sound(&mut self, synth: u16, loops: u8, delay: u16) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::synth_sound::SynthSound {
                 synth,
@@ -1647,14 +2469,31 @@ impl ActivePlayer {
                 delay,
             },
         );
+        // Rev-647 adds volume/speed; 255/255 (full volume, normal speed)
+        // mirror the 647 reference server's defaults.
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::synth_sound::SynthSound {
+                synth_id: synth,
+                loops,
+                delay,
+                volume: 255,
+                speed: 255,
+            },
+        );
     }
 
     /// Clears the destination map flag (red minimap marker) on the client.
     pub fn unset_map_flag(&mut self) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::unset_map_flag::UnsetMapFlag);
+        // Rev-647 clears the flag by setting it to the (255, 255) sentinel.
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::set_map_flag::SetMapFlag { x: 255, z: 255 });
     }
 
     /// Sends a full inventory update to the client for the given component.
+    #[cfg(before_647)]
     pub fn update_inv_full(&mut self, com: u16, objs: &[Option<(u16, i32)>]) {
         // prevent a client crash by capping to inv size || interface size
         let size = engine()
@@ -1671,33 +2510,82 @@ impl ActivePlayer {
         );
     }
 
+    /// Sends a full inventory update to the client. Rev-647 keys client
+    /// inventories by inv id — the interface binding comes from the cache
+    /// component defs, so no component travels on the wire.
+    #[cfg(since_647)]
+    pub fn update_inv_full(&mut self, inv_id: u16, objs: &[Option<(u16, i32)>]) {
+        self.send_inv_full(inv_id, false, objs);
+    }
+
+    /// Sends another player's inventory whole, which the 647 client keeps
+    /// apart from the player's own copy of that inv (trade's other offer).
+    #[cfg(since_647)]
+    pub fn update_inv_other_full(&mut self, inv_id: u16, objs: &[Option<(u16, i32)>]) {
+        self.send_inv_full(inv_id, true, objs);
+    }
+
+    #[cfg(since_647)]
+    fn send_inv_full(&mut self, inv_id: u16, other: bool, objs: &[Option<(u16, i32)>]) {
+        use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
+        let slots: Vec<Option<InvItem>> = objs
+            .iter()
+            .map(|slot| {
+                slot.map(|(id, num)| InvItem {
+                    id,
+                    count: num.max(0) as u32,
+                })
+            })
+            .collect();
+        self.write(UpdateInvFull {
+            inv_id,
+            other,
+            capacity: slots.len() as u16,
+            slots,
+        });
+    }
+
     /// Sends a partial inventory update to the client for the given component.
     ///
     /// Each entry is `(slot, item)` for one changed slot.
     pub fn update_inv_partial(&mut self, com: u16, objs: &[(u16, Option<(u16, i32)>)]) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial { com, objs },
         );
+        // TODO(647): port with the inventory milestone — rev-647 partial
+        // updates are inv-id keyed (UPDATE_INV_PARTIAL not modelled yet).
+        #[cfg(since_647)]
+        let _ = (com, objs);
     }
 
     /// Tells the client to stop expecting inventory updates for a component.
-    pub fn update_inv_stop_transmit(&mut self, com: u16) {
+    pub fn update_inv_stop_transmit(&mut self, com: rs_vm::ComId) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::update_inv_stop_transmit::UpdateInvStopTransmit {
                 com,
             },
         );
+        // TODO(647): port with the inventory milestone — no rev-647
+        // stop-transmit packet is modelled yet.
+        #[cfg(since_647)]
+        let _ = com;
     }
 
     /// Sends the player's server-side player ID to the client.
     pub fn update_pid(&mut self, pid: u16) {
         #[cfg(rev = "225")]
         self.write(rs_protocol::network::game::server::update_pid::UpdatePid { pid });
-        #[cfg(since_244)]
+        #[cfg(all(since_244, before_647))]
         self.write(rs_protocol::network::game::server::update_pid::UpdatePid {
             pid,
             members: self.member(),
         });
+        // Rev-647 has no UPDATE_PID packet — the slot index travels in the
+        // rebuild/GPI init block instead (map/login milestone).
+        #[cfg(since_647)]
+        let _ = pid;
     }
 
     /// Sends stat and run energy updates to the client for any values that
@@ -1726,11 +2614,21 @@ impl ActivePlayer {
 
     /// Sends a single stat update packet to the client.
     pub fn update_stat(&mut self, stat: usize) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::update_stat::UpdateStat {
                 stat: stat as u8,
                 exp: self.player.stats.xp[stat] / 10,
                 lvl: self.player.stats.levels[stat] as u8,
+            },
+        );
+        // Same values, rev-647 field names (internal xp is stored x10).
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::update_stat::UpdateStat {
+                skill_id: stat as u8,
+                xp: (self.player.stats.xp[stat] / 10) as u32,
+                level: self.player.stats.levels[stat] as u8,
             },
         );
     }
@@ -1740,8 +2638,15 @@ impl ActivePlayer {
     /// The energy value is divided by 100 to convert from internal
     /// representation to the client's 0-100 percentage scale.
     pub fn update_runenergy(&mut self, energy: u16) {
+        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::update_runenergy::UpdateRunEnergy {
+                energy: (energy / 100) as u8,
+            },
+        );
+        #[cfg(since_647)]
+        self.write(
+            rs_protocol::network::game::server::update_run_energy::UpdateRunEnergy {
                 energy: (energy / 100) as u8,
             },
         );
@@ -1751,7 +2656,20 @@ impl ActivePlayer {
     /// choosing the small (1-byte) or large (4-byte) encoding based on the
     /// value range.
     pub fn varp_transmit(&mut self, id: u16, val: i32) {
+        #[cfg(before_647)]
         if val <= u8::MAX as i32 {
+            self.varp_small(id, val as u8);
+        } else {
+            self.varp_large(id, val);
+        }
+
+        // Rev-647: the client decodes the small varp's payload as a *signed*
+        // byte, so only `-128..=127` survives the 1-byte encoding. Anything in
+        // `128..=255` used to take the small path and came back negative --
+        // e.g. life_points 100 packs to varp_1240 = 200, which arrived as -56
+        // and made the HP orb read `(-56 >> 1) & 0x7FFF` = 32740.
+        #[cfg(since_647)]
+        if (-128..=127).contains(&val) {
             self.varp_small(id, val as u8);
         } else {
             self.varp_large(id, val);
@@ -1760,12 +2678,24 @@ impl ActivePlayer {
 
     /// Sends a varp update using the 4-byte (large) encoding.
     pub fn varp_large(&mut self, id: u16, val: i32) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::varp_large::VarpLarge { id, val });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::varp_large::VarpLarge {
+            varp: id,
+            value: val,
+        });
     }
 
     /// Sends a varp update using the 1-byte (small) encoding.
     pub fn varp_small(&mut self, id: u16, val: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::varp_small::VarpSmall { id, val });
+        #[cfg(since_647)]
+        self.write(rs_protocol::network::game::server::varp_small::VarpSmall {
+            varp: id,
+            value: val as i32,
+        });
     }
 
     /// Synchronizes dirty inventories to the client.
@@ -1816,7 +2746,12 @@ impl ActivePlayer {
 
             let Some(inv) = inv else { continue };
             let has_dirty = !inv.dirty_slots.is_empty();
+            // Before 647 first sight is per component; from 647 it is per inv
+            // (below), so the per-component scratch payload is never built.
+            #[cfg(before_647)]
             let any_first_seen = coms.iter().any(|c| !self.player.inv_first_seen.contains(c));
+            #[cfg(since_647)]
+            let any_first_seen = false;
 
             // Build the payloads once per inventory into reusable scratch buffers.
             // The `inv` borrow ends after these builds, freeing `self` for the
@@ -1839,6 +2774,29 @@ impl ActivePlayer {
             }
 
             let mut any_full = false;
+            // Rev-647 clients key inventories by inv id, and the interface
+            // binding lives in the cache component defs — so send one full
+            // update per inv (first sight and whenever a slot changed; there
+            // is no 647 partial-update packet modelled yet), regardless of
+            // how many components transmit it.
+            #[cfg(since_647)]
+            {
+                let _ = coms;
+                let first = !self.player.inv_first_seen.contains(inv_id);
+                if first || has_dirty {
+                    let full: Vec<Option<(u16, i32)>> = inv
+                        .slots
+                        .iter()
+                        .map(|i| i.map(|it| (it.obj, it.num as i32)))
+                        .collect();
+                    self.update_inv_full(*inv_id, &full);
+                    if first {
+                        self.player.inv_first_seen.insert(*inv_id);
+                        any_full = true;
+                    }
+                }
+            }
+            #[cfg(before_647)]
             for &com in coms {
                 if !self.player.inv_first_seen.contains(&com) {
                     FULL.with_borrow(|f| self.update_inv_full(com, f));
@@ -1868,11 +2826,14 @@ impl ActivePlayer {
             runweight_changed = current != self.player.runweight;
         }
         if runweight_changed || first_seen_weight {
+            #[cfg(before_647)]
             self.write(
                 rs_protocol::network::game::server::update_runweight::UpdateRunWeight {
                     kg: (self.player.runweight / 1000) as u16,
                 },
             );
+            // TODO(647): rev-647 has no UPDATE_RUNWEIGHT packet — weight is
+            // surfaced client-side (interface milestone).
         }
     }
 
@@ -1883,6 +2844,8 @@ impl ActivePlayer {
     /// component. The first transmit for a component is a full update; subsequent
     /// ticks send only the source inventory's changed slots (its dirty set survives
     /// until the cleanup phase, so every viewer this tick sees the same changes).
+    /// From 647 it goes by inv id with the client's "other" flag, whole on first
+    /// sight and on any change.
     /// Listeners whose source player has logged out -- or whose uid no longer matches
     /// because the player slot was reused -- are skipped.
     ///
@@ -1898,6 +2861,7 @@ impl ActivePlayer {
             return;
         }
 
+        #[cfg(before_647)]
         thread_local! {
             static FULL: RefCell<FullInvUpdate> = RefCell::new(Vec::with_capacity(48));
             static PARTIAL: RefCell<PartialInvUpdate> = RefCell::new(Vec::with_capacity(48));
@@ -1906,6 +2870,9 @@ impl ActivePlayer {
         // Take the map out so `&mut self` methods (update_inv_full) can be called
         // while iterating, then restore it. Nothing in the loop mutates the map.
         let transmits = std::mem::take(&mut self.player.inv_other_transmits);
+        // From 647 one update goes per inv, however many components show it.
+        #[cfg(since_647)]
+        let mut sent: Vec<u16> = Vec::new();
 
         for (&com, &(uid, inv_id)) in &transmits {
             let Some(source) = players.get((uid & 0x7FF) as u16) else {
@@ -1919,29 +2886,52 @@ impl ActivePlayer {
                 continue;
             };
 
-            let first_seen = !self.player.inv_first_seen.contains(&com);
-            let has_dirty = !inv.dirty_slots.is_empty();
-            if first_seen {
-                FULL.with_borrow_mut(|f| {
-                    f.clear();
-                    f.extend(
-                        inv.slots
-                            .iter()
-                            .map(|i| i.map(|it| (it.obj, it.num as i32))),
-                    );
-                });
-            } else if has_dirty {
-                PARTIAL.with_borrow_mut(|p| {
-                    p.clear();
-                    p.extend(inv.collect_dirty());
-                });
+            // Rev-647 clients key another player's inv by its inv id and the
+            // "other" flag, apart from their own copy of that inv: send it
+            // whole on first sight and whenever a slot changed (no 647 partial
+            // update is modelled yet), as the player's own invs go.
+            #[cfg(since_647)]
+            {
+                let _ = com;
+                let first = !self.player.inv_other_first_seen.contains(&inv_id);
+                if sent.contains(&inv_id) || (!first && inv.dirty_slots.is_empty()) {
+                    continue;
+                }
+                let full: Vec<Option<(u16, i32)>> = inv
+                    .slots
+                    .iter()
+                    .map(|i| i.map(|it| (it.obj, it.num as i32)))
+                    .collect();
+                self.update_inv_other_full(inv_id, &full);
+                self.player.inv_other_first_seen.insert(inv_id);
+                sent.push(inv_id);
             }
-            // `source`'s borrow ends above, so borrowing `self` mutably is now safe.
-            if first_seen {
-                FULL.with_borrow(|f| self.update_inv_full(com, f));
-                self.player.inv_first_seen.insert(com);
-            } else if has_dirty {
-                PARTIAL.with_borrow(|p| self.update_inv_partial(com, p));
+            #[cfg(before_647)]
+            {
+                let first_seen = !self.player.inv_first_seen.contains(&com);
+                let has_dirty = !inv.dirty_slots.is_empty();
+                if first_seen {
+                    FULL.with_borrow_mut(|f| {
+                        f.clear();
+                        f.extend(
+                            inv.slots
+                                .iter()
+                                .map(|i| i.map(|it| (it.obj, it.num as i32))),
+                        );
+                    });
+                } else if has_dirty {
+                    PARTIAL.with_borrow_mut(|p| {
+                        p.clear();
+                        p.extend(inv.collect_dirty());
+                    });
+                }
+                // `source`'s borrow ends above, so borrowing `self` mutably is now safe.
+                if first_seen {
+                    FULL.with_borrow(|f| self.update_inv_full(com, f));
+                    self.player.inv_first_seen.insert(com);
+                } else if has_dirty {
+                    PARTIAL.with_borrow(|p| self.update_inv_partial(com, p));
+                }
             }
         }
 
@@ -2103,7 +3093,9 @@ impl ActivePlayer {
     /// # Arguments
     /// * `com` - The interface component ID to open.
     pub fn open_tutorial(&mut self, com: u16) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::tut_open::TutOpen { com });
+        // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         self.player.open_tutorial(com);
     }
 
@@ -2112,7 +3104,11 @@ impl ActivePlayer {
     /// # Arguments
     /// * `tab` - The tab index to flash.
     pub fn tut_flash(&mut self, tab: u8) {
+        #[cfg(before_647)]
         self.write(rs_protocol::network::game::server::tut_flash::TutFlash { tab });
+        // TODO(647): rev-647 has no TUT_FLASH packet (interface milestone).
+        #[cfg(since_647)]
+        let _ = tab;
     }
 
     /// Closes the active tutorial interface, if one is open.
@@ -2126,7 +3122,11 @@ impl ActivePlayer {
     pub fn close_tutorial(&mut self) -> Result<(), ScriptError> {
         if let Some(modal_tutorial) = self.player.modal_tutorial {
             if let Err(e) = engine_mut().run_script_by_trigger(
-                (ServerTriggerType::IfClose, Some(modal_tutorial), None),
+                (
+                    ServerTriggerType::IfClose,
+                    Some(modal_tutorial as i32),
+                    None,
+                ),
                 Some(ScriptSubject::Player(self.player.uid)),
                 None,
                 Some(false),
@@ -2138,7 +3138,9 @@ impl ActivePlayer {
             }
             self.player.modal_tutorial = None;
             // -1 (u16::MAX on the wire) tells the client to close the tutorial.
+            #[cfg(before_647)]
             self.write(rs_protocol::network::game::server::tut_open::TutOpen { com: u16::MAX });
+            // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         }
         Ok(())
     }
@@ -2210,11 +3212,11 @@ impl ActivePlayer {
         let current = self.player.stats.levels[PlayerStat::Hitpoints as usize];
         let taken = if current.saturating_sub(amount) == 0 {
             self.player.stats.levels[PlayerStat::Hitpoints as usize] = 0;
-            current as u8
+            current
         } else {
             self.player.stats.levels[PlayerStat::Hitpoints as usize] =
                 current.saturating_sub(amount);
-            amount as u8
+            amount
         };
         let remaining = self.player.stats.levels[PlayerStat::Hitpoints as usize] as u8;
         let base = self.player.stats.base_levels[PlayerStat::Hitpoints as usize] as u8;
@@ -2235,6 +3237,36 @@ impl ActivePlayer {
             damage_type,
             remaining,
             base,
+            PlayerInfoProt::Damage as u16,
+        );
+    }
+
+    /// Paints a 647 hitsplat without touching a stat.
+    ///
+    /// 2011's hitpoints are life points, and content owns them (varbit 7198,
+    /// ten to a hitpoint), so content takes the hit off, works out the health
+    /// bar's fill, and hands the engine only what to draw.
+    ///
+    /// # Arguments
+    /// * `amount` - The hit in life points, which passes 255.
+    /// * `hitmark` - 2011's hitmark config (config group 46).
+    /// * `healthbar` - The overhead bar's fill, 0-255.
+    #[cfg(since_647)]
+    pub fn hit(&mut self, amount: u16, hitmark: u8, healthbar: u8) {
+        if self.player.info.apply_damage2(
+            amount,
+            hitmark,
+            healthbar,
+            u8::MAX,
+            PlayerInfoProt::Damage2 as u16,
+        ) {
+            return;
+        }
+        self.player.info.apply_damage(
+            amount,
+            hitmark,
+            healthbar,
+            u8::MAX,
             PlayerInfoProt::Damage as u16,
         );
     }
@@ -2298,6 +3330,67 @@ impl ActivePlayer {
     /// Panics if any of the required animation fields (`readyanim`, `turnanim`,
     /// `walkanim`, `walkanim_b`, `walkanim_l`, `walkanim_r`, `runanim`)
     /// are `None`.
+    /// Rev-647 appearance block: built by the shared rs-protocol encoder
+    /// (`build_appearance_block`), which owns the 647 wire layout including
+    /// the length prefix. This method just gathers the equipment/kit view.
+    #[cfg(since_647)]
+    pub fn generateappearance(&mut self, clock: u32) {
+        use rs_protocol::network::game::server::appearance::{
+            AppearanceInput, build_appearance_block,
+        };
+
+        let worn_inv_id = self.player.info.appearance.unwrap_or(0);
+        let mut equipment = [0i16; 12];
+        let mut skipped_slots = [false; 12];
+        if let Some(worn) = self.player.invs.get(&worn_inv_id) {
+            for (i, slot) in worn.slots.iter().enumerate().take(12) {
+                if let Some(item) = slot {
+                    equipment[i] = item.obj as i16;
+                }
+            }
+            for item in worn.slots.iter().flatten() {
+                if let Some(obj) = engine().cache.objs.get_by_id(item.obj) {
+                    if let Some(wp2) = obj.wearpos2.map(|w| w as usize).filter(|&w| w < 12) {
+                        skipped_slots[wp2] = true;
+                    }
+                    if let Some(wp3) = obj.wearpos3.map(|w| w as usize).filter(|&w| w < 12) {
+                        skipped_slots[wp3] = true;
+                    }
+                }
+            }
+        }
+
+        let body_i16: [i16; 7] = [
+            self.player.body[0] as i16,
+            self.player.body[1] as i16,
+            self.player.body[2] as i16,
+            self.player.body[3] as i16,
+            self.player.body[4] as i16,
+            self.player.body[5] as i16,
+            self.player.body[6] as i16,
+        ];
+        // A claimed display name (p_setdisplayname) renders over the base-37
+        // login name.
+        let name = self.player.shown_name();
+        let input = AppearanceInput {
+            gender: self.player.gender,
+            body: body_i16,
+            equipment: &equipment,
+            colors: self.player.colours,
+            skipped_slots,
+            render_anim: self.player.info.readyanim.unwrap_or(1426),
+            display_name: &name,
+            combat_level: self.player.combat_level,
+            headicons: self.player.headicons,
+        };
+
+        let block = build_appearance_block(&input);
+
+        self.player.info.last_appearance = Some(clock);
+        self.player.info.last_appearance_info = Some(Box::from(block));
+    }
+
+    #[cfg(before_647)]
     pub fn generateappearance(&mut self, clock: u32) {
         use std::cell::RefCell;
         // Reused per-thread scratch buffer so each appearance rebuild doesn't
@@ -2378,6 +3471,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// Advances `buf.pos` by 12 to 24 bytes (1 byte per empty slot, 2 per
     /// filled slot).
+    #[cfg(before_647)]
     fn put_appearance_inv(&mut self, buf: &mut Packet) {
         let mut skipped_slots = [false; 12];
         if let Some(worn) = self
@@ -2434,6 +3528,7 @@ impl ActivePlayer {
     ///
     /// # Returns
     /// The kit model value (0x100 + body_part), or 0 if hidden/unmapped.
+    #[cfg(before_647)]
     fn get_appearance_in_slot(&self, slot: usize) -> i32 {
         let part = match slot {
             8 => self.player.body[0],
@@ -2782,24 +3877,41 @@ impl EnginePlayer for ActivePlayer {
         } else {
             let len = buf.len();
             let result = match prot {
+                #[cfg(before_647)]
                 ClientProt::AnticheatCycleLogic1 => AnticheatCycleLogic1::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatCycleLogic2 => AnticheatCycleLogic2::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatCycleLogic3 => AnticheatCycleLogic3::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatCycleLogic4 => AnticheatCycleLogic4::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatCycleLogic5 => AnticheatCycleLogic5::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatCycleLogic6 => AnticheatCycleLogic6::decode(&mut buf, len).handle(self),
-                #[cfg(since_254)]
+                #[cfg(all(since_254, before_647))]
                 ClientProt::AnticheatCycleLogic7 => AnticheatCycleLogic7::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic1 => AnticheatOpLogic1::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic2 => AnticheatOpLogic2::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic3 => AnticheatOpLogic3::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic4 => AnticheatOpLogic4::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic5 => AnticheatOpLogic5::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic6 => AnticheatOpLogic6::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic7 => AnticheatOpLogic7::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic8 => AnticheatOpLogic8::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::AnticheatOpLogic9 => AnticheatOpLogic9::decode(&mut buf, len).handle(self),
                 ClientProt::ChatSetMode => ChatSetMode::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::SetChatfiltersettings => SetChatfiltersettings::decode(&mut buf, len).handle(self),
                 ClientProt::ClientCheat => ClientCheat::decode(&mut buf, len).handle(self),
                 ClientProt::CloseModal => CloseModal::decode(&mut buf, len).handle(self),
                 #[cfg(any(rev = "225", since_254))]
@@ -2816,29 +3928,85 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::MapBuildComplete => MapBuildComplete::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListAdd => FriendListAdd::decode(&mut buf, len).handle(self),
                 ClientProt::FriendListDel => FriendListDel::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::IdkSaveDesign => IdkSaveDesign::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::IdleTimer => IdleTimer::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::IfButton => IfButton::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton1 => IfButton1::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton2 => IfButton2::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton3 => IfButton3::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton4 => IfButton4::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton5 => IfButton5::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton6 => IfButton6::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton7 => IfButton7::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton8 => IfButton8::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton9 => IfButton9::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButton10 => IfButton10::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButtonD => IfButtonD::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::IfButtonT => IfButtonT::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ExamineNpc => ExamineNpc::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ExamineLoc => ExamineLoc::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ExamineObj => ExamineObj::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::WindowStatus => WindowStatus::decode(&mut buf, len).handle(self),
                 ClientProt::IgnoreListAdd => IgnoreListAdd::decode(&mut buf, len).handle(self),
                 ClientProt::IgnoreListDel => IgnoreListDel::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::InvButton1 => InvButton1::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::InvButton2 => InvButton2::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::InvButton3 => InvButton3::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::InvButton4 => InvButton4::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::InvButton5 => InvButton5::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::InvButtonD => InvButtonD::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::MessagePrivate => MessagePrivate::decode(&mut buf, len).handle(self),
                 ClientProt::MessagePublic => MessagePublic::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::MoveGameClick => MoveGameClick::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::MoveGameclick => MoveGameclick::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::MoveMinimapClick => MoveMinimapClick::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::MoveMinimapclick => MoveMinimapclick::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::MoveOpClick => MoveOpClick::decode(&mut buf, len).handle(self),
                 ClientProt::NoTimeout => NoTimeout::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeld1 => OpHeld1::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeld2 => OpHeld2::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeld3 => OpHeld3::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeld4 => OpHeld4::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeld5 => OpHeld5::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeldT => OpHeldT::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpHeldU => OpHeldU::decode(&mut buf, len).handle(self),
                 ClientProt::OpLoc1 => OpLoc1::decode(&mut buf, len).handle(self),
                 ClientProt::OpLoc2 => OpLoc2::decode(&mut buf, len).handle(self),
@@ -2846,6 +4014,7 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::OpLoc4 => OpLoc4::decode(&mut buf, len).handle(self),
                 ClientProt::OpLoc5 => OpLoc5::decode(&mut buf, len).handle(self),
                 ClientProt::OpLocT => OpLocT::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpLocU => OpLocU::decode(&mut buf, len).handle(self),
                 ClientProt::OpObj1 => OpObj1::decode(&mut buf, len).handle(self),
                 ClientProt::OpObj2 => OpObj2::decode(&mut buf, len).handle(self),
@@ -2853,6 +4022,7 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::OpObj4 => OpObj4::decode(&mut buf, len).handle(self),
                 ClientProt::OpObj5 => OpObj5::decode(&mut buf, len).handle(self),
                 ClientProt::OpObjT => OpObjT::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpObjU => OpObjU::decode(&mut buf, len).handle(self),
                 ClientProt::OpNpc1 => OpNpc1::decode(&mut buf, len).handle(self),
                 ClientProt::OpNpc2 => OpNpc2::decode(&mut buf, len).handle(self),
@@ -2860,6 +4030,7 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::OpNpc4 => OpNpc4::decode(&mut buf, len).handle(self),
                 ClientProt::OpNpc5 => OpNpc5::decode(&mut buf, len).handle(self),
                 ClientProt::OpNpcT => OpNpcT::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpNpcU => OpNpcU::decode(&mut buf, len).handle(self),
                 ClientProt::OpPlayer1 => OpPlayer1::decode(&mut buf, len).handle(self),
                 ClientProt::OpPlayer2 => OpPlayer2::decode(&mut buf, len).handle(self),
@@ -2868,13 +4039,77 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(since_254)]
                 ClientProt::OpPlayer5 => OpPlayer5::decode(&mut buf, len).handle(self),
                 ClientProt::OpPlayerT => OpPlayerT::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::OpPlayerU => OpPlayerU::decode(&mut buf, len).handle(self),
                 #[cfg(rev = "225")]
                 ClientProt::RebuildGetMaps => RebuildGetMaps::decode(&mut buf, len).handle(self),
                 ClientProt::ResumePCountDialog => ResumePCountDialog::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ResumePStringDialog => {
+                    ResumePStringDialog::decode(&mut buf, len).handle(self)
+                }
                 ClientProt::ResumePauseButton => ResumePauseButton::decode(&mut buf, len).handle(self),
                 ClientProt::SendSnapshot => SendSnapshot::decode(&mut buf, len).handle(self),
+                #[cfg(before_647)]
                 ClientProt::TutClickSide => TutClickSide::decode(&mut buf, len).handle(self),
+                // Rev-647 has no catch-all: every opcode the client sends has an
+                // arm, so a new one fails to compile instead of being dropped.
+                //
+                // Reports the client makes for its own sake, which the server
+                // has no use for, as 289 has none for its mouse and camera
+                // events (handlers/event.rs). Each is named, with its send
+                // site, in its struct.
+                #[cfg(since_647)]
+                ClientProt::EventKeyboard
+                | ClientProt::ClientDetailoptionsStatus
+                | ClientProt::WorldLatency
+                | ClientProt::MapBuildLoading
+                | ClientProt::TransmitvarVerifyId
+                | ClientProt::VideoEnd => Ok(()),
+                // Answers to something this server never asks for: a
+                // REFLECTION_CHECKER, the "Face here" option (offered only
+                // after SHOW_FACE_HERE), a player op in slots 6-10 (no trigger
+                // exists past `opplayer5`, as 289 has five), and the name,
+                // obj, colour and clan-forum dialogs nothing opens.
+                #[cfg(since_647)]
+                ClientProt::ReflectionCheckReply
+                | ClientProt::FaceSquare
+                | ClientProt::OpPlayer6
+                | ClientProt::OpPlayer7
+                | ClientProt::OpPlayer8
+                | ClientProt::OpPlayer9
+                | ClientProt::OpPlayer10
+                | ClientProt::ResumePNameDialog
+                | ClientProt::ResumePObjDialog
+                | ClientProt::ResumePHslDialog
+                | ClientProt::ResumePClanforumqfcDialog => {
+                    tracing::debug!("{prot:?}: answers nothing this server sent");
+                    Ok(())
+                }
+                // Systems 289 does not have and this port has not built:
+                // quickchat, friends-chat ranks and clan chat, the world
+                // switcher's list, the world map, ground targeting, music
+                // (plan B6), URL requests. Private messages go by display
+                // name at 647, which ether does not carry yet (plan phase 3).
+                // The account-creation name check belongs to the lobby, which
+                // handles its own socket.
+                #[cfg(since_647)]
+                ClientProt::MessagePrivate
+                | ClientProt::MessageQuickchatPublic
+                | ClientProt::MessageQuickchatPrivate
+                | ClientProt::FriendSetRank
+                | ClientProt::ClanJoinchatLeavechat
+                | ClientProt::ClanKickUser
+                | ClientProt::ClanchannelKickUser
+                | ClientProt::WorldlistFetch
+                | ClientProt::ClickWorldMap
+                | ClientProt::ApCoordT
+                | ClientProt::SoundSongPreloaded
+                | ClientProt::UrlRequest
+                | ClientProt::CreateCheckName => {
+                    tracing::debug!("{prot:?}: not supported");
+                    Ok(())
+                }
             };
             match result {
                 Ok(_) => true,
@@ -2928,6 +4163,17 @@ impl EnginePlayer for ActivePlayer {
     /// [`update_runenergy`](Self::update_runenergy),
     /// [`reset_anims`](Self::reset_anims)
     fn on_login(&mut self) {
+        // Rev-647: the [login,_] script never calls buildappearance, so seed
+        // the Appearance mask here (mirrors the reference server's
+        // buildappearance_default) — without it the first GPI add carries no
+        // appearance block and the client renders the player null (black
+        // screen / renderer NPE on any player-model interface component).
+        // The stored move type goes out from `Player::sync_move_types` on the
+        // first info phase, as it does whenever it changes.
+        #[cfg(since_647)]
+        {
+            self.player.info.masks |= PlayerInfoProt::Appearance as u16;
+        }
         self.rebuild_normal(false);
         self.chat_filter_settings(
             self.player.public as u8,
@@ -2991,11 +4237,19 @@ impl EnginePlayer for ActivePlayer {
     fn on_reconnect(&mut self) -> Result<(), ScriptError> {
         self.reset_client_varcache();
         self.sync_varps();
+        // A reconnecting client resets every player's move type to walk
+        // (`AClass5_Sub1.method2354`), so ours has to be sent again.
+        #[cfg(since_647)]
+        {
+            self.player.client_move_type = None;
+        }
         self.player.build_area.clear(true);
         self.rebuild_normal(true);
         self.close_modal(true)?;
         self.sync_tabs();
         self.player.inv_first_seen.clear();
+        #[cfg(since_647)]
+        self.player.inv_other_first_seen.clear();
         for i in 0..self.player.stats.len() {
             self.update_stat(i);
         }
@@ -3012,6 +4266,7 @@ impl EnginePlayer for ActivePlayer {
     ///
     /// # Arguments
     /// * `message` - The zone event to relay to the client.
+    #[cfg(before_647)]
     fn write_zone_message(&mut self, message: &ZoneMessage) {
         match message {
             ZoneMessage::ObjAdd(m) => self.write(m.clone()),
@@ -3026,6 +4281,49 @@ impl EnginePlayer for ActivePlayer {
             ZoneMessage::MapProjAnim(m) => self.write(m.clone()),
             #[cfg(since_289)]
             ZoneMessage::SoundArea(m) => self.write(m.clone()),
+        }
+    }
+
+    /// Rev-647 follows path: zone payloads are re-emitted as the matching
+    /// direct server packets (mirrors the 647 reference server). The
+    /// remaining variants are only ever delivered via the enclosed shared
+    /// buffer, never as standalone follows packets.
+    #[cfg(since_647)]
+    fn write_zone_message(&mut self, message: &ZoneMessage) {
+        match message {
+            ZoneMessage::ObjAdd(m) => self.write(ObjAdd {
+                coord: m.coord,
+                obj_id: m.obj_id,
+                count: m.count,
+            }),
+            ZoneMessage::ObjDel(m) => self.write(ObjDel {
+                coord: m.coord,
+                obj_id: m.obj_id,
+            }),
+            ZoneMessage::ObjCount(m) => self.write(ObjCount {
+                coord: m.coord,
+                obj_id: m.obj_id,
+                old_count: m.old_count,
+                new_count: m.new_count,
+            }),
+            ZoneMessage::ObjReveal(m) => self.write(ObjReveal {
+                coord: m.coord,
+                obj_id: m.obj_id,
+                count: m.count,
+                receiver: m.receiver,
+            }),
+            ZoneMessage::LocAddChange(m) => self.write(LocAddChange {
+                coord: m.coord,
+                shape_rot: m.shape_rot,
+                id: m.loc_id,
+            }),
+            ZoneMessage::LocDel(m) => self.write(LocDel {
+                coord: m.coord,
+                shape_rot: m.shape_rot,
+            }),
+            ZoneMessage::LocAnim(_) | ZoneMessage::MapAnim(_) | ZoneMessage::MapProjanim(_) => {
+                // Only sent via enclosed (shared bytes), not as standalone follows.
+            }
         }
     }
 
@@ -3073,6 +4371,17 @@ impl EnginePlayer for ActivePlayer {
             // relative offset from it (works whether the zone exists).
             let x = zone_coord.x().wrapping_sub(origin_x) as u8;
             let z = zone_coord.z().wrapping_sub(origin_z) as u8;
+            // Rev-647 zone-update headers carry the level explicitly.
+            #[cfg(since_647)]
+            let level = zone_coord.y();
+            // Rev-647 zone headers carry the zone INDEX, not the tile offset the
+            // 2004-era protocol sends: the client rebuilds the base with
+            // `g1b() << 3` (see `MapAreaConfig` UPDATE_ZONE_*_FOLLOWS /
+            // _ENCLOSED). Sending the raw tile offset made it shift 0..96 up to
+            // 0..768 -- far outside the 104-tile build area -- so every zone
+            // event (dropped objs, loc changes) landed off-map and never drew.
+            #[cfg(since_647)]
+            let (x, z) = (x >> 3, z >> 3);
             let newly_loaded =
                 !self.player.build_area.loaded_zones[..loaded_before].contains(&zone_coord);
 
@@ -3083,18 +4392,39 @@ impl EnginePlayer for ActivePlayer {
             match zones.zone(zone_coord.x(), zone_coord.y(), zone_coord.z()) {
                 Some(zone) => {
                     if newly_loaded {
+                        #[cfg(before_647)]
                         self.write(UpdateZoneFullFollows { x, z });
+                        #[cfg(since_647)]
+                        self.write(UpdateZoneFullFollows {
+                            x_off: x,
+                            z_off: z,
+                            level,
+                        });
 
                         let mut wrote_follows = false;
 
                         for obj in zone.visible_objs(user37, clock) {
                             if !wrote_follows {
+                                #[cfg(before_647)]
                                 self.write(UpdateZonePartialFollows { x, z });
+                                #[cfg(since_647)]
+                                self.write(UpdateZonePartialFollows {
+                                    x_off: x,
+                                    z_off: z,
+                                    level,
+                                });
                                 wrote_follows = true;
                             }
+                            #[cfg(before_647)]
                             self.write(ObjAdd {
                                 coord: obj.packed_zone_coord(),
                                 id: obj.id(),
+                                count: obj.count() as u16,
+                            });
+                            #[cfg(since_647)]
+                            self.write(ObjAdd {
+                                coord: obj.packed_zone_coord(),
+                                obj_id: obj.id(),
                                 count: obj.count() as u16,
                             });
                         }
@@ -3104,30 +4434,72 @@ impl EnginePlayer for ActivePlayer {
                             let shape_angle = loc.packed_shape_angle();
                             if loc.lifetime() == EntityLifeTime::Respawn && !loc.visible() {
                                 if !wrote_follows {
+                                    #[cfg(before_647)]
                                     self.write(UpdateZonePartialFollows { x, z });
+                                    #[cfg(since_647)]
+                                    self.write(UpdateZonePartialFollows {
+                                        x_off: x,
+                                        z_off: z,
+                                        level,
+                                    });
                                     wrote_follows = true;
                                 }
+                                #[cfg(before_647)]
                                 self.write(LocDel { coord, shape_angle });
+                                #[cfg(since_647)]
+                                self.write(LocDel {
+                                    coord,
+                                    shape_rot: shape_angle,
+                                });
                             } else if loc.lifetime() == EntityLifeTime::Despawn || loc.is_changed()
                             {
                                 if !wrote_follows {
+                                    #[cfg(before_647)]
                                     self.write(UpdateZonePartialFollows { x, z });
+                                    #[cfg(since_647)]
+                                    self.write(UpdateZonePartialFollows {
+                                        x_off: x,
+                                        z_off: z,
+                                        level,
+                                    });
                                     wrote_follows = true;
                                 }
+                                #[cfg(before_647)]
                                 self.write(LocAddChange {
                                     coord,
                                     shape_angle,
+                                    id: loc.id(),
+                                });
+                                #[cfg(since_647)]
+                                self.write(LocAddChange {
+                                    coord,
+                                    shape_rot: shape_angle,
                                     id: loc.id(),
                                 });
                             }
                         }
                     } else {
                         if let Some(bytes) = zone.shared_bytes() {
+                            #[cfg(before_647)]
                             self.write(UpdateZonePartialEnclosed { x, z, bytes });
+                            #[cfg(since_647)]
+                            self.write(UpdateZonePartialEnclosed {
+                                x_off: x,
+                                z_off: z,
+                                level,
+                                bytes,
+                            });
                         }
 
                         if zone.has_follows_events() {
+                            #[cfg(before_647)]
                             self.write(UpdateZonePartialFollows { x, z });
+                            #[cfg(since_647)]
+                            self.write(UpdateZonePartialFollows {
+                                x_off: x,
+                                z_off: z,
+                                level,
+                            });
                             for message in zone.visible_follows_events(user37) {
                                 self.write_zone_message(message);
                             }
@@ -3136,7 +4508,14 @@ impl EnginePlayer for ActivePlayer {
                 }
                 None => {
                     if newly_loaded {
+                        #[cfg(before_647)]
                         self.write(UpdateZoneFullFollows { x, z });
+                        #[cfg(since_647)]
+                        self.write(UpdateZoneFullFollows {
+                            x_off: x,
+                            z_off: z,
+                            level,
+                        });
                     }
                 }
             }
@@ -3195,11 +4574,12 @@ impl EnginePlayer for ActivePlayer {
         self.player.modal_state = MODAL_NONE;
         self.player.clear_suspended_script();
 
+        #[cfg(before_647)]
         let interfaces = engine().interfaces();
 
         if let Some(modal_main) = self.player.modal_main {
             if let Err(e) = engine_mut().run_script_by_trigger(
-                (ServerTriggerType::IfClose, Some(modal_main), None),
+                (ServerTriggerType::IfClose, Some(modal_main as i32), None),
                 Some(ScriptSubject::Player(self.player.uid)),
                 None,
                 Some(false),
@@ -3210,9 +4590,12 @@ impl EnginePlayer for ActivePlayer {
                 return Err(e);
             }
             let modal = self.player.modal_main;
+            #[cfg(before_647)]
             let cleared = self.player.clear_interface_listeners(modal, |com| {
                 interfaces.get_by_id(com).map(|i| i.root_layer)
             });
+            #[cfg(since_647)]
+            let cleared = self.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
                 self.clear_inv_transmits(com);
             }
@@ -3221,7 +4604,7 @@ impl EnginePlayer for ActivePlayer {
 
         if let Some(modal_chat) = self.player.modal_chat {
             if let Err(e) = engine_mut().run_script_by_trigger(
-                (ServerTriggerType::IfClose, Some(modal_chat), None),
+                (ServerTriggerType::IfClose, Some(modal_chat as i32), None),
                 Some(ScriptSubject::Player(self.player.uid)),
                 None,
                 Some(false),
@@ -3232,9 +4615,12 @@ impl EnginePlayer for ActivePlayer {
                 return Err(e);
             }
             let modal = self.player.modal_chat;
+            #[cfg(before_647)]
             let cleared = self.player.clear_interface_listeners(modal, |com| {
                 interfaces.get_by_id(com).map(|i| i.root_layer)
             });
+            #[cfg(since_647)]
+            let cleared = self.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
                 self.clear_inv_transmits(com);
             }
@@ -3243,7 +4629,7 @@ impl EnginePlayer for ActivePlayer {
 
         if let Some(modal_side) = self.player.modal_side {
             if let Err(e) = engine_mut().run_script_by_trigger(
-                (ServerTriggerType::IfClose, Some(modal_side), None),
+                (ServerTriggerType::IfClose, Some(modal_side as i32), None),
                 Some(ScriptSubject::Player(self.player.uid)),
                 None,
                 Some(false),
@@ -3254,9 +4640,12 @@ impl EnginePlayer for ActivePlayer {
                 return Err(e);
             }
             let modal = self.player.modal_side;
+            #[cfg(before_647)]
             let cleared = self.player.clear_interface_listeners(modal, |com| {
                 interfaces.get_by_id(com).map(|i| i.root_layer)
             });
+            #[cfg(since_647)]
+            let cleared = self.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
                 self.clear_inv_transmits(com);
             }

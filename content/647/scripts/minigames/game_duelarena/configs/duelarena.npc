@@ -1,0 +1,71 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[mubariz]
+desc=Tough looking combat type.
+wanderrange=2
+
+[fadli]
+desc=Looks kida bored.
+wanderrange=2
+param=owned_shop,duel_rottenfruitshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,550
+param=shop_delta,10
+param=shop_title,Shop of Distaste
+
+[a_abla]
+desc=Trained to deal with all sorts of injuries.
+moverestrict=indoors
+category=healer
+
+[sabreen]
+desc=Heals people.
+moverestrict=indoors
+category=healer
+
+[duel_nurse3]
+desc=Looks after injured fighters.
+moverestrict=indoors
+category=healer
+
+[jaraah]
+desc=Has the messy job of putting players back together again.
+moverestrict=indoors
+
+[zahwa]
+desc=Battle-scarred.
+moverestrict=indoors
+
+[ima]
+desc=A citizen of Al Kharid.
+wanderrange=10
+hitpoints=70
+
+[sabeil]
+desc=A citizen of Al Kharid.
+wanderrange=10
+hitpoints=70
+
+[jadid]
+desc=A citizen of Al Kharid.
+wanderrange=10
+hitpoints=70
+
+[dalal]
+desc=A citizen of Al Kharid.
+wanderrange=10
+hitpoints=70
+
+[afrah]
+desc=A citizen of Al Kharid.
+wanderrange=10
+hitpoints=70
+
+[jeed]
+desc=A citizen of Al Kharid.
+wanderrange=10
+hitpoints=70
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc
+
+[hamid]
+desc=A holy man.
+wanderrange=2

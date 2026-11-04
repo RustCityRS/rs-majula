@@ -1,0 +1,25 @@
+[skill_guide_skill]
+type=stat
+scope=temp
+protect=no
+
+// 289 pages its server-built guide; 2011's client pages its own
+// (skill_guide.rs2).
+// [skill_guide_pages]
+// type=int
+// scope=temp
+// protect=no
+
+// 2011's guide and level-up details are drawn by the client from these
+// (skill_guide.rs2), which a click in the stats tab sets as 289's guide vars
+// are set. A stat flashes after its level-up until it is clicked, across
+// logins (void-634 persists it).
+[skill_guide]
+protect=no
+
+[level_up_details]
+protect=no
+
+[skill_stat_flash]
+scope=perm
+protect=no

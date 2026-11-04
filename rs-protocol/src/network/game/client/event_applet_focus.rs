@@ -11,17 +11,34 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 /// The client's window gained or lost focus.
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 #[client_prot(Fixed(1), ClientEvent)]
 pub struct EventAppletFocus {
     pub focused: bool,
 }
 
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ClientProtMessage for EventAppletFocus {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         EventAppletFocus {
             focused: buf.g1() == 1,
+        }
+    }
+}
+
+// `EventAppletFocus` — rev-647 EVENT_APPLET_FOCUS (opcode 1, fixed 1).
+
+#[cfg(since_647)]
+#[client_prot(Fixed(1), ClientEvent)]
+pub struct EventAppletFocus {
+    pub focused: bool,
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for EventAppletFocus {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        EventAppletFocus {
+            focused: buf.g1() != 0,
         }
     }
 }

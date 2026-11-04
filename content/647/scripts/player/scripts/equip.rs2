@@ -1,0 +1,369 @@
+[opheld2,_] ~equip(last_slot);
+
+// Worn equipment is 11 single-cell slot components (not a grid), so the client
+// sends no slot index (last_slot = -1). Like void's EquipSlot.by(component), we
+// identify the slot by WHICH component fired and pass its wearpos constant.
+// Same handler shape as ~handle_inv_button, but the slot comes from the
+// component. Remove (op1) and Examine (op10) are fixed worn actions handled
+// directly; p_opheld is the inventory bridge for item-configurable ops.
+[proc,handle_worn_button](int $op, int $slot)
+if (p_finduid(uid) = false) { return; }
+if ($op = 1) {
+    if_close;
+    ~unequip($slot);
+} else if ($op = 10) {
+    ~worn_examine($slot);
+}
+
+[proc,worn_examine](int $slot)
+def_obj $obj = inv_getobj(worn, $slot);
+if ($obj ! null) {
+    mes(oc_desc($obj));
+}
+
+[if_button1,wornitems:hat_slot] ~handle_worn_button(1, ^hat_slot);
+[if_button10,wornitems:hat_slot] ~handle_worn_button(10, ^hat_slot);
+[if_button1,wornitems:cape_slot] ~handle_worn_button(1, ^cape_slot);
+[if_button10,wornitems:cape_slot] ~handle_worn_button(10, ^cape_slot);
+[if_button1,wornitems:amulet_slot] ~handle_worn_button(1, ^amulet_slot);
+[if_button10,wornitems:amulet_slot] ~handle_worn_button(10, ^amulet_slot);
+[if_button1,wornitems:weapon_slot] ~handle_worn_button(1, ^weapon_slot);
+[if_button10,wornitems:weapon_slot] ~handle_worn_button(10, ^weapon_slot);
+[if_button1,wornitems:chest_slot] ~handle_worn_button(1, ^chest_slot);
+[if_button10,wornitems:chest_slot] ~handle_worn_button(10, ^chest_slot);
+[if_button1,wornitems:shield_slot] ~handle_worn_button(1, ^shield_slot);
+[if_button10,wornitems:shield_slot] ~handle_worn_button(10, ^shield_slot);
+[if_button1,wornitems:legs_slot] ~handle_worn_button(1, ^legs_slot);
+[if_button10,wornitems:legs_slot] ~handle_worn_button(10, ^legs_slot);
+[if_button1,wornitems:hands_slot] ~handle_worn_button(1, ^hands_slot);
+[if_button10,wornitems:hands_slot] ~handle_worn_button(10, ^hands_slot);
+[if_button1,wornitems:feet_slot] ~handle_worn_button(1, ^feet_slot);
+[if_button10,wornitems:feet_slot] ~handle_worn_button(10, ^feet_slot);
+[if_button1,wornitems:ring_slot] ~handle_worn_button(1, ^ring_slot);
+[if_button10,wornitems:ring_slot] ~handle_worn_button(10, ^ring_slot);
+[if_button1,wornitems:ammo_slot] ~handle_worn_button(1, ^ammo_slot);
+[if_button10,wornitems:ammo_slot] ~handle_worn_button(10, ^ammo_slot);
+
+[proc,equip](int $slot)
+if (p_finduid(uid) = true) {
+    def_obj $obj = inv_getobj(inv, $slot)
+    if ($obj = null) {
+        return;
+    }
+    def_obj $previous = inv_getobj(worn, ^wearpos_rhand)
+    if (~try_equip($slot) = false) {
+        mes("You don't have enough free space to do that.")
+        return
+    }
+    ~update_all($previous)
+}
+
+[proc,unequip](int $slot)
+if (p_finduid(uid) = true) {
+    def_obj $obj = inv_getobj(worn, $slot)
+    if ($obj = null) {
+        return
+    }
+    def_int $count = inv_getnum(worn, $slot)
+    def_int $overflow = inv_itemspace2(inv, $obj, $count, inv_size(inv))
+    if ($overflow >= $count) {
+        mes("You don't have enough free space to do that.")
+        return
+    }
+    inv_moveitem(worn, inv, $obj, sub($count, $overflow))
+    ~update_all($obj)
+}
+
+// 289's player/scripts/equip.rs2, line for line (a bank deposit of worn items
+// runs it).
+[proc,unequip_effect](obj $obj)
+if($obj = elemental_shield) {
+    sound_synth(shield_appear, 1, 0);
+}
+if (oc_param($obj, specwep) = ^true) {
+    %sa_attack = ^false;
+}
+~update_all($obj);
+
+[proc,try_unequip](int $slot)
+if (p_finduid(uid) = true) {
+    def_obj $obj = inv_getobj(worn, $slot)
+    if ($obj = null) {
+        return
+    }
+    def_int $count = inv_getnum(worn, $slot)
+    def_int $overflow = inv_itemspace2(inv, $obj, $count, inv_size(inv))
+    if ($overflow >= $count) {
+        return
+    }
+    inv_moveitem(worn, inv, $obj, sub($count, $overflow))
+    ~update_all($obj)
+}
+
+[proc,try_equip](int $inv_slot)(boolean)
+def_obj $equip_obj = inv_getobj(inv, $inv_slot)
+if ($equip_obj = null) {
+    return(false)
+}
+def_int $worn_slot = oc_wearpos($equip_obj)
+if ($worn_slot = null) {
+    return(false)
+}
+
+// if the item is stackable and we have the item already in our worn inv, add to the stack!
+if (oc_stackable($equip_obj) = true & inv_total(worn, $equip_obj) > 0) {
+    def_int $equip_obj_num = inv_getnum(inv, $inv_slot)
+    def_int $overflow = inv_itemspace2(worn, $equip_obj, $equip_obj_num, inv_size(worn))
+    if ($overflow >= $equip_obj_num) {
+        return(false)
+    }
+    inv_moveitem(inv, worn, $equip_obj, sub($equip_obj_num, $overflow))
+    return(true)
+}
+
+if (~unequip_conflicts_space($equip_obj) = false) {
+    return(false)
+}
+
+inv_movetoslot(inv, worn, $inv_slot, $worn_slot)
+if (inv_getobj(inv, $inv_slot) ! null) {
+    // presumably, they added this as an easy way for stackable objs to stack in the inv (instead of directly swapping)
+    // seems like in late 2006 they removed this line of code and it produced this bug: https://youtu.be/EYXp7GMFWEw, https://youtu.be/DwzDt3yw6k4
+    inv_movefromslot(inv, inv, $inv_slot)
+}
+~unequip_conflicts($equip_obj)
+
+return(true)
+
+[proc,unequip_conflicts_space](obj $equip_obj)(boolean)
+def_int $conflicts = 0
+def_int $i = 0
+while ($i < inv_size(worn)) {
+    def_obj $worn_obj = inv_getobj(worn, $i)
+    def_int $worn_num = inv_getnum(worn, $i)
+    if ($worn_obj ! null) {
+        if (~wearpos_conflicts($equip_obj, $worn_obj) = true) {
+            if (oc_stackable($worn_obj) = true) {
+                if (inv_total(inv, $worn_obj) < 1) {
+                    $conflicts = add($conflicts, 1)
+                } else if (inv_itemspace(inv, $worn_obj, $worn_num, inv_size(inv)) = false) {
+                    return(false)
+                }
+            } else {
+                $conflicts = add($conflicts, 1)
+            }
+        }
+    }
+    $i = add($i, 1)
+}
+if ($conflicts > add(inv_freespace(inv), 1)) {
+    return(false)
+}
+return(true)
+
+[proc,unequip_conflicts](obj $equip_obj)
+def_int $i = 0
+while ($i < inv_size(worn)) {
+    def_obj $worn_obj = inv_getobj(worn, $i)
+    def_int $worn_num = inv_getnum(worn, $i)
+    if ($worn_obj ! null & $worn_obj ! $equip_obj) {
+        if (~wearpos_conflicts($equip_obj, $worn_obj) = true) {
+            inv_moveitem(worn, inv, $worn_obj, $worn_num)
+        }
+    }
+    $i = add($i, 1)
+}
+
+[proc,wearpos_conflicts](obj $equip_obj, obj $worn_obj)(boolean)
+def_int $wearpos1 = oc_wearpos($equip_obj)
+def_int $wearpos2 = oc_wearpos2($equip_obj)
+def_int $wearpos3 = oc_wearpos3($equip_obj)
+def_int $worn_wearpos1 = oc_wearpos($worn_obj)
+def_int $worn_wearpos2 = oc_wearpos2($worn_obj)
+def_int $worn_wearpos3 = oc_wearpos3($worn_obj)
+
+if (($wearpos1 ! null & ($wearpos1 = $worn_wearpos1 | $wearpos1 = $worn_wearpos2 | $wearpos1 = $worn_wearpos3)) | ($wearpos2 ! null & ($wearpos2 = $worn_wearpos1 | $wearpos2 = $worn_wearpos2 | $wearpos2 = $worn_wearpos3)) | ($wearpos3 ! null & ($wearpos3 = $worn_wearpos1 | $wearpos3 = $worn_wearpos2 | $wearpos3 = $worn_wearpos3))) {
+    return(true)
+}
+return(false)
+
+// 289's update_all (player/scripts/appearance.rs2). ~update_weight stays empty
+// until the equipment port; 289 sends the attack tab only past Tutorial
+// Island's unequipping lesson, and 2011's island is not ported.
+[proc,update_all](obj $previous_weapon)
+~update_bas
+~update_bonuses
+~update_weapon_category($previous_weapon)
+~player_combat_stat
+
+// 289's update_bonuses (player/scripts/equip.rs2): the prayer drain's
+// resistance. 2011's worn tab (387) shows no bonuses: 289's lines below go
+// to its Equipment Stats screen (~equip_screen_bonuses).
+[proc,update_bonuses]
+def_int $stabattack;
+def_int $slashattack;
+def_int $crushattack;
+def_int $magicattack;
+def_int $rangeattack;
+def_int $stabdefence;
+def_int $slashdefence;
+def_int $crushdefence;
+def_int $magicdefence;
+def_int $rangedefence;
+def_int $strengthbonus;
+def_int $prayerbonus;
+def_int $rangebonus;
+
+$stabattack,
+$slashattack,
+$crushattack,
+$magicattack,
+$rangeattack,
+$stabdefence,
+$slashdefence,
+$crushdefence,
+$magicdefence,
+$rangedefence,
+$strengthbonus,
+$prayerbonus,
+$rangebonus = ~equip_get_bonuses;
+
+%prayer_drain_resistance = add(60, multiply($prayerbonus, 2));
+
+// ~update_bonus_text(wornitems:stabattack, "Stab", $stabattack);
+// ~update_bonus_text(wornitems:slashattack, "Slash", $slashattack);
+// ~update_bonus_text(wornitems:crushattack, "Crush", $crushattack);
+// ~update_bonus_text(wornitems:magicattack, "Magic", $magicattack);
+// ~update_bonus_text(wornitems:rangeattack, "Range", $rangeattack);
+// ~update_bonus_text(wornitems:stabdefence, "Stab", $stabdefence);
+// ~update_bonus_text(wornitems:slashdefence, "Slash", $slashdefence);
+// ~update_bonus_text(wornitems:crushdefence, "Crush", $crushdefence);
+// ~update_bonus_text(wornitems:magicdefence, "Magic", $magicdefence);
+// ~update_bonus_text(wornitems:rangedefence, "Range", $rangedefence);
+// ~update_bonus_text(wornitems:strengthbonus, "Strength", $strengthbonus);
+// ~update_bonus_text(wornitems:prayerbonus, "Prayer", $prayerbonus);
+
+// 2011's Equipment Stats screen (equip_screen2, 667) with the backpack beside
+// it (inventory_wear2, 670), from the worn tab's "Show Equipment Stats"
+// (387:39) or the bank's (762:117, interface_bank). void-634
+// EquipmentBonuses, BankOpen, worn_equipment.ifaces.toml.
+// The worn tab is not a modal, so its button runs unprotected; it takes
+// protected access as the tab's own Remove does (~handle_worn_button).
+[if_button,wornitems:com39]
+if (p_finduid(uid) = false) { return; }
+~equip_screen_open(false);
+
+[proc,equip_screen_open](boolean $from_bank)
+if_close;
+// "Show bank" (667:48) shows only on a screen opened from the bank (varbit
+// 4894; clientscript 787, the screen's onload). The bank stays hidden while
+// the screen is up (varbit 8348; clientscripts 2318 and 2319).
+if ($from_bank = true) {
+    %equipment_bank_button = 1;
+} else {
+    %equipment_bank_button = 0;
+}
+%bank_hidden = 1;
+inv_transmit(worn, equip_screen2:com7);
+inv_transmit(inv, inventory_wear2:com0);
+if_openmain_side(equip_screen2, inventory_wear2);
+// What is worn: Remove (op1), Examine (op10); the backpack: Equip (op1),
+// Examine (op10). 2011's Stats (op9 worn, op3 backpack) is not ported.
+if_setevents(equip_screen2:com7, 0, 15, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
+if_setevents(inventory_wear2:com0, 0, 27, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
+~equip_screen_bonuses;
+// The screen's root starts hidden: clientscript 2319 shows it (and hides the
+// bank) by varbit 8348. From the bank, the bank's own var hook (762:121) runs
+// it; from the worn tab nothing does, so it is run here, as void-634 runs it
+// once the screen is open. The open goes out at the end of the tick, after
+// this script's packets, so it waits for the next.
+p_delay(0);
+runclientscript(2319);
+
+// The screen stays open through a change made on it, unlike the worn tab's
+// Remove (~handle_worn_button), which closes what is open as 289's did.
+[if_button1,equip_screen2:com7]
+~unequip(last_slot);
+~equip_screen_bonuses;
+[if_button10,equip_screen2:com7] ~worn_examine(last_slot);
+
+// Equip is the item's own wear op (op2, [opheld2]), so an item's own trigger
+// still answers; an item that is not worn has none to run.
+[if_button1,inventory_wear2:com0]
+def_obj $obj = inv_getobj(inv, last_slot);
+if ($obj = null) {
+    return;
+}
+if (oc_wearpos($obj) = null) {
+    return;
+}
+p_opheld(2, inv, last_slot);
+~equip_screen_bonuses;
+[if_button10,inventory_wear2:com0] ~inv_examine(last_slot);
+
+[if_button,equip_screen2:com48]
+if (%equipment_bank_button = 1) {
+    @openbank;
+}
+
+// 289's bonus lines (~update_bonus_text, wornitems) at 2011's components,
+// under the cache's own labels (2011's "Ranged" for 289's "Range"). 2011's
+// Ranged Strength is 289's rangebonus, which 289 counted and never showed.
+// 2011's Summoning defence, absorbs and Magic Damage have no 289 values: they
+// read 0, in void-634's form for each (grade C).
+[proc,equip_screen_bonuses]
+def_int $stabattack;
+def_int $slashattack;
+def_int $crushattack;
+def_int $magicattack;
+def_int $rangeattack;
+def_int $stabdefence;
+def_int $slashdefence;
+def_int $crushdefence;
+def_int $magicdefence;
+def_int $rangedefence;
+def_int $strengthbonus;
+def_int $prayerbonus;
+def_int $rangebonus;
+
+$stabattack,
+$slashattack,
+$crushattack,
+$magicattack,
+$rangeattack,
+$stabdefence,
+$slashdefence,
+$crushdefence,
+$magicdefence,
+$rangedefence,
+$strengthbonus,
+$prayerbonus,
+$rangebonus = ~equip_get_bonuses;
+
+~update_bonus_text(equip_screen2:com30, "Stab", $stabattack);
+~update_bonus_text(equip_screen2:com31, "Slash", $slashattack);
+~update_bonus_text(equip_screen2:com32, "Crush", $crushattack);
+~update_bonus_text(equip_screen2:com33, "Magic", $magicattack);
+~update_bonus_text(equip_screen2:com34, "Ranged", $rangeattack);
+~update_bonus_text(equip_screen2:com35, "Stab", $stabdefence);
+~update_bonus_text(equip_screen2:com36, "Slash", $slashdefence);
+~update_bonus_text(equip_screen2:com37, "Crush", $crushdefence);
+~update_bonus_text(equip_screen2:com38, "Magic", $magicdefence);
+~update_bonus_text(equip_screen2:com39, "Ranged", $rangedefence);
+~update_bonus_text(equip_screen2:com40, "Summoning", 0);
+if_settext(equip_screen2:com41, "Absorb Melee: +0%");
+if_settext(equip_screen2:com42, "Absorb Magic: +0%");
+if_settext(equip_screen2:com43, "Absorb Ranged: +0%");
+~update_bonus_text(equip_screen2:com44, "Strength", $strengthbonus);
+~update_bonus_text(equip_screen2:com45, "Ranged Strength", $rangebonus);
+~update_bonus_text(equip_screen2:com46, "Prayer", $prayerbonus);
+if_settext(equip_screen2:com47, "Magic Damage: +0%");
+
+[proc,update_bonus_text](component $com, string $name, int $bonus)
+def_string $sign = "+";
+if ($bonus < 0) {
+    $sign = "";
+}
+if_settext($com, "<$name>: <$sign><tostring($bonus)>");
+
+[proc,update_weight]

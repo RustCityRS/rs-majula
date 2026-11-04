@@ -1,0 +1,21 @@
+[helmetshop]
+// https://classic.runescape.wiki/w/Peksa%27s_Helmet_Shop
+// https://web.archive.org/web/20110929202655im_/http://runehq.com/images/cityguides/rs2/barbarianvillage/PeksasHelmetShop.png
+scope=shared
+size=11
+// 2011's shop holds 11 (the cache's inventory 10; void-634's list):
+// it adds black_full_helm
+restock=yes
+stackall=yes
+allstock=no
+stock1=bronze_med_helm,5,100
+stock2=iron_med_helm,3,200
+stock3=steel_med_helm,3,400
+stock4=mithril_med_helm,1,3000
+stock5=adamant_med_helm,1,12000
+stock6=bronze_full_helm,4,100
+stock7=iron_full_helm,3,200
+stock8=steel_full_helm,2,400
+stock9=black_full_helm,10,100
+stock10=mithril_full_helm,1,3000
+stock11=adamant_full_helm,1,12000

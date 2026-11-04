@@ -3,15 +3,18 @@ use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::cp1252::decode_string;
 use rs_protocol_macros::client_prot;
 
 // Minimum covers the string terminator.
+#[cfg(before_647)]
 #[client_prot(VarByte { min: 1 }, UserEvent)]
 pub struct ClientCheat {
     pub cheat: String,
 }
 
+#[cfg(before_647)]
 impl ClientProtMessage for ClientCheat {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         // Not `gjstr`: it scans unchecked until it finds a terminator, so a
@@ -23,6 +26,28 @@ impl ClientProtMessage for ClientCheat {
         buf.pos = term.map_or(end, |i| start + i + 1);
         ClientCheat {
             cheat: decode_string(&text[..term.unwrap_or(text.len())]),
+        }
+    }
+}
+
+// `ClientCheat` — rev-647 CLIENT_CHEAT (opcode 14, var_byte).
+
+#[cfg(since_647)]
+#[client_prot(VarByte { min: 0 }, UserEvent)]
+pub struct ClientCheat {
+    pub input: String,
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for ClientCheat {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        // Skip two-byte leading prefix the client emits before the cheat string.
+        if buf.remaining() >= 2 {
+            let _ = buf.g1();
+            let _ = buf.g1();
+        }
+        ClientCheat {
+            input: buf.gjstr(0),
         }
     }
 }

@@ -1,0 +1,43 @@
+[gate_1551]
+desc=A wooden gate.
+category=gate_main_closed
+param=next_loc_stage,gate_1552
+
+[gate_1553]
+desc=A wooden gate.
+category=gate_outer_closed
+param=next_loc_stage,gate_1556
+
+[gate_1552]
+desc=A wooden gate.
+category=gate_main_open
+param=next_loc_stage,gate_1551
+
+[gate_1556]
+desc=A wooden gate.
+category=gate_outer_open
+param=next_loc_stage,gate_1553
+
+// 2011's Duel Arena has no gate here: its loc_3197, loc_3198, loc_4139 and
+// loc_4140 have no ops and are not placed where 289's stood, so 289's four
+// sections are kept as comments. (Their next_loc_stage is the cache's param 1,
+// so they would also change 2011's own loc configs: the CRC gate.)
+// [loc_3197]
+// desc=Entrance to the Duel Arena.
+// category=gate_main_closed
+// param=next_loc_stage,loc_4139
+
+// [loc_3198]
+// desc=Entrance to the Duel Arena.
+// category=gate_outer_closed
+// param=next_loc_stage,loc_4140
+
+// [loc_4139]
+// desc=Entrance to the Duel Arena.
+// category=gate_main_open
+// param=next_loc_stage,loc_3197
+
+// [loc_4140]
+// desc=Entrance to the Duel Arena.
+// category=gate_outer_open
+// param=next_loc_stage,loc_3198

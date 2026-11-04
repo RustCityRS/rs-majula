@@ -25,7 +25,7 @@ pub struct HuntType {
     pub check_invparam: Option<HuntCheckInvParam>,
     pub check_invcat: Option<HuntCheckInvCat>,
     pub extracheck_vars: Vec<HuntExtraCheckVar>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 pub struct HuntCheckInv {
@@ -151,7 +151,7 @@ impl CacheType for HuntType {
                     });
                 }
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized hunt config code: {code}"),
+                _ => crate::unknown_opcode!("hunt", code),
             }
         }
     }

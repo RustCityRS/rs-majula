@@ -24,14 +24,14 @@ impl ServerProtMessage for MidiJingle<'_> {
     }
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 #[server_prot(MidiJingle, Buffered, Fixed)]
 pub struct MidiJingle {
     pub id: u16,
     pub delay: u16,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 impl ServerProtMessage for MidiJingle {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
@@ -40,5 +40,31 @@ impl ServerProtMessage for MidiJingle {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.id) + size_of_val(&self.delay)
+    }
+}
+
+// `MidiJingle` — play a short MIDI jingle overlay, then return to prior song.
+// Rev-647 opcode 88 (MIDI_JINGLE), fixed 6.
+// Wire layout: `[ip2_alt1 song_id][p3_alt2 duration][p1 volume]`.
+
+#[cfg(since_647)]
+#[server_prot(MidiJingle, Buffered, Fixed)]
+pub struct MidiJingle {
+    pub song_id: u16,
+    pub duration: u32,
+    pub volume: u8,
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for MidiJingle {
+    fn encode(&self, buf: &mut Packet) {
+        buf.ip2_alt1(self.song_id);
+        buf.p3_alt2(self.duration);
+        buf.p1(self.volume);
+    }
+
+    fn sizeof(&self) -> usize {
+        // u16 song_id + 3-byte duration + u8 volume = 6
+        6
     }
 }

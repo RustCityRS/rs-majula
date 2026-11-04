@@ -1,0 +1,83 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[grubor]
+desc=A rough looking thief.
+hitpoints=120
+attack=5
+strength=8
+defence=6
+param=damagetype,^crush_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4916
+
+[trobert]
+desc=A well dressed thief.
+hitpoints=130
+attack=4
+strength=3
+defence=5
+param=damagetype,^slash_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4917
+
+[fire_bird]
+desc=Probably not a chicken.
+wanderrange=15
+maxrange=17
+respawnrate=70
+hitpoints=50
+param=attackbonus,-31
+param=strengthbonus,-26
+param=stabdefence,-26
+param=slashdefence,-26
+param=crushdefence,-26
+param=magicdefence,-26
+param=rangedefence,-26
+param=damagetype,^stab_style
+param=attack_anim,firebird_attack
+param=defend_anim,firebird_block
+param=death_anim,firebird_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4927
+
+[garv]
+desc=A diligent guard.
+wanderrange=1
+hitpoints=1040
+attack=95
+defence=91
+strength=94
+param=damagetype,^crush_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4915
+
+[grip]
+desc=Looks like he's been in the wars...
+wanderrange=1
+respawnrate=100
+hitpoints=250
+attack=18
+strength=17
+defence=18
+param=attackbonus,5
+param=strengthbonus,7
+param=stabdefence,16
+param=slashdefence,27
+param=crushdefence,22
+param=damagetype,^slash_style
+param=attack_anim,human_axe_hack
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_slash
+param=defend_sound,blade3_mail
+param=death_drop,grip_s_key
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4919
+
+[charlie_the_cook]
+desc=Distinctly cook-like.
+hitpoints=30
+attack=10
+strength=10
+defence=10
+param=damagetype,^crush_style
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4921
+

@@ -1,4 +1,4 @@
-use crate::build::BuildArea;
+use crate::build::{BuildArea, STAT_COUNT};
 use crate::direction::Direction;
 use crate::interaction::InteractionState;
 use crate::interaction::InteractionTarget;
@@ -66,6 +66,24 @@ impl StaffModLevel {
         self as u8 >= Self::JagexModerator as u8
     }
 }
+
+/// Rev-647 chat modes, as CHAT_SETMODE carries them (CS2 op 5006): typed chat
+/// goes to public chat, or to the clan chat the player is in.
+#[cfg(since_647)]
+pub const CHAT_MODE_PUBLIC: u8 = 0;
+#[cfg(since_647)]
+pub const CHAT_MODE_CLAN: u8 = 1;
+
+/// Rev-647 move types, as the MoveType and TempMoveType blocks carry them
+/// (`Class244.method1590`).
+#[cfg(since_647)]
+pub const MOVE_TYPE_WALK: u8 = 1;
+#[cfg(since_647)]
+pub const MOVE_TYPE_RUN: u8 = 2;
+/// Place the player on the new tile instead of moving it there
+/// (`PlayerEntity.method4080`).
+#[cfg(since_647)]
+pub const MOVE_TYPE_TELEPORT: u8 = 127;
 
 /// The movement speed mode of an entity, determining how many tiles it moves per tick.
 #[repr(u8)]
@@ -165,7 +183,7 @@ pub struct Player {
     pub last_runenergy: Option<u16>,
     pub runweight: i32,
     pub playtime: i32,
-    pub stats: Stats<21>,
+    pub stats: Stats<STAT_COUNT>,
     pub combat_level: u8,
     #[cfg(since_274)]
     pub skill_level: u16,
@@ -178,12 +196,38 @@ pub struct Player {
     pub run_step: Option<Direction>,
     pub run: bool,
     pub temprun: bool,
+    /// Rev-647: the move type the client has stored for this player, as last
+    /// sent in a MoveType block; `None` until one has gone out this session.
+    #[cfg(since_647)]
+    pub client_move_type: Option<u8>,
     pub move_request: bool,
     pub modal_state: u8,
     pub modal_main: Option<u16>,
     pub last_modal_main: Option<u16>,
     pub modal_chat: Option<u16>,
     pub last_modal_chat: Option<u16>,
+    /// Rev-647: the parent component hash the chat modal was actually mounted
+    /// on, so `if_close` can close it in the slot it opened in.
+    ///
+    /// Dialogues are sub-interfaces at 647, not a screen-wide chat modal, and
+    /// `IF_CLOSESUB` closes by parent hash. Most mount on the default
+    /// `dialogue_box` child; objbox and doubleobjbox use the small slot. Closing
+    /// the default when the small one is open leaves the dialogue on screen.
+    #[cfg(since_647)]
+    pub modal_chat_parent: i32,
+    /// Rev-647: the component hash the main-screen modal is mounted on, 0
+    /// when none is.
+    #[cfg(since_647)]
+    pub modal_main_parent: i32,
+    /// Rev-647: the component hash the side modal is mounted on, 0 when none
+    /// is.
+    #[cfg(since_647)]
+    pub modal_side_parent: i32,
+    /// Rev-647: every sub-interface the client holds, by the component hash
+    /// it is mounted on, with IF_OPENSUB's type byte. Kept by the same rules
+    /// as the client's own table, so the server can tell what is on screen.
+    #[cfg(since_647)]
+    pub open_subs: FxHashMap<i32, (u16, u8)>,
     pub modal_side: Option<u16>,
     pub last_modal_side: Option<u16>,
     pub modal_tutorial: Option<u16>,
@@ -205,9 +249,54 @@ pub struct Player {
     pub move_clicked: bool,
     pub block_walk: BlockWalk,
     pub invs: FxHashMap<u16, Inventory>,
-    pub inv_transmits: FxHashMap<u16, Vec<u16>>,
-    pub inv_other_transmits: FxHashMap<u16, (i32, u16)>,
+    /// Rev-647: true until the first REBUILD_NORMAL is sent — the login
+    /// rebuild carries the GPI init bit-stream.
+    #[cfg(since_647)]
+    pub pending_login: bool,
+    /// Rev-647 public chat staged by the MESSAGE_PUBLIC handler for the
+    /// broadcast phase: `(effects, rights, char_count, huffman_data)`.
+    #[cfg(since_647)]
+    pub pending_public_chat: Option<(u16, u8, usize, Vec<u8>)>,
+    /// Rev-647: where the player's typed chat goes, as the client last set it
+    /// with CHAT_SETMODE -- [`CHAT_MODE_PUBLIC`] or [`CHAT_MODE_CLAN`].
+    #[cfg(since_647)]
+    pub chat_mode: u8,
+    /// Rev-647 root interface currently open (set by IF_OPENTOP).
+    #[cfg(since_647)]
+    pub toplevel: u16,
+    /// Rev-647 client window mode from WINDOW_STATUS: 1 = fixed, 2 = resizable,
+    /// 3 = fullscreen. Content only tests `= 1`, which is what decides whether
+    /// the gameframe mounts under `toplevel` or `toplevel_fullscreen`.
+    #[cfg(since_647)]
+    pub window_mode: u8,
+    /// Rev-647 client viewport width in pixels, from WINDOW_STATUS.
+    #[cfg(since_647)]
+    pub window_width: u16,
+    /// Rev-647 client viewport height in pixels, from WINDOW_STATUS.
+    #[cfg(since_647)]
+    pub window_height: u16,
+    /// Rev-647: server-side mirror of transmitted client variables (varcs);
+    /// `applydesign` reads the character-design preview varcs back from it.
+    #[cfg(since_647)]
+    pub varcs: FxHashMap<u16, i32>,
+    /// Rev-647: display name claimed via `p_setdisplayname`; falls back to the
+    /// login username when unset.
+    #[cfg(since_647)]
+    pub display_name: Option<String>,
+    /// Rev-647: available display-name suggestions from the DB (name taken).
+    #[cfg(since_647)]
+    pub name_suggestions: Vec<String>,
+    /// Rev-647: current page into `name_suggestions` (3 names per page).
+    #[cfg(since_647)]
+    pub name_suggestion_page: usize,
+    pub inv_transmits: FxHashMap<u16, Vec<rs_vm::ComId>>,
+    pub inv_other_transmits: FxHashMap<rs_vm::ComId, (i32, u16)>,
     pub inv_first_seen: FxHashSet<u16>,
+    /// From 647: the other players' invs (`invother_transmit`) the client
+    /// has whole, by inv id. The client keeps its copy of another player's
+    /// inv apart from the player's own (trade's other offer is inv 90 too).
+    #[cfg(since_647)]
+    pub inv_other_first_seen: FxHashSet<u16>,
     pub build_area: BuildArea,
     pub last_zone: CoordGrid,
     pub last_map_zone: CoordGrid,
@@ -226,14 +315,32 @@ pub struct PlayerCold {
     pub last_login_date: i64,
     pub hero_points: HeroPoints,
     pub allow_design: bool,
+    #[cfg(before_647)]
     pub last_com: Option<u16>,
+    /// Rev-647: interface components are addressed by the full 32-bit
+    /// component hash (`iface << 16 | com`); -1 = none.
+    #[cfg(since_647)]
+    pub last_com: i32,
     pub last_comsubid: Option<u16>,
+    #[cfg(before_647)]
     pub last_slot: Option<u16>,
+    #[cfg(since_647)]
+    pub last_slot: i32,
     pub last_target_slot: Option<u16>,
+    /// The component a 647 drag ended on (`iface << 16 | com`): the
+    /// drag packet carries both ends, and a drop onto another component
+    /// (a bank tab's button) is told apart by it.
+    #[cfg(since_647)]
+    pub last_target_com: Option<i32>,
     pub last_use_slot: Option<u16>,
+    #[cfg(before_647)]
     pub last_item: Option<u16>,
+    #[cfg(since_647)]
+    pub last_item: i32,
     pub last_use_item: Option<u16>,
-    pub last_use_com: Option<u16>,
+    /// The used item's component: its id before 647, its interface hash
+    /// from 647 (`rs_vm::ComId`).
+    pub last_use_com: Option<rs_vm::ComId>,
     pub resume_buttons: Option<Vec<i32>>,
     pub tabs: [Option<u16>; 14],
     pub gender: u8,
@@ -302,12 +409,22 @@ impl Player {
             run_step: None,
             run: false,
             temprun: false,
+            #[cfg(since_647)]
+            client_move_type: None,
             move_request: false,
             modal_state: MODAL_NONE,
             modal_main: None,
             last_modal_main: None,
             modal_chat: None,
             last_modal_chat: None,
+            #[cfg(since_647)]
+            modal_chat_parent: 0,
+            #[cfg(since_647)]
+            modal_main_parent: 0,
+            #[cfg(since_647)]
+            modal_side_parent: 0,
+            #[cfg(since_647)]
+            open_subs: FxHashMap::default(),
             modal_side: None,
             last_modal_side: None,
             modal_tutorial: None,
@@ -319,6 +436,28 @@ impl Player {
             trade: ChatSettingsTradeDuel::On,
             logout_requested: false,
             logout_idle_requested: false,
+            #[cfg(since_647)]
+            pending_login: true,
+            #[cfg(since_647)]
+            pending_public_chat: None,
+            #[cfg(since_647)]
+            chat_mode: CHAT_MODE_PUBLIC,
+            #[cfg(since_647)]
+            toplevel: 0,
+            #[cfg(since_647)]
+            window_mode: 1,
+            #[cfg(since_647)]
+            window_width: 765,
+            #[cfg(since_647)]
+            window_height: 503,
+            #[cfg(since_647)]
+            varcs: FxHashMap::default(),
+            #[cfg(since_647)]
+            display_name: None,
+            #[cfg(since_647)]
+            name_suggestions: Vec::new(),
+            #[cfg(since_647)]
+            name_suggestion_page: 0,
             logout_prevented_until: None,
             logout_prevented_message: None,
             logout_sent: false,
@@ -332,6 +471,8 @@ impl Player {
             inv_transmits: FxHashMap::default(),
             inv_other_transmits: FxHashMap::default(),
             inv_first_seen: FxHashSet::default(),
+            #[cfg(since_647)]
+            inv_other_first_seen: FxHashSet::default(),
             build_area: BuildArea::new(),
             last_zone: CoordGrid::new(0, 0, 0),
             last_map_zone: CoordGrid::new(0, 0, 0),
@@ -347,12 +488,23 @@ impl Player {
                 last_login_date: 0,
                 hero_points: HeroPoints::new(),
                 allow_design: false,
+                #[cfg(before_647)]
                 last_com: None,
+                #[cfg(since_647)]
+                last_com: -1,
                 last_comsubid: None,
+                #[cfg(before_647)]
                 last_slot: None,
+                #[cfg(since_647)]
+                last_slot: -1,
                 last_target_slot: None,
+                #[cfg(since_647)]
+                last_target_com: None,
                 last_use_slot: None,
+                #[cfg(before_647)]
                 last_item: None,
+                #[cfg(since_647)]
+                last_item: -1,
                 last_use_item: None,
                 last_use_com: None,
                 resume_buttons: None,
@@ -375,6 +527,71 @@ impl Player {
         (self.modal_state & (MODAL_MAIN | MODAL_CHAT)) != MODAL_NONE
     }
 
+    /// Rev-647: records IF_OPENSUB. As the client does, whatever was mounted
+    /// on `parent` closes first.
+    #[cfg(since_647)]
+    pub fn sub_opened(&mut self, parent: i32, sub: u16, kind: u8) {
+        self.sub_closed(parent);
+        self.open_subs.insert(parent, (sub, kind));
+    }
+
+    /// Rev-647: records IF_CLOSESUB. The client closes the sub mounted on
+    /// `parent`, then, recursively, every type-3 sub mounted inside it
+    /// (`LightDetailClientOption.method2499`); others stay in its table,
+    /// unreachable until something re-parents them.
+    #[cfg(since_647)]
+    pub fn sub_closed(&mut self, parent: i32) {
+        let Some((closed, _)) = self.open_subs.remove(&parent) else {
+            return;
+        };
+        let children: Vec<i32> = self
+            .open_subs
+            .iter()
+            .filter(|(p, (_, kind))| *kind == 3 && (**p as u32 >> 16) as u16 == closed)
+            .map(|(&p, _)| p)
+            .collect();
+        for child in children {
+            self.sub_closed(child);
+        }
+    }
+
+    /// Rev-647: records IF_MOVESUB -- the sub on `from` moves to `to`,
+    /// closing whatever `to` held, as the client's branch for it does.
+    #[cfg(since_647)]
+    pub fn sub_moved(&mut self, from: i32, to: i32) {
+        let moving = self.open_subs.remove(&from);
+        self.sub_closed(to);
+        if let Some(sub) = moving {
+            self.open_subs.insert(to, sub);
+        }
+    }
+
+    /// Rev-647: whether interface `iface` is on screen -- the toplevel, or a
+    /// sub mounted on a component of something that is. A sub left on a
+    /// parent that is no longer reachable (after IF_OPENTOP swaps the root)
+    /// is in the client's table but drawn nowhere.
+    #[cfg(since_647)]
+    pub fn is_interface_open(&self, iface: u16) -> bool {
+        let mut current = iface;
+        // Each step climbs one parent; a mount chain is a handful deep, and
+        // the bound stops a cycle a bad move could make.
+        for _ in 0..16 {
+            if current == self.toplevel {
+                return true;
+            }
+            let Some(parent) = self
+                .open_subs
+                .iter()
+                .find(|(_, (sub, _))| *sub == current)
+                .map(|(&p, _)| (p as u32 >> 16) as u16)
+            else {
+                return false;
+            };
+            current = parent;
+        }
+        false
+    }
+
     /// Returns `true` if the given interface root is currently visible to the player.
     ///
     /// Checks the main modal, chat modal, side modal, tutorial modal, and all 14
@@ -394,6 +611,17 @@ impl Player {
             || self.tabs.iter().flatten().any(|&x| x as i32 == root)
     }
 
+    /// The name the player is drawn with (the appearance block) and named by
+    /// (`displayname`): the display name they claimed, else their login name
+    /// as 289's `displayname` gives it ("Test Player"). 2011's client finds a
+    /// player by it (a trade request's "Accept trade").
+    #[cfg(since_647)]
+    pub fn shown_name(&self) -> String {
+        self.display_name
+            .clone()
+            .unwrap_or_else(|| self.uid.screen_name())
+    }
+
     /// Collects all inventory transmit component IDs attached to the given interface root.
     ///
     /// Iterates over all `inv_transmits` entries and returns the component IDs whose
@@ -406,9 +634,13 @@ impl Player {
     ///
     /// # Returns
     /// A vector of component IDs that were attached to the closing root.
-    pub fn clear_interface_listeners<F>(&mut self, root: Option<u16>, get_root_layer: F) -> Vec<u16>
+    pub fn clear_interface_listeners<F>(
+        &mut self,
+        root: Option<u16>,
+        get_root_layer: F,
+    ) -> Vec<rs_vm::ComId>
     where
-        F: Fn(u16) -> Option<i32>,
+        F: Fn(rs_vm::ComId) -> Option<i32>,
     {
         let Some(root) = root else {
             return Vec::new();
@@ -447,12 +679,33 @@ impl Player {
     ///
     /// # Side Effects
     /// * Removes `com` from every entry in `self.inv_transmits`.
-    pub fn clear_inv_transmits(&mut self, com: u16) {
+    pub fn clear_inv_transmits(&mut self, com: rs_vm::ComId) {
         for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }
         self.inv_other_transmits.remove(&com);
+        // Before 647 a component is seen afresh once it stops; from 647 the
+        // client keys inventories by inv id, and so does first-sight.
+        #[cfg(before_647)]
         self.inv_first_seen.remove(&com);
+        // From 647 an inventory no component transmits any more is dropped:
+        // it stops going to the client (a closed shop's restocks), and the
+        // next transmit sends it whole again.
+        #[cfg(since_647)]
+        {
+            let first_seen = &mut self.inv_first_seen;
+            self.inv_transmits.retain(|inv, coms| {
+                if coms.is_empty() {
+                    first_seen.remove(inv);
+                }
+                !coms.is_empty()
+            });
+            // Another player's inv no component shows any more goes whole
+            // next time, so a new trade starts from its partner's offer.
+            let others = &self.inv_other_transmits;
+            self.inv_other_first_seen
+                .retain(|inv| others.values().any(|&(_, other)| other == *inv));
+        }
     }
 
     /// Clears the active script if it is suspended waiting for a count dialog or
@@ -929,6 +1182,240 @@ impl Player {
         }
         run_disabled
     }
+
+    /// Rev-647: sets `temprun` for a walk the player just clicked.
+    ///
+    /// The effective speed is `run XOR temprun` (`Engine::process_movement`),
+    /// so ctrl flips the run orb for that one walk. The client sets the flag
+    /// only while ctrl is held (`ProgressBarElement.method1322`, key 82). A
+    /// plain click follows the orb. Running needs energy; walking does not.
+    ///
+    /// # Call Stack
+    /// **Called by:** `move_click::handle`
+    #[cfg(since_647)]
+    pub fn click_temprun(&mut self, ctrl: bool) {
+        self.temprun = ctrl && (self.run || self.runenergy >= 100);
+    }
+
+    /// Rev-647: settles this tick's MoveType and TempMoveType blocks.
+    ///
+    /// The client stores one move type per player (MoveType, 0x8) and plays
+    /// each step at it, unless the same update carries a one-tick override
+    /// (TempMoveType, 0x800). `Class244.method1590` reads both masks before it
+    /// applies the step, so the override wins and a MoveType sent this tick
+    /// already counts.
+    ///
+    /// So the stored type has to follow `run` however it changes -- the run
+    /// orb, `p_run`, or energy running out mid-run -- and any step at another
+    /// speed needs the override: the odd last tile of a run is a walk, a
+    /// ctrl-click run with run off is a run, and a teleport is 127. Without it
+    /// the client walks a teleported player to the new tile, and plays a run
+    /// as a walk to a tile two away.
+    ///
+    /// # Side Effects
+    /// * May set `info.move_type`/`info.temp_move_type` and their mask bits.
+    /// * Updates `client_move_type`.
+    ///
+    /// # Call Stack
+    /// **Called by:** `Engine::compute_player_info`, once every source of
+    /// movement and run changes has had its turn for the tick.
+    #[cfg(since_647)]
+    pub fn sync_move_types(&mut self) {
+        let stored = if self.run {
+            MOVE_TYPE_RUN
+        } else {
+            MOVE_TYPE_WALK
+        };
+        if self.client_move_type != Some(stored) {
+            self.client_move_type = Some(stored);
+            self.info.move_type = Some(stored);
+            self.info.masks |= rs_info::MASK_MOVE_TYPE;
+        }
+        let step = if self.pathing.tele {
+            // 289's `p_teleport` is not a jump: its client walks a move of up
+            // to two tiles (`move(x, z, jump)` queues it as a step), which is
+            // how a door's walk-through looks. 647's client plays any move not
+            // marked 127 as a step (`Class244.method1590`), so only a jump or
+            // a longer move is placed.
+            let (dx, dz) = (
+                self.pathing.coord.x() as i32 - self.pathing.last_coord.x() as i32,
+                self.pathing.coord.z() as i32 - self.pathing.last_coord.z() as i32,
+            );
+            if !self.pathing.jump && dx.abs() <= 2 && dz.abs() <= 2 {
+                MOVE_TYPE_WALK
+            } else {
+                MOVE_TYPE_TELEPORT
+            }
+        } else if self.pathing.run_dir != -1 {
+            MOVE_TYPE_RUN
+        } else if self.pathing.walk_dir != -1 {
+            MOVE_TYPE_WALK
+        } else {
+            return;
+        };
+        if step != stored {
+            self.info.temp_move_type = Some(step);
+            self.info.masks |= rs_info::MASK_TEMP_MOVE_TYPE;
+        }
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod move_type_tests {
+    use super::*;
+    use rs_info::{MASK_MOVE_TYPE, MASK_TEMP_MOVE_TYPE};
+
+    fn make_player() -> Player {
+        let uid = PlayerUid::new("test".into(), 1);
+        let vars = VarSet::new(std::iter::empty());
+        Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
+    }
+
+    /// One tick: clear last tick's blocks, take the given step, settle.
+    fn tick(p: &mut Player, walk_dir: i8, run_dir: i8, tele: bool) {
+        p.info.masks = 0;
+        p.info.move_type = None;
+        p.info.temp_move_type = None;
+        p.pathing.walk_dir = walk_dir;
+        p.pathing.run_dir = run_dir;
+        p.pathing.tele = tele;
+        p.sync_move_types();
+    }
+
+    fn stored(p: &Player) -> Option<u8> {
+        (p.info.masks & MASK_MOVE_TYPE != 0).then(|| p.info.move_type.unwrap())
+    }
+
+    fn temp(p: &Player) -> Option<u8> {
+        (p.info.masks & MASK_TEMP_MOVE_TYPE != 0).then(|| p.info.temp_move_type.unwrap())
+    }
+
+    #[test]
+    fn the_first_update_of_a_session_sends_the_stored_type() {
+        let mut p = make_player();
+        tick(&mut p, -1, -1, false);
+        assert_eq!(stored(&p), Some(MOVE_TYPE_WALK));
+        tick(&mut p, -1, -1, false);
+        assert_eq!(stored(&p), None, "unchanged, so not resent");
+    }
+
+    #[test]
+    fn toggling_run_resends_the_stored_type() {
+        let mut p = make_player();
+        tick(&mut p, -1, -1, false);
+        p.run = true;
+        tick(&mut p, 1, 1, false);
+        assert_eq!(stored(&p), Some(MOVE_TYPE_RUN));
+        assert_eq!(temp(&p), None, "a run step at run mode needs no override");
+        p.run = false;
+        tick(&mut p, 1, -1, false);
+        assert_eq!(stored(&p), Some(MOVE_TYPE_WALK));
+        assert_eq!(temp(&p), None);
+    }
+
+    /// Energy runs out during a run step: `update_energy` turns run off in
+    /// the same tick, so the client is told "walk" and has to be told this
+    /// one step was still a run.
+    #[test]
+    fn a_run_step_on_the_tick_energy_runs_out_is_still_a_run() {
+        let mut p = make_player();
+        p.run = true;
+        tick(&mut p, -1, -1, false);
+        p.runenergy = 50;
+        p.pathing.steps_taken = 2;
+        assert!(p.update_energy());
+        tick(&mut p, 1, 1, false);
+        assert_eq!(stored(&p), Some(MOVE_TYPE_WALK));
+        assert_eq!(temp(&p), Some(MOVE_TYPE_RUN));
+    }
+
+    #[test]
+    fn the_odd_last_tile_of_a_run_is_a_walk() {
+        let mut p = make_player();
+        p.run = true;
+        tick(&mut p, 1, -1, false);
+        assert_eq!(temp(&p), Some(MOVE_TYPE_WALK));
+    }
+
+    #[test]
+    fn a_ctrl_click_run_with_run_off_is_a_run() {
+        let mut p = make_player();
+        tick(&mut p, 1, 1, false);
+        assert_eq!(temp(&p), Some(MOVE_TYPE_RUN));
+    }
+
+    #[test]
+    fn a_teleport_is_placed_not_walked() {
+        for run in [false, true] {
+            let mut p = make_player();
+            p.run = run;
+            p.pathing.coord = CoordGrid::new(3232, 0, 3222);
+            tick(&mut p, -1, -1, true);
+            assert_eq!(temp(&p), Some(MOVE_TYPE_TELEPORT), "run={run}");
+        }
+    }
+
+    /// 289's door walk-through: `p_teleport` one tile, not a jump. 289's
+    /// client walks it; 647's walks it unless told 127.
+    #[test]
+    fn a_short_teleport_that_is_not_a_jump_is_walked() {
+        for run in [false, true] {
+            let mut p = make_player();
+            p.run = run;
+            // A new player's first placement is a jump; a door's step is not.
+            p.pathing.jump = false;
+            p.pathing.coord = CoordGrid::new(3223, 0, 3222);
+            tick(&mut p, -1, -1, true);
+            let want = if run { Some(MOVE_TYPE_WALK) } else { None };
+            assert_eq!(temp(&p), want, "run={run}: a walk step");
+        }
+        let mut p = make_player();
+        p.pathing.coord = CoordGrid::new(3223, 0, 3222);
+        p.pathing.jump = true;
+        tick(&mut p, -1, -1, true);
+        assert_eq!(temp(&p), Some(MOVE_TYPE_TELEPORT), "a jump is placed");
+    }
+
+    /// The bug the T3 RunTest caught: every plain click ran with run off,
+    /// and walked with run on, because a plain click set temprun.
+    #[test]
+    fn a_plain_click_follows_the_run_orb() {
+        let mut p = make_player();
+        for run in [false, true] {
+            p.run = run;
+            p.click_temprun(false);
+            assert!(!p.temprun, "run={run}");
+        }
+    }
+
+    #[test]
+    fn ctrl_flips_the_orb_for_one_walk() {
+        let mut p = make_player();
+        p.click_temprun(true);
+        assert!(p.temprun, "run off: ctrl runs");
+        p.run = true;
+        p.click_temprun(true);
+        assert!(p.temprun, "run on: ctrl walks");
+    }
+
+    #[test]
+    fn ctrl_cannot_run_without_energy_but_can_walk() {
+        let mut p = make_player();
+        p.runenergy = 99;
+        p.click_temprun(true);
+        assert!(!p.temprun, "no energy: ctrl does not run");
+        p.run = true;
+        p.click_temprun(true);
+        assert!(p.temprun, "ctrl-walking needs no energy");
+    }
+
+    #[test]
+    fn standing_still_sends_no_override() {
+        let mut p = make_player();
+        p.run = true;
+        tick(&mut p, -1, -1, false);
+        assert_eq!(temp(&p), None);
+    }
 }
 
 #[cfg(test)]
@@ -1142,6 +1629,133 @@ mod interaction_tests {
         p.interaction.target_subject_com = Some(42);
         p.set_interaction(obj_target(), ServerTriggerType::ApObj1 as u8, true);
         assert_eq!(p.interaction.target_subject_com, None);
+    }
+
+    // ---- rev-647 open interfaces ----
+
+    #[cfg(since_647)]
+    fn hash(iface: u16, com: u16) -> i32 {
+        ((iface as i32) << 16) | com as i32
+    }
+
+    /// A sub is open when it hangs, mount by mount, off the toplevel.
+    #[cfg(since_647)]
+    #[test]
+    fn an_interface_is_open_when_it_hangs_off_the_toplevel() {
+        let mut p = make_player();
+        p.toplevel = 548;
+        p.sub_opened(hash(548, 206), 149, 1); // backpack in its tab
+        p.sub_opened(hash(548, 18), 762, 0); // bank on the main screen
+        p.sub_opened(hash(762, 3), 9999, 3); // something inside the bank
+        assert!(p.is_interface_open(548), "the toplevel");
+        assert!(p.is_interface_open(149) && p.is_interface_open(762));
+        assert!(p.is_interface_open(9999), "two mounts down");
+        assert!(!p.is_interface_open(763), "never opened");
+    }
+
+    /// IF_OPENTOP leaves the client's sub table alone; what hung off the old
+    /// root is no longer drawn.
+    #[cfg(since_647)]
+    #[test]
+    fn a_new_toplevel_strands_what_hung_off_the_old_one() {
+        let mut p = make_player();
+        p.toplevel = 548;
+        p.sub_opened(hash(548, 206), 149, 1);
+        p.toplevel = 746;
+        assert!(!p.is_interface_open(149));
+        p.sub_moved(hash(548, 206), hash(746, 90));
+        assert!(p.is_interface_open(149), "moved across, it is drawn again");
+    }
+
+    /// Mounting on an occupied component closes the occupant, and closing a
+    /// sub takes its type-3 children with it.
+    #[cfg(since_647)]
+    #[test]
+    fn opening_over_a_sub_closes_it_and_its_type_3_children() {
+        let mut p = make_player();
+        p.toplevel = 548;
+        p.sub_opened(hash(548, 18), 762, 0);
+        p.sub_opened(hash(762, 3), 9999, 3);
+        p.sub_opened(hash(762, 4), 8888, 1);
+        p.sub_opened(hash(548, 18), 620, 0); // a shop replaces the bank
+        assert!(!p.is_interface_open(762) && !p.is_interface_open(9999));
+        assert!(
+            !p.open_subs.contains_key(&hash(762, 3)),
+            "type 3 closed with it"
+        );
+        assert!(
+            p.open_subs.contains_key(&hash(762, 4)),
+            "type 1 stays in the table"
+        );
+        assert!(!p.is_interface_open(8888), "but is drawn nowhere");
+        assert!(p.is_interface_open(620));
+    }
+
+    // ---- inventory transmit bindings (rev 647: whole component hashes) ----
+
+    /// `inventory:inv` (149:0) and the bank's component 0 (762:0) share a
+    /// component index. Cut to 16 bits they were the same key, so stopping one
+    /// stopped the other.
+    #[cfg(since_647)]
+    #[test]
+    fn stopping_one_component_leaves_another_with_the_same_index() {
+        let mut p = make_player();
+        let backpack = 149 << 16;
+        let bank = 762 << 16;
+        p.inv_transmits.entry(93).or_default().push(backpack);
+        p.inv_transmits.entry(95).or_default().push(bank);
+        p.clear_inv_transmits(bank);
+        assert_eq!(p.inv_transmits[&93], vec![backpack]);
+        assert!(!p.inv_transmits.contains_key(&95));
+    }
+
+    /// An inventory no component transmits any more is dropped and forgotten,
+    /// so it stops going out and the next transmit sends it whole; one still
+    /// transmitted elsewhere is kept.
+    #[cfg(since_647)]
+    #[test]
+    fn an_inventory_nothing_transmits_is_forgotten() {
+        let mut p = make_player();
+        let backpack = 149 << 16;
+        let shop_side = 621 << 16;
+        let shop = 620 << 16 | 25;
+        p.inv_transmits
+            .entry(93)
+            .or_default()
+            .extend([backpack, shop_side]);
+        p.inv_transmits.entry(1).or_default().push(shop);
+        p.inv_first_seen.extend([93, 1]);
+        p.clear_inv_transmits(shop_side);
+        p.clear_inv_transmits(shop);
+        assert_eq!(p.inv_transmits[&93], vec![backpack]);
+        assert!(p.inv_first_seen.contains(&93), "the backpack is still out");
+        assert!(!p.inv_transmits.contains_key(&1), "the shop is dropped");
+        assert!(!p.inv_first_seen.contains(&1), "and goes whole next time");
+    }
+
+    /// Another player's inv is forgotten once no component shows it (a
+    /// trade's other offer, when its screen closes), and kept while one does
+    /// (the trade's confirm screen, after the offer screen stops).
+    #[cfg(since_647)]
+    #[test]
+    fn another_players_inventory_nothing_shows_is_forgotten() {
+        let mut p = make_player();
+        let offer_screen = 335 << 16 | 34;
+        let confirm_screen = 334 << 16 | 34;
+        p.inv_other_transmits.insert(offer_screen, (7, 90));
+        p.inv_other_transmits.insert(confirm_screen, (7, 90));
+        p.inv_other_first_seen.insert(90);
+        p.clear_inv_transmits(offer_screen);
+        assert!(
+            p.inv_other_first_seen.contains(&90),
+            "the confirm screen shows it"
+        );
+        p.clear_inv_transmits(confirm_screen);
+        assert!(p.inv_other_transmits.is_empty());
+        assert!(
+            !p.inv_other_first_seen.contains(&90),
+            "and goes whole next time"
+        );
     }
 
     // ---- clear_interaction ----

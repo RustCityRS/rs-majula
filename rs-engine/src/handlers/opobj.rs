@@ -5,10 +5,25 @@ use crate::handlers::op_common::{in_build_area, zone_obj};
 use crate::watch::Op;
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_obj1::OpObj1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_obj2::OpObj2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_obj3::OpObj3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_obj4::OpObj4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_obj5::OpObj5;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opobj1::OpObj1;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opobj2::OpObj2;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opobj3::OpObj3;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opobj4::OpObj4;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opobj5::OpObj5;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
@@ -24,7 +39,11 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj1 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(1, self.x, self.z, self.obj, active)
+        #[cfg(before_647)]
+        let obj = self.obj;
+        #[cfg(since_647)]
+        let obj = self.obj_id;
+        handle(1, self.x, self.z, obj, active)
     }
 }
 
@@ -38,7 +57,11 @@ impl ClientGameHandler for OpObj1 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj2 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(2, self.x, self.z, self.obj, active)
+        #[cfg(before_647)]
+        let obj = self.obj;
+        #[cfg(since_647)]
+        let obj = self.obj_id;
+        handle(2, self.x, self.z, obj, active)
     }
 }
 
@@ -52,7 +75,11 @@ impl ClientGameHandler for OpObj2 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj3 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(3, self.x, self.z, self.obj, active)
+        #[cfg(before_647)]
+        let obj = self.obj;
+        #[cfg(since_647)]
+        let obj = self.obj_id;
+        handle(3, self.x, self.z, obj, active)
     }
 }
 
@@ -66,7 +93,11 @@ impl ClientGameHandler for OpObj3 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj4 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(4, self.x, self.z, self.obj, active)
+        #[cfg(before_647)]
+        let obj = self.obj;
+        #[cfg(since_647)]
+        let obj = self.obj_id;
+        handle(4, self.x, self.z, obj, active)
     }
 }
 
@@ -80,7 +111,11 @@ impl ClientGameHandler for OpObj4 {
 /// **Calls:** [`handle`]
 impl ClientGameHandler for OpObj5 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(5, self.x, self.z, self.obj, active)
+        #[cfg(before_647)]
+        let obj = self.obj;
+        #[cfg(since_647)]
+        let obj = self.obj_id;
+        handle(5, self.x, self.z, obj, active)
     }
 }
 

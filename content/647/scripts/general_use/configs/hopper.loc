@@ -1,0 +1,96 @@
+// 2011's hoppers keep their look when filled (void-634 Windmill); 289's full
+// hopper is another loc at 2011.
+// [hopper_full]
+// desc=Grain goes in here.
+
+// 2011 rebuilt this mill under new loc ids; 289's id is another loc at 2011.
+// [hopper_lumbridge]
+// desc=Grain goes in here.
+// category=hopper_nonfull
+
+// 2011 rebuilt this mill under new loc ids; 289's id is another loc at 2011.
+// [hopper_varrock]
+// desc=Grain goes in here.
+// category=hopper_nonfull
+
+// 2011 rebuilt this mill under new loc ids; 289's id is another loc at 2011.
+// [hopper_zanaris]
+// desc=Grain goes in here.
+// category=hopper_nonfull
+
+[hopper]
+desc=Grain goes in here.
+category=hopper_nonfull
+
+[hopper_controls]
+desc=These control the flow of wheat from the hopper to the millstones.
+category=hoppercontrol
+param=millbase_coord,0_49_51_30_43
+param=hopper_coord,2_49_51_30_43
+
+// 2011 rebuilt this mill under new loc ids; 289's id is another loc at 2011.
+// [hopperlevers2]
+// desc=These control the flow of grain from the hopper to the millstones.
+// category=hoppercontrol
+// param=millbase_coord,0_49_53_3_58
+// param=hopper_coord,2_49_53_4_58
+
+// 2011 rebuilt this mill under new loc ids; 289's id is another loc at 2011.
+// [hopperlevers3]
+// desc=These control the flow of grain from the hopper to the millstones.
+// category=hoppercontrol
+// param=millbase_coord,0_49_149_37_41
+// param=hopper_coord,1_49_149_37_41
+
+[hopperlevers4]
+desc=These control the flow of grain from the hopper to the millstones.
+category=hoppercontrol
+param=millbase_coord,0_41_52_8_57
+param=hopper_coord,2_41_52_8_58
+
+// 289's hoppercontrol_inuse (2722) is configured whole in donor/configs/donor.loc:
+// cache 786 does not carry it.
+
+// 2011's mills: Mill Lane's (Lumbridge), the Cooks' Guild's and Zanaris's hoppers,
+// controls and flour bins have new ids; Ardougne's keep 289's (hopper,
+// hopperlevers4, millbase). Every flour bin is a multiloc on %flour.
+[hopper_36881]
+desc=Grain goes in here.
+category=hopper_nonfull
+
+[hopper_24071]
+desc=Grain goes in here.
+category=hopper_nonfull
+
+[hopper_52551]
+desc=Grain goes in here.
+category=hopper_nonfull
+
+// 289's hopperlevers2 (the Cooks' Guild).
+[hopper_controls_24072]
+desc=These control the flow of grain from the hopper to the millstones.
+category=hoppercontrol
+param=millbase_coord,0_49_53_4_57
+param=hopper_coord,2_49_53_6_60
+
+// 289's hopperlevers3 (Zanaris).
+[hopper_controls_52552]
+desc=These control the flow of grain from the hopper to the millstones.
+category=hoppercontrol
+param=millbase_coord,0_37_69_37_41
+param=hopper_coord,1_37_69_37_41
+
+[millbase]
+desc=The ground flour comes down from the millstones above.
+category=millbase
+
+[loc_36880]
+desc=When I've ground some flour, I'll be able to collect it here.
+category=millbase
+
+[loc_954]
+desc=For wiping muddy feet on.
+category=millbase
+
+[loc_52548]
+category=millbase

@@ -1,0 +1,35 @@
+[opnpc1,hans]
+~chatnpc("<p,neutral>Hello. What are you doing here?")
+
+def_string $option1 = "I'm looking for whoever is in charge of this place.";
+def_string $option2 = "I have come to kill everyone in this castle!";
+def_string $option3 = "I don't know. I'm lost. Where am I?";
+
+def_int $selected_option;
+
+if (map_members = true) {
+    $selected_option = ~p_choice4($option1, 1, $option2, 2, $option3, 3, "What do you do here?", 4)
+} else {
+    $selected_option = ~p_choice3($option1, 1, $option2, 2, $option3, 3)
+}
+
+if ($selected_option = 1) {
+    ~chatplayer("<p,neutral>I'm looking for whoever is in charge of this place.")
+    ~chatnpc("<p,neutral>Who, the Duke? He's in his study, on the first floor.")
+} else if ($selected_option = 2) {
+    ~chatplayer("<p,angry>I have come to kill everyone in this castle!")
+    if_close
+    npc_setmode(playerescape)
+    p_delay(0)
+    npc_say("Help! Help!")
+} else if ($selected_option = 3) {
+    ~chatplayer("<p,confused>I don't know. I'm lost. Where am I?")
+    ~chatnpc("<p,neutral>You are in Lumbridge Castle.")
+} else if ($selected_option = 4) {
+    ~chatplayer("<p,confused>What do you do here?");
+    ~chatnpc("<p,neutral>I'm on patrol. I've been patrolling this castle for years!");
+    ~chatplayer("<p,confused>You must be old then?");
+    ~chatnpc("<p,laugh>Haha, you could say I'm quite the veteran of these|lands. Yes, I've been here a fair while...");
+    // TODO check account age.
+    ~chatnpc("<p,shock>I'm sure you'll get there soon, within a year if my|senses are correct.");
+}

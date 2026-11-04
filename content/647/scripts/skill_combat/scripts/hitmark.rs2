@@ -1,0 +1,23 @@
+// A combat hit's 2011 hitmark travels with its damage. Queues take one int,
+// so a queued hit is (hitmark + 1) * 65536 + damage; a bare damage, as 289's
+// other callers queue it, paints the plain hitmark. A hit over 10 life points
+// and over 90% of the attacker's max hit is critical (void-634
+// CombatHitsplats); 0 damage paints a miss, as 289 paints a block.
+
+[proc,combat_hit](int $damage, int $hitmark, int $maxhit)(int)
+if ($damage > 10 & $maxhit > 0 & multiply($damage, 10) > multiply($maxhit, 9)) {
+    $hitmark = add($hitmark, ^hitmark_crit);
+}
+return(add(multiply(add($hitmark, 1), 65536), $damage));
+
+[proc,hit_damage](int $hit)(int)
+return(modulo($hit, 65536));
+
+[proc,hit_mark](int $hit)(int)
+if (~hit_damage($hit) = 0) {
+    return(^hitmark_block);
+}
+if ($hit < 65536) {
+    return(^hitmark_damage);
+}
+return(sub(divide($hit, 65536), 1));

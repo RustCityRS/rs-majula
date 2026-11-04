@@ -1,10 +1,13 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_db::DbRequest;
-use crate::counters::{self, AutoBan, COUNTERS};
+#[cfg(before_647)]
+use crate::counters::AutoBan;
+use crate::counters::{self, COUNTERS};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_entity::StaffModLevel;
 use rs_protocol::network::game::client::send_snapshot::SendSnapshot;
+#[cfg(before_647)]
 use rs_util::base37::is_valid_userhash;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
@@ -36,16 +39,30 @@ impl ClientGameHandler for SendSnapshot {
         }
 
         if self.reason > MAX_REASON {
+            // 2011's report screen numbers its own rules: only the jag-era
+            // client sending one past the last means a modified client.
+            #[cfg(before_647)]
             active.auto_ban(AutoBan::ReportReason);
             return Ok(());
         }
 
-        if !is_valid_userhash(self.offender as u64) {
-            active.auto_ban(AutoBan::ReportOffender);
-            return Ok(());
-        }
+        // Before 647 the client sends the offender's base-37 hash; from 647
+        // the name as typed, hashed here as the engine hashes a name.
+        #[cfg(before_647)]
+        let offender37 = {
+            if !is_valid_userhash(self.offender as u64) {
+                active.auto_ban(AutoBan::ReportOffender);
+                return Ok(());
+            }
+            self.offender as u64
+        };
+        #[cfg(since_647)]
+        let offender37 = match rs_util::base37::to_userhash(&self.offender) {
+            0 => return Ok(()),
+            hash => hash,
+        };
 
-        if active.uid().username37() == self.offender as u64 {
+        if active.uid().username37() == offender37 {
             return Ok(());
         }
 
@@ -55,7 +72,7 @@ impl ClientGameHandler for SendSnapshot {
             let coord = active.player.pathing.coord;
             let _ = tx.send(DbRequest::Snapshot {
                 reporter37: active.uid().username37(),
-                offender37: self.offender as u64,
+                offender37,
                 reason: self.reason,
                 x: coord.x(),
                 z: coord.z(),

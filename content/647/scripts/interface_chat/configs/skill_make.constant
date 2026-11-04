@@ -1,0 +1,7 @@
+// 2011's make-X prompt when the caller gives none (void-634's MakeAmount)
+^skill_make_text = "Choose how many you wish to make, then<br>click on the chosen item to begin."
+
+// The dialogue's verb (varc 754): an index into 2011's list, which void-634
+// gives as Make, Make sets, Cook, Roast, Offer, Sell, Bake, Cut, Deposit, ...
+^skill_make_make = 0
+^skill_make_cook = 2

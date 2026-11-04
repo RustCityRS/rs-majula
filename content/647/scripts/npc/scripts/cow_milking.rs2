@@ -1,0 +1,46 @@
+// 2011 milks dairy cows, which are locs: "Dairy cows were introduced because
+// players could attack and kill a cow whilst another player was milking it"
+// (2011 wiki, Dairy cow). A cow turns a bucket away like anything else.
+[opnpcu,cow]
+switch_obj(last_useitem) {
+    // case bucket : @milk_cow;
+    case default : mes("The cow doesn't want that."); // osrs
+}
+[opnpcu,cow2]
+switch_obj(last_useitem) {
+    // case bucket : @milk_cow;
+    case default : mes("The cow doesn't want that."); // osrs
+}
+// 289's cow_beef (955) is another npc at 2011.
+// [opnpcu,cow_beef]
+// switch_obj(last_useitem) {
+//     case bucket : @milk_cow;
+//     case default : mes("The cow doesn't want that."); // osrs
+// }
+
+[label,milk_cow]
+inv_del(inv, bucket, 1);
+inv_add(inv, bucket_of_milk, 1);
+mes("You milk the cow."); // osrs and rsc
+
+// 2011's dairy cows (void-634 MilkCow): milked with an empty bucket; without
+// one, Gillie Groats, who keeps Lumbridge's, laughs.
+[oploc1,dairy_cow] @milk_dairy_cow;
+[oploc2,dairy_cow_12111] @milk_dairy_cow;
+
+[label,milk_dairy_cow]
+if (inv_total(inv, bucket) < 1) {
+    ~chatnpc_specific("Gillie Groats", gillie_groats, "<p,laugh>Tee hee! You've never milked a cow before, have you?");
+    ~chatplayer("<p,quiz>Erm...no. How could you tell?");
+    ~chatnpc_specific("Gillie Groats", gillie_groats, "<p,laugh>Because you're spilling milk all over the floor. What a waste! You need something to hold the milk.");
+    ~chatplayer("<p,neutral>Ah, yes, I really should have guessed that one, shouldn't I?");
+    ~chatnpc_specific("Gillie Groats", gillie_groats, "<p,laugh>You're from the city, aren't you? Try it again with an empty bucket.");
+    ~chatplayer("<p,neutral>Right, I'll do that.");
+    mes("You'll need an empty bucket to collect the milk.");
+    return;
+}
+p_arrivedelay;
+anim(milk_cow, 0);
+sound_synth(milk_cow, 1, 0);
+p_delay(4);
+@milk_cow;

@@ -148,7 +148,7 @@ struct TempoEvent {
     order: u32,
 }
 
-fn parse_midi_length(src: &[u8]) -> Option<u32> {
+pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
     let data = unwrap_riff_midi(src)?;
 
     if data.len() < 14 {
@@ -215,7 +215,11 @@ fn parse_midi_length(src: &[u8]) -> Option<u32> {
                 status = running_status;
             } else {
                 offset += 1;
-                if status < 0xF0 {
+                // At 647 a meta event sets the running status too: the 647
+                // client's MIDI (rebuilt from Jagex's columns, `Linkable_Sub25`)
+                // writes a meta event's next data bytes under it. A standard
+                // file never leans on it, a meta event cancelling running status.
+                if status < 0xF0 || (cfg!(since_647) && status == 0xFF) {
                     running_status = status;
                 }
             }

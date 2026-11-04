@@ -32,7 +32,7 @@ pub struct ObjType {
     pub tradeable: bool,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl ObjType {
@@ -125,7 +125,7 @@ pub struct ObjTypeRaw {
     pub tradeable: bool,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl ObjTypeRaw {
@@ -359,7 +359,7 @@ impl CacheType for ObjTypeRaw {
                         .get_or_insert_with(|| Box::new(FxHashMap::default())),
                 ),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognised obj config code: {code}"),
+                _ => crate::unknown_opcode!("obj", code),
             }
         }
     }

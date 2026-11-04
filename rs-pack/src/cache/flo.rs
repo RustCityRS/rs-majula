@@ -9,7 +9,7 @@ pub struct FloType {
     pub texture: Option<u8>,
     pub overlay: bool,
     pub occlude: bool,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for FloType {
@@ -36,7 +36,7 @@ impl CacheType for FloType {
                 3 => self.overlay = true,
                 5 => self.occlude = false,
                 6 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized flo config code: {code}"),
+                _ => crate::unknown_opcode!("flo", code),
             }
         }
     }

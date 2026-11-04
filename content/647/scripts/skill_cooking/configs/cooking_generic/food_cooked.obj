@@ -1,0 +1,30 @@
+//guess
+[ugthanki_meat]
+desc=Freshly cooked ugthanki meat.
+weight=600g
+category=category_5
+param=ugthanki_kebab_struct,ugthanki_meat_kebab
+
+//guess
+[cooked_chicken]
+desc=Mmm this looks tasty.
+weight=5oz
+category=category_5
+respawnrate=200
+param=pizza_topping_struct,meat_topping
+param=uncooked_pie_struct,uncooked_meat_pie
+
+[cooked_meat]
+desc=Mmm this looks tasty.
+weight=10oz
+category=category_5
+respawnrate=200
+param=pizza_topping_struct,meat_topping
+param=uncooked_pie_struct,uncooked_meat_pie
+
+//guess
+[lava_eel]
+tradeable=no
+desc=Strange, it looks cooler now it's been cooked.
+weight=7oz
+category=category_58

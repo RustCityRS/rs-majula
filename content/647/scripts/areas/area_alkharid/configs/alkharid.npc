@@ -1,0 +1,123 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[zeke]
+desc=Sells superior scimitars.
+category=shop_keeper
+param=owned_shop,scimitarshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,550
+param=shop_delta,20
+param=shop_title,Zeke's Superior Scimitars.
+moverestrict=indoors
+
+[tanner]
+desc=Manufacturer of fine leathers.
+moverestrict=indoors
+
+[karim]
+desc=Kebabs are full of meaty goodness.
+wanderrange=2
+
+[hassan]
+desc=Chancellor to the Emir.
+
+[osman]
+desc=He looks a little shifty.
+
+[generalshopkeeper3]
+desc=A product of a consumerist society.
+category=shop_keeper
+param=owned_shop,generalshop3
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Al-Kharid General Store
+moverestrict=indoors
+
+[generalassistant3]
+desc=Likes you more, the more you spend.
+category=shop_keeper
+param=owned_shop,generalshop3
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Al-Kharid General Store
+moverestrict=indoors
+
+[gem_trader]
+desc=Makes his money selling rocks.
+category=shop_keeper
+param=owned_shop,gemshop2
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Gem Trader.
+wanderrange=2
+
+[louie_legs]
+desc=For the finest in armoured legware.
+category=shop_keeper
+param=owned_shop,legsshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,650
+param=shop_delta,10
+param=shop_title,Louies' Armoured Legs Bazaar.
+moverestrict=indoors
+// https://web.archive.org/web/20040928005013/http://runevillage.com/images/rsal4.gif (Louies' Armoured Legs Bazaar.)
+
+[ranael]
+desc=She's an expert on armoured skirts!
+category=shop_keeper
+param=owned_shop,skirtshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,650
+param=shop_delta,10
+param=shop_title,Ranael's Super Skirt Store.
+moverestrict=indoors
+
+[dommik]
+desc=If Crafting's your thing, he's your man.
+category=shop_keeper
+param=owned_shop,craftingshop2
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,650
+param=shop_delta,20
+param=shop_title,Dommiks Crafting Store.
+moverestrict=indoors
+
+[al_kharid_man]
+desc=One of the citizens of Al Kharid.
+respawnrate=50
+hitpoints=70
+param=damagetype,^crush_style
+category=citizen
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3261
+param=attack_sound,synth_2566
+param=defend_sound,brassclash2
+param=death_sound,black_knight_death
+
+[silk_trader]
+desc=Very snappily dressed!
+wanderrange=2
+
+[al_kharid_warrior]
+desc=Part of Al Kharid's elite fighting force.
+respawnrate=50
+hitpoints=190
+attack=7
+strength=5
+defence=4
+param=attackbonus,10
+param=strengthbonus,9
+param=stabdefence,12
+param=slashdefence,15
+param=crushdefence,10
+param=magicdefence,-1
+param=rangedefence,12
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,brassclash2
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3292

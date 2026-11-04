@@ -1,0 +1,726 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[olaf_the_bard]
+desc=A Fremennik bard.
+wanderrange=3
+
+[lalli]
+desc=Distinctly troll-shaped.
+wanderrange=3
+
+[golden_sheep]
+desc=Freshly shorn.
+wanderrange=5
+
+[viking_golden_sheepunsheered]
+desc=Lovely thick wool.
+wanderrange=5
+
+[fossegrimen]
+desc=A powerful spirit that lives in this lake.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[ospak]
+desc=Looks like he's had a few drinks already.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[styrmir]
+desc=Doesn't look like the musical type.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[torbrund]
+desc=Waiting for the show.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[fridgeir]
+desc=A music lover?
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[longhall_bouncer]
+desc=He's fat, he's round, he bounces on the ground. That's how he got the job.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[the_draugen]
+desc=A fearful spirit of the drowned.
+wanderrange=5
+maxrange=20
+hitpoints=600
+attack=60
+strength=60
+defence=60
+param=stabdefence,100
+param=slashdefence,100
+param=crushdefence,100
+param=magicdefence,500
+param=rangedefence,500
+param=damagetype,^crush_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,unarmed_punch
+param=defend_sound,ghost_hit
+param=npc_forcemulti,^true
+
+[viking_draugen_safe]
+desc=Flutter by oh butterfly.
+wanderrange=20
+
+[sigli_the_huntsman]
+desc=A Fremennik hunter.
+wanderrange=2
+
+[sigmund_the_merchant]
+desc=A Fremennik merchant.
+wanderrange=3
+category=shop_keeper
+param=owned_shop,viking_general_store
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,500
+param=shop_delta,30
+param=shop_title,Sigmund the Merchant
+
+[swensen_the_navigator]
+desc=A Fremennik navigator.
+wanderrange=1
+
+[bjorn]
+desc=Looks like he's having fun!
+wanderrange=3
+
+[eldgrim]
+desc=He's only as think as you drunk he is!
+wanderrange=5
+
+[manni_the_reveller]
+desc=Every innkeeper's best friend!
+wanderrange=5
+
+[council_workman]
+desc=Supposedly fixes things around Gielinor.
+wanderrange=1
+
+[peer_the_seer]
+desc=A Fremennik riddler.
+wanderrange=2
+
+[thorvald_the_warrior]
+desc=A Fremennik hero.
+wanderrange=5
+moverestrict=indoors
+
+[koschei_the_deathless]
+desc=Your challenge awaits!
+wanderrange=5
+maxrange=20
+hitpoints=300
+attack=20
+strength=20
+defence=20
+param=stabdefence,20
+param=slashdefence,20
+param=crushdefence,20
+param=magicdefence,20
+param=rangedefence,20
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,staff_stab
+
+[viking_enemy2]
+desc=Your challenge awaits!
+wanderrange=5
+maxrange=20
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=stabdefence,40
+param=slashdefence,40
+param=crushdefence,40
+param=magicdefence,40
+param=rangedefence,40
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,staff_stab
+
+[viking_enemy3]
+desc=Your challenge awaits!
+wanderrange=5
+maxrange=20
+hitpoints=700
+attack=60
+strength=60
+defence=60
+param=stabdefence,60
+param=slashdefence,60
+param=crushdefence,60
+param=magicdefence,60
+param=rangedefence,60
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,staff_stab
+
+[viking_enemy4]
+desc=Your challenge awaits!
+wanderrange=5
+maxrange=20
+hitpoints=2550
+attack=255
+strength=5
+defence=255
+param=attackrate,1
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,staff_stab
+
+[brundt_the_chieftain]
+desc=The Fremennik tribe's chieftain.
+wanderrange=3
+
+[askeladden]
+desc=Looks like a wanna be Fremennik.
+wanderrange=1
+
+[viking_longhall_guard1]
+desc=Stands around and looks at stuff all day.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[viking_longhall_guard2]
+desc=Stands around and looks tough all day.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[town_guard]
+desc=What a rubbish job he has.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[viking_town_entrance_guard2]
+desc=Who's going to steal a whole town anyway?
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[thora_the_barkeep]
+desc=The Longhall barkeep.
+category=shop_keeper
+param=owned_shop,viking_bar
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Rellekka Longhall Bar
+
+[yrsa]
+desc=Pretty shabbily dressed for a clothes shop owner.
+wanderrange=5
+moverestrict=indoors
+category=shop_keeper
+param=owned_shop,viking_clothes_shop
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Yrsa's Accountrements
+
+[viking_fisherman1]
+desc=There's something fishy about this guy.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+timer=30
+
+[skulgrimen]
+desc=Sells and makes weapons and armour.
+wanderrange=1
+category=shop_keeper
+param=owned_shop,viking_weapons_shop
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Skulgrimen's Battle Gear
+
+[sailor]
+desc=He's strong to the finish, because he eats cabbage.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+category=viking_citizen
+
+[agnar]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_axe_def
+param=attack_sound,baxe_crush
+param=defend_sound,blade5
+category=viking_citizen
+
+[freidir]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+moverestrict=indoors
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+category=viking_citizen
+
+[borrokar]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+moverestrict=indoors
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_def
+param=attack_sound,baxe_crush
+category=viking_citizen
+
+[lanzig]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+moverestrict=indoors
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+category=viking_citizen
+
+[pontak]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+moverestrict=indoors
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+category=viking_citizen
+
+[freygerd]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+param=defend_sound,female_hit
+param=death_sound,female_death
+category=viking_citizen
+
+[lensa]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+param=defend_sound,female_hit
+param=death_sound,female_death
+category=viking_citizen
+
+[jennella]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+param=defend_sound,female_hit
+param=death_sound,female_death
+category=viking_citizen
+
+[sassilik]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+param=defend_sound,female_hit
+param=death_sound,female_death
+category=viking_citizen
+
+[inga]
+desc=One of Rellekka's many citizens.
+wanderrange=12
+maxrange=14
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=strengthbonus,20
+param=damagetype,^crush_style
+param=defend_anim,human_unarmedblock
+param=defend_sound,female_hit
+param=death_sound,female_death
+category=viking_citizen
+
+[fish_monger]
+desc=Fish-tastic!
+wanderrange=3
+category=shop_keeper
+param=owned_shop,viking_fishmonger
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,700
+param=shop_delta,30
+param=shop_title,Fremennik Fish Monger
+
+[viking_fur_monger]
+desc=I wonder what he does with all that fur?
+wanderrange=3
+category=shop_keeper
+param=owned_shop,viking_furshop
+param=shop_sell_multiplier,1200
+param=shop_buy_multiplier,950
+param=shop_delta,20
+param=shop_title,Fremennik Fur Trader
+
+[market_guard]
+desc=Keeps the stalls secure.
+wanderrange=12
+maxrange=14
+moverestrict=outdoors
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=attackrate,3
+param=attackbonus,40
+param=strengthbonus,40
+param=stabdefence,50
+param=slashdefence,50
+param=crushdefence,50
+param=magicdefence,50
+param=rangedefence,50
+param=damagetype,^crush_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade5
+
+[viking_guard2]
+desc=A hardened Fremennik warrior.
+wanderrange=12
+maxrange=14
+moverestrict=outdoors
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=attackrate,3
+param=attackbonus,40
+param=strengthbonus,40
+param=stabdefence,50
+param=slashdefence,50
+param=crushdefence,50
+param=magicdefence,50
+param=rangedefence,50
+param=damagetype,^crush_style
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_def
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+
+[fox]
+desc=A cunning animal.
+wanderrange=5
+maxrange=7
+respawnrate=20
+hitpoints=300
+strength=20
+defence=20
+param=attackbonus,30
+param=strengthbonus,30
+param=stabdefence,30
+param=slashdefence,30
+param=crushdefence,30
+param=magicdefence,30
+param=rangedefence,30
+param=damagetype,^crush_style
+param=attack_anim,seq_6562
+param=defend_anim,seq_6569
+param=death_anim,seq_6570
+param=attack_sound,null
+param=defend_sound,null
+param=death_sound,null
+
+[bunny]
+desc=Hoppity, hoppity.
+wanderrange=5
+maxrange=7
+respawnrate=50
+hitpoints=50
+category=rabbit
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,rabbit_attack
+param=defend_anim,rabbit_block
+param=death_anim,rabbit_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+
+[viking_bunny_2]
+desc=Hoppity, hoppity.
+wanderrange=5
+maxrange=7
+respawnrate=50
+hitpoints=50
+category=rabbit
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,rabbit_attack
+param=defend_anim,rabbit_block
+param=death_anim,rabbit_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+
+[viking_seagull]
+desc=A sea bird.
+moverestrict=blocked
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// This npc was removed in the osrs sailing update. This npc still exists in rs3.
+
+[viking_seagull2]
+desc=A sea bird.
+moverestrict=blocked
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// This npc was removed in the osrs sailing update. This npc still exists in rs3.
+
+[viking_seagull3]
+desc=A sea bird.
+moverestrict=blocked
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// This npc was removed in the osrs sailing update. This npc still exists in srs3.
+
+[viking_seagull4]
+desc=A sea bird.
+moverestrict=blocked+normal
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// This npc was removed in the osrs sailing update. This npc still exists in rs3.
+// This npc patrols instead of normal wandering.
+
+[bear_cub]
+desc=Cute. But deadly.
+wanderrange=12
+maxrange=14
+respawnrate=100
+hitpoints=200
+attack=10
+strength=15
+defence=10
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+category=bear
+
+[brownbear_cub_2]
+desc=Cute.  But deadly.
+wanderrange=12
+maxrange=14
+respawnrate=100
+hitpoints=200
+attack=10
+strength=15
+defence=10
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+category=bear
+
+[unicorn_foal]
+desc=Horned Horsey.
+wanderrange=17
+maxrange=19
+respawnrate=40
+hitpoints=150
+attack=10
+strength=10
+defence=10
+param=damagetype,^stab_style
+param=attack_anim,unicorn_attack
+param=defend_anim,unicorn_block
+param=death_anim,unicorn_death
+param=attack_sound,cow_attack
+param=defend_sound,horse_hit
+param=retreat,50
+
+[black_unicorn_foal]
+desc=Cute but evil.
+wanderrange=17
+maxrange=19
+respawnrate=40
+hitpoints=250
+attack=18
+strength=18
+defence=18
+param=damagetype,^stab_style
+param=attack_anim,unicorn_attack
+param=defend_anim,unicorn_block
+param=death_anim,unicorn_death
+param=attack_sound,cow_attack
+param=defend_sound,horse_hit
+param=retreat,50
+
+[viking_wolf]
+desc=Not mans' best friend.
+wanderrange=6
+maxrange=8
+respawnrate=180
+hitpoints=690
+attack=50
+strength=55
+defence=52
+param=damagetype,^stab_style
+param=attack_anim,dog_attack
+param=defend_anim,dog_block
+param=death_anim,dog_death
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=death_drop,wolf_bones
+huntmode=cowardly
+huntrange=1

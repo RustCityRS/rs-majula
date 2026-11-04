@@ -1,0 +1,41 @@
+// 2011's backpack beside the bank, bank_v2_side's com0: Deposit-1, -5, -10,
+// -<last X> (op4), -X (op5), -All (op6), Examine (op10) (void-634; 289's
+// ops 1-5 were 1, 5, 10, All, X). 2011 does not let it be dragged.
+[if_button1,bank_v2_side:com0] @bank_deposit(last_slot, 1);
+[if_button2,bank_v2_side:com0] @bank_deposit(last_slot, 5);
+[if_button3,bank_v2_side:com0] @bank_deposit(last_slot, 10);
+[if_button4,bank_v2_side:com0] @bank_deposit(last_slot, %last_bank_amount);
+[if_button5,bank_v2_side:com0] @bank_deposit(last_slot, null);
+[if_button6,bank_v2_side:com0] @bank_deposit(last_slot, ^max_32bit_int);
+[if_button10,bank_v2_side:com0] ~inv_examine(last_slot);
+// [inv_button1,bank_side:inv] @bank_deposit(last_slot, 1);
+// [inv_button2,bank_side:inv] @bank_deposit(last_slot, 5);
+// [inv_button3,bank_side:inv] @bank_deposit(last_slot, 10);
+// [inv_button4,bank_side:inv] @bank_deposit(last_slot, ^max_32bit_int);
+// [inv_button5,bank_side:inv] @bank_deposit(last_slot, null);
+// [inv_buttond,bank_side:inv] inv_movetoslot(inv, inv, last_slot, last_targetslot);
+
+[label,bank_deposit](int $slot, int $requested_number)
+// Check if the slot was empty.
+def_obj $item = inv_getobj(inv, $slot);
+// How many did they want to deposit?
+if ($requested_number <= 0) {
+    p_countdialog;
+    if (last_int <= 0) return;
+    $requested_number = last_int;
+    // 2011: the X is remembered for Deposit-<X> (void-634 BankDeposit).
+    %last_bank_amount = last_int;
+}
+// How many have they got?
+def_int $number = inv_total(inv, $item);
+// How many should we deposit?
+if ($requested_number < $number) $number = $requested_number;
+// Is it actually bankable?
+if (~bank_check_allowed($item, ^true) = false) {
+    // custom handling here if needed.
+    return;
+}
+// Okay, deposit it into the bank.
+~bank_deposit_request(inv, $item, $number, $slot, ^true);
+// 2011: the counts under the bank.
+~bank_spaces_used;

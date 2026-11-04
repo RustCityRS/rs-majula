@@ -1,0 +1,1941 @@
+[rocks]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks2]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+// what is this duplicate used for? (this comes before plainrock2 in the ID list)
+[plainrock1_alt]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+// maybe an unused variant? it has a macro option...
+[rocks3]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+// this should go into runecrafting based on its ID
+[rune_essence]
+desc=This rock contains essence (the source of all rune stones).
+op3=hidden
+
+[copperrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[copperrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[ironrock1]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[ironrock2]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[tinrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[tinrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[coalrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[coalrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[goldrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[goldrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[silverrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[silverrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[mithrilrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[mithrilrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[adamantiterock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[adamantiterock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[clayrock1]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks
+op3=hidden
+
+[clayrock2]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks2
+op3=hidden
+
+[pile_of_rock]
+desc=A pile of lime rock.
+category=mining_rock_normal
+param=next_loc_stage_mining,pile_of_rock_4028
+op3=hidden
+
+[pile_of_rock_4028]
+desc=A pile of lime rock.
+category=mining_rock_normal
+param=next_loc_stage_mining,pile_of_rock_4029
+op3=hidden
+
+[pile_of_rock_4029]
+desc=A pile of lime rock.
+category=mining_rock_normal
+param=next_loc_stage_mining,pile_of_rock_4030
+op3=hidden
+
+[pile_of_rock_4030]
+desc=A pile of lime rock.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+// 2011's rocks. 289 knows the 2005 rocks only; 2011 re-modelled most mining
+// sites with rocks of their own. Every rock void-634 lists (rocks.objs.toml)
+// whose op1 in the 647 cache is Mine joins its ore's mining_table row, with
+// void's depleted form (void depletes `<ore>_rocks_<site>_<n>` to
+// `depleted_rocks_<site>_<n>`). Iron is fast as in 289; gem rocks have a
+// category of their own, since 2011 has several.
+
+[rocks_2609]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_2610]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_2611]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_5766]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5767]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5768]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5769]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5770]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5771]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5772]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5765
+op3=hidden
+
+[rocks_5773]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5774]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5775]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_5765
+op3=hidden
+
+[rocks_5776]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5777]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5778]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5765
+op3=hidden
+
+[rocks_5779]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5780]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5781]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5765
+op3=hidden
+
+[rocks_5782]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5783]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5765
+op3=hidden
+
+[rocks_5784]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5763
+op3=hidden
+
+[rocks_5785]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5764
+op3=hidden
+
+[rocks_5786]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_5765
+op3=hidden
+
+[rocks_6943]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_6947
+op3=hidden
+
+[rocks_6944]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_6948
+op3=hidden
+
+[rocks_6945]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_6947
+op3=hidden
+
+[rocks_6946]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_6948
+op3=hidden
+
+[rocks_9708]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9723
+op3=hidden
+
+[rocks_9709]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9724
+op3=hidden
+
+[rocks_9710]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9725
+op3=hidden
+
+[rocks_9711]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9723
+op3=hidden
+
+[rocks_9713]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9725
+op3=hidden
+
+[rocks_9714]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9723
+op3=hidden
+
+[rocks_9716]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9725
+op3=hidden
+
+[rocks_9717]
+desc=A rocky outcrop
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_9723
+op3=hidden
+
+[rocks_9718]
+desc=A rocky outcrop
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_9724
+op3=hidden
+
+[rocks_9719]
+desc=A rocky outcrop
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_9725
+op3=hidden
+
+[rocks_9720]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9723
+op3=hidden
+
+[rocks_9722]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_9725
+op3=hidden
+
+[rocks_10574]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19003
+op3=hidden
+
+[rocks_10575]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19004
+op3=hidden
+
+[rocks_10576]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19005
+op3=hidden
+
+[rocks_10577]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_10578]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_10579]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_10948]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10944
+op3=hidden
+
+[rocks_10949]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10945
+op3=hidden
+
+[rocks_11179]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_6947
+op3=hidden
+
+[rocks_11180]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_6948
+op3=hidden
+
+[rocks_11181]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_11193
+op3=hidden
+
+[rocks_11183]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37700
+op3=hidden
+
+[rocks_11184]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37701
+op3=hidden
+
+[rocks_11185]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37702
+op3=hidden
+
+[rocks_11186]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37700
+op3=hidden
+
+[rocks_11187]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37701
+op3=hidden
+
+[rocks_11188]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37702
+op3=hidden
+
+[rocks_11189]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37700
+op3=hidden
+
+[rocks_11190]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37701
+op3=hidden
+
+[rocks_11191]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37702
+op3=hidden
+
+[rocks_11194]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_11365
+op3=hidden
+
+[rocks_11195]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_11366
+op3=hidden
+
+[rocks_11364]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_11367
+op3=hidden
+
+[rocks_11930]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_11931]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_11932]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_11933]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_11934]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_11935]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_11936]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_11937]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_11938]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_11939]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_11941]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_11942]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_11943]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_11944]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_11946]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_11947]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_11948]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_11949]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_11950]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_11951]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_11952]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_11953]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_11954]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_11955]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_11956]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_11957]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_11958]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_11959]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_11960]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_11961]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_11962]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_11963]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_11964]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_14850]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14832
+op3=hidden
+
+[rocks_14851]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14833
+op3=hidden
+
+[rocks_14852]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14834
+op3=hidden
+
+[rocks_14853]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14832
+op3=hidden
+
+[rocks_14854]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14833
+op3=hidden
+
+[rocks_14855]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14834
+op3=hidden
+
+[rocks_14856]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_14832
+op3=hidden
+
+[rocks_14857]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_14833
+op3=hidden
+
+[rocks_14858]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_14834
+op3=hidden
+
+[rocks_14859]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14832
+op3=hidden
+
+[rocks_14860]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14833
+op3=hidden
+
+[rocks_14862]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14832
+op3=hidden
+
+[rocks_14863]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14833
+op3=hidden
+
+[rocks_14864]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14834
+op3=hidden
+
+[rocks_14902]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14892
+op3=hidden
+
+[rocks_14903]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14893
+op3=hidden
+
+[rocks_14904]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14892
+op3=hidden
+
+[rocks_14905]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14893
+op3=hidden
+
+[rocks_14906]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14892
+op3=hidden
+
+[rocks_14907]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_14893
+op3=hidden
+
+[rocks_14913]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_14892
+op3=hidden
+
+[rocks_14914]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_14893
+op3=hidden
+
+[rocks_15246]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_15249
+op3=hidden
+
+[rocks_15247]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_15250
+op3=hidden
+
+[rocks_15248]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_15251
+op3=hidden
+
+[rocks_15503]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11555
+op3=hidden
+
+[rocks_15504]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11556
+op3=hidden
+
+[rocks_15505]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11557
+op3=hidden
+
+[rocks_16998]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_17007
+op3=hidden
+
+[rocks_16999]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_17008
+op3=hidden
+
+[rocks_17000]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_17009
+op3=hidden
+
+[rocks_17001]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_17007
+op3=hidden
+
+[rocks_17002]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_17008
+op3=hidden
+
+[rocks_17003]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_17009
+op3=hidden
+
+[rocks_17004]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_17007
+op3=hidden
+
+[rocks_17005]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_17008
+op3=hidden
+
+[rocks_17006]
+desc=A rocky outcrop.
+category=mining_rock_gem
+param=next_loc_stage_mining,rocks_17009
+op3=hidden
+
+[rocks_18991]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19003
+op3=hidden
+
+[rocks_18992]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19004
+op3=hidden
+
+[rocks_18993]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19005
+op3=hidden
+
+[rocks_18994]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19003
+op3=hidden
+
+[rocks_18995]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19004
+op3=hidden
+
+[rocks_18996]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19005
+op3=hidden
+
+[rocks_18997]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19003
+op3=hidden
+
+[rocks_18998]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19004
+op3=hidden
+
+[rocks_18999]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_19005
+op3=hidden
+
+[rocks_19000]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_19003
+op3=hidden
+
+[rocks_19001]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_19004
+op3=hidden
+
+[rocks_19002]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_19005
+op3=hidden
+
+[rocks_19012]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18952
+op3=hidden
+
+[rocks_19013]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18953
+op3=hidden
+
+[rocks_19014]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18954
+op3=hidden
+
+[rocks_19018]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18952
+op3=hidden
+
+[rocks_19019]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18953
+op3=hidden
+
+[rocks_19020]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18954
+op3=hidden
+
+[rocks_19024]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18952
+op3=hidden
+
+[rocks_19025]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18953
+op3=hidden
+
+[rocks_19026]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_18954
+op3=hidden
+
+[rocks_21275]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_21276]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_21277]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_21278]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_21279]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_21280]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_21281]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_21282]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_21283]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_21284]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_21285]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_21286]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_21287]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_21288]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_21289]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_21293]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21296
+op3=hidden
+
+[rocks_21294]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21297
+op3=hidden
+
+[rocks_21295]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_21298
+op3=hidden
+
+[rocks_29215]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_29216]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29219
+op3=hidden
+
+[rocks_29217]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+[rocks_29221]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_29222]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_29219
+op3=hidden
+
+[rocks_29223]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+[rocks_29224]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_29225]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29219
+op3=hidden
+
+[rocks_29226]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+[rocks_29227]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_29229]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+[rocks_29230]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_29231]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29219
+op3=hidden
+
+[rocks_29233]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_29235]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+[rocks_29236]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_32426]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32427]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32428]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32429]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32430]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32431]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32432]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32433]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32434]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32435]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32436]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32437]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32438]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32439]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32440]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32441]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32442]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32443]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32444]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_32445]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_32446]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33402
+op3=hidden
+
+[rocks_32449]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_32447
+op3=hidden
+
+[rocks_32450]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_32448
+op3=hidden
+
+[rocks_32451]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_32447
+op3=hidden
+
+[rocks_32452]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_32448
+op3=hidden
+
+[rocks_33078]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33400
+op3=hidden
+
+[rocks_33079]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33401
+op3=hidden
+
+[rocks_33221]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_33223
+op3=hidden
+
+[rocks_37208]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37700
+op3=hidden
+
+[rocks_37304]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_37305]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_37306]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_37307]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_37308]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_10581
+op3=hidden
+
+[rocks_37309]
+desc=A rocky outcrop.
+category=mining_rock_fast
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_37310]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10580
+op3=hidden
+
+[rocks_37312]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_10582
+op3=hidden
+
+[rocks_37637]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37648
+op3=hidden
+
+[rocks_37638]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_37648
+op3=hidden
+
+[rocks_37642]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_31059
+op3=hidden
+
+[rocks_37643]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_31060
+op3=hidden
+
+[rocks_37644]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_31061
+op3=hidden
+
+[rocks_37645]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_31059
+op3=hidden
+
+[rocks_37646]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_31060
+op3=hidden
+
+[rocks_37647]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_31061
+op3=hidden
+
+[rocks_37670]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_11552
+op3=hidden
+
+[rocks_45067]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_45068]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+[rocks_45069]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29218
+op3=hidden
+
+[rocks_45070]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_29220
+op3=hidden
+
+// 2011's depleted rocks: empty, as 289's rocks1 and rocks2 are.
+
+[rocks_21296]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_21297]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_21298]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_5763]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_5764]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_5765]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_6947]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_6948]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_9723]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_9724]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_9725]
+desc=A rocky outcrop
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_19003]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_19004]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_19005]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_10580]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_10581]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_10582]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_10944]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_10945]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11193]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_37700]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_37701]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_37702]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11365]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11366]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11367]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11556]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11557]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11555]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_14832]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_14833]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_14834]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_14892]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_14893]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_15249]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_15250]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_15251]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_17007]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_17008]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_17009]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_18952]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_18953]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_18954]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_29218]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_29219]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_29220]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_33400]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_33401]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_33402]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_32447]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_32448]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_33223]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_37648]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_31059]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_31060]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_31061]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_11552]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden

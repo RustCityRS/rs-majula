@@ -28,7 +28,7 @@ impl CacheType for VarsType {
                 0 => break,
                 1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
                 250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized vars config code: {code}"),
+                _ => crate::unknown_opcode!("vars", code),
             }
         }
     }

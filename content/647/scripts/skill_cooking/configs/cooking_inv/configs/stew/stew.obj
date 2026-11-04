@@ -1,0 +1,39 @@
+//guess
+[incomplete_stew]
+desc=I need to add some meat too.
+weight=1kg
+
+//guess
+[stew2]
+desc=I need to add some potato too.
+weight=1200g
+
+//guess
+[burnt_stew]
+desc=Eew, it's horribly burnt.
+weight=1300g
+
+//guess
+[burnt_curry]
+desc=Eew, it's horribly burnt.
+weight=1300g
+
+[potato]
+desc=This could be used to make a good stew.
+weight=500g
+category=category_131
+param=gnome_cooking_ingredient,^true
+
+//guess
+[stew]
+desc=It's a meat and potato stew.
+weight=1500g
+category=category_59
+param=next_obj_stage,bowl
+
+//guess
+[curry]
+desc=It's a spicy hot curry.
+weight=1500g
+category=category_59
+param=next_obj_stage,bowl

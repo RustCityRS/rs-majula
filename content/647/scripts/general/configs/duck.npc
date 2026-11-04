@@ -1,0 +1,27 @@
+[duck_6113]
+desc=Waddle waddle waddle quack.
+readyanim=seq_1406
+size=1
+op2=Attack
+vislevel=1
+name=Duck
+model1=model_26870_npc
+walkmask=3
+attackcursor=42
+category=duck
+timer=25
+
+[ducklings]
+desc=Aww, cute.
+unknown128=0
+readyanim=seq_1571
+resizeh=64
+resizev=64
+vislevel=hide
+minimap=no
+name=Ducklings
+model1=model_26871_npc
+walkmask=7
+category=duckling
+timer=25
+

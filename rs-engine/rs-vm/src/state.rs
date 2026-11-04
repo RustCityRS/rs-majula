@@ -60,6 +60,10 @@ pub struct ScriptState {
     pub active_obj2: Option<ObjRef>,
 
     pub last_int: Option<i32>,
+    /// Rev-647: the string carried by RESUME_P_STRINGDIALOG (or a display-name
+    /// result), read back by the `last_string` command.
+    #[cfg(since_647)]
+    pub last_string: Option<String>,
 
     pub(crate) split_pages: Option<Vec<Vec<String>>>,
     pub(crate) split_mesanim: Option<u16>,
@@ -160,6 +164,8 @@ impl ScriptState {
             active_obj: None,
             active_obj2: None,
             last_int: None,
+            #[cfg(since_647)]
+            last_string: None,
             split_pages: None,
             split_mesanim: None,
             db_table: None,
@@ -312,6 +318,10 @@ impl ScriptState {
 
         // -- Misc state --
         self.last_int = None;
+        #[cfg(since_647)]
+        {
+            self.last_string = None;
+        }
         self.split_pages = None;
         self.split_mesanim = None;
         self.db_table = None;
@@ -651,7 +661,7 @@ impl ScriptState {
     /// **Called by:** Opcode handlers that produce integer results (arithmetic,
     /// variable loads, comparisons, etc.).
     #[inline(always)]
-    pub(crate) fn push_int(&mut self, value: i32) {
+    pub fn push_int(&mut self, value: i32) {
         debug_assert!(
             (self.isp as usize) < self.int_stack.len(),
             "{}",
@@ -788,7 +798,7 @@ impl ScriptState {
     /// **Called by:** Opcode handlers that produce string results (variable loads,
     /// string constants, db lookups, etc.).
     #[inline(always)]
-    pub(crate) fn push_string(&mut self, value: &str) {
+    pub fn push_string(&mut self, value: &str) {
         debug_assert!(
             (self.ssp as usize) < self.string_stack.len(),
             "{}",
@@ -976,7 +986,7 @@ impl ScriptState {
     /// [`new_program`](Self::new_program), [`gosub_frame`](Self::gosub_frame),
     /// and [`pop_script_args`](Self::pop_script_args).
     #[inline(always)]
-    pub(crate) fn pop_string(&mut self) -> String {
+    pub fn pop_string(&mut self) -> String {
         self.ssp -= 1;
         debug_assert!(
             self.ssp >= 0,
@@ -1049,6 +1059,14 @@ pub enum ExecutionState {
     PauseButton,
     /// Suspended while waiting for the player to enter a number in a count dialog.
     CountDialog,
+    /// Rev-647: suspended while waiting for the player to type a string
+    /// (`p_stringdialog`), resumed by RESUME_P_STRINGDIALOG.
+    #[cfg(since_647)]
+    StringDialog,
+    /// Rev-647: suspended while waiting for the display-name DB check
+    /// requested by `p_setdisplayname`.
+    #[cfg(since_647)]
+    DisplayNamePending,
     /// Suspended to wait for an NPC movement or interaction to complete.
     NpcSuspended,
     /// Suspended to wait for a world-level event to complete.

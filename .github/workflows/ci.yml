@@ -75,6 +75,14 @@ jobs:
         with:
           key: ci-${{ matrix.rev }}
 
+      # 647's cache and the content derived from it are not in git: fetch the
+      # cache from OpenRS2 and unpack it, as a fresh clone does.
+      - name: Fetch and unpack the reference cache
+        if: matrix.rev == '647'
+        run: |
+          cargo fetch-expected
+          cargo regen-content
+
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
 

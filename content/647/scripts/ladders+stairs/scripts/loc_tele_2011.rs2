@@ -1,0 +1,62 @@
+// 2011's ladders, stairs and trapdoors 289's scripts do not reach: 2011
+// re-placed many of 289's and re-issued some under new ids (the Lumbridge
+// castle cellar's ladder is 2011's 29355). tools/loc_teles_2011.py turns
+// void-634's record of each 2011 climb into loc_tele_2011 rows: a row per
+// placement, and per loc and op a default (the delta most of its placements
+// share). A loc no script names carries category loc_tele_2011; 289's stairs
+// fall back here where they would say "unhandled".
+[oploc1,_loc_tele_2011] @loc_tele_2011_op(1);
+[oploc2,_loc_tele_2011] @loc_tele_2011_op(2);
+[oploc3,_loc_tele_2011] @loc_tele_2011_op(3);
+[oploc4,_loc_tele_2011] @loc_tele_2011_op(4);
+[oploc5,_loc_tele_2011] @loc_tele_2011_op(5);
+
+[label,loc_tele_2011_op](int $op)
+if (~loc_tele_2011($op) = false) {
+    mes("Nothing interesting happens.");
+}
+
+// The active loc's climb for `$op` (0: any op): its placement's row, else its
+// default row. False when the table has neither.
+[proc,loc_tele_2011](int $op)(boolean)
+def_dbrow $default = null;
+db_find(loc_tele_2011:loc, loc_type);
+def_dbrow $row = db_findnext;
+while ($row ! null) {
+    if ($op = 0 | db_getfield($row, loc_tele_2011:op, 0) = $op) {
+        if (db_getfieldcount($row, loc_tele_2011:coord) = 0) {
+            if ($default = null) {
+                $default = $row;
+            }
+        } else if (db_getfield($row, loc_tele_2011:coord, 0) = loc_coord) {
+            ~loc_tele_2011_go($row);
+            return(true);
+        }
+    }
+    $row = db_findnext;
+}
+if ($default ! null) {
+    ~loc_tele_2011_go($default);
+    return(true);
+}
+return(false);
+
+// A delta is from the player's tile, as 289's ladders move (and void-634's).
+// Ladders climb as 289's do (~climb_ladder); stairs are walked onto the floor.
+[proc,loc_tele_2011_go](dbrow $row)
+def_coord $dest;
+if (db_getfield($row, loc_tele_2011:delta, 0) = true) {
+    $dest = movecoord(coord, db_getfield($row, loc_tele_2011:dx, 0), db_getfield($row, loc_tele_2011:dlevel, 0), db_getfield($row, loc_tele_2011:dz, 0));
+} else {
+    $dest = db_getfield($row, loc_tele_2011:dest, 0);
+}
+p_arrivedelay;
+if (db_getfield($row, loc_tele_2011:ladder, 0) = true) {
+    def_boolean $up = false;
+    if (coordy($dest) > coordy(coord) | coordz($dest) < sub(coordz(coord), 3000)) {
+        $up = true;
+    }
+    ~climb_ladder($dest, $up);
+    return;
+}
+p_telejump($dest);

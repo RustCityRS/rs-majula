@@ -1,0 +1,39 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[velrak_the_explorer]
+desc=He looks cold and hungry.
+
+[jailer]
+desc=Guards prisoners for the black knights.
+respawnrate=100
+hitpoints=470
+attack=40
+strength=40
+defence=40
+param=stabdefence,79
+param=slashdefence,63
+param=crushdefence,47
+param=attack_anim,human_unarmedkick
+param=attack_sound,synth_2566
+param=damagetype,^crush_style
+param=defend_sound,brassclash2
+// osrs stats and Vislvl match 1:1
+// attack anim https://web.archive.org/web/20221001173148/http://runers2.fc2web.com/taverlydungeon.htm
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_300
+param=death_sound,black_knight_death
+
+[lord_daquarius]
+desc=Wears a stylish suit of armour.
+// does not move on osrs (After Wanted quest Release)
+hitpoints=380
+attack=65
+strength=65
+defence=65
+param=stabdefence,81
+param=slashdefence,64
+param=crushdefence,50
+param=damagetype,^crush_style
+param=attack_anim,human_unarmedkick
+param=attack_sound,unarmed_kick
+// TODO
+// attack anim guesses
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4929

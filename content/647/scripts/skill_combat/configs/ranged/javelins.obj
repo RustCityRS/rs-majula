@@ -1,0 +1,209 @@
+[bronze_javelin]
+desc=A bronze tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,5
+param=rangebonus,6
+param=levelrequire,1
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,bronze_javelin_launch
+param=proj_travel,bronze_javelin_travel
+param=weapon_poisoned,bronze_javelin__p
+param=weapon_poisoned_message,You poison the javelins.
+
+[iron_javelin]
+desc=An iron tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,8
+param=rangebonus,10
+param=levelrequire,1
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,iron_javelin_launch
+param=proj_travel,iron_javelin_travel
+param=weapon_poisoned,iron_javelin__p
+param=weapon_poisoned_message,You poison the javelins.
+
+[steel_javelin]
+desc=A steel tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,12
+param=rangebonus,12
+param=levelrequire,5
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,steel_javelin_launch
+param=proj_travel,steel_javelin_travel
+param=weapon_poisoned,steel_javelin__p
+param=weapon_poisoned_message,You poison the javelins.
+
+[mithril_javelin]
+desc=A mithril tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,17
+param=rangebonus,18
+param=levelrequire,20
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,mithril_javelin_launch
+param=proj_travel,mithril_javelin_travel
+param=weapon_poisoned,mithril_javelin__p
+param=weapon_poisoned_message,You poison the javelins.
+
+[adamant_javelin]
+desc=An adamant tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,24
+param=rangebonus,28
+param=levelrequire,30
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,adamant_javelin_launch
+param=proj_travel,adamant_javelin_travel
+param=weapon_poisoned,adamant_javelin__p
+param=weapon_poisoned_message,You poison the javelins.
+
+[rune_javelin]
+desc=A rune tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,38
+param=rangebonus,42
+param=levelrequire,40
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,rune_javelin_launch
+param=proj_travel,rune_javelin_travel
+param=weapon_poisoned,rune_javelin__p
+param=weapon_poisoned_message,You poison the javelins.
+
+[bronze_javelin__p]
+desc=A bronze tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,5
+param=rangebonus,6
+param=levelrequire,1
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,bronze_javelin_launch
+param=proj_travel,bronze_javelin_travel
+param=poison_severity,20
+param=next_obj_stage,bronze_javelin
+param=tbwt_weapon_poison_clear,You gingerly wipe the poison off the javelin
+
+[iron_javelin__p]
+desc=An iron tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,8
+param=rangebonus,10
+param=levelrequire,1
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,iron_javelin_launch
+param=proj_travel,iron_javelin_travel
+param=poison_severity,20
+param=next_obj_stage,iron_javelin
+param=tbwt_weapon_poison_clear,You gingerly wipe the poison off the javelin
+
+[steel_javelin__p]
+desc=A steel tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,12
+param=rangebonus,12
+param=levelrequire,5
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,steel_javelin_launch
+param=proj_travel,steel_javelin_travel
+param=poison_severity,20
+param=next_obj_stage,steel_javelin
+param=tbwt_weapon_poison_clear,You gingerly wipe the poison off the javelin
+
+[mithril_javelin__p]
+desc=A mithril tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,17
+param=rangebonus,18
+param=levelrequire,20
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,mithril_javelin_launch
+param=proj_travel,mithril_javelin_travel
+param=poison_severity,20
+param=next_obj_stage,mithril_javelin
+param=tbwt_weapon_poison_clear,You gingerly wipe the poison off the javelin
+
+[adamant_javelin__p]
+desc=An adamant tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,24
+param=rangebonus,28
+param=levelrequire,30
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,mithril_javelin_launch
+param=proj_travel,mithril_javelin_travel
+param=poison_severity,20
+param=next_obj_stage,adamant_javelin
+param=tbwt_weapon_poison_clear,You gingerly wipe the poison off the javelin
+
+[rune_javelin__p]
+desc=A rune tipped javelin.
+wearpos=righthand
+category=weapon_javelin
+param=rangeattack,38
+param=rangebonus,42
+param=levelrequire,40
+param=attackrange,5
+param=attackrate,6
+param=rangeattack_anim,human_stake2
+param=defend_anim,human_unarmedblock
+param=rangeattack_sound,javelin
+param=proj_launch,rune_javelin_launch
+param=proj_travel,rune_javelin_travel
+param=poison_severity,20
+param=next_obj_stage,rune_javelin
+param=tbwt_weapon_poison_clear,You gingerly wipe the poison off the javelin

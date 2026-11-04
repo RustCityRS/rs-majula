@@ -1,0 +1,9 @@
+
+// PRD-STUB: cross-feature dependency from `skill_fletching` — port with that feature.
+[label,make_ogre_shafts]
+
+// PRD-STUB: cross-feature dependency from `tutorial` — port with that feature.
+[label,tut_light_logs_inv](int $slot)
+
+// PRD-STUB: cross-feature dependency from `quests/quest_upass` — port with that feature.
+[label,light_firearrow](obj $arrow_type)

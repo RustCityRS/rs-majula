@@ -1,0 +1,10 @@
+// Drop is op8 (universal), dispatched directly from ~handle_inv_button in
+// inventory.rs2 — NOT an opheld op (opheld is item-configurable ops 1-5).
+[proc,dropslot](int $last)
+if (~in_duel_arena(coord) = true) {
+    mes("You cannot drop items here."); // osrs pvp arena
+    return;
+}
+inv_dropslot(inv, coord, $last, calc(calc(^lootdrop_duration * 3) / 2));
+anim(null, 0); // https://youtu.be/QvDYolBZNjY?t=164, https://youtu.be/DVHCP2JhQE0?t=142
+sound_synth(put_down, 1, 0);

@@ -1,0 +1,13 @@
+// jagex name
+
+[vial_of_water]
+desc=A glass vial containing water.
+weight=20g
+param=next_obj_stage,vial
+category=potion
+// jagex name
+
+[vial]
+desc=An empty glass vial.
+weight=15g
+param=next_obj_stage,vial_of_water

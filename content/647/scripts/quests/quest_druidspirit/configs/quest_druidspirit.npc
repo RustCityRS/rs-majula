@@ -1,0 +1,53 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[filliman_tarlock]
+desc=The animated spirit of a soul not at rest.
+wanderrange=0
+moverestrict=nomove
+
+[nature_spirit]
+desc=A spirit of Nature.
+wanderrange=0
+moverestrict=nomove
+
+[ghast]
+desc=Arrghhh... A Ghast.
+wanderrange=5
+maxrange=7
+hitpoints=450
+attack=22
+strength=22
+defence=18
+param=damagetype,^slash_style
+param=attack_anim,ghast_attack
+param=defend_anim,ghast_block
+param=death_anim,ghast_death
+param=attack_sound,ghast_attack
+param=defend_sound,ghast_hit
+param=death_sound,ghast_death
+huntmode=aggressive_melee
+moverestrict=blocked+normal
+huntrange=5
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_945
+
+[ghast_vis]
+desc=Arrghhh... A ghast!
+wanderrange=5
+maxrange=7
+hitpoints=450
+attack=22
+strength=22
+defence=18
+param=damagetype,^slash_style
+param=attack_anim,ghast_attack
+param=defend_anim,ghast_block
+param=death_anim,ghast_death
+param=attack_sound,ghast_attack
+param=defend_sound,ghast_hit
+param=death_sound,ghast_death
+moverestrict=blocked+normal
+timer=20
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_946
+
+[ulizius]
+desc=A slightly nervous guard.
+wanderrange=5

@@ -1,0 +1,211 @@
+[silver_necklace]
+tradeable=no
+desc=Anna's shiny silver coated necklace.
+wearpos=front
+weight=10g
+category=murder_proofobj
+param=product,murdernecklacedust
+param=game_message,You sprinkle the flour on Anna's necklace.
+param=game_message2,The necklace is now coated with a thin layer of flour.
+
+[murdernecklacedust]
+tradeable=no
+desc=Anna's shiny silver coated necklace coated with a thin layer of flour.
+wearpos=front
+weight=10g
+category=murder_flourobj
+param=product,anna_s_print
+param=next_obj_stage,silver_necklace
+param=game_message,You use the flypaper on the flour covered necklace.
+param=game_message2,You have a clean impression of Anna's finger prints.
+
+[silver_cup]
+tradeable=no
+desc=Bob's shiny silver coated tea cup.
+weight=70g
+category=murder_proofobj
+param=product,murdercupdust
+param=game_message,You sprinkle the flour on Bob's cup.
+param=game_message2,The cup is now coated with a thin layer of flour.
+
+[murdercupdust]
+tradeable=no
+desc=Bob's shiny silver coated tea cup coated with a thin layer of flour.
+weight=70g
+category=murder_flourobj
+param=product,bob_s_print
+param=next_obj_stage,silver_cup
+param=game_message,You use the flypaper on the flour covered cup.
+param=game_message2,You have a clean impression of Bob's finger prints.
+
+[silver_bottle]
+tradeable=no
+desc=Carol's shiny silver coated bottle.
+weight=90g
+category=murder_proofobj
+param=product,murderbottledust
+param=game_message,You sprinkle the flour on Carol's bottle.
+param=game_message2,The bottle is now coated with a thin layer of flour.
+
+[murderbottledust]
+tradeable=no
+desc=Carol's shiny silver coated bottle coated with a thin layer of flour.
+weight=90g
+category=murder_flourobj
+param=product,carol_s_print
+param=next_obj_stage,silver_bottle
+param=game_message,You use the flypaper on the flour covered bottle.
+param=game_message2,You have a clean impression of Carol's finger prints.
+
+[silver_book]
+tradeable=no
+desc=David's shiny silver coated book.
+weight=8oz
+category=murder_proofobj
+param=product,murderbookdust
+param=game_message,You sprinkle the flour on David's book.
+param=game_message2,The Book is now coated with a thin layer of flour.
+
+[murderbookdust]
+tradeable=no
+desc=David's shiny silver coated book coated with a thin layer of flour.
+weight=8oz
+category=murder_flourobj
+param=product,david_s_print
+param=next_obj_stage,silver_book
+param=game_message,You use the flypaper on the flour covered book.
+param=game_message2,You have a clean impression of David's finger prints.
+
+[silver_needle]
+tradeable=no
+desc=Elizabeth's shiny silver coated needle.
+weight=1g
+category=murder_proofobj
+param=product,murderneedledust
+param=game_message,You sprinkle the flour on Elizabeth's needle.
+param=game_message2,The Needle is now coated with a thin layer of flour.
+
+[murderneedledust]
+tradeable=no
+desc=Elizabeth's shiny silver coated needle coated with a thin layer of flour.
+weight=1g
+category=murder_flourobj
+param=product,elizabeth_s_print
+param=next_obj_stage,silver_needle
+param=game_message,You use the flypaper on the flour covered needle.
+param=game_message2,You have a clean impression of Elizabeth's finger prints.
+
+[silver_pot]
+tradeable=no
+desc=Frank's shiny silver coated pot.
+weight=2lb
+category=murder_proofobj
+param=product,murderpotdust
+param=game_message,You sprinkle the flour on Frank's pot.
+param=game_message2,The Pot is now coated with a thin layer of flour.
+
+[murderpotdust]
+tradeable=no
+desc=Frank's shiny silver coated pot coated with a thin layer of flour.
+weight=2lb
+category=murder_flourobj
+param=product,frank_s_print
+param=next_obj_stage,silver_pot
+param=game_message,You use the flypaper on the flour covered pot.
+param=game_message2,You have a clean impression of Frank's finger prints.
+
+[criminal_s_thread]
+tradeable=no
+desc=Some red thread found at the murder scene.
+weight=2g
+
+[murderthreadg]
+tradeable=no
+desc=Some green thread found at the murder scene.
+weight=2g
+
+[murderthreadb]
+tradeable=no
+desc=Some blue thread found at the murder scene.
+weight=2g
+
+[flypaper]
+tradeable=no
+desc=A piece of fly paper. It's sticky.
+weight=10g
+
+[pungent_pot]
+tradeable=no
+desc=A pot found at the murder scene, with a sickly odour.
+weight=2lb
+
+[criminal_s_dagger]
+tradeable=no
+desc=A flimsy-looking dagger found at the crime scene.
+weight=1lb
+category=murder_proofobj
+param=product,murderweapondust
+param=game_message,You sprinkle a small amount of flour on the murderweapon.
+param=game_message2,The murderweapon is now coated with a thin layer of flour.
+
+[murderweapondust]
+tradeable=no
+desc=A flimsy-looking dagger found at the crime scene coated with a thin layer of flour.
+weight=1lb
+category=murder_flourobj
+param=product,unknown_print
+param=next_obj_stage,criminal_s_dagger
+param=game_message,You use the flypaper on the floury dagger.
+param=game_message2,You have a clean impression of the murderer's finger prints.
+
+[killer_s_print]
+tradeable=no
+desc=The fingerprints of the murderer.
+weight=10g
+
+[anna_s_print]
+tradeable=no
+desc=An imprint of Anna's fingerprint.
+weight=10g
+category=murder_printobj
+param=murder_id_value,1
+
+[bob_s_print]
+tradeable=no
+desc=An imprint of Bob's fingerprint.
+weight=10g
+category=murder_printobj
+param=murder_id_value,2
+
+[carol_s_print]
+tradeable=no
+desc=An imprint of Carol's fingerprint.
+weight=10g
+category=murder_printobj
+param=murder_id_value,3
+
+[david_s_print]
+tradeable=no
+desc=An imprint of David's fingerprint.
+weight=10g
+category=murder_printobj
+param=murder_id_value,4
+
+[elizabeth_s_print]
+tradeable=no
+desc=An imprint of Elizabeth's fingerprint.
+weight=10g
+category=murder_printobj
+param=murder_id_value,5
+
+[frank_s_print]
+tradeable=no
+desc=An imprint of Frank's fingerprint.
+weight=10g
+category=murder_printobj
+param=murder_id_value,6
+
+[unknown_print]
+tradeable=no
+desc=An unidentified fingerprint taken from the murder weapon.
+weight=10g

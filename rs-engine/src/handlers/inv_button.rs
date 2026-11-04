@@ -225,7 +225,7 @@ fn handle(
     };
 
     let result = engine_mut().run_script_by_trigger(
-        (trigger, Some(com), None),
+        (trigger, Some(com as i32), None),
         Some(ScriptSubject::Player(active.player.uid)),
         None,
         Some(protect),

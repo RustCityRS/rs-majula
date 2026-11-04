@@ -1,0 +1,5 @@
+// The make-X number panel writes skill_creation_amount while the dialogue
+// holds the player's script paused with protected access, so the varp its
+// varbits live in takes writes without it, as 289's button-set varps do.
+[varp_1363]
+protect=no

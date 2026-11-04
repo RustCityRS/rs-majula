@@ -1,0 +1,24 @@
+// Varps saved with the player. Laid over _unpack/all.varp.
+
+[learning_the_ropes]
+scope=perm
+
+[varp_1240]
+scope=perm
+
+[doublexp_perm1]
+scope=perm
+
+[doublexp_runningtotal]
+scope=perm
+
+// 289's emote_access (2011 keeps its id, 313, and its bits: the mime's glass
+// wall, glass box, climb rope and lean are bits 0-3, the emotes tab's varbits
+// 1367-1370).
+[emote_access]
+scope=perm
+
+// 289's xplamp, the maze's reward left: 2011 transmits it as varp 531, which
+// mazetimer (209) draws as "<value> %" (clientscript 116).
+[xplamp]
+scope=perm

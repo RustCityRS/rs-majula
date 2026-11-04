@@ -1,0 +1,85 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[priestperilevilmonk1]
+desc=An evil human cleric.
+wanderrange=12
+maxrange=14
+hitpoints=200
+attack=18
+strength=18
+defence=22
+magic=25
+param=damagetype,^crush_style
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3484
+param=attack_anim,human_unarmedpunch
+param=defend_anim,human_blunt_def
+param=death_anim,human_death
+param=attack_sound,monk_of_zamorak_attack
+param=defend_sound,brassclash2
+param=death_sound,black_knight_death
+
+[priestperilevilmonk2]
+desc=An evil human cleric.
+wanderrange=12
+maxrange=14
+hitpoints=100
+attack=8
+strength=8
+defence=12
+magic=25
+param=damagetype,^crush_style
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3485
+param=attack_anim,human_unarmedpunch
+param=defend_anim,human_blunt_def
+param=death_anim,human_death
+param=attack_sound,monk_of_zamorak_attack
+param=defend_sound,brassclash2
+param=death_sound,black_knight_death
+
+[priestperilevilmonk3]
+desc=An evil human cleric.
+wanderrange=12
+maxrange=14
+hitpoints=250
+attack=25
+strength=25
+defence=25
+magic=40
+param=damagetype,^crush_style
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3486
+param=attack_anim,human_unarmedpunch
+param=defend_anim,human_blunt_def
+param=death_anim,human_death
+param=attack_sound,monk_of_zamorak_attack
+param=defend_sound,brassclash2
+param=death_sound,black_knight_death
+
+[priestperilguarddog]
+desc=Looks like a big ugly dog.
+wanderrange=5
+maxrange=5
+hitpoints=450
+attack=20
+strength=20
+defence=20
+param=damagetype,^stab_style
+param=attack_anim,dm_attack
+param=defend_anim,dm_block
+param=death_anim,dm_death
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=death_drop,null
+// OSRS Monster examine spell mentioned Immune to cannons.
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3487
+
+[priestperiltrappedmonk]
+desc=A holy man.
+wanderrange=5
+
+[drezel]
+desc=A holy man.
+wanderrange=1

@@ -1,0 +1,16 @@
+// A label, so 2011's re-issues share it (tools/drop_reissues_647.py).
+[ai_queue3,rat] @rat_drop_table;
+
+[label,rat_drop_table]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// No default drop.
+
+// Drop Rats Tail only as long as quest is active.
+if (%hetty = ^hetty_started | %hetty = ^hetty_objects_given) {
+    if (inv_total(inv, rat_s_tail) < 1 & inv_total(bank, rat_s_tail) < 1) { // Only drop if no rats tail found in inv or bank.
+        obj_add(npc_coord, rat_s_tail, 1, ^lootdrop_duration);
+    }
+}

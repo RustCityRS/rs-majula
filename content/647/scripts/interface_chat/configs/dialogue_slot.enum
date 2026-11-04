@@ -1,0 +1,26 @@
+// Dialogue interface -> the chatbox child component it mounts on.
+//
+// Server-only enum (registered in enum.pack beyond the JS5 range, like
+// displaymessage_enum — kept out of client archive 17). The engine reads it
+// at startup to route `if_openchat(<iface>)` to the correct chatbox slot.
+//
+// Only the *exceptions* are listed here. Any dialogue NOT in this enum mounts
+// on the default `dialogue_box` slot (chatbox child 13). The two entries below
+// are the only `dialogue_box_small` interfaces in the revision (validated
+// against void dialogue.ifaces.toml: dialogue_obj_box=519,
+// dialogue_double_obj_box=131 — both type "dialogue_box_small" = chat_box
+// index 12). Everything else (chat/npc_chat/message/multi, and 148
+// dialogue_text_box_model) is a plain `dialogue_box` and needs no entry.
+//
+// inputtype=interface keys by the interface id (objbox/doubleobjbox resolve
+// via interface.pack). outputtype=component is the chatbox child the dialogue
+// mounts on, written symbolically: `chatbox:com_dialogue_box_small` resolves to
+// the component hash (752<<16|12). The default dialogue_box slot
+// (chatbox:com_dialogue_box, 752:13) is implicit — only the small-slot
+// exceptions are listed here. Names follow void's gameframe types
+// (dialogue_box / dialogue_box_small); rs3 has no interface dump.
+[dialogue_slot_enum]
+inputtype=interface
+outputtype=component
+val=objbox,chatbox:com_dialogue_box_small
+val=doubleobjbox,chatbox:com_dialogue_box_small

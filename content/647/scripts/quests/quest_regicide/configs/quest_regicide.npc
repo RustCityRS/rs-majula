@@ -1,0 +1,347 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[lord_iorwerth]
+desc=An elf lord.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[elf_warrior]
+desc=He looks pretty handy with that bow.
+wanderrange=5
+maxrange=7
+attackrange=8
+respawnrate=60
+hitpoints=1050
+attack=10
+strength=80
+defence=10
+ranged=80
+param=rangebonus,8
+param=stabdefence,50
+param=slashdefence,50
+param=crushdefence,50
+param=magicdefence,50
+param=rangedefence,70
+param=damagetype,^stab_style
+param=attack_anim,human_bow
+param=defend_anim,human_spear_block
+param=defend_sound,crystal_armour_1
+param=death_sound,elf_death
+param=rangeattack_sound,crystal_bow2
+param=proj_launch,sp_attack_glow_arrow_launch
+param=proj_travel,sp_attack_glow_arrow_travel
+category=elf_warrior
+
+[regicide_darkelf2]
+desc=I don't want to get on the wrong side of him.
+wanderrange=5
+maxrange=7
+attackrange=2
+respawnrate=60
+hitpoints=1050
+attack=95
+strength=95
+defence=80
+ranged=0
+param=stabdefence,50
+param=slashdefence,70
+param=crushdefence,70
+param=magicdefence,60
+param=rangedefence,50
+param=damagetype,^stab_style
+param=attack_anim,human_spear_spike
+param=defend_anim,human_spear_block
+param=attack_sound,crystal_polearm
+param=defend_sound,crystal_armour_2
+param=death_sound,elf_death
+category=elf_warrior
+
+[elven_city_guard]
+desc=An elven city guard.
+wanderrange=5
+
+[idris]
+desc=An elf hunting party leader.
+defaultmode=none
+hitpoints=510
+
+[essyllt]
+desc=An elf war band leader.
+
+[morvran]
+desc=An elven warrier.
+
+[rabbit]
+desc=A cute bunny rabbit.
+wanderrange=5
+maxrange=7
+respawnrate=50
+hitpoints=50
+category=rabbit
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,rabbit_attack
+param=defend_anim,rabbit_block
+param=death_anim,rabbit_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+
+[regicide_bunny1]
+desc=Aww, how cute.
+wanderrange=5
+maxrange=7
+respawnrate=50
+hitpoints=50
+category=rabbit
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,rabbit_attack
+param=defend_anim,rabbit_block
+param=death_anim,rabbit_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+
+[regicide_bunny2]
+desc=A cute bunny rabbit.
+wanderrange=5
+maxrange=7
+respawnrate=50
+hitpoints=50
+category=rabbit
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
+param=damagetype,^crush_style
+param=attack_anim,rabbit_attack
+param=defend_anim,rabbit_block
+param=death_anim,rabbit_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+
+[regicide_darkbear]
+desc=Eek! A bear!
+wanderrange=12
+maxrange=14
+respawnrate=100
+hitpoints=350
+attack=40
+strength=36
+defence=35
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,synth_301
+huntmode=cowardly
+category=bear
+
+[grizzly_bear_cub]
+desc=Eek! A bear cub!
+wanderrange=12
+maxrange=14
+respawnrate=100
+hitpoints=350
+attack=30
+strength=26
+defence=25
+param=damagetype,^slash_style
+param=attack_anim,seq_4926
+param=defend_anim,seq_4928
+param=death_anim,seq_4930
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+huntmode=cowardly
+category=bear
+
+[regicide_darkbear_cub2]
+desc=Eek! A bear cub!
+wanderrange=12
+maxrange=14
+respawnrate=100
+hitpoints=350
+attack=32
+strength=32
+defence=28
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+huntmode=cowardly
+category=bear
+
+[dire_wolf]
+desc=What big teeth you have.
+wanderrange=20
+maxrange=22
+respawnrate=180
+hitpoints=850
+attack=75
+strength=75
+defence=75
+param=damagetype,^stab_style
+param=attack_anim,dog_attack
+param=defend_anim,dog_block
+param=death_anim,dog_death
+param=attack_sound,wolves_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+huntmode=aggressive_melee
+huntrange=10
+// wander, max, hunt, ranges guesses.
+// osrs stats and Vislvl match 1:1
+
+[elf_tracker]
+desc=An elf tracker.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[tyras_guard]
+desc=One of King Tyras's men.
+defaultmode=none
+wanderrange=5
+maxrange=7
+hitpoints=1100
+attack=85
+strength=95
+defence=100
+param=attackrate,5
+param=attackbonus,20
+param=strengthbonus,30
+param=stabdefence,87
+param=slashdefence,84
+param=crushdefence,76
+param=magicdefence,-10
+param=rangedefence,79
+param=damagetype,^stab_style
+param=attack_anim,human_staff_pummel
+param=defend_anim,human_spear_block
+param=attack_sound,scythe_slash
+param=defend_sound,big_bar_mail
+category=tyras_guard
+// osrs attack anim seq_440,,, Old attack anim is seq_414 or seq_419
+
+[elf_overpass_guard]
+desc=He looks pretty handy with that bow.
+
+[arianwyn]
+desc=An odd looking person.
+wanderrange=0
+
+[regicide_tyras_camp_guard]
+desc=One of King Tyras's men.
+defaultmode=none
+wanderrange=5
+maxrange=7
+attackrange=2
+respawnrate=100
+hitpoints=1100
+attack=85
+strength=95
+defence=100
+param=attackrate,5
+param=attackbonus,20
+param=strengthbonus,30
+param=stabdefence,87
+param=slashdefence,84
+param=crushdefence,76
+param=magicdefence,-10
+param=rangedefence,79
+param=damagetype,^stab_style
+param=attack_anim,human_spear_spike
+param=defend_anim,human_spear_block
+param=attack_sound,scythe_slash
+param=defend_sound,big_bar_mail
+category=tyras_guard
+// osrs attack anim seq_440
+
+[regicide_tyras_guard]
+desc=One of King Tyras's men.
+wanderrange=5
+maxrange=7
+attackrange=2
+respawnrate=100
+hitpoints=1100
+attack=85
+strength=95
+defence=100
+param=attackrate,5
+param=attackbonus,20
+param=strengthbonus,30
+param=stabdefence,87
+param=slashdefence,84
+param=crushdefence,76
+param=magicdefence,-10
+param=rangedefence,79
+param=attack_anim,human_spear_spike
+param=defend_anim,human_spear_block
+param=attack_sound,scythe_slash
+param=defend_sound,big_bar_mail
+category=tyras_guard
+// osrs attack anim seq_440
+
+[regicide_tyras_lazy_guard]
+desc=One of King Tyras's men.
+wanderrange=3
+
+[regicide_tyras_camp_tent_guard]
+desc=One of King Tyras's men.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[regicide_general_hining]
+desc=Leader of King Tyras's men.
+wanderrange=5
+
+[quartermaster]
+desc=Responsible for the food and equipment of the troops.
+wanderrange=1
+moverestrict=indoors
+category=shop_keeper
+param=owned_shop,regicide_general_shop
+param=owned_shop,regicide_general_shop_2
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Quatermaster's Stores
+
+[caveguide6]
+desc=The cave guide.
+wanderrange=5
+
+[king_s_messenger]
+desc=One of King Luthas's messengers.
+
+[regicide_willothewisp1]
+desc=Mysterious swamp lights...
+wanderrange=5
+
+[regicide_willothewisp2]
+desc=Mysterious swamp lights...
+wanderrange=5

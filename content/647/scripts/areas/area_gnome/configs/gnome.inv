@@ -1,0 +1,186 @@
+[gnomeshop]
+// dated July 05, 2005
+// https://classic.runescape.wiki/w/Tree_Gnome_Village_General_Store
+// http://web.archive.org/web/20120213031926im_/http://runehq.com/images/cityguides/treegnomevillage/shop.png (full stocks)
+scope=shared
+size=40
+restock=yes
+stackall=yes
+allstock=yes
+stock1=empty_pot,3,100
+stock2=bronze_pickaxe,5,100
+stock3=jug,2,100
+stock4=shears,2,100
+stock5=bucket,2,100
+stock6=tinderbox,2,100
+stock7=chisel,2,100
+stock8=hammer,5,100
+stock9=bronze_arrow,30,100
+stock10=cooked_meat,2,100
+
+[gnomeshop_rometti]
+// https://classic.runescape.wiki/w/Rometti%27s_fashion_outlet
+// https://storage.googleapis.com/tannerdino/images/rsgnome13.gif (full stocks)
+scope=shared
+size=20
+restock=yes
+stackall=yes
+allstock=no
+stock1=pink_robe_bottoms,5,200
+stock2=green_robe_bottoms,5,200
+stock3=blue_robe_bottoms,5,200
+stock4=cream_robe_bottoms,5,200
+stock5=turquoise_robe_bottoms,5,200
+stock6=pink_hat,5,200
+stock7=green_hat,5,200
+stock8=blue_hat,5,200
+stock9=cream_hat,5,200
+stock10=turquoise_hat,5,200
+stock11=pink_robe_top,5,200
+stock12=green_robe_top,5,200
+stock13=blue_robe_top,5,200
+stock14=cream_robe_top,5,200
+stock15=turquoise_robe_top,5,200
+stock16=pink_boots,5,200
+stock17=green_boots,5,200
+stock18=blue_boots,5,200
+stock19=cream_boots,5,200
+stock20=turquoise_boots,5,200
+
+[gnomeshop_gulluck]
+// https://classic.runescape.wiki/w/Gulluck_and_Sons
+// https://web.archive.org/web/20110722115315im_/http://www.runevillage.com/images/rs2Cities/rsgnome17.gif (full stocks)
+// https://web.archive.org/web/20111216182054im_/http://www.runehq.com/images/cityguides/Sggulluck.jpg
+// https://www.spookspring.com/noobsquad/imagegif/spookart/gnome.GIF
+scope=shared
+size=21
+restock=yes
+stackall=yes
+allstock=no
+stock1=bronze_arrow,200,10
+stock2=bronze_bolts,150,10
+stock3=pearl_bolts,1,1500
+stock4=shortbow,4,100
+stock5=longbow,2,200
+stock6=crossbow,2,400
+stock7=bronze_arrowtips,200,10
+stock8=iron_arrowtips,180,20
+stock9=steel_arrowtips,160,40
+stock10=mithril_arrowtips,140,80
+stock11=iron_hatchet,5,200
+stock12=steel_hatchet,3,400
+stock13=iron_battleaxe,5,100
+stock14=steel_battleaxe,2,200
+stock15=mithril_battleaxe,1,3000
+stock16=bronze_2h_sword,4,200
+stock17=iron_2h_sword,3,300
+stock18=steel_2h_sword,2,500
+stock19=black_2h_sword,1,700
+stock20=mithril_2h_sword,1,1000
+stock21=adamant_2h_sword,1,15000
+
+[gnomeshop_heck]
+// https://classic.runescape.wiki/w/Heckel_funch%27s_grocery_store
+// https://storage.googleapis.com/tannerdino/images/rsgnome16.gif (full stocks)
+scope=shared
+size=18
+// 2011's shop holds 18 (the cache's inventory 88; void-634's list):
+// it adds cocktail_glass
+restock=yes
+stackall=yes
+allstock=no
+stock1=brandy,5,100
+stock2=gin,5,100
+stock3=vodka,5,100
+stock4=whisky,5,100
+stock5=pineapple,5,200
+stock6=equa_leaves,3,100
+stock7=orange,5,100
+stock8=lemon,5,100
+stock9=lime,5,100
+stock10=dwellberries,3,100
+stock11=cocktail_shaker,5,200
+stock12=chocolate_bar,5,100
+stock13=chocolate_dust,5,100
+stock14=pot_of_cream,5,100
+stock15=bucket_of_milk,5,100
+stock16=knife,5,200
+stock17=cocktail_guide,5,100
+stock18=cocktail_glass,10,100
+
+[gnomeshop_hudo]
+// https://classic.runescape.wiki/w/Hudo_glenfad%27s_grocery_store
+// https://storage.googleapis.com/tannerdino/images/rsgnome12.gif (full stocks)
+scope=shared
+size=26
+// 2011's shop holds 26 (the cache's inventory 89; void-634's list):
+// it adds spider_on_stick_6297, spider_on_shaft_6299, batta_tin, crunchy_tray, gnomebowl_mould
+restock=yes
+stackall=yes
+allstock=no
+stock1=gianne_dough,8,100
+stock2=equa_leaves,5,100
+stock3=pot_of_flour,5,200
+stock4=gnome_spice,5,100
+stock5=onion,5,100
+stock6=potato,3,100
+stock7=cabbage,3,100
+stock8=tomato,5,100
+stock9=cheese,5,100
+stock10=spider_on_stick_6297,10,100
+stock11=spider_on_shaft_6299,10,100
+stock12=lime,5,100
+stock13=orange,5,100
+stock14=lemon,5,100
+stock15=pineapple,5,100
+stock16=dwellberries,3,100
+stock17=cocktail_shaker,5,200
+stock18=chocolate_bar,8,100
+stock19=chocolate_dust,5,100
+stock20=pot_of_cream,5,100
+stock21=bucket_of_milk,5,100
+stock22=knife,5,200
+stock23=gianne_s_cook_book,5,100
+stock24=batta_tin,10,100
+stock25=crunchy_tray,10,100
+stock26=gnomebowl_mould,10,100
+
+[blurberrybar]
+// https://oldschool.runescape.wiki/w/Blurberry_Bar
+// https://storage.googleapis.com/tannerdino/images/rsgnome14.gif (full stocks)
+scope=shared
+size=7
+restock=yes
+stackall=yes
+allstock=no
+stock1=premade_blurb__sp,10,100
+stock2=premade_choc_s_dy,10,100
+stock3=premade_dr__dragon,10,100
+stock4=premade_fr__blast,10,100
+stock5=premade_p__punch,10,100
+stock6=premade_sgg,10,100
+stock7=premade_wiz_blz_d,10,100
+
+[giannerestaurant]
+// https://oldschool.runescape.wiki/w/Gianne%27s_Restaurant
+// https://storage.googleapis.com/tannerdino/images/rsgnome10.gif (full stocks)
+scope=shared
+size=13
+// 2011's shop holds 13 (the cache's inventory 100; void-634's list):
+// it adds premade_c_t_batta
+restock=yes
+stackall=yes
+allstock=no
+stock1=premade_veg_batta,3,100
+stock2=premade_w_m_batta,3,100
+stock3=premade_t_d_batta,3,100
+stock4=premade_fr_t_batta,3,100
+stock5=premade_c_t_batta,10,100
+stock6=premade_worm_hole,3,100
+stock7=premade_ttl,3,100
+stock8=premade_veg_ball,3,100
+stock9=premade_choc_bomb,3,100
+stock10=premade_w_m_crun,3,100
+stock11=premade_t_d_crunch,3,100
+stock12=premade_ch__crunch,3,100
+stock13=premade_s_y_crunch,3,100

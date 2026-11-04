@@ -1,0 +1,92 @@
+[tree]
+model1=10,45311
+name=Tree
+blockrange=no
+occlude=yes
+ambient=10
+contrast=5
+category=tree
+
+[jungletree1]
+desc=Home to many unusual creatures.
+model1=10,1701
+name=Tree
+width=2
+length=2
+occlude=yes
+ambient=40
+recol1s=61
+recol1d=16916
+recol2s=49
+recol2d=13840
+recol3s=41
+recol3d=4626
+hillskew_t2=155
+msi_id=5
+category=tree
+
+[jungletree1_karamja]
+desc=A tree found in tropical areas.
+model1=10,1701
+name=Tree
+width=2
+length=2
+occlude=yes
+recol1s=61
+recol1d=15799
+recol2s=49
+recol2d=15923
+recol3s=41
+recol3d=6583
+hillskew_t2=100
+msi_id=5
+category=tree
+
+[jungletree2_karamja]
+desc=A tree found in tropical areas.
+model1=10,1702
+name=Tree
+width=2
+length=2
+occlude=yes
+recol1s=6693
+recol1d=6699
+hillskew_t2=5
+msi_id=5
+category=tree
+
+[jungletree2big_karamja]
+desc=A tree found in tropical areas.
+model1=10,1702
+name=Tree
+width=2
+length=2
+occlude=yes
+recol1s=6693
+recol1d=6699
+resizex=170
+resizey=170
+resizez=170
+msi_id=5
+category=tree
+
+[deadtree2_web_r]
+desc=It's only useful for firewood now.
+model1=10,1621
+name=Dead tree
+sharelight=yes
+occlude=yes
+hillskew_t2=42
+msi_id=6
+category=tree
+
+[deadtree2_web_l]
+desc=It's only useful for firewood now.
+model1=10,1621
+name=Dead tree
+sharelight=yes
+occlude=yes
+mirror=yes
+hillskew_t2=42
+msi_id=6
+category=tree

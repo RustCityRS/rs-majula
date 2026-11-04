@@ -1,0 +1,42 @@
+// 289's appearance procs at 647. 289 sets each base animation (ready, turn,
+// the four walks, run) by seq. 2011's appearance carries one render anim
+// (BAS), whose config pairs a ready and a walk seq; `readyanim` sets it here.
+// A wielded weapon brings its own (`render_emote`, cache param 644), else the
+// plain human one, 1426.
+
+// 289 keeps the appearance on Fishing Trawler's wreck; the trawler is not
+// ported, so that check is left out.
+[proc,update_bas]
+def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
+def_int $bas = 1426;
+if ($weapon ! null) {
+    $bas = oc_param($weapon, render_emote);
+}
+readyanim($bas);
+buildappearance(worn);
+
+// The BAS 2011 gives 289's ready and walk seqs (bas_by_anims); a pair 2011
+// has no BAS for keeps the plain human one.
+[proc,bas_set](seq $ready, seq $turn, seq $walkf, seq $walkb, seq $walkl, seq $walkr, seq $run)
+def_int $bas = enum(int, int, bas_by_anims, calc($ready * 65536 + $walkf));
+if ($bas = -1) {
+    $bas = 1426;
+}
+readyanim($bas);
+buildappearance(worn);
+
+[proc,bas_set_all](seq $seq)
+~bas_set($seq, $seq, $seq, $seq, $seq, $seq, $seq);
+
+// 289's head icons (skull, prayers): the appearance's headicon bits.
+[proc,headicon_add](int $icon)
+def_int $current = headicons_get;
+def_int $bit = multiply(0x1, pow(2, $icon));
+headicons_set(or($current, $bit));
+buildappearance(worn);
+
+[proc,headicon_del](int $icon)
+def_int $current = headicons_get;
+def_int $bit = multiply(0x1, pow(2, $icon));
+headicons_set(and($current, sub($current, $bit)));
+buildappearance(worn);

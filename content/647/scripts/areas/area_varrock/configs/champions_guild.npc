@@ -1,0 +1,22 @@
+[valaine]
+desc=A champion saleswoman!
+category=shop_keeper
+param=owned_shop,championshop
+param=shop_sell_multiplier,1300
+param=shop_buy_multiplier,400
+param=shop_delta,30
+param=shop_title,Valaine's Shop of Champions.
+moverestrict=indoors
+
+[scavvo]
+desc=He's got the best armour around.
+category=shop_keeper
+param=owned_shop,runiteshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,600
+param=shop_delta,20
+param=shop_title,Scavvo's Rune Store.
+moverestrict=indoors
+
+[guildmaster]
+desc=Master of the Champions' Guild.

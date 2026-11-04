@@ -3,11 +3,26 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::player_target_ok;
 use crate::watch::Op;
 use rs_entity::InteractionTarget;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_player1::OpPlayer1;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_player2::OpPlayer2;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_player3::OpPlayer3;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_player4::OpPlayer4;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::op_player5::OpPlayer5;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opplayer1::OpPlayer1;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opplayer2::OpPlayer2;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opplayer3::OpPlayer3;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opplayer4::OpPlayer4;
 #[cfg(since_254)]
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opplayer5::OpPlayer5;
 use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;

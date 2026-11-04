@@ -42,14 +42,14 @@ impl ServerProtMessage for RebuildNormal {
     }
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 #[server_prot(RebuildNormal, Immediate, Fixed)]
 pub struct RebuildNormal {
     pub zone_x: u16,
     pub zone_z: u16,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 impl ServerProtMessage for RebuildNormal {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.zone_x);
@@ -58,5 +58,123 @@ impl ServerProtMessage for RebuildNormal {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.zone_x) + size_of_val(&self.zone_z)
+    }
+}
+
+// `RebuildNormal` — rev-647 REBUILD_NORMAL (opcode 73, VarShort).
+// Tells the client to rebuild its local map region.
+//
+// Carries structured inputs only; the engine supplies the XTEA key
+// blocks for every mapsquare covering the 104-tile build area, in the
+// order the client expects.
+//
+// Wire layout (per rev-647 client handler `GLXTextureCubeMap.method3249`):
+//
+// Login only — PlayerInfo init bit-stream:
+//   * 30 bits: `[level:2 | x:14 | z:14]` for self
+//   * For every slot in `player_regions` except slot 0 and `self_index`,
+//     18 bits: `[level:2 | x/64:8 | z/64:8]` last-known region
+//     (0 for empty slots). Count derives from `player_regions.len()`
+//     — matches Void's `MapRegionEncoders.mapInit` pattern.
+//   * pad to byte boundary
+//
+// Header (6 bytes):
+//   * `ip2`      chunk_x
+//   * `p1_alt1`  login                (negated)
+//   * `p1_alt1`  build_area_idx       (negated; always 0)
+//   * `ip2_alt1` chunk_z
+//
+// Trailing — the caller-supplied XTEA key blocks (4 × i32 BE each).
+
+/// Maximum number of player slots (matches xlite-2 client). Slot 0 is
+/// reserved; valid player indices are `1..MAX_PLAYERS`.
+#[cfg(since_647)]
+pub const MAX_PLAYERS: usize = 2048;
+
+#[cfg(since_647)]
+#[server_prot(RebuildNormal, Immediate, VarShort)]
+pub struct RebuildNormal {
+    /// Local player's slot index (used for the login PlayerInfo init block).
+    pub self_index: u16,
+    pub player_x: u16,
+    pub player_z: u16,
+    pub player_plane: u8,
+    /// If true, prepend the PlayerInfo init bit-stream (login only).
+    pub login: bool,
+    /// Last-known 18-bit packed region (`level << 16 | x/64 << 8 | z/64`)
+    /// for each player slot. Length is expected to be [`MAX_PLAYERS`].
+    /// Slot 0 and the self slot are skipped by the encoder. Empty slots
+    /// use `0`. Only read when `login` is true — mirrors Void's
+    /// `playerRegions: IntArray` input to `mapInit`.
+    pub player_regions: Vec<u32>,
+    /// XTEA key blocks for every mapsquare covering the build area, in
+    /// the order the client expects. Looked up by the engine.
+    pub xtea_keys: Vec<[i32; 4]>,
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for RebuildNormal {
+    fn encode(&self, buf: &mut Packet) {
+        let chunk_x = self.player_x >> 3;
+        let chunk_z = self.player_z >> 3;
+
+        // PlayerInfo init bit-stream (login only) — bit-packing crosses
+        // byte boundaries, so build into a local scratch buffer and
+        // splice via `pdata`.
+        if self.login {
+            let other_count = self
+                .player_regions
+                .len()
+                .saturating_sub(1) // self
+                .saturating_sub(1); // slot 0
+            let total_bits = 30 + other_count * 18;
+            let bit_bytes = (total_bits + 7) >> 3;
+            let mut bits_pkt = Packet::new(bit_bytes);
+            let mut writer = rs_io::packet::BitWriter::new();
+
+            let player_pos = (self.player_z as u32 & 0x3FFF)
+                | ((self.player_x as u32 & 0x3FFF) << 14)
+                | ((self.player_plane as u32 & 0x3) << 28);
+            writer.pbit::<30>(&mut bits_pkt, player_pos as i32);
+
+            let self_index = self.self_index as usize;
+            for (i, &region) in self.player_regions.iter().enumerate() {
+                if i == 0 || i == self_index {
+                    continue;
+                }
+                writer.pbit::<18>(&mut bits_pkt, region as i32);
+            }
+            writer.finish(&mut bits_pkt);
+
+            buf.pdata(&bits_pkt.data, 0, bit_bytes);
+        }
+
+        // Header
+        buf.ip2(chunk_x);
+        let login_val: u8 = if self.login { 1 } else { 0 };
+        buf.p1_alt1(login_val);
+        buf.p1_alt1(0); // build_area_idx
+        buf.ip2_alt1(chunk_z);
+
+        // XTEA keys (4 × i32 BE per mapsquare)
+        for keys in &self.xtea_keys {
+            for &k in keys {
+                buf.p4(k);
+            }
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        // 6-byte header + 16 bytes per mapsquare's XTEA key block.
+        let xtea_bytes = self.xtea_keys.len() * 16;
+        let header = 6;
+        let init_bits = if self.login {
+            // 30 bits self + 18 bits per other slot.
+            let other_count = self.player_regions.len().saturating_sub(2);
+            (30 + other_count * 18 + 7) >> 3
+        } else {
+            0
+        };
+        init_bits + header + xtea_bytes
     }
 }

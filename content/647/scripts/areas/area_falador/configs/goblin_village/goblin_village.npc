@@ -1,0 +1,58 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[general_bentnoze]
+desc=An ugly green creature.
+wanderrange=3
+param=death_anim,goblin_death
+param=death_sound,goblin_death
+
+[general_wartface]
+desc=An ugly green creature.
+wanderrange=3
+param=death_anim,goblin_death
+param=death_sound,goblin_death
+
+[goblin_greenarmour]
+desc=An ugly green creature.
+wanderrange=15
+maxrange=17
+respawnrate=70
+hitpoints=120
+attack=3
+defence=4
+param=attackrate,6
+param=attackbonus,12
+param=strengthbonus,12
+param=damagetype,^stab_style
+param=attack_anim,goblin_attack_armed
+param=defend_anim,goblin_block
+param=death_anim,goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+// https://oldschool.runescape.wiki/w/Goblin_(historical)#Green_(original)
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_677
+// osrs ver damage type is crush.
+// osrs stats and Vislvl match 1:1
+
+[goblin_redarmour]
+desc=An ugly green creature.
+wanderrange=15
+maxrange=17
+respawnrate=70
+hitpoints=120
+attack=3
+defence=4
+param=attackrate,6
+param=attackbonus,12
+param=strengthbonus,12
+param=damagetype,^stab_style
+param=attack_anim,goblin_attack_armed
+param=defend_anim,goblin_block
+param=death_anim,goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+// https://oldschool.runescape.wiki/w/Goblin_(historical)#Green_(original)
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_678
+// osrs ver damage type is crush.
+// osrs stats and Vislvl match 1:1

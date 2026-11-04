@@ -1,0 +1,25 @@
+[label,make_prototype_dart]
+if(inv_total(inv, feather) < 10) {
+    mes("You need at least ten feathers to make this item.");
+    return;
+}
+~objbox(feather, "You try to attach feathers to the bronze dart tip.", 250, 0, 0);
+if(stat(fletching) < 10) {
+    ~mesbox("You need a fletching level of at least 10 to complete this.");
+    return;
+}
+if(stat_random(fletching, 61, 254) = false) {
+    inv_del(inv, feather, 10);
+    ~mesbox("An unlucky accident causes you to waste the feathers.|But you feel that you're close to making this item though.");
+    return;
+}
+~mesbox("Following the plans is tricky, but you persevere.");
+~objbox(prototype_dart, "You successfully attach the feathers to the dart tip.", 250, 0, 0);
+if_close;
+p_delay(2);
+if(%desertrescue = ^desertrescue_made_dart_tip) %desertrescue = ^desertrescue_finished_dart;
+stat_advance(fletching, 100);
+inv_del(inv, feather, 10);
+inv_del(inv, prototype_dart_tip, 1);
+inv_add(inv, prototype_dart, 1);
+

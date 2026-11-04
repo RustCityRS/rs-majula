@@ -1,0 +1,12 @@
+// 289's spade jumps to three quests' digs, which are not ported yet; these
+// stand in until each quest comes across, and end the dig as 289's labels
+// end the script. Port the quest, then delete its label here.
+
+// Pirate's Treasure (289 quests/quest_hunt/scripts/dig.rs2).
+[label,hunt_dig]
+
+// Zombie Queen (289 quests/quest_zombiequeen/scripts/quest_zombiequeen.rs2).
+[label,zombiequeen_mound_dig]
+
+// The Dig Site (289 quests/quest_itexam/scripts/digsite_workman.rs2).
+[label,digworkman1_intervene]

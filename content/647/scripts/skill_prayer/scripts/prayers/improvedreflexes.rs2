@@ -1,0 +1,37 @@
+// [if_button,prayer:prayer_improvedreflexes]
+// 2011's prayer book is one component, its prayers by slot: prayer.rs2's
+// [if_button1,prayer:com8] comes here.
+[label,prayer_button_improvedreflexes]
+if_close;
+if (p_finduid(uid) = true) {
+    @activate_prayer_improvedreflexes;
+}
+%prayer5 = %prayer5; // resync varp
+
+[label,activate_prayer_improvedreflexes]
+p_clearpendingaction;
+def_dbrow $data = ~get_prayer_data(^prayer_improvedreflexes);
+if ($data = null) {
+    return;
+}
+if (%prayer5 = ^true) {
+    %prayer5 = ^false;
+    ~prayer_deactivate(^prayer_improvedreflexes);
+    return;
+}
+if (~prayer_checks($data) = false) {
+    %prayer5 = ^false;
+    return;
+}
+def_int $levelreq = db_getfield($data, prayers:level, 0);
+if (stat_base(prayer) < $levelreq){
+    %prayer5 = ^false;
+    // sound_synth(prayer_off, 1, 0);
+    // 2011's client plays prayer_off itself (clientscript 2295).
+    // ~mesbox("You need a @dbl@Prayer level of <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
+    // 2011's wording: the prayer's struct (enum 2279, param 738).
+    ~mesbox("You need a Prayer level of at least <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
+    return;
+}
+%prayer5 = ^true;
+~prayer_activate($data);

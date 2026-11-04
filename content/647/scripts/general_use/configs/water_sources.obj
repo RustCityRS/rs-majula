@@ -1,0 +1,65 @@
+[jug]
+desc=This jug is empty.
+weight=1lb
+param=next_obj_stage,jug_of_water
+
+[jug_of_water]
+desc=It's full of water.
+weight=1kg
+param=is_water_source,^true
+param=next_obj_stage,jug
+
+[bucket]
+desc=It's a wooden bucket.
+weight=1kg
+param=next_obj_stage,bucket_of_water
+
+[bucket_of_water]
+desc=It's a bucket of water.
+weight=3kg
+param=is_water_source,^true
+param=next_obj_stage,bucket
+
+[bowl_of_water]
+desc=It's a bowl of water.
+weight=2lb
+param=is_water_source,^true
+param=next_obj_stage,bowl
+
+[bowl]
+desc=Useful for mixing things.
+weight=1lb
+param=next_obj_stage,bowl_of_water
+
+[waterskin__4]
+desc=A full waterskin with four portions of water.
+weight=1100g
+category=water_skin_filled
+param=is_water_source,^true
+param=next_obj_stage,waterskin__0
+
+[waterskin__3]
+desc=A nearly full waterskin with three portions of water.
+weight=30oz
+category=water_skin_filled
+param=is_water_source,^true
+param=next_obj_stage,waterskin__4
+
+[waterskin__2]
+desc=A half empty waterskin with two portions of water.
+weight=600g
+category=water_skin_filled
+param=is_water_source,^true
+param=next_obj_stage,waterskin__3
+
+[waterskin__1]
+desc=A nearly empty waterskin with one portion of water.
+weight=350g
+category=water_skin_filled
+param=is_water_source,^true
+param=next_obj_stage,waterskin__2
+
+[waterskin__0]
+desc=A completely empty waterskin - you'll need to fill it up.
+weight=100g
+param=next_obj_stage,waterskin__1

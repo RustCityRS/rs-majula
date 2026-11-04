@@ -1,0 +1,102 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[timfraku]
+desc=The imposing Chief of Tai Bwo Wannai.
+wanderrange=5
+
+// 289's tbwt_tiadeche is 2011's tiadeche.
+[tiadeche]
+desc=A rather depressed looking fisherman.
+wanderrange=5
+
+[tbwt_tiadeche_final]
+desc=A rather depressed looking fisherman.
+wanderrange=5
+category=shop_keeper
+param=owned_shop,tbwt_tiadeche_final_inventory
+param=shop_sell_multiplier,550
+param=shop_buy_multiplier,450
+param=shop_delta,10
+param=shop_title,Tiadeche's Karambwan Stall
+
+// 289's tbwt_tinsay is 2011's tinsay.
+[tinsay]
+desc=A more than slightly eccentric looking priest.
+wanderrange=5
+
+[tbwt_tinsay_final]
+desc=A more than slightly eccentric looking priest.
+wanderrange=5
+
+// 289's tbwt_tamayu is 2011's tamayu.
+[tamayu]
+desc=A hunter who long ago succumbed to blood lust.
+wanderrange=5
+
+[tbwt_tamayu_final]
+desc=A hunter who long ago succumbed to blood lust.
+wanderrange=5
+category=shop_keeper
+param=owned_shop,tbwt_tamayu_final_inventory
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,750
+param=shop_delta,10
+param=shop_title,Tamayu's Spear Stall
+
+[tbwt_tamayu_hunter]
+desc=A hunter who long ago succumbed to blood lust.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+timer=3
+
+[tbwt_tamayu_final_hunter]
+desc=A hunter who long ago succumbed to blood lust.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+// 289's tbwt_lubufu is 2011's lubufu.
+[lubufu]
+desc=A crotchety old fisherman who doesn't like young whippersnappers.
+wanderrange=5
+
+[the_shaikahan]
+desc=A huge beast, resembling in some ways a lion, but mostly a twisted nightmare.
+wanderrange=12
+maxrange=64
+respawnrate=50
+hitpoints=1000
+attack=80
+defence=80
+strength=25
+param=magicdefence,10000
+param=rangedefence,10000
+param=damagetype,^slash_style
+param=attack_anim,lion_attack
+param=defend_anim,lion_block
+param=death_anim,lion_death
+param=attack_sound,beast_attack
+param=defend_sound,beast_hit
+param=death_sound,beast_death
+param=death_drop,shaikahan_bones
+huntmode=aggressive_melee
+huntrange=8
+// wanderrange is quesses
+
+[tbwt_beast_cutscene]
+desc=A huge beast, resembling in some ways a lion, but mostly a twisted nightmare.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+hitpoints=1000
+attack=80
+defence=80
+strength=25
+param=damagetype,^slash_style
+param=attack_anim,lion_attack
+param=defend_anim,lion_block
+param=death_anim,lion_death
+param=attack_sound,beast_attack
+param=defend_sound,beast_hit
+param=death_sound,beast_death
+param=death_drop,null

@@ -1,0 +1,77 @@
+// 289 builds its skill guide on the server: a dbtable of each skill's unlock
+// rows, sent line by line into its skill_guide interface. 2011's guide
+// (skill_guide_v2, 499) is drawn by the client from the cache's own data; the
+// server only names the skill and section in %skill_guide (varp 965: the
+// stat's 2011 menu index, plus 1024 per section). And each 2011 stat has its
+// own guide, where 289 showed attack's for hitpoints, strength and defence.
+//
+// A stat whose icon flashes after a level-up (%skill_stat_flash, set by
+// levelup.rs2) opens 2011's level-up details (lvl_scroll, 741) instead, once:
+// %level_up_details is the stat's menu index times 8, and the flash clears.
+// 289's rows, ops and inv are not used: the client has its own.
+[if_button,stats:attack] @skill_guide(attack, 0);
+[if_button,stats:hitpoints] @skill_guide(hitpoints, 0);
+[if_button,stats:strength] @skill_guide(strength, 0);
+[if_button,stats:defence] @skill_guide(defence, 0);
+[if_button,stats:mining] @skill_guide(mining, 0);
+[if_button,stats:agility] @skill_guide(agility, 0);
+[if_button,stats:smithing] @skill_guide(smithing, 0);
+[if_button,stats:herblore] @skill_guide(herblore, 0);
+[if_button,stats:fishing] @skill_guide(fishing, 0);
+[if_button,stats:ranged] @skill_guide(ranged, 0);
+[if_button,stats:thieving] @skill_guide(thieving, 0);
+[if_button,stats:cooking] @skill_guide(cooking, 0);
+[if_button,stats:prayer] @skill_guide(prayer, 0);
+[if_button,stats:crafting] @skill_guide(crafting, 0);
+[if_button,stats:firemaking] @skill_guide(firemaking, 0);
+[if_button,stats:magic] @skill_guide(magic, 0);
+[if_button,stats:fletching] @skill_guide(fletching, 0);
+[if_button,stats:woodcutting] @skill_guide(woodcutting, 0);
+[if_button,stats:runecrafting] @skill_guide(runecraft, 0);
+
+[label,skill_guide](stat $lookup, int $page)
+db_find(levelup:stat, $lookup);
+def_dbrow $row = db_findnext;
+if ($row = null) {
+    if_close;
+    mes("TODO.");
+    return;
+}
+def_int $menu = db_getfield($row, levelup:icon, 0);
+if_close;
+def_int $bit = db_getfield($row, levelup:flash_bit, 0);
+if (testbit(%skill_stat_flash, $bit) = ^true) {
+    %level_up_details = multiply($menu, 8);
+    %skill_stat_flash = clearbit(%skill_stat_flash, $bit);
+    if_openmain(lvl_scroll);
+    return;
+}
+%skill_guide_skill = $lookup;
+%skill_guide = add($menu, multiply($page, 1024));
+if_openmain(skill_guide_v2);
+
+// 2011's guide lists its sections down the left (components 10-24); each
+// shows the skill's section of that index.
+[if_button,skill_guide_v2:section1] @change_skill_guide(0);
+[if_button,skill_guide_v2:section2] @change_skill_guide(1);
+[if_button,skill_guide_v2:section3] @change_skill_guide(2);
+[if_button,skill_guide_v2:section4] @change_skill_guide(3);
+[if_button,skill_guide_v2:section5] @change_skill_guide(4);
+[if_button,skill_guide_v2:section6] @change_skill_guide(5);
+[if_button,skill_guide_v2:section7] @change_skill_guide(6);
+[if_button,skill_guide_v2:section8] @change_skill_guide(7);
+[if_button,skill_guide_v2:section9] @change_skill_guide(8);
+[if_button,skill_guide_v2:section10] @change_skill_guide(9);
+[if_button,skill_guide_v2:section11] @change_skill_guide(10);
+[if_button,skill_guide_v2:section12] @change_skill_guide(11);
+[if_button,skill_guide_v2:section13] @change_skill_guide(12);
+[if_button,skill_guide_v2:section14] @change_skill_guide(13);
+[if_button,skill_guide_v2:section15] @change_skill_guide(14);
+
+[label,change_skill_guide](int $page)
+db_find(levelup:stat, %skill_guide_skill);
+def_dbrow $row = db_findnext;
+if ($row = null) {
+    return;
+}
+%skill_guide = add(db_getfield($row, levelup:icon, 0), multiply($page, 1024));

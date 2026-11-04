@@ -1,6 +1,6 @@
 #[cfg(since_254)]
 use crate::network::game::client::ClientProtMessage;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use crate::network::game::client::event_mouse_move::Cursor;
 #[cfg(since_254)]
 use crate::network::game::client_prot_category::ClientProtCategory;
@@ -13,7 +13,7 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 /// A click the client acted on.
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 #[client_prot(Fixed(4), ClientEvent)]
 pub struct EventMouseClick {
     pub at: Cursor,
@@ -21,7 +21,7 @@ pub struct EventMouseClick {
     pub gap: u16,
 }
 
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ClientProtMessage for EventMouseClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let v = buf.g4s() as u32;
@@ -30,5 +30,24 @@ impl ClientProtMessage for EventMouseClick {
             right: (v >> 19) & 1 == 1,
             gap: (v >> 20) as u16,
         }
+    }
+}
+
+/// Rev-647 opcode 58 (`VarbitType`): `p2(flag << 15 | time)` -- `flag` 1
+/// for a mouse event of type 2, `time` the 50 ms ticks since the last click
+/// -- then `p4_alt2(x | y << 16)` on the canvas.
+#[cfg(since_647)]
+#[client_prot(Fixed(6), ClientEvent)]
+pub struct EventMouseClick {
+    pub info: u16,
+    pub position: i32,
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for EventMouseClick {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let info = buf.g2();
+        let position = buf.g4_alt2();
+        EventMouseClick { info, position }
     }
 }
