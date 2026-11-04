@@ -6,12 +6,21 @@
 //! plays the area's (the 2011 wiki's Audio Week update, 5 February 2008).
 //! A track's unlock is a bit of the musicmulti varps by its place in the
 //! music player's list (clientscript 837), and its song is enum 1351's.
+//!
+//! 289's music tab is 2011's music player (187): a track's name is com1's
+//! child at its index * 2 (clientscript 828), and Play is IF_BUTTON1 on it
+//! (`Class199.method1317`: `p4(com) ip2_alt1(obj) ip2(slot)`).
 
 #![cfg(since_647)]
 
+#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
+mod client_packet;
+
+use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 
@@ -23,6 +32,10 @@ const VARROCK: (u16, u16) = (3212, 3473);
 const ADVENTURE: u16 = 177;
 /// The music player's "Playing" text (music_v3, 187:4).
 const PLAYING: i32 = 187 << 16 | 4;
+/// The music player's list (187:1).
+const TRACKS: i32 = 187 << 16 | 1;
+/// Scape Main (track 150), unlocked automatically: song 16.
+const SCAPE_MAIN: u16 = 16;
 
 fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec<u8>> {
     let opcode = prot as u16;
@@ -128,5 +141,61 @@ fn a_square_plays_its_track_and_unlocks_it() {
         player.vars.set(start, VarValue::Int(-100_000));
         let sent = ticks(engine, &mut client, 2);
         assert_eq!(songs(&sent), [NEWBIE_MELODY], "the square's track next");
+    });
+}
+
+/// Clicks Play on a track of the music player's list: IF_BUTTON1 on 187:1 at
+/// the track's name, its index * 2 (`p4 com, ip2_alt1 obj, ip2 slot`).
+fn play(client: &mut HarnessClient, track: i32) {
+    let mut p = ClientPacket::new();
+    p.p4(TRACKS).ip2_alt1(0xFFFF).ip2(track * 2);
+    client.send(ClientProt::IfButton1, &p.finish());
+}
+
+/// Each IF_SETEVENTS as `(com, from, to, ops)`: `p2_alt1 from, p4_alt3
+/// events, p4_alt3 com, ip2_alt1 to`.
+fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
+    of(packets, ServerProt::IfSetEvents)
+        .map(|p| {
+            let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
+            let ops = i32::from_be_bytes([p[3], p[2], p[5], p[4]]);
+            let com = i32::from_be_bytes([p[7], p[6], p[9], p[8]]);
+            let to = u16::from_le_bytes([p[10].wrapping_sub(128), p[11]]);
+            (com, from, to, ops)
+        })
+        .collect()
+}
+
+#[test]
+fn the_music_player_plays_an_unlocked_track() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("player").expect("login");
+        let sent = ticks(engine, &mut client, 3);
+        // Play and Unlock hint on every name of the list (2 a track, 980
+        // places); the playlist's ops stay off.
+        let ops = events(&sent)
+            .into_iter()
+            .find(|e| e.0 == TRACKS)
+            .expect("the list's events");
+        assert_eq!((ops.1, ops.2, ops.3 & 0x7fe), (0, 1959, 0b110));
+
+        // A locked track: 289's answer (the client offers no Play on one).
+        play(&mut client, 0);
+        let sent = ticks(engine, &mut client, 1);
+        assert_eq!(
+            HarnessClient::game_messages(&sent),
+            [(
+                0,
+                "You have not unlocked this piece of music yet!".to_string()
+            )]
+        );
+        assert!(songs(&sent).is_empty());
+
+        // An unlocked one plays at once, named as it plays.
+        play(&mut client, 150);
+        let sent = ticks(engine, &mut client, 1);
+        assert_eq!(songs(&sent), [SCAPE_MAIN], "Scape Main");
+        assert!(texts(&sent).contains(&(PLAYING, "Scape Main".to_string())));
     });
 }

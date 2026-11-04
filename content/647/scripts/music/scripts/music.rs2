@@ -162,6 +162,30 @@ midi_jingle($jingle);
 .%musicstart = add(map_clock, midi_length($jingle));
 .midi_jingle($jingle);
 
+// A track by its place in 2011's list (musicplayer.rs2), 289's button.
+[label,music_playbybutton](int $playbutton)
+db_find(music:playbutton, $playbutton);
+def_dbrow $song = db_findnext;
+if ($song = null) {
+    return;
+}
+
+def_int $unlock;
+def_int $bit;
+$unlock, $bit = db_getfield($song, music:unlock, 0);
+
+if ($unlock ! null) {
+    if (testbit(~music_getvar($unlock), $bit) = ^false) {
+        mes("You have not unlocked this piece of music yet!");
+        return;
+    }
+}
+
+// 289: %musicplay = 0, its Manual mode. 2011 has none: the track plays to
+// its end, and then the area's (header).
+if_settext(music_v3:com4, db_getfield($song, music:name, 0));
+@music_play(db_getfield($song, music:track, 0));
+
 [label,music_playbyregion](coord $coord)
 // first, search for the song linked to this mapsquare
 def_int $map_x = calc(coordx($coord) / 64 * 64);

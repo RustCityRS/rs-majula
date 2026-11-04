@@ -199,4 +199,10 @@ if_setevents(prayer:com8, 5, 10, ^if_op1, 0, 0, ^false, ^false)
 if_setevents(prayer:com8, 13, 15, ^if_op1, 0, 0, ^false, ^false)
 if_setevents(prayer:com8, 17, 19, ^if_op1, 0, 0, ^false, ^false)
 
+// The music player's list (music_v3, 187) is com1's children, two a track
+// for its 980 places (clientscript 828: the name at index * 2, the playlist
+// button at index * 2 + 1). Play (op1) and Unlock hint (op2) are a name's
+// (clientscripts 3680, 3681); the playlist's ops are not ported.
+if_setevents(music_v3:com1, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
+
 ~update_all(inv_getobj(worn, ^wearpos_rhand));

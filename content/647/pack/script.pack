@@ -4006,3 +4006,6 @@
 4005=[softtimer,music_end]
 4006=[proc,music_unlock_automatic]
 4007=[proc,music_unlock_index]
+4008=[label,music_playbybutton]
+4009=[if_button1,music_v3:com1]
+4010=[if_button2,music_v3:com1]
