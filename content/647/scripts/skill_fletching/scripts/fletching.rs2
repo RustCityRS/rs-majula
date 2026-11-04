@@ -1,3 +1,6 @@
+// Every fletching award goes through ~givexp where 289 calls stat_advance:
+// 2011's xp counter (varp 1801) counts only what ~givexp pays.
+
 [proc,get_fletching_data](obj $item)(dbrow)
 db_find(fletching_table:item, $item);
 def_dbrow $data = db_findnext;

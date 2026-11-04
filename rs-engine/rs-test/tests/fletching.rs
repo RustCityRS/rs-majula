@@ -20,6 +20,12 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 
 const FLETCHING: usize = 9;
+/// 2011's xp counter, which counts ten times what `~givexp` pays.
+const XP_COUNTER: u16 = 1801;
+
+// The cases share one loaded engine and each starts with a reset, which would
+// log the others' fletchers out: one at a time.
+static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
@@ -78,6 +84,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
 
 #[test]
 fn cutting_logs_through_2011s_make_x() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let knife = obj(engine, "knife");
         let logs = obj(engine, "logs");
@@ -94,6 +101,7 @@ fn cutting_logs_through_2011s_make_x() {
         backpack.set(2, logs, 1);
         backpack.set(3, logs, 1);
         let xp = player.stats.xp[FLETCHING];
+        let counted = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
 
@@ -117,6 +125,11 @@ fn cutting_logs_through_2011s_make_x() {
         assert_eq!(backpack.total(logs), 2);
         assert_eq!(said, ["You carefully cut the wood into 15 arrow shafts."]);
         assert_eq!(player.stats.xp[FLETCHING] - xp, 75);
+        assert_eq!(
+            player.vars.get(XP_COUNTER).as_int() - counted,
+            750,
+            "the xp counter counts the cut"
+        );
 
         // 5, with two logs left: both are cut, and then the logs run out.
         knife_on_logs(&mut client, knife, logs, 2);
@@ -138,5 +151,60 @@ fn cutting_logs_through_2011s_make_x() {
                 "You have run out of logs.",
             ]
         );
+    });
+}
+
+/// 289's ogre arrow shafts from achey logs (a stub of the same label in
+/// `_migration_closure` duplicated it, which the compiler warned of): at
+/// Fletching 5, Big Chompy Bird Hunting begun, a knife on the logs cuts 2 to
+/// 6 shafts at 1.8 xp each, and 2011's xp counter counts them.
+#[test]
+fn a_knife_cuts_achey_logs_into_ogre_arrow_shafts() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let knife = obj(engine, "knife");
+        let logs = obj(engine, "achey_tree_logs");
+        let shafts = obj(engine, "ogre_arrow_shaft");
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let chompybird = *engine.cache.varps.debugnames.get("chompybird").unwrap();
+
+        engine.harness_reset();
+        let mut client = engine
+            .harness_login_returning("ogrefletcher")
+            .expect("login");
+        engine.cycle();
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        let backpack = player.invs.get_mut(&inv).unwrap();
+        backpack.set(0, knife, 1);
+        backpack.set(1, logs, 1);
+        player.stats.levels[FLETCHING] = 5;
+        player.stats.base_levels[FLETCHING] = 5;
+        player
+            .vars
+            .set(chompybird, rs_pack::cache::VarValue::Int(1));
+        let xp = player.stats.xp[FLETCHING];
+        let counted = player.vars.get(XP_COUNTER).as_int();
+        engine.cycle();
+        client.packets();
+
+        knife_on_logs(&mut client, knife, logs, 1);
+        let said = ticks(engine, &mut client, 3);
+        let player = engine.harness_player(client.pid).unwrap();
+        let backpack = player.invs.get(&inv).unwrap();
+        let cut = backpack.total(shafts);
+        assert!(
+            (2..=6).contains(&cut),
+            "2 to 6 shafts; the game said {said:?}"
+        );
+        assert_eq!(backpack.total(logs), 0);
+        assert_eq!(
+            said,
+            [format!(
+                "You carefully cut the wood into {cut} arrow shafts."
+            )]
+        );
+        let paid = player.stats.xp[FLETCHING] - xp;
+        assert_eq!(paid, 18 * cut as i32);
+        assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, paid * 10);
     });
 }
