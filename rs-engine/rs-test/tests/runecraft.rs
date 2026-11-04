@@ -2,8 +2,9 @@
 //!
 //! 289's runecraft keys every temple on a `runecraft_table` row: the ruins a
 //! talisman opens, the tile inside, the altar's rune and the way back out.
-//! 2011 moved some of them -- the air ruins stand north of the Champions'
-//! Guild instead of south of Falador -- so the rows carry 2011's tiles, from
+//! 2011 moved some of them -- the air ruins stand west of Varrock by the
+//! bridge to Gunnarsgrunn instead of south of Falador (2011 wiki, Air altar:
+//! moved 17 September 2009) -- so the rows carry 2011's tiles, from
 //! the 2011 map's placements and `void-634`. The cases use a talisman on the
 //! air ruins as the client does (OPLOCT: `p2_alt1(obj) p2_alt1(slot) p2(z)
 //! p4_alt2(com) p2_alt1(x) p1_alt3(ctrl) ip2(loc)`), bind essence at the air
@@ -27,7 +28,7 @@ const RUNECRAFT: usize = 20;
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
 
-/// 2011's air ruins (`airtemple_ruined`, 3x3), north of the Champions' Guild.
+/// 2011's air ruins (`airtemple_ruined`, 3x3), west of Varrock.
 const AIR_RUINS: (u16, u16, u16) = (2452, 3126, 3404);
 /// The air altar (`air_altar`, 3x3) and the temple's portal out.
 const AIR_ALTAR: (u16, u16, u16) = (2478, 2843, 4833);

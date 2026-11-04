@@ -803,7 +803,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
         });
 
-        // 3523: 2011's music_playjingle(jingle id, duration) -- a cache jingle
+        // 3523: 647's music_playjingle(jingle id, duration) -- a cache jingle
         // by id, the client resuming its song after `duration`.
         #[cfg(since_647)]
         active_player_mut!(m, MUSIC_PLAYJINGLE => |s, player| {
@@ -815,7 +815,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
         });
 
-        // 3524: 2011's music_playsong(song id) -- a cache song by id.
+        // 3524: 647's music_playsong(song id) -- a cache song by id.
         #[cfg(since_647)]
         active_player_mut!(m, MUSIC_PLAYSONG => |s, player| {
             let id = s.pop_int_as::<u16>()?;

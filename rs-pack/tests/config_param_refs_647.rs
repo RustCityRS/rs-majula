@@ -2,7 +2,7 @@
 //!
 //! The config packer (`get_param_value_for_type`) packs a value that names
 //! nothing in its registry as -1, without a word: 289's
-//! `param=attack_anim,cow_attack` packed so while 2011's registry had no
+//! `param=attack_anim,cow_attack` packed so while 647's registry had no
 //! `cow_attack`, and the field cow never animated. This reads every
 //! `param=<name>,<value>` in 647's npc, obj, loc and struct configs whose
 //! param type names a registry (seq, synth, obj, npc, ...) and fails on a

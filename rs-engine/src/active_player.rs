@@ -3070,8 +3070,9 @@ impl ActivePlayer {
     /// Paints a 647 hitsplat without touching a stat.
     ///
     /// 2011's hitpoints are life points, and content owns them (varbit 7198,
-    /// ten to a hitpoint), so content takes the hit off, works out the health
-    /// bar's fill, and hands the engine only what to draw.
+    /// ten to a hitpoint: 2011 wiki, Constitution), so content takes the hit
+    /// off, works out the health bar's fill, and hands the engine only what to
+    /// draw.
     ///
     /// # Arguments
     /// * `amount` - The hit in life points, which passes 255.

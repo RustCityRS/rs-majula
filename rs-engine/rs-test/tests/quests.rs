@@ -82,7 +82,8 @@ fn view_on_cooks_assistant_opens_its_2011_journal() {
         };
         assert_eq!(
             text(JOURNAL_NAME),
-            // 2011's name for 289's "The Cook's Quest", since its rework.
+            // 2011's name (its quest struct's), as 289's quest list has it;
+            // 289's journal heads it "The Cook's Quest".
             Some("<col=800000>Cook's Assistant"),
             "the journal's name; sent {texts:?}"
         );

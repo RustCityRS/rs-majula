@@ -2,12 +2,13 @@
 //!
 //! 289 cooks one raw item per use. 2011 asks how many first, in the make-X
 //! dialogue with the verb Cook ("How many would you like to cook?"), when
-//! more than one is held, and cooks that many, one every four ticks
-//! (void-634's Cooking). The case uses three raw shrimps on Lumbridge
-//! castle's cook-o-matic (loc 114) as the client does (OPLOCT), picks All
-//! (skillmulti2010_numbers com8, IF_BUTTON1) and the shrimps (RESUME_PAUSEBUTTON
-//! on skillmulti2010 com14), and sees all three cooked or burnt. The
-//! player has done Cook's Assistant, which the castle's range asks for.
+//! more than one is held (2011 wiki, Cooking), and cooks that many, one every
+//! four ticks (the wording and the rate are void-634's Cooking). The case uses
+//! three raw shrimps on Lumbridge castle's cook-o-matic (loc 114) as the
+//! client does (OPLOCT), picks All (skillmulti2010_numbers com8, IF_BUTTON1)
+//! and the shrimps (RESUME_PAUSEBUTTON on skillmulti2010 com14), and sees all
+//! three cooked or burnt. The player has done Cook's Assistant, which the
+//! castle's range asks for.
 
 #![cfg(since_647)]
 

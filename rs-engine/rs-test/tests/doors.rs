@@ -8,7 +8,7 @@
 //!   quarter turn onto the next tile as `door_1531` and plays 289's door_open,
 //!   2011's synth 81 (void-634's id; 289's sound is not in 2011's cache).
 //! - A double gate (`gate_1551` and `gate_1553`) opens both leaves together and
-//!   plays 2011's gate_open (synth 67), where 289 played door_open.
+//!   plays void-634's gate_open (synth 67), where 289 played door_open.
 //! - A double door (`large_door_1516` and `large_door_1519`) opens both leaves.
 //! - 289's lockeddoor1 refuses in two messages a tick apart.
 //! - 2011's East Ardougne level-1 locked door (`door_34812`, 289's `loc_2550`):

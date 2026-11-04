@@ -540,7 +540,8 @@ impl From<c647::HuntType> for HuntType {
         };
         HuntType {
             id: h.id,
-            // 2011's hunt configs carry no inventory-category check.
+            // 647's hunt format (cache647::HuntType, 2004scape's opcodes) has
+            // no inventory-category check; hunt is server data, not 2011's cache.
             check_invcat: None,
             hunt_type: HuntModeType::try_from(h.hunt_type).unwrap_or(HuntModeType::Off),
             check_vis: HuntCheckVis::try_from(h.check_vis).unwrap_or(HuntCheckVis::Off),

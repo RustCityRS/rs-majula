@@ -1,10 +1,11 @@
 //! Mining from 289, at a 2011 rock.
 //!
 //! 289's rocks are the 2005 ones; Rimmington's copper rock 9708 is 2011's
-//! (void-634 `copper_rocks_rimmington_1`), depleting to 9723. The case clicks
-//! Mine on it as the client does (OPLOC1, `ip2(z) ip2(loc) p1(ctrl)
-//! p2_alt1(x)`) with a bronze pickaxe in the backpack, swings until the rock
-//! gives, and then clicks the depleted rock.
+//! (void-634 `copper_rocks_rimmington_1`), depleting to 9723 (void-634's
+//! `depleted_rocks_rimmington_1`). The case clicks Mine on it as the client
+//! does (OPLOC1, `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`) with a bronze pickaxe
+//! in the backpack, swings until the rock gives, and then clicks the depleted
+//! rock.
 
 #![cfg(since_647)]
 

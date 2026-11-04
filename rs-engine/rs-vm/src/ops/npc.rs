@@ -121,7 +121,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
-            // 2011's npc hits are life points, which pass a byte.
+            // 2011's npc hits are life points, which pass a byte (2011 wiki,
+            // Constitution: monsters have up to 30,000).
             #[cfg(since_647)]
             let amount = s.pop_int_as::<u16>()?;
             #[cfg(before_647)]

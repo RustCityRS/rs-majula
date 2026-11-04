@@ -30,7 +30,8 @@ const ACTIVE: u16 = 1395;
 const THICK_SKIN: (u16, u32) = (0, 0);
 const ROCK_SKIN: (u16, u32) = (5, 3);
 const PROTECT_FROM_MELEE: (u16, u32) = (19, 14);
-/// Synths: 289's thick_skin, cancel_prayer and prayer_off at 2011.
+/// Synths: 289's thick_skin and cancel_prayer at void-634's ids, and
+/// prayer_off (2673, which clientscript 2295 plays).
 const THICK_SKIN_SOUND: u16 = 2690;
 const CANCEL_PRAYER: u16 = 2663;
 const PRAYER_OFF: u16 = 2673;
@@ -84,7 +85,7 @@ fn bury(engine: &mut Engine) {
 }
 
 /// 289's `altar.rs2`, at the altar 2011's Lumbridge church has (36972; 289's
-/// was 409, gone with the 2009 rebuild).
+/// was 409, which the 786 map no longer places; no source found for when).
 fn altar(engine: &mut Engine) {
     engine.harness_reset();
     let mut client = engine.harness_login_returning("prayer").expect("login");
@@ -359,7 +360,7 @@ fn prayer_runs_out_with_2011s_message() {
     });
 }
 
-/// With no points left: 2011's capitalised Prayer.
+/// With no points left: void-634's capitalised Prayer (QuickPrayers.kt).
 #[test]
 fn no_points_says_recharge_at_an_altar() {
     runner::on_loaded_engine(|engine| {

@@ -2,8 +2,9 @@
 //!
 //! 2011 rebuilt the Lumbridge mill under new ids: hopper 36881 and controls
 //! 2718 on the top floor, flour bin 36880 on the ground floor. Every 2011 flour
-//! bin is a multiloc on varp 695, 289's `%flour`, so the client draws it full
-//! or empty and 289's loc changes go. `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl)
+//! bin but one is a multiloc on varp 695, 289's `%flour` (22493 at 3786,2825
+//! turns on varbit 3405), so the client draws it full or empty and 289's loc
+//! changes go. `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl)
 //! p2_alt1(x)`; `OPLOCT`: `p2_alt1(obj) p2_alt1(slot) p2(z) p4_alt2(com)
 //! p2_alt1(x) p1_alt3(ctrl) ip2(loc)`.
 
@@ -197,9 +198,9 @@ fn set_varp(engine: &mut Engine, pid: u16, name: &str, value: i32) {
         .set(id, rs_pack::cache::VarValue::Int(value));
 }
 
-/// Cook's Assistant's 2011 rework: once Millie Miller has set the millstones,
-/// Mill Lane's bin gives extra fine flour (void-634 Windmill); 289's mill gave
-/// a pot of flour.
+/// Cook's Assistant's rework (15 December 2009, 2011 wiki): once Millie
+/// Miller has set the millstones, Mill Lane's bin gives extra fine flour
+/// (void-634 Windmill); 289's mill gave a pot of flour.
 #[test]
 fn mill_lane_mills_extra_fine_flour_for_the_cook() {
     runner::on_loaded_engine(|engine| {

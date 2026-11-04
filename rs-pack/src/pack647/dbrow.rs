@@ -425,7 +425,8 @@ mod tests {
         assert_eq!(lookup_typed("null", b'o', &registry), Some(6657));
         assert_eq!(resolve_typed_value("null", b'o', &registry), -1);
         assert_eq!(resolve_typed_value("null", b'O', &registry), -1);
-        // 2011's cow sounds, which 647 packed as -1 for want of a synth arm.
+        // The cow sounds (synth 369, void-634's `cow_attack`), which 647
+        // packed as -1 for want of a synth arm.
         assert_eq!(resolve_typed_value("cow_attack", b'P', &registry), 369);
         assert_eq!(resolve_typed_value("no_such_sound", b'P', &registry), -1);
     }

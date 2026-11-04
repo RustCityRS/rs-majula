@@ -727,8 +727,9 @@ fn load_dialogue_slots(
 }
 
 /// Populate `layout.wide_screen_ifaces` from the content `wide_screen_enum`:
-/// interface id (key) → true for each main-screen interface 2011 opens in the
-/// toplevel's full-size slot. Absent/empty enum → none.
+/// interface id (key) → true for each main-screen interface the content opens
+/// in the toplevel's full-size slot (void-634's `wide_screen` interfaces and
+/// the level-up details). Absent/empty enum → none.
 fn load_wide_screen_ifaces(
     pack_dir: &Path,
     enums: &TypeProvider<EnumType>,

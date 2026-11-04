@@ -1,6 +1,6 @@
 //! 289's random events at 2011: the Mysterious Old Man's Maze and Mime (the
 //! only two of 289's that 2011 kept), and the Random event gift that 2011
-//! gives for solving one.
+//! gives for solving one (2011 wiki, Random events).
 //!
 //! The events are summoned with the dev cheat `~macro_event <event>`
 //! (`_test/scripts/cheats/cheat_macro_events.rs2`), as the event timer's roll

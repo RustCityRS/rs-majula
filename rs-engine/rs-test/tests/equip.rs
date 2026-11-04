@@ -148,7 +148,7 @@ fn the_newer_289_wield_lines_hold() {
 /// A wielded weapon brings its 2011 stance: the render anim (BAS) its cache
 /// param 644 names (`void-634`'s RENDER_EMOTE), which the appearance carries in
 /// place of 289's seven base animations. A two-handed sword stands as 124, a
-/// sword as 1381; nothing wielded is 1426.
+/// sword as 1381; nothing wielded is 1426 (void-634's `human_stand`).
 #[test]
 fn a_wielded_weapon_brings_its_2011_stance() {
     runner::on_loaded_engine(|engine| {

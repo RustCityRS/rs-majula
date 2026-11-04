@@ -96,7 +96,8 @@ mod tests {
         assert_eq!(markup("a @ bb @ c"), "a @ bb @ c");
     }
 
-    /// The 2004 client draws no unknown code; neither does 2011's.
+    /// The 2004 client draws no unknown code, so it is dropped here: 2011's
+    /// client knows no `@xxx@` code and would print it.
     #[test]
     fn an_unknown_code_is_dropped() {
         assert_eq!(markup("@xyz@hidden"), "hidden");

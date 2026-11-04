@@ -952,7 +952,7 @@ pub fn pack_npcs(
 
         // Opcodes 30-34: op1-op5. 2011's cache gives many ops as memberops
         // (client 150-154: a members world shows them in that slot, a free
-        // one hides them), 115 of them Pickpocket; without them here the
+        // one hides them), 84 of them Pickpocket; without them here the
         // server refused the op the client offered. 647's server runs a
         // members world, as its objs load (`ObjContext { members: true }`),
         // so a memberop takes its slot.

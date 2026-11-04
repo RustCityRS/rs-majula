@@ -39,8 +39,9 @@ impl ClientGameHandler for SendSnapshot {
         }
 
         if self.reason > MAX_REASON {
-            // 2011's report screen numbers its own rules: only the jag-era
-            // client sending one past the last means a modified client.
+            // 2011's report screen numbers its own rules (fourteen: 2011 wiki,
+            // Chat, 2011-05-21): only the jag-era client sending one past the
+            // last means a modified client.
             #[cfg(before_647)]
             active.auto_ban(AutoBan::ReportReason);
             return Ok(());

@@ -137,8 +137,9 @@ impl ActiveNpc {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] as u8,
             self.npc.stats.base_levels[NpcStat::Hitpoints as usize] as u8,
         );
-        // 2011's npc hitpoints are life points, which pass a byte, so the bar's
-        // fill is worked out here and sent as a share of 255.
+        // 2011's npc hitpoints are life points (2011 wiki, Constitution), which
+        // pass a byte, so the bar's fill is worked out here and sent as a share
+        // of 255.
         #[cfg(since_647)]
         let (remaining, base) = {
             let current = self.npc.stats.levels[NpcStat::Hitpoints as usize] as u32;

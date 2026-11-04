@@ -1,11 +1,11 @@
-//! Falador's 2011 guards fight as 289's guards, with 2011's animations.
+//! Falador's 2011 guards fight as 289's guards, with void-634's animations.
 //!
 //! 2011 re-issued 289's Falador guards under new ids. void-634 records 3229-
 //! 3233 as clones of 3228, which takes 289's guard as the one of its name and
 //! level; the clones had no config of their own, so they fought with the
 //! param default, an unarmed punch, and no 289 stats (user-reported). 3229 is
-//! 2011's crossbow guard (void-634 `guard_xbow`), 289's `guard2`: it fights at
-//! range with 2011's crossbow animation (4230) and a bolt.
+//! void-634's crossbow guard (`guard_xbow`), 289's `guard2`: it fights at
+//! range with void-634's crossbow animation (4230) and a bolt.
 //! `OPNPC2`: `g1_alt1(ctrl) ig2_alt1(npc index)`.
 
 #![cfg(since_647)]
@@ -64,8 +64,8 @@ fn falador_s_sword_guards_fight_as_289_s_guard() {
     });
 }
 
-/// 2011's crossbow guard (3229) is 289's guard2: ranged, 2011's crossbow
-/// animation, the bolt.
+/// void-634's crossbow guard (3229) is 289's guard2: ranged, void-634's
+/// crossbow animation, the bolt.
 #[test]
 fn falador_s_crossbow_guard_is_289_s_guard2() {
     runner::on_loaded_engine(|engine| {

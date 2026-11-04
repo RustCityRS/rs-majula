@@ -117,7 +117,7 @@ fn the_cook_s_choice_answers_the_option_clicked() {
             engine.cycle();
             texts.extend(settexts(&client.packets()));
         }
-        // 2011's second option (Cook's Assistant's rework; void-634 Cook).
+        // void-634 Cook's second option (after Cook's Assistant's rework).
         assert!(
             texts.iter().any(|t| t == "Can you make me a cake?"),
             "the player says the second option; sent {texts:?}"
