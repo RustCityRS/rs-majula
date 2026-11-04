@@ -97,9 +97,11 @@ if (npc_finduid(%macro_event_uid) = true) {
 return(enum(int, npc, general_macro_events, $event));
 
 [proc,macro_event_set_random]()(int)
-// 2011: every random event is a teleport, the Maze or the Mime. 289 gave a
-// rolled teleport event a quarter of the time and none above level 20 of the
-// Wilderness; the same holds for 2011's, which are all teleports.
+// 2011: every random event is a teleport (2011 wiki, Random events), and of
+// 289's only the Maze and the Mime remain (2011 has others, not ported). 289
+// gave a rolled teleport event a quarter of the time and none above level 20
+// of the Wilderness; that is kept for these, with no 2011 source found for
+// the odds or the Wilderness limit.
 if (random(4) ! 0 | ~wilderness_level(coord) > 20) {
     return(^no_macro_event);
 }

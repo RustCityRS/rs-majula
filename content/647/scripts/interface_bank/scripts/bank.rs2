@@ -137,7 +137,8 @@ if_setevents(bank_v2_side:com0, 0, 27, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op
 // 2011's client writes the bank's slot counts below it (clientscript 1465,
 // void-634 update_bank_slots), and its search starts unset (varc
 // 190, void-634 bank_search_reset: the Search button's op, clientscript 1472;
-// unset, the title shows a search for 'null').
+// unset, the title shows a search for 'null': clientscript 1479's "Bank of
+// RuneScape (search: '...')").
 ~bank_spaces_used;
 runclientscript(1465);
 sendvarc(190, 1);

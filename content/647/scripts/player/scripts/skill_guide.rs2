@@ -50,8 +50,9 @@ if (testbit(%skill_stat_flash, $bit) = ^true) {
 %skill_guide = add($menu, multiply($page, 1024));
 if_openmain(skill_guide_v2);
 
-// 2011's guide lists its sections down the left (components 10-24); each
-// shows the skill's section of that index.
+// 2011's guide lists its sections down the left (components 10-24; cache 786
+// gives component 25 the same "Open subsection" op, which nothing here
+// handles); each shows the skill's section of that index.
 [if_button,skill_guide_v2:section1] @change_skill_guide(0);
 [if_button,skill_guide_v2:section2] @change_skill_guide(1);
 [if_button,skill_guide_v2:section3] @change_skill_guide(2);

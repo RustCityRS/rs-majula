@@ -23,8 +23,10 @@
 // The grain slides down the chute
 
 // no varbits to control the visual state so we should check in both
-// 2011: every flour bin is a multiloc on %flour (varp 695), its base a millbase
-// (category); the client draws it full or empty, so it is one loc.
+// 2011: every flour bin these mills use is a multiloc on %flour (varp 695;
+// cache 786: millbase, 954, 36880, 52548), its base a millbase (category);
+// the client draws it full or empty, so it is one loc. One other, 22493 at
+// 3786,2825, turns on varbit 3405 instead.
 [oploc1,_millbase]
 @millbase_take;
 
@@ -63,7 +65,8 @@ if (inv_total(inv, empty_pot) < 1) {
 } else {
     inv_del(inv, empty_pot, 1);
     // 2011: Mill Lane's bin gives extra fine flour once Millie has set the
-    // millstones, during Cook's Assistant (void-634 Windmill).
+    // millstones, during Cook's Assistant (2011 wiki, Extra fine flour,
+    // 2011-05-19; void-634 Windmill, whose message this is).
     if (loc_type = loc_36880 & %cookquest = 1 & %cookquest_millie = ^true & inv_total(inv, extra_fine_flour) = 0) {
         inv_add(inv, extra_fine_flour, 1);
         %flour = sub(%flour, 1);
@@ -87,7 +90,8 @@ if (inv_total(inv, empty_pot) < 1) {
 
 [label,hopper_fill]
 if (last_useitem = grain) {
-    // 2011: Mill Lane's hopper, during Cook's Assistant (void-634 Windmill).
+    // 2011: Mill Lane's hopper, during Cook's Assistant: Millie first (2011
+    // wiki, Extra fine flour); the player's line is void-634 Windmill's.
     if (loc_type = hopper_36881 & %cookquest = 1) {
         if (%cookquest_millie = ^false) {
             ~chatplayer("<p,neutral>Hmm. I should probably ask that lady downstairs how I can make extra fine flour.");

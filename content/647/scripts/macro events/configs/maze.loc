@@ -1,7 +1,9 @@
 // 289's maze doors, from its cache-derived configs (_unpack/254/all.loc): a
 // door opens from the side its approach direction names (0 either side; 1
 // and 2 one side each, macro_event_maze.rs2), and the safe ones are 289's
-// one-way doors. 2011's maze keeps 289's locs at their ids.
+// one-way doors. 2011's maze keeps 289's locs at their ids (cache 786,
+// l45_71: the four safe doors on 289's tiles; its 45 low walls are laid out
+// differently).
 
 [macro_maze_walllow]
 desc=It looks very sturdy.

@@ -69,8 +69,11 @@ if(last_useitem = shears) {
 ~displaymessage(^dm_default);
 
 // 2011's other shearable sheep (cache 786: Shear on op1; void-634 sheep.npcs.toml),
-// as 289's unshorn sheep. 3579 is void's sheep_penguin, not a sheep at all:
-// it waits for its own port.
+// as 289's unshorn sheep. Not all of them: 5161-5163 and 8876 have Shear in
+// cache 786 too and no trigger here (8876 is void-634's black_sheep, which its
+// Sheep.kt shears only during the Sheep Shearer miniquest). 3579 (a "Sheep" with Talk-to in
+// cache 786) is void-634's sheep_penguin, not a sheep at all by void's
+// account: it waits for its own port.
 [opnpc1,sheep_1763] @shear_sheep_op1;
 [opnpc1,sheep_1765] @shear_sheep_op1;
 [opnpc1,sheep_5156] @shear_sheep_op1;

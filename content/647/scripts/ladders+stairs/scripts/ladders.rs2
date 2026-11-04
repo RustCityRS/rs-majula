@@ -178,8 +178,8 @@ if ($option = 1) {
 mes("Unhandled ladder: <~coord_tostring($loccoord)>");
 
 // 289's Castle Wars ladders (4911, 4912) are other locs at 2011, whose
-// rebuilt castles climb by ladders 36347-36365 and 36693-36694 (map
-// 37_48): they wait for the Castle Wars port.
+// castles climb by ladders 36347, 36349, 36363, 36365, 36693 and 36694 (map
+// 37_48; no source found for a rebuild): they wait for the Castle Wars port.
 // [oploc1,castlewars_laddertop]
 // p_arrivedelay;
 // ~climb_ladder(movecoord(coord, 0, -1, 0), true);

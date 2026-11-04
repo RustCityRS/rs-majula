@@ -67,8 +67,10 @@ p_pausebutton;
 // }
 // 2011's level-up box tells the player what a level unlocks is in the stats
 // tab ("Open your stats menu and click on the flashing icon for more
-// information."), and 2011 shows no unlock messages after it: 289's
-// levelup_unlocks_*.rs2 are not applicable (tools/port_289_not_applicable.tsv).
+// information.", interface 740 in cache 786), where the level-up messages are
+// read (2011 wiki, Update:Level-up Messages, 21 May 2008); so this shows no
+// unlock messages after it: 289's levelup_unlocks_*.rs2 are not applicable
+// (tools/port_289_not_applicable.tsv).
 // jump(~levelup_unlocks($stat));
 
 // 2011: the stat's bit of %skill_stat_flash (varp 1179) lights its icon in the

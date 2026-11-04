@@ -1,7 +1,9 @@
 //! 289's mill at 2011's Mill Lane Mill.
 //!
-//! 2011 rebuilt the Lumbridge mill under new ids: hopper 36881 and controls
-//! 2718 on the top floor, flour bin 36880 on the ground floor. Every 2011 flour
+//! 2011 has the Lumbridge mill's hopper and flour bin under new ids (cache
+//! 786; the 2011 wiki's Mill Lane Mill page shows it after a graphical
+//! rework): hopper 36881 on the top floor, beside the controls, which keep
+//! 289's 2718, and flour bin 36880 on the ground floor. Every 2011 flour
 //! bin but one is a multiloc on varp 695, 289's `%flour` (22493 at 3786,2825
 //! turns on varbit 3405), so the client draws it full or empty and 289's loc
 //! changes go. `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl)

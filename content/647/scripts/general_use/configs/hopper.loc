@@ -3,21 +3,21 @@
 // [hopper_full]
 // desc=Grain goes in here.
 
-// 2011 has this mill's locs under new ids (cache 786; 2011 wiki, Mill Lane
+// 2011 has this mill's hopper under a new id (cache 786; 2011 wiki, Mill Lane
 // Mill, page of 2010-10-16: a graphical rework); 289's id is another loc at
 // 2011.
 // [hopper_lumbridge]
 // desc=Grain goes in here.
 // category=hopper_nonfull
 
-// 2011 has this mill's locs under new ids (cache 786); 289's id is another
-// loc at 2011.
+// 2011 has this loc under a new id (cache 786); 289's id is another loc at
+// 2011.
 // [hopper_varrock]
 // desc=Grain goes in here.
 // category=hopper_nonfull
 
-// 2011 has this mill's locs under new ids (cache 786); 289's id is another
-// loc at 2011.
+// 2011 has this loc under a new id (cache 786); 289's id is another loc at
+// 2011.
 // [hopper_zanaris]
 // desc=Grain goes in here.
 // category=hopper_nonfull
@@ -32,16 +32,16 @@ category=hoppercontrol
 param=millbase_coord,0_49_51_30_43
 param=hopper_coord,2_49_51_30_43
 
-// 2011 has this mill's locs under new ids (cache 786); 289's id is another
-// loc at 2011.
+// 2011 has this loc under a new id (cache 786); 289's id is another loc at
+// 2011.
 // [hopperlevers2]
 // desc=These control the flow of grain from the hopper to the millstones.
 // category=hoppercontrol
 // param=millbase_coord,0_49_53_3_58
 // param=hopper_coord,2_49_53_4_58
 
-// 2011 has this mill's locs under new ids (cache 786); 289's id is another
-// loc at 2011.
+// 2011 has this loc under a new id (cache 786); 289's id is another loc at
+// 2011.
 // [hopperlevers3]
 // desc=These control the flow of grain from the hopper to the millstones.
 // category=hoppercontrol
@@ -57,9 +57,12 @@ param=hopper_coord,2_41_52_8_58
 // 289's hoppercontrol_inuse (2722) is configured whole in donor/configs/donor.loc:
 // cache 786 does not carry it.
 
-// 2011's mills: Mill Lane's (Lumbridge), the Cooks' Guild's and Zanaris's hoppers,
-// controls and flour bins have new ids; Ardougne's keep 289's (hopper,
-// hopperlevers4, millbase). Every flour bin is a multiloc on %flour.
+// 2011's mills: Mill Lane's (Lumbridge), the Cooks' Guild's and Zanaris's
+// hoppers and flour bins have new ids, and the latter two's controls (24072,
+// 52552); Mill Lane's controls keep 289's 2718 (hopper_controls), and
+// Ardougne's keep 289's (hopper, hopperlevers4, millbase) (cache 786). Every
+// flour bin of these mills is a multiloc on %flour (cache 786; 22493 at
+// 3786,2825, another mill's, is on varbit 3405).
 [hopper_36881]
 desc=Grain goes in here.
 category=hopper_nonfull

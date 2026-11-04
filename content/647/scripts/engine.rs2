@@ -301,7 +301,8 @@
 [command,if_settabactive](int $tab)
 // info: Change the secondary player's open side tab
 [command,.if_settabactive](int $tab)
-// info: Open the top-level game frame (fixed=548 / resize=746 / fullscreen=747).
+// info: Open the top-level game frame (fixed=548 / resizable and full
+// screen=746, toplevel_fullscreen; 747 is the summoning orb, not a frame).
 // Note: 647 names this `if_opentop`; 2004scape called it `if_openmain` at the
 // same opcode (2036). The real `if_openmain` (sub on the main viewport) is a
 // separate command — see opcode 5011 below.

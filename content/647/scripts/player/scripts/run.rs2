@@ -1,7 +1,8 @@
 // The run orb (topstat_run, interface 750). At 647 the orb replaces 289's two
 // controls-tab buttons (interface_controls/scripts/player_controls.rs2, com_4
 // off and com_5 on) with one: op1 toggles, its label flipping between "Turn
-// Run mode on" and "off" client-side. op2 "Rest" is not handled here.
+// run mode on" and "off" client-side (clientscript 1741, from varp 173). op2
+// "Rest" is not handled here.
 //
 // Running out of energy turns run off in the engine (Player::update_energy),
 // which pushes %option_run back to the orb itself.

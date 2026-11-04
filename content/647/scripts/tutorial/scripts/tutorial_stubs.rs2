@@ -2,7 +2,9 @@
 // tutorial hooks as 289 wrote them; these stand in until the tutorial comes
 // across. Port the tutorial, then delete what it replaces here.
 
-// 289's util.rs2, unchanged: 2011's island and its dungeon are where 289's are.
+// 289's util.rs2, unchanged: 2011's island and its dungeon are where 289's are
+// (cache 786's map squares), though 2011 no longer uses them (Unstable
+// Foundations replaced Tutorial Island on 17 September 2009: 2011 wiki).
 [proc,in_tutorial_island](coord $coord)(boolean)
 if (inzone(0_47_47_45_48, 3_49_49_20_0, $coord) = true) {
     // taken from client code: x >= 3053 && x <= 3156 && z >= 3056 && z <= 3136

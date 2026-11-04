@@ -89,8 +89,9 @@ fn lumbridge_castle_s_2011_staircase_climbs_a_floor() {
     });
 }
 
-/// 289 climbs Etceteria castle's stairs as its generic `stairs` (1722); 2011's
-/// there are spiral stairs, up (1738) and down (1740), on 289's tiles.
+/// Etceteria castle's stairs are spiral stairs, up (1738) and down (1740), on
+/// the same tiles at 289 and 2011, and 289 climbs them as `spiralstairs` and
+/// `spiralstairstop`.
 #[test]
 fn etceteria_castle_s_2011_spiral_stairs_climb_as_289_s() {
     runner::on_loaded_engine(|engine| {
