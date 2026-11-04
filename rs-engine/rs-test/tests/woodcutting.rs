@@ -214,7 +214,8 @@ fn chop(case: Chop) {
 }
 
 /// A loc's 647 id by its name in `content/647/pack/loc.pack` (the server
-/// loads 647 locs from the cache's data alone, which carries no names).
+/// loads 647 locs from the cache's data alone, which carries their display
+/// names but not these debug names).
 fn loc_id(name: &str) -> u16 {
     let pack = concat!(
         env!("CARGO_MANIFEST_DIR"),

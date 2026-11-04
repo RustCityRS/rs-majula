@@ -1,5 +1,5 @@
 //! Every Treasure Trail search spot 289 names has a searchable loc in 2011's
-//! map.
+//! map, but for the two in `OPEN` below.
 //!
 //! 289's search steps check a clue's `trail_coord` against the loc searched
 //! (`general_use` chests, crates and drawers), and its riddles name a few
@@ -45,8 +45,9 @@ const NAMED: [&str; 7] = [
 ];
 
 /// Spots with no searchable loc of the clue's kind near 289's in 2011's map,
-/// which the 2011 wiki still names (Treasure Trails/Guide/Cryptics): where
-/// 2011 put them is not yet known.
+/// which the 2011 wiki still names (Treasure Trails/Guide/Cryptics, the
+/// church crate; Treasure Trails/Guide/Simple clues, the Falador drawers):
+/// where 2011 put them is not yet known.
 const OPEN: [(&str, &str); 2] = [
     (
         "trail_clue_easy_vague004",

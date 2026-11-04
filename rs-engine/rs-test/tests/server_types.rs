@@ -2,7 +2,7 @@
 //!
 //! 2011's cache gives many npc and loc ops as memberops (opcodes 150-154: the
 //! client shows them in their slot on a members world, hides them on a free
-//! one): 154 npc ops, 115 of them Pickpocket, and 985 loc ops, among them the
+//! one): 154 npc ops, 84 of them Pickpocket, and 985 loc ops, among them the
 //! farming patches' Inspect, Harvest and Clear. The server refuses an op its
 //! own type lacks (`handlers/opnpc.rs`, `handlers/oploc.rs`), and it had none
 //! of them: the npc packer wrote memberops to the client's config only, and

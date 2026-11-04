@@ -114,8 +114,10 @@ fn shear_takes_wool_with_shears_and_asks_for_them_without() {
     });
 }
 
-/// 2011's other shearable sheep shear as 289's do, to their own shorn sheep:
-/// Lumbridge's sheep_1765 (eight in the pen) to 1764 (void-634's pair).
+/// Most of 2011's other shearable sheep shear as 289's do, to their own shorn
+/// sheep (not 3579, 5161-5163 or 8876, which have Shear in cache 786 but no
+/// trigger): Lumbridge's sheep_1765 (four in the pen in void-634's spawns;
+/// the cache's own spawns hold none) to 1764 (void-634's pair).
 #[test]
 fn a_2011_sheep_shears_to_its_own_shorn_sheep() {
     runner::on_loaded_engine(|engine| {

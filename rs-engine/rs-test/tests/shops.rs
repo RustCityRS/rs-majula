@@ -352,8 +352,9 @@ fn a_closed_shop_stops_going_to_the_client_and_reopens_whole() {
 }
 
 /// 289's Karamja general store (`generalshop7`, 2011's inventory 34) is kept
-/// at 2011's rebuilt Musa Point by Shopkeeper Kofi (npc 11674): 289's own
-/// keepers, 532 and 533, are 2011's gravecreepers.
+/// at 2011's Musa Point by Shopkeeper Kofi (npc 11674; no source found for a
+/// rebuild of the store): 289's own keepers, 532 and 533, are 2011's
+/// gravecreepers.
 #[test]
 fn kofi_keeps_289_s_karamja_general_store() {
     runner::on_loaded_engine(|engine| {

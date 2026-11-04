@@ -1,10 +1,12 @@
 //! Smelting and anvil smithing from 289, at 2011's furnaces and anvils.
 //!
-//! Lumbridge's furnace (loc 45310 at 3226,3256, from the 2009 rebuild) smelts
-//! on op2, as 289's furnaces do (OPLOC2: `ip2(loc) p1_alt1(ctrl) p2_alt1(z)
-//! ip2_alt1(x)`). 2011 asks which bar in its make-X dialogue (skillmulti2010,
-//! 905, with its number panel 916), where 289 opened its own smelting
-//! interface: the amount first (IF_BUTTON1 `p4(com) ip2_alt1(obj)
+//! Lumbridge's furnace (loc 45310 at 3226,3256; no source found for when it
+//! came) smelts on op2, as 289's furnaces do (OPLOC2: `ip2(loc) p1_alt1(ctrl)
+//! p2_alt1(z) ip2_alt1(x)`). The port asks which bar in the make-X dialogue
+//! (skillmulti2010, 905, with its number panel 916), as void-634's Furnace.kt
+//! does (no 2011 source found; cache 786 still has a 289-style smelting
+//! interface, 941), where 289 opened its own smelting interface: the amount
+//! first (IF_BUTTON1 `p4(com) ip2_alt1(obj)
 //! ip2(slot)`), then the bar, a pause button (RESUME_PAUSEBUTTON `p2(slot)
 //! p4_alt2(com)`). A bronze bar takes a copper and a tin ore and pays 6.2
 //! xp, which 2011's xp counter (varp 1801, in tenths) counts.
