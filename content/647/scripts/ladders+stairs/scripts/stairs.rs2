@@ -232,6 +232,9 @@ switch_coord (loc_coord) {
     case 0_53_54_25_36 : p_telejump(1_53_54_24_37); // Paterdomus Temple - Ground Floor (North)
     case 0_53_54_25_28 : p_telejump(1_53_54_24_29); // Paterdomus Temple - Ground Floor (South)
     case 0_54_54_45_19 : p_telejump(1_54_54_44_20); // Canifis Hair of the Dog Tavern
+    // 289 climbs Etceteria castle's ground-floor stairs as `stairs` (1722);
+    // 2011's are spiral stairs here (1738, map 40_60).
+    case 0_40_60_53_27 : p_telejump(1_40_60_55_27); // Etceteria castle - ground floor
     case default : @unhandled_stairs(loc_coord);
 }
 
@@ -337,6 +340,9 @@ switch_coord (loc_coord) {
     case 1_53_54_25_37 : p_telejump(0_53_54_25_38); // Paterdomus Temple - Level 1 (North)
     case 1_53_54_25_29 : p_telejump(0_53_54_25_30); // Paterdomus Temple - Level 1 (South)
     case 1_54_54_45_20 : p_telejump(0_54_54_45_21); // Canifis Hair of the Dog Tavern
+    // 289 climbs Etceteria castle's level-1 stairs as `stairs` (1722); 2011's
+    // are spiral stairs here (1740, map 40_60).
+    case 1_40_60_54_27 : p_telejump(0_40_60_54_26); // Etceteria castle - level 2
     case default : @unhandled_stairs(loc_coord);
 }
 
@@ -503,3 +509,37 @@ if (~loc_tele_2011(0) = true) {
 }
 mes("Unhandled stairs: <lc_debugname(loc_type)> at");
 mes(~coord_tostring($coord)); // split line because its so hard to see the coord
+
+// 289's Miscellania castle stairs: 2011 has the same loc (1743) at the same
+// tiles (map 39_60).
+[oploc1,spiralstairsmiddle_wooden]
+// Climb - Miscellania Castle stairs
+switch_coord (loc_coord) {
+    case 1_39_60_9_8 : @stair_options(movecoord(coord, 0, 1, 0), movecoord(coord, 0, -1, 0));
+    case 1_39_60_9_31 : @stair_options(movecoord(coord, 0, 1, 0), movecoord(coord, 0, -1, 0));
+    case 2_39_60_9_8 : @stair_options(movecoord(coord, 0, 1, 0), movecoord(coord, 0, -1, 0));
+    case 2_39_60_9_31 : @stair_options(movecoord(coord, 0, 1, 0), movecoord(coord, 0, -1, 0));
+    case default : @unhandled_stairs(loc_coord);
+}
+
+[oploc2,spiralstairsmiddle_wooden]
+// Climb up - Miscellania Castle stairs
+p_arrivedelay;
+switch_coord (loc_coord) {
+    case 1_39_60_9_8 : p_telejump(movecoord(coord, 0, 1, 0));
+    case 1_39_60_9_31 : p_telejump(movecoord(coord, 0, 1, 0));
+    case 2_39_60_9_8 : p_telejump(movecoord(coord, 0, 1, 0));
+    case 2_39_60_9_31 : p_telejump(movecoord(coord, 0, 1, 0));
+    case default : @unhandled_stairs(loc_coord);
+}
+
+[oploc3,spiralstairsmiddle_wooden]
+// Climb down - Miscellania Castle stairs
+p_arrivedelay;
+switch_coord (loc_coord) {
+    case 1_39_60_9_8 : p_telejump(movecoord(coord, 0, -1, 0));
+    case 1_39_60_9_31 : p_telejump(movecoord(coord, 0, -1, 0));
+    case 2_39_60_9_8 : p_telejump(movecoord(coord, 0, -1, 0));
+    case 2_39_60_9_31 : p_telejump(movecoord(coord, 0, -1, 0));
+    case default : @unhandled_stairs(loc_coord);
+}

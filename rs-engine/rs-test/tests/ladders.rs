@@ -22,6 +22,16 @@ fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
+/// `OPLOC2`: `ip2(loc) p1_alt1(ctrl) p2_alt1(z) ip2_alt1(x)`.
+fn op_loc2(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.ip2(loc as i32)
+        .p1_alt1(0)
+        .p2_alt1(z as i32)
+        .ip2_alt1(x as i32);
+    client.send(ClientProt::OpLoc2, &p.finish());
+}
+
 fn coord(engine: &Engine, pid: u16) -> (u16, u8, u16) {
     let c = engine.harness_player(pid).unwrap().pathing.coord;
     (c.x(), c.y(), c.z())
@@ -76,5 +86,50 @@ fn lumbridge_castle_s_2011_staircase_climbs_a_floor() {
         }
         let (_, y, _) = coord(engine, client.pid);
         assert_eq!(y, 1, "on the first floor");
+    });
+}
+
+/// 289 climbs Etceteria castle's stairs as its generic `stairs` (1722); 2011's
+/// there are spiral stairs, up (1738) and down (1740), on 289's tiles.
+#[test]
+fn etceteria_castle_s_2011_spiral_stairs_climb_as_289_s() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = climber(engine, "etceteria", 2613, 0, 3866);
+        op_loc1(&mut client, 1738, 2613, 3867);
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        assert_eq!(
+            coord(engine, client.pid),
+            (2615, 1, 3867),
+            "up to 289's tile"
+        );
+
+        // From where the climb up lands.
+        let mut client = climber(engine, "etceteria2", 2615, 1, 3867);
+        op_loc1(&mut client, 1740, 2614, 3867);
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        assert_eq!(
+            coord(engine, client.pid),
+            (2614, 0, 3866),
+            "down to 289's tile"
+        );
+    });
+}
+
+/// Miscellania castle's middle stairs (1743) stand on 289's tiles at 2011:
+/// Climb-up (op2) takes the player up a floor, as 289's script does.
+#[test]
+fn miscellania_castle_s_stairs_climb_up() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = climber(engine, "miscellania", 2505, 1, 3847);
+        op_loc2(&mut client, 1743, 2505, 3848);
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        let (_, y, _) = coord(engine, client.pid);
+        assert_eq!(y, 2, "a floor up");
     });
 }
