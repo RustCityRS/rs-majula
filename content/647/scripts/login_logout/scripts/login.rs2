@@ -19,6 +19,12 @@ if (%life_points < 1 | %life_points > $hp_max) {
     %life_points = $hp_max;
 }
 // 289's login hooks (login_logout/login.rs2), as their systems are ported.
+// Music: nothing plays yet, so the square's [mapzone] plays its track
+// (music.rs2). 289's %musicplay = 1 (Auto) went with 2011's music player's
+// buttons; 2011's song end and automatic unlocks start here instead.
+%currentsong = null;
+softtimer(music_end, 1);
+~music_unlock_automatic;
 ~thieving_stall_timers_login;
 // random event timer
 settimer(general_macro_events, 500);

@@ -1,3813 +1,5382 @@
+// 2011's music player list (cache 786): each track by its index (playbutton),
+// its name (enum 1345), its unlock (music.varp: musicmulti_<index / 32 + 1>,
+// bit index % 32; none for 864-895, clientscript 837) and its song (enum
+// 1351), by its midi.pack name or, where midi.pack names none, its id. The
+// tracks the list shows (enum 1351 not silence, enum 1350 not hidden;
+// clientscript 828), and one more a music region plays.
+
 [music_Adventure]
 table=music
 data=name,Adventure
 data=playbutton,0
-data=unlock,20,0
+data=unlock,1,0
+data=track,adventure
 
 [music_Al_Kharid]
 table=music
 data=name,Al Kharid
 data=playbutton,1
-data=unlock,20,1
+data=unlock,1,1
+data=track,al kharid
 
 [music_Alone]
 table=music
 data=name,Alone
 data=playbutton,2
-data=unlock,20,2
+data=unlock,1,2
+data=track,alone
 
 [music_Ambient_Jungle]
 table=music
 data=name,Ambient Jungle
 data=playbutton,3
-data=unlock,20,3
+data=unlock,1,3
+data=track,ambient jungle
 
 [music_Arabian]
 table=music
 data=name,Arabian
 data=playbutton,4
-data=unlock,20,4
+data=unlock,1,4
+data=track,arabian
 
 [music_Arabian2]
 table=music
 data=name,Arabian2
 data=playbutton,5
-data=unlock,20,5
+data=unlock,1,5
+data=track,arabian2
 
 [music_Arabian3]
 table=music
 data=name,Arabian3
 data=playbutton,6
-data=unlock,20,6
+data=unlock,1,6
+data=track,arabian3
 
 [music_Arabique]
 table=music
 data=name,Arabique
 data=playbutton,7
-data=unlock,20,7
+data=unlock,1,7
+data=track,arabique
 
 [music_Army_Of_Darkness]
 table=music
-data=name,Army Of Darkness
+data=name,Army of Darkness
 data=playbutton,8
-data=unlock,20,8
+data=unlock,1,8
+data=track,army of darkness
 
 [music_Arrival]
 table=music
 data=name,Arrival
 data=playbutton,9
-data=unlock,20,9
+data=unlock,1,9
+data=track,arrival
 
 [music_Attack1]
 table=music
 data=name,Attack1
 data=playbutton,10
-data=unlock,20,10
+data=unlock,1,10
+data=track,attack1
 
 [music_Attack2]
 table=music
 data=name,Attack2
 data=playbutton,11
-data=unlock,20,11
+data=unlock,1,11
+data=track,attack2
 
 [music_Attack3]
 table=music
 data=name,Attack3
 data=playbutton,12
-data=unlock,20,12
+data=unlock,1,12
+data=track,attack3
 
 [music_Attack4]
 table=music
 data=name,Attack4
 data=playbutton,13
-data=unlock,20,13
+data=unlock,1,13
+data=track,attack4
 
 [music_Attack5]
 table=music
 data=name,Attack5
 data=playbutton,14
-data=unlock,20,14
+data=unlock,1,14
+data=track,attack5
 
 [music_Attack6]
 table=music
 data=name,Attack6
 data=playbutton,15
-data=unlock,20,15
+data=unlock,1,15
+data=track,attack6
 
 [music_Attention]
 table=music
 data=name,Attention
 data=playbutton,16
-data=unlock,20,16
+data=unlock,1,16
+data=track,attention
 
 [music_Autumn_Voyage]
 table=music
 data=name,Autumn Voyage
 data=playbutton,17
-data=unlock,20,17
+data=unlock,1,17
+data=track,autumn voyage
 
 [music_Background]
 table=music
 data=name,Background
 data=playbutton,18
-data=unlock,20,18
+data=unlock,1,18
+data=track,background
 
 [music_Ballad_Of_Enchantment]
 table=music
-data=name,Ballad Of Enchantment
+data=name,Ballad of Enchantment
 data=playbutton,19
-data=unlock,20,19
+data=unlock,1,19
+data=track,ballad of enchantment
 
 [music_Baroque]
 table=music
 data=name,Baroque
 data=playbutton,20
-data=unlock,20,20
+data=unlock,1,20
+data=track,baroque
 
 [music_Beyond]
 table=music
 data=name,Beyond
 data=playbutton,21
-data=unlock,20,21
+data=unlock,1,21
+data=track,beyond
 
 [music_Big_Chords]
 table=music
 data=name,Big Chords
 data=playbutton,22
-data=unlock,20,22
+data=unlock,1,22
+data=track,big chords
 
 [music_Book_Of_Spells]
 table=music
-data=name,Book Of Spells
+data=name,Book of Spells
 data=playbutton,23
-data=unlock,20,23
+data=unlock,1,23
+data=track,book of spells
 
 [music_Camelot]
 table=music
 data=name,Camelot
 data=playbutton,24
-data=unlock,20,24
+data=unlock,1,24
+data=track,camelot
 
 [music_Cave_Background]
 table=music
 data=name,Cave Background
 data=playbutton,25
-data=unlock,20,25
+data=unlock,1,25
+data=track,cave background
 
 [music_Cavern]
 table=music
 data=name,Cavern
 data=playbutton,26
-data=unlock,20,26
+data=unlock,1,26
+data=track,cavern
 
 [music_Chain_Of_Command]
 table=music
-data=name,Chain Of Command
+data=name,Chain of Command
 data=playbutton,27
-data=unlock,20,27
+data=unlock,1,27
+data=track,chain of command
 
 [music_Crystal_Cave]
 table=music
 data=name,Crystal Cave
 data=playbutton,28
-data=unlock,20,28
+data=unlock,1,28
+data=track,crystal cave
 
 [music_Crystal_Sword]
 table=music
 data=name,Crystal Sword
 data=playbutton,29
-data=unlock,20,29
+data=unlock,1,29
+data=track,crystal sword
 
 [music_Dangerous]
 table=music
 data=name,Dangerous
 data=playbutton,30
-data=unlock,20,30
+data=unlock,1,30
+data=track,dangerous
 
 [music_Dark]
 table=music
 data=name,Dark
 data=playbutton,31
-data=unlock,20,31
+data=unlock,1,31
+data=track,dark
 
 [music_Deep_Wildy]
 table=music
 data=name,Deep Wildy
 data=playbutton,32
-data=unlock,21,0
+data=unlock,2,0
+data=track,deep wildy
 
 [music_Desert_Voyage]
 table=music
 data=name,Desert Voyage
 data=playbutton,33
-data=unlock,21,1
+data=unlock,2,1
+data=track,desert voyage
 
 [music_Doorways]
 table=music
 data=name,Doorways
 data=playbutton,34
-data=unlock,21,2
+data=unlock,2,2
+data=track,doorways
 
 [music_Dream]
 table=music
 data=name,Dream
 data=playbutton,35
-data=unlock,21,3
+data=unlock,2,3
+data=track,dream
 
 [music_Dunjun]
 table=music
 data=name,Dunjun
 data=playbutton,36
-data=unlock,21,4
+data=unlock,2,4
+data=track,dunjun
 
 [music_Egypt]
 table=music
 data=name,Egypt
 data=playbutton,37
-data=unlock,21,5
+data=unlock,2,5
+data=track,egypt
 
 [music_Emotion]
 table=music
 data=name,Emotion
 data=playbutton,38
-data=unlock,21,6
+data=unlock,2,6
+data=track,emotion
 
 [music_Emperor]
 table=music
 data=name,Emperor
 data=playbutton,39
-data=unlock,21,7
+data=unlock,2,7
+data=track,emperor
 
 [music_Expanse]
 table=music
 data=name,Expanse
 data=playbutton,40
-data=unlock,21,8
+data=unlock,2,8
+data=track,expanse
 
 [music_Expecting]
 table=music
 data=name,Expecting
 data=playbutton,41
-data=unlock,21,9
+data=unlock,2,9
+data=track,expecting
 
 [music_Expedition]
 table=music
 data=name,Expedition
 data=playbutton,42
-data=unlock,21,10
+data=unlock,2,10
+data=track,expedition
 
 [music_Faerie]
 table=music
 data=name,Faerie
 data=playbutton,43
-data=unlock,21,11
+data=unlock,2,11
+data=track,faerie
 
 [music_Fanfare]
 table=music
 data=name,Fanfare
 data=playbutton,44
-data=unlock,21,12
+data=unlock,2,12
+data=track,fanfare
 
 [music_Fanfare3]
 table=music
 data=name,Fanfare3
 data=playbutton,45
+data=unlock,2,13
+data=track,fanfare3
 
 [music_Fishing]
 table=music
 data=name,Fishing
 data=playbutton,46
-data=unlock,21,14
+data=unlock,2,14
+data=track,fishing
 
 [music_Flute_Salad]
 table=music
 data=name,Flute Salad
 data=playbutton,47
-data=unlock,21,15
+data=unlock,2,15
+data=track,flute salad
 
 [music_Forever]
 table=music
 data=name,Forever
 data=playbutton,48
-data=unlock,21,16
+data=unlock,2,16
+data=track,forever
 
 [music_Gaol]
 table=music
 data=name,Gaol
 data=playbutton,49
-data=unlock,21,17
+data=unlock,2,17
+data=track,gaol
 
 [music_Garden]
 table=music
 data=name,Garden
 data=playbutton,50
-data=unlock,21,18
+data=unlock,2,18
+data=track,garden
 
 [music_Gnome_King]
 table=music
 data=name,Gnome King
 data=playbutton,51
-data=unlock,21,19
+data=unlock,2,19
+data=track,gnome king
 
 [music_Dwarf_Theme]
 table=music
 data=name,Dwarf Theme
 data=playbutton,52
-data=unlock,21,20
+data=unlock,2,20
+data=track,gnome theme
 
 [music_Gnome_Village]
 table=music
 data=name,Gnome Village
 data=playbutton,53
-data=unlock,21,21
+data=unlock,2,21
+data=track,gnome village
 
 [music_Gnome_Village2]
 table=music
 data=name,Gnome Village2
 data=playbutton,54
-data=unlock,21,22
+data=unlock,2,22
+data=track,gnome village2
 
 [music_Goblin_Village]
 table=music
 data=name,Goblin Village
 data=playbutton,55
-data=unlock,21,23
+data=unlock,2,23
+data=track,gnome
 
 [music_Gnomeball]
 table=music
 data=name,Gnomeball
 data=playbutton,56
-data=unlock,21,24
+data=unlock,2,24
+data=track,gnomeball
 
 [music_Greatness]
 table=music
 data=name,Greatness
 data=playbutton,57
-data=unlock,21,25
+data=unlock,2,25
+data=track,greatness
 
 [music_Harmony]
 table=music
 data=name,Harmony
 data=playbutton,58
-data=unlock,21,26
+data=unlock,2,26
+data=track,harmony
 
 [music_High_Seas]
 table=music
 data=name,High Seas
 data=playbutton,59
-data=unlock,21,27
+data=unlock,2,27
+data=track,high seas
 
 [music_Horizon]
 table=music
 data=name,Horizon
 data=playbutton,60
-data=unlock,21,28
+data=unlock,2,28
+data=track,horizon
 
 [music_Iban]
 table=music
 data=name,Iban
 data=playbutton,61
-data=unlock,21,29
+data=unlock,2,29
+data=track,iban
 
 [music_In_The_Manor]
 table=music
-data=name,In The Manor
+data=name,In the Manor
 data=playbutton,62
-data=unlock,21,30
+data=unlock,2,30
+data=track,in the manor
 
 [music_Inspiration]
 table=music
 data=name,Inspiration
 data=playbutton,63
-data=unlock,21,31
+data=unlock,2,31
+data=track,inspiration
 
 [music_Intrepid]
 table=music
 data=name,Intrepid
 data=playbutton,64
-data=unlock,22,0
+data=unlock,3,0
+data=track,intrepid
 
 [music_Jolly_R]
 table=music
-data=name,Jolly-r
+data=name,Jolly-R
 data=playbutton,65
+data=unlock,3,1
+data=track,jollyr
 
 [music_Jungle_Island]
 table=music
 data=name,Jungle Island
 data=playbutton,66
-data=unlock,22,2
+data=unlock,3,2
+data=track,jungle island
 
 [music_Jungly1]
 table=music
 data=name,Jungly1
 data=playbutton,67
-data=unlock,22,3
+data=unlock,3,3
+data=track,jungly1
 
 [music_Jungly2]
 table=music
 data=name,Jungly2
 data=playbutton,68
-data=unlock,22,4
+data=unlock,3,4
+data=track,jungly2
 
 [music_Jungly3]
 table=music
 data=name,Jungly3
 data=playbutton,69
-data=unlock,22,5
+data=unlock,3,5
+data=track,jungly3
 
 [music_Knightly]
 table=music
 data=name,Knightly
 data=playbutton,70
-data=unlock,22,6
+data=unlock,3,6
+data=track,knightly
 
 [music_Lasting]
 table=music
 data=name,Lasting
 data=playbutton,71
-data=unlock,22,7
+data=unlock,3,7
+data=track,lasting
 
 [music_Legion]
 table=music
 data=name,Legion
 data=playbutton,72
-data=unlock,22,8
+data=unlock,3,8
+data=track,legion
 
 [music_Lightness]
 table=music
 data=name,Lightness
 data=playbutton,73
-data=unlock,22,9
+data=unlock,3,9
+data=track,lightness
 
 [music_Lightwalk]
 table=music
 data=name,Lightwalk
 data=playbutton,74
-data=unlock,22,10
+data=unlock,3,10
+data=track,lightwalk
 
 [music_Long_Ago]
 table=music
 data=name,Long Ago
 data=playbutton,75
-data=unlock,22,11
+data=unlock,3,11
+data=track,long ago
 
 [music_Long_Way_Home]
 table=music
 data=name,Long Way Home
 data=playbutton,76
-data=unlock,22,12
+data=unlock,3,12
+data=track,long way home
 
 [music_Lullaby]
 table=music
 data=name,Lullaby
 data=playbutton,77
-data=unlock,22,13
+data=unlock,3,13
+data=track,lullaby
 
 [music_Mage_Arena]
 table=music
 data=name,Mage Arena
 data=playbutton,78
-data=unlock,22,14
+data=unlock,3,14
+data=track,mage arena
 
 [music_Magic_Dance]
 table=music
 data=name,Magic Dance
 data=playbutton,79
-data=unlock,22,15
+data=unlock,3,15
+data=track,magic dance
 
 [music_Magical_Journey]
 table=music
 data=name,Magical Journey
 data=playbutton,80
-data=unlock,22,16
+data=unlock,3,16
+data=track,magical journey
 
 [music_March]
 table=music
 data=name,March
 data=playbutton,81
-data=unlock,22,17
+data=unlock,3,17
+data=track,march
 
 [music_Medieval]
 table=music
 data=name,Medieval
 data=playbutton,82
-data=unlock,22,18
+data=unlock,3,18
+data=track,medieval
 
 [music_Mellow]
 table=music
 data=name,Mellow
 data=playbutton,83
-data=unlock,22,19
+data=unlock,3,19
+data=track,mellow
 
 [music_Miles_Away]
 table=music
 data=name,Miles Away
 data=playbutton,84
-data=unlock,22,20
+data=unlock,3,20
+data=track,miles away
 
 [music_Miracle_Dance]
 table=music
 data=name,Miracle Dance
 data=playbutton,85
-data=unlock,22,21
+data=unlock,3,21
+data=track,miracle dance
 
 [music_Monarch_Waltz]
 table=music
 data=name,Monarch Waltz
 data=playbutton,86
-data=unlock,22,22
+data=unlock,3,22
+data=track,monarch waltz
 
 [music_Moody]
 table=music
 data=name,Moody
 data=playbutton,87
-data=unlock,22,23
+data=unlock,3,23
+data=track,moody
 
 [music_Neverland]
 table=music
 data=name,Neverland
 data=playbutton,88
-data=unlock,22,24
+data=unlock,3,24
+data=track,neverland
 
 [music_Newbie_Melody]
 table=music
 data=name,Newbie Melody
 data=playbutton,89
-data=unlock,22,25
+data=unlock,3,25
+data=track,newbie melody
 
 [music_Nightfall]
 table=music
 data=name,Nightfall
 data=playbutton,90
-data=unlock,22,26
+data=unlock,3,26
+data=track,nightfall
 
 [music_Oriental]
 table=music
 data=name,Oriental
 data=playbutton,91
-data=unlock,22,27
+data=unlock,3,27
+data=track,oriental
 
 [music_Overture]
 table=music
 data=name,Overture
 data=playbutton,92
-data=unlock,22,28
+data=unlock,3,28
+data=track,overture
 
 [music_Parade]
 table=music
 data=name,Parade
 data=playbutton,93
-data=unlock,22,29
+data=unlock,3,29
+data=track,parade
 
 [music_Quest]
 table=music
 data=name,Quest
 data=playbutton,94
-data=unlock,22,30
+data=unlock,3,30
+data=track,quest
 
 [music_Regal]
 table=music
 data=name,Regal
 data=playbutton,95
-data=unlock,22,31
+data=unlock,3,31
+data=track,regal
 
 [music_Reggae]
 table=music
 data=name,Reggae
 data=playbutton,96
-data=unlock,23,0
+data=unlock,4,0
+data=track,reggae
 
 [music_Reggae2]
 table=music
 data=name,Reggae2
 data=playbutton,97
-data=unlock,23,1
+data=unlock,4,1
+data=track,reggae2
 
 [music_Riverside]
 table=music
 data=name,Riverside
 data=playbutton,98
-data=unlock,23,2
+data=unlock,4,2
+data=track,riverside
 
 [music_Royale]
 table=music
 data=name,Royale
 data=playbutton,99
-data=unlock,23,3
+data=unlock,4,3
+data=track,royale
 
 [music_Rune_Essence]
 table=music
 data=name,Rune Essence
 data=playbutton,100
-data=unlock,23,4
+data=unlock,4,4
+data=track,rune essence
 
 [music_Sad_Meadow]
 table=music
 data=name,Sad Meadow
 data=playbutton,101
-data=unlock,23,5
+data=unlock,4,5
+data=track,sad meadow
 
 [music_Scape_Cave]
 table=music
 data=name,Scape Cave
 data=playbutton,102
-data=unlock,23,6
+data=unlock,4,6
+data=track,scape cave
+
+[music_Scape_Original]
+table=music
+data=name,Scape Original
+data=playbutton,103
+data=unlock,4,7
+data=track,scape original
 
 [music_Scape_Sad]
 table=music
 data=name,Scape Sad
 data=playbutton,104
-data=unlock,23,8
+data=unlock,4,8
+data=track,scape sad
 
 [music_Scape_Wild]
 table=music
 data=name,Scape Wild
 data=playbutton,105
-data=unlock,23,9
+data=unlock,4,9
+data=track,scape wild
 
 [music_Sea_Shanty]
 table=music
 data=name,Sea Shanty
 data=playbutton,106
-data=unlock,23,10
+data=unlock,4,10
+data=track,sea shanty
 
 [music_Sea_Shanty2]
 table=music
 data=name,Sea Shanty2
 data=playbutton,107
-data=unlock,23,11
+data=unlock,4,11
+data=track,sea shanty2
 
 [music_Serenade]
 table=music
 data=name,Serenade
 data=playbutton,108
-data=unlock,23,12
+data=unlock,4,12
+data=track,serenade
 
 [music_Serene]
 table=music
 data=name,Serene
 data=playbutton,109
-data=unlock,23,13
+data=unlock,4,13
+data=track,serene
 
 [music_Shine]
 table=music
 data=name,Shine
 data=playbutton,110
-data=unlock,23,14
+data=unlock,4,14
+data=track,shine
 
 [music_Soundscape]
 table=music
 data=name,Soundscape
 data=playbutton,111
-data=unlock,23,15
+data=unlock,4,15
+data=track,soundscape
 
 [music_Spirit]
 table=music
 data=name,Spirit
 data=playbutton,112
-data=unlock,23,16
+data=unlock,4,16
+data=track,spirit
 
 [music_Splendour]
 table=music
 data=name,Splendour
 data=playbutton,113
-data=unlock,23,17
+data=unlock,4,17
+data=track,splendour
 
 [music_Spooky]
 table=music
 data=name,Spooky
 data=playbutton,114
-data=unlock,23,18
+data=unlock,4,18
+data=track,spooky
 
 [music_Spooky_Jungle]
 table=music
 data=name,Spooky Jungle
 data=playbutton,115
-data=unlock,23,19
+data=unlock,4,19
+data=track,spookyjungle
 
 [music_Starlight]
 table=music
 data=name,Starlight
 data=playbutton,116
-data=unlock,23,20
+data=unlock,4,20
+data=track,starlight
 
 [music_Start]
 table=music
 data=name,Start
 data=playbutton,117
-data=unlock,23,21
+data=unlock,4,21
+data=track,start
 
 [music_Still_Night]
 table=music
 data=name,Still Night
 data=playbutton,118
-data=unlock,23,22
+data=unlock,4,22
+data=track,still night
 
 [music_Talking_Forest]
 table=music
 data=name,Talking Forest
 data=playbutton,119
-data=unlock,23,23
+data=unlock,4,23
+data=track,talking forest
 
 [music_The_Desert]
 table=music
 data=name,The Desert
 data=playbutton,120
-data=unlock,23,24
+data=unlock,4,24
+data=track,the desert
 
 [music_The_Shadow]
 table=music
 data=name,The Shadow
 data=playbutton,121
-data=unlock,23,25
+data=unlock,4,25
+data=track,the shadow
 
 [music_The_Tower]
 table=music
 data=name,The Tower
 data=playbutton,122
-data=unlock,23,26
+data=unlock,4,26
+data=track,the tower
 
 [music_Theme]
 table=music
 data=name,Theme
 data=playbutton,123
-data=unlock,23,27
+data=unlock,4,27
+data=track,theme
 
 [music_Trawler]
 table=music
 data=name,Trawler
 data=playbutton,124
-data=unlock,23,28
+data=unlock,4,28
+data=track,trawler
 
 [music_Trawler_Minor]
 table=music
 data=name,Trawler Minor
 data=playbutton,125
-data=unlock,23,29
+data=unlock,4,29
+data=track,trawler minor
 
 [music_Tree_Spirits]
 table=music
 data=name,Tree Spirits
 data=playbutton,126
-data=unlock,23,30
+data=unlock,4,30
+data=track,tree spirits
 
 [music_Tribal_Background]
 table=music
 data=name,Tribal Background
 data=playbutton,127
-data=unlock,23,31
+data=unlock,4,31
+data=track,tribal background
 
 [music_Tribal]
 table=music
 data=name,Tribal
 data=playbutton,128
-data=unlock,24,0
+data=unlock,5,0
+data=track,tribal
 
 [music_Tribal2]
 table=music
 data=name,Tribal2
 data=playbutton,129
-data=unlock,24,1
+data=unlock,5,1
+data=track,tribal2
 
 [music_Trinity]
 table=music
 data=name,Trinity
 data=playbutton,130
-data=unlock,24,2
+data=unlock,5,2
+data=track,trinity
 
 [music_Troubled]
 table=music
 data=name,Troubled
 data=playbutton,131
-data=unlock,24,3
+data=unlock,5,3
+data=track,troubled
 
 [music_Underground]
 table=music
 data=name,Underground
 data=playbutton,132
-data=unlock,24,4
+data=unlock,5,4
+data=track,underground
 
 [music_Unknown_Land]
 table=music
 data=name,Unknown Land
 data=playbutton,133
-data=unlock,24,5
+data=unlock,5,5
+data=track,unknown land
 
 [music_Underground_Pass]
 table=music
 data=name,Underground Pass
 data=playbutton,134
-data=unlock,24,6
+data=unlock,5,6
+data=track,upass
 
 [music_Upcoming]
 table=music
 data=name,Upcoming
 data=playbutton,135
-data=unlock,24,7
+data=unlock,5,7
+data=track,upcoming
 
 [music_Venture]
 table=music
 data=name,Venture
 data=playbutton,136
-data=unlock,24,8
+data=unlock,5,8
+data=track,venture
 
 [music_Vision]
 table=music
 data=name,Vision
 data=playbutton,137
-data=unlock,24,9
+data=unlock,5,9
+data=track,vision
 
 [music_Voodoo_Cult]
 table=music
 data=name,Voodoo Cult
 data=playbutton,138
-data=unlock,24,10
+data=unlock,5,10
+data=track,voodoo cult
 
 [music_Voyage]
 table=music
 data=name,Voyage
 data=playbutton,139
-data=unlock,24,11
+data=unlock,5,11
+data=track,voyage
 
 [music_Wander]
 table=music
 data=name,Wander
 data=playbutton,140
-data=unlock,24,12
+data=unlock,5,12
+data=track,wander
 
 [music_Waterfall]
 table=music
 data=name,Waterfall
 data=playbutton,141
-data=unlock,24,13
+data=unlock,5,13
+data=track,waterfall
 
 [music_Wilderness]
 table=music
 data=name,Wilderness
 data=playbutton,142
-data=unlock,24,14
+data=unlock,5,14
+data=track,wilderness
 
 [music_Wilderness2]
 table=music
 data=name,Wilderness2
 data=playbutton,143
-data=unlock,24,15
+data=unlock,5,15
+data=track,wilderness2
 
 [music_Wilderness3]
 table=music
 data=name,Wilderness3
 data=playbutton,144
-data=unlock,24,16
+data=unlock,5,16
+data=track,wilderness3
 
 [music_Witching]
 table=music
 data=name,Witching
 data=playbutton,145
-data=unlock,24,17
+data=unlock,5,17
+data=track,witching
 
 [music_Wonder]
 table=music
 data=name,Wonder
 data=playbutton,146
-data=unlock,24,18
+data=unlock,5,18
+data=track,wonder
 
 [music_Wonderous]
 table=music
 data=name,Wonderous
 data=playbutton,147
-data=unlock,24,19
+data=unlock,5,19
+data=track,wonderous
 
 [music_Workshop]
 table=music
 data=name,Workshop
 data=playbutton,148
-data=unlock,24,20
+data=unlock,5,20
+data=track,workshop
 
 [music_Lonesome]
 table=music
 data=name,Lonesome
 data=playbutton,149
-data=unlock,24,21
+data=unlock,5,21
+data=track,lonesome
 
 [music_Scape_Main]
 table=music
 data=name,Scape Main
 data=playbutton,150
-data=unlock,24,22
+data=unlock,5,22
+data=track,scape main default
+
+[music_Ground_Scape]
+table=music
+data=name,Ground Scape
+data=playbutton,151
+data=unlock,5,23
+data=track,ground scape
+
+[music_Scape_Scared]
+table=music
+data=name,Scape Scared
+data=playbutton,152
+data=unlock,5,24
+data=track,scape scared
+
+[music_Scape_Santa]
+table=music
+data=name,Scape Santa
+data=playbutton,153
+data=unlock,5,25
+data=track,midi_349
 
 [music_Land_Of_Snow]
 table=music
-data=name,Land Of Snow
+data=name,Land of Snow
 data=playbutton,154
-data=unlock,24,26
+data=unlock,5,26
+data=track,land of snow
+
+[music_Shaping_Up]
+table=music
+data=name,Shaping Up
+data=playbutton,155
+data=unlock,5,27
+data=track,shaping up
+
+[music_Exam_Conditions]
+table=music
+data=name,Exam Conditions
+data=playbutton,156
+data=unlock,5,28
+data=track,exam conditions
+
+[music_Roots_And_Flutes]
+table=music
+data=name,Roots and Flutes
+data=playbutton,157
+data=unlock,5,29
+data=track,roots and flutes
 
 [music_Incarceration]
 table=music
 data=name,Incarceration
 data=playbutton,158
-data=unlock,24,30
+data=unlock,5,30
+data=track,incarceration
 
 [music_Scape_Soft]
 table=music
 data=name,Scape Soft
 data=playbutton,159
-data=unlock,24,31
+data=unlock,5,31
+data=track,scape soft
 
 [music_Shining]
 table=music
 data=name,Shining
 data=playbutton,160
-data=unlock,25,0
+data=unlock,6,0
+data=track,shining
 
 [music_Yesteryear]
 table=music
 data=name,Yesteryear
 data=playbutton,161
-data=unlock,25,1
+data=unlock,6,1
+data=track,yesteryear
 
 [music_Fanfare2]
 table=music
 data=name,Fanfare2
 data=playbutton,162
-data=unlock,25,2
+data=unlock,6,2
+data=track,fanfare2
 
 [music_Tomorrow]
 table=music
 data=name,Tomorrow
 data=playbutton,163
-data=unlock,25,3
+data=unlock,6,3
+data=track,tomorrow
 
 [music_Duel_Arena]
 table=music
 data=name,Duel Arena
 data=playbutton,164
-data=unlock,25,4
+data=unlock,6,4
+data=track,duel arena
 
 [music_Ice_Melody]
 table=music
 data=name,Ice Melody
 data=playbutton,165
-data=unlock,25,5
+data=unlock,6,5
+data=track,ice melody
 
 [music_Wolf_Mountain]
 table=music
-data=name,Wolf Mountain
+data=name,Wild Isle
 data=playbutton,166
+data=unlock,6,6
+data=track,wild isle
 
 [music_Harmony2]
 table=music
 data=name,Harmony2
 data=playbutton,167
-data=unlock,25,7
+data=unlock,6,7
+data=track,harmony2
 
 [music_Venture2]
 table=music
 data=name,Venture2
 data=playbutton,168
-data=unlock,25,8
+data=unlock,6,8
+data=track,venture2
 
 [music_Landlubber]
 table=music
 data=name,Landlubber
 data=playbutton,169
-data=unlock,25,9
+data=unlock,6,9
+data=track,landlubber
 
 [music_Undercurrent]
 table=music
 data=name,Undercurrent
 data=playbutton,170
-data=unlock,25,10
+data=unlock,6,10
+data=track,undercurrent
 
 [music_Nomad]
 table=music
 data=name,Nomad
 data=playbutton,171
-data=unlock,25,11
+data=unlock,6,11
+data=track,nomad
 
 [music_Zealot]
 table=music
 data=name,Zealot
 data=playbutton,172
-data=unlock,25,12
+data=unlock,6,12
+data=track,zealot
 
 [music_Cellar_Song]
 table=music
 data=name,Cellar Song
 data=playbutton,173
-data=unlock,25,13
+data=unlock,6,13
+data=track,cellar song
 
 [music_Heart_And_Mind]
 table=music
-data=name,Heart And Mind
+data=name,Heart and Mind
 data=playbutton,174
-data=unlock,25,14
+data=unlock,6,14
+data=track,heart and mind
 
 [music_Close_Quarters]
 table=music
 data=name,Close Quarters
 data=playbutton,175
-data=unlock,25,15
+data=unlock,6,15
+data=track,close quarters
 
 [music_Escape]
 table=music
 data=name,Escape
 data=playbutton,176
-data=unlock,25,16
+data=unlock,6,16
+data=track,escape
 
 [music_Grumpy]
 table=music
 data=name,Grumpy
 data=playbutton,177
-data=unlock,25,17
+data=unlock,6,17
+data=track,grumpy
 
 [music_Chompy_Hunt]
 table=music
 data=name,Chompy Hunt
 data=playbutton,178
-data=unlock,25,18
+data=unlock,6,18
+data=track,chompy hunt
 
 [music_Twilight]
 table=music
 data=name,Twilight
 data=playbutton,179
-data=unlock,25,19
+data=unlock,6,19
+data=track,twilight
 
 [music_Morytania]
 table=music
 data=name,Morytania
 data=playbutton,180
-data=unlock,25,20
+data=unlock,6,20
+data=track,morytania
 
 [music_Dead_Quiet]
 table=music
 data=name,Dead Quiet
 data=playbutton,181
-data=unlock,25,21
+data=unlock,6,21
+data=track,dead quiet
 
 [music_Village]
 table=music
 data=name,Village
 data=playbutton,182
-data=unlock,25,22
+data=unlock,6,22
+data=track,village
 
 [music_Bone_Dance]
 table=music
 data=name,Bone Dance
 data=playbutton,183
-data=unlock,25,23
+data=unlock,6,23
+data=track,bone dance
 
 [music_Mausoleum]
 table=music
 data=name,Mausoleum
 data=playbutton,184
-data=unlock,25,24
+data=unlock,6,24
+data=track,mausoleum
 
 [music_Forbidden]
 table=music
 data=name,Forbidden
 data=playbutton,185
-data=unlock,25,25
+data=unlock,6,25
+data=track,forbidden
 
 [music_Cursed]
 table=music
 data=name,Cursed
 data=playbutton,186
-data=unlock,25,26
+data=unlock,6,26
+data=track,cursed
 
 [music_Understanding]
 table=music
 data=name,Understanding
 data=playbutton,187
-data=unlock,25,27
+data=unlock,6,27
+data=track,understanding
 
 [music_Principality]
 table=music
 data=name,Principality
 data=playbutton,188
-data=unlock,25,28
+data=unlock,6,28
+data=track,principality
 
 [music_Tremble]
 table=music
 data=name,Tremble
 data=playbutton,189
-data=unlock,25,29
+data=unlock,6,29
+data=track,tremble
 
 [music_Kingdom]
 table=music
 data=name,Kingdom
 data=playbutton,190
-data=unlock,25,30
+data=unlock,6,30
+data=track,kingdom
 
 [music_Hermit]
 table=music
 data=name,Hermit
 data=playbutton,191
-data=unlock,25,31
+data=unlock,6,31
+data=track,hermit
 
 [music_La_Mort]
 table=music
 data=name,La Mort
 data=playbutton,192
-data=unlock,298,0
+data=unlock,7,0
+data=track,la mort
 
 [music_Stagnant]
 table=music
 data=name,Stagnant
 data=playbutton,193
-data=unlock,298,1
+data=unlock,7,1
+data=track,stagnant
 
 [music_Breeze]
 table=music
 data=name,Breeze
 data=playbutton,194
-data=unlock,298,2
+data=unlock,7,2
+data=track,breeze
 
 [music_Stratosphere]
 table=music
 data=name,Stratosphere
 data=playbutton,195
-data=unlock,298,3
-
-[music_Delrith]
-table=music
-data=name,Delrith
-data=playbutton,195
+data=unlock,7,3
+data=track,stratosphere
 
 [music_Time_Out]
 table=music
 data=name,Time Out
 data=playbutton,196
-data=unlock,298,4
-
-[music_Wally_The_Hero]
-table=music
-data=name,Wally The Hero
-data=playbutton,196
+data=unlock,7,4
+data=track,time out
 
 [music_Natural]
 table=music
 data=name,Natural
 data=playbutton,197
-data=unlock,298,5
+data=unlock,7,5
+data=track,natural
 
 [music_Grotto]
 table=music
 data=name,Grotto
 data=playbutton,198
-data=unlock,298,6
+data=unlock,7,6
+data=track,grotto
 
 [music_Waterlogged]
 table=music
 data=name,Waterlogged
 data=playbutton,199
-data=unlock,298,7
+data=unlock,7,7
+data=track,waterlogged
 
 [music_Artistry]
 table=music
 data=name,Artistry
 data=playbutton,200
-data=unlock,298,8
+data=unlock,7,8
+data=track,artistry
 
 [music_Aztec]
 table=music
 data=name,Aztec
 data=playbutton,201
-data=unlock,298,9
+data=unlock,7,9
+data=track,aztec
 
 [music_Elven_Mist]
 table=music
 data=name,Elven Mist
 data=playbutton,202
-data=unlock,298,10
+data=unlock,7,10
+data=track,elven mist
 
 [music_Forest]
 table=music
 data=name,Forest
 data=playbutton,203
-data=unlock,298,11
+data=unlock,7,11
+data=track,forest
 
 [music_Lost_Soul]
 table=music
 data=name,Lost Soul
 data=playbutton,204
-data=unlock,298,12
+data=unlock,7,12
+data=track,lost soul
 
 [music_Meridian]
 table=music
 data=name,Meridian
 data=playbutton,205
-data=unlock,298,13
+data=unlock,7,13
+data=track,meridian
 
 [music_Woodland]
 table=music
 data=name,Woodland
 data=playbutton,206
-data=unlock,298,14
+data=unlock,7,14
+data=track,woodland
 
 [music_Overpass]
 table=music
 data=name,Overpass
 data=playbutton,207
-data=unlock,298,15
+data=unlock,7,15
+data=track,overpass
 
 [music_Contest]
 table=music
 data=name,Contest
 data=playbutton,208
-data=unlock,298,16
+data=unlock,7,16
+data=track,contest
 
 [music_Sojourn]
 table=music
 data=name,Sojourn
 data=playbutton,209
-data=unlock,298,17
+data=unlock,7,17
+data=track,sojourn
 
 [music_Crystal_Castle]
 table=music
 data=name,Crystal Castle
 data=playbutton,210
-data=unlock,298,18
+data=unlock,7,18
+data=track,crystal castle
 
 [music_Marzipan]
 table=music
 data=name,Marzipan
 data=playbutton,211
-data=unlock,298,19
+data=unlock,7,19
+data=track,marzipan
 
 [music_Insect_Queen]
 table=music
 data=name,Insect Queen
 data=playbutton,212
-data=unlock,298,20
+data=unlock,7,20
+data=track,insect queen
 
 [music_Mad_Eadgar]
 table=music
 data=name,Mad Eadgar
 data=playbutton,213
-data=unlock,298,21
+data=unlock,7,21
+data=track,mad eadgar
 
 [music_Bandit_Camp]
 table=music
 data=name,Bandit Camp
 data=playbutton,214
-data=unlock,298,22
+data=unlock,7,22
+data=track,bandit camp
 
 [music_Sunburn]
 table=music
 data=name,Sunburn
 data=playbutton,215
-data=unlock,298,23
+data=unlock,7,23
+data=track,sunburn
 
 [music_Bone_Dry]
 table=music
 data=name,Bone Dry
 data=playbutton,216
-data=unlock,298,24
+data=unlock,7,24
+data=track,bone dry
 
 [music_Competition]
 table=music
 data=name,Competition
 data=playbutton,217
-data=unlock,298,25
+data=unlock,7,25
+data=track,competition
 
 [music_Spooky2]
 table=music
 data=name,Spooky2
 data=playbutton,218
-data=unlock,298,26
+data=unlock,7,26
+data=track,spooky2
 
 [music_Everywhere]
 table=music
 data=name,Everywhere
 data=playbutton,219
-data=unlock,298,27
+data=unlock,7,27
+data=track,everywhere
 
 [music_Exposed]
 table=music
 data=name,Exposed
 data=playbutton,220
-data=unlock,298,28
+data=unlock,7,28
+data=track,exposed
 
 [music_Well_Of_Voyage]
 table=music
-data=name,Well Of Voyage
+data=name,Well of Voyage
 data=playbutton,221
-data=unlock,298,29
+data=unlock,7,29
+data=track,well of voyage
 
 [music_Haunted_Mine]
 table=music
 data=name,Haunted Mine
 data=playbutton,222
-data=unlock,298,30
+data=unlock,7,30
+data=track,haunted mine
 
 [music_Righteousness]
 table=music
 data=name,Righteousness
 data=playbutton,223
-data=unlock,298,31
+data=unlock,7,31
+data=track,righteousness
 
 [music_Deep_Down]
 table=music
 data=name,Deep Down
 data=playbutton,224
-data=unlock,311,0
+data=unlock,8,0
+data=track,deep down
 
 [music_Chamber]
 table=music
 data=name,Chamber
 data=playbutton,225
-data=unlock,311,1
+data=unlock,8,1
+data=track,chamber
 
 [music_Miscellania]
 table=music
 data=name,Miscellania
 data=playbutton,226
-data=unlock,311,2
+data=unlock,8,2
+data=track,miscellania
 
 [music_Etceteria]
 table=music
-data=name,Etceteria
+data=name,Etcetera
 data=playbutton,227
+data=unlock,8,3
+data=track,etcetera
 
 [music_Shadowland]
 table=music
 data=name,Shadowland
 data=playbutton,228
-data=unlock,311,4
+data=unlock,8,4
+data=track,shadowland
 
 [music_Lair]
 table=music
 data=name,Lair
 data=playbutton,229
-data=unlock,311,5
+data=unlock,8,5
+data=track,lair
 
 [music_Deadlands]
 table=music
 data=name,Deadlands
 data=playbutton,230
-data=unlock,311,6
+data=unlock,8,6
+data=track,deadlands
 
 [music_Rellekka]
 table=music
 data=name,Rellekka
 data=playbutton,231
-data=unlock,311,7
+data=unlock,8,7
+data=track,rellekka
 
 [music_Saga]
 table=music
 data=name,Saga
 data=playbutton,232
-data=unlock,311,8
+data=unlock,8,8
+data=track,saga
 
 [music_Borderland]
 table=music
 data=name,Borderland
 data=playbutton,233
-data=unlock,311,9
+data=unlock,8,9
+data=track,borderland
 
 [music_Stranded]
 table=music
 data=name,Stranded
 data=playbutton,234
-data=unlock,311,10
+data=unlock,8,10
+data=track,stranded
 
 [music_Legend]
 table=music
 data=name,Legend
 data=playbutton,235
-data=unlock,311,11
+data=unlock,8,11
+data=track,legend
 
 [music_Frostbite]
 table=music
 data=name,Frostbite
 data=playbutton,236
-data=unlock,311,12
+data=unlock,8,12
+data=track,frostbite
 
 [music_Warrior]
 table=music
 data=name,Warrior
 data=playbutton,237
-data=unlock,311,13
+data=unlock,8,13
+data=track,warrior
 
 [music_Technology]
 table=music
 data=name,Technology
 data=playbutton,238
-data=unlock,311,14
+data=unlock,8,14
+data=track,technology
 
 [music_Monkey_Madness]
 table=music
 data=name,Monkey Madness
 data=playbutton,239
-data=unlock,311,15
+data=unlock,8,15
+data=track,monkey madness
 
 [music_Anywhere]
 table=music
 data=name,Anywhere
 data=playbutton,240
-data=unlock,311,16
+data=unlock,8,16
+data=track,anywhere
 
 [music_Marooned]
 table=music
 data=name,Marooned
 data=playbutton,241
-data=unlock,311,17
+data=unlock,8,17
+data=track,marooned
 
 [music_Island_Life]
 table=music
 data=name,Island Life
 data=playbutton,242
-data=unlock,311,18
+data=unlock,8,18
+data=track,island life
 
 [music_Temple]
 table=music
 data=name,Temple
 data=playbutton,243
-data=unlock,311,19
+data=unlock,8,19
+data=track,temple
 
 [music_Suspicious]
 table=music
 data=name,Suspicious
 data=playbutton,244
-data=unlock,311,20
+data=unlock,8,20
+data=track,suspicious
 
 [music_Showdown]
 table=music
 data=name,Showdown
 data=playbutton,245
-data=unlock,311,21
+data=unlock,8,21
+data=track,showdown
 
 [music_Find_My_Way]
 table=music
 data=name,Find My Way
 data=playbutton,246
-data=unlock,311,22
+data=unlock,8,22
+data=track,find my way
 
 [music_Castle_Wars]
 table=music
 data=name,Castle Wars
 data=playbutton,247
-data=unlock,311,23
+data=unlock,8,23
+data=track,castlewars
 
 [music_Melodrama]
 table=music
 data=name,Melodrama
 data=playbutton,248
-data=unlock,311,24
+data=unlock,8,24
+data=track,melodrama
 
 [music_Ready_For_Battle]
 table=music
-data=name,Ready For Battle
+data=name,Ready for Battle
 data=playbutton,249
-data=unlock,311,25
+data=unlock,8,25
+data=track,ready for battle
 
 [music_Stillness]
 table=music
 data=name,Stillness
 data=playbutton,250
-data=unlock,311,26
+data=unlock,8,26
+data=track,stillness
 
 [music_Lighthouse]
 table=music
 data=name,Lighthouse
 data=playbutton,251
-data=unlock,311,27
+data=unlock,8,27
+data=track,lighthouse
 
 [music_Goblin_Game]
 table=music
 data=name,Goblin Game
 data=playbutton,252
-data=unlock,311,28
+data=unlock,8,28
+data=track,midi_346
 
 [music_Out_Of_The_Deep]
 table=music
-data=name,Out Of The Deep
+data=name,Out of the Deep
 data=playbutton,253
-data=unlock,311,29
+data=unlock,8,29
+data=track,out of the deep
 
 [music_Hells_Bells]
 table=music
-data=name,Hells Bells
+data=name,Hell's Bells
 data=playbutton,254
+data=unlock,8,30
+data=track,hells bells
 
 [music_The_Navigator]
 table=music
 data=name,The Navigator
 data=playbutton,255
-data=unlock,311,31
+data=unlock,8,31
+data=track,the navigator
 
 [music_Wildwood]
 table=music
 data=name,Wildwood
 data=playbutton,256
-data=unlock,346,0
+data=unlock,9,0
+data=track,wildwood
 
 [music_Barbarianism]
 table=music
 data=name,Barbarianism
 data=playbutton,257
-data=unlock,346,1
+data=unlock,9,1
+data=track,barbarianism
 
 [music_Complication]
 table=music
 data=name,Complication
 data=playbutton,258
-data=unlock,346,2
+data=unlock,9,2
+data=track,complication
 
 [music_Down_To_Earth]
 table=music
-data=name,Down To Earth
+data=name,Down to Earth
 data=playbutton,259
-data=unlock,346,3
+data=unlock,9,3
+data=track,down to earth
 
 [music_Courage]
 table=music
 data=name,Courage
 data=playbutton,260
-data=unlock,346,4
+data=unlock,9,4
+data=track,courage
 
 [music_Superstition]
 table=music
 data=name,Superstition
 data=playbutton,261
-data=unlock,346,5
+data=unlock,9,5
+data=track,superstition
 
 [music_Pirates_Of_Peril]
 table=music
-data=name,Pirates Of Peril
+data=name,Pirates of Peril
 data=playbutton,262
-data=unlock,346,6
+data=unlock,9,6
+data=track,pirates of peril
 
 [music_Dangerous_Road]
 table=music
 data=name,Dangerous Road
 data=playbutton,263
-data=unlock,346,7
+data=unlock,9,7
+data=track,dangerous road
 
 [music_Romancing_The_Crone]
 table=music
-data=name,Romancing The Crone
+data=name,Romancing the Crone
 data=playbutton,264
-data=unlock,346,8
+data=unlock,9,8
+data=track,romancing the crone
 
 [music_Faithless]
 table=music
 data=name,Faithless
 data=playbutton,265
-data=unlock,346,9
+data=unlock,9,9
+data=track,faithless
 
 [music_Tiptoe]
 table=music
 data=name,Tiptoe
 data=playbutton,266
-data=unlock,346,10
+data=unlock,9,10
+data=track,tiptoe
 
 [music_The_Terrible_Tower]
 table=music
 data=name,The Terrible Tower
 data=playbutton,267
-data=unlock,346,11
+data=unlock,9,11
+data=track,the terrible tower
 
 [music_Masquerade]
 table=music
 data=name,Masquerade
 data=playbutton,268
-data=unlock,346,12
+data=unlock,9,12
+data=track,masquerade
 
 [music_The_Slayer]
 table=music
 data=name,The Slayer
 data=playbutton,269
-data=unlock,346,13
+data=unlock,9,13
+data=track,the slayer
 
 [music_Body_Parts]
 table=music
 data=name,Body Parts
 data=playbutton,270
-data=unlock,346,14
+data=unlock,9,14
+data=track,body parts
 
 [music_Fenkenstrains_Refrain]
 table=music
-data=name,Fenkenstrains Refrain
+data=name,Fenkenstrain's Refrain
 data=playbutton,271
+data=unlock,9,15
+data=track,fenkenstrain's refrain
 
 [music_Monster_Melee]
 table=music
 data=name,Monster Melee
 data=playbutton,272
-data=unlock,346,16
+data=unlock,9,16
+data=track,monster melee
 
 [music_Fruits_De_Mer]
 table=music
-data=name,Fruits De Mer
+data=name,Fruits de Mer
 data=playbutton,273
-data=unlock,346,17
+data=unlock,9,17
+data=track,midi_347
 
 [music_Barking_Mad]
 table=music
 data=name,Barking Mad
 data=playbutton,274
-data=unlock,346,18
+data=unlock,9,18
+data=track,barking mad
 
 [music_Dynasty]
 table=music
 data=name,Dynasty
 data=playbutton,275
-data=unlock,346,19
+data=unlock,9,19
+data=track,midi_351
 
 [music_Shipwrecked]
 table=music
 data=name,Shipwrecked
 data=playbutton,276
-data=unlock,346,20
+data=unlock,9,20
+data=track,midi_353
 
 [music_Phasmatys]
 table=music
 data=name,Phasmatys
 data=playbutton,277
-data=unlock,346,21
+data=unlock,9,21
+data=track,midi_354
 
 [music_The_Other_Side]
 table=music
 data=name,The Other Side
 data=playbutton,278
-data=unlock,346,22
+data=unlock,9,22
+data=track,midi_355
 
 [music_Settlement]
 table=music
 data=name,Settlement
 data=playbutton,279
-data=unlock,346,23
+data=unlock,9,23
+data=track,midi_356
 
 [music_Cave_Of_Beasts]
 table=music
-data=name,Cave Of Beasts
+data=name,Cave of Beasts
 data=playbutton,280
-data=unlock,346,24
+data=unlock,9,24
+data=track,midi_357
 
 [music_Dragontooth_Island]
 table=music
 data=name,Dragontooth Island
 data=playbutton,281
-data=unlock,346,25
+data=unlock,9,25
+data=track,midi_358
 
 [music_Scarab]
 table=music
 data=name,Scarab
 data=playbutton,282
-data=unlock,346,26
+data=unlock,9,26
+data=track,midi_352
 
 [music_Sarcophagus]
 table=music
 data=name,Sarcophagus
 data=playbutton,283
-data=unlock,346,27
+data=unlock,9,27
+data=track,midi_359
 
 [music_Down_Below]
 table=music
 data=name,Down Below
 data=playbutton,284
-data=unlock,346,28
+data=unlock,9,28
+data=track,midi_361
 
 [music_7th_Realm]
 table=music
 data=name,7th Realm
 data=playbutton,285
-data=unlock,346,29
+data=unlock,9,29
+data=track,midi_363
 
 [music_Karamja_Jam]
 table=music
 data=name,Karamja Jam
 data=playbutton,286
-data=unlock,346,30
+data=unlock,9,30
+data=track,midi_362
 
 [music_Pathways]
 table=music
 data=name,Pathways
 data=playbutton,287
-data=unlock,346,31
+data=unlock,9,31
+data=track,midi_364
 
 [music_Eagles_Peak]
 table=music
-data=name,Eagles Peak
+data=name,Eagle Peak
 data=playbutton,288
+data=unlock,10,0
+data=track,eagle peak
 
 [music_Time_To_Mine]
 table=music
-data=name,Time To Mine
+data=name,Time to Mine
 data=playbutton,289
-data=unlock,414,1
+data=unlock,10,1
+data=track,time to mine
 
 [music_In_Between]
 table=music
 data=name,In Between
 data=playbutton,290
-data=unlock,414,2
+data=unlock,10,2
+data=track,in between
 
 [music_Claustrophobia]
 table=music
 data=name,Claustrophobia
 data=playbutton,291
-data=unlock,414,3
+data=unlock,10,3
+data=track,claustrophobia
 
 [music_Far_Away]
 table=music
 data=name,Far Away
 data=playbutton,292
-data=unlock,414,4
+data=unlock,10,4
+data=track,far away
 
 [music_Fight_Or_Flight]
 table=music
-data=name,Fight Or Flight
+data=name,Fight or Flight
 data=playbutton,293
-data=unlock,414,5
+data=unlock,10,5
+data=track,fight or flight
 
 [music_Temple_Of_Light]
 table=music
-data=name,Temple Of Light
+data=name,Temple of Light
 data=playbutton,294
-data=unlock,414,6
+data=unlock,10,6
+data=track,temple of light
 
 [music_The_Golem]
 table=music
 data=name,The Golem
 data=playbutton,295
-data=unlock,414,7
+data=unlock,10,7
+data=track,the golem
 
 [music_Forgotten]
 table=music
 data=name,Forgotten
 data=playbutton,296
-data=unlock,414,8
+data=unlock,10,8
+data=track,forgotten
 
 [music_Throne_Of_The_Demon]
 table=music
-data=name,Throne Of The Demon
+data=name,Throne of the Demon
 data=playbutton,297
-data=unlock,414,9
+data=unlock,10,9
+data=track,throne of the demon
 
 [music_Dance_Of_The_Undead]
 table=music
-data=name,Dance Of The Undead
+data=name,Dance of the Undead
 data=playbutton,298
-data=unlock,414,10
+data=unlock,10,10
+data=track,dance of the undead
 
 [music_Dangerous_Way]
 table=music
 data=name,Dangerous Way
 data=playbutton,299
-data=unlock,414,11
+data=unlock,10,11
+data=track,dangerous way
 
 [music_City_Of_The_Dead]
 table=music
-data=name,City Of The Dead
+data=name,City of the Dead
 data=playbutton,300
-data=unlock,414,12
+data=unlock,10,12
+data=track,city of the dead
 
 [music_Hypnotized]
 table=music
 data=name,Hypnotized
 data=playbutton,301
-data=unlock,414,13
+data=unlock,10,13
+data=track,hypnotized
 
 [music_Sphinx]
 table=music
 data=name,Sphinx
 data=playbutton,302
-data=unlock,414,14
+data=unlock,10,14
+data=track,sphinx
 
 [music_Mirage]
 table=music
 data=name,Mirage
 data=playbutton,303
-data=unlock,414,15
+data=unlock,10,15
+data=track,mirage
 
 [music_Cave_Of_The_Goblins]
 table=music
-data=name,Cave Of The Goblins
+data=name,Cave of the Goblins
 data=playbutton,304
-data=unlock,414,16
+data=unlock,10,16
+data=track,cave of the goblins
 
 [music_Bish_Bash_Bosh]
 table=music
 data=name,Bish Bash Bosh
 data=playbutton,305
-data=unlock,414,17
+data=unlock,10,17
+data=track,bish bash bosh
 
 [music_Zogre_Dance]
 table=music
 data=name,Zogre Dance
 data=playbutton,306
-data=unlock,414,18
+data=unlock,10,18
+data=track,zogre dance
 
 [music_Path_Of_Peril]
 table=music
-data=name,Path Of Peril
+data=name,Path of Peril
 data=playbutton,307
-data=unlock,414,19
+data=unlock,10,19
+data=track,path of peril
 
 [music_Wayward]
 table=music
 data=name,Wayward
 data=playbutton,308
-data=unlock,414,20
+data=unlock,10,20
+data=track,wayward
 
 [music_Tale_Of_Keldagrim]
 table=music
-data=name,Tale Of Keldagrim
+data=name,Tale of Keldagrim
 data=playbutton,309
-data=unlock,414,21
+data=unlock,10,21
+data=track,tale of keldagrim
 
 [music_Land_Of_The_Dwarves]
 table=music
-data=name,Land Of The Dwarves
+data=name,Land of the Dwarves
 data=playbutton,310
-data=unlock,414,22
+data=unlock,10,22
+data=track,land of the dwarves
 
 [music_Tears_Of_Guthix]
 table=music
-data=name,Tears Of Guthix
+data=name,Tears of Guthix
 data=playbutton,311
-data=unlock,414,23
+data=unlock,10,23
+data=track,tears of guthix
 
 [music_Romper_Chomper]
 table=music
 data=name,Romper Chomper
 data=playbutton,312
-data=unlock,414,24
+data=unlock,10,24
+data=track,romper chomper
 
 [music_The_Rogues_Den]
 table=music
-data=name,The Rogues Den
+data=name,The Rogues' Den
 data=playbutton,313
+data=unlock,10,25
+data=track,the rogues den
 
 [music_The_Far_Side]
 table=music
 data=name,The Far Side
 data=playbutton,314
-data=unlock,414,26
+data=unlock,10,26
+data=track,the far side
 
 [music_The_Lost_Melody]
 table=music
 data=name,The Lost Melody
 data=playbutton,315
-data=unlock,414,27
+data=unlock,10,27
+data=track,the lost melody
 
 [music_Evil_Bobs_Island]
 table=music
-data=name,Evil Bobs Island
+data=name,Evil Bob's Island
 data=playbutton,316
+data=unlock,10,28
+data=track,evil bobs island
 
 [music_Into_The_Abyss]
 table=music
-data=name,Into The Abyss
+data=name,Into the Abyss
 data=playbutton,317
-data=unlock,414,29
+data=unlock,10,29
+data=track,into the abyss
 
 [music_The_Quizmaster]
 table=music
-data=name,The Quizmaster
+data=name,The Quiz Master
 data=playbutton,318
+data=unlock,10,30
+data=track,the quizmaster
 
 [music_The_Power_Of_Tears]
 table=music
-data=name,The Power Of Tears
+data=name,The Power of Tears
 data=playbutton,319
-data=unlock,414,31
+data=unlock,10,31
+data=track,the power of tears
 
 [music_Pheasant_Peasant]
 table=music
 data=name,Pheasant Peasant
 data=playbutton,321
-data=unlock,464,1
+data=unlock,11,1
+data=track,pheasant peasant
 
 [music_The_Lost_Tribe]
 table=music
 data=name,The Lost Tribe
 data=playbutton,322
-data=unlock,464,2
+data=unlock,11,2
+data=track,the lost tribe
 
 [music_Corporal_Punishment]
 table=music
 data=name,Corporal Punishment
 data=playbutton,323
-data=unlock,464,3
+data=unlock,11,3
+data=track,corporal punishment
 
 [music_The_Chosen]
 table=music
 data=name,The Chosen
 data=playbutton,324
-data=unlock,464,4
+data=unlock,11,4
+data=track,the chosen
 
 [music_Have_A_Blast]
 table=music
-data=name,Have A Blast
+data=name,Have a Blast
 data=playbutton,325
-data=unlock,464,5
+data=unlock,11,5
+data=track,have a blast
 
 [music_Forgettable_Melody]
 table=music
 data=name,Forgettable Melody
 data=playbutton,326
-data=unlock,464,6
+data=unlock,11,6
+data=track,forgettable melody
 
 [music_Right_On_Track]
 table=music
-data=name,Right On Track
+data=name,Right on Track
 data=playbutton,327
-data=unlock,464,7
+data=unlock,11,7
+data=track,right on track
 
 [music_Over_To_Nardah]
 table=music
 data=name,Over To Nardah
 data=playbutton,328
-data=unlock,464,8
+data=unlock,11,8
+data=track,over to nardah
 
 [music_The_Monsters_Below]
 table=music
 data=name,The Monsters Below
 data=playbutton,329
-data=unlock,464,9
+data=unlock,11,9
+data=track,the monsters below
 
 [music_The_Desolate_Isle]
 table=music
 data=name,The Desolate Isle
 data=playbutton,330
-data=unlock,464,10
+data=unlock,11,10
+data=track,the desolate isle
 
 [music_Spirits_Of_The_Elid]
 table=music
-data=name,Spirits Of The Elid
+data=name,Spirits of Elid
 data=playbutton,331
+data=unlock,11,11
+data=track,spirits of elid
 
 [music_The_Genie]
 table=music
 data=name,The Genie
 data=playbutton,332
-data=unlock,464,12
+data=unlock,11,12
+data=track,the genie
 
 [music_Desert_Heat]
 table=music
 data=name,Desert Heat
 data=playbutton,333
-data=unlock,464,13
+data=unlock,11,13
+data=track,desert heat
 
 [music_Fire_And_Brimstone]
 table=music
-data=name,Fire And Brimstone
+data=name,Fire and Brimstone
 data=playbutton,334
-data=unlock,464,14
+data=unlock,11,14
+data=track,fire and brimstone
 
 [music_In_The_Pits]
 table=music
-data=name,In The Pits
+data=name,In the Pits
 data=playbutton,335
-data=unlock,464,15
+data=unlock,11,15
+data=track,in the pits
 
 [music_Frogland]
 table=music
 data=name,Frogland
 data=playbutton,336
-data=unlock,464,16
+data=unlock,11,16
+data=track,frogland
 
 [music_Strange_Place]
 table=music
 data=name,Strange Place
 data=playbutton,337
-data=unlock,464,17
+data=unlock,11,17
+data=track,strange place
 
 [music_Brew_Hoo_Hoo]
 table=music
 data=name,Brew Hoo Hoo
 data=playbutton,338
-data=unlock,464,18
+data=unlock,11,18
+data=track,brew hoo hoo
 
 [music_Tzhaar]
 table=music
-data=name,Tzhaar
+data=name,TzHaar!
 data=playbutton,339
+data=unlock,11,19
+data=track,tzhaar
 
 [music_Wild_Side]
 table=music
 data=name,Wild Side
 data=playbutton,340
-data=unlock,464,20
+data=unlock,11,20
+data=track,wild side
 
 [music_Dead_Can_Dance]
 table=music
 data=name,Dead Can Dance
 data=playbutton,341
-data=unlock,464,21
+data=unlock,11,21
+data=track,dead can dance
 
 [music_The_Cellar_Dwellers]
 table=music
 data=name,The Cellar Dwellers
 data=playbutton,342
-data=unlock,464,22
+data=unlock,11,22
+data=track,the cellar dwellers
 
 [music_Jungle_Troubles]
 table=music
 data=name,Jungle Troubles
 data=playbutton,343
-data=unlock,464,23
+data=unlock,11,23
+data=track,jungle troubles
 
 [music_Catch_Me_If_You_Can]
 table=music
 data=name,Catch Me If You Can
 data=playbutton,344
-data=unlock,464,24
+data=unlock,11,24
+data=track,catch me if you can
 
 [music_Rat_A_Tat_Tat]
 table=music
-data=name,Rat A Tat Tat
+data=name,Rat a Tat Tat
 data=playbutton,345
-data=unlock,464,25
+data=unlock,11,25
+data=track,rat a tat tat
+
+[music_The_Noble_Rodent]
+table=music
+data=name,The Noble Rodent
+data=playbutton,346
+data=unlock,11,26
+data=track,the noble rodent
 
 [music_Bubble_And_Squeak]
 table=music
-data=name,Bubble And Squeak
+data=name,Bubble and Squeak
 data=playbutton,347
-data=unlock,464,27
+data=unlock,11,27
+data=track,bubble and squeak
 
 [music_Sarims_Vermin]
 table=music
-data=name,Sarims Vermin
+data=name,Sarim's Vermin
 data=playbutton,348
+data=unlock,11,28
+data=track,sarim's vermin
 
 [music_Rat_Hunt]
 table=music
 data=name,Rat Hunt
 data=playbutton,349
-data=unlock,464,29
+data=unlock,11,29
+data=track,rat hunt
+
+[music_Homescape]
+table=music
+data=name,Homescape
+data=playbutton,350
+data=unlock,11,30
+data=track,homescape
 
 [music_Aye_Car_Rum_Ba]
 table=music
 data=name,Aye Car Rum Ba
 data=playbutton,351
-data=unlock,464,31
+data=unlock,11,31
+data=track,aye car rum ba
 
 [music_Blistering_Barnacles]
 table=music
 data=name,Blistering Barnacles
 data=playbutton,352
-data=unlock,598,0
+data=unlock,12,0
+data=track,blistering barnacles
 
 [music_Distant_Land]
 table=music
 data=name,Distant Land
 data=playbutton,353
-data=unlock,598,1
+data=unlock,12,1
+data=track,distant land
 
 [music_Fangs_For_The_Memory]
 table=music
-data=name,Fangs For The Memory
+data=name,Fangs for the Memory
 data=playbutton,354
-data=unlock,598,2
+data=unlock,12,2
+data=track,fangs for the memory
 
 [music_Pharaohs_Tomb]
 table=music
-data=name,Pharaohs Tomb
+data=name,Pharaoh's Tomb
 data=playbutton,355
+data=unlock,12,3
+data=track,pharoah's tomb
 
 [music_Land_Down_Under]
 table=music
 data=name,Land Down Under
 data=playbutton,356
-data=unlock,598,4
+data=unlock,12,4
+data=track,land down under
+
+[music_Meddling_Kids]
+table=music
+data=name,Meddling Kids
+data=playbutton,357
+data=unlock,12,5
+data=track,meddling kids
 
 [music_Corridors_Of_Power]
 table=music
-data=name,Corridors Of Power
+data=name,Corridors of Power
 data=playbutton,358
-data=unlock,598,6
+data=unlock,12,6
+data=track,corridors of power
 
 [music_Slither_And_Thither]
 table=music
-data=name,Slither And Thither
+data=name,Slither and Thither
 data=playbutton,359
-data=unlock,598,7
+data=unlock,12,7
+data=track,slither and thither
 
 [music_In_The_Clink]
 table=music
-data=name,In The Clink
+data=name,In the Clink
 data=playbutton,360
-data=unlock,598,8
+data=unlock,12,8
+data=track,in the clink
 
 [music_Mudskipper_Melody]
 table=music
 data=name,Mudskipper Melody
 data=playbutton,361
-data=unlock,598,9
+data=unlock,12,9
+data=track,mudskipper melody
 
 [music_Subterranea]
 table=music
 data=name,Subterranea
 data=playbutton,362
-data=unlock,598,10
+data=unlock,12,10
+data=track,subterranea
+
+[music_Incantation]
+table=music
+data=name,Incantation
+data=playbutton,363
+data=unlock,12,11
+data=track,incantation
+
+[music_Grip_Of_The_Talon]
+table=music
+data=name,Grip of the Talon
+data=playbutton,364
+data=unlock,12,12
+data=track,grip of the talon
 
 [music_Dagannoth_Dawn]
 table=music
 data=name,Dagannoth Dawn
 data=playbutton,365
-data=unlock,598,13
+data=unlock,12,13
+data=track,dagannoth dawn
 
 [music_Xenophobe]
 table=music
 data=name,Xenophobe
 data=playbutton,366
-data=unlock,598,14
+data=unlock,12,14
+data=track,xenophobe
 
 [music_Title_Fight]
 table=music
 data=name,Title Fight
 data=playbutton,367
-data=unlock,598,15
+data=unlock,12,15
+data=track,title fight
 
 [music_Victory_Is_Mine]
 table=music
-data=name,Victory Is Mine
+data=name,Victory is Mine
 data=playbutton,368
-data=unlock,598,16
+data=unlock,12,16
+data=track,victory is mine
 
 [music_Woe_Of_The_Wyvern]
 table=music
-data=name,Woe Of The Wyvern
+data=name,Woe of the Wyvern
 data=playbutton,369
-data=unlock,598,17
+data=unlock,12,17
+data=track,woe of the wyvern
 
 [music_In_The_Brine]
 table=music
-data=name,In The Brine
+data=name,In the Brine
 data=playbutton,370
-data=unlock,598,18
+data=unlock,12,18
+data=track,in the brine
 
 [music_Diangos_Little_Helpers]
 table=music
-data=name,Diangos Little Helpers
+data=name,Diango's Little Helpers
 data=playbutton,371
+data=unlock,12,19
+data=track,diango's little helpers
 
 [music_Roll_The_Bones]
 table=music
-data=name,Roll The Bones
+data=name,Roll the Bones
 data=playbutton,372
-data=unlock,598,20
+data=unlock,12,20
+data=track,roll the bones
 
 [music_Mind_Over_Matter]
 table=music
 data=name,Mind Over Matter
 data=playbutton,373
-data=unlock,598,21
+data=unlock,12,21
+data=track,mind over matter
 
 [music_Golden_Touch]
 table=music
 data=name,Golden Touch
 data=playbutton,374
-data=unlock,598,22
+data=unlock,12,22
+data=track,golden touch
 
 [music_The_Enchanter]
 table=music
 data=name,The Enchanter
 data=playbutton,376
-data=unlock,598,24
+data=unlock,12,24
+data=track,the enchanter
+
+[music_Scape_Hunter]
+table=music
+data=name,Scape Hunter
+data=playbutton,377
+data=unlock,12,25
+data=track,scape hunter
 
 [music_Making_Waves]
 table=music
 data=name,Making Waves
 data=playbutton,378
-data=unlock,598,26
+data=unlock,12,26
+data=track,making waves
 
 [music_Cabin_Fever]
 table=music
 data=name,Cabin Fever
 data=playbutton,379
-data=unlock,598,27
+data=unlock,12,27
+data=track,cabin fever
+
+[music_Last_Stand]
+table=music
+data=name,Last Stand
+data=playbutton,380
+data=unlock,12,28
+data=track,last stand
 
 [music_Lament]
 table=music
 data=name,Lament
 data=playbutton,381
-data=unlock,598,29
+data=unlock,12,29
+data=track,lament
 
 [music_Poles_Apart]
 table=music
 data=name,Poles Apart
 data=playbutton,382
-data=unlock,598,30
+data=unlock,12,30
+data=track,poles apart
 
 [music_Scarabaeoidea]
 table=music
 data=name,Scarabaeoidea
 data=playbutton,383
-data=unlock,598,31
+data=unlock,12,31
+data=track,scarabaeoidea
 
 [music_Jungle_Hunt]
 table=music
 data=name,Jungle Hunt
 data=playbutton,384
-data=unlock,662,0
+data=unlock,13,0
+data=track,jungle hunt
 
 [music_Home_Sweet_Home]
 table=music
 data=name,Home Sweet Home
 data=playbutton,385
-data=unlock,662,1
+data=unlock,13,1
+data=track,home sweet home
 
 [music_Joy_Of_The_Hunt]
 table=music
-data=name,Joy Of The Hunt
+data=name,Joy of the Hunt
 data=playbutton,386
-data=unlock,662,2
+data=unlock,13,2
+data=track,joy of the hunt
 
 [music_Dogs_Of_War]
 table=music
-data=name,Dogs Of War
+data=name,Dogs of War
 data=playbutton,387
-data=unlock,662,3
+data=unlock,13,3
+data=track,dogs of war
 
 [music_Food_For_Thought]
 table=music
-data=name,Food For Thought
+data=name,Food for Thought
 data=playbutton,388
-data=unlock,662,4
+data=unlock,13,4
+data=track,food for thought
 
 [music_Malady]
 table=music
 data=name,Malady
 data=playbutton,389
-data=unlock,662,5
+data=unlock,13,5
+data=track,malady
 
 [music_Dance_Of_Death]
 table=music
-data=name,Dance Of Death
+data=name,Dance of Death
 data=playbutton,390
-data=unlock,662,6
+data=unlock,13,6
+data=track,dance of death
 
 [music_Wrath_And_Ruin]
 table=music
-data=name,Wrath And Ruin
+data=name,Wrath and Ruin
 data=playbutton,391
-data=unlock,662,7
+data=unlock,13,7
+data=track,wrath and ruin
 
 [music_Storm_Brew]
 table=music
 data=name,Storm Brew
 data=playbutton,392
-data=unlock,662,8
+data=unlock,13,8
+data=track,storm brew
 
 [music_The_Mad_Mole]
 table=music
 data=name,The Mad Mole
 data=playbutton,393
-data=unlock,662,9
+data=unlock,13,9
+data=track,the mad mole
 
 [music_Davy_Jones_Locker]
 table=music
-data=name,Davy Jones Locker
+data=name,Davy Jones's Locker
 data=playbutton,394
+data=unlock,13,10
+data=track,davy jones locker
 
 [music_Chickened_Out]
 table=music
 data=name,Chickened Out
 data=playbutton,395
-data=unlock,662,11
+data=unlock,13,11
+data=track,chickened out
+
+[music_Hot_N_Bothered]
+table=music
+data=name,Hot 'n' Bothered
+data=playbutton,396
+data=unlock,13,12
+data=track,hot n bothered
 
 [music_Mastermindless]
 table=music
 data=name,Mastermindless
 data=playbutton,397
-data=unlock,662,13
+data=unlock,13,13
+data=track,mastermindless
 
 [music_Too_Many_Cooks]
 table=music
-data=name,Too Many Cooks
+data=name,Too Many Cooks...
 data=playbutton,398
-data=unlock,662,14
+data=unlock,13,14
+data=track,too many cooks
 
 [music_Chef_Surprise]
 table=music
-data=name,Chef Surprise
+data=name,Chef Surprize
 data=playbutton,399
+data=unlock,13,15
+data=track,chef surprize
 
 [music_Null_And_Void]
 table=music
-data=name,Null And Void
+data=name,Null and Void
 data=playbutton,400
-data=unlock,662,16
+data=unlock,13,16
+data=track,null and void
 
 [music_Pest_Control]
 table=music
 data=name,Pest Control
 data=playbutton,401
-data=unlock,662,17
+data=unlock,13,17
+data=track,pest control
 
 [music_Tomb_Raider]
 table=music
 data=name,Tomb Raider
 data=playbutton,402
-data=unlock,662,18
+data=unlock,13,18
+data=track,tomb raider
 
 [music_No_Way_Out]
 table=music
 data=name,No Way Out
 data=playbutton,403
-data=unlock,662,19
+data=unlock,13,19
+data=track,no way out
 
 [music_Method_Of_Madness]
 table=music
-data=name,Method Of Madness
+data=name,Method of Madness
 data=playbutton,404
-data=unlock,662,20
+data=unlock,13,20
+data=track,method of madness
 
 [music_Fear_And_Loathing]
 table=music
-data=name,Fear And Loathing
+data=name,Fear and Loathing
 data=playbutton,405
-data=unlock,662,21
+data=unlock,13,21
+data=track,fear and loathing
 
 [music_Funny_Bunnies]
 table=music
 data=name,Funny Bunnies
 data=playbutton,406
-data=unlock,662,22
+data=unlock,13,22
+data=track,funny bunnies
 
 [music_Assault_And_Battery]
 table=music
-data=name,Assault And Battery
+data=name,Assault and Battery
 data=playbutton,407
-data=unlock,662,23
+data=unlock,13,23
+data=track,assault and battery
 
 [music_The_Depths]
 table=music
 data=name,The Depths
 data=playbutton,408
-data=unlock,662,24
+data=unlock,13,24
+data=track,the depths
 
 [music_Distillery_Hilarity]
 table=music
 data=name,Distillery Hilarity
 data=playbutton,409
-data=unlock,662,25
+data=unlock,13,25
+data=track,distillery hilarity
 
 [music_Trouble_Brewing]
 table=music
 data=name,Trouble Brewing
 data=playbutton,410
-data=unlock,662,26
+data=unlock,13,26
+data=track,trouble brewing
 
 [music_Head_To_Head]
 table=music
-data=name,Head To Head
+data=name,Head to Head
 data=playbutton,411
-data=unlock,662,27
+data=unlock,13,27
+data=track,head to head
 
 [music_Pinball_Wizard]
 table=music
 data=name,Pinball Wizard
 data=playbutton,412
-data=unlock,662,28
+data=unlock,13,28
+data=track,pinball wizard
+
+[music_Beetle_Juice]
+table=music
+data=name,Beetle Juice
+data=playbutton,413
+data=unlock,13,29
+data=track,beetle juice
 
 [music_Back_To_Life]
 table=music
-data=name,Back To Life
+data=name,Back to Life
 data=playbutton,414
-data=unlock,662,30
+data=unlock,13,30
+data=track,back to life
 
 [music_Labyrinth]
 table=music
 data=name,Labyrinth
 data=playbutton,415
-data=unlock,662,31
+data=unlock,13,31
+data=track,labyrinth
 
 [music_Safety_In_Numbers]
 table=music
-data=name,Safety In Numbers
+data=name,Safety in Numbers
 data=playbutton,416
-data=unlock,721,0
+data=unlock,14,0
+data=track,safety in numbers
 
 [music_Everlasting_Fire]
 table=music
 data=name,Everlasting Fire
 data=playbutton,417
-data=unlock,721,1
+data=unlock,14,1
+data=track,everlasting fire
 
 [music_Waking_Dream]
 table=music
 data=name,Waking Dream
 data=playbutton,418
-data=unlock,721,2
+data=unlock,14,2
+data=track,waking dream
 
 [music_Dreamstate]
 table=music
 data=name,Dreamstate
 data=playbutton,419
-data=unlock,721,3
+data=unlock,14,3
+data=track,dreamstate
 
 [music_The_Lunar_Isle]
 table=music
 data=name,The Lunar Isle
 data=playbutton,420
-data=unlock,721,4
+data=unlock,14,4
+data=track,the lunar isle
 
 [music_Isle_Of_Everywhere]
 table=music
-data=name,Isle Of Everywhere
+data=name,Isle of Everywhere
 data=playbutton,421
-data=unlock,721,5
+data=unlock,14,5
+data=track,isle of everywhere
 
 [music_Way_Of_The_Enchanter]
 table=music
-data=name,Way Of The Enchanter
+data=name,Way of the Enchanter
 data=playbutton,422
-data=unlock,721,6
+data=unlock,14,6
+data=track,way of the enchanter
 
 [music_Warriors_Guild]
 table=music
-data=name,Warriors Guild
+data=name,Warriors' Guild
 data=playbutton,423
+data=unlock,14,7
+data=track,warriors guild
 
 [music_Lifes_A_Beach]
 table=music
-data=name,Lifes A Beach
+data=name,Life's a Beach!
 data=playbutton,424
+data=unlock,14,8
+data=track,life's a beach!
 
 [music_On_The_Wing]
 table=music
-data=name,On The Wing
+data=name,On the Wing
 data=playbutton,425
-data=unlock,721,9
+data=unlock,14,9
+data=track,on the wing
 
 [music_Little_Cave_Of_Horrors]
 table=music
-data=name,Little Cave Of Horrors
+data=name,Little Cave of Horrors
 data=playbutton,426
-data=unlock,721,10
+data=unlock,14,10
+data=track,little cave of horrors
 
 [music_The_Mollusc_Menace]
 table=music
 data=name,The Mollusc Menace
 data=playbutton,427
-data=unlock,721,11
+data=unlock,14,11
+data=track,the mollusc menace
 
 [music_The_Galleon]
 table=music
 data=name,The Galleon
 data=playbutton,428
-data=unlock,721,12
+data=unlock,14,12
+data=track,the galleon
 
 [music_Ham_Fisted]
 table=music
-data=name,Ham Fisted
+data=name,H.A.M. Fisted
 data=playbutton,429
+data=unlock,14,13
+data=track,ham fisted
 
 [music_Lament_Of_Meiyerditch]
 table=music
-data=name,Lament Of Meiyerditch
+data=name,Lament of Meiyerditch
 data=playbutton,430
-data=unlock,721,14
+data=unlock,14,14
+data=track,lament of meiyerditch
 
 [music_Sigmunds_Showdown]
 table=music
-data=name,Sigmunds Showdown
+data=name,Sigmund's Showdown
 data=playbutton,431
+data=unlock,14,15
+data=track,sigmunds showdown
 
 [music_The_Last_Shanty]
 table=music
 data=name,The Last Shanty
 data=playbutton,432
-data=unlock,721,16
+data=unlock,14,16
+data=track,the last shanty
 
 [music_Night_Of_The_Vampyre]
 table=music
-data=name,Night Of The Vampyre
+data=name,Night of the Vampyre
 data=playbutton,433
-data=unlock,721,17
+data=unlock,14,17
+data=track,night of the vampiyre
 
 [music_We_Are_The_Fairies]
 table=music
-data=name,We Are The Fairies
+data=name,We Are the Fairies
 data=playbutton,434
-data=unlock,721,18
+data=unlock,14,18
+data=track,we are the fairies
 
 [music_Dimension_X]
 table=music
 data=name,Dimension X
 data=playbutton,435
-data=unlock,721,19
+data=unlock,14,19
+data=track,dimension x
 
 [music_Alls_Fairy_In_Love_War]
 table=music
-data=name,Alls Fairy In Love & War
+data=name,All's Fairy in Love and War
 data=playbutton,436
+data=unlock,14,20
+data=track,alls fairy in love n war
 
 [music_Major_Miner]
 table=music
 data=name,Major Miner
 data=playbutton,437
-data=unlock,721,21
+data=unlock,14,21
+data=track,major miner
+
+[music_Jester_Minute]
+table=music
+data=name,Jester Minute
+data=playbutton,438
+data=unlock,14,22
+data=track,jester minute
 
 [music_Norse_Code]
 table=music
 data=name,Norse Code
 data=playbutton,439
-data=unlock,721,23
+data=unlock,14,23
+data=track,norse code
 
 [music_Volcanic_Vikings]
 table=music
 data=name,Volcanic Vikings
 data=playbutton,440
-data=unlock,721,24
+data=unlock,14,24
+data=track,volcanic vikings
 
 [music_Island_Of_The_Trolls]
 table=music
-data=name,Island Of The Trolls
+data=name,Island of the Trolls
 data=playbutton,441
-data=unlock,721,25
+data=unlock,14,25
+data=track,island of the trolls
 
 [music_Pirates_Of_Penance]
 table=music
-data=name,Pirates Of Penance
+data=name,Pirates of Penance
 data=playbutton,442
-data=unlock,721,26
+data=unlock,14,26
+data=track,pirates of penance
 
 [music_Brimstails_Scales]
 table=music
-data=name,Brimstails Scales
+data=name,Brimstail's Scales
 data=playbutton,443
+data=unlock,14,27
+data=track,brimstail's scales
 
 [music_My_Arms_Journey]
 table=music
-data=name,My Arms Journey
+data=name,My Arm's Journey
 data=playbutton,444
+data=unlock,14,28
+data=track,my arms journey
 
 [music_Slug_A_Bug_Ball]
 table=music
-data=name,Slug A Bug Ball
+data=name,Slug a Bug Ball
 data=playbutton,445
-data=unlock,721,29
+data=unlock,14,29
+data=track,slug a bug ball
 
 [music_Prime_Time]
 table=music
 data=name,Prime Time
 data=playbutton,446
-data=unlock,721,30
+data=unlock,14,30
+data=track,prime time
 
 [music_Rising_Damp]
 table=music
 data=name,Rising Damp
 data=playbutton,447
-data=unlock,721,31
+data=unlock,14,31
+data=track,rising damp
 
 [music_Where_Eagles_Lair]
 table=music
 data=name,Where Eagles Lair
 data=playbutton,448
-data=unlock,906,0
+data=unlock,15,0
+data=track,where eagles lair
 
 [music_Ogre_The_Top]
 table=music
-data=name,Ogre The Top
+data=name,Ogre the Top
 data=playbutton,449
-data=unlock,906,1
+data=unlock,15,1
+data=track,ogre the top
 
 [music_Work_Work_Work]
 table=music
 data=name,Work Work Work
 data=playbutton,450
-data=unlock,906,2
+data=unlock,15,2
+data=track,work work work
 
 [music_Magic_Magic_Magic]
 table=music
 data=name,Magic Magic Magic
 data=playbutton,451
-data=unlock,906,3
+data=unlock,15,3
+data=track,magic magic magic
 
 [music_Mutant_Medley]
 table=music
 data=name,Mutant Medley
 data=playbutton,452
-data=unlock,906,4
+data=unlock,15,4
+data=track,mutant medley
 
 [music_Dorgeshuun_City]
 table=music
 data=name,Dorgeshuun City
 data=playbutton,453
-data=unlock,906,5
+data=unlock,15,5
+data=track,dorgeshun city
 
 [music_Dorgeshuun_Deep]
 table=music
 data=name,Dorgeshuun Deep
 data=playbutton,454
-data=unlock,906,6
+data=unlock,15,6
+data=track,dorgeshun deep
+
+[music_Floating_Free]
+table=music
+data=name,Floating Free
+data=playbutton,455
+data=unlock,15,7
+data=track,floating free
+
+[music_Roc_And_Roll]
+table=music
+data=name,Roc and Roll
+data=playbutton,456
+data=unlock,15,8
+data=track,roc and roll
 
 [music_High_Spirits]
 table=music
 data=name,High Spirits
 data=playbutton,457
-data=unlock,906,9
+data=unlock,15,9
+data=track,high spirits
 
 [music_Looking_Back]
 table=music
 data=name,Looking Back
 data=playbutton,458
-data=unlock,906,10
+data=unlock,15,10
+data=track,looking back
+
+[music_Jungle_Island_Xmas]
+table=music
+data=name,Jungle Island XMAS
+data=playbutton,459
+data=unlock,15,11
+data=track,jungle island xmas
+
+[music_Sea_Shanty_Xmas]
+table=music
+data=name,Sea Shanty XMAS
+data=playbutton,460
+data=unlock,15,12
+data=track,sea shanty xmas
 
 [music_Jungle_Bells]
 table=music
 data=name,Jungle Bells
 data=playbutton,461
-data=unlock,906,13
+data=unlock,15,13
+data=track,jungle bells
 
 [music_Garden_Of_Summer]
 table=music
-data=name,Garden Of Summer
+data=name,Garden of Summer
 data=playbutton,462
-data=unlock,906,14
+data=unlock,15,14
+data=track,garden of summer
 
 [music_Garden_Of_Spring]
 table=music
-data=name,Garden Of Spring
+data=name,Garden of Spring
 data=playbutton,463
-data=unlock,906,15
+data=unlock,15,15
+data=track,garden of spring
 
 [music_Garden_Of_Winter]
 table=music
-data=name,Garden Of Winter
+data=name,Garden of Winter
 data=playbutton,464
-data=unlock,906,16
+data=unlock,15,16
+data=track,garden of winter
 
 [music_Garden_Of_Autumn]
 table=music
-data=name,Garden Of Autumn
+data=name,Garden of Autumn
 data=playbutton,465
-data=unlock,906,17
+data=unlock,15,17
+data=track,garden of autumn
 
 [music_Have_An_Ice_Day]
 table=music
-data=name,Have An Ice Day
+data=name,Have an Ice Day
 data=playbutton,466
-data=unlock,906,18
+data=unlock,15,18
+data=track,have an ice day
 
 [music_Zombiism]
 table=music
 data=name,Zombiism
 data=playbutton,467
-data=unlock,906,19
+data=unlock,15,19
+data=track,zombiism
 
 [music_Creature_Cruelty]
 table=music
 data=name,Creature Cruelty
 data=playbutton,468
-data=unlock,906,20
+data=unlock,15,20
+data=track,creature cruelty
 
 [music_Alternative_Root]
 table=music
 data=name,Alternative Root
 data=playbutton,469
-data=unlock,906,21
+data=unlock,15,21
+data=track,alternative root
 
 [music_Espionage]
 table=music
 data=name,Espionage
 data=playbutton,470
-data=unlock,906,22
+data=unlock,15,22
+data=track,espionage
 
 [music_Undead_Dungeon]
 table=music
 data=name,Undead Dungeon
 data=playbutton,471
-data=unlock,906,23
+data=unlock,15,23
+data=track,undead dungeon
 
 [music_Slice_Of_Station]
 table=music
-data=name,Slice Of Station
+data=name,Slice of Station
 data=playbutton,472
-data=unlock,906,24
+data=unlock,15,24
+data=track,slice of station
 
 [music_Barb_Wire]
 table=music
 data=name,Barb Wire
 data=playbutton,473
-data=unlock,906,25
+data=unlock,15,25
+data=track,barb wire
 
 [music_Impetuous]
 table=music
 data=name,Impetuous
 data=playbutton,474
-data=unlock,906,26
+data=unlock,15,26
+data=track,impetuous
 
 [music_Easter_Jig]
 table=music
 data=name,Easter Jig
 data=playbutton,475
-data=unlock,906,27
+data=unlock,15,27
+data=track,easter jig
 
 [music_Ham_Attack]
 table=music
 data=name,Ham Attack
 data=playbutton,476
-data=unlock,906,28
+data=unlock,15,28
+data=track,ham attack
 
 [music_Slice_Of_Silent_Movie]
 table=music
-data=name,Slice Of Silent Movie
+data=name,Slice of Silent Movie
 data=playbutton,477
-data=unlock,906,29
+data=unlock,15,29
+data=track,slice of silent movie
 
 [music_Ham_And_Seek]
 table=music
-data=name,Ham And Seek
+data=name,Ham and Seek
 data=playbutton,478
-data=unlock,906,30
+data=unlock,15,30
+data=track,ham and seek
 
 [music_Venomous]
 table=music
 data=name,Venomous
 data=playbutton,479
-data=unlock,906,31
+data=unlock,15,31
+data=track,venomous
 
 [music_Mouse_Trap]
 table=music
 data=name,Mouse Trap
 data=playbutton,480
-data=unlock,1009,0
+data=unlock,16,0
+data=track,mouse trap
 
 [music_Fe_Fi_Fo_Fum]
 table=music
 data=name,Fe Fi Fo Fum
 data=playbutton,481
-data=unlock,1009,1
+data=unlock,16,1
+data=track,fe fi fo fum
 
 [music_Schools_Out]
 table=music
-data=name,Schools Out
+data=name,School's Out
 data=playbutton,482
+data=unlock,16,2
+data=track,schools out
 
 [music_Inadequacy]
 table=music
 data=name,Inadequacy
 data=playbutton,483
-data=unlock,1009,3
+data=unlock,16,3
+data=track,inadequacy
 
 [music_Illusive]
 table=music
 data=name,Illusive
 data=playbutton,484
-data=unlock,1009,4
+data=unlock,16,4
+data=track,illusive
 
 [music_Everlasting]
 table=music
 data=name,Everlasting
 data=playbutton,485
-data=unlock,1009,5
+data=unlock,16,5
+data=track,everlasting
 
 [music_Untouchable]
 table=music
 data=name,Untouchable
 data=playbutton,486
-data=unlock,1009,6
+data=unlock,16,6
+data=track,untouchable
 
 [music_Down_And_Out]
 table=music
-data=name,Down And Out
+data=name,Down and Out
 data=playbutton,487
-data=unlock,1009,7
+data=unlock,16,7
+data=track,down and out
+
+[music_On_The_Up]
+table=music
+data=name,On the Up
+data=playbutton,488
+data=unlock,16,8
+data=track,on the up
 
 [music_The_Maze]
 table=music
-data=name,The Maze
+data=name,Melzar's Maze
 data=playbutton,489
+data=unlock,16,9
+data=track,melzars maze
 
 [music_Zamorak_Zoo]
 table=music
 data=name,Zamorak Zoo
 data=playbutton,490
-data=unlock,1009,10
+data=unlock,16,10
+data=track,zamorak zoo
 
 [music_Strength_Of_Saradomin]
 table=music
-data=name,Strength Of Saradomin
+data=name,Strength of Saradomin
 data=playbutton,491
-data=unlock,1009,11
+data=unlock,16,11
+data=track,strength of saradomin
 
 [music_Bandos_Battalion]
 table=music
 data=name,Bandos Battalion
 data=playbutton,492
-data=unlock,1009,12
+data=unlock,16,12
+data=track,bandos battalion
 
 [music_Armadyl_Alliance]
 table=music
 data=name,Armadyl Alliance
 data=playbutton,493
-data=unlock,1009,13
+data=unlock,16,13
+data=track,armadyl alliance
 
 [music_Armageddon]
 table=music
 data=name,Armageddon
 data=playbutton,494
-data=unlock,1009,14
+data=unlock,16,14
+data=track,armageddon
 
 [music_Storeroom_Shuffle]
 table=music
 data=name,Storeroom Shuffle
 data=playbutton,495
-data=unlock,1009,15
+data=unlock,16,15
+data=track,storeroom shuffle
 
 [music_The_Longramble_Scramble]
 table=music
 data=name,The Longramble Scramble
 data=playbutton,496
-data=unlock,1009,16
+data=unlock,16,16
+data=track,the longramble scramble
 
 [music_Waste_Defaced]
 table=music
 data=name,Waste Defaced
 data=playbutton,497
-data=unlock,1009,17
+data=unlock,16,17
+data=track,waste defaced
 
 [music_Knightmare]
 table=music
 data=name,Knightmare
 data=playbutton,498
-data=unlock,1009,18
+data=unlock,16,18
+data=track,knightmare
 
 [music_Lore_And_Order]
 table=music
-data=name,Lore And Order
+data=name,Lore and Order
 data=playbutton,499
-data=unlock,1009,19
+data=unlock,16,19
+data=track,lore and order
 
 [music_Terrorbird_Tussle]
 table=music
 data=name,Terrorbird Tussle
 data=playbutton,500
-data=unlock,1009,20
+data=unlock,16,20
+data=track,terrorbird tussle
 
 [music_Altar_Ego]
 table=music
 data=name,Altar Ego
 data=playbutton,501
-data=unlock,1009,21
+data=unlock,16,21
+data=track,altar ego
+
+[music_Bolries_Diary]
+table=music
+data=name,Bolrie's Diary
+data=playbutton,502
+data=unlock,16,22
+data=track,bolrie's diary
+
+[music_Healin_Feelin]
+table=music
+data=name,Healin' Feelin'
+data=playbutton,503
+data=unlock,16,23
+data=track,healin' feelin'
 
 [music_Animal_Apogee]
 table=music
 data=name,Animal Apogee
 data=playbutton,504
-data=unlock,1009,24
+data=unlock,16,24
+data=track,animal apogee
 
 [music_Temple_Of_Tribes]
 table=music
-data=name,Temple Of Tribes
+data=name,Temple of Tribes
 data=playbutton,505
-data=unlock,1009,25
+data=unlock,16,25
+data=track,temple of tribes
 
 [music_Catacombs_And_Tombs]
 table=music
-data=name,Catacombs And Tombs
+data=name,Catacombs and Tombs
 data=playbutton,506
-data=unlock,1009,26
+data=unlock,16,26
+data=track,catacombs and tombs
+
+[music_Zaniks_Theme]
+table=music
+data=name,Zanik's Theme
+data=playbutton,507
+data=unlock,16,27
+data=track,zanik's theme
 
 [music_Dusk_In_Yubiusk]
 table=music
-data=name,Dusk In Yubiusk
+data=name,Dusk in Yu'biusk
 data=playbutton,508
+data=unlock,16,28
+data=track,dusk in yu'biusk
 
 [music_Grimly_Fiendish]
 table=music
 data=name,Grimly Fiendish
 data=playbutton,509
-data=unlock,1009,29
+data=unlock,16,29
+data=track,grimly fiendish
 
 [music_Tune_From_The_Dune]
 table=music
-data=name,Tune From The Dune
+data=name,Tune from the Dune
 data=playbutton,510
-data=unlock,1009,30
+data=unlock,16,30
+data=track,tune from the dune
+
+[music_Spa_Bizarre]
+table=music
+data=name,Spa Bizarre
+data=playbutton,511
+data=unlock,16,31
+data=track,spa bizarre
 
 [music_Copris_Lunaris]
 table=music
 data=name,Copris Lunaris
 data=playbutton,512
-data=unlock,1104,0
+data=unlock,17,0
+data=track,copris lunaris
 
 [music_Narnodes_Theme]
 table=music
-data=name,Narnodes Theme
+data=name,Narnode's Theme
 data=playbutton,513
+data=unlock,17,1
+data=track,midi_348
 
 [music_Tournament]
 table=music
-data=name,Tournament
+data=name,Tournament!
 data=playbutton,514
+data=unlock,17,2
+data=track,tournament
 
 [music_Clan_Wars]
 table=music
 data=name,Clan Wars
 data=playbutton,515
-data=unlock,1104,3
+data=unlock,17,3
+data=track,clanwars
 
 [music_Charmin_Farmin]
 table=music
-data=name,Charmin Farmin
+data=name,Charmin' Farmin'
 data=playbutton,516
+data=unlock,17,4
+data=track,charmin' farmin'
+
+[music_Bounty_Hunter_Level_1]
+table=music
+data=name,Bounty Hunter Level 1
+data=playbutton,517
+data=unlock,17,5
+data=track,bounty hunter level 1
+
+[music_Bounty_Hunter_Level_2]
+table=music
+data=name,Bounty Hunter Level 2
+data=playbutton,518
+data=unlock,17,6
+data=track,bounty hunter level 2
+
+[music_Bounty_Hunter_Level_3]
+table=music
+data=name,Bounty Hunter Level 3
+data=playbutton,519
+data=unlock,17,7
+data=track,bounty hunter level 3
 
 [music_The_Adventurer]
 table=music
 data=name,The Adventurer
 data=playbutton,520
-data=unlock,1104,8
+data=unlock,17,8
+data=track,the adventurer
 
 [music_Creepy]
 table=music
 data=name,Creepy
 data=playbutton,521
-data=unlock,1104,9
+data=unlock,17,9
+data=track,creepy
+
+[music_A_New_Menace]
+table=music
+data=name,A New Menace
+data=playbutton,522
+data=unlock,17,10
+data=track,a new menace
+
+[music_Brain_Battle]
+table=music
+data=name,Brain Battle
+data=playbutton,533
+data=unlock,17,21
+data=track,brain_barrelchest_battle
+
+[music_Suroks_Theme]
+table=music
+data=name,Surok's Theme
+data=playbutton,536
+data=unlock,17,24
+data=track,surok_king_battle_music
 
 [music_The_Trade_Parade]
 table=music
 data=name,The Trade Parade
 data=playbutton,555
-data=unlock,1136,11
+data=unlock,18,11
+data=track,the trade parade
+
+[music_Jungle_Community]
+table=music
+data=name,Jungle Community
+data=playbutton,556
+data=unlock,18,12
+data=track,jungle community
+
+[music_Icy_Trouble_Ahead]
+table=music
+data=name,Icy Trouble Ahead
+data=playbutton,558
+data=unlock,18,14
+data=track,icy trouble ahead
+
+[music_Icy_A_Worried_Gnome]
+table=music
+data=name,Icy a Worried Gnome
+data=playbutton,559
+data=unlock,18,15
+data=track,icy a worried gnome
 
 [music_Bloodbath]
 table=music
 data=name,Bloodbath
 data=playbutton,584
-data=unlock,1180,8
+data=unlock,19,8
+data=track,blood bath
 
 [music_The_Route_Of_All_Evil]
 table=music
-data=name,The Route Of All Evil
+data=name,The Route of All Evil
 data=playbutton,585
-data=unlock,1180,9
+data=unlock,19,9
+data=track,the route of all evil
 
 [music_The_Route_Of_The_Problem]
 table=music
-data=name,The Route Of The Problem
+data=name,The Route of the Problem
 data=playbutton,586
-data=unlock,1180,10
+data=unlock,19,10
+data=track,the route of the problem
 
 [music_The_Wrong_Path]
 table=music
 data=name,The Wrong Path
 data=playbutton,587
-data=unlock,1180,11
+data=unlock,19,11
+data=track,the wrong path
 
 [music_The_Columbarium]
 table=music
 data=name,The Columbarium
 data=playbutton,588
-data=unlock,1180,12
+data=unlock,19,12
+data=track,the columbarium
 
 [music_The_Terrible_Tunnels]
 table=music
 data=name,The Terrible Tunnels
 data=playbutton,589
-data=unlock,1180,13
+data=unlock,19,13
+data=track,the terrible tunnels
 
 [music_The_Terrible_Caverns]
 table=music
 data=name,The Terrible Caverns
 data=playbutton,590
-data=unlock,1180,14
+data=unlock,19,14
+data=track,the terrible caverns
 
 [music_Dillo_Gence_Is_Key]
 table=music
-data=name,Dillo-gence Is Key
+data=name,Dillo-gence is Key
 data=playbutton,591
+data=unlock,19,15
+data=track,dillo-gence is key
 
 [music_Arma_Gonna_Get_You]
 table=music
 data=name,Arma Gonna Get You
 data=playbutton,592
-data=unlock,1180,16
+data=unlock,19,16
+data=track,arma gonna get you
 
 [music_Toktz_Ket_Ek_Mack]
 table=music
-data=name,Toktz-ket-ek-mack
+data=name,TokTz-Ket-Ek-Mack
 data=playbutton,593
+data=unlock,19,17
+data=track,toktz-ket-ek-mack
 
 [music_Jailbird]
 table=music
 data=name,Jailbird
 data=playbutton,594
-data=unlock,1180,18
+data=unlock,19,18
+data=track,jail bird
 
 [music_Bittersweet_Bunny]
 table=music
 data=name,Bittersweet Bunny
 data=playbutton,595
-data=unlock,1180,19
+data=unlock,19,19
+data=track,bittersweet bunny
 
 [music_Something_Fishy]
 table=music
 data=name,Something Fishy
 data=playbutton,596
-data=unlock,1180,20
+data=unlock,19,20
+data=track,something fishy
 
 [music_Under_The_Sand]
 table=music
-data=name,Under The Sand
+data=name,Under the Sand
 data=playbutton,597
-data=unlock,1180,21
+data=unlock,19,21
+data=track,under the sand
 
 [music_Desert_Smoke]
 table=music
 data=name,Desert Smoke
 data=playbutton,598
-data=unlock,1180,22
+data=unlock,19,22
+data=track,desert smoke
 
 [music_A_Pirates_Life_For_Me]
 table=music
-data=name,A Pirates Life For Me
+data=name,A Pirate's Life for Me
 data=playbutton,599
+data=unlock,19,23
+data=track,a pirates life for me
+
+[music_Conspiracy_Part_1]
+table=music
+data=name,Conspiracy: Part 1
+data=playbutton,600
+data=unlock,19,24
+data=track,conspiracy part 1
+
+[music_Conspiracy_Part_2]
+table=music
+data=name,Conspiracy: Part 2
+data=playbutton,601
+data=unlock,19,25
+data=track,conspiracy part 2
+
+[music_Scape_Summon]
+table=music
+data=name,Scape Summon
+data=playbutton,602
+data=unlock,19,26
+data=track,scape summon
 
 [music_Guthixs_Hunter]
 table=music
-data=name,Guthixs Hunter
+data=name,Guthix's Hunter
 data=playbutton,603
+data=unlock,19,27
+data=track,507
 
 [music_Waiting_For_The_Hunt]
 table=music
-data=name,Waiting For The Hunt
+data=name,Waiting for the Hunt
 data=playbutton,604
-data=unlock,1180,28
+data=unlock,19,28
+data=track,waiting for the hunt
+
+[music_Cool_For_Ali_Cats]
+table=music
+data=name,Cool for Ali Cats
+data=playbutton,605
+data=unlock,19,29
+data=track,cool for ali cats
 
 [music_Second_Vision]
 table=music
 data=name,Second Vision
 data=playbutton,606
-data=unlock,1180,30
+data=unlock,19,30
+data=track,second vision
 
 [music_Undead_Army]
 table=music
 data=name,Undead Army
 data=playbutton,607
-data=unlock,1180,31
+data=unlock,19,31
+data=track,undead army
+
+[music_Zombie_Invasion]
+table=music
+data=name,Zombie Invasion
+data=playbutton,608
+data=unlock,20,0
+data=track,zombie invasion
 
 [music_The_Ruins_Of_Camdozaal]
 table=music
-data=name,The Ruins Of Camdozaal
+data=name,The Ruins of Camdozaal
 data=playbutton,609
-data=unlock,1202,1
+data=unlock,20,1
+data=track,the ruins of camdozaal
+
+[music_Dream_Theatre]
+table=music
+data=name,Dream Theatre
+data=playbutton,610
+data=unlock,20,2
+data=track,dream theatre
 
 [music_The_Mentor]
 table=music
 data=name,The Mentor
 data=playbutton,611
-data=unlock,1202,3
+data=unlock,20,3
+data=track,the mentor
 
 [music_Slain_To_Waste]
 table=music
-data=name,Slain To Waste
+data=name,Slain to Waste
 data=playbutton,612
-data=unlock,1202,4
+data=unlock,20,4
+data=track,slain to waste
+
+[music_Ardougne_Ago]
+table=music
+data=name,Ardougne Ago
+data=playbutton,613
+data=unlock,20,5
+data=track,ardougne ago
 
 [music_Shining_Spirit]
 table=music
 data=name,Shining Spirit
 data=playbutton,615
-data=unlock,1202,7
+data=unlock,20,7
+data=track,shining spirit
 
 [music_Troubled_Spirit]
 table=music
 data=name,Troubled Spirit
 data=playbutton,616
-data=unlock,1202,8
+data=unlock,20,8
+data=track,troubled spirit
 
 [music_Bane_Of_Summer]
 table=music
-data=name,Bane Of Summer
+data=name,Bane of Summer
 data=playbutton,617
-data=unlock,1202,9
+data=unlock,20,9
+data=track,bane of summer
 
 [music_The_Vacant_Abyss]
 table=music
 data=name,The Vacant Abyss
 data=playbutton,618
-data=unlock,1202,10
+data=unlock,20,10
+data=track,the vacant abyss
 
 [music_Stealing_Creation]
 table=music
 data=name,Stealing Creation
 data=playbutton,620
-data=unlock,1202,12
+data=unlock,20,12
+data=track,stealing creation
 
 [music_Circus]
 table=music
 data=name,Circus
 data=playbutton,621
-data=unlock,1202,13
+data=unlock,20,13
+data=track,circus
 
 [music_Dangerous_Logic]
 table=music
 data=name,Dangerous Logic
 data=playbutton,622
-data=unlock,1202,14
+data=unlock,20,14
+data=track,dangerous logic
 
 [music_Black_Of_Knight]
 table=music
-data=name,Black Of Knight
+data=name,Black of Knight
 data=playbutton,623
-data=unlock,1202,15
+data=unlock,20,15
+data=track,black of knight
+
+[music_The_Art_Of_Hocus_Pocus]
+table=music
+data=name,The Art of Hocus-Pocus
+data=playbutton,624
+data=unlock,20,16
+data=track,the art of hocus-pocus
 
 [music_Magic_And_Mystery]
 table=music
-data=name,Magic And Mystery
+data=name,Magic and Mystery
 data=playbutton,625
-data=unlock,1202,17
+data=unlock,20,17
+data=track,magic and mystery
 
 [music_The_Sound_Of_Guthix]
 table=music
-data=name,The Sound Of Guthix
+data=name,The Sound of Guthix
 data=playbutton,626
-data=unlock,1202,18
+data=unlock,20,18
+data=track,the sound of guthix
+
+[music_Temple_Desecrated]
+table=music
+data=name,Temple Desecrated
+data=playbutton,628
+data=unlock,20,20
+data=track,584
 
 [music_Command_Centre]
 table=music
 data=name,Command Centre
 data=playbutton,629
-data=unlock,1202,21
+data=unlock,20,21
+data=track,command centre
 
 [music_The_Phoenix]
 table=music
 data=name,The Phoenix
 data=playbutton,630
-data=unlock,1202,22
+data=unlock,20,22
+data=track,the phoenix
+
+[music_Mobilising_Armies]
+table=music
+data=name,Mobilising Armies
+data=playbutton,631
+data=unlock,20,23
+data=track,mobilizing armies
 
 [music_The_Evil_Within]
 table=music
 data=name,The Evil Within
 data=playbutton,632
-data=unlock,1202,24
+data=unlock,20,24
+data=track,the evil within
+
+[music_The_Dance_Of_The_Snow_Queen]
+table=music
+data=name,The Dance of the Snow Queen
+data=playbutton,634
+data=unlock,20,26
+data=track,the dance of the snow queen
 
 [music_Cavernous_Mythology]
 table=music
 data=name,Cavernous Mythology
 data=playbutton,635
-data=unlock,1202,27
+data=unlock,20,27
+data=track,cavernous mythology
 
 [music_Winter_Funfare]
 table=music
 data=name,Winter Funfare
 data=playbutton,636
-data=unlock,1202,28
+data=unlock,20,28
+data=track,winter funfare
 
 [music_Waiting_For_Battle]
 table=music
-data=name,Waiting For Battle
+data=name,Waiting for Battle
 data=playbutton,637
-data=unlock,1202,29
+data=unlock,20,29
+data=track,waiting for battle
 
 [music_Lair_Of_Kang_Admi]
 table=music
-data=name,Lair Of Kang Admi
+data=name,Lair of Kang Admi
 data=playbutton,638
-data=unlock,1202,30
+data=unlock,20,30
+data=track,lair of kang admi
 
 [music_Frost_Fight]
 table=music
 data=name,Frost Fight
 data=playbutton,639
-data=unlock,1202,31
+data=unlock,20,31
+data=track,frost fight
 
 [music_The_Plundered_Tomb]
 table=music
 data=name,The Plundered Tomb
 data=playbutton,644
-data=unlock,1381,4
+data=unlock,21,4
+data=track,the plundered tomb
 
 [music_Ancestral_Wisdom]
 table=music
 data=name,Ancestral Wisdom
 data=playbutton,645
-data=unlock,1381,5
+data=unlock,21,5
+data=track,ancestral wisdom
 
 [music_The_Muspahs_Tomb]
 table=music
-data=name,The Muspahs Tomb
+data=name,The Muspah's Tomb
 data=playbutton,647
+data=unlock,21,7
+data=track,645
 
 [music_Lamistards_Labyrinth]
 table=music
-data=name,Lamistards Labyrinth
+data=name,Lamistard's Labyrinth
 data=playbutton,648
+data=unlock,21,8
+data=track,lamistards labyrinth
 
 [music_The_Heist]
 table=music
 data=name,The Heist
 data=playbutton,649
-data=unlock,1381,9
+data=unlock,21,9
+data=track,the heist
 
 [music_Snack_Attack]
 table=music
 data=name,Snack Attack
 data=playbutton,650
-data=unlock,1381,10
+data=unlock,21,10
+data=track,snack attack
 
 [music_Soul_Wars]
 table=music
 data=name,Soul Wars
 data=playbutton,652
-data=unlock,1381,12
+data=unlock,21,12
+data=track,soul wars
 
 [music_The_Waiting_Game]
 table=music
 data=name,The Waiting Game
 data=playbutton,653
-data=unlock,1381,13
+data=unlock,21,13
+data=track,the waiting game
 
 [music_Rest_For_The_Weary]
 table=music
-data=name,Rest For The Weary
+data=name,Rest for the Weary
 data=playbutton,654
-data=unlock,1381,14
+data=unlock,21,14
+data=track,647
+
+[music_Trees_Arent_Your_Friends]
+table=music
+data=name,Trees Aren't Your Friends
+data=playbutton,655
+data=unlock,21,15
+data=track,trees aren't your friends
 
 [music_The_Throne_Of_Bandos]
 table=music
-data=name,The Throne Of Bandos
+data=name,The Throne of Bandos
 data=playbutton,656
-data=unlock,1381,16
+data=unlock,21,16
+data=track,the throne of bandos
 
 [music_Penguin_Possible]
 table=music
 data=name,Penguin Possible
 data=playbutton,657
-data=unlock,1381,17
+data=unlock,21,17
+data=track,penguin possible
+
+[music_Dont_Panic_Zanik]
+table=music
+data=name,Don't Panic Zanik
+data=playbutton,658
+data=unlock,21,18
+data=track,dont panic zanik
+
+[music_Demise_Of_The_Dorgeshuun]
+table=music
+data=name,Demise of the Dorgeshuun
+data=playbutton,659
+data=unlock,21,19
+data=track,the demise of dorgeshun
 
 [music_The_Chosen_Commander]
 table=music
 data=name,The Chosen Commander
 data=playbutton,660
-data=unlock,1381,20
+data=unlock,21,20
+data=track,the chosen commander
 
 [music_The_Pengmersible]
 table=music
 data=name,The Pengmersible
 data=playbutton,661
-data=unlock,1381,21
+data=unlock,21,21
+data=track,the pengmersible
 
 [music_Desert_Island_Bear]
 table=music
 data=name,Desert Island Bear
 data=playbutton,662
-data=unlock,1381,22
+data=unlock,21,22
+data=track,desert island bear
 
 [music_Ice_Day_For_Penguins]
 table=music
-data=name,Ice Day For Penguins
+data=name,Ice Day for Penguins
 data=playbutton,665
-data=unlock,1381,25
+data=unlock,21,25
+data=track,ice day for penguins
+
+[music_Face_Off]
+table=music
+data=name,Face Off
+data=playbutton,666
+data=unlock,21,26
+data=track,face off
 
 [music_Zaros_Stirs]
 table=music
 data=name,Zaros Stirs
 data=playbutton,691
-data=unlock,1394,19
+data=unlock,22,19
+data=track,699
 
 [music_The_Horn_Of_Chill]
 table=music
-data=name,The Horn Of Chill
+data=name,The Horn of Chill
 data=playbutton,692
-data=unlock,1394,20
+data=unlock,22,20
+data=track,693
+
+[music_Godslayer]
+table=music
+data=name,Godslayer
+data=playbutton,693
+data=unlock,22,21
+data=track,godslayer
 
 [music_But_We_Can_Fight]
 table=music
 data=name,But We Can Fight
 data=playbutton,694
-data=unlock,1394,22
+data=unlock,22,22
+data=track,but we can fight
 
 [music_Lazy_Wabbit]
 table=music
 data=name,Lazy Wabbit
 data=playbutton,695
-data=unlock,1394,23
+data=unlock,22,23
+data=track,642
+
+[music_Hare_Brained_Machines]
+table=music
+data=name,Hare-brained Machines
+data=playbutton,696
+data=unlock,22,24
+data=track,644
 
 [music_Eruption]
 table=music
 data=name,Eruption
 data=playbutton,707
-data=unlock,1434,3
+data=unlock,23,3
+data=track,eruption
 
 [music_Im_Counting_On_You]
 table=music
-data=name,Im Counting On You
+data=name,I'm Counting on You
 data=playbutton,708
+data=unlock,23,4
+data=track,i'm counting on you
 
 [music_Kharidian_Nights]
 table=music
 data=name,Kharidian Nights
 data=playbutton,709
-data=unlock,1434,5
+data=unlock,23,5
+data=track,kharidian_nights
 
 [music_Living_Rock]
 table=music
 data=name,Living Rock
 data=playbutton,710
-data=unlock,1434,6
+data=unlock,23,6
+data=track,living rock
 
 [music_Exhibit_A]
 table=music
-data=name,Exhibit A
+data=name,Exhibit 'A'
 data=playbutton,711
+data=unlock,23,7
+data=track,exhibit a
 
 [music_Fight_Of_The_Dwarves]
 table=music
-data=name,Fight Of The Dwarves
+data=name,Fight of the Dwarves
 data=playbutton,712
-data=unlock,1434,8
+data=unlock,23,8
+data=track,fight of the dwarves
 
 [music_Final_Destination]
 table=music
 data=name,Final Destination
 data=playbutton,715
-data=unlock,1434,11
+data=unlock,23,11
+data=track,final destination
+
+[music_Elven_Seed]
+table=music
+data=name,Elven Seed
+data=playbutton,716
+data=unlock,23,12
+data=track,elven seed
+
+[music_Scape_Theme]
+table=music
+data=name,Scape Theme
+data=playbutton,717
+data=unlock,23,13
+data=track,scape theme
 
 [music_Honkytonky_Newbie_Melody]
 table=music
 data=name,Honkytonky Newbie Melody
 data=playbutton,718
-data=unlock,1434,14
+data=unlock,23,14
+data=track,716
 
 [music_Honkytonky_Harmony]
 table=music
 data=name,Honkytonky Harmony
 data=playbutton,719
-data=unlock,1434,15
+data=unlock,23,15
+data=track,718
 
 [music_Trick_Or_Treat]
 table=music
-data=name,Trick Or Treat
+data=name,Trick or Treat?
 data=playbutton,720
-data=unlock,1434,16
+data=unlock,23,16
+data=track,681
 
 [music_Itsy_Bitsy]
 table=music
-data=name,Itsy Bitsy
+data=name,Itsy Bitsy...
 data=playbutton,721
-data=unlock,1434,17
+data=unlock,23,17
+data=track,683
 
 [music_Poison_Dreams]
 table=music
 data=name,Poison Dreams
 data=playbutton,722
-data=unlock,1434,18
+data=unlock,23,18
+data=track,682
 
 [music_Honkytonky_Medieval]
 table=music
 data=name,Honkytonky Medieval
 data=playbutton,723
-data=unlock,1434,19
+data=unlock,23,19
+data=track,721
 
 [music_Jaws_Of_The_Dagannoth]
 table=music
-data=name,Jaws Of The Dagannoth
+data=name,Jaws of the Dagannoth
 data=playbutton,724
-data=unlock,1434,20
+data=unlock,23,20
+data=track,714
 
 [music_The_Duke]
 table=music
 data=name,The Duke
 data=playbutton,725
-data=unlock,1434,21
+data=unlock,23,21
+data=track,the_duke
 
 [music_The_Fallen_Hero]
 table=music
 data=name,The Fallen Hero
 data=playbutton,726
-data=unlock,1434,22
+data=unlock,23,22
+data=track,the fallen hero
 
 [music_Honkytonky_Sea_Shanty]
 table=music
 data=name,Honkytonky Sea Shanty
 data=playbutton,728
-data=unlock,1434,24
+data=unlock,23,24
+data=track,719
 
 [music_Honkytonky_Parade]
 table=music
 data=name,Honkytonky Parade
 data=playbutton,729
-data=unlock,1434,25
+data=unlock,23,25
+data=track,720
 
 [music_Maiasaura]
 table=music
 data=name,Maiasaura
 data=playbutton,730
-data=unlock,1434,26
+data=unlock,23,26
+data=track,dagannoth mother
 
 [music_Root_Canal]
 table=music
 data=name,Root Canal
 data=playbutton,733
-data=unlock,1434,29
+data=unlock,23,29
+data=track,root canal
 
 [music_Desolate_Ruins]
 table=music
 data=name,Desolate Ruins
 data=playbutton,734
-data=unlock,1434,30
+data=unlock,23,30
+data=track,desolate souls
+
+[music_Smorgasbord]
+table=music
+data=name,Smorgasbord
+data=playbutton,735
+data=unlock,23,31
+data=track,724
 
 [music_Silent_Knight]
 table=music
 data=name,Silent Knight
 data=playbutton,736
-data=unlock,1596,0
+data=unlock,24,0
+data=track,725
 
 [music_Ghost_Of_Christmas_Presents]
 table=music
-data=name,Ghost Of Christmas Presents
+data=name,Ghost of Christmas Presents
 data=playbutton,737
-data=unlock,1596,1
+data=unlock,24,1
+data=track,722
 
 [music_Battle_Of_Souls]
 table=music
-data=name,Battle Of Souls
+data=name,Battle of Souls
 data=playbutton,739
-data=unlock,1596,3
+data=unlock,24,3
+data=track,battle of souls
 
 [music_These_Stones]
 table=music
 data=name,These Stones
 data=playbutton,740
-data=unlock,1596,4
+data=unlock,24,4
+data=track,rune_mechanics
 
 [music_A_Familiar_Feeling]
 table=music
 data=name,A Familiar Feeling
 data=playbutton,741
-data=unlock,1596,5
+data=unlock,24,5
+data=track,a familiar feeling
 
 [music_Dead_And_Buried]
 table=music
-data=name,Dead And Buried
+data=name,Dead and Buried
 data=playbutton,742
-data=unlock,1596,6
+data=unlock,24,6
+data=track,731
+
+[music_The_Pact]
+table=music
+data=name,The Pact
+data=playbutton,743
+data=unlock,24,7
+data=track,732
 
 [music_Freshwater]
 table=music
 data=name,Freshwater
 data=playbutton,744
-data=unlock,1596,8
+data=unlock,24,8
+data=track,freshwater
 
 [music_Saltwater]
 table=music
 data=name,Saltwater
 data=playbutton,745
-data=unlock,1596,9
+data=unlock,24,9
+data=track,saltwater
 
 [music_Stillwater]
 table=music
 data=name,Stillwater
 data=playbutton,746
-data=unlock,1596,10
+data=unlock,24,10
+data=track,stillwater
 
 [music_An_Easter_United]
 table=music
 data=name,An Easter United
 data=playbutton,747
-data=unlock,1596,11
+data=unlock,24,11
+data=track,easter 2010
 
 [music_Thieves_Guild_I]
 table=music
-data=name,Thieves Guild I
+data=name,Thieves' Guild I
 data=playbutton,749
+data=unlock,24,13
+data=track,thieves guild 1
 
 [music_Thieves_Guild_Ii]
 table=music
-data=name,Thieves Guild Ii
+data=name,Thieves' Guild II
 data=playbutton,750
+data=unlock,24,14
+data=track,thieves guild 2
 
 [music_Thieves_Guild_Iii]
 table=music
-data=name,Thieves Guild Iii
+data=name,Thieves' Guild III
 data=playbutton,751
+data=unlock,24,15
+data=track,thieves guild 3
 
 [music_Thieves_Guild_Iv]
 table=music
-data=name,Thieves Guild Iv
+data=name,Thieves' Guild IV
 data=playbutton,752
+data=unlock,24,16
+data=track,thieves guild 4
 
 [music_Body_Talk]
 table=music
 data=name,Body Talk
 data=playbutton,753
-data=unlock,1596,17
+data=unlock,24,17
+data=track,body talk
 
 [music_Love_Lost]
 table=music
 data=name,Love Lost
 data=playbutton,755
-data=unlock,1596,19
+data=unlock,24,19
+data=track,love lost
 
 [music_Love_And_Hate]
 table=music
-data=name,Love And Hate
+data=name,Love and Hate
 data=playbutton,756
-data=unlock,1596,20
+data=unlock,24,20
+data=track,love and hate
 
 [music_Love_Bites]
 table=music
 data=name,Love Bites
 data=playbutton,757
-data=unlock,1596,21
+data=unlock,24,21
+data=track,love bites
+
+[music_Castle_Warz]
+table=music
+data=name,Castle Warz
+data=playbutton,759
+data=unlock,24,23
+data=track,castlewars2
 
 [music_Mindful]
 table=music
 data=name,Mindful
 data=playbutton,761
-data=unlock,1596,25
+data=unlock,24,25
+data=track,847
 
 [music_Void_Knights_Theme]
 table=music
-data=name,Void Knights Theme
+data=name,Void Knights' Theme
 data=playbutton,762
+data=unlock,24,26
+data=track,848
 
 [music_Lortnoc_Tsep]
 table=music
 data=name,Lortnoc Tsep
 data=playbutton,763
-data=unlock,1596,27
+data=unlock,24,27
+data=track,849
 
 [music_Judge_And_Jury]
 table=music
-data=name,Judge And Jury
+data=name,Judge and Jury
 data=playbutton,765
-data=unlock,1596,29
+data=unlock,24,29
+data=track,judge and jury
 
 [music_Born_To_Do_This]
 table=music
-data=name,Born To Do This
+data=name,Born to Do This
 data=playbutton,766
-data=unlock,1596,30
+data=unlock,24,30
+data=track,803
+
+[music_Glacialis_I]
+table=music
+data=name,Glacialis I
+data=playbutton,784
+data=unlock,25,16
+data=track,832
+
+[music_Glacialis_Ii]
+table=music
+data=name,Glacialis II
+data=playbutton,785
+data=unlock,25,17
+data=track,834
+
+[music_Glacialis_Iii]
+table=music
+data=name,Glacialis III
+data=playbutton,786
+data=unlock,25,18
+data=track,827
+
+[music_Glacialis_Iv]
+table=music
+data=name,Glacialis IV
+data=playbutton,787
+data=unlock,25,19
+data=track,811
+
+[music_Glacialis_V]
+table=music
+data=name,Glacialis V
+data=playbutton,788
+data=unlock,25,20
+data=track,824
+
+[music_Glacialis_Vi]
+table=music
+data=name,Glacialis VI
+data=playbutton,789
+data=unlock,25,21
+data=track,808
+
+[music_Glacialis_Vii]
+table=music
+data=name,Glacialis VII
+data=playbutton,790
+data=unlock,25,22
+data=track,831
+
+[music_Glacialis_Viii]
+table=music
+data=name,Glacialis VIII
+data=playbutton,791
+data=unlock,25,23
+data=track,810
+
+[music_Glacialis_Ix]
+table=music
+data=name,Glacialis IX
+data=playbutton,792
+data=unlock,25,24
+data=track,833
+
+[music_Glacialis_X]
+table=music
+data=name,Glacialis X
+data=playbutton,793
+data=unlock,25,25
+data=track,837
 
 [music_Astea_Frostweb]
 table=music
 data=name,Astea Frostweb
 data=playbutton,794
-data=unlock,1618,26
+data=unlock,25,26
+data=track,816
 
 [music_Tokash_The_Bloodchiller]
 table=music
-data=name,Tokash The Bloodchiller
+data=name,To'Kash the Bloodchiller
 data=playbutton,795
+data=unlock,25,27
+data=track,820
 
 [music_Icy_Bones]
 table=music
 data=name,Icy Bones
 data=playbutton,796
-data=unlock,1618,28
+data=unlock,25,28
+data=track,815
 
 [music_Luminescent_Icefiend]
 table=music
 data=name,Luminescent Icefiend
 data=playbutton,797
-data=unlock,1618,29
+data=unlock,25,29
+data=track,818
 
 [music_Gluttonous_Behemoth]
 table=music
 data=name,Gluttonous Behemoth
 data=playbutton,798
-data=unlock,1618,30
+data=unlock,25,30
+data=track,817
 
 [music_Plane_Freezer_Lakhrahnaz]
 table=music
 data=name,Plane-freezer Lakhrahnaz
 data=playbutton,799
+data=unlock,25,31
+data=track,819
+
+[music_Desolo_I]
+table=music
+data=name,Desolo I
+data=playbutton,816
+data=unlock,26,16
+data=track,779
+
+[music_Desolo_Ii]
+table=music
+data=name,Desolo II
+data=playbutton,817
+data=unlock,26,17
+data=track,781
+
+[music_Desolo_Iii]
+table=music
+data=name,Desolo III
+data=playbutton,818
+data=unlock,26,18
+data=track,799
+
+[music_Desolo_Iv]
+table=music
+data=name,Desolo IV
+data=playbutton,819
+data=unlock,26,19
+data=track,802
+
+[music_Desolo_V]
+table=music
+data=name,Desolo V
+data=playbutton,820
+data=unlock,26,20
+data=track,794
+
+[music_Desolo_Vi]
+table=music
+data=name,Desolo VI
+data=playbutton,821
+data=unlock,26,21
+data=track,780
+
+[music_Desolo_Vii]
+table=music
+data=name,Desolo VII
+data=playbutton,822
+data=unlock,26,22
+data=track,771
+
+[music_Desolo_Viii]
+table=music
+data=name,Desolo VIII
+data=playbutton,823
+data=unlock,26,23
+data=track,790
+
+[music_Desolo_Ix]
+table=music
+data=name,Desolo IX
+data=playbutton,824
+data=unlock,26,24
+data=track,775
+
+[music_Desolo_X]
+table=music
+data=name,Desolo X
+data=playbutton,825
+data=unlock,26,25
+data=track,801
 
 [music_Ballak_The_Pummeller]
 table=music
-data=name,Ballak The Pummeller
+data=name,Bal'lak the Pummeller
 data=playbutton,826
+data=unlock,26,26
+data=track,786
 
 [music_Bulwark_Beast]
 table=music
 data=name,Bulwark Beast
 data=playbutton,827
-data=unlock,1619,27
+data=unlock,26,27
+data=track,785
 
 [music_Hobgoblin_Geomancer]
 table=music
 data=name,Hobgoblin Geomancer
 data=playbutton,828
-data=unlock,1619,28
+data=unlock,26,28
+data=track,787
 
 [music_Shadow_Forger_Ihlakhizan]
 table=music
 data=name,Shadow-forger Ihlakhizan
 data=playbutton,829
+data=unlock,26,29
+data=track,783
 
 [music_Unholy_Cursebearer]
 table=music
 data=name,Unholy Cursebearer
 data=playbutton,830
-data=unlock,1619,30
+data=unlock,26,30
+data=track,784
 
 [music_Shadow_Divine_Skinweaver]
 table=music
-data=name,Shadow-divine Skinweaver
+data=name,Divine Skinweaver
 data=playbutton,831
+data=unlock,26,31
+data=track,782
+
+[music_Adorno_I]
+table=music
+data=name,Adorno I
+data=playbutton,848
+data=unlock,27,16
+data=track,748
+
+[music_Adorno_Ii]
+table=music
+data=name,Adorno II
+data=playbutton,849
+data=unlock,27,17
+data=track,769
+
+[music_Adorno_Iii]
+table=music
+data=name,Adorno III
+data=playbutton,850
+data=unlock,27,18
+data=track,741
+
+[music_Adorno_Iv]
+table=music
+data=name,Adorno IV
+data=playbutton,851
+data=unlock,27,19
+data=track,739
+
+[music_Adorno_V]
+table=music
+data=name,Adorno V
+data=playbutton,852
+data=unlock,27,20
+data=track,742
+
+[music_Adorno_Vi]
+table=music
+data=name,Adorno VI
+data=playbutton,853
+data=unlock,27,21
+data=track,753
+
+[music_Adorno_Vii]
+table=music
+data=name,Adorno VII
+data=playbutton,854
+data=unlock,27,22
+data=track,761
+
+[music_Adorno_Viii]
+table=music
+data=name,Adorno VIII
+data=playbutton,855
+data=unlock,27,23
+data=track,757
+
+[music_Adorno_Ix]
+table=music
+data=name,Adorno IX
+data=playbutton,856
+data=unlock,27,24
+data=track,747
+
+[music_Adorno_X]
+table=music
+data=name,Adorno X
+data=playbutton,857
+data=unlock,27,25
+data=track,756
 
 [music_Harlakk_The_Riftsplitter]
 table=music
-data=name,Harlakk The Riftsplitter
+data=name,Har'Lakk the Riftsplitter
 data=playbutton,858
+data=unlock,27,26
+data=track,767
 
 [music_Lexicus_Runewright]
 table=music
 data=name,Lexicus Runewright
 data=playbutton,859
-data=unlock,1620,27
+data=unlock,27,27
+data=track,738
 
 [music_Night_Gazer_Khighorahk]
 table=music
 data=name,Night-gazer Khighorahk
 data=playbutton,860
+data=unlock,27,28
+data=track,759
 
 [music_Sagittare]
 table=music
 data=name,Sagittare
 data=playbutton,861
-data=unlock,1620,29
+data=unlock,27,29
+data=track,768
 
 [music_Rammernaut]
 table=music
 data=name,Rammernaut
 data=playbutton,862
-data=unlock,1620,30
+data=unlock,27,30
+data=track,746
 
 [music_Stomp]
 table=music
 data=name,Stomp
 data=playbutton,863
-data=unlock,1620,31
+data=unlock,27,31
+data=track,743
+
+[music_Occulo_I]
+table=music
+data=name,Occulo I
+data=playbutton,896
+data=unlock,29,0
+data=track,873
+
+[music_Occulo_Ii]
+table=music
+data=name,Occulo II
+data=playbutton,897
+data=unlock,29,1
+data=track,882
+
+[music_Occulo_Iii]
+table=music
+data=name,Occulo III
+data=playbutton,898
+data=unlock,29,2
+data=track,880
+
+[music_Occulo_Iv]
+table=music
+data=name,Occulo IV
+data=playbutton,899
+data=unlock,29,3
+data=track,860
+
+[music_Occulo_V]
+table=music
+data=name,Occulo V
+data=playbutton,900
+data=unlock,29,4
+data=track,886
+
+[music_Occulo_Vi]
+table=music
+data=name,Occulo VI
+data=playbutton,901
+data=unlock,29,5
+data=track,872
+
+[music_Occulo_Vii]
+table=music
+data=name,Occulo VII
+data=playbutton,902
+data=unlock,29,6
+data=track,885
+
+[music_Occulo_Viii]
+table=music
+data=name,Occulo VIII
+data=playbutton,903
+data=unlock,29,7
+data=track,889
+
+[music_Occulo_Ix]
+table=music
+data=name,Occulo IX
+data=playbutton,904
+data=unlock,29,8
+data=track,870
+
+[music_Occulo_X]
+table=music
+data=name,Occulo X
+data=playbutton,905
+data=unlock,29,9
+data=track,864
 
 [music_Necrolord]
 table=music
 data=name,Necrolord
 data=playbutton,906
-data=unlock,1864,10
+data=unlock,29,10
+data=track,876
 
 [music_Gravecreeper]
 table=music
 data=name,Gravecreeper
 data=playbutton,907
-data=unlock,1864,11
+data=unlock,29,11
+data=track,891
 
 [music_Skeletal_Trio]
 table=music
 data=name,Skeletal Trio
 data=playbutton,908
-data=unlock,1864,12
+data=unlock,29,12
+data=track,865
 
 [music_Yklagor_The_Thunderous]
 table=music
-data=name,Yklagor The Thunderous
+data=name,Yk'Lagor the Thunderous
 data=playbutton,909
+data=unlock,29,13
+data=track,863
 
 [music_Runed_Behemoth]
 table=music
 data=name,Runed Behemoth
 data=playbutton,910
-data=unlock,1864,14
+data=unlock,29,14
+data=track,877
 
 [music_Flesh_Spoiler_Haasghenahk]
 table=music
 data=name,Flesh-spoiler Haasghenahk
 data=playbutton,911
+data=unlock,29,15
+data=track,892
+
+[music_Torqueo_I]
+table=music
+data=name,Torqueo I
+data=playbutton,912
+data=unlock,29,16
+data=track,930
+
+[music_Torqueo_Ii]
+table=music
+data=name,Torqueo II
+data=playbutton,913
+data=unlock,29,17
+data=track,914
+
+[music_Torqueo_Iii]
+table=music
+data=name,Torqueo III
+data=playbutton,914
+data=unlock,29,18
+data=track,917
+
+[music_Torqueo_Iv]
+table=music
+data=name,Torqueo IV
+data=playbutton,915
+data=unlock,29,19
+data=track,911
+
+[music_Torqueo_V]
+table=music
+data=name,Torqueo V
+data=playbutton,916
+data=unlock,29,20
+data=track,927
+
+[music_Torqueo_Vi]
+table=music
+data=name,Torqueo VI
+data=playbutton,917
+data=unlock,29,21
+data=track,939
+
+[music_Torqueo_Vii]
+table=music
+data=name,Torqueo VII
+data=playbutton,918
+data=unlock,29,22
+data=track,938
+
+[music_Torqueo_Viii]
+table=music
+data=name,Torqueo VIII
+data=playbutton,919
+data=unlock,29,23
+data=track,920
+
+[music_Torqueo_Ix]
+table=music
+data=name,Torqueo IX
+data=playbutton,920
+data=unlock,29,24
+data=track,925
+
+[music_Torqueo_X]
+table=music
+data=name,Torqueo X
+data=playbutton,921
+data=unlock,29,25
+data=track,936
 
 [music_Blink]
 table=music
 data=name,Blink
 data=playbutton,922
-data=unlock,1864,26
+data=unlock,29,26
+data=track,940
 
 [music_Kalger_The_Warmonger]
 table=music
-data=name,Kalger The Warmonger
+data=name,Kal'Ger the Warmonger
 data=playbutton,923
+data=unlock,29,27
+data=track,924
 
 [music_Hope_Devourer]
 table=music
 data=name,Hope Devourer
 data=playbutton,924
-data=unlock,1864,28
+data=unlock,29,28
+data=track,916
 
 [music_Warped_Gulega]
 table=music
 data=name,Warped Gulega
 data=playbutton,925
-data=unlock,1864,29
+data=unlock,29,29
+data=track,922
 
 [music_Dreadnaught]
 table=music
 data=name,Dreadnaught
 data=playbutton,926
-data=unlock,1864,30
+data=unlock,29,30
+data=track,913
 
 [music_World_Gorger_Shukarhazh]
 table=music
 data=name,World-gorger Shukarhazh
 data=playbutton,927
+data=unlock,29,31
+data=track,937
 
 [music_Out_Of_Control]
 table=music
-data=name,Out Of Control
+data=name,Out of Control
 data=playbutton,928
-data=unlock,1865,0
+data=unlock,30,0
+data=track,out of control
 
 [music_Chain_Reaction]
 table=music
 data=name,Chain Reaction
 data=playbutton,929
-data=unlock,1865,1
+data=unlock,30,1
+data=track,chain reaction
+
+[music_All_For_The_Pest]
+table=music
+data=name,All for the Pest
+data=playbutton,930
+data=unlock,30,2
+data=track,all for the pest
+
+[music_Destiny]
+table=music
+data=name,Destiny
+data=playbutton,931
+data=unlock,30,3
+data=track,destiny
 
 [music_Unavoidable_Conflict]
 table=music
 data=name,Unavoidable Conflict
 data=playbutton,932
-data=unlock,1865,4
+data=unlock,30,4
+data=track,893
 
 [music_Right_Of_Conquest]
 table=music
-data=name,Right Of Conquest
+data=name,Right of Conquest
 data=playbutton,933
-data=unlock,1865,5
+data=unlock,30,5
+data=track,895
+
+[music_Gunnarsgrunn]
+table=music
+data=name,Gunnarsgrunn
+data=playbutton,936
+data=unlock,30,8
+data=track,gunnarsgrunn
 
 [music_Halloween_Party]
 table=music
 data=name,Halloween Party
 data=playbutton,939
-data=unlock,1865,11
+data=unlock,30,11
+data=track,halloween party
 
 [music_Black_Zabeth_Live]
 table=music
-data=name,Black Zabeth Live
+data=name,Black Zabeth: LIVE!
 data=playbutton,940
+data=unlock,30,12
+data=track,908
 
 [music_Black_Zabeth]
 table=music
 data=name,Black Zabeth
 data=playbutton,941
-data=unlock,1865,13
+data=unlock,30,13
+data=track,black zabeth
 
 [music_In_Security]
 table=music
 data=name,In Security
 data=playbutton,942
-data=unlock,1865,14
+data=unlock,30,14
+data=track,900
 
 [music_Give_It_Your_Pest_Shot]
 table=music
-data=name,Give It Your Pest Shot
+data=name,Give it Your Pest Shot
 data=playbutton,943
-data=unlock,1865,15
+data=unlock,30,15
+data=track,905
 
 [music_The_Void_Stares_Back]
 table=music
 data=name,The Void Stares Back
 data=playbutton,945
-data=unlock,1865,17
+data=unlock,30,17
+data=track,904
 
 [music_Precarious_Void]
 table=music
 data=name,Precarious Void
 data=playbutton,946
-data=unlock,1865,18
+data=unlock,30,18
+data=track,902
+
+[music_Mystery_Revealed]
+table=music
+data=name,Mystery Revealed
+data=playbutton,947
+data=unlock,30,19
+data=track,899
+
+[music_Who_Are_We_To_Judge]
+table=music
+data=name,Who Are We to Judge?
+data=playbutton,948
+data=unlock,30,20
+data=track,906
+
+[music_Metalwork]
+table=music
+data=name,Metalwork
+data=playbutton,949
+data=unlock,30,21
+data=track,582
 
 [music_Christmas_Caverns]
 table=music
 data=name,Christmas Caverns
 data=playbutton,953
-data=unlock,1865,25
+data=unlock,30,25
+data=track,christmas caverns
 
 [music_Seasonal_Sports]
 table=music
 data=name,Seasonal Sports
 data=playbutton,954
-data=unlock,1865,26
+data=unlock,30,26
+data=track,seasonal sports
+
+[music_The_Task_At_Hand]
+table=music
+data=name,The Task at Hand
+data=playbutton,955
+data=unlock,30,27
+data=track,941
+
+[music_Simian_Scuffle]
+table=music
+data=name,Simian Scuffle
+data=playbutton,958
+data=unlock,30,30
+data=track,944
+
+[music_Monkey_See_Monkey_Do]
+table=music
+data=name,"Monkey See, Monkey Do"
+data=playbutton,962
+data=unlock,31,2
+data=track,950
 
 [music_Rocky_Rescue]
 table=music
 data=name,Rocky Rescue
 data=playbutton,963
-data=unlock,2019,3
+data=unlock,31,3
+data=track,rocky rescue
+
+[music_Go_With_The_Flow]
+table=music
+data=name,Go with the Flow
+data=playbutton,964
+data=unlock,31,4
+data=track,go with the flow
 
 [music_The_Records_Chamber]
 table=music
 data=name,The Records Chamber
 data=playbutton,965
-data=unlock,2019,5
+data=unlock,31,5
+data=track,the records chamber
+
+[music_Corporate_Callousness]
+table=music
+data=name,Corporate Callousness
+data=playbutton,966
+data=unlock,31,6
+data=track,corporate callousness
 
 [music_Colonel_Grimsson]
 table=music
 data=name,Colonel Grimsson
 data=playbutton,969
-data=unlock,2019,9
+data=unlock,31,9
+data=track,colonel grimsson
+
+[music_Only_A_King]
+table=music
+data=name,Only a King
+data=playbutton,970
+data=unlock,31,10
+data=track,only a king
 
 [music_Zaros_Zeitgeist]
 table=music
 data=name,Zaros Zeitgeist
 data=playbutton,972
-data=unlock,2019,12
+data=unlock,31,12
+data=track,zaros zeitgeist
 
+[music_Reunion]
+table=music
+data=name,Reunion
+data=playbutton,973
+data=unlock,31,13
+data=track,reunion
+
+[music_Cage_Against_The_Machine]
+table=music
+data=name,Cage Against the Machine
+data=playbutton,974
+data=unlock,31,14
+data=track,cage against the machine
+
+[music_Logical_Progression]
+table=music
+data=name,Logical Progression
+data=playbutton,975
+data=unlock,31,15
+data=track,logical progression
+
+[music_The_Factory_Floor]
+table=music
+data=name,The Factory Floor
+data=playbutton,976
+data=unlock,31,16
+data=track,the factory floor
+
+[music_Spring_Song]
+table=music
+data=name,Spring Song
+data=playbutton,977
+data=unlock,31,17
+data=track,spring song
+
+[music_Lament_Of_The_Snow_Queen]
+table=music
+data=name,Lament of the Snow Queen
+data=playbutton,978
+data=unlock,31,18
+data=track,lament of the snow queen
