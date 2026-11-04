@@ -116,6 +116,35 @@ fn the_wield_requirements_the_first_port_dropped_hold() {
     });
 }
 
+/// Two lines the PR's newer 289 has and the first re-port missed: dragon
+/// platelegs need 60 Defence (`tier60.rs2`), and the dragon dagger's quest
+/// message spells "Lost City Of Zanaris" (`levelrequire.rs2`).
+#[test]
+fn the_newer_289_wield_lines_hold() {
+    runner::on_loaded_engine(|engine| {
+        assert!(
+            wield(engine, "dragon_platelegs", 1),
+            "dragon platelegs stay in the backpack at level 1"
+        );
+        assert!(refused(), "dragon_platelegs: the wield trigger answered");
+        assert!(
+            !wield(engine, "dragon_platelegs", 60),
+            "dragon platelegs at Defence 60"
+        );
+
+        assert!(
+            wield(engine, "dragon_dagger", 99),
+            "no dragon dagger without Lost City"
+        );
+        assert!(
+            rs_vm::ops::test::calls_for("mes")
+                .iter()
+                .any(|m| m.contains("You need to complete the Lost City Of Zanaris Quest.")),
+            "289's Zanaris message"
+        );
+    });
+}
+
 /// A wielded weapon brings its 2011 stance: the render anim (BAS) its cache
 /// param 644 names (`void-634`'s RENDER_EMOTE), which the appearance carries in
 /// place of 289's seven base animations. A two-handed sword stands as 124, a

@@ -543,3 +543,101 @@ switch_coord (loc_coord) {
     case 2_39_60_9_31 : p_telejump(movecoord(coord, 0, -1, 0));
     case default : @unhandled_stairs(loc_coord);
 }
+
+// 289's Castle Wars stairs wait for the Castle Wars port, as its ladders do
+// (ladders.rs2). 2011 still places castlewars_topstair (4415) on 289's six
+// tiles, and on 1_37_48_14_60 and 1_37_48_49_3 too, but its outside stairs
+// are other locs: Steps 36495, 36480 and 36523 and the op-less 36494, 36534,
+// 36530 and 36539 stand on 289's tiles, and nothing on 0_37_48_49_2 (map
+// 37_48, cache 786). 289's ids 4416-4420 are other locs in 2011. The flag
+// check needs 289's %castlewars_team (varp 376, unnamed in 647) and the
+// standards, 647's saradomin_flag (4037) and zamorak_flag (4039).
+// // https://oldschool.runescape.wiki/w/Update:Santa,%20Flax%20and%20Castlewars
+// // "To fix this, when going up and down stairs, you can no longer take your own teams flag AWAY from its starting area."
+// [label,castlewars_topstair_checksaradomin](coord $dest)
+// if (%castlewars_team = ^castlewars_team_saradomin & inv_total(worn, castlewars_saradomin_banner) > 0) {
+//     // text from osrs discord, exclamation point unconfirmed
+//     mes("Saradomin won't let you take his standard toward the enemy!");
+//     return;
+// }
+// p_teleport($dest);
+//
+// [label,castlewars_topstair_checkzamorak](coord $dest)
+// if (%castlewars_team = ^castlewars_team_zamorak & inv_total(worn, castlewars_zamorak_banner) > 0) {
+//     // text from osrs discord, exclamation point unconfirmed
+//     mes("Zamorak won't let you take his standard toward the enemy!");
+//     return;
+// }
+// p_teleport($dest);
+//
+// [oploc1,castlewars_topstair]
+// p_arrivedelay;
+// switch_coord (loc_coord) {
+//     case 1_37_48_51_8 : @castlewars_topstair_checksaradomin(0_37_48_51_5);
+//     case 2_37_48_62_9 : @castlewars_topstair_checksaradomin(1_37_48_59_9);
+//     case 3_37_48_57_2 : @castlewars_topstair_checksaradomin(2_37_48_57_5);
+//     case 1_37_48_12_55 : @castlewars_topstair_checkzamorak(0_37_48_12_58);
+//     case 2_37_48_1_54 : @castlewars_topstair_checkzamorak(1_37_48_4_54);
+//     case 3_37_48_6_61 : @castlewars_topstair_checkzamorak(2_37_48_6_58);
+//     case default : @unhandled_stairs(loc_coord);
+// }
+//
+// [oploc1,castlewars_topstair_linked]
+// p_arrivedelay;
+// @unhandled_stairs(loc_coord);
+//
+// [oploc1,castlewars_outsidestairs_saradomin]
+// p_arrivedelay;
+// switch_coord (loc_coord) {
+//     case 0_37_48_51_6 : p_teleport(1_37_48_52_8);
+//     case 1_37_48_60_9 : p_teleport(2_37_48_62_8);
+//     case 2_37_48_57_2 : p_teleport(3_37_48_58_2);
+//     case default : @unhandled_stairs(loc_coord);
+// }
+//
+// [oploc1,castlewars_outsidestairs_zamorak]
+// p_arrivedelay;
+// switch_coord (loc_coord) {
+//     case 0_37_48_12_55 : p_teleport(1_37_48_11_55);
+//     case 1_37_48_1_54 : p_teleport(2_37_48_1_55);
+//     case 2_37_48_6_59 : p_teleport(3_37_48_5_61);
+//     case default : @unhandled_stairs(loc_coord);
+// }
+//
+// [oploc1,castlewars_outsidestairs_saradomin_linked]
+// p_arrivedelay;
+// switch_coord (loc_coord) {
+//     case 0_37_48_49_2 :
+//         if (coordx(coord) < coordx(loc_coord)) {
+//             // down
+//             p_telejump(0_37_48_49_5);
+//         } else {
+//             // up - todo: confirm whether you can take your own banner up here. adding for now to satisfy "when going **up** and down stairs"
+//             if (%castlewars_team = ^castlewars_team_saradomin & inv_total(worn, castlewars_saradomin_banner) > 0) {
+//                 // text from osrs discord, exclamation point unconfirmed
+//                 mes("Saradomin won't let you take his standard toward the enemy!");
+//                 return;
+//             }
+//             p_telejump(0_37_48_48_2);
+//         }
+//     case default : @unhandled_stairs(loc_coord);
+// }
+//
+// [oploc1,castlewars_outsidestairs_zamorak_linked]
+// p_arrivedelay;
+// switch_coord (loc_coord) {
+//     case 0_37_48_14_59 :
+//         if (coordx(coord) > coordx(loc_coord)) {
+//             // down
+//             p_telejump(0_37_48_14_58);
+//         } else {
+//             // up - todo: confirm whether you can take your own banner up here. adding for now to satisfy "when going **up** and down stairs"
+//             if (%castlewars_team = ^castlewars_team_zamorak & inv_total(worn, castlewars_zamorak_banner) > 0) {
+//                 // text from osrs discord, exclamation point unconfirmed
+//                 mes("Zamorak won't let you take his standard toward the enemy!");
+//                 return;
+//             }
+//             p_telejump(0_37_48_15_61);
+//         }
+//     case default : @unhandled_stairs(loc_coord);
+// }
