@@ -1,8 +1,3 @@
-// Ported from rs-majula (ref/rs-majula/content/scripts/general_use/scripts/pickables.rs2).
-// Crops (potato/wheat/onion/cabbage) are verbatim — their loc ids (312/313/3366/1161)
-// and replacement obj ids match rev-647. Flax differs: our 647 cache names loc 2646
-// `flax` (rev-225 called it `flax_ground`), so the trigger uses `flax` here.
-
 // Pickable Potatoes
 [oploc2,potato]
 p_arrivedelay;
@@ -25,6 +20,11 @@ if(inv_freespace(inv) = 0) {
 } else {
     ~pickup_loc_floor(loc_coord, grain, 20, true);
     mes("You pick some grain.");
+    if (inzone(^miscellania_lower_bound, ^miscellania_upper_bound, coord) = true) {
+        if(npc_find(coord, farmer_1377, 15, 0) = true) {
+            ~chatnpc("<p,angry>Oi! Leave my wheat alone!");
+        }
+    }
 }
 
 // Pickable Onion
@@ -67,5 +67,8 @@ if(inv_freespace(inv) = 0) {
     sound_synth(pick, 1, 0);
     mes("You pick some flax.");
     inv_add(inv, flax, 1);
-    loc_del(25); // 10t after update
+
+    if (random(16) < 3) {
+        loc_del(10);
+    }
 }

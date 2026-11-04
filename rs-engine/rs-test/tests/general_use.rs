@@ -454,3 +454,30 @@ fn port_sarim_s_karamja_gangplank_boards_the_ship_to_the_east() {
         assert_eq!(coord(engine, client.pid), (3032, 1, 3217), "on the deck");
     });
 }
+
+/// 289's locked chest (786 keeps chestlocked, 2995: "Closed chest", op1 Open)
+/// says it is locked; 289's locked gate says it is tried and no more, as
+/// upstream's 289 now has it.
+#[test]
+fn a_locked_chest_and_a_locked_gate_stay_shut() {
+    runner::on_loaded_engine(|engine| {
+        // chestlocked at 0_40_60_60_53, from the tile west of it (walls run
+        // along the tiles south of it).
+        const CHEST: (u16, u16) = (2620, 3893);
+        let mut client = holding(engine, "lockpick", 2619, 3893, &[]);
+        op_loc1(&mut client, loc_id("chestlocked"), CHEST.0, CHEST.1);
+        cycles(engine, 6);
+        assert!(said("The chest is locked."));
+
+        // lockedmetalgatel at 1_42_54_38_38.
+        const GATE: (u16, u8, u16) = (2726, 1, 3494);
+        let mut client = beside_loc(engine, "gatecrasher", GATE, &[]);
+        op_loc1(&mut client, loc_id("lockedmetalgatel"), GATE.0, GATE.2);
+        cycles(engine, 8);
+        assert!(said("You try to open the gate..."));
+        assert!(
+            !said("The gate is locked securely, it won't open!"),
+            "289 says no more"
+        );
+    });
+}
