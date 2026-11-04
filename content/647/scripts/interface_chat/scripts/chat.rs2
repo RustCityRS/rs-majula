@@ -129,6 +129,51 @@ while ($page < $pagetotal) {
     $page = calc($page + 1)
 }
 
+// 289's .mesbox: mesbox shown to the script's second player (.player), as
+// mesbox_page is. 2011's boxes and line width, as mesbox.
+[proc,.mesbox_page](int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0) {
+    // sanity check
+    return;
+} else if ($lines = 1) {
+    .if_settext(message1:com1, split_get($page, 0));
+    .if_openchat(message1);
+} else if ($lines = 2) {
+    .if_settext(message2:com1, split_get($page, 0));
+    .if_settext(message2:com2, split_get($page, 1));
+    .if_openchat(message2);
+} else if ($lines = 3) {
+    .if_settext(message3:com1, split_get($page, 0));
+    .if_settext(message3:com2, split_get($page, 1));
+    .if_settext(message3:com3, split_get($page, 2));
+    .if_openchat(message3);
+} else if ($lines = 4) {
+    .if_settext(message4:com1, split_get($page, 0));
+    .if_settext(message4:com2, split_get($page, 1));
+    .if_settext(message4:com3, split_get($page, 2));
+    .if_settext(message4:com4, split_get($page, 3));
+    .if_openchat(message4);
+} else if ($lines = 5) {
+    .if_settext(message5:com1, split_get($page, 0));
+    .if_settext(message5:com2, split_get($page, 1));
+    .if_settext(message5:com3, split_get($page, 2));
+    .if_settext(message5:com4, split_get($page, 3));
+    .if_settext(message5:com5, split_get($page, 4));
+    .if_openchat(message5);
+}
+
+[proc,.mesbox](string $string)
+split_init($string, 441, 5, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~.mesbox_page($page);
+    .p_pausebutton;
+    .if_close;
+    $page = calc($page + 1);
+}
+
 // ── Obj Message Box ─────────────────────────────────────────────────────────
 // Item-icon message box: obj model + message + "Click here to continue".
 // 519 children: com0=model, com1=text (380x69 wrap), com2=continue.
@@ -142,14 +187,21 @@ while ($page < $pagetotal) {
 // q8_full. 2011's box (objbox, 519) is one text component that wide in that
 // font, so a page's lines join with <br>. 289's $x and $y placed the obj in
 // 289's box; 2011's places it itself.
+[proc,objbox_page](obj $obj, int $scale, int $x, int $y, int $page)
+if (split_linecount($page) = 0) {
+    // sanity check
+    return;
+}
+if_setobject(objbox:com0, $obj, $scale);
+if_settext(objbox:com1, ~split_page_text($page));
+if_openchat(objbox);
+
 [proc,objbox](obj $obj, string $string, int $scale, int $x, int $y)
 split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
-    if_setobject(objbox:com0, $obj, $scale);
-    if_settext(objbox:com1, ~split_page_text($page));
-    if_openchat(objbox);
+    ~objbox_page($obj, $scale, $x, $y, $page);
     p_pausebutton;
     $page = calc($page + 1);
 }
@@ -162,7 +214,10 @@ def_string $text = "";
 def_int $i = 0;
 while ($i < $lines) {
     if ($i > 0) {
-        $text = append($text, "<br>");
+        // "<br>" in a string compiles as a call of a command br (runec reads
+        // a bare <identifier> in a string as code), so the break is built
+        // from its characters.
+        $text = append_char(append(append_char($text, '<'), "br"), '>');
     }
     $text = append($text, split_get($page, $i));
     $i = calc($i + 1);
@@ -170,16 +225,45 @@ while ($i < $lines) {
 return($text);
 
 // ── Double Obj Message Box ──────────────────────────────────────────────────
-// Two obj models either side of the message: 131 com0=model, com1=text
-// (380x69 wrap), com2=model, com3=continue. 289's signature; one page, as
-// objbox.
+// Two obj models beside the message: 131 com0=model (x9 y9), com1=text, com2=
+// model (x33 y33), com3=continue. 289's signatures and paging: its text in
+// pages of 4 lines, 350 wide in q8_full, on 289's four line components.
+// 2011's box (cache 786, 131) has one text component, 380 wide and 69 high in
+// q8_full (font 497), so a page is 4 lines that wide, joined with <br>, as
+// objbox. 289's x and y placed each obj in 289's box; 2011's places them
+// itself.
+[proc,doubleobjbox_page](obj $obj_1, int $scale1, int $x1, int $y1, obj $obj_2, int $scale2, int $x2, int $y2, int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0 | $lines > 4) {
+    // sanity check
+    return;
+}
+if_settext(doubleobjbox:com1, ~split_page_text($page));
+if_setobject(doubleobjbox:com0, $obj_1, $scale1);
+if_setobject(doubleobjbox:com2, $obj_2, $scale2);
+if_openchat(doubleobjbox);
+
 [proc,doubleobjbox](obj $obj_1, obj $obj_2, string $string, int $scale)
-if_setobject(doubleobjbox:com0, $obj_1, $scale)
-if_settext(doubleobjbox:com1, $string)
-if_setobject(doubleobjbox:com2, $obj_2, $scale)
-if_openchat(doubleobjbox)
-p_pausebutton
-if_close
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~doubleobjbox_page($obj_1, $scale, 0, 0, $obj_2, $scale, 0, 0, $page);
+    p_pausebutton;
+    $page = calc($page + 1);
+}
+if_close;
+
+[proc,doubleobjbox2](obj $obj_1, int $scale1, int $x1, int $y1, obj $obj_2, int $scale2, int $x2, int $y2, string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~doubleobjbox_page($obj_1, $scale1, $x1, $y1, $obj_2, $scale2, $x2, $y2, $page);
+    p_pausebutton;
+    $page = calc($page + 1);
+}
+if_close;
 
 // ── Choice Dialogs ─────────────────────────────────────────────────────────
 // Adapted from 2004scape chat.rs2 for rev 647 interface component IDs.
@@ -330,9 +414,34 @@ switch_component (last_com) {
     case default : return($ret5);
 }
 
+// p_choice5 with the caller's header in place of "Select an Option" (289's
+// signature).
+[proc,p_choice5_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $string5, int $ret5, string $headertext)(int)
+if_settext(multi5:com_1, $headertext)
+if_settext(multi5:com_2, $string1)
+if_settext(multi5:com_3, $string2)
+if_settext(multi5:com_4, $string3)
+if_settext(multi5:com_5, $string4)
+if_settext(multi5:com_6, $string5)
+if_sethide(multi5:com_9, true)
+if_sethide(multi5:com_10, false)
+if_openchat(multi5)
+if_addresumebutton(multi5:com_2)
+if_addresumebutton(multi5:com_3)
+if_addresumebutton(multi5:com_4)
+if_addresumebutton(multi5:com_5)
+if_addresumebutton(multi5:com_6)
+p_pausebutton
+switch_component (last_com) {
+    case multi5:com_2 : return($ret1);
+    case multi5:com_3 : return($ret2);
+    case multi5:com_4 : return($ret3);
+    case multi5:com_5 : return($ret4);
+    case default : return($ret5);
+}
+
 // 289's choice labels (interface_chat/scripts/chat.rs2): ask, then jump to the
-// label of the option picked. 289's multi5_header waits for a 5-option
-// p_choice5_header, which 647 does not have yet.
+// label of the option picked.
 [label,multi2](string $string1, label $label1, string $string2, label $label2)
 def_int $choice = ~p_choice2($string1, 1, $string2, 2);
 if ($choice = 1) jump($label1);
@@ -377,6 +486,14 @@ if ($choice = 2) jump($label2);
 if ($choice = 3) jump($label3);
 jump($label4);
 
+[label,multi5_header](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4, string $string5, label $label5, string $headertext)
+def_int $choice = ~p_choice5_header($string1, 1, $string2, 2, $string3, 3, $string4, 4, $string5, 5, $headertext);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+if ($choice = 4) jump($label4);
+jump($label5);
+
 // ── Convenience wrappers (auto-detect active NPC) ─────────────────────────
 
 [proc,chatnpc](string $string)
@@ -410,4 +527,171 @@ while ($page < $pagetotal) {
     p_pausebutton
     if_close
     $page = calc($page + 1)
+}
+
+// 289's chatnpcnoturn: chatnpc for an npc that does not turn to the player
+// (it carries on with its work); the player still faces it. 2011's line
+// width, as chatnpc.
+[proc,chatnpcnoturn](string $string)
+split_init($string, 350, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(npc_name, npc_type, $page);
+    facesquare(npc_coord);
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+// 289's .chatnpc, .chatnpcrange and .chatnpcnoturn: the same three, spoken by
+// the script's second npc (.npc), as when one npc answers for another.
+[proc,.chatnpc](string $string)
+split_init($string, 350, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(.npc_name, .npc_type, $page);
+    facesquare(.npc_coord);
+    if (.npc_getmode ! opplayer2 & .npc_getmode ! applayer2) {
+        .npc_setmode(playerfaceclose);
+    }
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+[proc,.chatnpcrange](string $string)
+split_init($string, 350, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(.npc_name, .npc_type, $page);
+    facesquare(.npc_coord);
+    if (.npc_getmode ! opplayer2 & .npc_getmode ! applayer2) {
+        .npc_setmode(playerface);
+    }
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+[proc,.chatnpcnoturn](string $string)
+split_init($string, 350, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(.npc_name, .npc_type, $page);
+    facesquare(.npc_coord);
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+// ── NPC chat with a model for a head ────────────────────────────────────────
+// 289's chatnpc_model: an npc's chat box with a model id for its head, for a
+// speaker that is no npc (a parrot on a shoulder, a scarecrow). 2011's npc
+// chat boxes and line width, as chatnpc_page; the head is com2, as there.
+// 289's callers pass 289's model ids: check each against cache 786 when they
+// are ported.
+[proc,chatnpc_model_page](string $npc_name, int $chathead, int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0) {
+    // sanity check
+    return;
+} else if ($lines = 1) {
+    if_setmodel(npcchat1:com2, $chathead);
+    if_setanim(npcchat1:com2, split_getanim($page));
+    if_settext(npcchat1:com3, $npc_name);
+    if_settext(npcchat1:com4, split_get($page, 0));
+    if_openchat(npcchat1);
+} else if ($lines < 3) {
+    if_setmodel(npcchat2:com2, $chathead);
+    if_setanim(npcchat2:com2, split_getanim($page));
+    if_settext(npcchat2:com3, $npc_name);
+    if_settext(npcchat2:com4, split_get($page, 0));
+    if_settext(npcchat2:com5, split_get($page, 1));
+    if_openchat(npcchat2);
+} else if ($lines = 3) {
+    if_setmodel(npcchat3:com2, $chathead);
+    if_setanim(npcchat3:com2, split_getanim($page));
+    if_settext(npcchat3:com3, $npc_name);
+    if_settext(npcchat3:com4, split_get($page, 0));
+    if_settext(npcchat3:com5, split_get($page, 1));
+    if_settext(npcchat3:com6, split_get($page, 2));
+    if_openchat(npcchat3);
+} else if ($lines = 4) {
+    if_setmodel(npcchat4:com2, $chathead);
+    if_setanim(npcchat4:com2, split_getanim($page));
+    if_settext(npcchat4:com3, $npc_name);
+    if_settext(npcchat4:com4, split_get($page, 0));
+    if_settext(npcchat4:com5, split_get($page, 1));
+    if_settext(npcchat4:com6, split_get($page, 2));
+    if_settext(npcchat4:com7, split_get($page, 3));
+    if_openchat(npcchat4);
+}
+
+[proc,chatnpc_model](string $npc_name, int $chathead, string $string)
+split_init($string, 350, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_model_page($npc_name, $chathead, $page);
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+// ── Cutscene NPC chat ───────────────────────────────────────────────────────
+// 289's chatnc_cutscene: an npc's line during a cutscene. It waits for no
+// click: each page opens in turn and the cutscene's own delays pace them.
+// 289 shows it in inter_213, a four-line npc box with no "Click here to
+// continue", a page of 1-2 lines on its middle two. 2011's npc boxes with no
+// continue are npcchat_np1-4 (cache 786, 245-248: head com2, name com3,
+// lines com4-7, and no continue component), one per line count as
+// npcchat1-4 are, so a page takes the box of its line count. 2011's line
+// width, as chatnpc.
+[proc,chatnpc_cutscene_page](string $npc_name, npc $npc, int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0) {
+    return;
+} else if ($lines = 1) {
+    if_setnpchead(npcchat_np1:com2, $npc);
+    if_setanim(npcchat_np1:com2, split_getanim($page));
+    if_settext(npcchat_np1:com3, $npc_name);
+    if_settext(npcchat_np1:com4, split_get($page, 0));
+    if_openchat(npcchat_np1);
+} else if ($lines = 2) {
+    if_setnpchead(npcchat_np2:com2, $npc);
+    if_setanim(npcchat_np2:com2, split_getanim($page));
+    if_settext(npcchat_np2:com3, $npc_name);
+    if_settext(npcchat_np2:com4, split_get($page, 0));
+    if_settext(npcchat_np2:com5, split_get($page, 1));
+    if_openchat(npcchat_np2);
+} else if ($lines = 3) {
+    if_setnpchead(npcchat_np3:com2, $npc);
+    if_setanim(npcchat_np3:com2, split_getanim($page));
+    if_settext(npcchat_np3:com3, $npc_name);
+    if_settext(npcchat_np3:com4, split_get($page, 0));
+    if_settext(npcchat_np3:com5, split_get($page, 1));
+    if_settext(npcchat_np3:com6, split_get($page, 2));
+    if_openchat(npcchat_np3);
+} else if ($lines = 4) {
+    if_setnpchead(npcchat_np4:com2, $npc);
+    if_setanim(npcchat_np4:com2, split_getanim($page));
+    if_settext(npcchat_np4:com3, $npc_name);
+    if_settext(npcchat_np4:com4, split_get($page, 0));
+    if_settext(npcchat_np4:com5, split_get($page, 1));
+    if_settext(npcchat_np4:com6, split_get($page, 2));
+    if_settext(npcchat_np4:com7, split_get($page, 3));
+    if_openchat(npcchat_np4);
+}
+
+[proc,chatnc_cutscene](string $npc_name, npc $npc, string $string)
+split_init($string, 350, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_cutscene_page($npc_name, $npc, $page);
+    $page = calc($page + 1);
 }

@@ -139,6 +139,41 @@ def_int $count;
 $product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, null, null, null);
 return($product);
 
+// 289's multiobj3 and multiobj4 ask the same of three and four items, and
+// multiobj3_close of three with a close button; asked as multiobj2 is.
+[proc,multiobj3](string $title, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, int $sx1, int $sy1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, int $sx2, int $sy2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, int $sx3, int $sy3)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, $obj3, null, null);
+return($product);
+
+// 289's close button on multiobj3_close (com_8) closed the dialogue. Cache
+// 786's skillmulti2010 (905) and its number panel (916) have no close button:
+// 905 has no ops, and 916's are 1, 5, 10, +1 and -1 (All's is the server's
+// if_setevents).
+// [if_button,multiobj3_close:com_8] if_close;
+[proc,multiobj3_close](string $title, namedobj $obj1, int $scale1, string $string1, namedobj $obj2, int $scale2, string $string2, namedobj $obj3, int $scale3, string $string3)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, $obj3, null, null);
+return($product);
+
+[proc,multiobj4](string $title, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, int $sx1, int $sy1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, int $sx2, int $sy2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, int $sx3, int $sy3, namedobj $obj4, int $x4, int $y4, int $scale4, string $string4, int $sx4, int $sy4)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, $obj3, $obj4, null);
+return($product);
+
+// 289's skill_multi2-5 [if_close] triggers stamp %weakqueue_map_clock, which
+// 289's skill_multi procs read after the click, to close the dialogue and
+// wait a tick when it was closed that same tick. 2011 asks in skillmulti2010,
+// whose proc (skill_make10) closes the dialogue itself after every click:
+// 289's dialogues and their close triggers have no counterpart here.
+// [if_close,skill_multi2]
+// [if_close,skill_multi3]
+// [if_close,skill_multi4]
+// [if_close,skill_multi5]
+
 // The amount on 2011's make-X is the player's last choice:
 // - While playing, the client keeps it in skill_creation_amount (varbit 8095)
 //   and writes it as the 1/5/10/All and +1/-1 buttons are pressed
