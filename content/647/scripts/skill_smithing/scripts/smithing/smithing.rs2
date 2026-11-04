@@ -173,17 +173,15 @@ return (null);
 [oplocu,_anvil]
 if (~in_tutorial_island(coord) = true) {
     // This happens with any item, not just bars.
-    // 289's checks of its tutorial's progress (%tutorial) wait for the
-    // tutorial's port (tutorial/scripts/tutorial_stubs.rs2).
-    // if (%tutorial < ^newbie_mining_instructor_before_smelt_bronze_bar) {
-    //     ~mesbox("This is an anvil used for smithing.|You'll learn how to use it soon.");
-    //     return;
-    // }
-    //
-    // if (%tutorial < ^newbie_mining_instructor_smith_a_dagger) {
-    //     ~mesbox("You need a hammer to work the metal with.|Talk to the mining instructor to get one");
-    //     return;
-    // }
+    if (%tutorial < ^newbie_mining_instructor_before_smelt_bronze_bar) {
+        ~mesbox("This is an anvil used for smithing.|You'll learn how to use it soon.");
+        return;
+    }
+
+    if (%tutorial < ^newbie_mining_instructor_smith_a_dagger) {
+        ~mesbox("You need a hammer to work the metal with.|Talk to the mining instructor to get one");
+        return;
+    }
 }
 
 if(loc_type = doric_anvil) {
@@ -292,8 +290,8 @@ while ($data ! null) {
     $item, $name, $bar_text = db_getfield($data, smithing:slot, 0);
     if_setobject($item, db_getfield($data, smithing:product, 0), db_getfield($data, smithing:product_amount, 0));
     // 289's names are white from their level up (smithing.if's activecolour).
-    // On the island 289's tutorial showed only the bronze dagger white, which
-    // waits for the tutorial.
+    // On the island 289's tutorial showed only the bronze dagger white; that
+    // is not carried to 2011's anvil interface.
     if ($player_level >= db_getfield($data, smithing:levelrequired, 0)) {
         if_setcolour($name, ^white_rgb);
     } else {

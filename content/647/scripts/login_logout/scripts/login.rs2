@@ -43,6 +43,12 @@ if (%learning_the_ropes < 1000) {
 }
 ~open_game_frame()
 ~login_finish()
+// 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
+// island; here only one the player entered (%tutorial past 0): 2011's new
+// players spawn on the island without entering it (tutorial.rs2).
+if (%tutorial > ^newbie_basics_instructor_start & %tutorial < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
+    @start_tutorial;
+}
 
 [proc,login_finish]()
 cam_reset

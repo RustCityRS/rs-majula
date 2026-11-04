@@ -55,6 +55,17 @@ if (p_finduid(uid) = true) {
         mes("You don't have enough free space to do that.")
         return
     }
+    // 289's island hook (player/scripts/equip.rs2): the sword and shield
+    // move its combat lesson on.
+    // todo: this needs a better home...
+    if (~in_tutorial_island(coord) = true & %tutorial = ^newbie_combat_instructor_unequipping_items) {
+        def_obj $shield = inv_getobj(worn, ^wearpos_lhand);
+
+        if ($previous = bronze_sword & $shield = wooden_shield) {
+            %tutorial = ^newbie_combat_instructor_open_combat_interface;
+            ~set_tutorial_progress;
+        }
+    }
     ~update_all($previous)
 }
 
@@ -213,8 +224,10 @@ return(false)
 
 // 289's update_all (player/scripts/appearance.rs2). ~update_weight stays empty
 // until the equipment port; 289 sends the attack tab only past Tutorial
-// Island's unequipping lesson, and 2011 has no Tutorial Island (Unstable
-// Foundations replaced it on 17 September 2009, wiki Unstable Foundations).
+// Island's unequipping lesson. 2011's players take Unstable Foundations
+// instead (it replaced the island on 17 September 2009, wiki Unstable
+// Foundations), and their island varp stays 0; the island, kept as 289's
+// (tutorial/), shows every tab.
 [proc,update_all](obj $previous_weapon)
 ~update_bas
 ~update_bonuses
