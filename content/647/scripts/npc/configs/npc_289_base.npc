@@ -139,9 +139,10 @@ param=retreat,80
 // 289's guard2 (289's id 10, Falador's crossbow guard; 647's id 10 is a
 // schoolgirl, so the name bridge never reached it). 2011 re-issued it as 3229,
 // level 22 as 289's: void-634's guard_falador_2, fighting as guard_xbow (range
-// 5, attack speed 6, a crossbow bolt; its 2011 animations come from
+// 5, attack speed 6, a crossbow bolt; its animations are void-634's, through
 // tools/npc_combat_2011.py). 289 launched the bolt with spotanim 28, which
-// 2011 re-drew as something else (another seq); void-634's guard launches none.
+// 2011 re-drew as something else (seq 447 in cache 786, not 289's 367);
+// void-634's guard launches none.
 [guard_3229]
 desc=He tries to keep order around here.
 wanderrange=2

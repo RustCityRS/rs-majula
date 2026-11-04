@@ -5,14 +5,14 @@
 // npc hitpoints in the ported .npc configs).
 
 // 289's max hit is (S + 320) / 640 whole hitpoints, so S = 1000 and S = 1100
-// are both 2 (20 life points). 2011's is 5 + S / 64 (void-634 Damage.kt): 20
-// and 22.
+// are both 2 (20 life points). 2011's is 5 + S / 64 (2011 wiki, Maximum
+// melee hit, 2011-05-20; void-634 Damage.kt): 20 and 22.
 [label,test_the_max_hit_is_2011s_life_points]
 assert_eq(~combat_maxhit(1000), 20)
 assert_eq(~combat_maxhit(1100), 22)
 
 // An npc's hitpoints are life points: 289's times ten (Kolodion's human form,
-// 3 hitpoints, is 30), or void-634's 2011 value (the dagannoth, 1200).
+// 3 hitpoints, is 30), or void-634's value (the dagannoth, 1200).
 [label,test_npc_hitpoints_are_life_points]
 setup_player("test_player")
 npc_add(movecoord(coord, 2, 0, 0), kolhuman, 50)

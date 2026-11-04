@@ -1,8 +1,9 @@
 #testscript
 
-// 2011's random events (macro events/): a roll brings the Maze, the Mime or
-// nothing, a quarter of the time an event (289's odds for its teleport
-// events, which 2011's all are).
+// The random events of 289's that 2011 kept (macro events/; 2011 wiki,
+// Random events, 2011-05-13, which lists 2011's others): a roll brings the
+// Maze, the Mime or nothing, a quarter of the time an event (289's odds for
+// its teleport events, which 2011's all are, per that page).
 [label,test_a_roll_brings_the_maze_the_mime_or_nothing]
 setup_player("test_player")
 p_telejump(0_50_50_21_18)

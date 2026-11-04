@@ -10,9 +10,11 @@
 //
 // The intended solutions, and both are supported here:
 //   * Two players, one on each pad.
-//   * Alone: drop something on one pad and stand on the other. The pads are
+//   * Alone: drop a pet rock on one pad and stand on the other. The pads are
 //     adjacent to the door, so a player standing on one is already in operable
-//     distance and can click the door without stepping off it.
+//     distance and can click the door without stepping off it. The 2011 wiki
+//     has no solo way (Waterbirth Island, 2011-05-21: "the player MUST have a
+//     companion"; its Pet rock page, 2011-05-06, does not name the doors).
 //
 // Sources. The mechanic is not implemented in any of our references -- void-634
 // carries only the *other* barrier system in this dungeon (`DoorSupport.kt`, the
@@ -31,6 +33,11 @@
 //   seq_2348  frames f2 -> f15 ascending, loopcount=1   the door LOWERING
 //   seq_2349  50-tick hold on f15, then f15 -> f2       the door RISING
 //   seq_2350  single frame f15, looping                 held down, static
+//
+// (The f-names, loopcount and the 50 are ref/rs3's dump.seq. Cache 786 has the
+// same frames, files 0, 6-13, 1-5 of group 19 for f2-f15, but holds f15 for 51,
+// and frame delays count client cycles of 20 ms, not game ticks: about a
+// second.)
 //
 // So `dagannoth_pressure_opening2` (anim 2348, blockwalk=no) *is* the door going
 // down, and it finishes on f15 -- the same pose `dagannoth_pressure_open` holds
@@ -60,21 +67,23 @@ return(25);
 // rock dropped on it.
 //
 // The pet rock is a *specific* item, not a stand-in for "anything heavy". The
-// era sources agree on this and on the reason: the rock "substitutes as a
+// sources below agree on this and on the reason: the rock "substitutes as a
 // player", so the pad is weighed by an entity rather than by inventory clutter.
 // The 2009scape emulator carries the same rule (merge request 712, "Pet rocks on
 // pressure pads"), and the RuneScape wiki says the rock is obtained from
-// Askeladden in Rellekka precisely so a solo player can open these doors.
+// Askeladden in Rellekka precisely so a solo player can open these doors. None
+// is from 2011: the 2011 wiki has no solo way (above), so the pet rock is
+// unsourced for 2011.
 //
-// The modern OSRS wiki says any dropped item works. That is a later divergence
-// and is wrong for 2011 -- taking it would have made the puzzle trivial, since
-// any player arrives carrying something.
+// The modern OSRS wiki says any dropped item works. No source puts that in
+// 2011 (the 2011 wiki has no solo way at all, above) -- taking it would have
+// made the puzzle trivial, since any player arrives carrying something.
 //
 // The RuneScape wiki also names "the egg from Scrambled!" alongside the rock.
 // Deliberately not implemented: the only matching obj in our data is 7078
-// `bowl_egg_scrambled`, which is the food rather than a pet, and whether that
-// quest existed by May 2011 is unconfirmed. Better a missing alternative than an
-// invented one.
+// `bowl_egg_scrambled`, which is the food rather than a pet, and the 2011 wiki
+// has no such quest (Quests, 2011-05-20, names none). Better a missing
+// alternative than an invented one.
 //
 // Players are found with `huntall` -- the op Jagex had for this, opcode 2031,
 // confirmed and already used in our content. The engine also carries a

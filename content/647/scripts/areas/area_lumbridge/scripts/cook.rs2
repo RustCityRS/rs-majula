@@ -11,7 +11,8 @@ if(%cookquest = 0) {
     @cooks_assistant_inprogress;
 } else if(%cookquest = ^cook_complete) {
     // 2011's (void-634 Cook, the quest's rework of 15 December 2009): his range
-    // is the Cook-o-Matic 25, and its manual is his to give.
+    // is the Cook-o-Matic 25, and its manual is his to give (2011 wiki, Range,
+    // 2011-05-21).
     @cooks_assistant_completed;
     // 289's:
     // ~chatnpc("<p,happy>How is the adventuring going, my friend?");

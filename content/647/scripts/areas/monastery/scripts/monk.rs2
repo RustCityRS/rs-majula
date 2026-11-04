@@ -1,5 +1,6 @@
-// 289's monk (803) does not stand in 2011's monastery: its monks there are
-// 7727 (the 786 map's spawns; void-634's monk_edgeville).
+// 289's monk (803) does not stand in void-634's monastery: its monks there are
+// 7727 ("Monk", level 5, in cache 786; void-634's monk_edgeville and its
+// edgeville.npc-spawns.toml, as cache 786 has no npc spawns here).
 [ai_opplayer2,monk_7727]
 if (%npc_action_delay > map_clock) return;
 // 2011's monastery monks no longer heal themselves in a fight (2011 wiki,
@@ -30,6 +31,8 @@ sound_synth(heal, 1, 0);
 spotanim_pl(heal_casting, 120, 0);
 npc_anim(human_castheal, 0);
 // 289's stat_heal(hitpoints, 2, 20), on 2011's life points (ten to a hitpoint).
+// The 2011 wiki has other figures: up to 166 (Monastery, 2011-04-25), or 30%
+// of the player's life points (Monk, 2011-05-22).
 ~heal_lifepoints(calc(20 + scale(20, 100, calc(stat_base(hitpoints) * 10))));
 mes("You feel a little better.");
 

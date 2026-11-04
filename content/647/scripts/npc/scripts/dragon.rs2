@@ -105,11 +105,12 @@ if (random(2) = 0) {
     anim(%com_defendanim, 0);
 } else {
     // The chromatic dragons were remodelled on 5 July 2010 (2011 wiki, Green
-    // dragon). 289's head attack, seq 91, has its frames in group 1210, while
-    // the remodelled dragons' 12250-12252 and 14245 all have theirs in group
-    // 2931 (cache 786): 91 belongs to another model. void-634 gives these
-    // dragons one melee animation, 12252 (dragon.anims.toml), and has 91 as the
-    // King Black Dragon's.
+    // dragon; Black dragon: every dragon but the King Black Dragon), and
+    // void-634 gives them one melee animation (12252). 289's head attack (seq
+    // 91, frames 3:184:1210 ...) is in frame group 1210, and void-634 gives it
+    // to the King Black Dragon (king_black_dragon_attack); these dragons'
+    // 12250-12252 and 14245 are all frame group 2931 (cache 786; void-634
+    // dragon.anims.toml).
     npc_anim(dragon_attack, 0);
     if ($weapon ! null & (map_members ! ^false | oc_members($weapon) ! true)) {
         anim(oc_param($weapon, defend_anim), 0);

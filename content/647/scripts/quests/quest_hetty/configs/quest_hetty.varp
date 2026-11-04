@@ -1,5 +1,7 @@
 // 289's quest_hetty varps, server-only at 647: past the cache's 2,181 varps,
-// never transmitted. 2011's client tracks this quest in its own var.
+// never transmitted. 2011 made it a miniquest (2011 wiki, Witch's Potion,
+// 2011-04-18: 24 June 2010), and the client's quest table (clientscript 2193)
+// has no row for it (void-634's id 264), so no client var for it is known.
 
 [hetty]
 scope=perm

@@ -1,15 +1,21 @@
-// Barbarian Village's barbarians at 2011: 17 named npcs, 3246-3263, re-issued
-// for the village's rework (cache 786). Their stats are void-634's
-// (barbarian_village.npcs.toml, barbarian_outpost.npcs.toml), whose three
-// profiles give the cache's combat levels: 15/14/10 with 240 life points
-// (level 17), 8/7/3 with 180 (level 10), 6/7/3 with 200 (level 9). Max hits
-// are the 2011 wiki's (Barbarian, 2011-05-18): 30 for the level 15s and
-// 17s, 20 for the 9s and 10s; 289's strength bonus 7 gives 30 at strength 14,
-// and -1 gives 20 at strength 7. Each fights with its weapon's animations and
-// sounds (void-634 barbarian_village.combat.toml); the weapon is the npc's last
-// model (11788 axe, 11789/11792 warhammer, 11793 sword, 11791 spear, 11790
-// bow). Men keep 289's barbarian's defence bonuses, women 289's barbarian
-// woman's. All are 289's barbarian category (its battle cry and drop table).
+// Barbarian Village's barbarians at 2011: 17 npcs, 3246-3263 but 3254
+// (Hunding), each "Barbarian" in cache 786. Their own names (Alberich ...),
+// examines and places are void-634's (barbarian_village.npcs.toml,
+// barbarian_outpost.npcs.toml and their npc-spawns); the 2011 wiki (Barbarian,
+// 2011-05-18) says each in the village has its own examine text, and
+// (Barbarian Village, 2011-05-16) that the town and some of its inhabitants
+// were graphically updated with Gunnar's Ground (21 September 2010). Their
+// stats are void-634's too, whose profiles give the cache's combat levels but
+// 3261's: 15/14/10 with 240 life points (level 17), 15/3/10 with ranged 15 and
+// 240 (3259, level 15), 8/7/3 with 180 (level 10), 6/7/3 with 200 (level 9).
+// Max hits are the 2011 wiki's (Barbarian, 2011-05-18): 30 for the level 15s
+// and 17s, 20 for the 9s and 10s; 289's strength bonus 7 gives 30 at strength
+// 14, and -1 gives 20 at strength 7. Each fights with its weapon's animations
+// and sounds (void-634 barbarian_village.combat.toml); the weapon is one of
+// the npc's models (11788 axe, 11789/11792 warhammer, 11793 sword, 11791
+// spear, 11790 bow). Men keep 289's barbarian's defence bonuses, women 289's
+// barbarian woman's. All are 289's barbarian category (its battle cry and
+// drop table).
 
 [barbarian]
 // 3246, void-634's barbarian_alberich: level 17, a two-handed axe (seqs 2067, 3238; synth 1316).
@@ -387,7 +393,8 @@ param=death_sound,female_death
 category=barbarian
 
 [barbarian_3261]
-// 3261, void-634's barbarian_gutrune: level 9, a spear (seqs 428, 430; synth 2562).
+// 3261, void-634's barbarian_gutrune: a spear (seqs 428, 430; synth 2562). Level 10
+// in cache 786, but void-634 makes it a clone of sieglinde, whose stats are level 9's.
 desc=Gutrune, a mighty barbarian warrior.
 wanderrange=10
 maxrange=12

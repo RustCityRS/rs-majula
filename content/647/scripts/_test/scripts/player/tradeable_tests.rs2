@@ -11,8 +11,8 @@
 assert_true(oc_tradeable(vial_of_water))
 assert_true(oc_tradeable(coins))
 
-// 289's untradeables (Family Crest's perfect gold ore) and 2011's from
-// void-634 (a treasure-trail storage copy of the adamant (g) platebody).
+// 289's untradeables (Family Crest's perfect gold ore) and void-634's (a
+// treasure-trail storage copy of the adamant (g) platebody).
 [label,test_289s_and_2011s_untradeables_do_not_trade]
 assert_false(oc_tradeable(perfect__gold_ore))
 assert_false(oc_tradeable(adam_platebody__g))

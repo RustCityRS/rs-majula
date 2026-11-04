@@ -1,7 +1,10 @@
-// 289's barbarian talks; 2011's Barbarian Village has 17 named barbarians
-// (3246-3263) of 289's barbarian category, so the category's op1 takes
-// them all. The 2011 wiki (Barbarian) says they "almost always respond with
-// hostility" and attack, but gives no full list of lines: 289's stay.
+// 289's barbarian talks; 2011's Barbarian Village has 17 barbarians
+// (3246-3263, Talk-to on op1 in cache 786; their own names are void-634's)
+// of 289's barbarian category, so the category's op1 takes them all. The 2011
+// wiki (Barbarian, 2011-05-18) says they "almost always respond with
+// hostility" and attack, and quotes four lines ("Wanna fight?", "You come to
+// fight, ja?", "You don't belong here outlander!", "What!?"), three of them
+// not 289's; it gives no full list, so 289's stay.
 [opnpc1,_barbarian]
 
 ~chatplayer("<p,happy>Hello!");

@@ -1,10 +1,11 @@
 #testscript
 
-// 2011 paints a combat hit with its style's hitmark (melee, ranged, magic:
+// void-634 paints a combat hit with its style's hitmark (melee, ranged, magic:
 // 0-2), a critical one (over 10 life points and over 90% of the attacker's
 // max hit) with its crit (+10), and a ring of recoil's with the reflect mark
-// (4) -- void-634 CombatHitsplats and Weapon.mark. A queued hit carries its
-// hitmark with the damage (skill_combat/scripts/hitmark.rs2).
+// (4) -- CombatHitsplats and Weapon.mark; cache 786's hitmarks 0-2 and 4 each
+// carry an icon, and 10-12 the same icons in another font. A queued hit
+// carries its hitmark with the damage (skill_combat/scripts/hitmark.rs2).
 
 [label,test_a_combat_hit_carries_its_style]
 assert_eq(~hit_mark(~combat_hit(50, ^hitmark_melee, 100)), 0)

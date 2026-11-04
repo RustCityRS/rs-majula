@@ -21,6 +21,8 @@ if (%prayer_guild < 1) {
 ~chatplayer("<p,happy>Can you heal me? I'm injured.");
 ~chatnpc("<p,quiz>Ok.");
 // 289's stat_heal(hitpoints, 4, 12), on 2011's life points (ten to a hitpoint).
+// The 2011 wiki has other figures: up to 133 (Monastery, 2011-04-25), or 30%
+// of the player's life points (Monk, 2011-05-22).
 ~heal_lifepoints(calc(40 + scale(12, 100, calc(stat_base(hitpoints) * 10))));
 // https://imgur.com/j17Xqu1
 ~mesbox("<npc_name> places his hands on your head.|You feel a little better.");

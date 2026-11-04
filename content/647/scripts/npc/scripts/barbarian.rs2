@@ -1,12 +1,14 @@
 [ai_opplayer2,barbarian] @barbarian_default_attack;
 // 2011 has no barbarian woman: Barbarian Village's barbarians are re-issued as
-// 17 named npcs, 3246-3263, men and women alike (cache 786; void-634's
-// barbarian_outpost.npcs.toml). 289's two barbarians are its whole barbarian
+// 17 npcs, 3246-3263, men and women alike, each "Barbarian" (cache 786; their
+// own names are void-634's, barbarian_outpost.npcs.toml and
+// barbarian_village.npcs.toml). 289's two barbarians are its whole barbarian
 // category, so the category keeps 289's set and takes in 2011's.
 [ai_opplayer2,_barbarian] @barbarian_default_attack;
 
-// 2011's Aitan (3259) is a barbarian archer (void-634 barbarian_aitan,
-// barbarian_bow): he shoots from range, as Falador's crossbow guard does.
+// 3259 (level 15 in cache 786) is void-634's Aitan, a barbarian archer
+// (barbarian_aitan, barbarian_bow): he shoots from range, as Falador's
+// crossbow guard does.
 [ai_queue1,barbarian_3259] ~npc_default_retaliate_ap;
 [ai_opplayer2,barbarian_3259] npc_setmode(applayer2);
 [ai_applayer2,barbarian_3259] ~npc_rangeattack;
