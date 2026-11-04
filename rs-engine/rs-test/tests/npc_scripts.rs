@@ -130,3 +130,28 @@ fn aitan_shoots_and_every_barbarian_talks() {
         }
     });
 }
+
+/// 289's monks of Zamorak zap a quarter of the time (`monk_of_zamorak.rs2`):
+/// each attacks through one label with its zap max in life points, 289's
+/// chaosmonk1 (188) up to 80 and chaosmonk2 (189) up to 60 (the 2011 wiki's
+/// level-22 and level-17 figures), chaosmonk3 (190) 289's 130, and 2011's
+/// Defender of Varrock monk (8178, level 17) 60.
+#[test]
+fn monks_of_zamorak_zap_with_their_level_s_max() {
+    runner::on_loaded_engine(|engine| {
+        let label = pack_id("script", "[label,monk_of_zamorak_attack]");
+        for (npc, max) in [(188u16, 80), (189, 60), (190, 130), (8178, 60)] {
+            let script = engine
+                .script_by_key(ServerTriggerType::AiOpPlayer2, Some(i32::from(npc)), None)
+                .unwrap_or_else(|| panic!("{npc} has no ai_opplayer2"));
+            assert!(
+                script.int_operands.contains(&label),
+                "{npc} does not attack through the monks' label"
+            );
+            assert!(
+                script.int_operands.contains(&max),
+                "{npc}'s zap max is not {max}"
+            );
+        }
+    });
+}
