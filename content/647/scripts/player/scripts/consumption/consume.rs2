@@ -38,8 +38,10 @@
 
 // Multi-bite foods (pies/cakes/pizzas). Each stage (incl. the half-pie / 2-3
 // cake / half-pizza) is its own trigger and uses consume_effect_stat2 (inv_add
-// the next_obj_stage). eat_delay=2 uniformly (authentic 2011 — Jordan's faster
-// per-bite values are the later "Zoom & Herb Sack" behaviour).
+// the next_obj_stage). eat_delay=2 uniformly. The 2011 wiki contradicts this
+// for pies and pizzas: a slice of pie follows another "in quick succession"
+// (Pie, 2011-04-09) and a two-bite pizza's first bite eats with a lower delay
+// (Anchovy pizza, 2011-04-17). Not ported.
 // Pies -> half -> pie_dish
 [opheld1,apple_pie] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,half_an_apple_pie] @player_consume_item(consume_effect_stat2, 2, 3);

@@ -3,10 +3,11 @@
 //! 289's combat counts whole hitpoints; 2011's counts life points, ten to a
 //! hitpoint and granular. 2011's field cow (12362) is void-634's clone of
 //! 289's cow (81), and keeps its 8 hitpoints as 80 life points,
-//! and an unarmed level-1 player's max hit is void-634's 5 + S/64 (Damage.kt)
-//! with S = 9 * 64 (effective strength 9, bonus 0): 14 life points, where
-//! 289's whole hitpoints would allow only 10. The case clicks Attack on the
-//! cow as the client does (`OPNPC2`: `g1_alt1(ctrl) ig2_alt1(npc index)`) and
+//! and an unarmed level-1 player's max hit is 2011's 5 + S/64 (2011 wiki,
+//! Maximum melee hit, 2011-05-20; void-634 Damage.kt) with S = 9 * 64
+//! (effective strength 9, bonus 0): 14 life points, where 289's whole
+//! hitpoints would allow only 10. The case clicks Attack on the cow as the
+//! client does (`OPNPC2`: `g1_alt1(ctrl) ig2_alt1(npc index)`) and
 //! waits for the first hit to land, then checks it took life points and gave
 //! 289's 4 xp per hitpoint, which is 0.4 xp (4 tenths) per life point, in
 //! Attack.

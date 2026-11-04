@@ -12,11 +12,13 @@ p_delay(3);
 // duel_arena_finish.rs2), which comes with the duel arena's port: until then
 // nothing sets %duel2accept.
 ~player_death;
-// 289 plays its death jingle (~music_jingle(death2); void-634's `death` is
-// 2011's jingle 90); 647 has no jingle table until the music port.
+// 289 plays its death jingle (~music_jingle(death2)). void-634's `death` is
+// jingle 90, which 647's midi.pack names death2, and ~music_jingle is ported
+// (music/scripts/music.rs2), but this does not play it yet.
 // 289's is "Oh dear you are dead!" (a 2005 screenshot,
 // https://storage.googleapis.com/tannerdino/images/6543.jpg); by 2007 it has a
-// comma (oldschool), and void-634 has the same.
+// comma (oldschool), and void-634 and the 2011 wiki (Death, 2011-05-02) have
+// the same.
 mes("Oh dear, you are dead!");
 
 ~combat_clearqueue;

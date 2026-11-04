@@ -213,7 +213,8 @@ return(false)
 
 // 289's update_all (player/scripts/appearance.rs2). ~update_weight stays empty
 // until the equipment port; 289 sends the attack tab only past Tutorial
-// Island's unequipping lesson, and 2011's island is not ported.
+// Island's unequipping lesson, and 2011 has no Tutorial Island (Unstable
+// Foundations replaced it on 17 September 2009, wiki Unstable Foundations).
 [proc,update_all](obj $previous_weapon)
 ~update_bas
 ~update_bonuses
@@ -292,7 +293,8 @@ inv_transmit(worn, equip_screen2:com7);
 inv_transmit(inv, inventory_wear2:com0);
 if_openmain_side(equip_screen2, inventory_wear2);
 // What is worn: Remove (op1), Examine (op10); the backpack: Equip (op1),
-// Examine (op10). 2011's Stats (op9 worn, op3 backpack) is not ported.
+// Examine (op10). 2011's Stats (op9 on both: clientscripts 2373, 2739) is not
+// ported.
 if_setevents(equip_screen2:com7, 0, 15, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 if_setevents(inventory_wear2:com0, 0, 27, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 ~equip_screen_bonuses;

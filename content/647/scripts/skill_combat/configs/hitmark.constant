@@ -7,9 +7,10 @@
 ^hitmark_poison = 6
 
 // 2011 paints a combat hit with its style: melee, ranged or magic (0-2), a
-// ring of recoil's with the reflect mark (4), and a critical combat hit with
-// its style's crit (+10, the larger font) -- void-634 CombatHitsplats and
-// Weapon.mark.
+// ring of recoil's with the reflect mark (4) (2011 wiki, Hitsplat,
+// 2011-04-13), and a critical combat hit with its style's crit (+10, the
+// larger font, gold) -- void-634 CombatHitsplats and Weapon.mark. The wiki
+// gives the gold splat to a max hit; void-634's crit rule is hitmark.rs2's.
 ^hitmark_melee = 0
 ^hitmark_ranged = 1
 ^hitmark_magic = 2

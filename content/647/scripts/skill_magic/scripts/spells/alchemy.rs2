@@ -95,7 +95,9 @@ switch_obj($item) {
     case coins :
         mes("Coins are already made of gold.");
         return(false);
-    // 2011 has no Strange box random event (only the Maze and the Mime).
+    // 2011 has no Strange box random event (2011 wiki, Random events,
+    // 2011-05-13: discontinued; of 289's events only the Maze and the Mime
+    // are current).
     // case macro_cube :
     //     ~try_add_macro_cube;
     //     return(false);

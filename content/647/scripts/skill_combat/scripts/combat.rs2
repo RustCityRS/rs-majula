@@ -5,7 +5,8 @@
 return(scale(max(100, $prayerbonus), 100, $stat_level));
 
 // 289's (S + 320) / 640 is whole hitpoints; 2011 counts life points, and its
-// max hit is 5 + S / 64 (void-634 Damage.kt) -- the same sum over 64, so a
+// max hit is 5 + S / 64 (void-634 Damage.kt; 2011 wiki, Maximum melee hit,
+// 2011-05-20) -- the same sum over 64, so a
 // hit can land on any life point, not only a tenth.
 [proc,combat_maxhit](int $combat_stat)(int)
 return(calc(($combat_stat + 320) / 64));

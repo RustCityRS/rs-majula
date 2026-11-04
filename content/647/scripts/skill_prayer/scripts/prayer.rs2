@@ -26,7 +26,8 @@ if (stat(prayer) < 1) {
     // osrs
     if (stat_base(prayer) >= db_getfield($data, prayers:level, 0)) {
         // mes("You need to recharge your prayer at an altar."); // p in prayer isnt capitalized until late 2005?
-        // 2011 capitalises it (void-634 QuickPrayers.kt, as the altar's).
+        // void-634 capitalises it (QuickPrayers.kt, as its altar's); no 2011
+        // source found for the capital.
         mes("You need to recharge your Prayer at an altar.");
     }
     // sound_synth(prayer_off, 1, 0);
@@ -201,8 +202,9 @@ if (%prayer_drain_counter >= max(%prayer_drain_resistance, 60)) {
     if (stat(prayer) = 0) {
         sound_synth(prayer_drain, 1, 0);
         // mes("You have run out of prayer points, you must recharge at an altar.");
-        // Jagex changed this message on 17 March 2009 (patch notes); void-634
-        // (before this build) and a September 2011 video (after it) both say:
+        // Jagex changed this message on 17 March 2009 (patch notes: wiki
+        // Update:Patch Notes (17 March 2009), which does not quote it);
+        // void-634 (before this build) and a September 2011 video (after it) both say:
         mes("You have run out of Prayer points; you can recharge at an altar.");
         ~prayer_deactivate_all;
         return;

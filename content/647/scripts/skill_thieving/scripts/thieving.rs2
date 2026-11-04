@@ -102,7 +102,8 @@ switch_loc (loc_type) {
 // Temp note: dur does not need updated
 if(loc_type = viking_fur_market | loc_type = fish_stall) loc_change(viking_market, $respawn_ticks);
 else if(loc_type = tea_stall) loc_change(market_stall, $respawn_ticks);
-// 2011's rebuilt Ardougne market empties into its own stall, 289's recoloured
+// 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
+// bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
 else loc_change(market_stall_34381, $respawn_ticks);
 
 [label,activate_trapped_chest]

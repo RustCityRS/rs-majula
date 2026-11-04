@@ -14,10 +14,12 @@ category=prayer_altar
 desc=Shrine to the glory of Zamorak.
 category=prayer_altar
 
-// Altars 2011 has and 289 does not (Lumbridge was rebuilt in 2009, and later
-// content added its own): every loc void-634 counts as a prayer altar
-// (data/skill/prayer/altar.objs.toml) whose op1 in the 647 cache is Pray or
-// Pray-at, which is the op [oploc1,_prayer_altar] answers.
+// Altars 2011 has and 289 does not (Lumbridge was reworked in July 2008, wiki
+// Lumbridge Castle, and later content added its own): every loc void-634
+// counts as a prayer altar (its prayer_altar_* in
+// data/skill/prayer/altar.objs.toml, which PrayerAltars.kt answers) whose op1
+// in the 647 cache is Pray or Pray-at, which is the op [oploc1,_prayer_altar]
+// answers.
 
 [trappedchaosaltar]
 desc=Shrine to the glory of Zamorak.

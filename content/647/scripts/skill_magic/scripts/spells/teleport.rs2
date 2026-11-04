@@ -56,9 +56,10 @@ if_close;
 p_stopaction;
 ~tele_checks;
 sound_synth(teleport_all, 1, 0);
-// 289 casts once (human_castteleport, teleport_casting at height 92); 2011's
-// standard teleport casts, jumps, and lands a tick later (void-634 Teleport.kt,
-// `modern`: seqs 8939 and 8941, spotanims 1576 and 1577).
+// 289 casts once (human_castteleport, teleport_casting at height 92);
+// void-634's standard teleport casts, jumps, and lands a tick later
+// (Teleport.kt, `modern`: seqs 8939 and 8941, spotanims 1576 and 1577, all in
+// the 647 cache). No 2011 source found for the sequence.
 anim(human_teleport_modern, 0);
 spotanim_pl(teleport_modern, 0, 0);
 p_delay(2);

@@ -1,8 +1,8 @@
 // 289's levelup.dbrow at 2011. 2011's box is one interface, 740, for every stat;
-// its first line is title_text (void-634's LevelUp.kt), its second "You have now
-// reached level N!". flash_bit is the stat's bit of %skill_stat_flash (varp 1179,
-// clientscript 970); icon its index in 2011's skill menu (varbit 4757's icons,
-// varp 965's guides, varp 1230's details).
+// its first line is title_text, its second "You have now reached level N!"
+// (both void-634's LevelUp.kt). flash_bit is the stat's bit of
+// %skill_stat_flash (varp 1179, clientscript 970); icon its index in 2011's
+// skill menu (varbit 4757's icons, varp 965's guides, varp 1230's details).
 
 [levelup_attack]
 table=levelup

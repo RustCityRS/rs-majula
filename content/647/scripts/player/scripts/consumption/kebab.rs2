@@ -1,10 +1,13 @@
 // Kebab — random outcome on eat. Ported/adapted from rs-majula consumption/
 // effects/scripts/kebab.rs2. Probabilities (out of 32) match rev-225; the flat
-// heal amounts are x10 for the 647 life-points model, which lines up with the
-// 2011 wiki ("good kebab" ~198 LP, "amazing" ~308 LP at 99 Constitution; common
-// ~10% of max). Hitpoints heals route to %life_points via ~heal_lifepoints;
-// self-damage via ~damage_self. No explicit eat sound (relies on the human_eat
-// anim's embedded sound, like our other foods).
+// heal amounts are x10 for the 647 life-points model. Against the 2011 wiki
+// (Kebab, 2011-05-21): "good" heals 100-200 (here ~198 at 99 Constitution) and
+// "common" 10% of max (here ~10%), but "amazing" heals "up to 300" (here
+// ~308); the wiki's messages differ from these rev-225 ones, and it says a
+// dodgy kebab no longer damages life points (it lowers stats). Hitpoints heals
+// route to %life_points via ~heal_lifepoints; self-damage via ~damage_self.
+// It plays the eat sound itself, as the other foods do: human_eat (seq 829)
+// carries no sound in the cache.
 [label,consume_effect_kebab]
 mes("You eat the kebab.");
 anim(human_eat, 0);

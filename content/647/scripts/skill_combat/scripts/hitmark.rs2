@@ -2,7 +2,9 @@
 // so a queued hit is (hitmark + 1) * 65536 + damage; a bare damage, as 289's
 // other callers queue it, paints the plain hitmark. A hit over 10 life points
 // and over 90% of the attacker's max hit is critical (void-634
-// CombatHitsplats); 0 damage paints a miss, as 289 paints a block.
+// CombatHitsplats); the 2011 wiki gives the gold splat to a max hit, "max hit
+// or above" (Hitsplat, 2011-04-13; Maximum hit). 0 damage paints a miss, as
+// 289 paints a block.
 
 [proc,combat_hit](int $damage, int $hitmark, int $maxhit)(int)
 if ($damage > 10 & $maxhit > 0 & multiply($damage, 10) > multiply($maxhit, 9)) {

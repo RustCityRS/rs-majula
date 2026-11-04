@@ -12,8 +12,10 @@ protect=no
 
 // 2011's guide and level-up details are drawn by the client from these
 // (skill_guide.rs2), which a click in the stats tab sets as 289's guide vars
-// are set. A stat flashes after its level-up until it is clicked, across
-// logins (void-634 persists it).
+// are set. A stat flashes after its level-up until it is clicked. void-634
+// persists it across logins (scope=perm here); the 21 May 2008 update says
+// the flash lasts "as long as you stay logged in" (wiki Update:Level-up
+// Messages), so perm is void-634's, not 2011's.
 [skill_guide]
 protect=no
 

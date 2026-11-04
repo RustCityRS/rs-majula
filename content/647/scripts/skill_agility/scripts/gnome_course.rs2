@@ -57,7 +57,9 @@ p_arrivedelay;
 
 [oploc1,loc_154] @enter_gnome_obstacle_pipe;
 [oploc1,gnome_obstacle_pipe] @enter_gnome_obstacle_pipe;
-// 2011 lays a second pipe beside 289's, west of it (void-634's gnome_obstacle_pipe_west)
+// 289's two pipes (its loc_154 and its gnome_obstacle_pipe, 4058) are not on
+// 2011's map; 2011's are 43543 (gnome_obstacle_pipe here, 2487,3431) and 43544
+// west of it (2483,3431), void-634's gnome_obstacle_pipe_east and _west
 [oploc1,gnome_obstacle_pipe_west] @enter_gnome_obstacle_pipe;
 
 [label,enter_gnome_obstacle_pipe]

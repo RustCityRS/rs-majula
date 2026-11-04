@@ -105,7 +105,7 @@ data=stat_heal,hitpoints,230,0
 // too). The stage-chain — which obj the food turns into on each bite — is the
 // next_obj_stage obj param (set in all.obj), NOT a column here; consume_effect_
 // stat2 reads it. Per-bite heal in 2011 life points, cross-checked vs the local
-// 2011 wiki (these differ from rev-225: Jagex buffed multi-bite heals by 2011).
+// 2011 wiki (the pies' and pizzas' differ from rev-225's; the cakes' do not).
 
 [multibite_heal_40]
 table=consume_table

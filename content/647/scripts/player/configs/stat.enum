@@ -31,7 +31,8 @@ val=23,construction
 val=24,summoning
 val=25,dungeoneering
 
-// 2011 f2p skill set: dungeoneering was free-to-play from launch.
+// 2011 f2p skill set: dungeoneering was free-to-play from launch (wiki
+// Dungeoneering, 2011-05-22).
 [stats_free]
 inputtype=int
 outputtype=stat
@@ -53,7 +54,8 @@ val=14,firemaking
 val=15,woodcutting
 val=16,dungeoneering
 
-// hitpoints displays as Constitution in rev-647 (post-March-2010 rename).
+// hitpoints displays as Constitution in rev-647 (renamed on 3 March 2010: wiki
+// Constitution).
 [stat_names]
 inputtype=stat
 outputtype=string
