@@ -1939,3 +1939,81 @@ desc=A rocky outcrop.
 category=mining_rock_normal
 param=mining_rock_empty,1
 op3=hidden
+
+// 2011's reworked rocks at the two Lumbridge Swamp mines, the only mines
+// with them (2011 wiki, Lumbridge Swamp training and West Lumbridge swamp
+// mining sites): south-east 5 copper and 5 tin, south-west 7 coal, 5 mithril
+// and 2 adamantite. A rock's ore is the recolour of its ore spots; its two
+// shapes (models 64231 and 64233) deplete to their bare rocks, 3281 (64230)
+// and 3227 (64232).
+[rocks_3027]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3281
+op3=hidden
+
+[rocks_3229]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3227
+op3=hidden
+
+[rocks_3038]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3281
+op3=hidden
+
+[rocks_3245]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3227
+op3=hidden
+
+[rocks_3032]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3281
+op3=hidden
+
+[rocks_3233]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3227
+op3=hidden
+
+[rocks_3041]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3281
+op3=hidden
+
+[rocks_3280]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3227
+op3=hidden
+
+[rocks_3040]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3281
+op3=hidden
+
+[rocks_3273]
+desc=A rocky outcrop.
+category=mining_rock_normal
+param=next_loc_stage_mining,rocks_3227
+op3=hidden
+
+[rocks_3281]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
+
+[rocks_3227]
+desc=Stoney!
+category=mining_rock_normal
+param=mining_rock_empty,1
+op3=hidden
