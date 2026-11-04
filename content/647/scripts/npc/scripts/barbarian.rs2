@@ -5,13 +5,21 @@
 // category, so the category keeps 289's set and takes in 2011's.
 [ai_opplayer2,_barbarian] @barbarian_default_attack;
 
+// 2011's Aitan (3259) is a barbarian archer (void-634 barbarian_aitan,
+// barbarian_bow): he shoots from range, as Falador's crossbow guard does.
+[ai_queue1,barbarian_3259] ~npc_default_retaliate_ap;
+[ai_opplayer2,barbarian_3259] npc_setmode(applayer2);
+[ai_applayer2,barbarian_3259] ~npc_rangeattack;
+
 [label,barbarian_default_attack]
 if (%npc_action_delay > map_clock) return;
 // https://youtu.be/RdilejVd-cQ
-// total hits: 36 
+// total hits: 36
 // hits with yeargh: 8
 // hits without: 28
 if (random(4) = 0) {
-    npc_say("YYEEEEEAAARRRRGGHHHH!!!");
+    // 289 cries "YYEEEEEAAARRRRGGHHHH!!!"; 2011's barbarians "may sometimes cry
+    // 'FOR GUNNAR!!!!!!!!!'" in battle (2011 wiki, Barbarian, 2011-05-18).
+    npc_say("FOR GUNNAR!!!!!!!!!");
 }
 ~npc_default_attack;

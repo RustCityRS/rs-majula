@@ -239,34 +239,6 @@ param=magicdefence,-21
 param=rangedefence,-21
 param=damagetype,^crush_style
 
-[barbarian]
-desc=Alberich, a fierce barbarian warrior.
-wanderrange=10
-maxrange=12
-respawnrate=50
-// void-634 has 240; 289's 14 hitpoints would be 140.
-hitpoints=240
-attack=6
-strength=6
-defence=2
-param=attackrate,5
-// attackbonus is guess. TODO Try get real values
-param=attackbonus,8
-param=strengthbonus,7
-param=stabdefence,12
-param=slashdefence,15
-param=crushdefence,13
-param=magicdefence,3
-// rangedefence is guess. TODO Try get real values
-param=rangedefence,6
-param=damagetype,^slash_style
-param=attack_anim,seq_2067
-param=defend_anim,human_axe_def
-param=attack_sound,baxe_slash
-category=barbarian
-// animations and taken Gunthor the Brave
-// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3256
-
 [wizard]
 desc=Slightly magical.
 attackrange=8
@@ -305,31 +277,6 @@ param=defend_sound,steel
 param=death_sound,female_death
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3260
-
-[barbarian_woman]
-desc=Scary in an argument!
-wanderrange=10
-maxrange=12
-respawnrate=50
-hitpoints=140
-attack=6
-strength=5
-defence=5
-param=attackrate,6
-param=attackbonus,8
-param=strengthbonus,10
-param=stabdefence,1
-param=slashdefence,1
-param=damagetype,^stab_style
-param=attack_anim,human_spear_spike
-param=defend_anim,human_spear_block
-param=attack_sound,staff_stab
-param=defend_sound,female_hit
-param=death_sound,female_death
-category=barbarian
-// data taken from this npc https://oldschool.runescape.wiki/w/Barbarian (wander 5 / maxrange 7).
-// osrs stats and Vislvl match 1:1
-// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3262
 
 [paladin]
 desc=A holy warrior.
