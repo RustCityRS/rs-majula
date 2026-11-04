@@ -1,0 +1,48 @@
+[proc,gangplank_dir_mod]()(int)
+def_int $angle = loc_angle;
+// Cache 786's map lays 289's karamjashipplank_on and _off on 289's tiles
+// (1_47_50_22_17 and 1_47_50_23_17) as ground decoration turned half round
+// (shape 22 angle 2; 289's shape 10 angle 0). Read from 786's angle, this
+// sends a boarding player west, away from the off plank at x+1; turned back,
+// it boards to the east as 289's did.
+if (loc_type = karamjashipplank_on | loc_type = karamjashipplank_off) {
+    $angle = modulo(add($angle, 2), 4);
+}
+switch_int ($angle) {
+    case ^loc_west,^loc_north : return (1);
+    case ^loc_east,^loc_south : return (-1);
+}
+return (0);
+
+[oploc1,_gangplank_board]
+def_int $dir_mod = ~gangplank_dir_mod;
+def_string $board_mes = loc_param(board_message);
+switch_int (loc_angle) {
+    case ^loc_west,^loc_east :
+        p_teleport(movecoord(coord, $dir_mod, 0, 0));
+        p_delay(0);
+        p_telejump(movecoord(coord, calc(2 * $dir_mod), 1, 0));
+    case ^loc_north,^loc_south :
+        p_teleport(movecoord(coord, 0, 0, calc(-1 * $dir_mod)));
+        p_delay(0);
+        p_telejump(movecoord(coord, 0, 1, calc(-2 * $dir_mod)));
+}
+if(loc_type ! ship_to_entrana_on & loc_type ! gangplankb) {
+    mes("You board the ship.");
+}
+if(string_length($board_mes) ! 0) {
+    mes($board_mes);
+}
+
+[oploc1,_gangplank_disembark]
+def_int $dir_mod = ~gangplank_dir_mod;
+switch_int (loc_angle) {
+    case ^loc_west,^loc_east :
+        p_teleport(movecoord(coord, calc(-1 * $dir_mod), 0, 0));
+        p_delay(0);
+        p_telejump(movecoord(coord, calc(-2 * $dir_mod), -1, 0));
+    case ^loc_north,^loc_south :
+        p_teleport(movecoord(coord, 0, 0, $dir_mod));
+        p_delay(0);
+        p_telejump(movecoord(coord, 0, -1, calc(2 * $dir_mod)));
+}

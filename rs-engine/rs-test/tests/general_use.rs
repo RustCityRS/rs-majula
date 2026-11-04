@@ -399,3 +399,58 @@ fn the_fence_squeezes_through_both_ways() {
         assert_eq!(coord(engine, client.pid), start, "and back");
     });
 }
+
+/// `OPLOC2`: `ip2(loc) p1_alt1(ctrl) p2_alt1(z) ip2_alt1(x)`.
+fn op_loc2(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.ip2(loc as i32)
+        .p1_alt1(0)
+        .p2_alt1(z as i32)
+        .ip2_alt1(x as i32);
+    client.send(ClientProt::OpLoc2, &p.finish());
+}
+
+/// The manhole at 0_50_54_37_2 opens, closes again on the open manhole's own
+/// Close (786's manholeopen has op2 Close), and climbs down to void-634's
+/// recorded landing.
+#[test]
+fn varrock_s_manhole_opens_closes_and_climbs_down() {
+    runner::on_loaded_engine(|engine| {
+        const MANHOLE: (u16, u8, u16) = (3237, 0, 3458);
+        let mut client = beside_loc(engine, "sewerman", MANHOLE, &[]);
+        op_loc1(&mut client, loc_id("manhole"), MANHOLE.0, MANHOLE.2);
+        cycles(engine, 6);
+        assert!(said("You pull back the cover from over the manhole."));
+        assert!(
+            loc_at(engine, "manholeopen", MANHOLE.0, 0, MANHOLE.2),
+            "open"
+        );
+
+        op_loc2(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
+        cycles(engine, 6);
+        assert!(said("You place the cover back over the manhole."));
+        assert!(loc_at(engine, "manhole", MANHOLE.0, 0, MANHOLE.2), "shut");
+
+        op_loc1(&mut client, loc_id("manhole"), MANHOLE.0, MANHOLE.2);
+        cycles(engine, 6);
+        op_loc1(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
+        cycles(engine, 10);
+        assert!(said("You climb down through the manhole."));
+        let (x, _, z) = coord(engine, client.pid);
+        assert!(z > 9600, "in the sewer: at {x},{z}");
+    });
+}
+
+/// 289's karamjashipplank_on boards to the east and a level up, as 289's did,
+/// though 786 lays it turned half round (shape 22 angle 2; 289's shape 10
+/// angle 0).
+#[test]
+fn port_sarim_s_karamja_gangplank_boards_the_ship_to_the_east() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = holding(engine, "deckhand", 3029, 3217, &[]);
+        op_loc1(&mut client, loc_id("karamjashipplank_on"), 3030, 3217);
+        cycles(engine, 6);
+        assert!(said("You board the ship."));
+        assert_eq!(coord(engine, client.pid), (3032, 1, 3217), "on the deck");
+    });
+}
