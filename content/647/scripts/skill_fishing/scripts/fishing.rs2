@@ -49,6 +49,9 @@ if ($fish2 ! null) {
         if ($bait ! null) {
             inv_del(inv, $bait, 1);
         }
+        // 289 gives Miscellania's catch to Fisherman Frodi here (~frodi_intercept_fish,
+        // areas/area_miscellania); the Throne of Miscellania is not ported.
+        // if (~frodi_intercept_fish(struct_param($struct2, productmessage)) = true) { return; } // Intercept for Miscellania, you don't get the fish.
         inv_add(inv, $fish2, 1);
         // 289 pays with stat_advance, here and below; 2011's xp counter
         // counts what ~givexp pays (player/scripts/xp.rs2).
@@ -64,6 +67,9 @@ if ($fish1 ! null) {
         if ($bait ! null) {
             inv_del(inv, $bait, 1);
         }
+        // 289 gives Miscellania's catch to Fisherman Frodi here (~frodi_intercept_fish,
+        // areas/area_miscellania); the Throne of Miscellania is not ported.
+        // if (~frodi_intercept_fish(struct_param($struct1, productmessage)) = true) { return; } // Intercept for Miscellania, you don't get the fish.
         inv_add(inv, $fish1, 1);
         ~givexp(fishing, struct_param($struct1, productexp));
         mes(struct_param($struct1, productmessage));
@@ -79,6 +85,9 @@ if ($fish2 ! null) { // if fish2 isnt null and roll for 2nd fish passes
             // delete bait
             inv_del(inv, $bait, 1);
         }
+        // 289 gives Miscellania's catch to Fisherman Frodi here (~frodi_intercept_fish,
+        // areas/area_miscellania); the Throne of Miscellania is not ported.
+        // if (~frodi_intercept_fish(struct_param($struct2, productmessage)) = true) { return; } // Intercept for Miscellania, you don't get the fish.
         // give fish and display message
         inv_add(inv, $fish2, 1);
         ~givexp(fishing, struct_param($struct2, productexp));
@@ -93,6 +102,9 @@ if ($fish1 ! null) { // else if fish1 isnt null and roll for 1st fish passes
             // delete bait
             inv_del(inv, $bait, 1);
         }
+        // 289 gives Miscellania's catch to Fisherman Frodi here (~frodi_intercept_fish,
+        // areas/area_miscellania); the Throne of Miscellania is not ported.
+        // if (~frodi_intercept_fish(struct_param($struct1, productmessage)) = true) { return; } // Intercept for Miscellania, you don't get the fish.
         // give fish and display message
         inv_add(inv, $fish1, 1);
         ~givexp(fishing, struct_param($struct1, productexp));

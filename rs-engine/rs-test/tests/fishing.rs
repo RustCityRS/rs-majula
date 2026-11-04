@@ -13,6 +13,12 @@
 //! karambwanji spot nets karambwanji or shrimps; a karambwan spot refuses a
 //! player Lubufu has not taught, and takes the loaded vessel from one he has.
 //! And 289's Fishing Guild master fisher turns away a player below 68.
+//!
+//! The PR's 289: its spots stand still (`wanderrange=0`) and hold their
+//! fishers out to `maxrange` 50 (20 at the Fishing Contest and the lava eels),
+//! the master fisher keeps to 3; a low Harpoon says "Harpoon" capitalised; and
+//! Ape Atoll's two spots (2011's 1405 and 1406, 289's 0_43_42_memberfish and
+//! 0_42_42_memberfish) move between 289's two tiles each.
 
 #![cfg(since_647)]
 
@@ -33,6 +39,11 @@ const SPOT: u16 = 4908;
 const KARAMBWANJI: u16 = 1174;
 const KARAMBWAN: u16 = 1177;
 const MASTER_FISHER: u16 = 308;
+/// The Fishing Guild's Cage/Harpoon spot, 289's `0_40_53_rarefish`.
+const GUILD_RAREFISH: u16 = 312;
+/// Ape Atoll's spots and the one other tile of each one's 289 list (786's map
+/// spawns each on the list's other tile).
+const APE_ATOLL: [(u16, (u16, u16)); 2] = [(1405, (2771, 2733)), (1406, (2707, 2698))];
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' fishers out: one at a time.
@@ -360,5 +371,75 @@ fn the_master_fisher_turns_away_a_low_level() {
                 .any(|t| t.contains("only the top fishers are allowed")),
             "texts {texts:?}"
         );
+    });
+}
+
+/// The PR's 289 gives every spot `wanderrange=0` and a `maxrange` (50; 20 at
+/// the Fishing Contest and the lava eels), and the master fisher `maxrange=3`.
+#[test]
+fn spots_and_the_master_fisher_take_289s_ranges() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        for (name, wander, max) in [
+            ("0_40_53_rarefish", 0, 50),
+            ("0_41_57_memberfish", 0, 50),
+            ("fishing_spot_1405", 0, 50),
+            ("fishing_spot", 0, 20),
+            ("master_fisher", 3, 3),
+        ] {
+            let id = *engine.cache.npcs.debugnames.get(name).expect(name);
+            let t = engine.cache.npcs.get_by_id(id).expect(name);
+            assert_eq!((t.wanderrange, t.maxrange), (wander, max), "{name}");
+        }
+        let lava = *engine
+            .cache
+            .npcs
+            .debugnames
+            .get("0_45_152_lavafish")
+            .unwrap();
+        assert_eq!(engine.cache.npcs.get_by_id(lava).unwrap().maxrange, 20);
+    });
+}
+
+/// Below 35, a Harpoon at a Cage/Harpoon spot is refused with 289's
+/// capitalised "Harpoon".
+#[test]
+fn a_low_harpoon_says_harpoon() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        // The guild's spots make their first move (timer=1) in the first ticks;
+        // the next is 280 or more ticks away.
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        let (nid, x, z) = spot(engine, GUILD_RAREFISH, (2602, 3415));
+        let mut client = fisher(engine, "lowharpoon", (x, z), 1, &["harpoon"]);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt1(nid as i32);
+        client.send(ClientProt::OpNpc3, &p.finish());
+        let (said, texts) = run(engine, &mut client, 20, |_| false);
+        assert!(
+            texts
+                .iter()
+                .any(|t| t == "You need at least 35 Fishing to Harpoon these fish."),
+            "the mesbox; texts {texts:?}, said {said:?}"
+        );
+    });
+}
+
+/// Ape Atoll's spots run 289's timer and lists: the first move takes each to
+/// its list's other tile, the one it was not spawned on.
+#[test]
+fn ape_atoll_spots_move_between_289s_tiles() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        for _ in 0..20 {
+            engine.cycle();
+        }
+        for (id, to) in APE_ATOLL {
+            let (_, x, z) = spot(engine, id, to);
+            assert_eq!((x, z), to, "npc {id} moves to its other tile");
+        }
     });
 }
