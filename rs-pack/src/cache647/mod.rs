@@ -23,6 +23,7 @@ pub mod struct_type;
 pub mod varbit;
 pub mod varn_type;
 pub mod varp_type;
+pub mod vars_type;
 
 pub use provider::{CacheType, ParamValue, TypeProvider};
 
@@ -47,6 +48,7 @@ pub use struct_type::{StructType, decode_params};
 pub use varbit::VarBitType;
 pub use varn_type::VarnType;
 pub use varp_type::VarpType;
+pub use vars_type::VarsType;
 
 pub use crate::types647::ScriptVarType;
 

@@ -97,8 +97,7 @@ impl CacheStore {
             spotanims: convert(config.spotanims),
             structs: convert(config.structs),
             varns: convert(config.varns),
-            // No shared-var configs in the 647 content tree.
-            varss: TypeProvider::<VarsType>::empty(),
+            varss: convert(config.varss),
             categories: load_categories(),
             // Rev-647 component metadata lives in the InterfaceLayout; the
             // jag-era .if provider has no 647 source. Reads are since_647-
@@ -606,6 +605,17 @@ impl From<c647::VarnType> for VarnType {
     fn from(v: c647::VarnType) -> Self {
         let debugname = v.debugname().map(Box::from);
         VarnType {
+            id: v.id,
+            var_type: script_var_type(v.var_type as u8),
+            debugname,
+        }
+    }
+}
+
+impl From<c647::VarsType> for VarsType {
+    fn from(v: c647::VarsType) -> Self {
+        let debugname = v.debugname().map(Box::from);
+        VarsType {
             id: v.id,
             var_type: script_var_type(v.var_type as u8),
             debugname,

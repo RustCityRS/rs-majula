@@ -7,7 +7,7 @@ pub type VarsTypeProvider = TypeProvider<VarsType>;
 pub struct VarsType {
     pub id: u16,
     pub var_type: ScriptVarType,
-    debugname: Option<Box<str>>,
+    pub(crate) debugname: Option<Box<str>>,
 }
 
 impl CacheType for VarsType {

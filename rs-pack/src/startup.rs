@@ -17,7 +17,7 @@ use tracing::{info, warn};
 use crate::cache647::{
     CacheType, DbRowType, DbTableType, EnumType, FloType, FluType, HuntType, IdkType, InvType,
     LocType, MesAnimType, NpcType, ObjContext, ObjType, ParamType, SeqType, SpotAnimType,
-    StructType, TypeProvider, VarBitType, VarnType, VarpType,
+    StructType, TypeProvider, VarBitType, VarnType, VarpType, VarsType,
 };
 use crate::pack_registry::PackRegistry;
 use crate::validate::{Severity, check_pack_content_sync};
@@ -181,6 +181,7 @@ pub struct PackedConfig {
     pub mesanims: TypeProvider<MesAnimType>,
     pub spotanims: TypeProvider<SpotAnimType>,
     pub varns: TypeProvider<VarnType>,
+    pub varss: TypeProvider<VarsType>,
     pub dbtables: TypeProvider<DbTableType>,
     pub dbrows: TypeProvider<DbRowType>,
     /// Synth name → raw archive-4 sound id (= wire id), from synth.pack.
@@ -516,6 +517,7 @@ pub fn load_packed_config(
     let invs = load_from_server_dat(server_dir, "inv", ())?;
     let mesanims = load_from_server_dat(server_dir, "mesanim", ())?;
     let varns = load_from_server_dat(server_dir, "varn", ())?;
+    let varss = load_from_server_dat(server_dir, "vars", ())?;
     let dbtables = load_from_server_dat(server_dir, "dbtable", ())?;
     let dbrows = load_from_server_dat(server_dir, "dbrow", ())?;
 
@@ -617,6 +619,7 @@ pub fn load_packed_config(
         mesanims,
         spotanims,
         varns,
+        varss,
         dbtables,
         dbrows,
         synth_names: Default::default(),
