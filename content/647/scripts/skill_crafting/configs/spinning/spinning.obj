@@ -1,0 +1,11 @@
+// 289's flax and wool (skill_crafting/configs/spinning/spinning.obj): their
+// examine (moved here from general/configs/examine.obj) and 289's server key
+// on 2011's objs.
+
+[flax]
+desc=I should use this with a spinning wheel.
+param=crafting_spinning_struct,flax
+
+[wool]
+desc=This probably came from a sheep. You can spin it into a ball of wool at a spinning wheel.
+param=crafting_spinning_struct,wool

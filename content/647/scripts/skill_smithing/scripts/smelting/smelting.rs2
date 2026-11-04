@@ -14,13 +14,13 @@ if(loc_type = viking_furnace) { // 289's viking_furnace2 (4305) is nameless in 2
 [label,use_furnace]
 switch_obj (last_useitem)
 {
-    // Gold and silver jewellery and glass are crafting's, which is not ported
+    // Gold and silver jewellery are crafting's, whose jewellery is not ported
     // yet; the Underground Pass orbs, Tai Bwo Wannai Trio's jogre bones and
     // Regicide's quicklime wait for their quests.
     // case gold_bar, perfect__gold_bar : @craft_gold_interface;
     // case silver_bar : @craft_silver;
     case steel_bar : @smelt_cannonballs;
-    // case bucket_of_sand, soda_ash : @smelt_glass;
+    case bucket_of_sand, soda_ash : @smelt_glass;
     // case orb_of_light, caveorb2, caveorb3, caveorb4 :
     //     if(loc_type = furnace_upass) @destroy_orboflight(last_useitem);
     //     ~displaymessage(^dm_default);
