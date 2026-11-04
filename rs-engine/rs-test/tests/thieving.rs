@@ -19,6 +19,11 @@
 //!
 //! Thieving pays through `~givexp`, so 2011's xp counter (varp 1801, in tenths
 //! of the xp) counts each award.
+//!
+//! The PR's 289 marks a robbed stall on the cache's `marketthief` varbits
+//! (786's 158-170 on varp 174, bits 1-13, as 289's), lets Miscellania's and
+//! Etceteria's stalls be robbed, and calls the guards that carry its
+//! `market_guard` param.
 
 #![cfg(since_647)]
 
@@ -28,6 +33,7 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::ParamValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 
@@ -35,6 +41,11 @@ const THIEVING: usize = 17;
 const LUMBRIDGE_MEN: std::ops::RangeInclusive<u16> = 7873..=7879;
 const BAKERS_STALL: (u16, u16, u16) = (34384, 2667, 3310);
 const CHEST_10_COINS: (u16, u16, u16) = (2566, 2676, 3310);
+/// Miscellania's veg stall, 289's `misc_veg_market` (786 places it at
+/// 0_39_60_21_22).
+const MISC_VEG_STALL: (u16, u16, u16) = (4706, 2517, 3862);
+/// 289's `marketthief`, the cache's varp 174; `marketthief_cake` is its bit 1.
+const MARKETTHIEF: u16 = 174;
 
 /// Each 647 OPLOC has its own field order (`op_loc1.rs`, `op_loc2.rs`).
 fn op_loc(client: &mut HarnessClient, prot: ClientProt, (loc, x, z): (u16, u16, u16)) {
@@ -166,6 +177,13 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
             "the xp counter counts it"
         );
         assert!(said.iter().any(|s| s.starts_with("You steal ")), "{said:?}");
+        let marketthief = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .vars
+            .get(MARKETTHIEF)
+            .as_int();
+        assert_eq!(marketthief & 2, 2, "marketthief_cake is set: {marketthief}");
 
         // In the baker's sight, beside him, he stops the theft.
         let mut client = thief(engine, "seenthief", 2669, 3311);
@@ -222,5 +240,63 @@ fn a_chest_opened_unsearched_springs_its_trap_and_a_searched_one_pays() {
             said.contains(&"You find treasure inside!".to_string()),
             "{said:?}"
         );
+    });
+}
+
+/// Miscellania's veg stall takes a thief's attempt, as 289's `misc_veg_market`.
+#[test]
+fn miscellanias_veg_stall_can_be_robbed() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = thief(engine, "vegthief", 2517, 3861);
+        op_loc(&mut client, ClientProt::OpLoc2, MISC_VEG_STALL);
+        let said = run(engine, &mut client, 12, |_, _| false);
+        assert!(
+            said.contains(
+                &"You attempt to steal some vegetables from the vegtable stall.".to_string()
+            ),
+            "{said:?}"
+        );
+    });
+}
+
+/// 289's market guards carry its `market_guard` param, and so do 2011's
+/// market paladins (paladin_2256).
+#[test]
+fn the_market_guards_carry_market_guard() {
+    runner::on_loaded_engine(|engine| {
+        let param: i32 = std::fs::read_to_string(format!(
+            "{}/../../content/647/pack/param.pack",
+            env!("CARGO_MANIFEST_DIR")
+        ))
+        .unwrap()
+        .lines()
+        .find_map(|l| l.strip_suffix("=market_guard")?.parse().ok())
+        .expect("market_guard is in param.pack");
+        for name in [
+            "ardougne_guard",
+            "paladin",
+            "paladin_2256",
+            "hero",
+            "knight_of_ardougne",
+            "knight_of_ardougne2",
+            "market_guard",
+            "viking_guard2",
+            "skraeling",
+            "skraeling_1368",
+            "skraeling_1389",
+            "skraeling_1391",
+        ] {
+            let id = *engine.cache.npcs.debugnames.get(name).expect(name);
+            let value = engine
+                .cache
+                .npcs
+                .get_by_id(id)
+                .and_then(|n| n.params.as_deref())
+                .and_then(|p| p.get(&param));
+            assert!(
+                matches!(value, Some(ParamValue::Int(1))),
+                "{name}: {value:?}"
+            );
+        }
     });
 }

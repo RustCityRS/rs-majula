@@ -2,5 +2,9 @@
 // the cache's 2,181 varps, never transmitted.
 [stunned]
 
-[thieving_stall_timer]
+// 289's marketthief (its _unpack/225/all.varp) is the cache's varp 174: 786's
+// varbits 158-170 sit on varp 174's bits 1-13 as 289's marketthief_* do on
+// its 174, bit for bit. It replaces 289's old server-only
+// thieving_stall_timer (647's 2194, now a placeholder, varp_2194).
+[marketthief]
 scope=perm
