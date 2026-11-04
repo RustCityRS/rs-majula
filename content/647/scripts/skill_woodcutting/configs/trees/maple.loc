@@ -1,21 +1,12 @@
 [maple_tree]
 desc=I bet this makes good syrup!
-model1=10,8023
-name=Maple tree
-width=2
-length=2
-occlude=yes
-ambient=25
-op1=Chop down
 op3=hidden
-hillskew_t2=42
-cursor1=0,59
-msi_id=2
 category=tree
 param=next_loc_stage,tree_stump_7400
-param=wc_levelreq,45
-param=wc_xp,1000
-param=wc_product,maple_logs
-param=wc_chance_low,8
-param=wc_chance_high,25
-param=wc_respawn,120
+
+// 2011's: void-634's maple_tree_three.
+[maple_tree_46277]
+desc=I bet this makes good syrup!
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_7400

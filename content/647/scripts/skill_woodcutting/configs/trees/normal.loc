@@ -1,625 +1,356 @@
+// Trees that give logs (289 normal_tree_table). Each has 289's category and
+// hidden op; 289's `ent` param is left off, as 2011 has no ents to spawn
+// (2011 wiki, Woodcutting: superseded by Evil Trees).
+//
+// Stumps: the pairing void-634 gives (trees.objs.toml) where it has the tree,
+// else 289's where its stump still stands in 2011, else the one 647 used
+// before this port.
+
 [tree_1276]
-desc=One of the most common trees in Gielinor.
-model1=10,1570
-name=Tree
-width=2
-length=2
-occlude=yes
-op1=Chop down
+desc=One of the most common trees in RuneScape.
 op3=hidden
-recol1s=3470
-recol1d=5665
-hillskew_t2=42
-cursor1=0,59
-msi_id=0
 category=tree
-param=next_loc_stage,treestump2_light
-param=wc_product,logs
+param=next_loc_stage,treestump2
 
 [lighttree]
 desc=A healthy young tree.
-model1=10,1570
-name=Tree
-width=2
-length=2
-occlude=yes
-op1=Chop down
 op3=hidden
-recol1s=3470
-recol1d=5029
-hillskew_t2=42
-cursor1=0,59
-msi_id=0
 category=tree
 param=next_loc_stage,treestump2_light
-param=wc_product,logs
 
 [tree2]
 desc=A commonly found tree.
-model1=10,1637
-name=Tree
-width=2
-length=2
-occlude=yes
-op1=Chop down
 op3=hidden
-recol1s=3470
-recol1d=5665
-retex1s=152
-retex1d=78
-retex2s=80
-retex2d=77
-hillskew_t2=42
-cursor1=0,59
-msi_id=1
 category=tree
 param=next_loc_stage,tree_stump_7400
-param=wc_product,logs
 
 [lighttree2]
 desc=A healthy young tree.
-model1=10,1637
-name=Tree
-width=2
-length=2
-occlude=yes
-op1=Chop down
 op3=hidden
-recol1s=3470
-recol1d=5029
-hillskew_t2=42
-cursor1=0,59
-msi_id=1
 category=tree
 param=next_loc_stage,tree_stump_7400
-param=wc_product,logs
+
+[dead_tree]
+desc=This tree has long been dead.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree1_large_stump
+
+[deadtree1_large]
+desc=This tree has long been dead.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree1_large_stump
+
+[deadtree4]
+desc=This tree has long been dead.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_6212
+
+[lightdeadtree1]
+desc=An old weather beaten tree.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree1_large_stump
+
+[deadtree2]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree2_stump
+
+[deadtree2_dark]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree2_stump_dark
+
+[deadtree2_snowy]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_23054
+
+[evergreen]
+desc=A hardy evergreen tree.
+op3=hidden
+category=tree
+param=next_loc_stage,treestump2
+
+[evergreen_large]
+desc=A hardy evergreen tree.
+op3=hidden
+category=tree
+param=next_loc_stage,evergreen_large_stump
+
+[evergreen_vsnowy_large]
+desc=This would make good firewood.
+op3=hidden
+category=tree
+param=next_loc_stage,evergreen_large_stump
+
+[evergreen_snowy_large]
+desc=This would make good firewood.
+op3=hidden
+category=tree
+param=next_loc_stage,evergreen_large_stump
 
 [snowtree1]
 desc=It's thick with snow.
-model1=10,1681
-name=Tree
-width=3
-length=3
-occlude=yes
-op1=Chop down
 op3=hidden
-hillskew_t2=20
-cursor1=0,59
-msi_id=0
 category=tree
 param=next_loc_stage,evergreen_large_stump
-param=wc_product,logs
 
 [snowtree2]
 desc=It's thick with snow.
-model1=10,1682
-name=Tree
-width=3
-length=3
-occlude=yes
-op1=Chop down
 op3=hidden
-hillskew_t2=20
-cursor1=0,59
-msi_id=0
 category=tree
 param=next_loc_stage,evergreen_large_stump
-param=wc_product,logs
 
 [snowtree3]
 desc=It's thick with snow.
-model1=10,1683
-name=Tree
-width=3
-length=3
-occlude=yes
-op1=Chop down
 op3=hidden
-hillskew_t2=20
-cursor1=0,59
-msi_id=0
 category=tree
 param=next_loc_stage,evergreen_large_stump
-param=wc_product,logs
 
-[tree_37477]
-desc=One of the most common trees in Gielinor.
-model1=10,1570
-name=Tree
-width=2
-length=2
-occlude=yes
-op1=Chop down
+[deadtree2_swamp]
+desc=It's only useful for firewood now.
 op3=hidden
-recol1s=3470
-recol1d=5665
-hillskew_t2=42
-cursor1=0,59
-msi_id=0
 category=tree
-param=next_loc_stage,treestump2_light
-param=wc_product,logs
+param=next_loc_stage,deadtree2_stump_swamp
 
-[tree_37478]
-desc=A commonly-found tree.
-model1=10,1637
-name=Tree
-width=2
-length=2
-occlude=yes
-op1=Chop down
+[deadtree6]
+desc=This tree has long been dead.
 op3=hidden
-recol1s=3470
-recol1d=5665
-retex1s=152
-retex1d=78
-retex2s=80
-retex2d=77
-hillskew_t2=45
-cursor1=0,59
-msi_id=1
 category=tree
-param=next_loc_stage,tree_stump_7400
-param=wc_product,logs
-
-[tree_38788]
-model1=10,64793
-name=Tree
-blockrange=no
-active=1
-occlude=yes
-interact_type1=yes
-ambient=25
-op1=Chop down
-op3=hidden
-contrast=15
-recol1s=15629
-recol1d=15635
-shadow=no
-resizex=215
-resizey=235
-resizez=215
-hillskew_t2=80
-cursor1=0,59
-msi_id=1
-category=tree
-param=next_loc_stage,tree_40357
-param=wc_product,logs
-param=multilevel,1
-
-[tree_38785]
-model1=10,64792
-name=Tree
-blockrange=no
-active=1
-occlude=yes
-interact_type1=yes
-ambient=25
-op1=Chop down
-op3=hidden
-contrast=15
-recol1s=15627
-recol1d=15635
-shadow=no
-resizex=200
-resizey=215
-resizez=200
-hillskew_t2=80
-cursor1=0,59
-msi_id=1
-category=tree
-param=next_loc_stage,tree_40354
-param=wc_product,logs
-param=multilevel,1
-
-[tree_2410]
-desc=One of the most common trees in Gielinor.
-width=2
-length=2
-msi_id=0
-op1=Chop down
-op3=hidden
-hillskew_t2=42
-recol1s=3470
-recol1d=8365
-retex1s=8
-retex1d=809
-model1=10,1570
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_stump_12004
-param=wc_product,logs
-
-[tree_2411]
-desc=A commonly found tree.
-width=2
-length=2
-msi_id=1
-op1=Chop down
-op3=hidden
-recol1s=3470
-recol1d=8365
-retex1s=8
-retex1d=809
-retex2s=152
-retex2d=78
-retex3s=80
-retex3d=77
-model1=10,1637
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_stump_12004
-param=wc_product,logs
-
-[newbietree]
-desc=One of the most common trees in Gielinor.
-width=2
-length=2
-msi_id=0
-op1=Chop down
-op3=hidden
-hillskew_t2=64
-model1=10,1570
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_stump_37653
-param=wc_product,logs
-
-[newbietree2]
-desc=One of the most common trees in Gielinor.
-width=2
-length=2
-msi_id=0
-op1=Chop down
-op3=hidden
-hillskew_t2=64
-model1=10,1637
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_stump_7400
-param=wc_product,logs
-
-[newbiedeadtree2]
-desc=One of the most common trees in RuneScape.
-width=2
-length=2
-msi_id=6
-op1=Chop down
-op3=hidden
-hillskew_t2=64
-model1=10,1716
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_stump_6212
-param=wc_product,logs
+param=next_loc_stage,deadtree6_stump
 
 [regicide_tree_large]
 desc=A tree.
-width=3
-length=3
-msi_id=10
-op1=Chop down
 op3=hidden
-ambient=25
-contrast=25
-hillskew_t2=42
-model1=10,3944
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
-param=next_loc_stage,regicide_tree_stump_small
-param=wc_product,logs
+param=next_loc_stage,regicide_tree_stump
 
 [regicide_tree_large2]
 desc=A tree.
-width=3
-length=3
-resizex=128
-resizey=150
-resizez=128
-msi_id=10
-op1=Chop down
 op3=hidden
-ambient=25
-contrast=25
-hillskew_t2=42
-model1=10,3944
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
-param=next_loc_stage,regicide_tree_stump_small
-param=wc_product,logs
+param=next_loc_stage,regicide_tree_stump
 
 [regicide_tree_large3]
 desc=A tree.
-width=3
-length=3
-resizex=128
-resizey=170
-resizez=128
-msi_id=10
-op1=Chop down
 op3=hidden
-ambient=25
-contrast=25
-hillskew_t2=42
-model1=10,3944
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
-param=next_loc_stage,regicide_tree_stump_small
-param=wc_product,logs
+param=next_loc_stage,regicide_tree_stump
 
 [regicide_tree_small]
 desc=A tree.
-width=2
-length=2
-resizex=64
-resizey=84
-resizez=64
-msi_id=9
-op1=Chop down
 op3=hidden
-ambient=25
-contrast=25
-hillskew_t2=42
-model1=10,3944
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
 param=next_loc_stage,regicide_tree_stump
-param=wc_product,logs
 
-[tree_5904]
-desc=It's only useful for hiding behind now.
-ambient=0
-active=1
-op1=Chop down
+// Ape Atoll's jungle trees: 289 sets these two up in quest_mm.loc, which is
+// not ported.
+[jungle_tree_4818]
+desc=This is a fairly tall tree with sparse foliage.
 op3=hidden
-blockrange=no
-model1=10,64361
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
-param=next_loc_stage,treestump2
-param=wc_product,logs
+param=next_loc_stage,jungle_tree_stump
+
+[jungle_tree_4820]
+desc=A leafy tree.
+op3=hidden
+category=tree
+param=next_loc_stage,jungle_tree_stump_4821
+
+// 2011's re-issued and added trees that give logs: void-634 lists each but
+// the eight 2011 trees south of Falador (2011 wiki, Tree: updated 4 April
+// 2011), which are the 289 tree family by name and op.
+[tree_2410]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_12004
+
+[tree_2411]
+desc=A commonly found tree.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_7400
 
 [tree_14308]
-desc=One of the most common trees in Gielinor.
-width=2
-length=2
-msi_id=0
-op1=Chop down
+desc=One of the most common trees in RuneScape.
 op3=hidden
-recol1s=3470
-recol1d=5665
-model1=10,1570
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
 param=next_loc_stage,treestump2_light
-param=wc_product,logs
 
 [tree_14309]
 desc=A commonly found tree.
-width=2
-length=2
-msi_id=1
-op1=Chop down
 op3=hidden
-recol1s=3470
-recol1d=5665
-model1=10,1637
-name=Tree
-cursor1=0,59
-occlude=yes
 category=tree
 param=next_loc_stage,tree_stump_7400
-param=wc_product,logs
 
-[tree_37652]
-desc=A commonly-found tree.
-width=2
-length=2
-msi_id=1
-op1=Chop down
+[tree_37477]
+desc=One of the most common trees in RuneScape.
 op3=hidden
-hillskew_t2=45
-recol1s=3470
-recol1d=5665
-retex1s=152
-retex1d=78
-retex2s=80
-retex2d=77
-model1=10,1637
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_stump_7400
-param=wc_product,logs
-
-[tree_38760]
-interact_type1=yes
-active=1
-hillskew_t2=80
-ambient=25
-contrast=15
-resizex=200
-resizey=215
-resizez=200
-op1=Chop down
-op3=hidden
-shadow=no
-msi_id=1
-blockrange=no
-recol1s=15629
-recol1d=15635
-model1=10,64862
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_40350
-param=wc_product,logs
-param=multilevel,1
-
-[tree_38782]
-interact_type1=yes
-active=1
-hillskew_t2=80
-ambient=25
-contrast=15
-resizex=215
-resizey=235
-resizez=215
-op1=Chop down
-op3=hidden
-shadow=no
-msi_id=1
-blockrange=no
-recol1s=15629
-recol1d=15635
-model1=10,64862
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_40351
-param=wc_product,logs
-param=multilevel,1
-
-[tree_38783]
-interact_type1=yes
-active=1
-hillskew_t2=80
-ambient=25
-contrast=15
-resizex=200
-resizey=215
-resizez=200
-op1=Chop down
-op3=hidden
-shadow=no
-msi_id=1
-blockrange=no
-recol1s=15629
-recol1d=15635
-model1=10,64861
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_40352
-param=wc_product,logs
-param=multilevel,1
-
-[tree_38784]
-interact_type1=yes
-active=1
-hillskew_t2=80
-ambient=25
-contrast=15
-resizex=215
-resizey=235
-resizez=215
-op1=Chop down
-op3=hidden
-shadow=no
-msi_id=1
-blockrange=no
-recol1s=15629
-recol1d=15635
-model1=10,64861
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_40353
-param=wc_product,logs
-param=multilevel,1
-
-[tree_38786]
-interact_type1=yes
-active=1
-hillskew_t2=80
-ambient=25
-contrast=15
-resizex=215
-resizey=235
-resizez=215
-op1=Chop down
-op3=hidden
-shadow=no
-msi_id=1
-blockrange=no
-recol1s=15627
-recol1d=15635
-model1=10,64792
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_40355
-param=wc_product,logs
-param=multilevel,1
-
-[tree_38787]
-interact_type1=yes
-active=1
-hillskew_t2=80
-ambient=25
-contrast=15
-resizex=200
-resizey=215
-resizez=200
-op1=Chop down
-op3=hidden
-shadow=no
-msi_id=1
-blockrange=no
-recol1s=15629
-recol1d=15635
-model1=10,64793
-name=Tree
-cursor1=0,59
-occlude=yes
-category=tree
-param=next_loc_stage,tree_40356
-param=wc_product,logs
-param=multilevel,1
-
-[tree_39328]
-width=2
-length=2
-msi_id=1
-anim=seq_2749
-op1=Chop down
-op3=hidden
-op2=Talk to
-recol1s=3470
-recol1d=5665
-model1=10,9746
-name=Tree
-cursor1=0,59
-cursor2=1,44
-occlude=yes
 category=tree
 param=next_loc_stage,treestump2
-param=wc_product,logs
+
+[tree_37478]
+desc=A commonly found tree.
+op3=hidden
+category=tree
+param=next_loc_stage,treestump2
+
+[tree_37652]
+desc=A commonly found tree.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_7400
+
+[tree_5904]
+desc=It's only useful for hiding behind now.
+op3=hidden
+category=tree
+param=next_loc_stage,treestump2
+
+[dead_tree_37481]
+desc=This tree has long been dead.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree1_large_stump
+
+[dead_tree_37482]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree2_stump
+
+[dead_tree_37483]
+desc=This tree has long been dead.
+op3=hidden
+category=tree
+param=next_loc_stage,deadtree6_stump
+
+[dead_tree_47594]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_47595
+
+[dead_tree_47596]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_47597
+
+[dead_tree_47598]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_47599
+
+[dead_tree_47600]
+desc=It's only useful for firewood now.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_47601
+
+[dead_tree_covered_in_snow]
+desc=This tree has long been dead.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_42860
+
+[dying_tree]
+desc=Living in the big city isn't easy.
+op3=hidden
+category=tree
+param=next_loc_stage,dying_tree_stump
+
+[jungle_tree_15948]
+desc=A native jungle tree.
+op3=hidden
+category=tree
+param=next_loc_stage,jungle_tree_15950
+
+[jungle_tree_15951]
+desc=A native jungle tree.
+op3=hidden
+category=tree
+param=next_loc_stage,jungle_tree_15953
+
+[jungle_tree_15954]
+desc=A native jungle tree.
+op3=hidden
+category=tree
+param=next_loc_stage,jungle_tree_15956
+
+[tree_38760]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40350
+
+[tree_38782]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40351
+
+[tree_38783]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40352
+
+[tree_38784]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40353
+
+[tree_38785]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40354
+
+[tree_38786]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40355
+
+[tree_38787]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40356
+
+[tree_38788]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_40357
+
+// Tutorial Island's: 289 chops them in tutorial/tut_woodcut.rs2, not ported
+// yet; until then they chop as the trees they are.
+[newbietree]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,treestump2
+
+[newbietree2]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_7400
+
+[newbiedeadtree2]
+desc=One of the most common trees in RuneScape.
+op3=hidden
+category=tree
+param=next_loc_stage,tree_stump_6212

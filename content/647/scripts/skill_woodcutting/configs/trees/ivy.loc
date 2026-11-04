@@ -1,19 +1,32 @@
+// 2011's choking ivy (2011 wiki, Ivy: released 23 September 2009). 289 has
+// none. Each ivy falls to the stump of its model.
+
 [ivy]
-model1=4,63598
-name=Ivy
-active=1
-hillskew=yes
-occlude=yes
-anim=seq_12359
-ambient=25
-contrast=15
-cursor1=0,59
-memberop1=Chop
+desc=Choking ivy, ready to be cut down.
 op3=hidden
 category=tree
 param=next_loc_stage,ivy_stump
-param=wc_levelreq,68
-param=wc_xp,3325
-param=wc_chance_low,4
-param=wc_chance_high,12
-param=wc_respawn,60
+
+[ivy_46318]
+desc=Choking ivy, ready to be cut down.
+op3=hidden
+category=tree
+param=next_loc_stage,ivy_stump
+
+[ivy_46320]
+desc=Choking ivy, ready to be cut down.
+op3=hidden
+category=tree
+param=next_loc_stage,ivy_stump_46321
+
+[ivy_46322]
+desc=Choking ivy, ready to be cut down.
+op3=hidden
+category=tree
+param=next_loc_stage,ivy_stump_46323
+
+[ivy_46324]
+desc=Choking ivy, ready to be cut down.
+op3=hidden
+category=tree
+param=next_loc_stage,ivy_stump_46325

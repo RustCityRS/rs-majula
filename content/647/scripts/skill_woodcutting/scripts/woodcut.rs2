@@ -1,0 +1,382 @@
+[oploc1,_tree] @attempt_cut_tree;
+// "hidden" op
+[oploc3,_tree] @cut_tree;
+
+// click use axe on tree
+[oplocu,_tree]
+switch_obj(last_useitem) {
+    // 2011 has the dragon hatchet (2011 wiki, Hatchet).
+    case bronze_hatchet, iron_hatchet, steel_hatchet, black_hatchet, mithril_hatchet, adamant_hatchet, rune_hatchet, dragon_hatchet :
+        p_oploc(1); // gets delayed by a tick >:(
+    // case raw_herring, herring :
+    //     mes("This is not the mightiest tree in the forest.");
+    //     return;
+    case default : ~displaymessage(^dm_default);
+}
+
+
+[label,attempt_cut_tree]
+// find tree in db
+db_find(woodcutting_trees:tree, loc_type);
+def_dbrow $data = db_findnext;
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+// check if f2p. Not sure if this is a thing. just to be safe i guess
+def_namedobj $product = db_getfield($data, woodcutting_trees:product, 0);
+// 2011's ivy gives nothing (2011 wiki, Ivy: "no items are directly
+// obtained"), so it has no product to ask.
+if ($product ! null) {
+    if (oc_members($product) = true) {
+        if (map_members = ^false) {
+            mes(^mes_members_feature);
+            return;
+        }
+    }
+}
+// check level first
+def_int $level = db_getfield($data, woodcutting_trees:levelrequired, 0);
+if (stat(woodcutting) < $level) {
+    anim(null, 0);
+    mes("You need a Woodcutting level of <tostring($level)> to chop down this tree.");
+    return;
+}
+// check inv space 2nd
+if ($product ! null) {
+    if (inv_freespace(inv) < 1) {
+        anim(null, 0);
+        // osrs specifies the log name, but old videos do not.
+        // https://youtu.be/str4rRd9mt8?t=152
+        mes("Your inventory is too full to hold any more logs.");
+        return;
+    }
+}
+
+if (afk_event = ^true) {
+    if(loc_param(ent) = null) {
+        @macro_randomwoodcuttingachey;
+    }
+    @macro_randomwoodcutting;
+}
+if (%action_delay < map_clock) {
+    if ($level > 0 & ~woodcutting_axe_checker(true) = null) {
+        return;
+    }
+    %action_delay = calc(map_clock + 3);
+    p_oploc(1);
+    return;
+}
+// for level 1 trees, axe message is here after the skill clock is set. But only on first interaction
+def_obj $axe = ~woodcutting_axe_checker(true);
+if ($axe = null) {
+    return;
+}
+
+// after axe
+// 289 turns players away from Miscellania's maples here until the Throne of
+// Miscellania lets them (%misc_quest, %misc_approval, Lumberjack Leif); that
+// quest is not ported, so neither is the check.
+// if (inzone(^miscellania_lower_bound, ^miscellania_upper_bound, coord) = true) {
+//     if($product = maple_logs) {
+//         if(%misc_quest < ^misc_king_signed_treaty) {
+//             if (npc_find(0_39_60_54_29, lumberjack_leif, 2, 0) = true) {
+//                 ~chatnpc("<p,angry>Hey! This is the Queen's forest. You'll need her approval to make use of it.");
+//             }
+//             return;
+//         }
+//         if(%misc_approval >= ^MISC_APPROVAL_100_PERCENT) {
+//             if (npc_find(0_39_60_54_29, lumberjack_leif, 2, 0) = true) {
+//                 if(%misc_quest = ^misc_complete) {
+//                     ~chatnpcnoturn("<p,happy>Don't trouble yourself further, Your Highness, you've already done so much!");
+//                 } else {
+//                     ~chatnpcnoturn("<p,happy>Don't trouble yourself further, <text_gender("Sir", "Madam")>, you've already done so much!");
+//                 }
+//             }
+//             return;
+//         }
+//     }
+// }
+
+// https://youtu.be/T3IRz4hZcjc?si=4jBFvTwMwqPXuAxf&t=63
+// sound on first chop
+anim(oc_param($axe, woodcutting_anim), 0);
+// 289 plays `woodchop` here. 2011's chopping animations carry the chop
+// themselves (seq 879's frame 7 picks one of synths 2869, 2873 and 2875), and
+// the client plays it, so a second sound would double it.
+// 2011 says hatchet (2011 wiki, Woodcutting: "You swing your hatchet at the
+// tree."); at ivy it swings at the ivy (void-634 Woodcutting.kt).
+if ($product = null) {
+    mes("You swing your hatchet at the ivy.");
+} else {
+    mes("You swing your hatchet at the tree.");
+}
+if (%action_delay = map_clock) {
+    @get_logs($data, $axe);
+}
+
+p_oploc(3);
+
+
+[label,cut_tree]
+def_obj $axe = ~woodcutting_axe_checker(true);
+if ($axe = null) {
+    return;
+}
+// find tree in db
+db_find(woodcutting_trees:tree, loc_type);
+def_dbrow $data = db_findnext;
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+// after axe
+def_namedobj $product = db_getfield($data, woodcutting_trees:product, 0);
+// 289's Miscellania check again, as in attempt_cut_tree: not ported.
+// if (inzone(^miscellania_lower_bound, ^miscellania_upper_bound, coord) = true) {
+//     if($product = maple_logs) {
+//         if(%misc_quest < ^misc_king_signed_treaty) {
+//             if (npc_find(0_39_60_54_29, lumberjack_leif, 2, 0) = true) {
+//                 ~chatnpc("<p,angry>Hey! This is the Queen's forest. You'll need her approval to make use of it.");
+//             }
+//             return;
+//         }
+//         if(%misc_approval >= ^MISC_APPROVAL_100_PERCENT) {
+//             if (npc_find(0_39_60_54_29, lumberjack_leif, 2, 0) = true) {
+//                 if(%misc_quest = ^misc_complete) {
+//                     ~chatnpcnoturn("<p,happy>Don't trouble yourself further, Your Highness, you've already done so much!");
+//                 } else {
+//                     ~chatnpcnoturn("<p,happy>Don't trouble yourself further, <text_gender("Sir", "Madam")>, you've already done so much!");
+//                 }
+//             }
+//             return;
+//         }
+//     }
+// }
+// i think it checks level here? thats the case with fishing at least
+def_int $level = db_getfield($data, woodcutting_trees:levelrequired, 0);
+if (stat(woodcutting) < $level) {
+    anim(null, 0);
+    mes("You need a Woodcutting level of <tostring($level)> to chop down this tree.");
+    return;
+}
+// check inv space
+if ($product ! null) {
+    if (inv_freespace(inv) < 1) {
+        anim(null, 0);
+        // https://youtu.be/str4rRd9mt8?t=152
+        mes("Your inventory is too full to hold any more logs.");
+        return;
+    }
+}
+
+if (%action_delay < map_clock) {
+    %action_delay = calc(map_clock + 3);
+} else if (%action_delay = map_clock) {
+    anim(oc_param($axe, woodcutting_anim), 0);
+    @get_logs($data, $axe);
+}
+
+p_oploc(3);
+
+[label,get_logs](dbrow $data, obj $axe)
+// get lows and highs
+def_int $tree_chance_low;
+def_int $tree_chance_high;
+$tree_chance_low, $tree_chance_high = ~woodcutting_successchance($data, $axe);
+def_int $respawnrate = db_getfield($data, woodcutting_trees:respawnrate, 0);
+def_int $deplete_chance = 8; // 1/8 chance to deplete
+// if normal tree, add some variance
+// scuffed way of doing it but it works
+if ($respawnrate = 0) {
+    $respawnrate = add(120, random(80));
+    $deplete_chance = 0;
+}
+if (stat_random(woodcutting, $tree_chance_low, $tree_chance_high) = true) {
+    def_namedobj $product = db_getfield($data, woodcutting_trees:product, 0);
+    // 289 hands Miscellania's maples to Lumberjack Leif here
+    // (~leif_intercept_wood); the Throne of Miscellania is not ported.
+    // 289 pays with stat_advance; 2011's xp counter counts what ~givexp pays.
+    if ($product = null) {
+        // 2011's ivy gives no logs (2011 wiki, Ivy); the message is
+        // void-634's (Woodcutting.kt).
+        mes("You successfully chop away some ivy.");
+        ~givexp(woodcutting, db_getfield($data, woodcutting_trees:productexp, 0));
+    } else {
+        mes("You get some <lowercase(oc_name($product))>.");
+        ~givexp(woodcutting, db_getfield($data, woodcutting_trees:productexp, 0));
+        inv_add(inv, $product, 1);
+    }
+    if (random($deplete_chance) = 0) {
+        $respawnrate = ~scale_by_playercount($respawnrate);
+        loc_change(loc_param(next_loc_stage), $respawnrate);
+        anim(null, 0);
+        return;
+    }
+}
+p_oploc(3);
+
+// check if player has axe and level, ifso return best axe
+[proc,woodcutting_axe_checker](boolean $print_mes)(namedobj)
+def_int $level = stat(woodcutting);
+def_obj $obj1 = inv_getobj(worn, ^wearpos_rhand);
+// no wc req in 2004, this is also the case in rsc. Heres a guide from 2004 that says so :
+// https://web.archive.org/web/20040622013913/http://runehq.com/viewguidedb.php?id=00330
+// 2011 has the requirements 289 leaves commented out, and the dragon hatchet:
+// bronze and iron 1, steel and black 6, mithril 21, adamant 31, rune 41 and
+// dragon 61 (2011 wiki, Hatchet). 289's commented black was 11.
+if (($obj1 = dragon_hatchet | inv_total(inv, dragon_hatchet) > 0) & $level > 60) {
+    return (dragon_hatchet);
+}
+if (($obj1 = rune_hatchet | inv_total(inv, rune_hatchet) > 0) & $level > 40) {
+    return (rune_hatchet);
+}
+if (($obj1 = adamant_hatchet | inv_total(inv, adamant_hatchet) > 0) & $level > 30) {
+    return (adamant_hatchet);
+}
+if (($obj1 = mithril_hatchet | inv_total(inv, mithril_hatchet) > 0) & $level > 20) {
+    return (mithril_hatchet);
+}
+if (($obj1 = black_hatchet | inv_total(inv, black_hatchet) > 0) & $level > 5) {
+    return (black_hatchet);
+}
+if (($obj1 = steel_hatchet | inv_total(inv, steel_hatchet) > 0) & $level > 5) {
+    return (steel_hatchet);
+}
+if (($obj1 = iron_hatchet | inv_total(inv, iron_hatchet) > 0) & $level > 0) {
+    return (iron_hatchet);
+}
+if (($obj1 = bronze_hatchet | inv_total(inv, bronze_hatchet) > 0) & $level > 0) {
+    return (bronze_hatchet);
+}
+// 289's live checks, with no levels:
+// if (($obj1 = rune_axe | inv_total(inv, rune_axe) > 0)) {
+//     return (rune_axe);
+// }
+// if (($obj1 = adamant_axe | inv_total(inv, adamant_axe) > 0)) {
+//     return (adamant_axe);
+// }
+// if (($obj1 = mithril_axe | inv_total(inv, mithril_axe) > 0)) {
+//     return (mithril_axe);
+// }
+// if (($obj1 = black_axe | inv_total(inv, black_axe) > 0)) {
+//     return (black_axe);
+// }
+// if (($obj1 = steel_axe | inv_total(inv, steel_axe) > 0)) {
+//     return (steel_axe);
+// }
+// if (($obj1 = iron_axe | inv_total(inv, iron_axe) > 0)) {
+//     return (iron_axe);
+// }
+// if (($obj1 = bronze_axe | inv_total(inv, bronze_axe) > 0)) {
+//     return (bronze_axe);
+// }
+// mes("You need an axe to chop down this tree."); // this message was added in 2005 when they fixed axe wc reqs
+// https://imgur.com/Cj7w6y9
+// https://imgur.com/fnmlJ7R
+if ($print_mes = true) {
+    // 289: "You do not have an axe which you have the level to use." 2011's
+    // wording is void-634's (Woodcutting.kt).
+    mes("You do not have a hatchet which you have the woodcutting level to use.");
+}
+return(null);
+
+[proc,woodcutting_successchance](dbrow $data, obj $axe)(int, int)
+def_int $count = calc(db_getfieldcount($data, woodcutting_trees:successchance) - 1);
+while ($count >= 0) {
+    def_obj $db_axe;
+    def_int $tree_chance_low;
+    def_int $tree_chance_high;
+    $db_axe, $tree_chance_low, $tree_chance_high = db_getfield($data, woodcutting_trees:successchance, $count);
+    if ($db_axe = $axe) {
+        return($tree_chance_low, $tree_chance_high);
+    } else {
+        $count = calc($count - 1);
+    }
+}
+return(null, null);
+
+#testscript
+
+// ── Hatchet finder: 2011's woodcutting levels ───────────────────
+[label,test_wc_axe_checker_bronze_at_level_1]
+setup_player("test_player")
+inv_add(inv, bronze_hatchet, 1)
+def_obj $found = ~woodcutting_axe_checker(false)
+assert_eq($found, bronze_hatchet)
+
+[label,test_wc_axe_checker_steel_requires_6]
+setup_player("test_player")
+inv_add(inv, steel_hatchet, 1)
+inv_add(inv, bronze_hatchet, 1)
+def_obj $found = ~woodcutting_axe_checker(false)
+assert_eq($found, bronze_hatchet)
+stat_add(woodcutting, 5, 0)
+$found = ~woodcutting_axe_checker(false)
+assert_eq($found, steel_hatchet)
+
+[label,test_wc_axe_checker_black_requires_6]
+setup_player("test_player")
+inv_add(inv, black_hatchet, 1)
+def_obj $found = ~woodcutting_axe_checker(false)
+assert_eq($found, null)
+stat_add(woodcutting, 5, 0)
+$found = ~woodcutting_axe_checker(false)
+assert_eq($found, black_hatchet)
+
+[label,test_wc_axe_checker_picks_dragon_at_61]
+setup_player("test_player")
+stat_add(woodcutting, 60, 0)
+inv_add(inv, bronze_hatchet, 1)
+inv_add(inv, rune_hatchet, 1)
+inv_add(inv, dragon_hatchet, 1)
+def_obj $found = ~woodcutting_axe_checker(false)
+assert_eq($found, dragon_hatchet)
+
+[label,test_wc_axe_checker_no_hatchet]
+setup_player("test_player")
+def_obj $found = ~woodcutting_axe_checker(true)
+wait_for("mes", 20)
+assert_called_with("mes", "You do not have a hatchet which you have the woodcutting level to use.")
+assert_eq($found, null)
+
+// ── Integration ────────────────────────────────────────────────
+// tree_1276 at x=2552,z=3450. Player on the tile west of it.
+[label,test_wc_attempt_cut_tree_no_hatchet]
+setup_player("test_player");
+p_telejump(0_39_53_55_58);
+test_op(oploc1, tree_1276, 0_39_53_56_58);
+assert_eq(inv_total(inv, logs), 0)
+
+[label,test_wc_attempt_cut_tree_with_hatchet]
+setup_player("test_player");
+p_telejump(0_39_53_55_58);
+inv_add(inv, bronze_hatchet, 1);
+test_op(oploc1, tree_1276, 0_39_53_56_58);
+// The first op only books the swing (%action_delay, then p_oploc(1)); the
+// re-op a tick later swings.
+wait_for("mes", 5);
+assert_called_with("mes", "You swing your hatchet at the tree.");
+
+[label,test_wc_full_lifecycle]
+setup_player("test_player");
+p_telejump(0_39_53_55_58);
+stat_add(woodcutting, 98, 0);
+inv_add(inv, dragon_hatchet, 1);
+def_int $logs_before = inv_total(inv, logs);
+test_op(oploc1, tree_1276, 0_39_53_56_58);
+// A normal tree falls with its one log: wait for that, not the first
+// message, which is the swing.
+wait_for("loc_change", 20);
+assert_called_with("mes", "You get some logs.");
+assert_gt(inv_total(inv, logs), $logs_before);
+assert_called("loc_change", 1);
+
+// Yew at x=2754, z=3433. Player on the tile west of it.
+[label,test_wc_yew_requires_level]
+setup_player("test_player");
+p_telejump(0_43_53_1_41);
+test_op(oploc1, yew, 0_43_53_2_41);
+wait_for("mes", 5);
+assert_called_with("mes", "You need a Woodcutting level of 60 to chop down this tree.");
+assert_eq(inv_total(inv, yew_logs), 0)
