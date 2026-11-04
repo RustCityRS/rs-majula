@@ -3,3 +3,14 @@
 // varbits live in takes writes without it, as 289's button-set varps do.
 [varp_1363]
 protect=no
+
+// The player's make-X amount, kept across logouts: void-634 saves
+// skill_creation_amount (persist = true). Varp 1363 itself is not saved, as
+// character creation's varbits share it (character_creation_female and
+// others, which cc_open_interface does not reset). Server-only: past the
+// cache's 2,181 varps.
+// The number panel's buttons write it while the dialogue holds the player's
+// script paused, as they write varp 1363: it takes writes without access.
+[skill_creation_saved]
+scope=perm
+protect=no

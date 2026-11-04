@@ -34,10 +34,7 @@ sendvarc(754, $verb); // the verb: ^skill_make_make, ^skill_make_cook, ...
 ~skill_make_item(1140, 281, $obj8);
 ~skill_make_item(1141, 282, $obj9);
 ~skill_make_item(1142, 283, $obj10);
-%skill_creation_maximum = $maximum;
-if (%skill_creation_amount = 0 | %skill_creation_amount > $maximum) {
-    %skill_creation_amount = min(1, $maximum);
-}
+~skill_make_amount($maximum);
 if_openchat(skillmulti2010);
 if_opensub(skillmulti2010_numbers, skillmulti2010:com4, ^false);
 if_settext(skillmulti2010_numbers:com1, $text);
@@ -69,12 +66,30 @@ sendvarc($varc, $obj);
 sendvarc_str($varc_name, oc_name($obj));
 
 // The number panel. All is the maximum; +1 stops at it, -1 at nothing.
-[if_button,skillmulti2010_numbers:com5] %skill_creation_amount = 1;
-[if_button,skillmulti2010_numbers:com6] %skill_creation_amount = min(5, %skill_creation_maximum);
-[if_button,skillmulti2010_numbers:com7] %skill_creation_amount = min(10, %skill_creation_maximum);
-[if_button,skillmulti2010_numbers:com8] %skill_creation_amount = %skill_creation_maximum;
-[if_button,skillmulti2010_numbers:com19] %skill_creation_amount = min(add(%skill_creation_amount, 1), %skill_creation_maximum);
-[if_button,skillmulti2010_numbers:com20] %skill_creation_amount = max(sub(%skill_creation_amount, 1), 0);
+[if_button,skillmulti2010_numbers:com5]
+%skill_creation_amount = 1;
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com6]
+%skill_creation_amount = min(5, %skill_creation_maximum);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com7]
+%skill_creation_amount = min(10, %skill_creation_maximum);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com8]
+%skill_creation_amount = %skill_creation_maximum;
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com19]
+%skill_creation_amount = min(add(%skill_creation_amount, 1), %skill_creation_maximum);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com20]
+%skill_creation_amount = max(sub(%skill_creation_amount, 1), 0);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
 
 // 289's signatures. All is 28, a full backpack: the most any of 289's makes
 // can use, and the make stops sooner when the materials run out.
@@ -121,3 +136,32 @@ def_namedobj $product;
 def_int $count;
 $product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, null, null, null);
 return($product);
+
+// The amount on 2011's make-X is the player's last choice:
+// - While playing, the client keeps it in skill_creation_amount (varbit 8095)
+//   and writes it as the 1/5/10/All and +1/-1 buttons are pressed
+//   (clientscripts 2022, 2023); the server mirrors each button (above).
+// - Across logouts it is kept as void-634 keeps it (skill_creation_amount,
+//   persist = true), in %skill_creation_saved: each button press and each
+//   open updates it, as void-634's varbit is updated.
+// - A player's first make starts at 1: void-634's default. No Jagex source
+//   gives a first amount.
+// - An amount above this make's maximum comes down to it, and stays down
+//   (void-634 setMax sets the varbit).
+//   The client labels an amount at or above the maximum "Make All" or "Cook
+//   All" (clientscripts 1111, 2047; verbs 1, 9 and 12 have no All, script
+//   1103), so a remembered All is still All.
+[proc,skill_make_amount](int $maximum)
+%skill_creation_maximum = $maximum;
+// %skill_creation_saved holds the amount plus 1, so that 0 is a player who
+// never chose: -1 can take the amount to 0 (clientscript 2023), which
+// void-634 keeps as it is.
+def_int $amount = 1;
+if (%skill_creation_saved > 0) {
+    $amount = sub(%skill_creation_saved, 1);
+}
+if ($amount > $maximum) {
+    $amount = $maximum;
+}
+%skill_creation_amount = $amount;
+%skill_creation_saved = add($amount, 1);
