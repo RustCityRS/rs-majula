@@ -5,13 +5,17 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-#[client_prot(Fixed(6), UserEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(6), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(7), UserEvent))]
 pub struct OpObj3 {
     pub x: u16,
     pub z: u16,
     pub obj: u16,
+    #[cfg(since_647)]
+    pub ctrl: bool,
 }
 
+#[cfg(before_647)]
 impl ClientProtMessage for OpObj3 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpObj3 {
@@ -19,5 +23,16 @@ impl ClientProtMessage for OpObj3 {
             z: buf.g2(),
             obj: buf.g2(),
         }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for OpObj3 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let obj = buf.ig2();
+        let z = buf.g2_alt1();
+        let ctrl = buf.g1() != 0;
+        let x = buf.g2();
+        OpObj3 { obj, x, z, ctrl }
     }
 }

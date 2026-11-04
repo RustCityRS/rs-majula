@@ -1,7 +1,7 @@
 use crate::active_player::ActivePlayer;
 use crate::engine::engine_mut;
 use crate::handlers::ClientGameHandler;
-use rs_protocol::network::game::client::resume_p_string_dialog::ResumePStringDialog;
+use rs_protocol::network::game::client::resume_p_stringdialog::ResumePStringDialog;
 use rs_vm::ScriptError;
 use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;

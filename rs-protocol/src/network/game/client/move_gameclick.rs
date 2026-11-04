@@ -7,7 +7,6 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-// Minimum covers ctrl + x + z.
 #[cfg(before_647)]
 #[client_prot(VarByte { min: 5 }, UserEvent)]
 pub struct MoveGameClick {
@@ -39,22 +38,20 @@ impl ClientProtMessage for MoveGameClick {
     }
 }
 
-// `MoveGameclick` — rev-647 MOVE_GAMECLICK (opcode 84, fixed 5).
-
 #[cfg(since_647)]
 #[client_prot(Fixed(5), UserEvent)]
-pub struct MoveGameclick {
+pub struct MoveGameClick {
     pub x: u16,
     pub z: u16,
-    pub ctrl_run: bool,
+    pub ctrl: bool,
 }
 
 #[cfg(since_647)]
-impl ClientProtMessage for MoveGameclick {
+impl ClientProtMessage for MoveGameClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let x = buf.ig2();
-        let ctrl_run = buf.g1_alt3() != 0;
+        let ctrl = buf.g1_alt3() != 0;
         let z = buf.g2();
-        MoveGameclick { x, z, ctrl_run }
+        MoveGameClick { x, z, ctrl }
     }
 }

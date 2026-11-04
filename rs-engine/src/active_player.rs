@@ -21,6 +21,7 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{Font, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::client::ClientProtMessage;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic1;
@@ -96,17 +97,10 @@ use rs_protocol::network::game::client_prot::InvButton5;
 use rs_protocol::network::game::client_prot::InvButtonD;
 #[cfg(since_254)]
 use rs_protocol::network::game::client_prot::MapBuildComplete;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::MessagePrivate;
 use rs_protocol::network::game::client_prot::MessagePublic;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::MoveGameClick;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::MoveGameclick;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::MoveMinimapClick;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::MoveMinimapclick;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::MoveOpClick;
 use rs_protocol::network::game::client_prot::NoTimeout;
@@ -124,104 +118,41 @@ use rs_protocol::network::game::client_prot::OpHeld5;
 use rs_protocol::network::game::client_prot::OpHeldT;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpHeldU;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpLoc1;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpLoc1;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpLoc2;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpLoc2;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpLoc3;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpLoc3;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpLoc4;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpLoc4;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::OpLoc5;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpLoc5;
 use rs_protocol::network::game::client_prot::OpLocT;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpLocU;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpNpc1;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpNpc1;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpNpc2;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpNpc2;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpNpc3;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpNpc3;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpNpc4;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpNpc4;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::OpNpc5;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpNpc5;
 use rs_protocol::network::game::client_prot::OpNpcT;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpNpcU;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpObj1;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpObj1;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpObj2;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpObj2;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpObj3;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpObj3;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpObj4;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpObj4;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::OpObj5;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpObj5;
 use rs_protocol::network::game::client_prot::OpObjT;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpObjU;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpPlayer1;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpPlayer1;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpPlayer2;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpPlayer2;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpPlayer3;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpPlayer3;
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::OpPlayer4;
-#[cfg(before_647)]
-use rs_protocol::network::game::client_prot::OpPlayer4;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::OpPlayer5;
 #[cfg(since_254)]
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpPlayer5;
 use rs_protocol::network::game::client_prot::OpPlayerT;
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::OpPlayerU;
 #[cfg(rev = "225")]
 use rs_protocol::network::game::client_prot::RebuildGetMaps;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::ResumePCountDialog;
-#[cfg(before_647)]
 use rs_protocol::network::game::client_prot::ResumePCountDialog;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::ResumePStringDialog;
@@ -233,6 +164,15 @@ use rs_protocol::network::game::client_prot::SetChatfiltersettings;
 use rs_protocol::network::game::client_prot::TutClickSide;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::WindowStatus;
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::{
+    ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, ClickWorldMap,
+    ClientDetailoptionsStatus, CreateCheckName, EventKeyboard, FaceSquare, FriendSetRank,
+    MapBuildLoading, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6, OpPlayer7,
+    OpPlayer8, OpPlayer9, OpPlayer10, ReflectionCheckReply, ResumePClanforumqfcDialog,
+    ResumePHslDialog, ResumePNameDialog, ResumePObjDialog, SoundSongPreloaded, TransmitvarVerifyId,
+    UrlRequest, VideoEnd, WorldLatency, WorldlistFetch,
+};
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::{ExamineLoc, ExamineNpc, ExamineObj};
 #[cfg(since_647)]
@@ -1797,6 +1737,7 @@ impl ActivePlayer {
 
     /// A minimap click, for the anti-cheat to check what the client sent
     /// with it against the path and where the world has the player.
+    #[cfg(before_647)]
     pub fn watch_minimap(&mut self, path: &[u32], trailer: &MinimapTrailer) {
         let base = self.map_base();
         let at = self.player.pathing.coord;
@@ -3747,7 +3688,7 @@ impl EnginePlayer for ActivePlayer {
         let mut buf = Packet::from(take(&mut handle.read_buf));
         buf.data.clear();
         buf.data.extend(handle.read_queue.drain(..len));
-        let short = len < info.frame.min();
+        let malformed = !prot.validate(&buf.data);
 
         if let Some(at) = self.handle.arrived() {
             self.watch.arrived(at);
@@ -3755,8 +3696,8 @@ impl EnginePlayer for ActivePlayer {
         self.watch.client(engine().clock, &prot, opcode, &buf.data);
 
         #[rustfmt::skip]
-        let success = if short {
-            debug!("Short {prot:?}: {} byte(s)", buf.len());
+        let success = if malformed {
+            debug!("Malformed {prot:?}: {} byte(s)", buf.len());
             self.watch.anticheat.malformed();
             false
         } else {
@@ -3868,14 +3809,8 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(before_647)]
                 ClientProt::MessagePrivate => MessagePrivate::decode(&mut buf, len).handle(self),
                 ClientProt::MessagePublic => MessagePublic::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
                 ClientProt::MoveGameClick => MoveGameClick::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
-                ClientProt::MoveGameclick => MoveGameclick::decode(&mut buf, len).handle(self),
-                #[cfg(before_647)]
                 ClientProt::MoveMinimapClick => MoveMinimapClick::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
-                ClientProt::MoveMinimapclick => MoveMinimapclick::decode(&mut buf, len).handle(self),
                 #[cfg(before_647)]
                 ClientProt::MoveOpClick => MoveOpClick::decode(&mut buf, len).handle(self),
                 ClientProt::NoTimeout => NoTimeout::decode(&mut buf, len).handle(self),
@@ -3937,64 +3872,66 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::SendSnapshot => SendSnapshot::decode(&mut buf, len).handle(self),
                 #[cfg(before_647)]
                 ClientProt::TutClickSide => TutClickSide::decode(&mut buf, len).handle(self),
-                // Rev-647 has no catch-all: every opcode the client sends has an
-                // arm, so a new one fails to compile instead of being dropped.
-                //
-                // Reports the client makes for its own sake, which the server
-                // has no use for, as 289 has none for its mouse and camera
-                // events (handlers/event.rs). Each is named, with its send
-                // site, in its struct.
                 #[cfg(since_647)]
-                ClientProt::EventKeyboard
-                | ClientProt::ClientDetailoptionsStatus
-                | ClientProt::WorldLatency
-                | ClientProt::MapBuildLoading
-                | ClientProt::TransmitvarVerifyId
-                | ClientProt::VideoEnd => Ok(()),
-                // Answers to something this server never asks for: a
-                // REFLECTION_CHECKER, the "Face here" option (offered only
-                // after SHOW_FACE_HERE), a player op in slots 6-10 (no trigger
-                // exists past `opplayer5`, as 289 has five), and the name,
-                // obj, colour and clan-forum dialogs nothing opens.
+                ClientProt::EventKeyboard => EventKeyboard::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
-                ClientProt::ReflectionCheckReply
-                | ClientProt::FaceSquare
-                | ClientProt::OpPlayer6
-                | ClientProt::OpPlayer7
-                | ClientProt::OpPlayer8
-                | ClientProt::OpPlayer9
-                | ClientProt::OpPlayer10
-                | ClientProt::ResumePNameDialog
-                | ClientProt::ResumePObjDialog
-                | ClientProt::ResumePHslDialog
-                | ClientProt::ResumePClanforumqfcDialog => {
-                    tracing::debug!("{prot:?}: answers nothing this server sent");
-                    Ok(())
-                }
-                // Systems 289 does not have and this port has not built:
-                // quickchat, friends-chat ranks and clan chat, the world
-                // switcher's list, the world map, ground targeting, music
-                // (plan B6), URL requests. Private messages go by display
-                // name at 647, which ether does not carry yet (plan phase 3).
-                // The account-creation name check belongs to the lobby, which
-                // handles its own socket.
+                ClientProt::ClientDetailoptionsStatus => ClientDetailoptionsStatus::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
-                ClientProt::MessagePrivate
-                | ClientProt::MessageQuickchatPublic
-                | ClientProt::MessageQuickchatPrivate
-                | ClientProt::FriendSetRank
-                | ClientProt::ClanJoinchatLeavechat
-                | ClientProt::ClanKickUser
-                | ClientProt::ClanchannelKickUser
-                | ClientProt::WorldlistFetch
-                | ClientProt::ClickWorldMap
-                | ClientProt::ApCoordT
-                | ClientProt::SoundSongPreloaded
-                | ClientProt::UrlRequest
-                | ClientProt::CreateCheckName => {
-                    tracing::debug!("{prot:?}: not supported");
-                    Ok(())
-                }
+                ClientProt::WorldLatency => WorldLatency::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::MapBuildLoading => MapBuildLoading::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::TransmitvarVerifyId => TransmitvarVerifyId::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::VideoEnd => VideoEnd::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ReflectionCheckReply => ReflectionCheckReply::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::FaceSquare => FaceSquare::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::OpPlayer6 => OpPlayer6::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::OpPlayer7 => OpPlayer7::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::OpPlayer8 => OpPlayer8::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::OpPlayer9 => OpPlayer9::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::OpPlayer10 => OpPlayer10::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ResumePNameDialog => ResumePNameDialog::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ResumePObjDialog => ResumePObjDialog::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ResumePHslDialog => ResumePHslDialog::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ResumePClanforumqfcDialog => ResumePClanforumqfcDialog::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::MessagePrivate => MessagePrivate::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::MessageQuickchatPublic => MessageQuickchatPublic::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::MessageQuickchatPrivate => MessageQuickchatPrivate::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::FriendSetRank => FriendSetRank::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ClanJoinchatLeavechat => ClanJoinchatLeavechat::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ClanKickUser => ClanKickUser::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ClanchannelKickUser => ClanchannelKickUser::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::WorldlistFetch => WorldlistFetch::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ClickWorldMap => ClickWorldMap::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::ApCoordT => ApCoordT::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::SoundSongPreloaded => SoundSongPreloaded::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::UrlRequest => UrlRequest::decode(&mut buf, len).handle(self),
+                #[cfg(since_647)]
+                ClientProt::CreateCheckName => CreateCheckName::decode(&mut buf, len).handle(self),
             };
             match result {
                 Ok(_) => true,

@@ -2,6 +2,8 @@ use crate::network::game::client::ClientProtMessage;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
+#[cfg(since_647)]
+use crate::network::game::client_prot_message::string_end;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
@@ -23,12 +25,8 @@ impl ClientProtMessage for SendSnapshot {
         }
     }
 }
-
-/// Rev-647 SEND_SNAPSHOT, opcode 3: an abuse report, by name. CS2 command
-/// 5002 (`Class47`): `pjstr(offender) p1(rule - 1) p1(mute) pjstr(text)`,
-/// `text` a second string off the script stack, cut to 80 characters.
 #[cfg(since_647)]
-#[client_prot(VarByte { min: 0 }, UserEvent)]
+#[client_prot(VarByte { min: 4 }, UserEvent)]
 pub struct SendSnapshot {
     pub offender: String,
     pub reason: u8,
@@ -38,6 +36,12 @@ pub struct SendSnapshot {
 
 #[cfg(since_647)]
 impl ClientProtMessage for SendSnapshot {
+    fn validate(data: &[u8]) -> bool {
+        string_end(data, 0)
+            .and_then(|end| string_end(data, end + 2))
+            .is_some_and(|end| end == data.len())
+    }
+
     fn decode(buf: &mut Packet, _: usize) -> Self {
         SendSnapshot {
             offender: buf.gjstr(0),

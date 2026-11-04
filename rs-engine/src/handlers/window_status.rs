@@ -31,7 +31,7 @@ use rs_vm::subject::ScriptSubject;
 impl ClientGameHandler for WindowStatus {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let previous = active.player.window_mode;
-        active.player.window_mode = self.window_mode;
+        active.player.window_mode = self.mode;
         active.player.window_width = self.width;
         active.player.window_height = self.height;
 
@@ -39,7 +39,7 @@ impl ClientGameHandler for WindowStatus {
         // reached `~open_game_frame` yet. It will read the mode we just stored,
         // so switching here would be redundant at best and would run against a
         // half-initialised player at worst.
-        if previous == self.window_mode || active.player.toplevel == 0 {
+        if previous == self.mode || active.player.toplevel == 0 {
             return Ok(());
         }
 

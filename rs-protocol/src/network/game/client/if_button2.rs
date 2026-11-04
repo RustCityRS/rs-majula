@@ -1,29 +1,22 @@
-//! `IfButton2` — rev-647 IF_BUTTON2 (opcode 52, fixed 8).
-
+use crate::network::game::client::ClientProtMessage;
+use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
+use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-use crate::network::game::client::ClientProtMessage;
-use crate::network::game::client_prot_category::ClientProtCategory;
-use crate::network::game::client_prot_message::ClientProtMessageInfo;
-
 #[client_prot(Fixed(8), UserEvent)]
 pub struct IfButton2 {
-    pub com_hash: u32,
+    pub com: u32,
     pub slot: i16,
     pub obj: i16,
 }
 
 impl ClientProtMessage for IfButton2 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com_hash = buf.g4s() as u32;
+        let com = buf.g4s() as u32;
         let obj = buf.ig2_alt1() as i16;
         let slot = buf.ig2() as i16;
-        IfButton2 {
-            com_hash,
-            slot,
-            obj,
-        }
+        IfButton2 { com, slot, obj }
     }
 }

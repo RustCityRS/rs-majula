@@ -1,3 +1,9 @@
+#[cfg(since_647)]
+pub use crate::network::game::client_prot::{ClientProt, ClientProtInfo};
+#[cfg(since_647)]
+pub use crate::network::game::client_prot_category::ClientProtCategory;
+pub use crate::network::game::client_prot_message::ClientProtMessage;
+
 pub mod anticheat_cyclelogic1;
 pub mod anticheat_cyclelogic2;
 pub mod anticheat_cyclelogic3;
@@ -16,16 +22,14 @@ pub mod anticheat_oplogic7;
 pub mod anticheat_oplogic8;
 pub mod anticheat_oplogic9;
 #[cfg(since_647)]
-pub mod apcoord_t;
-#[cfg(since_647)]
-pub mod chat_set_mode;
+pub mod apcoordt;
 pub mod chat_setmode;
 #[cfg(since_647)]
 pub mod clan_joinchat_leavechat;
 #[cfg(since_647)]
-pub mod clan_kick_user;
+pub mod clan_kickuser;
 #[cfg(since_647)]
-pub mod clanchannel_kick_user;
+pub mod clanchannel_kickuser;
 #[cfg(since_647)]
 pub mod click_world_map;
 pub mod client_cheat;
@@ -55,11 +59,7 @@ pub mod examine_obj;
 #[cfg(since_647)]
 pub mod face_square;
 #[cfg(since_647)]
-pub mod friend_list_add;
-#[cfg(since_647)]
-pub mod friend_list_del;
-#[cfg(since_647)]
-pub mod friend_set_rank;
+pub mod friend_setrank;
 pub mod friendlist_add;
 pub mod friendlist_del;
 pub mod idk_savedesign;
@@ -89,10 +89,6 @@ pub mod if_button9;
 pub mod if_buttond;
 #[cfg(since_647)]
 pub mod if_buttont;
-#[cfg(since_647)]
-pub mod ignore_list_add;
-#[cfg(since_647)]
-pub mod ignore_list_del;
 pub mod ignorelist_add;
 pub mod ignorelist_del;
 pub mod inv_button1;
@@ -115,64 +111,6 @@ pub mod move_gameclick;
 pub mod move_minimapclick;
 pub mod move_opclick;
 pub mod no_timeout;
-#[cfg(since_647)]
-pub mod op_loc1;
-#[cfg(since_647)]
-pub mod op_loc2;
-#[cfg(since_647)]
-pub mod op_loc3;
-#[cfg(since_647)]
-pub mod op_loc4;
-#[cfg(since_647)]
-pub mod op_loc5;
-#[cfg(since_647)]
-pub mod op_loc_t;
-#[cfg(since_647)]
-pub mod op_npc1;
-#[cfg(since_647)]
-pub mod op_npc2;
-#[cfg(since_647)]
-pub mod op_npc3;
-#[cfg(since_647)]
-pub mod op_npc4;
-#[cfg(since_647)]
-pub mod op_npc5;
-#[cfg(since_647)]
-pub mod op_npc_t;
-#[cfg(since_647)]
-pub mod op_obj1;
-#[cfg(since_647)]
-pub mod op_obj2;
-#[cfg(since_647)]
-pub mod op_obj3;
-#[cfg(since_647)]
-pub mod op_obj4;
-#[cfg(since_647)]
-pub mod op_obj5;
-#[cfg(since_647)]
-pub mod op_obj_t;
-#[cfg(since_647)]
-pub mod op_player1;
-#[cfg(since_647)]
-pub mod op_player10;
-#[cfg(since_647)]
-pub mod op_player2;
-#[cfg(since_647)]
-pub mod op_player3;
-#[cfg(since_647)]
-pub mod op_player4;
-#[cfg(since_647)]
-pub mod op_player5;
-#[cfg(since_647)]
-pub mod op_player6;
-#[cfg(since_647)]
-pub mod op_player7;
-#[cfg(since_647)]
-pub mod op_player8;
-#[cfg(since_647)]
-pub mod op_player9;
-#[cfg(since_647)]
-pub mod op_player_t;
 pub mod opheld1;
 pub mod opheld2;
 pub mod opheld3;
@@ -202,29 +140,37 @@ pub mod opobj5;
 pub mod opobjt;
 pub mod opobju;
 pub mod opplayer1;
+#[cfg(since_647)]
+pub mod opplayer10;
 pub mod opplayer2;
 pub mod opplayer3;
 pub mod opplayer4;
 #[cfg(since_254)]
 pub mod opplayer5;
+#[cfg(since_647)]
+pub mod opplayer6;
+#[cfg(since_647)]
+pub mod opplayer7;
+#[cfg(since_647)]
+pub mod opplayer8;
+#[cfg(since_647)]
+pub mod opplayer9;
 pub mod opplayert;
 pub mod opplayeru;
 pub mod rebuild_get_maps;
 #[cfg(since_647)]
 pub mod reflection_check_reply;
 #[cfg(since_647)]
-pub mod resume_p_clanforumqfc_dialog;
-#[cfg(since_647)]
-pub mod resume_p_count_dialog;
+pub mod resume_p_clanforumqfcdialog;
 pub mod resume_p_countdialog;
 #[cfg(since_647)]
-pub mod resume_p_hsl_dialog;
+pub mod resume_p_hsldialog;
 #[cfg(since_647)]
-pub mod resume_p_name_dialog;
+pub mod resume_p_namedialog;
 #[cfg(since_647)]
-pub mod resume_p_obj_dialog;
+pub mod resume_p_objdialog;
 #[cfg(since_647)]
-pub mod resume_p_string_dialog;
+pub mod resume_p_stringdialog;
 pub mod resume_pause_button;
 pub mod send_snapshot;
 #[cfg(since_647)]
@@ -244,13 +190,6 @@ pub mod window_status;
 pub mod world_latency;
 #[cfg(since_647)]
 pub mod worldlist_fetch;
-
-pub use crate::network::game::client_prot_message::ClientProtMessage;
-
-#[cfg(since_647)]
-pub use crate::network::game::client_prot::{ClientProt, ClientProtInfo};
-#[cfg(since_647)]
-pub use crate::network::game::client_prot_category::ClientProtCategory;
 
 pub fn pack_coord(x: u16, z: u16) -> u32 {
     ((z & 0x3FFF) as u32) | (((x & 0x3FFF) as u32) << 14)

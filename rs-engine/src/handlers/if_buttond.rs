@@ -18,7 +18,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// * Components are the full 32-bit hash (`iface << 16 | com`), matching the rest
 ///   of the 647 interface surface, so there is no `cache().interfaces` lookup by
 ///   a bare component id to do here.
-/// * The client sends **both** endpoints — `from_com`/`to_com` and the obj in each
+/// * The client sends both endpoints, `com`/`com2` and the obj in each
 ///   slot. That is what lets a 647 drag cross interfaces (bank to inventory);
 ///   pre-647 could only drag within one.
 ///
@@ -33,10 +33,10 @@ use rs_vm::trigger::ServerTriggerType;
 /// * Runs the `InvButtonD` trigger keyed on the source component.
 impl ClientGameHandler for IfButtonD {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let com = self.from_com as i32;
+        let com = self.com as i32;
         // Both ends of the drag must be on screen, as `InvButtonD` requires
         // before 647.
-        for end in [self.from_com, self.to_com] {
+        for end in [self.com, self.com2] {
             let iface = (end >> 16) as u16;
             if !active.player.is_interface_open(iface) {
                 return Err(ScriptError::Client(format!(
@@ -45,16 +45,16 @@ impl ClientGameHandler for IfButtonD {
             }
         }
         active.player.last_com = com;
-        active.player.last_slot = self.from_slot as i32;
-        active.player.last_target_slot = Some(self.to_slot);
-        active.player.last_target_com = Some(self.to_com as i32);
-        active.player.last_item = self.from_obj as i32;
+        active.player.last_slot = self.slot as i32;
+        active.player.last_target_slot = Some(self.slot2);
+        active.player.last_target_com = Some(self.com2 as i32);
+        active.player.last_item = self.obj as i32;
 
         // As before 647 (`InvButtonD`: protected unless its root is an
         // overlay), a drag on a modal runs protected: the bank's tab drops
         // rearrange it. The modal is one the server opened as such, as for
         // `IfButton`.
-        let iface = (self.from_com >> 16) as u16;
+        let iface = (self.com >> 16) as u16;
         let protect = [
             active.player.modal_main,
             active.player.modal_side,

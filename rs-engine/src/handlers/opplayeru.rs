@@ -1,87 +1,72 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
+#[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
     HeldCheck, check_held, members_blocked, player_target_ok, use_component_ok,
 };
+#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opplayeru::OpPlayerU;
-use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 
-/// Handles the `OpPlayerU` (use item on player) client protocol message.
-///
-/// Processes a "use held item on player" interaction. Validates that the use
-/// component (`com`) is usable and visible, that the used item exists at the given
-/// slot, and that the target player exists and is visible to the active player.
-/// Sets up an approach-style interaction (`ApPlayerU`) keyed on the used object id
-/// that will trigger the corresponding script once the active player reaches the
-/// target.
-///
-/// # Arguments
-///
-/// * `active` - The active player whose client sent this message.
-///
-/// # Returns
-///
-/// * `Ok(())` on success or if the player is delayed / target is invalid.
-///
-/// # Side Effects
-///
-/// * Clears pending action and unsets the map flag on early exit conditions.
-/// * Sets `last_use_item`, `last_use_slot` and `last_use_com` on the player.
-/// * Sets up an `InteractionTarget::Player` interaction with approach mode, records
-///   the used object as the interaction subject, and sets `opcalled`.
-///
-/// # Call Stack
-///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-/// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
+#[cfg(before_647)]
 impl ClientGameHandler for OpPlayerU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.watch_use(Using::Item(self.obj), Target::Player(self.pid));
-        if active.player.state.delayed {
-            // normal: cannot interact while delayed
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !use_component_ok(active, self.com) {
-            // bad client or lag: component is not acceptable for this packet, or not visible
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if check_held(active, self.com, self.slot, self.obj) != HeldCheck::Ok {
-            // bad client or lag: item does not exist at that slot of a transmitted inventory
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !player_target_ok(active, self.pid) {
-            // bad client or lag: player does not exist or is not visible on client
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        active.clear_pending_action()?;
-
-        if members_blocked(active, self.obj) {
-            return Ok(());
-        }
-
-        active.player.last_use_item = Some(self.obj);
-        active.player.last_use_slot = Some(self.slot);
-        active.player.last_use_com = Some(self.com);
-
-        active.player.set_interaction(
-            InteractionTarget::Player { pid: self.pid },
-            ServerTriggerType::ApPlayerU as u8,
-            true,
-        );
-        active.player.interaction.target_subject_com = Some(self.obj);
-        active.player.opcalled = true;
-
-        Ok(())
+        handle(self.pid, self.com, self.slot, self.obj, active)
     }
+}
+
+pub(super) fn handle(
+    pid: u16,
+    com: ComId,
+    slot: u16,
+    obj: u16,
+    active: &mut ActivePlayer,
+) -> Result<(), ScriptError> {
+    #[cfg(before_647)]
+    active.watch_use(Using::Item(obj), Target::Player(pid));
+    if active.player.state.delayed {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    if !use_component_ok(active, com) {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    if check_held(active, com, slot, obj) != HeldCheck::Ok {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    if !player_target_ok(active, pid) {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    active.clear_pending_action()?;
+
+    if members_blocked(active, obj) {
+        return Ok(());
+    }
+
+    active.player.last_use_item = Some(obj);
+    active.player.last_use_slot = Some(slot);
+    active.player.last_use_com = Some(com);
+
+    active.player.set_interaction(
+        InteractionTarget::Player { pid },
+        ServerTriggerType::ApPlayerU as u8,
+        true,
+    );
+    #[cfg(since_647)]
+    let obj = i32::from(obj);
+    active.player.interaction.target_subject_com = Some(obj);
+    active.player.opcalled = true;
+
+    Ok(())
 }

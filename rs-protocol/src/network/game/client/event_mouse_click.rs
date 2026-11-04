@@ -12,7 +12,6 @@ use rs_io::Packet;
 #[cfg(since_254)]
 use rs_protocol_macros::client_prot;
 
-/// A click the client acted on.
 #[cfg(all(since_254, before_647))]
 #[client_prot(Fixed(4), ClientEvent)]
 pub struct EventMouseClick {
@@ -32,10 +31,6 @@ impl ClientProtMessage for EventMouseClick {
         }
     }
 }
-
-/// Rev-647 opcode 58 (`VarbitType`): `p2(flag << 15 | time)` -- `flag` 1
-/// for a mouse event of type 2, `time` the 50 ms ticks since the last click
-/// -- then `p4_alt2(x | y << 16)` on the canvas.
 #[cfg(since_647)]
 #[client_prot(Fixed(6), ClientEvent)]
 pub struct EventMouseClick {

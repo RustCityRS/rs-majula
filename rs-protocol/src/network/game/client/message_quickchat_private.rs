@@ -1,26 +1,27 @@
-//! `MessageQuickchatPrivate` — rev-647 MESSAGE_QUICKCHAT_PRIVATE (51, var_byte).
-
+use crate::network::game::client::ClientProtMessage;
+use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
+use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-use crate::network::game::client::ClientProtMessage;
-use crate::network::game::client_prot_category::ClientProtCategory;
-use crate::network::game::client_prot_message::ClientProtMessageInfo;
-
-#[client_prot(VarByte { min: 0 }, UserEvent)]
+#[client_prot(VarByte { min: 3 }, UserEvent)]
 pub struct MessageQuickchatPrivate {
-    pub target: String,
-    pub payload: Vec<u8>,
+    pub name: String,
+    pub id: u16,
+    pub bytes: Vec<u8>,
 }
 
 impl ClientProtMessage for MessageQuickchatPrivate {
-    fn decode(buf: &mut Packet, _: usize) -> Self {
-        let target = buf.gjstr(0);
-        let mut payload = Vec::with_capacity(buf.remaining() as usize);
-        while buf.remaining() > 0 {
-            payload.push(buf.g1());
-        }
-        MessageQuickchatPrivate { target, payload }
+    fn validate(data: &[u8]) -> bool {
+        string_end(data, 0).is_some_and(|end| end + 2 <= data.len())
+    }
+
+    fn decode(buf: &mut Packet, len: usize) -> Self {
+        let name = buf.gjstr(0);
+        let id = buf.g2();
+        let bytes = buf.data[buf.pos..len].to_vec();
+        buf.pos = len;
+        MessageQuickchatPrivate { name, id, bytes }
     }
 }

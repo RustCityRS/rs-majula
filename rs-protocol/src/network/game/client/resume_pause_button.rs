@@ -18,19 +18,18 @@ impl ClientProtMessage for ResumePauseButton {
     }
 }
 
-// `ResumePauseButton` — rev-647 RESUME_PAUSEBUTTON (opcode 43, fixed 6).
-
 #[cfg(since_647)]
 #[client_prot(Fixed(6), UserEvent)]
 pub struct ResumePauseButton {
     pub com: u32,
+    pub slot: u16,
 }
 
 #[cfg(since_647)]
 impl ClientProtMessage for ResumePauseButton {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let _ = buf.g2();
+        let slot = buf.ig2();
         let com = buf.g4_alt2() as u32;
-        ResumePauseButton { com }
+        ResumePauseButton { com, slot }
     }
 }

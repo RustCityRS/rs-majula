@@ -2,8 +2,8 @@
 //!
 //! 225/289 send `OpHeldU` for an item used on an item and `OpHeldT` for a
 //! spell cast on one. 647 sends both as `IfButtonT`, carrying the selected
-//! source (`from_*`) and the clicked target (`to_*`), and the source decides
-//! the trigger exactly as for the targeted ops (`op_t.rs`): an item drives
+//! source (`com`, `slot`, `obj`) and the clicked target (`com2`, `slot2`, `obj2`).
+//! The source decides the trigger as for the other targeted ops: an item drives
 //! `[opheldu]`, a spell drives `[opheldt]` keyed on the spell's component.
 //! The rules below are the pre-647 handlers' own.
 
@@ -19,7 +19,7 @@ use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 
 /// The `object_id` the client sends for a source component that holds no
-/// item -- a spell. See `op_t.rs`.
+/// item, selecting a spell.
 const NO_OBJ: u16 = u16::MAX;
 
 /// Whether the inventory transmitted on `com` holds `obj` at `slot`.
@@ -52,7 +52,7 @@ impl ClientGameHandler for IfButtonT {
             // normal: cannot interact while delayed
             return Ok(());
         }
-        for end in [self.from_com, self.to_com] {
+        for end in [self.com, self.com2] {
             let iface = (end >> 16) as u16;
             if !active.player.is_interface_open(iface) {
                 return Err(ScriptError::Client(format!(
@@ -61,15 +61,15 @@ impl ClientGameHandler for IfButtonT {
             }
         }
 
-        let to_com = self.to_com as i32;
-        if !holds(active, to_com, self.to_slot, self.to_obj) {
+        let com2 = self.com2 as i32;
+        if !holds(active, com2, self.slot2, self.obj2) {
             // lag: the target has moved since the client drew it
             active.player.move_request = true;
             active.clear_pending_action()?;
             return Ok(());
         }
 
-        if self.from_obj == NO_OBJ {
+        if self.obj == NO_OBJ {
             spell_on_item(self, active)
         } else {
             item_on_item(self, active)
@@ -79,12 +79,12 @@ impl ClientGameHandler for IfButtonT {
 
 /// `[opheldt,<spell>]`, with the target as `last_item` / `last_slot`.
 fn spell_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-    active.player.last_item = packet.to_obj as i32;
-    active.player.last_slot = packet.to_slot as i32;
+    active.player.last_item = packet.obj2 as i32;
+    active.player.last_slot = packet.slot2 as i32;
     active.clear_pending_action()?;
     active.player.info.clear_face_entity_player();
 
-    let spell = packet.from_com as i32;
+    let spell = packet.com as i32;
     let result = engine_mut().run_script_by_trigger(
         (ServerTriggerType::OpHeldT, Some(spell), None),
         Some(ScriptSubject::Player(active.player.uid)),
@@ -113,33 +113,28 @@ fn spell_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scr
 /// other `last_useitem`.
 fn item_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     // Item-on-item works inside one inventory, as `OpHeldU` requires before 647.
-    if packet.from_com != packet.to_com {
+    if packet.com != packet.com2 {
         return Ok(());
     }
-    if !holds(
-        active,
-        packet.from_com as i32,
-        packet.from_slot,
-        packet.from_obj,
-    ) {
+    if !holds(active, packet.com as i32, packet.slot, packet.obj) {
         active.player.move_request = true;
         active.clear_pending_action()?;
         return Ok(());
     }
     let (Some(target), Some(used)) = (
-        engine().cache.objs.get_by_id(packet.to_obj),
-        engine().cache.objs.get_by_id(packet.from_obj),
+        engine().cache.objs.get_by_id(packet.obj2),
+        engine().cache.objs.get_by_id(packet.obj),
     ) else {
         return Err(ScriptError::Client(format!(
             "Unknown obj in ifbuttont: {} on {}",
-            packet.from_obj, packet.to_obj
+            packet.obj, packet.obj2
         )));
     };
 
     active.player.last_item = target.id as i32;
-    active.player.last_slot = packet.to_slot as i32;
+    active.player.last_slot = packet.slot2 as i32;
     active.player.last_use_item = Some(used.id);
-    active.player.last_use_slot = Some(packet.from_slot);
+    active.player.last_use_slot = Some(packet.slot);
     active.clear_pending_action()?;
     active.player.info.clear_face_entity_player();
 
@@ -180,7 +175,7 @@ fn item_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scri
         let item = player.last_item;
         let slot = player.last_slot;
         player.last_item = used.id as i32;
-        player.last_slot = packet.from_slot as i32;
+        player.last_slot = packet.slot as i32;
         player.last_use_item = Some(item as u16);
         player.last_use_slot = Some(slot as u16);
     }

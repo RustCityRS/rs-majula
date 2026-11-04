@@ -28,6 +28,7 @@ use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
 #[cfg(before_274)]
 use rs_protocol::network::game::client::event_tracking::EventTracking;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
@@ -863,6 +864,7 @@ impl AntiCheat {
 
     /// A minimap click: its `path`, and the bytes the client sends after it.
     /// `at` is the tile the world has the player on.
+    #[cfg(before_647)]
     pub fn minimap(
         &mut self,
         path: &[u32],
@@ -1391,6 +1393,7 @@ impl Spread {
 /// A tile's offset into the client's map.
 /// Whether a minimap click's trailer is one the real client could send: its
 /// fixed bytes, and everything else in the range the client keeps it to.
+#[cfg(before_647)]
 pub fn plausible(t: &MinimapTrailer) -> bool {
     (t.magic1, t.magic2, t.magic3) == (57, 89, 63)
         && (-73..=72).contains(&t.x)
@@ -1403,6 +1406,7 @@ pub fn plausible(t: &MinimapTrailer) -> bool {
 
 /// The tile in the client's map a minimap click lands on, worked out as the
 /// client does from what it sent.
+#[cfg(before_647)]
 fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
     let yaw = (i32::from(t.yaw) + i32::from(t.angle)) & 0x7ff;
     let scale = i32::from(t.zoom) + 256;
@@ -1418,6 +1422,7 @@ fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
 }
 
 /// The client's sine or cosine table entry `i` (2048 to a turn, 16.16).
+#[cfg(before_647)]
 fn table(f: fn(f64) -> f64, i: i32) -> i32 {
     (f(f64::from(i) * std::f64::consts::PI / 1024.0) * 65536.0) as i32
 }
@@ -1680,6 +1685,7 @@ mod tests {
     /// A minimap click 10 px right of and 20 px above the centre, camera
     /// facing north, untilted and unzoomed: 10 * 32 and 20 * 32 fine units
     /// from the player drawn mid-tile at (52, 52) in a map from (3152, 3152).
+    #[cfg(before_647)]
     fn minimap_click() -> (Vec<u32>, MinimapTrailer) {
         let trailer = MinimapTrailer {
             x: 10,
@@ -1701,6 +1707,7 @@ mod tests {
     const BASE: MapBase = MapBase { x: 3152, z: 3152 };
 
     #[test]
+    #[cfg(before_647)]
     fn real_minimap_clicks_pass() {
         let mut ac = AntiCheat::default();
         let (path, trailer) = minimap_click();
@@ -1717,6 +1724,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(before_647)]
     fn forged_minimap_clicks_are_flagged() {
         let (path, trailer) = minimap_click();
         let forgeries = [
@@ -1748,6 +1756,7 @@ mod tests {
         assert!(ac.report(0).flags.is_empty());
     }
 
+    #[cfg(before_647)]
     #[test]
     fn minimap_clicks_far_from_the_player_are_flagged() {
         let mut ac = AntiCheat::default();

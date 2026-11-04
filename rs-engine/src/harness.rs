@@ -36,6 +36,15 @@ use tokio::sync::mpsc::{Sender, UnboundedReceiver};
 /// client does.
 const SEED: [u32; 4] = [0; 4];
 
+/// Rev-647 `ServerProt.java` lengths by opcode: -1 is var-byte, -2 is var-short.
+const SERVER_PROT_SIZES: [i8; 133] = [
+    -2, 8, -2, 2, 4, 2, 0, 6, -1, 2, -1, 2, 0, 1, -2, 4, -2, 2, -1, 4, -1, -1, -1, -2, 0, 4, 6, -1,
+    3, 4, -1, -2, -1, 20, -2, 4, 4, 8, 7, 1, 1, -2, 3, 6, 4, 12, 4, -1, 10, 6, 8, 8, 3, -2, 6, 6,
+    10, 12, 6, 2, 11, 3, 0, 9, -1, 6, 0, 0, 7, 1, -1, -1, 6, -2, 4, 3, 3, -2, 6, 10, 7, -1, 17, -1,
+    -1, -1, -1, -2, 6, -2, -2, 6, 5, 10, 6, -1, 6, 3, 6, 3, 1, 6, 28, 3, 1, 5, 0, -2, -1, 7, 2, -2,
+    0, -2, 6, 16, 3, -1, 6, -2, 4, 7, -2, 2, 1, -1, 12, 8, 0, 6, 0, 10, 9,
+];
+
 thread_local! {
     /// Sessions `setup_player` opened, kept open until the next reset. A
     /// dropped session would read to the engine as a disconnect.
@@ -86,12 +95,11 @@ impl HarnessClient {
     /// session's only reader, since each read advances the ISAAC mirror -- as
     /// `(opcode, payload)`, read the way the 647 client reads them: a 1- or
     /// 2-byte smart opcode unmasked with ISAAC, framed by the client's own
-    /// size for that opcode (`client_server_prots_647`).
+    /// size for that opcode.
     ///
     /// # Panics
     /// On an opcode the client has no prot for: the client would fail too.
     pub fn packets(&mut self) -> Vec<(u16, Vec<u8>)> {
-        use rs_protocol::network::game::client_server_prots_647::frame_size;
         let mut out = Vec::new();
         // A chunk is one write: during a cycle the engine gathers a player's
         // output and writes it at once, so a chunk can hold many packets.
@@ -108,9 +116,12 @@ impl HarnessClient {
                     pos += 1;
                     (((b0 - 128) as u16) << 8) | b1 as u16
                 };
-                let size = frame_size(opcode).unwrap_or_else(|| {
-                    panic!("the server sent opcode {opcode}, which the client has no prot for")
-                });
+                let size = SERVER_PROT_SIZES
+                    .get(opcode as usize)
+                    .copied()
+                    .unwrap_or_else(|| {
+                        panic!("the server sent opcode {opcode}, which the client has no prot for")
+                    });
                 let len = match size {
                     -1 => {
                         pos += 1;

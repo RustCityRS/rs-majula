@@ -66,11 +66,7 @@ use tracing::{error, info};
 ///   or [`cheat_maintainer`] depending on the player's staff level
 impl ClientGameHandler for ClientCheat {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        // Rev-647 renamed the payload field `cheat` -> `input`; same meaning.
-        #[cfg(before_647)]
         let input = self.cheat;
-        #[cfg(since_647)]
-        let input = self.input;
         if input.len() > 80 {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was too long: {}",

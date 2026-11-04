@@ -24,6 +24,7 @@
 
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
+use rs_protocol::network::game::client::move_minimapclick::{MinimapTrailer, MoveMinimapClick};
 
 // The client `Packet` writer port, shared with the headless handler tests.
 #[path = "support/client_packet.rs"]
@@ -35,6 +36,7 @@ fn decode<M: ClientProtMessage>(p: &ClientPacket) -> M {
     let bytes = p.finish();
     let len = bytes.len();
     let mut buf = Packet::from(bytes);
+    assert!(M::validate(&buf.data));
     let msg = M::decode(&mut buf, len);
     assert_eq!(
         buf.pos, len,
@@ -70,11 +72,11 @@ fn if_buttond_matches_client() {
         .p2(-1); // arg0.object_id -- target obj (empty backing sprite)
 
     let m: IfButtonD = decode(&p);
-    assert_eq!(m.from_com, source_com as u32, "source component");
-    assert_eq!(m.from_slot, 3, "source slot");
-    assert_eq!(m.to_slot, 48, "target slot");
-    assert_eq!(m.to_com, target_com as u32, "target component");
-    assert_eq!(m.from_obj, 1511, "source obj");
+    assert_eq!(m.com, source_com as u32, "source component");
+    assert_eq!(m.slot, 3, "source slot");
+    assert_eq!(m.slot2, 48, "target slot");
+    assert_eq!(m.com2, target_com as u32, "target component");
+    assert_eq!(m.obj, 1511, "source obj");
 }
 
 // ---------------------------------------------------------------------------
@@ -86,15 +88,15 @@ fn if_buttond_matches_client() {
 /// loc id puts zero here.
 #[test]
 fn oploc1_matches_client() {
-    use rs_protocol::network::game::client::op_loc1::OpLoc1;
+    use rs_protocol::network::game::client::oploc1::OpLoc1;
 
     let mut p = ClientPacket::new();
     p.ip2(3218).ip2(1530).p1(1).p2_alt1(3222);
 
     let m: OpLoc1 = decode(&p);
     assert_eq!(m.z, 3218, "z");
-    assert_eq!(m.loc_id, 1530, "loc id");
-    assert!(m.ctrl_run, "ctrl-run");
+    assert_eq!(m.loc, 1530, "loc id");
+    assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.x, 3222, "x");
 }
 
@@ -112,7 +114,7 @@ fn window_status_matches_client() {
     p.p1(2).p2(1008).p2(729).p1(0);
 
     let m: WindowStatus = decode(&p);
-    assert_eq!(m.window_mode, 2, "window mode");
+    assert_eq!(m.mode, 2, "window mode");
     assert_eq!(m.width, 1008, "width");
     assert_eq!(m.height, 729, "height");
 }
@@ -137,57 +139,57 @@ macro_rules! entity_op {
             w(&mut p);
             let m: $ty = decode(&p);
             assert_eq!(m.$field, 4231, stringify!($field));
-            assert!(m.ctrl_run, "ctrl-run");
+            assert!(m.ctrl, "ctrl-run");
         }
     };
 }
 
-entity_op!(opnpc1_matches_client, op_npc1::OpNpc1, nid, |p| {
+entity_op!(opnpc1_matches_client, opnpc1::OpNpc1, nid, |p| {
     p.p1_alt2(1).p2(4231);
 });
-entity_op!(opnpc2_matches_client, op_npc2::OpNpc2, nid, |p| {
+entity_op!(opnpc2_matches_client, opnpc2::OpNpc2, nid, |p| {
     p.p1_alt1(1).ip2_alt1(4231);
 });
-entity_op!(opnpc3_matches_client, op_npc3::OpNpc3, nid, |p| {
+entity_op!(opnpc3_matches_client, opnpc3::OpNpc3, nid, |p| {
     p.p1_alt2(1).p2_alt1(4231);
 });
-entity_op!(opnpc4_matches_client, op_npc4::OpNpc4, nid, |p| {
+entity_op!(opnpc4_matches_client, opnpc4::OpNpc4, nid, |p| {
     p.p1_alt2(1).ip2_alt1(4231);
 });
-entity_op!(opnpc5_matches_client, op_npc5::OpNpc5, nid, |p| {
+entity_op!(opnpc5_matches_client, opnpc5::OpNpc5, nid, |p| {
     p.p1_alt1(1).ip2(4231);
 });
 
-entity_op!(opplayer1_matches_client, op_player1::OpPlayer1, pid, |p| {
+entity_op!(opplayer1_matches_client, opplayer1::OpPlayer1, pid, |p| {
     p.p1_alt3(1).p2_alt1(4231);
 });
-entity_op!(opplayer2_matches_client, op_player2::OpPlayer2, pid, |p| {
+entity_op!(opplayer2_matches_client, opplayer2::OpPlayer2, pid, |p| {
     p.p1_alt1(1).p2(4231);
 });
-entity_op!(opplayer3_matches_client, op_player3::OpPlayer3, pid, |p| {
+entity_op!(opplayer3_matches_client, opplayer3::OpPlayer3, pid, |p| {
     p.ip2(4231).p1(1);
 });
-entity_op!(opplayer4_matches_client, op_player4::OpPlayer4, pid, |p| {
+entity_op!(opplayer4_matches_client, opplayer4::OpPlayer4, pid, |p| {
     p.p2_alt1(4231).p1(1);
 });
-entity_op!(opplayer5_matches_client, op_player5::OpPlayer5, pid, |p| {
+entity_op!(opplayer5_matches_client, opplayer5::OpPlayer5, pid, |p| {
     p.p1_alt3(1).ip2(4231);
 });
-entity_op!(opplayer6_matches_client, op_player6::OpPlayer6, pid, |p| {
+entity_op!(opplayer6_matches_client, opplayer6::OpPlayer6, pid, |p| {
     p.p1(1).p2_alt1(4231);
 });
-entity_op!(opplayer7_matches_client, op_player7::OpPlayer7, pid, |p| {
+entity_op!(opplayer7_matches_client, opplayer7::OpPlayer7, pid, |p| {
     p.p1_alt1(1).p2(4231);
 });
-entity_op!(opplayer8_matches_client, op_player8::OpPlayer8, pid, |p| {
+entity_op!(opplayer8_matches_client, opplayer8::OpPlayer8, pid, |p| {
     p.p1(1).ip2(4231);
 });
-entity_op!(opplayer9_matches_client, op_player9::OpPlayer9, pid, |p| {
+entity_op!(opplayer9_matches_client, opplayer9::OpPlayer9, pid, |p| {
     p.p2(4231).p1_alt3(1);
 });
 entity_op!(
     opplayer10_matches_client,
-    op_player10::OpPlayer10,
+    opplayer10::OpPlayer10,
     pid,
     |p| {
         p.p1_alt1(1).p2(4231);
@@ -207,41 +209,41 @@ macro_rules! tile_op {
             assert_eq!(m.$field, 1530, stringify!($field));
             assert_eq!(m.x, 3222, "x");
             assert_eq!(m.z, 3218, "z");
-            assert!(m.ctrl_run, "ctrl-run");
+            assert!(m.ctrl, "ctrl-run");
         }
     };
 }
 
-// Loc ops. `op_loc4` and `op_loc5` write x and the loc id with the *same*
+// Loc ops. `oploc4` and `oploc5` write x and the loc id with the *same*
 // variant back to back, so only the field assignment tells them apart -- a
 // transposition there survives any check that looks at byte layout alone.
-tile_op!(oploc2_matches_client, op_loc2::OpLoc2, loc_id, |p| {
+tile_op!(oploc2_matches_client, oploc2::OpLoc2, loc, |p| {
     p.ip2(1530).p1_alt1(1).p2_alt1(3218).ip2_alt1(3222);
 });
-tile_op!(oploc3_matches_client, op_loc3::OpLoc3, loc_id, |p| {
+tile_op!(oploc3_matches_client, oploc3::OpLoc3, loc, |p| {
     p.p2_alt1(3222).p1_alt2(1).ip2(3218).p2(1530);
 });
-tile_op!(oploc4_matches_client, op_loc4::OpLoc4, loc_id, |p| {
+tile_op!(oploc4_matches_client, oploc4::OpLoc4, loc, |p| {
     p.ip2_alt1(3218).p2_alt1(3222).p2_alt1(1530).p1_alt3(1);
 });
-tile_op!(oploc5_matches_client, op_loc5::OpLoc5, loc_id, |p| {
+tile_op!(oploc5_matches_client, oploc5::OpLoc5, loc, |p| {
     p.p2_alt1(1530).p2_alt1(3222).p1_alt3(1).ip2(3218);
 });
 
 // Ground-obj ops.
-tile_op!(opobj1_matches_client, op_obj1::OpObj1, obj_id, |p| {
+tile_op!(opobj1_matches_client, opobj1::OpObj1, obj, |p| {
     p.p1_alt2(1).p2_alt1(1530).ip2_alt1(3222).ip2(3218);
 });
-tile_op!(opobj2_matches_client, op_obj2::OpObj2, obj_id, |p| {
+tile_op!(opobj2_matches_client, opobj2::OpObj2, obj, |p| {
     p.ip2(3218).p1_alt3(1).p2_alt1(3222).ip2(1530);
 });
-tile_op!(opobj3_matches_client, op_obj3::OpObj3, obj_id, |p| {
+tile_op!(opobj3_matches_client, opobj3::OpObj3, obj, |p| {
     p.ip2(1530).p2_alt1(3218).p1(1).p2(3222);
 });
-tile_op!(opobj4_matches_client, op_obj4::OpObj4, obj_id, |p| {
+tile_op!(opobj4_matches_client, opobj4::OpObj4, obj, |p| {
     p.ip2(3222).p2(3218).p1_alt2(1).ip2(1530);
 });
-tile_op!(opobj5_matches_client, op_obj5::OpObj5, obj_id, |p| {
+tile_op!(opobj5_matches_client, opobj5::OpObj5, obj, |p| {
     p.ip2(3222).p1_alt1(1).ip2(1530).p2(3218);
 });
 
@@ -267,7 +269,7 @@ const FROM_COM: i32 = 149 << 16;
 
 #[test]
 fn oploct_matches_client() {
-    use rs_protocol::network::game::client::op_loc_t::OpLocT;
+    use rs_protocol::network::game::client::oploct::OpLocT;
 
     let mut p = ClientPacket::new();
     p.p2_alt1(FROM_OBJ)
@@ -279,18 +281,18 @@ fn oploct_matches_client() {
         .ip2(1530);
 
     let m: OpLocT = decode(&p);
-    assert_eq!(m.from_obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.from_slot, FROM_SLOT as u16, "source slot");
+    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.z, 3218, "z");
-    assert_eq!(m.from_com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM as u32, "source component");
     assert_eq!(m.x, 3222, "x");
-    assert!(m.ctrl_run, "ctrl-run");
-    assert_eq!(m.loc_id, 1530, "loc id");
+    assert!(m.ctrl, "ctrl-run");
+    assert_eq!(m.loc, 1530, "loc id");
 }
 
 #[test]
 fn opnpct_matches_client() {
-    use rs_protocol::network::game::client::op_npc_t::OpNpcT;
+    use rs_protocol::network::game::client::opnpct::OpNpcT;
 
     // Note the component arrives `p4_alt1` here and `p4_alt2` for loc and obj.
     let mut p = ClientPacket::new();
@@ -301,16 +303,16 @@ fn opnpct_matches_client() {
         .p1_alt1(1);
 
     let m: OpNpcT = decode(&p);
-    assert_eq!(m.from_obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.from_slot, FROM_SLOT as u16, "source slot");
+    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.nid, 4231, "npc id");
-    assert_eq!(m.from_com, FROM_COM as u32, "source component");
-    assert!(m.ctrl_run, "ctrl-run");
+    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert!(m.ctrl, "ctrl-run");
 }
 
 #[test]
 fn opobjt_matches_client() {
-    use rs_protocol::network::game::client::op_obj_t::OpObjT;
+    use rs_protocol::network::game::client::opobjt::OpObjT;
 
     // Two `ip2` reads in a row open with the source obj and the *target* obj.
     let mut p = ClientPacket::new();
@@ -323,18 +325,18 @@ fn opobjt_matches_client() {
         .p2_alt1(3222);
 
     let m: OpObjT = decode(&p);
-    assert_eq!(m.from_obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.obj_id, 1530, "target obj");
-    assert_eq!(m.from_slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.from_com, FROM_COM as u32, "source component");
-    assert!(m.ctrl_run, "ctrl-run");
+    assert_eq!(m.obj2, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.obj, 1530, "target obj");
+    assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
+    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.z, 3218, "z");
     assert_eq!(m.x, 3222, "x");
 }
 
 #[test]
 fn opplayert_matches_client() {
-    use rs_protocol::network::game::client::op_player_t::OpPlayerT;
+    use rs_protocol::network::game::client::opplayert::OpPlayerT;
 
     // The only one of the four that sends the component plain (`p4`).
     let mut p = ClientPacket::new();
@@ -346,10 +348,10 @@ fn opplayert_matches_client() {
 
     let m: OpPlayerT = decode(&p);
     assert_eq!(m.pid, 4231, "player id");
-    assert_eq!(m.from_slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.from_com, FROM_COM as u32, "source component");
-    assert!(m.ctrl_run, "ctrl-run");
-    assert_eq!(m.from_obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
+    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert!(m.ctrl, "ctrl-run");
+    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
 }
 
 // ---------------------------------------------------------------------------
@@ -369,7 +371,7 @@ macro_rules! button_op {
             let mut p = ClientPacket::new();
             p.p4(FROM_COM).ip2_alt1(FROM_OBJ).ip2(FROM_SLOT);
             let m: $ty = decode(&p);
-            assert_eq!(m.com_hash, FROM_COM as u32, "component");
+            assert_eq!(m.com, FROM_COM as u32, "component");
             // IfButton keeps these signed: an empty slot arrives as -1.
             assert_eq!(m.obj, FROM_OBJ as i16, "obj");
             assert_eq!(m.slot, FROM_SLOT as i16, "slot");
@@ -398,12 +400,12 @@ fn if_buttont_matches_client() {
         .p2(995);
 
     let m: IfButtonT = decode(&p);
-    assert_eq!(m.to_com, to_com as u32, "target component");
-    assert_eq!(m.to_slot, 12, "target slot");
-    assert_eq!(m.from_slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.from_obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.from_com, FROM_COM as u32, "source component");
-    assert_eq!(m.to_obj, 995, "target obj");
+    assert_eq!(m.com2, to_com as u32, "target component");
+    assert_eq!(m.slot2, 12, "target slot");
+    assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
+    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.obj2, 995, "target obj");
 }
 
 // ---------------------------------------------------------------------------
@@ -415,41 +417,51 @@ fn if_buttont_matches_client() {
 /// import here doubles as a check that the 647 build picks the right one.
 #[test]
 fn move_gameclick_matches_client() {
-    use rs_protocol::network::game::client::move_gameclick::MoveGameclick;
+    use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 
     let mut p = ClientPacket::new();
     p.ip2(3222).p1_alt3(1).p2(3218);
 
-    let m: MoveGameclick = decode(&p);
+    let m: MoveGameClick = decode(&p);
     assert_eq!(m.x, 3222, "x");
-    assert!(m.ctrl_run, "ctrl-run");
+    assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.z, 3218, "z");
 }
 
 #[test]
 fn move_minimapclick_matches_client() {
-    use rs_protocol::network::game::client::move_minimapclick::MoveMinimapclick;
-
     let mut p = ClientPacket::new();
     p.ip2(3222).p1_alt3(1).p2(3218);
-    // Then the minimap and camera state the minimap click alone appends
-    // (`Statics1.do_action`, `entity == 1`): 13 bytes the server ignores, but
-    // has to step over or the next packet in the read starts mid-frame.
     p.p1(-1)
         .p1(-1)
-        .p2(1024)
+        .p2(12345)
         .p1(57)
-        .p1(0)
-        .p1(0)
+        .p1(-55)
+        .p1(7)
         .p1(89)
         .p2(6464)
         .p2(6208)
         .p1(63);
 
-    let m: MoveMinimapclick = decode(&p);
+    let m: MoveMinimapClick = decode(&p);
     assert_eq!(m.x, 3222, "x");
-    assert!(m.ctrl_run, "ctrl-run");
+    assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.z, 3218, "z");
+    assert_eq!(
+        m.trailer,
+        MinimapTrailer {
+            x: -1,
+            y: -1,
+            yaw: 12345,
+            magic1: 57,
+            angle: -55,
+            zoom: 7,
+            magic2: 89,
+            fine_x: 6464,
+            fine_z: 6208,
+            magic3: 63,
+        }
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -462,7 +474,7 @@ fn move_minimapclick_matches_client() {
 /// name leaves the flag unread.
 #[test]
 fn ignorelist_add_matches_client() {
-    use rs_protocol::network::game::client::ignore_list_add::IgnoreListAdd;
+    use rs_protocol::network::game::client::ignorelist_add::IgnoreListAdd;
 
     for (flag, expect) in [(0, false), (1, true)] {
         let mut p = ClientPacket::new();
@@ -470,16 +482,16 @@ fn ignorelist_add_matches_client() {
 
         let m: IgnoreListAdd = decode(&p);
         assert_eq!(m.name, "Mod Ash", "name");
-        assert_eq!(m.op3630, expect, "flag");
+        assert_eq!(m.temporary, expect, "flag");
     }
 }
 
 /// `AClass43_Sub5`, `AClass9_Sub1_Sub1` and `Class230` write the name alone.
 #[test]
 fn friend_and_ignore_edits_carry_the_name_alone() {
-    use rs_protocol::network::game::client::friend_list_add::FriendListAdd;
-    use rs_protocol::network::game::client::friend_list_del::FriendListDel;
-    use rs_protocol::network::game::client::ignore_list_del::IgnoreListDel;
+    use rs_protocol::network::game::client::friendlist_add::FriendListAdd;
+    use rs_protocol::network::game::client::friendlist_del::FriendListDel;
+    use rs_protocol::network::game::client::ignorelist_del::IgnoreListDel;
 
     let mut p = ClientPacket::new();
     p.pjstr("Mod Ash");
@@ -539,7 +551,7 @@ fn click_world_map_matches_client() {
 /// p2_alt1(z) p4(com)`. The middle two were read as a camera yaw and pitch.
 #[test]
 fn apcoordt_matches_client() {
-    use rs_protocol::network::game::client::apcoord_t::ApCoordT;
+    use rs_protocol::network::game::client::apcoordt::ApCoordT;
 
     let mut p = ClientPacket::new();
     p.ip2(3222)
@@ -550,9 +562,9 @@ fn apcoordt_matches_client() {
 
     let m: ApCoordT = decode(&p);
     assert_eq!((m.x, m.z), (3222, 3218), "tile");
-    assert_eq!(m.from_slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.from_obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.from_com, FROM_COM as u32, "source component");
+    assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
+    assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
+    assert_eq!(m.com, FROM_COM as u32, "source component");
 }
 
 /// `VarbitType`: `p2(flag << 15 | time) p4_alt2(x | y << 16)`.

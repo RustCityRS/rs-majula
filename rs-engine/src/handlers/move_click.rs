@@ -2,14 +2,8 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_grid::CoordGrid;
-#[cfg(before_647)]
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
-#[cfg(since_647)]
-use rs_protocol::network::game::client::move_gameclick::MoveGameclick;
-#[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
-#[cfg(since_647)]
-use rs_protocol::network::game::client::move_minimapclick::MoveMinimapclick;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::move_opclick::MoveOpClick;
 #[cfg(since_647)]
@@ -36,20 +30,15 @@ impl ClientGameHandler for MoveGameClick {
     }
 }
 
-/// Handles the rev-647 `MoveGameclick` client protocol message.
+/// Handles the rev-647 `MoveGameClick` client protocol message.
 ///
 /// The rev-647 client sends only the destination tile (no waypoint list);
 /// the server pathfinds to it. Mapped onto the shared [`handle`] as a
 /// single-coordinate path.
 #[cfg(since_647)]
-impl ClientGameHandler for MoveGameclick {
+impl ClientGameHandler for MoveGameClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(
-            vec![pack_coord(self.x, self.z)],
-            self.ctrl_run,
-            false,
-            active,
-        )
+        handle(vec![pack_coord(self.x, self.z)], self.ctrl, false, active)
     }
 }
 
@@ -72,18 +61,13 @@ impl ClientGameHandler for MoveMinimapClick {
     }
 }
 
-/// Handles the rev-647 `MoveMinimapclick` client protocol message.
+/// Handles the rev-647 `MoveMinimapClick` client protocol message.
 ///
-/// Destination-only, same as [`MoveGameclick`].
+/// Destination-only, same as [`MoveGameClick`].
 #[cfg(since_647)]
-impl ClientGameHandler for MoveMinimapclick {
+impl ClientGameHandler for MoveMinimapClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(
-            vec![pack_coord(self.x, self.z)],
-            self.ctrl_run,
-            false,
-            active,
-        )
+        handle(vec![pack_coord(self.x, self.z)], self.ctrl, false, active)
     }
 }
 

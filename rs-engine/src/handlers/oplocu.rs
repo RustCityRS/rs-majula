@@ -1,103 +1,84 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
+#[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
     HeldCheck, check_held, in_build_area, loc_target, members_blocked, use_component_ok, zone_loc,
 };
+#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_grid::CoordGrid;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::oplocu::OpLocU;
-use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 
-/// Handles the `OpLocU` (use item on location) client protocol message.
-///
-/// Processes a "use held item on location" interaction. Validates that the target
-/// coordinates are within the player's build area, that the location exists, that
-/// the use component (`com`) is usable and visible, and that the used item exists
-/// at the given slot. Sets up an approach-style interaction (`ApLocU`) that will
-/// trigger the corresponding script once the player reaches the location.
-///
-/// # Arguments
-///
-/// * `active` - The active player whose client sent this message.
-///
-/// # Returns
-///
-/// * `Ok(())` on success or if the player is delayed / target is invalid.
-///
-/// # Side Effects
-///
-/// * Clears pending action and unsets the map flag on early exit conditions.
-/// * Sets `last_use_item`, `last_use_slot` and `last_use_com` on the player.
-/// * Sets up an `InteractionTarget::Loc` interaction with approach mode and sets `opcalled`.
-///
-/// # Call Stack
-///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-/// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
+#[cfg(before_647)]
 impl ClientGameHandler for OpLocU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.watch_use(
-            Using::Item(self.obj),
-            Target::Loc {
-                id: self.loc,
-                x: self.x,
-                z: self.z,
-            },
-        );
-        if active.player.state.delayed {
-            // normal: cannot interact while delayed
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if !in_build_area(active, self.x, self.z) {
-            // bad client: tile is not visible on client
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        let y = active.player.pathing.coord.y();
-        let Some(loc) = zone_loc(self.x, y, self.z, self.loc) else {
-            // bad client or lag: loc does not exist
-            active.unset_map_flag();
-            return Ok(());
-        };
-        if active.shown_loc(self.loc).is_none() {
-            // bad client: the loc shows as nothing to click
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        let target = loc_target(CoordGrid::new(self.x, y, self.z), loc);
-
-        if !use_component_ok(active, self.com) {
-            // bad client or lag: component is not acceptable for this packet, or not visible
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        if check_held(active, self.com, self.slot, self.obj) != HeldCheck::Ok {
-            // bad client or lag: item does not exist at that slot of a transmitted inventory
-            active.unset_map_flag();
-            return Ok(());
-        }
-
-        active.clear_pending_action()?;
-
-        if members_blocked(active, self.obj) {
-            return Ok(());
-        }
-
-        active.player.last_use_item = Some(self.obj);
-        active.player.last_use_slot = Some(self.slot);
-        active.player.last_use_com = Some(self.com);
-
-        active
-            .player
-            .set_interaction(target, ServerTriggerType::ApLocU as u8, true);
-        active.player.opcalled = true;
-
-        Ok(())
+        handle(
+            self.x, self.z, self.loc, self.com, self.slot, self.obj, active,
+        )
     }
+}
+
+pub(super) fn handle(
+    x: u16,
+    z: u16,
+    loc: u16,
+    com: ComId,
+    slot: u16,
+    obj: u16,
+    active: &mut ActivePlayer,
+) -> Result<(), ScriptError> {
+    #[cfg(before_647)]
+    active.watch_use(Using::Item(obj), Target::Loc { id: loc, x, z });
+    if active.player.state.delayed {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    if !in_build_area(active, x, z) {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    let y = active.player.pathing.coord.y();
+    let Some(loc) = zone_loc(x, y, z, loc) else {
+        active.unset_map_flag();
+        return Ok(());
+    };
+    #[cfg(before_647)]
+    if active.shown_loc(loc.id()).is_none() {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    let target = loc_target(CoordGrid::new(x, y, z), loc);
+
+    if !use_component_ok(active, com) {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    if check_held(active, com, slot, obj) != HeldCheck::Ok {
+        active.unset_map_flag();
+        return Ok(());
+    }
+
+    active.clear_pending_action()?;
+
+    if members_blocked(active, obj) {
+        return Ok(());
+    }
+
+    active.player.last_use_item = Some(obj);
+    active.player.last_use_slot = Some(slot);
+    active.player.last_use_com = Some(com);
+
+    active
+        .player
+        .set_interaction(target, ServerTriggerType::ApLocU as u8, true);
+    active.player.opcalled = true;
+
+    Ok(())
 }

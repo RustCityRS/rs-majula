@@ -1,19 +1,17 @@
-#[cfg(before_647)]
 use crate::active_player::ActivePlayer;
-#[cfg(before_647)]
 use crate::counters::{self, CHAT_PUBLIC, COUNTERS};
 use crate::engine::engine;
-#[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
-#[cfg(before_647)]
+#[cfg(since_647)]
+use rs_entity::player::CHAT_MODE_CLAN;
+#[cfg(since_647)]
+use rs_io::cp1252::{decode_string, encode_string};
 use rs_protocol::network::game::client::message_public::MessagePublic;
 #[cfg(before_647)]
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 #[cfg(before_647)]
 use rs_util::wordpack::{pack, unpack};
-#[cfg(before_647)]
 use rs_vm::ScriptError;
-#[cfg(before_647)]
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 
 /// Highest chat effect this revision's client can render.
@@ -94,101 +92,58 @@ impl ClientGameHandler for MessagePublic {
     }
 }
 
-/// Rev-647 public chat: a huffman-compressed payload
-/// (`colour, effect, smart char_count, huffman bytes`), unfiltered, echoed
-/// back to nearby players as MESSAGE_PUBLIC server packets by the broadcast
-/// step in the output phase rather than through an info mask.
-/// MESSAGE_GAME's clan chat channel (`void-634` `ChatType.ClanChat`).
 #[cfg(since_647)]
 const CLAN_CHAT: i32 = 11;
 
 #[cfg(since_647)]
-impl crate::handlers::ClientGameHandler
-    for rs_protocol::network::game::client::message_public::MessagePublic
-{
-    fn handle(
-        self,
-        active: &mut crate::active_player::ActivePlayer,
-    ) -> Result<(), rs_vm::ScriptError> {
-        // Typed chat in clan mode goes to the clan chat, which this server
-        // does not have yet (it is post-289): nobody is in one, so the player
-        // gets the not-in-a-clan reply on the clan channel (`void-634`
-        // `Chat.kt`), and the message never reaches public chat.
-        if active.player.chat_mode == rs_entity::player::CHAT_MODE_CLAN {
+impl ClientGameHandler for MessagePublic {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        if active.player.chat_mode == CHAT_MODE_CLAN {
             active.message_game_typed(CLAN_CHAT, "You must be in a clan chat to talk.");
             return Ok(());
         }
-
-        // Upstream's rules for public chat, as before 647: one message a
-        // tick, none while muted.
         let clock = engine().clock;
-        if active.last_social == Some(clock) {
+        let char_count = self.chars as usize;
+        if active.last_social == Some(clock)
+            || self.colour > 11
+            || self.effect > 5
+            || !(1..=80).contains(&char_count)
+        {
             return Ok(());
         }
         if active.is_muted() {
-            crate::counters::add(
-                &crate::counters::COUNTERS.chat_muted[crate::counters::CHAT_PUBLIC],
-                1,
-            );
+            counters::add(&COUNTERS.chat_muted[CHAT_PUBLIC], 1);
             return Ok(());
         }
 
-        let mut buf = rs_io::Packet::from(self.payload);
-        if buf.len().saturating_sub(buf.pos) < 2 {
-            return Ok(());
-        }
-
-        let colour = buf.g1();
-        let effect = buf.g1();
-        if colour > 11 || effect > 5 {
-            return Ok(());
-        }
-
-        let char_count = buf.gsmart1or2() as usize;
-        if char_count == 0 || char_count > 80 {
-            return Ok(());
-        }
-
-        let mut huffman_data = Vec::with_capacity(buf.len().saturating_sub(buf.pos));
-        while buf.len().saturating_sub(buf.pos) > 0 {
-            huffman_data.push(buf.g1());
-        }
-
-        let mut decoded = vec![0u8; char_count];
-        engine()
+        let mut bytes = self.bytes;
+        let len = bytes.len();
+        bytes.resize(len.max(char_count << 2), 0);
+        let mut decoded = vec![0; char_count];
+        let consumed = engine()
             .cache
             .huffman
-            .decode(&huffman_data, 0, &mut decoded, char_count);
-        // The word filter, as before 647. The client's text is one byte a
-        // character.
-        use rs_vm::engine::ScriptEngine as _;
-        let text: String = decoded.iter().map(|&b| b as char).collect();
-        let mut decoded: Vec<u8> = engine()
-            .wordenc()
-            .filter(&text)
-            .chars()
-            .map(|c| u8::try_from(u32::from(c)).unwrap_or(b'?'))
-            .collect();
-        if let Some(first) = decoded.get_mut(0) {
+            .decode(&bytes, 0, &mut decoded, char_count);
+        if consumed > len {
+            return Err(ScriptError::Client("Truncated chat message".to_string()));
+        }
+        let text = decode_string(&decoded);
+        let message = engine().wordenc().filter(&text);
+        let mut decoded = encode_string(&message);
+        if let Some(first) = decoded.first_mut() {
             first.make_ascii_uppercase();
         }
         let char_count = decoded.len();
-
-        let mut encoded = vec![0u8; char_count * 2 + 1];
-        let enc_len = engine().cache.huffman.encode(&decoded, &mut encoded);
-        encoded.truncate(enc_len);
+        let mut encoded = vec![0; char_count << 2];
+        let len = engine().cache.huffman.encode(&decoded, &mut encoded);
+        encoded.truncate(len);
 
         active.last_social = Some(clock);
-        crate::counters::add(
-            &crate::counters::COUNTERS.chat[crate::counters::CHAT_PUBLIC],
-            1,
-        );
+        counters::add(&COUNTERS.chat[CHAT_PUBLIC], 1);
         active.log_chat(None, text);
-
-        let effects = (effect as u16) | ((colour as u16) << 8);
-        let rights = active.player.staff_mod_level as u8;
+        let effects = self.effect as u16 | (self.colour as u16) << 8;
+        let rights = active.staffmodlevel();
         active.player.pending_public_chat = Some((effects, rights, char_count, encoded));
-
         Ok(())
     }
 }

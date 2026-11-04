@@ -3,9 +3,6 @@ pub mod client_prot;
 pub mod client_prot_category;
 pub mod client_prot_frame;
 pub mod client_prot_message;
-/// Rev-647: the client's own server prot table (`ServerProt.java`).
-#[cfg(since_647)]
-pub mod client_server_prots_647;
 pub mod info_prot;
 pub mod info_prot_message;
 pub mod server;

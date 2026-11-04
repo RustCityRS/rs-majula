@@ -2,10 +2,11 @@ use crate::network::game::client::ClientProtMessage;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
+#[cfg(since_647)]
+use crate::network::game::client_prot_message::{smart_end, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-// Minimum covers the base37 username.
 #[cfg(before_647)]
 #[client_prot(VarByte { min: 8 }, UserEvent)]
 pub struct MessagePrivate {
@@ -23,27 +24,27 @@ impl ClientProtMessage for MessagePrivate {
     }
 }
 
-// `MessagePrivate` — rev-647 MESSAGE_PRIVATE (opcode 32, var_byte).
-//
-// The rev-647 client declares `MESSAGE_PRIVATE(32, -1)` (`ClientProt.java`)
-// and writes the size with `psize1` (`Class47.java`), i.e. a single-byte
-// length prefix — so the frame is VarByte, NOT VarShort.
-
 #[cfg(since_647)]
-#[client_prot(VarByte { min: 0 }, UserEvent)]
+#[client_prot(VarByte { min: 2 }, UserEvent)]
 pub struct MessagePrivate {
-    pub target: String,
-    pub payload: Vec<u8>,
+    pub name: String,
+    pub chars: u16,
+    pub bytes: Vec<u8>,
 }
 
 #[cfg(since_647)]
 impl ClientProtMessage for MessagePrivate {
-    fn decode(buf: &mut Packet, _: usize) -> Self {
-        let target = buf.gjstr(0);
-        let mut payload = Vec::with_capacity(buf.remaining() as usize);
-        while buf.remaining() > 0 {
-            payload.push(buf.g1());
-        }
-        MessagePrivate { target, payload }
+    fn validate(data: &[u8]) -> bool {
+        string_end(data, 0)
+            .and_then(|end| smart_end(data, end))
+            .is_some()
+    }
+
+    fn decode(buf: &mut Packet, len: usize) -> Self {
+        let name = buf.gjstr(0);
+        let chars = buf.gsmart1or2() as u16;
+        let bytes = buf.data[buf.pos..len].to_vec();
+        buf.pos = len;
+        MessagePrivate { name, chars, bytes }
     }
 }

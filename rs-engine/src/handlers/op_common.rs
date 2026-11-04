@@ -1,12 +1,9 @@
-// The jag-era targeted ops' checks; rev 647's targeted ops (`op_t.rs`)
-// check their own packet shapes.
-#![cfg_attr(since_647, allow(dead_code))]
-
 use crate::active_player::ActivePlayer;
 use crate::engine::{engine, engine_mut};
 use rs_entity::{InteractionTarget, Loc, Obj};
 use rs_grid::CoordGrid;
 use rs_pack::types::InvScope;
+use rs_vm::ComId;
 use rs_vm::engine::ScriptEngine;
 
 const BUILD_AREA_RADIUS: i32 = 52;
@@ -20,6 +17,7 @@ pub mod action_target {
     pub const NPC: u16 = 0x2;
     pub const LOC: u16 = 0x4;
     pub const PLAYER: u16 = 0x8;
+    #[cfg(before_647)]
     pub const HELD: u16 = 0x10;
 }
 
@@ -121,11 +119,17 @@ pub fn loc_target(coord: CoordGrid, loc: &Loc) -> InteractionTarget {
 ///
 /// `true` if the component exists, is flagged usable, and is currently visible
 /// to the player; `false` otherwise (a bad or lagging client).
-pub fn use_component_ok(active: &ActivePlayer, com: u16) -> bool {
+#[cfg(before_647)]
+pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
     let Some(interface) = engine().interfaces().get_by_id(com) else {
         return false;
     };
     interface.usable && active.player.is_interface_visible(interface.root_layer)
+}
+
+#[cfg(since_647)]
+pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
+    active.player.is_interface_open((com >> 16) as u16)
 }
 
 /// Returns `true` if a spell component may be cast on the given kind of target.
@@ -140,12 +144,18 @@ pub fn use_component_ok(active: &ActivePlayer, com: u16) -> bool {
 ///
 /// `true` if the component exists, accepts this target kind, and is currently
 /// visible to the player; `false` otherwise (a bad or lagging client).
-pub fn spell_component_ok(active: &ActivePlayer, com: u16, target: u16) -> bool {
+#[cfg(before_647)]
+pub fn spell_component_ok(active: &ActivePlayer, com: ComId, target: u16) -> bool {
     let Some(interface) = engine().interfaces().get_by_id(com) else {
         return false;
     };
     interface.action_target & target != 0
         && active.player.is_interface_visible(interface.root_layer)
+}
+
+#[cfg(since_647)]
+pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16) -> bool {
+    active.player.is_interface_open((com >> 16) as u16)
 }
 
 /// Returns `true` if an NPC is a valid interaction target for the player.
@@ -237,14 +247,12 @@ pub enum HeldCheck {
 ///
 /// [`HeldCheck::Ok`] when the item is really there, otherwise the specific
 /// reason the claim was rejected.
-pub fn check_held(active: &mut ActivePlayer, com: rs_vm::ComId, slot: u16, obj: u16) -> HeldCheck {
+pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: u16) -> HeldCheck {
     let inv_id = active
         .player
         .inv_transmits
         .iter()
-        // A component's id is its own before 647 and its interface hash from
-        // 647 (`rs_vm::ComId`).
-        .find(|(_, coms)| coms.iter().any(|&c| i64::from(c) == i64::from(com)))
+        .find(|(_, coms)| coms.contains(&com))
         .map(|(id, _)| *id);
 
     let Some(inv_id) = inv_id else {

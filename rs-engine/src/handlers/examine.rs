@@ -25,7 +25,7 @@ impl ClientGameHandler for ExamineNpc {
         let desc = engine()
             .cache
             .npcs
-            .get_by_id(self.npc_id)
+            .get_by_id(self.id)
             .and_then(|t| t.desc.as_deref());
         answer(active, desc)
     }
@@ -36,7 +36,7 @@ impl ClientGameHandler for ExamineLoc {
         let desc = engine()
             .cache
             .locs
-            .get_by_id(self.loc_id)
+            .get_by_id(self.id)
             .and_then(|t| t.desc.as_deref());
         answer(active, desc)
     }
@@ -47,7 +47,7 @@ impl ClientGameHandler for ExamineObj {
         let desc = engine()
             .cache
             .objs
-            .get_by_id(self.obj_id)
+            .get_by_id(self.id)
             .and_then(|t| t.desc.as_deref());
         answer(active, desc)
     }

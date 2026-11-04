@@ -266,7 +266,7 @@ macro_rules! impl_if_button_handler {
         $(
             impl ClientGameHandler for $ty {
                 fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-                    handle_if_button($op, self.com_hash as i32, self.slot as i32, self.obj as i32, active)
+                    handle_if_button($op, self.com as i32, self.slot as i32, self.obj as i32, active)
                 }
             }
         )*
