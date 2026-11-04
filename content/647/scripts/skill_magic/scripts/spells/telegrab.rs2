@@ -33,7 +33,7 @@ if((oc_category(obj_type) = trail_clue_easy | oc_category(obj_type) = trail_clue
 // These use a different mes compared to obj's with the telegrab_disabled param (maybe make a 2nd param)
 if(obj_type = holy_grail | obj_type = muddy_skull | obj_type = ice_arrows | obj_type = ball | (oc_category(obj_type) = cog)
     | obj_type = orb_of_light | obj_type = caveorb2 | obj_type = caveorb3 | obj_type = caveorb4 | obj_type = fire_feather | obj_type = grip_s_key | obj_type = bunny_ears | obj_type = scythe | obj_type = viyeldihat | obj_type = keg_of_beer
-    | obj_type = rusty_casket | obj_type = damaged_book | obj_type = unfinished_zamorakbook | obj_type = unfinished_guthixbook | obj_type = holy_book | obj_type = unfinished_zamorakbook | obj_type = unfinished_guthixbook) {
+    | obj_type = rusty_casket | obj_type = damaged_book | obj_type = unfinished_zamorakbook | obj_type = unfinished_guthixbook | obj_type = holy_book | obj_type = unholy_book | obj_type = book_of_balance) {
     mes("I can't use Telekinetic Grab on this object.");
     return;
 }

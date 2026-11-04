@@ -62,7 +62,14 @@ sound_synth(teleport_all, 1, 0);
 // the 647 cache). No 2011 source found for the sequence.
 anim(human_teleport_modern, 0);
 spotanim_pl(teleport_modern, 0, 0);
-p_delay(2);
+p_delay(1);
+// 289 drops a worn Troll Romance sled here when the backpack is full
+// (~post_tele_checks takes it off); Troll Romance (quest_troll_love) is not
+// ported.
+// if (inv_getobj(worn, ^wearpos_rhand) = sled_4084 & inv_freespace(inv) <= 0) { // Matches OSRS behaviour
+//     obj_add(coord, sled_4084, 1, 1000);
+// }
+p_delay(0);
 ~p_telejump_safe($coord);
 p_delay(0);
 anim(human_teleport_land_modern, 0);
@@ -79,20 +86,50 @@ if(~inzone_coord_pair_table(mortton_temple_zones, coord) = true) {
     if_openoverlay(null);
 }
 
+// 289 keeps Castle Wars' players where they are (~in_castlewars_game,
+// ~in_castlewars_waitingroom); Castle Wars (game_castlewars) is not ported.
+// if (~in_castlewars_game(coord) = true | ~in_castlewars_waitingroom(coord) = true) {
+//     return;
+// }
 p_telejump($coord);
 cam_reset;
 anim(null, 0);
 // todo: ensure this proc is used for other teleports too
+~post_tele_checks;
+
+[proc,post_tele_checks]
+// 289 resets Ernest the Chicken's levers here (~reset_haunted_levers); their
+// scripts (quest_haunted) are not ported.
+// ~reset_haunted_levers;
 def_int $rum = inv_total(inv, karamjan_rum);
 if ($rum > 0) {
     inv_del(inv, karamjan_rum, $rum);
     mes("Your Karamjan rum gets broken and spilled.");
 }
-if(inv_total(inv, plague_sample) > 0) {
+if(inv_total(inv, plague_sample) > 0) { // Biohazard plague sample
     inv_del(inv, plague_sample, ^max_32bit_int);
     mes("The plague sample is too delicate...it disintegrates in the crossing.");
 }
+// 289 takes off a worn Troll Romance sled here (~unequip_trollromance_sled);
+// Troll Romance (quest_troll_love) is not ported.
+// if (inv_getobj(worn, ^wearpos_rhand) = sled_4084) {
+//     if(inv_freespace(inv) > 0) {
+//         mes("You remove the sled.");
+//         ~unequip_trollromance_sled;
+//     } else {
+//         mes("You remove the sled. It drops to the ground as you have no space for it.");
+//         inv_del(worn, sled_4084, 1);
+//         ~unequip_trollromance_sled;
+//     }
+// }
 ~clear_peer_trial_items;
+// 289 takes Monkey Madness's monkey from the backpack here; Monkey Madness
+// (quest_mm) is not ported.
+// if(inv_total(inv, monkey) > 0) {
+//     // this does delete all if you have multiple (confirmed on OSRS)
+//     inv_del(inv, monkey, ^max_32bit_int);
+//     mes("The monkey in your backpack disappears in a puff of smoke!");
+// }
 
 [proc,tele_checks]()
 if(inv_total(inv, ana_in_a_barrel) > 0) {
@@ -126,6 +163,11 @@ if (~in_duel_arena($coord) = true) {
     //Colored in #AB0908 in RS3, but was likely not colored in 2004
     return(false);
 }
+// 289's Castle Wars check; Castle Wars (game_castlewars) is not ported.
+// if (~in_castlewars_game(coord) = true | ~in_castlewars_waitingroom(coord) = true) {
+//     ~mesbox("You can't leave just like that!");
+//     return(false);
+// }
 
 if(inv_total(inv, ana_in_a_barrel) > 0) {
     ~chatnpc_specific("Ana (in a Barrel)", anabarrel, "<p,idle>@dbl@-- You can't teleport while holding the barrel, it's just @dbl@too difficult to concentrate. --");

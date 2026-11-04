@@ -4,6 +4,12 @@
 //! IF_BUTTONT from the spell to the backpack slot (`p4(to_com) ip2(to_slot)
 //! ip2(from_slot) p2_alt1(from_obj) ip4(from_com) p2(to_obj)`, the spell's
 //! obj and slot -1). 289's checks, runes and experience ride along.
+//!
+//! Telekinetic Grab is cast on a ground obj with OPOBJT (`ip2(from_obj)
+//! ip2(obj) p2(from_slot) p4_alt2(from_com) p1_alt3(ctrl) p2_alt1(z)
+//! p2_alt1(x)`, `op_obj_t.rs`). The PR's 289 refuses the finished Zamorak and
+//! Guthix books (2011's unholy_book and book_of_balance), where it had listed
+//! the unfinished two twice.
 
 #![cfg(since_647)]
 
@@ -23,6 +29,7 @@ const BONES_TO_BANANAS: i32 = SPELLBOOK | 33;
 const LVL_1_ENCHANT: i32 = SPELLBOOK | 29;
 const SUPERHEAT_ITEM: i32 = SPELLBOOK | 50;
 const HIGH_LEVEL_ALCHEMY: i32 = SPELLBOOK | 59;
+const TELEKINETIC_GRAB: i32 = SPELLBOOK | 44;
 /// `inventory:inv`.
 const BACKPACK: i32 = 149 << 16;
 const MAGIC: usize = 6;
@@ -254,5 +261,40 @@ fn lvl_1_enchant_makes_a_ring_of_recoil() {
         ticks(engine, &mut client, 3);
         assert_eq!(count(engine, client.pid, ring), 0);
         assert_eq!(count(engine, client.pid, id(engine, "ring_of_recoil")), 1);
+    });
+}
+
+/// Telekinetic Grab on the finished Zamorak and Guthix books is refused, and
+/// the books stay on the ground.
+#[test]
+fn telekinetic_grab_refuses_the_finished_god_books() {
+    runner::on_loaded_engine(|engine| {
+        for book in ["unholy_book", "book_of_balance"] {
+            let runes = [("law_rune", 1), ("air_rune", 1)];
+            let mut client = caster(engine, &format!("grab{}", book.len()), 99, &runes);
+            let obj = id(engine, book);
+            let (x, z) = (TILE.0 + 3, TILE.1);
+            engine.harness_add_obj(x, 0, z, obj, 1);
+            engine.cycle();
+            client.packets();
+            let mut p = ClientPacket::new();
+            p.ip2(-1)
+                .ip2(obj as i32)
+                .p2(-1)
+                .p4_alt2(TELEKINETIC_GRAB)
+                .p1_alt3(0)
+                .p2_alt1(z as i32)
+                .p2_alt1(x as i32);
+            client.send(ClientProt::OpObjT, &p.finish());
+            let said: Vec<String> = HarnessClient::game_messages(&ticks(engine, &mut client, 12))
+                .into_iter()
+                .map(|(_, t)| t)
+                .collect();
+            assert!(
+                said.contains(&"I can't use Telekinetic Grab on this object.".to_string()),
+                "{book}: {said:?}"
+            );
+            assert_eq!(count(engine, client.pid, obj), 0, "{book} stays put");
+        }
     });
 }

@@ -114,5 +114,11 @@ switch_obj($item) {
             mes("You cannot use alchemy on that item.");
             return(false);
         }
+        // 289 refuses its greegrees here (category mm_greegree, quest_mm); Monkey
+        // Madness is not ported, and 647's greegrees carry no such category.
+        // if(oc_category($item) = mm_greegree) {
+        //     mes("The magic of the monkeys defies alchemy.");
+        //     return(false);
+        // }
 }
 return(true);
