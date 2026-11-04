@@ -291,6 +291,8 @@ wearpos=torso
 [cape]
 desc=A bright red cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,red_cape
 
 [brass_necklace]
 desc=I'd prefer a gold one.
@@ -311,14 +313,20 @@ wearpos=legs
 [black_cape]
 desc=A warm black cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,black_cape
 
 [cape_1021]
 desc=A thick blue cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,blue_cape
 
 [yellow_cape]
 desc=A thick yellow cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,yellow_cape
 
 [eye_patch]
 desc=A worthless piece of black cloth on a string.
@@ -327,14 +335,20 @@ wearpos=hat
 [green_cape]
 desc=A thick green cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,green_cape
 
 [purple_cape]
 desc=A thick purple cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,purple_cape
 
 [orange_cape]
 desc=A thick orange cape.
 wearpos=back
+// 289's dyeing key (skill_crafting/configs/dye_cape/capes.obj)
+param=crafting_capes_struct,orange_cape
 
 [zamorak_robe]
 desc=A robe worn by worshippers of Zamorak.
@@ -415,6 +429,8 @@ wearpos=legs
 [studded_chaps]
 desc=Those studs should provide a bit more protection.
 wearpos=legs
+// 289's studding key (skill_crafting/configs/leather/leather_gear.obj)
+param=crafting_studded_struct,studded_chaps
 
 [green_d_hide_chaps]
 desc=Made from 100% real dragonhide.
@@ -431,6 +447,8 @@ wearpos=torso
 [studded_body]
 desc=Those studs should provide a bit more protection.
 wearpos=torso
+// 289's studding key (skill_crafting/configs/leather/leather_gear.obj)
+param=crafting_studded_struct,studded_body
 
 [green_d_hide_body]
 desc=Made from 100% real dragonhide.
@@ -804,6 +822,8 @@ wearpos=righthand
 [silver_sickle]
 desc=It's a silver sickle.
 wearpos=righthand
+// 289's silver casting key (skill_crafting/configs/jewellery/silver.obj)
+param=crafting_jewelry_struct,silver_sickle
 
 [silver_sickle__b]
 desc=It's a blessed silver sickle.

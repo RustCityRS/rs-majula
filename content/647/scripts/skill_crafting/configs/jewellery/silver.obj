@@ -1,0 +1,12 @@
+// 289's unstrung symbols (skill_crafting/configs/jewellery/silver.obj): their
+// examine (moved here from general/configs/examine.obj) and 289's server key
+// on 2011's objs. The silver sickle's is with its wearpos
+// (player/configs/wearpos.obj).
+
+[unstrung_symbol]
+desc=It needs a string so I can wear it.
+param=crafting_jewelry_struct,unstrung_symbol
+
+[unstrung_emblem]
+desc=It needs a string so I can wear it.
+param=crafting_jewelry_struct,unstrung_emblem

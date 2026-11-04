@@ -1,0 +1,84 @@
+// 289's stringing (skill_crafting/scripts/jewellery/stringing.rs2), its objs as
+// 2011 names them: 289's unstrung amulets are 2011's gold_amulet to
+// dragonstone_ammy, its symbols unstrung_symbol and unstrung_emblem.
+[opheldu,ball_of_wool]
+switch_obj (last_useitem)
+{
+    case gold_amulet, sapphire_amulet, emerald_amulet, ruby_amulet, diamond_amulet, unstrung_symbol : @string_amulet(last_useslot);
+    // Monkey Madness's amulet waits for the quest's port.
+    // case mm_amulet_of_monkey_speak_without_string : @mm_string_amulet;
+    case unstrung_emblem, dragonstone_ammy :
+        if (map_members = ^false) {
+            mes(^mes_members_feature);
+            return;
+        }
+        @string_amulet(last_useslot);
+    case barrel_bomb :
+        mes("The wool is too thin to fit well, maybe if I weave a load of it together it will work.");
+        return;
+}
+~displaymessage(^dm_default);
+
+[opheldu,sapphire_amulet]
+if (last_useitem = ball_of_wool) @string_amulet(last_slot);
+~displaymessage(^dm_default);
+
+[opheldu,emerald_amulet]
+if (last_useitem = ball_of_wool) @string_amulet(last_slot);
+~displaymessage(^dm_default);
+
+[opheldu,ruby_amulet]
+if (last_useitem = ball_of_wool) @string_amulet(last_slot);
+~displaymessage(^dm_default);
+
+[opheldu,diamond_amulet]
+if (last_useitem = ball_of_wool) @string_amulet(last_slot);
+~displaymessage(^dm_default);
+
+[opheldu,dragonstone_ammy]
+if (last_useitem = ball_of_wool) {
+    if (map_members = ^false) {
+        mes(^mes_members_feature);
+        return;
+    }
+    @string_amulet(last_slot);
+}
+~displaymessage(^dm_default);
+
+[opheldu,unstrung_symbol]
+if (last_useitem = ball_of_wool) @string_amulet(last_slot);
+~displaymessage(^dm_default);
+
+[opheldu,unstrung_emblem]
+if (last_useitem = ball_of_wool) {
+    if (map_members = ^false) {
+        mes(^mes_members_feature);
+        return;
+    }
+    @string_amulet(last_slot);
+}
+~displaymessage(^dm_default);
+
+
+[label,string_amulet](int $last)
+def_obj $unstrung = inv_getobj(inv, $last);
+def_struct $struct = oc_param($unstrung, crafting_jewelry_struct);
+
+// delete items
+inv_del(inv, $unstrung, 1);
+inv_del(inv, ball_of_wool, 1);
+
+// give item
+inv_add(inv, struct_param($struct, strung), 1);
+
+// always 4 crafting xp
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(crafting, 40);
+
+// display game message
+def_string $name = struct_param($struct, stringing_name);
+if (string_length($name) < 1) {
+    $name = "amulet";
+}
+mes("You put some string on your <$name>.");
