@@ -13,7 +13,7 @@ world1-release = "run -p rs-server --release -- --node-id 10 --cluster world10@1
 world2-release = "run -p rs-server --release -- --node-id 11 --cluster world10@127.0.0.1,world11@127.0.0.1 --db-pass password --pepper localhost --cookie rs_secret --admin-secret rs_admin --auto-register true --auto-migrate true"
 
 [env]
-REV = "289"
+REV = "647"
 
 [build]
 target-dir = "target"
