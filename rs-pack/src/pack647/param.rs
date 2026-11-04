@@ -231,6 +231,13 @@ pub fn pack_params(
                             }
                             packed.p1(2);
                             packed.p4(v);
+                        } else if value == "null" && type_char == Some('s') {
+                            // A string's null is the empty string, as the
+                            // older revs pack it (pack::config::param). As an
+                            // int -1 it left no default string, and the engine
+                            // read the default back as the text "null".
+                            packed.p1(5);
+                            packed.pjstr("");
                         } else if value == "null" {
                             // Typed null for int-like params (obj/namedobj/loc/
                             // npc/...): RuneScript null is -1. Without this,
