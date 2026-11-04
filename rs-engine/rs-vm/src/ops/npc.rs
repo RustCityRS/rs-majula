@@ -634,6 +634,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = s.pop_int_as::<u16>()?;
             #[cfg(since_647)]
             let id = u16::try_from(s.pop_int()).unwrap_or(u16::MAX);
+            #[cfg(since_647)]
+            if crate::ops::test::recording() {
+                let arg = format!("{id},{height},{delay}");
+                crate::ops::test::record_call(SPOTANIM_NPC, "spotanim_npc", &arg);
+            }
             npc.spotanim(id, height, delay);
         });
 

@@ -104,9 +104,15 @@ if (npc_param(attack_sound) ! null) {
 
 [proc,dragon_fire]
 if_close;
-spotanim_npc(firebreath_attack, 92, 0);
-// 2011's reworked dragons breathe with seq 14245 (void-634's
-// colour_dragon_breath; frame group 2931 with their attack, 12252).
+// 289's fire is spotanim 1 at height 92, before the dragon: the old dragon's
+// (model 17549, seq 86). The remodelled dragons' fire is spotanim 2465 on the
+// dragon itself (void-634's dragon_breath_shoot, height 0): model 55460 on
+// seq 13166, whose frames run 127 client cycles in all, as the breath seq
+// 14245's do, so the two play together (cache 786).
+spotanim_npc(dragon_breath_shoot, 0, 0);
+// The remodelled dragons breathe with seq 14245: void-634's
+// colour_dragon_breath, whose frames are group 2931, the remodelled dragons'
+// (cache 786).
 npc_anim(colour_dragon_breath, 0);
 sound_synth(dragonbreath, 1, 30);
 %npc_action_delay = add(map_clock, 4);

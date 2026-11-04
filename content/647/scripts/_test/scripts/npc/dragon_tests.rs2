@@ -25,6 +25,8 @@ while ($i < 20) {
     $i = add($i, 1);
 }
 assert_called_with("mes", "Your shield absorbs most of the dragon fire!");
+// The remodelled dragons' fire: spotanim 2465 on the dragon, at height 0.
+assert_called_with("spotanim_npc", "2465,0,0");
 
 // Under Protect from Magic it is at most 100 (289's 10).
 [label,test_dragonfire_under_protect_from_magic_takes_at_most_100]
