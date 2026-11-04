@@ -71,6 +71,23 @@
 [opheld1,stew] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,curry] @player_consume_item(consume_effect_stat2, 2, 3);
 
+// potions (289's consume.rs2). 289 drinks every potion here; 647 has only the
+// antifire's effect so far, so the others wait for the consumption port and
+// say nothing new.
+[opheld1,_potion]
+switch_obj(last_item) {
+    // anti dragon
+    case antifire__1, antifire__2, antifire__3, antifire__4 :
+        @player_consume_item(consume_effect_antidragon, null, null);
+    // anti posions
+    // case 1doseantipoison, 2doseantipoison, 3doseantipoison, 4doseantipoison :
+    //     @player_consume_item(consume_effect_antipoison, null, null);
+    // case 1dose2antipoison, 2dose2antipoison, 3dose2antipoison, 4dose2antipoison :
+    //     @player_consume_item(consume_effect_super_antipoison, null, null);
+    // case default : @player_consume_item(consume_effect_stat, null, null);
+    case default : ~displaymessage(^dm_default);
+}
+
 // ***** ENTRY *****
 // Central consume entry (rev-225 [label,player_consume_item]). Gates on the
 // duel-arena rules, applies the eat-throttle (%eat_delay vs map_clock) and the

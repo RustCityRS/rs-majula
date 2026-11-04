@@ -1,4 +1,5 @@
 [logout,_]()(boolean)
 // 289's logout hooks (login_logout/logout.rs2), as their systems are ported.
+~set_antifire_logout; // TODO: should be timer
 ~macro_event_logout;
 return(true);
