@@ -232,8 +232,28 @@ if ($deposit > 0) {
         ~bank_deposit_to_tab(oc_uncert($obj));
     }
     if($inv = worn) {
-        ~unequip_effect($obj);
+        ~unequip_effect($obj, ^true);
     }
+}
+return(true);
+
+// Do not add cert items using this proc.
+[proc,bank_add](namedobj $namedobj, int $amount, int $mes)(boolean)
+def_int $overflow = inv_itemspace2(bank, $namedobj, $amount, ^max_32bit_int);
+if (sub(^max_32bit_int, $amount) < inv_total(bank, $namedobj)) {
+    if($mes = ^true) mes("You already have a full stack of that item in the bank."); // 2024 osrs
+    return(false);
+}
+if ($overflow >= $amount) {
+    // https://youtu.be/2BgXLZD-xgo?t=28
+    // https://youtu.be/Ep4gaI5ic1s?t=197
+    if($mes = ^true) mes("You don't have enough space in your bank account."); // osrs
+    return(false);
+}
+def_int $deposit = sub($amount, $overflow);
+if ($deposit > 0) {
+    session_log(^log_moderator, "Added <oc_debugname($namedobj)> x<tostring($deposit)> into bank");
+    inv_add(bank, $namedobj, $deposit);
 }
 return(true);
 
@@ -249,6 +269,18 @@ if (oc_param($obj, unbankable) = ^true) {
 //     ~try_add_macro_cube;
 //     return(false);
 // }
+
+// 289's misc_awful_anthem, misc_good_anthem and mm_monkey_in_backpack are
+// 647's awful_anthem, good_anthem (3894, 3895) and monkey (4033).
+if($obj = awful_anthem | $obj = good_anthem) {
+    mes("You have more urgent things to do with this anthem!");
+    return(false);
+}
+
+if ($obj = monkey) {
+    mes("Sorry, you can't bank the monkey!");
+    return(false);
+}
 
 if (playermember = ^false) {
     // check for f2p bank limits, use the player's membership status rather than world type

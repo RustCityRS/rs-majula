@@ -71,19 +71,39 @@ if (p_finduid(uid) = true) {
         return
     }
     inv_moveitem(worn, inv, $obj, sub($count, $overflow))
-    ~update_all($obj)
+    ~unequip_effect($obj, ^true)
 }
 
 // 289's player/scripts/equip.rs2, line for line (a bank deposit of worn items
-// runs it).
-[proc,unequip_effect](obj $obj)
-if($obj = elemental_shield) {
+// runs it). The greegree, sled, sigil and Castle Wars standard effects wait
+// for Monkey Madness, Troll Romance and Castle Wars, which 647 has not ported:
+// mm_greegree, %wearing_sled, the teleport_mm_sigil timer and
+// ~castlewars_flag_drop do not exist in 647 yet.
+[proc,unequip_effect](obj $obj, int $update_all)
+if($obj = elemental_shield & inv_getobj(worn, ^wearpos_lhand) = null) {
     sound_synth(shield_appear, 1, 0);
 }
 if (oc_param($obj, specwep) = ^true) {
     %sa_attack = ^false;
 }
-~update_all($obj);
+// if(oc_category($obj) = mm_greegree) {
+//     p_transmogrify(null);
+//     cleartimer(mm_greegree_timer);
+//     p_animprotect(^false);
+//     spotanim_pl(windwave_impact, 124, 0);
+//     sound_synth(oc_param($obj, revert_sound), 0, 0);
+//     if_settab(magic, ^tab_magic);
+// }
+// if($obj = trollromance_toboggon_waxed) {
+//     %wearing_sled = ^false;
+// }
+// if($obj = mm_sigil) {
+//     cleartimer(teleport_mm_sigil);
+// }
+if($update_all = ^true) ~update_all($obj);
+// if ($obj = castlewars_saradomin_banner | $obj = castlewars_zamorak_banner) {
+//     ~castlewars_flag_drop(inv, $obj);
+// }
 
 [proc,try_unequip](int $slot)
 if (p_finduid(uid) = true) {
@@ -125,6 +145,7 @@ if (~unequip_conflicts_space($equip_obj) = false) {
     return(false)
 }
 
+def_obj $previous_equip = inv_getobj(worn, $worn_slot)
 inv_movetoslot(inv, worn, $inv_slot, $worn_slot)
 if (inv_getobj(inv, $inv_slot) ! null) {
     // presumably, they added this as an easy way for stackable objs to stack in the inv (instead of directly swapping)
@@ -132,6 +153,7 @@ if (inv_getobj(inv, $inv_slot) ! null) {
     inv_movefromslot(inv, inv, $inv_slot)
 }
 ~unequip_conflicts($equip_obj)
+if($previous_equip ! null) ~unequip_effect($previous_equip, ^false)
 
 return(true)
 
@@ -169,6 +191,8 @@ while ($i < inv_size(worn)) {
     if ($worn_obj ! null & $worn_obj ! $equip_obj) {
         if (~wearpos_conflicts($equip_obj, $worn_obj) = true) {
             inv_moveitem(worn, inv, $worn_obj, $worn_num)
+            // run unequip effects on the conflicted obj
+            ~unequip_effect($worn_obj, ^false)
         }
     }
     $i = add($i, 1)
