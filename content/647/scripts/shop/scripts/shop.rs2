@@ -7,7 +7,8 @@
 // server says which shop, what it is based on (varcs 946-985, a slot's base
 // stock, which the price reads) and in what currency, and unlocks the ops.
 // The backpack panel is a plain inventory grid the server asks for
-// (clientscript 150) with 2011's ops: Value, Sell 1/5/10/50, Examine.
+// (clientscript 150) with void-634's ops (shop.ifaces.toml): Value, Sell
+// 1/5/10/50, Examine.
 [opnpc3,_shop_keeper] ~openshop_activenpc;
 
 [proc,openshop](inv $shop, int $shop_buy, int $shop_sell, int $shop_haggle, string $title)
@@ -81,8 +82,9 @@ if(~can_sell_obj($item) = false) {
 }
 mes("<$item_name>: shop will buy for <tostring($item_value)>gp.");
 
-// Buy value: 289's left-click on the stock, 2011's Info (2011 opens its item
-// information panel there, obj_info, which is not ported).
+// Buy value: 289's left-click on the stock, 2011's Info (clientscript 2723;
+// void-634 opens its item information panel there, obj_info, which is not
+// ported).
 [if_button1,shop_template:inv]
 def_obj $item = inv_getobj(%shop, ~shop_slot(last_slot));
 def_string $item_name = oc_name($item);
@@ -203,14 +205,14 @@ if ($sell_amount > $player_amount) {
 }
 return ($sell_amount);
 
-// Sell buttons (2011 adds Sell 50)
+// Sell buttons (void-634 adds Sell 50)
 [if_button2,shop_template_side:inv] @shop_request(inv, last_slot, 1);
 [if_button3,shop_template_side:inv] @shop_request(inv, last_slot, 5);
 [if_button4,shop_template_side:inv] @shop_request(inv, last_slot, 10);
 [if_button5,shop_template_side:inv] @shop_request(inv, last_slot, 50);
 [if_button6,shop_template_side:inv] ~inv_examine(last_slot);
 
-// Buy buttons (2011 adds Buy 50 and Buy 500)
+// Buy buttons (2011 adds Buy 50 and Buy 500, clientscript 2723)
 [if_button2,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 1);
 [if_button3,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 5);
 [if_button4,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 10);

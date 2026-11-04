@@ -35,8 +35,9 @@ npc_setmode(playerfaceclose);
 p_delay(0);
 npc_setmode(null);
 p_delay(0);
-// 2011's other shearable sheep shear to their own shorn sheep (void-634
-// sheep.npcs.toml pairs each with its _shorn); 289's shears to `sheep`.
+// 2011's other shearable sheep shear to their own shorn sheep, as void-634
+// pairs them (sheep.npcs.toml, each with its _shorn; no 2011 source found
+// for the pairs); 289's shears to `sheep`.
 def_npc $shorn = sheep;
 if (npc_type = sheep_1763) {
     $shorn = sheep_1762;

@@ -1,24 +1,29 @@
 // 289's bank on 2011's: bank_v2_main (762) and bank_v2_side (763). The bank
 // is com93 of bank_v2_main, showing 289's inventory (inv 95); 2011's client
 // draws it and gives each item Withdraw-1, -5, -10, -<last X> (op4), -X
-// (op5), -All (op6), -All but one (op7) and Examine (op10) (void-634
-// bank.ifaces.toml; 289's ops 1-5 were 1, 5, 10, All, X). 289's two buttons
+// (op5), -All (op6), -All but one (op7) and Examine (op10) (clientscript
+// 1453, void-634 bank.ifaces.toml; 289's ops 1-5 were 1, 5, 10, All, X). 289's two buttons
 // each for notes and for swap/insert are one toggle each at 2011 (com19 and
 // com15). 289's triggers follow, commented, where 2011's replace them.
 [if_button1,bank_v2_main:com93] @bank_withdraw(last_slot, 1);
 [if_button2,bank_v2_main:com93] @bank_withdraw(last_slot, 5);
 [if_button3,bank_v2_main:com93] @bank_withdraw(last_slot, 10);
-// 2011: Withdraw-<the last X> (varp 1249, void-634 last_bank_amount).
+// 2011: Withdraw-<the last X> (varp 1249 in clientscript 1453's op4, void-634
+// last_bank_amount).
 [if_button4,bank_v2_main:com93] @bank_withdraw(last_slot, %last_bank_amount);
 [if_button5,bank_v2_main:com93] @bank_withdraw(last_slot, null);
 [if_button6,bank_v2_main:com93] @bank_withdraw(last_slot, ^max_32bit_int);
-// 2011: Withdraw-All but one (void-634 BankWithdraw).
+// 2011: Withdraw-All but one (clientscript 1453's op7; wiki Bank, 2011-05-21;
+// void-634 BankWithdraw). The wiki gives a message for one of an item: "You
+// only have one of this item, so withdrawing all but one does nothing."; this
+// sends none.
 [if_button7,bank_v2_main:com93]
 def_int $number = inv_total(bank, inv_getobj(bank, last_slot));
 if ($number > 1) {
     @bank_withdraw(last_slot, calc($number - 1));
 }
-// 2011's examine is the server's (op10).
+// 2011's examine is the server's (op10: clientscript 1453 gives it no
+// client-side handler).
 [if_button10,bank_v2_main:com93]
 def_obj $obj = inv_getobj(bank, last_slot);
 if ($obj ! null) {
@@ -32,12 +37,14 @@ if ($to_tab >= 0) {
     ~bank_drag_to_tab(last_slot, $to_tab);
     return;
 }
-// 2011's bank keeps no gaps, and its tabs are counted by slot.
+// 2011's bank keeps no gaps, and its tabs are counted by slot (clientscript
+// 1467 takes each tab's slots from the counts).
 if (inv_getobj(bank, last_targetslot) = null) {
     return;
 }
 if(%bankinsert = 1) {
-    // 2011: an item inserted into another tab moves to it.
+    // void-634's: an item inserted into another tab moves to it
+    // (BankTabs.shiftTab).
     ~bank_tab_moved(~bank_slot_tab(last_slot), ~bank_slot_tab(last_targetslot));
     @insert_bank(last_slot, last_targetslot);
 } else {
@@ -47,19 +54,21 @@ if(%bankinsert = 1) {
 [if_button,bank_v2_main:com15] %bankinsert = calc(1 - %bankinsert);
 [if_close,bank_v2_main] @closebank;
 
-// 2011's deposit buttons under the bank (void-634 bank.ifaces.toml): the
-// backpack (com33), what is worn (com35), a beast of burden's pack (com37).
+// 2011's deposit buttons under the bank (the cache's bank_v2_main op1s,
+// void-634 bank.ifaces.toml): the backpack (com33), what is worn (com35), a
+// beast of burden's pack (com37).
 // 289's bank has none; each item goes through 289's deposit, so its checks
 // and messages stand. Messages from void-634 (grade B).
 [if_button,bank_v2_main:com33] @bank_deposit_all(inv, "You have no items in your inventory to deposit.");
 [if_button,bank_v2_main:com35] @bank_deposit_all(worn, "You have no equipped items to deposit.");
 // No familiars are ported (summoning, post-289): there is no beast of burden
-// to empty. void-634's own message for this is a placeholder (grade C).
+// to empty. void-634's own message for this is a placeholder (a TODO in
+// BankDeposit.kt); no source found for this one (grade C).
 [if_button,bank_v2_main:com37] mes("You do not have a beast of burden.");
 // 2011: "Show Equipment Stats" (com117) swaps the bank for the Equipment
 // Stats screen (player/scripts/equip.rs2), whose "Show bank" brings it back.
 // Its client hides the bank on the click (clientscript 2318); with no screen
-// sent, 2011's bank stood blank.
+// sent, the ported bank stood blank.
 [if_button,bank_v2_main:com117] ~equip_screen_open(true);
 
 [label,bank_deposit_all](inv $inv, string $empty)
@@ -125,8 +134,8 @@ if_openmain_side(bank_v2_main, bank_v2_side);
 // backpack beside it: ops 1-6 and 10 (void-634 BankOpen).
 if_setevents(bank_v2_main:com93, 0, 515, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op7 + ^if_op10), 0, 2, ^true, ^false);
 if_setevents(bank_v2_side:com0, 0, 27, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op10), 0, 0, ^false, ^false);
-// 2011's client lays out the bank's slots (clientscript 1465, void-634
-// update_bank_slots), counted below it, and its search starts unset (varc
+// 2011's client writes the bank's slot counts below it (clientscript 1465,
+// void-634 update_bank_slots), and its search starts unset (varc
 // 190, void-634 bank_search_reset: the Search button's op, clientscript 1472;
 // unset, the title shows a search for 'null').
 ~bank_spaces_used;
@@ -155,7 +164,8 @@ if ($requested_number <= 0) {
     p_countdialog;
     if (last_int <= 0) return;
     $requested_number = last_int;
-    // 2011: the X is remembered for Withdraw-<X> (void-634 BankWithdraw).
+    // 2011: the X is remembered for Withdraw-<X> (wiki Bank, 2011-05-21;
+    // void-634 BankWithdraw).
     %last_bank_amount = last_int;
 }
 // How many have they got?
@@ -222,7 +232,8 @@ if ($overflow >= $amount) {
 def_int $deposit = sub($amount, $overflow);
 if ($deposit > 0) {
     session_log(^log_moderator, "Deposited <oc_debugname($obj)> x<tostring($deposit)> into bank");
-    // 2011: an item new to the bank goes into the tab on view (bank_tabs.rs2).
+    // void-634's: an item new to the bank goes into the tab on view
+    // (BankDeposit; bank_tabs.rs2).
     def_boolean $new = false;
     if (inv_total(bank, oc_uncert($obj)) = 0) {
         $new = true;
@@ -264,7 +275,8 @@ if (oc_param($obj, unbankable) = ^true) {
 }
 
 // https://www.youtube.com/watch?v=W5iZgykts2A // No mes when creating boxes via actions
-// 2011 has no Strange box random event (only the Maze and the Mime).
+// 2011 has no Strange box random event (2011 wiki, Random events, 2011-05-13:
+// discontinued; of 289's events only the Maze and the Mime are current).
 // if ($obj = macro_cube) {
 //     ~try_add_macro_cube;
 //     return(false);

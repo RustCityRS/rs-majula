@@ -1,10 +1,11 @@
 // 2011's ladders, stairs and trapdoors 289's scripts do not reach: 2011
 // re-placed many of 289's and re-issued some under new ids (the Lumbridge
 // castle cellar's ladder is 2011's 29355). tools/loc_teles_2011.py turns
-// void-634's record of each 2011 climb into loc_tele_2011 rows: a row per
-// placement, and per loc and op a default (the delta most of its placements
-// share). A loc no script names carries category loc_tele_2011; 289's stairs
-// fall back here where they would say "unhandled".
+// void-634's record of each climb (its own data, not proven 2011's) into
+// loc_tele_2011 rows: a row per placement, and per loc and op a default (the
+// delta most of its placements share). A loc no script names carries
+// category loc_tele_2011; 289's stairs fall back here where they would say
+// "unhandled".
 [oploc1,_loc_tele_2011] @loc_tele_2011_op(1);
 [oploc2,_loc_tele_2011] @loc_tele_2011_op(2);
 [oploc3,_loc_tele_2011] @loc_tele_2011_op(3);

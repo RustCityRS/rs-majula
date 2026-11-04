@@ -3,7 +3,8 @@
 // items together at its front, tab 1's first, and the rest after them;
 // varbits 4885-4892 count each tab's items, and %open_bank_tab is the tab on
 // view (1 for all of it, 2-9 for tabs 1-8). The client draws the tabs from
-// these (clientscript 1465), so they must stay true as items come and go.
+// these (clientscripts 1459 and 1467), so they must stay true as items come
+// and go.
 //
 // The tab buttons, from the right: com62 is all of the bank, com60 tab 1 ..
 // com46 tab 8. View Tab (op1) and View all are the client's own (clientscripts
@@ -208,9 +209,11 @@ while ($a < $b) {
 [proc,bank_used_slots]()(int)
 return(calc(inv_size(bank) - inv_freespace(bank)));
 
-// 2011's bank closes up behind an item taken out whole (void-634
-// BankWithdraw, shiftToFreeIndex); 289's left the gap until the bank was next
-// opened, and the tabs are counted by slot.
+// 2011's bank closes up behind an item taken out whole (wiki Bank,
+// 2011-05-21: Withdraw-All but one keeps a place-holder "so that the
+// positioning of the item is not disrupted"; void-634 BankWithdraw,
+// shiftToFreeIndex); 289's left the gap until the bank was closed or next
+// opened (reorganize_bank), and the tabs are counted by slot.
 [proc,bank_close_gap](int $slot)
 def_int $i = $slot;
 while (calc($i + 1) < inv_size(bank)) {

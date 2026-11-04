@@ -6,8 +6,8 @@
 //
 // Only the *exceptions* are listed here. Any dialogue NOT in this enum mounts
 // on the default `dialogue_box` slot (chatbox child 13). The two entries below
-// are the only `dialogue_box_small` interfaces in the revision (validated
-// against void dialogue.ifaces.toml: dialogue_obj_box=519,
+// are the only `dialogue_box_small` interfaces void-634 lists (void
+// dialogue.ifaces.toml: dialogue_obj_box=519,
 // dialogue_double_obj_box=131 — both type "dialogue_box_small" = chat_box
 // index 12). Everything else (chat/npc_chat/message/multi, and 148
 // dialogue_text_box_model) is a plain `dialogue_box` and needs no entry.

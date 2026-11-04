@@ -1,5 +1,6 @@
-// 2011 has twenty booths besides 289's one (2213), all Use and Use-quickly
-// (cache 786); they share the category bank_booth (configs/bank_booth.loc).
+// 2011 has twenty-one booths besides 289's one (2213), all Use and
+// Use-quickly (19230's as memberops) (cache 786); they share the category
+// bank_booth (configs/bank_booth.loc).
 // [oploc1,bankbooth]
 [oploc1,_bank_booth]
 if (npc_findcat(loc_coord, bank_teller, 2, 0) = true) {

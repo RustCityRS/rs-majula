@@ -7,8 +7,9 @@
 // as a tinted box behind the guide. The quest journal (275) is laid out for
 // the full slot too: in the main slot its text ran past the scroll. Every
 // interface void-634 types `wide_screen` is listed, and 2011's level-up
-// details (lvl_scroll, 741), whose root is the same full-slot backdrop as the
-// skill guide's (void-634 types it `main_screen`, which left it boxed).
+// details (lvl_scroll, 741), whose root is a full-slot backdrop like the
+// skill guide's, in the same brown but more translucent (void-634 types it
+// `main_screen`, which left it boxed).
 [wide_screen_enum]
 inputtype=interface
 outputtype=boolean

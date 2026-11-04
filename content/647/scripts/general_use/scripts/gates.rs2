@@ -13,8 +13,9 @@
 // All VM ops used (loc_coord/loc_angle/loc_category/loc_param/loc_del/loc_add/
 // loc_findallzone/loc_findnext/movecoord/distance) are implemented in
 // rs-engine/rs-vm/src/ops/loc.rs. 289 played door_open/door_close here, its
-// todo doubting gates had their own sounds yet; 2011's gates do (void-634's
-// Door.kt plays gate_open/gate_close for any gate), so these play those.
+// todo doubting gates had their own sounds yet; void-634's gates do (its
+// Door.kt plays <material>gate_open/_close for any gate; no 2011 source
+// found), so these play those.
 
 // ── Mirrored gates ─────────────────────────────────────────────────────────
 //

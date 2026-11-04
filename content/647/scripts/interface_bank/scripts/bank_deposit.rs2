@@ -1,6 +1,7 @@
 // 2011's backpack beside the bank, bank_v2_side's com0: Deposit-1, -5, -10,
-// -<last X> (op4), -X (op5), -All (op6), Examine (op10) (void-634; 289's
-// ops 1-5 were 1, 5, 10, All, X). 2011 does not let it be dragged.
+// -<last X> (op4), -X (op5), -All (op6), Examine (op10) (clientscript 1540,
+// void-634; 289's ops 1-5 were 1, 5, 10, All, X). void-634 does not let it
+// be dragged; 2011's clientscript 1540 does set its items draggable.
 [if_button1,bank_v2_side:com0] @bank_deposit(last_slot, 1);
 [if_button2,bank_v2_side:com0] @bank_deposit(last_slot, 5);
 [if_button3,bank_v2_side:com0] @bank_deposit(last_slot, 10);
@@ -23,7 +24,8 @@ if ($requested_number <= 0) {
     p_countdialog;
     if (last_int <= 0) return;
     $requested_number = last_int;
-    // 2011: the X is remembered for Deposit-<X> (void-634 BankDeposit).
+    // 2011: the X is remembered for Deposit-<X> (clientscript 1540's op4
+    // reads varp 1249; wiki Bank, 2011-05-21; void-634 BankDeposit).
     %last_bank_amount = last_int;
 }
 // How many have they got?

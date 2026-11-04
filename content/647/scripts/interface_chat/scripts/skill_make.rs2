@@ -129,8 +129,10 @@ def_int $count;
 $product, $count = ~skill_make($header, ^skill_make_make, 28, $obj1, $obj2, $obj3, $obj4, $obj5);
 return($product, $count);
 
-// 289's multiobj2 asks which of two items, with no amount; 2011 asks such
-// questions in the same dialogue, so it is skill_make with All at 1.
+// 289's multiobj2 asks which of two items, with no amount; here it is
+// skill_make with All at 1. No source found for 2011 asking such questions
+// in this dialogue: the cache still has a two-model "Select an Option"
+// interface, 140 (void-634's dialogue_select2_models).
 [proc,multiobj2](string $title, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, int $sx1, int $sy1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, int $sx2, int $sy2)(namedobj)
 def_namedobj $product;
 def_int $count;

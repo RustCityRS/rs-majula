@@ -4,8 +4,9 @@
 // itself from each quest's var (clientscript 2193). So a quest is its 2011
 // quest id (`^questlist_<quest>`, questlist.constant), and showing progress
 // asks the client to redraw the list (clientscript 2169). 2011 completes every
-// quest on one scroll (questscroll_ver3, interface 277), the custom scrolls of
-// 289's Observatory, Gertrude's Cat and Tai Bwo Wannai Trio being gone.
+// quest on one scroll (questscroll_ver3, interface 277; the cache's 380,
+// welcome_final_tex, is a twin of it), the custom scrolls of 289's
+// Observatory, Gertrude's Cat and Tai Bwo Wannai Trio being gone.
 
 [proc,send_quest_progress](int $quest, int $progress, int $complete_progress)
 ~send_quest_progress_colour($quest, $progress, $complete_progress);
@@ -25,8 +26,9 @@ if ($random < 32) {       // The least common music that plays when completing a
     ~music_jingle("quest complete 1");
 }
 ~update_questpoints;
-// Send Quest Scroll: 2011's names the quest's own points first among the
-// rewards, which the quest's port lists below it, and shows the total.
+// Send Quest Scroll: void-634's names the quest's own points first among the
+// rewards (Cook.kt, Doric.kt, ...; no 2011 source found), which the quest's
+// port lists below it, and shows the total (277's "Quest Points:", com7).
 if_settext(questscroll_ver3:com4, $questmessage);
 if_setobject(questscroll_ver3:com5, $obj, $objscale);
 if_settext(questscroll_ver3:com7, tostring(%qp));

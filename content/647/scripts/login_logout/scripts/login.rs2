@@ -4,7 +4,8 @@ mes("Welcome to RuneScape.")
 // hp is separate so rapid heal/restore can retune it independently
 settimer(stat_regen, 100);
 settimer(stat_boost_restore, 100);
-// +1 life point per 10 ticks (~6s) = 10 LP/min base recovery (647 model).
+// +1 life point per 10 ticks (~6s) = 10 LP/min base recovery (wiki
+// Constitution, 2011-05-12: "one life point about every six seconds").
 settimer(health_regen, 10);
 // Bonus-XP elapsed clock: re-arm the per-minute timer each login (timers aren't
 // saved). The elapsed total itself PERSISTS across logout (varp_1644 = scope=perm),
@@ -98,7 +99,7 @@ if (getwindowmode = 1) {
 if_opensub(chatbox_background, chatbox:com_chatbox_background, ^true)
 
 // The prayer orb's quick prayers, selecting (varc 181) and on (182), which
-// 2011's server sends as the orb opens (void-634 PrayerList.kt). The client
+// void-634's server sends as the orb opens (PrayerList.kt). The client
 // starts both at -1, and the prayer book offers Activate only while 181 is 0
 // (clientscript 1237): unsent, no prayer can be clicked. Quick prayers
 // themselves are not ported.
@@ -184,8 +185,9 @@ if_setevents(combat_side:style3, -1, -1, ^if_op1, 0, 0, ^false, ^false)
 if_setevents(combat_side:style4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
 
 // The quest tab's list (questlist_v4, 190) is a row per 2011 quest id; View is
-// op1 on rows 0-300, as void-634 unlocks it (QuestJournals.kt). Points: the
-// total quest points 2011 offered (varp 904; void-634's quests.toml).
+// op1 on rows 0-300, as void-634 unlocks it (QuestJournals.kt). Points:
+// void-634's total, 311 (varp 904; quests.toml); the wiki's is 316 (see
+// general/configs/quest_interface.constant).
 if_setevents(questlist_v4:com18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
 %quest_points_total = ^quest_points_total;
 ~update_questlist;

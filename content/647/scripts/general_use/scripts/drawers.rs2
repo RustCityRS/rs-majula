@@ -43,9 +43,9 @@ if(loc_coord = 1_40_51_15_62) {
 }
 ~displaymessage(^dm_default);
 
-// 2011's open drawers (general_use/configs/searchables_2011.loc) search
-// with op1 and shut with op2 where 289's used op2 and op3; they reach 289's
-// bodies, which are labels for it.
+// Most of 2011's open drawers (general_use/configs/searchables_2011.loc)
+// search with op1 and shut with op2 where 289's used op2 and op3 (the rest
+// keep 289's ops); they reach 289's bodies, which are labels for it.
 [oploc1,_empty_drawer_2011] @empty_drawer_search;
 [oploc2,_empty_drawer_2011] @empty_drawer_shut;
 

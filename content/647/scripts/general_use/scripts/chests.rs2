@@ -26,9 +26,9 @@ if(map_members = ^true) {
 }
 ~displaymessage(^dm_default);
 
-// 2011's open chests (general_use/configs/searchables_2011.loc) put Search
-// and Shut on other ops than 289's op2 and op3; they reach 289's bodies,
-// which are labels for it.
+// Most of 2011's open chests (general_use/configs/searchables_2011.loc) put
+// Search and Shut on other ops than 289's op2 and op3 (the rest keep 289's
+// ops); they reach 289's bodies, which are labels for it.
 [oploc1,_chest_open_2011] @chest_open_search;
 [oploc2,_chest_open_2011] @chest_open_shut;
 [oploc2,_chest_open_2011b] @chest_open_search;

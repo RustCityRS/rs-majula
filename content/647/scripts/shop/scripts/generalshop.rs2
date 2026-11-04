@@ -10,9 +10,10 @@
 [opnpc1,generalassistant3] @generalshop_help; //Al-Kharid
 [opnpc1,generalshopkeeper6] @generalshop_help; //Rimmington
 [opnpc1,generalassistant6] @generalshop_help; //Rimmington
-// Karamja: 289's 532 and 533 are 2011's gravecreepers. 2011 rebuilt Musa
-// Point's store, kept by Shopkeeper Kofi and an assistant whose npc (11677)
-// shows one of two others by a varbit; its ops are theirs, which the server
+// Karamja: 289's 532 and 533 are 2011's gravecreepers. 2011's Musa Point
+// store is kept by Shopkeeper Kofi (wiki, Shopkeeper Kofi, 2011-05-02; no
+// source found for a rebuild) and an assistant whose npc (11677) shows one
+// of two others by a varbit (7451); its ops are theirs, which the server
 // does not resolve yet, so only Kofi answers.
 [opnpc1,shopkeeper_kofi] @generalshop_help; //Karamja
 [opnpc1,npc_11677] @generalshop_help; //Karamja
