@@ -669,8 +669,10 @@ impl Engine {
         size: u8,
         block_walk: BlockWalk,
     ) {
-        if prev.zone_x() != next.zone_x() || prev.zone_z() != next.zone_z() || prev.y() != next.y()
-        {
+        if prev == next {
+            return;
+        }
+        if prev.to_zone() != next.to_zone() {
             match &entity {
                 EntityId::Npc(nid) => {
                     zones
@@ -688,20 +690,18 @@ impl Engine {
                 }
             }
         }
-        if prev.x() != next.x() || prev.z() != next.z() || prev.y() != next.y() {
-            match block_walk {
-                BlockWalk::Npc => {
-                    rsmod::change_npc(prev.x(), prev.z(), prev.y(), size, false);
-                    rsmod::change_npc(next.x(), next.z(), next.y(), size, true);
-                }
-                BlockWalk::All => {
-                    rsmod::change_npc(prev.x(), prev.z(), prev.y(), size, false);
-                    rsmod::change_npc(next.x(), next.z(), next.y(), size, true);
-                    rsmod::change_player(prev.x(), prev.z(), prev.y(), size, false);
-                    rsmod::change_player(next.x(), next.z(), next.y(), size, true);
-                }
-                BlockWalk::None => {}
+        match block_walk {
+            BlockWalk::Npc => {
+                rsmod::change_npc(prev.x(), prev.z(), prev.y(), size, false);
+                rsmod::change_npc(next.x(), next.z(), next.y(), size, true);
             }
+            BlockWalk::All => {
+                rsmod::change_npc(prev.x(), prev.z(), prev.y(), size, false);
+                rsmod::change_npc(next.x(), next.z(), next.y(), size, true);
+                rsmod::change_player(prev.x(), prev.z(), prev.y(), size, false);
+                rsmod::change_player(next.x(), next.z(), next.y(), size, true);
+            }
+            BlockWalk::None => {}
         }
     }
 }

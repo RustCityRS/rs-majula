@@ -1,3 +1,4 @@
+use std::ops::{Deref, DerefMut};
 mod renderer;
 
 pub use renderer::{NpcRenderer, PlayerRenderer};
@@ -104,6 +105,16 @@ pub enum Visibility {
 /// `exactmove_dir`, `changetype`.
 pub struct EntityMasks {
     pub masks: u16,
+    pub face_entity: Option<u16>,
+    pub face_x: Option<u16>,
+    pub face_z: Option<u16>,
+    pub orientation_x: Option<u16>,
+    pub orientation_z: Option<u16>,
+    pub vis: Visibility,
+    cold: Box<EntityMasksCold>,
+}
+
+pub struct EntityMasksCold {
     pub appearance: Option<u16>,
     pub last_appearance: Option<u32>,
     pub last_appearance_info: Option<Box<[u8]>>,
@@ -114,11 +125,6 @@ pub struct EntityMasks {
     pub walkanim_l: Option<u16>,
     pub walkanim_r: Option<u16>,
     pub runanim: Option<u16>,
-    pub face_entity: Option<u16>,
-    pub face_x: Option<u16>,
-    pub face_z: Option<u16>,
-    pub orientation_x: Option<u16>,
-    pub orientation_z: Option<u16>,
     pub anim_id: Option<u16>,
     pub anim_delay: Option<u8>,
     pub anim_protect: bool,
@@ -152,7 +158,19 @@ pub struct EntityMasks {
     pub exactmove_finish: Option<u16>,
     pub exactmove_dir: Option<u8>,
     pub changetype: Option<u16>,
-    pub vis: Visibility,
+}
+
+impl Deref for EntityMasks {
+    type Target = EntityMasksCold;
+    fn deref(&self) -> &Self::Target {
+        &self.cold
+    }
+}
+
+impl DerefMut for EntityMasks {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.cold
+    }
 }
 
 impl EntityMasks {
@@ -171,58 +189,60 @@ impl EntityMasks {
     /// # Call Stack
     ///
     /// **Called by:** `Player::new`, `Npc::new` (rs-entity).
-    pub const fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             masks: 0,
-            appearance: None,
-            last_appearance: None,
-            last_appearance_info: None,
-            readyanim: None,
-            turnanim: None,
-            walkanim: None,
-            walkanim_b: None,
-            walkanim_l: None,
-            walkanim_r: None,
-            runanim: None,
             face_entity: None,
             face_x: None,
             face_z: None,
             orientation_x: None,
             orientation_z: None,
-            anim_id: None,
-            anim_delay: None,
-            anim_protect: false,
-            say: None,
-            damage_taken: None,
-            damage_type: None,
-            damage_current: None,
-            damage_base: None,
-            #[cfg(since_244)]
-            damage2_taken: None,
-            #[cfg(since_244)]
-            damage2_type: None,
-            #[cfg(since_244)]
-            damage2_current: None,
-            #[cfg(since_244)]
-            damage2_base: None,
-            #[cfg(since_244)]
-            damage_slot: 0,
-            chat_bytes: None,
-            chat_colour: None,
-            chat_effects: None,
-            chat_ignored: None,
-            spotanim: None,
-            spotanim_height: None,
-            spotanim_delay: None,
-            exactmove_start_x: None,
-            exactmove_start_z: None,
-            exactmove_end_x: None,
-            exactmove_end_z: None,
-            exactmove_begin: None,
-            exactmove_finish: None,
-            exactmove_dir: None,
-            changetype: None,
             vis: Visibility::Default,
+            cold: Box::new(EntityMasksCold {
+                appearance: None,
+                last_appearance: None,
+                last_appearance_info: None,
+                readyanim: None,
+                turnanim: None,
+                walkanim: None,
+                walkanim_b: None,
+                walkanim_l: None,
+                walkanim_r: None,
+                runanim: None,
+                anim_id: None,
+                anim_delay: None,
+                anim_protect: false,
+                say: None,
+                damage_taken: None,
+                damage_type: None,
+                damage_current: None,
+                damage_base: None,
+                #[cfg(since_244)]
+                damage2_taken: None,
+                #[cfg(since_244)]
+                damage2_type: None,
+                #[cfg(since_244)]
+                damage2_current: None,
+                #[cfg(since_244)]
+                damage2_base: None,
+                #[cfg(since_244)]
+                damage_slot: 0,
+                chat_bytes: None,
+                chat_colour: None,
+                chat_effects: None,
+                chat_ignored: None,
+                spotanim: None,
+                spotanim_height: None,
+                spotanim_delay: None,
+                exactmove_start_x: None,
+                exactmove_start_z: None,
+                exactmove_end_x: None,
+                exactmove_end_z: None,
+                exactmove_begin: None,
+                exactmove_finish: None,
+                exactmove_dir: None,
+                changetype: None,
+            }),
         }
     }
 

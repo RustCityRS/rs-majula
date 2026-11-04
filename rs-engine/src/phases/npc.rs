@@ -2,6 +2,10 @@ use crate::active_npc::ActiveNpc;
 use crate::engine::{Engine, NpcEvent, NpcEventKind};
 use crate::engine::{engine, engine_mut};
 use crate::phases::shared::EntityId;
+#[cfg(target_arch = "x86_64")]
+use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
+#[cfg(target_arch = "x86_64")]
+use rs_entity::Npc;
 use rs_entity::{Direction, EntityLifeTime, InteractionTarget, ObjSerial, PathingEntity};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
@@ -15,6 +19,8 @@ use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
+#[cfg(target_arch = "x86_64")]
+use std::mem::size_of;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
@@ -23,6 +29,7 @@ use tracing::error;
 /// so both dependent cache misses resolve while earlier npcs are processed. Raise it if
 /// per-npc work gets cheaper, lower it if it gets much heavier.
 const NPC_PREFETCH_AHEAD: usize = 6;
+const NPC_DATA_PREFETCH_AHEAD: usize = 16;
 
 impl Engine {
     /// Processes the NPC phase of the engine tick cycle.
@@ -79,6 +86,8 @@ impl Engine {
                         nids.get(start + NPC_PREFETCH_AHEAD / 2),
                         PathingEntity::prefetch_step_tile,
                     );
+
+                    self.prefetch_npc_data(nids.get(start + NPC_DATA_PREFETCH_AHEAD));
                     Self::process_npc(self, nid);
                     start += 1;
                 }
@@ -162,6 +171,22 @@ impl Engine {
         };
         if active.npc.active {
             prefetch(&active.npc.pathing);
+        }
+    }
+
+    #[inline(always)]
+    pub(super) fn prefetch_npc_data(&self, _nid: Option<&u16>) {
+        #[cfg(target_arch = "x86_64")]
+        if let Some(active) = _nid
+            .and_then(|&nid| self.npc_list.npcs.get(nid as usize))
+            .and_then(|npc| npc.as_deref())
+        {
+            let ptr = &raw const active.npc as *const i8;
+            for offset in (0..size_of::<Npc>()).step_by(64) {
+                unsafe {
+                    _mm_prefetch::<_MM_HINT_T0>(ptr.add(offset));
+                }
+            }
         }
     }
 
@@ -1129,12 +1154,12 @@ impl Engine {
     #[inline(always)]
     fn npc_consume_hunt_target(active: *mut ActiveNpc) {
         let active = unsafe { &mut *active };
-        if active.npc.hunt_target.is_none() {
-            return;
-        }
         let Some(hunt_id) = active.npc.hunt_mode else {
             return;
         };
+        if active.npc.hunt_target.is_none() {
+            return;
+        }
         let engine = engine();
         let Some(hunt) = engine.hunts().get_by_id(hunt_id) else {
             return;

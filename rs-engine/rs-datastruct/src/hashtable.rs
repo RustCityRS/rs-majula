@@ -7,6 +7,7 @@ struct HashEntry<T> {
 
 #[allow(clippy::len_without_is_empty)]
 pub struct HashTable<T> {
+    revision: u64,
     bucket_count: usize,
     entries: Vec<HashEntry<T>>,
     free: Vec<usize>,
@@ -25,6 +26,7 @@ impl<T> HashTable<T> {
             });
         }
         HashTable {
+            revision: 0,
             bucket_count,
             entries,
             free: Vec::new(),
@@ -66,6 +68,7 @@ impl<T> HashTable<T> {
     }
 
     pub fn put(&mut self, key: i64, value: T) -> usize {
+        self.revision = self.revision.wrapping_add(1);
         let idx = self.alloc(key, value);
         let sentinel = (key as usize) & (self.bucket_count - 1);
         let prev = self.entries[sentinel].prev;
@@ -86,10 +89,12 @@ impl<T> HashTable<T> {
     }
 
     pub fn value_mut(&mut self, handle: usize) -> &mut T {
+        self.revision = self.revision.wrapping_add(1);
         self.entries[handle].value.as_mut().expect("invalid handle")
     }
 
     pub fn unlink(&mut self, handle: usize) -> T {
+        self.revision = self.revision.wrapping_add(1);
         let prev = self.entries[handle].prev;
         let next = self.entries[handle].next;
         self.entries[prev].next = next;
@@ -98,6 +103,10 @@ impl<T> HashTable<T> {
         self.free.push(handle);
         self.len -= 1;
         value
+    }
+
+    pub fn revision(&self) -> u64 {
+        self.revision
     }
 
     pub fn len(&self) -> usize {

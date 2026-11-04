@@ -78,7 +78,9 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::BTreeMap;
 use std::net::{IpAddr, SocketAddr};
+use std::ops::Deref;
 use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::slice::Iter;
 use std::sync::Arc;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::{mpsc, watch};
@@ -143,12 +145,8 @@ pub struct LoginRequest {
     pub password: Box<str>,
     pub low_memory: bool,
     pub remote_addr: SocketAddr,
-    /// The id the client install sent, when it sends one that tells installs
-    /// apart: logins that share it link accounts, as an address does.
     pub uid: Option<i32>,
     pub reconnect: bool,
-    /// What the client said about the device it runs on. A phone or tablet
-    /// plays by touch (see [`crate::watch::AntiCheat::touch`]).
     pub device: LoginDevice,
 }
 
@@ -513,12 +511,29 @@ impl<'a> OtherPlayers<'a> {
     }
 }
 
+pub struct NpcOrder {
+    revision: u64,
+    values: Vec<u16>,
+}
+impl Deref for NpcOrder {
+    type Target = [u16];
+    fn deref(&self) -> &[u16] {
+        &self.values
+    }
+}
+impl<'a> IntoIterator for &'a NpcOrder {
+    type Item = &'a u16;
+    type IntoIter = Iter<'a, u16>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.values.iter()
+    }
+}
 pub struct NpcList {
     pub npcs: Vec<Option<Box<ActiveNpc>>>,
     pub processing: HashTable<u16>,
     node_map: Vec<usize>,
     cursor: u16,
-    nid_scratch: Vec<u16>,
+    nid_scratch: Option<NpcOrder>,
     pub despawn_pending: Vec<u16>,
 }
 
@@ -531,7 +546,10 @@ impl NpcList {
             processing: HashTable::new(8),
             node_map: vec![0; MAX_NPCS],
             cursor: (MAX_NPCS - 2) as u16,
-            nid_scratch: Vec::with_capacity(MAX_NPCS),
+            nid_scratch: Some(NpcOrder {
+                revision: u64::MAX,
+                values: Vec::with_capacity(MAX_NPCS),
+            }),
             despawn_pending: Vec::new(),
         }
     }
@@ -539,16 +557,21 @@ impl NpcList {
     /// Takes the reusable nid buffer, filled with the current processing-order
     /// nids. Return it with [`put_nids`](Self::put_nids) to reuse the
     /// allocation. See [`PlayerList::take_pids`].
-    pub fn take_nids(&mut self) -> Vec<u16> {
-        let mut v = std::mem::take(&mut self.nid_scratch);
-        v.clear();
-        v.extend(self.processing.iter().copied());
-        v
+    pub fn take_nids(&mut self) -> NpcOrder {
+        let revision = self.processing.revision();
+        let mut order = self.nid_scratch.take().unwrap_or_else(|| NpcOrder {
+            revision: !revision,
+            values: Vec::with_capacity(self.processing.len()),
+        });
+        if order.revision != revision {
+            order.values.clear();
+            order.values.extend(self.processing.iter().copied());
+            order.revision = revision;
+        }
+        order
     }
-
-    /// Returns the buffer taken by [`take_nids`](Self::take_nids) for reuse.
-    pub fn put_nids(&mut self, v: Vec<u16>) {
-        self.nid_scratch = v;
+    pub fn put_nids(&mut self, order: NpcOrder) {
+        self.nid_scratch = Some(order);
     }
 
     pub fn next_nid(&self) -> Option<u16> {
@@ -1091,10 +1114,13 @@ impl Engine {
     /// signaling [`Engine::cycle`] to return [`CycleResult::Shutdown`] so the
     /// driver can flush database saves and exit the process.
     fn process_shutdown(&mut self) -> bool {
-        // Ask every connected (non-bot) player to log out. Idempotent: once
-        // `logout_sent` is set the logout phase takes over the removal.
-        for active in self.player_list.players.iter_mut().flatten() {
-            if !active.player.bot && !active.player.logout_sent {
+        for pid in self.player_list.pids() {
+            let Some(active) = self.player_list.players[pid as usize].as_mut() else {
+                continue;
+            };
+            if active.player.bot {
+                self.remove_player(pid);
+            } else if !active.player.logout_sent {
                 active.logout();
             }
         }
@@ -2759,6 +2785,7 @@ impl Engine {
     }
 
     /// Saves a player who is leaving this world and logs them out of ether.
+    /// Bot players have no persistent account and are skipped.
     ///
     /// The save ends the player's database session in the same transaction,
     /// and ether only hears of the logout once that save's ack comes back
@@ -2776,6 +2803,9 @@ impl Engine {
         let Some(active) = self.player_list.players[pid as usize].as_ref() else {
             return;
         };
+        if active.player.bot {
+            return;
+        }
         let user37 = active.uid().username37();
         if self.db_tx.is_none() {
             self.release_logout(user37);
@@ -7175,5 +7205,49 @@ mod tests {
         // Next from cursor=2 → finds 4
         let id = next_free_id(cursor, 5, 1, |i| !occupied[i as usize]).unwrap();
         assert_eq!(id, 4);
+    }
+}
+
+#[cfg(test)]
+mod npc_order_tests {
+    use super::NpcList;
+    #[test]
+    fn snapshots_refresh_after_same_length_remove_and_add() {
+        let mut list = NpcList::new();
+        let first = list.processing.put(0, 11);
+        list.processing.put(8, 22);
+        let old = list.take_nids();
+        assert_eq!(&*old, &[11, 22]);
+        list.processing.unlink(first);
+        list.processing.put(16, 33);
+        list.put_nids(old);
+        assert_eq!(&*list.take_nids(), &[22, 33]);
+    }
+    #[test]
+    fn returning_an_old_outer_snapshot_cannot_hide_nested_mutations() {
+        let mut list = NpcList::new();
+        list.processing.put(0, 11);
+        let outer = list.take_nids();
+        list.processing.put(8, 22);
+        let nested = list.take_nids();
+        assert_eq!(&*nested, &[11, 22]);
+        list.put_nids(nested);
+        list.put_nids(outer);
+        let current = list.take_nids();
+        assert_eq!(&*current, &[11, 22]);
+        list.put_nids(current);
+        assert_eq!(&*list.take_nids(), &[11, 22]);
+    }
+    #[test]
+    fn value_changes_and_bucket_order_are_reflected() {
+        let mut list = NpcList::new();
+        list.processing.put(7, 77);
+        let first = list.processing.put(0, 11);
+        list.processing.put(8, 22);
+        let old = list.take_nids();
+        assert_eq!(&*old, &[11, 22, 77]);
+        *list.processing.value_mut(first) = 33;
+        list.put_nids(old);
+        assert_eq!(&*list.take_nids(), &[33, 22, 77]);
     }
 }

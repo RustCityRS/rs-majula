@@ -13,7 +13,7 @@ pub struct EntityState {
     pub protect: bool,
     pub active_script: Option<Box<ScriptState>>,
     pub queues: ScriptQueue,
-    pub timers: ScriptTimer,
+    pub timers: Box<ScriptTimer>,
 }
 
 impl EntityState {
@@ -29,7 +29,7 @@ impl EntityState {
             protect: false,
             active_script: None,
             queues: ScriptQueue::new(),
-            timers: ScriptTimer::new(),
+            timers: Box::new(ScriptTimer::new()),
         }
     }
 

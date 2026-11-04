@@ -51,20 +51,18 @@ impl MapsquareCoordGrid {
         )
     }
 
-    /// Wraps a raw pre-packed `u16` value into a `MapsquareCoordGrid`.
+    /// Creates a `MapsquareCoordGrid` from a packed `u16`, clearing the unused top two bits.
     ///
-    /// No validation or masking is performed; the caller is responsible for
-    /// ensuring the value was produced by the same bit layout. This is typically
-    /// used when reading a coordinate offset from a sequential decoder where the
-    /// packed integer has been accumulated arithmetically.
+    /// Preserves the X, Y, and Z components while ensuring coordinates for the
+    /// same tile have identical packed values, equality, and hashes.
     ///
     /// # Arguments
     ///
-    /// * `packed` - A pre-packed 14-bit coordinate value.
+    /// * `packed` - A packed coordinate; only its low 14 bits are retained.
     ///
     /// # Returns
     ///
-    /// A `MapsquareCoordGrid` wrapping the provided value.
+    /// A `MapsquareCoordGrid` containing the normalized packed coordinate.
     ///
     /// # Call Stack
     ///
@@ -74,7 +72,7 @@ impl MapsquareCoordGrid {
     /// **Calls:** nothing (leaf constructor).
     #[inline(always)]
     pub const fn from(packed: u16) -> Self {
-        MapsquareCoordGrid(packed)
+        MapsquareCoordGrid(packed & 0x3FFF)
     }
 
     /// Returns the raw packed `u16` value.
@@ -159,6 +157,29 @@ impl MapsquareCoordGrid {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashSet;
+
+    #[test]
+    fn packed_coordinates_ignore_unused_bits_for_identity() {
+        for expected in [
+            MapsquareCoordGrid::new(0, 0, 0),
+            MapsquareCoordGrid::new(22, 1, 18),
+            MapsquareCoordGrid::new(63, 3, 63),
+        ] {
+            let mut coordinates = HashSet::new();
+            for upper in 0..4 {
+                let coord = MapsquareCoordGrid::from(expected.packed() | (upper << 14));
+                assert_eq!(
+                    (coord.x(), coord.y(), coord.z()),
+                    (expected.x(), expected.y(), expected.z())
+                );
+                assert_eq!(coord, expected);
+                assert_eq!(coord.packed(), expected.packed());
+                coordinates.insert(coord);
+            }
+            assert_eq!(coordinates.len(), 1);
+        }
+    }
 
     #[test]
     fn new_and_accessors() {
@@ -209,7 +230,6 @@ mod tests {
         assert_eq!(a, b);
         assert_ne!(a, c);
 
-        use std::collections::HashSet;
         let mut set = HashSet::new();
         set.insert(a);
         assert!(set.contains(&b));
@@ -229,8 +249,8 @@ mod tests {
     #[test]
     fn packed_representation() {
         let ms = MapsquareCoordGrid::new(10, 2, 20);
-        let packed = ms.0;
-        let reconstructed = MapsquareCoordGrid(packed);
+        let packed = ms.packed();
+        let reconstructed = MapsquareCoordGrid::from(packed);
         assert_eq!(reconstructed.x(), 10);
         assert_eq!(reconstructed.y(), 2);
         assert_eq!(reconstructed.z(), 20);

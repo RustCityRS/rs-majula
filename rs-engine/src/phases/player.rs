@@ -3,6 +3,8 @@ use crate::engine::Engine;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::phases::shared::EntityId;
+#[cfg(target_arch = "x86_64")]
+use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
 use rs_entity::MoveSpeed;
 use rs_entity::interaction::InteractionTarget;
 use rs_grid::CoordGrid;
@@ -14,6 +16,8 @@ use rs_vm::trigger::ServerTriggerType;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
+
+const PLAYER_DATA_PREFETCH_AHEAD: usize = 16;
 
 impl Engine {
     /// Processes the player phase of the engine tick cycle.
@@ -54,6 +58,7 @@ impl Engine {
         loop {
             let result = catch_unwind(AssertUnwindSafe(|| {
                 for &pid in &pids[start..] {
+                    self.prefetch_player_data(pids.get(start + PLAYER_DATA_PREFETCH_AHEAD));
                     Self::process_player(self, pid);
                     start += 1;
                 }
@@ -70,6 +75,23 @@ impl Engine {
             }
         }
         self.player_list.put_pids(pids);
+    }
+
+    #[inline(always)]
+    pub(super) fn prefetch_player_data(&self, _pid: Option<&u16>) {
+        #[cfg(target_arch = "x86_64")]
+        if let Some(active) = _pid
+            .and_then(|&pid| self.player_list.players.get(pid as usize))
+            .and_then(|player| player.as_ref())
+        {
+            unsafe {
+                _mm_prefetch::<_MM_HINT_T0>((&raw const active.player.state.protect).cast());
+                _mm_prefetch::<_MM_HINT_T0>((&raw const active.player.pathing.coord).cast());
+                _mm_prefetch::<_MM_HINT_T0>((&raw const active.player.info.masks).cast());
+                _mm_prefetch::<_MM_HINT_T0>((&raw const active.player.interaction.target).cast());
+                _mm_prefetch::<_MM_HINT_T0>((&raw const active.player.runenergy).cast());
+            }
+        }
     }
 
     #[inline(always)]
@@ -997,8 +1019,8 @@ impl Engine {
             let uid = active.player.uid;
             let trigger = ap_trigger.unwrap();
 
-            let saved_waypoints = active.player.pathing.waypoints;
-            let saved_waypoint_index = active.player.pathing.waypoint_index;
+            let saved_waypoints = active.player.pathing.waypoints.snapshot();
+            let saved_waypoint_index = active.player.pathing.waypoints.index;
 
             active.player.interaction.target = None;
             active.player.clear_waypoints();
@@ -1022,8 +1044,8 @@ impl Engine {
             if active.player.next_target.is_some() {
                 active.player.clear_waypoints();
             } else if active.player.interaction.ap_range_called {
-                active.player.pathing.waypoints = saved_waypoints;
-                active.player.pathing.waypoint_index = saved_waypoint_index;
+                active.player.pathing.waypoints.restore(saved_waypoints);
+                active.player.pathing.waypoints.index = saved_waypoint_index;
                 return false;
             }
             return true;

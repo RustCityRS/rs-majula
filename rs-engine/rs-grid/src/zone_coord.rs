@@ -54,20 +54,18 @@ impl ZoneCoordGrid {
         )
     }
 
-    /// Wraps a raw pre-packed `u32` value as a `ZoneCoordGrid`.
+    /// Creates a `ZoneCoordGrid` from a packed `u32`, clearing the unused top eight bits.
     ///
-    /// No validation or masking is performed -- the caller is responsible for
-    /// ensuring the value follows the expected bit layout. This is typically
-    /// used when reading zone keys that were previously packed, such as the
-    /// multiway/free2play zone-key sets loaded from the content CSVs.
+    /// Preserves the zone X, Y, and Z components while ensuring coordinates for
+    /// the same zone have identical packed values, equality, and hashes.
     ///
     /// # Arguments
     ///
-    /// * `packed` - A `u32` already in the `ZoneCoordGrid` bit layout.
+    /// * `packed` - A packed zone coordinate; only its low 24 bits are retained.
     ///
     /// # Returns
     ///
-    /// A `ZoneCoordGrid` wrapping the given value directly.
+    /// A `ZoneCoordGrid` containing the normalized packed coordinate.
     ///
     /// # Call Stack
     ///
@@ -76,7 +74,7 @@ impl ZoneCoordGrid {
     /// **Calls:** nothing.
     #[inline(always)]
     pub const fn from(packed: u32) -> Self {
-        ZoneCoordGrid(packed)
+        ZoneCoordGrid(packed & 0x00FFFFFF)
     }
 
     /// Returns the raw packed `u32` value.
@@ -183,6 +181,26 @@ impl ZoneCoordGrid {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashSet;
+
+    #[test]
+    fn packed_coordinates_ignore_unused_bits_for_identity() {
+        for expected in [
+            ZoneCoordGrid::new(0, 0, 0),
+            ZoneCoordGrid::new(3222, 1, 3218),
+            ZoneCoordGrid::new(0x3FFF, 3, 0x3FFF),
+        ] {
+            let mut coordinates = HashSet::new();
+            for upper in 0..=0xFF {
+                let coord = ZoneCoordGrid::from(expected.packed() | (upper << 24));
+                assert_eq!(coord.index(), expected.index());
+                assert_eq!(coord, expected);
+                assert_eq!(coord.packed(), expected.packed());
+                coordinates.insert(coord);
+            }
+            assert_eq!(coordinates.len(), 1);
+        }
+    }
 
     #[test]
     fn new_and_accessors() {
@@ -248,7 +266,6 @@ mod tests {
         assert_eq!(a, b);
         assert_ne!(a, c);
 
-        use std::collections::HashSet;
         let mut set = HashSet::new();
         set.insert(a);
         assert!(set.contains(&b));

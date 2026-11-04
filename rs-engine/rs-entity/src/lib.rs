@@ -8,6 +8,7 @@ pub mod obj;
 pub mod pathing;
 pub mod player;
 pub mod state;
+pub mod waypoints;
 
 pub use build::{BuildArea, IdBitSet, MAX_NPCS, MAX_PLAYERS};
 pub use direction::Direction;

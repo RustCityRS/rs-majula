@@ -33,7 +33,7 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptArgument;
 use rs_vm::subject::ScriptSubject;
 use std::panic;
-use tracing::error;
+use tracing::{error, info};
 
 /// Handles the `ClientCheat` client protocol message.
 ///
@@ -142,6 +142,7 @@ fn cheat_maintainer(
         "reboot" => cheat_reboot(),
         "slowreboot" => cheat_slow_reboot(&mut args),
         "bots" => cheat_spawn_bots(active),
+        "localbots" => cheat_spawn_local_bots(active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
         _ => cheat_jagex_moderator(cmd, args, active),
@@ -627,62 +628,70 @@ fn cheat_slow_reboot(args: &mut Split<char>) -> Result<(), ScriptError> {
 ///
 /// Usage: `::bots` (no arguments).
 fn cheat_spawn_bots(_player: &ActivePlayer) -> Result<(), ScriptError> {
-    let center_x: i32 = 3222;
-    let center_z: i32 = 3222;
-    let grid_size: i32 = 45; // 45x45 grid = 2025 slots, enough for 2000
-    let half: i32 = grid_size / 2;
+    spawn_bots(CoordGrid::new(3222, 0, 3222), 2000, 45);
+    Ok(())
+}
 
+/// Fills the available player slots with bots in a 15x15 tile area centered on
+/// the player, preserving their current level. Reports the number spawned.
+///
+/// Usage: `::localbots` (no arguments).
+fn cheat_spawn_local_bots(active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let spawned = spawn_bots(active.player.pathing.coord, 2048, 15);
+    active.message_game(&format!(
+        "Spawned {spawned} bots in a 15x15 area around you."
+    ));
+    Ok(())
+}
+
+/// Spawns up to `count` bots across a square grid, reusing tiles when the count
+/// exceeds the grid area. Stops when no player slots remain and clamps tile
+/// positions to the world bounds.
+fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
+    let half = (grid_size >> 1) as i32;
     let engine = engine_mut();
-
     let mut spawned = 0;
-    for dx in -half..=half {
-        for dz in -half..=half {
-            if spawned >= 2000 {
-                break;
-            }
-
-            let x = (center_x + dx) as u16;
-            let z = (center_z + dz) as u16;
-
-            let Some(pid) = engine.player_list.next_pid() else {
-                break;
-            };
-
-            let isaac = IsaacPair::new(&[0; 4], &[0; 4]);
-            let io = create_io(isaac);
-            let username: Box<str> = format!("Bot {}", pid).into();
-            let mut bot = ActivePlayer::new(io.handle, pid, username, false, true);
-
-            bot.player.pathing.coord = CoordGrid::new(x, 0, z);
-            bot.player.pathing.last_coord = bot.player.pathing.coord;
-            bot.player.pathing.tele = true;
-            bot.player.pathing.jump = true;
-
-            bot.player.info.readyanim = Some(808);
-            bot.player.info.turnanim = Some(823);
-            bot.player.info.walkanim = Some(819);
-            bot.player.info.walkanim_b = Some(820);
-            bot.player.info.walkanim_l = Some(821);
-            bot.player.info.walkanim_r = Some(822);
-            bot.player.info.runanim = Some(824);
-
-            bot.buildappearance(0);
-
-            engine.add_player(pid, bot, pid as i64);
-            spawned += 1;
-        }
-        if spawned >= 2000 {
+    for index in 0..count {
+        let Some(pid) = engine.player_list.next_pid() else {
             break;
-        }
+        };
+
+        let dx = (index / grid_size % grid_size) as i32 - half;
+        let dz = (index % grid_size) as i32 - half;
+        let x = (center.x() as i32 + dx).clamp(0, 0x3FFF) as u16;
+        let z = (center.z() as i32 + dz).clamp(0, 0x3FFF) as u16;
+
+        let isaac = IsaacPair::new(&[0; 4], &[0; 4]);
+        let io = create_io(isaac);
+        let username: Box<str> = format!("Bot {}", pid).into();
+        let mut bot = ActivePlayer::new(io.handle, pid, username, false, true);
+
+        bot.player.pathing.coord = CoordGrid::new(x, center.y(), z);
+        bot.player.pathing.last_coord = bot.player.pathing.coord;
+        bot.player.pathing.tele = true;
+        bot.player.pathing.jump = true;
+
+        bot.player.info.readyanim = Some(808);
+        bot.player.info.turnanim = Some(823);
+        bot.player.info.walkanim = Some(819);
+        bot.player.info.walkanim_b = Some(820);
+        bot.player.info.walkanim_l = Some(821);
+        bot.player.info.walkanim_r = Some(822);
+        bot.player.info.runanim = Some(824);
+
+        bot.buildappearance(0);
+
+        engine.add_player(pid, bot, pid as i64);
+        spawned += 1;
     }
 
-    tracing::info!(
-        "Spawned {} bots around ({}, {}, 0)",
-        spawned,
-        center_x,
-        center_z
+    info!(
+        "Spawned {spawned} bots around ({}, {}, {}) in a {grid_size}x{grid_size} area",
+        center.x(),
+        center.z(),
+        center.y()
     );
-    Ok(())
+    spawned
 }
 
 /// Sets the player's visibility -- `0` = default, `1` = soft-hide, `2` = hard-hide --

@@ -33,7 +33,7 @@ const BANNER: &str = r"
 ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝╚═╝   ╚═╝      ╚═╝
                    rev {REV} · rust edition";
 
-/// How many ticks of history to keep for the sparklines.
+/// How many samples to keep for tick percentiles and memory history.
 const HISTORY: usize = 240; // 240 × 600ms ≈ 2.4 min
 
 const PET_FRAMES: [[&str; 3]; 4] = [
@@ -118,8 +118,9 @@ struct App {
     started_at: Instant,
     flash: Option<Flash>,
 
-    // Sparkline history.
-    tick_ms_history: VecDeque<u64>,
+    tick_ms_history: VecDeque<f64>,
+    tick_p95_ms: f64,
+    tick_p99_ms: f64,
     last_seen_clock: u32,
     mem_mb_history: VecDeque<u64>,
     last_mem_poll: Instant,
@@ -154,6 +155,8 @@ impl App {
             started_at: Instant::now(),
             flash: None,
             tick_ms_history: VecDeque::with_capacity(HISTORY),
+            tick_p95_ms: 0.0,
+            tick_p99_ms: 0.0,
             last_seen_clock: 0,
             mem_mb_history: VecDeque::with_capacity(HISTORY),
             last_mem_poll: Instant::now() - Duration::from_secs(10),
@@ -180,18 +183,14 @@ impl App {
     }
 
     fn poll_metrics(&mut self) {
-        // Tick history: only push when the tick number advances, to keep the
-        // sparkline as a true per-tick series (not per-frame).
         let stats = self.sinks.stats_rx.borrow().clone();
         if stats.clock != self.last_seen_clock && stats.clock > 0 {
             self.last_seen_clock = stats.clock;
             if self.tick_ms_history.len() >= HISTORY {
                 self.tick_ms_history.pop_front();
             }
-            // Cap at 600ms (the full tick budget) so spikes don't crush the
-            // chart's vertical scale.
-            self.tick_ms_history
-                .push_back(stats.total_ms.min(600.0) as u64);
+            self.tick_ms_history.push_back(stats.total_ms);
+            (self.tick_p95_ms, self.tick_p99_ms) = tick_percentiles(&self.tick_ms_history);
         }
 
         // Memory: poll at most every 1s - sysinfo refresh isn't free.
@@ -286,6 +285,21 @@ impl App {
         let comment = react_to_log(line);
         Some((snippet, comment))
     }
+}
+
+/// Returns the nearest-rank p95 and p99 of the observed tick durations in
+/// milliseconds, preserving fractional values and overruns. Empty history
+/// returns zero for both percentiles.
+fn tick_percentiles(history: &VecDeque<f64>) -> (f64, f64) {
+    if history.is_empty() {
+        return (0.0, 0.0);
+    }
+    let mut sorted: Vec<f64> = history.iter().copied().collect();
+    sorted.sort_unstable_by(f64::total_cmp);
+    (
+        sorted[(sorted.len() * 95).div_ceil(100) - 1],
+        sorted[(sorted.len() * 99).div_ceil(100) - 1],
+    )
 }
 
 fn react_to_log(line: &LogLine) -> String {
@@ -458,7 +472,7 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
         .direction(Direction::Vertical)
         .constraints([
             Constraint::Length(8), // banner
-            Constraint::Length(7), // stats + timings + graphs
+            Constraint::Length(8), // stats + timings + graphs
             Constraint::Length(5), // Sir Roastalot
             Constraint::Min(5),    // log
             Constraint::Length(3), // search bar
@@ -532,6 +546,19 @@ fn draw_stats_column(f: &mut ratatui::Frame, area: Rect, app: &App) {
                 "{}  {:.2}ms/600ms ({:.1}%)",
                 stats.clock, stats.total_ms, pct
             )),
+        ]),
+        Line::from(vec![
+            label("p95/p99:"),
+            Span::raw(if app.tick_ms_history.is_empty() {
+                "-".into()
+            } else {
+                format!(
+                    "{:.2}/{:.2}ms ({} ticks)",
+                    app.tick_p95_ms,
+                    app.tick_p99_ms,
+                    app.tick_ms_history.len()
+                )
+            }),
         ]),
         Line::from(vec![
             label("Players:"),
@@ -873,3 +900,25 @@ fn key_hint(key: &str, label: &str) -> Span<'static> {
 
 #[allow(dead_code)]
 fn _phantom(_: Arc<()>) {}
+
+#[cfg(test)]
+mod tests {
+    use super::tick_percentiles;
+    use std::collections::VecDeque;
+
+    #[test]
+    fn tick_percentiles_handle_startup() {
+        assert_eq!(tick_percentiles(&VecDeque::new()), (0.0, 0.0));
+        assert_eq!(tick_percentiles(&VecDeque::from([0.375])), (0.375, 0.375));
+    }
+
+    #[test]
+    fn tick_percentiles_preserve_precision_and_overruns() {
+        let history = (0..240).rev().map(|i| i as f64 + 0.125).collect();
+        assert_eq!(tick_percentiles(&history), (227.125, 237.125));
+
+        let mut history = VecDeque::from(vec![0.375; 98]);
+        history.extend([700.25, 800.5]);
+        assert_eq!(tick_percentiles(&history), (0.375, 700.25));
+    }
+}

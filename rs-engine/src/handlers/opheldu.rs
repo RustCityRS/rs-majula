@@ -9,6 +9,7 @@ use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
+use std::mem::swap;
 
 /// Handles the `OpHeldU` (use item on item) client protocol message.
 ///
@@ -195,14 +196,9 @@ impl ClientGameHandler for OpHeldU {
                 engine_mut().scripts.get_by_lookup(key).cloned()
             });
         if swapped {
-            std::mem::swap(
-                &mut active.player.last_item,
-                &mut active.player.last_use_item,
-            );
-            std::mem::swap(
-                &mut active.player.last_slot,
-                &mut active.player.last_use_slot,
-            );
+            let cold = &mut *active.player;
+            swap(&mut cold.last_item, &mut cold.last_use_item);
+            swap(&mut cold.last_slot, &mut cold.last_use_slot);
         }
 
         if let Some(script) = script {

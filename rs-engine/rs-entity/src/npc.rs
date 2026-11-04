@@ -10,6 +10,7 @@ use rs_pack::types::{BlockWalk, MoveRestrict, NpcMode};
 use rs_stat::Stats;
 use rs_var::VarSet;
 pub use rs_vm::NpcUid;
+use std::ops::{Deref, DerefMut};
 
 /// A non-player character in the game world.
 ///
@@ -19,28 +20,21 @@ pub use rs_vm::NpcUid;
 /// for script execution, and info masks for client updates.
 pub struct Npc {
     pub uid: NpcUid,
-    pub vars: VarSet,
     pub pathing: PathingEntity,
     pub state: EntityState,
     pub spawn_coord: CoordGrid,
     pub default_mode: NpcMode,
     pub wander_range: u16,
-    pub max_range: u16,
     pub attack_range: u8,
     pub regen_rate: u16,
     pub category: Option<u16>,
     pub block_walk: BlockWalk,
-    pub vis_level: Option<u16>,
     pub stuck_counter: u16,
     pub info: EntityMasks,
     pub interaction: InteractionState,
-    pub target_player: Option<u16>,
-    pub stats: Stats<6>,
-    pub hero_points: HeroPoints,
     pub active: bool,
     pub lifecycle: EntityLifeTime,
     pub lifecycle_at: Option<u32>,
-    pub base_type: u16,
     pub hunt_mode: Option<u16>,
     pub hunt_range: u8,
     pub hunt_clock: u16,
@@ -48,12 +42,35 @@ pub struct Npc {
     pub timer_interval: Option<u16>,
     pub timer_clock: u16,
     pub regen_clock: i16,
+    pub observers: u16,
+    cold: Box<NpcCold>,
+}
+
+pub struct NpcCold {
+    pub vars: VarSet,
+    pub max_range: u16,
+    pub vis_level: Option<u16>,
+    pub target_player: Option<u16>,
+    pub stats: Stats<6>,
+    pub hero_points: HeroPoints,
+    pub base_type: u16,
     pub next_patrol_point: u8,
     pub patrol_delay_ticks_remaining: i64,
-    pub observers: u16,
     pub revert_reset: bool,
     pub walktrigger: Option<i32>,
     pub walktrigger_arg: i32,
+}
+
+impl Deref for Npc {
+    type Target = NpcCold;
+    fn deref(&self) -> &NpcCold {
+        &self.cold
+    }
+}
+impl DerefMut for Npc {
+    fn deref_mut(&mut self) -> &mut NpcCold {
+        &mut self.cold
+    }
 }
 
 impl Npc {
@@ -77,28 +94,21 @@ impl Npc {
     pub fn new(id: u16, nid: u16, coord: CoordGrid, size: u8, vars: VarSet) -> Self {
         Self {
             uid: NpcUid::new(id, nid),
-            vars,
             pathing: PathingEntity::new(coord, size, MoveRestrict::Normal, MoveStrategy::Naive),
             state: EntityState::new(),
             spawn_coord: coord,
             default_mode: NpcMode::None,
             wander_range: 0,
-            max_range: 0,
             attack_range: 0,
             regen_rate: 0,
             category: None,
             block_walk: BlockWalk::Npc,
-            vis_level: None,
             stuck_counter: 0,
             info: EntityMasks::new(),
             interaction: InteractionState::new(),
-            target_player: None,
-            stats: Stats::new(1),
-            hero_points: HeroPoints::new(),
             active: true,
             lifecycle: EntityLifeTime::Respawn,
             lifecycle_at: None,
-            base_type: id,
             hunt_mode: None,
             hunt_range: 0,
             hunt_clock: 0,
@@ -106,12 +116,21 @@ impl Npc {
             timer_interval: None,
             timer_clock: 0,
             regen_clock: 0,
-            next_patrol_point: 0,
-            patrol_delay_ticks_remaining: -1,
             observers: 0,
-            revert_reset: false,
-            walktrigger: None,
-            walktrigger_arg: 0,
+            cold: Box::new(NpcCold {
+                vars,
+                max_range: 0,
+                vis_level: None,
+                target_player: None,
+                stats: Stats::new(1),
+                hero_points: HeroPoints::new(),
+                base_type: id,
+                next_patrol_point: 0,
+                patrol_delay_ticks_remaining: -1,
+                revert_reset: false,
+                walktrigger: None,
+                walktrigger_arg: 0,
+            }),
         }
     }
 

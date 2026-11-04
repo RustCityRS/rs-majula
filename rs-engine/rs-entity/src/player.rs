@@ -15,6 +15,7 @@ use rs_var::VarSet;
 pub use rs_vm::PlayerUid;
 use rs_vm::state::ExecutionState;
 use rustc_hash::{FxHashMap, FxHashSet};
+use std::ops::{Deref, DerefMut};
 
 /// No modal interface is open.
 pub const MODAL_NONE: u8 = 0;
@@ -164,32 +165,20 @@ pub struct Player {
     pub last_runenergy: Option<u16>,
     pub runweight: i32,
     pub playtime: i32,
-    pub last_date: i64,
-    pub last_login_date: i64,
     pub stats: Stats<21>,
     pub combat_level: u8,
     #[cfg(since_274)]
     pub skill_level: u16,
-    pub hero_points: HeroPoints,
     pub vars: VarSet,
     pub state: EntityState,
     pub interaction: InteractionState,
     pub cam_queue: CamQueue,
     pub staff_mod_level: StaffModLevel,
     pub is_member: bool,
-    pub allow_design: bool,
     pub run_step: Option<Direction>,
     pub run: bool,
     pub temprun: bool,
     pub move_request: bool,
-    pub last_com: Option<u16>,
-    pub last_comsubid: Option<u16>,
-    pub last_slot: Option<u16>,
-    pub last_target_slot: Option<u16>,
-    pub last_use_slot: Option<u16>,
-    pub last_item: Option<u16>,
-    pub last_use_item: Option<u16>,
-    pub last_use_com: Option<u16>,
     pub modal_state: u8,
     pub modal_main: Option<u16>,
     pub last_modal_main: Option<u16>,
@@ -201,11 +190,9 @@ pub struct Player {
     pub refresh_modal: bool,
     pub refresh_modal_close: bool,
     pub request_modal_close: bool,
-    pub resume_buttons: Option<Vec<i32>>,
     pub public: ChatSettingsPublic,
     pub private: ChatSettingsPrivate,
     pub trade: ChatSettingsTradeDuel,
-    pub tabs: [Option<u16>; 14],
     pub logout_requested: bool,
     pub logout_idle_requested: bool,
     pub logout_prevented_until: Option<u32>,
@@ -217,12 +204,6 @@ pub struct Player {
     pub active: bool,
     pub move_clicked: bool,
     pub block_walk: BlockWalk,
-    pub gender: u8,
-    pub headicons: u8,
-    #[cfg(since_254)]
-    pub transmog: Option<u16>,
-    pub body: [i32; 7],
-    pub colours: [u8; 5],
     pub invs: FxHashMap<u16, Inventory>,
     pub inv_transmits: FxHashMap<u16, Vec<u16>>,
     pub inv_other_transmits: FxHashMap<u16, (i32, u16)>,
@@ -237,6 +218,42 @@ pub struct Player {
     pub next_target: Option<InteractionTarget>,
     pub walktrigger: Option<i32>,
     pub bot: bool,
+    cold: Box<PlayerCold>,
+}
+
+pub struct PlayerCold {
+    pub last_date: i64,
+    pub last_login_date: i64,
+    pub hero_points: HeroPoints,
+    pub allow_design: bool,
+    pub last_com: Option<u16>,
+    pub last_comsubid: Option<u16>,
+    pub last_slot: Option<u16>,
+    pub last_target_slot: Option<u16>,
+    pub last_use_slot: Option<u16>,
+    pub last_item: Option<u16>,
+    pub last_use_item: Option<u16>,
+    pub last_use_com: Option<u16>,
+    pub resume_buttons: Option<Vec<i32>>,
+    pub tabs: [Option<u16>; 14],
+    pub gender: u8,
+    pub headicons: u8,
+    #[cfg(since_254)]
+    pub transmog: Option<u16>,
+    pub body: [i32; 7],
+    pub colours: [u8; 5],
+}
+
+impl Deref for Player {
+    type Target = PlayerCold;
+    fn deref(&self) -> &PlayerCold {
+        &self.cold
+    }
+}
+impl DerefMut for Player {
+    fn deref_mut(&mut self) -> &mut PlayerCold {
+        &mut self.cold
+    }
 }
 
 impl Player {
@@ -268,13 +285,10 @@ impl Player {
             last_runenergy: None,
             runweight: 0,
             playtime: 0,
-            last_date: 0,
-            last_login_date: 0,
             stats: Stats::new(1),
             combat_level: 3,
             #[cfg(since_274)]
             skill_level: 0,
-            hero_points: HeroPoints::new(),
             vars,
             state: EntityState::new(),
             info: EntityMasks::new(),
@@ -285,19 +299,10 @@ impl Player {
             #[cfg(not(debug_assertions))]
             staff_mod_level: StaffModLevel::Normal,
             is_member: true,
-            allow_design: false,
             run_step: None,
             run: false,
             temprun: false,
             move_request: false,
-            last_com: None,
-            last_comsubid: None,
-            last_slot: None,
-            last_target_slot: None,
-            last_use_slot: None,
-            last_item: None,
-            last_use_item: None,
-            last_use_com: None,
             modal_state: MODAL_NONE,
             modal_main: None,
             last_modal_main: None,
@@ -309,11 +314,9 @@ impl Player {
             refresh_modal: false,
             refresh_modal_close: false,
             request_modal_close: false,
-            resume_buttons: None,
             public: ChatSettingsPublic::On,
             private: ChatSettingsPrivate::On,
             trade: ChatSettingsTradeDuel::On,
-            tabs: [None; 14],
             logout_requested: false,
             logout_idle_requested: false,
             logout_prevented_until: None,
@@ -325,12 +328,6 @@ impl Player {
             active: true,
             move_clicked: false,
             block_walk: BlockWalk::Npc,
-            gender: 0,
-            headicons: 0,
-            #[cfg(since_254)]
-            transmog: None,
-            body: [0, 10, 18, 26, 33, 36, 42],
-            colours: [0; 5],
             invs: FxHashMap::default(),
             inv_transmits: FxHashMap::default(),
             inv_other_transmits: FxHashMap::default(),
@@ -345,6 +342,28 @@ impl Player {
             next_target: None,
             walktrigger: None,
             bot,
+            cold: Box::new(PlayerCold {
+                last_date: 0,
+                last_login_date: 0,
+                hero_points: HeroPoints::new(),
+                allow_design: false,
+                last_com: None,
+                last_comsubid: None,
+                last_slot: None,
+                last_target_slot: None,
+                last_use_slot: None,
+                last_item: None,
+                last_use_item: None,
+                last_use_com: None,
+                resume_buttons: None,
+                tabs: [None; 14],
+                gender: 0,
+                headicons: 0,
+                #[cfg(since_254)]
+                transmog: None,
+                body: [0, 10, 18, 26, 33, 36, 42],
+                colours: [0; 5],
+            }),
         }
     }
 
@@ -1282,7 +1301,7 @@ mod interaction_tests {
         let mut p = make_player();
         p.pathing.queue_waypoint(CoordGrid::new(3225, 0, 3222));
         assert!(p.pathing.has_waypoints());
-        assert_eq!(p.pathing.waypoint_index, 0);
+        assert_eq!(p.pathing.waypoints.index, 0);
     }
 
     #[test]
@@ -1302,7 +1321,7 @@ mod interaction_tests {
             CoordGrid::new(3225, 0, 3222).packed(),
         ];
         p.pathing.queue_waypoints(&wp);
-        assert_eq!(p.pathing.waypoint_index, 2);
+        assert_eq!(p.pathing.waypoints.index, 2);
         // first walked = waypoints[2] = wp[0] (reversed)
         let first = p.pathing.waypoints[2];
         assert_eq!(first.x(), 3223);

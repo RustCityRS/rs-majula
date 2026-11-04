@@ -4,6 +4,8 @@ use rs_entity::lifetime::EntityLifeTime;
 /// Default restock interval (in ticks) for inventory slots that have
 /// `allstock` enabled but no per-slot rate configured.
 const INV_STOCKRATE: u32 = 100;
+const PLAYER_RESET_PREFETCH_AHEAD: usize = 16;
+const NPC_RESET_PREFETCH_AHEAD: usize = 16;
 
 impl Engine {
     /// Processes the cleanup phase of the engine tick cycle.
@@ -96,7 +98,9 @@ impl Engine {
     /// * Clears per-tick movement and info flags on each player.
     /// * Clears the dirty flag and changed-slot set on each player inventory.
     fn reset_players(&mut self) {
-        for &pid in self.player_list.processing.iter() {
+        let pids = self.player_list.take_pids();
+        for (index, &pid) in pids.iter().enumerate() {
+            self.prefetch_player_data(pids.get(index + PLAYER_RESET_PREFETCH_AHEAD));
             let Some(active) = self.player_list.players[pid as usize].as_mut() else {
                 continue;
             };
@@ -107,24 +111,29 @@ impl Engine {
                 }
             }
         }
+        self.player_list.put_pids(pids);
     }
 
     /// Resets per-tick pathing-entity state on all active NPCs.
     ///
     /// Calls `reset_pathing_entity(false)` which clears transient flags
     /// such as step counters and movement deltas without resetting
-    /// persistent state like coordinates.
+    /// persistent state like coordinates. Reuses the cached processing order,
+    /// refreshed after any intervening NPC additions or removals.
     ///
     /// # Side Effects
     ///
     /// * Clears per-tick movement and info flags on each NPC.
     fn reset_npcs(&mut self) {
-        for &nid in self.npc_list.processing.iter() {
+        let nids = self.npc_list.take_nids();
+        for (index, &nid) in nids.iter().enumerate() {
+            self.prefetch_npc_data(nids.get(index + NPC_RESET_PREFETCH_AHEAD));
             let Some(active) = self.npc_list.npcs[nid as usize].as_mut() else {
                 continue;
             };
             active.npc.reset_pathing_entity(false);
         }
+        self.npc_list.put_nids(nids);
     }
 
     /// Removes fully despawned NPCs from the active list and frees their

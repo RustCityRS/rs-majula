@@ -1,5 +1,6 @@
 use crate::direction::Direction;
 use crate::player::MoveSpeed;
+use crate::waypoints::Waypoints;
 use rs_grid::CoordGrid;
 use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::MoveRestrict;
@@ -24,9 +25,8 @@ pub enum MoveStrategy {
 /// produces walk/run direction values that are sent to the client for animation.
 pub struct PathingEntity {
     pub last_movement: u32,
-    pub waypoints: [CoordGrid; 25],
+    pub waypoints: Waypoints,
     pub coord: CoordGrid,
-    pub waypoint_index: i32,
     pub walk_step: Option<Direction>,
     pub move_restrict: MoveRestrict,
     pub move_strategy: MoveStrategy,
@@ -65,8 +65,7 @@ impl PathingEntity {
             walk_dir: -1,
             run_dir: -1,
             walk_step: None,
-            waypoints: [CoordGrid::from(0); 25],
-            waypoint_index: -1,
+            waypoints: Waypoints::new(),
             steps_taken: 0,
             last_movement: 0,
             jump: true,
@@ -135,7 +134,7 @@ impl PathingEntity {
 
     /// Returns `true` if there are any waypoints queued for movement.
     pub const fn has_waypoints(&self) -> bool {
-        self.waypoint_index != -1
+        self.waypoints.index != -1
     }
 
     /// Hints the CPU to start fetching the collision zone entry this entity's next step
@@ -173,7 +172,7 @@ impl PathingEntity {
         }
         let x = self.coord.x() as i32;
         let z = self.coord.z() as i32;
-        let Some(dest) = usize::try_from(self.waypoint_index)
+        let Some(dest) = usize::try_from(self.waypoints.index)
             .ok()
             .and_then(|i| self.waypoints.get(i))
         else {
@@ -190,7 +189,7 @@ impl PathingEntity {
     /// Used by the interaction engine to determine whether the entity has reached (or
     /// nearly reached) its destination and should attempt to interact with its target.
     pub const fn is_last_or_no_waypoint(&self) -> bool {
-        self.waypoint_index <= 0
+        self.waypoints.index <= 0
     }
 
     /// Queues a single waypoint at the given coordinates, replacing any existing waypoints.
@@ -201,9 +200,9 @@ impl PathingEntity {
     ///
     /// # Side Effects
     /// * Sets `waypoints[0]` to the packed coordinate and `waypoint_index` to 0.
-    pub const fn queue_waypoint(&mut self, coord: CoordGrid) {
+    pub fn queue_waypoint(&mut self, coord: CoordGrid) {
         self.waypoints[0] = coord;
-        self.waypoint_index = 0;
+        self.waypoints.index = 0;
     }
 
     /// Queues multiple waypoints from the given slice, reversing their order.
@@ -216,27 +215,27 @@ impl PathingEntity {
     /// * `waypoints` - Packed waypoint coordinates `(x << 14) | z` in path order.
     ///
     /// # Side Effects
-    /// * Fills `self.waypoints` in reverse and sets `self.waypoint_index` accordingly.
-    pub const fn queue_waypoints(&mut self, waypoints: &[u32]) {
-        let len = if waypoints.len() < self.waypoints.len() {
+    /// * Fills `self.waypoints` in reverse and sets `self.waypoints.index` accordingly.
+    pub fn queue_waypoints(&mut self, waypoints: &[u32]) {
+        let len = if waypoints.len() < Waypoints::CAPACITY {
             waypoints.len()
         } else {
-            self.waypoints.len()
+            Waypoints::CAPACITY
         };
         let mut index = 0;
         while index < len {
             self.waypoints[index] = CoordGrid::from(waypoints[waypoints.len() - 1 - index]);
             index += 1;
         }
-        self.waypoint_index = if len > 0 { len as i32 - 1 } else { -1 };
+        self.waypoints.index = if len > 0 { len as i32 - 1 } else { -1 };
     }
 
     /// Clears all queued waypoints, stopping movement.
     ///
     /// # Side Effects
     /// * Sets `waypoint_index` to -1.
-    pub fn clear_waypoints(&mut self) {
-        self.waypoint_index = -1;
+    pub const fn clear_waypoints(&mut self) {
+        self.waypoints.index = -1;
     }
 
     /// Teleports this PathingEntity to the given coordinate.
@@ -345,7 +344,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Advances `self.coord` by one tile in the step direction.
     /// * Increments `self.steps_taken`.
-    /// * Decrements `self.waypoint_index` when a waypoint is reached.
+    /// * Decrements `self.waypoints.index` when a waypoint is reached.
     /// * Updates entity focus/orientation in `info`.
     ///
     /// # Call Stack
@@ -356,8 +355,8 @@ impl PathingEntity {
         match step {
             None => -1,
             Some(-1) => {
-                self.waypoint_index -= 1;
-                if self.waypoint_index != -1 {
+                self.waypoints.index -= 1;
+                if self.waypoints.index != -1 {
                     self.try_step(members, info, kind)
                 } else {
                     -1
@@ -383,10 +382,10 @@ impl PathingEntity {
 
                 self.steps_taken += 1;
 
-                if self.waypoint_index >= 0 {
-                    let coord = self.waypoints[self.waypoint_index as usize];
+                if self.waypoints.index >= 0 {
+                    let coord = self.waypoints[self.waypoints.index as usize];
                     if self.coord.x() == coord.x() && self.coord.z() == coord.z() {
-                        self.waypoint_index -= 1;
+                        self.waypoints.index -= 1;
                     }
                 }
 
@@ -415,8 +414,23 @@ impl PathingEntity {
     /// **Called by:** `try_step`
     /// **Calls:** `collision_type`, `block_walk_extra_flag`, `face_dir`, `dir_delta`, `can_travel`
     pub fn take_step(&self, members: bool) -> Option<i8> {
-        if self.waypoint_index == -1 {
+        if self.waypoints.index == -1 {
             return None;
+        }
+
+        if members && self.size == 1 && self.move_restrict == MoveRestrict::Normal {
+            let dest = self.waypoints[self.waypoints.index as usize];
+            let dx = (dest.x() as i32 - self.coord.x() as i32).signum() as i8;
+            let dz = (dest.z() as i32 - self.coord.z() as i32).signum() as i8;
+            let step = rsmod::can_travel_fast(
+                self.coord.y(),
+                self.coord.x(),
+                self.coord.z(),
+                dx,
+                dz,
+                CollisionFlag::Npc as u32,
+            );
+            return if step == -2 { None } else { Some(step) };
         }
 
         let mr = self.move_restrict;
@@ -428,7 +442,7 @@ impl PathingEntity {
 
         let src_x = self.coord.x();
         let src_z = self.coord.z();
-        let coord = self.waypoints[self.waypoint_index as usize];
+        let coord = self.waypoints[self.waypoints.index as usize];
         let dest_x = coord.x();
         let dest_z = coord.z();
 

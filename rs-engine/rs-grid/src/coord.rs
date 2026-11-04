@@ -1,3 +1,5 @@
+use crate::ZoneCoordGrid;
+
 /// A packed 30-bit coordinate representing a tile position in the game world.
 ///
 /// `CoordGrid` encodes three components into a single `u32`:
@@ -52,20 +54,18 @@ impl CoordGrid {
         )
     }
 
-    /// Wraps a raw pre-packed `u32` value as a `CoordGrid`.
+    /// Creates a `CoordGrid` from a packed `u32`, clearing the unused top two bits.
     ///
-    /// No validation or masking is performed -- the caller is responsible for
-    /// ensuring the value follows the expected bit layout. This is typically
-    /// used when reading coordinates that were previously packed or received
-    /// from network/data sources.
+    /// Preserves the X, Y, and Z components while ensuring coordinates for the
+    /// same tile have identical packed values, equality, and hashes.
     ///
     /// # Arguments
     ///
-    /// * `packed` - A `u32` already in the `CoordGrid` bit layout.
+    /// * `packed` - A packed coordinate; only its low 30 bits are retained.
     ///
     /// # Returns
     ///
-    /// A `CoordGrid` wrapping the given value directly.
+    /// A `CoordGrid` containing the normalized packed coordinate.
     ///
     /// # Call Stack
     ///
@@ -75,7 +75,7 @@ impl CoordGrid {
     /// **Calls:** Nothing.
     #[inline(always)]
     pub const fn from(packed: u32) -> Self {
-        CoordGrid(packed)
+        CoordGrid(packed & 0x3FFFFFFF)
     }
 
     /// Returns the raw packed `u32` representation of this coordinate.
@@ -728,11 +728,32 @@ impl CoordGrid {
         let dest_top = dest_z + dest_h;
         !(dest_x >= src_right || dest_right <= src_x || dest_z >= src_top || dest_top <= src_z)
     }
+
+    /// Converts this tile coordinate to its containing 8x8 zone.
+    ///
+    /// Discards the intra-zone X and Z offsets while preserving the level (Y).
+    /// Tiles in the same zone on the same level produce equal values.
+    ///
+    /// # Returns
+    ///
+    /// A [`ZoneCoordGrid`] with X and Z aligned to multiples of 8 and the same
+    /// level as this coordinate.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `Engine::check_zones_and_collision` for zone change detection.
+    ///
+    /// **Calls:** [`x()`](Self::x), [`y()`](Self::y), [`z()`](Self::z),
+    /// [`ZoneCoordGrid::new`].
+    pub const fn to_zone(&self) -> ZoneCoordGrid {
+        ZoneCoordGrid::new(self.x(), self.y(), self.z())
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashSet;
 
     #[test]
     fn new_and_accessors_basic() {
@@ -752,10 +773,29 @@ mod tests {
     fn packed_round_trip() {
         let coord = CoordGrid::new(3200, 3, 3200);
         let packed = coord.packed();
-        let reconstructed = CoordGrid(packed);
+        let reconstructed = CoordGrid::from(packed);
         assert_eq!(reconstructed.x(), 3200);
         assert_eq!(reconstructed.y(), 3);
         assert_eq!(reconstructed.z(), 3200);
+    }
+
+    #[test]
+    fn packed_coordinates_ignore_unused_bits_for_identity() {
+        for expected in [
+            CoordGrid::new(0, 0, 0),
+            CoordGrid::new(3222, 1, 3218),
+            CoordGrid::new(0x3FFF, 3, 0x3FFF),
+        ] {
+            let mut coordinates = HashSet::new();
+            for upper in 0..4 {
+                let coord = CoordGrid::from(expected.packed() | (upper << 30));
+                assert_eq!(coord.index(), expected.index());
+                assert_eq!(coord, expected);
+                assert_eq!(coord.packed(), expected.packed());
+                coordinates.insert(coord);
+            }
+            assert_eq!(coordinates.len(), 1);
+        }
     }
 
     #[test]
@@ -924,7 +964,6 @@ mod tests {
         assert_eq!(a, b);
         assert_ne!(a, c);
 
-        use std::collections::HashSet;
         let mut set = HashSet::new();
         set.insert(a);
         assert!(set.contains(&b));
@@ -1144,7 +1183,7 @@ mod tests {
     fn packed_to_i32_and_back() {
         let coord = CoordGrid::new(3200, 1, 3200);
         let as_i32 = coord.packed() as i32;
-        let back = CoordGrid(as_i32 as u32);
+        let back = CoordGrid::from(as_i32 as u32);
         assert_eq!(back.x(), 3200);
         assert_eq!(back.y(), 1);
         assert_eq!(back.z(), 3200);
