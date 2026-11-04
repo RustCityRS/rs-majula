@@ -115,3 +115,189 @@ fn a_hammer_on_a_semi_precious_gem() {
         assert!(said("You can't think of any reason to do this."));
     });
 }
+
+/// A loc's 647 id by its name in `content/647/pack/loc.pack` (the server
+/// loads 647 locs from the cache's data alone, which carries no names).
+fn loc_id(name: &str) -> u16 {
+    let pack = concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../content/647/pack/loc.pack"
+    );
+    std::fs::read_to_string(pack)
+        .expect("loc.pack")
+        .lines()
+        .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
+        .and_then(|(id, _)| id.parse().ok())
+        .unwrap_or_else(|| panic!("647 has no loc {name}"))
+}
+
+/// Whether the loc `name` stands at `x`,`level`,`z` now.
+fn loc_at(engine: &Engine, name: &str, x: u16, level: u8, z: u16) -> bool {
+    let id = loc_id(name);
+    engine
+        .zones
+        .zone(x, level, z)
+        .is_some_and(|zone| zone.get_loc(x, z, id).is_some())
+}
+
+/// A walkable tile beside `x`,`z` on `level`.
+fn beside(x: u16, level: u8, z: u16) -> (u16, u16) {
+    [
+        (0, 1),
+        (1, 0),
+        (0, -1),
+        (-1, 0),
+        (1, 1),
+        (-1, 1),
+        (1, -1),
+        (-1, -1),
+    ]
+    .into_iter()
+    .map(|(dx, dz)| (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz)))
+    .find(|&(tx, tz)| !rsmod::is_flagged(tx, tz, level, 0x100 | 0x200000))
+    .expect("a walkable tile beside the loc")
+}
+
+/// `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`.
+fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    client.send(ClientProt::OpLoc1, &p.finish());
+}
+
+/// Backpack slot 0's item used on the loc `loc` at `x`,`z` (`OPLOCT`).
+fn use_on_loc(client: &mut HarnessClient, item: u16, loc: u16, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.p2_alt1(item as i32)
+        .p2_alt1(0)
+        .p2(z as i32)
+        .p4_alt2(BACKPACK)
+        .p2_alt1(x as i32)
+        .p1_alt3(0)
+        .ip2(loc as i32);
+    client.send(ClientProt::OpLocT, &p.finish());
+}
+
+/// A player beside the loc at `x`,`level`,`z`, holding `objs` from slot 0.
+fn beside_loc(
+    engine: &mut Engine,
+    name: &str,
+    (x, level, z): (u16, u8, u16),
+    objs: &[u16],
+) -> HarnessClient {
+    let (sx, sz) = beside(x, level, z);
+    let mut client = holding(engine, name, sx, sz, objs);
+    engine.harness_telejump(client.pid, sx, level, sz);
+    for _ in 0..2 {
+        engine.cycle();
+    }
+    client.packets();
+    rs_vm::ops::test::forget_calls();
+    client
+}
+
+fn cycles(engine: &mut Engine, ticks: usize) {
+    for _ in 0..ticks {
+        engine.cycle();
+    }
+}
+
+fn slot0(engine: &Engine, pid: u16) -> Option<u16> {
+    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let backpack = engine.harness_player(pid).and_then(|p| p.invs.get(&inv))?;
+    backpack.get(0).map(|item| item.obj)
+}
+
+/// The 2011 wiki keeps Morgan's garlic in drawers (Garlic, 2011-05-01), where
+/// 289 had its garlic cupboard: drawers_46250, a tile north of 289's spot,
+/// opens into drawers_12961 (cupboards.loc), whose Search gives 289's garlic.
+#[test]
+fn morgan_s_drawers_hold_289_s_garlic() {
+    runner::on_loaded_engine(|engine| {
+        const DRAWERS: (u16, u8, u16) = (3096, 1, 3269);
+        let garlic = obj(engine, "garlic");
+        let mut client = beside_loc(engine, "morgan", DRAWERS, &[]);
+        op_loc1(&mut client, loc_id("drawers_46250"), DRAWERS.0, DRAWERS.2);
+        cycles(engine, 6);
+        assert!(
+            loc_at(engine, "drawers_12961", DRAWERS.0, 1, DRAWERS.2),
+            "the drawers opened"
+        );
+
+        op_loc1(&mut client, loc_id("drawers_12961"), DRAWERS.0, DRAWERS.2);
+        cycles(engine, 6);
+        assert_eq!(slot0(engine, client.pid), Some(garlic), "garlic taken");
+        assert!(said("You find a clove of garlic that you take."));
+    });
+}
+
+/// 2011's own bookcases and coffins on 289's spots (bookcases_2011.loc,
+/// coffins.loc) are searched, opened and shut as 289's.
+#[test]
+fn two_thousand_eleven_s_bookcases_and_coffins_on_289_s_spots() {
+    runner::on_loaded_engine(|engine| {
+        // bookcase_12539 at 0_48_49_36_19, on a 289 bookcase spot.
+        const BOOKCASE: (u16, u8, u16) = (3108, 0, 3155);
+        let mut client = beside_loc(engine, "reader", BOOKCASE, &[]);
+        op_loc1(
+            &mut client,
+            loc_id("bookcase_12539"),
+            BOOKCASE.0,
+            BOOKCASE.2,
+        );
+        cycles(engine, 6);
+        assert!(said("You search the bookcase..."), "289's search");
+
+        // coffin_32290 opens into coffin_32291, which closes it again.
+        const COFFIN: (u16, u8, u16) = (2878, 0, 9803);
+        let mut client = beside_loc(engine, "undertaker", COFFIN, &[]);
+        op_loc1(&mut client, loc_id("coffin_32290"), COFFIN.0, COFFIN.2);
+        cycles(engine, 6);
+        assert!(said("The coffin creaks open..."));
+        assert!(
+            loc_at(engine, "coffin_32291", COFFIN.0, 0, COFFIN.2),
+            "opened"
+        );
+        op_loc1(&mut client, loc_id("coffin_32291"), COFFIN.0, COFFIN.2);
+        cycles(engine, 6);
+        assert!(said("You close the coffin."));
+        assert!(
+            loc_at(engine, "coffin_32290", COFFIN.0, 0, COFFIN.2),
+            "shut"
+        );
+    });
+}
+
+/// An item on 2011's table on 289's table spot goes on the table; a beer
+/// glass on a barrel with a tap fills.
+#[test]
+fn a_table_takes_an_item_and_a_tap_barrel_fills_a_glass() {
+    runner::on_loaded_engine(|engine| {
+        // table_11743 at 0_40_51_42_22, on a 289 usable table's spot.
+        const TABLE: (u16, u8, u16) = (2602, 0, 3286);
+        let logs = obj(engine, "logs");
+        let mut client = beside_loc(engine, "waiter", TABLE, &[logs]);
+        use_on_loc(&mut client, logs, loc_id("table_11743"), TABLE.0, TABLE.2);
+        cycles(engine, 6);
+        assert_eq!(
+            slot0(engine, client.pid),
+            None,
+            "the logs left the backpack"
+        );
+
+        // barrelwithtap at 0_48_51_23_2 (cache 786 map).
+        const BARREL: (u16, u8, u16) = (3095, 0, 3266);
+        let (glass, beer) = (obj(engine, "beer_glass"), obj(engine, "beer"));
+        let mut client = beside_loc(engine, "drinker", BARREL, &[glass]);
+        use_on_loc(
+            &mut client,
+            glass,
+            loc_id("barrelwithtap"),
+            BARREL.0,
+            BARREL.2,
+        );
+        cycles(engine, 6);
+        assert_eq!(slot0(engine, client.pid), Some(beer), "beer");
+        assert!(said("You fill the glass with beer."));
+    });
+}
