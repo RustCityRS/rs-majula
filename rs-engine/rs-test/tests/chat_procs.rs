@@ -76,6 +76,21 @@ fn setmodels(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
         .collect()
 }
 
+/// Every IF_SETANIM, `ip4(com) ip2(seq)`, as (com, seq).
+fn setanims(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
+    let opcode = ServerProt::IfSetAnim as u16;
+    packets
+        .iter()
+        .filter(|(op, p)| *op == opcode && p.len() >= 6)
+        .map(|(_, p)| {
+            (
+                i32::from_le_bytes([p[0], p[1], p[2], p[3]]),
+                u16::from_le_bytes([p[4], p[5]]),
+            )
+        })
+        .collect()
+}
+
 /// Every IF_SETOBJECT, `ip4(com) p4_alt3(scale) p2(obj)`, as (com, obj).
 fn setobjects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
     let opcode = ServerProt::IfSetObject as u16;
@@ -177,6 +192,13 @@ fn npc_chats_name_their_speaker_on_2011_s_npc_boxes() {
         assert!(
             messages(&packets).contains(&"chat_cutscene done".to_string()),
             "the cutscene line waits for no click"
+        );
+        // 289's <p,angry> plays on the head; with no expression it held still.
+        let head = setanims(&packets);
+        assert!(
+            head.iter()
+                .any(|&(c, seq)| c == com(246, 2) && seq != u16::MAX),
+            "the man's head plays his expression; anims sent {head:?}"
         );
         // The cutscene's box stays up for the cutscene to close; an open
         // modal keeps the next cheat's p_finduid from the player.

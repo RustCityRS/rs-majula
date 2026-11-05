@@ -4,7 +4,9 @@
 
 [debugproc,chat_cutscene]
 if (p_finduid(uid) = true) {
-    ~chatnc_cutscene(nc_name(man), man, "Hey, what's that mist coming in through the door!|Team, we have a vampire in the room!");
+    // 289's line (quest_routequest/scripts/route_cutscene.rs2, Veliaf Hurtz),
+    // with its expression: without one the head has no animation to play.
+    ~chatnc_cutscene(nc_name(man), man, "<p,angry>Hey, what's that mist coming in through the door!|Team, we have a vampire in the room!");
     mes("chat_cutscene done");
 }
 
