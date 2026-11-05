@@ -163,6 +163,31 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
 fn the_bakers_stall_hides_a_thief_from_the_baker() {
     runner::on_loaded_engine(|engine| {
         let mut client = thief(engine, "stallthief", 2667, 3309);
+        // The baker and the market's Ardougne guards wander (wanderrange,
+        // loaded since c7b4f69), and the stall's row stops a theft either sees
+        // within 5 tiles (stealing_check_for_guard, _for_owner). The stall
+        // hides the thief only while they stand behind it: wait for a tick
+        // when none can see the thief's tile, as a player would.
+        let watchers: Vec<u16> = ["baker", "ardougne_guard"]
+            .iter()
+            .map(|n| *engine.cache.npcs.debugnames.get(*n).unwrap())
+            .collect();
+        for tick in 0..200 {
+            let seen = engine.npc_list.npcs.iter().flatten().any(|n| {
+                let c = n.npc.pathing.coord;
+                watchers.contains(&n.npc.uid.id())
+                    && c.x().abs_diff(2667) <= 5
+                    && c.z().abs_diff(3309) <= 5
+                    && rsmod::has_line_of_sight(0, c.x(), c.z(), 2667, 3309, 1, 1, 1, 1, 0)
+            });
+            if !seen {
+                break;
+            }
+            if tick % 20 == 19 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+            engine.cycle();
+        }
         op_loc(&mut client, ClientProt::OpLoc2, BAKERS_STALL);
         let said = run(engine, &mut client, 12, |e, pid| xp(e, pid) > 0);
         let goods: u32 = ["cake", "bread", "chocolate_slice"]
