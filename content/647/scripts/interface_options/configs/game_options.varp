@@ -1,0 +1,19 @@
+// 289's game_options.varp, on 2011's same varps (cache 786: 170 has
+// clientcode 5 and 171 clientcode 6, the two the 2011 client still acts on,
+// Class323.method2062; clientscripts 83, 89 and 90 split private chat on 287
+// above 0). Set from the options tab and chat setup, which run unprotected.
+
+[option_mouse]
+transmit=yes
+scope=perm
+protect=no
+
+[option_chat]
+transmit=yes
+scope=perm
+protect=no
+
+[option_pm]
+transmit=yes
+scope=perm
+protect=no
