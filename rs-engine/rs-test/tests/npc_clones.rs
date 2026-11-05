@@ -45,10 +45,9 @@ const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     ("lamb", "ai_timer", "no source has lambs baa"),
     ("lamb", "opnpc1", "a lamb has no Shear op"),
     ("lamb", "opnpcu", "a lamb cannot be sheared"),
-    // Two penguins dressed as a sheep: waits for the Cold War port.
+    // Two penguins dressed as a sheep: they get away when sheared
+    // (shear_sheep.rs2), but do not baa.
     ("sheep_3579", "ai_timer", "waits for the Cold War port"),
-    ("sheep_3579", "opnpc1", "waits for the Cold War port"),
-    ("sheep_3579", "opnpcu", "waits for the Cold War port"),
     // The black sheep shear to black wool in 2011's Sheep Shearer.
     ("sheep_8876", "opnpc1", "waits for 2011's Sheep Shearer"),
     ("sheep_8876", "opnpcu", "waits for 2011's Sheep Shearer"),
