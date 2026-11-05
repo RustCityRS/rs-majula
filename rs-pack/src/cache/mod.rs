@@ -33,8 +33,6 @@ use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
 #[cfg(since_647)]
-use provider::TypeProvider;
-#[cfg(since_647)]
 use rs_crypto::huffman::Huffman;
 #[cfg(since_647)]
 use rs_dat2::CacheStore as Js5CacheStore;
@@ -379,7 +377,7 @@ impl CacheStore {
             spotanims: config.spotanims,
             structs: config.structs,
             varns: config.varns,
-            varss: TypeProvider::default(),
+            varss: config.varss,
             categories: config.categories,
             interfaces: IfTypeProvider {
                 names: HashMap::new(),
