@@ -17,6 +17,7 @@
 use rs_engine::Engine;
 use rs_entity::InteractionTarget;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use std::sync::Mutex;
 
@@ -53,7 +54,7 @@ fn nearest(engine: &Engine, id: u16, x: u16, z: u16) -> Option<usize> {
 /// Returns whether it targeted the player, and whether its attack ran.
 fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
     engine.harness_reset();
-    let client = engine.harness_login_returning("hunted").expect("login");
+    let mut client = engine.harness_login_returning("hunted").expect("login");
     // The harness restarts the clock near 0. The hunt and the dragon's script
     // both skip a player in combat within the last 8 ticks (%lastcombat,
     // %lastcombat_pvp), which a fresh clock reads as true: let it pass 8.
@@ -63,18 +64,22 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
     let nid = nearest(engine, id, x, z).unwrap_or_else(|| panic!("no npc {id} near {x},{z}"));
     let size = engine.cache.npcs.get_by_id(id).map_or(1, |t| t.size.max(1)) as i32;
     let (mut targeted, mut attacked) = (false, false);
-    for tick in 0..40 {
+    for tick in 0..120 {
+        // The client's keep-alive: 100 silent ticks would log the player out.
+        if tick % 20 == 19 {
+            client.send(ClientProt::NoTimeout, &[]);
+        }
         // Follow the npc while it wanders, onto a walkable tile against its
-        // west, south, east or north edge: a wandering npc can stand where a
-        // fixed offset from it is a rock or a wall, and the npc then hunts a
-        // player it cannot reach.
+        // west, south, east or north edge, until it attacks: a wandering npc
+        // can stand where a fixed offset from it is a rock or a wall, and
+        // then hunts a player it cannot reach.
         let c = engine.npc_list.npcs[nid]
             .as_ref()
             .unwrap()
             .npc
             .pathing
             .coord;
-        if tick % 5 == 0 && !targeted {
+        if tick % 5 == 0 && !attacked {
             let (cx, cz) = (c.x() as i32, c.z() as i32);
             let edge = (0..size)
                 .flat_map(|i| {
