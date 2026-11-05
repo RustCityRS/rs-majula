@@ -241,3 +241,18 @@ fn from_level_50_a_level_plays_the_second_jingle() {
         assert_eq!(played, [ADVANCE_ATTACK + 1], "advance attack2 at level 50");
     });
 }
+
+/// A stat's level-up flash (varp 1179, `skill_stat_flash`) lasts only while
+/// the player stays logged in (2011 wiki, Update:Level-up Messages, 21 May
+/// 2008), so it is not saved; void-634 saved it.
+#[test]
+fn the_stat_flash_is_not_saved() {
+    runner::on_loaded_engine(|engine| {
+        let flash = engine.cache.varps.get_by_id(1179).expect("varp 1179");
+        assert_ne!(
+            flash.scope,
+            rs_pack::cache::varp::VarPlayerScope::Perm,
+            "skill_stat_flash is not saved"
+        );
+    });
+}
