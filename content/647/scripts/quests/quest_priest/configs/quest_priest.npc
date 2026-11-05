@@ -25,3 +25,15 @@ param=death_sound,skeleton_death
 param=undead,^true
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_924
+
+// 2011's skull guard (2011 wiki, The Restless Ghost, 22 May 2011: "A skeleton
+// or skeleton warlock will appear and attack you"), with void-634's stats
+// (skeletons.npcs.toml: 180 life points, Magic 10, Defence 7) and its earth
+// strike at range 5 (skeletons.combat.toml).
+[skeleton_warlock]
+desc=It rattles when it moves.
+hitpoints=180
+magic=10
+defence=7
+attackrange=5
+param=undead,^true

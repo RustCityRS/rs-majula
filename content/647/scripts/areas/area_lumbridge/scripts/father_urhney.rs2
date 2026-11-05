@@ -1,0 +1,102 @@
+// Father Urhney, in the swamp south of Lumbridge (289's
+// area_lumbridge/scripts/father_urhney.rs2), on the reworked Restless Ghost.
+// The lines and flow are void-634's (FatherUrhney.kt); where 289 has the same
+// line, it is noted. The faces are void-634's (Frustrated is angry).
+
+[opnpc1,father_urhney]
+// 289, void-634
+~chatnpc("<p,angry>Go away! I'm meditating!");
+if (%prieststart = ^priest_started) {
+    @multi3("Well, that's friendly.", father_urhney_well_thats_friendly, "Father Aereck sent me to talk to you.", father_urhney_priest_father_aereck_sent_me, "I've come to repossess your house.", father_urhney_repossess_house);
+} else if (%prieststart >= ^priest_spoken_urhney) {
+    // void-634's option text; 289's is "I've lost the amulet."
+    @multi3("Well, that's friendly.", father_urhney_well_thats_friendly, "I've lost the Amulet of Ghostspeak.", father_urhney_priest_lost_amulet, "I've come to repossess your house.", father_urhney_repossess_house);
+}
+@multi2("Well, that's friendly.", father_urhney_well_thats_friendly, "I've come to repossess your house.", father_urhney_repossess_house);
+
+[label,father_urhney_well_thats_friendly]
+~chatplayer("<p,neutral>Well, that's friendly.");
+// 289, void-634
+~chatnpc("<p,angry>I SAID go AWAY.");
+// void-634; 289's is "Okay, okay..."
+~chatplayer("<p,neutral>Okay, okay... sheesh, what a grouch.");
+
+[label,father_urhney_repossess_house]
+~chatplayer("<p,neutral>I've come to repossess your house.");
+// 289, void-634
+~chatnpc("<p,shock>Under what grounds???");
+// void-634's "repayments"; 289's "payments"
+def_int $option = ~p_choice2("Repeated failure on mortgage repayments.", 1, "I don't know. I just wanted this house...", 2);
+if ($option = 1) {
+    ~chatplayer("<p,neutral>Repeated failure on mortgage repayments.");
+    ~chatnpc("<p,angry>What?");
+    ~chatnpc("<p,angry>But... I don't have a mortgage! I built this house myself!");
+    ~chatplayer("<p,neutral>Sorry. I must have got the wrong address. All the houses look the same around here.");
+    // void-634; 289 ends at the line before
+    ~chatnpc("<p,angry>What? What houses? What ARE you talking about???");
+    ~chatplayer("<p,neutral>Never mind.");
+} else if ($option = 2) {
+    ~chatplayer("<p,sad>I don't know. I just wanted this house...");
+    ~chatnpc("<p,angry>Oh... go away and stop wasting my time!");
+}
+
+// 289, void-634
+[label,father_urhney_priest_father_aereck_sent_me]
+~chatplayer("<p,happy>Father Aereck sent me to talk to you.");
+~chatnpc("<p,angry>I suppose I'd better talk to you then. What problems has he got himself into this time?");
+def_int $option = ~p_choice2("He's got a ghost haunting his graveyard.", 1,"You mean he gets himself into lots of problems?", 2);
+if ($option = 1) {
+    ~chatplayer("<p,neutral>He's got a ghost haunting his graveyard.");
+    @father_urhney_priest_hes_got_a_ghost;
+} else if ($option = 2) {
+    ~chatplayer("<p,quiz>You mean he gets himself into lots of problems?");
+    ~chatnpc("<p,neutral>Yeah. For example, when we were trainee priests he kept on getting stuck up bell ropes.");
+    ~chatnpc("<p,angry>Anyway. I don't have time for chitchat. What's his problem THIS time?");
+    ~chatplayer("<p,neutral>He's got a ghost haunting his graveyard.");
+    @father_urhney_priest_hes_got_a_ghost;
+}
+
+// 289, void-634
+[label,father_urhney_priest_hes_got_a_ghost]
+~chatnpc("<p,angry>Oh, the silly fool.");
+~chatnpc("<p,angry>I leave town for just five months, and ALREADY he can't manage.");
+~chatnpc("<p,sad>(sigh)");
+~chatnpc("<p,angry>Well, I can't go back and exorcise it. I vowed not to leave this place. Until I had done a full two years of prayer and meditation.");
+~chatnpc("<p,neutral>Tell you what I can do though; take this amulet.");
+%prieststart = ^priest_spoken_urhney;
+~send_quest_progress(^questlist_priest, %prieststart, ^priest_complete);
+// void-634 drops it at the player's feet when the backpack is full; 289 adds
+// it to the backpack
+if (inv_freespace(inv) = 0) {
+    obj_add(coord, ghostspeak_amulet, 1, ^lootdrop_duration);
+} else {
+    inv_add(inv, ghostspeak_amulet, 1);
+}
+// void-634's item box; 289's is a message box
+~objbox(ghostspeak_amulet, "Father Urhney hands you an amulet.", 250, 0, 0);
+~chatnpc("<p,neutral>It is an Amulet of Ghostspeak.");
+~chatnpc("<p,neutral>So called, because when you wear it you can speak to ghosts. A lot of ghosts are doomed to be ghosts because they have left some important task uncompleted.");
+~chatnpc("<p,neutral>Maybe if you know what this task is, you can get rid of the ghost. I'm not making any guarantees mind you, but it is the best I can do right now.");
+~chatplayer("<p,neutral>Thank you. I'll give it a try!");
+
+// void-634 (289 gives a spare to anyone without one)
+[label,father_urhney_priest_lost_amulet]
+~chatplayer("<p,happy>I've lost the Amulet of Ghostspeak.");
+~mesbox("Father Urhney sighs.");
+if (inv_total(inv, ghostspeak_amulet) > 0 | inv_total(worn, ghostspeak_amulet) > 0) {
+    ~chatnpc("<p,angry>What are you talking about? I can see you've got it with you!");
+    return;
+}
+if (inv_total(bank, ghostspeak_amulet) > 0) {
+    ~chatnpc("<p,angry>You come here wasting my time... Has it even occurred to you that you've got it stored somewhere? Now GO AWAY!");
+    return;
+}
+if (inv_freespace(inv) = 0) {
+    ~chatnpc("<p,angry>How careless can you get? Those things aren't easy to come by you know! Now clear some space in your inventory and I'll give you another one.");
+    return;
+}
+~chatnpc("<p,angry>How careless can you get? Those things aren't easy to come by you know! It's a good job I've got a spare.");
+inv_add(inv, ghostspeak_amulet, 1);
+~objbox(ghostspeak_amulet, "Father Urhney hands you an amulet.", 250, 0, 0);
+~chatnpc("<p,angry>Be more careful this time.");
+~chatplayer("<p,neutral>Okay, I'll try to be.");
