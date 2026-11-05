@@ -27,3 +27,9 @@ switch_int (%book_page) {
     case 1 : ~book_obj("Test Book", book:page_left_model_2, bronze_dagger, 500, "Second page.|With a dagger.");
 }
 
+// 289's Entrana monk's sail to Port Sarim (area_entrana/monk_of_entrana.rs2),
+// with a three-tick voyage.
+[debugproc,sail_test]
+if (p_finduid(uid) = true) {
+    ~set_sail("Port Sarim", "The ship takes you to Port Sarim.", 1_47_50_40_31, ^sail_entrana_to_port_sarim, 3);
+}

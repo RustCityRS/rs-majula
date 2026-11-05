@@ -8,6 +8,9 @@
 //! - Emotes (464): the Mime's Glass Wall (com29) is locked until varp 313's
 //!   bit 0 is set, as 289's controls tab locks it.
 //!
+//! - 289's set_sail on 2011's ship journey (299, route varp 75), and 289's
+//!   logout button as the logout tab's Exit to Login (182 com10).
+//!
 //! A tab button is IF_BUTTON1, `p4(com) ip2_alt1(obj) ip2(slot)`.
 
 #![cfg(since_647)]
@@ -141,3 +144,77 @@ fn the_mimes_emotes_stay_locked_until_given() {
     });
 }
 
+fn cheat(client: &mut HarnessClient, input: &str) {
+    let mut p = ClientPacket::new();
+    p.p1(0).p1(0).pjstr(input);
+    client.send(ClientProt::ClientCheat, &p.finish());
+}
+
+fn messages(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
+    HarnessClient::game_messages(packets)
+        .into_iter()
+        .map(|(_, t)| t)
+        .collect()
+}
+
+// 289's set_sail on 2011's ship journey (299): varp 75 is the route, and the
+// ship lands the player with 289's arrival message.
+#[test]
+fn set_sail_shows_2011_s_ship_journey() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "sailor");
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = rs_entity::player::StaffModLevel::Maintainer;
+        cheat(&mut client, "~sail_test");
+        let mut packets = Vec::new();
+        for _ in 0..2 {
+            engine.cycle();
+            packets.extend(client.packets());
+        }
+        assert!(is_open(engine, &client, 299), "the ship journey");
+        assert_eq!(varp(engine, &client, 75), 2, "Entrana to Port Sarim");
+        assert!(
+            messages(&packets).contains(&"The ship takes you to Port Sarim.".to_string()),
+            "{:?}",
+            messages(&packets)
+        );
+        let mut texts = Vec::new();
+        for _ in 0..6 {
+            engine.cycle();
+            texts.extend(settexts(&client.packets()));
+        }
+        let c = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!(
+            (c.x(), c.y(), c.z()),
+            (3048, 1, 3231),
+            "on the ship at Port Sarim"
+        );
+        assert!(
+            texts.iter().any(|t| t == "The ship arrives at Port Sarim."),
+            "{texts:?}"
+        );
+    });
+}
+
+// 289's logout button is 2011's Exit to Lobby (182 com5) and Exit to Login
+// (com10): both log out, and not during a duel.
+#[test]
+fn the_logout_tab_logs_out() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "leaver");
+        engine.harness_open_side(client.pid, 182);
+        engine.cycle();
+        click(engine, &mut client, com(182, 10));
+        let mut gone = false;
+        for _ in 0..6 {
+            engine.cycle();
+            if engine.harness_player(client.pid).is_none() {
+                gone = true;
+                break;
+            }
+        }
+        assert!(gone, "logged out");
+    });
+}

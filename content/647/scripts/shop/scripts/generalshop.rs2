@@ -15,6 +15,8 @@
 // source found for a rebuild) and an assistant whose npc (11677) shows one
 // of two others by a varbit (7451); its ops are theirs, which the server
 // does not resolve yet, so only Kofi answers.
+// [opnpc1,generalshopkeeper7]
+// [opnpc1,generalassistant7]
 [opnpc1,shopkeeper_kofi] @generalshop_help; //Karamja
 [opnpc1,npc_11677] @generalshop_help; //Karamja
 [opnpc1,khazard_shopkeeper] @generalshop_help_neutral; //Port Khazard

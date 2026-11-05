@@ -80,3 +80,24 @@ p_pausebutton;
 [proc,levelup_flash](dbrow $row)
 %skill_stat_flash = setbit(%skill_stat_flash, db_getfield($row, levelup:flash_bit, 0));
 %level_up_icon = db_getfield($row, levelup:icon, 0);
+
+// 289's unlock messages after a level-up (levelup_unlocks.rs2 and
+// levelup_unlocks_<stat>.rs2), which 2011 does not show (above):
+// [proc,levelup_unlocks]
+// [label,levelup_agility]
+// [label,levelup_attack]
+// [label,levelup_cooking]
+// [label,levelup_crafting]
+// [label,levelup_defence]
+// [label,levelup_firemaking]
+// [label,levelup_fishing]
+// [label,levelup_fletching]
+// [label,levelup_herblore]
+// [label,levelup_magic]
+// [label,levelup_mining]
+// [label,levelup_prayer]
+// [label,levelup_ranged]
+// [label,levelup_runecraft]
+// [label,levelup_smithing]
+// [label,levelup_thieving]
+// [label,levelup_woodcutting]

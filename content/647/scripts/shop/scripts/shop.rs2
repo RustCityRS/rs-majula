@@ -250,3 +250,15 @@ if ($int4 < 0) {
     error("Cost overflowed with base_cost=<tostring($base_cost)>, for %shopbuy=<tostring($shopbuy)> and %shophaggle=<tostring($shophaggle)>. Corrected to 2 billion.");
 }
 return($int4);
+
+// 289's shop ops are inv_buttons on its two invs; 2011's client sends an
+// inventory component's ops as IF_BUTTON1-10, so they are the if_button1-4
+// triggers above.
+// [inv_button1,shop_template_side:inv]
+// [inv_button2,shop_template_side:inv]
+// [inv_button3,shop_template_side:inv]
+// [inv_button4,shop_template_side:inv]
+// [inv_button1,shop_template:inv]
+// [inv_button2,shop_template:inv]
+// [inv_button3,shop_template:inv]
+// [inv_button4,shop_template:inv]
