@@ -59,6 +59,14 @@ if (npc_type = sheep_1763) {
     $shorn = sheep_5154;
 } else if (npc_type = sheep_5163) {
     $shorn = sheep_5155;
+} else if (npc_type = sheep_8876) {
+    // Fred's black sheep, during Sheep Shearer: void-634's black_sheep_shorn
+    // and its message (Sheep.kt).
+    npc_changetype_keepall(sheep_8877, 100);
+    inv_add(inv, black_wool, 1);
+    mes("You get some black wool.");
+    ~objbox(black_wool, "You get some black wool.", 250, 0, divide(^objbox_height, 2));
+    return;
 }
 npc_changetype_keepall($shorn, 100);
 inv_add(inv, wool, 1);
@@ -78,10 +86,6 @@ if(last_useitem = shears) {
 // as 289's unshorn sheep. 5161-5163 are plain white sheep in cache 786 too
 // ("Sheep", op1 Shear, spawned); their shorn sheep, 5153-5155, are void-634's
 // pairs (sheep_light_6, sheep_light_monastery_1 and _2, each with its _shorn).
-// 8876, the black sheep, is not shorn here: 2011 shears black sheep only during
-// the reworked Sheep Shearer (2011 wiki, Sheep (black), 2011-05-18: "After
-// players complete the quest, they cannot shear the black sheep again"; added
-// 15 December 2009). It waits for the Sheep Shearer port.
 [opnpc1,sheep_1763] @shear_sheep_op1;
 [opnpc1,sheep_1765] @shear_sheep_op1;
 [opnpc1,sheep_5156] @shear_sheep_op1;
@@ -113,6 +117,33 @@ if(last_useitem = shears) {
 [opnpcu,sheep_5154] @shorn_sheep_use;
 [opnpcu,sheep_5155] @shorn_sheep_use;
 
+// 8876, Fred the Farmer's black sheep, shears only while his job is on: 2011
+// wiki, Sheep (black), 2011-05-18: "After players complete the quest, they
+// cannot shear the black sheep again" (added 15 December 2009). Otherwise,
+// void-634's message (Sheep.kt, from a video of the time). A black sheep can
+// get away as the others do (2011 wiki, Sheep Shearer: "Sometimes they will
+// run away from you if you try to shear them").
+[opnpc1,sheep_8876]
+if (~black_sheep_refuses = true) {
+    return;
+}
+@shear_sheep_op1;
+
+[opnpcu,sheep_8876]
+if (last_useitem = shears & ~black_sheep_refuses = true) {
+    return;
+}
+@shear_sheep_use;
+
+[opnpcu,sheep_8877] @shorn_sheep_use;
+
+[proc,black_sheep_refuses]()(boolean)
+if (~sheep_job_on = true) {
+    return(false);
+}
+mes("The farmer wouldn't like you shearing these special sheep. Try the white ones.");
+return(true);
+
 // 3579 is "The Thing", two penguins dressed as a sheep in Fred the Farmer's
 // field (cache 786: "Sheep", op1 Shear, op3 Talk-to). 2011 wiki, Sheep
 // (penguins), 2011-05-21: "when people try to shear it to obtain wool, it will
@@ -133,7 +164,10 @@ if(last_useitem ! shears) {
 }
 @the_thing_gets_away;
 
+// Fred hears of it afterwards (fred_the_farmer.rs2; void-634 sets
+// the_thing_interacted here).
 [label,the_thing_gets_away]
+%the_thing_interacted = ^true;
 anim(human_shearing, 0);
 mes("The... whatever it is... manages to get away from you!"); // void-634's (Sheep.kt)
 npc_setmode(playerescape);

@@ -14,3 +14,13 @@ param=productmessage,You spin the wool into a nice ball of wool.
 param=product,ball_of_wool
 param=productexp,25
 param=ingredient,wool
+
+// 2011's black wool: level 1 and 25 (2.5 xp), void-634's (spinning.tables.toml
+// .black_wool). No source quotes its message (void-634's spinning says
+// none), so it says 289's wool's.
+[black_wool]
+param=processmessage,You spin the wool into a nice ball of wool.
+param=productmessage,You spin the wool into a nice ball of wool.
+param=product,ball_of_black_wool
+param=productexp,25
+param=ingredient,black_wool

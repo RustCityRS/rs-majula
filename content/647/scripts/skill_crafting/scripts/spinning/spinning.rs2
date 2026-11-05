@@ -15,6 +15,8 @@ if(loc_type = viking_spinningwheel) {
 switch_obj (last_useitem)
 {
     case wool : @craft_spinning(last_useitem);
+    // 2011's black wool, from Fred's black sheep (void-634's SpinningWheel).
+    case black_wool : @craft_spinning(last_useitem);
     case flax :
         if (map_members = ^false) {
             mes(^mes_members_feature);
@@ -54,11 +56,17 @@ def_int _$count = 0; // 289's, never read
 def_obj $obj;
 
 // https://web.archive.org/web/20050525015428/http://runers2.fc2web.com/Lumbridge.htm
-$obj, $amt = ~skill_multi2_header(
-    "What would you like to spin?",
-    wool, 0, -2, 200, "\\n\\n\\n\\nWool",
-    flax, 0, -3, 200, "\\n\\n\\n\\nFlax"
-);
+// While Fred's job is on, black wool comes between them (void-634's
+// SpinningWheel fibres, black_wool offered only then).
+if (~sheep_job_on = true) {
+    $obj, $amt = ~skill_make("What would you like to spin?", ^skill_make_make, 28, wool, black_wool, flax, null, null);
+} else {
+    $obj, $amt = ~skill_multi2_header(
+        "What would you like to spin?",
+        wool, 0, -2, 200, "\\n\\n\\n\\nWool",
+        flax, 0, -3, 200, "\\n\\n\\n\\nFlax"
+    );
+}
 def_struct $struct = oc_param($obj, crafting_spinning_struct);
 
 if ($obj = flax & map_members = ^false) {

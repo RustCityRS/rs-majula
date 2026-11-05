@@ -224,6 +224,23 @@ while (calc($i + 1) < inv_size(bank)) {
     $i = calc($i + 1);
 }
 
+// Takes every $obj out of the bank, which closes up behind it and its tab
+// shrinks, as when it is withdrawn whole. Sheep Shearer's black wool goes so
+// at the job's end (2011 wiki, Black wool; void-634 bankCleanUp).
+[proc,bank_delete_all](obj $obj)
+def_int $slot = 0;
+def_int $tab = 0;
+while ($slot < inv_size(bank)) {
+    if (inv_getobj(bank, $slot) = $obj) {
+        $tab = ~bank_slot_tab($slot);
+        inv_delslot(bank, $slot);
+        ~bank_close_gap($slot);
+        ~bank_tab_decrease($tab);
+        return;
+    }
+    $slot = calc($slot + 1);
+}
+
 // A new item deposited while a tab is on view goes to the end of that tab
 // (void-634 BankDeposit).
 [proc,bank_deposit_to_tab](obj $obj)

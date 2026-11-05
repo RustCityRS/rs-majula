@@ -1,0 +1,36 @@
+// Sheep Shearer's pay, at 2011: 2,000 coins and 150 Crafting experience (2011
+// wiki, Sheep Shearer, 2011-05-06). Fred takes the player's black wool and
+// balls of black wool from the pack and the bank (2011 wiki, Black wool:
+// "any wool in your inventory or stored in a bank is removed"; void-634's
+// allTheWool and bankCleanUp). 2011's miniquest has no quest points (cache 786
+// quest 173: none) and no quest list row (clientscript 2193), so no scroll and
+// no journal: Fred's item box is void-634's.
+//
+// 289's, which paid 60 coins for twenty balls of white wool:
+// %sheep = ^sheep_complete;
+// inv_del(inv, ball_of_wool, 1);
+// inv_add(inv, coins, 60);
+// stat_advance(crafting, 1500);
+// session_log(^log_adventure, "Quest complete: Sheep Shearer");
+// ~send_quest_complete(questlist:sheep, coins, 260, ^sheep_questpoints, "You have completed the\\nSheep Shearer Quest!");
+// Whether Fred's job is on: taken and not yet paid.
+[proc,sheep_job_on]()(boolean)
+if (%sheep >= ^sheep_started & %sheep < ^sheep_complete) {
+    return(true);
+}
+return(false);
+
+[queue,sheep_complete]
+if (%sheep ! ^sheep_last_wool | inv_total(inv, ball_of_black_wool) < 1) {
+    return;
+}
+inv_del(inv, ball_of_black_wool, 1);
+%sheep = ^sheep_complete;
+inv_add(inv, coins, 2000);
+stat_advance(crafting, 1500);
+inv_del(inv, black_wool, inv_total(inv, black_wool));
+inv_del(inv, ball_of_black_wool, inv_total(inv, ball_of_black_wool));
+~bank_delete_all(black_wool);
+~bank_delete_all(ball_of_black_wool);
+session_log(^log_adventure, "Quest complete: Sheep Shearer");
+~objbox(obj_8898, "Fred gives you some money and teaches you some Crafting techniques.", 250, 0, 0);

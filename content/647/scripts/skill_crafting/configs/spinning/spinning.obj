@@ -9,3 +9,9 @@ param=crafting_spinning_struct,flax
 [wool]
 desc=This probably came from a sheep. You can spin it into a ball of wool at a spinning wheel.
 param=crafting_spinning_struct,wool
+
+// 2011's black wool, for Sheep Shearer (moved here from examine.obj).
+[black_wool]
+tradeable=no
+desc=This probably came from a black sheep. You can spin it into a ball of black wool at a spinning wheel.
+param=crafting_spinning_struct,black_wool

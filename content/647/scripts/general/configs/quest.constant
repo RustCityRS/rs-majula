@@ -45,7 +45,9 @@
 ^runemysteries_complete = 6
 ^scorpcatcher_complete = 6
 ^seaslug_complete = 12
-^sheep_complete = 22
+// 2011: Sheep Shearer is done at 21 (cache 786 quest 173, varp 179 from 1 to
+// 21); 289's was 22.
+^sheep_complete = 21
 ^sheepherder_complete = 3
 ^squire_complete = 7
 ^totem_complete = 5
@@ -101,7 +103,9 @@
 ^runemysteries_questpoints = 1
 ^scorpcatcher_questpoints = 1
 ^seaslug_questpoints = 1
-^sheep_questpoints = 1
+// 2011's miniquest has none (cache 786 quest 173; 2011 wiki, Sheep Shearer:
+// none since 24 June 2010); 289's had 1.
+^sheep_questpoints = 0
 ^sheepherder_questpoints = 4
 ^squire_questpoints = 1
 ^totem_questpoints = 1
