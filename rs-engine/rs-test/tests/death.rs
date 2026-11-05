@@ -6,6 +6,9 @@
 //! so a tab's IF_SETEVENTS must follow its IF_OPENSUB. The case keeps the
 //! client's event table from the packets the server sends, as the client
 //! does, and kills the player.
+//!
+//! The death plays 289's death jingle, `death2`: 2011's jingle 90 by 647's
+//! midi.pack (void-634's `death`).
 
 #![cfg(since_647)]
 
@@ -141,6 +144,38 @@ fn the_backpack_keeps_its_ops_after_a_death() {
         assert!(
             (0..28).all(|slot| ui.events.contains(&(BACKPACK, slot))),
             "every backpack slot keeps its ops after the death"
+        );
+    });
+}
+
+#[test]
+fn a_death_plays_the_death_jingle() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("mortal2").expect("login");
+        let mut ui = ClientInterfaces::default();
+        ticks(engine, &mut client, &mut ui, 2);
+        rs_vm::ops::test::forget_calls();
+        let uid = engine.harness_player(client.pid).unwrap().uid;
+        engine
+            .run_script_by_name(
+                "[queue,player_death]",
+                Some(ScriptSubject::Player(uid)),
+                None,
+                Some(true),
+                Some(true),
+                None,
+            )
+            .expect("death");
+        let said = ticks(engine, &mut client, &mut ui, 8);
+        assert!(
+            said.iter().any(|m| m == "Oh dear, you are dead!"),
+            "the player died; the game said {said:?}"
+        );
+        let jingles = rs_vm::ops::test::calls_for("midi_jingle");
+        assert!(
+            jingles.iter().any(|a| a == "90"),
+            "jingle 90 played; midi_jingle calls {jingles:?}"
         );
     });
 }
