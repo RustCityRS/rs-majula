@@ -53,6 +53,12 @@ if (npc_type = sheep_1763) {
     $shorn = sheep_5151;
 } else if (npc_type = sheep_5160) {
     $shorn = sheep_5152;
+} else if (npc_type = sheep_5161) {
+    $shorn = sheep_5153;
+} else if (npc_type = sheep_5162) {
+    $shorn = sheep_5154;
+} else if (npc_type = sheep_5163) {
+    $shorn = sheep_5155;
 }
 npc_changetype_keepall($shorn, 100);
 inv_add(inv, wool, 1);
@@ -69,11 +75,13 @@ if(last_useitem = shears) {
 ~displaymessage(^dm_default);
 
 // 2011's other shearable sheep (cache 786: Shear on op1; void-634 sheep.npcs.toml),
-// as 289's unshorn sheep. Not all of them: 5161-5163 and 8876 have Shear in
-// cache 786 too and no trigger here (8876 is void-634's black_sheep, which its
-// Sheep.kt shears only during the Sheep Shearer miniquest). 3579 (a "Sheep" with Talk-to in
-// cache 786) is void-634's sheep_penguin, not a sheep at all by void's
-// account: it waits for its own port.
+// as 289's unshorn sheep. 5161-5163 are plain white sheep in cache 786 too
+// ("Sheep", op1 Shear, spawned); their shorn sheep, 5153-5155, are void-634's
+// pairs (sheep_light_6, sheep_light_monastery_1 and _2, each with its _shorn).
+// 8876, the black sheep, is not shorn here: 2011 shears black sheep only during
+// the reworked Sheep Shearer (2011 wiki, Sheep (black), 2011-05-18: "After
+// players complete the quest, they cannot shear the black sheep again"; added
+// 15 December 2009). It waits for the Sheep Shearer port.
 [opnpc1,sheep_1763] @shear_sheep_op1;
 [opnpc1,sheep_1765] @shear_sheep_op1;
 [opnpc1,sheep_5156] @shear_sheep_op1;
@@ -81,6 +89,9 @@ if(last_useitem = shears) {
 [opnpc1,sheep_5158] @shear_sheep_op1;
 [opnpc1,sheep_5159] @shear_sheep_op1;
 [opnpc1,sheep_5160] @shear_sheep_op1;
+[opnpc1,sheep_5161] @shear_sheep_op1;
+[opnpc1,sheep_5162] @shear_sheep_op1;
+[opnpc1,sheep_5163] @shear_sheep_op1;
 [opnpcu,sheep_1763] @shear_sheep_use;
 [opnpcu,sheep_1765] @shear_sheep_use;
 [opnpcu,sheep_5156] @shear_sheep_use;
@@ -88,6 +99,9 @@ if(last_useitem = shears) {
 [opnpcu,sheep_5158] @shear_sheep_use;
 [opnpcu,sheep_5159] @shear_sheep_use;
 [opnpcu,sheep_5160] @shear_sheep_use;
+[opnpcu,sheep_5161] @shear_sheep_use;
+[opnpcu,sheep_5162] @shear_sheep_use;
+[opnpcu,sheep_5163] @shear_sheep_use;
 [opnpcu,sheep_1762] @shorn_sheep_use;
 [opnpcu,sheep_1764] @shorn_sheep_use;
 [opnpcu,sheep_5148] @shorn_sheep_use;
@@ -95,3 +109,31 @@ if(last_useitem = shears) {
 [opnpcu,sheep_5150] @shorn_sheep_use;
 [opnpcu,sheep_5151] @shorn_sheep_use;
 [opnpcu,sheep_5152] @shorn_sheep_use;
+[opnpcu,sheep_5153] @shorn_sheep_use;
+[opnpcu,sheep_5154] @shorn_sheep_use;
+[opnpcu,sheep_5155] @shorn_sheep_use;
+
+// 3579 is "The Thing", two penguins dressed as a sheep in Fred the Farmer's
+// field (cache 786: "Sheep", op1 Shear, op3 Talk-to). 2011 wiki, Sheep
+// (penguins), 2011-05-21: "when people try to shear it to obtain wool, it will
+// simply walk away". So it always gets away: no wool, and none of 289's
+// one-in-four. No 2011 source quotes its message, so it says void-634's
+// (Sheep.kt); 289's sheep say "The sheep manages to get away from you!".
+[opnpc1,sheep_3579]
+if (inv_total(inv, shears) < 1) {
+    mes("You need a set of shears to do this.");
+    return;
+}
+@the_thing_gets_away;
+
+[opnpcu,sheep_3579]
+if(last_useitem ! shears) {
+    ~displaymessage(^dm_default);
+    return;
+}
+@the_thing_gets_away;
+
+[label,the_thing_gets_away]
+anim(human_shearing, 0);
+mes("The... whatever it is... manages to get away from you!"); // void-634's (Sheep.kt)
+npc_setmode(playerescape);
