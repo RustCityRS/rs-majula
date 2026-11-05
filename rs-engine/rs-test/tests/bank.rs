@@ -754,3 +754,31 @@ fn inserting_into_another_tab_moves_the_item_to_it() {
         assert_eq!(tab_size(engine, &client, 1), 2, "the logs joined tab 1");
     });
 }
+
+/// Withdraw-All but one of the only one of an item withdraws nothing and says
+/// so: "You only have one of this item, so withdrawing all but one does
+/// nothing." (2011 wiki, Bank, 2011-05-21).
+#[test]
+fn all_but_one_of_one_says_it_does_nothing() {
+    runner::on_loaded_engine(|engine| {
+        let gloves = obj(engine, "leather_gloves");
+        let mut client = banker(engine, "lonelyitem");
+        use_booth(engine, &mut client, 2);
+        fill_bank(engine, &mut client, &[("leather_gloves", 1)]);
+        let pid = client.pid;
+        button(&mut client, 7, BANK_INV, gloves, 0);
+        let said: Vec<String> = HarnessClient::game_messages(&ticks(engine, &mut client, 2))
+            .into_iter()
+            .map(|(_, m)| m)
+            .collect();
+        assert_eq!(count(engine, pid, "inv", gloves), 0, "nothing withdrawn");
+        assert_eq!(count(engine, pid, "bank", gloves), 1, "still banked");
+        assert!(
+            said.contains(
+                &"You only have one of this item, so withdrawing all but one does nothing."
+                    .to_string()
+            ),
+            "{said:?}"
+        );
+    });
+}

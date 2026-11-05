@@ -14,13 +14,15 @@
 [if_button5,bank_v2_main:com93] @bank_withdraw(last_slot, null);
 [if_button6,bank_v2_main:com93] @bank_withdraw(last_slot, ^max_32bit_int);
 // 2011: Withdraw-All but one (clientscript 1453's op7; wiki Bank, 2011-05-21;
-// void-634 BankWithdraw). The wiki gives a message for one of an item: "You
-// only have one of this item, so withdrawing all but one does nothing."; this
-// sends none.
+// void-634 BankWithdraw). With one of an item, the wiki's message: "You only
+// have one of this item, so withdrawing all but one does nothing."
 [if_button7,bank_v2_main:com93]
 def_int $number = inv_total(bank, inv_getobj(bank, last_slot));
 if ($number > 1) {
     @bank_withdraw(last_slot, calc($number - 1));
+}
+if ($number = 1) {
+    mes("You only have one of this item, so withdrawing all but one does nothing.");
 }
 // 2011's examine is the server's (op10: clientscript 1453 gives it no
 // client-side handler).
