@@ -65,6 +65,7 @@ pub mod lenient;
 #[cfg(since_647)]
 pub mod loader;
 pub mod loc;
+pub mod map;
 pub mod mesanim;
 pub mod midi;
 pub mod npc;
@@ -76,6 +77,8 @@ pub mod seq;
 pub mod seq_frame;
 pub mod spotanim;
 pub mod r#struct;
+#[cfg(since_647)]
+pub mod texture;
 #[cfg(since_254)]
 pub mod varbit;
 pub mod varn;

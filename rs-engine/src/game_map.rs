@@ -681,7 +681,7 @@ impl GameMap {
     /// Rev-647 NPC spawns come from the server `map.dat` overlay as flat
     /// `(u16 packed_pos, u16 npc_id)` pairs, where the position packs as
     /// `(level << 14) | (local_x << 7) | local_z` -- matching the deob client
-    /// and the rs-pack map_format codec that writes `map.dat`. Decoded into
+    /// and the rs-pack map codec that writes `map.dat`. Decoded into
     /// the same entries, and marked the same way, as [`decode_npcs`] above.
     #[cfg(since_647)]
     fn decode_npcs(

@@ -327,7 +327,7 @@ fn pack_all_inner(
     }
 
     // ── Step 1b: Pack NPC spawns → server map.dat/map.idx ──────────────
-    let map_dirs = crate::map_format::source_dirs(content_dir);
+    let map_dirs = map::source_dirs(content_dir);
     let map_output = server_dir.join("map.dat");
     let map_input = max_of(
         &map_dirs
@@ -404,7 +404,7 @@ fn pack_all_inner(
     // when archives diverge.
     let source_cache = Path::new("expected");
     info!("pack_all: building JS5 cache (incremental)...");
-    crate::build::run_build_cache(
+    pack::pack_cache(
         source_cache,
         content_dir,
         output_dir,
@@ -749,4 +749,24 @@ pub fn load_from_server_dat<Raw: CacheType, Stored: From<Raw>>(
     let provider = TypeProvider::from_types(types, ctx);
     info!("  {name}: {} entries loaded", provider.count());
     Ok(provider)
+}
+
+pub fn cache_build_inputs(content_dir: &Path) -> Option<SystemTime> {
+    max_of(&[
+        config_inputs(&content_dir.join("scripts"), &content_dir.join("pack")),
+        newest_mtime(&content_dir.join("scripts"), &["rs2", "base", "anim"]),
+        newest_mtime(&content_dir.join("versions"), &["versions"]),
+        newest_mtime(&content_dir.join("interfaces").join("_unpack"), &["if"]),
+        max_of(
+            &map::source_dirs(content_dir)
+                .iter()
+                .map(|dir| newest_mtime(dir, &["jm2", "bin"]))
+                .collect::<Vec<_>>(),
+        ),
+        newest_mtime(&content_dir.join("models").join("donor"), &["bin"]),
+        newest_mtime(&content_dir.join("songs").join("_unpack"), &["mid"]),
+        newest_mtime(&content_dir.join("textures").join("_unpack"), &["texture"]),
+        file_mtime(&content_dir.join("pack").join("map.pack")),
+        file_mtime(&content_dir.join("pack").join("interface.pack")),
+    ])
 }

@@ -130,9 +130,6 @@ impl ConfigBlob {
     }
 
     /// Read a PackedData .dat/.idx pair from the blob and return entries.
-    ///
-    /// This replaces `assemble::read_packed_data` — same parsing, but from
-    /// the blob's in-memory bytes instead of individual files on disk.
     pub fn read_packed_data(&self, type_name: &str) -> Result<BTreeMap<u32, Vec<u8>>> {
         let dat = self.files.get(&format!("{type_name}.dat"));
         let idx = self.files.get(&format!("{type_name}.idx"));
@@ -176,10 +173,6 @@ impl ConfigBlob {
         }
 
         Ok(entries)
-    }
-
-    pub fn has(&self, type_name: &str) -> bool {
-        self.files.contains_key(&format!("{type_name}.dat"))
     }
 
     pub fn get(&self, name: &str) -> Option<&[u8]> {

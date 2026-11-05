@@ -13,7 +13,7 @@ use std::path::{Path, PathBuf};
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
-use rs_pack::build::cache_build_inputs;
+use rs_pack::startup::cache_build_inputs;
 use rs_pack::startup::write_stamp;
 
 fn content(name: &str) -> PathBuf {

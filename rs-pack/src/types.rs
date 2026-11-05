@@ -897,8 +897,9 @@ impl BodyType {
 // --- interface ---
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[derive(Debug, Default, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
 pub enum IfComponentType {
+    #[default]
     Layer = 0,
     Inv = 2,
     Rect = 3,
@@ -906,6 +907,8 @@ pub enum IfComponentType {
     Graphic = 5,
     Model = 6,
     InvText = 7,
+    #[cfg(since_647)]
+    Line = 9,
 }
 
 impl IfComponentType {
@@ -918,6 +921,8 @@ impl IfComponentType {
             "graphic" => Self::Graphic,
             "model" => Self::Model,
             "invtext" => Self::InvText,
+            #[cfg(since_647)]
+            "line" => Self::Line,
             _ => panic!("Unknown component type: {s}"),
         }
     }
@@ -931,13 +936,16 @@ impl IfComponentType {
             Self::Graphic => "graphic",
             Self::Model => "model",
             Self::InvText => "invtext",
+            #[cfg(since_647)]
+            Self::Line => "line",
         }
     }
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[derive(Debug, Default, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
 pub enum IfButtonType {
+    #[default]
     None = 0,
     Normal = 1,
     Target = 2,

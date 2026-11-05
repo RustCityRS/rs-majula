@@ -1,6 +1,7 @@
-use super::map::{ParsedMap, TILE_COUNT, TileData, tile_index, zone_key};
+use super::map::{ParsedMap, TILE_COUNT, tile_index, zone_key};
 use crate::cache::flo::{FloType, FloTypeRaw};
 use crate::cache::loc::LocTypeRaw;
+use crate::cache::map::TerrainTile;
 use crate::cache::npc::NpcTypeRaw;
 use crate::cache::provider::TypeProvider;
 use crate::pack::util::media::{emit_group, read_group};
@@ -58,7 +59,7 @@ impl WorldmapBuilder {
         &mut self,
         mx: u8,
         mz: u8,
-        tiles: &[TileData; TILE_COUNT],
+        tiles: &[TerrainTile; TILE_COUNT],
         map: &ParsedMap,
     ) {
         if self
@@ -74,20 +75,20 @@ impl WorldmapBuilder {
         } else {
             0
         };
-        let bridged = |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.max(0) & 0x2 != 0;
+        let bridged = |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.unwrap_or(0) & 0x2 != 0;
 
         self.underlay.extend_from_slice(&[mx, mz]);
         self.overlay.extend_from_slice(&[mx, mz]);
         for x in 0..64 {
             for z in 0..64 {
                 let tile = &tiles[tile_index(level as usize + bridged(x, z) as usize, x, z)];
-                self.underlay.push(tile.underlay.max(0) as u8);
-                if tile.overlay == -1 {
-                    self.overlay.push(0);
-                } else {
-                    self.overlay.push(tile.overlay as u8);
+                self.underlay.push(tile.underlay_id.unwrap_or(0));
+                if let Some(overlay) = tile.overlay_id {
+                    self.overlay.push(overlay);
                     self.overlay
-                        .push(((tile.shape.max(0) << 2) + tile.rotation.max(0)) as u8);
+                        .push((tile.overlay_shape << 2) + tile.overlay_rotation);
+                } else {
+                    self.overlay.push(0);
                 }
             }
         }

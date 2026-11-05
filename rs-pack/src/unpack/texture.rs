@@ -1,16 +1,21 @@
 #![allow(clippy::needless_range_loop)]
 #[cfg(since_647)]
-use crate::texture_format::{self, TEXTURE_ARCHIVE, TextureGroupEntry, TextureManifest};
+use crate::cache::texture::{OP_NAMES, TextureDef, parse_texture};
 #[cfg(before_647)]
 use crate::unpack;
 #[cfg(since_647)]
 use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rs_dat2::CacheStore;
+#[cfg(since_647)]
+use rs_dat2::archive::TEXTURES as TEXTURE_ARCHIVE;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
+use serde::{Deserialize, Serialize};
+#[cfg(since_647)]
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
@@ -78,7 +83,7 @@ pub const TEXTURE_NAMES: &[&str] = &[
 pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let tex_dir = output_dir.join("textures");
     let meta_dir = tex_dir.join("meta");
-    std::fs::create_dir_all(&meta_dir)?;
+    fs::create_dir_all(&meta_dir)?;
 
     let index_data = jag
         .read("index.dat")
@@ -137,7 +142,7 @@ pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> any
         }
     }
     let texture_order_content = jag_entry_order.join("\n") + "\n";
-    std::fs::write(meta_dir.join("texture.order"), &texture_order_content)?;
+    fs::write(meta_dir.join("texture.order"), &texture_order_content)?;
 
     let max_id: u16 = index_order
         .iter()
@@ -148,7 +153,7 @@ pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> any
     for id in 0..=max_id {
         pack_lines.push(format!("{id}={}", texture_name(id)));
     }
-    std::fs::write(pack_dir.join("texture.pack"), pack_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("texture.pack"), pack_lines.join("\n") + "\n")?;
 
     debug!("Unpacked {} textures from textures JAG", index_order.len());
     Ok(())
@@ -198,8 +203,8 @@ pub fn unpack_named_textures(
 ) -> Result<TextureUnpackStats> {
     let tex_dir = content_dir.join("textures").join("_unpack");
     let meta_dir = tex_dir.join("meta");
-    std::fs::create_dir_all(&tex_dir)?;
-    std::fs::create_dir_all(&meta_dir)?;
+    fs::create_dir_all(&tex_dir)?;
+    fs::create_dir_all(&meta_dir)?;
 
     let sprite_names = load_sprite_names(hash_names_path)?;
     let materials = load_materials(store)?;
@@ -226,7 +231,7 @@ pub fn unpack_named_textures(
 
         stats.textures_total += 1;
 
-        let tex_def = texture_format::parse_texture(&entry.data);
+        let tex_def = parse_texture(&entry.data);
         let primary_sprite = tex_def.primary_sprite();
 
         let tex_name = if let Some(sprite_id) = primary_sprite {
@@ -254,13 +259,13 @@ pub fn unpack_named_textures(
             let src_png = sprite_dir.join(format!("{}.png", sprite_id));
             let dst_png = tex_dir.join(format!("{}.png", tex_name));
             if src_png.exists() {
-                std::fs::copy(&src_png, &dst_png).with_context(|| {
+                fs::copy(&src_png, &dst_png).with_context(|| {
                     format!("copy {} → {}", src_png.display(), dst_png.display())
                 })?;
             } else {
                 let src_sub = sprite_dir.join(format!("{}/0.png", sprite_id));
                 if src_sub.exists() {
-                    std::fs::copy(&src_sub, &dst_png)?;
+                    fs::copy(&src_sub, &dst_png)?;
                 }
             }
         }
@@ -281,7 +286,7 @@ pub fn unpack_named_textures(
                 mat.averagecolor,
                 repeat_mode,
             );
-            std::fs::write(&opt_path, opt_content)?;
+            fs::write(&opt_path, opt_content)?;
             stats.opt_files += 1;
         }
     }
@@ -297,7 +302,7 @@ pub fn unpack_named_textures(
 #[cfg(since_647)]
 pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
     let tex_dir = content_dir.join("textures").join("_unpack");
-    std::fs::create_dir_all(&tex_dir)?;
+    fs::create_dir_all(&tex_dir)?;
 
     let sprite_dir = content_dir.join("sprites").join("_unpack");
 
@@ -346,22 +351,22 @@ pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result
             continue;
         }
 
-        let def = texture_format::parse_texture(&entry.data);
-        let text = texture_format::emit_texture_text(&def);
+        let def = parse_texture(&entry.data);
+        let text = emit_texture_text(&def);
 
         let file_name = format!("{}.texture", group_id);
-        std::fs::write(tex_dir.join(&file_name), &text)?;
+        fs::write(tex_dir.join(&file_name), &text)?;
 
         if let Some(sprite_id) = def.primary_sprite() {
             let src = sprite_dir.join(format!("{}.png", sprite_id));
             let dst = tex_dir.join(format!("{}.png", group_id));
             if src.exists() {
-                std::fs::copy(&src, &dst)?;
+                fs::copy(&src, &dst)?;
                 sprite_pngs += 1;
             } else {
                 let src_sub = sprite_dir.join(format!("{}/0.png", sprite_id));
                 if src_sub.exists() {
-                    std::fs::copy(&src_sub, &dst)?;
+                    fs::copy(&src_sub, &dst)?;
                     sprite_pngs += 1;
                 }
             }
@@ -380,7 +385,7 @@ pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result
     }
 
     let manifest_path = tex_dir.join("manifest.json");
-    std::fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
+    fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
 
     info!(
         "Textures unpacked: {} groups, {} sprite PNGs copied",
@@ -397,7 +402,7 @@ fn load_sprite_names(hash_names_path: &Path) -> Result<HashMap<u32, String>> {
         warn!("No hash names file at {}", hash_names_path.display());
         return Ok(names);
     }
-    let content = std::fs::read_to_string(hash_names_path)?;
+    let content = fs::read_to_string(hash_names_path)?;
     for line in content.lines() {
         let parts: Vec<&str> = line.split('\t').collect();
         if parts.len() < 5 {
@@ -552,4 +557,217 @@ fn load_materials(store: &mut CacheStore) -> Result<HashMap<u32, MaterialInfo>> 
     }
 
     Ok(materials)
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg(since_647)]
+pub struct TextureManifest {
+    pub archive_id: u8,
+    pub groups: Vec<TextureGroupEntry>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg(since_647)]
+pub struct TextureGroupEntry {
+    pub group_id: u32,
+    pub file_name: String,
+    pub compression: u8,
+    pub version: u16,
+    pub compressed_len: u32,
+    pub decompressed_len: u32,
+    pub crc: u32,
+}
+
+#[cfg(since_647)]
+fn r_u8(d: &[u8]) -> u8 {
+    d.first().copied().unwrap_or(0)
+}
+
+#[cfg(since_647)]
+fn r_u16(d: &[u8]) -> u16 {
+    u16::from_be_bytes([
+        d.first().copied().unwrap_or(0),
+        d.get(1).copied().unwrap_or(0),
+    ])
+}
+
+#[cfg(since_647)]
+fn r_i16(d: &[u8]) -> i16 {
+    r_u16(d) as i16
+}
+
+#[cfg(since_647)]
+fn r_u24(d: &[u8]) -> u32 {
+    ((d.first().copied().unwrap_or(0) as u32) << 16)
+        | ((d.get(1).copied().unwrap_or(0) as u32) << 8)
+        | (d.get(2).copied().unwrap_or(0) as u32)
+}
+
+#[cfg(since_647)]
+fn emit_field(op: u8, oc: u8, d: &[u8]) -> String {
+    match (op, oc) {
+        (0, 0) => format!("value={}", r_u8(d)),
+        (1, 0) => format!("color=0x{:06x}", r_u24(d)),
+        (4, 0) => format!("cols={}", r_u8(d)),
+        (4, 1) => format!("rows={}", r_u8(d)),
+        (4, 2) => format!("col_jitter={}", r_u16(d)),
+        (4, 3) => format!("row_jitter={}", r_u16(d)),
+        (4, 4) => format!("shear={}", r_u16(d)),
+        (4, 5) => format!("v_offset={}", r_u16(d)),
+        (4, 6) => format!("gap={}", r_u16(d)),
+        (4, 7) => format!("brightness_range={}", r_u16(d)),
+        (5, 0) => format!("radius_x={}", r_u8(d)),
+        (5, 1) => format!("radius_y={}", r_u8(d)),
+        (5, 2) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (6, 0) => format!("lower={}", r_u16(d)),
+        (6, 1) => format!("upper={}", r_u16(d)),
+        (6, 2) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (7, 0) => format!("op={}", r_u8(d)),
+        (7, 1) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (8, 0) => format!("markers={}", hex_encode(d)),
+        (9, 0) => format!("mirror_h={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (9, 1) => format!("mirror_v={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (9, 2) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (10, 0) => format!("stops={}", hex_encode(d)),
+        (11, 0) => format!("red={}", r_u16(d)),
+        (11, 1) => format!("green={}", r_u16(d)),
+        (11, 2) => format!("blue={}", r_u16(d)),
+        (12, 0) => format!("mix={}", r_u8(d)),
+        (12, 1) => format!("interp={}", r_u8(d)),
+        (12, 3) => format!("steepness={}", r_u8(d)),
+        (14, 0) => format!("border={}", r_u16(d)),
+        (15, 0) => format!("tile_count={}", r_u8(d)),
+        (15, 1) => format!("seed={}", r_u8(d)),
+        (15, 2) => format!("jitter={}", r_u16(d)),
+        (15, 3) => format!("distance_mode={}", r_u8(d)),
+        (15, 4) => format!("metric={}", r_u8(d)),
+        (15, 5) => format!("tile_count_h={}", r_u8(d)),
+        (15, 6) => format!("tile_count_v={}", r_u8(d)),
+        (16, 0) => format!("count_h={}", r_u8(d)),
+        (16, 1) => format!("count_v={}", r_u8(d)),
+        (16, 2) => format!("gap={}", r_u16(d)),
+        (17, 0) => format!("hue={}", r_i16(d)),
+        (17, 1) => format!("saturation={}", r_u8(d) as i8),
+        (17, 2) => format!("lightness={}", r_u8(d) as i8),
+        (18, 0) | (39, 0) => format!("sprite={}", r_u16(d)),
+        (19, 0) => format!("strength={}", r_u16(d)),
+        (19, 1) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (20, 0) => format!("count_h={}", r_u8(d)),
+        (20, 1) => format!("count_v={}", r_u8(d)),
+        (21, 0) | (22, 0) | (23, 0) => {
+            format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" })
+        }
+        (25, 0) => format!("tolerance={}", r_u16(d)),
+        (25, 1) => format!("scale_b={}", r_u16(d)),
+        (25, 2) => format!("scale_g={}", r_u16(d)),
+        (25, 3) => format!("scale_r={}", r_u16(d)),
+        (25, 4) => format!("target_color=0x{:06x}", r_u24(d)),
+        (26, 0) => format!("lower={}", r_u16(d)),
+        (26, 1) => format!("upper={}", r_u16(d)),
+        (27, 0) => format!("count={}", r_u8(d)),
+        (27, 1) => format!("duty_cycle={}", r_u16(d)),
+        (27, 2) => format!("direction={}", r_u8(d)),
+        (28, 0) => format!("seed={}", r_u8(d)),
+        (28, 1) => format!("min_width={}", r_u16(d)),
+        (28, 2) => format!("max_width={}", r_u16(d)),
+        (28, 3) => format!("min_height={}", r_u16(d)),
+        (28, 4) => format!("max_height={}", r_u16(d)),
+        (28, 5) => format!("bevel_width={}", r_u16(d)),
+        (28, 6) => format!("bevel_type={}", r_u8(d)),
+        (28, 7) => format!("brightness_range={}", r_u16(d)),
+        (28, 8) => format!("color_variation={}", r_u16(d)),
+        (29, 0) => format!("shapes={}", hex_encode(d)),
+        (29, 1) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (30, 0) => format!("min={}", r_u16(d)),
+        (30, 1) => format!("max={}", r_u16(d)),
+        (30, 2) => format!("monochrome={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (31, 0) => format!("scale={}", r_u16(d)),
+        (31, 1) => format!("iterations={}", r_u16(d)),
+        (31, 2) => format!("offset_x={}", r_u16(d)),
+        (31, 3) => format!("offset_y={}", r_u16(d)),
+        (32, 0) => format!("height_scale={}", r_u16(d)),
+        (32, 1) => format!("light_yaw={}", r_u16(d)),
+        (32, 2) => format!("light_pitch={}", r_u16(d)),
+        (33, 0) => format!("height_scale={}", r_u16(d)),
+        (33, 1) => format!("bias_unsigned={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (34, 0) => format!("normalize={}", if r_u8(d) == 1 { "yes" } else { "no" }),
+        (34, 1) => format!("octaves={}", r_u8(d)),
+        (34, 2) => format!("persistence={}", hex_encode(d)),
+        (34, 3) => format!("frequency={}", r_u8(d)),
+        (34, 4) => format!("seed={}", r_u8(d)),
+        (34, 5) => format!("frequency_h={}", r_u8(d)),
+        (34, 6) => format!("frequency_v={}", r_u8(d)),
+        (35, 0) => format!("strength={}", r_u16(d)),
+        (36, 0) => format!("texture_id={}", r_u16(d)),
+        (37, 0) => format!("offset_x1={}", r_u16(d)),
+        (37, 1) => format!("offset_y1={}", r_u16(d)),
+        (37, 2) => format!("offset_x2={}", r_u16(d)),
+        (37, 3) => format!("offset_y2={}", r_u16(d)),
+        (37, 4) => format!("wave_scale={}", r_u16(d)),
+        (37, 5) => format!("amplitude={}", r_u16(d)),
+        (37, 6) => format!("frequency={}", r_u16(d)),
+        (38, 0) => format!("seed={}", r_u8(d)),
+        (38, 1) => format!("line_count={}", r_u16(d)),
+        (38, 2) => format!("line_length={}", r_u8(d)),
+        (38, 3) => format!("angle_base={}", r_u16(d)),
+        (38, 4) => format!("angle_range={}", r_u16(d)),
+        _ => {
+            if d.is_empty() {
+                format!("field_{}=", oc)
+            } else {
+                format!("field_{}={}", oc, hex_encode(d))
+            }
+        }
+    }
+}
+
+#[cfg(since_647)]
+pub fn emit_texture_text(def: &TextureDef) -> String {
+    let mut out = String::new();
+
+    out.push_str("[texture]\n");
+    out.push_str(&format!("color=op{}\n", def.color_op));
+    out.push_str(&format!("alpha=op{}\n", def.alpha_op));
+    out.push_str(&format!("mod=op{}\n", def.mod_op));
+    if !def.trailing_material.is_empty() {
+        out.push_str(&format!(
+            "trailing={}\n",
+            hex_encode(&def.trailing_material)
+        ));
+    }
+
+    for (i, op) in def.ops.iter().enumerate() {
+        out.push('\n');
+        out.push_str(&format!("[op{}]\n", i));
+        out.push_str(&format!(
+            "type={}\n",
+            OP_NAMES
+                .get(op.op_type as usize)
+                .copied()
+                .unwrap_or("unknown")
+        ));
+        out.push_str(&format!("row_cache={}\n", op.cache_size));
+
+        for &(opcode, ref data) in &op.fields {
+            out.push_str(&emit_field(op.op_type, opcode, data));
+            out.push('\n');
+        }
+
+        if let Some(conns) = def.connections.get(i) {
+            for (ci, &c) in conns.iter().enumerate() {
+                out.push_str(&format!("input{}=op{}\n", ci, c));
+            }
+        }
+    }
+
+    out
+}
+
+#[cfg(since_647)]
+fn hex_encode(data: &[u8]) -> String {
+    let mut s = String::with_capacity(data.len() * 2);
+    for &b in data {
+        s.push_str(&format!("{:02x}", b));
+    }
+    s
 }

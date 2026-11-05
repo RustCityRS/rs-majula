@@ -13,7 +13,15 @@ use crate::pack::pack_registry::{PackFile, PackId};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::util::verify_crc;
 #[cfg(since_647)]
+use crate::pack::{config, interface, js5, media, model, other, sound, texture};
+#[cfg(since_647)]
+use crate::startup::{cache_build_inputs, file_mtime, is_up_to_date, max_of, write_stamp};
+#[cfg(since_647)]
 use anyhow::Result;
+#[cfg(since_647)]
+use rs_dat2::{CacheStore, archive};
+#[cfg(since_647)]
+use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fs;
@@ -540,5 +548,119 @@ pub fn pack_all(
     config_blob.save(&client_dir.join("config"))?;
 
     info!("Pack complete.");
+    Ok(())
+}
+
+#[cfg(since_647)]
+pub fn pack_cache(
+    source_cache: &Path,
+    content_dir: &Path,
+    output_dir: &Path,
+    client_data_dir: &Path,
+    force_rebuild: bool,
+    prebuilt_anims: Option<BTreeMap<(u32, u32), Vec<u8>>>,
+) -> Result<()> {
+    let config_path = client_data_dir.join("config");
+    let master_stamp = output_dir.join(".stamp_cache_built");
+    let inputs = max_of(&[cache_build_inputs(content_dir), file_mtime(&config_path)]);
+    if !force_rebuild
+        && output_dir.join("main_file_cache.dat2").exists()
+        && is_up_to_date(&master_stamp, inputs)
+    {
+        info!("JS5 cache up to date, skipping build");
+        return Ok(());
+    }
+
+    let versions = archive::load_versions_dir(&content_dir.join("versions"))?;
+    js5::open_or_create_cache(output_dir, archive::ARCHIVE_IDS)?;
+    let keys_dst = output_dir.join("keys.json");
+    let keys_src = content_dir.join("keys.json");
+    if keys_src.exists() {
+        fs::copy(keys_src, &keys_dst)?;
+    } else if !keys_dst.exists() {
+        warn!("No keys.json found for map encryption");
+    }
+
+    let mut store = CacheStore::open(output_dir)?;
+    let pack_dir = content_dir.join("pack");
+    model::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        &pack_dir,
+        &versions,
+        force_rebuild,
+        prebuilt_anims,
+    )?;
+    config::pack_archives(
+        &mut store,
+        content_dir,
+        output_dir,
+        &config_path,
+        &versions,
+        force_rebuild,
+    )?;
+    interface::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        &pack_dir,
+        client_data_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    js5::pack_binary_archives(
+        &mut store,
+        content_dir,
+        output_dir,
+        &pack_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    sound::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        client_data_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    other::song::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        &pack_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    texture::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        client_data_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    media::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        &pack_dir,
+        client_data_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    other::map::pack_archive(
+        &mut store,
+        content_dir,
+        output_dir,
+        &pack_dir,
+        &versions,
+        force_rebuild,
+    )?;
+    drop(store);
+    js5::verify_cache(source_cache, output_dir)?;
+    write_stamp(&master_stamp)?;
+    info!("Cache built at {}", output_dir.display());
     Ok(())
 }

@@ -825,7 +825,7 @@ impl Domains {
 /// function of the cache and the name registries alone -- never of what was
 /// there before. That is what lets `_unpack` stay out of git. Authored data
 /// lives beside it and is laid over it at pack time
-/// (`pack::overlay_section`, `map_format::source_dirs`).
+/// (`pack::overlay_section`, `pack::other::map::source_dirs`).
 ///
 /// `work_dir` takes what a partial run needs but must not write into
 /// `output_dir`: the decompiled clientscripts the varp unpacker reads, and the

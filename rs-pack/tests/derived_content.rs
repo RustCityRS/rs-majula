@@ -2,7 +2,7 @@
 //!
 //! `scripts/_unpack` and `maps/_unpack` are regenerated from `expected/` by
 //! `cargo regen-content`; authored content lives beside them and is laid over
-//! them at pack time (`pack::pack::overlay_section`, `map_format::source_dirs`).
+//! them at pack time (`pack::pack::overlay_section`, `pack::other::map::source_dirs`).
 //! These tests pin both halves: a regeneration is a function of the cache and
 //! the registries alone, and every kind of authored overlay still reaches the
 //! packed definitions.

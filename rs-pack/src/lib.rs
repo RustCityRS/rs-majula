@@ -1,11 +1,6 @@
 #[cfg(since_647)]
-pub mod assemble;
-#[cfg(since_647)]
 pub mod asset_roundtrip;
 pub mod back;
-#[cfg(since_647)]
-#[path = "build647/mod.rs"]
-pub mod build;
 pub mod cache;
 #[cfg(since_647)]
 pub mod config_blob;
@@ -14,27 +9,17 @@ pub mod cs2;
 #[cfg(since_647)]
 pub mod discover;
 #[cfg(since_647)]
-pub mod interface_format;
-#[cfg(since_647)]
-pub mod map_format;
-#[cfg(since_647)]
 pub mod openrs2;
 pub mod pack;
 #[cfg(before_647)]
 pub mod pyxel;
 #[cfg(since_647)]
-pub mod repack;
-#[cfg(since_647)]
 pub mod seed;
 pub mod sheet;
 #[cfg(since_647)]
 pub mod startup;
-#[cfg(since_647)]
-pub mod texture_format;
 pub mod tga;
 pub mod types;
-#[cfg(since_647)]
-pub mod types647;
 pub mod unpack;
 #[cfg(since_647)]
 pub mod validate;

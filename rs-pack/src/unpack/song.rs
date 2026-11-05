@@ -1,9 +1,9 @@
 #[cfg(since_647)]
 use crate::asset_roundtrip::{AssetManifest, GroupEntry};
 #[cfg(since_647)]
-use crate::pack::pack_registry::PackFile;
+use crate::cache::midi::decode_jagex_midi;
 #[cfg(since_647)]
-use crate::repack::midi::decode_jagex_midi;
+use crate::pack::pack_registry::PackFile;
 #[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
 #[cfg(since_647)]

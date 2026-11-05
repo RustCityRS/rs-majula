@@ -1,4 +1,19 @@
 #[cfg(since_647)]
+use crate::cache::seq_frame::split_frame_into_stripes;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
+#[cfg(since_647)]
+use crate::startup::{is_up_to_date, max_of, newest_mtime, write_stamp};
+#[cfg(since_647)]
+use rayon::prelude::*;
+#[cfg(since_647)]
+use rs_dat2::{
+    CacheStore,
+    archive::{self, ArchiveVersions},
+    encode_group_entries, encode_group_entries_striped,
+    reference::FileInfo,
+};
+#[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::path::Path;
 
@@ -464,4 +479,82 @@ pub fn pack_anims(source_dir: &Path, pack_dir: &Path) -> Result<BTreeMap<(u32, u
     }
     info!("  {} animation frames packed", result.len());
     Ok(result)
+}
+
+#[cfg(since_647)]
+pub fn pack_archive(
+    store: &mut CacheStore,
+    content_dir: &Path,
+    output_dir: &Path,
+    pack_dir: &Path,
+    versions: &HashMap<u8, ArchiveVersions>,
+    force_rebuild: bool,
+    prebuilt: Option<BTreeMap<(u32, u32), Vec<u8>>>,
+) -> Result<()> {
+    let aid = archive::ANIMS;
+    let stamp = stamp_path(output_dir, aid);
+    let scripts_dir = content_dir.join("scripts");
+    let anim_dir = scripts_dir.join("_unpack/animations");
+    let inputs = max_of(&[
+        newest_mtime(&anim_dir, &["anim"]),
+        newest_mtime(&scripts_dir.join("_unpack"), &["base"]),
+    ]);
+    if !force_rebuild && is_up_to_date(&stamp, inputs) {
+        info!("Animations up to date, skipping");
+        return Ok(());
+    }
+    ensure!(
+        anim_dir.is_dir(),
+        "No unpacked animations at {}, run unpack first",
+        anim_dir.display()
+    );
+    let entries = match prebuilt {
+        Some(entries) => entries,
+        None => pack_anims(&scripts_dir, pack_dir)?,
+    };
+    let mut groups: BTreeMap<u32, Vec<(u32, Vec<u8>)>> = BTreeMap::new();
+    for ((gid, fid), data) in entries {
+        groups.entry(gid).or_default().push((fid, data));
+    }
+    let pack = PackFile::load(&pack_dir.join("anim.pack")).unwrap_or_else(|_| PackFile::empty());
+    let out_dir = content_dir.join("models");
+    fs::create_dir_all(&out_dir)?;
+    let prepared = groups
+        .into_par_iter()
+        .map(|(gid, frames)| {
+            let refs: Vec<_> = frames
+                .iter()
+                .map(|(id, data)| (*id, data.as_slice()))
+                .collect();
+            let data = if refs.len() > 1 {
+                encode_group_entries_striped(&refs, 3, split_frame_into_stripes)
+            } else {
+                encode_group_entries(&refs)
+            };
+            let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
+            group.files = frames
+                .iter()
+                .map(|(id, _)| FileInfo {
+                    id: *id,
+                    name_hash: None,
+                })
+                .collect();
+            let name = pack
+                .get_by_id(gid)
+                .map(str::to_owned)
+                .unwrap_or_else(|| format!("anim_{gid}"));
+            fs::write(out_dir.join(format!("{name}.anim")), data)?;
+            Ok(group)
+        })
+        .collect::<Result<Vec<_>>>()?;
+    write_archive(
+        store,
+        aid,
+        archive::archive_format(aid).unwrap(),
+        versions,
+        prepared,
+        "from animations",
+    )?;
+    write_stamp(&stamp)?;
+    Ok(())
 }

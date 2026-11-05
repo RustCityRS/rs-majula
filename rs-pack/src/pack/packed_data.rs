@@ -7,6 +7,7 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::debug;
 
+#[derive(Default)]
 pub struct PackedData {
     pub dat: Vec<u8>,
     pub idx: Vec<u8>,
@@ -93,6 +94,19 @@ impl PackedData {
         #[cfg(since_647)]
         self.dat.extend_from_slice(&cp1252::encode_string(value));
         self.dat.push(STRING_TERMINATOR);
+    }
+
+    #[cfg(since_647)]
+    pub fn pvarint(&mut self, value: u32) {
+        let mut shift = 28;
+        while shift > 0 && value >> shift == 0 {
+            shift -= 7;
+        }
+        while shift > 0 {
+            self.p1((value >> shift) as u8 | 0x80);
+            shift -= 7;
+        }
+        self.p1(value as u8 & 0x7f);
     }
 
     pub fn entry(&self) -> &[u8] {

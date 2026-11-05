@@ -187,7 +187,7 @@ fn fetched_cache_matches_openrs2_reference_tables() {
 ///
 /// The committed file knows 29 more keys than OpenRS2. They are for landscape
 /// groups that exist in 786 but under keys nobody has; their squares were
-/// rebuilt from donor caches, and `build647/maps.rs` re-encrypts them with the
+/// rebuilt from donor caches, and `pack/other/map.rs` re-encrypts them with the
 /// committed key. So they open *our* assembled cache, not 786 -- that is the
 /// CRC gate's to check, not this test's.
 #[test]
