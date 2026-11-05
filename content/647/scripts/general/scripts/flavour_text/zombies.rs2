@@ -1,0 +1,65 @@
+// only accessible via poison
+// https://twitter.com/Nin_UIM/status/1617227225316880385
+// - mod lenny said there was 5 instances of this.
+// - osrs wiki found 4/5 ids: 42, 49, 64, 26. im guessing the 5th is melzar's
+// - The id's dont match up but what are the odds that our only
+// zombies add up to 5?
+// 289's zombie_unarmed is 2011's zombie (73, the same npc).
+[ai_timer,zombie] @zombie_brains;
+[ai_timer,zombie2] @zombie_brains;
+[ai_timer,zombie_armed] @zombie_brains;
+[ai_timer,zombie_entranan] @zombie_brains;
+// 289's dragonslayer_zombie (751) is not 2011's 751 (a Berserk barbarian
+// spirit, cache 786): waits for the Dragon Slayer port to find Melzar's
+// zombie in 2011.
+// [ai_timer,dragonslayer_zombie] @zombie_brains;
+
+// 2011's re-issues of these zombies (npc/configs/npc_clones_2011.npc).
+[ai_timer,zombie_4392] @zombie_brains;
+[ai_timer,zombie_5293] @zombie_brains;
+[ai_timer,zombie_5294] @zombie_brains;
+[ai_timer,zombie_5295] @zombie_brains;
+[ai_timer,zombie_5296] @zombie_brains;
+[ai_timer,zombie_5297] @zombie_brains;
+[ai_timer,zombie_5298] @zombie_brains;
+[ai_timer,zombie_5300] @zombie_brains;
+[ai_timer,zombie_5303] @zombie_brains;
+[ai_timer,zombie_5304] @zombie_brains;
+[ai_timer,zombie_5305] @zombie_brains;
+[ai_timer,zombie_5306] @zombie_brains;
+[ai_timer,zombie_5307] @zombie_brains;
+[ai_timer,zombie_5308] @zombie_brains;
+[ai_timer,zombie_5309] @zombie_brains;
+[ai_timer,zombie_5310] @zombie_brains;
+[ai_timer,zombie_5311] @zombie_brains;
+[ai_timer,zombie_5312] @zombie_brains;
+[ai_timer,zombie_5313] @zombie_brains;
+[ai_timer,zombie_5314] @zombie_brains;
+[ai_timer,zombie_5315] @zombie_brains;
+[ai_timer,zombie_5316] @zombie_brains;
+[ai_timer,zombie_5318] @zombie_brains;
+[ai_timer,zombie_5319] @zombie_brains;
+[ai_timer,zombie_5320] @zombie_brains;
+[ai_timer,zombie_5321] @zombie_brains;
+[ai_timer,zombie_5322] @zombie_brains;
+[ai_timer,zombie_5323] @zombie_brains;
+[ai_timer,zombie_5324] @zombie_brains;
+[ai_timer,zombie_5325] @zombie_brains;
+[ai_timer,zombie_5326] @zombie_brains;
+[ai_timer,zombie_5327] @zombie_brains;
+[ai_timer,zombie_5328] @zombie_brains;
+[ai_timer,zombie_5329] @zombie_brains;
+[ai_timer,zombie_5330] @zombie_brains;
+[ai_timer,zombie_5331] @zombie_brains;
+[ai_timer,zombie_5375] @zombie_brains;
+[ai_timer,zombie_5376] @zombie_brains;
+[ai_timer,zombie_6099] @zombie_brains;
+[ai_timer,zombie_6100] @zombie_brains;
+
+[label,zombie_brains]
+if (finduid(%npc_attacking_uid) = true) {
+    if (distance(coord, npc_coord) < 10 & coordy(coord) = coordy(npc_coord)) {
+        sound_synth(zombie_moan, 1, 0);
+    }
+}
+npc_say("Brainssss");

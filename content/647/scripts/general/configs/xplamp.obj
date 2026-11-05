@@ -1,0 +1,9 @@
+// 289's lamp (general/configs/xplamp.obj, its macro_genilamp; 2011's lamp,
+// the same obj 2528). Untradeable and unbankable, as 289's and as 2011's
+// (2011 wiki, Lamp, 2 May 2011: "tradeable = No"; banking one says "A
+// magical force prevents you from banking this item"). 289 weighs it 100g;
+// the 2011 wiki gives 0, so it has no weight here.
+[lamp]
+desc=Wonder what happens if I rub it...
+tradeable=no
+param=unbankable,^true

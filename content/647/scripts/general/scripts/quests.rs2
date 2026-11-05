@@ -49,6 +49,24 @@ if_openmain(questscroll_ver3);
 ~send_quest_progress_colour($quest, 1, 1);
 mes("Congratulations! Quest complete!");
 
+// 289's send_quest_complete2: the quest complete scroll with the rewards
+// given as text, a line each between |s, where 289 shows them on its own
+// scroll (questscroll_death, 4 lines 200 wide in q8_full). 2011's one scroll
+// (277) lists rewards below the quest's points (com10) on com11-17, 213 wide
+// in p12_full (cache 786, font 495). For Troll Romance both of 289's procs
+// say "You've helped a lonely troll find love": that waits for the Troll
+// Romance port.
+[proc,send_quest_complete2](int $quest, namedobj $obj, int $objscale, int $questpoints, string $questmessage, string $rewardtext)
+~send_quest_complete($quest, $obj, $objscale, $questpoints, $questmessage);
+split_init($rewardtext, 213, 7, p12_full);
+if_settext(questscroll_ver3:com11, split_get(0, 0));
+if_settext(questscroll_ver3:com12, split_get(0, 1));
+if_settext(questscroll_ver3:com13, split_get(0, 2));
+if_settext(questscroll_ver3:com14, split_get(0, 3));
+if_settext(questscroll_ver3:com15, split_get(0, 4));
+if_settext(questscroll_ver3:com16, split_get(0, 5));
+if_settext(questscroll_ver3:com17, split_get(0, 6));
+
 [proc,update_questpoints]
 def_int $questpointrecount = ~count_questpoints;
 //Only update if the count has changed

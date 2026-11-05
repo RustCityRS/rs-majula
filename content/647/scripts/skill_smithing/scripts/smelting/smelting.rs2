@@ -170,13 +170,9 @@ if (struct_param($struct, ingredient_secondary) ! null) {
 def_namedobj $product = struct_param($struct, product);
 if ($product = iron_bar) {
     // if player is wearing ring of forging
-    // 289's ring of forging spends a charge to refine every iron ore here;
-    // its charges (~lose_charge_ring_of_forging) are not ported, so the ring
-    // does nothing yet.
-    // if (inv_total(worn, ring_of_forging) > 0 & map_members = ^true) {
-    //     ~lose_charge_ring_of_forging;
-    // } else
-    if (randominc(1) = 1) { // else assume 50% chance of success
+    if (inv_total(worn, ring_of_forging) > 0 & map_members = ^true) {
+        ~lose_charge_ring_of_forging;
+    } else if (randominc(1) = 1) { // else assume 50% chance of success
         mes("The ore is too impure and you fail to refine it.");
         if(sub($count,1) > 0) {
             %action_delay = add(map_clock, 1);
