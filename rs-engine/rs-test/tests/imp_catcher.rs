@@ -10,7 +10,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
-use rs_test::talk::{converse, talk_to};
+use rs_test::talk::{converse, settexts, talk_to};
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
@@ -107,12 +107,29 @@ fn mizgog_takes_the_four_beads_for_an_amulet_of_accuracy() {
         // The cutscene runs about 13 ticks after its last box.
         for _ in 0..20 {
             engine.cycle();
+            let packets = client.packets();
             talk.messages.extend(
-                HarnessClient::game_messages(&client.packets())
+                HarnessClient::game_messages(&packets)
                     .into_iter()
                     .map(|(_, t)| t),
             );
+            talk.texts
+                .extend(settexts(&packets).into_iter().map(|(_, t)| t));
         }
+        // 647 breaks interface text with <br>. 289's `\\n` is the 2004
+        // client's line break; the 2011 client draws it as it stands.
+        assert!(
+            talk.texts
+                .iter()
+                .any(|t| t == "You have completed the<br>Imp Catcher Quest!"),
+            "the quest scroll; set {:?}",
+            talk.texts
+        );
+        assert!(
+            talk.texts.iter().all(|t| !t.contains('\\')),
+            "a 2004 escape reached the client: {:?}",
+            talk.texts
+        );
         assert!(
             talk.messages
                 .iter()
