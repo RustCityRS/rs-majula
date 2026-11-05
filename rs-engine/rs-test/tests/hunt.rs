@@ -7,6 +7,10 @@
 //! and the npc packer wrote the mode in one byte, so `cowardly` (404) came
 //! back as 148, an empty 2011 hunt, and no npc hunted. 2011's other green
 //! dragons (4677-4680) take 289's green dragon config and, now, its fight.
+//!
+//! 289's duckling hunts its duck (`duck_hunt`, general/configs/duckling.hunt):
+//! every 11 ticks it looks for a duck_female in sight and takes it as an
+//! opnpc3 target.
 
 #![cfg(since_647)]
 
@@ -164,5 +168,47 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
         }
         assert!(targeted, "green_dragon_4679 hunted the player");
         assert!(breathed, "and breathed the remodelled dragons' fire (2465)");
+    });
+}
+
+/// The map's duckling (2694) at 3142,3273 and duck (2693, 289's duck_female)
+/// at 3143,3275, map square 49_51: within the hunt's rate (11 ticks), with a
+/// player nearby to watch, the duckling targets the duck with opnpc3.
+#[test]
+fn a_duckling_hunts_its_duck() {
+    let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let client = engine
+            .harness_login_returning("duckwatcher")
+            .expect("login");
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        let duckling = nearest(engine, 2694, 3142, 3273).expect("duckling 2694");
+        let duck = nearest(engine, 2693, 3143, 3275).expect("duck 2693");
+        let mut target = None;
+        for tick in 0..40 {
+            let c = engine.npc_list.npcs[duckling]
+                .as_ref()
+                .unwrap()
+                .npc
+                .pathing
+                .coord;
+            if tick % 5 == 0 {
+                engine.harness_telejump(client.pid, c.x() - 2, 0, c.z() - 2);
+            }
+            engine.cycle();
+            let npc = &engine.npc_list.npcs[duckling].as_ref().unwrap().npc;
+            if let Some(InteractionTarget::Npc { nid }) = npc.interaction.target {
+                target = Some((nid as usize, npc.interaction.target_op));
+                break;
+            }
+        }
+        assert_eq!(
+            target,
+            Some((duck, Some(rs_pack::types::NpcMode::OpNpc3 as u8))),
+            "the duckling's target"
+        );
     });
 }
