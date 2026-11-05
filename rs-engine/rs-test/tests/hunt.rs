@@ -3,10 +3,10 @@
 //!
 //! The green dragon's hunt is 289's `cowardly` (huntrange 4): a player hunt
 //! that does not check whether the player is too strong in the Wilderness.
-//! The server's hunt modes are numbered after the 2011 cache's 397 hunt ids,
-//! and the npc packer wrote the mode in one byte, so `cowardly` (404) came
-//! back as 148, an empty 2011 hunt, and no npc hunted. 2011's other green
-//! dragons (4677-4680) take 289's green dragon config and, now, its fight.
+//! The mode is checked by name: hunt.pack's ids are the server's own (289's
+//! `cowardly` was 404 after the 2011 cache's 397 hunts, and is 18 since
+//! c7b4f69 dropped those). 2011's other green dragons (4677-4680) take 289's
+//! green dragon config and its fight.
 //!
 //! 289's duckling hunts its duck (`duck_hunt`, general/configs/duckling.hunt):
 //! every 11 ticks it looks for a duck_female in sight and takes it as an
@@ -61,9 +61,13 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
         engine.cycle();
     }
     let nid = nearest(engine, id, x, z).unwrap_or_else(|| panic!("no npc {id} near {x},{z}"));
+    let size = engine.cache.npcs.get_by_id(id).map_or(1, |t| t.size.max(1)) as i32;
     let (mut targeted, mut attacked) = (false, false);
     for tick in 0..40 {
-        // Follow the npc while it wanders, so it stays in range.
+        // Follow the npc while it wanders, onto a walkable tile against its
+        // west, south, east or north edge: a wandering npc can stand where a
+        // fixed offset from it is a rock or a wall, and the npc then hunts a
+        // player it cannot reach.
         let c = engine.npc_list.npcs[nid]
             .as_ref()
             .unwrap()
@@ -71,7 +75,20 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
             .pathing
             .coord;
         if tick % 5 == 0 && !targeted {
-            engine.harness_telejump(client.pid, c.x() - 2, 0, c.z() - 2);
+            let (cx, cz) = (c.x() as i32, c.z() as i32);
+            let edge = (0..size)
+                .flat_map(|i| {
+                    [
+                        (cx - 1, cz + i),
+                        (cx + i, cz - 1),
+                        (cx + size, cz + i),
+                        (cx + i, cz + size),
+                    ]
+                })
+                .map(|(x, z)| (x as u16, z as u16))
+                .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+                .expect("a walkable tile beside the npc");
+            engine.harness_telejump(client.pid, edge.0, 0, edge.1);
         }
         engine.cycle();
         let npc = &engine.npc_list.npcs[nid].as_ref().unwrap().npc;
@@ -94,7 +111,9 @@ fn a_wilderness_green_dragon_hunts_a_player_beside_it() {
     let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());
     runner::on_loaded_engine(|engine| {
         let mode = engine.cache.npcs.get_by_id(941).and_then(|t| t.huntmode);
-        assert_eq!(mode, Some(404), "green_dragon is cowardly (404)");
+        let cowardly = engine.cache.hunts.debugnames.get("cowardly").copied();
+        assert!(cowardly.is_some(), "hunt.pack names cowardly");
+        assert_eq!(mode, cowardly, "green_dragon is cowardly");
         // The map's green dragon (941) at 2982,3618 (map square 46_56).
         let (targeted, attacked) = stand_beside(engine, 941, 2982, 3618);
         assert!(targeted, "the dragon hunted the player");
