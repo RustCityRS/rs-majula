@@ -6,7 +6,6 @@ use crate::util::*;
 use crate::{ScriptError, active_player_mut, handlers, none};
 use rs_inv::StackMode;
 use rs_pack::cache::inv::{InvScope, InvType};
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 use rs_pack::types::DummyItem;
 

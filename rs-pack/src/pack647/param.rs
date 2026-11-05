@@ -1,33 +1,4 @@
-#![allow(clippy::doc_overindented_list_items)]
-// Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
-//! Param packers — two flavours sharing one 2004scape-style text format:
-//!
-//! 1. **Server cache (legacy, untouched binary)**: [`pack_params`] reads
-//!    .param text and writes `data/pack/server/param.dat`/`param.idx` via
-//!    `PackedData`. Server-only; mirrors 2004scape `ParamConfig.ts`.
-//! 2. **Client cache (Phase 1 rebuild)**: [`emit_param_props`] +
-//!    [`pack_param_def`] roundtrip through `ParamDefinition` for archive 2
-//!    group 11 of the JS5 client cache. `pack_param_def(...).encode()`
-//!    produces byte-perfect cache bytes.
-//!
-//! ## Key choices (cache packer)
-//!
-//! 2004scape's `default=` is overloaded — string for op 5, integer for op 2,
-//! disambiguated by the param's `type=`. To keep byte-perfect distinction
-//! safe we emit DISTINCT keys in the unpacked text:
-//!
-//! - `type=<name>`              → op 1 (`TypeChar`), e.g. `int`, `string`,
-//!                                `coord`, `enum`, ... Unknown bytes round-
-//!                                trip as `byte:0xNN`.
-//! - `defaultint=<i32>`         → op 2 (`DefaultInt`).
-//! - `defaultstring=<value>`    → op 5 (`DefaultString`). Trailing whitespace
-//!                                is preserved verbatim — never trim.
-//! - `autodisable=no`           → op 4 (`AutoDisposeOff`); only flag form.
-//!
-//! `ParamOpcode` has no `DebugName(String)` variant (no op 250 in the cache
-//! shape), so `pack_param_def` does NOT append a debugname emission. The
-//! `[section]` header is purely a content identifier for the unpack/repack
-//! cycle.
+//! Param config packer.
 
 use std::collections::HashMap;
 use std::path::Path;
@@ -35,33 +6,31 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::{info, warn};
 
-use crate::cache647::ParamType;
+use crate::cache::param::ParamTypeRaw;
 
 use super::{collect_config_files, parse_config_sections};
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
+use crate::types::ScriptVarType;
 
-/// Walk a param's emissions and produce the (key, value) pairs matching the
-/// distinct-key text shape (`type=`, `defaultint=`, `defaultstring=`,
-/// `autodisable=no`). No DebugName — `ParamOpcode` lacks that variant.
-pub fn emit_param_props(def: &ParamType, _registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_param_props(def: &ParamTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if let Some(tc) = def.type_char {
-        p.push((1, "type".into(), char_to_type_name(tc)));
+    if def.opcode_order.contains(&1) {
+        p.push((1, "type".into(), char_to_type_name(def.var_type as u8)));
     }
-    if let Some(di) = def.default_int {
-        p.push((2, "defaultint".into(), di.to_string()));
+    if def.opcode_order.contains(&2) {
+        p.push((2, "defaultint".into(), def.default_int.to_string()));
     }
-    if !def.auto_disable {
+    if !def.autodisable {
         p.push((4, "autodisable".into(), "no".into()));
     }
-    if let Some(ds) = &def.default_string {
+    if let Some(ds) = &def.default_str {
         p.push((5, "defaultstring".into(), ds.to_string()));
     }
     super::reorder_by_opcode(&def.opcode_order, p)
 }
 
-fn char_to_type_name(c: u8) -> String {
+pub(super) fn char_to_type_name(c: u8) -> String {
     let name: Option<&'static str> = match c {
         b'i' => Some("int"),
         b's' => Some("string"),
@@ -128,7 +97,7 @@ pub fn type_name_to_char(name: &str) -> char {
                     return v as char;
                 }
             }
-            '?'
+            ScriptVarType::from_type_name(other).to_char()
         }
     }
 }

@@ -1,6 +1,7 @@
 use super::provider::{CacheType, TypeProvider};
 use crate::types::*;
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 
 pub type HuntTypeProvider = TypeProvider<HuntType>;
 
@@ -25,7 +26,7 @@ pub struct HuntType {
     pub check_invparam: Option<HuntCheckInvParam>,
     pub check_invcat: Option<HuntCheckInvCat>,
     pub extracheck_vars: Vec<HuntExtraCheckVar>,
-    pub(crate) debugname: Option<Box<str>>,
+    debugname: Option<Box<str>>,
 }
 
 pub struct HuntCheckInv {
@@ -59,7 +60,7 @@ impl CacheType for HuntType {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        HuntType {
+        Self {
             id,
             hunt_type: HuntModeType::Off,
             check_vis: HuntCheckVis::Off,
@@ -86,9 +87,11 @@ impl CacheType for HuntType {
 
     fn decode(&mut self, buf: &mut Packet) {
         while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
+            let code = buf.g1();
+            if code == 0 {
+                break;
+            }
             match code {
-                0 => break,
                 1 => self.hunt_type = HuntModeType::try_from(buf.g1()).unwrap(),
                 2 => self.check_vis = HuntCheckVis::try_from(buf.g1()).unwrap(),
                 3 => self.check_nottoostrong = HuntCheckNotTooStrong::try_from(buf.g1()).unwrap(),
@@ -107,7 +110,7 @@ impl CacheType for HuntType {
                 16 => {
                     let inv = buf.g2();
                     let obj = buf.g2();
-                    let condition = buf.gjstr(10);
+                    let condition = buf.gjstr(STRING_TERMINATOR);
                     let value = buf.g4s();
                     self.check_inv = Some(HuntCheckInv {
                         inv,
@@ -119,7 +122,7 @@ impl CacheType for HuntType {
                 17 => {
                     let inv = buf.g2();
                     let param = buf.g2();
-                    let condition = buf.gjstr(10);
+                    let condition = buf.gjstr(STRING_TERMINATOR);
                     let value = buf.g4s();
                     self.check_invparam = Some(HuntCheckInvParam {
                         inv,
@@ -131,7 +134,7 @@ impl CacheType for HuntType {
                 18 => {
                     let inv = buf.g2();
                     let category = buf.g2();
-                    let condition = buf.gjstr(10);
+                    let condition = buf.gjstr(STRING_TERMINATOR);
                     let value = buf.g4s();
                     self.check_invcat = Some(HuntCheckInvCat {
                         inv,
@@ -140,17 +143,8 @@ impl CacheType for HuntType {
                         value,
                     });
                 }
-                19..=21 => {
-                    let varp = buf.g2();
-                    let condition = buf.gjstr(10);
-                    let value = buf.g4s();
-                    self.extracheck_vars.push(HuntExtraCheckVar {
-                        varp,
-                        condition,
-                        value,
-                    });
-                }
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
+                19..=21 => self.decode_check_var(buf),
+                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("hunt", code),
             }
         }
@@ -158,6 +152,19 @@ impl CacheType for HuntType {
 
     fn debugname(&self) -> Option<&str> {
         self.debugname.as_deref()
+    }
+}
+
+impl HuntType {
+    fn decode_check_var(&mut self, buf: &mut Packet) {
+        let varp = buf.g2();
+        let condition = buf.gjstr(STRING_TERMINATOR);
+        let value = buf.g4s();
+        self.extracheck_vars.push(HuntExtraCheckVar {
+            varp,
+            condition,
+            value,
+        });
     }
 }
 

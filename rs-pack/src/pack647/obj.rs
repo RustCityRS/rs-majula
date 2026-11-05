@@ -40,7 +40,8 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::{info, warn};
 
-use crate::cache647::{ObjType, ParamValue};
+use crate::cache::obj::ObjTypeRaw;
+use crate::types::ParamValue;
 
 use super::{collect_config_files, parse_config_sections};
 use crate::pack_registry::PackRegistry;
@@ -128,7 +129,7 @@ pub fn pack_objs(
                 // The cache's own fields the server reads too, in the
                 // cache's encoding: the name `oc_name` prints, the price
                 // shops and alchemy use, members, and the note, lent and
-                // bought links `ObjType`'s post-decode copies across. Without
+                // bought links `ObjTypeRaw`'s post-decode copies across. Without
                 // them every obj loads nameless, free, non-members and
                 // unnotable (npcs already carry their name this way).
                 "name" => {
@@ -990,7 +991,7 @@ fn param_name(registry: &PackRegistry, id: u32) -> String {
 /// Cross-references resolve through `PackRegistry`. Unknown ids fall back
 /// to `<type>_<id>` placeholders so the roundtrip still produces the
 /// correct cache bytes.
-pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if def.opcode_order.contains(&1) || def.model != 0 {
         p.push((1, "model".into(), model_name(registry, def.model)));
@@ -998,20 +999,20 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
     if let Some(name) = &def.name {
         p.push((2, "name".into(), name.to_string()));
     }
-    if def.opcode_order.contains(&4) || def.zoom_2d != 2000 {
-        p.push((4, "2dzoom".into(), def.zoom_2d.to_string()));
+    if def.opcode_order.contains(&4) || def.zoom2d != 2000 {
+        p.push((4, "2dzoom".into(), def.zoom2d.to_string()));
     }
-    if def.opcode_order.contains(&5) || def.xan_2d != 0 {
-        p.push((5, "2dxan".into(), def.xan_2d.to_string()));
+    if def.opcode_order.contains(&5) || def.xan2d != 0 {
+        p.push((5, "2dxan".into(), def.xan2d.to_string()));
     }
-    if def.opcode_order.contains(&6) || def.yan_2d != 0 {
-        p.push((6, "2dyan".into(), def.yan_2d.to_string()));
+    if def.opcode_order.contains(&6) || def.yan2d != 0 {
+        p.push((6, "2dyan".into(), def.yan2d.to_string()));
     }
-    if def.opcode_order.contains(&7) || def.xof_2d != 0 {
-        p.push((7, "2dxof".into(), def.xof_2d.to_string()));
+    if def.opcode_order.contains(&7) || def.xof2d != 0 {
+        p.push((7, "2dxof".into(), def.xof2d.to_string()));
     }
-    if def.opcode_order.contains(&8) || def.yof_2d != 0 {
-        p.push((8, "2dyof".into(), def.yof_2d.to_string()));
+    if def.opcode_order.contains(&8) || def.yof2d != 0 {
+        p.push((8, "2dyof".into(), def.yof2d.to_string()));
     }
     if def.stackable {
         p.push((11, "stackable".into(), "yes".into()));
@@ -1025,29 +1026,45 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
     if def.opcode_order.contains(&18) || def.multistack != 0 {
         p.push((18, "multistack".into(), obj_name(registry, def.multistack)));
     }
-    if def.opcode_order.contains(&23) || def.manwear != 0 {
-        p.push((23, "manwear".into(), model_name(registry, def.manwear)));
+    if def.opcode_order.contains(&23) || def.manwear.unwrap_or(0) != 0 {
+        p.push((
+            23,
+            "manwear".into(),
+            model_name(registry, def.manwear.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&24) || def.manwear2 != 0 {
-        p.push((24, "manwear2".into(), model_name(registry, def.manwear2)));
+    if def.opcode_order.contains(&24) || def.manwear2.unwrap_or(0) != 0 {
+        p.push((
+            24,
+            "manwear2".into(),
+            model_name(registry, def.manwear2.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&25) || def.womanwear != 0 {
-        p.push((25, "womanwear".into(), model_name(registry, def.womanwear)));
+    if def.opcode_order.contains(&25) || def.womanwear.unwrap_or(0) != 0 {
+        p.push((
+            25,
+            "womanwear".into(),
+            model_name(registry, def.womanwear.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&26) || def.womenwear2 != 0 {
+    if def.opcode_order.contains(&26) || def.womanwear2.unwrap_or(0) != 0 {
         p.push((
             26,
             "womanwear2".into(),
-            model_name(registry, def.womenwear2),
+            model_name(registry, def.womanwear2.unwrap_or(0)),
         ));
     }
-    for (slot, opt) in def.options.iter().enumerate() {
-        if let Some(text) = opt {
+    for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
+        if let Some(text) = opt
+            && def.opcode_order.contains(&(30 + slot as u8))
+        {
             p.push((30 + slot as u8, format!("op{}", slot + 1), text.to_string()));
         }
     }
-    for (slot, opt) in def.interface_options.iter().enumerate() {
-        if let Some(text) = opt {
+    for (slot, opt) in def.iop.as_deref().unwrap_or_default().iter().enumerate() {
+        if let Some(text) = opt
+            && def.opcode_order.contains(&(35 + slot as u8))
+        {
             p.push((
                 35 + slot as u8,
                 format!("iop{}", slot + 1),
@@ -1077,46 +1094,66 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
     if def.stockmarket {
         p.push((65, "stockmarket".into(), "yes".into()));
     }
-    if def.opcode_order.contains(&78) || def.manwear3 != 0 {
-        p.push((78, "manwear3".into(), model_name(registry, def.manwear3)));
+    if def.opcode_order.contains(&78) || def.manwear3.unwrap_or(0) != 0 {
+        p.push((
+            78,
+            "manwear3".into(),
+            model_name(registry, def.manwear3.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&79) || def.womanwear3 != 0 {
+    if def.opcode_order.contains(&79) || def.womanwear3.unwrap_or(0) != 0 {
         p.push((
             79,
             "womanwear3".into(),
-            model_name(registry, def.womanwear3),
+            model_name(registry, def.womanwear3.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&90) || def.manhead != 0 {
-        p.push((90, "manhead".into(), model_name(registry, def.manhead)));
+    if def.opcode_order.contains(&90) || def.manhead.unwrap_or(0) != 0 {
+        p.push((
+            90,
+            "manhead".into(),
+            model_name(registry, def.manhead.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&91) || def.womanhead != 0 {
-        p.push((91, "womanhead".into(), model_name(registry, def.womanhead)));
+    if def.opcode_order.contains(&91) || def.womanhead.unwrap_or(0) != 0 {
+        p.push((
+            91,
+            "womanhead".into(),
+            model_name(registry, def.womanhead.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&92) || def.manhead2 != 0 {
-        p.push((92, "manhead2".into(), model_name(registry, def.manhead2)));
+    if def.opcode_order.contains(&92) || def.manhead2.unwrap_or(0) != 0 {
+        p.push((
+            92,
+            "manhead2".into(),
+            model_name(registry, def.manhead2.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&93) || def.womenhead2 != 0 {
+    if def.opcode_order.contains(&93) || def.womanhead2.unwrap_or(0) != 0 {
         p.push((
             93,
             "womanhead2".into(),
-            model_name(registry, def.womenhead2),
+            model_name(registry, def.womanhead2.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&95) || def.zan_2d != 0 {
-        p.push((95, "2dzan".into(), def.zan_2d.to_string()));
+    if def.opcode_order.contains(&95) || def.zan2d != 0 {
+        p.push((95, "2dzan".into(), def.zan2d.to_string()));
     }
-    if def.opcode_order.contains(&96) || def.dummy_obj != 0 {
-        p.push((96, "dummyobj".into(), def.dummy_obj.to_string()));
+    if def.opcode_order.contains(&96) || def.dummyitem as u8 != 0 {
+        p.push((96, "dummyobj".into(), (def.dummyitem as u8).to_string()));
     }
-    if def.opcode_order.contains(&97) || def.certlink != 0 {
-        p.push((97, "certlink".into(), obj_name(registry, def.certlink)));
+    if def.opcode_order.contains(&97) || def.certlink.unwrap_or(0) != 0 {
+        p.push((
+            97,
+            "certlink".into(),
+            obj_name(registry, def.certlink.unwrap_or(0)),
+        ));
     }
-    if def.opcode_order.contains(&98) || def.certtemplate != 0 {
+    if def.opcode_order.contains(&98) || def.certtemplate.unwrap_or(0) != 0 {
         p.push((
             98,
             "certtemplate".into(),
-            obj_name(registry, def.certtemplate),
+            obj_name(registry, def.certtemplate.unwrap_or(0)),
         ));
     }
     if let (Some(countobj), Some(countco)) = (&def.countobj, &def.countco) {
@@ -1131,20 +1168,32 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
             }
         }
     }
-    if def.opcode_order.contains(&110) || def.resize_x != 128 {
-        p.push((110, "resizex".into(), def.resize_x.to_string()));
+    if def.opcode_order.contains(&110) || def.resizex.unwrap_or(128) != 128 {
+        p.push((
+            110,
+            "resizex".into(),
+            def.resizex.unwrap_or(128).to_string(),
+        ));
     }
-    if def.opcode_order.contains(&111) || def.resize_y != 128 {
-        p.push((111, "resizey".into(), def.resize_y.to_string()));
+    if def.opcode_order.contains(&111) || def.resizey.unwrap_or(128) != 128 {
+        p.push((
+            111,
+            "resizey".into(),
+            def.resizey.unwrap_or(128).to_string(),
+        ));
     }
-    if def.opcode_order.contains(&112) || def.resize_z != 128 {
-        p.push((112, "resizez".into(), def.resize_z.to_string()));
+    if def.opcode_order.contains(&112) || def.resizez.unwrap_or(128) != 128 {
+        p.push((
+            112,
+            "resizez".into(),
+            def.resizez.unwrap_or(128).to_string(),
+        ));
     }
     if def.opcode_order.contains(&113) || def.ambient != 0 {
         p.push((113, "ambient".into(), def.ambient.to_string()));
     }
     if def.opcode_order.contains(&114) || def.contrast != 0 {
-        p.push((114, "contrast".into(), (def.contrast / 5).to_string()));
+        p.push((114, "contrast".into(), def.contrast.to_string()));
     }
     if def.opcode_order.contains(&115) || def.team != 0 {
         p.push((115, "team".into(), def.team.to_string()));
@@ -1161,21 +1210,18 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
     }
     if def.opcode_order.contains(&125)
         || def.manwear_xoff != 0
-        || def.manwear_yoff != 0
+        || def.manweary != 0
         || def.manwear_zoff != 0
     {
         p.push((
             125,
             "manwearoff".into(),
-            format!(
-                "{},{},{}",
-                def.manwear_xoff, def.manwear_yoff, def.manwear_zoff
-            ),
+            format!("{},{},{}", def.manwear_xoff, def.manweary, def.manwear_zoff),
         ));
     }
     if def.opcode_order.contains(&126)
         || def.womanwear_xoff != 0
-        || def.womanwear_yoff != 0
+        || def.womanweary != 0
         || def.womanwear_zoff != 0
     {
         p.push((
@@ -1183,7 +1229,7 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
             "womanwearoff".into(),
             format!(
                 "{},{},{}",
-                def.womanwear_xoff, def.womanwear_yoff, def.womanwear_zoff
+                def.womanwear_xoff, def.womanweary, def.womanwear_zoff
             ),
         ));
     }
@@ -1275,7 +1321,7 @@ pub fn emit_obj_props(def: &ObjType, registry: &PackRegistry) -> Vec<(String, St
 /// Decode all param entries from the raw op249 data, preserving order
 /// and individual values (even for duplicate keys that were overwritten
 /// in the HashMap during normal decode).
-fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<crate::cache647::provider::ParamValue> {
+fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<ParamValue> {
     let Some((_, data)) = raw_opcodes.iter().find(|(op, _)| *op == 249) else {
         return Vec::new();
     };
@@ -1300,14 +1346,12 @@ fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<crate::cache647::prov
             }
             let s = String::from_utf8_lossy(&data[start..pos]).to_string();
             pos += 1; // skip NUL
-            result.push(crate::cache647::provider::ParamValue::String(
-                s.into_boxed_str(),
-            ));
+            result.push(ParamValue::String(s.into_boxed_str()));
         } else {
             if pos + 3 < data.len() {
                 let v =
                     i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-                result.push(crate::cache647::provider::ParamValue::Int(v));
+                result.push(ParamValue::Int(v));
             }
             pos += 4;
         }

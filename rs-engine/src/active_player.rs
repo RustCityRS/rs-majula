@@ -18,6 +18,8 @@ use rs_pack::cache::inv::InvScope;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitType;
 use rs_pack::cache::{ScriptVarType, VarValue};
+#[cfg(since_289)]
+use rs_pack::types::MultiVar;
 use rs_pack::types::{Font, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::client::ClientProtMessage;
@@ -1692,39 +1694,40 @@ impl ActivePlayer {
             .note_fmt(engine().clock, format_args!("Click {name}"));
     }
 
-    /// Records a walk click on the game screen or the minimap.
-    /// Where the client's map starts, as the world last sent it.
     /// The loc `id` shows as to this player: from 289 a loc can turn into
-    /// another by a varbit, and the client shows that one's name and options
+    /// another by a variable, and the client shows that one's name and options
     /// (while clicks on it carry `id`). `None` when it turns into nothing,
     /// which the client offers no options on.
-    #[cfg(all(since_289, before_647))]
+    #[cfg(since_289)]
     pub fn shown_loc(&self, id: u16) -> Option<u16> {
         let engine = engine();
         let Some(ty) = engine.locs().get_by_id(id) else {
             return Some(id);
         };
-        let (Some(var), Some(multi)) = (ty.multivar, ty.multiloc.as_deref()) else {
+        if ty.multiloc.is_none() {
             return Some(id);
+        }
+        #[cfg(before_647)]
+        if ty.multivar.is_none() {
+            return Some(id);
+        }
+        let value = match ty.multivar {
+            Some(MultiVar::Varbit(var)) => {
+                engine.varbits().get_by_id(var).map(|var| self.varbit(var))
+            }
+            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var).as_int()),
+            None => None,
         };
-        let varbit = engine.varbits().get_by_id(var)?;
-        u16::try_from(*multi.get(self.varbit(varbit) as usize)?).ok()
+        #[cfg(before_647)]
+        let value = value?;
+        #[cfg(since_647)]
+        let value = value.unwrap_or(-1);
+        ty.multi_loc(value)
     }
 
     #[cfg(before_289)]
     pub fn shown_loc(&self, id: u16) -> Option<u16> {
         Some(id)
-    }
-
-    /// From 647 a multiloc turns by a varbit or else a varp, and an
-    /// out-of-range value shows its default, the last entry
-    /// (`LocType.get_multi_loc`).
-    #[cfg(since_647)]
-    pub fn shown_loc(&self, id: u16) -> Option<u16> {
-        let Some(ty) = engine().locs().get_by_id(id) else {
-            return Some(id);
-        };
-        ty.multi_loc(crate::handlers::oploc::multiloc_var(ty, &self.player))
     }
 
     fn map_base(&self) -> MapBase {

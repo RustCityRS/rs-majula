@@ -27,7 +27,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, StructType};
+use crate::cache::provider::CacheType;
+use crate::cache::r#struct::StructTypeRaw;
 use crate::pack::struct_pack::emit_struct_props;
 use crate::pack_registry::PackRegistry;
 
@@ -55,7 +56,7 @@ pub fn unpack_structs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Pa
         if entry.data.is_empty() {
             continue;
         }
-        let mut def = StructType::new(entry.id as u16);
+        let mut def = StructTypeRaw::new(entry.id as u16);
         def.decode(&mut Packet::from(entry.data.to_vec()));
 
         let base = registry

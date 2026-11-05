@@ -23,7 +23,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, ParamType};
+use crate::cache::param::ParamTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::param::emit_param_props;
 use crate::pack_registry::PackRegistry;
 
@@ -55,7 +56,7 @@ pub fn unpack_params(cache_dir: &Path, registry: &PackRegistry, output_dir: &Pat
         if entry.data.is_empty() {
             continue;
         }
-        let mut def = ParamType::new(entry.id as u16);
+        let mut def = ParamTypeRaw::new(entry.id as u16);
         def.decode(&mut Packet::from(entry.data.to_vec()));
 
         let base = registry

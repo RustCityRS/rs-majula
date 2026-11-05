@@ -1,6 +1,8 @@
 use super::ScriptVarType;
+use super::decode::read_array;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 
 pub type DbRowTypeProvider = TypeProvider<DbRowType>;
 
@@ -18,7 +20,7 @@ pub struct DbRowType {
     pub types: DbRowTypes,
     pub columns: DbRowColumns,
     pub table: u16,
-    pub(crate) debugname: Option<Box<str>>,
+    debugname: Option<Box<str>>,
 }
 
 impl DbRowType {
@@ -28,7 +30,7 @@ impl DbRowType {
         for _ in 0..len {
             for &t in types {
                 values.push(if t == ScriptVarType::String as u8 {
-                    DbRowValue::String(buf.gjstr(10).into_boxed_str())
+                    DbRowValue::String(buf.gjstr(STRING_TERMINATOR).into_boxed_str())
                 } else {
                     DbRowValue::Int(buf.g4s())
                 });
@@ -53,9 +55,11 @@ impl CacheType for DbRowType {
 
     fn decode(&mut self, buf: &mut Packet) {
         while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
+            let code = buf.g1();
+            if code == 0 {
+                break;
+            }
             match code {
-                0 => break,
                 3 => {
                     let len = buf.g1() as usize;
                     let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
@@ -65,18 +69,14 @@ impl CacheType for DbRowType {
                         if column == 0xFF {
                             break;
                         }
-                        let type_count = buf.g1() as usize;
-                        types[column] = (0..type_count)
-                            .map(|_| buf.g1())
-                            .collect::<Vec<_>>()
-                            .into_boxed_slice();
+                        types[column] = read_array(buf, Packet::g1);
                         columns[column] = Some(DbRowType::decode_values(buf, &types[column]));
                     }
                     self.types = Some(types);
                     self.columns = Some(columns);
                 }
                 4 => self.table = buf.g2(),
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
+                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("dbrow", code),
             }
         }
@@ -84,5 +84,71 @@ impl CacheType for DbRowType {
 
     fn debugname(&self) -> Option<&str> {
         self.debugname.as_deref()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::cache::dbtable::{DbIndexKey, DbTableIndex, DbTableType, DbTableValue};
+
+    #[test]
+    fn sparse_columns_keep_defaults_values_and_names() {
+        let mut table = Packet::new(128);
+        table.p1(1);
+        table.p1(3);
+        table.p1(0x82);
+        table.p1(2);
+        table.p1(b'i');
+        table.p1(b's');
+        table.p1(1);
+        table.p4(42);
+        table.pjstr("default", STRING_TERMINATOR);
+        table.p1(0xFF);
+        table.p1(252);
+        table.p1(3);
+        table.p1(0);
+        table.p1(0);
+        table.p1(1);
+        table.p1(250);
+        table.pjstr("table", STRING_TERMINATOR);
+        table.p1(0);
+        let mut definition = DbTableType::new(0);
+        definition.decode(&mut Packet::from(table.data[..table.pos].to_vec()));
+        let tables = TypeProvider::<DbTableType>::from_types(vec![definition], ());
+        let defaults = tables
+            .get_by_debugname("table")
+            .unwrap()
+            .get_default(2)
+            .unwrap();
+        assert!(matches!(&defaults[0], DbTableValue::Int(42)));
+        assert!(matches!(&defaults[1], DbTableValue::String(s) if s.as_ref() == "default"));
+
+        let mut row = Packet::new(128);
+        row.p1(3);
+        row.p1(3);
+        row.p1(2);
+        row.p1(2);
+        row.p1(b'i');
+        row.p1(b's');
+        row.p1(1);
+        row.p4(7);
+        row.pjstr("value", STRING_TERMINATOR);
+        row.p1(0xFF);
+        row.p1(250);
+        row.pjstr("row", STRING_TERMINATOR);
+        row.p1(0);
+        let mut definition = DbRowType::new(0);
+        definition.decode(&mut Packet::from(row.data[..row.pos].to_vec()));
+        let rows = TypeProvider::<DbRowType>::from_types(vec![definition], ());
+        let row = rows.get_by_debugname("row").unwrap();
+        let columns = row.columns.as_ref().unwrap();
+        assert!(columns[0].is_none());
+        assert!(columns[1].is_none());
+        let values = columns[2].as_ref().unwrap();
+        assert!(matches!(&values[0], DbRowValue::Int(7)));
+        assert!(matches!(&values[1], DbRowValue::String(s) if s.as_ref() == "value"));
+        let index = DbTableIndex::build(&tables, &rows);
+        assert_eq!(index.find(&DbIndexKey::Int(7), 2 << 4), &[0]);
     }
 }

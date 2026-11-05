@@ -29,7 +29,7 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::{info, warn};
 
-use crate::cache647::loader;
+use crate::cache::loader;
 use rs_dat2::CacheStore;
 use rs_dat2::archive;
 
@@ -484,7 +484,12 @@ fn generate_obj_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Re
     let mut entries: Vec<(u32, String)> = items
         .types
         .iter()
-        .map(|def| (def.id as u32, def.display_name().to_string()))
+        .map(|def| {
+            (
+                def.id as u32,
+                def.name.as_deref().unwrap_or("null").to_string(),
+            )
+        })
         .collect();
     entries.sort_by_key(|(id, _)| *id);
     write_disambiguated_entity_pack(&pack_dir.join("obj.pack"), &entries, "obj", force)
@@ -495,7 +500,12 @@ fn generate_npc_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Re
     let mut entries: Vec<(u32, String)> = npcs
         .types
         .iter()
-        .map(|def| (def.id as u32, def.display_name().to_string()))
+        .map(|def| {
+            (
+                def.id as u32,
+                def.name.as_deref().unwrap_or("null").to_string(),
+            )
+        })
         .collect();
     entries.sort_by_key(|(id, _)| *id);
     write_disambiguated_entity_pack(&pack_dir.join("npc.pack"), &entries, "npc", force)
@@ -697,15 +707,15 @@ fn generate_category_pack(cache: &mut CacheStore, pack_dir: &Path) -> Result<Typ
 
     let items = loader::load_all_objs(cache, true)?;
     for item in items.types.iter() {
-        if item.category > 0 {
-            categories.insert(item.category as u32);
+        if let Some(category) = item.category.filter(|&category| category > 0) {
+            categories.insert(category as u32);
         }
     }
 
     let locs = loader::load_all_locs(cache)?;
     for loc in locs.types.iter() {
-        if loc.category > 0 {
-            categories.insert(loc.category as u32);
+        if let Some(category) = loc.category.filter(|&category| category > 0) {
+            categories.insert(category as u32);
         }
     }
 

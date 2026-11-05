@@ -2,6 +2,8 @@
 use super::provider::{CacheType, TypeProvider};
 #[cfg(since_254)]
 use rs_io::Packet;
+#[cfg(since_254)]
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_254)]
 pub type VarbitTypeProvider = TypeProvider<VarbitType>;
@@ -12,7 +14,7 @@ pub struct VarbitType {
     pub basevar: u16,
     pub start_bit: u8,
     pub end_bit: u8,
-    pub(crate) debugname: Option<Box<str>>,
+    debugname: Option<Box<str>>,
 }
 
 #[cfg(since_254)]
@@ -31,15 +33,17 @@ impl CacheType for VarbitType {
 
     fn decode(&mut self, buf: &mut Packet) {
         while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
+            let code = buf.g1();
+            if code == 0 {
+                break;
+            }
             match code {
-                0 => break,
                 1 => {
                     self.basevar = buf.g2();
                     self.start_bit = buf.g1();
                     self.end_bit = buf.g1();
                 }
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
+                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("varbit", code),
             }
         }

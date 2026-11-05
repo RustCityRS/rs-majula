@@ -4,6 +4,7 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[client_prot(VarByte { min: 0 }, UserEvent)]
 pub struct ClanJoinchatLeavechat {
@@ -20,7 +21,7 @@ impl ClientProtMessage for ClanJoinchatLeavechat {
             name: if len == 0 {
                 String::new()
             } else {
-                buf.gjstr(0)
+                buf.gjstr(STRING_TERMINATOR)
             },
         }
     }

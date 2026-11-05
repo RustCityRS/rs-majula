@@ -37,7 +37,8 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::{info, warn};
 
-use crate::cache647::{ParamValue, StructType};
+use crate::cache::r#struct::StructTypeRaw;
+use crate::types::ParamValue;
 
 use super::{collect_config_files, parse_config_sections};
 use crate::pack_registry::PackRegistry;
@@ -46,9 +47,9 @@ use crate::packed_data::PackedData;
 /// Walk a struct's emissions and produce `param=name,value` pairs matching
 /// 2004scape's `.struct` text format. Type (int vs string) is determined
 /// by the param definition, not the key name.
-pub fn emit_struct_props(def: &StructType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_struct_props(def: &StructTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
-    for (key, val) in &def.params {
+    for (key, val) in def.params.as_deref().unwrap_or_default() {
         let pname = registry
             .param
             .get_by_id(*key as u32)

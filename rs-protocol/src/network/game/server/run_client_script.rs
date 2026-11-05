@@ -8,6 +8,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 pub enum ScriptParam {
@@ -33,11 +34,11 @@ impl ServerProtMessage for RunClientScript {
                 ScriptParam::Str(_) => 's',
             })
             .collect();
-        buf.pjstr(&types, 0);
+        buf.pjstr(&types, STRING_TERMINATOR);
         for param in self.params.iter().rev() {
             match param {
                 ScriptParam::Int(v) => buf.p4(*v),
-                ScriptParam::Str(s) => buf.pjstr(s, 0),
+                ScriptParam::Str(s) => buf.pjstr(s, STRING_TERMINATOR),
             }
         }
         buf.p4(self.script_id);

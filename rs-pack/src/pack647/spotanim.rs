@@ -12,7 +12,7 @@ use super::parse_config_sections;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
-use crate::cache647::SpotAnimType;
+use crate::cache::spotanim::SpotAnimTypeRaw;
 
 fn resolve_model(value: &str, registry: &PackRegistry) -> u16 {
     registry
@@ -238,9 +238,16 @@ pub fn pack_spotanims(
     Ok(())
 }
 
-pub fn emit_spotanim_props(def: &SpotAnimType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_spotanim_props(
+    def: &SpotAnimTypeRaw,
+    registry: &PackRegistry,
+) -> Vec<(String, String)> {
+    let recol_s = def.recol_s.as_deref().unwrap_or_default();
+    let recol_d = def.recol_d.as_deref().unwrap_or_default();
+    let retex_s = def.retex_s.as_deref().unwrap_or_default();
+    let retex_d = def.retex_d.as_deref().unwrap_or_default();
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if def.has_model {
+    if def.opcode_order.contains(&1) {
         let name = registry
             .model
             .get_by_id(def.model as u32)
@@ -248,22 +255,22 @@ pub fn emit_spotanim_props(def: &SpotAnimType, registry: &PackRegistry) -> Vec<(
             .unwrap_or_else(|| format!("model_{}", def.model));
         p.push((1, "model".into(), name));
     }
-    if def.has_seq {
+    if let Some(anim) = def.anim {
         let name = registry
             .seq
-            .get_by_id(def.seq as u32)
+            .get_by_id(anim as u32)
             .map(|s| s.to_string())
-            .unwrap_or_else(|| format!("seq_{}", def.seq));
+            .unwrap_or_else(|| format!("seq_{}", anim));
         p.push((2, "anim".into(), name));
     }
-    if def.opcode_order.contains(&4) || def.resize_x != 128 {
-        p.push((4, "resizeh".into(), def.resize_x.to_string()));
+    if def.opcode_order.contains(&4) || def.resizeh != 128 {
+        p.push((4, "resizeh".into(), def.resizeh.to_string()));
     }
-    if def.opcode_order.contains(&5) || def.resize_z != 128 {
-        p.push((5, "resizev".into(), def.resize_z.to_string()));
+    if def.opcode_order.contains(&5) || def.resizev != 128 {
+        p.push((5, "resizev".into(), def.resizev.to_string()));
     }
-    if def.opcode_order.contains(&6) || def.rotation != 0 {
-        p.push((6, "angle".into(), def.rotation.to_string()));
+    if def.opcode_order.contains(&6) || def.angle != 0 {
+        p.push((6, "angle".into(), def.angle.to_string()));
     }
     if def.opcode_order.contains(&7) || def.ambient != 0 {
         p.push((7, "ambient".into(), def.ambient.to_string()));
@@ -286,27 +293,27 @@ pub fn emit_spotanim_props(def: &SpotAnimType, registry: &PackRegistry) -> Vec<(
     if def.op13 {
         p.push((13, "op13_animmode5".into(), "yes".into()));
     }
-    if def.has_op14 {
+    if def.opcode_order.contains(&14) {
         p.push((14, "op14_animmode2_u8".into(), def.op14.to_string()));
     }
-    if def.has_op15 {
+    if def.opcode_order.contains(&15) {
         p.push((15, "op15_animmode3_u16".into(), def.op15.to_string()));
     }
-    if def.has_op16 {
+    if def.opcode_order.contains(&16) {
         p.push((16, "op16_animmode3_i32".into(), def.op16.to_string()));
     }
-    if !def.recol_d.is_empty() {
-        for i in 0..def.recol_d.len() {
+    if !recol_d.is_empty() {
+        for i in 0..recol_d.len() {
             let n = i + 1;
-            p.push((40, format!("recol{n}d"), def.recol_d[i].to_string()));
-            p.push((40, format!("recol{n}s"), def.recol_s[i].to_string()));
+            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
+            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
         }
     }
-    if !def.retex_d.is_empty() {
-        for i in 0..def.retex_d.len() {
+    if !retex_d.is_empty() {
+        for i in 0..retex_d.len() {
             let n = i + 1;
-            p.push((41, format!("retex{n}d"), def.retex_d[i].to_string()));
-            p.push((41, format!("retex{n}s"), def.retex_s[i].to_string()));
+            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
+            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
         }
     }
     super::reorder_by_opcode(&def.opcode_order, p)

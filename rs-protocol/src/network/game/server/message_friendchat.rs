@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 #[server_prot(MessageFriendchat, Buffered, VarByte)]
@@ -27,11 +28,11 @@ impl ServerProtMessage for MessageFriendchat {
     fn encode(&self, buf: &mut Packet) {
         if let Some(ref display) = self.display_name {
             buf.p1(1);
-            buf.pjstr(&self.sender, 0);
-            buf.pjstr(display, 0);
+            buf.pjstr(&self.sender, STRING_TERMINATOR);
+            buf.pjstr(display, STRING_TERMINATOR);
         } else {
             buf.p1(0);
-            buf.pjstr(&self.sender, 0);
+            buf.pjstr(&self.sender, STRING_TERMINATOR);
         }
         buf.p8(self.channel_owner);
         buf.p2(self.msg_uid_hi);

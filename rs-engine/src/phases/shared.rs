@@ -255,7 +255,7 @@ impl Engine {
                 let forceapproach = engine()
                     .locs()
                     .get_by_id(*id)
-                    .map(|lt| lt.forceapproach_flags())
+                    .map(|lt| lt.forceapproach as u8)
                     .unwrap_or(0);
                 rsmod::reached(
                     y,
@@ -574,7 +574,7 @@ impl Engine {
                     let forceapproach = engine()
                         .locs()
                         .get_by_id(*id)
-                        .map(|lt| lt.forceapproach_flags())
+                        .map(|lt| lt.forceapproach as u8)
                         .unwrap_or(0);
                     pathing.queue_waypoints(rsmod::find_path(
                         y,

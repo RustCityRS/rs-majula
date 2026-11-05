@@ -1,8 +1,8 @@
 use super::map::{ParsedMap, TILE_COUNT, TileData, tile_index, zone_key};
-use crate::cache::flo::FloType;
+use crate::cache::flo::{FloType, FloTypeRaw};
 use crate::cache::loc::LocTypeRaw;
 use crate::cache::npc::NpcTypeRaw;
-use crate::cache::provider::{CacheType, TypeProvider};
+use crate::cache::provider::TypeProvider;
 use crate::pack::util::media::{emit_group, read_group};
 use crate::pack::util::palette;
 use crate::types::{LocShape, MapSquareCsv};
@@ -144,7 +144,7 @@ impl WorldmapBuilder {
         multimap: &MapSquareCsv,
         freemap: &MapSquareCsv,
     ) -> Vec<u8> {
-        let flos = TypeProvider::<FloType>::from_bytes::<FloType>(flo_dat, ());
+        let flos = TypeProvider::<FloType>::from_bytes::<FloTypeRaw>(flo_dat, ());
         let locs = TypeProvider::<LocTypeRaw>::from_bytes::<LocTypeRaw>(loc_dat, ());
         let npcs = TypeProvider::<NpcTypeRaw>::from_bytes::<NpcTypeRaw>(npc_dat, ());
 
@@ -235,7 +235,7 @@ fn encode_locs(square: &[SquareLoc], locs: &TypeProvider<LocTypeRaw>, out: &mut 
         let tile = (loc.x as usize) << 6 | loc.z as usize;
 
         if walls[tile] == 0 {
-            walls[tile] = wall(loc.shape, loc.angle, ty.active == Some(true));
+            walls[tile] = wall(loc.shape, loc.angle, ty.active == Some(1));
         }
         if ty.mapscene.is_some() {
             mapscenes[tile] = ty.mapscene;

@@ -1,47 +1,22 @@
-//! Inv (inventory) packers — two flavours sharing one 2004scape-style text
-//! format:
-//!
-//! 1. **Server cache (legacy, untouched binary)**: [`pack_invs`] reads .inv
-//!    text and writes `data/pack/server/inv.dat`/`inv.idx` via `PackedData`.
-//!    This is the SERVER cache the engine reads at startup; binary output is
-//!    unchanged from prior revisions.
-//! 2. **Client cache (Phase 1 rebuild)**: [`emit_inv_props`] +
-//!    [`pack_inv_def`] roundtrip through `InvDefinition` for archive 2
-//!    group 5 of the JS5 client cache. `pack_inv_def(...).encode()` produces
-//!    byte-perfect cache bytes.
-//!
-//! Both paths read the SAME `.inv` text format, mirroring 2004scape's
-//! `engine/tools/pack/config/InvConfig.ts`: `scope=temp|perm|shared`,
-//! `size=N`, `stackall|restock|allstock|protect|runweight|dummyinv=yes|no`,
-//! `stockN=obj_name,count[,rate]`. The debugname (op 250) is the
-//! `[section]` header in pack_inv_def's case; for pack_invs the debugname
-//! is the registry-mapped name.
-//!
-//! Object references resolve through `PackRegistry::obj` — human-readable
-//! names in, numeric ids out.
-
 use std::collections::HashMap;
 use std::path::Path;
 
-use crate::cache647::InvType;
-use anyhow::Result;
+use crate::cache::inv::InvTypeRaw;
+use crate::types::InvScope;
+use anyhow::{Context, Result, ensure};
 use tracing::info;
 
 use super::{collect_config_files, parse_config_sections};
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
-/// Walk an inv's emissions and produce the (key, value) pairs matching
-/// 2004scape's InvConfig text format. The `DebugName` emission is dropped
-/// because the `[section]` header already carries it; the writer lifts the
-/// section name from `def.debugname`.
-pub fn emit_inv_props(def: &InvType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_inv_props(def: &InvTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
     if def.has_scope {
         let s = match def.scope {
-            crate::types647::InvScope::Temp => "temp".to_string(),
-            crate::types647::InvScope::Perm => "perm".to_string(),
-            crate::types647::InvScope::Shared => "shared".to_string(),
+            InvScope::Temp => "temp".to_string(),
+            InvScope::Perm => "perm".to_string(),
+            InvScope::Shared => "shared".to_string(),
         };
         props.push(("scope".into(), s));
     }
@@ -51,21 +26,24 @@ pub fn emit_inv_props(def: &InvType, registry: &PackRegistry) -> Vec<(String, St
     if def.stackall {
         props.push(("stackall".into(), "yes".into()));
     }
-    if !def.stock_obj.is_empty() {
-        for i in 0..def.stock_obj.len() {
-            let obj_name = if def.stock_obj[i] == u16::MAX {
+    let stockobj = def.stockobj.as_deref().unwrap_or_default();
+    let stockcount = def.stockcount.as_deref().unwrap_or_default();
+    let stockrate = def.stockrate.as_deref().unwrap_or_default();
+    if !stockobj.is_empty() {
+        for i in 0..stockobj.len() {
+            let obj_name = if stockobj[i] == u16::MAX {
                 "null".to_string()
             } else {
                 registry
                     .obj
-                    .get_by_id(def.stock_obj[i] as u32)
+                    .get_by_id(stockobj[i] as u32)
                     .map(|s| s.to_string())
-                    .unwrap_or_else(|| format!("obj_{}", def.stock_obj[i]))
+                    .unwrap_or_else(|| format!("obj_{}", stockobj[i]))
             };
-            let value = if def.stock_rate[i] != 0 {
-                format!("{},{},{}", obj_name, def.stock_count[i], def.stock_rate[i])
+            let value = if stockrate[i] != 0 {
+                format!("{},{},{}", obj_name, stockcount[i], stockrate[i])
             } else {
-                format!("{},{}", obj_name, def.stock_count[i])
+                format!("{},{}", obj_name, stockcount[i])
             };
             props.push((format!("stock{}", i + 1), value));
         }
@@ -88,12 +66,6 @@ pub fn emit_inv_props(def: &InvType, registry: &PackRegistry) -> Vec<(String, St
     props
 }
 
-// ─── Legacy server-cache packer (data/pack/server/inv.dat) ───────────────
-//
-// Same .inv text format as the cache packer above; binary output is the
-// rs-server's startup-loadable PackedData blob. Server cache is a separate
-// store from the JS5 client cache (data/pack/server/) and is never
-// transmitted to the client.
 pub fn pack_invs(
     source_dir: &Path,
     registry: &PackRegistry,
@@ -165,69 +137,48 @@ pub fn pack_invs(
                         }
                     }
                 }
-                "stackall" => {
-                    if value == "yes" {
-                        packed.p1(3);
-                    }
-                }
-                "restock" => {
-                    if value == "yes" {
-                        packed.p1(4);
-                    }
-                }
-                "allstock" => {
-                    if value == "yes" {
-                        packed.p1(5);
-                    }
-                }
-                "protect" => {
-                    if value == "no" {
-                        packed.p1(8);
-                    }
-                }
-                "runweight" => {
-                    if value == "yes" {
-                        packed.p1(9);
-                    }
-                }
-                "dummyinv" => {
-                    if value == "yes" {
-                        packed.p1(10);
-                    }
-                }
-                _ if key.starts_with("stock") && key != "stackall" => {
-                    // Each stockN=obj_name,count[,rate] becomes one opcode-6
-                    // entry — server cache shape, NOT the client cache's
-                    // batched opcode-4. Both formats coexist; pack_inv_def
-                    // handles the client cache.
-                }
+                "stackall" if value == "yes" => packed.p1(3),
+                "restock" if value == "yes" => packed.p1(5),
+                "allstock" if value == "yes" => packed.p1(6),
+                "protect" if value == "no" => packed.p1(7),
+                "runweight" if value == "yes" => packed.p1(8),
+                "dummyinv" if value == "yes" => packed.p1(9),
                 _ => {}
             }
         }
 
-        // Stock items (server-cache opcode 6): stockN=obj_name,count[,rate]
-        let stocks: Vec<(&str, &str)> = props
+        let stocks = props
             .iter()
-            .filter(|(k, _)| k.starts_with("stock") && k.as_str() != "stackall")
-            .filter_map(|(_, v)| v.split_once(','))
-            .collect();
+            .filter(|(key, _)| key.starts_with("stock"))
+            .map(|(_, value)| value.split(',').map(str::trim).collect::<Vec<_>>())
+            .collect::<Vec<_>>();
         if !stocks.is_empty() {
-            for (obj_name, rest) in &stocks {
-                let parts: Vec<&str> = rest.split(',').collect();
-                let Ok(count) = parts[0].trim().parse::<u16>() else {
-                    continue;
-                };
-                let Some(obj_id) = registry.obj.get_by_name(obj_name.trim()) else {
-                    continue;
-                };
-                let rate: u32 = parts
-                    .get(1)
-                    .and_then(|s| s.trim().parse().ok())
+            let count = u8::try_from(stocks.len())
+                .with_context(|| format!("{name}: too many stock entries"))?;
+            packed.p1(4);
+            packed.p1(count);
+            for stock in stocks {
+                ensure!(
+                    (2..=3).contains(&stock.len()),
+                    "{name}: invalid stock entry"
+                );
+                let obj =
+                    if stock[0] == "null" {
+                        u16::MAX
+                    } else {
+                        registry.obj.get_by_name(stock[0]).with_context(|| {
+                            format!("{name}: unknown stock object '{}'", stock[0])
+                        })? as u16
+                    };
+                let count = stock[1].parse::<u16>()?;
+                let rate = stock
+                    .get(2)
+                    .map(|rate| rate.parse::<i32>())
+                    .transpose()?
                     .unwrap_or(0);
-                packed.p1(6);
-                packed.p2(obj_id as u16);
+                packed.p2(obj);
                 packed.p2(count);
-                packed.p4(rate as i32);
+                packed.p4(rate);
             }
         }
 

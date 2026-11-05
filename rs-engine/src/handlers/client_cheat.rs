@@ -18,6 +18,7 @@ use rs_pack::cache::inv::InvType;
 use rs_pack::cache::loc::LocType;
 use rs_pack::cache::npc::NpcType;
 use rs_pack::cache::obj::ObjType;
+#[cfg(since_254)]
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::seq::SeqType;
 use rs_pack::cache::spotanim::SpotAnimType;
@@ -300,6 +301,20 @@ fn cheat_debugproc(
             ScriptVarType::NpcUid => {}
             ScriptVarType::DbRow => {}
             ScriptVarType::Midi => {}
+            #[cfg(since_647)]
+            ScriptVarType::Cursor
+            | ScriptVarType::MapArea
+            | ScriptVarType::Graphic
+            | ScriptVarType::Jingle
+            | ScriptVarType::ChatCat
+            | ScriptVarType::Model
+            | ScriptVarType::Texture
+            | ScriptVarType::Bas
+            | ScriptVarType::Vorbis
+            | ScriptVarType::MapElement => {
+                let value = args.next().unwrap_or("0");
+                params.push(ScriptArgument::Int(value.parse::<i32>().unwrap_or(0)));
+            }
         }
     }
 

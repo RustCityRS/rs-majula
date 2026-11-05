@@ -25,7 +25,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, SpotAnimType};
+use crate::cache::provider::CacheType;
+use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::pack::spotanim::emit_spotanim_props;
 use crate::pack_registry::PackRegistry;
 
@@ -60,7 +61,7 @@ pub fn unpack_spotanims(
                 continue;
             }
             let global_id = gid * STRIDE_SPOTANIM + entry.id;
-            let mut def = SpotAnimType::new(global_id as u16);
+            let mut def = SpotAnimTypeRaw::new(global_id as u16);
             let mut buf = Packet::from(entry.data.to_vec());
             def.decode(&mut buf);
 

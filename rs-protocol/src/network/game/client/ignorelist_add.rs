@@ -6,6 +6,8 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use crate::network::game::client_prot_message::string_end;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+#[cfg(since_647)]
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 #[client_prot(Fixed(8), UserEvent)]
@@ -34,7 +36,7 @@ impl ClientProtMessage for IgnoreListAdd {
     }
 
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let name = buf.gjstr(0);
+        let name = buf.gjstr(STRING_TERMINATOR);
         let temporary = buf.g1() == 1;
         IgnoreListAdd { name, temporary }
     }

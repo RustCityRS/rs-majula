@@ -4,6 +4,7 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[client_prot(VarByte { min: 1 }, UserEvent)]
 pub struct ResumePNameDialog {
@@ -16,6 +17,8 @@ impl ClientProtMessage for ResumePNameDialog {
     }
 
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        ResumePNameDialog { name: buf.gjstr(0) }
+        ResumePNameDialog {
+            name: buf.gjstr(STRING_TERMINATOR),
+        }
     }
 }

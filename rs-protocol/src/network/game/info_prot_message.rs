@@ -1,4 +1,5 @@
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 
 pub trait InfoMessage {
     fn encode(&self, buf: &mut Packet);
@@ -126,7 +127,7 @@ impl PlayerInfoSay {
 impl InfoMessage for PlayerInfoSay {
     #[inline]
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(&self.say, 10);
+        buf.pjstr(&self.say, STRING_TERMINATOR);
     }
 
     #[inline]
@@ -412,7 +413,7 @@ impl NpcInfoSay {
 impl InfoMessage for NpcInfoSay {
     #[inline]
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(&self.say, 10);
+        buf.pjstr(&self.say, STRING_TERMINATOR);
     }
 
     #[inline]

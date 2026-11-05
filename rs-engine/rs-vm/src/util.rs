@@ -15,7 +15,6 @@ use rs_pack::cache::midi::MidiType;
 use rs_pack::cache::npc::NpcType;
 use rs_pack::cache::obj::ObjType;
 use rs_pack::cache::param::ParamType;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::Script;
 use rs_pack::cache::seq::SeqType;
 use rs_pack::cache::spotanim::SpotAnimType;

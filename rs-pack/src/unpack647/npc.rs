@@ -26,7 +26,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, NpcType};
+use crate::cache::npc::NpcTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::npc::emit_npc_props;
 use crate::pack_registry::PackRegistry;
 
@@ -56,7 +57,7 @@ pub fn unpack_npcs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
                 continue;
             }
             let global_id = group_id * STRIDE_NPCS + entry.id;
-            let mut def = NpcType::new(global_id as u16);
+            let mut def = NpcTypeRaw::new(global_id as u16);
             def.decode(&mut Packet::from(entry.data.to_vec()));
 
             let base = registry

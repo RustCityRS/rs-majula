@@ -6,6 +6,8 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use crate::network::game::client_prot_message::string_end;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+#[cfg(since_647)]
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 #[client_prot(Fixed(10), UserEvent)]
@@ -44,10 +46,10 @@ impl ClientProtMessage for SendSnapshot {
 
     fn decode(buf: &mut Packet, _: usize) -> Self {
         SendSnapshot {
-            offender: buf.gjstr(0),
+            offender: buf.gjstr(STRING_TERMINATOR),
             reason: buf.g1(),
             mute: buf.g1() != 0,
-            text: buf.gjstr(0),
+            text: buf.gjstr(STRING_TERMINATOR),
         }
     }
 }

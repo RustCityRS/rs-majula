@@ -337,22 +337,17 @@ pub fn parse_params(
             let Some(pid) = registry.param.get_by_debugname(pname) else {
                 panic!("Unknown param '{pname}' for [{name}]");
             };
-            packed.p3(pid as i32);
             let Some(ptype) = param_types.get(pname) else {
                 panic!("Unknown param type '{pname}' for [{name}]");
             };
             let Some(value) = get_param_value_for_type(ptype, registry, pval) else {
                 panic!("Unknown param type '{ptype}' for [{name}] for value [{pval}]");
             };
+            packed.pbool(matches!(value, ParamValue::String(_)));
+            packed.p3(pid as i32);
             match value {
-                ParamValue::Int(value) => {
-                    packed.pbool(false);
-                    packed.p4(value);
-                }
-                ParamValue::String(value) => {
-                    packed.pbool(true);
-                    packed.pjstr(&value);
-                }
+                ParamValue::Int(value) => packed.p4(value),
+                ParamValue::String(value) => packed.pjstr(&value),
             }
         }
     }

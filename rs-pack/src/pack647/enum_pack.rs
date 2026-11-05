@@ -1,34 +1,17 @@
-#![allow(clippy::unnecessary_get_then_check)]
-// Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
 //! Enum config packer.
-//!
-//! Two flavors:
-//! - [`pack_enums`] — legacy server-side overlay (`enum.dat`/`enum.idx`).
-//!   Only emits the keys 2004scape's `EnumConfig.ts` recognises.
-//! - [`pack_enum_def`] — full cache-targeting packer. Builds a complete
-//!   [`EnumDefinition`] (with `emissions` in source order) from the text
-//!   representation. Combined with [`DefinitionEncode::encode`], this
-//!   produces byte-perfect cache bytes for archive 17.
-//!
-//! The cache packer is the path to "build the cache from source"; the
-//! overlay packer remains during the transition until every type has a
-//! cache packer.
 
+use super::param::{char_to_type_name, type_name_to_char};
 use super::{collect_config_files, parse_config_sections};
-use crate::cache647::{EnumType, EnumValue};
+use crate::cache::r#enum::EnumTypeRaw;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
+use crate::types::{ParamValue, ScriptVarType};
 use anyhow::Result;
 use std::collections::HashMap;
 use std::path::Path;
 use tracing::info;
 
-/// Walk an enum's emissions and produce the (key, value) pairs that
-/// [`pack_enum_def`] reads back into an identical [`EnumDefinition`].
-/// Source order is preserved; duplicate emissions become duplicate lines.
-/// This is the inverse of `pack_enum_def` and lives here so pack/unpack
-/// stay symmetric in one module.
-pub fn emit_enum_props(def: &EnumType) -> Vec<(String, String)> {
+pub fn emit_enum_props(def: &EnumTypeRaw) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
 
     // Emit opcodes in the original decode order. This is critical because
@@ -38,19 +21,18 @@ pub fn emit_enum_props(def: &EnumType) -> Vec<(String, String)> {
     for &op in &def.opcode_order {
         match op {
             1 => {
-                if def.key_type != 0 {
-                    props.push(("inputtype".into(), char_to_type_name(def.key_type)));
-                }
+                props.push(("inputtype".into(), char_to_type_name(def.inputtype as u8)));
             }
             2 => {
-                if def.value_type != 0 {
-                    props.push(("outputtype".into(), char_to_type_name(def.value_type)));
-                }
+                props.push(("outputtype".into(), char_to_type_name(def.outputtype as u8)));
             }
             3 => {
                 // Client defaults to "null", so any op 3 present in the binary
                 // is meaningful — even if the string is empty.
-                props.push(("defaultstring".into(), def.default_string.to_string()));
+                props.push((
+                    "defaultstring".into(),
+                    def.default_str.as_deref().unwrap_or("").to_string(),
+                ));
             }
             4 => {
                 // Op 4 was explicitly present — always emit.
@@ -62,10 +44,10 @@ pub fn emit_enum_props(def: &EnumType) -> Vec<(String, String)> {
                 // which preserves duplicates with their original values.
                 for (key, value) in &def.ordered_entries {
                     match value {
-                        EnumValue::String(s) => {
+                        ParamValue::String(s) => {
                             props.push(("val".into(), format!("{key},{s}")));
                         }
-                        EnumValue::Int(v) => {
+                        ParamValue::Int(v) => {
                             props.push(("val".into(), format!("{key},{v}")));
                         }
                     }
@@ -78,67 +60,33 @@ pub fn emit_enum_props(def: &EnumType) -> Vec<(String, String)> {
     // Fallback: if opcode_order is empty (e.g. hand-written configs), use
     // the legacy fixed order.
     if def.opcode_order.is_empty() {
-        if def.key_type != 0 {
-            props.push(("inputtype".into(), char_to_type_name(def.key_type)));
+        if def.inputtype != ScriptVarType::Int {
+            props.push(("inputtype".into(), char_to_type_name(def.inputtype as u8)));
         }
-        if def.value_type != 0 {
-            props.push(("outputtype".into(), char_to_type_name(def.value_type)));
+        if def.outputtype != ScriptVarType::Int {
+            props.push(("outputtype".into(), char_to_type_name(def.outputtype as u8)));
         }
-        if !def.default_string.is_empty() {
-            props.push(("defaultstring".into(), def.default_string.to_string()));
+        if def.default_str.as_deref().is_some_and(|s| !s.is_empty()) {
+            props.push((
+                "defaultstring".into(),
+                def.default_str.as_deref().unwrap_or("").to_string(),
+            ));
         }
         if def.default_int != 0 {
             props.push(("defaultint".into(), def.default_int.to_string()));
         }
         for (key, value) in &def.ordered_entries {
             match value {
-                EnumValue::String(s) => {
+                ParamValue::String(s) => {
                     props.push(("val".into(), format!("{key},{s}")));
                 }
-                EnumValue::Int(v) => {
+                ParamValue::Int(v) => {
                     props.push(("val".into(), format!("{key},{v}")));
                 }
             }
         }
     }
     props
-}
-
-/// Inverse of `pack::param::type_name_to_char`. Returns the canonical
-/// name when known, otherwise the `byte:0xNN` numeric escape so unknown
-/// type bytes round-trip exactly.
-fn char_to_type_name(c: u8) -> String {
-    let name: Option<&'static str> = match c {
-        b'i' => Some("int"),
-        b's' => Some("string"),
-        b'c' => Some("coord"),
-        b'o' => Some("obj"),
-        b'O' => Some("namedobj"),
-        b'n' => Some("npc"),
-        b'l' => Some("loc"),
-        b'I' => Some("component"),
-        b'1' => Some("boolean"),
-        b'g' => Some("enum"),
-        b'J' => Some("struct"),
-        b'S' => Some("stat"),
-        b'A' => Some("seq"),
-        b'P' => Some("synth"),
-        b'v' => Some("inv"),
-        b't' => Some("spotanim"),
-        b'V' => Some("varp"),
-        b'm' => Some("model"),
-        0xb5 => Some("mapelement"),
-        b'y' => Some("category"),
-        b'K' => Some("idkit"),
-        b'p' => Some("player_uid"),
-        b'N' => Some("npc_uid"),
-        0xef => Some("dbrow"),
-        _ => None,
-    };
-    match name {
-        Some(n) => n.to_string(),
-        None => format!("byte:0x{c:02x}"),
-    }
 }
 
 fn parse_enum_key(s: &str) -> Option<i32> {
@@ -157,14 +105,14 @@ fn resolve_enum_symbol(
     type_char: char,
     registry: &PackRegistry,
     enum_name: &str,
-) -> Option<i32> {
+) -> i32 {
     if let Some(v) = parse_enum_key(value) {
-        return Some(v);
+        return v;
     }
     match value {
-        "null" => return Some(-1),
-        "yes" | "true" | "^true" => return Some(1),
-        "no" | "false" | "^false" => return Some(0),
+        "null" => return -1,
+        "yes" | "true" | "^true" => return 1,
+        "no" | "false" | "^false" => return 0,
         _ => {}
     }
     // Coords (`level_mx_mz_lx_lz`, as 289's fishing spots list their tiles),
@@ -180,7 +128,7 @@ fn resolve_enum_symbol(
             type_char
         );
     }
-    Some(resolved.unwrap_or(-1))
+    resolved.unwrap_or(-1)
 }
 
 pub fn pack_enums(
@@ -222,19 +170,24 @@ pub fn pack_enums(
         // Server: cache binary format (batched op 5/6 + op 250 debugname),
         // with symbol resolution for typed keys/values — so authored enums
         // like `val=1,attack` (outputtype=stat) pack correctly and the
-        // standard `EnumType` decoder can read `enum.dat` back for the
-        // server-only enum overlay in `load_packed_config`.
+        // standard `EnumTypeRaw` decoder can load the server provider.
         if let Some(props) = configs.get(name) {
             let mut input_type: Option<char> = None;
+            let mut input_is_autoint = false;
             let mut output_type: Option<char> = None;
             let mut default_val: Option<&str> = None;
             let mut vals: Vec<&str> = Vec::new();
             for (key, value) in props {
                 match key.as_str() {
-                    "inputtype" => input_type = Some(crate::pack::param::type_name_to_char(value)),
-                    "outputtype" => {
-                        output_type = Some(crate::pack::param::type_name_to_char(value))
+                    "inputtype" => {
+                        input_is_autoint = value == "autoint";
+                        input_type = Some(if input_is_autoint {
+                            'i'
+                        } else {
+                            type_name_to_char(value)
+                        });
                     }
+                    "outputtype" => output_type = Some(type_name_to_char(value)),
                     "default" | "defaultint" | "defaultstring" => default_val = Some(value),
                     "val" => vals.push(value),
                     _ => {}
@@ -253,46 +206,29 @@ pub fn pack_enums(
             }
             if let Some(d) = default_val {
                 if out_char == 's' {
-                    if d != "null" {
-                        server.p1(3);
-                        server.pjstr(d);
-                    }
-                } else if let Some(v) = resolve_enum_symbol(d, out_char, registry, name) {
+                    server.p1(3);
+                    server.pjstr(d);
+                } else {
                     server.p1(4);
-                    server.p4(v);
+                    server.p4(resolve_enum_symbol(d, out_char, registry, name));
                 }
             }
             if !vals.is_empty() {
-                if out_char == 's' {
-                    let entries: Vec<(i32, &str)> = vals
-                        .iter()
-                        .filter_map(|val| {
-                            let (k, v) = val.split_once(',')?;
-                            let key = resolve_enum_symbol(k.trim(), in_char, registry, name)?;
-                            Some((key, v.trim()))
-                        })
-                        .collect();
-                    server.p1(5);
-                    server.p2(entries.len() as u16);
-                    for (k, v) in entries {
-                        server.p4(k);
-                        server.pjstr(v);
-                    }
-                } else {
-                    let entries: Vec<(i32, i32)> = vals
-                        .iter()
-                        .filter_map(|val| {
-                            let (k, v) = val.split_once(',')?;
-                            let key = resolve_enum_symbol(k.trim(), in_char, registry, name)?;
-                            let value = resolve_enum_symbol(v.trim(), out_char, registry, name)?;
-                            Some((key, value))
-                        })
-                        .collect();
-                    server.p1(6);
-                    server.p2(entries.len() as u16);
-                    for (k, v) in entries {
-                        server.p4(k);
-                        server.p4(v);
+                server.p1(if out_char == 's' { 5 } else { 6 });
+                server.p2(vals.len() as u16);
+                for (index, val) in vals.iter().enumerate() {
+                    let key = if input_is_autoint {
+                        index as i32
+                    } else {
+                        let key = val.split_once(',').map_or(*val, |(key, _)| key);
+                        resolve_enum_symbol(key.trim(), in_char, registry, name)
+                    };
+                    let value = val.split_once(',').map_or(*val, |(_, value)| value);
+                    server.p4(key);
+                    if out_char == 's' {
+                        server.pjstr(value);
+                    } else {
+                        server.p4(resolve_enum_symbol(value.trim(), out_char, registry, name));
                     }
                 }
             }
@@ -311,7 +247,7 @@ pub fn pack_enums(
         // all.enum) must be SKIPPED here, not emitted empty — an empty
         // entry still writes a terminator byte, which adds a file to
         // client archive 17 and breaks the crc-gate.
-        if client_configs.get(name).is_none() {
+        if !client_configs.contains_key(name) {
             server.finish_entry();
             client.skip_entry();
             continue;
@@ -348,13 +284,13 @@ pub fn pack_enums(
                 match key.as_str() {
                     "inputtype" => {
                         flush_entries(&mut client, &mut string_entries, &mut int_entries);
-                        let c = crate::pack::param::type_name_to_char(value);
+                        let c = type_name_to_char(value);
                         client.p1(1);
                         client.p1(c as u8);
                     }
                     "outputtype" => {
                         flush_entries(&mut client, &mut string_entries, &mut int_entries);
-                        output_type = crate::pack::param::type_name_to_char(value) as u8;
+                        output_type = type_name_to_char(value) as u8;
                         client.p1(2);
                         client.p1(output_type);
                     }
@@ -416,11 +352,8 @@ mod dialogue_slot_tests {
         assert_eq!(reg.interface.get_by_name("objbox"), Some(519));
         assert_eq!(reg.interface.get_by_name("doubleobjbox"), Some(131));
         // 'I' = interface/component type char (param::type_name_to_char).
-        assert_eq!(resolve_enum_symbol("objbox", 'I', &reg, "t"), Some(519));
-        assert_eq!(
-            resolve_enum_symbol("doubleobjbox", 'I', &reg, "t"),
-            Some(131)
-        );
+        assert_eq!(resolve_enum_symbol("objbox", 'I', &reg, "t"), 519);
+        assert_eq!(resolve_enum_symbol("doubleobjbox", 'I', &reg, "t"), 131);
     }
 
     // Verifies symbolic component values (`iface:comp`) resolve to the hash.
@@ -435,7 +368,7 @@ mod dialogue_slot_tests {
         );
         assert_eq!(
             resolve_enum_symbol("chatbox:com_dialogue_box_small", 'I', &reg, "t"),
-            Some(small)
+            small
         );
     }
 }

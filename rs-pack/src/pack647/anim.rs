@@ -9,7 +9,7 @@
 use std::collections::BTreeMap;
 use std::path::Path;
 
-use crate::cache647::anim_frame::{AnimFrame, FrameBone, SkeletonBase};
+use crate::cache::seq_frame::{AnimFrame, FrameBone, SkeletonBase, split_frame_into_stripes};
 use anyhow::{Context, Result};
 use tracing::info;
 
@@ -207,8 +207,6 @@ fn pack_anims_from_dir(anim_dir: &Path, pack_dir: &Path) -> Result<BTreeMap<(u32
 /// Pack `all.anim` text → 3-stripe encoded group blobs ready for JS5.
 /// Returns map of group_id → encoded group blob (pre-compression).
 pub fn pack_anim_groups(source_dir: &Path, pack_dir: &Path) -> Result<BTreeMap<u32, Vec<u8>>> {
-    use crate::cache647::anim_frame::split_frame_into_stripes;
-
     let entries = pack_anims(source_dir, pack_dir)?;
     if entries.is_empty() {
         return Ok(BTreeMap::new());

@@ -1,5 +1,3 @@
-#![allow(clippy::unnecessary_unwrap)]
-// Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
 //! DbRow config packer — .dbrow text → dbrow.dat/dbrow.idx.
 //! Server-only. Matches 2004scape `DbRowConfig.ts`.
 //!
@@ -10,7 +8,7 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use anyhow::Result;
+use anyhow::{Context, Result, ensure};
 use tracing::info;
 
 use super::{collect_config_files, parse_config_sections};
@@ -100,9 +98,7 @@ pub fn pack_dbrows(
             })
             .collect();
 
-        if !data_lines.is_empty() && schema.is_some() {
-            let schema = schema.unwrap();
-
+        if let Some(schema) = schema {
             // Merge all `data=` lines that target the same column into a single
             // column with N tuples (matching 2004scape's dbrow wire format and
             // the runtime decoder, which looks up exactly one column per index).
@@ -117,12 +113,8 @@ pub fn pack_dbrows(
                     .columns
                     .iter()
                     .position(|(n, _)| n == col_name)
-                    .unwrap_or(0);
-                let col_types = schema
-                    .columns
-                    .get(col_idx)
-                    .map(|(_, t)| t.as_slice())
-                    .unwrap_or(b"i");
+                    .with_context(|| format!("dbrow {name}: unknown column {col_name}"))?;
+                let col_types = schema.columns[col_idx].1.as_slice();
                 match columns.iter_mut().find(|(idx, _, _)| *idx == col_idx) {
                     Some((_, _, acc)) => acc.extend(values.iter().cloned()),
                     None => columns.push((col_idx, col_types, values.clone())),
@@ -131,25 +123,24 @@ pub fn pack_dbrows(
 
             // Opcode 3: column data
             packed.p1(3);
-            packed.p1(columns.len() as u8);
+            packed.p1(u8::try_from(schema.columns.len()).context("too many dbrow columns")?);
 
             for (col_idx, col_types, values) in &columns {
                 packed.p1(*col_idx as u8);
-                packed.p1(col_types.len() as u8);
+                packed.p1(u8::try_from(col_types.len()).context("too many dbrow column types")?);
                 for &t in *col_types {
                     packed.p1(t);
                 }
 
-                // Field (tuple) count: total values / per-tuple stride.
-                let fields = if col_types.is_empty() {
-                    0
-                } else {
-                    values.len() / col_types.len().max(1)
-                };
-                packed.p1(fields.max(1) as u8);
+                ensure!(
+                    !col_types.is_empty() && values.len().is_multiple_of(col_types.len()),
+                    "dbrow {name}: column {col_idx} has an incomplete tuple"
+                );
+                let fields = values.len() / col_types.len();
+                packed.p1(u8::try_from(fields).context("too many dbrow tuples")?);
 
                 for (i, val) in values.iter().enumerate() {
-                    let type_char = col_types.get(i % col_types.len()).copied().unwrap_or(b'i');
+                    let type_char = col_types[i % col_types.len()];
                     if type_char == b's' {
                         packed.pjstr(val);
                     } else {

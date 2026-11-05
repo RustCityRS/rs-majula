@@ -17,6 +17,7 @@ use std::path::Path;
 
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use rs_ver::STRING_TERMINATOR;
 use tracing::info;
 
 // ─── Helpers ──────────────────────────────────────────────────────────
@@ -90,7 +91,7 @@ impl<'a> ByteReader<'a> {
     /// Read null-terminated string (gjstr).
     fn gjstr(&mut self) -> String {
         let start = self.pos;
-        while self.pos < self.data.len() && self.data[self.pos] != 0 {
+        while self.pos < self.data.len() && self.data[self.pos] != STRING_TERMINATOR {
             self.pos += 1;
         }
         let s = String::from_utf8_lossy(&self.data[start..self.pos]).to_string();
@@ -113,7 +114,7 @@ impl<'a> ByteReader<'a> {
 
 /// All archive 2 groups that need generic unpacking.
 ///
-/// Groups already handled by dedicated unpackers (flo=4, flu=1, hunt=2,
+/// Groups already handled by dedicated unpackers (flo=4, flu=1,
 /// idk=3, inv=5, param=11, seq=6, varp=16, struct=26, enum=8, obj=10,
 /// npc=9, loc=14, spotanim=13, varbit=12) are excluded.
 pub const KNOWN_CONFIG_GROUPS: &[(u32, &str)] = &[
@@ -125,10 +126,6 @@ pub const KNOWN_CONFIG_GROUPS: &[(u32, &str)] = &[
     (36, "mel"),
     (46, "hitmark"),
     (54, "varclansetting"),
-];
-
-pub const UNKNOWN_CONFIG_GROUPS: &[u32] = &[
-    7, 15, 18, 19, 20, 21, 22, 23, 24, 25, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48,
 ];
 
 // ─── Public API ────────────────────────────────────────────────────────

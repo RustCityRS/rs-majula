@@ -21,7 +21,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, LocType};
+use crate::cache::loc::LocTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::loc::emit_loc_props;
 use crate::pack_registry::PackRegistry;
 
@@ -52,7 +53,7 @@ pub fn unpack_locs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
                 continue;
             }
             let global_id = group_id * LOC_STRIDE + entry.id;
-            let mut def = LocType::new(global_id as u16);
+            let mut def = LocTypeRaw::new(global_id as u16);
             def.decode(&mut Packet::from(entry.data.to_vec()));
 
             let base = registry
@@ -97,7 +98,7 @@ pub fn update_specific_loc_file(
     file_path: &Path,
 ) -> Result<()> {
     let mut store = CacheStore::open(cache_dir)?;
-    super::common::update_specific_file::<LocType, _, _>(
+    super::common::update_specific_file::<LocTypeRaw, _, _>(
         &mut store,
         file_path,
         ARCHIVE_LOCS,

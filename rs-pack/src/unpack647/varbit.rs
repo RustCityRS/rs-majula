@@ -25,7 +25,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, VarBitType};
+use crate::cache::provider::CacheType;
+use crate::cache::varbit::VarbitType;
 use crate::pack::varbit::emit_varbit_props;
 use crate::pack_registry::PackRegistry;
 
@@ -56,7 +57,7 @@ pub fn unpack_varbits(cache_dir: &Path, registry: &PackRegistry, output_dir: &Pa
                 continue;
             }
             let global_id = group_id * STRIDE_VARBITS + entry.id;
-            let mut def = VarBitType::new(global_id as u16);
+            let mut def = VarbitType::new(global_id as u16);
             def.decode(&mut Packet::from(entry.data.to_vec()));
 
             let base = registry

@@ -11,6 +11,8 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_254)]
 use rs_protocol_macros::server_prot;
+#[cfg(since_254)]
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_254)]
 #[server_prot(SetPlayerOp, Buffered, VarByte)]
@@ -25,7 +27,7 @@ impl ServerProtMessage for SetPlayerOp<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.op);
         buf.p1(self.primary);
-        buf.pjstr(self.value, 10);
+        buf.pjstr(self.value, STRING_TERMINATOR);
     }
 
     fn sizeof(&self) -> usize {
@@ -38,7 +40,7 @@ impl ServerProtMessage for SetPlayerOp<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p2_alt1(0xFFFF);
         buf.p1_alt2(self.primary);
-        buf.pjstr(self.value, 0);
+        buf.pjstr(self.value, STRING_TERMINATOR);
         buf.p1_alt2(self.op);
     }
 

@@ -21,7 +21,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, InvType};
+use crate::cache::inv::InvTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::inv::emit_inv_props;
 use crate::pack_registry::PackRegistry;
 
@@ -49,7 +50,7 @@ pub fn unpack_invs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
         if entry.data.is_empty() {
             continue;
         }
-        let mut def = InvType::new(entry.id as u16);
+        let mut def = InvTypeRaw::new(entry.id as u16);
         let mut buf = Packet::from(entry.data.to_vec());
         def.decode(&mut buf);
 

@@ -13,7 +13,7 @@ use super::parse_config_sections;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
-use crate::cache647::IdkType;
+use crate::cache::idk::IdkTypeRaw;
 
 fn parse_bodytype(value: &str) -> u8 {
     match value {
@@ -252,18 +252,24 @@ fn model_name(registry: &PackRegistry, id: u16) -> String {
         .unwrap_or_else(|| format!("model_{id}"))
 }
 
-pub fn emit_idk_props(def: &IdkType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_idk_props(def: &IdkTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
+    let models = def.models.as_deref().unwrap_or_default();
+    let recol_s = def.recol_s.as_deref().unwrap_or_default();
+    let recol_d = def.recol_d.as_deref().unwrap_or_default();
+    let retex_s = def.retex_s.as_deref().unwrap_or_default();
+    let retex_d = def.retex_d.as_deref().unwrap_or_default();
+    let heads = def.heads.as_deref().unwrap_or_default();
     let mut p: Vec<(u8, String, String)> = Vec::new();
     // op 1 — body part type
-    if let Some(bt) = def.body_type {
-        let value = bodytype_name(bt)
+    if def.opcode_order.contains(&1) {
+        let value = bodytype_name(def.body_type as u8)
             .map(str::to_string)
-            .unwrap_or_else(|| bt.to_string());
+            .unwrap_or_else(|| (def.body_type as u8).to_string());
         p.push((1, "type".into(), value));
     }
     // op 2 — models
-    if !def.models.is_empty() {
-        for (i, id) in def.models.iter().enumerate() {
+    if !models.is_empty() {
+        for (i, id) in models.iter().enumerate() {
             p.push((2, format!("model{}", i + 1), model_name(registry, *id)));
         }
     }
@@ -272,28 +278,28 @@ pub fn emit_idk_props(def: &IdkType, registry: &PackRegistry) -> Vec<(String, St
         p.push((3, "disable".into(), "yes".into()));
     }
     // op 40 — recolour pairs
-    if !def.recol_s.is_empty() {
-        for i in 0..def.recol_s.len() {
+    if !recol_s.is_empty() {
+        for i in 0..recol_s.len() {
             let n = i + 1;
-            p.push((40, format!("recol{n}s"), def.recol_s[i].to_string()));
-            p.push((40, format!("recol{n}d"), def.recol_d[i].to_string()));
+            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
+            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
         }
     }
     // op 41 — retexture pairs
-    if !def.retex_s.is_empty() {
-        for i in 0..def.retex_s.len() {
+    if !retex_s.is_empty() {
+        for i in 0..retex_s.len() {
             let n = i + 1;
-            p.push((41, format!("retex{n}s"), def.retex_s[i].to_string()));
-            p.push((41, format!("retex{n}d"), def.retex_d[i].to_string()));
+            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
+            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
         }
     }
     // ops 60-69 — head models (each slot tagged with its actual opcode)
-    for (slot, &model_id) in def.heads.iter().enumerate() {
-        if model_id != -1 {
+    for (slot, &model_id) in heads.iter().enumerate() {
+        if def.opcode_order.contains(&((60 + slot) as u8)) {
             p.push((
                 (60 + slot) as u8,
                 format!("head{}", slot + 1),
-                model_name(registry, model_id as u16),
+                model_name(registry, model_id),
             ));
         }
     }

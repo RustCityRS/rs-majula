@@ -1,20 +1,3 @@
-//! Unpack Flo (floor overlay) configs from JS5 cache to text config.
-//!
-//! Produces `_unpack/all.flo` such that `pack::flo::pack_flo_def` reading
-//! the file produces byte-identical cache bytes for every flo. Mirrors
-//! 2004scape's `tools/unpack/config/FloConfig.ts` text shape extended with
-//! the additional rev-647 opcodes (5/7/8/9/10/11/12/13/14/16) — see the
-//! key table in `pack::flo`.
-//!
-//! Section header is the flo.pack registry name when one is present, with
-//! a `flo_<id>` fallback for the (common) unnamed slots. Flo has no op 250
-//! in its decoder, so the header contributes zero cache bytes; it exists
-//! purely as a content-addressing handle for downstream tools and the
-//! human eye. Collision-renamed sections use `<name>__<id>`.
-//!
-//! Phase 1 contract: this writes EVERY cache entry, every emission, in
-//! source order — no overlay-key gating.
-
 use std::collections::HashMap;
 use std::io::Write;
 use std::path::Path;
@@ -24,7 +7,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, FloType};
+use crate::cache::flo::FloTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::flo::emit_flo_props;
 use crate::pack_registry::PackRegistry;
 
@@ -52,13 +36,10 @@ pub fn unpack_flos(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
         if entry.data.is_empty() {
             continue;
         }
-        let mut def = FloType::new(entry.id as u16);
+        let mut def = FloTypeRaw::new(entry.id as u16);
         let mut buf = Packet::from(entry.data.to_vec());
         def.decode(&mut buf);
 
-        // Section header: registry name → `flo_<id>` fallback. No op 250
-        // exists in the flo decoder, so this string contributes zero
-        // cache bytes; it's purely a human-readable handle.
         let base = registry
             .flo
             .get_by_id(entry.id)

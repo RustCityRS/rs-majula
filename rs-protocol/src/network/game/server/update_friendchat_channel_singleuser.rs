@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 #[server_prot(UpdateFriendchatChannelSingleuser, Buffered, VarByte)]
@@ -23,17 +24,17 @@ pub struct UpdateFriendchatChannelSingleuser {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateFriendchatChannelSingleuser {
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(&self.name, 0);
+        buf.pjstr(&self.name, STRING_TERMINATOR);
         if let Some(ref display) = self.display_name {
             buf.p1(1);
-            buf.pjstr(display, 0);
+            buf.pjstr(display, STRING_TERMINATOR);
         } else {
             buf.p1(0);
         }
         buf.p2(self.world);
         buf.p1(self.rank as u8);
         if self.rank != -128 {
-            buf.pjstr(self.title.as_deref().unwrap_or(""), 0);
+            buf.pjstr(self.title.as_deref().unwrap_or(""), STRING_TERMINATOR);
         }
     }
 

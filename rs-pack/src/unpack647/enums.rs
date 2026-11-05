@@ -11,7 +11,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, EnumType};
+use crate::cache::r#enum::EnumTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::enum_pack::emit_enum_props;
 use crate::pack_registry::PackRegistry;
 
@@ -40,7 +41,7 @@ pub fn unpack_enums(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path
                 continue;
             }
             let global_id = gid * STRIDE_ENUM + entry.id;
-            let mut def = EnumType::new(global_id as u16);
+            let mut def = EnumTypeRaw::new(global_id as u16);
             let mut buf = Packet::from(entry.data.to_vec());
             def.decode(&mut buf);
 

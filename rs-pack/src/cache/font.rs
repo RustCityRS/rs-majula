@@ -1,5 +1,11 @@
 use crate::types::Font;
+#[cfg(since_647)]
+use rs_dat2::{CacheStore, archive, xtea::java_string_hash};
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use std::collections::HashMap;
+#[cfg(since_647)]
+use tracing::warn;
 
 #[cfg(before_274)]
 const CHAR_COUNT: usize = 94;
@@ -136,13 +142,13 @@ impl FontType {
 #[allow(dead_code)]
 struct FontTypeRaw {
     id: u8,
-    char_mask_width: [u8; CHAR_COUNT],
-    char_mask_height: [u8; CHAR_COUNT],
     char_offset_x: [u8; CHAR_COUNT],
     char_offset_y: [u8; CHAR_COUNT],
+    char_mask_width: [u8; CHAR_COUNT],
+    char_mask_height: [u8; CHAR_COUNT],
+    height: u16,
     char_advance: [u8; CHAR_COUNT + 1],
     draw_width: [u8; 256],
-    height: u16,
 }
 
 #[cfg(before_274)]
@@ -153,13 +159,13 @@ impl FontTypeRaw {
 
         let mut font = FontTypeRaw {
             id,
-            char_mask_width: [0; CHAR_COUNT],
-            char_mask_height: [0; CHAR_COUNT],
             char_offset_x: [0; CHAR_COUNT],
             char_offset_y: [0; CHAR_COUNT],
+            char_mask_width: [0; CHAR_COUNT],
+            char_mask_height: [0; CHAR_COUNT],
+            height: 0,
             char_advance: [0; CHAR_COUNT + 1],
             draw_width: [0; 256],
-            height: 0,
         };
 
         index.pos = data.g2() as usize + 4;
@@ -299,14 +305,8 @@ fn decode_draw_width(jag: &JagFile, font: Font) -> [u8; 256] {
 
 pub struct FontTypeProvider {
     pub fonts: Vec<FontType>,
-    /// Cache-group id -> index into `fonts`.
-    ///
-    /// Before 647 a script's font id *is* the [`Font`] ordinal, so this stays
-    /// empty and lookups index `fonts` directly. From 647 the compiler resolves
-    /// a font name through `fontmetrics.pack`, which yields the font's **cache
-    /// group id** (`p12_full` = 495), and that has nothing to do with the
-    /// ordinal -- so the id has to be mapped rather than indexed.
-    pub id_index: std::collections::HashMap<u16, usize>,
+    #[cfg(since_647)]
+    pub id_index: HashMap<u16, usize>,
 }
 
 impl FontTypeProvider {
@@ -326,7 +326,8 @@ impl FontTypeProvider {
     pub fn from_slots(fonts: Vec<FontType>) -> FontTypeProvider {
         FontTypeProvider {
             fonts,
-            id_index: std::collections::HashMap::new(),
+            #[cfg(since_647)]
+            id_index: HashMap::new(),
         }
     }
 
@@ -338,6 +339,7 @@ impl FontTypeProvider {
         // An id map, once populated, is authoritative: falling back to the
         // ordinal would silently hand back the wrong font for any cache id that
         // happens to be small.
+        #[cfg(since_647)]
         if !self.id_index.is_empty() {
             return self.id_index.get(&id).and_then(|&i| self.fonts.get(i));
         }
@@ -350,5 +352,74 @@ impl FontTypeProvider {
 
     pub fn count(&self) -> usize {
         self.fonts.len()
+    }
+}
+
+#[cfg(since_647)]
+impl FontTypeProvider {
+    pub fn from_cache(cache: &mut CacheStore) -> FontTypeProvider {
+        let slot_names: [(&str, Font); 4] = [
+            ("p11_full", Font::P11),
+            ("p12_full", Font::P12),
+            ("b12_full", Font::B12),
+            ("q8_full", Font::Q8),
+        ];
+        let mut fonts: Vec<FontType> = Font::ALL
+            .iter()
+            .map(|&f| FontType {
+                id: f as u8,
+                draw_width: [0; 256],
+            })
+            .collect();
+        let mut id_index: HashMap<u16, usize> = HashMap::new();
+
+        let Some(ref_table) = cache.reference_table(archive::FONTMETRICS).cloned() else {
+            warn!("No reference table for archive 13 (FONTMETRICS)");
+            return FontTypeProvider::from_slots(fonts);
+        };
+
+        // Which group backs each ordinal slot, so a script naming one of the four
+        // well-known faces resolves to the same FontType the engine uses.
+        let mut slot_of_group: HashMap<u32, usize> = HashMap::new();
+        for (name, slot) in slot_names {
+            let hash = java_string_hash(name);
+            if let Some(group) = ref_table.groups.iter().find(|g| g.name_hash == hash) {
+                slot_of_group.insert(group.id, slot as usize);
+            }
+        }
+
+        for group in &ref_table.groups {
+            let Ok(Some(g)) = cache.read_group(archive::FONTMETRICS, group.id) else {
+                continue;
+            };
+            let Some(entry) = g.entries.first() else {
+                continue;
+            };
+            // 2-byte header then one advance per code point.
+            if entry.data.len() < 258 {
+                continue;
+            }
+            let mut draw_width = [0u8; 256];
+            draw_width.copy_from_slice(&entry.data[2..258]);
+
+            let index = match slot_of_group.get(&group.id) {
+                Some(&slot) => {
+                    fonts[slot].draw_width = draw_width;
+                    slot
+                }
+                None => {
+                    fonts.push(FontType {
+                        // FontType::id is a u8 slot tag; cache ids do not fit and are
+                        // carried by `id_index` instead.
+                        id: 0,
+                        draw_width,
+                    });
+                    fonts.len() - 1
+                }
+            };
+            id_index.insert(group.id as u16, index);
+        }
+
+        FontTypeProvider { fonts, id_index }
     }
 }

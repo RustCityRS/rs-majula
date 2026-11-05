@@ -6,6 +6,7 @@ use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len}
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 #[server_prot(IfSetText, Buffered, VarShort)]
@@ -18,7 +19,7 @@ pub struct IfSetText<'a> {
 impl ServerProtMessage for IfSetText<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);
-        buf.pjstr(self.text, 10);
+        buf.pjstr(self.text, STRING_TERMINATOR);
     }
 
     fn sizeof(&self) -> usize {
@@ -37,7 +38,7 @@ pub struct IfSetText<'a> {
 impl ServerProtMessage for IfSetText<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p4(self.com);
-        buf.pjstr(&markup(self.text), 0);
+        buf.pjstr(&markup(self.text), STRING_TERMINATOR);
     }
 
     fn sizeof(&self) -> usize {

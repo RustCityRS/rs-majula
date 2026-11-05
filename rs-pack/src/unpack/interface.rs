@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 use anyhow::Result;
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use rs_ver::STRING_TERMINATOR;
 use tracing::{debug, warn};
 
 use crate::pack::pack_registry::PackRegistry;
@@ -220,13 +221,13 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
                     if buf.g1() != 0 {
                         let x = buf.g2s();
                         let y = buf.g2s();
-                        let sprite = buf.gjstr(10);
+                        let sprite = buf.gjstr(STRING_TERMINATOR);
                         com.slots.push(Some((x, y, sprite)));
                     } else {
                         com.slots.push(None);
                     }
                 }
-                com.iops = (0..5).map(|_| buf.gjstr(10)).collect();
+                com.iops = (0..5).map(|_| buf.gjstr(STRING_TERMINATOR)).collect();
             }
             3 => {
                 // rect
@@ -237,13 +238,13 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
                 com.center = buf.g1() != 0;
                 com.font = buf.g1();
                 com.shadowed = buf.g1() != 0;
-                com.text = buf.gjstr(10);
-                com.active_text = buf.gjstr(10);
+                com.text = buf.gjstr(STRING_TERMINATOR);
+                com.active_text = buf.gjstr(STRING_TERMINATOR);
             }
             5 => {
                 // graphic
-                com.graphic = buf.gjstr(10);
-                com.active_graphic = buf.gjstr(10);
+                com.graphic = buf.gjstr(STRING_TERMINATOR);
+                com.active_graphic = buf.gjstr(STRING_TERMINATOR);
             }
             6 => {
                 // model
@@ -264,7 +265,7 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
                 com.margin_x = buf.g2() as i32;
                 com.margin_y = buf.g2() as i32;
                 com.interactable = buf.g1() != 0;
-                com.iops = (0..5).map(|_| buf.gjstr(10)).collect();
+                com.iops = (0..5).map(|_| buf.gjstr(STRING_TERMINATOR)).collect();
             }
             other => panic!("Unknown interface component type {other} (id {id})"),
         }
@@ -282,14 +283,14 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
 
         // target / inv action verbs
         if com.button_type == 2 || com.com_type == 2 {
-            com.action_verb = buf.gjstr(10);
-            com.action = buf.gjstr(10);
+            com.action_verb = buf.gjstr(STRING_TERMINATOR);
+            com.action = buf.gjstr(STRING_TERMINATOR);
             com.action_target = buf.g2();
         }
 
         // normal / toggle / select / pause option
         if matches!(com.button_type, 1 | 4 | 5 | 6) {
-            com.option = buf.gjstr(10);
+            com.option = buf.gjstr(STRING_TERMINATOR);
         }
 
         comps.insert(id, com);

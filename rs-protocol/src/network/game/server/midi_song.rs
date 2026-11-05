@@ -6,6 +6,8 @@ use crate::network::game::server_prot_message::jstr_len;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+#[cfg(rev = "225")]
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(rev = "225")]
 #[server_prot(MidiSong, Buffered, VarByte)]
@@ -18,7 +20,7 @@ pub struct MidiSong<'a> {
 #[cfg(rev = "225")]
 impl ServerProtMessage for MidiSong<'_> {
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(self.name, 10);
+        buf.pjstr(self.name, STRING_TERMINATOR);
         buf.p4(self.crc);
         buf.p4(self.len);
     }

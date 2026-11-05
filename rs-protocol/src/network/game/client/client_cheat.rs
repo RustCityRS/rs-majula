@@ -7,6 +7,7 @@ use crate::network::game::client_prot_message::string_end;
 use rs_io::Packet;
 use rs_io::cp1252::decode_string;
 use rs_protocol_macros::client_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg_attr(before_647, client_prot(VarByte { min: 1 }, UserEvent))]
 #[cfg_attr(since_647, client_prot(VarByte { min: 3 }, UserEvent))]
@@ -25,14 +26,10 @@ impl ClientProtMessage for ClientCheat {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         #[cfg(since_647)]
         let flags = [buf.g1(), buf.g1()];
-        #[cfg(before_647)]
-        let terminator = 10;
-        #[cfg(since_647)]
-        let terminator = 0;
         let start = buf.pos;
         let end = len.min(buf.data.len());
         let text = &buf.data[start..end];
-        let term = text.iter().position(|&b| b == terminator);
+        let term = text.iter().position(|&b| b == STRING_TERMINATOR);
         buf.pos = term.map_or(end, |i| start + i + 1);
         ClientCheat {
             cheat: decode_string(&text[..term.unwrap_or(text.len())]),

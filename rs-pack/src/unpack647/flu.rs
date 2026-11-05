@@ -21,7 +21,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, FluType};
+use crate::cache::flu::FluType;
+use crate::cache::provider::CacheType;
 use crate::pack::flu::emit_flu_props;
 use crate::pack_registry::PackRegistry;
 

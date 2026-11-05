@@ -10,7 +10,7 @@
 use std::io::Write;
 use std::path::Path;
 
-use crate::cache647::anim_frame::{AnimFrame, SkeletonBase};
+use crate::cache::seq_frame::{AnimFrame, SkeletonBase};
 use crate::pack_registry::PackFile;
 use anyhow::Result;
 use rs_dat2::CacheStore;

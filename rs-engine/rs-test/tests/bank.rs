@@ -317,7 +317,7 @@ fn the_2011_booths_keep_their_two_sided_approach() {
     runner::on_loaded_engine(|engine| {
         let booth = engine.cache.locs.get_by_id(BOOTH.0).expect("booth");
         assert_eq!(
-            booth.forceapproach, 10,
+            booth.forceapproach as u8, 10,
             "open north and south, as the cache has it"
         );
     });

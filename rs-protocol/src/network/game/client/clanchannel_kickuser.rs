@@ -4,6 +4,7 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[client_prot(VarByte { min: 4 }, UserEvent)]
 pub struct ClanchannelKickUser {
@@ -21,7 +22,7 @@ impl ClientProtMessage for ClanchannelKickUser {
         ClanchannelKickUser {
             affined: buf.g1() != 0,
             index: buf.g2(),
-            name: buf.gjstr(0),
+            name: buf.gjstr(STRING_TERMINATOR),
         }
     }
 }

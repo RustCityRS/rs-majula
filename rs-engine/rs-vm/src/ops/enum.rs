@@ -3,7 +3,6 @@ use crate::register::OpsRegistry;
 use crate::util::pop_enum;
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::{ENUM, ENUM_GETOUTPUTCOUNT};
 
 /// Registers enum lookup opcodes for retrieving values from cache-defined

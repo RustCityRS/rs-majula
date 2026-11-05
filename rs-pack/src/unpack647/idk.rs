@@ -23,7 +23,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, IdkType};
+use crate::cache::idk::IdkTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::idk::emit_idk_props;
 use crate::pack_registry::PackRegistry;
 
@@ -51,7 +52,7 @@ pub fn unpack_idks(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
         if entry.data.is_empty() {
             continue;
         }
-        let mut def = IdkType::new(entry.id as u16);
+        let mut def = IdkTypeRaw::new(entry.id as u16);
         def.decode(&mut Packet::from(entry.data.to_vec()));
 
         let base = registry

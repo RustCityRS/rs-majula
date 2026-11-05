@@ -1,8 +1,3 @@
-//! Flo (floor overlay) packer — all.flo text → flo.dat/.idx + flo.client.dat/.idx.
-//!
-//! Rev-647 flo has 13 opcodes (see module table below). No op250 debugname.
-//! Client and server get identical data (no opcode split).
-
 use std::collections::HashMap;
 use std::path::Path;
 
@@ -13,7 +8,7 @@ use super::parse_config_sections;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
-use crate::cache647::FloType;
+use crate::cache::flo::FloTypeRaw;
 
 pub fn pack_flos(
     source_dir: &Path,
@@ -135,6 +130,8 @@ pub fn pack_flos(
             }
         }
 
+        server.p1(250);
+        server.pjstr(name);
         server.finish_entry();
         client.finish_entry();
     }
@@ -144,15 +141,15 @@ pub fn pack_flos(
     Ok(())
 }
 
-pub fn emit_flo_props(def: &FloType, _registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_flo_props(def: &FloTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if let Some(c) = def.color {
-        p.push((1, "color".into(), c.to_string()));
+    if def.opcode_order.contains(&1) {
+        p.push((1, "color".into(), def.colour.to_string()));
     }
-    if def.texture_opcode == 2 {
+    if def.opcode_order.contains(&2) {
         p.push((2, "texture_u8".into(), def.texture_u8_raw.to_string()));
     }
-    if def.texture_opcode == 3 {
+    if def.opcode_order.contains(&3) {
         p.push((3, "texture".into(), def.texture_u16_raw.to_string()));
     }
     if !def.occlude {

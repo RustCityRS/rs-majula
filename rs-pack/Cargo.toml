@@ -16,6 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 rs-io = { workspace = true }
+rs-ver = { workspace = true }
 rs-runec = { workspace = true }
 rs-dat2 = { workspace = true }
 
@@ -42,8 +43,6 @@ ureq = { workspace = true }
 rs-ver = { workspace = true }
 
 [dev-dependencies]
-# Tests walk every revision listed in REVS, not only the one REV selects.
-rs-ver = { workspace = true }
 rs-runec = { workspace = true }
 
 [lints]

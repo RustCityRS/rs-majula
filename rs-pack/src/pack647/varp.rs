@@ -24,7 +24,9 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::info;
 
+use super::param::char_to_type_name;
 use super::{collect_config_files, parse_config_sections};
+use crate::cache::varp::{VarPlayerScope, VarPlayerTypeRaw};
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
@@ -147,38 +149,14 @@ pub fn pack_varps(
     Ok(())
 }
 
-// ─── Cache-byte-perfect packer (archive 2 group 16) ──────────────────────
-//
-// Mirrors the `inv` template: emissions drive the text shape, and
-// `pack_varp_def` reverses it to a typed [`VarPDefinition`].
-//
-// Mapping (matches 2004scape `VarpConfig.ts`):
-//   - Scope(0) → `scope=temp`. Scope(1) → `scope=perm`. Other u8 values fall
-//     through as the raw decimal byte so the cache survives unknown scopes.
-//   - VarType(c) → `type=<name>` via the ScriptVarType char map. Unknown
-//     bytes escape as `byte:0xNN` so they roundtrip exactly.
-//   - Op4Flag → `protect=no`. (2004scape: op 4 sets protect=false.)
-//   - ClientCode(v) → `clientcode=v`.
-//   - Transmit → `transmit=yes`.
-//   - DebugName(_) is dropped in emit (carried by `[section]` header) and
-//     re-appended after the prop loop in pack_varp_def, matching cache order
-//     where 250 is always last.
-
-use crate::cache647::VarpType;
-use crate::cache647::varp_type::VarPlayerScope;
-
-/// Walk a varp's emissions and produce the (key, value) pairs matching
-/// 2004scape's VarpConfig text format. The `DebugName` emission is dropped
-/// because the `[section]` header already carries it; the writer lifts the
-/// section name from `def.debugname`.
-pub fn emit_varp_props(def: &VarpType, _registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_varp_props(def: &VarPlayerTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     match def.scope {
         VarPlayerScope::Perm => p.push((1, "scope".into(), "perm".into())),
         VarPlayerScope::Temp => {}
     }
-    if let Some(vt) = def.var_type {
-        p.push((2, "type".into(), char_to_type_name(vt)));
+    if def.opcode_order.contains(&2) {
+        p.push((2, "type".into(), char_to_type_name(def.var_type as u8)));
     }
     if !def.protect {
         p.push((4, "protect".into(), "no".into()));
@@ -190,41 +168,4 @@ pub fn emit_varp_props(def: &VarpType, _registry: &PackRegistry) -> Vec<(String,
         p.push((6, "transmit".into(), "yes".into()));
     }
     super::reorder_by_opcode(&def.opcode_order, p)
-}
-
-/// Map a ScriptVarType char byte back to the canonical 2004scape type name.
-/// Unknown bytes escape as `byte:0xNN` so cache values outside the known map
-/// roundtrip exactly.
-fn char_to_type_name(c: u8) -> String {
-    let name: Option<&'static str> = match c {
-        b'i' => Some("int"),
-        b's' => Some("string"),
-        b'c' => Some("coord"),
-        b'o' => Some("obj"),
-        b'O' => Some("namedobj"),
-        b'n' => Some("npc"),
-        b'l' => Some("loc"),
-        b'I' => Some("component"),
-        b'1' => Some("boolean"),
-        b'g' => Some("enum"),
-        b'J' => Some("struct"),
-        b'S' => Some("stat"),
-        b'A' => Some("seq"),
-        b'P' => Some("synth"),
-        b'v' => Some("inv"),
-        b't' => Some("spotanim"),
-        b'V' => Some("varp"),
-        b'm' => Some("model"),
-        0xb5 => Some("mapelement"),
-        b'y' => Some("category"),
-        b'K' => Some("idkit"),
-        b'p' => Some("player_uid"),
-        b'N' => Some("npc_uid"),
-        0xef => Some("dbrow"),
-        _ => None,
-    };
-    match name {
-        Some(n) => n.to_string(),
-        None => format!("byte:0x{c:02x}"),
-    }
 }

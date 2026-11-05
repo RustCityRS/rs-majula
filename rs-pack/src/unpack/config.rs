@@ -5,6 +5,7 @@ use crate::pack::util::colour::rgb15_to_hsl16;
 use crate::types::LocShape;
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use rs_ver::STRING_TERMINATOR;
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::path::Path;
@@ -427,7 +428,7 @@ fn decode_flo_entries(
                 3 => props.push(("overlay".into(), "yes".into())),
                 5 => props.push(("occlude".into(), "no".into())),
                 6 => {
-                    let name = buf.gjstr(10);
+                    let name = buf.gjstr(STRING_TERMINATOR);
                     packs.flo_names.insert(id, name);
                 }
                 _ => panic!("Unrecognized flo config code: {code}"),
@@ -851,8 +852,8 @@ fn decode_loc_entries(
                     model_ids.extend(pairs.iter().map(|(m, _)| *m));
                     push_loc_model_refs(id, &pairs, packs, &mut props);
                 }
-                2 => props.push(("name".into(), buf.gjstr(10))),
-                3 => props.push(("desc".into(), buf.gjstr(10))),
+                2 => props.push(("name".into(), buf.gjstr(STRING_TERMINATOR))),
+                3 => props.push(("desc".into(), buf.gjstr(STRING_TERMINATOR))),
                 5 => {
                     let count = buf.g1() as usize;
                     let mut pairs: Vec<(u16, u8)> = Vec::new();
@@ -877,11 +878,11 @@ fn decode_loc_entries(
                 25 => props.push(("hasalpha".into(), "yes".into())),
                 28 => props.push(("wallwidth".into(), buf.g1().to_string())),
                 29 => props.push(("ambient".into(), buf.g1s().to_string())),
-                30 => props.push(("op1".into(), buf.gjstr(10))),
-                31 => props.push(("op2".into(), buf.gjstr(10))),
-                32 => props.push(("op3".into(), buf.gjstr(10))),
-                33 => props.push(("op4".into(), buf.gjstr(10))),
-                34 => props.push(("op5".into(), buf.gjstr(10))),
+                30 => props.push(("op1".into(), buf.gjstr(STRING_TERMINATOR))),
+                31 => props.push(("op2".into(), buf.gjstr(STRING_TERMINATOR))),
+                32 => props.push(("op3".into(), buf.gjstr(STRING_TERMINATOR))),
+                33 => props.push(("op4".into(), buf.gjstr(STRING_TERMINATOR))),
+                34 => props.push(("op5".into(), buf.gjstr(STRING_TERMINATOR))),
                 39 => props.push(("contrast".into(), buf.g1s().to_string())),
                 40 => {
                     let count = buf.g1() as usize;
@@ -1019,8 +1020,8 @@ fn decode_npc_entries(
                         ));
                     }
                 }
-                2 => props.push(("name".into(), buf.gjstr(10))),
-                3 => props.push(("desc".into(), buf.gjstr(10))),
+                2 => props.push(("name".into(), buf.gjstr(STRING_TERMINATOR))),
+                3 => props.push(("desc".into(), buf.gjstr(STRING_TERMINATOR))),
                 12 => props.push(("size".into(), buf.g1().to_string())),
                 13 => props.push(("readyanim".into(), seq_ref(buf.g2(), packs))),
                 14 => props.push(("walkanim".into(), seq_ref(buf.g2(), packs))),
@@ -1033,11 +1034,11 @@ fn decode_npc_entries(
                     let d = seq_ref(buf.g2(), packs);
                     props.push(("walkanim".into(), format!("{a},{b},{c},{d}")));
                 }
-                30 => props.push(("op1".into(), buf.gjstr(10))),
-                31 => props.push(("op2".into(), buf.gjstr(10))),
-                32 => props.push(("op3".into(), buf.gjstr(10))),
-                33 => props.push(("op4".into(), buf.gjstr(10))),
-                34 => props.push(("op5".into(), buf.gjstr(10))),
+                30 => props.push(("op1".into(), buf.gjstr(STRING_TERMINATOR))),
+                31 => props.push(("op2".into(), buf.gjstr(STRING_TERMINATOR))),
+                32 => props.push(("op3".into(), buf.gjstr(STRING_TERMINATOR))),
+                33 => props.push(("op4".into(), buf.gjstr(STRING_TERMINATOR))),
+                34 => props.push(("op5".into(), buf.gjstr(STRING_TERMINATOR))),
                 40 => {
                     let count = buf.g1() as usize;
                     for i in 0..count {
@@ -1121,8 +1122,8 @@ fn decode_obj_entries(
                     "model".into(),
                     model_ref(buf.g2(), "obj", ModelCategory::Obj, packs),
                 )),
-                2 => props.push(("name".into(), buf.gjstr(10))),
-                3 => props.push(("desc".into(), buf.gjstr(10))),
+                2 => props.push(("name".into(), buf.gjstr(STRING_TERMINATOR))),
+                3 => props.push(("desc".into(), buf.gjstr(STRING_TERMINATOR))),
                 4 => props.push(("2dzoom".into(), buf.g2().to_string())),
                 5 => props.push(("2dxan".into(), buf.g2().to_string())),
                 6 => props.push(("2dyan".into(), buf.g2().to_string())),
@@ -1151,16 +1152,16 @@ fn decode_obj_entries(
                     "womanwear2".into(),
                     model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
                 )),
-                30 => props.push(("op1".into(), buf.gjstr(10))),
-                31 => props.push(("op2".into(), buf.gjstr(10))),
-                32 => props.push(("op3".into(), buf.gjstr(10))),
-                33 => props.push(("op4".into(), buf.gjstr(10))),
-                34 => props.push(("op5".into(), buf.gjstr(10))),
-                35 => props.push(("iop1".into(), buf.gjstr(10))),
-                36 => props.push(("iop2".into(), buf.gjstr(10))),
-                37 => props.push(("iop3".into(), buf.gjstr(10))),
-                38 => props.push(("iop4".into(), buf.gjstr(10))),
-                39 => props.push(("iop5".into(), buf.gjstr(10))),
+                30 => props.push(("op1".into(), buf.gjstr(STRING_TERMINATOR))),
+                31 => props.push(("op2".into(), buf.gjstr(STRING_TERMINATOR))),
+                32 => props.push(("op3".into(), buf.gjstr(STRING_TERMINATOR))),
+                33 => props.push(("op4".into(), buf.gjstr(STRING_TERMINATOR))),
+                34 => props.push(("op5".into(), buf.gjstr(STRING_TERMINATOR))),
+                35 => props.push(("iop1".into(), buf.gjstr(STRING_TERMINATOR))),
+                36 => props.push(("iop2".into(), buf.gjstr(STRING_TERMINATOR))),
+                37 => props.push(("iop3".into(), buf.gjstr(STRING_TERMINATOR))),
+                38 => props.push(("iop4".into(), buf.gjstr(STRING_TERMINATOR))),
+                39 => props.push(("iop5".into(), buf.gjstr(STRING_TERMINATOR))),
                 40 => {
                     let count = buf.g1() as usize;
                     for i in 0..count {
@@ -1283,7 +1284,7 @@ fn decode_varbit_entries(
                     props.push(("startbit".into(), buf.g1().to_string()));
                     props.push(("endbit".into(), buf.g1().to_string()));
                 }
-                10 => props.push(("debugname".into(), buf.gjstr(10))),
+                10 => props.push(("debugname".into(), buf.gjstr(STRING_TERMINATOR))),
                 _ => panic!("Unrecognized varbit config code: {code}"),
             }
         }

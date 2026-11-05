@@ -6,6 +6,7 @@ use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::crc::getcrc;
 use rs_io::packet::RsaFrame;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 pub const LOGIN_MAX_PAYLOAD: usize = u8::MAX as usize;
@@ -61,8 +62,8 @@ impl LoginBlock {
         let (mut buf, seed) = decrypt_rsa(&mut buf, rsa)?;
         require(&buf, 4)?;
         let uid = buf.g4s();
-        let username = read_string(&mut buf, 10, MAX_USERNAME_LEN)?;
-        let password = read_string(&mut buf, 10, 20)?;
+        let username = read_string(&mut buf, MAX_USERNAME_LEN)?;
+        let password = read_string(&mut buf, 20)?;
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
             return Err(LoginResponse::InvalidCredentials);
         }
@@ -88,10 +89,10 @@ impl LoginBlock {
         let (mut rsa_buf, seed) = decrypt_rsa(&mut buf, rsa)?;
         require(&rsa_buf, 8)?;
         rsa_buf.pos += 8;
-        let password = read_string(&mut rsa_buf, 0, 128)?.to_lowercase();
+        let password = read_string(&mut rsa_buf, 128)?.to_lowercase();
         require(&rsa_buf, 16)?;
         let mut buf = decrypt_xtea(buf, seed)?;
-        let username = read_string(&mut buf, 0, MAX_USERNAME_LEN)?.to_lowercase();
+        let username = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
             return Err(LoginResponse::InvalidCredentials);
         }
@@ -129,15 +130,15 @@ fn require(buf: &Packet, len: usize) -> Result<(), LoginResponse> {
     Ok(())
 }
 
-fn read_string(buf: &mut Packet, terminator: u8, max: usize) -> Result<String, LoginResponse> {
+fn read_string(buf: &mut Packet, max: usize) -> Result<String, LoginResponse> {
     let len = buf.data[buf.pos..]
         .iter()
-        .position(|&b| b == terminator)
+        .position(|&b| b == STRING_TERMINATOR)
         .ok_or(LoginResponse::InvalidCredentials)?;
     if len > max {
         return Err(LoginResponse::InvalidCredentials);
     }
-    Ok(buf.gjstr(terminator))
+    Ok(buf.gjstr(STRING_TERMINATOR))
 }
 
 fn decrypt_rsa(
@@ -220,14 +221,14 @@ pub struct CreateAccountRequest {
 impl CreateAccountRequest {
     pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
         let mut buf = decode_account(buf, rsa)?;
-        let username = read_string(&mut buf, 0, MAX_USERNAME_LEN)?.to_lowercase();
+        let username = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
         require(&buf, 2)?;
         buf.pos += 2;
-        let password = read_string(&mut buf, 0, 128)?;
+        let password = read_string(&mut buf, 128)?;
         require(&buf, 8 + 1 + 1 + 24 + 1)?;
         buf.pos += 8 + 1 + 1 + 24;
         if buf.g1() != 0 {
-            read_string(&mut buf, 0, 256)?;
+            read_string(&mut buf, 256)?;
         }
         require(&buf, 2 + 7)?;
         let age = buf.g1();
@@ -251,7 +252,7 @@ pub struct CheckNameRequest {
 impl CheckNameRequest {
     pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
         let mut buf = decode_account(buf, rsa)?;
-        let name = read_string(&mut buf, 0, MAX_USERNAME_LEN)?.to_lowercase();
+        let name = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
         require(&buf, 1 + 7)?;
         if name.is_empty() || name.len() > MAX_USERNAME_LEN {
             return Err(LoginResponse::InvalidCredentials);
@@ -446,7 +447,7 @@ Az5KOlJPE6c=
             assert!(result.is_err(), "accepted truncation at {len}");
         }
         let mut string = Packet::from(vec![65; 32]);
-        assert!(read_string(&mut string, 0, 320).is_err());
+        assert!(read_string(&mut string, 320).is_err());
     }
 
     #[cfg(since_647)]

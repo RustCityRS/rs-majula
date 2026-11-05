@@ -1,7 +1,3 @@
-use std::collections::HashMap;
-#[cfg(before_647)]
-use std::sync::Arc;
-
 use crate::cache::category::CategoryTypeProvider;
 use crate::cache::dbrow::DbRowTypeProvider;
 use crate::cache::dbtable::DbTableTypeProvider;
@@ -24,27 +20,52 @@ use crate::cache::varbit::VarbitTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
+#[cfg(since_647)]
+use crate::startup::PackedConfig;
 #[cfg(all(since_244, before_647))]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
+#[cfg(since_647)]
+use crate::{CONTENT_DIR, zone_csv::load_csv_zones};
+#[cfg(since_647)]
+use anyhow::Result;
 use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
+#[cfg(since_647)]
+use provider::TypeProvider;
+#[cfg(since_647)]
+use rs_crypto::huffman::Huffman;
+#[cfg(since_647)]
+use rs_dat2::CacheStore as Js5CacheStore;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
+use std::collections::HashMap;
+#[cfg(since_647)]
+use std::path::Path;
+#[cfg(before_647)]
+use std::sync::Arc;
 use wordenc::WordEncProvider;
+
+#[cfg(since_647)]
+pub use midi::MIDI_JINGLE_BASE;
 
 pub mod category;
 pub mod dbrow;
 pub mod dbtable;
+mod decode;
 pub mod r#enum;
 pub mod flo;
+#[cfg(since_647)]
+pub mod flu;
 pub mod font;
 pub mod hunt;
 pub mod idk;
 pub mod r#if;
 pub mod inv;
 pub mod lenient;
+#[cfg(since_647)]
+pub mod loader;
 pub mod loc;
 pub mod mesanim;
 pub mod midi;
@@ -56,10 +77,6 @@ pub mod script;
 pub mod seq;
 pub mod seq_frame;
 pub mod spotanim;
-#[cfg(since_647)]
-mod store647;
-#[cfg(since_647)]
-pub use store647::MIDI_JINGLE_BASE;
 pub mod r#struct;
 #[cfg(since_254)]
 pub mod varbit;
@@ -122,9 +139,8 @@ pub struct CacheStore {
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,
-    /// Huffman codec for chat message compression (loaded from JS5 archive 10).
     #[cfg(since_647)]
-    pub huffman: rs_crypto::huffman::Huffman,
+    pub huffman: Huffman,
 }
 
 pub use crate::types::ScriptVarType;
@@ -157,6 +173,26 @@ pub enum VarValue {
     Idkit(i32),
     DbRow(i32),
     Midi(i32),
+    #[cfg(since_647)]
+    Cursor(i32),
+    #[cfg(since_647)]
+    MapArea(i32),
+    #[cfg(since_647)]
+    Graphic(i32),
+    #[cfg(since_647)]
+    Jingle(i32),
+    #[cfg(since_647)]
+    ChatCat(i32),
+    #[cfg(since_647)]
+    Model(i32),
+    #[cfg(since_647)]
+    Texture(i32),
+    #[cfg(since_647)]
+    Bas(i32),
+    #[cfg(since_647)]
+    Vorbis(i32),
+    #[cfg(since_647)]
+    MapElement(i32),
 }
 
 impl VarValue {
@@ -188,6 +224,26 @@ impl VarValue {
             ScriptVarType::Idkit => VarValue::Idkit(value),
             ScriptVarType::DbRow => VarValue::DbRow(value),
             ScriptVarType::Midi => VarValue::Midi(value),
+            #[cfg(since_647)]
+            ScriptVarType::Cursor => VarValue::Cursor(value),
+            #[cfg(since_647)]
+            ScriptVarType::MapArea => VarValue::MapArea(value),
+            #[cfg(since_647)]
+            ScriptVarType::Graphic => VarValue::Graphic(value),
+            #[cfg(since_647)]
+            ScriptVarType::Jingle => VarValue::Jingle(value),
+            #[cfg(since_647)]
+            ScriptVarType::ChatCat => VarValue::ChatCat(value),
+            #[cfg(since_647)]
+            ScriptVarType::Model => VarValue::Model(value),
+            #[cfg(since_647)]
+            ScriptVarType::Texture => VarValue::Texture(value),
+            #[cfg(since_647)]
+            ScriptVarType::Bas => VarValue::Bas(value),
+            #[cfg(since_647)]
+            ScriptVarType::Vorbis => VarValue::Vorbis(value),
+            #[cfg(since_647)]
+            ScriptVarType::MapElement => VarValue::MapElement(value),
         }
     }
 
@@ -218,6 +274,26 @@ impl VarValue {
             ScriptVarType::Idkit => VarValue::Idkit(-1),
             ScriptVarType::DbRow => VarValue::DbRow(-1),
             ScriptVarType::Midi => VarValue::Midi(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Cursor => VarValue::Cursor(-1),
+            #[cfg(since_647)]
+            ScriptVarType::MapArea => VarValue::MapArea(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Graphic => VarValue::Graphic(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Jingle => VarValue::Jingle(-1),
+            #[cfg(since_647)]
+            ScriptVarType::ChatCat => VarValue::ChatCat(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Model => VarValue::Model(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Texture => VarValue::Texture(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Bas => VarValue::Bas(-1),
+            #[cfg(since_647)]
+            ScriptVarType::Vorbis => VarValue::Vorbis(-1),
+            #[cfg(since_647)]
+            ScriptVarType::MapElement => VarValue::MapElement(-1),
         }
     }
 
@@ -249,6 +325,81 @@ impl VarValue {
             | VarValue::Idkit(v)
             | VarValue::DbRow(v)
             | VarValue::Midi(v) => *v,
+            #[cfg(since_647)]
+            VarValue::Cursor(v)
+            | VarValue::MapArea(v)
+            | VarValue::Graphic(v)
+            | VarValue::Jingle(v)
+            | VarValue::ChatCat(v)
+            | VarValue::Model(v)
+            | VarValue::Texture(v)
+            | VarValue::Bas(v)
+            | VarValue::Vorbis(v)
+            | VarValue::MapElement(v) => *v,
         }
+    }
+}
+
+#[cfg(since_647)]
+impl CacheStore {
+    pub fn from_packed_config(
+        config: PackedConfig,
+        cache: &mut Js5CacheStore,
+        server_dir: &Path,
+    ) -> Result<Box<CacheStore>> {
+        let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache)?;
+        let huffman = loader::load_huffman(cache)?;
+        let fonts = FontTypeProvider::from_cache(cache);
+        loader::merge_server_layer(server_dir, "map", 'n', &mut mapsquares);
+        loader::merge_server_layer(server_dir, "objspawn", 'o', &mut mapsquares);
+
+        let dbtables = config.dbtables;
+        let dbrows = config.dbrows;
+        let db_index = DbTableIndex::build(&dbtables, &dbrows);
+
+        Ok(Box::new(CacheStore {
+            mapsquares,
+            mapcrcs,
+            objs: config.objs,
+            invs: config.invs,
+            varps: config.varps,
+            varbits: config.varbits,
+            dbrows,
+            dbtables,
+            db_index,
+            enums: config.enums,
+            flos: config.flos,
+            hunts: config.hunts,
+            idks: config.idks,
+            locs: config.locs,
+            mesanims: config.mesanims,
+            npcs: config.npcs,
+            params: config.params,
+            seqs: config.seqs,
+            spotanims: config.spotanims,
+            structs: config.structs,
+            varns: config.varns,
+            varss: TypeProvider::default(),
+            categories: config.categories,
+            interfaces: IfTypeProvider {
+                names: HashMap::new(),
+                types: Vec::new(),
+            },
+            fonts,
+            wordenc: WordEncProvider::empty(),
+            songs: MidiProvider {
+                names: HashMap::new(),
+                midis: Box::new([]),
+            },
+            jingles: MidiProvider {
+                names: HashMap::new(),
+                midis: Box::new([]),
+            },
+            midi_ids: midi::load_midi_ids(),
+            midi_tick_lengths: midi::load_midi_tick_lengths(cache),
+            multimap: load_csv_zones(&Path::new(CONTENT_DIR).join("maps/multiway.csv")),
+            freemap: load_csv_zones(&Path::new(CONTENT_DIR).join("maps/free2play.csv")),
+            huffman,
+        }))
     }
 }

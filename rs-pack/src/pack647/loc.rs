@@ -5,20 +5,22 @@
 //!
 //! Server stream: reads all .loc files, encodes category/param/debugname.
 //! Client stream: reads `_unpack/all.loc`, encodes ALL cache opcodes directly
-//! as binary (no DefinitionEncode, no LocType — raw p1/p2/p3/p4/pjstr).
+//! as binary (no DefinitionEncode, no LocTypeRaw — raw p1/p2/p3/p4/pjstr).
 //!
 //! Loc configs are special: one `[tree]` section can map to MANY loc IDs
 //! via loc.pack fan-out. The compiler emits params to EVERY matching ID.
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::path::Path;
 
-use anyhow::Result;
+use anyhow::{Context, Result, bail};
 use tracing::{info, warn};
 
 use super::{collect_config_files, parse_config_sections};
-use crate::pack_registry::PackRegistry;
+use crate::cache::loc::LocTypeRaw;
+use crate::pack_registry::{PackFile, PackRegistry};
 use crate::packed_data::PackedData;
+use crate::types::ParamValue;
 
 pub fn pack_locs(
     source_dir: &Path,
@@ -198,7 +200,7 @@ pub fn pack_locs(
 
 /// Encode ALL cache opcodes from `_unpack/all.loc` into `loc.client.dat/.idx`.
 ///
-/// Writes binary opcodes DIRECTLY to PackedData — no LocType, no
+/// Writes binary opcodes DIRECTLY to PackedData — no LocTypeRaw, no
 /// DefinitionEncode. Each text key maps to exactly the opcode(s) the client
 /// decoder (`LocType.parse`) reads.
 fn pack_locs_client_data(
@@ -206,8 +208,6 @@ fn pack_locs_client_data(
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
 ) -> Result<PackedData> {
-    use std::collections::BTreeMap;
-
     let all_files = collect_config_files(source_dir, "loc");
     if all_files.is_empty() {
         info!("  No .loc files found, skipping client loc pack");
@@ -310,17 +310,7 @@ fn pack_locs_client_data(
                 && k["quest".len()..].chars().all(|c| c.is_ascii_digit())
                 && !k["quest".len()..].is_empty()
         };
-        let is_multi_idx_key = |k: &str| {
-            k.starts_with("multi")
-                && k != "multivar"
-                && k != "multivarp"
-                && k != "multidefault"
-                && k["multi".len()..].chars().all(|c| c.is_ascii_digit())
-                && !k["multi".len()..].is_empty()
-        };
-        let is_multi_any_key = |k: &str| {
-            k == "multivar" || k == "multivarp" || k == "multidefault" || is_multi_idx_key(k)
-        };
+        let is_multi_key = |k: &str| k == "multivar" || k == "multiloc";
         let is_param_key = |k: &str| k == "paramint" || k == "paramstr";
 
         // ── Flush helpers — emit binary opcodes to PackedData ───────────
@@ -458,7 +448,7 @@ fn pack_locs_client_data(
             let varbit = var.take().unwrap_or(65535);
             let varp_v = varp.take().unwrap_or(65535);
             let default_v = default.take();
-            let transforms: Vec<u16> = std::mem::take(buf).into_values().collect();
+            let count = buf.keys().next_back().copied().unwrap_or(0);
             let opcode: u8 = if default_v.is_some() { 92 } else { 77 };
             out.p1(opcode);
             out.p2(varbit);
@@ -466,10 +456,9 @@ fn pack_locs_client_data(
             if let Some(d) = default_v {
                 out.p2(d);
             }
-            let count = transforms.len().saturating_sub(1);
             out.p1(count as u8);
-            for v in &transforms {
-                out.p2(*v);
+            for i in 0..=count {
+                out.p2(buf.remove(&i).unwrap_or(65535));
             }
         }
 
@@ -519,7 +508,7 @@ fn pack_locs_client_data(
             if !is_quest_key(k) {
                 flush_quest_bin(&mut client, &mut quest_buf);
             }
-            if !is_multi_any_key(k) {
+            if !is_multi_key(k) {
                 flush_multi_bin(
                     &mut client,
                     &mut multi_var,
@@ -648,14 +637,6 @@ fn pack_locs_client_data(
                 }
                 continue;
             }
-            if is_multi_idx_key(k) {
-                if let Ok(idx) = k["multi".len()..].parse::<usize>() {
-                    let v = value.parse::<i32>().unwrap_or(-1);
-                    multi_buf.insert(idx, if v < 0 { 65535 } else { v as u16 });
-                }
-                continue;
-            }
-
             // ── Single-value keys → direct binary opcodes ───────────────
             match k {
                 "name" => {
@@ -771,28 +752,45 @@ fn pack_locs_client_data(
                     client.p1(value.parse::<u8>().unwrap_or(0));
                 }
                 "multivar" => {
-                    multi_var = Some(
-                        value
-                            .parse::<i32>()
-                            .map(|v| if v < 0 { 65535 } else { v as u16 })
-                            .unwrap_or(65535),
-                    );
+                    let varbit = registry
+                        .varbit
+                        .get_by_name(value)
+                        .or_else(|| value.strip_prefix("varbit_")?.parse().ok());
+                    let varp = registry
+                        .varp
+                        .get_by_name(value)
+                        .or_else(|| value.strip_prefix("varp_")?.parse().ok());
+                    match (varbit, varp) {
+                        (Some(id), None) => multi_var = Some(u16::try_from(id)?),
+                        (None, Some(id)) => multi_varp = Some(u16::try_from(id)?),
+                        (Some(_), Some(_)) => bail!("{name}: ambiguous multivar '{value}'"),
+                        (None, None) => bail!("{name}: unknown multivar '{value}'"),
+                    }
                 }
-                "multivarp" => {
-                    multi_varp = Some(
-                        value
-                            .parse::<i32>()
-                            .map(|v| if v < 0 { 65535 } else { v as u16 })
-                            .unwrap_or(65535),
-                    );
-                }
-                "multidefault" => {
-                    multi_default = Some(
-                        value
-                            .parse::<i32>()
-                            .map(|v| if v < 0 { 65535 } else { v as u16 })
-                            .unwrap_or(65535),
-                    );
+                "multiloc" => {
+                    let (index, loc) = value
+                        .split_once(',')
+                        .with_context(|| format!("{name}: invalid multiloc '{value}'"))?;
+                    let loc = loc.trim();
+                    let id = if loc == "null" {
+                        65535
+                    } else {
+                        let id = registry
+                            .loc
+                            .get_by_name(loc)
+                            .or_else(|| loc.strip_prefix("loc_")?.parse().ok())
+                            .with_context(|| format!("{name}: unknown multiloc '{loc}'"))?;
+                        u16::try_from(id)?
+                    };
+                    if index.trim() == "default" {
+                        multi_default = Some(id);
+                    } else {
+                        let index = index
+                            .trim()
+                            .parse::<u8>()
+                            .with_context(|| format!("{name}: invalid multiloc index '{index}'"))?;
+                        multi_buf.insert(index as usize, id);
+                    }
                 }
                 "ambient_sfx" => {
                     if let Some((id_s, range_s)) = value.split_once(',') {
@@ -1031,7 +1029,7 @@ fn emit_smart_packed(out: &mut PackedData, value: i32) {
 // opcodes use descriptive keys derived from variant names
 // (`hillskew_t1/t2/t3_u16/t3_i32/t4/t5`, `hidden`, `members_only`,
 // `noblocks_npcs`, `nominimap_visible`, `op90/97/98/105/163/164/...`,
-// `cursor1/2`, `multivar/multivarp/multidefault/multi<N>`, `paramint`/
+// `cursor1/2`, `multivar/multiloc`, `paramint`/
 // `paramstr`, etc.).
 //
 // Cross-references resolve through `PackRegistry`:
@@ -1039,66 +1037,42 @@ fn emit_smart_packed(out: &mut PackedData, value: i32) {
 //   - `category=` → registry.category
 //   - `paramint`/`paramstr` keys → registry.param
 
-use crate::cache647::{LocType, ParamValue};
-
 /// Produce the (key, value) pairs for a loc config's text representation.
 ///
 /// Fields are emitted in canonical ascending opcode order. Only fields
 /// that differ from their default value are written. Batched fields
-/// (models, recol, retex, recolpalette, random_anims, quests, transforms,
+/// (models, recol, retex, recolpalette, random_anims, quests, multiloc,
 /// params) emit one text line per element, numbered where an index
 /// disambiguates them.
 ///
 /// The DebugName (op 250) emission is intentionally omitted because the
 /// `[section]` header carries the name; the writer lifts it from the
 /// registry on unpack.
-pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
 
-    // ── Op 1 / Op 5: models ───────────────────────────────────────────
-    if def.hd_model_types.is_some() || def.hd_models.is_some() {
-        // Op 5 — SD + HD models
-        if let (Some(types), Some(models)) = (&def.model_types, &def.models) {
-            for i in 0..types.len() {
-                let id_str = models[i]
+    let model_code = if def.hd_models.is_some() { 5 } else { 1 };
+    for (prefix, models) in [
+        (
+            if model_code == 5 { "model_sd" } else { "model" },
+            &def.models,
+        ),
+        ("model_hd", &def.hd_models),
+    ] {
+        if let Some(models) = models {
+            for (index, model) in models.iter().enumerate() {
+                let ids = model
+                    .models
                     .iter()
-                    .map(|v| v.to_string())
+                    .map(u16::to_string)
                     .collect::<Vec<_>>()
                     .join(";");
                 p.push((
-                    5,
-                    format!("model_sd{}", i + 1),
-                    format!("{},{}", types[i], id_str),
+                    model_code,
+                    format!("{prefix}{}", index + 1),
+                    format!("{},{}", model.shape as i8, ids),
                 ));
             }
-        }
-        if let (Some(types), Some(models)) = (&def.hd_model_types, &def.hd_models) {
-            for i in 0..types.len() {
-                let id_str = models[i]
-                    .iter()
-                    .map(|v| v.to_string())
-                    .collect::<Vec<_>>()
-                    .join(";");
-                p.push((
-                    5,
-                    format!("model_hd{}", i + 1),
-                    format!("{},{}", types[i], id_str),
-                ));
-            }
-        }
-    } else if let (Some(types), Some(models)) = (&def.model_types, &def.models) {
-        // Op 1 — plain models
-        for i in 0..types.len() {
-            let id_str = models[i]
-                .iter()
-                .map(|v| v.to_string())
-                .collect::<Vec<_>>()
-                .join(";");
-            p.push((
-                1,
-                format!("model{}", i + 1),
-                format!("{},{}", types[i], id_str),
-            ));
         }
     }
 
@@ -1128,8 +1102,8 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
     }
 
     // Op 19: active (default -1 before post_decode)
-    if def.opcode_order.contains(&19) || def.active != -1 {
-        p.push((19, "active".into(), def.active.to_string()));
+    if def.opcode_order.contains(&19) || def.active.is_some() {
+        p.push((19, "active".into(), def.active.unwrap_or(0).to_string()));
     }
 
     // Op 21: hillskew=yes (hillskew == 1)
@@ -1148,12 +1122,12 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
     }
 
     // Op 24: anim
-    if def.opcode_order.contains(&24) || def.anim != -1 {
+    if def.opcode_order.contains(&24) || def.anim.is_some() {
         let name = registry
             .seq
-            .get_by_id(def.anim as u32)
+            .get_by_id(def.anim.unwrap_or(u16::MAX) as u32)
             .map(|s| s.to_string())
-            .unwrap_or_else(|| format!("seq_{}", def.anim));
+            .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(u16::MAX)));
         p.push((24, "anim".into(), name));
     }
 
@@ -1167,9 +1141,8 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
         p.push((27, "interact_type1".into(), "yes".into()));
     }
 
-    // Op 28: wallwidth — stored as (raw_byte << 2), text is raw byte
-    if def.opcode_order.contains(&28) || def.wallwidth != 64 {
-        p.push((28, "wallwidth".into(), (def.wallwidth >> 2).to_string()));
+    if def.opcode_order.contains(&28) || def.wallwidth != 16 {
+        p.push((28, "wallwidth".into(), def.wallwidth.to_string()));
     }
 
     // Op 29: ambient
@@ -1178,15 +1151,14 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
     }
 
     // Op 30..34: op1..op5
-    for (slot, opt) in def.op.iter().enumerate() {
+    for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
         if let Some(text) = opt {
             p.push((30 + slot as u8, format!("op{}", slot + 1), text.to_string()));
         }
     }
 
-    // Op 39: contrast — stored as (raw_byte * 5), text is raw byte
     if def.opcode_order.contains(&39) || def.contrast != 0 {
-        p.push((39, "contrast".into(), (def.contrast / 5).to_string()));
+        p.push((39, "contrast".into(), def.contrast.to_string()));
     }
 
     // Op 40: recol
@@ -1238,25 +1210,26 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
     }
 
     // Op 69: forceapproach
-    if def.opcode_order.contains(&69) || def.forceapproach != 0 {
-        p.push((69, "forceapproach".into(), def.forceapproach.to_string()));
+    if def.opcode_order.contains(&69) || def.forceapproach as u8 != 0 {
+        p.push((
+            69,
+            "forceapproach".into(),
+            (def.forceapproach as u8).to_string(),
+        ));
     }
 
-    // Op 70: offsetx — stored as signed(raw) << 2, text is raw u16
     if def.opcode_order.contains(&70) || def.offsetx != 0 {
-        let raw = ((def.offsetx >> 2) & 0xFFFF) as u16;
+        let raw = def.offsetx as u16;
         p.push((70, "offsetx".into(), raw.to_string()));
     }
 
-    // Op 71: offsety — stored as signed(raw) << 2, text is raw u16
     if def.opcode_order.contains(&71) || def.offsety != 0 {
-        let raw = ((def.offsety >> 2) & 0xFFFF) as u16;
+        let raw = def.offsety as u16;
         p.push((71, "offsety".into(), raw.to_string()));
     }
 
-    // Op 72: offsetz — stored as signed(raw) << 2, text is raw u16
     if def.opcode_order.contains(&72) || def.offsetz != 0 {
-        let raw = ((def.offsetz >> 2) & 0xFFFF) as u16;
+        let raw = def.offsetz as u16;
         p.push((72, "offsetz".into(), raw.to_string()));
     }
 
@@ -1271,23 +1244,60 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
     }
 
     // Op 75: raiseobject
-    if def.opcode_order.contains(&75) || def.raiseobject != -1 {
-        p.push((75, "raiseobject".into(), def.raiseobject.to_string()));
+    if def.opcode_order.contains(&75) || def.raiseobject.is_some() {
+        p.push((
+            75,
+            "raiseobject".into(),
+            def.raiseobject.unwrap_or(0).to_string(),
+        ));
     }
 
-    // Op 77/92: transforms — all sub-fields must share ONE opcode tag
+    // Op 77/92: multiloc — all sub-fields must share ONE opcode tag
     // so reorder_by_opcode keeps them together.
-    if let Some(transforms) = &def.transforms {
-        let default_transform = *transforms.last().unwrap_or(&-1);
-        let entries = &transforms[..transforms.len().saturating_sub(1)];
-        let op = if default_transform != -1 { 92 } else { 77 };
-        p.push((op, "multivar".into(), def.transform_varbit.to_string()));
-        p.push((op, "multivarp".into(), def.transform_varp.to_string()));
-        if default_transform != -1 {
-            p.push((op, "multidefault".into(), default_transform.to_string()));
+    if let Some(multiloc) = &def.multiloc {
+        let default_transform = *multiloc.last().unwrap_or(&-1);
+        let entries = &multiloc[..multiloc.len().saturating_sub(1)];
+        let op = if def.opcode_order.contains(&92) || default_transform != -1 {
+            92
+        } else {
+            77
+        };
+        let name = |pack: &PackFile, prefix: &str, id: i32| {
+            if id == -1 {
+                return "null".to_string();
+            }
+            pack.get_by_id(id as u32)
+                .filter(|name| pack.get_by_name(name) == Some(id as u32))
+                .map(str::to_string)
+                .unwrap_or_else(|| format!("{prefix}_{id}"))
+        };
+        if def.transform_varbit != -1 {
+            p.push((
+                op,
+                "multivar".into(),
+                name(&registry.varbit, "varbit", def.transform_varbit),
+            ));
+        }
+        if def.transform_varp != -1 {
+            p.push((
+                op,
+                "multivar".into(),
+                name(&registry.varp, "varp", def.transform_varp),
+            ));
+        }
+        if op == 92 {
+            p.push((
+                op,
+                "multiloc".into(),
+                format!("default,{}", name(&registry.loc, "loc", default_transform)),
+            ));
         }
         for (i, t) in entries.iter().enumerate() {
-            p.push((op, format!("multi{}", i + 1), t.to_string()));
+            p.push((
+                op,
+                "multiloc".into(),
+                format!("{i},{}", name(&registry.loc, "loc", *t)),
+            ));
         }
     }
 
@@ -1398,8 +1408,12 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
     }
 
     // Op 101: mapfunction
-    if def.opcode_order.contains(&101) || def.mapfunction != 0 {
-        p.push((101, "mapfunction".into(), def.mapfunction.to_string()));
+    if def.opcode_order.contains(&101) || def.mapfunction.unwrap_or(0) != 0 {
+        p.push((
+            101,
+            "mapfunction".into(),
+            def.mapfunction.unwrap_or(0).to_string(),
+        ));
     }
 
     // Op 102: msi_id (map scene icon — client-only minimap icon frame)
@@ -1599,7 +1613,7 @@ pub fn emit_loc_props(def: &LocType, registry: &PackRegistry) -> Vec<(String, St
 }
 
 /// Decode all param entries from the raw op249 data.
-fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<crate::cache647::provider::ParamValue> {
+fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<ParamValue> {
     let Some((_, data)) = raw_opcodes.iter().find(|(op, _)| *op == 249) else {
         return Vec::new();
     };
@@ -1623,14 +1637,12 @@ fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<crate::cache647::prov
             }
             let s = String::from_utf8_lossy(&data[start..pos]).to_string();
             pos += 1;
-            result.push(crate::cache647::provider::ParamValue::String(
-                s.into_boxed_str(),
-            ));
+            result.push(ParamValue::String(s.into_boxed_str()));
         } else {
             if pos + 3 < data.len() {
                 let v =
                     i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-                result.push(crate::cache647::provider::ParamValue::Int(v));
+                result.push(ParamValue::Int(v));
             }
             pos += 4;
         }
@@ -1706,5 +1718,77 @@ fn decode_loc_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
         178 => Some(("op178".into(), r_u8(0).to_string())),
         61 => Some(("category".into(), r_u16(0).to_string())),
         _ => super::decode_raw_to_text(opcode, raw),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{emit_loc_props, pack_locs_client_data};
+    use crate::cache::loc::{LocType, LocTypeRaw};
+    use crate::cache::provider::CacheType;
+    use crate::pack_registry::PackRegistry;
+    use crate::types::MultiVar;
+    use rs_io::Packet;
+    use std::collections::HashMap;
+    use std::{env, fs, process};
+
+    #[test]
+    fn multiloc_config_preserves_both_selectors_and_defaults() {
+        let dir = env::temp_dir().join(format!("rs-majula-multiloc-{}", process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let mut registry = PackRegistry::load(&dir).unwrap();
+        registry.loc.max = 1;
+        for (pack, id, name) in [
+            (&mut registry.loc, 0, "subject"),
+            (&mut registry.varbit, 3, "phase_bits"),
+            (&mut registry.varp, 7, "phase"),
+        ] {
+            pack.id_to_name.insert(id, name.into());
+            pack.name_to_id.insert(name.into(), id);
+        }
+        registry.loc.id_to_name.insert(9, "shared".into());
+        registry.loc.id_to_name.insert(11, "shared".into());
+        registry.loc.name_to_id.insert("shared".into(), 11);
+
+        for (bytes, var) in [
+            (
+                vec![77, 0, 3, 255, 255, 2, 0, 9, 255, 255, 255, 255, 0],
+                Some(MultiVar::Varbit(3)),
+            ),
+            (
+                vec![77, 255, 255, 0, 7, 0, 0, 9, 0],
+                Some(MultiVar::Varp(7)),
+            ),
+            (
+                vec![92, 0, 3, 0, 7, 0, 11, 2, 0, 9, 255, 255, 255, 255, 0],
+                Some(MultiVar::Varbit(3)),
+            ),
+            (vec![92, 255, 255, 255, 255, 255, 255, 0, 255, 255, 0], None),
+        ] {
+            let mut def = LocTypeRaw::new(0);
+            def.decode(&mut Packet::from(bytes.clone()));
+            let mut text = "[subject]\n".to_string();
+            for (key, value) in emit_loc_props(&def, &registry) {
+                assert!(key == "multivar" || key == "multiloc");
+                if value != "1,null" {
+                    text.push_str(&format!("{key}={value}\n"));
+                }
+            }
+            fs::write(dir.join("all.loc"), text).unwrap();
+            let packed = pack_locs_client_data(&dir, &registry, &HashMap::new()).unwrap();
+            assert_eq!(packed.dat[2..], bytes);
+            let loc = LocType::from(def);
+            assert_eq!(loc.multivar, var);
+            let default = if bytes[0] == 92 && var.is_some() {
+                Some(11)
+            } else {
+                None
+            };
+            assert_eq!(loc.multi_loc(-1), default);
+            assert_eq!(loc.multi_loc(1), default);
+            assert_eq!(loc.multi_loc(256), default);
+        }
+        fs::remove_file(dir.join("all.loc")).unwrap();
+        fs::remove_dir(dir).unwrap();
     }
 }

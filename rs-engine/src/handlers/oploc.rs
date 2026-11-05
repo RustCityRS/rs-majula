@@ -183,28 +183,3 @@ fn handle(
 
     Ok(())
 }
-
-/// The value of a rev-647 multiloc's var for `player`: its varbit's bits, as
-/// `PUSH_VARBIT` reads them, else its varp; -1 with neither, which picks the
-/// default.
-#[cfg(since_647)]
-pub(crate) fn multiloc_var(
-    lt: &rs_pack::cache::loc::LocType,
-    player: &rs_entity::player::Player,
-) -> i32 {
-    if let Some(id) = lt.multivar {
-        let Some(varbit) = engine().varbits().get_by_id(id) else {
-            return -1;
-        };
-        let start = varbit.start_bit as u32;
-        let width = varbit.end_bit as u32 - start + 1;
-        let mask = if width >= 32 {
-            u32::MAX
-        } else {
-            (1u32 << width) - 1
-        };
-        return ((player.vars.get(varbit.basevar).as_int() as u32 >> start) & mask) as i32;
-    }
-    lt.multivarp
-        .map_or(-1, |varp| player.vars.get(varp).as_int())
-}

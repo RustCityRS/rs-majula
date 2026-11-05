@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 pub struct FriendchatMember {
@@ -32,10 +33,10 @@ pub struct UpdateFriendchatChannelFull {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateFriendchatChannelFull {
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(&self.owner, 0);
+        buf.pjstr(&self.owner, STRING_TERMINATOR);
         if let Some(ref alt) = self.alt_owner {
             buf.p1(1);
-            buf.pjstr(alt, 0);
+            buf.pjstr(alt, STRING_TERMINATOR);
         } else {
             buf.p1(0);
         }
@@ -43,16 +44,16 @@ impl ServerProtMessage for UpdateFriendchatChannelFull {
         buf.p1(self.min_rank as u8);
         buf.p1(self.members.len() as u8);
         for member in &self.members {
-            buf.pjstr(&member.name, 0);
+            buf.pjstr(&member.name, STRING_TERMINATOR);
             if let Some(ref display) = member.display_name {
                 buf.p1(1);
-                buf.pjstr(display, 0);
+                buf.pjstr(display, STRING_TERMINATOR);
                 buf.p2(member.world);
             } else {
                 buf.p1(0);
             }
             buf.p1(member.rank as u8);
-            buf.pjstr(&member.title, 0);
+            buf.pjstr(&member.title, STRING_TERMINATOR);
         }
     }
 

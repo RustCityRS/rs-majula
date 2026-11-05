@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 pub struct ClanChannelUser {
@@ -45,7 +46,7 @@ impl ServerProtMessage for ClanchannelFull {
             buf.p1(ch.flags);
             buf.p8(ch.link_id);
             buf.p8(ch.update_num);
-            buf.pjstr(&ch.name, 0);
+            buf.pjstr(&ch.name, STRING_TERMINATOR);
             buf.p1(0);
             buf.p1(ch.rank_kick as u8);
             buf.p1(ch.rank_talk as u8);
@@ -57,8 +58,11 @@ impl ServerProtMessage for ClanchannelFull {
                     buf.p8(user.user_hash.unwrap_or(0));
                 }
                 if use_names {
-                    buf.pjstr(user.display_name.as_deref().unwrap_or(""), 0);
-                    buf.pjstr(user.real_name.as_deref().unwrap_or(""), 0);
+                    buf.pjstr(
+                        user.display_name.as_deref().unwrap_or(""),
+                        STRING_TERMINATOR,
+                    );
+                    buf.pjstr(user.real_name.as_deref().unwrap_or(""), STRING_TERMINATOR);
                 }
                 buf.p1(user.rank);
                 buf.p1(user.status);

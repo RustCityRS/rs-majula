@@ -22,11 +22,6 @@ pub mod asset_roundtrip;
 #[cfg(since_647)]
 #[path = "build647/mod.rs"]
 pub mod build;
-/// Rev-647 cache config decoders (NpcType, ObjType, LocType, …). Named
-/// `cache647` because the jag-era `cache` module is era-neutral in this
-/// crate and stays in scope at 647.
-#[cfg(since_647)]
-pub mod cache647;
 #[cfg(since_647)]
 pub mod config_blob;
 #[cfg(since_647)]
@@ -145,9 +140,9 @@ use cache::dbrow::DbRowType;
 #[cfg(before_647)]
 use cache::dbtable::{DbTableIndex, DbTableType};
 #[cfg(before_647)]
-use cache::r#enum::EnumType;
+use cache::r#enum::{EnumType, EnumTypeRaw};
 #[cfg(before_647)]
-use cache::flo::FloType;
+use cache::flo::{FloType, FloTypeRaw};
 #[cfg(before_647)]
 use cache::font::FontTypeProvider;
 #[cfg(before_647)]
@@ -157,7 +152,7 @@ use cache::idk::{IdkType, IdkTypeRaw};
 #[cfg(before_647)]
 use cache::r#if::IfTypeProvider;
 #[cfg(before_647)]
-use cache::inv::InvType;
+use cache::inv::{InvType, InvTypeRaw};
 #[cfg(before_647)]
 use cache::loc::{LocType, LocTypeRaw};
 #[cfg(before_647)]
@@ -169,7 +164,7 @@ use cache::npc::{NpcType, NpcTypeRaw};
 #[cfg(before_647)]
 use cache::obj::{ObjContext, ObjType, ObjTypeRaw};
 #[cfg(before_647)]
-use cache::param::ParamType;
+use cache::param::{ParamType, ParamTypeRaw};
 #[cfg(before_647)]
 use cache::provider::TypeProvider;
 use cache::script::ScriptProvider;
@@ -178,13 +173,13 @@ use cache::seq::{SeqType, SeqTypeRaw};
 #[cfg(before_647)]
 use cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
 #[cfg(before_647)]
-use cache::r#struct::StructType;
+use cache::r#struct::{StructType, StructTypeRaw};
 #[cfg(all(since_254, before_647))]
 use cache::varbit::VarbitType;
 #[cfg(before_647)]
 use cache::varn::VarnType;
 #[cfg(before_647)]
-use cache::varp::VarPlayerType;
+use cache::varp::{VarPlayerType, VarPlayerTypeRaw};
 #[cfg(before_647)]
 use cache::vars::VarsType;
 #[cfg(before_647)]
@@ -711,7 +706,7 @@ pub fn pack_all(
     };
     let crctable_bytes = Arc::from(crc_bytes);
 
-    let params = build_type_provider::<ParamType>(&assets, "param", ());
+    let params = build_type_provider_into::<ParamTypeRaw, ParamType>(&assets, "param", ());
     let objs = build_type_provider_into::<ObjTypeRaw, ObjType>(
         &assets,
         "obj",
@@ -720,15 +715,15 @@ pub fn pack_all(
             autodisable_params: params.types.iter().map(|p| p.autodisable).collect(),
         },
     );
-    let invs = build_type_provider::<InvType>(&assets, "inv", ());
-    let varps = build_type_provider::<VarPlayerType>(&assets, "varp", ());
+    let invs = build_type_provider_into::<InvTypeRaw, InvType>(&assets, "inv", ());
+    let varps = build_type_provider_into::<VarPlayerTypeRaw, VarPlayerType>(&assets, "varp", ());
     #[cfg(since_254)]
     let varbits = build_type_provider::<VarbitType>(&assets, "varbit", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
     let dbtables = build_type_provider::<DbTableType>(&assets, "dbtable", ());
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
-    let enums = build_type_provider::<EnumType>(&assets, "enum", ());
-    let flos = build_type_provider::<FloType>(&assets, "flo", ());
+    let enums = build_type_provider_into::<EnumTypeRaw, EnumType>(&assets, "enum", ());
+    let flos = build_type_provider_into::<FloTypeRaw, FloType>(&assets, "flo", ());
     let hunts = build_type_provider::<HuntType>(&assets, "hunt", ());
     let idks = build_type_provider_into::<IdkTypeRaw, IdkType>(&assets, "idk", ());
     let locs = build_type_provider_into::<LocTypeRaw, LocType>(&assets, "loc", ());
@@ -746,7 +741,7 @@ pub fn pack_all(
     let seqs = build_type_provider_into::<SeqTypeRaw, SeqType>(&assets, "seq", seq_frame_delays);
     let spotanims =
         build_type_provider_into::<SpotAnimTypeRaw, SpotAnimType>(&assets, "spotanim", ());
-    let structs = build_type_provider::<StructType>(&assets, "struct", ());
+    let structs = build_type_provider_into::<StructTypeRaw, StructType>(&assets, "struct", ());
     let varns = build_type_provider::<VarnType>(&assets, "varn", ());
     let varss = build_type_provider::<VarsType>(&assets, "vars", ());
     let categories = build_type_provider::<CategoryType>(&assets, "category", ());

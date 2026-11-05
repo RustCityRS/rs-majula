@@ -6,7 +6,6 @@ use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::inv::{InvScope, InvType};
-use rs_pack::cache::provider::CacheType;
 use rs_pack::types::PlayerStat;
 use rs_stat::{get_exp_by_level, get_level_by_exp};
 use rs_vm::engine::ScriptPlayer;

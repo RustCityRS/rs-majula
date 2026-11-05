@@ -13,7 +13,7 @@ use super::parse_config_sections;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
-use crate::cache647::FluType;
+use crate::cache::flu::FluType;
 
 pub fn pack_flus(
     source_dir: &Path,
@@ -101,13 +101,13 @@ pub fn pack_flus(
 
 pub fn emit_flu_props(def: &FluType, _registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if let Some(c) = def.color {
-        p.push((1, "color".into(), c.to_string()));
+    if def.opcode_order.contains(&1) {
+        p.push((1, "color".into(), def.color.to_string()));
     }
-    if def.has_texture {
+    if def.opcode_order.contains(&2) {
         p.push((2, "texture".into(), def.texture.to_string()));
     }
-    if def.has_size {
+    if def.opcode_order.contains(&3) {
         p.push((3, "size".into(), def.size.to_string()));
     }
     if def.op4 {

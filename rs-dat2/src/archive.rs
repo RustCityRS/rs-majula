@@ -49,7 +49,6 @@ pub const REFERENCE_TABLES: u8 = 255;
 // ── Config group IDs within archive 2 ──────────────────────────────────
 
 pub const CONFIG_GROUP_FLU: u32 = 1;
-pub const CONFIG_GROUP_HUNT: u32 = 2;
 pub const CONFIG_GROUP_IDK: u32 = 3;
 pub const CONFIG_GROUP_FLO: u32 = 4;
 pub const CONFIG_GROUP_INV: u32 = 5;
@@ -73,7 +72,6 @@ pub const CONFIG_GROUP_VARCLAN: u32 = 54;
 /// grouping.
 pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("flu", CONFIG_GROUP_FLU),
-    ("hunt", CONFIG_GROUP_HUNT),
     ("idk", CONFIG_GROUP_IDK),
     ("flo", CONFIG_GROUP_FLO),
     ("inv", CONFIG_GROUP_INV),
@@ -93,7 +91,7 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
 /// Unknown config groups in archive 2 packed as raw binary. The pack step
 /// stores these as `configN.dat`/`configN.idx`.
 pub const CONFIG_UNKNOWN_GROUPS: &[u32] = &[
-    7, 15, 18, 19, 20, 21, 22, 23, 24, 25, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48,
+    2, 7, 15, 18, 19, 20, 21, 22, 23, 24, 25, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48,
 ];
 
 // ── Reference table format versions ────────────────────────────────────

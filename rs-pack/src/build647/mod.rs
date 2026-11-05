@@ -19,6 +19,7 @@ mod verify;
 
 pub use sprites_encode::encode_sprite_group_from_dir;
 
+use crate::cache::seq_frame::split_frame_into_stripes;
 use anyhow::Result;
 use tracing::{info, warn};
 
@@ -173,11 +174,7 @@ pub fn run_build_cache(
                         .collect();
 
                     let blob = if refs.len() > 1 {
-                        rs_dat2::encode_group_entries_striped(
-                            &refs,
-                            3,
-                            crate::cache647::anim_frame::split_frame_into_stripes,
-                        )
+                        rs_dat2::encode_group_entries_striped(&refs, 3, split_frame_into_stripes)
                     } else {
                         rs_dat2::encode_group_entries(&refs)
                     };

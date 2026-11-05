@@ -24,7 +24,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, ObjType};
+use crate::cache::obj::ObjTypeRaw;
+use crate::cache::provider::CacheType;
 use crate::pack::obj::emit_obj_props;
 use crate::pack_registry::PackRegistry;
 
@@ -56,7 +57,7 @@ pub fn unpack_objs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
             }
             let global_id = group_id * STRIDE + entry.id;
 
-            let mut def = ObjType::new(global_id as u16);
+            let mut def = ObjTypeRaw::new(global_id as u16);
             def.decode(&mut Packet::from(entry.data.to_vec()));
 
             let base = registry
@@ -115,7 +116,7 @@ pub fn update_specific_obj_file(
     file_path: &Path,
 ) -> Result<()> {
     let mut store = CacheStore::open(cache_dir)?;
-    super::common::update_specific_file::<ObjType, _, _>(
+    super::common::update_specific_file::<ObjTypeRaw, _, _>(
         &mut store,
         file_path,
         ARCHIVE_ITEMS,

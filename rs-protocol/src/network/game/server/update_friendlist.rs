@@ -6,6 +6,8 @@ use crate::network::game::server_prot_message::jstr_len;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+#[cfg(since_647)]
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 #[server_prot(UpdateFriendList, Buffered, Fixed)]
@@ -57,12 +59,15 @@ impl ServerProtMessage for UpdateFriendlist {
     fn encode(&self, buf: &mut Packet) {
         for friend in &self.friends {
             buf.p1(friend.status);
-            buf.pjstr(&friend.name, 0);
-            buf.pjstr(&friend.previous_name, 0);
+            buf.pjstr(&friend.name, STRING_TERMINATOR);
+            buf.pjstr(&friend.previous_name, STRING_TERMINATOR);
             buf.p2(friend.world);
             buf.p1(friend.rank);
             if friend.world > 0 {
-                buf.pjstr(friend.world_name.as_deref().unwrap_or(""), 0);
+                buf.pjstr(
+                    friend.world_name.as_deref().unwrap_or(""),
+                    STRING_TERMINATOR,
+                );
                 buf.p1(friend.world_flag.unwrap_or(0));
             }
         }

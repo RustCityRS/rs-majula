@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 #[server_prot(SetMoveaction, Buffered, VarByte)]
@@ -21,7 +22,7 @@ pub struct SetMoveaction {
 impl ServerProtMessage for SetMoveaction {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(0);
-        buf.pjstr(&self.label, 0);
+        buf.pjstr(&self.label, STRING_TERMINATOR);
         buf.p2(self.cursor_id);
     }
 

@@ -27,7 +27,8 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, SeqType};
+use crate::cache::provider::CacheType;
+use crate::cache::seq::SeqTypeRaw;
 use crate::pack::seq::emit_seq_props;
 use crate::pack_registry::PackRegistry;
 
@@ -66,7 +67,7 @@ pub fn unpack_seqs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
     let mut written = 0u32;
 
     for (global_id, entry) in &entries {
-        let mut def = SeqType::new(*global_id as u16);
+        let mut def = SeqTypeRaw::new(*global_id as u16);
         def.decode(&mut Packet::from(entry.data.to_vec()));
 
         let base = registry

@@ -20,7 +20,6 @@ pub mod enums;
 pub mod flo;
 pub mod flu;
 pub mod fontmetrics;
-pub mod hunt;
 pub mod idk;
 pub mod interfaces;
 pub mod inv;
@@ -46,6 +45,7 @@ pub mod varp;
 use std::path::Path;
 
 use anyhow::Result;
+use rs_dat2::archive::CONFIG_UNKNOWN_GROUPS;
 use tracing::{error, info};
 
 use crate::pack_registry::PackRegistry;
@@ -280,10 +280,6 @@ fn unpack_configs(
         struct_pack::unpack_structs(cache_dir, registry, &config_out)?;
         Ok(String::new())
     });
-    step(results, "hunt configs", || {
-        hunt::unpack_hunts(cache_dir, registry, &config_out)?;
-        Ok(String::new())
-    });
     step(results, "spotanim configs", || {
         spotanim::unpack_spotanims(cache_dir, registry, &config_out)?;
         Ok(String::new())
@@ -314,7 +310,7 @@ fn unpack_configs(
             info!("  Unpacking {type_name} (group {group_id})...");
             config_generic::unpack_config_group(&mut store, group_id, type_name, &config_out)?;
         }
-        for &group_id in config_generic::UNKNOWN_CONFIG_GROUPS {
+        for &group_id in CONFIG_UNKNOWN_GROUPS {
             info!("  Unpacking config{group_id} (raw)...");
             config_generic::unpack_raw_config_group(&mut store, group_id, &config_out)?;
         }

@@ -1,6 +1,8 @@
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use rs_io::Packet;
+#[cfg(since_647)]
+use rs_ver::STRING_TERMINATOR;
 
 pub trait ClientProtMessageInfo {
     const FRAME: ClientProtFrame;
@@ -25,7 +27,7 @@ pub trait ClientProtMessage: ClientProtMessageInfo {
 pub(crate) fn string_end(data: &[u8], start: usize) -> Option<usize> {
     data.get(start..)?
         .iter()
-        .position(|&b| b == 0)
+        .position(|&b| b == STRING_TERMINATOR)
         .map(|len| start + len + 1)
 }
 

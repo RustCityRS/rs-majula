@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 #[server_prot(MessageClanchannel, Buffered, VarByte)]
@@ -25,7 +26,7 @@ pub struct MessageClanchannel {
 impl ServerProtMessage for MessageClanchannel {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.affined as u8);
-        buf.pjstr(&self.sender, 0);
+        buf.pjstr(&self.sender, STRING_TERMINATOR);
         buf.p2(self.msg_uid_hi);
         buf.p3(self.msg_uid_lo);
         buf.p1(self.tier);

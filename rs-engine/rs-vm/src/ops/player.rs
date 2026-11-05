@@ -1055,7 +1055,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 loc_type.length,
                 loc.shape,
                 loc.angle,
-                loc_type.forceapproach_flags(),
+                loc_type.forceapproach as u8,
             ) {
                 player.queue_waypoint(loc.coord);
             }

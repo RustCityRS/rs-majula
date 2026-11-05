@@ -25,7 +25,7 @@ use std::path::{Path, PathBuf};
 use anyhow::{Context, Result};
 use tracing::{info, warn};
 
-use crate::cache647::loader;
+use crate::cache::loader;
 use rs_dat2::CacheStore;
 
 /// Outcome of a single `discover_npcs` run.
@@ -187,7 +187,7 @@ fn sanitize_name(name: &str) -> String {
 }
 
 /// Build the unique disambiguated name list from cache configs.
-/// Returns sorted Vec<(id, unique_name, display_name, combat_level)>.
+/// Returns sorted Vec<(id, unique_name, name, combat_level)>.
 fn build_unique_names(cache_dir: &Path) -> Result<Vec<(u16, String, String, i32)>> {
     let mut cache = CacheStore::open(cache_dir)?;
     let npc_defs = loader::load_all_npcs(&mut cache)?;
@@ -201,9 +201,9 @@ fn build_unique_names(cache_dir: &Path) -> Result<Vec<(u16, String, String, i32)
             Some(d) => d,
             None => continue,
         };
-        let display = def.display_name().to_string();
+        let display = def.name.as_deref().unwrap_or("null").to_string();
         let sanitized = sanitize_name(&display);
-        let combat = def.combat;
+        let combat = def.vislevel.map_or(-1, i32::from);
 
         npc_info.push((id, sanitized.clone(), display, combat));
 

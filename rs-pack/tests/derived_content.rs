@@ -12,6 +12,8 @@
 //! `REV=647 cargo test -p rs-pack --release --test derived_content -- --ignored`
 #![cfg(rev = "647")]
 
+use rs_pack::ParamValue;
+use rs_pack::types::ScriptVarType;
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -102,7 +104,7 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
         Path::new(rs_pack::CONTENT_DIR),
         Path::new(rs_pack::PACK_DIR),
         &output,
-        false,
+        true,
     )
     .unwrap();
     let config = &result.config;
@@ -111,12 +113,20 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
             .unwrap_or_else(|| panic!("{name} is not registered")) as u16
     };
 
+    assert_eq!(config.categories.count(), registry.category.max as usize);
+    for (&id, name) in &registry.category.id_to_name {
+        assert_eq!(
+            config.categories.get_by_debugname(name).unwrap().id,
+            id as u16
+        );
+    }
+
     // player/configs/wearpos.obj -- the cache has no wearpos opcode.
     let platebody = config
         .objs
         .get_by_id(id(&registry.obj, "bronze_platebody"))
         .unwrap();
-    assert_eq!(platebody.wearpos1, 4, "torso");
+    assert_eq!(platebody.wearpos.map(|v| v as u8), Some(4), "torso");
 
     // general_use/configs/barriers.loc -- a category on a cache loc.
     let gate = config
@@ -125,29 +135,60 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
         .unwrap();
     assert_eq!(
         gate.category,
-        registry.category.get_by_name("gate_main_closed").unwrap() as i32
+        Some(registry.category.get_by_name("gate_main_closed").unwrap() as u16)
     );
 
     // general/configs/npc_behaviour.npc -- movement on a cache npc.
     let hans = config.npcs.get_by_id(id(&registry.npc, "hans")).unwrap();
-    assert_eq!(hans.max_range, 50);
+    assert_eq!(hans.maxrange, 50);
+
+    let hellhound = config.npcs.get_by_debugname("hellhound").unwrap();
+    assert_eq!(hellhound.huntmode, Some(id(&registry.hunt, "cowardly")));
+    assert_eq!(
+        config.hunts.debugnames.len(),
+        registry.hunt.id_to_name.len()
+    );
+
+    let unlocks = config
+        .enums
+        .get_by_debugname("levelup_unlocks_attack")
+        .unwrap();
+    assert_eq!(unlocks.inputtype, ScriptVarType::Int);
+    assert_eq!(unlocks.values.len(), 6);
+    for (key, expected) in [5, 10, 20, 30, 40, 60].into_iter().enumerate() {
+        assert!(
+            matches!(unlocks.values[&(key as i32)], ParamValue::Int(value) if value == expected)
+        );
+    }
 
     // general/configs/shops.inv -- stock on a cache inv.
     let shop = config.invs.get_by_id(id(&registry.inv, "inv_486")).unwrap();
     assert_eq!(
-        shop.stock_obj.first().copied(),
+        shop.stockobj.as_deref().unwrap().first().copied(),
         Some(id(&registry.obj, "junk_19713"))
     );
+
+    let tackler = config
+        .hunts
+        .get_by_id(id(&registry.hunt, "gnomeball_tackler"))
+        .unwrap();
+    let check = tackler.check_inv.as_ref().unwrap();
+    assert_eq!(check.inv, id(&registry.inv, "worn"));
+    assert_eq!(check.obj, id(&registry.obj, "gnomeball"));
+    assert_eq!((check.condition.as_str(), check.value), (">", 0));
+    let gujuo = config.hunts.get_by_id(id(&registry.hunt, "gujuo")).unwrap();
+    assert_eq!(gujuo.extracheck_vars.len(), 2);
+    for (check, expected) in gujuo.extracheck_vars.iter().zip([(">", 0), ("<", 75)]) {
+        assert_eq!(check.varp, id(&registry.varp, "legendsquest"));
+        assert_eq!((check.condition.as_str(), check.value), expected);
+    }
 
     // player/configs/perm.varp -- persistence on a cache varp.
     let varp = config
         .varps
         .get_by_id(id(&registry.varp, "learning_the_ropes"))
         .unwrap();
-    assert_eq!(
-        varp.scope,
-        rs_pack::cache647::varp_type::VarPlayerScope::Perm
-    );
+    assert_eq!(varp.scope, rs_pack::cache::varp::VarPlayerScope::Perm);
 
     // donor/configs/donor.loc -- a whole definition 786 does not have.
     assert!(config.locs.get_by_id(864).is_some(), "donor loc_864");
@@ -169,6 +210,7 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
 #[ignore = "unpacks expected/ (minutes)"]
 fn regeneration_is_pure_and_keeps_the_registries() {
     let root = repo_root();
+    std::env::set_current_dir(&root).unwrap();
     let content = root.join(rs_pack::CONTENT_DIR);
     let out = scratch("regen");
     let pack = out.join("pack");

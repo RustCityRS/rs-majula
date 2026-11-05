@@ -1,7 +1,15 @@
+#[cfg(since_647)]
+use crate::{PACK_DIR, repack::midi::decode_jagex_midi};
+#[cfg(since_647)]
+use rs_dat2::{CacheStore, archive};
 use rs_io::bz2::bz2_decompress;
 use rs_io::crc::getcrc;
 use std::collections::HashMap;
 use std::sync::Arc;
+#[cfg(since_647)]
+use std::{fs, path::Path};
+#[cfg(since_647)]
+use tracing::info;
 
 pub struct MidiType {
     pub name: Box<str>,
@@ -328,4 +336,60 @@ pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
     }
 
     Some((total_us / 1000) as u32)
+}
+
+#[cfg(since_647)]
+pub const MIDI_JINGLE_BASE: usize = 10000;
+
+#[cfg(since_647)]
+pub(super) fn load_midi_ids() -> HashMap<Box<str>, u16> {
+    let mut ids = HashMap::new();
+    for stem in ["songs", "jingles"] {
+        let path = Path::new(PACK_DIR).join(format!("{stem}.pack"));
+        let Ok(text) = fs::read_to_string(&path) else {
+            continue;
+        };
+        for line in text.lines() {
+            let Some((id, name)) = line.split_once('=') else {
+                continue;
+            };
+            if let Ok(id) = id.trim().parse::<u16>() {
+                ids.insert(name.trim().into(), id);
+            }
+        }
+    }
+    ids
+}
+
+#[cfg(since_647)]
+pub(super) fn load_midi_tick_lengths(cache: &mut CacheStore) -> Box<[Option<u16>]> {
+    let mut lengths: Vec<Option<u16>> = Vec::new();
+    for (archive, base) in [(archive::SONGS, 0), (archive::JINGLES, MIDI_JINGLE_BASE)] {
+        let Some(table) = cache.reference_table(archive).cloned() else {
+            continue;
+        };
+        for group in &table.groups {
+            let Ok(Some(g)) = cache.read_group(archive, group.id) else {
+                continue;
+            };
+            let Some(ms) = g
+                .entries
+                .first()
+                .and_then(|e| decode_jagex_midi(&e.data).ok())
+                .and_then(|smf| parse_midi_length(&smf))
+            else {
+                continue;
+            };
+            let i = base + group.id as usize;
+            if i >= lengths.len() {
+                lengths.resize(i + 1, None);
+            }
+            lengths[i] = Some(((ms as f64 / 600.0).ceil() as u32 + 1) as u16);
+        }
+    }
+    info!(
+        "Loaded {} song and jingle lengths",
+        lengths.iter().flatten().count()
+    );
+    lengths.into_boxed_slice()
 }

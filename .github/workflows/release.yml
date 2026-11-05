@@ -19,9 +19,9 @@ jobs:
       - id: read
         name: Read supported revisions from rs-ver
         run: |
-          revs=$(sed -n '/REVS/s/.*= *&\[\(.*\)\].*/\1/p' rs-ver/src/lib.rs | tr -d ' ')
+          revs=$(sed -n '/REVS/s/.*= *&\[\(.*\)\].*/\1/p' rs-ver/src/revision.rs | tr -d ' ')
           if [ -z "$revs" ]; then
-            echo "::error file=rs-ver/src/lib.rs::could not parse REVS list"
+            echo "::error file=rs-ver/src/revision.rs::could not parse REVS list"
             exit 1
           fi
           echo "Revisions: [$revs]"

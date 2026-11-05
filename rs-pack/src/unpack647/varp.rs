@@ -24,7 +24,9 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
-use crate::cache647::{CacheType, VarBitType, VarpType};
+use crate::cache::provider::CacheType;
+use crate::cache::varbit::VarbitType;
+use crate::cache::varp::VarPlayerTypeRaw;
 use crate::pack::varp::emit_varp_props;
 use crate::pack_registry::PackRegistry;
 
@@ -51,9 +53,9 @@ fn resolve_varbit_varps(cache_dir: &Path, varbit_ids: &HashSet<u32>) -> Result<H
             if !varbit_ids.contains(&global_id) {
                 continue;
             }
-            let mut def = VarBitType::new(global_id as u16);
+            let mut def = VarbitType::new(global_id as u16);
             def.decode(&mut Packet::from(entry.data.to_vec()));
-            varp_ids.insert(def.varp_id as u32);
+            varp_ids.insert(def.basevar as u32);
         }
     }
 
@@ -118,7 +120,7 @@ pub fn unpack_varps(
         if entry.data.is_empty() {
             continue;
         }
-        let mut def = VarpType::new(entry.id as u16);
+        let mut def = VarPlayerTypeRaw::new(entry.id as u16);
         def.decode(&mut Packet::from(entry.data.to_vec()));
 
         // Mark transmit if CS2 references this varp

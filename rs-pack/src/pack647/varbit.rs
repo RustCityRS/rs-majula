@@ -9,7 +9,7 @@ use anyhow::Result;
 use tracing::info;
 
 use super::{collect_config_files, parse_config_sections};
-use crate::cache647::VarBitType;
+use crate::cache::varbit::VarbitType;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
 
@@ -112,17 +112,17 @@ pub fn pack_varbits(
     Ok(())
 }
 
-pub fn emit_varbit_props(def: &VarBitType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_varbit_props(def: &VarbitType, registry: &PackRegistry) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
-    if def.varp_id != 0 || def.lsb != 0 || def.msb != 0 {
+    if def.basevar != 0 || def.start_bit != 0 || def.end_bit != 0 {
         let varp_name = registry
             .varp
-            .get_by_id(def.varp_id as u32)
+            .get_by_id(def.basevar as u32)
             .map(|s| s.to_string())
-            .unwrap_or_else(|| format!("varp_{}", def.varp_id));
+            .unwrap_or_else(|| format!("varp_{}", def.basevar));
         props.push(("basevar".into(), varp_name));
-        props.push(("startbit".into(), def.lsb.to_string()));
-        props.push(("endbit".into(), def.msb.to_string()));
+        props.push(("startbit".into(), def.start_bit.to_string()));
+        props.push(("endbit".into(), def.end_bit.to_string()));
     }
     props
 }

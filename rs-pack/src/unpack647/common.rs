@@ -11,6 +11,7 @@
 //! donor cache) lives in its own files and is laid over this output at pack
 //! time by `pack::overlay_section`, so a regeneration can never lose it.
 
+use crate::cache::provider::CacheType;
 use std::path::Path;
 
 /// The key of a `key=value` config line, or `None` if it has no `=`.
@@ -108,7 +109,7 @@ pub fn update_specific_file<T, F, L>(
     emit_fn: F,
 ) -> anyhow::Result<()>
 where
-    T: crate::cache647::CacheType,
+    T: CacheType,
     F: Fn(&T) -> Vec<(String, String)>,
     L: Fn(&str) -> Option<u32>,
 {

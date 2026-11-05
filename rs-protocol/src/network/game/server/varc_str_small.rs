@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 #[server_prot(VarcStrSmall, Buffered, VarByte)]
@@ -20,7 +21,7 @@ pub struct VarcStrSmall<'a> {
 #[cfg(since_647)]
 impl ServerProtMessage for VarcStrSmall<'_> {
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(self.val, 0);
+        buf.pjstr(self.val, STRING_TERMINATOR);
         buf.ip2_alt1(self.id);
     }
 

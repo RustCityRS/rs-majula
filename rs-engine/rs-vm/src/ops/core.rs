@@ -5,6 +5,7 @@ use crate::util::*;
 use crate::{Result, ScriptError, handlers, none};
 use rs_pack::cache::ScriptVarType;
 use rs_pack::cache::VarValue;
+#[cfg(since_254)]
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
 

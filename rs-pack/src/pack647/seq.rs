@@ -11,7 +11,7 @@
 //!
 //! ## Seq has no op 250 in the cache format
 //!
-//! Unlike inv, seq's rev-647 cache decoder (`SeqType.decode`) defines no
+//! Unlike inv, seq's rev-647 cache decoder (`SeqTypeRaw.decode`) defines no
 //! debugname opcode. The section `[name]` header is the content identifier
 //! (used by registry lookups and by the unpacker for human-readable section
 //! titles), but it's NOT emitted into the cache bytes.
@@ -26,13 +26,13 @@
 //! |----|-------------------------------------------|------------------------------------|
 //! | 1  | `frame<N>=<duration>:<lo>:<hi>`           | one line per frame in the block    |
 //! | 2  | `loopoffset=<i16>`                        | cache 0xFFFF = -1                  |
-//! | 3  | `sound_mask=<u8>,<u8>,...`                | full mask as one comma-list        |
+//! | 3  | `walkmerge=<u8>,<u8>,...`                | full mask as one comma-list        |
 //! | 5  | `priority=<u8>`                           |                                    |
-//! | 6  | `op6=<u16>`                               | no canonical 2004scape name        |
-//! | 7  | `op7=<u16>`                               | no canonical 2004scape name        |
+//! | 6  | `replaceheldleft=<u16>`                               | no canonical 2004scape name        |
+//! | 7  | `replaceheldright=<u16>`                               | no canonical 2004scape name        |
 //! | 8  | `loopcount=<u8>`                          |                                    |
 //! | 9  | `interrupt=<i8>`                          |                                    |
-//! | 10 | `walkmerge=<u8>`                          | move_type, not 2004scape's labels  |
+//! | 10 | `walkmerge=<u8>`                          | postanim_move, not 2004scape's labels  |
 //! | 11 | `looptype=<u8>`                           |                                    |
 //! | 12 | `iframe<N>=<lo>:<hi>`                     | one line per interface-frame entry |
 //! | 13 | `synth<N>=<head>:<t0>:<t1>:...` or `null` | one line per synth slot            |
@@ -50,7 +50,7 @@
 //! are each a SINGLE opcode emission containing N entries — the parser
 //! buffers their numbered text keys (`frameN`, `iframeN`, `synthN`) and
 //! flushes the buffer as ONE emission on the first non-batch key (or at end
-//! of section). `sound_mask` is emitted in a single line and so doesn't need
+//! of section). `walkmerge` is emitted in a single line and so doesn't need
 //! buffering.
 
 use std::collections::HashMap;
@@ -59,7 +59,7 @@ use std::path::Path;
 use anyhow::Result;
 use tracing::info;
 
-use crate::cache647::SeqType;
+use crate::cache::seq::SeqTypeRaw;
 
 use super::{collect_config_files, parse_config_sections};
 use crate::pack_registry::PackRegistry;
@@ -72,21 +72,25 @@ use crate::packed_data::PackedData;
 ///
 /// `registry` is unused for seq (no cross-type references in the cache
 /// format) but kept for signature parity with other config packers.
-pub fn emit_seq_props(def: &SeqType, _registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if let Some(f) = &def.frames {
-        for i in 0..f.durations.len() {
+    if let (Some(frames), Some(delays)) = (&def.frames, &def.delays) {
+        for i in 0..frames.len() {
             p.push((
                 1,
                 format!("frame{}", i + 1),
-                format!("{}:{}:{}", f.durations[i], f.frame_lo[i], f.frame_hi[i]),
+                format!("{}:{}:{}", delays[i], frames[i] as u16, frames[i] >> 16),
             ));
         }
     }
-    if def.opcode_order.contains(&2) || def.loop_offset != -1 {
-        p.push((2, "loopoffset".into(), def.loop_offset.to_string()));
+    if def.opcode_order.contains(&2) || def.loops.is_some() {
+        p.push((
+            2,
+            "loopoffset".into(),
+            (def.loops.unwrap_or(u16::MAX) as i16).to_string(),
+        ));
     }
-    if let Some(mask) = &def.sound_mask {
+    if let Some(mask) = &def.walkmerge {
         let csv = mask
             .iter()
             .map(|v| v.to_string())
@@ -97,30 +101,54 @@ pub fn emit_seq_props(def: &SeqType, _registry: &PackRegistry) -> Vec<(String, S
     if def.opcode_order.contains(&5) || def.priority != 5 {
         p.push((5, "priority".into(), def.priority.to_string()));
     }
-    if def.opcode_order.contains(&6) || def.op6 != -1 {
-        p.push((6, "op6".into(), def.op6.to_string()));
+    if def.opcode_order.contains(&6) || def.replaceheldleft.is_some() {
+        p.push((
+            6,
+            "op6".into(),
+            def.replaceheldleft.unwrap_or(u16::MAX).to_string(),
+        ));
     }
-    if def.opcode_order.contains(&7) || def.op7 != -1 {
-        p.push((7, "op7".into(), def.op7.to_string()));
+    if def.opcode_order.contains(&7) || def.replaceheldright.is_some() {
+        p.push((
+            7,
+            "op7".into(),
+            def.replaceheldright.unwrap_or(u16::MAX).to_string(),
+        ));
     }
-    if def.opcode_order.contains(&8) || def.loop_count != 99 {
-        p.push((8, "loopcount".into(), def.loop_count.to_string()));
+    if def.opcode_order.contains(&8) || def.maxloops != 99 {
+        p.push((8, "loopcount".into(), def.maxloops.to_string()));
     }
-    if def.has_interrupt_type {
-        p.push((9, "interrupt".into(), def.interrupt_type.to_string()));
+    if def.opcode_order.contains(&9) {
+        p.push((
+            9,
+            "interrupt".into(),
+            (def.preanim_move.unwrap_or(u8::MAX) as i8).to_string(),
+        ));
     }
-    if def.has_move_type {
-        p.push((10, "walkmerge".into(), def.move_type.to_string()));
+    if def.opcode_order.contains(&10) {
+        p.push((
+            10,
+            "walkmerge".into(),
+            (def.postanim_move.unwrap_or(u8::MAX) as i8).to_string(),
+        ));
     }
-    if def.opcode_order.contains(&11) || def.loop_type != 2 {
-        p.push((11, "looptype".into(), def.loop_type.to_string()));
+    if def.opcode_order.contains(&11) || def.duplicatebehaviour.unwrap_or(2) != 2 {
+        p.push((
+            11,
+            "looptype".into(),
+            def.duplicatebehaviour.unwrap_or(2).to_string(),
+        ));
     }
-    if let Some((frame_lo, frame_hi)) = &def.iframes {
-        for i in 0..frame_lo.len() {
+    if let Some(iframes) = &def.iframes {
+        for i in 0..iframes.len() {
             p.push((
                 12,
                 format!("iframe{}", i + 1),
-                format!("{}:{}", frame_lo[i], frame_hi[i]),
+                format!(
+                    "{}:{}",
+                    iframes[i].unwrap_or(u32::MAX) as u16,
+                    iframes[i].unwrap_or(u32::MAX) >> 16
+                ),
             ));
         }
     }

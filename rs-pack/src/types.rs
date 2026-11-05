@@ -219,12 +219,24 @@ pub fn split_trailing_shape(name: &str) -> Option<(&str, u8)> {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum ForceApproach {
     None = 0,
     North = 0b1110,
     East = 0b1101,
     South = 0b1011,
     West = 0b0111,
+    NorthEast = 0b1100,
+    NorthSouth = 0b1010,
+    NorthWest = 0b0110,
+    EastSouth = 0b1001,
+    EastWest = 0b0101,
+    SouthWest = 0b0011,
+    NorthEastSouth = 0b1000,
+    NorthEastWest = 0b0100,
+    NorthSouthWest = 0b0010,
+    EastSouthWest = 0b0001,
+    Blocked = 0b1111,
 }
 
 impl ForceApproach {
@@ -239,10 +251,16 @@ impl ForceApproach {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize)]
 pub enum ParamValue {
     Int(i32),
     String(Box<str>),
+}
+
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+pub enum MultiVar {
+    Varbit(u16),
+    Varp(u16),
 }
 
 #[repr(u8)]
@@ -274,6 +292,26 @@ pub enum ScriptVarType {
     Idkit = 75,      // K
     DbRow = 208,     // Ð
     Midi = 77,       // M
+    #[cfg(since_647)]
+    Cursor = 64,
+    #[cfg(since_647)]
+    MapArea = 96,
+    #[cfg(since_647)]
+    Graphic = 100,
+    #[cfg(since_647)]
+    Jingle = 106,
+    #[cfg(since_647)]
+    ChatCat = 107,
+    #[cfg(since_647)]
+    Model = 109,
+    #[cfg(since_647)]
+    Texture = 120,
+    #[cfg(since_647)]
+    Bas = 128,
+    #[cfg(since_647)]
+    Vorbis = 171,
+    #[cfg(since_647)]
+    MapElement = 181,
 }
 
 impl ScriptVarType {
@@ -310,6 +348,26 @@ impl ScriptVarType {
             "npc_uid" => Self::NpcUid,
             "dbrow" => Self::DbRow,
             "midi" => Self::Midi,
+            #[cfg(since_647)]
+            "cursor" => Self::Cursor,
+            #[cfg(since_647)]
+            "maparea" => Self::MapArea,
+            #[cfg(since_647)]
+            "graphic" => Self::Graphic,
+            #[cfg(since_647)]
+            "jingle" => Self::Jingle,
+            #[cfg(since_647)]
+            "chatcat" => Self::ChatCat,
+            #[cfg(since_647)]
+            "model" => Self::Model,
+            #[cfg(since_647)]
+            "texture" => Self::Texture,
+            #[cfg(since_647)]
+            "bas" => Self::Bas,
+            #[cfg(since_647)]
+            "vorbis" => Self::Vorbis,
+            #[cfg(since_647)]
+            "mapelement" => Self::MapElement,
             _ => panic!("Unknown script var type: '{name}'"),
         }
     }
@@ -340,6 +398,26 @@ impl ScriptVarType {
             Self::DbRow => "dbrow",
             Self::Interface => "interface",
             Self::Midi => "midi",
+            #[cfg(since_647)]
+            Self::Cursor => "cursor",
+            #[cfg(since_647)]
+            Self::MapArea => "maparea",
+            #[cfg(since_647)]
+            Self::Graphic => "graphic",
+            #[cfg(since_647)]
+            Self::Jingle => "jingle",
+            #[cfg(since_647)]
+            Self::ChatCat => "chatcat",
+            #[cfg(since_647)]
+            Self::Model => "model",
+            #[cfg(since_647)]
+            Self::Texture => "texture",
+            #[cfg(since_647)]
+            Self::Bas => "bas",
+            #[cfg(since_647)]
+            Self::Vorbis => "vorbis",
+            #[cfg(since_647)]
+            Self::MapElement => "mapelement",
         }
     }
 }
@@ -366,7 +444,7 @@ impl InvScope {
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive, serde::Serialize)]
 pub enum VarPlayerScope {
     Temp = 0,
     Perm = 1,
@@ -386,6 +464,7 @@ impl VarPlayerScope {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum MoveRestrict {
     Normal = 0,
     Blocked = 1,
@@ -414,6 +493,7 @@ impl MoveRestrict {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum BlockWalk {
     None = 0,
     All = 1,
@@ -433,6 +513,7 @@ impl BlockWalk {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum NpcMode {
     None = 0,
     Wander = 1,
@@ -711,6 +792,7 @@ impl HuntCheckAfk {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum WearPos {
     Hat = 0,
     Back = 1,
@@ -752,6 +834,7 @@ impl WearPos {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum DummyItem {
     None = 0,
     GraphicOnly = 1,

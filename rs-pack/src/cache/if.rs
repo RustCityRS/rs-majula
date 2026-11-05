@@ -1,5 +1,6 @@
 use crate::types::{IfButtonType, IfComponentType};
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 use std::collections::HashMap;
 
 pub struct IfType {
@@ -13,18 +14,13 @@ pub struct IfType {
     pub draggable: bool,
     pub operable: bool,
     pub usable: bool,
-    pub iop: Option<Box<[Option<Box<str>>]>>,
-    pub action_target: u16,
-    /// Where it's drawn, from its interface's top left.
-    pub x: i16,
-    pub y: i16,
-    /// An inventory's gaps between its 32 by 32 slots, and how far each of
-    /// its first 20 slots is moved.
     pub margin_x: u8,
     pub margin_y: u8,
     pub slot_offsets: Option<Box<[(i16, i16)]>>,
-    /// Whether it's in a layer that scrolls, so where it's drawn depends on
-    /// how far.
+    pub iop: Option<Box<[Option<Box<str>>]>>,
+    pub action_target: u16,
+    pub x: i16,
+    pub y: i16,
     pub scrolls: bool,
 }
 
@@ -63,17 +59,17 @@ impl From<IfTypeRaw> for IfType {
             draggable: raw.draggable,
             operable: raw.operable,
             usable: raw.usable,
-            iop: raw.iop,
-            action_target: raw.action_target,
-            x: 0,
-            y: 0,
             margin_x: raw.margin_x,
             margin_y: raw.margin_y,
-            scrolls: false,
             slot_offsets: raw
                 .inventory_slot_offset_x
                 .zip(raw.inventory_slot_offset_y)
                 .map(|(x, y)| x.iter().copied().zip(y.iter().copied()).collect()),
+            iop: raw.iop,
+            action_target: raw.action_target,
+            x: 0,
+            y: 0,
+            scrolls: false,
         }
     }
 }
@@ -94,6 +90,9 @@ pub struct IfTypeRaw {
     pub scripts: Option<Box<[Box<[u16]>]>>,
     pub scroll: u16,
     pub hide: bool,
+    pub children: Option<Box<[u16]>>,
+    pub child_x: Option<Box<[i16]>>,
+    pub child_y: Option<Box<[i16]>>,
     pub draggable: bool,
     pub operable: bool,
     pub usable: bool,
@@ -111,11 +110,6 @@ pub struct IfTypeRaw {
     pub shadowed: bool,
     pub text: Option<Box<str>>,
     pub active_text: Option<Box<str>>,
-    pub colour: i32,
-    pub active_colour: i32,
-    pub over_colour: i32,
-    #[cfg(since_245_2)]
-    pub active_over_colour: i32,
     pub graphic: Option<Box<str>>,
     pub active_graphic: Option<Box<str>>,
     pub model: i32,
@@ -125,13 +119,15 @@ pub struct IfTypeRaw {
     pub zoom: u16,
     pub xan: u16,
     pub yan: u16,
+    pub colour: i32,
+    pub active_colour: i32,
+    pub over_colour: i32,
+    #[cfg(since_245_2)]
+    pub active_over_colour: i32,
     pub action_verb: Option<Box<str>>,
     pub action: Option<Box<str>>,
     pub action_target: u16,
     pub option: Option<Box<str>>,
-    pub child_x: Option<Box<[i16]>>,
-    pub child_y: Option<Box<[i16]>>,
-    pub children: Option<Box<[u16]>>,
 }
 
 pub struct IfTypeProvider {
@@ -175,6 +171,9 @@ impl IfTypeProvider {
                 scripts: None,
                 scroll: 0,
                 hide: false,
+                children: None,
+                child_x: None,
+                child_y: None,
                 draggable: false,
                 operable: false,
                 usable: false,
@@ -192,11 +191,6 @@ impl IfTypeProvider {
                 shadowed: false,
                 text: None,
                 active_text: None,
-                colour: 0,
-                active_colour: 0,
-                over_colour: 0,
-                #[cfg(since_245_2)]
-                active_over_colour: 0,
                 graphic: None,
                 active_graphic: None,
                 model: -1,
@@ -206,16 +200,18 @@ impl IfTypeProvider {
                 zoom: 0,
                 xan: 0,
                 yan: 0,
+                colour: 0,
+                active_colour: 0,
+                over_colour: 0,
+                #[cfg(since_245_2)]
+                active_over_colour: 0,
                 action_verb: None,
                 action: None,
                 action_target: 0,
                 option: None,
-                child_x: None,
-                child_y: None,
-                children: None,
             };
 
-            com.com_name = Some(buf.gjstr(10).into_boxed_str());
+            com.com_name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
             com.overlay = buf.g1() == 1;
 
             com.com_type = IfComponentType::try_from(buf.g1()).unwrap();
@@ -293,7 +289,7 @@ impl IfTypeProvider {
                         if buf.g1() == 1 {
                             slot_x[i] = buf.g2s();
                             slot_y[i] = buf.g2s();
-                            slot_graphic[i] = Some(buf.gjstr(10).into_boxed_str());
+                            slot_graphic[i] = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
                         }
                     }
                     com.inventory_slot_offset_x = Some(slot_x.into_boxed_slice());
@@ -302,7 +298,7 @@ impl IfTypeProvider {
 
                     let mut options = Vec::with_capacity(5);
                     for _ in 0..5 {
-                        let s = buf.gjstr(10).into_boxed_str();
+                        let s = buf.gjstr(STRING_TERMINATOR).into_boxed_str();
                         options.push(if s.is_empty() { None } else { Some(s) });
                     }
                     com.iop = Some(options.into_boxed_slice());
@@ -314,12 +310,12 @@ impl IfTypeProvider {
                     com.center = buf.g1() == 1;
                     com.font = buf.g1();
                     com.shadowed = buf.g1() == 1;
-                    com.text = Some(buf.gjstr(10).into_boxed_str());
-                    com.active_text = Some(buf.gjstr(10).into_boxed_str());
+                    com.text = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
+                    com.active_text = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
                 }
                 IfComponentType::Graphic => {
-                    com.graphic = Some(buf.gjstr(10).into_boxed_str());
-                    com.active_graphic = Some(buf.gjstr(10).into_boxed_str());
+                    com.graphic = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
+                    com.active_graphic = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
                 }
                 IfComponentType::Model => {
                     let m = buf.g1() as i32;
@@ -361,7 +357,7 @@ impl IfTypeProvider {
 
                     let mut options = Vec::with_capacity(5);
                     for _ in 0..5 {
-                        let s = buf.gjstr(10).into_boxed_str();
+                        let s = buf.gjstr(STRING_TERMINATOR).into_boxed_str();
                         options.push(if s.is_empty() { None } else { Some(s) });
                     }
                     com.iop = Some(options.into_boxed_slice());
@@ -379,8 +375,8 @@ impl IfTypeProvider {
             }
 
             if com.button_type == IfButtonType::Target || com.com_type == IfComponentType::Inv {
-                com.action_verb = Some(buf.gjstr(10).into_boxed_str());
-                com.action = Some(buf.gjstr(10).into_boxed_str());
+                com.action_verb = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
+                com.action = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
                 com.action_target = buf.g2();
             }
 
@@ -391,7 +387,7 @@ impl IfTypeProvider {
                     | IfButtonType::Select
                     | IfButtonType::Pause
             ) {
-                com.option = Some(buf.gjstr(10).into_boxed_str());
+                com.option = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
             }
 
             if let Some(name) = &com.com_name

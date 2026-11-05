@@ -114,7 +114,13 @@ pub fn pack_assets(
         idk::pack_idks(&fc, registry, &constants, verify)?,
     );
     debug!("Packing categories...");
-    results.insert("category".to_string(), category::pack_categories(registry)?);
+    results.insert(
+        "category".to_string(),
+        PackedFile {
+            server: category::pack_categories(registry)?,
+            client: None,
+        },
+    );
     #[cfg(since_254)]
     {
         debug!("Packing varbit configs...");

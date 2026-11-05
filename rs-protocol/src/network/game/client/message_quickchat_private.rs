@@ -4,6 +4,7 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[client_prot(VarByte { min: 3 }, UserEvent)]
 pub struct MessageQuickchatPrivate {
@@ -18,7 +19,7 @@ impl ClientProtMessage for MessageQuickchatPrivate {
     }
 
     fn decode(buf: &mut Packet, len: usize) -> Self {
-        let name = buf.gjstr(0);
+        let name = buf.gjstr(STRING_TERMINATOR);
         let id = buf.g2();
         let bytes = buf.data[buf.pos..len].to_vec();
         buf.pos = len;

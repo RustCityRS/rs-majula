@@ -4,6 +4,8 @@
 //! Mirrors 2004scape's `engine/tools/pack/config/PackShared.ts`.
 
 pub mod anim;
+#[path = "../pack/config/category.rs"]
+pub mod category;
 pub mod config_generic;
 pub mod dbrow;
 pub mod dbtable;
@@ -27,12 +29,13 @@ pub mod varn;
 pub mod varp;
 pub mod vars;
 
-pub use super::pack_registry;
+pub use super::{pack_registry, packed_data};
 
 use std::collections::HashMap;
 use std::path::Path;
 
 use anyhow::Result;
+use rs_dat2::archive::CONFIG_UNKNOWN_GROUPS;
 use tracing::info;
 
 use crate::pack_registry::PackRegistry;
@@ -57,6 +60,8 @@ pub fn pack_all(
     let registry = PackRegistry::load(pack_dir)?;
     let constants = load_constants(source_dir);
     info!("  Loaded {} constants", constants.len());
+
+    category::pack_categories(&registry)?.save(server_dir, "category")?;
 
     // Macro: skip if output is up-to-date (matching 2004scape shouldBuild pattern).
     macro_rules! pack_if_needed {
@@ -189,13 +194,7 @@ pub fn pack_all(
     pack_if_needed!(
         "hunt",
         "hunt",
-        hunt::pack_hunts(
-            source_dir,
-            &registry,
-            &constants,
-            server_dir,
-            &mut config_blob
-        )?
+        hunt::pack_hunts(source_dir, &registry, &constants, server_dir)?
     );
     pack_if_needed!(
         "varn",
@@ -284,9 +283,7 @@ pub fn pack_all(
         }
     }
     // Unknown groups (raw binary passthrough):
-    for group_id in &[
-        7u32, 15, 18, 19, 20, 21, 22, 23, 24, 25, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48,
-    ] {
+    for group_id in CONFIG_UNKNOWN_GROUPS {
         let type_name = format!("config{group_id}");
         let all_file = source_dir.join("_unpack").join(format!("all.{type_name}"));
         if all_file.exists() {

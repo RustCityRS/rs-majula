@@ -10,6 +10,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 #[server_prot(MessagePrivateEcho, Immediate, VarByte)]
@@ -21,7 +22,7 @@ pub struct MessagePrivateEcho {
 #[cfg(since_647)]
 impl ServerProtMessage for MessagePrivateEcho {
     fn encode(&self, buf: &mut Packet) {
-        buf.pjstr(&self.recipient, 0);
+        buf.pjstr(&self.recipient, STRING_TERMINATOR);
         buf.pdata(&self.message_data, 0, self.message_data.len());
     }
 

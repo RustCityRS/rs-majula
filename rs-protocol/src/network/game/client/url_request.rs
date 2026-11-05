@@ -4,6 +4,7 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::{ClientProtMessageInfo, string_end};
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[client_prot(VarByte { min: 3 }, ClientEvent)]
 pub struct UrlRequest {
@@ -21,8 +22,8 @@ impl ClientProtMessage for UrlRequest {
 
     fn decode(buf: &mut Packet, _: usize) -> Self {
         UrlRequest {
-            url: buf.gjstr(0),
-            text: buf.gjstr(0),
+            url: buf.gjstr(STRING_TERMINATOR),
+            text: buf.gjstr(STRING_TERMINATOR),
             mode: buf.g1(),
         }
     }

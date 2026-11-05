@@ -9,6 +9,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
 pub struct IgnoreEntry {
@@ -29,10 +30,10 @@ impl ServerProtMessage for UpdateIgnorelistFull {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.entries.len() as u8);
         for entry in &self.entries {
-            buf.pjstr(&entry.name, 0);
-            buf.pjstr(&entry.display_name, 0);
-            buf.pjstr(&entry.prev_name, 0);
-            buf.pjstr(&entry.prev_display_name, 0);
+            buf.pjstr(&entry.name, STRING_TERMINATOR);
+            buf.pjstr(&entry.display_name, STRING_TERMINATOR);
+            buf.pjstr(&entry.prev_name, STRING_TERMINATOR);
+            buf.pjstr(&entry.prev_display_name, STRING_TERMINATOR);
         }
     }
 

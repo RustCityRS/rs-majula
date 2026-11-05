@@ -1,27 +1,34 @@
-#![allow(clippy::needless_range_loop)]
-// Ported (adapted) from the rev-647 source repo; style lints allowed to keep diffs clean.
-//! Rev-647 pack pipeline driver — the complete pack+build sequence behind
-//! `rs_pack::pack_all` at 647. Ported verbatim from the rev-647 source repo's
-//! `startup.rs` (rs_cache → rs_dat2, `crate::cache` → `crate::cache647`).
-//!
-//! Produces a ready-to-serve JS5 cache plus all loaded config TypeProviders.
-//! Uses mtime-based change detection to skip steps whose outputs are
-//! already up-to-date relative to their inputs.
-
+use crate::cache::category::CategoryType;
+use crate::cache::dbrow::DbRowType;
+use crate::cache::dbtable::DbTableType;
+use crate::cache::r#enum::{EnumType, EnumTypeRaw};
+use crate::cache::flo::{FloType, FloTypeRaw};
+use crate::cache::flu::FluType;
+use crate::cache::hunt::HuntType;
+use crate::cache::idk::{IdkType, IdkTypeRaw};
+use crate::cache::inv::{InvType, InvTypeRaw};
+use crate::cache::loader;
+use crate::cache::loc::{LocType, LocTypeRaw};
+use crate::cache::mesanim::MesAnimType;
+use crate::cache::npc::{NpcType, NpcTypeRaw};
+use crate::cache::obj::{ObjContext, ObjType, ObjTypeRaw};
+use crate::cache::param::{ParamType, ParamTypeRaw};
+use crate::cache::provider::{CacheType, TypeProvider};
+use crate::cache::seq::{SeqType, SeqTypeRaw};
+use crate::cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
+use crate::cache::r#struct::{StructType, StructTypeRaw};
+use crate::cache::varbit::VarbitType;
+use crate::cache::varn::VarnType;
+use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
+use crate::cache::vars::VarsType;
+use crate::pack_registry::PackRegistry;
+use crate::types::ParamValue;
+use crate::validate::{Severity, check_pack_content_sync};
+use anyhow::{Result, bail};
+use rs_io::Packet;
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
-
-use anyhow::{Result, bail};
 use tracing::{info, warn};
-
-use crate::cache647::{
-    CacheType, DbRowType, DbTableType, EnumType, FloType, FluType, HuntType, IdkType, InvType,
-    LocType, MesAnimType, NpcType, ObjContext, ObjType, ParamType, SeqType, SpotAnimType,
-    StructType, TypeProvider, VarBitType, VarnType, VarpType, VarsType,
-};
-use crate::pack_registry::PackRegistry;
-use crate::validate::{Severity, check_pack_content_sync};
-
 // ── mtime utilities ──────────────────────────────────────────────────────────
 
 pub(crate) fn newest_mtime(dir: &Path, extensions: &[&str]) -> Option<SystemTime> {
@@ -171,8 +178,8 @@ pub struct PackedConfig {
     pub enums: TypeProvider<EnumType>,
     pub structs: TypeProvider<StructType>,
     pub params: TypeProvider<ParamType>,
-    pub varbits: TypeProvider<VarBitType>,
-    pub varps: TypeProvider<VarpType>,
+    pub varbits: TypeProvider<VarbitType>,
+    pub varps: TypeProvider<VarPlayerType>,
     pub idks: TypeProvider<IdkType>,
     pub invs: TypeProvider<InvType>,
     pub hunts: TypeProvider<HuntType>,
@@ -184,6 +191,7 @@ pub struct PackedConfig {
     pub varss: TypeProvider<VarsType>,
     pub dbtables: TypeProvider<DbTableType>,
     pub dbrows: TypeProvider<DbRowType>,
+    pub categories: TypeProvider<CategoryType>,
     /// Synth name → raw archive-4 sound id (= wire id), from synth.pack.
     /// Synths have no decoded type, so this is the only runtime name source
     /// (used by the cheat arg parser to resolve `synth fire_lit` like `give`).
@@ -493,118 +501,52 @@ pub fn verify_archive_crcs(output_dir: &Path, strict: bool) -> Result<()> {
     Ok(())
 }
 
-/// Load all config TypeProviders from server .dat files + JS5 cache.
-///
-/// Types whose server packer writes the same opcode format as the CacheType
-/// decoder are loaded directly from server .dat. Types where the packer uses
-/// per-entry opcodes (vs batched) are loaded from the just-built JS5 cache.
+/// Load server configs, merging loc metadata into the JS5 definitions.
 pub fn load_packed_config(
     server_dir: &Path,
     cache: &mut rs_dat2::CacheStore,
 ) -> Result<PackedConfig> {
-    // Types loaded from server .dat (opcode format matches decoder)
-    let npcs = load_from_server_dat(server_dir, "npc", ())?;
-    let objs = load_from_server_dat(server_dir, "obj", ObjContext { members: true })?;
-    let seqs = load_from_server_dat(server_dir, "seq", ())?;
-    let params = load_from_server_dat(server_dir, "param", ())?;
-    let varbits = load_from_server_dat(server_dir, "varbit", ())?;
-    let varps = load_from_server_dat(server_dir, "varp", ())?;
-    let idks = load_from_server_dat(server_dir, "idk", ())?;
-    let hunts = load_from_server_dat(server_dir, "hunt", ())?;
-    let flos = load_from_server_dat(server_dir, "flo", ())?;
-    let flus = load_from_server_dat(server_dir, "flu", ())?;
-    let spotanims = load_from_server_dat(server_dir, "spotanim", ())?;
-    let invs = load_from_server_dat(server_dir, "inv", ())?;
-    let mesanims = load_from_server_dat(server_dir, "mesanim", ())?;
-    let varns = load_from_server_dat(server_dir, "varn", ())?;
-    let varss = load_from_server_dat(server_dir, "vars", ())?;
-    let dbtables = load_from_server_dat(server_dir, "dbtable", ())?;
-    let dbrows = load_from_server_dat(server_dir, "dbrow", ())?;
+    let npcs = load_from_server_dat::<NpcTypeRaw, _>(server_dir, "npc", ())?;
+    let params: TypeProvider<ParamType> =
+        load_from_server_dat::<ParamTypeRaw, _>(server_dir, "param", ())?;
+    let objs = load_from_server_dat::<ObjTypeRaw, _>(
+        server_dir,
+        "obj",
+        ObjContext {
+            members: true,
+            autodisable_params: params.types.iter().map(|p| p.autodisable).collect(),
+        },
+    )?;
+    let seqs = load_from_server_dat::<SeqTypeRaw, _>(server_dir, "seq", ())?;
+    let enums = load_from_server_dat::<EnumTypeRaw, _>(server_dir, "enum", ())?;
+    let structs = load_from_server_dat::<StructTypeRaw, _>(server_dir, "struct", ())?;
+    let varbits = load_from_server_dat::<VarbitType, _>(server_dir, "varbit", ())?;
+    let varps = load_from_server_dat::<VarPlayerTypeRaw, _>(server_dir, "varp", ())?;
+    let idks = load_from_server_dat::<IdkTypeRaw, _>(server_dir, "idk", ())?;
+    let hunts = load_from_server_dat::<HuntType, _>(server_dir, "hunt", ())?;
+    let flos = load_from_server_dat::<FloTypeRaw, _>(server_dir, "flo", ())?;
+    let flus = load_from_server_dat::<FluType, _>(server_dir, "flu", ())?;
+    let spotanims = load_from_server_dat::<SpotAnimTypeRaw, _>(server_dir, "spotanim", ())?;
+    let invs = load_from_server_dat::<InvTypeRaw, _>(server_dir, "inv", ())?;
+    let mesanims = load_from_server_dat::<MesAnimType, _>(server_dir, "mesanim", ())?;
+    let varns = load_from_server_dat::<VarnType, _>(server_dir, "varn", ())?;
+    let varss = load_from_server_dat::<VarsType, _>(server_dir, "vars", ())?;
+    let dbtables = load_from_server_dat::<DbTableType, _>(server_dir, "dbtable", ())?;
+    let dbrows = load_from_server_dat::<DbRowType, _>(server_dir, "dbrow", ())?;
+    let categories = load_from_server_dat::<CategoryType, _>(server_dir, "category", ())?;
 
-    // Types loaded from JS5 cache — either because the server packer uses
-    // an incompatible format (enum/struct: unbatched opcodes) or because
-    // the server .dat only has a subset of fields (locs: missing collision
-    // fields like blockwalk/width/length/active which are client opcodes).
-    let mut locs = crate::cache647::loader::load_all_locs(cache)?;
-    let mut enums = crate::cache647::loader::load_all_enums(cache)?;
-    let mut structs = crate::cache647::loader::load_all_structs(cache)?;
-    info!("  locs: {} entries (from JS5 cache)", locs.count());
-
-    // Server-only enums (e.g. [stats]) are packed into server enum.dat but
-    // deliberately kept out of client archive 17 (crc-gate). Append the ids
-    // beyond the JS5 range so scripts can read them at runtime.
-    let enum_overlay: TypeProvider<EnumType> = load_from_server_dat(server_dir, "enum", ())?;
-    if enum_overlay.count() > enums.count() {
-        let mut types = std::mem::take(&mut enums.types).into_vec();
-        let mut overlay_types = enum_overlay.types.into_vec();
-        let appended = overlay_types.split_off(types.len());
-        let added = appended.len();
-        types.extend(appended);
-        enums.types = types.into_boxed_slice();
-        info!("  enums: {} server-only entries appended", added);
+    let mut locs = loader::load_all_locs(cache)?;
+    let loc_overlay: TypeProvider<LocTypeRaw> =
+        load_from_server_dat::<LocTypeRaw, _>(server_dir, "loc", ())?;
+    locs.debugnames.extend(loc_overlay.debugnames);
+    for (base, overlay) in locs.types.iter_mut().zip(loc_overlay.types.into_vec()) {
+        base.merge(overlay);
     }
-
-    // Server-only structs likewise (289's fishing data, `fishing_struct_*`):
-    // in server struct.dat, out of the client archive, appended past the JS5
-    // range.
-    let struct_overlay: TypeProvider<StructType> = load_from_server_dat(server_dir, "struct", ())?;
-    if struct_overlay.count() > structs.count() {
-        let mut types = std::mem::take(&mut structs.types).into_vec();
-        let mut overlay_types = struct_overlay.types.into_vec();
-        let appended = overlay_types.split_off(types.len());
-        let added = appended.len();
-        types.extend(appended);
-        structs.types = types.into_boxed_slice();
-        info!("  structs: {} server-only entries appended", added);
-    }
-
-    // Merge server loc overlay (category, ops, params, desc) into JS5 locs
-    let loc_overlay: TypeProvider<LocType> = load_from_server_dat(server_dir, "loc", ())?;
-    let mut loc_overlays_merged = 0u32;
-    for id in 0..loc_overlay.count() as u16 {
-        if let Some(overlay) = loc_overlay.get_by_id(id) {
-            if let Some(base) = locs.get_by_id_mut(id) {
-                let mut merged = false;
-                if overlay.category != -1 {
-                    base.category = overlay.category;
-                    merged = true;
-                }
-                if overlay.desc.is_some() {
-                    base.desc = overlay.desc.clone();
-                    merged = true;
-                }
-                for (i, op) in overlay.op.iter().enumerate() {
-                    if op.is_some() {
-                        base.op[i] = op.clone();
-                        merged = true;
-                    }
-                }
-                if let Some(ref overlay_params) = overlay.params {
-                    let params = base
-                        .params
-                        .get_or_insert_with(std::collections::HashMap::new);
-                    for (k, v) in overlay_params.iter() {
-                        params.insert(*k, v.clone());
-                    }
-                    merged = true;
-                }
-                if merged {
-                    loc_overlays_merged += 1;
-                }
-            }
-        }
-    }
-    info!(
-        "  locs: {} server overlays merged (category, ops, params, desc)",
-        loc_overlays_merged
-    );
-    info!("  enums: {} entries (from JS5 cache)", enums.count());
-    info!("  structs: {} entries (from JS5 cache)", structs.count());
 
     Ok(PackedConfig {
         npcs,
         objs,
-        locs,
+        locs: locs.map(LocType::from),
         seqs,
         enums,
         structs,
@@ -622,6 +564,7 @@ pub fn load_packed_config(
         varss,
         dbtables,
         dbrows,
+        categories,
         synth_names: Default::default(),
     })
 }
@@ -718,8 +661,8 @@ fn load_dialogue_slots(
     let Some(def) = enums.get_by_id(enum_id) else {
         return;
     };
-    for (&iface, value) in &def.entries {
-        if let crate::cache647::enum_type::EnumValue::Int(parent_hash) = value {
+    for (&iface, value) in &def.values {
+        if let ParamValue::Int(parent_hash) = value {
             layout.dialogue_slots.insert(iface as u16, *parent_hash);
         }
     }
@@ -754,8 +697,8 @@ fn load_wide_screen_ifaces(
     else {
         return;
     };
-    for (&iface, value) in &def.entries {
-        if let crate::cache647::enum_type::EnumValue::Int(1) = value {
+    for (&iface, value) in &def.values {
+        if let ParamValue::Int(1) = value {
             layout.wide_screen_ifaces.insert(iface as u16);
         }
     }
@@ -766,11 +709,11 @@ fn load_wide_screen_ifaces(
 /// PackedData format: dat has `p2(count)` header then concatenated entry bytes.
 /// idx has `p2(count)` header then `p2(len)` per entry (0 = absent entry).
 /// Each entry's bytes are opcode-terminated (ending with `p1(0)`).
-pub fn load_from_server_dat<T: CacheType>(
+pub fn load_from_server_dat<Raw: CacheType, Stored: From<Raw>>(
     server_dir: &Path,
     name: &str,
-    ctx: T::Context,
-) -> Result<TypeProvider<T>> {
+    ctx: Raw::Context,
+) -> Result<TypeProvider<Stored>> {
     let dat_path = server_dir.join(format!("{name}.dat"));
     let idx_path = server_dir.join(format!("{name}.idx"));
     if !dat_path.exists() {
@@ -785,11 +728,10 @@ pub fn load_from_server_dat<T: CacheType>(
     }
 
     let count = u16::from_be_bytes([dat[0], dat[1]]) as usize;
-    let mut types: Vec<T> = (0..count).map(|i| T::new(i as u16)).collect();
-    let mut names = std::collections::HashMap::new();
+    let mut types: Vec<Raw> = (0..count).map(|i| Raw::new(i as u16)).collect();
     let mut dat_offset = 2usize;
 
-    for id in 0..count {
+    for (id, entry) in types.iter_mut().enumerate() {
         let idx_off = 2 + id * 2;
         if idx_off + 1 >= idx.len() {
             break;
@@ -797,21 +739,13 @@ pub fn load_from_server_dat<T: CacheType>(
         let entry_len = u16::from_be_bytes([idx[idx_off], idx[idx_off + 1]]) as usize;
 
         if entry_len > 0 && dat_offset + entry_len <= dat.len() {
-            let mut buf = rs_io::Packet::from(dat[dat_offset..dat_offset + entry_len].to_vec());
-            types[id].decode(&mut buf);
-            if let Some(name) = types[id].debugname() {
-                names.insert(name.into(), id as u16);
-            }
+            let mut buf = Packet::from(dat[dat_offset..dat_offset + entry_len].to_vec());
+            entry.decode(&mut buf);
         }
         dat_offset += entry_len;
     }
 
-    T::post_decode(&mut types, &ctx);
-
-    let provider = TypeProvider {
-        names,
-        types: types.into_boxed_slice(),
-    };
+    let provider = TypeProvider::from_types(types, ctx);
     info!("  {name}: {} entries loaded", provider.count());
     Ok(provider)
 }

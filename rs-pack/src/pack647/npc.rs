@@ -6,12 +6,14 @@
 
 use std::path::Path;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use tracing::{info, warn};
 
 use super::{collect_config_files, parse_config_sections};
+use crate::cache::npc::NpcTypeRaw;
 use crate::pack_registry::PackRegistry;
 use crate::packed_data::PackedData;
+use crate::types::ParamValue;
 
 fn parse_coord(s: &str) -> Option<i32> {
     let parts: Vec<&str> = s.split('_').collect();
@@ -992,21 +994,24 @@ pub fn pack_npcs(
                 }
             }
         }
-        // Server behavior: 200-214
         for (key, opcode, size) in [
-            ("wanderrange", 200u8, 2u8),
-            ("maxrange", 201, 2),
-            ("huntrange", 202, 1),
-            ("timer", 203, 2),
-            ("respawnrate", 204, 2),
-            ("moverestrict", 206, 1),
-            ("attackrange", 207, 2),
-            ("blockwalk", 208, 1),
-            ("defaultmode", 210, 1),
-            ("regenrate", 214, 2),
+            ("wanderrange", 26u8, 2u8),
+            ("maxrange", 27, 2),
+            ("huntrange", 28, 1),
+            ("timer", 19, 2),
+            ("respawnrate", 20, 2),
+            ("moverestrict", 22, 1),
+            ("attackrange", 29, 1),
+            ("blockwalk", 23, 1),
+            ("defaultmode", 24, 1),
+            ("regenrate", 21, 2),
         ] {
             if let Some((_, v)) = prop_list.iter().find(|(k, _)| k == key) {
                 let val = match key {
+                    "attackrange" => v
+                        .parse::<u8>()
+                        .with_context(|| format!("{name}: invalid attackrange '{v}'"))?
+                        as i32,
                     "moverestrict" => match v.as_str() {
                         "normal" => 0i32,
                         "blocked" => 1,
@@ -1039,41 +1044,36 @@ pub fn pack_npcs(
                 }
             }
         }
-        // Opcode 209: huntmode, two bytes: the server's hunt modes come after
-        // the 2011 cache's 397 hunt ids, so they do not fit in one.
         if let Some((_, v)) = prop_list.iter().find(|(k, _)| k == "huntmode") {
-            if let Some(hunt_id) = registry.hunt.get_by_name(v) {
-                server.p1(209);
-                server.p2(hunt_id as u16);
-            } else if let Ok(val) = v.parse::<u16>() {
-                server.p1(209);
-                server.p2(val);
-            } else {
-                warn!("Unknown huntmode '{}' for [{}]", v, name);
-            }
+            let hunt_id = registry
+                .hunt
+                .get_by_name(v)
+                .or_else(|| v.parse().ok())
+                .with_context(|| format!("{name}: unknown huntmode '{v}'"))?;
+            let hunt_id = u8::try_from(hunt_id)
+                .with_context(|| format!("{name}: huntmode '{v}' exceeds 255"))?;
+            server.p1(25);
+            server.p1(hunt_id);
         }
-        // Opcode 211: members
         if prop_list
             .iter()
             .any(|(k, v)| k == "members" && (v == "yes" || v == "true"))
         {
-            server.p1(211);
+            server.p1(36);
         }
-        // Opcode 212: patrol
         if !patrols.is_empty() {
-            server.p1(212);
+            server.p1(35);
             server.p1(patrols.len() as u8);
             for (coord, delay) in &patrols {
                 server.p4(*coord);
                 server.p1(*delay);
             }
         }
-        // Opcode 213: givechase=no
         if prop_list
             .iter()
             .any(|(k, v)| k == "givechase" && (v == "no" || v == "false"))
         {
-            server.p1(213);
+            server.p1(37);
         }
         // Opcode 249: params
         let params: Vec<(&str, &str)> = prop_list
@@ -1081,7 +1081,7 @@ pub fn pack_npcs(
             .filter(|(k, _)| k == "param")
             .filter_map(|(_, v)| v.split_once(','))
             .collect();
-        // Each entry as `NpcType` reads it back: `g1(is_string) g3(key)` and
+        // Each entry as `NpcTypeRaw` reads it back: `g1(is_string) g3(key)` and
         // the value. The value takes the param's declared type, so
         // `fishing_movement_enum,fishing_movement_draynor_village_enum` packs
         // the enum's id, not its name as a string.
@@ -1126,8 +1126,6 @@ pub fn pack_npcs(
 }
 
 // ─── Cache text emitter (archive 18) ────────────────────────────────────
-
-use crate::cache647::{NpcType, ParamValue};
 
 fn name_for_model(id: u16, registry: &PackRegistry) -> String {
     registry
@@ -1200,7 +1198,7 @@ fn name_for_param(id: u32, registry: &PackRegistry) -> String {
 /// Produce the (key, value) pairs for an NPC config's text representation.
 /// Opcodes are emitted in canonical ascending order matching the binary
 /// layout. Cross-references resolve through `registry`.
-pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if let Some(models) = &def.models {
         for (i, id) in models.iter().enumerate() {
@@ -1213,7 +1211,7 @@ pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, St
     if def.opcode_order.contains(&12) || def.size != 1 {
         p.push((12, "size".into(), def.size.to_string()));
     }
-    for (slot, opt) in def.options.iter().enumerate() {
+    for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
         if let Some(text) = opt {
             p.push((30 + slot as u8, format!("op{}", slot + 1), text.to_string()));
         }
@@ -1235,7 +1233,7 @@ pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, St
             p.push((42, format!("colour{}", i + 1), c.to_string()));
         }
     }
-    if let Some(heads) = &def.head_models {
+    if let Some(heads) = &def.heads {
         for (i, id) in heads.iter().enumerate() {
             p.push((
                 60,
@@ -1247,17 +1245,17 @@ pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, St
     if !def.minimap {
         p.push((93, "minimap".into(), "no".into()));
     }
-    if def.opcode_order.contains(&95) || def.combat != -1 {
-        if def.combat == 0 {
+    if def.opcode_order.contains(&95) || def.vislevel.is_some() {
+        if def.vislevel == Some(0) {
             p.push((95, "vislevel".into(), "hide".into()));
         } else {
-            p.push((95, "vislevel".into(), def.combat.to_string()));
+            p.push((95, "vislevel".into(), def.vislevel.unwrap_or(0).to_string()));
         }
     }
-    if def.opcode_order.contains(&97) || def.resizeh != -1 {
+    if def.opcode_order.contains(&97) || def.resizeh != 128 {
         p.push((97, "resizeh".into(), def.resizeh.to_string()));
     }
-    if def.opcode_order.contains(&98) || def.resizev != -1 {
+    if def.opcode_order.contains(&98) || def.resizev != 128 {
         p.push((98, "resizev".into(), def.resizev.to_string()));
     }
     if def.alwaysontop {
@@ -1267,10 +1265,14 @@ pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, St
         p.push((100, "ambient".into(), def.ambient.to_string()));
     }
     if def.opcode_order.contains(&101) || def.contrast != 0 {
-        p.push((101, "contrast".into(), (def.contrast / 5).to_string()));
+        p.push((101, "contrast".into(), def.contrast.to_string()));
     }
-    if def.opcode_order.contains(&102) || def.headicon != -1 {
-        p.push((102, "headicon".into(), def.headicon.to_string()));
+    if def.opcode_order.contains(&102) || def.headicon.is_some() {
+        p.push((
+            102,
+            "headicon".into(),
+            def.headicon.unwrap_or(0).to_string(),
+        ));
     }
     if def.opcode_order.contains(&103) || def.turnspeed != 32 {
         p.push((103, "turnspeed".into(), def.turnspeed.to_string()));
@@ -1421,7 +1423,7 @@ pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, St
     if def.invisible_priority {
         p.push((143, "invisiblepriority".into(), "yes".into()));
     }
-    for (slot, opt) in def.members_options.iter().enumerate() {
+    for (slot, opt) in def.members_op.iter().enumerate() {
         if let Some(text) = opt {
             p.push((
                 150 + slot as u8,
@@ -1536,7 +1538,7 @@ pub fn emit_npc_props(def: &NpcType, registry: &PackRegistry) -> Vec<(String, St
 /// Decode all param entries from the raw op249 data, preserving order
 /// and individual values (even for duplicate keys that were overwritten
 /// in the HashMap during normal decode).
-fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<crate::cache647::provider::ParamValue> {
+fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<ParamValue> {
     let Some((_, data)) = raw_opcodes.iter().find(|(op, _)| *op == 249) else {
         return Vec::new();
     };
@@ -1562,14 +1564,12 @@ fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<crate::cache647::prov
             }
             let s = String::from_utf8_lossy(&data[start..pos]).to_string();
             pos += 1; // skip NUL
-            result.push(crate::cache647::provider::ParamValue::String(
-                s.into_boxed_str(),
-            ));
+            result.push(ParamValue::String(s.into_boxed_str()));
         } else {
             if pos + 3 < data.len() {
                 let v =
                     i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-                result.push(crate::cache647::provider::ParamValue::Int(v));
+                result.push(ParamValue::Int(v));
             }
             pos += 4;
         }
