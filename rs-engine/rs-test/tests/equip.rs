@@ -182,3 +182,50 @@ fn a_wielded_weapon_brings_its_2011_stance() {
         assert_eq!(player.info.readyanim, Some(1381), "the sword's stance");
     });
 }
+
+/// 289's `~equip` of the elemental shield (player/scripts/equip.rs2) takes it
+/// off for a tick and plays its shimmer: `shield_appear`, synth 1539 (647's
+/// synth.pack, the wire id), then puts it back on.
+#[test]
+fn wearing_the_elemental_shield_plays_its_shimmer() {
+    runner::on_loaded_engine(|engine| {
+        let obj = id(engine, "elemental_shield");
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("elemental").expect("login");
+        engine.cycle();
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&inv)
+            .expect("backpack")
+            .set(0, obj, 1);
+        engine.cycle();
+        client.packets();
+        let mut p = ClientPacket::new();
+        p.p4(BACKPACK).ip2_alt1(obj as i32).ip2(0);
+        client.send(ClientProt::IfButton2, &p.finish());
+        let mut packets = Vec::new();
+        for _ in 0..4 {
+            engine.cycle();
+            packets.extend(client.packets());
+        }
+        let synth = rs_protocol::network::game::server_prot::ServerProt::SynthSound as u16;
+        let sounds: Vec<u16> = packets
+            .iter()
+            .filter(|(op, _)| *op == synth)
+            .map(|(_, b)| u16::from_be_bytes([b[0], b[1]]))
+            .collect();
+        assert!(
+            sounds.contains(&1539),
+            "shield_appear played; synths {sounds:?}"
+        );
+        let worn_shield = engine
+            .harness_player(client.pid)
+            .and_then(|p| p.invs.get(&worn))
+            .is_some_and(|w| w.total(obj) == 1);
+        assert!(worn_shield, "the shield is worn");
+    });
+}

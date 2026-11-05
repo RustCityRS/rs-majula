@@ -205,6 +205,12 @@ fn handle(
             25,
             CollisionType::Normal,
         ));
+        // The client-path branch above fires the walk trigger once the steps
+        // are queued; a server-pathed walk must too, or a trigger set on the
+        // player (289's [walktrigger,stunned]) never runs on a walk click:
+        // 647's walk carries only the destination.
+        #[cfg(since_647)]
+        active.process_walktrigger();
     }
 
     Ok(())

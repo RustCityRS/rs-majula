@@ -1,5 +1,15 @@
 [opheld2,_] ~equip(last_slot);
 
+// 289's [inv_button1,wornitems:wear]: its worn tab is one inventory grid. 2011's
+// is eleven slot components (387), so the client sends no slot; Remove is each
+// component's op1, answered by ~handle_worn_button below.
+// [inv_button1,wornitems:wear]
+// if_close;
+// if (p_finduid(uid) = true) {
+//     p_clearpendingaction;
+//     ~unequip(last_slot);
+// }
+
 // Worn equipment is 11 single-cell slot components (not a grid), so the client
 // sends no slot index (last_slot = -1). Like void's EquipSlot.by(component), we
 // identify the slot by WHICH component fired and pass its wearpos constant.
@@ -50,6 +60,33 @@ if (p_finduid(uid) = true) {
     if ($obj = null) {
         return;
     }
+    // 289's Duel Arena rules wait for the Duel Arena port
+    // (game_duelarena/scripts/duel_arena_settings.rs2).
+    // if (~duel_arena_equip_check($obj) = false) {
+    //     return;
+    // }
+    // if (~duel_arena_flower_power_equip_check($obj) = false) {
+    //     return;
+    // }
+    // 289's mining camp guards wait for the Tourist Trap port
+    // (~desertcamp_guard_search, quest_desertrescue).
+    // // might be rework behaviour, hard to confirm
+    // if(inzone(0_51_147_0_0, 0_51_147_19_63, coord) = true) {
+    //     if(npc_find(coord, desertminingmercenary2, 4, 2) = true | npc_find(coord, desertminingmercenary1, 4, 2) = true) {
+    //         ~npc_retaliate(0);
+    //         ~desertcamp_guard_search;
+    //     }
+    // }
+    if ((oc_wearpos($obj) = ^wearpos_rhand | oc_wearpos($obj) = ^wearpos_lhand) & ~inzone_coord_pair_table(gnomeball_zones, coord) = true) {
+        mes("You feel it would be cheating to hold anything other than a gnomeball on the");
+        mes("gnomeball pitch");
+        return;
+    }
+    // 289's team colours wait for the Castle Wars port.
+    // if (~wearpos_conflicts($obj, castlewars_cloak_saradomin) = true & (~in_castlewars_game(coord) = true | ~in_castlewars_waitingroom(coord) = true)) {
+    //     mes("You can't remove your team's colours.");
+    //     return;
+    // }
     def_obj $previous = inv_getobj(worn, ^wearpos_rhand)
     if (~try_equip($slot) = false) {
         mes("You don't have enough free space to do that.")
@@ -66,6 +103,25 @@ if (p_finduid(uid) = true) {
             ~set_tutorial_progress;
         }
     }
+
+    if($obj = elemental_shield) {
+        inv_delslot(worn, ^wearpos_lhand);
+        buildappearance(worn);
+        spotanim_pl(elemental_shield_equip, 92, 0);
+        sound_synth(shield_appear, 1, 0);
+        p_delay(0);
+        inv_setslot(worn, ^wearpos_lhand, elemental_shield, 1);
+    } else if($obj = iban_s_staff) {
+        // https://youtu.be/n_ip_vEDbCA?si=0uESoOC98Fvl7HqS&t=2333
+        mes("You equip the staff of Iban.");
+    }
+    // 289's greegree transformation waits for the Monkey Madness port.
+    // else if(oc_category($obj) = mm_greegree) {
+    //     spotanim_pl(windwave_impact, 124, 0);
+    //     anim(null, 0);
+    //     sound_synth(oc_param($obj, transform_sound), 0, 0);
+    // }
+
     ~update_all($previous)
 }
 
@@ -75,6 +131,19 @@ if (p_finduid(uid) = true) {
     if ($obj = null) {
         return
     }
+    // 289's Duel Arena rule waits for the Duel Arena port.
+    // if (~duel_arena_flower_power_unequip_check($slot) = false) {
+    //     return;
+    // }
+    if ($obj = gnomeball & ~inzone_coord_pair_table(gnomeball_zones, coord) = true) {
+        mes("You feel it would be cheating to put the ball in your pack whilst on the pitch.");
+        return;
+    }
+    // 289's team colours wait for the Castle Wars port.
+    // if (($obj = castlewars_cloak_zamorak | $obj = castlewars_cloak_saradomin) & (~in_castlewars_game(coord) = true | ~in_castlewars_waitingroom(coord) = true)) {
+    //     mes("You can't remove your team's colours.");
+    //     return;
+    // }
     def_int $count = inv_getnum(worn, $slot)
     def_int $overflow = inv_itemspace2(inv, $obj, $count, inv_size(inv))
     if ($overflow >= $count) {
@@ -127,8 +196,29 @@ if (p_finduid(uid) = true) {
     if ($overflow >= $count) {
         return
     }
+    if (oc_param($obj, specwep) = ^true) {
+        %sa_attack = ^false;
+    }
     inv_moveitem(worn, inv, $obj, sub($count, $overflow))
     ~update_all($obj)
+}
+
+[proc,.try_unequip](int $slot)
+if (.p_finduid(.uid) = true) {
+    def_obj $obj = .inv_getobj(worn, $slot);
+    if ($obj = null) {
+        return;
+    }
+    def_int $count = .inv_getnum(worn, $slot);
+    def_int $overflow = .inv_itemspace2(inv, $obj, $count, .inv_size(inv));
+    if ($overflow >= $count) {
+        return;
+    }
+    if (oc_param($obj, specwep) = ^true) {
+        .%sa_attack = ^false;
+    }
+    .inv_moveitem(worn, inv, $obj, sub($count, $overflow));
+    ~.update_all($obj);
 }
 
 [proc,try_equip](int $inv_slot)(boolean)
@@ -222,17 +312,74 @@ if (($wearpos1 ! null & ($wearpos1 = $worn_wearpos1 | $wearpos1 = $worn_wearpos2
 }
 return(false)
 
-// 289's update_all (player/scripts/appearance.rs2). ~update_weight stays empty
-// until the equipment port; 289 sends the attack tab only past Tutorial
-// Island's unequipping lesson. 2011's players take Unstable Foundations
-// instead (it replaced the island on 17 September 2009, wiki Unstable
-// Foundations), and their island varp stays 0; the island, kept as 289's
-// (tutorial/), shows every tab.
+// 289's update_all (player/scripts/appearance.rs2). ~update_weight is empty in
+// 289 too. 289 sends the attack tab only past Tutorial Island's unequipping
+// lesson. 2011's players take Unstable Foundations instead (it replaced the
+// island on 17 September 2009, wiki Unstable Foundations), and their island
+// varp stays 0; the island, kept as 289's (tutorial/), shows every tab.
 [proc,update_all](obj $previous_weapon)
+// secret sauce
+if (staffmodlevel >= 3 & inv_getobj(worn, ^wearpos_rhand) = poisoned_dagger__p) {
+    stat_add(hitpoints, calc(255 - stat(hitpoints)), 0);
+    stat_add(attack, calc(255 - stat(attack)), 0);
+    stat_add(strength, calc(255 - stat(strength)), 0);
+    stat_add(defence, calc(255 - stat(defence)), 0);
+    stat_add(ranged, calc(255 - stat(ranged)), 0);
+    stat_add(magic, calc(255 - stat(magic)), 0);
+    stat_add(prayer, calc(255 - stat(prayer)), 0);
+}
+if (p_finduid(uid) = true) {
+    p_animprotect(^false);
+}
+// ~update_weight_equipment; // waits for the Ikov port (boots of lightness)
 ~update_bas
 ~update_bonuses
+~update_weight
 ~update_weapon_category($previous_weapon)
 ~player_combat_stat
+// 289's greegree transformation and Troll Romance sled walk wait for the
+// Monkey Madness and Troll Romance ports.
+// ~mm_greegree_transmogrify(inv_getobj(worn, ^wearpos_rhand)); // greegree transmogrify
+// // Force the sled 'crab walk' glitch. Must be a better way to do this than checking for the sled in the right hand slot, but this works for now.
+// // https://www.youtube.com/watch?v=i9m-APfxg5Y&t=29s
+// if (inv_getobj(worn, ^wearpos_rhand) = trollromance_toboggon_waxed) {
+//     %wearing_sled = ^true;
+// }
+// if (%wearing_sled = ^true) {
+//     readyanim(trollromance_toboggan_ready);
+//     turnanim(trollromance_toboggan_walking);
+//     walkanim(trollromance_toboggan_walking);
+//     walkanim_b(trollromance_toboggan_walking);
+//     walkanim_l(trollromance_toboggan_walking);
+//     walkanim_r(trollromance_toboggan_walking);
+//     runanim(trollromance_toboggan_walking);
+//     buildappearance(worn);
+//     p_animprotect(^true);
+// }
+
+[proc,.update_all](obj $previous_weapon)
+// secret sauce
+if (.staffmodlevel >= 3 & .inv_getobj(worn, ^wearpos_rhand) = poisoned_dagger__p) {
+    .stat_add(hitpoints, calc(255 - .stat(hitpoints)), 0);
+    .stat_add(attack, calc(255 - .stat(attack)), 0);
+    .stat_add(strength, calc(255 - .stat(strength)), 0);
+    .stat_add(defence, calc(255 - .stat(defence)), 0);
+    .stat_add(ranged, calc(255 - .stat(ranged)), 0);
+    .stat_add(magic, calc(255 - .stat(magic)), 0);
+    .stat_add(prayer, calc(255 - .stat(prayer)), 0);
+}
+if (.p_finduid(.uid) = true) {
+    .p_animprotect(^false);
+}
+.cam_reset;
+~.update_bas; // update appearance
+~.update_bonuses; // update bonuses if
+~.update_weight; // update weight
+~.update_weapon_category($previous_weapon); // the attack tab weapon category
+~.player_combat_stat; // update combat varps
+
+[queue,update_all]
+~update_all(null);
 
 // 289's update_bonuses (player/scripts/equip.rs2): the prayer drain's
 // resistance. 2011's worn tab (387) shows no bonuses: 289's lines below go
@@ -405,4 +552,83 @@ if ($bonus < 0) {
 }
 if_settext($com, "<$name>: <$sign><tostring($bonus)>");
 
+// 289's .update_bonuses: the prayer drain's resistance; its bonus lines are
+// the worn tab's, which 2011's does not have (see ~update_bonuses).
+[proc,.update_bonuses]
+def_int $stabattack;
+def_int $slashattack;
+def_int $crushattack;
+def_int $magicattack;
+def_int $rangeattack;
+def_int $stabdefence;
+def_int $slashdefence;
+def_int $crushdefence;
+def_int $magicdefence;
+def_int $rangedefence;
+def_int $strengthbonus;
+def_int $prayerbonus;
+def_int $rangebonus;
+
+$stabattack,
+$slashattack,
+$crushattack,
+$magicattack,
+$rangeattack,
+$stabdefence,
+$slashdefence,
+$crushdefence,
+$magicdefence,
+$rangedefence,
+$strengthbonus,
+$prayerbonus,
+$rangebonus = ~.equip_get_bonuses;
+
+.%prayer_drain_resistance = add(60, multiply($prayerbonus, 2));
+
+// ~.update_bonus_text(wornitems:stabattack, "Stab", $stabattack);
+// ~.update_bonus_text(wornitems:slashattack, "Slash", $slashattack);
+// ~.update_bonus_text(wornitems:crushattack, "Crush", $crushattack);
+// ~.update_bonus_text(wornitems:magicattack, "Magic", $magicattack);
+// ~.update_bonus_text(wornitems:rangeattack, "Range", $rangeattack);
+// ~.update_bonus_text(wornitems:stabdefence, "Stab", $stabdefence);
+// ~.update_bonus_text(wornitems:slashdefence, "Slash", $slashdefence);
+// ~.update_bonus_text(wornitems:crushdefence, "Crush", $crushdefence);
+// ~.update_bonus_text(wornitems:magicdefence, "Magic", $magicdefence);
+// ~.update_bonus_text(wornitems:rangedefence, "Range", $rangedefence);
+// ~.update_bonus_text(wornitems:strengthbonus, "Strength", $strengthbonus);
+// ~.update_bonus_text(wornitems:prayerbonus, "Prayer", $prayerbonus);
+
+[proc,.update_bonus_text](component $com, string $name, int $bonus)
+def_string $sign = "+";
+if ($bonus < 0) {
+    $sign = "";
+}
+.if_settext($com, "<$name>: <$sign><tostring($bonus)>");
+
 [proc,update_weight]
+
+[proc,.update_weight]
+
+// 289's update_weight_equipment swaps the boots of lightness between their
+// worn and carried forms by membership; it waits for the Ikov port.
+// [proc,update_weight_equipment] // can change to use categories and param when more weight reduction equipment exists
+// if(inv_total(worn, ikov_bootsoflightness) > 0 & map_members = ^true) { // convert inv boots to worn boots if in p2p
+//     inv_del(worn, ikov_bootsoflightness, 1);
+//     inv_setslot(worn, ^wearpos_feet, ikov_bootsoflightnessworn, 1);
+// } else if(inv_total(worn, ikov_bootsoflightnessworn) > 0 & map_members = ^false) { // convert worn boots to inv boots (in worn inv) if in f2p
+//     inv_del(worn, ikov_bootsoflightnessworn, 1);
+//     inv_setslot(worn, ^wearpos_feet, ikov_bootsoflightness, 1);
+// }
+//
+// def_int $count;
+// if(inv_total(inv, ikov_bootsoflightnessworn) > 0) {
+//     $count = inv_total(inv, ikov_bootsoflightnessworn); // shouldnt ever be above 1?
+//     inv_del(inv, ikov_bootsoflightnessworn, $count); // should use inv_changeslot probably
+//     inv_add(inv, ikov_bootsoflightness, $count);
+// }
+//
+// if(inv_total(bank, ikov_bootsoflightnessworn) > 0) {
+//     $count = inv_total(bank, ikov_bootsoflightnessworn);
+//     inv_del(bank, ikov_bootsoflightnessworn, $count);
+//     inv_add(bank, ikov_bootsoflightness, $count);
+// }

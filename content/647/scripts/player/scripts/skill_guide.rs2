@@ -76,3 +76,20 @@ if ($row = null) {
     return;
 }
 %skill_guide = add(db_getfield($row, levelup:icon, 0), multiply($page, 1024));
+
+// 289's guide pages (its skill_guide interface's section buttons) and the
+// procs that fill its rows have no 2011 counterpart: 2011's client pages and
+// draws its own guide (skill_guide_v2, 499), as above.
+// [if_button,skill_guide:op1] @change_skill_guide(0);
+// [if_button,skill_guide:op2] @change_skill_guide(1);
+// [if_button,skill_guide:op3] @change_skill_guide(2);
+// [if_button,skill_guide:op4] @change_skill_guide(3);
+// [if_button,skill_guide:op5] @change_skill_guide(4);
+// [if_button,skill_guide:op6] @change_skill_guide(5);
+// [if_button,skill_guide:op7] @change_skill_guide(6);
+// [if_button,skill_guide:op8] @change_skill_guide(7);
+// [if_button,skill_guide:op9] @change_skill_guide(8);
+// [if_button,skill_guide:op10] @change_skill_guide(9);
+// [proc,skill_guide_set_op](int $op, int $max, string $text)
+// [proc,skill_guide_update_rows](dbrow $guide, int $base, int $members, int $off, int $len, int $limit)(int)
+// [proc,skill_guide_clear_rows](int $off, int $len)

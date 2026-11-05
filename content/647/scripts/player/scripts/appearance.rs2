@@ -15,6 +15,16 @@ if ($weapon ! null) {
 readyanim($bas);
 buildappearance(worn);
 
+// 289's .update_bas: the same for the other player (`.`).
+[proc,.update_bas]
+def_obj $weapon = .inv_getobj(worn, ^wearpos_rhand);
+def_int $bas = 1426;
+if ($weapon ! null) {
+    $bas = oc_param($weapon, render_emote);
+}
+.readyanim($bas);
+.buildappearance(worn);
+
 // The BAS 2011 gives 289's ready and walk seqs (bas_by_anims); a pair 2011
 // has no BAS for keeps the plain human one.
 [proc,bas_set](seq $ready, seq $turn, seq $walkf, seq $walkb, seq $walkl, seq $walkr, seq $run)
@@ -40,3 +50,25 @@ def_int $current = headicons_get;
 def_int $bit = multiply(0x1, pow(2, $icon));
 headicons_set(and($current, sub($current, $bit)));
 buildappearance(worn);
+
+[proc,.headicon_del](int $icon)
+def_int $current = .headicons_get;
+def_int $bit = multiply(0x1, pow(2, $icon));
+.headicons_set(and($current, sub($current, $bit)));
+.buildappearance(worn);
+
+[proc,headicon_exists](int $icon)(boolean)
+def_int $current = headicons_get;
+def_int $bit = pow(2, $icon);
+if (and($current, $bit) = $bit) {
+    return(true);
+}
+return(false);
+
+[proc,headicons_clear]()
+headicons_set(0);
+buildappearance(worn);
+
+[proc,.headicons_clear]()
+.headicons_set(0);
+.buildappearance(worn);

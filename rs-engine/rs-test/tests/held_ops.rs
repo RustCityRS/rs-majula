@@ -166,3 +166,92 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         assert!(rs_vm::ops::test::calls_for("mes").is_empty(), "nothing ran");
     });
 }
+
+/// 289's `[opheld2,nightshade]` (player/scripts/consumption/nightshade.rs2) on
+/// 2011's cave nightshade, whose Eat is op4 (cache 786): it is eaten, says
+/// 289's lines, and hurts 150 life points, 289's 15 hitpoints (2011 wiki, Cave
+/// nightshade, 2011-04-06: "this causes 150 life points of damage").
+#[test]
+fn eating_cave_nightshade_hurts_150_life_points() {
+    runner::on_loaded_engine(|engine| {
+        let nightshade = id(engine, "cave_nightshade");
+        let mut client = player_holding(engine, "nightshade", &[nightshade]);
+        // %life_points: varbit 7198, bits 1-15 of varp 1240.
+        let life = |e: &Engine, pid: u16| {
+            (e.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
+        };
+        // Level 99 Constitution and 990 life points, so 150 does not kill.
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        player.stats.levels[3] = 99;
+        player.stats.base_levels[3] = 99;
+        let bit0 = player.vars.get(1240).as_int() & 1;
+        player
+            .vars
+            .set(1240, rs_pack::cache::VarValue::Int((990 << 1) | bit0));
+        engine.cycle();
+        let before = life(engine, client.pid);
+        assert_eq!(before, 990);
+        let mut p = ClientPacket::new();
+        p.p4(BACKPACK).ip2_alt1(nightshade as i32).ip2(0);
+        client.send(ClientProt::IfButton4, &p.finish());
+        for _ in 0..5 {
+            engine.cycle();
+        }
+        let said = rs_vm::ops::test::calls_for("mes");
+        assert!(
+            said.iter()
+                .any(|m| m == "The nightshade was highly poisonous."),
+            "{said:?}"
+        );
+        // The queued damage runs once the player's script lets go: after the
+        // "Ahhhh! What have I done!" box, as a player clicks past it.
+        let chat = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .modal_chat
+            .expect("the player says Ahhhh");
+        let mut p = ClientPacket::new();
+        p.p2(0xFFFF).p4_alt2((chat as i32) << 16);
+        client.send(ClientProt::ResumePauseButton, &p.finish());
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        assert_eq!(before - life(engine, client.pid), 150, "150 life points");
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let held = engine
+            .harness_player(client.pid)
+            .and_then(|p| p.invs.get(&inv))
+            .is_some_and(|b| b.has_at(0, nightshade));
+        assert!(!held, "the nightshade is eaten");
+    });
+}
+
+/// 289's water_sources.rs2: a bucket of water used on a jug pours into it
+/// (`@water_fill`): a jug of water and an empty bucket.
+#[test]
+fn a_bucket_of_water_pours_into_a_jug() {
+    runner::on_loaded_engine(|engine| {
+        let (water, jug) = (id(engine, "bucket_of_water"), id(engine, "jug"));
+        let mut client = player_holding(engine, "pourer", &[water, jug]);
+        client.send(
+            ClientProt::IfButtonT,
+            &if_buttont((0, water as i32), (1, jug as i32)),
+        );
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let backpack = engine
+            .harness_player(client.pid)
+            .and_then(|p| p.invs.get(&inv))
+            .expect("backpack");
+        assert!(
+            backpack.has_at(0, id(engine, "bucket")),
+            "the bucket is empty"
+        );
+        assert!(
+            backpack.has_at(1, id(engine, "jug_of_water")),
+            "the jug is full"
+        );
+    });
+}

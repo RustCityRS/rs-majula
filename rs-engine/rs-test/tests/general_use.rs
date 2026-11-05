@@ -481,3 +481,42 @@ fn a_locked_chest_and_a_locked_gate_stay_shut() {
         );
     });
 }
+
+/// 289's water sources (water_sources.rs2): a bucket used on Lumbridge
+/// castle's 2011 kitchen sink (sink_36971 at 0_50_50_5_15, a water source by
+/// void-634's Filling.kt) fills, and on the well west of Lumbridge (289's
+/// well_884 at 0_49_50_25_20) fills as 289's wells do.
+#[test]
+fn a_bucket_fills_at_a_sink_and_a_well() {
+    runner::on_loaded_engine(|engine| {
+        let (bucket, water) = (obj(engine, "bucket"), obj(engine, "bucket_of_water"));
+        for (name, loc, (x, z), line) in [
+            (
+                "sinker",
+                "sink_36971",
+                (3205, 3215),
+                "You fill the bucket from the sink.",
+            ),
+            (
+                "weller",
+                "well_884",
+                (3161, 3220),
+                "You fill the bucket from the well.",
+            ),
+        ] {
+            let mut client = beside_loc(engine, name, (x, 0, z), &[bucket]);
+            use_on_loc(&mut client, bucket, loc_id(loc), x, z);
+            cycles(engine, 8);
+            assert!(
+                said(line),
+                "{loc}: {:?}",
+                rs_vm::ops::test::calls_for("mes")
+            );
+            assert_eq!(
+                slot0(engine, client.pid),
+                Some(water),
+                "{loc} filled the bucket"
+            );
+        }
+    });
+}

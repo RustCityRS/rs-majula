@@ -325,3 +325,41 @@ fn the_market_guards_carry_market_guard() {
         }
     });
 }
+
+/// 289's `[walktrigger,stunned]` (player/scripts/movecheck.rs2): a player a
+/// failed pickpocket stunned (`%stunned` ahead of the clock, and
+/// `walktrigger(stunned)`, as `~fail_pick_pocket` sets them) who clicks to walk
+/// is told "You're stunned!" and stays where they are.
+#[test]
+fn a_stunned_player_cannot_walk() {
+    runner::on_loaded_engine(|engine| {
+        let (x, z) = (3222, 3218);
+        let mut client = thief(engine, "stunnedthief", x, z);
+        let walktrigger = engine
+            .scripts
+            .get_by_name("[walktrigger,stunned]")
+            .map(|s| s.id)
+            .expect("[walktrigger,stunned] is defined");
+        let stunned = 2193; // `stunned`, a server-only varp (varp.pack)
+        let until = engine.clock as i32 + 20;
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        player
+            .vars
+            .set(stunned, rs_pack::cache::VarValue::Int(until));
+        player.walktrigger = Some(walktrigger);
+        // A walkable tile a few steps off: a click the pathfinder cannot reach
+        // queues no steps, and the walk trigger fires only on a step.
+        let (dx, dz) = [(3, 0), (-3, 0), (0, 3), (0, -3), (2, 2), (-2, -2)]
+            .into_iter()
+            .map(|(a, b): (i32, i32)| ((x as i32 + a) as u16, (z as i32 + b) as u16))
+            .find(|&(tx, tz)| !rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000))
+            .expect("a walkable tile near the thief");
+        let mut p = ClientPacket::new();
+        p.ip2(dx as i32).p1_alt3(0).p2(dz as i32);
+        client.send(ClientProt::MoveGameClick, &p.finish());
+        let said = run(engine, &mut client, 5, |_, _| false);
+        assert!(said.contains(&"You're stunned!".to_string()), "{said:?}");
+        let c = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!((c.x(), c.z()), (x, z), "still where the stun caught them");
+    });
+}

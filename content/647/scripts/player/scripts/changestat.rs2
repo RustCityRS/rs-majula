@@ -12,3 +12,10 @@ def_int $max = calc(stat(hitpoints) * 10);
 if (%life_points > $max) {
     %life_points = $max;
 }
+// 289's [changestat,_] answers every stat; this trigger takes hitpoints from
+// it, so it runs 289's combat stat update too.
+gosub(player_combat_stat);
+
+// 289's player/scripts/changestat.rs2: a stat's change recomputes the combat
+// varps (attack and defence rolls, max hit) from the new level.
+[changestat,_] gosub(player_combat_stat);
