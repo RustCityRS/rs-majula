@@ -1068,7 +1068,7 @@ mod tests {
     use crate::pack::pack::FileCache;
     use crate::pack::pack_registry::PackRegistry;
     use crate::types::MultiVar;
-    use crate::unpack::loc::emit_loc_props;
+    use crate::unpack::config::{UnpackedPacks, loc::emit_loc_props};
     use rs_io::Packet;
     use std::collections::HashMap;
     use std::{env, fs, process};
@@ -1109,7 +1109,7 @@ mod tests {
             let mut def = LocTypeRaw::new(0);
             def.decode(&mut Packet::from(bytes.clone()));
             let mut text = "[subject]\n".to_string();
-            for (key, value) in emit_loc_props(&def, &registry) {
+            for (key, value) in emit_loc_props(&def, &mut UnpackedPacks::new(), &HashMap::new()) {
                 assert!(key == "multivar" || key == "multiloc");
                 if value != "1,null" {
                     text.push_str(&format!("{key}={value}\n"));

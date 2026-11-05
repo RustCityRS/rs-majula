@@ -1,13 +1,9 @@
-//! Unpack quickchat archives (24, 25) to binary files.
-
-use std::path::Path;
-
+use super::binary_assets::unpack_binary_archive;
 use anyhow::Result;
 use rs_dat2::CacheStore;
 use rs_dat2::archive;
+use std::path::Path;
 use tracing::info;
-
-use super::binary_assets::unpack_binary_archive;
 
 pub fn unpack_quickchat(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
     let mut total = 0;

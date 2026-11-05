@@ -38,9 +38,9 @@ use rs_pack::types::HuntCheckAfk;
 #[cfg(since_647)]
 use rs_pack::types::ScriptVarType;
 #[cfg(since_647)]
-use rs_pack::unpack::{
-    enums::emit_enum_props, flo::emit_flo_props, flu::emit_flu_props, idk::emit_idk_props,
-    param::emit_param_props,
+use rs_pack::unpack::config::{
+    UnpackedPacks, r#enum::emit_enum_props, flo::emit_flo_props, flu::emit_flu_props,
+    idk::emit_idk_props, param::emit_param_props,
 };
 use std::{collections::HashMap, fs, path::Path};
 
@@ -93,17 +93,16 @@ fn modern_script_types_survive_projection() {
 #[cfg(since_647)]
 #[test]
 fn explicit_defaults_and_sentinels_survive_unpacking() {
-    let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("config_presence");
-    let registry = PackRegistry::load(&path).unwrap();
+    let mut registry = UnpackedPacks::new();
     let empty: EnumTypeRaw = decode(&[0]);
     assert_eq!(
         (empty.inputtype, empty.outputtype),
         (ScriptVarType::Int, ScriptVarType::Int)
     );
-    assert!(emit_enum_props(&empty).is_empty());
+    assert!(emit_enum_props(&empty, &mut registry, &HashMap::new()).is_empty());
     let explicit: EnumTypeRaw = decode(&[1, b'i', 2, b'i', 4, 0, 0, 0, 0, 0]);
     assert_eq!(
-        emit_enum_props(&explicit),
+        emit_enum_props(&explicit, &mut registry, &HashMap::new()),
         [
             ("inputtype".into(), "int".into()),
             ("outputtype".into(), "int".into()),
@@ -112,17 +111,17 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
     );
     let empty: ParamTypeRaw = decode(&[0]);
     assert_eq!(empty.var_type, ScriptVarType::Int);
-    assert!(emit_param_props(&empty, &registry).is_empty());
+    assert!(emit_param_props(&empty, &mut registry, &HashMap::new()).is_empty());
     let explicit: ParamTypeRaw = decode(&[1, b'i', 2, 0, 0, 0, 0, 0]);
     assert_eq!(
-        emit_param_props(&explicit, &registry),
+        emit_param_props(&explicit, &mut registry, &HashMap::new()),
         [
             ("type".into(), "int".into()),
             ("defaultint".into(), "0".into()),
         ]
     );
     let idk: IdkTypeRaw = decode(&[1, 0, 60, 0, 0, 62, 255, 255, 0]);
-    let props = emit_idk_props(&idk, &registry);
+    let props = emit_idk_props(&idk, &mut registry, &HashMap::new());
     assert_eq!(
         props
             .iter()
@@ -132,7 +131,7 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
     );
     let flo: FloTypeRaw = decode(&[1, 0, 0, 0, 2, 0, 3, 1, 0, 0]);
     assert_eq!(
-        emit_flo_props(&flo, &registry),
+        emit_flo_props(&flo, &mut registry, &HashMap::new()),
         [
             ("color".into(), "0".into()),
             ("texture_u8".into(), "0".into()),
@@ -142,13 +141,13 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
     assert_eq!(FloType::from(flo).texture, Some(256));
     let flo: FloTypeRaw = decode(&[3, 255, 255, 0]);
     assert_eq!(
-        emit_flo_props(&flo, &registry),
+        emit_flo_props(&flo, &mut registry, &HashMap::new()),
         [("texture".into(), "65535".into())]
     );
     assert_eq!(FloType::from(flo).texture, None);
     let flu: FluType = decode(&[1, 0, 0, 0, 2, 255, 255, 3, 0, 0, 0]);
     assert_eq!(
-        emit_flu_props(&flu, &registry),
+        emit_flu_props(&flu, &mut registry, &HashMap::new()),
         [
             ("color".into(), "0".into()),
             ("texture".into(), "65535".into()),

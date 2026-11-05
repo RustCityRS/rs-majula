@@ -33,8 +33,6 @@ png = { workspace = true }
 serde_json = { workspace = true }
 serde = { workspace = true }
 image = { version = "0.25", default-features = false, features = ["png"] }
-zune-jpeg = "0.4"
-zune-core = "0.4"
 rayon = "1"
 rs-crypto = "0.2"
 ureq = { workspace = true }

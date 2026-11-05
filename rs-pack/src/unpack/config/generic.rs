@@ -1,122 +1,15 @@
-//! Generic config unpacker — archive 2 groups → text config files.
-//!
-//! Handles two categories of archive 2 config groups:
-//!
-//! 1. **Known types** with client-src decoders (LightType, BASType, CursorType,
-//!    MSIType, QuestType, MELType, HitmarkType, VarClanSettingType): opcodes
-//!    are parsed with named keys matching the Java field structure.
-//!
-//! 2. **Unknown groups** (no client decoder): opcodes are dumped as raw hex
-//!    bytes, preserving exact binary content for byte-perfect roundtrip.
-//!
-//! Text format matches the existing unpackers: `[entry_N]` section headers
-//! followed by `key=value` lines. Entries are written in id order.
-
-use std::io::Write;
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use std::io::Write;
+use std::path::Path;
 use tracing::info;
 
-// ─── Helpers ──────────────────────────────────────────────────────────
-
-/// Escape commas in a string so it can be embedded in comma-separated text.
-/// The packer's `split_escaped_csv` reverses this.
 fn escape_csv_comma(s: &str) -> String {
     s.replace(',', "\\,")
 }
 
-// ─── ByteReader ────────────────────────────────────────────────────────
-
-/// Cursor over a byte slice for reading opcode data.
-struct ByteReader<'a> {
-    data: &'a [u8],
-    pos: usize,
-}
-
-impl<'a> ByteReader<'a> {
-    fn new(data: &'a [u8]) -> Self {
-        Self { data, pos: 0 }
-    }
-
-    fn remaining(&self) -> usize {
-        self.data.len().saturating_sub(self.pos)
-    }
-
-    /// Read unsigned byte (g1).
-    fn g1(&mut self) -> u8 {
-        let v = self.data[self.pos];
-        self.pos += 1;
-        v
-    }
-
-    /// Read signed byte (g1b).
-    fn g1b(&mut self) -> i8 {
-        self.g1() as i8
-    }
-
-    /// Read unsigned 2 bytes big-endian (g2).
-    fn g2(&mut self) -> u16 {
-        let v = ((self.data[self.pos] as u16) << 8) | (self.data[self.pos + 1] as u16);
-        self.pos += 2;
-        v
-    }
-
-    /// Read signed 2 bytes big-endian (g2b).
-    fn g2b(&mut self) -> i16 {
-        self.g2() as i16
-    }
-
-    /// Read unsigned 3 bytes big-endian (g3).
-    fn g3(&mut self) -> u32 {
-        let v = ((self.data[self.pos] as u32) << 16)
-            | ((self.data[self.pos + 1] as u32) << 8)
-            | (self.data[self.pos + 2] as u32);
-        self.pos += 3;
-        v
-    }
-
-    /// Read signed 4 bytes big-endian (g4).
-    fn g4(&mut self) -> i32 {
-        let v = ((self.data[self.pos] as i32) << 24)
-            | ((self.data[self.pos + 1] as i32) << 16)
-            | ((self.data[self.pos + 2] as i32) << 8)
-            | (self.data[self.pos + 3] as i32);
-        self.pos += 4;
-        v
-    }
-
-    /// Read null-terminated string (gjstr).
-    fn gjstr(&mut self) -> String {
-        let start = self.pos;
-        while self.pos < self.data.len() && self.data[self.pos] != STRING_TERMINATOR {
-            self.pos += 1;
-        }
-        let s = String::from_utf8_lossy(&self.data[start..self.pos]).to_string();
-        if self.pos < self.data.len() {
-            self.pos += 1; // skip NUL terminator
-        }
-        s
-    }
-
-    /// Read version-prefixed string (gjstr2): skip leading 0, then read until 0.
-    fn gjstr2(&mut self) -> String {
-        if self.pos < self.data.len() && self.data[self.pos] == 0 {
-            self.pos += 1; // skip version byte
-        }
-        self.gjstr()
-    }
-}
-
-// ─── Config group descriptors ──────────────────────────────────────────
-
-/// All archive 2 groups that need generic unpacking.
-///
-/// Groups already handled by dedicated unpackers (flo=4, flu=1,
-/// idk=3, inv=5, param=11, seq=6, varp=16, struct=26, enum=8, obj=10,
-/// npc=9, loc=14, spotanim=13, varbit=12) are excluded.
 pub const KNOWN_CONFIG_GROUPS: &[(u32, &str)] = &[
     (31, "light"),
     (32, "bas"),
@@ -128,9 +21,6 @@ pub const KNOWN_CONFIG_GROUPS: &[(u32, &str)] = &[
     (54, "varclansetting"),
 ];
 
-// ─── Public API ────────────────────────────────────────────────────────
-
-/// Unpack a known config group with named opcodes to a text file.
 pub fn unpack_config_group(
     store: &mut CacheStore,
     group_id: u32,
@@ -157,7 +47,7 @@ pub fn unpack_config_group(
 
         writeln!(file, "[{type_name}_{}]", entry.id)?;
 
-        let mut reader = ByteReader::new(&entry.data);
+        let mut reader = Packet::from(entry.data.to_vec());
         loop {
             if reader.remaining() == 0 {
                 break;
@@ -183,13 +73,6 @@ pub fn unpack_config_group(
     Ok(written)
 }
 
-/// Unpack an unknown config group using the generic opcode-by-opcode decoder.
-///
-/// Same path as known config groups but every opcode hits the
-/// `emit_unknown_opcode` fallback, producing `rawN=<hex>` per opcode.
-/// No whole-entry hex passthrough — each opcode is individually parsed.
-///
-/// Empty entries (terminator-only) get a section header with no properties.
 pub fn unpack_raw_config_group(
     store: &mut CacheStore,
     group_id: u32,
@@ -199,15 +82,7 @@ pub fn unpack_raw_config_group(
     unpack_config_group(store, group_id, &type_name, output_dir)
 }
 
-// ─── Known opcode decoders ─────────────────────────────────────────────
-
-/// Decode a single opcode for a known config type.
-/// Returns a list of (key, value) pairs to emit.
-fn decode_known_opcode(
-    r: &mut ByteReader,
-    group_id: u32,
-    opcode: u8,
-) -> Result<Vec<(String, String)>> {
+fn decode_known_opcode(r: &mut Packet, group_id: u32, opcode: u8) -> Result<Vec<(String, String)>> {
     let result = match group_id {
         31 => decode_light(group_id, r, opcode),
         32 => decode_bas(group_id, r, opcode),
@@ -236,9 +111,7 @@ fn decode_known_opcode(
     result
 }
 
-// ── LightType (group 31) ───────────────────────────────────────────────
-
-fn decode_light(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_light(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
             let v = r.g1();
@@ -253,7 +126,7 @@ fn decode_light(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
             vec![("op3_g2".into(), v.to_string())]
         }
         4 => {
-            let v = r.g2b();
+            let v = r.g2s();
             vec![("op4_g2b".into(), v.to_string())]
         }
         _ => {
@@ -262,9 +135,7 @@ fn decode_light(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
     })
 }
 
-// ── BASType (group 32) ─────────────────────────────────────────────────
-
-fn decode_bas(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_bas(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
             let idle = r.g2();
@@ -313,7 +184,7 @@ fn decode_bas(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             let mut vals = Vec::new();
             vals.push(body.to_string());
             for _ in 0..6 {
-                vals.push(r.g2b().to_string());
+                vals.push(r.g2s().to_string());
             }
             vec![("op27_g1_6xg2b".into(), vals.join(","))]
         }
@@ -343,7 +214,7 @@ fn decode_bas(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             vec![("op32_g2".into(), v.to_string())]
         }
         33 => {
-            let v = r.g2b();
+            let v = r.g2s();
             vec![("op33_g2b".into(), v.to_string())]
         }
         34 => {
@@ -355,7 +226,7 @@ fn decode_bas(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             vec![("op35_g2".into(), v.to_string())]
         }
         36 => {
-            let v = r.g2b();
+            let v = r.g2s();
             vec![("op36_g2b".into(), v.to_string())]
         }
         37 => {
@@ -446,7 +317,7 @@ fn decode_bas(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             let mut vals = Vec::new();
             vals.push(body.to_string());
             for _ in 0..3 {
-                vals.push(r.g2b().to_string());
+                vals.push(r.g2s().to_string());
             }
             vec![("op56_g1_3xg2b".into(), vals.join(","))]
         }
@@ -456,9 +327,7 @@ fn decode_bas(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
     })
 }
 
-// ── CursorType (group 33) ──────────────────────────────────────────────
-
-fn decode_cursor(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_cursor(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
             let v = r.g2();
@@ -475,9 +344,7 @@ fn decode_cursor(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(S
     })
 }
 
-// ── MSIType (group 34) ─────────────────────────────────────────────────
-
-fn decode_msi(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_msi(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
             let v = r.g2();
@@ -500,16 +367,20 @@ fn decode_msi(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
     })
 }
 
-// ── QuestType (group 35) ───────────────────────────────────────────────
-
-fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_quest(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
-            let v = r.gjstr2();
+            if r.remaining() > 0 && r.data[r.pos] == 0 {
+                r.pos += 1;
+            }
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op1_str2".into(), v)]
         }
         2 => {
-            let v = r.gjstr2();
+            if r.remaining() > 0 && r.data[r.pos] == 0 {
+                r.pos += 1;
+            }
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op2_str2".into(), v)]
         }
         3 => {
@@ -519,8 +390,8 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
             vals.push(count.to_string());
             for _ in 0..count {
                 vals.push(r.g2().to_string());
-                vals.push(r.g4().to_string());
-                vals.push(r.g4().to_string());
+                vals.push(r.g4s().to_string());
+                vals.push(r.g4s().to_string());
             }
             vec![("op3_counted_g2_g4_g4".into(), vals.join(","))]
         }
@@ -530,8 +401,8 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
             vals.push(count.to_string());
             for _ in 0..count {
                 vals.push(r.g2().to_string());
-                vals.push(r.g4().to_string());
-                vals.push(r.g4().to_string());
+                vals.push(r.g4s().to_string());
+                vals.push(r.g4s().to_string());
             }
             vec![("op4_counted_g2_g4_g4".into(), vals.join(","))]
         }
@@ -560,12 +431,12 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
             let mut vals = Vec::new();
             vals.push(count.to_string());
             for _ in 0..count {
-                vals.push(r.g4().to_string());
+                vals.push(r.g4s().to_string());
             }
             vec![("op10_counted_g4".into(), vals.join(","))]
         }
         12 => {
-            let v = r.g4();
+            let v = r.g4s();
             vec![("op12_g4".into(), v.to_string())]
         }
         13 => {
@@ -601,10 +472,10 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
             let mut vals = Vec::new();
             vals.push(count.to_string());
             for _ in 0..count {
-                vals.push(r.g4().to_string());
-                vals.push(r.g4().to_string());
-                vals.push(r.g4().to_string());
-                vals.push(escape_csv_comma(&r.gjstr()));
+                vals.push(r.g4s().to_string());
+                vals.push(r.g4s().to_string());
+                vals.push(r.g4s().to_string());
+                vals.push(escape_csv_comma(&r.gjstr(STRING_TERMINATOR)));
             }
             vec![("op18_counted_g4_g4_g4_str".into(), vals.join(","))]
         }
@@ -613,10 +484,10 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
             let mut vals = Vec::new();
             vals.push(count.to_string());
             for _ in 0..count {
-                vals.push(r.g4().to_string());
-                vals.push(r.g4().to_string());
-                vals.push(r.g4().to_string());
-                vals.push(escape_csv_comma(&r.gjstr()));
+                vals.push(r.g4s().to_string());
+                vals.push(r.g4s().to_string());
+                vals.push(r.g4s().to_string());
+                vals.push(escape_csv_comma(&r.gjstr(STRING_TERMINATOR)));
             }
             vec![("op19_counted_g4_g4_g4_str".into(), vals.join(","))]
         }
@@ -630,9 +501,9 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
                 vals.push(is_str.to_string());
                 vals.push(key.to_string());
                 if is_str == 1 {
-                    vals.push(escape_csv_comma(&r.gjstr()));
+                    vals.push(escape_csv_comma(&r.gjstr(STRING_TERMINATOR)));
                 } else {
-                    vals.push(r.g4().to_string());
+                    vals.push(r.g4s().to_string());
                 }
             }
             vec![("op249_params".into(), vals.join(","))]
@@ -643,9 +514,7 @@ fn decode_quest(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(St
     })
 }
 
-// ── MELType (group 36) ─────────────────────────────────────────────────
-
-fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_mel(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
             let v = r.g2();
@@ -656,7 +525,7 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             vec![("op2_g2".into(), v.to_string())]
         }
         3 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op3_str".into(), v)]
         }
         4 => {
@@ -682,28 +551,28 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
         9 => {
             let a = r.g2();
             let b = r.g2();
-            let c = r.g4();
-            let d = r.g4();
+            let c = r.g4s();
+            let d = r.g4s();
             vec![("op9_g2_g2_g4_g4".into(), format!("{a},{b},{c},{d}"))]
         }
         10 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op10_str".into(), v)]
         }
         11 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op11_str".into(), v)]
         }
         12 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op12_str".into(), v)]
         }
         13 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op13_str".into(), v)]
         }
         14 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op14_str".into(), v)]
         }
         15 => {
@@ -712,16 +581,16 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             let mut vals = Vec::new();
             vals.push(count.to_string());
             for _ in 0..(count as u16 * 2) {
-                vals.push(r.g2b().to_string());
+                vals.push(r.g2s().to_string());
             }
-            vals.push(r.g4().to_string());
+            vals.push(r.g4s().to_string());
             let count2 = r.g1();
             vals.push(count2.to_string());
             for _ in 0..count2 {
-                vals.push(r.g4().to_string());
+                vals.push(r.g4s().to_string());
             }
             for _ in 0..count {
-                vals.push(r.g1b().to_string());
+                vals.push(r.g1s().to_string());
             }
             vec![("op15_complex".into(), vals.join(","))]
         }
@@ -729,7 +598,7 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             vec![("op16_flag".into(), "yes".into())]
         }
         17 => {
-            let v = r.gjstr();
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op17_str".into(), v)]
         }
         18 => {
@@ -743,16 +612,16 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
         20 => {
             let a = r.g2();
             let b = r.g2();
-            let c = r.g4();
-            let d = r.g4();
+            let c = r.g4s();
+            let d = r.g4s();
             vec![("op20_g2_g2_g4_g4".into(), format!("{a},{b},{c},{d}"))]
         }
         21 => {
-            let v = r.g4();
+            let v = r.g4s();
             vec![("op21_g4".into(), v.to_string())]
         }
         22 => {
-            let v = r.g4();
+            let v = r.g4s();
             vec![("op22_g4".into(), v.to_string())]
         }
         23 => {
@@ -762,8 +631,8 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
             vec![("op23_g1_g1_g1".into(), format!("{a},{b},{c}"))]
         }
         24 => {
-            let a = r.g2b();
-            let b = r.g2b();
+            let a = r.g2s();
+            let b = r.g2s();
             vec![("op24_g2b_g2b".into(), format!("{a},{b}"))]
         }
         249 => {
@@ -776,9 +645,9 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
                 vals.push(is_str.to_string());
                 vals.push(key.to_string());
                 if is_str == 1 {
-                    vals.push(escape_csv_comma(&r.gjstr()));
+                    vals.push(escape_csv_comma(&r.gjstr(STRING_TERMINATOR)));
                 } else {
-                    vals.push(r.g4().to_string());
+                    vals.push(r.g4s().to_string());
                 }
             }
             vec![("op249_params".into(), vals.join(","))]
@@ -789,9 +658,7 @@ fn decode_mel(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(Stri
     })
 }
 
-// ── HitmarkType (group 46) ─────────────────────────────────────────────
-
-fn decode_hitmark(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_hitmark(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
             let v = r.g2();
@@ -818,11 +685,14 @@ fn decode_hitmark(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(
             vec![("op6_g2".into(), v.to_string())]
         }
         7 => {
-            let v = r.g2b();
+            let v = r.g2s();
             vec![("op7_g2b".into(), v.to_string())]
         }
         8 => {
-            let v = r.gjstr2();
+            if r.remaining() > 0 && r.data[r.pos] == 0 {
+                r.pos += 1;
+            }
+            let v = r.gjstr(STRING_TERMINATOR);
             vec![("op8_str2".into(), v)]
         }
         9 => {
@@ -830,7 +700,7 @@ fn decode_hitmark(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(
             vec![("op9_g2".into(), v.to_string())]
         }
         10 => {
-            let v = r.g2b();
+            let v = r.g2s();
             vec![("op10_g2b".into(), v.to_string())]
         }
         11 => {
@@ -842,7 +712,7 @@ fn decode_hitmark(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(
             vec![("op12_g1".into(), v.to_string())]
         }
         13 => {
-            let v = r.g2b();
+            let v = r.g2s();
             vec![("op13_g2b".into(), v.to_string())]
         }
         14 => {
@@ -855,16 +725,14 @@ fn decode_hitmark(group_id: u32, r: &mut ByteReader, opcode: u8) -> Result<Vec<(
     })
 }
 
-// ── VarClanSettingType (group 54) ───────────────────────────────────────
-
 fn decode_varclansetting(
     group_id: u32,
-    r: &mut ByteReader,
+    r: &mut Packet,
     opcode: u8,
 ) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
-            let v = r.g1b();
+            let v = r.g1s();
             vec![("op1_g1b".into(), v.to_string())]
         }
         2 => {
@@ -879,8 +747,6 @@ fn decode_varclansetting(
     })
 }
 
-// ─── Fallback for unrecognized opcodes ─────────────────────────────────
-
-fn emit_unknown_opcode(group_id: u32, _r: &mut ByteReader, opcode: u8) -> (String, String) {
+fn emit_unknown_opcode(group_id: u32, _r: &mut Packet, opcode: u8) -> (String, String) {
     panic!("group {group_id} unknown opcode {opcode} — add a decoder arm");
 }

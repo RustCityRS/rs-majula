@@ -241,8 +241,7 @@ pub struct LocTypeRaw {
     pub param_order: Vec<i32>,
     #[cfg_attr(since_647, serde(skip))]
     pub opcode_order: Vec<u8>,
-    #[cfg(since_647)]
-    #[serde(skip)]
+    #[cfg_attr(since_647, serde(skip))]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
@@ -381,7 +380,6 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             param_order: Vec::new(),
             opcode_order: Vec::new(),
-            #[cfg(since_647)]
             raw_opcodes: Vec::new(),
         }
     }
@@ -392,7 +390,6 @@ impl CacheType for LocTypeRaw {
             if code == 0 {
                 break;
             }
-            #[cfg(since_647)]
             let start = buf.pos;
             self.opcode_order.push(code);
             match code {
@@ -596,7 +593,6 @@ impl CacheType for LocTypeRaw {
                 250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("loc", code),
             }
-            #[cfg(since_647)]
             self.raw_opcodes
                 .push((code, buf.data[start..buf.pos].to_vec()));
         }

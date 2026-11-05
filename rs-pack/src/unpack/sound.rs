@@ -1,7 +1,6 @@
-use std::path::Path;
-
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use std::path::Path;
 use tracing::debug;
 
 pub(crate) fn known_hashes() -> Vec<i32> {

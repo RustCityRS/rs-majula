@@ -1,144 +1,141 @@
-use std::collections::HashMap;
-use std::io::Write;
-use std::path::Path;
-
-use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_io::Packet;
-use tracing::info;
-
+#[cfg(before_647)]
+use super::ModelCategory;
+use super::UnpackedPacks;
+#[cfg(since_647)]
+use super::order::decode_raw_params;
 use crate::cache::npc::NpcTypeRaw;
-use crate::cache::provider::CacheType;
-use crate::pack::pack_registry::PackRegistry;
+#[cfg(since_647)]
 use crate::types::ParamValue;
+use std::collections::HashMap;
 
-const ARCHIVE_NPCS: u8 = 18;
-const STRIDE_NPCS: u32 = 128;
-
-pub fn unpack_npcs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-    let group_count = store.group_count(ARCHIVE_NPCS).unwrap_or(0);
-
-    let out_path = output_dir.join("all.npc");
-    let mut file = std::fs::File::create(&out_path)?;
-
-    let mut seen: HashMap<String, u32> = HashMap::new();
-    let mut written = 0u32;
-
-    for group_id in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_NPCS, group_id)? else {
-            continue;
-        };
-
-        let mut sorted: Vec<&rs_dat2::Entry> = group.entries.iter().collect();
-        sorted.sort_by_key(|e| e.id);
-
-        for entry in sorted {
-            if entry.data.is_empty() {
-                continue;
-            }
-            let global_id = group_id * STRIDE_NPCS + entry.id;
-            let mut def = NpcTypeRaw::new(global_id as u16);
-            def.decode(&mut Packet::from(entry.data.to_vec()));
-
-            let base = registry
-                .npc
-                .get_by_id(global_id)
-                .map(|s| s.to_string())
-                .unwrap_or_else(|| format!("npc_{}", global_id));
-            let section = if seen.contains_key(&base) {
-                format!("{base}__{}", global_id)
-            } else {
-                base
-            };
-            seen.insert(section.clone(), global_id);
-
-            writeln!(file, "[{section}]")?;
-            for (k, v) in emit_npc_props(&def, registry) {
-                writeln!(file, "{k}={v}")?;
-            }
-            writeln!(file)?;
-            written += 1;
-        }
-    }
-
-    info!("  Wrote {written} npc configs to {}", out_path.display());
-    Ok(())
-}
-
-fn name_for_model(id: u16, registry: &PackRegistry) -> String {
+fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
     registry
-        .model
-        .get_by_id(id as u32)
+        .config_name("model", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("model_{id}_npc"))
 }
 
-fn name_for_head_model(id: u16, registry: &PackRegistry) -> String {
+fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
     registry
-        .model
-        .get_by_id(id as u32)
+        .config_name("model", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("model_{id}_npc_head"))
 }
 
-fn name_for_seq(id: i32, registry: &PackRegistry) -> String {
+#[cfg(since_647)]
+fn name_for_seq(id: i32, registry: &UnpackedPacks) -> String {
     if id < 0 {
         return id.to_string();
     }
     registry
-        .seq
-        .get_by_id(id as u32)
+        .config_name("seq", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("seq_{id}"))
 }
 
-fn name_for_varbit(id: i32, registry: &PackRegistry) -> String {
+#[cfg(since_647)]
+fn name_for_varbit(id: i32, registry: &UnpackedPacks) -> String {
     if id < 0 {
         return "null".to_string();
     }
     registry
-        .varbit
-        .get_by_id(id as u32)
+        .config_name("varbit", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("varbit_{id}"))
 }
 
-fn name_for_varp(id: i32, registry: &PackRegistry) -> String {
+#[cfg(since_647)]
+fn name_for_varp(id: i32, registry: &UnpackedPacks) -> String {
     if id < 0 {
         return "null".to_string();
     }
     registry
-        .varp
-        .get_by_id(id as u32)
+        .config_name("varp", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("varp_{id}"))
 }
 
-fn name_for_npc(id: i32, registry: &PackRegistry) -> String {
+#[cfg(since_647)]
+fn name_for_npc(id: i32, registry: &UnpackedPacks) -> String {
     if id < 0 {
         return "null".to_string();
     }
     registry
-        .npc
-        .get_by_id(id as u32)
+        .config_name("npc", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("npc_{id}"))
 }
 
-fn name_for_param(id: u32, registry: &PackRegistry) -> String {
+#[cfg(since_647)]
+fn name_for_param(id: u32, registry: &UnpackedPacks) -> String {
     registry
-        .param
-        .get_by_id(id)
+        .config_name("param", id)
         .map(|s| s.to_string())
         .unwrap_or_else(|| id.to_string())
 }
 
-/// Produce the (key, value) pairs for an NPC config's text representation.
-/// Opcodes are emitted in canonical ascending order matching the binary
-/// layout. Cross-references resolve through `registry`.
-pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_npc_props(
+    def: &NpcTypeRaw,
+    registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
+) -> Vec<(String, String)> {
+    #[cfg(before_647)]
+    if super::has_repeated_opcodes(&def.opcode_order) {
+        return super::emit_repeated::<NpcTypeRaw>(
+            def.id,
+            &def.raw_opcodes,
+            registry,
+            _reverse_hsl,
+            emit_npc_props,
+            false,
+            |value| {
+                value.opcode_order.clear();
+                value.raw_opcodes.clear();
+            },
+        );
+    }
     let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        for &id in def.models.as_deref().unwrap_or_default() {
+            super::model_ref(id, "npc", ModelCategory::Npc, registry);
+        }
+        for &id in def.heads.as_deref().unwrap_or_default() {
+            super::model_ref(id, "npc_head", ModelCategory::Npc, registry);
+        }
+        if let Some(desc) = &def.desc {
+            p.push((3, "desc".into(), desc.to_string()));
+        }
+        if let Some(anim) = def.readyanim {
+            p.push((13, "readyanim".into(), super::seq_ref(anim, registry)));
+        }
+        if let Some(anim) = def.walkanim {
+            let anim = super::seq_ref(anim, registry);
+            p.push((14, "walkanim".into(), anim.clone()));
+            if def.opcode_order.contains(&17) {
+                let anims = [
+                    anim,
+                    super::seq_ref(def.walkanim_b.unwrap_or(u16::MAX), registry),
+                    super::seq_ref(def.walkanim_r.unwrap_or(u16::MAX), registry),
+                    super::seq_ref(def.walkanim_l.unwrap_or(u16::MAX), registry),
+                ];
+                p.push((17, "walkanim".into(), anims.join(",")));
+            }
+        }
+        #[cfg(before_254)]
+        if def.hasalpha {
+            p.push((16, "hasalpha".into(), "yes".into()));
+        }
+        for (code, key, value) in [
+            (90, "resizex", def.resizex),
+            (91, "resizey", def.resizey),
+            (92, "resizez", def.resizez),
+        ] {
+            if let Some(value) = value {
+                p.push((code, key.into(), value.to_string()));
+            }
+        }
+    }
     if let Some(models) = &def.models {
         for (i, id) in models.iter().enumerate() {
             p.push((1, format!("model{}", i + 1), name_for_model(*id, registry)));
@@ -157,16 +154,34 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
     }
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
-            p.push((40, format!("recol{}s", i + 1), src[i].to_string()));
-            p.push((40, format!("recol{}d", i + 1), dst[i].to_string()));
+            p.push((
+                40,
+                format!("recol{}s", i + 1),
+                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+            ));
+            p.push((
+                40,
+                format!("recol{}d", i + 1),
+                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+            ));
         }
     }
+    #[cfg(since_647)]
     if let (Some(src), Some(dst)) = (&def.retex_s, &def.retex_d) {
         for i in 0..src.len() {
-            p.push((41, format!("retex{}s", i + 1), src[i].to_string()));
-            p.push((41, format!("retex{}d", i + 1), dst[i].to_string()));
+            p.push((
+                41,
+                format!("retex{}s", i + 1),
+                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+            ));
+            p.push((
+                41,
+                format!("retex{}d", i + 1),
+                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+            ));
         }
     }
+    #[cfg(since_647)]
     if let Some(palette) = &def.colour_palette {
         for (i, c) in palette.iter().enumerate() {
             p.push((42, format!("colour{}", i + 1), c.to_string()));
@@ -197,15 +212,19 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
     if def.opcode_order.contains(&98) || def.resizev != 128 {
         p.push((98, "resizev".into(), def.resizev.to_string()));
     }
+    #[cfg(since_244)]
     if def.alwaysontop {
         p.push((99, "alwaysontop".into(), "yes".into()));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&100) || def.ambient != 0 {
         p.push((100, "ambient".into(), def.ambient.to_string()));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&101) || def.contrast != 0 {
         p.push((101, "contrast".into(), def.contrast.to_string()));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&102) || def.headicon.is_some() {
         p.push((
             102,
@@ -213,9 +232,11 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             def.headicon.unwrap_or(0).to_string(),
         ));
     }
+    #[cfg(since_289)]
     if def.opcode_order.contains(&103) || def.turnspeed != 32 {
         p.push((103, "turnspeed".into(), def.turnspeed.to_string()));
     }
+    #[cfg(since_647)]
     if let Some(transforms) = &def.transforms {
         let op = if transforms.last().copied().unwrap_or(-1) != -1 {
             118
@@ -245,15 +266,19 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             p.push((op, format!("multi{}", i + 1), name_for_npc(*t, registry)));
         }
     }
+    #[cfg(since_647)]
     if !def.clickable {
         p.push((107, "clickable".into(), "no".into()));
     }
+    #[cfg(since_647)]
     if !def.slowwalk {
         p.push((109, "slowwalk".into(), "no".into()));
     }
+    #[cfg(since_647)]
     if !def.animateidle {
         p.push((111, "animateidle".into(), "no".into()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&113)
         || def.primary_shadow_colour != 0
         || def.secondary_shadow_colour != 0
@@ -267,6 +292,7 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             ),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&114)
         || def.primary_shadow_modifier != 0
         || def.secondary_shadow_modifier != 0
@@ -280,9 +306,11 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             ),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&119) || def.walkmask != 0 {
         p.push((119, "walkmask".into(), def.walkmask.to_string()));
     }
+    #[cfg(since_647)]
     if let Some(translations) = &def.translations {
         for (i, (idx, [x, y, z])) in translations.iter().enumerate() {
             p.push((
@@ -292,15 +320,19 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             ));
         }
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&122) || def.hitbar_sprite != -1 {
         p.push((122, "hitbar".into(), def.hitbar_sprite.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&123) || def.height != -1 {
         p.push((123, "height".into(), def.height.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&125) || def.respawn_direction != 0 {
         p.push((125, "respawndir".into(), def.respawn_direction.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&127) || def.render_emote != -1 {
         p.push((
             127,
@@ -308,9 +340,11 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             name_for_seq(def.render_emote, registry),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&128) || def.op128 != 0 {
         p.push((128, "unknown128".into(), def.op128.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&134)
         || def.idle_sound != -1
         || def.crawl_sound != -1
@@ -323,6 +357,7 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
         p.push((134, "runsound".into(), def.run_sound.to_string()));
         p.push((134, "sounddistance".into(), def.sound_distance.to_string()));
     }
+    #[cfg(since_647)]
     if def.primary_cursor != 0 || def.primary_cursor_op != 0 {
         p.push((
             135,
@@ -330,6 +365,7 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             format!("{},{}", def.primary_cursor_op, def.primary_cursor),
         ));
     }
+    #[cfg(since_647)]
     if def.secondary_cursor != 0 || def.secondary_cursor_op != 0 {
         p.push((
             136,
@@ -337,15 +373,19 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             format!("{},{}", def.secondary_cursor_op, def.secondary_cursor),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&137) || def.attack_cursor != -1 {
         p.push((137, "attackcursor".into(), def.attack_cursor.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&138) || def.army_icon != -1 {
         p.push((138, "armyicon".into(), def.army_icon.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&139) || def.sprite_id != -1 {
         p.push((139, "spriteid".into(), def.sprite_id.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&140) || def.ambient_sound_volume != 0 {
         p.push((
             140,
@@ -353,15 +393,19 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             def.ambient_sound_volume.to_string(),
         ));
     }
+    #[cfg(since_647)]
     if def.visible_priority {
         p.push((141, "visiblepriority".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&142) || def.mapfunction != -1 {
         p.push((142, "mapfunction".into(), def.mapfunction.to_string()));
     }
+    #[cfg(since_647)]
     if def.invisible_priority {
         p.push((143, "invisiblepriority".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     for (slot, opt) in def.members_op.iter().enumerate() {
         if let Some(text) = opt {
             p.push((
@@ -371,6 +415,7 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             ));
         }
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&155)
         || def.hue != 0
         || def.saturation != 0
@@ -386,6 +431,7 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             ),
         ));
     }
+    #[cfg(since_647)]
     if def.main_option_index != -1 {
         let op = if def.main_option_index == 1 { 158 } else { 159 };
         p.push((
@@ -394,17 +440,21 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             def.main_option_index.to_string(),
         ));
     }
+    #[cfg(since_647)]
     if let Some(campaigns) = &def.campaigns {
         for (i, v) in campaigns.iter().enumerate() {
             p.push((160, format!("campaign{}", i + 1), v.to_string()));
         }
     }
+    #[cfg(since_647)]
     if def.vorbis {
         p.push((162, "vorbis".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&163) || def.slayer_type != 0 {
         p.push((163, "slayertype".into(), def.slayer_type.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&164) || def.sound_rate_min != 0 || def.sound_rate_max != 0 {
         p.push((
             164,
@@ -412,12 +462,15 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             format!("{},{}", def.sound_rate_min, def.sound_rate_max),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&165) || def.pick_size_shift != 0 {
         p.push((165, "picksizeshift".into(), def.pick_size_shift.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&168) || def.sound_range_min != 0 {
         p.push((168, "soundrangemin".into(), def.sound_range_min.to_string()));
     }
+    #[cfg(since_647)]
     if let Some(params) = &def.params {
         // Decode all param entries from raw opcode data (preserves earlier
         // values for duplicate keys that were overwritten in the HashMap).
@@ -471,52 +524,17 @@ pub fn emit_npc_props(def: &NpcTypeRaw, registry: &PackRegistry) -> Vec<(String,
             }
         }
     }
-    super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_npc_raw)
+    #[cfg(since_647)]
+    {
+        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_npc_raw)
+    }
+    #[cfg(before_647)]
+    {
+        super::reorder_by_opcode(&def.opcode_order, p)
+    }
 }
 
-/// Decode all param entries from the raw op249 data, preserving order
-/// and individual values (even for duplicate keys that were overwritten
-/// in the HashMap during normal decode).
-fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<ParamValue> {
-    let Some((_, data)) = raw_opcodes.iter().find(|(op, _)| *op == 249) else {
-        return Vec::new();
-    };
-    if data.is_empty() {
-        return Vec::new();
-    }
-    let count = data[0] as usize;
-    let mut pos = 1;
-    let mut result = Vec::with_capacity(count);
-    for _ in 0..count {
-        if pos >= data.len() {
-            break;
-        }
-        let is_string = data[pos] == 1;
-        pos += 1;
-        // Skip key (3 bytes)
-        pos += 3;
-        if is_string {
-            // Read NUL-terminated string
-            let start = pos;
-            while pos < data.len() && data[pos] != 0 {
-                pos += 1;
-            }
-            let s = String::from_utf8_lossy(&data[start..pos]).to_string();
-            pos += 1; // skip NUL
-            result.push(ParamValue::String(s.into_boxed_str()));
-        } else {
-            if pos + 3 < data.len() {
-                let v =
-                    i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-                result.push(ParamValue::Int(v));
-            }
-            pos += 4;
-        }
-    }
-    result
-}
-
-/// Decode raw NPC opcode bytes back to a (key, value) text pair.
+#[cfg(since_647)]
 fn decode_npc_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
     let r_u16 = |pos: usize| -> u16 {
         if pos + 1 < raw.len() {

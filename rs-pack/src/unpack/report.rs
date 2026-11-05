@@ -1,9 +1,20 @@
-use std::collections::{BTreeMap, BTreeSet, HashSet};
-use std::fmt::{Display, Write as _};
-use std::path::{Path, PathBuf};
-
+#[cfg(since_647)]
+use anyhow::Result;
+#[cfg(before_647)]
 use rs_io::crc;
+#[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(before_647)]
+use std::collections::{BTreeMap, BTreeSet, HashSet};
+#[cfg(before_647)]
+use std::fmt::{Display, Write as _};
+#[cfg(since_647)]
+use std::path::Path;
+#[cfg(before_647)]
+use std::path::{Path, PathBuf};
+#[cfg(since_647)]
+use tracing::{error, info};
+#[cfg(before_647)]
 use tracing::{info, warn};
 
 pub struct RecordLeftover {
@@ -12,6 +23,7 @@ pub struct RecordLeftover {
     pub bytes: usize,
 }
 
+#[cfg(before_647)]
 struct ArchiveCrc {
     name: String,
     idx0_file: Option<usize>,
@@ -19,13 +31,14 @@ struct ArchiveCrc {
     expected: Option<i32>,
 }
 
+#[cfg(before_647)]
 struct ConfigCrc {
     name: String,
     computed: i32,
     expected: i32,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 struct Js5OndemandCrc {
     table: &'static str,
     id: usize,
@@ -34,6 +47,7 @@ struct Js5OndemandCrc {
     recomputed: Option<i32>,
 }
 
+#[cfg(before_647)]
 #[derive(Default)]
 pub struct CrcReport {
     archives: Vec<ArchiveCrc>,
@@ -42,6 +56,7 @@ pub struct CrcReport {
     js5_ondemand: Vec<Js5OndemandCrc>,
 }
 
+#[cfg(before_647)]
 impl CrcReport {
     pub fn new() -> Self {
         Self::default()
@@ -166,6 +181,7 @@ impl CrcReport {
     }
 }
 
+#[cfg(before_647)]
 struct UnknownJagFile {
     archive: String,
     id: usize,
@@ -176,7 +192,7 @@ struct UnknownJagFile {
     candidates: Vec<String>,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 struct Js5Unread {
     index: usize,
     file: usize,
@@ -184,6 +200,7 @@ struct Js5Unread {
     reason: &'static str,
 }
 
+#[cfg(before_647)]
 #[derive(Default)]
 pub struct LeftoverReport {
     unknown_jag: Vec<UnknownJagFile>,
@@ -195,6 +212,7 @@ pub struct LeftoverReport {
     extra_indices: Vec<usize>,
 }
 
+#[cfg(before_647)]
 impl LeftoverReport {
     pub fn new() -> Self {
         Self::default()
@@ -385,6 +403,7 @@ impl LeftoverReport {
     }
 }
 
+#[cfg(before_647)]
 pub struct PackDiffReport {
     committed_dir: PathBuf,
     unpacked_dir: PathBuf,
@@ -394,6 +413,7 @@ pub struct PackDiffReport {
     maps: Option<MapDiff>,
 }
 
+#[cfg(before_647)]
 struct PackFileDiff {
     name: String,
     is_new_file: bool,
@@ -401,11 +421,13 @@ struct PackFileDiff {
     removed: Vec<IdEntry>,
 }
 
+#[cfg(before_647)]
 struct IdEntry {
     id: String,
     name: String,
 }
 
+#[cfg(before_647)]
 struct MapDiff {
     unpacked_dir: PathBuf,
     added: Vec<(u8, u8)>,
@@ -413,6 +435,7 @@ struct MapDiff {
     unchanged: usize,
 }
 
+#[cfg(before_647)]
 impl MapDiff {
     fn has_delta(&self) -> bool {
         !self.added.is_empty() || !self.removed.is_empty()
@@ -434,6 +457,7 @@ impl MapDiff {
     }
 }
 
+#[cfg(before_647)]
 impl PackDiffReport {
     pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> std::io::Result<Self> {
         let committed = collect_pack_files(committed_dir)?;
@@ -640,6 +664,7 @@ impl PackDiffReport {
     }
 }
 
+#[cfg(before_647)]
 fn collect_pack_files(root: &Path) -> std::io::Result<BTreeMap<String, PathBuf>> {
     let mut files = BTreeMap::new();
     if root.exists() {
@@ -648,6 +673,7 @@ fn collect_pack_files(root: &Path) -> std::io::Result<BTreeMap<String, PathBuf>>
     Ok(files)
 }
 
+#[cfg(before_647)]
 fn collect_packs_into(
     root: &Path,
     dir: &Path,
@@ -666,6 +692,7 @@ fn collect_packs_into(
     Ok(())
 }
 
+#[cfg(before_647)]
 fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
     let text = std::fs::read_to_string(path)?;
     let mut map = BTreeMap::new();
@@ -677,10 +704,12 @@ fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
     Ok(map)
 }
 
+#[cfg(before_647)]
 fn id_key(id: &str) -> (i64, String) {
     (id.parse::<i64>().unwrap_or(i64::MAX), id.to_string())
 }
 
+#[cfg(before_647)]
 fn collect_map_squares(dir: &Path) -> std::io::Result<BTreeSet<(u8, u8)>> {
     let mut squares = BTreeSet::new();
     if dir.exists() {
@@ -698,6 +727,7 @@ fn collect_map_squares(dir: &Path) -> std::io::Result<BTreeSet<(u8, u8)>> {
     Ok(squares)
 }
 
+#[cfg(before_647)]
 fn parse_map_square(name: &str) -> Option<(u8, u8)> {
     let (x, z) = name
         .strip_suffix(".jm2")?
@@ -706,6 +736,7 @@ fn parse_map_square(name: &str) -> Option<(u8, u8)> {
     Some((x.parse().ok()?, z.parse().ok()?))
 }
 
+#[cfg(before_647)]
 fn unknown_row(
     archive: impl Display,
     id: impl Display,
@@ -717,6 +748,7 @@ fn unknown_row(
     format!("{archive:<16}{id:>6}{hash:>14}{packed:>11}{unpacked:>11}{crc:>16}\n")
 }
 
+#[cfg(before_647)]
 fn archive_crc_row(
     name: impl Display,
     idx0: impl Display,
@@ -727,6 +759,7 @@ fn archive_crc_row(
     format!("{name:<16}{idx0:<6}{cache:>11}{constant:>15}  {status}\n")
 }
 
+#[cfg(before_647)]
 fn config_crc_row(
     ty: impl Display,
     cache: impl Display,
@@ -736,7 +769,7 @@ fn config_crc_row(
     format!("{ty:<16}{cache:>11}{constant:>15}  {status}\n")
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn js5_ondemand_row(
     table: impl Display,
     id: impl Display,
@@ -748,15 +781,17 @@ fn js5_ondemand_row(
     format!("{table:<8}{id:<8}{version:<9}{listed:>11}{recomputed:>15}  {status}\n")
 }
 
+#[cfg(before_647)]
 fn dat_trailing_row(ty: impl Display, bytes: impl Display) -> String {
     format!("{ty:<16}{bytes}\n")
 }
 
+#[cfg(before_647)]
 fn record_trailing_row(ty: impl Display, id: impl Display, bytes: impl Display) -> String {
     format!("{ty:<16}{id:<8}{bytes}\n")
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn js5_unread_row(
     index: impl Display,
     file: impl Display,
@@ -766,6 +801,7 @@ fn js5_unread_row(
     format!("{index:<8}{file:<8}{size:<11}{reason}\n")
 }
 
+#[cfg(before_647)]
 fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     match expected {
         Some(e) if e == computed => ("OK", false),
@@ -774,7 +810,7 @@ fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     }
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn idx0_of(name: &str) -> Option<usize> {
     Some(match name {
         "title" => 1,
@@ -792,4 +828,65 @@ fn idx0_of(name: &str) -> Option<usize> {
 #[cfg(rev = "225")]
 fn idx0_of(_name: &str) -> Option<usize> {
     None
+}
+
+#[cfg(since_647)]
+/// One line per unpack step for the run report.
+pub(super) struct StepResult {
+    name: &'static str,
+    outcome: String,
+    ok: bool,
+}
+
+#[cfg(since_647)]
+/// Run one unpack step, recording success/failure without aborting the run.
+pub(super) fn step<F>(results: &mut Vec<StepResult>, name: &'static str, f: F)
+where
+    F: FnOnce() -> Result<String>,
+{
+    info!("Unpacking {name}...");
+    match f() {
+        Ok(outcome) => {
+            if !outcome.is_empty() {
+                info!("  {name}: {outcome}");
+            }
+            results.push(StepResult {
+                name,
+                outcome,
+                ok: true,
+            });
+        }
+        Err(e) => {
+            error!("  {name} FAILED: {e:#}");
+            results.push(StepResult {
+                name,
+                outcome: format!("ERROR: {e:#}"),
+                ok: false,
+            });
+        }
+    }
+}
+
+#[cfg(since_647)]
+pub(super) fn write_report(results: &[StepResult], report_path: &Path) -> Result<()> {
+    let mut report_text = String::from("rev-647 unpack report\n=====================\n");
+    let mut failures = 0usize;
+    for r in results {
+        if !r.ok {
+            failures += 1;
+        }
+        report_text.push_str(&format!(
+            "{} {:<24} {}\n",
+            if r.ok { "OK  " } else { "FAIL" },
+            r.name,
+            r.outcome
+        ));
+    }
+    report_text.push_str(&format!("\n{} steps, {} failed\n", results.len(), failures));
+    std::fs::write(report_path, &report_text)?;
+    info!("Unpack complete. Report: {}", report_path.display());
+    if failures > 0 {
+        error!("{failures} unpack steps failed — see report");
+    }
+    Ok(())
 }

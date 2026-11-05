@@ -1,16 +1,35 @@
-use std::collections::{HashMap, HashSet};
-use std::path::{Path, PathBuf};
-
+#[cfg(since_647)]
+use crate::interface_format::{self, INTERFACE_ARCHIVE, InterfaceGroupEntry, InterfaceManifest};
+#[cfg(before_647)]
+use crate::pack::pack_registry::PackRegistry;
+#[cfg(before_647)]
+use crate::pack::util::walk;
+#[cfg(before_647)]
+use crate::types::{Font, IfButtonType, IfComponentType, PlayerStat};
+#[cfg(before_647)]
 use anyhow::Result;
+#[cfg(since_647)]
+use anyhow::{Context, Result};
+#[cfg(since_647)]
+use rs_dat2::CacheStore;
+#[cfg(before_647)]
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(before_647)]
 use rs_ver::STRING_TERMINATOR;
+#[cfg(before_647)]
+use std::collections::{HashMap, HashSet};
+#[cfg(since_647)]
+use std::path::Path;
+#[cfg(before_647)]
+use std::path::{Path, PathBuf};
+#[cfg(since_647)]
+use tracing::info;
+#[cfg(before_647)]
 use tracing::{debug, warn};
 
-use crate::pack::pack_registry::PackRegistry;
-use crate::pack::util::walk;
-use crate::types::{Font, IfButtonType, IfComponentType, PlayerStat};
-
+#[cfg(before_647)]
 #[derive(Default)]
 struct Component {
     id: u16,
@@ -71,17 +90,20 @@ struct Component {
     option: String,
 }
 
+#[cfg(before_647)]
 impl Component {
     fn is_root(&self) -> bool {
         self.id as i32 == self.root_layer
     }
 }
 
+#[cfg(before_647)]
 struct Ctx<'a> {
     if_names: HashMap<u16, String>,
     registry: &'a PackRegistry,
 }
 
+#[cfg(before_647)]
 impl Ctx<'_> {
     fn iface(&self, id: u16) -> &str {
         self.if_names
@@ -132,6 +154,7 @@ impl Ctx<'_> {
     }
 }
 
+#[cfg(before_647)]
 fn read_optional_id(buf: &mut Packet) -> Option<u16> {
     let b = buf.g1();
     if b == 0 {
@@ -141,6 +164,7 @@ fn read_optional_id(buf: &mut Packet) -> Option<u16> {
     }
 }
 
+#[cfg(before_647)]
 fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
     let _count = buf.g2();
     let mut order: Vec<u16> = Vec::new();
@@ -299,6 +323,7 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
     (order, comps)
 }
 
+#[cfg(before_647)]
 fn build_names(
     order: &[u16],
     comps: &HashMap<u16, Component>,
@@ -354,6 +379,7 @@ fn build_names(
     names
 }
 
+#[cfg(before_647)]
 fn action_target_names(flags: u16) -> String {
     let mut targets = Vec::new();
     if flags & 0x1 != 0 {
@@ -374,18 +400,21 @@ fn action_target_names(flags: u16) -> String {
     targets.join(",")
 }
 
+#[cfg(before_647)]
 fn next_op(ops: &[u16], idx: &mut usize) -> u16 {
     let v = ops[*idx];
     *idx += 1;
     v
 }
 
+#[cfg(before_647)]
 fn stat_name(id: u16) -> &'static str {
     PlayerStat::try_from(id as u8)
         .expect("unknown player stat")
         .config_str()
 }
 
+#[cfg(before_647)]
 fn export_scripts(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
     for (i, ops) in com.scripts.iter().enumerate() {
         let j = i + 1;
@@ -449,6 +478,7 @@ fn export_scripts(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
     }
 }
 
+#[cfg(before_647)]
 fn export_comparators(lines: &mut Vec<String>, com: &Component) {
     for (i, &(comparator, operand)) in com.comparators.iter().enumerate() {
         let j = i + 1;
@@ -466,6 +496,7 @@ fn export_comparators(lines: &mut Vec<String>, com: &Component) {
     }
 }
 
+#[cfg(before_647)]
 fn export_component(
     lines: &mut Vec<String>,
     com: &Component,
@@ -544,6 +575,7 @@ fn export_component(
     }
 }
 
+#[cfg(before_647)]
 fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
     match com.com_type {
         0 => {
@@ -668,6 +700,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
     }
 }
 
+#[cfg(before_647)]
 fn export_colours(lines: &mut Vec<String>, com: &Component) {
     if com.colour != 0 {
         lines.push(format!("colour=0x{:06X}", com.colour));
@@ -684,6 +717,7 @@ fn export_colours(lines: &mut Vec<String>, com: &Component) {
     }
 }
 
+#[cfg(before_647)]
 fn export_options(lines: &mut Vec<String>, com: &Component) {
     for (i, iop) in com.iops.iter().enumerate() {
         if !iop.is_empty() {
@@ -692,6 +726,7 @@ fn export_options(lines: &mut Vec<String>, com: &Component) {
     }
 }
 
+#[cfg(before_647)]
 fn export_children(
     lines: &mut Vec<String>,
     parent_com: &Component,
@@ -712,6 +747,7 @@ fn export_children(
     }
 }
 
+#[cfg(before_647)]
 fn read_top_lines(path: &Path) -> Vec<String> {
     let Ok(text) = std::fs::read_to_string(path) else {
         return Vec::new();
@@ -729,6 +765,7 @@ fn read_top_lines(path: &Path) -> Vec<String> {
     top
 }
 
+#[cfg(before_647)]
 pub fn unpack_interface(
     jag: &JagFile,
     src_scripts_dir: &Path,
@@ -832,4 +869,92 @@ pub fn unpack_interface(
         out_scripts_dir.display()
     );
     Ok(())
+}
+
+#[cfg(since_647)]
+pub fn unpack_interfaces(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+    let if_dir = content_dir.join("interfaces").join("_unpack");
+    std::fs::create_dir_all(&if_dir)?;
+
+    let group_count = store.group_count(INTERFACE_ARCHIVE).unwrap_or(0);
+    let mut manifest = InterfaceManifest {
+        archive_id: INTERFACE_ARCHIVE,
+        groups: Vec::new(),
+    };
+    let mut written = 0u32;
+
+    for group_id in 0..group_count {
+        let Some(raw) = store.read_raw_group_bytes(INTERFACE_ARCHIVE, group_id)? else {
+            continue;
+        };
+        if raw.len() < 5 {
+            continue;
+        }
+
+        let comp_type = raw[0];
+        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
+        let header_size = if comp_type == 0 { 5 } else { 9 };
+        let decompressed_len = if comp_type != 0 && raw.len() >= 9 {
+            u32::from_be_bytes([raw[5], raw[6], raw[7], raw[8]])
+        } else {
+            compressed_len as u32
+        };
+        let container_end = header_size + compressed_len;
+        let version = if raw.len() >= container_end + 2 {
+            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
+        } else {
+            0
+        };
+        let crc = rs_io::crc::getcrc(&raw, 0, container_end.min(raw.len())) as u32;
+
+        let Some(group) = store
+            .read_group(INTERFACE_ARCHIVE, group_id)
+            .with_context(|| format!("read interface group {}", group_id))?
+        else {
+            continue;
+        };
+
+        let mut text = String::new();
+        let mut comp_count = 0u32;
+
+        for entry in &group.entries {
+            if entry.data.is_empty() {
+                continue;
+            }
+            let comp = interface_format::parse_component(&entry.data, group_id);
+            text.push_str(&interface_format::emit_component_text(&comp, entry.id));
+            text.push('\n');
+            comp_count += 1;
+        }
+
+        let file_name = format!("{}.if", group_id);
+        std::fs::write(if_dir.join(&file_name), &text)?;
+
+        manifest.groups.push(InterfaceGroupEntry {
+            group_id,
+            file_name,
+            compression: comp_type,
+            version,
+            compressed_len: compressed_len as u32,
+            decompressed_len,
+            crc,
+            component_count: comp_count,
+        });
+        written += 1;
+    }
+
+    let manifest_path = if_dir.join("manifest.json");
+    std::fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
+
+    info!(
+        "Interfaces unpacked: {} groups, {} total components",
+        written,
+        manifest
+            .groups
+            .iter()
+            .map(|g| g.component_count)
+            .sum::<u32>()
+    );
+
+    Ok(written)
 }

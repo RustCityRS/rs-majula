@@ -1,12 +1,7 @@
-//! Unpack particle emitter configs (archive 27) to text config format.
-//!
-//! Opcode-based format from `ParticleEmitterRaw.java` (34 opcodes).
-
-use std::io::Write;
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::io::Write;
+use std::path::Path;
 use tracing::{info, warn};
 
 const ARCHIVE_PARTICLES: u8 = 27;

@@ -1,103 +1,102 @@
-use std::collections::HashMap;
-use std::path::Path;
-
-use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_io::Packet;
-use tracing::info;
-
+use super::UnpackedPacks;
+#[cfg(since_647)]
+use super::order::decode_raw_params;
 use crate::cache::loc::LocTypeRaw;
-use crate::cache::provider::CacheType;
-use crate::pack::pack_registry::{PackFile, PackRegistry};
+#[cfg(since_647)]
 use crate::types::ParamValue;
+use std::collections::HashMap;
 
-const ARCHIVE_LOCS: u8 = 16;
-const LOC_STRIDE: u32 = 256;
-
-pub fn unpack_locs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-    let group_count = store.group_count(ARCHIVE_LOCS).unwrap_or(0);
-
-    let out_path = output_dir.join("all.loc");
-    let mut file = std::fs::File::create(&out_path)?;
-
-    let mut seen: HashMap<String, u32> = HashMap::new();
-    let mut written = 0u32;
-
-    for group_id in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_LOCS, group_id)? else {
-            continue;
-        };
-
-        // Sort entries by id within group for deterministic output.
-        let mut sorted: Vec<&rs_dat2::Entry> = group.entries.iter().collect();
-        sorted.sort_by_key(|e| e.id);
-
-        for entry in sorted {
-            if entry.data.is_empty() {
-                continue;
-            }
-            let global_id = group_id * LOC_STRIDE + entry.id;
-            let mut def = LocTypeRaw::new(global_id as u16);
-            def.decode(&mut Packet::from(entry.data.to_vec()));
-
-            let base = registry
-                .loc
-                .get_by_id(global_id)
-                .map(|s| s.to_string())
-                .unwrap_or_else(|| format!("loc_{}", global_id));
-            let section = if seen.contains_key(&base) {
-                format!("{base}__{}", global_id)
-            } else {
-                base
+pub fn emit_loc_props(
+    def: &LocTypeRaw,
+    registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
+) -> Vec<(String, String)> {
+    #[cfg(before_647)]
+    if super::has_repeated_opcodes(&def.opcode_order) {
+        return super::emit_repeated::<LocTypeRaw>(
+            def.id,
+            &def.raw_opcodes,
+            registry,
+            _reverse_hsl,
+            emit_loc_props,
+            true,
+            |value| {
+                value.opcode_order.clear();
+                value.raw_opcodes.clear();
+            },
+        );
+    }
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        if let Some(models) = &def.models {
+            let pairs = models
+                .iter()
+                .map(|model| (model.model, model.shape))
+                .collect::<Vec<_>>();
+            let mut models = Vec::new();
+            super::push_loc_model_refs(def.id, &pairs, registry, &mut models);
+            let code = if def.opcode_order.contains(&5) { 5 } else { 1 };
+            p.extend(models.into_iter().map(|(key, value)| (code, key, value)));
+        }
+        if let Some(desc) = &def.desc {
+            p.push((3, "desc".into(), desc.to_string()));
+        }
+        if let Some(value) = def.active {
+            p.push((
+                19,
+                "active".into(),
+                if value == 1 { "yes" } else { "no" }.into(),
+            ));
+        }
+        if def.hillskew == 1 {
+            p.push((21, "hillskew".into(), "yes".into()));
+        }
+        if let Some(value) = def.mapfunction {
+            p.push((60, "mapfunction".into(), value.to_string()));
+        }
+        if let Some(value) = def.mapscene {
+            p.push((68, "mapscene".into(), value.to_string()));
+        }
+        if def.opcode_order.contains(&69) {
+            let value = def.forceapproach as u8;
+            let dir = match value {
+                14 => "north",
+                13 => "east",
+                11 => "south",
+                7 => "west",
+                _ => panic!("Unrecognized loc config forceapproach flags: {value}"),
             };
-            seen.insert(section.clone(), global_id);
-
-            super::common::write_config_section(
-                &mut file,
-                &section,
-                emit_loc_props(&def, registry),
-            )?;
-            written += 1;
+            p.push((69, "forceapproach".into(), dir.into()));
+        }
+        #[cfg(since_254)]
+        if let Some(value) = def.raiseobject {
+            p.push((
+                75,
+                "raiseobject".into(),
+                if value == 1 { "yes" } else { "no" }.into(),
+            ));
+        }
+        #[cfg(since_289)]
+        if let Some(var) = def.multivar {
+            p.push((77, "multivar".into(), super::varbit_ref(var, registry)));
+            if let Some(locs) = &def.multiloc {
+                for (i, &loc) in locs.iter().enumerate() {
+                    if loc != -1 {
+                        p.push((
+                            77,
+                            "multiloc".into(),
+                            format!("{i},{}", super::loc_ref(loc as u16, registry)),
+                        ));
+                    }
+                }
+            }
         }
     }
 
-    info!("  Wrote {written} loc configs to {}", out_path.display());
-    Ok(())
-}
-
-/// Server-only keys for LOC configs. These fields exist only in the server
-/// stream and are NOT present in the original Jagex cache, so a decode of the
-/// cache cannot reproduce them. [`update_specific_loc_file`] keeps them
-/// verbatim when it refreshes an authored file's cache fields.
-///
-/// Note: `op1`-`op5` exist in the client cache as opcodes 30-34 and are
-/// emitted by `emit_loc_props`, so they are NOT server-only.
-const LOC_SERVER_ONLY_KEYS: &[&str] = &["param", "paramint", "paramstr", "category"];
-
-/// Update a specific `.loc` file in-place: regenerate client fields from the
-/// original cache while preserving server-only additions.
-pub fn update_specific_loc_file(
-    cache_dir: &Path,
-    registry: &PackRegistry,
-    file_path: &Path,
-) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-    super::common::update_specific_file::<LocTypeRaw, _, _>(
-        &mut store,
-        file_path,
-        ARCHIVE_LOCS,
-        LOC_STRIDE,
-        LOC_SERVER_ONLY_KEYS,
-        |name| registry.loc.get_by_debugname(name),
-        |def| emit_loc_props(def, registry),
-    )
-}
-
-pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
-    let mut p: Vec<(u8, String, String)> = Vec::new();
-
+    #[cfg(since_647)]
     let model_code = if def.hd_models.is_some() { 5 } else { 1 };
+    #[cfg(since_647)]
     for (prefix, models) in [
         (
             if model_code == 5 { "model_sd" } else { "model" },
@@ -122,67 +121,57 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    // Op 2: name
     if let Some(name) = &def.name {
         p.push((2, "name".into(), name.to_string()));
     }
 
-    // Op 14: width
     if def.opcode_order.contains(&14) || def.width != 1 {
         p.push((14, "width".into(), def.width.to_string()));
     }
 
-    // Op 15: length
     if def.opcode_order.contains(&15) || def.length != 1 {
         p.push((15, "length".into(), def.length.to_string()));
     }
 
-    // Op 17: blockwalk=no (also implies interact_type=0)
     if !def.blockwalk {
         p.push((17, "blockwalk".into(), "no".into()));
     }
 
-    // Op 18: blockrange=no
     if !def.blockrange {
         p.push((18, "blockrange".into(), "no".into()));
     }
 
-    // Op 19: active (default -1 before post_decode)
+    #[cfg(since_647)]
     if def.opcode_order.contains(&19) || def.active.is_some() {
         p.push((19, "active".into(), def.active.unwrap_or(0).to_string()));
     }
 
-    // Op 21: hillskew=yes (hillskew == 1)
+    #[cfg(since_647)]
     if def.hillskew == 1 {
         p.push((21, "hillskew".into(), "yes".into()));
     }
 
-    // Op 22: sharelight
     if def.sharelight {
         p.push((22, "sharelight".into(), "yes".into()));
     }
 
-    // Op 23: occlude (set true)
     if def.occlude {
         p.push((23, "occlude".into(), "yes".into()));
     }
 
-    // Op 24: anim
     if def.opcode_order.contains(&24) || def.anim.is_some() {
         let name = registry
-            .seq
-            .get_by_id(def.anim.unwrap_or(u16::MAX) as u32)
+            .config_name("seq", def.anim.unwrap_or(u16::MAX) as u32)
             .map(|s| s.to_string())
             .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(u16::MAX)));
         p.push((24, "anim".into(), name));
     }
 
-    // Op 25: hasalpha
     if def.hasalpha {
         p.push((25, "hasalpha".into(), "yes".into()));
     }
 
-    // Op 27: interact_type=1
+    #[cfg(since_647)]
     if def.interact_type == 1 {
         p.push((27, "interact_type1".into(), "yes".into()));
     }
@@ -191,12 +180,10 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         p.push((28, "wallwidth".into(), def.wallwidth.to_string()));
     }
 
-    // Op 29: ambient
     if def.opcode_order.contains(&29) || def.ambient != 0 {
         p.push((29, "ambient".into(), def.ambient.to_string()));
     }
 
-    // Op 30..34: op1..op5
     for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
         if let Some(text) = opt {
             p.push((30 + slot as u8, format!("op{}", slot + 1), text.to_string()));
@@ -207,7 +194,7 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         p.push((39, "contrast".into(), def.contrast.to_string()));
     }
 
-    // Op 40: recol
+    #[cfg(since_647)]
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
             p.push((40, format!("recol{}s", i + 1), src[i].to_string()));
@@ -215,7 +202,7 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    // Op 41: retex
+    #[cfg(since_647)]
     if let (Some(src), Some(dst)) = (&def.retex_s, &def.retex_d) {
         for i in 0..src.len() {
             p.push((41, format!("retex{}s", i + 1), src[i].to_string()));
@@ -223,39 +210,34 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    // Op 42: recolpalette
+    #[cfg(since_647)]
     if let Some(palette) = &def.recol_palette {
         for (i, b) in palette.iter().enumerate() {
             p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
         }
     }
 
-    // Op 62: mirror
     if def.mirror {
         p.push((62, "mirror".into(), "yes".into()));
     }
 
-    // Op 64: shadow=no (default is true)
     if !def.shadow {
         p.push((64, "shadow".into(), "no".into()));
     }
 
-    // Op 65: resizex
     if def.opcode_order.contains(&65) || def.resizex != 128 {
         p.push((65, "resizex".into(), def.resizex.to_string()));
     }
 
-    // Op 66: resizey
     if def.opcode_order.contains(&66) || def.resizey != 128 {
         p.push((66, "resizey".into(), def.resizey.to_string()));
     }
 
-    // Op 67: resizez
     if def.opcode_order.contains(&67) || def.resizez != 128 {
         p.push((67, "resizez".into(), def.resizez.to_string()));
     }
 
-    // Op 69: forceapproach
+    #[cfg(since_647)]
     if def.opcode_order.contains(&69) || def.forceapproach as u8 != 0 {
         p.push((
             69,
@@ -279,17 +261,16 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         p.push((72, "offsetz".into(), raw.to_string()));
     }
 
-    // Op 73: forcedecor
     if def.forcedecor {
         p.push((73, "forcedecor".into(), "yes".into()));
     }
 
-    // Op 74: breakroutefinding
+    #[cfg(since_245_2)]
     if def.breakroutefinding {
         p.push((74, "breakroutefinding".into(), "yes".into()));
     }
 
-    // Op 75: raiseobject
+    #[cfg(since_647)]
     if def.opcode_order.contains(&75) || def.raiseobject.is_some() {
         p.push((
             75,
@@ -298,8 +279,8 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 77/92: multiloc — all sub-fields must share ONE opcode tag
     // so reorder_by_opcode keeps them together.
+    #[cfg(since_647)]
     if let Some(multiloc) = &def.multiloc {
         let default_transform = *multiloc.last().unwrap_or(&-1);
         let entries = &multiloc[..multiloc.len().saturating_sub(1)];
@@ -308,46 +289,35 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         } else {
             77
         };
-        let name = |pack: &PackFile, prefix: &str, id: i32| {
+        let name = |prefix: &str, id: i32| {
             if id == -1 {
                 return "null".to_string();
             }
-            pack.get_by_id(id as u32)
-                .filter(|name| pack.get_by_debugname(name) == Some(id as u32))
+            registry
+                .config_name(prefix, id as u32)
+                .filter(|name| registry.config_id(prefix, name) == Some(id as u32))
                 .map(str::to_string)
                 .unwrap_or_else(|| format!("{prefix}_{id}"))
         };
         if def.transform_varbit != -1 {
-            p.push((
-                op,
-                "multivar".into(),
-                name(&registry.varbit, "varbit", def.transform_varbit),
-            ));
+            p.push((op, "multivar".into(), name("varbit", def.transform_varbit)));
         }
         if def.transform_varp != -1 {
-            p.push((
-                op,
-                "multivar".into(),
-                name(&registry.varp, "varp", def.transform_varp),
-            ));
+            p.push((op, "multivar".into(), name("varp", def.transform_varp)));
         }
         if op == 92 {
             p.push((
                 op,
                 "multiloc".into(),
-                format!("default,{}", name(&registry.loc, "loc", default_transform)),
+                format!("default,{}", name("loc", default_transform)),
             ));
         }
         for (i, t) in entries.iter().enumerate() {
-            p.push((
-                op,
-                "multiloc".into(),
-                format!("{i},{}", name(&registry.loc, "loc", *t)),
-            ));
+            p.push((op, "multiloc".into(), format!("{i},{}", name("loc", *t))));
         }
     }
 
-    // Op 78: ambient_sfx
+    #[cfg(since_647)]
     if def.opcode_order.contains(&78) || def.ambient_sfx_id != 0 {
         p.push((
             78,
@@ -356,7 +326,7 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 79: ambient_sfx_random
+    #[cfg(since_647)]
     if let Some(ids) = &def.sfx_random_ids {
         let id_str = ids
             .iter()
@@ -373,7 +343,7 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 81: hillskew_t2 (hillskew == 2, param = raw_byte * 256)
+    #[cfg(since_647)]
     if def.hillskew == 2 {
         p.push((
             81,
@@ -382,34 +352,33 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 82: hidden (hide_minimap)
+    #[cfg(since_647)]
     if def.hide_minimap {
         p.push((82, "hidden".into(), "yes".into()));
     }
 
-    // Op 88: nominimap_visible (minimap_visible default true, false = emit)
+    #[cfg(since_647)]
     if !def.minimap_visible {
         p.push((88, "nominimap_visible".into(), "yes".into()));
     }
 
-    // Op 89: noblocks_npcs (blocks_npcs default true, false = emit)
+    #[cfg(since_647)]
     if !def.blocks_npcs {
         p.push((89, "noblocks_npcs".into(), "yes".into()));
     }
 
-    // Op 90: unknown_90
+    #[cfg(since_647)]
     if def.unknown_90 {
         p.push((90, "op90".into(), "yes".into()));
     }
 
-    // Op 91: members_only
+    #[cfg(since_647)]
     if def.members_only {
         p.push((91, "members_only".into(), "yes".into()));
     }
 
-    // Op 93/162: hillskew_t3 (hillskew == 3)
-    // Op 93 stores g2 (u16), op 162 stores g4 (i32).
     // Disambiguate by range: if param fits in 0..65535, use t3_u16.
+    #[cfg(since_647)]
     if def.hillskew == 3 {
         if def.hillskew_param >= 0 && def.hillskew_param <= 65535 {
             p.push((93, "hillskew_t3_u16".into(), def.hillskew_param.to_string()));
@@ -422,38 +391,38 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    // Op 94: hillskew_t4 (hillskew == 4)
+    #[cfg(since_647)]
     if def.hillskew == 4 {
         p.push((94, "hillskew_t4".into(), "yes".into()));
     }
 
-    // Op 95: hillskew_t5 (hillskew == 5, param is signed → text is raw u16)
+    #[cfg(since_647)]
     if def.hillskew == 5 {
         let raw = (def.hillskew_param & 0xFFFF) as u16;
         p.push((95, "hillskew_t5".into(), raw.to_string()));
     }
 
-    // Op 97: unknown_97
+    #[cfg(since_647)]
     if def.unknown_97 {
         p.push((97, "op97".into(), "yes".into()));
     }
 
-    // Op 98: unknown_98
+    #[cfg(since_647)]
     if def.unknown_98 {
         p.push((98, "op98".into(), "yes".into()));
     }
 
-    // Op 99: cursor_op1
+    #[cfg(since_647)]
     if let Some((a, b)) = def.cursor_op1 {
         p.push((99, "cursor1".into(), format!("{},{}", a, b)));
     }
 
-    // Op 100: cursor_op2
+    #[cfg(since_647)]
     if let Some((a, b)) = def.cursor_op2 {
         p.push((100, "cursor2".into(), format!("{},{}", a, b)));
     }
 
-    // Op 101: mapfunction
+    #[cfg(since_647)]
     if def.opcode_order.contains(&101) || def.mapfunction.unwrap_or(0) != 0 {
         p.push((
             101,
@@ -462,17 +431,17 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 102: msi_id (map scene icon — client-only minimap icon frame)
+    #[cfg(since_647)]
     if def.opcode_order.contains(&102) || def.msi_id != -1 {
         p.push((102, "msi_id".into(), def.msi_id.to_string()));
     }
 
-    // Op 103: occlude_off — preserve when original binary had it
+    #[cfg(since_647)]
     if def.opcode_order.contains(&103) {
         p.push((103, "occlude_off".into(), "yes".into()));
     }
 
-    // Op 104: interaction_side_flags
+    #[cfg(since_647)]
     if def.opcode_order.contains(&104) || def.interaction_side_flags != 255 {
         p.push((
             104,
@@ -481,17 +450,16 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 105: unknown_105
+    #[cfg(since_647)]
     if def.unknown_105 {
         p.push((105, "op105".into(), "yes".into()));
     }
 
-    // Op 106: random_anims
+    #[cfg(since_647)]
     if let (Some(ids), Some(weights)) = (&def.random_anim_ids, &def.random_anim_weights) {
         for (i, (id, w)) in ids.iter().zip(weights.iter()).enumerate() {
             let name = registry
-                .seq
-                .get_by_id(*id as u32)
+                .config_name("seq", *id as u32)
                 .map(|s| s.to_string())
                 .unwrap_or_else(|| format!("seq_{id}"));
             p.push((
@@ -502,12 +470,12 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    // Op 107: map_element
+    #[cfg(since_647)]
     if def.opcode_order.contains(&107) || def.map_element != -1 {
         p.push((107, "mapelement".into(), def.map_element.to_string()));
     }
 
-    // Op 150..154: members_op1..5
+    #[cfg(since_647)]
     for (slot, opt) in def.members_op.iter().enumerate() {
         if let Some(text) = opt {
             p.push((
@@ -518,14 +486,14 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    // Op 160: quests
+    #[cfg(since_647)]
     if let Some(quests) = &def.quest_ids {
         for (i, q) in quests.iter().enumerate() {
             p.push((160, format!("quest{}", i + 1), q.to_string()));
         }
     }
 
-    // Op 163: op163
+    #[cfg(since_647)]
     if def.opcode_order.contains(&163) || def.op163 != [0; 4] {
         p.push((
             163,
@@ -537,47 +505,47 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 164: op164
+    #[cfg(since_647)]
     if def.opcode_order.contains(&164) || def.op164 != 0 {
         p.push((164, "op164".into(), def.op164.to_string()));
     }
 
-    // Op 165: op165
+    #[cfg(since_647)]
     if def.opcode_order.contains(&165) || def.op165 != 0 {
         p.push((165, "op165".into(), def.op165.to_string()));
     }
 
-    // Op 166: op166
+    #[cfg(since_647)]
     if def.opcode_order.contains(&166) || def.op166 != 0 {
         p.push((166, "op166".into(), def.op166.to_string()));
     }
 
-    // Op 167: op167
+    #[cfg(since_647)]
     if def.opcode_order.contains(&167) || def.op167 != 0 {
         p.push((167, "op167".into(), def.op167.to_string()));
     }
 
-    // Op 168: unknown_168
+    #[cfg(since_647)]
     if def.unknown_168 {
         p.push((168, "op168".into(), "yes".into()));
     }
 
-    // Op 169: unknown_169
+    #[cfg(since_647)]
     if def.unknown_169 {
         p.push((169, "op169".into(), "yes".into()));
     }
 
-    // Op 170: op170
+    #[cfg(since_647)]
     if def.opcode_order.contains(&170) || def.op170 != 0 {
         p.push((170, "op170".into(), def.op170.to_string()));
     }
 
-    // Op 171: op171
+    #[cfg(since_647)]
     if def.opcode_order.contains(&171) || def.op171 != 0 {
         p.push((171, "op171".into(), def.op171.to_string()));
     }
 
-    // Op 173: op173
+    #[cfg(since_647)]
     if def.opcode_order.contains(&173) || def.op173 != (0, 0) {
         p.push((
             173,
@@ -586,23 +554,22 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
 
-    // Op 177: unknown_177
+    #[cfg(since_647)]
     if def.unknown_177 {
         p.push((177, "op177".into(), "yes".into()));
     }
 
-    // Op 178: op178
+    #[cfg(since_647)]
     if def.opcode_order.contains(&178) || def.op178 != 0 {
         p.push((178, "op178".into(), def.op178.to_string()));
     }
 
-    // Op 249: params
+    #[cfg(since_647)]
     if let Some(params) = &def.params {
         let raw_param_values = decode_raw_params(&def.raw_opcodes);
         let param_name = |k: i32| -> String {
             registry
-                .param
-                .get_by_id(k as u32)
+                .config_name("param", k as u32)
                 .map(|s| s.to_string())
                 .unwrap_or_else(|| k.to_string())
         };
@@ -655,48 +622,53 @@ pub fn emit_loc_props(def: &LocTypeRaw, registry: &PackRegistry) -> Vec<(String,
         }
     }
 
-    super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_loc_raw)
+    #[cfg(since_647)]
+    {
+        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_loc_raw)
+    }
+    #[cfg(before_647)]
+    {
+        let mut props = super::reorder_by_opcode(&def.opcode_order, p);
+        let model_ids = def
+            .models
+            .as_deref()
+            .unwrap_or_default()
+            .iter()
+            .map(|m| m.model)
+            .collect::<Vec<_>>();
+        if def.opcode_order.contains(&40)
+            && let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d)
+        {
+            for (i, (&s, &d)) in src.iter().zip(dst.iter()).enumerate() {
+                let idx = i + 1;
+                let s_rgb = _reverse_hsl.get(&s);
+                let d_rgb = _reverse_hsl.get(&d);
+                if s >= 100 || d >= 100 {
+                    props.push((
+                        format!("recol{idx}s"),
+                        s_rgb.copied().unwrap_or(s).to_string(),
+                    ));
+                    props.push((
+                        format!("recol{idx}d"),
+                        d_rgb.copied().unwrap_or(d).to_string(),
+                    ));
+                } else if s_rgb.is_none()
+                    || d_rgb.is_none()
+                    || super::models_have_texture(&model_ids, s, &registry.model_textures)
+                {
+                    props.push((format!("retex{idx}s"), super::texture_ref(s, registry)));
+                    props.push((format!("retex{idx}d"), super::texture_ref(d, registry)));
+                } else {
+                    props.push((format!("recol{idx}s"), s_rgb.copied().unwrap().to_string()));
+                    props.push((format!("recol{idx}d"), d_rgb.copied().unwrap().to_string()));
+                }
+            }
+        }
+        props
+    }
 }
 
-/// Decode all param entries from the raw op249 data.
-fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<ParamValue> {
-    let Some((_, data)) = raw_opcodes.iter().find(|(op, _)| *op == 249) else {
-        return Vec::new();
-    };
-    if data.is_empty() {
-        return Vec::new();
-    }
-    let count = data[0] as usize;
-    let mut pos = 1;
-    let mut result = Vec::with_capacity(count);
-    for _ in 0..count {
-        if pos >= data.len() {
-            break;
-        }
-        let is_string = data[pos] == 1;
-        pos += 1;
-        pos += 3; // skip key
-        if is_string {
-            let start = pos;
-            while pos < data.len() && data[pos] != 0 {
-                pos += 1;
-            }
-            let s = String::from_utf8_lossy(&data[start..pos]).to_string();
-            pos += 1;
-            result.push(ParamValue::String(s.into_boxed_str()));
-        } else {
-            if pos + 3 < data.len() {
-                let v =
-                    i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-                result.push(ParamValue::Int(v));
-            }
-            pos += 4;
-        }
-    }
-    result
-}
-
-/// Decode raw LOC opcode bytes back to a (key, value) text pair.
+#[cfg(since_647)]
 fn decode_loc_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
     let r_u16 = |pos: usize| -> u16 {
         if pos + 1 < raw.len() {

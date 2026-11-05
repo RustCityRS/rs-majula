@@ -1,100 +1,57 @@
-use std::collections::HashMap;
-use std::io::Write;
-use std::path::Path;
-
-use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_io::Packet;
-use tracing::info;
-
-use crate::cache::provider::CacheType;
+#[cfg(before_647)]
+use super::ModelCategory;
+use super::UnpackedPacks;
 use crate::cache::spotanim::SpotAnimTypeRaw;
-use crate::pack::pack_registry::PackRegistry;
-
-const ARCHIVE_SPOTANIM: u8 = 21;
-const STRIDE_SPOTANIM: u32 = 256;
-
-pub fn unpack_spotanims(
-    cache_dir: &Path,
-    registry: &PackRegistry,
-    output_dir: &Path,
-) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-    let group_count = store.group_count(ARCHIVE_SPOTANIM).unwrap_or(0);
-
-    let out_path = output_dir.join("all.spotanim");
-    let mut file = std::fs::File::create(&out_path)?;
-
-    let mut seen: HashMap<String, u32> = HashMap::new();
-    let mut written = 0u32;
-
-    for gid in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_SPOTANIM, gid)? else {
-            continue;
-        };
-
-        // Sort entries by id for deterministic output within a group.
-        let mut sorted: Vec<&rs_dat2::Entry> = group.entries.iter().collect();
-        sorted.sort_by_key(|e| e.id);
-
-        for entry in sorted {
-            if entry.data.is_empty() {
-                continue;
-            }
-            let global_id = gid * STRIDE_SPOTANIM + entry.id;
-            let mut def = SpotAnimTypeRaw::new(global_id as u16);
-            let mut buf = Packet::from(entry.data.to_vec());
-            def.decode(&mut buf);
-
-            let base = registry
-                .spotanim
-                .get_by_id(global_id)
-                .map(|s| s.to_string())
-                .unwrap_or_else(|| format!("spotanim_{global_id}"));
-            let section = if seen.contains_key(&base) {
-                format!("{base}__{global_id}")
-            } else {
-                base
-            };
-            seen.insert(section.clone(), global_id);
-
-            writeln!(file, "[{section}]")?;
-            for (k, v) in emit_spotanim_props(&def, registry) {
-                writeln!(file, "{k}={v}")?;
-            }
-            writeln!(file)?;
-            written += 1;
-        }
-    }
-
-    info!(
-        "  Wrote {written} spotanim configs to {}",
-        out_path.display()
-    );
-    Ok(())
-}
+use std::collections::HashMap;
 
 pub fn emit_spotanim_props(
     def: &SpotAnimTypeRaw,
-    registry: &PackRegistry,
+    registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
+    #[cfg(since_647)]
     let recol_s = def.recol_s.as_deref().unwrap_or_default();
+    #[cfg(since_647)]
     let recol_d = def.recol_d.as_deref().unwrap_or_default();
+    #[cfg(since_647)]
     let retex_s = def.retex_s.as_deref().unwrap_or_default();
+    #[cfg(since_647)]
     let retex_d = def.retex_d.as_deref().unwrap_or_default();
     let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        if def.opcode_order.contains(&1) {
+            super::model_ref(def.model, "spotanim", ModelCategory::Spotanim, registry);
+        }
+        if def.hasalpha {
+            p.push((3, "hasalpha".into(), "yes".into()));
+        }
+        for (base, suffix, colours) in [(40, "s", &def.recol_s), (50, "d", &def.recol_d)] {
+            if let Some(colours) = colours {
+                for (slot, &colour) in colours.iter().enumerate() {
+                    p.push((
+                        base + slot as u8,
+                        format!("recol{}{suffix}", slot + 1),
+                        _reverse_hsl
+                            .get(&colour)
+                            .copied()
+                            .unwrap_or(colour)
+                            .to_string(),
+                    ));
+                }
+            }
+        }
+    }
     if def.opcode_order.contains(&1) {
         let name = registry
-            .model
-            .get_by_id(def.model as u32)
+            .config_name("model", def.model as u32)
             .map(|s| s.to_string())
             .unwrap_or_else(|| format!("model_{}", def.model));
         p.push((1, "model".into(), name));
     }
     if let Some(anim) = def.anim {
         let name = registry
-            .seq
-            .get_by_id(anim as u32)
+            .config_name("seq", anim as u32)
             .map(|s| s.to_string())
             .unwrap_or_else(|| format!("seq_{}", anim));
         p.push((2, "anim".into(), name));
@@ -114,30 +71,39 @@ pub fn emit_spotanim_props(
     if def.opcode_order.contains(&8) || def.contrast != 0 {
         p.push((8, "contrast".into(), def.contrast.to_string()));
     }
+    #[cfg(since_647)]
     if def.op9 {
         p.push((9, "op9_animmode3_param8224".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.op10 {
         p.push((10, "op10_flag".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.op11 {
         p.push((11, "op11_animmode1".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.op12 {
         p.push((12, "op12_animmode4".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.op13 {
         p.push((13, "op13_animmode5".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&14) {
         p.push((14, "op14_animmode2_u8".into(), def.op14.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&15) {
         p.push((15, "op15_animmode3_u16".into(), def.op15.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&16) {
         p.push((16, "op16_animmode3_i32".into(), def.op16.to_string()));
     }
+    #[cfg(since_647)]
     if !recol_d.is_empty() {
         for i in 0..recol_d.len() {
             let n = i + 1;
@@ -145,6 +111,7 @@ pub fn emit_spotanim_props(
             p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
         }
     }
+    #[cfg(since_647)]
     if !retex_d.is_empty() {
         for i in 0..retex_d.len() {
             let n = i + 1;

@@ -1,12 +1,13 @@
+use super::config::{
+    UnpackedPacks, build_reverse_hsl_table, config_decoders, decode_records, read_entries,
+};
+use crate::pack::pack_registry::PackedFile;
 use rs_io::jag::JagFile;
 use std::collections::{HashMap, HashSet};
 use std::fmt::Write as _;
 use std::path::Path;
 use std::rc::Rc;
 use tracing::{info, warn};
-
-use super::config::{UnpackedPacks, build_reverse_hsl_table, config_decoders, read_entries};
-use crate::pack::pack_registry::PackedFile;
 
 const MAX_ENTITIES_PER_TYPE: usize = 500;
 const MAX_PROP_LINES: usize = 40;
@@ -66,27 +67,29 @@ impl ConfigDiffReport {
             cache_packs.existing_model_names = names_seed.existing_model_names.clone();
             cache_packs.existing_config_names = names_seed.existing_config_names.clone();
             cache_packs.model_textures = model_textures.clone();
-            let cache_props = into_map(decoder(
-                &cache_dat.data,
-                &cache_idx.data,
+            let cache_props = into_map(decode_records(
+                name,
+                read_entries(&cache_dat.data, &cache_idx.data),
                 &reverse_hsl,
                 &mut cache_packs,
+                decoder,
             ));
             let mut content_packs = UnpackedPacks::new();
             content_packs.existing_model_names = names_seed.existing_model_names.clone();
             content_packs.existing_config_names = names_seed.existing_config_names.clone();
             content_packs.model_textures = model_textures.clone();
-            let content_props = into_map(decoder(
-                &client.dat,
-                &client.idx,
+            let content_props = into_map(decode_records(
+                name,
+                read_entries(&client.dat, &client.idx),
                 &reverse_hsl,
                 &mut content_packs,
+                decoder,
             ));
 
             let names = names_seed
                 .existing_config_names
                 .get(name)
-                .cloned()
+                .map(|pack| pack.id_to_debugname.clone())
                 .unwrap_or_default();
             let cache_b: HashMap<u16, &Vec<u8>> =
                 cache_bytes.iter().map(|(i, b)| (*i, b)).collect();

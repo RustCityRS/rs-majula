@@ -1,12 +1,26 @@
-use std::path::Path;
-
-#[cfg(since_244)]
+#[cfg(since_647)]
+use crate::asset_roundtrip::{AssetManifest, GroupEntry};
+#[cfg(since_647)]
+use crate::pack::pack_registry::PackFile;
+#[cfg(since_647)]
+use crate::repack::midi::decode_jagex_midi;
+#[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
+#[cfg(since_647)]
+use anyhow::Result;
+#[cfg(since_647)]
+use rs_dat2::CacheStore;
+#[cfg(before_647)]
 use rs_io::bz2::bz2_decompress;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use rs_io::js5::Js5Store;
+use std::path::Path;
+#[cfg(before_647)]
 use tracing::debug;
+#[cfg(since_647)]
+use tracing::{info, warn};
 
+#[cfg(before_647)]
 pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let out_dir = output_dir.join("songs");
     std::fs::create_dir_all(&out_dir)?;
@@ -50,6 +64,7 @@ pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
+#[cfg(before_647)]
 fn key_to_filename(key: &str) -> String {
     if key.len() < 12
         && let Some(stem) = key.strip_suffix("_mid")
@@ -59,7 +74,7 @@ fn key_to_filename(key: &str) -> String {
     format!("{key}.mid")
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 pub fn unpack_midi(
     cache: &Js5Store,
     version_list: &VersionList,
@@ -101,4 +116,122 @@ pub fn unpack_midi(
     std::fs::write(pack_dir.join("midi.pack"), pack_lines.join("\n") + "\n")?;
     debug!("Unpacked {songs} songs + {jingles} jingles");
     Ok(())
+}
+
+#[cfg(since_647)]
+const ARCHIVE_SONGS: u8 = 6;
+
+#[cfg(since_647)]
+pub fn unpack_songs(store: &mut CacheStore, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
+    let song_pack = PackFile::load(&pack_dir.join("song.pack")).ok();
+    unpack_midi_archive(
+        store,
+        ARCHIVE_SONGS,
+        "songs",
+        "mid",
+        content_dir,
+        song_pack.as_ref(),
+    )
+}
+
+#[cfg(since_647)]
+fn unpack_midi_archive(
+    store: &mut CacheStore,
+    archive_id: u8,
+    dir_name: &str,
+    extension: &str,
+    content_dir: &Path,
+    pack: Option<&PackFile>,
+) -> Result<u32> {
+    let archive_dir = content_dir.join(dir_name).join("_unpack");
+    std::fs::create_dir_all(&archive_dir)?;
+
+    let group_count = store.group_count(archive_id).unwrap_or(0);
+    let mut manifest = AssetManifest {
+        archive_id,
+        archive_name: dir_name.to_string(),
+        file_extension: extension.to_string(),
+        groups: Vec::new(),
+    };
+
+    let mut written = 0u32;
+    let mut failed = 0u32;
+
+    for gid in 0..group_count {
+        let Some(raw) = store.read_raw_group_bytes(archive_id, gid)? else {
+            continue;
+        };
+        if raw.len() < 5 {
+            continue;
+        }
+
+        let comp_type = raw[0];
+        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
+        let header_size = if comp_type == 0 { 5 } else { 9 };
+        let decompressed_len_raw = if comp_type != 0 && raw.len() >= 9 {
+            u32::from_be_bytes([raw[5], raw[6], raw[7], raw[8]])
+        } else {
+            compressed_len as u32
+        };
+        let container_end = header_size + compressed_len;
+        let version = if raw.len() >= container_end + 2 {
+            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
+        } else {
+            0
+        };
+        let crc = rs_io::crc::getcrc(&raw, 0, container_end.min(raw.len())) as u32;
+
+        let decompressed = match rs_dat2::compression::decompress(&raw) {
+            Ok(d) => d,
+            Err(e) => {
+                warn!(
+                    "archive {} group {}: decompress failed ({})",
+                    archive_id, gid, e
+                );
+                failed += 1;
+                continue;
+            }
+        };
+
+        let midi_bytes = match decode_jagex_midi(&decompressed) {
+            Ok(m) => m,
+            Err(e) => {
+                warn!(
+                    "archive {} group {}: MIDI decode failed ({})",
+                    archive_id, gid, e
+                );
+                failed += 1;
+                continue;
+            }
+        };
+
+        let name = pack
+            .and_then(|p| p.get_by_id(gid).map(|s| s.to_string()))
+            .unwrap_or_else(|| gid.to_string());
+        let path = archive_dir.join(format!("{}.{}", name, extension));
+        std::fs::write(&path, &midi_bytes)?;
+
+        manifest.groups.push(GroupEntry {
+            group_id: gid,
+            file_name: Some(format!("{}.{}", name, extension)),
+            file_extension: None,
+            compression: comp_type,
+            version,
+            compressed_len: compressed_len as u32,
+            decompressed_len: decompressed_len_raw,
+            crc,
+            name_hash: None,
+            file_ids: None,
+        });
+        written += 1;
+    }
+
+    let manifest_path = archive_dir.join("manifest.json");
+    std::fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
+
+    if failed > 0 {
+        warn!("  {} groups failed to decode", failed);
+    }
+    info!("  {} {} decoded to standard MIDI", written, dir_name);
+    Ok(written)
 }

@@ -1,8 +1,7 @@
-﻿use std::path::Path;
-
 use crate::types::Font;
 use crate::unpack;
 use rs_io::jag::JagFile;
+use std::path::Path;
 use tracing::debug;
 
 const TITLE_NAMES: &[&str] = &[

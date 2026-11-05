@@ -1,15 +1,29 @@
-#[cfg(rev = "225")]
-use std::collections::{HashMap, HashSet};
-use std::path::Path;
-
-#[cfg(since_244)]
+#[cfg(since_647)]
+use crate::map_format::{
+    self, MAP_ARCHIVE, MapGroupEntry, MapManifest, emit_landscape_text, emit_terrain_text,
+    parse_landscape_binary,
+};
+#[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
+#[cfg(since_647)]
+use anyhow::Result;
+#[cfg(since_647)]
+use rs_dat2::CacheStore;
+#[cfg(since_647)]
+use rs_dat2::xtea::java_string_hash;
+#[cfg(before_647)]
 use rs_io::Packet;
 #[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use rs_io::js5::Js5Store;
+#[cfg(rev = "225")]
+use std::collections::{HashMap, HashSet};
+use std::path::Path;
+#[cfg(before_647)]
 use tracing::debug;
+#[cfg(since_647)]
+use tracing::{info, warn};
 
 #[cfg(rev = "225")]
 pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
@@ -116,7 +130,7 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 pub fn unpack_maps(
     cache: &Js5Store,
     version_list: &VersionList,
@@ -156,6 +170,7 @@ pub fn unpack_maps(
     Ok(())
 }
 
+#[cfg(before_647)]
 fn decode_terrain(data: &[u8], lines: &mut Vec<String>) {
     let mut buf = Packet::from(data.to_vec());
 
@@ -208,6 +223,7 @@ fn decode_terrain(data: &[u8], lines: &mut Vec<String>) {
     }
 }
 
+#[cfg(before_647)]
 fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
     let mut buf = Packet::from(data.to_vec());
     let mut loc_id: i32 = -1;
@@ -242,4 +258,202 @@ fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
             }
         }
     }
+}
+
+#[cfg(since_647)]
+pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path) -> Result<u32> {
+    let map_dir = content_dir.join("maps").join("_unpack");
+    std::fs::create_dir_all(&map_dir)?;
+
+    let name_lookup = map_format::build_name_lookup();
+    // XTEA map keys: prefer the committed content/<REV>/keys.json, fall back
+    // to a keys.json sitting next to the raw cache (OpenRS2 download layout).
+    let content_keys = Path::new(crate::CONTENT_DIR).join("keys.json");
+    let cache_keys = cache_dir.join("keys.json");
+    let keys_path = if content_keys.exists() {
+        content_keys
+    } else {
+        cache_keys
+    };
+    let xtea_keys = if keys_path.exists() {
+        map_format::load_xtea_keys(&keys_path)?
+    } else {
+        warn!(
+            "No keys.json found at {}, landscape groups will be opaque",
+            keys_path.display()
+        );
+        std::collections::HashMap::new()
+    };
+
+    let group_count = store.group_count(MAP_ARCHIVE).unwrap_or(0);
+
+    let ref_table = store.reference_table(MAP_ARCHIVE);
+    let ref_groups: Vec<_> = ref_table.map(|t| t.groups.clone()).unwrap_or_default();
+
+    let mut manifest = MapManifest {
+        archive_id: MAP_ARCHIVE,
+        groups: Vec::new(),
+    };
+
+    let mut written = 0u32;
+
+    for gid in 0..group_count {
+        let Some(raw) = store.read_raw_group_bytes(MAP_ARCHIVE, gid)? else {
+            continue;
+        };
+        if raw.len() < 5 {
+            continue;
+        }
+
+        let comp_type = raw[0];
+        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
+        let header_size = if comp_type == 0 { 5 } else { 9 };
+        let decompressed_len = if comp_type != 0 && raw.len() >= 9 {
+            u32::from_be_bytes([raw[5], raw[6], raw[7], raw[8]])
+        } else {
+            compressed_len as u32
+        };
+        let container_end = header_size + compressed_len;
+        let version = if raw.len() >= container_end + 2 {
+            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
+        } else {
+            0
+        };
+        let crc = map_format::container_crc(&raw, comp_type);
+
+        // Resolve the group name from the reference table's name_hash
+        let name_hash = ref_groups.iter().find(|g| g.id == gid).map(|g| g.name_hash);
+
+        let name = name_hash
+            .and_then(|h| name_lookup.get(&h).cloned())
+            .unwrap_or_else(|| format!("group_{}", gid));
+
+        let is_landscape = map_format::is_landscape(&name);
+
+        if is_landscape {
+            // Landscape group — XTEA encrypted
+            let group_hash = java_string_hash(&name);
+            let key = xtea_keys.get(&group_hash).copied();
+
+            // Use explicit key if available, otherwise try zero key (unencrypted)
+            let effective_key = key.unwrap_or([0, 0, 0, 0]);
+            match map_format::decrypt_and_decompress(&raw, &effective_key) {
+                Ok(decompressed) => {
+                    let locs = parse_landscape_binary(&decompressed);
+                    let text = emit_landscape_text(&locs);
+
+                    let file_name = format!("{}.jm2", name);
+                    let file_path = map_dir.join(&file_name);
+                    std::fs::write(&file_path, &text)?;
+
+                    manifest.groups.push(MapGroupEntry {
+                        group_id: gid,
+                        name: name.clone(),
+                        file_name,
+                        compression: comp_type,
+                        version,
+                        compressed_len: compressed_len as u32,
+                        decompressed_len,
+                        crc,
+                        encrypted: true,
+                        keyed: key.is_some(),
+                    });
+                }
+                Err(_) => {
+                    // Truly encrypted with unknown key — opaque passthrough
+                    let encrypted_dir = map_dir.join("encrypted");
+                    std::fs::create_dir_all(&encrypted_dir)?;
+                    let file_name = format!("encrypted/{}.bin", gid);
+                    let file_path = map_dir.join(&file_name);
+                    std::fs::write(&file_path, &raw)?;
+
+                    manifest.groups.push(MapGroupEntry {
+                        group_id: gid,
+                        name: name.clone(),
+                        file_name,
+                        compression: comp_type,
+                        version,
+                        compressed_len: compressed_len as u32,
+                        decompressed_len,
+                        crc,
+                        encrypted: true,
+                        keyed: false,
+                    });
+                }
+            }
+        } else if map_format::is_npc_spawns(&name) {
+            // NPC spawn group — decompress and emit text
+            let decompressed = rs_dat2::compression::decompress(&raw)
+                .map_err(|e| anyhow::anyhow!("decompress {} (group {}): {}", name, gid, e))?;
+
+            // Format: series of (u16 pos_key, u8 count, count × u16 npc_id) blocks
+            let text = map_format::emit_npc_spawn_text(&decompressed);
+
+            let file_name = format!("{}.jm2", name);
+            let file_path = map_dir.join(&file_name);
+            std::fs::write(&file_path, &text)?;
+
+            manifest.groups.push(MapGroupEntry {
+                group_id: gid,
+                name: name.clone(),
+                file_name,
+                compression: comp_type,
+                version,
+                compressed_len: compressed_len as u32,
+                decompressed_len,
+                crc,
+                encrypted: false,
+                keyed: false,
+            });
+        } else {
+            // Terrain group (m_ or um_) — plaintext, decompress directly
+            let decompressed = rs_dat2::compression::decompress(&raw)
+                .map_err(|e| anyhow::anyhow!("decompress {} (group {}): {}", name, gid, e))?;
+
+            let levels = map_format::terrain_levels(&name);
+            let terrain = map_format::parse_terrain_binary_levels(&decompressed, levels);
+            let text = emit_terrain_text(&terrain);
+
+            let file_name = format!("{}.jm2", name);
+            let file_path = map_dir.join(&file_name);
+            std::fs::write(&file_path, &text)?;
+
+            manifest.groups.push(MapGroupEntry {
+                group_id: gid,
+                name: name.clone(),
+                file_name,
+                compression: comp_type,
+                version,
+                compressed_len: compressed_len as u32,
+                decompressed_len,
+                crc,
+                encrypted: false,
+                keyed: false,
+            });
+        }
+
+        written += 1;
+    }
+
+    let manifest_path = map_dir.join("manifest.json");
+    let json = serde_json::to_string_pretty(&manifest)?;
+    std::fs::write(&manifest_path, json)?;
+
+    info!(
+        "Maps unpacked: {} groups ({} landscape keyed, {} unkeyed, {} terrain)",
+        written,
+        manifest
+            .groups
+            .iter()
+            .filter(|g| g.encrypted && g.keyed)
+            .count(),
+        manifest
+            .groups
+            .iter()
+            .filter(|g| g.encrypted && !g.keyed)
+            .count(),
+        manifest.groups.iter().filter(|g| !g.encrypted).count(),
+    );
+
+    Ok(written)
 }

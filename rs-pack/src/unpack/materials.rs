@@ -1,15 +1,8 @@
 #![allow(clippy::needless_range_loop)]
-// Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
-//! Unpack material configs (archive 26) to text config format.
-//!
-//! From `Js5TextureSource.java`: single group, file 0 contains all materials
-//! as 20 parallel passes over texture_count entries.
-
-use std::io::Write;
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::io::Write;
+use std::path::Path;
 use tracing::info;
 
 const ARCHIVE_MATERIALS: u8 = 26;

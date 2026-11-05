@@ -1,27 +1,7 @@
-//! CS2 (ClientScript2) disassembler — archive 12 scripts → text.
-//!
-//! Binary format (from rev-647 client FileSystem.method651):
-//!   1. Name string at pos 0 (null-terminated, may be empty)
-//!   2. Instructions: opcode (g2) + operand per instruction
-//!   3. Metadata trailer (16 bytes before switch section):
-//!      instruction_count (g4), local_int_count (g2), local_string_count (g2),
-//!      local_long_count (g2), int_param_count (g2), string_param_count (g2),
-//!      long_param_count (g2)
-//!   4. Switch tables: count (g1), per table: case_count (g2),
-//!      per case: key (g4) + target (g4)
-//!   5. Last 2 bytes: switch section size (g2)
-//!
-//! Operand format per opcode:
-//!   - opcode 3 (PUSH_CONSTANT_STRING): gjstr (null-terminated)
-//!   - opcode 54 (PUSH_CONSTANT_LONG): g8 (8-byte long)
-//!   - opcode >= 150 or opcode in {21, 38, 39}: g1 (unsigned byte)
-//!   - all others: g4 (signed 4-byte int)
-
-use std::io::Write;
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::io::Write;
+use std::path::Path;
 use tracing::info;
 
 const ARCHIVE_CLIENTSCRIPT: u8 = 12;

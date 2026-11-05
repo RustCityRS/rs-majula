@@ -1,13 +1,7 @@
-//! Binary asset unpacker.
-//!
-//! Decompresses groups from the cache and writes them as plain files
-//! named `{group_id}.{extension}`. No manifests, no metadata sidecars.
-
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
 use rs_dat2::archive;
+use std::path::Path;
 use tracing::{info, warn};
 
 /// Unpack a single binary archive to `content/{dir}/_unpack/{gid}.{ext}`.

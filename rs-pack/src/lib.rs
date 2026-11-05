@@ -35,10 +35,6 @@ pub mod tga;
 pub mod types;
 #[cfg(since_647)]
 pub mod types647;
-#[cfg(before_647)]
-pub mod unpack;
-#[cfg(since_647)]
-#[path = "unpack647/mod.rs"]
 pub mod unpack;
 #[cfg(since_647)]
 pub mod validate;

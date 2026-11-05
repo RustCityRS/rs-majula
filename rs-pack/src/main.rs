@@ -150,27 +150,22 @@ fn main() -> Result<()> {
             force,
         } => fetch(cache, &output, &work_dir, keys, force)?,
         #[cfg(before_647)]
-        Commands::Unpack {
-            expected,
-            output,
-            pack,
-        } => {
-            let pack = pack.unwrap_or_else(|| output.join("pack"));
-            rs_pack::unpack::unpack_all(&expected, &output, &pack)?;
-        }
-        #[cfg(before_647)]
         Commands::ToPyxel { source } => rs_pack::pyxel::content_to_pyxel(&source)?,
         #[cfg(before_647)]
         Commands::FromPyxel { source } => rs_pack::pyxel::content_from_pyxel(&source)?,
-        #[cfg(since_647)]
         Commands::Unpack {
             expected,
             output,
             pack,
+            #[cfg(since_647)]
             only,
+            #[cfg(since_647)]
             work_dir,
         } => {
             let pack = pack.unwrap_or_else(|| output.join("pack"));
+            #[cfg(before_647)]
+            rs_pack::unpack::unpack_all(&expected, &output, &pack)?;
+            #[cfg(since_647)]
             match only {
                 None => rs_pack::unpack::unpack_all(&expected, &output, &pack)?,
                 Some(list) => rs_pack::unpack::unpack(

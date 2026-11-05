@@ -1,80 +1,119 @@
-use std::collections::HashMap;
-use std::io::Write;
-use std::path::Path;
-
-use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_io::Packet;
-use tracing::info;
-
-use crate::cache::provider::CacheType;
+use super::UnpackedPacks;
 use crate::cache::seq::SeqTypeRaw;
-use crate::pack::pack_registry::PackRegistry;
+use std::collections::HashMap;
 
-const ARCHIVE_SEQS: u8 = 20;
-const STRIDE_SEQS: u32 = 128;
-
-pub fn unpack_seqs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-    let group_count = store.group_count(ARCHIVE_SEQS).unwrap_or(0);
-    if group_count == 0 {
-        info!("  Archive {ARCHIVE_SEQS} (seq) absent — skipping");
-        return Ok(());
+pub fn emit_seq_props(
+    def: &SeqTypeRaw,
+    _registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
+) -> Vec<(String, String)> {
+    #[cfg(before_647)]
+    if super::has_repeated_opcodes(&def.opcode_order) {
+        return super::emit_repeated::<SeqTypeRaw>(
+            def.id,
+            &def.raw_opcodes,
+            _registry,
+            _reverse_hsl,
+            emit_seq_props,
+            false,
+            |value| {
+                value.opcode_order.clear();
+                value.raw_opcodes.clear();
+            },
+        );
     }
-
-    let out_path = output_dir.join("all.seq");
-    let mut file = std::fs::File::create(&out_path)?;
-
-    // Collect every populated entry with its global id so we can emit sorted
-    // for deterministic output.
-    let mut entries: Vec<(u32, rs_dat2::Entry)> = Vec::new();
-    for group_id in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_SEQS, group_id)? else {
-            continue;
-        };
-        for entry in group.entries {
-            if entry.data.is_empty() {
-                continue;
-            }
-            let global_id = group_id * STRIDE_SEQS + entry.id;
-            entries.push((global_id, entry));
-        }
-    }
-    entries.sort_by_key(|(gid, _)| *gid);
-
-    let mut seen: HashMap<String, u32> = HashMap::new();
-    let mut written = 0u32;
-
-    for (global_id, entry) in &entries {
-        let mut def = SeqTypeRaw::new(*global_id as u16);
-        def.decode(&mut Packet::from(entry.data.to_vec()));
-
-        let base = registry
-            .seq
-            .get_by_id(*global_id)
-            .map(|s| s.to_string())
-            .unwrap_or_else(|| format!("seq_{global_id}"));
-        let section = if seen.contains_key(&base) {
-            format!("{base}__{global_id}")
-        } else {
-            base
-        };
-        seen.insert(section.clone(), *global_id);
-
-        writeln!(file, "[{section}]")?;
-        for (k, v) in emit_seq_props(&def, registry) {
-            writeln!(file, "{k}={v}")?;
-        }
-        writeln!(file)?;
-        written += 1;
-    }
-
-    info!("  Wrote {written} seq configs to {}", out_path.display());
-    Ok(())
-}
-
-pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        if let (Some(frames), Some(delays), Some(iframes)) =
+            (&def.frames, &def.delays, &def.iframes)
+        {
+            for (i, (&frame, &delay)) in frames.iter().zip(delays.iter()).enumerate() {
+                p.push((
+                    1,
+                    format!("frame{i}"),
+                    super::anim_ref(frame as u16, _registry),
+                ));
+                if let Some(iframe) = iframes[i] {
+                    p.push((
+                        1,
+                        format!("iframe{i}"),
+                        super::anim_ref(iframe as u16, _registry),
+                    ));
+                }
+                if delay != 0 {
+                    p.push((1, format!("delay{i}"), delay.to_string()));
+                }
+            }
+        }
+        if let Some(loops) = def.loops {
+            p.push((2, "loops".into(), loops.to_string()));
+        }
+        if let Some(mask) = &def.walkmerge {
+            let labels = mask
+                .iter()
+                .take(mask.len() - 1)
+                .map(|v| format!("label_{v}"))
+                .collect::<Vec<_>>();
+            p.push((3, "walkmerge".into(), labels.join(",")));
+        }
+        if def.reachforward {
+            #[cfg(before_289)]
+            p.push((4, "stretches".into(), "yes".into()));
+            #[cfg(since_289)]
+            p.push((4, "reachforward".into(), "yes".into()));
+        }
+        for (code, name, value) in [
+            (6, "replaceheldleft", def.replaceheldleft),
+            (7, "replaceheldright", def.replaceheldright),
+        ] {
+            if let Some(value) = value {
+                p.push((
+                    code,
+                    name.into(),
+                    if value == 0 {
+                        "hide".into()
+                    } else {
+                        super::obj_ref(value - 512, _registry)
+                    },
+                ));
+            }
+        }
+        #[cfg(since_244)]
+        {
+            if let Some(value) = def.preanim_move {
+                let value = match value {
+                    0 => "delaymove",
+                    1 => "delayanim",
+                    2 => "merge",
+                    _ => panic!("Unrecognized seq config preanim_move value: {value}"),
+                };
+                p.push((9, "preanim_move".into(), value.into()));
+            }
+            if let Some(value) = def.postanim_move {
+                let value = match value {
+                    0 => "delaymove",
+                    1 => "abortanim",
+                    2 => "merge",
+                    _ => panic!("Unrecognized seq config postanim_move value: {value}"),
+                };
+                p.push((10, "postanim_move".into(), value.into()));
+            }
+            if let Some(value) = def.duplicatebehaviour {
+                let value = match value {
+                    1 => "reset",
+                    2 => "reset_loop",
+                    _ => panic!("Unrecognized seq config duplicatebehaviour value: {value}"),
+                };
+                #[cfg(before_289)]
+                let key = "duplicatebehavior";
+                #[cfg(since_289)]
+                let key = "duplicatebehaviour";
+                p.push((11, key.into(), value.into()));
+            }
+        }
+    }
+    #[cfg(since_647)]
     if let (Some(frames), Some(delays)) = (&def.frames, &def.delays) {
         for i in 0..frames.len() {
             p.push((
@@ -84,6 +123,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             ));
         }
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&2) || def.loops.is_some() {
         p.push((
             2,
@@ -91,6 +131,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             (def.loops.unwrap_or(u16::MAX) as i16).to_string(),
         ));
     }
+    #[cfg(since_647)]
     if let Some(mask) = &def.walkmerge {
         let csv = mask
             .iter()
@@ -102,6 +143,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
     if def.opcode_order.contains(&5) || def.priority != 5 {
         p.push((5, "priority".into(), def.priority.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&6) || def.replaceheldleft.is_some() {
         p.push((
             6,
@@ -109,6 +151,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             def.replaceheldleft.unwrap_or(u16::MAX).to_string(),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&7) || def.replaceheldright.is_some() {
         p.push((
             7,
@@ -117,8 +160,13 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
         ));
     }
     if def.opcode_order.contains(&8) || def.maxloops != 99 {
-        p.push((8, "loopcount".into(), def.maxloops.to_string()));
+        #[cfg(before_647)]
+        let key = "maxloops";
+        #[cfg(since_647)]
+        let key = "loopcount";
+        p.push((8, key.into(), def.maxloops.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&9) {
         p.push((
             9,
@@ -126,6 +174,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             (def.preanim_move.unwrap_or(u8::MAX) as i8).to_string(),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&10) {
         p.push((
             10,
@@ -133,6 +182,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             (def.postanim_move.unwrap_or(u8::MAX) as i8).to_string(),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&11) || def.duplicatebehaviour.unwrap_or(2) != 2 {
         p.push((
             11,
@@ -140,6 +190,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             def.duplicatebehaviour.unwrap_or(2).to_string(),
         ));
     }
+    #[cfg(since_647)]
     if let Some(iframes) = &def.iframes {
         for i in 0..iframes.len() {
             p.push((
@@ -153,6 +204,7 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             ));
         }
     }
+    #[cfg(since_647)]
     if let Some(synths) = &def.synths {
         for (i, slot) in synths.iter().enumerate() {
             let value = match slot {
@@ -174,28 +226,41 @@ pub fn emit_seq_props(def: &SeqTypeRaw, _registry: &PackRegistry) -> Vec<(String
             p.push((13, format!("synth{}", i + 1), value));
         }
     }
+    #[cfg(since_647)]
     if def.a_bool9 {
         p.push((14, "op14_abool9".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.tween {
         p.push((15, "tween".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.a_bool8 {
         p.push((16, "op16_abool8".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.a_bool10 {
         p.push((18, "op18_abool10".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     for (idx, val) in &def.op19 {
         p.push((19, "op19".into(), format!("{idx}:{val}")));
     }
+    #[cfg(since_647)]
     for (idx, a, b) in &def.op20 {
         p.push((20, "op20".into(), format!("{idx}:{a}:{b}")));
     }
-    super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_seq_raw)
+    #[cfg(since_647)]
+    {
+        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_seq_raw)
+    }
+    #[cfg(before_647)]
+    {
+        super::reorder_by_opcode(&def.opcode_order, p)
+    }
 }
 
-/// Decode raw SEQ opcode bytes back to a (key, value) text pair.
+#[cfg(since_647)]
 fn decode_seq_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
     let r_u8 = |pos: usize| -> u8 { if pos < raw.len() { raw[pos] } else { 0 } };
     let r_i8 = |pos: usize| -> i8 { if pos < raw.len() { raw[pos] as i8 } else { 0 } };
@@ -223,7 +288,7 @@ fn decode_seq_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
         _ => super::decode_raw_to_text(opcode, raw),
     }
 }
-// ─── Legacy server-cache packer (data/pack/server/seq.dat) ───────────────
+
 //
 // Server-only, debugname-only (op 250) — same shape as 2004scape's rev-225
 // seq server pack. The client cache packer above produces the actual seq

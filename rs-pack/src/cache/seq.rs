@@ -64,7 +64,6 @@ pub struct SeqTypeRaw {
     pub op20: Vec<(u8, u16, u16)>,
     debugname: Option<Box<str>>,
     pub opcode_order: Vec<u8>,
-    #[cfg(since_647)]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
@@ -110,7 +109,6 @@ impl CacheType for SeqTypeRaw {
             op20: Vec::new(),
             debugname: None,
             opcode_order: Vec::new(),
-            #[cfg(since_647)]
             raw_opcodes: Vec::new(),
         }
     }
@@ -121,7 +119,6 @@ impl CacheType for SeqTypeRaw {
             if code == 0 {
                 break;
             }
-            #[cfg(since_647)]
             let start = buf.pos;
             self.opcode_order.push(code);
             match code {
@@ -205,7 +202,6 @@ impl CacheType for SeqTypeRaw {
                 250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("seq", code),
             }
-            #[cfg(since_647)]
             self.raw_opcodes
                 .push((code, buf.data[start..buf.pos].to_vec()));
         }

@@ -172,8 +172,7 @@ pub struct ObjTypeRaw {
     #[cfg(since_647)]
     pub param_order: Vec<i32>,
     pub opcode_order: Vec<u8>,
-    #[cfg(since_647)]
-    #[serde(skip)]
+    #[cfg_attr(since_647, serde(skip))]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
@@ -349,7 +348,6 @@ impl CacheType for ObjTypeRaw {
             #[cfg(since_647)]
             param_order: Vec::new(),
             opcode_order: Vec::new(),
-            #[cfg(since_647)]
             raw_opcodes: Vec::new(),
         }
     }
@@ -360,7 +358,6 @@ impl CacheType for ObjTypeRaw {
             if code == 0 {
                 break;
             }
-            #[cfg(since_647)]
             let start = buf.pos;
             self.opcode_order.push(code);
             match code {
@@ -497,7 +494,6 @@ impl CacheType for ObjTypeRaw {
                 250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("obj", code),
             }
-            #[cfg(since_647)]
             self.raw_opcodes
                 .push((code, buf.data[start..buf.pos].to_vec()));
         }

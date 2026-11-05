@@ -1,18 +1,10 @@
 #![allow(clippy::needless_range_loop)]
-// Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
-//! Unpack font metrics (archive 13) to text format.
-//!
-//! From `FontMetrics.java`: version, glyph widths, optional complex
-//! spacing/kerning with delta-encoded bearing arrays.
-
-use std::io::Write;
-use std::path::Path;
-
+use crate::pack::pack_registry::PackFile;
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::io::Write;
+use std::path::Path;
 use tracing::info;
-
-use crate::pack::pack_registry::PackFile;
 
 const ARCHIVE_FONTMETRICS: u8 = 13;
 

@@ -14,6 +14,7 @@ pub type PackId = u16;
 #[cfg(since_647)]
 pub type PackId = u32;
 
+#[derive(Clone)]
 pub struct PackFile {
     pub id_to_debugname: HashMap<PackId, String>,
     pub debugname_to_id: HashMap<String, PackId>,

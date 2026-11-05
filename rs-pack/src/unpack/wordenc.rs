@@ -1,7 +1,6 @@
-use std::path::Path;
-
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use std::path::Path;
 use tracing::debug;
 
 const WORDENC_NAMES: &[&str] = &[

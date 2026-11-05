@@ -1,155 +1,93 @@
-use std::collections::HashMap;
-use std::path::Path;
-
-use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_io::Packet;
-use tracing::info;
-
+#[cfg(before_647)]
+use super::ModelCategory;
+use super::UnpackedPacks;
+#[cfg(since_647)]
+use super::order::decode_raw_params;
 use crate::cache::obj::ObjTypeRaw;
-use crate::cache::provider::CacheType;
-use crate::pack::pack_registry::PackRegistry;
+#[cfg(since_647)]
 use crate::types::ParamValue;
+use std::collections::HashMap;
 
-const ARCHIVE_ITEMS: u8 = 19;
-const STRIDE: u32 = 256;
-
-pub fn unpack_objs(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-
-    let out_path = output_dir.join("all.obj");
-    let mut file = std::fs::File::create(&out_path)?;
-
-    let mut seen: HashMap<String, u32> = HashMap::new();
-    let mut written = 0u32;
-
-    let group_count = store.group_count(ARCHIVE_ITEMS).unwrap_or(0);
-    for group_id in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_ITEMS, group_id)? else {
-            continue;
-        };
-
-        // Sort entries by id within the group for deterministic output.
-        let mut sorted: Vec<&rs_dat2::Entry> = group.entries.iter().collect();
-        sorted.sort_by_key(|e| e.id);
-
-        for entry in sorted {
-            if entry.data.is_empty() {
-                continue;
-            }
-            let global_id = group_id * STRIDE + entry.id;
-
-            let mut def = ObjTypeRaw::new(global_id as u16);
-            def.decode(&mut Packet::from(entry.data.to_vec()));
-
-            let base = registry
-                .obj
-                .get_by_id(global_id)
-                .map(|s| s.to_string())
-                .unwrap_or_else(|| format!("obj_{global_id}"));
-            let section = if seen.contains_key(&base) {
-                format!("{base}__{global_id}")
-            } else {
-                base
-            };
-            seen.insert(section.clone(), global_id);
-
-            super::common::write_config_section(
-                &mut file,
-                &section,
-                emit_obj_props(&def, registry),
-            )?;
-            written += 1;
-        }
-    }
-
-    info!("  Wrote {written} obj configs to {}", out_path.display());
-    Ok(())
-}
-
-/// Server-only keys for OBJ configs: fields that exist only in the server
-/// stream and have no opcode in the Jagex cache, so a decode of the cache
-/// cannot reproduce them. [`update_specific_obj_file`] keeps them verbatim
-/// when it refreshes an authored file's cache fields.
-///
-/// The set is taken from the server-stream branch of
-/// [`crate::pack::config::obj::pack_objs`] -- every key it turns into a server opcode
-/// and that [`emit_obj_props`] does not emit back.
-const OBJ_SERVER_ONLY_KEYS: &[&str] = &[
-    "param",
-    "paramint",
-    "paramstr",
-    "desc",
-    "wearpos",
-    "wearpos2",
-    "wearpos3",
-    "weight",
-    "category",
-    "respawnrate",
-    "dummyitem",
-    "tradeable",
-];
-
-/// Update a specific `.obj` file in-place: regenerate client fields from the
-/// original cache while preserving server-only additions (`param=...`).
-pub fn update_specific_obj_file(
-    cache_dir: &Path,
-    registry: &PackRegistry,
-    file_path: &Path,
-) -> Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
-    super::common::update_specific_file::<ObjTypeRaw, _, _>(
-        &mut store,
-        file_path,
-        ARCHIVE_ITEMS,
-        STRIDE,
-        OBJ_SERVER_ONLY_KEYS,
-        |name| registry.obj.get_by_debugname(name),
-        |def| emit_obj_props(def, registry),
-    )
-}
-
-fn model_name(registry: &PackRegistry, id: u16) -> String {
+fn model_name(registry: &UnpackedPacks, id: u16) -> String {
     registry
-        .model
-        .get_by_id(id as u32)
+        .config_name("model", id as u32)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("model_{id}"))
 }
 
-/// Resolve an obj id to a name via the registry. Falls back to `obj_<id>`
-/// if the id has no name OR if the registered name has a duplicate (e.g.
-/// obj.pack contains the same `amulet_of_glory_t1` for both 10360 and
-/// 10719). Without this guard, the pack-side `get_by_name` would resolve
-/// the duplicate to the wrong id and the round-trip would diverge.
-fn obj_name(registry: &PackRegistry, id: u16) -> String {
-    if let Some(name) = registry.obj.get_by_id(id as u32) {
-        if registry.obj.get_by_debugname(name) == Some(id as u32) {
+fn obj_name(registry: &UnpackedPacks, id: u16) -> String {
+    if let Some(name) = registry.config_name("obj", id as u32) {
+        #[cfg(before_647)]
+        return name.to_string();
+        #[cfg(since_647)]
+        if registry.config_id("obj", name) == Some(id as u32) {
             return name.to_string();
         }
     }
     format!("obj_{id}")
 }
 
-/// Resolve a param id to a name via the registry. Falls back to the raw id
-/// as a decimal string so unknown params still roundtrip.
-fn param_name(registry: &PackRegistry, id: u32) -> String {
+#[cfg(since_647)]
+fn param_name(registry: &UnpackedPacks, id: u32) -> String {
     registry
-        .param
-        .get_by_id(id)
+        .config_name("param", id)
         .map(|s| s.to_string())
         .unwrap_or_else(|| id.to_string())
 }
 
-/// Walk an item's emissions and produce the (key, value) pairs for the
-/// text config format. Used by the unpacker to produce `all.obj`.
-/// Source order is preserved; duplicate emissions become duplicate lines.
-///
-/// Cross-references resolve through `PackRegistry`. Unknown ids fall back
-/// to `<type>_<id>` placeholders so the roundtrip still produces the
-/// correct cache bytes.
-pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
+pub fn emit_obj_props(
+    def: &ObjTypeRaw,
+    registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
+) -> Vec<(String, String)> {
+    #[cfg(before_647)]
+    if super::has_repeated_opcodes(&def.opcode_order) {
+        return super::emit_repeated::<ObjTypeRaw>(
+            def.id,
+            &def.raw_opcodes,
+            registry,
+            _reverse_hsl,
+            emit_obj_props,
+            false,
+            |value| {
+                value.opcode_order.clear();
+                value.raw_opcodes.clear();
+            },
+        );
+    }
     let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        if def.opcode_order.contains(&1) {
+            super::model_ref(def.model, "obj", ModelCategory::Obj, registry);
+        }
+        for id in [
+            def.manwear,
+            def.manwear2,
+            def.womanwear,
+            def.womanwear2,
+            def.manwear3,
+            def.womanwear3,
+            def.manhead,
+            def.womanhead,
+            def.manhead2,
+            def.womanhead2,
+        ]
+        .into_iter()
+        .flatten()
+        {
+            super::model_ref(id, "obj_wear", ModelCategory::Obj, registry);
+        }
+        if let Some(desc) = &def.desc {
+            p.push((3, "desc".into(), desc.to_string()));
+        }
+        if def.code9 {
+            p.push((9, "code9".into(), "yes".into()));
+        }
+        if let Some(seq) = def.code10 {
+            p.push((10, "code10".into(), super::seq_ref(seq, registry)));
+        }
+    }
     if def.opcode_order.contains(&1) || def.model != 0 {
         p.push((1, "model".into(), model_name(registry, def.model)));
     }
@@ -180,15 +118,17 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
     if def.members {
         p.push((16, "members".into(), "yes".into()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&18) || def.multistack != 0 {
         p.push((18, "multistack".into(), obj_name(registry, def.multistack)));
     }
     if def.opcode_order.contains(&23) || def.manwear.unwrap_or(0) != 0 {
-        p.push((
-            23,
-            "manwear".into(),
-            model_name(registry, def.manwear.unwrap_or(0)),
-        ));
+        p.push((23, "manwear".into(), {
+            let name = model_name(registry, def.manwear.unwrap_or(0));
+            #[cfg(before_647)]
+            let name = format!("{name},{}", def.manweary as u8);
+            name
+        }));
     }
     if def.opcode_order.contains(&24) || def.manwear2.unwrap_or(0) != 0 {
         p.push((
@@ -198,11 +138,12 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
         ));
     }
     if def.opcode_order.contains(&25) || def.womanwear.unwrap_or(0) != 0 {
-        p.push((
-            25,
-            "womanwear".into(),
-            model_name(registry, def.womanwear.unwrap_or(0)),
-        ));
+        p.push((25, "womanwear".into(), {
+            let name = model_name(registry, def.womanwear.unwrap_or(0));
+            #[cfg(before_647)]
+            let name = format!("{name},{}", def.womanweary as u8);
+            name
+        }));
     }
     if def.opcode_order.contains(&26) || def.womanwear2.unwrap_or(0) != 0 {
         p.push((
@@ -232,22 +173,41 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
             let n = i + 1;
-            p.push((40, format!("recol{n}s"), src[i].to_string()));
-            p.push((40, format!("recol{n}d"), dst[i].to_string()));
+            p.push((
+                40,
+                format!("recol{n}s"),
+                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+            ));
+            p.push((
+                40,
+                format!("recol{n}d"),
+                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+            ));
         }
     }
+    #[cfg(since_647)]
     if let (Some(dst), Some(src)) = (&def.retex_d, &def.retex_s) {
         for i in 0..dst.len() {
             let n = i + 1;
-            p.push((41, format!("retex{n}d"), dst[i].to_string()));
-            p.push((41, format!("retex{n}s"), src[i].to_string()));
+            p.push((
+                41,
+                format!("retex{n}d"),
+                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+            ));
+            p.push((
+                41,
+                format!("retex{n}s"),
+                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+            ));
         }
     }
+    #[cfg(since_647)]
     if let Some(palette) = &def.recol_palette {
         for (i, b) in palette.iter().enumerate() {
             p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
         }
     }
+    #[cfg(since_647)]
     if def.stockmarket {
         p.push((65, "stockmarket".into(), "yes".into()));
     }
@@ -325,6 +285,7 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             }
         }
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&110) || def.resizex.unwrap_or(128) != 128 {
         p.push((
             110,
@@ -332,6 +293,7 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             def.resizex.unwrap_or(128).to_string(),
         ));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&111) || def.resizey.unwrap_or(128) != 128 {
         p.push((
             111,
@@ -339,6 +301,7 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             def.resizey.unwrap_or(128).to_string(),
         ));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&112) || def.resizez.unwrap_or(128) != 128 {
         p.push((
             112,
@@ -346,18 +309,23 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             def.resizez.unwrap_or(128).to_string(),
         ));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&113) || def.ambient != 0 {
         p.push((113, "ambient".into(), def.ambient.to_string()));
     }
+    #[cfg(since_244)]
     if def.opcode_order.contains(&114) || def.contrast != 0 {
         p.push((114, "contrast".into(), def.contrast.to_string()));
     }
+    #[cfg(since_289)]
     if def.opcode_order.contains(&115) || def.team != 0 {
         p.push((115, "team".into(), def.team.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&121) || def.lentlink != 0 {
         p.push((121, "lentlink".into(), obj_name(registry, def.lentlink)));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&122) || def.lenttemplate != 0 {
         p.push((
             122,
@@ -365,6 +333,7 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             obj_name(registry, def.lenttemplate),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&125)
         || def.manwear_xoff != 0
         || def.manweary != 0
@@ -376,6 +345,7 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             format!("{},{},{}", def.manwear_xoff, def.manweary, def.manwear_zoff),
         ));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&126)
         || def.womanwear_xoff != 0
         || def.womanweary != 0
@@ -390,29 +360,37 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             ),
         ));
     }
+    #[cfg(since_647)]
     if let Some((a, b)) = def.cursor1 {
         p.push((127, "cursor1".into(), format!("{a},{b}")));
     }
+    #[cfg(since_647)]
     if let Some((a, b)) = def.cursor2 {
         p.push((128, "cursor2".into(), format!("{a},{b}")));
     }
+    #[cfg(since_647)]
     if let Some((a, b)) = def.icursor1 {
         p.push((129, "icursor1".into(), format!("{a},{b}")));
     }
+    #[cfg(since_647)]
     if let Some((a, b)) = def.icursor2 {
         p.push((130, "icursor2".into(), format!("{a},{b}")));
     }
+    #[cfg(since_647)]
     if let Some(quests) = &def.quests {
         for (i, q) in quests.iter().enumerate() {
             p.push((132, format!("quest{}", i + 1), q.to_string()));
         }
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&134) || def.picksizeshift != 0 {
         p.push((134, "picksizeshift".into(), def.picksizeshift.to_string()));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&139) || def.boughtlink != 0 {
         p.push((139, "boughtlink".into(), obj_name(registry, def.boughtlink)));
     }
+    #[cfg(since_647)]
     if def.opcode_order.contains(&140) || def.boughttemplate != 0 {
         p.push((
             140,
@@ -420,6 +398,7 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             obj_name(registry, def.boughttemplate),
         ));
     }
+    #[cfg(since_647)]
     if let Some(params) = &def.params {
         // Decode all param entries from raw opcode data (preserves earlier
         // values for duplicate keys that were overwritten in the HashMap).
@@ -472,51 +451,17 @@ pub fn emit_obj_props(def: &ObjTypeRaw, registry: &PackRegistry) -> Vec<(String,
             }
         }
     }
-    super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_obj_raw)
+    #[cfg(since_647)]
+    {
+        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_obj_raw)
+    }
+    #[cfg(before_647)]
+    {
+        super::reorder_by_opcode(&def.opcode_order, p)
+    }
 }
 
-/// Decode all param entries from the raw op249 data, preserving order
-/// and individual values (even for duplicate keys that were overwritten
-/// in the HashMap during normal decode).
-fn decode_raw_params(raw_opcodes: &[(u8, Vec<u8>)]) -> Vec<ParamValue> {
-    let Some((_, data)) = raw_opcodes.iter().find(|(op, _)| *op == 249) else {
-        return Vec::new();
-    };
-    if data.is_empty() {
-        return Vec::new();
-    }
-    let count = data[0] as usize;
-    let mut pos = 1;
-    let mut result = Vec::with_capacity(count);
-    for _ in 0..count {
-        if pos >= data.len() {
-            break;
-        }
-        let is_string = data[pos] == 1;
-        pos += 1;
-        // Skip key (3 bytes)
-        pos += 3;
-        if is_string {
-            let start = pos;
-            while pos < data.len() && data[pos] != 0 {
-                pos += 1;
-            }
-            let s = String::from_utf8_lossy(&data[start..pos]).to_string();
-            pos += 1; // skip NUL
-            result.push(ParamValue::String(s.into_boxed_str()));
-        } else {
-            if pos + 3 < data.len() {
-                let v =
-                    i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-                result.push(ParamValue::Int(v));
-            }
-            pos += 4;
-        }
-    }
-    result
-}
-
-/// Decode raw OBJ opcode bytes back to a (key, value) text pair.
+#[cfg(since_647)]
 fn decode_obj_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
     let r_u16 = |pos: usize| -> u16 {
         if pos + 1 < raw.len() {

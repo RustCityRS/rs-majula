@@ -1,15 +1,8 @@
-//! Unpack shaders (archive 31) to source files.
-//!
-//! Group 1 contains ARB vertex/fragment programs (plain text).
-//! Group 3 contains compiled DirectX shaders (binary CTAB format).
-
-use std::path::Path;
-
+use crate::asset_roundtrip::{AssetManifest, GroupEntry};
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::path::Path;
 use tracing::warn;
-
-use crate::asset_roundtrip::{AssetManifest, GroupEntry};
 
 const ARCHIVE_SHADERS: u8 = 31;
 

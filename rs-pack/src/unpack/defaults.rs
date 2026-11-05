@@ -1,17 +1,8 @@
 #![allow(clippy::single_match)]
-// Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
-//! Unpack defaults archive (28) to text config format.
-//!
-//! Three file IDs within the archive:
-//! - File 1: map defaults (TextureOp_Sub30.decode_maps_defaults)
-//! - File 3: graphics defaults (VarbitTypeList.decode_graphics_defaults)
-//! - File 6: wearpos defaults (WearPosDefaults)
-
-use std::io::Write;
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::io::Write;
+use std::path::Path;
 use tracing::info;
 
 const ARCHIVE_DEFAULTS: u8 = 28;

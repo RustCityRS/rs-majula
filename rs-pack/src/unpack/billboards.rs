@@ -1,19 +1,7 @@
-//! Unpack billboard configs (archive 29) to text config format.
-//!
-//! Opcode-based format from `BillboardRaw.java`:
-//! Op 1: material (u16, 0xFFFF = -1)
-//! Op 2: xan (u16+1), yan (u16+1)
-//! Op 3: padding (u8)
-//! Op 4: blend_src (u8)
-//! Op 5: blend_dst (u8)
-//! Op 6: bloom_disable = true
-//! Op 7: skip_triangle = true
-
-use std::io::Write;
-use std::path::Path;
-
 use anyhow::Result;
 use rs_dat2::CacheStore;
+use std::io::Write;
+use std::path::Path;
 use tracing::{info, warn};
 
 const ARCHIVE_BILLBOARDS: u8 = 29;

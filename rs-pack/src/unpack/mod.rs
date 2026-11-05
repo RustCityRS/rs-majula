@@ -1,39 +1,83 @@
-pub mod config;
-pub mod configdiff;
-pub mod interface;
-pub mod map;
-pub mod media;
-pub mod model;
-mod namecrack;
-pub mod report;
-pub mod song;
-pub mod sound;
-pub mod texture;
-pub mod title;
-pub mod wordenc;
-
+#[cfg(before_647)]
 use crate::pack::pack::pack_assets;
+#[cfg(since_647)]
+use crate::pack::pack_registry::PackRegistry;
+#[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionListMeta;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use crate::versionlist::{TABLE_NAMES, VersionList, read_i32_table, read_u16_table};
+#[cfg(before_647)]
 use crate::{CONFIG_TYPE_CRCS, CONTENT_DIR, PACK_DIR, config_crc, jag_crc};
-#[cfg(since_244)]
+#[cfg(since_647)]
+use anyhow::Result;
+#[cfg(all(since_244, before_647))]
 use model::build_model_textures;
+#[cfg(before_647)]
 use report::{CrcReport, PackDiffReport};
+#[cfg(since_647)]
+use report::{StepResult, step, write_report};
+#[cfg(since_647)]
+use rs_dat2::archive::CONFIG_UNKNOWN_GROUPS;
+#[cfg(before_647)]
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::jag::{JagCompression, JagFile};
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use rs_io::js5::Js5Store;
+#[cfg(before_647)]
 use std::collections::HashMap;
+#[cfg(before_647)]
 use std::collections::HashSet;
 use std::path::Path;
 #[cfg(rev = "225")]
 use std::path::PathBuf;
+#[cfg(before_647)]
 use std::rc::Rc;
+#[cfg(since_647)]
+use tracing::info;
+#[cfg(before_647)]
 use tracing::{debug, warn};
 
+#[cfg(since_647)]
+pub mod billboards;
+#[cfg(since_647)]
+pub mod binary_assets;
+pub mod config;
+#[cfg(before_647)]
+pub mod configdiff;
+#[cfg(since_647)]
+pub mod cs2;
+#[cfg(since_647)]
+pub mod defaults;
+#[cfg(since_647)]
+pub mod fontmetrics;
+pub mod interface;
+pub mod map;
+#[cfg(since_647)]
+pub mod materials;
+pub mod media;
+pub mod model;
+#[cfg(before_647)]
+mod namecrack;
+#[cfg(since_647)]
+pub mod particles;
+#[cfg(since_647)]
+pub mod quickchat;
+pub mod report;
+#[cfg(since_647)]
+pub mod shaders;
+pub mod song;
+#[cfg(before_647)]
+pub mod sound;
+pub mod texture;
+#[cfg(before_647)]
+pub mod title;
+#[cfg(before_647)]
+pub mod wordenc;
+
+#[cfg(before_647)]
 const CONFIG_ENTRY_NAMES: &[&str] = &[
     "seq.dat",
     "seq.idx",
@@ -73,8 +117,10 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
     "hunt.idx",
 ];
 
+#[cfg(before_647)]
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
 
+#[cfg(before_647)]
 #[derive(Clone, Copy)]
 enum Archive {
     Title,
@@ -88,6 +134,7 @@ enum Archive {
     VersionList,
 }
 
+#[cfg(before_647)]
 impl Archive {
     #[cfg(rev = "225")]
     fn file_name(self) -> &'static str {
@@ -117,6 +164,7 @@ impl Archive {
     }
 }
 
+#[cfg(before_647)]
 struct ArchiveSource {
     #[cfg(rev = "225")]
     dir: PathBuf,
@@ -124,6 +172,7 @@ struct ArchiveSource {
     cache: Js5Store,
 }
 
+#[cfg(before_647)]
 impl ArchiveSource {
     #[cfg(rev = "225")]
     fn open(expected_dir: &Path) -> anyhow::Result<Self> {
@@ -159,291 +208,301 @@ impl ArchiveSource {
 }
 
 pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
-    debug!("Unpacking assets...");
-    debug!("  expected: {}", expected_dir.display());
-    debug!("  output:   {}", output_dir.display());
-
-    std::fs::create_dir_all(output_dir)?;
-    std::fs::create_dir_all(pack_dir)?;
-
-    let source = ArchiveSource::open(expected_dir)?;
-    let mut crc_report = CrcReport::new();
-    let mut leftover = report::LeftoverReport::new();
-
-    #[cfg(since_244)]
-    let model_textures = Rc::new(build_model_textures(source.cache()));
-    #[cfg(rev = "225")]
-    let model_textures: Rc<HashMap<u16, HashSet<u16>>> = Rc::new(HashMap::new());
-
-    // Config must run first - it produces model_categories needed by models.
-    let config_jag = prepare_jag(
-        "config",
-        source.archive(Archive::Config),
-        jag_crc::CONFIG,
-        &config_known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
-    let mut model_categories = HashMap::new();
-    if let Some(jag) = &config_jag {
-        debug!("Unpacking config...");
-        let packs = config::unpack_config(jag, output_dir, pack_dir, model_textures.clone())?;
-
-        for (name, expected) in CONFIG_TYPE_CRCS {
-            if let Some(dat) = jag.read(&format!("{name}.dat")) {
-                crc_report.config(name, &dat.data, *expected);
-            }
-        }
-
-        let raw_dir = output_dir.join("_raw").join("config");
-        let entries = dump_jag_entries(jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
-        debug!("  Dumped {} raw config entries", entries.len());
-
-        std::fs::write(pack_dir.join("config.order"), entries.join("\n") + "\n")?;
-
-        leftover.add_config_leftovers(packs.leftovers, packs.dat_trailing);
-        model_categories = packs.model_categories;
-    }
-
-    let interface_jag = prepare_jag(
-        "interface",
-        source.archive(Archive::Interface),
-        jag_crc::INTERFACE,
-        &interface_known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
-    if let Some(jag) = &interface_jag
-        && let Some(dat) = jag.read("data")
+    #[cfg(since_647)]
     {
-        crc_report.config("interface", &dat.data, config_crc::INTERFACE);
+        unpack(expected_dir, output_dir, pack_dir, Domains::ALL, output_dir)
     }
+    #[cfg(before_647)]
+    {
+        debug!("Unpacking assets...");
+        debug!("  expected: {}", expected_dir.display());
+        debug!("  output:   {}", output_dir.display());
 
-    let media_jag = prepare_jag(
-        "media",
-        source.archive(Archive::Media),
-        jag_crc::MEDIA,
-        &media::known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
-    let textures_jag = prepare_jag(
-        "textures",
-        source.archive(Archive::Textures),
-        jag_crc::TEXTURES,
-        &texture::known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
-    let title_jag = prepare_jag(
-        "title",
-        source.archive(Archive::Title),
-        jag_crc::TITLE,
-        &title::known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
-    let sounds_jag = prepare_jag(
-        "sounds",
-        source.archive(Archive::Sounds),
-        jag_crc::SOUNDS,
-        &sound::known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
-    let wordenc_jag = prepare_jag(
-        "wordenc",
-        source.archive(Archive::Wordenc),
-        jag_crc::WORDENC,
-        &wordenc::known_hashes(),
-        &mut crc_report,
-        &mut leftover,
-    );
+        std::fs::create_dir_all(output_dir)?;
+        std::fs::create_dir_all(pack_dir)?;
 
-    #[cfg(rev = "225")]
-    let (models_jag, songs_dir, maps_dir) = {
-        // `models` is a jag archive (under `archives/` in the 225 layout); maps and
-        // songs are top-level dirs in the distribution.
-        let nested = expected_dir.join("archives").join("models");
-        let models_path = if nested.exists() {
-            nested
-        } else {
-            expected_dir.join("models")
-        };
-        let models_jag = if models_path.exists() {
-            prepare_jag(
-                "models",
-                Some(std::fs::read(&models_path)?),
-                jag_crc::MODELS,
-                &model::known_hashes(),
-                &mut crc_report,
-                &mut leftover,
-            )
-        } else {
-            None
-        };
-        (
-            models_jag,
-            expected_dir.join("songs"),
-            expected_dir.join("maps"),
-        )
-    };
+        let source = ArchiveSource::open(expected_dir)?;
+        let mut crc_report = CrcReport::new();
+        let mut leftover = report::LeftoverReport::new();
 
-    std::thread::scope(|s| {
-        if let Some(jag) = &interface_jag {
-            s.spawn(move || {
-                debug!("Unpacking interface...");
-                let raw_dir = output_dir.join("_raw").join("interface");
-                let entries = dump_jag_entries(jag, &raw_dir, INTERFACE_ENTRY_NAMES).unwrap();
-                debug!("  Dumped {} raw interface entries", entries.len());
+        #[cfg(since_244)]
+        let model_textures = Rc::new(build_model_textures(source.cache()));
+        #[cfg(rev = "225")]
+        let model_textures: Rc<HashMap<u16, HashSet<u16>>> = Rc::new(HashMap::new());
 
-                let registry = PackRegistry::load(Path::new(PACK_DIR))
-                    .expect("load pack registry for interface unpack");
-                let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts");
-                let out_scripts_dir = output_dir.join("scripts");
-                interface::unpack_interface(
-                    jag,
-                    &src_scripts_dir,
-                    &out_scripts_dir,
-                    pack_dir,
-                    &registry,
-                )
-                .expect("unpack interface source");
-            });
+        // Config must run first - it produces model_categories needed by models.
+        let config_jag = prepare_jag(
+            "config",
+            source.archive(Archive::Config),
+            jag_crc::CONFIG,
+            &config_known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
+        let mut model_categories = HashMap::new();
+        if let Some(jag) = &config_jag {
+            debug!("Unpacking config...");
+            let packs = config::unpack_config(jag, output_dir, pack_dir, model_textures.clone())?;
+
+            for (name, expected) in CONFIG_TYPE_CRCS {
+                if let Some(dat) = jag.read(&format!("{name}.dat")) {
+                    crc_report.config(name, &dat.data, *expected);
+                }
+            }
+
+            let raw_dir = output_dir.join("_raw").join("config");
+            let entries = dump_jag_entries(jag, &raw_dir, CONFIG_ENTRY_NAMES)?;
+            debug!("  Dumped {} raw config entries", entries.len());
+
+            std::fs::write(pack_dir.join("config.order"), entries.join("\n") + "\n")?;
+
+            leftover.add_config_leftovers(packs.leftovers, packs.dat_trailing);
+            model_categories = packs.model_categories;
         }
 
-        if let Some(jag) = &media_jag {
-            s.spawn(move || {
-                debug!("Unpacking media...");
-                media::unpack_media(jag, output_dir).unwrap();
-            });
+        let interface_jag = prepare_jag(
+            "interface",
+            source.archive(Archive::Interface),
+            jag_crc::INTERFACE,
+            &interface_known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
+        if let Some(jag) = &interface_jag
+            && let Some(dat) = jag.read("data")
+        {
+            crc_report.config("interface", &dat.data, config_crc::INTERFACE);
         }
 
-        if let Some(jag) = &textures_jag {
-            s.spawn(move || {
-                debug!("Unpacking textures...");
-                texture::unpack_textures(jag, output_dir, pack_dir).unwrap();
-            });
-        }
-
-        if let Some(jag) = &title_jag {
-            s.spawn(move || {
-                debug!("Unpacking title...");
-                title::unpack_title(jag, output_dir).unwrap();
-            });
-        }
-
-        if let Some(jag) = &sounds_jag {
-            s.spawn(move || {
-                debug!("Unpacking sounds...");
-                sound::unpack_sounds(jag, output_dir, pack_dir).unwrap();
-            });
-        }
-
-        if let Some(jag) = &wordenc_jag {
-            s.spawn(move || {
-                debug!("Unpacking wordenc...");
-                wordenc::unpack_wordenc(jag, output_dir).unwrap();
-            });
-        }
+        let media_jag = prepare_jag(
+            "media",
+            source.archive(Archive::Media),
+            jag_crc::MEDIA,
+            &media::known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
+        let textures_jag = prepare_jag(
+            "textures",
+            source.archive(Archive::Textures),
+            jag_crc::TEXTURES,
+            &texture::known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
+        let title_jag = prepare_jag(
+            "title",
+            source.archive(Archive::Title),
+            jag_crc::TITLE,
+            &title::known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
+        let sounds_jag = prepare_jag(
+            "sounds",
+            source.archive(Archive::Sounds),
+            jag_crc::SOUNDS,
+            &sound::known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
+        let wordenc_jag = prepare_jag(
+            "wordenc",
+            source.archive(Archive::Wordenc),
+            jag_crc::WORDENC,
+            &wordenc::known_hashes(),
+            &mut crc_report,
+            &mut leftover,
+        );
 
         #[cfg(rev = "225")]
-        {
-            if let Some(jag) = &models_jag {
-                s.spawn(move || {
-                    debug!("Unpacking models...");
-                    model::unpack_models(jag, output_dir, pack_dir, &model_categories).unwrap();
-                });
-            }
-
-            if songs_dir.exists() {
-                s.spawn(|| {
-                    debug!("Unpacking songs...");
-                    song::unpack_songs(&songs_dir, output_dir).unwrap();
-                });
-            }
-
-            if maps_dir.exists() {
-                s.spawn(|| {
-                    debug!("Unpacking maps...");
-                    map::unpack_maps(&maps_dir, output_dir).unwrap();
-                });
-            }
-        }
-    });
-
-    #[cfg(since_244)]
-    {
-        let vl_bytes = source.archive(Archive::VersionList);
-        let vl_jag = vl_bytes.as_ref().map(|bytes| {
-            crc_report.archive("versionlist", bytes, jag_crc::VERSIONLIST);
-            JagFile::from(bytes.clone())
-        });
-        if let Some(jag) = &vl_jag {
-            leftover.scan_jag("versionlist", jag, &versionlist_known_hashes());
-        }
-
-        let version_list = vl_jag
-            .as_ref()
-            .map(VersionList::from_jag)
-            .unwrap_or_default();
-
-        if let Some(jag) = &vl_jag {
-            VersionListMeta::extract(jag, source.cache()).write(&pack_dir.join("version_list"))?;
-            collect_js5_ondemand_crcs(jag, source.cache(), &mut crc_report);
-        }
-
-        map::unpack_maps(source.cache(), &version_list, output_dir)?;
-        model::unpack_models(source.cache(), output_dir, pack_dir, &model_categories)?;
-        model::unpack_anims(source.cache(), output_dir, pack_dir)?;
-        song::unpack_midi(source.cache(), &version_list, output_dir, pack_dir)?;
-
-        collect_js5_leftovers(source.cache(), expected_dir, &version_list, &mut leftover);
-    }
-
-    crc_report.write(output_dir)?;
-    leftover.crack_unknown_names();
-    leftover.write(output_dir)?;
-
-    let committed_pack = Path::new(PACK_DIR);
-    if committed_pack.exists() && !same_dir(committed_pack, pack_dir) {
-        let mut report = PackDiffReport::compare(committed_pack, pack_dir)?;
-        let committed_maps = Path::new(CONTENT_DIR).join("maps");
-        let unpacked_maps = output_dir.join("maps");
-        if committed_maps.exists() && !same_dir(&committed_maps, &unpacked_maps) {
-            report.compare_maps(&committed_maps, &unpacked_maps)?;
-        }
-        report.write(output_dir)?;
-    }
-
-    let committed_content = Path::new(CONTENT_DIR);
-    if let Some(jag) = &config_jag
-        && committed_content.exists()
-        && !same_dir(committed_content, output_dir)
-    {
-        match pack_committed_configs() {
-            Ok(packed) => {
-                configdiff::ConfigDiffReport::compare(
-                    jag,
-                    &packed,
-                    committed_pack,
-                    model_textures.clone(),
+        let (models_jag, songs_dir, maps_dir) = {
+            // `models` is a jag archive (under `archives/` in the 225 layout); maps and
+            // songs are top-level dirs in the distribution.
+            let nested = expected_dir.join("archives").join("models");
+            let models_path = if nested.exists() {
+                nested
+            } else {
+                expected_dir.join("models")
+            };
+            let models_jag = if models_path.exists() {
+                prepare_jag(
+                    "models",
+                    Some(std::fs::read(&models_path)?),
+                    jag_crc::MODELS,
+                    &model::known_hashes(),
+                    &mut crc_report,
+                    &mut leftover,
                 )
-                .write(output_dir)?;
-            }
-            Err(e) => warn!("Config-diff skipped: could not pack committed content: {e:#}"),
-        }
-    }
+            } else {
+                None
+            };
+            (
+                models_jag,
+                expected_dir.join("songs"),
+                expected_dir.join("maps"),
+            )
+        };
 
-    debug!("Unpack complete.");
-    Ok(())
+        std::thread::scope(|s| {
+            if let Some(jag) = &interface_jag {
+                s.spawn(move || {
+                    debug!("Unpacking interface...");
+                    let raw_dir = output_dir.join("_raw").join("interface");
+                    let entries = dump_jag_entries(jag, &raw_dir, INTERFACE_ENTRY_NAMES).unwrap();
+                    debug!("  Dumped {} raw interface entries", entries.len());
+
+                    let registry = PackRegistry::load(Path::new(PACK_DIR))
+                        .expect("load pack registry for interface unpack");
+                    let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts");
+                    let out_scripts_dir = output_dir.join("scripts");
+                    interface::unpack_interface(
+                        jag,
+                        &src_scripts_dir,
+                        &out_scripts_dir,
+                        pack_dir,
+                        &registry,
+                    )
+                    .expect("unpack interface source");
+                });
+            }
+
+            if let Some(jag) = &media_jag {
+                s.spawn(move || {
+                    debug!("Unpacking media...");
+                    media::unpack_media(jag, output_dir).unwrap();
+                });
+            }
+
+            if let Some(jag) = &textures_jag {
+                s.spawn(move || {
+                    debug!("Unpacking textures...");
+                    texture::unpack_textures(jag, output_dir, pack_dir).unwrap();
+                });
+            }
+
+            if let Some(jag) = &title_jag {
+                s.spawn(move || {
+                    debug!("Unpacking title...");
+                    title::unpack_title(jag, output_dir).unwrap();
+                });
+            }
+
+            if let Some(jag) = &sounds_jag {
+                s.spawn(move || {
+                    debug!("Unpacking sounds...");
+                    sound::unpack_sounds(jag, output_dir, pack_dir).unwrap();
+                });
+            }
+
+            if let Some(jag) = &wordenc_jag {
+                s.spawn(move || {
+                    debug!("Unpacking wordenc...");
+                    wordenc::unpack_wordenc(jag, output_dir).unwrap();
+                });
+            }
+
+            #[cfg(rev = "225")]
+            {
+                if let Some(jag) = &models_jag {
+                    s.spawn(move || {
+                        debug!("Unpacking models...");
+                        model::unpack_models(jag, output_dir, pack_dir, &model_categories).unwrap();
+                    });
+                }
+
+                if songs_dir.exists() {
+                    s.spawn(|| {
+                        debug!("Unpacking songs...");
+                        song::unpack_songs(&songs_dir, output_dir).unwrap();
+                    });
+                }
+
+                if maps_dir.exists() {
+                    s.spawn(|| {
+                        debug!("Unpacking maps...");
+                        map::unpack_maps(&maps_dir, output_dir).unwrap();
+                    });
+                }
+            }
+        });
+
+        #[cfg(since_244)]
+        {
+            let vl_bytes = source.archive(Archive::VersionList);
+            let vl_jag = vl_bytes.as_ref().map(|bytes| {
+                crc_report.archive("versionlist", bytes, jag_crc::VERSIONLIST);
+                JagFile::from(bytes.clone())
+            });
+            if let Some(jag) = &vl_jag {
+                leftover.scan_jag("versionlist", jag, &versionlist_known_hashes());
+            }
+
+            let version_list = vl_jag
+                .as_ref()
+                .map(VersionList::from_jag)
+                .unwrap_or_default();
+
+            if let Some(jag) = &vl_jag {
+                VersionListMeta::extract(jag, source.cache())
+                    .write(&pack_dir.join("version_list"))?;
+                collect_js5_ondemand_crcs(jag, source.cache(), &mut crc_report);
+            }
+
+            map::unpack_maps(source.cache(), &version_list, output_dir)?;
+            model::unpack_models(source.cache(), output_dir, pack_dir, &model_categories)?;
+            model::unpack_anims(source.cache(), output_dir, pack_dir)?;
+            song::unpack_midi(source.cache(), &version_list, output_dir, pack_dir)?;
+
+            collect_js5_leftovers(source.cache(), expected_dir, &version_list, &mut leftover);
+        }
+
+        crc_report.write(output_dir)?;
+        leftover.crack_unknown_names();
+        leftover.write(output_dir)?;
+
+        let committed_pack = Path::new(PACK_DIR);
+        if committed_pack.exists() && !same_dir(committed_pack, pack_dir) {
+            let mut report = PackDiffReport::compare(committed_pack, pack_dir)?;
+            let committed_maps = Path::new(CONTENT_DIR).join("maps");
+            let unpacked_maps = output_dir.join("maps");
+            if committed_maps.exists() && !same_dir(&committed_maps, &unpacked_maps) {
+                report.compare_maps(&committed_maps, &unpacked_maps)?;
+            }
+            report.write(output_dir)?;
+        }
+
+        let committed_content = Path::new(CONTENT_DIR);
+        if let Some(jag) = &config_jag
+            && committed_content.exists()
+            && !same_dir(committed_content, output_dir)
+        {
+            match pack_committed_configs() {
+                Ok(packed) => {
+                    configdiff::ConfigDiffReport::compare(
+                        jag,
+                        &packed,
+                        committed_pack,
+                        model_textures.clone(),
+                    )
+                    .write(output_dir)?;
+                }
+                Err(e) => warn!("Config-diff skipped: could not pack committed content: {e:#}"),
+            }
+        }
+
+        debug!("Unpack complete.");
+        Ok(())
+    }
 }
 
+#[cfg(before_647)]
 fn pack_committed_configs() -> anyhow::Result<HashMap<String, PackedFile>> {
     let registry = PackRegistry::load(Path::new(PACK_DIR))?;
     pack_assets(&registry, Path::new(CONTENT_DIR), false)
 }
 
+#[cfg(before_647)]
 fn same_dir(a: &Path, b: &Path) -> bool {
     match (std::fs::canonicalize(a), std::fs::canonicalize(b)) {
         (Ok(ca), Ok(cb)) => ca == cb,
@@ -451,6 +510,7 @@ fn same_dir(a: &Path, b: &Path) -> bool {
     }
 }
 
+#[cfg(before_647)]
 fn prepare_jag(
     name: &'static str,
     bytes: Option<Vec<u8>>,
@@ -466,6 +526,7 @@ fn prepare_jag(
     Some(jag)
 }
 
+#[cfg(before_647)]
 fn config_known_hashes() -> Vec<i32> {
     CONFIG_ENTRY_NAMES
         .iter()
@@ -473,6 +534,7 @@ fn config_known_hashes() -> Vec<i32> {
         .collect()
 }
 
+#[cfg(before_647)]
 fn interface_known_hashes() -> Vec<i32> {
     INTERFACE_ENTRY_NAMES
         .iter()
@@ -480,12 +542,12 @@ fn interface_known_hashes() -> Vec<i32> {
         .collect()
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn versionlist_known_hashes() -> Vec<i32> {
     TABLE_NAMES.iter().map(|n| JagFile::hash(n)).collect()
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &Js5Store, crc_report: &mut CrcReport) {
     let tables = [
         (1usize, "model", "model_version", "model_crc"),
@@ -509,7 +571,7 @@ fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &Js5Store, crc_report: &mu
     }
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn collect_js5_leftovers(
     cache: &Js5Store,
     expected_dir: &Path,
@@ -554,6 +616,7 @@ fn collect_js5_leftovers(
     }
 }
 
+#[cfg(before_647)]
 /// A sprite group decoded from the cache: tile size, palette (RGB triplets,
 /// entry 0 magenta), and per-frame index buffers (`tile_w * tile_h` each).
 pub struct DecodedGroup {
@@ -567,6 +630,7 @@ pub struct DecodedGroup {
     pub scan_cols: Option<usize>,
 }
 
+#[cfg(before_647)]
 impl DecodedGroup {
     /// Check the cache palette against the default scan grid and record the
     /// column count to stamp when a bespoke layout is needed.
@@ -581,6 +645,7 @@ impl DecodedGroup {
     }
 }
 
+#[cfg(before_647)]
 /// Decode one sprite group's `index.dat` metadata and `.dat` pixel data into
 /// per-frame index buffers. Returns `None` if the group is empty or invalid.
 pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> {
@@ -642,6 +707,7 @@ pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> 
     })
 }
 
+#[cfg(before_647)]
 /// Write one decoded group as an indexed sprite sheet TGA at `path`. The palette
 /// goes in the color map, the grid dimensions (and any scan-grid column stamp)
 /// in the image ID.
@@ -652,6 +718,7 @@ pub fn write_group_sheet(path: &Path, g: &DecodedGroup) -> anyhow::Result<()> {
     Ok(())
 }
 
+#[cfg(before_647)]
 /// Write a `meta/index.order` sidecar: group keys in `index.dat` order.
 pub fn write_index_order(archive_dir: &Path, keys: &[String]) -> anyhow::Result<()> {
     let meta = archive_dir.join("meta");
@@ -661,6 +728,7 @@ pub fn write_index_order(archive_dir: &Path, keys: &[String]) -> anyhow::Result<
     Ok(())
 }
 
+#[cfg(before_647)]
 pub fn dump_jag_entries(
     jag: &JagFile,
     output_dir: &Path,
@@ -692,6 +760,7 @@ pub fn dump_jag_entries(
     Ok(jag_order)
 }
 
+#[cfg(before_647)]
 pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8> {
     let order: Vec<String> = std::fs::read_to_string(raw_dir.join("_jag_order.txt"))
         .unwrap_or_default()
@@ -707,4 +776,241 @@ pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8>
         }
     }
     jag.build(compression)
+}
+
+#[cfg(since_647)]
+/// Which parts of the cache an unpack writes.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Domains {
+    /// Config text (`scripts/_unpack/all.*`) and its animations.
+    pub configs: bool,
+    /// Map squares (`maps/_unpack`).
+    pub maps: bool,
+    /// Everything else: clientscripts, interfaces, models, sprites, songs, ...
+    pub assets: bool,
+}
+
+#[cfg(since_647)]
+impl Domains {
+    pub const ALL: Self = Self {
+        configs: true,
+        maps: true,
+        assets: true,
+    };
+
+    /// Parse a comma-separated list of `configs`, `maps`, `assets`.
+    pub fn parse(list: &str) -> Result<Self> {
+        let mut domains = Self {
+            configs: false,
+            maps: false,
+            assets: false,
+        };
+        for part in list.split(',').map(str::trim).filter(|p| !p.is_empty()) {
+            match part {
+                "configs" => domains.configs = true,
+                "maps" => domains.maps = true,
+                "assets" => domains.assets = true,
+                other => anyhow::bail!("unknown unpack domain `{other}` (configs, maps, assets)"),
+            }
+        }
+        Ok(domains)
+    }
+}
+
+#[cfg(since_647)]
+/// Unpack `domains` of the cache into `output_dir`.
+///
+/// A partial unpack regenerates content in place: each selected domain's
+/// `_unpack` directory is **deleted first**, so what it holds afterwards is a
+/// function of the cache and the name registries alone -- never of what was
+/// there before. That is what lets `_unpack` stay out of git. Authored data
+/// lives beside it and is laid over it at pack time
+/// (`pack::overlay_section`, `map_format::source_dirs`).
+///
+/// `work_dir` takes what a partial run needs but must not write into
+/// `output_dir`: the decompiled clientscripts the varp unpacker reads, and the
+/// run report.
+pub fn unpack(
+    expected_dir: &Path,
+    output_dir: &Path,
+    pack_dir: &Path,
+    domains: Domains,
+    work_dir: &Path,
+) -> Result<()> {
+    let cache_dir = expected_dir;
+
+    std::fs::create_dir_all(output_dir)?;
+    std::fs::create_dir_all(pack_dir)?;
+    std::fs::create_dir_all(work_dir)?;
+    if domains != Domains::ALL {
+        for (selected, dir) in [
+            (domains.configs, output_dir.join("scripts").join("_unpack")),
+            (domains.maps, output_dir.join("maps").join("_unpack")),
+        ] {
+            if selected && dir.exists() {
+                info!("Clearing {} for regeneration", dir.display());
+                std::fs::remove_dir_all(&dir)?;
+            }
+        }
+    }
+
+    let scripts_dir = output_dir.join("scripts");
+    if domains.configs {
+        std::fs::create_dir_all(scripts_dir.join("_unpack"))?;
+    }
+
+    let mut results: Vec<StepResult> = Vec::new();
+
+    // path. Hand-maintained names in existing `<type>.pack` files are
+    // preserved; only auto-generated / missing entries are (re)written.
+    info!("Discovering pack registries from cache (idempotent)...");
+    let report = crate::discover::discover_symbols(cache_dir, pack_dir, false)?;
+    info!("  {} registry types processed", report.types.len());
+
+    let registry = PackRegistry::load(pack_dir)?;
+
+    // output for transmit analysis.
+    // A partial run decompiles into `work_dir`, so the content tree's own
+    // clientscript directory is never touched.
+    let cs2_root = if domains.assets { output_dir } else { work_dir };
+    let cs2_dir = cs2_root.join("clientscript").join("_decompiled");
+    if domains.assets {
+        step(&mut results, "cs2 disassembly", || {
+            cs2::unpack_cs2_scripts(cache_dir, output_dir).map(|n| format!("{n} scripts"))
+        });
+    }
+    if domains.assets || domains.configs {
+        step(&mut results, "cs2 decompile", || {
+            cs2::decompile_cs2_scripts(cache_dir, cs2_root, None).map(|n| format!("{n} scripts"))
+        });
+    }
+    if domains.configs {
+        unpack_configs(&mut results, cache_dir, pack_dir, &scripts_dir, &cs2_dir);
+    }
+    if domains.maps {
+        step(&mut results, "maps", || {
+            let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+            map::unpack_maps(&mut store, cache_dir, output_dir).map(|n| format!("{n} map groups"))
+        });
+    }
+    if domains.assets {
+        unpack_assets(&mut results, cache_dir, &registry, pack_dir, output_dir);
+    }
+
+    let report_dir = if domains.assets { output_dir } else { work_dir };
+    write_report(&results, &report_dir.join("unpack_report.txt"))
+}
+
+#[cfg(since_647)]
+/// Steps 4-5 and the animations: every config type, to `scripts/_unpack`.
+fn unpack_configs(
+    results: &mut Vec<StepResult>,
+    cache_dir: &Path,
+    pack_dir: &Path,
+    scripts_dir: &Path,
+    cs2_dir: &Path,
+) {
+    let config_out = scripts_dir.join("_unpack");
+
+    if let Err(error) = config::unpack_config(cache_dir, &config_out, pack_dir, cs2_dir, results) {
+        step(results, "configs", || Err(error));
+    }
+
+    // CacheType structs. Known types get named opcodes; unknown groups get
+    // raw hex dumps.
+    step(results, "generic config groups", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        for &(group_id, type_name) in config::generic::KNOWN_CONFIG_GROUPS {
+            info!("  Unpacking {type_name} (group {group_id})...");
+            config::generic::unpack_config_group(&mut store, group_id, type_name, &config_out)?;
+        }
+        for &group_id in CONFIG_UNKNOWN_GROUPS {
+            info!("  Unpacking config{group_id} (raw)...");
+            config::generic::unpack_raw_config_group(&mut store, group_id, &config_out)?;
+        }
+        Ok(String::new())
+    });
+
+    step(results, "animations", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        model::unpack_anims(&mut store, pack_dir, scripts_dir).map(|n| format!("{n} anim frames"))
+    });
+}
+
+#[cfg(since_647)]
+/// Unpack each asset domain into its own `<domain>/_unpack/` directory.
+fn unpack_assets(
+    results: &mut Vec<StepResult>,
+    cache_dir: &Path,
+    registry: &PackRegistry,
+    pack_dir: &Path,
+    output_dir: &Path,
+) {
+    // under the output dir.
+    step(results, "interfaces", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        interface::unpack_interfaces(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "models", || {
+        let stats = model::unpack_models(
+            cache_dir,
+            registry,
+            &output_dir.join("models").join("_unpack"),
+        )?;
+        Ok(format!(
+            "{} models ({} failed)",
+            stats.total(),
+            stats.failed
+        ))
+    });
+    step(results, "sprites", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        let stats = media::unpack_all_sprites(&mut store, output_dir)?;
+        Ok(format!(
+            "{} groups, {} sprites ({} failed)",
+            stats.groups, stats.sprites, stats.failed
+        ))
+    });
+    step(results, "textures", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        texture::unpack_texture_text(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "songs (midi)", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        song::unpack_songs(&mut store, pack_dir, output_dir).map(|n| format!("{n} songs"))
+    });
+    step(results, "fontmetrics", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        fontmetrics::unpack_fontmetrics(&mut store, pack_dir, output_dir)
+            .map(|n| format!("{n} fonts"))
+    });
+    step(results, "quickchat", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        quickchat::unpack_quickchat(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "materials", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        materials::unpack_materials(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "particles", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        particles::unpack_particles(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "defaults", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        defaults::unpack_defaults(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "billboards", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        billboards::unpack_billboards(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "shaders", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        shaders::unpack_shaders(&mut store, output_dir).map(|n| format!("{n} groups"))
+    });
+    step(results, "binary assets", || {
+        let mut store = rs_dat2::CacheStore::open(cache_dir)?;
+        binary_assets::unpack_all_binary_assets(&mut store, output_dir)
+            .map(|n| format!("{n} groups"))
+    });
 }
