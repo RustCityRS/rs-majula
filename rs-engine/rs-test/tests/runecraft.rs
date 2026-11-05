@@ -159,6 +159,9 @@ fn runecrafting_at_2011s_air_temple() {
         assert_eq!(backpack.total(air), 5, "the game said {said:?}");
         assert_eq!(backpack.total(essence), 0);
         assert_eq!(player.stats.xp[RUNECRAFT] - xp, 250, "5 xp an essence");
+        // Entering the temple's square also unlocks its track (Serene), from
+        // 2011's area music (music/scripts/move.rs2), which this case doesn't check.
+        said.retain(|m| !m.contains("You have unlocked a new music track"));
         assert_eq!(said, ["You bind the temple's power into Air Runes."]);
 
         // The portal leads back out beside 2011's ruins, once the binding's
