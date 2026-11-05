@@ -1730,6 +1730,29 @@ impl ActivePlayer {
         Some(id)
     }
 
+    /// The npc type `id` shows as to this player: a 647 npc can be a
+    /// multi-npc that the client draws as another by a variable, with that
+    /// one's name and options (2011's Osman, npc 5282, is Osman by varbit
+    /// 3280). `None` when it shows as nothing.
+    #[cfg(since_647)]
+    pub fn shown_npc(&self, id: u16) -> Option<u16> {
+        let engine = engine();
+        let Some(ty) = engine.npcs().get_by_id(id) else {
+            return Some(id);
+        };
+        if ty.multinpc.is_none() {
+            return Some(id);
+        }
+        let value = match ty.multivar {
+            Some(MultiVar::Varbit(var)) => {
+                engine.varbits().get_by_id(var).map(|var| self.varbit(var))
+            }
+            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var).as_int()),
+            None => None,
+        };
+        ty.multi_npc(value.unwrap_or(-1))
+    }
+
     fn map_base(&self) -> MapBase {
         let origin = self.player.build_area.origin;
         MapBase {

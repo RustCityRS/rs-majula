@@ -4,6 +4,8 @@ use super::decode::{read_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
+#[cfg(since_647)]
+use crate::types::MultiVar;
 use crate::types::{BlockWalk, MoveRestrict, NpcMode};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
@@ -47,6 +49,10 @@ pub struct NpcType {
     pub vislevel: Option<u16>,
     #[cfg(since_289)]
     pub turnspeed: u16,
+    #[cfg(since_647)]
+    pub multivar: Option<MultiVar>,
+    #[cfg(since_647)]
+    pub multinpc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
 }
@@ -54,6 +60,23 @@ pub struct NpcType {
 impl NpcType {
     pub fn debugname(&self) -> Option<&str> {
         self.debugname.as_deref()
+    }
+
+    /// The npc this one shows as when its var is `var_value`: the entry at
+    /// that index, else the default (the list's last), as
+    /// [`LocType::multi_loc`](super::loc::LocType::multi_loc) picks. `None`
+    /// when it shows as nothing; its own id when it is no multi-npc.
+    #[cfg(since_647)]
+    pub fn multi_npc(&self, var_value: i32) -> Option<u16> {
+        let Some(multi) = self.multinpc.as_deref() else {
+            return Some(self.id);
+        };
+        multi
+            .get(var_value as usize)
+            .copied()
+            .filter(|&id| id != -1)
+            .or_else(|| multi.last().copied())
+            .and_then(|id| u16::try_from(id).ok())
     }
 }
 
@@ -92,6 +115,13 @@ impl From<NpcTypeRaw> for NpcType {
             vislevel: raw.vislevel,
             #[cfg(since_289)]
             turnspeed: raw.turnspeed,
+            #[cfg(since_647)]
+            multivar: u16::try_from(raw.transform_varbit)
+                .ok()
+                .map(MultiVar::Varbit)
+                .or_else(|| u16::try_from(raw.transform_varp).ok().map(MultiVar::Varp)),
+            #[cfg(since_647)]
+            multinpc: raw.transforms,
             params: raw.params,
             debugname: raw.debugname,
         }
