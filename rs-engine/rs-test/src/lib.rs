@@ -11,3 +11,5 @@
 
 #[cfg(since_647)]
 pub mod runner;
+#[cfg(since_647)]
+pub mod talk;
