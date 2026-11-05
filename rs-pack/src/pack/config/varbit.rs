@@ -1,12 +1,10 @@
-use std::collections::HashMap;
-
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_number;
-use crate::pack::util::parse_varp;
+use crate::pack::util::{parse_number, parse_ref};
 use anyhow::Result;
-use tracing::debug;
+use std::collections::HashMap;
 
 pub fn pack_varbits(
     file_cache: &FileCache,
@@ -15,11 +13,7 @@ pub fn pack_varbits(
 ) -> Result<PackedFile> {
     let pack = &registry.varbit;
 
-    let files = file_cache.collect("varbit");
-    debug!("  Found {} .varbit files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "varbit", constants);
-    debug!("  Parsed {} varbit configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     #[cfg(before_647)]
@@ -36,30 +30,12 @@ pub fn pack_varbits(
             client.start_entry();
         }
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown varbit id: {id}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
+        let Some((debugname, props)) = config_entry("varbit", pack, &configs, id) else {
+            server.skip_entry();
+            if id < client_count {
+                client.skip_entry();
             }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown varbit config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
-            }
+            continue;
         };
 
         let mut basevar = None;
@@ -69,7 +45,7 @@ pub fn pack_varbits(
         for (key, value) in props {
             match key.as_str() {
                 // 1
-                "basevar" => parse_varp(registry, value, |v| {
+                "basevar" => parse_ref(&registry.varp, "varp", value, |v| {
                     basevar = Some(v);
                 }),
                 "startbit" => parse_number(value, |v| startbit = Some(v)),

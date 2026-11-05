@@ -9,7 +9,6 @@ use crate::pack::util::colour::{RecolType, rgb15_to_hsl16};
 use crate::pack::util::*;
 use crate::types::{DummyItem, WearPos};
 use anyhow::Result;
-use tracing::debug;
 
 pub fn pack_objs(
     file_cache: &FileCache,
@@ -19,11 +18,7 @@ pub fn pack_objs(
 ) -> Result<PackedFile> {
     let pack = &registry.obj;
 
-    let files = file_cache.collect("obj");
-    debug!("  Found {} .obj files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "obj", constants);
-    debug!("  Parsed {} obj configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -108,7 +103,7 @@ pub fn pack_objs(
                 let start = client.dat.len();
                 match key.as_str() {
                     // 1
-                    "model" => parse_model(registry, value, |v| {
+                    "model" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(1);
                         client.p2(v);
                     }),
@@ -180,7 +175,7 @@ pub fn pack_objs(
 
                     // 10
                     #[cfg(before_647)]
-                    "code10" => parse_seq(registry, value, |v| {
+                    "code10" => parse_ref(&registry.seq, "seq", value, |v| {
                         client.p1(10);
                         client.p2(v);
                     }),
@@ -227,7 +222,7 @@ pub fn pack_objs(
                     }),
 
                     #[cfg(since_647)]
-                    "multistack" => parse_obj(registry, value, |v| {
+                    "multistack" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(18);
                         client.p2(v);
                     }),
@@ -235,7 +230,7 @@ pub fn pack_objs(
                     // 23
                     "manwear" => {
                         let mut parts = value.split(',');
-                        parse_model(registry, parts.next().unwrap(), |v| {
+                        parse_ref(&registry.model, "model", parts.next().unwrap(), |v| {
                             client.p1(23);
                             client.p2(v);
                         });
@@ -245,7 +240,7 @@ pub fn pack_objs(
                     }
 
                     // 24
-                    "manwear2" => parse_model(registry, value, |v| {
+                    "manwear2" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(24);
                         client.p2(v);
                     }),
@@ -253,7 +248,7 @@ pub fn pack_objs(
                     // 25
                     "womanwear" => {
                         let mut parts = value.split(',');
-                        parse_model(registry, parts.next().unwrap(), |v| {
+                        parse_ref(&registry.model, "model", parts.next().unwrap(), |v| {
                             client.p1(25);
                             client.p2(v);
                         });
@@ -263,7 +258,7 @@ pub fn pack_objs(
                     }
 
                     // 26
-                    "womanwear2" => parse_model(registry, value, |v| {
+                    "womanwear2" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(26);
                         client.p2(v);
                     }),
@@ -329,43 +324,43 @@ pub fn pack_objs(
                     }
 
                     // 78
-                    "manwear3" => parse_model(registry, value, |v| {
+                    "manwear3" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(78);
                         client.p2(v);
                     }),
 
                     // 79
-                    "womanwear3" => parse_model(registry, value, |v| {
+                    "womanwear3" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(79);
                         client.p2(v);
                     }),
 
                     // 90
-                    "manhead" => parse_model(registry, value, |v| {
+                    "manhead" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(90);
                         client.p2(v);
                     }),
 
                     // 91
-                    "womanhead" => parse_model(registry, value, |v| {
+                    "womanhead" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(91);
                         client.p2(v);
                     }),
 
                     // 92
-                    "manhead2" => parse_model(registry, value, |v| {
+                    "manhead2" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(92);
                         client.p2(v);
                     }),
 
                     // 93
-                    "womanhead2" => parse_model(registry, value, |v| {
+                    "womanhead2" => parse_ref(&registry.model, "model", value, |v| {
                         client.p1(93);
                         client.p2(v);
                     }),
 
                     // 94
-                    "category" => parse_category(registry, value, |v| {
+                    "category" => parse_ref(&registry.category, "category", value, |v| {
                         server.p1(94);
                         server.p2(v);
                     }),
@@ -390,13 +385,13 @@ pub fn pack_objs(
                     }),
 
                     // 97
-                    "certlink" => parse_obj(registry, value, |v| {
+                    "certlink" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(97);
                         client.p2(v);
                     }),
 
                     // 98
-                    "certtemplate" => parse_obj(registry, value, |v| {
+                    "certtemplate" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(98);
                         client.p2(v);
                     }),
@@ -407,7 +402,7 @@ pub fn pack_objs(
                         if parts.len() != 2 {
                             panic!("Invalid count value: {key}={value}");
                         }
-                        parse_obj(registry, parts[0], |v| {
+                        parse_ref(&registry.obj, "obj", parts[0], |v| {
                             parse_number(parts[1], |x| {
                                 if cfg!(before_647) && x == 0 {
                                     panic!("Invalid count value: {key}={value}");
@@ -467,13 +462,13 @@ pub fn pack_objs(
                     }),
 
                     #[cfg(since_647)]
-                    "lentlink" => parse_obj(registry, value, |v| {
+                    "lentlink" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(121);
                         client.p2(v);
                     }),
 
                     #[cfg(since_647)]
-                    "lenttemplate" => parse_obj(registry, value, |v| {
+                    "lenttemplate" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(122);
                         client.p2(v);
                     }),
@@ -506,13 +501,13 @@ pub fn pack_objs(
                     }),
 
                     #[cfg(since_647)]
-                    "boughtlink" => parse_obj(registry, value, |v| {
+                    "boughtlink" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(139);
                         client.p2(v);
                     }),
 
                     #[cfg(since_647)]
-                    "boughttemplate" => parse_obj(registry, value, |v| {
+                    "boughttemplate" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(140);
                         client.p2(v);
                     }),

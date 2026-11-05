@@ -1,9 +1,5 @@
 use super::UnpackedPacks;
-#[cfg(since_647)]
-use super::order::decode_raw_params;
 use crate::cache::loc::LocTypeRaw;
-#[cfg(since_647)]
-use crate::types::ParamValue;
 use std::collections::HashMap;
 
 pub fn emit_loc_props(
@@ -11,15 +7,16 @@ pub fn emit_loc_props(
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    #[cfg(before_647)]
-    if super::has_repeated_opcodes(&def.opcode_order) {
+    if def.raw_opcodes.len() > 1
+        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
+    {
         return super::emit_repeated::<LocTypeRaw>(
             def.id,
             &def.raw_opcodes,
             registry,
             _reverse_hsl,
             emit_loc_props,
-            true,
+            cfg!(before_647),
             |value| {
                 value.opcode_order.clear();
                 value.raw_opcodes.clear();
@@ -565,66 +562,15 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if let Some(params) = &def.params {
-        let raw_param_values = decode_raw_params(&def.raw_opcodes);
-        let param_name = |k: i32| -> String {
-            registry
-                .config_name("param", k as u32)
-                .map(|s| s.to_string())
-                .unwrap_or_else(|| k.to_string())
-        };
-
-        if !def.param_order.is_empty() && !raw_param_values.is_empty() {
-            for (i, k) in def.param_order.iter().enumerate() {
-                let pname = param_name(*k);
-                if let Some(raw_val) = raw_param_values.get(i) {
-                    match raw_val {
-                        ParamValue::Int(v) => {
-                            p.push((249, "paramint".into(), format!("{pname},{v}")));
-                        }
-                        ParamValue::String(s) => {
-                            p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                        }
-                    }
-                } else if let Some(val) = params.get(k) {
-                    match val {
-                        ParamValue::Int(v) => {
-                            p.push((249, "paramint".into(), format!("{pname},{v}")));
-                        }
-                        ParamValue::String(s) => {
-                            p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                        }
-                    }
-                }
-            }
-        } else {
-            let ordered: Vec<_> = if !def.param_order.is_empty() {
-                def.param_order
-                    .iter()
-                    .filter_map(|k| params.get(k).map(|v| (*k, v)))
-                    .collect()
-            } else {
-                let mut sorted: Vec<_> = params.iter().map(|(k, v)| (*k, v)).collect();
-                sorted.sort_by_key(|(k, _)| *k);
-                sorted
-            };
-            for (key, val) in ordered {
-                let pname = param_name(key);
-                match val {
-                    ParamValue::Int(i) => {
-                        p.push((249, "paramint".into(), format!("{pname},{i}")));
-                    }
-                    ParamValue::String(s) => {
-                        p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                    }
-                }
-            }
-        }
-    }
+    p.extend(super::order::emit_params(
+        &def.raw_opcodes,
+        def.params.as_deref(),
+        registry,
+    ));
 
     #[cfg(since_647)]
     {
-        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_loc_raw)
+        super::reorder_by_opcode(&def.opcode_order, p)
     }
     #[cfg(before_647)]
     {
@@ -665,76 +611,5 @@ pub fn emit_loc_props(
             }
         }
         props
-    }
-}
-
-#[cfg(since_647)]
-fn decode_loc_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
-    let r_u16 = |pos: usize| -> u16 {
-        if pos + 1 < raw.len() {
-            u16::from_be_bytes([raw[pos], raw[pos + 1]])
-        } else {
-            0
-        }
-    };
-    let r_i16 = |pos: usize| -> i16 {
-        if pos + 1 < raw.len() {
-            i16::from_be_bytes([raw[pos], raw[pos + 1]])
-        } else {
-            0
-        }
-    };
-    let r_i8 = |pos: usize| -> i8 { if pos < raw.len() { raw[pos] as i8 } else { 0 } };
-    let r_u8 = |pos: usize| -> u8 { if pos < raw.len() { raw[pos] } else { 0 } };
-    let _r_i32 = |pos: usize| -> i32 {
-        if pos + 3 < raw.len() {
-            i32::from_be_bytes([raw[pos], raw[pos + 1], raw[pos + 2], raw[pos + 3]])
-        } else {
-            0
-        }
-    };
-
-    match opcode {
-        14 => Some(("width".into(), r_u8(0).to_string())),
-        15 => Some(("length".into(), r_u8(0).to_string())),
-        19 => Some(("active".into(), r_u8(0).to_string())),
-        24 => {
-            let v = r_u16(0);
-            if v == 0xFFFF {
-                Some(("anim".into(), "null".into()))
-            } else {
-                // Raw numeric id since we don't have registry access here
-                Some(("anim".into(), v.to_string()))
-            }
-        }
-        28 => Some(("wallwidth".into(), r_u8(0).to_string())),
-        29 => Some(("ambient".into(), r_i8(0).to_string())),
-        39 => Some(("contrast".into(), r_i8(0).to_string())),
-        65 => Some(("resizex".into(), r_u16(0).to_string())),
-        66 => Some(("resizey".into(), r_u16(0).to_string())),
-        67 => Some(("resizez".into(), r_u16(0).to_string())),
-        69 => Some(("forceapproach".into(), r_u8(0).to_string())),
-        70 => Some(("offsetx".into(), r_u16(0).to_string())),
-        71 => Some(("offsety".into(), r_u16(0).to_string())),
-        72 => Some(("offsetz".into(), r_u16(0).to_string())),
-        75 => Some(("raiseobject".into(), r_u8(0).to_string())),
-        78 => Some(("ambient_sfx".into(), format!("{},{}", r_u16(0), r_u8(2)))),
-        99 => Some(("cursor1".into(), format!("{},{}", r_u8(0), r_u16(1)))),
-        100 => Some(("cursor2".into(), format!("{},{}", r_u8(0), r_u16(1)))),
-        101 => Some(("mapfunction".into(), r_u8(0).to_string())),
-        102 => Some(("msi_id".into(), r_u16(0).to_string())),
-        104 => Some(("interaction_sides".into(), r_u8(0).to_string())),
-        107 => Some(("mapelement".into(), r_u16(0).to_string())),
-        163 => Some((
-            "op163".into(),
-            format!("{},{},{},{}", r_i8(0), r_i8(1), r_i8(2), r_i8(3)),
-        )),
-        164 => Some(("op164".into(), r_i16(0).to_string())),
-        165 => Some(("op165".into(), r_i16(0).to_string())),
-        166 => Some(("op166".into(), r_i16(0).to_string())),
-        167 => Some(("op167".into(), r_u16(0).to_string())),
-        178 => Some(("op178".into(), r_u8(0).to_string())),
-        61 => Some(("category".into(), r_u16(0).to_string())),
-        _ => super::decode_raw_to_text(opcode, raw),
     }
 }

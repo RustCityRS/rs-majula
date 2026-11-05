@@ -26,7 +26,7 @@
 //!
 //! Runs the full pack pipeline, so it needs the `content/647` tree and is
 //! `#[ignore]`d by default:
-//! `REV=647 cargo test -p rs-pack --release --test crc_gate -- --ignored`
+//! `REV=647 cargo test -p rs-pack --test crc_gate -- --ignored`
 #![cfg(rev = "647")]
 
 use std::collections::BTreeMap;
@@ -83,7 +83,7 @@ struct Known {
     why: &'static str,
 }
 
-/// Measured 2026-10-31 against OpenRS2 786. Thirty archives match outright.
+/// Exact divergences from OpenRS2 786.
 const KNOWN: &[Known] = &[
     Known {
         archive: 5,
@@ -131,15 +131,7 @@ const KNOWN: &[Known] = &[
     },
     Known {
         archive: 16,
-        // 179 left this list on 2026-10-31: its eight `border_guard` locs had
-        // been dropped from the content for no recorded reason, and restoring
-        // them from 786 made the group match again. 1, 2, 146, 147, 150 and
-        // 151 left it with 289's woodcutting (2026-11-04), whose tree configs
-        // hold only server keys: the trees in them are 786's again.
-        groups: &[
-            0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 35, 36, 58, 65, 67, 74,
-            100, 105, 137, 138, 142, 163, 165, 167, 168, 172, 183, 184, 191, 205, 223,
-        ],
+        groups: &[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 35],
         table_only: false,
         why: "loc config groups restored from donor caches, plus the woodcutting tree overlays",
     },

@@ -1,10 +1,10 @@
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_seq;
+use crate::pack::util::parse_ref;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_mesanims(
     file_cache: &FileCache,
@@ -13,11 +13,7 @@ pub fn pack_mesanims(
 ) -> Result<PackedFile> {
     let pack = &registry.mesanim;
 
-    let files = file_cache.collect("mesanim");
-    debug!("  Found {} .mesanim files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "mesanim", constants);
-    debug!("  Parsed {} mesanim configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     #[cfg(all(since_274, before_647))]
@@ -28,30 +24,15 @@ pub fn pack_mesanims(
         #[cfg(all(since_274, before_647))]
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown mesanim id: {}", id);
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown mesanim config: {}", debugname);
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("mesanim", pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         for (key, value) in props {
             match key.as_str() {
                 // 1-4
-                _ if key.starts_with("len") => parse_seq(registry, value, |v| {
+                _ if key.starts_with("len") => parse_ref(&registry.seq, "seq", value, |v| {
                     if let Some(rest) = key.strip_prefix("len")
                         && let Ok(idx) = rest.parse::<u8>()
                     {

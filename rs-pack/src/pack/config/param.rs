@@ -1,20 +1,16 @@
-#[cfg(since_647)]
-use crate::types::ScriptVarType;
-use std::collections::HashMap;
-
-use anyhow::Result;
-use tracing::debug;
-#[cfg(since_647)]
-use tracing::warn;
-
+use super::config_entry;
 use crate::ParamValue;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_bool;
-use crate::pack::util::{parse_coord, parse_script_var_type};
+use crate::pack::util::{parse_bool, parse_coord, parse_script_var_type};
+use crate::types::ScriptVarType;
 #[cfg(before_647)]
 use crate::types::{NpcStat, PlayerStat};
+use anyhow::Result;
+use std::collections::HashMap;
+#[cfg(since_647)]
+use tracing::warn;
 
 pub fn pack_params(
     file_cache: &FileCache,
@@ -23,11 +19,7 @@ pub fn pack_params(
 ) -> Result<PackedFile> {
     let pack = &registry.param;
 
-    let files = file_cache.collect("param");
-    debug!("  Found {} .param files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "param", constants);
-    debug!("  Parsed {} param configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
@@ -44,27 +36,18 @@ pub fn pack_params(
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown param id: {id}");
+        let Some((debugname, props)) = config_entry("param", pack, &configs, id) else {
+            server.finish_entry();
             #[cfg(since_647)]
-            {
-                server.finish_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
+            if id < client_count {
+                client.skip_entry();
             }
+            continue;
         };
 
-        if let Some(props) = configs.get(debugname) {
-            encode_param(&mut server, props, registry, debugname);
-            server.p1(250);
-            server.pjstr(debugname);
-        } else {
-            #[cfg(before_647)]
-            panic!("Unknown param config: {debugname}");
-        }
+        encode_param(&mut server, props, registry, debugname);
+        server.p1(250);
+        server.pjstr(debugname);
 
         #[cfg(since_647)]
         if id < client_count {
@@ -177,193 +160,85 @@ pub fn load_param_types(
 }
 
 pub fn get_param_value_for_type(
-    str: &str,
+    kind: &str,
     registry: &PackRegistry,
     value: &str,
 ) -> Option<ParamValue> {
-    #[cfg(since_647)]
-    if str != "string" {
-        if value == "null" {
-            return Some(ParamValue::Int(-1));
-        }
-        if let Ok(value) = value.parse::<i32>() {
-            return Some(ParamValue::Int(value));
-        }
-        if let Ok(value) = value.parse::<u32>() {
-            return Some(ParamValue::Int(value as i32));
-        }
+    if kind == "string" {
+        return Some(ParamValue::String(
+            if value == "null" { "" } else { value }.into(),
+        ));
     }
-    match str {
-        "int" => Some(ParamValue::Int(value.parse::<i32>().unwrap_or(-1))),
-        "string" => Some(ParamValue::String(if value == "null" {
-            String::new().into_boxed_str()
-        } else {
-            value.to_string().into_boxed_str()
-        })),
-        "coord" => Some(ParamValue::Int(parse_coord(value).unwrap_or(-1))),
-        "obj" | "namedobj" => Some(ParamValue::Int(
-            registry
-                .obj
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "npc" => Some(ParamValue::Int(
-            registry
-                .npc
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "loc" => Some(ParamValue::Int(
-            registry
-                .loc
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        #[cfg(since_647)]
-        "component" if value.contains(':') => Some(ParamValue::Int(
-            registry.component_hashes.get(value).copied().unwrap_or(-1),
-        )),
-        "component" => Some(ParamValue::Int(
-            registry
-                .interface
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "interface" => {
-            let index = if value.contains(':') {
-                -1i32
-            } else {
-                registry
-                    .interface
-                    .get_by_debugname(value)
-                    .map(|id| id as i32)
-                    .unwrap_or(-1)
-            };
-            Some(ParamValue::Int(index))
+    if value == "null" {
+        return Some(ParamValue::Int(-1));
+    }
+    if let Ok(value) = value.parse::<i32>() {
+        return Some(ParamValue::Int(value));
+    }
+    if let Ok(value) = value.parse::<u32>() {
+        return Some(ParamValue::Int(value as i32));
+    }
+    let pack = match kind {
+        "int" => return Some(ParamValue::Int(-1)),
+        "coord" => return Some(ParamValue::Int(parse_coord(value).unwrap_or(-1))),
+        "boolean" => {
+            let mut result = -1;
+            parse_bool(value, |value| result = value as i32);
+            return Some(ParamValue::Int(result));
         }
-        "boolean" => Some(ParamValue::Int(if value == "null" {
-            -1
-        } else {
-            let mut result = -1i32;
-            parse_bool(value, |v| result = v as i32);
-            result
-        })),
-        "enum" => Some(ParamValue::Int(
-            registry
-                .r#enum
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "struct" => Some(ParamValue::Int(
-            registry
-                .r#struct
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
+        "obj" | "namedobj" => &registry.obj,
+        "npc" => &registry.npc,
+        "loc" => &registry.loc,
         #[cfg(since_647)]
-        "stat" | "npc_stat" => Some(ParamValue::Int(
-            registry
-                .stat
-                .get_by_debugname(value)
-                .map_or(-1, |id| id as i32),
-        )),
+        "component" if value.contains(':') => {
+            return Some(ParamValue::Int(
+                registry.component_hashes.get(value).copied().unwrap_or(-1),
+            ));
+        }
+        "component" => &registry.interface,
+        "interface" if value.contains(':') => return Some(ParamValue::Int(-1)),
+        "interface" => &registry.interface,
+        "enum" => &registry.r#enum,
+        "struct" => &registry.r#struct,
         #[cfg(before_647)]
-        "stat" => Some(ParamValue::Int(if value == "null" {
-            -1
-        } else {
-            PlayerStat::from_config_str(value) as i32
-        })),
+        "stat" => return Some(ParamValue::Int(PlayerStat::from_config_str(value) as i32)),
         #[cfg(before_647)]
-        "npc_stat" => Some(ParamValue::Int(if value == "null" {
-            -1
-        } else {
-            NpcStat::from_config_str(value) as i32
-        })),
-        "seq" => Some(ParamValue::Int(
-            registry
-                .seq
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "synth" => Some(ParamValue::Int(
-            registry
-                .synth
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "inv" => Some(ParamValue::Int(
-            registry
-                .inv
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "spotanim" => Some(ParamValue::Int(
-            registry
-                .spotanim
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "varp" => Some(ParamValue::Int(
-            registry
-                .varp
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
+        "npc_stat" => return Some(ParamValue::Int(NpcStat::from_config_str(value) as i32)),
         #[cfg(since_647)]
-        "model" => Some(ParamValue::Int(
-            registry
-                .model
-                .get_by_debugname(value)
-                .or_else(|| {
-                    value
-                        .strip_prefix("model_")
-                        .and_then(|rest| rest.split('_').next())
-                        .and_then(|id| id.parse().ok())
-                })
-                .map_or(-1, |id| id as i32),
-        )),
+        "stat" | "npc_stat" => &registry.stat,
+        "seq" => &registry.seq,
+        "synth" => &registry.synth,
+        "inv" => &registry.inv,
+        "spotanim" => &registry.spotanim,
+        "varp" => &registry.varp,
+        "model" => {
+            let id = registry.model.get_by_debugname(value).or_else(|| {
+                value
+                    .strip_prefix("model_")
+                    .and_then(|rest| rest.split('_').next())
+                    .and_then(|id| id.parse().ok())
+            });
+            return Some(ParamValue::Int(id.map_or(-1, |id| id as i32)));
+        }
+        "player_uid" | "npc_uid" => return Some(ParamValue::Int(-1)),
         #[cfg(since_647)]
-        "mapelement" | "player_uid" | "npc_uid" => Some(ParamValue::Int(-1)),
-        "category" => Some(ParamValue::Int(
-            registry
-                .category
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        #[cfg(since_647)]
-        "idkit" => Some(ParamValue::Int(
-            registry
-                .idk
-                .get_by_debugname(value)
-                .map_or(-1, |id| id as i32),
-        )),
-        "dbrow" => Some(ParamValue::Int(
-            registry
-                .dbrow
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        "midi" => Some(ParamValue::Int(
-            registry
-                .midi
-                .get_by_debugname(value)
-                .map(|id| id as i32)
-                .unwrap_or(-1),
-        )),
-        _ => None,
+        "mapelement" => return Some(ParamValue::Int(-1)),
+        "category" => &registry.category,
+        "idkit" => &registry.idk,
+        "dbrow" => &registry.dbrow,
+        "midi" => &registry.midi,
+        _ => return None,
+    };
+    Some(ParamValue::Int(
+        pack.get_by_debugname(value).map_or(-1, |id| id as i32),
+    ))
+}
+
+pub(super) fn resolve_typed_value(value: &str, type_char: u8, registry: &PackRegistry) -> i32 {
+    let ty = ScriptVarType::try_from(type_char).expect("Invalid config type");
+    match get_param_value_for_type(ty.type_name(), registry, value) {
+        Some(ParamValue::Int(value)) => value,
+        _ => panic!("Expected integer value for {}: {value}", ty.type_name()),
     }
 }
 

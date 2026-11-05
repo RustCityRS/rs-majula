@@ -1,10 +1,9 @@
 use crate::pack::pack_registry::PackId;
+use anyhow::{Result, ensure};
 #[cfg(since_647)]
 use rs_io::cp1252;
 use rs_ver::STRING_TERMINATOR;
 use std::path::Path;
-
-use anyhow::Result;
 use tracing::debug;
 
 #[derive(Default)]
@@ -16,6 +15,28 @@ pub struct PackedData {
 }
 
 impl PackedData {
+    pub fn entries<'a>(
+        dat: &'a [u8],
+        idx: &'a [u8],
+    ) -> Result<impl ExactSizeIterator<Item = (u16, &'a [u8])>> {
+        ensure!(dat.len() >= 2 && idx.len() >= 2, "Missing config count");
+        let count = u16::from_be_bytes([dat[0], dat[1]]) as usize;
+        ensure!(dat[..2] == idx[..2], "Config data and index counts differ");
+        ensure!(idx.len() >= 2 + (count << 1), "Truncated config index");
+        let lengths = idx[2..2 + (count << 1)].as_chunks::<2>().0.iter();
+        let length = |bytes: &[u8; 2]| u16::from_be_bytes(*bytes) as usize;
+        ensure!(
+            2 + lengths.clone().map(length).sum::<usize>() <= dat.len(),
+            "Truncated config data"
+        );
+        let mut offset = 2;
+        Ok(lengths.enumerate().map(move |(id, bytes)| {
+            let start = offset;
+            offset += length(bytes);
+            (id as u16, &dat[start..offset])
+        }))
+    }
+
     pub fn new(count: PackId) -> Self {
         let mut dat = Vec::with_capacity(500_000);
         let mut idx = Vec::with_capacity((count as usize + 1) * 2);
@@ -127,5 +148,24 @@ impl PackedData {
             idx_size = self.idx.len(),
         );
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn indexed_entries_preserve_gaps_and_check_lengths() {
+        let dat = [0, 3, 0, 1, 7, 0];
+        let idx = [0, 3, 0, 1, 0, 0, 0, 3];
+        assert_eq!(
+            PackedData::entries(&dat, &idx).unwrap().collect::<Vec<_>>(),
+            vec![(0, &dat[2..3]), (1, &dat[3..3]), (2, &dat[3..6])]
+        );
+        assert!(PackedData::entries(&[], &idx).is_err());
+        assert!(PackedData::entries(&dat, &idx[..6]).is_err());
+        assert!(PackedData::entries(&dat[..5], &idx).is_err());
+        assert!(PackedData::entries(&dat, &[0, 0]).is_err());
     }
 }

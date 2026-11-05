@@ -1,3 +1,4 @@
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -10,7 +11,6 @@ use crate::pack::util::{parse_bool, parse_model_kind, parse_recol};
 use crate::types::BodyType;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_idks(
     file_cache: &FileCache,
@@ -19,11 +19,7 @@ pub fn pack_idks(
 ) -> Result<PackedFile> {
     let pack = &registry.idk;
 
-    let files = file_cache.collect("idk");
-    debug!("  Found {} .idk files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "idk", constants);
-    debug!("  Parsed {} idk configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -32,26 +28,10 @@ pub fn pack_idks(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown idk id: {id}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                client.finish_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown idk config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                client.finish_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("idk", pack, &configs, id) else {
+            server.finish_entry();
+            client.finish_entry();
+            continue;
         };
 
         let mut models: Vec<(usize, u16)> = Vec::new();

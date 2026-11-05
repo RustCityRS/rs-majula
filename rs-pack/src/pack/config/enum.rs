@@ -1,3 +1,4 @@
+use super::config_entry;
 use crate::ParamValue;
 use crate::pack::config::param::get_param_value_for_type;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -6,7 +7,6 @@ use crate::pack::packed_data::PackedData;
 use crate::types::ScriptVarType;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_enums(
     file_cache: &FileCache,
@@ -15,11 +15,7 @@ pub fn pack_enums(
 ) -> Result<PackedFile> {
     let pack = &registry.r#enum;
 
-    let files = file_cache.collect("enum");
-    debug!("  Found {} .enum files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "enum", constants);
-    debug!("  Parsed {} enum configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
@@ -35,30 +31,13 @@ pub fn pack_enums(
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown enum id: {id}");
+        let Some((debugname, props)) = config_entry("enum", pack, &configs, id) else {
+            server.finish_entry();
             #[cfg(since_647)]
-            {
-                server.finish_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
+            if id < client_count {
+                client.skip_entry();
             }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown enum config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
-            }
+            continue;
         };
 
         encode_enum(&mut server, props, registry, debugname);

@@ -1,5 +1,5 @@
-use std::collections::HashMap;
-
+use super::config_entry;
+use super::dbtable::{ColumnDef, PROP_LIST, PROP_REQUIRED, parse_column_def};
 use crate::ParamValue;
 use crate::pack::config::param::*;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -8,79 +8,38 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_csv_values;
 use crate::types::ScriptVarType;
 use anyhow::{Result, ensure};
-use tracing::debug;
-
-/// Loaded table schema for resolving column names and types.
-struct TableSchema {
-    columns: Vec<(String, Vec<u8>, u8)>, // (name, type_chars, props)
-}
+use std::collections::HashMap;
 
 pub fn pack_dbrows(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
-    let row_pack = PackFile::load(&registry.pack_dir().join("dbrow.pack"))?;
+    let row_pack = &registry.dbrow;
     let table_pack = PackFile::load(&registry.pack_dir().join("dbtable.pack"))?;
 
     let table_configs = parse_config_sections_cached(file_cache, "dbtable", constants);
-    let mut table_schemas: HashMap<String, TableSchema> = HashMap::new();
+    let mut table_schemas: HashMap<&str, Vec<ColumnDef>> = HashMap::new();
     for (tname, props) in &table_configs {
-        let mut columns: Vec<(String, Vec<u8>, u8)> = Vec::new(); // (name, types, props)
+        let mut columns = Vec::new();
         for (key, value) in props {
             if key == "column" {
-                let parts: Vec<&str> = value.split(',').map(|s| s.trim()).collect();
-                if !parts.is_empty() {
-                    let col_name = parts[0].to_string();
-                    let mut col_types = Vec::new();
-                    let mut col_props = 0u8;
-                    for p in &parts[1..] {
-                        if p.chars().all(|c| c.is_uppercase() || c == '_') {
-                            if *p == "REQUIRED" {
-                                col_props |= 0x1;
-                            }
-                            if *p == "LIST" {
-                                col_props |= 0x2;
-                            }
-                        } else {
-                            col_types.push(ScriptVarType::from_type_name(p) as u8);
-                        }
-                    }
-                    columns.push((col_name, col_types, col_props));
-                }
+                columns.push(parse_column_def(value));
             }
         }
-        table_schemas.insert(tname.to_string(), TableSchema { columns });
+        table_schemas.insert(tname, columns);
     }
 
-    let files = file_cache.collect("dbrow");
-    debug!("  Found {} .dbrow files", files.len());
     let configs = parse_config_sections_cached(file_cache, "dbrow", constants);
-    debug!("  Parsed {} dbrow configs", configs.len());
 
     let mut server = PackedData::new(row_pack.max);
 
     for id in 0..row_pack.max {
         server.start_entry();
 
-        let Some(debugname) = row_pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown dbrow id: {}", id);
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown dbrow config: {}", debugname);
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("dbrow", row_pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         let table_name = props
@@ -108,16 +67,18 @@ pub fn pack_dbrows(
             #[cfg(since_647)]
             for (column, _) in &data_lines {
                 ensure!(
-                    schema.columns.iter().any(|(name, _, _)| name == column),
+                    schema.iter().any(|col| col.name == *column),
                     "{debugname}: unknown column {column}"
                 );
             }
 
             // Opcode 3: column data - iterate in schema order like TypeScript
             server.p1(3);
-            server.p1(schema.columns.len() as u8);
+            server.p1(schema.len() as u8);
 
-            for (col_idx, (col_name, col_types, col_props)) in schema.columns.iter().enumerate() {
+            for (col_idx, col) in schema.iter().enumerate() {
+                let col_name = &col.name;
+                let col_types = &col.types;
                 // Find all data entries for this column (matching TypeScript's fields filter)
                 let fields: Vec<&Vec<String>> = data_lines
                     .iter()
@@ -125,13 +86,13 @@ pub fn pack_dbrows(
                     .map(|(_, v)| v)
                     .collect();
 
-                if (col_props & 0x1) != 0 && fields.is_empty() {
+                if (col.props & PROP_REQUIRED) != 0 && fields.is_empty() {
                     return Err(anyhow::anyhow!(
                         "{debugname}: {col_name} column is marked REQUIRED, please add data for it"
                     ));
                 }
 
-                if (col_props & 0x2) == 0 && fields.len() > 1 {
+                if (col.props & PROP_LIST) == 0 && fields.len() > 1 {
                     return Err(anyhow::anyhow!(
                         "{debugname}: {col_name} column has multiple data values but is not marked as LIST"
                     ));
@@ -153,11 +114,7 @@ pub fn pack_dbrows(
                         values.len() == col_types.len(),
                         "{debugname}: {col_name} has an incomplete tuple"
                     );
-                    for (k, val) in values.iter().enumerate() {
-                        let type_char = col_types
-                            .get(k % col_types.len().max(1))
-                            .copied()
-                            .unwrap_or(b'i');
+                    for (val, &type_char) in values.iter().zip(col_types) {
                         let svt = ScriptVarType::try_from(type_char)?;
                         let Some(value) = get_param_value_for_type(svt.type_name(), registry, val)
                         else {
@@ -212,15 +169,6 @@ pub fn pack_dbrows(
         server,
         client: None,
     })
-}
-
-#[cfg(since_647)]
-pub(crate) fn resolve_typed_value(value: &str, type_char: u8, registry: &PackRegistry) -> i32 {
-    let ty = ScriptVarType::try_from(type_char).expect("Invalid config type");
-    match get_param_value_for_type(ty.type_name(), registry, value) {
-        Some(ParamValue::Int(value)) => value,
-        _ => panic!("Expected integer value for {}: {value}", ty.type_name()),
-    }
 }
 
 #[cfg(all(test, since_647))]

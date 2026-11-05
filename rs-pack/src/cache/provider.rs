@@ -1,3 +1,5 @@
+use crate::pack::packed_data::PackedData;
+use anyhow::Result;
 use rs_io::Packet;
 use rustc_hash::FxHashMap;
 
@@ -16,6 +18,21 @@ pub struct TypeProvider<T> {
 }
 
 impl<T> TypeProvider<T> {
+    pub fn from_indexed_bytes<Raw>(dat: &[u8], idx: &[u8], ctx: Raw::Context) -> Result<Self>
+    where
+        Raw: CacheType,
+        T: From<Raw>,
+    {
+        let raws = PackedData::entries(dat, idx)?
+            .map(|(id, data)| {
+                let mut raw = Raw::new(id);
+                raw.decode(&mut Packet::from(data.to_vec()));
+                raw
+            })
+            .collect();
+        Ok(Self::from_types(raws, ctx))
+    }
+
     pub fn from_bytes<Raw>(dat: &[u8], ctx: Raw::Context) -> TypeProvider<T>
     where
         Raw: CacheType,

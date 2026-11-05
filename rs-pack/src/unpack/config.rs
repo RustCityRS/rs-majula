@@ -26,12 +26,12 @@ use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varp::VarPlayerTypeRaw;
 use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(before_647)]
+use crate::pack::packed_data::PackedData;
+#[cfg(before_647)]
 use crate::pack::util::colour::rgb15_to_hsl16;
 #[cfg(before_647)]
 use crate::types::LocShape;
 use order::reorder_by_opcode;
-#[cfg(since_647)]
-use order::{decode_raw_to_text, reorder_by_opcode_with_raw_fn};
 #[cfg(since_647)]
 use rs_dat2::{CacheStore, archive};
 use rs_io::Packet;
@@ -45,7 +45,6 @@ use std::fs::File;
 #[cfg(since_647)]
 use std::io::BufWriter;
 use std::io::Write;
-#[cfg(before_647)]
 use std::mem::replace;
 use std::path::Path;
 use std::rc::Rc;
@@ -440,29 +439,10 @@ pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
 
 #[cfg(before_647)]
 pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u16, Vec<u8>)> {
-    let mut dat_buf = Packet::from(dat.to_vec());
-    let mut idx_buf = Packet::from(idx.to_vec());
-
-    let count = dat_buf.g2() as usize;
-    let _idx_count = idx_buf.g2();
-
-    let mut lengths = Vec::with_capacity(count);
-    for _ in 0..count {
-        lengths.push(idx_buf.g2() as usize);
-    }
-
-    let mut entries = Vec::with_capacity(count);
-    for (id, &len) in lengths.iter().enumerate() {
-        if len == 0 || dat_buf.pos + len > dat_buf.data.len() {
-            entries.push((id as u16, Vec::new()));
-            continue;
-        }
-        let data = dat_buf.data[dat_buf.pos..dat_buf.pos + len].to_vec();
-        dat_buf.pos += len;
-        entries.push((id as u16, data));
-    }
-
-    entries
+    PackedData::entries(dat, idx)
+        .expect("Invalid config data/index")
+        .map(|(id, data)| (id, data.to_vec()))
+        .collect()
 }
 
 #[cfg(before_647)]
@@ -747,7 +727,6 @@ fn recol_value(value: u16, other: u16, _reverse_hsl: &HashMap<u16, u16>) -> u16 
     value
 }
 
-#[cfg(before_647)]
 fn has_repeated_opcodes(order: &[u8]) -> bool {
     let mut seen = [false; 256];
     order
@@ -755,7 +734,6 @@ fn has_repeated_opcodes(order: &[u8]) -> bool {
         .any(|&code| replace(&mut seen[code as usize], true))
 }
 
-#[cfg(before_647)]
 fn emit_repeated<T: CacheType>(
     id: u16,
     records: &[(u8, Vec<u8>)],
@@ -788,7 +766,7 @@ fn emit_repeated<T: CacheType>(
     props
 }
 
-#[cfg(all(test, before_647))]
+#[cfg(test)]
 mod tests {
     use super::*;
     use rs_ver::STRING_TERMINATOR;
@@ -804,10 +782,7 @@ mod tests {
             .find(|(kind, _)| *kind == name)
             .unwrap()
             .1;
-        decode_records(name, vec![(7, data)], hsl, packs, decoder)
-            .pop()
-            .unwrap()
-            .1
+        decode_entry(name, 7, data, hsl, packs, decoder)
     }
 
     #[test]
@@ -836,6 +811,7 @@ mod tests {
         assert_eq!((packs.leftovers[0].id, packs.leftovers[0].bytes), (7, 1));
     }
 
+    #[cfg(before_647)]
     #[test]
     fn repeated_loc_fields_keep_texture_detection() {
         let mut packs = UnpackedPacks::new();
@@ -882,7 +858,7 @@ mod tests {
         assert_eq!(props, vec![("count1".into(), "obj_2,5".into())]);
     }
 
-    #[cfg(since_254)]
+    #[cfg(all(since_254, before_647))]
     #[test]
     fn varbit_zero_values_and_legacy_debugname_are_preserved() {
         let props = unpack(
@@ -898,6 +874,75 @@ mod tests {
                 ("startbit".into(), "0".into()),
                 ("endbit".into(), "0".into()),
                 ("debugname".into(), "x".into())
+            ]
+        );
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn overlapping_loc_opcodes_keep_their_original_values() {
+        let props = unpack(
+            "loc",
+            vec![27, 22, 17, 22, 0],
+            &mut UnpackedPacks::new(),
+            &HashMap::new(),
+        );
+        assert_eq!(
+            props,
+            vec![
+                ("interact_type1".into(), "yes".into()),
+                ("sharelight".into(), "yes".into()),
+                ("blockwalk".into(), "no".into()),
+                ("sharelight".into(), "yes".into()),
+            ]
+        );
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn params_keep_repeated_keys_without_reemitting_stale_values() {
+        let props = unpack(
+            "npc",
+            vec![
+                249,
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                7,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                8,
+                249,
+                0,
+                249,
+                1,
+                1,
+                0,
+                0,
+                2,
+                b'a',
+                STRING_TERMINATOR,
+                0,
+            ],
+            &mut UnpackedPacks::new(),
+            &HashMap::new(),
+        );
+        assert_eq!(
+            props,
+            vec![
+                ("paramint".into(), "1,7".into()),
+                ("paramint".into(), "1,8".into()),
+                ("paramstr".into(), "2,a".into()),
             ]
         );
     }

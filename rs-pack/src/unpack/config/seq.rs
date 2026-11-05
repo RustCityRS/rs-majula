@@ -7,8 +7,9 @@ pub fn emit_seq_props(
     _registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    #[cfg(before_647)]
-    if super::has_repeated_opcodes(&def.opcode_order) {
+    if def.raw_opcodes.len() > 1
+        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
+    {
         return super::emit_repeated::<SeqTypeRaw>(
             def.id,
             &def.raw_opcodes,
@@ -19,6 +20,11 @@ pub fn emit_seq_props(
             |value| {
                 value.opcode_order.clear();
                 value.raw_opcodes.clear();
+                #[cfg(since_647)]
+                {
+                    value.op19.clear();
+                    value.op20.clear();
+                }
             },
         );
     }
@@ -250,46 +256,5 @@ pub fn emit_seq_props(
     for (idx, a, b) in &def.op20 {
         p.push((20, "op20".into(), format!("{idx}:{a}:{b}")));
     }
-    #[cfg(since_647)]
-    {
-        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_seq_raw)
-    }
-    #[cfg(before_647)]
-    {
-        super::reorder_by_opcode(&def.opcode_order, p)
-    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }
-
-#[cfg(since_647)]
-fn decode_seq_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
-    let r_u8 = |pos: usize| -> u8 { if pos < raw.len() { raw[pos] } else { 0 } };
-    let r_i8 = |pos: usize| -> i8 { if pos < raw.len() { raw[pos] as i8 } else { 0 } };
-    let r_u16 = |pos: usize| -> u16 {
-        if pos + 1 < raw.len() {
-            u16::from_be_bytes([raw[pos], raw[pos + 1]])
-        } else {
-            0
-        }
-    };
-
-    match opcode {
-        2 => Some(("loopoffset".into(), r_u16(0).to_string())),
-        5 => Some(("priority".into(), r_u8(0).to_string())),
-        6 => Some(("op6".into(), (r_u16(0) as i32).to_string())),
-        7 => Some(("op7".into(), (r_u16(0) as i32).to_string())),
-        8 => Some(("loopcount".into(), r_u8(0).to_string())),
-        9 => Some(("interrupt".into(), r_i8(0).to_string())),
-        10 => Some(("walkmerge".into(), (r_u8(0) as i8).to_string())),
-        11 => Some(("looptype".into(), r_u8(0).to_string())),
-        14 => Some(("op14_abool9".into(), "yes".into())),
-        15 => Some(("tween".into(), "yes".into())),
-        16 => Some(("op16_abool8".into(), "yes".into())),
-        18 => Some(("op18_abool10".into(), "yes".into())),
-        _ => super::decode_raw_to_text(opcode, raw),
-    }
-}
-
-//
-// Server-only, debugname-only (op 250) — same shape as 2004scape's rev-225
-// seq server pack. The client cache packer above produces the actual seq
-// bytecode; this packer is kept for engine-side resolution only.

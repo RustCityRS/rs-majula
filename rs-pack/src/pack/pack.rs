@@ -116,12 +116,12 @@ pub fn pack_assets(
     debug!("Packing varn configs...");
     results.insert(
         "varn".to_string(),
-        varn::pack_varns(&fc, registry, &constants)?,
+        vars::pack_vars(&fc, &registry.varn, "varn", &constants)?,
     );
     debug!("Packing vars configs...");
     results.insert(
         "vars".to_string(),
-        vars::pack_vars_configs(&fc, registry, &constants)?,
+        vars::pack_vars(&fc, &registry.vars, "vars", &constants)?,
     );
     #[cfg(before_647)]
     {
@@ -360,12 +360,18 @@ pub fn parse_config_sections_cached(
     ext: &str,
     constants: &HashMap<String, String>,
 ) -> ConfigSections {
-    parse_sections(
+    let configs = parse_sections(
         fc.collect(ext)
             .iter()
             .filter_map(|path| fc.read(path).map(|text| (path.as_path(), text))),
         constants,
-    )
+    );
+    debug!(
+        "  {ext}: {} files, {} configs",
+        fc.collect(ext).len(),
+        configs.len()
+    );
+    configs
 }
 
 pub(super) fn parse_sections<'a>(

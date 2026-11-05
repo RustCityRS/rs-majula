@@ -1,12 +1,11 @@
-use std::collections::HashMap;
-
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::{parse_bool, parse_number, parse_script_var_type};
 use crate::types::VarPlayerScope;
 use anyhow::Result;
-use tracing::debug;
+use std::collections::HashMap;
 
 pub fn pack_varps(
     file_cache: &FileCache,
@@ -15,11 +14,7 @@ pub fn pack_varps(
 ) -> Result<PackedFile> {
     let pack = &registry.varp;
 
-    let files = file_cache.collect("varp");
-    debug!("  Found {} .varp files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "varp", constants);
-    debug!("  Parsed {} varp configs", configs.len());
 
     #[cfg(since_647)]
     let client_configs = file_cache.client_configs("varp", constants);
@@ -38,30 +33,12 @@ pub fn pack_varps(
             client.start_entry();
         }
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown varp id: {id}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
+        let Some((debugname, props)) = config_entry("varp", pack, &configs, id) else {
+            server.skip_entry();
+            if id < client_count {
+                client.skip_entry();
             }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown varp config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
-            }
+            continue;
         };
 
         for (key, value) in props {

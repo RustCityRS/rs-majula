@@ -1,12 +1,12 @@
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(before_647)]
-use crate::pack::util::parse_texture;
+use crate::pack::util::parse_ref;
 use crate::pack::util::{parse_bool, parse_hex};
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_flos(
     file_cache: &FileCache,
@@ -15,11 +15,7 @@ pub fn pack_flos(
 ) -> Result<PackedFile> {
     let pack = &registry.flo;
 
-    let files = file_cache.collect("flo");
-    debug!("  Found {} .flo files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "flo", constants);
-    debug!("  Parsed {} flo configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -28,26 +24,10 @@ pub fn pack_flos(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown flo id: {id}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                client.finish_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown flo config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                client.finish_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("flo", pack, &configs, id) else {
+            server.finish_entry();
+            client.finish_entry();
+            continue;
         };
 
         for (key, value) in props {
@@ -71,7 +51,7 @@ pub fn pack_flos(
 
                 // 2
                 #[cfg(before_647)]
-                "texture" => parse_texture(registry, value, |v| {
+                "texture" => parse_ref(&registry.texture, "texture", value, |v| {
                     client.p1(2);
                     client.p1(v as u8);
                     server.p1(2);

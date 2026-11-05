@@ -1,9 +1,4 @@
-#[cfg(since_647)]
-use anyhow::{Context, bail};
-#[cfg(since_647)]
-use std::collections::BTreeMap;
-use std::collections::HashMap;
-
+use super::config_entry;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -15,7 +10,11 @@ use crate::types::ForceApproach;
 #[cfg(before_647)]
 use crate::types::LocShape;
 use anyhow::Result;
-use tracing::debug;
+#[cfg(since_647)]
+use anyhow::{Context, bail};
+#[cfg(since_647)]
+use std::collections::BTreeMap;
+use std::collections::HashMap;
 
 #[cfg(before_647)]
 struct LocModelShape {
@@ -31,11 +30,7 @@ pub fn pack_locs(
 ) -> Result<PackedFile> {
     let pack = &registry.loc;
 
-    let files = file_cache.collect("loc");
-    debug!("  Found {} .loc files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "loc", constants);
-    debug!("  Parsed {} loc configs", configs.len());
 
     #[cfg(since_647)]
     let mut loc_ids = HashMap::new();
@@ -53,26 +48,10 @@ pub fn pack_locs(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown loc id: {id}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                client.skip_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown loc config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                client.skip_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("loc", pack, &configs, id) else {
+            server.finish_entry();
+            client.skip_entry();
+            continue;
         };
 
         #[cfg(before_647)]
@@ -202,7 +181,7 @@ pub fn pack_locs(
                     }),
 
                     // 24
-                    "anim" => parse_seq(registry, value, |v| {
+                    "anim" => parse_ref(&registry.seq, "seq", value, |v| {
                         client.p1(24);
                         client.p2(v);
                     }),
@@ -274,7 +253,7 @@ pub fn pack_locs(
                     }),
 
                     // 61
-                    "category" => parse_category(registry, value, |v| {
+                    "category" => parse_ref(&registry.category, "category", value, |v| {
                         server.p1(61);
                         server.p2(v);
                     }),
@@ -956,7 +935,7 @@ fn pack_batch(
                     160 => parse_number(value, |v| packed.p2(v)),
                     106 => {
                         let (seq, weight) = value.split_once(',').expect("Invalid random anim");
-                        parse_seq(registry, seq.trim(), |v| packed.p2(v));
+                        parse_ref(&registry.seq, "seq", seq.trim(), |v| packed.p2(v));
                         parse_number(weight.trim(), |v| packed.p1(v));
                     }
                     _ => unreachable!(),
@@ -1046,7 +1025,7 @@ fn pack_models(
             .collect();
         packed.p1(u8::try_from(models.len()).expect("Too many models"));
         for model in models {
-            parse_model(registry, model.trim(), |v| packed.p2(v));
+            parse_ref(&registry.model, "model", model.trim(), |v| packed.p2(v));
         }
     }
 }

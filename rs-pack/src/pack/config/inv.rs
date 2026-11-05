@@ -1,13 +1,11 @@
-use std::collections::HashMap;
-
-use anyhow::Result;
-use tracing::debug;
-
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::{parse_bool, parse_number, parse_obj};
+use crate::pack::util::{parse_bool, parse_number, parse_ref};
 use crate::types::InvScope;
+use anyhow::Result;
+use std::collections::HashMap;
 
 pub fn pack_invs(
     file_cache: &FileCache,
@@ -16,11 +14,7 @@ pub fn pack_invs(
 ) -> Result<PackedFile> {
     let pack = &registry.inv;
 
-    let files = file_cache.collect("inv");
-    debug!("  Found {} .inv files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "inv", constants);
-    debug!("  Parsed {} inv configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
@@ -37,30 +31,13 @@ pub fn pack_invs(
             client.start_entry();
         }
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown inv id: {id}");
+        let Some((debugname, props)) = config_entry("inv", pack, &configs, id) else {
+            server.finish_entry();
             #[cfg(since_647)]
-            {
-                server.finish_entry();
-                if id < client_count {
-                    client.finish_entry();
-                }
-                continue;
+            if id < client_count {
+                client.finish_entry();
             }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown inv config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                if id < client_count {
-                    client.finish_entry();
-                }
-                continue;
-            }
+            continue;
         };
 
         for (key, value) in props {
@@ -148,7 +125,7 @@ pub fn pack_invs(
                 let count = stock.get(1).map(|s| s.trim()).unwrap();
                 let rate = stock.get(2).map(|s| s.trim());
 
-                parse_obj(registry, obj, |v| {
+                parse_ref(&registry.obj, "obj", obj, |v| {
                     server.p2(v);
                     parse_number(count, |v| {
                         server.p2(v);

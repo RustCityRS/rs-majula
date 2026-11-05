@@ -30,7 +30,6 @@ use crate::pack::{model, pack};
 use crate::types::ParamValue;
 use crate::validate::{Severity, check_pack_content_sync};
 use anyhow::{Result, bail};
-use rs_io::Packet;
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
 use tracing::{info, warn};
@@ -724,29 +723,7 @@ pub fn load_from_server_dat<Raw: CacheType, Stored: From<Raw>>(
     let dat = std::fs::read(&dat_path)?;
     let idx = std::fs::read(&idx_path)?;
 
-    if dat.len() < 2 || idx.len() < 2 {
-        return Ok(TypeProvider::default());
-    }
-
-    let count = u16::from_be_bytes([dat[0], dat[1]]) as usize;
-    let mut types: Vec<Raw> = (0..count).map(|i| Raw::new(i as u16)).collect();
-    let mut dat_offset = 2usize;
-
-    for (id, entry) in types.iter_mut().enumerate() {
-        let idx_off = 2 + id * 2;
-        if idx_off + 1 >= idx.len() {
-            break;
-        }
-        let entry_len = u16::from_be_bytes([idx[idx_off], idx[idx_off + 1]]) as usize;
-
-        if entry_len > 0 && dat_offset + entry_len <= dat.len() {
-            let mut buf = Packet::from(dat[dat_offset..dat_offset + entry_len].to_vec());
-            entry.decode(&mut buf);
-        }
-        dat_offset += entry_len;
-    }
-
-    let provider = TypeProvider::from_types(types, ctx);
+    let provider = TypeProvider::from_indexed_bytes::<Raw>(&dat, &idx, ctx)?;
     info!("  {name}: {} entries loaded", provider.count());
     Ok(provider)
 }

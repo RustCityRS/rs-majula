@@ -251,50 +251,7 @@ impl VarValue {
     pub fn default_for(var_type: ScriptVarType) -> Self {
         match var_type {
             ScriptVarType::Int | ScriptVarType::AutoInt => VarValue::Int(0),
-            ScriptVarType::String => VarValue::String(String::new()),
-            ScriptVarType::Boolean => VarValue::Boolean(-1),
-            ScriptVarType::Obj => VarValue::Obj(-1),
-            ScriptVarType::NamedObj => VarValue::NamedObj(-1),
-            ScriptVarType::Npc => VarValue::Npc(-1),
-            ScriptVarType::Loc => VarValue::Loc(-1),
-            ScriptVarType::Component => VarValue::Component(-1),
-            ScriptVarType::Interface => VarValue::Interface(-1),
-            ScriptVarType::Enum => VarValue::Enum(-1),
-            ScriptVarType::Struct => VarValue::Struct(-1),
-            ScriptVarType::Coord => VarValue::Coord(-1),
-            ScriptVarType::Category => VarValue::Category(-1),
-            ScriptVarType::Spotanim => VarValue::Spotanim(-1),
-            ScriptVarType::Inv => VarValue::Inv(-1),
-            ScriptVarType::Synth => VarValue::Synth(-1),
-            ScriptVarType::Seq => VarValue::Seq(-1),
-            ScriptVarType::Stat => VarValue::Stat(-1),
-            ScriptVarType::NpcStat => VarValue::NpcStat(-1),
-            ScriptVarType::Varp => VarValue::Varp(-1),
-            ScriptVarType::PlayerUid => VarValue::PlayerUid(-1),
-            ScriptVarType::NpcUid => VarValue::NpcUid(-1),
-            ScriptVarType::Idkit => VarValue::Idkit(-1),
-            ScriptVarType::DbRow => VarValue::DbRow(-1),
-            ScriptVarType::Midi => VarValue::Midi(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Cursor => VarValue::Cursor(-1),
-            #[cfg(since_647)]
-            ScriptVarType::MapArea => VarValue::MapArea(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Graphic => VarValue::Graphic(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Jingle => VarValue::Jingle(-1),
-            #[cfg(since_647)]
-            ScriptVarType::ChatCat => VarValue::ChatCat(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Model => VarValue::Model(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Texture => VarValue::Texture(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Bas => VarValue::Bas(-1),
-            #[cfg(since_647)]
-            ScriptVarType::Vorbis => VarValue::Vorbis(-1),
-            #[cfg(since_647)]
-            ScriptVarType::MapElement => VarValue::MapElement(-1),
+            _ => Self::from_int(var_type, -1),
         }
     }
 

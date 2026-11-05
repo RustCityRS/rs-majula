@@ -16,6 +16,7 @@
 //!   data:      [u8; data_len]
 //! ```
 
+use crate::pack::packed_data::PackedData;
 use crate::pack::util::verify_crc;
 use crate::{CONFIG_TYPE_CRCS, config_crc};
 use anyhow::{Context, Result};
@@ -138,41 +139,11 @@ impl ConfigBlob {
             return Ok(BTreeMap::new());
         };
 
-        anyhow::ensure!(dat.len() >= 2, "{type_name}.dat too short");
-        anyhow::ensure!(idx.len() >= 2, "{type_name}.idx too short");
-
-        let dat_count = u16::from_be_bytes([dat[0], dat[1]]) as u32;
-        let idx_count = u16::from_be_bytes([idx[0], idx[1]]) as u32;
-        anyhow::ensure!(
-            dat_count == idx_count,
-            "{type_name}: dat count ({dat_count}) != idx count ({idx_count})"
-        );
-
-        let count = dat_count;
-        anyhow::ensure!(
-            idx.len() >= 2 + (count as usize) * 2,
-            "{type_name}.idx too short for {count} entries"
-        );
-
-        let mut entries = BTreeMap::new();
-        let mut dat_offset = 2usize;
-
-        for id in 0..count {
-            let idx_off = 2 + (id as usize) * 2;
-            let entry_len = u16::from_be_bytes([idx[idx_off], idx[idx_off + 1]]) as usize;
-
-            if entry_len > 0 {
-                anyhow::ensure!(
-                    dat_offset + entry_len <= dat.len(),
-                    "{type_name}: dat underflow at entry {id}"
-                );
-                entries.insert(id, dat[dat_offset..dat_offset + entry_len].to_vec());
-            }
-
-            dat_offset += entry_len;
-        }
-
-        Ok(entries)
+        Ok(PackedData::entries(dat, idx)
+            .with_context(|| format!("Reading {type_name} configs"))?
+            .filter(|(_, data)| !data.is_empty())
+            .map(|(id, data)| (id as u32, data.to_vec()))
+            .collect())
     }
 
     pub fn get(&self, name: &str) -> Option<&[u8]> {

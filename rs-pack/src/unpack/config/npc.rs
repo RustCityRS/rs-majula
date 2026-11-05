@@ -1,11 +1,7 @@
 #[cfg(before_647)]
 use super::ModelCategory;
 use super::UnpackedPacks;
-#[cfg(since_647)]
-use super::order::decode_raw_params;
 use crate::cache::npc::NpcTypeRaw;
-#[cfg(since_647)]
-use crate::types::ParamValue;
 use std::collections::HashMap;
 
 fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
@@ -66,21 +62,14 @@ fn name_for_npc(id: i32, registry: &UnpackedPacks) -> String {
         .unwrap_or_else(|| format!("npc_{id}"))
 }
 
-#[cfg(since_647)]
-fn name_for_param(id: u32, registry: &UnpackedPacks) -> String {
-    registry
-        .config_name("param", id)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| id.to_string())
-}
-
 pub fn emit_npc_props(
     def: &NpcTypeRaw,
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    #[cfg(before_647)]
-    if super::has_repeated_opcodes(&def.opcode_order) {
+    if def.raw_opcodes.len() > 1
+        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
+    {
         return super::emit_repeated::<NpcTypeRaw>(
             def.id,
             &def.raw_opcodes,
@@ -471,111 +460,11 @@ pub fn emit_npc_props(
         p.push((168, "soundrangemin".into(), def.sound_range_min.to_string()));
     }
     #[cfg(since_647)]
-    if let Some(params) = &def.params {
-        // Decode all param entries from raw opcode data (preserves earlier
-        // values for duplicate keys that were overwritten in the HashMap).
-        let raw_param_values = decode_raw_params(&def.raw_opcodes);
+    p.extend(super::order::emit_params(
+        &def.raw_opcodes,
+        def.params.as_deref(),
+        registry,
+    ));
 
-        if !def.param_order.is_empty() && !raw_param_values.is_empty() {
-            // Use raw values indexed positionally for byte-perfect output
-            for (i, k) in def.param_order.iter().enumerate() {
-                let pname = name_for_param(*k as u32, registry);
-                if let Some(raw_val) = raw_param_values.get(i) {
-                    match raw_val {
-                        ParamValue::Int(v) => {
-                            p.push((249, "paramint".into(), format!("{pname},{v}")));
-                        }
-                        ParamValue::String(s) => {
-                            p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                        }
-                    }
-                } else if let Some(val) = params.get(k) {
-                    match val {
-                        ParamValue::Int(v) => {
-                            p.push((249, "paramint".into(), format!("{pname},{v}")));
-                        }
-                        ParamValue::String(s) => {
-                            p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                        }
-                    }
-                }
-            }
-        } else {
-            let ordered: Vec<_> = if !def.param_order.is_empty() {
-                def.param_order
-                    .iter()
-                    .filter_map(|k| params.get(k).map(|v| (*k, v)))
-                    .collect()
-            } else {
-                let mut sorted: Vec<_> = params.iter().map(|(k, v)| (*k, v)).collect();
-                sorted.sort_by_key(|(k, _)| *k);
-                sorted
-            };
-            for (key, val) in ordered {
-                let pname = name_for_param(key as u32, registry);
-                match val {
-                    ParamValue::Int(i) => {
-                        p.push((249, "paramint".into(), format!("{pname},{i}")));
-                    }
-                    ParamValue::String(s) => {
-                        p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                    }
-                }
-            }
-        }
-    }
-    #[cfg(since_647)]
-    {
-        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_npc_raw)
-    }
-    #[cfg(before_647)]
-    {
-        super::reorder_by_opcode(&def.opcode_order, p)
-    }
-}
-
-#[cfg(since_647)]
-fn decode_npc_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
-    let r_u16 = |pos: usize| -> u16 {
-        if pos + 1 < raw.len() {
-            u16::from_be_bytes([raw[pos], raw[pos + 1]])
-        } else {
-            0
-        }
-    };
-    let r_i8 = |pos: usize| -> i8 { if pos < raw.len() { raw[pos] as i8 } else { 0 } };
-    let r_u8 = |pos: usize| -> u8 { if pos < raw.len() { raw[pos] } else { 0 } };
-
-    match opcode {
-        12 => Some(("size".into(), r_u8(0).to_string())),
-        95 => {
-            let v = r_u16(0);
-            if v == 0 {
-                Some(("vislevel".into(), "hide".into()))
-            } else {
-                Some(("vislevel".into(), v.to_string()))
-            }
-        }
-        97 => Some(("resizeh".into(), r_u16(0).to_string())),
-        98 => Some(("resizev".into(), r_u16(0).to_string())),
-        100 => Some(("ambient".into(), r_i8(0).to_string())),
-        101 => Some(("contrast".into(), r_i8(0).to_string())),
-        102 => Some(("headicon".into(), r_u16(0).to_string())),
-        103 => Some(("turnspeed".into(), r_u16(0).to_string())),
-        122 => Some(("hitbar".into(), r_u16(0).to_string())),
-        123 => Some(("height".into(), r_u16(0).to_string())),
-        125 => Some(("respawndir".into(), r_i8(0).to_string())),
-        128 => Some(("unknown128".into(), r_u8(0).to_string())),
-        140 => Some(("soundvolume".into(), r_u8(0).to_string())),
-        163 => Some(("slayertype".into(), r_u8(0).to_string())),
-        165 => Some(("picksizeshift".into(), r_u8(0).to_string())),
-        168 => Some(("soundrangemin".into(), r_u8(0).to_string())),
-        // Flag opcodes (no payload) — needed for duplicate-opcode roundtrip
-        107 => Some(("clickable".into(), "no".into())),
-        109 => Some(("slowwalk".into(), "no".into())),
-        111 => Some(("animateidle".into(), "no".into())),
-        119 => Some(("walkmask".into(), r_i8(0).to_string())),
-        127 => Some(("readyanim".into(), r_u16(0).to_string())),
-        _ => super::decode_raw_to_text(opcode, raw),
-    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }

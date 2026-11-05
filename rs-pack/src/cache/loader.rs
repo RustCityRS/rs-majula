@@ -7,6 +7,7 @@ use super::provider::{CacheType, TypeProvider};
 use super::r#struct::StructTypeRaw;
 use super::varbit::VarbitType;
 use super::varp::VarPlayerTypeRaw;
+use crate::pack::packed_data::PackedData;
 use crate::types::{MapSquareCrcs, MapSquares};
 use anyhow::{Result, anyhow, bail};
 use rs_crypto::huffman::Huffman;
@@ -217,37 +218,18 @@ pub(super) fn merge_server_layer(
     let Ok(idx) = fs::read(server_dir.join(format!("{stem}.idx"))) else {
         return;
     };
-    if dat.len() < 2 || idx.len() < 2 {
-        return;
-    }
-
-    let count = u16::from_be_bytes([dat[0], dat[1]]) as usize;
-    let mut dat_offset = 2;
-    let mut loaded = 0usize;
-
-    for i in 0..count {
-        let idx_off = 2 + i * 2;
-        if idx_off + 1 >= idx.len() {
-            break;
+    let entries = match PackedData::entries(&dat, &idx) {
+        Ok(entries) => entries,
+        Err(error) => {
+            warn!("Invalid server {stem} layer: {error}");
+            return;
         }
-        let len = u16::from_be_bytes([idx[idx_off], idx[idx_off + 1]]) as usize;
-        if len >= 2 && dat_offset + len <= dat.len() {
-            let mx = dat[dat_offset];
-            let mz = dat[dat_offset + 1];
-            let spawn_data = &dat[dat_offset + 2..dat_offset + len];
-
-            // Wrap in a no-compression container so the map decompressor can
-            // handle it uniformly.
-            let data_len = spawn_data.len() as u32;
-            let mut container = Vec::with_capacity(5 + spawn_data.len());
-            container.push(0); // CompressionType::None
-            container.extend_from_slice(&data_len.to_be_bytes());
-            container.extend_from_slice(spawn_data);
-
-            mapsquares.insert((kind, mx, mz), Arc::from(container.as_slice()));
-            loaded += 1;
-        }
-        dat_offset += len;
+    };
+    let mut loaded = 0;
+    for (_, data) in entries.filter(|(_, data)| data.len() >= 2) {
+        let container = compress(&data[2..], CompressionType::None).unwrap();
+        mapsquares.insert((kind, data[0], data[1]), Arc::from(container));
+        loaded += 1;
     }
 
     info!("Loaded {loaded} {stem} regions from server {stem}.dat");

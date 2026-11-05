@@ -347,7 +347,7 @@ pub(crate) mod config_crc {
 pub(crate) mod config_crc {
     pub const SEQ: i32 = -66602266;
     // Includes the restored loc definitions covered by the group CRC gate.
-    pub const LOC: i32 = -85682786;
+    pub const LOC: i32 = 538701052;
     pub const FLO: i32 = 321707212;
     pub const SPOTANIM: i32 = 1788539353;
     pub const OBJ: i32 = 896458165;
@@ -620,8 +620,8 @@ pub fn pack_all(
         let h_models = s.spawn(|| pack::model::pack_models(&registry, source, pack));
         let h_sounds = s.spawn(|| pack::sound::pack_sounds(&registry, source, pack));
         let h_wordenc = s.spawn(|| pack::wordenc::pack_wordenc(source));
-        let h_jingles = s.spawn(|| other::jingle::pack_jingles(source));
-        let h_songs = s.spawn(|| other::song::pack_songs(source));
+        let h_jingles = s.spawn(|| other::song::pack_midis(source, "jingles"));
+        let h_songs = s.spawn(|| other::song::pack_midis(source, "songs"));
         let h_maps = s.spawn(|| other::map::pack_maps(source));
         #[cfg(since_244)]
         let h_ondemand = s.spawn(|| build_ondemand_artifacts(source, pack, 5));
@@ -999,7 +999,8 @@ where
     let packed_file = assets
         .get(name)
         .unwrap_or_else(|| panic!("Missing packed data for {name}"));
-    TypeProvider::from_bytes::<Raw>(&packed_file.server.dat, ctx)
+    TypeProvider::from_indexed_bytes::<Raw>(&packed_file.server.dat, &packed_file.server.idx, ctx)
+        .unwrap_or_else(|error| panic!("Invalid {name} configs: {error}"))
 }
 
 #[cfg(before_647)]

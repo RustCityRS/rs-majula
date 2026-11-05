@@ -1,3 +1,4 @@
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -8,10 +9,9 @@ use crate::pack::util::colour::rgb15_to_hsl16;
 use crate::pack::util::parse_bool;
 #[cfg(since_647)]
 use crate::pack::util::{pack_pairs, parse_retex};
-use crate::pack::util::{parse_model, parse_number, parse_recol, parse_seq};
+use crate::pack::util::{parse_number, parse_recol, parse_ref};
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_spotanims(
     file_cache: &FileCache,
@@ -20,11 +20,7 @@ pub fn pack_spotanims(
 ) -> Result<PackedFile> {
     let pack = &registry.spotanim;
 
-    let files = file_cache.collect("spotanim");
-    debug!("  Found {} .spotanim files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "spotanim", constants);
-    debug!("  Parsed {} spotanim configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -33,26 +29,10 @@ pub fn pack_spotanims(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown spotanim id: {id}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                client.skip_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown spotanim config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                client.skip_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("spotanim", pack, &configs, id) else {
+            server.skip_entry();
+            client.skip_entry();
+            continue;
         };
 
         #[cfg(since_647)]
@@ -62,7 +42,7 @@ pub fn pack_spotanims(
         for (key, value) in props {
             match key.as_str() {
                 // 1
-                "model" => parse_model(registry, value, |v| {
+                "model" => parse_ref(&registry.model, "model", value, |v| {
                     client.p1(1);
                     client.p2(v);
                     server.p1(1);
@@ -70,7 +50,7 @@ pub fn pack_spotanims(
                 }),
 
                 // 2
-                "anim" => parse_seq(registry, value, |v| {
+                "anim" => parse_ref(&registry.seq, "seq", value, |v| {
                     client.p1(2);
                     client.p2(v);
                     server.p1(2);

@@ -169,8 +169,6 @@ pub struct ObjTypeRaw {
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
-    #[cfg(since_647)]
-    pub param_order: Vec<i32>,
     pub opcode_order: Vec<u8>,
     #[cfg_attr(since_647, serde(skip))]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
@@ -345,8 +343,6 @@ impl CacheType for ObjTypeRaw {
             respawnrate: 100,
             params: None,
             debugname: None,
-            #[cfg(since_647)]
-            param_order: Vec::new(),
             opcode_order: Vec::new(),
             raw_opcodes: Vec::new(),
         }
@@ -487,8 +483,6 @@ impl CacheType for ObjTypeRaw {
                         buf,
                         self.params
                             .get_or_insert_with(|| Box::new(FxHashMap::default())),
-                        #[cfg(since_647)]
-                        &mut self.param_order,
                     );
                 }
                 250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),

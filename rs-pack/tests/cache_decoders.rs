@@ -214,9 +214,10 @@ fn params_share_type_key_value_order() {
     for codes in [&loc.opcode_order, &npc.opcode_order, &obj.opcode_order] {
         assert_eq!(codes.as_slice(), [249, 249, 249, 250]);
     }
-    #[cfg(since_647)]
-    for keys in [&loc.param_order, &npc.param_order, &obj.param_order] {
-        assert_eq!(keys.as_slice(), [0x12345, 0x23456, 0x12345]);
+    for records in [&loc.raw_opcodes, &npc.raw_opcodes, &obj.raw_opcodes] {
+        assert_eq!(records[0].1.as_slice(), &data[1..18]);
+        assert_eq!(records[1].1.as_slice(), &data[19..28]);
+        assert_eq!(records[2].1.as_slice(), &[0]);
     }
     let entries = raw.params.as_ref().unwrap();
     assert_eq!(entries.len(), 3);

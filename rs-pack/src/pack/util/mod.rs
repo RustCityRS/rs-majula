@@ -1,6 +1,6 @@
 #[cfg(since_647)]
 use crate::pack::config::param::type_name_to_char;
-use crate::pack::pack_registry::PackRegistry;
+use crate::pack::pack_registry::{PackFile, PackRegistry};
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
@@ -52,81 +52,32 @@ pub fn parse_bool<F>(value: &str, callback: F)
 where
     F: FnOnce(bool),
 {
-    if value != "true"
-        && value != "false"
-        && value != "0"
-        && value != "1"
-        && value != "yes"
-        && value != "no"
-    {
-        panic!("Invalid boolean value '{value}'")
-    }
-    callback(value == "yes" || value == "true" || value == "1");
+    callback(match value {
+        "true" | "yes" | "1" => true,
+        "false" | "no" | "0" => false,
+        _ => panic!("Invalid boolean value '{value}'"),
+    });
 }
 
-pub fn parse_anim<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.anim.get_by_debugname(value) {
+pub fn parse_ref(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce(u16)) {
+    let id = if value == "null" {
+        u16::MAX
+    } else if let Some(id) = pack.get_by_debugname(value) {
         #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
+        let id =
+            u16::try_from(id).unwrap_or_else(|_| panic!("{kind} reference exceeds 65535: {value}"));
+        id
     } else {
-        panic!("Anim not found for value: '{value}'");
-    }
-}
-
-pub fn parse_category<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.category.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Category not found for value: '{value}'");
-    }
-}
-
-pub fn parse_hunt<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.hunt.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Hunt not found for value: '{value}'");
-    }
-}
-
-pub fn parse_inv<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.inv.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Inv not found for value: '{value}'");
-    }
-}
-
-pub fn parse_loc<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.loc.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Loc not found for value: '{value}'");
-    }
+        let number = value
+            .strip_prefix(kind)
+            .and_then(|suffix| suffix.strip_prefix('_'))
+            .and_then(|suffix| suffix.split('_').next())
+            .unwrap_or(value);
+        number
+            .parse()
+            .unwrap_or_else(|_| panic!("Unknown {kind}: {value}"))
+    };
+    callback(id);
 }
 
 pub fn parse_model_kind<F>(registry: &PackRegistry, kind: &str, key: &str, value: &str, callback: F)
@@ -136,201 +87,12 @@ where
     if let Some(rest) = key.strip_prefix(kind)
         && let Ok(idx) = rest.parse::<usize>()
     {
-        parse_model(registry, value, |v| {
+        parse_ref(&registry.model, "model", value, |v| {
             callback((idx, v));
         });
         return;
     }
     panic!("Invalid model format for key: '{key}' with value: '{value}'");
-}
-
-pub fn parse_model<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    #[cfg(since_647)]
-    if value == "null" {
-        callback(u16::MAX);
-        return;
-    }
-    if let Some(val) = registry.model.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        #[cfg(since_647)]
-        let numeric = value
-            .strip_prefix("model_")
-            .and_then(|rest| rest.split('_').next())
-            .unwrap_or(value)
-            .parse::<u16>()
-            .ok();
-        #[cfg(since_647)]
-        if let Some(value) = numeric {
-            callback(value);
-            return;
-        }
-        panic!("Model not found for value: '{value}'");
-    }
-}
-
-pub fn parse_npc<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.npc.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Npc not found for value: '{value}'");
-    }
-}
-
-pub fn parse_obj<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    #[cfg(since_647)]
-    if value == "null" {
-        callback(u16::MAX);
-        return;
-    }
-    if let Some(val) = registry.obj.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        #[cfg(since_647)]
-        let numeric = value
-            .strip_prefix("obj_")
-            .and_then(|rest| rest.split('_').next())
-            .unwrap_or(value)
-            .parse::<u16>()
-            .ok();
-        #[cfg(since_647)]
-        if let Some(value) = numeric {
-            callback(value);
-            return;
-        }
-        panic!("Obj not found for value: '{value}'");
-    }
-}
-
-pub fn parse_param<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.param.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Param not found for value: '{value}'");
-    }
-}
-
-pub fn parse_seq<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    #[cfg(since_647)]
-    if value == "null" {
-        callback(u16::MAX);
-        return;
-    }
-    if let Some(val) = registry.seq.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        #[cfg(since_647)]
-        let numeric = value
-            .strip_prefix("seq_")
-            .and_then(|rest| rest.split('_').next())
-            .unwrap_or(value)
-            .parse::<u16>()
-            .ok();
-        #[cfg(since_647)]
-        if let Some(value) = numeric {
-            callback(value);
-            return;
-        }
-        panic!("Seq not found for value: '{value}'");
-    }
-}
-
-pub fn parse_texture<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    #[cfg(since_647)]
-    if value == "null" {
-        callback(u16::MAX);
-        return;
-    }
-    if let Some(val) = registry.texture.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        #[cfg(since_647)]
-        let numeric = value
-            .strip_prefix("texture_")
-            .and_then(|rest| rest.split('_').next())
-            .unwrap_or(value)
-            .parse::<u16>()
-            .ok();
-        #[cfg(since_647)]
-        if let Some(value) = numeric {
-            callback(value);
-            return;
-        }
-        panic!("Texture not found for value: '{value}'");
-    }
-}
-
-pub fn parse_varn<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.varn.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        panic!("Varn not found for value: '{value}'");
-    }
-}
-
-pub fn parse_varp<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    #[cfg(since_647)]
-    if value == "null" {
-        callback(u16::MAX);
-        return;
-    }
-    if let Some(val) = registry.varp.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let val = u16::try_from(val).expect("Config reference exceeds 65535");
-        callback(val);
-    } else {
-        #[cfg(since_647)]
-        let numeric = value
-            .strip_prefix("varp_")
-            .and_then(|rest| rest.split('_').next())
-            .unwrap_or(value)
-            .parse::<u16>()
-            .ok();
-        #[cfg(since_647)]
-        if let Some(value) = numeric {
-            callback(value);
-            return;
-        }
-        panic!("Varp not found for value: '{value}'");
-    }
 }
 
 pub fn parse_recol<F>(key: &str, value: &str, callback: F)
@@ -356,7 +118,7 @@ where
 {
     if let Some(rest) = key.strip_prefix("retex") {
         let (num_part, suffix) = rest.split_at(rest.len().saturating_sub(1));
-        parse_texture(registry, value, |v| {
+        parse_ref(&registry.texture, "texture", value, |v| {
             if let Ok(idx) = num_part.parse::<usize>() {
                 match suffix {
                     "s" => callback(RecolType::S(idx, v)),

@@ -17,16 +17,10 @@ pub struct ParamType {
 }
 
 impl ParamType {
-    pub fn decode_params(
-        buf: &mut Packet,
-        params: &mut FxHashMap<i32, ParamValue>,
-        #[cfg(since_647)] param_order: &mut Vec<i32>,
-    ) {
+    pub fn decode_params(buf: &mut Packet, params: &mut FxHashMap<i32, ParamValue>) {
         for _ in 0..buf.g1() {
             let (key, value) = Self::decode_param(buf);
             params.insert(key, value);
-            #[cfg(since_647)]
-            param_order.push(key);
         }
     }
 

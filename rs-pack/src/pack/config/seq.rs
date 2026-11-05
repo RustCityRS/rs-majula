@@ -1,14 +1,12 @@
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use crate::pack::util::config_key_index;
-#[cfg(before_647)]
-use crate::pack::util::parse_anim;
-use crate::pack::util::{parse_bool, parse_number, parse_obj};
+use crate::pack::util::{parse_bool, parse_number, parse_ref};
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_seqs(
     file_cache: &FileCache,
@@ -17,11 +15,7 @@ pub fn pack_seqs(
 ) -> Result<PackedFile> {
     let pack = &registry.seq;
 
-    let files = file_cache.collect("seq");
-    debug!("  Found {} .seq files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "seq", constants);
-    debug!("  Parsed {} seq configs", configs.len());
 
     #[cfg(since_647)]
     let client_configs = file_cache.client_configs("seq", constants);
@@ -32,26 +26,10 @@ pub fn pack_seqs(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown seq id: {id}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                client.skip_entry();
-                continue;
-            }
-        };
-
-        let Some(_props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown seq config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                client.skip_entry();
-                continue;
-            }
+        let Some((debugname, _props)) = config_entry("seq", pack, &configs, id) else {
+            server.skip_entry();
+            client.skip_entry();
+            continue;
         };
 
         #[cfg(before_647)]
@@ -90,7 +68,7 @@ pub fn pack_seqs(
                     };
                     #[cfg(before_647)]
                     parse_number(frame, |v| {
-                        parse_anim(registry, value, |x| frames.push((v, 0, x, 0)));
+                        parse_ref(&registry.anim, "anim", value, |x| frames.push((v, 0, x, 0)));
                     });
                     #[cfg(since_647)]
                     {
@@ -109,7 +87,7 @@ pub fn pack_seqs(
                     };
                     #[cfg(before_647)]
                     parse_number(iframe, |v| {
-                        parse_anim(registry, value, |x| iframes.push((v, x, 0)));
+                        parse_ref(&registry.anim, "anim", value, |x| iframes.push((v, x, 0)));
                     });
                     #[cfg(since_647)]
                     {
@@ -195,7 +173,7 @@ pub fn pack_seqs(
                     if value == "hide" {
                         client.p2(0);
                     } else {
-                        parse_obj(registry, value, |v| {
+                        parse_ref(&registry.obj, "obj", value, |v| {
                             client.p2(v + 512);
                         });
                     }
@@ -215,7 +193,7 @@ pub fn pack_seqs(
                     if value == "hide" {
                         client.p2(0);
                     } else {
-                        parse_obj(registry, value, |v| {
+                        parse_ref(&registry.obj, "obj", value, |v| {
                             client.p2(v + 512);
                         });
                     }

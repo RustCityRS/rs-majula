@@ -2,6 +2,8 @@
 use crate::config_blob::ConfigBlob;
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
+use crate::pack::pack::{ConfigProperties, ConfigSections};
+use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(since_647)]
 use crate::startup::{
     current_exe_mtime, file_mtime, is_up_to_date, max_of, newest_mtime, write_stamp,
@@ -48,7 +50,6 @@ pub mod spotanim;
 pub mod r#struct;
 #[cfg(since_254)]
 pub mod varbit;
-pub mod varn;
 pub mod varp;
 pub mod vars;
 
@@ -148,4 +149,22 @@ fn write_config_archive(
         prepared,
         "from configs",
     )
+}
+
+pub(super) fn config_entry<'a>(
+    kind: &str,
+    pack: &'a PackFile,
+    configs: &'a ConfigSections,
+    id: PackId,
+) -> Option<(&'a str, &'a ConfigProperties)> {
+    let name = pack.get_by_id(id);
+    if cfg!(before_647) && name.is_none() {
+        panic!("Unknown {kind} id: {id}");
+    }
+    let name = name?;
+    let props = configs.get(name);
+    if cfg!(before_647) && props.is_none() {
+        panic!("Unknown {kind} config: {name}");
+    }
+    Some((name, props?))
 }

@@ -1,3 +1,4 @@
+use super::config_entry;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -9,7 +10,6 @@ use crate::pack::util::*;
 use crate::types::{BlockWalk, MoveRestrict, NpcMode};
 use anyhow::{Context, Result};
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_npcs(
     file_cache: &FileCache,
@@ -19,11 +19,7 @@ pub fn pack_npcs(
 ) -> Result<PackedFile> {
     let pack = &registry.npc;
 
-    let files = file_cache.collect("npc");
-    debug!("  Found {} .npc files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "npc", constants);
-    debug!("  Parsed {} npc configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -32,26 +28,10 @@ pub fn pack_npcs(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown npc id: {id}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                client.skip_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown npc config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                client.skip_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry("npc", pack, &configs, id) else {
+            server.skip_entry();
+            client.skip_entry();
+            continue;
         };
 
         // Collected fields written after the loop
@@ -114,7 +94,7 @@ pub fn pack_npcs(
                     }),
 
                     // 13
-                    "readyanim" => parse_seq(registry, value, |v| {
+                    "readyanim" => parse_ref(&registry.seq, "seq", value, |v| {
                         #[cfg(before_647)]
                         client.p1(13);
                         #[cfg(since_647)]
@@ -127,7 +107,7 @@ pub fn pack_npcs(
                     "walkanim" => {
                         if !value.contains(',') {
                             // 14
-                            parse_seq(registry, value, |v| {
+                            parse_ref(&registry.seq, "seq", value, |v| {
                                 client.p1(14);
                                 client.p2(v);
                             });
@@ -139,7 +119,7 @@ pub fn pack_npcs(
                                     .iter()
                                     .map(|a| {
                                         let mut result = 0u16;
-                                        parse_seq(registry, a, |val| result = val);
+                                        parse_ref(&registry.seq, "seq", a, |val| result = val);
                                         result
                                     })
                                     .collect();
@@ -160,7 +140,7 @@ pub fn pack_npcs(
                     }),
 
                     // 18
-                    "category" => parse_category(registry, value, |v| {
+                    "category" => parse_ref(&registry.category, "category", value, |v| {
                         server.p1(18);
                         server.p2(v);
                     }),
@@ -776,7 +756,7 @@ fn pack_batch(
             packed.p1(u8::try_from(props.len()).expect("Too many NPC values"));
             for (_, value) in props {
                 match code {
-                    1 | 60 => parse_model(registry, value, |v| packed.p2(v)),
+                    1 | 60 => parse_ref(&registry.model, "model", value, |v| packed.p2(v)),
                     42 => parse_number(value, |v| packed.p1(v)),
                     121 => {
                         let [index, x, y, z] = parse_numbers::<i16, 4>(value);

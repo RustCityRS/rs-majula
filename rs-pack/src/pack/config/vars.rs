@@ -1,47 +1,27 @@
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
-use crate::pack::pack_registry::{PackRegistry, PackedFile};
+use crate::pack::pack_registry::{PackFile, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_script_var_type;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
-pub fn pack_vars_configs(
+pub fn pack_vars(
     file_cache: &FileCache,
-    registry: &PackRegistry,
+    pack: &PackFile,
+    kind: &str,
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
-    let pack = &registry.vars;
-
-    let files = file_cache.collect("vars");
-    debug!("  Found {} .vars files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "vars", constants);
-    debug!("  Parsed {} vars configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, kind, constants);
 
     let mut server = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown vars id: {id}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                continue;
-            }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown vars config: {debugname}");
-            #[cfg(since_647)]
-            {
-                server.finish_entry();
-                continue;
-            }
+        let Some((debugname, props)) = config_entry(kind, pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         for (key, value) in props {
@@ -53,7 +33,7 @@ pub fn pack_vars_configs(
                 }),
 
                 // not found
-                _ => panic!("Unrecognized vars config key: {key}"),
+                _ => panic!("Unrecognized {kind} config key: {key}"),
             }
         }
 

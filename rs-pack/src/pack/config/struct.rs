@@ -1,10 +1,10 @@
+use super::config_entry;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_structs(
     file_cache: &FileCache,
@@ -14,11 +14,7 @@ pub fn pack_structs(
 ) -> Result<PackedFile> {
     let r#struct = &registry.r#struct;
 
-    let files = file_cache.collect("struct");
-    debug!("  Found {} .struct files", files.len());
-
     let configs = parse_config_sections_cached(file_cache, "struct", constants);
-    debug!("  Parsed {} struct configs", configs.len());
 
     let mut server = PackedData::new(r#struct.max);
     #[cfg(since_647)]
@@ -33,30 +29,13 @@ pub fn pack_structs(
     for id in 0..r#struct.max {
         server.start_entry();
 
-        let Some(debugname) = r#struct.get_by_id(id) else {
-            #[cfg(before_647)]
-            panic!("Unknown struct id: {}", id);
+        let Some((debugname, props)) = config_entry("struct", r#struct, &configs, id) else {
+            server.skip_entry();
             #[cfg(since_647)]
-            {
-                server.skip_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
+            if id < client_count {
+                client.skip_entry();
             }
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            #[cfg(before_647)]
-            panic!("Unknown struct config: {}", debugname);
-            #[cfg(since_647)]
-            {
-                server.skip_entry();
-                if id < client_count {
-                    client.skip_entry();
-                }
-                continue;
-            }
+            continue;
         };
 
         for (key, _) in props {

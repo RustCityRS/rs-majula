@@ -1,11 +1,7 @@
 #[cfg(before_647)]
 use super::ModelCategory;
 use super::UnpackedPacks;
-#[cfg(since_647)]
-use super::order::decode_raw_params;
 use crate::cache::obj::ObjTypeRaw;
-#[cfg(since_647)]
-use crate::types::ParamValue;
 use std::collections::HashMap;
 
 fn model_name(registry: &UnpackedPacks, id: u16) -> String {
@@ -27,21 +23,14 @@ fn obj_name(registry: &UnpackedPacks, id: u16) -> String {
     format!("obj_{id}")
 }
 
-#[cfg(since_647)]
-fn param_name(registry: &UnpackedPacks, id: u32) -> String {
-    registry
-        .config_name("param", id)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| id.to_string())
-}
-
 pub fn emit_obj_props(
     def: &ObjTypeRaw,
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    #[cfg(before_647)]
-    if super::has_repeated_opcodes(&def.opcode_order) {
+    if def.raw_opcodes.len() > 1
+        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
+    {
         return super::emit_repeated::<ObjTypeRaw>(
             def.id,
             &def.raw_opcodes,
@@ -399,142 +388,11 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_647)]
-    if let Some(params) = &def.params {
-        // Decode all param entries from raw opcode data (preserves earlier
-        // values for duplicate keys that were overwritten in the HashMap).
-        let raw_param_values = decode_raw_params(&def.raw_opcodes);
+    p.extend(super::order::emit_params(
+        &def.raw_opcodes,
+        def.params.as_deref(),
+        registry,
+    ));
 
-        if !def.param_order.is_empty() && !raw_param_values.is_empty() {
-            for (i, k) in def.param_order.iter().enumerate() {
-                let pname = param_name(registry, *k as u32);
-                if let Some(raw_val) = raw_param_values.get(i) {
-                    match raw_val {
-                        ParamValue::Int(v) => {
-                            p.push((249, "paramint".into(), format!("{pname},{v}")));
-                        }
-                        ParamValue::String(s) => {
-                            p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                        }
-                    }
-                } else if let Some(val) = params.get(k) {
-                    match val {
-                        ParamValue::Int(v) => {
-                            p.push((249, "paramint".into(), format!("{pname},{v}")));
-                        }
-                        ParamValue::String(s) => {
-                            p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                        }
-                    }
-                }
-            }
-        } else {
-            let ordered: Vec<_> = if !def.param_order.is_empty() {
-                def.param_order
-                    .iter()
-                    .filter_map(|k| params.get(k).map(|v| (*k, v)))
-                    .collect()
-            } else {
-                let mut sorted: Vec<_> = params.iter().map(|(k, v)| (*k, v)).collect();
-                sorted.sort_by_key(|(k, _)| *k);
-                sorted
-            };
-            for (key, val) in ordered {
-                let pname = param_name(registry, key as u32);
-                match val {
-                    ParamValue::Int(i) => {
-                        p.push((249, "paramint".into(), format!("{pname},{i}")));
-                    }
-                    ParamValue::String(s) => {
-                        p.push((249, "paramstr".into(), format!("{pname},{s}")));
-                    }
-                }
-            }
-        }
-    }
-    #[cfg(since_647)]
-    {
-        super::reorder_by_opcode_with_raw_fn(&def.opcode_order, p, &def.raw_opcodes, decode_obj_raw)
-    }
-    #[cfg(before_647)]
-    {
-        super::reorder_by_opcode(&def.opcode_order, p)
-    }
-}
-
-#[cfg(since_647)]
-fn decode_obj_raw(opcode: u8, raw: &[u8]) -> Option<(String, String)> {
-    let r_u16 = |pos: usize| -> u16 {
-        if pos + 1 < raw.len() {
-            u16::from_be_bytes([raw[pos], raw[pos + 1]])
-        } else {
-            0
-        }
-    };
-    let r_i16 = |pos: usize| -> i16 {
-        if pos + 1 < raw.len() {
-            i16::from_be_bytes([raw[pos], raw[pos + 1]])
-        } else {
-            0
-        }
-    };
-    let r_i8 = |pos: usize| -> i8 { if pos < raw.len() { raw[pos] as i8 } else { 0 } };
-    let r_u8 = |pos: usize| -> u8 { if pos < raw.len() { raw[pos] } else { 0 } };
-    let r_i32 = |pos: usize| -> i32 {
-        if pos + 3 < raw.len() {
-            i32::from_be_bytes([raw[pos], raw[pos + 1], raw[pos + 2], raw[pos + 3]])
-        } else {
-            0
-        }
-    };
-    let r_str = |pos: usize| -> String {
-        let mut end = pos;
-        while end < raw.len() && raw[end] != 0 {
-            end += 1;
-        }
-        String::from_utf8_lossy(&raw[pos..end]).to_string()
-    };
-
-    match opcode {
-        1 => Some(("model".into(), r_u16(0).to_string())),
-        4 => Some(("2dzoom".into(), r_u16(0).to_string())),
-        5 => Some(("2dxan".into(), r_u16(0).to_string())),
-        6 => Some(("2dyan".into(), r_u16(0).to_string())),
-        7 => Some(("2dxof".into(), r_i16(0).to_string())),
-        8 => Some(("2dyof".into(), r_i16(0).to_string())),
-        12 => Some(("cost".into(), r_i32(0).to_string())),
-        18 => Some(("multistack".into(), r_u16(0).to_string())),
-        23 => Some(("manwear".into(), r_u16(0).to_string())),
-        24 => Some(("manwear2".into(), r_u16(0).to_string())),
-        25 => Some(("womanwear".into(), r_u16(0).to_string())),
-        26 => Some(("womanwear2".into(), r_u16(0).to_string())),
-        78 => Some(("manwear3".into(), r_u16(0).to_string())),
-        79 => Some(("womanwear3".into(), r_u16(0).to_string())),
-        90 => Some(("manhead".into(), r_u16(0).to_string())),
-        91 => Some(("womanhead".into(), r_u16(0).to_string())),
-        92 => Some(("manhead2".into(), r_u16(0).to_string())),
-        93 => Some(("womanhead2".into(), r_u16(0).to_string())),
-        95 => Some(("2dzan".into(), r_u16(0).to_string())),
-        96 => Some(("dummyobj".into(), r_u8(0).to_string())),
-        97 => Some(("certlink".into(), r_u16(0).to_string())),
-        98 => Some(("certtemplate".into(), r_u16(0).to_string())),
-        110 => Some(("resizex".into(), r_u16(0).to_string())),
-        111 => Some(("resizey".into(), r_u16(0).to_string())),
-        112 => Some(("resizez".into(), r_u16(0).to_string())),
-        113 => Some(("ambient".into(), r_i8(0).to_string())),
-        114 => Some(("contrast".into(), r_i8(0).to_string())),
-        115 => Some(("team".into(), r_u8(0).to_string())),
-        121 => Some(("lentlink".into(), r_u16(0).to_string())),
-        122 => Some(("lenttemplate".into(), r_u16(0).to_string())),
-        134 => Some(("picksizeshift".into(), r_u8(0).to_string())),
-        139 => Some(("boughtlink".into(), r_u16(0).to_string())),
-        140 => Some(("boughttemplate".into(), r_u16(0).to_string())),
-        // String opcodes — needed for duplicate-opcode roundtrip
-        30..=34 => Some((format!("op{}", opcode - 29), r_str(0))),
-        35..=39 => Some((format!("iop{}", opcode - 34), r_str(0))),
-        // Flag opcodes (no payload)
-        11 => Some(("stackable".into(), "yes".into())),
-        16 => Some(("members".into(), "yes".into())),
-        65 => Some(("stockmarket".into(), "yes".into())),
-        _ => super::decode_raw_to_text(opcode, raw),
-    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }

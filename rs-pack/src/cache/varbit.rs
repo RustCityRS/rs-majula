@@ -1,14 +1,9 @@
-#[cfg(since_254)]
 use super::provider::{CacheType, TypeProvider};
-#[cfg(since_254)]
 use rs_io::Packet;
-#[cfg(since_254)]
 use rs_ver::STRING_TERMINATOR;
 
-#[cfg(since_254)]
 pub type VarbitTypeProvider = TypeProvider<VarbitType>;
 
-#[cfg(since_254)]
 pub struct VarbitType {
     pub id: u16,
     pub basevar: u16,
@@ -17,7 +12,6 @@ pub struct VarbitType {
     debugname: Option<Box<str>>,
 }
 
-#[cfg(since_254)]
 impl CacheType for VarbitType {
     type Context = ();
 

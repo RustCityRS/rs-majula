@@ -29,8 +29,8 @@ use tracing::debug;
 use tracing::{info, warn};
 
 #[cfg(before_647)]
-pub fn pack_songs(content_dir: &Path) -> HashMap<String, Vec<u8>> {
-    let songs_dir = content_dir.join("songs");
+pub fn pack_midis(content_dir: &Path, kind: &str) -> HashMap<String, Vec<u8>> {
+    let songs_dir = content_dir.join(kind);
     let mut result = HashMap::new();
 
     if !songs_dir.exists() {
@@ -61,7 +61,7 @@ pub fn pack_songs(content_dir: &Path) -> HashMap<String, Vec<u8>> {
         }
     }
 
-    debug!("Packed {} songs", result.len());
+    debug!("Packed {} {kind}", result.len());
     result
 }
 
