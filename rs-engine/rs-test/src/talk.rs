@@ -146,3 +146,112 @@ pub fn converse(
     }
     out
 }
+
+/// One way through an npc's dialogue: the option taken at each choice box
+/// (by index), each choice box met (its options), and what was said.
+#[derive(Debug)]
+pub struct Branch {
+    pub path: Vec<usize>,
+    pub menus: Vec<Vec<String>>,
+    pub conversation: Conversation,
+}
+
+/// Like [`converse`], taking options by index: `path[i]` at the i-th choice
+/// box, then the first option, except at a box this talk has already been
+/// through, where it takes the last (the way out, as a rule) instead of going
+/// round a loop again.
+pub fn converse_path(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    path: &[usize],
+    max: usize,
+) -> (Conversation, Vec<Vec<String>>, Vec<usize>) {
+    let mut out = Conversation::default();
+    let mut menus: Vec<Vec<String>> = Vec::new();
+    let mut picks: Vec<usize> = Vec::new();
+    let mut latest: HashMap<u32, String> = HashMap::new();
+    let mut idle = 0;
+    let mut seen = false;
+    for _ in 0..max {
+        engine.cycle();
+        let packets = client.packets();
+        for (com, text) in settexts(&packets) {
+            out.texts.push(text.clone());
+            latest.insert(com, text);
+        }
+        out.messages.extend(
+            HarnessClient::game_messages(&packets)
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+        let Some(player) = engine.harness_player(client.pid) else {
+            break;
+        };
+        if let Some(&(iface, n)) = MULTI.iter().find(|(i, _)| player.is_interface_open(*i)) {
+            idle = 0;
+            seen = true;
+            let options: Vec<String> = (2..2 + n)
+                .map(|c| {
+                    let hash = (iface as u32) << 16 | c as u32;
+                    latest.get(&hash).cloned().unwrap_or_default()
+                })
+                .collect();
+            let pick = match path.get(menus.len()) {
+                Some(&p) => p.min(options.len() - 1),
+                None if menus.contains(&options) => options.len() - 1,
+                None => 0,
+            };
+            menus.push(options);
+            picks.push(pick);
+            resume(client, iface, 2 + pick as u16);
+        } else if let Some(&iface) = CHAT_BOXES.iter().find(|i| player.is_interface_open(**i)) {
+            idle = 0;
+            seen = true;
+            resume(client, iface, 0);
+        } else if seen {
+            idle += 1;
+            if idle > 4 {
+                break;
+            }
+        }
+    }
+    (out, menus, picks)
+}
+
+/// Every way through a dialogue, depth first, up to `max_paths`. `start` puts
+/// the world back and opens the talk for each one, returning the client. A
+/// branch's siblings are queued for each choice box past its given path, but
+/// not for a box the talk had already been through.
+pub fn explore(
+    engine: &mut Engine,
+    mut start: impl FnMut(&mut Engine) -> HarnessClient,
+    max_paths: usize,
+) -> Vec<Branch> {
+    let mut todo: Vec<Vec<usize>> = vec![Vec::new()];
+    let mut done = Vec::new();
+    while let Some(path) = todo.pop() {
+        if done.len() >= max_paths {
+            break;
+        }
+        let mut client = start(engine);
+        let (conversation, menus, picks) = converse_path(engine, &mut client, &path, 200);
+        for depth in path.len()..menus.len() {
+            if menus[..depth].contains(&menus[depth]) {
+                continue;
+            }
+            for alt in (0..menus[depth].len()).rev() {
+                if alt != picks[depth] {
+                    let mut next = picks[..depth].to_vec();
+                    next.push(alt);
+                    todo.push(next);
+                }
+            }
+        }
+        done.push(Branch {
+            path: picks,
+            menus,
+            conversation,
+        });
+    }
+    done
+}
