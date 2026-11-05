@@ -124,15 +124,85 @@ pub fn on_loaded_engine<R: Send + 'static>(f: impl FnOnce(&mut Engine) -> R + Se
     // lock poisoned; the next one carries on.
     static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
     let _turn = TURN.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
-    std::thread::Builder::new()
-        .stack_size(16 * 1024 * 1024)
-        .spawn(move || {
-            let mut engine = load_engine().expect("load engine");
-            f(&mut engine)
-        })
-        .expect("spawn engine thread")
-        .join()
-        .unwrap_or_else(|panic| std::panic::resume_unwind(panic))
+    let shared = std::env::var("RS_TEST_SHARED_ENGINE").is_ok_and(|v| !v.is_empty() && v != "0");
+    if !shared {
+        return std::thread::Builder::new()
+            .stack_size(16 * 1024 * 1024)
+            .spawn(move || {
+                let mut engine = load_engine().expect("load engine");
+                f(&mut engine)
+            })
+            .expect("spawn engine thread")
+            .join()
+            .unwrap_or_else(|panic| std::panic::resume_unwind(panic));
+    }
+    // RS_TEST_SHARED_ENGINE=1: one engine for the whole test binary, on one
+    // thread, for fast local runs. Loading it is most of a test's time (every
+    // script compiled, every map square and npc), and the binary's tests take
+    // turns anyway. Each test starts from harness_reset, which empties the
+    // world of players and queues but keeps what tests did to npcs and locs
+    // (a damaged cow, a felled oak, an emptied stall, an opened coffin), so a
+    // test that depends on one fails after another test changed it: CI and
+    // the default load a fresh engine per test.
+    // A world a test left mid-panic, or one the reset itself cannot clear, is
+    // not handed on: the next test gets a freshly loaded engine.
+    let (done_tx, done_rx) = std::sync::mpsc::channel();
+    let job: EngineJob = Box::new(move |engine: &mut Engine| {
+        let reset =
+            std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| engine.harness_reset()));
+        if reset.is_err() {
+            *engine = load_engine().expect("load engine");
+        }
+        let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| f(engine)));
+        if result.is_err() {
+            *engine = load_engine().expect("load engine");
+        }
+        let _ = done_tx.send(result);
+    });
+    shared_engine()
+        .lock()
+        .unwrap_or_else(|poisoned| poisoned.into_inner())
+        .send(job)
+        .expect("the shared engine thread is running");
+    match done_rx.recv() {
+        Ok(Ok(result)) => result,
+        // Re-raised with its message: the engine thread's own panic output
+        // went to whichever test started that thread.
+        Ok(Err(panic)) => panic!("{}", panic_message(&*panic)),
+        Err(_) => panic!("the shared engine thread stopped"),
+    }
+}
+
+/// A caught panic's message, as `panic!` was given it.
+fn panic_message(payload: &(dyn std::any::Any + Send)) -> String {
+    payload
+        .downcast_ref::<String>()
+        .cloned()
+        .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
+        .unwrap_or_else(|| "a panic with no message".to_string())
+}
+
+type EngineJob = Box<dyn FnOnce(&mut Engine) + Send>;
+
+/// The thread that owns the test binary's engine, started (and the engine
+/// loaded) by the first test that asks for it.
+fn shared_engine() -> &'static std::sync::Mutex<std::sync::mpsc::Sender<EngineJob>> {
+    static SENDER: std::sync::OnceLock<std::sync::Mutex<std::sync::mpsc::Sender<EngineJob>>> =
+        std::sync::OnceLock::new();
+    SENDER.get_or_init(|| {
+        let (tx, rx) = std::sync::mpsc::channel::<EngineJob>();
+        std::thread::Builder::new()
+            .name("shared-engine".into())
+            .stack_size(16 * 1024 * 1024)
+            .spawn(move || {
+                let mut engine = load_engine().expect("load engine");
+                for job in rx {
+                    job(&mut engine);
+                }
+            })
+            .expect("spawn the shared engine thread");
+        std::sync::Mutex::new(tx)
+    })
 }
 
 /// Every test label under `scripts_dir`, sorted, optionally narrowed to
