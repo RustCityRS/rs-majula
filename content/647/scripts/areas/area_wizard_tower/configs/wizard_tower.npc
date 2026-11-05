@@ -1,6 +1,11 @@
 // Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
 [wizard_mizgog]
 desc=An old wizard.
+// 2011's amulets of accuracy (Imp Catcher): 5000gp (2011 wiki, Wizard
+// Mizgog, 2011-05-18) is the amulet's cost (5000) at 1000. No source gives
+// what he pays for one or his shop's title, so those are left at the defaults.
+param=owned_shop,inv_602
+param=shop_sell_multiplier,1000
 hitpoints=30
 attack=20
 strength=10

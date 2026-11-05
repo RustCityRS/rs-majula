@@ -6,4 +6,5 @@
 switch_int (last_slot) {
     case ^questlist_cook : @questlist_cook;
     case ^questlist_runemysteries : @questlist_runemysteries;
+    case ^questlist_imp : @questlist_imp;
 }

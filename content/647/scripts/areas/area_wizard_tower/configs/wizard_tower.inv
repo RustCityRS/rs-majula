@@ -1,0 +1,12 @@
+// Wizard Mizgog's amulets of accuracy: cache 786's inv 602, one slot (void-634's
+// mizgogs_amulets_of_accuracy, 30 amulets). "Buy up to 30 amulets per day"
+// (2011 wiki, Imp Catcher, 2011-05-16). Whether that is per player or per world
+// has no source. Here the world's shop holds 30 and restocks one every 4800
+// ticks, a day's worth spread over the 30.
+[inv_602]
+scope=shared
+size=1
+restock=yes
+stackall=yes
+allstock=no
+stock1=amulet_of_accuracy,30,4800
