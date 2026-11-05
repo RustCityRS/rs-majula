@@ -85,7 +85,11 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
 
         click(&mut client, rock);
         let mut said = Vec::new();
-        for tick in 0..200 {
+        // A level-30 miner's coal roll succeeds about one time in six (16/100
+        // at levels 1/99), a roll every few ticks: 600 ticks leaves no real
+        // chance of a dry run, where 200 failed once the engine's random
+        // sequence moved (a level-99 miner on the same rock gets its coal).
+        for tick in 0..600 {
             // The client's keep-alive, as the 2011 client sends it: a rock
             // that takes over 100 ticks to give would log a silent miner out
             // (TIMEOUT_NO_RESPONSE, phases/logout.rs).
