@@ -37,10 +37,12 @@ if (~in_duel_arena(coord) = true) {
     return;
 }
 if (.busy = true) {
-    // The 2011 wiki has "The other player is busy at the moment" (Trading,
-    // 2011-05-05; Tutorial Island's "Other player is busy at the moment" is
-    // of 2004); 289's stands.
-    mes("<.displayname> is busy at the moment.");
+    // 289: mes("<.displayname> is busy at the moment.");
+    // 2011's: the 2011 wiki's Trading (2011-05-05): "if one of the traders has
+    // a certain interface up, such as bank, equipment stats or trading
+    // interface with another player, The other player is busy at the moment
+    // message will show up in the chat". The quote has no full stop.
+    mes("The other player is busy at the moment");
     return;
 }
 

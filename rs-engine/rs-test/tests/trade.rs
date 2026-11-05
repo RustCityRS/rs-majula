@@ -502,3 +502,23 @@ fn the_confirm_screen_says_the_trade_was_modified() {
         );
     });
 }
+
+/// "Trade with" on a player with a screen open says 2011's line (2011 wiki,
+/// Trading, 2011-05-05: "The other player is busy at the moment"), not 289's
+/// "<name> is busy at the moment.".
+#[test]
+fn trade_with_a_busy_player_says_2011s_line() {
+    runner::on_loaded_engine(|engine| {
+        let (mut a, mut b) = traders(engine);
+        ticks(engine, &mut a, &mut b, 2);
+        engine.harness_open_main(b.pid, MAIN);
+        ticks(engine, &mut a, &mut b, 1);
+        trade_with(&mut a, b.pid);
+        let (pa, _) = ticks(engine, &mut a, &mut b, 3);
+        let said: Vec<String> = messages(&pa).into_iter().map(|m| m.2).collect();
+        assert!(
+            said.contains(&"The other player is busy at the moment".to_string()),
+            "the requester's chat: {said:?}"
+        );
+    });
+}
