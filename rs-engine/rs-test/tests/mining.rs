@@ -85,7 +85,13 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
 
         click(&mut client, rock);
         let mut said = Vec::new();
-        for _ in 0..200 {
+        for tick in 0..200 {
+            // The client's keep-alive, as the 2011 client sends it: a rock
+            // that takes over 100 ticks to give would log a silent miner out
+            // (TIMEOUT_NO_RESPONSE, phases/logout.rs).
+            if tick % 20 == 19 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
             engine.cycle();
             said.extend(
                 HarnessClient::game_messages(&client.packets())
