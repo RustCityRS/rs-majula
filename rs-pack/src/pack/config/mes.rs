@@ -1,6 +1,4 @@
 #[cfg(since_274)]
-use crate::config_crc;
-#[cfg(since_274)]
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 #[cfg(since_274)]
 use crate::pack::pack_registry::PackedFile;
@@ -9,18 +7,12 @@ use crate::pack::packed_data::PackedData;
 #[cfg(since_274)]
 use anyhow::Result;
 #[cfg(since_274)]
-use rs_io::crc;
-#[cfg(since_274)]
 use std::collections::HashMap;
 #[cfg(since_274)]
 use tracing::debug;
 
 #[cfg(since_274)]
-pub fn pack_mes(
-    file_cache: &FileCache,
-    constants: &HashMap<String, String>,
-    verify: bool,
-) -> Result<PackedFile> {
+pub fn pack_mes(file_cache: &FileCache, constants: &HashMap<String, String>) -> Result<PackedFile> {
     let configs = parse_config_sections_cached(file_cache, "mesanim", constants);
 
     let count = configs
@@ -36,14 +28,6 @@ pub fn pack_mes(
     for _ in 0..count {
         client.start_entry();
         client.finish_entry();
-    }
-
-    if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::MES;
-        if crc != expected {
-            panic!("CRC mismatch ['mes']: Got: {crc}, Expected: {expected}");
-        }
     }
 
     Ok(PackedFile {

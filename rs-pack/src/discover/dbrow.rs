@@ -163,12 +163,12 @@ fn write_pack(path: &Path, names: &BTreeSet<String>, _force: bool) -> Result<(us
     let existing = read_existing(path)?;
 
     // Preserve existing id for names still present.
-    let mut id_to_name: BTreeMap<u32, String> = BTreeMap::new();
+    let mut id_to_debugname: BTreeMap<u32, String> = BTreeMap::new();
     let mut assigned: BTreeSet<String> = BTreeSet::new();
     let mut removed = 0usize;
     for (name, id) in &existing {
         if names.contains(name) {
-            id_to_name.insert(*id, name.clone());
+            id_to_debugname.insert(*id, name.clone());
             assigned.insert(name.clone());
         } else {
             removed += 1;
@@ -184,10 +184,10 @@ fn write_pack(path: &Path, names: &BTreeSet<String>, _force: bool) -> Result<(us
             continue;
         }
         // Skip ids that somehow collide (shouldn't happen, but be safe).
-        while id_to_name.contains_key(&next_id) {
+        while id_to_debugname.contains_key(&next_id) {
             next_id += 1;
         }
-        id_to_name.insert(next_id, name.clone());
+        id_to_debugname.insert(next_id, name.clone());
         next_id += 1;
         added += 1;
     }
@@ -195,13 +195,13 @@ fn write_pack(path: &Path, names: &BTreeSet<String>, _force: bool) -> Result<(us
     debug!(
         "write_pack {}: {} entries ({} added, {} removed)",
         path.display(),
-        id_to_name.len(),
+        id_to_debugname.len(),
         added,
         removed
     );
 
     let mut f = fs::File::create(path).with_context(|| format!("creating {}", path.display()))?;
-    for (id, name) in &id_to_name {
+    for (id, name) in &id_to_debugname {
         writeln!(f, "{}={}", id, name)?;
     }
     Ok((added, removed))

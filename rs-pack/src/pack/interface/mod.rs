@@ -5,10 +5,9 @@ use crate::config_crc;
 use crate::pack::pack::collect_if_files;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_hex;
+use crate::pack::util::{parse_hex, verify_crc};
 use crate::types::{Font, IfButtonType, IfComparator, IfComponentType, IfScriptOp, PlayerStat};
 use anyhow::Result;
-use rs_io::crc;
 use tracing::debug;
 
 fn name_to_type(name: &str) -> IfComponentType {
@@ -748,11 +747,7 @@ pub fn pack_interfaces(
     }
 
     if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::INTERFACE;
-        if crc != expected {
-            panic!("CRC mismatch ['interface']: Got: {crc}, Expected: {expected}");
-        }
+        verify_crc("interface", &client.dat, config_crc::INTERFACE);
     }
 
     Ok(PackedFile {

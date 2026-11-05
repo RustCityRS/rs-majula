@@ -21,8 +21,8 @@
 
 use std::path::{Path, PathBuf};
 
-use crate::pack::collect_config_files;
-use crate::pack_registry::{PackFile, PackRegistry};
+use crate::pack::pack::collect_config_files;
+use crate::pack::pack_registry::{PackFile, PackRegistry};
 
 /// Severity of a [`Diagnostic`].
 ///
@@ -137,7 +137,7 @@ pub fn check_pack_content_sync(content_dir: &Path, reg: &PackRegistry) -> Vec<Di
             for_each_line(
                 &file,
                 |line, name| {
-                    if pack.get_by_name(name).is_some() {
+                    if pack.get_by_debugname(name).is_some() {
                         return; // resolves — fine
                     }
                     // Orphan. Is it an auto-name (`varp_139`) whose id the
@@ -199,7 +199,7 @@ pub fn check_pack_content_sync(content_dir: &Path, reg: &PackRegistry) -> Vec<Di
                         is_multi_n.then_some((&reg.npc, "npc"))
                     });
                 if let Some((pack, label)) = target {
-                    if !is_literal(value) && pack.get_by_name(value).is_none() {
+                    if !is_literal(value) && pack.get_by_debugname(value).is_none() {
                         diags.push(Diagnostic {
                             severity: Severity::Error,
                             file: file.clone(),

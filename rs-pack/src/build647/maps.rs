@@ -1,5 +1,6 @@
 //! Archive 5 — Maps: text → binary → compress (+ XTEA encrypt for landscapes).
 
+use crate::pack::pack_registry::PackFile;
 use std::path::Path;
 
 use anyhow::Result;
@@ -42,8 +43,7 @@ pub fn build(
 
     use crate::map_format;
 
-    let map_pack = crate::pack_registry::PackFile::load(&pack_dir.join("map.pack"))
-        .unwrap_or_else(|_| crate::pack_registry::PackFile::empty());
+    let map_pack = PackFile::load(&pack_dir.join("map.pack")).unwrap_or_else(|_| PackFile::empty());
 
     let keys_path = output_dir.join("keys.json");
     let keys_candidates = [keys_path.clone(), content_dir.join("keys.json")];
@@ -54,7 +54,7 @@ pub fn build(
     };
 
     let mut groups: Vec<(u32, String)> = map_pack
-        .id_to_name
+        .id_to_debugname
         .iter()
         .map(|(&id, name)| (id, name.clone()))
         .collect();

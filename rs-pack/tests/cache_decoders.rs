@@ -25,26 +25,23 @@ use rs_pack::cache::seq::SeqTypeRaw;
 use rs_pack::cache::spotanim::SpotAnimTypeRaw;
 use rs_pack::cache::r#struct::{StructType, StructTypeRaw};
 #[cfg(since_647)]
-use rs_pack::config_blob::ConfigBlob;
-#[cfg(before_647)]
+use rs_pack::pack::config::dbrow::pack_dbrows;
+use rs_pack::pack::config::hunt::pack_hunts;
 use rs_pack::pack::config::npc::pack_npcs;
 #[cfg(before_647)]
 use rs_pack::pack::config::param::parse_params;
-#[cfg(before_647)]
 use rs_pack::pack::pack::FileCache;
-#[cfg(before_647)]
 use rs_pack::pack::pack_registry::PackRegistry;
 #[cfg(before_647)]
 use rs_pack::pack::packed_data::PackedData;
-#[cfg(since_647)]
-use rs_pack::pack::{
-    dbrow::pack_dbrows, enum_pack::emit_enum_props, flo::emit_flo_props, flu::emit_flu_props,
-    idk::emit_idk_props, npc::pack_npcs, param::emit_param_props,
-};
-#[cfg(since_647)]
-use rs_pack::pack_registry::PackRegistry;
+use rs_pack::types::HuntCheckAfk;
 #[cfg(since_647)]
 use rs_pack::types::ScriptVarType;
+#[cfg(since_647)]
+use rs_pack::unpack::{
+    enums::emit_enum_props, flo::emit_flo_props, flu::emit_flu_props, idk::emit_idk_props,
+    param::emit_param_props,
+};
 use std::{collections::HashMap, fs, path::Path};
 
 fn decode<T: CacheType>(data: &[u8]) -> T {
@@ -179,11 +176,8 @@ fn dbrow_packer_writes_the_schema_width() {
     )
     .unwrap();
     let registry = PackRegistry::load(&path).unwrap();
-    pack_dbrows(&path, &registry, &HashMap::new(), &path).unwrap();
-    let rows = TypeProvider::<DbRowType>::from_bytes::<DbRowType>(
-        &fs::read(path.join("dbrow.dat")).unwrap(),
-        (),
-    );
+    let packed = pack_dbrows(&FileCache::new(&path), &registry, &HashMap::new()).unwrap();
+    let rows = TypeProvider::<DbRowType>::from_bytes::<DbRowType>(&packed.server.dat, ());
     for row in &rows.types {
         assert_eq!(row.types.as_ref().unwrap().len(), 4);
         let columns = row.columns.as_ref().unwrap();
@@ -197,7 +191,7 @@ fn dbrow_packer_writes_the_schema_width() {
     ));
     assert!(rows.types[1].columns.as_ref().unwrap()[2].is_none());
     fs::write(&source, "[sparse]\ntable=table\ndata=unknown,7\n").unwrap();
-    assert!(pack_dbrows(&path, &registry, &HashMap::new(), &path).is_err());
+    assert!(pack_dbrows(&FileCache::new(&path), &registry, &HashMap::new()).is_err());
 }
 
 #[test]
@@ -453,26 +447,15 @@ fn npc_hunt_ids_survive_packing() {
     )
     .unwrap();
     let registry = PackRegistry::load(&path).unwrap();
-    #[cfg(before_647)]
     let (server, client) = {
         let packed = pack_npcs(
             &FileCache::new(&path),
             &registry,
             &HashMap::new(),
             &HashMap::new(),
-            false,
         )
         .unwrap();
         (packed.server.dat, packed.client.unwrap().dat)
-    };
-    #[cfg(since_647)]
-    let (server, client) = {
-        let mut client = ConfigBlob::new();
-        pack_npcs(&path, &registry, &HashMap::new(), &path, &mut client).unwrap();
-        (
-            fs::read(path.join("npc.dat")).unwrap(),
-            client.get("npc.dat").unwrap().to_vec(),
-        )
     };
     let npc: NpcTypeRaw = decode(&server[2..]);
     assert_eq!(npc.huntmode, Some(255));
@@ -486,13 +469,13 @@ fn npc_hunt_ids_survive_packing() {
         fs::write(path.join("hunt.pack"), "404=cowardly\n").unwrap();
         let registry = PackRegistry::load(&path).unwrap();
         let error = pack_npcs(
-            &path,
+            &FileCache::new(&path),
             &registry,
             &HashMap::new(),
-            &path,
-            &mut ConfigBlob::new(),
+            &HashMap::new(),
         )
-        .unwrap_err();
+        .err()
+        .expect("Oversized hunt ID must fail packing");
         assert!(
             error
                 .to_string()
@@ -523,6 +506,28 @@ fn npc_server_codes_use_upstream_layout() {
     assert_eq!((patrol[0].coord, patrol[0].delay), (0x1020304, 8));
     assert!(npc.members);
     assert!(!npc.givechase);
+}
+
+#[test]
+fn hunt_afk_packing_preserves_explicit_and_default_values() {
+    let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("hunt_afk");
+    fs::create_dir_all(&path).unwrap();
+    fs::write(path.join("hunt.pack"), "0=test\n").unwrap();
+    for (property, expected) in [
+        ("check_afk=off", HuntCheckAfk::Off),
+        ("check_afk=on", HuntCheckAfk::On),
+        ("", HuntCheckAfk::On),
+    ] {
+        fs::write(path.join("test.hunt"), format!("[test]\n{property}\n")).unwrap();
+        let packed = pack_hunts(
+            &FileCache::new(&path),
+            &PackRegistry::load(&path).unwrap(),
+            &HashMap::new(),
+        )
+        .unwrap();
+        let hunt: HuntType = decode(&packed.server.dat[2..]);
+        assert_eq!(hunt.check_afk, expected);
+    }
 }
 
 #[test]

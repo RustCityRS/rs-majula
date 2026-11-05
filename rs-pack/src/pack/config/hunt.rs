@@ -2,21 +2,16 @@ use anyhow::Result;
 use std::collections::HashMap;
 use tracing::debug;
 
-#[cfg(since_274)]
-use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::*;
 use crate::types::*;
-#[cfg(since_274)]
-use rs_io::crc;
 
 pub fn pack_hunts(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    #[cfg_attr(before_274, allow(unused_variables))] verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.hunt;
 
@@ -32,11 +27,23 @@ pub fn pack_hunts(
         server.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown npc id: {id}");
+            #[cfg(before_647)]
+            panic!("Unknown hunt id: {id}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                continue;
+            }
         };
 
         let Some(props) = configs.get(debugname) else {
+            #[cfg(before_647)]
             panic!("Unknown hunt config: {debugname}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                continue;
+            }
         };
 
         let has_key = |k: &str| props.iter().any(|(pk, _)| pk == k);
@@ -121,7 +128,7 @@ pub fn pack_hunts(
 
                 // 10
                 "check_afk" => {
-                    if HuntCheckAfk::from_config_str(value) != HuntCheckAfk::Off {
+                    if HuntCheckAfk::from_config_str(value) == HuntCheckAfk::Off {
                         server.p1(10);
                     }
                 }
@@ -349,21 +356,11 @@ pub fn pack_hunts(
         server.finish_entry();
     }
 
-    #[cfg(before_274)]
+    #[cfg(any(before_274, since_647))]
     let client = None;
 
-    #[cfg(since_274)]
-    let client = {
-        let client = PackedData::new(0);
-        if verify {
-            let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-            let expected = config_crc::HUNT;
-            if crc != expected {
-                panic!("CRC mismatch ['hunt']: Got: {crc}, Expected: {expected}");
-            }
-        }
-        Some(client)
-    };
+    #[cfg(all(since_274, before_647))]
+    let client = Some(PackedData::new(0));
 
     Ok(PackedFile { server, client })
 }

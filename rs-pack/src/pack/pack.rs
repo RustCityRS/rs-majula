@@ -1,9 +1,26 @@
+use crate::CONFIG_TYPE_CRCS;
+#[cfg(since_647)]
+use crate::config_blob::ConfigBlob;
+#[cfg(since_647)]
+use crate::config_crc;
 use crate::pack::config::*;
+#[cfg(before_647)]
 use crate::pack::interface;
+#[cfg(since_647)]
+use crate::pack::pack_registry::validate_config_packs;
+#[cfg(since_647)]
+use crate::pack::pack_registry::{PackFile, PackId};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
+use crate::pack::util::verify_crc;
+#[cfg(since_647)]
+use anyhow::Result;
 use std::collections::HashMap;
-use std::path::Path;
+use std::collections::HashSet;
+use std::fs;
+use std::path::{Path, PathBuf};
 use tracing::debug;
+#[cfg(since_647)]
+use tracing::{info, warn};
 
 pub fn pack_assets(
     registry: &PackRegistry,
@@ -15,13 +32,13 @@ pub fn pack_assets(
     let constants = load_constants_from_cache(&fc);
     debug!("  Loaded {} constants", constants.len());
 
-    let param_types = param::load_param_types(&fc);
+    let param_types = param::load_param_types(&fc, &constants);
     let mut results = HashMap::new();
 
     debug!("Packing param configs...");
     results.insert(
         "param".to_string(),
-        param::pack_params(&fc, registry, &constants, verify)?,
+        param::pack_params(&fc, registry, &constants)?,
     );
     debug!("Packing dbtable configs...");
     results.insert(
@@ -41,7 +58,7 @@ pub fn pack_assets(
     debug!("Packing flo configs...");
     results.insert(
         "flo".to_string(),
-        flo::pack_flos(&fc, registry, &constants, verify)?,
+        flo::pack_flos(&fc, registry, &constants)?,
     );
     debug!("Packing inv configs...");
     results.insert(
@@ -51,7 +68,7 @@ pub fn pack_assets(
     debug!("Packing mesanim configs...");
     results.insert(
         "mesanim".to_string(),
-        mesanim::pack_mesanims(&fc, registry, &constants, verify)?,
+        mesanim::pack_mesanims(&fc, registry, &constants)?,
     );
     debug!("Packing struct configs...");
     results.insert(
@@ -61,32 +78,32 @@ pub fn pack_assets(
     debug!("Packing seq configs...");
     results.insert(
         "seq".to_string(),
-        seq::pack_seqs(&fc, registry, &constants, verify)?,
+        seq::pack_seqs(&fc, registry, &constants)?,
     );
     debug!("Packing loc configs...");
     results.insert(
         "loc".to_string(),
-        loc::pack_locs(&fc, registry, &constants, &param_types, verify)?,
+        loc::pack_locs(&fc, registry, &constants, &param_types)?,
     );
     debug!("Packing npc configs...");
     results.insert(
         "npc".to_string(),
-        npc::pack_npcs(&fc, registry, &constants, &param_types, verify)?,
+        npc::pack_npcs(&fc, registry, &constants, &param_types)?,
     );
     debug!("Packing obj configs...");
     results.insert(
         "obj".to_string(),
-        obj::pack_objs(&fc, registry, &constants, &param_types, verify)?,
+        obj::pack_objs(&fc, registry, &constants, &param_types)?,
     );
     debug!("Packing varp configs...");
     results.insert(
         "varp".to_string(),
-        varp::pack_varps(&fc, registry, &constants, verify)?,
+        varp::pack_varps(&fc, registry, &constants)?,
     );
     debug!("Packing hunt configs...");
     results.insert(
         "hunt".to_string(),
-        hunt::pack_hunts(&fc, registry, &constants, verify)?,
+        hunt::pack_hunts(&fc, registry, &constants)?,
     );
     debug!("Packing varn configs...");
     results.insert(
@@ -98,20 +115,23 @@ pub fn pack_assets(
         "vars".to_string(),
         vars::pack_vars_configs(&fc, registry, &constants)?,
     );
-    debug!("Packing interface configs...");
-    results.insert(
-        "interface".to_string(),
-        interface::pack_interfaces(source_dir, registry, verify)?,
-    );
+    #[cfg(before_647)]
+    {
+        debug!("Packing interface configs...");
+        results.insert(
+            "interface".to_string(),
+            interface::pack_interfaces(source_dir, registry, verify)?,
+        );
+    }
     debug!("Packing spotanim configs...");
     results.insert(
         "spotanim".to_string(),
-        spotanim::pack_spotanims(&fc, registry, &constants, verify)?,
+        spotanim::pack_spotanims(&fc, registry, &constants)?,
     );
     debug!("Packing idk configs...");
     results.insert(
         "idk".to_string(),
-        idk::pack_idks(&fc, registry, &constants, verify)?,
+        idk::pack_idks(&fc, registry, &constants)?,
     );
     debug!("Packing categories...");
     results.insert(
@@ -126,30 +146,49 @@ pub fn pack_assets(
         debug!("Packing varbit configs...");
         results.insert(
             "varbit".to_string(),
-            varbit::pack_varbits(&fc, registry, &constants, verify)?,
+            varbit::pack_varbits(&fc, registry, &constants)?,
         );
     }
-    #[cfg(since_274)]
+    #[cfg(all(since_274, before_647))]
     {
         debug!("Packing mes configs...");
-        results.insert("mes".to_string(), mes::pack_mes(&fc, &constants, verify)?);
+        results.insert("mes".to_string(), mes::pack_mes(&fc, &constants)?);
+    }
+    #[cfg(since_647)]
+    results.insert(
+        "flu".to_string(),
+        flu::pack_flus(&fc, registry, &constants)?,
+    );
+    if verify {
+        for &(name, expected) in CONFIG_TYPE_CRCS {
+            let client = results[name]
+                .client
+                .as_ref()
+                .expect("Missing client config");
+            verify_crc(name, &client.dat, expected);
+        }
     }
     Ok(results)
 }
 
+pub type ConfigProperties = Vec<(String, String)>;
+pub type ConfigSections = HashMap<String, ConfigProperties>;
+
 pub struct FileCache {
-    by_ext: HashMap<String, Vec<std::path::PathBuf>>,
-    contents: HashMap<std::path::PathBuf, String>,
+    by_ext: HashMap<String, Vec<PathBuf>>,
+    contents: HashMap<PathBuf, String>,
 }
 
 impl FileCache {
-    const TEXT_EXTS: &[&str] = &[
+    pub(crate) const TEXT_EXTS: &[&str] = &[
         "param",
         "obj",
         "npc",
         "loc",
         "seq",
         "flo",
+        #[cfg(since_647)]
+        "flu",
         "inv",
         "enum",
         "hunt",
@@ -172,13 +211,13 @@ impl FileCache {
         collect_all_recursive(source_dir, &mut files);
         files.sort();
 
-        let mut by_ext: HashMap<String, Vec<std::path::PathBuf>> = HashMap::new();
+        let mut by_ext: HashMap<String, Vec<PathBuf>> = HashMap::new();
         let mut contents = HashMap::new();
 
         for path in files {
             if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
                 if Self::TEXT_EXTS.contains(&ext) {
-                    if let Ok(text) = std::fs::read_to_string(&path) {
+                    if let Ok(text) = fs::read_to_string(&path) {
                         contents.insert(path.clone(), text);
                     }
                 }
@@ -188,7 +227,32 @@ impl FileCache {
         Self { by_ext, contents }
     }
 
-    pub fn collect(&self, ext: &str) -> &[std::path::PathBuf] {
+    #[cfg(since_647)]
+    pub fn client_configs(&self, ext: &str, constants: &HashMap<String, String>) -> ConfigSections {
+        parse_sections(
+            self.collect(ext)
+                .iter()
+                .filter(|path| is_unpacked(path))
+                .filter_map(|path| self.read(path).map(|text| (path.as_path(), text))),
+            constants,
+        )
+    }
+
+    #[cfg(since_647)]
+    pub fn client_count(
+        &self,
+        ext: &str,
+        pack: &PackFile,
+        constants: &HashMap<String, String>,
+    ) -> Option<PackId> {
+        self.client_configs(ext, constants)
+            .keys()
+            .filter_map(|name| pack.get_by_debugname(name))
+            .max()
+            .map(|id| id + 1)
+    }
+
+    pub fn collect(&self, ext: &str) -> &[PathBuf] {
         self.by_ext.get(ext).map(|v| v.as_slice()).unwrap_or(&[])
     }
 
@@ -197,7 +261,7 @@ impl FileCache {
     }
 }
 
-pub fn collect_config_files(dir: &Path, ext: &str) -> Vec<std::path::PathBuf> {
+pub fn collect_config_files(dir: &Path, ext: &str) -> Vec<PathBuf> {
     let mut files = Vec::new();
     collect_all_recursive(dir, &mut files);
     files.sort();
@@ -207,11 +271,11 @@ pub fn collect_config_files(dir: &Path, ext: &str) -> Vec<std::path::PathBuf> {
         .collect()
 }
 
-fn collect_all_recursive(dir: &Path, out: &mut Vec<std::path::PathBuf>) {
-    let Ok(entries) = std::fs::read_dir(dir) else {
+fn collect_all_recursive(dir: &Path, out: &mut Vec<PathBuf>) {
+    let Ok(entries) = fs::read_dir(dir) else {
         return;
     };
-    let mut sorted: Vec<std::path::PathBuf> = entries.flatten().map(|e| e.path()).collect();
+    let mut sorted: Vec<PathBuf> = entries.flatten().map(|e| e.path()).collect();
     sorted.sort();
     for path in sorted {
         if path.is_dir() {
@@ -227,7 +291,7 @@ pub fn collect_if_files(dir: &Path) -> Vec<(String, Vec<String>)> {
     let files = collect_config_files(dir, "if");
     for path in files {
         let if_name = path.file_stem().unwrap().to_string_lossy().to_string();
-        let content = std::fs::read_to_string(&path).unwrap_or_default();
+        let content = fs::read_to_string(&path).unwrap_or_default();
         let lines: Vec<String> = content.lines().map(|l| l.to_string()).collect();
         results.push((if_name, lines));
     }
@@ -238,7 +302,7 @@ pub fn load_constants(source_dir: &Path) -> HashMap<String, String> {
     let mut constants = HashMap::new();
     let files = collect_config_files(source_dir, "constant");
     for path in &files {
-        let Ok(text) = std::fs::read_to_string(path) else {
+        let Ok(text) = fs::read_to_string(path) else {
             continue;
         };
         parse_constants_text(&text, &mut constants);
@@ -246,7 +310,7 @@ pub fn load_constants(source_dir: &Path) -> HashMap<String, String> {
     constants
 }
 
-fn load_constants_from_cache(fc: &FileCache) -> HashMap<String, String> {
+pub fn load_constants_from_cache(fc: &FileCache) -> HashMap<String, String> {
     let mut constants = HashMap::new();
     for path in fc.collect("constant") {
         if let Some(text) = fc.read(path) {
@@ -270,66 +334,150 @@ fn parse_constants_text(text: &str, constants: &mut HashMap<String, String>) {
 }
 
 pub fn parse_config_sections(
-    files: &[std::path::PathBuf],
+    files: &[PathBuf],
     constants: &HashMap<String, String>,
-) -> HashMap<String, Vec<(String, String)>> {
-    let mut configs: HashMap<String, Vec<(String, String)>> = HashMap::new();
-
-    for path in files {
-        let Ok(text) = std::fs::read_to_string(path) else {
-            continue;
-        };
-        parse_config_text(&text, constants, &mut configs);
-    }
-
-    configs
+) -> ConfigSections {
+    let contents: Vec<_> = files.iter().map(fs::read_to_string).collect();
+    parse_sections(
+        files
+            .iter()
+            .zip(&contents)
+            .filter_map(|(path, text)| text.as_deref().ok().map(|text| (path.as_path(), text))),
+        constants,
+    )
 }
 
 pub fn parse_config_sections_cached(
     fc: &FileCache,
     ext: &str,
     constants: &HashMap<String, String>,
-) -> HashMap<String, Vec<(String, String)>> {
-    let mut configs: HashMap<String, Vec<(String, String)>> = HashMap::new();
+) -> ConfigSections {
+    parse_sections(
+        fc.collect(ext)
+            .iter()
+            .filter_map(|path| fc.read(path).map(|text| (path.as_path(), text))),
+        constants,
+    )
+}
 
-    for path in fc.collect(ext) {
-        if let Some(text) = fc.read(path) {
-            parse_config_text(text, constants, &mut configs);
+pub(super) fn parse_sections<'a>(
+    files: impl IntoIterator<Item = (&'a Path, &'a str)>,
+    constants: &HashMap<String, String>,
+) -> ConfigSections {
+    let mut layers: [ConfigSections; 2] = Default::default();
+    #[cfg(since_647)]
+    let mut sources: [HashMap<String, PathBuf>; 2] = Default::default();
+
+    for (_path, text) in files {
+        #[cfg(before_647)]
+        let layer = 0;
+        #[cfg(since_647)]
+        let layer = usize::from(!is_unpacked(_path));
+        let mut current_name: Option<String> = None;
+        #[cfg(since_647)]
+        let mut seen = HashSet::new();
+
+        #[cfg_attr(before_647, allow(clippy::unused_enumerate_index))]
+        for (_line_no, raw_line) in text.lines().enumerate() {
+            #[cfg(before_647)]
+            let line = raw_line.split("//").next().unwrap_or("").trim();
+            #[cfg(since_647)]
+            let line = {
+                let line = raw_line.trim_start().trim_end_matches('\r');
+                find_comment_start(line).map_or(line, |index| &line[..index])
+            };
+            let header = line.trim_end();
+            if header.is_empty() {
+                continue;
+            }
+            if let Some(name) = header.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
+                #[cfg(since_647)]
+                {
+                    if !seen.insert(name.to_string()) {
+                        warn!(
+                            "{}:{}: Duplicate config [{}] in same file",
+                            _path.display(),
+                            _line_no + 1,
+                            name
+                        );
+                    }
+                    if let Some(previous) = sources[layer].get(name) {
+                        assert_eq!(
+                            previous,
+                            _path,
+                            "Two authored files cannot define one section [{name}]: {} and {}:{}",
+                            previous.display(),
+                            _path.display(),
+                            _line_no + 1
+                        );
+                    }
+                    sources[layer].insert(name.to_string(), _path.to_path_buf());
+                    layers[layer].insert(name.to_string(), Vec::new());
+                }
+                #[cfg(before_647)]
+                layers[layer].entry(name.to_string()).or_default();
+                current_name = Some(name.to_string());
+                continue;
+            }
+            if let Some((key, value)) = line.split_once('=')
+                && let Some(name) = &current_name
+            {
+                layers[layer].get_mut(name).unwrap().push((
+                    key.trim().to_string(),
+                    substitute_constants(value, constants),
+                ));
+            }
         }
     }
-
+    let [mut configs, authored] = layers;
+    for (name, overlay) in authored {
+        let props = match configs.remove(&name) {
+            Some(base) => overlay_section(base, overlay),
+            None => overlay,
+        };
+        configs.insert(name, props);
+    }
     configs
 }
 
-fn parse_config_text(
-    text: &str,
-    constants: &HashMap<String, String>,
-    configs: &mut HashMap<String, Vec<(String, String)>>,
-) {
-    let mut current_name: Option<String> = None;
+pub fn is_unpacked(path: &Path) -> bool {
+    path.components().any(|part| part.as_os_str() == "_unpack")
+}
 
-    for raw_line in text.lines() {
-        let line = raw_line.split("//").next().unwrap_or("").trim();
-        if line.is_empty() {
-            continue;
-        }
-
-        if let Some(name) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
-            current_name = Some(name.to_string());
-            configs.entry(name.to_string()).or_default();
-            continue;
-        }
-
-        if let Some((key, raw_value)) = line.split_once('=')
-            && let Some(ref name) = current_name
-        {
-            let value = substitute_constants(raw_value, constants);
-            configs
-                .get_mut(name)
-                .unwrap()
-                .push((key.trim().to_string(), value));
+pub fn overlay_section(
+    base: Vec<(String, String)>,
+    overlay: Vec<(String, String)>,
+) -> Vec<(String, String)> {
+    let named: HashSet<&str> = overlay.iter().map(|(k, _)| k.as_str()).collect();
+    if base.iter().all(|(k, _)| named.contains(k.as_str())) {
+        return overlay;
+    }
+    let mut out = Vec::with_capacity(base.len() + overlay.len());
+    let mut placed: HashSet<String> = HashSet::new();
+    for (key, value) in &base {
+        if !named.contains(key.as_str()) {
+            out.push((key.clone(), value.clone()));
+        } else if placed.insert(key.clone()) {
+            out.extend(overlay.iter().filter(|(k, _)| k == key).cloned());
         }
     }
+    out.extend(overlay.iter().filter(|(k, _)| !placed.contains(k)).cloned());
+    out
+}
+
+#[cfg(since_647)]
+fn find_comment_start(line: &str) -> Option<usize> {
+    let bytes = line.as_bytes();
+    let mut i = 0;
+    while i + 1 < bytes.len() {
+        if bytes[i] == b'/' && bytes[i + 1] == b'/' {
+            if i == 0 || bytes[i - 1].is_ascii_whitespace() {
+                return Some(i);
+            }
+        }
+        i += 1;
+    }
+    None
 }
 
 fn substitute_constants(value: &str, constants: &HashMap<String, String>) -> String {
@@ -350,4 +498,47 @@ fn substitute_constants(value: &str, constants: &HashMap<String, String>) -> Str
         }
     }
     result
+}
+
+#[cfg(since_647)]
+pub fn pack_all(
+    source_dir: &Path,
+    pack_dir: &Path,
+    server_dir: &Path,
+    client_dir: &Path,
+    verify: bool,
+) -> Result<()> {
+    fs::create_dir_all(server_dir)?;
+    fs::create_dir_all(client_dir)?;
+
+    let mut config_blob = ConfigBlob::new();
+
+    // Validate pack files: auto-register names from content files.
+    validate_config_packs(source_dir, pack_dir)?;
+
+    let registry = PackRegistry::load(pack_dir)?;
+    let assets = pack_assets(&registry, source_dir, verify)?;
+    for &(name, expected) in config_crc::GENERIC {
+        let path = source_dir.join("_unpack").join(format!("all.{name}"));
+        if !path.exists() && !verify {
+            continue;
+        }
+        let client = generic::pack_generic_config(source_dir, name)?;
+        if verify {
+            verify_crc(name, &client.dat, expected);
+        }
+        config_blob.add_packed_data(name, client.dat, client.idx);
+    }
+    for (name, asset) in assets {
+        asset.server.save(server_dir, &name)?;
+        if let Some(client) = asset.client {
+            config_blob.add_packed_data(&name, client.dat, client.idx);
+        }
+    }
+
+    // Save the config blob as a single file
+    config_blob.save(&client_dir.join("config"))?;
+
+    info!("Pack complete.");
+    Ok(())
 }

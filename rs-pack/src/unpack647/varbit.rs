@@ -1,21 +1,3 @@
-//! Unpack VarBit configs from JS5 cache to text config format.
-//!
-//! Produces `_unpack/all.varbit` such that
-//! `pack::varbit::pack_varbit_def` reading the file produces byte-identical
-//! cache bytes for every varbit. Mirrors 2004scape's
-//! `tools/unpack/config/VarbitConfig.ts` text shape: each `Bits` emission
-//! becomes three lines — `basevar=<varp_name>`, `startbit=<lsb>`,
-//! `endbit=<msb>`.
-//!
-//! Archive 22 is strided (stride 1024): every group holds up to 1024
-//! entries, and the global varbit id is `group_id * 1024 + entry.id`.
-//!
-//! Section header is the registry's varbit name; missing entries fall back
-//! to `varbit_<global_id>`. Collisions append `__<id>`.
-//!
-//! Phase 1 contract: this writes EVERY cache entry, every emission, in
-//! source order — no overlay-key gating.
-
 use std::collections::HashMap;
 use std::io::Write;
 use std::path::Path;
@@ -27,8 +9,7 @@ use tracing::info;
 
 use crate::cache::provider::CacheType;
 use crate::cache::varbit::VarbitType;
-use crate::pack::varbit::emit_varbit_props;
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
 
 const ARCHIVE_VARBITS: u8 = 22;
 const STRIDE_VARBITS: u32 = 1024;
@@ -83,4 +64,19 @@ pub fn unpack_varbits(cache_dir: &Path, registry: &PackRegistry, output_dir: &Pa
 
     info!("  Wrote {written} varbit configs to {}", out_path.display());
     Ok(())
+}
+
+pub fn emit_varbit_props(def: &VarbitType, registry: &PackRegistry) -> Vec<(String, String)> {
+    let mut props: Vec<(String, String)> = Vec::new();
+    if def.basevar != 0 || def.start_bit != 0 || def.end_bit != 0 {
+        let varp_name = registry
+            .varp
+            .get_by_id(def.basevar as u32)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("varp_{}", def.basevar));
+        props.push(("basevar".into(), varp_name));
+        props.push(("startbit".into(), def.start_bit.to_string()));
+        props.push(("endbit".into(), def.end_bit.to_string()));
+    }
+    props
 }

@@ -19,6 +19,13 @@ mod verify;
 
 pub use sprites_encode::encode_sprite_group_from_dir;
 
+use crate::config_blob::ConfigBlob;
+use crate::pack::model;
+use crate::pack::pack_registry::PackFile;
+use crate::startup::{
+    config_inputs, current_exe_mtime, file_mtime, is_up_to_date, max_of, newest_mtime,
+};
+
 use crate::cache::seq_frame::split_frame_into_stripes;
 use anyhow::Result;
 use tracing::{info, warn};
@@ -37,20 +44,10 @@ use helpers::{
 /// unpacker read and write), in any of `map_format::source_dirs`; the 63
 /// squares nobody can decrypt are opaque `encrypted/<gid>.bin`.
 pub fn cache_build_inputs(content_dir: &std::path::Path) -> Option<std::time::SystemTime> {
-    use crate::startup::{current_exe_mtime, file_mtime, max_of, newest_mtime};
     max_of(&[
-        // The packer is an input too: a change to how content packs (the npc
-        // client stream dropping hidden ops) with no content change left the
-        // old archives standing, and the CRC gate judged a stale cache.
-        current_exe_mtime(),
-        newest_mtime(
-            &content_dir.join("scripts"),
-            &[
-                "npc", "obj", "loc", "seq", "enum", "struct", "param", "varp", "varbit", "inv",
-                "hunt", "idk", "flo", "flu", "spotanim", "dbtable", "dbrow", "rs2", "constant",
-                "base", "anim",
-            ],
-        ),
+        config_inputs(&content_dir.join("scripts"), &content_dir.join("pack")),
+        newest_mtime(&content_dir.join("scripts"), &["rs2", "base", "anim"]),
+        newest_mtime(&content_dir.join("versions"), &["versions"]),
         newest_mtime(&content_dir.join("interfaces").join("_unpack"), &["if"]),
         max_of(
             &crate::map_format::source_dirs(content_dir)
@@ -75,16 +72,16 @@ pub fn run_build_cache(
     prebuilt_anims: Option<std::collections::BTreeMap<(u32, u32), Vec<u8>>>,
 ) -> Result<()> {
     use crate::assemble;
-    use crate::startup::{is_up_to_date, max_of, newest_mtime};
     use rs_dat2::archive;
 
     // Fast path: if the built cache already exists and no source content has
     // changed since the last successful build, skip the entire function.
+    let config_path = client_data_dir.join("config");
     let master_stamp = output_dir.join(".stamp_cache_built");
     if !force_rebuild && master_stamp.exists() {
         let cache_exists = output_dir.join("main_file_cache.dat2").exists();
         if cache_exists {
-            let master_input = cache_build_inputs(content_dir);
+            let master_input = max_of(&[cache_build_inputs(content_dir), file_mtime(&config_path)]);
             if is_up_to_date(&master_stamp, master_input) {
                 info!("JS5 cache up to date — skipping build");
                 return Ok(());
@@ -147,7 +144,7 @@ pub fn run_build_cache(
             let packed_entries = if let Some(ref prebuilt) = prebuilt_anims {
                 prebuilt.clone()
             } else {
-                crate::pack::anim::pack_anims(&scripts_dir, &pack_dir)?
+                model::pack_anims(&scripts_dir, &pack_dir)?
             };
 
             // Group by group_id, preserving file IDs
@@ -159,8 +156,8 @@ pub fn run_build_cache(
 
             // Parallel: encode + compress all groups
             let anim_versions = versions.get(&archive::ANIMS);
-            let anim_pack = crate::pack_registry::PackFile::load(&pack_dir.join("anim.pack"))
-                .unwrap_or_else(|_| crate::pack_registry::PackFile::empty());
+            let anim_pack =
+                PackFile::load(&pack_dir.join("anim.pack")).unwrap_or_else(|_| PackFile::empty());
             let anim_out_dir = content_dir.join("models");
             std::fs::create_dir_all(&anim_out_dir)?;
 
@@ -256,22 +253,9 @@ pub fn run_build_cache(
     {
         let config_stamp = stamp_path(output_dir, archive::CONFIG);
         let config_input = max_of(&[
-            crate::startup::current_exe_mtime(),
-            newest_mtime(
-                &content_dir.join("scripts").join("_unpack"),
-                &[
-                    "npc", "obj", "loc", "seq", "enum", "struct", "param", "varp", "varbit", "inv",
-                    "hunt", "idk", "flo", "flu", "spotanim", "dbtable", "dbrow", "mesanim", "varn",
-                    "vars",
-                ],
-            ),
-            newest_mtime(
-                &content_dir.join("scripts"),
-                &[
-                    "npc", "obj", "loc", "seq", "enum", "struct", "param", "varp", "varbit", "inv",
-                    "hunt", "idk", "flo", "flu", "spotanim", "dbtable", "dbrow",
-                ],
-            ),
+            current_exe_mtime(),
+            file_mtime(&config_path),
+            newest_mtime(&versions_dir, &["versions"]),
         ]);
         if !force_rebuild && is_up_to_date(&config_stamp, config_input) {
             info!(
@@ -279,37 +263,7 @@ pub fn run_build_cache(
                 archive::CONFIG
             );
         } else {
-            let config_blob = {
-                let scripts_dir = content_dir.join("scripts");
-                let pack_dir = content_dir.join("pack");
-                let unpack_dir = scripts_dir.join("_unpack");
-
-                if !unpack_dir.exists() {
-                    anyhow::bail!(
-                        "No unpacked content at {} — run unpack first",
-                        unpack_dir.display()
-                    );
-                }
-
-                // Pack configs: server → data/pack/server, client → data/pack/client
-                let server_dir = output_dir.join("server");
-                std::fs::create_dir_all(&server_dir)?;
-                std::fs::create_dir_all(client_data_dir)?;
-
-                info!("  Packing configs...");
-                crate::pack::pack_all(
-                    &scripts_dir,
-                    &pack_dir,
-                    &server_dir,
-                    client_data_dir,
-                    false,
-                    true,
-                )?;
-
-                // Load config blob from data/pack/client/config (single JCFG file)
-                let config_path = client_data_dir.join("config");
-                crate::config_blob::ConfigBlob::load(&config_path)?
-            };
+            let config_blob = ConfigBlob::load(&config_path)?;
 
             // Archive 2 — Config groups from config blob
             {

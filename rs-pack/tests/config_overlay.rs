@@ -7,7 +7,7 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use rs_pack::pack::{overlay_section, parse_config_sections};
+use rs_pack::pack::pack::{overlay_section, parse_config_sections};
 
 fn kv(pairs: &[(&str, &str)]) -> Vec<(String, String)> {
     pairs

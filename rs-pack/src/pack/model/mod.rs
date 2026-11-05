@@ -1,38 +1,36 @@
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+#[cfg(since_647)]
+use std::collections::BTreeMap;
+use std::path::Path;
 
+#[cfg(since_647)]
+use crate::cache::seq_frame::{AnimFrame, FrameBone};
+#[cfg(since_647)]
+use anyhow::{Context, Result, bail, ensure};
+#[cfg(since_647)]
+use tracing::info;
+
+use crate::pack::pack_registry::PackFile;
+
+#[cfg(since_647)]
+use crate::pack::pack::parse_sections;
+#[cfg(before_647)]
+use crate::pack::util::{load_order, walk};
+use std::collections::HashMap;
+use std::fs;
+
+#[cfg(before_647)]
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::jag::{JagCompression, JagFile};
+#[cfg(before_647)]
 use tracing::{debug, warn};
 
-use crate::pack::pack_registry::{PackFile, PackRegistry};
+#[cfg(before_647)]
+use crate::pack::pack_registry::PackRegistry;
+#[cfg(before_647)]
 use crate::types::BoneType;
 
-fn walk(path: &Path) -> Vec<PathBuf> {
-    let mut results = Vec::new();
-    let Ok(entries) = std::fs::read_dir(path) else {
-        return results;
-    };
-    for entry in entries.flatten() {
-        let path = entry.path();
-        if path.is_dir() {
-            results.extend(walk(&path));
-        } else {
-            results.push(path);
-        }
-    }
-    results
-}
-
-fn load_order(path: &Path) -> Vec<u16> {
-    let Ok(text) = std::fs::read_to_string(path) else {
-        return Vec::new();
-    };
-    text.lines()
-        .filter_map(|l| l.trim().parse::<u16>().ok())
-        .collect()
-}
-
+#[cfg(before_647)]
 pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path) -> Vec<u8> {
     let models_dir = content_dir.join("models");
     if !models_dir.exists() {
@@ -53,7 +51,7 @@ pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     let mut file_data: HashMap<String, Vec<u8>> = HashMap::with_capacity(files.len());
     for f in &files {
         if let Some(name) = f.file_name().and_then(|n| n.to_str())
-            && let Ok(data) = std::fs::read(f)
+            && let Ok(data) = fs::read(f)
         {
             file_data.insert(name.to_string(), data);
         }
@@ -334,6 +332,7 @@ pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     jag.build(JagCompression::PerFile)
 }
 
+#[cfg(before_647)]
 fn parse_text_props(text: &str) -> HashMap<String, String> {
     let mut map = HashMap::new();
     for line in text.lines() {
@@ -348,6 +347,7 @@ fn parse_text_props(text: &str) -> HashMap<String, String> {
     map
 }
 
+#[cfg(before_647)]
 fn axis_flags_id(name: &str) -> u8 {
     match name {
         "none" => 0,
@@ -362,6 +362,7 @@ fn axis_flags_id(name: &str) -> u8 {
     }
 }
 
+#[cfg(before_647)]
 fn parse_frame_bone(s: &str) -> (u8, Vec<i32>) {
     if s == "none" {
         return (0, Vec::new());
@@ -373,6 +374,7 @@ fn parse_frame_bone(s: &str) -> (u8, Vec<i32>) {
     (flags, deltas)
 }
 
+#[cfg(before_647)]
 fn parse_bone_entry(s: &str) -> (u8, Vec<u8>) {
     let mut parts = s.splitn(2, ',');
     let type_name = parts.next().unwrap().trim();
@@ -381,6 +383,7 @@ fn parse_bone_entry(s: &str) -> (u8, Vec<u8>) {
     (bone_type, labels)
 }
 
+#[cfg(before_647)]
 fn parse_csv_u8(s: &str) -> Vec<u8> {
     if s.is_empty() {
         return Vec::new();
@@ -390,6 +393,7 @@ fn parse_csv_u8(s: &str) -> Vec<u8> {
         .collect()
 }
 
+#[cfg(before_647)]
 fn parse_csv_i32(s: &str) -> Vec<i32> {
     if s.is_empty() {
         return Vec::new();
@@ -397,4 +401,67 @@ fn parse_csv_i32(s: &str) -> Vec<i32> {
     s.split(',')
         .filter_map(|v| v.trim().parse::<i32>().ok())
         .collect()
+}
+
+#[cfg(since_647)]
+pub fn pack_anims(source_dir: &Path, pack_dir: &Path) -> Result<BTreeMap<(u32, u32), Vec<u8>>> {
+    let anim_dir = source_dir.join("_unpack").join("animations");
+    let mut result = BTreeMap::new();
+    if !anim_dir.is_dir() {
+        return Ok(result);
+    }
+    let pack = PackFile::load(&pack_dir.join("anim.pack"))?;
+    let mut files: Vec<_> = fs::read_dir(&anim_dir)?
+        .filter_map(|e| e.ok())
+        .map(|e| e.path())
+        .filter(|p| p.extension().and_then(|e| e.to_str()) == Some("anim"))
+        .collect();
+    files.sort();
+
+    for path in &files {
+        let name = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
+        let group_id = pack
+            .get_by_debugname(name)
+            .or_else(|| name.strip_prefix("anim_").and_then(|s| s.parse().ok()))
+            .with_context(|| format!("Unknown animation: {name}"))?;
+        let text = fs::read_to_string(path)
+            .with_context(|| format!("Reading animation {}", path.display()))?;
+        let configs = parse_sections([(path.as_path(), text.as_str())], &HashMap::new());
+        for (section, props) in configs {
+            let frame_index = section
+                .strip_prefix("frame_")
+                .and_then(|s| s.parse().ok())
+                .with_context(|| format!("Invalid animation frame: {section}"))?;
+            let mut frame = AnimFrame {
+                type_marker: 0,
+                base_id: 0,
+                bone_count: 0,
+                bones: Vec::new(),
+            };
+            for (key, value) in props {
+                let value = value.trim();
+                match key.as_str() {
+                    "type" => frame.type_marker = value.parse()?,
+                    "base" => frame.base_id = value.parse()?,
+                    "bone_count" => frame.bone_count = value.parse()?,
+                    "bone" => {
+                        let fields: Vec<_> = value.split(':').collect();
+                        ensure!(fields.len() == 5, "Invalid animation bone: {value}");
+                        frame.bones.push(FrameBone {
+                            bone_index: fields[0].parse()?,
+                            mask: fields[1].parse()?,
+                            dx: fields[2].parse()?,
+                            dy: fields[3].parse()?,
+                            dz: fields[4].parse()?,
+                        });
+                    }
+                    _ if key.starts_with('#') => {}
+                    _ => bail!("Unrecognized animation config key: {key}"),
+                }
+            }
+            result.insert((group_id, frame_index), frame.encode());
+        }
+    }
+    info!("  {} animation frames packed", result.len());
+    Ok(result)
 }

@@ -1,88 +1,30 @@
-//! Generic config packer — reads text files produced by the generic unpacker
-//! and writes PackedData (.dat/.idx) to data/pack/client/config/.
-//!
-//! This handles archive 2 config groups that lack dedicated Definition
-//! structs — both "known" types with named opcodes (LightType, BASType, etc.)
-//! and "unknown" groups that were dumped as raw hex bytes.
-
+use crate::pack::pack::parse_config_sections;
+use std::collections::{BTreeMap, HashMap};
+use std::mem;
 use std::path::Path;
 
 use anyhow::Result;
 use tracing::info;
 
-use crate::packed_data::PackedData;
+use crate::pack::packed_data::PackedData;
 
-/// Pack a generic config text file back into PackedData binary.
-///
-/// Reads `<source_dir>/_unpack/all.<type_name>` and adds the packed
-/// `<type_name>.dat` + `<type_name>.idx` to the given `ConfigBlob`.
-pub fn pack_generic_config(
-    source_dir: &Path,
-    type_name: &str,
-    config_blob: &mut crate::config_blob::ConfigBlob,
-) -> Result<()> {
+pub fn pack_generic_config(source_dir: &Path, type_name: &str) -> Result<PackedData> {
     let all_file = source_dir.join("_unpack").join(format!("all.{type_name}"));
-    if !all_file.exists() {
-        info!("  No all.{type_name} found, skipping generic config pack");
-        return Ok(());
-    }
-
-    let text = std::fs::read_to_string(&all_file)?;
-
-    // Parse sections: [<type_name>_N] or [entry_N] followed by key=value lines.
-    // Sections with no properties produce terminator-only entries (the default).
-    let mut sections: Vec<(u32, Vec<(String, String)>)> = Vec::new();
-    let mut current_id: Option<u32> = None;
-    let mut current_props: Vec<(String, String)> = Vec::new();
-    let mut max_id: u32 = 0;
-
-    // Section name prefix: "config7_", "bas_", etc. — or legacy "entry_"
+    let sections = parse_config_sections(&[all_file], &HashMap::new());
     let prefix = format!("{type_name}_");
-
-    for line in text.lines() {
-        let line = line.split("//").next().unwrap_or("").trim();
-        if line.is_empty() {
-            continue;
-        }
-        if let Some(inner) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
-            // Flush previous section
-            if let Some(id) = current_id.take() {
-                sections.push((id, std::mem::take(&mut current_props)));
-            }
-            // Parse ID from "[config7_42]" or "[entry_42]" or bare "[42]"
-            let id = if let Some(num_str) = inner.strip_prefix(prefix.as_str()) {
-                num_str.parse::<u32>().unwrap_or(0)
-            } else if let Some(num_str) = inner.strip_prefix("entry_") {
-                num_str.parse::<u32>().unwrap_or(0)
-            } else {
-                inner.parse::<u32>().unwrap_or(0)
-            };
-            current_id = Some(id);
-            if id >= max_id {
-                max_id = id + 1;
-            }
-            continue;
-        }
-        if let Some((key, value)) = line.split_once('=') {
-            current_props.push((key.trim().to_string(), value.to_string()));
-        }
-    }
-    // Flush last section
-    if let Some(id) = current_id {
-        sections.push((id, current_props));
-    }
-
-    if sections.is_empty() {
-        info!("  {type_name}: no entries found");
-        return Ok(());
-    }
-
-    // Build a lookup from id to props
-    let mut entries_map: std::collections::BTreeMap<u32, &[(String, String)]> =
-        std::collections::BTreeMap::new();
-    for (id, props) in &sections {
-        entries_map.insert(*id, props.as_slice());
-    }
+    let entries_map: BTreeMap<_, _> = sections
+        .iter()
+        .map(|(name, props)| {
+            let id = name
+                .strip_prefix(&prefix)
+                .or_else(|| name.strip_prefix("entry_"))
+                .unwrap_or(name)
+                .parse::<u32>()
+                .expect("Invalid generic config ID");
+            (id, props.as_slice())
+        })
+        .collect();
+    let max_id = entries_map.last_key_value().map_or(0, |(&id, _)| id + 1);
 
     let mut packed = PackedData::new(max_id);
 
@@ -98,9 +40,8 @@ pub fn pack_generic_config(
         }
     }
 
-    info!("  {type_name}: {} entries packed", sections.len());
-    config_blob.add_packed_data(type_name, packed.dat, packed.idx);
-    Ok(())
+    info!("  {type_name}: {} entries packed", entries_map.len());
+    Ok(packed)
 }
 
 /// Pack a single key=value property into the PackedData buffer.
@@ -221,7 +162,7 @@ fn pack_opcode_data(packed: &mut PackedData, suffix: &str, value: &str) {
             packed.p2(value.parse::<i16>().unwrap_or(0) as u16);
         }
         "g3" | "u24" => {
-            packed.p3(value.parse::<u32>().unwrap_or(0));
+            packed.p3((value.parse::<u32>().unwrap_or(0)) as i32);
         }
         "g4" | "i32" => {
             packed.p4(value.parse::<i32>().unwrap_or(0));
@@ -265,7 +206,7 @@ fn split_escaped_csv(s: &str) -> Vec<String> {
             current.push(',');
             i += 2;
         } else if bytes[i] == b',' {
-            result.push(std::mem::take(&mut current));
+            result.push(mem::take(&mut current));
             i += 1;
         } else {
             current.push(bytes[i] as char);
@@ -324,7 +265,7 @@ fn pack_single_typed_value(packed: &mut PackedData, ty: &str, v: &str) {
         "g1b" | "i8" => packed.p1(v.parse::<i8>().unwrap_or(0) as u8),
         "g2" | "u16" => packed.p2(v.parse::<u16>().unwrap_or(0)),
         "g2b" | "i16" => packed.p2(v.parse::<i16>().unwrap_or(0) as u16),
-        "g3" | "u24" => packed.p3(v.parse::<u32>().unwrap_or(0)),
+        "g3" | "u24" => packed.p3(v.parse::<i32>().unwrap_or(0)),
         "g4" | "i32" => packed.p4(v.parse::<i32>().unwrap_or(0)),
         "str" | "gjstr" => packed.pjstr(v),
         "str2" | "gjstr2" => {
@@ -407,7 +348,7 @@ fn pack_params(packed: &mut PackedData, value: &str) {
         idx += 1;
 
         packed.p1(is_string);
-        packed.p3(key);
+        packed.p3((key) as i32);
 
         if is_string == 1 {
             let s = values.get(idx).map(|v| v.trim()).unwrap_or("");

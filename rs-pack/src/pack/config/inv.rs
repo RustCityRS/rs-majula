@@ -23,16 +23,44 @@ pub fn pack_invs(
     debug!("  Parsed {} inv configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
+    #[cfg(since_647)]
+    let client_count = file_cache
+        .client_count("inv", pack, constants)
+        .unwrap_or(pack.max);
+    #[cfg(since_647)]
+    let mut client = PackedData::new(client_count);
 
     for id in 0..pack.max {
         server.start_entry();
+        #[cfg(since_647)]
+        if id < client_count {
+            client.start_entry();
+        }
 
         let Some(debugname) = pack.get_by_id(id) else {
+            #[cfg(before_647)]
             panic!("Unknown inv id: {id}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                if id < client_count {
+                    client.finish_entry();
+                }
+                continue;
+            }
         };
 
         let Some(props) = configs.get(debugname) else {
+            #[cfg(before_647)]
             panic!("Unknown inv config: {debugname}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                if id < client_count {
+                    client.finish_entry();
+                }
+                continue;
+            }
         };
 
         for (key, value) in props {
@@ -47,6 +75,11 @@ pub fn pack_invs(
                 "size" => parse_number(value, |v| {
                     server.p1(2);
                     server.p2(v);
+                    #[cfg(since_647)]
+                    if id < client_count {
+                        client.p1(2);
+                        client.p2(v);
+                    }
                 }),
 
                 // 3
@@ -136,10 +169,17 @@ pub fn pack_invs(
 
         // done
         server.finish_entry();
+        #[cfg(since_647)]
+        if id < client_count {
+            client.finish_entry();
+        }
     }
 
     Ok(PackedFile {
         server,
+        #[cfg(before_647)]
         client: None,
+        #[cfg(since_647)]
+        client: Some(client),
     })
 }

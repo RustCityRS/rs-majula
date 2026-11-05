@@ -21,7 +21,12 @@ use crate::cache::varbit::VarbitType;
 use crate::cache::varn::VarnType;
 use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
 use crate::cache::vars::VarsType;
-use crate::pack_registry::PackRegistry;
+use crate::config_blob::ConfigBlob;
+use crate::config_crc;
+use crate::pack::other::map;
+use crate::pack::pack::FileCache;
+use crate::pack::pack_registry::PackRegistry;
+use crate::pack::{model, pack};
 use crate::types::ParamValue;
 use crate::validate::{Severity, check_pack_content_sync};
 use anyhow::{Result, bail};
@@ -35,6 +40,16 @@ pub(crate) fn newest_mtime(dir: &Path, extensions: &[&str]) -> Option<SystemTime
     let mut newest: Option<SystemTime> = None;
     walk_mtime(dir, extensions, &mut newest);
     newest
+}
+
+pub(crate) fn config_inputs(scripts_dir: &Path, pack_dir: &Path) -> Option<SystemTime> {
+    let generic_exts: Vec<_> = config_crc::GENERIC.iter().map(|&(name, _)| name).collect();
+    max_of(&[
+        newest_mtime(scripts_dir, FileCache::TEXT_EXTS),
+        newest_mtime(scripts_dir, &generic_exts),
+        newest_mtime(pack_dir, &["pack"]),
+        current_exe_mtime(),
+    ])
 }
 
 fn walk_mtime(dir: &Path, extensions: &[&str], newest: &mut Option<SystemTime>) {
@@ -297,32 +312,18 @@ fn pack_all_inner(
 
     // ── Step 1: Pack text configs → server .dat/.idx + client blobs ───────
     let unpack_dir = scripts_dir.join("_unpack");
-    let config_exts: &[&str] = &[
-        "npc", "obj", "loc", "seq", "enum", "struct", "param", "varp", "varbit", "inv", "hunt",
-        "idk", "flo", "flu", "spotanim", "dbtable", "dbrow", "mesanim", "varn", "vars",
-    ];
-    let config_input = max_of(&[
-        newest_mtime(&unpack_dir, config_exts),
-        newest_mtime(&scripts_dir, config_exts),
-        newest_mtime(&pack_dir, &["pack"]),
-        // A rebuilt server can carry new packer logic with unchanged content;
-        // treat the binary itself as an input so configs repack after a rebuild.
-        current_exe_mtime(),
-    ]);
+    let config_input = config_inputs(&scripts_dir, &pack_dir);
     let config_sentinel = server_dir.join("npc.dat");
+    let config_path = client_dir.join("config");
 
-    if is_up_to_date(&config_sentinel, config_input) {
+    if is_up_to_date(&config_sentinel, config_input) && is_up_to_date(&config_path, config_input) {
+        if verify {
+            ConfigBlob::load(&config_path)?.verify()?;
+        }
         info!("pack_all: text configs up to date, skipping");
     } else {
         info!("pack_all: packing text configs...");
-        crate::pack::pack_all(
-            &scripts_dir,
-            &pack_dir,
-            &server_dir,
-            &client_dir,
-            false,
-            false,
-        )?;
+        pack::pack_all(&scripts_dir, &pack_dir, &server_dir, &client_dir, verify)?;
     }
 
     // ── Step 1b: Pack NPC spawns → server map.dat/map.idx ──────────────
@@ -336,7 +337,7 @@ fn pack_all_inner(
     );
     if !is_up_to_date(&map_output, map_input) {
         info!("pack_all: packing NPC spawns...");
-        crate::pack::map_spawns::pack(&map_dirs, &server_dir)?;
+        map::pack_spawns(&map_dirs, &server_dir)?;
     } else {
         info!("pack_all: NPC spawns up to date, skipping");
     }
@@ -345,7 +346,7 @@ fn pack_all_inner(
     let objspawn_output = server_dir.join("objspawn.dat");
     if !is_up_to_date(&objspawn_output, map_input) {
         info!("pack_all: packing obj spawns...");
-        crate::pack::map_spawns::pack_objs(&map_dirs, &server_dir)?;
+        map::pack_obj_spawns(&map_dirs, &server_dir)?;
     } else {
         info!("pack_all: obj spawns up to date, skipping");
     }
@@ -363,7 +364,7 @@ fn pack_all_inner(
         None
     } else {
         info!("pack_all: packing animations...");
-        let packed_entries = crate::pack::anim::pack_anims(&scripts_dir, &pack_dir)?;
+        let packed_entries = model::pack_anims(&scripts_dir, &pack_dir)?;
         info!("pack_all: {} animation frames packed", packed_entries.len());
         write_stamp(&anim_stamp)?;
         Some(packed_entries)

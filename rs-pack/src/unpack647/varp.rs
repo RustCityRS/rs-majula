@@ -1,20 +1,3 @@
-//! Unpack VarP (player variable) configs from JS5 cache to text config
-//! format.
-//!
-//! Produces `_unpack/all.varp` such that `pack::varp::pack_varp_def` reading
-//! the file produces byte-identical cache bytes for every varp. Mirrors
-//! 2004scape's `tools/unpack/config/VarpConfig.ts` text shape (extended with
-//! the server-side keys their unpacker drops, since we need round-trip
-//! parity): `scope=temp|perm`, `type=<scriptvartype>`, `protect=no`,
-//! `clientcode=N`, `transmit=yes`.
-//!
-//! `transmit=yes` is derived from CS2 analysis: any varp referenced by
-//! `push_var`/`pop_var` or backed by a varbit used in `push_varbit`/
-//! `pop_varbit` is marked for client transmission.
-//!
-//! Section header is the cache's debugname (op 250). Empty debugnames fall
-//! back to `varp_<id>`; collision-renamed sections use `<dbg>__<id>`.
-
 use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use std::path::Path;
@@ -24,11 +7,12 @@ use rs_dat2::CacheStore;
 use rs_io::Packet;
 use tracing::info;
 
+use super::param::char_to_type_name;
 use crate::cache::provider::CacheType;
 use crate::cache::varbit::VarbitType;
 use crate::cache::varp::VarPlayerTypeRaw;
-use crate::pack::varp::emit_varp_props;
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
+use crate::types::VarPlayerScope;
 
 const ARCHIVE_CONFIG: u8 = 2;
 const GROUP_VARP: u32 = 16;
@@ -153,4 +137,25 @@ pub fn unpack_varps(
 
     info!("  Wrote {written} varp configs to {}", out_path.display());
     Ok(())
+}
+
+pub fn emit_varp_props(def: &VarPlayerTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    match def.scope {
+        VarPlayerScope::Perm => p.push((1, "scope".into(), "perm".into())),
+        VarPlayerScope::Temp => {}
+    }
+    if def.opcode_order.contains(&2) {
+        p.push((2, "type".into(), char_to_type_name(def.var_type as u8)));
+    }
+    if !def.protect {
+        p.push((4, "protect".into(), "no".into()));
+    }
+    if def.clientcode != 0 {
+        p.push((5, "clientcode".into(), def.clientcode.to_string()));
+    }
+    if def.transmit {
+        p.push((6, "transmit".into(), "yes".into()));
+    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }

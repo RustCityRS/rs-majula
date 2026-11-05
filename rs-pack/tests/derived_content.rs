@@ -2,19 +2,23 @@
 //!
 //! `scripts/_unpack` and `maps/_unpack` are regenerated from `expected/` by
 //! `cargo regen-content`; authored content lives beside them and is laid over
-//! them at pack time (`pack::overlay_section`, `map_format::source_dirs`).
+//! them at pack time (`pack::pack::overlay_section`, `map_format::source_dirs`).
 //! These tests pin both halves: a regeneration is a function of the cache and
 //! the registries alone, and every kind of authored overlay still reaches the
 //! packed definitions.
 //!
 //! The ignored cases need `expected/` (`cargo fetch-expected`) and the
 //! regenerated content:
-//! `REV=647 cargo test -p rs-pack --release --test derived_content -- --ignored`
+//! `REV=647 cargo test -p rs-pack --test derived_content -- --ignored`
 #![cfg(rev = "647")]
 
 use rs_pack::ParamValue;
+use rs_pack::config_blob::ConfigBlob;
+use rs_pack::pack::pack;
+use rs_pack::pack::pack_registry::{PackFile, PackRegistry};
 use rs_pack::types::ScriptVarType;
 use std::fs;
+use std::panic::catch_unwind;
 use std::path::{Path, PathBuf};
 
 fn scratch(name: &str) -> PathBuf {
@@ -89,14 +93,58 @@ fn a_registry_rename_stops_packing_before_outputs_change() {
     }
 }
 
+#[test]
+fn config_crcs_are_checked_before_saving_and_on_cached_startup() {
+    let content = scratch("config_crc");
+    let scripts = content.join("scripts");
+    let pack_dir = content.join("pack");
+    let output = content.join("output");
+    let server = output.join("server");
+    let client = output.join("client");
+    fs::create_dir_all(&pack_dir).unwrap();
+    fs::create_dir_all(scripts.join("_unpack")).unwrap();
+    fs::create_dir_all(content.join("maps/_unpack")).unwrap();
+    fs::write(scripts.join("_unpack/all.loc"), "").unwrap();
+    fs::write(content.join("maps/_unpack/manifest.json"), "{}").unwrap();
+
+    let error = catch_unwind(|| {
+        pack::pack_all(&scripts, &pack_dir, &server, &client, true).unwrap();
+    })
+    .expect_err("strict packing must reject incomplete configs");
+    assert!(
+        error
+            .downcast_ref::<String>()
+            .unwrap()
+            .contains("CRC mismatch ['seq']")
+    );
+    assert!(!server.join("seq.dat").exists());
+    assert!(!client.join("config").exists());
+
+    pack::pack_all(&scripts, &pack_dir, &server, &client, false).unwrap();
+    let config_path = client.join("config");
+    let mut blob = ConfigBlob::load(&config_path).unwrap();
+    blob.add("seq.dat", vec![1, 2, 3]);
+    blob.save(&config_path).unwrap();
+    let saved = fs::read(&config_path).unwrap();
+    let error = catch_unwind(|| {
+        rs_pack::startup::pack_all(&content, &pack_dir, &output, true).unwrap();
+    })
+    .expect_err("strict startup must verify the cached bytes");
+    let message = error.downcast_ref::<String>().unwrap();
+    assert!(
+        message.contains("CRC mismatch ['seq']: Got: 1438416925"),
+        "{message}"
+    );
+    assert_eq!(fs::read(config_path).unwrap(), saved);
+}
+
 /// One authored overlay of every kind, read back out of the packed configs.
 #[test]
 #[ignore = "runs the full pack pipeline against content/647 (minutes)"]
 fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
     let root = repo_root();
     std::env::set_current_dir(&root).unwrap();
-    let registry =
-        rs_pack::pack_registry::PackRegistry::load(Path::new(rs_pack::PACK_DIR)).unwrap();
+    let registry = PackRegistry::load(Path::new(rs_pack::PACK_DIR)).unwrap();
     // A fresh output directory: the incremental stamps must not decide what
     // this test sees.
     let output = scratch("pack");
@@ -108,13 +156,13 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
     )
     .unwrap();
     let config = &result.config;
-    let id = |pack: &rs_pack::pack_registry::PackFile, name: &str| -> u16 {
-        pack.get_by_name(name)
+    let id = |pack: &PackFile, name: &str| -> u16 {
+        pack.get_by_debugname(name)
             .unwrap_or_else(|| panic!("{name} is not registered")) as u16
     };
 
     assert_eq!(config.categories.count(), registry.category.max as usize);
-    for (&id, name) in &registry.category.id_to_name {
+    for (&id, name) in &registry.category.id_to_debugname {
         assert_eq!(
             config.categories.get_by_debugname(name).unwrap().id,
             id as u16
@@ -135,7 +183,12 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
         .unwrap();
     assert_eq!(
         gate.category,
-        Some(registry.category.get_by_name("gate_main_closed").unwrap() as u16)
+        Some(
+            registry
+                .category
+                .get_by_debugname("gate_main_closed")
+                .unwrap() as u16
+        )
     );
 
     // general/configs/npc_behaviour.npc -- movement on a cache npc.
@@ -146,7 +199,7 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
     assert_eq!(hellhound.huntmode, Some(id(&registry.hunt, "cowardly")));
     assert_eq!(
         config.hunts.debugnames.len(),
-        registry.hunt.id_to_name.len()
+        registry.hunt.id_to_debugname.len()
     );
 
     let unlocks = config

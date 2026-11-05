@@ -1,11 +1,15 @@
-use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::colour::{RecolType, rgb15_to_hsl16};
-use crate::pack::util::{parse_bool, parse_model, parse_number, parse_recol, parse_seq};
+use crate::pack::util::colour::RecolType;
+#[cfg(before_647)]
+use crate::pack::util::colour::rgb15_to_hsl16;
+#[cfg(before_647)]
+use crate::pack::util::parse_bool;
+#[cfg(since_647)]
+use crate::pack::util::{pack_pairs, parse_retex};
+use crate::pack::util::{parse_model, parse_number, parse_recol, parse_seq};
 use anyhow::Result;
-use rs_io::crc;
 use std::collections::HashMap;
 use tracing::debug;
 
@@ -13,7 +17,6 @@ pub fn pack_spotanims(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.spotanim;
 
@@ -31,12 +34,30 @@ pub fn pack_spotanims(
         client.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
+            #[cfg(before_647)]
             panic!("Unknown spotanim id: {id}");
+            #[cfg(since_647)]
+            {
+                server.skip_entry();
+                client.skip_entry();
+                continue;
+            }
         };
 
         let Some(props) = configs.get(debugname) else {
+            #[cfg(before_647)]
             panic!("Unknown spotanim config: {debugname}");
+            #[cfg(since_647)]
+            {
+                server.skip_entry();
+                client.skip_entry();
+                continue;
+            }
         };
+
+        #[cfg(since_647)]
+        let (mut recol_s, mut recol_d, mut retex_s, mut retex_d) =
+            (Vec::new(), Vec::new(), Vec::new(), Vec::new());
 
         for (key, value) in props {
             match key.as_str() {
@@ -57,6 +78,7 @@ pub fn pack_spotanims(
                 }),
 
                 // 3
+                #[cfg(before_647)]
                 "hasalpha" => parse_bool(value, |v| {
                     if v {
                         client.p1(3);
@@ -104,7 +126,65 @@ pub fn pack_spotanims(
                     server.p1(v);
                 }),
 
+                #[cfg(since_647)]
+                "op9_animmode3_param8224" => {
+                    server.p1(9);
+                    client.p1(9);
+                }
+
+                #[cfg(since_647)]
+                "op10_flag" => {
+                    server.p1(10);
+                    client.p1(10);
+                }
+
+                #[cfg(since_647)]
+                "op11_animmode1" => {
+                    server.p1(11);
+                    client.p1(11);
+                }
+
+                #[cfg(since_647)]
+                "op12_animmode4" => {
+                    server.p1(12);
+                    client.p1(12);
+                }
+
+                #[cfg(since_647)]
+                "op13_animmode5" => {
+                    server.p1(13);
+                    client.p1(13);
+                }
+
+                #[cfg(since_647)]
+                "op14_animmode2_u8" => {
+                    let v: u8 = value.parse().expect("Invalid spotanim value");
+                    server.p1(14);
+                    server.p1(v);
+                    client.p1(14);
+                    client.p1(v);
+                }
+
+                #[cfg(since_647)]
+                "op15_animmode3_u16" => {
+                    let v: u16 = value.parse().expect("Invalid spotanim value");
+                    server.p1(15);
+                    server.p2(v);
+                    client.p1(15);
+                    client.p2(v);
+                }
+
+                #[cfg(since_647)]
+                "op16_animmode3_i32" => {
+                    let v: i32 = value.parse().expect("Invalid spotanim value");
+                    server.p1(16);
+                    server.p4(v);
+                    client.p1(16);
+                    client.p4(v);
+                }
+
                 // 40-60
+                #[cfg(before_647)]
                 _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
                     RecolType::S(idx, v) => {
                         client.p1((39 + idx) as u8);
@@ -120,8 +200,34 @@ pub fn pack_spotanims(
                     }
                 }),
 
+                #[cfg(since_647)]
+                _ if key.starts_with("recol") => parse_recol(key, value, |value| match value {
+                    RecolType::S(index, value) => recol_s.push((index, value)),
+                    RecolType::D(index, value) => recol_d.push((index, value)),
+                }),
+
+                #[cfg(since_647)]
+                _ if key.starts_with("retex") => {
+                    parse_retex(registry, key, value, |value| match value {
+                        RecolType::S(index, value) => retex_s.push((index, value)),
+                        RecolType::D(index, value) => retex_d.push((index, value)),
+                    })
+                }
+
                 // not found
                 _ => panic!("Unrecognized spotanim config key: {key}"),
+            }
+        }
+
+        #[cfg(since_647)]
+        {
+            recol_s.sort_by_key(|(index, _)| *index);
+            recol_d.sort_by_key(|(index, _)| *index);
+            retex_s.sort_by_key(|(index, _)| *index);
+            retex_d.sort_by_key(|(index, _)| *index);
+            for stream in [&mut server, &mut client] {
+                pack_pairs(stream, 40, &recol_d, &recol_s);
+                pack_pairs(stream, 41, &retex_d, &retex_s);
             }
         }
 
@@ -132,14 +238,6 @@ pub fn pack_spotanims(
         // done
         server.finish_entry();
         client.finish_entry();
-    }
-
-    if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::SPOTANIM;
-        if crc != expected {
-            panic!("CRC mismatch ['spotanim']: Got: {crc}, Expected: {expected}");
-        }
     }
 
     Ok(PackedFile {

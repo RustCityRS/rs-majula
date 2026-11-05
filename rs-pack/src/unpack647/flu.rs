@@ -1,17 +1,3 @@
-//! Unpack Flu (floor underlay) configs from JS5 cache to text config.
-//!
-//! Produces `_unpack/all.flu` such that `pack::flu::pack_flu_def` reading
-//! the file produces byte-identical cache bytes for every flu. Mirrors
-//! 2004scape's `tools/unpack/config/FloConfig.ts` text shape (flu has no
-//! 2004scape client-cache TS — flo's pack-config key names apply since the
-//! two share color/texture/size opcodes).
-//!
-//! Section header is the cache's debugname (op 250). Empty debugnames fall
-//! back to `flu_<id>`; collision-renamed sections use `<dbg>__<id>`.
-//!
-//! Phase 1 contract: this writes EVERY cache entry, every emission, in
-//! source order — no overlay-key gating.
-
 use std::collections::HashMap;
 use std::io::Write;
 use std::path::Path;
@@ -23,8 +9,7 @@ use tracing::info;
 
 use crate::cache::flu::FluType;
 use crate::cache::provider::CacheType;
-use crate::pack::flu::emit_flu_props;
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
 
 const ARCHIVE_CONFIG: u8 = 2;
 const GROUP_FLU: u32 = 1;
@@ -76,4 +61,24 @@ pub fn unpack_flus(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
 
     info!("  Wrote {written} flu configs to {}", out_path.display());
     Ok(())
+}
+
+pub fn emit_flu_props(def: &FluType, _registry: &PackRegistry) -> Vec<(String, String)> {
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    if def.opcode_order.contains(&1) {
+        p.push((1, "color".into(), def.color.to_string()));
+    }
+    if def.opcode_order.contains(&2) {
+        p.push((2, "texture".into(), def.texture.to_string()));
+    }
+    if def.opcode_order.contains(&3) {
+        p.push((3, "size".into(), def.size.to_string()));
+    }
+    if def.op4 {
+        p.push((4, "op4_clearbool201".into(), "yes".into()));
+    }
+    if def.op5 {
+        p.push((5, "op5_clearbool202".into(), "yes".into()));
+    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }

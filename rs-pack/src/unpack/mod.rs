@@ -18,7 +18,7 @@ use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::versionlist::VersionListMeta;
 #[cfg(since_244)]
 use crate::versionlist::{TABLE_NAMES, VersionList, read_i32_table, read_u16_table};
-use crate::{CONTENT_DIR, PACK_DIR, config_crc, jag_crc};
+use crate::{CONFIG_TYPE_CRCS, CONTENT_DIR, PACK_DIR, config_crc, jag_crc};
 #[cfg(since_244)]
 use model::build_model_textures;
 use report::{CrcReport, PackDiffReport};
@@ -33,27 +33,6 @@ use std::path::Path;
 use std::path::PathBuf;
 use std::rc::Rc;
 use tracing::{debug, warn};
-
-const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
-    ("seq", config_crc::SEQ),
-    ("loc", config_crc::LOC),
-    ("flo", config_crc::FLO),
-    ("spotanim", config_crc::SPOTANIM),
-    ("obj", config_crc::OBJ),
-    ("npc", config_crc::NPC),
-    ("idk", config_crc::IDK),
-    ("varp", config_crc::VARP),
-    #[cfg(since_254)]
-    ("varbit", config_crc::VARBIT),
-    #[cfg(since_274)]
-    ("mesanim", config_crc::MESANIM),
-    #[cfg(since_274)]
-    ("mes", config_crc::MES),
-    #[cfg(since_274)]
-    ("param", config_crc::PARAM),
-    #[cfg(since_274)]
-    ("hunt", config_crc::HUNT),
-];
 
 const CONFIG_ENTRY_NAMES: &[&str] = &[
     "seq.dat",

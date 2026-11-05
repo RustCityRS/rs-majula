@@ -25,11 +25,23 @@ pub fn pack_vars_configs(
         server.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
+            #[cfg(before_647)]
             panic!("Unknown vars id: {id}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                continue;
+            }
         };
 
         let Some(props) = configs.get(debugname) else {
+            #[cfg(before_647)]
             panic!("Unknown vars config: {debugname}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                continue;
+            }
         };
 
         for (key, value) in props {

@@ -1,27 +1,12 @@
-pub mod back;
-pub mod cache;
-#[cfg(before_647)]
-pub mod pack;
-// Sprite authoring over the jag-era sprite sheets (`unpack`).
-#[cfg(before_647)]
-pub mod pyxel;
-pub mod sheet;
-pub mod tga;
-pub mod types;
-#[cfg(before_647)]
-pub mod unpack;
-// --- rev-647 dat2 pipeline ---------------------------------------------
-// Ported from the rev-647 source repo's rs-pack (rs_cache → rs_dat2).
-// `unpack` / `pack` reuse the era-neutral module names via #[path] so the
-// CLI's `rs_pack::unpack::unpack_all` call compiles in both eras; the
-// jag-era directories (src/unpack/, src/pack/) stay untouched.
 #[cfg(since_647)]
 pub mod assemble;
 #[cfg(since_647)]
 pub mod asset_roundtrip;
+pub mod back;
 #[cfg(since_647)]
 #[path = "build647/mod.rs"]
 pub mod build;
+pub mod cache;
 #[cfg(since_647)]
 pub mod config_blob;
 #[cfg(since_647)]
@@ -34,23 +19,24 @@ pub mod interface_format;
 pub mod map_format;
 #[cfg(since_647)]
 pub mod openrs2;
-#[cfg(since_647)]
-#[path = "pack647/mod.rs"]
 pub mod pack;
-#[cfg(since_647)]
-pub mod pack_registry;
-#[cfg(since_647)]
-pub mod packed_data;
+#[cfg(before_647)]
+pub mod pyxel;
 #[cfg(since_647)]
 pub mod repack;
 #[cfg(since_647)]
 pub mod seed;
+pub mod sheet;
 #[cfg(since_647)]
 pub mod startup;
 #[cfg(since_647)]
 pub mod texture_format;
+pub mod tga;
+pub mod types;
 #[cfg(since_647)]
 pub mod types647;
+#[cfg(before_647)]
+pub mod unpack;
 #[cfg(since_647)]
 #[path = "unpack647/mod.rs"]
 pub mod unpack;
@@ -375,6 +361,87 @@ pub(crate) mod config_crc {
     pub const PARAM: i32 = -918994068;
     pub const HUNT: i32 = 1104745215;
 }
+
+#[cfg(rev = "647")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = -66602266;
+    // Includes the restored loc definitions covered by the group CRC gate.
+    pub const LOC: i32 = -85682786;
+    pub const FLO: i32 = 321707212;
+    pub const SPOTANIM: i32 = 1788539353;
+    pub const OBJ: i32 = 896458165;
+    pub const NPC: i32 = -1000029806;
+    pub const IDK: i32 = 50920008;
+    pub const VARP: i32 = 1704792051;
+    pub const VARBIT: i32 = 763651066;
+    pub const PARAM: i32 = 1671102909;
+    pub const ENUM: i32 = -2002672615;
+    pub const INV: i32 = -331361170;
+    pub const STRUCT: i32 = 293771491;
+    pub const FLU: i32 = -1744098420;
+
+    pub const GENERIC: &[(&str, i32)] = &[
+        ("bas", -1911964791),
+        ("config15", -1218318004),
+        ("config18", 402829966),
+        ("config19", 57638886),
+        ("config2", 1389808433),
+        ("config20", -1949850762),
+        ("config21", -1751999962),
+        ("config22", -1236602203),
+        ("config23", -1095511195),
+        ("config24", 2129060492),
+        ("config25", -1298439089),
+        ("config37", 477744615),
+        ("config38", -430249901),
+        ("config39", 583011186),
+        ("config40", 1145177955),
+        ("config41", 2013865111),
+        ("config42", -1179041704),
+        ("config43", 1930184948),
+        ("config44", 812315341),
+        ("config45", 260531396),
+        ("config47", -1864459835),
+        ("config48", -430249901),
+        ("config7", -1012851422),
+        ("cursor", -719985808),
+        ("hitmark", 313095873),
+        ("light", -1541305497),
+        ("mel", 1237876085),
+        ("msi", 390525203),
+        ("quest", -824626290),
+        ("varclansetting", -904846536),
+    ];
+}
+
+pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
+    ("seq", config_crc::SEQ),
+    ("loc", config_crc::LOC),
+    ("flo", config_crc::FLO),
+    ("spotanim", config_crc::SPOTANIM),
+    ("obj", config_crc::OBJ),
+    ("npc", config_crc::NPC),
+    ("idk", config_crc::IDK),
+    ("varp", config_crc::VARP),
+    #[cfg(since_254)]
+    ("varbit", config_crc::VARBIT),
+    #[cfg(all(since_274, before_647))]
+    ("mesanim", config_crc::MESANIM),
+    #[cfg(all(since_274, before_647))]
+    ("mes", config_crc::MES),
+    #[cfg(since_274)]
+    ("param", config_crc::PARAM),
+    #[cfg(all(since_274, before_647))]
+    ("hunt", config_crc::HUNT),
+    #[cfg(since_647)]
+    ("enum", config_crc::ENUM),
+    #[cfg(since_647)]
+    ("inv", config_crc::INV),
+    #[cfg(since_647)]
+    ("struct", config_crc::STRUCT),
+    #[cfg(since_647)]
+    ("flu", config_crc::FLU),
+];
 
 #[cfg(rev = "225")]
 const CRC_KEYS: [&str; 8] = [

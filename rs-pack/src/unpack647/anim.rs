@@ -11,7 +11,7 @@ use std::io::Write;
 use std::path::Path;
 
 use crate::cache::seq_frame::{AnimFrame, SkeletonBase};
-use crate::pack_registry::PackFile;
+use crate::pack::pack_registry::PackFile;
 use anyhow::Result;
 use rs_dat2::CacheStore;
 use rs_dat2::archive;

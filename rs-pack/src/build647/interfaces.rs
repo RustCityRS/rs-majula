@@ -2,6 +2,7 @@
 // Ported verbatim from the rev-647 source repo; style lints allowed to keep diffs clean.
 //! Archive 3 — Interfaces: text .if → client blob → JS5 multi-file groups.
 
+use crate::pack::pack_registry::PackFile;
 use std::path::Path;
 
 use anyhow::Result;
@@ -40,8 +41,8 @@ pub fn build(
 
     let interface_blob_path = client_data_dir.join("interface");
 
-    let iface_pack = crate::pack_registry::PackFile::load(&pack_dir.join("interface.pack"))
-        .unwrap_or_else(|_| crate::pack_registry::PackFile::empty());
+    let iface_pack =
+        PackFile::load(&pack_dir.join("interface.pack")).unwrap_or_else(|_| PackFile::empty());
 
     let iface_hashes_fallback: std::collections::HashMap<u32, i32> = {
         let hashes_path = pack_dir.join("interface.hashes");
@@ -106,7 +107,7 @@ pub fn build(
             let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
             if let Ok(gid) = stem.parse::<u32>() {
                 if_files.push((gid, path));
-            } else if let Some(gid) = iface_pack.get_by_name(stem) {
+            } else if let Some(gid) = iface_pack.get_by_debugname(stem) {
                 if_files.push((gid, path));
             }
         }

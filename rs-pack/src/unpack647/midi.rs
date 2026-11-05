@@ -2,6 +2,7 @@
 //!
 //! Decoder logic lives in `crate::repack::midi::decode_jagex_midi`.
 
+use crate::pack::pack_registry::PackFile;
 use std::path::Path;
 
 use anyhow::Result;
@@ -14,7 +15,6 @@ use crate::repack::midi::decode_jagex_midi;
 const ARCHIVE_SONGS: u8 = 6;
 
 pub fn unpack_songs(store: &mut CacheStore, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
-    use crate::pack_registry::PackFile;
     let song_pack = PackFile::load(&pack_dir.join("song.pack")).ok();
     unpack_midi_archive(
         store,
@@ -32,7 +32,7 @@ fn unpack_midi_archive(
     dir_name: &str,
     extension: &str,
     content_dir: &Path,
-    pack: Option<&crate::pack_registry::PackFile>,
+    pack: Option<&PackFile>,
 ) -> Result<u32> {
     let archive_dir = content_dir.join(dir_name).join("_unpack");
     std::fs::create_dir_all(&archive_dir)?;

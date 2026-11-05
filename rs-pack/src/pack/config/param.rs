@@ -1,25 +1,25 @@
+#[cfg(since_647)]
+use crate::types::ScriptVarType;
 use std::collections::HashMap;
 
 use anyhow::Result;
 use tracing::debug;
+#[cfg(since_647)]
+use tracing::warn;
 
 use crate::ParamValue;
-#[cfg(since_274)]
-use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_bool;
 use crate::pack::util::{parse_coord, parse_script_var_type};
+#[cfg(before_647)]
 use crate::types::{NpcStat, PlayerStat};
-#[cfg(since_274)]
-use rs_io::crc;
 
 pub fn pack_params(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    #[cfg_attr(before_274, allow(unused_variables))] verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.param;
 
@@ -30,70 +30,52 @@ pub fn pack_params(
     debug!("  Parsed {} param configs", configs.len());
 
     let mut server = PackedData::new(pack.max);
+    #[cfg(since_647)]
+    let client_configs = file_cache.client_configs("param", constants);
+    #[cfg(since_647)]
+    let client_count = client_configs
+        .keys()
+        .filter_map(|name| pack.get_by_debugname(name))
+        .max()
+        .map_or(0, |id| id + 1);
+    #[cfg(since_647)]
+    let mut client = PackedData::new(client_count);
 
     for id in 0..pack.max {
         server.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown param id: {}", id);
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown param config: {}", debugname);
-        };
-
-        let Some(ptype) = props
-            .iter()
-            .find(|(k, _)| k == "type")
-            .map(|(_, v)| v.as_str())
-        else {
-            panic!("Param config: {debugname} is missing type");
-        };
-
-        for (key, value) in props {
-            match key.as_str() {
-                // 1
-                "type" => parse_script_var_type(value, |v| {
-                    server.p1(1);
-                    server.p1(v as u8);
-                }),
-
-                // 2 or 5
-                "default" => {
-                    let Some(pval) = get_param_value_for_type(ptype, registry, value) else {
-                        panic!(
-                            "Unknown param type '{ptype}' for [{debugname}] for value [{value}]"
-                        );
-                    };
-                    match pval {
-                        // 3
-                        ParamValue::String(v) => {
-                            server.p1(5);
-                            server.pjstr(&v);
-                        }
-                        // 4
-                        ParamValue::Int(v) => {
-                            server.p1(2);
-                            server.p4(v);
-                        }
-                    }
+            #[cfg(before_647)]
+            panic!("Unknown param id: {id}");
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                if id < client_count {
+                    client.skip_entry();
                 }
-
-                // 4
-                "autodisable" => parse_bool(value, |v| {
-                    if !v {
-                        server.p1(4);
-                    }
-                }),
-
-                // not found
-                _ => panic!("Unrecognized param config key: {key}"),
+                continue;
             }
+        };
+
+        if let Some(props) = configs.get(debugname) {
+            encode_param(&mut server, props, registry, debugname);
+            server.p1(250);
+            server.pjstr(debugname);
+        } else {
+            #[cfg(before_647)]
+            panic!("Unknown param config: {debugname}");
         }
 
-        // 250
-        server.p1(250);
-        server.pjstr(debugname);
+        #[cfg(since_647)]
+        if id < client_count {
+            if let Some(props) = client_configs.get(debugname) {
+                client.start_entry();
+                encode_param(&mut client, props, registry, debugname);
+                client.finish_entry();
+            } else {
+                client.skip_entry();
+            }
+        }
 
         // done
         server.finish_entry();
@@ -102,7 +84,7 @@ pub fn pack_params(
     #[cfg(before_274)]
     let client = None;
 
-    #[cfg(since_274)]
+    #[cfg(all(since_274, before_647))]
     let client = {
         // TODO: content needs to be rewritten in order to not hard code this ffs...
         #[cfg(rev = "274")]
@@ -114,57 +96,84 @@ pub fn pack_params(
             client.start_entry();
             client.finish_entry();
         }
-        if verify {
-            let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-            let expected = config_crc::PARAM;
-            if crc != expected {
-                panic!("CRC mismatch ['param']: Got: {crc}, Expected: {expected}");
-            }
-        }
+
         Some(client)
     };
+
+    #[cfg(since_647)]
+    let client = Some(client);
 
     Ok(PackedFile { server, client })
 }
 
-pub fn load_param_types(file_cache: &FileCache) -> HashMap<String, String> {
-    let files = file_cache.collect("param");
-    let mut param_types: HashMap<String, String> = HashMap::new();
-
-    for path in files {
-        let Some(content) = file_cache.read(path) else {
-            continue;
-        };
-        let mut current_name: Option<String> = None;
-        let mut current_type = "int";
-
-        for line in content.lines() {
-            let line = line.trim();
-            if line.is_empty() || line.starts_with("//") {
-                continue;
-            }
-            if line.starts_with('[') {
-                if let Some(name) = current_name.take() {
-                    param_types.insert(name, current_type.to_string());
+fn encode_param(
+    packed: &mut PackedData,
+    props: &[(String, String)],
+    registry: &PackRegistry,
+    debugname: &str,
+) {
+    let ptype = props
+        .iter()
+        .find(|(key, _)| key == "type")
+        .map(|(_, value)| value.as_str());
+    #[cfg(before_647)]
+    let ptype = ptype.unwrap_or_else(|| panic!("Param config: {debugname} is missing type"));
+    #[cfg(since_647)]
+    let ptype = ptype.unwrap_or("int");
+    for (key, value) in props {
+        match key.as_str() {
+            "type" => parse_script_var_type(value, |value| {
+                packed.p1(1);
+                packed.p1(value as u8);
+            }),
+            "default" => {
+                match get_param_value_for_type(ptype, registry, value)
+                    .unwrap_or_else(|| panic!("Unknown param type '{ptype}' for [{debugname}]"))
+                {
+                    ParamValue::Int(value) => {
+                        packed.p1(2);
+                        packed.p4(value);
+                    }
+                    ParamValue::String(value) => {
+                        packed.p1(5);
+                        packed.pjstr(&value);
+                    }
                 }
-                current_name = Some(line[1..line.len() - 1].to_string());
-                current_type = "int";
-                continue;
             }
-            if let Some(eq) = line.find('=') {
-                let key = &line[..eq];
-                let value = &line[eq + 1..];
-                if key == "type" {
-                    current_type = value;
+            #[cfg(since_647)]
+            "defaultint" => {
+                packed.p1(2);
+                packed.p4(value.parse().expect("Invalid param default"));
+            }
+            "autodisable" => parse_bool(value, |value| {
+                if !value {
+                    packed.p1(4);
                 }
+            }),
+            #[cfg(since_647)]
+            "defaultstring" => {
+                packed.p1(5);
+                packed.pjstr(value);
             }
-        }
-        if let Some(name) = current_name {
-            param_types.insert(name, current_type.to_string());
+            _ => panic!("Unrecognized param config key: {key}"),
         }
     }
+}
 
-    param_types
+pub fn load_param_types(
+    file_cache: &FileCache,
+    constants: &HashMap<String, String>,
+) -> HashMap<String, String> {
+    parse_config_sections_cached(file_cache, "param", constants)
+        .into_iter()
+        .map(|(name, props)| {
+            let ty = props
+                .into_iter()
+                .find(|(key, _)| key == "type")
+                .map_or_else(|| "int".to_string(), |(_, ty)| ty);
+            (name, ty)
+        })
+        .collect()
 }
 
 pub fn get_param_value_for_type(
@@ -172,6 +181,18 @@ pub fn get_param_value_for_type(
     registry: &PackRegistry,
     value: &str,
 ) -> Option<ParamValue> {
+    #[cfg(since_647)]
+    if str != "string" {
+        if value == "null" {
+            return Some(ParamValue::Int(-1));
+        }
+        if let Ok(value) = value.parse::<i32>() {
+            return Some(ParamValue::Int(value));
+        }
+        if let Ok(value) = value.parse::<u32>() {
+            return Some(ParamValue::Int(value as i32));
+        }
+    }
     match str {
         "int" => Some(ParamValue::Int(value.parse::<i32>().unwrap_or(-1))),
         "string" => Some(ParamValue::String(if value == "null" {
@@ -200,6 +221,10 @@ pub fn get_param_value_for_type(
                 .get_by_debugname(value)
                 .map(|id| id as i32)
                 .unwrap_or(-1),
+        )),
+        #[cfg(since_647)]
+        "component" if value.contains(':') => Some(ParamValue::Int(
+            registry.component_hashes.get(value).copied().unwrap_or(-1),
         )),
         "component" => Some(ParamValue::Int(
             registry
@@ -241,11 +266,20 @@ pub fn get_param_value_for_type(
                 .map(|id| id as i32)
                 .unwrap_or(-1),
         )),
+        #[cfg(since_647)]
+        "stat" | "npc_stat" => Some(ParamValue::Int(
+            registry
+                .stat
+                .get_by_debugname(value)
+                .map_or(-1, |id| id as i32),
+        )),
+        #[cfg(before_647)]
         "stat" => Some(ParamValue::Int(if value == "null" {
             -1
         } else {
             PlayerStat::from_config_str(value) as i32
         })),
+        #[cfg(before_647)]
         "npc_stat" => Some(ParamValue::Int(if value == "null" {
             -1
         } else {
@@ -286,8 +320,21 @@ pub fn get_param_value_for_type(
                 .map(|id| id as i32)
                 .unwrap_or(-1),
         )),
-        // "model" => Some(ParamValue::Int())
-        // "mapelement" => {}
+        #[cfg(since_647)]
+        "model" => Some(ParamValue::Int(
+            registry
+                .model
+                .get_by_debugname(value)
+                .or_else(|| {
+                    value
+                        .strip_prefix("model_")
+                        .and_then(|rest| rest.split('_').next())
+                        .and_then(|id| id.parse().ok())
+                })
+                .map_or(-1, |id| id as i32),
+        )),
+        #[cfg(since_647)]
+        "mapelement" | "player_uid" | "npc_uid" => Some(ParamValue::Int(-1)),
         "category" => Some(ParamValue::Int(
             registry
                 .category
@@ -295,9 +342,13 @@ pub fn get_param_value_for_type(
                 .map(|id| id as i32)
                 .unwrap_or(-1),
         )),
-        // "idkit" => Some(ParamValue::Int())
-        // "player_uid" => Some(ParamValue::Int(-1)),
-        // "npc_uid" => Some(ParamValue::Int(-1)),
+        #[cfg(since_647)]
+        "idkit" => Some(ParamValue::Int(
+            registry
+                .idk
+                .get_by_debugname(value)
+                .map_or(-1, |id| id as i32),
+        )),
         "dbrow" => Some(ParamValue::Int(
             registry
                 .dbrow
@@ -316,32 +367,53 @@ pub fn get_param_value_for_type(
     }
 }
 
-pub fn parse_params(
+pub fn parse_params<'a>(
     registry: &PackRegistry,
     param_types: &HashMap<String, String>,
     packed: &mut PackedData,
-    props: &[(String, String)],
+    props: impl IntoIterator<Item = &'a (String, String)>,
     name: &str,
 ) {
-    let params: Vec<(&str, &str)> = props
-        .iter()
-        .filter(|(k, _)| k == "param")
-        .filter_map(|(_, v)| v.split_once(','))
+    let params: Vec<_> = props
+        .into_iter()
+        .filter(|(key, _)| matches!(key.as_str(), "param" | "paramint" | "paramstr"))
+        .filter_map(|(key, value)| {
+            value
+                .split_once(',')
+                .map(|(name, value)| (key.as_str(), name.trim(), value))
+        })
+        .filter(|(_, _pname, _)| {
+            #[cfg(since_647)]
+            if registry.param.get_by_debugname(_pname).is_none() && _pname.parse::<u32>().is_err() {
+                warn!("Unknown param '{_pname}' for [{name}]");
+                return false;
+            }
+            true
+        })
         .collect();
     if !params.is_empty() {
         packed.p1(249);
-        packed.p1(params.len() as u8);
-        for (pname, pval) in &params {
-            let pname = pname.trim();
+        packed.p1(u8::try_from(params.len()).expect("Too many params"));
+        for (kind, pname, pval) in params {
+            #[cfg(before_647)]
             let pval = pval.trim();
-            let Some(pid) = registry.param.get_by_debugname(pname) else {
-                panic!("Unknown param '{pname}' for [{name}]");
-            };
-            let Some(ptype) = param_types.get(pname) else {
-                panic!("Unknown param type '{pname}' for [{name}]");
-            };
-            let Some(value) = get_param_value_for_type(ptype, registry, pval) else {
-                panic!("Unknown param type '{ptype}' for [{name}] for value [{pval}]");
+            let pid = registry.param.get_by_debugname(pname);
+            #[cfg(since_647)]
+            let pid = pid.or_else(|| pname.parse().ok());
+            let pid = pid.unwrap_or_else(|| panic!("Unknown param '{pname}' for [{name}]"));
+            let value = match kind {
+                "paramstr" => ParamValue::String(pval.into()),
+                "paramint" => ParamValue::Int(pval.trim().parse().expect("Invalid integer param")),
+                _ => {
+                    let ptype = param_types.get(pname).map(String::as_str);
+                    #[cfg(since_647)]
+                    let ptype = ptype.or(Some("int"));
+                    let ptype = ptype
+                        .unwrap_or_else(|| panic!("Unknown param type '{pname}' for [{name}]"));
+                    get_param_value_for_type(ptype, registry, pval).unwrap_or_else(|| {
+                        panic!("Unknown param type '{ptype}' for [{name}] for value [{pval}]")
+                    })
+                }
             };
             packed.pbool(matches!(value, ParamValue::String(_)));
             packed.p3(pid as i32);
@@ -351,4 +423,16 @@ pub fn parse_params(
             }
         }
     }
+}
+
+#[cfg(since_647)]
+pub fn type_name_to_char(name: &str) -> char {
+    if let Some(hex) = name.strip_prefix("byte:0x") {
+        return u8::from_str_radix(hex, 16).expect("Invalid script type byte") as char;
+    }
+    match name {
+        "namedobj" => ScriptVarType::NamedObj,
+        _ => ScriptVarType::from_type_name(name),
+    }
+    .to_char()
 }

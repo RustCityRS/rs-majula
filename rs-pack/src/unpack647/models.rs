@@ -27,7 +27,7 @@ use rs_dat2::compression;
 use serde::{Deserialize, Serialize};
 use tracing::info;
 
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
 
 const ARCHIVE_MODELS: u8 = 7;
 

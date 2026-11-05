@@ -1,20 +1,17 @@
 use std::collections::HashMap;
 
-use crate::config_crc;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::{parse_bool, parse_number, parse_script_var_type};
 use crate::types::VarPlayerScope;
 use anyhow::Result;
-use rs_io::crc;
 use tracing::debug;
 
 pub fn pack_varps(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.varp;
 
@@ -24,19 +21,47 @@ pub fn pack_varps(
     let configs = parse_config_sections_cached(file_cache, "varp", constants);
     debug!("  Parsed {} varp configs", configs.len());
 
+    #[cfg(since_647)]
+    let client_configs = file_cache.client_configs("varp", constants);
     let mut server = PackedData::new(pack.max);
-    let mut client = PackedData::new(pack.max);
+    #[cfg(before_647)]
+    let client_count = pack.max;
+    #[cfg(since_647)]
+    let client_count = file_cache
+        .client_count("varp", pack, constants)
+        .unwrap_or(pack.max);
+    let mut client = PackedData::new(client_count);
 
     for id in 0..pack.max {
         server.start_entry();
-        client.start_entry();
+        if id < client_count {
+            client.start_entry();
+        }
 
         let Some(debugname) = pack.get_by_id(id) else {
+            #[cfg(before_647)]
             panic!("Unknown varp id: {id}");
+            #[cfg(since_647)]
+            {
+                server.skip_entry();
+                if id < client_count {
+                    client.skip_entry();
+                }
+                continue;
+            }
         };
 
         let Some(props) = configs.get(debugname) else {
+            #[cfg(before_647)]
             panic!("Unknown varp config: {debugname}");
+            #[cfg(since_647)]
+            {
+                server.skip_entry();
+                if id < client_count {
+                    client.skip_entry();
+                }
+                continue;
+            }
         };
 
         for (key, value) in props {
@@ -65,8 +90,11 @@ pub fn pack_varps(
 
                 // 5
                 "clientcode" => parse_number(value, |v| {
-                    client.p1(5);
-                    client.p2(v);
+                    #[cfg(before_647)]
+                    {
+                        client.p1(5);
+                        client.p2(v);
+                    }
                     server.p1(5);
                     server.p2(v);
                 }),
@@ -83,20 +111,33 @@ pub fn pack_varps(
             }
         }
 
+        #[cfg(since_647)]
+        if id < client_count {
+            if let Some(props) = client_configs.get(debugname) {
+                for (key, value) in props {
+                    if key == "clientcode" {
+                        parse_number(value, |value| {
+                            client.p1(5);
+                            client.p2(value);
+                        });
+                    }
+                }
+            } else {
+                client.skip_entry();
+            }
+        }
+
         // 250
         server.p1(250);
         server.pjstr(debugname);
 
         // done
         server.finish_entry();
+        #[cfg(before_647)]
         client.finish_entry();
-    }
-
-    if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::VARP;
-        if crc != expected {
-            panic!("CRC mismatch ['varp']: Got: {crc}, Expected: {expected}");
+        #[cfg(since_647)]
+        if id < client_count && client_configs.contains_key(debugname) {
+            client.finish_entry();
         }
     }
 

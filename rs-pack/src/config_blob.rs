@@ -16,10 +16,11 @@
 //!   data:      [u8; data_len]
 //! ```
 
+use crate::pack::util::verify_crc;
+use crate::{CONFIG_TYPE_CRCS, config_crc};
+use anyhow::{Context, Result};
 use std::collections::BTreeMap;
 use std::path::Path;
-
-use anyhow::{Context, Result};
 
 const MAGIC: &[u8; 4] = b"JCFG";
 
@@ -42,6 +43,16 @@ impl ConfigBlob {
     pub fn add_packed_data(&mut self, type_name: &str, dat: Vec<u8>, idx: Vec<u8>) {
         self.files.insert(format!("{type_name}.dat"), dat);
         self.files.insert(format!("{type_name}.idx"), idx);
+    }
+
+    pub fn verify(&self) -> Result<()> {
+        for &(name, expected) in CONFIG_TYPE_CRCS.iter().chain(config_crc::GENERIC) {
+            let data = self
+                .get(&format!("{name}.dat"))
+                .with_context(|| format!("Missing client config: {name}"))?;
+            verify_crc(name, data, expected);
+        }
+        Ok(())
     }
 
     pub fn save(&self, path: &Path) -> Result<()> {

@@ -1,3 +1,7 @@
+use crate::pack::pack_registry::PackId;
+#[cfg(since_647)]
+use rs_io::cp1252;
+use rs_ver::STRING_TERMINATOR;
 use std::path::Path;
 
 use anyhow::Result;
@@ -6,12 +10,12 @@ use tracing::debug;
 pub struct PackedData {
     pub dat: Vec<u8>,
     pub idx: Vec<u8>,
-    count: u16,
+    count: PackId,
     entry_start: usize,
 }
 
 impl PackedData {
-    pub fn new(count: u16) -> Self {
+    pub fn new(count: PackId) -> Self {
         let mut dat = Vec::with_capacity(500_000);
         let mut idx = Vec::with_capacity((count as usize + 1) * 2);
         // Header: p2(count)
@@ -38,10 +42,20 @@ impl PackedData {
     /// the entry length in the idx.
     #[inline]
     pub fn finish_entry(&mut self) {
-        self.p1(0); // terminator
+        self.p1(0);
+        self.finish_entry_raw();
+    }
+
+    #[inline]
+    pub fn finish_entry_raw(&mut self) {
         let len = self.dat.len() - self.entry_start;
         self.idx.push((len >> 8) as u8);
         self.idx.push(len as u8);
+    }
+
+    #[inline]
+    pub fn skip_entry(&mut self) {
+        self.idx.extend_from_slice(&[0, 0]);
     }
 
     #[inline]
@@ -74,8 +88,15 @@ impl PackedData {
 
     #[inline]
     pub fn pjstr(&mut self, value: &str) {
+        #[cfg(before_647)]
         self.dat.extend_from_slice(value.as_bytes());
-        self.dat.push(10); // NUL terminator (JSTR format)
+        #[cfg(since_647)]
+        self.dat.extend_from_slice(&cp1252::encode_string(value));
+        self.dat.push(STRING_TERMINATOR);
+    }
+
+    pub fn entry(&self) -> &[u8] {
+        &self.dat[self.entry_start..]
     }
 
     /// Save the .dat and .idx files to disk.

@@ -38,11 +38,23 @@ pub fn pack_dbtables(
         server.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
+            #[cfg(before_647)]
             panic!("Unknown dbtable id: {}", id);
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                continue;
+            }
         };
 
         let Some(props) = configs.get(debugname) else {
+            #[cfg(before_647)]
             panic!("Unknown dbtable config: {}", debugname);
+            #[cfg(since_647)]
+            {
+                server.finish_entry();
+                continue;
+            }
         };
 
         let mut columns: Vec<ColumnDef> = Vec::new();
@@ -88,7 +100,10 @@ pub fn pack_dbtables(
                         if type_char == b's' {
                             server.pjstr(val);
                         } else {
+                            #[cfg(before_647)]
                             server.p4(val.parse::<i32>().unwrap_or(0));
+                            #[cfg(since_647)]
+                            server.p4(super::dbrow::resolve_typed_value(val, type_char, registry));
                         }
                     }
                 }

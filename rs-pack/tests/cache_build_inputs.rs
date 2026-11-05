@@ -113,6 +113,21 @@ fn an_unread_extension_is_not() {
     assert_eq!(cache_build_inputs(&dir), Some(at(0)));
 }
 
+#[test]
+fn every_config_source_is_a_build_input() {
+    let dir = content("configs");
+    for (i, ext) in [
+        "seq", "bas", "light", "config48", "constant", "mesanim", "varn", "vars",
+    ]
+    .into_iter()
+    .enumerate()
+    {
+        let when = at(i as u64);
+        write_at(&dir.join("scripts").join(format!("all.{ext}")), when);
+        assert_eq!(cache_build_inputs(&dir), Some(when), "{ext}");
+    }
+}
+
 /// A stamp is only as good as its mtime: rewriting one must move it to now.
 /// `.anim_stamp` was written as an empty file, and on Windows truncating an
 /// empty file to empty leaves the mtime where it was -- so it stayed at its

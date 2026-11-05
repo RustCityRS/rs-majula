@@ -1,19 +1,3 @@
-//! Unpack Param configs from JS5 cache to text config format.
-//!
-//! Produces `_unpack/all.param` such that `pack::param::pack_param_def`
-//! reading the file produces byte-identical cache bytes for every param.
-//! Mirrors 2004scape's `tools/pack/config/ParamConfig.ts` text shape, but
-//! with distinct keys for the overloaded `default=` (see `pack/param.rs`):
-//! `type=`, `defaultint=`, `defaultstring=`, `autodisable=no`.
-//!
-//! Section header is the registry-mapped name (`registry.param.get_by_id`),
-//! falling back to `param_<id>`. Param's cache shape has no DebugName op, so
-//! the section is purely a content identifier — bytes don't depend on it.
-//!
-//! Unlike other config types, param never skips entries that have
-//! specific .param files — the packer merges specific-file server-only
-//! fields on top of the all.param client entries.
-
 use std::collections::HashMap;
 use std::io::Write;
 use std::path::Path;
@@ -25,8 +9,7 @@ use tracing::info;
 
 use crate::cache::param::ParamTypeRaw;
 use crate::cache::provider::CacheType;
-use crate::pack::param::emit_param_props;
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
 
 const ARCHIVE_CONFIG: u8 = 2;
 const GROUP_PARAM: u32 = 11;
@@ -81,4 +64,55 @@ pub fn unpack_params(cache_dir: &Path, registry: &PackRegistry, output_dir: &Pat
 
     info!("  Wrote {written} param configs to {}", out_path.display());
     Ok(())
+}
+
+pub fn emit_param_props(def: &ParamTypeRaw, _registry: &PackRegistry) -> Vec<(String, String)> {
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    if def.opcode_order.contains(&1) {
+        p.push((1, "type".into(), char_to_type_name(def.var_type as u8)));
+    }
+    if def.opcode_order.contains(&2) {
+        p.push((2, "defaultint".into(), def.default_int.to_string()));
+    }
+    if !def.autodisable {
+        p.push((4, "autodisable".into(), "no".into()));
+    }
+    if let Some(ds) = &def.default_str {
+        p.push((5, "defaultstring".into(), ds.to_string()));
+    }
+    super::reorder_by_opcode(&def.opcode_order, p)
+}
+
+pub(super) fn char_to_type_name(c: u8) -> String {
+    let name: Option<&'static str> = match c {
+        b'i' => Some("int"),
+        b's' => Some("string"),
+        b'c' => Some("coord"),
+        b'o' => Some("obj"),
+        b'O' => Some("namedobj"),
+        b'n' => Some("npc"),
+        b'l' => Some("loc"),
+        b'I' => Some("component"),
+        b'1' => Some("boolean"),
+        b'g' => Some("enum"),
+        b'J' => Some("struct"),
+        b'S' => Some("stat"),
+        b'A' => Some("seq"),
+        b'P' => Some("synth"),
+        b'v' => Some("inv"),
+        b't' => Some("spotanim"),
+        b'V' => Some("varp"),
+        b'm' => Some("model"),
+        0xb5 => Some("mapelement"),
+        b'y' => Some("category"),
+        b'K' => Some("idkit"),
+        b'p' => Some("player_uid"),
+        b'N' => Some("npc_uid"),
+        0xd0 => Some("dbrow"),
+        _ => None,
+    };
+    match name {
+        Some(n) => n.to_string(),
+        None => format!("byte:0x{c:02x}"),
+    }
 }

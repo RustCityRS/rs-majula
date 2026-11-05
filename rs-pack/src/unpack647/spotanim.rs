@@ -1,21 +1,3 @@
-//! Unpack SpotAnim configs from JS5 cache to text config format.
-//!
-//! Archive 21, **strided u16** ids (stride 256) — global id is
-//! `gid * 256 + entry.id`. Walks the cache directly via
-//! `store.group_count(21)` × `store.read_group(21, gid)` so every entry
-//! survives, irrespective of how `rs_configs::loader` summarises them.
-//!
-//! Produces `_unpack/all.spotanim` such that
-//! `pack::spotanim::pack_spotanim_def` reading the file produces
-//! byte-identical cache bytes. Section header is the registry name
-//! (`spotanim.pack`), falling back to `spotanim_<global_id>` for
-//! unregistered ids.
-//!
-//! SpotAnim has no op 250 / DebugName — the section header is purely a
-//! content identifier and is **not** emitted into cache bytes. Collision
-//! disambiguation (rare; only happens if the registry has duplicate names)
-//! suffixes the global id.
-
 use std::collections::HashMap;
 use std::io::Write;
 use std::path::Path;
@@ -27,8 +9,7 @@ use tracing::info;
 
 use crate::cache::provider::CacheType;
 use crate::cache::spotanim::SpotAnimTypeRaw;
-use crate::pack::spotanim::emit_spotanim_props;
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
 
 const ARCHIVE_SPOTANIM: u8 = 21;
 const STRIDE_SPOTANIM: u32 = 256;
@@ -91,4 +72,85 @@ pub fn unpack_spotanims(
         out_path.display()
     );
     Ok(())
+}
+
+pub fn emit_spotanim_props(
+    def: &SpotAnimTypeRaw,
+    registry: &PackRegistry,
+) -> Vec<(String, String)> {
+    let recol_s = def.recol_s.as_deref().unwrap_or_default();
+    let recol_d = def.recol_d.as_deref().unwrap_or_default();
+    let retex_s = def.retex_s.as_deref().unwrap_or_default();
+    let retex_d = def.retex_d.as_deref().unwrap_or_default();
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    if def.opcode_order.contains(&1) {
+        let name = registry
+            .model
+            .get_by_id(def.model as u32)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("model_{}", def.model));
+        p.push((1, "model".into(), name));
+    }
+    if let Some(anim) = def.anim {
+        let name = registry
+            .seq
+            .get_by_id(anim as u32)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("seq_{}", anim));
+        p.push((2, "anim".into(), name));
+    }
+    if def.opcode_order.contains(&4) || def.resizeh != 128 {
+        p.push((4, "resizeh".into(), def.resizeh.to_string()));
+    }
+    if def.opcode_order.contains(&5) || def.resizev != 128 {
+        p.push((5, "resizev".into(), def.resizev.to_string()));
+    }
+    if def.opcode_order.contains(&6) || def.angle != 0 {
+        p.push((6, "angle".into(), def.angle.to_string()));
+    }
+    if def.opcode_order.contains(&7) || def.ambient != 0 {
+        p.push((7, "ambient".into(), def.ambient.to_string()));
+    }
+    if def.opcode_order.contains(&8) || def.contrast != 0 {
+        p.push((8, "contrast".into(), def.contrast.to_string()));
+    }
+    if def.op9 {
+        p.push((9, "op9_animmode3_param8224".into(), "yes".into()));
+    }
+    if def.op10 {
+        p.push((10, "op10_flag".into(), "yes".into()));
+    }
+    if def.op11 {
+        p.push((11, "op11_animmode1".into(), "yes".into()));
+    }
+    if def.op12 {
+        p.push((12, "op12_animmode4".into(), "yes".into()));
+    }
+    if def.op13 {
+        p.push((13, "op13_animmode5".into(), "yes".into()));
+    }
+    if def.opcode_order.contains(&14) {
+        p.push((14, "op14_animmode2_u8".into(), def.op14.to_string()));
+    }
+    if def.opcode_order.contains(&15) {
+        p.push((15, "op15_animmode3_u16".into(), def.op15.to_string()));
+    }
+    if def.opcode_order.contains(&16) {
+        p.push((16, "op16_animmode3_i32".into(), def.op16.to_string()));
+    }
+    if !recol_d.is_empty() {
+        for i in 0..recol_d.len() {
+            let n = i + 1;
+            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
+            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
+        }
+    }
+    if !retex_d.is_empty() {
+        for i in 0..retex_d.len() {
+            let n = i + 1;
+            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
+            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
+        }
+    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }

@@ -3,6 +3,7 @@
 //! Shared helpers for the build pipeline — stamp files, group file discovery,
 //! name hash loading, and the universal write-archive sequence.
 
+use crate::pack::pack_registry::PackFile;
 use std::path::Path;
 
 use anyhow::Result;
@@ -88,7 +89,7 @@ pub fn load_name_hashes(
 
     let pack_path = pack_dir.join(format!("{pack_name}.pack"));
     if pack_path.exists() {
-        if let Ok(pf) = crate::pack_registry::PackFile::load(&pack_path) {
+        if let Ok(pf) = PackFile::load(&pack_path) {
             for &gid in group_ids {
                 if !result.contains_key(&gid) {
                     if let Some(name) = pf.get_by_id(gid) {

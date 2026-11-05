@@ -1,15 +1,39 @@
-use super::worldmap::WorldmapBuilder;
-use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
-use crate::zone_csv::load_csv_zones;
-pub(super) use crate::zone_csv::zone_key;
-use rs_io::Packet;
-use rs_io::bz2::bz2_compress_with_size;
-use rs_io::crc;
-use std::collections::HashMap;
 use std::path::Path;
+#[cfg(since_647)]
+use std::path::PathBuf;
+
+#[cfg(since_647)]
+use anyhow::Result;
+#[cfg(since_647)]
+use tracing::info;
+
+#[cfg(since_647)]
+use crate::map_format;
+#[cfg(since_647)]
+use crate::pack::packed_data::PackedData;
+
+#[cfg(before_647)]
+use super::worldmap::WorldmapBuilder;
+#[cfg(before_647)]
+use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
+#[cfg(before_647)]
+use crate::zone_csv::load_csv_zones;
+#[cfg(before_647)]
+pub(super) use crate::zone_csv::zone_key;
+#[cfg(before_647)]
+use rs_io::Packet;
+#[cfg(before_647)]
+use rs_io::bz2::bz2_compress_with_size;
+#[cfg(before_647)]
+use rs_io::crc;
+#[cfg(before_647)]
+use std::collections::HashMap;
+#[cfg(before_647)]
 use std::sync::Arc;
+#[cfg(before_647)]
 use tracing::debug;
 
+#[cfg(before_647)]
 type PackedMapSquare = (
     MapSquares,
     MapSquareCrcs,
@@ -19,6 +43,7 @@ type PackedMapSquare = (
 );
 
 #[derive(Clone, Copy)]
+#[cfg(before_647)]
 pub(super) struct TileData {
     height: i32,
     pub(super) overlay: i32,
@@ -28,6 +53,7 @@ pub(super) struct TileData {
     pub(super) underlay: i32,
 }
 
+#[cfg(before_647)]
 impl TileData {
     const EMPTY: Self = Self {
         height: 0,
@@ -39,6 +65,7 @@ impl TileData {
     };
 }
 
+#[cfg(before_647)]
 pub(super) struct LocPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
@@ -47,12 +74,14 @@ pub(super) struct LocPlacement {
     pub(super) angle: u8,
 }
 
+#[cfg(before_647)]
 pub(super) struct NpcPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
     pub(super) z: u8,
 }
 
+#[cfg(before_647)]
 pub(super) struct ObjPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
@@ -60,18 +89,22 @@ pub(super) struct ObjPlacement {
     count: u16,
 }
 
+#[cfg(before_647)]
 pub struct ParsedMap {
     pub(super) locs: HashMap<u16, Vec<LocPlacement>>,
     pub(super) npcs: HashMap<u16, Vec<NpcPlacement>>,
     pub(super) objs: HashMap<u16, Vec<ObjPlacement>>,
 }
 
+#[cfg(before_647)]
 pub(super) const TILE_COUNT: usize = 4 << 12;
 
+#[cfg(before_647)]
 pub(super) fn tile_index(y: usize, x: usize, z: usize) -> usize {
     y << 12 | x << 6 | z
 }
 
+#[cfg(before_647)]
 fn fast_parse_int(s: &[u8]) -> i32 {
     let mut i = 0;
     let neg = i < s.len() && s[i] == b'-';
@@ -86,6 +119,7 @@ fn fast_parse_int(s: &[u8]) -> i32 {
     if neg { -n } else { n }
 }
 
+#[cfg(before_647)]
 fn fast_parse_usize(s: &[u8]) -> usize {
     let mut n: usize = 0;
     for &b in s {
@@ -98,6 +132,7 @@ fn fast_parse_usize(s: &[u8]) -> usize {
     n
 }
 
+#[cfg(before_647)]
 fn next_word(bytes: &[u8], start: usize) -> (usize, usize) {
     let mut i = start;
     while i < bytes.len() && bytes[i] == b' ' {
@@ -110,6 +145,7 @@ fn next_word(bytes: &[u8], start: usize) -> (usize, usize) {
     (begin, i)
 }
 
+#[cfg(before_647)]
 fn read_map(bytes: &[u8], tiles: &mut [TileData; TILE_COUNT]) -> ParsedMap {
     tiles.fill(TileData::EMPTY);
 
@@ -276,10 +312,12 @@ fn read_map(bytes: &[u8], tiles: &mut [TileData; TILE_COUNT]) -> ParsedMap {
     ParsedMap { locs, npcs, objs }
 }
 
+#[cfg(before_647)]
 fn memchr3(needle: u8, haystack: &[u8]) -> Option<usize> {
     haystack.iter().position(|&b| b == needle)
 }
 
+#[cfg(before_647)]
 fn encode_terrain(tiles: &[TileData; TILE_COUNT], out: &mut Packet) {
     out.pos = 0;
 
@@ -330,6 +368,7 @@ fn encode_terrain(tiles: &[TileData; TILE_COUNT], out: &mut Packet) {
     }
 }
 
+#[cfg(before_647)]
 pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -360,6 +399,7 @@ pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
+#[cfg(before_647)]
 pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -387,6 +427,7 @@ pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
+#[cfg(before_647)]
 pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -417,6 +458,7 @@ pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
 }
 
 #[cfg(since_244)]
+#[cfg(before_647)]
 pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
     let mut tiles = [TileData::EMPTY; TILE_COUNT];
     let parsed = read_map(jm2_bytes, &mut tiles);
@@ -433,6 +475,7 @@ pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
     )
 }
 
+#[cfg(before_647)]
 pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
     let maps_dir = content_dir.join("maps");
     let mut mapsquares = MapSquares::default();
@@ -536,4 +579,72 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
     debug!("Packed {} map squares ({} files)", count, mapsquares.len());
     (mapsquares, mapcrcs, multimap, freemap, worldmap)
+}
+
+#[cfg(since_647)]
+pub fn pack_spawns(map_dirs: &[PathBuf], server_dir: &Path) -> Result<()> {
+    let entries = collect(map_dirs, 'n', map_format::is_npc_spawns, |text| {
+        let spawns = map_format::parse_npc_spawn_text(text);
+        (!spawns.is_empty()).then(|| map_format::encode_npc_spawn_binary(&spawns))
+    })?;
+    save(&entries, server_dir, "map")?;
+    info!("  {} NPC spawn regions packed", entries.len());
+    Ok(())
+}
+
+/// Pack global ground-item spawns. Same on-disk container shape as the NPC
+/// packer; the engine merges these as the `o` mapsquare layer and loads them
+/// as `EntityLifeTime::Respawn` objs.
+#[cfg(since_647)]
+pub fn pack_obj_spawns(map_dirs: &[PathBuf], server_dir: &Path) -> Result<()> {
+    let entries = collect(map_dirs, 'o', map_format::is_obj_spawns, |text| {
+        let spawns = map_format::parse_obj_spawn_text(text);
+        (!spawns.is_empty()).then(|| map_format::encode_obj_spawn_binary(&spawns))
+    })?;
+    save(&entries, server_dir, "objspawn")?;
+    info!("  {} obj spawn regions packed", entries.len());
+    Ok(())
+}
+
+#[cfg(since_647)]
+type Entry = (u8, u8, Vec<u8>);
+
+#[cfg(since_647)]
+fn collect(
+    map_dirs: &[PathBuf],
+    prefix: char,
+    is_kind: fn(&str) -> bool,
+    encode: impl Fn(&str) -> Option<Vec<u8>>,
+) -> Result<Vec<Entry>> {
+    let mut entries = Vec::new();
+    for (stem, path) in map_format::squares(map_dirs) {
+        if !is_kind(&stem) {
+            continue;
+        }
+        let stripped = stem.strip_prefix(prefix).unwrap_or(&stem);
+        let Some((mx, mz)) = stripped.split_once('_') else {
+            continue;
+        };
+        let (Ok(mx), Ok(mz)) = (mx.parse::<u8>(), mz.parse::<u8>()) else {
+            continue;
+        };
+        if let Some(binary) = encode(&std::fs::read_to_string(&path)?) {
+            entries.push((mx, mz, binary));
+        }
+    }
+    entries.sort_by_key(|(mx, mz, _)| (*mx as u16) << 8 | *mz as u16);
+    Ok(entries)
+}
+
+#[cfg(since_647)]
+fn save(entries: &[Entry], server_dir: &Path, stem: &str) -> Result<()> {
+    let mut packed = PackedData::new(entries.len() as u32);
+    for (mx, mz, binary) in entries {
+        packed.start_entry();
+        packed.p1(*mx);
+        packed.p1(*mz);
+        packed.dat.extend_from_slice(binary);
+        packed.finish_entry_raw();
+    }
+    packed.save(server_dir, stem)
 }

@@ -12,7 +12,7 @@ use anyhow::Result;
 use rs_dat2::CacheStore;
 use tracing::info;
 
-use crate::pack_registry::PackFile;
+use crate::pack::pack_registry::PackFile;
 
 const ARCHIVE_FONTMETRICS: u8 = 13;
 

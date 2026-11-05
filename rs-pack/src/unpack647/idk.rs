@@ -1,19 +1,3 @@
-//! Unpack Idk (identity kit) configs from JS5 cache to text config
-//! format.
-//!
-//! Produces `_unpack/all.idk` such that `pack::idk::pack_idk_def` reading
-//! the file produces byte-identical cache bytes for every idk. Mirrors
-//! 2004scape's `tools/unpack/config/IdkConfig.ts` text shape:
-//! `type=<bodytype_name>`, `disable=yes`, `modelN=<model_name>`,
-//! `recolNs=`/`recolNd=`, `retexNs=`/`retexNd=`, `headN=<model_name>`.
-//!
-//! Section header: `registry.idk.get_by_id(id)` || `idk_<id>`. Idk has no
-//! op 250 / DebugName variant — the section header is the only identity.
-//! Collision-renamed sections use `<name>__<id>`.
-//!
-//! Phase 1 contract: this writes EVERY cache entry, every emission, in
-//! source order — no overlay-key gating.
-
 use std::collections::HashMap;
 use std::io::Write;
 use std::path::Path;
@@ -25,8 +9,7 @@ use tracing::info;
 
 use crate::cache::idk::IdkTypeRaw;
 use crate::cache::provider::CacheType;
-use crate::pack::idk::emit_idk_props;
-use crate::pack_registry::PackRegistry;
+use crate::pack::pack_registry::PackRegistry;
 
 const ARCHIVE_CONFIG: u8 = 2;
 const GROUP_IDK: u32 = 3;
@@ -77,4 +60,86 @@ pub fn unpack_idks(cache_dir: &Path, registry: &PackRegistry, output_dir: &Path)
 
     info!("  Wrote {written} idk configs to {}", out_path.display());
     Ok(())
+}
+
+fn bodytype_name(v: u8) -> Option<&'static str> {
+    Some(match v {
+        0 => "man_hair",
+        1 => "man_jaw",
+        2 => "man_torso",
+        3 => "man_arms",
+        4 => "man_hands",
+        5 => "man_legs",
+        6 => "man_feet",
+        7 => "woman_hair",
+        8 => "woman_jaw",
+        9 => "woman_torso",
+        10 => "woman_arms",
+        11 => "woman_hands",
+        12 => "woman_legs",
+        13 => "woman_feet",
+        _ => return None,
+    })
+}
+
+fn model_name(registry: &PackRegistry, id: u16) -> String {
+    registry
+        .model
+        .get_by_id(id as u32)
+        .map(|s| s.to_string())
+        .unwrap_or_else(|| format!("model_{id}"))
+}
+
+pub fn emit_idk_props(def: &IdkTypeRaw, registry: &PackRegistry) -> Vec<(String, String)> {
+    let models = def.models.as_deref().unwrap_or_default();
+    let recol_s = def.recol_s.as_deref().unwrap_or_default();
+    let recol_d = def.recol_d.as_deref().unwrap_or_default();
+    let retex_s = def.retex_s.as_deref().unwrap_or_default();
+    let retex_d = def.retex_d.as_deref().unwrap_or_default();
+    let heads = def.heads.as_deref().unwrap_or_default();
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    // op 1 — body part type
+    if def.opcode_order.contains(&1) {
+        let value = bodytype_name(def.body_type as u8)
+            .map(str::to_string)
+            .unwrap_or_else(|| (def.body_type as u8).to_string());
+        p.push((1, "type".into(), value));
+    }
+    // op 2 — models
+    if !models.is_empty() {
+        for (i, id) in models.iter().enumerate() {
+            p.push((2, format!("model{}", i + 1), model_name(registry, *id)));
+        }
+    }
+    // op 3 — disable
+    if def.disable {
+        p.push((3, "disable".into(), "yes".into()));
+    }
+    // op 40 — recolour pairs
+    if !recol_s.is_empty() {
+        for i in 0..recol_s.len() {
+            let n = i + 1;
+            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
+            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
+        }
+    }
+    // op 41 — retexture pairs
+    if !retex_s.is_empty() {
+        for i in 0..retex_s.len() {
+            let n = i + 1;
+            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
+            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
+        }
+    }
+    // ops 60-69 — head models (each slot tagged with its actual opcode)
+    for (slot, &model_id) in heads.iter().enumerate() {
+        if def.opcode_order.contains(&((60 + slot) as u8)) {
+            p.push((
+                (60 + slot) as u8,
+                format!("head{}", slot + 1),
+                model_name(registry, model_id),
+            ));
+        }
+    }
+    super::reorder_by_opcode(&def.opcode_order, p)
 }
