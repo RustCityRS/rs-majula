@@ -5,7 +5,7 @@ use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
-use serde::Deserialize;
+use serde_json::Value;
 #[cfg(since_647)]
 use std::{
     collections::HashMap,
@@ -606,20 +606,16 @@ impl XteaKeyStore {
 
 #[cfg(since_647)]
 pub fn load_xtea_keys(keys_path: &Path) -> Result<HashMap<i32, [i32; 4]>> {
-    #[derive(Deserialize)]
-    struct KeyEntry {
-        archive: u8,
-        key: [i32; 4],
-        name_hash: i32,
-    }
-
     let data = fs::read_to_string(keys_path)
         .with_context(|| format!("reading {}", keys_path.display()))?;
-    let entries: Vec<KeyEntry> = serde_json::from_str(&data)?;
+    let entries: Vec<Value> = serde_json::from_str(&data)?;
     let mut map = HashMap::new();
     for entry in entries {
-        if entry.archive == archive::MAPS {
-            map.insert(entry.name_hash, entry.key);
+        let archive: u8 = serde_json::from_value(entry["archive"].clone())?;
+        let key: [i32; 4] = serde_json::from_value(entry["key"].clone())?;
+        let name_hash: i32 = serde_json::from_value(entry["name_hash"].clone())?;
+        if archive == archive::MAPS {
+            map.insert(name_hash, key);
         }
     }
     Ok(map)

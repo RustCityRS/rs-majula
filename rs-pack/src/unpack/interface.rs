@@ -22,7 +22,7 @@ use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::compression::Container;
 #[cfg(since_647)]
-use serde::{Deserialize, Serialize};
+use serde_json::json;
 #[cfg(before_647)]
 use std::collections::{HashMap, HashSet};
 use std::fs;
@@ -665,11 +665,9 @@ pub fn unpack_interfaces(store: &mut Js5Store, content_dir: &Path) -> Result<u32
     fs::create_dir_all(&if_dir)?;
 
     let group_count = store.group_count(INTERFACE_ARCHIVE).unwrap_or(0);
-    let mut manifest = InterfaceManifest {
-        archive_id: INTERFACE_ARCHIVE,
-        groups: Vec::new(),
-    };
+    let mut groups = Vec::new();
     let mut written = 0u32;
+    let mut components = 0u32;
 
     for group_id in 0..group_count {
         let Some(raw) = store.read_raw_group_bytes(INTERFACE_ARCHIVE, group_id)? else {
@@ -708,53 +706,30 @@ pub fn unpack_interfaces(store: &mut Js5Store, content_dir: &Path) -> Result<u32
         let file_name = format!("{}.if", group_id);
         fs::write(if_dir.join(&file_name), &text)?;
 
-        manifest.groups.push(InterfaceGroupEntry {
-            group_id,
-            file_name,
-            compression: container.compression as u8,
-            version: container.version.unwrap_or(0),
-            compressed_len: container.compressed_len,
-            decompressed_len: container.uncompressed_len,
-            crc: container.crc(),
-            component_count: comp_count,
-        });
+        groups.push(json!({
+            "group_id": group_id,
+            "file_name": file_name,
+            "compression": container.compression as u8,
+            "version": container.version.unwrap_or(0),
+            "compressed_len": container.compressed_len,
+            "decompressed_len": container.uncompressed_len,
+            "crc": container.crc(),
+            "component_count": comp_count,
+        }));
         written += 1;
+        components += comp_count;
     }
 
+    let manifest = json!({ "archive_id": INTERFACE_ARCHIVE, "groups": groups });
     let manifest_path = if_dir.join("manifest.json");
     fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
 
     info!(
         "Interfaces unpacked: {} groups, {} total components",
-        written,
-        manifest
-            .groups
-            .iter()
-            .map(|g| g.component_count)
-            .sum::<u32>()
+        written, components
     );
 
     Ok(written)
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg(since_647)]
-pub struct InterfaceManifest {
-    pub archive_id: u8,
-    pub groups: Vec<InterfaceGroupEntry>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg(since_647)]
-pub struct InterfaceGroupEntry {
-    pub group_id: u32,
-    pub file_name: String,
-    pub compression: u8,
-    pub version: u16,
-    pub compressed_len: u32,
-    pub decompressed_len: u32,
-    pub crc: u32,
-    pub component_count: u32,
 }
 
 #[cfg(since_647)]

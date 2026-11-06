@@ -13,7 +13,7 @@ use rustc_hash::FxHashMap;
 
 pub type LocTypeProvider = TypeProvider<LocType>;
 
-#[cfg_attr(since_647, derive(Debug, Clone, serde::Serialize))]
+#[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct LocModelShape {
     #[cfg(before_647)]
     pub model: u16,
@@ -108,7 +108,7 @@ impl From<LocTypeRaw> for LocType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone, serde::Serialize))]
+#[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct LocTypeRaw {
     pub id: u16,
     pub models: Option<Box<[LocModelShape]>>,
@@ -237,9 +237,7 @@ pub struct LocTypeRaw {
     pub op178: u8,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
-    #[cfg_attr(since_647, serde(skip))]
     pub opcode_order: Vec<u8>,
-    #[cfg_attr(since_647, serde(skip))]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 

@@ -1,7 +1,5 @@
 #[cfg(all(since_244, before_647))]
 use super::model::load_existing_pack;
-#[cfg(since_647)]
-use super::{AssetManifest, GroupEntry};
 #[cfg(since_244)]
 use crate::archive;
 #[cfg(since_647)]
@@ -18,6 +16,8 @@ use rs_io::bz2::bz2_decompress;
 use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::compression::{Container, decompress};
+#[cfg(since_647)]
+use serde_json::json;
 use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
@@ -154,12 +154,7 @@ fn unpack_midi_archive(
     fs::create_dir_all(&archive_dir)?;
 
     let group_count = store.group_count(archive_id).unwrap_or(0);
-    let mut manifest = AssetManifest {
-        archive_id,
-        archive_name: dir_name.to_string(),
-        file_extension: extension.to_string(),
-        groups: Vec::new(),
-    };
+    let mut groups = Vec::new();
 
     let mut written = 0u32;
     let mut failed = 0u32;
@@ -204,19 +199,24 @@ fn unpack_midi_archive(
         let path = archive_dir.join(format!("{}.{}", name, extension));
         fs::write(&path, &midi_bytes)?;
 
-        manifest.groups.push(GroupEntry {
-            group_id: gid,
-            file_name: Some(format!("{}.{}", name, extension)),
-            file_extension: None,
-            compression: container.compression as u8,
-            version: container.version.unwrap_or(0),
-            compressed_len: container.compressed_len,
-            decompressed_len: container.uncompressed_len,
-            crc: container.crc(),
-        });
+        groups.push(json!({
+            "group_id": gid,
+            "file_name": format!("{}.{}", name, extension),
+            "compression": container.compression as u8,
+            "version": container.version.unwrap_or(0),
+            "compressed_len": container.compressed_len,
+            "decompressed_len": container.uncompressed_len,
+            "crc": container.crc(),
+        }));
         written += 1;
     }
 
+    let manifest = json!({
+        "archive_id": archive_id,
+        "archive_name": dir_name,
+        "file_extension": extension,
+        "groups": groups,
+    });
     let manifest_path = archive_dir.join("manifest.json");
     fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
 

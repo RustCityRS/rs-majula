@@ -13,6 +13,8 @@ use rs_pack::cache::hunt::HuntType;
 use rs_pack::cache::idk::IdkTypeRaw;
 use rs_pack::cache::inv::InvTypeRaw;
 use rs_pack::cache::loc::LocTypeRaw;
+#[cfg(since_647)]
+use rs_pack::cache::map::load_xtea_keys;
 use rs_pack::cache::npc::NpcTypeRaw;
 use rs_pack::cache::obj::ObjTypeRaw;
 #[cfg(since_647)]
@@ -66,6 +68,42 @@ fn rendering_fields_keep_their_wire_values() {
         let obj: ObjTypeRaw = decode(&[114, 127, 0]);
         assert_eq!(npc.contrast, -1);
         assert_eq!(obj.contrast, 127);
+    }
+}
+
+#[cfg(since_647)]
+#[test]
+fn xtea_json_preserves_signed_keys_and_rejects_invalid_records() {
+    let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join("xtea_json");
+    fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("keys.json");
+    fs::write(
+        &path,
+        r#"[
+            {"archive":5,"name_hash":-123,"key":[-2147483648,-1,0,2147483647],"group":42},
+            {"archive":7,"name_hash":456,"key":[1,2,3,4]}
+        ]"#,
+    )
+    .unwrap();
+    assert_eq!(
+        load_xtea_keys(&path).unwrap(),
+        HashMap::from([(-123, [i32::MIN, -1, 0, i32::MAX])])
+    );
+    for json in [
+        "{}",
+        "[null]",
+        r#"[{"name_hash":1,"key":[1,2,3,4]}]"#,
+        r#"[{"archive":5,"key":[1,2,3,4]}]"#,
+        r#"[{"archive":5,"name_hash":1}]"#,
+        r#"[{"archive":256,"name_hash":1,"key":[1,2,3,4]}]"#,
+        r#"[{"archive":5,"name_hash":2147483648,"key":[1,2,3,4]}]"#,
+        r#"[{"archive":5,"name_hash":1,"key":[1,2,3]}]"#,
+        r#"[{"archive":5,"name_hash":1,"key":[1,2,3,4,5]}]"#,
+        r#"[{"archive":5,"name_hash":1,"key":[2147483648,2,3,4]}]"#,
+        r#"[{"archive":5,"name_hash":1,"key":["1",2,3,4]}]"#,
+    ] {
+        fs::write(&path, json).unwrap();
+        assert!(load_xtea_keys(&path).is_err(), "accepted {json}");
     }
 }
 

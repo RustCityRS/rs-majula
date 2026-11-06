@@ -8,7 +8,7 @@ use rs_io::js5::compute_group_crc;
 use rs_io::js5::reference::encode_reference_table;
 use rs_pack::archive::{self, ARCHIVE_IDS, EXPECTED_CRCS};
 use rs_pack::cache::js5::PackedCache;
-use serde::Deserialize;
+use serde_json::Value;
 #[path = "support/reference.rs"]
 mod reference;
 use std::collections::BTreeMap;
@@ -197,16 +197,19 @@ fn assembled_cache_matches_openrs2_group_by_group() {
 
     // 3. Every committed key opens its landscape group in our cache.
     let keys = fs::read_to_string(source.join("keys.json")).unwrap();
-    let keys: Vec<XteaKey> = serde_json::from_str(&keys).unwrap();
+    let keys: Vec<Value> = serde_json::from_str(&keys).unwrap();
     let bad: Vec<_> = keys
         .iter()
-        .filter(|k| {
-            !matches!(
-                store.read_group_xtea(k.archive as u8, k.group, &k.key),
+        .filter_map(|entry| {
+            let archive: u32 = serde_json::from_value(entry["archive"].clone()).unwrap();
+            let group: u32 = serde_json::from_value(entry["group"].clone()).unwrap();
+            let key: [i32; 4] = serde_json::from_value(entry["key"].clone()).unwrap();
+            (!matches!(
+                store.read_group_xtea(archive as u8, group, &key),
                 Ok(Some(ref d)) if !d.is_empty()
-            )
+            ))
+            .then_some((archive, group))
         })
-        .map(|k| (k.archive, k.group))
         .collect();
     assert!(
         bad.is_empty(),
@@ -318,11 +321,4 @@ fn summarise(diff: &reference::TableDiff) -> String {
         }
     }
     parts.join(", ")
-}
-
-#[derive(Deserialize)]
-struct XteaKey {
-    archive: u32,
-    group: u32,
-    key: [i32; 4],
 }

@@ -1,8 +1,8 @@
-use super::{AssetManifest, GroupEntry};
 use crate::archive;
 use anyhow::Result;
 use rs_io::js5::Js5Store;
 use rs_io::js5::compression::{Container, decompress};
+use serde_json::json;
 use std::fs;
 use std::path::Path;
 use tracing::warn;
@@ -12,12 +12,7 @@ pub fn unpack_shaders(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     fs::create_dir_all(&archive_dir)?;
 
     let group_count = store.group_count(archive::SHADERS).unwrap_or(0);
-    let mut manifest = AssetManifest {
-        archive_id: archive::SHADERS,
-        archive_name: "shaders".to_string(),
-        file_extension: "bin".to_string(),
-        groups: Vec::new(),
-    };
+    let mut groups = Vec::new();
     let mut written = 0u32;
 
     for gid in 0..group_count {
@@ -56,19 +51,24 @@ pub fn unpack_shaders(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
         let path = archive_dir.join(format!("{}.{}", gid, ext));
         fs::write(&path, &decompressed)?;
 
-        manifest.groups.push(GroupEntry {
-            group_id: gid,
-            file_name: None,
-            file_extension: Some(ext.to_string()),
-            compression: container.compression as u8,
-            version: container.version.unwrap_or(0),
-            compressed_len: container.compressed_len,
-            decompressed_len: container.uncompressed_len,
-            crc: container.crc(),
-        });
+        groups.push(json!({
+            "group_id": gid,
+            "file_extension": ext,
+            "compression": container.compression as u8,
+            "version": container.version.unwrap_or(0),
+            "compressed_len": container.compressed_len,
+            "decompressed_len": container.uncompressed_len,
+            "crc": container.crc(),
+        }));
         written += 1;
     }
 
+    let manifest = json!({
+        "archive_id": archive::SHADERS,
+        "archive_name": "shaders",
+        "file_extension": "bin",
+        "groups": groups,
+    });
     let manifest_path = archive_dir.join("manifest.json");
     fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
 

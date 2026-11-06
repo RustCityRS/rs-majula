@@ -23,14 +23,12 @@ use rs_io::js5::compression::{Container, decompress, decompress_xtea};
 #[cfg(since_647)]
 use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
-use serde::{Deserialize, Serialize};
+use serde_json::json;
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(rev = "225")]
 use std::collections::{HashMap, HashSet};
 use std::fs;
-#[cfg(since_647)]
-use std::ops::Not;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
@@ -269,12 +267,11 @@ pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -
     let ref_table = store.reference_table(archive::MAPS);
     let ref_groups: Vec<_> = ref_table.map(|t| t.groups.clone()).unwrap_or_default();
 
-    let mut manifest = MapManifest {
-        archive_id: archive::MAPS,
-        groups: Vec::new(),
-    };
-
+    let mut groups = Vec::new();
     let mut written = 0u32;
+    let mut keyed = 0u32;
+    let mut unkeyed = 0u32;
+    let mut terrain = 0u32;
 
     for gid in 0..group_count {
         let Some(raw) = store.read_raw_group_bytes(archive::MAPS, gid)? else {
@@ -294,8 +291,9 @@ pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -
             .unwrap_or_else(|| format!("group_{}", gid));
 
         let is_landscape = is_landscape(&name);
+        let mut is_keyed = false;
 
-        if is_landscape {
+        let file_name = if is_landscape {
             // Landscape group — XTEA encrypted
             let group_hash = java_string_hash(&name);
             let key = xtea_keys.get(&group_hash).copied();
@@ -311,18 +309,8 @@ pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -
                     let file_path = map_dir.join(&file_name);
                     fs::write(&file_path, &text)?;
 
-                    manifest.groups.push(MapGroupEntry {
-                        group_id: gid,
-                        name: name.clone(),
-                        file_name,
-                        compression: container.compression as u8,
-                        version: container.version.unwrap_or(0),
-                        compressed_len: container.compressed_len,
-                        decompressed_len: container.uncompressed_len,
-                        crc: container.crc(),
-                        encrypted: true,
-                        keyed: key.is_some(),
-                    });
+                    is_keyed = key.is_some();
+                    file_name
                 }
                 Err(_) => {
                     // Truly encrypted with unknown key — opaque passthrough
@@ -332,18 +320,7 @@ pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -
                     let file_path = map_dir.join(&file_name);
                     fs::write(&file_path, &raw)?;
 
-                    manifest.groups.push(MapGroupEntry {
-                        group_id: gid,
-                        name: name.clone(),
-                        file_name,
-                        compression: container.compression as u8,
-                        version: container.version.unwrap_or(0),
-                        compressed_len: container.compressed_len,
-                        decompressed_len: container.uncompressed_len,
-                        crc: container.crc(),
-                        encrypted: true,
-                        keyed: false,
-                    });
+                    file_name
                 }
             }
         } else if is_npc_spawns(&name) {
@@ -358,18 +335,7 @@ pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -
             let file_path = map_dir.join(&file_name);
             fs::write(&file_path, &text)?;
 
-            manifest.groups.push(MapGroupEntry {
-                group_id: gid,
-                name: name.clone(),
-                file_name,
-                compression: container.compression as u8,
-                version: container.version.unwrap_or(0),
-                compressed_len: container.compressed_len,
-                decompressed_len: container.uncompressed_len,
-                crc: container.crc(),
-                encrypted: false,
-                keyed: false,
-            });
+            file_name
         } else {
             // Terrain group (m_ or um_) — plaintext, decompress directly
             let decompressed = decompress(&raw)
@@ -383,68 +349,45 @@ pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -
             let file_path = map_dir.join(&file_name);
             fs::write(&file_path, &text)?;
 
-            manifest.groups.push(MapGroupEntry {
-                group_id: gid,
-                name: name.clone(),
-                file_name,
-                compression: container.compression as u8,
-                version: container.version.unwrap_or(0),
-                compressed_len: container.compressed_len,
-                decompressed_len: container.uncompressed_len,
-                crc: container.crc(),
-                encrypted: false,
-                keyed: false,
-            });
-        }
+            file_name
+        };
 
+        let mut group = json!({
+            "group_id": gid,
+            "name": name,
+            "file_name": file_name,
+            "compression": container.compression as u8,
+            "version": container.version.unwrap_or(0),
+            "compressed_len": container.compressed_len,
+            "decompressed_len": container.uncompressed_len,
+            "crc": container.crc(),
+        });
+        if is_landscape {
+            group["encrypted"] = true.into();
+            if is_keyed {
+                group["keyed"] = true.into();
+                keyed += 1;
+            } else {
+                unkeyed += 1;
+            }
+        } else {
+            terrain += 1;
+        }
+        groups.push(group);
         written += 1;
     }
 
+    let manifest = json!({ "archive_id": archive::MAPS, "groups": groups });
     let manifest_path = map_dir.join("manifest.json");
     let json = serde_json::to_string_pretty(&manifest)?;
     fs::write(&manifest_path, json)?;
 
     info!(
         "Maps unpacked: {} groups ({} landscape keyed, {} unkeyed, {} terrain)",
-        written,
-        manifest
-            .groups
-            .iter()
-            .filter(|g| g.encrypted && g.keyed)
-            .count(),
-        manifest
-            .groups
-            .iter()
-            .filter(|g| g.encrypted && !g.keyed)
-            .count(),
-        manifest.groups.iter().filter(|g| !g.encrypted).count(),
+        written, keyed, unkeyed, terrain,
     );
 
     Ok(written)
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[cfg(since_647)]
-pub struct MapManifest {
-    pub archive_id: u8,
-    pub groups: Vec<MapGroupEntry>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[cfg(since_647)]
-pub struct MapGroupEntry {
-    pub group_id: u32,
-    pub name: String,
-    pub file_name: String,
-    pub compression: u8,
-    pub version: u16,
-    pub compressed_len: u32,
-    pub decompressed_len: u32,
-    pub crc: u32,
-    #[serde(default, skip_serializing_if = "Not::not")]
-    pub encrypted: bool,
-    #[serde(default, skip_serializing_if = "Not::not")]
-    pub keyed: bool,
 }
 
 #[cfg(since_647)]

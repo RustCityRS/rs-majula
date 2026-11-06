@@ -23,7 +23,7 @@ use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::compression::{self, Container};
 #[cfg(since_647)]
-use serde::{Deserialize, Serialize};
+use serde_json::json;
 #[cfg(before_647)]
 use std::collections::HashMap;
 #[cfg(all(since_244, before_647))]
@@ -771,24 +771,6 @@ const CATEGORY_SUFFIXES: &[(&str, &str)] = &[
 ];
 
 #[cfg(since_647)]
-#[derive(Debug, Serialize, Deserialize)]
-pub struct ModelManifest {
-    pub archive_id: u8,
-    pub groups: Vec<ModelEntry>,
-}
-
-#[cfg(since_647)]
-#[derive(Debug, Serialize, Deserialize)]
-pub struct ModelEntry {
-    pub group_id: u32,
-    pub name: String,
-    pub category: String,
-    pub compression: u8,
-    pub version: u16,
-    pub decompressed_len: u32,
-}
-
-#[cfg(since_647)]
 fn categorize(name: &str) -> &'static str {
     for &(suffix, category) in CATEGORY_SUFFIXES {
         if name.ends_with(suffix) {
@@ -824,10 +806,7 @@ pub fn unpack_models(
         fs::create_dir_all(output_dir.join(cat))?;
     }
 
-    let mut manifest = ModelManifest {
-        archive_id: archive::MODELS,
-        groups: Vec::with_capacity(group_count as usize),
-    };
+    let mut groups = Vec::with_capacity(group_count as usize);
     let mut stats = UnpackModelStats::default();
 
     for gid in 0..group_count {
@@ -857,14 +836,14 @@ pub fn unpack_models(
         let file_path = output_dir.join(category).join(format!("{name}.ob2"));
         fs::write(&file_path, &decompressed)?;
 
-        manifest.groups.push(ModelEntry {
-            group_id: gid,
-            name: name.clone(),
-            category: category.to_string(),
-            compression: container.compression as u8,
-            version: container.version.unwrap_or(0),
-            decompressed_len: decompressed.len() as u32,
-        });
+        groups.push(json!({
+            "group_id": gid,
+            "name": name,
+            "category": category,
+            "compression": container.compression as u8,
+            "version": container.version.unwrap_or(0),
+            "decompressed_len": decompressed.len() as u32,
+        }));
 
         match category {
             "loc" => stats.loc += 1,
@@ -884,6 +863,7 @@ pub fn unpack_models(
         }
     }
 
+    let manifest = json!({ "archive_id": archive::MODELS, "groups": groups });
     let manifest_path = output_dir.join("manifest.json");
     let json = serde_json::to_string_pretty(&manifest).context("serialize manifest")?;
     fs::write(&manifest_path, json)?;

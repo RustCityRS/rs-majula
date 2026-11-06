@@ -13,7 +13,7 @@ use rustc_hash::FxHashMap;
 
 pub type NpcTypeProvider = TypeProvider<NpcType>;
 
-#[cfg_attr(since_647, derive(Debug, Clone, serde::Serialize))]
+#[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct NpcPatrol {
     pub coord: i32,
     pub delay: u8,
@@ -128,7 +128,7 @@ impl From<NpcTypeRaw> for NpcType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone, serde::Serialize))]
+#[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct NpcTypeRaw {
     pub id: u16,
     pub models: Option<Box<[u16]>>,
@@ -286,7 +286,6 @@ pub struct NpcTypeRaw {
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
     pub opcode_order: Vec<u8>,
-    #[cfg_attr(since_647, serde(skip))]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 

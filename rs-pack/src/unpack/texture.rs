@@ -16,7 +16,7 @@ use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::compression::Container;
 #[cfg(since_647)]
-use serde::{Deserialize, Serialize};
+use serde_json::json;
 #[cfg(since_647)]
 use std::collections::HashMap;
 use std::fs;
@@ -308,10 +308,7 @@ pub fn unpack_texture_text(store: &mut Js5Store, content_dir: &Path) -> Result<u
     let sprite_dir = content_dir.join("sprites").join("_unpack");
 
     let group_count = store.group_count(TEXTURE_ARCHIVE).unwrap_or(0);
-    let mut manifest = TextureManifest {
-        archive_id: TEXTURE_ARCHIVE,
-        groups: Vec::new(),
-    };
+    let mut groups = Vec::new();
     let mut written = 0u32;
     let mut sprite_pngs = 0u32;
 
@@ -359,18 +356,19 @@ pub fn unpack_texture_text(store: &mut Js5Store, content_dir: &Path) -> Result<u
             }
         }
 
-        manifest.groups.push(TextureGroupEntry {
-            group_id,
-            file_name,
-            compression: container.compression as u8,
-            version: container.version.unwrap_or(0),
-            compressed_len: container.compressed_len,
-            decompressed_len: container.uncompressed_len,
-            crc: container.crc(),
-        });
+        groups.push(json!({
+            "group_id": group_id,
+            "file_name": file_name,
+            "compression": container.compression as u8,
+            "version": container.version.unwrap_or(0),
+            "compressed_len": container.compressed_len,
+            "decompressed_len": container.uncompressed_len,
+            "crc": container.crc(),
+        }));
         written += 1;
     }
 
+    let manifest = json!({ "archive_id": TEXTURE_ARCHIVE, "groups": groups });
     let manifest_path = tex_dir.join("manifest.json");
     fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
 
@@ -544,25 +542,6 @@ fn load_materials(store: &mut Js5Store) -> Result<HashMap<u32, MaterialInfo>> {
     }
 
     Ok(materials)
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg(since_647)]
-pub struct TextureManifest {
-    pub archive_id: u8,
-    pub groups: Vec<TextureGroupEntry>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg(since_647)]
-pub struct TextureGroupEntry {
-    pub group_id: u32,
-    pub file_name: String,
-    pub compression: u8,
-    pub version: u16,
-    pub compressed_len: u32,
-    pub decompressed_len: u32,
-    pub crc: u32,
 }
 
 #[cfg(since_647)]

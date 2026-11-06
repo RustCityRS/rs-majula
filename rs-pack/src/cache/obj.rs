@@ -76,7 +76,7 @@ impl From<ObjTypeRaw> for ObjType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone, serde::Serialize))]
+#[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct ObjTypeRaw {
     pub id: u16,
     pub model: u16,
@@ -105,7 +105,6 @@ pub struct ObjTypeRaw {
     pub womanwear2: Option<u16>,
     pub wearpos3: Option<WearPos>,
     #[cfg(since_647)]
-    #[serde(skip)]
     pub wearid: Option<u16>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
@@ -177,7 +176,6 @@ pub struct ObjTypeRaw {
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
     pub opcode_order: Vec<u8>,
-    #[cfg_attr(since_647, serde(skip))]
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 

@@ -219,7 +219,6 @@ pub fn split_trailing_shape(name: &str) -> Option<(&str, u8)> {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum ForceApproach {
     None = 0,
     North = 0b1110,
@@ -251,7 +250,7 @@ impl ForceApproach {
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone)]
 pub enum ParamValue {
     Int(i32),
     String(Box<str>),
@@ -444,7 +443,7 @@ impl InvScope {
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive, serde::Serialize)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
 pub enum VarPlayerScope {
     Temp = 0,
     Perm = 1,
@@ -464,7 +463,6 @@ impl VarPlayerScope {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum MoveRestrict {
     Normal = 0,
     Blocked = 1,
@@ -493,7 +491,6 @@ impl MoveRestrict {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum BlockWalk {
     None = 0,
     All = 1,
@@ -513,7 +510,6 @@ impl BlockWalk {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum NpcMode {
     None = 0,
     Wander = 1,
@@ -792,7 +788,6 @@ impl HuntCheckAfk {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum WearPos {
     Hat = 0,
     Back = 1,
@@ -834,7 +829,6 @@ impl WearPos {
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
-#[cfg_attr(since_647, derive(serde::Serialize))]
 pub enum DummyItem {
     None = 0,
     GraphicOnly = 1,

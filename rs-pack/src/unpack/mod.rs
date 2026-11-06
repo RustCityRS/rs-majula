@@ -40,8 +40,6 @@ use rs_io::crc::getcrc;
 use rs_io::jag::{JagCompression, JagFile};
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
-use serde::Serialize;
 #[cfg(before_647)]
 use std::collections::{HashMap, HashSet};
 use std::fs;
@@ -91,30 +89,6 @@ pub mod texture;
 pub mod title;
 #[cfg(before_647)]
 pub mod wordenc;
-
-#[cfg(since_647)]
-#[derive(Serialize)]
-struct AssetManifest {
-    archive_id: u8,
-    archive_name: String,
-    file_extension: String,
-    groups: Vec<GroupEntry>,
-}
-
-#[cfg(since_647)]
-#[derive(Serialize)]
-struct GroupEntry {
-    group_id: u32,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    file_name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    file_extension: Option<String>,
-    compression: u8,
-    version: u16,
-    compressed_len: u32,
-    decompressed_len: u32,
-    crc: u32,
-}
 
 #[cfg(before_647)]
 const CONFIG_ENTRY_NAMES: &[&str] = &[
