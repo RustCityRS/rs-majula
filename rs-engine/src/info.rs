@@ -2496,6 +2496,52 @@ mod client_decode_tests {
         assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
     }
 
+    /// The 647 client reads an exact move's start and end as signed tile
+    /// offsets from the player's own tile (`Class244`, mask 0x4000: added to
+    /// `pathX[0]`/`pathZ[0]`, where the move has already put him), not as
+    /// world coordinates: 3079,9786 sent as a byte read back as an offset
+    /// of (7, 58) tiles, off the map, and the client's off-map reset dropped
+    /// the player's animation (the coffin cutscene's throw).
+    #[test]
+    fn an_exact_move_reads_back_relative_to_the_players_tile() {
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::ExactMove as u16;
+        info.exactmove_start_x = Some(3079);
+        info.exactmove_start_z = Some(9786);
+        info.exactmove_end_x = Some(3078);
+        info.exactmove_end_z = Some(9786);
+        info.exactmove_begin = Some(0);
+        info.exactmove_finish = Some(30);
+        info.exactmove_dir = Some(1);
+        renderer.compute_info(7, &info, CoordGrid::new(3078, 0, 9786));
+        let mut player_info = PlayerInfo::new();
+        player_info.highdefinition(&mut renderer, 7);
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        let mut mask = r.g1();
+        if mask & 0x20 != 0 {
+            mask += r.g1() << 8;
+        }
+        assert_eq!(mask & !0x20, 0x4000, "the exact move mask alone");
+        // g1b_alt2, g1b, g1b_alt1, g1b_alt2: the client's signed reads.
+        let start_x = (128 - r.byte()) as i8;
+        let start_z = r.byte() as i8;
+        let end_x = (-r.byte()) as i8;
+        let end_z = (128 - r.byte()) as i8;
+        assert_eq!(
+            (start_x, start_z),
+            (1, 0),
+            "starts a tile east of where he is"
+        );
+        assert_eq!((end_x, end_z), (0, 0), "ends where he is");
+        assert_eq!(r.g2_alt2(), 0, "begin");
+        assert_eq!(r.g2(), 30, "finish");
+        assert_eq!(r.g1_alt2(), 1, "direction");
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+    }
+
     #[test]
     fn a_new_observer_receives_the_players_persistent_facing() {
         let mut renderer = PlayerRenderer::new();

@@ -668,11 +668,17 @@ impl PlayerRenderer {
                     active |= 1 << PlayerInfoProt::TempMoveType.to_index();
                 }
                 if masks & PlayerInfoProt::ExactMove as u16 != 0 {
+                    // The client adds these to the player's own tile, where
+                    // the move has already put him (`Class244`, mask 0x4000):
+                    // tile offsets from `coord`, not world coordinates.
+                    let offset = |tile: Option<u16>, here: u16| {
+                        (i32::from(tile.unwrap_or(here)) - i32::from(here)) as i8
+                    };
                     self.fixed[PlayerInfoProt::ExactMove.to_index()][pid].set_exactmove(
-                        info.exactmove_start_x.unwrap_or(0) as i8,
-                        info.exactmove_start_z.unwrap_or(0) as i8,
-                        info.exactmove_end_x.unwrap_or(0) as i8,
-                        info.exactmove_end_z.unwrap_or(0) as i8,
+                        offset(info.exactmove_start_x, coord.x()),
+                        offset(info.exactmove_start_z, coord.z()),
+                        offset(info.exactmove_end_x, coord.x()),
+                        offset(info.exactmove_end_z, coord.z()),
                         info.exactmove_begin.unwrap_or(0),
                         info.exactmove_finish.unwrap_or(0),
                         info.exactmove_dir.unwrap_or(0),
