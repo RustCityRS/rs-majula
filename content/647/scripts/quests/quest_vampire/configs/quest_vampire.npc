@@ -9,6 +9,11 @@ param=stabdefence,2
 param=slashdefence,1
 param=crushdefence,3
 param=damagetype,^crush_style
+// 289 gives its Count no attack_anim, so he punched (the param's default,
+// human_unarmedpunch). He is a vampire: 289's own Mort Myre vampires
+// (area_mortmyre/configs/mortmyre.npc), with his sounds, and void-634's
+// vampyres (vampyre.combat.toml: vampyre_attack, 1264) claw.
+param=attack_anim,vamp_claw
 param=defend_anim,human_unarmedblock
 param=attack_sound,vampire_attack
 param=defend_sound,vampire_hit

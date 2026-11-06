@@ -433,3 +433,42 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
         );
     });
 }
+
+/// A 647 pack registry's id for `name` (`content/647/pack/<kind>.pack`).
+fn pack_id(kind: &str, name: &str) -> i32 {
+    let path = format!(
+        "{}/../../content/647/pack/{kind}.pack",
+        env!("CARGO_MANIFEST_DIR")
+    );
+    std::fs::read_to_string(&path)
+        .expect(&path)
+        .lines()
+        .find_map(|l| {
+            let (id, n) = l.split_once('=')?;
+            (n == name).then(|| id.parse().unwrap())
+        })
+        .unwrap_or_else(|| panic!("{kind}.pack names {name}"))
+}
+
+/// The Count claws, as 289's Mort Myre vampires and void-634's vampyres do
+/// (vamp_claw, 1264), and does not punch (the attack_anim param's default,
+/// which 289's Count fell back to).
+#[test]
+fn the_count_claws() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let count = npc_type(engine, "count_draynor");
+        let params = engine
+            .cache
+            .npcs
+            .get_by_id(count)
+            .and_then(|n| n.params.as_deref())
+            .expect("the Count has params");
+        let value = params.get(&pack_id("param", "attack_anim"));
+        assert!(
+            matches!(value, Some(rs_pack::ParamValue::Int(v)) if *v == 1264),
+            "attack_anim is {value:?}"
+        );
+        assert_eq!(pack_id("seq", "vamp_claw"), 1264);
+    });
+}
