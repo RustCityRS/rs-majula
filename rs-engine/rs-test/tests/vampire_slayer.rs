@@ -539,8 +539,8 @@ fn lookat(payload: &[u8]) -> (u16, u8, u8) {
 
 /// Opening the coffin plays 2011's cutscene, timed to the 2010-10-15
 /// recording (YouTube TLKwCRHHM6M), whose fades last 2011's default fade:
-/// the track unlocked at once, the player's push on the lid (seq 3335) at
-/// tick 6, the stake failing at tick 10, the camera's
+/// the track unlocked at once, the player's push on the lid at tick 6, the
+/// stake failing at tick 10 as he is thrown back a tile, the camera's
 /// three fitted moves, the coffin left open and empty as the Count rises on
 /// 3081,9777 at tick 21; he stays there, the player's camera comes back when
 /// the player goes to attack him, and the coffin closes once he has gone.
@@ -619,11 +619,22 @@ fn the_coffin_plays_2011s_cutscene() {
             10,
             "{said:?}"
         );
-        // The push of the 2010 and 2011 recordings, the rework's seq 3335:
-        // nothing else (the 289-era stake lunge, 929, is not it).
-        let push = pack_id("seq", "seq_3335").to_string();
+        // May 2011's player: the push on the lid (2991), thrown back (3108),
+        // lying (3109), up again as the Count turns (3110); frame set 2897's.
+        let seq = |n: &str| pack_id("seq", n).to_string();
         let played: Vec<_> = played.iter().map(|(t, s)| (t - open, s.clone())).collect();
-        assert_eq!(played, [(6, push)], "the player's seqs (tick, seq)");
+        assert_eq!(
+            played,
+            [
+                (6, seq("seq_2991")),
+                (10, seq("seq_3108")),
+                (12, seq("seq_3109")),
+                (25, seq("seq_3110"))
+            ],
+            "the player's seqs (tick, seq)"
+        );
+        let at = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!((at.x(), at.z()), (3078, 9786), "thrown a tile west");
         let moves: Vec<_> = moves.iter().map(|&(t, m)| (t - open, m)).collect();
         assert_eq!(
             moves,

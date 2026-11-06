@@ -31,21 +31,25 @@ while (npc_findnext = true) {
 // The coffin cutscene as three recordings show it: 2010-10-15 (YouTube
 // TLKwCRHHM6M, in real time: its fades last the 1.6s and 1.5s of 2011's
 // default fade, seqs 1377 and 1378), 2011-02-19 (zJQS-7HNjuE) and 2011-05-30
-// (soXccN_SXH4). In ticks from Open:
-//   0  the game view fades to black, and I'm Counting on You plays;
+// (soXccN_SXH4). The player's part is May 2011's: the Count throws him back
+// (the earlier two do not show it). His seqs are frame set 2897's, made with
+// the coffin's (seq ids beside 2990, 3111-3112 and 3328). In ticks from Open:
+//   0  the game view fades to black, and I'm Counting on You plays; in the
+//      dark the player is set beside the coffin, at 3079,9786;
 //   3  it fades in on a camera south-west of the dais;
-//   6  the player puts his weapon away, sets both hands on the lid and
-//      leans into it (seq 3335, frame set 3039, beside the Count's 3036 in
-//      cache 786), and stands again; the lid slides off (seq 3112), off by
-//      282.6s in the 2010 recording, 1.65s into the push;
-//  10  the stake fails, the player upright again (no stab is seen);
+//   6  the player puts his weapon away and pushes the lid off (seq 2991,
+//      2.4s, leaning in over the Count as it goes), the lid sliding (seq
+//      3112) with him;
+//  10  the stake fails, and he is thrown back (seq 3108) a tile west, onto
+//      the floor by the candelabra (May 2011, 22.5s-23.0s);
+//  12  he lies there (seq 3109) while the Count rises;
 //  13  the Count sits up, stands and raises his arms (seq 3322), and the
 //      camera lifts and draws back a little;
 //  16  the camera pulls back to the floor below the dais;
 //  21  the coffin lies open and empty, and the Count rises from the floor
 //      (seq 3328) on 3081,9777, facing the camera;
-//  25  he turns to the player, and stands (he does not come: the
-//      recordings' players attack him 3-8 seconds later, where he rose).
+//  25  he turns to the player, and the player gets up (seq 3110; May 2011,
+//      29s-30s, then walks to him); the Count stands where he rose.
 // The camera holds until the player engages him (count_draynor.rs2). Its
 // tiles, heights and speeds are fitted to the recordings' frames in the 647
 // client; the times are the 2010 recording's. The look's constant speed of 1
@@ -54,18 +58,25 @@ while (npc_findnext = true) {
 [proc,quest_vampire_coffin_cutscene]
 if_openoverlay(fade_to_black);
 ~music_unlock_play(music_Im_Counting_On_You);
-p_delay(2);
+p_delay(1);
+p_telejump(0_48_152_7_58);
+facesquare(0_48_152_9_58);
+p_delay(0);
 cam_moveto(0_48_152_6_49, 750, 0, 100);
 cam_lookat(0_48_152_8_54, 300, 0, 100);
 if_openoverlay(fv1144926);
 p_delay(2);
-anim(seq_3335, 0);
+anim(seq_2991, 0);
 if (loc_find(0_48_152_8_57, coffin) = true) {
     loc_anim(seq_3112);
 }
 p_delay(3);
 mes("You stab the vampire with the stake, but it does not go deep enough.");
-p_delay(2);
+anim(seq_3108, 0);
+p_exactmove(0_48_152_7_58, 0_48_152_6_58, 0, 30, ^exact_east);
+p_delay(1);
+anim(seq_3109, 0);
+p_delay(0);
 if (loc_find(0_48_152_8_57, coffin) = true) {
     loc_anim(seq_3322);
 }
@@ -85,6 +96,7 @@ npc_sethuntmode(aggressive_melee_extra);
 npc_sethunt(5);
 p_delay(3);
 npc_facesquare(coord);
+anim(seq_3110, 0);
 
 // The coffin lies open and empty while its Count is out, and closes once he
 // has gone, staked or got away: a player he got away from opens it for
