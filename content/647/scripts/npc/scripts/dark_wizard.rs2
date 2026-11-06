@@ -21,7 +21,7 @@ if (~npc_check_notcombat_self = false) {
 
 npc_setmode(applayer2);
 
-if (busy = true & %demonstart = 29)  { // in osrs dark wizards wont attack if player is busy and ready to fight delrith
+if (busy = true & %demon_slayer = ^demon_key_hunt & %demon_slayer_silverlight = ^true)  { // in osrs dark wizards wont attack if player is busy and ready to fight delrith
     // dark wizards will still try to hunt you
     return;
 }
@@ -46,7 +46,7 @@ if (~npc_check_notcombat_self = false) {
     return;
 }
 
-if (busy = true & %demonstart = 29)  {
+if (busy = true & %demon_slayer = ^demon_key_hunt & %demon_slayer_silverlight = ^true)  {
     return;
 }
 

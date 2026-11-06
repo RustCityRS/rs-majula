@@ -396,6 +396,34 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
+            // A 2011 multi-npc (npc_9359, Sir Prysin) has no name of its own:
+            // it is named as the type the active player's var shows, as the
+            // client names it.
+            #[cfg(since_647)]
+            let npc_type = match (npc_type.multinpc.is_some(), get_active_player::<E>(s, false)) {
+                (true, Ok(player)) => {
+                    use crate::engine::ScriptPlayer as _;
+                    let value = match npc_type.multivar {
+                        Some(rs_pack::types::MultiVar::Varbit(id)) => engine::<E>()
+                            .varbits()
+                            .get_by_id(id)
+                            .map(|v| {
+                                let start = v.start_bit as u32;
+                                let width = v.end_bit as u32 - start + 1;
+                                let mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
+                                ((player.get_var(v.basevar).as_int() as u32 >> start) & mask) as i32
+                            })
+                            .unwrap_or(-1),
+                        Some(rs_pack::types::MultiVar::Varp(id)) => player.get_var(id).as_int(),
+                        None => -1,
+                    };
+                    npc_type
+                        .multi_npc(value)
+                        .and_then(|id| engine::<E>().npcs().get_by_id(id))
+                        .unwrap_or(npc_type)
+                }
+                _ => npc_type,
+            };
             s.push_string(npc_type.name.as_deref().unwrap_or(npc_type.debugname().unwrap_or("null")));
         });
 

@@ -115,7 +115,7 @@ if (%sheep = ^sheep_complete) {
 if (%fluffs = ^fluffs_complete) {
     $questpoints = add($questpoints, ^fluffs_questpoints); 
 }
-if (%demonstart = ^demon_complete) {
+if (%demon_slayer = ^demon_complete) {
     $questpoints = add($questpoints, ^demon_questpoints); 
 }
 if (%princequest = ^prince_complete) {

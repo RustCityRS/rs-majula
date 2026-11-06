@@ -169,7 +169,7 @@ if(npc_type = fire_warrior_of_lesarkus & (inv_total(worn, ice_arrows) = 0 | %dam
 }
 
 if (npc_type = delrith) {
-    if (%demonstart >= ^demon_complete) {
+    if (%demon_slayer = ^demon_complete) {
         mes("You've already done that quest.");
         return(false);
     }
@@ -277,7 +277,7 @@ if (%vampire = ^vampire_complete & npc_type = count_draynor) {
     return(false);
 }
 if (npc_type = delrith) {
-    if (%demonstart >= ^demon_complete) {
+    if (%demon_slayer = ^demon_complete) {
         mes("You've already done that quest.");
         return(false);
     }
