@@ -1,0 +1,13 @@
+// 289's vampire, on its id, 178. Cache 786 reads its bits 0-1 as the quest's
+// stage (varbit 6914; clientscript 2193 completes it at 3), so 289's stages
+// 0-3 hold as they were, and the client must see it.
+[vampire]
+scope=perm
+transmit=yes
+
+// 2011: the Count staked, Morgan not yet told (2011 wiki, Vampire Slayer:
+// "The quest used to end when you killed Count Draynor, but now, you must
+// speak to Morgan to finish it completely."). Server-only: which of varp
+// 178's other bits 2011 used for it, if any, is unknown.
+[vampire_count_slain]
+scope=perm

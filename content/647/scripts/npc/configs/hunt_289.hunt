@@ -24,6 +24,18 @@ check_notbusy=off
 find_keephunting=off
 find_newmode=opplayer2
 
+// 289's, for its Count Draynor (quest_vampire): aggressive_melee without
+// the line-of-sight check.
+[aggressive_melee_extra]
+type=player
+check_vis=off
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=opplayer2
+
 [aggressive_ranged]
 type=player
 check_vis=lineofsight

@@ -1,0 +1,60 @@
+// 289's journal (quests/quest_vampire/scripts/vampire_journal.rs2). 2011's
+// facts change three things, each marked: Dr Harlow is at the Blue Moon Inn,
+// the Count is level 37 (cache 786; 2011 wiki), and the hammer is the stake
+// hammer Harlow gives, not a general store's.
+//
+// https://github.com/Indio3/quest-journals/blob/master/quest_vampire/VS--YouTube-2007RunescapeQuestGuideVampireSlayer-000.jpg
+// https://github.com/Indio3/quest-journals/blob/master/quest_vampire/VS--YouTube-2007RunescapeQuestGuideVampireSlayer-059.jpg
+// https://www.youtube.com/watch?v=TsTiP9vEBl8
+[label,questlist_vampire]
+def_string $text;
+if (%vampire = ^quest_vampire_not_started) {
+    $text = "@dbl@I can start this quest by speaking to @dre@Morgan@dbl@ who is in @dre@Draynor Village.||";
+    // 289: "a level 34".
+    $text = append($text, "@dbl@Requirements:|Must be able to kill a level 37 @dre@Vampire@dbl@.");
+} else if (%vampire = ^quest_vampire_started) {
+    $text = "@str@I spoke to Morgan in Draynor Village. He told me that the|@str@locals are being attacked by a terrifying Vampire!||";
+    // 289: "the Jolly Boar Inn North East of Varrock".
+    $text = append($text, "@dbl@I need to speak to @dre@Dr Harlow@dbl@ who can normally be found in the @dre@Blue Moon Inn@dbl@ in @dre@Varrock@dbl@.");
+} else if (%vampire = ^quest_vampire_spoke_to_harlow & %vampire_count_slain = ^false) {
+    $text = "@str@I spoke to Morgan in Draynor Village. He told me that the|@str@locals are being attacked by a terrifying Vampire!||";
+    $text = append($text, "@str@I have spoken to Dr Harlow. He seemed terribly drunk, and|@str@he kept asking me to buy him drinks.||");
+    if (inv_total(inv, stake) < 1) {
+        $text = append($text, "@dbl@I should see what advice @dre@Dr Harlow@dbl@ can give me about killing @dre@Vampires@dbl@.|");
+    } else {
+        // 289 asks after a hammer, "from any general store": 2011's is the
+        // stake hammer, which Dr Harlow gives.
+        def_boolean $garlic = false;
+        def_boolean $hammer = false;
+        if (inv_total(inv, garlic) > 0) {
+            $garlic = true;
+        }
+        if (inv_total(inv, stake_hammer) > 0) {
+            $hammer = true;
+        }
+        if ($garlic = true & $hammer = false) {
+            $text = append($text, "@str@Dr Harlow gave me a stake to finish off the Vampire when|@str@I'm fighting it, and I have some garlic which should weaken|@str@the Vampire.||");
+            $text = append($text, "@dbl@I'll need a hammer to drive the stake deeply into the @dre@Vampire's@dbl@ chest.|");
+        } else if ($garlic = false & $hammer = false) {
+            $text = append($text, "@str@Dr Harlow gave me a stake to finish off the Vampire when|@str@I'm fighting it.||");
+            $text = append($text, "@dbl@Dr Harlow said I should get some @dre@garlic@dbl@ to weaken the @dre@Vampire@dbl@. He thought I might find some @dre@garlic@dbl@ somewhere in @dre@Morgan's@dbl@ house.|");
+            $text = append($text, "@dbl@I'll also need a @dre@hammer@dbl@ to drive the stake deeply into the @dre@Vampire's@dbl@ chest.|");
+        } else if ($garlic = true & $hammer = true) {
+            $text = append($text, "@str@Dr Harlow gave me a stake to finish off the Vampire when|@str@I'm fighting it. I've got a hammer to drive the stake deep|");
+            $text = append($text, "@str@into the Vampire's chest, and I have some garlic which|@str@should weaken the Vampire.|");
+        } else {
+            $text = append($text, "@str@Dr Harlow gave me a stake to finish off the Vampire when|@str@I'm fighting it. I've got a hammer to drive the stake deep|@str@into the Vampire's chest.||");
+            $text = append($text, "@dbl@Dr Harlow said I should get some @dre@garlic@dbl@ to weaken the @dre@Vampire@dbl@. He thought I might find some @dre@garlic@dbl@ somewhere in @dre@Morgan's@dbl@ house.|");
+        }
+    }
+    $text = append($text, "@dbl@When I'm ready, I should go to @dre@Draynor Manor@dbl@, north of Draynor to kill the @dre@Vampire@dbl@ that's living in the basement.");
+} else {
+    $text = "@str@I spoke to Morgan in Draynor Village. He told me that|@str@the locals are being attacked by a terrifying vampire!||";
+    $text = append($text, "@str@I have spoken to Dr Harlow. He seemed terribly drunk, and|@str@he kept asking me to buy him drinks.||");
+    $text = append($text, "@str@I have killed the Vampire, Count Draynor. Draynor|@str@Village is now safe!|");
+    // The Count staked, Morgan not yet told: 289's lines without its end.
+    if (%vampire = ^vampire_complete) {
+        $text = append($text, "@red@QUEST COMPLETE!");
+    }
+}
+~quest_journal("Vampire Slayer", $text);

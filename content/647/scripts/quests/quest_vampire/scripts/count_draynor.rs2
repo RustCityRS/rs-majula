@@ -1,0 +1,98 @@
+// 289's Count Draynor (quests/quest_vampire/scripts/count_draynor.rs2) as
+// 2011's: npc 9356, who rises from the coffin. Beaten, he is staked with a
+// stake and the stake hammer (2011 wiki, Stake hammer: "A long time ago, a
+// normal hammer could be used with the stake, but instead a stake hammer is
+// now specifically used"), and the quest waits for Morgan. Without garlic,
+// each of the player's hits of 0 heals him 10 life points (2011 wiki, Vampire
+// Slayer).
+[ai_queue4,count_draynor] gosub(npc_death);
+
+// https://youtu.be/67aR5-_INcU
+// - seems to be called on npc damage, and on npc hit
+// - two calls from 66 hits
+[proc,count_draynor_garlic]
+if (inv_total(inv, garlic) > 0) {
+    if (npc_stat(hitpoints) = npc_basestat(hitpoints)) { // osrs https://archive.is/djWKq
+        npc_statsub(hitpoints, 100, 0);
+        npc_statsub(attack, 10, 0);
+        npc_statsub(strength, 10, 0);
+        npc_statsub(defence, 40, 0);
+        mes("The vampire seems to weaken.");
+    } else if (random(64) = 0) {
+        mes("The vampire seems to weaken.");
+    }
+}
+
+[ai_opplayer2,count_draynor]
+if (%death = ^true) {
+    npc_setmode(null);
+    return;
+}
+if (%npc_action_delay > map_clock) {
+    return;
+}
+if (~npc_check_notcombat = false) {
+    npc_setmode(null);
+    return;
+}
+if (~npc_check_notcombat_self = false) {
+    return;
+}
+anim(%com_defendanim, 0);
+npc_anim(npc_param(attack_anim), 0);
+if (npc_param(attack_sound) ! null) {
+    sound_synth(npc_param(attack_sound), 1, 0);
+}
+~count_draynor_garlic;
+~npc_meleeattack;
+
+[ai_queue2,count_draynor]
+if (finduid(%npc_aggressive_player) = true) {
+    ~count_draynor_garlic;
+    if (last_int = 0 & inv_total(inv, garlic) = 0) {
+        npc_statheal(hitpoints, 10, 0);
+    }
+}
+~npc_default_damage(last_int);
+
+[ai_queue3,count_draynor]
+if (npc_findhero = ^true) {
+    if (p_finduid(uid) = true) {
+        @count_draynor_use_stake;
+    }
+}
+npc_statheal(hitpoints, 10, 0);
+
+[label,count_draynor_use_stake]
+if (inv_total(inv, stake) = 0) {
+    mes("The vampire seems to regenerate!");
+    npc_statheal(hitpoints, 0, 100);
+    npc_setmode(opplayer2);
+    return;
+}
+if (inv_total(inv, stake_hammer) = 0) {
+    mes("You're unable to push the stake far enough in!");
+    mes("The vampire seems to regenerate!");
+    npc_statheal(hitpoints, 0, 100);
+    npc_setmode(opplayer2);
+    return;
+}
+p_delay(1);
+mes("You hammer the stake into the vampire's chest!");
+inv_del(inv, stake, 1);
+anim(human_stake2, 0); // 289's human_stake (806) is not in cache 786; 929 is its only stake
+npc_setmode(none);
+npc_walk(npc_coord);
+npc_queue(4, 0, 0);
+if (%vampire < ^vampire_complete) {
+    %vampire_count_slain = ^true;
+}
+
+[ai_timer,count_draynor]
+if (finduid(%npc_attacking_uid) = true) {
+    if (npc_range(coord) > 10 | coordy(coord) ! coordy(npc_coord)) {
+        npc_del;
+    }
+} else {
+    npc_del;
+}
