@@ -8,7 +8,8 @@
 //! quest content ports unchanged and the client's quest list follows it.
 //!
 //! `quest_varps_647.tsv` lists each such varp. This decompiles the client's
-//! own table from the reference cache (`expected/`) and fails if a listed
+//! own table from 786's clientscript 2193, unpacked into the repo
+//! (`content/647/clientscript/_unpack/2193.bin`), and fails if a listed
 //! varp is not there with that value, or if 647's registry does not give the
 //! name that id.
 //!
@@ -18,7 +19,6 @@
 
 #![cfg(since_647)]
 
-use rs_io::js5::Js5Store;
 use rs_pack::cs2::decompile;
 use std::collections::BTreeMap;
 use std::fs;
@@ -26,13 +26,11 @@ use std::path::Path;
 
 /// varp id -> the completion values the client's quest table gives it.
 fn client_quest_table(root: &Path) -> BTreeMap<u32, Vec<i32>> {
-    let mut store =
-        Js5Store::open(root.join("expected")).expect("the reference cache in expected/");
-    let group = store
-        .read_group(12, 2193)
-        .expect("read clientscript 2193")
-        .expect("clientscript 2193 exists");
-    let source = decompile(group.entries[0].data(), 2193).expect("decompile 2193");
+    // 786's own script, as the repo carries it unpacked: CI has no
+    // reference cache in expected/ since the unpacked cache is in git.
+    let script = fs::read(root.join("content/647/clientscript/_unpack/2193.bin"))
+        .expect("clientscript 2193 in content/647/clientscript/_unpack");
+    let source = decompile(&script, 2193).expect("decompile 2193");
 
     // Each case is `~script_2157(%varp63, 6)`, or -- decompiled without
     // the callee's signature, as here -- `~script_2157;` followed by
