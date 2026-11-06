@@ -1,4 +1,11 @@
-[opnpc1,jailguard]
+[opnpc1,jailguard] @jailguard_talk;
+// 2011's other Draynor jail guards: void-634's draynor_jail_guard_short,
+// _long and _bald (447-449), clones of its _blonde, 289's jailguard (917).
+[opnpc1,jail_guard] @jailguard_talk;
+[opnpc1,jail_guard_448] @jailguard_talk;
+[opnpc1,jail_guard_449] @jailguard_talk;
+
+[label,jailguard_talk]
 ~chatplayer("<p,quiz>Hi, who are you guarding here?");
 ~chatnpc("<p,shifty>Can't say, all very secret. You should get out of here. I am not supposed to talk while I guard.");
 @multi2("Hey, chill out, I won't cause you trouble.", jailguard_chill, "I had better leave, I don't want trouble.", joe_leave);

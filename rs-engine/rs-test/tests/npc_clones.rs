@@ -48,10 +48,6 @@ const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     // Two penguins dressed as a sheep: they get away when sheared
     // (shear_sheep.rs2), but do not baa.
     ("sheep_3579", "ai_timer", "waits for the Cold War port"),
-    // The black sheep shear to black wool in 2011's Sheep Shearer.
-    ("sheep_8876", "opnpc1", "waits for 2011's Sheep Shearer"),
-    ("sheep_8876", "opnpcu", "waits for 2011's Sheep Shearer"),
-    ("sheep_8877", "opnpcu", "waits for 2011's Sheep Shearer"),
     // Shorn sheep have no Shear op (their use is the shorn sheep's).
     ("sheep_1762", "opnpc1", "shorn: no Shear op"),
     ("sheep_1764", "opnpc1", "shorn: no Shear op"),
