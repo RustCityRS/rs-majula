@@ -1,0 +1,39 @@
+[clientscript,script_661](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, string $str0, string $str1)
+if (cc_find($int0, 0) = 1) {
+    switch ($int5) {
+        case 18027:
+            $int5 = ~script_3357;
+            $str0 = ~script_3357;
+            $int4 = ~script_3357;
+        case 18037:
+            $int5 = ~script_3358;
+            $str0 = ~script_3358;
+            $int4 = ~script_3358;
+        case 18047:
+            $int5 = ~script_3359;
+            $str0 = ~script_3359;
+            $int4 = ~script_3359;
+        case 18057:
+            $int5 = ~script_3360;
+            $str0 = ~script_3360;
+            $int4 = ~script_3360;
+        case 18067:
+            $int5 = ~script_3361;
+            $str0 = ~script_3361;
+            $int4 = ~script_3361;
+        case 18077:
+            $int5 = ~script_3362;
+            $str0 = ~script_3362;
+            $int4 = ~script_3362;
+        case 12461:
+            $int5 = ~script_775;
+            $str0 = ~script_775;
+            $int4 = ~script_775;
+        default:
+    }
+    $str0 = append($str0, " (" + tostring(%varbit4288) + " Special Move points)");
+    ~script_664(43384906, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12);
+    cc_setonmouserepeat;
+    cc_setonmouseleave;
+}
+return;

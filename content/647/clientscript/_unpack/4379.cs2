@@ -1,0 +1,98 @@
+; id: 4379
+int_param_count=5
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: if_gettext 0
+    2: pop_varc_string_old 345
+    3: push_int_local 3
+    4: switch 0
+    5: branch 26
+    6: gosub_with_params 4382
+    7: branch 35
+    8: op5102 0
+    9: branch_if_false 1
+   10: branch 1
+   11: return 0
+   12: push_int_local 3
+   13: push_varc_int 1496
+   14: push_varc_string_old 345
+   15: gosub_with_params 1553
+   16: pop_int_discard 0
+   17: branch 25
+   18: push_varc_string_old 345
+   19: string_length 0
+   20: push_constant_int 0
+   21: branch_greater_than 1
+   22: branch 8
+   23: push_varc_string_old 345
+   24: push_constant_int 0
+   25: push_varc_string_old 345
+   26: string_length 0
+   27: push_constant_int 1
+   28: sub 0
+   29: op4118 0
+   30: pop_varc_string_old 345
+   31: branch 11
+   32: push_varc_string_old 345
+   33: string_length 0
+   34: push_constant_int 80
+   35: branch_less_than 1
+   36: branch 6
+   37: push_varc_string_old 345
+   38: push_constant_int 0
+   39: push_int_local 3
+   40: push_int_local 2
+   41: gosub_with_params 74
+   42: pop_varc_string_old 345
+   43: push_varc_int 1496
+   44: push_varc_string_old 345
+   45: push_constant_int 5631
+   46: push_int_local 0
+   47: push_constant_int -1
+   48: gosub_with_params 1552
+   49: pop_varc_int 1496
+   50: push_varc_int 1496
+   51: push_int_local 4
+   52: if_gety 0
+   53: push_constant_int 0
+   54: push_constant_int 0
+   55: push_int_local 4
+   56: if_setposition 0
+   57: push_varc_string_old 345
+   58: string_length 0
+   59: tostring 0
+   60: push_constant_string "/80"
+   61: join_string 2
+   62: push_int_local 1
+   63: if_settext 0
+   64: push_varc_string_old 345
+   65: string_length 0
+   66: push_constant_int 70
+   67: branch_greater_than_or_equals 1
+   68: branch 4
+   69: push_constant_int 14483456
+   70: push_int_local 1
+   71: if_setcolour 0
+   72: branch 3
+   73: push_constant_int 2039065
+   74: push_int_local 1
+   75: if_setcolour 0
+   76: push_varc_string_old 345
+   77: push_int_local 0
+   78: if_settext 0
+   79: return 0
+
+switch_0:
+  84 => 1
+  96 => 3
+  97 => 3
+  98 => 3
+  99 => 3
+  102 => 3
+  103 => 3
+  85 => 13

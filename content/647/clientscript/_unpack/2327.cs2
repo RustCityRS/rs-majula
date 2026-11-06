@@ -1,0 +1,22 @@
+; id: 2327
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_constant_int 100
+    2: push_int_local 0
+    3: add 0
+    4: branch_greater_than_or_equals 1
+    5: branch 7
+    6: push_constant_int -1
+    7: push_constant_string ""
+    8: push_constant_int 20054041
+    9: op2408 0
+   10: push_constant_int 1
+   11: push_constant_int 20054041
+   12: if_sethide 0
+   13: return 0

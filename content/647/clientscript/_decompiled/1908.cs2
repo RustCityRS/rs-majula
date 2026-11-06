@@ -1,0 +1,174 @@
+[clientscript,script_1908](int, int, component, int, int, component, string, string)
+def_int $int0 = 12;
+def_string $str0 = "";
+if_setsize(calc(%varc_int564 * 100 / $int0 * 16384 / 100), 0, 2, 52822154);
+if_setsize(calc(%varc_int565 * 100 / $int0 * 16384 / 100), 0, 2, 52822155);
+if_setsize(calc(%varc_int566 * 100 / $int0 * 16384 / 100), 0, 2, 52822156);
+if_setsize(calc(%varc_int567 * 100 / $int0 * 16384 / 100), 0, 2, 52822160);
+if_setsize(calc(%varc_int568 * 100 / $int0 * 16384 / 100), 0, 2, 52822164);
+if_setsize(calc(%varc_int569 * 100 / $int0 * 16384 / 100), 0, 2, 52822098);
+if_setsize(calc(%varc_int570 * 100 / $int0 * 16384 / 100), 0, 2, 52822102);
+if_setsize(calc(%varc_int571 * 100 / $int0 * 16384 / 100), 0, 2, 52822106);
+if_setsize(calc(%varc_int572 * 100 / $int0 * 16384 / 100), 0, 2, 52822110);
+if_setsize(calc(%varc_int573 * 100 / $int0 * 16384 / 100), 0, 2, 52822077);
+if_setsize(calc(%varc_int574 * 100 / $int0 * 16384 / 100), 0, 2, 52822081);
+if_setsize(calc(%varc_int575 * 100 / $int0 * 16384 / 100), 0, 2, 52822085);
+if_setsize(calc(%varc_int576 * 100 / $int0 * 16384 / 100), 0, 2, 52822089);
+if_setsize(calc(%varc_int577 * 100 / $int0 * 16384 / 100), 0, 2, 52822119);
+if_setsize(calc(%varc_int578 * 100 / $int0 * 16384 / 100), 0, 2, 52822123);
+if_setsize(calc(%varc_int579 * 100 / $int0 * 16384 / 100), 0, 2, 52822127);
+if_setsize(calc(%varc_int580 * 100 / $int0 * 16384 / 100), 0, 2, 52822131);
+if (%varc_int564 = 0) {
+    $str0 = "There are no class 1 clay locations in the area.";
+} else {
+    if (%varc_int564 = 1) {
+        $str0 = "There is 1 class 1 clay location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int564) + " class 1 clay locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int565 = 0) {
+    $str0 = "There are no class 2 fishing locations in the area.";
+} else {
+    if (%varc_int565 = 1) {
+        $str0 = "There is 1 class 2 fishing location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int565) + " class 2 fishing locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int566 = 0) {
+    $str0 = "There are no class 3 fishing locations in the area.";
+} else {
+    if (%varc_int566 = 1) {
+        $str0 = "There is 1 class 3 fishing location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int566) + " class 3 fishing locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int567 = 0) {
+    $str0 = "There are no class 4 fishing locations in the area.";
+} else {
+    if (%varc_int567 = 1) {
+        $str0 = "There is 1 class 4 fishing location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int567) + " class 4 fishing locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int568 = 0) {
+    $str0 = "There are no class 5 fishing locations in the area.";
+} else {
+    if (%varc_int568 = 1) {
+        $str0 = "There is 1 class 5 fishing location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int568) + " class 5 fishing locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int569 = 0) {
+    $str0 = "There are no class 2 mining locations in the area.";
+} else {
+    if (%varc_int569 = 1) {
+        $str0 = "There is 1 class 2 mining location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int569) + " class 2 mining locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int570 = 0) {
+    $str0 = "There are no class 3 mining locations in the area.";
+} else {
+    if (%varc_int570 = 1) {
+        $str0 = "There is 1 class 3 mining location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int570) + " class 3 mining locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int571 = 0) {
+    $str0 = "There are no class 4 mining locations in the area.";
+} else {
+    if (%varc_int571 = 1) {
+        $str0 = "There is 1 class 4 mining location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int571) + " class 4 mining locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int572 = 0) {
+    $str0 = "There are no class 5 mining locations in the area.";
+} else {
+    if (%varc_int572 = 1) {
+        $str0 = "There is 1 class 5 mining location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int572) + " class 5 mining locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int573 = 0) {
+    $str0 = "There are no class 2 woodcutting locations in the area.";
+} else {
+    if (%varc_int573 = 1) {
+        $str0 = "There is 1 class 2 woodcutting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int573) + " class 2 woodcutting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int574 = 0) {
+    $str0 = "There are no class 3 woodcutting locations in the area.";
+} else {
+    if (%varc_int574 = 1) {
+        $str0 = "There is 1 class 3 woodcutting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int574) + " class 3 woodcutting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int575 = 0) {
+    $str0 = "There are no class 4 woodcutting locations in the area.";
+} else {
+    if (%varc_int575 = 1) {
+        $str0 = "There is 1 class 4 woodcutting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int575) + " class 4 woodcutting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int576 = 0) {
+    $str0 = "There are no class 5 woodcutting locations in the area.";
+} else {
+    if (%varc_int576 = 1) {
+        $str0 = "There is 1 class 5 woodcutting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int576) + " class 5 woodcutting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int577 = 0) {
+    $str0 = "There are no class 2 hunting locations in the area.";
+} else {
+    if (%varc_int577 = 1) {
+        $str0 = "There is 1 class 2 hunting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int577) + " class 2 hunting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int578 = 0) {
+    $str0 = "There are no class 3 hunting locations in the area.";
+} else {
+    if (%varc_int578 = 1) {
+        $str0 = "There is 1 class 3 hunting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int578) + " class 3 hunting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int579 = 0) {
+    $str0 = "There are no class 4 hunting locations in the area.";
+} else {
+    if (%varc_int579 = 1) {
+        $str0 = "There is 1 class 4 hunting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int579) + " class 4 hunting locations in the area.";
+}
+if_setonmouserepeat;
+if (%varc_int580 = 0) {
+    $str0 = "There are no class 5 hunting locations in the area.";
+} else {
+    if (%varc_int580 = 1) {
+        $str0 = "There is 1 class 5 hunting location in the area.";
+    }
+    $str0 = "There are " + tostring(%varc_int580) + " class 5 hunting locations in the area.";
+}
+if_setonmouserepeat;
+return(38, -2147483645, 52822065, 25, 100, 52822131, $str0, "IIsii");

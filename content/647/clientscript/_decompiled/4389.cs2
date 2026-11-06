@@ -1,0 +1,4 @@
+[clientscript,script_4389](int $int0, int $int1)(int, int)
+if_setcolour($int0);
+if_setcolour($int1);
+return(hsv_to_rgb(%varp2096), hsv_to_rgb(%varp2097));

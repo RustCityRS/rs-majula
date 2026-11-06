@@ -1,0 +1,25 @@
+[clientscript,script_2817](int, int, component, int, int, string, string)
+cam_allocpath(0, 8);
+cam_allocpath(1, 8);
+cam_addwaypoint(0, 0, ~script_2808(%varc_int1065, 73750262, 73701111), 378, ~script_2808(%varc_int1065, 73750262, 73717495), 378, 0);
+cam_addwaypoint(1, 0, ~script_2808(%varc_int1065, 73750262, 73750263), 325, ~script_2808(%varc_int1065, 73750262, 73766647), 295, 0);
+cam_addwaypoint(0, 1, ~script_2808(%varc_int1065, 73750262, 73733879), 378, ~script_2808(%varc_int1065, 73750262, 73750263), 378, 0);
+cam_addwaypoint(1, 1, ~script_2808(%varc_int1065, 73750262, 73783031), 330, ~script_2808(%varc_int1065, 73750262, 73799415), 335, 0);
+cam_addwaypoint(0, 2, ~script_2808(%varc_int1065, 73750262, 73766647), 378, ~script_2808(%varc_int1065, 73750262, 73783031), 378, 0);
+cam_addwaypoint(1, 2, ~script_2808(%varc_int1065, 73750262, 73815799), 330, ~script_2808(%varc_int1065, 73750262, 73832183), 350, 0);
+cam_addwaypoint(0, 3, ~script_2808(%varc_int1065, 73750262, 73799415), 378, ~script_2808(%varc_int1065, 73750262, 73815799), 378, 0);
+cam_addwaypoint(1, 3, ~script_2808(%varc_int1065, 73750262, 73848567), 325, ~script_2808(%varc_int1065, 73750262, 73864951), 305, 0);
+cam_addwaypoint(0, 4, ~script_2808(%varc_int1065, 73750262, 73832183), 378, ~script_2808(%varc_int1065, 73750262, 73848567), 378, 0);
+cam_addwaypoint(1, 4, ~script_2808(%varc_int1065, 73750262, 73881335), 340, ~script_2808(%varc_int1065, 73750262, 73897719), 325, 0);
+cam_addwaypoint(0, 5, ~script_2808(%varc_int1065, 73750262, 73864950), 378, ~script_2808(%varc_int1065, 73750262, 73881333), 378, 0);
+cam_addwaypoint(1, 5, ~script_2808(%varc_int1065, 73750262, 73914103), 330, ~script_2808(%varc_int1065, 73750262, 73930487), 340, 0);
+cam_addwaypoint(0, 6, ~script_2808(%varc_int1065, 73750262, 73897717), 378, ~script_2808(%varc_int1065, 73750262, 73914101), 378, 0);
+cam_addwaypoint(1, 6, ~script_2808(%varc_int1065, 73750262, 73946871), 346, ~script_2808(%varc_int1065, 73750262, 73963255), 346, 0);
+cam_addwaypoint(0, 7, ~script_2808(%varc_int1065, 73750262, 73930485), 378, ~script_2808(%varc_int1065, 73750262, 73946869), 378, 0);
+cam_addwaypoint(1, 7, ~script_2808(%varc_int1065, 73750262, 73979639), 345, ~script_2808(%varc_int1065, 73750262, 73996023), 355, 0);
+%varc_int1065 = -1;
+%varc_int1064 = 0;
+%varc_int1067 = 875;
+~script_2810(5832706);
+if_setonvarcstringtransmit;
+return(~script_2825(1), ~script_2825(1), 2824, 1, 5832704, ~script_2825(1), "i");

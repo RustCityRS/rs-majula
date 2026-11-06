@@ -1,0 +1,44 @@
+; id: 2511
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 105
+    1: push_constant_int 115
+    2: push_constant_int 2385
+    3: push_constant_int 1
+    4: enum 0
+    5: push_constant_int 42860552
+    6: if_settext 0
+    7: push_constant_int 105
+    8: push_constant_int 115
+    9: push_constant_int 2385
+   10: push_constant_int 2
+   11: enum 0
+   12: push_constant_int 42860601
+   13: if_settext 0
+   14: push_constant_int 105
+   15: push_constant_int 115
+   16: push_constant_int 2385
+   17: push_constant_int 3
+   18: enum 0
+   19: push_constant_int 42860593
+   20: if_settext 0
+   21: push_constant_int 105
+   22: push_constant_int 115
+   23: push_constant_int 2385
+   24: push_constant_int 4
+   25: enum 0
+   26: push_constant_int 42860585
+   27: if_settext 0
+   28: push_constant_int 105
+   29: push_constant_int 115
+   30: push_constant_int 2385
+   31: push_constant_int 5
+   32: enum 0
+   33: push_constant_int 42860610
+   34: if_settext 0
+   35: return 0

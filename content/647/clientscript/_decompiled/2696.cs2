@@ -1,0 +1,36 @@
+[clientscript,script_2696](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10)
+if ($int10 = 1) {
+    cc_deleteall(48627733);
+    cc_deleteall(48627734);
+    if_sethide(48627732);
+    if_setonclick;
+} else {
+    if ($int10 = 2) {
+        cc_deleteall(59703360);
+        cc_deleteall(59703361);
+        if_sethide(59703355);
+        if_setonclick;
+    }
+    cc_deleteall(57802758);
+    cc_deleteall(57802759);
+    if_sethide(57802757);
+    if_setonclick;
+}
+if (cc_find($int0, $int2) = 1) {
+    cc_setgraphic(2554);
+}
+if ($int4 ! -1) {
+    if (cc_find($int0, $int4) = 1) {
+        cc_setcolour(15458492);
+    }
+}
+if (cc_find($int0, $int1) = 1) {
+    cc_setonclick;
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    if (cc_find($int0, $int3) = 1) {
+        cc_setcolour(6249298);
+        cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+    }
+}
+return;

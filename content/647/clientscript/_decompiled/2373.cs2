@@ -1,0 +1,71 @@
+[clientscript,script_2373](int $int0, int $int1)(int, int, int, int, int, int, string)
+cc_deleteall(43712519);
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_string $str0 = "";
+if ($int2 < inv_size(worn)) {
+    switch ($int2) {
+        case 0:
+            $int3 = 43712525;
+        case 1:
+            $int3 = 43712526;
+        case 2:
+            $int3 = 43712527;
+        case 3:
+            $int3 = 43712529;
+        case 4:
+            $int3 = 43712530;
+        case 5:
+            $int3 = 43712531;
+        case 7:
+            $int3 = 43712532;
+        case 9:
+            $int3 = 43712534;
+        case 10:
+            $int3 = 43712533;
+        case 12:
+            $int3 = 43712535;
+        case 13:
+            $int3 = 43712528;
+        default:
+            $int3 = -1;
+    }
+    cc_setposition(0, 43712519, 5, $int2);
+    if ($int3 ! -1) {
+        $int4 = inv_getobj(worn, $int2);
+        if ($int4 ! -1) {
+            cc_setsize(36, 32, 0, 0);
+            cc_setposition2(~script_788($int3, 2, 2), ~script_788($int3, 2, 2), 0, 0);
+            cc_setobject($int4, inv_getnum(worn, $int2));
+            cc_setopbase(append("<col=ff9040>", oc_name($int4)));
+            cc_setop(1, "Remove");
+            cc_setop(9, "Stats");
+            cc_settargetverb("Compare");
+            cc_setop(10, "Examine");
+            cc_setgraphicshadow;
+            if ($int1 = $int2) {
+                cc_setoutline;
+            } else {
+                cc_setoutline;
+            }
+            cc_setonop;
+            cc_setontargetenter;
+            cc_setontargetleave;
+        } else {
+            cc_setsize(32, 32, 0, 0);
+            cc_setposition2(~script_788($int3, 2, 2), ~script_788($int3, 2, 2), 0, 0);
+            cc_setgraphic(enum(105, 100, enum_796, $int2));
+        }
+    } else {
+        cc_sethide(1);
+    }
+    $int2 = add($int2, 1);
+}
+if ($int1 ! -1) {
+    if (inv_getobj(worn, $int1) = -1) {
+        $int1 = -1;
+    }
+}
+if_setoninvtransmit;
+return(2372, -2147483645, $int1, 94, 1, $int0, "IiY");

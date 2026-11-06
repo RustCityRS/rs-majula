@@ -1,0 +1,22 @@
+; id: 3047
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 4
+    3: chat_getfilter_public 0
+    4: push_int_local 0
+    5: op5016 0
+    6: chat_setfilter 0
+    7: gosub_with_params 3045
+    8: return 0
+
+switch_0:
+  0 => 1
+  1 => 1
+  2 => 1

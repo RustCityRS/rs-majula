@@ -1,0 +1,78 @@
+; id: 760
+int_param_count=4
+string_param_count=6
+long_param_count=0
+local_int_count=4
+local_string_count=6
+local_long_count=0
+
+    0: push_int_local 2
+    1: push_int_local 3
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 64
+    5: push_int_local 0
+    6: push_constant_int -1
+    7: branch_not 1
+    8: branch 34
+    9: push_int_local 0
+   10: push_constant_int -1
+   11: cc_setobject 0
+   12: push_int_local 1
+   13: oc_name 0
+   14: cc_setopbase 0
+   15: push_constant_int 1
+   16: push_string_local 0
+   17: cc_setop 0
+   18: push_constant_int 2
+   19: push_string_local 1
+   20: cc_setop 0
+   21: push_constant_int 3
+   22: push_string_local 2
+   23: cc_setop 0
+   24: push_constant_int 4
+   25: push_string_local 3
+   26: cc_setop 0
+   27: push_constant_int 5
+   28: push_string_local 4
+   29: cc_setop 0
+   30: push_constant_int 6
+   31: push_constant_string "Examine"
+   32: push_constant_string "<col=ff9040>"
+   33: join_string 2
+   34: cc_setop 0
+   35: push_constant_int 7
+   36: push_string_local 5
+   37: cc_setop 0
+   38: push_constant_int 3355443
+   39: op1117 0
+   40: push_constant_int 1
+   41: op1116 0
+   42: branch 26
+   43: push_constant_int -1
+   44: push_constant_int 0
+   45: cc_setobject 0
+   46: push_constant_string ""
+   47: cc_setopbase 0
+   48: push_constant_int 1
+   49: push_constant_string ""
+   50: cc_setop 0
+   51: push_constant_int 2
+   52: push_constant_string ""
+   53: cc_setop 0
+   54: push_constant_int 3
+   55: push_constant_string ""
+   56: cc_setop 0
+   57: push_constant_int 4
+   58: push_constant_string ""
+   59: cc_setop 0
+   60: push_constant_int 5
+   61: push_constant_string ""
+   62: cc_setop 0
+   63: push_constant_int 6
+   64: push_constant_string ""
+   65: cc_setop 0
+   66: push_constant_int 7
+   67: push_constant_string ""
+   68: cc_setop 0
+   69: return 0

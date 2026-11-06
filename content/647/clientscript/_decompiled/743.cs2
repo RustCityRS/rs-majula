@@ -1,0 +1,10 @@
+[clientscript,script_743](int $int0, int $int1, int $int2)
+if (cc_find($int0, $int1) = 1) {
+    if ($int2 = 1) {
+        if_setposition(cc_gety, 0, 0, 1179694);
+        if_setsize(cc_getheight, 0, 0, 1179694);
+        if_sethide(1179694);
+    }
+    if_sethide(1179694);
+}
+return;

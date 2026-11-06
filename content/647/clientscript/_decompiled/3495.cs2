@@ -1,0 +1,74 @@
+[clientscript,script_3495](int $int0, int $int1)(int)
+def_string $str0 = "";
+def_string $str1 = "";
+def_int $int2 = 65077550;
+switch (%varc_int1184) {
+    case 1:
+        if ($int0 = 65077382) {
+            $str0 = "";
+            $str1 = "";
+        } else {
+            if ($int0 = 65077289) {
+                $str0 = "";
+                $str1 = "";
+                $int2 = 65077549;
+            }
+            if ($int0 = 65077331) {
+                $str0 = "";
+                $str1 = "";
+                $int2 = 65077548;
+            }
+        }
+    case 2:
+        if ($int0 = 65077382) {
+            $str0 = "";
+            $str1 = "";
+        } else {
+            if ($int0 = 65077289) {
+                $str0 = "";
+                $str1 = "";
+                $int2 = 65077549;
+            }
+            if ($int0 = 65077331) {
+                $str0 = "";
+                $str1 = "";
+                $int2 = 65077548;
+            }
+        }
+    case 3:
+        if ($int0 = 65077382) {
+            $str0 = "";
+            $str1 = "";
+        } else {
+            if ($int0 = 65077289) {
+                $str0 = "";
+                $str1 = "";
+                $int2 = 65077549;
+            }
+            if ($int0 = 65077331) {
+                $str0 = "";
+                $str1 = "";
+                $int2 = 65077548;
+            }
+        }
+    case 4:
+        if ($int0 = 65077382) {
+            $str0 = "";
+            $str1 = "";
+        }
+        if ($int0 = 65077289) {
+            $str0 = "";
+            $str1 = "";
+            $int2 = 65077549;
+        }
+        if ($int0 = 65077331) {
+            $str0 = "";
+            $str1 = "";
+            $int2 = 65077548;
+        }
+    default:
+}
+def_string $str2 = "Current - " + $str0 + "<br>" + "Next - " + $str1;
+if_getlayer;
+~script_569($int1, $int2, 25, $int2, if_getwidth, $str2);
+return($int0);

@@ -1,0 +1,69 @@
+; id: 3397
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_string_old 279
+    1: push_constant_int 64159762
+    2: if_settext 0
+    3: push_constant_int 2568
+    4: pop_int_local 0
+    5: push_constant_int 2569
+    6: pop_int_local 1
+    7: push_varc_string_old 279
+    8: push_constant_string ""
+    9: compare 0
+   10: push_constant_int 0
+   11: branch_not 1
+   12: branch 28
+   13: push_constant_string "Reporting: "
+   14: push_varc_string_old 279
+   15: join_string 2
+   16: push_constant_int 64159784
+   17: if_settext 0
+   18: push_constant_int 0
+   19: push_constant_int 64159754
+   20: op2103 0
+   21: push_constant_int 0
+   22: push_constant_int 64159755
+   23: op2103 0
+   24: push_constant_int 0
+   25: push_constant_int 64159756
+   26: op2103 0
+   27: push_constant_int 0
+   28: push_constant_int 64159757
+   29: op2103 0
+   30: push_constant_int 3071
+   31: push_constant_int 64159754
+   32: push_int_local 0
+   33: push_constant_int 64159755
+   34: push_int_local 1
+   35: push_constant_int 64159756
+   36: push_int_local 0
+   37: push_constant_string "IdIdId"
+   38: push_constant_int 64159753
+   39: op2403 0
+   40: branch 19
+   41: push_constant_string "Report Abuse: Select Player"
+   42: push_constant_int 64159784
+   43: if_settext 0
+   44: push_constant_int 100
+   45: push_constant_int 64159754
+   46: op2103 0
+   47: push_constant_int 100
+   48: push_constant_int 64159755
+   49: op2103 0
+   50: push_constant_int 100
+   51: push_constant_int 64159756
+   52: op2103 0
+   53: push_constant_int 100
+   54: push_constant_int 64159757
+   55: op2103 0
+   56: push_constant_int -1
+   57: push_constant_string ""
+   58: push_constant_int 64159753
+   59: op2403 0
+   60: return 0

@@ -1,0 +1,318 @@
+[clientscript,script_3216](int $int0, int $int1)(component)
+if (login_getint = -3) {
+    return;
+}
+def_string $str0 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+switch (%varc_int174) {
+    case 6:
+        switch ($int0) {
+            case 13:
+                ~script_2206;
+                return;
+            case 84:
+            case 80:
+                if (%varc_int175 >= clientclock) {
+                    return;
+                }
+                if ($int0 = 80) {
+                    if (key_isdown_ctrl = 1) {
+                        ~script_2714(15, 1);
+                    }
+                } else {
+                    ~script_2714(14, 1);
+                }
+                return;
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 102:
+            case 103:
+                %varc_int1099 = ~script_1553($int0, %varc_int1099, %varc_str122);
+                ~script_3218(44105815, 44105759, 44105816, 6, %varc_str122);
+                return;
+            default:
+                if (string_length(%varc_str122) >= 320) {
+                    if ($int0 ! 85) {
+                        if ($int0 ! 101) {
+                            return;
+                        }
+                    }
+                }
+        }
+        if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_.{}~@", 0) ! -1) {
+            %varc_int1099 = ~script_802(%varc_int1099, 3, $int0, $int1, %varc_str122);
+            %varc_str122 = ~script_802(%varc_int1099, 3, $int0, $int1, %varc_str122);
+            if_settext(%varc_str122);
+            ~script_3218(44105815, 44105759, 44105816, 6, %varc_str122);
+        }
+        return;
+    case 14:
+        switch ($int0) {
+            case 13:
+                ~script_2206;
+                return;
+            case 84:
+            case 80:
+                if (%varc_int175 >= clientclock) {
+                    return;
+                }
+                if ($int0 = 80) {
+                    if (key_isdown_ctrl = 1) {
+                        ~script_2714(6, 1);
+                    }
+                } else {
+                    ~script_2714(7, 1);
+                }
+                return;
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 102:
+            case 103:
+                %varc_int1099 = ~script_1553($int0, %varc_int1099, %varc_str326);
+                ~script_3218(44105834, 44105835, 44105836, 14, %varc_str326);
+                return;
+            default:
+                if (string_length(%varc_str326) >= 320) {
+                    if ($int0 ! 85) {
+                        if ($int0 ! 101) {
+                            return;
+                        }
+                    }
+                }
+        }
+        if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_.{}~@", 0) ! -1) {
+            %varc_int1099 = ~script_802(%varc_int1099, 3, $int0, $int1, %varc_str326);
+            %varc_str326 = ~script_802(%varc_int1099, 3, $int0, $int1, %varc_str326);
+            if_settext(%varc_str326);
+            ~script_3218(44105834, 44105835, 44105836, 14, %varc_str326);
+        }
+        return;
+    case 7:
+        switch ($int0) {
+            case 13:
+                ~script_2206;
+                return;
+            case 84:
+            case 80:
+                if (%varc_int175 >= clientclock) {
+                    return;
+                }
+                if ($int0 = 80) {
+                    if (key_isdown_ctrl = 1) {
+                        ~script_2714(14, 1);
+                    }
+                } else {
+                    ~script_2714(8, 1);
+                }
+                return;
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 102:
+            case 103:
+                %varc_int1099 = ~script_1553($int0, %varc_int1099, %varc_str124);
+                ~script_3218(44105805, 44105806, 44105807, 7, ~script_2949(%varc_str124));
+                return;
+            default:
+                if (string_length(%varc_str124) > 20) {
+                    if ($int0 ! 85) {
+                        if ($int0 ! 101) {
+                            return;
+                        }
+                    }
+                }
+        }
+        %varc_int1099 = ~script_802(%varc_int1099, 0, $int0, $int1, %varc_str124);
+        %varc_str124 = ~script_802(%varc_int1099, 0, $int0, $int1, %varc_str124);
+        if_settext(~script_2949(%varc_str124));
+        ~script_3218(44105805, 44105806, 44105807, 7, ~script_2949(%varc_str124));
+        return(44105806);
+    case 8:
+        switch ($int0) {
+            case 13:
+                ~script_2206;
+                return;
+            case 84:
+            case 80:
+                if (%varc_int175 >= clientclock) {
+                    return;
+                }
+                if ($int0 = 80) {
+                    if (key_isdown_ctrl = 1) {
+                        ~script_2714(7, 1);
+                    }
+                } else {
+                    ~script_2714(15, 1);
+                }
+                return;
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 102:
+            case 103:
+                %varc_int1099 = ~script_1553($int0, %varc_int1099, %varc_str125);
+                ~script_3218(44105795, 44105796, 44105797, 8, ~script_2949(%varc_str125));
+                return;
+            default:
+                if (string_length(%varc_str125) > 20) {
+                    if ($int0 ! 85) {
+                        if ($int0 ! 101) {
+                            return;
+                        }
+                    }
+                }
+        }
+        %varc_int1099 = ~script_802(%varc_int1099, 0, $int0, $int1, %varc_str125);
+        %varc_str125 = ~script_802(%varc_int1099, 0, $int0, $int1, %varc_str125);
+        if_settext(~script_2949(%varc_str125));
+        ~script_3218(44105795, 44105796, 44105797, 8, ~script_2949(%varc_str125));
+        return(44105796);
+    case 15:
+        switch ($int0) {
+            case 13:
+                ~script_2206;
+                return;
+            case 84:
+            case 80:
+                if (%varc_int175 >= clientclock) {
+                    return;
+                }
+                if ($int0 = 80) {
+                    if (key_isdown_ctrl = 1) {
+                        ~script_2714(8, 1);
+                    }
+                } else {
+                    if ($int0 = 84) {
+                        if (string_length(%varc_str122) > 0) {
+                            if (string_length(%varc_str326) > 0) {
+                                if (string_length(%varc_str124) > 0) {
+                                    if (string_length(%varc_str125) > 0) {
+                                        if (%varc_int1407 ! 0) {
+                                            ~script_2967(0);
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ~script_2714(6, 1);
+                }
+                return;
+            case 96:
+            case 97:
+            case 98:
+            case 99:
+            case 102:
+            case 103:
+                %varc_int1099 = ~script_1553($int0, %varc_int1099, tostring(%varc_int1407));
+                ~script_3218(44105841, 44105758, 44105842, 15, tostring(%varc_int1407));
+                return;
+            default:
+                if (string_length(tostring(%varc_int1407)) >= 3) {
+                    if ($int0 ! 85) {
+                        if ($int0 ! 101) {
+                            return;
+                        }
+                    }
+                }
+        }
+        if (string_length(tostring(%varc_int1407)) = 3) {
+            $int3 = div(%varc_int1407, 100);
+            $int4 = calc(%varc_int1407 - $int3 * 100 / 10);
+            $int5 = calc(%varc_int1407 - $int3 * 100 + $int4 * 10);
+        } else {
+            if (string_length(tostring(%varc_int1407)) = 2) {
+                $int3 = div(%varc_int1407, 10);
+                $int4 = calc(%varc_int1407 - $int3 * 10);
+            }
+        }
+        if (char_isnumeric2($int1) = 1) {
+            $int2 = string_indexof_char("0123456789", 0);
+            if (%varc_int1407 < 1) {
+                %varc_int1407 = $int2;
+            } else {
+                %varc_int1407 = calc(%varc_int1407 * 10 + $int2);
+            }
+            %varc_int1099 = string_length(tostring(%varc_int1407));
+        } else {
+            if ($int0 = 85) {
+                if (%varc_int1099 >= 3) {
+                    %varc_int1407 = div(%varc_int1407, 10);
+                } else {
+                    if (%varc_int1099 = 2) {
+                        if (string_length(tostring(%varc_int1407)) = 3) {
+                            %varc_int1407 = calc($int3 * 10 + $int5);
+                        } else {
+                            if (string_length(tostring(%varc_int1407)) = 2) {
+                                %varc_int1407 = div(%varc_int1407, 10);
+                            }
+                            %varc_int1407 = 0;
+                            %varc_int1099 = 0;
+                        }
+                    }
+                    if (%varc_int1099 = 1) {
+                        if (string_length(tostring(%varc_int1407)) = 3) {
+                            %varc_int1407 = calc(%varc_int1407 - $int3 * 100);
+                        } else {
+                            if (string_length(tostring(%varc_int1407)) = 2) {
+                                %varc_int1407 = calc(%varc_int1407 - $int3 * 10);
+                            }
+                            %varc_int1407 = 0;
+                            %varc_int1099 = 0;
+                        }
+                    }
+                    return;
+                }
+                %varc_int1099 = max(sub(%varc_int1099, 1), 0);
+            }
+            if ($int0 = 101) {
+                if (%varc_int1099 >= 3) {
+                    return;
+                }
+                if (%varc_int1099 = 2) {
+                    if (string_length(tostring(%varc_int1407)) = 3) {
+                        %varc_int1407 = div(%varc_int1407, 10);
+                    } else {
+                        %varc_int1099 = string_length(tostring(%varc_int1407));
+                    }
+                }
+                if (%varc_int1099 = 1) {
+                    if (string_length(tostring(%varc_int1407)) = 3) {
+                        %varc_int1407 = calc($int3 * 10 + $int5);
+                    } else {
+                        if (string_length(tostring(%varc_int1407)) = 2) {
+                            %varc_int1407 = div(%varc_int1407, 10);
+                        }
+                        return;
+                    }
+                }
+                if (string_length(tostring(%varc_int1407)) = 3) {
+                    %varc_int1407 = calc(%varc_int1407 - $int3 * 100);
+                }
+                if (string_length(tostring(%varc_int1407)) = 2) {
+                    %varc_int1407 = $int4;
+                }
+                %varc_int1407 = 0;
+            }
+        }
+        if (%varc_int1407 < 1) {
+            if_settext("");
+            ~script_3218(44105841, 44105758, 44105842, 15, "");
+        } else {
+            if_settext(tostring(%varc_int1407));
+            ~script_3218(44105841, 44105758, 44105842, 15, tostring(%varc_int1407));
+        }
+        return;
+    default:
+}
+return;

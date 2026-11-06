@@ -38,29 +38,10 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     let content = content_dir();
     let pack = PathBuf::from(rs_pack::PACK_DIR);
 
-    // A test binary's tests load their engines on parallel threads, and the
-    // pack is files on disk: one thread repacking a stale tree while another
-    // read it read a map square without its locs. The first thread brings the
-    // pack up to date while the rest wait; then every thread finds the stamps
-    // fresh and only reads.
-    static FRESH: std::sync::Once = std::sync::Once::new();
-    FRESH.call_once(|| {
-        let _ = rs_pack::pack_all(&content, &pack, false, true);
-    });
+    let rs_pack::startup::PackResult { store, layout, .. } =
+        rs_pack::pack_all(&content, &pack, false, true)?;
 
-    // Stamp-checked: a no-op when the server has already packed this tree.
-    let rs_pack::startup::PackResult {
-        cache_dir,
-        config,
-        layout,
-        mut js5_store,
-    } = rs_pack::pack_all(&content, &pack, false, true)?;
-
-    let keys = content.join("keys.json");
-    rs_pack::cache::map::XteaKeyStore::load(&keys)?.install_global();
-
-    let server_dir = cache_dir.join("server");
-    let store = CacheStore::from_packed_config(config, &mut js5_store, &server_dir)?;
+    rs_pack::cache::map::XteaKeyStore::load(&content.join("keys.json"))?.install_global();
     let cache_ptr = Box::into_raw(store);
     // The engine and every script borrow the cache for the process lifetime,
     // exactly as the server's does.

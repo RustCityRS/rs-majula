@@ -1,0 +1,11 @@
+[clientscript,script_1694](int $int0)(int)
+if ($int0 < 32) {
+    return(testbit(%varc_int1040, $int0));
+}
+if ($int0 < 64) {
+    return(testbit(%varc_int1041, mod($int0, 32)));
+}
+if ($int0 < 96) {
+    return(testbit(%varc_int1042, mod($int0, 32)));
+}
+return(0);

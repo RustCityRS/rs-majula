@@ -1,0 +1,21 @@
+[clientscript,script_508](int, stat, int, component, string)
+%varc_int6 = 0;
+if (autosetup_getvalue = 5) {
+    if_settext("Suggest to mute this player for 48 hours");
+    if_settext("Suggest to mute this player for 48 hours");
+    if_settext("Suggest to mute this player for 48 hours");
+}
+if_settext("Mute this player for 48 hours");
+if_settext("Mute this player for 48 hours");
+if_settext("Mute this player for 48 hours");
+%varc_int11 = 1;
+if (getlanguage ! 1) {
+    ~script_216;
+    ~script_246;
+    return;
+}
+op2429;
+%varc_int792 = -1;
+~script_224;
+~script_216;
+return(218, dungeoneering, 1, 38928416, "Y");

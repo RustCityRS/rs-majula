@@ -1,0 +1,35 @@
+[clientscript,script_853](int $int0)(stat)
+if ($int0 = 10) {
+    return(attack);
+}
+if ($int0 = 0) {
+    return(strength);
+}
+if ($int0 = 1) {
+    return(hitpoints);
+}
+if ($int0 = 2) {
+    return(ranged);
+}
+if ($int0 = 3) {
+    return(prayer);
+}
+if ($int0 = 4) {
+    return(hitpoints);
+}
+if ($int0 = 5) {
+    return(ranged);
+}
+if ($int0 = 6) {
+    return(ranged);
+}
+if ($int0 = 7) {
+    return(hitpoints);
+}
+if ($int0 = 8) {
+    return(ranged);
+}
+if ($int0 = 9) {
+    return(hitpoints);
+}
+return(attack);

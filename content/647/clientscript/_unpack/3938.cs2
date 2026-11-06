@@ -1,0 +1,23 @@
+; id: 3938
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1411
+    1: branch_if_true 1
+    2: branch 6
+    3: push_constant_int 0
+    4: pop_varc_int 1411
+    5: push_constant_int 4085
+    6: push_constant_int 44105756
+    7: if_setgraphic 0
+    8: branch 5
+    9: push_constant_int 1
+   10: pop_varc_int 1411
+   11: push_constant_int 4087
+   12: push_constant_int 44105756
+   13: if_setgraphic 0
+   14: return 0

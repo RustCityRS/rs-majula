@@ -1,0 +1,21 @@
+; id: 4573
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_constant_int 0
+    3: pop_int_local 1
+    4: gosub_with_params 1891
+    5: branch_if_true 1
+    6: branch 4
+    7: push_constant_int 0
+    8: push_constant_int 38600754
+    9: if_sethide 0
+   10: return 0
+   11: gosub_with_params 4574
+   12: return 0

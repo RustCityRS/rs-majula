@@ -1,0 +1,40 @@
+; id: 2380
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int -1
+    2: branch_equals 1
+    3: branch 4
+    4: push_constant_int 1
+    5: push_int_local 1
+    6: if_sethide 0
+    7: return 0
+    8: push_constant_int 0
+    9: push_int_local 1
+   10: if_sethide 0
+   11: push_int_local 0
+   12: if_getx 0
+   13: push_int_local 0
+   14: if_getwidth 0
+   15: add 0
+   16: push_int_local 1
+   17: if_getwidth 0
+   18: sub 0
+   19: push_int_local 0
+   20: if_gety 0
+   21: push_int_local 0
+   22: if_getheight 0
+   23: add 0
+   24: push_int_local 1
+   25: if_getheight 0
+   26: sub 0
+   27: push_constant_int 0
+   28: push_constant_int 0
+   29: push_int_local 1
+   30: if_setposition 0
+   31: return 0

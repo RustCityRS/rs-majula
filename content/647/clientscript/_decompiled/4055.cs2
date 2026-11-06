@@ -1,0 +1,28 @@
+[clientscript,script_4055](int $int0)
+if (%varc_int1432 = 1) {
+    return;
+}
+if (if_gethide = 1) {
+    if (if_gethide = 1) {
+        if_sethide(69337097);
+        if_setposition(sub(69337097, if_getheight), 1, 0, 69337097);
+        %varc_int1432 = 1;
+        if_clearops;
+        if_clearops;
+        if_setontimer;
+    }
+} else {
+    %varc_int1432 = 1;
+    if_clearops;
+    if_clearops;
+    if_setontimer;
+}
+if_setgraphic(69337120);
+if_setgraphic(69337121);
+if_setgraphic(69337122);
+if_setgraphic(69337124);
+if_setgraphic(69337125);
+if_setgraphic(69337126);
+if (%varbit8662 < 30) {
+}
+return;

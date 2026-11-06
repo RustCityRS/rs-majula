@@ -1,39 +1,15 @@
-//! CRC gate — the assembled rev-647 cache against OpenRS2 cache 786, group by
-//! group.
-//!
-//! Ground truth is the archive's API, not a copy in git. Each `(255, a)`
-//! reference table is fetched from
-//! `https://archive.openrs2.org/caches/runescape/786/archives/255/groups/<a>.dat`
-//! and memoised under `CARGO_TARGET_TMPDIR`, so only the first run needs the
-//! network. The API omits the 2-byte version trailer: the CRC of what it
-//! serves is the login CRC the client computes.
-//!
-//! Every archive, three checks:
-//!
-//! 1. **Groups.** Each group's CRC and version is compared, and the set of
-//!    groups that differ must *equal* the archive's entry in [`KNOWN`]. A
-//!    group that starts to match fails the gate as surely as one that stops,
-//!    so the list cannot rot into a blanket skip.
-//! 2. **Container.** With every group accounted for, the table container's
-//!    CRC must match too, unless [`KNOWN`] says the table alone is encoded
-//!    differently around identical groups.
-//! 3. **Keys.** Every committed XTEA key decrypts its landscape group *in our
-//!    cache* -- including the squares rebuilt from donor caches, whose keys
-//!    OpenRS2 does not have.
-//!
-//! An unexplained group is fetched from the API and both copies are written
-//! to `target/crc_gate/<archive>/<group>.{ours,openrs2}.dat` for diffing.
-//!
-//! Runs the full pack pipeline, so it needs the `content/647` tree and is
-//! `#[ignore]`d by default:
-//! `REV=647 cargo test -p rs-pack --test crc_gate -- --ignored`
+//! Full offline comparison against the original OpenRS2 786 reference tables.
+//! Run with `REV=647 cargo test -p rs-pack --test crc_gate -- --ignored`.
 #![cfg(rev = "647")]
 
-use rs_io::js5::{Js5Store, compute_group_crc};
+use rs_crypto::whirlpool;
+use rs_io::js5::compute_group_crc;
 use rs_pack::archive::ARCHIVE_IDS;
-use rs_pack::openrs2;
+use serde::Deserialize;
+#[path = "support/reference.rs"]
+mod reference;
 use std::collections::BTreeMap;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::{env, fs};
 
 const NAMES: [&str; 35] = [
@@ -139,30 +115,25 @@ const KNOWN: &[Known] = &[
     },
 ];
 
-fn api_dir() -> PathBuf {
-    Path::new(env!("CARGO_TARGET_TMPDIR")).join("openrs2-api")
-}
-
 #[test]
-#[ignore = "runs the full pack pipeline against content/647 (minutes), and the OpenRS2 API"]
+#[ignore = "runs the full pack pipeline against content/647"]
 fn assembled_cache_matches_openrs2_group_by_group() {
     // Integration tests run with cwd = rs-pack/; the pipeline's paths
-    // (CONTENT_DIR, target/pack/<REV>) are workspace-root relative.
+    // (CONTENT_DIR, PACK_DIR) are workspace-root relative.
     if !Path::new(rs_pack::CONTENT_DIR).exists() {
         env::set_current_dir("..").expect("chdir to workspace root");
     }
-    let id = openrs2::default_cache_id().unwrap();
+    let id = 786;
     let source = Path::new(rs_pack::CONTENT_DIR);
     let pack = Path::new(rs_pack::PACK_DIR);
 
     // verify=false: compare here and report every archive, rather than
     // panicking inside the pipeline on the first divergence.
     let result = rs_pack::pack_all(source, pack, false, true).expect("pack_all failed");
-    let mut store = Js5Store::open(&result.cache_dir).expect("open built cache");
+    let store = result.cache;
 
     let known: BTreeMap<u8, &Known> = KNOWN.iter().map(|k| (k.archive, k)).collect();
     let mut failures = Vec::new();
-    let mut unexplained: Vec<(u8, u32)> = Vec::new();
 
     println!(
         "\n{:<18} {:>12} {:>12}  groups differing",
@@ -170,18 +141,33 @@ fn assembled_cache_matches_openrs2_group_by_group() {
     );
     println!("{}", "-".repeat(64));
     for (pos, &aid) in ARCHIVE_IDS.iter().enumerate() {
-        let theirs_raw = openrs2::fetch_group_cached(&api_dir(), id, 255, aid as u32)
-            .unwrap_or_else(|e| panic!("fetching (255, {aid}) from OpenRS2: {e:#}"));
+        let theirs_raw = fs::read(format!("rs-pack/tests/fixtures/647/{aid}.dat")).unwrap();
         let ours_raw = store
-            .read_raw_group_bytes(255, aid as u32)
-            .unwrap()
-            .unwrap_or_else(|| panic!("our cache has no reference table for archive {aid}"));
+            .groups
+            .get(&(255, aid as u32))
+            .expect("missing reference table");
+        for group in &store.tables[&aid].groups {
+            let raw = &store.groups[&(aid, group.id)];
+            assert_eq!(
+                compute_group_crc(&raw[..raw.len() - 2]),
+                group.crc,
+                "archive {aid} group {}",
+                group.id
+            );
+            assert_eq!(
+                u16::from_be_bytes(raw[raw.len() - 2..].try_into().unwrap()),
+                group.version as u16
+            );
+            if let Some(digest) = group.whirlpool {
+                assert_eq!(whirlpool(&raw[..raw.len() - 2]), digest);
+            }
+        }
         let theirs_crc = compute_group_crc(&theirs_raw);
-        let ours_crc = compute_group_crc(&ours_raw);
+        let ours_crc = compute_group_crc(ours_raw);
 
-        let diff = openrs2::diff_reference_tables(
-            &openrs2::parse_reference_container(&ours_raw).unwrap(),
-            &openrs2::parse_reference_container(&theirs_raw).unwrap(),
+        let diff = reference::diff_reference_tables(
+            &reference::parse_reference_container(ours_raw).unwrap(),
+            &reference::parse_reference_container(&theirs_raw).unwrap(),
         );
         let differing = diff.groups();
         let status = match (differing.is_empty(), ours_crc == theirs_crc) {
@@ -206,7 +192,6 @@ fn assembled_cache_matches_openrs2_group_by_group() {
                     new.len(),
                     fixed.len(),
                 ));
-                unexplained.extend(new.into_iter().map(|g| (aid, g)));
             }
             Verdict::Container => failures.push(format!(
                 "{} (archive {aid}): every group is accounted for but the table container                  differs (ours {ours_crc:#010x}, OpenRS2 {theirs_crc:#010x}){}",
@@ -220,10 +205,6 @@ fn assembled_cache_matches_openrs2_group_by_group() {
         }
     }
 
-    for (aid, gid) in unexplained.iter().take(50) {
-        dump_group(&mut store, id, *aid, *gid);
-    }
-
     assert!(
         failures.is_empty(),
         "{} archive(s) diverge from OpenRS2 {id} beyond KNOWN:\n  {}",
@@ -233,7 +214,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
 
     // 3. Every committed key opens its landscape group in our cache.
     let keys = fs::read_to_string(source.join("keys.json")).unwrap();
-    let keys = openrs2::parse_keys(&keys).unwrap();
+    let keys: Vec<XteaKey> = serde_json::from_str(&keys).unwrap();
     let bad: Vec<_> = keys
         .iter()
         .filter(|k| {
@@ -354,7 +335,7 @@ fn known_group_lists_are_sorted_and_unique() {
     );
 }
 
-fn summarise(diff: &openrs2::TableDiff) -> String {
+fn summarise(diff: &reference::TableDiff) -> String {
     let mut parts = Vec::new();
     for (label, ids) in [
         ("ours-only", &diff.only_ours),
@@ -369,14 +350,9 @@ fn summarise(diff: &openrs2::TableDiff) -> String {
     parts.join(", ")
 }
 
-/// Write our copy and OpenRS2's copy of one group side by side for diffing.
-fn dump_group(store: &mut Js5Store, id: u32, aid: u8, gid: u32) {
-    let dir = Path::new("target").join("crc_gate").join(aid.to_string());
-    let _ = fs::create_dir_all(&dir);
-    if let Ok(Some(ours)) = store.read_raw_group_bytes(aid, gid) {
-        let _ = fs::write(dir.join(format!("{gid}.ours.dat")), &ours);
-    }
-    if let Ok(theirs) = openrs2::fetch_group_cached(&api_dir(), id, aid, gid) {
-        let _ = fs::write(dir.join(format!("{gid}.openrs2.dat")), &theirs);
-    }
+#[derive(Deserialize)]
+struct XteaKey {
+    archive: u32,
+    group: u32,
+    key: [i32; 4],
 }

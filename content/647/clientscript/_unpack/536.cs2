@@ -1,0 +1,17 @@
+; id: 536
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 537
+    1: clientclock 0
+    2: clientclock 0
+    3: push_constant_int 25
+    4: add 0
+    5: push_constant_string "ii"
+    6: push_constant_int 48824322
+    7: op2408 0
+    8: return 0

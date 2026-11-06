@@ -1,0 +1,134 @@
+[clientscript,script_4301]
+def_int $int0 = 71827459;
+def_int $int1 = 71827460;
+def_int $int2 = 71827461;
+def_int $int3 = 71827462;
+def_int $int4 = 71827491;
+def_int $int5 = 71827492;
+def_int $int6 = 71827805;
+def_int $int7 = 218;
+def_int $int8 = div(16384, 2);
+def_int $int9 = 3;
+def_int $int10 = 4;
+def_int $int11 = 200;
+def_int $int12 = 3;
+def_int $int13 = 16;
+def_int $int14 = 23;
+def_int $int15 = 177;
+def_int $int16 = 4;
+def_int $int17 = 157;
+def_int $int18 = 4;
+def_int $int19 = 15;
+def_int $int20 = 15;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_string $str0 = "0";
+def_int $int25 = 9;
+def_int $int26 = 23;
+def_int $int27 = 0;
+def_int $int28 = div(if_getheight, $int14);
+def_int $int29 = multiply($int28, 2);
+def_int $int30 = -1;
+def_int $int31 = -1;
+def_int $int32 = 0;
+cc_deleteall($int0);
+cc_deleteall($int1);
+cc_deleteall($int2);
+cc_deleteall($int3);
+cc_deleteall($int6);
+def_string $str1 = "";
+def_int $int33 = -1;
+$int24 = ignore_test("");
+if ($int23 < $int24) {
+    $int22 = calc($int33 / 2 * $int14);
+    $str0 = clanchannel_getstring($int23);
+    $int31 = clanchannel_getbyte_indexed($int23);
+    if (sub(%varc_int1516, 1) ! $int31) {
+        $int32 = 1;
+        if (%varc_int1516 = 0) {
+            $int32 = 0;
+        }
+    } else {
+        $int32 = 0;
+    }
+    cc_setposition(0, $int0, 4, $int23);
+    if ($int32 = 0) {
+        cc_settextfont(3793);
+        cc_setsize($int8, $int14, 2, 0);
+        $int30 = -1;
+        if (clanchannel2_find_affined = 1) {
+            if (clanchannel2_findname($str0) > -1) {
+                $int30 = clanchannel2_getuserworld(clanchannel2_findname($str0));
+            }
+        }
+        if ($int30 = active_toplevelinterface) {
+            cc_setcolour(10599744);
+        } else {
+            if ($int30 > 0) {
+                cc_setcolour(16777060);
+            }
+            cc_setcolour(12497548);
+        }
+        cc_settextshadow(1);
+        cc_settext($str0);
+    }
+    cc_setposition(0, $int2, 5, $int23);
+    if ($int32 = 0) {
+        cc_setsize($int19, $int20, 0, 0);
+        cc_setgraphic(enum(105, 100, enum_3712, $int31));
+        $str1 = "";
+        cc_setonmouserepeat;
+        cc_setonmouseleave;
+    }
+    cc_setposition(0, $int6, 5, $int23);
+    if ($int32 = 0) {
+        cc_setsize($int19, $int20, 0, 0);
+        if (clanchannel_lookup($int23, 30, 30) = 1) {
+            cc_setgraphic(6235);
+            $str1 = "Rated Clan" + "<br>" + "Wars Leader";
+            cc_setonmouserepeat;
+            cc_setonmouseleave;
+        }
+    }
+    cc_setposition(0, $int3, 5, $int23);
+    if ($int32 = 0) {
+        cc_setsize($int25, $int26, 0, 0);
+        cc_setgraphic(6034);
+        cc_setop(1, "Show details");
+        cc_setonop;
+    }
+    $int23 = add($int23, 1);
+}
+def_int $int34 = 0;
+$int23 = 0;
+def_int $int35 = 0;
+if ($int23 < $int24) {
+    $int35 = clanchannel_getsortedindex($int23);
+    if (cc_find($int0, $int35) = 1) {
+        if (compare(cc_gettext, "") ! 0) {
+            if (mod($int34, 2) ! 0) {
+                $int21 = $int7;
+            } else {
+                $int21 = 0;
+            }
+            $int22 = calc($int34 / 2 * $int14);
+            cc_setposition2(add($int9, $int21), add($int10, $int22), 0, 0);
+            if (cc_find($int2, $int35) = 1) {
+                cc_setposition2(add($int15, $int21), add($int16, $int22), 0, 0);
+            }
+            if (cc_find($int3, $int35) = 1) {
+                cc_setposition2(add($int11, $int21), $int22, 0, 0);
+            }
+            if (cc_find($int6, $int35) = 1) {
+                cc_setposition2(add($int17, $int21), add($int18, $int22), 0, 0);
+            }
+            $int34 = add($int34, 1);
+        }
+    }
+    $int23 = add($int23, 1);
+}
+%varc_int1517 = $int34;
+~script_4318;
+return;

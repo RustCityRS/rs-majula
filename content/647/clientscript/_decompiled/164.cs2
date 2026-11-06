@@ -1,0 +1,9 @@
+[clientscript,script_164](int $int0, int $int1)(int)
+if (~script_166($int1) = 7) {
+    if_setgraphic($int0);
+    return(942);
+} else {
+    if_setgraphic($int0);
+    return(941);
+}
+return;

@@ -1,0 +1,12 @@
+[clientscript,script_2962](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if (clientclock >= $int6) {
+    %varc_int176 = add(%varc_int176, 2);
+    if_setontimer;
+    %varc_int177 = 0;
+    if_setonclick;
+    if_setonmouserepeat;
+    if_setonmouseleave;
+    if_setgraphic($int4);
+    %varc_int986 = 0;
+}
+return;

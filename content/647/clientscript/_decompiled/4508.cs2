@@ -1,0 +1,26 @@
+[clientscript,script_4508](int $int0, int $int1)
+def_int $int2 = 0;
+define_array(105, $int1);
+def_int $int3 = 0;
+def_int $int4 = 5;
+if ($int2 <= $int1) {
+    if (cc_find($int0, $int2) = 1) {
+        if (string_length(cc_gettext) > 0) {
+            %array0 = pop_array_int($int3, $int2);
+            $int3 = add($int3, 1);
+        }
+    }
+    $int2 = add($int2, 1);
+}
+if ($int3 > 1) {
+    ~script_4424(0, $int0, 0, sub($int3, 1));
+}
+$int2 = 0;
+if ($int2 < $int3) {
+    if (cc_find($int0, push_array_int(0, $int2)) = 1) {
+        cc_setposition2(5, $int4, 0, 0);
+        $int4 = add($int4, cc_getheight);
+    }
+    $int2 = add($int2, 1);
+}
+return;

@@ -1,0 +1,8 @@
+[clientscript,script_4257](int $int0)
+if (if_find($int0) = 1) {
+    cc_setposition2(0, 0, 1, 1);
+    cc_setsize(16, 15, 0, 0);
+    cc_setgraphic(5450);
+    cc_setonclick;
+}
+return;

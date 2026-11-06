@@ -1,0 +1,3 @@
+[clientscript,script_2130](int $int0, int $int1)(int, int, int)
+if_setposition(if_gety, 0, 0, $int0);
+return($int1, if_getx, $int1);

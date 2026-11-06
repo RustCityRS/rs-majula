@@ -1,0 +1,12 @@
+[clientscript,script_2558](int $int0)
+if (if_getgraphic($int0) = 1946) {
+    if_setgraphic($int0);
+} else {
+    if (if_getgraphic($int0) = 1947) {
+        if_setgraphic($int0);
+    }
+    if (if_getgraphic($int0) = 1949) {
+        if_setgraphic($int0);
+    }
+}
+return;

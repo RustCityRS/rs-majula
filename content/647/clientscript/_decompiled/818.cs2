@@ -1,0 +1,49 @@
+[clientscript,script_818](int $int0)
+def_string $str0 = "No information is available about this beacon.";
+switch ($int0) {
+    case 1:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 2:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 3:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 4:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 5:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 6:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 7:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 8:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 9:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 10:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 11:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 12:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 13:
+        if_setmodel;
+        if_setonmouserepeat;
+    case 14:
+        if_setmodel;
+        if_setonmouserepeat;
+    default:
+}
+%varc_int2 = 0;
+return;

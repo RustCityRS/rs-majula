@@ -1,0 +1,43 @@
+[clientscript,script_1601](int $int0)(int, int)
+def_int $int1 = -1;
+def_int $int2 = -1;
+switch (randominc(2)) {
+    case 0:
+        sound_synth(synth_7813, 1, 0);
+    case 1:
+        sound_synth(synth_7817, 1, 0);
+    case 2:
+        sound_synth(synth_7818, 1, 0);
+    default:
+}
+switch ($int0) {
+    case 63701023:
+        $int1 = 63700995;
+        $int2 = 63700996;
+    case 63701017:
+        $int1 = 63700996;
+        $int2 = 63700997;
+    case 63701012:
+        $int1 = 63700997;
+        $int2 = 63700998;
+    case 63701007:
+        $int1 = 63700998;
+        $int2 = 63700999;
+    case 63701003:
+        $int1 = 63700999;
+        $int2 = 63700998;
+    case 63701008:
+        $int1 = 63700998;
+        $int2 = 63700997;
+    case 63701013:
+        $int1 = 63700997;
+        $int2 = 63700996;
+    case 63701018:
+        $int1 = 63700996;
+        $int2 = 63700995;
+    default:
+        ~script_675;
+}
+if_sethide($int1);
+if_sethide($int2);
+return(1, 0);

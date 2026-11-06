@@ -1,0 +1,35 @@
+[clientscript,script_2755](int $int0, int $int1, int $int2)(int, int, int, int, int, int, int, int, int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($int0, $int1) ! 1) {
+    if ($int1 = -1) {
+    }
+} else {
+    $int4 = ~script_1744;
+    $int3 = ~script_1743;
+    if (1 < scale(3, 48889857, if_getwidth)) {
+        if (1 < scale(3, 48889857, if_getheight)) {
+            if_setmodelangle;
+            if_setposition(add($int4, cc_getheight), 0, 0, $int2);
+        } else {
+            if_setmodelangle;
+            if_setposition(sub($int2, if_getheight), 0, 0, $int2);
+        }
+    }
+    if (1 < scale(3, 48889857, if_getheight)) {
+        if ($int0 = 48890028) {
+            $int5 = calc($int2 - if_getwidth - 10);
+            $int6 = add($int4, cc_getheight);
+            if_setmodelangle;
+            if_setposition($int6, 0, 0, $int2);
+            return($int3, 0, 0, 512, 1280, 0, 1000, $int2, $int5);
+        }
+        if_setmodelangle;
+        if_setposition(add($int4, cc_getheight), 0, 0, $int2);
+    }
+    if_setmodelangle;
+    if_setposition(sub($int2, if_getheight), 0, 0, $int2);
+}
+return;

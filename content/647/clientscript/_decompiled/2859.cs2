@@ -1,0 +1,8 @@
+[clientscript,script_2859]
+if (%varc_int1069 >= 100) {
+    %varc_int1069 = sub(%varc_int1069, 50);
+}
+if (%varc_int1073 > %varc_int1069) {
+    %varc_int1073 = %varc_int1069;
+}
+return;

@@ -1,0 +1,79 @@
+; id: 468
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: stat_base 0
+    2: push_constant_int 42
+    3: branch_less_than 25
+    4: push_constant_int 2
+    5: stat_base 0
+    6: push_constant_int 42
+    7: branch_less_than 21
+    8: push_constant_int 1
+    9: stat_base 0
+   10: push_constant_int 42
+   11: branch_less_than 17
+   12: push_constant_int 3
+   13: stat_base 0
+   14: push_constant_int 42
+   15: branch_less_than 13
+   16: push_constant_int 4
+   17: stat_base 0
+   18: push_constant_int 42
+   19: branch_less_than 9
+   20: push_constant_int 6
+   21: stat_base 0
+   22: push_constant_int 42
+   23: branch_less_than 5
+   24: push_constant_int 5
+   25: stat_base 0
+   26: push_constant_int 22
+   27: branch_less_than 1
+   28: branch 7
+   29: push_constant_string "<col=c80000>"
+   30: push_constant_string "Higher levels required...(show)"
+   31: push_constant_string "</col>"
+   32: join_string 3
+   33: push_int_local 0
+   34: if_settext 0
+   35: return 0
+   36: push_int_local 0
+   37: push_constant_int 66257161
+   38: branch_equals 1
+   39: branch 11
+   40: push_var 1875
+   41: push_constant_int 1250
+   42: branch_less_than 1
+   43: branch 7
+   44: push_constant_string "<col=c80000>"
+   45: push_constant_string "1250 Conquest ranking required."
+   46: push_constant_string "</col>"
+   47: join_string 3
+   48: push_int_local 0
+   49: if_settext 0
+   50: return 0
+   51: push_varbit 2086
+   52: push_int_local 1
+   53: branch_less_than 1
+   54: branch 9
+   55: push_constant_string "<col=c80000>"
+   56: push_int_local 1
+   57: tostring 0
+   58: push_constant_string " Commendations required."
+   59: push_constant_string "</col>"
+   60: join_string 4
+   61: push_int_local 0
+   62: if_settext 0
+   63: branch 6
+   64: push_int_local 1
+   65: tostring 0
+   66: push_constant_string " Commendations."
+   67: join_string 2
+   68: push_int_local 0
+   69: if_settext 0
+   70: return 0

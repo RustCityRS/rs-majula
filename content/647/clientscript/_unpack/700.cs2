@@ -1,0 +1,46 @@
+; id: 700
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 23
+    3: push_varbit 1000
+    4: return 0
+    5: branch 20
+    6: push_varbit 1001
+    7: return 0
+    8: branch 17
+    9: push_varbit 1002
+   10: return 0
+   11: branch 14
+   12: push_varbit 1003
+   13: return 0
+   14: branch 11
+   15: push_varbit 1004
+   16: return 0
+   17: branch 8
+   18: push_varbit 1005
+   19: return 0
+   20: branch 5
+   21: push_varbit 1006
+   22: return 0
+   23: branch 2
+   24: push_varbit 1009
+   25: return 0
+   26: push_constant_int 0
+   27: return 0
+
+switch_0:
+  1 => 1
+  2 => 4
+  3 => 7
+  4 => 10
+  5 => 13
+  6 => 16
+  7 => 19
+  8 => 22

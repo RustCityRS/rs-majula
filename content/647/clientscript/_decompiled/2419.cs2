@@ -1,0 +1,47 @@
+[clientscript,script_2419]
+if (%varc_int806 > 0) {
+    if_sethide(50135051);
+}
+if (%varc_int806 > 1) {
+    if_setmodel;
+}
+if (%varc_int806 > 2) {
+    if (%varbit6180 = 75) {
+        if_setmodel;
+        if_sethide(50135055);
+    }
+    if_setmodel;
+    if_sethide(50135076);
+}
+if (%varc_int806 > 3) {
+    if (%varbit6180 = 75) {
+        if_setmodel;
+        if_sethide(50135057);
+    }
+    if_setmodel;
+    if_sethide(50135077);
+    if_setop(50135045, "Inspect");
+}
+if (%varbit6194 = 0) {
+    if_setmodelanim;
+} else {
+    if (%varbit6194 = 1) {
+        if_setmodelanim;
+    }
+    if (%varbit6194 = 2) {
+        if_setmodelanim;
+    }
+    if (%varbit6194 = 3) {
+        if_setmodelanim;
+    }
+    if (%varbit6194 = 4) {
+        if_setmodelanim;
+    }
+    if (%varbit6194 = 5) {
+        if_setmodelanim;
+    }
+    if (%varbit6194 = 6) {
+        if_setmodelanim;
+    }
+}
+return;

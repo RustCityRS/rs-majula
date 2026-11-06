@@ -1,0 +1,14 @@
+; id: 3980
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 4095
+    1: pop_varbit 8576
+    2: push_constant_int 0
+    3: pop_varbit 8577
+    4: gosub_with_params 3975
+    5: return 0

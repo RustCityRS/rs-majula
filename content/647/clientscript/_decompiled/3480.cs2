@@ -1,0 +1,34 @@
+[clientscript,script_3480](int $int0, int $int1, int $int2, int $int3, int $int4)(int, int, int, int, int, string)
+def_int $int5 = if_getscrolly;
+if ($int3 = 1) {
+    if ($int5 ! 0) {
+        $int5 = max(sub($int5, 6), 0);
+        if_setscrollpos($int5, $int0);
+    }
+    if ($int5 <= 0) {
+        if_setscrollpos(0, $int0);
+        if_setontimer;
+        if_sethide($int1);
+        if_sethide($int2);
+        return(0, -1, $int0, 0, 0, "");
+    }
+} else {
+    if ($int5 ! 300) {
+        $int5 = min(add($int5, 6), 300);
+        if_setscrollpos($int5, $int0);
+    }
+    if ($int5 >= 300) {
+        if_setscrollpos(300, $int0);
+        if_setontimer;
+        if_sethide($int1);
+        if_sethide($int2);
+        return(0, -1, $int0, 0, 0, "");
+    }
+}
+if_sethide($int1);
+if_sethide($int2);
+if (sub(clientclock, $int4) >= 10) {
+    sound_synth(synth_2871, 1, 0);
+    if_setontimer;
+}
+return;

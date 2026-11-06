@@ -3,13 +3,13 @@ use crate::archive::JagArchive;
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, load_name_hashes, stamp_path, write_archive};
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
 #[cfg(before_647)]
 use crate::pack::util::{media, palette};
 #[cfg(before_647)]
 use crate::sheet::Parsed;
-#[cfg(since_647)]
-use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 #[cfg(since_647)]
 use anyhow::{Context, Result};
 #[cfg(since_647)]
@@ -19,17 +19,17 @@ use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
-use rs_io::js5::Js5Store;
-#[cfg(since_647)]
 use rs_io::js5::reference::FileInfo;
-use std::collections::HashMap;
 #[cfg(since_647)]
-use std::collections::HashSet;
+use rustc_hash::{FxHashMap, FxHashSet};
+use std::collections::HashMap;
 use std::fs;
 #[cfg(since_647)]
 use std::fs::File;
 #[cfg(since_647)]
 use std::io::BufReader;
+#[cfg(since_647)]
+use std::iter::once;
 #[cfg(before_647)]
 use std::mem::take;
 use std::path::Path;
@@ -94,12 +94,10 @@ pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
     for &(aid, dir_name) in &[
         (archive::SPRITES, "sprites"),
@@ -116,21 +114,14 @@ pub fn pack_archive(
             continue;
         }
 
-        let sprite_stamp = stamp_path(output_dir, aid);
-        let sprite_input = newest_mtime(&unpack_dir, &[]);
-        if !force_rebuild && is_up_to_date(&sprite_stamp, sprite_input) {
-            info!(
-                "  archive {:>2} ({}) -- up to date, skipping",
-                aid, dir_name
-            );
-            continue;
-        }
-
         let mut group_ids: Vec<u32> = Vec::new();
         if let Ok(entries) = fs::read_dir(&unpack_dir) {
             for entry in entries.flatten() {
                 let path = entry.path();
-                if path.is_dir() {
+                if entry
+                    .file_type()
+                    .is_ok_and(|kind| kind.is_dir() || kind.is_symlink() && path.is_dir())
+                {
                     if let Some(name) = path.file_name().and_then(|s| s.to_str()) {
                         if let Ok(gid) = name.parse::<u32>() {
                             group_ids.push(gid);
@@ -155,7 +146,7 @@ pub fn pack_archive(
             HashMap::new()
         };
 
-        let encoded: Vec<(u32, Vec<u8>)> = group_ids
+        let prepared: Vec<PreparedGroup> = group_ids
             .par_iter()
             .filter_map(|&gid| {
                 let group_dir = unpack_dir.join(gid.to_string());
@@ -168,13 +159,9 @@ pub fn pack_archive(
                     }
                 }
             })
-            .collect();
-
-        let prepared: Vec<PreparedGroup> = encoded
-            .par_iter()
             .filter_map(|(gid, data)| {
-                let mut group = PreparedGroup::new(aid, *gid, data, versions).ok()?;
-                group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
+                let mut group = PreparedGroup::new(aid, gid, &data, versions).ok()?;
+                group.name_hash = name_hashes.get(&gid).copied().unwrap_or(-1);
                 group.files = vec![FileInfo {
                     id: 0,
                     name_hash: None,
@@ -183,8 +170,7 @@ pub fn pack_archive(
             })
             .collect();
 
-        write_archive(store, aid, format, versions, prepared, "PNG encode")?;
-        write_stamp(&sprite_stamp)?;
+        insert_archive(store, aid, format, versions, prepared, "PNG encode")?;
     }
     Ok(())
 }
@@ -294,7 +280,7 @@ fn read_sprite_group(group_dir: &Path) -> Result<Option<SpriteGroup>> {
         }
         (pal.clone(), pal)
     } else {
-        let mut seen = HashSet::new();
+        let mut seen = FxHashSet::default();
         seen.insert(0u32);
         let mut pal: Vec<u32> = vec![0];
         for (_, path) in &png_files {
@@ -316,7 +302,7 @@ fn read_sprite_group(group_dir: &Path) -> Result<Option<SpriteGroup>> {
         (pal.clone(), pal)
     };
 
-    let color_map: HashMap<u32, u8> = palette
+    let color_map: FxHashMap<u32, u8> = palette
         .iter()
         .enumerate()
         .skip(1)
@@ -324,21 +310,14 @@ fn read_sprite_group(group_dir: &Path) -> Result<Option<SpriteGroup>> {
         .collect();
 
     let mut sprites = Vec::with_capacity(png_files.len());
-    for (file_idx, (_, path)) in png_files.iter().enumerate() {
-        let (img, sprite_meta) = if file_idx == 0 {
-            (
-                first_rgba.clone(),
-                PngMeta {
-                    strip_rows: first_meta.strip_rows,
-                    has_alpha: first_meta.has_alpha,
-                    row_major: first_meta.row_major,
-                    crop: first_meta.crop,
-                    palette_hex: None,
-                },
-            )
-        } else {
-            load_rgba_png_with_meta(path)?
-        };
+    let images = once(Ok((first_rgba, first_meta))).chain(
+        png_files
+            .iter()
+            .skip(1)
+            .map(|(_, path)| load_rgba_png_with_meta(path)),
+    );
+    for image in images {
+        let (img, sprite_meta) = image?;
         let meta_has_alpha = sprite_meta.has_alpha;
         let meta_row_major = sprite_meta.row_major;
 
@@ -509,17 +488,6 @@ struct RgbaImage {
 }
 
 #[cfg(since_647)]
-impl Clone for RgbaImage {
-    fn clone(&self) -> Self {
-        RgbaImage {
-            data: self.data.clone(),
-            width: self.width,
-            height: self.height,
-        }
-    }
-}
-
-#[cfg(since_647)]
 struct PngMeta {
     strip_rows: u32,
     has_alpha: Option<bool>,
@@ -539,7 +507,7 @@ fn load_rgba_png_with_meta(path: &Path) -> Result<(RgbaImage, PngMeta)> {
         .ok_or_else(|| anyhow::anyhow!("{} is too large to decode", path.display()))?;
     let mut buf = vec![0u8; size];
     let frame = reader.next_frame(&mut buf)?;
-    let raw = &buf[..frame.buffer_size()];
+    buf.truncate(frame.buffer_size());
     let w = info.width;
     let h = info.height;
 
@@ -577,7 +545,7 @@ fn load_rgba_png_with_meta(path: &Path) -> Result<(RgbaImage, PngMeta)> {
         .find(|t| t.keyword == "palette_hex")
         .map(|t| t.text.clone());
 
-    let rgba = decode_to_rgba(raw, &info)?;
+    let rgba = decode_to_rgba(buf, &info)?;
 
     Ok((
         RgbaImage {
@@ -606,11 +574,11 @@ fn load_rgba_png(path: &Path) -> Result<RgbaImage> {
         .ok_or_else(|| anyhow::anyhow!("{} is too large to decode", path.display()))?;
     let mut buf = vec![0u8; size];
     let frame = reader.next_frame(&mut buf)?;
-    let raw = &buf[..frame.buffer_size()];
+    buf.truncate(frame.buffer_size());
     let w = info.width;
     let h = info.height;
 
-    let rgba = decode_to_rgba(raw, &info)?;
+    let rgba = decode_to_rgba(buf, &info)?;
     Ok(RgbaImage {
         data: rgba,
         width: w,
@@ -619,11 +587,11 @@ fn load_rgba_png(path: &Path) -> Result<RgbaImage> {
 }
 
 #[cfg(since_647)]
-fn decode_to_rgba(raw: &[u8], info: &Info) -> Result<Vec<u8>> {
+fn decode_to_rgba(raw: Vec<u8>, info: &Info) -> Result<Vec<u8>> {
     let w = info.width;
     let h = info.height;
     match info.color_type {
-        ColorType::Rgba => Ok(raw.to_vec()),
+        ColorType::Rgba => Ok(raw),
         ColorType::Rgb => {
             let mut out = Vec::with_capacity((w * h * 4) as usize);
             for chunk in raw.chunks(3) {
@@ -636,7 +604,7 @@ fn decode_to_rgba(raw: &[u8], info: &Info) -> Result<Vec<u8>> {
             let plte = info.palette.as_ref().unwrap();
             let trns = info.trns.as_ref();
             let mut out = Vec::with_capacity((w * h * 4) as usize);
-            for &idx in raw {
+            for idx in raw {
                 let i = idx as usize;
                 let r = plte.get(i * 3).copied().unwrap_or(0);
                 let g = plte.get(i * 3 + 1).copied().unwrap_or(0);

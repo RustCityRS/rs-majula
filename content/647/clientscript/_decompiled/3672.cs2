@@ -1,0 +1,37 @@
+[clientscript,script_3672]
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+def_string $str3 = tostring(%varc_int1325) + "%";
+def_int $int0 = enum(105, 100, enum_3233, %varc_int1328);
+def_int $int1 = enum(105, 100, enum_3233, %varc_int1329);
+if_settext($str0);
+if_setcolour(65798216);
+if_settext($str1);
+if_setcolour(65798215);
+if_setgraphic(65798212);
+if_setgraphic(65798213);
+if_settext($str2);
+if_setcolour(65798214);
+if_settext($str3);
+if (%varc_int1327 ! 3) {
+    if_sethide(65798210);
+} else {
+    if_sethide(65798210);
+}
+if (%varc_int1326 ! 3) {
+    if_sethide(65798207);
+} else {
+    if_sethide(65798207);
+}
+if (%varc_int1331 = 1) {
+    if_sethide(65798209);
+} else {
+    if_sethide(65798209);
+}
+if (%varc_int1330 > 66) {
+    if_sethide(65798208);
+} else {
+    if_sethide(65798208);
+}
+return;

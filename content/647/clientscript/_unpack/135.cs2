@@ -1,0 +1,41 @@
+; id: 135
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 1
+    2: push_varc_string_old 24
+    3: string_length 0
+    4: push_constant_int 0
+    5: branch_greater_than 1
+    6: branch 5
+    7: push_varc_string_old 24
+    8: push_int_local 0
+    9: push_varc_int 6
+   10: push_constant_string ""
+   11: op5002 0
+   12: push_varc_string_old 24
+   13: chat_playername 0
+   14: compare 0
+   15: branch_if_false 1
+   16: branch 2
+   17: gosub_with_params 675
+   18: return 0
+   19: push_varc_string_old 24
+   20: op3623 0
+   21: branch_if_false 1
+   22: branch 8
+   23: push_varc_string_old 24
+   24: chat_playername 0
+   25: compare 0
+   26: push_constant_int 0
+   27: branch_not 1
+   28: branch 2
+   29: gosub_with_params 221
+   30: branch 1
+   31: gosub_with_params 675
+   32: return 0

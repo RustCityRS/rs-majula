@@ -1,0 +1,91 @@
+; id: 2850
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 500
+    1: pop_varc_int 1069
+    2: coord 0
+    3: push_constant_int 0
+    4: push_constant_int 0
+    5: push_constant_int -8
+    6: op3336 0
+    7: pop_varc_int 1070
+    8: push_constant_int 0
+    9: pop_varc_int 1071
+   10: coord 0
+   11: pop_varc_int 1072
+   12: push_constant_int 450
+   13: pop_varc_int 1073
+   14: push_constant_int 0
+   15: pop_varc_int 1074
+   16: push_constant_int 25
+   17: pop_varc_int 1282
+   18: push_varc_int 1070
+   19: push_varc_int 1069
+   20: push_constant_int 10
+   21: push_constant_int 3
+   22: op5500 0
+   23: push_varc_int 1070
+   24: push_varc_int 1071
+   25: gosub_with_params 2865
+   26: push_varc_int 1073
+   27: push_constant_int 10
+   28: push_constant_int 3
+   29: op5501 0
+   30: push_constant_int 0
+   31: pop_varc_int 1075
+   32: push_constant_int 0
+   33: pop_varc_int 1076
+   34: push_constant_int 2851
+   35: push_constant_int -2147483645
+   36: push_constant_int -2147483640
+   37: push_constant_int 0
+   38: push_constant_string "Iii"
+   39: push_constant_int 31129601
+   40: op2419 0
+   41: push_constant_int 0
+   42: push_constant_int 31129654
+   43: if_sethide 0
+   44: push_constant_int 0
+   45: push_constant_int 31129607
+   46: if_sethide 0
+   47: push_constant_int 0
+   48: push_constant_int 31129658
+   49: if_sethide 0
+   50: push_constant_int 1
+   51: push_constant_int 31129633
+   52: if_sethide 0
+   53: push_constant_int 1232
+   54: push_constant_int 31129628
+   55: if_setgraphic 0
+   56: push_constant_string "You are now in Aim Mode"
+   57: push_constant_int 31129629
+   58: if_settext 0
+   59: push_constant_int 2853
+   60: push_constant_int 31129601
+   61: clientclock 0
+   62: push_constant_string "Ii"
+   63: push_constant_int 31129601
+   64: op2408 0
+   65: push_constant_int 2852
+   66: push_constant_int 31129607
+   67: push_constant_string "I"
+   68: push_constant_int 31129607
+   69: op2408 0
+   70: push_constant_int 0
+   71: push_constant_int 31129602
+   72: if_sethide 0
+   73: push_constant_int 2870
+   74: push_constant_int -2147483645
+   75: clientclock 0
+   76: push_constant_int 150
+   77: add 0
+   78: push_constant_string "Ii"
+   79: push_constant_int 31129602
+   80: op2408 0
+   81: gosub_with_params 3455
+   82: return 0

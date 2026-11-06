@@ -1,0 +1,196 @@
+; id: 2971
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=3
+local_long_count=0
+
+    0: push_constant_string ""
+    1: pop_string_local 0
+    2: push_constant_string ""
+    3: pop_string_local 1
+    4: push_constant_string ""
+    5: pop_string_local 2
+    6: push_constant_int -1
+    7: pop_int_local 2
+    8: push_constant_int -1
+    9: pop_int_local 3
+   10: push_int_local 0
+   11: switch 0
+   12: push_constant_string "Unknown"
+   13: pop_string_local 0
+   14: push_constant_string "This should not get here."
+   15: pop_string_local 1
+   16: push_constant_string "This should never get here."
+   17: pop_string_local 2
+   18: push_constant_int 62129
+   19: pop_int_local 2
+   20: push_constant_int 30081093
+   21: pop_int_local 3
+   22: branch 87
+   23: push_constant_string "Nothing."
+   24: pop_string_local 0
+   25: push_constant_string "There are no requirements for building this feature."
+   26: pop_string_local 1
+   27: push_constant_string "This feature is an abscence of anything. Oddly, some creatures prefer the minimalist approach."
+   28: pop_string_local 2
+   29: push_constant_int 62129
+   30: pop_int_local 2
+   31: push_constant_int 30081093
+   32: pop_int_local 3
+   33: branch 76
+   34: push_constant_string "Pond"
+   35: pop_string_local 0
+   36: push_constant_string "You need a Construction level of 65 to build a pond."
+   37: pop_string_local 1
+   38: push_constant_string "Ponds attract creatures with an affinity for water. They are essentially very small, man-made lakes...or glorified puddles, depending on your view."
+   39: pop_string_local 2
+   40: push_constant_int 30081092
+   41: pop_int_local 3
+   42: push_constant_int 62128
+   43: pop_int_local 2
+   44: branch 65
+   45: push_constant_string "Tall grass"
+   46: pop_string_local 0
+   47: push_constant_string "You need a Construction level of 62 to build tall grass."
+   48: pop_string_local 1
+   49: push_constant_string "Tall grass is favoured by creatures who sneak and hide. It's also a favourite with people too lazy to trim their lawn. Essentially, it's a patch of land allowed to grow wild."
+   50: pop_string_local 2
+   51: push_constant_int 30081094
+   52: pop_int_local 3
+   53: push_constant_int 62134
+   54: pop_int_local 2
+   55: branch 54
+   56: push_constant_string "Abandoned house"
+   57: pop_string_local 0
+   58: push_constant_string "You need a Construction level of 57 to build an abandoned house."
+   59: pop_string_local 1
+   60: push_constant_string "Something approximating an abandoned house: popular amongst creatures that think they're domesticated."
+   61: pop_string_local 2
+   62: push_constant_int 30081095
+   63: pop_int_local 3
+   64: push_constant_int 62132
+   65: pop_int_local 2
+   66: branch 43
+   67: push_constant_string "Thermal vent"
+   68: pop_string_local 0
+   69: push_constant_string "You need a Construction level of 59 to build a thermal vent."
+   70: pop_string_local 1
+   71: push_constant_string "A home-made volcano, or, at least, something that looks like one. These are popular among earthy creatures."
+   72: pop_string_local 2
+   73: push_constant_int 30081096
+   74: pop_int_local 3
+   75: push_constant_int 62133
+   76: pop_int_local 2
+   77: branch 32
+   78: push_constant_string "Standing stones"
+   79: pop_string_local 0
+   80: push_constant_string "You need a Construction level of 70 to build standing stones."
+   81: pop_string_local 1
+   82: push_constant_string "A circle of home-made mystical stones, popular among creatures that are more magically inclined."
+   83: pop_string_local 2
+   84: push_constant_int 30081097
+   85: pop_int_local 3
+   86: push_constant_int 62136
+   87: pop_int_local 2
+   88: branch 21
+   89: push_constant_string "Dark pit"
+   90: pop_string_local 0
+   91: push_constant_string "You need a Construction level of 80 to build a dark pit."
+   92: pop_string_local 1
+   93: push_constant_string "A deep, dark, endless pit, popular among the more sinister creatures. Don't look too closely: you might fall in."
+   94: pop_string_local 2
+   95: push_constant_int 30081098
+   96: pop_int_local 3
+   97: push_constant_int 62131
+   98: pop_int_local 2
+   99: branch 10
+  100: push_constant_string "Boneyard"
+  101: pop_string_local 0
+  102: push_constant_string "You need a Construction level of 56 to build a boneyard."
+  103: pop_string_local 1
+  104: push_constant_string "An animal graveyard, or a collection of well-made bone mockeries. Popular among scavengers and sinister creatures."
+  105: pop_string_local 2
+  106: push_constant_int 30081099
+  107: pop_int_local 3
+  108: push_constant_int 62135
+  109: pop_int_local 2
+  110: gosub_with_params 2973
+  111: push_constant_int 22
+  112: stat 0
+  113: push_int_local 1
+  114: branch_less_than 1
+  115: branch 11
+  116: push_constant_int 13421568
+  117: push_constant_int 30081061
+  118: if_setcolour 0
+  119: push_string_local 2
+  120: push_constant_string "<br>"
+  121: push_constant_string "<br>"
+  122: push_constant_string "You can pay Papa Mambo to build this for you."
+  123: join_string 3
+  124: append 0
+  125: pop_string_local 2
+  126: branch 3
+  127: push_constant_int 52224
+  128: push_constant_int 30081061
+  129: if_setcolour 0
+  130: push_string_local 0
+  131: push_constant_int 30081061
+  132: if_settext 0
+  133: push_string_local 1
+  134: push_constant_int 30081062
+  135: if_settext 0
+  136: push_string_local 2
+  137: push_constant_int 30081060
+  138: if_settext 0
+  139: push_int_local 2
+  140: push_constant_int 30081059
+  141: op2108 0
+  142: push_constant_int 1
+  143: push_constant_int 30081093
+  144: if_sethide 0
+  145: push_constant_int 1
+  146: push_constant_int 30081092
+  147: if_sethide 0
+  148: push_constant_int 1
+  149: push_constant_int 30081094
+  150: if_sethide 0
+  151: push_constant_int 1
+  152: push_constant_int 30081095
+  153: if_sethide 0
+  154: push_constant_int 1
+  155: push_constant_int 30081096
+  156: if_sethide 0
+  157: push_constant_int 1
+  158: push_constant_int 30081097
+  159: if_sethide 0
+  160: push_constant_int 1
+  161: push_constant_int 30081098
+  162: if_sethide 0
+  163: push_constant_int 1
+  164: push_constant_int 30081099
+  165: if_sethide 0
+  166: push_int_local 3
+  167: push_constant_int -1
+  168: branch_not 1
+  169: branch 4
+  170: push_constant_int 0
+  171: push_int_local 3
+  172: if_sethide 0
+  173: branch 3
+  174: push_constant_int 0
+  175: push_constant_int 30081093
+  176: if_sethide 0
+  177: return 0
+
+switch_0:
+  0 => 11
+  1 => 22
+  2 => 33
+  3 => 44
+  4 => 55
+  5 => 66
+  6 => 77
+  7 => 88

@@ -1,0 +1,5 @@
+[clientscript,script_3393](int $int0)
+if (cc_find(64159770, $int0) = 1) {
+    cc_settrans(255);
+}
+return;

@@ -1,0 +1,6 @@
+[clientscript,script_2243](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(component, component, component, int, int, int, int, int, int, int, int, int, int, int, int, int, component, string)
+if_settext(tostring($int6));
+if_settext(tostring($int7));
+if_settext(tostring(div($int8, 100)) + "." + tostring(mod($int8, 100)));
+if_setontimer;
+return(61276240, 61276245, 61276261, 2244, 0, $int0, $int1, 0, $int2, $int3, 0, $int4, $int5, $int6, $int7, $int8, 61276160, "iiiiiiiiiiii");

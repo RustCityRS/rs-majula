@@ -1,0 +1,9 @@
+[clientscript,script_4224](int $int0)
+if ($int0 = 61145417) {
+    if_sethide(61145417);
+    if_sethide(61145418);
+} else {
+    if_sethide(61145418);
+    if_sethide(61145417);
+}
+return;

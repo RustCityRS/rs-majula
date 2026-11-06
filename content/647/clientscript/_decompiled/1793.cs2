@@ -1,0 +1,17 @@
+[clientscript,script_1793](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int, int, int, int)
+~script_1795($int4, $int5);
+if (%varbit5279 = 1) {
+    if_settext("Free-for-all: Dangerous");
+    if_settext("This is a " + "<col=ff0000>" + "DANGEROUS" + "</col>" + " arena. When players fight each other in here, they drop " + "<col=ff0000>" + "ALL" + "</col>" + " their items on death. Gravestones do not appear." + "<br>" + "<br>" + "A non-combat zone exists at the southern end of the arena. This portal leads into that zone." + "<br>" + "<br>" + "You cannot teleport out of this arena unless you're standing in the non-combat zone.");
+    if_setonvartransmit;
+} else {
+    if_settext("Free-for-all: Safe");
+    if_settext("This is a SAFE arena. Although players may fight each other in here, items are not dropped on death." + "<br>" + "<br>" + "You can teleport out of the arena at any time." + "<br>" + "<br>" + "A non-combat zone exists at the southern end of the arena. This portal leads into that zone.");
+    if_setonvartransmit;
+}
+def_int $int6 = parawidth(if_gettext, 496);
+$int6 = calc(if_getwidth - $int6 / 2);
+$int6 = calc($int2 - if_getwidth + 10);
+if_setposition(if_gety, 0, 0, $int2);
+if_setposition(if_gety, 2, 0, $int3);
+return($int0, $int0, if_getwidth, $int0, $int6, $int6, $int2, $int6, $int3);

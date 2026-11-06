@@ -1,0 +1,10 @@
+[clientscript,script_3143](int $int0, string $str0)(component)
+if ($int0 = 0) {
+    if_setcolour(59637768);
+} else {
+    if ($int0 = 1) {
+        if_setcolour(59637768);
+    }
+}
+if_settext($str0);
+return(59637768);

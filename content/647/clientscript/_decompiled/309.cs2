@@ -1,0 +1,38 @@
+[clientscript,script_309](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+if (%varc_int623 ! -1) {
+    if (maparea_getbycoord(%varc_int623) = $int0) {
+        $int3 = ~script_292(%varc_int624, $int1, $int2, $int3);
+    }
+}
+if (%varc_int625 ! -1) {
+    if (maparea_getbycoord(%varc_int625) = $int0) {
+        $int3 = ~script_292(%varc_int626, $int1, $int2, $int3);
+    }
+}
+if (%varc_int627 ! -1) {
+    if (maparea_getbycoord(%varc_int627) = $int0) {
+        $int3 = ~script_292(%varc_int628, $int1, $int2, $int3);
+    }
+}
+if (%varc_int629 ! -1) {
+    if (maparea_getbycoord(%varc_int629) = $int0) {
+        $int3 = ~script_292(%varc_int630, $int1, $int2, $int3);
+    }
+}
+if (%varp1159 ! -1) {
+    if (maparea_getbycoord(%varp1159) = $int0) {
+        $int3 = ~script_292(972, $int1, $int2, $int3);
+    }
+}
+if (%varc_int940 ! -1) {
+    if (maparea_getbycoord(%varc_int940) = $int0) {
+        $int3 = ~script_292(%varc_int941, $int1, $int2, $int3);
+    }
+}
+if (%varc_int674 ! -1) {
+    if (maparea_getbycoord(%varc_int674) = $int0) {
+        $int3 = ~script_292(280, $int1, $int2, $int3);
+    }
+}
+return;

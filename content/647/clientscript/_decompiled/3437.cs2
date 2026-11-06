@@ -1,0 +1,61 @@
+[clientscript,script_3437]
+def_int $int0 = -1;
+if (%varbit7919 < 3) {
+    if (%varbit7920 = 1) {
+        $int0 = ~script_3438(%varbit7919);
+    }
+    if (%varbit7920 = 2) {
+        $int0 = ~script_3439(%varbit7919);
+    }
+    if (%varbit7920 = 3) {
+        $int0 = ~script_3440(%varbit7919);
+    }
+} else {
+    if (%varbit7919 < 6) {
+        if (%varbit7920 = 1) {
+            $int0 = ~script_3439(%varbit7919);
+        }
+        if (%varbit7920 = 2) {
+            $int0 = ~script_3440(%varbit7919);
+        }
+        if (%varbit7920 = 3) {
+            $int0 = ~script_3438(%varbit7919);
+        }
+    }
+    if (%varbit7919 = 10) {
+        if (%varbit7920 = 2) {
+            $int0 = ~script_3439(%varbit7919);
+        }
+        if (%varbit7920 = 3) {
+            $int0 = ~script_3440(%varbit7919);
+        }
+        if (%varbit7920 = 1) {
+            $int0 = ~script_3438(%varbit7919);
+        }
+    }
+    if (%varbit7920 = 1) {
+        $int0 = ~script_3440(%varbit7919);
+    }
+    if (%varbit7920 = 2) {
+        $int0 = ~script_3438(%varbit7919);
+    }
+    if (%varbit7920 = 3) {
+        $int0 = ~script_3439(%varbit7919);
+    }
+}
+if_setmodel;
+if (%varbit7920 ! 0) {
+    if_sethide(64618501);
+}
+if (%varbit7920 = 1) {
+    if_setposition(205, 0, 0, 64618501);
+} else {
+    if (%varbit7920 = 2) {
+        if_setposition(205, 0, 0, 64618501);
+    }
+    if (%varbit7920 = 3) {
+        if_setposition(205, 0, 0, 64618501);
+    }
+    if_sethide(64618501);
+}
+return;

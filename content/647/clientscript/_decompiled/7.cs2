@@ -1,0 +1,15 @@
+[clientscript,script_7]
+def_int $int0 = sub(%varc_int10, 100);
+%varc_int10 = 0;
+if ($int0 < -1) {
+    return;
+}
+def_int $int1 = ~script_8($int0);
+if ($int1 = -1) {
+    return;
+}
+if (if_hasoverlay($int1) = 0) {
+    return;
+}
+~script_71($int0);
+return;

@@ -1,0 +1,8 @@
+[clientscript,script_822](int $int0, int $int1, string $str0)(string)
+def_int $int2 = $int0;
+if ($int1 = 1) {
+    $str0 = ~script_823($int2, $str0);
+} else {
+    $str0 = ~script_824($int2, $str0);
+}
+return($str0);

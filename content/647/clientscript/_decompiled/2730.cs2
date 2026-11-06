@@ -1,0 +1,13 @@
+[clientscript,script_2730](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    if_setgraphic($int0);
+    if_setsize(0, 1, 1, $int0);
+    if_settiling(1, $int0);
+    if_settextshadow(1, $int1);
+} else {
+    if_setgraphic($int0);
+    if_setsize(142, 0, 0, $int0);
+    if_settiling(0, $int0);
+    if_settextshadow(0, $int1);
+}
+return;

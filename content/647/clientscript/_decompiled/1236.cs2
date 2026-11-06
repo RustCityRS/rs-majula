@@ -1,0 +1,8 @@
+[clientscript,script_1236](int, int, int, component, int, int, stat, int, stat, stat, stat, component, string, string)
+%varc_int1063 = -1;
+if_setonvartransmit;
+if_setonstattransmit;
+~script_1717;
+cc_deleteall(17760262);
+~script_1704;
+return(1716, 1584, 1, 17760264, 1705, 0, strength, 1, ranged, magic, prayer, 17760264, "Y", "Y");

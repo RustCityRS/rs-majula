@@ -1,0 +1,25 @@
+[clientscript,script_4068](int $int0)
+switch ($int0) {
+    case 69337110:
+        if (if_getgraphic(69337107) ! 4444) {
+            if_setposition(18, 1, 0, $int0);
+        }
+    case 69337111:
+        if (if_getgraphic(69337105) ! 4445) {
+            if_setposition(18, 1, 0, $int0);
+        }
+    case 69337112:
+        if (if_getgraphic(69337103) ! 4446) {
+            if_setposition(18, 1, 0, $int0);
+        }
+    case 69337114:
+        if (if_getgraphic(69337101) ! 4447) {
+            if_setposition(18, 1, 0, $int0);
+        }
+    case 69337113:
+        if (if_getgraphic(69337099) ! 4448) {
+            if_setposition(18, 1, 0, $int0);
+        }
+    default:
+}
+return;

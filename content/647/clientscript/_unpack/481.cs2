@@ -1,0 +1,94 @@
+; id: 481
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 3255
+    1: push_constant_int 66519183
+    2: if_setgraphic 0
+    3: push_constant_int 3255
+    4: push_constant_int 66519185
+    5: if_setgraphic 0
+    6: push_constant_int 3255
+    7: push_constant_int 66519187
+    8: if_setgraphic 0
+    9: push_constant_int 3255
+   10: push_constant_int 66519189
+   11: if_setgraphic 0
+   12: push_constant_int 3255
+   13: push_constant_int 66519191
+   14: if_setgraphic 0
+   15: push_constant_int 3255
+   16: push_constant_int 66519193
+   17: if_setgraphic 0
+   18: push_constant_int 3255
+   19: push_constant_int 66519195
+   20: if_setgraphic 0
+   21: push_constant_int 3255
+   22: push_constant_int 66519197
+   23: if_setgraphic 0
+   24: push_constant_int 3255
+   25: push_constant_int 66519199
+   26: if_setgraphic 0
+   27: push_constant_int 3255
+   28: push_constant_int 66519201
+   29: if_setgraphic 0
+   30: push_varbit 7512
+   31: switch 0
+   32: return 0
+   33: branch 39
+   34: push_constant_int 3257
+   35: push_constant_int 66519183
+   36: if_setgraphic 0
+   37: branch 35
+   38: push_constant_int 3257
+   39: push_constant_int 66519185
+   40: if_setgraphic 0
+   41: branch 31
+   42: push_constant_int 3257
+   43: push_constant_int 66519187
+   44: if_setgraphic 0
+   45: branch 27
+   46: push_constant_int 3257
+   47: push_constant_int 66519189
+   48: if_setgraphic 0
+   49: branch 23
+   50: push_constant_int 3257
+   51: push_constant_int 66519191
+   52: if_setgraphic 0
+   53: branch 19
+   54: push_constant_int 3257
+   55: push_constant_int 66519193
+   56: if_setgraphic 0
+   57: branch 15
+   58: push_constant_int 3257
+   59: push_constant_int 66519195
+   60: if_setgraphic 0
+   61: branch 11
+   62: push_constant_int 3257
+   63: push_constant_int 66519197
+   64: if_setgraphic 0
+   65: branch 7
+   66: push_constant_int 3257
+   67: push_constant_int 66519199
+   68: if_setgraphic 0
+   69: branch 3
+   70: push_constant_int 3257
+   71: push_constant_int 66519201
+   72: if_setgraphic 0
+   73: return 0
+
+switch_0:
+  1 => 2
+  2 => 6
+  3 => 10
+  4 => 14
+  5 => 18
+  6 => 22
+  7 => 26
+  8 => 30
+  9 => 34
+  10 => 38

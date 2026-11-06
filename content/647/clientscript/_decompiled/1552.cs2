@@ -1,0 +1,10 @@
+[clientscript,script_1552](int $int0, int $int1, int $int2, int $int3, string $str0)(int)
+def_int $int4 = 0;
+if (cc_find($int2, $int3) ! 1) {
+    if ($int3 = -1) {
+    }
+} else {
+    $int4 = calc(cc_getx + cc_getwidth / 2);
+}
+return(0);
+return(~script_1551($int0, $int1, calc($int4 - char_isnumeric($int1) / 2), ~script_1602($str0)), $str0);

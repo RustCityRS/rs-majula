@@ -1,0 +1,66 @@
+[clientscript,script_2707](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, string $str0)
+if ($int0 = -1) {
+    return;
+}
+if (%varc_int1 < add(clientclock, $int3)) {
+    if (%varc_int1 < clientclock) {
+        %varc_int1 = clientclock;
+    }
+    %varc_int1 = add(%varc_int1, 2);
+    return;
+}
+if (cc_find($int0, $int1) = 1) {
+    $int5 = add($int5, ~script_1743);
+    $int6 = add($int6, ~script_1744);
+}
+%varc_int1 = calc(clientclock + $int3 + 10);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = -1;
+if (%varc_int2 ! 1) {
+    if_getlayer;
+    $int9 = $int2;
+    if ($int9 ! -1) {
+        if ($int9 >= if_getwidth) {
+            $int4 = if_getwidth;
+        }
+    }
+    $int7 = calc($int4 - 6 + parawidth($str0, 495));
+    $int8 = calc(16 + $int4 - 6 * paraheight($str0, 495));
+    if_setsize($int8, 0, 0, $int2);
+    $int5 = calc($int5 - 5 - $int7);
+    $int6 = calc($int6 - 3 - $int8);
+    if ($int9 ! -1) {
+        if ($int9 > if_getwidth) {
+            $int5 = sub(if_getwidth, $int7);
+        }
+        if ($int9 > if_getheight) {
+            $int6 = sub(if_getheight, $int8);
+        }
+    }
+    if ($int5 < 0) {
+        $int5 = 0;
+    }
+    if ($int6 < 0) {
+        $int6 = 0;
+    }
+    if_setposition($int6, 0, 0, $int2);
+    cc_deleteall($int2);
+    cc_setposition($int5, $int2, 3, 0);
+    cc_setsize($int7, $int8, 0, 0);
+    cc_setfill(1);
+    cc_setcolour(16777120);
+    cc_setposition(0, $int2, 3, 1);
+    cc_setsize($int7, $int8, 0, 0);
+    cc_setfill(0);
+    cc_setcolour(0);
+    cc_setposition(0, $int2, 4, 2);
+    cc_setsize(sub($int4, 6), $int8, 0, 0);
+    cc_setposition2(0, 0, 1, 1);
+    cc_settext($str0);
+    cc_settextalign(1, 1, 16);
+    cc_settextfont(495);
+    cc_setcolour(0);
+    %varc_int2 = 1;
+}
+return;

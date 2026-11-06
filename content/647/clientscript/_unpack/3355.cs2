@@ -1,0 +1,1940 @@
+; id: 3355
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 1758
+    3: push_int_local 1
+    4: switch 1
+    5: branch 329
+    6: push_constant_int 1
+    7: push_constant_int 18619
+    8: push_constant_string "Gluttonous behemoth"
+    9: push_constant_string "You can now fight "
+   10: push_constant_string "<col=000080>"
+   11: push_constant_string "gluttonous behemoths"
+   12: push_constant_string "</col>"
+   13: push_constant_string " in Daemonheim."
+   14: join_string 5
+   15: return 0
+   16: branch 318
+   17: push_constant_int 1
+   18: push_constant_int 18617
+   19: push_constant_string "Astea Frostweb"
+   20: push_constant_string "You can now fight "
+   21: push_constant_string "<col=000080>"
+   22: push_constant_string "Astea Frostweb"
+   23: push_constant_string "</col>"
+   24: push_constant_string " in Daemonheim."
+   25: join_string 5
+   26: return 0
+   27: branch 307
+   28: push_constant_int 1
+   29: push_constant_int 18625
+   30: push_constant_string "Icy Bones"
+   31: push_constant_string "You can now fight "
+   32: push_constant_string "<col=000080>"
+   33: push_constant_string "Icy Bones"
+   34: push_constant_string "</col>"
+   35: push_constant_string " in Daemonheim."
+   36: join_string 5
+   37: return 0
+   38: branch 296
+   39: push_constant_int 5
+   40: push_constant_int 18628
+   41: push_constant_string "Luminescent icefiend"
+   42: push_constant_string "You can now fight "
+   43: push_constant_string "<col=000080>"
+   44: push_constant_string "luminescent icefiends"
+   45: push_constant_string "</col>"
+   46: push_constant_string " in Daemonheim."
+   47: join_string 5
+   48: return 0
+   49: branch 285
+   50: push_constant_int 11
+   51: push_constant_int 18621
+   52: push_constant_string "Plane-freezer Lakhrahnaz"
+   53: push_constant_string "You can now fight "
+   54: push_constant_string "<col=000080>"
+   55: push_constant_string "Plane-freezer Lakhrahnaz"
+   56: push_constant_string "</col>"
+   57: push_constant_string " in Daemonheim."
+   58: join_string 5
+   59: return 0
+   60: branch 274
+   61: push_constant_int 17
+   62: push_constant_int 18623
+   63: push_constant_string "To'Kash the Bloodchiller"
+   64: push_constant_string "You can now fight "
+   65: push_constant_string "<col=000080>"
+   66: push_constant_string "To'Kash the Bloodchiller"
+   67: push_constant_string "</col>"
+   68: push_constant_string " in Daemonheim."
+   69: join_string 5
+   70: return 0
+   71: branch 263
+   72: push_constant_int 23
+   73: push_constant_int 18618
+   74: push_constant_string "Skeletal Horde"
+   75: push_constant_string "You can now fight "
+   76: push_constant_string "<col=000080>"
+   77: push_constant_string "skeletal hordes"
+   78: push_constant_string "</col>"
+   79: push_constant_string " in Daemonheim."
+   80: join_string 5
+   81: return 0
+   82: branch 252
+   83: push_constant_int 23
+   84: push_constant_int 18624
+   85: push_constant_string "Hobgoblin Geomancer"
+   86: push_constant_string "You can now fight the "
+   87: push_constant_string "<col=000080>"
+   88: push_constant_string "Geomancer Shaman"
+   89: push_constant_string "</col>"
+   90: push_constant_string " in Daemonheim."
+   91: join_string 5
+   92: return 0
+   93: branch 241
+   94: push_constant_int 23
+   95: push_constant_int 19699
+   96: push_constant_string "Bulwark beast"
+   97: push_constant_string "You can now fight "
+   98: push_constant_string "<col=000080>"
+   99: push_constant_string "bulwark beasts"
+  100: push_constant_string "</col>"
+  101: push_constant_string " in Daemonheim."
+  102: join_string 5
+  103: return 0
+  104: branch 230
+  105: push_constant_int 29
+  106: push_constant_int 18632
+  107: push_constant_string "Unholy cursebearer"
+  108: push_constant_string "You can now fight "
+  109: push_constant_string "<col=000080>"
+  110: push_constant_string "unholy cursebearers"
+  111: push_constant_string "</col>"
+  112: push_constant_string " in Daemonheim."
+  113: join_string 5
+  114: return 0
+  115: branch 219
+  116: push_constant_int 35
+  117: push_constant_int 18622
+  118: push_constant_string "Rammernaut"
+  119: push_constant_string "You can now fight "
+  120: push_constant_string "<col=000080>"
+  121: push_constant_string "rammernauts"
+  122: push_constant_string "</col>"
+  123: push_constant_string " in Daemonheim."
+  124: join_string 5
+  125: return 0
+  126: branch 208
+  127: push_constant_int 35
+  128: push_constant_int 18633
+  129: push_constant_string "Stomp"
+  130: push_constant_string "You can now fight "
+  131: push_constant_string "<col=000080>"
+  132: push_constant_string "stomps"
+  133: push_constant_string "</col>"
+  134: push_constant_string " in Daemonheim."
+  135: join_string 5
+  136: return 0
+  137: branch 197
+  138: push_constant_int 35
+  139: push_constant_int 19697
+  140: push_constant_string "Har'Lakk the Riftsplitter"
+  141: push_constant_string "You can now fight "
+  142: push_constant_string "<col=000080>"
+  143: push_constant_string "Har'Lakk the Riftsplitter"
+  144: push_constant_string "</col>"
+  145: push_constant_string " in Daemonheim."
+  146: join_string 5
+  147: return 0
+  148: branch 186
+  149: push_constant_int 39
+  150: push_constant_int 18627
+  151: push_constant_string "Lexicus Runewright"
+  152: push_constant_string "You can now fight "
+  153: push_constant_string "<col=000080>"
+  154: push_constant_string "Lexicus Runewright"
+  155: push_constant_string "</col>"
+  156: push_constant_string " in Daemonheim."
+  157: join_string 5
+  158: return 0
+  159: branch 175
+  160: push_constant_int 45
+  161: push_constant_int 18630
+  162: push_constant_string "Sagittare"
+  163: push_constant_string "You can now fight "
+  164: push_constant_string "<col=000080>"
+  165: push_constant_string "sagittares"
+  166: push_constant_string "</col>"
+  167: push_constant_string " in Daemonheim."
+  168: join_string 5
+  169: return 0
+  170: branch 164
+  171: push_constant_int 51
+  172: push_constant_int 18631
+  173: push_constant_string "Night-gazer Khighorahk"
+  174: push_constant_string "You can now fight "
+  175: push_constant_string "<col=000080>"
+  176: push_constant_string "Night-gazer Khighorahk"
+  177: push_constant_string "</col>"
+  178: push_constant_string " in Daemonheim."
+  179: join_string 5
+  180: return 0
+  181: branch 153
+  182: push_constant_int 59
+  183: push_constant_int 18626
+  184: push_constant_string "Shadow-forger Ihlakhizan"
+  185: push_constant_string "You can now fight "
+  186: push_constant_string "<col=000080>"
+  187: push_constant_string "Shadow-forger Ihlakhizan"
+  188: push_constant_string "</col>"
+  189: push_constant_string " in Daemonheim."
+  190: join_string 5
+  191: return 0
+  192: branch 142
+  193: push_constant_int 65
+  194: push_constant_int 19696
+  195: push_constant_string "Bal'Lak the Pummeller"
+  196: push_constant_string "You can now fight "
+  197: push_constant_string "<col=000080>"
+  198: push_constant_string "Bal'Lak the Pummeller"
+  199: push_constant_string "</col>"
+  200: push_constant_string " in Daemonheim."
+  201: join_string 5
+  202: return 0
+  203: branch 131
+  204: push_constant_int 71
+  205: push_constant_int 19694
+  206: push_constant_string "Members: Skeletal trio"
+  207: push_constant_string "Members can now fight the "
+  208: push_constant_string "<col=000080>"
+  209: push_constant_string "skeletal trio"
+  210: push_constant_string "</col>"
+  211: push_constant_string " in Daemonheim."
+  212: join_string 5
+  213: return 0
+  214: branch 120
+  215: push_constant_int 71
+  216: push_constant_int 19695
+  217: push_constant_string "Members: Runebound behemoth"
+  218: push_constant_string "Members can now fight "
+  219: push_constant_string "<col=000080>"
+  220: push_constant_string "runebound behemoths"
+  221: push_constant_string "</col>"
+  222: push_constant_string " in Daemonheim."
+  223: join_string 5
+  224: return 0
+  225: branch 109
+  226: push_constant_int 71
+  227: push_constant_int 19692
+  228: push_constant_string "Members: Gravecreeper"
+  229: push_constant_string "Members can now fight "
+  230: push_constant_string "<col=000080>"
+  231: push_constant_string "Grave Creeper"
+  232: push_constant_string "</col>"
+  233: push_constant_string " in Daemonheim."
+  234: join_string 5
+  235: return 0
+  236: branch 98
+  237: push_constant_int 77
+  238: push_constant_int 19691
+  239: push_constant_string "Members: Necrolord"
+  240: push_constant_string "Members can now fight "
+  241: push_constant_string "<col=000080>"
+  242: push_constant_string "necrolords"
+  243: push_constant_string "</col>"
+  244: push_constant_string " in Daemonheim."
+  245: join_string 5
+  246: return 0
+  247: branch 87
+  248: push_constant_int 83
+  249: push_constant_int 19693
+  250: push_constant_string "Members: Flesh-spoiler Haasghenahk"
+  251: push_constant_string "Members can now fight "
+  252: push_constant_string "<col=000080>"
+  253: push_constant_string "Flesh-spoiler Haasghenahk"
+  254: push_constant_string "</col>"
+  255: push_constant_string " in Daemonheim."
+  256: join_string 5
+  257: return 0
+  258: branch 76
+  259: push_constant_int 89
+  260: push_constant_int 19698
+  261: push_constant_string "Members: Yk'Lagor the Thunderous"
+  262: push_constant_string "Members can now fight "
+  263: push_constant_string "<col=000080>"
+  264: push_constant_string "Yk'Lagor the Thunderous"
+  265: push_constant_string "</col>"
+  266: push_constant_string " in Daemonheim."
+  267: join_string 5
+  268: return 0
+  269: branch 65
+  270: push_constant_int 95
+  271: push_constant_int 19885
+  272: push_constant_string "Members: Blink"
+  273: push_constant_string "Members can now fight "
+  274: push_constant_string "<col=000080>"
+  275: push_constant_string "Blink"
+  276: push_constant_string "</col>"
+  277: push_constant_string " in Daemonheim."
+  278: join_string 5
+  279: return 0
+  280: branch 54
+  281: push_constant_int 95
+  282: push_constant_int 19883
+  283: push_constant_string "Members: Warped gulega"
+  284: push_constant_string "Members can now fight "
+  285: push_constant_string "<col=000080>"
+  286: push_constant_string "warped gulega"
+  287: push_constant_string "</col>"
+  288: push_constant_string " in Daemonheim."
+  289: join_string 5
+  290: return 0
+  291: branch 43
+  292: push_constant_int 95
+  293: push_constant_int 19884
+  294: push_constant_string "Members: Dreadnaut"
+  295: push_constant_string "Members can now fight "
+  296: push_constant_string "<col=000080>"
+  297: push_constant_string "dreadnauts"
+  298: push_constant_string "</col>"
+  299: push_constant_string " in Daemonheim."
+  300: join_string 5
+  301: return 0
+  302: branch 32
+  303: push_constant_int 101
+  304: push_constant_int 19882
+  305: push_constant_string "Members: Hope devourer"
+  306: push_constant_string "Members can now fight "
+  307: push_constant_string "<col=000080>"
+  308: push_constant_string "hope devourers"
+  309: push_constant_string "</col>"
+  310: push_constant_string " in Daemonheim."
+  311: join_string 5
+  312: return 0
+  313: branch 21
+  314: push_constant_int 107
+  315: push_constant_int 19881
+  316: push_constant_string "Members: World-gorger Shukarhazh"
+  317: push_constant_string "Members can now fight "
+  318: push_constant_string "<col=000080>"
+  319: push_constant_string "World-gorger Shukarhazh"
+  320: push_constant_string "</col>"
+  321: push_constant_string " in Daemonheim."
+  322: join_string 5
+  323: return 0
+  324: branch 10
+  325: push_constant_int 113
+  326: push_constant_int 19880
+  327: push_constant_string "Members: Kal'Ger the Warmonger"
+  328: push_constant_string "Members can now fight "
+  329: push_constant_string "<col=000080>"
+  330: push_constant_string "Kal'Ger the Warmonger"
+  331: push_constant_string "</col>"
+  332: push_constant_string " in Daemonheim."
+  333: join_string 5
+  334: return 0
+  335: branch 1425
+  336: push_int_local 1
+  337: switch 2
+  338: branch 659
+  339: push_constant_int 1
+  340: push_constant_int 18579
+  341: push_constant_string "Floor 1"
+  342: push_constant_string "You can now access floor "
+  343: push_constant_string "<col=000080>"
+  344: push_constant_string "1"
+  345: push_constant_string "</col>"
+  346: push_constant_string " of Daemonheim."
+  347: join_string 5
+  348: return 0
+  349: branch 648
+  350: push_constant_int 3
+  351: push_constant_int 18579
+  352: push_constant_string "Floor 2"
+  353: push_constant_string "You can now access floor "
+  354: push_constant_string "<col=000080>"
+  355: push_constant_string "2"
+  356: push_constant_string "</col>"
+  357: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  358: join_string 5
+  359: return 0
+  360: branch 637
+  361: push_constant_int 5
+  362: push_constant_int 18579
+  363: push_constant_string "Floor 3"
+  364: push_constant_string "You can now access floor "
+  365: push_constant_string "<col=000080>"
+  366: push_constant_string "3"
+  367: push_constant_string "</col>"
+  368: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  369: join_string 5
+  370: return 0
+  371: branch 626
+  372: push_constant_int 7
+  373: push_constant_int 18579
+  374: push_constant_string "Floor 4"
+  375: push_constant_string "You can now access floor "
+  376: push_constant_string "<col=000080>"
+  377: push_constant_string "4"
+  378: push_constant_string "</col>"
+  379: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  380: join_string 5
+  381: return 0
+  382: branch 615
+  383: push_constant_int 9
+  384: push_constant_int 18579
+  385: push_constant_string "Floor 5"
+  386: push_constant_string "You can now access floor "
+  387: push_constant_string "<col=000080>"
+  388: push_constant_string "5"
+  389: push_constant_string "</col>"
+  390: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  391: join_string 5
+  392: return 0
+  393: branch 604
+  394: push_constant_int 11
+  395: push_constant_int 18579
+  396: push_constant_string "Floor 6"
+  397: push_constant_string "You can now access floor "
+  398: push_constant_string "<col=000080>"
+  399: push_constant_string "6"
+  400: push_constant_string "</col>"
+  401: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  402: join_string 5
+  403: return 0
+  404: branch 593
+  405: push_constant_int 13
+  406: push_constant_int 18579
+  407: push_constant_string "Floor 7"
+  408: push_constant_string "You can now access floor "
+  409: push_constant_string "<col=000080>"
+  410: push_constant_string "7"
+  411: push_constant_string "</col>"
+  412: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  413: join_string 5
+  414: return 0
+  415: branch 582
+  416: push_constant_int 15
+  417: push_constant_int 18579
+  418: push_constant_string "Floor 8"
+  419: push_constant_string "You can now access floor "
+  420: push_constant_string "<col=000080>"
+  421: push_constant_string "8"
+  422: push_constant_string "</col>"
+  423: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  424: join_string 5
+  425: return 0
+  426: branch 571
+  427: push_constant_int 17
+  428: push_constant_int 18579
+  429: push_constant_string "Floor 9"
+  430: push_constant_string "You can now access floor "
+  431: push_constant_string "<col=000080>"
+  432: push_constant_string "9"
+  433: push_constant_string "</col>"
+  434: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  435: join_string 5
+  436: return 0
+  437: branch 560
+  438: push_constant_int 19
+  439: push_constant_int 18579
+  440: push_constant_string "Floor 10"
+  441: push_constant_string "You can now access floor "
+  442: push_constant_string "<col=000080>"
+  443: push_constant_string "10"
+  444: push_constant_string "</col>"
+  445: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  446: join_string 5
+  447: return 0
+  448: branch 549
+  449: push_constant_int 21
+  450: push_constant_int 18579
+  451: push_constant_string "Floor 11"
+  452: push_constant_string "You can now access floor "
+  453: push_constant_string "<col=000080>"
+  454: push_constant_string "11"
+  455: push_constant_string "</col>"
+  456: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  457: join_string 5
+  458: return 0
+  459: branch 538
+  460: push_constant_int 23
+  461: push_constant_int 18578
+  462: push_constant_string "Floor 12"
+  463: push_constant_string "You can now access floor "
+  464: push_constant_string "<col=000080>"
+  465: push_constant_string "12"
+  466: push_constant_string "</col>"
+  467: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  468: join_string 5
+  469: return 0
+  470: branch 527
+  471: push_constant_int 25
+  472: push_constant_int 18578
+  473: push_constant_string "Floor 13"
+  474: push_constant_string "You can now access floor "
+  475: push_constant_string "<col=000080>"
+  476: push_constant_string "13"
+  477: push_constant_string "</col>"
+  478: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  479: join_string 5
+  480: return 0
+  481: branch 516
+  482: push_constant_int 27
+  483: push_constant_int 18578
+  484: push_constant_string "Floor 14"
+  485: push_constant_string "You can now access floor "
+  486: push_constant_string "<col=000080>"
+  487: push_constant_string "14"
+  488: push_constant_string "</col>"
+  489: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  490: join_string 5
+  491: return 0
+  492: branch 505
+  493: push_constant_int 29
+  494: push_constant_int 18578
+  495: push_constant_string "Floor 15"
+  496: push_constant_string "You can now access floor "
+  497: push_constant_string "<col=000080>"
+  498: push_constant_string "15"
+  499: push_constant_string "</col>"
+  500: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  501: join_string 5
+  502: return 0
+  503: branch 494
+  504: push_constant_int 31
+  505: push_constant_int 18578
+  506: push_constant_string "Floor 16"
+  507: push_constant_string "You can now access floor "
+  508: push_constant_string "<col=000080>"
+  509: push_constant_string "16"
+  510: push_constant_string "</col>"
+  511: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  512: join_string 5
+  513: return 0
+  514: branch 483
+  515: push_constant_int 33
+  516: push_constant_int 18578
+  517: push_constant_string "Floor 17"
+  518: push_constant_string "You can now access floor "
+  519: push_constant_string "<col=000080>"
+  520: push_constant_string "17"
+  521: push_constant_string "</col>"
+  522: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  523: join_string 5
+  524: return 0
+  525: branch 472
+  526: push_constant_int 35
+  527: push_constant_int 18577
+  528: push_constant_string "Floor 18"
+  529: push_constant_string "You can now access floor "
+  530: push_constant_string "<col=000080>"
+  531: push_constant_string "18"
+  532: push_constant_string "</col>"
+  533: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  534: join_string 5
+  535: return 0
+  536: branch 461
+  537: push_constant_int 37
+  538: push_constant_int 18577
+  539: push_constant_string "Floor 19"
+  540: push_constant_string "You can now access floor "
+  541: push_constant_string "<col=000080>"
+  542: push_constant_string "19"
+  543: push_constant_string "</col>"
+  544: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  545: join_string 5
+  546: return 0
+  547: branch 450
+  548: push_constant_int 39
+  549: push_constant_int 18577
+  550: push_constant_string "Floor 20"
+  551: push_constant_string "You can now access floor "
+  552: push_constant_string "<col=000080>"
+  553: push_constant_string "20"
+  554: push_constant_string "</col>"
+  555: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  556: join_string 5
+  557: return 0
+  558: branch 439
+  559: push_constant_int 41
+  560: push_constant_int 18577
+  561: push_constant_string "Floor 21"
+  562: push_constant_string "You can now access floor "
+  563: push_constant_string "<col=000080>"
+  564: push_constant_string "21"
+  565: push_constant_string "</col>"
+  566: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  567: join_string 5
+  568: return 0
+  569: branch 428
+  570: push_constant_int 43
+  571: push_constant_int 18577
+  572: push_constant_string "Floor 22"
+  573: push_constant_string "You can now access floor "
+  574: push_constant_string "<col=000080>"
+  575: push_constant_string "22"
+  576: push_constant_string "</col>"
+  577: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  578: join_string 5
+  579: return 0
+  580: branch 417
+  581: push_constant_int 45
+  582: push_constant_int 18577
+  583: push_constant_string "Floor 23"
+  584: push_constant_string "You can now access floor "
+  585: push_constant_string "<col=000080>"
+  586: push_constant_string "23"
+  587: push_constant_string "</col>"
+  588: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  589: join_string 5
+  590: return 0
+  591: branch 406
+  592: push_constant_int 47
+  593: push_constant_int 18577
+  594: push_constant_string "Floor 24"
+  595: push_constant_string "You can now access floor "
+  596: push_constant_string "<col=000080>"
+  597: push_constant_string "24"
+  598: push_constant_string "</col>"
+  599: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  600: join_string 5
+  601: return 0
+  602: branch 395
+  603: push_constant_int 49
+  604: push_constant_int 18577
+  605: push_constant_string "Floor 25"
+  606: push_constant_string "You can now access floor "
+  607: push_constant_string "<col=000080>"
+  608: push_constant_string "25"
+  609: push_constant_string "</col>"
+  610: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  611: join_string 5
+  612: return 0
+  613: branch 384
+  614: push_constant_int 51
+  615: push_constant_int 18577
+  616: push_constant_string "Floor 26"
+  617: push_constant_string "You can now access floor "
+  618: push_constant_string "<col=000080>"
+  619: push_constant_string "26"
+  620: push_constant_string "</col>"
+  621: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  622: join_string 5
+  623: return 0
+  624: branch 373
+  625: push_constant_int 53
+  626: push_constant_int 18577
+  627: push_constant_string "Floor 27"
+  628: push_constant_string "You can now access floor "
+  629: push_constant_string "<col=000080>"
+  630: push_constant_string "27"
+  631: push_constant_string "</col>"
+  632: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  633: join_string 5
+  634: return 0
+  635: branch 362
+  636: push_constant_int 55
+  637: push_constant_int 18577
+  638: push_constant_string "Floor 28"
+  639: push_constant_string "You can now access floor "
+  640: push_constant_string "<col=000080>"
+  641: push_constant_string "28"
+  642: push_constant_string "</col>"
+  643: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  644: join_string 5
+  645: return 0
+  646: branch 351
+  647: push_constant_int 57
+  648: push_constant_int 18577
+  649: push_constant_string "Floor 29"
+  650: push_constant_string "You can now access floor "
+  651: push_constant_string "<col=000080>"
+  652: push_constant_string "29"
+  653: push_constant_string "</col>"
+  654: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  655: join_string 5
+  656: return 0
+  657: branch 340
+  658: push_constant_int 59
+  659: push_constant_int 18578
+  660: push_constant_string "Floor 30"
+  661: push_constant_string "You can now access floor "
+  662: push_constant_string "<col=000080>"
+  663: push_constant_string "30"
+  664: push_constant_string "</col>"
+  665: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  666: join_string 5
+  667: return 0
+  668: branch 329
+  669: push_constant_int 61
+  670: push_constant_int 18578
+  671: push_constant_string "Floor 31"
+  672: push_constant_string "You can now access floor "
+  673: push_constant_string "<col=000080>"
+  674: push_constant_string "31"
+  675: push_constant_string "</col>"
+  676: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  677: join_string 5
+  678: return 0
+  679: branch 318
+  680: push_constant_int 63
+  681: push_constant_int 18578
+  682: push_constant_string "Floor 32"
+  683: push_constant_string "You can now access floor "
+  684: push_constant_string "<col=000080>"
+  685: push_constant_string "32"
+  686: push_constant_string "</col>"
+  687: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  688: join_string 5
+  689: return 0
+  690: branch 307
+  691: push_constant_int 65
+  692: push_constant_int 18578
+  693: push_constant_string "Floor 33"
+  694: push_constant_string "You can now access floor "
+  695: push_constant_string "<col=000080>"
+  696: push_constant_string "33"
+  697: push_constant_string "</col>"
+  698: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  699: join_string 5
+  700: return 0
+  701: branch 296
+  702: push_constant_int 67
+  703: push_constant_int 18578
+  704: push_constant_string "Floor 34"
+  705: push_constant_string "You can now access floor "
+  706: push_constant_string "<col=000080>"
+  707: push_constant_string "34"
+  708: push_constant_string "</col>"
+  709: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  710: join_string 5
+  711: return 0
+  712: branch 285
+  713: push_constant_int 69
+  714: push_constant_int 18578
+  715: push_constant_string "Floor 35"
+  716: push_constant_string "You can now access floor "
+  717: push_constant_string "<col=000080>"
+  718: push_constant_string "35"
+  719: push_constant_string "</col>"
+  720: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  721: join_string 5
+  722: return 0
+  723: branch 274
+  724: push_constant_int 71
+  725: push_constant_int 19690
+  726: push_constant_string "Members: Floor 36"
+  727: push_constant_string "Members can now access floor "
+  728: push_constant_string "<col=000080>"
+  729: push_constant_string "36"
+  730: push_constant_string "</col>"
+  731: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  732: join_string 5
+  733: return 0
+  734: branch 263
+  735: push_constant_int 73
+  736: push_constant_int 19690
+  737: push_constant_string "Members: Floor 37"
+  738: push_constant_string "Members can now access floor "
+  739: push_constant_string "<col=000080>"
+  740: push_constant_string "37"
+  741: push_constant_string "</col>"
+  742: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  743: join_string 5
+  744: return 0
+  745: branch 252
+  746: push_constant_int 75
+  747: push_constant_int 19690
+  748: push_constant_string "Members: Floor 38"
+  749: push_constant_string "Members can now access floor "
+  750: push_constant_string "<col=000080>"
+  751: push_constant_string "38"
+  752: push_constant_string "</col>"
+  753: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  754: join_string 5
+  755: return 0
+  756: branch 241
+  757: push_constant_int 77
+  758: push_constant_int 19690
+  759: push_constant_string "Members: Floor 39"
+  760: push_constant_string "Members can now access floor "
+  761: push_constant_string "<col=000080>"
+  762: push_constant_string "39"
+  763: push_constant_string "</col>"
+  764: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  765: join_string 5
+  766: return 0
+  767: branch 230
+  768: push_constant_int 79
+  769: push_constant_int 19690
+  770: push_constant_string "Members: Floor 40"
+  771: push_constant_string "Members can now access floor "
+  772: push_constant_string "<col=000080>"
+  773: push_constant_string "40"
+  774: push_constant_string "</col>"
+  775: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  776: join_string 5
+  777: return 0
+  778: branch 219
+  779: push_constant_int 81
+  780: push_constant_int 19690
+  781: push_constant_string "Members: Floor 41"
+  782: push_constant_string "Members can now access floor "
+  783: push_constant_string "<col=000080>"
+  784: push_constant_string "41"
+  785: push_constant_string "</col>"
+  786: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  787: join_string 5
+  788: return 0
+  789: branch 208
+  790: push_constant_int 83
+  791: push_constant_int 19690
+  792: push_constant_string "Members: Floor 42"
+  793: push_constant_string "Members can now access floor "
+  794: push_constant_string "<col=000080>"
+  795: push_constant_string "42"
+  796: push_constant_string "</col>"
+  797: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  798: join_string 5
+  799: return 0
+  800: branch 197
+  801: push_constant_int 85
+  802: push_constant_int 19690
+  803: push_constant_string "Members: Floor 43"
+  804: push_constant_string "Members can now access floor "
+  805: push_constant_string "<col=000080>"
+  806: push_constant_string "43"
+  807: push_constant_string "</col>"
+  808: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  809: join_string 5
+  810: return 0
+  811: branch 186
+  812: push_constant_int 87
+  813: push_constant_int 19690
+  814: push_constant_string "Members: Floor 44"
+  815: push_constant_string "Members can now access floor "
+  816: push_constant_string "<col=000080>"
+  817: push_constant_string "44"
+  818: push_constant_string "</col>"
+  819: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  820: join_string 5
+  821: return 0
+  822: branch 175
+  823: push_constant_int 89
+  824: push_constant_int 19690
+  825: push_constant_string "Members: Floor 45"
+  826: push_constant_string "Members can now access floor "
+  827: push_constant_string "<col=000080>"
+  828: push_constant_string "45"
+  829: push_constant_string "</col>"
+  830: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  831: join_string 5
+  832: return 0
+  833: branch 164
+  834: push_constant_int 91
+  835: push_constant_int 19690
+  836: push_constant_string "Members: Floor 46"
+  837: push_constant_string "Members can now access floor "
+  838: push_constant_string "<col=000080>"
+  839: push_constant_string "46"
+  840: push_constant_string "</col>"
+  841: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  842: join_string 5
+  843: return 0
+  844: branch 153
+  845: push_constant_int 93
+  846: push_constant_int 19690
+  847: push_constant_string "Members: Floor 47"
+  848: push_constant_string "Members can now access floor "
+  849: push_constant_string "<col=000080>"
+  850: push_constant_string "47"
+  851: push_constant_string "</col>"
+  852: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  853: join_string 5
+  854: return 0
+  855: branch 142
+  856: push_constant_int 95
+  857: push_constant_int 19896
+  858: push_constant_string "Members: Floor 48"
+  859: push_constant_string "Members can now access floor "
+  860: push_constant_string "<col=000080>"
+  861: push_constant_string "48"
+  862: push_constant_string "</col>"
+  863: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  864: join_string 5
+  865: return 0
+  866: branch 131
+  867: push_constant_int 97
+  868: push_constant_int 19896
+  869: push_constant_string "Members: Floor 49"
+  870: push_constant_string "Members can now access floor "
+  871: push_constant_string "<col=000080>"
+  872: push_constant_string "49"
+  873: push_constant_string "</col>"
+  874: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  875: join_string 5
+  876: return 0
+  877: branch 120
+  878: push_constant_int 99
+  879: push_constant_int 19896
+  880: push_constant_string "Members: Floor 50"
+  881: push_constant_string "Members can now access floor "
+  882: push_constant_string "<col=000080>"
+  883: push_constant_string "50"
+  884: push_constant_string "</col>"
+  885: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  886: join_string 5
+  887: return 0
+  888: branch 109
+  889: push_constant_int 101
+  890: push_constant_int 19896
+  891: push_constant_string "Members: Floor 51"
+  892: push_constant_string "Members can now access floor "
+  893: push_constant_string "<col=000080>"
+  894: push_constant_string "51"
+  895: push_constant_string "</col>"
+  896: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  897: join_string 5
+  898: return 0
+  899: branch 98
+  900: push_constant_int 103
+  901: push_constant_int 19896
+  902: push_constant_string "Members: Floor 52"
+  903: push_constant_string "Members can now access floor "
+  904: push_constant_string "<col=000080>"
+  905: push_constant_string "52"
+  906: push_constant_string "</col>"
+  907: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  908: join_string 5
+  909: return 0
+  910: branch 87
+  911: push_constant_int 105
+  912: push_constant_int 19896
+  913: push_constant_string "Members: Floor 53"
+  914: push_constant_string "Members can now access floor "
+  915: push_constant_string "<col=000080>"
+  916: push_constant_string "53"
+  917: push_constant_string "</col>"
+  918: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  919: join_string 5
+  920: return 0
+  921: branch 76
+  922: push_constant_int 107
+  923: push_constant_int 19896
+  924: push_constant_string "Members: Floor 54"
+  925: push_constant_string "Members can now access floor "
+  926: push_constant_string "<col=000080>"
+  927: push_constant_string "54"
+  928: push_constant_string "</col>"
+  929: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  930: join_string 5
+  931: return 0
+  932: branch 65
+  933: push_constant_int 109
+  934: push_constant_int 19896
+  935: push_constant_string "Members: Floor 55"
+  936: push_constant_string "Members can now access floor "
+  937: push_constant_string "<col=000080>"
+  938: push_constant_string "55"
+  939: push_constant_string "</col>"
+  940: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  941: join_string 5
+  942: return 0
+  943: branch 54
+  944: push_constant_int 111
+  945: push_constant_int 19896
+  946: push_constant_string "Members: Floor 56"
+  947: push_constant_string "Members can now access floor "
+  948: push_constant_string "<col=000080>"
+  949: push_constant_string "56"
+  950: push_constant_string "</col>"
+  951: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  952: join_string 5
+  953: return 0
+  954: branch 43
+  955: push_constant_int 113
+  956: push_constant_int 19896
+  957: push_constant_string "Members: Floor 57"
+  958: push_constant_string "Members can now access floor "
+  959: push_constant_string "<col=000080>"
+  960: push_constant_string "57"
+  961: push_constant_string "</col>"
+  962: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  963: join_string 5
+  964: return 0
+  965: branch 32
+  966: push_constant_int 115
+  967: push_constant_int 19896
+  968: push_constant_string "Members: Floor 58"
+  969: push_constant_string "Members can now access floor "
+  970: push_constant_string "<col=000080>"
+  971: push_constant_string "58"
+  972: push_constant_string "</col>"
+  973: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  974: join_string 5
+  975: return 0
+  976: branch 21
+  977: push_constant_int 117
+  978: push_constant_int 19896
+  979: push_constant_string "Members: Floor 59"
+  980: push_constant_string "Members can now access floor "
+  981: push_constant_string "<col=000080>"
+  982: push_constant_string "59"
+  983: push_constant_string "</col>"
+  984: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  985: join_string 5
+  986: return 0
+  987: branch 10
+  988: push_constant_int 119
+  989: push_constant_int 19896
+  990: push_constant_string "Members: Floor 60"
+  991: push_constant_string "Members can now access floor "
+  992: push_constant_string "<col=000080>"
+  993: push_constant_string "60"
+  994: push_constant_string "</col>"
+  995: push_constant_string " of Daemonheim (once the previous floors are complete)."
+  996: join_string 5
+  997: return 0
+  998: branch 762
+  999: push_int_local 1
+ 1000: switch 3
+ 1001: branch 54
+ 1002: push_constant_int 1
+ 1003: push_constant_int 16405
+ 1004: push_constant_string "Bind one item"
+ 1005: push_constant_string "You can now bind "
+ 1006: push_constant_string "<col=000080>"
+ 1007: push_constant_string "one item"
+ 1008: push_constant_string "</col>"
+ 1009: push_constant_string " within Daemonheim."
+ 1010: join_string 5
+ 1011: return 0
+ 1012: branch 43
+ 1013: push_constant_int 1
+ 1014: push_constant_int 16405
+ 1015: push_constant_string "Bind rune or ammo item"
+ 1016: push_constant_string "You can now bind "
+ 1017: push_constant_string "<col=000080>"
+ 1018: push_constant_string "up to 125 of one type of rune or ammunition"
+ 1019: push_constant_string "</col>"
+ 1020: push_constant_string " within Daemonheim."
+ 1021: join_string 5
+ 1022: return 0
+ 1023: branch 32
+ 1024: push_constant_int 50
+ 1025: push_constant_int 16415
+ 1026: push_constant_string "Bind two items"
+ 1027: push_constant_string "You can now bind "
+ 1028: push_constant_string "<col=000080>"
+ 1029: push_constant_string "two items"
+ 1030: push_constant_string "</col>"
+ 1031: push_constant_string " within Daemonheim."
+ 1032: join_string 5
+ 1033: return 0
+ 1034: branch 21
+ 1035: push_constant_int 100
+ 1036: push_constant_int 16423
+ 1037: push_constant_string "Bind three items"
+ 1038: push_constant_string "You can now bind "
+ 1039: push_constant_string "<col=000080>"
+ 1040: push_constant_string "three items"
+ 1041: push_constant_string "</col>"
+ 1042: push_constant_string " within Daemonheim."
+ 1043: join_string 5
+ 1044: return 0
+ 1045: branch 10
+ 1046: push_constant_int 120
+ 1047: push_constant_int 16425
+ 1048: push_constant_string "Bind four items"
+ 1049: push_constant_string "You can now bind "
+ 1050: push_constant_string "<col=000080>"
+ 1051: push_constant_string "four items"
+ 1052: push_constant_string "</col>"
+ 1053: push_constant_string " within Daemonheim."
+ 1054: join_string 5
+ 1055: return 0
+ 1056: branch 704
+ 1057: push_int_local 1
+ 1058: switch 4
+ 1059: branch 577
+ 1060: push_constant_int 21
+ 1061: push_constant_int 18337
+ 1062: push_constant_string "Members: Bonecrusher"
+ 1063: push_constant_string "<br>"
+ 1064: push_constant_string " (with 21 Prayer)"
+ 1065: join_string 3
+ 1066: push_constant_string "Members can now use "
+ 1067: push_constant_string "<col=000080>"
+ 1068: push_constant_string "bonecrushers"
+ 1069: push_constant_string "</col>"
+ 1070: push_constant_string ". (They also need level 21 Prayer.)"
+ 1071: join_string 5
+ 1072: return 0
+ 1073: branch 563
+ 1074: push_constant_int 21
+ 1075: push_constant_int 19675
+ 1076: push_constant_string "Members: Herbicide"
+ 1077: push_constant_string "<br>"
+ 1078: push_constant_string " (with 21 Herblore)"
+ 1079: join_string 3
+ 1080: push_constant_string "Members can now use "
+ 1081: push_constant_string "<col=000080>"
+ 1082: push_constant_string "herbicide"
+ 1083: push_constant_string "</col>"
+ 1084: push_constant_string ". (They also need level 21 Herblore.)"
+ 1085: join_string 5
+ 1086: return 0
+ 1087: branch 549
+ 1088: push_constant_int 25
+ 1089: push_constant_int 18338
+ 1090: push_constant_string "Gem bag"
+ 1091: push_constant_string "<br>"
+ 1092: push_constant_string " (with 25 Crafting)"
+ 1093: join_string 3
+ 1094: push_constant_string "You can now use "
+ 1095: push_constant_string "<col=000080>"
+ 1096: push_constant_string "gem bags"
+ 1097: push_constant_string "</col>"
+ 1098: push_constant_string ". (You also need level 25 Crafting.)"
+ 1099: join_string 5
+ 1100: return 0
+ 1101: branch 535
+ 1102: push_constant_int 25
+ 1103: push_constant_int 18336
+ 1104: push_constant_string "Members: Scroll of life"
+ 1105: push_constant_string "<br>"
+ 1106: push_constant_string " (with 25 Farming)"
+ 1107: join_string 3
+ 1108: push_constant_string "Members can now use the "
+ 1109: push_constant_string "<col=000080>"
+ 1110: push_constant_string "scroll of life"
+ 1111: push_constant_string "</col>"
+ 1112: push_constant_string ". (They also need level 25 Farming.)"
+ 1113: join_string 5
+ 1114: return 0
+ 1115: branch 521
+ 1116: push_constant_int 30
+ 1117: push_constant_int 18333
+ 1118: push_constant_string "Arcane pulse necklace"
+ 1119: push_constant_string "<br>"
+ 1120: push_constant_string " (with 30 Magic)"
+ 1121: join_string 3
+ 1122: push_constant_string "You can now wear "
+ 1123: push_constant_string "<col=000080>"
+ 1124: push_constant_string "arcane pulse necklaces"
+ 1125: push_constant_string "</col>"
+ 1126: push_constant_string ". (You also need level 30 Magic.)"
+ 1127: join_string 5
+ 1128: return 0
+ 1129: branch 507
+ 1130: push_constant_int 30
+ 1131: push_constant_int 19671
+ 1132: push_constant_string "Magical blastbox"
+ 1133: push_constant_string "<br>"
+ 1134: push_constant_string " (with 30 Magic and 30 Runecrafting)"
+ 1135: join_string 3
+ 1136: push_constant_string "You can now use "
+ 1137: push_constant_string "<col=000080>"
+ 1138: push_constant_string "magical blastboxes"
+ 1139: push_constant_string "</col>"
+ 1140: push_constant_string ". (You also need level 30 Magic and 30 Runecrafting.)"
+ 1141: join_string 5
+ 1142: return 0
+ 1143: branch 493
+ 1144: push_constant_int 30
+ 1145: push_constant_int 19886
+ 1146: push_constant_string "Twisted bird skull necklace"
+ 1147: push_constant_string "<br>"
+ 1148: push_constant_string " (with 30 Prayer)"
+ 1149: join_string 3
+ 1150: push_constant_string "You can now wear "
+ 1151: push_constant_string "<col=000080>"
+ 1152: push_constant_string "twisted bird skull necklaces"
+ 1153: push_constant_string "</col>"
+ 1154: push_constant_string ". (You also need level 30 Prayer.)"
+ 1155: join_string 5
+ 1156: return 0
+ 1157: branch 479
+ 1158: push_constant_int 35
+ 1159: push_constant_int 18339
+ 1160: push_constant_string "Coal bag"
+ 1161: push_constant_string "<br>"
+ 1162: push_constant_string " (with 35 Mining)"
+ 1163: join_string 3
+ 1164: push_constant_string "You can now use "
+ 1165: push_constant_string "<col=000080>"
+ 1166: push_constant_string "coal bags"
+ 1167: push_constant_string "</col>"
+ 1168: push_constant_string ". (You also need level 35 Mining.)"
+ 1169: join_string 5
+ 1170: return 0
+ 1171: branch 465
+ 1172: push_constant_int 45
+ 1173: push_constant_int 18330
+ 1174: push_constant_string "Longbow sight"
+ 1175: push_constant_string "<br>"
+ 1176: push_constant_string " (with 45 Ranged)"
+ 1177: join_string 3
+ 1178: push_constant_string "You can now use "
+ 1179: push_constant_string "<col=000080>"
+ 1180: push_constant_string "longbow sights"
+ 1181: push_constant_string "</col>"
+ 1182: push_constant_string ". (You also need level 45 Ranged.)"
+ 1183: join_string 5
+ 1184: return 0
+ 1185: branch 451
+ 1186: push_constant_int 45
+ 1187: push_constant_int 18367
+ 1188: push_constant_string "Gravite longsword"
+ 1189: push_constant_string "<br>"
+ 1190: push_constant_string " (with 45 Attack)"
+ 1191: join_string 3
+ 1192: push_constant_string "You can now wield "
+ 1193: push_constant_string "<col=000080>"
+ 1194: push_constant_string "gravite longswords"
+ 1195: push_constant_string "</col>"
+ 1196: push_constant_string ". (You also need level 45 Attack.)"
+ 1197: join_string 5
+ 1198: return 0
+ 1199: branch 437
+ 1200: push_constant_int 45
+ 1201: push_constant_int 18365
+ 1202: push_constant_string "Gravite rapier"
+ 1203: push_constant_string "<br>"
+ 1204: push_constant_string " (with 45 Attack)"
+ 1205: join_string 3
+ 1206: push_constant_string "You can now wield "
+ 1207: push_constant_string "<col=000080>"
+ 1208: push_constant_string "gravite rapiers"
+ 1209: push_constant_string "</col>"
+ 1210: push_constant_string ". (You also need level 45 Attack.)"
+ 1211: join_string 5
+ 1212: return 0
+ 1213: branch 423
+ 1214: push_constant_int 45
+ 1215: push_constant_int 18373
+ 1216: push_constant_string "Gravite shortbow"
+ 1217: push_constant_string "<br>"
+ 1218: push_constant_string " Ammo: Arrows up to rune"
+ 1219: push_constant_string "<br>"
+ 1220: push_constant_string " (with 45 Ranged)"
+ 1221: join_string 5
+ 1222: push_constant_string "You can now wield "
+ 1223: push_constant_string "<col=000080>"
+ 1224: push_constant_string "gravite shortbows"
+ 1225: push_constant_string "</col>"
+ 1226: push_constant_string ". (You also need level 45 Ranged.)"
+ 1227: join_string 5
+ 1228: return 0
+ 1229: branch 407
+ 1230: push_constant_int 45
+ 1231: push_constant_int 18371
+ 1232: push_constant_string "Gravite staff"
+ 1233: push_constant_string "<br>"
+ 1234: push_constant_string " (with 45 Magic)"
+ 1235: join_string 3
+ 1236: push_constant_string "You can now wield "
+ 1237: push_constant_string "<col=000080>"
+ 1238: push_constant_string "gravite staves"
+ 1239: push_constant_string "</col>"
+ 1240: push_constant_string ". (You also need level 45 Magic.)"
+ 1241: join_string 5
+ 1242: return 0
+ 1243: branch 393
+ 1244: push_constant_int 45
+ 1245: push_constant_int 18369
+ 1246: push_constant_string "Gravite two-handed sword"
+ 1247: push_constant_string "<br>"
+ 1248: push_constant_string " (with 45 Attack)"
+ 1249: join_string 3
+ 1250: push_constant_string "You can now wield "
+ 1251: push_constant_string "<col=000080>"
+ 1252: push_constant_string "gravite two-handed swords"
+ 1253: push_constant_string "</col>"
+ 1254: push_constant_string ". (You also need level 45 Attack.)"
+ 1255: join_string 5
+ 1256: return 0
+ 1257: branch 379
+ 1258: push_constant_int 45
+ 1259: push_constant_int 18342
+ 1260: push_constant_string "Law staff"
+ 1261: push_constant_string "<br>"
+ 1262: push_constant_string " (with 40 Attack and 45 Magic)"
+ 1263: join_string 3
+ 1264: push_constant_string "You can now use "
+ 1265: push_constant_string "<col=000080>"
+ 1266: push_constant_string "law staves"
+ 1267: push_constant_string "</col>"
+ 1268: push_constant_string ". (You also need level 40 Attack and level 45 Magic.)"
+ 1269: join_string 5
+ 1270: return 0
+ 1271: branch 365
+ 1272: push_constant_int 48
+ 1273: push_constant_int 18346
+ 1274: push_constant_string "Tome of frost"
+ 1275: push_constant_string "<br>"
+ 1276: push_constant_string " (with 48 Magic)"
+ 1277: join_string 3
+ 1278: push_constant_string "You can now use "
+ 1279: push_constant_string "<col=000080>"
+ 1280: push_constant_string "tomes of frost"
+ 1281: push_constant_string "</col>"
+ 1282: push_constant_string ". (You also need level 48 Magic.)"
+ 1283: join_string 5
+ 1284: return 0
+ 1285: branch 351
+ 1286: push_constant_int 48
+ 1287: push_constant_int 19892
+ 1288: push_constant_string "Amulet of zealots"
+ 1289: push_constant_string "<br>"
+ 1290: push_constant_string " (with 48 Prayer)"
+ 1291: join_string 3
+ 1292: push_constant_string "You now have the Dungeoneering level required to wear "
+ 1293: push_constant_string "<col=000080>"
+ 1294: push_constant_string "Amulets of hopelessness"
+ 1295: push_constant_string "</col>"
+ 1296: push_constant_string ". (You also need level 48 Prayer.)"
+ 1297: join_string 5
+ 1298: return 0
+ 1299: branch 337
+ 1300: push_constant_int 49
+ 1301: push_constant_int 19890
+ 1302: push_constant_string "Members: Wasteless Herblore"
+ 1303: push_constant_string "<br>"
+ 1304: push_constant_string " (with 49 Herblore)"
+ 1305: join_string 3
+ 1306: push_constant_string "Members can now learn the "
+ 1307: push_constant_string "<col=000080>"
+ 1308: push_constant_string "wasteless herblore"
+ 1309: push_constant_string "</col>"
+ 1310: push_constant_string " ability (you also need 49 Herblore.)"
+ 1311: join_string 5
+ 1312: return 0
+ 1313: branch 323
+ 1314: push_constant_int 50
+ 1315: push_constant_int 18334
+ 1316: push_constant_string "Arcane blast necklace"
+ 1317: push_constant_string "<br>"
+ 1318: push_constant_string " (with 50 Magic)"
+ 1319: join_string 3
+ 1320: push_constant_string "You can now wear "
+ 1321: push_constant_string "<col=000080>"
+ 1322: push_constant_string "arcane blast necklaces"
+ 1323: push_constant_string "</col>"
+ 1324: push_constant_string ". (You also need level 50 Magic.)"
+ 1325: join_string 5
+ 1326: return 0
+ 1327: branch 309
+ 1328: push_constant_int 50
+ 1329: push_constant_int 19893
+ 1330: push_constant_string "Members: Spirit cape"
+ 1331: push_constant_string "<br>"
+ 1332: push_constant_string " (with 50 Defence and 50 Summoning)"
+ 1333: join_string 3
+ 1334: push_constant_string "Members can now wear "
+ 1335: push_constant_string "<col=000080>"
+ 1336: push_constant_string "spirit capes"
+ 1337: push_constant_string "</col>"
+ 1338: push_constant_string " (You also need level 50 Defence and 50 Summoning.)"
+ 1339: join_string 5
+ 1340: return 0
+ 1341: branch 295
+ 1342: push_constant_int 53
+ 1343: push_constant_int 18341
+ 1344: push_constant_string "Nature staff"
+ 1345: push_constant_string "<br>"
+ 1346: push_constant_string " (with 40 Attack and 53 Magic)"
+ 1347: join_string 3
+ 1348: push_constant_string "You can now use "
+ 1349: push_constant_string "<col=000080>"
+ 1350: push_constant_string "nature staves"
+ 1351: push_constant_string "</col>"
+ 1352: push_constant_string ". (You also need level 40 Attack and level 53 Magic.)"
+ 1353: join_string 5
+ 1354: return 0
+ 1355: branch 281
+ 1356: push_constant_int 55
+ 1357: push_constant_int 19670
+ 1358: push_constant_string "Scroll of efficiency"
+ 1359: push_constant_string "<br>"
+ 1360: push_constant_string " (with 55 Smithing)"
+ 1361: join_string 3
+ 1362: push_constant_string "You can now use "
+ 1363: push_constant_string "<col=000080>"
+ 1364: push_constant_string "scrolls of efficiency"
+ 1365: push_constant_string "</col>"
+ 1366: push_constant_string ". (You also need level 55 Smithing.)"
+ 1367: join_string 5
+ 1368: return 0
+ 1369: branch 267
+ 1370: push_constant_int 60
+ 1371: push_constant_int 18340
+ 1372: push_constant_string "Members: Anti-poison totem"
+ 1373: push_constant_string "<br>"
+ 1374: push_constant_string " (with 60 Defence and 70 Herblore)"
+ 1375: join_string 3
+ 1376: push_constant_string "Members can now wield "
+ 1377: push_constant_string "<col=000080>"
+ 1378: push_constant_string "anti-poison totems"
+ 1379: push_constant_string "</col>"
+ 1380: push_constant_string ". (They also need level 60 Defence and level 70 Herblore.)"
+ 1381: join_string 5
+ 1382: return 0
+ 1383: branch 253
+ 1384: push_constant_int 60
+ 1385: push_constant_int 19887
+ 1386: push_constant_string "Members: Split dragon tooth necklace"
+ 1387: push_constant_string "<br>"
+ 1388: push_constant_string " (with 60 Prayer)"
+ 1389: join_string 3
+ 1390: push_constant_string "Members now have the Dungeoneering level required to wear "
+ 1391: push_constant_string "<col=000080>"
+ 1392: push_constant_string "Split dragon tooth necklaces"
+ 1393: push_constant_string "</col>"
+ 1394: push_constant_string ". (They also need level 60 Prayer.)"
+ 1395: join_string 5
+ 1396: return 0
+ 1397: branch 239
+ 1398: push_constant_int 62
+ 1399: push_constant_int 19669
+ 1400: push_constant_string "Members: Ring of vigour"
+ 1401: push_constant_string "<br>"
+ 1402: push_constant_string " (with 62 Attack)"
+ 1403: join_string 3
+ 1404: push_constant_string "Members can now wear "
+ 1405: push_constant_string "<col=000080>"
+ 1406: push_constant_string "rings of vigour"
+ 1407: push_constant_string "</col>"
+ 1408: push_constant_string ". (They also need level 62 Attack.)"
+ 1409: join_string 5
+ 1410: return 0
+ 1411: branch 225
+ 1412: push_constant_int 65
+ 1413: push_constant_int 18343
+ 1414: push_constant_string "Members: Rapid Renewal"
+ 1415: push_constant_string "<br>"
+ 1416: push_constant_string " (with 65 Prayer)"
+ 1417: join_string 3
+ 1418: push_constant_string "Members can now use the "
+ 1419: push_constant_string "<col=000080>"
+ 1420: push_constant_string "Rapid Renewal"
+ 1421: push_constant_string "</col>"
+ 1422: push_constant_string " prayer (bought from Daemonheim). (They also need level 65 Prayer.)"
+ 1423: join_string 5
+ 1424: return 0
+ 1425: branch 211
+ 1426: push_constant_int 70
+ 1427: push_constant_int 18335
+ 1428: push_constant_string "Members: Arcane stream necklace"
+ 1429: push_constant_string "<br>"
+ 1430: push_constant_string " (with 70 Magic)"
+ 1431: join_string 3
+ 1432: push_constant_string "Members can now wear "
+ 1433: push_constant_string "<col=000080>"
+ 1434: push_constant_string "arcane stream necklaces"
+ 1435: push_constant_string "</col>"
+ 1436: push_constant_string ". (They also need level 70 Magic.)"
+ 1437: join_string 5
+ 1438: return 0
+ 1439: branch 197
+ 1440: push_constant_int 70
+ 1441: push_constant_int 19889
+ 1442: push_constant_string "Members: Celestial surgebox"
+ 1443: push_constant_string "<br>"
+ 1444: push_constant_string " (with 70 Magic and 70 Runecrafting)"
+ 1445: join_string 3
+ 1446: push_constant_string "Members can now use "
+ 1447: push_constant_string "<col=000080>"
+ 1448: push_constant_string "celestial surgeboxes"
+ 1449: push_constant_string "</col>"
+ 1450: push_constant_string ". (They also need level 70 Magic and level 70 Runecrafting.)"
+ 1451: join_string 5
+ 1452: return 0
+ 1453: branch 183
+ 1454: push_constant_int 73
+ 1455: push_constant_int 18347
+ 1456: push_constant_string "Members: Mercenary's gloves"
+ 1457: push_constant_string "<br>"
+ 1458: push_constant_string " (with 73 Ranged)"
+ 1459: join_string 3
+ 1460: push_constant_string "Members can now wear "
+ 1461: push_constant_string "<col=000080>"
+ 1462: push_constant_string "mercenary's gloves"
+ 1463: push_constant_string "</col>"
+ 1464: push_constant_string ". (They also need level 73 Ranged.)"
+ 1465: join_string 5
+ 1466: return 0
+ 1467: branch 169
+ 1468: push_constant_int 74
+ 1469: push_constant_int 18839
+ 1470: push_constant_string "Members: Rigour"
+ 1471: push_constant_string "<br>"
+ 1472: push_constant_string " (with 74 Prayer)"
+ 1473: join_string 3
+ 1474: push_constant_string "Members can now use the "
+ 1475: push_constant_string "<col=000080>"
+ 1476: push_constant_string "Rigour"
+ 1477: push_constant_string "</col>"
+ 1478: push_constant_string " prayer (bought from Daemonheim). (They also need level 74 Prayer.)"
+ 1479: join_string 5
+ 1480: return 0
+ 1481: branch 155
+ 1482: push_constant_int 77
+ 1483: push_constant_int 18344
+ 1484: push_constant_string "Members: Augury"
+ 1485: push_constant_string "<br>"
+ 1486: push_constant_string " (with 77 Prayer)"
+ 1487: join_string 3
+ 1488: push_constant_string "Members can now use the "
+ 1489: push_constant_string "<col=000080>"
+ 1490: push_constant_string "Augury"
+ 1491: push_constant_string "</col>"
+ 1492: push_constant_string " prayer (bought from Daemonheim). (They also need level 77 Prayer.)"
+ 1493: join_string 5
+ 1494: return 0
+ 1495: branch 141
+ 1496: push_constant_int 80
+ 1497: push_constant_int 18358
+ 1498: push_constant_string "Members: Chaotic crossbow"
+ 1499: push_constant_string "<br>"
+ 1500: push_constant_string "  Ammo: Bolts up to rune"
+ 1501: push_constant_string "<br>"
+ 1502: push_constant_string " (with 80 Ranged)"
+ 1503: join_string 5
+ 1504: push_constant_string "Members can now wield "
+ 1505: push_constant_string "<col=000080>"
+ 1506: push_constant_string "chaotic crossbows"
+ 1507: push_constant_string "</col>"
+ 1508: push_constant_string ". (They also need level 80 Ranged.)"
+ 1509: join_string 5
+ 1510: return 0
+ 1511: branch 125
+ 1512: push_constant_int 80
+ 1513: push_constant_int 18359
+ 1514: push_constant_string "Members: Chaotic kiteshield"
+ 1515: push_constant_string "<br>"
+ 1516: push_constant_string " (with 80 Defence)"
+ 1517: join_string 3
+ 1518: push_constant_string "Members can now wield "
+ 1519: push_constant_string "<col=000080>"
+ 1520: push_constant_string "chaotic kiteshields"
+ 1521: push_constant_string "</col>"
+ 1522: push_constant_string ". (They also need level 80 Defence.)"
+ 1523: join_string 5
+ 1524: return 0
+ 1525: branch 111
+ 1526: push_constant_int 80
+ 1527: push_constant_int 18351
+ 1528: push_constant_string "Members: Chaotic longsword"
+ 1529: push_constant_string "<br>"
+ 1530: push_constant_string " (with 80 Attack)"
+ 1531: join_string 3
+ 1532: push_constant_string "Members can now wield "
+ 1533: push_constant_string "<col=000080>"
+ 1534: push_constant_string "chaotic longswords"
+ 1535: push_constant_string "</col>"
+ 1536: push_constant_string ". (They also need level 80 Attack.)"
+ 1537: join_string 5
+ 1538: return 0
+ 1539: branch 97
+ 1540: push_constant_int 80
+ 1541: push_constant_int 18353
+ 1542: push_constant_string "Members: Chaotic maul"
+ 1543: push_constant_string "<br>"
+ 1544: push_constant_string " (with 80 Attack)"
+ 1545: join_string 3
+ 1546: push_constant_string "Members can now wield "
+ 1547: push_constant_string "<col=000080>"
+ 1548: push_constant_string "chaotic mauls"
+ 1549: push_constant_string "</col>"
+ 1550: push_constant_string ". (They also need level 80 Attack.)"
+ 1551: join_string 5
+ 1552: return 0
+ 1553: branch 83
+ 1554: push_constant_int 80
+ 1555: push_constant_int 18349
+ 1556: push_constant_string "Members: Chaotic rapier"
+ 1557: push_constant_string "<br>"
+ 1558: push_constant_string " (with 80 Attack)"
+ 1559: join_string 3
+ 1560: push_constant_string "Members can now wield "
+ 1561: push_constant_string "<col=000080>"
+ 1562: push_constant_string "chaotic rapiers"
+ 1563: push_constant_string "</col>"
+ 1564: push_constant_string ". (They also need level 80 Attack.)"
+ 1565: join_string 5
+ 1566: return 0
+ 1567: branch 69
+ 1568: push_constant_int 80
+ 1569: push_constant_int 18355
+ 1570: push_constant_string "Members: Chaotic staff"
+ 1571: push_constant_string "<br>"
+ 1572: push_constant_string " (with 80 Magic)"
+ 1573: join_string 3
+ 1574: push_constant_string "Members can now wield "
+ 1575: push_constant_string "<col=000080>"
+ 1576: push_constant_string "chaotic staves"
+ 1577: push_constant_string "</col>"
+ 1578: push_constant_string ". (They also need level 80 Magic.)"
+ 1579: join_string 5
+ 1580: return 0
+ 1581: branch 55
+ 1582: push_constant_int 80
+ 1583: push_constant_int 18361
+ 1584: push_constant_string "Members: Eagle-eye kiteshield"
+ 1585: push_constant_string "<br>"
+ 1586: push_constant_string " (with 80 Defence)"
+ 1587: join_string 3
+ 1588: push_constant_string "Members can now wield "
+ 1589: push_constant_string "<col=000080>"
+ 1590: push_constant_string "eagle-eye kiteshields"
+ 1591: push_constant_string "</col>"
+ 1592: push_constant_string ". (They also need level 80 Defence.)"
+ 1593: join_string 5
+ 1594: return 0
+ 1595: branch 41
+ 1596: push_constant_int 80
+ 1597: push_constant_int 18363
+ 1598: push_constant_string "Members: Farseer kiteshield"
+ 1599: push_constant_string "<br>"
+ 1600: push_constant_string " (with 80 Defence)"
+ 1601: join_string 3
+ 1602: push_constant_string "Members can now wield "
+ 1603: push_constant_string "<col=000080>"
+ 1604: push_constant_string "farseer kiteshields"
+ 1605: push_constant_string "</col>"
+ 1606: push_constant_string ". (They also need level 80 Defence.)"
+ 1607: join_string 5
+ 1608: return 0
+ 1609: branch 27
+ 1610: push_constant_int 80
+ 1611: push_constant_int 19894
+ 1612: push_constant_string "Members: Seeker pet"
+ 1613: push_constant_string "<br>"
+ 1614: push_constant_string " (with 80 Summoning)"
+ 1615: join_string 3
+ 1616: push_constant_string "Members can now raise "
+ 1617: push_constant_string "<col=000080>"
+ 1618: push_constant_string "Seekers"
+ 1619: push_constant_string "</col>"
+ 1620: push_constant_string ". (They also need level 80 Summoning.)"
+ 1621: join_string 5
+ 1622: return 0
+ 1623: branch 13
+ 1624: push_constant_int 90
+ 1625: push_constant_int 19888
+ 1626: push_constant_string "Members: Demon horn necklace"
+ 1627: push_constant_string "<br>"
+ 1628: push_constant_string " (with 90 Prayer)"
+ 1629: join_string 3
+ 1630: push_constant_string "Members now have the Dungeoneering level required to wear "
+ 1631: push_constant_string "<col=000080>"
+ 1632: push_constant_string "Demon horn necklaces"
+ 1633: push_constant_string "</col>"
+ 1634: push_constant_string ". (They also need level 90 Prayer.)"
+ 1635: join_string 5
+ 1636: return 0
+ 1637: branch 123
+ 1638: push_int_local 1
+ 1639: switch 5
+ 1640: branch 83
+ 1641: push_constant_int 10
+ 1642: push_constant_int 562
+ 1643: push_constant_string "Members: Edgeville Dungeon chaos druids"
+ 1644: push_constant_string "Members can now pass the mysterious entrance in Edgeville Dungeon to reach the chaos druids."
+ 1645: return 0
+ 1646: branch 77
+ 1647: push_constant_int 15
+ 1648: push_constant_int 453
+ 1649: push_constant_string "Dwarven Mine hidden mine"
+ 1650: push_constant_string "You can now pass the mysterious entrance in the Dwarven Mine to reach the hidden mine."
+ 1651: return 0
+ 1652: branch 71
+ 1653: push_constant_int 20
+ 1654: push_constant_int 532
+ 1655: push_constant_string "Edgeville Dungeon hill giants"
+ 1656: push_constant_string "You can now pass the mysterious entrance in Edgeville Dungeon to reach the hill giants."
+ 1657: return 0
+ 1658: branch 65
+ 1659: push_constant_int 25
+ 1660: push_constant_int 9952
+ 1661: push_constant_string "Karamja Volcano lesser demons"
+ 1662: push_constant_string "You can now pass the mysterious entrance in Karamja Volcano to reach the lesser demons."
+ 1663: return 0
+ 1664: branch 59
+ 1665: push_constant_int 30
+ 1666: push_constant_int 1517
+ 1667: push_constant_string "Daemonheim woodcutting island"
+ 1668: push_constant_string "You can now pass the mysterious entrance in Daemonheim to reach the woodcutting island."
+ 1669: return 0
+ 1670: branch 53
+ 1671: push_constant_int 35
+ 1672: push_constant_int 554
+ 1673: push_constant_string "Members: Waterfall fire giants"
+ 1674: push_constant_string "Members can now pass the Baxtorian Waterfall mysterious entrance to reach the fire giants."
+ 1675: return 0
+ 1676: branch 47
+ 1677: push_constant_int 45
+ 1678: push_constant_int 451
+ 1679: push_constant_string "Mining Guild hidden mine"
+ 1680: push_constant_string "You can now pass the mysterious entrance in the Mining Guild to reach the hidden mine."
+ 1681: return 0
+ 1682: branch 41
+ 1683: push_constant_int 55
+ 1684: push_constant_int 8137
+ 1685: push_constant_string "Members: Taverley hellhounds"
+ 1686: push_constant_string "Members can now pass the mysterious entrance in Taverley Dungeon to reach the hellhounds."
+ 1687: return 0
+ 1688: branch 35
+ 1689: push_constant_int 60
+ 1690: push_constant_int 1751
+ 1691: push_constant_string "Members: Taverley blue dragons"
+ 1692: push_constant_string "Members can now pass the mysterious entrance in Taverley Dungeon to reach the blue dragons."
+ 1693: return 0
+ 1694: branch 29
+ 1695: push_constant_int 65
+ 1696: push_constant_int 8179
+ 1697: push_constant_string "Members: Varrock moss giants"
+ 1698: push_constant_string "Members can now pass the mysterious entrance in Varrock Sewers to reach the moss giants."
+ 1699: return 0
+ 1700: branch 23
+ 1701: push_constant_int 70
+ 1702: push_constant_int 592
+ 1703: push_constant_string "Members: Chaos Tunnels black demons"
+ 1704: push_constant_string "Members can now pass the mysterious entrance in the Chaos Tunnels to reach the black demons."
+ 1705: return 0
+ 1706: branch 17
+ 1707: push_constant_int 75
+ 1708: push_constant_int 11254
+ 1709: push_constant_string "Members: Al Kharid hidden mine"
+ 1710: push_constant_string "Members can now pass the mysterious entrance in Al Kharid scorpion pit to reach the hidden mine."
+ 1711: return 0
+ 1712: branch 11
+ 1713: push_constant_int 80
+ 1714: push_constant_int 8142
+ 1715: push_constant_string "Members: Brimhaven metal dragons"
+ 1716: push_constant_string "Members can now pass the mysterious entrance in Brimhaven Dungeon to reach the metal dragons."
+ 1717: return 0
+ 1718: branch 5
+ 1719: push_constant_int 85
+ 1720: push_constant_int 18796
+ 1721: push_constant_string "Members: Ice Dungeon frost dragons"
+ 1722: push_constant_string "Members can now pass the mysterious entrance in the Asgarnian Ice Dungeon to reach the frost dragons."
+ 1723: return 0
+ 1724: branch 36
+ 1725: push_int_local 1
+ 1726: switch 6
+ 1727: branch 33
+ 1728: push_constant_int 99
+ 1729: push_constant_int 18508
+ 1730: push_constant_string "Skill Mastery"
+ 1731: push_constant_string "You have achieved "
+ 1732: push_constant_string "<col=000080>"
+ 1733: push_constant_string "level 99"
+ 1734: push_constant_string "</col>"
+ 1735: push_constant_string " in the "
+ 1736: push_constant_string "<col=000080>"
+ 1737: push_constant_string "Dungeoneering"
+ 1738: push_constant_string "</col>"
+ 1739: push_constant_string " skill."
+ 1740: push_constant_string "<br>"
+ 1741: push_constant_string "What are you waiting for? Keep going!"
+ 1742: join_string 11
+ 1743: return 0
+ 1744: branch 16
+ 1745: push_constant_int 120
+ 1746: push_constant_int 18509
+ 1747: push_constant_string "True Skill Mastery"
+ 1748: push_constant_string "You have achieved "
+ 1749: push_constant_string "<col=000080>"
+ 1750: push_constant_string "level 120"
+ 1751: push_constant_string "</col>"
+ 1752: push_constant_string " in the "
+ 1753: push_constant_string "<col=000080>"
+ 1754: push_constant_string "Dungeoneering"
+ 1755: push_constant_string "</col>"
+ 1756: push_constant_string " skill."
+ 1757: push_constant_string "<br>"
+ 1758: push_constant_string "This is the highest level for this skill: for real, this time!"
+ 1759: join_string 11
+ 1760: return 0
+ 1761: push_constant_int 0
+ 1762: push_constant_int -1
+ 1763: push_constant_string ""
+ 1764: push_constant_string ""
+ 1765: return 0
+
+switch_0:
+  0 => 1
+  1 => 334
+  2 => 997
+  3 => 1055
+  4 => 1636
+  5 => 1723
+switch_1:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+  12 => 133
+  13 => 144
+  14 => 155
+  15 => 166
+  16 => 177
+  17 => 188
+  18 => 199
+  19 => 210
+  20 => 221
+  21 => 232
+  22 => 243
+  23 => 254
+  24 => 265
+  25 => 276
+  26 => 287
+  27 => 298
+  28 => 309
+  29 => 320
+switch_2:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+  12 => 133
+  13 => 144
+  14 => 155
+  15 => 166
+  16 => 177
+  17 => 188
+  18 => 199
+  19 => 210
+  20 => 221
+  21 => 232
+  22 => 243
+  23 => 254
+  24 => 265
+  25 => 276
+  26 => 287
+  27 => 298
+  28 => 309
+  29 => 320
+  30 => 331
+  31 => 342
+  32 => 353
+  33 => 364
+  34 => 375
+  35 => 386
+  36 => 397
+  37 => 408
+  38 => 419
+  39 => 430
+  40 => 441
+  41 => 452
+  42 => 463
+  43 => 474
+  44 => 485
+  45 => 496
+  46 => 507
+  47 => 518
+  48 => 529
+  49 => 540
+  50 => 551
+  51 => 562
+  52 => 573
+  53 => 584
+  54 => 595
+  55 => 606
+  56 => 617
+  57 => 628
+  58 => 639
+  59 => 650
+switch_3:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+switch_4:
+  0 => 1
+  1 => 15
+  2 => 29
+  3 => 43
+  4 => 57
+  5 => 71
+  6 => 85
+  7 => 99
+  8 => 113
+  9 => 127
+  10 => 141
+  11 => 155
+  12 => 171
+  13 => 185
+  14 => 199
+  15 => 213
+  16 => 227
+  17 => 241
+  18 => 255
+  19 => 269
+  20 => 283
+  21 => 297
+  22 => 311
+  23 => 325
+  24 => 339
+  25 => 353
+  26 => 367
+  27 => 381
+  28 => 395
+  29 => 409
+  30 => 423
+  31 => 437
+  32 => 453
+  33 => 467
+  34 => 481
+  35 => 495
+  36 => 509
+  37 => 523
+  38 => 537
+  39 => 551
+  40 => 565
+switch_5:
+  0 => 1
+  1 => 7
+  2 => 13
+  3 => 19
+  4 => 25
+  5 => 31
+  6 => 37
+  7 => 43
+  8 => 49
+  9 => 55
+  10 => 61
+  11 => 67
+  12 => 73
+  13 => 79
+switch_6:
+  0 => 1
+  1 => 18

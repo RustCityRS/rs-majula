@@ -1,0 +1,8 @@
+[clientscript,script_602](int, component, string)
+if (%varc_int82 <= 0) {
+    %varc_int82 = 100;
+} else {
+    %varc_int82 = add(%varc_int82, 10);
+}
+if_setontimer;
+return(603, 6881428, "");

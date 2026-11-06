@@ -1,0 +1,25 @@
+; id: 754
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: branch_if_false 1
+    2: branch 7
+    3: push_int_local 0
+    4: tostring 0
+    5: push_constant_string ".00"
+    6: join_string 2
+    7: push_constant_int 43384875
+    8: if_settext 0
+    9: branch 6
+   10: push_int_local 0
+   11: tostring 0
+   12: push_constant_string ".30"
+   13: join_string 2
+   14: push_constant_int 43384875
+   15: if_settext 0
+   16: return 0

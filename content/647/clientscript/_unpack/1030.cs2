@@ -1,0 +1,32 @@
+; id: 1030
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_constant_int 10289169
+    2: if_sethide 0
+    3: push_constant_int 0
+    4: push_constant_int 10289187
+    5: if_sethide 0
+    6: push_constant_int 10289175
+    7: op152 0
+    8: push_constant_int 10289177
+    9: op152 0
+   10: push_constant_int 1031
+   11: push_constant_string ""
+   12: push_constant_int 10289182
+   13: op2400 0
+   14: push_constant_string "Safety Guide"
+   15: push_constant_int 10289182
+   16: if_settext 0
+   17: push_constant_int 105
+   18: push_constant_int 115
+   19: push_constant_int 1485
+   20: push_constant_int 0
+   21: enum 0
+   22: gosub_with_params 1033
+   23: return 0

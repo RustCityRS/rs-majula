@@ -1,0 +1,8 @@
+[clientscript,script_657](int $int0)
+if (cc_find($int0, 0) = 1) {
+    cc_setoutline;
+    if (and(cc_gettargetmask, 32) ! 0) {
+        ~script_71(4);
+    }
+}
+return;

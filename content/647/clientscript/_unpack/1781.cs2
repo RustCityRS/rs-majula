@@ -1,0 +1,61 @@
+; id: 1781
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_int_local 0
+    3: push_constant_int 4
+    4: branch_less_than_or_equals 1
+    5: branch 45
+    6: push_constant_int 51839117
+    7: push_int_local 0
+    8: push_constant_int 4
+    9: multiply 0
+   10: cc_find 0
+   11: branch_if_true 1
+   12: branch 33
+   13: push_varc_int 257
+   14: push_int_local 0
+   15: branch_equals 1
+   16: branch 12
+   17: push_constant_int 699
+   18: cc_setgraphic 0
+   19: push_constant_int 51839117
+   20: push_constant_int 51839118
+   21: push_constant_int 51839117
+   22: push_int_local 0
+   23: push_constant_int 4
+   24: multiply 0
+   25: push_constant_int 3
+   26: add 0
+   27: gosub_with_params 1783
+   28: branch 17
+   29: map_members 0
+   30: branch_if_false 1
+   31: branch 12
+   32: push_constant_int 105
+   33: push_constant_int 74
+   34: push_constant_int 1604
+   35: push_int_local 0
+   36: enum 0
+   37: push_constant_int 557
+   38: op4500 0
+   39: branch_if_true 1
+   40: branch 3
+   41: push_constant_int 698
+   42: cc_setgraphic 0
+   43: branch 2
+   44: push_constant_int 697
+   45: cc_setgraphic 0
+   46: push_int_local 0
+   47: push_constant_int 1
+   48: add 0
+   49: pop_int_local 0
+   50: branch -49
+   51: gosub_with_params 1784
+   52: return 0

@@ -1,0 +1,22 @@
+[clientscript,script_912](int $int0)(string)
+def_string $str0 = "";
+if (compare($str0, "") ! 0) {
+    return("<br>" + $str0);
+}
+switch (%varc_int746) {
+    case 0:
+        if (oc_weight(cert_purple_partyhat) ! 1) {
+            return(105, enum(115, 1437, $int0, oc_weight(red_cog)), "<br>");
+        }
+    case 1:
+        return(105, enum(115, 1439, $int0, oc_weight(red_cog)), "<br>");
+    case 2:
+    case 5:
+        return(105, enum(115, 1436, $int0, oc_weight(red_cog)), "<br>");
+    case 3:
+        return(105, enum(115, 1438, $int0, oc_weight(red_cog)), "<br>");
+    case 4:
+        return("<br>" + "Requires an ogre composite bow.");
+    default:
+}
+return("");

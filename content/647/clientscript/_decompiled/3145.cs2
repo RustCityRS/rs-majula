@@ -1,0 +1,12 @@
+[clientscript,script_3145](int $int0, int $int1, int $int2, int $int3)
+if_sethide(59637825);
+if_sethide(59637826);
+if (cc_find($int1, $int2) = 1) {
+    if (cc_getgraphic = 1542) {
+        cc_setgraphic(1541);
+    }
+    if (cc_getgraphic = 1546) {
+        cc_setgraphic(1545);
+    }
+}
+return;

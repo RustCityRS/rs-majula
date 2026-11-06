@@ -1,0 +1,132 @@
+[clientscript,script_2695](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10)(int, int, int, int, int, int, int, int, int, int, int, int, int, string)
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_int $int16 = -1;
+def_int $int17 = -1;
+def_int $int18 = -1;
+def_int $int19 = -1;
+if ($int10 = 1) {
+    $int14 = 48627716;
+    $int15 = 48627732;
+    $int16 = 48627733;
+    $int17 = 48627734;
+    $int18 = 48627715;
+    $int19 = 48627718;
+} else {
+    if ($int10 = 2) {
+        $int14 = 59703296;
+        $int15 = 59703355;
+        $int16 = 59703360;
+        $int17 = 59703361;
+        $int18 = 59703359;
+        $int19 = 59703298;
+    }
+    $int14 = 57802756;
+    $int15 = 57802757;
+    $int16 = 57802758;
+    $int17 = 57802759;
+    $int18 = 57802755;
+    $int19 = 57802780;
+}
+def_int $int20 = 0;
+if (cc_find($int0, $int1) = 1) {
+    $int11 = add(~script_1743, ~script_3365($int19));
+    $int20 = ~script_1744;
+    $int12 = calc($int20 + cc_getheight - 1 + ~script_3366($int19));
+    $int13 = cc_getwidth;
+}
+if (if_gethide = 0) {
+    if (if_getx = $int11) {
+        if (if_gety = $int12) {
+            return;
+        }
+    }
+}
+cc_deleteall($int16);
+cc_deleteall($int17);
+if_setscrollpos(0, $int16);
+def_int $int21 = struct_param($int5, param_683);
+def_int $int22 = ~script_2581($int5);
+def_int $int23 = ~script_829($int5, $int21);
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+if ($int25 <= $int23) {
+    if ($int26 ! $int22) {
+        cc_setposition(0, $int16, 4, if_getchildcount($int16));
+        cc_setsize(2, 15, 1, 0);
+        cc_setposition2(0, $int24, 1, 0);
+        cc_settextalign(1, 1, 0);
+        cc_settextfont(494);
+        cc_setonmouseover;
+        if ($int5 ! 1009) {
+            if ($int25 < $int23) {
+                cc_setcolour(15458492);
+                cc_setonmouseleave;
+            } else {
+                cc_setcolour(45537);
+                cc_setonmouseleave;
+            }
+        } else {
+            if ($int25 > 0) {
+                cc_setcolour(15458492);
+                cc_setonmouseleave;
+            }
+            cc_setcolour(45537);
+            cc_setonmouseleave;
+        }
+        if ($int21 ! -1) {
+            cc_settext("");
+        } else {
+            cc_settext(~script_2693($int25));
+        }
+        cc_setonclick;
+        $int24 = add($int24, cc_getheight);
+    }
+    $int25 = add($int25, 1);
+    $int26 = add($int26, 1);
+}
+$int24 = add($int24, 2);
+def_int $int27 = 0;
+if ($int10 = 1) {
+    $int27 = 334;
+} else {
+    $int27 = if_getheight;
+}
+def_int $int28 = 1;
+if ($int27 < add($int12, $int24)) {
+    $int12 = calc($int20 + 1 - $int24 + ~script_3366($int19));
+    if_setposition(0, 1, 0, $int18);
+    $int28 = 0;
+} else {
+    if_setposition(0, 1, 2, $int18);
+    if_setscrollsize(0, 0, $int16);
+    if_sethide($int17);
+}
+if_setposition($int12, 0, 0, $int15);
+if_setsize($int24, 0, 0, $int15);
+if_sethide($int15);
+if (cc_find($int0, $int2) = 1) {
+    cc_setgraphic(2556);
+}
+if ($int4 ! -1) {
+    if (cc_find($int0, $int4) = 1) {
+        cc_setcolour(11709087);
+    }
+}
+if (cc_find($int0, $int1) = 1) {
+    cc_setonclick;
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    if (cc_find($int0, $int3) = 1) {
+        cc_setcolour(11709087);
+        if ($int28 = 1) {
+            cc_setsize(cc_getwidth, add(cc_getheight, 5), 0, 0);
+        }
+    }
+}
+if_setonclick;
+return(2696, $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int14, "IiiiiJiiiii");

@@ -1,0 +1,69 @@
+; id: 268
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 5
+    1: define_array 105
+    2: push_constant_int 0
+    3: push_varc_int 1104
+    4: pop_array_int 0
+    5: push_constant_int 1
+    6: push_varc_int 1105
+    7: pop_array_int 0
+    8: push_constant_int 2
+    9: push_varc_int 1106
+   10: pop_array_int 0
+   11: push_constant_int 3
+   12: push_varc_int 1107
+   13: pop_array_int 0
+   14: push_constant_int 4
+   15: push_varc_int 1108
+   16: pop_array_int 0
+   17: push_constant_int 0
+   18: pop_int_local 1
+   19: push_int_local 0
+   20: push_array_int 0
+   21: push_constant_int 0
+   22: branch_not 1
+   23: branch 20
+   24: push_int_local 0
+   25: pop_int_local 1
+   26: push_int_local 1
+   27: push_constant_int 5
+   28: push_constant_int 1
+   29: sub 0
+   30: branch_less_than 1
+   31: branch 7
+   32: push_int_local 1
+   33: push_int_local 1
+   34: push_constant_int 1
+   35: add 0
+   36: push_array_int 0
+   37: pop_array_int 0
+   38: branch -13
+   39: push_constant_int 5
+   40: push_constant_int 1
+   41: sub 0
+   42: push_constant_int 0
+   43: pop_array_int 0
+   44: push_constant_int 0
+   45: push_array_int 0
+   46: pop_varc_int 1104
+   47: push_constant_int 1
+   48: push_array_int 0
+   49: pop_varc_int 1105
+   50: push_constant_int 2
+   51: push_array_int 0
+   52: pop_varc_int 1106
+   53: push_constant_int 3
+   54: push_array_int 0
+   55: pop_varc_int 1107
+   56: push_constant_int 4
+   57: push_array_int 0
+   58: pop_varc_int 1108
+   59: gosub_with_params 261
+   60: return 0

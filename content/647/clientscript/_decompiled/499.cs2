@@ -1,0 +1,11 @@
+[clientscript,script_499](int $int0)
+def_int $int1 = ~script_488($int0);
+def_int $int2 = 66322452;
+if ($int1 ! -1) {
+    if_settext("");
+    if_settext("");
+    if_sethide($int2);
+} else {
+    if_sethide($int2);
+}
+return;

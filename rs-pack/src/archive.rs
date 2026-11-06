@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::anyhow;
@@ -5,7 +7,7 @@ use anyhow::anyhow;
 use rs_io::crc;
 #[cfg(before_647)]
 use rs_io::jag::JagCompression;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::compression::CompressionType;
@@ -904,13 +906,12 @@ pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
 }
 
 #[cfg(since_647)]
-pub fn verify_crcs(output_dir: &Path, strict: bool) -> Result<()> {
-    let mut store = Js5Store::open(output_dir)?;
+pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
     let mut mismatches: Vec<String> = Vec::new();
     info!("CRC gate: verifying 35 archives against OpenRS2 786...");
     for (pos, &aid) in ARCHIVE_IDS.iter().enumerate() {
-        let actual = match store.read_raw_group_bytes(255, aid as u32) {
-            Ok(Some(raw)) => crc::getcrc(&raw, 0, raw.len()),
+        let actual = match store.groups.get(&(255, aid as u32)) {
+            Some(raw) => crc::getcrc(raw, 0, raw.len()),
             _ => 0,
         };
         match EXPECTED_CRCS[pos] {

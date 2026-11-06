@@ -1,0 +1,56 @@
+[clientscript,script_1086](int $int0, int $int1, int $int2, int $int3)(int, int, int)
+cc_deleteall($int0);
+def_int $int4 = if_getwidth;
+def_int $int5 = if_getheight;
+def_int $int6 = 0;
+if ($int1 > 0) {
+    cc_setposition(0, $int0, 5, $int6);
+    cc_setposition2(0, $int1, 0, 0);
+    cc_setsize($int4, 32, 0, 0);
+    cc_setgraphic(1076);
+    cc_settiling;
+    $int6 = add($int6, 1);
+}
+if ($int2 > 0) {
+    cc_setposition(0, $int0, 5, $int6);
+    cc_setposition2(0, $int2, 0, 0);
+    cc_setsize($int4, 32, 0, 0);
+    cc_setgraphic(1076);
+    cc_settiling;
+    $int6 = add($int6, 1);
+}
+if ($int3 > 0) {
+    cc_setposition(0, $int0, 5, $int6);
+    cc_setposition2(0, $int3, 0, 0);
+    cc_setsize($int4, 32, 0, 0);
+    cc_setgraphic(1076);
+    cc_settiling;
+    $int6 = add($int6, 1);
+}
+cc_setposition(0, $int0, 5, $int6);
+cc_setposition2(0, 0, 0, 0);
+cc_setsize($int4, 32, 0, 0);
+cc_setgraphic(1076);
+cc_settiling;
+$int6 = add($int6, 1);
+cc_setposition(1, $int0, 5, $int6);
+cc_setposition2(0, sub($int5, 32), 0, 0);
+cc_setsize($int4, 32, 0, 0);
+cc_setgraphic(1076);
+cc_settiling;
+cc_setvflip;
+$int6 = add($int6, 1);
+cc_setposition(1, $int0, 5, $int6);
+cc_setposition2(0, 1, 0, 0);
+cc_setsize(32, sub($int5, 2), 0, 0);
+cc_setgraphic(1077);
+cc_settiling;
+$int6 = add($int6, 1);
+cc_setposition(1, $int0, 5, $int6);
+cc_setposition2(sub($int4, 32), 1, 0, 0);
+cc_setsize(32, sub($int5, 2), 0, 0);
+cc_setgraphic(1077);
+cc_settiling;
+cc_sethflip;
+$int6 = add($int6, 1);
+return(1, 1, 1);

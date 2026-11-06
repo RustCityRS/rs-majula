@@ -1,0 +1,10 @@
+[clientscript,script_579](int $int0, int $int1)(int)
+if (cc_find(25493508, 0) = 1) {
+    cc_setposition2(0, calc(15 * $int0 - 1), 0, 0);
+    cc_setsize(if_getwidth, 15, 0, 0);
+    cc_setcolour(0);
+    cc_settrans(220);
+    cc_setfill(1);
+}
+if_setobject(-1, 25493519);
+return($int1);

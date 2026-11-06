@@ -1,0 +1,148 @@
+[clientscript,script_2145](int $int0, int $int1, int $int2)(int, int, string)
+def_int $int3 = enum(105, 74, enum_169, $int1);
+def_int $int4 = enum(105, 74, struct_param($int3, param_61), $int2);
+def_int $int5 = stat_base($int0);
+def_string $str0 = "null";
+def_int $int6 = -1;
+def_int $int7 = 0;
+if ($int4 = -1) {
+    return($int6, 0, $str0);
+}
+if ($int1 = 1) {
+    if (~script_2193($int2) = 2) {
+        return($int6, 0, $str0);
+    }
+}
+if (struct_param($int4, param_871) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_871) = $int0) {
+    if ($int5 = struct_param($int4, param_872)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_873) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_873) = $int0) {
+    if ($int5 = struct_param($int4, param_874)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_875) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_875) = $int0) {
+    if ($int5 = struct_param($int4, param_876)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_877) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_877) = $int0) {
+    if ($int5 = struct_param($int4, param_878)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_879) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_879) = $int0) {
+    if ($int5 = struct_param($int4, param_880)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_881) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_881) = $int0) {
+    if ($int5 = struct_param($int4, param_882)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_883) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_883) = $int0) {
+    if ($int5 = struct_param($int4, param_884)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_885) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_885) = $int0) {
+    if ($int5 = struct_param($int4, param_886)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_887) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_887) = $int0) {
+    if ($int5 = struct_param($int4, param_888)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_889) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_889) = $int0) {
+    if ($int5 = struct_param($int4, param_890)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_891) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_891) = $int0) {
+    if ($int5 = struct_param($int4, param_892)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+if (struct_param($int4, param_893) = -1) {
+    return($int6, 0, $str0);
+}
+if (struct_param($int4, param_893) = $int0) {
+    if ($int5 = struct_param($int4, param_894)) {
+        $int7 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $int6 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        $str0 = ~script_2146($int1, $int5, $int2, struct_param($int4, param_845), "");
+        return($int0, $int6, $int7, $str0);
+    }
+}
+return(-1, 0, "");

@@ -1,0 +1,20 @@
+[clientscript,script_3284](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = calc(61 + 10 * $int0 - 1);
+sound_synth(synth_8809, 1, 0);
+if_setposition($int4, 0, 0, $int1);
+if_settext(tostring($int0));
+switch (enum(105, 105, enum_1264, $int0)) {
+    case 1:
+        if_settext("Frozen");
+    case 2:
+        if_settext("Abandoned");
+    case 3:
+        if_settext("Furnished");
+    case 4:
+        if_settext("Occult");
+    case 5:
+        if_settext("Warped");
+    default:
+        if_settext("Dungeon");
+}
+return;

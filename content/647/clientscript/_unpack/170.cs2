@@ -1,0 +1,51 @@
+; id: 170
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 3905
+    1: branch_if_true 1
+    2: branch 7
+    3: push_varbit 3901
+    4: tostring 0
+    5: push_constant_string "/5"
+    6: join_string 2
+    7: push_constant_int 38535175
+    8: if_settext 0
+    9: branch 32
+   10: push_varbit 3905
+   11: push_constant_int 2
+   12: branch_equals 1
+   13: branch 7
+   14: push_varbit 3902
+   15: tostring 0
+   16: push_constant_string "/5"
+   17: join_string 2
+   18: push_constant_int 38535175
+   19: if_settext 0
+   20: branch 21
+   21: push_varbit 3905
+   22: push_constant_int 3
+   23: branch_equals 1
+   24: branch 7
+   25: push_varbit 3903
+   26: tostring 0
+   27: push_constant_string "/5"
+   28: join_string 2
+   29: push_constant_int 38535175
+   30: if_settext 0
+   31: branch 10
+   32: push_varbit 3905
+   33: push_constant_int 4
+   34: branch_equals 1
+   35: branch 6
+   36: push_varbit 3904
+   37: tostring 0
+   38: push_constant_string "/5"
+   39: join_string 2
+   40: push_constant_int 38535175
+   41: if_settext 0
+   42: return 0

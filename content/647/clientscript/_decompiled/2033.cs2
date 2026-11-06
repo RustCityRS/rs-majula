@@ -1,0 +1,82 @@
+[clientscript,script_2033]
+def_int $int0 = inv_total(inv, gnome_spice);
+def_int $int1 = inv_total(inv, king_worm);
+def_int $int2 = inv_total(inv, equa_leaves);
+def_int $int3 = inv_total(inv, toad_s_legs);
+def_int $int4 = inv_total(inv, chocolate_bar);
+if ($int3 >= 2) {
+    if ($int0 >= 1) {
+        if_setcolour(28639269);
+    }
+} else {
+    if_setcolour(28639269);
+}
+if ($int2 >= 2) {
+    if ($int0 >= 1) {
+        if_setcolour(28639270);
+    }
+} else {
+    if_setcolour(28639270);
+}
+if ($int2 >= 1) {
+    if ($int0 >= 1) {
+        if ($int1 >= 2) {
+            if_setcolour(28639271);
+        }
+    }
+} else {
+    if_setcolour(28639271);
+}
+if ($int4 >= 2) {
+    if ($int0 >= 1) {
+        if_setcolour(28639272);
+    }
+} else {
+    if_setcolour(28639272);
+}
+if (inv_total(inv, toad_s_legs) > 1) {
+    if_setobject(cert_ranarrvial, 28639236);
+} else {
+    if_setobject(cert_ranarrvial, 28639236);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(child_s_blanket, 28639237);
+} else {
+    if_setobject(child_s_blanket, 28639237);
+}
+if (inv_total(inv, equa_leaves) > 1) {
+    if_setobject(cert_1dose1strength, 28639244);
+} else {
+    if_setobject(cert_1dose1strength, 28639244);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(child_s_blanket, 28639243);
+} else {
+    if_setobject(child_s_blanket, 28639243);
+}
+if (inv_total(inv, chocolate_bar) > 1) {
+    if_setobject(cert_3doseprayerrestore, 28639259);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28639259);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(child_s_blanket, 28639260);
+} else {
+    if_setobject(child_s_blanket, 28639260);
+}
+if (inv_total(inv, king_worm) > 1) {
+    if_setobject(cert_ranarrvial, 28639251);
+} else {
+    if_setobject(cert_ranarrvial, 28639251);
+}
+if (inv_total(inv, equa_leaves) > 0) {
+    if_setobject(cert_1dose1strength, 28639252);
+} else {
+    if_setobject(cert_1dose1strength, 28639252);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(child_s_blanket, 28639250);
+} else {
+    if_setobject(child_s_blanket, 28639250);
+}
+return;

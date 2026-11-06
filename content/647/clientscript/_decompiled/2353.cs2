@@ -1,0 +1,10 @@
+[clientscript,script_2353](int $int0)
+if (%varc_int771 = 1) {
+    if_setontimer;
+} else {
+    if_setontimer;
+    if_settext("Saving your game and loading QuestHelp");
+    if_sethide($int0);
+    if_sethide(18022414);
+}
+return;

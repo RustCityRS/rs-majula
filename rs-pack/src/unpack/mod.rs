@@ -162,7 +162,7 @@ const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
 pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     #[cfg(since_647)]
     {
-        unpack(expected_dir, output_dir, pack_dir, Domains::ALL, output_dir)
+        unpack_cache(expected_dir, output_dir, pack_dir)
     }
     #[cfg(before_647)]
     {
@@ -725,126 +725,30 @@ pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8>
 }
 
 #[cfg(since_647)]
-/// Which parts of the cache an unpack writes.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Domains {
-    /// Config text (`scripts/_unpack/all.*`) and its animations.
-    pub configs: bool,
-    /// Map squares (`maps/_unpack`).
-    pub maps: bool,
-    /// Everything else: clientscripts, interfaces, models, sprites, songs, ...
-    pub assets: bool,
-}
-
-#[cfg(since_647)]
-impl Domains {
-    pub const ALL: Self = Self {
-        configs: true,
-        maps: true,
-        assets: true,
-    };
-
-    /// Parse a comma-separated list of `configs`, `maps`, `assets`.
-    pub fn parse(list: &str) -> Result<Self> {
-        let mut domains = Self {
-            configs: false,
-            maps: false,
-            assets: false,
-        };
-        for part in list.split(',').map(str::trim).filter(|p| !p.is_empty()) {
-            match part {
-                "configs" => domains.configs = true,
-                "maps" => domains.maps = true,
-                "assets" => domains.assets = true,
-                other => anyhow::bail!("unknown unpack domain `{other}` (configs, maps, assets)"),
-            }
-        }
-        Ok(domains)
-    }
-}
-
-#[cfg(since_647)]
-/// Unpack `domains` of the cache into `output_dir`.
-///
-/// A partial unpack regenerates content in place: each selected domain's
-/// `_unpack` directory is **deleted first**, so what it holds afterwards is a
-/// function of the cache and the name registries alone -- never of what was
-/// there before. That is what lets `_unpack` stay out of git. Authored data
-/// lives beside it and is laid over it at pack time
-/// (`pack::overlay_section`, `pack::other::map::source_dirs`).
-///
-/// `work_dir` takes what a partial run needs but must not write into
-/// `output_dir`: the decompiled clientscripts the varp unpacker reads, and the
-/// run report.
-pub fn unpack(
-    expected_dir: &Path,
-    output_dir: &Path,
-    pack_dir: &Path,
-    domains: Domains,
-    work_dir: &Path,
-) -> Result<()> {
-    let cache_dir = expected_dir;
-
+fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<()> {
     fs::create_dir_all(output_dir)?;
     fs::create_dir_all(pack_dir)?;
-    fs::create_dir_all(work_dir)?;
-    if domains != Domains::ALL {
-        for (selected, dir) in [
-            (domains.configs, output_dir.join("scripts").join("_unpack")),
-            (domains.maps, output_dir.join("maps").join("_unpack")),
-        ] {
-            if selected && dir.exists() {
-                info!("Clearing {} for regeneration", dir.display());
-                fs::remove_dir_all(&dir)?;
-            }
-        }
-    }
-
     let scripts_dir = output_dir.join("scripts");
-    if domains.configs {
-        fs::create_dir_all(scripts_dir.join("_unpack"))?;
-    }
-
+    fs::create_dir_all(scripts_dir.join("_unpack"))?;
     let mut results: Vec<StepResult> = Vec::new();
-
-    // path. Hand-maintained names in existing `<type>.pack` files are
-    // preserved; only auto-generated / missing entries are (re)written.
-    info!("Discovering pack registries from cache (idempotent)...");
-    let report = discover_symbols(cache_dir, pack_dir, false)?;
+    info!("Discovering pack registries from cache...");
+    let report = discover_symbols(expected_dir, pack_dir, false)?;
     info!("  {} registry types processed", report.types.len());
-
     let registry = PackRegistry::load(pack_dir)?;
-
-    // output for transmit analysis.
-    // A partial run decompiles into `work_dir`, so the content tree's own
-    // clientscript directory is never touched.
-    let cs2_root = if domains.assets { output_dir } else { work_dir };
-    let cs2_dir = cs2_root.join("clientscript").join("_decompiled");
-    if domains.assets {
-        step(&mut results, "cs2 disassembly", || {
-            cs2::unpack_cs2_scripts(cache_dir, output_dir).map(|n| format!("{n} scripts"))
-        });
-    }
-    if domains.assets || domains.configs {
-        step(&mut results, "cs2 decompile", || {
-            cs2::decompile_cs2_scripts(cache_dir, cs2_root, None).map(|n| format!("{n} scripts"))
-        });
-    }
-    if domains.configs {
-        unpack_configs(&mut results, cache_dir, pack_dir, &scripts_dir, &cs2_dir);
-    }
-    if domains.maps {
-        step(&mut results, "maps", || {
-            let mut store = Js5Store::open(cache_dir)?;
-            map::unpack_maps(&mut store, cache_dir, output_dir).map(|n| format!("{n} map groups"))
-        });
-    }
-    if domains.assets {
-        unpack_assets(&mut results, cache_dir, &registry, pack_dir, output_dir);
-    }
-
-    let report_dir = if domains.assets { output_dir } else { work_dir };
-    write_report(&results, &report_dir.join("unpack_report.txt"))
+    let cs2_dir = output_dir.join("clientscript/_decompiled");
+    step(&mut results, "cs2 disassembly", || {
+        cs2::unpack_cs2_scripts(expected_dir, output_dir).map(|n| format!("{n} scripts"))
+    });
+    step(&mut results, "cs2 decompile", || {
+        cs2::decompile_cs2_scripts(expected_dir, output_dir, None).map(|n| format!("{n} scripts"))
+    });
+    unpack_configs(&mut results, expected_dir, pack_dir, &scripts_dir, &cs2_dir);
+    step(&mut results, "maps", || {
+        let mut store = Js5Store::open(expected_dir)?;
+        map::unpack_maps(&mut store, expected_dir, output_dir).map(|n| format!("{n} map groups"))
+    });
+    unpack_assets(&mut results, expected_dir, &registry, pack_dir, output_dir);
+    write_report(&results, &output_dir.join("unpack_report.txt"))
 }
 
 #[cfg(since_647)]

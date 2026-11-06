@@ -1,0 +1,64 @@
+[clientscript,script_1902](int $int0, int $int1, int $int2)(int, int, int, component, component, component, component, int, component, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+%varc_int128 = -1;
+def_int $int3 = quickchat_search(0, %varc_str30);
+def_int $int4 = if_getwidth;
+def_int $int5 = sub($int4, 8);
+if ($int3 = -1) {
+    cc_setposition(0, $int1, 4, 0);
+    cc_setposition2(0, 48, 0, 0);
+    cc_setsize($int4, 14, 0, 0);
+    cc_settextfont(495);
+    cc_settext("Too many results. Please refine your search.");
+    cc_settextalign(1, 1, 0);
+    cc_setcolour(0);
+    cc_settextshadow(0);
+    if_setscrollsize(0, 0, $int1);
+    return(~script_1905($int1, $int2));
+}
+if ($int3 = 0) {
+    cc_setposition(0, $int1, 4, 0);
+    cc_setposition2(0, 48, 0, 0);
+    cc_setsize($int4, 14, 0, 0);
+    cc_settextfont(495);
+    cc_settext("No matching items found.");
+    cc_settextalign(1, 1, 0);
+    cc_setcolour(0);
+    cc_settextshadow(0);
+    if_setscrollsize(0, 0, $int1);
+    return(~script_1905($int1, $int2));
+}
+def_int $int6 = 1;
+def_int $int7 = quickchat_search_next;
+def_string $str0 = "";
+cc_setposition(0, $int1, 3, 0);
+if ($int7 ! -1) {
+    if (compare($str0, quickchat_phrase_gettext($int7)) ! 0) {
+        $str0 = quickchat_phrase_gettext($int7);
+        cc_setposition(0, $int1, 4, $int6);
+        cc_setposition2(4, calc(14 * $int6 - 1), 0, 0);
+        cc_setsize($int5, 14, 0, 0);
+        cc_setcolour(0);
+        cc_settext(quickchat_phrase_gettext($int7));
+        cc_settextfont(495);
+        cc_settextshadow(0);
+        cc_setonmouseover;
+        cc_setonclick;
+        $int6 = add($int6, 1);
+    }
+    $int7 = quickchat_search_next;
+}
+if ($int6 = 1) {
+    cc_setposition(0, $int1, 4, 0);
+    cc_setposition2(0, 48, 0, 0);
+    cc_setsize($int4, 14, 0, 0);
+    cc_settextfont(495);
+    cc_settext("No matching items found.");
+    cc_settextalign(1, 1, 0);
+    cc_setcolour(0);
+    cc_settextshadow(0);
+    if_setscrollsize(0, 0, $int1);
+    return(~script_1905($int1, $int2));
+}
+if_setonkey;
+if_setscrollsize(0, calc(14 * $int6 - 1), $int1);
+return(1901, -2147483640, -2147483639, 8978433, 8978446, 8978448, 8978447, sub($int6, 1), 8978445, ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), "izIIIIi", ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2), ~script_1905($int1, $int2));

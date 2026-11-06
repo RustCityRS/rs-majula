@@ -1,0 +1,14 @@
+[clientscript,script_1631]
+if (%varc_int1033 <= cam_getpathcount(0)) {
+    %varc_int1033 = add(%varc_int1033, 1);
+    switch (%varc_int1033) {
+        case 2:
+        case 4:
+            if_setonvarcstringtransmit;
+            cam_startpath(0, %varc_int1033, 200, 200, 1, %varc_int1033);
+        default:
+    }
+} else {
+    %varc_int1033 = 0;
+}
+return;

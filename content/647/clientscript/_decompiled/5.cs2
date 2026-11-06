@@ -1,0 +1,17 @@
+[clientscript,script_5]
+def_int $int0 = 30;
+if (%varbit6840 = 1) {
+    $int0 = 20;
+}
+def_int $int1 = 0;
+if ($int1 < $int0) {
+    if (cc_find(17760263, $int1) = 1) {
+        if (~script_2297($int1) = 1) {
+            if (~script_2295($int1) = 1) {
+                cc_setgraphic(155);
+            }
+        }
+    }
+    $int1 = add($int1, 1);
+}
+return;

@@ -1,0 +1,10 @@
+[clientscript,script_2577](int $int0, int $int1, int $int2)
+if (inv_total(inv, coins) < $int1) {
+    if_setcolour($int0);
+} else {
+    if (stat_base(construction) < $int2) {
+        if_setcolour($int0);
+    }
+    if_setcolour($int0);
+}
+return;

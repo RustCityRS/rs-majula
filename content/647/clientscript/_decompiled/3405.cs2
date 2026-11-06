@@ -1,0 +1,26 @@
+[clientscript,script_3405](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int5 = ~script_3406;
+$int4 = ~script_3406;
+$int3 = ~script_3406;
+if (if_gethide = 1) {
+    if ($int3 > %varc_int1275) {
+        if_setontimer;
+    }
+}
+if (if_gethide = 1) {
+    if ($int4 > %varc_int1276) {
+        if_setontimer;
+    }
+}
+if (if_gethide = 1) {
+    if ($int5 > %varc_int1510) {
+        if_setontimer;
+    }
+}
+%varc_int1275 = $int3;
+%varc_int1276 = $int4;
+%varc_int1510 = $int5;
+return;

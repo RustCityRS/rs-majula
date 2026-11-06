@@ -1,0 +1,21 @@
+[clientscript,script_2345](int, component, string)
+%varc_int769 = 0;
+def_int $int0 = calc(coordx(coord) - coordx(coord) % 64);
+def_int $int1 = calc(coordz(coord) - coordz(coord) % 64);
+def_int $int2 = coordpack(0, $int0, 0, $int1);
+def_int $int3 = coordpack($int2, coordx(507944), 0, coordz(507944));
+cam_allocpath(0, 5);
+cam_addwaypoint(0, 0, coordpack($int3, 0, 0, -5), 800, coordpack($int3, 0, 0, -5), 900, 0);
+cam_addwaypoint(0, 1, coordpack($int3, -5, 0, -1), 800, coordpack($int3, -5, 0, 0), 900, 0);
+cam_addwaypoint(0, 2, coordpack($int3, -1, 0, 5), 800, coordpack($int3, 0, 0, 5), 900, 0);
+cam_addwaypoint(0, 3, coordpack($int3, 5, 0, 1), 800, coordpack($int3, 5, 0, 0), 900, 0);
+cam_addwaypoint(0, 4, coordpack($int3, 0, 0, -3), 800, coordpack($int3, 0, 0, -3), 900, 0);
+cam_allocpath(1, 5);
+cam_addwaypoint(1, 0, $int3, 400, $int3, 400, 0);
+cam_addwaypoint(1, 1, $int3, 400, $int3, 400, 0);
+cam_addwaypoint(1, 2, $int3, 400, $int3, 400, 0);
+cam_addwaypoint(1, 3, $int3, 400, $int3, 400, 0);
+cam_addwaypoint(1, 4, $int3, 500, $int3, 500, 0);
+cam_startpath(0, 0, 200, 200, 1, 0);
+if_setonvarcstringtransmit;
+return(2346, 38141952, "");

@@ -1,0 +1,5 @@
+[clientscript,script_1162](component, int, int)
+def_int $int0 = sub(48693255, if_getwidth);
+def_int $int1 = scale(get_clientopt, 127, $int0);
+if_setposition(0, 0, 0, 48693255);
+return(48693296, if_getwidth, $int1);

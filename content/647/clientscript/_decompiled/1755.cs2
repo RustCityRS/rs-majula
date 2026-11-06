@@ -1,0 +1,18 @@
+[clientscript,script_1755](int $int0, int $int1)(int)
+if (%varc_int227 > 2) {
+    if (inv_getobj(worn, dwarf_remains) = 8950) {
+        if_setmodel;
+    } else {
+        if_setmodel;
+    }
+    if_setcolour($int1);
+} else {
+    if (inv_getobj(worn, dwarf_remains) = 8950) {
+        if_setmodel;
+    } else {
+        if_setmodel;
+    }
+    if_setcolour($int1);
+}
+if_settext(tostring(%varc_int227));
+return($int1);

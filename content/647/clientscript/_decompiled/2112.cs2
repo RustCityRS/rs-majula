@@ -1,0 +1,28 @@
+[clientscript,script_2112](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if_setmodelangle;
+if_setmodelangle;
+if_setmodelangle;
+if_setmodelangle;
+switch ($int4) {
+    case 0:
+        if_setposition(43, 1, 0, $int0);
+        if_setposition(126, 1, 0, $int1);
+        if_setposition(210, 1, 0, $int2);
+        if_setposition(-70, 1, 0, $int3);
+    case 1:
+        if_setposition(43, 1, 0, $int1);
+        if_setposition(126, 1, 0, $int2);
+        if_setposition(210, 1, 0, $int3);
+        if_setposition(-70, 1, 0, $int0);
+    case 2:
+        if_setposition(43, 1, 0, $int2);
+        if_setposition(126, 1, 0, $int3);
+        if_setposition(210, 1, 0, $int0);
+        if_setposition(-70, 1, 0, $int1);
+    default:
+        if_setposition(43, 1, 0, $int3);
+        if_setposition(126, 1, 0, $int0);
+        if_setposition(210, 1, 0, $int1);
+        if_setposition(-70, 1, 0, $int2);
+}
+return;

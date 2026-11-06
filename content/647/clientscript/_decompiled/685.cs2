@@ -1,0 +1,17 @@
+[clientscript,script_685](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+$int3 = calc($int3 + $int5 % $int4 * 4);
+if (cc_find($int0, $int1) = 1) {
+    if ($int3 <= $int4) {
+        cc_setmodelangle(0, 0, cc_getmodelangle_x, calc($int2 + $int3 % 2048), cc_getmodelangle_z, cc_getmodelzoom);
+    } else {
+        if ($int3 <= multiply($int4, 2)) {
+            cc_setmodelangle(0, 0, cc_getmodelangle_x, calc($int2 + $int4 - $int3 - $int4 % 2048), cc_getmodelangle_z, cc_getmodelzoom);
+        }
+        if ($int3 <= multiply($int4, 3)) {
+            cc_setmodelangle(0, 0, cc_getmodelangle_x, ~script_686(calc($int2 - $int3 - $int4 * 2), 2048), cc_getmodelangle_z, cc_getmodelzoom);
+        }
+        cc_setmodelangle(0, 0, cc_getmodelangle_x, ~script_686(calc($int2 - $int4 + $int3 - $int4 * 3), 2048), cc_getmodelangle_z, cc_getmodelzoom);
+    }
+    cc_setontimer;
+}
+return;

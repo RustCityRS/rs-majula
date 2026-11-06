@@ -1,0 +1,17 @@
+[clientscript,script_2700](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = add(clientclock, 750);
+if ($int1 = 1) {
+    if_setontimer;
+    if_setontimer;
+} else {
+    if ($int1 = 2) {
+        if_setontimer;
+        if_setonop;
+        if_setonop;
+    }
+    if_setontimer;
+    ~script_1174(10);
+    if_setonclick;
+    if_setonclick;
+}
+return;

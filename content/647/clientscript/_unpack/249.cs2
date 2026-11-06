@@ -1,0 +1,57 @@
+; id: 249
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 799
+    1: push_constant_int 1
+    2: add 0
+    3: pop_varc_int 799
+    4: push_varc_int 799
+    5: push_constant_int 30
+    6: branch_greater_than_or_equals 1
+    7: branch 10
+    8: push_constant_int 0
+    9: pop_varc_int 799
+   10: push_varc_int 798
+   11: branch_if_true 1
+   12: branch 3
+   13: push_constant_int 0
+   14: pop_varc_int 798
+   15: branch 2
+   16: push_constant_int 1
+   17: pop_varc_int 798
+   18: push_varc_int 798
+   19: branch_if_true 1
+   20: branch 8
+   21: push_varc_string_old 24
+   22: op4111 0
+   23: push_constant_string "<col=ffff00>"
+   24: push_constant_string " "
+   25: join_string 3
+   26: push_constant_int 38928437
+   27: if_settext 0
+   28: branch 7
+   29: push_varc_string_old 24
+   30: op4111 0
+   31: push_constant_string "<col=ffff00>"
+   32: push_constant_string "|"
+   33: join_string 3
+   34: push_constant_int 38928437
+   35: if_settext 0
+   36: push_varc_string_old 24
+   37: push_constant_string ""
+   38: compare 0
+   39: branch_if_false 1
+   40: branch 4
+   41: push_constant_int 12303291
+   42: push_constant_int 38928442
+   43: if_setcolour 0
+   44: branch 3
+   45: push_constant_int 16777215
+   46: push_constant_int 38928442
+   47: if_setcolour 0
+   48: return 0

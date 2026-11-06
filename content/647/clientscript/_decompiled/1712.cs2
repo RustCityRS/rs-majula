@@ -1,0 +1,49 @@
+[clientscript,script_1712](int $int0)(int)
+def_int $int1 = 0;
+if (inv_getobj(worn, cannonball) = 19892) {
+    $int1 = scale(stat_base($int0), 100, 5);
+}
+switch ($int0) {
+    case 0:
+        if (%varbit6852 > 0) {
+            return(sub(0, ~script_1714(0, ~script_1718(0, add(10, $int1)))));
+        }
+        if (%varbit6847 > 0) {
+            return(sub(0, ~script_1714(0, ~script_1718(0, add(10, $int1)))));
+        }
+        return(0);
+    case 2:
+        if (%varbit6853 > 0) {
+            return(sub(0, ~script_1714(2, ~script_1718(2, add(10, $int1)))));
+        }
+        if (%varbit6848 > 0) {
+            return(sub(0, ~script_1714(2, ~script_1718(2, add(10, $int1)))));
+        }
+        return(0);
+    case 1:
+        if (%varbit6854 > 0) {
+            return(sub(0, ~script_1714(1, ~script_1718(1, add(10, $int1)))));
+        }
+        if (%varbit6849 > 0) {
+            return(sub(0, ~script_1714(1, ~script_1718(1, add(10, $int1)))));
+        }
+        return(0);
+    case 4:
+        if (%varbit6855 > 0) {
+            return(sub(0, ~script_1714(4, ~script_1718(4, add(10, $int1)))));
+        }
+        if (%varbit6850 > 0) {
+            return(sub(0, ~script_1714(4, ~script_1718(4, add(10, $int1)))));
+        }
+        return(0);
+    case 6:
+        if (%varbit6856 > 0) {
+            return(sub(0, ~script_1714(6, ~script_1718(0, add(10, $int1)))));
+        }
+        if (%varbit6851 > 0) {
+            return(sub(0, ~script_1714(6, ~script_1718(0, add(10, $int1)))));
+        }
+        return(0);
+    default:
+}
+return(0);

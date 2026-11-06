@@ -1,0 +1,140 @@
+[clientscript,script_243](int $int0, int $int1)
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = 1;
+switch ($int0) {
+    case 38928641:
+        $int2 = 38928637;
+        $int3 = 38928638;
+        $int4 = 38928639;
+    case 38928642:
+        $int2 = 38928668;
+        $int3 = 38928669;
+        $int4 = 38928670;
+    case 38928643:
+        $int2 = 38928644;
+        $int3 = 38928645;
+        $int4 = 38928646;
+    case 38928648:
+        $int2 = 38928664;
+        $int3 = 38928665;
+        $int4 = 38928666;
+    case 38928649:
+        $int2 = 38928660;
+        $int3 = 38928661;
+        $int4 = 38928662;
+    case 38928650:
+        $int2 = 38928651;
+        $int3 = 38928652;
+        $int4 = 38928653;
+    case 38928655:
+        $int2 = 38928656;
+        $int3 = 38928657;
+        $int4 = 38928658;
+    case 38928672:
+        $int2 = 38928621;
+        $int3 = 38928622;
+        $int4 = 38928623;
+    case 38928673:
+        $int2 = 38928679;
+        $int3 = 38928680;
+        $int4 = 38928681;
+    case 38928674:
+        $int2 = 38928675;
+        $int3 = 38928676;
+        $int4 = 38928677;
+    case 38928683:
+        $int2 = 38928625;
+        $int3 = 38928626;
+        $int4 = 38928627;
+    case 38928684:
+        $int2 = 38928629;
+        $int3 = 38928630;
+        $int4 = 38928631;
+    case 38928690:
+        $int2 = 38928633;
+        $int3 = 38928634;
+        $int4 = 38928635;
+    case 38928685:
+        $int2 = 38928686;
+        $int3 = 38928687;
+        $int4 = 38928688;
+    case 38928386:
+        $int2 = 38928395;
+        $int3 = 38928396;
+        $int4 = 38928397;
+        $int5 = 0;
+    case 38928460:
+        $int2 = 38928461;
+        $int3 = 38928462;
+        $int4 = 38928463;
+        $int5 = 0;
+    case 38928387:
+        $int2 = 38928388;
+        $int3 = 38928389;
+        $int4 = 38928390;
+        $int5 = 0;
+    case 38928438:
+        $int2 = 38928439;
+        $int3 = 38928440;
+        $int4 = 38928441;
+        $int5 = 0;
+    case 38928509:
+        $int2 = 38928510;
+        $int3 = 38928511;
+        $int4 = 38928512;
+        $int5 = 0;
+    case 38928514:
+        $int2 = 38928515;
+        $int3 = 38928516;
+        $int4 = 38928517;
+        $int5 = 0;
+    default:
+        ~script_675;
+}
+if ($int1 = 0) {
+    if ($int5 = 1) {
+        if ($int2 ! -1) {
+            if_setgraphic($int2);
+        }
+        if ($int3 ! -1) {
+            if_setgraphic($int3);
+        }
+        if ($int4 ! -1) {
+            if_setgraphic($int4);
+        }
+    } else {
+        if ($int2 ! -1) {
+            if_setgraphic($int2);
+        }
+        if ($int3 ! -1) {
+            if_setgraphic($int3);
+        }
+        if ($int4 ! -1) {
+            if_setgraphic($int4);
+        }
+    }
+} else {
+    if ($int5 = 1) {
+        if ($int2 ! -1) {
+            if_setgraphic($int2);
+        }
+        if ($int3 ! -1) {
+            if_setgraphic($int3);
+        }
+        if ($int4 ! -1) {
+            if_setgraphic($int4);
+        }
+    }
+    if ($int2 ! -1) {
+        if_setgraphic($int2);
+    }
+    if ($int3 ! -1) {
+        if_setgraphic($int3);
+    }
+    if ($int4 ! -1) {
+        if_setgraphic($int4);
+    }
+}
+return;

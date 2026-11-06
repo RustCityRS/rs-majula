@@ -1,0 +1,10 @@
+[clientscript,script_2087]
+if (%varc_int649 <= 5) {
+    if_setcolour(54788126);
+} else {
+    if (%varc_int649 >= 25) {
+        if_setcolour(54788126);
+    }
+    if_setcolour(54788126);
+}
+return;

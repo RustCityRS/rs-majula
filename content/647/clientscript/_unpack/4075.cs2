@@ -1,0 +1,97 @@
+; id: 4075
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1433
+    1: switch 0
+    2: branch 79
+    3: push_constant_int 0
+    4: push_constant_int 50
+    5: push_int_local 0
+    6: gosub_with_params 2766
+    7: branch 74
+    8: push_constant_int 50
+    9: push_int_local 0
+   10: gosub_with_params 2768
+   11: push_constant_int 0
+   12: push_constant_int 2
+   13: op5405 0
+   14: push_constant_int 1
+   15: push_constant_int 2
+   16: op5405 0
+   17: push_constant_int 0
+   18: push_constant_int 0
+   19: push_constant_int 16
+   20: push_constant_int 11
+   21: gosub_with_params 4077
+   22: push_constant_int 500
+   23: push_constant_int 16
+   24: push_constant_int 11
+   25: gosub_with_params 4077
+   26: push_constant_int 500
+   27: push_constant_int 0
+   28: op5406 0
+   29: push_constant_int 0
+   30: push_constant_int 1
+   31: push_constant_int 14
+   32: push_constant_int 12
+   33: gosub_with_params 4077
+   34: push_constant_int 400
+   35: push_constant_int 14
+   36: push_constant_int 12
+   37: gosub_with_params 4077
+   38: push_constant_int 400
+   39: push_constant_int 0
+   40: op5406 0
+   41: push_constant_int 1
+   42: push_constant_int 0
+   43: push_constant_int 15
+   44: push_constant_int 15
+   45: gosub_with_params 4077
+   46: push_constant_int 400
+   47: push_constant_int 15
+   48: push_constant_int 15
+   49: gosub_with_params 4077
+   50: push_constant_int 400
+   51: push_constant_int 0
+   52: op5406 0
+   53: push_constant_int 1
+   54: push_constant_int 1
+   55: push_constant_int 15
+   56: push_constant_int 15
+   57: gosub_with_params 4077
+   58: push_constant_int 300
+   59: push_constant_int 15
+   60: push_constant_int 15
+   61: gosub_with_params 4077
+   62: push_constant_int 300
+   63: push_constant_int 0
+   64: op5406 0
+   65: push_constant_int 0
+   66: push_constant_int 0
+   67: push_constant_int 100
+   68: push_constant_int 100
+   69: push_constant_int 1
+   70: push_constant_int 0
+   71: op5502 0
+   72: branch 9
+   73: push_constant_int 0
+   74: push_constant_int 30
+   75: push_int_local 0
+   76: gosub_with_params 2766
+   77: branch 4
+   78: op5503 0
+   79: push_constant_int 50
+   80: push_int_local 0
+   81: gosub_with_params 2768
+   82: return 0
+
+switch_0:
+  1 => 1
+  2 => 6
+  3 => 71
+  4 => 76

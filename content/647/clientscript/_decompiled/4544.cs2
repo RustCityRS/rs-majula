@@ -1,0 +1,24 @@
+[clientscript,script_4544](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+if_getlayer;
+def_int $int8 = $int0;
+if ($int8 = -1) {
+    return;
+}
+if ($int6 = 0) {
+    if (if_getwidth = $int4) {
+        if_setontimer;
+    } else {
+        if (if_getwidth = $int5) {
+            if_setontimer;
+        }
+    }
+}
+if ($int6 = 2) {
+    if (if_getheight = $int4) {
+        if_setontimer;
+    }
+    if (if_getheight = $int5) {
+        if_setontimer;
+    }
+}
+return;

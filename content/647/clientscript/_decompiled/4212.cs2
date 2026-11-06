@@ -1,0 +1,46 @@
+[clientscript,script_4212](int $int0, int $int1, int $int2, int $int3, string $str0)
+if ($int0 = -1) {
+    return;
+}
+def_int $int4 = if_getx;
+def_int $int5 = if_gety;
+if_getlayer;
+def_int $int6 = $int0;
+if_settext($str0);
+cc_deleteall($int6);
+cc_setposition($int0, $int6, 4, if_getchildcount($int6));
+cc_setposition2(0, -1, 1, 1);
+cc_setsize(0, 0, 1, 1);
+cc_settextalign(1, 1, 0);
+cc_setcolour($int3);
+cc_settextfont($int1);
+cc_settext($str0);
+cc_setposition($int0, $int6, 4, if_getchildcount($int6));
+cc_setposition2(0, 1, 1, 1);
+cc_setsize(0, 0, 1, 1);
+cc_settextalign(1, 1, 0);
+cc_setcolour($int3);
+cc_settextfont($int1);
+cc_settext($str0);
+cc_setposition($int0, $int6, 4, if_getchildcount($int6));
+cc_setposition2(-1, 0, 1, 1);
+cc_setsize(0, 0, 1, 1);
+cc_settextalign(1, 1, 0);
+cc_setcolour($int3);
+cc_settextfont($int1);
+cc_settext($str0);
+cc_setposition(0, $int6, 4, if_getchildcount($int6));
+cc_setposition2(1, 0, 1, 1);
+cc_setsize(0, 0, 1, 1);
+cc_settextalign(1, 1, 0);
+cc_setcolour($int3);
+cc_settextfont($int1);
+cc_settext($str0);
+cc_setposition(0, $int6, 4, if_getchildcount($int6));
+cc_setposition2(0, 0, 1, 1);
+cc_setsize(0, 0, 1, 1);
+cc_settextalign(1, 1, 0);
+cc_setcolour($int2);
+cc_settextfont($int1);
+cc_settext($str0);
+return;

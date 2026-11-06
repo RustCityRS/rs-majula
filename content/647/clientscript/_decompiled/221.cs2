@@ -1,0 +1,22 @@
+[clientscript,script_221](int, int, int, int, int, int, int, int, int, int, int, int, int, int, component)
+if (compare(%varc_str24, "") = 0) {
+    ~script_675;
+    return;
+}
+%varc_int790 = 3;
+if_sethide(38928417);
+if_sethide(38928418);
+if_sethide(38928445);
+if_sethide(38928532);
+if_sethide(38928533);
+if_sethide(38928534);
+if_sethide(38928535);
+if_sethide(38928549);
+if_sethide(38928550);
+if_sethide(38928488);
+if_sethide(38928504);
+if_sethide(38928446);
+if_sethide(38928501);
+if_sethide(38928505);
+if_settext("Ignore " + %varc_str24 + "?");
+return(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 38928519);

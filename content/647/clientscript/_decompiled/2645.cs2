@@ -1,0 +1,11 @@
+[clientscript,script_2645](int $int0)
+if (%varc_int842 = 1) {
+    if_settext("Next page");
+    if_setonop;
+} else {
+    if (%varc_int842 = 2) {
+        if_settext("Previous page");
+        if_setonop;
+    }
+}
+return;

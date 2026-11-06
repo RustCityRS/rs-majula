@@ -1,0 +1,76 @@
+[clientscript,script_2779](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, string $str0, string $str1, string $str2, string $str3, string $str4)(component, int, int, int, int, component, int, int, int, int, int, int, string, string, string)
+if (if_gethide = 0) {
+    return;
+}
+if_clearops;
+if_clearops;
+if_setonop;
+if_setonop;
+def_int $int8 = $int7;
+if ($int4 = 1) {
+    $int8 = max($int7, add(char_isnumeric(3793), 26));
+    if (mod($int8, 2) = 0) {
+        $int8 = add($int8, 1);
+    }
+}
+if_setsize(154, 0, 0, 59375635);
+def_int $int9 = calc(paraheight($str0, 3793) * 16 + 5);
+if_setsize($int9, 1, 0, 59375840);
+if_settext($str0);
+if ($int2 = 1) {
+    %varc_int1092 = add(clientclock, 5);
+    if_setgraphic(59375839);
+    if_setsize(111, 0, 0, 59375839);
+    if_setposition(7, 1, 0, 59375839);
+    if_setposition(112, 1, 0, 59375840);
+    if_setontimer;
+} else {
+    %varc_int1092 = 0;
+    if_setontimer;
+    if_setgraphic(59375839);
+    if_setsize(63, 0, 0, 59375839);
+    if_setposition(18, 1, 0, 59375839);
+    if_setposition(123, 1, 0, 59375840);
+    $int9 = sub($int9, 35);
+}
+def_int $int10 = 0;
+$int9 = add(if_gety, $int9);
+if ($int4 = 0) {
+    if ($int6 = 0) {
+        $int10 = 12;
+        $int9 = add($int9, $int10);
+        if_sethide(59375841);
+        if_sethide(59375847);
+    }
+} else {
+    if ($int4 = 1) {
+        if ($int6 = 0) {
+            $int10 = 41;
+            $int9 = add($int9, $int10);
+            if_setposition(8, 1, 2, 59375841);
+            if_sethide(59375841);
+            if_sethide(59375847);
+        }
+    }
+    if ($int4 = 0) {
+        if ($int6 = 1) {
+            $int10 = 41;
+            $int9 = add($int9, $int10);
+            if_setposition(8, 1, 2, 59375847);
+            if_sethide(59375847);
+            if_sethide(59375841);
+        }
+    }
+    $int10 = 70;
+    $int9 = add($int9, $int10);
+    if_setposition(40, 1, 2, 59375841);
+    if_setposition(10, 1, 2, 59375847);
+    if_sethide(59375847);
+    if_sethide(59375841);
+}
+if_setsize($int9, 0, 0, 59375635);
+if_setposition($int10, 1, 2, 59375840);
+if_setonkey;
+if_sethide(59375649);
+if_sethide(59375635);
+return(59375635, if_getwidth, ~script_3095(59375841, 59375847, $int0), ~script_3095(59375841, 59375847, $int0), ~script_3095(59375841, 59375847, $int0), ~script_3095(59375841, 59375847, $int0), 0, 3100, -2147483640, 59375649, 0, 0, ~script_3095(59375841, 59375847, $int0), ~script_3095(59375841, 59375847, $int0), "i");

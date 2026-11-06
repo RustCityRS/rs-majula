@@ -1,0 +1,10 @@
+[clientscript,script_1366]
+if (%varp380 = 25) {
+    if_settext("Time until next game starts: 0");
+} else {
+    if (%varp380 > 0) {
+        if_settext("Time until next game starts: " + tostring(%varp380));
+    }
+    if_settext("Waiting for players to join the other team.");
+}
+return;

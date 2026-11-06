@@ -1,0 +1,105 @@
+; id: 1580
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Bre'egth: "
+    1: push_constant_string "<br>"
+    2: push_constant_string "<br>"
+    3: push_constant_string "Aggressive female ork found patrolling Zanaris near the windmill."
+    4: push_constant_string "<br>"
+    5: push_constant_string "<br>"
+    6: push_constant_string " Intelligence leads us to believe that a recent fist fight with a subordinate left Bre'egth with one less tooth in her head, and one subordinate"
+    7: join_string 7
+    8: push_constant_int 63701021
+    9: if_settext 0
+   10: push_constant_string "permanently relocated somewhere else. "
+   11: push_constant_string "<br>"
+   12: push_constant_string "<br>"
+   13: push_constant_string "Her bragging is well known throughout Zanaris, however, she is important to 'Bad Daddy's' plans. Without her, the ork warrior grunts would simply be fighting each other and their superiors. She keeps them in check."
+   14: push_constant_string "<br>"
+   15: push_constant_string " "
+   16: push_constant_string "<br>"
+   17: push_constant_string "Suggest first talking to Bre'egth - she's likely to recount the entire story to you if you ask. The trouble might be in getting away again afterwards."
+   18: join_string 8
+   19: push_constant_int 63701022
+   20: if_settext 0
+   21: push_constant_string "Gromblod: "
+   22: push_constant_string "<br>"
+   23: push_constant_string "<br>"
+   24: push_constant_string "Mango-mad ork found in the Enchanted Valley. "
+   25: push_constant_string "<br>"
+   26: push_constant_string "<br>"
+   27: push_constant_string "His teeth are so rotten that he can only eat soft fruit, hence his preference for mangos."
+   28: join_string 7
+   29: push_constant_int 63701015
+   30: if_settext 0
+   31: push_constant_string "According to reports, he's creating a bit of a nuisance of himself in the Enchanted Valley. "
+   32: push_constant_string "<br>"
+   33: push_constant_string "<br>"
+   34: push_constant_string "The locals don't want to give him the secret to where the magic mango tree is. "
+   35: push_constant_string "<br>"
+   36: push_constant_string "<br>"
+   37: push_constant_string "They're afraid he'll consume the entire harvest and they're probably right."
+   38: push_constant_string "<br>"
+   39: push_constant_string "<br>"
+   40: push_constant_string " Fairy ring code: BKQ."
+   41: join_string 10
+   42: push_constant_int 63701016
+   43: if_settext 0
+   44: push_constant_string "Shredflesh: "
+   45: push_constant_string "<br>"
+   46: push_constant_string "<br>"
+   47: push_constant_string "A complete brute to look at, but suspect he's a real teddy bear inside. "
+   48: push_constant_string "<br>"
+   49: push_constant_string "<br>"
+   50: push_constant_string "Last reports place him in a cavern in the Gu'Tanoth region. He's searching for herbs to control his excruciating toothache."
+   51: join_string 7
+   52: push_constant_int 63701010
+   53: if_settext 0
+   54: push_constant_string "He needs a dentist, so you may be able to convince him that it's the right thing to do."
+   55: push_constant_string "<br>"
+   56: push_constant_string "<br>"
+   57: push_constant_string "Fairy ring code: ALP."
+   58: join_string 4
+   59: push_constant_int 63701011
+   60: if_settext 0
+   61: push_constant_string "Fairy Godfather "
+   62: push_constant_string "<br>"
+   63: push_constant_string "Code name: 'Bad Daddy':"
+   64: push_constant_string "<br>"
+   65: push_constant_string "The main villain; he needs to be stopped."
+   66: push_constant_string "<br>"
+   67: push_constant_string "<br>"
+   68: push_constant_string " Located in a separated off section of Zanaris, he's discovered a weakness in the interplanar fabric. This is really bad news for us!"
+   69: join_string 8
+   70: push_constant_int 63701005
+   71: if_settext 0
+   72: push_constant_string "'Bad Daddy' has used his magic and the magic of the Fairy Queen to make a rift between this plane and another seemingly filled with orks. He's using the rift to transport orks through to use as henchmen."
+   73: push_constant_string "<br>"
+   74: push_constant_string "<br>"
+   75: push_constant_string "The Godfather is invulnerable to any standard attack. His magic is somehow linked to orks, so we suspect some sort of weakness there."
+   76: join_string 4
+   77: push_constant_int 63701006
+   78: if_settext 0
+   79: push_constant_string "Ork teeth: Crude and brutal, these masticating marvels convey a feeling of basic primal energy."
+   80: push_constant_string "<br>"
+   81: push_constant_string "<br>"
+   82: push_constant_string "What they lack in quality, they more than make up for in their wonderfully coarse, brutal and businesslike functionality."
+   83: join_string 4
+   84: push_constant_int 63701001
+   85: if_settext 0
+   86: push_constant_string "In the host's early years, the tooth comes to an excessively tantalising point! "
+   87: push_constant_string "<br>"
+   88: push_constant_string "<br>"
+   89: push_constant_string "As the host grazes most of the time, this quickly gets worn down. "
+   90: push_constant_string "<br>"
+   91: push_constant_string "<br>"
+   92: push_constant_string "Opinion is divided, but many believe the more interesting teeth come from those orks more accustomed to combat. A broken tooth sometimes creates a sublime 'organic' structure - smooth and discoloured, but dense."
+   93: join_string 7
+   94: push_constant_int 63701002
+   95: if_settext 0
+   96: return 0

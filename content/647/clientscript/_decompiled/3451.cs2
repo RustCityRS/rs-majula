@@ -1,0 +1,23 @@
+[clientscript,script_3451](int $int0, int $int1)
+def_int $int2 = 64094244;
+def_int $int3 = 64094245;
+def_int $int4 = 64094246;
+def_int $int5 = 64094247;
+def_int $int6 = 64094248;
+def_int $int7 = 64094209;
+if ($int1 = 1) {
+    $int2 = 64028682;
+    $int3 = 64028683;
+    $int4 = 64028684;
+    $int5 = 64028685;
+    $int6 = 64028686;
+}
+~script_3932($int0, $int1, $int2, 1, add(char_isnumeric(3793), 30), "MIN", "");
+~script_3932($int0, $int1, $int3, 2, add(char_isnumeric(3793), 30), "LOW", "");
+~script_3932($int0, $int1, $int4, 3, add(char_isnumeric(3793), 30), "MID", "");
+~script_3932($int0, $int1, $int5, 4, add(char_isnumeric(3793), 30), "HIGH", "");
+~script_3932($int0, $int1, $int6, 0, add(char_isnumeric(3793), 30), "CUSTOM", "");
+if ($int1 = 0) {
+    ~script_3932($int0, $int1, $int7, -1, add(char_isnumeric(3793), 30), "RE-RUN AUTO SETUP", "");
+}
+return;

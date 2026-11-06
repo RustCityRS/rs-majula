@@ -1,0 +1,7 @@
+[clientscript,script_709](int $int0)
+if (getwindowmode >= 2) {
+    if_setsize(if_getheight, 0, 0, $int0);
+} else {
+    if_setsize(if_getheight, 0, 0, $int0);
+}
+return;

@@ -1,0 +1,25 @@
+; id: 1889
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 1431
+    1: branch_if_true 1
+    2: branch 7
+    3: push_constant_string "World "
+    4: op3318 0
+    5: tostring 0
+    6: push_constant_string " (PvP)"
+    7: join_string 3
+    8: return 0
+    9: branch 5
+   10: push_constant_string "World "
+   11: op3318 0
+   12: tostring 0
+   13: join_string 2
+   14: return 0
+   15: push_constant_string ""
+   16: return 0

@@ -2,10 +2,12 @@
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::cache::r#if::{HookArg, IfTypeRaw, OpKey};
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 #[cfg(before_647)]
 use crate::config_crc;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, load_name_hashes, stamp_path, write_archive};
+use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
 #[cfg(before_647)]
 use crate::pack::pack::collect_if_files;
 #[cfg(since_647)]
@@ -15,8 +17,6 @@ use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(before_647)]
 use crate::pack::util::{parse_hex, verify_crc};
-#[cfg(since_647)]
-use crate::startup::{file_mtime, is_up_to_date, max_of, newest_mtime, write_stamp};
 use crate::types::IfComponentType;
 #[cfg(before_647)]
 use crate::types::{Font, IfButtonType, IfComparator, IfScriptOp, PlayerStat};
@@ -24,7 +24,7 @@ use anyhow::Result;
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
-use rs_io::js5::{Js5Store, encode_group_entries};
+use rs_io::js5::encode_group_entries;
 #[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
@@ -36,8 +36,6 @@ use std::path::PathBuf;
 use std::str::FromStr;
 #[cfg(before_647)]
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::info;
 
 #[cfg(before_647)]
 fn get_colour(val: Option<&String>) -> &str {
@@ -784,26 +782,14 @@ fn load_order(path: &Path) -> Result<Vec<u16>> {
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
     let aid = archive::INTERFACES;
     let format = archive::archive_format(aid).unwrap();
     let if_dir = content_dir.join("interfaces").join("_unpack");
-
-    let iface_stamp = stamp_path(output_dir, aid);
-    let iface_input = max_of(&[
-        newest_mtime(&if_dir, &["if"]),
-        file_mtime(&pack_dir.join("interface.pack")),
-    ]);
-    if !force_rebuild && is_up_to_date(&iface_stamp, iface_input) {
-        info!("  archive {:>2} (interfaces) -- up to date, skipping", aid);
-        return Ok(());
-    }
 
     let iface_pack =
         PackFile::load(&pack_dir.join("interface.pack")).unwrap_or_else(|_| PackFile::empty());
@@ -854,8 +840,10 @@ pub fn pack_archive(
         }
     }
     if_files.sort_by_key(|(gid, _)| *gid);
+    let gids: Vec<_> = if_files.iter().map(|(gid, _)| *gid).collect();
+    let name_hashes = load_name_hashes(pack_dir, aid, &gids);
 
-    let encoded_groups: BTreeMap<u32, Vec<u8>> = if_files
+    let prepared: BTreeMap<u32, PreparedGroup> = if_files
         .par_iter()
         .map(|(gid, path)| {
             let text = fs::read_to_string(path).unwrap();
@@ -870,31 +858,22 @@ pub fn pack_archive(
                 .iter()
                 .map(|(id, data)| (*id, data.as_slice()))
                 .collect();
-            (*gid, encode_group_entries(&refs))
-        })
-        .collect();
-
-    let gids: Vec<_> = encoded_groups.keys().copied().collect();
-    let name_hashes = load_name_hashes(pack_dir, aid, &gids);
-
-    let prepared: Vec<PreparedGroup> = encoded_groups
-        .par_iter()
-        .map(|(gid, group_data)| {
-            let mut group = PreparedGroup::new(aid, *gid, group_data, versions)?;
+            let data = encode_group_entries(&refs);
+            let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
             group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
-            Ok(group)
+            Ok((*gid, group))
         })
-        .collect::<Result<Vec<_>>>()?;
+        .collect::<Result<_>>()?;
 
-    write_archive(
+    insert_archive(
         store,
         aid,
         format,
         versions,
-        prepared,
+        prepared.into_values().collect(),
         "from .if text files",
     )?;
-    write_stamp(&iface_stamp)?;
+
     Ok(())
 }
 

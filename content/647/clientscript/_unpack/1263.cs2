@@ -1,0 +1,19 @@
+; id: 1263
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 2958342
+    1: push_int_local 0
+    2: if_setcolour 0
+    3: push_int_local 1
+    4: push_constant_int -1
+    5: branch_not 1
+    6: branch 3
+    7: push_constant_int 2958342
+    8: push_int_local 1
+    9: if_setcolour 0
+   10: return 0

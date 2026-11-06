@@ -1,0 +1,8 @@
+[clientscript,script_1030](int $int0)(int, int, int, component, component, int, int, int)
+if_sethide(10289169);
+if_sethide(10289187);
+cc_deleteall(10289175);
+cc_deleteall(10289177);
+if_setonclick;
+if_settext("Safety Guide");
+return(1, 0, 1031, 10289182, 10289182, enum(105, 115, enum_1485, 0), ~script_1033(""), ~script_1033(""));

@@ -1,0 +1,18 @@
+; id: 3597
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 3177
+    1: push_constant_int 3178
+    2: push_constant_int 3179
+    3: push_varbit 7392
+    4: gosub_with_params 3624
+    5: push_int_local 0
+    6: push_int_local 1
+    7: push_int_local 2
+    8: gosub_with_params 3625
+    9: return 0

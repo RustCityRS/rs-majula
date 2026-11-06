@@ -1,0 +1,29 @@
+[clientscript,script_1249](int $int0, int $int1, int $int2)
+if (clientclock < %varc_int177) {
+    return;
+}
+def_int $int3 = mod(%varc_int176, 10);
+def_int $int4 = -1;
+def_int $int5 = 0;
+if ($int3 = 0) {
+    if_sethide($int2);
+    if_setontimer;
+    if_settrans($int2);
+    $int5 = ~script_1239(0);
+    $int4 = ~script_1239(0);
+    cam_moveto($int4, 1000, 100, 100);
+    cam_lookat($int4, 0, 100, 100);
+    %varc_int177 = add(clientclock, 30);
+    %varc_int176 = add(%varc_int176, 2);
+} else {
+    if ($int3 = 2) {
+        if (if_gethide = 0) {
+            if_setontimer;
+        }
+        if_setontimer;
+        $int5 = ~script_1239(1);
+        $int4 = ~script_1239(1);
+        if_setontimer;
+    }
+}
+return;

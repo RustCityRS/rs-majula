@@ -1,0 +1,35 @@
+; id: 1192
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: if_gettext 0
+    2: push_constant_int 512
+    3: push_constant_int 495
+    4: parawidth 0
+    5: push_constant_int 34
+    6: add 0
+    7: push_int_local 0
+    8: if_getheight 0
+    9: push_constant_int 0
+   10: push_constant_int 0
+   11: push_int_local 0
+   12: if_setsize 0
+   13: push_constant_int 1193
+   14: push_constant_int 1
+   15: push_constant_int 1002
+   16: push_constant_int 1
+   17: push_constant_string "1Y"
+   18: push_int_local 0
+   19: op2428 0
+   20: push_constant_int 1193
+   21: push_constant_int 0
+   22: push_constant_string "1"
+   23: push_int_local 0
+   24: op2408 0
+   25: gosub_with_params 1194
+   26: return 0

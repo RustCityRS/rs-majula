@@ -1,0 +1,56 @@
+; id: 3007
+int_param_count=7
+string_param_count=0
+long_param_count=0
+local_int_count=7
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 13
+    1: push_constant_int 88
+    2: push_constant_int 0
+    3: push_constant_int 0
+    4: push_int_local 1
+    5: if_setsize 0
+    6: push_constant_int 4681
+    7: push_int_local 1
+    8: if_setgraphic 0
+    9: push_constant_int 26
+   10: push_constant_int 88
+   11: push_constant_int 1
+   12: push_constant_int 0
+   13: push_int_local 2
+   14: if_setsize 0
+   15: push_constant_int 4682
+   16: push_int_local 2
+   17: if_setgraphic 0
+   18: push_constant_int 13
+   19: push_constant_int 88
+   20: push_constant_int 0
+   21: push_constant_int 0
+   22: push_int_local 3
+   23: if_setsize 0
+   24: push_constant_int 4684
+   25: push_int_local 3
+   26: if_setgraphic 0
+   27: push_constant_int 2670
+   28: push_int_local 5
+   29: if_setgraphic 0
+   30: push_constant_int 13
+   31: push_constant_int 88
+   32: push_constant_int 0
+   33: push_constant_int 0
+   34: push_int_local 6
+   35: if_setsize 0
+   36: push_constant_int 4683
+   37: push_int_local 6
+   38: if_setgraphic 0
+   39: push_constant_int -1
+   40: push_constant_string ""
+   41: push_int_local 0
+   42: op2403 0
+   43: push_constant_int -1
+   44: push_constant_string ""
+   45: push_int_local 0
+   46: op2404 0
+   47: return 0

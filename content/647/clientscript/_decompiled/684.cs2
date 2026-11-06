@@ -1,0 +1,3 @@
+[clientscript,script_684](int $int0, int $int1)
+cc_setposition2(add(cc_getx, $int0), add(cc_gety, $int1), 0, 0);
+return;

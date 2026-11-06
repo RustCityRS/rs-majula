@@ -1,0 +1,26 @@
+[clientscript,script_4133](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int, int, int, int, int, int, int, int, int, string)
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($int1 = -1) {
+}
+if (cc_find($int0, $int1) = 1) {
+    if ($int7 > 0) {
+        cc_setontimer;
+        return(4133, $int0, $int1, $int2, $int3, $int4, $int5, $int6, sub($int7, 1), $int8, "Iiiiiiii�");
+    }
+    $int9 = cc_gettrans;
+    $int10 = min(max(add($int9, $int2), $int4), $int5);
+    if ($int10 = $int4) {
+        if ($int10 = $int5) {
+            $int7 = $int6;
+        }
+        if ($int10 = $int4) {
+            if ($int8 ! -1) {
+                sound_song_alt($int8, 1, 50, 255);
+            }
+        }
+        cc_setontimer;
+    }
+    cc_settrans($int10);
+}
+return;

@@ -1,0 +1,117 @@
+[clientscript,script_4179](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = ~script_4180(0, $int0, 0, "Boosted stats will be reset.");
+if (%varbit642 > 0) {
+    $int4 = ~script_4180($int4, $int0, 0, "Some worn items will be taken off.");
+}
+if (%varbit4166 = 1) {
+    $int4 = ~script_4180($int4, $int0, 0, "Existing prayers will be stopped.");
+}
+if ($int0 > if_getheight) {
+    if_setscrollsize(0, $int4, $int0);
+    if_sethide($int1);
+    if_setposition(0, 0, 1, $int0);
+} else {
+    if_setscrollsize(0, 0, $int0);
+    cc_deleteall($int1);
+    if_sethide($int1);
+    if_setposition(0, 1, 1, $int0);
+}
+def_int $int5 = 0;
+if (map_members = 1) {
+    if (inv_total(inv, black_salamander) > 0) {
+        $int5 = 1;
+    }
+}
+$int4 = 0;
+if (%varbit4159 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1453, "You cannot forfeit the duel.");
+}
+if (%varbit4160 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1454, "You cannot move.");
+}
+if (%varbit4275 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1464, "You can summon familiars.");
+}
+def_string $str0 = "You cannot use Ranged attacks.";
+if (%varbit4161 = 1) {
+    if ($int5 = 1) {
+        $str0 = "You cannot use Ranged attacks " + "<col=ffffff>" + "or salamanders" + "</col>" + ".";
+    }
+    $int4 = ~script_4180($int4, $int2, %varc_int1455, $str0);
+}
+$str0 = "You cannot use melee attacks.";
+if (%varbit4162 = 1) {
+    if ($int5 = 1) {
+        $str0 = "You cannot use melee attacks " + "<col=ffffff>" + "or salamanders" + "</col>" + ".";
+    }
+    $int4 = ~script_4180($int4, $int2, %varc_int1456, $str0);
+}
+$str0 = "You cannot use Magic attacks.";
+if (%varbit4163 = 1) {
+    if ($int5 = 1) {
+        $str0 = "You cannot use Magic attacks " + "<col=ffffff>" + "or salamanders" + "</col>" + ".";
+    }
+    $int4 = ~script_4180($int4, $int2, %varc_int1457, $str0);
+}
+if (%varbit4169 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1463, "You cannot use special attacks.");
+}
+if (%varbit4168 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1462, "You can only attack with 'fun' weapons.");
+}
+if (%varbit4164 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1458, "You cannot use drinks.");
+}
+if (%varbit4165 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1459, "You cannot use food.");
+}
+if (%varbit4166 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1460, "You cannot use Prayer.");
+}
+if (%varbit4167 = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1461, "There will be obstacles in the arena.");
+}
+if (testbit(%varbit642, 0) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1465, "You cannot wear items on your head.");
+}
+if (testbit(%varbit642, 1) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1466, "You cannot wear items on your back, such as capes.");
+}
+if (testbit(%varbit642, 2) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1467, "You cannot wear items on your front, such as amulets.");
+}
+if (testbit(%varbit642, 3) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int740, "You cannot wield items in your right hand.");
+}
+if (testbit(%varbit642, 4) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int745, "You cannot wear items on your torso.");
+}
+if (testbit(%varbit642, 5) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int780, "You cannot wield items in your left hand or use 2-handed weapons.");
+}
+if (testbit(%varbit642, 7) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int781, "You cannot wear items on your legs.");
+}
+if (testbit(%varbit642, 9) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int782, "You cannot wear items on your hands.");
+}
+if (testbit(%varbit642, 10) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int789, "You cannot wear items on your feet.");
+}
+if (testbit(%varbit642, 12) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1409, "You cannot use your ring slot.");
+}
+if (testbit(%varbit642, 13) = 1) {
+    $int4 = ~script_4180($int4, $int2, %varc_int1410, "You cannot use your quiver.");
+}
+if ($int2 > if_getheight) {
+    if_setscrollsize(0, $int4, $int2);
+    if_sethide($int3);
+    if_setposition(0, 0, 1, $int2);
+} else {
+    if_setscrollsize(0, 0, $int2);
+    cc_deleteall($int3);
+    if_sethide($int3);
+    if_setposition(0, 1, 1, $int2);
+}
+return;

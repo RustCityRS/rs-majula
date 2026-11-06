@@ -1,0 +1,7 @@
+[clientscript,script_1140](int $int0)
+if (%varp172 = 1) {
+    if_setgraphic($int0);
+} else {
+    if_setgraphic($int0);
+}
+return;

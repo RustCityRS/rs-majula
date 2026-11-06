@@ -1,0 +1,132 @@
+[clientscript,script_651](int $int0)
+def_int $int1 = ~script_623($int0);
+cc_deleteall($int1);
+def_int $int2 = if_getwidth;
+def_int $int3 = if_getheight;
+def_int $int4 = stockmarket_getoffertype($int0);
+def_int $int5 = stockmarket_getoffercount($int0);
+def_int $int6 = stockmarket_getoffercompleted($int0);
+def_int $int7 = stockmarket_getofferitem($int0);
+def_int $int8 = stockmarket_getofferprice($int0);
+def_string $str0 = "";
+if (stockmarket_isempty($int0) = 1) {
+    $str0 = "Empty";
+} else {
+    if (stockmarket_getoffertype($int0) = 0) {
+        $str0 = "Buy";
+    }
+    $str0 = "Sell";
+}
+cc_setposition(0, $int1, 3, 0);
+cc_setsize($int2, $int3, 0, 0);
+cc_setposition2(0, 0, 0, 0);
+cc_setfill(1);
+cc_setcolour(16777215);
+cc_settrans(255);
+def_int $int9 = if_getchildcount($int1);
+if_setonmouseover;
+if_setonmouseleave;
+if (stockmarket_isempty($int0) = 1) {
+    if_setonop;
+    if_setop($int1, "");
+    if_setop($int1, "");
+    if ($int0 >= 2) {
+        if (is_logged_in = 1) {
+            if_sethide(~script_624($int0));
+        }
+        if_sethide(~script_624($int0));
+    }
+} else {
+    if_setop($int1, "View Offer");
+    if (stockmarket_iscomplete($int0) = 0) {
+        if_setop($int1, "Abort Offer");
+    }
+    if_setop($int1, "");
+}
+def_string $str1 = "";
+def_string $str2 = "";
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = ~script_627($int0);
+if_sethide($int12);
+def_int $int13 = ~script_626($int0);
+def_int $int14 = ~script_625($int0);
+def_string $str3 = "";
+def_int $int15 = 0;
+def_int $int16 = 0;
+if (stockmarket_isempty($int0) = 1) {
+    if ($int0 < 2) {
+        if_sethide($int12);
+    }
+} else {
+    $int10 = 7;
+    $int11 = sub($int3, 30);
+    if (stockmarket_isbuying($int0) = 1) {
+        $int9 = if_getchildcount($int1);
+        cc_setposition(0, $int1, 4, $int9);
+        cc_setposition2($int10, $int11, 0, 0);
+        cc_setsize(sub($int2, 14), 15, 0, 0);
+        cc_settextfont(494);
+        cc_setcolour(14407812);
+        cc_settext("Submitting...");
+        cc_settextalign(1, 1, 0);
+    } else {
+        ~script_652($int10, $int11, sub($int2, 14), 15, $int0, $int1, $int9, $int13, 1);
+    }
+    $int9 = if_getchildcount($int1);
+    cc_setposition(0, $int1, 5, $int9);
+    $int9 = add($int9, 1);
+    cc_setposition2(6, 30, 0, 0);
+    cc_setsize(40, 36, 0, 0);
+    cc_setgraphic(1137);
+    cc_setposition(0, $int1, 5, $int9);
+    cc_setposition2(8, 32, 0, 0);
+    cc_setsize(36, 32, 0, 0);
+    cc_setobject($int7, $int5);
+    cc_setgraphicshadow;
+    $str0 = "";
+    cc_setonmouserepeat;
+    cc_setonmouseleave;
+    $int9 = add($int9, 1);
+    cc_setposition($int13, $int1, 4, $int9);
+    cc_setposition2(48, 30, 0, 0);
+    $str0 = oc_name($int7);
+    $int16 = sub($int2, 53);
+    $int15 = parawidth($str0, 494);
+    if ($int15 > $int16) {
+        $int10 = string_length($str0);
+        if ($int15 > $int16) {
+            if ($int10 > 0) {
+                $int10 = sub($int10, 1);
+                $str0 = substring($str0, 0, $int10) + "...";
+                $int15 = parawidth($str0, 494);
+            }
+        }
+    }
+    $int9 = add($int9, 1);
+    $int3 = multiply(paraheight($str0, 494), 11);
+    if ($int3 < 22) {
+        $int3 = 22;
+    }
+    cc_setsize($int16, $int3, 0, 0);
+    cc_setcolour(13408512);
+    cc_settextfont(494);
+    cc_settextalign(0, 0, 0);
+    cc_settextshadow(1);
+    cc_settext($str0);
+    cc_setposition(0, $int1, 4, $int9);
+    $int9 = add($int9, 1);
+    cc_setposition2(48, add(32, $int3), 0, 0);
+    cc_setsize(sub($int2, 53), 15, 0, 0);
+    cc_setcolour(12434267);
+    cc_settextfont(494);
+    cc_settextalign(0, 0, 15);
+    cc_settextshadow(1);
+    cc_settext($str2 + " gp");
+    cc_setposition(0, $int1, 5, $int9);
+    cc_setposition2(4, 2, 2, 0);
+    cc_setsize(20, 20, 0, 0);
+    cc_setgraphic(-1);
+    $int9 = add($int9, 1);
+}
+return;

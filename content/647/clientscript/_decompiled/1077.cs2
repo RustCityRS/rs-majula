@@ -1,0 +1,72 @@
+[clientscript,script_1077](int $int0)
+def_int $int1 = $int0;
+if ($int0 = 105) {
+    if (%varbit7774 ! 0) {
+        $int0 = 1021;
+    }
+    if (%varp394 = 0) {
+        $int0 = 561;
+    }
+}
+quickchat_phrase_init($int0);
+def_int $int2 = 0;
+def_int $int3 = quickchat_phrase_getcmdcount($int0);
+def_int $int4 = -1;
+if ($int2 < $int3) {
+    if ($int2 < 10) {
+        switch (quickchat_phrase_getcmdid($int0, $int2)) {
+            case 0:
+                ~script_1078($int2);
+            case 1:
+                ~script_1079($int2);
+            case 10:
+                ~script_1079($int2);
+            case 2:
+                ~script_1078($int2);
+            default:
+        }
+        $int2 = add($int2, 1);
+    }
+}
+if (%varc_int126 = 0) {
+    quickchat_sendpublic;
+}
+if (%varc_int126 = 1) {
+    $int4 = ~script_1090(%varc_str27);
+    if ($int4 = 1) {
+        quickchat_sendprivate(removetags(%varc_str27));
+        ~script_1089;
+    } else {
+        if ($int4 = -1) {
+            mes("Sorry, this user is not on your Friends List.");
+        }
+        mes("Sorry, your friend is no longer playing RuneScape.");
+    }
+} else {
+    if (%varc_int126 = 5) {
+        quickchat_sendprivate(removetags(%varc_str27));
+        ~script_1089;
+    }
+    if (%varc_int126 = 3) {
+        quickchat_sendprivate(removetags(%varc_str27));
+        ~script_1089;
+    }
+    if (%varc_int126 = 2) {
+        quickchat_sendfriendsonly;
+    }
+    if (%varc_int126 = 8) {
+        if (clanchannel2_find_affined = 1) {
+            quickchat_sendclan;
+        }
+    }
+    if (%varc_int126 = 10) {
+        if (clanchannel2_find = 1) {
+            quickchat_sendclan;
+        }
+    }
+}
+%varc_int130 = $int1;
+%varc_int131 = %varc_int126;
+%varc_str28 = %varc_str27;
+~script_1054;
+return;

@@ -1,0 +1,23 @@
+[clientscript,script_2464](int $int0, int $int1)
+if ($int0 > sub(clientclock, 5)) {
+    return;
+}
+if_setontimer;
+if (~script_2465(~script_1305) = 0) {
+    if (getwindowmode >= 2) {
+        ~script_71(-1);
+        return;
+    }
+    if (~script_2465(4) = 1) {
+        ~script_71(4);
+    }
+    if (~script_2465(9) = 1) {
+        ~script_71(9);
+    }
+    if (~script_2465(12) = 1) {
+        if (%varp281 > 3) {
+            ~script_71(12);
+        }
+    }
+}
+return;

@@ -1,0 +1,9 @@
+[clientscript,script_542](int $int0, int $int1)
+if (stat(crafting) < $int1) {
+    if (%varbit4089 = 1) {
+    }
+} else {
+    if_sethide($int0);
+}
+if_sethide($int0);
+return;

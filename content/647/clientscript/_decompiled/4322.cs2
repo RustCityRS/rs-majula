@@ -1,0 +1,41 @@
+[clientscript,script_4322](int $int0, int $int1, int $int2, int $int3)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+cc_deleteall($int2);
+cc_deleteall($int3);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 8;
+def_int $int7 = 8;
+def_int $int8 = 50;
+def_int $int9 = 36;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = calc(if_getwidth - $int6 * 2 / $int6 + $int8);
+def_int $int13 = enum_getoutputcount(enum_3722);
+def_int $int14 = enum_getoutputcount(enum_3721);
+def_int $int15 = min($int13, $int14);
+if ($int4 < $int15) {
+    $int10 = calc($int6 + $int8 + $int6 * $int4 - $int5 * $int12);
+    $int11 = calc($int7 + $int5 * $int9 + $int7);
+    cc_setposition(0, $int2, 5, $int4);
+    cc_setsize($int8, $int9, 0, 0);
+    cc_setposition2($int10, $int11, 0, 0);
+    cc_setgraphic(6036);
+    cc_setonvartransmit;
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_setposition($int2, $int3, 5, $int4);
+    cc_setsize(sub($int8, 8), sub($int9, 8), 0, 0);
+    cc_setposition2(add($int10, 4), add($int11, 4), 0, 0);
+    cc_setgraphic(enum(105, 100, enum_3721, $int4));
+    cc_setop(1, "Select");
+    cc_setonop;
+    cc_setonmouserepeat;
+    cc_setonmouseleave;
+    $int4 = add($int4, 1);
+    if (mod($int4, $int12) = 0) {
+        $int5 = add($int5, 1);
+    }
+}
+if_setscrollpos(0, $int0);
+if_setscrollsize(0, calc($int5 * $int7 + $int9), $int0);
+return(0, ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685), ~script_31($int1, $int0, 5666, 5663, 5664, 5665, 5686, 5685));

@@ -1,0 +1,97 @@
+; id: 1811
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=1
+local_long_count=0
+
+    0: push_varc_string_old 38
+    1: string_length 0
+    2: branch_if_false 1
+    3: branch 4
+    4: push_constant_string ""
+    5: push_int_local 2
+    6: gosub_with_params 1812
+    7: return 0
+    8: op5017 0
+    9: push_constant_int 100
+   10: op4016 0
+   11: push_constant_int 1
+   12: sub 0
+   13: pop_int_local 3
+   14: push_constant_string ""
+   15: pop_string_local 0
+   16: push_constant_int -1
+   17: pop_int_local 4
+   18: push_int_local 3
+   19: push_constant_int 0
+   20: branch_greater_than_or_equals 1
+   21: branch 22
+   22: push_int_local 3
+   23: op5004 0
+   24: switch 0
+   25: branch 13
+   26: push_int_local 3
+   27: op5010 0
+   28: op4119 0
+   29: lowercase 0
+   30: push_varc_string_old 38
+   31: compare 0
+   32: branch_if_false 1
+   33: branch 5
+   34: push_int_local 3
+   35: op5003 0
+   36: pop_string_local 0
+   37: push_int_local 3
+   38: pop_int_local 4
+   39: push_int_local 3
+   40: push_constant_int 1
+   41: sub 0
+   42: pop_int_local 3
+   43: branch -26
+   44: push_int_local 4
+   45: push_constant_int 0
+   46: branch_less_than 1
+   47: branch 6
+   48: push_constant_int -1
+   49: pop_varc_int 267
+   50: push_constant_string ""
+   51: push_int_local 2
+   52: gosub_with_params 1812
+   53: return 0
+   54: push_varc_int 267
+   55: push_constant_int -1
+   56: branch_equals 9
+   57: push_int_local 4
+   58: push_varc_int 267
+   59: branch_less_than_or_equals 6
+   60: push_string_local 0
+   61: push_varc_string_old 39
+   62: compare 0
+   63: push_constant_int 0
+   64: branch_not 1
+   65: branch 3
+   66: push_string_local 0
+   67: push_int_local 2
+   68: gosub_with_params 1812
+   69: push_int_local 4
+   70: pop_varc_int 267
+   71: return 0
+
+switch_0:
+  1 => 1
+  2 => 1
+  3 => 1
+  7 => 1
+  9 => 1
+  11 => 1
+  17 => 1
+  18 => 1
+  20 => 1
+  24 => 1
+  25 => 1
+  41 => 1
+  42 => 1
+  44 => 1
+  45 => 1

@@ -1,0 +1,7 @@
+[clientscript,script_306](int $int0, int $int1)(int, int, int, string)
+if (sub(clientclock, $int0) < 15) {
+    return;
+}
+if_setontimer;
+if_setcolour($int1);
+return(-1, $int1, 16777215, "");

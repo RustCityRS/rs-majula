@@ -1,0 +1,35 @@
+; id: 3368
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 1
+    2: op4124 0
+    3: push_constant_string "xp"
+    4: join_string 2
+    5: push_constant_int 35913753
+    6: if_settext 0
+    7: push_int_local 0
+    8: push_constant_int 1
+    9: op4124 0
+   10: push_constant_string "xp"
+   11: join_string 2
+   12: push_constant_int 48890042
+   13: if_settext 0
+   14: push_constant_int 3369
+   15: push_constant_int 35913749
+   16: clientclock 0
+   17: push_constant_string "Ii"
+   18: push_constant_int 35913749
+   19: op2408 0
+   20: push_constant_int 3370
+   21: push_constant_int 48890037
+   22: clientclock 0
+   23: push_constant_string "Ii"
+   24: push_constant_int 48890037
+   25: op2408 0
+   26: return 0

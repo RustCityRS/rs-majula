@@ -1,0 +1,147 @@
+[clientscript,script_711](int, int, int, int, int, component, int, int, int, component, string, string)
+if_setonop;
+if_setonop;
+~script_2020(1, 41, 60030981, "1");
+~script_2020(5, 41, 60030982, "5");
+~script_2020(10, 41, 60030983, "10");
+def_int $int0 = if_getwidth;
+def_int $int1 = if_getwidth;
+def_int $int2 = calc($int1 - $int0 - 41 * 3 + 5 * 2);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $str0 = "All";
+def_string $str1 = "Custom";
+if (~script_1103 = 1) {
+    $int3 = add(max(char_isnumeric(494), char_isnumeric(494)), 20);
+    ~script_2020(%varbit8094, $int3, 60030984, $str0);
+    ~script_2020(-1, $int3, 59310086, $str1);
+    $int2 = calc($int2 - $int3 * 2 + 5);
+    $int4 = scale(2, 5, $int2);
+    if_setposition(0, 0, 1, 60030984);
+    $int4 = calc($int4 + $int3 + 5);
+    if_setposition(0, 0, 1, 59310086);
+    $int4 = add($int4, $int3);
+    $int4 = calc($int4 + $int2 / 5);
+    if_setposition(0, 0, 1, 60030981);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(0, 0, 1, 60030982);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(0, 0, 1, 60030983);
+} else {
+    if_sethide(60030984);
+    if_sethide(59310086);
+    $int4 = div($int2, 2);
+    if_setposition(0, 0, 1, 60030981);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(0, 0, 1, 60030982);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(0, 0, 1, 60030983);
+}
+if_setposition(0, 2, 1, 60030978);
+if_setposition(0, 2, 1, 59310085);
+def_int $int5 = sub($int1, $int0);
+if (%varc_int92 = 1) {
+    if_setsize(0, 0, 1, 60030978);
+    if_setsize(0, 0, 1, 59310085);
+    ~script_2192(0, $int5);
+} else {
+    if_setsize(0, 0, 1, 60030978);
+    if_setsize(0, 0, 1, 59310085);
+    ~script_2192(1, $int5);
+}
+if_setsize(0, 1, 1, 60030977);
+$str1 = "Show/Hide additional number buttons";
+def_int $int6 = 3883;
+if_setonmouserepeat;
+if_setonmouseleave;
+$int2 = calc(70 - 56 / 2);
+$int3 = 0;
+if (%varc_int755 ! -1) {
+    $int3 = parawidth(%varc_str132, 494);
+}
+if (%varc_int756 ! -1) {
+    $int3 = max(parawidth(%varc_str133, 494), $int3);
+}
+if (%varc_int757 ! -1) {
+    $int3 = max(parawidth(%varc_str134, 494), $int3);
+}
+if (%varc_int758 ! -1) {
+    $int3 = max(parawidth(%varc_str135, 494), $int3);
+}
+if (%varc_int759 ! -1) {
+    $int3 = max(parawidth(%varc_str136, 494), $int3);
+}
+if (%varc_int760 ! -1) {
+    $int3 = max(parawidth(%varc_str137, 494), $int3);
+}
+if (%varc_int1139 ! -1) {
+    $int3 = max(parawidth(%varc_str280, 494), $int3);
+}
+if (%varc_int1140 ! -1) {
+    $int3 = max(parawidth(%varc_str281, 494), $int3);
+}
+if (%varc_int1141 ! -1) {
+    $int3 = max(parawidth(%varc_str282, 494), $int3);
+}
+if (%varc_int1142 ! -1) {
+    $int3 = max(parawidth(%varc_str283, 494), $int3);
+}
+if (%varc_int120 ! -1) {
+    $int3 = max(parawidth(%varc_str275, 494), $int3);
+}
+if (%varc_int185 ! -1) {
+    $int3 = max(parawidth(%varc_str316, 494), $int3);
+}
+if (%varc_int87 ! -1) {
+    $int3 = max(parawidth(%varc_str317, 494), $int3);
+}
+if (%varc_int90 ! -1) {
+    $int3 = max(parawidth(%varc_str318, 494), $int3);
+}
+$int3 = add($int3, 4);
+$int3 = max(calc($int3 + 4 * 2), 56);
+$int4 = ~script_1883($int2, $int3, $int2, %varc_int755, 59310094, %varc_str132);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int756, 59310095, %varc_str133);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int757, 59310096, %varc_str134);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int758, 59310097, %varc_str135);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int759, 59310098, %varc_str136);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int760, 59310099, %varc_str137);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int1139, 59310100, %varc_str280);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int1140, 59310101, %varc_str281);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int1141, 59310102, %varc_str282);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int1142, 59310103, %varc_str283);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int120, 59310104, %varc_str275);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int185, 59310105, %varc_str316);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int87, 59310106, %varc_str317);
+$int4 = ~script_1883($int4, $int3, $int2, %varc_int90, 59310107, %varc_str318);
+~script_2047;
+$int3 = sub(if_getwidth, 50);
+def_int $int7 = 3877;
+$int6 = 3879;
+def_int $int8 = 3878;
+def_int $int9 = 3880;
+if ($int4 > $int3) {
+    if_setsize(0, 0, 1, 59310093);
+    if_setscrollsize($int4, 0, 59310093);
+    if_setscrollpos(0, 59310093);
+    if_setonmouserepeat;
+    if_setonmouserepeat;
+    if_setonhold;
+    if_setonhold;
+    if_setonmouseleave;
+    if_setonmouseleave;
+    ~script_2370;
+} else {
+    if_setsize(0, 0, 1, 59310093);
+    if_setscrollsize(0, 0, 59310093);
+    if_setscrollpos(0, 59310093);
+    op2499;
+    op2499;
+    if_settrans(59310091);
+    if_settrans(59310092);
+}
+if_setgraphic(59310091);
+if_setgraphic(59310092);
+if_setonvarctransmit;
+if_setonvartransmit;
+return($int7, $int6, 711, 754, 1, 59310082, 2025, 1363, 1, 59310082, "Y", "Y");

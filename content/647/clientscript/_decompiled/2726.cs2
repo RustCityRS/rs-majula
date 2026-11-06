@@ -1,0 +1,69 @@
+[clientscript,script_2726](int $int0, int $int1)(int, int, int, int, int, int, int, int, component, int)
+if_sethide(40632346);
+cc_deleteall($int0);
+def_int $int2 = 0;
+def_int $int3 = inv_size($int1);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = 0;
+if ($int2 < $int3) {
+    $int6 = inv_getobj($int1, $int2);
+    if ($int6 ! -1) {
+        $int5 = calc($int2 % 9 * 48 + $int2 % 9 * 4);
+        cc_setposition(0, $int0, 5, $int4);
+        $int4 = add($int4, 1);
+        cc_setsize(48, 52, 0, 0);
+        cc_setposition2($int5, 0, 0, 0);
+        cc_setgraphic(2205);
+        cc_setopbase("<col=ff981f>" + oc_name($int6) + "</col>");
+        cc_setop(1, "Info");
+        cc_setop(2, "Take 1");
+        cc_setop(3, "Take 5");
+        cc_setop(4, "Take 10");
+        cc_setop(5, "Take 50");
+        cc_setop(10, "Examine");
+        cc_setonmouseover;
+        cc_setonmouseleave;
+        cc_setposition(1, $int0, 5, $int4);
+        $int4 = add($int4, 1);
+        cc_setsize(48, 52, 0, 0);
+        cc_setposition2($int5, 0, 0, 0);
+        cc_setgraphic(2206);
+        cc_sethide(1);
+        cc_setposition($int4, $int0, 5, $int4);
+        $int4 = add($int4, 1);
+        cc_setsize(36, 32, 0, 0);
+        cc_setposition2(add($int5, 6), 4, 0, 0);
+        cc_setobject_scaled($int6, inv_getnum($int1, $int2));
+        cc_setgraphicshadow;
+        cc_setoutline;
+        cc_setposition(1, $int0, 4, $int4);
+        $int4 = add($int4, 1);
+        cc_setsize(32, 12, 0, 0);
+        cc_setposition2(add($int5, 13), 39, 0, 0);
+        cc_settextfont(494);
+        cc_setcolour(16776960);
+        cc_settext("Free");
+        cc_settextalign(2, 1, 0);
+        cc_settextshadow(1);
+    } else {
+        $int7 = 0;
+        if ($int7 < 4) {
+            cc_setposition(0, $int0, 3, $int4);
+            cc_sethide(1);
+            $int4 = add($int4, 1);
+            $int7 = add($int7, 1);
+        }
+    }
+    $int2 = add($int2, 1);
+}
+if_sethide(40632347);
+if_sethide(40632348);
+if_sethide(40632349);
+if_sethide(40632350);
+if_sethide(40632351);
+if_sethide(40632343);
+if_setobject_nonum;
+if_setgraphic(40632349);
+return(0, 0, 0, 0, 0, 0, 1931, 1, 40632348, enum(111, 100, enum_200, %varp532));

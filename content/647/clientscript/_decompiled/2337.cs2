@@ -1,0 +1,7 @@
+[clientscript,script_2337](int $int0)
+if (getwindowmode >= 2) {
+    if_setposition(10, 2, 0, $int0);
+} else {
+    if_setposition(10, 2, 0, $int0);
+}
+return;

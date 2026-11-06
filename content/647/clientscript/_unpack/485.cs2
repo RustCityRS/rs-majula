@@ -1,0 +1,136 @@
+; id: 485
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 1
+    2: push_constant_int 0
+    3: pop_int_local 2
+    4: push_constant_int 16750623
+    5: push_int_local 0
+    6: if_setcolour 0
+    7: push_varbit 7512
+    8: switch 0
+    9: return 0
+   10: branch 39
+   11: push_varbit 7520
+   12: gosub_with_params 486
+   13: pop_int_local 1
+   14: branch 35
+   15: push_varbit 7521
+   16: gosub_with_params 486
+   17: pop_int_local 1
+   18: branch 31
+   19: push_varbit 7526
+   20: gosub_with_params 486
+   21: pop_int_local 1
+   22: branch 27
+   23: push_varbit 7527
+   24: gosub_with_params 486
+   25: pop_int_local 1
+   26: branch 23
+   27: push_varbit 7530
+   28: gosub_with_params 486
+   29: pop_int_local 1
+   30: branch 19
+   31: push_varbit 7531
+   32: gosub_with_params 486
+   33: pop_int_local 1
+   34: branch 15
+   35: push_varbit 7532
+   36: gosub_with_params 486
+   37: pop_int_local 1
+   38: branch 11
+   39: push_varbit 7533
+   40: gosub_with_params 486
+   41: pop_int_local 1
+   42: branch 7
+   43: push_varbit 7534
+   44: gosub_with_params 486
+   45: pop_int_local 1
+   46: branch 3
+   47: push_varbit 7535
+   48: gosub_with_params 486
+   49: pop_int_local 1
+   50: push_int_local 1
+   51: push_constant_int -1
+   52: branch_equals 1
+   53: branch 7
+   54: push_constant_int 0
+   55: push_constant_int 66519175
+   56: if_sethide 0
+   57: push_constant_int 1
+   58: push_constant_int 66519155
+   59: if_sethide 0
+   60: branch 54
+   61: push_int_local 1
+   62: push_constant_int 1148
+   63: op4300 0
+   64: push_constant_int 66519042
+   65: if_setgraphic 0
+   66: push_int_local 1
+   67: push_constant_int 1139
+   68: op4300 0
+   69: push_constant_int 66519040
+   70: if_settext 0
+   71: push_constant_string "Movement: "
+   72: push_int_local 1
+   73: push_constant_int 1134
+   74: op4300 0
+   75: tostring 0
+   76: join_string 2
+   77: push_constant_int 66519178
+   78: if_settext 0
+   79: push_constant_string "Damage: "
+   80: push_int_local 1
+   81: push_constant_int 1135
+   82: op4300 0
+   83: push_constant_int 100
+   84: multiply 0
+   85: tostring 0
+   86: join_string 2
+   87: push_constant_int 66519179
+   88: if_settext 0
+   89: push_constant_string "Health: "
+   90: push_int_local 1
+   91: push_constant_int 1136
+   92: op4300 0
+   93: push_constant_int 100
+   94: multiply 0
+   95: tostring 0
+   96: join_string 2
+   97: push_constant_int 66519180
+   98: if_settext 0
+   99: push_constant_string "Range: "
+  100: push_int_local 1
+  101: push_constant_int 1137
+  102: op4300 0
+  103: tostring 0
+  104: join_string 2
+  105: push_constant_int 66519181
+  106: if_settext 0
+  107: push_constant_string "Cost: "
+  108: push_int_local 1
+  109: push_constant_int 1138
+  110: op4300 0
+  111: tostring 0
+  112: join_string 2
+  113: push_constant_int 66519182
+  114: if_settext 0
+  115: return 0
+
+switch_0:
+  1 => 2
+  2 => 6
+  3 => 10
+  4 => 14
+  5 => 18
+  6 => 22
+  7 => 26
+  8 => 30
+  9 => 34
+  10 => 38

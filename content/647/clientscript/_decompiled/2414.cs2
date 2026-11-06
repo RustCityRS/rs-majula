@@ -1,0 +1,48 @@
+[clientscript,script_2414](int, component, int, int, component, int, component, int, int, int, int, int, component, int, int, int)
+if (%varbit6180 = 120) {
+    if_sethide(50135044);
+    if_sethide(50135043);
+    if (inv_total(inv, swordfish_14831) = 0) {
+        if_sethide(50135073);
+    }
+    if (inv_total(inv, octopus) = 0) {
+        if (inv_total(worn, octopus) = 0) {
+            if_sethide(50135079);
+        }
+    }
+    if (inv_total(inv, seaweed_14830) = 0) {
+        if_sethide(50135077);
+    }
+    if (inv_total(inv, puffer) = 0) {
+        if (inv_total(worn, puffer) = 0) {
+            if_sethide(50135078);
+        }
+    }
+    if (inv_total(inv, electric_eel) = 0) {
+        if_sethide(50135076);
+    }
+    if (inv_total(inv, shark_tooth) = 0) {
+        if_sethide(50135075);
+    }
+    if (inv_total(inv, crab_claw_14827) = 0) {
+        if_sethide(50135074);
+    }
+} else {
+    if_sethide(50135044);
+    if_sethide(50135043);
+}
+if_setmodelanim;
+if_sethide(50135051);
+if_setmodel;
+if_setmodelanim;
+if_sethide(50135059);
+if_sethide(50135060);
+if_sethide(50135046);
+if_sethide(50135058);
+if_setmodelanim;
+if_sethide(50135081);
+if_sethide(50135080);
+if_sethide(50135047);
+%varc_int805 = 0;
+%varc_int806 = 0;
+return(-1, 50135050, 0, 46967, 50135045, 11762, 50135050, 1, 0, 1, 0, -1, 50135060, 1, 1, 1);

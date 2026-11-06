@@ -1,0 +1,13 @@
+[clientscript,script_3177](int $int0, string $str0)
+~script_41(59768847);
+~script_41(59572283);
+%varc_str279 = "";
+%varc_int6 = $int0;
+%varc_int1094 = 0;
+def_int $int1 = 0;
+if (autosetup_isactive = 1) {
+    $int1 = 1;
+}
+if (getlanguage ! 1) {
+}
+return;

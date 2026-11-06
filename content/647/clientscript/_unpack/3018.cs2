@@ -1,0 +1,81 @@
+; id: 3018
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string ""
+    1: push_constant_int 59375754
+    2: if_settext 0
+    3: push_constant_string ""
+    4: push_constant_int 59375756
+    5: if_settext 0
+    6: push_constant_int -1
+    7: push_constant_string ""
+    8: push_constant_int 59375756
+    9: op2419 0
+   10: push_constant_int -1
+   11: push_constant_string ""
+   12: push_constant_int 59375760
+   13: op2409 0
+   14: push_constant_string "Ok"
+   15: push_constant_int 59375764
+   16: if_settext 0
+   17: push_constant_int 1
+   18: push_constant_string "Ok"
+   19: push_constant_int 59375764
+   20: if_setop 0
+   21: push_constant_string "Close"
+   22: push_constant_int 59375766
+   23: if_settext 0
+   24: push_constant_int 1
+   25: push_constant_string "Close"
+   26: push_constant_int 59375766
+   27: if_setop 0
+   28: push_constant_int 265
+   29: push_constant_int 136
+   30: push_constant_int 0
+   31: push_constant_int 0
+   32: push_constant_int 59375752
+   33: if_setsize 0
+   34: push_constant_int 0
+   35: push_constant_int 0
+   36: push_constant_int 1
+   37: push_constant_int 1
+   38: push_constant_int 59375756
+   39: if_setsize 0
+   40: push_constant_int 8034
+   41: push_constant_int 0
+   42: push_constant_int 2
+   43: push_constant_int 1
+   44: push_constant_int 59375760
+   45: if_setsize 0
+   46: push_constant_int 8034
+   47: push_constant_int 0
+   48: push_constant_int 2
+   49: push_constant_int 1
+   50: push_constant_int 59375764
+   51: if_setsize 0
+   52: push_constant_int 8034
+   53: push_constant_int 0
+   54: push_constant_int 2
+   55: push_constant_int 1
+   56: push_constant_int 59375765
+   57: if_setsize 0
+   58: push_constant_int 8034
+   59: push_constant_int 0
+   60: push_constant_int 2
+   61: push_constant_int 1
+   62: push_constant_int 59375766
+   63: if_setsize 0
+   64: push_constant_int 0
+   65: push_constant_int 59375765
+   66: if_sethide 0
+   67: push_constant_int 0
+   68: push_constant_int 59375766
+   69: if_sethide 0
+   70: push_constant_string ""
+   71: pop_varc_string_old 277
+   72: return 0

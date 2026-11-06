@@ -1,0 +1,7 @@
+[clientscript,script_302](int $int0, int $int1, int $int2)
+if ($int0 = 1) {
+    if ($int1 ! -1) {
+        ~script_303($int1, $int2);
+    }
+}
+return;

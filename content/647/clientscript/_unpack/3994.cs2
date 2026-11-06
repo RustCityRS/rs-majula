@@ -1,0 +1,29 @@
+; id: 3994
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 105
+    1: push_constant_int 74
+    2: push_constant_int 3483
+    3: push_int_local 0
+    4: enum 0
+    5: pop_int_local 1
+    6: push_int_local 1
+    7: push_constant_int 1268
+    8: op4500 0
+    9: pop_int_local 2
+   10: push_int_local 2
+   11: push_varbit 8576
+   12: branch_equals 1
+   13: branch 3
+   14: push_constant_int 1
+   15: return 0
+   16: branch 2
+   17: push_constant_int 0
+   18: return 0
+   19: push_constant_int 0
+   20: return 0

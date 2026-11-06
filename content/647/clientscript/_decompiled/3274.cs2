@@ -1,0 +1,16 @@
+[clientscript,script_3274](int)
+switch (%varc_int1320) {
+    case 1:
+        return(5000);
+    case 2:
+        return(5500);
+    case 3:
+        return(6000);
+    case 4:
+        return(6500);
+    case 5:
+        return(7000);
+    default:
+        return(10000);
+}
+return(0);

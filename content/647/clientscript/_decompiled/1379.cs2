@@ -1,0 +1,27 @@
+[clientscript,script_1379]
+switch (%varbit5389) {
+    case 1:
+        if_setmodelanim;
+    case 2:
+        if_sethide(52166667);
+        if_sethide(52166663);
+    case 3:
+        if_setmodelanim;
+    case 4:
+        if_sethide(52166663);
+        if_sethide(52166665);
+    case 5:
+        if_setmodelanim;
+    case 6:
+        if_sethide(52166665);
+        if_sethide(52166661);
+    case 7:
+        if_setmodelanim;
+    case 8:
+        if_sethide(52166661);
+        if_sethide(52166659);
+        if_sethide(52166686);
+        if_sethide(52166657);
+    default:
+}
+return;

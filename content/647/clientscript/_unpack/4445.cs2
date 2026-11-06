@@ -1,0 +1,61 @@
+; id: 4445
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 72744965
+    1: op152 0
+    2: push_constant_int 72744968
+    3: op152 0
+    4: push_constant_int 72744966
+    5: op152 0
+    6: push_constant_int 72744967
+    7: op152 0
+    8: push_constant_int 72744964
+    9: op152 0
+   10: push_constant_int 1
+   11: push_constant_string "Join chat"
+   12: push_constant_int 72745055
+   13: if_setop 0
+   14: push_constant_int 6256
+   15: push_constant_int 72745056
+   16: if_setgraphic 0
+   17: push_constant_int 1
+   18: push_constant_int 72744998
+   19: if_sethide 0
+   20: push_constant_int 0
+   21: push_constant_int 72745024
+   22: if_sethide 0
+   23: push_constant_string ""
+   24: push_constant_int 72745025
+   25: if_settext 0
+   26: push_constant_string "Join another"
+   27: push_constant_string "<br>"
+   28: push_constant_string "clan's clanchat."
+   29: join_string 3
+   30: pop_string_local 0
+   31: push_constant_int 4538
+   32: push_constant_int 72745020
+   33: push_constant_int -2147483645
+   34: push_constant_int -1
+   35: push_string_local 0
+   36: push_constant_int 120
+   37: push_constant_int 3793
+   38: push_constant_int 3793
+   39: push_constant_int 16777215
+   40: push_constant_int 13
+   41: push_constant_int 4
+   42: push_constant_int 0
+   43: push_constant_int -2147483647
+   44: push_constant_int -2147483646
+   45: push_constant_string "IIisifdiiiiii"
+   46: push_constant_int 72745055
+   47: op2412 0
+   48: push_constant_int 1
+   49: push_constant_string "Join Clan Chat channel"
+   50: push_constant_int 72745055
+   51: if_setop 0
+   52: return 0

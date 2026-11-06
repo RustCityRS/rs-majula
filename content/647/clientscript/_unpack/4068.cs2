@@ -1,0 +1,78 @@
+; id: 4068
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 59
+    3: push_constant_int 69337107
+    4: op2612 0
+    5: push_constant_int 4444
+    6: branch_not 1
+    7: branch 6
+    8: push_constant_int -160
+    9: push_constant_int 18
+   10: push_constant_int 1
+   11: push_constant_int 0
+   12: push_int_local 0
+   13: if_setposition 0
+   14: branch 47
+   15: push_constant_int 69337105
+   16: op2612 0
+   17: push_constant_int 4445
+   18: branch_not 1
+   19: branch 6
+   20: push_constant_int -80
+   21: push_constant_int 18
+   22: push_constant_int 1
+   23: push_constant_int 0
+   24: push_int_local 0
+   25: if_setposition 0
+   26: branch 35
+   27: push_constant_int 69337103
+   28: op2612 0
+   29: push_constant_int 4446
+   30: branch_not 1
+   31: branch 6
+   32: push_constant_int 0
+   33: push_constant_int 18
+   34: push_constant_int 1
+   35: push_constant_int 0
+   36: push_int_local 0
+   37: if_setposition 0
+   38: branch 23
+   39: push_constant_int 69337101
+   40: op2612 0
+   41: push_constant_int 4447
+   42: branch_not 1
+   43: branch 6
+   44: push_constant_int 80
+   45: push_constant_int 18
+   46: push_constant_int 1
+   47: push_constant_int 0
+   48: push_int_local 0
+   49: if_setposition 0
+   50: branch 11
+   51: push_constant_int 69337099
+   52: op2612 0
+   53: push_constant_int 4448
+   54: branch_not 1
+   55: branch 6
+   56: push_constant_int 160
+   57: push_constant_int 18
+   58: push_constant_int 1
+   59: push_constant_int 0
+   60: push_int_local 0
+   61: if_setposition 0
+   62: return 0
+
+switch_0:
+  69337110 => 1
+  69337111 => 13
+  69337112 => 25
+  69337114 => 37
+  69337113 => 49

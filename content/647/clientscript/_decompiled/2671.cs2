@@ -1,0 +1,51 @@
+[clientscript,script_2671]
+if (%varbit6454 = 0) {
+    if_sethide(48955410);
+    if_sethide(48955401);
+} else {
+    if_sethide(48955410);
+    if_sethide(48955401);
+}
+if (%varbit6454 = 2) {
+    if_sethide(48955415);
+    if_sethide(48955406);
+} else {
+    if_sethide(48955415);
+    if_sethide(48955406);
+}
+if (%varbit6454 = 3) {
+    if_sethide(48955411);
+    if_sethide(48955402);
+} else {
+    if_sethide(48955411);
+    if_sethide(48955402);
+}
+if (%varbit6454 = 4) {
+    if_sethide(48955412);
+    if_sethide(48955403);
+} else {
+    if_sethide(48955412);
+    if_sethide(48955403);
+}
+if (%varbit6454 = 5) {
+    if_sethide(48955413);
+    if_sethide(48955404);
+} else {
+    if_sethide(48955413);
+    if_sethide(48955404);
+}
+if (%varbit6454 = 6) {
+    if_sethide(48955414);
+    if_sethide(48955405);
+} else {
+    if_sethide(48955414);
+    if_sethide(48955405);
+}
+if (%varbit6454 = 7) {
+    if_sethide(48955418);
+    if_sethide(48955407);
+} else {
+    if_sethide(48955418);
+    if_sethide(48955407);
+}
+return;

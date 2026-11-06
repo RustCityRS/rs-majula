@@ -1,0 +1,3 @@
+[clientscript,script_404](int $int0)(int)
+if_settext("Conquest Ranking: " + tostring(%varp1875));
+return($int0);

@@ -1,0 +1,8 @@
+[clientscript,script_4502](int $int0, int $int1, int $int2)
+if (cc_find($int1, $int2) = 1) {
+    if (string_length(cc_gettext) > 0) {
+        if_sethide($int0);
+        if_setposition(cc_gety, 0, 0, $int0);
+    }
+}
+return;

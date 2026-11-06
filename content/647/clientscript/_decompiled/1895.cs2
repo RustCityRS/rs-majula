@@ -1,0 +1,129 @@
+[clientscript,script_1895](int $int0, int $int1)
+cc_deleteall($int0);
+def_int $int2 = friend_count;
+if ($int2 = -2) {
+    cc_setposition(0, $int0, 4, 0);
+    cc_settextfont(496);
+    cc_settext("Loading Friends List - Please wait...");
+    cc_setposition2(0, 0, 0, 0);
+    cc_setsize(138, 100, 0, 0);
+    cc_setcolour(16777060);
+    cc_settextshadow(1);
+    return;
+} else {
+    if ($int2 = -1) {
+        cc_setposition(0, $int0, 4, 0);
+        cc_settextfont(496);
+        cc_settext("Connecting to Friend Server - Please wait...");
+        cc_setposition2(0, 0, 0, 0);
+        cc_setsize(138, 100, 0, 0);
+        cc_setcolour(16777060);
+        cc_settextshadow(1);
+        return;
+    }
+}
+def_int $int3 = 0;
+def_int $int4 = sub(72613901, if_getx);
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+def_int $int5 = 0;
+def_string $str3 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($int3 < $int2) {
+    $int8 = multiply($int3, 3);
+    $int9 = calc($int3 * 16 + 2);
+    $str3 = friend_getname($int3);
+    $str0 = "";
+    if (compare($str3, "") ! 0) {
+        $int6 = 1;
+    } else {
+        $int6 = 0;
+    }
+    if ($int6 = 1) {
+        $str1 = "    " + $str0;
+    } else {
+        $str1 = $str0;
+    }
+    cc_setposition(0, $int0, 4, $int8);
+    cc_settextfont(496);
+    cc_setposition2(0, $int9, 0, 0);
+    cc_setsize($int4, 15, 0, 0);
+    cc_setcolour(16777060);
+    cc_settextshadow(1);
+    if (parawidth($str1, 496) > $int4) {
+        if (parawidth($str1 + "...", 496) > $int4) {
+            if (string_length($str1) > 0) {
+                $str1 = substring($str1, 0, sub(string_length($str1), 1));
+            }
+        }
+        cc_settext($str1 + "...");
+        if ($int6 = 1) {
+            $int5 = add(parawidth("Last known as: " + $str3, 496), 8);
+            if ($int0 > if_getwidth) {
+                $str2 = $str0 + "<br>" + "Last known as:" + "<br>" + $str3;
+            } else {
+                $str2 = $str0 + "<br>" + "Last known as: " + $str3;
+            }
+        } else {
+            $str2 = $str0;
+        }
+        cc_setonmouserepeat;
+        cc_setonmouseleave;
+    } else {
+        if ($int6 = 1) {
+            cc_settext($str1);
+            $int5 = add(parawidth("Last known as: " + $str3, 496), 8);
+            if ($int0 > if_getwidth) {
+                $str2 = "Last known as:" + "<br>" + $str3;
+            } else {
+                $str2 = "Last known as: " + $str3;
+            }
+            cc_setonmouserepeat;
+            cc_setonmouseleave;
+        }
+        cc_settext($str0);
+    }
+    cc_setposition(0, $int0, 5, add($int8, 1));
+    cc_setgraphic(2313);
+    cc_setsize(14, 14, 0, 0);
+    cc_setposition2(0, $int9, 0, 0);
+    if ($int6 = 0) {
+        cc_sethide(1);
+    }
+    cc_setposition(0, $int0, 4, add($int8, 2));
+    cc_settextfont(496);
+    cc_settext(~script_196(friend_getrank($int3)));
+    cc_setposition2(137, $int9, 0, 0);
+    cc_setsize(131, 15, 0, 0);
+    cc_setcolour(16777215);
+    cc_settextshadow(1);
+    cc_setop(1, "Not in Friends Chat");
+    cc_setop(2, "Recruit");
+    cc_setop(3, "Corporal");
+    cc_setop(4, "Sergeant");
+    cc_setop(5, "Lieutenant");
+    cc_setop(6, "Captain");
+    cc_setop(7, "General");
+    cc_setonop;
+    $int3 = add($int3, 1);
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+if ($int3 > 12) {
+    $int10 = if_getscrolly;
+    $int11 = calc($int3 * 16 + 4);
+    if_setscrollsize(0, $int11, $int0);
+    if ($int10 > $int11) {
+        $int10 = $int11;
+    }
+    ~script_72($int1, $int0, $int10);
+} else {
+    if_setscrollsize(0, 0, $int0);
+    if_setscrollpos(0, $int0);
+    ~script_72($int1, $int0, 0);
+}
+return;

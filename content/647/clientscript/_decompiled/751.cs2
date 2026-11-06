@@ -1,0 +1,51 @@
+[clientscript,script_751]
+def_int $int0 = -1;
+def_string $str0 = "";
+def_int $int1 = -1;
+if (%varp1174 ! -1) {
+    if (%varp1174 ! 0) {
+        $str0 = "";
+        if_setnpcmodel(%varp1174, 43384833);
+    }
+} else {
+    if (enum(111, 110, enum_1320, %varp448) ! 6988) {
+        %varp1174 = enum(111, 110, enum_1320, %varp448);
+        $str0 = "";
+        if_setnpcmodel(%varp1174, 43384833);
+    }
+}
+if (compare($str0, "Animal") = 0) {
+    if_settext(oc_name(%varp448));
+} else {
+    if_settext($str0);
+}
+if (%varbit4282 > 50) {
+    %varbit4282 = sub(%varbit4282, 50);
+    $int0 = enum(105, 65, enum_1275, %varbit4282);
+    if_setmodelanim;
+} else {
+    $int0 = enum(105, 65, enum_1276, %varbit4282);
+    if_setmodelanim;
+}
+if (enum(111, 111, enum_1283, %varp448) ! 526) {
+    if_sethide(43384903);
+    if (enum(110, 73, enum_1282, %varp1174) ! 43384877) {
+        if_sethide(43384904);
+        if_sethide(43384898);
+        if_sethide(enum(110, 73, enum_1282, %varp1174));
+        if_sethide(enum(110, 73, enum_1092, %varp1174));
+        if_setgraphic(48955395);
+    } else {
+        if_sethide(43384898);
+    }
+} else {
+    if_sethide(43384903);
+    if_sethide(43384898);
+    if (%varp448 ! -1) {
+        if (oc_weight(cert_burnt_mantaray) ! 0) {
+            if_sethide(enum(110, 73, enum_1092, %varp1174));
+        }
+    }
+}
+~script_2671;
+return;

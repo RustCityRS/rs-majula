@@ -1,0 +1,39 @@
+[clientscript,script_1183](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+switch (%varc_int808) {
+    case 1:
+        if_sethide($int3);
+        if_sethide($int4);
+        if_sethide($int5);
+        if_sethide($int2);
+        if_settext("Draughts");
+        if_settext(tostring(%varp354));
+    case 2:
+        if_sethide($int2);
+        if_sethide($int4);
+        if_sethide($int5);
+        if_sethide($int3);
+        if_settext("Runelink");
+        if_settext(tostring(%varp353));
+    case 3:
+        if_sethide($int2);
+        if_sethide($int3);
+        if_sethide($int5);
+        if_sethide($int4);
+        if_settext("Runesquares");
+        if_settext(tostring(%varp648));
+    case 4:
+        if_sethide($int2);
+        if_sethide($int3);
+        if_sethide($int4);
+        if_sethide($int5);
+        if_settext("Runeversi");
+        if_settext(tostring(%varp649));
+    default:
+        if_sethide($int3);
+        if_sethide($int4);
+        if_sethide($int5);
+        if_sethide($int2);
+        if_settext("");
+        if_settext("");
+}
+return;

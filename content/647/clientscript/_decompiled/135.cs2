@@ -1,0 +1,16 @@
+[clientscript,script_135](int $int0)
+def_int $int1 = -1;
+if (string_length(%varc_str24) > 0) {
+    chat_sendabusereport(%varc_str24, "");
+}
+if (compare(%varc_str24, chat_playername) = 0) {
+    ~script_675;
+    return;
+}
+if (ignores_test(%varc_str24) = 0) {
+    if (compare(%varc_str24, chat_playername) ! 0) {
+    }
+} else {
+    ~script_675;
+}
+return;

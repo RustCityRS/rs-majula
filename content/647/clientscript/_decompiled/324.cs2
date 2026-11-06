@@ -1,0 +1,64 @@
+[clientscript,script_324](int $int0, int $int1, int $int2)
+def_int $int3 = min(%varbit2375, 500);
+if_setsize(scale(sub(500, $int3), 500, 16384), 1, 2, $int0);
+def_int $int4 = add(164, scale($int3, 500, 91));
+def_int $int5 = sub(164, scale($int3, 500, 164));
+def_int $int6 = sub(41, scale($int3, 500, 41));
+def_int $int7 = ~script_693($int4, $int5, $int6);
+if_setcolour($int0);
+if_setcolour($int1);
+switch (scale(add($int3, 5), 500, 25)) {
+    case 0:
+        if_setmodel;
+    case 1:
+        if_setmodel;
+    case 2:
+        if_setmodel;
+    case 3:
+        if_setmodel;
+    case 4:
+        if_setmodel;
+    case 5:
+        if_setmodel;
+    case 6:
+        if_setmodel;
+    case 7:
+        if_setmodel;
+    case 8:
+        if_setmodel;
+    case 9:
+        if_setmodel;
+    case 10:
+        if_setmodel;
+    case 11:
+        if_setmodel;
+    case 12:
+        if_setmodel;
+    case 13:
+        if_setmodel;
+    case 14:
+        if_setmodel;
+    case 15:
+        if_setmodel;
+    case 16:
+        if_setmodel;
+    case 17:
+        if_setmodel;
+    case 18:
+        if_setmodel;
+    case 19:
+        if_setmodel;
+    case 20:
+        if_setmodel;
+    case 21:
+        if_setmodel;
+    case 22:
+        if_setmodel;
+    case 23:
+        if_setmodel;
+    case 24:
+        if_setmodel;
+    default:
+        if_setmodel;
+}
+return;

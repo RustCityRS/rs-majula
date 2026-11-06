@@ -1,0 +1,73 @@
+[clientscript,script_1674](int $int0)(int, int)
+def_int $int1 = 836;
+def_int $int2 = 1;
+def_int $int3 = 2;
+def_string $str0 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+$str0 = "";
+cc_setposition(enum(105, 115, $int1, 0), 5505046, 5, 0);
+cc_setsize(17, 17, 0, 0);
+cc_setposition2(2, $int3, 0, 0);
+if ($int0 = 0) {
+    cc_setgraphic(699);
+    $int4 = $int3;
+} else {
+    cc_setgraphic(697);
+}
+cc_setposition(0, 5505046, 4, 1);
+cc_settextfont(494);
+cc_setcolour(16750623);
+cc_settextalign(0, 1, 0);
+cc_setsize(23, 16, 1, 0);
+cc_setposition2(0, add($int3, 2), 2, 0);
+cc_settext($str0);
+cc_setposition(0, 5505046, 3, 2);
+cc_setsize(0, 17, 1, 0);
+cc_setposition2(0, $int3, 1, 0);
+cc_settrans(255);
+cc_setfill(1);
+if ($int0 ! 0) {
+    cc_setop(1, $str0);
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_setonop;
+}
+$int3 = add($int3, cc_getheight);
+$int5 = 1;
+if ($int2 < enum_getoutputcount($int1)) {
+    if (testbit(%varp617, sub($int2, 1)) = 1) {
+        $str0 = "";
+        cc_setposition(enum(105, 115, $int1, $int2), 5505046, 5, multiply($int5, 3));
+        cc_setsize(17, 17, 0, 0);
+        cc_setposition2(2, $int3, 0, 0);
+        if ($int2 = $int0) {
+            cc_setgraphic(699);
+            $int4 = $int3;
+        } else {
+            cc_setgraphic(697);
+        }
+        cc_setposition(0, 5505046, 4, calc($int5 * 3 + 1));
+        cc_settextfont(494);
+        cc_setcolour(16750623);
+        cc_settextalign(0, 1, 0);
+        cc_setsize(23, 16, 1, 0);
+        cc_setposition2(0, add($int3, 2), 2, 0);
+        cc_settext($str0);
+        cc_setposition(0, 5505046, 3, calc($int5 * 3 + 2));
+        cc_setsize(0, 17, 1, 0);
+        cc_setposition2(0, $int3, 1, 0);
+        cc_settrans(255);
+        cc_setfill(1);
+        if ($int2 ! $int0) {
+            cc_setop(1, $str0);
+            cc_setonmouseover;
+            cc_setonmouseleave;
+            cc_setonop;
+        }
+        $int3 = add($int3, cc_getheight);
+        $int5 = add($int5, 1);
+    }
+    $int2 = add($int2, 1);
+}
+return($int3, max(sub($int4, 8), 0));

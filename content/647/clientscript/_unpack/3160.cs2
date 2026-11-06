@@ -1,0 +1,95 @@
+; id: 3160
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: op6900 0
+    1: branch_if_true 1
+    2: branch 1
+    3: return 0
+    4: push_int_local 0
+    5: switch 0
+    6: branch 67
+    7: op3751 0
+    8: branch_if_true 1
+    9: branch 10
+   10: push_varc_string_old 278
+   11: string_length 0
+   12: push_constant_int 0
+   13: branch_greater_than 1
+   14: branch 4
+   15: push_constant_int 2
+   16: op5006 0
+   17: push_varc_string_old 278
+   18: op5008 0
+   19: branch 4
+   20: push_constant_int 43
+   21: push_constant_int 0
+   22: push_constant_string "You are not in a Clan."
+   23: op3114 0
+   24: push_constant_string ""
+   25: pop_varc_string_old 278
+   26: push_varc_string_old 278
+   27: op4111 0
+   28: push_constant_int 59768857
+   29: if_settext 0
+   30: push_varc_string_old 278
+   31: string_length 0
+   32: pop_varc_int 1098
+   33: push_constant_int 59768857
+   34: push_constant_int 59768858
+   35: push_varc_string_old 278
+   36: gosub_with_params 1390
+   37: branch 36
+   38: push_int_local 0
+   39: push_varc_int 1098
+   40: push_varc_string_old 278
+   41: gosub_with_params 1553
+   42: pop_varc_int 1098
+   43: push_constant_int 59768857
+   44: push_constant_int 59768858
+   45: push_varc_string_old 278
+   46: gosub_with_params 1390
+   47: branch 26
+   48: push_int_local 1
+   49: op4113 0
+   50: branch_if_true 7
+   51: push_int_local 0
+   52: push_constant_int 85
+   53: branch_equals 4
+   54: push_int_local 0
+   55: push_constant_int 101
+   56: branch_equals 1
+   57: branch 16
+   58: push_varc_int 1098
+   59: push_varc_string_old 278
+   60: push_constant_int 0
+   61: push_int_local 0
+   62: push_int_local 1
+   63: gosub_with_params 802
+   64: pop_varc_int 1098
+   65: pop_varc_string_old 278
+   66: push_varc_string_old 278
+   67: op4111 0
+   68: push_constant_int 59768857
+   69: if_settext 0
+   70: push_constant_int 59768857
+   71: push_constant_int 59768858
+   72: push_varc_string_old 278
+   73: gosub_with_params 1390
+   74: return 0
+
+switch_0:
+  84 => 1
+  96 => 32
+  97 => 32
+  98 => 32
+  99 => 32
+  102 => 32
+  103 => 32
+  -1 => 42
+  85 => 42
+  101 => 42

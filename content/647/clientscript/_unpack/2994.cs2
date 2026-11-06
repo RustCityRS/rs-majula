@@ -1,0 +1,33 @@
+; id: 2994
+int_param_count=11
+string_param_count=0
+long_param_count=0
+local_int_count=11
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 5
+    2: push_int_local 1
+    3: cc_setposition 0
+    4: push_int_local 2
+    5: push_int_local 3
+    6: push_constant_int 0
+    7: push_constant_int 0
+    8: cc_setsize 0
+    9: push_int_local 4
+   10: push_int_local 5
+   11: push_constant_int 0
+   12: push_constant_int 0
+   13: cc_setposition2 0
+   14: push_int_local 6
+   15: cc_setgraphic 0
+   16: push_int_local 7
+   17: op1119 0
+   18: push_int_local 8
+   19: op1118 0
+   20: push_int_local 9
+   21: op1107 0
+   22: push_int_local 10
+   23: cc_settrans 0
+   24: return 0

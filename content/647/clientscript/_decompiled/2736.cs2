@@ -1,0 +1,14 @@
+[clientscript,script_2736]
+if (%varbit6084 = 1) {
+    if (%varc_int774 = 1) {
+        return;
+    }
+    %varc_int774 = 1;
+} else {
+    if (%varc_int774 = 0) {
+        return;
+    }
+    %varc_int774 = 0;
+}
+~script_2790;
+return;

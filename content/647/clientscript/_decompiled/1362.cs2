@@ -1,0 +1,70 @@
+[clientscript,script_1362](component, int)
+def_int $int0 = 0;
+if_setonkey;
+if_setonchattransmit;
+op2421;
+op2420;
+op2422;
+op2429;
+%varc_str1 = "";
+%varc_int1028 = 0;
+%varc_int42 = -1;
+%varc_int41 = 0;
+%varc_int43 = chat_getofflinepm;
+%varc_int3 = -1;
+%varc_int4 = 0;
+%varc_str2 = "";
+%varc_str3 = "";
+%varc_str4 = "";
+%varc_str5 = "";
+%varc_str6 = "";
+%varc_str7 = "";
+%varc_str8 = "";
+%varc_str9 = "";
+%varc_str10 = "";
+%varc_str11 = "";
+%varc_str12 = "";
+%varc_str13 = "";
+%varc_str14 = "";
+%varc_str15 = "";
+%varc_str16 = "";
+%varc_str17 = "";
+%varc_str18 = "";
+%varc_str19 = "";
+%varc_str20 = "";
+%varc_str21 = "";
+%varc_str276 = "";
+if_sethide(8978487);
+if (getwindowmode >= 2) {
+    if_sethide(49283074);
+    if_setgraphic(49283073);
+    if_setalpha(1, 49283073);
+    if_sethide(49283073);
+    if_sethide(8978483);
+    if_sethide(8978484);
+    if_sethide(8978485);
+    if ($int0 < 100) {
+        if_settextshadow(1, enum(105, 73, enum_579, $int0));
+        if_setcolour(enum(105, 73, enum_579, $int0));
+        $int0 = add($int0, 1);
+    }
+    if_settextshadow(1, 8978487);
+    if_setcolour(8978487);
+} else {
+    if_setgraphic(49283073);
+    if_sethide(49283073);
+    if_sethide(49283074);
+    if_sethide(8978483);
+    if_sethide(8978484);
+    if_sethide(8978485);
+    if ($int0 < 100) {
+        if_settextshadow(0, enum(105, 73, enum_579, $int0));
+        if_setcolour(enum(105, 73, enum_579, $int0));
+        $int0 = add($int0, 1);
+    }
+    if_settextshadow(0, 8978487);
+    if_setcolour(8978487);
+}
+%varc_int7 = if_getheight;
+%varc_str0 = "";
+return(8978490, ~script_178);

@@ -1,0 +1,41 @@
+; id: 1420
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 3756
+    1: push_constant_int 1
+    2: sub 0
+    3: gosub_with_params 121
+    4: pop_int_local 0
+    5: push_int_local 0
+    6: push_constant_int -1
+    7: branch_not 1
+    8: branch 23
+    9: clientclock 0
+   10: push_constant_int 40
+   11: mod 0
+   12: push_constant_int 20
+   13: branch_greater_than 1
+   14: branch 14
+   15: push_constant_int 0
+   16: push_int_local 0
+   17: if_sethide 0
+   18: clientclock 0
+   19: push_constant_int 40
+   20: mod 0
+   21: push_constant_int 21
+   22: branch_equals 1
+   23: branch 4
+   24: push_constant_int 5009
+   25: push_constant_int 1
+   26: push_constant_int 0
+   27: sound_synth 0
+   28: branch 3
+   29: push_constant_int 1
+   30: push_int_local 0
+   31: if_sethide 0
+   32: return 0

@@ -1,0 +1,43 @@
+; id: 1677
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1688
+    1: push_constant_string ""
+    2: push_constant_int 5570560
+    3: op2408 0
+    4: push_constant_int 0
+    5: pop_varc_int 1046
+    6: push_constant_int 0
+    7: pop_varc_int 1045
+    8: push_constant_int 0
+    9: pop_varc_int 1051
+   10: push_constant_int 0
+   11: pop_varc_int 1048
+   12: push_constant_int 255
+   13: pop_varc_int 1049
+   14: push_constant_int 0
+   15: pop_varc_int 1044
+   16: push_constant_int 0
+   17: push_constant_int 0
+   18: op5405 0
+   19: push_constant_int 1
+   20: push_constant_int 0
+   21: op5405 0
+   22: gosub_with_params 1678
+   23: push_constant_int 0
+   24: push_constant_int 0
+   25: push_constant_int 200
+   26: push_constant_int 200
+   27: push_constant_int 1
+   28: push_constant_int 0
+   29: op5502 0
+   30: push_constant_int 1679
+   31: push_constant_string ""
+   32: push_constant_int 5570560
+   33: op2426 0
+   34: return 0

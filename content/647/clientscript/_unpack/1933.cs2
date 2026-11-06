@@ -1,0 +1,17 @@
+; id: 1933
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_constant_int 53149700
+    2: if_sethide 0
+    3: push_constant_int 13150820
+    4: push_constant_int 53149701
+    5: if_setcolour 0
+    6: push_constant_int 53149731
+    7: gosub_with_params 41
+    8: return 0

@@ -1,0 +1,8 @@
+[clientscript,script_1949](int $int0, int $int1, int $int2, int $int3)
+if (cc_find($int0, $int1) = 1) {
+    cc_setcolour($int2);
+    if ($int3 ! -1) {
+        ~script_41($int3);
+    }
+}
+return;

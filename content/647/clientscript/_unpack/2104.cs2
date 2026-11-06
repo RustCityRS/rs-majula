@@ -1,0 +1,25 @@
+; id: 2104
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: branch_if_true 1
+    2: branch 7
+    3: push_constant_int 0
+    4: push_constant_int 19464215
+    5: if_sethide 0
+    6: push_constant_int 1
+    7: push_constant_int 19464201
+    8: if_sethide 0
+    9: branch 6
+   10: push_constant_int 1
+   11: push_constant_int 19464215
+   12: if_sethide 0
+   13: push_constant_int 0
+   14: push_constant_int 19464201
+   15: if_sethide 0
+   16: return 0

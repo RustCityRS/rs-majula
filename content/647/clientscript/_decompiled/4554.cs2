@@ -1,0 +1,21 @@
+[clientscript,script_4554](int $int0)(int, int, int, component, component, component, int, int, int, int, int, string, string)
+if_setsize(0, 0, 1, 38600759);
+if_setsize(0, 0, 1, 38600761);
+if_setscrollsize(0, 0, 38600755);
+if_setscrollpos(0, 38600755);
+if_setscrollsize(0, 0, 38600727);
+if_setscrollpos(0, 38600727);
+op2421;
+op2420;
+if (clan_getchatsize > 0) {
+    if_settext("Leave chat channel");
+    if_setop(38600743, "Leave chat channel");
+} else {
+    if_settext("Join chat channel");
+    if_setop(38600743, "Join chat channel");
+}
+%varc_str349 = "";
+%varc_int1507 = string_length(%varc_str349);
+if_setonclick;
+if_sethide(38600732);
+return(~script_3024(38600735), 4570, -2147483647, 38600731, 38600732, 38600731, ~script_4571(38600731, 38600732, %varc_str349), ~script_4571(38600731, 38600732, %varc_str349), ~script_4571(38600731, 38600732, %varc_str349), ~script_4571(38600731, 38600732, %varc_str349), 1, "iII", ~script_4571(38600731, 38600732, %varc_str349));

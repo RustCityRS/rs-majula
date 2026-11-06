@@ -1,0 +1,76 @@
+; id: 3405
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 3
+    2: push_constant_int 0
+    3: pop_int_local 4
+    4: push_constant_int 0
+    5: pop_int_local 5
+    6: gosub_with_params 3406
+    7: pop_int_local 5
+    8: pop_int_local 4
+    9: pop_int_local 3
+   10: push_int_local 0
+   11: gosub_with_params 3054
+   12: push_int_local 1
+   13: gosub_with_params 3173
+   14: push_int_local 2
+   15: gosub_with_params 4567
+   16: push_constant_int 59375792
+   17: if_gethide 0
+   18: branch_if_true 1
+   19: branch 11
+   20: push_int_local 3
+   21: push_varc_int 1275
+   22: branch_greater_than 1
+   23: branch 7
+   24: push_constant_int 3407
+   25: clientclock 0
+   26: push_constant_int 59375792
+   27: push_constant_int -2147483645
+   28: push_constant_string "iII"
+   29: push_constant_int 59375806
+   30: op2408 0
+   31: push_constant_int 59375794
+   32: if_gethide 0
+   33: branch_if_true 1
+   34: branch 11
+   35: push_int_local 4
+   36: push_varc_int 1276
+   37: branch_greater_than 1
+   38: branch 7
+   39: push_constant_int 3407
+   40: clientclock 0
+   41: push_constant_int 59375794
+   42: push_constant_int -2147483645
+   43: push_constant_string "iII"
+   44: push_constant_int 59375808
+   45: op2408 0
+   46: push_constant_int 59375793
+   47: if_gethide 0
+   48: branch_if_true 1
+   49: branch 11
+   50: push_int_local 5
+   51: push_varc_int 1510
+   52: branch_greater_than 1
+   53: branch 7
+   54: push_constant_int 3407
+   55: clientclock 0
+   56: push_constant_int 59375793
+   57: push_constant_int -2147483645
+   58: push_constant_string "iII"
+   59: push_constant_int 59375807
+   60: op2408 0
+   61: push_int_local 3
+   62: pop_varc_int 1275
+   63: push_int_local 4
+   64: pop_varc_int 1276
+   65: push_int_local 5
+   66: pop_varc_int 1510
+   67: return 0

@@ -1,0 +1,62 @@
+; id: 1461
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 105
+    1: push_constant_int 73
+    2: push_constant_int 1614
+    3: push_int_local 0
+    4: enum 0
+    5: pop_int_local 1
+    6: push_constant_int 105
+    7: push_constant_int 73
+    8: push_constant_int 1615
+    9: push_int_local 0
+   10: enum 0
+   11: pop_int_local 2
+   12: push_constant_int 0
+   13: push_int_local 1
+   14: if_sethide 0
+   15: push_constant_int 0
+   16: push_int_local 2
+   17: if_sethide 0
+   18: push_constant_int -1
+   19: push_constant_int -1
+   20: push_int_local 2
+   21: if_setobject 0
+   22: push_constant_int 1435
+   23: push_int_local 2
+   24: if_setgraphic 0
+   25: push_constant_int 0
+   26: push_int_local 2
+   27: op2116 0
+   28: push_constant_int 0
+   29: push_int_local 2
+   30: op2117 0
+   31: push_int_local 1
+   32: op2307 0
+   33: push_constant_int 1481
+   34: push_constant_string ""
+   35: push_int_local 1
+   36: op2400 0
+   37: push_constant_string "Drag an item here to create a new tab"
+   38: pop_string_local 0
+   39: push_constant_int 38
+   40: push_constant_int -2147483645
+   41: push_constant_int 49938551
+   42: push_string_local 0
+   43: push_constant_int 25
+   44: push_constant_int 150
+   45: push_constant_string "IIsii"
+   46: push_int_local 1
+   47: op2412 0
+   48: push_constant_int 40
+   49: push_constant_int 49938551
+   50: push_constant_string "I"
+   51: push_int_local 1
+   52: op2404 0
+   53: return 0

@@ -1,0 +1,38 @@
+; id: 2585
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 16750901
+    1: push_constant_int 19136628
+    2: if_setcolour 0
+    3: push_constant_int 1
+    4: push_constant_string "Select light"
+    5: push_constant_int 19136622
+    6: if_setop 0
+    7: push_constant_int 1
+    8: push_constant_string "Select heavy"
+    9: push_constant_int 19136623
+   10: if_setop 0
+   11: push_constant_int 2589
+   12: push_constant_int -2147483645
+   13: push_constant_string "I"
+   14: push_constant_int 19136622
+   15: op2409 0
+   16: push_constant_int 2589
+   17: push_constant_int -2147483645
+   18: push_constant_string "I"
+   19: push_constant_int 19136623
+   20: op2409 0
+   21: push_constant_int -1
+   22: push_constant_string ""
+   23: push_constant_int 19136622
+   24: op2400 0
+   25: push_constant_int -1
+   26: push_constant_string ""
+   27: push_constant_int 19136623
+   28: op2400 0
+   29: return 0

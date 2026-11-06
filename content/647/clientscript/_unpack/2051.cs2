@@ -1,0 +1,39 @@
+; id: 2051
+int_param_count=8
+string_param_count=3
+long_param_count=0
+local_int_count=8
+local_string_count=3
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 11
+    5: push_string_local 0
+    6: push_int_local 2
+    7: push_int_local 3
+    8: push_int_local 4
+    9: push_int_local 5
+   10: push_int_local 6
+   11: push_string_local 1
+   12: push_string_local 2
+   13: push_int_local 7
+   14: gosub_with_params 2052
+   15: branch 14
+   16: push_int_local 0
+   17: push_constant_int 4
+   18: push_int_local 1
+   19: cc_setposition 0
+   20: push_string_local 0
+   21: push_int_local 2
+   22: push_int_local 3
+   23: push_int_local 4
+   24: push_int_local 5
+   25: push_int_local 6
+   26: push_string_local 1
+   27: push_string_local 2
+   28: push_int_local 7
+   29: gosub_with_params 2052
+   30: return 0

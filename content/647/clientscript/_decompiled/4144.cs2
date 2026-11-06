@@ -1,0 +1,13 @@
+[clientscript,script_4144](int $int0, int $int1, int $int2)(int)
+def_int $int3 = calc(paraheight(%varc_str343, 495) * 12 + 5);
+if_setsize($int3, 1, 0, $int1);
+if_setscrollsize(0, $int3, $int0);
+if_setscrollpos(0, $int0);
+if_settext(%varc_str343);
+if ($int0 <= if_getheight) {
+    cc_deleteall($int2);
+    if_sethide($int2);
+    return(1);
+}
+if_sethide($int2);
+return(0, ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794), ~script_31($int2, $int0, 798, 795, 796, 797, 793, 794));

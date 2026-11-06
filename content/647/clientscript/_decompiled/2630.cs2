@@ -1,0 +1,49 @@
+[clientscript,script_2630](int $int0)(int, int, int, int, int, string)
+def_int $int1 = -1;
+def_int $int2 = -1;
+%varc_int905 = $int0;
+%varc_int904 = 1;
+switch ($int0) {
+    case 56295437:
+        $int0 = 56295426;
+        $int1 = 1914;
+        $int2 = 1922;
+    case 56295438:
+        $int0 = 56295432;
+        $int1 = 1915;
+        $int2 = 1923;
+    case 56295439:
+        $int0 = 56295431;
+        $int1 = 1916;
+        $int2 = 1924;
+    case 56295440:
+        if (%varbit6357 = 2) {
+            $int0 = 56295446;
+            $int1 = 1917;
+            $int2 = 1925;
+        }
+        if (%varbit6357 = 3) {
+            $int0 = 56295430;
+            $int1 = 1918;
+            $int2 = 1926;
+        }
+        if (%varbit6357 = 4) {
+            $int0 = 56295447;
+            $int1 = 1921;
+            $int2 = 1929;
+        }
+    case 56295441:
+        if (%varbit6357 = 2) {
+            $int0 = 56295445;
+            $int1 = 1920;
+            $int2 = 1928;
+        }
+        if (%varbit6357 = 4) {
+            $int0 = 56295444;
+            $int1 = 1919;
+            $int2 = 1927;
+        }
+    default:
+}
+if_setontimer;
+return(2631, $int0, $int1, $int2, $int0, "Idd");

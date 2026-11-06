@@ -1,0 +1,12 @@
+[clientscript,script_2531]
+if (%varc_int909 = 1) {
+    if_setgraphic(2555966);
+} else {
+    if (%varc_int909 = 2) {
+        if_setgraphic(2555966);
+    }
+    if (%varc_int909 = 3) {
+        if_setgraphic(2555966);
+    }
+}
+return;

@@ -1,0 +1,30 @@
+[clientscript,script_4424](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = calc($int2 + $int3 / 2);
+def_int $int5 = push_array_int(0, $int4);
+%array0 = pop_array_int($int4, push_array_int(0, $int3));
+%array0 = pop_array_int($int3, $int5);
+def_int $int6 = $int2;
+def_int $int7 = $int2;
+def_int $int8 = -1;
+if ($int7 < $int3) {
+    if (cc_find($int1, $int5) = 1) {
+        if (cc_find($int1, push_array_int(0, $int7)) = 1) {
+            if (compare(lowercase(cc_gettext), lowercase(cc_gettext)) < and($int7, 1)) {
+                $int8 = push_array_int(0, $int7);
+                %array0 = pop_array_int($int7, push_array_int(0, $int6));
+                %array0 = pop_array_int($int6, $int8);
+                $int6 = add($int6, 1);
+            }
+        }
+    }
+    $int7 = add($int7, 1);
+}
+%array0 = pop_array_int($int3, push_array_int(0, $int6));
+%array0 = pop_array_int($int6, $int5);
+if ($int2 < sub($int6, 1)) {
+    ~script_4424(0, $int1, $int2, sub($int6, 1));
+}
+if (add($int6, 1) < $int3) {
+    ~script_4424(0, $int1, add($int6, 1), $int3);
+}
+return;

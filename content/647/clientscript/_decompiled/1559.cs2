@@ -1,0 +1,6 @@
+[clientscript,script_1559](int $int0)(int, component, int, int, int, string, string)
+if (hud_test(49283081, -1) = 1) {
+    return;
+}
+if_setontimer;
+return(-1, 49283081, ~script_1560($int0), ~script_1560($int0), ~script_1560($int0), "", ~script_1560($int0));

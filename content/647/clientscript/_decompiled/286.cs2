@@ -1,0 +1,21 @@
+[clientscript,script_286](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $str0)
+if ($int0 ! 1) {
+    return;
+}
+if (cc_find($int1, $int2) = 1) {
+    cc_setop(1, $str0);
+}
+if (cc_find($int1, $int3) = 1) {
+    cc_setop(1, $str0);
+}
+if (cc_find($int1, $int4) = 1) {
+    if ($int5 = 1) {
+        cc_sethide(0);
+    }
+    cc_sethide(1);
+}
+if ($int2 = 11) {
+    worldmap_setflag(950, $int5);
+}
+sound_synth(synth_2266, 1, 0);
+return;

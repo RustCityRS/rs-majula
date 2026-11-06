@@ -1,0 +1,107 @@
+; id: 4002
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=4
+local_long_count=0
+
+    0: getwindowmode 0
+    1: push_constant_int 2
+    2: branch_greater_than_or_equals 1
+    3: branch 7
+    4: push_constant_int 48889865
+    5: push_constant_int 917
+    6: op2704 0
+    7: branch_if_true 1
+    8: branch 1
+    9: return 0
+   10: branch 6
+   11: push_constant_int 35913746
+   12: push_constant_int 917
+   13: op2704 0
+   14: branch_if_true 1
+   15: branch 1
+   16: return 0
+   17: push_constant_string "Progress:  "
+   18: pop_string_local 0
+   19: push_varc_int 1424
+   20: pop_int_local 0
+   21: push_constant_string ""
+   22: pop_string_local 1
+   23: push_varc_int 1423
+   24: pop_int_local 1
+   25: push_constant_string ""
+   26: pop_string_local 2
+   27: push_constant_int 105
+   28: push_constant_int 115
+   29: push_constant_int 3487
+   30: push_varbit 8575
+   31: enum 0
+   32: pop_string_local 3
+   33: push_varbit 9030
+   34: branch_if_true 1
+   35: branch 7
+   36: push_varbit 9028
+   37: pop_int_local 0
+   38: push_constant_int 3656
+   39: enum_getoutputcount 0
+   40: pop_int_local 1
+   41: push_constant_string "Introductory Tasks"
+   42: pop_string_local 3
+   43: push_int_local 0
+   44: tostring 0
+   45: pop_string_local 1
+   46: push_int_local 1
+   47: tostring 0
+   48: pop_string_local 2
+   49: push_varbit 8575
+   50: push_constant_int 61
+   51: branch_equals 1
+   52: branch 9
+   53: push_constant_string "Quest Area"
+   54: pop_string_local 3
+   55: push_constant_int 1
+   56: push_constant_int 69206127
+   57: if_sethide 0
+   58: push_constant_int 1
+   59: push_constant_int 69206128
+   60: if_sethide 0
+   61: branch 6
+   62: push_constant_int 0
+   63: push_constant_int 69206127
+   64: if_sethide 0
+   65: push_constant_int 0
+   66: push_constant_int 69206128
+   67: if_sethide 0
+   68: push_int_local 0
+   69: push_constant_int 69206127
+   70: if_getwidth 0
+   71: push_constant_int 2
+   72: sub 0
+   73: multiply 0
+   74: push_constant_int 1
+   75: push_int_local 1
+   76: op4017 0
+   77: div 0
+   78: pop_int_local 2
+   79: push_string_local 0
+   80: push_string_local 1
+   81: append 0
+   82: pop_string_local 0
+   83: push_string_local 2
+   84: push_constant_int 69206124
+   85: if_settext 0
+   86: push_string_local 0
+   87: push_constant_int 69206122
+   88: if_settext 0
+   89: push_string_local 3
+   90: push_constant_int 69206126
+   91: if_settext 0
+   92: push_int_local 2
+   93: push_constant_int 18
+   94: push_constant_int 0
+   95: push_constant_int 0
+   96: push_constant_int 69206121
+   97: if_setsize 0
+   98: return 0

@@ -1,0 +1,23 @@
+; id: 968
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: gosub_with_params 970
+    2: branch_if_true 1
+    3: branch 6
+    4: push_constant_int 969
+    5: push_int_local 0
+    6: push_constant_string "I"
+    7: push_int_local 0
+    8: op2408 0
+    9: branch 4
+   10: push_constant_int -1
+   11: push_constant_string ""
+   12: push_int_local 0
+   13: op2408 0
+   14: return 0

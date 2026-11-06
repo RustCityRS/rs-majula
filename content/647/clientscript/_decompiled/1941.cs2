@@ -1,0 +1,34 @@
+[clientscript,script_1941]
+def_int $int0 = calc(%varp1332 + %varp1334 + %varp1337 + 2 * %varp1333 - %varp1335);
+if_settext("Score: " + tostring($int0));
+if (%varc_int556 = 0) {
+    return;
+}
+def_int $int1 = sub(%varc_int556, clientclock);
+def_int $int2 = div($int1, 3000);
+def_int $int3 = calc($int1 / 50 % 60);
+if ($int2 < 0) {
+    if_settext("Game ending");
+    if_settextshadow(1, 53018639);
+    ~script_1942;
+}
+if ($int2 = 0) {
+    if ($int3 = 0) {
+        if_settext("Game ending");
+    }
+} else {
+    if ($int3 < 10) {
+        if_settext(tostring($int2) + ":0" + tostring($int3));
+    }
+    if_settext(tostring($int2) + ":" + tostring($int3));
+}
+if ($int2 < 1) {
+    if_setcolour(53018639);
+    if_settextshadow(1, 53018639);
+    ~script_1942;
+} else {
+    if (if_gethide = 0) {
+        if_sethide(53018642);
+    }
+}
+return;

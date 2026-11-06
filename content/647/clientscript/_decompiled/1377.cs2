@@ -1,0 +1,39 @@
+[clientscript,script_1377](int $int0, int $int1)
+def_int $int2 = -1;
+if (%varbit7516 = $int1) {
+    $int2 = ~script_486(%varbit7520);
+} else {
+    if (%varbit7517 = $int1) {
+        $int2 = ~script_486(%varbit7521);
+    }
+    if (%varbit7518 = $int1) {
+        $int2 = ~script_486(%varbit7526);
+    }
+    if (%varbit7519 = $int1) {
+        $int2 = ~script_486(%varbit7527);
+    }
+    if (%varbit7522 = $int1) {
+        $int2 = ~script_486(%varbit7530);
+    }
+    if (%varbit7523 = $int1) {
+        $int2 = ~script_486(%varbit7531);
+    }
+    if (%varbit7524 = $int1) {
+        $int2 = ~script_486(%varbit7532);
+    }
+    if (%varbit7525 = $int1) {
+        $int2 = ~script_486(%varbit7533);
+    }
+    if (%varbit7528 = $int1) {
+        $int2 = ~script_486(%varbit7534);
+    }
+    if (%varbit7529 = $int1) {
+        $int2 = ~script_486(%varbit7535);
+    }
+}
+if ($int2 ! -1) {
+    if_settext("");
+} else {
+    if_settext("");
+}
+return;

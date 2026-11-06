@@ -1,0 +1,11 @@
+[clientscript,script_2306](int)
+def_int $int0 = 31;
+def_int $int1 = 0;
+def_int $int2 = 31;
+if (headicon_count >= 100) {
+    $int1 = 0;
+} else {
+    $int1 = calc($int0 - $int0 * headicon_count / 100);
+}
+if_setsize($int1, 0, 0, 49152004);
+return($int2);

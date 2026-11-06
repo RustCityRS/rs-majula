@@ -1,0 +1,28 @@
+; id: 953
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1400
+    1: switch 0
+    2: branch 11
+    3: push_constant_int 16757760
+    4: push_constant_int 61145414
+    5: if_setcolour 0
+    6: branch 7
+    7: push_constant_int 65280
+    8: push_constant_int 61145414
+    9: if_setcolour 0
+   10: branch 3
+   11: push_constant_int 16711680
+   12: push_constant_int 61145414
+   13: if_setcolour 0
+   14: return 0
+
+switch_0:
+  0 => 1
+  1 => 5
+  2 => 9

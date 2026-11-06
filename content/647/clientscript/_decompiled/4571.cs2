@@ -1,0 +1,9 @@
+[clientscript,script_4571](int $int0, int $int1, string $str0)(int, int, int, int, string)
+if_setposition(1, 0, 1, $int1);
+if (has_focus = 1) {
+    if_sethide($int1);
+} else {
+    if_sethide($int1);
+}
+if_setontimer;
+return(4572, clientclock, $int1, $int0, "iI");

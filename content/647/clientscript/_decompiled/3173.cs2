@@ -1,0 +1,48 @@
+[clientscript,script_3173](int $int0)(int, component, component, string)
+if (hud_test(59768853, -1) = 1) {
+    if_setontimer;
+    return(3172, $int0, $int0, "I");
+}
+cc_deleteall(59768853);
+def_string $str0 = "<col=7fa9ff>";
+def_string $str1 = "<col=ff5256>";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $str2 = "";
+def_string $str3 = "";
+if ($int1 < 100) {
+    $int3 = chat_gethistory_length($int1);
+    $str2 = player_getdisplayname($int1);
+    $str3 = chat_gethistory_message($int1);
+    switch ($int3) {
+        case 43:
+        case 26:
+            $int2 = ~script_3174(chat_gethistory_bytypeandline($int2, $int1), 0, $int3, "", "", "");
+        case 41:
+        case 44:
+            $int2 = ~script_3174(chat_gethistory_bytypeandline($int2, $int1), 1, $int3, "[" + $str0 + chat_gethistory_name($int1) + "</col>" + "] " + $str2 + ": " + $str1, $str2, $str3);
+        case 42:
+            $int2 = ~script_3174(chat_gethistory_bytypeandline($int2, $int1), 1, $int3, "[" + $str0 + chat_gethistory_name($int1) + "</col>" + "] " + $str2 + ": " + $str1, $str2, $str3);
+        case 115:
+            $int2 = ~script_3174(chat_gethistory_bytypeandline($int2, $int1), 0, $int3, "<col=ff0000>" + "</col>", "", "");
+        default:
+    }
+    $int1 = add($int1, 1);
+}
+def_int $int4 = div(if_getheight, 15);
+$int1 = 0;
+def_int $int5 = 0;
+if ($int2 < $int4) {
+    $int5 = sub($int4, $int2);
+    if ($int1 < $int5) {
+        $int2 = ~script_3174($int2, 0, 0, "", "", "");
+        $int1 = add($int1, 1);
+    }
+}
+def_int $int6 = max(multiply($int2, 15), multiply($int4, 15));
+if_setscrollsize(0, $int6, 59768853);
+~script_72(59768853, %varc_int1124, calc(59768853 + if_getscrollheight - %varc_int1125));
+%varc_int1124 = if_getscrolly;
+%varc_int1125 = if_getscrollheight;
+return(59768854, 59768853, 59768853);

@@ -1,0 +1,74 @@
+[clientscript,script_2194](int $int0)(int)
+switch ($int0) {
+    case 79:
+        if (%varbit888 = 0) {
+            return(0);
+        }
+    case 144:
+        if (%varbit5394 = 0) {
+            return(0);
+        }
+    case 145:
+        if (%varbit4310 < 10) {
+            return(0);
+        }
+    case 35:
+        if (%varbit0 = 0) {
+            return(0);
+        }
+    case 120:
+        if (%varbit1895 < 110) {
+            return(0);
+        }
+    case 157:
+        if (%varbit3637 < 125) {
+            return(0);
+        }
+    case 156:
+        if (~script_2656 < 100) {
+            return(0);
+        }
+    case 162:
+        if (%varbit3909 < 8) {
+            return(0);
+        }
+        if (%varbit5834 = 0) {
+            return(0);
+        }
+        if (%varbit5830 = 0) {
+            return(0);
+        }
+    case 163:
+        if (%varbit5686 = 0) {
+            return(0);
+        }
+    case 168:
+        if (%varbit1910 < 20) {
+            return(0);
+        }
+    case 171:
+        if (%varbit7973 = 0) {
+            return(0);
+        }
+    case 174:
+        if (%varbit7544 = 0) {
+            return(0);
+        }
+    case 179:
+        if (~script_2656 < 100) {
+            return(0);
+        }
+        if (%varbit1914 < 50) {
+            return(0);
+        }
+        if (%varbit8494 < 5) {
+            return(0);
+        }
+    case 148:
+        if (%varbit8601 < 6) {
+            return(0);
+        }
+    default:
+        return(1);
+}
+return(1);

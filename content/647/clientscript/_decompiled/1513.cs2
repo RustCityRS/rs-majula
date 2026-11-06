@@ -1,0 +1,217 @@
+[clientscript,script_1513](stat, int, int)
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+switch (%varc_int778) {
+    case 1:
+        if_setgraphic(47775750);
+        if_setgraphic(47775751);
+        if_setgraphic(47775752);
+        if_setgraphic(47775753);
+        if (player_isfemale = 1) {
+            $int2 = 10;
+            $int0 = 693;
+            $int1 = 1593;
+        } else {
+            $int2 = 3;
+            $int0 = 711;
+            $int1 = 702;
+        }
+        $int3 = %varc_int1011;
+        $int4 = 3282;
+        $int5 = 2347;
+        $int6 = 2348;
+        $int7 = 1;
+        $int8 = %varc_int1016;
+    case 2:
+        if_setgraphic(47775750);
+        if_setgraphic(47775751);
+        if_setgraphic(47775752);
+        if_setgraphic(47775753);
+        if (player_isfemale = 1) {
+            $int2 = 11;
+            $int0 = 751;
+        } else {
+            $int2 = 4;
+            $int0 = 749;
+        }
+        $int1 = 750;
+        $int3 = %varc_int1012;
+    case 3:
+        if_setgraphic(47775750);
+        if_setgraphic(47775751);
+        if_setgraphic(47775752);
+        if_setgraphic(47775753);
+        if (player_isfemale = 1) {
+            $int2 = 12;
+            $int0 = 1607;
+            $int1 = 1606;
+        } else {
+            $int2 = 5;
+            $int0 = 1586;
+            $int1 = 1585;
+        }
+        $int3 = %varc_int1013;
+        $int4 = 3284;
+        $int5 = 2347;
+        $int6 = 2348;
+        $int7 = 2;
+        $int8 = %varc_int1017;
+    default:
+        %varc_int778 = 0;
+        if_setgraphic(47775750);
+        if_setgraphic(47775751);
+        if_setgraphic(47775752);
+        if_setgraphic(47775753);
+        if (player_isfemale = 1) {
+            $int2 = 9;
+            $int0 = 1591;
+            $int1 = 1590;
+        } else {
+            $int2 = 2;
+            $int0 = 690;
+            $int1 = 689;
+        }
+        $int3 = %varc_int1010;
+        $int4 = 3282;
+        $int5 = 2347;
+        $int6 = 2348;
+        $int7 = 1;
+        $int8 = %varc_int1016;
+}
+cc_deleteall(47775756);
+def_int $int9 = 0;
+def_int $int10 = enum_getoutputcount($int0);
+def_int $int11 = -1;
+def_string $str0 = "";
+def_int $int12 = 0;
+def_int $int13 = 0;
+if ($int9 < $int10) {
+    $int11 = enum(105, 75, $int0, $int9);
+    $str0 = "";
+    cc_setposition(enum(105, 115, $int1, $int9), 47775756, 5, if_getchildcount(47775756));
+    cc_setsize(17, 17, 0, 0);
+    cc_setposition2(0, add($int12, 1), 0, 0);
+    cc_setposition(0, 47775756, 4, if_getchildcount(47775756));
+    cc_setsize(20, 19, 1, 0);
+    cc_setposition2(0, $int12, 2, 0);
+    cc_settextalign(0, 1, 0);
+    cc_setcolour(16750623);
+    cc_settextfont(495);
+    cc_settext($str0);
+    if ($int11 = $int3) {
+        cc_setgraphic(699);
+        $int13 = $int12;
+    } else {
+        cc_setgraphic(697);
+        cc_setonmouseover;
+        cc_setonmouseleave;
+        cc_setonmouseover(1);
+        cc_setonmouseleave(1);
+        cc_setop(1, $str0);
+        cc_setop(1, $str0);
+        cc_setonop;
+        cc_setonop(1);
+    }
+    $int9 = add($int9, 1);
+    $int12 = add($int12, 19);
+}
+if (47775756 > if_getheight) {
+    if_setsize(4, 1, 1, 47775756);
+    if_setscrollsize(0, $int12, 47775756);
+    if (47775756 < if_getscrolly) {
+        if_setscrollpos(sub($int13, 5), 47775756);
+    } else {
+        if (if_getscrolly >= add(47775756, if_getheight)) {
+            if_setscrollpos(sub(47775756, if_getheight), 47775756);
+        }
+    }
+    if_sethide(47775757);
+} else {
+    if_setsize(4, 1, 1, 47775756);
+    if_setscrollsize(0, 0, 47775756);
+    if_setscrollpos(0, 47775756);
+    cc_deleteall(47775757);
+    if_sethide(47775757);
+}
+cc_deleteall(47775761);
+if ($int5 = -1) {
+    if_setsize(4, 1, 1, 47775761);
+    if_setscrollsize(0, 0, 47775761);
+    if_setscrollpos(0, 47775761);
+    cc_deleteall(47775762);
+    if_sethide(47775762);
+    return(ranged, 0, 1);
+}
+$int10 = enum_getoutputcount($int5);
+def_int $int14 = 5;
+def_int $int15 = 0;
+if (47775761 > if_getheight) {
+    $int15 = 2;
+    $int14 = 4;
+}
+$int9 = 0;
+$int12 = 0;
+def_int $int16 = 0;
+def_int $int17 = -1;
+def_int $int18 = 0;
+if ($int9 < $int10) {
+    $int18 = enum(105, 105, $int4, $int9);
+    $str0 = "";
+    cc_setposition(enum(105, 115, $int6, $int9), 47775761, 3, if_getchildcount(47775761));
+    cc_setsize(21, 21, 0, 0);
+    cc_setfill(1);
+    cc_setposition2(calc($int16 * cc_getwidth + $int15), $int12, 0, 0);
+    cc_setcolour(enum(105, 105, $int5, $int9));
+    cc_setonmouserepeat;
+    cc_setonmouseleave;
+    cc_setposition(47775767, 47775761, 5, if_getchildcount(47775761));
+    cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+    cc_setposition2(cc_getx, cc_gety, 0, 0);
+    if ($int18 = $int8) {
+        cc_setgraphic(1043);
+        $int13 = $int12;
+    } else {
+        $int17 = 1041;
+        cc_setgraphic($int17);
+        cc_setonmouseleave(1);
+        $int17 = 1042;
+        cc_setonmouseover(1);
+        cc_setop(1, $str0);
+        cc_setonop(1);
+    }
+    $int9 = add($int9, 1);
+    if ($int16 < sub($int14, 1)) {
+        $int16 = add($int16, 1);
+    } else {
+        $int16 = 0;
+        $int12 = add($int12, cc_getheight);
+    }
+}
+if ($int16 ! 0) {
+    $int12 = add($int12, 21);
+}
+if (47775761 > if_getheight) {
+    if_setsize(4, 1, 1, 47775761);
+    if_setscrollsize(0, $int12, 47775761);
+    if (47775761 < if_getscrolly) {
+        if_setscrollpos(sub($int13, 5), 47775761);
+    } else {
+        if (if_getscrolly >= add(47775761, if_getheight)) {
+            if_setscrollpos(sub(47775761, if_getheight), 47775761);
+        }
+    }
+    if_sethide(47775762);
+}
+if_setsize(4, 1, 1, 47775761);
+if_setscrollsize(0, 0, 47775761);
+if_setscrollpos(0, 47775761);
+cc_deleteall(47775762);
+if_sethide(47775762);
+return;

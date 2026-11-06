@@ -1,0 +1,5 @@
+[clientscript,script_395](int)
+if (add(stat_base(attack), stat_base(strength)) = 130) {
+    return(1);
+}
+return(0);

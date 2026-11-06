@@ -1,0 +1,12 @@
+[clientscript,script_4398](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+if ($int3 < $int2) {
+    if (cc_find($int1, $int3) = 1) {
+        cc_setgraphic(5523);
+    }
+    $int3 = add($int3, 1);
+}
+if (cc_find($int1, $int0) = 1) {
+    cc_setgraphic(5526);
+}
+return;

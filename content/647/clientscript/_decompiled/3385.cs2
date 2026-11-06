@@ -1,0 +1,36 @@
+[clientscript,script_3385]
+if_openoverlay(48758808, 976);
+def_string $str0 = "";
+if (get_clientopt = 1) {
+    $str0 = "There was a problem with your current graphic settings, so you have been given default settings for safety. Click below to auto-choose best graphics settings.";
+    if_settext($str0);
+    if_setsize(calc(if_getwidth * paraheight($str0, 3793) + 86), 0, 0, 63963138);
+    if_setsize(if_getheight, 0, 0, 63963142);
+} else {
+    if (%varc_int1277 = 1) {
+        if (%varc_int1240 = -1) {
+            $str0 = "This is your first time playing. Click below to auto-choose best graphics settings. Choose 'Leave Alone' to continue with default settings.";
+            if_settext($str0);
+            if_setsize(calc(if_getwidth * paraheight($str0, 3793) + 86), 0, 0, 63963138);
+            if_setsize(if_getheight, 0, 0, 63963142);
+        }
+    }
+    if (%varc_int1240 = -1) {
+        $str0 = "This is your first time playing, click below to auto choose best graphics settings.";
+        if_settext($str0);
+        if_setposition(10, 1, 0, 63963140);
+        if_setsize(68, 0, 1, 63963140);
+        if_setposition(17, 1, 2, 63963141);
+        if_setsize(calc(if_getwidth * paraheight($str0, 3793) + 68), 0, 0, 63963138);
+        if_sethide(63963142);
+    }
+    $str0 = "Available graphics options have changed. Click below to auto choose best graphics settings.";
+    if (%varc_int1277 = 1) {
+        $str0 = "Available graphics options have changed. Click below to auto-choose best graphics settings. Choose 'Leave Alone' to continue with your current settings.";
+    }
+    if_settext($str0);
+    if_setsize(calc(if_getwidth * paraheight($str0, 3793) + 86), 0, 0, 63963138);
+    if_setsize(if_getheight, 0, 0, 63963142);
+}
+%varc_int1277 = 1;
+return;

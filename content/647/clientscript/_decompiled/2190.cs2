@@ -1,0 +1,87 @@
+[clientscript,script_2190](int $int0, int $int1, int $int2, string $str0, string $str1, string $str2, string $str3)
+if_settext($str0);
+if (compare($str1, "") ! 0) {
+    if ($int1 ! -1) {
+        if ($int1 ! 6) {
+            %varc_str277 = $str1;
+        }
+    } else {
+        %varc_str277 = $str1;
+    }
+    if ($int0 = 1) {
+        if_settext(escape2(%varc_str277));
+    }
+    if_settext(%varc_str277);
+}
+if ($int1 = 6) {
+    if_settext("Yes");
+    if_setop(59375764, "Yes");
+    if_settext("No");
+    if_setop(59375766, "No");
+} else {
+    if ($int1 = 0) {
+        if_setsize(136, 0, 0, 59375752);
+        if_setsize(12, 1, 0, 59375756);
+    }
+}
+if ($int2 = 0) {
+    if_setsize(0, 1, 1, 59375760);
+    if_setsize(0, 1, 1, 59375764);
+    if_sethide(59375765);
+    if_sethide(59375766);
+}
+if_sethide(59375646);
+def_int $int3 = 0;
+switch ($int1) {
+    case 0:
+        $int3 = 0;
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+        $int3 = 2;
+    default:
+}
+if (if_gethide = 0) {
+    ~script_3161(0);
+} else {
+    if (if_gethide = 0) {
+        ~script_4556(0);
+    }
+}
+if_setonkey;
+if_setonop;
+def_int $int4 = 0;
+if ($int1 ! -1) {
+    if ($int1 ! 6) {
+        %varc_int1097 = string_length(%varc_str277);
+        if_setonclick;
+        if_sethide(59375757);
+        if_setsize(136, 0, 0, 59375752);
+        if_setonclick;
+        if_setonmouseover;
+        if_setonmouseleave;
+        if_sethide(59375758);
+    }
+} else {
+    %varc_int1097 = 0;
+    if_sethide(59375757);
+    if (string_length($str3) > 0) {
+        if (string_length(%varc_str277) > 0) {
+            $int4 = max(if_getwidth, multiply(paraheight(%varc_str277, 494), 13));
+            if_setsize($int4, 0, 0, 59375755);
+            if_setsize(add($int4, 95), 0, 0, 59375752);
+            if_setposition(calc(if_gety + $int4 + 5), 0, 0, 59375758);
+            if_setsize(13, 0, 0, 59375758);
+            if_settext("<u=2c6ff8>" + $str3 + "</u>");
+            if_setcolour(59375758);
+            if_setonmouseover;
+            if_setonmouseleave;
+            if_sethide(59375758);
+        }
+    }
+}
+return;

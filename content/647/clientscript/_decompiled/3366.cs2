@@ -1,0 +1,10 @@
+[clientscript,script_3366](int $int0)(int)
+def_int $int1 = if_gety;
+if_getlayer;
+def_int $int2 = $int0;
+if ($int2 ! -1) {
+    $int1 = sub($int2, if_getscrolly);
+    if_getlayer;
+    $int2 = $int2;
+}
+return($int1);

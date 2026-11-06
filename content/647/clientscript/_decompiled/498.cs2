@@ -1,0 +1,308 @@
+[clientscript,script_498](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = -1;
+if ($int0 = %varc_int1372) {
+    if ($int1 = %varc_int1373) {
+        if ($int2 = %varc_int1374) {
+            if ($int3 = %varc_int1375) {
+                if ($int4 = %varc_int1376) {
+                    if ($int5 = %varc_int1377) {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+} else {
+    if_setonvarctransmit;
+}
+if (%varc_int1367 ! -1) {
+    $int6 = calc(%varc_int1372 + %varc_int1373 + %varc_int1374 + %varc_int1375 + %varc_int1376 + %varc_int1377);
+    if ($int6 = 0) {
+        if_sethide(66322446);
+        if_sethide(66322461);
+    } else {
+        if_sethide(66322446);
+        if_sethide(66322461);
+    }
+    if ($int6 = 1) {
+        if_sethide(66322447);
+        if_setposition(if_gety, 0, 0, 66322447);
+        if (%varc_int1372 = 1) {
+            $int13 = 293;
+        } else {
+            if (%varc_int1373 = 1) {
+                $int13 = 299;
+            }
+            if (%varc_int1374 = 1) {
+                $int13 = 305;
+            }
+            if (%varc_int1375 = 1) {
+                $int13 = 1044;
+            }
+            if (%varc_int1376 = 1) {
+                $int13 = 1045;
+            }
+            $int13 = 1046;
+        }
+        if_setgraphic(66322447);
+        if_setonmouserepeat;
+        if_sethide(66322448);
+        if_sethide(66322449);
+        if_sethide(66322450);
+        if_sethide(66322451);
+    }
+    if ($int6 = 2) {
+        if_sethide(66322447);
+        if_setposition(if_gety, 0, 0, 66322447);
+        if (%varc_int1372 = 1) {
+            $int13 = 293;
+        } else {
+            if (%varc_int1373 = 1) {
+                $int13 = 299;
+                $int8 = 1;
+            }
+            if (%varc_int1374 = 1) {
+                $int13 = 305;
+                $int9 = 1;
+            }
+            if (%varc_int1375 = 1) {
+                $int13 = 1044;
+                $int10 = 1;
+            }
+            $int13 = 1045;
+            $int11 = 1;
+        }
+        if_setgraphic(66322447);
+        if_setonmouserepeat;
+        if_sethide(66322448);
+        if_setposition(if_gety, 0, 0, 66322448);
+        if (%varc_int1373 = 1) {
+            if ($int8 = 0) {
+                $int13 = 299;
+            }
+        } else {
+            if (%varc_int1374 = 1) {
+                if ($int9 = 0) {
+                    $int13 = 305;
+                }
+            }
+            if (%varc_int1375 = 1) {
+                if ($int10 = 0) {
+                    $int13 = 1044;
+                }
+            }
+            if (%varc_int1376 = 1) {
+                if ($int11 = 0) {
+                    $int13 = 1045;
+                }
+            }
+            $int13 = 1046;
+        }
+        if_setgraphic(66322448);
+        if_setonmouserepeat;
+        if_sethide(66322449);
+        if_sethide(66322450);
+        if_sethide(66322451);
+    }
+    if ($int6 = 3) {
+        if_sethide(66322447);
+        if_setposition(if_gety, 0, 0, 66322447);
+        if (%varc_int1372 = 1) {
+            $int13 = 293;
+        } else {
+            if (%varc_int1373 = 1) {
+                $int13 = 299;
+                $int8 = 1;
+            }
+            if (%varc_int1374 = 1) {
+                $int13 = 305;
+                $int9 = 1;
+            }
+            $int13 = 1044;
+            $int10 = 1;
+        }
+        if_setgraphic(66322447);
+        if_setonmouserepeat;
+        if_sethide(66322448);
+        if_setposition(if_gety, 0, 0, 66322448);
+        if (%varc_int1373 = 1) {
+            if ($int8 = 0) {
+                $int13 = 299;
+            }
+        } else {
+            if (%varc_int1374 = 1) {
+                if ($int9 = 0) {
+                    $int13 = 305;
+                    $int9 = 1;
+                }
+            }
+            if (%varc_int1375 = 1) {
+                if ($int10 = 0) {
+                    $int13 = 1044;
+                    $int10 = 1;
+                }
+            }
+            $int13 = 1045;
+            $int11 = 1;
+        }
+        if_setgraphic(66322448);
+        if_setonmouserepeat;
+        if_sethide(66322449);
+        if_setposition(if_gety, 0, 0, 66322449);
+        if (%varc_int1374 = 1) {
+            if ($int9 = 0) {
+                $int13 = 305;
+            }
+        } else {
+            if (%varc_int1375 = 1) {
+                if ($int10 = 0) {
+                    $int13 = 1044;
+                }
+            }
+            if (%varc_int1376 = 1) {
+                if ($int11 = 0) {
+                    $int13 = 1045;
+                }
+            }
+            $int13 = 1046;
+        }
+        if_setgraphic(66322449);
+        if_setonmouserepeat;
+        if_sethide(66322450);
+        if_sethide(66322451);
+    }
+    if ($int6 = 4) {
+        if_sethide(66322447);
+        if_setposition(if_gety, 0, 0, 66322447);
+        if (%varc_int1372 = 1) {
+            $int13 = 293;
+        } else {
+            if (%varc_int1373 = 1) {
+                $int13 = 299;
+                $int8 = 1;
+            }
+            $int13 = 305;
+            $int9 = 1;
+        }
+        if_setgraphic(66322447);
+        if_setonmouserepeat;
+        if_sethide(66322448);
+        if_setposition(if_gety, 0, 0, 66322448);
+        if (%varc_int1373 = 1) {
+            if ($int8 = 0) {
+                $int13 = 299;
+            }
+        } else {
+            if (%varc_int1374 = 1) {
+                if ($int9 = 0) {
+                    $int13 = 305;
+                    $int9 = 1;
+                }
+            }
+            $int13 = 1044;
+            $int10 = 1;
+        }
+        if_setgraphic(66322448);
+        if_setonmouserepeat;
+        if_sethide(66322449);
+        if_setposition(if_gety, 0, 0, 66322449);
+        if (%varc_int1374 = 1) {
+            if ($int9 = 0) {
+                $int13 = 305;
+            }
+        } else {
+            if (%varc_int1375 = 1) {
+                if ($int10 = 0) {
+                    $int13 = 1044;
+                    $int10 = 1;
+                }
+            }
+            $int13 = 1045;
+            $int11 = 1;
+        }
+        if_setgraphic(66322449);
+        if_setonmouserepeat;
+        if_sethide(66322450);
+        if_setposition(if_gety, 0, 0, 66322450);
+        if (%varc_int1375 = 1) {
+            if ($int10 = 0) {
+                $int13 = 1044;
+            }
+        } else {
+            if (%varc_int1376 = 1) {
+                if ($int11 = 0) {
+                    $int13 = 1045;
+                }
+            }
+            $int13 = 1046;
+        }
+        if_setgraphic(66322450);
+        if_setonmouserepeat;
+        if_sethide(66322451);
+    }
+    if_sethide(66322447);
+    if_setposition(if_gety, 0, 0, 66322447);
+    if (%varc_int1372 = 1) {
+        $int13 = 293;
+    } else {
+        $int13 = 299;
+        $int8 = 1;
+    }
+    if_setgraphic(66322447);
+    if_setonmouserepeat;
+    if_sethide(66322448);
+    if_setposition(if_gety, 0, 0, 66322448);
+    if (%varc_int1373 = 1) {
+        if ($int8 = 0) {
+            $int13 = 299;
+        }
+    } else {
+        $int13 = 305;
+        $int9 = 1;
+    }
+    if_setgraphic(66322448);
+    if_setonmouserepeat;
+    if_sethide(66322449);
+    if_setposition(if_gety, 0, 0, 66322449);
+    if (%varc_int1374 = 1) {
+        if ($int9 = 0) {
+            $int13 = 305;
+        }
+    } else {
+        $int13 = 1044;
+        $int10 = 1;
+    }
+    if_setgraphic(66322449);
+    if_setonmouserepeat;
+    if_sethide(66322450);
+    if_setposition(if_gety, 0, 0, 66322450);
+    if (%varc_int1375 = 1) {
+        if ($int10 = 0) {
+            $int13 = 1044;
+        }
+    } else {
+        $int13 = 1045;
+        $int11 = 1;
+    }
+    if_setgraphic(66322450);
+    if_setonmouserepeat;
+    if_sethide(66322451);
+    if_setposition(if_gety, 0, 0, 66322451);
+    if (%varc_int1376 = 1) {
+        if ($int11 = 0) {
+            $int13 = 1045;
+        }
+    } else {
+        $int13 = 1046;
+    }
+    if_setgraphic(66322451);
+    if_setonmouserepeat;
+}
+return;

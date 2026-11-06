@@ -1,0 +1,30 @@
+[clientscript,script_2378](int $int0)(int)
+def_int $int1 = -1;
+switch (%varbit6099) {
+    case 0:
+        $int1 = 58982423;
+    case 1:
+        $int1 = 58982424;
+    case 2:
+        $int1 = 58982425;
+    case 3:
+        $int1 = 58982426;
+    case 4:
+        $int1 = 58982427;
+    case 5:
+        $int1 = 58982428;
+    case 6:
+        $int1 = 58982429;
+    case 7:
+        $int1 = 58982422;
+    case 8:
+        $int1 = 58982421;
+    case 9:
+        $int1 = 58982420;
+    case 10:
+        $int1 = 58982430;
+    case 11:
+        $int1 = 58982431;
+    default:
+}
+return(~script_2380($int1, $int0));

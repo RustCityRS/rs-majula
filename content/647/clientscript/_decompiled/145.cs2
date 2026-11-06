@@ -1,0 +1,6 @@
+[clientscript,script_145](int $int0, int $int1)
+if (clientclock >= $int1) {
+    if_setontimer;
+    if_sethide($int0);
+}
+return;

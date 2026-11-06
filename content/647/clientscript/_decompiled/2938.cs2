@@ -1,0 +1,19 @@
+[clientscript,script_2938]
+if (%varc_int1199 = 1) {
+    if_settext(%varc_str311);
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+} else {
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+    if_settext("");
+}
+return;

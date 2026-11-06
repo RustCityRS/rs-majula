@@ -1,0 +1,41 @@
+; id: 2174
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_constant_int 141
+    3: pop_int_local 1
+    4: push_constant_int 964
+    5: enum_getoutputcount 0
+    6: pop_int_local 2
+    7: push_int_local 0
+    8: push_int_local 2
+    9: branch_less_than 1
+   10: branch 21
+   11: push_int_local 0
+   12: gosub_with_params 2189
+   13: branch_if_true 1
+   14: branch 3
+   15: push_constant_int 255
+   16: pop_int_local 1
+   17: branch 2
+   18: push_constant_int 141
+   19: pop_int_local 1
+   20: push_int_local 1
+   21: push_constant_int 105
+   22: push_constant_int 73
+   23: push_constant_int 964
+   24: push_int_local 0
+   25: enum 0
+   26: op2103 0
+   27: push_int_local 0
+   28: push_constant_int 1
+   29: add 0
+   30: pop_int_local 0
+   31: branch -25
+   32: return 0

@@ -1,0 +1,11 @@
+[clientscript,script_555](int, component, int, component, int, component)
+def_int $int0 = calc(15 - %varbit4109 * 6);
+if_setposition($int0, 0, 0, 40894479);
+if_settext(tostring(%varbit4109));
+$int0 = calc(15 - %varbit4110 * 6);
+if_setposition($int0, 0, 0, 40894481);
+if_settext(tostring(%varbit4110));
+$int0 = calc(15 - %varbit4111 * 6);
+if_setposition($int0, 0, 0, 40894483);
+if_settext(tostring(%varbit4111));
+return(0, 40894534, 0, 40894535, 0, 40894536);

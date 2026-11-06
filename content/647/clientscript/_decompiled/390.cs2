@@ -1,0 +1,88 @@
+[clientscript,script_390](int $int0)(component, int, int, int)
+def_int $int1 = enum_getoutputcount(enum_3281);
+def_int $int2 = -1;
+def_int $int3 = sub($int1, 1);
+if ($int3 >= 0) {
+    $int2 = enum(105, 73, enum_3281, $int3);
+    if ($int2 ! -1) {
+        if_sethide($int2);
+    }
+    $int3 = sub($int3, 1);
+}
+cc_deleteall(67371090);
+def_int $int4 = enum(105, 74, enum_3278, sub(%varc_int197, 1));
+cc_deleteall(67371079);
+def_string $str0 = "Please choose your character." + "<br>" + "<br>" + "Your choice will not affect your abilities." + "<br>" + "You can modify features like your hair style and clothing once you have chosen your character.";
+if ($int4 = -1) {
+    $int1 = sub(if_getwidth, 16);
+    $int3 = calc(paraheight($str0, 495) * 20 + 3);
+    $int1 = $int1;
+    if_setsize(add($int3, 50), 0, 0, 67371079);
+    cc_setposition(add($int1, 16), 67371079, 4, if_getchildcount(67371079));
+    cc_setsize($int1, $int3, 0, 0);
+    cc_setposition2(0, 22, 1, 0);
+    cc_settextfont(3793);
+    cc_setcolour(0);
+    cc_settextshadow(0);
+    cc_settextalign(1, 1, 20);
+    cc_settext($str0);
+    if_sethide(67371079);
+    return(67371090, $int1, parawidth($str0, 495), 0);
+}
+if_sethide(67371079);
+def_int $int5 = 0;
+$int3 = 0;
+def_int $int6 = ~script_384(0, $int4, $int0);
+def_int $int7 = sub(%varc_int86, 1);
+$int2 = enum(105, 73, enum_3281, 0);
+if ($int6 ! -1) {
+    if ($int2 ! -1) {
+        if_setsize(17, 0, 1, $int2);
+        if ($int3 = $int7) {
+            $int5 = 1;
+        } else {
+            $int5 = 0;
+        }
+        if_setop($int2, "Select outfit");
+        if_setonop;
+        $int3 = add($int3, 1);
+        $int6 = ~script_384($int3, $int4, $int0);
+        $int2 = enum(105, 73, enum_3281, $int3);
+    }
+}
+def_int $int8 = $int3;
+if ($int8 <= 1) {
+    if (cc_find(67371045, sub(if_getchildcount(67371045), 1)) = 1) {
+        cc_sethide(0);
+    }
+    if (cc_find(67371045, sub(if_getchildcount(67371045), 2)) = 1) {
+        cc_sethide(1);
+    }
+    if ($int8 <= 0) {
+        return;
+    }
+} else {
+    if (cc_find(67371045, sub(if_getchildcount(67371045), 1)) = 1) {
+        cc_sethide(1);
+    }
+    if (cc_find(67371045, sub(if_getchildcount(67371045), 2)) = 1) {
+        cc_sethide(0);
+    }
+}
+def_int $int9 = min(calc(390 - 98 / max(sub($int8, 1), 1)), scale(33, 40, 89));
+$int3 = 0;
+if ($int3 < $int8) {
+    $int2 = enum(105, 73, enum_3281, $int3);
+    if ($int3 = $int7) {
+        if_setposition(0, 0, 0, $int2);
+    } else {
+        if_setposition(0, 0, 2, $int2);
+    }
+    if ($int3 <= $int7) {
+        if_setzorder_front($int2);
+    } else {
+        if_setzorder_back($int2);
+    }
+    $int3 = add($int3, 1);
+}
+return;

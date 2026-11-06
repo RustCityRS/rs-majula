@@ -1,0 +1,18 @@
+[clientscript,script_352](int $int0, int $int1)(int, int, int, int)
+if ($int1 = %varc_int86) {
+    return;
+}
+sound_synth(synth_9819, 1, 0);
+def_int $int2 = enum(105, 74, enum_3278, sub(%varc_int197, 1));
+if ($int2 = -1) {
+    return;
+}
+def_int $int3 = ~script_734(player_isfemale);
+def_int $int4 = ~script_384(sub($int1, 1), $int2, $int3);
+if ($int4 = -1) {
+    return;
+}
+%varc_int86 = $int1;
+%varbit8090 = $int1;
+~script_359($int4, $int3);
+return(~script_390($int3), ~script_390($int3), ~script_390($int3), ~script_390($int3));

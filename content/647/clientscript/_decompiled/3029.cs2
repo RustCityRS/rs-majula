@@ -1,0 +1,133 @@
+[clientscript,script_3029](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int, int, int, string)
+if (hud_test($int3, -1) = 1) {
+    if_setontimer;
+    return(3028, $int0, $int1, $int2, $int3, $int4, $int5, $int4, "IIIIII");
+} else {
+    if_setontimer;
+}
+cc_deleteall($int0);
+cc_deleteall($int1);
+cc_deleteall($int2);
+cc_deleteall($int3);
+def_int $int6 = friend_count;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 15;
+def_int $int12 = 0;
+def_int $int13 = 5;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_string $str3 = "";
+if ($int6 = -2) {
+    if_settext("Name");
+    ~script_3038($int3, "Loading Friends List." + "<br>" + "<br>" + "Please wait.");
+    if_setsize(if_getheight, 0, 0, 59572255);
+} else {
+    if ($int6 = -1) {
+        if_settext("Name");
+        ~script_3038($int3, "Connecting to server." + "<br>" + "<br>" + "Please wait.");
+        if_setsize(if_getheight, 0, 0, 59572255);
+    }
+    if ($int6 > 0) {
+        if_settext("Name (" + tostring($int6) + "/200)");
+        if_setsize(4, 0, 1, 59572255);
+        if ($int7 < $int6) {
+            $str1 = friend_getname($int7);
+            $str0 = "";
+            $int9 = friend_getworld($int7);
+            ~script_2996($int7, $int3, if_getwidth, $int11, 0, $int8, 0, 1, 0);
+            if (mod($int7, 2) = 0) {
+                cc_setcolour(2103569);
+            } else {
+                cc_setcolour(2695190);
+            }
+            cc_setonmouseover;
+            cc_setonmouseleave;
+            if (string_length($str1) > 0) {
+                $int16 = add(char_isnumeric(494), 8);
+                if (59572243 > if_getwidth) {
+                    $str3 = "Last known as:" + "<br>" + $str1;
+                } else {
+                    $str3 = "Last known as: " + $str1;
+                }
+                cc_setonmouserepeat;
+            }
+            cc_setopbase($str0);
+            if ($int9 > 0) {
+                cc_setop(1, "Message");
+                cc_setop(2, "Join");
+            } else {
+                cc_setop(3, "Message");
+                cc_setop(4, "Join");
+            }
+            cc_setop(10, "Delete");
+            cc_setonop;
+            if (compare($str1, "") ! 0) {
+                cc_setgraphic(2313);
+                $int13 = 20;
+            } else {
+                cc_setgraphic(-1);
+                $int13 = 5;
+            }
+            $str2 = $str0;
+            ~script_2995($int0, $int7, 0, $int11, $int13, $int8, 16777215, 494, 0, 1, 0, 1, $str2);
+            cc_setsize($int13, $int11, 1, 0);
+            cc_setmaxlines(1);
+            if ($int9 = 0) {
+                $str2 = "Offline";
+                $int14 = 16711680;
+            } else {
+                $str2 = friend_getprevname($int7);
+                if ($int9 = active_toplevelinterface) {
+                    $int14 = 65280;
+                }
+                $int14 = 16776960;
+            }
+            ~script_2995($int2, $int7, 0, $int11, 5, $int8, $int14, 494, 0, 1, 0, 1, $str2);
+            cc_setsize(5, $int11, 1, 0);
+            cc_setmaxlines(1);
+            $int8 = add($int8, $int11);
+            $int7 = add($int7, 1);
+        }
+        $int10 = calc(if_getheight / $int11 + 1);
+        if ($int10 > $int6) {
+            if ($int7 < $int10) {
+                ~script_2996($int7, $int3, if_getwidth, $int11, 0, $int8, 0, 1, 0);
+                if (mod($int7, 2) = 0) {
+                    cc_setcolour(2103569);
+                } else {
+                    cc_setcolour(2695190);
+                }
+                $int8 = add($int8, $int11);
+                $int7 = add($int7, 1);
+            }
+            $int12 = if_getheight;
+        } else {
+            $int12 = $int8;
+        }
+        if ($int10 <= $int6) {
+            $int15 = if_getscrolly;
+            if_setscrollsize(0, $int12, 59572265);
+            if ($int15 > $int12) {
+                $int15 = $int12;
+            }
+            ~script_72(59572271, 59572265, $int15);
+        } else {
+            if_setscrollsize(0, 0, 59572265);
+            if_setscrollpos(0, 59572265);
+            ~script_72(59572271, 59572265, 0);
+        }
+    }
+    if ($int6 = 0) {
+        if_settext("Name");
+        ~script_3038($int3, "You have not added any friends to your list.");
+        if_setsize(if_getheight, 0, 0, 59572255);
+    }
+}
+return;

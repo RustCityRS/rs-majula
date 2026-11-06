@@ -1,0 +1,14 @@
+[clientscript,script_3275](int)
+if (%varc_int1196 = 1) {
+    switch (%varc_int1188) {
+        case 3:
+            return(9500);
+        case 2:
+            return(9500);
+        default:
+            return(9500);
+    }
+} else {
+    return(10000);
+}
+return(0);

@@ -1,0 +1,14 @@
+[clientscript,script_2319]
+if (%varbit8348 = 1) {
+    if_sethide(49938432);
+    if_sethide(50003968);
+    if_sethide(43712512);
+    if_sethide(50003969);
+} else {
+    if_sethide(49938432);
+    if_sethide(50003968);
+    if_sethide(43712512);
+    if_sethide(50003969);
+}
+~script_722;
+return;

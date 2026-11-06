@@ -1,0 +1,14 @@
+[clientscript,script_1927](int $int0)
+def_int $int1 = 1;
+if ($int1 <= 6) {
+    if ($int1 = enum(73, 105, enum_2027, $int0)) {
+        if_sethide(enum(105, 73, enum_2031, $int1));
+        if_setcolour(enum(105, 73, enum_2030, $int1));
+        if_setcolour(enum(105, 73, enum_2029, $int1));
+    }
+    if_sethide(enum(105, 73, enum_2031, $int1));
+    if_setcolour(enum(105, 73, enum_2030, $int1));
+    if_setcolour(enum(105, 73, enum_2029, $int1));
+    $int1 = add($int1, 1);
+}
+return;

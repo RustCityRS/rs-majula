@@ -1,0 +1,74 @@
+; id: 1009
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 44
+    3: push_constant_string "Bows"
+    4: push_constant_int 0
+    5: return 0
+    6: branch 43
+    7: push_constant_string "Thrown"
+    8: push_constant_int 1
+    9: return 0
+   10: branch 39
+   11: push_constant_string "Armour"
+   12: push_constant_int 0
+   13: return 0
+   14: branch 35
+   15: push_constant_string "Crossbows"
+   16: push_constant_int 0
+   17: return 0
+   18: branch 31
+   19: push_constant_string "Shortcuts"
+   20: push_constant_int 1
+   21: return 0
+   22: branch 27
+   23: push_constant_string "Salamanders"
+   24: push_constant_int 1
+   25: return 0
+   26: branch 23
+   27: push_constant_string "Areas"
+   28: push_constant_int 1
+   29: return 0
+   30: branch 19
+   31: push_constant_string "Other"
+   32: push_constant_int 0
+   33: return 0
+   34: branch 15
+   35: push_constant_string "Activities"
+   36: push_constant_int 1
+   37: return 0
+   38: branch 11
+   39: push_constant_string "Dungeoneering"
+   40: push_constant_int 0
+   41: return 0
+   42: branch 7
+   43: push_constant_string "Milestones"
+   44: push_constant_int 0
+   45: return 0
+   46: branch 3
+   47: push_constant_string ""
+   48: push_constant_int -1
+   49: return 0
+   50: push_constant_string ""
+   51: push_constant_int 0
+   52: return 0
+
+switch_0:
+  0 => 1
+  1 => 5
+  2 => 9
+  3 => 13
+  4 => 17
+  5 => 21
+  6 => 25
+  7 => 29
+  8 => 33
+  9 => 37
+  10 => 41

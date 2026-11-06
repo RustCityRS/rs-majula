@@ -1,0 +1,14 @@
+[clientscript,script_935](int $int0)(int)
+switch (oc_weight(picture_762)) {
+    case 1:
+        if (%varp322 < 10) {
+            return(0);
+        }
+    case 2:
+        if (%varbit4310 < 10) {
+            return(0);
+        }
+    default:
+        return(1);
+}
+return(-1);

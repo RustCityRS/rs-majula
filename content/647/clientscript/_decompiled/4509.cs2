@@ -1,0 +1,8 @@
+[clientscript,script_4509](int $int0)(int, int, int, int, int, int, int, int, int, int, int, string, string, string)
+def_int $int1 = 535;
+def_int $int2 = 536;
+if_setgraphic($int0);
+if_setonmouseover;
+if_setonmouseleave;
+if_setonop;
+return($int1, 44, -2147483645, $int2, $int0, 44, -2147483645, $int1, $int0, 29, $int0, "Id", "Id", "");

@@ -1,0 +1,16 @@
+[clientscript,script_4172](int $int0)
+def_int $int1 = inv_getobj(worn, $int0);
+if ($int1 ! -1) {
+    cc_setsize(36, 32, 0, 0);
+    cc_setobject($int1, inv_getnum(worn, $int0));
+    cc_setgraphicshadow;
+    cc_setoutline;
+    cc_setposition2(2, 0, 1, 1);
+} else {
+    cc_setsize(32, 32, 0, 0);
+    cc_setgraphic(enum(105, 100, enum_796, $int0));
+    cc_setgraphicshadow;
+    cc_setoutline;
+    cc_setposition2(0, 0, 1, 1);
+}
+return;

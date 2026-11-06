@@ -1,0 +1,1949 @@
+; id: 980
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 1768
+    3: push_int_local 1
+    4: switch 1
+    5: branch 202
+    6: push_constant_int 1
+    7: push_constant_int 882
+    8: push_constant_string "Bronze arrow"
+    9: push_constant_string "You can now fletch "
+   10: push_constant_string "<col=000080>"
+   11: push_constant_string "bronze arrows"
+   12: push_constant_string "</col>"
+   13: push_constant_string "."
+   14: join_string 5
+   15: return 0
+   16: branch 191
+   17: push_constant_int 5
+   18: push_constant_int 2866
+   19: push_constant_string "Ogre arrow"
+   20: push_constant_string "<br>"
+   21: push_constant_string " (after starting Big Chompy Bird Hunting)"
+   22: join_string 3
+   23: push_constant_string "You now have the Fletching level required to fletch "
+   24: push_constant_string "<col=000080>"
+   25: push_constant_string "ogre arrows"
+   26: push_constant_string "</col>"
+   27: push_constant_string " (after starting Big Chompy Bird Hunting)."
+   28: join_string 5
+   29: return 0
+   30: branch 177
+   31: push_constant_int 7
+   32: push_constant_int 4773
+   33: push_constant_string "Bronze 'brutal' arrow"
+   34: push_constant_string "<br>"
+   35: push_constant_string " (after starting Zogre Flesh Eaters)"
+   36: join_string 3
+   37: push_constant_string "You now have the Fletching level required to fletch "
+   38: push_constant_string "<col=000080>"
+   39: push_constant_string "bronze 'brutal' arrows"
+   40: push_constant_string "</col>"
+   41: push_constant_string " (after starting Zogre Flesh Eaters)."
+   42: join_string 5
+   43: return 0
+   44: branch 163
+   45: push_constant_int 15
+   46: push_constant_int 884
+   47: push_constant_string "Iron arrow"
+   48: push_constant_string "You can now fletch "
+   49: push_constant_string "<col=000080>"
+   50: push_constant_string "iron arrows"
+   51: push_constant_string "</col>"
+   52: push_constant_string "."
+   53: join_string 5
+   54: return 0
+   55: branch 152
+   56: push_constant_int 18
+   57: push_constant_int 4778
+   58: push_constant_string "Iron 'brutal' arrow"
+   59: push_constant_string "<br>"
+   60: push_constant_string " (after starting Zogre Flesh Eaters)"
+   61: join_string 3
+   62: push_constant_string "You now have the Fletching level required to fletch "
+   63: push_constant_string "<col=000080>"
+   64: push_constant_string "iron 'brutal' arrows"
+   65: push_constant_string "</col>"
+   66: push_constant_string " (after starting Zogre Flesh Eaters)."
+   67: join_string 5
+   68: return 0
+   69: branch 138
+   70: push_constant_int 30
+   71: push_constant_int 886
+   72: push_constant_string "Steel arrow"
+   73: push_constant_string "You can now fletch "
+   74: push_constant_string "<col=000080>"
+   75: push_constant_string "steel arrows"
+   76: push_constant_string "</col>"
+   77: push_constant_string "."
+   78: join_string 5
+   79: return 0
+   80: branch 127
+   81: push_constant_int 33
+   82: push_constant_int 4783
+   83: push_constant_string "Steel 'brutal' arrow"
+   84: push_constant_string "<br>"
+   85: push_constant_string " (after starting Zogre Flesh Eaters)"
+   86: join_string 3
+   87: push_constant_string "You now have the Fletching level required to fletch "
+   88: push_constant_string "<col=000080>"
+   89: push_constant_string "steel 'brutal' arrows"
+   90: push_constant_string "</col>"
+   91: push_constant_string " (after starting Zogre Flesh Eaters)."
+   92: join_string 5
+   93: return 0
+   94: branch 113
+   95: push_constant_int 38
+   96: push_constant_int 4788
+   97: push_constant_string "Black 'brutal' arrow"
+   98: push_constant_string "<br>"
+   99: push_constant_string " (after starting Zogre Flesh Eaters)"
+  100: join_string 3
+  101: push_constant_string "You now have the Fletching level required to fletch "
+  102: push_constant_string "<col=000080>"
+  103: push_constant_string "black 'brutal' arrows"
+  104: push_constant_string "</col>"
+  105: push_constant_string " (after starting Zogre Flesh Eaters)."
+  106: join_string 5
+  107: return 0
+  108: branch 99
+  109: push_constant_int 45
+  110: push_constant_int 888
+  111: push_constant_string "Mithril arrow"
+  112: push_constant_string "You can now fletch "
+  113: push_constant_string "<col=000080>"
+  114: push_constant_string "mithril arrows"
+  115: push_constant_string "</col>"
+  116: push_constant_string "."
+  117: join_string 5
+  118: return 0
+  119: branch 88
+  120: push_constant_int 49
+  121: push_constant_int 4793
+  122: push_constant_string "Mithril 'brutal' arrow"
+  123: push_constant_string "<br>"
+  124: push_constant_string " (after starting Zogre Flesh Eaters)"
+  125: join_string 3
+  126: push_constant_string "You now have the Fletching level required to fletch "
+  127: push_constant_string "<col=000080>"
+  128: push_constant_string "mithril 'brutal' arrows"
+  129: push_constant_string "</col>"
+  130: push_constant_string " (after starting Zogre Flesh Eaters)."
+  131: join_string 5
+  132: return 0
+  133: branch 74
+  134: push_constant_int 52
+  135: push_constant_int 13278
+  136: push_constant_string "Broad leaf arrows"
+  137: push_constant_string "<br>"
+  138: push_constant_string " (after Smoking Kills)"
+  139: join_string 3
+  140: push_constant_string "You can now fletch "
+  141: push_constant_string "<col=000080>"
+  142: push_constant_string "broad leaf arrows"
+  143: push_constant_string "</col>"
+  144: push_constant_string " (after Smoking Kills)."
+  145: join_string 5
+  146: return 0
+  147: branch 60
+  148: push_constant_int 60
+  149: push_constant_int 890
+  150: push_constant_string "Adamant arrow"
+  151: push_constant_string "You can now fletch "
+  152: push_constant_string "<col=000080>"
+  153: push_constant_string "adamant arrows"
+  154: push_constant_string "</col>"
+  155: push_constant_string "."
+  156: join_string 5
+  157: return 0
+  158: branch 49
+  159: push_constant_int 62
+  160: push_constant_int 4798
+  161: push_constant_string "Adamant 'brutal' arrow"
+  162: push_constant_string "<br>"
+  163: push_constant_string " (after starting Zogre Flesh Eaters)"
+  164: join_string 3
+  165: push_constant_string "You now have the Fletching level required to fletch "
+  166: push_constant_string "<col=000080>"
+  167: push_constant_string "adamant 'brutal' arrows"
+  168: push_constant_string "</col>"
+  169: push_constant_string " (after starting Zogre Flesh Eaters)."
+  170: join_string 5
+  171: return 0
+  172: branch 35
+  173: push_constant_int 75
+  174: push_constant_int 892
+  175: push_constant_string "Rune arrow"
+  176: push_constant_string "You can now fletch "
+  177: push_constant_string "<col=000080>"
+  178: push_constant_string "rune arrows"
+  179: push_constant_string "</col>"
+  180: push_constant_string "."
+  181: join_string 5
+  182: return 0
+  183: branch 24
+  184: push_constant_int 77
+  185: push_constant_int 4803
+  186: push_constant_string "Rune 'brutal' arrow"
+  187: push_constant_string "<br>"
+  188: push_constant_string " (after starting Zogre Flesh Eaters)"
+  189: join_string 3
+  190: push_constant_string "You now have the Fletching level required to fletch "
+  191: push_constant_string "<col=000080>"
+  192: push_constant_string "rune 'brutal' arrows"
+  193: push_constant_string "</col>"
+  194: push_constant_string " (after starting Zogre Flesh Eaters)."
+  195: join_string 5
+  196: return 0
+  197: branch 10
+  198: push_constant_int 90
+  199: push_constant_int 11212
+  200: push_constant_string "Dragon arrow"
+  201: push_constant_string "You can now fletch "
+  202: push_constant_string "<col=000080>"
+  203: push_constant_string "dragon arrows"
+  204: push_constant_string "</col>"
+  205: push_constant_string "."
+  206: join_string 5
+  207: return 0
+  208: branch 1562
+  209: push_int_local 1
+  210: switch 2
+  211: branch 145
+  212: push_constant_int 5
+  213: push_constant_int 841
+  214: push_constant_string "Shortbow"
+  215: push_constant_string "You can now fletch "
+  216: push_constant_string "<col=000080>"
+  217: push_constant_string "shortbows"
+  218: push_constant_string "</col>"
+  219: push_constant_string "."
+  220: join_string 5
+  221: return 0
+  222: branch 134
+  223: push_constant_int 10
+  224: push_constant_int 839
+  225: push_constant_string "Longbow"
+  226: push_constant_string "You can now fletch "
+  227: push_constant_string "<col=000080>"
+  228: push_constant_string "longbows"
+  229: push_constant_string "</col>"
+  230: push_constant_string "."
+  231: join_string 5
+  232: return 0
+  233: branch 123
+  234: push_constant_int 20
+  235: push_constant_int 843
+  236: push_constant_string "Oak shortbow"
+  237: push_constant_string "You can now fletch "
+  238: push_constant_string "<col=000080>"
+  239: push_constant_string "oak shortbows"
+  240: push_constant_string "</col>"
+  241: push_constant_string "."
+  242: join_string 5
+  243: return 0
+  244: branch 112
+  245: push_constant_int 25
+  246: push_constant_int 845
+  247: push_constant_string "Oak longbow"
+  248: push_constant_string "You can now fletch "
+  249: push_constant_string "<col=000080>"
+  250: push_constant_string "oak longbows"
+  251: push_constant_string "</col>"
+  252: push_constant_string "."
+  253: join_string 5
+  254: return 0
+  255: branch 101
+  256: push_constant_int 30
+  257: push_constant_int 4827
+  258: push_constant_string "Ogre composite bow"
+  259: push_constant_string "<br>"
+  260: push_constant_string " (after starting Zogre Flesh Eaters)"
+  261: join_string 3
+  262: push_constant_string "You now have the Fletching level required to fletch "
+  263: push_constant_string "<col=000080>"
+  264: push_constant_string "ogre composite bows"
+  265: push_constant_string "</col>"
+  266: push_constant_string " (after starting Zogre Flesh Eaters)."
+  267: join_string 5
+  268: return 0
+  269: branch 87
+  270: push_constant_int 35
+  271: push_constant_int 849
+  272: push_constant_string "Willow shortbow"
+  273: push_constant_string "You can now fletch "
+  274: push_constant_string "<col=000080>"
+  275: push_constant_string "willow shortbows"
+  276: push_constant_string "</col>"
+  277: push_constant_string "."
+  278: join_string 5
+  279: return 0
+  280: branch 76
+  281: push_constant_int 40
+  282: push_constant_int 847
+  283: push_constant_string "Willow longbow"
+  284: push_constant_string "You can now fletch "
+  285: push_constant_string "<col=000080>"
+  286: push_constant_string "willow longbows"
+  287: push_constant_string "</col>"
+  288: push_constant_string "."
+  289: join_string 5
+  290: return 0
+  291: branch 65
+  292: push_constant_int 50
+  293: push_constant_int 853
+  294: push_constant_string "Maple shortbow"
+  295: push_constant_string "You can now fletch "
+  296: push_constant_string "<col=000080>"
+  297: push_constant_string "maple shortbows"
+  298: push_constant_string "</col>"
+  299: push_constant_string "."
+  300: join_string 5
+  301: return 0
+  302: branch 54
+  303: push_constant_int 55
+  304: push_constant_int 851
+  305: push_constant_string "Maple longbow"
+  306: push_constant_string "You can now fletch "
+  307: push_constant_string "<col=000080>"
+  308: push_constant_string "maple longbows"
+  309: push_constant_string "</col>"
+  310: push_constant_string "."
+  311: join_string 5
+  312: return 0
+  313: branch 43
+  314: push_constant_int 65
+  315: push_constant_int 857
+  316: push_constant_string "Yew shortbow"
+  317: push_constant_string "You can now fletch "
+  318: push_constant_string "<col=000080>"
+  319: push_constant_string "yew shortbows"
+  320: push_constant_string "</col>"
+  321: push_constant_string "."
+  322: join_string 5
+  323: return 0
+  324: branch 32
+  325: push_constant_int 70
+  326: push_constant_int 855
+  327: push_constant_string "Yew longbow"
+  328: push_constant_string "You can now fletch "
+  329: push_constant_string "<col=000080>"
+  330: push_constant_string "yew longbows"
+  331: push_constant_string "</col>"
+  332: push_constant_string "."
+  333: join_string 5
+  334: return 0
+  335: branch 21
+  336: push_constant_int 80
+  337: push_constant_int 861
+  338: push_constant_string "Magic shortbow"
+  339: push_constant_string "You can now fletch "
+  340: push_constant_string "<col=000080>"
+  341: push_constant_string "magic shortbows"
+  342: push_constant_string "</col>"
+  343: push_constant_string "."
+  344: join_string 5
+  345: return 0
+  346: branch 10
+  347: push_constant_int 85
+  348: push_constant_int 859
+  349: push_constant_string "Magic longbow"
+  350: push_constant_string "You can now fletch "
+  351: push_constant_string "<col=000080>"
+  352: push_constant_string "magic longbows"
+  353: push_constant_string "</col>"
+  354: push_constant_string "."
+  355: join_string 5
+  356: return 0
+  357: branch 1413
+  358: push_int_local 1
+  359: switch 3
+  360: branch 261
+  361: push_constant_int 9
+  362: push_constant_int 877
+  363: push_constant_string "Bronze bolt"
+  364: push_constant_string "You can now fletch "
+  365: push_constant_string "<col=000080>"
+  366: push_constant_string "bronze bolts"
+  367: push_constant_string "</col>"
+  368: push_constant_string "."
+  369: join_string 5
+  370: return 0
+  371: branch 250
+  372: push_constant_int 11
+  373: push_constant_int 879
+  374: push_constant_string "Opal-tipped bronze bolt"
+  375: push_constant_string "You can now fletch "
+  376: push_constant_string "<col=000080>"
+  377: push_constant_string "opal-tipped bronze bolts"
+  378: push_constant_string "</col>"
+  379: push_constant_string "."
+  380: join_string 5
+  381: return 0
+  382: branch 239
+  383: push_constant_int 24
+  384: push_constant_int 9139
+  385: push_constant_string "Blurite bolt"
+  386: push_constant_string "<br>"
+  387: push_constant_string " (after The Knight's Sword)"
+  388: join_string 3
+  389: push_constant_string "You now have the Fletching level required to fletch "
+  390: push_constant_string "<col=000080>"
+  391: push_constant_string "blurite bolts"
+  392: push_constant_string "</col>"
+  393: push_constant_string " (after The Knight's Sword)."
+  394: join_string 5
+  395: return 0
+  396: branch 225
+  397: push_constant_int 26
+  398: push_constant_int 9335
+  399: push_constant_string "Jade-tipped blurite bolt"
+  400: push_constant_string "<br>"
+  401: push_constant_string " (after The Knight's Sword)"
+  402: join_string 3
+  403: push_constant_string "You now have the Fletching level required to fletch "
+  404: push_constant_string "<col=000080>"
+  405: push_constant_string "jade-tipped blurite bolts"
+  406: push_constant_string "</col>"
+  407: push_constant_string " (after The Knight's Sword)."
+  408: join_string 5
+  409: return 0
+  410: branch 211
+  411: push_constant_int 32
+  412: push_constant_int 10158
+  413: push_constant_string "Kebbit-tipped hunting bolt"
+  414: push_constant_string "You can now fletch "
+  415: push_constant_string "<col=000080>"
+  416: push_constant_string "kebbit-tipped hunting bolts"
+  417: push_constant_string "</col>"
+  418: push_constant_string "."
+  419: join_string 5
+  420: return 0
+  421: branch 200
+  422: push_constant_int 39
+  423: push_constant_int 9140
+  424: push_constant_string "Iron bolt"
+  425: push_constant_string "You can now fletch "
+  426: push_constant_string "<col=000080>"
+  427: push_constant_string "iron bolts"
+  428: push_constant_string "</col>"
+  429: push_constant_string "."
+  430: join_string 5
+  431: return 0
+  432: branch 189
+  433: push_constant_int 41
+  434: push_constant_int 880
+  435: push_constant_string "Pearl-tipped iron bolt"
+  436: push_constant_string "You can now fletch "
+  437: push_constant_string "<col=000080>"
+  438: push_constant_string "pearl-tipped iron bolts"
+  439: push_constant_string "</col>"
+  440: push_constant_string "."
+  441: join_string 5
+  442: return 0
+  443: branch 178
+  444: push_constant_int 42
+  445: push_constant_int 10159
+  446: push_constant_string "Long kebbit-tipped hunting bolt"
+  447: push_constant_string "You can now fletch "
+  448: push_constant_string "<col=000080>"
+  449: push_constant_string "long kebbit-tipped hunting bolts"
+  450: push_constant_string "</col>"
+  451: push_constant_string "."
+  452: join_string 5
+  453: return 0
+  454: branch 167
+  455: push_constant_int 43
+  456: push_constant_int 9145
+  457: push_constant_string "Silver bolt"
+  458: push_constant_string "You can now fletch "
+  459: push_constant_string "<col=000080>"
+  460: push_constant_string "silver bolts"
+  461: push_constant_string "</col>"
+  462: push_constant_string "."
+  463: join_string 5
+  464: return 0
+  465: branch 156
+  466: push_constant_int 46
+  467: push_constant_int 9141
+  468: push_constant_string "Steel bolt"
+  469: push_constant_string "You can now fletch "
+  470: push_constant_string "<col=000080>"
+  471: push_constant_string "steel bolts"
+  472: push_constant_string "</col>"
+  473: push_constant_string "."
+  474: join_string 5
+  475: return 0
+  476: branch 145
+  477: push_constant_int 48
+  478: push_constant_int 9336
+  479: push_constant_string "Red topaz-tipped steel bolt"
+  480: push_constant_string "You can now fletch "
+  481: push_constant_string "<col=000080>"
+  482: push_constant_string "red topaz-tipped steel bolts"
+  483: push_constant_string "</col>"
+  484: push_constant_string "."
+  485: join_string 5
+  486: return 0
+  487: branch 134
+  488: push_constant_int 51
+  489: push_constant_int 881
+  490: push_constant_string "Barbed bolts"
+  491: push_constant_string "You can now fletch "
+  492: push_constant_string "<col=000080>"
+  493: push_constant_string "barbed bolts"
+  494: push_constant_string "</col>"
+  495: push_constant_string "."
+  496: join_string 5
+  497: return 0
+  498: branch 123
+  499: push_constant_int 54
+  500: push_constant_int 9142
+  501: push_constant_string "Mithril bolt"
+  502: push_constant_string "You can now fletch "
+  503: push_constant_string "<col=000080>"
+  504: push_constant_string "mithril bolts"
+  505: push_constant_string "</col>"
+  506: push_constant_string "."
+  507: join_string 5
+  508: return 0
+  509: branch 112
+  510: push_constant_int 55
+  511: push_constant_int 13279
+  512: push_constant_string "Broad leaf bolts"
+  513: push_constant_string "<br>"
+  514: push_constant_string " (after Smoking Kills)"
+  515: join_string 3
+  516: push_constant_string "You can now fletch "
+  517: push_constant_string "<col=000080>"
+  518: push_constant_string "broad leaf bolts"
+  519: push_constant_string "</col>"
+  520: push_constant_string " (after Smoking Kills)."
+  521: join_string 5
+  522: return 0
+  523: branch 98
+  524: push_constant_int 56
+  525: push_constant_int 9337
+  526: push_constant_string "Sapphire-tipped mithril bolt"
+  527: push_constant_string "You can now fletch "
+  528: push_constant_string "<col=000080>"
+  529: push_constant_string "sapphire-tipped mithril bolts"
+  530: push_constant_string "</col>"
+  531: push_constant_string "."
+  532: join_string 5
+  533: return 0
+  534: branch 87
+  535: push_constant_int 58
+  536: push_constant_int 9338
+  537: push_constant_string "Emerald-tipped mithril bolt"
+  538: push_constant_string "You can now fletch "
+  539: push_constant_string "<col=000080>"
+  540: push_constant_string "emerald-tipped mithril bolts"
+  541: push_constant_string "</col>"
+  542: push_constant_string "."
+  543: join_string 5
+  544: return 0
+  545: branch 76
+  546: push_constant_int 59
+  547: push_constant_int 9418
+  548: push_constant_string "Mithril grapple-tipped bolt"
+  549: push_constant_string "You can now fletch "
+  550: push_constant_string "<col=000080>"
+  551: push_constant_string "mithril grapple-tipped bolts"
+  552: push_constant_string "</col>"
+  553: push_constant_string "."
+  554: join_string 5
+  555: return 0
+  556: branch 65
+  557: push_constant_int 61
+  558: push_constant_int 9143
+  559: push_constant_string "Adamantite bolt"
+  560: push_constant_string "You can now fletch "
+  561: push_constant_string "<col=000080>"
+  562: push_constant_string "adamantite bolts"
+  563: push_constant_string "</col>"
+  564: push_constant_string "."
+  565: join_string 5
+  566: return 0
+  567: branch 54
+  568: push_constant_int 63
+  569: push_constant_int 9339
+  570: push_constant_string "Ruby-tipped adamantite bolt"
+  571: push_constant_string "You can now fletch "
+  572: push_constant_string "<col=000080>"
+  573: push_constant_string "ruby-tipped adamantite bolts"
+  574: push_constant_string "</col>"
+  575: push_constant_string "."
+  576: join_string 5
+  577: return 0
+  578: branch 43
+  579: push_constant_int 65
+  580: push_constant_int 9340
+  581: push_constant_string "Diamond-tipped adamantite bolt"
+  582: push_constant_string "You can now fletch "
+  583: push_constant_string "<col=000080>"
+  584: push_constant_string "diamond-tipped adamantite bolts"
+  585: push_constant_string "</col>"
+  586: push_constant_string "."
+  587: join_string 5
+  588: return 0
+  589: branch 32
+  590: push_constant_int 69
+  591: push_constant_int 9144
+  592: push_constant_string "Runite bolt"
+  593: push_constant_string "You can now fletch "
+  594: push_constant_string "<col=000080>"
+  595: push_constant_string "runite bolts"
+  596: push_constant_string "</col>"
+  597: push_constant_string "."
+  598: join_string 5
+  599: return 0
+  600: branch 21
+  601: push_constant_int 71
+  602: push_constant_int 9341
+  603: push_constant_string "Dragonstone-tipped runite bolt"
+  604: push_constant_string "You can now fletch "
+  605: push_constant_string "<col=000080>"
+  606: push_constant_string "dragonstone-tipped runite bolts"
+  607: push_constant_string "</col>"
+  608: push_constant_string "."
+  609: join_string 5
+  610: return 0
+  611: branch 10
+  612: push_constant_int 73
+  613: push_constant_int 9342
+  614: push_constant_string "Onyx-tipped runite bolt"
+  615: push_constant_string "You can now fletch "
+  616: push_constant_string "<col=000080>"
+  617: push_constant_string "onyx-tipped runite bolts"
+  618: push_constant_string "</col>"
+  619: push_constant_string "."
+  620: join_string 5
+  621: return 0
+  622: branch 1148
+  623: push_int_local 1
+  624: switch 4
+  625: branch 76
+  626: push_constant_int 1
+  627: push_constant_int 806
+  628: push_constant_string "Bronze dart"
+  629: push_constant_string "You can now fletch "
+  630: push_constant_string "<col=000080>"
+  631: push_constant_string "bronze darts"
+  632: push_constant_string "</col>"
+  633: push_constant_string "."
+  634: join_string 5
+  635: return 0
+  636: branch 65
+  637: push_constant_int 22
+  638: push_constant_int 807
+  639: push_constant_string "Iron dart"
+  640: push_constant_string "You can now fletch "
+  641: push_constant_string "<col=000080>"
+  642: push_constant_string "iron darts"
+  643: push_constant_string "</col>"
+  644: push_constant_string "."
+  645: join_string 5
+  646: return 0
+  647: branch 54
+  648: push_constant_int 37
+  649: push_constant_int 808
+  650: push_constant_string "Steel dart"
+  651: push_constant_string "You can now fletch "
+  652: push_constant_string "<col=000080>"
+  653: push_constant_string "steel darts"
+  654: push_constant_string "</col>"
+  655: push_constant_string "."
+  656: join_string 5
+  657: return 0
+  658: branch 43
+  659: push_constant_int 52
+  660: push_constant_int 809
+  661: push_constant_string "Mithril dart"
+  662: push_constant_string "You can now fletch "
+  663: push_constant_string "<col=000080>"
+  664: push_constant_string "mithril darts"
+  665: push_constant_string "</col>"
+  666: push_constant_string "."
+  667: join_string 5
+  668: return 0
+  669: branch 32
+  670: push_constant_int 67
+  671: push_constant_int 810
+  672: push_constant_string "Adamant dart"
+  673: push_constant_string "You can now fletch "
+  674: push_constant_string "<col=000080>"
+  675: push_constant_string "adamant darts"
+  676: push_constant_string "</col>"
+  677: push_constant_string "."
+  678: join_string 5
+  679: return 0
+  680: branch 21
+  681: push_constant_int 81
+  682: push_constant_int 811
+  683: push_constant_string "Rune dart"
+  684: push_constant_string "You can now fletch "
+  685: push_constant_string "<col=000080>"
+  686: push_constant_string "rune darts"
+  687: push_constant_string "</col>"
+  688: push_constant_string "."
+  689: join_string 5
+  690: return 0
+  691: branch 10
+  692: push_constant_int 95
+  693: push_constant_int 11230
+  694: push_constant_string "Dragon dart"
+  695: push_constant_string "You can now fletch "
+  696: push_constant_string "<col=000080>"
+  697: push_constant_string "dragon darts"
+  698: push_constant_string "</col>"
+  699: push_constant_string "."
+  700: join_string 5
+  701: return 0
+  702: branch 1068
+  703: push_int_local 1
+  704: switch 5
+  705: branch 79
+  706: push_constant_int 9
+  707: push_constant_int 9440
+  708: push_constant_string "Bronze/wooden crossbow"
+  709: push_constant_string "You can now fletch "
+  710: push_constant_string "<col=000080>"
+  711: push_constant_string "bronze and wooden crossbows"
+  712: push_constant_string "</col>"
+  713: push_constant_string "."
+  714: join_string 5
+  715: return 0
+  716: branch 68
+  717: push_constant_int 24
+  718: push_constant_int 9442
+  719: push_constant_string "Blurite/oak crossbow"
+  720: push_constant_string "<br>"
+  721: push_constant_string " (after The Knight's Sword)"
+  722: join_string 3
+  723: push_constant_string "You now have the Fletching level required to fletch "
+  724: push_constant_string "<col=000080>"
+  725: push_constant_string "blurite and oak crossbows"
+  726: push_constant_string "</col>"
+  727: push_constant_string " (after The Knight's Sword)."
+  728: join_string 5
+  729: return 0
+  730: branch 54
+  731: push_constant_int 39
+  732: push_constant_int 9444
+  733: push_constant_string "Iron/willow crossbow"
+  734: push_constant_string "You can now fletch "
+  735: push_constant_string "<col=000080>"
+  736: push_constant_string "iron and willow crossbows"
+  737: push_constant_string "</col>"
+  738: push_constant_string "."
+  739: join_string 5
+  740: return 0
+  741: branch 43
+  742: push_constant_int 46
+  743: push_constant_int 9446
+  744: push_constant_string "Steel/teak crossbow"
+  745: push_constant_string "You can now fletch "
+  746: push_constant_string "<col=000080>"
+  747: push_constant_string "steel and teak crossbows"
+  748: push_constant_string "</col>"
+  749: push_constant_string "."
+  750: join_string 5
+  751: return 0
+  752: branch 32
+  753: push_constant_int 54
+  754: push_constant_int 9448
+  755: push_constant_string "Mithril/maple crossbow"
+  756: push_constant_string "You can now fletch "
+  757: push_constant_string "<col=000080>"
+  758: push_constant_string "mithril and maple crossbows"
+  759: push_constant_string "</col>"
+  760: push_constant_string "."
+  761: join_string 5
+  762: return 0
+  763: branch 21
+  764: push_constant_int 61
+  765: push_constant_int 9450
+  766: push_constant_string "Adamantite/mahogany crossbow"
+  767: push_constant_string "You can now fletch "
+  768: push_constant_string "<col=000080>"
+  769: push_constant_string "adamantite and mahogany crossbows"
+  770: push_constant_string "</col>"
+  771: push_constant_string "."
+  772: join_string 5
+  773: return 0
+  774: branch 10
+  775: push_constant_int 69
+  776: push_constant_int 9452
+  777: push_constant_string "Runite/yew crossbow"
+  778: push_constant_string "You can now fletch "
+  779: push_constant_string "<col=000080>"
+  780: push_constant_string "runite and yew crossbows"
+  781: push_constant_string "</col>"
+  782: push_constant_string "."
+  783: join_string 5
+  784: return 0
+  785: branch 985
+  786: push_int_local 1
+  787: switch 6
+  788: branch 43
+  789: push_constant_int 91
+  790: push_constant_int 18778
+  791: push_constant_string "Starved ancient effigies"
+  792: push_constant_string "You can now investigate "
+  793: push_constant_string "<col=000080>"
+  794: push_constant_string "starved ancient effigies"
+  795: push_constant_string "</col>"
+  796: push_constant_string " using your knowledge of Fletching."
+  797: join_string 5
+  798: return 0
+  799: branch 32
+  800: push_constant_int 93
+  801: push_constant_int 18779
+  802: push_constant_string "Nourished ancient effigies"
+  803: push_constant_string "You can now investigate "
+  804: push_constant_string "<col=000080>"
+  805: push_constant_string "nourished ancient effigies"
+  806: push_constant_string "</col>"
+  807: push_constant_string " using your knowledge of Fletching."
+  808: join_string 5
+  809: return 0
+  810: branch 21
+  811: push_constant_int 95
+  812: push_constant_int 18780
+  813: push_constant_string "Sated ancient effigies"
+  814: push_constant_string "You can now investigate "
+  815: push_constant_string "<col=000080>"
+  816: push_constant_string "sated ancient effigies"
+  817: push_constant_string "</col>"
+  818: push_constant_string " using your knowledge of Fletching."
+  819: join_string 5
+  820: return 0
+  821: branch 10
+  822: push_constant_int 97
+  823: push_constant_int 18781
+  824: push_constant_string "Gorged ancient effigies"
+  825: push_constant_string "You can now investigate "
+  826: push_constant_string "<col=000080>"
+  827: push_constant_string "gorged ancient effigies"
+  828: push_constant_string "</col>"
+  829: push_constant_string " using your knowledge of Fletching."
+  830: join_string 5
+  831: return 0
+  832: branch 938
+  833: push_int_local 1
+  834: switch 7
+  835: branch 164
+  836: push_constant_int 1
+  837: push_constant_int 14192
+  838: push_constant_string "Stealing Creation - class 1 bow"
+  839: push_constant_string "Members can now fletch "
+  840: push_constant_string "<col=000080>"
+  841: push_constant_string "class 1 bows"
+  842: push_constant_string "</col>"
+  843: push_constant_string " in Stealing Creation."
+  844: join_string 5
+  845: return 0
+  846: branch 153
+  847: push_constant_int 1
+  848: push_constant_int 14202
+  849: push_constant_string "Stealing Creation - class 1 arrow"
+  850: push_constant_string "You can now fletch "
+  851: push_constant_string "<col=000080>"
+  852: push_constant_string "class 1 arrows"
+  853: push_constant_string "</col>"
+  854: push_constant_string " in Stealing Creation."
+  855: join_string 5
+  856: return 0
+  857: branch 142
+  858: push_constant_int 20
+  859: push_constant_int 14194
+  860: push_constant_string "Stealing Creation - class 2 bow"
+  861: push_constant_string "Members can now fletch "
+  862: push_constant_string "<col=000080>"
+  863: push_constant_string "class 2 bows"
+  864: push_constant_string "</col>"
+  865: push_constant_string " in Stealing Creation."
+  866: join_string 5
+  867: return 0
+  868: branch 131
+  869: push_constant_int 20
+  870: push_constant_int 14203
+  871: push_constant_string "Stealing Creation - class 2 arrow"
+  872: push_constant_string "You can now fletch "
+  873: push_constant_string "<col=000080>"
+  874: push_constant_string "class 2 arrows"
+  875: push_constant_string "</col>"
+  876: push_constant_string " in Stealing Creation."
+  877: join_string 5
+  878: return 0
+  879: branch 120
+  880: push_constant_int 40
+  881: push_constant_int 14196
+  882: push_constant_string "Stealing Creation - class 3 bow"
+  883: push_constant_string "Members can now fletch "
+  884: push_constant_string "<col=000080>"
+  885: push_constant_string "class 3 bows"
+  886: push_constant_string "</col>"
+  887: push_constant_string " in Stealing Creation."
+  888: join_string 5
+  889: return 0
+  890: branch 109
+  891: push_constant_int 40
+  892: push_constant_int 14204
+  893: push_constant_string "Stealing Creation - class 3 arrow"
+  894: push_constant_string "You can now fletch "
+  895: push_constant_string "<col=000080>"
+  896: push_constant_string "class 3 arrows"
+  897: push_constant_string "</col>"
+  898: push_constant_string " in Stealing Creation."
+  899: join_string 5
+  900: return 0
+  901: branch 98
+  902: push_constant_int 53
+  903: push_constant_int 14611
+  904: push_constant_string "Phoenix lair - cinnamon weaving ribbon"
+  905: push_constant_string "Members can now fletch "
+  906: push_constant_string "<col=000080>"
+  907: push_constant_string "cinnamon weaving ribbon"
+  908: push_constant_string "</col>"
+  909: push_constant_string " in the phoenix lair."
+  910: join_string 5
+  911: return 0
+  912: branch 87
+  913: push_constant_int 53
+  914: push_constant_int 14612
+  915: push_constant_string "Phoenix lair - sassafras weaving ribbon"
+  916: push_constant_string "Members can now fletch "
+  917: push_constant_string "<col=000080>"
+  918: push_constant_string "sassafras weaving ribbon"
+  919: push_constant_string "</col>"
+  920: push_constant_string " in the phoenix lair."
+  921: join_string 5
+  922: return 0
+  923: branch 76
+  924: push_constant_int 53
+  925: push_constant_int 14613
+  926: push_constant_string "Phoenix lair - ailanthus weaving ribbon"
+  927: push_constant_string "Members can now fletch "
+  928: push_constant_string "<col=000080>"
+  929: push_constant_string "ailanthus weaving ribbon"
+  930: push_constant_string "</col>"
+  931: push_constant_string " in the phoenix lair."
+  932: join_string 5
+  933: return 0
+  934: branch 65
+  935: push_constant_int 53
+  936: push_constant_int 14614
+  937: push_constant_string "Phoenix lair - cedar weaving ribbon"
+  938: push_constant_string "Members can now fletch "
+  939: push_constant_string "<col=000080>"
+  940: push_constant_string "cedar weaving ribbon"
+  941: push_constant_string "</col>"
+  942: push_constant_string " in the phoenix lair."
+  943: join_string 5
+  944: return 0
+  945: branch 54
+  946: push_constant_int 53
+  947: push_constant_int 14615
+  948: push_constant_string "Phoenix lair - mastic weaving ribbon"
+  949: push_constant_string "Members can now fletch "
+  950: push_constant_string "<col=000080>"
+  951: push_constant_string "mastic weaving ribbon"
+  952: push_constant_string "</col>"
+  953: push_constant_string " in the phoenix lair."
+  954: join_string 5
+  955: return 0
+  956: branch 43
+  957: push_constant_int 60
+  958: push_constant_int 14198
+  959: push_constant_string "Stealing Creation - class 4 bow"
+  960: push_constant_string "Members can now fletch "
+  961: push_constant_string "<col=000080>"
+  962: push_constant_string "class 4 bows"
+  963: push_constant_string "</col>"
+  964: push_constant_string " in Stealing Creation."
+  965: join_string 5
+  966: return 0
+  967: branch 32
+  968: push_constant_int 60
+  969: push_constant_int 14205
+  970: push_constant_string "Stealing Creation - class 4 arrow"
+  971: push_constant_string "You can now fletch "
+  972: push_constant_string "<col=000080>"
+  973: push_constant_string "class 4 arrows"
+  974: push_constant_string "</col>"
+  975: push_constant_string " in Stealing Creation."
+  976: join_string 5
+  977: return 0
+  978: branch 21
+  979: push_constant_int 80
+  980: push_constant_int 14200
+  981: push_constant_string "Stealing Creation - class 5 bow"
+  982: push_constant_string "Members can now fletch "
+  983: push_constant_string "<col=000080>"
+  984: push_constant_string "class 5 bows"
+  985: push_constant_string "</col>"
+  986: push_constant_string " in Stealing Creation."
+  987: join_string 5
+  988: return 0
+  989: branch 10
+  990: push_constant_int 80
+  991: push_constant_int 14206
+  992: push_constant_string "Stealing Creation - class 5 arrow"
+  993: push_constant_string "You can now fletch "
+  994: push_constant_string "<col=000080>"
+  995: push_constant_string "class 5 arrows"
+  996: push_constant_string "</col>"
+  997: push_constant_string " in Stealing Creation."
+  998: join_string 5
+  999: return 0
+ 1000: branch 770
+ 1001: push_int_local 1
+ 1002: switch 8
+ 1003: branch 736
+ 1004: push_constant_int -1
+ 1005: push_constant_int 15707
+ 1006: push_constant_string "Dungeoneering skill tasks"
+ 1007: push_constant_string "<br>"
+ 1008: push_constant_string "As your Fletching level increases, you will be able to attempt higher-level fletching tasks within Daemonheim. You will also be more likely to succeed when attempting fletching tasks within Daemonheim."
+ 1009: join_string 3
+ 1010: push_constant_string ""
+ 1011: return 0
+ 1012: branch 727
+ 1013: push_constant_int 1
+ 1014: push_constant_int 17742
+ 1015: push_constant_string "Tangle gum"
+ 1016: push_constant_string "<br>"
+ 1017: push_constant_string " 15 Arrow shafts"
+ 1018: join_string 3
+ 1019: push_constant_string "You can now fletch "
+ 1020: push_constant_string "<col=000080>"
+ 1021: push_constant_string "tangle gum branches"
+ 1022: push_constant_string "</col>"
+ 1023: push_constant_string " into "
+ 1024: push_constant_string "<col=000080>"
+ 1025: push_constant_string "15 arrow shafts"
+ 1026: push_constant_string "</col>"
+ 1027: push_constant_string " within Daemonheim."
+ 1028: join_string 9
+ 1029: return 0
+ 1030: branch 709
+ 1031: push_constant_int 1
+ 1032: push_constant_int 16427
+ 1033: push_constant_string "Novite arrows (Tier 1)"
+ 1034: push_constant_string "You can now fletch "
+ 1035: push_constant_string "<col=000080>"
+ 1036: push_constant_string "novite arrows"
+ 1037: push_constant_string "</col>"
+ 1038: push_constant_string " within Daemonheim."
+ 1039: join_string 5
+ 1040: return 0
+ 1041: branch 698
+ 1042: push_constant_int 1
+ 1043: push_constant_int 16867
+ 1044: push_constant_string "Tangle gum shortbow (Tier 1)"
+ 1045: push_constant_string "You can now fletch "
+ 1046: push_constant_string "<col=000080>"
+ 1047: push_constant_string "tangle gum shortbows"
+ 1048: push_constant_string "</col>"
+ 1049: push_constant_string " within Daemonheim."
+ 1050: join_string 5
+ 1051: return 0
+ 1052: branch 687
+ 1053: push_constant_int 3
+ 1054: push_constant_int 17756
+ 1055: push_constant_string "Tangle gum trap (Tier 1)"
+ 1056: push_constant_string "You can now fletch "
+ 1057: push_constant_string "<col=000080>"
+ 1058: push_constant_string "tangle gum traps"
+ 1059: push_constant_string "</col>"
+ 1060: push_constant_string " within Daemonheim."
+ 1061: join_string 5
+ 1062: return 0
+ 1063: branch 676
+ 1064: push_constant_int 6
+ 1065: push_constant_int 16317
+ 1066: push_constant_string "Tangle gum longbow (Tier 1)"
+ 1067: push_constant_string "You can now fletch "
+ 1068: push_constant_string "<col=000080>"
+ 1069: push_constant_string "tangle gum longbows"
+ 1070: push_constant_string "</col>"
+ 1071: push_constant_string " within Daemonheim."
+ 1072: join_string 5
+ 1073: return 0
+ 1074: branch 665
+ 1075: push_constant_int 8
+ 1076: push_constant_int 16977
+ 1077: push_constant_string "Tangle gum staff (Tier 1)"
+ 1078: push_constant_string "You can now fletch "
+ 1079: push_constant_string "<col=000080>"
+ 1080: push_constant_string "tangle gum staves"
+ 1081: push_constant_string "</col>"
+ 1082: push_constant_string " within Daemonheim."
+ 1083: join_string 5
+ 1084: return 0
+ 1085: branch 654
+ 1086: push_constant_int 10
+ 1087: push_constant_int 17742
+ 1088: push_constant_string "Seeping elm"
+ 1089: push_constant_string "<br>"
+ 1090: push_constant_string " 21 Arrow shafts"
+ 1091: join_string 3
+ 1092: push_constant_string "You can now fletch "
+ 1093: push_constant_string "<col=000080>"
+ 1094: push_constant_string "seeping elm branches"
+ 1095: push_constant_string "</col>"
+ 1096: push_constant_string " into "
+ 1097: push_constant_string "<col=000080>"
+ 1098: push_constant_string "21 arrow shafts"
+ 1099: push_constant_string "</col>"
+ 1100: push_constant_string " within Daemonheim."
+ 1101: join_string 9
+ 1102: return 0
+ 1103: branch 636
+ 1104: push_constant_int 11
+ 1105: push_constant_int 16432
+ 1106: push_constant_string "Bathus arrows (Tier 2)"
+ 1107: push_constant_string "You can now fletch "
+ 1108: push_constant_string "<col=000080>"
+ 1109: push_constant_string "bathus arrows"
+ 1110: push_constant_string "</col>"
+ 1111: push_constant_string " within Daemonheim."
+ 1112: join_string 5
+ 1113: return 0
+ 1114: branch 625
+ 1115: push_constant_int 11
+ 1116: push_constant_int 16869
+ 1117: push_constant_string "Seeping elm shortbow (Tier 2)"
+ 1118: push_constant_string "You can now fletch "
+ 1119: push_constant_string "<col=000080>"
+ 1120: push_constant_string "seeping elm shortbows"
+ 1121: push_constant_string "</col>"
+ 1122: push_constant_string " within Daemonheim."
+ 1123: join_string 5
+ 1124: return 0
+ 1125: branch 614
+ 1126: push_constant_int 13
+ 1127: push_constant_int 17758
+ 1128: push_constant_string "Seeping elm trap (Tier 2)"
+ 1129: push_constant_string "You can now fletch "
+ 1130: push_constant_string "<col=000080>"
+ 1131: push_constant_string "seeping elm traps"
+ 1132: push_constant_string "</col>"
+ 1133: push_constant_string " within Daemonheim."
+ 1134: join_string 5
+ 1135: return 0
+ 1136: branch 603
+ 1137: push_constant_int 16
+ 1138: push_constant_int 16319
+ 1139: push_constant_string "Seeping elm longbow (Tier 2)"
+ 1140: push_constant_string "You can now fletch "
+ 1141: push_constant_string "<col=000080>"
+ 1142: push_constant_string "seeping elm longbows"
+ 1143: push_constant_string "</col>"
+ 1144: push_constant_string " within Daemonheim."
+ 1145: join_string 5
+ 1146: return 0
+ 1147: branch 592
+ 1148: push_constant_int 18
+ 1149: push_constant_int 16979
+ 1150: push_constant_string "Seeping elm staff (Tier 2)"
+ 1151: push_constant_string "You can now fletch "
+ 1152: push_constant_string "<col=000080>"
+ 1153: push_constant_string "seeping elm staves"
+ 1154: push_constant_string "</col>"
+ 1155: push_constant_string " within Daemonheim."
+ 1156: join_string 5
+ 1157: return 0
+ 1158: branch 581
+ 1159: push_constant_int 20
+ 1160: push_constant_int 17742
+ 1161: push_constant_string "Blood spindle"
+ 1162: push_constant_string "<br>"
+ 1163: push_constant_string " 26 Arrow shafts"
+ 1164: join_string 3
+ 1165: push_constant_string "You can now fletch "
+ 1166: push_constant_string "<col=000080>"
+ 1167: push_constant_string "blood spindle branches"
+ 1168: push_constant_string "</col>"
+ 1169: push_constant_string " into "
+ 1170: push_constant_string "<col=000080>"
+ 1171: push_constant_string "26 arrow shafts"
+ 1172: push_constant_string "</col>"
+ 1173: push_constant_string " within Daemonheim."
+ 1174: join_string 9
+ 1175: return 0
+ 1176: branch 563
+ 1177: push_constant_int 21
+ 1178: push_constant_int 16871
+ 1179: push_constant_string "Blood spindle shortbow (Tier 3)"
+ 1180: push_constant_string "You can now fletch "
+ 1181: push_constant_string "<col=000080>"
+ 1182: push_constant_string "blood spindle shortbows"
+ 1183: push_constant_string "</col>"
+ 1184: push_constant_string " within Daemonheim."
+ 1185: join_string 5
+ 1186: return 0
+ 1187: branch 552
+ 1188: push_constant_int 22
+ 1189: push_constant_int 16437
+ 1190: push_constant_string "Marmaros arrows (Tier 3)"
+ 1191: push_constant_string "You can now fletch "
+ 1192: push_constant_string "<col=000080>"
+ 1193: push_constant_string "marmaros arrows"
+ 1194: push_constant_string "</col>"
+ 1195: push_constant_string " within Daemonheim."
+ 1196: join_string 5
+ 1197: return 0
+ 1198: branch 541
+ 1199: push_constant_int 23
+ 1200: push_constant_int 17760
+ 1201: push_constant_string "Blood spindle trap (Tier 3)"
+ 1202: push_constant_string "You can now fletch "
+ 1203: push_constant_string "<col=000080>"
+ 1204: push_constant_string "blood spindle traps"
+ 1205: push_constant_string "</col>"
+ 1206: push_constant_string " within Daemonheim."
+ 1207: join_string 5
+ 1208: return 0
+ 1209: branch 530
+ 1210: push_constant_int 26
+ 1211: push_constant_int 16321
+ 1212: push_constant_string "Blood spindle longbow (Tier 3)"
+ 1213: push_constant_string "You can now fletch "
+ 1214: push_constant_string "<col=000080>"
+ 1215: push_constant_string "blood spindle longbows"
+ 1216: push_constant_string "</col>"
+ 1217: push_constant_string " within Daemonheim."
+ 1218: join_string 5
+ 1219: return 0
+ 1220: branch 519
+ 1221: push_constant_int 28
+ 1222: push_constant_int 16981
+ 1223: push_constant_string "Blood spindle staff (Tier 3)"
+ 1224: push_constant_string "You can now fletch "
+ 1225: push_constant_string "<col=000080>"
+ 1226: push_constant_string "blood spindle staves"
+ 1227: push_constant_string "</col>"
+ 1228: push_constant_string " within Daemonheim."
+ 1229: join_string 5
+ 1230: return 0
+ 1231: branch 508
+ 1232: push_constant_int 30
+ 1233: push_constant_int 17742
+ 1234: push_constant_string "Utuku"
+ 1235: push_constant_string "<br>"
+ 1236: push_constant_string " 32 Arrow shafts"
+ 1237: join_string 3
+ 1238: push_constant_string "You can now fletch "
+ 1239: push_constant_string "<col=000080>"
+ 1240: push_constant_string "utuku branches"
+ 1241: push_constant_string "</col>"
+ 1242: push_constant_string " into "
+ 1243: push_constant_string "<col=000080>"
+ 1244: push_constant_string "32 arrow shafts"
+ 1245: push_constant_string "</col>"
+ 1246: push_constant_string " within Daemonheim."
+ 1247: join_string 9
+ 1248: return 0
+ 1249: branch 490
+ 1250: push_constant_int 31
+ 1251: push_constant_int 16873
+ 1252: push_constant_string "Utuku shortbow (Tier 4)"
+ 1253: push_constant_string "You can now fletch "
+ 1254: push_constant_string "<col=000080>"
+ 1255: push_constant_string "utuku shortbows"
+ 1256: push_constant_string "</col>"
+ 1257: push_constant_string " within Daemonheim."
+ 1258: join_string 5
+ 1259: return 0
+ 1260: branch 479
+ 1261: push_constant_int 33
+ 1262: push_constant_int 16442
+ 1263: push_constant_string "Kratonite arrows (Tier 4)"
+ 1264: push_constant_string "You can now fletch "
+ 1265: push_constant_string "<col=000080>"
+ 1266: push_constant_string "kratonite arrows"
+ 1267: push_constant_string "</col>"
+ 1268: push_constant_string " within Daemonheim."
+ 1269: join_string 5
+ 1270: return 0
+ 1271: branch 468
+ 1272: push_constant_int 33
+ 1273: push_constant_int 17762
+ 1274: push_constant_string "Utuku trap (Tier 4)"
+ 1275: push_constant_string "You can now fletch "
+ 1276: push_constant_string "<col=000080>"
+ 1277: push_constant_string "utuku traps"
+ 1278: push_constant_string "</col>"
+ 1279: push_constant_string " within Daemonheim."
+ 1280: join_string 5
+ 1281: return 0
+ 1282: branch 457
+ 1283: push_constant_int 36
+ 1284: push_constant_int 16323
+ 1285: push_constant_string "Utuku longbow (Tier 4)"
+ 1286: push_constant_string "You can now fletch "
+ 1287: push_constant_string "<col=000080>"
+ 1288: push_constant_string "utuku longbows"
+ 1289: push_constant_string "</col>"
+ 1290: push_constant_string " within Daemonheim."
+ 1291: join_string 5
+ 1292: return 0
+ 1293: branch 446
+ 1294: push_constant_int 38
+ 1295: push_constant_int 16983
+ 1296: push_constant_string "Utuku staff (Tier 4)"
+ 1297: push_constant_string "You can now fletch "
+ 1298: push_constant_string "<col=000080>"
+ 1299: push_constant_string "utuku staves"
+ 1300: push_constant_string "</col>"
+ 1301: push_constant_string " within Daemonheim."
+ 1302: join_string 5
+ 1303: return 0
+ 1304: branch 435
+ 1305: push_constant_int 40
+ 1306: push_constant_int 17742
+ 1307: push_constant_string "Spinebeam"
+ 1308: push_constant_string "<br>"
+ 1309: push_constant_string " 37 Arrow shafts"
+ 1310: join_string 3
+ 1311: push_constant_string "You can now fletch "
+ 1312: push_constant_string "<col=000080>"
+ 1313: push_constant_string "spinebeam branches"
+ 1314: push_constant_string "</col>"
+ 1315: push_constant_string " into "
+ 1316: push_constant_string "<col=000080>"
+ 1317: push_constant_string "37 arrow shafts"
+ 1318: push_constant_string "</col>"
+ 1319: push_constant_string " within Daemonheim."
+ 1320: join_string 9
+ 1321: return 0
+ 1322: branch 417
+ 1323: push_constant_int 41
+ 1324: push_constant_int 16875
+ 1325: push_constant_string "Spinebeam shortbow (Tier 5)"
+ 1326: push_constant_string "You can now fletch "
+ 1327: push_constant_string "<col=000080>"
+ 1328: push_constant_string "spinebeam shortbows"
+ 1329: push_constant_string "</col>"
+ 1330: push_constant_string " within Daemonheim."
+ 1331: join_string 5
+ 1332: return 0
+ 1333: branch 406
+ 1334: push_constant_int 43
+ 1335: push_constant_int 17764
+ 1336: push_constant_string "Spinebeam trap (Tier 5)"
+ 1337: push_constant_string "You can now fletch "
+ 1338: push_constant_string "<col=000080>"
+ 1339: push_constant_string "spinebeam traps"
+ 1340: push_constant_string "</col>"
+ 1341: push_constant_string " within Daemonheim."
+ 1342: join_string 5
+ 1343: return 0
+ 1344: branch 395
+ 1345: push_constant_int 44
+ 1346: push_constant_int 16447
+ 1347: push_constant_string "Fractite arrows (Tier 5)"
+ 1348: push_constant_string "You can now fletch "
+ 1349: push_constant_string "<col=000080>"
+ 1350: push_constant_string "fractite arrows"
+ 1351: push_constant_string "</col>"
+ 1352: push_constant_string " within Daemonheim."
+ 1353: join_string 5
+ 1354: return 0
+ 1355: branch 384
+ 1356: push_constant_int 46
+ 1357: push_constant_int 16325
+ 1358: push_constant_string "Spinebeam longbow (Tier 5)"
+ 1359: push_constant_string "You can now fletch "
+ 1360: push_constant_string "<col=000080>"
+ 1361: push_constant_string "spinebeam longbows"
+ 1362: push_constant_string "</col>"
+ 1363: push_constant_string " within Daemonheim."
+ 1364: join_string 5
+ 1365: return 0
+ 1366: branch 373
+ 1367: push_constant_int 48
+ 1368: push_constant_int 16985
+ 1369: push_constant_string "Spinebeam staff (Tier 5)"
+ 1370: push_constant_string "You can now fletch "
+ 1371: push_constant_string "<col=000080>"
+ 1372: push_constant_string "spinebeam staves"
+ 1373: push_constant_string "</col>"
+ 1374: push_constant_string " within Daemonheim."
+ 1375: join_string 5
+ 1376: return 0
+ 1377: branch 362
+ 1378: push_constant_int 50
+ 1379: push_constant_int 17742
+ 1380: push_constant_string "Bovistrangler"
+ 1381: push_constant_string "<br>"
+ 1382: push_constant_string " 43 Arrow shafts"
+ 1383: join_string 3
+ 1384: push_constant_string "You can now fletch "
+ 1385: push_constant_string "<col=000080>"
+ 1386: push_constant_string "bovistrangler branches"
+ 1387: push_constant_string "</col>"
+ 1388: push_constant_string " into "
+ 1389: push_constant_string "<col=000080>"
+ 1390: push_constant_string "43 arrow shafts"
+ 1391: push_constant_string "</col>"
+ 1392: push_constant_string " within Daemonheim."
+ 1393: join_string 9
+ 1394: return 0
+ 1395: branch 344
+ 1396: push_constant_int 51
+ 1397: push_constant_int 16877
+ 1398: push_constant_string "Bovistrangler shortbow (Tier 6)"
+ 1399: push_constant_string "You can now fletch "
+ 1400: push_constant_string "<col=000080>"
+ 1401: push_constant_string "bovistrangler shortbows"
+ 1402: push_constant_string "</col>"
+ 1403: push_constant_string " within Daemonheim."
+ 1404: join_string 5
+ 1405: return 0
+ 1406: branch 333
+ 1407: push_constant_int 53
+ 1408: push_constant_int 17766
+ 1409: push_constant_string "Bovistrangler trap (Tier 6)"
+ 1410: push_constant_string "You can now fletch "
+ 1411: push_constant_string "<col=000080>"
+ 1412: push_constant_string "bovistrangler traps"
+ 1413: push_constant_string "</col>"
+ 1414: push_constant_string " within Daemonheim."
+ 1415: join_string 5
+ 1416: return 0
+ 1417: branch 322
+ 1418: push_constant_int 55
+ 1419: push_constant_int 16452
+ 1420: push_constant_string "Zephyrium arrows (Tier 6)"
+ 1421: push_constant_string "You can now fletch "
+ 1422: push_constant_string "<col=000080>"
+ 1423: push_constant_string "zephyrium arrows"
+ 1424: push_constant_string "</col>"
+ 1425: push_constant_string " within Daemonheim."
+ 1426: join_string 5
+ 1427: return 0
+ 1428: branch 311
+ 1429: push_constant_int 56
+ 1430: push_constant_int 16327
+ 1431: push_constant_string "Bovistrangler longbow (Tier 6)"
+ 1432: push_constant_string "You can now fletch "
+ 1433: push_constant_string "<col=000080>"
+ 1434: push_constant_string "bovistrangler longbows"
+ 1435: push_constant_string "</col>"
+ 1436: push_constant_string " within Daemonheim."
+ 1437: join_string 5
+ 1438: return 0
+ 1439: branch 300
+ 1440: push_constant_int 58
+ 1441: push_constant_int 16987
+ 1442: push_constant_string "Bovistrangler staff (Tier 6)"
+ 1443: push_constant_string "You can now fletch "
+ 1444: push_constant_string "<col=000080>"
+ 1445: push_constant_string "bovistrangler staves"
+ 1446: push_constant_string "</col>"
+ 1447: push_constant_string " within Daemonheim."
+ 1448: join_string 5
+ 1449: return 0
+ 1450: branch 289
+ 1451: push_constant_int 60
+ 1452: push_constant_int 17742
+ 1453: push_constant_string "Thigat"
+ 1454: push_constant_string "<br>"
+ 1455: push_constant_string " 48 Arrow shafts"
+ 1456: join_string 3
+ 1457: push_constant_string "You can now fletch "
+ 1458: push_constant_string "<col=000080>"
+ 1459: push_constant_string "thigat branches"
+ 1460: push_constant_string "</col>"
+ 1461: push_constant_string " into "
+ 1462: push_constant_string "<col=000080>"
+ 1463: push_constant_string "48 arrow shafts"
+ 1464: push_constant_string "</col>"
+ 1465: push_constant_string " within Daemonheim."
+ 1466: join_string 9
+ 1467: return 0
+ 1468: branch 271
+ 1469: push_constant_int 61
+ 1470: push_constant_int 16879
+ 1471: push_constant_string "Thigat shortbow (Tier 7)"
+ 1472: push_constant_string "You can now fletch "
+ 1473: push_constant_string "<col=000080>"
+ 1474: push_constant_string "thigat shortbows"
+ 1475: push_constant_string "</col>"
+ 1476: push_constant_string " within Daemonheim."
+ 1477: join_string 5
+ 1478: return 0
+ 1479: branch 260
+ 1480: push_constant_int 63
+ 1481: push_constant_int 17768
+ 1482: push_constant_string "Thigat trap (Tier 7)"
+ 1483: push_constant_string "You can now fletch "
+ 1484: push_constant_string "<col=000080>"
+ 1485: push_constant_string "thigat traps"
+ 1486: push_constant_string "</col>"
+ 1487: push_constant_string " within Daemonheim."
+ 1488: join_string 5
+ 1489: return 0
+ 1490: branch 249
+ 1491: push_constant_int 66
+ 1492: push_constant_int 16457
+ 1493: push_constant_string "Argonite arrows (Tier 7)"
+ 1494: push_constant_string "You can now fletch "
+ 1495: push_constant_string "<col=000080>"
+ 1496: push_constant_string "argonite arrows"
+ 1497: push_constant_string "</col>"
+ 1498: push_constant_string " within Daemonheim."
+ 1499: join_string 5
+ 1500: return 0
+ 1501: branch 238
+ 1502: push_constant_int 66
+ 1503: push_constant_int 16329
+ 1504: push_constant_string "Thigat longbow (Tier 7)"
+ 1505: push_constant_string "You can now fletch "
+ 1506: push_constant_string "<col=000080>"
+ 1507: push_constant_string "thigat longbows"
+ 1508: push_constant_string "</col>"
+ 1509: push_constant_string " within Daemonheim."
+ 1510: join_string 5
+ 1511: return 0
+ 1512: branch 227
+ 1513: push_constant_int 68
+ 1514: push_constant_int 16989
+ 1515: push_constant_string "Thigat staff (Tier 7)"
+ 1516: push_constant_string "You can now fletch "
+ 1517: push_constant_string "<col=000080>"
+ 1518: push_constant_string "thigat staves"
+ 1519: push_constant_string "</col>"
+ 1520: push_constant_string " within Daemonheim."
+ 1521: join_string 5
+ 1522: return 0
+ 1523: branch 216
+ 1524: push_constant_int 70
+ 1525: push_constant_int 17742
+ 1526: push_constant_string "Corpsethorn"
+ 1527: push_constant_string "<br>"
+ 1528: push_constant_string " 54 Arrow shafts"
+ 1529: join_string 3
+ 1530: push_constant_string "You can now fletch "
+ 1531: push_constant_string "<col=000080>"
+ 1532: push_constant_string "corpsethorn branches"
+ 1533: push_constant_string "</col>"
+ 1534: push_constant_string " into "
+ 1535: push_constant_string "<col=000080>"
+ 1536: push_constant_string "54 arrow shafts"
+ 1537: push_constant_string "</col>"
+ 1538: push_constant_string " within Daemonheim."
+ 1539: join_string 9
+ 1540: return 0
+ 1541: branch 198
+ 1542: push_constant_int 71
+ 1543: push_constant_int 16881
+ 1544: push_constant_string "Corpsethorn shortbow (Tier 8)"
+ 1545: push_constant_string "You can now fletch "
+ 1546: push_constant_string "<col=000080>"
+ 1547: push_constant_string "corpsethorn shortbows"
+ 1548: push_constant_string "</col>"
+ 1549: push_constant_string " within Daemonheim."
+ 1550: join_string 5
+ 1551: return 0
+ 1552: branch 187
+ 1553: push_constant_int 73
+ 1554: push_constant_int 17770
+ 1555: push_constant_string "Corpsethorn trap (Tier 8)"
+ 1556: push_constant_string "You can now fletch "
+ 1557: push_constant_string "<col=000080>"
+ 1558: push_constant_string "corpsethorn traps"
+ 1559: push_constant_string "</col>"
+ 1560: push_constant_string " within Daemonheim."
+ 1561: join_string 5
+ 1562: return 0
+ 1563: branch 176
+ 1564: push_constant_int 76
+ 1565: push_constant_int 16331
+ 1566: push_constant_string "Corpsethorn longbow (Tier 8)"
+ 1567: push_constant_string "You can now fletch "
+ 1568: push_constant_string "<col=000080>"
+ 1569: push_constant_string "corpsethorn longbows"
+ 1570: push_constant_string "</col>"
+ 1571: push_constant_string " within Daemonheim."
+ 1572: join_string 5
+ 1573: return 0
+ 1574: branch 165
+ 1575: push_constant_int 77
+ 1576: push_constant_int 16462
+ 1577: push_constant_string "Katagon arrows (Tier 8)"
+ 1578: push_constant_string "You can now fletch "
+ 1579: push_constant_string "<col=000080>"
+ 1580: push_constant_string "katagon arrows"
+ 1581: push_constant_string "</col>"
+ 1582: push_constant_string " within Daemonheim."
+ 1583: join_string 5
+ 1584: return 0
+ 1585: branch 154
+ 1586: push_constant_int 78
+ 1587: push_constant_int 16991
+ 1588: push_constant_string "Corpsethorn staff (Tier 8)"
+ 1589: push_constant_string "You can now fletch "
+ 1590: push_constant_string "<col=000080>"
+ 1591: push_constant_string "corpsethorn staves"
+ 1592: push_constant_string "</col>"
+ 1593: push_constant_string " within Daemonheim."
+ 1594: join_string 5
+ 1595: return 0
+ 1596: branch 143
+ 1597: push_constant_int 80
+ 1598: push_constant_int 17742
+ 1599: push_constant_string "Entgallow"
+ 1600: push_constant_string "<br>"
+ 1601: push_constant_string " 59 Arrow shafts"
+ 1602: join_string 3
+ 1603: push_constant_string "You can now fletch "
+ 1604: push_constant_string "<col=000080>"
+ 1605: push_constant_string "entgallow branches"
+ 1606: push_constant_string "</col>"
+ 1607: push_constant_string " into "
+ 1608: push_constant_string "<col=000080>"
+ 1609: push_constant_string "59 arrow shafts"
+ 1610: push_constant_string "</col>"
+ 1611: push_constant_string " within Daemonheim."
+ 1612: join_string 9
+ 1613: return 0
+ 1614: branch 125
+ 1615: push_constant_int 81
+ 1616: push_constant_int 16883
+ 1617: push_constant_string "Entgallow shortbow (Tier 9)"
+ 1618: push_constant_string "You can now fletch "
+ 1619: push_constant_string "<col=000080>"
+ 1620: push_constant_string "entgallow shortbows"
+ 1621: push_constant_string "</col>"
+ 1622: push_constant_string " within Daemonheim."
+ 1623: join_string 5
+ 1624: return 0
+ 1625: branch 114
+ 1626: push_constant_int 83
+ 1627: push_constant_int 17772
+ 1628: push_constant_string "Entgallow trap (Tier 9)"
+ 1629: push_constant_string "You can now fletch "
+ 1630: push_constant_string "<col=000080>"
+ 1631: push_constant_string "entgallow traps"
+ 1632: push_constant_string "</col>"
+ 1633: push_constant_string " within Daemonheim."
+ 1634: join_string 5
+ 1635: return 0
+ 1636: branch 103
+ 1637: push_constant_int 86
+ 1638: push_constant_int 16333
+ 1639: push_constant_string "Entgallow longbow (Tier 9)"
+ 1640: push_constant_string "You can now fletch "
+ 1641: push_constant_string "<col=000080>"
+ 1642: push_constant_string "entgallow longbows"
+ 1643: push_constant_string "</col>"
+ 1644: push_constant_string " within Daemonheim."
+ 1645: join_string 5
+ 1646: return 0
+ 1647: branch 92
+ 1648: push_constant_int 88
+ 1649: push_constant_int 16467
+ 1650: push_constant_string "Gorgonite arrows (Tier 9)"
+ 1651: push_constant_string "You can now fletch "
+ 1652: push_constant_string "<col=000080>"
+ 1653: push_constant_string "gorgonite arrows"
+ 1654: push_constant_string "</col>"
+ 1655: push_constant_string " within Daemonheim."
+ 1656: join_string 5
+ 1657: return 0
+ 1658: branch 81
+ 1659: push_constant_int 88
+ 1660: push_constant_int 16993
+ 1661: push_constant_string "Entgallow staff (Tier 9)"
+ 1662: push_constant_string "You can now fletch "
+ 1663: push_constant_string "<col=000080>"
+ 1664: push_constant_string "entgallow staves"
+ 1665: push_constant_string "</col>"
+ 1666: push_constant_string " within Daemonheim."
+ 1667: join_string 5
+ 1668: return 0
+ 1669: branch 70
+ 1670: push_constant_int 90
+ 1671: push_constant_int 17742
+ 1672: push_constant_string "Grave creeper"
+ 1673: push_constant_string "<br>"
+ 1674: push_constant_string " 65 Arrow shafts"
+ 1675: join_string 3
+ 1676: push_constant_string "You can now fletch "
+ 1677: push_constant_string "<col=000080>"
+ 1678: push_constant_string "grave creeper branches"
+ 1679: push_constant_string "</col>"
+ 1680: push_constant_string " into "
+ 1681: push_constant_string "<col=000080>"
+ 1682: push_constant_string "65 arrow shafts"
+ 1683: push_constant_string "</col>"
+ 1684: push_constant_string " within Daemonheim."
+ 1685: join_string 9
+ 1686: return 0
+ 1687: branch 52
+ 1688: push_constant_int 91
+ 1689: push_constant_int 16885
+ 1690: push_constant_string "Grave creeper shortbow (Tier 10)"
+ 1691: push_constant_string "You can now fletch "
+ 1692: push_constant_string "<col=000080>"
+ 1693: push_constant_string "grave creeper shortbows"
+ 1694: push_constant_string "</col>"
+ 1695: push_constant_string " within Daemonheim."
+ 1696: join_string 5
+ 1697: return 0
+ 1698: branch 41
+ 1699: push_constant_int 93
+ 1700: push_constant_int 17774
+ 1701: push_constant_string "Grave creeper trap (Tier 10)"
+ 1702: push_constant_string "You can now fletch "
+ 1703: push_constant_string "<col=000080>"
+ 1704: push_constant_string "grave creeper traps"
+ 1705: push_constant_string "</col>"
+ 1706: push_constant_string " within Daemonheim."
+ 1707: join_string 5
+ 1708: return 0
+ 1709: branch 30
+ 1710: push_constant_int 96
+ 1711: push_constant_int 16335
+ 1712: push_constant_string "Grave creeper longbow (Tier 10)"
+ 1713: push_constant_string "You can now fletch "
+ 1714: push_constant_string "<col=000080>"
+ 1715: push_constant_string "grave creeper longbows"
+ 1716: push_constant_string "</col>"
+ 1717: push_constant_string " within Daemonheim."
+ 1718: join_string 5
+ 1719: return 0
+ 1720: branch 19
+ 1721: push_constant_int 98
+ 1722: push_constant_int 16995
+ 1723: push_constant_string "Grave creeper staff (Tier 10)"
+ 1724: push_constant_string "You can now fletch "
+ 1725: push_constant_string "<col=000080>"
+ 1726: push_constant_string "grave creeper staves"
+ 1727: push_constant_string "</col>"
+ 1728: push_constant_string " within Daemonheim."
+ 1729: join_string 5
+ 1730: return 0
+ 1731: branch 8
+ 1732: push_constant_int 99
+ 1733: push_constant_int 16472
+ 1734: push_constant_string "Promethium arrows (Tier 10)"
+ 1735: push_constant_string "You can now fletch promethium arrows"
+ 1736: push_constant_string "</col>"
+ 1737: push_constant_string " within Daemonheim."
+ 1738: join_string 3
+ 1739: return 0
+ 1740: branch 30
+ 1741: push_int_local 1
+ 1742: branch_if_false 1
+ 1743: branch 27
+ 1744: push_constant_int 99
+ 1745: push_constant_int 9783
+ 1746: push_constant_string "Skill mastery"
+ 1747: push_constant_string "<col=000080>"
+ 1748: push_constant_string "Congratulations! You are now a master of "
+ 1749: push_constant_string "<col=800000>"
+ 1750: push_constant_string "Fletching"
+ 1751: push_constant_string "<col=000080>"
+ 1752: push_constant_string ". Why not visit "
+ 1753: push_constant_string "<col=800000>"
+ 1754: push_constant_string "Hickton"
+ 1755: push_constant_string "<col=000080>"
+ 1756: push_constant_string " who runs the "
+ 1757: push_constant_string "<col=800000>"
+ 1758: push_constant_string "bow and arrow shop"
+ 1759: push_constant_string "<col=000080>"
+ 1760: push_constant_string " in "
+ 1761: push_constant_string "<col=800000>"
+ 1762: push_constant_string "Catherby"
+ 1763: push_constant_string "<col=000080>"
+ 1764: push_constant_string "? He has something special that is only available to true masters of the "
+ 1765: push_constant_string "<col=800000>"
+ 1766: push_constant_string "Fletching"
+ 1767: push_constant_string "<col=000080>"
+ 1768: push_constant_string " skill!"
+ 1769: join_string 22
+ 1770: return 0
+ 1771: push_constant_int 0
+ 1772: push_constant_int -1
+ 1773: push_constant_string ""
+ 1774: push_constant_string ""
+ 1775: return 0
+
+switch_0:
+  0 => 1
+  1 => 207
+  2 => 356
+  3 => 621
+  4 => 701
+  5 => 784
+  6 => 831
+  7 => 999
+  8 => 1739
+switch_1:
+  0 => 1
+  1 => 12
+  2 => 26
+  3 => 40
+  4 => 51
+  5 => 65
+  6 => 76
+  7 => 90
+  8 => 104
+  9 => 115
+  10 => 129
+  11 => 143
+  12 => 154
+  13 => 168
+  14 => 179
+  15 => 193
+switch_2:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 59
+  6 => 70
+  7 => 81
+  8 => 92
+  9 => 103
+  10 => 114
+  11 => 125
+  12 => 136
+switch_3:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 37
+  4 => 51
+  5 => 62
+  6 => 73
+  7 => 84
+  8 => 95
+  9 => 106
+  10 => 117
+  11 => 128
+  12 => 139
+  13 => 150
+  14 => 164
+  15 => 175
+  16 => 186
+  17 => 197
+  18 => 208
+  19 => 219
+  20 => 230
+  21 => 241
+  22 => 252
+switch_4:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+switch_5:
+  0 => 1
+  1 => 12
+  2 => 26
+  3 => 37
+  4 => 48
+  5 => 59
+  6 => 70
+switch_6:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+switch_7:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+  12 => 133
+  13 => 144
+  14 => 155
+switch_8:
+  0 => 1
+  1 => 10
+  2 => 28
+  3 => 39
+  4 => 50
+  5 => 61
+  6 => 72
+  7 => 83
+  8 => 101
+  9 => 112
+  10 => 123
+  11 => 134
+  12 => 145
+  13 => 156
+  14 => 174
+  15 => 185
+  16 => 196
+  17 => 207
+  18 => 218
+  19 => 229
+  20 => 247
+  21 => 258
+  22 => 269
+  23 => 280
+  24 => 291
+  25 => 302
+  26 => 320
+  27 => 331
+  28 => 342
+  29 => 353
+  30 => 364
+  31 => 375
+  32 => 393
+  33 => 404
+  34 => 415
+  35 => 426
+  36 => 437
+  37 => 448
+  38 => 466
+  39 => 477
+  40 => 488
+  41 => 499
+  42 => 510
+  43 => 521
+  44 => 539
+  45 => 550
+  46 => 561
+  47 => 572
+  48 => 583
+  49 => 594
+  50 => 612
+  51 => 623
+  52 => 634
+  53 => 645
+  54 => 656
+  55 => 667
+  56 => 685
+  57 => 696
+  58 => 707
+  59 => 718
+  60 => 729

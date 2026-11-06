@@ -1,0 +1,80 @@
+[clientscript,script_1581](int $int0)(int)
+def_string $str0 = "";
+def_int $int1 = 494;
+def_int $int2 = 32243761;
+switch ($int0) {
+    case 32243727:
+    case 32309275:
+    case 31981571:
+        $str0 = %varc_str212;
+    case 32243728:
+    case 32309276:
+    case 31981576:
+        $str0 = %varc_str213;
+    case 32243729:
+    case 32309277:
+    case 31981581:
+        $str0 = %varc_str214;
+    case 32243730:
+    case 32309278:
+    case 31981586:
+        $str0 = %varc_str215;
+    case 32243731:
+    case 32309279:
+        $str0 = %varc_str216;
+    default:
+}
+switch ($int0) {
+    case 32309275:
+    case 32309276:
+    case 32309277:
+    case 32309278:
+    case 32309279:
+        $int1 = 495;
+        $int2 = 32309304;
+    case 31981571:
+    case 31981576:
+    case 31981581:
+    case 31981586:
+        $int1 = 495;
+        $int2 = 31981595;
+    default:
+}
+def_string $str1 = $str0;
+def_int $int3 = if_getwidth;
+if (parawidth($str1 + " ", $int1) > $int3) {
+    if (parawidth($str1 + "... ", $int1) > $int3) {
+        $str1 = substring($str1, 0, sub(string_length($str1), 1));
+    }
+    if_setonmouserepeat;
+    if_setonmouseleave;
+    $str0 = $str1 + "...";
+} else {
+    if_setonmouserepeat;
+    if_setonmouseleave;
+}
+switch ($int0) {
+    case 32243727:
+    case 32243728:
+    case 32243729:
+    case 32243730:
+    case 32243731:
+    case 32309275:
+    case 32309276:
+    case 32309277:
+    case 32309278:
+    case 32309279:
+        if (compare($str0, "") = 0) {
+            $str0 = "none set";
+        }
+    case 31981571:
+    case 31981576:
+    case 31981581:
+    case 31981586:
+        if (compare($str0, "") = 0) {
+            $str0 = "---";
+        }
+    default:
+}
+if_settext($str0);
+return($int0);

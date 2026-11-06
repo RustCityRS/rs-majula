@@ -1,0 +1,34 @@
+; id: 576
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: push_constant_int -1
+    2: push_constant_int 25493519
+    3: if_setobject 0
+    4: push_constant_int 25493508
+    5: op152 0
+    6: push_varc_string_old 22
+    7: string_length 0
+    8: push_constant_int 0
+    9: branch_greater_than 1
+   10: branch 6
+   11: push_constant_int 1
+   12: push_constant_int 25493509
+   13: if_sethide 0
+   14: push_varc_string_old 22
+   15: gosub_with_params 577
+   16: branch 8
+   17: push_constant_int 0
+   18: push_constant_int 25493509
+   19: if_sethide 0
+   20: push_constant_int 0
+   21: push_constant_int 15
+   22: push_constant_int 25493508
+   23: op2120 0
+   24: gosub_with_params 578
+   25: return 0

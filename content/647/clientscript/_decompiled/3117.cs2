@@ -1,0 +1,117 @@
+[clientscript,script_3117](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0, string $str1)(int, int, int, int, int, int, string, string, string)
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $str2 = "";
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_string $str3 = "";
+def_string $str4 = "";
+if (testbit($int1, 0) = 1) {
+    $int11 = 1;
+} else {
+    $int11 = 0;
+}
+if (testbit($int1, 1) = 1) {
+    $int12 = 1;
+} else {
+    $int12 = 0;
+}
+if (testbit($int1, 2) = 1) {
+    $int13 = 1;
+} else {
+    $int13 = 0;
+}
+if (testbit($int1, 3) = 1) {
+    $int14 = 1;
+} else {
+    $int14 = 0;
+}
+if (testbit($int1, 4) = 1) {
+    $int15 = 1;
+} else {
+    $int15 = 0;
+}
+if (getlanguage = 0) {
+    if ($int15 = 1) {
+        $int9 = enum(105, 100, enum_730, 1);
+        $str2 = $str0;
+    } else {
+        if (string_length($str0) > 1) {
+            $int9 = enum(105, 100, enum_730, 1);
+            $str2 = $str0;
+        }
+        $int9 = enum(105, 100, enum_1810, $int4);
+        $str2 = $str1;
+    }
+} else {
+    if (getlanguage = 1) {
+        $int9 = 1517;
+    } else {
+        if (getlanguage = 2) {
+            $int9 = enum(105, 100, enum_1810, 74);
+        }
+        if (getlanguage = 3) {
+            $int9 = enum(105, 100, enum_1810, 31);
+        }
+    }
+    if ($int15 = 1) {
+        $str2 = $str0;
+    }
+    if (string_length($str0) > 1) {
+        $str2 = $str0;
+    }
+    if (getlanguage = 1) {
+        $str2 = "German";
+    }
+    if (getlanguage = 2) {
+        $str2 = "French";
+    }
+    if (getlanguage = 3) {
+        $str2 = "Portuguese";
+    }
+}
+if ($int11 = 0) {
+    $int5 = 1532;
+    $int8 = 16579836;
+    $str3 = "Free";
+} else {
+    $int5 = 1531;
+    $int8 = 16579684;
+    $str3 = "Members";
+}
+if ($int14 = 1) {
+    $int10 = 699;
+} else {
+    $int10 = 698;
+}
+if ($int0 = %varc_int998) {
+    $int7 = 2109969;
+    $int6 = 1541;
+} else {
+    if ($int0 = %varc_int999) {
+        $int7 = 2112529;
+        $int6 = 1541;
+    }
+    if (mod($int2, 2) = 0) {
+        $int7 = 2103569;
+    } else {
+        $int7 = 2695190;
+    }
+    $int6 = 1545;
+}
+if ($int3 >= 1980) {
+    $str4 = "FULL";
+} else {
+    if ($int3 >= 0) {
+        $str4 = tostring($int3);
+    }
+    $str4 = "OFFLINE";
+}
+return($int9, $int5, $int8, $int10, $int7, $int6, $str2, $str3, $str4);

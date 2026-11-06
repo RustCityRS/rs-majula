@@ -1,0 +1,12 @@
+[clientscript,script_576]
+if_setobject(-1, 25493519);
+cc_deleteall(25493508);
+if (string_length(%varc_str22) > 0) {
+    if_sethide(25493509);
+    ~script_577(%varc_str22);
+} else {
+    if_sethide(25493509);
+    if_setscrollsize(0, 15, 25493508);
+    ~script_578;
+}
+return;

@@ -1,13 +1,11 @@
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
-use crate::pack::js5::{
-    PreparedGroup, load_group_files, load_name_hashes, stamp_path, write_archive,
-};
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, load_group_files, load_name_hashes};
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
-use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 #[cfg(since_647)]
 use anyhow::{Result, bail, ensure};
 #[cfg(since_647)]
@@ -16,8 +14,6 @@ use rayon::prelude::*;
 use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::bz2::bz2_compress_with_size;
-#[cfg(since_647)]
-use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
@@ -67,26 +63,14 @@ pub fn pack_midis(content_dir: &Path, kind: &str) -> HashMap<String, Vec<u8>> {
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
     let aid = archive::SONGS;
     let format = archive::archive_format(aid).unwrap();
     let unpack_dir = content_dir.join(format.content_dir).join("_unpack");
-
-    let songs_stamp = stamp_path(output_dir, aid);
-    let songs_input = newest_mtime(&unpack_dir, &["mid"]);
-    if !force_rebuild && is_up_to_date(&songs_stamp, songs_input) {
-        info!(
-            "  archive {:>2} ({}) -- up to date, skipping",
-            aid, format.content_dir
-        );
-        return Ok(());
-    }
 
     if !unpack_dir.is_dir() {
         info!(
@@ -105,7 +89,7 @@ pub fn pack_archive(
         HashMap::new()
     };
 
-    let encoded: Vec<(u32, Vec<u8>)> = group_files
+    let prepared: Vec<PreparedGroup> = group_files
         .par_iter()
         .filter_map(|(gid, path)| {
             let midi_bytes = fs::read(path).ok()?;
@@ -117,13 +101,9 @@ pub fn pack_archive(
                 }
             }
         })
-        .collect();
-
-    let prepared: Vec<PreparedGroup> = encoded
-        .par_iter()
         .map(|(gid, data)| {
-            let mut group = PreparedGroup::new(aid, *gid, data, versions)?;
-            group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
+            let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
+            group.name_hash = name_hashes.get(&gid).copied().unwrap_or(-1);
             group.files = vec![FileInfo {
                 id: 0,
                 name_hash: None,
@@ -132,8 +112,8 @@ pub fn pack_archive(
         })
         .collect::<Result<Vec<_>>>()?;
 
-    write_archive(store, aid, format, versions, prepared, "from .mid encode")?;
-    write_stamp(&songs_stamp)?;
+    insert_archive(store, aid, format, versions, prepared, "from .mid encode")?;
+
     Ok(())
 }
 

@@ -1,0 +1,74 @@
+; id: 2560
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 105
+    1: push_constant_int 115
+    2: push_constant_int 2385
+    3: push_constant_int 1
+    4: enum 0
+    5: push_constant_int 55377930
+    6: if_settext 0
+    7: push_constant_int 105
+    8: push_constant_int 115
+    9: push_constant_int 2385
+   10: push_constant_int 2
+   11: enum 0
+   12: push_constant_int 55377934
+   13: if_settext 0
+   14: push_constant_int 105
+   15: push_constant_int 115
+   16: push_constant_int 2385
+   17: push_constant_int 3
+   18: enum 0
+   19: push_constant_int 55377938
+   20: if_settext 0
+   21: push_constant_int 105
+   22: push_constant_int 115
+   23: push_constant_int 2385
+   24: push_constant_int 4
+   25: enum 0
+   26: push_constant_int 55377942
+   27: if_settext 0
+   28: push_constant_int 105
+   29: push_constant_int 115
+   30: push_constant_int 2385
+   31: push_constant_int 5
+   32: enum 0
+   33: push_constant_int 55377946
+   34: if_settext 0
+   35: push_constant_string "x "
+   36: push_varc_int 828
+   37: tostring 0
+   38: join_string 2
+   39: push_constant_int 55377929
+   40: if_settext 0
+   41: push_constant_string "x "
+   42: push_varc_int 829
+   43: tostring 0
+   44: join_string 2
+   45: push_constant_int 55377933
+   46: if_settext 0
+   47: push_constant_string "x "
+   48: push_varc_int 830
+   49: tostring 0
+   50: join_string 2
+   51: push_constant_int 55377937
+   52: if_settext 0
+   53: push_constant_string "x "
+   54: push_varc_int 831
+   55: tostring 0
+   56: join_string 2
+   57: push_constant_int 55377941
+   58: if_settext 0
+   59: push_constant_string "x "
+   60: push_varc_int 832
+   61: tostring 0
+   62: join_string 2
+   63: push_constant_int 55377945
+   64: if_settext 0
+   65: return 0

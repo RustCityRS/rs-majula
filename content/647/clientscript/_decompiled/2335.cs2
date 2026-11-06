@@ -1,0 +1,64 @@
+[clientscript,script_2335](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13, int $int14, int $int15, int $int16)
+if (%varbit8725 < 4000) {
+    if_settext(tostring(%varbit8725));
+} else {
+    if_settext("Max");
+}
+if (%varbit3939 < 4000) {
+    if_settext(tostring(%varbit3939));
+} else {
+    if_settext("Max");
+}
+if (%varbit3941 < 4000) {
+    if_settext(tostring(%varbit3941));
+} else {
+    if_settext("Max");
+}
+if (%varbit3938 < 4000) {
+    if_settext(tostring(%varbit3938));
+} else {
+    if_settext("Max");
+}
+if (%varbit3942 < 4000) {
+    if_settext(tostring(%varbit3942));
+} else {
+    if_settext("Max");
+}
+def_int $int17 = parawidth(if_gettext, 494);
+def_int $int18 = parawidth(if_gettext, 494);
+def_int $int19 = parawidth(if_gettext, 494);
+def_int $int20 = parawidth(if_gettext, 494);
+def_int $int21 = parawidth(if_gettext, 494);
+def_int $int22 = $int5;
+$int22 = max($int22, calc($int16 + 10 + $int17));
+$int22 = max($int22, calc($int6 + 10 + $int18));
+$int22 = max($int22, calc($int7 + 10 + $int19));
+$int22 = max($int22, calc($int8 + 10 + $int20));
+$int22 = max($int22, calc($int9 + 10 + $int21));
+if_setsize(if_getheight, 0, 0, $int0);
+if (%varbit8725 < 40) {
+    if_setcolour($int14);
+} else {
+    if_setcolour($int14);
+}
+if (%varbit3939 < 40) {
+    if_setcolour($int1);
+} else {
+    if_setcolour($int1);
+}
+if (%varbit3941 < 40) {
+    if_setcolour($int2);
+} else {
+    if_setcolour($int2);
+}
+if (%varbit3938 < 40) {
+    if_setcolour($int3);
+} else {
+    if_setcolour($int3);
+}
+if (%varbit3942 < 40) {
+    if_setcolour($int4);
+} else {
+    if_setcolour($int4);
+}
+return;

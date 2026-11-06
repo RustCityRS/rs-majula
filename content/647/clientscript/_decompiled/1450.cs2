@@ -1,0 +1,17 @@
+[clientscript,script_1450]
+def_int $int0 = 0;
+def_int $int1 = inv_size(bank);
+if ($int0 < $int1) {
+    cc_setposition(0, 49938525, 5, $int0);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(0, 0, 0, 0);
+    cc_sethide(1);
+    if (inv_getobj(bank, $int0) ! -1) {
+    }
+    cc_setoutline;
+    cc_setgraphicshadow;
+    cc_setonmouserepeat;
+    cc_setonmouseleave;
+    $int0 = add($int0, 1);
+}
+return;

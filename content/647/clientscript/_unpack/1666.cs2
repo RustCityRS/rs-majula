@@ -1,0 +1,12 @@
+; id: 1666
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "kbase/view.ws?guid=controls_banks#memberspace"
+    1: push_constant_int 1
+    2: op5421 0
+    3: return 0

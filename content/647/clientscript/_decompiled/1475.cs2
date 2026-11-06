@@ -1,0 +1,10 @@
+[clientscript,script_1475]
+%varc_str138 = %varc_str22;
+if (clientclock > %varc_int191) {
+    ~script_1479(%varc_str138);
+    if_setontimer;
+    %varc_int191 = add(clientclock, 10);
+} else {
+    if_setontimer;
+}
+return;

@@ -1,0 +1,6 @@
+[clientscript,script_1144](int $int0)(int, int, string)
+if (cam_getpathcount(0) = 7) {
+    cam_startpath(0, 5, 600, 400, 1, 5);
+}
+if_setonvarcstringtransmit;
+return(-1, $int0, "");

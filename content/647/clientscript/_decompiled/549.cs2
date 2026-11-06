@@ -1,0 +1,11 @@
+[clientscript,script_549](int, component)
+if (%varbit4109 = 15) {
+    sound_synth(synth_4020, 1, 0);
+    return;
+}
+%varbit4109 = add(%varbit4109, 1);
+def_int $int0 = calc(15 - %varbit4109 * 6);
+if_setposition($int0, 0, 0, 40894479);
+if_settext(tostring(%varbit4109));
+sound_synth(synth_4026, 1, 0);
+return(0, 40894534);

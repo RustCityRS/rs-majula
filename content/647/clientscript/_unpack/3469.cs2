@@ -1,0 +1,69 @@
+; id: 3469
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 2
+    1: randominc 0
+    2: switch 0
+    3: branch 17
+    4: push_constant_int 6645
+    5: push_constant_int 1
+    6: push_constant_int 15
+    7: random 0
+    8: sound_synth 0
+    9: branch 11
+   10: push_constant_int 6644
+   11: push_constant_int 1
+   12: push_constant_int 15
+   13: random 0
+   14: sound_synth 0
+   15: branch 5
+   16: push_constant_int 6643
+   17: push_constant_int 1
+   18: push_constant_int 15
+   19: random 0
+   20: sound_synth 0
+   21: push_int_local 1
+   22: push_constant_int 0
+   23: op5407 0
+   24: push_constant_int 2
+   25: sub 0
+   26: branch_less_than 1
+   27: branch 16
+   28: push_constant_int 0
+   29: push_int_local 1
+   30: push_constant_int 3100
+   31: push_constant_int 3300
+   32: push_constant_int 1
+   33: push_int_local 1
+   34: op5502 0
+   35: push_constant_int 3469
+   36: push_int_local 0
+   37: push_int_local 1
+   38: push_constant_int 1
+   39: add 0
+   40: push_constant_string "Ii"
+   41: push_int_local 0
+   42: op2426 0
+   43: return 0
+   44: push_constant_int 0
+   45: push_int_local 1
+   46: push_constant_int 1000
+   47: push_constant_int 0
+   48: push_constant_int 1
+   49: push_int_local 1
+   50: op5502 0
+   51: push_constant_int -1
+   52: push_constant_string ""
+   53: push_int_local 0
+   54: op2426 0
+   55: return 0
+
+switch_0:
+  0 => 1
+  1 => 7
+  2 => 13

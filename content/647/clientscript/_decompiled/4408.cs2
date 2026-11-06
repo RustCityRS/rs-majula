@@ -1,0 +1,8 @@
+[clientscript,script_4408](int $int0, int $int1, int $int2, int $int3, int $int4)(int, int, int, int)
+def_int $int5 = if_getheight;
+def_int $int6 = calc($int5 - $int4 * 8 / $int5);
+def_int $int7 = div($int0, if_getwidth);
+%varbit9089 = mod($int6, 8);
+%varbit9090 = mod($int7, 128);
+if_setcolour($int2);
+return($int0, multiply($int3, 128), ~script_4411($int3, $int4), hsv_to_rgb(%varp2098));

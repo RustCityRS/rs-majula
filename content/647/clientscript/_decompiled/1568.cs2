@@ -1,0 +1,7 @@
+[clientscript,script_1568](int $int0)
+if (getlanguage = 1) {
+    if_setgraphic($int0);
+} else {
+    if_setgraphic($int0);
+}
+return;

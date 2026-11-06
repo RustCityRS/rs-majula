@@ -1,0 +1,17 @@
+[clientscript,script_439](int $int0)
+switch (%varbit8087) {
+    case 0:
+        if_settext("0:30");
+    case 1:
+        if_settext("1:00");
+    case 2:
+        if_settext("1:30");
+    case 3:
+        if_settext("2:00");
+    case 4:
+        if_settext("2:30");
+    case 5:
+        if_settext("3:00");
+    default:
+}
+return;

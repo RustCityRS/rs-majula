@@ -1,0 +1,8 @@
+[clientscript,script_1903](int $int0, int $int1, int $int2, int $int3)(int, int, string)
+%varc_int129 = sub(%varc_int129, 1);
+if (%varc_int129 > 0) {
+    return;
+}
+if_setontimer;
+~script_1904($int0, $int2, $int3);
+return(-1, $int1, "");

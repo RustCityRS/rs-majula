@@ -1,0 +1,79 @@
+; id: 2741
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=2
+local_long_count=0
+
+    0: push_constant_string "Confirm"
+    1: pop_string_local 0
+    2: push_constant_string "Continue"
+    3: pop_string_local 1
+    4: push_string_local 0
+    5: push_constant_int 495
+    6: op4125 0
+    7: push_constant_int 30
+    8: add 0
+    9: pop_int_local 0
+   10: push_constant_int 67371125
+   11: push_string_local 0
+   12: push_int_local 0
+   13: push_constant_string ""
+   14: gosub_with_params 3965
+   15: push_constant_int 67371123
+   16: push_string_local 1
+   17: push_string_local 1
+   18: push_constant_int 495
+   19: op4125 0
+   20: push_constant_int 30
+   21: add 0
+   22: push_constant_string ""
+   23: gosub_with_params 368
+   24: push_constant_string "Back"
+   25: pop_string_local 1
+   26: push_int_local 0
+   27: push_constant_int 55
+   28: add 0
+   29: pop_int_local 0
+   30: push_constant_int 67371124
+   31: push_string_local 1
+   32: push_string_local 1
+   33: push_constant_int 495
+   34: op4125 0
+   35: push_constant_int 30
+   36: add 0
+   37: push_constant_string ""
+   38: gosub_with_params 368
+   39: push_varbit 8246
+   40: branch_if_true 1
+   41: branch 16
+   42: push_varbit 8247
+   43: branch_if_false 1
+   44: branch 13
+   45: push_constant_int 20
+   46: push_constant_int 0
+   47: push_constant_int 2
+   48: push_constant_int 2
+   49: push_constant_int 67371123
+   50: if_setposition 0
+   51: push_constant_int 0
+   52: push_constant_int 0
+   53: push_constant_int 2
+   54: push_constant_int 2
+   55: push_constant_int 67371124
+   56: if_setposition 0
+   57: branch 12
+   58: push_int_local 0
+   59: push_constant_int 0
+   60: push_constant_int 2
+   61: push_constant_int 2
+   62: push_constant_int 67371123
+   63: if_setposition 0
+   64: push_int_local 0
+   65: push_constant_int 0
+   66: push_constant_int 2
+   67: push_constant_int 2
+   68: push_constant_int 67371124
+   69: if_setposition 0
+   70: return 0

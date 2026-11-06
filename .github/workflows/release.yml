@@ -47,14 +47,6 @@ jobs:
         with:
           key: validate-${{ matrix.rev }}
 
-      # 647's cache and the content derived from it are not in git: fetch the
-      # cache from OpenRS2 and unpack it, as a fresh clone does.
-      - name: Fetch and unpack the reference cache
-        if: matrix.rev == '647'
-        run: |
-          cargo fetch-expected
-          cargo regen-content
-
       - name: Compile and pack content
         run: cargo run --release -p rs-pack -- pack
 
@@ -91,14 +83,6 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           key: test-${{ matrix.rev }}
-
-      # 647's cache and the content derived from it are not in git: fetch the
-      # cache from OpenRS2 and unpack it, as a fresh clone does.
-      - name: Fetch and unpack the reference cache
-        if: matrix.rev == '647'
-        run: |
-          cargo fetch-expected
-          cargo regen-content
 
       - name: Test
         run: cargo test --workspace -- --include-ignored
@@ -144,14 +128,6 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.rev }}-${{ matrix.target.triple }}
-
-      # 647's cache and the content derived from it are not in git: fetch the
-      # cache from OpenRS2 and unpack it, as a fresh clone does.
-      - name: Fetch and unpack the reference cache
-        if: matrix.rev == '647'
-        run: |
-          cargo fetch-expected
-          cargo regen-content
 
       - name: Install cross-compilation tools (Linux ARM64)
         if: matrix.target.triple == 'aarch64-unknown-linux-gnu'

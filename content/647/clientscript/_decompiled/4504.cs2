@@ -1,0 +1,15 @@
+[clientscript,script_4504](int $int0)(int)
+if_getlayer;
+def_int $int1 = $int0;
+if ($int1 = -1) {
+    return;
+}
+def_int $int2 = sub(if_getchildcount($int1), 1);
+if ($int2 >= 0) {
+    if (cc_find($int1, $int2) = 1) {
+        cc_clearops;
+    }
+    $int2 = sub($int2, 1);
+}
+if_sethide($int1);
+return(1);

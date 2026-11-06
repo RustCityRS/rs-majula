@@ -1,0 +1,32 @@
+[clientscript,script_495](int $int0)
+def_int $int1 = 0;
+switch ($int0) {
+    case 66519184:
+        $int1 = %varbit7520;
+    case 66519186:
+        $int1 = %varbit7521;
+    case 66519188:
+        $int1 = %varbit7526;
+    case 66519190:
+        $int1 = %varbit7527;
+    case 66519192:
+        $int1 = %varbit7530;
+    case 66519194:
+        $int1 = %varbit7531;
+    case 66519196:
+        $int1 = %varbit7532;
+    case 66519198:
+        $int1 = %varbit7533;
+    case 66519200:
+        $int1 = %varbit7534;
+    case 66519202:
+        $int1 = %varbit7535;
+    default:
+        return;
+}
+if ($int1 = 0) {
+    if_setcolour($int0);
+} else {
+    if_setcolour($int0);
+}
+return;

@@ -1,0 +1,17 @@
+[clientscript,script_622]
+if (%varp1118 = 1) {
+    if_sethide(6881297);
+    if_sethide(6881407);
+    if_sethide(6881434);
+    if_sethide(6881468);
+    if_sethide(6881473);
+    if_sethide(6881477);
+} else {
+    if_sethide(6881297);
+    if_sethide(6881407);
+    if_sethide(6881434);
+    if_sethide(6881468);
+    if_sethide(6881473);
+    if_sethide(6881477);
+}
+return;

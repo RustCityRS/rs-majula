@@ -1,0 +1,7 @@
+[clientscript,script_287](int $int0, int $int1, int $int2, int $int3)
+cc_setposition(0, $int2, 5, $int0);
+cc_setsize(17, 17, 0, 0);
+cc_setposition2(4, add($int3, 4), 0, 0);
+cc_sethide($int1);
+cc_setgraphic(1726);
+return;

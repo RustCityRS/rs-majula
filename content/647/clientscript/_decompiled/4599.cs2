@@ -1,0 +1,11 @@
+[clientscript,script_4599](int $int0, int $int1, int $int2, string $str0)(int, int, int, int, int, stat, int, stat, int, int, int, int, string, string, string, string)
+if ($int1 > 1) {
+    if_setobject_scaled($int0, $int1, $int2);
+} else {
+    if_setobject_nonum;
+}
+if_setonop;
+if_setop($int2, "Examine");
+if_setopbase;
+if_setonop;
+return(1620, -2147483645, -2147483643, 100, 0, woodcutting, $int2, fishing, $int2, 4600, -2147483644, $int2, "Iiiii", "<col=ff9040>" + oc_name($int0) + "</col>", $str0, "is");

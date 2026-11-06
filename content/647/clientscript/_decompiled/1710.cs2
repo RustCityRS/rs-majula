@@ -1,0 +1,16 @@
+[clientscript,script_1710](int $int0)(int)
+def_int $int1 = ~script_1711($int0);
+if (%varbit6839 > 0) {
+    switch ($int0) {
+        case 0:
+            $int1 = add($int1, 15);
+            $int1 = add($int1, ~script_1714($int0, %varbit6844));
+        case 2:
+            $int1 = add($int1, 23);
+            $int1 = add($int1, ~script_1714($int0, %varbit6845));
+        case 1:
+            $int1 = add($int1, 15);
+            $int1 = add($int1, ~script_1714($int0, %varbit6846));
+    }
+}
+return($int1);

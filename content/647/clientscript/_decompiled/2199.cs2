@@ -1,0 +1,13 @@
+[clientscript,script_2199]
+switch (random(4)) {
+    case 0:
+        %varc_int1136 = 61079562;
+    case 1:
+        %varc_int1136 = 61079563;
+    case 2:
+        %varc_int1136 = 61079564;
+    case 3:
+        %varc_int1136 = 61079565;
+    default:
+}
+return;

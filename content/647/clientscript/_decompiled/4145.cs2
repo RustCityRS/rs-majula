@@ -1,0 +1,11 @@
+[clientscript,script_4145](int $int0, int $int1)
+if (%varc_int98 >= 1) {
+    if_sethide($int0);
+    if_setpausetext($int0, "I don't know it.");
+    if_setposition(calc($int1 - if_getheight / 2), 1, 1, $int1);
+} else {
+    if_sethide($int0);
+    if_clearops;
+    if_setposition(0, 1, 1, $int1);
+}
+return;

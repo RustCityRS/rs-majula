@@ -1,0 +1,71 @@
+; id: 1618
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 0
+    2: push_constant_int 0
+    3: pop_int_local 1
+    4: push_constant_int 0
+    5: pop_int_local 2
+    6: push_constant_int 0
+    7: pop_int_local 3
+    8: push_constant_int 0
+    9: pop_int_local 4
+   10: push_constant_int 0
+   11: push_constant_int 18808836
+   12: if_sethide 0
+   13: push_varc_int 1032
+   14: branch_if_true 1
+   15: branch 3
+   16: push_constant_int 221
+   17: pop_int_local 0
+   18: branch 2
+   19: push_constant_int 222
+   20: pop_int_local 0
+   21: push_int_local 0
+   22: inv_size 0
+   23: pop_int_local 1
+   24: push_int_local 1
+   25: push_constant_int 5
+   26: push_constant_int 5
+   27: multiply 0
+   28: branch_not 1
+   29: branch 3
+   30: push_constant_string "Nothing happens, as if something is wrong."
+   31: mes 0
+   32: return 0
+   33: push_int_local 4
+   34: push_int_local 1
+   35: branch_less_than 1
+   36: branch 25
+   37: push_int_local 2
+   38: push_int_local 3
+   39: push_int_local 0
+   40: push_int_local 4
+   41: inv_getobj 0
+   42: gosub_with_params 1619
+   43: push_int_local 2
+   44: push_constant_int 1
+   45: add 0
+   46: pop_int_local 2
+   47: push_int_local 2
+   48: push_constant_int 5
+   49: branch_greater_than_or_equals 1
+   50: branch 6
+   51: push_constant_int 0
+   52: pop_int_local 2
+   53: push_int_local 3
+   54: push_constant_int 1
+   55: add 0
+   56: pop_int_local 3
+   57: push_int_local 4
+   58: push_constant_int 1
+   59: add 0
+   60: pop_int_local 4
+   61: branch -29
+   62: return 0

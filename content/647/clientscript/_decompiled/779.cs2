@@ -1,0 +1,56 @@
+[clientscript,script_779](int $int0, int $int1, int $int2, int $int3, string $str0)
+cc_deleteall($int1);
+if (compare($str0, "Call familiar") = 0) {
+    if (enum(111, 111, enum_1283, %varp448) = 526) {
+        $str0 = "Call pet";
+    }
+}
+if (compare($str0, "Dismiss familiar") = 0) {
+    if (enum(111, 111, enum_1283, %varp448) = 526) {
+        $str0 = "Dismiss pet";
+    }
+}
+def_int $int4 = calc(13 + 125 * paraheight($str0, 495));
+def_int $int5 = calc(2 + $int4 + 32 + 14 + 2);
+def_int $int6 = 5;
+def_int $int7 = 5;
+def_int $int8 = 1;
+def_int $int9 = 1;
+$int5 = calc($int5 - 32 - 14);
+$int6 = if_gety;
+if ($int6 = 225) {
+    if (if_getx = 83) {
+        $int6 = 180;
+    }
+}
+$int7 = sub(if_getx, 60);
+if ($int7 < 0) {
+    $int7 = 5;
+}
+if ($int7 > 70) {
+    $int7 = 65;
+}
+cc_setposition(0, $int1, 3, 0);
+cc_setposition2($int7, $int6, 0, 0);
+cc_setsize(128, $int5, 0, 0);
+cc_setfill(1);
+cc_setcolour(16777120);
+cc_setposition(0, $int1, 3, 1);
+cc_setposition2(add($int7, 1), add($int6, 1), 0, 0);
+cc_setsize(127, sub($int5, 1), 0, 0);
+cc_setfill(0);
+cc_setcolour(0);
+cc_setposition(0, $int1, 3, 2);
+cc_setposition2($int7, $int6, 0, 0);
+cc_setsize(127, sub($int5, 1), 0, 0);
+cc_setfill(0);
+cc_setcolour(0);
+cc_setposition(0, $int1, 4, 3);
+cc_setposition2(add($int7, 2), add($int6, 2), 0, 0);
+cc_setsize(125, $int4, 0, 0);
+cc_settextalign(1, 1, 0);
+cc_settextfont(495);
+cc_setcolour(0);
+cc_settextshadow(0);
+cc_settext($str0);
+return;

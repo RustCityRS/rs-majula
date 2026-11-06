@@ -1,0 +1,7 @@
+[clientscript,script_2565](component, component)
+def_int $int0 = 0;
+%varc_int846 = %varbit6380;
+if_settext(tostring(%varbit6380));
+$int0 = calc(%varc_int839 - 100 * %varc_int846);
+if_settext(~script_46($int0, ","));
+return(56557598, 56557582);

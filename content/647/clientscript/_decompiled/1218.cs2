@@ -1,0 +1,6 @@
+[clientscript,script_1218](int $int0, int $int1)(int, int, int, int)
+if_setdraggable(-1, $int1);
+def_int $int2 = sub($int1, if_getwidth);
+def_int $int3 = scale(get_clientopt, 127, $int2);
+if_setposition(0, 0, 0, $int1);
+return($int0, $int0, if_getwidth, $int3);

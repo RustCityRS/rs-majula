@@ -1,0 +1,151 @@
+; id: 3001
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=8
+local_string_count=4
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_constant_int 0
+    3: pop_int_local 1
+    4: push_constant_int 0
+    5: pop_int_local 2
+    6: push_constant_string ""
+    7: pop_string_local 0
+    8: push_constant_int 0
+    9: pop_int_local 3
+   10: push_constant_int 0
+   11: pop_int_local 4
+   12: push_constant_int 0
+   13: pop_int_local 5
+   14: push_constant_string ""
+   15: pop_string_local 1
+   16: push_constant_string ""
+   17: pop_string_local 2
+   18: push_constant_string ""
+   19: pop_string_local 3
+   20: op6901 0
+   21: pop_int_local 0
+   22: pop_int_local 2
+   23: pop_int_local 1
+   24: push_int_local 0
+   25: branch_if_false 1
+   26: branch 75
+   27: op3325 0
+   28: branch_if_true 1
+   29: branch 72
+   30: push_int_local 1
+   31: op4126 0
+   32: pop_string_local 0
+   33: push_int_local 2
+   34: push_constant_int 1440
+   35: div 0
+   36: pop_int_local 3
+   37: push_int_local 2
+   38: push_constant_int 1440
+   39: mod 0
+   40: push_constant_int 60
+   41: div 0
+   42: pop_int_local 4
+   43: push_int_local 2
+   44: push_constant_int 60
+   45: mod 0
+   46: pop_int_local 5
+   47: push_int_local 3
+   48: push_int_local 4
+   49: add 0
+   50: push_int_local 5
+   51: add 0
+   52: push_constant_int 0
+   53: branch_not 1
+   54: branch 8
+   55: push_constant_string " (in "
+   56: push_int_local 3
+   57: push_int_local 4
+   58: push_int_local 5
+   59: gosub_with_params 4582
+   60: push_constant_string ")"
+   61: join_string 3
+   62: pop_string_local 1
+   63: push_constant_string "Your membership will expire on "
+   64: push_string_local 0
+   65: push_string_local 1
+   66: push_constant_string ". Renew now to avoid losing member status. Click "
+   67: push_constant_string "<col=0166ff>"
+   68: push_constant_string "<u=0166ff>"
+   69: push_constant_string "here"
+   70: push_constant_string "</u>"
+   71: push_constant_string "</col>"
+   72: push_constant_string " to renew."
+   73: join_string 10
+   74: pop_string_local 2
+   75: push_constant_string "Your membership will expire on "
+   76: push_string_local 0
+   77: push_string_local 1
+   78: push_constant_string ". Renew now to avoid losing member status. Click "
+   79: push_constant_string "<col=0296fe>"
+   80: push_constant_string "<u=0296fe>"
+   81: push_constant_string "here"
+   82: push_constant_string "</u>"
+   83: push_constant_string "</col>"
+   84: push_constant_string " to renew."
+   85: join_string 10
+   86: pop_string_local 3
+   87: push_string_local 2
+   88: push_constant_int 59441206
+   89: if_settext 0
+   90: push_constant_int 68
+   91: push_constant_int -2147483645
+   92: push_string_local 3
+   93: push_constant_string "Is"
+   94: push_constant_int 59441206
+   95: op2403 0
+   96: push_constant_int 68
+   97: push_constant_int -2147483645
+   98: push_string_local 2
+   99: push_constant_string "Is"
+  100: push_constant_int 59441206
+  101: op2404 0
+  102: op6904 0
+  103: pop_int_local 6
+  104: push_int_local 6
+  105: branch_if_false 1
+  106: branch 4
+  107: push_constant_string "Welcome to RuneScape!"
+  108: push_constant_int 59441153
+  109: if_settext 0
+  110: return 0
+  111: op6301 0
+  112: push_int_local 6
+  113: sub 0
+  114: pop_int_local 7
+  115: push_int_local 7
+  116: push_constant_int 1
+  117: branch_less_than 1
+  118: branch 6
+  119: push_constant_string "You last logged in earlier today from: "
+  120: op6905 0
+  121: join_string 2
+  122: push_constant_int 59441153
+  123: if_settext 0
+  124: branch 17
+  125: push_int_local 7
+  126: branch_if_true 1
+  127: branch 6
+  128: push_constant_string "You last logged in yesterday from: "
+  129: op6905 0
+  130: join_string 2
+  131: push_constant_int 59441153
+  132: if_settext 0
+  133: branch 8
+  134: push_constant_string "You last logged in "
+  135: push_int_local 7
+  136: tostring 0
+  137: push_constant_string " days ago from: "
+  138: op6905 0
+  139: join_string 4
+  140: push_constant_int 59441153
+  141: if_settext 0
+  142: return 0

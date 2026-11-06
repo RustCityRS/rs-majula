@@ -1,0 +1,66 @@
+; id: 495
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 1
+    2: push_int_local 0
+    3: switch 0
+    4: return 0
+    5: branch 29
+    6: push_varbit 7520
+    7: pop_int_local 1
+    8: branch 26
+    9: push_varbit 7521
+   10: pop_int_local 1
+   11: branch 23
+   12: push_varbit 7526
+   13: pop_int_local 1
+   14: branch 20
+   15: push_varbit 7527
+   16: pop_int_local 1
+   17: branch 17
+   18: push_varbit 7530
+   19: pop_int_local 1
+   20: branch 14
+   21: push_varbit 7531
+   22: pop_int_local 1
+   23: branch 11
+   24: push_varbit 7532
+   25: pop_int_local 1
+   26: branch 8
+   27: push_varbit 7533
+   28: pop_int_local 1
+   29: branch 5
+   30: push_varbit 7534
+   31: pop_int_local 1
+   32: branch 2
+   33: push_varbit 7535
+   34: pop_int_local 1
+   35: push_int_local 1
+   36: branch_if_false 1
+   37: branch 4
+   38: push_constant_int 5787714
+   39: push_int_local 0
+   40: if_setcolour 0
+   41: branch 3
+   42: push_constant_int 15125144
+   43: push_int_local 0
+   44: if_setcolour 0
+   45: return 0
+
+switch_0:
+  66519184 => 2
+  66519186 => 5
+  66519188 => 8
+  66519190 => 11
+  66519192 => 14
+  66519194 => 17
+  66519196 => 20
+  66519198 => 23
+  66519200 => 26
+  66519202 => 29

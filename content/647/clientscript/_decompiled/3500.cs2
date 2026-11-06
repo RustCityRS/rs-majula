@@ -1,0 +1,40 @@
+[clientscript,script_3500](int $int0, int $int1, int $int2, int $int3)(int)
+def_int $int4 = sub($int2, $int0);
+def_int $int5 = sub($int3, $int1);
+if ($int5 > 0) {
+    if ($int4 > 0) {
+        if ($int5 > $int4) {
+            return(calc(8192 * $int4 / $int5));
+        }
+        return(calc(16834 - 8192 * $int5 / $int4));
+    }
+    if ($int4 < 0) {
+        if (sub(0, $int4) > $int5) {
+            return(calc(49152 - 8192 * $int5 / $int4));
+        }
+        return(calc(65535 + 8192 * $int4 / $int5));
+    }
+    return(0);
+}
+if ($int5 < 0) {
+    if ($int4 > 0) {
+        if ($int4 > sub(0, $int5)) {
+            return(calc(16834 - 8192 * $int5 / $int4));
+        }
+        return(calc(32768 + 8192 * $int4 / $int5));
+    }
+    if ($int4 < 0) {
+        if ($int5 < $int4) {
+            return(calc(32768 + 8192 * $int4 / $int5));
+        }
+        return(calc(49152 - 8192 * $int5 / $int4));
+    }
+    return(32768);
+}
+if ($int4 > 0) {
+    return(16384);
+}
+if ($int4 < 0) {
+    return(49152);
+}
+return(-1);

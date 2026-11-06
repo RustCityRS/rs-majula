@@ -1,0 +1,15 @@
+[clientscript,script_2142](int $int0, int $int1, int $int2, string $str0)(int, int, int, int, int, int, int, int, int, string, string)
+def_int $int3 = paraheight($str0, 495);
+def_int $int4 = 15;
+cc_setposition(390, 56623111, 4, $int0);
+cc_setsize(390, multiply($int3, $int4), 0, 0);
+cc_settext($str0);
+cc_setposition2(15, $int1, 0, 0);
+cc_settextalign(0, 0, 0);
+cc_setcolour(4600330);
+cc_settextfont(495);
+cc_settextshadow(0);
+cc_setop(1, "Teleport");
+cc_setonmouseover;
+cc_setonmouseleave;
+return(1356, -2147483645, -2147483643, 6574120, 1356, -2147483645, -2147483643, 4600330, calc($int3 * $int4 + 5), "Iii", "Iii");

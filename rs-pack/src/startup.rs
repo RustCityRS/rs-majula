@@ -1,136 +1,52 @@
+use crate::cache::CacheStore;
 use crate::cache::category::CategoryType;
 use crate::cache::dbrow::DbRowType;
-use crate::cache::dbtable::DbTableType;
+use crate::cache::dbtable::{DbTableIndex, DbTableType};
 use crate::cache::r#enum::{EnumType, EnumTypeRaw};
-use crate::cache::flo::{FloType, FloTypeRaw};
-use crate::cache::flu::FluType;
+use crate::cache::flo::FloTypeRaw;
+use crate::cache::font::FontTypeProvider;
 use crate::cache::hunt::HuntType;
-use crate::cache::idk::{IdkType, IdkTypeRaw};
-use crate::cache::inv::{InvType, InvTypeRaw};
+use crate::cache::idk::IdkTypeRaw;
+use crate::cache::r#if::IfTypeProvider;
+use crate::cache::inv::InvTypeRaw;
+use crate::cache::js5::PackedCache;
 use crate::cache::loader;
 use crate::cache::loc::{LocType, LocTypeRaw};
+use crate::cache::map::XteaKeyStore;
 use crate::cache::mesanim::MesAnimType;
-use crate::cache::npc::{NpcType, NpcTypeRaw};
-use crate::cache::obj::{ObjContext, ObjType, ObjTypeRaw};
+use crate::cache::midi::{self, MidiProvider};
+use crate::cache::npc::NpcTypeRaw;
+use crate::cache::obj::{ObjContext, ObjTypeRaw};
 use crate::cache::param::{ParamType, ParamTypeRaw};
 use crate::cache::provider::{CacheType, TypeProvider};
-use crate::cache::seq::{SeqType, SeqTypeRaw};
-use crate::cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
-use crate::cache::r#struct::{StructType, StructTypeRaw};
+use crate::cache::script::ScriptProvider;
+use crate::cache::seq::SeqTypeRaw;
+use crate::cache::spotanim::SpotAnimTypeRaw;
+use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varbit::VarbitType;
 use crate::cache::varn::VarnType;
-use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
+use crate::cache::varp::VarPlayerTypeRaw;
 use crate::cache::vars::VarsType;
-use crate::pack::model;
+use crate::cache::wordenc::WordEncProvider;
 use crate::pack::other::map;
-use crate::pack::pack::{self, FileCache};
-use crate::pack::pack_registry::PackRegistry;
-use crate::pack::util::verify_crc;
+use crate::pack::pack;
+use crate::pack::pack_registry::PackedFile;
+use crate::pack::packed_data::PackedData;
 use crate::types::ParamValue;
-use crate::{CONFIG_TYPE_CRCS, archive, config_crc};
+use crate::zone_csv::load_csv_zones;
+use crate::{archive, compile_scripts, unwrap_thread};
 use anyhow::{Context, Result};
-use rs_io::jag::JagFile;
-use rs_io::js5::Js5Store;
 use std::collections::{HashMap, HashSet};
-use std::path::{Path, PathBuf};
-use std::time::SystemTime;
-use std::{env, fs, io};
-use tracing::{info, warn};
+use std::path::Path;
+use std::time::Instant;
+use std::{fs, thread};
+use tracing::info;
 
-// ── mtime utilities ──────────────────────────────────────────────────────────
-
-pub(crate) fn newest_mtime(dir: &Path, extensions: &[&str]) -> Option<SystemTime> {
-    let mut newest: Option<SystemTime> = None;
-    walk_mtime(dir, extensions, &mut newest);
-    newest
-}
-
-pub(crate) fn config_inputs(scripts_dir: &Path, pack_dir: &Path) -> Option<SystemTime> {
-    let generic_exts: Vec<_> = config_crc::GENERIC.iter().map(|&(name, _)| name).collect();
-    max_of(&[
-        newest_mtime(scripts_dir, FileCache::TEXT_EXTS),
-        newest_mtime(scripts_dir, &generic_exts),
-        newest_mtime(pack_dir, &["pack"]),
-        current_exe_mtime(),
-    ])
-}
-
-fn walk_mtime(dir: &Path, extensions: &[&str], newest: &mut Option<SystemTime>) {
-    let Ok(entries) = fs::read_dir(dir) else {
-        return;
-    };
-    // A directory's own mtime moves when an entry is added, removed or
-    // renamed. Without it a deleted input leaves every remaining file as old
-    // as before, the stamp still reads current, and the stale output is
-    // served -- hiding `wearpos.obj` once left `pack` reporting "up to date".
-    if let Ok(mtime) = dir.metadata().and_then(|m| m.modified()) {
-        *newest = Some(newest.map_or(mtime, |n| n.max(mtime)));
-    }
-    for entry in entries.flatten() {
-        let path = entry.path();
-        if path.is_dir() {
-            walk_mtime(&path, extensions, newest);
-        } else if path.is_file() {
-            let matches = extensions.is_empty()
-                || path
-                    .extension()
-                    .and_then(|e| e.to_str())
-                    .is_some_and(|ext| extensions.contains(&ext));
-            if matches {
-                if let Ok(mtime) = path.metadata().and_then(|m| m.modified()) {
-                    *newest = Some(newest.map_or(mtime, |n| n.max(mtime)));
-                }
-            }
-        }
-    }
-}
-
-pub(crate) fn file_mtime(path: &Path) -> Option<SystemTime> {
-    path.metadata().ok().and_then(|m| m.modified().ok())
-}
-
-/// Modification time of the running server executable. Folded into the
-/// up-to-date inputs so a rebuilt binary (changed *packer logic*, not content)
-/// forces a repack — content-only timestamp checks otherwise silently keep
-/// stale .dat from an older packer (e.g. enum symbol resolution changing).
-pub(crate) fn current_exe_mtime() -> Option<SystemTime> {
-    env::current_exe().ok().and_then(|p| file_mtime(&p))
-}
-
-/// Marks a pack step done, now.
-///
-/// Writes bytes rather than an empty file. On Windows, truncating a file that
-/// is already empty does not move its mtime, so `.anim_stamp`, written as `[]`,
-/// kept the date it was first created: once any animation input was newer, all
-/// 374,553 frames were repacked on every start and every reload.
-pub fn write_stamp(path: &Path) -> io::Result<()> {
-    fs::write(path, b"ok")
-}
-
-pub(crate) fn is_up_to_date(sentinel: &Path, newest_input: Option<SystemTime>) -> bool {
-    match (file_mtime(sentinel), newest_input) {
-        (Some(out), Some(inp)) => out >= inp,
-        (Some(_), None) => true,
-        _ => false,
-    }
-}
-
-pub(crate) fn max_of(times: &[Option<SystemTime>]) -> Option<SystemTime> {
-    times.iter().filter_map(|t| *t).max()
-}
-
-// ── pipeline ─────────────────────────────────────────────────────────────────
-
-/// Result of `pack_all()` -- everything the server needs to start.
 pub struct PackResult {
-    /// Path to the built JS5 cache directory (for `Js5Cache::preload`).
-    pub cache_dir: PathBuf,
-    /// Loaded config TypeProviders from server .dat files.
-    pub config: PackedConfig,
-    /// Component index lookups derived from interface.pack.
+    pub store: Box<CacheStore>,
+    pub scripts: ScriptProvider,
     pub layout: InterfaceLayout,
-    /// Pre-opened JS5 cache — avoids redundant re-opens during server init.
-    pub js5_store: Js5Store,
+    pub cache: PackedCache,
 }
 
 /// Well-known component indices per toplevel, derived from interface.pack.
@@ -187,328 +103,144 @@ impl InterfaceLayout {
     }
 }
 
-/// All config TypeProviders loaded from server .dat files.
-pub struct PackedConfig {
-    pub npcs: TypeProvider<NpcType>,
-    pub objs: TypeProvider<ObjType>,
-    pub locs: TypeProvider<LocType>,
-    pub seqs: TypeProvider<SeqType>,
-    pub enums: TypeProvider<EnumType>,
-    pub structs: TypeProvider<StructType>,
-    pub params: TypeProvider<ParamType>,
-    pub varbits: TypeProvider<VarbitType>,
-    pub varps: TypeProvider<VarPlayerType>,
-    pub idks: TypeProvider<IdkType>,
-    pub invs: TypeProvider<InvType>,
-    pub hunts: TypeProvider<HuntType>,
-    pub flos: TypeProvider<FloType>,
-    pub flus: TypeProvider<FluType>,
-    pub mesanims: TypeProvider<MesAnimType>,
-    pub spotanims: TypeProvider<SpotAnimType>,
-    pub varns: TypeProvider<VarnType>,
-    pub varss: TypeProvider<VarsType>,
-    pub dbtables: TypeProvider<DbTableType>,
-    pub dbrows: TypeProvider<DbRowType>,
-    pub categories: TypeProvider<CategoryType>,
-    /// Synth name → raw archive-4 sound id (= wire id), from synth.pack.
-    /// Synths have no decoded type, so this is the only runtime name source
-    /// (used by the cheat arg parser to resolve `synth fire_lit` like `give`).
-    pub synth_names: HashMap<String, u16>,
-}
-
-/// Run the complete pack + build pipeline.
-///
-/// 1. Pack text configs to server .dat/.idx and a client config JAG.
-/// 2. Pack animations to .anim files
-/// 3. Compile RuneScript sources
-/// 4. Build JS5 cache from content + assets
-/// 5. Load TypeProviders from the just-written server .dat files
-///
-/// Steps 1-4 are skipped when their outputs are already newer than all inputs.
-///
-/// # Arguments
-/// * `content_dir` -- root content directory (e.g. `content/647`)
-/// * `pack_dir`    -- `.pack` name registries (e.g. `content/647/pack`)
-/// * `output_dir`  -- output root (e.g. `target/pack/647`), JS5 cache files land here
-/// * `verify`      -- strict mode: panic when a built archive CRC diverges from
-///   `crate::archive::EXPECTED_CRCS` (Jordan's `insert_jag` convention)
 pub fn pack_all(
     content_dir: &Path,
     pack_dir: &Path,
-    output_dir: &Path,
     verify: bool,
+    members: bool,
 ) -> Result<PackResult> {
-    pack_all_inner(content_dir, pack_dir, output_dir, verify, false)
-}
-
-pub fn pack_all_no_lint(
-    content_dir: &Path,
-    pack_dir: &Path,
-    output_dir: &Path,
-    verify: bool,
-) -> Result<PackResult> {
-    pack_all_inner(content_dir, pack_dir, output_dir, verify, true)
-}
-
-/// The cache's own configs and map squares are not kept in git: they are
-/// regenerated from `expected/` (`cargo regen-content`) and authored content
-/// is laid over them. Without them a pack would silently build a world with
-/// no locs, objs or terrain, so refuse instead.
-pub fn require_derived_content(content_dir: &Path) -> Result<()> {
-    let needed = [
-        content_dir.join("scripts").join("_unpack").join("all.loc"),
-        content_dir
-            .join("maps")
-            .join("_unpack")
-            .join("manifest.json"),
-    ];
-    if let Some(missing) = needed.iter().find(|p| !p.exists()) {
-        anyhow::bail!(
-            "{} is missing. The cache-derived content is regenerated, not \
-             committed; run `cargo fetch-expected && cargo regen-content` first.",
-            missing.display()
-        );
-    }
-    Ok(())
-}
-
-fn pack_all_inner(
-    content_dir: &Path,
-    pack_dir: &Path,
-    output_dir: &Path,
-    verify: bool,
-    skip_lint: bool,
-) -> Result<PackResult> {
-    let scripts_dir = content_dir.join("scripts");
-    let pack_dir = pack_dir.to_path_buf();
-    let server_dir = output_dir.join("server");
-    let client_dir = output_dir.join("client");
-
-    require_derived_content(content_dir)?;
-
-    PackRegistry::load(&pack_dir)?.check_content(&scripts_dir)?;
-
-    fs::create_dir_all(&server_dir)?;
-    fs::create_dir_all(&client_dir)?;
-
-    // ── Step 1: Pack text configs ───────────────────────────────────────
-    let unpack_dir = scripts_dir.join("_unpack");
-    let config_input = config_inputs(&scripts_dir, &pack_dir);
-    let config_sentinel = server_dir.join("npc.dat");
-    let config_path = client_dir.join("config");
-
-    if is_up_to_date(&config_sentinel, config_input) && is_up_to_date(&config_path, config_input) {
-        if verify {
-            let config = JagFile::from(fs::read(&config_path)?);
-            for &(name, expected) in CONFIG_TYPE_CRCS.iter().chain(config_crc::GENERIC) {
-                let data = config
-                    .read(&format!("{name}.dat"))
-                    .with_context(|| format!("Missing client config: {name}"))?;
-                verify_crc(name, &data.data, expected);
-            }
-        }
-        info!("pack_all: text configs up to date, skipping");
-    } else {
-        info!("pack_all: packing text configs...");
-        pack::pack_all(&scripts_dir, &pack_dir, &server_dir, &client_dir, verify)?;
-    }
-
-    // ── Step 1b: Pack NPC spawns → server map.dat/map.idx ──────────────
-    let map_dirs = map::source_dirs(content_dir);
-    let map_output = server_dir.join("map.dat");
-    let map_input = max_of(
-        &map_dirs
-            .iter()
-            .map(|dir| newest_mtime(dir, &["jm2"]))
-            .collect::<Vec<_>>(),
-    );
-    if !is_up_to_date(&map_output, map_input) {
-        info!("pack_all: packing NPC spawns...");
-        map::pack_spawns(&map_dirs, &server_dir)?;
-    } else {
-        info!("pack_all: NPC spawns up to date, skipping");
-    }
-
-    // ── Step 1c: Pack global obj (ground-item) spawns → objspawn.dat/idx ──
-    let objspawn_output = server_dir.join("objspawn.dat");
-    if !is_up_to_date(&objspawn_output, map_input) {
-        info!("pack_all: packing obj spawns...");
-        map::pack_obj_spawns(&map_dirs, &server_dir)?;
-    } else {
-        info!("pack_all: obj spawns up to date, skipping");
-    }
-
-    // ── Step 2: Pack animations → .anim files ────────────────────────────
-    // Also captures raw frame entries for passing to build-cache (avoids disk round-trip).
-    let anim_input = max_of(&[
-        newest_mtime(&unpack_dir.join("animations"), &["anim"]),
-        newest_mtime(&unpack_dir, &["base"]),
-    ]);
-    let anim_stamp = output_dir.join(".anim_stamp");
-
-    let prebuilt_anims = if is_up_to_date(&anim_stamp, anim_input) {
-        info!("pack_all: animations up to date, skipping");
-        None
-    } else {
-        info!("pack_all: packing animations...");
-        let packed_entries = model::pack_anims(&scripts_dir, &pack_dir)?;
-        info!("pack_all: {} animation frames packed", packed_entries.len());
-        write_stamp(&anim_stamp)?;
-        Some(packed_entries)
-    };
-
-    // ── Step 3: Compile RuneScript → script.dat/script.idx ───────────────
-    let script_input = max_of(&[
-        newest_mtime(&scripts_dir, &["rs2", "constant"]),
-        newest_mtime(&pack_dir, &["pack"]),
-    ]);
-    let script_sentinel = server_dir.join("script.dat");
-
-    if is_up_to_date(&script_sentinel, script_input) {
-        info!("pack_all: RuneScript up to date, skipping");
-    } else {
-        info!("pack_all: compiling RuneScript...");
-
-        match runec::compile(&scripts_dir, Some(&pack_dir), &server_dir, false) {
-            Ok(()) => {
-                info!("pack_all: RuneScript compilation succeeded");
-                if !skip_lint {
-                    info!("pack_all: linting RuneScript...");
-                    match runec::lint(&scripts_dir, Some(&pack_dir)) {
-                        Ok(()) => info!("pack_all: RuneScript linting succeeded"),
-                        Err(e) => warn!("pack_all: RuneScript linting failed: {}", e),
-                    }
-                }
-            }
-            Err(e) => warn!("pack_all: RuneScript compilation failed: {}", e),
-        }
-    }
-
-    // ── Step 4: Build JS5 cache from content + assets ────────────────────
-    // Per-archive stamps inside run_build_cache handle incremental skipping.
-    // In this repo the raw OpenRS2 786 cache lives in `expected/` (the same
-    // dir the unpack side reads); it is only used for group-level diffing
-    // when archives diverge.
-    let source_cache = Path::new("expected");
-    info!("pack_all: building JS5 cache (incremental)...");
-    pack::pack_cache(
-        source_cache,
-        content_dir,
-        output_dir,
-        &client_dir,
-        false,
-        prebuilt_anims,
-    )?;
-
-    // ── Step 4b: CRC gate against the OpenRS2 786 master index ──────────
-    archive::verify_crcs(output_dir, verify)?;
-
-    // ── Step 5: Load TypeProviders (always runs) ─────────────────────────
-    info!("pack_all: loading TypeProviders...");
-    let mut js5_store = Js5Store::open(output_dir)?;
-    let mut config = load_packed_config(&server_dir, &mut js5_store)?;
-    config.synth_names = load_synth_names(&pack_dir);
-
+    let start = Instant::now();
+    let (packed, scripts) = thread::scope(|scope| {
+        let scripts = scope.spawn(|| compile_scripts(content_dir, pack_dir));
+        let packed = pack::pack_cache(content_dir, pack_dir, verify);
+        (packed, unwrap_thread("scripts", scripts.join()))
+    });
+    let (assets, cache) = packed?;
+    let scripts = scripts?;
     info!(
-        "pack_all: complete -- {} npcs, {} objs, {} locs, {} seqs, {} enums",
-        config.npcs.count(),
-        config.objs.count(),
-        config.locs.count(),
-        config.seqs.count(),
-        config.enums.count(),
+        "Assets and scripts packed in {:.2}s",
+        start.elapsed().as_secs_f64()
     );
-
-    let mut layout = load_interface_layout(&pack_dir);
-    load_dialogue_slots(&pack_dir, &config.enums, &mut layout);
-    load_wide_screen_ifaces(&pack_dir, &config.enums, &mut layout);
-
+    archive::verify_crcs(&cache, verify)?;
+    let map_dirs = map::source_dirs(content_dir);
+    let spawns = map::pack_spawns(&map_dirs)?;
+    let obj_spawns = map::pack_obj_spawns(&map_dirs)?;
+    let store = load_cache(
+        &assets,
+        &cache,
+        content_dir,
+        pack_dir,
+        &spawns,
+        &obj_spawns,
+        members,
+    )?;
+    let mut layout = load_interface_layout(pack_dir);
+    load_dialogue_slots(pack_dir, &store.enums, &mut layout);
+    load_wide_screen_ifaces(pack_dir, &store.enums, &mut layout);
+    info!(
+        "Pack complete in {:.2}s: {} groups, {} scripts",
+        start.elapsed().as_secs_f64(),
+        cache.groups.len(),
+        scripts.count()
+    );
     Ok(PackResult {
-        cache_dir: output_dir.to_path_buf(),
-        config,
+        store,
+        scripts,
         layout,
-        js5_store,
+        cache,
     })
 }
 
-/// Load server configs, merging loc metadata into the JS5 definitions.
-pub fn load_packed_config(server_dir: &Path, cache: &mut Js5Store) -> Result<PackedConfig> {
-    let npcs = load_from_server_dat::<NpcTypeRaw, _>(server_dir, "npc", ())?;
-    let params: TypeProvider<ParamType> =
-        load_from_server_dat::<ParamTypeRaw, _>(server_dir, "param", ())?;
-    let objs = load_from_server_dat::<ObjTypeRaw, _>(
-        server_dir,
+fn load_cache(
+    assets: &HashMap<String, PackedFile>,
+    cache: &PackedCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+    spawns: &PackedData,
+    obj_spawns: &PackedData,
+    members: bool,
+) -> Result<Box<CacheStore>> {
+    let npcs = load_config::<NpcTypeRaw, _>(assets, "npc", ())?;
+    let params: TypeProvider<ParamType> = load_config::<ParamTypeRaw, _>(assets, "param", ())?;
+    let objs = load_config::<ObjTypeRaw, _>(
+        assets,
         "obj",
         ObjContext {
-            members: true,
+            members,
             autodisable_params: params.types.iter().map(|p| p.autodisable).collect(),
         },
     )?;
-    let seqs = load_from_server_dat::<SeqTypeRaw, _>(server_dir, "seq", ())?;
-    let enums = load_from_server_dat::<EnumTypeRaw, _>(server_dir, "enum", ())?;
-    let structs = load_from_server_dat::<StructTypeRaw, _>(server_dir, "struct", ())?;
-    let varbits = load_from_server_dat::<VarbitType, _>(server_dir, "varbit", ())?;
-    let varps = load_from_server_dat::<VarPlayerTypeRaw, _>(server_dir, "varp", ())?;
-    let idks = load_from_server_dat::<IdkTypeRaw, _>(server_dir, "idk", ())?;
-    let hunts = load_from_server_dat::<HuntType, _>(server_dir, "hunt", ())?;
-    let flos = load_from_server_dat::<FloTypeRaw, _>(server_dir, "flo", ())?;
-    let flus = load_from_server_dat::<FluType, _>(server_dir, "flu", ())?;
-    let spotanims = load_from_server_dat::<SpotAnimTypeRaw, _>(server_dir, "spotanim", ())?;
-    let invs = load_from_server_dat::<InvTypeRaw, _>(server_dir, "inv", ())?;
-    let mesanims = load_from_server_dat::<MesAnimType, _>(server_dir, "mesanim", ())?;
-    let varns = load_from_server_dat::<VarnType, _>(server_dir, "varn", ())?;
-    let varss = load_from_server_dat::<VarsType, _>(server_dir, "vars", ())?;
-    let dbtables = load_from_server_dat::<DbTableType, _>(server_dir, "dbtable", ())?;
-    let dbrows = load_from_server_dat::<DbRowType, _>(server_dir, "dbrow", ())?;
-    let categories = load_from_server_dat::<CategoryType, _>(server_dir, "category", ())?;
+    let seqs = load_config::<SeqTypeRaw, _>(assets, "seq", ())?;
+    let enums = load_config::<EnumTypeRaw, _>(assets, "enum", ())?;
+    let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
+    let varbits = load_config::<VarbitType, _>(assets, "varbit", ())?;
+    let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
+    let idks = load_config::<IdkTypeRaw, _>(assets, "idk", ())?;
+    let hunts = load_config::<HuntType, _>(assets, "hunt", ())?;
+    let flos = load_config::<FloTypeRaw, _>(assets, "flo", ())?;
+    let spotanims = load_config::<SpotAnimTypeRaw, _>(assets, "spotanim", ())?;
+    let invs = load_config::<InvTypeRaw, _>(assets, "inv", ())?;
+    let mesanims = load_config::<MesAnimType, _>(assets, "mesanim", ())?;
+    let varns = load_config::<VarnType, _>(assets, "varn", ())?;
+    let varss = load_config::<VarsType, _>(assets, "vars", ())?;
+    let dbtables = load_config::<DbTableType, _>(assets, "dbtable", ())?;
+    let dbrows = load_config::<DbRowType, _>(assets, "dbrow", ())?;
+    let categories = load_config::<CategoryType, _>(assets, "category", ())?;
 
-    let mut locs = loader::load_all_locs(cache)?;
-    let loc_overlay: TypeProvider<LocTypeRaw> =
-        load_from_server_dat::<LocTypeRaw, _>(server_dir, "loc", ())?;
-    locs.debugnames.extend(loc_overlay.debugnames);
-    for (base, overlay) in locs.types.iter_mut().zip(loc_overlay.types.into_vec()) {
-        base.merge(overlay);
-    }
+    let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
-    Ok(PackedConfig {
-        npcs,
+    let keys = XteaKeyStore::load(&content_dir.join("keys.json"))?;
+    let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache, &keys)?;
+    let huffman = loader::load_huffman(cache)?;
+    let fonts = FontTypeProvider::from_cache(cache);
+    loader::merge_server_layer(spawns, "map", 'n', &mut mapsquares);
+    loader::merge_server_layer(obj_spawns, "objspawn", 'o', &mut mapsquares);
+
+    let db_index = DbTableIndex::build(&dbtables, &dbrows);
+    Ok(Box::new(CacheStore {
+        mapsquares,
+        mapcrcs,
         objs,
-        locs: locs.map(LocType::from),
-        seqs,
-        enums,
-        structs,
-        params,
-        varbits,
-        varps,
-        idks,
         invs,
-        hunts,
+        varps,
+        varbits,
+        dbrows,
+        dbtables,
+        db_index,
+        enums,
         flos,
-        flus,
+        hunts,
+        idks,
+        locs,
         mesanims,
+        npcs,
+        params,
+        seqs,
         spotanims,
+        structs,
         varns,
         varss,
-        dbtables,
-        dbrows,
         categories,
-        synth_names: Default::default(),
-    })
-}
-
-/// Load synth name → id from `synth.pack` (`<id>=<name>` lines). Since the
-/// stride-1 fix the pack id IS the wire id, so the map can be used directly.
-pub fn load_synth_names(pack_dir: &Path) -> HashMap<String, u16> {
-    let mut map = HashMap::new();
-    if let Ok(contents) = fs::read_to_string(pack_dir.join("synth.pack")) {
-        for line in contents.lines() {
-            if let Some((id, name)) = line.trim().split_once('=')
-                && let Ok(id) = id.parse::<u16>()
-            {
-                map.insert(name.to_string(), id);
-            }
-        }
-    }
-    map
+        interfaces: IfTypeProvider {
+            names: HashMap::new(),
+            types: Vec::new(),
+        },
+        fonts,
+        wordenc: WordEncProvider::empty(),
+        songs: MidiProvider {
+            names: HashMap::new(),
+            midis: Box::new([]),
+        },
+        jingles: MidiProvider {
+            names: HashMap::new(),
+            midis: Box::new([]),
+        },
+        midi_ids: midi::load_midi_ids(pack_dir),
+        midi_tick_lengths: midi::load_midi_tick_lengths(cache),
+        multimap: load_csv_zones(&content_dir.join("maps/multiway.csv")),
+        freemap: load_csv_zones(&content_dir.join("maps/free2play.csv")),
+        huffman,
+    }))
 }
 
 /// Rev-647 chatbox child component that hosts dialogue_box interfaces
@@ -630,46 +362,14 @@ fn load_wide_screen_ifaces(
     }
 }
 
-/// Load a single config type from server .dat/.idx files into a TypeProvider.
-///
-/// PackedData format: dat has `p2(count)` header then concatenated entry bytes.
-/// idx has `p2(count)` header then `p2(len)` per entry (0 = absent entry).
-/// Each entry's bytes are opcode-terminated (ending with `p1(0)`).
-pub fn load_from_server_dat<Raw: CacheType, Stored: From<Raw>>(
-    server_dir: &Path,
+fn load_config<Raw: CacheType, Stored: From<Raw>>(
+    assets: &HashMap<String, PackedFile>,
     name: &str,
     ctx: Raw::Context,
 ) -> Result<TypeProvider<Stored>> {
-    let dat_path = server_dir.join(format!("{name}.dat"));
-    let idx_path = server_dir.join(format!("{name}.idx"));
-    if !dat_path.exists() {
-        info!("  {name}.dat not found, returning empty TypeProvider");
-        return Ok(TypeProvider::default());
-    }
-    let dat = fs::read(&dat_path)?;
-    let idx = fs::read(&idx_path)?;
-
-    let provider = TypeProvider::from_indexed_bytes::<Raw>(&dat, &idx, ctx)?;
-    info!("  {name}: {} entries loaded", provider.count());
-    Ok(provider)
-}
-
-pub fn cache_build_inputs(content_dir: &Path) -> Option<SystemTime> {
-    max_of(&[
-        config_inputs(&content_dir.join("scripts"), &content_dir.join("pack")),
-        newest_mtime(&content_dir.join("scripts"), &["rs2", "base", "anim"]),
-        newest_mtime(&content_dir.join("versions"), &["versions"]),
-        newest_mtime(&content_dir.join("interfaces").join("_unpack"), &["if"]),
-        max_of(
-            &map::source_dirs(content_dir)
-                .iter()
-                .map(|dir| newest_mtime(dir, &["jm2", "bin"]))
-                .collect::<Vec<_>>(),
-        ),
-        newest_mtime(&content_dir.join("models").join("donor"), &["bin"]),
-        newest_mtime(&content_dir.join("songs").join("_unpack"), &["mid"]),
-        newest_mtime(&content_dir.join("textures").join("_unpack"), &["texture"]),
-        file_mtime(&content_dir.join("pack").join("map.pack")),
-        file_mtime(&content_dir.join("pack").join("interface.pack")),
-    ])
+    let data = &assets
+        .get(name)
+        .with_context(|| format!("Missing {name} config"))?
+        .server;
+    TypeProvider::from_indexed_bytes::<Raw>(&data.dat, &data.idx, ctx)
 }

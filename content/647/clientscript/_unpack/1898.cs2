@@ -1,0 +1,68 @@
+; id: 1898
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 39
+    3: push_varc_int 523
+    4: push_varc_int 533
+    5: return 0
+    6: branch 35
+    7: push_varc_int 524
+    8: push_varc_int 534
+    9: return 0
+   10: branch 31
+   11: push_varc_int 525
+   12: push_varc_int 535
+   13: return 0
+   14: branch 27
+   15: push_varc_int 526
+   16: push_varc_int 536
+   17: return 0
+   18: branch 23
+   19: push_varc_int 527
+   20: push_varc_int 537
+   21: return 0
+   22: branch 19
+   23: push_varc_int 528
+   24: push_varc_int 538
+   25: return 0
+   26: branch 15
+   27: push_varc_int 529
+   28: push_varc_int 539
+   29: return 0
+   30: branch 11
+   31: push_varc_int 530
+   32: push_varc_int 540
+   33: return 0
+   34: branch 7
+   35: push_varc_int 531
+   36: push_varc_int 541
+   37: return 0
+   38: branch 3
+   39: push_varc_int 532
+   40: push_varc_int 542
+   41: return 0
+   42: push_constant_int 0
+   43: push_constant_int 0
+   44: return 0
+   45: push_constant_int 0
+   46: push_constant_int 0
+   47: return 0
+
+switch_0:
+  0 => 1
+  1 => 5
+  2 => 9
+  3 => 13
+  4 => 17
+  5 => 21
+  6 => 25
+  7 => 29
+  8 => 33
+  9 => 37

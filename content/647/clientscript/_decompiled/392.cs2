@@ -1,0 +1,13 @@
+[clientscript,script_392](int $int0, int $int1)
+if ($int0 = -1) {
+    $int0 = 1112;
+}
+if_setmodel;
+if ($int1 = 1) {
+    if_setmodelanim;
+    if_setmodelanim;
+} else {
+    if_setmodelanim;
+    if_setmodelanim;
+}
+return;

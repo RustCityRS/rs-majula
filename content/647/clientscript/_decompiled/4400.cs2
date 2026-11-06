@@ -1,0 +1,24 @@
+[clientscript,script_4400](int $int0)
+if_sethide(72417344);
+if_sethide(72417347);
+if_sethide(72417348);
+if_sethide(72417349);
+if_sethide(72417350);
+if_sethide(72417447);
+if_sethide(72417459);
+if_sethide(72417471);
+switch ($int0) {
+    case 72417450:
+        if_sethide(72417344);
+        if_sethide(72417347);
+        if_sethide(72417447);
+    case 72417462:
+        if_sethide(72417348);
+        if_sethide(72417349);
+        if_sethide(72417459);
+    case 72417474:
+        if_sethide(72417350);
+        if_sethide(72417471);
+    default:
+}
+return;

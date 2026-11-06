@@ -1,0 +1,101 @@
+; id: 266
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 4
+    1: define_array 105
+    2: push_varc_int 1104
+    3: push_varc_int 1104
+    4: push_array_int 0
+    5: push_constant_int 1
+    6: add 0
+    7: pop_array_int 0
+    8: push_varc_int 1105
+    9: push_varc_int 1105
+   10: push_array_int 0
+   11: push_constant_int 1
+   12: add 0
+   13: pop_array_int 0
+   14: push_varc_int 1106
+   15: push_varc_int 1106
+   16: push_array_int 0
+   17: push_constant_int 1
+   18: add 0
+   19: pop_array_int 0
+   20: push_varc_int 1107
+   21: push_varc_int 1107
+   22: push_array_int 0
+   23: push_constant_int 1
+   24: add 0
+   25: pop_array_int 0
+   26: push_varc_int 1108
+   27: push_varc_int 1108
+   28: push_array_int 0
+   29: push_constant_int 1
+   30: add 0
+   31: pop_array_int 0
+   32: push_constant_string "Small x "
+   33: push_constant_int 1
+   34: push_array_int 0
+   35: tostring 0
+   36: join_string 2
+   37: push_constant_int 60489781
+   38: if_settext 0
+   39: push_constant_string "Med. x "
+   40: push_constant_int 2
+   41: push_array_int 0
+   42: tostring 0
+   43: join_string 2
+   44: push_constant_int 60489782
+   45: if_settext 0
+   46: push_constant_string "Large x "
+   47: push_constant_int 3
+   48: push_array_int 0
+   49: tostring 0
+   50: join_string 2
+   51: push_constant_int 60489783
+   52: if_settext 0
+   53: push_constant_string ""
+   54: pop_string_local 0
+   55: push_constant_int 1
+   56: push_array_int 0
+   57: push_constant_int 0
+   58: branch_greater_than 1
+   59: branch 2
+   60: push_constant_string "Remove-weight"
+   61: pop_string_local 0
+   62: push_constant_int 1
+   63: push_string_local 0
+   64: push_constant_int 60489781
+   65: if_setop 0
+   66: push_constant_string ""
+   67: pop_string_local 0
+   68: push_constant_int 2
+   69: push_array_int 0
+   70: push_constant_int 0
+   71: branch_greater_than 1
+   72: branch 2
+   73: push_constant_string "Remove-weight"
+   74: pop_string_local 0
+   75: push_constant_int 1
+   76: push_string_local 0
+   77: push_constant_int 60489782
+   78: if_setop 0
+   79: push_constant_string ""
+   80: pop_string_local 0
+   81: push_constant_int 3
+   82: push_array_int 0
+   83: push_constant_int 0
+   84: branch_greater_than 1
+   85: branch 2
+   86: push_constant_string "Remove-weight"
+   87: pop_string_local 0
+   88: push_constant_int 1
+   89: push_string_local 0
+   90: push_constant_int 60489783
+   91: if_setop 0
+   92: return 0

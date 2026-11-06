@@ -1,0 +1,17 @@
+[clientscript,script_1866](int $int0)(int, int)
+if ($int0 = 1) {
+    cam_allocpath(0, 4);
+    cam_allocpath(1, 4);
+    cam_addwaypoint(0, 0, 48417962, 1000, 48385194, 1000, 0);
+    cam_addwaypoint(1, 0, 48417960, 600, 48401568, 600, 0);
+    cam_addwaypoint(0, 1, 48417946, 1000, 48434326, 1000, 0);
+    cam_addwaypoint(1, 1, 48450710, 600, 48467090, 600, 0);
+    ~script_1899(0, 100, 100);
+    cam_addwaypoint(0, 2, 48532612, 1000, 48532610, 1000, 0);
+    cam_addwaypoint(1, 2, 48581761, 600, 48581760, 600, 0);
+    ~script_1899(1, 100, 100);
+    cam_addwaypoint(0, 3, 48548992, 1000, 48548992, 1000, 0);
+    cam_addwaypoint(1, 3, 48598144, 600, 48598144, 600, 0);
+    ~script_1899(2, 100, 100);
+}
+return(48483486, 1250324);

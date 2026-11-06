@@ -1,0 +1,66 @@
+; id: 1457
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 2
+    2: push_int_local 0
+    3: pop_int_local 3
+    4: push_int_local 3
+    5: push_int_local 1
+    6: branch_less_than 1
+    7: branch 33
+    8: push_constant_int 49938525
+    9: push_int_local 3
+   10: cc_find 0
+   11: branch_if_true 1
+   12: branch 23
+   13: push_constant_int 44
+   14: push_int_local 2
+   15: push_constant_int 10
+   16: mod 0
+   17: multiply 0
+   18: push_constant_int 8
+   19: add 0
+   20: push_int_local 2
+   21: push_constant_int 10
+   22: div 0
+   23: push_constant_int 44
+   24: multiply 0
+   25: push_constant_int 5
+   26: add 0
+   27: push_constant_int 0
+   28: push_constant_int 0
+   29: cc_setposition2 0
+   30: push_constant_int 0
+   31: cc_sethide 0
+   32: push_int_local 2
+   33: push_constant_int 1
+   34: add 0
+   35: pop_int_local 2
+   36: push_int_local 3
+   37: push_constant_int 1
+   38: add 0
+   39: pop_int_local 3
+   40: branch -37
+   41: gosub_with_params 1464
+   42: push_constant_int 0
+   43: push_constant_int 49938516
+   44: if_sethide 0
+   45: push_constant_int 8
+   46: push_constant_int 2
+   47: sub 0
+   48: push_constant_int 5
+   49: push_constant_int 2
+   50: sub 0
+   51: push_constant_int 0
+   52: push_constant_int 0
+   53: push_constant_int 49938516
+   54: if_setposition 0
+   55: push_int_local 2
+   56: gosub_with_params 1458
+   57: return 0

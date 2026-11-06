@@ -1,0 +1,18 @@
+[clientscript,script_1405]
+if (%varbit61 = 1) {
+    if_settext("Draughts: Options");
+} else {
+    if (%varbit61 = 2) {
+        if_settext("Runelink: Options");
+    }
+    if (%varbit61 = 3) {
+        if_settext("Runesquares: Options");
+    }
+    if (%varbit61 = 4) {
+        if_settext("Runeversi: Options");
+    }
+}
+~script_1407;
+~script_1408;
+~script_1409;
+return;

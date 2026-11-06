@@ -1,0 +1,437 @@
+; id: 3063
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=14
+local_string_count=9
+local_long_count=0
+
+    0: op5613 0
+    1: pop_int_local 2
+    2: push_int_local 2
+    3: push_constant_int -3
+    4: branch_equals 1
+    5: branch 18
+    6: push_constant_int 0
+    7: gosub_with_params 3064
+    8: push_int_local 2
+    9: push_constant_int 0
+   10: push_constant_string "Logging In - Please Wait"
+   11: push_constant_int 1
+   12: push_constant_int -1
+   13: push_constant_int 0
+   14: push_constant_int -1
+   15: push_constant_string ""
+   16: push_constant_string ""
+   17: push_constant_int 0
+   18: push_constant_string ""
+   19: push_constant_string ""
+   20: gosub_with_params 3093
+   21: push_constant_int -3
+   22: pop_varc_int 1100
+   23: return 0
+   24: push_varc_int 1100
+   25: push_constant_int -3
+   26: branch_equals 1
+   27: branch 1
+   28: gosub_with_params 3097
+   29: push_constant_int 0
+   30: pop_int_local 3
+   31: push_constant_string ""
+   32: pop_string_local 0
+   33: push_constant_int 0
+   34: pop_int_local 4
+   35: push_constant_string ""
+   36: pop_string_local 1
+   37: push_constant_int 0
+   38: pop_int_local 5
+   39: push_constant_string ""
+   40: pop_string_local 2
+   41: push_constant_int 0
+   42: pop_int_local 6
+   43: push_constant_int 0
+   44: pop_int_local 7
+   45: push_constant_string ""
+   46: pop_string_local 3
+   47: push_int_local 2
+   48: push_constant_int 21
+   49: branch_equals 1
+   50: branch 91
+   51: push_constant_int 21
+   52: pop_varc_int 1100
+   53: push_constant_int 0
+   54: gosub_with_params 3064
+   55: push_varc_int 200
+   56: branch_if_false 1
+   57: branch 2
+   58: op5608 0
+   59: pop_varc_int 200
+   60: push_varc_int 200
+   61: push_constant_int 1
+   62: sub 0
+   63: pop_varc_int 200
+   64: push_varc_int 200
+   65: push_constant_int 0
+   66: branch_less_than_or_equals 1
+   67: branch 33
+   68: worldlist_fetch 0
+   69: branch_if_false 1
+   70: branch 3
+   71: push_constant_int 1
+   72: pop_varc_int 200
+   73: return 0
+   74: push_int_local 1
+   75: push_constant_int 0
+   76: branch_greater_than 1
+   77: branch 16
+   78: push_int_local 1
+   79: op6506 0
+   80: pop_string_local 3
+   81: pop_int_local 7
+   82: pop_int_local 6
+   83: pop_string_local 2
+   84: pop_int_local 5
+   85: pop_string_local 1
+   86: pop_int_local 4
+   87: push_int_local 1
+   88: push_string_local 3
+   89: op6503 0
+   90: branch_if_true 1
+   91: branch 2
+   92: push_constant_int 0
+   93: pop_int_local 4
+   94: push_constant_int -1
+   95: push_constant_string ""
+   96: push_int_local 0
+   97: op2408 0
+   98: push_int_local 0
+   99: gosub_with_params 3062
+  100: return 0
+  101: push_varc_int 200
+  102: push_constant_int 50
+  103: div 0
+  104: pop_int_local 3
+  105: push_int_local 3
+  106: branch_if_true 1
+  107: branch 6
+  108: push_constant_string "You have only just left another world. Your profile will be transferred in"
+  109: push_constant_string "<br>"
+  110: push_constant_string "1 second."
+  111: join_string 3
+  112: pop_string_local 0
+  113: branch 7
+  114: push_constant_string "You have only just left another world. Your profile will be transferred in"
+  115: push_constant_string "<br>"
+  116: push_int_local 3
+  117: tostring 0
+  118: push_constant_string " seconds."
+  119: join_string 4
+  120: pop_string_local 0
+  121: push_constant_int 59375635
+  122: if_gethide 0
+  123: branch_if_true 1
+  124: branch 14
+  125: push_int_local 2
+  126: push_constant_int 0
+  127: push_string_local 0
+  128: push_constant_int 0
+  129: push_constant_int 2611
+  130: push_constant_int 1
+  131: push_constant_int 1
+  132: push_constant_string "Abort Login"
+  133: push_constant_string "Abort Login"
+  134: push_constant_int 0
+  135: push_constant_string ""
+  136: push_constant_string ""
+  137: gosub_with_params 3093
+  138: branch 2
+  139: push_string_local 0
+  140: gosub_with_params 1871
+  141: return 0
+  142: push_int_local 0
+  143: push_constant_int 59375629
+  144: branch_equals 1
+  145: branch 3
+  146: push_constant_int 1
+  147: push_constant_int 1
+  148: gosub_with_params 1299
+  149: gosub_with_params 3097
+  150: push_constant_int 1
+  151: gosub_with_params 3064
+  152: push_constant_int -1
+  153: push_constant_string ""
+  154: push_int_local 0
+  155: op2408 0
+  156: push_constant_string ""
+  157: pop_string_local 4
+  158: push_constant_int 1
+  159: pop_int_local 8
+  160: push_constant_int 0
+  161: pop_int_local 9
+  162: push_constant_int 2608
+  163: pop_int_local 10
+  164: push_constant_int 0
+  165: pop_int_local 11
+  166: push_constant_int 0
+  167: pop_int_local 12
+  168: push_constant_string ""
+  169: pop_string_local 5
+  170: push_constant_string ""
+  171: pop_string_local 6
+  172: push_constant_int 1
+  173: pop_int_local 13
+  174: push_constant_string "Back"
+  175: pop_string_local 7
+  176: push_constant_string "Back"
+  177: pop_string_local 8
+  178: push_int_local 2
+  179: switch 0
+  180: branch 189
+  181: gosub_with_params 3097
+  182: return 0
+  183: branch 188
+  184: op5611 0
+  185: switch 1
+  186: branch 18
+  187: push_constant_string "You must have a Combat Level of at least 20 (not including Summoning) to enter a PvP world."
+  188: pop_string_local 4
+  189: branch 17
+  190: push_constant_string "You are currently carrying lent items and cannot enter a PvP world."
+  191: pop_string_local 4
+  192: branch 14
+  193: push_constant_string "You must be standing in the Wilderness or Edgeville to enter this bounty world."
+  194: pop_string_local 4
+  195: branch 11
+  196: push_constant_string "You must have a total skill level of 1,000 or greater to enter this world."
+  197: pop_string_local 4
+  198: branch 8
+  199: push_constant_string "You must have a total skill level of 1,500 or greater to enter this world."
+  200: pop_string_local 4
+  201: branch 5
+  202: push_constant_string "You must move to a safe area before you can log in to a PvP or bounty world."
+  203: pop_string_local 4
+  204: branch 2
+  205: push_constant_string "Unexpected server response. Please try using a different world."
+  206: pop_string_local 4
+  207: branch 164
+  208: push_constant_string "Connection timed out. Please try using a different world."
+  209: pop_string_local 4
+  210: branch 161
+  211: push_constant_string "Error connecting to server."
+  212: pop_string_local 4
+  213: branch 158
+  214: push_constant_string "No response from server. Please try using a different world."
+  215: pop_string_local 4
+  216: branch 155
+  217: push_constant_string "Your account has not logged out from its last session. Try again in a few minutes."
+  218: pop_string_local 4
+  219: branch 152
+  220: push_constant_string "This world is full. Please use a different world."
+  221: pop_string_local 4
+  222: branch 149
+  223: push_constant_string "Unable to connect: login server offline."
+  224: pop_string_local 4
+  225: branch 146
+  226: push_constant_string "Login limit exceeded: too many connections from your address."
+  227: pop_string_local 4
+  228: branch 143
+  229: push_constant_string "Unable to connect: bad session id."
+  230: pop_string_local 4
+  231: branch 140
+  232: push_constant_string "Could not complete login. Please try using a different world."
+  233: pop_string_local 4
+  234: branch 137
+  235: push_constant_string "Too many incorrect logins from your address. Please wait 5 minutes before trying again."
+  236: pop_string_local 4
+  237: branch 134
+  238: push_constant_string "You are standing in a members-only area. To play on this world, move to a free area first."
+  239: pop_string_local 4
+  240: branch 131
+  241: push_constant_string "Invalid loginserver requested. Please try using a different world."
+  242: pop_string_local 4
+  243: branch 128
+  244: push_constant_string "Malformed login packet. Please try again."
+  245: pop_string_local 4
+  246: branch 125
+  247: push_constant_string "No reply from login server. Please wait a minute and try again."
+  248: pop_string_local 4
+  249: branch 122
+  250: push_constant_string "Error loading your profile. Please contact customer support."
+  251: pop_string_local 4
+  252: branch 119
+  253: push_constant_string "Unexpected loginserver response. Please try using a different world."
+  254: pop_string_local 4
+  255: branch 116
+  256: push_constant_string "This computer's address has been blocked, as it was used to break our rules."
+  257: pop_string_local 4
+  258: branch 113
+  259: push_constant_string "Service unavailable."
+  260: pop_string_local 4
+  261: branch 110
+  262: push_constant_string "Your password has been updated. Please leave the lobby and log in again."
+  263: pop_string_local 4
+  264: branch 107
+  265: push_constant_string "Unable to connect: authentication server offline."
+  266: pop_string_local 4
+  267: branch 104
+  268: push_constant_string "Your account is currently inaccessible. Please try again in a few minutes."
+  269: pop_string_local 4
+  270: branch 101
+  271: push_constant_string "Your session has expired. Please click 'Back' in your browser to renew it."
+  272: pop_string_local 4
+  273: push_constant_string "Close"
+  274: pop_string_local 7
+  275: push_constant_string "Close"
+  276: pop_string_local 8
+  277: branch 94
+  278: push_constant_int 0
+  279: pop_int_local 8
+  280: push_constant_int 2610
+  281: pop_int_local 10
+  282: push_constant_string "The server is being updated. Please wait a few minutes and try again."
+  283: pop_string_local 4
+  284: branch 87
+  285: push_constant_int 0
+  286: pop_int_local 8
+  287: push_constant_int 2610
+  288: pop_int_local 10
+  289: push_constant_string "RuneScape has been updated! Please reload this page."
+  290: pop_string_local 4
+  291: branch 80
+  292: push_constant_string "Your account has been disabled. Check your Message Centre for details."
+  293: pop_string_local 4
+  294: push_constant_int 1
+  295: pop_int_local 11
+  296: push_constant_string "Message Centre"
+  297: pop_string_local 5
+  298: push_constant_string "Message Centre"
+  299: pop_string_local 6
+  300: branch 71
+  301: push_constant_string "Your password is an extremely common choice, and is not secure. You must change it before you can log in."
+  302: pop_string_local 4
+  303: push_constant_int 1
+  304: pop_int_local 11
+  305: push_constant_string "Change Password"
+  306: pop_string_local 5
+  307: push_constant_string "Change Password"
+  308: pop_string_local 6
+  309: branch 62
+  310: push_constant_int 2612
+  311: pop_int_local 10
+  312: push_constant_string "Your account has been locked. If you have not received an account recovery email, please select 'Recover Account' from the 'Help' menu on the homepage."
+  313: pop_string_local 4
+  314: push_constant_int 1
+  315: pop_int_local 11
+  316: push_constant_string "Recover Account"
+  317: pop_string_local 5
+  318: push_constant_string "Recover Account"
+  319: pop_string_local 6
+  320: branch 51
+  321: push_constant_string "You must change your account's display name before you can log in."
+  322: pop_string_local 4
+  323: push_constant_int 1
+  324: pop_int_local 11
+  325: push_constant_string "Change Display Name"
+  326: pop_string_local 5
+  327: push_constant_string "Change Display Name"
+  328: pop_string_local 6
+  329: branch 42
+  330: push_constant_string "This is not a member's account. Please choose a 'free' world from the website to play on this account."
+  331: pop_string_local 4
+  332: push_constant_int 1
+  333: pop_int_local 11
+  334: push_constant_string "Subscribe"
+  335: pop_string_local 5
+  336: push_constant_string "Subscribe"
+  337: pop_string_local 6
+  338: branch 33
+  339: push_constant_string "Fullscreen is currently a members-only feature. To log in, either exit fullscreen via the options menu or use a member's account."
+  340: pop_string_local 4
+  341: push_constant_int 1
+  342: pop_int_local 11
+  343: push_constant_string "Subscribe"
+  344: pop_string_local 5
+  345: push_constant_string "Subscribe"
+  346: pop_string_local 6
+  347: branch 24
+  348: push_constant_int 0
+  349: pop_int_local 8
+  350: push_constant_int 2607
+  351: pop_int_local 10
+  352: push_constant_string "You need a member's account to log in to this world. Please subscribe or use a different world."
+  353: pop_string_local 4
+  354: push_constant_int 1
+  355: pop_int_local 11
+  356: push_constant_string "Subscribe"
+  357: pop_string_local 5
+  358: push_constant_string "Subscribe"
+  359: pop_string_local 6
+  360: branch 11
+  361: push_constant_string "Your account has negative membership credit. Please log into the billing system to add credit to your account."
+  362: pop_string_local 4
+  363: push_constant_int 1
+  364: pop_int_local 11
+  365: push_constant_string "Add Credit"
+  366: pop_string_local 5
+  367: push_constant_string "Add Credit"
+  368: pop_string_local 6
+  369: branch 2
+  370: push_constant_string "Unexpected server response. Please try using a different world."
+  371: pop_string_local 4
+  372: push_int_local 2
+  373: push_int_local 8
+  374: push_string_local 4
+  375: push_int_local 9
+  376: push_int_local 10
+  377: push_int_local 11
+  378: push_int_local 12
+  379: push_string_local 5
+  380: push_string_local 6
+  381: push_int_local 13
+  382: push_string_local 7
+  383: push_string_local 8
+  384: gosub_with_params 3093
+  385: return 0
+
+switch_0:
+  -2 => 1
+  29 => 4
+  -5 => 28
+  -4 => 31
+  -1 => 34
+  5 => 37
+  7 => 40
+  8 => 43
+  9 => 46
+  10 => 49
+  13 => 52
+  16 => 55
+  17 => 58
+  20 => 61
+  22 => 64
+  23 => 67
+  24 => 70
+  25 => 73
+  26 => 76
+  27 => 79
+  3 => 82
+  36 => 85
+  37 => 88
+  35 => 91
+  14 => 98
+  6 => 105
+  4 => 112
+  11 => 121
+  18 => 130
+  31 => 141
+  30 => 150
+  19 => 159
+  12 => 168
+  32 => 181
+switch_1:
+  0 => 1
+  1 => 4
+  2 => 7
+  3 => 10
+  5 => 13
+  4 => 16

@@ -1,0 +1,9 @@
+[clientscript,script_3215](int $int0)
+if ($int0 = 1) {
+    if_setop(35913826, "Microtutorial");
+    if_setop(48889900, "Microtutorial");
+} else {
+    if_setop(35913826, "");
+    if_setop(48889900, "");
+}
+return;

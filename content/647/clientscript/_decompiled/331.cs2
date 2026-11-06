@@ -1,0 +1,9 @@
+[clientscript,script_331](int $int0, int $int1)(int, int)
+def_int $int2 = 0;
+if (player_isfemale = 1) {
+    $int2 = enum_getoutputcount(enum_2363);
+} else {
+    $int2 = enum_getoutputcount(enum_2132);
+}
+~script_2366($int0, $int1, $int2);
+return(~script_332($int1), ~script_332($int1));

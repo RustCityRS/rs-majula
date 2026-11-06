@@ -1,0 +1,12 @@
+[clientscript,script_4058](int $int0, int $int1, int $int2)
+def_int $int3 = 5;
+if (1 > sub($int0, if_getheight)) {
+    if_setposition(sub(if_gety, $int3), 1, 0, $int0);
+} else {
+    if_setontimer;
+    if_sethide($int0);
+    if_sethide($int1);
+    if_setposition(sub($int1, if_getheight), 1, 0, $int1);
+    if_setontimer;
+}
+return;

@@ -1,0 +1,70 @@
+; id: 694
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=9
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 2
+    2: push_constant_int 0
+    3: pop_int_local 3
+    4: push_constant_int 0
+    5: pop_int_local 4
+    6: push_constant_int 0
+    7: pop_int_local 5
+    8: push_constant_int 0
+    9: pop_int_local 6
+   10: push_constant_int 0
+   11: pop_int_local 7
+   12: push_int_local 0
+   13: gosub_with_params 2413
+   14: pop_int_local 4
+   15: pop_int_local 3
+   16: pop_int_local 2
+   17: push_int_local 1
+   18: gosub_with_params 2413
+   19: pop_int_local 7
+   20: pop_int_local 6
+   21: pop_int_local 5
+   22: push_int_local 2
+   23: push_int_local 5
+   24: add 0
+   25: pop_int_local 2
+   26: push_int_local 3
+   27: push_int_local 6
+   28: add 0
+   29: pop_int_local 3
+   30: push_int_local 4
+   31: push_int_local 7
+   32: add 0
+   33: pop_int_local 4
+   34: push_int_local 2
+   35: push_int_local 3
+   36: push_int_local 4
+   37: op4017 0
+   38: op4017 0
+   39: pop_int_local 8
+   40: push_constant_int 255
+   41: push_int_local 8
+   42: push_int_local 2
+   43: gosub_with_params 669
+   44: pop_int_local 5
+   45: push_constant_int 255
+   46: push_int_local 8
+   47: push_int_local 3
+   48: gosub_with_params 669
+   49: pop_int_local 6
+   50: push_constant_int 255
+   51: push_int_local 8
+   52: push_int_local 4
+   53: gosub_with_params 669
+   54: pop_int_local 7
+   55: push_int_local 5
+   56: push_int_local 6
+   57: push_int_local 7
+   58: gosub_with_params 693
+   59: return 0
+   60: push_constant_int 0
+   61: return 0

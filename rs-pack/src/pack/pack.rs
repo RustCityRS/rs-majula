@@ -1,4 +1,6 @@
 use crate::CONFIG_TYPE_CRCS;
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 use crate::pack::config::*;
 #[cfg(before_647)]
 use crate::pack::interface;
@@ -11,23 +13,19 @@ use crate::pack::util::verify_crc;
 #[cfg(since_647)]
 use crate::pack::{config, interface, js5, media, model, sound, texture};
 #[cfg(since_647)]
-use crate::startup::{cache_build_inputs, file_mtime, is_up_to_date, max_of, write_stamp};
-#[cfg(since_647)]
 use crate::{archive, config_crc};
 #[cfg(since_647)]
 use anyhow::Result;
 #[cfg(since_647)]
-use rs_io::jag::{JagCompression, JagFile};
-#[cfg(since_647)]
-use rs_io::js5::Js5Store;
-#[cfg(since_647)]
-use std::collections::BTreeMap;
+use rayon::join;
+use rayon::prelude::*;
 use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::time::Instant;
 use tracing::debug;
 #[cfg(since_647)]
-use tracing::{info, warn};
+use tracing::warn;
 
 pub fn pack_assets(
     registry: &PackRegistry,
@@ -35,137 +33,92 @@ pub fn pack_assets(
     verify: bool,
 ) -> anyhow::Result<HashMap<String, PackedFile>> {
     let fc = FileCache::new(source_dir);
+    pack_cached_assets(registry, source_dir, &fc, verify)
+}
 
-    let constants = load_constants_from_cache(&fc);
+fn pack_cached_assets(
+    registry: &PackRegistry,
+    _source_dir: &Path,
+    fc: &FileCache,
+    verify: bool,
+) -> anyhow::Result<HashMap<String, PackedFile>> {
+    let constants = load_constants_from_cache(fc);
     debug!("  Loaded {} constants", constants.len());
 
-    let param_types = param::load_param_types(&fc, &constants);
-    let mut results = HashMap::new();
-
-    debug!("Packing param configs...");
-    results.insert(
-        "param".to_string(),
-        param::pack_params(&fc, registry, &constants)?,
-    );
-    debug!("Packing dbtable configs...");
-    results.insert(
-        "dbtable".to_string(),
-        dbtable::pack_dbtables(&fc, registry, &constants)?,
-    );
-    debug!("Packing dbrow configs...");
-    results.insert(
-        "dbrow".to_string(),
-        dbrow::pack_dbrows(&fc, registry, &constants)?,
-    );
-    debug!("Packing enum configs...");
-    results.insert(
-        "enum".to_string(),
-        r#enum::pack_enums(&fc, registry, &constants)?,
-    );
-    debug!("Packing flo configs...");
-    results.insert(
-        "flo".to_string(),
-        flo::pack_flos(&fc, registry, &constants)?,
-    );
-    debug!("Packing inv configs...");
-    results.insert(
-        "inv".to_string(),
-        inv::pack_invs(&fc, registry, &constants)?,
-    );
-    debug!("Packing mesanim configs...");
-    results.insert(
-        "mesanim".to_string(),
-        mesanim::pack_mesanims(&fc, registry, &constants)?,
-    );
-    debug!("Packing struct configs...");
-    results.insert(
-        "struct".to_string(),
-        r#struct::pack_structs(&fc, registry, &constants, &param_types)?,
-    );
-    debug!("Packing seq configs...");
-    results.insert(
-        "seq".to_string(),
-        seq::pack_seqs(&fc, registry, &constants)?,
-    );
-    debug!("Packing loc configs...");
-    results.insert(
-        "loc".to_string(),
-        loc::pack_locs(&fc, registry, &constants, &param_types)?,
-    );
-    debug!("Packing npc configs...");
-    results.insert(
-        "npc".to_string(),
-        npc::pack_npcs(&fc, registry, &constants, &param_types)?,
-    );
-    debug!("Packing obj configs...");
-    results.insert(
-        "obj".to_string(),
-        obj::pack_objs(&fc, registry, &constants, &param_types)?,
-    );
-    debug!("Packing varp configs...");
-    results.insert(
-        "varp".to_string(),
-        varp::pack_varps(&fc, registry, &constants)?,
-    );
-    debug!("Packing hunt configs...");
-    results.insert(
-        "hunt".to_string(),
-        hunt::pack_hunts(&fc, registry, &constants)?,
-    );
-    debug!("Packing varn configs...");
-    results.insert(
-        "varn".to_string(),
-        vars::pack_vars(&fc, &registry.varn, "varn", &constants)?,
-    );
-    debug!("Packing vars configs...");
-    results.insert(
-        "vars".to_string(),
-        vars::pack_vars(&fc, &registry.vars, "vars", &constants)?,
-    );
-    #[cfg(before_647)]
-    {
-        debug!("Packing interface configs...");
-        results.insert(
-            "interface".to_string(),
-            interface::pack_interfaces(source_dir, registry, verify)?,
-        );
-    }
-    debug!("Packing spotanim configs...");
-    results.insert(
-        "spotanim".to_string(),
-        spotanim::pack_spotanims(&fc, registry, &constants)?,
-    );
-    debug!("Packing idk configs...");
-    results.insert(
-        "idk".to_string(),
-        idk::pack_idks(&fc, registry, &constants)?,
-    );
-    debug!("Packing categories...");
-    results.insert(
-        "category".to_string(),
-        PackedFile {
-            server: category::pack_categories(registry)?,
-            client: None,
-        },
-    );
-    #[cfg(since_254)]
-    {
-        debug!("Packing varbit configs...");
-        results.insert(
-            "varbit".to_string(),
-            varbit::pack_varbits(&fc, registry, &constants)?,
-        );
-    }
-    #[cfg(all(since_274, before_647))]
-    {
-        debug!("Packing mes configs...");
-        results.insert("mes".to_string(), mes::pack_mes(&fc, &constants)?);
-    }
-    #[cfg(since_647)]
-    results.insert(
-        "flu".to_string(),
-        flu::pack_flus(&fc, registry, &constants)?,
-    );
+    let param_types = param::load_param_types(fc, &constants);
+    let kinds = [
+        "param",
+        "dbtable",
+        "dbrow",
+        "enum",
+        "flo",
+        "inv",
+        "mesanim",
+        "struct",
+        "seq",
+        "loc",
+        "npc",
+        "obj",
+        "varp",
+        "hunt",
+        "varn",
+        "vars",
+        "spotanim",
+        "idk",
+        "category",
+        #[cfg(before_647)]
+        "interface",
+        #[cfg(since_254)]
+        "varbit",
+        #[cfg(all(since_274, before_647))]
+        "mes",
+        #[cfg(since_647)]
+        "flu",
+    ];
+    let results: HashMap<String, PackedFile> = kinds
+        .par_iter()
+        .map(|&kind| {
+            let start = Instant::now();
+            let file = match kind {
+                "param" => param::pack_params(fc, registry, &constants)?,
+                "dbtable" => dbtable::pack_dbtables(fc, registry, &constants)?,
+                "dbrow" => dbrow::pack_dbrows(fc, registry, &constants)?,
+                "enum" => r#enum::pack_enums(fc, registry, &constants)?,
+                "flo" => flo::pack_flos(fc, registry, &constants)?,
+                "inv" => inv::pack_invs(fc, registry, &constants)?,
+                "mesanim" => mesanim::pack_mesanims(fc, registry, &constants)?,
+                "struct" => r#struct::pack_structs(fc, registry, &constants, &param_types)?,
+                "seq" => seq::pack_seqs(fc, registry, &constants)?,
+                "loc" => loc::pack_locs(fc, registry, &constants, &param_types)?,
+                "npc" => npc::pack_npcs(fc, registry, &constants, &param_types)?,
+                "obj" => obj::pack_objs(fc, registry, &constants, &param_types)?,
+                "varp" => varp::pack_varps(fc, registry, &constants)?,
+                "hunt" => hunt::pack_hunts(fc, registry, &constants)?,
+                "varn" => vars::pack_vars(fc, &registry.varn, kind, &constants)?,
+                "vars" => vars::pack_vars(fc, &registry.vars, kind, &constants)?,
+                "spotanim" => spotanim::pack_spotanims(fc, registry, &constants)?,
+                "idk" => idk::pack_idks(fc, registry, &constants)?,
+                "category" => PackedFile {
+                    server: category::pack_categories(registry)?,
+                    client: None,
+                },
+                #[cfg(before_647)]
+                "interface" => interface::pack_interfaces(_source_dir, registry, verify)?,
+                #[cfg(since_254)]
+                "varbit" => varbit::pack_varbits(fc, registry, &constants)?,
+                #[cfg(all(since_274, before_647))]
+                "mes" => mes::pack_mes(fc, &constants)?,
+                #[cfg(since_647)]
+                "flu" => flu::pack_flus(fc, registry, &constants)?,
+                _ => unreachable!(),
+            };
+            debug!(
+                "Packed {kind} configs in {:.2}s",
+                start.elapsed().as_secs_f64()
+            );
+            Ok((kind.to_owned(), file))
+        })
+        .collect::<anyhow::Result<_>>()?;
     if verify {
         for &(name, expected) in CONFIG_TYPE_CRCS {
             let client = results[name]
@@ -282,10 +235,9 @@ fn collect_all_recursive(dir: &Path, out: &mut Vec<PathBuf>) {
     let Ok(entries) = fs::read_dir(dir) else {
         return;
     };
-    let mut sorted: Vec<PathBuf> = entries.flatten().map(|e| e.path()).collect();
-    sorted.sort();
-    for path in sorted {
-        if path.is_dir() {
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if entry.file_type().is_ok_and(|kind| kind.is_dir()) {
             collect_all_recursive(&path, out);
         } else {
             out.push(path);
@@ -514,157 +466,104 @@ fn substitute_constants(value: &str, constants: &HashMap<String, String>) -> Str
 }
 
 #[cfg(since_647)]
-pub fn pack_all(
+pub fn pack_configs(
     source_dir: &Path,
     pack_dir: &Path,
-    server_dir: &Path,
-    client_dir: &Path,
     verify: bool,
-) -> Result<()> {
-    fs::create_dir_all(server_dir)?;
-    fs::create_dir_all(client_dir)?;
-
-    let mut config = JagFile::new();
-
-    // Validate pack files: auto-register names from content files.
-    validate_config_packs(source_dir, pack_dir)?;
-
+) -> Result<HashMap<String, PackedFile>> {
     let registry = PackRegistry::load(pack_dir)?;
-    let assets = pack_assets(&registry, source_dir, verify)?;
-    for &(name, expected) in config_crc::GENERIC {
-        let path = source_dir.join("_unpack").join(format!("all.{name}"));
-        if !path.exists() && !verify {
-            continue;
-        }
-        let client = generic::pack_generic_config(source_dir, name)?;
-        if verify {
-            verify_crc(name, &client.dat, expected);
-        }
-        config.write(&format!("{name}.dat"), client.dat);
-        config.write(&format!("{name}.idx"), client.idx);
-    }
-    for (name, asset) in assets.into_iter().collect::<BTreeMap<_, _>>() {
-        asset.server.save(server_dir, &name)?;
-        if let Some(client) = asset.client {
-            config.write(&format!("{name}.dat"), client.dat);
-            config.write(&format!("{name}.idx"), client.idx);
-        }
-    }
-
-    fs::write(
-        client_dir.join("config"),
-        config.build(JagCompression::PerFile),
-    )?;
-
-    info!("Pack complete.");
-    Ok(())
+    let fc = FileCache::new(source_dir);
+    registry.check_content(&fc)?;
+    validate_config_packs(&fc, pack_dir)?;
+    let registry = PackRegistry::load(pack_dir)?;
+    let mut assets = pack_cached_assets(&registry, source_dir, &fc, verify)?;
+    let generic = config_crc::GENERIC
+        .par_iter()
+        .map(|&(name, expected)| {
+            let path = source_dir.join("_unpack").join(format!("all.{name}"));
+            if !path.exists() && !verify {
+                return Ok(None);
+            }
+            let client = generic::pack_generic_config(source_dir, name)?;
+            if verify {
+                verify_crc(name, &client.dat, expected);
+            }
+            Ok(Some((
+                name.to_owned(),
+                PackedFile {
+                    server: Default::default(),
+                    client: Some(client),
+                },
+            )))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    assets.extend(generic.into_iter().flatten());
+    Ok(assets)
 }
 
 #[cfg(since_647)]
 pub fn pack_cache(
-    source_cache: &Path,
     content_dir: &Path,
-    output_dir: &Path,
-    client_data_dir: &Path,
-    force_rebuild: bool,
-    prebuilt_anims: Option<BTreeMap<(u32, u32), Vec<u8>>>,
-) -> Result<()> {
-    let config_path = client_data_dir.join("config");
-    let master_stamp = output_dir.join(".stamp_cache_built");
-    let inputs = max_of(&[cache_build_inputs(content_dir), file_mtime(&config_path)]);
-    if !force_rebuild
-        && output_dir.join("main_file_cache.dat2").exists()
-        && is_up_to_date(&master_stamp, inputs)
-    {
-        info!("JS5 cache up to date, skipping build");
-        return Ok(());
-    }
-
+    pack_dir: &Path,
+    verify: bool,
+) -> Result<(HashMap<String, PackedFile>, PackedCache)> {
     let versions = archive::load_versions_dir(&content_dir.join("versions"))?;
-    let keys_dst = output_dir.join("keys.json");
-    let keys_src = content_dir.join("keys.json");
-    if keys_src.exists() {
-        fs::copy(keys_src, &keys_dst)?;
-    } else if !keys_dst.exists() {
-        warn!("No keys.json found for map encryption");
-    }
-
-    let mut store = Js5Store::create(output_dir, archive::ARCHIVE_IDS)?;
-    let pack_dir = content_dir.join("pack");
-    model::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &pack_dir,
-        &versions,
-        force_rebuild,
-        prebuilt_anims,
-    )?;
-    config::pack_archives(
-        &mut store,
-        content_dir,
-        output_dir,
-        &config_path,
-        &versions,
-        force_rebuild,
-    )?;
-    interface::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &pack_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    js5::pack_binary_archives(
-        &mut store,
-        content_dir,
-        output_dir,
-        &pack_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    sound::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    song::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &pack_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    texture::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    media::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &pack_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    map::pack_archive(
-        &mut store,
-        content_dir,
-        output_dir,
-        &pack_dir,
-        &versions,
-        force_rebuild,
-    )?;
-    drop(store);
-    js5::verify_cache(source_cache, output_dir)?;
-    write_stamp(&master_stamp)?;
-    info!("Cache built at {}", output_dir.display());
-    Ok(())
+    let stages = [
+        "animations",
+        "interfaces",
+        "binary",
+        "synth",
+        "songs",
+        "textures",
+        "sprites",
+        "maps",
+    ];
+    let (configs, archives) = join(
+        || -> Result<_> {
+            let start = Instant::now();
+            let assets = pack_configs(&content_dir.join("scripts"), pack_dir, verify)?;
+            let mut cache = PackedCache::default();
+            config::pack_archives(&mut cache, &assets, &versions)?;
+            debug!("Packed configs in {:.2}s", start.elapsed().as_secs_f64());
+            Ok((assets, cache))
+        },
+        || -> Result<_> {
+            stages
+                .par_iter()
+                .map(|&stage| {
+                    let start = Instant::now();
+                    let mut cache = PackedCache::default();
+                    match stage {
+                        "animations" => {
+                            model::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
+                        }
+                        "interfaces" => {
+                            interface::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
+                        }
+                        "binary" => {
+                            js5::pack_binary_archives(&mut cache, content_dir, pack_dir, &versions)?
+                        }
+                        "synth" => sound::pack_archive(&mut cache, content_dir, &versions)?,
+                        "songs" => {
+                            song::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
+                        }
+                        "textures" => texture::pack_archive(&mut cache, content_dir, &versions)?,
+                        "sprites" => {
+                            media::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
+                        }
+                        "maps" => map::pack_archive(&mut cache, content_dir, pack_dir, &versions)?,
+                        _ => unreachable!(),
+                    }
+                    debug!("Packed {stage} in {:.2}s", start.elapsed().as_secs_f64());
+                    Ok(cache)
+                })
+                .try_reduce(PackedCache::default, |mut a, b| {
+                    a.extend(b);
+                    Ok(a)
+                })
+        },
+    );
+    let (assets, mut cache) = configs?;
+    cache.extend(archives?);
+    Ok((assets, cache))
 }

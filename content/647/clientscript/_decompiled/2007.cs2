@@ -1,0 +1,21 @@
+[clientscript,script_2007](int $int0, int $int1, int $int2, int $int3)
+if_setdraggable(-1, $int1);
+def_int $int4 = sub($int1, if_getwidth);
+def_int $int5 = scale(get_clientopt, 255, $int4);
+if_setposition(0, 0, 0, $int1);
+if (get_clientopt > 0) {
+    if ($int3 = 1) {
+        if_setgraphic(48758891);
+    } else {
+        if_setgraphic(48758891);
+    }
+} else {
+    if ($int3 = 1) {
+        if_setgraphic(48758891);
+    }
+    if_setgraphic(48758891);
+}
+if ($int2 = 1) {
+    %varc_int1394 = get_clientopt;
+}
+return;

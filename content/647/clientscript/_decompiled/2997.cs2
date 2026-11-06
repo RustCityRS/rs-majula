@@ -1,0 +1,11 @@
+[clientscript,script_2997](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13)
+cc_setposition(0, $int0, 6, $int1);
+cc_setsize($int2, $int3, 0, 0);
+cc_setposition2($int4, $int5, 0, 0);
+if ($int6 ! -1) {
+    cc_setmodel($int6);
+    cc_setmodelangle($int8, $int9, $int10, $int11, $int12, $int13);
+} else {
+    cc_setobject($int7, -1);
+}
+return;

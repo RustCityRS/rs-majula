@@ -1,0 +1,39 @@
+; id: 2805
+int_param_count=5
+string_param_count=0
+long_param_count=0
+local_int_count=7
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op2609 0
+    2: pop_int_local 5
+    3: push_int_local 5
+    4: push_int_local 1
+    5: add 0
+    6: push_int_local 3
+    7: op4017 0
+    8: push_int_local 4
+    9: op4016 0
+   10: pop_int_local 6
+   11: push_int_local 6
+   12: push_int_local 3
+   13: branch_equals 4
+   14: push_int_local 6
+   15: push_int_local 4
+   16: branch_equals 1
+   17: branch 9
+   18: push_constant_int 2805
+   19: push_int_local 0
+   20: push_int_local 2
+   21: push_int_local 1
+   22: push_int_local 3
+   23: push_int_local 4
+   24: push_constant_string "Iiiii"
+   25: push_int_local 0
+   26: op2408 0
+   27: push_int_local 6
+   28: push_int_local 0
+   29: op2103 0
+   30: return 0

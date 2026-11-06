@@ -1,0 +1,28 @@
+; id: 3479
+int_param_count=4
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_int_local 1
+    2: if_sethide 0
+    3: push_constant_int 1
+    4: push_int_local 2
+    5: if_sethide 0
+    6: push_constant_int 2871
+    7: push_constant_int 1
+    8: push_constant_int 0
+    9: sound_synth 0
+   10: push_constant_int 3480
+   11: push_int_local 0
+   12: push_int_local 1
+   13: push_int_local 2
+   14: push_int_local 3
+   15: clientclock 0
+   16: push_constant_string "III1i"
+   17: push_int_local 0
+   18: op2408 0
+   19: return 0

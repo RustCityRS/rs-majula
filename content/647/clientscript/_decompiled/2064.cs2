@@ -1,0 +1,71 @@
+[clientscript,script_2064](int $int0)
+if_sethide(9043996);
+if_sethide(9044005);
+if_sethide(9044004);
+if_sethide(9043999);
+if_sethide(9044007);
+if_sethide(9044006);
+if_sethide(9044003);
+if_sethide(9044002);
+if_sethide(9044001);
+if_sethide(9044000);
+if_sethide(9043997);
+if_sethide(9043998);
+if_sethide(9044009);
+if_sethide(9044008);
+def_int $int1 = 0;
+if (%varbit5332 < 120) {
+    $int1 = 1;
+}
+if_sethide(9043974);
+if_sethide(9043975);
+if_sethide(9043976);
+if_sethide(9043987);
+if_sethide(9043988);
+if_sethide(9043989);
+if_sethide(9043980);
+switch ($int0) {
+    case 0:
+        if_sethide(9043996);
+    case 1:
+        if_sethide(9044005);
+        if_setmodelanim;
+    case 2:
+        if_sethide(9044004);
+        if_setmodelanim;
+    case 3:
+        if_sethide(9043999);
+        if_setmodelanim;
+    case 4:
+        if_sethide(9044007);
+        if_setmodelanim;
+    case 5:
+        if_sethide(9044006);
+        if_setmodelanim;
+    case 6:
+        if_sethide(9044003);
+        if_setmodelanim;
+    case 7:
+        if_sethide(9044002);
+        if_setmodelanim;
+    case 8:
+        if_sethide(9044000);
+        if_setmodelanim;
+    case 9:
+        if_sethide(9044001);
+        if_setmodelanim;
+    case 10:
+        if_sethide(9043997);
+        if_setmodelanim;
+    case 11:
+        if_sethide(9043998);
+        if_setmodelanim;
+    case 12:
+        if_sethide(9044009);
+        if_setmodelanim;
+    case 13:
+        if_sethide(9044008);
+        if_setmodelanim;
+    default:
+}
+return;

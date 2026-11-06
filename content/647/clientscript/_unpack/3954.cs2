@@ -1,0 +1,48 @@
+; id: 3954
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1407
+    1: pop_varc_int 1408
+    2: push_varc_int 1407
+    3: push_constant_int 1
+    4: branch_less_than 1
+    5: branch 6
+    6: push_constant_string "Please enter your age, in years, here."
+    7: push_constant_int 44105764
+    8: gosub_with_params 3213
+    9: push_constant_int 0
+   10: return 0
+   11: branch 9
+   12: push_varc_int 1407
+   13: push_constant_int 120
+   14: branch_greater_than 1
+   15: branch 5
+   16: push_constant_string "Please check the age entered and try again."
+   17: push_constant_int 44105764
+   18: gosub_with_params 3213
+   19: push_constant_int 0
+   20: return 0
+   21: push_constant_int 4059
+   22: push_constant_int 44105764
+   23: if_setgraphic 0
+   24: push_constant_int 1
+   25: push_constant_int 44105840
+   26: if_sethide 0
+   27: push_constant_int 1
+   28: push_constant_int 44105750
+   29: if_sethide 0
+   30: push_int_local 0
+   31: branch_if_true 1
+   32: branch 3
+   33: push_constant_int 6
+   34: push_constant_int 1
+   35: gosub_with_params 2714
+   36: push_constant_int 1
+   37: return 0
+   38: push_constant_int -1
+   39: return 0

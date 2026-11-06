@@ -1,0 +1,4 @@
+[clientscript,script_1974](int $int0, int $int1, int $int2)(int, int, int, int, int, int, int, int)
+if_setmodelangle;
+if_setobject(toolkit, $int0);
+return(0, 0, if_getmodelangle_x($int0), if_getmodelangle_y($int0), if_getmodelangle_y($int0), $int2, $int0, $int1);

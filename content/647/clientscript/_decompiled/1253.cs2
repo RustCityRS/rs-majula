@@ -1,0 +1,9 @@
+[clientscript,script_1253](int $int0)(int, int, string)
+def_int $int1 = if_gettrans($int0);
+$int1 = max(calc($int1 - 255 / 30), 0);
+if_settrans($int0);
+if ($int1 <= 0) {
+    if_setontimer;
+    return(-1, $int0, "");
+}
+return;

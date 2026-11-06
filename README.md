@@ -635,38 +635,26 @@ and goes to the client over JS5, so there is no JAGGRAB, no HTTP cache and no we
 plays through the deobfuscated Java desktop client in `public/647/client.jar`, which reads its
 settings from `http://127.0.0.1/jav_config.ws`, so the server's HTTP listener goes on port 80.
 
-`REV` in `.cargo/config.toml` says 289, and an environment variable overrides it, so prefix
-each command (in PowerShell, run `$env:REV = "647"` first instead):
+The complete unpacked cache is included in `content/647/`. Startup packs these sources
+straight into memory, including the client JS5 groups and server definitions. No cache
+download, regeneration command or intermediate disk cache is needed.
 
 ```bash
-REV=647 cargo fetch-expected     # once: the reference cache, into expected/
-REV=647 cargo regen-content      # once: what is derived from it, into content/647
 docker compose up -d
 REV=647 cargo run --profile dev-opt -p rs-server -- --http-port 80
 java -jar public/647/client.jar
 ```
 
-The reference cache (OpenRS2 cache [786](https://archive.openrs2.org/caches/runescape/786))
-is not kept in git, and neither is anything derived from it. `cargo fetch-expected`
-downloads it into `expected/` and checks it against OpenRS2's own reference tables and XTEA
-keys. `cargo regen-content` unpacks it into the `_unpack` directories under `content/647`:
-the cache's configs, map squares, models, clientscripts, sprites and the rest.
+The `_unpack` directories are versioned source assets. Config sections beside them add to,
+or override, sections of the same name. Map spawns and donor assets are overlaid at pack
+time. Update matching content headers and references when renaming a `.pack` entry.
 
-Everything authored sits beside those directories and is laid over them when the cache is
-packed:
-
-- A section in an authored config adds to, or overrides, the cache's section of the same name.
-- `content/647/maps/spawns` (npc and ground-item spawns) and `content/647/maps/donor`
-  (squares rebuilt from donor caches, whose 786 copies nobody can decrypt) replace the
-  cache's squares.
-- `content/647/models/donor` holds models from donor caches that 786 lacks, for the server's
-  configs that use them.
-
-Never edit `_unpack`: the next `cargo regen-content` clears it. To check a build against
-OpenRS2, group by group:
+Startup checks the original config and archive CRCs. Use `--verify false` for deliberate
+client-content changes. The full group comparison runs offline against the committed
+reference tables:
 
 ```bash
-REV=647 cargo test -p rs-pack --release --test crc_gate -- --ignored
+REV=647 cargo test -p rs-pack --test crc_gate -- --ignored
 ```
 
 ----

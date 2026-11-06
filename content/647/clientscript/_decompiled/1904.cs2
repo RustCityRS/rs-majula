@@ -1,0 +1,6 @@
+[clientscript,script_1904](int $int0, int $int1, int $int2)
+cc_deleteall($int1);
+if (string_length(%varc_str30) <= 0) {
+    if_setscrollsize(0, 0, $int1);
+}
+return;

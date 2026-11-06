@@ -1,0 +1,26 @@
+[clientscript,script_3359](int, int, string)
+switch (%varp448) {
+    case 17945:
+        return(3, 18047, "Snaring Wave (Tier 1)");
+    case 17946:
+        return(13, 18048, "Snaring Wave (Tier 2)");
+    case 17947:
+        return(23, 18049, "Snaring Wave (Tier 3)");
+    case 17948:
+        return(33, 18050, "Snaring Wave (Tier 4)");
+    case 17949:
+        return(43, 18051, "Snaring Wave (Tier 5)");
+    case 17950:
+        return(53, 18052, "Snaring Wave (Tier 6)");
+    case 17951:
+        return(63, 18053, "Snaring Wave (Tier 7)");
+    case 17952:
+        return(73, 18054, "Snaring Wave (Tier 8)");
+    case 17953:
+        return(83, 18055, "Snaring Wave (Tier 9)");
+    case 17954:
+        return(93, 18056, "Snaring Wave (Tier 10)");
+    default:
+        return(3, 18047, "Snaring Wave (Tier 1)");
+}
+return(0, -1, "");

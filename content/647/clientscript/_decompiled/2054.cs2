@@ -1,0 +1,6 @@
+[clientscript,script_2054](int $int0, int $int1, int $int2)
+if (clientclock >= $int0) {
+    worldmap_setcoord($int2);
+    if_setontimer;
+}
+return;

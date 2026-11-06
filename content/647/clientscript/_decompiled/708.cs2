@@ -1,0 +1,9 @@
+[clientscript,script_708](int $int0)
+if (%varbit5032 < 80) {
+    if_setontimer;
+} else {
+    if (%varbit5331 < 35) {
+        if_setontimer;
+    }
+}
+return;

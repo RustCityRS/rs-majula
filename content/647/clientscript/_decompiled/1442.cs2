@@ -1,0 +1,52 @@
+[clientscript,script_1442]
+switch (%varp75) {
+    case 0:
+        return;
+    case 1:
+        if_sethide(19595319);
+        if_setmodelanim;
+    case 2:
+        if_sethide(19595311);
+        if_setmodelanim;
+    case 3:
+        if_sethide(19595309);
+        if_setmodelanim;
+    case 5:
+        if_sethide(19595308);
+        if_setmodelanim;
+    case 6:
+        if_sethide(19595307);
+        if_setmodelanim;
+    case 7:
+        if_sethide(19595306);
+        if_setmodelanim;
+    case 8:
+        if_sethide(19595305);
+        if_setmodelanim;
+    case 10:
+        if_sethide(19595303);
+        if_setmodelanim;
+    case 11:
+        if_sethide(19595302);
+        if_setmodelanim;
+    case 12:
+        if_sethide(19595301);
+        if_setmodelanim;
+    case 13:
+        if_sethide(19595300);
+        if_setmodelanim;
+    case 14:
+        if_sethide(19595299);
+        if_setmodelanim;
+    case 15:
+        if_sethide(19595298);
+        if_setmodelanim;
+    case 16:
+        if_sethide(19595297);
+        if_setmodelanim;
+    case 17:
+        if_sethide(19595296);
+        if_setmodelanim;
+    default:
+}
+return;

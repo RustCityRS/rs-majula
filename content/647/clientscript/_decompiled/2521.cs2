@@ -1,0 +1,42 @@
+[clientscript,script_2521]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = -1;
+$int1 = calc(if_getwidth - 180 / 4);
+$int2 = calc(if_getheight - 128 / 3);
+if ($int0 < 5) {
+    if (enum(105, 79, %varc_int875, $int0) ! 11760) {
+        $int5 = enum(105, 79, %varc_int875, $int0);
+        switch ($int0) {
+            case 0:
+                if_settext(oc_name(oc_uncert($int5)));
+                $int3 = %varc_int876;
+            case 1:
+                if_settext(oc_name(oc_uncert($int5)));
+                $int3 = %varc_int877;
+            case 2:
+                if_settext(oc_name(oc_uncert($int5)));
+                $int3 = %varc_int878;
+            case 3:
+                if_settext(oc_name(oc_uncert($int5)));
+                $int3 = %varc_int879;
+            case 4:
+                if_settext(oc_name(oc_uncert($int5)));
+                $int3 = %varc_int880;
+            default:
+        }
+        cc_setposition(0, 55574530, 5, $int0);
+        cc_setsize(36, 32, 0, 0);
+        cc_setposition2(calc(36 + $int1 * $int0 % 5), calc($int0 / 5 * 32 + $int2), 0, 0);
+        cc_setobject(oc_uncert($int5), $int3);
+        cc_setopbase("<col=ff981f>" + oc_name(oc_uncert($int5)));
+        cc_setop(1, "Select");
+        cc_setop(2, "Examine");
+        cc_setgraphicshadow;
+        $int0 = add($int0, 1);
+    }
+}
+return;

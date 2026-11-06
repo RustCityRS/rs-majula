@@ -1,0 +1,33 @@
+; id: 2579
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 6710886
+    1: push_constant_int 19136629
+    2: if_setcolour 0
+    3: push_constant_int 19136614
+    4: op2307 0
+    5: push_constant_int 19136616
+    6: op2307 0
+    7: push_constant_int 19136615
+    8: op2307 0
+    9: push_constant_int 2606
+   10: push_constant_int -2147483645
+   11: push_constant_string "I"
+   12: push_constant_int 19136614
+   13: op2400 0
+   14: push_constant_int 2606
+   15: push_constant_int -2147483645
+   16: push_constant_string "I"
+   17: push_constant_int 19136616
+   18: op2400 0
+   19: push_constant_int 2606
+   20: push_constant_int -2147483645
+   21: push_constant_string "I"
+   22: push_constant_int 19136615
+   23: op2400 0
+   24: return 0

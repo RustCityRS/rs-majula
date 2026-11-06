@@ -1,0 +1,19 @@
+; id: 755
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 23
+    1: stat 0
+    2: tostring 0
+    3: push_constant_string "/"
+    4: push_constant_int 23
+    5: stat_base 0
+    6: tostring 0
+    7: join_string 3
+    8: push_constant_int 43384873
+    9: if_settext 0
+   10: return 0

@@ -1,0 +1,77 @@
+[clientscript,script_798](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0, string $str1, string $str2, string $str3, string $str4)
+cc_deleteall($int0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+if_setscrollsize(0, calc($int4 - $int3 / $int1 + 1 * 57), $int0);
+def_int $int7 = 0;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_int $int13 = -1;
+def_string $str5 = "hello";
+def_int $int14 = 0;
+def_int $int15 = 0;
+if ($int7 <= sub($int4, $int3)) {
+    $int5 = calc(16 + $int7 % $int1 * 48 + $int7 % $int1 * 5);
+    $int6 = calc($int7 / $int1 * 52 + $int7 / $int1 * 5);
+    cc_setposition(0, $int0, 5, $int15);
+    $int15 = add($int15, 1);
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int5, $int6, 0, 0);
+    cc_setgraphic(2205);
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_setposition(1, $int0, 5, $int15);
+    $int15 = add($int15, 1);
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int5, $int6, 0, 0);
+    cc_setgraphic(2206);
+    cc_sethide(1);
+    cc_setposition($int15, $int0, 5, $int15);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(add($int5, 6), add($int6, 4), 0, 0);
+    $int12 = enum(105, 111, enum_1277, $int8);
+    $int13 = enum(105, 111, enum_1188, $int8);
+    if ($int8 = 1) {
+        if (~script_799($int13) = 1) {
+            ~script_760($int13, $int13, $int0, $int15, $str0, $str1, $str2, $str3, $str4, "");
+        } else {
+            ~script_760(enum(105, 111, enum_1184, $int8), $int13, $int0, $int15, $str0, $str1, $str2, $str3, $str4, "");
+        }
+    } else {
+        if ($int13 = 12421) {
+            ~script_760($int13, $int13, $int0, $int15, $str0, $str1, $str2, $str3, $str4, "");
+        }
+        ~script_760(enum(105, 111, enum_1184, $int8), $int13, $int0, $int15, $str0, $str1, $str2, $str3, $str4, "");
+    }
+    $str5 = "";
+    $int14 = enum(111, 105, enum_1185, $int12);
+    if ($int8 = 1) {
+        cc_setonmouserepeat;
+        cc_setonmouseleave;
+    } else {
+        $str5 = "You do not have access to this type of scroll.";
+        cc_setonmouserepeat;
+        cc_setonmouseleave;
+    }
+    $int15 = add($int15, 1);
+    cc_setposition(0, $int0, 5, $int15);
+    $int15 = add($int15, 1);
+    cc_setsize(12, 12, 0, 0);
+    cc_setposition2(add($int5, 2), add($int6, 38), 0, 0);
+    cc_setobject_nonum($int12, 1);
+    cc_setposition(0, $int0, 4, $int15);
+    $int15 = add($int15, 1);
+    cc_setsize(31, 12, 0, 0);
+    cc_setposition2(add($int5, 13), add($int6, 39), 0, 0);
+    cc_settextfont(494);
+    cc_setcolour(16777215);
+    cc_settextalign(2, 1, 0);
+    cc_settext("1");
+    cc_settextshadow(1);
+    $int7 = add($int7, 1);
+    $int8 = add($int8, 1);
+}
+return;

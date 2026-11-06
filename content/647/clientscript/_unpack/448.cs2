@@ -1,0 +1,19 @@
+; id: 448
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 7537
+    1: branch_if_false 1
+    2: branch 4
+    3: push_constant_int 3745
+    4: push_constant_int 66781194
+    5: if_setgraphic 0
+    6: branch 3
+    7: push_constant_int 3746
+    8: push_constant_int 66781194
+    9: if_setgraphic 0
+   10: return 0

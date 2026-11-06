@@ -1,0 +1,7 @@
+[clientscript,script_2870](int $int0, int $int1)(int, int, int, string)
+if (clientclock >= $int1) {
+    if_sethide($int0);
+    if_setontimer;
+    return(1, -1, $int0, "");
+}
+return;

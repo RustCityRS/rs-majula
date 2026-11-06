@@ -1,0 +1,50 @@
+[clientscript,script_828](int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+~script_2872;
+define_array(105, add(979, 1));
+def_int $int0 = 0;
+if (%varc_int89 = 0) {
+    %varc_str196 = "";
+    %varc_int89 = 1;
+}
+if ($int0 <= 979) {
+    %array0 = pop_array_int($int0, $int0);
+    cc_setposition(0, 12255233, 4, multiply($int0, 2));
+    cc_setposition(0, 12255233, 5, calc($int0 * 2 + 1));
+    $int0 = add($int0, 1);
+}
+~script_520(0, 0, 979, 1347);
+if_setparam_int(1133, -1, 12255236);
+$int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($int1 <= 979) {
+    $int0 = push_array_int(0, $int1);
+    if (cc_find(12255233, multiply($int0, 2)) = 1) {
+        if (cc_find(12255233, calc($int0 * 2 + 1)) = 1) {
+            if (enum(105, 77, enum_1351, $int0) ! 147) {
+                if (enum(105, 105, enum_1350, $int0) = 0) {
+                    cc_settextalign(0, 1, 0);
+                    cc_settext(enum_string(0, 1345, $int0));
+                    cc_setsize(150, 15, 0, 0);
+                    cc_setonop;
+                    cc_setopbase(enum_string($int0, 1345, $int0));
+                    cc_setopbase(enum_string(-2147483644, 1345, $int0));
+                    cc_settextshadow(0);
+                    cc_settextfont(494);
+                    cc_setonmouseover;
+                    cc_setsize(12, 12, 0, 0);
+                    if ($int2 = 0) {
+                        if_setparam_int(1133, $int0, 12255236);
+                        $int2 = 1;
+                    }
+                }
+            }
+            if ($int1 < 979) {
+                cc_setparam_int(1133, push_array_int(0, add($int1, 1)));
+            }
+        }
+    }
+    $int1 = add($int1, 1);
+}
+~script_3680;
+return(~script_31(12255234, 12255233, 792, 789, 790, 791, 773, 788));

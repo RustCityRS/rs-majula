@@ -1,0 +1,14 @@
+; id: 1610
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: push_constant_int 35979279
+    2: if_sethide 0
+    3: push_constant_int 35979299
+    4: gosub_with_params 679
+    5: return 0

@@ -1,0 +1,12 @@
+[clientscript,script_2584](int, int, int, int, int, int, component, int, int, component, int, int, component, int, component, int, component, int, component, string, string, string, string, string, string)
+if_setcolour(19136629);
+if_setop(19136614, "Select dwarf");
+if_setop(19136616, "Select goblin");
+if_setop(19136615, "Select elf");
+if_setonop;
+if_setonop;
+if_setonop;
+if_setonclick;
+if_setonclick;
+if_setonclick;
+return(16750901, 1, 1, 1, 2586, -2147483645, 19136614, 2586, -2147483645, 19136616, 2586, -2147483645, 19136615, -1, 19136614, -1, 19136616, -1, 19136615, "I", "I", "I", "", "", "");

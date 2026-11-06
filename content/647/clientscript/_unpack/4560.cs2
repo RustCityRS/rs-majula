@@ -1,0 +1,29 @@
+; id: 4560
+int_param_count=1
+string_param_count=1
+long_param_count=0
+local_int_count=1
+local_string_count=1
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 0
+    2: push_constant_int 0
+    3: push_constant_int 0
+    4: push_constant_int 0
+    5: push_constant_int 0
+    6: push_string_local 0
+    7: push_constant_int 16777215
+    8: push_constant_int 494
+    9: push_constant_int 1
+   10: push_constant_int 1
+   11: push_constant_int 0
+   12: push_constant_int 1
+   13: gosub_with_params 2995
+   14: push_constant_int 0
+   15: push_constant_int 0
+   16: push_constant_int 1
+   17: push_constant_int 1
+   18: cc_setsize 0
+   19: return 0
+   20: return 0

@@ -1,0 +1,27 @@
+; id: 1675
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: branch_if_false 1
+    2: branch 8
+    3: push_constant_int 105
+    4: push_constant_int 109
+    5: push_constant_int 839
+    6: push_varbit 6764
+    7: enum 0
+    8: push_constant_int 5505043
+    9: op2108 0
+   10: branch 7
+   11: push_constant_int 105
+   12: push_constant_int 109
+   13: push_constant_int 838
+   14: push_int_local 0
+   15: enum 0
+   16: push_constant_int 5505043
+   17: op2108 0
+   18: return 0

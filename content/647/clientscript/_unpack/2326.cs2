@@ -1,0 +1,91 @@
+; id: 2326
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: pop_int_local 1
+    2: push_int_local 0
+    3: switch 0
+    4: branch 21
+    5: push_constant_int 0
+    6: pop_varc_int 767
+    7: push_constant_int 0
+    8: push_constant_int 20054041
+    9: if_sethide 0
+   10: push_constant_string "Incorrect"
+   11: push_constant_int 20054042
+   12: if_settext 0
+   13: push_constant_int 6424
+   14: push_constant_int 1
+   15: push_constant_int 0
+   16: sound_synth 0
+   17: push_constant_int 16711680
+   18: push_constant_int 20054042
+   19: if_setcolour 0
+   20: push_constant_int 2327
+   21: push_int_local 1
+   22: push_constant_string "i"
+   23: push_constant_int 20054041
+   24: op2408 0
+   25: branch 38
+   26: push_varc_int 767
+   27: push_constant_int 1
+   28: add 0
+   29: pop_varc_int 767
+   30: push_varc_int 767
+   31: push_constant_int 10
+   32: branch_equals 1
+   33: branch 12
+   34: push_constant_int 0
+   35: push_constant_int 20054043
+   36: if_sethide 0
+   37: push_constant_int 1
+   38: push_constant_string "Train"
+   39: push_constant_int 20054045
+   40: if_setop 0
+   41: push_constant_int -1
+   42: push_constant_string ""
+   43: push_constant_int 20054039
+   44: op2400 0
+   45: branch 18
+   46: push_constant_int 0
+   47: push_constant_int 20054041
+   48: if_sethide 0
+   49: push_constant_string "Correct"
+   50: push_constant_int 20054042
+   51: if_settext 0
+   52: push_constant_int 6423
+   53: push_constant_int 1
+   54: push_constant_int 0
+   55: sound_synth 0
+   56: push_constant_int 65280
+   57: push_constant_int 20054042
+   58: if_setcolour 0
+   59: push_constant_int 2327
+   60: push_int_local 1
+   61: push_constant_string "i"
+   62: push_constant_int 20054041
+   63: op2408 0
+   64: push_constant_string "Correct: "
+   65: push_varc_int 767
+   66: tostring 0
+   67: push_constant_string "/"
+   68: push_constant_int 10
+   69: tostring 0
+   70: join_string 4
+   71: push_constant_int 20054019
+   72: if_settext 0
+   73: push_constant_int 6423
+   74: push_constant_int 1
+   75: push_constant_int 0
+   76: sound_synth 0
+   77: return 0
+
+switch_0:
+  32826 => 1
+  32828 => 1
+  32820 => 1

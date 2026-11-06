@@ -1,0 +1,7 @@
+[clientscript,script_1](int $int0, int $int1)(int)
+if (oc_members($int1) = 1) {
+    if (map_members = 0) {
+        return(0);
+    }
+}
+return(inv_total($int0, $int1));

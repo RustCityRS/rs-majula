@@ -1,0 +1,8 @@
+[clientscript,script_2215]
+if (if_gety < 180) {
+    if_setontimer;
+    if_setposition(add(61079566, if_gety), 0, 0, 61079566);
+} else {
+    %varc_int1137 = 0;
+}
+return;

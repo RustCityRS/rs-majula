@@ -1,0 +1,27 @@
+[clientscript,script_861]
+if_sethide(44695581);
+if_sethide(44695582);
+if_sethide(44695583);
+if_sethide(44695584);
+if_sethide(44695585);
+if_sethide(44695586);
+if_sethide(44695587);
+if (%varc_int108 > 0) {
+    if_sethide(44695582);
+}
+if (%varc_int108 > 1) {
+    if_sethide(44695583);
+}
+if (%varc_int108 > 2) {
+    if_sethide(44695584);
+}
+if (%varc_int108 > 3) {
+    if_sethide(44695585);
+}
+if (%varc_int108 > 4) {
+    if_sethide(44695586);
+}
+if (%varc_int108 > 5) {
+    if_sethide(44695587);
+}
+return;

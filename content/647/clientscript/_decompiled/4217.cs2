@@ -1,0 +1,129 @@
+[clientscript,script_4217](int, int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = add($int0, stat_xp(cooking));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(crafting));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(firemaking));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(fishing));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(magic));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(mining));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(prayer));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(ranged));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(runecrafting));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(smithing));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(woodcutting));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(agility));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(herblore));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(fletching));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(thieving));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(slayer));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(attack));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(defence));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(strength));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(hitpoints));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(farming));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(construction));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(hunter));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(summoning));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+$int0 = add($int0, stat_xp(dungeoneering));
+if ($int0 > 1000000000) {
+    $int0 = sub($int0, 1000000000);
+    $int1 = add($int1, 1);
+}
+return($int0, $int1);

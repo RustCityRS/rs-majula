@@ -1,0 +1,38 @@
+[clientscript,script_1017](int $int0)(int, string)
+switch ($int0) {
+    case 0:
+        return(0, "Meats");
+    case 1:
+        return(0, "Bread");
+    case 2:
+        return(0, "Pies");
+    case 3:
+        return(0, "Stews");
+    case 4:
+        return(0, "Pizzas");
+    case 5:
+        return(0, "Cakes");
+    case 6:
+        return(0, "Wine");
+    case 7:
+        return(1, "Hot Drinks");
+    case 8:
+        return(1, "Brewing");
+    case 9:
+        return(1, "Potatoes & Toppings");
+    case 10:
+        return(1, "Dairy");
+    case 11:
+        return(1, "Gnome");
+    case 12:
+        return(0, "Other");
+    case 13:
+        return(1, "Activities");
+    case 14:
+        return(0, "Dungeoneering");
+    case 15:
+        return(0, "Milestones");
+    default:
+        return(-1, "");
+}
+return(0, "");

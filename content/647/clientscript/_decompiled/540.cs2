@@ -1,0 +1,9 @@
+[clientscript,script_540](int $int0, int $int1)
+if (stat(magic) < $int1) {
+    if (%varbit4089 = 1) {
+    }
+} else {
+    if_setcolour($int0);
+}
+if_setcolour($int0);
+return;

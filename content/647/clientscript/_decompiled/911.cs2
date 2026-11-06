@@ -1,0 +1,15 @@
+[clientscript,script_911]
+if (%varbit4532 = 1) {
+    if (%varc_int118 < 253) {
+        %varc_int118 = add(%varc_int118, 3);
+        if_settrans(47251459);
+    }
+} else {
+    if (%varbit4532 = 0) {
+        if (%varc_int118 > 3) {
+            %varc_int118 = sub(%varc_int118, 3);
+            if_settrans(47251459);
+        }
+    }
+}
+return;

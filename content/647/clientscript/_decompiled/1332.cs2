@@ -1,0 +1,16 @@
+[clientscript,script_1332]
+if (%varbit275 = 1) {
+    if_setontimer;
+    if_sethide(58589191);
+    if_setgraphic(58589188);
+} else {
+    if (~script_1305 = 7) {
+        if_settext("To set Wind Rush to auto-cast, click on the flashing spell icon. You can hover over spell icons to read a brief description of the spell and the runes required to cast it.");
+        if_settext("");
+        if_setgraphic(58589188);
+    }
+    if_settext("Click on the Magic icon to open your magic spellbook.");
+    if_settext("");
+    if_setgraphic(58589188);
+}
+return;

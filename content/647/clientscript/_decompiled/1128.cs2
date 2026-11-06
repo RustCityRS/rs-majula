@@ -1,0 +1,10 @@
+[clientscript,script_1128](int $int0)
+if (%varbit2668 = 1) {
+    if_setgraphic($int0);
+} else {
+    if (%varc_int993 = 1) {
+        if_setgraphic($int0);
+    }
+    if_setgraphic($int0);
+}
+return;

@@ -1,0 +1,25 @@
+; id: 2417
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 805
+    1: push_constant_int 5
+    2: branch_equals 4
+    3: push_varc_int 805
+    4: push_constant_int 11
+    5: branch_equals 1
+    6: branch 5
+    7: push_constant_int 1
+    8: push_constant_string "Pump"
+    9: push_int_local 0
+   10: if_setop 0
+   11: branch 4
+   12: push_constant_int 1
+   13: push_constant_string "Inspect"
+   14: push_int_local 0
+   15: if_setop 0
+   16: return 0

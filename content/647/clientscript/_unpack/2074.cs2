@@ -1,0 +1,19 @@
+; id: 2074
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 632
+    1: branch_if_false 1
+    2: branch 4
+    3: push_constant_string "Players needed"
+    4: push_constant_int 54853640
+    5: if_settext 0
+    6: branch 3
+    7: push_constant_string "Players in game"
+    8: push_constant_int 54853640
+    9: if_settext 0
+   10: return 0

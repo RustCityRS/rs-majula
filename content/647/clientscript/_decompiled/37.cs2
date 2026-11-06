@@ -1,0 +1,41 @@
+[clientscript,script_37](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = sub($int1, if_getheight);
+if ($int4 = 0) {
+    $int4 = 1;
+}
+if ($int2 < 0) {
+    $int2 = 0;
+}
+if ($int2 > $int4) {
+    $int2 = $int4;
+}
+if_setscrollpos($int2, $int1);
+switch ($int1) {
+    case 8978490:
+        %varc_int7 = $int2;
+    case 19660815:
+        %varc_int109 = $int2;
+    case 48168973:
+        %varc_int121 = $int2;
+    case 49938525:
+        ~script_705(%varbit4893, $int2);
+    case 59572276:
+        %varc_int1122 = $int2;
+    case 59768853:
+        %varc_int1124 = $int2;
+    case 12255233:
+        %varc_int88 = $int2;
+    default:
+}
+def_int $int5 = 0;
+if ($int3 = 1) {
+    $int5 = calc(if_getheight - 32 - cc_getheight);
+    cc_setposition2(0, add(16, scale($int2, $int4, $int5)), 0, 0);
+    if (cc_find($int0, 2) = 1) {
+        cc_setposition2(0, cc_gety, 0, 0);
+    }
+    if (cc_find($int0, 3) = 1) {
+        cc_setposition2(0, calc(cc_gety + cc_getheight - 5), 0, 0);
+    }
+}
+return;

@@ -1,0 +1,23 @@
+[clientscript,script_1322](int $int0, int $int1, int $int2)
+if (inv_getobj(inv_438, dwarf_remains) ! -1) {
+    if_sethide($int0);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int0);
+}
+if (inv_getobj(inv_438, toolkit) ! -1) {
+    if_sethide($int1);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int1);
+}
+if (inv_getobj(inv_438, cannonball) ! -1) {
+    if_sethide($int2);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int2);
+}
+return;

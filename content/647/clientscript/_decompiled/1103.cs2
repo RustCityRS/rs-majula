@@ -1,0 +1,11 @@
+[clientscript,script_1103](int)
+if (%varc_int754 = 1) {
+    return(0);
+}
+if (%varc_int754 = 9) {
+    return(0);
+}
+if (%varc_int754 = 12) {
+    return(0);
+}
+return(1);

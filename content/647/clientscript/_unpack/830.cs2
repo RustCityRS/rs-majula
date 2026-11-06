@@ -1,0 +1,21 @@
+; id: 830
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 3320
+    1: push_int_local 1
+    2: op2110 0
+    3: push_constant_int 831
+    4: push_int_local 0
+    5: push_constant_int 425
+    6: push_constant_int 1
+    7: push_constant_string "IY"
+    8: push_int_local 0
+    9: op2407 0
+   10: push_int_local 0
+   11: gosub_with_params 834
+   12: return 0

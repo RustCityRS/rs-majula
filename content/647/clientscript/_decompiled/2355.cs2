@@ -1,0 +1,10 @@
+[clientscript,script_2355](int $int0, int $int1)
+%varc_int92 = $int0;
+if ($int0 = 1) {
+    if_setontimer;
+    ~script_2192(0, $int1);
+} else {
+    if_setontimer;
+    ~script_2192(1, $int1);
+}
+return;

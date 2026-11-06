@@ -1,0 +1,17 @@
+[clientscript,script_1637](int $int0, int $int1, int $int2, string $str0)(int, int)
+if (compare($str0, "") = 0) {
+    return($int1, $int2);
+}
+cc_setposition(0, $int0, 4, $int1);
+cc_settext($str0);
+cc_settextfont(495);
+def_int $int3 = paraheight($str0, 495);
+if ($int3 < 1) {
+    $int3 = 1;
+}
+cc_setsize(430, multiply(14, $int3), 0, 0);
+cc_setposition2(3, calc($int2 * 15 + 4), 0, 0);
+cc_settextalign(1, 0, 14);
+cc_setcolour(11184810);
+cc_settextshadow(1);
+return(add($int1, 1), add($int2, $int3));

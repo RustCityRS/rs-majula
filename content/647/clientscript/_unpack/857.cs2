@@ -1,0 +1,22 @@
+; id: 857
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 2605
+    1: push_constant_int 1
+    2: push_constant_int 0
+    3: sound_synth 0
+    4: push_varbit 4400
+    5: push_constant_int 0
+    6: branch_greater_than 1
+    7: branch 5
+    8: push_varbit 4400
+    9: push_constant_int 1
+   10: sub 0
+   11: pop_varc_int 108
+   12: gosub_with_params 861
+   13: return 0

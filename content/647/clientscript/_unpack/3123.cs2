@@ -1,0 +1,23 @@
+; id: 3123
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 1
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 2
+    5: push_constant_int 1
+    6: cc_sethide 0
+    7: push_int_local 0
+    8: push_constant_int 2
+    9: cc_find 0
+   10: branch_if_true 1
+   11: branch 2
+   12: push_constant_int 1
+   13: cc_sethide 0
+   14: return 0

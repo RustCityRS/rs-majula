@@ -1,0 +1,34 @@
+; id: 3046
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 1
+    2: branch_greater_than 1
+    3: branch 5
+    4: push_int_local 0
+    5: push_constant_int 2
+    6: sub 0
+    7: gosub_with_params 3047
+    8: branch 11
+    9: op5005 0
+   10: switch 0
+   11: branch 8
+   12: push_constant_int 1
+   13: gosub_with_params 3047
+   14: branch 5
+   15: push_constant_int 2
+   16: gosub_with_params 3047
+   17: branch 2
+   18: push_constant_int 0
+   19: gosub_with_params 3047
+   20: return 0
+
+switch_0:
+  0 => 1
+  1 => 4
+  2 => 7

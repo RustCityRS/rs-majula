@@ -1,0 +1,82 @@
+[clientscript,script_4000](int $int0)
+def_string $str0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch ($int0) {
+    case 0:
+        if_sethide(69206108);
+        if_sethide(69206110);
+        if_sethide(69206141);
+        if (compare("", if_gettext) ! 0) {
+            if (compare("", if_gettext) = 0) {
+            }
+        } else {
+            $str0 = "Click on the Hints tab for more on how to complete this Task.";
+        }
+        if (compare("", if_gettext) = 0) {
+            $str0 = "Remember, the Hints tab provides more details about a Task.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 183;
+            $int3 = 1;
+            if (if_getwidth < 997) {
+                $int2 = add($int2, 40);
+            }
+        } else {
+            $int1 = 217;
+            $int2 = 177;
+        }
+    case 1:
+        if_sethide(69206108);
+        if_sethide(69206110);
+        if_sethide(69206141);
+        if (compare("", if_gettext) ! 0) {
+            if (compare("", if_gettext) = 0) {
+            }
+        } else {
+            $str0 = "Click on the Hints tab for more on how to complete this Task.";
+        }
+        if (compare("", if_gettext) = 0) {
+            $str0 = "Remember, the Hints tab provides more details about a Task.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 183;
+            $int3 = 1;
+            if (if_getwidth < 997) {
+                $int2 = add($int2, 40);
+            }
+        } else {
+            $int1 = 217;
+            $int2 = 177;
+        }
+    case 2:
+        if_sethide(69206108);
+        if_sethide(69206110);
+        if_sethide(69206141);
+        if (compare("", if_gettext) = 0) {
+            $str0 = "The '?' icon will add an arrow to the screen which points to your destination.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 87;
+            $int3 = 1;
+            if (if_getwidth < 997) {
+                $int2 = add($int2, 40);
+            }
+        }
+        $int1 = 208;
+        $int2 = 78;
+    default:
+}
+if (%varbit9030 = 0) {
+    $str0 = "";
+}
+if ($int3 = 0) {
+    ~script_4247($int1, $int2, 1, 16777215, 5631, $str0);
+} else {
+    ~script_4248($int1, $int2, 1, 16777215, 5631, $str0);
+}
+return;

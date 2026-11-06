@@ -1,0 +1,46 @@
+[clientscript,script_4251]
+if (%varbit9030 = 0) {
+    return;
+}
+if (if_gethide = 1) {
+    return;
+}
+def_int $int0 = if_getx;
+def_int $int1 = if_gety;
+def_int $int2 = if_getwidth;
+def_string $str0 = if_gettext;
+if ($int2 < 998) {
+    if (compare($str0, "Click here to show the Task window.") = 0) {
+        ~script_4248(51, 77, 2, 16777215, 5631, $str0);
+    } else {
+        if (compare($str0, "Task complete! Click here to return to the task list.") = 0) {
+            ~script_4248(158, 45, 1, 16777215, 5631, $str0);
+        }
+        if (compare($str0, "Click on the first Task in the list for details of how to complete it.") = 0) {
+            ~script_4248(180, 205, 1, 16777215, 5631, $str0);
+        }
+        if (compare($str0, "Click on the Hints tab for more on how to complete this Task.") = 0) {
+            ~script_4248(196, 223, 1, 16777215, 5631, $str0);
+        }
+        if (compare($str0, "The '?' icon will add an arrow to the screen which points to your destination.") = 0) {
+            ~script_4248(196, 127, 1, 16777215, 5631, $str0);
+        }
+    }
+} else {
+    if (compare($str0, "Click here to show the Task window.") = 0) {
+        ~script_4248(288, 39, 2, 16777215, 5631, $str0);
+    }
+    if (compare($str0, "Task complete! Click here to return to the task list.") = 0) {
+        ~script_4248(158, 5, 1, 16777215, 5631, $str0);
+    }
+    if (compare($str0, "Click on the first Task in the list for details of how to complete it.") = 0) {
+        ~script_4248(180, 165, 1, 16777215, 5631, $str0);
+    }
+    if (compare($str0, "Click on the Hints tab for more on how to complete this Task.") = 0) {
+        ~script_4248(196, 183, 1, 16777215, 5631, $str0);
+    }
+    if (compare($str0, "The '?' icon will add an arrow to the screen which points to your destination.") = 0) {
+        ~script_4248(196, 87, 1, 16777215, 5631, $str0);
+    }
+}
+return;

@@ -1,0 +1,72 @@
+[clientscript,script_736](int $int0, int $int1, int $int2, int $int3)(int, int, int, component, int, int, int, int, int, component, string, string)
+def_int $int4 = 48889934;
+def_int $int5 = 35913916;
+def_int $int6 = 35913929;
+if ($int0 = -1) {
+    if_sethide($int4);
+    if_setposition(0, 0, 0, $int4);
+    if_setontimer;
+    if_sethide($int5);
+    if_sethide($int6);
+    if_setposition(0, 0, 0, $int5);
+    if_setposition(0, 0, 0, $int6);
+    if_setontimer;
+    return(1, 0, -1, 48889874, 1, 1, 0, 0, -1, 35913843, "", "");
+}
+if_sethide($int4);
+if_setontimer;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (cc_find($int2, $int3) ! 1) {
+    if ($int3 = -1) {
+    }
+} else {
+    $int8 = ~script_1744;
+    $int7 = ~script_1743;
+    $int10 = cc_getheight;
+    $int9 = cc_getwidth;
+}
+return;
+if_getlayer;
+def_int $int11 = $int5;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+$int13 = ~script_3366($int11);
+$int12 = ~script_3365($int11);
+$int15 = if_getheight;
+$int14 = $int11;
+$int17 = add($int13, $int15);
+$int16 = add($int12, $int14);
+def_int $int18 = 0;
+def_int $int19 = 0;
+if (add($int7, $int9) >= $int12) {
+    if ($int7 <= $int16) {
+        if (add($int8, $int10) >= $int13) {
+            if ($int8 <= $int17) {
+                $int4 = $int5;
+            }
+        }
+    }
+} else {
+    $int4 = $int6;
+    if_getlayer;
+    $int11 = $int6;
+    $int13 = ~script_3366($int11);
+    $int12 = ~script_3365($int11);
+    $int15 = if_getheight;
+    $int14 = $int11;
+    $int17 = add($int13, $int15);
+    $int16 = add($int12, $int14);
+}
+$int19 = sub($int8, $int13);
+$int18 = sub($int7, $int12);
+if_sethide($int4);
+~script_1176($int4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15);
+if_setontimer;
+return(0, 836, $int4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15, 35913843, "Iiiiiiiiiii");

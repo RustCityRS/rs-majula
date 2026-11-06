@@ -1,0 +1,36 @@
+[clientscript,script_2020](int $int0, int $int1, int $int2, string $str0)
+cc_deleteall($int2);
+cc_setposition(0, $int2, 5, 0);
+cc_setsize(10, 0, 1, 1);
+cc_setposition2(0, 0, 1, 1);
+cc_setgraphic(3859);
+cc_setposition(0, $int2, 5, 1);
+cc_setsize(6, 0, 0, 1);
+cc_setposition2(0, 0, 0, 1);
+cc_setgraphic(3857);
+cc_setposition(0, $int2, 5, 2);
+cc_setsize(6, 0, 0, 1);
+cc_setposition2(0, 0, 2, 1);
+cc_setgraphic(3858);
+cc_setposition(0, $int2, 4, 3);
+cc_setsize(0, 0, 1, 1);
+cc_setposition2(0, 0, 1, 1);
+cc_settextfont(494);
+cc_settextalign(1, 1, 0);
+cc_setcolour(16750623);
+cc_settextshadow(1);
+cc_settext($str0);
+if_setsize(26, 0, 0, $int2);
+if_sethide($int2);
+if_setonmouseover;
+if_setonmouseleave;
+if ($int0 = -1) {
+    if_clearops;
+    if_setpausetext($int2, $str0);
+    if_setonclick;
+} else {
+    if_setop($int2, $str0);
+    if_setpausetext($int2, "");
+    if_setonop;
+}
+return;

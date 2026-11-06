@@ -1,0 +1,5 @@
+[clientscript,script_214](int $int0, int $int1)(int, int, int, int, int, int, stat, int, int, int, string, string)
+if_getlayer;
+def_int $int2 = $int0;
+if_setonvartransmit;
+return(1660, $int0, $int1, $int2, 281, 1255, strength, $int2, ~script_1661($int0, $int1, $int2), ~script_1661($int0, $int1, $int2), "IiIY", ~script_1661($int0, $int1, $int2));

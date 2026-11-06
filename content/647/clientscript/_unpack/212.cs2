@@ -1,0 +1,18 @@
+; id: 212
+int_param_count=0
+string_param_count=1
+long_param_count=0
+local_int_count=0
+local_string_count=1
+local_long_count=0
+
+    0: push_string_local 0
+    1: push_constant_string ""
+    2: compare 0
+    3: push_constant_int 0
+    4: branch_not 1
+    5: branch 3
+    6: push_string_local 0
+    7: push_constant_int 1
+    8: op5421 0
+    9: return 0

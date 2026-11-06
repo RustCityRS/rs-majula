@@ -1,0 +1,19 @@
+[clientscript,script_3018](component, component, int, component, int, component, component, int, component, int, int, int, int, int, int, int, int, int, string, string)
+if_settext("");
+if_settext("");
+if_setonkey;
+if_setonop;
+if_settext("Ok");
+if_setop(59375764, "Ok");
+if_settext("Close");
+if_setop(59375766, "Close");
+if_setsize(136, 0, 0, 59375752);
+if_setsize(0, 1, 1, 59375756);
+if_setsize(0, 2, 1, 59375760);
+if_setsize(0, 2, 1, 59375764);
+if_setsize(0, 2, 1, 59375765);
+if_setsize(0, 2, 1, 59375766);
+if_sethide(59375765);
+if_sethide(59375766);
+%varc_str277 = "";
+return(59375754, 59375756, -1, 59375756, -1, 59375760, 59375764, 1, 59375766, 1, 265, 0, 8034, 8034, 8034, 8034, 0, 0, "", "");

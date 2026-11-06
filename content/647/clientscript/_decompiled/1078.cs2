@@ -1,0 +1,25 @@
+[clientscript,script_1078](int $int0)
+switch ($int0) {
+    case 0:
+        quickchat_phrase_setcmd(0, %varc_int135);
+    case 1:
+        quickchat_phrase_setcmd(1, %varc_int136);
+    case 2:
+        quickchat_phrase_setcmd(2, %varc_int137);
+    case 3:
+        quickchat_phrase_setcmd(3, %varc_int138);
+    case 4:
+        quickchat_phrase_setcmd(4, %varc_int139);
+    case 5:
+        quickchat_phrase_setcmd(5, %varc_int140);
+    case 6:
+        quickchat_phrase_setcmd(6, %varc_int141);
+    case 7:
+        quickchat_phrase_setcmd(7, %varc_int142);
+    case 8:
+        quickchat_phrase_setcmd(8, %varc_int143);
+    case 9:
+        quickchat_phrase_setcmd(9, %varc_int144);
+    default:
+}
+return;

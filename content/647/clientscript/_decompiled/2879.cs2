@@ -1,0 +1,43 @@
+[clientscript,script_2879](int $int0, int $int1, int $int2)(int)
+def_string $str0 = "Remove from Playlist";
+if (cc_find(12255241, $int0) = 1) {
+    if (cc_find(12255241, add($int0, 12)) = 1) {
+        if ($int1 = 32767) {
+            cc_sethide(1);
+            cc_sethide(1);
+            return($int2);
+        }
+        cc_setposition2(15, $int2, 0, 0);
+        cc_settextalign(0, 1, 0);
+        if (%varbit4388 = $int1) {
+            if (%varbit7078 = 1) {
+                cc_setcolour(16777062);
+                cc_setonmouseleave;
+            }
+        } else {
+            cc_setcolour(65535);
+            cc_setonmouseleave;
+        }
+        cc_setonmouseover;
+        cc_settext(enum_string(16777215, 1345, $int1));
+        cc_setsize(150, 15, 0, 0);
+        cc_setop(1, "Play");
+        cc_setop(2, "Remove");
+        cc_setopbase(enum_string(-2147483643, 1345, $int1));
+        cc_setopbase(enum_string(-2147483645, 1345, $int1));
+        cc_settextshadow(0);
+        cc_settextfont(494);
+        cc_setdraggable(12255241, -1);
+        cc_setdraggable(-1, -1);
+        cc_setdragdeadzone;
+        cc_setsize(12, 12, 0, 0);
+        cc_setposition2(2, add($int2, 1), 0, 0);
+        cc_setop(2, "Remove");
+        cc_setgraphic(2430);
+        cc_setonop(1);
+        cc_setonmouserepeat(1);
+        cc_setonmouseleave(1);
+        cc_setonclick(1);
+    }
+}
+return(add($int2, 15));

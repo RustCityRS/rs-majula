@@ -1,0 +1,2148 @@
+; id: 1006
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 1953
+    3: push_int_local 1
+    4: switch 1
+    5: branch 214
+    6: push_constant_int 1
+    7: push_constant_int 9951
+    8: push_constant_string "Lay 1 trap at a time"
+    9: push_constant_string "You can now lay "
+   10: push_constant_string "<col=000080>"
+   11: push_constant_string "1 trap"
+   12: push_constant_string "</col>"
+   13: push_constant_string " at a time."
+   14: join_string 5
+   15: return 0
+   16: branch 203
+   17: push_constant_int 1
+   18: push_constant_int 10006
+   19: push_constant_string "Bird snare setting"
+   20: push_constant_string "You can now set "
+   21: push_constant_string "<col=000080>"
+   22: push_constant_string "bird snares"
+   23: push_constant_string "</col>"
+   24: push_constant_string "."
+   25: join_string 5
+   26: return 0
+   27: branch 192
+   28: push_constant_int 1
+   29: push_constant_int 10150
+   30: push_constant_string "Noose wand"
+   31: push_constant_string "You can now use a "
+   32: push_constant_string "<col=000080>"
+   33: push_constant_string "noose wand"
+   34: push_constant_string "</col>"
+   35: push_constant_string " when tracking."
+   36: join_string 5
+   37: return 0
+   38: branch 181
+   39: push_constant_int 15
+   40: push_constant_int 10010
+   41: push_constant_string "Butterfly netting"
+   42: push_constant_string "You can now use a "
+   43: push_constant_string "<col=000080>"
+   44: push_constant_string "butterfly net"
+   45: push_constant_string "</col>"
+   46: push_constant_string " and "
+   47: push_constant_string "<col=000080>"
+   48: push_constant_string "butterfly jar"
+   49: push_constant_string "</col>"
+   50: push_constant_string " to catch "
+   51: push_constant_string "<col=000080>"
+   52: push_constant_string "butterflies"
+   53: push_constant_string "</col>"
+   54: push_constant_string "."
+   55: join_string 13
+   56: return 0
+   57: branch 162
+   58: push_constant_int 20
+   59: push_constant_int 9951
+   60: push_constant_string "Lay up to 2 traps at a time"
+   61: push_constant_string "You can now lay up to "
+   62: push_constant_string "<col=000080>"
+   63: push_constant_string "2 traps"
+   64: push_constant_string "</col>"
+   65: push_constant_string " at a time."
+   66: join_string 5
+   67: return 0
+   68: branch 151
+   69: push_constant_int 23
+   70: push_constant_int 1511
+   71: push_constant_string "Set a deadfall trap (limit of 1)"
+   72: push_constant_string "You can now set a "
+   73: push_constant_string "<col=000080>"
+   74: push_constant_string "deadfall trap"
+   75: push_constant_string "</col>"
+   76: push_constant_string " up to a limit of 1."
+   77: join_string 5
+   78: return 0
+   79: branch 140
+   80: push_constant_int 27
+   81: push_constant_int 10008
+   82: push_constant_string "Set a box trap"
+   83: push_constant_string "You can now set a "
+   84: push_constant_string "<col=000080>"
+   85: push_constant_string "box trap"
+   86: push_constant_string "</col>"
+   87: push_constant_string "."
+   88: join_string 5
+   89: return 0
+   90: branch 129
+   91: push_constant_int 27
+   92: push_constant_int 10031
+   93: push_constant_string "Set a rabbit snare"
+   94: push_constant_string "You can now set a "
+   95: push_constant_string "<col=000080>"
+   96: push_constant_string "rabbit snare"
+   97: push_constant_string "</col>"
+   98: push_constant_string "."
+   99: join_string 5
+  100: return 0
+  101: branch 118
+  102: push_constant_int 29
+  103: push_constant_int 303
+  104: push_constant_string "Set a net trap"
+  105: push_constant_string "You can now set a "
+  106: push_constant_string "<col=000080>"
+  107: push_constant_string "net trap"
+  108: push_constant_string "</col>"
+  109: push_constant_string "."
+  110: join_string 5
+  111: return 0
+  112: branch 107
+  113: push_constant_int 31
+  114: push_constant_int 10029
+  115: push_constant_string "Set a pitfall trap"
+  116: push_constant_string "You can now set a "
+  117: push_constant_string "<col=000080>"
+  118: push_constant_string "pitfall trap"
+  119: push_constant_string "</col>"
+  120: push_constant_string "."
+  121: join_string 5
+  122: return 0
+  123: branch 96
+  124: push_constant_int 39
+  125: push_constant_int 594
+  126: push_constant_string "Use smoke to mask the scent on a trap"
+  127: push_constant_string "You can now use "
+  128: push_constant_string "<col=000080>"
+  129: push_constant_string "smoke"
+  130: push_constant_string "</col>"
+  131: push_constant_string " to mask the scent on a trap."
+  132: join_string 5
+  133: return 0
+  134: branch 85
+  135: push_constant_int 40
+  136: push_constant_int 9951
+  137: push_constant_string "Lay up to 3 traps at a time"
+  138: push_constant_string "You can now lay up to "
+  139: push_constant_string "<col=000080>"
+  140: push_constant_string "3 traps"
+  141: push_constant_string "</col>"
+  142: push_constant_string " at a time."
+  143: join_string 5
+  144: return 0
+  145: branch 74
+  146: push_constant_int 40
+  147: push_constant_int 14110
+  148: push_constant_string "Sacred clay butterfly net"
+  149: push_constant_string "You can now use "
+  150: push_constant_string "<col=000080>"
+  151: push_constant_string "sacred clay butterfly nets"
+  152: push_constant_string "</col>"
+  153: join_string 4
+  154: return 0
+  155: branch 64
+  156: push_constant_int 40
+  157: push_constant_int 14102
+  158: push_constant_string "Volatile butterfly net"
+  159: push_constant_string "You can now use "
+  160: push_constant_string "<col=000080>"
+  161: push_constant_string "volatile butterfly nets"
+  162: push_constant_string "</col>"
+  163: join_string 4
+  164: return 0
+  165: branch 54
+  166: push_constant_int 43
+  167: push_constant_int 10023
+  168: push_constant_string "Hunt with a falcon"
+  169: push_constant_string "You can now hunt with a "
+  170: push_constant_string "<col=000080>"
+  171: push_constant_string "falcon"
+  172: push_constant_string "</col>"
+  173: push_constant_string "."
+  174: join_string 5
+  175: return 0
+  176: branch 43
+  177: push_constant_int 60
+  178: push_constant_int 9951
+  179: push_constant_string "Lay up to 4 traps at a time"
+  180: push_constant_string "You can now lay up to "
+  181: push_constant_string "<col=000080>"
+  182: push_constant_string "4 traps"
+  183: push_constant_string "</col>"
+  184: push_constant_string " at a time."
+  185: join_string 5
+  186: return 0
+  187: branch 32
+  188: push_constant_int 70
+  189: push_constant_int 19965
+  190: push_constant_string "Marasamaw plants (herblore habitat)"
+  191: push_constant_string "You can now set a "
+  192: push_constant_string "<col=000080>"
+  193: push_constant_string "marasamaw plant"
+  194: push_constant_string "</col>"
+  195: push_constant_string " trap."
+  196: join_string 5
+  197: return 0
+  198: branch 21
+  199: push_constant_int 71
+  200: push_constant_int 10025
+  201: push_constant_string "Magical imp box"
+  202: push_constant_string "You can now set a "
+  203: push_constant_string "<col=000080>"
+  204: push_constant_string "magical imp box"
+  205: push_constant_string "</col>"
+  206: push_constant_string " trap."
+  207: join_string 5
+  208: return 0
+  209: branch 10
+  210: push_constant_int 80
+  211: push_constant_int 9951
+  212: push_constant_string "Lay up to 5 traps at a time"
+  213: push_constant_string "You can now lay up to "
+  214: push_constant_string "<col=000080>"
+  215: push_constant_string " 5 traps"
+  216: push_constant_string "</col>"
+  217: push_constant_string " at a time."
+  218: join_string 5
+  219: return 0
+  220: branch 1735
+  221: push_int_local 1
+  222: switch 2
+  223: branch 101
+  224: push_constant_int 1
+  225: push_constant_int 9953
+  226: push_constant_string "Polar kebbit (polar)"
+  227: push_constant_string "You can now track "
+  228: push_constant_string "<col=000080>"
+  229: push_constant_string "polar kebbits"
+  230: push_constant_string "</col>"
+  231: push_constant_string "."
+  232: join_string 5
+  233: return 0
+  234: branch 90
+  235: push_constant_int 3
+  236: push_constant_int 9954
+  237: push_constant_string "Common kebbit (woodland)"
+  238: push_constant_string "You can now track "
+  239: push_constant_string "<col=000080>"
+  240: push_constant_string "common kebbits"
+  241: push_constant_string "</col>"
+  242: push_constant_string "."
+  243: join_string 5
+  244: return 0
+  245: branch 79
+  246: push_constant_int 7
+  247: push_constant_int 9955
+  248: push_constant_string "Feldip weasel (jungle)"
+  249: push_constant_string "You can now track "
+  250: push_constant_string "<col=000080>"
+  251: push_constant_string "feldip weasels"
+  252: push_constant_string "</col>"
+  253: push_constant_string "."
+  254: join_string 5
+  255: return 0
+  256: branch 68
+  257: push_constant_int 13
+  258: push_constant_int 9956
+  259: push_constant_string "Desert devil (desert)"
+  260: push_constant_string "You can now track "
+  261: push_constant_string "<col=000080>"
+  262: push_constant_string "desert devils"
+  263: push_constant_string "</col>"
+  264: push_constant_string "."
+  265: join_string 5
+  266: return 0
+  267: branch 57
+  268: push_constant_int 45
+  269: push_constant_int 14832
+  270: push_constant_string "Penguins (polar)"
+  271: push_constant_string "<br>"
+  272: push_constant_string " (after Hunt for Red Raktuber)"
+  273: join_string 3
+  274: push_constant_string "You can now track "
+  275: push_constant_string "<col=000080>"
+  276: push_constant_string "penguins"
+  277: push_constant_string "</col>"
+  278: push_constant_string " (after Hunt for Red Raktuber)."
+  279: join_string 5
+  280: return 0
+  281: branch 43
+  282: push_constant_int 49
+  283: push_constant_int 9961
+  284: push_constant_string "Razor-backed kebbit (woodland)"
+  285: push_constant_string "You can now track "
+  286: push_constant_string "<col=000080>"
+  287: push_constant_string "razor-backed kebbits"
+  288: push_constant_string "</col>"
+  289: push_constant_string "."
+  290: join_string 5
+  291: return 0
+  292: branch 32
+  293: push_constant_int 71
+  294: push_constant_int 19954
+  295: push_constant_string "Shadow jadinko (herblore habitat)"
+  296: push_constant_string "You can now track "
+  297: push_constant_string "<col=000080>"
+  298: push_constant_string "shadow jadinkos"
+  299: push_constant_string "</col>"
+  300: push_constant_string "."
+  301: join_string 5
+  302: return 0
+  303: branch 21
+  304: push_constant_int 78
+  305: push_constant_int 19958
+  306: push_constant_string "Diseased jadinko (herblore habitat)"
+  307: push_constant_string "You can now track "
+  308: push_constant_string "<col=000080>"
+  309: push_constant_string "diseased jadinkos"
+  310: push_constant_string "</col>"
+  311: push_constant_string "."
+  312: join_string 5
+  313: return 0
+  314: branch 10
+  315: push_constant_int 79
+  316: push_constant_int 19955
+  317: push_constant_string "Camouflaged jadinko (herblore habitat)"
+  318: push_constant_string "You can now track "
+  319: push_constant_string "<col=000080>"
+  320: push_constant_string "camouflaged jadinkos"
+  321: push_constant_string "</col>"
+  322: push_constant_string "."
+  323: join_string 5
+  324: return 0
+  325: branch 1630
+  326: push_int_local 1
+  327: switch 3
+  328: branch 70
+  329: push_constant_int 1
+  330: push_constant_int 9965
+  331: push_constant_string "Crimson swift (jungle)"
+  332: push_constant_string "You can now trap "
+  333: push_constant_string "<col=000080>"
+  334: push_constant_string "crimson swifts"
+  335: push_constant_string "</col>"
+  336: push_constant_string "."
+  337: join_string 5
+  338: return 0
+  339: branch 59
+  340: push_constant_int 5
+  341: push_constant_int 9968
+  342: push_constant_string "Golden warbler (desert)"
+  343: push_constant_string "You can now trap "
+  344: push_constant_string "<col=000080>"
+  345: push_constant_string "golden warblers"
+  346: push_constant_string "</col>"
+  347: push_constant_string "."
+  348: join_string 5
+  349: return 0
+  350: branch 48
+  351: push_constant_int 9
+  352: push_constant_int 9966
+  353: push_constant_string "Copper longtail (woodland)"
+  354: push_constant_string "You can now trap "
+  355: push_constant_string "<col=000080>"
+  356: push_constant_string "copper longtails"
+  357: push_constant_string "</col>"
+  358: push_constant_string "."
+  359: join_string 5
+  360: return 0
+  361: branch 37
+  362: push_constant_int 11
+  363: push_constant_int 9967
+  364: push_constant_string "Cerulean twitch (polar)"
+  365: push_constant_string "You can now trap "
+  366: push_constant_string "<col=000080>"
+  367: push_constant_string "cerulean twitches"
+  368: push_constant_string "</col>"
+  369: push_constant_string "."
+  370: join_string 5
+  371: return 0
+  372: branch 26
+  373: push_constant_int 19
+  374: push_constant_int 9969
+  375: push_constant_string "Tropical wagtail (jungle)"
+  376: push_constant_string "You can now trap "
+  377: push_constant_string "<col=000080>"
+  378: push_constant_string "tropical wagtails"
+  379: push_constant_string "</col>"
+  380: push_constant_string "."
+  381: join_string 5
+  382: return 0
+  383: branch 15
+  384: push_constant_int 39
+  385: push_constant_int 12586
+  386: push_constant_string "Wimpy bird (jungle)"
+  387: push_constant_string "<br>"
+  388: push_constant_string " (after starting As a First Resort...)"
+  389: push_constant_string "<br>"
+  390: push_constant_string " Required lure: smouldering tansymum"
+  391: join_string 5
+  392: push_constant_string "You can now trap "
+  393: push_constant_string "<col=000080>"
+  394: push_constant_string "wimpy birds"
+  395: push_constant_string "</col>"
+  396: push_constant_string " (after starting As a First Resort...)."
+  397: join_string 5
+  398: return 0
+  399: branch 1556
+  400: push_int_local 1
+  401: switch 4
+  402: branch 200
+  403: push_constant_int 15
+  404: push_constant_int 9970
+  405: push_constant_string "Ruby harvest butterfly (woodland)"
+  406: push_constant_string "You can now net "
+  407: push_constant_string "<col=000080>"
+  408: push_constant_string "ruby harvest butterflies"
+  409: push_constant_string "</col>"
+  410: push_constant_string "."
+  411: join_string 5
+  412: return 0
+  413: branch 189
+  414: push_constant_int 17
+  415: push_constant_int 11238
+  416: push_constant_string "Baby impling"
+  417: push_constant_string "You can now net "
+  418: push_constant_string "<col=000080>"
+  419: push_constant_string "baby implings"
+  420: push_constant_string "</col>"
+  421: push_constant_string "."
+  422: join_string 5
+  423: return 0
+  424: branch 178
+  425: push_constant_int 22
+  426: push_constant_int 11240
+  427: push_constant_string "Young impling"
+  428: push_constant_string "You can now net "
+  429: push_constant_string "<col=000080>"
+  430: push_constant_string "young implings"
+  431: push_constant_string "</col>"
+  432: push_constant_string "."
+  433: join_string 5
+  434: return 0
+  435: branch 167
+  436: push_constant_int 25
+  437: push_constant_int 9971
+  438: push_constant_string "Sapphire glacialis butterfly (polar)"
+  439: push_constant_string "You can now net "
+  440: push_constant_string "<col=000080>"
+  441: push_constant_string "sapphire glacialis butterflies"
+  442: push_constant_string "</col>"
+  443: push_constant_string "."
+  444: join_string 5
+  445: return 0
+  446: branch 156
+  447: push_constant_int 28
+  448: push_constant_int 11242
+  449: push_constant_string "Gourmet impling"
+  450: push_constant_string "You can now net "
+  451: push_constant_string "<col=000080>"
+  452: push_constant_string "gourmet implings"
+  453: push_constant_string "</col>"
+  454: push_constant_string "."
+  455: join_string 5
+  456: return 0
+  457: branch 145
+  458: push_constant_int 35
+  459: push_constant_int 9972
+  460: push_constant_string "Snowy knight butterfly (polar)"
+  461: push_constant_string "You can now net "
+  462: push_constant_string "<col=000080>"
+  463: push_constant_string "snowy knight butterflies"
+  464: push_constant_string "</col>"
+  465: push_constant_string "."
+  466: join_string 5
+  467: return 0
+  468: branch 134
+  469: push_constant_int 36
+  470: push_constant_int 11244
+  471: push_constant_string "Earth impling"
+  472: push_constant_string "You can now net "
+  473: push_constant_string "<col=000080>"
+  474: push_constant_string "earth implings"
+  475: push_constant_string "</col>"
+  476: push_constant_string "."
+  477: join_string 5
+  478: return 0
+  479: branch 123
+  480: push_constant_int 42
+  481: push_constant_int 11246
+  482: push_constant_string "Essence impling"
+  483: push_constant_string "You can now net "
+  484: push_constant_string "<col=000080>"
+  485: push_constant_string "essence implings"
+  486: push_constant_string "</col>"
+  487: push_constant_string "."
+  488: join_string 5
+  489: return 0
+  490: branch 112
+  491: push_constant_int 45
+  492: push_constant_int 9973
+  493: push_constant_string "Black warlock butterfly (jungle)"
+  494: push_constant_string "You can now net "
+  495: push_constant_string "<col=000080>"
+  496: push_constant_string "black warlock butterflies"
+  497: push_constant_string "</col>"
+  498: push_constant_string "."
+  499: join_string 5
+  500: return 0
+  501: branch 101
+  502: push_constant_int 50
+  503: push_constant_int 11248
+  504: push_constant_string "Eclectic impling"
+  505: push_constant_string "You can now net "
+  506: push_constant_string "<col=000080>"
+  507: push_constant_string "eclectic implings"
+  508: push_constant_string "</col>"
+  509: push_constant_string "."
+  510: join_string 5
+  511: return 0
+  512: branch 90
+  513: push_constant_int 54
+  514: push_constant_int 15513
+  515: push_constant_string "Spirit impling"
+  516: push_constant_string "You can now net "
+  517: push_constant_string "<col=000080>"
+  518: push_constant_string "spirit implings"
+  519: push_constant_string "</col>"
+  520: push_constant_string "."
+  521: join_string 5
+  522: return 0
+  523: branch 79
+  524: push_constant_int 58
+  525: push_constant_int 11250
+  526: push_constant_string "Nature impling"
+  527: push_constant_string "You can now net "
+  528: push_constant_string "<col=000080>"
+  529: push_constant_string "nature implings"
+  530: push_constant_string "</col>"
+  531: push_constant_string "."
+  532: join_string 5
+  533: return 0
+  534: branch 68
+  535: push_constant_int 65
+  536: push_constant_int 11252
+  537: push_constant_string "Magpie impling"
+  538: push_constant_string "You can now net "
+  539: push_constant_string "<col=000080>"
+  540: push_constant_string "magpie implings"
+  541: push_constant_string "</col>"
+  542: push_constant_string "."
+  543: join_string 5
+  544: return 0
+  545: branch 57
+  546: push_constant_int 74
+  547: push_constant_int 11254
+  548: push_constant_string "Ninja impling"
+  549: push_constant_string "You can now net "
+  550: push_constant_string "<col=000080>"
+  551: push_constant_string "ninja implings"
+  552: push_constant_string "</col>"
+  553: push_constant_string "."
+  554: join_string 5
+  555: return 0
+  556: branch 46
+  557: push_constant_int 76
+  558: push_constant_int 13337
+  559: push_constant_string "Pirate impling"
+  560: push_constant_string "<br>"
+  561: push_constant_string " (after Rocking Out)"
+  562: join_string 3
+  563: push_constant_string "You can now net "
+  564: push_constant_string "<col=000080>"
+  565: push_constant_string "pirate implings"
+  566: push_constant_string "</col>"
+  567: push_constant_string " (after Rocking Out)."
+  568: join_string 5
+  569: return 0
+  570: branch 32
+  571: push_constant_int 83
+  572: push_constant_int 11256
+  573: push_constant_string "Dragon impling"
+  574: push_constant_string "You can now net "
+  575: push_constant_string "<col=000080>"
+  576: push_constant_string "dragon implings"
+  577: push_constant_string "</col>"
+  578: push_constant_string "."
+  579: join_string 5
+  580: return 0
+  581: branch 21
+  582: push_constant_int 87
+  583: push_constant_int 15515
+  584: push_constant_string "Zombie impling"
+  585: push_constant_string "You can now net "
+  586: push_constant_string "<col=000080>"
+  587: push_constant_string "zombie implings"
+  588: push_constant_string "</col>"
+  589: push_constant_string "."
+  590: join_string 5
+  591: return 0
+  592: branch 10
+  593: push_constant_int 91
+  594: push_constant_int 15517
+  595: push_constant_string "Kingly impling"
+  596: push_constant_string "You can now net "
+  597: push_constant_string "<col=000080>"
+  598: push_constant_string "kingly implings"
+  599: push_constant_string "</col>"
+  600: push_constant_string "."
+  601: join_string 5
+  602: return 0
+  603: branch 1352
+  604: push_int_local 1
+  605: switch 5
+  606: branch 87
+  607: push_constant_int 23
+  608: push_constant_int 9962
+  609: push_constant_string "Wild kebbit (woodland)"
+  610: push_constant_string "<br>"
+  611: push_constant_string " Preferred bait: Raw meat"
+  612: join_string 3
+  613: push_constant_string "You can now use deadfall traps to hunt "
+  614: push_constant_string "<col=000080>"
+  615: push_constant_string "wild kebbits"
+  616: push_constant_string "</col>"
+  617: push_constant_string "."
+  618: join_string 5
+  619: return 0
+  620: branch 73
+  621: push_constant_int 33
+  622: push_constant_int 9958
+  623: push_constant_string "Barb-tailed kebbit (jungle)"
+  624: push_constant_string "<br>"
+  625: push_constant_string " Preferred bait: Raw rainbow fish"
+  626: join_string 3
+  627: push_constant_string "You can now use deadfall traps to hunt "
+  628: push_constant_string "<col=000080>"
+  629: push_constant_string "barb-tailed kebbits"
+  630: push_constant_string "</col>"
+  631: push_constant_string "."
+  632: join_string 5
+  633: return 0
+  634: branch 59
+  635: push_constant_int 37
+  636: push_constant_int 9957
+  637: push_constant_string "Prickly kebbit (northern woodland)"
+  638: push_constant_string "<br>"
+  639: push_constant_string " Preferred bait: Barley"
+  640: join_string 3
+  641: push_constant_string "You can now use deadfall traps to hunt "
+  642: push_constant_string "<col=000080>"
+  643: push_constant_string "prickly kebbits"
+  644: push_constant_string "</col>"
+  645: push_constant_string "."
+  646: join_string 5
+  647: return 0
+  648: branch 45
+  649: push_constant_int 44
+  650: push_constant_int 12587
+  651: push_constant_string "Diseased kebbit (jungle)"
+  652: push_constant_string "<br>"
+  653: push_constant_string " (after starting As a First Resort...)"
+  654: push_constant_string "<br>"
+  655: push_constant_string " Required lure: smouldering fever grass"
+  656: join_string 5
+  657: push_constant_string "You now have the Hunter level required to use deadfall traps to hunt "
+  658: push_constant_string "<col=000080>"
+  659: push_constant_string "diseased kebbits"
+  660: push_constant_string "</col>"
+  661: push_constant_string " (after starting As a First Resort...)."
+  662: join_string 5
+  663: return 0
+  664: branch 29
+  665: push_constant_int 51
+  666: push_constant_int 9959
+  667: push_constant_string "Sabre-toothed kebbit (polar)"
+  668: push_constant_string "<br>"
+  669: push_constant_string " Preferred bait: Raw meat"
+  670: join_string 3
+  671: push_constant_string "You can now use deadfall traps to hunt "
+  672: push_constant_string "<col=000080>"
+  673: push_constant_string "sabre-toothed kebbits"
+  674: push_constant_string "</col>"
+  675: push_constant_string "."
+  676: join_string 5
+  677: return 0
+  678: branch 15
+  679: push_constant_int 51
+  680: push_constant_int 14832
+  681: push_constant_string "Penguins (polar)"
+  682: push_constant_string "<br>"
+  683: push_constant_string " (after Hunt for Red Raktuber)"
+  684: push_constant_string "<br>"
+  685: push_constant_string " Preferred bait: Raw cod"
+  686: join_string 5
+  687: push_constant_string "You can now use deadfall traps to hunt "
+  688: push_constant_string "<col=000080>"
+  689: push_constant_string "penguins"
+  690: push_constant_string "</col>"
+  691: push_constant_string " (after Hunt for Red Raktuber)."
+  692: join_string 5
+  693: return 0
+  694: branch 1261
+  695: push_int_local 1
+  696: switch 6
+  697: branch 259
+  698: push_constant_int 27
+  699: push_constant_int 10092
+  700: push_constant_string "Ferret (woodland)"
+  701: push_constant_string "<br>"
+  702: push_constant_string " (after Eagles' Peak)"
+  703: join_string 3
+  704: push_constant_string "You can now catch "
+  705: push_constant_string "<col=000080>"
+  706: push_constant_string "ferrets"
+  707: push_constant_string "</col>"
+  708: push_constant_string " with box traps (after Eagles' Peak)."
+  709: join_string 5
+  710: return 0
+  711: branch 245
+  712: push_constant_int 27
+  713: push_constant_int 12184
+  714: push_constant_string "Gecko"
+  715: push_constant_string "<br>"
+  716: push_constant_string " (with 10 Summoning)"
+  717: join_string 3
+  718: push_constant_string "You now have the Hunter level required to catch "
+  719: push_constant_string "<col=000080>"
+  720: push_constant_string "geckos"
+  721: push_constant_string "</col>"
+  722: push_constant_string " with box traps. (You also need level 10 Summoning.)"
+  723: join_string 5
+  724: return 0
+  725: branch 231
+  726: push_constant_int 27
+  727: push_constant_int 12199
+  728: push_constant_string "Raccoon"
+  729: push_constant_string "<br>"
+  730: push_constant_string " (with 80 Summoning)"
+  731: join_string 3
+  732: push_constant_string "You now have the Hunter level required to catch "
+  733: push_constant_string "<col=000080>"
+  734: push_constant_string "raccoons"
+  735: push_constant_string "</col>"
+  736: push_constant_string " with box traps. (You also need level 80 Summoning.)"
+  737: join_string 5
+  738: return 0
+  739: branch 217
+  740: push_constant_int 27
+  741: push_constant_int 12201
+  742: push_constant_string "Monkey"
+  743: push_constant_string "<br>"
+  744: push_constant_string " (with 95 Summoning)"
+  745: push_constant_string "<br>"
+  746: push_constant_string " Preferred bait: Bananas"
+  747: join_string 5
+  748: push_constant_string "You now have the Hunter level required to catch "
+  749: push_constant_string "<col=000080>"
+  750: push_constant_string "monkeys"
+  751: push_constant_string "</col>"
+  752: push_constant_string " with box traps. (You also need level 95 Summoning.)"
+  753: join_string 5
+  754: return 0
+  755: branch 201
+  756: push_constant_int 48
+  757: push_constant_int 12585
+  758: push_constant_string "Platypus (jungle)"
+  759: push_constant_string "<br>"
+  760: push_constant_string " (with 10 Summoning)"
+  761: push_constant_string "<br>"
+  762: push_constant_string " (after starting As a First Resort...)"
+  763: push_constant_string "<br>"
+  764: push_constant_string " Required lure: Smouldering lavender"
+  765: join_string 7
+  766: push_constant_string "You now have the Hunter level required to catch "
+  767: push_constant_string "<col=000080>"
+  768: push_constant_string "platypodes"
+  769: push_constant_string "</col>"
+  770: push_constant_string " with box traps (after As a First Resort... and with level 10 Summoning)."
+  771: join_string 5
+  772: return 0
+  773: branch 183
+  774: push_constant_int 53
+  775: push_constant_int 9976
+  776: push_constant_string "Chinchompa (woodland)"
+  777: push_constant_string "<br>"
+  778: push_constant_string " Preferred bait: Spicy chopped tomatoes"
+  779: join_string 3
+  780: push_constant_string "You can now catch "
+  781: push_constant_string "<col=000080>"
+  782: push_constant_string "chinchompas"
+  783: push_constant_string "</col>"
+  784: push_constant_string " with box traps."
+  785: join_string 5
+  786: return 0
+  787: branch 169
+  788: push_constant_int 56
+  789: push_constant_int 14832
+  790: push_constant_string "Penguin (polar)"
+  791: push_constant_string "<br>"
+  792: push_constant_string " (after Hunt for Red Raktuber)"
+  793: push_constant_string "<br>"
+  794: push_constant_string " Preferred bait: Raw cod"
+  795: join_string 5
+  796: push_constant_string "You can now catch "
+  797: push_constant_string "<col=000080>"
+  798: push_constant_string "penguins"
+  799: push_constant_string "</col>"
+  800: push_constant_string " with box traps (after Hunt for Red Raktuber)."
+  801: join_string 5
+  802: return 0
+  803: branch 153
+  804: push_constant_int 63
+  805: push_constant_int 9977
+  806: push_constant_string "Red chinchompa (jungle)"
+  807: push_constant_string "<br>"
+  808: push_constant_string " Preferred bait: Spicy minced meat"
+  809: join_string 3
+  810: push_constant_string "You can now catch "
+  811: push_constant_string "<col=000080>"
+  812: push_constant_string "red chinchompas"
+  813: push_constant_string "</col>"
+  814: push_constant_string " with box traps."
+  815: join_string 5
+  816: return 0
+  817: branch 139
+  818: push_constant_int 66
+  819: push_constant_int 12544
+  820: push_constant_string "Pawya (Isafdar)"
+  821: push_constant_string "<br>"
+  822: push_constant_string " Required bait: Papaya fruit"
+  823: join_string 3
+  824: push_constant_string "You can now catch "
+  825: push_constant_string "<col=000080>"
+  826: push_constant_string "pawyas"
+  827: push_constant_string "</col>"
+  828: push_constant_string " with box traps."
+  829: join_string 5
+  830: return 0
+  831: branch 125
+  832: push_constant_int 70
+  833: push_constant_int 19951
+  834: push_constant_string "Common jadinko (using marasamaw plants)"
+  835: push_constant_string "<br>"
+  836: push_constant_string " Preferred bait: Withered vines"
+  837: join_string 3
+  838: push_constant_string "You can now catch "
+  839: push_constant_string "<col=000080>"
+  840: push_constant_string "common jadinkos"
+  841: push_constant_string "</col>"
+  842: push_constant_string " with marasamaw plants."
+  843: join_string 5
+  844: return 0
+  845: branch 111
+  846: push_constant_int 74
+  847: push_constant_int 19957
+  848: push_constant_string "Igneous jadinko (using marasamaw plants)"
+  849: push_constant_string "<br>"
+  850: push_constant_string " Preferred bait: Withered vines"
+  851: join_string 3
+  852: push_constant_string "You can now catch "
+  853: push_constant_string "<col=000080>"
+  854: push_constant_string "igneous jadinkos"
+  855: push_constant_string "</col>"
+  856: push_constant_string " with marasamaw plants."
+  857: join_string 5
+  858: return 0
+  859: branch 97
+  860: push_constant_int 75
+  861: push_constant_int 19960
+  862: push_constant_string "Cannibal jadinko (using marasamaw plants)"
+  863: push_constant_string "<br>"
+  864: push_constant_string " Preferred bait: Withered vines"
+  865: join_string 3
+  866: push_constant_string "You can now catch "
+  867: push_constant_string "<col=000080>"
+  868: push_constant_string "cannibal jadinkos"
+  869: push_constant_string "</col>"
+  870: push_constant_string " with marasamaw plants."
+  871: join_string 5
+  872: return 0
+  873: branch 83
+  874: push_constant_int 76
+  875: push_constant_int 19953
+  876: push_constant_string "Aquatic jadinko (using marasamaw plants)"
+  877: push_constant_string "<br>"
+  878: push_constant_string " Preferred bait: Withered vines"
+  879: join_string 3
+  880: push_constant_string "You can now catch "
+  881: push_constant_string "<col=000080>"
+  882: push_constant_string "aquatic jadinkos"
+  883: push_constant_string "</col>"
+  884: push_constant_string " with marasamaw plants."
+  885: join_string 5
+  886: return 0
+  887: branch 69
+  888: push_constant_int 77
+  889: push_constant_int 19952
+  890: push_constant_string "Amphibious jadinko (using marasamaw plants)"
+  891: push_constant_string "<br>"
+  892: push_constant_string " Preferred bait: Withered vines"
+  893: join_string 3
+  894: push_constant_string "You can now catch "
+  895: push_constant_string "<col=000080>"
+  896: push_constant_string "amphibious jadinkos"
+  897: push_constant_string "</col>"
+  898: push_constant_string " with marasamaw plants."
+  899: join_string 5
+  900: return 0
+  901: branch 55
+  902: push_constant_int 77
+  903: push_constant_int 12537
+  904: push_constant_string "Grenwall (Isafdar)"
+  905: push_constant_string "<br>"
+  906: push_constant_string " Required bait: Raw pawya meat"
+  907: join_string 3
+  908: push_constant_string "You can now catch "
+  909: push_constant_string "<col=000080>"
+  910: push_constant_string "grenwall"
+  911: push_constant_string "</col>"
+  912: push_constant_string " with box traps."
+  913: join_string 5
+  914: return 0
+  915: branch 41
+  916: push_constant_int 78
+  917: push_constant_int 19959
+  918: push_constant_string "Carrion jadinko (using marasamaw plants)"
+  919: push_constant_string "<br>"
+  920: push_constant_string " Preferred bait: Withered vines"
+  921: join_string 3
+  922: push_constant_string "You can now catch "
+  923: push_constant_string "<col=000080>"
+  924: push_constant_string "carrion jadinkos"
+  925: push_constant_string "</col>"
+  926: push_constant_string " with marasamaw plants."
+  927: join_string 5
+  928: return 0
+  929: branch 27
+  930: push_constant_int 80
+  931: push_constant_int 19956
+  932: push_constant_string "Draconic jadinko (using marasamaw plants)"
+  933: push_constant_string "<br>"
+  934: push_constant_string " Preferred bait: Withered vines"
+  935: join_string 3
+  936: push_constant_string "You can now catch "
+  937: push_constant_string "<col=000080>"
+  938: push_constant_string "draconic jadinkos"
+  939: push_constant_string "</col>"
+  940: push_constant_string " with marasamaw plants."
+  941: join_string 5
+  942: return 0
+  943: branch 13
+  944: push_constant_int 81
+  945: push_constant_int 19961
+  946: push_constant_string "Saradomin, Guthix and Zamorak jadinko (using marasamaw plants)"
+  947: push_constant_string "<br>"
+  948: push_constant_string " Preferred bait: Withered vines"
+  949: join_string 3
+  950: push_constant_string "You can now catch "
+  951: push_constant_string "<col=000080>"
+  952: push_constant_string "Saradomin, Guthix and Zamorak jadinkos"
+  953: push_constant_string "</col>"
+  954: push_constant_string " with marasamaw plants."
+  955: join_string 5
+  956: return 0
+  957: branch 998
+  958: push_int_local 1
+  959: switch 7
+  960: branch 85
+  961: push_constant_int 29
+  962: push_constant_int 10149
+  963: push_constant_string "Swamp lizard (swamp)"
+  964: push_constant_string "<br>"
+  965: push_constant_string " Preferred bait: Guam tar"
+  966: join_string 3
+  967: push_constant_string "You can now catch "
+  968: push_constant_string "<col=000080>"
+  969: push_constant_string "swamp lizards"
+  970: push_constant_string "</col>"
+  971: push_constant_string " with net traps."
+  972: join_string 5
+  973: return 0
+  974: branch 71
+  975: push_constant_int 29
+  976: push_constant_int 12200
+  977: push_constant_string "Squirrel"
+  978: push_constant_string "<br>"
+  979: push_constant_string " (with 60 Summoning)"
+  980: push_constant_string "<br>"
+  981: push_constant_string " Preferred bait: Nuts"
+  982: join_string 5
+  983: push_constant_string "You now have the Hunter level required to catch "
+  984: push_constant_string "<col=000080>"
+  985: push_constant_string "squirrels"
+  986: push_constant_string "</col>"
+  987: push_constant_string " with net traps. (You also need level 60 Summoning.)"
+  988: join_string 5
+  989: return 0
+  990: branch 55
+  991: push_constant_int 47
+  992: push_constant_int 10146
+  993: push_constant_string "Orange salamander (desert)"
+  994: push_constant_string "<br>"
+  995: push_constant_string " Preferred bait: Marrentill tar"
+  996: join_string 3
+  997: push_constant_string "You can now catch "
+  998: push_constant_string "<col=000080>"
+  999: push_constant_string "orange salamanders"
+ 1000: push_constant_string "</col>"
+ 1001: push_constant_string " with net traps."
+ 1002: join_string 5
+ 1003: return 0
+ 1004: branch 41
+ 1005: push_constant_int 50
+ 1006: push_constant_int 14832
+ 1007: push_constant_string "Penguin (polar)"
+ 1008: push_constant_string "<br>"
+ 1009: push_constant_string " (after Hunt for Red Raktuber)"
+ 1010: join_string 3
+ 1011: push_constant_string "You can now catch "
+ 1012: push_constant_string "<col=000080>"
+ 1013: push_constant_string "penguins"
+ 1014: push_constant_string "</col>"
+ 1015: push_constant_string " with net traps (after Hunt for Red Raktuber)."
+ 1016: join_string 5
+ 1017: return 0
+ 1018: branch 27
+ 1019: push_constant_int 59
+ 1020: push_constant_int 10147
+ 1021: push_constant_string "Red salamander (lava)"
+ 1022: push_constant_string "<br>"
+ 1023: push_constant_string " Preferred bait: Tarromin tar"
+ 1024: join_string 3
+ 1025: push_constant_string "You can now catch "
+ 1026: push_constant_string "<col=000080>"
+ 1027: push_constant_string "red salamanders"
+ 1028: push_constant_string "</col>"
+ 1029: push_constant_string " with net traps."
+ 1030: join_string 5
+ 1031: return 0
+ 1032: branch 13
+ 1033: push_constant_int 67
+ 1034: push_constant_int 10148
+ 1035: push_constant_string "Black salamander (lava)"
+ 1036: push_constant_string "<br>"
+ 1037: push_constant_string " Preferred bait: Harralander tar"
+ 1038: join_string 3
+ 1039: push_constant_string "You can now catch "
+ 1040: push_constant_string "<col=000080>"
+ 1041: push_constant_string "black salamanders"
+ 1042: push_constant_string "</col>"
+ 1043: push_constant_string " with net traps."
+ 1044: join_string 5
+ 1045: return 0
+ 1046: branch 909
+ 1047: push_int_local 1
+ 1048: branch_if_false 1
+ 1049: branch 10
+ 1050: push_constant_int 31
+ 1051: push_constant_int 10045
+ 1052: push_constant_string "Spined larupia (jungle)"
+ 1053: push_constant_string "You can now catch "
+ 1054: push_constant_string "<col=000080>"
+ 1055: push_constant_string "spined larupias"
+ 1056: push_constant_string "</col>"
+ 1057: push_constant_string " with pit traps."
+ 1058: join_string 5
+ 1059: return 0
+ 1060: push_int_local 1
+ 1061: branch_if_true 1
+ 1062: branch 10
+ 1063: push_constant_int 41
+ 1064: push_constant_int 10051
+ 1065: push_constant_string "Horned graahk (Karamja)"
+ 1066: push_constant_string "You can now catch "
+ 1067: push_constant_string "<col=000080>"
+ 1068: push_constant_string "horned graahks"
+ 1069: push_constant_string "</col>"
+ 1070: push_constant_string " with pit traps."
+ 1071: join_string 5
+ 1072: return 0
+ 1073: push_int_local 1
+ 1074: push_constant_int 2
+ 1075: branch_equals 1
+ 1076: branch 10
+ 1077: push_constant_int 55
+ 1078: push_constant_int 10039
+ 1079: push_constant_string "Sabre-toothed kyatt (polar)"
+ 1080: push_constant_string "You can now catch "
+ 1081: push_constant_string "<col=000080>"
+ 1082: push_constant_string "sabre-toothed kyatts"
+ 1083: push_constant_string "</col>"
+ 1084: push_constant_string " with pit traps."
+ 1085: join_string 5
+ 1086: return 0
+ 1087: branch 868
+ 1088: push_int_local 1
+ 1089: branch_if_false 1
+ 1090: branch 10
+ 1091: push_constant_int 43
+ 1092: push_constant_int 9960
+ 1093: push_constant_string "Spotted kebbit (woodland)"
+ 1094: push_constant_string "You can now hunt "
+ 1095: push_constant_string "<col=000080>"
+ 1096: push_constant_string "spotted kebbits"
+ 1097: push_constant_string "</col>"
+ 1098: push_constant_string " with a falcon."
+ 1099: join_string 5
+ 1100: return 0
+ 1101: push_int_local 1
+ 1102: branch_if_true 1
+ 1103: branch 10
+ 1104: push_constant_int 57
+ 1105: push_constant_int 9963
+ 1106: push_constant_string "Dark kebbit (woodland)"
+ 1107: push_constant_string "You can now hunt "
+ 1108: push_constant_string "<col=000080>"
+ 1109: push_constant_string "dark kebbits"
+ 1110: push_constant_string "</col>"
+ 1111: push_constant_string " with a falcon."
+ 1112: join_string 5
+ 1113: return 0
+ 1114: push_int_local 1
+ 1115: push_constant_int 2
+ 1116: branch_equals 1
+ 1117: branch 10
+ 1118: push_constant_int 69
+ 1119: push_constant_int 9964
+ 1120: push_constant_string "Dashing kebbit (woodland)"
+ 1121: push_constant_string "You can now hunt "
+ 1122: push_constant_string "<col=000080>"
+ 1123: push_constant_string "dashing kebbits"
+ 1124: push_constant_string "</col>"
+ 1125: push_constant_string " with a falcon."
+ 1126: join_string 5
+ 1127: return 0
+ 1128: branch 827
+ 1129: push_int_local 1
+ 1130: branch_if_false 1
+ 1131: branch 17
+ 1132: push_constant_int 71
+ 1133: push_constant_int 9952
+ 1134: push_constant_string "Imp (worldwide)"
+ 1135: push_constant_string "<br>"
+ 1136: push_constant_string " Preferred bait: Magical beads"
+ 1137: join_string 3
+ 1138: push_constant_string "You can now catch "
+ 1139: push_constant_string "<col=000080>"
+ 1140: push_constant_string "imps"
+ 1141: push_constant_string "</col>"
+ 1142: push_constant_string " in "
+ 1143: push_constant_string "<col=000080>"
+ 1144: push_constant_string "imp boxes"
+ 1145: push_constant_string "</col>"
+ 1146: push_constant_string "."
+ 1147: join_string 9
+ 1148: return 0
+ 1149: branch 806
+ 1150: push_int_local 1
+ 1151: switch 8
+ 1152: branch 91
+ 1153: push_constant_int 27
+ 1154: push_constant_int 9975
+ 1155: push_constant_string "White rabbit (woodland)"
+ 1156: push_constant_string "<br>"
+ 1157: push_constant_string " Use a ferret to flush the rabbit out of its hole"
+ 1158: push_constant_string "<br>"
+ 1159: push_constant_string " (after Eagles' Peak)"
+ 1160: join_string 5
+ 1161: push_constant_string "You now have the Hunter level required to use a "
+ 1162: push_constant_string "<col=000080>"
+ 1163: push_constant_string "ferret"
+ 1164: push_constant_string "</col>"
+ 1165: push_constant_string " to hunt "
+ 1166: push_constant_string "<col=000080>"
+ 1167: push_constant_string "white rabbits"
+ 1168: push_constant_string "</col>"
+ 1169: push_constant_string " (after Eagles' Peak)."
+ 1170: join_string 9
+ 1171: return 0
+ 1172: branch 71
+ 1173: push_constant_int 27
+ 1174: push_constant_int 9974
+ 1175: push_constant_string "Giant eagle (various)"
+ 1176: push_constant_string "<br>"
+ 1177: push_constant_string " (after Eagles' Peak)"
+ 1178: join_string 3
+ 1179: push_constant_string "You now have the Hunter level required to lasso "
+ 1180: push_constant_string "<col=000080>"
+ 1181: push_constant_string "giant eagles"
+ 1182: push_constant_string "</col>"
+ 1183: push_constant_string " (after Eagles' Peak)."
+ 1184: join_string 5
+ 1185: return 0
+ 1186: branch 57
+ 1187: push_constant_int 72
+ 1188: push_constant_int 19808
+ 1189: push_constant_string "Charm sprites (south of the Tree Gnome Stronghold)"
+ 1190: push_constant_string "<br>"
+ 1191: push_constant_string " Use Hunter skill to catch charm sprites and gain Summoning charms"
+ 1192: join_string 3
+ 1193: push_constant_string "You now have the Hunter level required to transmute "
+ 1194: push_constant_string "<col=000080>"
+ 1195: push_constant_string "charm sprites"
+ 1196: push_constant_string "</col>"
+ 1197: push_constant_string " into Summoning charm slices."
+ 1198: join_string 5
+ 1199: return 0
+ 1200: branch 43
+ 1201: push_constant_int 91
+ 1202: push_constant_int 18778
+ 1203: push_constant_string "Starved ancient effigies"
+ 1204: push_constant_string "You can now investigate "
+ 1205: push_constant_string "<col=000080>"
+ 1206: push_constant_string "starved ancient effigies"
+ 1207: push_constant_string "</col>"
+ 1208: push_constant_string " using your knowledge of Hunter."
+ 1209: join_string 5
+ 1210: return 0
+ 1211: branch 32
+ 1212: push_constant_int 93
+ 1213: push_constant_int 18779
+ 1214: push_constant_string "Nourished ancient effigies"
+ 1215: push_constant_string "You can now investigate "
+ 1216: push_constant_string "<col=000080>"
+ 1217: push_constant_string "nourished ancient effigies"
+ 1218: push_constant_string "</col>"
+ 1219: push_constant_string " using your knowledge of Hunter."
+ 1220: join_string 5
+ 1221: return 0
+ 1222: branch 21
+ 1223: push_constant_int 95
+ 1224: push_constant_int 18780
+ 1225: push_constant_string "Sated ancient effigies"
+ 1226: push_constant_string "You can now investigate "
+ 1227: push_constant_string "<col=000080>"
+ 1228: push_constant_string "sated ancient effigies"
+ 1229: push_constant_string "</col>"
+ 1230: push_constant_string " using your knowledge of Hunter."
+ 1231: join_string 5
+ 1232: return 0
+ 1233: branch 10
+ 1234: push_constant_int 97
+ 1235: push_constant_int 18781
+ 1236: push_constant_string "Gorged ancient effigies"
+ 1237: push_constant_string "You can now investigate "
+ 1238: push_constant_string "<col=000080>"
+ 1239: push_constant_string "gorged ancient effigies"
+ 1240: push_constant_string "</col>"
+ 1241: push_constant_string " using your knowledge of Hunter."
+ 1242: join_string 5
+ 1243: return 0
+ 1244: branch 711
+ 1245: push_int_local 1
+ 1246: switch 9
+ 1247: branch 131
+ 1248: push_constant_int 1
+ 1249: push_constant_int 10065
+ 1250: push_constant_string "Polar kebbit fur clothing (polar)"
+ 1251: push_constant_string "You can now wear "
+ 1252: push_constant_string "<col=000080>"
+ 1253: push_constant_string "polar kebbit fur clothing"
+ 1254: push_constant_string "</col>"
+ 1255: push_constant_string "."
+ 1256: join_string 5
+ 1257: return 0
+ 1258: branch 120
+ 1259: push_constant_int 1
+ 1260: push_constant_int 10053
+ 1261: push_constant_string "Common kebbit fur clothing (woodland)"
+ 1262: push_constant_string "You can now wear "
+ 1263: push_constant_string "<col=000080>"
+ 1264: push_constant_string "common kebbit fur clothing"
+ 1265: push_constant_string "</col>"
+ 1266: push_constant_string "."
+ 1267: join_string 5
+ 1268: return 0
+ 1269: branch 109
+ 1270: push_constant_int 4
+ 1271: push_constant_int 10057
+ 1272: push_constant_string "Feldip weasel fur clothing (jungle)"
+ 1273: push_constant_string "You can now wear "
+ 1274: push_constant_string "<col=000080>"
+ 1275: push_constant_string "feldip weasel fur clothing"
+ 1276: push_constant_string "</col>"
+ 1277: push_constant_string "."
+ 1278: join_string 5
+ 1279: return 0
+ 1280: branch 98
+ 1281: push_constant_int 10
+ 1282: push_constant_int 10061
+ 1283: push_constant_string "Desert devil fur clothing (desert)"
+ 1284: push_constant_string "You can now wear "
+ 1285: push_constant_string "<col=000080>"
+ 1286: push_constant_string "desert devil fur clothing"
+ 1287: push_constant_string "</col>"
+ 1288: push_constant_string "."
+ 1289: join_string 5
+ 1290: return 0
+ 1291: branch 87
+ 1292: push_constant_int 24
+ 1293: push_constant_int 10132
+ 1294: push_constant_string "Lucky rabbit's foot"
+ 1295: push_constant_string "You can now wear a "
+ 1296: push_constant_string "<col=000080>"
+ 1297: push_constant_string "lucky rabbit's foot"
+ 1298: push_constant_string "</col>"
+ 1299: push_constant_string "."
+ 1300: join_string 5
+ 1301: return 0
+ 1302: branch 76
+ 1303: push_constant_int 28
+ 1304: push_constant_int 10045
+ 1305: push_constant_string "Larupia fur clothing"
+ 1306: push_constant_string "You can now wear "
+ 1307: push_constant_string "<col=000080>"
+ 1308: push_constant_string "larupia fur clothing"
+ 1309: push_constant_string "</col>"
+ 1310: push_constant_string "."
+ 1311: join_string 5
+ 1312: return 0
+ 1313: branch 65
+ 1314: push_constant_int 38
+ 1315: push_constant_int 10051
+ 1316: push_constant_string "Graahk-hide clothing"
+ 1317: push_constant_string "You can now wear "
+ 1318: push_constant_string "<col=000080>"
+ 1319: push_constant_string "graahk-hide clothing"
+ 1320: push_constant_string "</col>"
+ 1321: push_constant_string "."
+ 1322: join_string 5
+ 1323: return 0
+ 1324: branch 54
+ 1325: push_constant_int 40
+ 1326: push_constant_int 10069
+ 1327: push_constant_string "Spotted capes"
+ 1328: push_constant_string "You can now wear "
+ 1329: push_constant_string "<col=000080>"
+ 1330: push_constant_string "spotted capes"
+ 1331: push_constant_string "</col>"
+ 1332: push_constant_string "."
+ 1333: join_string 5
+ 1334: return 0
+ 1335: branch 43
+ 1336: push_constant_int 52
+ 1337: push_constant_int 10039
+ 1338: push_constant_string "Kyatt fur clothing"
+ 1339: push_constant_string "You can now wear "
+ 1340: push_constant_string "<col=000080>"
+ 1341: push_constant_string "kyatt fur clothing"
+ 1342: push_constant_string "</col>"
+ 1343: push_constant_string "."
+ 1344: join_string 5
+ 1345: return 0
+ 1346: branch 32
+ 1347: push_constant_int 54
+ 1348: push_constant_int 10075
+ 1349: push_constant_string "Gloves of silence"
+ 1350: push_constant_string "You can now wear "
+ 1351: push_constant_string "<col=000080>"
+ 1352: push_constant_string "gloves of silence"
+ 1353: push_constant_string "</col>"
+ 1354: push_constant_string "."
+ 1355: join_string 5
+ 1356: return 0
+ 1357: branch 21
+ 1358: push_constant_int 66
+ 1359: push_constant_int 10071
+ 1360: push_constant_string "Spottier capes"
+ 1361: push_constant_string "You can now wear "
+ 1362: push_constant_string "<col=000080>"
+ 1363: push_constant_string "spottier capes"
+ 1364: push_constant_string "</col>"
+ 1365: push_constant_string "."
+ 1366: join_string 5
+ 1367: return 0
+ 1368: branch 10
+ 1369: push_constant_int 70
+ 1370: push_constant_int 20046
+ 1371: push_constant_string "Witchdoctor clothing"
+ 1372: push_constant_string "You can now wear "
+ 1373: push_constant_string "<col=000080>"
+ 1374: push_constant_string "witchdoctor clothing"
+ 1375: push_constant_string "</col>"
+ 1376: push_constant_string "."
+ 1377: join_string 5
+ 1378: return 0
+ 1379: branch 576
+ 1380: push_int_local 1
+ 1381: switch 10
+ 1382: branch 212
+ 1383: push_constant_int 17
+ 1384: push_constant_int 11238
+ 1385: push_constant_string "Baby impling"
+ 1386: push_constant_string "You can now catch "
+ 1387: push_constant_string "<col=000080>"
+ 1388: push_constant_string "baby implings"
+ 1389: push_constant_string "</col>"
+ 1390: push_constant_string " barehanded."
+ 1391: join_string 5
+ 1392: return 0
+ 1393: branch 201
+ 1394: push_constant_int 22
+ 1395: push_constant_int 11240
+ 1396: push_constant_string "Young impling"
+ 1397: push_constant_string "You can now catch "
+ 1398: push_constant_string "<col=000080>"
+ 1399: push_constant_string "young implings"
+ 1400: push_constant_string "</col>"
+ 1401: push_constant_string " barehanded."
+ 1402: join_string 5
+ 1403: return 0
+ 1404: branch 190
+ 1405: push_constant_int 28
+ 1406: push_constant_int 11242
+ 1407: push_constant_string "Gourmet impling"
+ 1408: push_constant_string "You can now catch "
+ 1409: push_constant_string "<col=000080>"
+ 1410: push_constant_string "gourmet implings"
+ 1411: push_constant_string "</col>"
+ 1412: push_constant_string " barehanded."
+ 1413: join_string 5
+ 1414: return 0
+ 1415: branch 179
+ 1416: push_constant_int 36
+ 1417: push_constant_int 11244
+ 1418: push_constant_string "Earth impling"
+ 1419: push_constant_string "You can now catch "
+ 1420: push_constant_string "<col=000080>"
+ 1421: push_constant_string "earth implings"
+ 1422: push_constant_string "</col>"
+ 1423: push_constant_string " barehanded."
+ 1424: join_string 5
+ 1425: return 0
+ 1426: branch 168
+ 1427: push_constant_int 42
+ 1428: push_constant_int 11246
+ 1429: push_constant_string "Essence impling"
+ 1430: push_constant_string "You can now catch "
+ 1431: push_constant_string "<col=000080>"
+ 1432: push_constant_string "essence implings"
+ 1433: push_constant_string "</col>"
+ 1434: push_constant_string " barehanded."
+ 1435: join_string 5
+ 1436: return 0
+ 1437: branch 157
+ 1438: push_constant_int 50
+ 1439: push_constant_int 11248
+ 1440: push_constant_string "Eclectic impling"
+ 1441: push_constant_string "You can now catch "
+ 1442: push_constant_string "<col=000080>"
+ 1443: push_constant_string "eclectic implings"
+ 1444: push_constant_string "</col>"
+ 1445: push_constant_string " barehanded."
+ 1446: join_string 5
+ 1447: return 0
+ 1448: branch 146
+ 1449: push_constant_int 54
+ 1450: push_constant_int 15513
+ 1451: push_constant_string "Spirit impling"
+ 1452: push_constant_string "You can now catch "
+ 1453: push_constant_string "<col=000080>"
+ 1454: push_constant_string "spirit implings"
+ 1455: push_constant_string "</col>"
+ 1456: push_constant_string " barehanded."
+ 1457: join_string 5
+ 1458: return 0
+ 1459: branch 135
+ 1460: push_constant_int 58
+ 1461: push_constant_int 11250
+ 1462: push_constant_string "Nature impling"
+ 1463: push_constant_string "You can now catch "
+ 1464: push_constant_string "<col=000080>"
+ 1465: push_constant_string "nature implings"
+ 1466: push_constant_string "</col>"
+ 1467: push_constant_string " barehanded."
+ 1468: join_string 5
+ 1469: return 0
+ 1470: branch 124
+ 1471: push_constant_int 65
+ 1472: push_constant_int 11252
+ 1473: push_constant_string "Magpie impling"
+ 1474: push_constant_string "You can now catch "
+ 1475: push_constant_string "<col=000080>"
+ 1476: push_constant_string "magpie implings"
+ 1477: push_constant_string "</col>"
+ 1478: push_constant_string " barehanded."
+ 1479: join_string 5
+ 1480: return 0
+ 1481: branch 113
+ 1482: push_constant_int 74
+ 1483: push_constant_int 11254
+ 1484: push_constant_string "Ninja impling"
+ 1485: push_constant_string "You can now catch "
+ 1486: push_constant_string "<col=000080>"
+ 1487: push_constant_string "ninja implings"
+ 1488: push_constant_string "</col>"
+ 1489: push_constant_string " barehanded."
+ 1490: join_string 5
+ 1491: return 0
+ 1492: branch 102
+ 1493: push_constant_int 76
+ 1494: push_constant_int 13337
+ 1495: push_constant_string "Pirate impling"
+ 1496: push_constant_string "<br>"
+ 1497: push_constant_string " (after Rocking Out)"
+ 1498: join_string 3
+ 1499: push_constant_string "You can now catch "
+ 1500: push_constant_string "<col=000080>"
+ 1501: push_constant_string "pirate implings"
+ 1502: push_constant_string "</col>"
+ 1503: push_constant_string " barehanded (after Rocking Out)."
+ 1504: join_string 5
+ 1505: return 0
+ 1506: branch 88
+ 1507: push_constant_int 80
+ 1508: push_constant_int 9970
+ 1509: push_constant_string "Catch ruby harvest butterfly barehanded (woodland)"
+ 1510: push_constant_string "<br>"
+ 1511: push_constant_string " (with 75 Agility)"
+ 1512: join_string 3
+ 1513: push_constant_string "You now have the Hunter level to catch "
+ 1514: push_constant_string "<col=000080>"
+ 1515: push_constant_string "ruby harvest butterflies"
+ 1516: push_constant_string "</col>"
+ 1517: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 75 Agility.)"
+ 1518: join_string 5
+ 1519: return 0
+ 1520: branch 74
+ 1521: push_constant_int 83
+ 1522: push_constant_int 11256
+ 1523: push_constant_string "Dragon impling"
+ 1524: push_constant_string "You can now catch "
+ 1525: push_constant_string "<col=000080>"
+ 1526: push_constant_string "dragon implings"
+ 1527: push_constant_string "</col>"
+ 1528: push_constant_string " barehanded."
+ 1529: join_string 5
+ 1530: return 0
+ 1531: branch 63
+ 1532: push_constant_int 85
+ 1533: push_constant_int 9971
+ 1534: push_constant_string "Catch sapphire glacialis butterfly barehanded (polar)"
+ 1535: push_constant_string "<br>"
+ 1536: push_constant_string " (with 80 Agility)"
+ 1537: join_string 3
+ 1538: push_constant_string "You now have the Hunter level to catch "
+ 1539: push_constant_string "<col=000080>"
+ 1540: push_constant_string "sapphire glacialis butterflies"
+ 1541: push_constant_string "</col>"
+ 1542: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 80 Agility.)"
+ 1543: join_string 5
+ 1544: return 0
+ 1545: branch 49
+ 1546: push_constant_int 87
+ 1547: push_constant_int 15515
+ 1548: push_constant_string "Zombie impling"
+ 1549: push_constant_string "You can now catch "
+ 1550: push_constant_string "<col=000080>"
+ 1551: push_constant_string "zombie implings"
+ 1552: push_constant_string "</col>"
+ 1553: push_constant_string " barehanded."
+ 1554: join_string 5
+ 1555: return 0
+ 1556: branch 38
+ 1557: push_constant_int 90
+ 1558: push_constant_int 9972
+ 1559: push_constant_string "Catch snowy knight butterfly barehanded (polar)"
+ 1560: push_constant_string "<br>"
+ 1561: push_constant_string " (with 85 Agility)"
+ 1562: join_string 3
+ 1563: push_constant_string "You now have the Hunter level to catch "
+ 1564: push_constant_string "<col=000080>"
+ 1565: push_constant_string "snowy knight butterflies"
+ 1566: push_constant_string "</col>"
+ 1567: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 85 Agility.)"
+ 1568: join_string 5
+ 1569: return 0
+ 1570: branch 24
+ 1571: push_constant_int 91
+ 1572: push_constant_int 15517
+ 1573: push_constant_string "Kingly impling"
+ 1574: push_constant_string "You can now catch "
+ 1575: push_constant_string "<col=000080>"
+ 1576: push_constant_string "kingly implings"
+ 1577: push_constant_string "</col>"
+ 1578: push_constant_string " barehanded."
+ 1579: join_string 5
+ 1580: return 0
+ 1581: branch 13
+ 1582: push_constant_int 95
+ 1583: push_constant_int 9973
+ 1584: push_constant_string "Catch black warlock butterfly barehanded (jungle)"
+ 1585: push_constant_string "<br>"
+ 1586: push_constant_string " (with 90 Agility)"
+ 1587: join_string 3
+ 1588: push_constant_string "You now have the Hunter level to catch "
+ 1589: push_constant_string "<col=000080>"
+ 1590: push_constant_string "black warlock butterflies"
+ 1591: push_constant_string "</col>"
+ 1592: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 90 Agility.)"
+ 1593: join_string 5
+ 1594: return 0
+ 1595: branch 360
+ 1596: push_int_local 1
+ 1597: switch 11
+ 1598: branch 98
+ 1599: push_constant_int 1
+ 1600: push_constant_int 14152
+ 1601: push_constant_string "Stealing Creation - class 1 butterfly net"
+ 1602: push_constant_string "Members can now use "
+ 1603: push_constant_string "<col=000080>"
+ 1604: push_constant_string "class 1 butterfly nets"
+ 1605: push_constant_string "</col>"
+ 1606: push_constant_string " in Stealing Creation."
+ 1607: join_string 5
+ 1608: return 0
+ 1609: branch 87
+ 1610: push_constant_int 20
+ 1611: push_constant_int 14184
+ 1612: push_constant_string "Stealing Creation - net class 2 sacred clay"
+ 1613: push_constant_string "Members can now net "
+ 1614: push_constant_string "<col=000080>"
+ 1615: push_constant_string "class 2 sacred clay"
+ 1616: push_constant_string "</col>"
+ 1617: push_constant_string " in Stealing Creation."
+ 1618: join_string 5
+ 1619: return 0
+ 1620: branch 76
+ 1621: push_constant_int 20
+ 1622: push_constant_int 14154
+ 1623: push_constant_string "Stealing Creation - class 2 butterfly net"
+ 1624: push_constant_string "Members can now use "
+ 1625: push_constant_string "<col=000080>"
+ 1626: push_constant_string "class 2 butterfly nets"
+ 1627: push_constant_string "</col>"
+ 1628: push_constant_string " in Stealing Creation."
+ 1629: join_string 5
+ 1630: return 0
+ 1631: branch 65
+ 1632: push_constant_int 40
+ 1633: push_constant_int 14186
+ 1634: push_constant_string "Stealing Creation - net class 3 sacred clay"
+ 1635: push_constant_string "Members can now net "
+ 1636: push_constant_string "<col=000080>"
+ 1637: push_constant_string "class 3 sacred clay"
+ 1638: push_constant_string "</col>"
+ 1639: push_constant_string " in Stealing Creation."
+ 1640: join_string 5
+ 1641: return 0
+ 1642: branch 54
+ 1643: push_constant_int 40
+ 1644: push_constant_int 14156
+ 1645: push_constant_string "Stealing Creation - class 3 butterfly net"
+ 1646: push_constant_string "Members can now use "
+ 1647: push_constant_string "<col=000080>"
+ 1648: push_constant_string "class 3 butterfly nets"
+ 1649: push_constant_string "</col>"
+ 1650: push_constant_string " in Stealing Creation."
+ 1651: join_string 5
+ 1652: return 0
+ 1653: branch 43
+ 1654: push_constant_int 60
+ 1655: push_constant_int 14188
+ 1656: push_constant_string "Stealing Creation - net class 4 sacred clay"
+ 1657: push_constant_string "Members can now net "
+ 1658: push_constant_string "<col=000080>"
+ 1659: push_constant_string "class 4 sacred clay"
+ 1660: push_constant_string "</col>"
+ 1661: push_constant_string " in Stealing Creation."
+ 1662: join_string 5
+ 1663: return 0
+ 1664: branch 32
+ 1665: push_constant_int 60
+ 1666: push_constant_int 14158
+ 1667: push_constant_string "Stealing Creation - class 4 butterfly net"
+ 1668: push_constant_string "Members can now use "
+ 1669: push_constant_string "<col=000080>"
+ 1670: push_constant_string "class 4 butterfly nets"
+ 1671: push_constant_string "</col>"
+ 1672: push_constant_string " in Stealing Creation."
+ 1673: join_string 5
+ 1674: return 0
+ 1675: branch 21
+ 1676: push_constant_int 80
+ 1677: push_constant_int 14190
+ 1678: push_constant_string "Stealing Creation - net class 5 sacred clay"
+ 1679: push_constant_string "Members can now net "
+ 1680: push_constant_string "<col=000080>"
+ 1681: push_constant_string "class 5 sacred clay"
+ 1682: push_constant_string "</col>"
+ 1683: push_constant_string " in Stealing Creation."
+ 1684: join_string 5
+ 1685: return 0
+ 1686: branch 10
+ 1687: push_constant_int 80
+ 1688: push_constant_int 14160
+ 1689: push_constant_string "Stealing Creation - class 5 butterfly net"
+ 1690: push_constant_string "Members can now use "
+ 1691: push_constant_string "<col=000080>"
+ 1692: push_constant_string "class 5 butterfly nets"
+ 1693: push_constant_string "</col>"
+ 1694: push_constant_string " in Stealing Creation."
+ 1695: join_string 5
+ 1696: return 0
+ 1697: branch 258
+ 1698: push_int_local 1
+ 1699: switch 12
+ 1700: branch 228
+ 1701: push_constant_int -1
+ 1702: push_constant_int 15707
+ 1703: push_constant_string "Dungeoneering skill tasks"
+ 1704: push_constant_string "<br>"
+ 1705: push_constant_string "As your Hunter level increases, you will be able to attempt higher-level hunter tasks within Daemonheim. You will also be more likely to succeed when attempting hunter tasks within Daemonheim."
+ 1706: join_string 3
+ 1707: push_constant_string ""
+ 1708: return 0
+ 1709: branch 219
+ 1710: push_constant_int 1
+ 1711: push_constant_int 17756
+ 1712: push_constant_string "Tangle gum trap (Tier 1)"
+ 1713: push_constant_string "You can now place "
+ 1714: push_constant_string "<col=000080>"
+ 1715: push_constant_string "tangle gum traps"
+ 1716: push_constant_string "</col>"
+ 1717: push_constant_string " within Daemonheim."
+ 1718: join_string 5
+ 1719: return 0
+ 1720: branch 208
+ 1721: push_constant_int 1
+ 1722: push_constant_int 17424
+ 1723: push_constant_string "Protomastyx hide (Tier 1)"
+ 1724: push_constant_string "You can now gain "
+ 1725: push_constant_string "<col=000080>"
+ 1726: push_constant_string "protomastyx hides"
+ 1727: push_constant_string "</col>"
+ 1728: push_constant_string " from protomastyx carcasses within Daemonheim."
+ 1729: join_string 5
+ 1730: return 0
+ 1731: branch 197
+ 1732: push_constant_int 10
+ 1733: push_constant_int 17758
+ 1734: push_constant_string "Seeping elm trap (Tier 2)"
+ 1735: push_constant_string "You can now place "
+ 1736: push_constant_string "<col=000080>"
+ 1737: push_constant_string "seeping elm traps"
+ 1738: push_constant_string "</col>"
+ 1739: push_constant_string " within Daemonheim."
+ 1740: join_string 5
+ 1741: return 0
+ 1742: branch 186
+ 1743: push_constant_int 10
+ 1744: push_constant_int 17426
+ 1745: push_constant_string "Submastyx hide (Tier 2)"
+ 1746: push_constant_string "You can now gain "
+ 1747: push_constant_string "<col=000080>"
+ 1748: push_constant_string "submastyx hides"
+ 1749: push_constant_string "</col>"
+ 1750: push_constant_string " from submastyx carcasses within Daemonheim."
+ 1751: join_string 5
+ 1752: return 0
+ 1753: branch 175
+ 1754: push_constant_int 20
+ 1755: push_constant_int 17760
+ 1756: push_constant_string "Blood spindle trap (Tier 3)"
+ 1757: push_constant_string "You can now place "
+ 1758: push_constant_string "<col=000080>"
+ 1759: push_constant_string "blood spindle traps"
+ 1760: push_constant_string "</col>"
+ 1761: push_constant_string " within Daemonheim."
+ 1762: join_string 5
+ 1763: return 0
+ 1764: branch 164
+ 1765: push_constant_int 20
+ 1766: push_constant_int 17428
+ 1767: push_constant_string "Paramastyx hide (Tier 3)"
+ 1768: push_constant_string "You can now gain "
+ 1769: push_constant_string "<col=000080>"
+ 1770: push_constant_string "paramastyx hides"
+ 1771: push_constant_string "</col>"
+ 1772: push_constant_string " from paramastyx carcasses within Daemonheim."
+ 1773: join_string 5
+ 1774: return 0
+ 1775: branch 153
+ 1776: push_constant_int 30
+ 1777: push_constant_int 17762
+ 1778: push_constant_string "Utuku trap (Tier 4)"
+ 1779: push_constant_string "You can now place "
+ 1780: push_constant_string "<col=000080>"
+ 1781: push_constant_string "utuku traps"
+ 1782: push_constant_string "</col>"
+ 1783: push_constant_string " within Daemonheim."
+ 1784: join_string 5
+ 1785: return 0
+ 1786: branch 142
+ 1787: push_constant_int 30
+ 1788: push_constant_int 17430
+ 1789: push_constant_string "Archaemastyx hide (Tier 4)"
+ 1790: push_constant_string "You can now gain "
+ 1791: push_constant_string "<col=000080>"
+ 1792: push_constant_string "archaemastyx hides"
+ 1793: push_constant_string "</col>"
+ 1794: push_constant_string " from archaemastyx carcasses within Daemonheim."
+ 1795: join_string 5
+ 1796: return 0
+ 1797: branch 131
+ 1798: push_constant_int 40
+ 1799: push_constant_int 17764
+ 1800: push_constant_string "Spinebeam trap (Tier 5)"
+ 1801: push_constant_string "You can now place "
+ 1802: push_constant_string "<col=000080>"
+ 1803: push_constant_string "spinebeam traps"
+ 1804: push_constant_string "</col>"
+ 1805: push_constant_string " within Daemonheim."
+ 1806: join_string 5
+ 1807: return 0
+ 1808: branch 120
+ 1809: push_constant_int 40
+ 1810: push_constant_int 17432
+ 1811: push_constant_string "Dromomastyx hide (Tier 5)"
+ 1812: push_constant_string "You can now gain "
+ 1813: push_constant_string "<col=000080>"
+ 1814: push_constant_string "dromomastyx hides"
+ 1815: push_constant_string "</col>"
+ 1816: push_constant_string " from dromomastyx carcasses within Daemonheim."
+ 1817: join_string 5
+ 1818: return 0
+ 1819: branch 109
+ 1820: push_constant_int 50
+ 1821: push_constant_int 17766
+ 1822: push_constant_string "Bovistrangler trap (Tier 6)"
+ 1823: push_constant_string "You can now place "
+ 1824: push_constant_string "<col=000080>"
+ 1825: push_constant_string "bovistrangler traps"
+ 1826: push_constant_string "</col>"
+ 1827: push_constant_string " within Daemonheim."
+ 1828: join_string 5
+ 1829: return 0
+ 1830: branch 98
+ 1831: push_constant_int 50
+ 1832: push_constant_int 17434
+ 1833: push_constant_string "Spinomastyx hide (Tier 6)"
+ 1834: push_constant_string "You can now gain "
+ 1835: push_constant_string "<col=000080>"
+ 1836: push_constant_string "spinomastyx hides"
+ 1837: push_constant_string "</col>"
+ 1838: push_constant_string " from spinomastyx carcasses within Daemonheim."
+ 1839: join_string 5
+ 1840: return 0
+ 1841: branch 87
+ 1842: push_constant_int 60
+ 1843: push_constant_int 17768
+ 1844: push_constant_string "Thigat trap (Tier 7)"
+ 1845: push_constant_string "You can now place "
+ 1846: push_constant_string "<col=000080>"
+ 1847: push_constant_string "thigat traps"
+ 1848: push_constant_string "</col>"
+ 1849: push_constant_string " within Daemonheim."
+ 1850: join_string 5
+ 1851: return 0
+ 1852: branch 76
+ 1853: push_constant_int 60
+ 1854: push_constant_int 17436
+ 1855: push_constant_string "Gallimastyx hide (Tier 7)"
+ 1856: push_constant_string "You can now gain "
+ 1857: push_constant_string "<col=000080>"
+ 1858: push_constant_string "gallimastyx hides"
+ 1859: push_constant_string "</col>"
+ 1860: push_constant_string " from gallimastyx carcasses within Daemonheim."
+ 1861: join_string 5
+ 1862: return 0
+ 1863: branch 65
+ 1864: push_constant_int 70
+ 1865: push_constant_int 17770
+ 1866: push_constant_string "Corpsethorn trap (Tier 8)"
+ 1867: push_constant_string "You can now place "
+ 1868: push_constant_string "<col=000080>"
+ 1869: push_constant_string "corpsethorn traps"
+ 1870: push_constant_string "</col>"
+ 1871: push_constant_string " within Daemonheim."
+ 1872: join_string 5
+ 1873: return 0
+ 1874: branch 54
+ 1875: push_constant_int 70
+ 1876: push_constant_int 17438
+ 1877: push_constant_string "Stegomastyx hide (Tier 8)"
+ 1878: push_constant_string "You can now gain "
+ 1879: push_constant_string "<col=000080>"
+ 1880: push_constant_string "stegomastyx hides"
+ 1881: push_constant_string "</col>"
+ 1882: push_constant_string " from stegomastyx carcasses within Daemonheim."
+ 1883: join_string 5
+ 1884: return 0
+ 1885: branch 43
+ 1886: push_constant_int 80
+ 1887: push_constant_int 17772
+ 1888: push_constant_string "Entgallow trap (Tier 9)"
+ 1889: push_constant_string "You can now place "
+ 1890: push_constant_string "<col=000080>"
+ 1891: push_constant_string "entgallow traps"
+ 1892: push_constant_string "</col>"
+ 1893: push_constant_string " within Daemonheim."
+ 1894: join_string 5
+ 1895: return 0
+ 1896: branch 32
+ 1897: push_constant_int 80
+ 1898: push_constant_int 17440
+ 1899: push_constant_string "Megamastyx hide (Tier 9)"
+ 1900: push_constant_string "You can now gain "
+ 1901: push_constant_string "<col=000080>"
+ 1902: push_constant_string "megamastyx hides"
+ 1903: push_constant_string "</col>"
+ 1904: push_constant_string " from megamastyx carcasses within Daemonheim."
+ 1905: join_string 5
+ 1906: return 0
+ 1907: branch 21
+ 1908: push_constant_int 90
+ 1909: push_constant_int 17774
+ 1910: push_constant_string "Grave creeper trap (Tier 10)"
+ 1911: push_constant_string "You can now place "
+ 1912: push_constant_string "<col=000080>"
+ 1913: push_constant_string "grave creeper traps"
+ 1914: push_constant_string "</col>"
+ 1915: push_constant_string " within Daemonheim."
+ 1916: join_string 5
+ 1917: return 0
+ 1918: branch 10
+ 1919: push_constant_int 90
+ 1920: push_constant_int 17442
+ 1921: push_constant_string "Tyrannomastyx hide (Tier 10)"
+ 1922: push_constant_string "You can now gain "
+ 1923: push_constant_string "<col=000080>"
+ 1924: push_constant_string "tyrannomastyx hides"
+ 1925: push_constant_string "</col>"
+ 1926: push_constant_string " from tyrannomastyx carcasses within Daemonheim."
+ 1927: join_string 5
+ 1928: return 0
+ 1929: branch 26
+ 1930: push_int_local 1
+ 1931: branch_if_false 1
+ 1932: branch 23
+ 1933: push_constant_int 99
+ 1934: push_constant_int 9948
+ 1935: push_constant_string "Skill mastery"
+ 1936: push_constant_string "<col=000080>"
+ 1937: push_constant_string "Congratulations! You are now a master "
+ 1938: push_constant_string "<col=800000>"
+ 1939: push_constant_string "Hunter"
+ 1940: push_constant_string "<col=000080>"
+ 1941: push_constant_string ". Why not visit the "
+ 1942: push_constant_string "<col=800000>"
+ 1943: push_constant_string "Hunter Expert"
+ 1944: push_constant_string "<col=000080>"
+ 1945: push_constant_string ", south of the "
+ 1946: push_constant_string "<col=800000>"
+ 1947: push_constant_string "Feldip Hills"
+ 1948: push_constant_string "<col=000080>"
+ 1949: push_constant_string "? She has something special that is only available to true masters of the "
+ 1950: push_constant_string "<col=800000>"
+ 1951: push_constant_string "Hunter"
+ 1952: push_constant_string "<col=000080>"
+ 1953: push_constant_string " skill!"
+ 1954: join_string 18
+ 1955: return 0
+ 1956: push_constant_int 0
+ 1957: push_constant_int -1
+ 1958: push_constant_string ""
+ 1959: push_constant_string ""
+ 1960: return 0
+
+switch_0:
+  0 => 1
+  1 => 219
+  2 => 324
+  3 => 398
+  4 => 602
+  5 => 693
+  6 => 956
+  7 => 1045
+  8 => 1086
+  9 => 1127
+  10 => 1148
+  11 => 1243
+  12 => 1378
+  13 => 1594
+  14 => 1696
+  15 => 1928
+switch_1:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 53
+  5 => 64
+  6 => 75
+  7 => 86
+  8 => 97
+  9 => 108
+  10 => 119
+  11 => 130
+  12 => 141
+  13 => 151
+  14 => 161
+  15 => 172
+  16 => 183
+  17 => 194
+  18 => 205
+switch_2:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 59
+  6 => 70
+  7 => 81
+  8 => 92
+switch_3:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+switch_4:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+  12 => 133
+  13 => 144
+  14 => 155
+  15 => 169
+  16 => 180
+  17 => 191
+switch_5:
+  0 => 1
+  1 => 15
+  2 => 29
+  3 => 43
+  4 => 59
+  5 => 73
+switch_6:
+  0 => 1
+  1 => 15
+  2 => 29
+  3 => 43
+  4 => 59
+  5 => 77
+  6 => 91
+  7 => 107
+  8 => 121
+  9 => 135
+  10 => 149
+  11 => 163
+  12 => 177
+  13 => 191
+  14 => 205
+  15 => 219
+  16 => 233
+  17 => 247
+switch_7:
+  0 => 1
+  1 => 15
+  2 => 31
+  3 => 45
+  4 => 59
+  5 => 73
+switch_8:
+  0 => 1
+  1 => 21
+  2 => 35
+  3 => 49
+  4 => 60
+  5 => 71
+  6 => 82
+switch_9:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+switch_10:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 125
+  12 => 139
+  13 => 150
+  14 => 164
+  15 => 175
+  16 => 189
+  17 => 200
+switch_11:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+switch_12:
+  0 => 1
+  1 => 10
+  2 => 21
+  3 => 32
+  4 => 43
+  5 => 54
+  6 => 65
+  7 => 76
+  8 => 87
+  9 => 98
+  10 => 109
+  11 => 120
+  12 => 131
+  13 => 142
+  14 => 153
+  15 => 164
+  16 => 175
+  17 => 186
+  18 => 197
+  19 => 208
+  20 => 219

@@ -1,0 +1,75 @@
+; id: 1454
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 1
+    2: push_constant_int 49938525
+    3: if_gety 0
+    4: push_constant_int 25
+    5: sub 0
+    6: pop_int_local 2
+    7: push_constant_int 49938525
+    8: if_gety 0
+    9: push_constant_int 49938525
+   10: if_getheight 0
+   11: add 0
+   12: push_constant_int 16
+   13: sub 0
+   14: pop_int_local 3
+   15: push_int_local 0
+   16: push_int_local 2
+   17: branch_greater_than 1
+   18: branch 9
+   19: push_int_local 0
+   20: push_int_local 2
+   21: push_constant_int 25
+   22: add 0
+   23: branch_less_than 1
+   24: branch 3
+   25: push_constant_int -4
+   26: pop_int_local 1
+   27: branch 16
+   28: push_int_local 0
+   29: push_int_local 3
+   30: branch_less_than 1
+   31: branch 9
+   32: push_int_local 0
+   33: push_int_local 3
+   34: push_constant_int 30
+   35: sub 0
+   36: branch_greater_than 1
+   37: branch 3
+   38: push_constant_int 4
+   39: pop_int_local 1
+   40: branch 3
+   41: push_constant_int 0
+   42: pop_varc_int 189
+   43: return 0
+   44: push_varc_int 189
+   45: push_constant_int 1
+   46: add 0
+   47: pop_varc_int 189
+   48: push_varc_int 189
+   49: push_constant_int 5
+   50: branch_greater_than 1
+   51: branch 14
+   52: push_varbit 4893
+   53: push_constant_int 49938525
+   54: op2601 0
+   55: push_int_local 1
+   56: add 0
+   57: gosub_with_params 705
+   58: push_constant_int 49938546
+   59: push_constant_int 49938525
+   60: push_constant_int 49938525
+   61: op2601 0
+   62: push_int_local 1
+   63: add 0
+   64: push_constant_int 1
+   65: gosub_with_params 157
+   66: return 0

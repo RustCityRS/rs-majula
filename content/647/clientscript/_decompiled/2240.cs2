@@ -1,0 +1,13 @@
+[clientscript,script_2240](int)
+def_int $int0 = 5;
+$int0 = calc(%varc_int1126 + %varc_int1127 + %varc_int1128 + %varc_int1129 + %varc_int1131 + %varc_int1130);
+if (%varc_int1133 = 1) {
+    $int0 = add($int0, 1);
+}
+if (%varc_int1134 = 1) {
+    $int0 = add($int0, 1);
+}
+if (%varc_int1132 = 1) {
+    $int0 = add($int0, 1);
+}
+return($int0);

@@ -1,0 +1,27 @@
+[clientscript,script_537](int $int0, int $int1)(int)
+def_int $int2 = 0;
+def_int $int3 = add($int1, 25);
+def_int $int4 = sub(clientclock, $int0);
+if (clientclock >= $int1) {
+    if (clientclock < $int3) {
+        $int2 = calc(255 / $int3 - $int1);
+        $int2 = calc(255 - $int2 * clientclock - $int1);
+        if_settrans(48824322);
+        return($int2);
+    }
+    if_setontimer;
+    if_settrans(48824322);
+    return(-1, 48824322, 0, "");
+} else {
+    if ($int4 <= 5) {
+        if_settrans(48824322);
+    }
+    if ($int4 <= 10) {
+        if_settrans(48824322);
+    }
+    if ($int4 <= 15) {
+        if_settrans(48824322);
+    }
+    if_settrans(48824322);
+}
+return;

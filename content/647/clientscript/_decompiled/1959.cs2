@@ -1,0 +1,155 @@
+[clientscript,script_1959]
+def_int $int0 = inv_total(inv, cheese);
+def_int $int1 = inv_total(inv, tomato);
+def_int $int2 = inv_total(inv, gnome_spice);
+def_int $int3 = inv_total(inv, king_worm);
+def_int $int4 = inv_total(inv, onion);
+def_int $int5 = inv_total(inv, cabbage);
+def_int $int6 = inv_total(inv, dwellberries);
+def_int $int7 = inv_total(inv, equa_leaves);
+def_int $int8 = inv_total(inv, toad_s_legs);
+def_int $int9 = inv_total(inv, pineapple_chunks);
+def_int $int10 = inv_total(inv, orange_chunks);
+def_int $int11 = inv_total(inv, lime_chunks);
+if ($int7 >= 4) {
+    if ($int9 >= 1) {
+        if ($int10 >= 1) {
+            if ($int11 >= 1) {
+                if_setcolour(28442683);
+            }
+        }
+    }
+} else {
+    if_setcolour(28442683);
+}
+if ($int7 >= 1) {
+    if ($int2 >= 1) {
+        if ($int8 >= 1) {
+            if ($int0 >= 1) {
+                if_setcolour(28442684);
+            }
+        }
+    }
+} else {
+    if_setcolour(28442684);
+}
+if ($int3 >= 1) {
+    if ($int2 >= 1) {
+        if ($int0 >= 1) {
+            if_setcolour(28442685);
+        }
+    }
+} else {
+    if_setcolour(28442685);
+}
+if ($int1 >= 2) {
+    if ($int4 >= 1) {
+        if ($int5 >= 1) {
+            if ($int6 >= 1) {
+                if ($int0 >= 1) {
+                    if_setcolour(28442686);
+                }
+            }
+        }
+    }
+} else {
+    if_setcolour(28442686);
+}
+if ($int1 >= 1) {
+    if ($int0 >= 1) {
+        if_setcolour(28442687);
+    }
+} else {
+    if_setcolour(28442687);
+}
+if (inv_total(inv, equa_leaves) > 3) {
+    if_setobject(cert_1dose1strength, 28442628);
+} else {
+    if_setobject(cert_1dose1strength, 28442628);
+}
+if (inv_total(inv, pineapple_chunks) > 0) {
+    if_setobject(cert_1dose1strength, 28442629);
+} else {
+    if_setobject(cert_1dose1strength, 28442629);
+}
+if (inv_total(inv, orange_chunks) > 0) {
+    if_setobject(cert_1dose1strength, 28442630);
+} else {
+    if_setobject(cert_1dose1strength, 28442630);
+}
+if (inv_total(inv, lime_chunks) > 0) {
+    if_setobject(cert_1dose1strength, 28442631);
+} else {
+    if_setobject(cert_1dose1strength, 28442631);
+}
+if (inv_total(inv, equa_leaves) > 0) {
+    if_setobject(cert_1dose1strength, 28442639);
+} else {
+    if_setobject(cert_1dose1strength, 28442639);
+}
+if (inv_total(inv, toad_s_legs) > 0) {
+    if_setobject(cert_ranarrvial, 28442640);
+} else {
+    if_setobject(cert_ranarrvial, 28442640);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(child_s_blanket, 28442641);
+} else {
+    if_setobject(child_s_blanket, 28442641);
+}
+if (inv_total(inv, cheese) > 0) {
+    if_setobject(cert_3doseprayerrestore, 28442642);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28442642);
+}
+if (inv_total(inv, king_worm) > 0) {
+    if_setobject(cert_ranarrvial, 28442651);
+} else {
+    if_setobject(cert_ranarrvial, 28442651);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(child_s_blanket, 28442650);
+} else {
+    if_setobject(child_s_blanket, 28442650);
+}
+if (inv_total(inv, cheese) > 0) {
+    if_setobject(cert_3doseprayerrestore, 28442652);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28442652);
+}
+if (inv_total(inv, tomato) > 1) {
+    if_setobject(cert_ranarrvial, 28442659);
+} else {
+    if_setobject(cert_ranarrvial, 28442659);
+}
+if (inv_total(inv, onion) > 0) {
+    if_setobject(cert_3doseprayerrestore, 28442660);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28442660);
+}
+if (inv_total(inv, cabbage) > 0) {
+    if_setobject(child_s_blanket, 28442661);
+} else {
+    if_setobject(child_s_blanket, 28442661);
+}
+if (inv_total(inv, dwellberries) > 0) {
+    if_setobject(cert_3doseprayerrestore, 28442662);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28442662);
+}
+if (inv_total(inv, cheese) > 0) {
+    if_setobject(cert_3doseprayerrestore, 28442663);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28442663);
+}
+if (inv_total(inv, tomato) > 0) {
+    if_setobject(cert_ranarrvial, 28442672);
+} else {
+    if_setobject(cert_ranarrvial, 28442672);
+}
+if (inv_total(inv, cheese) > 0) {
+    if_setobject(cert_3doseprayerrestore, 28442673);
+} else {
+    if_setobject(cert_3doseprayerrestore, 28442673);
+}
+return;

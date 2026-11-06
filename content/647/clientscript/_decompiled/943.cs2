@@ -1,0 +1,23 @@
+[clientscript,script_943](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = struct_param(enum(105, 74, enum_169, $int0), param_782);
+if (map_members = 0) {
+    mes("More advanced grouping options are available on a members' world.");
+} else {
+    if (%varp281 < 1000) {
+        mes("More advanced grouping options will be available when you've finished the Tutorial.");
+    }
+    if (%varc_int693 = $int1) {
+        %varc_int694 = calc(1 + %varc_int694 % 2);
+    } else {
+        %varc_int693 = $int1;
+        %varc_int694 = 0;
+    }
+    ~script_2162($int0, %varc_int693, %varc_int694, %varc_int692, %varc_int1103);
+    ~script_1349(12451856, 12451854, 12451855, -1, 1);
+    if (cc_find(12451856, 2) = 1) {
+        cc_settext("");
+        cc_setcolour($int3);
+        cc_setonmouseleave;
+    }
+}
+return;

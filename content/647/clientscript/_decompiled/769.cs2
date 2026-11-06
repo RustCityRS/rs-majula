@@ -1,0 +1,25 @@
+[clientscript,script_769](component)
+def_int $int0 = enum(111, 111, enum_1283, %varp448);
+if ($int0 = 526) {
+    if_settext("0");
+    return(43384898);
+}
+def_int $int1 = inv_total(inv, $int0);
+if ($int1 > 0) {
+    if ($int1 > 1000000) {
+        $int1 = div($int1, 1000000);
+        if_settext(tostring($int1) + "M");
+        return(43384898);
+    }
+    if ($int1 > 1000) {
+        $int1 = div($int1, 1000);
+        if_settext(tostring($int1) + "K");
+        return(43384898);
+    }
+    if_settext(tostring(inv_total(inv, $int0)));
+    return(43384898);
+} else {
+    if_settext("0");
+    return(43384898);
+}
+return;

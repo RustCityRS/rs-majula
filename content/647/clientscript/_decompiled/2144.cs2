@@ -1,0 +1,7 @@
+[clientscript,script_2144](int $int0)
+if (%varp1442 = 0) {
+    if_settext("No Prefix");
+} else {
+    if_settext("");
+}
+return;

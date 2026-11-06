@@ -1,0 +1,19 @@
+[clientscript,script_529](int $int0)
+def_string $str0 = "null";
+def_int $int1 = 0;
+def_string $str1 = "null";
+if ($int0 = 19726347) {
+    $str0 = "This is the total XP you have gained through the Assist System in the past 24 hours. There is a limit to the XP you can gain within 24 hours, but this amount gets reset once the day has passed.";
+    ~script_39($int0, 19726421, 25, 180, $str0);
+    return;
+}
+$str1 = ~script_530($int0);
+$int1 = ~script_530($int0);
+if ($int1 = 1) {
+    $str0 = "Assist with " + $str1 + " while using the Assist System (ON).";
+} else {
+    $str0 = "Assist with " + $str1 + " while using the Assist System (OFF).";
+}
+~script_39($int0, 19726421, 25, 180, $str0);
+%varc_int2 = 0;
+return;

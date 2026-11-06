@@ -1,0 +1,31 @@
+; id: 1236
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_varc_int 1063
+    2: push_constant_int 1716
+    3: push_constant_int 1584
+    4: push_constant_int 1
+    5: push_constant_string "Y"
+    6: push_constant_int 17760264
+    7: op2407 0
+    8: push_constant_int 1705
+    9: push_constant_int 0
+   10: push_constant_int 2
+   11: push_constant_int 1
+   12: push_constant_int 4
+   13: push_constant_int 6
+   14: push_constant_int 5
+   15: push_constant_string "Y"
+   16: push_constant_int 17760264
+   17: op2415 0
+   18: gosub_with_params 1717
+   19: push_constant_int 17760262
+   20: op152 0
+   21: gosub_with_params 1704
+   22: return 0

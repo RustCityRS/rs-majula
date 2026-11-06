@@ -1,0 +1,71 @@
+; id: 2141
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 56623111
+    1: op152 0
+    2: push_var 1469
+    3: push_constant_int -1
+    4: branch_equals 1
+    5: branch 1
+    6: return 0
+    7: push_constant_int 0
+    8: pop_int_local 0
+    9: push_constant_int 10
+   10: pop_int_local 1
+   11: push_constant_int 0
+   12: pop_int_local 2
+   13: push_constant_int 0
+   14: pop_int_local 3
+   15: push_constant_string ""
+   16: pop_string_local 0
+   17: push_int_local 2
+   18: push_constant_int -1
+   19: branch_not 1
+   20: branch 24
+   21: push_int_local 3
+   22: gosub_with_params 942
+   23: pop_string_local 0
+   24: pop_int_local 2
+   25: push_int_local 2
+   26: branch_if_true 1
+   27: branch 12
+   28: push_int_local 1
+   29: push_string_local 0
+   30: push_int_local 0
+   31: push_int_local 1
+   32: push_int_local 3
+   33: gosub_with_params 2142
+   34: add 0
+   35: pop_int_local 1
+   36: push_int_local 0
+   37: push_constant_int 1
+   38: add 0
+   39: pop_int_local 0
+   40: push_int_local 3
+   41: push_constant_int 1
+   42: add 0
+   43: pop_int_local 3
+   44: branch -28
+   45: push_constant_int 296
+   46: push_int_local 1
+   47: push_constant_int 56623111
+   48: op2120 0
+   49: push_int_local 1
+   50: push_constant_int 240
+   51: branch_greater_than 1
+   52: branch 9
+   53: push_constant_int 56623112
+   54: push_constant_int 56623111
+   55: push_constant_int 798
+   56: push_constant_int 795
+   57: push_constant_int 796
+   58: push_constant_int 797
+   59: push_constant_int 793
+   60: push_constant_int 794
+   61: gosub_with_params 31
+   62: return 0

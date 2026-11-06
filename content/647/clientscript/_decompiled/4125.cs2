@@ -1,0 +1,5 @@
+[clientscript,script_4125](int $int0, int $int1, int $int2, string $str0)
+if (if_find($int0) = 1) {
+    ~script_1163($int1, $int2, cc_getparam(718), 0, 180, $str0);
+}
+return;

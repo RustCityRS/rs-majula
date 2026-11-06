@@ -1,0 +1,34 @@
+[clientscript,script_814](int $int0)(int, component, int)
+switch ($int0) {
+    case 1:
+        return(%varbit5146, 37683203, enum(105, 109, enum_1696, %varbit5146));
+    case 2:
+        return(%varbit5147, 37683204, enum(105, 109, enum_1696, %varbit5147));
+    case 3:
+        return(%varbit5148, 37683205, enum(105, 109, enum_1696, %varbit5148));
+    case 4:
+        return(%varbit5149, 37683206, enum(105, 109, enum_1696, %varbit5149));
+    case 5:
+        return(%varbit5150, 37683207, enum(105, 109, enum_1696, %varbit5150));
+    case 6:
+        return(%varbit5151, 37683208, enum(105, 109, enum_1696, %varbit5151));
+    case 7:
+        return(%varbit5152, 37683209, enum(105, 109, enum_1696, %varbit5152));
+    case 8:
+        return(%varbit5153, 37683210, enum(105, 109, enum_1696, %varbit5153));
+    case 9:
+        return(%varbit5154, 37683211, enum(105, 109, enum_1696, %varbit5154));
+    case 10:
+        return(%varbit5155, 37683212, enum(105, 109, enum_1696, %varbit5155));
+    case 11:
+        return(%varbit5156, 37683213, enum(105, 109, enum_1696, %varbit5156));
+    case 12:
+        return(%varbit5157, 37683214, enum(105, 109, enum_1696, %varbit5157));
+    case 13:
+        return(%varbit5158, 37683215, enum(105, 109, enum_1696, %varbit5158));
+    case 14:
+        return(%varbit5159, 37683216, enum(105, 109, enum_1696, %varbit5159));
+    default:
+        return(-1, -1, -1);
+}
+return(0, -1, -1);

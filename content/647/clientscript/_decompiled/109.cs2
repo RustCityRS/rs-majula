@@ -1,0 +1,26 @@
+[clientscript,script_109](string $str0)
+if (getwindowmode >= 2) {
+    if_sethide(48889925);
+}
+if_sethide(49283075);
+if_sethide(49283079);
+if_sethide(49283080);
+if_settext($str0);
+%varc_int5 = 8;
+if_setonclick;
+if_setonkey;
+op2423;
+if (%varc_int1026 = 1) {
+    if (string_length(%varc_str201) > 0) {
+        cc_setposition(0, 49283075, 4, 0);
+        cc_settext("Last name entered: " + %varc_str201);
+        cc_setop(1, "Use:");
+        cc_setopbase("<col=ff9040>" + removetags(%varc_str201) + "</col>");
+        cc_setonop;
+    }
+} else {
+    %varc_str201 = "";
+    %varc_int1026 = 1;
+}
+~script_1188;
+return;

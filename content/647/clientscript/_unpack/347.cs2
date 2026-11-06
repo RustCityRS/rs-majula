@@ -1,0 +1,60 @@
+; id: 347
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 46
+    5: push_int_local 2
+    6: push_constant_int -1
+    7: branch_equals 1
+    8: branch 13
+    9: push_constant_int 1518
+   10: push_constant_int -2147483645
+   11: push_constant_int -2147483643
+   12: push_constant_int 0
+   13: push_constant_string "Iii"
+   14: cc_setontimer 0
+   15: push_constant_int 347
+   16: push_constant_int -2147483645
+   17: push_constant_int -2147483643
+   18: push_constant_int -2147483647
+   19: push_constant_string "Iii"
+   20: cc_setonclick 0
+   21: branch 29
+   22: push_int_local 2
+   23: cc_getwidth 0
+   24: push_constant_int 2
+   25: div 0
+   26: sub 0
+   27: pop_int_local 2
+   28: push_int_local 2
+   29: push_constant_int 0
+   30: branch_greater_than_or_equals 1
+   31: branch 7
+   32: push_constant_int 1518
+   33: push_constant_int -2147483645
+   34: push_constant_int -2147483643
+   35: push_constant_int 1
+   36: push_constant_string "Iii"
+   37: cc_setontimer 0
+   38: branch 6
+   39: push_constant_int 1518
+   40: push_constant_int -2147483645
+   41: push_constant_int -2147483643
+   42: push_constant_int -1
+   43: push_constant_string "Iii"
+   44: cc_setontimer 0
+   45: push_constant_int 347
+   46: push_constant_int -2147483645
+   47: push_constant_int -2147483643
+   48: push_constant_int -1
+   49: push_constant_string "Iii"
+   50: cc_setonclick 0
+   51: return 0

@@ -1,0 +1,12 @@
+[clientscript,script_606](component)
+cc_setposition(0, 43384906, 5, 0);
+cc_setsize(32, 36, 0, 0);
+cc_setposition2(0, 0, 0, 0);
+cc_setposition(0, 48955409, 5, 0);
+cc_setsize(57, 34, 0, 0);
+cc_setposition2(0, 0, 0, 0);
+def_int $int0 = 1194;
+def_int $int1 = 1195;
+~script_659($int0, $int1, %varp448, oc_weight(cert_burnt_mantaray), enum(111, 111, enum_1283, %varp448), 1, -1, 0, -1, 0, -1, 0, %varc_str204, %varc_str205);
+~script_608;
+return(43384905);

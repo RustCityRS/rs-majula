@@ -1,0 +1,27 @@
+; id: 4197
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_constant_int 58392652
+    2: if_sethide 0
+    3: push_constant_int 0
+    4: push_constant_int 58392641
+    5: if_sethide 0
+    6: push_constant_int 5412
+    7: push_int_local 0
+    8: if_setgraphic 0
+    9: push_constant_string "You are here."
+   10: push_constant_int 58392651
+   11: if_settext 0
+   12: push_constant_string ""
+   13: push_constant_int 58392653
+   14: if_settext 0
+   15: push_constant_string ""
+   16: push_constant_int 58392654
+   17: if_settext 0
+   18: return 0

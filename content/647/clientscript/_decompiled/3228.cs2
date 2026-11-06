@@ -1,0 +1,75 @@
+[clientscript,script_3228](int $int0, int $int1, int $int2)(int)
+def_string $str0 = "";
+def_int $int3 = -1;
+switch ($int0) {
+    case 7:
+        $str0 = %varc_str124;
+        $int3 = 44105799;
+        %varc_str328 = %varc_str124;
+    case 8:
+        $str0 = %varc_str125;
+        $int3 = 44105789;
+        %varc_str329 = %varc_str125;
+    default:
+}
+def_int $int4 = string_length($str0);
+if ($int4 <= 0) {
+    switch ($int0) {
+        case 7:
+        case 8:
+        default:
+    }
+    return(0);
+}
+if ($int1 = 1) {
+    if (compare(%varc_str124, %varc_str125) ! 0) {
+        if (string_length(%varc_str124) > 0) {
+            return(~script_3213(44105789, "Please ensure both passwords match."), 0);
+        }
+    }
+} else {
+    if ($int4 < 5) {
+        return(~script_3213($int3, "Passwords must be at least 5 characters long."), 0);
+    }
+    if ($int4 > 20) {
+        return(~script_3213($int3, "Passwords must be no more than " + tostring(20) + " characters long."), 0);
+    }
+    if (~script_2202($str0) = 1) {
+        return(~script_3213($int3, "Passwords may only contain letters and numbers."), 0);
+    }
+    if (string_indexof_string(%varc_str122, $str0) ! -1) {
+        return(~script_3213($int3, "Your password is too similar to your Email address."), 0);
+    }
+}
+def_string $str1 = substring($str0, 0, 1);
+def_int $int5 = string_length($str0);
+def_int $int6 = 0;
+def_int $int7 = 0;
+if ($int6 < $int5) {
+    if (string_indexof_string($str0, $str1) = $int6) {
+        $int7 = add($int7, 1);
+    }
+    $int6 = add($int6, 1);
+}
+if ($int7 = $int5) {
+    return(~script_3213($int3, "Your password is too easy to guess."), 0);
+}
+switch ($int0) {
+    case 7:
+        if_setgraphic(44105799);
+        if_sethide(44105804);
+    case 8:
+        if_setgraphic(44105789);
+        if_sethide(44105794);
+    default:
+}
+if_sethide(44105750);
+if ($int2 = 1) {
+    switch ($int0) {
+        case 7:
+            ~script_2714(8, 1);
+        case 8:
+            ~script_2714(15, 1);
+    }
+}
+return(1);

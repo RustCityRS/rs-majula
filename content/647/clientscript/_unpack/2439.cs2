@@ -1,0 +1,25 @@
+; id: 2439
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 818
+    1: branch_if_true 1
+    2: branch 7
+    3: push_constant_string "Net: Ripped!"
+    4: push_constant_int 983056
+    5: if_settext 0
+    6: push_constant_int 14754595
+    7: push_constant_int 983056
+    8: if_setcolour 0
+    9: branch 6
+   10: push_constant_string "Net: OK"
+   11: push_constant_int 983056
+   12: if_settext 0
+   13: push_constant_int 16750848
+   14: push_constant_int 983056
+   15: if_setcolour 0
+   16: return 0

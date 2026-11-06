@@ -1,0 +1,5 @@
+[clientscript,script_1191](int $int0, int $int1)
+if (getlanguage ! 0) {
+    if_settextfont($int0);
+}
+return;

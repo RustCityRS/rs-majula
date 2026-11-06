@@ -1,0 +1,17 @@
+[clientscript,script_2214]
+if (%varc_int1137 = 1) {
+    if (if_getx < 256) {
+        if_setposition(if_gety, 0, 0, %varc_int1136);
+    }
+    if (if_getx > 256) {
+        if_setposition(if_gety, 0, 0, %varc_int1136);
+    }
+    if (if_gety > 70) {
+        if_setposition(sub(if_gety, 2), 0, 0, %varc_int1136);
+        if_setposition(sub(if_gety, 2), 0, 0, 61079566);
+        if_setontimer;
+    }
+    if_sethide(%varc_int1136);
+    if_setontimer;
+}
+return;

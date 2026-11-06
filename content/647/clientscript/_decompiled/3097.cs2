@@ -1,0 +1,23 @@
+[clientscript,script_3097](component, component, int, component, int, component, int, component, int, component, int, component, int, component, stat, stat, component, component, int, int, component, int, int, component, int, component, int, int, string, string, string, string, string, string, string, string)
+if_clearops;
+if_clearops;
+if_setonop;
+if_setonop;
+if_setonmouseover;
+if_setonmouseleave;
+if_setonmouseover;
+if_setonmouseleave;
+if_setposition(5, 0, 2, 59375841);
+if_setposition(5, 0, 2, 59375847);
+if_settext("");
+if_settext("");
+if_sethide(59375841);
+if_sethide(59375847);
+if_settext("");
+%varc_int1092 = 0;
+if_setgraphic(59375839);
+if_setontimer;
+if_setonkey;
+if_sethide(59375649);
+if_sethide(59375635);
+return(59375841, 59375847, -1, 59375841, -1, 59375847, -1, 59375847, -1, 59375847, -1, 59375841, -1, 59375841, magic, magic, 59375846, 59375852, 1, 1, 59375840, -1, -1, 59375839, -1, 59375649, 1, 1, "", "", "", "", "", "", "", "");

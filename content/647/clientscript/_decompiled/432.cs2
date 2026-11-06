@@ -1,0 +1,41 @@
+[clientscript,script_432](int $int0, int $int1)
+def_int $int2 = -1;
+def_int $int3 = 67108949;
+switch ($int0) {
+    case 67108929:
+        if (%varc_int1388 = 1) {
+            $int2 = 293;
+        } else {
+            $int2 = ~script_488(%varbit7539);
+        }
+    case 67108912:
+        if (%varc_int1388 = 1) {
+            $int2 = 300;
+        } else {
+            $int2 = ~script_488(%varbit7540);
+        }
+    case 67108895:
+        if (%varc_int1388 = 1) {
+            $int2 = 305;
+        } else {
+            $int2 = ~script_488(%varbit7541);
+        }
+    case 67108878:
+        if (%varc_int1388 = 1) {
+            $int2 = 1044;
+        }
+        $int2 = ~script_488(%varbit7542);
+    default:
+        return;
+}
+if ($int2 ! -1) {
+    if_settext("");
+    if_settext("");
+    if_settext("Cost: " + tostring(struct_param($int2, param_1154)));
+    if_settext("Cooldown: " + tostring(struct_param($int2, param_1155)));
+    if_setposition($int1, 0, 0, $int3);
+    if_sethide($int3);
+} else {
+    if_sethide($int3);
+}
+return;

@@ -1,0 +1,19 @@
+[clientscript,script_265](component)
+def_string $str0 = "None";
+switch (%varc_int1110) {
+    case 1:
+        $str0 = "Standard";
+    case 3:
+        $str0 = "Large";
+    case 2:
+        $str0 = "Slim";
+    case 4:
+        $str0 = "Bone";
+    case 5:
+        $str0 = "Wooden";
+    case 6:
+        $str0 = "Double";
+    default:
+}
+if_settext($str0);
+return(60489780);

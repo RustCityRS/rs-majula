@@ -1,0 +1,144 @@
+; id: 171
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 40
+    1: branch_if_false 1
+    2: branch 40
+    3: push_constant_string "Show riddle"
+    4: push_constant_int 25559046
+    5: if_settext 0
+    6: push_constant_int 1
+    7: push_constant_string "Show"
+    8: push_constant_int 25559046
+    9: if_setop 0
+   10: push_constant_int 0
+   11: push_constant_int 25559047
+   12: if_sethide 0
+   13: push_constant_int 0
+   14: push_constant_int 25559048
+   15: if_sethide 0
+   16: push_constant_int 0
+   17: push_constant_int 25559049
+   18: if_sethide 0
+   19: push_constant_int 0
+   20: push_constant_int 25559050
+   21: if_sethide 0
+   22: push_constant_int 0
+   23: push_constant_int 25559051
+   24: if_sethide 0
+   25: push_constant_int 0
+   26: push_constant_int 25559052
+   27: if_sethide 0
+   28: push_constant_int 0
+   29: push_constant_int 25559053
+   30: if_sethide 0
+   31: push_constant_int 0
+   32: push_constant_int 25559054
+   33: if_sethide 0
+   34: push_constant_int 1
+   35: push_constant_int 25559043
+   36: if_sethide 0
+   37: push_constant_int 1
+   38: push_constant_int 25559045
+   39: if_sethide 0
+   40: push_constant_int 1
+   41: pop_varc_int 40
+   42: branch 92
+   43: push_constant_string "Hide riddle"
+   44: push_constant_int 25559046
+   45: if_settext 0
+   46: push_constant_int 1
+   47: push_constant_string "Hide"
+   48: push_constant_int 25559046
+   49: if_setop 0
+   50: push_constant_string "You seek the grail of old,"
+   51: push_constant_string "<br>"
+   52: push_constant_string "but no longer is it a goblet of gold."
+   53: push_constant_string "<br>"
+   54: push_constant_string "Among these nine will you find what you seek,"
+   55: push_constant_string "<br>"
+   56: push_constant_string "but be careful and don't peek!"
+   57: push_constant_string "<br>"
+   58: push_constant_string "A wrong choice will expel you,"
+   59: push_constant_string "<br>"
+   60: push_constant_string "so consider carefully each clue."
+   61: push_constant_string "<br>"
+   62: push_constant_string "<br>"
+   63: push_constant_string "Three boxes contain only air,"
+   64: push_constant_string "<br>"
+   65: push_constant_string "beware of three boxes, for danger lurks there."
+   66: push_constant_string "<br>"
+   67: push_constant_string "Two hold only rubbish but would fool you with disguise,"
+   68: push_constant_string "<br>"
+   69: push_constant_string "only one box holds your prize."
+   70: push_constant_string "<br>"
+   71: push_constant_string "<br>"
+   72: push_constant_string "Clues will give the information you need,"
+   73: push_constant_string "<br>"
+   74: push_constant_string "<br>"
+   75: push_constant_string "rubbish always sits to the right of danger, pay heed."
+   76: push_constant_string "<br>"
+   77: push_constant_string "There is nothing helpful in boxes great in height,"
+   78: push_constant_string "<br>"
+   79: push_constant_string "and boxes on either end will not end your plight."
+   80: push_constant_string "<br>"
+   81: push_constant_string "A tall or small box will only bring you anger,"
+   82: push_constant_string "<br>"
+   83: push_constant_string "but a square box will not put you in danger."
+   84: join_string 34
+   85: push_constant_int 25559058
+   86: if_settext 0
+   87: push_constant_int 0
+   88: push_constant_int 25559058
+   89: if_setcolour 0
+   90: push_constant_int 1
+   91: push_constant_int 25559047
+   92: if_sethide 0
+   93: push_constant_int 1
+   94: push_constant_int 25559048
+   95: if_sethide 0
+   96: push_constant_int 1
+   97: push_constant_int 25559049
+   98: if_sethide 0
+   99: push_constant_int 1
+  100: push_constant_int 25559050
+  101: if_sethide 0
+  102: push_constant_int 1
+  103: push_constant_int 25559051
+  104: if_sethide 0
+  105: push_constant_int 1
+  106: push_constant_int 25559052
+  107: if_sethide 0
+  108: push_constant_int 1
+  109: push_constant_int 25559053
+  110: if_sethide 0
+  111: push_constant_int 1
+  112: push_constant_int 25559054
+  113: if_sethide 0
+  114: push_constant_int 0
+  115: push_constant_int 25559043
+  116: if_sethide 0
+  117: push_constant_int 0
+  118: push_constant_int 25559045
+  119: if_sethide 0
+  120: push_constant_int 190
+  121: push_constant_int 520
+  122: push_constant_int 25559059
+  123: op2120 0
+  124: push_constant_int 25559045
+  125: push_constant_int 25559059
+  126: push_constant_int 792
+  127: push_constant_int 789
+  128: push_constant_int 790
+  129: push_constant_int 791
+  130: push_constant_int 773
+  131: push_constant_int 788
+  132: gosub_with_params 31
+  133: push_constant_int 0
+  134: pop_varc_int 40
+  135: return 0

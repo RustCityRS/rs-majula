@@ -1,0 +1,11 @@
+[clientscript,script_1458](int $int0)(component)
+def_int $int1 = calc($int0 / 10 * 44);
+if (mod($int0, 10) ! 0) {
+    $int1 = add($int1, 44);
+}
+if_setscrollsize(if_getwidth, $int1, 49938525);
+cc_deleteall(49938546);
+if (49938525 > if_getheight) {
+}
+~script_157(49938525, 49938525, if_getscrolly, 1);
+return(49938546);

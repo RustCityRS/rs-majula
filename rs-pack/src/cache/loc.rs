@@ -636,32 +636,6 @@ impl LocTypeRaw {
         let default = Some(if _has_default { read_id(buf) } else { -1 });
         self.multiloc = Some(read_transforms(buf, default));
     }
-
-    #[cfg(since_647)]
-    pub(crate) fn merge(&mut self, overlay: Self) {
-        if overlay.debugname.is_some() {
-            self.debugname = overlay.debugname;
-        }
-        if overlay.category.is_some() {
-            self.category = overlay.category;
-        }
-        if overlay.desc.is_some() {
-            self.desc = overlay.desc;
-        }
-        if let Some(op) = overlay.op {
-            let base_op = self.op.get_or_insert_with(|| Box::new([const { None }; 5]));
-            for (base_op, op) in base_op.iter_mut().zip(op) {
-                if op.is_some() {
-                    *base_op = op;
-                }
-            }
-        }
-        if let Some(params) = overlay.params {
-            self.params
-                .get_or_insert_with(|| Box::new(FxHashMap::default()))
-                .extend(*params);
-        }
-    }
 }
 
 #[cfg(all(test, since_647))]

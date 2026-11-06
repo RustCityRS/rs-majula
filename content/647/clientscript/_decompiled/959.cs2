@@ -1,0 +1,87 @@
+[clientscript,script_959](int $int0, int $int1, int $int2)
+cc_deleteall($int0);
+define_array(73, 64);
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = 0;
+if ($int5 < 64) {
+    $int4 = enum(105, 73, enum_1467, $int5);
+    if (string_length(if_gettext) > 0) {
+        if_sethide($int4);
+        %array0 = pop_array_int($int3, $int4);
+        $int3 = add($int3, 1);
+    } else {
+        if_sethide($int4);
+    }
+    $int5 = add($int5, 1);
+}
+if ($int3 > 1) {
+    if ($int2 = 0) {
+        ~script_0(0, 0, sub($int3, 1));
+    }
+    ~script_62(0, 0, sub($int3, 1), 1466);
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = if_getwidth;
+$int5 = 0;
+if ($int5 < $int3) {
+    $int4 = push_array_int(0, $int5);
+    $int7 = paraheight(if_gettext, 495);
+    $int7 = calc(12 * $int7 + 10);
+    if_settextfont($int4);
+    if_setsize($int7, 0, 0, $int4);
+    if_setposition($int6, 0, 0, $int4);
+    cc_setposition(0, $int0, 4, $int5);
+    cc_setsize($int8, $int7, 0, 0);
+    cc_setposition2(0, $int6, 0, 0);
+    cc_settextfont(495);
+    cc_setcolour(14618383);
+    cc_settextshadow(1);
+    cc_settextalign(0, 0, 0);
+    cc_settext("");
+    $int6 = add($int6, $int7);
+    $int5 = add($int5, 1);
+}
+$int4 = enum(105, 73, enum_1467, 64);
+def_string $str0 = if_gettext;
+if (string_length($str0) > 0) {
+    if ($int6 > 0) {
+        $int6 = add($int6, 5);
+    }
+    $int7 = paraheight($str0, 495);
+    $int7 = calc(12 * $int7 + 5);
+    if_setsize($int7, 0, 0, $int4);
+    if_setposition($int6, 0, 0, $int4);
+    if_sethide($int4);
+    $int6 = add($int6, $int7);
+} else {
+    if_sethide($int4);
+}
+$int4 = enum(105, 73, enum_1467, 65);
+$str0 = if_gettext;
+if (string_length($str0) > 0) {
+    if ($int6 > 0) {
+        $int6 = add($int6, 5);
+    }
+    $int7 = paraheight($str0, 495);
+    $int7 = calc(12 * $int7 + 5);
+    if_setsize($int7, 0, 0, $int4);
+    if_setposition($int6, 0, 0, $int4);
+    if_sethide($int4);
+    $int6 = add($int6, $int7);
+} else {
+    if_sethide($int4);
+}
+if_setscrollsize($int8, $int6, $int0);
+if ($int0 > if_getheight) {
+    if_setposition(if_gety, 0, 0, $int0);
+    if (cc_find($int1, 1) = 1) {
+        ~script_157($int1, $int0, %varc_int121, 1);
+    }
+} else {
+    if_setscrollpos(0, $int0);
+    %varc_int121 = 0;
+    if_setposition(if_gety, 0, 0, $int0);
+}
+return;

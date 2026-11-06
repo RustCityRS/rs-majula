@@ -1,0 +1,142 @@
+[clientscript,script_1864](int $int0, int $int1, int $int2, int $int3)(int, int)
+if ($int0 ! 1) {
+    return;
+}
+switch ($int2) {
+    case 12:
+        switch ($int3) {
+            case 0:
+                mes("Rick: " + tostring(enum(105, 105, enum_238, 1)) + " coins.");
+            case 1:
+                mes("Maid: " + tostring(enum(105, 105, enum_238, 3)) + " coins.");
+            case 2:
+                mes("Cook: " + tostring(enum(105, 105, enum_238, 5)) + " coins.");
+            case 3:
+                mes("Butler: " + tostring(enum(105, 105, enum_238, 6)) + " coins.");
+            case 4:
+                mes("Demon Butler: " + tostring(enum(105, 105, enum_238, 8)) + " coins.");
+            default:
+        }
+        return;
+    case 0:
+        switch ($int1) {
+            case 8170:
+                $int1 = 8415;
+            case 8315:
+                $int1 = 8395;
+            case 8222:
+                $int1 = 8396;
+            case 8121:
+                $int1 = 8397;
+            case 8379:
+                $int1 = 8406;
+            case 8037:
+                $int1 = 8398;
+            case 8255:
+                $int1 = 8401;
+            case 8163:
+                $int1 = 8399;
+            case 8027:
+                $int1 = 8400;
+            case 8259:
+                $int1 = 8403;
+            case 8340:
+                $int1 = 8407;
+            case 9822:
+                $int1 = 9842;
+            case 8068:
+                $int1 = 8405;
+            case 8333:
+                $int1 = 8408;
+            case 8195:
+                $int1 = 8416;
+            case 8363:
+                $int1 = 8409;
+            case 8302:
+                $int1 = 8410;
+            case 8123:
+                $int1 = 8411;
+            case 8122:
+                $int1 = 18800;
+            case 8151:
+                $int1 = 8414;
+            default:
+        }
+        mes(oc_name($int1) + ": " + " coins.");
+        return(oc_cost($int1), char_isalpha(1));
+    case 14:
+    case 15:
+        return;
+    default:
+}
+define_array(111, 6);
+define_array(65641, 6);
+def_int $int4 = 0;
+if (oc_weight(grimy_avantoe) ! -1) {
+    %array0 = pop_array_int($int1, oc_weight(grimy_avantoe));
+    %array1 = pop_array_int($int1, oc_weight(cert_unidentified_avantoe));
+    $int4 = add($int4, 1);
+}
+if (oc_weight(grimy_kwuarm) ! -1) {
+    %array0 = pop_array_int($int1, oc_weight(grimy_kwuarm));
+    %array1 = pop_array_int($int1, oc_weight(cert_unidentified_kwuarm));
+    $int4 = add($int4, 1);
+}
+if (oc_weight(grimy_cadantine) ! -1) {
+    %array0 = pop_array_int($int1, oc_weight(grimy_cadantine));
+    %array1 = pop_array_int($int1, oc_weight(cert_unidentified_cadantine));
+    $int4 = add($int4, 1);
+}
+if (oc_weight(grimy_dwarf_weed) ! -1) {
+    %array0 = pop_array_int($int1, oc_weight(grimy_dwarf_weed));
+    %array1 = pop_array_int($int1, oc_weight(cert_unidentified_dwarf_weed));
+    $int4 = add($int4, 1);
+}
+if (oc_weight(grimy_torstol) ! -1) {
+    %array0 = pop_array_int($int1, oc_weight(grimy_torstol));
+    %array1 = pop_array_int($int1, oc_weight(cert_unidentified_torstol));
+    $int4 = add($int4, 1);
+}
+if (oc_weight(eye_of_newt) ! -1) {
+    %array0 = pop_array_int($int1, oc_weight(eye_of_newt));
+    %array1 = pop_array_int($int1, oc_weight(cert_eye_of_newt));
+    $int4 = add($int4, 1);
+}
+switch ($int4) {
+    case 1:
+        mes(oc_name($int1) + ":");
+        mes(" x " + oc_name(push_array_int(0, 0)));
+    case 2:
+        mes(oc_name($int1) + ":");
+        mes(" x " + oc_name(push_array_int(0, 0)));
+        mes(" x " + oc_name(push_array_int(0, 1)));
+    case 3:
+        mes(oc_name($int1) + ":");
+        mes(" x " + oc_name(push_array_int(0, 0)));
+        mes(" x " + oc_name(push_array_int(0, 1)));
+        mes(" x " + oc_name(push_array_int(0, 2)));
+    case 4:
+        mes(oc_name($int1) + ":");
+        mes(" x " + oc_name(push_array_int(0, 0)));
+        mes(" x " + oc_name(push_array_int(0, 1)));
+        mes(" x " + oc_name(push_array_int(0, 2)));
+        mes(" x " + oc_name(push_array_int(0, 3)));
+    case 5:
+        mes(oc_name($int1) + ":");
+        mes(" x " + oc_name(push_array_int(0, 0)));
+        mes(" x " + oc_name(push_array_int(0, 1)));
+        mes(" x " + oc_name(push_array_int(0, 2)));
+        mes(" x " + oc_name(push_array_int(0, 3)));
+        mes(" x " + oc_name(push_array_int(0, 4)));
+    case 6:
+        mes(oc_name($int1) + ":");
+        mes(" x " + oc_name(push_array_int(0, 0)));
+        mes(" x " + oc_name(push_array_int(0, 1)));
+        mes(" x " + oc_name(push_array_int(0, 2)));
+        mes(" x " + oc_name(push_array_int(0, 3)));
+        mes(" x " + oc_name(push_array_int(0, 4)));
+        mes(" x " + oc_name(push_array_int(0, 5)));
+    default:
+        mes(oc_name($int1));
+}
+return;

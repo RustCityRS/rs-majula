@@ -1,0 +1,181 @@
+[clientscript,script_427](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = %varbit7539;
+def_int $int5 = %varbit7540;
+def_int $int6 = %varbit7541;
+def_int $int7 = %varbit7542;
+if ($int0 = 1) {
+    $int4 = 1;
+    $int5 = 3;
+    $int6 = 5;
+    $int7 = 6;
+}
+if ($int4 = 0) {
+    if_sethide(67108872);
+    $int1 = add($int1, 1);
+} else {
+    $int3 = ~script_488($int4);
+    if ($int3 ! -1) {
+        if_sethide(67108872);
+        if_setopbase;
+        if_settext("");
+        if_setgraphic(67108941);
+        if_settext(tostring(struct_param($int3, param_1154)));
+    }
+    if ($int4 = 9) {
+        if_setop(67108872, "Cast");
+    }
+}
+if ($int5 = 0) {
+    if_sethide(67108873);
+    $int1 = add($int1, 1);
+} else {
+    $int3 = ~script_488($int5);
+    if ($int3 ! -1) {
+        if_sethide(67108873);
+        if_setopbase;
+        if_settext("");
+        if_setgraphic(67108924);
+        if_settext(tostring(struct_param($int3, param_1154)));
+    }
+    if ($int5 = 9) {
+        if_setop(67108873, "Cast");
+    }
+}
+if ($int6 = 0) {
+    if_sethide(67108874);
+    $int1 = add($int1, 1);
+} else {
+    $int3 = ~script_488($int6);
+    if ($int3 ! -1) {
+        if_sethide(67108874);
+        if_setopbase;
+        if_settext("");
+        if_setgraphic(67108907);
+        if_settext(tostring(struct_param($int3, param_1154)));
+    }
+    if ($int6 = 9) {
+        if_setop(67108874, "Cast");
+    }
+}
+if ($int7 = 0) {
+    if_sethide(67108875);
+    $int1 = add($int1, 1);
+} else {
+    $int3 = ~script_488($int7);
+    if ($int3 ! -1) {
+        if_sethide(67108875);
+        if_setopbase;
+        if_settext("");
+        if_setgraphic(67108890);
+        if_settext(tostring(struct_param($int3, param_1154)));
+    }
+    if ($int7 = 9) {
+        if_setop(67108875, "Cast");
+    }
+}
+if ($int1 = 4) {
+    if_sethide(67108865);
+    if_sethide(67108866);
+} else {
+    if ($int1 = 3) {
+        if_sethide(67108865);
+        if_sethide(67108866);
+        if ($int4 ! 0) {
+            if_setposition(102, 0, 0, 67108872);
+            if_setonmouserepeat;
+        } else {
+            if ($int5 ! 0) {
+                if_setposition(102, 0, 0, 67108873);
+                if_setonmouserepeat;
+            }
+            if ($int6 ! 0) {
+                if_setposition(102, 0, 0, 67108874);
+                if_setonmouserepeat;
+            }
+            if ($int7 ! 0) {
+                if_setposition(102, 0, 0, 67108875);
+                if_setonmouserepeat;
+            }
+        }
+    }
+    if ($int1 = 2) {
+        if_sethide(67108865);
+        if_sethide(67108866);
+        if ($int4 ! 0) {
+            if_setposition(60, 0, 0, 67108872);
+            if_setonmouserepeat;
+            $int2 = add($int2, 1);
+        }
+        if ($int5 ! 0) {
+            if ($int2 = 0) {
+                if_setposition(60, 0, 0, 67108873);
+                if_setonmouserepeat;
+            } else {
+                if_setposition(145, 0, 0, 67108873);
+                if_setonmouserepeat;
+            }
+            $int2 = add($int2, 1);
+        }
+        if ($int6 ! 0) {
+            if ($int2 = 0) {
+                if_setposition(60, 0, 0, 67108874);
+                if_setonmouserepeat;
+            } else {
+                if_setposition(145, 0, 0, 67108874);
+                if_setonmouserepeat;
+            }
+            $int2 = add($int2, 1);
+        }
+        if ($int7 ! 0) {
+            if_setposition(145, 0, 0, 67108875);
+            if_setonmouserepeat;
+        }
+    }
+    if ($int1 = 1) {
+        if_sethide(67108865);
+        if_sethide(67108866);
+        if ($int4 ! 0) {
+            if_setposition(41, 0, 0, 67108872);
+            if_setonmouserepeat;
+            $int2 = add($int2, 1);
+        }
+        if ($int5 ! 0) {
+            if ($int2 = 0) {
+                if_setposition(41, 0, 0, 67108873);
+                if_setonmouserepeat;
+            } else {
+                if_setposition(102, 0, 0, 67108873);
+                if_setonmouserepeat;
+            }
+            $int2 = add($int2, 1);
+        }
+        if ($int6 ! 0) {
+            if ($int2 = 1) {
+                if_setposition(102, 0, 0, 67108874);
+                if_setonmouserepeat;
+            } else {
+                if_setposition(163, 0, 0, 67108874);
+                if_setonmouserepeat;
+            }
+            $int2 = add($int2, 1);
+        }
+        if ($int7 ! 0) {
+            if_setposition(163, 0, 0, 67108875);
+            if_setonmouserepeat;
+        }
+    }
+    if_sethide(67108865);
+    if_sethide(67108866);
+    if_setposition(29, 0, 0, 67108872);
+    if_setonmouserepeat;
+    if_setposition(78, 0, 0, 67108873);
+    if_setonmouserepeat;
+    if_setposition(127, 0, 0, 67108874);
+    if_setonmouserepeat;
+    if_setposition(176, 0, 0, 67108875);
+    if_setonmouserepeat;
+}
+return;

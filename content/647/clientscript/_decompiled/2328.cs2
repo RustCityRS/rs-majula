@@ -1,0 +1,39 @@
+[clientscript,script_2328](int $int0)
+if (%varc_int766 = 1) {
+    if (if_gety > 100) {
+        if_setposition(sub(if_gety, 2), 0, 0, $int0);
+        sound_synth(synth_6422, 1, 0);
+        if (if_gety < 170) {
+            switch (%varc_int765) {
+                case 1:
+                    if_setposition(sub(if_gety, 2), 0, 0, 20054022);
+                case 2:
+                    if_setposition(sub(if_gety, 2), 0, 0, 20054023);
+                case 3:
+                    if_setposition(sub(if_gety, 2), 0, 0, 20054024);
+                case 4:
+                    if_setposition(sub(if_gety, 2), 0, 0, 20054025);
+            }
+        }
+    } else {
+        if_setposition(100, 0, 0, $int0);
+        %varc_int766 = 2;
+        switch (%varc_int765) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+        }
+    }
+} else {
+    if (%varc_int766 = 2) {
+        if (if_gety < 200) {
+            if_setposition(add(if_gety, 2), 0, 0, $int0);
+        }
+        if_setposition(200, 0, 0, $int0);
+        %varc_int766 = 0;
+        %varc_int765 = 0;
+        if_setontimer;
+    }
+}
+return;

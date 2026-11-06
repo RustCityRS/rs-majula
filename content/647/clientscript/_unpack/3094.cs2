@@ -1,0 +1,90 @@
+; id: 3094
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: op5613 0
+    1: pop_int_local 0
+    2: push_int_local 0
+    3: push_constant_int -3
+    4: branch_not 1
+    5: branch 8
+    6: push_varc_int 1322
+    7: branch_if_false 1
+    8: branch 5
+    9: push_constant_int -1
+   10: push_constant_string ""
+   11: push_constant_int 59375839
+   12: op2408 0
+   13: return 0
+   14: push_varc_int 1322
+   15: branch_if_true 1
+   16: branch 6
+   17: push_int_local 0
+   18: push_constant_int -3
+   19: branch_equals 1
+   20: branch 2
+   21: push_constant_int 0
+   22: pop_varc_int 1322
+   23: clientclock 0
+   24: push_varc_int 1092
+   25: branch_less_than 1
+   26: branch 1
+   27: return 0
+   28: clientclock 0
+   29: push_constant_int 5
+   30: add 0
+   31: pop_varc_int 1092
+   32: push_constant_int 59375839
+   33: op2612 0
+   34: switch 0
+   35: branch 32
+   36: push_constant_int 4108
+   37: push_constant_int 59375839
+   38: if_setgraphic 0
+   39: branch 31
+   40: push_constant_int 4109
+   41: push_constant_int 59375839
+   42: if_setgraphic 0
+   43: branch 27
+   44: push_constant_int 4110
+   45: push_constant_int 59375839
+   46: if_setgraphic 0
+   47: branch 23
+   48: push_constant_int 4111
+   49: push_constant_int 59375839
+   50: if_setgraphic 0
+   51: branch 19
+   52: push_constant_int 4112
+   53: push_constant_int 59375839
+   54: if_setgraphic 0
+   55: branch 15
+   56: push_constant_int 4113
+   57: push_constant_int 59375839
+   58: if_setgraphic 0
+   59: branch 11
+   60: push_constant_int 4114
+   61: push_constant_int 59375839
+   62: if_setgraphic 0
+   63: branch 7
+   64: push_constant_int 4107
+   65: push_constant_int 59375839
+   66: if_setgraphic 0
+   67: branch 3
+   68: push_constant_int 4107
+   69: push_constant_int 59375839
+   70: if_setgraphic 0
+   71: return 0
+
+switch_0:
+  4107 => 1
+  4108 => 5
+  4109 => 9
+  4110 => 13
+  4111 => 17
+  4112 => 21
+  4113 => 25
+  4114 => 29

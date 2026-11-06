@@ -1,0 +1,30 @@
+; id: 222
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_string_old 24
+    1: friend_test 0
+    2: branch_if_true 1
+    3: branch 5
+    4: push_constant_int 26
+    5: push_constant_int 0
+    6: push_constant_string "Sorry, you cannot ignore players in your Friends List."
+    7: op3114 0
+    8: branch 9
+    9: push_varc_string_old 24
+   10: op3630 0
+   11: push_constant_int 26
+   12: push_constant_int 0
+   13: push_constant_string "You are ignoring "
+   14: push_varc_string_old 24
+   15: push_constant_string " until you log out."
+   16: join_string 3
+   17: op3114 0
+   18: push_constant_int 0
+   19: pop_varc_int 11
+   20: gosub_with_params 675
+   21: return 0

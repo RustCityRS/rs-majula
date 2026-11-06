@@ -1,0 +1,36 @@
+[clientscript,script_1388](int $int0)
+cc_deleteall($int0);
+cc_deleteall(17760262);
+def_int $int1 = 5;
+def_int $int2 = 15;
+def_int $int3 = 15;
+def_int $int4 = 0;
+def_int $int5 = 6;
+def_int $int6 = 28;
+def_int $int7 = 30;
+if (%varbit6840 = 1) {
+    $int7 = 20;
+}
+if ($int4 < $int7) {
+    cc_setposition(0, $int0, 5, $int4);
+    cc_setsize($int2, $int3, 0, 0);
+    cc_settiling;
+    cc_setposition2($int5, $int6, 0, 0);
+    if (~script_2297($int4) = 0) {
+        cc_setop(1, "Select" + "<col=ff9040>");
+        cc_setgraphic(180);
+    } else {
+        cc_setop(1, "Deselect" + "<col=ff9040>");
+        cc_setgraphic(181);
+    }
+    cc_setonop;
+    cc_setonvartransmit;
+    $int4 = add($int4, 1);
+    if (mod($int4, $int1) = 0) {
+        $int5 = 6;
+        $int6 = add($int6, 35);
+    } else {
+        $int5 = add($int5, 37);
+    }
+}
+return;

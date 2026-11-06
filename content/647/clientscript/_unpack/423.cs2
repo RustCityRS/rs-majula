@@ -1,0 +1,22 @@
+; id: 423
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1353
+    1: push_constant_int -1
+    2: branch_not 1
+    3: branch 3
+    4: push_varc_int 1353
+    5: op5511 0
+    6: branch 6
+    7: push_varc_int 1354
+    8: push_constant_int -1
+    9: branch_not 1
+   10: branch 2
+   11: push_varc_int 1354
+   12: op5511 0
+   13: return 0

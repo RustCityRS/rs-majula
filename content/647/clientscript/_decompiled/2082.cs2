@@ -1,0 +1,7 @@
+[clientscript,script_2082]
+if (%varc_int640 > 0) {
+    if_settext(tostring(%varc_int642));
+} else {
+    if_settext("---");
+}
+return;

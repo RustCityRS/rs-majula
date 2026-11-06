@@ -1,0 +1,2 @@
+[clientscript,script_4106](int $int0, string $str0)(int, int, int, string, string)
+return($int0, if_getwidth, calc(char_isnumeric(495) + max($int0, char_isnumeric(494)) / 2), $str0, if_gettext);

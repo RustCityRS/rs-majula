@@ -1,0 +1,33 @@
+; id: 1615
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: branch_if_true 1
+    2: branch 12
+    3: push_int_local 1
+    4: push_int_local 2
+    5: cc_find 0
+    6: branch_if_true 1
+    7: branch 2
+    8: push_constant_int 2
+    9: op1116 0
+   10: push_constant_int 1
+   11: push_int_local 2
+   12: add 0
+   13: pop_varc_int 1031
+   14: branch 9
+   15: push_int_local 1
+   16: push_int_local 2
+   17: cc_find 0
+   18: branch_if_true 1
+   19: branch 2
+   20: push_constant_int 1
+   21: op1116 0
+   22: push_constant_int 0
+   23: pop_varc_int 1031
+   24: return 0

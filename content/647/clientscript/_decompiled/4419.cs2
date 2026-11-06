@@ -1,0 +1,17 @@
+[clientscript,script_4419](int $int0)
+if_getlayer;
+if (if_getheight > 69) {
+    ~script_4544($int0, -1, -1, -1, 14, 70, 3, 1);
+    if_setgraphic(72548410);
+    if_setgraphic(72548411);
+    if_setnoclickthrough(0, 72548392);
+} else {
+    if_getlayer;
+    if (if_getheight = 14) {
+        ~script_4544($int0, -1, -1, -1, 14, 70, 3, 1);
+        if_setgraphic(72548410);
+        if_setgraphic(72548411);
+        if_setnoclickthrough(1, 72548392);
+    }
+}
+return;

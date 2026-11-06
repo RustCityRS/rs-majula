@@ -1,0 +1,27 @@
+[clientscript,script_3190](int, int, component, string)
+if_openoverlay(59375677, 915);
+if_sethide(59375660);
+if (if_gethide = 0) {
+    ~script_3161(0);
+}
+if (string_length(%varc_str279) > 0) {
+    if_settext("Reporting: " + %varc_str279);
+} else {
+    if_settext("Report Abuse");
+}
+if (autosetup_isactive = 1) {
+    if (%varc_int6 = 0) {
+        if_setgraphic(59965486);
+    } else {
+        if_setgraphic(59965486);
+    }
+    if (autosetup_getvalue = 5) {
+        if_settext("Suggest to mute this player for 48 hours");
+    }
+    if_settext("Mute this player for 48 hours");
+    if_setsize(if_getheight, 0, 0, 59965485);
+    if_sethide(59965485);
+}
+if_sethide(59965485);
+if_setonkey;
+return(3201, -2147483640, 59965458, "i");

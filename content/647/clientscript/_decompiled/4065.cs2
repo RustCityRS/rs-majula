@@ -1,0 +1,35 @@
+[clientscript,script_4065](int $int0)
+switch ($int0) {
+    case 69337110:
+        if_setgraphic(69337107);
+        if_settext("Currently selected: Balance tokens - earned through the keg balancing minigame.");
+        if_setposition(13, 1, 0, $int0);
+        if (%varbit8666 >= 200) {
+        }
+    case 69337111:
+        if_setgraphic(69337105);
+        if_settext("Currently selected: Strength tokens - earned through the shot put minigame.");
+        if_setposition(13, 1, 0, $int0);
+        if (%varbit8662 >= 200) {
+        }
+    case 69337112:
+        if_setgraphic(69337103);
+        if_settext("Currently selected: Combat tokens - earned through the animator minigame.");
+        if_setposition(13, 1, 0, $int0);
+        if (%varbit8665 >= 200) {
+        }
+    case 69337114:
+        if_setgraphic(69337101);
+        if_settext("Currently selected: Defence tokens - earned through the catapult minigame.");
+        if_setposition(13, 1, 0, $int0);
+        if (%varbit8663 >= 200) {
+        }
+    case 69337113:
+        if_setgraphic(69337099);
+        if_settext("Currently selected: Attack tokens - earned through the dummy minigame.");
+        if_setposition(13, 1, 0, $int0);
+        if (%varbit8664 < 200) {
+        }
+    default:
+}
+return;

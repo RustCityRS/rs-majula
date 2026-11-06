@@ -1,0 +1,16 @@
+[clientscript,script_138]
+switch (%varc_int5) {
+    case 7:
+        ~script_1548(7);
+    case 8:
+        ~script_1548(8);
+    case 9:
+        ~script_1548(9);
+    case 13:
+        ~script_1548(13);
+    default:
+        if (getwindowmode >= 2) {
+            ~script_1364;
+        }
+}
+return;

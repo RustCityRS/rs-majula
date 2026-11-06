@@ -1,0 +1,94 @@
+[clientscript,script_3060](int $int0)
+if (enum(105, 73, enum_941, $int0) = -1) {
+    return;
+}
+if (if_gethide = 0) {
+    return;
+}
+if_sethide(enum(105, 73, enum_941, 0));
+if_sethide(enum(105, 73, enum_941, 1));
+if_sethide(enum(105, 73, enum_941, 2));
+if_sethide(enum(105, 73, enum_941, 5));
+if_sethide(enum(105, 73, enum_941, 3));
+if_sethide(enum(105, 73, enum_941, 4));
+if_setcolour(59375821);
+if_setcolour(59375818);
+if_setcolour(59375816);
+if_setcolour(59375814);
+if_setcolour(59375871);
+if_setcolour(59375812);
+if_setgraphic(59375820);
+if_setgraphic(59375628);
+if_setgraphic(59375627);
+if_setgraphic(59375626);
+if_setgraphic(59375870);
+if_setgraphic(59375625);
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonmouseleave;
+if ($int0 ! 5) {
+    ~script_3161(0);
+}
+if ($int0 ! 3) {
+    ~script_4556(0);
+}
+if ($int0 = 1) {
+    if_setposition(3, 1, 2, 59375634);
+    if_setsize(26, 0, 1, 59375633);
+    worldlist_setfavorite(1);
+} else {
+    if_setposition(241, 1, 1, 59375634);
+    if_setsize(477, 0, 0, 59375633);
+    worldlist_setfavorite(0);
+}
+if ($int0 = 4) {
+    if_sethide(59375645);
+} else {
+    if_sethide(59375645);
+}
+if_sethide(enum(105, 73, enum_941, $int0));
+switch ($int0) {
+    case 0:
+        if_setgraphic(59375820);
+        if_setonmouseover;
+        if_setonmouseleave;
+        cc_deleteall(59375804);
+    case 1:
+        if_setgraphic(59375628);
+        if_setonmouseover;
+        if_setonmouseleave;
+        cc_deleteall(59375805);
+    case 2:
+        if_setgraphic(59375627);
+        if_setonmouseover;
+        if_setonmouseleave;
+        cc_deleteall(59375806);
+    case 5:
+        if_setgraphic(59375626);
+        if_setonmouseover;
+        if_setonmouseleave;
+        cc_deleteall(59375808);
+        ~script_3161(1);
+    case 3:
+        if_setgraphic(59375870);
+        if_setonmouseover;
+        if_setonmouseleave;
+        cc_deleteall(59375807);
+        ~script_4556(1);
+    case 4:
+        if_setgraphic(59375625);
+        if_setonmouseover;
+        if_setonmouseleave;
+        cc_deleteall(59375809);
+    default:
+}
+return;

@@ -1,0 +1,27 @@
+[clientscript,script_2449](int $int0)(int)
+def_int $int1 = 0;
+if (cc_find(2228233, $int1) = 1) {
+    cc_setop(1, "Select");
+    $int1 = add($int1, 1);
+}
+if (cc_find(2228233, %varp1439) = 1) {
+    cc_setop(1, "Unselect");
+    if (if_gethide = 0) {
+        if_sethide(2228238);
+        return(1);
+    }
+    if_sethide(2228238);
+    if_setposition(cc_gety, 0, 0, 2228238);
+    if_setsize(cc_getheight, 0, 0, 2228238);
+    if ($int0 = 1) {
+        if (2228233 < if_getscrolly) {
+            ~script_157(2228239, 2228233, sub(cc_gety, 5), 1);
+        }
+        if (if_getscrolly > add(2228233, if_getheight)) {
+            ~script_157(2228233, cc_gety, calc(2228233 - if_getheight + cc_getheight + 5), 1);
+        }
+    }
+} else {
+    if_sethide(2228238);
+}
+return;

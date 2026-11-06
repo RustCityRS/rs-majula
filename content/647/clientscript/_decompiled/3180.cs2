@@ -1,0 +1,7 @@
+[clientscript,script_3180]
+if_closeoverlay(59375685);
+if_sethide(59375650);
+if (if_gethide = 0) {
+    ~script_3161(1);
+}
+return;

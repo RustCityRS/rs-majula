@@ -1,0 +1,14 @@
+[clientscript,script_3937](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)
+if ($int0 ! -1) {
+    if_setgraphic($int0);
+}
+if ($int2 ! -1) {
+    if_setgraphic($int2);
+}
+if ($int4 ! -1) {
+    if_setgraphic($int4);
+}
+if ($int6 ! -1) {
+    if_setgraphic($int6);
+}
+return;

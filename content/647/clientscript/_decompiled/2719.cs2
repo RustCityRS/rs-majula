@@ -1,0 +1,6 @@
+[clientscript,script_2719](int $int0, int $int1)(int, int, int, int, stat)
+if_setposition(46, 0, 0, $int0);
+if_setsize(255, 0, 0, $int0);
+if_setposition(46, 0, 0, $int1);
+if_setsize(255, 0, 0, $int1);
+return($int0, if_getx, 464, 474, agility);

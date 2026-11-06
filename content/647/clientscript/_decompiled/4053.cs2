@@ -1,0 +1,17 @@
+[clientscript,script_4053]
+switch (%varbit8661) {
+    case 0:
+        if_settext("Using multiple token types");
+    case 1:
+        if_settext("Using attack tokens");
+    case 2:
+        if_settext("Using defence tokens");
+    case 3:
+        if_settext("Using strength tokens");
+    case 4:
+        if_settext("Using combat tokens");
+    case 5:
+        if_settext("Using balance tokens");
+    default:
+}
+return;

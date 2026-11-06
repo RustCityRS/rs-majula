@@ -1,0 +1,23 @@
+[clientscript,script_216]
+%varc_int790 = 1;
+if_sethide(38928445);
+if_sethide(38928418);
+if_sethide(38928417);
+if_sethide(38928532);
+if_sethide(38928533);
+if_sethide(38928534);
+if_sethide(38928535);
+if_sethide(38928549);
+if_sethide(38928550);
+if_sethide(38928488);
+if_sethide(38928504);
+if_sethide(38928446);
+if_sethide(38928501);
+if_sethide(38928505);
+if (getlanguage = 1) {
+    if_sethide(38928445);
+    ~script_217;
+} else {
+    if_sethide(38928417);
+}
+return;

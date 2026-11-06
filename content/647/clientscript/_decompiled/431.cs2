@@ -1,0 +1,72 @@
+[clientscript,script_431](int $int0, int $int1)
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = 0;
+def_int $int5 = -1;
+def_int $int6 = -1;
+switch ($int0) {
+    case 67108872:
+        $int2 = 67108944;
+        $int3 = 67108945;
+        if (%varc_int1388 = 1) {
+            $int4 = 1;
+        } else {
+            $int4 = %varbit7539;
+        }
+    case 67108873:
+        $int2 = 67108927;
+        $int3 = 67108928;
+        if (%varc_int1388 = 1) {
+            $int4 = 3;
+        } else {
+            $int4 = %varbit7540;
+        }
+    case 67108874:
+        $int2 = 67108910;
+        $int3 = 67108911;
+        if (%varc_int1388 = 1) {
+            $int4 = 5;
+        } else {
+            $int4 = %varbit7541;
+        }
+    case 67108875:
+        $int2 = 67108893;
+        $int3 = 67108894;
+        if (%varc_int1388 = 1) {
+            $int4 = 6;
+        }
+        $int4 = %varbit7542;
+    default:
+        return;
+}
+switch ($int4) {
+    case 1:
+        $int5 = 293;
+    case 2:
+        $int5 = 299;
+    case 3:
+        $int5 = 300;
+    case 4:
+        $int5 = 301;
+    case 5:
+        $int5 = 305;
+    case 6:
+        $int5 = 1044;
+    case 7:
+        $int5 = 1045;
+    case 8:
+        $int5 = 1046;
+    case 9:
+        $int5 = 1047;
+    default:
+        return;
+}
+if ($int1 = 1) {
+    if_sethide($int2);
+    if_sethide($int3);
+    if_settargetcursor(struct_param($int5, param_1157), struct_param($int5, param_1157), $int0);
+} else {
+    if_sethide($int2);
+    if_sethide($int3);
+}
+return;

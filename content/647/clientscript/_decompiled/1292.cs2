@@ -1,0 +1,80 @@
+[clientscript,script_1292](int $int0, int $int1, int $int2)
+if_getlayer;
+def_int $int3 = $int0;
+if ($int1 = 5329) {
+    if (inv_total(inv, magic_secateurs) > 0) {
+        $int1 = 7409;
+    }
+} else {
+    if ($int1 = 6797) {
+        if (inv_total(inv, magic_watering_can) > 0) {
+            $int1 = 18682;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__8) > 0) {
+            $int1 = 5340;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__7) > 0) {
+            $int1 = 5339;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__6) > 0) {
+            $int1 = 5338;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__5) > 0) {
+            $int1 = 5337;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__4) > 0) {
+            $int1 = 5336;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__3) > 0) {
+            $int1 = 5335;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__2) > 0) {
+            $int1 = 5334;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can__1) > 0) {
+            $int1 = 5333;
+            if_setopbase;
+        }
+        if (inv_total(inv, watering_can) > 0) {
+            $int1 = 5331;
+            if_setopbase;
+        }
+        if_setopbase;
+    }
+}
+def_int $int4 = 0;
+switch ($int1) {
+    case 5329:
+    case 7409:
+        $int4 = add(inv_total(inv, secateurs), inv_total(inv, magic_secateurs));
+    case 6797:
+    case 5340:
+    case 5339:
+    case 5338:
+    case 5337:
+    case 5336:
+    case 5335:
+    case 5334:
+    case 5333:
+    case 5331:
+        $int4 = calc(inv_total(inv, magic_watering_can) + inv_total(inv, watering_can__8) + inv_total(inv, watering_can__7) + inv_total(inv, watering_can__6) + inv_total(inv, watering_can__5) + inv_total(inv, watering_can__4) + inv_total(inv, watering_can__3) + inv_total(inv, watering_can__2) + inv_total(inv, watering_can__1) + inv_total(inv, watering_can));
+    default:
+        $int4 = inv_total(inv, $int1);
+}
+if ($int4 > 0) {
+    if_setcolour($int2);
+    if_setobject($int4, $int0);
+} else {
+    if_setcolour($int2);
+    if_setobject(-1, $int0);
+}
+if_setoutline(1, $int0);
+return;

@@ -1,0 +1,6 @@
+[clientscript,script_3409](int $int0)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+def_string $str0 = "Access Forums";
+if_setsize(if_getheight, 0, 0, $int0);
+if_settext("<u=64c8fa>" + $str0 + "</u>");
+if_setonop;
+return(~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), char_isnumeric(495), $int0, $int0, 3410, $int0, ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), ~script_3408($int0, $str0), $str0, "");

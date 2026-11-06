@@ -1,0 +1,25 @@
+[clientscript,script_2187](int $int0)(int)
+switch ($int0) {
+    case 0:
+        return(%varbit7301);
+    case 1:
+        return(%varbit7302);
+    case 2:
+        return(%varbit7303);
+    case 3:
+        return(%varbit7304);
+    case 4:
+        return(%varbit7305);
+    case 5:
+        return(%varbit7298);
+    case 6:
+        return(%varbit7299);
+    case 7:
+        return(%varbit7300);
+    case 8:
+        return(%varbit7296);
+    case 9:
+        return(%varbit7297);
+    default:
+}
+return(-1);

@@ -1,0 +1,10 @@
+[clientscript,script_692](int $int0, int $int1, int $int2)
+switch (%varbit5367) {
+    case 0:
+        ~script_1839(1, $int0, $int1, $int2);
+    case 1:
+        ~script_1839(2, $int0, $int1, $int2);
+    default:
+        ~script_1839(0, $int0, $int1, $int2);
+}
+return;

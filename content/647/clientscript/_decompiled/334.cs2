@@ -1,0 +1,24 @@
+[clientscript,script_334](int $int0)
+def_int $int1 = 1777;
+if (%varbit6090 = 1) {
+    if_setgraphic($int0);
+    $int1 = 3047;
+    if_setonmouseover;
+    $int1 = 3046;
+    if_setonmouseleave;
+    if_clearops;
+    if_setop($int0, "Daemonheim Map");
+} else {
+    if_setgraphic($int0);
+    if_setonmouseover;
+    $int1 = 1776;
+    if_setonmouseleave;
+    if_clearops;
+    if_setop($int0, "World Map");
+    if (%varp1159 ! -1) {
+        if (%varp1159 ! 0) {
+            if_setop($int0, "Clear your marker");
+        }
+    }
+}
+return;

@@ -1,0 +1,27 @@
+[clientscript,script_4472](int $int0, int $int1, string $str0)
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+switch ($int0) {
+    case 1:
+    case 5:
+        mes("Attempting to add " + $str0 + " to your Friends List.");
+        $str0 = removetags($str0);
+        friend_add($str0);
+    case 6:
+        mes("Attempting to add " + $str0 + " to your Ignore List.");
+        $str0 = removetags($str0);
+        ignore_add($str0);
+    case 7:
+        mes("Attempting to remove " + $str0 + " from your Friends List.");
+        $str0 = removetags($str0);
+        friend_del($str0);
+    case 8:
+        mes("Attempting to remove " + $str0 + " from your Ignore List.");
+        $str0 = removetags($str0);
+        ignore_del($str0);
+    case 9:
+        ~script_4465($str0);
+    default:
+}
+return;

@@ -1,0 +1,10 @@
+[clientscript,script_1334](int $int0, int $int1, string $str0)
+if ($int0 ! -1) {
+    if ($int1 = 1) {
+        if_settext("<u=91b1f4>" + $str0 + "</u>");
+        if_setcolour($int0);
+    }
+    if_settext("<u=2c6ff8>" + $str0 + "</u>");
+    if_setcolour($int0);
+}
+return;

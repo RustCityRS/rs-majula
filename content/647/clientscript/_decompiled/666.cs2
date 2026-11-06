@@ -1,0 +1,12 @@
+[clientscript,script_666](int $int0, int $int1, int $int2)(int, string)
+def_int $int3 = 0;
+if (cc_find($int1, $int2) = 1) {
+    $int3 = sub($int0, clientclock);
+    if ($int3 <= 0) {
+        cc_settrans(0);
+        cc_setontimer;
+        return(-1, "");
+    }
+    cc_settrans(max(calc(cc_gettrans - cc_gettrans / $int3), 1));
+}
+return;

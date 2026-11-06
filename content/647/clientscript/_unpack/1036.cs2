@@ -1,0 +1,38 @@
+; id: 1036
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 0
+    2: push_constant_int 105
+    3: push_constant_int 105
+    4: push_constant_int 1548
+    5: push_varbit 4758
+    6: enum 0
+    7: push_constant_int 0
+    8: branch_greater_than 1
+    9: branch 12
+   10: push_constant_int 105
+   11: push_constant_int 107
+   12: push_constant_int 1549
+   13: push_varbit 4758
+   14: enum 0
+   15: pop_int_local 0
+   16: push_int_local 0
+   17: push_constant_int -1
+   18: branch_not 1
+   19: branch 2
+   20: push_int_local 0
+   21: return 0
+   22: push_constant_int 105
+   23: push_constant_int 107
+   24: push_constant_int 1483
+   25: push_varbit 4759
+   26: enum 0
+   27: return 0
+   28: push_constant_int -1
+   29: return 0

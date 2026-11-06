@@ -1,0 +1,91 @@
+[clientscript,script_2610](int $int0)
+def_string $str0 = "";
+if (%varbit6357 = 2) {
+    if_sethide($int0);
+    if (%varbit6372 = 15) {
+        if (%varbit6373 > 0) {
+            $str0 = "Collected " + tostring(%varbit6373) + " out of 4 rocks";
+            if_setgraphic(2424868);
+        } else {
+            $str0 = "Send a squad to collect rocks";
+            if_setgraphic(2424868);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varbit6373 > 1) {
+            $str0 = "Collected " + tostring(%varbit6373) + " out of 4 rocks";
+            if_setgraphic(2424871);
+        } else {
+            $str0 = "Send a squad to collect rocks.";
+            if_setgraphic(2424871);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varbit6373 > 2) {
+            $str0 = "Collected " + tostring(%varbit6373) + " out of 4 rocks";
+            if_setgraphic(2424870);
+        } else {
+            $str0 = "Send a squad to collect rocks.";
+            if_setgraphic(2424870);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varbit6373 > 3) {
+            $str0 = "Collected " + tostring(%varbit6373) + " out of 4 rocks";
+            if_setgraphic(2424869);
+        } else {
+            $str0 = "Send a squad to collect rocks.";
+            if_setgraphic(2424869);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+    } else {
+        if (%varbit6368 > 0) {
+            $str0 = "Collected wheels";
+            if_setgraphic(2424868);
+        } else {
+            $str0 = "Send a squad to collect wheels.";
+            if_setgraphic(2424868);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varbit6370 > 0) {
+            $str0 = "Collected logs";
+            if_setgraphic(2424871);
+        } else {
+            $str0 = "Send a squad to collect logs.";
+            if_setgraphic(2424871);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varbit6371 > 0) {
+            $str0 = "Collected rope";
+            if_setgraphic(2424870);
+        } else {
+            $str0 = "Send a squad to collect rope.";
+            if_setgraphic(2424870);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varbit6369 > 0) {
+            $str0 = "Collected metal limbs";
+            if_setgraphic(2424869);
+        } else {
+            $str0 = "Send a squad to collect metal limbs.";
+            if_setgraphic(2424869);
+        }
+        if_setonmouserepeat;
+        if_setonmouseleave;
+    }
+} else {
+    if (%varbit6357 = 1) {
+        if_sethide($int0);
+    }
+    if (%varbit6357 = 3) {
+        if_sethide($int0);
+    }
+    if (%varbit6357 = 4) {
+        if_sethide($int0);
+    }
+}
+return;

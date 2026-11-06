@@ -1,0 +1,12 @@
+[clientscript,script_936](int $int0)(string)
+def_string $str0 = "";
+def_int $int1 = oc_weight(broken_shield);
+switch (oc_weight(picture_762)) {
+    case 1:
+        return(~script_913(%varp322, 10, "Part of quest: Tai Bwo Wannai Trio"));
+    case 2:
+        return(~script_913(%varbit4310, 10, "Complete: Chaos Tunnels"));
+    default:
+        return("");
+}
+return("");

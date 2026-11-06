@@ -1,0 +1,146 @@
+[clientscript,script_4178](int $int0, int $int1, int $int2)
+if ($int0 = 1) {
+    switch ($int1) {
+        case 0:
+            if ($int2 = 1) {
+                %varc_int1465 = clientclock;
+            } else {
+                %varc_int1465 = 0;
+            }
+        case 1:
+            if ($int2 = 1) {
+                %varc_int1466 = clientclock;
+            } else {
+                %varc_int1466 = 0;
+            }
+        case 2:
+            if ($int2 = 1) {
+                %varc_int1467 = clientclock;
+            } else {
+                %varc_int1467 = 0;
+            }
+        case 3:
+            if ($int2 = 1) {
+                %varc_int740 = clientclock;
+            } else {
+                %varc_int740 = 0;
+            }
+        case 4:
+            if ($int2 = 1) {
+                %varc_int745 = clientclock;
+            } else {
+                %varc_int745 = 0;
+            }
+        case 5:
+            if ($int2 = 1) {
+                %varc_int780 = clientclock;
+            } else {
+                %varc_int780 = 0;
+            }
+        case 7:
+            if ($int2 = 1) {
+                %varc_int781 = clientclock;
+            } else {
+                %varc_int781 = 0;
+            }
+        case 9:
+            if ($int2 = 1) {
+                %varc_int782 = clientclock;
+            } else {
+                %varc_int782 = 0;
+            }
+        case 10:
+            if ($int2 = 1) {
+                %varc_int789 = clientclock;
+            } else {
+                %varc_int789 = 0;
+            }
+        case 12:
+            if ($int2 = 1) {
+                %varc_int1409 = clientclock;
+            } else {
+                %varc_int1409 = 0;
+            }
+        case 13:
+            if ($int2 = 1) {
+                %varc_int1410 = clientclock;
+            }
+            %varc_int1410 = 0;
+        default:
+    }
+} else {
+    switch ($int1) {
+        case 0:
+            if ($int2 = 1) {
+                %varc_int1453 = clientclock;
+            } else {
+                %varc_int1453 = 0;
+            }
+        case 1:
+            if ($int2 = 1) {
+                %varc_int1454 = clientclock;
+            } else {
+                %varc_int1454 = 0;
+            }
+        case 4:
+            if ($int2 = 1) {
+                %varc_int1455 = clientclock;
+            } else {
+                %varc_int1455 = 0;
+            }
+        case 5:
+            if ($int2 = 1) {
+                %varc_int1456 = clientclock;
+            } else {
+                %varc_int1456 = 0;
+            }
+        case 6:
+            if ($int2 = 1) {
+                %varc_int1457 = clientclock;
+            } else {
+                %varc_int1453 = 6;
+            }
+        case 7:
+            if ($int2 = 1) {
+                %varc_int1458 = clientclock;
+            } else {
+                %varc_int1453 = 7;
+            }
+        case 8:
+            if ($int2 = 1) {
+                %varc_int1459 = clientclock;
+            } else {
+                %varc_int1453 = 8;
+            }
+        case 9:
+            if ($int2 = 1) {
+                %varc_int1460 = clientclock;
+            } else {
+                %varc_int1453 = 9;
+            }
+        case 10:
+            if ($int2 = 1) {
+                %varc_int1461 = clientclock;
+            } else {
+                %varc_int1461 = 0;
+            }
+        case 12:
+            if ($int2 = 1) {
+                %varc_int1462 = clientclock;
+            } else {
+                %varc_int1462 = 0;
+            }
+        case 13:
+            if ($int2 = 1) {
+                %varc_int1463 = clientclock;
+            } else {
+                %varc_int1463 = 0;
+            }
+        case 28:
+            if ($int2 = 1) {
+                %varc_int1464 = clientclock;
+            }
+            %varc_int1464 = 0;
+    }
+}
+return;

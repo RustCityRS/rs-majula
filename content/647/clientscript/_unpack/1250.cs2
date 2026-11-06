@@ -1,0 +1,15 @@
+; id: 1250
+int_param_count=5
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: push_int_local 2
+    3: push_int_local 3
+    4: push_int_local 4
+    5: gosub_with_params 1251
+    6: return 0

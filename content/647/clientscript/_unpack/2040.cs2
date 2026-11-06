@@ -1,0 +1,25 @@
+; id: 2040
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 949
+    1: branch_if_false 1
+    2: branch 7
+    3: push_constant_string "Coal to add: "
+    4: push_varbit 940
+    5: tostring 0
+    6: join_string 2
+    7: push_int_local 0
+    8: if_settext 0
+    9: branch 6
+   10: push_constant_string "Coal in furnace: "
+   11: push_varbit 949
+   12: tostring 0
+   13: join_string 2
+   14: push_int_local 0
+   15: if_settext 0
+   16: return 0

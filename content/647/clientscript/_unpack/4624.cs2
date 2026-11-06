@@ -1,0 +1,26 @@
+; id: 4624
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op2612 0
+    2: push_constant_int 5936
+    3: branch_equals 1
+    4: branch 1
+    5: return 0
+    6: push_int_local 1
+    7: push_var 2128
+    8: branch_equals 1
+    9: branch 4
+   10: push_constant_int 5935
+   11: push_int_local 0
+   12: if_setgraphic 0
+   13: branch 3
+   14: push_constant_int 5932
+   15: push_int_local 0
+   16: if_setgraphic 0
+   17: return 0

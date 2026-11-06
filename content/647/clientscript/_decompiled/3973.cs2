@@ -1,0 +1,22 @@
+[clientscript,script_3973](int $int0)
+if_sethide(69206108);
+if_sethide(69206110);
+if_sethide(69206141);
+if_sethide(69206138);
+if ($int0 ! 1) {
+    if (~script_3999(%varbit8576) = 1) {
+        if (~script_3999(%varbit8588) = 1) {
+            if (~script_3999(%varbit8587) = 0) {
+            }
+        } else {
+            if_sethide(69206138);
+        }
+    }
+}
+~script_3975;
+if (%varc_int1421 = 1) {
+    if_sethide(69206187);
+} else {
+    if_sethide(69206187);
+}
+return;

@@ -1,0 +1,42 @@
+[clientscript,script_2122](int $int0, int $int1, string $str0)
+def_int $int2 = calc($int0 / 10 * 64);
+cc_setposition(0, $int1, 4, sub($int0, 1));
+cc_setsize(sub(if_getwidth, 10), 17, 0, 0);
+cc_setposition2(5, add($int2, 2), 0, 0);
+cc_settextfont(495);
+cc_settextalign(0, 0, 0);
+cc_setcolour(16750623);
+cc_settext($str0);
+def_int $int3 = 0;
+if ($int3 < 7) {
+    ~script_2123(add($int0, $int3), $int3, $int1, $int2);
+    $int3 = add($int3, 1);
+}
+cc_setposition(0, $int1, 4, add($int0, 7));
+cc_setsize(100, 64, 0, 0);
+cc_setposition2(sub(if_getwidth, 100), $int2, 0, 0);
+cc_settextfont(495);
+cc_settextalign(1, 1, 0);
+cc_setcolour(16750623);
+switch ($int0) {
+    case 1:
+        cc_settext("Points:" + "<br>" + tostring(%varbit5903));
+    case 11:
+        cc_settext("Points:" + "<br>" + tostring(%varbit5904));
+    case 21:
+        cc_settext("Points:" + "<br>" + tostring(%varbit5905));
+    case 31:
+        cc_settext("Points:" + "<br>" + tostring(%varbit5906));
+    case 41:
+        cc_settext("Points:" + "<br>" + tostring(%varbit5907));
+    default:
+        cc_settext("");
+}
+if (add($int0, 10) < 43) {
+    cc_setposition(0, $int1, 5, add($int0, 8));
+    cc_setgraphic(962);
+    cc_setsize(if_getwidth, 32, 0, 0);
+    cc_settiling;
+    cc_setposition2(0, add($int2, 58), 0, 0);
+}
+return;

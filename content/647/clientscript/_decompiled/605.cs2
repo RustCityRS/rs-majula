@@ -1,0 +1,9 @@
+[clientscript,script_605]
+if (%varp1109 = -1) {
+    return;
+}
+if (%varc_int85 < 2147483647) {
+    %varc_int85 = add(%varc_int85, 1);
+    if_settext(" gp");
+}
+return;

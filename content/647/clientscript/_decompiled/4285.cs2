@@ -1,0 +1,36 @@
+[clientscript,script_4285](int $int0, int $int1, int $int2, int $int3, int $int4)(int)
+%varc_str348 = if_gettext;
+switch ($int3) {
+    case 84:
+        if (compare("", %varc_str348) ! 0) {
+            ~script_4288;
+        }
+    case 96:
+    case 97:
+    case 98:
+    case 99:
+    case 102:
+    case 103:
+        if (key_isdown_ctrl = 0) {
+            return;
+        }
+        ~script_1553($int3, %varc_int1504, %varc_str348);
+    case 85:
+        if (string_length(%varc_str348) > 0) {
+            %varc_str348 = substring(%varc_str348, 0, sub(string_length(%varc_str348), 1));
+        }
+    default:
+        if (string_length(%varc_str348) < 20) {
+            %varc_str348 = ~script_74(0, $int3, $int2, %varc_str348);
+        }
+}
+%varc_int1504 = ~script_1552(%varc_int1504, 5631, $int0, -1, %varc_str348);
+if_setposition(if_gety, 0, 0, $int4);
+if_settext(tostring(string_length(%varc_str348)) + "/20");
+if (string_length(%varc_str348) >= 15) {
+    if_setcolour($int1);
+} else {
+    if_setcolour($int1);
+}
+if_settext(%varc_str348);
+return($int0);

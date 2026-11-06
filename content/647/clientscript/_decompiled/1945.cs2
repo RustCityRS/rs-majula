@@ -1,0 +1,4 @@
+[clientscript,script_1945](component)
+def_int $int0 = calc(%varp1332 + %varp1334 + %varp1337 + 2 * %varp1333 - %varp1335);
+if_settext("Score: " + tostring($int0));
+return(52559880);

@@ -1,0 +1,41 @@
+[clientscript,script_2617](stat)
+def_int $int0 = cam_getangle_xa;
+if ($int0 < 128) {
+    return(attack);
+}
+if ($int0 < 384) {
+    if ($int0 >= 128) {
+        return(cooking);
+    }
+}
+if ($int0 >= 384) {
+    if ($int0 < 650) {
+        return(magic);
+    }
+}
+if ($int0 < 896) {
+    if ($int0 >= 650) {
+        return(prayer);
+    }
+}
+if ($int0 >= 896) {
+    if ($int0 < 1152) {
+        return(ranged);
+    }
+}
+if ($int0 < 1408) {
+    if ($int0 >= 1152) {
+        return(hitpoints);
+    }
+}
+if ($int0 >= 1408) {
+    if ($int0 < 1664) {
+        return(strength);
+    }
+}
+if ($int0 < 1920) {
+    if ($int0 >= 1664) {
+        return(defence);
+    }
+}
+return(attack);

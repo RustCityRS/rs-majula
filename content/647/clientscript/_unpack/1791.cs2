@@ -1,0 +1,40 @@
+; id: 1791
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 270
+    1: push_constant_int 60
+    2: div 0
+    3: pop_int_local 1
+    4: push_varc_int 270
+    5: push_constant_int 60
+    6: mod 0
+    7: pop_int_local 2
+    8: push_int_local 2
+    9: push_constant_int 10
+   10: branch_greater_than_or_equals 1
+   11: branch 10
+   12: push_int_local 1
+   13: tostring 0
+   14: push_constant_string "h "
+   15: push_int_local 2
+   16: tostring 0
+   17: push_constant_string "m"
+   18: join_string 4
+   19: push_int_local 0
+   20: if_settext 0
+   21: branch 9
+   22: push_int_local 1
+   23: tostring 0
+   24: push_constant_string "h 0"
+   25: push_int_local 2
+   26: tostring 0
+   27: push_constant_string "m"
+   28: join_string 4
+   29: push_int_local 0
+   30: if_settext 0
+   31: return 0

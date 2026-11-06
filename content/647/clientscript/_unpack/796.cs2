@@ -1,0 +1,36 @@
+; id: 796
+int_param_count=5
+string_param_count=5
+long_param_count=0
+local_int_count=5
+local_string_count=5
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: push_int_local 2
+    3: push_string_local 0
+    4: push_string_local 1
+    5: push_string_local 2
+    6: push_string_local 3
+    7: push_string_local 4
+    8: push_int_local 3
+    9: push_int_local 4
+   10: gosub_with_params 798
+   11: push_constant_int 797
+   12: push_int_local 0
+   13: push_int_local 1
+   14: push_int_local 2
+   15: push_string_local 0
+   16: push_string_local 1
+   17: push_string_local 2
+   18: push_string_local 3
+   19: push_string_local 4
+   20: push_int_local 3
+   21: push_int_local 4
+   22: push_constant_int 93
+   23: push_constant_int 1
+   24: push_constant_string "IiisssssiiY"
+   25: push_int_local 0
+   26: op2414 0
+   27: return 0

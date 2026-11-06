@@ -1,0 +1,15 @@
+[clientscript,script_805](int $int0)(int)
+def_int $int1 = ~script_807($int0);
+def_int $int2 = 5592405;
+if ($int1 > 75) {
+    $int2 = 65280;
+} else {
+    if ($int1 > 50) {
+        $int2 = 16776960;
+    }
+    if ($int1 > 25) {
+        $int2 = 16750623;
+    }
+    $int2 = 16711680;
+}
+return($int2);

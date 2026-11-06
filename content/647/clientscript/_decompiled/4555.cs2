@@ -1,0 +1,35 @@
+[clientscript,script_4555](int $int0, int $int1)
+if (clan_getchatsize <= 0) {
+    return;
+}
+switch ($int0) {
+    case 84:
+        if (clan_getchatsize > 0) {
+            if (string_length(%varc_str349) > 0) {
+                chat_setmode(1);
+                chat_sendpublic(%varc_str349);
+            }
+        } else {
+            tutorial_openchat(11, 0, "You are not in a Friends Chat Channel.");
+        }
+        %varc_str349 = "";
+        if_settext(escape2(%varc_str349));
+        %varc_int1507 = string_length(%varc_str349);
+    case 96:
+    case 97:
+    case 98:
+    case 99:
+    case 102:
+    case 103:
+        %varc_int1507 = ~script_1553($int0, %varc_int1507, %varc_str349);
+    case -1:
+    case 85:
+    case 101:
+        if (char_isprintable2($int1) = 1) {
+            %varc_int1507 = ~script_802(%varc_int1507, 0, $int0, $int1, %varc_str349);
+            %varc_str349 = ~script_802(%varc_int1507, 0, $int0, $int1, %varc_str349);
+            if_settext(escape2(%varc_str349));
+        }
+    default:
+}
+return;

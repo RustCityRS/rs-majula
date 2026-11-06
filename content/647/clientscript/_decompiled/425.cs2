@@ -1,0 +1,12 @@
+[clientscript,script_425]
+if (%varc_int1366 = 1) {
+    if_setop(66781200, "Accept Victory");
+    if_settext("Accept Victory");
+    if_settext("Your opponent has logged out. You may end the Conquest now and be declared the winner.");
+} else {
+    if_setop(66781200, "Resign");
+    if_settext("Resign");
+    if_settext("If you resign, the Conquest will end immediately.");
+    if_close;
+}
+return;

@@ -5,21 +5,19 @@ use crate::archive::JagArchive;
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
 use crate::cache::texture::{OP_NAMES, TextureDef, TextureOp};
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, load_group_files, stamp_path, write_archive};
+use crate::pack::js5::{PreparedGroup, insert_archive, load_group_files};
 #[cfg(before_647)]
 use crate::pack::util::{media, palette};
-#[cfg(since_647)]
-use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 #[cfg(since_647)]
 use anyhow::Result;
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
-use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
@@ -82,25 +80,13 @@ pub fn pack_textures_jag(registry: &PackRegistry, content_dir: &Path) -> Vec<u8>
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
     let aid = archive::TEXTURES;
     let format = archive::archive_format(aid).unwrap();
     let unpack_dir = content_dir.join(format.content_dir).join("_unpack");
-
-    let textures_stamp = stamp_path(output_dir, aid);
-    let textures_input = newest_mtime(&unpack_dir, &["texture"]);
-    if !force_rebuild && is_up_to_date(&textures_stamp, textures_input) {
-        info!(
-            "  archive {:>2} ({}) -- up to date, skipping",
-            aid, format.content_dir
-        );
-        return Ok(());
-    }
 
     if !unpack_dir.is_dir() {
         info!(
@@ -112,19 +98,15 @@ pub fn pack_archive(
 
     let group_files = load_group_files(&unpack_dir, "texture");
 
-    let encoded: Vec<(u32, Vec<u8>)> = group_files
+    let prepared: Vec<PreparedGroup> = group_files
         .par_iter()
         .filter_map(|(gid, path)| {
             let text = fs::read_to_string(path).ok()?;
             let def = parse_texture_text(&text);
             Some((*gid, encode_texture(&def)))
         })
-        .collect();
-
-    let prepared: Vec<PreparedGroup> = encoded
-        .par_iter()
         .map(|(gid, data)| {
-            let mut group = PreparedGroup::new(aid, *gid, data, versions)?;
+            let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
             group.files = vec![FileInfo {
                 id: 0,
                 name_hash: None,
@@ -133,7 +115,7 @@ pub fn pack_archive(
         })
         .collect::<Result<Vec<_>>>()?;
 
-    write_archive(
+    insert_archive(
         store,
         aid,
         format,
@@ -141,7 +123,7 @@ pub fn pack_archive(
         prepared,
         "from .texture encode",
     )?;
-    write_stamp(&textures_stamp)?;
+
     Ok(())
 }
 

@@ -1,0 +1,46 @@
+[clientscript,script_2265](int $int0)
+if_sethide($int0);
+switch ($int0) {
+    case 61866061:
+        if (%varc_int755 ! -1) {
+            if_setobject_alwaysnum(%varc_int755, -1, $int0);
+        }
+    case 61866008:
+        if (%varc_int756 ! -1) {
+            if_setobject_alwaysnum(%varc_int756, -1, $int0);
+        }
+    case 61866014:
+        if (%varc_int757 ! -1) {
+            if_setobject_alwaysnum(%varc_int757, -1, $int0);
+        }
+    case 61866020:
+        if (%varc_int758 ! -1) {
+            if_setobject_alwaysnum(%varc_int758, -1, $int0);
+        }
+    case 61866026:
+        if (%varc_int759 ! -1) {
+            if_setobject_alwaysnum(%varc_int759, -1, $int0);
+        }
+    case 61866032:
+        if (%varc_int760 ! -1) {
+            if_setobject_alwaysnum(%varc_int760, -1, $int0);
+        }
+    case 61866038:
+        if (%varc_int1139 ! -1) {
+            if_setobject_alwaysnum(%varc_int1139, -1, $int0);
+        }
+    case 61866044:
+        if (%varc_int1140 ! -1) {
+            if_setobject_alwaysnum(%varc_int1140, -1, $int0);
+        }
+    case 61866050:
+        if (%varc_int1141 ! -1) {
+            if_setobject_alwaysnum(%varc_int1141, -1, $int0);
+        }
+    case 61866056:
+        if (%varc_int1142 ! -1) {
+            if_setobject_alwaysnum(%varc_int1142, -1, $int0);
+        }
+    default:
+}
+return;

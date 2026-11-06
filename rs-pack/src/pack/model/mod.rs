@@ -3,20 +3,18 @@ use crate::archive::JagArchive;
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
 use crate::cache::seq_frame::split_frame_into_stripes;
 #[cfg(since_647)]
 use crate::cache::seq_frame::{AnimFrame, FrameBone};
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
-#[cfg(since_647)]
-use crate::pack::pack::parse_sections;
+use crate::pack::js5::{PreparedGroup, insert_archive};
 use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
 use crate::pack::pack_registry::PackRegistry;
 #[cfg(before_647)]
 use crate::pack::util::{load_order, walk};
-#[cfg(since_647)]
-use crate::startup::{is_up_to_date, max_of, newest_mtime, write_stamp};
 #[cfg(before_647)]
 use crate::types::BoneType;
 #[cfg(since_647)]
@@ -28,16 +26,14 @@ use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
-use rs_io::js5::{
-    Js5Store, encode_group_entries, encode_group_entries_striped, reference::FileInfo,
-};
+use rs_io::js5::{encode_group_entries, encode_group_entries_striped, reference::FileInfo};
 #[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
-use std::path::Path;
 #[cfg(since_647)]
-use tracing::info;
+use std::io;
+use std::path::Path;
 #[cfg(before_647)]
 use tracing::{debug, warn};
 
@@ -415,112 +411,93 @@ fn parse_csv_i32(s: &str) -> Vec<i32> {
 }
 
 #[cfg(since_647)]
-pub fn pack_anims(source_dir: &Path, pack_dir: &Path) -> Result<BTreeMap<(u32, u32), Vec<u8>>> {
-    let anim_dir = source_dir.join("_unpack").join("animations");
-    let mut result = BTreeMap::new();
-    if !anim_dir.is_dir() {
-        return Ok(result);
-    }
-    let pack = PackFile::load(&pack_dir.join("anim.pack"))?;
-    let mut files: Vec<_> = fs::read_dir(&anim_dir)?
-        .filter_map(|e| e.ok())
-        .map(|e| e.path())
-        .filter(|p| p.extension().and_then(|e| e.to_str()) == Some("anim"))
-        .collect();
-    files.sort();
-
-    for path in &files {
-        let name = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-        let group_id = pack
-            .get_by_debugname(name)
-            .or_else(|| name.strip_prefix("anim_").and_then(|s| s.parse().ok()))
-            .with_context(|| format!("Unknown animation: {name}"))?;
-        let text = fs::read_to_string(path)
-            .with_context(|| format!("Reading animation {}", path.display()))?;
-        let configs = parse_sections([(path.as_path(), text.as_str())], &HashMap::new());
-        for (section, props) in configs {
-            let frame_index = section
-                .strip_prefix("frame_")
-                .and_then(|s| s.parse().ok())
-                .with_context(|| format!("Invalid animation frame: {section}"))?;
-            let mut frame = AnimFrame {
-                type_marker: 0,
-                base_id: 0,
-                bone_count: 0,
-                bones: Vec::new(),
-            };
-            for (key, value) in props {
-                let value = value.trim();
-                match key.as_str() {
-                    "type" => frame.type_marker = value.parse()?,
-                    "base" => frame.base_id = value.parse()?,
-                    "bone_count" => frame.bone_count = value.parse()?,
-                    "bone" => {
-                        let fields: Vec<_> = value.split(':').collect();
-                        ensure!(fields.len() == 5, "Invalid animation bone: {value}");
-                        frame.bones.push(FrameBone {
-                            bone_index: fields[0].parse()?,
-                            mask: fields[1].parse()?,
-                            dx: fields[2].parse()?,
-                            dy: fields[3].parse()?,
-                            dz: fields[4].parse()?,
-                        });
-                    }
-                    _ if key.starts_with('#') => {}
-                    _ => bail!("Unrecognized animation config key: {key}"),
-                }
+fn parse_frames(text: &str) -> Result<BTreeMap<u32, Vec<u8>>> {
+    let mut frames = BTreeMap::new();
+    let mut id = None;
+    let mut frame = AnimFrame {
+        type_marker: 0,
+        base_id: 0,
+        bone_count: 0,
+        bones: Vec::new(),
+    };
+    for line in text.lines() {
+        let line = line.split("//").next().unwrap_or("").trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+        if let Some(section) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
+            if let Some(id) = id {
+                frames.insert(id, frame.encode());
             }
-            result.insert((group_id, frame_index), frame.encode());
+            id = Some(
+                section
+                    .strip_prefix("frame_")
+                    .context("Invalid animation frame")?
+                    .parse()?,
+            );
+            frame.type_marker = 0;
+            frame.base_id = 0;
+            frame.bone_count = 0;
+            frame.bones.clear();
+            continue;
+        }
+        ensure!(id.is_some(), "Animation property before frame header");
+        let (key, value) = line.split_once('=').context("Invalid animation property")?;
+        let value = value.trim();
+        match key.trim() {
+            "type" => frame.type_marker = value.parse()?,
+            "base" => frame.base_id = value.parse()?,
+            "bone_count" => frame.bone_count = value.parse()?,
+            "bone" => {
+                let mut fields = value.split(':');
+                let bone = FrameBone {
+                    bone_index: fields.next().context("Missing bone index")?.parse()?,
+                    mask: fields.next().context("Missing bone mask")?.parse()?,
+                    dx: fields.next().context("Missing bone x")?.parse()?,
+                    dy: fields.next().context("Missing bone y")?.parse()?,
+                    dz: fields.next().context("Missing bone z")?.parse()?,
+                };
+                ensure!(fields.next().is_none(), "Invalid animation bone: {value}");
+                frame.bones.push(bone);
+            }
+            key => bail!("Unrecognized animation config key: {key}"),
         }
     }
-    info!("  {} animation frames packed", result.len());
-    Ok(result)
+    if let Some(id) = id {
+        frames.insert(id, frame.encode());
+    }
+    Ok(frames)
 }
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
-    prebuilt: Option<BTreeMap<(u32, u32), Vec<u8>>>,
 ) -> Result<()> {
     let aid = archive::ANIMS;
-    let stamp = stamp_path(output_dir, aid);
-    let scripts_dir = content_dir.join("scripts");
-    let anim_dir = scripts_dir.join("_unpack/animations");
-    let inputs = max_of(&[
-        newest_mtime(&anim_dir, &["anim"]),
-        newest_mtime(&scripts_dir.join("_unpack"), &["base"]),
-    ]);
-    if !force_rebuild && is_up_to_date(&stamp, inputs) {
-        info!("Animations up to date, skipping");
-        return Ok(());
-    }
-    ensure!(
-        anim_dir.is_dir(),
-        "No unpacked animations at {}, run unpack first",
-        anim_dir.display()
-    );
-    let entries = match prebuilt {
-        Some(entries) => entries,
-        None => pack_anims(&scripts_dir, pack_dir)?,
-    };
-    let mut groups: BTreeMap<u32, Vec<(u32, Vec<u8>)>> = BTreeMap::new();
-    for ((gid, fid), data) in entries {
-        groups.entry(gid).or_default().push((fid, data));
-    }
-    let pack = PackFile::load(&pack_dir.join("anim.pack")).unwrap_or_else(|_| PackFile::empty());
-    let out_dir = content_dir.join("models");
-    fs::create_dir_all(&out_dir)?;
-    let prepared = groups
-        .into_par_iter()
-        .map(|(gid, frames)| {
+    let anim_dir = content_dir.join("scripts/_unpack/animations");
+    let pack = PackFile::load(&pack_dir.join("anim.pack"))?;
+    let files: Vec<_> = fs::read_dir(&anim_dir)?
+        .map(|entry| entry.map(|e| e.path()))
+        .collect::<io::Result<Vec<_>>>()?
+        .into_iter()
+        .filter(|p| p.extension().and_then(|e| e.to_str()) == Some("anim"))
+        .collect();
+    let prepared = files
+        .par_iter()
+        .map(|path| {
+            let name = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
+            let gid = pack
+                .get_by_debugname(name)
+                .or_else(|| name.strip_prefix("anim_").and_then(|s| s.parse().ok()))
+                .with_context(|| format!("Unknown animation: {name}"))?;
+            let frames = parse_frames(&fs::read_to_string(path)?)
+                .with_context(|| format!("Reading animation {}", path.display()))?;
             let refs: Vec<_> = frames
                 .iter()
-                .map(|(id, data)| (*id, data.as_slice()))
+                .map(|(&id, data)| (id, data.as_slice()))
                 .collect();
             let data = if refs.len() > 1 {
                 encode_group_entries_striped(&refs, 3, split_frame_into_stripes)
@@ -529,28 +506,21 @@ pub fn pack_archive(
             };
             let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
             group.files = frames
-                .iter()
-                .map(|(id, _)| FileInfo {
-                    id: *id,
+                .keys()
+                .map(|&id| FileInfo {
+                    id,
                     name_hash: None,
                 })
                 .collect();
-            let name = pack
-                .get_by_id(gid)
-                .map(str::to_owned)
-                .unwrap_or_else(|| format!("anim_{gid}"));
-            fs::write(out_dir.join(format!("{name}.anim")), data)?;
             Ok(group)
         })
         .collect::<Result<Vec<_>>>()?;
-    write_archive(
+    insert_archive(
         store,
         aid,
         archive::archive_format(aid).unwrap(),
         versions,
         prepared,
         "from animations",
-    )?;
-    write_stamp(&stamp)?;
-    Ok(())
+    )
 }

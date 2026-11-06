@@ -1,0 +1,16 @@
+[clientscript,script_2687](int)
+if (%varp1447 < 100) {
+    return(10000);
+} else {
+    if (%varp1447 < 200) {
+        return(12500);
+    }
+    if (%varp1447 < 300) {
+        return(15000);
+    }
+    if (%varp1447 < 400) {
+        return(17500);
+    }
+    return(20000);
+}
+return(0);

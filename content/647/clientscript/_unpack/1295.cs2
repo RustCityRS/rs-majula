@@ -1,0 +1,27 @@
+; id: 1295
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 16711680
+    1: push_constant_int 9437331
+    2: if_setcolour 0
+    3: push_constant_int 45
+    4: push_constant_int -2147483645
+    5: push_constant_int 16711680
+    6: push_constant_string "Ii"
+    7: push_constant_int 9437331
+    8: op2404 0
+    9: push_constant_int 1
+   10: push_constant_int 9437370
+   11: if_sethide 0
+   12: push_constant_int 4910
+   13: push_constant_int 9437371
+   14: op2108 0
+   15: push_constant_int 1453
+   16: push_constant_int 9437371
+   17: op2110 0
+   18: return 0

@@ -1,0 +1,15 @@
+[clientscript,script_871](int, int, int, int, int, int, component, int, int, int, int, int, int, component, int, int, int, int, int, int)
+def_int $int0 = sub(20, 0);
+def_int $int1 = sub(80, 0);
+def_int $int2 = div($int1, $int0);
+def_int $int3 = multiply(%varbit4523, $int2);
+def_int $int4 = div(1024, $int1);
+%varc_int111 = $int3;
+def_int $int5 = multiply(%varc_int111, $int4);
+$int5 = add($int5, 512);
+$int5 = sub(2048, $int5);
+if_setmodelangle;
+def_int $int6 = calc(enum(105, 105, enum_1422, %varbit4519) * 1024 / $int0);
+$int6 = add($int6, 512);
+if_setmodelangle;
+return(0, 0, 0, 0, $int5, 388, 46989316, ~script_896, ~script_896, ~script_896, ~script_896, ~script_896, ~script_896, 0, 0, 0, 0, $int6, 365, 46989315);

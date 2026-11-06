@@ -1,0 +1,12 @@
+; id: 1153
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: op6017 0
+    2: gosub_with_params 1156
+    3: return 0

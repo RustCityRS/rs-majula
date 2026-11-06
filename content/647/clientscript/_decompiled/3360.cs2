@@ -1,0 +1,26 @@
+[clientscript,script_3360](int, int, string)
+switch (%varp448) {
+    case 17955:
+        return(5, 18057, "Aptitude (Tier 1)");
+    case 17956:
+        return(15, 18058, "Aptitude (Tier 2)");
+    case 17957:
+        return(25, 18059, "Aptitude (Tier 3)");
+    case 17958:
+        return(35, 18060, "Aptitude (Tier 4)");
+    case 17959:
+        return(45, 18061, "Aptitude (Tier 5)");
+    case 17960:
+        return(55, 18062, "Aptitude (Tier 6)");
+    case 17961:
+        return(65, 18063, "Aptitude (Tier 7)");
+    case 17962:
+        return(75, 18064, "Aptitude (Tier 8)");
+    case 17963:
+        return(85, 18065, "Aptitude (Tier 9)");
+    case 17964:
+        return(95, 18066, "Aptitude (Tier 10)");
+    default:
+        return(5, 18057, "Aptitude (Tier 1)");
+}
+return(0, -1, "");

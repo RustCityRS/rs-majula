@@ -1,0 +1,25 @@
+; id: 27
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 1485
+    1: tostring 0
+    2: push_constant_int 12910600
+    3: if_settext 0
+    4: push_varbit 1489
+    5: tostring 0
+    6: push_constant_int 12910603
+    7: if_settext 0
+    8: push_varbit 1488
+    9: tostring 0
+   10: push_constant_int 12910601
+   11: if_settext 0
+   12: push_varbit 1486
+   13: tostring 0
+   14: push_constant_int 12910602
+   15: if_settext 0
+   16: return 0

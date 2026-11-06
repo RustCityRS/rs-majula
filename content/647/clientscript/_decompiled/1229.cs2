@@ -1,0 +1,11 @@
+[clientscript,script_1229](int $int0, int $int1, int $int2, int $int3)(int, int, int, int, int, int, int, int, string, string)
+if ($int0 ! 1) {
+    return;
+}
+if_setonop;
+if_setontimer;
+if_clearops;
+if_sethide($int2);
+if_sethide($int3);
+if_sethide($int1);
+return(-1, $int2, -1, $int1, $int2, 1, 1, 1, "", "");

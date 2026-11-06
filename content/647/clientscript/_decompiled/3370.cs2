@@ -1,0 +1,12 @@
+[clientscript,script_3370](int $int0, int $int1)(int, int, component, string)
+def_int $int2 = sub(clientclock, $int1);
+def_int $int3 = 0;
+if ($int2 > 70) {
+    if_sethide(48890040);
+    if_setontimer;
+    return(1, -1, 48890037, "");
+}
+$int3 = min(70, multiply($int2, 2));
+if_setposition($int3, 0, 0, 48890040);
+if_sethide(48890040);
+return(7, 0);

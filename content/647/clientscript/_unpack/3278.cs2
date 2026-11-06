@@ -1,0 +1,67 @@
+; id: 3278
+int_param_count=4
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 4
+    2: push_constant_int 0
+    3: pop_int_local 5
+    4: push_int_local 3
+    5: switch 0
+    6: branch 17
+    7: push_constant_int 61734915
+    8: if_getwidth 0
+    9: push_constant_int 4
+   10: div 0
+   11: pop_int_local 4
+   12: push_constant_int 61734915
+   13: if_getheight 0
+   14: push_constant_int 4
+   15: div 0
+   16: pop_int_local 5
+   17: branch 6
+   18: push_constant_int 61734915
+   19: if_getwidth 0
+   20: push_constant_int 4
+   21: div 0
+   22: pop_int_local 4
+   23: branch 0
+   24: push_constant_int 61734915
+   25: push_constant_int 5
+   26: push_varc_int 1149
+   27: cc_setposition 0
+   28: push_varc_int 1149
+   29: push_constant_int 1
+   30: add 0
+   31: pop_varc_int 1149
+   32: push_constant_int 32
+   33: push_constant_int 32
+   34: push_constant_int 0
+   35: push_constant_int 0
+   36: cc_setsize 0
+   37: push_int_local 2
+   38: cc_setgraphic 0
+   39: push_int_local 0
+   40: push_constant_int 32
+   41: multiply 0
+   42: push_int_local 4
+   43: add 0
+   44: push_int_local 1
+   45: push_constant_int 32
+   46: multiply 0
+   47: push_int_local 5
+   48: add 0
+   49: push_constant_int 0
+   50: push_constant_int 2
+   51: cc_setposition2 0
+   52: push_constant_int 0
+   53: cc_sethide 0
+   54: return 0
+
+switch_0:
+  1 => 1
+  2 => 12

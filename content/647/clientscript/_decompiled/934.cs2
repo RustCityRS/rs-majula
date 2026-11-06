@@ -1,0 +1,27 @@
+[clientscript,script_934](int $int0)(int, string)
+def_string $str0 = "";
+def_int $int1 = oc_weight(hunk_of_crystal);
+switch (oc_weight(chunk_of_crystal)) {
+    case 1:
+        if ($int1 = 1) {
+            $str0 = "Rescued 1 dignitary in Recipe for Disaster";
+        } else {
+            $str0 = "Rescued " + tostring($int1) + " dignitaries in Recipe for Disaster";
+        }
+        return(%varbit1852, ~script_913($int0, oc_weight(hunk_of_crystal), $str0));
+    case 2:
+        return(~script_913(%varbit3763, 2, "Barbarian spearmaking"));
+    case 3:
+        return(~script_913(%varbit4310, 10, "Complete: Chaos Tunnels"));
+    case 4:
+        return(~script_913(%varbit1990, 280, "Part of quest: In Aid of the Myreque"));
+    case 5:
+        return(~script_913(%varbit1850, 4, "Part of quest: Recipe for Disaster"));
+    case 6:
+        return(~script_913(%varbit3550, 8, "Part of quest: Another Slice of H.A.M."));
+    case 7:
+        return(~script_913(%varbit998, 7, "You need to complete the first puzzle in the Elemental Workshop IV Quest."));
+    default:
+        return("");
+}
+return("");

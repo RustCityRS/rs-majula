@@ -1,0 +1,12 @@
+[clientscript,script_1376](int $int0, int $int1, int $int2)(int, int, int, component, int, int, int, int, int, int, int, string, string)
+if ($int0 = 1) {
+    if_sethide(49479727);
+    if_setop(49479685, "Hide key");
+    if_setsize(0, 1, 1, $int1);
+} else {
+    if_sethide(49479727);
+    if_setop(49479685, "Show key");
+    if_setsize(0, 1, 1, $int1);
+}
+if_setonop;
+return(~script_2046($int1), ~script_2046($int1), ~script_2046($int1), ~script_2046($int1), ~script_2046($int1), ~script_2046($int1), ~script_2046($int1), 1375, $int1, $int2, 49479685, ~script_2046($int1), "II");

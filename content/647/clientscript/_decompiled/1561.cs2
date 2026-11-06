@@ -1,0 +1,37 @@
+[clientscript,script_1561](int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+def_string $str0 = "";
+def_int $int0 = 1;
+def_int $int1 = 0;
+def_string $str1 = "";
+if ($int1 = 0) {
+    if ($int0 < chat_getofflinepm) {
+        $str1 = "";
+        if (chat_gethistory_length($int0) ! 0) {
+            if (chat_gethistory_length($int0) ! 4) {
+                if (chat_gethistory_length($int0) ! 27) {
+                    if (chat_gethistory_length($int0) ! 28) {
+                        if (chat_gethistory_length($int0) ! 29) {
+                            if (chat_gethistory_length($int0) ! 26) {
+                                if (chat_gethistory_length($int0) ! 30) {
+                                    if (chat_gethistory_length($int0) ! 31) {
+                                        $int1 = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (chat_gethistory_crown($int0) <= %varc_int1269) {
+                $int1 = 1;
+            }
+            if (string_length(removetags($str1)) > 0) {
+                $str0 = append(append($str1, "<br>"), $str0);
+            }
+            $str0 = append("<br>", $str0);
+        }
+        $int0 = add($int0, 1);
+    }
+}
+return(~script_102($str0));

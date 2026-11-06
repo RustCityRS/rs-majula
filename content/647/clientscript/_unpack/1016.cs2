@@ -1,0 +1,1039 @@
+; id: 1016
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 927
+    3: push_int_local 1
+    4: switch 1
+    5: branch 207
+    6: push_constant_int 1
+    7: push_constant_int 1436
+    8: push_constant_string "Rune essence"
+    9: push_constant_string "<br>"
+   10: push_constant_string " (after Rune Mysteries)"
+   11: join_string 3
+   12: push_constant_string "You now have the Mining level required to mine "
+   13: push_constant_string "<col=000080>"
+   14: push_constant_string "rune essence"
+   15: push_constant_string "</col>"
+   16: push_constant_string " (after Rune Mysteries)."
+   17: join_string 5
+   18: return 0
+   19: branch 193
+   20: push_constant_int 1
+   21: push_constant_int 434
+   22: push_constant_string "Clay"
+   23: push_constant_string "You can now mine "
+   24: push_constant_string "<col=000080>"
+   25: push_constant_string "clay"
+   26: push_constant_string "</col>"
+   27: push_constant_string "."
+   28: join_string 5
+   29: return 0
+   30: branch 182
+   31: push_constant_int 1
+   32: push_constant_int 436
+   33: push_constant_string "Copper ore"
+   34: push_constant_string "You can now mine "
+   35: push_constant_string "<col=000080>"
+   36: push_constant_string "copper ore"
+   37: push_constant_string "</col>"
+   38: push_constant_string "."
+   39: join_string 5
+   40: return 0
+   41: branch 171
+   42: push_constant_int 1
+   43: push_constant_int 438
+   44: push_constant_string "Tin ore"
+   45: push_constant_string "You can now mine "
+   46: push_constant_string "<col=000080>"
+   47: push_constant_string "tin ore"
+   48: push_constant_string "</col>"
+   49: push_constant_string "."
+   50: join_string 5
+   51: return 0
+   52: branch 160
+   53: push_constant_int 10
+   54: push_constant_int 3211
+   55: push_constant_string "Members: Limestone"
+   56: push_constant_string "Members can now mine "
+   57: push_constant_string "<col=000080>"
+   58: push_constant_string "limestone"
+   59: push_constant_string "</col>"
+   60: push_constant_string "."
+   61: join_string 5
+   62: return 0
+   63: branch 149
+   64: push_constant_int 10
+   65: push_constant_int 668
+   66: push_constant_string "Blurite ore"
+   67: push_constant_string "You can now mine "
+   68: push_constant_string "<col=000080>"
+   69: push_constant_string "blurite ore"
+   70: push_constant_string "</col>"
+   71: push_constant_string "."
+   72: join_string 5
+   73: return 0
+   74: branch 138
+   75: push_constant_int 15
+   76: push_constant_int 440
+   77: push_constant_string "Iron ore"
+   78: push_constant_string "You can now mine "
+   79: push_constant_string "<col=000080>"
+   80: push_constant_string "iron ore"
+   81: push_constant_string "</col>"
+   82: push_constant_string "."
+   83: join_string 5
+   84: return 0
+   85: branch 127
+   86: push_constant_int 20
+   87: push_constant_int 2892
+   88: push_constant_string "Members: Elemental ore"
+   89: push_constant_string "<br>"
+   90: push_constant_string " (after starting Elemental Workshop)"
+   91: join_string 3
+   92: push_constant_string "Members now have the Mining level required to mine "
+   93: push_constant_string "<col=000080>"
+   94: push_constant_string "elemental ore"
+   95: push_constant_string "</col>"
+   96: push_constant_string " (after starting Elemental Workshop)."
+   97: join_string 5
+   98: return 0
+   99: branch 113
+  100: push_constant_int 20
+  101: push_constant_int 442
+  102: push_constant_string "Silver ore"
+  103: push_constant_string "You can now mine "
+  104: push_constant_string "<col=000080>"
+  105: push_constant_string "silver ore"
+  106: push_constant_string "</col>"
+  107: push_constant_string "."
+  108: join_string 5
+  109: return 0
+  110: branch 102
+  111: push_constant_int 30
+  112: push_constant_int 453
+  113: push_constant_string "Coal"
+  114: push_constant_string "You can now mine "
+  115: push_constant_string "<col=000080>"
+  116: push_constant_string "coal"
+  117: push_constant_string "</col>"
+  118: push_constant_string "."
+  119: join_string 5
+  120: return 0
+  121: branch 91
+  122: push_constant_int 30
+  123: push_constant_int 7936
+  124: push_constant_string "Members: Pure essence"
+  125: push_constant_string "<br>"
+  126: push_constant_string " (after Rune Mysteries)"
+  127: join_string 3
+  128: push_constant_string "Members now have the Mining level required to mine "
+  129: push_constant_string "<col=000080>"
+  130: push_constant_string "pure essence"
+  131: push_constant_string "</col>"
+  132: push_constant_string " (after Rune Mysteries)."
+  133: join_string 5
+  134: return 0
+  135: branch 77
+  136: push_constant_int 35
+  137: push_constant_int 6977
+  138: push_constant_string "Members: Sandstone"
+  139: push_constant_string "Members can now mine "
+  140: push_constant_string "<col=000080>"
+  141: push_constant_string "sandstone"
+  142: push_constant_string "</col>"
+  143: push_constant_string "."
+  144: join_string 5
+  145: return 0
+  146: branch 66
+  147: push_constant_int 40
+  148: push_constant_int 444
+  149: push_constant_string "Gold"
+  150: push_constant_string "You can now mine "
+  151: push_constant_string "<col=000080>"
+  152: push_constant_string "gold"
+  153: push_constant_string "</col>"
+  154: push_constant_string "."
+  155: join_string 5
+  156: return 0
+  157: branch 55
+  158: push_constant_int 45
+  159: push_constant_int 6983
+  160: push_constant_string "Members: Granite"
+  161: push_constant_string "Members can now mine "
+  162: push_constant_string "<col=000080>"
+  163: push_constant_string "granite."
+  164: join_string 3
+  165: return 0
+  166: branch 46
+  167: push_constant_int 46
+  168: push_constant_int 12630
+  169: push_constant_string "Members: Rubium ore"
+  170: push_constant_string "<br>"
+  171: push_constant_string " (after Kennith's Concerns)"
+  172: join_string 3
+  173: push_constant_string "Members can now mine "
+  174: push_constant_string "<col=000080>"
+  175: push_constant_string "rubium ore"
+  176: push_constant_string "</col>"
+  177: push_constant_string " (after Kennith's Concerns)."
+  178: join_string 5
+  179: return 0
+  180: branch 32
+  181: push_constant_int 55
+  182: push_constant_int 447
+  183: push_constant_string "Mithril ore"
+  184: push_constant_string "You can now mine "
+  185: push_constant_string "<col=000080>"
+  186: push_constant_string "mithril ore"
+  187: push_constant_string "</col>"
+  188: push_constant_string "."
+  189: join_string 5
+  190: return 0
+  191: branch 21
+  192: push_constant_int 70
+  193: push_constant_int 449
+  194: push_constant_string "Adamantite ore"
+  195: push_constant_string "You can now mine "
+  196: push_constant_string "<col=000080>"
+  197: push_constant_string "adamantite ore"
+  198: push_constant_string "</col>"
+  199: push_constant_string "."
+  200: join_string 5
+  201: return 0
+  202: branch 10
+  203: push_constant_int 85
+  204: push_constant_int 451
+  205: push_constant_string "Runite ore"
+  206: push_constant_string "You can now mine "
+  207: push_constant_string "<col=000080>"
+  208: push_constant_string "runite ore"
+  209: push_constant_string "</col>"
+  210: push_constant_string "."
+  211: join_string 5
+  212: return 0
+  213: branch 716
+  214: push_int_local 1
+  215: switch 2
+  216: branch 126
+  217: push_constant_int 1
+  218: push_constant_int 1265
+  219: push_constant_string "Bronze pickaxe"
+  220: push_constant_string "You can now use "
+  221: push_constant_string "<col=000080>"
+  222: push_constant_string "bronze pickaxes"
+  223: push_constant_string "</col>"
+  224: push_constant_string "."
+  225: join_string 5
+  226: return 0
+  227: branch 115
+  228: push_constant_int 1
+  229: push_constant_int 1267
+  230: push_constant_string "Iron pickaxe"
+  231: push_constant_string "You can now use "
+  232: push_constant_string "<col=000080>"
+  233: push_constant_string "iron pickaxes"
+  234: push_constant_string "</col>"
+  235: push_constant_string "."
+  236: join_string 5
+  237: return 0
+  238: branch 104
+  239: push_constant_int 6
+  240: push_constant_int 1269
+  241: push_constant_string "Steel pickaxe"
+  242: push_constant_string "You can now use "
+  243: push_constant_string "<col=000080>"
+  244: push_constant_string "steel pickaxes"
+  245: push_constant_string "</col>"
+  246: push_constant_string "."
+  247: join_string 5
+  248: return 0
+  249: branch 93
+  250: push_constant_int 21
+  251: push_constant_int 1273
+  252: push_constant_string "Mithril pickaxe"
+  253: push_constant_string "You can now use "
+  254: push_constant_string "<col=000080>"
+  255: push_constant_string "mithril pickaxes"
+  256: push_constant_string "</col>"
+  257: push_constant_string "."
+  258: join_string 5
+  259: return 0
+  260: branch 82
+  261: push_constant_int 31
+  262: push_constant_int 1271
+  263: push_constant_string "Adamant pickaxe"
+  264: push_constant_string "You can now use "
+  265: push_constant_string "<col=000080>"
+  266: push_constant_string "adamant pickaxes"
+  267: push_constant_string "</col>"
+  268: push_constant_string "."
+  269: join_string 5
+  270: return 0
+  271: branch 71
+  272: push_constant_int 35
+  273: push_constant_int 18339
+  274: push_constant_string "Coal bag"
+  275: push_constant_string "<br>"
+  276: push_constant_string " (with 35 Dungeoneering)"
+  277: join_string 3
+  278: push_constant_string "You can now use "
+  279: push_constant_string "<col=000080>"
+  280: push_constant_string "coal bags"
+  281: push_constant_string "</col>"
+  282: push_constant_string ". (You also need level 35 Dungeoneering.)"
+  283: join_string 5
+  284: return 0
+  285: branch 57
+  286: push_constant_int 40
+  287: push_constant_int 14107
+  288: push_constant_string "Members: Sacred clay pickaxe"
+  289: push_constant_string "Members can now use "
+  290: push_constant_string "<col=000080>"
+  291: push_constant_string "sacred clay pickaxes"
+  292: push_constant_string "</col>"
+  293: push_constant_string "."
+  294: join_string 5
+  295: return 0
+  296: branch 46
+  297: push_constant_int 40
+  298: push_constant_int 14099
+  299: push_constant_string "Members: Volatile pickaxe"
+  300: push_constant_string "Members can now use "
+  301: push_constant_string "<col=000080>"
+  302: push_constant_string "volatile pickaxes"
+  303: push_constant_string "</col>"
+  304: push_constant_string "."
+  305: join_string 5
+  306: return 0
+  307: branch 35
+  308: push_constant_int 41
+  309: push_constant_int 1275
+  310: push_constant_string "Rune pickaxe"
+  311: push_constant_string "You can now use "
+  312: push_constant_string "<col=000080>"
+  313: push_constant_string "rune pickaxes"
+  314: push_constant_string "</col>"
+  315: push_constant_string "."
+  316: join_string 5
+  317: return 0
+  318: branch 24
+  319: push_constant_int 41
+  320: push_constant_int 13661
+  321: push_constant_string "Members: Inferno Adze"
+  322: push_constant_string "<br>"
+  323: push_constant_string " (after All Fired Up, with 92 Firemaking)"
+  324: join_string 3
+  325: push_constant_string "Members can now use the "
+  326: push_constant_string "<col=000080>"
+  327: push_constant_string "Inferno Adze"
+  328: push_constant_string "</col>"
+  329: push_constant_string " to mine with (after All Fired Up and with level 92 Firemaking)."
+  330: join_string 5
+  331: return 0
+  332: branch 10
+  333: push_constant_int 61
+  334: push_constant_int 15259
+  335: push_constant_string "Members: Dragon pickaxe"
+  336: push_constant_string "Members can now use "
+  337: push_constant_string "<col=000080>"
+  338: push_constant_string "dragon pickaxes"
+  339: push_constant_string "</col>"
+  340: push_constant_string "."
+  341: join_string 5
+  342: return 0
+  343: branch 586
+  344: push_int_local 1
+  345: switch 3
+  346: branch 104
+  347: push_constant_int 40
+  348: push_constant_int 1603
+  349: push_constant_string "Members: Gem rocks"
+  350: push_constant_string "<br>"
+  351: push_constant_string " (after Shilo Village)"
+  352: join_string 3
+  353: push_constant_string "Members now have the Mining level required to mine "
+  354: push_constant_string "<col=000080>"
+  355: push_constant_string "gem rocks"
+  356: push_constant_string "</col>"
+  357: push_constant_string " (after Shilo Village)."
+  358: join_string 5
+  359: return 0
+  360: branch 90
+  361: push_constant_int 41
+  362: push_constant_int 13245
+  363: push_constant_string "Members: Stone slab"
+  364: push_constant_string "<br>"
+  365: push_constant_string " (with rune pickaxe, after starting TokTz-Ket-Dill)"
+  366: join_string 3
+  367: push_constant_string "Members now have the Mining level required to mine "
+  368: push_constant_string "<col=000080>"
+  369: push_constant_string "stone slabs"
+  370: push_constant_string "</col>"
+  371: push_constant_string " with rune pickaxes (after starting TokTz-Ket-Dill)."
+  372: join_string 5
+  373: return 0
+  374: branch 76
+  375: push_constant_int 73
+  376: push_constant_int 15263
+  377: push_constant_string "Members: Living rock remains"
+  378: push_constant_string "Members now have the Mining level required to mine "
+  379: push_constant_string "<col=000080>"
+  380: push_constant_string "living rock remains"
+  381: push_constant_string "</col>"
+  382: push_constant_string "."
+  383: join_string 5
+  384: return 0
+  385: branch 65
+  386: push_constant_int 77
+  387: push_constant_int 453
+  388: push_constant_string "Members: Concentrated coal deposits"
+  389: push_constant_string "Members now have the Mining level required to mine "
+  390: push_constant_string "<col=000080>"
+  391: push_constant_string "concentrated coal deposits"
+  392: push_constant_string "</col>"
+  393: push_constant_string "."
+  394: join_string 5
+  395: return 0
+  396: branch 54
+  397: push_constant_int 80
+  398: push_constant_int 444
+  399: push_constant_string "Members: Concentrated gold deposits"
+  400: push_constant_string "Members now have the Mining level required to mine "
+  401: push_constant_string "<col=000080>"
+  402: push_constant_string "concentrated gold deposits"
+  403: push_constant_string "</col>"
+  404: push_constant_string "."
+  405: join_string 5
+  406: return 0
+  407: branch 43
+  408: push_constant_int 91
+  409: push_constant_int 18778
+  410: push_constant_string "Members: Starved ancient effigies"
+  411: push_constant_string "Members can now investigate "
+  412: push_constant_string "<col=000080>"
+  413: push_constant_string "starved ancient effigies"
+  414: push_constant_string "</col>"
+  415: push_constant_string " using their knowledge of Mining."
+  416: join_string 5
+  417: return 0
+  418: branch 32
+  419: push_constant_int 93
+  420: push_constant_int 18779
+  421: push_constant_string "Members: Nourished ancient effigies"
+  422: push_constant_string "Members can now investigate "
+  423: push_constant_string "<col=000080>"
+  424: push_constant_string "nourished ancient effigies"
+  425: push_constant_string "</col>"
+  426: push_constant_string " using their knowledge of Mining."
+  427: join_string 5
+  428: return 0
+  429: branch 21
+  430: push_constant_int 95
+  431: push_constant_int 18780
+  432: push_constant_string "Members: Sated ancient effigies"
+  433: push_constant_string "Members can now investigate "
+  434: push_constant_string "<col=000080>"
+  435: push_constant_string "sated ancient effigies"
+  436: push_constant_string "</col>"
+  437: push_constant_string " using their knowledge of Mining."
+  438: join_string 5
+  439: return 0
+  440: branch 10
+  441: push_constant_int 97
+  442: push_constant_int 18781
+  443: push_constant_string "Members: Gorged ancient effigies"
+  444: push_constant_string "Members can now investigate "
+  445: push_constant_string "<col=000080>"
+  446: push_constant_string "gorged ancient effigies"
+  447: push_constant_string "</col>"
+  448: push_constant_string " using their knowledge of Mining."
+  449: join_string 5
+  450: return 0
+  451: branch 478
+  452: push_int_local 1
+  453: switch 4
+  454: branch 98
+  455: push_constant_int 10
+  456: push_constant_int 13727
+  457: push_constant_string "Members: Size-1 stars"
+  458: push_constant_string "Members can now mine size-1 "
+  459: push_constant_string "<col=000080>"
+  460: push_constant_string "crashed stars"
+  461: push_constant_string "</col>"
+  462: push_constant_string "."
+  463: join_string 5
+  464: return 0
+  465: branch 87
+  466: push_constant_int 20
+  467: push_constant_int 13727
+  468: push_constant_string "Members: Size-2 stars"
+  469: push_constant_string "Members can now mine size-2 "
+  470: push_constant_string "<col=000080>"
+  471: push_constant_string "crashed stars"
+  472: push_constant_string "</col>"
+  473: push_constant_string "."
+  474: join_string 5
+  475: return 0
+  476: branch 76
+  477: push_constant_int 30
+  478: push_constant_int 13727
+  479: push_constant_string "Members: Size-3 stars"
+  480: push_constant_string "Members can now mine size-3 "
+  481: push_constant_string "<col=000080>"
+  482: push_constant_string "crashed stars"
+  483: push_constant_string "</col>"
+  484: push_constant_string "."
+  485: join_string 5
+  486: return 0
+  487: branch 65
+  488: push_constant_int 40
+  489: push_constant_int 13727
+  490: push_constant_string "Members: Size-4 stars"
+  491: push_constant_string "Members can now mine size-4 "
+  492: push_constant_string "<col=000080>"
+  493: push_constant_string "crashed stars"
+  494: push_constant_string "</col>"
+  495: push_constant_string "."
+  496: join_string 5
+  497: return 0
+  498: branch 54
+  499: push_constant_int 50
+  500: push_constant_int 13727
+  501: push_constant_string "Members: Size-5 stars"
+  502: push_constant_string "Members can now mine size-5 "
+  503: push_constant_string "<col=000080>"
+  504: push_constant_string "crashed stars"
+  505: push_constant_string "</col>"
+  506: push_constant_string "."
+  507: join_string 5
+  508: return 0
+  509: branch 43
+  510: push_constant_int 60
+  511: push_constant_int 13727
+  512: push_constant_string "Members: Size-6 stars"
+  513: push_constant_string "Members can now mine size-6 "
+  514: push_constant_string "<col=000080>"
+  515: push_constant_string "crashed stars"
+  516: push_constant_string "</col>"
+  517: push_constant_string "."
+  518: join_string 5
+  519: return 0
+  520: branch 32
+  521: push_constant_int 70
+  522: push_constant_int 13727
+  523: push_constant_string "Members: Size-7 stars"
+  524: push_constant_string "Members can now mine size-7 "
+  525: push_constant_string "<col=000080>"
+  526: push_constant_string "crashed stars"
+  527: push_constant_string "</col>"
+  528: push_constant_string "."
+  529: join_string 5
+  530: return 0
+  531: branch 21
+  532: push_constant_int 80
+  533: push_constant_int 13727
+  534: push_constant_string "Members: Size-8 stars"
+  535: push_constant_string "Members can now mine size-8 "
+  536: push_constant_string "<col=000080>"
+  537: push_constant_string "crashed stars"
+  538: push_constant_string "</col>"
+  539: push_constant_string "."
+  540: join_string 5
+  541: return 0
+  542: branch 10
+  543: push_constant_int 90
+  544: push_constant_int 13727
+  545: push_constant_string "Members: Size-9 stars"
+  546: push_constant_string "Members can now mine size-9 "
+  547: push_constant_string "<col=000080>"
+  548: push_constant_string "crashed stars"
+  549: push_constant_string "</col>"
+  550: push_constant_string "."
+  551: join_string 5
+  552: return 0
+  553: branch 376
+  554: push_int_local 1
+  555: switch 5
+  556: branch 98
+  557: push_constant_int 1
+  558: push_constant_int 14122
+  559: push_constant_string "Members: Stealing Creation - class 1 pickaxe"
+  560: push_constant_string "Members can now use "
+  561: push_constant_string "<col=000080>"
+  562: push_constant_string "class 1 pickaxes"
+  563: push_constant_string "</col>"
+  564: push_constant_string " in Stealing Creation."
+  565: join_string 5
+  566: return 0
+  567: branch 87
+  568: push_constant_int 20
+  569: push_constant_int 14184
+  570: push_constant_string "Members: Stealing Creation - mine class 2 sacred clay"
+  571: push_constant_string "Members can now mine "
+  572: push_constant_string "<col=000080>"
+  573: push_constant_string "class 2 sacred clay"
+  574: push_constant_string "</col>"
+  575: push_constant_string " in Stealing Creation."
+  576: join_string 5
+  577: return 0
+  578: branch 76
+  579: push_constant_int 20
+  580: push_constant_int 14124
+  581: push_constant_string "Members: Stealing Creation - class 2 pickaxe"
+  582: push_constant_string "Members can now use "
+  583: push_constant_string "<col=000080>"
+  584: push_constant_string "class 2 pickaxes"
+  585: push_constant_string "</col>"
+  586: push_constant_string " in Stealing Creation."
+  587: join_string 5
+  588: return 0
+  589: branch 65
+  590: push_constant_int 40
+  591: push_constant_int 14186
+  592: push_constant_string "Members: Stealing Creation - mine class 3 sacred clay"
+  593: push_constant_string "Members can now mine "
+  594: push_constant_string "<col=000080>"
+  595: push_constant_string "class 3 sacred clay"
+  596: push_constant_string "</col>"
+  597: push_constant_string " in Stealing Creation."
+  598: join_string 5
+  599: return 0
+  600: branch 54
+  601: push_constant_int 40
+  602: push_constant_int 14126
+  603: push_constant_string "Members: Stealing Creation - class 3 pickaxe"
+  604: push_constant_string "Members can now use "
+  605: push_constant_string "<col=000080>"
+  606: push_constant_string "class 3 pickaxes"
+  607: push_constant_string "</col>"
+  608: push_constant_string " in Stealing Creation."
+  609: join_string 5
+  610: return 0
+  611: branch 43
+  612: push_constant_int 60
+  613: push_constant_int 14188
+  614: push_constant_string "Members: Stealing Creation - mine class 4 sacred clay"
+  615: push_constant_string "Members can now mine "
+  616: push_constant_string "<col=000080>"
+  617: push_constant_string "class 4 sacred clay"
+  618: push_constant_string "</col>"
+  619: push_constant_string " in Stealing Creation."
+  620: join_string 5
+  621: return 0
+  622: branch 32
+  623: push_constant_int 60
+  624: push_constant_int 14128
+  625: push_constant_string "Members: Stealing Creation - class 4 pickaxe"
+  626: push_constant_string "Members can now use "
+  627: push_constant_string "<col=000080>"
+  628: push_constant_string "class 4 pickaxes"
+  629: push_constant_string "</col>"
+  630: push_constant_string " in Stealing Creation."
+  631: join_string 5
+  632: return 0
+  633: branch 21
+  634: push_constant_int 80
+  635: push_constant_int 14190
+  636: push_constant_string "Members: Stealing Creation - mine class 5 sacred clay"
+  637: push_constant_string "Members can now mine "
+  638: push_constant_string "<col=000080>"
+  639: push_constant_string "class 5 sacred clay"
+  640: push_constant_string "</col>"
+  641: push_constant_string " in Stealing Creation."
+  642: join_string 5
+  643: return 0
+  644: branch 10
+  645: push_constant_int 80
+  646: push_constant_int 14130
+  647: push_constant_string "Members: Stealing Creation - class 5 pickaxe"
+  648: push_constant_string "Members can now use "
+  649: push_constant_string "<col=000080>"
+  650: push_constant_string "class 5 pickaxes"
+  651: push_constant_string "</col>"
+  652: push_constant_string " in Stealing Creation."
+  653: join_string 5
+  654: return 0
+  655: branch 274
+  656: push_int_local 1
+  657: switch 6
+  658: branch 237
+  659: push_constant_int -1
+  660: push_constant_int 15707
+  661: push_constant_string "Dungeoneering skill tasks"
+  662: push_constant_string "<br>"
+  663: push_constant_string "As your Mining level increases, you will be able to attempt higher-level mining tasks within Daemonheim. You will also be more likely to succeed when attempting mining tasks within Daemonheim."
+  664: join_string 3
+  665: push_constant_string ""
+  666: return 0
+  667: branch 228
+  668: push_constant_int 1
+  669: push_constant_int 17630
+  670: push_constant_string "Novite ore (Tier 1)"
+  671: push_constant_string "You can now mine "
+  672: push_constant_string "<col=000080>"
+  673: push_constant_string "novite ore"
+  674: push_constant_string "</col>"
+  675: push_constant_string " within Daemonheim."
+  676: join_string 5
+  677: return 0
+  678: branch 217
+  679: push_constant_int 1
+  680: push_constant_int 16295
+  681: push_constant_string "Novite pickaxe (Tier 1)"
+  682: push_constant_string "You can now use "
+  683: push_constant_string "<col=000080>"
+  684: push_constant_string "novite pickaxes"
+  685: push_constant_string "</col>"
+  686: push_constant_string " within Daemonheim."
+  687: join_string 5
+  688: return 0
+  689: branch 206
+  690: push_constant_int 10
+  691: push_constant_int 17632
+  692: push_constant_string "Bathus ore (Tier 2)"
+  693: push_constant_string "You can now mine "
+  694: push_constant_string "<col=000080>"
+  695: push_constant_string "bathus ore"
+  696: push_constant_string "</col>"
+  697: push_constant_string " within Daemonheim."
+  698: join_string 5
+  699: return 0
+  700: branch 195
+  701: push_constant_int 10
+  702: push_constant_int 16297
+  703: push_constant_string "Bathus pickaxe (Tier 2)"
+  704: push_constant_string "You can now use "
+  705: push_constant_string "<col=000080>"
+  706: push_constant_string "bathus pickaxes"
+  707: push_constant_string "</col>"
+  708: push_constant_string " within Daemonheim."
+  709: join_string 5
+  710: return 0
+  711: branch 184
+  712: push_constant_int 20
+  713: push_constant_int 17634
+  714: push_constant_string "Marmaros ore (Tier 3)"
+  715: push_constant_string "You can now mine "
+  716: push_constant_string "<col=000080>"
+  717: push_constant_string "marmaros ore"
+  718: push_constant_string "</col>"
+  719: push_constant_string " within Daemonheim."
+  720: join_string 5
+  721: return 0
+  722: branch 173
+  723: push_constant_int 20
+  724: push_constant_int 16299
+  725: push_constant_string "Marmaros pickaxe (Tier 3)"
+  726: push_constant_string "You can now use "
+  727: push_constant_string "<col=000080>"
+  728: push_constant_string "marmaros pickaxes"
+  729: push_constant_string "</col>"
+  730: push_constant_string " within Daemonheim."
+  731: join_string 5
+  732: return 0
+  733: branch 162
+  734: push_constant_int 30
+  735: push_constant_int 17636
+  736: push_constant_string "Kratonium ore (Tier 4)"
+  737: push_constant_string "You can now mine "
+  738: push_constant_string "<col=000080>"
+  739: push_constant_string "kratonite ore"
+  740: push_constant_string "</col>"
+  741: push_constant_string " within Daemonheim."
+  742: join_string 5
+  743: return 0
+  744: branch 151
+  745: push_constant_int 30
+  746: push_constant_int 16301
+  747: push_constant_string "Kratonite pickaxe (Tier 4)"
+  748: push_constant_string "You can now use "
+  749: push_constant_string "<col=000080>"
+  750: push_constant_string "kratonite pickaxes"
+  751: push_constant_string "</col>"
+  752: push_constant_string " within Daemonheim."
+  753: join_string 5
+  754: return 0
+  755: branch 140
+  756: push_constant_int 40
+  757: push_constant_int 17638
+  758: push_constant_string "Fractite ore (Tier 5)"
+  759: push_constant_string "You can now mine "
+  760: push_constant_string "<col=000080>"
+  761: push_constant_string "fractite ore"
+  762: push_constant_string "</col>"
+  763: push_constant_string " within Daemonheim."
+  764: join_string 5
+  765: return 0
+  766: branch 129
+  767: push_constant_int 40
+  768: push_constant_int 16303
+  769: push_constant_string "Fractite pickaxe (Tier 5)"
+  770: push_constant_string "You can now use "
+  771: push_constant_string "<col=000080>"
+  772: push_constant_string "fractite pickaxes"
+  773: push_constant_string "</col>"
+  774: push_constant_string " within Daemonheim."
+  775: join_string 5
+  776: return 0
+  777: branch 118
+  778: push_constant_int 50
+  779: push_constant_int 17640
+  780: push_constant_string "Members: Zephyrium ore (Tier 6)"
+  781: push_constant_string "Members can now mine "
+  782: push_constant_string "<col=000080>"
+  783: push_constant_string "zephyrium ore"
+  784: push_constant_string "</col>"
+  785: push_constant_string " within Daemonheim."
+  786: join_string 5
+  787: return 0
+  788: branch 107
+  789: push_constant_int 50
+  790: push_constant_int 16305
+  791: push_constant_string "Members: Zephyrium pickaxe (Tier 6)"
+  792: push_constant_string "Members can now use "
+  793: push_constant_string "<col=000080>"
+  794: push_constant_string "zephyrium pickaxes"
+  795: push_constant_string "</col>"
+  796: push_constant_string " within Daemonheim."
+  797: join_string 5
+  798: return 0
+  799: branch 96
+  800: push_constant_int 60
+  801: push_constant_int 17642
+  802: push_constant_string "Members: Argonite ore (Tier 7)"
+  803: push_constant_string "Members can now mine "
+  804: push_constant_string "<col=000080>"
+  805: push_constant_string "argonite ore"
+  806: push_constant_string "</col>"
+  807: push_constant_string " within Daemonheim."
+  808: join_string 5
+  809: return 0
+  810: branch 85
+  811: push_constant_int 60
+  812: push_constant_int 16307
+  813: push_constant_string "Members: Argonite pickaxe (Tier 7)"
+  814: push_constant_string "Members can now use "
+  815: push_constant_string "<col=000080>"
+  816: push_constant_string "argonite pickaxes"
+  817: push_constant_string "</col>"
+  818: push_constant_string " within Daemonheim."
+  819: join_string 5
+  820: return 0
+  821: branch 74
+  822: push_constant_int 70
+  823: push_constant_int 17644
+  824: push_constant_string "Members: Katagon ore (Tier 8)"
+  825: push_constant_string "Members can now mine "
+  826: push_constant_string "<col=000080>"
+  827: push_constant_string "katagon ore"
+  828: push_constant_string "</col>"
+  829: push_constant_string " within Daemonheim."
+  830: join_string 5
+  831: return 0
+  832: branch 63
+  833: push_constant_int 70
+  834: push_constant_int 16309
+  835: push_constant_string "Members: Katagon pickaxe (Tier 8)"
+  836: push_constant_string "Members can now use "
+  837: push_constant_string "<col=000080>"
+  838: push_constant_string "katagon pickaxes"
+  839: push_constant_string "</col>"
+  840: push_constant_string " within Daemonheim."
+  841: join_string 5
+  842: return 0
+  843: branch 52
+  844: push_constant_int 80
+  845: push_constant_int 17646
+  846: push_constant_string "Members: Gorgonite ore (Tier 9)"
+  847: push_constant_string "Members can now mine "
+  848: push_constant_string "<col=000080>"
+  849: push_constant_string "gorgonite ore"
+  850: push_constant_string "</col>"
+  851: push_constant_string " within Daemonheim."
+  852: join_string 5
+  853: return 0
+  854: branch 41
+  855: push_constant_int 80
+  856: push_constant_int 16311
+  857: push_constant_string "Members: Gorgonite pickaxe (Tier 9)"
+  858: push_constant_string "Members can now use "
+  859: push_constant_string "<col=000080>"
+  860: push_constant_string "gorgonite pickaxes"
+  861: push_constant_string "</col>"
+  862: push_constant_string " within Daemonheim."
+  863: join_string 5
+  864: return 0
+  865: branch 30
+  866: push_constant_int 90
+  867: push_constant_int 17648
+  868: push_constant_string "Members: Promethium ore (Tier 10)"
+  869: push_constant_string "Members can now mine "
+  870: push_constant_string "<col=000080>"
+  871: push_constant_string "promethium ore"
+  872: push_constant_string "</col>"
+  873: push_constant_string " within Daemonheim."
+  874: join_string 5
+  875: return 0
+  876: branch 19
+  877: push_constant_int 90
+  878: push_constant_int 16313
+  879: push_constant_string "Members: Promethium pickaxe (Tier 10)"
+  880: push_constant_string "Members can now use "
+  881: push_constant_string "<col=000080>"
+  882: push_constant_string "promethium pickaxes"
+  883: push_constant_string "</col>"
+  884: push_constant_string " within Daemonheim."
+  885: join_string 5
+  886: return 0
+  887: branch 8
+  888: push_constant_int 99
+  889: push_constant_int 16315
+  890: push_constant_string "Members: Primal pickaxe (Tier 11)"
+  891: push_constant_string "Members can now use primal pickaxes"
+  892: push_constant_string "</col>"
+  893: push_constant_string " within Daemonheim."
+  894: join_string 3
+  895: return 0
+  896: branch 33
+  897: push_int_local 1
+  898: switch 7
+  899: branch 30
+  900: push_constant_int 60
+  901: push_constant_int 447
+  902: push_constant_string "Mining Guild"
+  903: push_constant_string "You can now enter the world-famous "
+  904: push_constant_string "<col=000080>"
+  905: push_constant_string "Mining Guild"
+  906: push_constant_string "</col>"
+  907: push_constant_string "."
+  908: join_string 5
+  909: return 0
+  910: branch 19
+  911: push_constant_int 99
+  912: push_constant_int 9792
+  913: push_constant_string "Skill mastery"
+  914: push_constant_string "<col=000080>"
+  915: push_constant_string "Congratulations! You are now a master miner. Members can visit the "
+  916: push_constant_string "<col=800000>"
+  917: push_constant_string "dwarf"
+  918: push_constant_string "<col=000080>"
+  919: push_constant_string " who guards the entrance to the "
+  920: push_constant_string "<col=800000>"
+  921: push_constant_string "Mining Guild"
+  922: push_constant_string "<col=000080>"
+  923: push_constant_string ". He has something special that is only available to true masters of the "
+  924: push_constant_string "<col=800000>"
+  925: push_constant_string "Mining"
+  926: push_constant_string "<col=000080>"
+  927: push_constant_string " skill!"
+  928: join_string 14
+  929: return 0
+  930: push_constant_int 0
+  931: push_constant_int -1
+  932: push_constant_string ""
+  933: push_constant_string ""
+  934: return 0
+
+switch_0:
+  0 => 1
+  1 => 212
+  2 => 342
+  3 => 450
+  4 => 552
+  5 => 654
+  6 => 895
+switch_1:
+  0 => 1
+  1 => 15
+  2 => 26
+  3 => 37
+  4 => 48
+  5 => 59
+  6 => 70
+  7 => 81
+  8 => 95
+  9 => 106
+  10 => 117
+  11 => 131
+  12 => 142
+  13 => 153
+  14 => 162
+  15 => 176
+  16 => 187
+  17 => 198
+switch_2:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 70
+  7 => 81
+  8 => 92
+  9 => 103
+  10 => 117
+switch_3:
+  0 => 1
+  1 => 15
+  2 => 29
+  3 => 40
+  4 => 51
+  5 => 62
+  6 => 73
+  7 => 84
+  8 => 95
+switch_4:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+switch_5:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+switch_6:
+  0 => 1
+  1 => 10
+  2 => 21
+  3 => 32
+  4 => 43
+  5 => 54
+  6 => 65
+  7 => 76
+  8 => 87
+  9 => 98
+  10 => 109
+  11 => 120
+  12 => 131
+  13 => 142
+  14 => 153
+  15 => 164
+  16 => 175
+  17 => 186
+  18 => 197
+  19 => 208
+  20 => 219
+  21 => 230
+switch_7:
+  0 => 1
+  1 => 12

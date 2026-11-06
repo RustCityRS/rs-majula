@@ -1,0 +1,7 @@
+[clientscript,script_3233](string $str0)(int)
+def_int $int0 = 39059467;
+if (login_getint = 1) {
+    $int0 = 63897604;
+}
+if_settext($str0);
+return($int0);

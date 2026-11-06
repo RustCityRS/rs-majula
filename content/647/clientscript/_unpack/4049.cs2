@@ -1,0 +1,24 @@
+; id: 4049
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 69271567
+    1: push_constant_int 0
+    2: gosub_with_params 4051
+    3: push_constant_int 69271576
+    4: push_constant_int 0
+    5: gosub_with_params 4051
+    6: push_constant_int 69271573
+    7: push_constant_int 0
+    8: gosub_with_params 4051
+    9: push_constant_int 69271564
+   10: push_constant_int 0
+   11: gosub_with_params 4051
+   12: push_constant_int 69271570
+   13: push_constant_int 0
+   14: gosub_with_params 4051
+   15: return 0

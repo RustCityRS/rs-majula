@@ -1,0 +1,7 @@
+[clientscript,script_4435](int $int0)
+if (clanchannel2_find_affined = 1) {
+    if ($int0 <= -1) {
+        $int0 = %varc_int1035;
+    }
+}
+return;

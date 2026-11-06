@@ -1,0 +1,90 @@
+[clientscript,script_355](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+def_int $int3 = -1;
+def_int $int4 = -1;
+switch ($int2) {
+    case 0:
+    case 7:
+        %varc_int1008 = $int1;
+        player_setbodytype($int2, $int1);
+        sound_synth(synth_9860, 1, 0);
+    case 1:
+    case 8:
+        %varc_int1009 = $int1;
+        player_setbodytype($int2, $int1);
+        sound_synth(synth_9860, 1, 0);
+    case 2:
+    case 9:
+    case 3:
+    case 10:
+    case 4:
+    case 11:
+        %varc_int86 = 0;
+        player_setwornobject(2, 19713);
+        player_setwornobject(3, -1);
+        player_setwornobject(5, -1);
+        sound_synth(synth_9819, 1, 0);
+        switch ($int2) {
+            case 2:
+            case 9:
+                $int4 = 3;
+                %varc_int1010 = $int1;
+            case 3:
+            case 10:
+                $int4 = 4;
+                %varc_int1011 = $int1;
+            case 4:
+            case 11:
+                $int4 = 5;
+                %varc_int1012 = $int1;
+            default:
+        }
+        $int3 = ~script_361($int1, $int4);
+        if ($int3 ! -1) {
+            if (player_isfemale = 1) {
+                %varc_int1010 = struct_param($int3, param_1182);
+                player_setbodytype(9, %varc_int1010);
+                %varc_int1011 = struct_param($int3, param_1183);
+                player_setbodytype(10, %varc_int1011);
+                %varc_int1012 = struct_param($int3, param_1184);
+                player_setbodytype(11, %varc_int1012);
+                ~script_392(-1, 1);
+            } else {
+                %varc_int1010 = struct_param($int3, param_1182);
+                player_setbodytype(2, %varc_int1010);
+                %varc_int1011 = struct_param($int3, param_1183);
+                player_setbodytype(3, %varc_int1011);
+                %varc_int1012 = struct_param($int3, param_1184);
+                player_setbodytype(4, %varc_int1012);
+                ~script_392(-1, 0);
+            }
+        } else {
+            player_setbodytype($int2, $int1);
+        }
+    case 5:
+    case 12:
+        %varc_int86 = 0;
+        player_setwornobject(2, 19713);
+        player_setwornobject(3, -1);
+        player_setwornobject(5, -1);
+        ~script_392(-1, ~script_734(player_isfemale));
+        player_setbodytype($int2, $int1);
+        %varc_int1013 = $int1;
+        sound_synth(synth_9819, 1, 0);
+    case 6:
+    case 13:
+        %varc_int86 = 0;
+        player_setwornobject(2, 19713);
+        player_setwornobject(3, -1);
+        player_setwornobject(5, -1);
+        ~script_392(-1, ~script_734(player_isfemale));
+        player_setbodytype($int2, $int1);
+        %varc_int1014 = $int1;
+        sound_synth(synth_9819, 1, 0);
+    default:
+        return;
+}
+~script_391;
+return;

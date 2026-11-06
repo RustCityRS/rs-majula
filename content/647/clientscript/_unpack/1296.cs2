@@ -1,0 +1,29 @@
+; id: 1296
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: getwindowmode 0
+    1: push_constant_int 2
+    2: branch_greater_than_or_equals 1
+    3: branch 16
+    4: push_constant_int 0
+    5: push_constant_int 0
+    6: push_constant_int 89
+    7: push_constant_int 67
+    8: push_constant_int 0
+    9: push_constant_int 300
+   10: push_constant_int 38273026
+   11: op2109 0
+   12: push_constant_int 0
+   13: push_constant_int 0
+   14: push_constant_int 89
+   15: push_constant_int 67
+   16: push_constant_int 0
+   17: push_constant_int 300
+   18: push_constant_int 38273025
+   19: op2109 0
+   20: return 0

@@ -1,0 +1,4 @@
+[clientscript,script_1185](int $int0, int $int1)(int, int, int)
+def_int $int2 = sub($int1, if_getwidth);
+if_setposition(0, 0, 0, $int1);
+return($int0, if_getwidth, calc(get_clientopt - 1 * $int2 / 3));

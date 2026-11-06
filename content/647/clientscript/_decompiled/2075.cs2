@@ -1,0 +1,13 @@
+[clientscript,script_2075]
+def_int $int0 = 0;
+if (%varc_int632 = 0) {
+    if (sub(10, %varc_int633) > 0) {
+        $int0 = sub(10, %varc_int633);
+    } else {
+        $int0 = 0;
+    }
+    if_settext(tostring($int0));
+} else {
+    if_settext(tostring(%varc_int637));
+}
+return;

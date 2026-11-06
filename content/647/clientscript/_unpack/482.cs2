@@ -1,0 +1,64 @@
+; id: 482
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 7512
+    1: switch 0
+    2: return 0
+    3: branch 39
+    4: push_constant_int 3257
+    5: push_constant_int 66519183
+    6: if_setgraphic 0
+    7: branch 35
+    8: push_constant_int 3257
+    9: push_constant_int 66519185
+   10: if_setgraphic 0
+   11: branch 31
+   12: push_constant_int 3257
+   13: push_constant_int 66519187
+   14: if_setgraphic 0
+   15: branch 27
+   16: push_constant_int 3257
+   17: push_constant_int 66519189
+   18: if_setgraphic 0
+   19: branch 23
+   20: push_constant_int 3257
+   21: push_constant_int 66519191
+   22: if_setgraphic 0
+   23: branch 19
+   24: push_constant_int 3257
+   25: push_constant_int 66519193
+   26: if_setgraphic 0
+   27: branch 15
+   28: push_constant_int 3257
+   29: push_constant_int 66519195
+   30: if_setgraphic 0
+   31: branch 11
+   32: push_constant_int 3257
+   33: push_constant_int 66519197
+   34: if_setgraphic 0
+   35: branch 7
+   36: push_constant_int 3257
+   37: push_constant_int 66519199
+   38: if_setgraphic 0
+   39: branch 3
+   40: push_constant_int 3257
+   41: push_constant_int 66519201
+   42: if_setgraphic 0
+   43: return 0
+
+switch_0:
+  1 => 2
+  2 => 6
+  3 => 10
+  4 => 14
+  5 => 18
+  6 => 22
+  7 => 26
+  8 => 30
+  9 => 34
+  10 => 38

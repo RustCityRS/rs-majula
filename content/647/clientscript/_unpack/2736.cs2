@@ -1,0 +1,26 @@
+; id: 2736
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 6084
+    1: branch_if_true 1
+    2: branch 7
+    3: push_varc_int 774
+    4: branch_if_true 1
+    5: branch 1
+    6: return 0
+    7: push_constant_int 1
+    8: pop_varc_int 774
+    9: branch 6
+   10: push_varc_int 774
+   11: branch_if_false 1
+   12: branch 1
+   13: return 0
+   14: push_constant_int 0
+   15: pop_varc_int 774
+   16: gosub_with_params 2790
+   17: return 0

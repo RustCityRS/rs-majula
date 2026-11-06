@@ -1,0 +1,23 @@
+[clientscript,script_749](int $int0)
+if ($int0 = 1) {
+    if (cc_find(1179677, 0) = 1) {
+        cc_setgraphic(6135);
+    }
+    if (cc_find(1179677, 1) = 1) {
+        cc_setgraphic(6134);
+    }
+    if (cc_find(1179677, 2) = 1) {
+        cc_setgraphic(6136);
+    }
+} else {
+    if (cc_find(1179677, 0) = 1) {
+        cc_setgraphic(6132);
+    }
+    if (cc_find(1179677, 1) = 1) {
+        cc_setgraphic(6131);
+    }
+    if (cc_find(1179677, 2) = 1) {
+        cc_setgraphic(6133);
+    }
+}
+return;

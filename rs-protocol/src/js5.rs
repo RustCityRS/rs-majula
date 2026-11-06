@@ -4,17 +4,13 @@ use rs_io::Packet;
 #[cfg(since_647)]
 use rs_io::crc::getcrc;
 #[cfg(since_647)]
-use rs_io::js5::Js5Store;
-#[cfg(since_647)]
 use rs_io::js5::compression::Container;
 #[cfg(since_647)]
 use rs_io::js5::reference::encode_master_index;
 #[cfg(since_647)]
-use std::borrow::Cow;
-#[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 #[cfg(since_647)]
 use tracing::info;
 
@@ -80,53 +76,49 @@ impl Js5Response<'_> {
 #[cfg(since_647)]
 #[derive(Clone)]
 pub struct Js5Cache {
-    hot: Arc<HashMap<(u8, u32), Vec<u8>>>,
-    store: Arc<Mutex<Js5Store>>,
+    groups: Arc<HashMap<(u8, u32), Vec<u8>>>,
 }
 
 #[cfg(since_647)]
 impl Js5Cache {
-    pub fn preload(mut cache: Js5Store, private_key: &RsaKey) -> anyhow::Result<Self> {
-        let mut hot = HashMap::new();
-        let archive_count = cache.group_count(255).unwrap_or(27) as u8;
+    pub fn new(
+        mut groups: HashMap<(u8, u32), Vec<u8>>,
+        private_key: &RsaKey,
+    ) -> anyhow::Result<Self> {
+        let archive_count = groups
+            .keys()
+            .filter(|(archive, _)| *archive == 255)
+            .map(|(_, group)| group + 1)
+            .max()
+            .unwrap_or(0);
         for archive in 0..archive_count {
-            let data = cache
-                .read_raw_group_bytes(255, archive as u32)
-                .ok()
-                .flatten()
-                .unwrap_or_else(|| vec![0, 0, 0, 0, 4, 5, 1, 0, 0]);
-            hot.insert((255, archive as u32), data);
+            groups
+                .entry((255, archive))
+                .or_insert_with(|| vec![0, 0, 0, 0, 4, 5, 1, 0, 0]);
+        }
+        for data in groups.values_mut() {
+            let len = Container::parse(data)?.data.len();
+            data.truncate(len);
         }
         let master = encode_master_index(
-            (0..archive_count as u32).map(|archive| (hot[&(255, archive)].as_ref(), 0)),
+            (0..archive_count).map(|archive| (groups[&(255, archive)].as_ref(), 0)),
             private_key,
         );
-        hot.insert((255, 255), master);
-        info!(
-            "JS5 cache ready: {} reference groups pre-loaded, remaining served on demand",
-            hot.len()
-        );
+        groups.insert((255, 255), master);
+        info!("JS5 cache ready: {} groups in memory", groups.len());
         Ok(Self {
-            hot: Arc::new(hot),
-            store: Arc::new(Mutex::new(cache)),
+            groups: Arc::new(groups),
         })
     }
 
-    pub fn get(&self, archive: u8, group: u32) -> Option<Cow<'_, [u8]>> {
-        if let Some(data) = self.hot.get(&(archive, group)) {
-            return Some(Cow::Borrowed(data));
-        }
-        let mut store = self.store.lock().unwrap();
-        let mut data = store.read_raw_group_bytes(archive, group).ok()??;
-        let len = Container::parse(&data).ok()?.data.len();
-        data.truncate(len);
-        Some(Cow::Owned(data))
+    pub fn get(&self, archive: u8, group: u32) -> Option<&[u8]> {
+        self.groups.get(&(archive, group)).map(Vec::as_slice)
     }
 
     pub fn prefetch_crcs(&self) -> [i32; 27] {
         let mut crcs = [0; 27];
         for (archive, crc) in crcs.iter_mut().enumerate() {
-            if let Some(data) = self.hot.get(&(255, archive as u32)) {
+            if let Some(data) = self.groups.get(&(255, archive as u32)) {
                 *crc = getcrc(data, 0, data.len());
             }
         }
@@ -137,6 +129,48 @@ impl Js5Cache {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(since_647)]
+    use rs_crypto::rsa::load_rsa_key;
+    #[cfg(since_647)]
+    use rs_io::js5::compression::{CompressionType, compress};
+
+    #[cfg(since_647)]
+    #[test]
+    fn memory_cache_serves_containers_without_versions_and_signs_the_complete_index() {
+        let key = load_rsa_key(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../.keys/private-647.pem"
+        ))
+        .unwrap();
+        let reference = vec![0, 0, 0, 0, 4, 5, 1, 0, 0];
+        let container = compress(&[11, 22, 33], CompressionType::Gzip).unwrap();
+        let mut versioned = container.clone();
+        versioned.extend_from_slice(&321u16.to_be_bytes());
+        let cache = Js5Cache::new(
+            HashMap::from([
+                ((255, 0), reference.clone()),
+                ((255, 2), reference.clone()),
+                ((2, 7), versioned),
+            ]),
+            &key,
+        )
+        .unwrap();
+        assert_eq!(cache.get(2, 7), Some(container.as_slice()));
+        assert_eq!(cache.get(255, 1), Some(reference.as_slice()));
+        assert!(cache.get(2, 8).is_none());
+        let master = cache.get(255, 255).unwrap();
+        assert_eq!(Container::parse(master).unwrap().data.len(), master.len());
+        assert_eq!(master[5], 3);
+        assert_eq!(
+            &cache.prefetch_crcs()[..3],
+            &[getcrc(&reference, 0, reference.len()); 3]
+        );
+        let shared = cache.clone();
+        assert!(std::ptr::eq(
+            cache.get(2, 7).unwrap(),
+            shared.get(2, 7).unwrap()
+        ));
+    }
 
     #[cfg(before_647)]
     #[test]

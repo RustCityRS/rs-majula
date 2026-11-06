@@ -1,0 +1,9 @@
+[clientscript,script_1614](int $int0, int $int1, int $int2)
+def_int $int3 = -1;
+$int3 = oc_wearpos($int0);
+if ($int3 ! -1) {
+    cc_setcursor_op($int1, $int3);
+} else {
+    cc_setcursor_op($int1, 36);
+}
+return;

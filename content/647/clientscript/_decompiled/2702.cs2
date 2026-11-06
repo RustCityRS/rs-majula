@@ -1,0 +1,7 @@
+[clientscript,script_2702](int $int0, int $int1, int $int2)
+if ($int0 = 1) {
+    if_setcolour($int2);
+} else {
+    if_setcolour($int2);
+}
+return;

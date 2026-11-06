@@ -1,0 +1,12 @@
+[clientscript,script_4024](int $int0)
+if ($int0 = 0) {
+    if_setgraphic(60096602);
+    if_setgraphic(60096656);
+    if_setgraphic(60096657);
+} else {
+    ~script_41(60096605);
+    if_setgraphic(60096602);
+    if_setgraphic(60096656);
+    if_setgraphic(60096657);
+}
+return;

@@ -1,0 +1,22 @@
+[clientscript,script_681](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+cc_deleteall($int0);
+if_setscrollpos(0, $int0);
+cc_deleteall($int1);
+cc_deleteall($int2);
+if_settext("Gravestones");
+if_settext("Please make your selection from the list.");
+if_settext("");
+def_int $int6 = 1;
+def_int $int7 = 0;
+if ($int7 <= 26) {
+    if (testbit(%varbit4191, $int7) = 1) {
+        $int6 = add($int6, 1);
+    }
+    $int7 = add($int7, 1);
+}
+def_int $int8 = calc(if_getwidth - 164 / 2);
+def_int $int9 = calc($int8 + 146 + $int8 * $int6);
+if ($int0 > if_getheight) {
+    if_setscrollsize(0, $int9, $int0);
+}
+return;

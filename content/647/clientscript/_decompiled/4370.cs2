@@ -1,0 +1,5 @@
+[clientscript,script_4370](int $int0, int $int1, int $int2)(int, int)
+%varc_str346 = if_gettext;
+%varc_int1498 = ~script_1552(%varc_int1498, 5631, $int0, -1, %varc_str346);
+if_setposition(5, 0, 0, $int1);
+return($int0, %varc_int1498);

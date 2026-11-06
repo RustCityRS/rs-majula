@@ -1,0 +1,28 @@
+; id: 708
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 5032
+    1: push_constant_int 80
+    2: branch_less_than 1
+    3: branch 6
+    4: push_constant_int 709
+    5: push_int_local 0
+    6: push_constant_string "I"
+    7: push_int_local 0
+    8: op2408 0
+    9: branch 9
+   10: push_varbit 5331
+   11: push_constant_int 35
+   12: branch_less_than 1
+   13: branch 5
+   14: push_constant_int 709
+   15: push_int_local 0
+   16: push_constant_string "I"
+   17: push_int_local 0
+   18: op2408 0
+   19: return 0

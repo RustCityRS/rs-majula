@@ -1,0 +1,16 @@
+[clientscript,script_2290](int $int0, int $int1)
+if (~script_2297($int1) = 0) {
+    if (~script_2295($int1) = 0) {
+        return;
+    }
+    if (cc_find($int0, $int1) = 1) {
+        cc_setgraphic(181);
+        cc_setop(1, "Deselect");
+    }
+} else {
+    if (cc_find($int0, $int1) = 1) {
+        cc_setgraphic(180);
+        cc_setop(1, "Select");
+    }
+}
+return;

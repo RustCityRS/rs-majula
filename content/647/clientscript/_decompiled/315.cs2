@@ -1,0 +1,18 @@
+[clientscript,script_315]
+def_int $int0 = -1;
+if (%varbit8093 ! %varc_int196) {
+    $int0 = ~script_734(%varbit8093);
+    %varc_int196 = %varbit8093;
+    %varc_int197 = %varbit8089;
+    ~script_387($int0);
+    %varc_int86 = %varbit8090;
+}
+if (%varc_int86 ! %varbit8090) {
+    %varc_int86 = %varbit8090;
+}
+if (%varc_int1020 ! %varbit6501) {
+    %varc_int1020 = %varbit6501;
+    ~script_391;
+}
+~script_2741;
+return;

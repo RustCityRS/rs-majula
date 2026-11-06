@@ -1,0 +1,23 @@
+; id: 4321
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 4307
+    1: gosub_with_params 4311
+    2: push_constant_int 0
+    3: push_constant_int 71827486
+    4: if_sethide 0
+    5: push_constant_string "Please select a clanmate to view."
+    6: push_constant_int 71827480
+    7: if_settext 0
+    8: push_constant_int 71827717
+    9: push_constant_string ""
+   10: gosub_with_params 4501
+   11: push_constant_int 71827703
+   12: push_constant_string ""
+   13: gosub_with_params 4501
+   14: return 0

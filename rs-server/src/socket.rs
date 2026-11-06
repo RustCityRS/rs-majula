@@ -25,8 +25,6 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 #[cfg(since_647)]
 use rs_protocol::{CheckEmailResponse, CreateAccountResponse};
-#[cfg(since_647)]
-use std::borrow::Cow;
 #[cfg(since_244)]
 use std::collections::VecDeque;
 #[cfg(since_244)]
@@ -595,12 +593,12 @@ async fn send_js5_file(
         .get(archive, file as u32)
         .unwrap_or_else(|| {
             warn!("JS5 missing: archive={archive} group={file}");
-            Cow::Borrowed(&[0; 5])
+            &[0; 5]
         });
     let reply = Js5Response {
         archive,
         group: file,
-        data: &data,
+        data,
     };
     let mut buf = Packet::new(reply.encoded_size());
     reply.encode(&mut buf, urgent);

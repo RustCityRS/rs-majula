@@ -1,0 +1,9 @@
+[clientscript,script_4185](int $int0)
+if ($int0 = 70254623) {
+    if_setgraphic(70254623);
+} else {
+    if ($int0 = 70254624) {
+        if_setgraphic(70254624);
+    }
+}
+return;

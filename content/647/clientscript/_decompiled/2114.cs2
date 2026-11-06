@@ -1,0 +1,6 @@
+[clientscript,script_2114](int $int0, int $int1)(int, int, int, int, int, int, int, int, string)
+if_sethide($int0);
+if_sethide($int1);
+%varc_int679 = 0;
+if_setonvarctransmit;
+return(0, 1, 2115, $int0, $int1, 679, 1, $int0, "IIY");

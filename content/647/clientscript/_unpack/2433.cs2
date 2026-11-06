@@ -1,0 +1,28 @@
+; id: 2433
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 1431
+    1: branch_if_false 5
+    2: push_varc_string_old 148
+    3: push_constant_string "null"
+    4: compare 0
+    5: branch_if_false 1
+    6: branch 1
+    7: return 0
+    8: getwindowmode 0
+    9: push_constant_int 2
+   10: branch_less_than 1
+   11: branch 4
+   12: push_varc_string_old 148
+   13: push_constant_int 35913738
+   14: if_settext 0
+   15: branch 3
+   16: push_varc_string_old 148
+   17: push_constant_int 48890017
+   18: if_settext 0
+   19: return 0

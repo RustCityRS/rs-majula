@@ -1,0 +1,18 @@
+[clientscript,script_3953](int $int0)(component)
+%varc_str327 = %varc_str326;
+if (string_length(%varc_str326) <= 0) {
+    return(~script_3213(44105828, "Please enter your Email address again here."));
+}
+if (compare(%varc_str122, %varc_str326) ! 0) {
+    return(~script_3213(44105828, "Please ensure both Email addresses match."));
+}
+if (if_getgraphic(44105809) = 4061) {
+    return(44105852, ~script_3213(44105828, if_gettext));
+}
+if_setgraphic(44105828);
+if_sethide(44105833);
+if_sethide(44105750);
+if ($int0 = 1) {
+    ~script_2714(7, 1);
+}
+return;

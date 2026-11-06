@@ -20,27 +20,17 @@ use crate::cache::varbit::VarbitTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
-#[cfg(since_647)]
-use crate::startup::PackedConfig;
 #[cfg(all(since_244, before_647))]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
-#[cfg(since_647)]
-use crate::{CONTENT_DIR, zone_csv::load_csv_zones};
-#[cfg(since_647)]
-use anyhow::Result;
 use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
 #[cfg(since_647)]
 use rs_crypto::huffman::Huffman;
-#[cfg(since_647)]
-use rs_io::js5::Js5Store;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
-#[cfg(since_647)]
-use std::path::Path;
 #[cfg(before_647)]
 use std::sync::Arc;
 use wordenc::WordEncProvider;
@@ -61,6 +51,8 @@ pub mod hunt;
 pub mod idk;
 pub mod r#if;
 pub mod inv;
+#[cfg(since_647)]
+pub mod js5;
 pub mod lenient;
 #[cfg(since_647)]
 pub mod loader;
@@ -295,69 +287,5 @@ impl VarValue {
             | VarValue::Vorbis(v)
             | VarValue::MapElement(v) => *v,
         }
-    }
-}
-
-#[cfg(since_647)]
-impl CacheStore {
-    pub fn from_packed_config(
-        config: PackedConfig,
-        cache: &mut Js5Store,
-        server_dir: &Path,
-    ) -> Result<Box<CacheStore>> {
-        let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache)?;
-        let huffman = loader::load_huffman(cache)?;
-        let fonts = FontTypeProvider::from_cache(cache);
-        loader::merge_server_layer(server_dir, "map", 'n', &mut mapsquares);
-        loader::merge_server_layer(server_dir, "objspawn", 'o', &mut mapsquares);
-
-        let dbtables = config.dbtables;
-        let dbrows = config.dbrows;
-        let db_index = DbTableIndex::build(&dbtables, &dbrows);
-
-        Ok(Box::new(CacheStore {
-            mapsquares,
-            mapcrcs,
-            objs: config.objs,
-            invs: config.invs,
-            varps: config.varps,
-            varbits: config.varbits,
-            dbrows,
-            dbtables,
-            db_index,
-            enums: config.enums,
-            flos: config.flos,
-            hunts: config.hunts,
-            idks: config.idks,
-            locs: config.locs,
-            mesanims: config.mesanims,
-            npcs: config.npcs,
-            params: config.params,
-            seqs: config.seqs,
-            spotanims: config.spotanims,
-            structs: config.structs,
-            varns: config.varns,
-            varss: config.varss,
-            categories: config.categories,
-            interfaces: IfTypeProvider {
-                names: HashMap::new(),
-                types: Vec::new(),
-            },
-            fonts,
-            wordenc: WordEncProvider::empty(),
-            songs: MidiProvider {
-                names: HashMap::new(),
-                midis: Box::new([]),
-            },
-            jingles: MidiProvider {
-                names: HashMap::new(),
-                midis: Box::new([]),
-            },
-            midi_ids: midi::load_midi_ids(),
-            midi_tick_lengths: midi::load_midi_tick_lengths(cache),
-            multimap: load_csv_zones(&Path::new(CONTENT_DIR).join("maps/multiway.csv")),
-            freemap: load_csv_zones(&Path::new(CONTENT_DIR).join("maps/free2play.csv")),
-            huffman,
-        }))
     }
 }

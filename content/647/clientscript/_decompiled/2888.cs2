@@ -1,0 +1,9 @@
+[clientscript,script_2888]
+if (getwindowmode >= 2) {
+    if_setposition(287, 0, 0, 31195192);
+    if_setposition(254, 0, 0, 31195191);
+} else {
+    if_setposition(40, 2, 0, 31195192);
+    if_setposition(7, 2, 0, 31195191);
+}
+return;

@@ -1,0 +1,24 @@
+; id: 2503
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 837
+    1: push_constant_int 0
+    2: branch_greater_than 1
+    3: branch 11
+    4: push_varc_int 837
+    5: push_constant_int 9
+    6: branch_less_than_or_equals 1
+    7: branch 7
+    8: push_constant_int 105
+    9: push_constant_int 115
+   10: push_constant_int 2403
+   11: push_varc_int 837
+   12: enum 0
+   13: push_constant_int 19071009
+   14: if_settext 0
+   15: return 0

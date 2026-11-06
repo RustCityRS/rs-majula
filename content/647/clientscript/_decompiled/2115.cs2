@@ -1,0 +1,21 @@
+[clientscript,script_2115](int $int0, int $int1)
+if (~script_42(%varc_int679) = 0) {
+    return;
+}
+if_sethide($int1);
+if (%varc_int677 = -1) {
+    return;
+}
+if (%varc_int675 = -1) {
+    %varc_int675 = 56070889;
+    %varc_int676 = 56087272;
+}
+def_int $int2 = add(randominc(50), 50);
+cam_allocpath(0, 2);
+cam_addwaypoint(0, 0, %varc_int675, 450, %varc_int675, calc(450 + $int2 / 2), 0);
+cam_addwaypoint(0, 1, %varc_int676, add(450, $int2), %varc_int676, calc(450 + $int2 * 2), 0);
+cam_allocpath(1, 2);
+cam_addwaypoint(1, 0, %varc_int677, 250, %varc_int677, 250, 0);
+cam_addwaypoint(1, 1, %varc_int678, 150, %varc_int678, 150, 0);
+cam_startpath(0, 0, 200, 200, 1, 0);
+return;

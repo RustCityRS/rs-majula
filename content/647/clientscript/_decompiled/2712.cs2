@@ -1,0 +1,13 @@
+[clientscript,script_2712](int $int0, int $int1, int $int2)(int, int, int, int, int, int, int, int, string, string)
+if (clientclock < %varc_int177) {
+    return;
+}
+%varc_int176 = add(%varc_int176, 2);
+def_int $int3 = mod(%varc_int176, 10);
+if ($int3 ! 2) {
+    %varc_int176 = calc(%varc_int176 - $int3 + 2);
+}
+if_sethide($int0);
+if_setontimer;
+if_setontimer;
+return(0, 1249, $int0, $int1, $int2, $int0, -1, $int1, "III", "");

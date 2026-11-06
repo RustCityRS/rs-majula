@@ -1,0 +1,12 @@
+[clientscript,script_2895](int $int0)
+if (%varc_int1078 > %varbit7189) {
+    if (%varc_int1079 ! 1) {
+        if_setontimer;
+        %varc_int1079 = 1;
+    }
+} else {
+    if (%varc_int1078 = 0) {
+        %varc_int1078 = %varbit7189;
+    }
+}
+return;

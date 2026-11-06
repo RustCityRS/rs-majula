@@ -1,0 +1,9 @@
+[clientscript,script_4237]
+if (%varc_int1495 = 0) {
+    if (%varbit8960 > 0) {
+        %varc_int1495 = clientclock;
+    }
+} else {
+    return;
+}
+return;

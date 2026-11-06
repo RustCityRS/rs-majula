@@ -1,0 +1,60 @@
+[clientscript,script_2123](int $int0, int $int1, int $int2, int $int3)
+cc_setposition(0, $int2, 5, $int0);
+cc_setposition2(calc(5 + 36 + 20 * $int1), add($int3, 22), 0, 0);
+cc_setsize(36, 32, 0, 0);
+def_int $int4 = enum(105, 79, enum_2240, $int0);
+if ($int4 ! -1) {
+    cc_setoutline;
+    cc_setgraphicshadow;
+    cc_setobject($int4, -1);
+    cc_setop(1, "Claim");
+    cc_setop(10, "Examine");
+    cc_setopbase("<col=ff9040>" + oc_name($int4) + "</col>");
+    if (calc(inv_total(inv, $int4) + inv_total(worn, $int4) + inv_total(bank, $int4) + inv_total(inv_530, $int4)) > 0) {
+        cc_settrans(200);
+    }
+    if (div($int0, 10) = div(1, 10)) {
+        if (%varbit2698 > 0) {
+            cc_settrans(200);
+        } else {
+            cc_settrans(0);
+        }
+    }
+    if ($int0 = 11) {
+        if (%varbit2776 > 0) {
+            cc_settrans(200);
+        } else {
+            cc_settrans(0);
+        }
+    }
+    if (div($int0, 10) = div(11, 10)) {
+        if (%varbit2699 > 0) {
+            cc_settrans(200);
+        } else {
+            cc_settrans(0);
+        }
+    }
+    if (div($int0, 10) = div(21, 10)) {
+        if (%varbit2700 > 0) {
+            cc_settrans(200);
+        } else {
+            cc_settrans(0);
+        }
+    }
+    if (div($int0, 10) = div(31, 10)) {
+        if (%varbit2701 > 0) {
+            cc_settrans(200);
+        } else {
+            cc_settrans(0);
+        }
+    }
+    if (div($int0, 10) = div(41, 10)) {
+        if (%varbit2702 > 0) {
+            cc_settrans(200);
+        } else {
+            cc_settrans(0);
+        }
+    }
+    cc_settrans(0);
+}
+return;

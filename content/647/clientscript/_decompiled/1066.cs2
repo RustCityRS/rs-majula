@@ -1,0 +1,73 @@
+[clientscript,script_1066](int $int0, int $int1)
+def_int $int2 = if_getwidth;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (cc_find($int0, $int4) = 1) {
+    $int3 = add($int3, cc_getwidth);
+    $int4 = add($int4, 1);
+}
+if ($int3 <= $int2) {
+    $int4 = 0;
+    $int5 = 0;
+    if (cc_find($int0, $int4) = 1) {
+        cc_sethide(0);
+        cc_setposition2($int5, 0, 0, 0);
+        if (cc_find(8978434, $int4) = 1) {
+            cc_setposition2(cc_getx, cc_gety, 0, 0);
+        }
+        $int5 = add($int5, cc_getwidth);
+        $int4 = add($int4, 1);
+    }
+    return;
+}
+cc_setposition(0, $int0, 4, add($int1, 1));
+cc_setcolour(0);
+cc_settextfont(495);
+cc_settextalign(0, 1, 0);
+cc_settext(" ... " + "<img=2>");
+cc_settextshadow(0);
+cc_setsize($int0, if_getheight, 0, 0);
+$int3 = cc_getwidth;
+if (cc_find($int0, $int1) = 1) {
+    $int3 = add($int3, cc_getwidth);
+}
+$int4 = 0;
+if ($int4 < $int1) {
+    if (cc_find($int0, $int4) = 1) {
+        if (add($int3, cc_getwidth) <= $int2) {
+            cc_sethide(0);
+            $int3 = add($int3, cc_getwidth);
+        }
+        cc_sethide(1);
+    }
+    $int4 = add($int4, 1);
+}
+$int4 = 0;
+$int5 = 0;
+if ($int4 < $int1) {
+    if (cc_find($int0, $int4) = 1) {
+        if (cc_gethide = 0) {
+            cc_setposition2($int5, 0, 0, 0);
+            if (cc_find(8978434, $int4) = 1) {
+                cc_setposition2(cc_getx, cc_gety, 0, 0);
+            }
+            $int5 = add($int5, cc_getwidth);
+        }
+        if (cc_find(8978434, $int4) = 1) {
+            cc_sethide(1);
+        }
+    }
+    $int4 = add($int4, 1);
+}
+if (cc_find($int0, add($int1, 1)) = 1) {
+    cc_setposition2($int5, 0, 0, 0);
+    $int5 = add($int5, cc_getwidth);
+}
+if (cc_find($int0, $int1) = 1) {
+    cc_setposition2($int5, 0, 0, 0);
+    if (cc_find(8978434, $int4) = 1) {
+        cc_setposition2(cc_getx, cc_gety, 0, 0);
+    }
+}
+return;

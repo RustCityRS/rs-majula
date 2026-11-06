@@ -1,0 +1,51 @@
+[clientscript,script_1409]
+if_setgraphic(49545252);
+if_setgraphic(49545253);
+if_setgraphic(49545254);
+if_setgraphic(49545255);
+if_setgraphic(49545256);
+if_setgraphic(49545257);
+if_setgraphic(49545258);
+if_setgraphic(49545259);
+if_setgraphic(49545260);
+if_setgraphic(49545261);
+if_setgraphic(49545262);
+if_setgraphic(49545263);
+if (%varbit50 = 1) {
+    if_setgraphic(49545252);
+} else {
+    if (%varbit50 = 2) {
+        if_setgraphic(49545253);
+    }
+    if (%varbit50 = 3) {
+        if_setgraphic(49545254);
+    }
+    if (%varbit50 = 4) {
+        if_setgraphic(49545255);
+    }
+    if (%varbit50 = 5) {
+        if_setgraphic(49545256);
+    }
+    if (%varbit50 = 6) {
+        if_setgraphic(49545257);
+    }
+    if (%varbit50 = 7) {
+        if_setgraphic(49545258);
+    }
+    if (%varbit50 = 8) {
+        if_setgraphic(49545259);
+    }
+    if (%varbit50 = 9) {
+        if_setgraphic(49545260);
+    }
+    if (%varbit50 = 10) {
+        if_setgraphic(49545261);
+    }
+    if (%varbit50 = 11) {
+        if_setgraphic(49545262);
+    }
+    if (%varbit50 = 12) {
+        if_setgraphic(49545263);
+    }
+}
+return;

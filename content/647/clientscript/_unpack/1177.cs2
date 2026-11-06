@@ -1,0 +1,22 @@
+; id: 1177
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_var 1414
+    1: branch_if_false 1
+    2: branch 1
+    3: return 0
+    4: push_constant_int 540
+    5: pop_varc_int 548
+    6: push_constant_string "10"
+    7: push_constant_int 48824325
+    8: if_settext 0
+    9: push_constant_int 1178
+   10: push_constant_string ""
+   11: push_constant_int 48824325
+   12: op2408 0
+   13: return 0

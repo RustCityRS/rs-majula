@@ -1,0 +1,4 @@
+[clientscript,script_1372](component)
+minimap_setmark(%varc_int172);
+if_settext(tostring(%varc_int172) + "%");
+return(49479694);

@@ -1,0 +1,22 @@
+[clientscript,script_949]
+if (%varc_int1198 = 1) {
+    if_sethide(61145410);
+    if_sethide(61145411);
+}
+if (%varc_int1199 = 1) {
+    if_sethide(61145409);
+    if_sethide(61145412);
+}
+if (%varc_int1200 = 1) {
+    if_sethide(61145408);
+    if_sethide(61145413);
+}
+if (%varc_int1201 = 1) {
+    if_sethide(61145407);
+    if_sethide(61145414);
+}
+if (%varc_int1202 = 1) {
+    if_sethide(61145406);
+    if_sethide(61145415);
+}
+return;

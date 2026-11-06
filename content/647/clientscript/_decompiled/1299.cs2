@@ -1,0 +1,75 @@
+[clientscript,script_1299](int $int0, int $int1)(int, component, int, component, string)
+if ($int1 = 0) {
+}
+if_setgraphic(59375853);
+if_setgraphic(59375854);
+if_setgraphic(59375855);
+if_setgraphic(59375856);
+if_setgraphic(59375857);
+if_setgraphic(59375858);
+if_setgraphic(59375859);
+if_setgraphic(59375860);
+if_setgraphic(59375862);
+if_setgraphic(59375864);
+if_setgraphic(59375867);
+if_setgraphic(59375831);
+if_setvflip(1, 59375831);
+if_sethflip(1, 59375831);
+if_setgraphic(59375835);
+if_setvflip(1, 59375835);
+if_sethflip(0, 59375835);
+if_setgraphic(59375832);
+if_setvflip(0, 59375832);
+if_sethflip(1, 59375832);
+if_setgraphic(59375836);
+if_setvflip(0, 59375836);
+if_sethflip(0, 59375836);
+op2427;
+def_int $int2 = string_indexof_string(%varc_str32, "@");
+if ($int2 = -1) {
+    %varc_int1414 = 1;
+} else {
+    %varc_int1414 = 2;
+}
+if (get_accountinfo ! 0) {
+    docheat("");
+} else {
+    if ($int0 = 0) {
+        %varc_int1322 = 1;
+        %varc_int200 = 0;
+        %varc_int1100 = -3;
+        if ($int1 < 50) {
+            $int1 = add($int1, 1);
+            if_setontimer;
+            return(3057, 0, $int1, 59375629, "1i");
+        }
+        if (worldlist_fetch = 0) {
+            if_setontimer;
+            return(3057, 0, $int1, 59375629, "1i");
+        }
+        if_setontimer;
+        login_hopworld(0);
+        if_setontimer;
+        return(-1, 59375629, 3063, 59375629, active_toplevelinterface, 59375629, "", "Ii");
+    }
+}
+if_sethide(59375633);
+if_sethide(59375646);
+~script_3060(0);
+~script_3064(1);
+%varc_str277 = "";
+%varc_int547 = 0;
+mes("Welcome to the RuneScape Lobby.");
+tutorial_openchat(43, 0, "Welcome to the RuneScape Lobby.");
+if (is_subscriber = 1) {
+    mes("Users restricted to quick-chat cannot send messages from the Lobby.");
+    tutorial_openchat(43, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
+}
+~script_51;
+if_setonkey;
+def_string $str0 = ~script_2781;
+if (string_length($str0) > 0) {
+}
+if_setontimer;
+~script_4041;
+return(1868, 59375634, 59375634, "I");

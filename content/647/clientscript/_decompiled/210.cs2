@@ -1,0 +1,28 @@
+[clientscript,script_210]
+if (%varbit6101 < 8) {
+    if_setgraphic(24969232);
+} else {
+    if (%varbit6101 < 15) {
+        if_setgraphic(24969232);
+    }
+    if (%varbit6101 < 23) {
+        if_setgraphic(24969232);
+    }
+    if (%varbit6101 < 30) {
+        if_setgraphic(24969232);
+    }
+    if (%varbit6101 < 38) {
+        if_setgraphic(24969232);
+    }
+    if (%varbit6101 < 45) {
+        if_setgraphic(24969232);
+    }
+    if (%varbit6101 < 53) {
+        if_setgraphic(24969232);
+    }
+    if (%varbit6101 < 60) {
+        if_setgraphic(24969232);
+    }
+    if_setgraphic(24969232);
+}
+return;

@@ -1,0 +1,26 @@
+[clientscript,script_3358](int, int, string)
+switch (%varp448) {
+    case 17985:
+        return(2, 18037, "Poisonous Shot (Tier 1)");
+    case 17986:
+        return(12, 18038, "Poisonous Shot (Tier 2)");
+    case 17987:
+        return(22, 18039, "Poisonous Shot (Tier 3)");
+    case 17988:
+        return(32, 18040, "Poisonous Shot (Tier 4)");
+    case 17989:
+        return(42, 18041, "Poisonous Shot (Tier 5)");
+    case 17990:
+        return(52, 18042, "Poisonous Shot (Tier 6)");
+    case 17991:
+        return(62, 18043, "Poisonous Shot (Tier 7)");
+    case 17992:
+        return(72, 18044, "Poisonous Shot (Tier 8)");
+    case 17993:
+        return(82, 18045, "Poisonous Shot (Tier 9)");
+    case 17994:
+        return(92, 18046, "Poisonous Shot (Tier 10)");
+    default:
+        return(2, 18037, "Poisonous Shot (Tier 1)");
+}
+return(0, -1, "");

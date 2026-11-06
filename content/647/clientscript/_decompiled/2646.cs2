@@ -1,0 +1,76 @@
+[clientscript,script_2646](int $int0)(component, component, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+if (%varc_int842 = 3) {
+    %varc_int842 = 1;
+    if_settext("Check bank & inventory");
+    if_settext("Commodities");
+    if_sethide(56360980);
+    ~script_2645(56360980);
+    return($int0, 56360978, 0, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642, ~script_2642);
+}
+%varc_int842 = 3;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+%varc_int842 = 3;
+def_int $int6 = -1;
+if_sethide(56360980);
+if_settext("View all commodities");
+if_settext("Commodities in your bank & inventory");
+cc_deleteall(56360983);
+if_settext("A list of items already in your inventory or bank that you can trade with Mal for investment credit.");
+$int3 = calc(if_getwidth - 36 * 10 / 10 - 1);
+$int4 = calc(if_getheight - 128 / 3);
+def_int $int7 = 0;
+if ($int1 <= inv_size(bank)) {
+    $int6 = inv_getobj(bank, $int1);
+    if ($int6 ! -1) {
+        if (enum_contains_output(111, 1939, $int6) = 1) {
+            cc_setposition(0, 56360983, 5, $int2);
+            cc_setsize(36, 32, 0, 0);
+            cc_setposition2(calc(36 + $int3 * $int2 % 10), calc($int2 / 10 * 32 + $int4), 0, 0);
+            cc_setobject($int6, -1);
+            cc_setopbase("<col=ff981f>" + oc_name($int6));
+            cc_setop(1, "Examine");
+            cc_setgraphicshadow;
+            cc_setoutline;
+            $int2 = add($int2, 1);
+            $int7 = cc_gety;
+        }
+    }
+    $int1 = add($int1, 1);
+}
+def_int $int8 = 0;
+if ($int8 <= inv_size(inv)) {
+    $int6 = inv_getobj(inv, $int8);
+    if ($int6 ! -1) {
+        if (enum_contains_output(111, 1939, $int6) = 1) {
+            cc_setposition(0, 56360983, 5, $int2);
+            cc_setsize(36, 32, 0, 0);
+            cc_setposition2(calc(36 + $int3 * $int2 % 10), calc($int2 / 10 * 32 + $int4), 0, 0);
+            cc_setobject($int6, -1);
+            cc_setopbase("<col=ff981f>" + oc_name($int6));
+            cc_setop(1, "Examine");
+            cc_setgraphicshadow;
+            cc_setoutline;
+            $int2 = add($int2, 1);
+            $int7 = cc_gety;
+        }
+    }
+    $int8 = add($int8, 1);
+}
+if ($int2 = 0) {
+    cc_setposition(0, 56360983, 4, $int2);
+    cc_setsize(200, 32, 0, 0);
+    cc_setposition2(0, 0, 1, 4);
+    cc_settext("No valid commodities were found in your bank or inventory.");
+    cc_settextfont(496);
+    cc_settextalign(1, 1, 0);
+    cc_settextshadow(0);
+    cc_setcolour(16750623);
+    $int2 = 1;
+}
+if_setscrollsize(if_getwidth, add($int7, 32), 56360983);
+if_setscrollpos(0, 56360983);
+return(56360983, 0, ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788), ~script_31(56360982, 56360983, 792, 789, 790, 791, 773, 788));

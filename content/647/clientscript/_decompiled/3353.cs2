@@ -1,0 +1,7 @@
+[clientscript,script_3353]
+if (%varc_int1179 = 0) {
+    ~script_1163(61538376, -1, 61538418, 25, 200, "P5: Shared XP is ON");
+} else {
+    ~script_1163(61538376, -1, 61538418, 25, 200, "P5: Shared XP is OFF");
+}
+return;

@@ -1,0 +1,9 @@
+[clientscript,script_2201](int, int, component, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string)
+if (%varp1701 = 1) {
+    ~script_2200;
+} else {
+    ~script_2199;
+}
+if_sethide(%varc_int1136);
+if_setontimer;
+return(~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, ~script_2209, 0, 2210, 61079553, ~script_2209, "");

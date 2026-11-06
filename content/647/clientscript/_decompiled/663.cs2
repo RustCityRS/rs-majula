@@ -1,0 +1,23 @@
+[clientscript,script_663](int $int0, int $int1)
+if_settextfont($int1);
+if_settextalign(1, 0, $int1);
+if (%varbit4191 = 0) {
+    if_setmodel;
+    if_setmodelangle;
+    if_setposition(84, 0, 0, $int0);
+    if_setsize(156, 0, 0, $int0);
+    if_setposition(89, 0, 0, $int1);
+    if_setsize(143, 0, 0, $int1);
+    if_setcolour($int1);
+} else {
+    if (%varbit4191 = 1) {
+        if_setmodel;
+        if_setmodelangle;
+        if_setposition(90, 0, 0, $int0);
+        if_setsize(156, 0, 0, $int0);
+        if_setposition(88, 0, 0, $int1);
+        if_setsize(139, 0, 0, $int1);
+        if_setcolour($int1);
+    }
+}
+return;

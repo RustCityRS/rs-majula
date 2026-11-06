@@ -1,0 +1,68 @@
+[clientscript,script_3998](int $int0, string $str0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 210;
+def_int $int7 = 0;
+def_int $int8 = 2;
+def_int $int9 = -1;
+if ($int0 = -1) {
+}
+if (cc_find(60096610, $int0) = 1) {
+    if (%varc_int1 < add(clientclock, $int8)) {
+        if (%varc_int1 < clientclock) {
+            %varc_int1 = clientclock;
+        }
+        %varc_int1 = add(%varc_int1, 2);
+        return;
+    }
+    %varc_int1 = calc(clientclock + $int8 + 10);
+    if (%varc_int2 ! 1) {
+        if_getlayer;
+        $int9 = 60096613;
+        if ($int9 ! -1) {
+            if (if_getwidth >= calc(60096612 - if_getwidth - 30)) {
+                $int6 = calc(60096612 - if_getwidth - 30);
+            }
+        }
+        $int5 = calc($int6 - 4 + parawidth($str0, 495));
+        $int7 = calc(16 + $int6 - 4 * paraheight($str0, 495));
+        if ($int9 ! -1) {
+            $int1 = add(cc_getx, 5);
+            if (60096610 > if_getwidth) {
+                $int1 = calc(if_getwidth - $int5 - 5);
+            }
+            $int2 = sub(60096610, if_getscrolly);
+        }
+        if ($int2 < 0) {
+            $int2 = if_getscrolly;
+        } else {
+            if ($int9 > calc(if_getheight - $int7 - 25)) {
+                $int2 = calc(if_getheight - $int7 - 25);
+            }
+        }
+        if_setsize($int7, 0, 0, 60096613);
+        if_setposition($int2, 0, 0, 60096613);
+        cc_deleteall(60096613);
+        cc_setposition($int1, 60096613, 3, 0);
+        cc_setsize(60096613, if_getheight, 0, 0);
+        cc_setfill(1);
+        cc_setcolour(0);
+        cc_settrans(90);
+        cc_setposition(if_getwidth, 60096613, 3, 1);
+        cc_setsize(60096613, if_getheight, 0, 0);
+        cc_setfill(0);
+        cc_setcolour(0);
+        cc_setposition(if_getwidth, 60096613, 4, 2);
+        cc_setsize(60096613, if_getheight, 0, 0);
+        cc_setposition2(2, 0, 0, 0);
+        cc_settext($str0);
+        cc_settextalign(0, 1, 16);
+        cc_settextfont(495);
+        cc_setcolour(15658734);
+        %varc_int2 = 1;
+    }
+}
+return;

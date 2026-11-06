@@ -1,0 +1,82 @@
+; id: 400
+int_param_count=0
+string_param_count=3
+long_param_count=0
+local_int_count=4
+local_string_count=5
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_constant_int 0
+    3: pop_int_local 1
+    4: push_constant_string ""
+    5: pop_string_local 3
+    6: push_constant_string ""
+    7: pop_string_local 4
+    8: push_string_local 0
+    9: string_length 0
+   10: pop_int_local 2
+   11: push_string_local 1
+   12: string_length 0
+   13: pop_int_local 3
+   14: push_int_local 2
+   15: push_constant_int 0
+   16: branch_greater_than 1
+   17: branch 52
+   18: push_string_local 0
+   19: push_string_local 1
+   20: push_int_local 1
+   21: op4121 0
+   22: pop_int_local 1
+   23: push_int_local 1
+   24: push_constant_int -1
+   25: branch_not 1
+   26: branch 28
+   27: push_string_local 0
+   28: push_int_local 0
+   29: push_int_local 1
+   30: op4118 0
+   31: pop_string_local 4
+   32: push_string_local 4
+   33: push_constant_string ""
+   34: compare 0
+   35: push_constant_int 0
+   36: branch_not 1
+   37: branch 5
+   38: push_string_local 3
+   39: push_string_local 4
+   40: push_string_local 2
+   41: join_string 3
+   42: pop_string_local 3
+   43: push_int_local 1
+   44: push_int_local 3
+   45: add 0
+   46: pop_int_local 1
+   47: push_int_local 1
+   48: pop_int_local 0
+   49: push_string_local 0
+   50: push_string_local 1
+   51: push_int_local 1
+   52: op4121 0
+   53: pop_int_local 1
+   54: branch -32
+   55: push_string_local 0
+   56: push_int_local 0
+   57: push_int_local 2
+   58: op4118 0
+   59: pop_string_local 4
+   60: push_string_local 4
+   61: push_constant_string ""
+   62: compare 0
+   63: push_constant_int 0
+   64: branch_not 1
+   65: branch 4
+   66: push_string_local 3
+   67: push_string_local 4
+   68: join_string 2
+   69: pop_string_local 3
+   70: push_string_local 3
+   71: return 0
+   72: push_constant_string ""
+   73: return 0

@@ -1,0 +1,12 @@
+[clientscript,script_2030](int $int0)
+if (testbit(%varp331, 26) = 1) {
+    if_setmodelangle;
+} else {
+    if (testbit(%varp331, 27) = 1) {
+        if_setmodelangle;
+    }
+    if (testbit(%varp331, 28) = 1) {
+        if_setmodelangle;
+    }
+}
+return;

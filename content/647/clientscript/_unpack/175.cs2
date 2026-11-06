@@ -1,0 +1,91 @@
+; id: 175
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_var 281
+    1: push_constant_int 1000
+    2: branch_less_than 1
+    3: branch 3
+    4: push_constant_string "You can't do this while in the tutorial."
+    5: mes 0
+    6: return 0
+    7: push_int_local 0
+    8: switch 0
+    9: branch 65
+   10: push_varc_int 41
+   11: push_int_local 1
+   12: branch_equals 1
+   13: branch 8
+   14: getwindowmode 0
+   15: push_constant_int 2
+   16: branch_greater_than_or_equals 1
+   17: branch 4
+   18: push_constant_int -1
+   19: pop_varc_int 41
+   20: gosub_with_params 1364
+   21: branch 10
+   22: push_varc_int 41
+   23: push_constant_int -1
+   24: branch_equals 1
+   25: branch 4
+   26: push_int_local 1
+   27: pop_varc_int 41
+   28: gosub_with_params 1364
+   29: branch 2
+   30: push_int_local 1
+   31: pop_varc_int 41
+   32: push_varc_int 41
+   33: gosub_with_params 181
+   34: gosub_with_params 178
+   35: gosub_with_params 84
+   36: gosub_with_params 89
+   37: branch 37
+   38: push_int_local 1
+   39: push_constant_int 0
+   40: gosub_with_params 184
+   41: gosub_with_params 178
+   42: gosub_with_params 84
+   43: gosub_with_params 89
+   44: branch 30
+   45: push_int_local 1
+   46: push_constant_int 3
+   47: branch_equals 1
+   48: branch 6
+   49: friend_count 0
+   50: push_constant_int 0
+   51: branch_less_than 1
+   52: branch 2
+   53: push_constant_string "The friends list is still loading, your selection won't take effect immediately."
+   54: mes 0
+   55: push_int_local 1
+   56: push_constant_int 1
+   57: gosub_with_params 184
+   58: gosub_with_params 178
+   59: gosub_with_params 84
+   60: gosub_with_params 89
+   61: branch 13
+   62: push_int_local 1
+   63: push_constant_int 2
+   64: gosub_with_params 184
+   65: gosub_with_params 178
+   66: gosub_with_params 84
+   67: gosub_with_params 89
+   68: branch 6
+   69: push_int_local 1
+   70: push_constant_int 3
+   71: gosub_with_params 184
+   72: gosub_with_params 178
+   73: gosub_with_params 84
+   74: gosub_with_params 89
+   75: return 0
+
+switch_0:
+  1 => 1
+  2 => 29
+  3 => 36
+  4 => 53
+  5 => 60

@@ -1,0 +1,14 @@
+[clientscript,script_1490](int, int, int, component, int, int, component, string, string)
+def_string $str0 = "";
+if (%varp304 = 0) {
+    if_setgraphic(49938447);
+    if_setgraphic(49938448);
+    $str0 = "Switch to insert items mode";
+} else {
+    if_setgraphic(49938447);
+    if_setgraphic(49938448);
+    $str0 = "Switch to swap items mode";
+}
+if_setop(49938447, $str0);
+if_setonmouserepeat;
+return(1, 38, -2147483645, 49938551, 25, 150, 49938447, $str0, "IIsii");

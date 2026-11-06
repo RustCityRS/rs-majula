@@ -1,0 +1,15 @@
+[clientscript,script_2785](int $int0)(int)
+switch ($int0) {
+    case 32:
+    case 33:
+    case 34:
+        if (%varp281 < 93) {
+            return(32);
+        }
+    default:
+}
+if (%varp281 < 120) {
+    return(33);
+}
+return(34);
+return($int0);

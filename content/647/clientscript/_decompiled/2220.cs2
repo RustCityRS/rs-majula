@@ -1,0 +1,47 @@
+[clientscript,script_2220]
+if (%varbit7324 = 1) {
+    if_sethide(61014137);
+} else {
+    if_sethide(61014137);
+}
+if (%varbit7325 = 1) {
+    if_sethide(61014138);
+} else {
+    if_sethide(61014138);
+}
+if (%varbit7326 = 1) {
+    if_sethide(61014139);
+} else {
+    if_sethide(61014139);
+}
+if_settext(tostring(%varc_int1126));
+if_settext(tostring(%varc_int1127));
+if_settext(tostring(%varc_int1128));
+if_settext(tostring(%varc_int1129));
+if_settext(tostring(%varc_int1131));
+if_settext(tostring(%varc_int1130));
+if_settext("Total Workers: " + tostring(%varc_int1135));
+if_settext(tostring(%varp1687) + "/15");
+if_settext(tostring(%varp1688) + "/15");
+if_settext(tostring(%varp1686) + "/15");
+if_settext(tostring(%varp1689) + "/7");
+if_settext(tostring(%varp1690) + "/7");
+if_settext(tostring(%varp1691) + "/7");
+~script_2221;
+if_settext("Turn " + tostring(%varp1674) + "/15");
+if (%varc_int1132 = 0) {
+    if_setgraphic(61014137);
+} else {
+    if_setgraphic(61014137);
+}
+if (%varc_int1134 = 0) {
+    if_setgraphic(61014138);
+} else {
+    if_setgraphic(61014138);
+}
+if (%varc_int1133 = 0) {
+    if_setgraphic(61014139);
+} else {
+    if_setgraphic(61014139);
+}
+return;

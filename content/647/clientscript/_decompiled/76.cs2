@@ -1,0 +1,17 @@
+[clientscript,script_76]
+def_string $str0 = "null";
+if (%varc_int3 ! -1) {
+    %varc_int3 = add(%varc_int3, 1);
+    if (%varc_int3 >= 20) {
+        %varc_int3 = 0;
+    }
+    if (%varc_int3 = %varc_int4) {
+        %varc_str1 = "";
+        %varc_int3 = -1;
+    }
+    $str0 = ~script_79(%varc_int3);
+    if (string_length($str0) > 0) {
+        %varc_str1 = $str0;
+    }
+}
+return;

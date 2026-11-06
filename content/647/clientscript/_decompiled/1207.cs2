@@ -1,0 +1,12 @@
+[clientscript,script_1207](int $int0, int $int1)
+if ($int0 <= 11) {
+    if_setscrollsize(404, 215, 18022406);
+    ~script_72(18022407, 18022406, 0);
+} else {
+    if_setscrollsize(404, multiply($int0, 20), 18022406);
+    if ($int1 = 1) {
+        ~script_72(18022407, 18022406, 0);
+    }
+    ~script_72(18022407, 18022406, calc($int0 * 20 - 180));
+}
+return;

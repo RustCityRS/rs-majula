@@ -1,0 +1,16 @@
+; id: 1191
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: op3335 0
+    1: push_constant_int 0
+    2: branch_not 1
+    3: branch 3
+    4: push_int_local 1
+    5: push_int_local 0
+    6: if_settextfont 0
+    7: return 0

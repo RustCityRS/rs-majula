@@ -1,0 +1,16 @@
+[clientscript,script_1269]
+def_string $str0 = "null";
+if (%varp427 = 0) {
+    if_setgraphic(17104903);
+    $str0 = "Accept aid" + "<br>" + "(currently off)";
+    if_setonmouserepeat;
+    %varc_int2 = 0;
+} else {
+    if (%varp427 = 1) {
+        if_setgraphic(17104903);
+        $str0 = "Accept aid" + "<br>" + "(currently on)";
+        if_setonmouserepeat;
+        %varc_int2 = 0;
+    }
+}
+return;

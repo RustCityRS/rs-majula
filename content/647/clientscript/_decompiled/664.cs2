@@ -1,0 +1,34 @@
+[clientscript,script_664](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11)
+if (if_gethide = 0) {
+    if (cc_find($int0, 0) = 1) {
+        if ($int4 ! -1) {
+            if (~script_19($int4, 43384906) < $int5) {
+                cc_setgraphic($int2);
+                return;
+            }
+        }
+        if ($int6 ! -1) {
+            if (~script_19($int6, 43384906) < $int7) {
+                cc_setgraphic($int2);
+                return;
+            }
+        }
+        if ($int8 ! -1) {
+            if (~script_19($int8, 43384906) < $int9) {
+                cc_setgraphic($int2);
+                return;
+            }
+        }
+        if ($int10 ! -1) {
+            if (~script_19($int10, 43384906) < $int11) {
+                cc_setgraphic($int2);
+                return;
+            }
+        }
+        if (stat_base(summoning) < $int3) {
+            cc_setgraphic($int2);
+        }
+        cc_setgraphic($int1);
+    }
+}
+return;

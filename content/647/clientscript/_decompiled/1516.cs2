@@ -1,0 +1,14 @@
+[clientscript,script_1516](int $int0, int $int1, int $int2)(int, int, int, int, int, int, int, int, int, string, string)
+cc_setposition(0, $int0, 6, if_getchildcount($int0));
+cc_setsize(0, 0, 1, 1);
+cc_setposition2(0, 0, 1, 1);
+cc_setplayermodel_snapshot;
+cc_setmodelangle(0, $int2, 0, 0, 0, $int1);
+if (%varc_int779 ! -1) {
+    cc_setmodelanim(bas_getidle(%varc_int779));
+} else {
+    cc_setmodelanim(bas_getidle(1426));
+}
+op1428;
+cc_setonclick;
+return(1517, -2147483645, -2147483643, 779, 1, 347, -2147483645, -2147483643, -2147483647, "IiY", "Iii");

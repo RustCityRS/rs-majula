@@ -1,0 +1,7 @@
+[clientscript,script_2268](int $int0)
+if (%varp170 = 0) {
+    if_settext("Right-click the object to see more options.");
+} else {
+    if_settext("Click the object to see more options.");
+}
+return;

@@ -1,0 +1,28 @@
+[clientscript,script_2496]
+def_int $int0 = 1;
+def_int $int1 = ~script_2497;
+def_int $int2 = -1;
+def_int $int3 = -1;
+if ($int0 <= 9) {
+    if ($int0 <= $int1) {
+        $int2 = enum(105, 73, enum_2400, $int0);
+        $int3 = enum(105, 73, enum_2402, $int0);
+        if_setonclick;
+        if_setonclick;
+        if_setcolour($int3);
+        if_setop($int2, "Select");
+        if_setop($int3, "Select");
+        if_settext("I");
+    } else {
+        $int2 = enum(105, 73, enum_2400, $int0);
+        $int3 = enum(105, 73, enum_2402, $int0);
+        if_setonclick;
+        if_setonclick;
+        if_setcolour($int3);
+        if_clearops;
+        if_clearops;
+        if_settext("" + " - Locked");
+    }
+    $int0 = add($int0, 1);
+}
+return;

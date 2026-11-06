@@ -1,0 +1,411 @@
+[clientscript,script_1395]
+if (%varbit2140 >= 30) {
+    if_sethide(25624598);
+    if_sethide(25624600);
+} else {
+    if_sethide(25624598);
+    if_sethide(25624600);
+}
+if_settext(tostring(%varbit74));
+if (%varbit83 > 0) {
+    if_setcolour(25624663);
+} else {
+    if_setcolour(25624663);
+}
+if (%varbit83 > 1) {
+    if_setcolour(25624664);
+} else {
+    if_setcolour(25624664);
+}
+if (%varbit83 > 2) {
+    if_setcolour(25624665);
+} else {
+    if_setcolour(25624665);
+}
+if (%varbit83 > 3) {
+    if_setcolour(25624667);
+} else {
+    if_setcolour(25624667);
+}
+if (%varbit83 > 4) {
+    if_setcolour(25624668);
+} else {
+    if_setcolour(25624668);
+}
+if (%varbit83 > 5) {
+    if_setcolour(25624669);
+} else {
+    if_setcolour(25624669);
+}
+if (%varbit83 > 6) {
+    if_setcolour(25624670);
+} else {
+    if_setcolour(25624670);
+}
+if (%varbit83 > 7) {
+    if_setcolour(25624671);
+} else {
+    if_setcolour(25624671);
+}
+if (%varbit83 > 8) {
+    if_setcolour(25624672);
+} else {
+    if_setcolour(25624672);
+}
+if (%varbit83 > 9) {
+    if_setcolour(25624673);
+} else {
+    if_setcolour(25624673);
+}
+if (%varbit84 > 0) {
+    if_setcolour(25624620);
+} else {
+    if_setcolour(25624620);
+}
+if (%varbit84 > 1) {
+    if_setcolour(25624621);
+} else {
+    if_setcolour(25624621);
+}
+if (%varbit84 > 2) {
+    if_setcolour(25624622);
+} else {
+    if_setcolour(25624622);
+}
+if (%varbit84 > 3) {
+    if_setcolour(25624623);
+} else {
+    if_setcolour(25624623);
+}
+if (%varbit84 > 4) {
+    if_setcolour(25624624);
+} else {
+    if_setcolour(25624624);
+}
+if (%varbit84 > 5) {
+    if_setcolour(25624625);
+} else {
+    if_setcolour(25624625);
+}
+if (%varbit84 > 6) {
+    if_setcolour(25624626);
+} else {
+    if_setcolour(25624626);
+}
+if (%varbit84 > 7) {
+    if_setcolour(25624627);
+} else {
+    if_setcolour(25624627);
+}
+if (%varbit84 > 8) {
+    if_setcolour(25624628);
+} else {
+    if_setcolour(25624628);
+}
+if (%varbit84 > 9) {
+    if_setcolour(25624629);
+} else {
+    if_setcolour(25624629);
+}
+if (%varbit82 > 0) {
+    if_setcolour(25624650);
+} else {
+    if_setcolour(25624650);
+}
+if (%varbit82 > 1) {
+    if_setcolour(25624651);
+} else {
+    if_setcolour(25624651);
+}
+if (%varbit82 > 2) {
+    if_setcolour(25624652);
+} else {
+    if_setcolour(25624652);
+}
+if (%varbit82 > 3) {
+    if_setcolour(25624653);
+} else {
+    if_setcolour(25624653);
+}
+if (%varbit82 > 4) {
+    if_setcolour(25624654);
+} else {
+    if_setcolour(25624654);
+}
+if (%varbit82 > 5) {
+    if_setcolour(25624655);
+} else {
+    if_setcolour(25624655);
+}
+if (%varbit82 > 6) {
+    if_setcolour(25624656);
+} else {
+    if_setcolour(25624656);
+}
+if (%varbit82 > 7) {
+    if_setcolour(25624657);
+} else {
+    if_setcolour(25624657);
+}
+if (%varbit82 > 8) {
+    if_setcolour(25624658);
+} else {
+    if_setcolour(25624658);
+}
+if (%varbit82 > 9) {
+    if_setcolour(25624659);
+} else {
+    if_setcolour(25624659);
+}
+if (%varbit81 > 0) {
+    if_setcolour(25624634);
+} else {
+    if_setcolour(25624634);
+}
+if (%varbit81 > 1) {
+    if_setcolour(25624635);
+} else {
+    if_setcolour(25624635);
+}
+if (%varbit81 > 2) {
+    if_setcolour(25624636);
+} else {
+    if_setcolour(25624636);
+}
+if (%varbit81 > 3) {
+    if_setcolour(25624637);
+} else {
+    if_setcolour(25624637);
+}
+if (%varbit81 > 4) {
+    if_setcolour(25624638);
+} else {
+    if_setcolour(25624638);
+}
+if (%varbit81 > 5) {
+    if_setcolour(25624639);
+} else {
+    if_setcolour(25624639);
+}
+if (%varbit81 > 6) {
+    if_setcolour(25624640);
+} else {
+    if_setcolour(25624640);
+}
+if (%varbit81 > 7) {
+    if_setcolour(25624641);
+} else {
+    if_setcolour(25624641);
+}
+if (%varbit81 > 8) {
+    if_setcolour(25624642);
+} else {
+    if_setcolour(25624642);
+}
+if (%varbit81 > 9) {
+    if_setcolour(25624646);
+} else {
+    if_setcolour(25624646);
+}
+if (%varbit2131 > 0) {
+    if_setcolour(25624700);
+} else {
+    if_setcolour(25624700);
+}
+if (%varbit2131 > 1) {
+    if_setcolour(25624701);
+} else {
+    if_setcolour(25624701);
+}
+if (%varbit2131 > 2) {
+    if_setcolour(25624702);
+} else {
+    if_setcolour(25624702);
+}
+if (%varbit2131 > 3) {
+    if_setcolour(25624703);
+} else {
+    if_setcolour(25624703);
+}
+if (%varbit2131 > 4) {
+    if_setcolour(25624704);
+} else {
+    if_setcolour(25624704);
+}
+if (%varbit2131 > 5) {
+    if_setcolour(25624705);
+} else {
+    if_setcolour(25624705);
+}
+if (%varbit2131 > 6) {
+    if_setcolour(25624706);
+} else {
+    if_setcolour(25624706);
+}
+if (%varbit2131 > 7) {
+    if_setcolour(25624707);
+} else {
+    if_setcolour(25624707);
+}
+if (%varbit2131 > 8) {
+    if_setcolour(25624708);
+} else {
+    if_setcolour(25624708);
+}
+if (%varbit2131 > 9) {
+    if_setcolour(25624709);
+} else {
+    if_setcolour(25624709);
+}
+if (%varbit2132 > 0) {
+    if_setcolour(25624721);
+} else {
+    if_setcolour(25624721);
+}
+if (%varbit2132 > 1) {
+    if_setcolour(25624722);
+} else {
+    if_setcolour(25624722);
+}
+if (%varbit2132 > 2) {
+    if_setcolour(25624723);
+} else {
+    if_setcolour(25624723);
+}
+if (%varbit2132 > 3) {
+    if_setcolour(25624724);
+} else {
+    if_setcolour(25624724);
+}
+if (%varbit2132 > 4) {
+    if_setcolour(25624725);
+} else {
+    if_setcolour(25624725);
+}
+if (%varbit2132 > 5) {
+    if_setcolour(25624726);
+} else {
+    if_setcolour(25624726);
+}
+if (%varbit2132 > 6) {
+    if_setcolour(25624727);
+} else {
+    if_setcolour(25624727);
+}
+if (%varbit2132 > 7) {
+    if_setcolour(25624728);
+} else {
+    if_setcolour(25624728);
+}
+if (%varbit2132 > 8) {
+    if_setcolour(25624729);
+} else {
+    if_setcolour(25624729);
+}
+if (%varbit2132 > 9) {
+    if_setcolour(25624730);
+} else {
+    if_setcolour(25624730);
+}
+if (%varp1888 > 0) {
+    if_setcolour(25624674);
+} else {
+    if_setcolour(25624674);
+}
+if (%varp1888 > 1) {
+    if_setcolour(25624675);
+} else {
+    if_setcolour(25624675);
+}
+if (%varp1888 > 2) {
+    if_setcolour(25624676);
+} else {
+    if_setcolour(25624676);
+}
+if (%varp1888 > 3) {
+    if_setcolour(25624677);
+} else {
+    if_setcolour(25624677);
+}
+if (%varp1888 > 4) {
+    if_setcolour(25624680);
+} else {
+    if_setcolour(25624680);
+}
+if (%varp1888 > 5) {
+    if_setcolour(25624681);
+} else {
+    if_setcolour(25624681);
+}
+if (%varp1888 > 6) {
+    if_setcolour(25624682);
+} else {
+    if_setcolour(25624682);
+}
+if (%varp1888 > 7) {
+    if_setcolour(25624683);
+} else {
+    if_setcolour(25624683);
+}
+if (%varp1888 > 8) {
+    if_setcolour(25624684);
+} else {
+    if_setcolour(25624684);
+}
+if (%varp1888 > 9) {
+    if_setcolour(25624685);
+} else {
+    if_setcolour(25624685);
+}
+if (%varp1888 > 10) {
+    if_setcolour(25624686);
+} else {
+    if_setcolour(25624686);
+}
+if (%varp1888 > 11) {
+    if_setcolour(25624687);
+} else {
+    if_setcolour(25624687);
+}
+if (%varp1888 > 12) {
+    if_setcolour(25624688);
+} else {
+    if_setcolour(25624688);
+}
+if (%varp1888 > 13) {
+    if_setcolour(25624689);
+} else {
+    if_setcolour(25624689);
+}
+if (%varp1888 > 14) {
+    if_setcolour(25624690);
+} else {
+    if_setcolour(25624690);
+}
+if (%varbit2134 = 1) {
+    if_setgraphic(25624731);
+    if_setgraphic(25624733);
+} else {
+    if_setgraphic(25624731);
+    if_setgraphic(25624733);
+}
+if (%varbit2133 = 0) {
+    if_setgraphic(25624710);
+    if_setgraphic(25624711);
+    if_setgraphic(25624712);
+} else {
+    if (%varbit2133 = 1) {
+        if_setgraphic(25624710);
+        if_setgraphic(25624711);
+        if_setgraphic(25624712);
+    }
+    if_setgraphic(25624710);
+    if_setgraphic(25624711);
+    if_setgraphic(25624712);
+}
+if (%varbit135 = 0) {
+    if_setgraphic(25624696);
+} else {
+    if_setgraphic(25624696);
+}
+return;

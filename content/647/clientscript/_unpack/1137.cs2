@@ -1,0 +1,27 @@
+; id: 1137
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_var 300
+    1: push_constant_int 1000
+    2: push_constant_int 143
+    3: scale 0
+    4: push_constant_int 13
+    5: push_constant_int 0
+    6: push_constant_int 0
+    7: push_int_local 0
+    8: if_setsize 0
+    9: push_constant_string "Special Attack ("
+   10: push_var 300
+   11: push_constant_int 10
+   12: div 0
+   13: tostring 0
+   14: push_constant_string "%)"
+   15: join_string 3
+   16: push_int_local 1
+   17: if_settext 0
+   18: return 0

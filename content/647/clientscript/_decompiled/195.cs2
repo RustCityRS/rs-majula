@@ -1,0 +1,18 @@
+[clientscript,script_195](int $int0, int $int1)
+op2421;
+op2420;
+def_int $int2 = 72679428;
+def_int $int3 = 0;
+def_int $int4 = 19;
+if ($int3 < 500) {
+    if (mod($int3, 2) ! 0) {
+        cc_setposition(0, $int2, 3, if_getchildcount($int2));
+        cc_setsize(16384, $int4, 2, 0);
+        cc_setposition2(0, multiply($int3, $int4), 0, 0);
+        cc_setcolour(2302496);
+        cc_setfill(1);
+        cc_settrans(128);
+    }
+    $int3 = add($int3, 1);
+}
+return;

@@ -1,0 +1,99 @@
+[clientscript,script_1271](int $int0)(component, component, component, component, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
+def_int $int1 = 1;
+def_int $int2 = 0;
+switch (%varbit1010) {
+    case 0:
+        if_settext("First click the FIRST digit.");
+        if_settext("?");
+        if_settext("?");
+        if_settext("?");
+        if_settext("?");
+    case 1:
+        if_settext("Now click the SECOND digit.");
+        if_settext("*");
+        if_settext("?");
+        if_settext("?");
+        if_settext("?");
+    case 2:
+        if_settext("Time for the THIRD digit.");
+        if_settext("*");
+        if_settext("*");
+        if_settext("?");
+        if_settext("?");
+    case 3:
+        if_settext("Finally, the FOURTH digit.");
+        if_settext("*");
+        if_settext("*");
+        if_settext("*");
+        if_settext("?");
+        $int2 = 1;
+        $int1 = 0;
+    default:
+        if_settext("Please wait...");
+        if_settext("*");
+        if_settext("*");
+        if_settext("*");
+        if_settext("*");
+        $int2 = 1;
+        $int1 = 1;
+}
+def_int $int3 = 0;
+if ($int0 = 0) {
+    if ($int3 < 10) {
+        if_sethide(enum(105, 73, enum_3555, $int3));
+        if_sethide(enum(105, 73, enum_3554, $int3));
+        $int3 = add($int3, 1);
+    }
+    return;
+}
+def_int $int4 = random(10);
+define_array(105, 10);
+%array0 = pop_array_int(0, $int4);
+%array0 = pop_array_int(1, calc($int4 + 1 % 10));
+%array0 = pop_array_int(2, calc($int4 + 2 % 10));
+%array0 = pop_array_int(3, calc($int4 + 3 % 10));
+%array0 = pop_array_int(4, calc($int4 + 4 % 10));
+%array0 = pop_array_int(5, calc($int4 + 5 % 10));
+%array0 = pop_array_int(6, calc($int4 + 6 % 10));
+%array0 = pop_array_int(7, calc($int4 + 7 % 10));
+%array0 = pop_array_int(8, calc($int4 + 8 % 10));
+%array0 = pop_array_int(9, calc($int4 + 9 % 10));
+def_int $int5 = 0;
+if ($int3 < 10) {
+    $int5 = random(9);
+    $int4 = push_array_int(0, 9);
+    %array0 = pop_array_int(9, push_array_int(0, $int5));
+    %array0 = pop_array_int($int5, $int4);
+    if_setposition(sub(20, randominc(40)), 1, 1, enum(105, 73, enum_3557, $int3));
+    if_sethide(enum(105, 73, enum_3555, $int3));
+    if_sethide(enum(105, 73, enum_3554, $int3));
+    $int3 = add($int3, 1);
+}
+def_int $int6 = if_getwidth;
+def_int $int7 = if_getheight;
+def_int $int8 = calc(if_getwidth - $int6 / 3);
+def_int $int9 = calc(if_getheight - $int7 / 2);
+def_int $int10 = multiply($int8, 2);
+def_int $int11 = multiply($int9, 2);
+def_int $int12 = multiply($int8, 3);
+if_setposition(0, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 0)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 0)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 1)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 1)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 2)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 2)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 3)));
+if_setposition(0, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 3)));
+if_setposition($int9, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 4)));
+if_setposition($int9, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 4)));
+if_setposition($int9, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 5)));
+if_setposition($int9, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 5)));
+if_setposition($int9, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 6)));
+if_setposition($int9, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 6)));
+if_setposition($int11, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 7)));
+if_setposition($int11, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 7)));
+if_setposition($int11, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 8)));
+if_setposition($int11, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 8)));
+if_setposition($int11, 0, 0, enum(105, 73, enum_3556, push_array_int(0, 9)));
+if_setposition($int11, 0, 0, enum(105, 73, enum_3555, push_array_int(0, 9)));
+return(851974, 851974, 851973, 851973, 0, 0, $int8, $int8, $int10, $int10, $int12, $int12, 0, 0, $int8, $int8, $int10, $int10, 0, 0, $int8, $int8, $int10, $int10);

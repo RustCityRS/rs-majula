@@ -1,0 +1,9 @@
+[clientscript,script_1412](int $int0)(int, int, int, int, int, int, int, int, int, int, int)
+cc_deleteall($int0);
+def_int $int1 = if_getwidth;
+def_int $int2 = if_getheight;
+def_int $int3 = sub($int1, 9);
+def_int $int4 = sub($int2, 9);
+def_int $int5 = sub($int1, 18);
+def_int $int6 = sub($int2, 18);
+return($int0, $int0, ~script_98($int0, 0, 297, 0, 0, $int1, $int2), ~script_98($int0, 1, 1259, 0, 0, 9, 9), ~script_98($int0, 2, 1260, $int3, 0, 9, 9), ~script_98($int0, 3, 1261, 0, $int4, 9, 9), ~script_98($int0, 4, 1262, $int3, $int4, 9, 9), ~script_98($int0, 5, 1263, 0, 9, 9, $int6), ~script_98($int0, 6, 1264, 9, 0, $int5, 9), ~script_98($int0, 7, 1265, $int3, 9, 9, $int6), ~script_98($int0, 8, 1266, 9, $int4, $int5, 9));

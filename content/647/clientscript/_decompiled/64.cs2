@@ -1,0 +1,6 @@
+[clientscript,script_64]
+if_settext(tostring(%varbit3637) + "/" + tostring(183));
+if (%varbit3637 = 183) {
+    if_setcolour(34865153);
+}
+return;

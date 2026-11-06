@@ -1,0 +1,7 @@
+[clientscript,script_4563](int $int0, int $int1)
+if_sethide(38600758);
+if_sethide(38600738);
+if (cc_find($int0, $int1) = 1) {
+    cc_setonmouserepeat;
+}
+return;

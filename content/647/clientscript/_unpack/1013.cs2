@@ -1,0 +1,84 @@
+; id: 1013
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 52
+    3: push_constant_string "Allotments"
+    4: push_constant_int 1
+    5: return 0
+    6: branch 51
+    7: push_constant_string "Hops"
+    8: push_constant_int 1
+    9: return 0
+   10: branch 47
+   11: push_constant_string "Trees"
+   12: push_constant_int 1
+   13: return 0
+   14: branch 43
+   15: push_constant_string "Fruit Trees"
+   16: push_constant_int 1
+   17: return 0
+   18: branch 39
+   19: push_constant_string "Bushes"
+   20: push_constant_int 1
+   21: return 0
+   22: branch 35
+   23: push_constant_string "Flowers"
+   24: push_constant_int 1
+   25: return 0
+   26: branch 31
+   27: push_constant_string "Herbs"
+   28: push_constant_int 1
+   29: return 0
+   30: branch 27
+   31: push_constant_string "Special"
+   32: push_constant_int 1
+   33: return 0
+   34: branch 23
+   35: push_constant_string "Equipment"
+   36: push_constant_int 1
+   37: return 0
+   38: branch 19
+   39: push_constant_string "Other"
+   40: push_constant_int 1
+   41: return 0
+   42: branch 15
+   43: push_constant_string "Activities"
+   44: push_constant_int 1
+   45: return 0
+   46: branch 11
+   47: push_constant_string "Dungeoneering"
+   48: push_constant_int 1
+   49: return 0
+   50: branch 7
+   51: push_constant_string "Milestones"
+   52: push_constant_int 1
+   53: return 0
+   54: branch 3
+   55: push_constant_string ""
+   56: push_constant_int -1
+   57: return 0
+   58: push_constant_string ""
+   59: push_constant_int 0
+   60: return 0
+
+switch_0:
+  0 => 1
+  1 => 5
+  2 => 9
+  3 => 13
+  4 => 17
+  5 => 21
+  6 => 25
+  7 => 29
+  8 => 33
+  9 => 37
+  10 => 41
+  11 => 45
+  12 => 49

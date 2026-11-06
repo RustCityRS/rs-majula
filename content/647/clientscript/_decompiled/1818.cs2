@@ -1,0 +1,15 @@
+[clientscript,script_1818](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int, int, int, int, int, int, int, int)
+if_settext("Defeat!");
+if_setposition(49, 0, 0, $int0);
+if_settext("Your clan has been defeated.");
+if_setposition(93, 0, 0, $int1);
+if_setposition(179, 0, 0, $int2);
+if_setsize(125, 0, 0, $int2);
+if_setposition(81, 0, 0, $int3);
+if_sethide($int0);
+if_sethide($int1);
+if_sethide($int2);
+if_sethide($int3);
+if_sethide($int4);
+if_sethide($int5);
+return($int0, 64, $int1, 41, 41, 180, 38, 0, 0, 0, 0, 1, 0);

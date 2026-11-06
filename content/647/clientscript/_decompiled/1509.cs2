@@ -1,0 +1,28 @@
+[clientscript,script_1509](int, int, int, component, int, int, int, int, int, int, int, stat, component, int, int, int, component, int, int, int, component, int, int, stat, component, int, int, stat, component, int, int, int, component, int, int, component, int, component, component, int, int, int, component, int, int, component, int, component, component, int, int, int, component, int, int, component, int, component, component, int, int, int, component, int, int, component, int, component, component, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string)
+cc_deleteall(47775745);
+~script_1088(47775745, 22);
+cc_deleteall(47775755);
+~script_333(47775755, 4734771, 3156258, 0, 0);
+cc_deleteall(47775758);
+~script_333(47775758, 4734771, 3156258, 0, 0);
+cc_deleteall(47775760);
+%varc_int778 = %varbit6091;
+if_setonvartransmit;
+if_setonvarctransmit;
+if_setonop;
+if_setonop;
+if_setonop;
+if_setonop;
+def_string $str0 = "Choose a top";
+if_setonmouserepeat;
+if_setonmouseleave;
+$str0 = "Choose some sleeves";
+if_setonmouserepeat;
+if_setonmouseleave;
+$str0 = "Decorate your wrists";
+if_setonmouserepeat;
+if_setonmouseleave;
+$str0 = "Choose some leggings";
+if_setonmouserepeat;
+if_setonmouseleave;
+return(~script_2647(47775755), ~script_2647(47775755), ~script_2647(47775755), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), ~script_2647(47775758), ~script_2647(47775758), ~script_2647(47775758), ~script_2647(47775760), ~script_2647(47775760), ~script_2647(47775760), ~script_1513, ~script_1513, ~script_1513, 1510, 1057, defence, 47775745, 1511, 1010, 1011, 1012, 1013, 1016, 1017, 6, 47775745, 1512, -2147483644, 0, 47775750, 1512, -2147483644, 1, 47775751, 1512, -2147483644, 2, 47775752, 1512, -2147483644, 3, 47775753, 1160, -2147483645, -1, 47775767, 25, 512, 47775750, 40, 47775767, 47775750, 1160, -2147483645, -1, 47775767, 25, 512, 47775751, 40, 47775767, 47775751, 1160, -2147483645, -1, 47775767, 25, 512, 47775752, 40, 47775767, 47775752, 1160, -2147483645, -1, 47775767, 25, 512, 47775753, 40, 47775767, 47775753, ~script_1516(47775758, 380, 100), ~script_1516(47775758, 380, 100), "Y", "Y", "ii", "ii", "ii", "ii", $str0, "IiIsii", "I", $str0, "IiIsii", "I", $str0, "IiIsii", "I", $str0, "IiIsii", "I");

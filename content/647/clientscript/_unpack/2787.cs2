@@ -1,0 +1,1726 @@
+; id: 2787
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 1565
+    3: push_int_local 1
+    4: switch 1
+    5: branch 662
+    6: push_constant_int -1
+    7: push_constant_int 2287
+    8: push_constant_string "You can see what each spell does by selecting the spellbook icon on your side interface. Move your mouse over the icon of the spell you want and a description will be available."
+    9: push_constant_string " "
+   10: return 0
+   11: branch 656
+   12: push_constant_int 1
+   13: push_constant_int 3759
+   14: push_constant_string "Wind Rush"
+   15: push_constant_string "You can now cast "
+   16: push_constant_string "<col=000080>"
+   17: push_constant_string "Wind Rush"
+   18: push_constant_string "</col>"
+   19: push_constant_string "."
+   20: join_string 5
+   21: return 0
+   22: branch 645
+   23: push_constant_int 1
+   24: push_constant_int 15
+   25: push_constant_string "Wind Strike"
+   26: push_constant_string "You can now cast "
+   27: push_constant_string "<col=000080>"
+   28: push_constant_string "Wind Strike"
+   29: push_constant_string "</col>"
+   30: push_constant_string "."
+   31: join_string 5
+   32: return 0
+   33: branch 634
+   34: push_constant_int 3
+   35: push_constant_int 16
+   36: push_constant_string "Confuse"
+   37: push_constant_string "You can now cast "
+   38: push_constant_string "<col=000080>"
+   39: push_constant_string "Confuse"
+   40: push_constant_string "</col>"
+   41: push_constant_string "."
+   42: join_string 5
+   43: return 0
+   44: branch 623
+   45: push_constant_int 5
+   46: push_constant_int 17
+   47: push_constant_string "Water Strike"
+   48: push_constant_string "You can now cast "
+   49: push_constant_string "<col=000080>"
+   50: push_constant_string "Water Strike"
+   51: push_constant_string "</col>"
+   52: push_constant_string "."
+   53: join_string 5
+   54: return 0
+   55: branch 612
+   56: push_constant_int 9
+   57: push_constant_int 19
+   58: push_constant_string "Earth Strike"
+   59: push_constant_string "You can now cast "
+   60: push_constant_string "<col=000080>"
+   61: push_constant_string "Earth Strike"
+   62: push_constant_string "</col>"
+   63: push_constant_string "."
+   64: join_string 5
+   65: return 0
+   66: branch 601
+   67: push_constant_int 10
+   68: push_constant_int 1564
+   69: push_constant_string "Members: Teleport to Mobilising Armies"
+   70: push_constant_string "You can now cast "
+   71: push_constant_string "<col=000080>"
+   72: push_constant_string "Teleport to Mobilising Armies"
+   73: push_constant_string "</col>"
+   74: push_constant_string "."
+   75: join_string 5
+   76: return 0
+   77: branch 590
+   78: push_constant_int 11
+   79: push_constant_int 20
+   80: push_constant_string "Weaken"
+   81: push_constant_string "You can now cast "
+   82: push_constant_string "<col=000080>"
+   83: push_constant_string "Weaken"
+   84: push_constant_string "</col>"
+   85: push_constant_string "."
+   86: join_string 5
+   87: return 0
+   88: branch 579
+   89: push_constant_int 13
+   90: push_constant_int 21
+   91: push_constant_string "Fire Strike"
+   92: push_constant_string "You can now cast "
+   93: push_constant_string "<col=000080>"
+   94: push_constant_string "Fire Strike"
+   95: push_constant_string "</col>"
+   96: push_constant_string "."
+   97: join_string 5
+   98: return 0
+   99: branch 568
+  100: push_constant_int 15
+  101: push_constant_int 22
+  102: push_constant_string "Bones to Bananas"
+  103: push_constant_string "You can now cast "
+  104: push_constant_string "<col=000080>"
+  105: push_constant_string "Bones to Bananas"
+  106: push_constant_string "</col>"
+  107: push_constant_string "."
+  108: join_string 5
+  109: return 0
+  110: branch 557
+  111: push_constant_int 17
+  112: push_constant_int 23
+  113: push_constant_string "Wind Bolt"
+  114: push_constant_string "You can now cast "
+  115: push_constant_string "<col=000080>"
+  116: push_constant_string "Wind Bolt"
+  117: push_constant_string "</col>"
+  118: push_constant_string "."
+  119: join_string 5
+  120: return 0
+  121: branch 546
+  122: push_constant_int 19
+  123: push_constant_int 24
+  124: push_constant_string "Curse"
+  125: push_constant_string "You can now cast "
+  126: push_constant_string "<col=000080>"
+  127: push_constant_string "Curse"
+  128: push_constant_string "</col>"
+  129: push_constant_string "."
+  130: join_string 5
+  131: return 0
+  132: branch 535
+  133: push_constant_int 20
+  134: push_constant_int 319
+  135: push_constant_string "Bind"
+  136: push_constant_string "You can now cast "
+  137: push_constant_string "<col=000080>"
+  138: push_constant_string "Bind"
+  139: push_constant_string "</col>"
+  140: push_constant_string "."
+  141: join_string 5
+  142: return 0
+  143: branch 524
+  144: push_constant_int 21
+  145: push_constant_int 25
+  146: push_constant_string "Low Level Alchemy"
+  147: push_constant_string "You can now cast "
+  148: push_constant_string "<col=000080>"
+  149: push_constant_string "Low Level Alchemy"
+  150: push_constant_string "</col>"
+  151: push_constant_string "."
+  152: join_string 5
+  153: return 0
+  154: branch 513
+  155: push_constant_int 23
+  156: push_constant_int 26
+  157: push_constant_string "Water Bolt"
+  158: push_constant_string "You can now cast "
+  159: push_constant_string "<col=000080>"
+  160: push_constant_string "Water Bolt"
+  161: push_constant_string "</col>"
+  162: push_constant_string "."
+  163: join_string 5
+  164: return 0
+  165: branch 502
+  166: push_constant_int 25
+  167: push_constant_int 27
+  168: push_constant_string "Teleport to Varrock"
+  169: push_constant_string "You can now cast "
+  170: push_constant_string "<col=000080>"
+  171: push_constant_string "Teleport to Varrock"
+  172: push_constant_string "</col>"
+  173: push_constant_string "."
+  174: join_string 5
+  175: return 0
+  176: branch 491
+  177: push_constant_int 29
+  178: push_constant_int 29
+  179: push_constant_string "Earth Bolt"
+  180: push_constant_string "You can now cast "
+  181: push_constant_string "<col=000080>"
+  182: push_constant_string "Earth Bolt"
+  183: push_constant_string "</col>"
+  184: push_constant_string "."
+  185: join_string 5
+  186: return 0
+  187: branch 480
+  188: push_constant_int 31
+  189: push_constant_int 30
+  190: push_constant_string "Teleport to Lumbridge"
+  191: push_constant_string "You can now cast "
+  192: push_constant_string "<col=000080>"
+  193: push_constant_string "Teleport to Lumbridge"
+  194: push_constant_string "</col>"
+  195: push_constant_string "."
+  196: join_string 5
+  197: return 0
+  198: branch 469
+  199: push_constant_int 33
+  200: push_constant_int 31
+  201: push_constant_string "Telekinetic Grab"
+  202: push_constant_string "You can now cast "
+  203: push_constant_string "<col=000080>"
+  204: push_constant_string "Telekinetic Grab"
+  205: push_constant_string "</col>"
+  206: push_constant_string "."
+  207: join_string 5
+  208: return 0
+  209: branch 458
+  210: push_constant_int 35
+  211: push_constant_int 32
+  212: push_constant_string "Fire Bolt"
+  213: push_constant_string "You can now cast "
+  214: push_constant_string "<col=000080>"
+  215: push_constant_string "Fire Bolt"
+  216: push_constant_string "</col>"
+  217: push_constant_string "."
+  218: join_string 5
+  219: return 0
+  220: branch 447
+  221: push_constant_int 37
+  222: push_constant_int 33
+  223: push_constant_string "Teleport to Falador"
+  224: push_constant_string "You can now cast "
+  225: push_constant_string "<col=000080>"
+  226: push_constant_string "Teleport to Falador"
+  227: push_constant_string "</col>"
+  228: push_constant_string "."
+  229: join_string 5
+  230: return 0
+  231: branch 436
+  232: push_constant_int 39
+  233: push_constant_int 34
+  234: push_constant_string "Crumble Undead"
+  235: push_constant_string "You can now cast "
+  236: push_constant_string "<col=000080>"
+  237: push_constant_string "Crumble Undead"
+  238: push_constant_string "</col>"
+  239: push_constant_string "."
+  240: join_string 5
+  241: return 0
+  242: branch 425
+  243: push_constant_int 40
+  244: push_constant_int 355
+  245: push_constant_string "Members: Teleport to House"
+  246: push_constant_string "Members can now cast "
+  247: push_constant_string "<col=000080>"
+  248: push_constant_string "Teleport to House"
+  249: push_constant_string "</col>"
+  250: push_constant_string "."
+  251: join_string 5
+  252: return 0
+  253: branch 414
+  254: push_constant_int 41
+  255: push_constant_int 35
+  256: push_constant_string "Wind Blast"
+  257: push_constant_string "You can now cast "
+  258: push_constant_string "<col=000080>"
+  259: push_constant_string "Wind Blast"
+  260: push_constant_string "</col>"
+  261: push_constant_string "."
+  262: join_string 5
+  263: return 0
+  264: branch 403
+  265: push_constant_int 43
+  266: push_constant_int 36
+  267: push_constant_string "Superheat Item"
+  268: push_constant_string "You can now cast "
+  269: push_constant_string "<col=000080>"
+  270: push_constant_string "Superheat Item"
+  271: push_constant_string "</col>"
+  272: push_constant_string "."
+  273: join_string 5
+  274: return 0
+  275: branch 392
+  276: push_constant_int 45
+  277: push_constant_int 37
+  278: push_constant_string "Members: Teleport to Camelot"
+  279: push_constant_string "Members can now cast "
+  280: push_constant_string "<col=000080>"
+  281: push_constant_string "Teleport to Camelot"
+  282: push_constant_string "</col>"
+  283: push_constant_string "."
+  284: join_string 5
+  285: return 0
+  286: branch 381
+  287: push_constant_int 47
+  288: push_constant_int 38
+  289: push_constant_string "Water Blast"
+  290: push_constant_string "You can now cast "
+  291: push_constant_string "<col=000080>"
+  292: push_constant_string "Water Blast"
+  293: push_constant_string "</col>"
+  294: push_constant_string "."
+  295: join_string 5
+  296: return 0
+  297: branch 370
+  298: push_constant_int 50
+  299: push_constant_int 320
+  300: push_constant_string "Members: Snare"
+  301: push_constant_string "Members can now cast "
+  302: push_constant_string "<col=000080>"
+  303: push_constant_string "Snare"
+  304: push_constant_string "</col>"
+  305: push_constant_string "."
+  306: join_string 5
+  307: return 0
+  308: branch 359
+  309: push_constant_int 50
+  310: push_constant_int 324
+  311: push_constant_string "Members: Magic Dart"
+  312: push_constant_string "<br>"
+  313: push_constant_string " (with level 55 Slayer)"
+  314: join_string 3
+  315: push_constant_string "Members now have the Magic level required to cast "
+  316: push_constant_string "<col=000080>"
+  317: push_constant_string "Magic Dart"
+  318: push_constant_string "</col>"
+  319: push_constant_string ". (They also need level 55 Slayer.)"
+  320: join_string 5
+  321: return 0
+  322: branch 345
+  323: push_constant_int 50
+  324: push_constant_int 53
+  325: push_constant_string "Members: Iban's Blast"
+  326: push_constant_string "<br>"
+  327: push_constant_string " (after Underground Pass)"
+  328: join_string 3
+  329: push_constant_string "Members now have the Magic level required to cast "
+  330: push_constant_string "<col=000080>"
+  331: push_constant_string "Iban's Blast"
+  332: push_constant_string "</col>"
+  333: push_constant_string " (after Underground Pass)."
+  334: join_string 5
+  335: return 0
+  336: branch 331
+  337: push_constant_int 51
+  338: push_constant_int 54
+  339: push_constant_string "Members: Teleport to Ardougne"
+  340: push_constant_string "<br>"
+  341: push_constant_string " (after Plague City)"
+  342: join_string 3
+  343: push_constant_string "Members can now cast "
+  344: push_constant_string "<col=000080>"
+  345: push_constant_string "Teleport to Ardougne"
+  346: push_constant_string "</col>"
+  347: push_constant_string "."
+  348: join_string 5
+  349: return 0
+  350: branch 317
+  351: push_constant_int 53
+  352: push_constant_int 40
+  353: push_constant_string "Earth Blast"
+  354: push_constant_string "You can now cast "
+  355: push_constant_string "<col=000080>"
+  356: push_constant_string "Earth Blast"
+  357: push_constant_string "</col>"
+  358: push_constant_string "."
+  359: join_string 5
+  360: return 0
+  361: branch 306
+  362: push_constant_int 55
+  363: push_constant_int 41
+  364: push_constant_string "High-level Alchemy"
+  365: push_constant_string "You can now cast "
+  366: push_constant_string "<col=000080>"
+  367: push_constant_string "High-level Alchemy"
+  368: push_constant_string "</col>"
+  369: push_constant_string "."
+  370: join_string 5
+  371: return 0
+  372: branch 295
+  373: push_constant_int 58
+  374: push_constant_int 55
+  375: push_constant_string "Members: Teleport to the Watchtower"
+  376: push_constant_string "<br>"
+  377: push_constant_string " (after Watchtower)"
+  378: join_string 3
+  379: push_constant_string "Members now have the Magic level required to cast "
+  380: push_constant_string "<col=000080>"
+  381: push_constant_string "Teleport to the Watchtower"
+  382: push_constant_string "</col>"
+  383: push_constant_string " (after Watchtower)."
+  384: join_string 5
+  385: return 0
+  386: branch 281
+  387: push_constant_int 59
+  388: push_constant_int 44
+  389: push_constant_string "Fire Blast"
+  390: push_constant_string "You can now cast "
+  391: push_constant_string "<col=000080>"
+  392: push_constant_string "Fire Blast"
+  393: push_constant_string "</col>"
+  394: push_constant_string "."
+  395: join_string 5
+  396: return 0
+  397: branch 270
+  398: push_constant_int 60
+  399: push_constant_int 354
+  400: push_constant_string "Members: Bones to Peaches"
+  401: push_constant_string "<br>"
+  402: push_constant_string " (after Mage Training Arena)"
+  403: join_string 3
+  404: push_constant_string "Members can now learn "
+  405: push_constant_string "<col=000080>"
+  406: push_constant_string "Bones to Peaches"
+  407: push_constant_string "</col>"
+  408: push_constant_string " in the Mage Training Arena."
+  409: join_string 5
+  410: return 0
+  411: branch 256
+  412: push_constant_int 60
+  413: push_constant_int 61
+  414: push_constant_string "Members: Saradomin Strike"
+  415: push_constant_string "<br>"
+  416: push_constant_string " (after Mage Arena)"
+  417: join_string 3
+  418: push_constant_string "Members can now learn "
+  419: push_constant_string "<col=000080>"
+  420: push_constant_string "Saradomin Strike"
+  421: push_constant_string "</col>"
+  422: push_constant_string " in the Mage Arena."
+  423: join_string 5
+  424: return 0
+  425: branch 242
+  426: push_constant_int 60
+  427: push_constant_int 60
+  428: push_constant_string "Members: Claws of Guthix"
+  429: push_constant_string "<br>"
+  430: push_constant_string " (after Mage Arena)"
+  431: join_string 3
+  432: push_constant_string "Members can now learn "
+  433: push_constant_string "<col=000080>"
+  434: push_constant_string "Claws of Guthix"
+  435: push_constant_string "</col>"
+  436: push_constant_string " in the Mage Arena."
+  437: join_string 5
+  438: return 0
+  439: branch 228
+  440: push_constant_int 60
+  441: push_constant_int 59
+  442: push_constant_string "Members: Flames of Zamorak"
+  443: push_constant_string "<br>"
+  444: push_constant_string " (after Mage Arena)"
+  445: join_string 3
+  446: push_constant_string "Members can now learn "
+  447: push_constant_string "<col=000080>"
+  448: push_constant_string "Flames of Zamorak"
+  449: push_constant_string "</col>"
+  450: push_constant_string " in the Mage Arena."
+  451: join_string 5
+  452: return 0
+  453: branch 214
+  454: push_constant_int 61
+  455: push_constant_int 323
+  456: push_constant_string "Members: Teleport to Trollheim"
+  457: push_constant_string "<br>"
+  458: push_constant_string " (after Eadgar's Ruse)"
+  459: join_string 3
+  460: push_constant_string "Members now have the Magic level required to cast "
+  461: push_constant_string "<col=000080>"
+  462: push_constant_string "Teleport to Trollheim"
+  463: push_constant_string "</col>"
+  464: push_constant_string " (after Eadgar's Ruse)."
+  465: join_string 5
+  466: return 0
+  467: branch 200
+  468: push_constant_int 62
+  469: push_constant_int 46
+  470: push_constant_string "Members: Wind Wave"
+  471: push_constant_string "Members can now cast "
+  472: push_constant_string "<col=000080>"
+  473: push_constant_string "Wind Wave"
+  474: push_constant_string "</col>"
+  475: push_constant_string "."
+  476: join_string 5
+  477: return 0
+  478: branch 189
+  479: push_constant_int 64
+  480: push_constant_int 357
+  481: push_constant_string "Members: Teleport to Ape Atoll"
+  482: push_constant_string "<br>"
+  483: push_constant_string " (after saving Awowogei in Recipe for Disaster)"
+  484: join_string 3
+  485: push_constant_string "Members now have the Magic level required to cast "
+  486: push_constant_string "<col=000080>"
+  487: push_constant_string "Teleport to Ape Atoll"
+  488: push_constant_string "</col>"
+  489: push_constant_string " (after saving Awowogei in Recipe for Disaster)."
+  490: join_string 5
+  491: return 0
+  492: branch 175
+  493: push_constant_int 65
+  494: push_constant_int 48
+  495: push_constant_string "Members: Water Wave"
+  496: push_constant_string "Members can now cast "
+  497: push_constant_string "<col=000080>"
+  498: push_constant_string "Water Wave"
+  499: push_constant_string "</col>"
+  500: push_constant_string "."
+  501: join_string 5
+  502: return 0
+  503: branch 164
+  504: push_constant_int 66
+  505: push_constant_int 56
+  506: push_constant_string "Members: Vulnerability"
+  507: push_constant_string "Members can now cast "
+  508: push_constant_string "<col=000080>"
+  509: push_constant_string "Vulnerability"
+  510: push_constant_string "</col>"
+  511: push_constant_string "."
+  512: join_string 5
+  513: return 0
+  514: branch 153
+  515: push_constant_int 70
+  516: push_constant_int 51
+  517: push_constant_string "Members: Earth Wave"
+  518: push_constant_string "Members can now cast "
+  519: push_constant_string "<col=000080>"
+  520: push_constant_string "Earth Wave"
+  521: push_constant_string "</col>"
+  522: push_constant_string "."
+  523: join_string 5
+  524: return 0
+  525: branch 142
+  526: push_constant_int 73
+  527: push_constant_int 57
+  528: push_constant_string "Members: Enfeeble"
+  529: push_constant_string "Members can now cast "
+  530: push_constant_string "<col=000080>"
+  531: push_constant_string "Enfeeble"
+  532: push_constant_string "</col>"
+  533: push_constant_string "."
+  534: join_string 5
+  535: return 0
+  536: branch 131
+  537: push_constant_int 74
+  538: push_constant_int 349
+  539: push_constant_string "Members: Tele-other Lumbridge"
+  540: push_constant_string "Members can now cast "
+  541: push_constant_string "<col=000080>"
+  542: push_constant_string "Tele-other to Lumbridge"
+  543: push_constant_string "</col>"
+  544: push_constant_string "."
+  545: join_string 5
+  546: return 0
+  547: branch 120
+  548: push_constant_int 75
+  549: push_constant_int 52
+  550: push_constant_string "Members: Fire Wave"
+  551: push_constant_string "Members can now cast "
+  552: push_constant_string "<col=000080>"
+  553: push_constant_string "Fire Wave"
+  554: push_constant_string "</col>"
+  555: push_constant_string "."
+  556: join_string 5
+  557: return 0
+  558: branch 109
+  559: push_constant_int 79
+  560: push_constant_int 321
+  561: push_constant_string "Members: Entangle"
+  562: push_constant_string "Members can now cast "
+  563: push_constant_string "<col=000080>"
+  564: push_constant_string "Entangle"
+  565: push_constant_string "</col>"
+  566: push_constant_string "."
+  567: join_string 5
+  568: return 0
+  569: branch 98
+  570: push_constant_int 80
+  571: push_constant_int 58
+  572: push_constant_string "Members: Stun"
+  573: push_constant_string "Members can now cast "
+  574: push_constant_string "<col=000080>"
+  575: push_constant_string "Stun"
+  576: push_constant_string "</col>"
+  577: push_constant_string "."
+  578: join_string 5
+  579: return 0
+  580: branch 87
+  581: push_constant_int 80
+  582: push_constant_int 322
+  583: push_constant_string "Members: Charge"
+  584: push_constant_string "Members can now cast "
+  585: push_constant_string "<col=000080>"
+  586: push_constant_string "Charge"
+  587: push_constant_string "</col>"
+  588: push_constant_string "."
+  589: join_string 5
+  590: return 0
+  591: branch 76
+  592: push_constant_int 81
+  593: push_constant_int 500
+  594: push_constant_string "Members: Wind Surge"
+  595: push_constant_string "Members can now cast "
+  596: push_constant_string "<col=000080>"
+  597: push_constant_string "Wind Surge"
+  598: push_constant_string "</col>"
+  599: push_constant_string "."
+  600: join_string 5
+  601: return 0
+  602: branch 65
+  603: push_constant_int 82
+  604: push_constant_int 350
+  605: push_constant_string "Members: Tele-other Falador"
+  606: push_constant_string "Members can now cast "
+  607: push_constant_string "<col=000080>"
+  608: push_constant_string "Tele-other to Falador"
+  609: push_constant_string "</col>"
+  610: push_constant_string "."
+  611: join_string 5
+  612: return 0
+  613: branch 54
+  614: push_constant_int 85
+  615: push_constant_int 1565
+  616: push_constant_string "Teleport Block"
+  617: push_constant_string "You can now cast "
+  618: push_constant_string "<col=000080>"
+  619: push_constant_string "Teleport Block"
+  620: push_constant_string "</col>"
+  621: push_constant_string "."
+  622: join_string 5
+  623: return 0
+  624: branch 43
+  625: push_constant_int 85
+  626: push_constant_int 501
+  627: push_constant_string "Members: Water Surge"
+  628: push_constant_string "Members can now cast "
+  629: push_constant_string "<col=000080>"
+  630: push_constant_string "Water Surge"
+  631: push_constant_string "</col>"
+  632: push_constant_string "."
+  633: join_string 5
+  634: return 0
+  635: branch 32
+  636: push_constant_int 90
+  637: push_constant_int 811
+  638: push_constant_string "Members: Earth Surge"
+  639: push_constant_string "Members can now cast "
+  640: push_constant_string "<col=000080>"
+  641: push_constant_string "Earth Surge"
+  642: push_constant_string "</col>"
+  643: push_constant_string "."
+  644: join_string 5
+  645: return 0
+  646: branch 21
+  647: push_constant_int 90
+  648: push_constant_int 351
+  649: push_constant_string "Members: Tele-other to Camelot"
+  650: push_constant_string "Members can now cast "
+  651: push_constant_string "<col=000080>"
+  652: push_constant_string "Tele-other to Camelot"
+  653: push_constant_string "</col>"
+  654: push_constant_string "."
+  655: join_string 5
+  656: return 0
+  657: branch 10
+  658: push_constant_int 95
+  659: push_constant_int 814
+  660: push_constant_string "Members: Fire Surge"
+  661: push_constant_string "Members can now cast "
+  662: push_constant_string "<col=000080>"
+  663: push_constant_string "Fire Surge"
+  664: push_constant_string "</col>"
+  665: push_constant_string "."
+  666: join_string 5
+  667: return 0
+  668: branch 899
+  669: push_int_local 1
+  670: switch 2
+  671: branch 319
+  672: push_constant_int -1
+  673: push_constant_int 2287
+  674: push_constant_string "Once you have completed Desert Treasure, you will be able to access the Ancient Magicks spellbook."
+  675: push_constant_string ""
+  676: return 0
+  677: branch 313
+  678: push_constant_int -1
+  679: push_constant_int 356
+  680: push_constant_string "Members: Home teleport (to Edgeville)"
+  681: push_constant_string ""
+  682: return 0
+  683: branch 307
+  684: push_constant_int 50
+  685: push_constant_int 329
+  686: push_constant_string "Members: Smoke Rush"
+  687: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  688: push_constant_string "<col=000080>"
+  689: push_constant_string "Smoke Rush"
+  690: push_constant_string "</col>"
+  691: push_constant_string "."
+  692: join_string 5
+  693: return 0
+  694: branch 296
+  695: push_constant_int 52
+  696: push_constant_int 337
+  697: push_constant_string "Members: Shadow Rush"
+  698: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  699: push_constant_string "<col=000080>"
+  700: push_constant_string "Shadow Rush"
+  701: push_constant_string "</col>"
+  702: push_constant_string "."
+  703: join_string 5
+  704: return 0
+  705: branch 285
+  706: push_constant_int 54
+  707: push_constant_int 341
+  708: push_constant_string "Members: Teleport to Paddewwa"
+  709: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  710: push_constant_string "<col=000080>"
+  711: push_constant_string "Teleport to Paddewwa"
+  712: push_constant_string "</col>"
+  713: push_constant_string "."
+  714: join_string 5
+  715: return 0
+  716: branch 274
+  717: push_constant_int 56
+  718: push_constant_int 333
+  719: push_constant_string "Members: Blood Rush"
+  720: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  721: push_constant_string "<col=000080>"
+  722: push_constant_string "Blood Rush"
+  723: push_constant_string "</col>"
+  724: push_constant_string "."
+  725: join_string 5
+  726: return 0
+  727: branch 263
+  728: push_constant_int 58
+  729: push_constant_int 325
+  730: push_constant_string "Members: Ice Rush"
+  731: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  732: push_constant_string "<col=000080>"
+  733: push_constant_string "Ice Rush"
+  734: push_constant_string "</col>"
+  735: push_constant_string "."
+  736: join_string 5
+  737: return 0
+  738: branch 252
+  739: push_constant_int 60
+  740: push_constant_int 342
+  741: push_constant_string "Members: Teleport to Senntisten"
+  742: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  743: push_constant_string "<col=000080>"
+  744: push_constant_string "Teleport to Senntisten"
+  745: push_constant_string "</col>"
+  746: push_constant_string "."
+  747: join_string 5
+  748: return 0
+  749: branch 241
+  750: push_constant_int 61
+  751: push_constant_int 1568
+  752: push_constant_string "Members: Miasmic Rush"
+  753: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  754: push_constant_string "<col=000080>"
+  755: push_constant_string "Miasmic Rush"
+  756: push_constant_string "</col>"
+  757: push_constant_string "."
+  758: join_string 5
+  759: return 0
+  760: branch 230
+  761: push_constant_int 62
+  762: push_constant_int 330
+  763: push_constant_string "Members: Smoke Burst"
+  764: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  765: push_constant_string "<col=000080>"
+  766: push_constant_string "Smoke Burst"
+  767: push_constant_string "</col>"
+  768: push_constant_string "."
+  769: join_string 5
+  770: return 0
+  771: branch 219
+  772: push_constant_int 64
+  773: push_constant_int 338
+  774: push_constant_string "Members: Shadow Burst"
+  775: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  776: push_constant_string "<col=000080>"
+  777: push_constant_string "Shadow Burst"
+  778: push_constant_string "</col>"
+  779: push_constant_string "."
+  780: join_string 5
+  781: return 0
+  782: branch 208
+  783: push_constant_int 66
+  784: push_constant_int 343
+  785: push_constant_string "Members: Teleport to Kharyrll"
+  786: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  787: push_constant_string "<col=000080>"
+  788: push_constant_string "Teleport to Kharyrll"
+  789: push_constant_string "</col>"
+  790: push_constant_string "."
+  791: join_string 5
+  792: return 0
+  793: branch 197
+  794: push_constant_int 68
+  795: push_constant_int 334
+  796: push_constant_string "Members: Blood Burst"
+  797: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  798: push_constant_string "<col=000080>"
+  799: push_constant_string "Blood Burst"
+  800: push_constant_string "</col>"
+  801: push_constant_string "."
+  802: join_string 5
+  803: return 0
+  804: branch 186
+  805: push_constant_int 70
+  806: push_constant_int 326
+  807: push_constant_string "Members: Ice Burst"
+  808: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  809: push_constant_string "<col=000080>"
+  810: push_constant_string "Ice Burst"
+  811: push_constant_string "</col>"
+  812: push_constant_string "."
+  813: join_string 5
+  814: return 0
+  815: branch 175
+  816: push_constant_int 72
+  817: push_constant_int 344
+  818: push_constant_string "Members: Teleport to Lassar"
+  819: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  820: push_constant_string "<col=000080>"
+  821: push_constant_string "Teleport to Lassar"
+  822: push_constant_string "</col>"
+  823: push_constant_string "."
+  824: join_string 5
+  825: return 0
+  826: branch 164
+  827: push_constant_int 73
+  828: push_constant_int 1569
+  829: push_constant_string "Members: Miasmic Burst"
+  830: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  831: push_constant_string "<col=000080>"
+  832: push_constant_string "Miasmic Burst"
+  833: push_constant_string "</col>"
+  834: push_constant_string "."
+  835: join_string 5
+  836: return 0
+  837: branch 153
+  838: push_constant_int 74
+  839: push_constant_int 331
+  840: push_constant_string "Members: Smoke Blitz"
+  841: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  842: push_constant_string "<col=000080>"
+  843: push_constant_string "Smoke Blitz"
+  844: push_constant_string "</col>"
+  845: push_constant_string "."
+  846: join_string 5
+  847: return 0
+  848: branch 142
+  849: push_constant_int 76
+  850: push_constant_int 339
+  851: push_constant_string "Members: Shadow Blitz"
+  852: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  853: push_constant_string "<col=000080>"
+  854: push_constant_string "Shadow Blitz"
+  855: push_constant_string "</col>"
+  856: push_constant_string "."
+  857: join_string 5
+  858: return 0
+  859: branch 131
+  860: push_constant_int 78
+  861: push_constant_int 345
+  862: push_constant_string "Members: Teleport to Dareeyak"
+  863: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  864: push_constant_string "<col=000080>"
+  865: push_constant_string "Teleport to Dareeyak"
+  866: push_constant_string "</col>"
+  867: push_constant_string "."
+  868: join_string 5
+  869: return 0
+  870: branch 120
+  871: push_constant_int 80
+  872: push_constant_int 335
+  873: push_constant_string "Members: Blood Blitz"
+  874: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  875: push_constant_string "<col=000080>"
+  876: push_constant_string "Blood Blitz"
+  877: push_constant_string "</col>"
+  878: push_constant_string "."
+  879: join_string 5
+  880: return 0
+  881: branch 109
+  882: push_constant_int 82
+  883: push_constant_int 327
+  884: push_constant_string "Members: Ice Blitz"
+  885: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  886: push_constant_string "<col=000080>"
+  887: push_constant_string "Ice Blitz"
+  888: push_constant_string "</col>"
+  889: push_constant_string "."
+  890: join_string 5
+  891: return 0
+  892: branch 98
+  893: push_constant_int 84
+  894: push_constant_int 346
+  895: push_constant_string "Members: Teleport to Carrallangar"
+  896: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  897: push_constant_string "<col=000080>"
+  898: push_constant_string "Teleport to Carrallangar"
+  899: push_constant_string "</col>"
+  900: push_constant_string "."
+  901: join_string 5
+  902: return 0
+  903: branch 87
+  904: push_constant_int 85
+  905: push_constant_int 1567
+  906: push_constant_string "Members: Miasmic Blitz"
+  907: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  908: push_constant_string "<col=000080>"
+  909: push_constant_string "Miasmic Blitz"
+  910: push_constant_string "</col>"
+  911: push_constant_string "."
+  912: join_string 5
+  913: return 0
+  914: branch 76
+  915: push_constant_int 86
+  916: push_constant_int 332
+  917: push_constant_string "Members: Smoke Barrage"
+  918: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  919: push_constant_string "<col=000080>"
+  920: push_constant_string "Smoke Barrage"
+  921: push_constant_string "</col>"
+  922: push_constant_string "."
+  923: join_string 5
+  924: return 0
+  925: branch 65
+  926: push_constant_int 88
+  927: push_constant_int 340
+  928: push_constant_string "Members: Shadow Barrage"
+  929: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  930: push_constant_string "<col=000080>"
+  931: push_constant_string "Shadow Barrage"
+  932: push_constant_string "</col>"
+  933: push_constant_string "."
+  934: join_string 5
+  935: return 0
+  936: branch 54
+  937: push_constant_int 90
+  938: push_constant_int 347
+  939: push_constant_string "Members: Teleport to Annakarl"
+  940: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  941: push_constant_string "<col=000080>"
+  942: push_constant_string "Teleport to Annakarl"
+  943: push_constant_string "</col>"
+  944: push_constant_string "."
+  945: join_string 5
+  946: return 0
+  947: branch 43
+  948: push_constant_int 92
+  949: push_constant_int 336
+  950: push_constant_string "Members: Blood Barrage"
+  951: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  952: push_constant_string "<col=000080>"
+  953: push_constant_string "Blood Barrage"
+  954: push_constant_string "</col>"
+  955: push_constant_string "."
+  956: join_string 5
+  957: return 0
+  958: branch 32
+  959: push_constant_int 94
+  960: push_constant_int 328
+  961: push_constant_string "Members: Ice Barrage"
+  962: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  963: push_constant_string "<col=000080>"
+  964: push_constant_string "Ice Barrage"
+  965: push_constant_string "</col>"
+  966: push_constant_string "."
+  967: join_string 5
+  968: return 0
+  969: branch 21
+  970: push_constant_int 96
+  971: push_constant_int 348
+  972: push_constant_string "Members: Teleport to Ghorrock"
+  973: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  974: push_constant_string "<col=000080>"
+  975: push_constant_string "Teleport to Ghorrock"
+  976: push_constant_string "</col>"
+  977: push_constant_string "."
+  978: join_string 5
+  979: return 0
+  980: branch 10
+  981: push_constant_int 97
+  982: push_constant_int 1566
+  983: push_constant_string "Members: Miasmic Barrage"
+  984: push_constant_string "Members using the Ancient Magicks spellbook can now cast "
+  985: push_constant_string "<col=000080>"
+  986: push_constant_string "Miasmic Barrage"
+  987: push_constant_string "</col>"
+  988: push_constant_string "."
+  989: join_string 5
+  990: return 0
+  991: branch 576
+  992: push_int_local 1
+  993: switch 3
+  994: branch 573
+  995: push_constant_int -1
+  996: push_constant_int 2287
+  997: push_constant_string "Once you have completed Lunar Diplomacy, you will be able to access the Lunar spellbook."
+  998: push_constant_string ""
+  999: return 0
+ 1000: branch 567
+ 1001: push_constant_int -1
+ 1002: push_constant_int 356
+ 1003: push_constant_string "Members: Home teleport (to Lunar Isle)"
+ 1004: push_constant_string ""
+ 1005: return 0
+ 1006: branch 561
+ 1007: push_constant_int 65
+ 1008: push_constant_int 543
+ 1009: push_constant_string "Members: Bake Pie"
+ 1010: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1011: push_constant_string "<col=000080>"
+ 1012: push_constant_string "Bake Pie"
+ 1013: push_constant_string "</col>"
+ 1014: push_constant_string "."
+ 1015: join_string 5
+ 1016: return 0
+ 1017: branch 550
+ 1018: push_constant_int 66
+ 1019: push_constant_int 567
+ 1020: push_constant_string "Members: Cure Plant"
+ 1021: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1022: push_constant_string "<col=000080>"
+ 1023: push_constant_string "Cure Plant"
+ 1024: push_constant_string "</col>"
+ 1025: push_constant_string "."
+ 1026: join_string 5
+ 1027: return 0
+ 1028: branch 539
+ 1029: push_constant_int 66
+ 1030: push_constant_int 577
+ 1031: push_constant_string "Members: Monster Examine"
+ 1032: push_constant_string "<br>"
+ 1033: push_constant_string " (after Dream Mentor)"
+ 1034: join_string 3
+ 1035: push_constant_string "Members using the Lunar or Dungeoneering spellbook now have the Magic level required to cast "
+ 1036: push_constant_string "<col=000080>"
+ 1037: push_constant_string "Monster Examine"
+ 1038: push_constant_string "</col>"
+ 1039: push_constant_string " (after Dream Mentor)."
+ 1040: join_string 5
+ 1041: return 0
+ 1042: branch 525
+ 1043: push_constant_int 67
+ 1044: push_constant_int 568
+ 1045: push_constant_string "Members: Contact"
+ 1046: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1047: push_constant_string "<col=000080>"
+ 1048: push_constant_string "Contact"
+ 1049: push_constant_string "</col>"
+ 1050: push_constant_string " (after Dream Mentor)."
+ 1051: join_string 5
+ 1052: return 0
+ 1053: branch 514
+ 1054: push_constant_int 68
+ 1055: push_constant_int 559
+ 1056: push_constant_string "Members: Cure Other"
+ 1057: push_constant_string "Members using the Lunar or Dungeoneering spellbook can now cast "
+ 1058: push_constant_string "<col=000080>"
+ 1059: push_constant_string "Cure Other"
+ 1060: push_constant_string "</col>"
+ 1061: push_constant_string "."
+ 1062: join_string 5
+ 1063: return 0
+ 1064: branch 503
+ 1065: push_constant_int 68
+ 1066: push_constant_int 578
+ 1067: push_constant_string "Members: Humidify"
+ 1068: push_constant_string "<br>"
+ 1069: push_constant_string " (after Dream Mentor)"
+ 1070: join_string 3
+ 1071: push_constant_string "Members using the Lunar or Dungeoneering spellbook now have the Magic level required to cast "
+ 1072: push_constant_string "<col=000080>"
+ 1073: push_constant_string "Humidify"
+ 1074: push_constant_string "</col>"
+ 1075: push_constant_string " (after Dream Mentor)."
+ 1076: join_string 5
+ 1077: return 0
+ 1078: branch 489
+ 1079: push_constant_int 69
+ 1080: push_constant_int 544
+ 1081: push_constant_string "Members: Teleport to Moonclan Island"
+ 1082: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1083: push_constant_string "<col=000080>"
+ 1084: push_constant_string "Teleport to Moonclan Island"
+ 1085: push_constant_string "</col>"
+ 1086: push_constant_string "."
+ 1087: join_string 5
+ 1088: return 0
+ 1089: branch 478
+ 1090: push_constant_int 70
+ 1091: push_constant_int 569
+ 1092: push_constant_string "Members: Group Teleport to Moonclan Island"
+ 1093: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1094: push_constant_string "<col=000080>"
+ 1095: push_constant_string "Group Teleport to Moonclan Island"
+ 1096: push_constant_string "</col>"
+ 1097: push_constant_string "."
+ 1098: join_string 5
+ 1099: return 0
+ 1100: branch 467
+ 1101: push_constant_int 71
+ 1102: push_constant_int 562
+ 1103: push_constant_string "Members: Cure Me"
+ 1104: push_constant_string "Members using the Lunar or Dungeoneering spellbook can now cast "
+ 1105: push_constant_string "<col=000080>"
+ 1106: push_constant_string "Cure Me"
+ 1107: push_constant_string "</col>"
+ 1108: push_constant_string "."
+ 1109: join_string 5
+ 1110: return 0
+ 1111: branch 456
+ 1112: push_constant_int 71
+ 1113: push_constant_int 579
+ 1114: push_constant_string "Members: Hunter Kit"
+ 1115: push_constant_string "<br>"
+ 1116: push_constant_string " (after Dream Mentor)"
+ 1117: join_string 3
+ 1118: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1119: push_constant_string "<col=000080>"
+ 1120: push_constant_string "Hunter Kit"
+ 1121: push_constant_string "</col>"
+ 1122: push_constant_string " (after Dream Mentor)."
+ 1123: join_string 5
+ 1124: return 0
+ 1125: branch 442
+ 1126: push_constant_int 71
+ 1127: push_constant_int 583
+ 1128: push_constant_string "Members: Teleport to Ourania"
+ 1129: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1130: push_constant_string "<col=000080>"
+ 1131: push_constant_string "Teleport to Ourania"
+ 1132: push_constant_string "</col>"
+ 1133: push_constant_string "."
+ 1134: join_string 5
+ 1135: return 0
+ 1136: branch 431
+ 1137: push_constant_int 72
+ 1138: push_constant_int 545
+ 1139: push_constant_string "Members: Teleport to Waterbirth"
+ 1140: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1141: push_constant_string "<col=000080>"
+ 1142: push_constant_string "Teleport to Waterbirth"
+ 1143: push_constant_string "</col>"
+ 1144: push_constant_string "."
+ 1145: join_string 5
+ 1146: return 0
+ 1147: branch 420
+ 1148: push_constant_int 72
+ 1149: push_constant_int 4585
+ 1150: push_constant_string "Members: Teleport to South Falador"
+ 1151: push_constant_string "<br>"
+ 1152: push_constant_string " (unlocked at the Livid Farm)"
+ 1153: join_string 3
+ 1154: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1155: push_constant_string "<col=000080>"
+ 1156: push_constant_string "Teleport to South Falador"
+ 1157: push_constant_string "</col>"
+ 1158: push_constant_string " (unlocked at the Livid Farm)."
+ 1159: join_string 5
+ 1160: return 0
+ 1161: branch 406
+ 1162: push_constant_int 73
+ 1163: push_constant_int 570
+ 1164: push_constant_string "Members: Group Teleport to Waterbirth"
+ 1165: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1166: push_constant_string "<col=000080>"
+ 1167: push_constant_string "Group Teleport to Waterbirth"
+ 1168: push_constant_string "</col>"
+ 1169: push_constant_string "."
+ 1170: join_string 5
+ 1171: return 0
+ 1172: branch 395
+ 1173: push_constant_int 74
+ 1174: push_constant_int 565
+ 1175: push_constant_string "Members: Cure Group"
+ 1176: push_constant_string "Members using the Lunar or Dungeoneering spellbook can now cast "
+ 1177: push_constant_string "<col=000080>"
+ 1178: push_constant_string "Cure Group"
+ 1179: push_constant_string "</col>"
+ 1180: push_constant_string "."
+ 1181: join_string 5
+ 1182: return 0
+ 1183: branch 384
+ 1184: push_constant_int 75
+ 1185: push_constant_int 4586
+ 1186: push_constant_string "Members: Repair Rune Pouch"
+ 1187: push_constant_string "<br>"
+ 1188: push_constant_string " (unlocked at the Livid Farm)"
+ 1189: join_string 3
+ 1190: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1191: push_constant_string "<col=000080>"
+ 1192: push_constant_string "Repair Rune Pouch"
+ 1193: push_constant_string "</col>"
+ 1194: push_constant_string " (unlocked at the Livid Farm)."
+ 1195: join_string 5
+ 1196: return 0
+ 1197: branch 370
+ 1198: push_constant_int 75
+ 1199: push_constant_int 547
+ 1200: push_constant_string "Members: Teleport to the Barbarian Outpost"
+ 1201: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1202: push_constant_string "<col=000080>"
+ 1203: push_constant_string "Teleport to the Barbarian Outpost"
+ 1204: push_constant_string "</col>"
+ 1205: push_constant_string "."
+ 1206: join_string 5
+ 1207: return 0
+ 1208: branch 359
+ 1209: push_constant_int 75
+ 1210: push_constant_int 576
+ 1211: push_constant_string "Members: Stat Spy"
+ 1212: push_constant_string "<br>"
+ 1213: push_constant_string " (after Dream Mentor)"
+ 1214: join_string 3
+ 1215: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1216: push_constant_string "<col=000080>"
+ 1217: push_constant_string "Stat Spy"
+ 1218: push_constant_string "</col>"
+ 1219: push_constant_string " (after Dream Mentor)."
+ 1220: join_string 5
+ 1221: return 0
+ 1222: branch 345
+ 1223: push_constant_int 76
+ 1224: push_constant_int 4587
+ 1225: push_constant_string "Members: Teleport to North Ardougne"
+ 1226: push_constant_string "<br>"
+ 1227: push_constant_string " (unlocked at the Livid Farm)"
+ 1228: join_string 3
+ 1229: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1230: push_constant_string "<col=000080>"
+ 1231: push_constant_string "Teleport to North Ardougne"
+ 1232: push_constant_string "</col>"
+ 1233: push_constant_string " (unlocked at the Livid Farm)."
+ 1234: join_string 5
+ 1235: return 0
+ 1236: branch 331
+ 1237: push_constant_int 76
+ 1238: push_constant_int 571
+ 1239: push_constant_string "Members: Group Teleport to the Barbarian Outpost"
+ 1240: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1241: push_constant_string "<col=000080>"
+ 1242: push_constant_string "Group Teleport to the Barbarian Outpost"
+ 1243: push_constant_string "</col>"
+ 1244: push_constant_string "."
+ 1245: join_string 5
+ 1246: return 0
+ 1247: branch 320
+ 1248: push_constant_int 77
+ 1249: push_constant_int 548
+ 1250: push_constant_string "Members: Superglass Make"
+ 1251: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1252: push_constant_string "<col=000080>"
+ 1253: push_constant_string "Superglass Make"
+ 1254: push_constant_string "</col>"
+ 1255: push_constant_string "."
+ 1256: join_string 5
+ 1257: return 0
+ 1258: branch 309
+ 1259: push_constant_int 78
+ 1260: push_constant_int 4588
+ 1261: push_constant_string "Members: Remote Farming"
+ 1262: push_constant_string "<br>"
+ 1263: push_constant_string " (unlocked at the Livid Farm)"
+ 1264: join_string 3
+ 1265: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1266: push_constant_string "<col=000080>"
+ 1267: push_constant_string "Remote Farming"
+ 1268: push_constant_string "</col>"
+ 1269: push_constant_string " (unlocked at the Livid Farm)."
+ 1270: join_string 5
+ 1271: return 0
+ 1272: branch 295
+ 1273: push_constant_int 78
+ 1274: push_constant_int 549
+ 1275: push_constant_string "Members: Teleport to Port Khazard"
+ 1276: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1277: push_constant_string "<col=000080>"
+ 1278: push_constant_string "Teleport to Port Khazard"
+ 1279: push_constant_string "</col>"
+ 1280: push_constant_string "."
+ 1281: join_string 5
+ 1282: return 0
+ 1283: branch 284
+ 1284: push_constant_int 79
+ 1285: push_constant_int 572
+ 1286: push_constant_string "Members: Group Teleport to Port Khazard"
+ 1287: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1288: push_constant_string "<col=000080>"
+ 1289: push_constant_string "Group Teleport to Port Khazard"
+ 1290: push_constant_string "</col>"
+ 1291: push_constant_string "."
+ 1292: join_string 5
+ 1293: return 0
+ 1294: branch 273
+ 1295: push_constant_int 79
+ 1296: push_constant_int 580
+ 1297: push_constant_string "Members: Dream"
+ 1298: push_constant_string "<br>"
+ 1299: push_constant_string " (after Dream Mentor)"
+ 1300: join_string 3
+ 1301: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1302: push_constant_string "<col=000080>"
+ 1303: push_constant_string "Dream"
+ 1304: push_constant_string "</col>"
+ 1305: push_constant_string " (after Dream Mentor)."
+ 1306: join_string 5
+ 1307: return 0
+ 1308: branch 259
+ 1309: push_constant_int 80
+ 1310: push_constant_int 4590
+ 1311: push_constant_string "Members: Spiritualise Food"
+ 1312: push_constant_string "<br>"
+ 1313: push_constant_string " (unlocked at the Livid Farm)"
+ 1314: join_string 3
+ 1315: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1316: push_constant_string "<col=000080>"
+ 1317: push_constant_string "Spiritualise Food"
+ 1318: push_constant_string "</col>"
+ 1319: push_constant_string " (unlocked at the Livid Farm)."
+ 1320: join_string 5
+ 1321: return 0
+ 1322: branch 245
+ 1323: push_constant_int 80
+ 1324: push_constant_int 550
+ 1325: push_constant_string "Members: String Jewellery"
+ 1326: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1327: push_constant_string "<col=000080>"
+ 1328: push_constant_string "String Jewellery"
+ 1329: push_constant_string "</col>"
+ 1330: push_constant_string "."
+ 1331: join_string 5
+ 1332: return 0
+ 1333: branch 234
+ 1334: push_constant_int 81
+ 1335: push_constant_int 554
+ 1336: push_constant_string "Members: Stat Restore Potion Share"
+ 1337: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1338: push_constant_string "<col=000080>"
+ 1339: push_constant_string "Stat Restore Potion Share"
+ 1340: push_constant_string "</col>"
+ 1341: push_constant_string "."
+ 1342: join_string 5
+ 1343: return 0
+ 1344: branch 223
+ 1345: push_constant_int 82
+ 1346: push_constant_int 552
+ 1347: push_constant_string "Members: Magic Imbue"
+ 1348: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1349: push_constant_string "<col=000080>"
+ 1350: push_constant_string "Magic Imbue"
+ 1351: push_constant_string "</col>"
+ 1352: push_constant_string "."
+ 1353: join_string 5
+ 1354: return 0
+ 1355: branch 212
+ 1356: push_constant_int 83
+ 1357: push_constant_int 4589
+ 1358: push_constant_string "Members: Make Leather"
+ 1359: push_constant_string "<br>"
+ 1360: push_constant_string " (unlocked at the Livid Farm)"
+ 1361: join_string 3
+ 1362: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1363: push_constant_string "<col=000080>"
+ 1364: push_constant_string "Make Leather"
+ 1365: push_constant_string "</col>"
+ 1366: push_constant_string " (unlocked at the Livid Farm)."
+ 1367: join_string 5
+ 1368: return 0
+ 1369: branch 198
+ 1370: push_constant_int 83
+ 1371: push_constant_int 553
+ 1372: push_constant_string "Members: Fertile Soil"
+ 1373: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1374: push_constant_string "<col=000080>"
+ 1375: push_constant_string "Fertile Soil"
+ 1376: push_constant_string "</col>"
+ 1377: push_constant_string "."
+ 1378: join_string 5
+ 1379: return 0
+ 1380: branch 187
+ 1381: push_constant_int 84
+ 1382: push_constant_int 551
+ 1383: push_constant_string "Members: Boost Potion Share"
+ 1384: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1385: push_constant_string "<col=000080>"
+ 1386: push_constant_string "Boost Potion Share"
+ 1387: push_constant_string "</col>"
+ 1388: push_constant_string "."
+ 1389: join_string 5
+ 1390: return 0
+ 1391: branch 176
+ 1392: push_constant_int 85
+ 1393: push_constant_int 555
+ 1394: push_constant_string "Members: Teleport to the Fishing Guild"
+ 1395: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1396: push_constant_string "<col=000080>"
+ 1397: push_constant_string "Teleport to the Fishing Guild"
+ 1398: push_constant_string "</col>"
+ 1399: push_constant_string "."
+ 1400: join_string 5
+ 1401: return 0
+ 1402: branch 165
+ 1403: push_constant_int 86
+ 1404: push_constant_int 573
+ 1405: push_constant_string "Members: Group Teleport to the Fishing Guild"
+ 1406: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1407: push_constant_string "<col=000080>"
+ 1408: push_constant_string "Group Teleport to the Fishing Guild"
+ 1409: push_constant_string "</col>"
+ 1410: push_constant_string "."
+ 1411: join_string 5
+ 1412: return 0
+ 1413: branch 154
+ 1414: push_constant_int 86
+ 1415: push_constant_int 581
+ 1416: push_constant_string "Members: Plank Make"
+ 1417: push_constant_string "<br>"
+ 1418: push_constant_string " (after Dream Mentor)"
+ 1419: join_string 3
+ 1420: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1421: push_constant_string "<col=000080>"
+ 1422: push_constant_string "Plank Make"
+ 1423: push_constant_string "</col>"
+ 1424: push_constant_string " (after Dream Mentor)."
+ 1425: join_string 5
+ 1426: return 0
+ 1427: branch 140
+ 1428: push_constant_int 87
+ 1429: push_constant_int 556
+ 1430: push_constant_string "Members: Teleport to Catherby"
+ 1431: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1432: push_constant_string "<col=000080>"
+ 1433: push_constant_string "Teleport to Catherby"
+ 1434: push_constant_string "</col>"
+ 1435: push_constant_string "."
+ 1436: join_string 5
+ 1437: return 0
+ 1438: branch 129
+ 1439: push_constant_int 88
+ 1440: push_constant_int 574
+ 1441: push_constant_string "Members: Group Teleport to Catherby"
+ 1442: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1443: push_constant_string "<col=000080>"
+ 1444: push_constant_string "Group Teleport to Catherby"
+ 1445: push_constant_string "</col>"
+ 1446: push_constant_string "."
+ 1447: join_string 5
+ 1448: return 0
+ 1449: branch 118
+ 1450: push_constant_int 89
+ 1451: push_constant_int 557
+ 1452: push_constant_string "Members: Teleport to the Ice Plateau"
+ 1453: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1454: push_constant_string "<col=000080>"
+ 1455: push_constant_string "Teleport to the Ice Plateau"
+ 1456: push_constant_string "</col>"
+ 1457: push_constant_string "."
+ 1458: join_string 5
+ 1459: return 0
+ 1460: branch 107
+ 1461: push_constant_int 90
+ 1462: push_constant_int 4591
+ 1463: push_constant_string "Members: Disruption Shield"
+ 1464: push_constant_string "<br>"
+ 1465: push_constant_string " (unlocked at the Livid Farm)"
+ 1466: join_string 3
+ 1467: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1468: push_constant_string "<col=000080>"
+ 1469: push_constant_string "Disruption Shield"
+ 1470: push_constant_string "</col>"
+ 1471: push_constant_string " (unlocked at the Livid Farm)."
+ 1472: join_string 5
+ 1473: return 0
+ 1474: branch 93
+ 1475: push_constant_int 90
+ 1476: push_constant_int 575
+ 1477: push_constant_string "Members: Group Teleport to the Ice Plateau"
+ 1478: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1479: push_constant_string "<col=000080>"
+ 1480: push_constant_string "Group Teleport to the Ice Plateau"
+ 1481: push_constant_string "</col>"
+ 1482: push_constant_string "."
+ 1483: join_string 5
+ 1484: return 0
+ 1485: branch 82
+ 1486: push_constant_int 91
+ 1487: push_constant_int 558
+ 1488: push_constant_string "Members: Energy Transfer"
+ 1489: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1490: push_constant_string "<col=000080>"
+ 1491: push_constant_string "Energy Transfer"
+ 1492: push_constant_string "</col>"
+ 1493: push_constant_string "."
+ 1494: join_string 5
+ 1495: return 0
+ 1496: branch 71
+ 1497: push_constant_int 92
+ 1498: push_constant_int 560
+ 1499: push_constant_string "Members: Heal Other"
+ 1500: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1501: push_constant_string "<col=000080>"
+ 1502: push_constant_string "Heal Other"
+ 1503: push_constant_string "</col>"
+ 1504: push_constant_string "."
+ 1505: join_string 5
+ 1506: return 0
+ 1507: branch 60
+ 1508: push_constant_int 93
+ 1509: push_constant_int 561
+ 1510: push_constant_string "Members: Vengeance Other"
+ 1511: push_constant_string "Members using the Lunar or Dungeoneering spellbook can now cast "
+ 1512: push_constant_string "<col=000080>"
+ 1513: push_constant_string "Vengeance Other"
+ 1514: push_constant_string "</col>"
+ 1515: push_constant_string "."
+ 1516: join_string 5
+ 1517: return 0
+ 1518: branch 49
+ 1519: push_constant_int 94
+ 1520: push_constant_int 564
+ 1521: push_constant_string "Members: Vengeance"
+ 1522: push_constant_string "Members using the Lunar or Dungeoneering spellbook can now cast "
+ 1523: push_constant_string "<col=000080>"
+ 1524: push_constant_string "Vengeance"
+ 1525: push_constant_string "</col>"
+ 1526: push_constant_string "."
+ 1527: join_string 5
+ 1528: return 0
+ 1529: branch 38
+ 1530: push_constant_int 95
+ 1531: push_constant_int 4592
+ 1532: push_constant_string "Members: Vengeance Group"
+ 1533: push_constant_string "<br>"
+ 1534: push_constant_string " (unlocked at the Livid Farm)"
+ 1535: join_string 3
+ 1536: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1537: push_constant_string "<col=000080>"
+ 1538: push_constant_string "Vengeance Group"
+ 1539: push_constant_string "</col>"
+ 1540: push_constant_string " (unlocked at the Livid Farm)."
+ 1541: join_string 5
+ 1542: return 0
+ 1543: branch 24
+ 1544: push_constant_int 95
+ 1545: push_constant_int 566
+ 1546: push_constant_string "Members: Heal Group"
+ 1547: push_constant_string "Members using the Lunar spellbook can now cast "
+ 1548: push_constant_string "<col=000080>"
+ 1549: push_constant_string "Heal Group"
+ 1550: push_constant_string "</col>"
+ 1551: push_constant_string "."
+ 1552: join_string 5
+ 1553: return 0
+ 1554: branch 13
+ 1555: push_constant_int 96
+ 1556: push_constant_int 582
+ 1557: push_constant_string "Members: Spellbook Swap"
+ 1558: push_constant_string "<br>"
+ 1559: push_constant_string " (after Dream Mentor)"
+ 1560: join_string 3
+ 1561: push_constant_string "Members using the Lunar spellbook now have the Magic level required to cast "
+ 1562: push_constant_string "<col=000080>"
+ 1563: push_constant_string "Spellbook Swap"
+ 1564: push_constant_string "</col>"
+ 1565: push_constant_string " (after Dream Mentor)."
+ 1566: join_string 5
+ 1567: return 0
+ 1568: push_constant_int 0
+ 1569: push_constant_int -1
+ 1570: push_constant_string ""
+ 1571: push_constant_string ""
+ 1572: return 0
+
+switch_0:
+  0 => 1
+  1 => 667
+  2 => 990
+switch_1:
+  0 => 1
+  1 => 7
+  2 => 18
+  3 => 29
+  4 => 40
+  5 => 51
+  6 => 62
+  7 => 73
+  8 => 84
+  9 => 95
+  10 => 106
+  11 => 117
+  12 => 128
+  13 => 139
+  14 => 150
+  15 => 161
+  16 => 172
+  17 => 183
+  18 => 194
+  19 => 205
+  20 => 216
+  21 => 227
+  22 => 238
+  23 => 249
+  24 => 260
+  25 => 271
+  26 => 282
+  27 => 293
+  28 => 304
+  29 => 318
+  30 => 332
+  31 => 346
+  32 => 357
+  33 => 368
+  34 => 382
+  35 => 393
+  36 => 407
+  37 => 421
+  38 => 435
+  39 => 449
+  40 => 463
+  41 => 474
+  42 => 488
+  43 => 499
+  44 => 510
+  45 => 521
+  46 => 532
+  47 => 543
+  48 => 554
+  49 => 565
+  50 => 576
+  51 => 587
+  52 => 598
+  53 => 609
+  54 => 620
+  55 => 631
+  56 => 642
+  57 => 653
+switch_2:
+  0 => 1
+  1 => 7
+  2 => 13
+  3 => 24
+  4 => 35
+  5 => 46
+  6 => 57
+  7 => 68
+  8 => 79
+  9 => 90
+  10 => 101
+  11 => 112
+  12 => 123
+  13 => 134
+  14 => 145
+  15 => 156
+  16 => 167
+  17 => 178
+  18 => 189
+  19 => 200
+  20 => 211
+  21 => 222
+  22 => 233
+  23 => 244
+  24 => 255
+  25 => 266
+  26 => 277
+  27 => 288
+  28 => 299
+  29 => 310
+switch_3:
+  0 => 1
+  1 => 7
+  2 => 13
+  3 => 24
+  4 => 35
+  5 => 49
+  6 => 60
+  7 => 71
+  8 => 85
+  9 => 96
+  10 => 107
+  11 => 118
+  12 => 132
+  13 => 143
+  14 => 154
+  15 => 168
+  16 => 179
+  17 => 190
+  18 => 204
+  19 => 215
+  20 => 229
+  21 => 243
+  22 => 254
+  23 => 265
+  24 => 279
+  25 => 290
+  26 => 301
+  27 => 315
+  28 => 329
+  29 => 340
+  30 => 351
+  31 => 362
+  32 => 376
+  33 => 387
+  34 => 398
+  35 => 409
+  36 => 420
+  37 => 434
+  38 => 445
+  39 => 456
+  40 => 467
+  41 => 481
+  42 => 492
+  43 => 503
+  44 => 514
+  45 => 525
+  46 => 536
+  47 => 550
+  48 => 561

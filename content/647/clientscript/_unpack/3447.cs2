@@ -1,0 +1,18 @@
+; id: 3447
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 3163
+    1: push_constant_int 64684047
+    2: if_setgraphic 0
+    3: push_constant_int 3163
+    4: push_constant_int 64684048
+    5: if_setgraphic 0
+    6: push_constant_int 3164
+    7: push_constant_int 64684046
+    8: if_setgraphic 0
+    9: return 0

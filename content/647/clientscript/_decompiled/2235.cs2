@@ -1,0 +1,7 @@
+[clientscript,script_2235]
+if (%varc_int1130 > 0) {
+    sound_synth(synth_8729, 1, 0);
+    %varc_int1130 = sub(%varc_int1130, 1);
+    ~script_2220;
+}
+return;

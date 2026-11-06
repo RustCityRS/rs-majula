@@ -1,0 +1,107 @@
+[clientscript,script_3988](int $int0)(int)
+def_int $int1 = calc(6 * $int0 - 1);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_string $str0 = "";
+def_string $str1 = "";
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 3484;
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_int $int13 = 0;
+def_int $int14 = 23;
+def_int $int15 = 23;
+def_int $int16 = 0;
+if ($int9 < add(enum_getoutputcount(enum_3485), 6)) {
+    $int2 = enum(105, 105, $int10, $int1);
+    $int4 = enum(105, 74, enum_3483, $int2);
+    if ($int4 = 1643) {
+        $int1 = 0;
+        if ($int10 = 3484) {
+            $int10 = 3485;
+        } else {
+            return($int15);
+        }
+    } else {
+        if ($int4 ! -1) {
+            $str0 = "";
+            $int6 = struct_param($int4, param_1271);
+            cc_setposition(struct_param($int4, param_1266), 60096610, 5, $int8);
+            $int12 = 4041;
+            $int11 = 4042;
+            cc_setgraphic($int12);
+            cc_setonmouseover;
+            cc_setonmouseleave;
+            cc_setsize(add(70, 2), add(56, 1), 0, 0);
+            cc_setposition2(sub($int14, 1), sub($int15, 1), 0, 0);
+            cc_setop(1, "Summary for");
+            if (%varbit8576 = $int2) {
+                cc_setop(2, "Unpin");
+            } else {
+                if (~script_3227($int2) ! 2) {
+                    cc_setop(2, "Pin");
+                }
+            }
+            cc_setopbase($str0);
+            cc_setonop;
+            if (~script_3999($int2) = 0) {
+                $str1 = " -" + "<br>";
+                $str1 = append("", $str1);
+                $str1 = append("", $str1);
+                cc_setonmouserepeat;
+            }
+            if (~script_3994($int2) = 1) {
+                if ($int2 ! 4094) {
+                    %varc_int1422 = $int8;
+                }
+            }
+            cc_setposition(0, 60096610, 5, add($int8, 1));
+            cc_setsize(50, 50, 0, 0);
+            cc_setgraphic($int6);
+            cc_setposition2(add($int14, 2), add($int15, 2), 0, 0);
+            cc_settrans($int16);
+            cc_setposition(0, 60096610, 5, add($int8, 2));
+            cc_setsize(14, 18, 0, 0);
+            if (~script_3996($int2) = 0) {
+                $int7 = 4346;
+                cc_setsize(11, 11, 0, 0);
+            } else {
+                $int7 = -1;
+            }
+            cc_setgraphic($int7);
+            cc_setposition2(calc($int14 + 70 - 16), add($int15, 4), 0, 0);
+            cc_setposition(0, 60096610, 5, add($int8, 3));
+            cc_setsize(11, 11, 0, 0);
+            cc_setposition2(calc($int14 + 70 - 17), add($int15, 39), 0, 0);
+            if (~script_3994($int2) = 1) {
+                cc_setgraphic(4296);
+            }
+            $int9 = add($int9, 1);
+            $int8 = multiply($int9, 4);
+            $int14 = calc($int14 + 70 + 23);
+            $int13 = calc($int13 + 1 % 5);
+            if ($int13 = 0) {
+                $int15 = calc($int15 + 56 + 23);
+                $int14 = 23;
+            }
+        }
+    }
+    $int1 = add($int1, 1);
+    if ($int10 = 3484) {
+        if ($int1 = calc(6 * $int0 - 1 + 5)) {
+            $int1 = 1;
+            $int10 = 3485;
+        }
+    }
+}
+if ($int13 ! 0) {
+    $int15 = add($int15, 56);
+} else {
+    $int15 = sub($int15, 23);
+}
+return($int15);

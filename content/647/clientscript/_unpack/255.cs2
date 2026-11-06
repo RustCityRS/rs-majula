@@ -1,0 +1,20 @@
+; id: 255
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 256
+    1: push_constant_int 1111
+    2: push_constant_int 1112
+    3: push_constant_int 1113
+    4: push_constant_int 1114
+    5: push_constant_int 1115
+    6: push_constant_int 1116
+    7: push_constant_int 6
+    8: push_constant_string "Y"
+    9: push_constant_int 60227584
+   10: op2428 0
+   11: return 0

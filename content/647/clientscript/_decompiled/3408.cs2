@@ -1,0 +1,9 @@
+[clientscript,script_3408](int $int0, string $str0)(int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string)
+def_string $str1 = "<u=88ffff>" + $str0 + "</u>";
+def_string $str2 = "<u=64c8fa>" + $str0 + "</u>";
+if_setop($int0, "Open link");
+if_setonop;
+if_setcursor_op(1, 146, $int0);
+if_setonmouseover;
+if_setonmouseleave;
+return(1, 1897, $int0, 2381, $int0, 8978431, $int0, 2381, $int0, 6605050, $int0, "", $str1, "Iis", $str2, "Iis");

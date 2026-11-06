@@ -1,0 +1,69 @@
+[clientscript,script_929](int $int0)(int)
+def_int $int1 = oc_weight(adamant_dart_tip);
+def_int $int2 = oc_weight(yommi_totem);
+if ($int2 = -1) {
+    return(1);
+}
+if (testbit($int1, 0) = 0) {
+}
+if (testbit($int1, 0) = 1) {
+    if ($int0 < oc_weight(gilded_totem)) {
+        return(0);
+    }
+}
+$int2 = oc_weight(gnomeball);
+if ($int2 = -1) {
+    return(1);
+}
+if (testbit($int1, 1) = 0) {
+}
+if (testbit($int1, 1) = 1) {
+    if ($int0 < oc_weight(cert_ball_gnomeball_game)) {
+        return(0);
+    }
+}
+$int2 = oc_weight(cadava_berries);
+if ($int2 = -1) {
+    return(1);
+}
+if (testbit($int1, 2) = 0) {
+}
+if (testbit($int1, 2) = 1) {
+    if ($int0 < oc_weight(cert_cadavaberries)) {
+        return(0);
+    }
+}
+$int2 = oc_weight(message);
+if ($int2 = -1) {
+    return(1);
+}
+if (testbit($int1, 3) = 0) {
+}
+if (testbit($int1, 3) = 1) {
+    if ($int0 < oc_weight(cadava_potion)) {
+        return(0);
+    }
+}
+$int2 = oc_weight(book);
+if ($int2 = -1) {
+    return(1);
+}
+if (testbit($int1, 4) = 0) {
+}
+if (testbit($int1, 4) = 1) {
+    if ($int0 < oc_weight(phoenix_hq_key)) {
+        return(0);
+    }
+}
+$int2 = oc_weight(weapon_store_key);
+if ($int2 = -1) {
+    return(1);
+}
+if (testbit($int1, 5) = 0) {
+}
+if (testbit($int1, 5) = 1) {
+    if ($int0 < oc_weight(cert_phoenixkey2)) {
+        return(0);
+    }
+}
+return(1);

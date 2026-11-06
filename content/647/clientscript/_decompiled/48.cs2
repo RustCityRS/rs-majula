@@ -1,0 +1,10 @@
+[clientscript,script_48]
+if (%varc_int1034 = 1) {
+    if (%varc_int1027 = 1) {
+        if (string_length(%varc_str202) > 0) {
+            clan_leavechat2(%varc_str202);
+            %varc_int1034 = 2;
+        }
+    }
+}
+return;

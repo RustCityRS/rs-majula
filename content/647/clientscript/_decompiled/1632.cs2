@@ -1,0 +1,6 @@
+[clientscript,script_1632](int, int, component, int)
+if_sethide(72679446);
+if_sethide(72679444);
+def_int $int0 = if_gety;
+if_setposition($int0, 0, 0, 72679442);
+return(1, 1, 72679442, 148);

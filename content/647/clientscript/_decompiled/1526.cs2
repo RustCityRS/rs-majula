@@ -1,0 +1,7 @@
+[clientscript,script_1526](int)
+def_int $int0 = 0;
+$int0 = calc(%varbit5706 + %varbit5707 + %varbit5723 + %varbit5710 + %varbit5711 + %varbit5712 + %varbit5713 + %varbit5714 + %varbit5715 + %varbit5716 + %varbit5717);
+if (%varbit5709 = 3) {
+    $int0 = add($int0, 1);
+}
+return($int0);

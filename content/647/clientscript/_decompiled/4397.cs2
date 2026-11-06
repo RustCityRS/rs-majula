@@ -1,0 +1,12 @@
+[clientscript,script_4397](int $int0, int $int1)
+if (cc_find($int1, $int0) = 1) {
+    if ($int1 = 72417345) {
+    }
+    if ($int1 = 72417342) {
+        if (sub(%varbit9087, 1) = $int0) {
+            cc_setgraphic(5526);
+        }
+    }
+    cc_setgraphic(5523);
+}
+return;

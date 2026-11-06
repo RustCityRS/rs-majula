@@ -1,0 +1,7 @@
+[clientscript,script_2631](int $int0, int $int1, int $int2)
+if (mod(clientclock, 20) < 10) {
+    if_setgraphic($int0);
+} else {
+    if_setgraphic($int0);
+}
+return;

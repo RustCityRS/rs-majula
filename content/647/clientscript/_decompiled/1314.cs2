@@ -1,0 +1,92 @@
+[clientscript,script_1314](int $int0)(component, int)
+if (getwindowmode >= 2) {
+    switch ($int0) {
+        case 0:
+            return(48889943, if_gethide);
+        case 1:
+            return(48889944, if_gethide);
+        case 2:
+            return(48889945, if_gethide);
+        case 3:
+            return(48889946, if_gethide);
+        case 4:
+            return(48889947, if_gethide);
+        case 5:
+            return(48889948, if_gethide);
+        case 6:
+            return(48889949, if_gethide);
+        case 7:
+            return(48889950, if_gethide);
+        case 8:
+            return(48889951, if_gethide);
+        case 9:
+            return(48889952, if_gethide);
+        case 10:
+            return(48889953, if_gethide);
+        case 11:
+            return(48889954, if_gethide);
+        case 12:
+            return(48889955, if_gethide);
+        case 13:
+            return(48889956, if_gethide);
+        case 14:
+            return(48889957, if_gethide);
+        case 15:
+            return(48889958, if_gethide);
+        case 95:
+            return(48889960, if_gethide);
+        case 99:
+            return(48889961, if_gethide);
+        case 98:
+            if (if_hasoverlay(48889941) = 1) {
+                return(48889941, if_gethide);
+            }
+        default:
+    }
+    return(1);
+} else {
+    switch ($int0) {
+        case 0:
+            return(35913931, if_gethide);
+        case 1:
+            return(35913932, if_gethide);
+        case 2:
+            return(35913933, if_gethide);
+        case 3:
+            return(35913934, if_gethide);
+        case 4:
+            return(35913935, if_gethide);
+        case 5:
+            return(35913936, if_gethide);
+        case 6:
+            return(35913937, if_gethide);
+        case 7:
+            return(35913938, if_gethide);
+        case 8:
+            return(35913939, if_gethide);
+        case 9:
+            return(35913940, if_gethide);
+        case 10:
+            return(35913941, if_gethide);
+        case 11:
+            return(35913942, if_gethide);
+        case 12:
+            return(35913943, if_gethide);
+        case 13:
+            return(35913944, if_gethide);
+        case 14:
+            return(35913945, if_gethide);
+        case 15:
+            return(35913946, if_gethide);
+        case 95:
+            return(35913948, if_gethide);
+        case 99:
+            return(35913949, if_gethide);
+        case 98:
+            if (if_hasoverlay(35913927) = 1) {
+                return(35913927, if_gethide);
+            }
+    }
+    return(1);
+}
+return(-1);

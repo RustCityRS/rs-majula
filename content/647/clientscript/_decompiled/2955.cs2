@@ -1,0 +1,18 @@
+[clientscript,script_2955](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0)(int)
+def_int $int5 = 4044;
+def_int $int6 = 4044;
+def_int $int7 = 4046;
+if_setonmouseleave;
+if_setgraphic($int1);
+if_setgraphic($int2);
+if_setgraphic($int3);
+$int5 = 4045;
+$int6 = 4045;
+$int7 = 4047;
+if_setonmouseover;
+def_int $int8 = 39059472;
+if (login_getint = 1) {
+    $int8 = 63897614;
+}
+if_settext($str0);
+return($int8);

@@ -1,0 +1,29 @@
+; id: 3153
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_constant_int 59637774
+    2: if_sethide 0
+    3: push_int_local 1
+    4: push_constant_int 0
+    5: branch_less_than 1
+    6: branch 5
+    7: push_constant_int -1
+    8: push_constant_string ""
+    9: push_int_local 0
+   10: op2412 0
+   11: branch 8
+   12: push_int_local 0
+   13: push_int_local 1
+   14: cc_find 0
+   15: branch_if_true 1
+   16: branch 3
+   17: push_constant_int -1
+   18: push_constant_string ""
+   19: cc_setonmouserepeat 0
+   20: return 0

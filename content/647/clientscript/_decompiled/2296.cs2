@@ -1,0 +1,114 @@
+[clientscript,script_2296](int $int0)(int)
+def_int $int1 = enum(105, 74, enum_2279, $int0);
+if (%varbit6840 = 1) {
+    $int1 = enum(105, 74, enum_863, $int0);
+    switch ($int1) {
+        case 888:
+            return(%varbit6820);
+        case 889:
+            return(%varbit6821);
+        case 890:
+            return(%varbit6822);
+        case 891:
+            return(%varbit6823);
+        case 892:
+            return(%varbit6824);
+        case 893:
+            return(%varbit6825);
+        case 894:
+            return(%varbit6826);
+        case 895:
+            return(%varbit6827);
+        case 896:
+            return(%varbit6828);
+        case 897:
+            return(%varbit6829);
+        case 898:
+            return(%varbit6830);
+        case 899:
+            return(%varbit6831);
+        case 900:
+            return(%varbit6832);
+        case 901:
+            return(%varbit6833);
+        case 902:
+            return(%varbit6834);
+        case 903:
+            return(%varbit6835);
+        case 904:
+            return(%varbit6836);
+        case 905:
+            return(%varbit6837);
+        case 906:
+            return(%varbit6838);
+        case 907:
+            return(%varbit6839);
+        default:
+            return(0);
+    }
+}
+switch ($int1) {
+    case 660:
+        return(%varbit5942);
+    case 661:
+        return(%varbit5943);
+    case 662:
+        return(%varbit5944);
+    case 663:
+        return(%varbit5945);
+    case 664:
+        return(%varbit5946);
+    case 665:
+        return(%varbit5947);
+    case 666:
+        return(%varbit5948);
+    case 667:
+        return(%varbit5949);
+    case 668:
+        return(%varbit5950);
+    case 669:
+        return(%varbit5951);
+    case 670:
+        return(%varbit5952);
+    case 671:
+        return(%varbit5953);
+    case 672:
+        return(%varbit5954);
+    case 673:
+        return(%varbit5955);
+    case 674:
+        return(%varbit5956);
+    case 675:
+        return(%varbit5957);
+    case 676:
+        return(%varbit5958);
+    case 677:
+        return(%varbit5959);
+    case 678:
+        return(%varbit5960);
+    case 679:
+        return(%varbit5961);
+    case 680:
+        return(%varbit5962);
+    case 681:
+        return(%varbit5963);
+    case 682:
+        return(%varbit5964);
+    case 683:
+        return(%varbit5965);
+    case 684:
+        return(%varbit5966);
+    case 685:
+        return(%varbit5967);
+    case 1005:
+        return(%varbit7768);
+    case 686:
+        return(%varbit5968);
+    case 1006:
+        return(%varbit7769);
+    case 1029:
+        return(%varbit7381);
+    default:
+        return(0);
+}
+return(0);

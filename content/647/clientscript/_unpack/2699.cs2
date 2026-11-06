@@ -1,0 +1,76 @@
+; id: 2699
+int_param_count=7
+string_param_count=0
+long_param_count=0
+local_int_count=8
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: push_int_local 0
+    2: push_int_local 6
+    3: gosub_with_params 2582
+    4: pop_int_local 7
+    5: push_int_local 7
+    6: branch_if_false 1
+    7: branch 37
+    8: push_int_local 1
+    9: push_constant_int 845
+   10: branch_equals 1
+   11: branch 15
+   12: op5308 0
+   13: pop_int_local 5
+   14: push_int_local 5
+   15: setwindowmode 0
+   16: push_int_local 6
+   17: push_constant_int 0
+   18: push_constant_string "RuneScape was unable to change to that resolution."
+   19: push_constant_string "<br>"
+   20: push_constant_string "<br>"
+   21: push_constant_string "Please visit our Knowledge Base for more information."
+   22: join_string 4
+   23: push_constant_string "Consult Knowledge Base"
+   24: push_constant_string "kbase/view.ws?guid=controls_display_options"
+   25: gosub_with_params 2694
+   26: branch 17
+   27: push_int_local 1
+   28: push_constant_int 1009
+   29: branch_equals 1
+   30: branch 3
+   31: push_int_local 6
+   32: gosub_with_params 3413
+   33: branch 10
+   34: push_int_local 6
+   35: push_constant_int 1
+   36: push_constant_string "RuneScape was unable to implement that setting."
+   37: push_constant_string "<br>"
+   38: push_constant_string "<br>"
+   39: push_constant_string "Please visit our Knowledge Base for more information."
+   40: join_string 4
+   41: push_constant_string "Consult Knowledge Base"
+   42: push_constant_string "kbase/view.ws?guid=controls_display_options"
+   43: gosub_with_params 2694
+   44: branch 5
+   45: op7007 0
+   46: push_constant_int 0
+   47: branch_not 1
+   48: branch 1
+   49: op7005 0
+   50: push_int_local 1
+   51: push_constant_int 845
+   52: branch_equals 1
+   53: branch 7
+   54: push_int_local 4
+   55: push_int_local 5
+   56: push_int_local 2
+   57: push_int_local 3
+   58: push_int_local 6
+   59: gosub_with_params 2596
+   60: branch 6
+   61: push_int_local 4
+   62: push_int_local 5
+   63: push_int_local 2
+   64: push_int_local 3
+   65: push_int_local 6
+   66: gosub_with_params 3387
+   67: return 0

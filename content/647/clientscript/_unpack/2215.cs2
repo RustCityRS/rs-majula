@@ -1,0 +1,31 @@
+; id: 2215
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 61079566
+    1: if_gety 0
+    2: push_constant_int 180
+    3: branch_less_than 1
+    4: branch 15
+    5: push_constant_int 2215
+    6: push_constant_string ""
+    7: push_constant_int 61079553
+    8: op2408 0
+    9: push_constant_int 61079566
+   10: if_getx 0
+   11: push_constant_int 2
+   12: push_constant_int 61079566
+   13: if_gety 0
+   14: add 0
+   15: push_constant_int 0
+   16: push_constant_int 0
+   17: push_constant_int 61079566
+   18: if_setposition 0
+   19: branch 2
+   20: push_constant_int 0
+   21: pop_varc_int 1137
+   22: return 0

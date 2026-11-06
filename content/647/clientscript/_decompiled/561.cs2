@@ -1,0 +1,12 @@
+[clientscript,script_561]
+if (%varbit4157 = 1) {
+    if_setgraphic(41943062);
+} else {
+    if_setgraphic(41943062);
+}
+if (%varbit4157 = 2) {
+    if_setgraphic(41943061);
+} else {
+    if_setgraphic(41943061);
+}
+return;

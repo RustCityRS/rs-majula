@@ -1,0 +1,12 @@
+[clientscript,script_4556](int $int0)
+if ($int0 = 1) {
+    if (is_subscriber = 0) {
+        if_setonkey;
+        if_setontimer;
+    }
+} else {
+    if_setonkey;
+    if_setontimer;
+    if_settext(escape2(%varc_str349));
+}
+return;

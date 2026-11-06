@@ -1,0 +1,38 @@
+[clientscript,script_2002](int)
+def_int $int0 = 0;
+if (%varbit8150 = 1) {
+    if (%varbit4069 > 79) {
+        $int0 = 0;
+    } else {
+        $int0 = sub(80, %varbit4069);
+    }
+} else {
+    if (%varbit3976 = 1) {
+        if (%varbit4069 > 63) {
+            $int0 = 0;
+        } else {
+            $int0 = sub(64, %varbit4069);
+        }
+    }
+    if (%varbit3975 = 1) {
+        if (%varbit4069 > 31) {
+            $int0 = 0;
+        } else {
+            $int0 = sub(32, %varbit4069);
+        }
+    }
+    if (%varbit3974 = 1) {
+        if (%varbit4069 > 15) {
+            $int0 = 0;
+        } else {
+            $int0 = sub(16, %varbit4069);
+        }
+    }
+    if (%varbit3974 = 0) {
+        if (%varbit4069 > 7) {
+            $int0 = 0;
+        }
+        $int0 = sub(8, %varbit4069);
+    }
+}
+return($int0);

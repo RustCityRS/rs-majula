@@ -1,0 +1,10 @@
+[clientscript,script_3047](int $int0)
+switch ($int0) {
+    case 0:
+    case 1:
+    case 2:
+        chat_setfilter(chat_getfilter_public, $int0, chat_getfilter_trade);
+    default:
+        ~script_3045;
+        return;
+}

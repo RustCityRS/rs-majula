@@ -1,0 +1,4 @@
+[clientscript,script_3375](int $int0, int $int1)(int, int)
+if_setsize($int1, 0, 0, 34013187);
+if_setposition(calc(16 + 64 - $int1 / 2), 0, 0, 34013187);
+return($int0, calc(16 + 64 - $int0 / 2));

@@ -1,0 +1,88 @@
+[clientscript,script_1946]
+def_int $int0 = 0;
+def_string $str0 = "";
+if_setonmouseleave;
+if (%varc_int589 = 99999992) {
+    if_settext("You abandon the game!");
+    if_settext("You abandon the game." + "<br>" + "<br>" + "The mystics don't seem happy and scowl at you, muttering unpleasant sentiments under their breath." + "<br>" + "<br>" + "You notice that you received no score as a result.");
+    if_settext("-100%");
+    if_settext("");
+    if_settext("");
+    $str0 = "The awards tab is not available when you leave a game early.";
+    if_setonmouserepeat;
+} else {
+    if (%varc_int588 = 1) {
+        if_settext(tostring(%varc_int597));
+        if_settext(tostring(%varc_int598));
+    } else {
+        if_settext(tostring(%varc_int598));
+        if_settext(tostring(%varc_int597));
+    }
+    if (%varc_int588 = %varc_int589) {
+        if_settext("Your valiant team takes the victory!");
+        if ($int0 = 1) {
+            if_settext("With the heroic conquest of all resources and facilities, your team have ripped success from the feeble fingers of your unworthy foes." + "<br>" + "<br>" + "The mystics stand in awe of your power, and you hear them praising you in excited whispers." + "<br>" + "<br>" + "You notice that they have increased your score as a reward.");
+        } else {
+            if_settext("The heroic, skillful and brave deeds of your team have ripped success from the feeble fingers of your unworthy foes." + "<br>" + "<br>" + "The mystics stand in awe of your power, and you hear them praising you in excited whispers." + "<br>" + "<br>" + "You notice that they have increased your score as a reward.");
+        }
+        if_settext("+10%");
+    }
+    if (%varc_int589 = 0) {
+        if_settext("The game was a draw!");
+        if_settext("As if ordained by fate, the teams were equally brave and skillful, resulting in a draw." + "<br>" + "<br>" + "The mystics nod knowingly, and you hear them discussing how the balance of the universe is reflected beautifully in the conflict's outcome." + "<br>" + "<br>");
+        if_settext("+0%");
+    }
+    if_settext("The enemy team has defeated you!");
+    if ($int0 = 1) {
+        if_settext("Despite your best efforts, your team was beaten; the victory snatched away as the enemy took control of all resources and facilities." + "<br>" + "<br>" + "The mystics frown at you, and shake their heads sadly." + "<br>" + "<br>" + "You hear them arguing over whether they overestimated you, or if you were just unlucky.");
+    }
+    if_settext("Despite your best efforts, your team was beaten; the victory snatched away by your fearsome foes." + "<br>" + "<br>" + "The mystics frown at you, and shake their heads sadly." + "<br>" + "<br>" + "You hear them arguing over whether they overestimated you, or if you were just unlucky.");
+    if_settext("+0%");
+}
+if_settext(tostring(%varc_int590));
+if_settext(tostring(%varc_int590));
+if_settext(tostring(%varc_int591));
+if_settext(tostring(%varc_int592));
+if_settext(tostring(%varc_int593));
+if_settext(tostring(%varc_int594));
+if_settext(tostring(%varc_int595));
+if (%varc_int589 ! 99999992) {
+    if_settext(tostring(%varc_int596));
+} else {
+    if_settext(tostring(0));
+}
+if (%varc_int600 > 0) {
+    if_settext(tostring(%varc_int599));
+    if_settext(tostring(%varc_int600));
+    if_settext(tostring(%varc_int601));
+    if_settext(tostring(%varc_int602));
+    if_settext(tostring(%varc_int603));
+    if_settext(tostring(%varc_int604));
+    if_settext(tostring(%varc_int605));
+    if_settext(tostring(%varc_int606));
+    if (%varc_int607 > 0) {
+        if_settext(tostring(%varc_int607));
+    }
+    if (%varc_int608 > 0) {
+        if_settext(tostring(%varc_int608));
+    }
+    if (%varc_int609 > 0) {
+        if_settext(tostring(%varc_int609));
+    }
+    if (%varc_int610 > 0) {
+        if_settext(tostring(%varc_int610));
+    }
+    if (%varc_int611 > 0) {
+        if_settext(tostring(%varc_int611));
+    }
+    if (%varc_int612 > 0) {
+        if_settext(tostring(%varc_int612));
+    }
+    if (%varc_int613 > 0) {
+        if_settext(tostring(%varc_int613));
+    }
+    if (%varc_int614 > 0) {
+        if_settext(tostring(%varc_int614));
+    }
+}
+return;

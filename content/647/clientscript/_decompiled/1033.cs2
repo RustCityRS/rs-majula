@@ -1,0 +1,25 @@
+[clientscript,script_1033](string $str0)(component, int)
+def_string $str1 = "";
+def_int $int0 = 0;
+$int0 = string_indexof_string($str0, "|");
+if ($int0 ! -1) {
+    $str1 = substring($str0, add($int0, 1), string_length($str0));
+} else {
+    $str1 = $str0;
+}
+if_settext(substring($str0, 0, $int0));
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = multiply(paraheight($str1, 495), 12);
+$int2 = if_getheight;
+$int2 = calc(if_getheight / 2 - $int1 / 2);
+~script_1034(0, 35, $int2, 400, 100, 16777215, $str1);
+cc_setposition(10289177, 10289177, 5, 1);
+cc_setgraphic(1074);
+cc_setposition2(35, sub($int2, 25), 0, 0);
+cc_setsize(400, 32, 0, 0);
+cc_setposition(10289177, 10289177, 5, 2);
+cc_setgraphic(1074);
+cc_setposition2(35, add($int2, $int1), 0, 0);
+cc_setsize(400, 32, 0, 0);
+return(10289166, 400);

@@ -1,0 +1,23 @@
+[clientscript,script_3465](int $int0, int $int1)
+switch (%varc_int1007) {
+    case 11:
+        cc_deleteall($int0);
+    case 12:
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~script_3460(30, 27, $int1), 800, ~script_3460(30, 30, $int1), 850, 0);
+        cam_addwaypoint(1, 0, ~script_3460(35, 30, $int1), 300, ~script_3460(35, 40, $int1), 300, 0);
+        cam_addwaypoint(0, 1, ~script_3460(40, 40, $int1), 1000, ~script_3460(40, 40, $int1), 950, 0);
+        cam_addwaypoint(1, 1, ~script_3460(28, 52, $int1), 200, ~script_3460(28, 46, $int1), 200, 0);
+        cam_startpath(0, 0, 100, 200, 1, 0);
+        ~script_2768(25, $int0);
+    case 13:
+        cam_clear;
+        cam_forceangle(0, 0, 268, 644);
+    case 14:
+    case 15:
+        ~script_2768(25, $int0);
+    default:
+        cam_clear;
+}
+return;

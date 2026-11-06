@@ -1,0 +1,31 @@
+; id: 966
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op2607 0
+    2: pop_int_local 2
+    3: push_int_local 2
+    4: push_int_local 1
+    5: branch_not 1
+    6: branch 15
+    7: push_constant_int 0
+    8: push_constant_int 0
+    9: push_int_local 0
+   10: op2606 0
+   11: push_int_local 0
+   12: op2608 0
+   13: push_int_local 2
+   14: push_int_local 1
+   15: gosub_with_params 967
+   16: push_int_local 0
+   17: op2605 0
+   18: push_int_local 0
+   19: op2109 0
+   20: clientclock 0
+   21: pop_varc_int 125
+   22: return 0

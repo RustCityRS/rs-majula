@@ -1,0 +1,9 @@
+[clientscript,script_2212]
+if (61079553 < sub(if_getwidth, 1)) {
+    if_setontimer;
+    if_setposition(if_gety, 0, 0, %varc_int1136);
+} else {
+    if_sethide(%varc_int1136);
+    if_setposition(120, 0, 0, %varc_int1136);
+}
+return;

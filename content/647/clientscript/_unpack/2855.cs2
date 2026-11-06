@@ -1,0 +1,34 @@
+; id: 2855
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1070
+    1: push_constant_int 0
+    2: push_constant_int 0
+    3: push_constant_int -1
+    4: op3336 0
+    5: gosub_with_params 2869
+    6: branch_if_true 1
+    7: branch 1
+    8: return 0
+    9: coord 0
+   10: push_varc_int 1070
+   11: push_constant_int 0
+   12: push_constant_int 0
+   13: push_constant_int -1
+   14: op3336 0
+   15: gosub_with_params 2866
+   16: push_constant_int 31
+   17: branch_less_than 1
+   18: branch 6
+   19: push_varc_int 1070
+   20: push_constant_int 0
+   21: push_constant_int 0
+   22: push_constant_int -1
+   23: op3336 0
+   24: pop_varc_int 1070
+   25: return 0

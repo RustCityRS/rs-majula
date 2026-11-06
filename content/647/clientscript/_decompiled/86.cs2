@@ -1,0 +1,53 @@
+[clientscript,script_86](int $int0, int $int1, string $str0)
+$str0 = removetags($str0);
+def_int $int2 = chat_gethistory_length($int1);
+switch ($int0) {
+    case 1:
+        opplayer($str0);
+    case 2:
+        opplayer($str0);
+    case 3:
+        opplayer($str0);
+    case 4:
+        opplayer($str0);
+    case 5:
+        opplayer($str0);
+    case 6:
+        if (~script_2709 = 0) {
+            mes("You cannot add a friend until you have entered your date of birth");
+            return;
+        }
+        if (friend_test($str0) = 1) {
+            if (is_quickchat_only = 0) {
+                if (is_subscriber = 0) {
+                }
+            }
+        } else {
+            friend_add($str0);
+        }
+    case 7:
+        ignore_add($str0);
+    case 8:
+        %varc_str24 = $str0;
+    case 9:
+        if ($int2 ! 17) {
+            if ($int2 = 18) {
+            }
+            if ($int2 = 20) {
+            }
+            if ($int2 = 42) {
+            }
+            if ($int2 = 45) {
+            }
+        }
+    case 10:
+        if ($int2 = 41) {
+            ~script_4465($str0);
+        }
+        if ($int2 = 9) {
+            ~script_1633($str0);
+        }
+        opplayer($str0);
+    default:
+}
+return;

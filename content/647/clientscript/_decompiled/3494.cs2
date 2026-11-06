@@ -1,0 +1,127 @@
+[clientscript,script_3494](int $int0)(int, component, int, component, int, component, int, component, int, component, int, component)
+sound_synth(synth_9499, 1, 0);
+if_setposition(52, 0, 0, 65077360);
+if_setposition(52, 0, 0, 65077275);
+if_setposition(52, 0, 0, 65077274);
+if_setsize(16384, 2, 2, 65077408);
+if_setsize(16384, 2, 2, 65077315);
+if_setsize(16384, 2, 2, 65077357);
+if_sethide(65077502);
+if_sethide(65077487);
+if_sethide(65077472);
+if_sethide(65077457);
+if_settrans(65077505);
+if_settrans(65077490);
+if_settrans(65077475);
+if_settrans(65077460);
+if_sethide(65077442);
+if_sethide(65077443);
+if_sethide(65077444);
+if_sethide(65077445);
+if_sethide(65077509);
+switch (%varc_int1184) {
+    case 1:
+        if (%varbit8065 = 1) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 2) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 3) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+    case 2:
+        if (%varbit8065 = 4) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 5) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 6) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+    case 3:
+        if (%varbit8065 = 7) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 8) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 9) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+    case 4:
+        if (%varbit8065 = 10) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 11) {
+            if_settext("In use");
+        } else {
+            if_settext("Switch-to");
+        }
+        if (%varbit8065 = 12) {
+            if_settext("In use");
+        }
+        if_settext("Switch-to");
+    default:
+}
+switch ($int0) {
+    case 65077505:
+        if_sethide(65077502);
+        if_sethide(65077442);
+        %varc_int1184 = 1;
+        if_setcolour(65077382);
+        if_setcolour(65077289);
+        if_setcolour(65077331);
+    case 65077490:
+        if_sethide(65077487);
+        if_sethide(65077443);
+        %varc_int1184 = 2;
+        if_setcolour(65077382);
+        if_setcolour(65077289);
+        if_setcolour(65077331);
+    case 65077475:
+        if_sethide(65077472);
+        if_sethide(65077444);
+        %varc_int1184 = 3;
+        if_setcolour(65077382);
+        if_setcolour(65077289);
+        if_setcolour(65077331);
+    case 65077460:
+        if_sethide(65077457);
+        if_sethide(65077445);
+        %varc_int1184 = 4;
+        if_setcolour(65077382);
+        if_setcolour(65077289);
+        if_setcolour(65077331);
+    default:
+}
+def_int $int1 = enum(105, 103, enum_3088, %varc_int1184);
+if_settext("");
+if_settext("");
+if_settext("");
+if_settext("");
+if_settext("");
+if_settext("");
+%varc_int1186 = 0;
+return(struct_param(enum(105, 74, $int1, 1), param_1089), 65077380, struct_param(enum(105, 74, $int1, 1), param_1090), 65077381, struct_param(enum(105, 74, $int1, 2), param_1089), 65077287, struct_param(enum(105, 74, $int1, 2), param_1090), 65077288, struct_param(enum(105, 74, $int1, 3), param_1089), 65077329, struct_param(enum(105, 74, $int1, 3), param_1090), 65077330);

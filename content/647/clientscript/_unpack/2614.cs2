@@ -1,0 +1,106 @@
+; id: 2614
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_constant_int 0
+    3: pop_int_local 1
+    4: push_constant_int 0
+    5: pop_int_local 2
+    6: gosub_with_params 2617
+    7: switch 0
+    8: branch 55
+    9: push_varc_int 834
+   10: push_constant_int 0
+   11: push_constant_int 0
+   12: push_constant_int -5
+   13: op3336 0
+   14: pop_int_local 2
+   15: branch 48
+   16: push_varc_int 834
+   17: push_constant_int 4
+   18: push_constant_int 0
+   19: push_constant_int -4
+   20: op3336 0
+   21: pop_int_local 2
+   22: branch 41
+   23: push_varc_int 834
+   24: push_constant_int 5
+   25: push_constant_int 0
+   26: push_constant_int 0
+   27: op3336 0
+   28: pop_int_local 2
+   29: branch 34
+   30: push_varc_int 834
+   31: push_constant_int 4
+   32: push_constant_int 0
+   33: push_constant_int 4
+   34: op3336 0
+   35: pop_int_local 2
+   36: branch 27
+   37: push_varc_int 834
+   38: push_constant_int 0
+   39: push_constant_int 0
+   40: push_constant_int 5
+   41: op3336 0
+   42: pop_int_local 2
+   43: branch 20
+   44: push_varc_int 834
+   45: push_constant_int -4
+   46: push_constant_int 0
+   47: push_constant_int 4
+   48: op3336 0
+   49: pop_int_local 2
+   50: branch 13
+   51: push_varc_int 834
+   52: push_constant_int -5
+   53: push_constant_int 0
+   54: push_constant_int 0
+   55: op3336 0
+   56: pop_int_local 2
+   57: branch 6
+   58: push_varc_int 834
+   59: push_constant_int -4
+   60: push_constant_int 0
+   61: push_constant_int -4
+   62: op3336 0
+   63: pop_int_local 2
+   64: push_int_local 2
+   65: op3309 0
+   66: push_constant_int 64
+   67: div 0
+   68: pop_int_local 0
+   69: push_int_local 2
+   70: op3311 0
+   71: push_constant_int 64
+   72: div 0
+   73: pop_int_local 1
+   74: push_varc_int 835
+   75: push_int_local 0
+   76: branch_not 4
+   77: push_varc_int 836
+   78: push_int_local 1
+   79: branch_not 1
+   80: branch 1
+   81: return 0
+   82: push_int_local 2
+   83: pop_varc_int 834
+   84: push_varc_int 834
+   85: push_varc_int 833
+   86: gosub_with_params 2612
+   87: return 0
+
+switch_0:
+  0 => 1
+  7 => 8
+  6 => 15
+  5 => 22
+  4 => 29
+  3 => 36
+  2 => 43
+  1 => 50

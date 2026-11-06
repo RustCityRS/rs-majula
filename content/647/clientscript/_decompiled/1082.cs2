@@ -1,0 +1,35 @@
+[clientscript,script_1082](int $int0, int $int1, int $int2)
+def_int $int3 = add($int0, 1);
+if (if_gethide = 0) {
+    if (cc_find($int1, $int2) = 1) {
+        cc_sethide(0);
+        cc_setcolour(9869175);
+    }
+    if (%varc_int128 >= 0) {
+        $int3 = add($int3, 1);
+        if (if_gethide = 0) {
+            $int3 = add($int3, 1);
+        }
+        if (cc_find(enum(105, 73, enum_1551, sub($int3, 1)), %varc_int128) = 1) {
+            cc_sethide(1);
+        }
+        %varc_int128 = -1;
+    }
+    return;
+}
+if (%varc_int128 = $int2) {
+    return;
+}
+if (%varc_int128 >= 0) {
+    if (cc_find($int1, %varc_int128) = 1) {
+        cc_sethide(1);
+    }
+}
+if (cc_find($int1, $int2) = 1) {
+    if (cc_gethide = 1) {
+        cc_sethide(0);
+        cc_setcolour(5733957);
+    }
+    %varc_int128 = $int2;
+}
+return;

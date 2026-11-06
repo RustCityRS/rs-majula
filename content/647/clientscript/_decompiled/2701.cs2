@@ -1,0 +1,21 @@
+[clientscript,script_2701](int $int0, int $int1, int $int2)(int, int, int, int, int, int, component, component, component, int, int, component, component, component, int, int, component, component, component, int, int, component, component, component, int, int, int, int, int, int, component, int, int, int, int, int, int, component, int, int, int, int, int, int, string, string, string, string, string, string)
+if (getwindowmode = 1) {
+    if_openoverlay(35913748, 883);
+} else {
+    if_openoverlay(48889936, 883);
+}
+if_sethide(48889936);
+if_sethide(35913748);
+if_setonmouseover;
+if_setonmouseleave;
+if_setonmouseover;
+if_setonmouseleave;
+if_setonclick;
+if_setonclick;
+if_sethide(35913918);
+if_sethide(35913796);
+if_sethide(35913921);
+if_sethide(35913930);
+if_sethide(35913890);
+if_sethide(35913842);
+return(0, 0, ~script_1151(57868306), ~script_1151(57868309), 2702, 1, 57868306, 57868307, 57868305, 2702, 0, 57868306, 57868307, 57868305, 2702, 1, 57868309, 57868310, 57868308, 2702, 0, 57868309, 57868310, 57868308, 2704, 1, $int0, 1, $int1, $int2, 57868305, 2704, 0, $int0, 1, $int1, $int2, 57868308, 0, 0, 0, 0, 0, 0, "1II", "1II", "1II", "1II", "1ii11", "1ii11");

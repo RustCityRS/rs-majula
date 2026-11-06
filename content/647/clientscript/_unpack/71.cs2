@@ -1,0 +1,72 @@
+; id: 71
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 1305
+    1: pop_int_local 1
+    2: push_int_local 0
+    3: push_constant_int -1
+    4: branch_equals 1
+    5: branch 5
+    6: push_varbit 9030
+    7: branch_if_true 1
+    8: branch 2
+    9: push_constant_int 1
+   10: pop_int_local 0
+   11: push_int_local 0
+   12: pop_varc_int 168
+   13: push_int_local 0
+   14: push_constant_int -1
+   15: branch_equals 1
+   16: branch 7
+   17: getwindowmode 0
+   18: push_constant_int 2
+   19: branch_greater_than_or_equals 1
+   20: branch 2
+   21: gosub_with_params 1306
+   22: branch 1
+   23: return 0
+   24: gosub_with_params 2709
+   25: branch_if_false 1
+   26: branch 11
+   27: push_int_local 0
+   28: push_constant_int 9
+   29: branch_equals 7
+   30: push_int_local 0
+   31: push_constant_int 11
+   32: branch_equals 4
+   33: push_int_local 0
+   34: push_constant_int 10
+   35: branch_equals 1
+   36: branch 1
+   37: return 0
+   38: push_int_local 1
+   39: push_constant_int -1
+   40: branch_greater_than 1
+   41: branch 18
+   42: push_int_local 1
+   43: push_int_local 0
+   44: branch_equals 1
+   45: branch 10
+   46: getwindowmode 0
+   47: push_constant_int 2
+   48: branch_greater_than_or_equals 1
+   49: branch 4
+   50: gosub_with_params 1306
+   51: push_int_local 0
+   52: gosub_with_params 1387
+   53: branch 1
+   54: return 0
+   55: branch 3
+   56: gosub_with_params 1306
+   57: push_int_local 0
+   58: gosub_with_params 1387
+   59: branch 3
+   60: gosub_with_params 1306
+   61: push_int_local 0
+   62: gosub_with_params 1387
+   63: return 0

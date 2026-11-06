@@ -1,0 +1,23 @@
+[clientscript,script_1603](int $int0, int $int1)
+if (worldmap_getstate = 0) {
+    return;
+}
+def_int $int2 = add(15, max(sub(%varc_int1030, clientclock), 0));
+%varc_int1030 = min(max(add(%varc_int1030, 2), add(clientclock, 2)), add(clientclock, 25));
+switch (%varc_int172) {
+    case 37:
+        $int2 = multiply($int2, 5);
+    case 50:
+        $int2 = multiply($int2, 4);
+    case 75:
+        $int2 = multiply($int2, 3);
+    case 100:
+        $int2 = multiply($int2, 2);
+    default:
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int4 = worldmap_getxy;
+$int3 = 0;
+worldmap_setcoord(coordpack(0, max(calc($int3 + $int0 * $int2), 0), 0, max(calc($int4 + $int1 * $int2), 0)));
+return;

@@ -1,0 +1,21 @@
+[clientscript,script_1888]
+if (%varc_int1025 = 1) {
+    return;
+}
+if (~script_2728 = 1) {
+    if (%varbit6521 = 0) {
+        if (%varp281 >= 1000) {
+            if (%varc_int94 > clientclock) {
+                return;
+            }
+            %varc_int94 = add(clientclock, 1500);
+            if (%varp1647 = 1) {
+                mes("Your health is low! Run away from your attacker and speak to Xenia.");
+            }
+            mes("Your health is low! Find a safe place away from your attacker");
+            mes("or eat some food to heal yourself.");
+        }
+    }
+}
+%varc_int1025 = 1;
+return;

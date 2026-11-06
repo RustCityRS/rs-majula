@@ -1,0 +1,106 @@
+; id: 432
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 2
+    2: push_constant_int 67108949
+    3: pop_int_local 3
+    4: push_int_local 0
+    5: switch 0
+    6: return 0
+    7: branch 39
+    8: push_varc_int 1388
+    9: branch_if_true 1
+   10: branch 3
+   11: push_constant_int 293
+   12: pop_int_local 2
+   13: branch 3
+   14: push_varbit 7539
+   15: gosub_with_params 488
+   16: pop_int_local 2
+   17: branch 29
+   18: push_varc_int 1388
+   19: branch_if_true 1
+   20: branch 3
+   21: push_constant_int 300
+   22: pop_int_local 2
+   23: branch 3
+   24: push_varbit 7540
+   25: gosub_with_params 488
+   26: pop_int_local 2
+   27: branch 19
+   28: push_varc_int 1388
+   29: branch_if_true 1
+   30: branch 3
+   31: push_constant_int 305
+   32: pop_int_local 2
+   33: branch 3
+   34: push_varbit 7541
+   35: gosub_with_params 488
+   36: pop_int_local 2
+   37: branch 9
+   38: push_varc_int 1388
+   39: branch_if_true 1
+   40: branch 3
+   41: push_constant_int 1044
+   42: pop_int_local 2
+   43: branch 3
+   44: push_varbit 7542
+   45: gosub_with_params 488
+   46: pop_int_local 2
+   47: push_int_local 2
+   48: push_constant_int -1
+   49: branch_not 1
+   50: branch 37
+   51: push_int_local 2
+   52: push_constant_int 1150
+   53: op4500 0
+   54: push_constant_int 67108956
+   55: if_settext 0
+   56: push_int_local 2
+   57: push_constant_int 1151
+   58: op4500 0
+   59: push_constant_int 67108957
+   60: if_settext 0
+   61: push_constant_string "Cost: "
+   62: push_int_local 2
+   63: push_constant_int 1154
+   64: op4500 0
+   65: tostring 0
+   66: join_string 2
+   67: push_constant_int 67108958
+   68: if_settext 0
+   69: push_constant_string "Cooldown: "
+   70: push_int_local 2
+   71: push_constant_int 1155
+   72: op4500 0
+   73: tostring 0
+   74: join_string 2
+   75: push_constant_int 67108959
+   76: if_settext 0
+   77: push_int_local 3
+   78: if_getx 0
+   79: push_int_local 1
+   80: push_constant_int 0
+   81: push_constant_int 0
+   82: push_int_local 3
+   83: if_setposition 0
+   84: push_constant_int 0
+   85: push_int_local 3
+   86: if_sethide 0
+   87: branch 3
+   88: push_constant_int 1
+   89: push_int_local 3
+   90: if_sethide 0
+   91: return 0
+
+switch_0:
+  67108929 => 2
+  67108912 => 12
+  67108895 => 22
+  67108878 => 32

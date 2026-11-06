@@ -1,0 +1,37 @@
+; id: 806
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 5592405
+    1: pop_int_local 0
+    2: op3321 0
+    3: push_constant_int 75
+    4: branch_greater_than 1
+    5: branch 3
+    6: push_constant_int 65280
+    7: pop_int_local 0
+    8: branch 16
+    9: op3321 0
+   10: push_constant_int 50
+   11: branch_greater_than 1
+   12: branch 3
+   13: push_constant_int 16776960
+   14: pop_int_local 0
+   15: branch 9
+   16: op3321 0
+   17: push_constant_int 25
+   18: branch_greater_than 1
+   19: branch 3
+   20: push_constant_int 16750623
+   21: pop_int_local 0
+   22: branch 2
+   23: push_constant_int 16711680
+   24: pop_int_local 0
+   25: push_int_local 0
+   26: return 0
+   27: push_constant_int 0
+   28: return 0

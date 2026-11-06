@@ -1,0 +1,4 @@
+[clientscript,script_2431](int $int0)(int, int, int, int, int, int, string)
+~script_2410(oc_wearpos(nulodion_s_notes), $int0, oc_wearpos(ammo_mould), $int0, oc_wearpos(instruction_manual), oc_iop($int0, 2), oc_iop($int0, 1), oc_iop($int0, 3), oc_iop($int0, 4), oc_iop($int0, 5), oc_name($int0));
+cc_setonvartransmit;
+return($int0, oc_wearpos(cannonball), $int0, oc_wearpos(toolkit), $int0, -1, "");

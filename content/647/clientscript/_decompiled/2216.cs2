@@ -1,0 +1,11 @@
+[clientscript,script_2216]
+if (%varp1700 = 2) {
+    if (%varc_int1137 = 0) {
+        sound_synth(synth_8731, 1, 0);
+    }
+    %varc_int1137 = 1;
+    if_setontimer;
+} else {
+    mes("There is nothing to push off!");
+}
+return;

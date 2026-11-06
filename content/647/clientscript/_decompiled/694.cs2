@@ -1,0 +1,21 @@
+[clientscript,script_694](int $int0, int $int1)(int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int4 = ~script_2413($int0);
+$int3 = ~script_2413($int0);
+$int2 = ~script_2413($int0);
+$int7 = ~script_2413($int1);
+$int6 = ~script_2413($int1);
+$int5 = ~script_2413($int1);
+$int2 = add($int2, $int5);
+$int3 = add($int3, $int6);
+$int4 = add($int4, $int7);
+def_int $int8 = max($int2, max($int3, $int4));
+$int5 = ~script_669(255, $int8, $int2);
+$int6 = ~script_669(255, $int8, $int3);
+$int7 = ~script_669(255, $int8, $int4);
+return(~script_693($int5, $int6, $int7));

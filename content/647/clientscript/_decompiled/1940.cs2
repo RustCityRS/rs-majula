@@ -1,0 +1,6 @@
+[clientscript,script_1940]
+def_int $int0 = calc(clientclock + %varc_int557 * 3000);
+if ($int0 < %varc_int556) {
+    %varc_int556 = $int0;
+}
+return;

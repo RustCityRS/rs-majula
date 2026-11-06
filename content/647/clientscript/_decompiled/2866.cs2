@@ -1,0 +1,17 @@
+[clientscript,script_2866](int $int0, int $int1)(int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int2 = sub(coordx($int0), coordx($int1));
+if ($int2 < 0) {
+    $int2 = multiply($int2, -1);
+}
+$int3 = sub(coordz($int0), coordz($int1));
+if ($int3 < 0) {
+    $int3 = multiply($int3, -1);
+}
+if ($int2 > $int3) {
+    return($int2);
+} else {
+    return($int3);
+}
+return(0);

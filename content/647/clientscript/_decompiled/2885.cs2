@@ -1,0 +1,16 @@
+[clientscript,script_2885](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if ($int5 ! 2) {
+    if ($int5 ! 3) {
+        if ($int5 ! 4) {
+            return;
+        }
+    }
+}
+~script_41(12255248);
+%varc_int1 = 0;
+$int4 = add($int4, clientclock);
+if (cc_find($int0, $int1) = 1) {
+    cc_settrans($int2);
+    cc_setontimer;
+}
+return;

@@ -1,0 +1,21 @@
+; id: 656
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 43384906
+    1: push_constant_int 0
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 1
+    5: op151 0
+    6: push_constant_int 48955409
+    7: push_constant_int 0
+    8: cc_find 0
+    9: branch_if_true 1
+   10: branch 1
+   11: op151 0
+   12: return 0

@@ -1,0 +1,249 @@
+[clientscript,script_3387](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = -1;
+def_int $int6 = -1;
+switch ($int4) {
+    case 1:
+        if_settext("Custom Graphics Options");
+        if_openoverlay(48627718, 977);
+        $int5 = 48627716;
+        $int6 = 48627732;
+        if_setonclick;
+        if_setop(48627730, "Back");
+    case 0:
+        if_openoverlay(57802780, 977);
+        $int5 = 57802756;
+        $int6 = 57802757;
+        if_sethide(57802781);
+        if_sethide(57802775);
+        if_setonclick;
+        op2427;
+        op2427;
+    case 2:
+        if_openoverlay(59703298, 977);
+        $int5 = 59703296;
+        $int6 = 59703355;
+        if_sethide(59703301);
+        if_sethide(59703299);
+        if_setonclick;
+        op2427;
+        ~script_4041;
+    default:
+}
+if_sethide($int6);
+if_setonclick;
+def_int $int7 = 0;
+def_int $int8 = 1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_int $int13 = -1;
+if_setgraphic(64028732);
+if_setgraphic(64028728);
+if_setgraphic(64028730);
+if_setgraphic(64028726);
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseover;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonmouseleave;
+if_setonclick;
+if_setonclick;
+if_setonclick;
+if_setonclick;
+if (clientopt_isavailable = 0) {
+    switch ($int0) {
+        case 0:
+            ~script_1147(0, $int0, 64028721, 64028731, 64028732, $int4);
+        case 2:
+            ~script_1147(2, $int0, 64028721, 64028731, 64028732, $int4);
+        case 1:
+            ~script_1147(1, $int0, 64028721, 64028731, 64028732, $int4);
+        case 3:
+            ~script_1147(3, $int0, 64028721, 64028731, 64028732, $int4);
+        default:
+    }
+    if_setposition(if_gety, 2, 0, 64028721);
+    if_setsize(if_getheight, 0, 0, 64028718);
+} else {
+    if (get_clientopt = 1) {
+        $int9 = 64028721;
+        ~script_1147(0, $int0, 64028721, 64028731, 64028732, $int4);
+        $int7 = add($int7, 1);
+    }
+    if ($int8 < 4) {
+        if (clientopt_canset($int8) < 3) {
+            switch ($int8) {
+                case 2:
+                    $int13 = 64028722;
+                    ~script_1147(1, $int0, 64028722, 64028729, 64028730, $int4);
+                case 1:
+                    $int13 = 64028723;
+                    ~script_1147(2, $int0, 64028723, 64028727, 64028728, $int4);
+                case 3:
+                    $int13 = 64028724;
+                    ~script_1147(3, $int0, 64028724, 64028725, 64028726, $int4);
+                default:
+            }
+            $int7 = add($int7, 1);
+            if ($int9 = -1) {
+                $int9 = $int13;
+            }
+            if ($int10 = -1) {
+                $int10 = $int13;
+            }
+            if ($int11 = -1) {
+                $int11 = $int13;
+            }
+            if ($int12 = -1) {
+                $int12 = $int13;
+            }
+        }
+        $int8 = add($int8, 1);
+    }
+    switch ($int7) {
+        case 1:
+            if_setposition(if_gety, 2, 0, $int9);
+            if_setsize(if_getheight, 0, 0, 64028718);
+        case 2:
+            if_setposition(if_gety, 0, 0, $int9);
+            if_setposition(if_gety, 2, 0, $int10);
+            if_setsize(if_getheight, 0, 0, 64028718);
+        case 3:
+            if_setposition(if_gety, 0, 0, $int9);
+            if_setposition(if_gety, 2, 0, $int10);
+            if_setposition(if_gety, 2, 0, $int11);
+            if_setsize(if_getheight, 0, 0, 64028718);
+    }
+}
+def_int $int14 = 0;
+def_int $int15 = -1;
+def_int $int16 = 64028700;
+def_int $int17 = 64028699;
+cc_deleteall($int16);
+cc_deleteall($int17);
+~script_2601(0, $int14, $int16, "Brightness");
+if_setdraggable(-1, 64028705);
+def_int $int18 = 1;
+def_int $int19 = add($int3, 21);
+def_int $int20 = -1;
+def_int $int21 = -1;
+def_int $int22 = -1;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = -1;
+if ($int24 < enum_getoutputcount(enum_201)) {
+    $int21 = enum(105, 74, enum_201, $int24);
+    $int20 = ~script_2601($int18, $int14, $int16, "");
+    cc_setposition(struct_param($int21, param_845), $int16, 3, if_getchildcount($int16));
+    cc_setsize($int19, 16, 0, 0);
+    if ($int18 = 1) {
+        cc_setposition2(4, $int14, 2, 0);
+    } else {
+        cc_setposition2(sub(233, $int19), $int14, 0, 0);
+    }
+    cc_setfill(1);
+    cc_setcolour(3025702);
+    cc_setposition(0, $int16, 3, if_getchildcount($int16));
+    cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+    cc_setposition2(cc_getx, cc_gety, 0, 0);
+    cc_setfill(0);
+    cc_setcolour(6249298);
+    $int15 = cc_getid;
+    cc_setposition(0, $int16, 4, if_getchildcount($int16));
+    cc_settextfont(494);
+    cc_settextalign(1, 1, 0);
+    $int23 = ~script_2581($int21);
+    if ($int23 <= -1) {
+        cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+        cc_setposition2(cc_getx, cc_gety, 0, 0);
+        cc_setcolour(15458492);
+        cc_settext("<col=646464>" + "N/A");
+    } else {
+        cc_setsize($int3, cc_getheight, 0, 0);
+        cc_setposition2(add(cc_getx, 2), cc_gety, 0, 0);
+        $int22 = struct_param($int21, param_683);
+        $int25 = ~script_829($int21, $int22);
+        if ($int21 ! 1009) {
+            if ($int23 < $int25) {
+                cc_setcolour(15458492);
+            } else {
+                cc_setcolour(45537);
+            }
+        } else {
+            if ($int23 > 0) {
+                cc_setcolour(15458492);
+            }
+            cc_setcolour(45537);
+        }
+        if (testbit(struct_param($int21, param_682), $int0) ! 1) {
+            cc_settext("<col=646464>" + "N/A");
+            cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+            cc_setposition2(cc_getx, cc_gety, 0, 0);
+        }
+        cc_settext("");
+        cc_setposition(enum(105, 115, $int22, $int23), $int16, 5, if_getchildcount($int16));
+        cc_setsize(16, 16, 0, 0);
+        cc_setposition2(calc(cc_getx + cc_getwidth - cc_getwidth + 1), calc($int14 + 16 - cc_getheight / 2), 0, 0);
+        cc_setgraphic(2554);
+        cc_setonmouseover;
+        cc_setonmouseleave;
+        cc_setonclick;
+    }
+    if ($int18 = 1) {
+        $int18 = 0;
+        $int14 = add($int14, 20);
+        $int26 = if_getchildcount($int17);
+        cc_setposition(0, $int17, 3, $int26);
+        cc_setsize(2, 1, 1, 0);
+        cc_setposition2(1, add($int14, 3), 0, 0);
+        cc_setfill(1);
+        cc_setcolour(8419437);
+    } else {
+        $int18 = 1;
+    }
+    $int24 = add($int24, 1);
+}
+if ($int18 = 1) {
+    $int14 = add($int14, 20);
+}
+if ($int26 ! -1) {
+    if ($int18 = 0) {
+        if (cc_find($int17, $int26) = 1) {
+            cc_delete;
+        }
+    }
+}
+if_setsize(add($int14, 5), 0, 0, 64028698);
+if_setsize(add(64028698, if_getheight), 0, 0, 64028696);
+if_setsize(add(64028696, if_getheight), 0, 0, 64028675);
+switch ($int4) {
+    case 1:
+        if_setsize(334, 0, 0, 48627716);
+        if_setposition(if_gety, 0, 0, 64028674);
+        if_setsize(sub(64028673, if_getheight), 1, 0, 64028674);
+        if_setsize(if_getheight, 0, 0, 64028672);
+        if_setscrollsize(64028675, add(if_getheight, 5), 64028674);
+    case 0:
+        if_setposition(0, 1, 0, 64028672);
+        if_setposition(0, 1, 0, 57802780);
+        if_setsize(if_getheight, 0, 0, 64028674);
+        if_setsize(add(64028674, if_getheight), 0, 0, 64028672);
+        if_setsize(add(57802775, if_getheight), 0, 0, 57802780);
+        if_setsize(add(if_getheight, 5), 0, 0, 57802774);
+        if_setsize(add(57802774, if_getheight), 0, 0, 57802760);
+        if_setposition(10, 1, 1, 57802774);
+    case 2:
+        if_setposition(0, 1, 0, 64028672);
+        if_setsize(if_getheight, 0, 0, 64028674);
+        if_setsize(add(64028674, if_getheight), 0, 0, 64028672);
+        if_setsize(add(59703299, if_getheight), 0, 0, 59703298);
+    default:
+}
+~script_3451($int4, 1);
+~script_2918(1);
+return;

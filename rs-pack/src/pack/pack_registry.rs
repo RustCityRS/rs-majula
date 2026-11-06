@@ -1,5 +1,5 @@
 #[cfg(since_647)]
-use crate::pack::pack::collect_config_files;
+use crate::pack::pack::FileCache;
 use crate::pack::packed_data::PackedData;
 use anyhow::Result;
 #[cfg(since_647)]
@@ -218,7 +218,7 @@ impl PackRegistry {
     }
 
     #[cfg(since_647)]
-    pub fn check_content(&self, source_dir: &Path) -> Result<()> {
+    pub fn check_content(&self, fc: &FileCache) -> Result<()> {
         let mut errors = Vec::new();
         let mut unregistered = 0;
         for (ext, pack) in [
@@ -239,8 +239,8 @@ impl PackRegistry {
             ("param", &self.param),
             ("mesanim", &self.mesanim),
         ] {
-            for path in collect_config_files(source_dir, ext) {
-                let Ok(text) = fs::read_to_string(&path) else {
+            for path in fc.collect(ext) {
+                let Some(text) = fc.read(path) else {
                     continue;
                 };
                 for (line, raw) in text.lines().enumerate() {
@@ -312,8 +312,7 @@ impl PackRegistry {
                 .join("\n");
             bail!(
                 "pack registries and content are out of sync:\n{errors}\n\
-                 After registry renames, regenerate cache-derived content with \
-                 `REV=647 cargo regen-content`."
+                 Rename the matching content sections and references together with their pack entries."
             );
         }
         if unregistered > 0 {
@@ -374,13 +373,13 @@ const CONFIG_PACKS: &[(&str, bool)] = &[
 
 /// Register server config names and validate client IDs against their pack files.
 #[cfg(since_647)]
-pub fn validate_config_packs(source_dir: &Path, pack_dir: &Path) -> Result<()> {
+pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path) -> Result<()> {
     for &(ext, transmitted) in CONFIG_PACKS {
         let pack_path = pack_dir.join(format!("{ext}.pack"));
         let mut pack = PackFile::load(&pack_path)?;
 
         // Crawl all [name] sections from content files
-        let config_names = crawl_config_names(source_dir, ext);
+        let config_names = crawl_config_names(fc, ext);
 
         // Auto-register only for non-transmitted (server-only) types.
         // Transmitted-type ids are bound to the cache and must come from
@@ -433,12 +432,11 @@ pub fn validate_config_packs(source_dir: &Path, pack_dir: &Path) -> Result<()> {
 /// Crawl all `[name]` sections from config files of a given extension.
 /// Matches 2004scape `crawlConfigNames()`.
 #[cfg(since_647)]
-fn crawl_config_names(source_dir: &Path, ext: &str) -> Vec<String> {
+fn crawl_config_names(fc: &FileCache, ext: &str) -> Vec<String> {
     let mut names = Vec::new();
     let mut seen = HashSet::new();
-    let files = collect_config_files(source_dir, ext);
-    for path in &files {
-        let Ok(text) = fs::read_to_string(path) else {
+    for path in fc.collect(ext) {
+        let Some(text) = fc.read(path) else {
             continue;
         };
         for line in text.lines() {

@@ -1,0 +1,60 @@
+[clientscript,script_1143](int $int0, int $int1, int $int2, int $int3, string $str0, string $str1, string $str2, string $str3, string $str4, string $str5, string $str6, string $str7)(int, component, component, int, int, component, int, component, component, int, component, component, int, int, component, int, component, component, string, string, string, string, string, string)
+if (compare($str0, "") ! 0) {
+    if ($int0 ! -1) {
+        if_setgraphic(57933854);
+        if_settext($str0);
+        if_sethide(57933835);
+        if_setop(57933835, $str0);
+        if_setonmouserepeat;
+        if_setonmouseleave;
+    }
+} else {
+    if_clearops;
+    if_sethide(57933835);
+}
+if (compare($str2, "") ! 0) {
+    if ($int1 ! -1) {
+        if_setgraphic(57933852);
+        if_settext($str2);
+        if_sethide(57933836);
+        if_setop(57933836, $str2);
+        if_setonmouserepeat;
+        if_setonmouseleave;
+    }
+} else {
+    if_clearops;
+    if_sethide(57933836);
+}
+if (compare($str4, "") ! 0) {
+    if ($int2 ! -1) {
+        if_setgraphic(57933848);
+        if_settext($str4);
+        if_sethide(57933837);
+        if_setop(57933837, $str4);
+        if_setonmouserepeat;
+        if_setonmouseleave;
+    }
+} else {
+    if_clearops;
+    if_sethide(57933837);
+}
+if (compare($str6, "") ! 0) {
+    if ($int3 ! -1) {
+        if_setgraphic(57933845);
+        if_settext($str6);
+        if_sethide(57933838);
+        if_setop(57933838, $str6);
+        if_setonmouserepeat;
+        if_setonmouseleave;
+    }
+} else {
+    if_clearops;
+    if_sethide(57933838);
+}
+def_string $str8 = "When active, you will automatically fight back if attacked.";
+if_setonmouserepeat;
+if_setonmouseleave;
+$str8 = "Select to perform a special attack.";
+if_setonmouserepeat;
+if_setonmouseleave;
+return(38, 57933839, 57933843, 25, 190, 57933839, 40, 57933843, 57933839, 38, 57933827, 57933843, 25, 190, 57933827, 40, 57933843, 57933827, $str8, "IIsii", "I", $str8, "IIsii", "I");

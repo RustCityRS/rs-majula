@@ -1,0 +1,9 @@
+[clientscript,script_423]
+if (%varc_int1353 ! -1) {
+    cam_followcoord(%varc_int1353);
+} else {
+    if (%varc_int1354 ! -1) {
+        cam_followcoord(%varc_int1354);
+    }
+}
+return;

@@ -1,0 +1,18 @@
+[clientscript,script_75]
+def_int $int0 = %varc_int3;
+def_string $str0 = "null";
+if ($int0 = -1) {
+    $int0 = %varc_int4;
+}
+if (%varc_int3 ! %varc_int4) {
+    $int0 = sub($int0, 1);
+    if ($int0 < 0) {
+        $int0 = 19;
+    }
+    $str0 = ~script_79($int0);
+    if (string_length($str0) > 0) {
+        %varc_str1 = $str0;
+        %varc_int3 = $int0;
+    }
+}
+return;

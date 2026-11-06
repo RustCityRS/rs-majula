@@ -1,0 +1,26 @@
+; id: 2804
+int_param_count=6
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 5
+    1: push_int_local 0
+    2: if_setcolour 0
+    3: push_int_local 4
+    4: push_int_local 0
+    5: op2103 0
+    6: push_constant_int 2805
+    7: push_int_local 0
+    8: push_constant_int 0
+    9: push_int_local 2
+   10: sub 0
+   11: push_int_local 1
+   12: push_int_local 3
+   13: push_int_local 4
+   14: push_constant_string "Iiiii"
+   15: push_int_local 0
+   16: op2408 0
+   17: return 0

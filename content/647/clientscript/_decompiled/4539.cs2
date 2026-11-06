@@ -1,0 +1,59 @@
+[clientscript,script_4539](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, string $str0)(int)
+if (%varc_int1 < add(clientclock, 25)) {
+    if (%varc_int1 < clientclock) {
+        %varc_int1 = clientclock;
+    }
+    %varc_int1 = add(%varc_int1, 2);
+    return;
+}
+%varc_int1 = calc(clientclock + 25 + 10);
+def_int $int12 = 0;
+def_int $int13 = 0;
+if (cc_find($int0, sub(if_getchildcount($int0), 1)) = 1) {
+    if (cc_find($int1, $int2) ! 1) {
+        if ($int2 = -1) {
+        }
+    } else {
+        if (cc_getgraphic(1) = 5613) {
+            switch ($int9) {
+                case 3:
+                    if (cc_get2dangle(1) = 0) {
+                        $int13 = if_getheight;
+                        $int12 = calc(~script_1744 + $int11 - ~script_3366($int0) + $int13 / 2);
+                        $int13 = calc($int13 - 35 / 2);
+                        $int12 = max(min($int12, $int13), sub(0, $int13));
+                        cc_setposition2(0, $int12, 2, 1);
+                        return($int0);
+                    }
+                case 1:
+                    if (cc_get2dangle(1) = 32768) {
+                        $int13 = if_getheight;
+                        $int12 = calc(~script_1744 + $int11 - ~script_3366($int0) + $int13 / 2);
+                        $int13 = calc($int13 - 35 / 2);
+                        $int12 = max(min($int12, $int13), sub(0, $int13));
+                        cc_setposition2(0, $int12, 0, 1);
+                        return($int0);
+                    }
+                case 0:
+                    if (cc_get2dangle(1) = 49152) {
+                        $int13 = if_getwidth;
+                        $int12 = calc(~script_1743 + $int10 - ~script_3365($int0) + $int13 / 2);
+                        $int13 = calc($int13 - 35 / 2);
+                        $int12 = max(min($int12, $int13), sub(0, $int13));
+                        cc_setposition2($int12, 0, 1, 2);
+                        return($int0);
+                    }
+                default:
+                    if (cc_get2dangle(1) = 16384) {
+                        $int13 = if_getwidth;
+                        $int12 = calc(~script_1743 + $int10 - ~script_3365($int0) + $int13 / 2);
+                        $int13 = calc($int13 - 35 / 2);
+                        $int12 = max(min($int12, $int13), sub(0, $int13));
+                        cc_setposition2($int12, 0, 1, 0);
+                        return($int0);
+                    }
+            }
+        }
+    }
+}
+return(~script_4540($int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $str0));

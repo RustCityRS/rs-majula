@@ -1,0 +1,359 @@
+; id: 1383
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 5390
+    1: branch_if_false 1
+    2: branch 85
+    3: push_constant_string "<col=302008>"
+    4: push_constant_string "Varrock Census - year 160"
+    5: push_constant_string "<br>"
+    6: push_constant_string "<col=302008>"
+    7: push_constant_string "Citizen's name"
+    8: push_constant_string "<br>"
+    9: push_constant_string "Gryff Aldock"
+   10: push_constant_string "<br>"
+   11: push_constant_string "Raminme Altrodor"
+   12: push_constant_string "<br>"
+   13: push_constant_string "Layte Aubury"
+   14: push_constant_string "<br>"
+   15: push_constant_string "Ingald Belger"
+   16: push_constant_string "<br>"
+   17: push_constant_string "Asyff Bymajique"
+   18: push_constant_string "<br>"
+   19: push_constant_string "Baraek Brigson"
+   20: push_constant_string "<br>"
+   21: push_constant_string "Brugsen Bursen"
+   22: push_constant_string "<br>"
+   23: push_constant_string "Jeremy Clerksin"
+   24: push_constant_string "<br>"
+   25: push_constant_string "Daerig Clod"
+   26: push_constant_string "<br>"
+   27: push_constant_string "Phillipa DeMarne"
+   28: push_constant_string "<br>"
+   29: push_constant_string "Trista Donaldson"
+   30: push_constant_string "<br>"
+   31: push_constant_string "Straven Enroy"
+   32: push_constant_string "<br>"
+   33: push_constant_string "Gertrude Fairweather"
+   34: push_constant_string "<br>"
+   35: push_constant_string "Shilop Fairweather"
+   36: push_constant_string "<br>"
+   37: push_constant_string "Walter Fairweather"
+   38: push_constant_string "<br>"
+   39: push_constant_string "Wilough Fairweather"
+   40: join_string 37
+   41: push_constant_int 52035589
+   42: if_settext 0
+   43: push_constant_string "<br>"
+   44: push_constant_string "<br>"
+   45: push_constant_string "<col=302008>"
+   46: push_constant_string "Profession"
+   47: push_constant_string "<br>"
+   48: push_constant_string "Town crier"
+   49: push_constant_string "<br>"
+   50: push_constant_string "Cook"
+   51: push_constant_string "<br>"
+   52: push_constant_string "Rune seller"
+   53: push_constant_string "<br>"
+   54: push_constant_string "Apothecary"
+   55: push_constant_string "<br>"
+   56: push_constant_string "Fancy dress store owner"
+   57: push_constant_string "<br>"
+   58: push_constant_string "Fur seller"
+   59: push_constant_string "<br>"
+   60: push_constant_string "Economist"
+   61: push_constant_string "<br>"
+   62: push_constant_string "Cart expert"
+   63: push_constant_string "<br>"
+   64: push_constant_string "Unemployed"
+   65: push_constant_string "<br>"
+   66: push_constant_string "Minor noble"
+   67: push_constant_string "<br>"
+   68: push_constant_string "Banker"
+   69: push_constant_string "<br>"
+   70: push_constant_string "Legitimate businessman"
+   71: push_constant_string "<br>"
+   72: push_constant_string "Housewife"
+   73: push_constant_string "<br>"
+   74: push_constant_string "Baby"
+   75: push_constant_string "<br>"
+   76: push_constant_string "Travelling merchant"
+   77: push_constant_string "<br>"
+   78: push_constant_string "Baby"
+   79: join_string 36
+   80: push_constant_int 52035588
+   81: if_settext 0
+   82: push_constant_int 1
+   83: push_constant_int 52035587
+   84: if_sethide 0
+   85: push_constant_int 0
+   86: push_constant_int 52035586
+   87: if_sethide 0
+   88: push_varbit 5390
+   89: branch_if_true 1
+   90: branch 85
+   91: push_constant_string "<col=302008>"
+   92: push_constant_string "Varrock Census - year 160"
+   93: push_constant_string "<br>"
+   94: push_constant_string "<col=302008>"
+   95: push_constant_string "Citizen's name"
+   96: push_constant_string "<br>"
+   97: push_constant_string "Dimintheis Fitzharmon"
+   98: push_constant_string "<br>"
+   99: push_constant_string "Eustace Forthwright"
+  100: push_constant_string "<br>"
+  101: push_constant_string "Everard Grafham"
+  102: push_constant_string "<br>"
+  103: push_constant_string "Matthew Grey"
+  104: push_constant_string "<br>"
+  105: push_constant_string "Grimesquit Grime"
+  106: push_constant_string "<br>"
+  107: push_constant_string "Phingspet Grime"
+  108: push_constant_string "<br>"
+  109: push_constant_string "Benny Gutenberg"
+  110: push_constant_string "<br>"
+  111: push_constant_string "Haig Halen"
+  112: push_constant_string "<br>"
+  113: push_constant_string "Ritchard Haring"
+  114: push_constant_string "<br>"
+  115: push_constant_string "Randulf Harlow"
+  116: push_constant_string "<br>"
+  117: push_constant_string "Tobias Hills"
+  118: push_constant_string "<br>"
+  119: push_constant_string "Louisiana Jones"
+  120: push_constant_string "<br>"
+  121: push_constant_string "Lawrence Lambare"
+  122: push_constant_string "<br>"
+  123: push_constant_string "Wimock Landsdown"
+  124: push_constant_string "<br>"
+  125: push_constant_string "Stuart Lea"
+  126: push_constant_string "<br>"
+  127: push_constant_string "Draul Leptoc"
+  128: join_string 37
+  129: push_constant_int 52035589
+  130: if_settext 0
+  131: push_constant_string "<br>"
+  132: push_constant_string "<br>"
+  133: push_constant_string "<col=302008>"
+  134: push_constant_string "Profession"
+  135: push_constant_string "<br>"
+  136: push_constant_string "Former Noble"
+  137: push_constant_string "<br>"
+  138: push_constant_string "Guard"
+  139: push_constant_string "<br>"
+  140: push_constant_string "Natural Historian"
+  141: push_constant_string "<br>"
+  142: push_constant_string "Sailor"
+  143: push_constant_string "<br>"
+  144: push_constant_string "Profession Withheld"
+  145: push_constant_string "<br>"
+  146: push_constant_string "Profession Withheld"
+  147: push_constant_string "<br>"
+  148: push_constant_string "Journalist"
+  149: push_constant_string "<br>"
+  150: push_constant_string "Curator"
+  151: push_constant_string "<br>"
+  152: push_constant_string "Dietician"
+  153: push_constant_string "<br>"
+  154: push_constant_string "Vampire Hunter"
+  155: push_constant_string "<br>"
+  156: push_constant_string "Guard"
+  157: push_constant_string "<br>"
+  158: push_constant_string "Student"
+  159: push_constant_string "<br>"
+  160: push_constant_string "Priest"
+  161: push_constant_string "<br>"
+  162: push_constant_string "Teacher"
+  163: push_constant_string "<br>"
+  164: push_constant_string "Playwright"
+  165: push_constant_string "<br>"
+  166: push_constant_string "Lord"
+  167: join_string 36
+  168: push_constant_int 52035588
+  169: if_settext 0
+  170: push_constant_int 0
+  171: push_constant_int 52035587
+  172: if_sethide 0
+  173: push_constant_int 0
+  174: push_constant_int 52035586
+  175: if_sethide 0
+  176: push_varbit 5390
+  177: push_constant_int 2
+  178: branch_equals 1
+  179: branch 85
+  180: push_constant_string "<col=302008>"
+  181: push_constant_string "Varrock Census - year 160"
+  182: push_constant_string "<br>"
+  183: push_constant_string "<col=302008>"
+  184: push_constant_string "Citizen's name"
+  185: push_constant_string "<br>"
+  186: push_constant_string "Phearthee Levalsyx"
+  187: push_constant_string "<br>"
+  188: push_constant_string "Charles Lyeman"
+  189: push_constant_string "<br>"
+  190: push_constant_string "Surok Magis"
+  191: push_constant_string "<br>"
+  192: push_constant_string "Gaffit Malore"
+  193: push_constant_string "<br>"
+  194: push_constant_string "Mabel Malore"
+  195: push_constant_string "<br>"
+  196: push_constant_string "Alfi Marino"
+  197: push_constant_string "<br>"
+  198: push_constant_string "Aris Maye"
+  199: push_constant_string "<br>"
+  200: push_constant_string "Iffie Nitter"
+  201: push_constant_string "<br>"
+  202: push_constant_string "Thessalia Nitter"
+  203: push_constant_string "<br>"
+  204: push_constant_string "Elsie Parks"
+  205: push_constant_string "<br>"
+  206: push_constant_string "Fred Parks"
+  207: push_constant_string "<br>"
+  208: push_constant_string "Ethel Prim"
+  209: push_constant_string "<br>"
+  210: push_constant_string "Hartwin Prim"
+  211: push_constant_string "<br>"
+  212: push_constant_string "Enhtor Prysin"
+  213: push_constant_string "<br>"
+  214: push_constant_string "Idonea Ramlock"
+  215: push_constant_string "<br>"
+  216: push_constant_string "Trevick Ramlock"
+  217: join_string 37
+  218: push_constant_int 52035589
+  219: if_settext 0
+  220: push_constant_string "<br>"
+  221: push_constant_string "<br>"
+  222: push_constant_string "<col=302008>"
+  223: push_constant_string "Profession"
+  224: push_constant_string "<br>"
+  225: push_constant_string "Mugger"
+  226: push_constant_string "<br>"
+  227: push_constant_string "Unemployed"
+  228: push_constant_string "<br>"
+  229: push_constant_string "Mage"
+  230: push_constant_string "<br>"
+  231: push_constant_string "Librarian"
+  232: push_constant_string "<br>"
+  233: push_constant_string "Information Clerk"
+  234: push_constant_string "<br>"
+  235: push_constant_string "Chef"
+  236: push_constant_string "<br>"
+  237: push_constant_string "Gypsy"
+  238: push_constant_string "<br>"
+  239: push_constant_string "Retired"
+  240: push_constant_string "<br>"
+  241: push_constant_string "Clothes Shop Owner"
+  242: push_constant_string "<br>"
+  243: push_constant_string "Retired"
+  244: push_constant_string "<br>"
+  245: push_constant_string "Retired"
+  246: push_constant_string "<br>"
+  247: push_constant_string "Servant"
+  248: push_constant_string "<br>"
+  249: push_constant_string "Student"
+  250: push_constant_string "<br>"
+  251: push_constant_string "Knight"
+  252: push_constant_string "<br>"
+  253: push_constant_string "Teacher"
+  254: push_constant_string "<br>"
+  255: push_constant_string "Banker"
+  256: join_string 36
+  257: push_constant_int 52035588
+  258: if_settext 0
+  259: push_constant_int 0
+  260: push_constant_int 52035586
+  261: if_sethide 0
+  262: push_constant_int 0
+  263: push_constant_int 52035587
+  264: if_sethide 0
+  265: push_varbit 5390
+  266: push_constant_int 3
+  267: branch_equals 1
+  268: branch 81
+  269: push_constant_string "<col=302008>"
+  270: push_constant_string "Varrock Census - year 160"
+  271: push_constant_string "<br>"
+  272: push_constant_string "<col=302008>"
+  273: push_constant_string "Citizen's name"
+  274: push_constant_string "<br>"
+  275: push_constant_string "Aeonisig Raispher"
+  276: push_constant_string "<br>"
+  277: push_constant_string "Katrine Raven"
+  278: push_constant_string "<br>"
+  279: push_constant_string "Horvik Ravitz"
+  280: push_constant_string "<br>"
+  281: push_constant_string "Roald Remanis"
+  282: push_constant_string "<br>"
+  283: push_constant_string "Milo Rovin"
+  284: push_constant_string "<br>"
+  285: push_constant_string "Martina Scorsby"
+  286: push_constant_string "<br>"
+  287: push_constant_string "Stephan Scorsby"
+  288: push_constant_string "<br>"
+  289: push_constant_string "Sani Semiv"
+  290: push_constant_string "<br>"
+  291: push_constant_string "Herbert Spiccanspan"
+  292: push_constant_string "<br>"
+  293: push_constant_string "Brana Talvoy"
+  294: push_constant_string "<br>"
+  295: push_constant_string "Launa Talvoy"
+  296: push_constant_string "<br>"
+  297: push_constant_string "Reldo Trimmly"
+  298: push_constant_string "<br>"
+  299: push_constant_string "Jack Tylner"
+  300: push_constant_string "<br>"
+  301: push_constant_string "Romily Weeklax"
+  302: push_constant_string "<br>"
+  303: push_constant_string "Treznor Withings"
+  304: join_string 35
+  305: push_constant_int 52035589
+  306: if_settext 0
+  307: push_constant_string "<br>"
+  308: push_constant_string "<br>"
+  309: push_constant_string "<col=302008>"
+  310: push_constant_string "Profession"
+  311: push_constant_string "<br>"
+  312: push_constant_string "Royal Advisor"
+  313: push_constant_string "<br>"
+  314: push_constant_string "Wallet Relocator"
+  315: push_constant_string "<br>"
+  316: push_constant_string "Apprentice Blacksmith"
+  317: push_constant_string "<br>"
+  318: push_constant_string "Our Glorious King"
+  319: push_constant_string "<br>"
+  320: push_constant_string "Captain of the guard"
+  321: push_constant_string "<br>"
+  322: push_constant_string "Washerwoman"
+  323: push_constant_string "<br>"
+  324: push_constant_string "Guard"
+  325: push_constant_string "<br>"
+  326: push_constant_string "Master Smith"
+  327: push_constant_string "<br>"
+  328: push_constant_string "Street Cleaner"
+  329: push_constant_string "<br>"
+  330: push_constant_string "Farmer"
+  331: push_constant_string "<br>"
+  332: push_constant_string "Farmer"
+  333: push_constant_string "<br>"
+  334: push_constant_string "Assistant Librarian"
+  335: push_constant_string "<br>"
+  336: push_constant_string "Rat Exterminator"
+  337: push_constant_string "<br>"
+  338: push_constant_string "Pie Salesman"
+  339: push_constant_string "<br>"
+  340: push_constant_string "Kitchen Boy"
+  341: join_string 34
+  342: push_constant_int 52035588
+  343: if_settext 0
+  344: push_constant_int 1
+  345: push_constant_int 52035586
+  346: if_sethide 0
+  347: push_constant_int 0
+  348: push_constant_int 52035587
+  349: if_sethide 0
+  350: return 0

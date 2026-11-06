@@ -1,0 +1,6 @@
+[clientscript,script_3186](int $int0, int $int1)(int, int, int, int, int, string)
+if_setsize(0, 0, 1, $int1);
+if_setposition(0, 2, 1, $int1);
+if_setsize(31, 0, 0, $int0);
+if_sethide($int0);
+return($int1, char_isnumeric(2710), 40, 38, 0, if_gettext);

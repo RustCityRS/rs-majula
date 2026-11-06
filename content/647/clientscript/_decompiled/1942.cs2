@@ -1,0 +1,31 @@
+[clientscript,script_1942]
+if (%varc_int560 = 0) {
+    %varc_int559 = min(255, add(%varc_int559, 6));
+    if (%varc_int559 = 255) {
+        %varc_int560 = 1;
+    }
+} else {
+    if (%varc_int560 = 1) {
+        %varc_int559 = max(60, sub(%varc_int559, 6));
+        if (%varc_int559 = 60) {
+            %varc_int560 = 0;
+        }
+    }
+}
+if_settrans(53018638);
+if (%varc_int561 < 4) {
+    if (if_gethide = 1) {
+        %varc_int562 = min(20, add(%varc_int562, 1));
+        if (%varc_int562 = 20) {
+            %varc_int562 = 0;
+            if_sethide(53018642);
+        }
+    }
+    %varc_int562 = min(35, add(%varc_int562, 1));
+    if (%varc_int562 = 35) {
+        %varc_int562 = 0;
+        if_sethide(53018642);
+        %varc_int561 = min(4, add(%varc_int561, 1));
+    }
+}
+return;

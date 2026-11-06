@@ -1,0 +1,36 @@
+[clientscript,script_2163](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = calc($int2 + $int3 / 2);
+def_int $int5 = push_array_int(0, $int4);
+%array0 = pop_array_int($int4, push_array_int(0, $int3));
+%array0 = pop_array_int($int3, $int5);
+def_int $int6 = $int2;
+def_int $int7 = $int2;
+def_int $int8 = -1;
+def_string $str0 = "null";
+def_string $str1 = "null";
+$str1 = lowercase("");
+if (compare($str1, "") = 0) {
+    $str1 = lowercase("");
+}
+if ($int7 < $int3) {
+    $str0 = lowercase("");
+    if (compare($str0, "") = 0) {
+        $str0 = lowercase("");
+    }
+    if (compare($str0, $str1) < and($int7, 1)) {
+        $int8 = push_array_int(0, $int7);
+        %array0 = pop_array_int($int7, push_array_int(0, $int6));
+        %array0 = pop_array_int($int6, $int8);
+        $int6 = add($int6, 1);
+    }
+    $int7 = add($int7, 1);
+}
+%array0 = pop_array_int($int3, push_array_int(0, $int6));
+%array0 = pop_array_int($int6, $int5);
+if ($int2 < sub($int6, 1)) {
+    ~script_2163(0, $int1, $int2, sub($int6, 1));
+}
+if (add($int6, 1) < $int3) {
+    ~script_2163(0, $int1, add($int6, 1), $int3);
+}
+return;

@@ -1,0 +1,55 @@
+[clientscript,script_2945](int, component)
+%varc_int1100 = -1;
+if (login_getint = 0) {
+    if (string_length(%varc_str32) = 0) {
+        return(~script_2940(11), ~script_2940(11));
+    }
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (is_unsigned = 1) {
+    if (~script_2727 = 1) {
+        if (%varc_int547 = 0) {
+            %varc_int174 = 12;
+            if_sethide(48758812);
+            sound_jingle(349, 0);
+            $int2 = if_getwidth;
+            $int3 = if_getwidth;
+            $int0 = max(48758826, add(char_isnumeric(591), 31));
+            $int3 = max($int2, multiply(paraheight(if_gettext, 496), 16));
+            $int1 = max(252, add($int3, 100));
+            if_setsize($int3, 0, 0, 48758827);
+            if_setsize($int1, 0, 0, 48758812);
+            if_sethide(48758810);
+            if_sethide(48758811);
+            return(0, ~script_3412(48758826, 48758827), ~script_3412(48758826, 48758827), 48758827, 48758827, 337, 152, 48758827, $int2, $int0, 1, 1, if_gettext);
+        }
+    }
+}
+%varc_int200 = 0;
+%varc_int201 = 0;
+def_int $int4 = 39059508;
+def_int $int5 = 39059498;
+if (login_getint = 1) {
+    $int4 = 63897654;
+    $int5 = 63897650;
+}
+if_settext("Logging in...");
+if_setonclick;
+~script_2950(-3, 0, 1, -1, 0, -1, 0, "Logging In - Please Wait", "", "");
+%varc_int1100 = -3;
+def_string $str0 = %varc_str32;
+def_string $str1 = %varc_str33;
+if (login_getint = 1) {
+    $str0 = "";
+    $str1 = "";
+}
+if (is_unsigned = 1) {
+    login_start(0, $str0, $str1);
+} else {
+    login_start_reconnect($str0, $str1);
+}
+if_setontimer;
+return(2946, 39059461, "");

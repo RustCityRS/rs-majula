@@ -1,0 +1,19 @@
+[clientscript,script_1967]
+def_int $int0 = 1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+if ($int0 <= enum_getoutputcount(enum_2120)) {
+    if_settext("");
+    $int1 = enum(105, 111, enum_2019, $int0);
+    $int2 = enum(105, 73, enum_2120, $int0);
+    if_setobject(toolkit, enum(105, 73, enum_2117, $int0));
+    if_setopbase;
+    if (inv_total(inv, $int1) > 0) {
+        if_setcolour(enum(105, 73, enum_2118, $int0));
+    } else {
+        if_setcolour(enum(105, 73, enum_2118, $int0));
+    }
+    $int0 = add($int0, 1);
+}
+~script_1969;
+return;

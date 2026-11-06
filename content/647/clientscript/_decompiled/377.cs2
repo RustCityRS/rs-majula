@@ -1,0 +1,20 @@
+[clientscript,script_377](int $int0, int $int1)(int)
+if (cc_find($int0, $int1) = 1) {
+    cc_delete;
+}
+if (cc_find($int0, add($int1, 1)) = 1) {
+    cc_delete;
+}
+if (cc_find($int0, add($int1, 2)) = 1) {
+    cc_delete;
+}
+if (cc_find($int0, add($int1, 3)) = 1) {
+    cc_delete;
+}
+if (cc_find($int0, add($int1, 4)) = 1) {
+    cc_delete;
+}
+if (cc_find($int0, add($int1, 5)) = 1) {
+    cc_delete;
+}
+return(~script_383);

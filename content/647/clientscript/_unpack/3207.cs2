@@ -1,0 +1,81 @@
+; id: 3207
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 3205
+    1: push_constant_int 0
+    2: pop_int_local 1
+    3: push_constant_int 105
+    4: push_constant_int 73
+    5: push_constant_int 941
+    6: push_constant_int 5
+    7: enum 0
+    8: if_gethide 0
+    9: branch_if_false 1
+   10: branch 2
+   11: push_constant_int 1
+   12: pop_int_local 1
+   13: push_int_local 0
+   14: branch_if_true 1
+   15: branch 42
+   16: push_varc_string_old 279
+   17: string_length 0
+   18: push_constant_int 0
+   19: branch_greater_than 1
+   20: branch 37
+   21: push_varc_string_old 279
+   22: friend_test 0
+   23: branch_if_true 1
+   24: branch 13
+   25: push_int_local 1
+   26: branch_if_false 1
+   27: branch 5
+   28: push_constant_int 26
+   29: push_constant_int 0
+   30: push_constant_string "Sorry, you cannot ignore players in your Friends List."
+   31: op3114 0
+   32: branch 4
+   33: push_constant_int 26
+   34: push_constant_int 0
+   35: push_constant_string "Sorry, you cannot ignore players in your Friends List."
+   36: op3114 0
+   37: branch 20
+   38: push_varc_string_old 279
+   39: op3630 0
+   40: push_int_local 1
+   41: branch_if_false 1
+   42: branch 8
+   43: push_constant_int 26
+   44: push_constant_int 0
+   45: push_constant_string "You are ignoring "
+   46: push_varc_string_old 279
+   47: push_constant_string " until you log out."
+   48: join_string 3
+   49: op3114 0
+   50: branch 7
+   51: push_constant_int 26
+   52: push_constant_int 0
+   53: push_constant_string "You are ignoring "
+   54: push_varc_string_old 279
+   55: push_constant_string " until you log out."
+   56: join_string 3
+   57: op3114 0
+   58: push_varc_int 1094
+   59: branch_if_true 1
+   60: branch 11
+   61: push_constant_string ""
+   62: push_constant_string "Open a bug report form?"
+   63: push_constant_string "<br>"
+   64: push_constant_string "(opens a new window)"
+   65: join_string 3
+   66: push_constant_int 6
+   67: push_constant_string ""
+   68: push_constant_string ""
+   69: gosub_with_params 3015
+   70: push_constant_int 0
+   71: pop_varc_int 1094
+   72: return 0

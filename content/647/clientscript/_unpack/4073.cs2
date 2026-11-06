@@ -1,0 +1,21 @@
+; id: 4073
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 8669
+    1: branch_if_false 1
+    2: branch 5
+    3: push_constant_int 0
+    4: pop_varc_int 1432
+    5: push_constant_int 69337090
+    6: gosub_with_params 4057
+    7: branch 4
+    8: push_constant_int 0
+    9: pop_varc_int 1432
+   10: push_constant_int 69337091
+   11: gosub_with_params 4055
+   12: return 0

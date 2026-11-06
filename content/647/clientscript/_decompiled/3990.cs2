@@ -1,0 +1,13 @@
+[clientscript,script_3990](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+~script_41(60096664);
+def_int $int3 = ~script_3227($int0);
+if ($int3 = 2) {
+    ~script_4014($int1, 4043);
+} else {
+    ~script_4014($int1, 4041);
+}
+~script_3991($int0);
+return;

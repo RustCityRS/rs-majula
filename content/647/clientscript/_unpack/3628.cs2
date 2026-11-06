@@ -1,0 +1,75 @@
+; id: 3628
+int_param_count=9
+string_param_count=0
+long_param_count=0
+local_int_count=9
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 7
+    1: push_constant_int 1
+    2: add 0
+    3: pop_int_local 7
+    4: push_int_local 7
+    5: branch_if_true 1
+    6: branch 15
+    7: push_int_local 1
+    8: push_int_local 3
+    9: add 0
+   10: push_int_local 2
+   11: push_int_local 4
+   12: add 0
+   13: push_constant_int 0
+   14: push_constant_int 0
+   15: push_int_local 0
+   16: if_setposition 0
+   17: push_int_local 5
+   18: push_constant_int -1
+   19: push_int_local 0
+   20: if_setobject 0
+   21: branch 22
+   22: push_int_local 1
+   23: push_int_local 3
+   24: push_int_local 8
+   25: push_int_local 7
+   26: sub 0
+   27: multiply 0
+   28: push_int_local 8
+   29: div 0
+   30: add 0
+   31: push_int_local 2
+   32: push_int_local 4
+   33: push_int_local 8
+   34: push_int_local 7
+   35: sub 0
+   36: multiply 0
+   37: push_int_local 8
+   38: div 0
+   39: add 0
+   40: push_constant_int 0
+   41: push_constant_int 0
+   42: push_int_local 0
+   43: if_setposition 0
+   44: push_int_local 7
+   45: push_int_local 8
+   46: branch_equals 1
+   47: branch 5
+   48: push_constant_int -1
+   49: push_constant_string ""
+   50: push_int_local 0
+   51: op2408 0
+   52: branch 13
+   53: push_constant_int 3628
+   54: push_int_local 0
+   55: push_int_local 1
+   56: push_int_local 2
+   57: push_int_local 3
+   58: push_int_local 4
+   59: push_int_local 5
+   60: push_int_local 6
+   61: push_int_local 7
+   62: push_int_local 8
+   63: push_constant_string "IiiiiOiii"
+   64: push_int_local 0
+   65: op2408 0
+   66: return 0

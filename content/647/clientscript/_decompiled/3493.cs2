@@ -1,0 +1,19 @@
+[clientscript,script_3493](int $int0)
+switch ($int0) {
+    case 65077384:
+        if_sethide(65077385);
+    case 65077291:
+        if_sethide(65077292);
+    case 65077333:
+        if_sethide(65077334);
+    case 65077526:
+        if_setgraphic(65077529);
+        if_setgraphic(65077530);
+        if_setgraphic(65077531);
+    case 65077527:
+        if_setgraphic(65077532);
+        if_setgraphic(65077533);
+        if_setgraphic(65077534);
+    default:
+}
+return;

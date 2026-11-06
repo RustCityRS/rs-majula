@@ -1,0 +1,23 @@
+; id: 1789
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_int_local 1
+    2: sub 0
+    3: pop_int_local 3
+    4: push_int_local 2
+    5: push_int_local 3
+    6: push_constant_int 30
+    7: div 0
+    8: sub 0
+    9: push_constant_int 0
+   10: op4017 0
+   11: pop_varc_int 265
+   12: push_int_local 0
+   13: gosub_with_params 1790
+   14: return 0

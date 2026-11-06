@@ -1,0 +1,20 @@
+[clientscript,script_2246](int $int0, int $int1, int $int2, int $int3)(stat, int, string)
+def_int $int4 = inv_getobj($int2, $int3);
+if ($int4 = -1) {
+    if_sethide($int0);
+    if_sethide($int1);
+}
+if_sethide($int0);
+if_sethide($int1);
+if_setobject(inv_getnum(worn, $int3), $int0);
+if_clearops;
+if_setonop;
+if (oc_weight(cert_purple_partyhat) > 0) {
+    if (oc_weight(santa_hat) > 0) {
+        if_setop($int0, "Destroy");
+    }
+    if_setop($int0, "Bind");
+}
+if_setop($int0, "Examine");
+if_setopbase;
+return(fishing, $int0, "<col=ff9040>" + oc_name($int4));

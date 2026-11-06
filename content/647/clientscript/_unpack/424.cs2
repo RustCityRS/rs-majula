@@ -1,0 +1,51 @@
+; id: 424
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_varc_int 1365
+    1: push_constant_int 6
+    2: multiply 0
+    3: push_constant_int 10
+    4: div 0
+    5: pop_int_local 0
+    6: push_constant_int 0
+    7: pop_int_local 1
+    8: push_constant_string "1 minute"
+    9: pop_string_local 0
+   10: push_int_local 0
+   11: push_constant_int 60
+   12: branch_less_than 1
+   13: branch 7
+   14: push_constant_string "Your opponent has logged out."
+   15: push_constant_string "<br>"
+   16: push_constant_string "You may wait for them to return or end the Conquest now and be declared the winner."
+   17: join_string 3
+   18: push_constant_int 67305496
+   19: if_settext 0
+   20: return 0
+   21: push_int_local 0
+   22: push_constant_int 120
+   23: branch_greater_than 1
+   24: branch 9
+   25: push_int_local 0
+   26: push_constant_int 60
+   27: div 0
+   28: pop_int_local 1
+   29: push_int_local 1
+   30: tostring 0
+   31: push_constant_string " minutes"
+   32: join_string 2
+   33: pop_string_local 0
+   34: push_constant_string "Your opponent has been logged out for "
+   35: push_string_local 0
+   36: push_constant_string "."
+   37: push_constant_string "<br>"
+   38: push_constant_string "You may wait for them to return or end the Conquest now and be declared the winner."
+   39: join_string 5
+   40: push_constant_int 67305496
+   41: if_settext 0
+   42: return 0

@@ -1,0 +1,20 @@
+[clientscript,script_3397]
+if_settext(%varc_str279);
+def_int $int0 = 2568;
+def_int $int1 = 2569;
+if (compare(%varc_str279, "") ! 0) {
+    if_settext("Reporting: " + %varc_str279);
+    if_settrans(64159754);
+    if_settrans(64159755);
+    if_settrans(64159756);
+    if_settrans(64159757);
+    if_setonmouseover;
+} else {
+    if_settext("Report Abuse: Select Player");
+    if_settrans(64159754);
+    if_settrans(64159755);
+    if_settrans(64159756);
+    if_settrans(64159757);
+    if_setonmouseover;
+}
+return;

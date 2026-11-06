@@ -1,0 +1,30 @@
+; id: 4231
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: if_find 0
+    2: branch_if_true 1
+    3: branch 17
+    4: push_constant_int 4209
+    5: push_int_local 0
+    6: push_constant_int 0
+    7: push_constant_string "Ii"
+    8: cc_setonclick 0
+    9: push_constant_int 4209
+   10: push_int_local 0
+   11: push_constant_int 0
+   12: push_constant_string "Ii"
+   13: cc_setonhold 0
+   14: push_constant_int 4209
+   15: push_int_local 0
+   16: push_constant_int 1
+   17: push_constant_string "Ii"
+   18: cc_setonrelease 0
+   19: push_constant_int 255
+   20: cc_settrans 0
+   21: return 0

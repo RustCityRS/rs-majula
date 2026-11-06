@@ -1,0 +1,14 @@
+[clientscript,script_182](int $int0)
+def_int $int1 = ~script_179($int0);
+def_int $int2 = 0;
+if (mod($int1, 25) = 0) {
+    $int2 = div($int1, 25);
+    if ($int2 <= 1) {
+        if_setontimer;
+    } else {
+        ~script_183($int0, sub($int1, 1));
+    }
+} else {
+    ~script_183($int0, sub($int1, 1));
+}
+return;

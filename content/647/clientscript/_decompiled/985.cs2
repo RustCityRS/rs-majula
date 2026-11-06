@@ -1,0 +1,24 @@
+[clientscript,script_985](int $int0)(int, string)
+switch ($int0) {
+    case 0:
+        return(0, "Firemaking");
+    case 1:
+        return(1, "Barbarian fires");
+    case 2:
+        return(1, "Pyre ships");
+    case 3:
+        return(0, "Equipment");
+    case 4:
+        return(1, "Beacons");
+    case 5:
+        return(0, "Other");
+    case 6:
+        return(1, "Activities");
+    case 7:
+        return(0, "Dungeoneering");
+    case 8:
+        return(0, "Milestones");
+    default:
+        return(-1, "");
+}
+return(0, "");

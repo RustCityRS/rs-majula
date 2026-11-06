@@ -1,0 +1,29 @@
+[clientscript,script_530](int $int0)(int, string)
+if ($int0 = 19726410) {
+    return(%varbit4090, "Runecrafting");
+}
+if ($int0 = 19726411) {
+    return(%varbit4091, "Crafting");
+}
+if ($int0 = 19726412) {
+    return(%varbit4093, "Fletching");
+}
+if ($int0 = 19726413) {
+    return(%varbit4095, "Construction");
+}
+if ($int0 = 19726414) {
+    return(%varbit4096, "Farming");
+}
+if ($int0 = 19726415) {
+    return(%varbit4098, "Magic");
+}
+if ($int0 = 19726416) {
+    return(%varbit4100, "Smithing");
+}
+if ($int0 = 19726417) {
+    return(%varbit4101, "Cooking");
+}
+if ($int0 = 19726418) {
+    return(%varbit4102, "Herblore");
+}
+return(0, "");

@@ -1,0 +1,35 @@
+; id: 752
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 4534
+    1: branch_if_false 1
+    2: branch 7
+    3: push_varbit 4290
+    4: branch_if_false 1
+    5: branch 4
+    6: push_constant_string "---"
+    7: push_constant_int 43384875
+    8: if_settext 0
+    9: return 0
+   10: push_varbit 4290
+   11: branch_if_false 1
+   12: branch 7
+   13: push_varbit 4534
+   14: tostring 0
+   15: push_constant_string ".00"
+   16: join_string 2
+   17: push_constant_int 43384875
+   18: if_settext 0
+   19: branch 6
+   20: push_varbit 4534
+   21: tostring 0
+   22: push_constant_string ".30"
+   23: join_string 2
+   24: push_constant_int 43384875
+   25: if_settext 0
+   26: return 0

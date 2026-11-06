@@ -1,0 +1,16 @@
+[clientscript,script_4009](int $int0, int $int1, int $int2)
+if ($int1 = 1) {
+    if ($int0 = 0) {
+        if_setgraphic($int2);
+    } else {
+        if_setgraphic($int2);
+        ~script_41(69206152);
+    }
+} else {
+    if ($int0 = 0) {
+        if_setgraphic($int2);
+    }
+    if_setgraphic($int2);
+    ~script_41(69206152);
+}
+return;

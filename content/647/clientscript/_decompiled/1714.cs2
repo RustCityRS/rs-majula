@@ -1,0 +1,7 @@
+[clientscript,script_1714](int $int0, int $int1)(int)
+if (stat_base($int0) ! 0) {
+    return(calc($int1 * 100 / stat_base($int0)));
+} else {
+    return(0);
+}
+return(0);

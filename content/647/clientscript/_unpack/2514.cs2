@@ -1,0 +1,36 @@
+; id: 2514
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "0"
+    1: push_constant_int 42860555
+    2: if_settext 0
+    3: push_constant_string "0"
+    4: push_constant_int 42860604
+    5: if_settext 0
+    6: push_constant_string "0"
+    7: push_constant_int 42860596
+    8: if_settext 0
+    9: push_constant_string "0"
+   10: push_constant_int 42860588
+   11: if_settext 0
+   12: push_constant_string "0"
+   13: push_constant_int 42860613
+   14: if_settext 0
+   15: push_constant_string "0"
+   16: push_constant_int 42860618
+   17: if_settext 0
+   18: push_varc_int 839
+   19: push_constant_int 0
+   20: branch_greater_than_or_equals 1
+   21: branch 5
+   22: push_varc_int 839
+   23: push_constant_string ","
+   24: gosub_with_params 46
+   25: push_constant_int 42860621
+   26: if_settext 0
+   27: return 0

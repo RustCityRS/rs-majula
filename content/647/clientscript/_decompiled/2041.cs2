@@ -1,0 +1,74 @@
+[clientscript,script_2041]
+if_settext("Bronze: " + tostring(%varbit941));
+if (%varbit941 > 0) {
+    if_setcolour(1835052);
+    if_setcolour(1835050);
+} else {
+    if_setcolour(1835052);
+    if_setcolour(1835050);
+}
+if_settext("Iron: " + tostring(%varbit942));
+if (%varbit942 > 0) {
+    if_setcolour(1835049);
+    if_setcolour(1835047);
+} else {
+    if_setcolour(1835049);
+    if_setcolour(1835047);
+}
+if_settext("Steel: " + tostring(%varbit943));
+if (%varbit943 > 0) {
+    if_setcolour(1835046);
+    if_setcolour(1835045);
+} else {
+    if_setcolour(1835046);
+    if_setcolour(1835045);
+}
+if_settext("Mithril: " + tostring(%varbit944));
+if (%varbit944 > 0) {
+    if_setcolour(1835043);
+    if_setcolour(1835042);
+} else {
+    if_setcolour(1835043);
+    if_setcolour(1835042);
+}
+if_settext("Adamantite: " + tostring(%varbit945));
+if (%varbit945 > 0) {
+    if_setcolour(1835040);
+    if_setcolour(1835039);
+} else {
+    if_setcolour(1835040);
+    if_setcolour(1835039);
+}
+if_settext("Runite: " + tostring(%varbit946));
+if (%varbit946 > 0) {
+    if_setcolour(1835037);
+    if_setcolour(1835036);
+} else {
+    if_setcolour(1835037);
+    if_setcolour(1835036);
+}
+if_settext("Silver: " + tostring(%varbit948));
+if (%varbit948 > 0) {
+    if_setcolour(1835034);
+    if_setcolour(1835033);
+} else {
+    if_setcolour(1835034);
+    if_setcolour(1835033);
+}
+if_settext("Gold: " + tostring(%varbit947));
+if (%varbit947 > 0) {
+    if_setcolour(1835031);
+    if_setcolour(1835030);
+} else {
+    if_setcolour(1835031);
+    if_setcolour(1835030);
+}
+if_settext("Perfect Gold: " + tostring(%varbit958));
+if (%varbit958 > 0) {
+    if_setcolour(1835012);
+    if_setcolour(1835010);
+} else {
+    if_setcolour(1835012);
+    if_setcolour(1835010);
+}
+return;

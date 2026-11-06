@@ -1,0 +1,33 @@
+; id: 1482
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 73
+    1: push_constant_int 105
+    2: push_constant_int 1613
+    3: push_int_local 0
+    4: enum 0
+    5: pop_int_local 1
+    6: push_int_local 1
+    7: push_constant_int -1
+    8: branch_not 1
+    9: branch 14
+   10: push_int_local 1
+   11: push_varbit 4893
+   12: branch_not 1
+   13: branch 10
+   14: push_int_local 1
+   15: gosub_with_params 1463
+   16: push_constant_int 1483
+   17: clientclock 0
+   18: push_constant_int 15
+   19: add 0
+   20: push_constant_int -2147483645
+   21: push_constant_string "iI"
+   22: push_int_local 0
+   23: op2408 0
+   24: return 0

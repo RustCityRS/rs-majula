@@ -1,0 +1,67 @@
+[clientscript,script_490]
+def_int $int0 = ~script_488(%varbit7539);
+def_int $int1 = ~script_488(%varbit7540);
+def_int $int2 = ~script_488(%varbit7541);
+def_int $int3 = ~script_488(%varbit7542);
+def_int $int4 = ~script_489(%varbit7539);
+def_int $int5 = ~script_489(%varbit7540);
+def_int $int6 = ~script_489(%varbit7541);
+def_int $int7 = ~script_489(%varbit7542);
+if_setcolour(66519098);
+if_setcolour(66519100);
+if_setcolour(66519102);
+if_setcolour(66519104);
+if_setcolour(66519108);
+if_setcolour(66519110);
+if_setcolour(66519112);
+if_setcolour(66519114);
+if_setcolour(66519106);
+if ($int4 ! -1) {
+    if_setcolour($int4);
+}
+if ($int5 ! -1) {
+    if_setcolour($int5);
+}
+if ($int6 ! -1) {
+    if_setcolour($int6);
+}
+if ($int7 ! -1) {
+    if_setcolour($int7);
+}
+if ($int0 = -1) {
+    if_sethide(66519136);
+    if_sethide(66519137);
+} else {
+    if_sethide(66519136);
+    if_sethide(66519137);
+    if_settext("");
+    if_setgraphic(66519139);
+}
+if ($int1 = -1) {
+    if_sethide(66519130);
+    if_sethide(66519133);
+} else {
+    if_sethide(66519130);
+    if_sethide(66519133);
+    if_settext("");
+    if_setgraphic(66519131);
+}
+if ($int2 = -1) {
+    if_sethide(66519124);
+    if_sethide(66519127);
+} else {
+    if_sethide(66519124);
+    if_sethide(66519127);
+    if_settext("");
+    if_setgraphic(66519125);
+}
+if ($int3 = -1) {
+    if_sethide(66519118);
+    if_sethide(66519121);
+} else {
+    if_sethide(66519118);
+    if_sethide(66519121);
+    if_settext("");
+    if_setgraphic(66519119);
+}
+return;

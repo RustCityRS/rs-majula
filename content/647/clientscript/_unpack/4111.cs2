@@ -1,0 +1,66 @@
+; id: 4111
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_var 1108
+    1: push_constant_int 3
+    2: branch_less_than_or_equals 1
+    3: branch 25
+    4: push_constant_string "If you selected the 'Buy' option, you would see this screen. You can choose an item to buy by clicking on the indicated box."
+    5: push_constant_int 7209044
+    6: if_settext 0
+    7: push_constant_int 1
+    8: push_constant_int 7209045
+    9: if_sethide 0
+   10: push_constant_string "N/A"
+   11: push_constant_int 7208987
+   12: if_settext 0
+   13: push_constant_int 0
+   14: push_constant_int 7209028
+   15: if_sethide 0
+   16: push_constant_string "Choose an item to exchange"
+   17: push_constant_int 7208988
+   18: if_settext 0
+   19: push_constant_string "1"
+   20: push_constant_int 7208993
+   21: if_settext 0
+   22: push_constant_string "1 gp"
+   23: push_constant_int 7208998
+   24: if_settext 0
+   25: push_constant_string "1 gp"
+   26: push_constant_int 7209025
+   27: if_settext 0
+   28: branch 28
+   29: push_constant_string "You can set how many you wish to buy, and the price you're willing to pay, before clicking the 'Confirm Offer' button. We'll suggest a guide price for the item, but you can offer whatever you like."
+   30: push_constant_int 7209044
+   31: if_settext 0
+   32: push_constant_int 0
+   33: push_constant_int 7209045
+   34: if_sethide 0
+   35: push_constant_int 1381
+   36: push_constant_int 1
+   37: push_constant_int 7209045
+   38: op2205 0
+   39: push_constant_string "1,281 gp"
+   40: push_constant_int 7208987
+   41: if_settext 0
+   42: push_constant_int 1
+   43: push_constant_int 7209028
+   44: if_sethide 0
+   45: push_constant_string "Staff of air"
+   46: push_constant_int 7208988
+   47: if_settext 0
+   48: push_constant_string "2"
+   49: push_constant_int 7208993
+   50: if_settext 0
+   51: push_constant_string "1,281 gp"
+   52: push_constant_int 7208998
+   53: if_settext 0
+   54: push_constant_string "2,562 gp"
+   55: push_constant_int 7209025
+   56: if_settext 0
+   57: return 0

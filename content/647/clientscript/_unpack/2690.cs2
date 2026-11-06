@@ -1,0 +1,75 @@
+; id: 2690
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 1
+    2: push_constant_int 0
+    3: pop_int_local 2
+    4: push_constant_int 5
+    5: pop_int_local 3
+    6: push_constant_int 66977807
+    7: push_int_local 1
+    8: cc_find 0
+    9: branch_if_true 1
+   10: branch 5
+   11: push_int_local 1
+   12: push_constant_int 1
+   13: add 0
+   14: pop_int_local 1
+   15: branch -10
+   16: push_int_local 0
+   17: push_constant_int 4
+   18: branch_greater_than 1
+   19: branch 11
+   20: push_int_local 3
+   21: push_constant_int 40
+   22: add 0
+   23: pop_int_local 3
+   24: push_int_local 0
+   25: push_constant_int 5
+   26: sub 0
+   27: push_constant_int 40
+   28: multiply 0
+   29: pop_int_local 2
+   30: branch 4
+   31: push_int_local 0
+   32: push_constant_int 40
+   33: multiply 0
+   34: pop_int_local 2
+   35: push_int_local 2
+   36: push_constant_int 17
+   37: add 0
+   38: pop_int_local 2
+   39: push_constant_int 66977807
+   40: push_constant_int 5
+   41: push_int_local 1
+   42: cc_setposition 0
+   43: push_constant_int 937
+   44: cc_setgraphic 0
+   45: push_constant_int 10
+   46: push_constant_int 32
+   47: push_constant_int 0
+   48: push_constant_int 0
+   49: cc_setsize 0
+   50: push_int_local 2
+   51: push_int_local 3
+   52: push_constant_int 0
+   53: push_constant_int 0
+   54: cc_setposition2 0
+   55: push_constant_int 0
+   56: cc_sethide 0
+   57: push_constant_int 144
+   58: push_constant_int 66977807
+   59: push_int_local 1
+   60: clientclock 0
+   61: clientclock 0
+   62: push_constant_int 750
+   63: add 0
+   64: push_constant_string "Iiii"
+   65: cc_setontimer 0
+   66: return 0

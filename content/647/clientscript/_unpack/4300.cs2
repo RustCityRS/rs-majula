@@ -1,0 +1,13 @@
+; id: 4300
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: op3701 0
+    1: branch_if_true 1
+    2: branch 1
+    3: gosub_with_params 4301
+    4: return 0

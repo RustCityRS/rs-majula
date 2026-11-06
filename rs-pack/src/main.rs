@@ -1,23 +1,9 @@
 use anyhow::Result;
-#[cfg(since_647)]
-use anyhow::{Context, bail};
 use clap::{ArgAction, Parser, Subcommand};
-#[cfg(since_647)]
-use rs_pack::archive::ARCHIVE_IDS;
-#[cfg(since_647)]
-use rs_pack::openrs2;
 #[cfg(before_647)]
 use rs_pack::pyxel;
 use rs_pack::unpack;
-#[cfg(since_647)]
-use rs_pack::unpack::Domains;
-#[cfg(since_647)]
-use std::fs;
-#[cfg(since_647)]
-use std::path::Path;
 use std::path::PathBuf;
-#[cfg(since_647)]
-use std::str::from_utf8;
 use tracing_subscriber::EnvFilter;
 
 #[derive(Parser)]
@@ -44,27 +30,6 @@ enum Commands {
         #[arg(long, default_value = "true")]
         members: bool,
     },
-    /// Download the reference cache from the OpenRS2 archive into `expected/`
-    /// and check it against the archive's own reference tables and keys
-    #[cfg(since_647)]
-    Fetch {
-        /// OpenRS2 cache id (default: this revision's reference cache)
-        #[arg(long)]
-        cache: Option<u32>,
-        /// Directory to extract the dat2 cache into
-        #[arg(short, long, default_value = "expected")]
-        output: PathBuf,
-        /// Where the downloaded zip and API responses are kept
-        #[arg(long, default_value = "target/openrs2")]
-        work_dir: PathBuf,
-        /// Committed XTEA keys to compare against OpenRS2's
-        /// (default: this revision's `keys.json`)
-        #[arg(long)]
-        keys: Option<PathBuf>,
-        /// Re-download and overwrite even if `output` already holds a cache
-        #[arg(long)]
-        force: bool,
-    },
     /// Extract original JAG archives into content files for re-packing
     Unpack {
         /// Directory containing expected JAG files
@@ -78,17 +43,6 @@ enum Commands {
         /// are kept, only missing entries are added.
         #[arg(long)]
         pack: Option<PathBuf>,
-        /// Unpack only these domains, in place: any of `configs`, `maps`,
-        /// `assets`, comma-separated. Each selected `_unpack` directory is
-        /// cleared first, so it ends up a function of the cache alone.
-        #[cfg(since_647)]
-        #[arg(long)]
-        only: Option<String>,
-        /// Where a partial unpack keeps what must not land in `output`
-        /// (decompiled clientscripts, the run report)
-        #[cfg(since_647)]
-        #[arg(long, default_value = "target/unpack-work")]
-        work_dir: PathBuf,
     },
     /// Generate editable .pyxel sprite docs next to the content TGAs
     #[cfg(before_647)]
@@ -146,26 +100,17 @@ fn main() -> Result<()> {
         } => {
             let result = rs_pack::pack_all(&source, &pack, verify, members)?;
             tracing::info!(
-                "JS5 cache built at {}: {} npcs, {} objs, {} locs, {} seqs, {} enums, {} structs, {} invs, {} varbits",
-                result.cache_dir.display(),
-                result.config.npcs.count(),
-                result.config.objs.count(),
-                result.config.locs.count(),
-                result.config.seqs.count(),
-                result.config.enums.count(),
-                result.config.structs.count(),
-                result.config.invs.count(),
-                result.config.varbits.count(),
+                "JS5 cache packed in memory: {} npcs, {} objs, {} locs, {} seqs, {} enums, {} structs, {} invs, {} varbits",
+                result.store.npcs.count(),
+                result.store.objs.count(),
+                result.store.locs.count(),
+                result.store.seqs.count(),
+                result.store.enums.count(),
+                result.store.structs.count(),
+                result.store.invs.count(),
+                result.store.varbits.count(),
             );
         }
-        #[cfg(since_647)]
-        Commands::Fetch {
-            cache,
-            output,
-            work_dir,
-            keys,
-            force,
-        } => fetch(cache, &output, &work_dir, keys, force)?,
         #[cfg(before_647)]
         Commands::ToPyxel { source } => pyxel::content_to_pyxel(&source)?,
         #[cfg(before_647)]
@@ -174,104 +119,11 @@ fn main() -> Result<()> {
             expected,
             output,
             pack,
-            #[cfg(since_647)]
-            only,
-            #[cfg(since_647)]
-            work_dir,
         } => {
             let pack = pack.unwrap_or_else(|| output.join("pack"));
-            #[cfg(before_647)]
             unpack::unpack_all(&expected, &output, &pack)?;
-            #[cfg(since_647)]
-            match only {
-                None => unpack::unpack_all(&expected, &output, &pack)?,
-                Some(list) => {
-                    unpack::unpack(&expected, &output, &pack, Domains::parse(&list)?, &work_dir)?
-                }
-            }
         }
     }
 
-    Ok(())
-}
-
-#[cfg(since_647)]
-fn fetch(
-    cache: Option<u32>,
-    output: &Path,
-    work_dir: &Path,
-    keys: Option<PathBuf>,
-    force: bool,
-) -> Result<()> {
-    let id = cache
-        .or(openrs2::default_cache_id())
-        .context("this revision has no OpenRS2 reference cache; pass --cache")?;
-
-    if output.join("main_file_cache.dat2").is_file() && !force {
-        tracing::info!(
-            "{} already holds a cache; verifying it (--force re-downloads)",
-            output.display()
-        );
-    } else {
-        let zip = work_dir.join(id.to_string()).join("disk.zip");
-        if force || !zip.is_file() {
-            let url = openrs2::disk_zip_url(id);
-            tracing::info!("downloading {url}");
-            let bytes = openrs2::download_to_file(&url, &zip)?;
-            tracing::info!("  {bytes} bytes -> {}", zip.display());
-        }
-        let files = openrs2::extract_disk_zip(&zip, output)?;
-        tracing::info!("extracted {} files into {}", files.len(), output.display());
-    }
-
-    let archives = ARCHIVE_IDS;
-    let mismatches = openrs2::verify_reference_tables(output, id, archives, work_dir)?;
-    if !mismatches.is_empty() {
-        for m in &mismatches {
-            tracing::error!(
-                "  archive {:>2}: local {:?}, OpenRS2 {:#010x}",
-                m.archive,
-                m.local.map(|c| format!("{c:#010x}")),
-                m.remote
-            );
-        }
-        bail!(
-            "{} of {} reference tables in {} differ from OpenRS2 cache {id}; re-run with --force",
-            mismatches.len(),
-            archives.len(),
-            output.display()
-        );
-    }
-    tracing::info!(
-        "all {} reference tables match OpenRS2 cache {id}",
-        archives.len()
-    );
-
-    let keys = keys.unwrap_or_else(|| Path::new(rs_pack::CONTENT_DIR).join("keys.json"));
-    let local = openrs2::parse_keys(
-        &fs::read_to_string(&keys).with_context(|| format!("reading {}", keys.display()))?,
-    )?;
-    let remote = openrs2::parse_keys(from_utf8(&openrs2::get_bytes(&openrs2::keys_url(id))?)?)?;
-    // Extra local keys are expected: squares rebuilt from donor caches are
-    // re-encrypted with their committed key. Only a missing or different key
-    // means the committed file is wrong.
-    let diff = openrs2::diff_keys(&local, &remote);
-    if diff.only_remote.is_empty() && diff.different.is_empty() {
-        tracing::info!(
-            "{}: all {} OpenRS2 keys match ({} more held locally)",
-            keys.display(),
-            remote.len(),
-            diff.only_local.len()
-        );
-    } else {
-        tracing::warn!(
-            "{} vs OpenRS2 keys: {} only on OpenRS2, {} different: {:?} {:?}",
-            keys.display(),
-            diff.only_remote.len(),
-            diff.different.len(),
-            diff.only_remote,
-            diff.different
-        );
-    }
     Ok(())
 }

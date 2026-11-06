@@ -1,0 +1,10 @@
+[clientscript,script_4293](int)
+def_int $int0 = -1;
+if (clanchannel2_find_affined = 1) {
+    docheat("");
+    $int0 = clanchannel2_findname(removetags(""));
+    if ($int0 ! -1) {
+        return(clanchannel2_getuserrank($int0));
+    }
+}
+return(-1);

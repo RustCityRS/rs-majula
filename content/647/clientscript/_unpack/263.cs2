@@ -1,0 +1,50 @@
+; id: 263
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_string "None"
+    1: pop_string_local 0
+    2: push_varc_int 1109
+    3: switch 0
+    4: branch 23
+    5: push_constant_string "Worm"
+    6: pop_string_local 0
+    7: branch 20
+    8: push_constant_string "Maggot"
+    9: pop_string_local 0
+   10: branch 17
+   11: push_constant_string "Locust"
+   12: pop_string_local 0
+   13: branch 14
+   14: push_constant_string "Cricket"
+   15: pop_string_local 0
+   16: branch 11
+   17: push_constant_string "Cray"
+   18: pop_string_local 0
+   19: branch 8
+   20: push_constant_string "Shrimp"
+   21: pop_string_local 0
+   22: branch 5
+   23: push_constant_string "Green moth"
+   24: pop_string_local 0
+   25: branch 2
+   26: push_constant_string "Grey moth"
+   27: pop_string_local 0
+   28: push_string_local 0
+   29: push_constant_int 60489779
+   30: if_settext 0
+   31: return 0
+
+switch_0:
+  1 => 1
+  2 => 4
+  4 => 7
+  3 => 10
+  5 => 13
+  6 => 16
+  7 => 19
+  8 => 22

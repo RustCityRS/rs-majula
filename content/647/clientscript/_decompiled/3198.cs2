@@ -1,0 +1,27 @@
+[clientscript,script_3198](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = -1;
+def_int $int6 = 0;
+if_sethide($int3);
+if_settext("");
+if_settext("");
+if_setsize(300, 0, 0, $int2);
+switch ($int4) {
+    case 59834368:
+        $int5 = 59375669;
+        $int6 = 300;
+    case 59899904:
+        $int5 = 59375685;
+        $int6 = 122;
+    case 64159744:
+        $int5 = 59375659;
+        $int6 = 303;
+    case 59965458:
+        $int5 = 59375677;
+        $int6 = 312;
+    default:
+}
+if ($int5 ! -1) {
+    if_setsize($int6, 0, 0, $int5);
+    if_setsize($int6, 0, 0, $int4);
+}
+return;

@@ -1,0 +1,24 @@
+[clientscript,script_4521](int $int0, int $int1, int $int2, int $int3)(int, int, int, int, int, int, int, int, int, int, int, string, string, string, string)
+if ($int0 = -1) {
+    return;
+}
+cc_deleteall($int0);
+cc_setposition(0, $int0, 5, if_getchildcount($int0));
+cc_setsize(16384, 16384, 2, 2);
+cc_setposition2(0, 0, 1, 1);
+cc_setgraphic($int1);
+cc_setposition(0, $int0, 5, if_getchildcount($int0));
+cc_setsize(16384, 16384, 2, 2);
+cc_setposition2(0, 0, 1, 1);
+cc_setgraphic($int2);
+cc_settrans(255);
+cc_setonmouseover;
+cc_setonmouseleave;
+cc_setposition(1, $int0, 5, if_getchildcount($int0));
+cc_setsize(16384, 16384, 2, 2);
+cc_setposition2(0, 0, 1, 1);
+cc_setgraphic($int3);
+cc_settrans(255);
+cc_setonclick;
+cc_setonrelease;
+return(4209, -2147483645, 0, 4209, -2147483645, 4207, -2147483645, 0, 4207, -2147483645, 255, "Ii", "Ii", "Ii", "Ii");

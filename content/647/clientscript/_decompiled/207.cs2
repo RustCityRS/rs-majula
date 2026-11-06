@@ -1,0 +1,21 @@
+[clientscript,script_207](int $int0, int $int1, int $int2)(string)
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+if (oc_stackable($int2) = 0) {
+    $str2 = append($str2, "<col=ff9040>" + oc_name($int2) + " " + "<col=ffffff>" + "x " + "<col=fff000>" + tostring($int1) + "<br>");
+} else {
+    if ($int1 < 100000) {
+        $str0 = "";
+        $str2 = append($str2, "<col=ff9040>" + oc_name($int2) + "<col=ffffff>" + " x " + "<col=ffff00>" + $str0 + "<br>");
+    }
+    if ($int1 < 10000000) {
+        $str0 = "";
+        $str1 = "";
+        $str2 = append($str2, "<col=ff9040>" + oc_name($int2) + "<col=ffffff>" + " x " + "<col=ffffff>" + $str1 + "K (" + $str0 + ")" + "<br>");
+    }
+    $str0 = "";
+    $str1 = "";
+    $str2 = append($str2, "<col=ff9040>" + oc_name($int2) + "<col=ffffff>" + " x " + "<col=00ff80>" + $str1 + "M (" + $str0 + ")" + "<br>");
+}
+return($str2);

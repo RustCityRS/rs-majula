@@ -1,0 +1,48 @@
+[clientscript,script_2720](int $int0, int $int1)(int)
+$int0 = oc_uncert($int0);
+def_int $int2 = enum(111, 105, enum_731, $int0);
+if (%varp532 = 6529) {
+    if ($int2 ! -1) {
+        if ($int2 > 0) {
+            return($int2);
+        }
+    }
+}
+$int2 = enum(111, 105, enum_733, $int0);
+if ($int2 ! -1) {
+    if ($int2 > 0) {
+        return($int2);
+    }
+}
+if (oc_weight(cert_ranarr_weed) = 1) {
+    return(99000);
+}
+def_int $int3 = 130;
+def_int $int4 = 100;
+def_int $int5 = 0;
+def_int $int6 = ~script_2721($int1);
+if ($int6 = -1) {
+    return(-1);
+}
+def_int $int7 = inv_total(%varp118, $int0);
+def_int $int8 = sub($int7, $int6);
+if ($int6 = 0) {
+    $int5 = $int4;
+} else {
+    if ($int7 = 0) {
+        $int5 = $int3;
+    }
+    if ($int7 >= $int6) {
+        $int5 = $int4;
+    }
+    $int5 = sub($int3, scale(sub($int3, $int4), $int6, $int7));
+}
+if ($int5 < 0) {
+    $int5 = 0;
+}
+$int5 = max($int4, min($int3, $int5));
+$int2 = scale(oc_cost($int0), 100, $int5);
+if (%varp532 = 6529) {
+    $int2 = scale(3, 2, $int2);
+}
+return(max($int2, 1));

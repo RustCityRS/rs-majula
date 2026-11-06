@@ -1,0 +1,25 @@
+[clientscript,script_1072](int $int0, int $int1)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string, string)
+def_int $int2 = quickchat_phrase_getcmdcount($int1);
+def_int $int3 = 0;
+if ($int2 > 0) {
+    if (%varc_int134 < $int2) {
+        if (%varc_int134 < 10) {
+            $int3 = quickchat_phrase_getcmdid($int1, %varc_int134);
+            if ($int3 = 0) {
+                return(~script_1044($int1));
+            }
+            if ($int3 = 1) {
+                return(~script_1037($int1, 0));
+            }
+            if ($int3 = 10) {
+                return(~script_1037($int1, 1));
+            }
+            if ($int3 = 2) {
+                return(~script_1047($int1));
+            }
+            %varc_int134 = add(%varc_int134, 1);
+        }
+    }
+}
+~script_1077($int1);
+return;

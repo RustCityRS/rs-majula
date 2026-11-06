@@ -1,0 +1,144 @@
+[clientscript,script_3971]
+def_int $int0 = -1;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_string $str0 = "null";
+if_setgraphic(69206128);
+if (%varbit9030 = 1) {
+    if_setgraphic(69206128);
+}
+if ($int2 < 6) {
+    switch ($int2) {
+        case 0:
+            $int1 = %varbit8587;
+            $int0 = enum(105, 74, enum_3483, %varbit8587);
+            $int4 = 69206080;
+            $int9 = 69206117;
+            $int7 = 69206116;
+            $int10 = 69206115;
+            if_setonop;
+        case 1:
+            $int1 = %varbit8588;
+            $int0 = enum(105, 74, enum_3483, %varbit8588);
+            $int4 = 69206160;
+            $int9 = 69206162;
+            $int7 = 69206161;
+            $int10 = 69206158;
+            if_setonop;
+        case 2:
+            $int1 = %varbit8589;
+            $int0 = enum(105, 74, enum_3483, %varbit8589);
+            $int4 = 69206165;
+            $int9 = 69206167;
+            $int7 = 69206166;
+            $int10 = 69206163;
+            if_setonop;
+        case 3:
+            $int1 = %varbit8590;
+            $int0 = enum(105, 74, enum_3483, %varbit8590);
+            $int4 = 69206170;
+            $int9 = 69206172;
+            $int7 = 69206171;
+            $int10 = 69206168;
+            if_setonop;
+        case 4:
+            $int1 = %varbit8591;
+            $int0 = enum(105, 74, enum_3483, %varbit8591);
+            $int4 = 69206175;
+            $int9 = 69206177;
+            $int7 = 69206176;
+            $int10 = 69206173;
+            if_setonop;
+        case 5:
+            $int1 = %varbit8592;
+            $int0 = enum(105, 74, enum_3483, %varbit8592);
+            $int4 = 69206181;
+            $int9 = 69206183;
+            $int7 = 69206182;
+            $int10 = 69206178;
+            if_setonop;
+        default:
+    }
+    $str0 = " -" + "<br>";
+    $str0 = append("", $str0);
+    $str0 = append("", $str0);
+    if (%varbit4895 = 3) {
+        if (%varp281 < 1000) {
+            $str0 = "";
+        }
+    }
+    if (~script_3999($int1) = 0) {
+        if_setonmouserepeat;
+    } else {
+        if_setonmouserepeat;
+    }
+    $int12 = add($int2, 1);
+    if (%varbit8577 = $int12) {
+        if (~script_3999(%varbit8576) = 0) {
+            $int0 = enum(105, 74, enum_3483, %varbit8576);
+            if_setonop;
+            if (~script_3999($int1) = 0) {
+                if_setonmouserepeat;
+            }
+            if_setonmouserepeat;
+        }
+    }
+    if ($int0 ! -1) {
+        $int8 = enum(105, 100, enum_3492, struct_param($int0, param_1272));
+        if (~script_3996($int1) = 0) {
+            if (~script_3999($int1) = 0) {
+                $int8 = 4346;
+            }
+        }
+        if_setgraphic($int9);
+        $int5 = struct_param($int0, param_1293);
+        if ($int5 ! 0) {
+            if ($int5 ! 63) {
+                $int6 = 4272;
+            }
+        } else {
+            $int6 = -1;
+        }
+        if_setgraphic($int7);
+        if (struct_param($int0, param_1270) ! 4094) {
+            $int3 = struct_param(enum(105, 74, enum_2252, struct_param($int0, param_1270)), param_952);
+        } else {
+            $int3 = struct_param($int0, param_1271);
+        }
+        if_setgraphic($int4);
+        if ($int0 = 1645) {
+            if_setop($int10, "");
+            if_setop($int10, "");
+        }
+        if_setop($int10, "Summary");
+        if_setop($int10, "Pin/Unpin Task");
+        if (%varp281 < 1000) {
+            if_setop($int10, "");
+        }
+    }
+    $int2 = add($int2, 1);
+}
+if_sethide(69206127);
+if_sethide(69206128);
+if (%varbit8575 = 61) {
+    if_settext("Quest Area");
+    if_sethide(69206127);
+    if_sethide(69206128);
+} else {
+    if (%varbit9030 = 1) {
+        if_settext("Introductory Tasks");
+    }
+    if_settext("");
+}
+~script_3975;
+return;

@@ -1,0 +1,56 @@
+[clientscript,script_4176](int $int0, int $int1)(int)
+if ($int0 = 1) {
+    switch ($int1) {
+        case 0:
+            return(%varc_int1465);
+        case 1:
+            return(%varc_int1466);
+        case 2:
+            return(%varc_int1467);
+        case 3:
+            return(%varc_int740);
+        case 4:
+            return(%varc_int745);
+        case 5:
+            return(%varc_int780);
+        case 7:
+            return(%varc_int781);
+        case 9:
+            return(%varc_int782);
+        case 10:
+            return(%varc_int789);
+        case 12:
+            return(%varc_int1409);
+        case 13:
+            return(%varc_int1410);
+        default:
+    }
+} else {
+    switch ($int1) {
+        case 0:
+            return(%varc_int1453);
+        case 1:
+            return(%varc_int1454);
+        case 4:
+            return(%varc_int1455);
+        case 5:
+            return(%varc_int1456);
+        case 6:
+            return(%varc_int1457);
+        case 7:
+            return(%varc_int1458);
+        case 8:
+            return(%varc_int1459);
+        case 9:
+            return(%varc_int1460);
+        case 10:
+            return(%varc_int1461);
+        case 12:
+            return(%varc_int1462);
+        case 13:
+            return(%varc_int1463);
+        case 28:
+            return(%varc_int1464);
+    }
+}
+return(-1);

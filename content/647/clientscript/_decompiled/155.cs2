@@ -1,0 +1,8 @@
+[clientscript,script_155](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $str0, string $str1, string $str2, string $str3, string $str4, string $str5, string $str6, string $str7, string $str8)
+if ($int2 = -1) {
+    ~script_154($int0, $int1, $int3, $int1, $int4, $int5, $str0, $str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8);
+    return;
+}
+~script_154($int0, $int1, $int3, $int2, $int4, $int5, $str0, $str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8);
+~script_154($int0, $int2, $int3, $int1, $int4, $int5, $str0, $str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8);
+return;

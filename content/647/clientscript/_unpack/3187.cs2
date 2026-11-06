@@ -1,0 +1,25 @@
+; id: 3187
+int_param_count=7
+string_param_count=0
+long_param_count=0
+local_int_count=8
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: if_gettext 0
+    2: push_constant_int 2710
+    3: op4125 0
+    4: pop_int_local 7
+    5: push_constant_int 3188
+    6: push_int_local 0
+    7: push_int_local 2
+    8: push_int_local 7
+    9: push_int_local 3
+   10: push_int_local 4
+   11: push_int_local 5
+   12: push_int_local 6
+   13: push_constant_string "I1iIIII"
+   14: push_int_local 0
+   15: op2408 0
+   16: return 0

@@ -1,0 +1,12 @@
+[clientscript,script_4329](int $int0)
+if (push_clansetting_longvar(2) ! -1L) {
+    if_settext(long_to_base36);
+    if_setonmouseover;
+    if_setonmouseleave;
+    if_setmouseover_cursor(175, $int0);
+    if_setonclick;
+    if_setopbase;
+} else {
+    if_settext("");
+}
+return;

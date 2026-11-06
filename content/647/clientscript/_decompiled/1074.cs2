@@ -1,0 +1,26 @@
+[clientscript,script_1074](int $int0, int $int1, int $int2)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string, string)
+switch (%varc_int134) {
+    case 0:
+        %varc_int135 = $int2;
+    case 1:
+        %varc_int136 = $int2;
+    case 2:
+        %varc_int137 = $int2;
+    case 3:
+        %varc_int138 = $int2;
+    case 4:
+        %varc_int139 = $int2;
+    case 5:
+        %varc_int140 = $int2;
+    case 6:
+        %varc_int141 = $int2;
+    case 7:
+        %varc_int142 = $int2;
+    case 8:
+        %varc_int143 = $int2;
+    case 9:
+        %varc_int144 = $int2;
+    default:
+}
+%varc_int134 = add(%varc_int134, 1);
+return(~script_1072($int0, $int1));

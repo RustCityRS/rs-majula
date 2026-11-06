@@ -1,0 +1,10 @@
+[clientscript,script_2118](int $int0, int $int1)
+def_int $int2 = 0;
+if ($int2 < 7) {
+    cc_setposition(0, $int1, 3, calc($int0 * 7 + $int2));
+    cc_setsize(0, 0, 0, 0);
+    cc_setposition2(-1, -1, 0, 0);
+    cc_sethide(1);
+    $int2 = add($int2, 1);
+}
+return;

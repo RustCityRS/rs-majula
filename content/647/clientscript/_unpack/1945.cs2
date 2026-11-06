@@ -1,0 +1,27 @@
+; id: 1945
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_var 1332
+    1: push_var 1334
+    2: add 0
+    3: push_var 1337
+    4: add 0
+    5: push_constant_int 2
+    6: push_var 1333
+    7: push_var 1335
+    8: sub 0
+    9: multiply 0
+   10: add 0
+   11: pop_int_local 0
+   12: push_constant_string "Score: "
+   13: push_int_local 0
+   14: tostring 0
+   15: join_string 2
+   16: push_constant_int 52559880
+   17: if_settext 0
+   18: return 0

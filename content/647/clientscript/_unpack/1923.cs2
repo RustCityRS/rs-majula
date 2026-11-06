@@ -1,0 +1,81 @@
+; id: 1923
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 550
+    1: pop_int_local 0
+    2: push_varc_int 554
+    3: pop_int_local 1
+    4: push_varc_int 555
+    5: pop_int_local 2
+    6: push_constant_int 0
+    7: pop_int_local 3
+    8: push_int_local 0
+    9: branch_if_false 1
+   10: branch 28
+   11: push_constant_int 0
+   12: push_constant_int 5
+   13: push_int_local 1
+   14: sub 0
+   15: push_constant_int 5
+   16: op4016 0
+   17: op4017 0
+   18: pop_int_local 1
+   19: push_constant_int 0
+   20: push_constant_int 5
+   21: push_int_local 2
+   22: sub 0
+   23: push_constant_int 5
+   24: op4016 0
+   25: op4017 0
+   26: pop_int_local 2
+   27: push_int_local 1
+   28: tostring 0
+   29: push_constant_int 52690978
+   30: if_settext 0
+   31: push_int_local 2
+   32: tostring 0
+   33: push_constant_int 52690977
+   34: if_settext 0
+   35: push_constant_int 0
+   36: push_constant_int 52690946
+   37: if_sethide 0
+   38: branch 33
+   39: push_constant_int 1
+   40: push_constant_int 52690946
+   41: if_sethide 0
+   42: push_int_local 0
+   43: push_constant_int 100
+   44: mod 0
+   45: push_constant_int 0
+   46: branch_not 1
+   47: branch 2
+   48: push_constant_int 1
+   49: pop_int_local 3
+   50: push_int_local 0
+   51: push_constant_int 60
+   52: multiply 0
+   53: push_constant_int 100
+   54: div 0
+   55: push_constant_int 60
+   56: div 0
+   57: pop_int_local 0
+   58: push_int_local 3
+   59: branch_if_true 1
+   60: branch 4
+   61: push_int_local 0
+   62: push_constant_int 1
+   63: add 0
+   64: pop_int_local 0
+   65: push_constant_string "Game start : "
+   66: push_int_local 0
+   67: tostring 0
+   68: push_constant_string " mins"
+   69: join_string 3
+   70: push_constant_int 52690945
+   71: if_settext 0
+   72: return 0

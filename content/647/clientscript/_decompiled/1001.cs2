@@ -1,0 +1,22 @@
+[clientscript,script_1001](int $int0)(int, string)
+switch ($int0) {
+    case 0:
+        return(1, "Potions");
+    case 1:
+        return(1, "Herbs");
+    case 2:
+        return(1, "Barbarian potions");
+    case 3:
+        return(1, "Equipment");
+    case 4:
+        return(1, "Other");
+    case 5:
+        return(1, "Activities");
+    case 6:
+        return(1, "Dungeoneering");
+    case 7:
+        return(1, "Milestones");
+    default:
+        return(-1, "");
+}
+return(0, "");

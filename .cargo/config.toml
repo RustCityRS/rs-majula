@@ -1,6 +1,4 @@
 [alias]
-fetch-expected = "run -p rs-pack -- fetch"
-regen-content = "run --release -p rs-pack -- unpack -e expected -o content/647 --pack content/647/pack --only configs,maps,assets"
 unpack = "run -p rs-pack -- unpack -e expected -o content_unpack"
 verify = "run -p rs-pack -- verify -e expected -u content_unpack"
 pack-tga = "run -p rs-pack -- from-pyxel"

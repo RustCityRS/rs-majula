@@ -1,0 +1,12 @@
+[clientscript,script_1947]
+if (%varc_int600 < 1) {
+    if (%varc_int603 < 1) {
+        mes("The awards tab is not available for this scoring.");
+    }
+} else {
+    if_sethide(53084244);
+    if_sethide(53084245);
+    if_sethide(53084246);
+    if_sethide(53084304);
+}
+return;

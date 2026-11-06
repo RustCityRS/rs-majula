@@ -1,0 +1,20 @@
+; id: 2985
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: push_constant_string ""
+    2: push_int_local 0
+    3: op2426 0
+    4: push_constant_int 0
+    5: push_constant_int 1
+    6: push_constant_int 450
+    7: push_constant_int 450
+    8: push_constant_int 1
+    9: push_constant_int 1
+   10: op5502 0
+   11: return 0

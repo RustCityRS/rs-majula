@@ -1,0 +1,16 @@
+[clientscript,script_3130](int $int0, int $int1, int $int2, int $int3)(int, int)
+if (cc_find($int0, $int2) = 1) {
+    if (%varc_int998 = $int3) {
+        cc_setgraphic(1542);
+    }
+    cc_setgraphic(1546);
+}
+if (cc_find($int1, $int2) = 1) {
+    if_sethide(59637825);
+    if_sethide(59637826);
+    if_setposition(cc_gety, 0, 0, 59637825);
+    if_setposition(cc_gety, 0, 0, 59637826);
+}
+if_setcolour(59637826);
+if_setcolour(59637825);
+return(6316128, 4210752);

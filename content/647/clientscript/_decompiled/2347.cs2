@@ -1,0 +1,38 @@
+[clientscript,script_2347](int $int0)
+if ($int0 = 1) {
+    if (%varbit6048 >= 250) {
+        if_setcolour(47382534);
+    }
+    if (%varbit6048 = 0) {
+        if_setcolour(47382534);
+    }
+    if_setcolour(47382534);
+}
+if ($int0 = 2) {
+    if (%varbit6112 >= 60) {
+        if_setcolour(47382535);
+    }
+    if (%varbit6112 = 0) {
+        if_setcolour(47382535);
+    }
+    if_setcolour(47382535);
+}
+if ($int0 = 3) {
+    if (%varbit6289 >= 240) {
+        if_setcolour(47382536);
+    }
+    if (%varbit6289 = 0) {
+        if_setcolour(47382536);
+    }
+    if_setcolour(47382536);
+}
+if ($int0 = 4) {
+    if (%varbit6775 >= 100) {
+        if_setcolour(47382537);
+    }
+    if (%varbit6775 = 0) {
+        if_setcolour(47382537);
+    }
+    if_setcolour(47382537);
+}
+return;

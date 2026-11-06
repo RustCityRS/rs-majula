@@ -1,0 +1,22 @@
+[clientscript,script_2889]
+def_int $int0 = enum(105, 110, enum_927, %varbit7099);
+def_int $int1 = -1;
+def_int $int2 = -1;
+if ($int0 ! -1) {
+    if (nc_param($int0, param_956) ! -1) {
+        if_setmodel;
+        if_setmodelanim;
+        if_setgraphic(31195185);
+        if_settext("");
+    }
+    if (nc_param($int0, param_957) ! -1) {
+        if_setmodel;
+        if_setmodelanim;
+        if_setgraphic(31195186);
+        if_settext("");
+    }
+    if_setgraphic(31195184);
+    if_setmodel;
+    if_setmodelanim;
+}
+return;

@@ -1,0 +1,33 @@
+[clientscript,script_1616](int $int0, int $int1, int $int2, int $int3)
+if ($int0 ! $int2) {
+    return;
+}
+def_int $int4 = inv_size(inv);
+$int1 = mod($int1, $int4);
+$int3 = mod($int3, $int4);
+def_int $int5 = -1;
+def_int $int6 = 0;
+if (cc_find($int0, $int1) = 1) {
+    if (cc_find($int2, $int3) = 1) {
+        $int6 = cc_getinvcount;
+        $int5 = cc_getinvobject;
+        cc_setobject(cc_getinvobject, cc_getinvcount);
+        cc_setobject($int5, $int6);
+        cc_clearops;
+        cc_clearops;
+        if (cc_getinvobject ! -1) {
+            cc_sethide(0);
+        } else {
+            cc_setonvartransmit;
+            cc_sethide(1);
+        }
+        if (cc_find($int2, $int3) = 1) {
+            if (cc_getinvobject ! -1) {
+                cc_sethide(0);
+            }
+            cc_setonvartransmit;
+            cc_sethide(1);
+        }
+    }
+}
+return;

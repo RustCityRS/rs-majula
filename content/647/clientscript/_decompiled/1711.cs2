@@ -1,0 +1,40 @@
+[clientscript,script_1711](int $int0)(int)
+def_int $int1 = -25;
+def_int $int2 = 15;
+def_int $int3 = ~script_1695($int0);
+def_int $int4 = ~script_1696($int0);
+if ($int3 = 4) {
+    $int1 = sub(0, 25);
+} else {
+    if ($int3 = 1) {
+        $int1 = sub(0, 20);
+    }
+}
+def_int $int5 = ~script_1714($int0, ~script_1697($int0));
+def_int $int6 = ~script_1713($int0);
+def_int $int7 = ~script_1712($int0);
+def_int $int8 = 0;
+if (inv_getobj(worn, cannonball) = 19892) {
+    $int8 = 5;
+}
+if ($int6 < add($int8, 5)) {
+    if ($int4 = 4) {
+        $int6 = add($int8, 5);
+    }
+}
+if ($int7 < 10) {
+    if ($int3 = 4) {
+        if (add($int7, $int5) > sub(0, 10)) {
+            $int7 = sub(0, 10);
+        }
+    }
+} else {
+    if ($int7 < 10) {
+        if ($int3 = 1) {
+            if (add($int7, $int5) > sub(0, 10)) {
+                $int7 = sub(0, 10);
+            }
+        }
+    }
+}
+return(min(max(calc($int5 + $int6 + $int7), $int1), $int2));

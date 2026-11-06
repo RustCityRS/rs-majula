@@ -1,0 +1,14 @@
+[clientscript,script_4039](int $int0, int $int1)
+if (cc_find(12451858, $int0) = 1) {
+    if ($int1 = 1) {
+        cc_setcolour(65535);
+    }
+    if (~script_2193($int0) = 2) {
+        cc_setcolour(65280);
+    }
+    if (~script_2193($int0) = 1) {
+        cc_setcolour(16776960);
+    }
+    cc_setcolour(16711680);
+}
+return;

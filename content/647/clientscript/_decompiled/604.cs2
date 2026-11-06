@@ -1,0 +1,7 @@
+[clientscript,script_604](int, int, component, int, int, string)
+if (%varp1109 = -1) {
+    return;
+}
+%varc_int85 = max(sub(%varc_int85, 1), 1);
+if_settext(" gp");
+return(%varc_int85, char_isalpha(1), 6881433, ~script_609, ~script_609, ~script_609);

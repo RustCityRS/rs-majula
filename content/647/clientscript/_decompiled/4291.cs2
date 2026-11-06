@@ -1,0 +1,44 @@
+[clientscript,script_4291]
+op2431;
+if_setonvarctransmit;
+if_setontimer;
+op2431;
+op2432;
+if_setonvarctransmit;
+op2429;
+switch (getlanguage) {
+    case 1:
+    case 2:
+    case 3:
+    default:
+}
+~script_4328(71827817);
+if_settext(clanchannel_getname);
+if_setsize(115, 0, 0, 71827472);
+if_sethide(71827807);
+if_sethide(71827528);
+def_int $int0 = 71827458;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 218;
+def_int $int5 = 23;
+if ($int1 < 500) {
+    if (mod($int1, 2) ! 0) {
+        $int2 = $int4;
+    } else {
+        $int2 = 0;
+    }
+    $int3 = calc($int1 / 2 * $int5);
+    cc_setposition(0, $int0, 3, $int1);
+    cc_setposition2($int2, $int3, 0, 0);
+    cc_setsize(div(16384, 2), $int5, 2, 0);
+    cc_setfill(1);
+    if (calc($int1 / 2 % 2) ! 0) {
+        cc_setcolour(2302496);
+    } else {
+        cc_setcolour(1841945);
+    }
+    $int1 = add($int1, 1);
+}
+return;

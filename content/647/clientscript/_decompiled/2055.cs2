@@ -1,0 +1,2 @@
+[clientscript,script_2055](int $int0)(string)
+return(tostring(coordy($int0)) + "_" + tostring(div(coordx($int0), 64)) + "_" + tostring(div(coordz($int0), 64)) + "_" + tostring(mod(coordx($int0), 64)) + "_" + tostring(mod(coordz($int0), 64)));

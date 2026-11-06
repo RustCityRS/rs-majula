@@ -1,0 +1,13 @@
+[clientscript,script_4041]
+def_int $int0 = 0;
+if (getwindowmode < 2) {
+    if_setsize(0, 1, 1, 59375861);
+} else {
+    if_setsize(503, 0, 0, 59375861);
+}
+if (get_clientopt = 2) {
+    if (getwindowmode ! 1) {
+        if_setsize(503, 0, 0, 59375861);
+    }
+}
+return;

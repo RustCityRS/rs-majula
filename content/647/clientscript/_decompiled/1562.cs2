@@ -1,0 +1,6 @@
+[clientscript,script_1562](int, component, int, int, string, string)
+if (hud_test(49414144, -1) = 1) {
+    return;
+}
+if_setontimer;
+return(-1, 49414144, ~script_89, ~script_89, "", ~script_89);

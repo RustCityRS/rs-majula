@@ -1,0 +1,52 @@
+[clientscript,script_497]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+def_string $str3 = "";
+if (%varc_int1367 ! -1) {
+    $int0 = nc_param(%varc_int1367, param_1134);
+    if (%varc_int1368 > $int0) {
+        $str0 = "Movement: " + "<col=00c800>" + tostring(%varc_int1368) + "<col=ff981f>" + "/" + tostring($int0);
+    } else {
+        if (%varc_int1368 < $int0) {
+            $str0 = "Movement: " + "<col=c80000>" + tostring(%varc_int1368) + "<col=ff981f>" + "/" + tostring($int0);
+        }
+        $str0 = "Movement: " + tostring(%varc_int1368) + "/" + tostring($int0);
+    }
+    $int1 = nc_param(%varc_int1367, param_1135);
+    if (%varc_int1369 > $int1) {
+        $str1 = "Damage: " + "<col=00c800>" + tostring(multiply(%varc_int1369, 100)) + "<col=ff981f>" + "/" + tostring(multiply($int1, 100));
+    } else {
+        if (%varc_int1369 < $int1) {
+            $str1 = "Damage: " + "<col=c80000>" + tostring(multiply(%varc_int1369, 100)) + "<col=ff981f>" + "/" + tostring(multiply($int1, 100));
+        }
+        $str1 = "Damage: " + tostring(multiply(%varc_int1369, 100)) + "/" + tostring(multiply($int1, 100));
+    }
+    $int2 = nc_param(%varc_int1367, param_1136);
+    if (%varc_int1370 > $int2) {
+        $str2 = "Health: " + "<col=00c800>" + tostring(multiply(%varc_int1370, 100)) + "<col=ff981f>" + "/" + tostring(multiply($int2, 100));
+    } else {
+        if (%varc_int1370 < $int2) {
+            $str2 = "Health: " + "<col=c80000>" + tostring(multiply(%varc_int1370, 100)) + "<col=ff981f>" + "/" + tostring(multiply($int2, 100));
+        }
+        $str2 = "Health: " + tostring(multiply(%varc_int1370, 100)) + "/" + tostring(multiply($int2, 100));
+    }
+    $int3 = nc_param(%varc_int1367, param_1137);
+    if (%varc_int1371 > $int3) {
+        $str3 = "Range: " + "<col=00c800>" + tostring(%varc_int1371) + "<col=ff981f>" + "/" + tostring($int3);
+    } else {
+        if (%varc_int1371 < $int3) {
+            $str3 = "Range: " + "<col=c80000>" + tostring(%varc_int1371) + "<col=ff981f>" + "/" + tostring($int3);
+        }
+        $str3 = "Range: " + tostring(%varc_int1371) + "/" + tostring($int3);
+    }
+    if_settext($str0);
+    if_settext($str1);
+    if_settext($str2);
+    if_settext($str3);
+}
+return;

@@ -1,0 +1,56 @@
+; id: 775
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_var 448
+    1: switch 0
+    2: push_constant_int 36
+    3: push_constant_string "Bronze Bull Rush"
+    4: push_constant_int 12461
+    5: return 0
+    6: branch 29
+    7: push_constant_int 36
+    8: push_constant_string "Bronze Bull Rush"
+    9: push_constant_int 12461
+   10: return 0
+   11: branch 24
+   12: push_constant_int 46
+   13: push_constant_string "Iron Bull Rush"
+   14: push_constant_int 12462
+   15: return 0
+   16: branch 19
+   17: push_constant_int 56
+   18: push_constant_string "Steel Bull Rush"
+   19: push_constant_int 12463
+   20: return 0
+   21: branch 14
+   22: push_constant_int 66
+   23: push_constant_string "Mithril Bull Rush"
+   24: push_constant_int 12464
+   25: return 0
+   26: branch 9
+   27: push_constant_int 76
+   28: push_constant_string "Adamant Bull Rush"
+   29: push_constant_int 12465
+   30: return 0
+   31: branch 4
+   32: push_constant_int 86
+   33: push_constant_string "Rune Bull Rush"
+   34: push_constant_int 12466
+   35: return 0
+   36: push_constant_int 0
+   37: push_constant_string ""
+   38: push_constant_int -1
+   39: return 0
+
+switch_0:
+  12073 => 5
+  12075 => 10
+  12077 => 15
+  12079 => 20
+  12081 => 25
+  12083 => 30

@@ -1,0 +1,15 @@
+; id: 247
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_string_old 24
+    1: push_constant_int 2
+    2: push_int_local 0
+    3: push_int_local 1
+    4: gosub_with_params 74
+    5: pop_varc_string_old 24
+    6: return 0

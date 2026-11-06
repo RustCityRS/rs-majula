@@ -1,0 +1,32 @@
+[clientscript,script_2847](int $int0)
+def_int $int1 = 308;
+def_int $int2 = 55;
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount(enum_903);
+define_array(105, $int4);
+%array0 = pop_array_int(0, 5);
+%array0 = pop_array_int(1, 8);
+%array0 = pop_array_int(2, 2);
+%array0 = pop_array_int(3, 0);
+%array0 = pop_array_int(4, 4);
+%array0 = pop_array_int(5, 1);
+%array0 = pop_array_int(6, 3);
+%array0 = pop_array_int(7, 7);
+%array0 = pop_array_int(8, 6);
+if ($int3 < $int4) {
+    if (cc_find($int0, push_array_int(0, $int3)) = 1) {
+        cc_setposition2($int1, $int2, 0, 0);
+    }
+    $int3 = add($int3, 1);
+    if ($int3 = 3) {
+        $int1 = add(308, 48);
+        $int2 = 55;
+    } else {
+        if ($int3 = 6) {
+            $int1 = add(308, 96);
+            $int2 = 55;
+        }
+        $int2 = add(48, $int2);
+    }
+}
+return;

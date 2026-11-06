@@ -1,0 +1,68 @@
+; id: 3284
+int_param_count=4
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 61
+    1: push_constant_int 10
+    2: push_int_local 0
+    3: push_constant_int 1
+    4: sub 0
+    5: multiply 0
+    6: add 0
+    7: pop_int_local 4
+    8: push_constant_int 8809
+    9: push_constant_int 1
+   10: push_constant_int 0
+   11: sound_synth 0
+   12: push_constant_int 0
+   13: push_int_local 4
+   14: push_constant_int 0
+   15: push_constant_int 0
+   16: push_int_local 1
+   17: if_setposition 0
+   18: push_int_local 0
+   19: tostring 0
+   20: push_int_local 2
+   21: if_settext 0
+   22: push_constant_int 105
+   23: push_constant_int 105
+   24: push_constant_int 1264
+   25: push_int_local 0
+   26: enum 0
+   27: switch 0
+   28: branch 20
+   29: push_constant_string "Frozen"
+   30: push_int_local 3
+   31: if_settext 0
+   32: branch 19
+   33: push_constant_string "Abandoned"
+   34: push_int_local 3
+   35: if_settext 0
+   36: branch 15
+   37: push_constant_string "Furnished"
+   38: push_int_local 3
+   39: if_settext 0
+   40: branch 11
+   41: push_constant_string "Occult"
+   42: push_int_local 3
+   43: if_settext 0
+   44: branch 7
+   45: push_constant_string "Warped"
+   46: push_int_local 3
+   47: if_settext 0
+   48: branch 3
+   49: push_constant_string "Dungeon"
+   50: push_int_local 3
+   51: if_settext 0
+   52: return 0
+
+switch_0:
+  1 => 1
+  2 => 5
+  3 => 9
+  4 => 13
+  5 => 17

@@ -1,0 +1,7 @@
+[clientscript,script_4328](int $int0)
+if (push_clansetting_var = 0) {
+    if_setgraphic($int0);
+} else {
+    if_setgraphic($int0);
+}
+return;

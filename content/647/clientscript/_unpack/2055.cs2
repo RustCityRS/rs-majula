@@ -1,0 +1,39 @@
+; id: 2055
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op3310 0
+    2: tostring 0
+    3: push_constant_string "_"
+    4: push_int_local 0
+    5: op3309 0
+    6: push_constant_int 64
+    7: div 0
+    8: tostring 0
+    9: push_constant_string "_"
+   10: push_int_local 0
+   11: op3311 0
+   12: push_constant_int 64
+   13: div 0
+   14: tostring 0
+   15: push_constant_string "_"
+   16: push_int_local 0
+   17: op3309 0
+   18: push_constant_int 64
+   19: mod 0
+   20: tostring 0
+   21: push_constant_string "_"
+   22: push_int_local 0
+   23: op3311 0
+   24: push_constant_int 64
+   25: mod 0
+   26: tostring 0
+   27: join_string 9
+   28: return 0
+   29: push_constant_string ""
+   30: return 0

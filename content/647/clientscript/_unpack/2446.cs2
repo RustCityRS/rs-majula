@@ -1,0 +1,158 @@
+; id: 2446
+int_param_count=0
+string_param_count=1
+long_param_count=0
+local_int_count=0
+local_string_count=2
+local_long_count=0
+
+    0: push_string_local 0
+    1: lowercase 0
+    2: pop_string_local 1
+    3: push_string_local 1
+    4: push_constant_string "all your base are belong to us"
+    5: compare 0
+    6: branch_if_false 1
+    7: branch 3
+    8: push_constant_string "orly?"
+    9: return 0
+   10: branch 135
+   11: push_string_local 1
+   12: push_constant_string "orly"
+   13: compare 0
+   14: branch_if_false 1
+   15: branch 3
+   16: push_constant_string "yarly"
+   17: return 0
+   18: branch 127
+   19: push_string_local 1
+   20: push_constant_string "bangin'"
+   21: compare 0
+   22: branch_if_false 1
+   23: branch 3
+   24: push_constant_string "donk"
+   25: return 0
+   26: branch 119
+   27: push_string_local 1
+   28: push_constant_string "murder"
+   29: compare 0
+   30: branch_if_false 5
+   31: push_string_local 1
+   32: push_constant_string "redrum"
+   33: compare 0
+   34: branch_if_false 1
+   35: branch 3
+   36: push_constant_string "All rest and no play makes Guthix a dull boy."
+   37: return 0
+   38: branch 107
+   39: push_string_local 1
+   40: push_constant_string "humperdinck"
+   41: compare 0
+   42: branch_if_false 5
+   43: push_string_local 1
+   44: push_constant_string "humperdink"
+   45: compare 0
+   46: branch_if_false 1
+   47: branch 3
+   48: push_constant_string "Have fun storming the castle!"
+   49: return 0
+   50: branch 95
+   51: push_string_local 1
+   52: push_constant_string "i am your father"
+   53: compare 0
+   54: branch_if_false 1
+   55: branch 3
+   56: push_constant_string "Nooooooooooooooooooooooooo!"
+   57: return 0
+   58: branch 87
+   59: push_string_local 1
+   60: push_constant_string "i'll be back"
+   61: compare 0
+   62: branch_if_false 1
+   63: branch 3
+   64: push_constant_string "Come with me if you want to live."
+   65: return 0
+   66: branch 79
+   67: push_string_local 1
+   68: push_constant_string "there is no spoon"
+   69: compare 0
+   70: branch_if_false 1
+   71: branch 3
+   72: push_constant_string "Then you will see, it is not the spoon that bends, it is only yourself."
+   73: return 0
+   74: branch 71
+   75: push_string_local 1
+   76: push_constant_string "milton waddams"
+   77: compare 0
+   78: branch_if_false 1
+   79: branch 3
+   80: push_constant_string "The ratio of people to cake is too big."
+   81: return 0
+   82: branch 63
+   83: push_string_local 1
+   84: push_constant_string "you fight like a dairy farmer"
+   85: compare 0
+   86: branch_if_false 1
+   87: branch 3
+   88: push_constant_string "How appropriate. You fight like a cow."
+   89: return 0
+   90: branch 55
+   91: push_string_local 1
+   92: push_constant_string "finish the fight"
+   93: compare 0
+   94: branch_if_false 1
+   95: branch 3
+   96: push_constant_string "They must love the smell of hero."
+   97: return 0
+   98: branch 47
+   99: push_string_local 1
+  100: push_constant_string "r.i.p. runescape"
+  101: compare 0
+  102: branch_if_false 1
+  103: branch 3
+  104: push_constant_string "Wanna bet?"
+  105: return 0
+  106: branch 39
+  107: push_string_local 1
+  108: push_constant_string "penso, logo existo"
+  109: compare 0
+  110: branch_if_false 1
+  111: branch 3
+  112: push_constant_string "Borboletas salpicadas de goiabada..."
+  113: return 0
+  114: branch 31
+  115: push_string_local 1
+  116: push_constant_string "le temps passe"
+  117: compare 0
+  118: branch_if_false 1
+  119: branch 3
+  120: push_constant_string "L'�uf dur."
+  121: return 0
+  122: branch 23
+  123: push_string_local 1
+  124: push_constant_string "paul"
+  125: compare 0
+  126: branch_if_false 1
+  127: branch 3
+  128: push_constant_string "Rargh, I'm a lava monster!"
+  129: return 0
+  130: branch 15
+  131: push_string_local 1
+  132: push_constant_string "andrew"
+  133: compare 0
+  134: branch_if_false 1
+  135: branch 3
+  136: push_constant_string "Cabbage."
+  137: return 0
+  138: branch 7
+  139: push_string_local 1
+  140: push_constant_string "sevga"
+  141: compare 0
+  142: branch_if_false 1
+  143: branch 2
+  144: push_constant_string "Marmaros had a close encounter with a prayer-eating behemoth."
+  145: return 0
+  146: push_string_local 0
+  147: return 0
+  148: push_constant_string ""
+  149: return 0

@@ -1,0 +1,12 @@
+[clientscript,script_3235]
+def_int $int0 = 39059498;
+if (login_getint = 1) {
+    $int0 = 63897650;
+}
+if (%varc_int200 > 0) {
+    if_setonclick;
+    if_setontimer;
+    login_void;
+    ~script_2954;
+}
+return;

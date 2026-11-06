@@ -1,0 +1,41 @@
+[clientscript,script_3677](int $int0, int $int1)(int)
+def_int $int2 = 0;
+switch ($int0) {
+    case 65929230:
+        $int2 = %varc_int1336;
+    case 65929231:
+        $int2 = %varc_int1337;
+    case 65929232:
+        $int2 = %varc_int1338;
+    case 65929233:
+        $int2 = %varc_int1339;
+    case 65929234:
+        $int2 = %varc_int1340;
+    case 65929235:
+        $int2 = %varc_int1341;
+    case 65929236:
+        $int2 = %varc_int1342;
+    case 65929237:
+        $int2 = %varc_int1343;
+    case 65929238:
+        $int2 = %varc_int1344;
+    case 65929239:
+        $int2 = %varc_int1345;
+    case 65929240:
+        $int2 = %varc_int1346;
+    case 65929241:
+        $int2 = %varc_int1347;
+    case 65929242:
+        $int2 = %varc_int1348;
+    case 65929243:
+        $int2 = %varc_int1349;
+    case 65929244:
+        $int2 = %varc_int1350;
+    case 65929245:
+        $int2 = %varc_int1351;
+    default:
+}
+def_string $str0 = "Current price: " + ~script_940($int2) + " gp";
+if_getlayer;
+~script_569($int1, 65929264, 25, 65929264, if_getwidth, $str0);
+return($int0);

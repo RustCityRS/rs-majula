@@ -1,0 +1,27 @@
+; id: 406
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op2609 0
+    2: push_constant_int 0
+    3: branch_greater_than 1
+    4: branch 9
+    5: push_int_local 0
+    6: op2609 0
+    7: push_constant_int 1
+    8: sub 0
+    9: push_constant_int 0
+   10: op4017 0
+   11: push_int_local 0
+   12: op2103 0
+   13: branch 4
+   14: push_constant_int -1
+   15: push_constant_string ""
+   16: push_int_local 0
+   17: op2408 0
+   18: return 0

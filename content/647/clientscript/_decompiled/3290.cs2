@@ -1,0 +1,68 @@
+[clientscript,script_3290](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string, string)
+def_int $int9 = if_getscrollheight;
+def_int $int10 = if_getheight;
+def_int $int11 = sub($int10, 32);
+def_int $int12 = 0;
+if ($int9 > 0) {
+    $int12 = scale($int10, $int9, $int11);
+} else {
+    $int12 = $int11;
+}
+$int12 = max($int12, 10);
+def_int $int13 = if_getscrolly;
+def_int $int14 = 0;
+def_int $int15 = 0;
+if ($int13 > 0) {
+    $int14 = sub($int1, if_getheight);
+    if ($int14 = 0) {
+        $int14 = 1;
+    }
+    if ($int13 > $int14) {
+        if_setscrollpos($int14, $int1);
+        if_setscrollpos($int14, $int2);
+        $int13 = $int14;
+    }
+    $int15 = scale($int13, $int14, sub($int11, $int12));
+    $int15 = min(max($int15, 0), sub($int11, $int12));
+}
+cc_setposition(0, $int0, 5, 0);
+cc_setposition2(0, 16, 0, 0);
+cc_setsize(16, 32, 0, 1);
+cc_setgraphic($int3);
+cc_settiling;
+cc_setonclick;
+cc_setposition(-2147483646, $int0, 5, 1);
+cc_setposition2(0, add(16, $int15), 0, 0);
+cc_setgraphic($int5);
+cc_settiling;
+cc_setdraggable($int0, 0);
+cc_setdragdeadzone;
+cc_setsize(16, $int12, 0, 0);
+cc_setondrag;
+cc_setondragcomplete;
+cc_setposition(1, $int0, 5, 2);
+cc_setposition2(0, add(16, $int15), 0, 0);
+cc_setsize(16, 5, 0, 0);
+cc_setgraphic($int4);
+cc_settiling;
+cc_setposition(0, $int0, 5, 3);
+cc_setposition2(0, calc(16 + $int15 + $int12 - 5), 0, 0);
+cc_setsize(16, 5, 0, 0);
+cc_setgraphic($int6);
+cc_settiling;
+cc_setposition(0, $int0, 5, 4);
+cc_setposition2(0, 0, 0, 0);
+cc_setsize(16, 16, 0, 0);
+cc_setgraphic($int7);
+cc_settiling;
+cc_setonhold;
+cc_setposition($int2, $int0, 5, 5);
+cc_setposition2(0, 0, 0, 2);
+cc_setsize(16, 16, 0, 0);
+cc_setgraphic($int8);
+cc_settiling;
+cc_setonhold;
+if_setonscrollwheel;
+if_setonscrollwheel;
+if_setonscrollwheel;
+return(1, 3293, $int0, $int1, $int2, 1, 1, 3294, $int0, $int1, $int2, -2147483646, 0, 3294, $int0, $int1, $int2, -2147483646, 0, 3291, $int0, $int1, 0, 3292, $int0, $int1, $int2, 3295, $int0, $int1, $int2, -2147483646, $int0, 3295, $int0, $int1, $int2, -2147483646, $int1, 3295, $int0, $int1, $int2, -2147483646, $int2, "IIIi", "IIIi1", "IIIi1", "III", "III", "IIIi", "IIIi", "IIIi");

@@ -1,0 +1,59 @@
+; id: 3428
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 18739
+    1: push_constant_int -1
+    2: push_constant_int 64552989
+    3: if_setobject 0
+    4: push_constant_int 1
+    5: push_constant_int 64552989
+    6: op2116 0
+    7: push_constant_int 3355443
+    8: push_constant_int 64552989
+    9: op2117 0
+   10: push_constant_int 18740
+   11: push_constant_int -1
+   12: push_constant_int 64553025
+   13: if_setobject 0
+   14: push_constant_int 1
+   15: push_constant_int 64553025
+   16: op2116 0
+   17: push_constant_int 3355443
+   18: push_constant_int 64553025
+   19: op2117 0
+   20: push_constant_int 18741
+   21: push_constant_int -1
+   22: push_constant_int 64553024
+   23: if_setobject 0
+   24: push_constant_int 1
+   25: push_constant_int 64553024
+   26: op2116 0
+   27: push_constant_int 3355443
+   28: push_constant_int 64553024
+   29: op2117 0
+   30: push_constant_int 18742
+   31: push_constant_int -1
+   32: push_constant_int 64553023
+   33: if_setobject 0
+   34: push_constant_int 1
+   35: push_constant_int 64553023
+   36: op2116 0
+   37: push_constant_int 3355443
+   38: push_constant_int 64553023
+   39: op2117 0
+   40: push_constant_int 18743
+   41: push_constant_int -1
+   42: push_constant_int 64553022
+   43: if_setobject 0
+   44: push_constant_int 1
+   45: push_constant_int 64553022
+   46: op2116 0
+   47: push_constant_int 3355443
+   48: push_constant_int 64553022
+   49: op2117 0
+   50: return 0

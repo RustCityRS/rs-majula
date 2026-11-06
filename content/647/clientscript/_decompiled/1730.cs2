@@ -1,0 +1,11 @@
+[clientscript,script_1730](int $int0, int $int1)
+if ($int1 = -1) {
+}
+if (cc_find($int0, $int1) = 1) {
+    if (%varc_int198 ! 1) {
+        cc_sethide(0);
+        %varc_int198 = 1;
+        cc_setontimer;
+    }
+}
+return;

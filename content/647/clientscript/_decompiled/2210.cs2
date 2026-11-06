@@ -1,0 +1,6 @@
+[clientscript,script_2210]
+if (if_getx < 200) {
+    if_setontimer;
+    if_setposition(if_gety, 0, 0, %varc_int1136);
+}
+return;

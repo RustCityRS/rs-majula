@@ -1,0 +1,4 @@
+[clientscript,script_801](int $int0, int $int1)(int, int)
+if_setcolour($int0);
+if_settext(tostring(stat($int1)));
+return(~script_805($int1), $int0);

@@ -1,0 +1,10 @@
+[clientscript,script_4094](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = ~script_3365(48889983);
+def_int $int7 = ~script_3366(48889983);
+def_int $int8 = if_gethide;
+if ($int6 ! $int3) {
+    if (cc_find($int1, $int2) = 1) {
+    }
+}
+~script_4096($int1);
+return;

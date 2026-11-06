@@ -1,0 +1,48 @@
+; id: 3056
+int_param_count=1
+string_param_count=2
+long_param_count=0
+local_int_count=1
+local_string_count=2
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 30
+    3: push_string_local 1
+    4: op4119 0
+    5: friend_test 0
+    6: branch_if_false 1
+    7: branch 3
+    8: push_string_local 1
+    9: op4119 0
+   10: op3605 0
+   11: branch 21
+   12: push_string_local 1
+   13: op4119 0
+   14: friend_test 0
+   15: branch_if_false 1
+   16: branch 3
+   17: push_string_local 1
+   18: op4119 0
+   19: op3607 0
+   20: branch 12
+   21: push_constant_string "Send message to "
+   22: push_string_local 0
+   23: join_string 2
+   24: push_constant_string ""
+   25: push_constant_int 0
+   26: push_string_local 1
+   27: push_constant_string ""
+   28: gosub_with_params 3015
+   29: branch 3
+   30: push_string_local 0
+   31: push_constant_int 0
+   32: gosub_with_params 3177
+   33: return 0
+
+switch_0:
+  1 => 1
+  2 => 10
+  3 => 19
+  5 => 28

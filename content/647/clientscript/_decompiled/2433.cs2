@@ -1,0 +1,10 @@
+[clientscript,script_2433]
+if (~script_1431 = 0) {
+    return;
+}
+if (getwindowmode < 2) {
+    if_settext(%varc_str148);
+} else {
+    if_settext(%varc_str148);
+}
+return;

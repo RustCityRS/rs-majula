@@ -1,0 +1,36 @@
+[clientscript,script_1230]
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = 0;
+if ($int3 < 16) {
+    $int0 = inv_getobj(inv_308, $int3);
+    switch ($int0) {
+        case 556:
+        case 6422:
+            $int1 = 8975;
+        case 555:
+        case 6424:
+            $int1 = 8987;
+        case 557:
+        case 6426:
+            $int1 = 8979;
+        case 554:
+        case 6428:
+            $int1 = 8980;
+        default:
+            $int1 = -1;
+    }
+    $int2 = enum(105, 73, enum_2273, $int3);
+    if (if_find($int2) = 1) {
+        cc_setmodel($int1);
+    }
+    if ($int0 = 6422) {
+        $int2 = enum(105, 73, enum_2276, $int3);
+        if (if_find($int2) = 1) {
+            cc_setcolour(4456448);
+        }
+    }
+    $int3 = add($int3, 1);
+}
+return;

@@ -1,0 +1,38 @@
+; id: 2319
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 8348
+    1: branch_if_true 1
+    2: branch 13
+    3: push_constant_int 1
+    4: push_constant_int 49938432
+    5: if_sethide 0
+    6: push_constant_int 1
+    7: push_constant_int 50003968
+    8: if_sethide 0
+    9: push_constant_int 0
+   10: push_constant_int 43712512
+   11: if_sethide 0
+   12: push_constant_int 0
+   13: push_constant_int 50003969
+   14: if_sethide 0
+   15: branch 12
+   16: push_constant_int 0
+   17: push_constant_int 49938432
+   18: if_sethide 0
+   19: push_constant_int 0
+   20: push_constant_int 50003968
+   21: if_sethide 0
+   22: push_constant_int 1
+   23: push_constant_int 43712512
+   24: if_sethide 0
+   25: push_constant_int 1
+   26: push_constant_int 50003969
+   27: if_sethide 0
+   28: gosub_with_params 722
+   29: return 0

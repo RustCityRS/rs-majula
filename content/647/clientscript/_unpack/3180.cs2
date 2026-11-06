@@ -1,0 +1,25 @@
+; id: 3180
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 3181
+    1: push_constant_int 59375685
+    2: op3112 0
+    3: push_constant_int 1
+    4: push_constant_int 59375650
+    5: if_sethide 0
+    6: push_constant_int 105
+    7: push_constant_int 73
+    8: push_constant_int 941
+    9: push_constant_int 5
+   10: enum 0
+   11: if_gethide 0
+   12: branch_if_false 1
+   13: branch 2
+   14: push_constant_int 1
+   15: gosub_with_params 3161
+   16: return 0

@@ -1,0 +1,5 @@
+[clientscript,script_335](int $int0, int $int1, int $int2, int $int3)(int, int)
+def_int $int4 = ~script_338($int3);
+def_int $int5 = calc($int2 * 1000 / $int4);
+def_int $int6 = sub($int2, $int5);
+return(add($int0, $int5), add($int1, $int6));

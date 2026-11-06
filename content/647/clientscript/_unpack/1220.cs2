@@ -1,0 +1,25 @@
+; id: 1220
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: op6117 0
+    1: branch_if_true 1
+    2: branch 7
+    3: push_constant_int 4086
+    4: push_int_local 1
+    5: if_setgraphic 0
+    6: push_constant_int 4084
+    7: push_int_local 0
+    8: if_setgraphic 0
+    9: branch 6
+   10: push_constant_int 4086
+   11: push_int_local 0
+   12: if_setgraphic 0
+   13: push_constant_int 4084
+   14: push_int_local 1
+   15: if_setgraphic 0
+   16: return 0

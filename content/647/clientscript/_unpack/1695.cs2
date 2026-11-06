@@ -1,0 +1,104 @@
+; id: 1695
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 84
+    3: push_varbit 6852
+    4: push_constant_int 0
+    5: branch_greater_than 1
+    6: branch 3
+    7: push_constant_int 4
+    8: return 0
+    9: branch 9
+   10: push_varbit 6847
+   11: push_constant_int 0
+   12: branch_greater_than 1
+   13: branch 3
+   14: push_constant_int 1
+   15: return 0
+   16: branch 2
+   17: push_constant_int 0
+   18: return 0
+   19: branch 67
+   20: push_varbit 6853
+   21: push_constant_int 0
+   22: branch_greater_than 1
+   23: branch 3
+   24: push_constant_int 4
+   25: return 0
+   26: branch 9
+   27: push_varbit 6848
+   28: push_constant_int 0
+   29: branch_greater_than 1
+   30: branch 3
+   31: push_constant_int 1
+   32: return 0
+   33: branch 2
+   34: push_constant_int 0
+   35: return 0
+   36: branch 50
+   37: push_varbit 6854
+   38: push_constant_int 0
+   39: branch_greater_than 1
+   40: branch 3
+   41: push_constant_int 4
+   42: return 0
+   43: branch 9
+   44: push_varbit 6849
+   45: push_constant_int 0
+   46: branch_greater_than 1
+   47: branch 3
+   48: push_constant_int 1
+   49: return 0
+   50: branch 2
+   51: push_constant_int 0
+   52: return 0
+   53: branch 33
+   54: push_varbit 6855
+   55: push_constant_int 0
+   56: branch_greater_than 1
+   57: branch 3
+   58: push_constant_int 4
+   59: return 0
+   60: branch 9
+   61: push_varbit 6850
+   62: push_constant_int 0
+   63: branch_greater_than 1
+   64: branch 3
+   65: push_constant_int 1
+   66: return 0
+   67: branch 2
+   68: push_constant_int 0
+   69: return 0
+   70: branch 16
+   71: push_varbit 6856
+   72: push_constant_int 0
+   73: branch_greater_than 1
+   74: branch 3
+   75: push_constant_int 4
+   76: return 0
+   77: branch 9
+   78: push_varbit 6851
+   79: push_constant_int 0
+   80: branch_greater_than 1
+   81: branch 3
+   82: push_constant_int 1
+   83: return 0
+   84: branch 2
+   85: push_constant_int 0
+   86: return 0
+   87: push_constant_int 0
+   88: return 0
+
+switch_0:
+  0 => 1
+  2 => 18
+  1 => 35
+  4 => 52
+  6 => 69

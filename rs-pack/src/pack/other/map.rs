@@ -2,6 +2,8 @@
 use super::worldmap::WorldmapBuilder;
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 use crate::cache::map::TerrainTile;
 #[cfg(since_647)]
 use crate::cache::map::{
@@ -11,13 +13,11 @@ use crate::cache::map::{
 #[cfg(since_647)]
 use crate::pack::js5::prepare_group;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, group_version, stamp_path, write_archive};
+use crate::pack::js5::{PreparedGroup, group_version, insert_archive};
 #[cfg(since_647)]
 use crate::pack::pack_registry::PackFile;
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
-use crate::startup::{file_mtime, is_up_to_date, max_of, newest_mtime, write_stamp};
 #[cfg(before_647)]
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
 #[cfg(before_647)]
@@ -37,11 +37,11 @@ use rs_io::crc;
 #[cfg(since_647)]
 use rs_io::js5::compression::{CompressionType, Container, compress_xtea};
 #[cfg(since_647)]
+use rs_io::js5::compute_group_crc;
+#[cfg(since_647)]
 use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
 use rs_io::js5::reference::FileInfo;
-#[cfg(since_647)]
-use rs_io::js5::{Js5Store, compute_group_crc};
 #[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
@@ -533,28 +533,26 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 }
 
 #[cfg(since_647)]
-pub fn pack_spawns(map_dirs: &[PathBuf], server_dir: &Path) -> Result<()> {
+pub fn pack_spawns(map_dirs: &[PathBuf]) -> Result<PackedData> {
     let entries = collect(map_dirs, 'n', is_npc_spawns, |text| {
         let spawns = parse_npc_spawn_text(text);
         (!spawns.is_empty()).then(|| encode_npc_spawn_binary(&spawns))
     })?;
-    save(&entries, server_dir, "map")?;
     info!("  {} NPC spawn regions packed", entries.len());
-    Ok(())
+    Ok(pack_spawn_entries(&entries))
 }
 
 /// Pack global ground-item spawns. Same on-disk container shape as the NPC
 /// packer; the engine merges these as the `o` mapsquare layer and loads them
 /// as `EntityLifeTime::Respawn` objs.
 #[cfg(since_647)]
-pub fn pack_obj_spawns(map_dirs: &[PathBuf], server_dir: &Path) -> Result<()> {
+pub fn pack_obj_spawns(map_dirs: &[PathBuf]) -> Result<PackedData> {
     let entries = collect(map_dirs, 'o', is_obj_spawns, |text| {
         let spawns = parse_obj_spawn_text(text);
         (!spawns.is_empty()).then(|| encode_obj_spawn_binary(&spawns))
     })?;
-    save(&entries, server_dir, "objspawn")?;
     info!("  {} obj spawn regions packed", entries.len());
-    Ok(())
+    Ok(pack_spawn_entries(&entries))
 }
 
 #[cfg(since_647)]
@@ -588,7 +586,7 @@ fn collect(
 }
 
 #[cfg(since_647)]
-fn save(entries: &[Entry], server_dir: &Path, stem: &str) -> Result<()> {
+fn pack_spawn_entries(entries: &[Entry]) -> PackedData {
     let mut packed = PackedData::new(entries.len() as u32);
     for (mx, mz, binary) in entries {
         packed.start_entry();
@@ -597,17 +595,15 @@ fn save(entries: &[Entry], server_dir: &Path, stem: &str) -> Result<()> {
         packed.dat.extend_from_slice(binary);
         packed.finish_entry_raw();
     }
-    packed.save(server_dir, stem)
+    packed
 }
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
     let aid = archive::MAPS;
     let format = archive::archive_format(aid).unwrap();
@@ -615,23 +611,11 @@ pub fn pack_archive(
     // holds them; text squares may come from any source directory.
     let map_dir = content_dir.join("maps").join("_unpack");
     let map_dirs = source_dirs(content_dir);
-
-    let maps_stamp = stamp_path(output_dir, aid);
-    let mut maps_inputs: Vec<_> = map_dirs.iter().map(|dir| newest_mtime(dir, &[])).collect();
-    maps_inputs.push(file_mtime(&pack_dir.join("map.pack")));
-    let maps_input = max_of(&maps_inputs);
-    if !force_rebuild && is_up_to_date(&maps_stamp, maps_input) {
-        info!(
-            "  archive {:>2} ({}) -- up to date, skipping",
-            aid, format.content_dir
-        );
-        return Ok(());
-    }
+    let sources = squares(&map_dirs);
 
     let map_pack = PackFile::load(&pack_dir.join("map.pack")).unwrap_or_else(|_| PackFile::empty());
 
-    let keys_path = output_dir.join("keys.json");
-    let keys_candidates = [keys_path.clone(), content_dir.join("keys.json")];
+    let keys_candidates = [content_dir.join("keys.json")];
     let xtea_keys = if let Some(path) = keys_candidates.iter().find(|p| p.exists()) {
         load_xtea_keys(path).unwrap_or_default()
     } else {
@@ -656,11 +640,11 @@ pub fn pack_archive(
             let is_npc = is_npc_spawns(name);
 
             let (raw, crc) = if is_landscape {
-                let text_path = find_square(&map_dirs, name);
+                let text_path = sources.get(name);
                 let encrypted_path = map_dir.join(format!("encrypted/{}.bin", gid));
 
                 if let Some(text_path) = text_path {
-                    let text = fs::read_to_string(&text_path).ok()?;
+                    let text = fs::read_to_string(text_path).ok()?;
                     let locs = parse_landscape_text(&text);
                     let binary = encode_landscape_binary(&locs);
                     let key = xtea_keys.get(&name_hash).copied().unwrap_or([0; 4]);
@@ -680,14 +664,14 @@ pub fn pack_archive(
                     return None;
                 }
             } else if is_npc {
-                let text_path = find_square(&map_dirs, name)?;
-                let text = fs::read_to_string(&text_path).ok()?;
+                let text_path = sources.get(name)?;
+                let text = fs::read_to_string(text_path).ok()?;
                 let spawns = parse_npc_spawn_text(&text);
                 let binary = encode_npc_spawn_binary(&spawns);
                 prepare_group(aid, *gid, &binary, version, false).ok()?
             } else {
-                let text_path = find_square(&map_dirs, name)?;
-                let text = fs::read_to_string(&text_path).ok()?;
+                let text_path = sources.get(name)?;
+                let text = fs::read_to_string(text_path).ok()?;
                 let terrain = parse_terrain_text(&text);
                 let binary = encode_terrain_binary(&terrain);
                 prepare_group(aid, *gid, &binary, version, false).ok()?
@@ -709,7 +693,7 @@ pub fn pack_archive(
         })
         .collect();
 
-    write_archive(
+    insert_archive(
         store,
         aid,
         format,
@@ -717,7 +701,7 @@ pub fn pack_archive(
         prepared,
         "from text→binary encode",
     )?;
-    write_stamp(&maps_stamp)?;
+
     Ok(())
 }
 
@@ -771,8 +755,15 @@ pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
         let Ok(entries) = fs::read_dir(dir) else {
             continue;
         };
-        for path in entries.flatten().map(|e| e.path()) {
+        for entry in entries.flatten() {
+            let path = entry.path();
             if path.extension().and_then(|e| e.to_str()) != Some("jm2") {
+                continue;
+            }
+            if !entry
+                .file_type()
+                .is_ok_and(|kind| kind.is_file() || kind.is_symlink() && path.is_file())
+            {
                 continue;
             }
             if let Some(stem) = path.file_stem().and_then(|s| s.to_str()) {

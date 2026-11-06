@@ -1,0 +1,45 @@
+[clientscript,script_2266](int $int0)
+switch ($int0) {
+    case 61866061:
+        if (compare("", %varc_str132) ! 0) {
+            if_settext(%varc_str132);
+        }
+    case 61866008:
+        if (compare("", %varc_str133) ! 0) {
+            if_settext(%varc_str133);
+        }
+    case 61866014:
+        if (compare("", %varc_str134) ! 0) {
+            if_settext(%varc_str134);
+        }
+    case 61866020:
+        if (compare("", %varc_str135) ! 0) {
+            if_settext(%varc_str135);
+        }
+    case 61866026:
+        if (compare("", %varc_str136) ! 0) {
+            if_settext(%varc_str136);
+        }
+    case 61866032:
+        if (compare("", %varc_str137) ! 0) {
+            if_settext(%varc_str137);
+        }
+    case 61866038:
+        if (compare("", %varc_str280) ! 0) {
+            if_settext(%varc_str280);
+        }
+    case 61866044:
+        if (compare("", %varc_str281) ! 0) {
+            if_settext(%varc_str281);
+        }
+    case 61866050:
+        if (compare("", %varc_str282) ! 0) {
+            if_settext(%varc_str282);
+        }
+    case 61866056:
+        if (compare("", %varc_str283) ! 0) {
+            if_settext(%varc_str283);
+        }
+    default:
+}
+return;

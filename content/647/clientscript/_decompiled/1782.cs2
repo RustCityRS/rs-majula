@@ -1,0 +1,21 @@
+[clientscript,script_1782]
+if (%varp1149 ! -1) {
+    if (%varc_int258 = 0) {
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if (%varc_int259 = 0) {
+            if_settext("Accept");
+            if_settextfont(51839122);
+        } else {
+            if_settext("Accept -" + "<br>" + "Opponent has accepted.");
+            if_settextfont(51839122);
+        }
+    } else {
+        if_setonmouserepeat;
+        if_setonmouseleave;
+        if_settext("Waiting for opponent...");
+        if_settextfont(51839122);
+    }
+} else {
+}
+return;

@@ -1,0 +1,34 @@
+; id: 4297
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: push_constant_int 71827497
+    2: if_sethide 0
+    3: push_constant_int 1
+    4: push_constant_int 71827496
+    5: if_sethide 0
+    6: op3701 0
+    7: branch_if_true 1
+    8: branch 16
+    9: push_constant_int 71827584
+   10: push_constant_int 105
+   11: push_constant_int 115
+   12: push_constant_int 3725
+   13: op3704 0
+   14: push_constant_int 1
+   15: add 0
+   16: enum 0
+   17: gosub_with_params 4501
+   18: push_constant_int 71827598
+   19: push_constant_int 105
+   20: push_constant_int 115
+   21: push_constant_int 3716
+   22: op3705 0
+   23: enum 0
+   24: gosub_with_params 4501
+   25: return 0

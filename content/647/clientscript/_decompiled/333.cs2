@@ -1,0 +1,31 @@
+[clientscript,script_333](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int7 = ~script_2413($int1);
+$int6 = ~script_2413($int1);
+$int5 = ~script_2413($int1);
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+$int10 = ~script_2413($int2);
+$int9 = ~script_2413($int2);
+$int8 = ~script_2413($int2);
+def_int $int11 = sub($int8, $int5);
+def_int $int12 = sub($int9, $int6);
+def_int $int13 = sub($int10, $int7);
+def_int $int14 = sub(if_getheight, $int4);
+$int3 = multiply($int3, 2);
+def_int $int15 = $int4;
+def_int $int16 = 0;
+def_int $int17 = sub($int14, $int15);
+if ($int15 < $int14) {
+    cc_setposition(0, $int0, 3, if_getchildcount($int0));
+    cc_setsize($int3, 1, 1, 0);
+    cc_setfill(1);
+    cc_setposition2(0, $int15, 1, 0);
+    cc_setcolour(~script_693(add($int5, scale($int16, $int17, $int11)), add($int6, scale($int16, $int17, $int12)), add($int7, scale($int16, $int17, $int13))));
+    $int16 = add($int16, 1);
+    $int15 = add($int15, 1);
+}
+return;

@@ -1,0 +1,36 @@
+; id: 1879
+int_param_count=2
+string_param_count=1
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_varc_int 1097
+    1: push_string_local 0
+    2: push_constant_int 3793
+    3: push_int_local 0
+    4: if_getx 0
+    5: gosub_with_params 1551
+    6: push_constant_int 4
+    7: push_constant_int 0
+    8: push_constant_int 0
+    9: push_int_local 1
+   10: if_setposition 0
+   11: op3340 0
+   12: branch_if_true 1
+   13: branch 4
+   14: push_constant_int 0
+   15: push_int_local 1
+   16: if_sethide 0
+   17: branch 3
+   18: push_constant_int 1
+   19: push_int_local 1
+   20: if_sethide 0
+   21: push_constant_int 1880
+   22: clientclock 0
+   23: push_int_local 1
+   24: push_constant_string "iI"
+   25: push_int_local 0
+   26: op2408 0
+   27: return 0

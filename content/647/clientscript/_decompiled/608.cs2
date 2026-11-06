@@ -1,0 +1,16 @@
+[clientscript,script_608]
+if (cc_find(43384906, 0) = 1) {
+    cc_setopbase("<col=00ff00>" + %varc_str204);
+    cc_settargetverb("Cast");
+    if (%varc_int1436 = 1) {
+        cc_setop(1, "Cast");
+    }
+}
+if (cc_find(48955409, 0) = 1) {
+    cc_setopbase("<col=00ff00>" + %varc_str204);
+    cc_settargetverb("Cast");
+    if (%varc_int1436 = 1) {
+        cc_setop(1, "Cast");
+    }
+}
+return;

@@ -1,0 +1,16 @@
+[clientscript,script_574](int $int0, int $int1)(component, int, string)
+if ($int0 = 84) {
+    %varc_int81 = 0;
+    if_setontimer;
+    ~script_576;
+    return(-1, 25493513, "");
+}
+def_string $str0 = ~script_74(0, $int0, $int1, %varc_str22);
+if (compare(%varc_str22, $str0) = 0) {
+    return;
+}
+%varc_str22 = $str0;
+if_settext(escape2(%varc_str22) + "*");
+%varc_int81 = 50;
+if_setontimer;
+return(25493513, 575, 25493513, "");

@@ -1,0 +1,35 @@
+; id: 1334
+int_param_count=2
+string_param_count=1
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int -1
+    2: branch_not 1
+    3: branch 22
+    4: push_int_local 1
+    5: branch_if_true 1
+    6: branch 10
+    7: push_constant_string "<u=91b1f4>"
+    8: push_string_local 0
+    9: push_constant_string "</u>"
+   10: join_string 3
+   11: push_int_local 0
+   12: if_settext 0
+   13: push_constant_int 9548276
+   14: push_int_local 0
+   15: if_setcolour 0
+   16: branch 9
+   17: push_constant_string "<u=2c6ff8>"
+   18: push_string_local 0
+   19: push_constant_string "</u>"
+   20: join_string 3
+   21: push_int_local 0
+   22: if_settext 0
+   23: push_constant_int 2912248
+   24: push_int_local 0
+   25: if_setcolour 0
+   26: return 0

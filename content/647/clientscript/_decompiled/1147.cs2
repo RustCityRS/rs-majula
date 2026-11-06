@@ -1,0 +1,76 @@
+[clientscript,script_1147](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = -1;
+def_int $int7 = -1;
+if ($int1 = $int0) {
+    if_setsize(27, 0, 0, $int3);
+    switch ($int0) {
+        case 0:
+            $int6 = 3095;
+        case 2:
+            switch (getlanguage) {
+                case 1:
+                    $int6 = 3104;
+                case 2:
+                    $int6 = 3110;
+                case 3:
+                    $int6 = 3098;
+                default:
+                    $int6 = 3098;
+            }
+        case 1:
+            $int6 = 3119;
+        case 3:
+            $int6 = 3122;
+        default:
+    }
+    if_setgraphic($int4);
+    if_setonmouseover;
+    if_setonmouseleave;
+    if_setonclick;
+} else {
+    if_setsize(27, 0, 0, $int3);
+    switch ($int0) {
+        case 0:
+            switch (getlanguage) {
+                case 1:
+                    $int6 = 3099;
+                    $int7 = 3100;
+                case 2:
+                    $int6 = 3105;
+                    $int7 = 3106;
+                case 3:
+                    $int6 = 3111;
+                    $int7 = 3112;
+                default:
+                    $int6 = 3093;
+                    $int7 = 3094;
+            }
+        case 2:
+            switch (getlanguage) {
+                case 1:
+                    $int6 = 3102;
+                    $int7 = 3103;
+                case 2:
+                    $int6 = 3108;
+                    $int7 = 3109;
+                case 3:
+                    $int6 = 3096;
+                    $int7 = 3097;
+                default:
+                    $int6 = 3096;
+                    $int7 = 3097;
+            }
+        case 1:
+            $int6 = 3117;
+            $int7 = 3118;
+        case 3:
+            $int6 = 3120;
+            $int7 = 3121;
+        default:
+    }
+    if_setgraphic($int4);
+    if_setonmouseover;
+    if_setonmouseleave;
+    if_setonclick;
+}
+return;

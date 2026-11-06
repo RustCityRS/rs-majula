@@ -1,0 +1,15 @@
+[clientscript,script_2974](int $int0)(int, int, int, int, int, int, int)
+def_int $int1 = if_getmodelangle_y($int0);
+def_int $int2 = if_getmodelangle_x($int0);
+def_int $int3 = if_getmodelangle_z($int0);
+def_int $int4 = if_getmodelzoom($int0);
+def_int $int5 = if_getmodelxof($int0);
+def_int $int6 = if_getmodelyof($int0);
+def_int $int7 = 0;
+if ($int1 = 2047) {
+    $int7 = 0;
+} else {
+    $int7 = add($int1, 1);
+}
+if_setmodelangle;
+return($int5, $int6, $int2, $int7, $int3, $int4, $int0);

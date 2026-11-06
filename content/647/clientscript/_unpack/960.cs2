@@ -1,0 +1,73 @@
+; id: 960
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 44957699
+    1: push_constant_int 0
+    2: push_constant_int 4537650
+    3: push_constant_int 0
+    4: push_constant_int 0
+    5: gosub_with_params 333
+    6: push_constant_int 44957700
+    7: push_constant_int 4537650
+    8: push_constant_int 6052707
+    9: push_constant_int 0
+   10: push_constant_int 0
+   11: gosub_with_params 333
+   12: push_constant_int 1
+   13: push_constant_int 44957705
+   14: if_sethide 0
+   15: push_constant_int 44957710
+   16: gosub_with_params 680
+   17: push_constant_int 95
+   18: push_constant_int -2147483645
+   19: push_constant_string "I"
+   20: push_constant_int 44957710
+   21: op2403 0
+   22: push_constant_int 93
+   23: push_constant_int -2147483645
+   24: push_constant_string "I"
+   25: push_constant_int 44957710
+   26: op2404 0
+   27: push_constant_int 69
+   28: push_constant_int 1
+   29: push_constant_int 44957705
+   30: push_constant_string "1I"
+   31: push_constant_int 44957710
+   32: op2409 0
+   33: push_constant_int 44957712
+   34: gosub_with_params 680
+   35: push_constant_int 95
+   36: push_constant_int -2147483645
+   37: push_constant_string "I"
+   38: push_constant_int 44957712
+   39: op2403 0
+   40: push_constant_int 93
+   41: push_constant_int -2147483645
+   42: push_constant_string "I"
+   43: push_constant_int 44957712
+   44: op2404 0
+   45: push_constant_int 69
+   46: push_constant_int 1
+   47: push_constant_int 44957705
+   48: push_constant_string "1I"
+   49: push_constant_int 44957712
+   50: op2409 0
+   51: gosub_with_params 2003
+   52: push_constant_int 961
+   53: push_constant_int 1195
+   54: push_constant_int 1
+   55: push_constant_string "Y"
+   56: push_constant_int 44957697
+   57: op2407 0
+   58: push_constant_int 961
+   59: push_constant_int 19
+   60: push_constant_int 1
+   61: push_constant_string "Y"
+   62: push_constant_int 44957697
+   63: op2415 0
+   64: return 0

@@ -1,0 +1,17 @@
+[clientscript,script_3418](int $int0, int $int1, int $int2)
+def_int $int3 = 2289;
+def_int $int4 = 2288;
+if ($int2 = $int1) {
+    if (cc_find($int0, 1) = 1) {
+        cc_setgraphic($int3);
+        if_setonmouseover;
+        if_setonmouseleave;
+    }
+} else {
+    if (cc_find($int0, 1) = 1) {
+        cc_setgraphic($int4);
+        if_setonmouseover;
+        if_setonmouseleave;
+    }
+}
+return;

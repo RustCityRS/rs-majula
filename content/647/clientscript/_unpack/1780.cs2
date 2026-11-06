@@ -1,0 +1,26 @@
+; id: 1780
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 255
+    1: branch_if_false 1
+    2: branch 7
+    3: push_constant_int 699
+    4: push_constant_int 51839113
+    5: if_setgraphic 0
+    6: push_constant_int 0
+    7: push_constant_int 51839112
+    8: op2103 0
+    9: branch 6
+   10: push_constant_int 698
+   11: push_constant_int 51839113
+   12: if_setgraphic 0
+   13: push_constant_int 225
+   14: push_constant_int 51839112
+   15: op2103 0
+   16: gosub_with_params 1784
+   17: return 0

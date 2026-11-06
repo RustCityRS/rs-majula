@@ -1,31 +1,23 @@
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive};
 use crate::pack::pack::{ConfigProperties, ConfigSections};
+#[cfg(since_647)]
+use crate::pack::pack_registry::PackedFile;
 use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
-use crate::startup::{
-    current_exe_mtime, file_mtime, is_up_to_date, max_of, newest_mtime, write_stamp,
-};
 #[cfg(since_647)]
 use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
-use rs_io::jag::JagFile;
-#[cfg(since_647)]
-use rs_io::js5::{Js5Store, encode_group_entries, reference::FileInfo};
+use rs_io::js5::{encode_group_entries, reference::FileInfo};
 #[cfg(since_647)]
 use std::collections::{BTreeMap, HashMap};
-#[cfg(since_647)]
-use std::fs;
-#[cfg(since_647)]
-use std::path::Path;
-#[cfg(since_647)]
-use tracing::info;
 
 pub mod category;
 pub mod dbrow;
@@ -56,34 +48,19 @@ pub mod vars;
 
 #[cfg(since_647)]
 pub fn pack_archives(
-    store: &mut Js5Store,
-    content_dir: &Path,
-    output_dir: &Path,
-    config_path: &Path,
+    store: &mut PackedCache,
+    config: &HashMap<String, PackedFile>,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
-    let stamp = stamp_path(output_dir, archive::CONFIG);
-    let inputs = max_of(&[
-        current_exe_mtime(),
-        file_mtime(config_path),
-        newest_mtime(&content_dir.join("versions"), &["versions"]),
-    ]);
-    if !force_rebuild && is_up_to_date(&stamp, inputs) {
-        info!("Config archives up to date, skipping");
-        return Ok(());
-    }
-
-    let config = JagFile::from(fs::read(config_path)?);
     let mut config_groups = BTreeMap::new();
     for &(name, gid) in archive::CONFIG_GROUPS {
-        let entries = read_config_entries(&config, name)?;
+        let entries = read_config_entries(config, name)?;
         if !entries.is_empty() {
             config_groups.insert(gid, entries);
         }
     }
     for &gid in archive::CONFIG_UNKNOWN_GROUPS {
-        let entries = read_config_entries(&config, &format!("config{gid}"))?;
+        let entries = read_config_entries(config, &format!("config{gid}"))?;
         if !entries.is_empty() {
             config_groups.insert(gid, entries);
         }
@@ -99,7 +76,7 @@ pub fn pack_archives(
         (archive::CONFIG_SPOTANIM, "spotanim", 256),
         (archive::CONFIG_VARBIT, "varbit", 1024),
     ] {
-        let entries = read_config_entries(&config, name)?;
+        let entries = read_config_entries(config, name)?;
         if entries.is_empty() {
             continue;
         }
@@ -107,49 +84,44 @@ pub fn pack_archives(
         for (id, data) in entries {
             groups
                 .entry(id / stride)
-                .or_insert_with(BTreeMap::new)
-                .insert(id % stride, data);
+                .or_insert_with(Vec::new)
+                .push((id % stride, data));
         }
         write_config_archive(store, aid, versions, groups)?;
     }
-    write_stamp(&stamp)?;
     Ok(())
 }
 
 #[cfg(since_647)]
-fn read_config_entries(config: &JagFile, name: &str) -> Result<BTreeMap<u32, Vec<u8>>> {
-    let (Some(dat), Some(idx)) = (
-        config.read(&format!("{name}.dat")),
-        config.read(&format!("{name}.idx")),
-    ) else {
-        return Ok(BTreeMap::new());
+fn read_config_entries<'a>(
+    config: &'a HashMap<String, PackedFile>,
+    name: &str,
+) -> Result<Vec<(u32, &'a [u8])>> {
+    let Some(client) = config.get(name).and_then(|file| file.client.as_ref()) else {
+        return Ok(Vec::new());
     };
-    Ok(PackedData::entries(&dat.data, &idx.data)
+    Ok(PackedData::entries(&client.dat, &client.idx)
         .with_context(|| format!("Reading {name} configs"))?
         .filter(|(_, data)| !data.is_empty())
-        .map(|(id, data)| (id as u32, data.to_vec()))
+        .map(|(id, data)| (id as u32, data))
         .collect())
 }
 
 #[cfg(since_647)]
 fn write_config_archive(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     aid: u8,
     versions: &HashMap<u8, ArchiveVersions>,
-    groups: BTreeMap<u32, BTreeMap<u32, Vec<u8>>>,
+    groups: BTreeMap<u32, Vec<(u32, &[u8])>>,
 ) -> Result<()> {
     let prepared = groups
         .into_par_iter()
         .map(|(gid, entries)| {
-            let refs: Vec<_> = entries
-                .iter()
-                .map(|(&id, data)| (id, data.as_slice()))
-                .collect();
-            let data = encode_group_entries(&refs);
+            let data = encode_group_entries(&entries);
             let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
             group.files = entries
-                .keys()
-                .map(|&id| FileInfo {
+                .iter()
+                .map(|&(id, _)| FileInfo {
                     id,
                     name_hash: None,
                 })
@@ -157,7 +129,7 @@ fn write_config_archive(
             Ok(group)
         })
         .collect::<Result<Vec<_>>>()?;
-    write_archive(
+    insert_archive(
         store,
         aid,
         archive::archive_format(aid).unwrap(),

@@ -1,0 +1,5 @@
+[clientscript,script_2808](int $int0, int $int1, int $int2)(int)
+def_int $int3 = coordpack(0, calc(8 * coordx($int1) / 8), coordy($int1), calc(8 * coordz($int1) / 8));
+def_int $int4 = sub(coordx($int2), coordx($int3));
+def_int $int5 = sub(coordz($int2), coordz($int3));
+return(coordpack($int0, $int4, 0, $int5));

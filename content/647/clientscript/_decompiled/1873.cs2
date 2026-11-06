@@ -1,0 +1,6 @@
+[clientscript,script_1873]
+if (%varc_int200 > 0) {
+    ~script_3064(1);
+    if_setontimer;
+}
+return;

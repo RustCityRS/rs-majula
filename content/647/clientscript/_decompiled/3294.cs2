@@ -1,0 +1,16 @@
+[clientscript,script_3294](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (cc_find($int0, 1) = 1) {
+    if (cc_find($int0, 2) = 1) {
+        cc_setposition2(0, add($int3, 16), 0, 0);
+    }
+    if (cc_find($int0, 3) = 1) {
+        cc_setposition2(0, calc($int3 + cc_getheight - 5 + 16), 0, 0);
+    }
+    $int5 = calc(if_getheight - 32 - cc_getheight);
+    $int6 = sub($int1, if_getheight);
+    $int3 = calc($int3 * $int6 / $int5);
+    ~script_3296($int0, $int1, $int2, $int3, $int4);
+}
+return;

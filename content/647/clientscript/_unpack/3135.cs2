@@ -1,0 +1,22 @@
+; id: 3135
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 998
+    1: push_int_local 0
+    2: branch_equals 4
+    3: push_varc_int 999
+    4: push_int_local 0
+    5: branch_equals 1
+    6: branch 3
+    7: push_int_local 0
+    8: gosub_with_params 3139
+    9: branch 2
+   10: push_int_local 0
+   11: gosub_with_params 3137
+   12: return 0
+   13: return 0

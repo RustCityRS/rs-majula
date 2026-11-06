@@ -1,0 +1,10 @@
+[clientscript,script_1762](int $int0)
+if (%varc_int231 > 6) {
+    if_settext("Time Left : " + tostring(sub(%varc_int231, 5)) + " mins");
+} else {
+    if (%varc_int231 = 6) {
+        if_settext("Time Left : 1 min");
+    }
+    if_settext("Time Left : 0 mins");
+}
+return;

@@ -1,0 +1,101 @@
+; id: 661
+int_param_count=13
+string_param_count=2
+long_param_count=0
+local_int_count=13
+local_string_count=2
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 0
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 78
+    5: push_int_local 5
+    6: switch 0
+    7: branch 34
+    8: gosub_with_params 3357
+    9: pop_int_local 5
+   10: pop_string_local 0
+   11: pop_int_local 4
+   12: branch 29
+   13: gosub_with_params 3358
+   14: pop_int_local 5
+   15: pop_string_local 0
+   16: pop_int_local 4
+   17: branch 24
+   18: gosub_with_params 3359
+   19: pop_int_local 5
+   20: pop_string_local 0
+   21: pop_int_local 4
+   22: branch 19
+   23: gosub_with_params 3360
+   24: pop_int_local 5
+   25: pop_string_local 0
+   26: pop_int_local 4
+   27: branch 14
+   28: gosub_with_params 3361
+   29: pop_int_local 5
+   30: pop_string_local 0
+   31: pop_int_local 4
+   32: branch 9
+   33: gosub_with_params 3362
+   34: pop_int_local 5
+   35: pop_string_local 0
+   36: pop_int_local 4
+   37: branch 4
+   38: gosub_with_params 775
+   39: pop_int_local 5
+   40: pop_string_local 0
+   41: pop_int_local 4
+   42: push_string_local 0
+   43: push_constant_string " ("
+   44: push_varbit 4288
+   45: tostring 0
+   46: push_constant_string " Special Move points)"
+   47: join_string 3
+   48: append 0
+   49: pop_string_local 0
+   50: push_constant_int 43384906
+   51: push_int_local 2
+   52: push_int_local 3
+   53: push_int_local 4
+   54: push_int_local 5
+   55: push_int_local 6
+   56: push_int_local 7
+   57: push_int_local 8
+   58: push_int_local 9
+   59: push_int_local 10
+   60: push_int_local 11
+   61: push_int_local 12
+   62: gosub_with_params 664
+   63: push_constant_int 10
+   64: push_constant_int -2147483645
+   65: push_constant_int 43384905
+   66: push_int_local 4
+   67: push_string_local 0
+   68: push_string_local 1
+   69: push_int_local 5
+   70: push_int_local 6
+   71: push_int_local 7
+   72: push_int_local 8
+   73: push_int_local 9
+   74: push_int_local 10
+   75: push_int_local 11
+   76: push_int_local 12
+   77: push_constant_string "IIissoioioioi"
+   78: cc_setonmouserepeat 0
+   79: push_constant_int 778
+   80: push_constant_int 43384905
+   81: push_constant_string "I"
+   82: cc_setonmouseleave 0
+   83: return 0
+
+switch_0:
+  18027 => 1
+  18037 => 6
+  18047 => 11
+  18057 => 16
+  18067 => 21
+  18077 => 26
+  12461 => 31

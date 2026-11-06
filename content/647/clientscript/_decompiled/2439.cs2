@@ -1,0 +1,9 @@
+[clientscript,script_2439]
+if (%varc_int818 = 1) {
+    if_settext("Net: Ripped!");
+    if_setcolour(983056);
+} else {
+    if_settext("Net: OK");
+    if_setcolour(983056);
+}
+return;

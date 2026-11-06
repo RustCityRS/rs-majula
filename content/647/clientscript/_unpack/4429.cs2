@@ -1,0 +1,21 @@
+; id: 4429
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: push_constant_int 72745049
+    2: if_sethide 0
+    3: push_constant_int 6244
+    4: push_int_local 1
+    5: if_setgraphic 0
+    6: push_constant_int 4430
+    7: push_int_local 0
+    8: push_int_local 1
+    9: push_constant_string "II"
+   10: push_int_local 0
+   11: op2406 0
+   12: return 0

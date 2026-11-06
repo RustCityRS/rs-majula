@@ -1,21 +1,18 @@
 use crate::archive::{self, ArchiveFormat, ArchiveVersions};
+use crate::cache::js5::PackedCache;
 use crate::pack::pack_registry::PackFile;
-use crate::startup::{is_up_to_date, max_of, newest_mtime, write_stamp};
 use anyhow::Result;
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
-use rs_io::js5::compression::{CompressionType, compress, compress_best, decompress};
+use rs_io::js5::compression::compress_best;
 use rs_io::js5::java_string_hash;
-use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable};
-use rs_io::js5::{Js5Store, compute_group_crc, detect_file_count};
+use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable, encode_reference_table};
+use rs_io::js5::{compute_group_crc, detect_file_count};
 use std::collections::{BTreeMap, HashMap, hash_map::Entry};
 use std::fs;
 use std::path::{Path, PathBuf};
-use tracing::{info, warn};
-
-pub fn stamp_path(output_dir: &Path, archive_id: u8) -> PathBuf {
-    output_dir.join(format!(".stamp_archive_{archive_id}"))
-}
+use std::time::Instant;
+use tracing::{debug, info};
 
 pub fn load_group_files(unpack_dir: &Path, extension: &str) -> Vec<(u32, PathBuf)> {
     let mut map: HashMap<u32, PathBuf> = HashMap::new();
@@ -27,7 +24,7 @@ pub fn load_group_files(unpack_dir: &Path, extension: &str) -> Vec<(u32, PathBuf
     };
     for entry in entries.flatten() {
         let path = entry.path();
-        if !path.is_file() {
+        if !entry.file_type().is_ok_and(|kind| kind.is_file()) {
             continue;
         }
         let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
@@ -144,8 +141,8 @@ impl PreparedGroup {
     }
 }
 
-pub fn write_archive(
-    store: &mut Js5Store,
+pub fn insert_archive(
+    store: &mut PackedCache,
     aid: u8,
     format: &ArchiveFormat,
     versions: &HashMap<u8, ArchiveVersions>,
@@ -154,7 +151,7 @@ pub fn write_archive(
 ) -> Result<()> {
     let mut group_infos = Vec::with_capacity(groups.len());
     for g in groups {
-        store.write_raw_group(aid, g.id, &g.raw)?;
+        store.groups.insert((aid, g.id), g.raw);
         group_infos.push(GroupInfo {
             id: g.id,
             name_hash: g.name_hash,
@@ -178,7 +175,8 @@ pub fn write_archive(
         whirlpooled: format.whirlpooled,
         groups: group_infos,
     };
-    store.write_reference_table(aid, &table)?;
+    let raw = compress_best(&encode_reference_table(&table), true, true, None)?;
+    store.groups.insert((255, aid as u32), raw);
     info!(
         "  archive {:>2} ({}) -- {} groups, table_version={} {}",
         aid,
@@ -187,16 +185,17 @@ pub fn write_archive(
         table_ver,
         label,
     );
+    store.tables.insert(aid, table);
     Ok(())
 }
 
-pub fn write_empty_archive(
-    store: &mut Js5Store,
+pub fn insert_empty_archive(
+    store: &mut PackedCache,
     aid: u8,
     format: &ArchiveFormat,
     versions: &HashMap<u8, ArchiveVersions>,
 ) -> Result<()> {
-    write_archive(store, aid, format, versions, Vec::new(), "(empty)")
+    insert_archive(store, aid, format, versions, Vec::new(), "(empty)")
 }
 
 /// Build file info list from version data if available, else from file_count.
@@ -255,62 +254,59 @@ const SIMPLE_ARCHIVES: &[u8] = &[
 ];
 
 pub fn pack_binary_archives(
-    store: &mut Js5Store,
+    store: &mut PackedCache,
     content_dir: &Path,
-    output_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
-    force_rebuild: bool,
 ) -> Result<()> {
-    for &aid in SIMPLE_ARCHIVES {
-        let format = archive::archive_format(aid).unwrap();
-        let unpack_dir = content_dir.join(format.content_dir).join("_unpack");
-        let donor_dir = content_dir.join(format.content_dir).join("donor");
+    let cache = SIMPLE_ARCHIVES
+        .par_iter()
+        .map(|&aid| -> Result<_> {
+            let start = Instant::now();
+            let mut cache = PackedCache::default();
+            let format = archive::archive_format(aid).unwrap();
+            let unpack_dir = content_dir.join(format.content_dir).join("_unpack");
+            let donor_dir = content_dir.join(format.content_dir).join("donor");
 
-        let arch_stamp = stamp_path(output_dir, aid);
-        let arch_input = max_of(&[
-            newest_mtime(&unpack_dir, &[]),
-            newest_mtime(&donor_dir, &[]),
-        ]);
-        if !force_rebuild && is_up_to_date(&arch_stamp, arch_input) {
-            info!(
-                "  archive {:>2} ({}) -- up to date, skipping",
-                aid, format.content_dir
+            let group_files = overlay_groups(
+                load_group_files(&unpack_dir, ""),
+                load_group_files(&donor_dir, ""),
             );
-            continue;
-        }
 
-        let group_files = overlay_groups(
-            load_group_files(&unpack_dir, ""),
-            load_group_files(&donor_dir, ""),
-        );
+            if group_files.is_empty() {
+                insert_empty_archive(&mut cache, aid, format, versions)?;
+                return Ok(cache);
+            }
 
-        if group_files.is_empty() {
-            write_empty_archive(store, aid, format, versions)?;
-            write_stamp(&arch_stamp)?;
-            continue;
-        }
+            let name_hashes: HashMap<u32, i32> = if format.named {
+                let gids: Vec<u32> = group_files.iter().map(|(gid, _)| *gid).collect();
+                load_name_hashes(pack_dir, aid, &gids)
+            } else {
+                HashMap::new()
+            };
 
-        let name_hashes: HashMap<u32, i32> = if format.named {
-            let gids: Vec<u32> = group_files.iter().map(|(gid, _)| *gid).collect();
-            load_name_hashes(pack_dir, aid, &gids)
-        } else {
-            HashMap::new()
-        };
+            let prepared: Vec<PreparedGroup> = group_files
+                .par_iter()
+                .map(|(gid, path)| {
+                    let data = fs::read(path)?;
+                    let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
+                    group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
+                    Ok(group)
+                })
+                .collect::<Result<Vec<_>>>()?;
 
-        let prepared: Vec<PreparedGroup> = group_files
-            .par_iter()
-            .map(|(gid, path)| {
-                let data = fs::read(path)?;
-                let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
-                group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
-                Ok(group)
-            })
-            .collect::<Result<Vec<_>>>()?;
-
-        write_archive(store, aid, format, versions, prepared, "from _unpack/")?;
-        write_stamp(&arch_stamp)?;
-    }
+            insert_archive(&mut cache, aid, format, versions, prepared, "from _unpack/")?;
+            debug!(
+                "Packed archive {aid} in {:.2}s",
+                start.elapsed().as_secs_f64()
+            );
+            Ok(cache)
+        })
+        .try_reduce(PackedCache::default, |mut a, b| {
+            a.extend(b);
+            Ok(a)
+        })?;
+    store.extend(cache);
     Ok(())
 }
 
@@ -320,282 +316,6 @@ fn overlay_groups(derived: Vec<(u32, PathBuf)>, donor: Vec<(u32, PathBuf)>) -> V
     let mut groups: BTreeMap<_, _> = derived.into_iter().collect();
     groups.extend(donor);
     groups.into_iter().collect()
-}
-
-pub fn verify_cache(source_cache: &Path, output_dir: &Path) -> Result<()> {
-    if !source_cache.join("main_file_cache.dat2").exists() {
-        info!("Step 5: Skipping CRC verification (no source cache)");
-        return Ok(());
-    }
-
-    info!("Step 5: Verifying per-group CRCs against original cache...");
-    let mut source_store = Js5Store::open(source_cache)?;
-    let mut built_store = Js5Store::open(output_dir)?;
-
-    let mut archives_verified = 0u32;
-    let mut archives_missing = 0u32;
-    let mut total_crc_mismatches = 0u32;
-
-    for &id in archive::ARCHIVE_IDS {
-        let (Some(src_table), Some(built_table)) = (
-            source_store.reference_table(id).cloned(),
-            built_store.reference_table(id).cloned(),
-        ) else {
-            if source_store.reference_table(id).is_some() {
-                warn!("  archive {:>2}: not built (source has groups)", id);
-                archives_missing += 1;
-            }
-            continue;
-        };
-
-        if src_table.groups.len() != built_table.groups.len() {
-            warn!(
-                "  archive {:>2}: group count mismatch (source={}, built={})",
-                id,
-                src_table.groups.len(),
-                built_table.groups.len()
-            );
-            archives_missing += 1;
-            continue;
-        }
-
-        let mut archive_mismatches = 0u32;
-        for (src_g, built_g) in src_table.groups.iter().zip(built_table.groups.iter()) {
-            if src_g.id != built_g.id {
-                warn!(
-                    "  archive {:>2}: group id order mismatch (source={}, built={})",
-                    id, src_g.id, built_g.id
-                );
-                archive_mismatches += 1;
-                continue;
-            }
-            if src_g.crc != built_g.crc {
-                warn!(
-                    "  archive {:>2} group {:>5}: CRC mismatch (source={:#010x}, built={:#010x}) files: src={} built={}",
-                    id, src_g.id, src_g.crc, built_g.crc, src_g.file_count, built_g.file_count,
-                );
-                if let (Ok(Some(sg)), Ok(Some(bg))) = (
-                    source_store.read_group(id, src_g.id),
-                    built_store.read_group(id, src_g.id),
-                ) {
-                    let mut se: Vec<_> = sg.entries.iter().collect();
-                    let mut be: Vec<_> = bg.entries.iter().collect();
-                    se.sort_by_key(|e| e.id);
-                    be.sort_by_key(|e| e.id);
-                    let mut shown = 0u32;
-                    for (s, b) in se.iter().zip(be.iter()) {
-                        if s.id != b.id {
-                            warn!("    file ID mismatch: src={} built={}", s.id, b.id);
-                            break;
-                        }
-                        if s.data() != b.data() {
-                            let sh: String = s
-                                .data()
-                                .iter()
-                                .take(40)
-                                .map(|b| format!("{b:02x}"))
-                                .collect();
-                            let bh: String = b
-                                .data()
-                                .iter()
-                                .take(40)
-                                .map(|b| format!("{b:02x}"))
-                                .collect();
-                            warn!(
-                                "    archive {} group {} diverge file {}: src={}B built={}B\n      src: {}\n      blt: {}",
-                                id,
-                                src_g.id,
-                                s.id,
-                                s.data().len(),
-                                b.data().len(),
-                                sh,
-                                bh,
-                            );
-                            shown += 1;
-                            if shown >= 3 {
-                                break;
-                            }
-                        }
-                    }
-                    if se.len() != be.len() {
-                        warn!("    entry count: src={} built={}", se.len(), be.len());
-                    }
-                    let all_match = se
-                        .iter()
-                        .zip(be.iter())
-                        .all(|(s, b)| s.id == b.id && s.data() == b.data());
-                    if all_match && se.len() == be.len() {
-                        if let (Ok(Some(sr)), Ok(Some(br))) = (
-                            source_store.read_raw_group_bytes(id, src_g.id),
-                            built_store.read_raw_group_bytes(id, src_g.id),
-                        ) {
-                            let s_codec = sr.first().copied().unwrap_or(255);
-                            let b_codec = br.first().copied().unwrap_or(255);
-                            let decomp = decompress(&sr).ok();
-                            let our_gzip_len = decomp
-                                .as_ref()
-                                .and_then(|d| compress(d, CompressionType::Gzip).ok())
-                                .map(|g| g.len());
-                            let our_bzip_len = decomp
-                                .as_ref()
-                                .and_then(|d| compress(d, CompressionType::Bzip2).ok())
-                                .map(|b| b.len());
-                            warn!(
-                                "    ALL entries identical — src codec={} {}B, built codec={} {}B | our gzip={:?} bzip={:?}",
-                                s_codec,
-                                sr.len(),
-                                b_codec,
-                                br.len(),
-                                our_gzip_len,
-                                our_bzip_len,
-                            );
-                        }
-                    }
-                }
-                archive_mismatches += 1;
-            }
-        }
-
-        if archive_mismatches > 0 {
-            warn!("  archive {} full codec survey:", id);
-            for g in &src_table.groups {
-                if let Ok(Some(raw)) = source_store.read_raw_group_bytes(id, g.id) {
-                    let s_codec = match raw.first().copied().unwrap_or(255) {
-                        0 => "none",
-                        1 => "bz2 ",
-                        2 => "gzip",
-                        _ => "????",
-                    };
-                    if let Ok(decomp) = decompress(&raw) {
-                        let gz = compress(&decomp, CompressionType::Gzip)
-                            .map(|v| v.len())
-                            .unwrap_or(0);
-                        let bz = compress(&decomp, CompressionType::Bzip2)
-                            .map(|v| v.len())
-                            .unwrap_or(0);
-                        let winner = if bz <= gz { "bz2" } else { "gz" };
-                        let flag = if (winner == "bz2" && s_codec == "gzip")
-                            || (winner == "gz" && s_codec == "bz2 ")
-                        {
-                            " <<<MISMATCH"
-                        } else {
-                            ""
-                        };
-                        warn!(
-                            "    g{:>3} src={} decomp={:>7} gz={:>6} bz={:>6} best={}{}",
-                            g.id,
-                            s_codec,
-                            decomp.len(),
-                            gz,
-                            bz,
-                            winner,
-                            flag
-                        );
-                    }
-                }
-            }
-        }
-
-        if archive_mismatches == 0 {
-            info!(
-                "  archive {:>2}: ✓ {} groups, all CRCs match",
-                id,
-                src_table.groups.len()
-            );
-            archives_verified += 1;
-        } else {
-            warn!(
-                "  archive {:>2}: {} CRC mismatches out of {} groups",
-                id,
-                archive_mismatches,
-                src_table.groups.len()
-            );
-            total_crc_mismatches += archive_mismatches;
-        }
-    }
-
-    info!(
-        "  {}/{} archives fully verified, {} missing, {} total CRC mismatches",
-        archives_verified,
-        archive::ARCHIVE_IDS.len(),
-        archives_missing,
-        total_crc_mismatches
-    );
-
-    if total_crc_mismatches > 0 {
-        warn!(
-            "⚠ CRC verification found {} mismatches — built cache diverges from source",
-            total_crc_mismatches
-        );
-    }
-
-    info!("Step 6: Verifying reference table CRCs...");
-    let mut ref_match = 0u32;
-    let mut ref_mismatch = 0u32;
-
-    for &id in archive::ARCHIVE_IDS {
-        let src_raw = source_store.read_raw_group_bytes(255, id as u32);
-        let built_raw = built_store.read_raw_group_bytes(255, id as u32);
-
-        if let (Ok(Some(src)), Ok(Some(built))) = (src_raw, built_raw) {
-            let src_crc = compute_group_crc(&src);
-            let built_crc = compute_group_crc(&built);
-            if src_crc == built_crc {
-                info!(
-                    "  ref table {:>2}: ✓ CRC {:#010x} ({}B)",
-                    id,
-                    src_crc,
-                    src.len(),
-                );
-                ref_match += 1;
-            } else {
-                let src_decomp = decompress(&src).ok();
-                let built_decomp = decompress(&built).ok();
-                let src_sz = src_decomp.as_ref().map(|d| d.len()).unwrap_or(0);
-                let built_sz = built_decomp.as_ref().map(|d| d.len()).unwrap_or(0);
-                let data_match = src_decomp
-                    .as_ref()
-                    .zip(built_decomp.as_ref())
-                    .map(|(s, b)| s == b)
-                    .unwrap_or(false);
-                warn!(
-                    "  ref table {:>2}: ✗ src={:#010x} ({}B) built={:#010x} ({}B) decomp_match={} [BUILT]",
-                    id,
-                    src_crc,
-                    src.len(),
-                    built_crc,
-                    built.len(),
-                    data_match,
-                );
-                if data_match {
-                    warn!("    → decompressed bytes identical — compression codec differs");
-                } else {
-                    warn!(
-                        "    → decompressed bytes differ (src={}B built={}B)",
-                        src_sz, built_sz
-                    );
-                    if let (Some(s), Some(b)) = (&src_decomp, &built_decomp) {
-                        let first_diff = s
-                            .iter()
-                            .zip(b.iter())
-                            .position(|(a, b)| a != b)
-                            .unwrap_or(s.len().min(b.len()));
-                        warn!("    → first difference at byte {}", first_diff);
-                    }
-                }
-                ref_mismatch += 1;
-            }
-        }
-    }
-
-    info!(
-        "  Reference tables: {}/{} match, {} differ",
-        ref_match,
-        ref_match + ref_mismatch,
-        ref_mismatch,
-    );
-
-    Ok(())
 }
 
 pub fn prepare_group(
@@ -612,6 +332,7 @@ pub fn prepare_group(
     let compressed = compress_best(data, allow_uncompressed, allow_bzip2, forced)?;
     let crc = compute_group_crc(&compressed);
     let mut with_version = compressed;
+    with_version.reserve_exact(2);
     with_version.extend_from_slice(&version.to_be_bytes());
     Ok((with_version, crc))
 }

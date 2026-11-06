@@ -1,0 +1,33 @@
+[clientscript,script_812](int $int0)
+cc_sethide(1);
+if ($int0 = -1) {
+    return;
+}
+if (oc_weight(viyeldihat) > 1) {
+    if (~script_925($int0) = 1) {
+        if (~script_926($int0) = 1) {
+            return;
+        }
+    }
+    cc_sethide(0);
+    return;
+}
+if (oc_weight(viyeldihat) = 1) {
+    if (~script_925($int0) = 1) {
+        return;
+    }
+    cc_sethide(0);
+    return;
+}
+if (~script_928($int0) = 1) {
+    if (~script_926($int0) = 1) {
+        return;
+    }
+    cc_sethide(0);
+    return;
+}
+if (~script_925($int0) = 1) {
+    return;
+}
+cc_sethide(0);
+return;

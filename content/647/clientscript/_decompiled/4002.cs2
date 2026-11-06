@@ -1,0 +1,38 @@
+[clientscript,script_4002](int, component, component, component, int)
+if (getwindowmode >= 2) {
+    if (if_hasoverlay_ver(48889865, 917) = 1) {
+        return;
+    }
+} else {
+    if (if_hasoverlay_ver(35913746, 917) = 1) {
+        return;
+    }
+}
+def_string $str0 = "Progress:  ";
+def_int $int0 = %varc_int1424;
+def_string $str1 = "";
+def_int $int1 = %varc_int1423;
+def_string $str2 = "";
+def_string $str3 = "";
+if (%varbit9030 = 1) {
+    $int0 = %varbit9028;
+    $int1 = enum_getoutputcount(enum_3656);
+    $str3 = "Introductory Tasks";
+}
+$str1 = tostring($int0);
+$str2 = tostring($int1);
+if (%varbit8575 = 61) {
+    $str3 = "Quest Area";
+    if_sethide(69206127);
+    if_sethide(69206128);
+} else {
+    if_sethide(69206127);
+    if_sethide(69206128);
+}
+def_int $int2 = calc(69206127 * if_getwidth - 2 / max(1, $int1));
+$str0 = append($str0, $str1);
+if_settext($str2);
+if_settext($str0);
+if_settext($str3);
+if_setsize(18, 0, 0, 69206121);
+return($int0, 69206124, 69206122, 69206126, $int2);

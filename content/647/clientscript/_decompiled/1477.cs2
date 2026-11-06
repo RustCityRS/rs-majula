@@ -1,0 +1,19 @@
+[clientscript,script_1477](component, component, component, component, component, component, component, component, component, component, component, component)
+if (%varbit5007 = 0) {
+    if_settext("Quick task:");
+} else {
+    if_settext("Large task:");
+}
+if_settext(tostring(%varbit4216));
+if_settext(tostring(calc(%varbit4208 + 1 * 5)));
+if_settext(tostring(%varbit4217));
+if_settext(tostring(calc(%varbit4209 + 1 * 5)));
+if_settext(tostring(%varbit4218));
+if_settext(tostring(calc(%varbit4210 + 1 * 5)));
+if_settext(tostring(%varbit4219));
+if_settext(tostring(calc(%varbit4211 + 1 * 5)));
+if_settext(tostring(%varbit4220));
+if_settext(tostring(calc(%varbit4212 + 1 * 5)));
+if_settext(tostring(%varbit5008));
+if_settext(tostring(calc(%varbit4213 + 1 * 5)));
+return(50200676, 50200678, 50200667, 50200669, 50200657, 50200659, 50200647, 50200649, 50200637, 50200639, 50200627, 50200629);

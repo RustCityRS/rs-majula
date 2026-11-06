@@ -1,0 +1,44 @@
+; id: 1888
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1025
+    1: branch_if_true 1
+    2: branch 1
+    3: return 0
+    4: gosub_with_params 2728
+    5: branch_if_true 1
+    6: branch 26
+    7: push_varbit 6521
+    8: branch_if_false 1
+    9: branch 23
+   10: push_var 281
+   11: push_constant_int 1000
+   12: branch_greater_than_or_equals 1
+   13: branch 19
+   14: push_varc_int 94
+   15: clientclock 0
+   16: branch_greater_than 1
+   17: branch 1
+   18: return 0
+   19: clientclock 0
+   20: push_constant_int 1500
+   21: add 0
+   22: pop_varc_int 94
+   23: push_var 1647
+   24: branch_if_true 1
+   25: branch 3
+   26: push_constant_string "Your health is low! Run away from your attacker and speak to Xenia."
+   27: mes 0
+   28: branch 4
+   29: push_constant_string "Your health is low! Find a safe place away from your attacker"
+   30: mes 0
+   31: push_constant_string "or eat some food to heal yourself."
+   32: mes 0
+   33: push_constant_int 1
+   34: pop_varc_int 1025
+   35: return 0

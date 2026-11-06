@@ -1,0 +1,13 @@
+; id: 2079
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 643
+    1: tostring 0
+    2: push_constant_int 54788105
+    3: if_settext 0
+    4: return 0

@@ -1,0 +1,7 @@
+[clientscript,script_522](int $int0, int $int1)(int)
+def_int $int2 = stat_xp($int1);
+def_int $int3 = stat_xp($int1);
+$int2 = ~script_523($int1);
+def_int $int4 = sub($int3, $int2);
+if_settext(tostring($int4));
+return($int0);

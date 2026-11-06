@@ -1,0 +1,49 @@
+; id: 1127
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 1
+    2: push_constant_string ""
+    3: pop_string_local 0
+    4: push_int_local 0
+    5: switch 0
+    6: branch 19
+    7: push_constant_string "Toggle defensive casting."
+    8: pop_string_local 0
+    9: push_constant_int 12583008
+   10: pop_int_local 1
+   11: branch 14
+   12: push_constant_string "Toggle defensive casting."
+   13: pop_string_local 0
+   14: push_constant_int 12648501
+   15: pop_int_local 1
+   16: branch 9
+   17: push_constant_string "Toggle defensive casting."
+   18: pop_string_local 0
+   19: push_constant_int 28180544
+   20: pop_int_local 1
+   21: branch 4
+   22: push_constant_string "Toggle defensive casting."
+   23: pop_string_local 0
+   24: push_constant_int 62259272
+   25: pop_int_local 1
+   26: push_int_local 0
+   27: push_int_local 1
+   28: push_string_local 0
+   29: push_constant_int 25
+   30: push_int_local 1
+   31: op2505 0
+   32: if_getwidth 0
+   33: gosub_with_params 39
+   34: return 0
+
+switch_0:
+  12582914 => 1
+  12648466 => 6
+  28180500 => 11
+  62259202 => 16

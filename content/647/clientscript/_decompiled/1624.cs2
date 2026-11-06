@@ -1,0 +1,7 @@
+[clientscript,script_1624](int $int0, int $int1, string $str0)
+if (cc_find($int0, $int1) = 1) {
+    cc_settext($str0);
+} else {
+    mes("Cannot find component." + tostring($int1));
+}
+return;

@@ -1,0 +1,26 @@
+; id: 3441
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 94
+    1: push_constant_int 6465
+    2: inv_total 0
+    3: push_constant_int 0
+    4: branch_greater_than 6
+    5: push_constant_int 94
+    6: push_constant_int 15016
+    7: inv_total 0
+    8: push_constant_int 0
+    9: branch_greater_than 1
+   10: branch 3
+   11: push_constant_int 1
+   12: return 0
+   13: branch 2
+   14: push_constant_int 0
+   15: return 0
+   16: push_constant_int -1
+   17: return 0

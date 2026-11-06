@@ -95,13 +95,10 @@ use std::path::Path;
 #[cfg(before_647)]
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
-#[cfg(before_647)]
 use std::thread;
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::time::{Instant, SystemTime, UNIX_EPOCH};
 use std::{env, fs, io, process};
-#[cfg(before_647)]
-use tracing::debug;
-use tracing::warn;
+use tracing::{debug, warn};
 
 pub mod archive;
 pub mod back;
@@ -110,8 +107,6 @@ pub mod cache;
 pub mod cs2;
 #[cfg(since_647)]
 pub mod discover;
-#[cfg(since_647)]
-pub mod openrs2;
 pub mod pack;
 #[cfg(before_647)]
 pub mod pyxel;
@@ -330,7 +325,6 @@ fn insert_jag(
     packs.insert(name, Arc::from(data));
 }
 
-#[cfg(before_647)]
 fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
     result.unwrap_or_else(|e| {
         let msg = if let Some(s) = e.downcast_ref::<&str>() {
@@ -353,6 +347,7 @@ pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvi
 }
 
 fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
+    let start = Instant::now();
     static NEXT: AtomicU64 = AtomicU64::new(0);
     let nanos = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -364,8 +359,14 @@ fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Ve
     ));
     fs::create_dir(&private).map_err(|e| anyhow::anyhow!("creating {}: {e}", private.display()))?;
     let compiled = copy_pack(pack, &private).and_then(|()| {
+        debug!(
+            "Prepared script registries in {:.3}s",
+            start.elapsed().as_secs_f64()
+        );
+        let start = Instant::now();
         let bytes = runec::compile_memory(source, Some(&private), false)
             .map_err(|e| anyhow::anyhow!("{e}"))?;
+        debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
         pin_script_ids(pack, &private);
         Ok(bytes)
     });
@@ -405,22 +406,14 @@ fn pin_script_ids(pack: &Path, private: &Path) {
     }
 }
 
-/// Rev-647 pack path: run the full dat2 pipeline — pack text configs +
-/// animations, compile RuneScript, assemble the 35-archive JS5 cache from
-/// `content/647`, CRC-gate it against OpenRS2 786 (`archive::EXPECTED_CRCS`,
-/// panicking on divergence when `verify`), and load the config TypeProviders.
-///
-/// The built cache + server/client artifacts land under `target/pack/<REV>`
-/// (kept inside the repo's target dir; incremental via stamp files).
 #[cfg(since_647)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
     verify: bool,
-    _members: bool,
+    members: bool,
 ) -> anyhow::Result<startup::PackResult> {
-    let output_dir = Path::new(concat!("target/pack/", env!("REV")));
-    startup::pack_all(source, pack, output_dir, verify)
+    startup::pack_all(source, pack, verify, members)
 }
 
 #[cfg(before_647)]

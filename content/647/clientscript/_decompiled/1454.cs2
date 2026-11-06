@@ -1,0 +1,23 @@
+[clientscript,script_1454](int $int0)
+def_int $int1 = 0;
+def_int $int2 = sub(if_gety, 25);
+def_int $int3 = calc(49938525 + if_getheight - 16);
+if ($int0 > $int2) {
+    if ($int0 < add($int2, 25)) {
+        $int1 = -4;
+    }
+} else {
+    if ($int0 < $int3) {
+        if ($int0 > sub($int3, 30)) {
+            $int1 = 4;
+        }
+    }
+    %varc_int189 = 0;
+    return;
+}
+%varc_int189 = add(%varc_int189, 1);
+if (%varc_int189 > 5) {
+    ~script_705(49938525, add(if_getscrolly, $int1));
+    ~script_157(49938525, 49938525, add(if_getscrolly, $int1), 1);
+}
+return;

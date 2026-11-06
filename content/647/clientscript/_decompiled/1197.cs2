@@ -1,0 +1,16 @@
+[clientscript,script_1197](int $int0)
+if ($int0 >= 6) {
+    return;
+} else {
+    if ($int0 = 0) {
+        cam_startpath(0, $int0, 100, 400, 1, $int0);
+        if_setonvarcstringtransmit;
+    }
+    if ($int0 = 5) {
+        cam_startpath(0, $int0, 400, 10, 1, $int0);
+        if_setonvarcstringtransmit;
+    }
+    cam_startpath(0, $int0, 400, 400, 1, $int0);
+    if_setonvarcstringtransmit;
+}
+return;

@@ -1,0 +1,17 @@
+[clientscript,script_1921]
+if (%varc_int551 > 0) {
+    if_settext(append(append_num(append(%varc_str40, " ("), %varc_int551), ")"));
+} else {
+    if_settext(%varc_str40);
+}
+if (%varc_int552 > 0) {
+    if_settext(append(append_num(append(%varc_str41, " ("), %varc_int552), ")"));
+} else {
+    if_settext(%varc_str41);
+}
+if (%varc_int553 > 0) {
+    if_settext(append(append_num(append(%varc_str42, " ("), %varc_int553), ")"));
+} else {
+    if_settext(%varc_str42);
+}
+return;

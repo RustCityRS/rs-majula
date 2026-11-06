@@ -1,0 +1,24 @@
+; id: 3467
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_int_local 1
+    2: sub 0
+    3: push_int_local 2
+    4: branch_less_than 1
+    5: branch 1
+    6: return 0
+    7: push_constant_int -1
+    8: push_constant_string ""
+    9: push_int_local 0
+   10: op2408 0
+   11: push_constant_int 0
+   12: push_constant_int 50
+   13: push_int_local 0
+   14: gosub_with_params 2766
+   15: return 0

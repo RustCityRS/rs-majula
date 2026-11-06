@@ -1,0 +1,12 @@
+[clientscript,script_294](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string)
+sound_synth(synth_2266, 1, 0);
+$int0 = ~script_2785($int0);
+if ($int0 = worldmap_getstate) {
+    return(~script_291(0, $int1, $int2, $int3, $int4, $int5));
+}
+%varc_str31 = "";
+~script_41(49479737);
+minimap_flash($int0);
+%varc_int172 = maparea_getdefaultzoom($int0);
+~script_307;
+return(~script_308($int4), ~script_308($int4), ~script_308($int4), ~script_308($int4), ~script_308($int4), ~script_308($int4), ~script_308($int4), ~script_308($int4), ~script_2046($int5), ~script_2046($int5), ~script_2046($int5), ~script_2046($int5), ~script_2046($int5), ~script_2046($int5), ~script_2046($int5), ~script_1372, ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_308($int4), ~script_2046($int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5), ~script_291(0, $int1, $int2, $int3, $int4, $int5));

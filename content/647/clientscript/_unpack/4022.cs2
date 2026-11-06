@@ -1,0 +1,67 @@
+; id: 4022
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 1
+    2: push_constant_int -1
+    3: pop_int_local 2
+    4: push_int_local 1
+    5: push_constant_int 3489
+    6: enum_getoutputcount 0
+    7: branch_less_than_or_equals 1
+    8: branch 18
+    9: push_constant_int 105
+   10: push_constant_int 73
+   11: push_constant_int 3489
+   12: push_int_local 1
+   13: enum 0
+   14: pop_int_local 2
+   15: push_int_local 2
+   16: push_constant_int -1
+   17: branch_not 1
+   18: branch 3
+   19: push_constant_int 0
+   20: push_int_local 2
+   21: if_setcolour 0
+   22: push_int_local 1
+   23: push_constant_int 1
+   24: add 0
+   25: pop_int_local 1
+   26: branch -23
+   27: push_constant_int 105
+   28: push_constant_int 73
+   29: push_constant_int 3489
+   30: push_constant_int 62
+   31: enum 0
+   32: pop_int_local 2
+   33: push_int_local 2
+   34: push_constant_int -1
+   35: branch_not 1
+   36: branch 3
+   37: push_constant_int 0
+   38: push_int_local 2
+   39: if_setcolour 0
+   40: push_int_local 0
+   41: push_constant_int 60
+   42: branch_greater_than 1
+   43: branch 5
+   44: push_int_local 0
+   45: push_constant_int 62
+   46: branch_not 1
+   47: branch 1
+   48: return 0
+   49: push_constant_int 105
+   50: push_constant_int 73
+   51: push_constant_int 3489
+   52: push_int_local 0
+   53: enum 0
+   54: pop_int_local 2
+   55: push_constant_int 9600345
+   56: push_int_local 2
+   57: if_setcolour 0
+   58: return 0

@@ -1,0 +1,8 @@
+[clientscript,script_1281](int $int0, int $int1, int $int2, int $int3)
+if ($int2 = -1) {
+    ~script_1280($int0, $int1, $int3, $int1);
+    return;
+}
+~script_1280($int0, $int1, $int3, $int2);
+~script_1280($int0, $int2, $int3, $int1);
+return;

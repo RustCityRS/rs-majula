@@ -1,0 +1,87 @@
+; id: 1064
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 105
+    1: push_constant_int 73
+    2: push_constant_int 1550
+    3: push_int_local 0
+    4: enum 0
+    5: pop_int_local 1
+    6: push_int_local 1
+    7: op2505 0
+    8: pop_int_local 2
+    9: push_int_local 2
+   10: op2603 0
+   11: branch_if_false 1
+   12: branch 5
+   13: push_int_local 2
+   14: if_getwidth 0
+   15: push_constant_int 0
+   16: push_int_local 2
+   17: op2120 0
+   18: push_int_local 1
+   19: if_getwidth 0
+   20: pop_int_local 3
+   21: push_int_local 1
+   22: if_getx 0
+   23: pop_int_local 4
+   24: push_int_local 0
+   25: push_constant_int 0
+   26: branch_greater_than 1
+   27: branch 34
+   28: push_int_local 0
+   29: push_constant_int 1
+   30: sub 0
+   31: pop_int_local 0
+   32: push_constant_int 105
+   33: push_constant_int 73
+   34: push_constant_int 1550
+   35: push_int_local 0
+   36: enum 0
+   37: pop_int_local 1
+   38: push_int_local 1
+   39: if_gethide 0
+   40: branch_if_false 1
+   41: branch 17
+   42: push_int_local 3
+   43: push_int_local 1
+   44: if_getwidth 0
+   45: add 0
+   46: push_int_local 2
+   47: if_getwidth 0
+   48: branch_less_than_or_equals 1
+   49: branch 9
+   50: push_int_local 3
+   51: push_int_local 1
+   52: if_getwidth 0
+   53: add 0
+   54: pop_int_local 3
+   55: push_int_local 1
+   56: if_getx 0
+   57: pop_int_local 4
+   58: branch 2
+   59: push_constant_int -1
+   60: pop_int_local 0
+   61: branch -38
+   62: push_int_local 2
+   63: op2600 0
+   64: push_int_local 4
+   65: branch_equals 1
+   66: branch 5
+   67: push_constant_int -1
+   68: push_constant_string ""
+   69: push_int_local 2
+   70: op2408 0
+   71: branch 6
+   72: push_constant_int 1065
+   73: push_int_local 2
+   74: push_int_local 4
+   75: push_constant_string "Ii"
+   76: push_int_local 2
+   77: op2408 0
+   78: return 0

@@ -1,0 +1,9 @@
+[clientscript,script_1791](int $int0)
+def_int $int1 = div(%varc_int270, 60);
+def_int $int2 = mod(%varc_int270, 60);
+if ($int2 >= 10) {
+    if_settext(tostring($int1) + "h " + tostring($int2) + "m");
+} else {
+    if_settext(tostring($int1) + "h 0" + tostring($int2) + "m");
+}
+return;

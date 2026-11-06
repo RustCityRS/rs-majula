@@ -1,0 +1,40 @@
+; id: 3473
+int_param_count=6
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: push_constant_int 0
+    2: op5407 0
+    3: push_constant_int 1
+    4: sub 0
+    5: branch_less_than 1
+    6: branch 20
+    7: push_constant_int 0
+    8: push_int_local 1
+    9: push_int_local 2
+   10: push_int_local 3
+   11: push_constant_int 1
+   12: push_int_local 1
+   13: op5502 0
+   14: push_constant_int 3473
+   15: push_int_local 0
+   16: push_int_local 1
+   17: push_constant_int 1
+   18: add 0
+   19: push_int_local 4
+   20: push_int_local 5
+   21: push_constant_int 0
+   22: push_constant_int 0
+   23: push_constant_string "Iiiiii"
+   24: push_int_local 0
+   25: op2426 0
+   26: branch 4
+   27: push_constant_int -1
+   28: push_constant_string ""
+   29: push_int_local 0
+   30: op2426 0
+   31: return 0

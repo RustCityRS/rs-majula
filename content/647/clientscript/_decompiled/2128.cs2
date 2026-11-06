@@ -1,0 +1,18 @@
+[clientscript,script_2128](int $int0, int $int1)
+switch ($int1) {
+    case 1:
+        if_setmodel;
+        if_setmodelangle;
+    case 2:
+        if_setmodel;
+        if_setmodelangle;
+    case 3:
+        if_setmodel;
+        if_setmodelangle;
+    case 4:
+        if_setmodel;
+        if_setmodelangle;
+    default:
+        if_setmodel;
+}
+return;

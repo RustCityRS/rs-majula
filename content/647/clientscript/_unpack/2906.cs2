@@ -1,0 +1,81 @@
+; id: 2906
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op2505 0
+    2: pop_int_local 3
+    3: push_constant_int 0
+    4: pop_int_local 4
+    5: push_int_local 1
+    6: push_constant_int 10010
+    7: branch_equals 1
+    8: branch 14
+    9: push_constant_int 94
+   10: push_constant_int 11259
+   11: inv_total 0
+   12: push_constant_int 93
+   13: push_constant_int 11259
+   14: inv_total 0
+   15: add 0
+   16: pop_int_local 4
+   17: push_int_local 4
+   18: push_constant_int 0
+   19: branch_greater_than 1
+   20: branch 2
+   21: push_constant_int 11259
+   22: pop_int_local 1
+   23: push_int_local 1
+   24: switch 0
+   25: branch 12
+   26: push_int_local 4
+   27: branch_if_false 1
+   28: branch 8
+   29: push_constant_int 93
+   30: push_constant_int 10010
+   31: inv_total 0
+   32: push_constant_int 94
+   33: push_constant_int 10010
+   34: inv_total 0
+   35: add 0
+   36: pop_int_local 4
+   37: branch 4
+   38: push_constant_int 93
+   39: push_int_local 1
+   40: inv_total 0
+   41: pop_int_local 4
+   42: push_int_local 1
+   43: oc_name 0
+   44: push_int_local 2
+   45: if_settext 0
+   46: push_int_local 4
+   47: push_constant_int 0
+   48: branch_greater_than 1
+   49: branch 8
+   50: push_constant_int 16776960
+   51: push_int_local 2
+   52: if_setcolour 0
+   53: push_int_local 1
+   54: push_int_local 4
+   55: push_int_local 0
+   56: if_setobject 0
+   57: branch 7
+   58: push_constant_int 13369344
+   59: push_int_local 2
+   60: if_setcolour 0
+   61: push_int_local 1
+   62: push_constant_int -1
+   63: push_int_local 0
+   64: if_setobject 0
+   65: push_constant_int 1
+   66: push_int_local 0
+   67: op2116 0
+   68: return 0
+
+switch_0:
+  10010 => 1
+  11259 => 1

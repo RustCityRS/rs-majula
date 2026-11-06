@@ -1,0 +1,43 @@
+; id: 1804
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: map_members 0
+    1: branch_if_true 1
+    2: branch 17
+    3: push_int_local 0
+    4: push_int_local 1
+    5: push_int_local 2
+    6: push_constant_string "You may choose:"
+    7: push_constant_string "<br>"
+    8: push_constant_string "- Allow all spells"
+    9: push_constant_string "<br>"
+   10: push_constant_string "- Standard spellbook only"
+   11: push_constant_string "<br>"
+   12: push_constant_string "- Bind/Snare/Entangle only"
+   13: push_constant_string "<br>"
+   14: push_constant_string "- No Magic"
+   15: join_string 9
+   16: push_constant_int 25
+   17: push_constant_int 250
+   18: gosub_with_params 1163
+   19: branch 14
+   20: push_int_local 0
+   21: push_int_local 1
+   22: push_int_local 2
+   23: push_constant_string "You may choose:"
+   24: push_constant_string "<br>"
+   25: push_constant_string "- Standard spellbook"
+   26: push_constant_string "<br>"
+   27: push_constant_string "- Bind only"
+   28: push_constant_string "<br>"
+   29: push_constant_string "- No Magic"
+   30: join_string 7
+   31: push_constant_int 25
+   32: push_constant_int 250
+   33: gosub_with_params 1163
+   34: return 0

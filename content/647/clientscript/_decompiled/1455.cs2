@@ -1,0 +1,10 @@
+[clientscript,script_1455]
+def_int $int0 = 0;
+if ($int0 < inv_size(bank)) {
+    if (cc_find(49938525, $int0) = 1) {
+        cc_sethide(1);
+        cc_setposition2(0, 0, 0, 0);
+    }
+    $int0 = add($int0, 1);
+}
+return;

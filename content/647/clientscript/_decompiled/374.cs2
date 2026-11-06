@@ -1,0 +1,10 @@
+[clientscript,script_374](int $int0, int $int1, string $str0)
+cc_setposition(0, $int0, 4, if_getchildcount($int0));
+cc_setsize(0, 0, 1, 1);
+cc_setposition2(1, 1, 1, 1);
+cc_settextfont(3793);
+cc_setcolour(13483674);
+cc_settextshadow(0);
+cc_settextalign(1, 1, $int1);
+cc_settext($str0);
+return;

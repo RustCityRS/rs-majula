@@ -1,0 +1,12 @@
+[clientscript,script_1507](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+if (player_isfemale = 1) {
+    player_setbodytype(13, $int1);
+} else {
+    player_setbodytype(6, $int1);
+}
+%varc_int1014 = $int1;
+~script_1506;
+return;

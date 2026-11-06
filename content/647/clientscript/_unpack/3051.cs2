@@ -1,0 +1,15 @@
+; id: 3051
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Remove ignore"
+    1: push_constant_string ""
+    2: push_constant_int 4
+    3: push_constant_string ""
+    4: push_constant_string ""
+    5: gosub_with_params 3015
+    6: return 0

@@ -1,0 +1,26 @@
+[clientscript,script_482]
+switch (%varbit7512) {
+    case 1:
+        if_setgraphic(66519183);
+    case 2:
+        if_setgraphic(66519185);
+    case 3:
+        if_setgraphic(66519187);
+    case 4:
+        if_setgraphic(66519189);
+    case 5:
+        if_setgraphic(66519191);
+    case 6:
+        if_setgraphic(66519193);
+    case 7:
+        if_setgraphic(66519195);
+    case 8:
+        if_setgraphic(66519197);
+    case 9:
+        if_setgraphic(66519199);
+    case 10:
+        if_setgraphic(66519201);
+    default:
+        return;
+}
+return;

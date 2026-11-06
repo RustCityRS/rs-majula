@@ -1,0 +1,86 @@
+[clientscript,script_2791](int $int0)(int, int, int, int, string)
+def_int $int1 = struct_param(enum(105, 74, enum_869, $int0), param_938);
+def_string $str0 = "";
+def_int $int2 = struct_param(enum(105, 74, enum_869, $int0), param_939);
+def_int $int3 = struct_param(enum(105, 74, enum_869, $int0), param_937);
+def_int $int4 = 1;
+def_int $int5 = 0;
+if (struct_param(enum(105, 74, enum_869, $int0), param_940) = 1) {
+    switch ($int0) {
+        case 0:
+            if (stat_base(cooking) < 40) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 1:
+            if (%varbit1527 < 160) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 2:
+            if (%varp359 < 100) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 3:
+            if (%varbit5491 > 370) {
+                $int5 = 1;
+            }
+        case 5:
+            if (%varbit418 < 26) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 6:
+            if (%varbit5525 = 1) {
+                $int5 = 1;
+            }
+        case 7:
+            if (%varbit5491 > 370) {
+                $int5 = 1;
+            }
+        case 9:
+            if (stat_base(fishing) < 15) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 11:
+            if (%varbit3618 < 16) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 12:
+            if (%varbit3293 < 135) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            } else {
+                if (%varbit6180 = 140) {
+                    $int5 = 1;
+                }
+            }
+        case 17:
+            if (%varbit3618 < 28) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 14:
+            if (%varp492 < 4) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        case 16:
+            if (%varbit9067 < 8) {
+                $int1 = struct_param(enum(105, 74, enum_869, $int0), param_936);
+                $int4 = 0;
+            }
+        default:
+    }
+    if ($int5 = 1) {
+        $int1 = struct_param(enum(105, 74, enum_869, $int0), param_942);
+        $int4 = 1;
+        $str0 = "";
+        $int3 = struct_param(enum(105, 74, enum_869, $int0), param_943);
+        $int2 = struct_param(enum(105, 74, enum_869, $int0), param_944);
+    }
+}
+return($int1, $int4, $int3, $int2, $str0);

@@ -1,0 +1,11 @@
+[clientscript,script_950]
+switch (%varc_int1397) {
+    case 0:
+        if_setcolour(61145411);
+    case 1:
+        if_setcolour(61145411);
+    case 2:
+        if_setcolour(61145411);
+    default:
+}
+return;

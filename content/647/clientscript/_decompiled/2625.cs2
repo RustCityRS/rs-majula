@@ -1,0 +1,12 @@
+[clientscript,script_2625](int $int0, int $int1)
+if ($int0 = 84) {
+    ~script_2621;
+} else {
+    if (if_gethide = 0) {
+        if (string_indexof_char("abcdefghijklmnopqrst", 0) ! -1) {
+            ~script_2621;
+        }
+        return;
+    }
+}
+return;

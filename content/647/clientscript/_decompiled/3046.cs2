@@ -1,0 +1,14 @@
+[clientscript,script_3046](int $int0)
+if ($int0 > 1) {
+    ~script_3047(sub($int0, 2));
+} else {
+    switch (chat_getfilter_private) {
+        case 0:
+            ~script_3047(1);
+        case 1:
+            ~script_3047(2);
+        case 2:
+            ~script_3047(0);
+    }
+}
+return;

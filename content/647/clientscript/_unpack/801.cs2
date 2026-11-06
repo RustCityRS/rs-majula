@@ -1,0 +1,18 @@
+; id: 801
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: gosub_with_params 805
+    2: push_int_local 0
+    3: if_setcolour 0
+    4: push_int_local 1
+    5: stat 0
+    6: tostring 0
+    7: push_int_local 0
+    8: if_settext 0
+    9: return 0

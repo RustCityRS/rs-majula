@@ -1,0 +1,6 @@
+[clientscript,script_2379](int $int0, int $int1, int $int2, int $int3)(int)
+if ($int0 ! 1) {
+    return;
+}
+%varbit6099 = $int3;
+return(~script_2380($int1, $int2));

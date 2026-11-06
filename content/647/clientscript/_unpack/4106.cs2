@@ -1,0 +1,24 @@
+; id: 4106
+int_param_count=1
+string_param_count=1
+long_param_count=0
+local_int_count=1
+local_string_count=1
+local_long_count=0
+
+    0: push_int_local 0
+    1: if_getwidth 0
+    2: push_string_local 0
+    3: push_constant_int 495
+    4: op4125 0
+    5: push_int_local 0
+    6: if_gettext 0
+    7: push_constant_int 494
+    8: op4125 0
+    9: op4017 0
+   10: add 0
+   11: push_constant_int 2
+   12: div 0
+   13: return 0
+   14: push_constant_int 0
+   15: return 0

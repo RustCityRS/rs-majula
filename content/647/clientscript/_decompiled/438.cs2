@@ -1,0 +1,23 @@
+[clientscript,script_438](int $int0)
+if_setgraphic(66977834);
+if_setgraphic(66977835);
+if_setgraphic(66977836);
+if_setgraphic(66977837);
+if_setgraphic(66977838);
+if_setgraphic(66977839);
+switch ($int0) {
+    case 66977840:
+        if_setgraphic(66977834);
+    case 66977841:
+        if_setgraphic(66977835);
+    case 66977842:
+        if_setgraphic(66977836);
+    case 66977843:
+        if_setgraphic(66977837);
+    case 66977844:
+        if_setgraphic(66977838);
+    case 66977845:
+        if_setgraphic(66977839);
+    default:
+}
+return;

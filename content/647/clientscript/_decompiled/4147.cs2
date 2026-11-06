@@ -1,0 +1,9 @@
+[clientscript,script_4147](int $int0, int $int1, int $int2, string $str0)(int, stat, int, int, int, int, int, int, int, int, int, string, string, string, string)
+if_sethide($int0);
+if_setpausetext($int0, $str0);
+if_setsize($int1, 1, 0, $int0);
+if_setposition($int2, 1, 1, $int0);
+~script_4149($int0, 0, $str0);
+if_setonmouserepeat;
+if_setonmouseleave;
+return(0, agility, 0, 4148, $int0, 1, $int0, 4148, $int0, 0, $int0, $str0, "Is1", $str0, "Is1");

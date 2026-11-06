@@ -1,0 +1,16 @@
+[clientscript,script_3032](int $int0, int $int1, int $int2)
+def_int $int3 = -1;
+if ($int2 = 1) {
+    $int3 = 59572267;
+} else {
+    if ($int2 = 0) {
+        $int3 = 59572309;
+    }
+}
+if (cc_find($int0, $int1) = 1) {
+    if_sethide($int3);
+    if_setposition(cc_gety, 0, 0, $int3);
+}
+if ($int2 ! 1) {
+}
+return;

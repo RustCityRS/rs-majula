@@ -1,0 +1,11 @@
+[clientscript,script_1906](int $int0, int $int1)
+if (cc_find($int1, $int0) = 1) {
+    %varc_int128 = sub($int0, 1);
+    if (cc_find($int1, 0) = 1) {
+        cc_setposition2(cc_getx, cc_gety, 0, 0);
+        cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+        cc_setcolour(5733957);
+        cc_setfill(1);
+    }
+}
+return;

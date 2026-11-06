@@ -1,0 +1,16 @@
+[clientscript,script_1433]
+if (getwindowmode >= 1) {
+    if_setonvarctransmit;
+    if_setonvarctransmit;
+}
+if_setonvarctransmit;
+op2427;
+if (getwindowmode >= 2) {
+    if_setonvartransmit;
+    ~script_1886(48890028);
+} else {
+    if_setonvartransmit;
+    ~script_1886(35913911);
+}
+~script_51;
+return;

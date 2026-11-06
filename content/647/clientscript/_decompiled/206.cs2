@@ -1,0 +1,98 @@
+[clientscript,script_206](component, component)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_string $str0 = "";
+def_string $str1 = "";
+def_int $int3 = inv_size(inv_134);
+define_array(111, $int3);
+define_array(65641, $int3);
+def_int $int4 = 0;
+def_int $int5 = 99;
+def_int $int6 = 0;
+if ($int0 < $int3) {
+    $int2 = inv_getobj(inv_134, $int0);
+    $int1 = inv_getnum(inv_134, $int0);
+    if ($int2 ! -1) {
+        $int5 = 99;
+        $int6 = 0;
+        if ($int6 < $int3) {
+            if (push_array_int(0, $int6) ! -1) {
+                if (push_array_int(0, $int6) = $int2) {
+                    $int5 = $int6;
+                    $int6 = $int3;
+                }
+                $int6 = add($int6, 1);
+            } else {
+                $int6 = $int3;
+            }
+        }
+        if ($int5 = 99) {
+            %array0 = pop_array_int($int4, $int2);
+            %array1 = pop_array_int($int4, $int1);
+            $int4 = add($int4, 1);
+        }
+        %array1 = pop_array_int($int5, add(push_array_int(1, $int5), $int1));
+    }
+    $int0 = add($int0, 1);
+}
+$int4 = 0;
+if ($int4 < $int3) {
+    $int2 = push_array_int(0, $int4);
+    if ($int2 ! -1) {
+        $int1 = push_array_int(1, $int4);
+        $str0 = append($str0, ~script_207(2, $int1, $int2));
+    } else {
+        $int4 = $int3;
+    }
+    $int4 = add($int4, 1);
+}
+$int0 = 0;
+$int4 = 0;
+if ($int4 < $int3) {
+    %array0 = pop_array_int($int4, -1);
+    %array1 = pop_array_int($int4, 0);
+    $int4 = add($int4, 1);
+}
+$int4 = 0;
+$int6 = 0;
+if ($int0 < $int3) {
+    $int2 = inv_getobj_alwaysnoted(inv_134, $int0);
+    $int1 = worldid;
+    if ($int2 ! -1) {
+        $int5 = 99;
+        $int6 = 0;
+        if ($int6 < $int3) {
+            if (push_array_int(0, $int6) ! -1) {
+                if (push_array_int(0, $int6) = $int2) {
+                    $int5 = $int6;
+                    $int6 = $int3;
+                }
+                $int6 = add($int6, 1);
+            } else {
+                $int6 = $int3;
+            }
+        }
+        if ($int5 = 99) {
+            %array0 = pop_array_int($int4, $int2);
+            %array1 = pop_array_int($int4, $int1);
+            $int4 = add($int4, 1);
+        }
+        %array1 = pop_array_int($int5, add(push_array_int(1, $int5), $int1));
+    }
+    $int0 = add($int0, 1);
+}
+$int4 = 0;
+if ($int4 < $int3) {
+    $int2 = push_array_int(0, $int4);
+    if ($int2 ! -1) {
+        $int1 = push_array_int(1, $int4);
+        $str1 = append($str1, ~script_207(2, $int1, $int2));
+    } else {
+        $int4 = $int3;
+    }
+    $int4 = add($int4, 1);
+}
+if_settext($str0);
+if_settext($str1);
+return(41025572, 41025573);

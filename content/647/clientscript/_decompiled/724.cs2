@@ -1,0 +1,40 @@
+[clientscript,script_724](int $int0, int $int1, int $int2, string $str0)
+if ($int0 = 48824321) {
+    if (%varc_int616 = 0) {
+        return;
+    }
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+if (%varc_int1 < add(clientclock, 25)) {
+    if (%varc_int1 < clientclock) {
+        %varc_int1 = clientclock;
+    }
+    %varc_int1 = add(%varc_int1, 2);
+    return;
+}
+%varc_int1 = calc(clientclock + 25 + 10);
+if (%varc_int2 ! 1) {
+    $int5 = add(parawidth($str0, 495), 8);
+    if (getwindowmode < 2) {
+        $int6 = 35913743;
+        $int8 = 35913952;
+        $int7 = 35913742;
+    } else {
+        $int6 = 48889869;
+        $int8 = 48890020;
+        $int7 = 48889868;
+    }
+    $int3 = calc($int0 + if_getx + $int1 - $int5);
+    $int4 = calc($int0 + if_gety + $int2 - 17);
+    if_sethide($int6);
+    if_setsize(17, 0, 0, $int6);
+    if_setposition($int4, 0, 0, $int6);
+    if_settext($str0);
+    %varc_int2 = 1;
+}
+return;

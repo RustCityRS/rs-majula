@@ -1,0 +1,36 @@
+[clientscript,script_1706]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 10;
+if ($int0 ! -1) {
+    if ($int2 > 0) {
+        $int1 = ~script_1708($int0);
+        if (if_find(~script_1707($int0)) = 1) {
+            if ($int1 > 0) {
+                cc_setcolour(3342130);
+                cc_settext(append(append_num("+", $int1), "%"));
+            }
+            if ($int1 < 0) {
+                cc_setcolour(16724530);
+                cc_settext(append(tostring($int1), "%"));
+            }
+            cc_setcolour(16750623);
+            cc_settext(append(tostring($int1), "%"));
+        }
+        switch ($int0) {
+            case 0:
+                $int0 = 2;
+            case 2:
+                $int0 = 1;
+            case 1:
+                $int0 = 4;
+            case 4:
+                $int0 = 6;
+            case 6:
+                $int0 = -1;
+            default:
+        }
+        $int2 = sub($int2, 1);
+    }
+}
+return;

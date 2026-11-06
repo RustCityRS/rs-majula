@@ -1,0 +1,6 @@
+[clientscript,script_4617](int $int0, int $int1)(int)
+def_int $int2 = $int0;
+def_int $int3 = $int1;
+$int3 = ~script_4618($int0, $int1);
+$int2 = ~script_4618($int0, $int1);
+return(add(date_tominutes($int2), $int3));

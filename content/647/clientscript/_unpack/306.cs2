@@ -1,0 +1,23 @@
+; id: 306
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_int_local 0
+    2: sub 0
+    3: push_constant_int 15
+    4: branch_less_than 1
+    5: branch 1
+    6: return 0
+    7: push_constant_int -1
+    8: push_constant_string ""
+    9: push_int_local 1
+   10: op2408 0
+   11: push_constant_int 16777215
+   12: push_int_local 1
+   13: if_setcolour 0
+   14: return 0

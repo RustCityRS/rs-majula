@@ -1,0 +1,32 @@
+[clientscript,script_2763](int $int0, int $int1)
+switch (%varc_int1007) {
+    case 201:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60314467, $int1), 600, ~script_2764(60330851, $int1), 600, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60363619, $int1), 550, ~script_2764(60363619, $int1), 600, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60068707, $int1), 200, ~script_2764(60068707, $int1), 200, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60068707, $int1), 200, ~script_2764(60068707, $int1), 200, 0);
+        cam_startpath(0, 0, 200, 75, 1, 0);
+    case 202:
+    case 203:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60363619, $int1), 550, ~script_2764(60363619, $int1), 550, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60347235, $int1), 750, ~script_2764(60347235, $int1), 750, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60068707, $int1), 200, ~script_2764(60068707, $int1), 200, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60068707, $int1), 200, ~script_2764(60068707, $int1), 200, 0);
+        cam_startpath(0, 0, 50, 25, 1, 0);
+        ~script_2768(75, $int0);
+    case 204:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60281702, $int1), 550, ~script_2764(60298086, $int1), 550, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60330855, $int1), 550, ~script_2764(60314471, $int1), 550, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60379998, $int1), 400, ~script_2764(60363614, $int1), 400, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60183394, $int1), 400, ~script_2764(60199777, $int1), 400, 0);
+        cam_startpath(0, 0, 150, 220, 1, 0);
+    default:
+        cam_clear;
+}
+return;

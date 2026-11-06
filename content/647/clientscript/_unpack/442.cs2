@@ -1,0 +1,61 @@
+; id: 442
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1134
+    1: push_constant_int 66584600
+    2: if_setgraphic 0
+    3: push_constant_int 1134
+    4: push_constant_int 66584601
+    5: if_setgraphic 0
+    6: push_constant_int 1134
+    7: push_constant_int 66584602
+    8: if_setgraphic 0
+    9: push_constant_int 1134
+   10: push_constant_int 66584603
+   11: if_setgraphic 0
+   12: push_constant_int 1134
+   13: push_constant_int 66584604
+   14: if_setgraphic 0
+   15: push_constant_int 1134
+   16: push_constant_int 66584605
+   17: if_setgraphic 0
+   18: push_int_local 0
+   19: switch 0
+   20: branch 23
+   21: push_constant_int 1135
+   22: push_constant_int 66584600
+   23: if_setgraphic 0
+   24: branch 19
+   25: push_constant_int 1135
+   26: push_constant_int 66584601
+   27: if_setgraphic 0
+   28: branch 15
+   29: push_constant_int 1135
+   30: push_constant_int 66584602
+   31: if_setgraphic 0
+   32: branch 11
+   33: push_constant_int 1135
+   34: push_constant_int 66584603
+   35: if_setgraphic 0
+   36: branch 7
+   37: push_constant_int 1135
+   38: push_constant_int 66584604
+   39: if_setgraphic 0
+   40: branch 3
+   41: push_constant_int 1135
+   42: push_constant_int 66584605
+   43: if_setgraphic 0
+   44: return 0
+
+switch_0:
+  66584606 => 1
+  66584607 => 5
+  66584608 => 9
+  66584609 => 13
+  66584610 => 17
+  66584611 => 21

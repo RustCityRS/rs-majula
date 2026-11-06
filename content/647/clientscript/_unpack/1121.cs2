@@ -1,0 +1,103 @@
+; id: 1121
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 105
+    1: push_constant_int 73
+    2: push_constant_int 729
+    3: push_varbit 276
+    4: enum 0
+    5: pop_int_local 0
+    6: push_constant_int 0
+    7: pop_int_local 1
+    8: push_constant_int 0
+    9: pop_int_local 2
+   10: push_constant_int -1
+   11: pop_int_local 3
+   12: push_constant_int -1
+   13: pop_int_local 4
+   14: push_varbit 357
+   15: switch 0
+   16: branch 15
+   17: push_constant_int 12583005
+   18: pop_int_local 3
+   19: push_constant_int 12583004
+   20: pop_int_local 4
+   21: branch 11
+   22: push_constant_int 12648498
+   23: pop_int_local 3
+   24: push_constant_int 12648497
+   25: pop_int_local 4
+   26: branch 6
+   27: push_constant_int 62259269
+   28: pop_int_local 3
+   29: push_constant_int 62259268
+   30: pop_int_local 4
+   31: branch 1
+   32: return 0
+   33: push_varbit 276
+   34: branch_if_true 1
+   35: branch 11
+   36: push_varbit 6521
+   37: push_constant_int 3
+   38: branch_equals 1
+   39: branch 2
+   40: gosub_with_params 948
+   41: branch 5
+   42: push_varbit 6521
+   43: push_constant_int 28
+   44: branch_equals 1
+   45: branch 1
+   46: gosub_with_params 1331
+   47: push_int_local 0
+   48: push_constant_int -1
+   49: branch_not 1
+   50: branch 32
+   51: push_varbit 275
+   52: branch_if_true 1
+   53: branch 29
+   54: push_int_local 0
+   55: if_getx 0
+   56: push_constant_int 2
+   57: sub 0
+   58: pop_int_local 1
+   59: push_int_local 0
+   60: if_gety 0
+   61: push_constant_int 2
+   62: sub 0
+   63: pop_int_local 2
+   64: push_int_local 1
+   65: push_int_local 2
+   66: push_constant_int 0
+   67: push_constant_int 0
+   68: push_int_local 3
+   69: if_setposition 0
+   70: push_int_local 1
+   71: push_int_local 2
+   72: push_constant_int 0
+   73: push_constant_int 0
+   74: push_int_local 4
+   75: if_setposition 0
+   76: push_constant_int 0
+   77: push_int_local 3
+   78: if_sethide 0
+   79: push_constant_int 0
+   80: push_int_local 4
+   81: if_sethide 0
+   82: return 0
+   83: push_constant_int 1
+   84: push_int_local 3
+   85: if_sethide 0
+   86: push_constant_int 1
+   87: push_int_local 4
+   88: if_sethide 0
+   89: return 0
+
+switch_0:
+  0 => 1
+  1 => 6
+  3 => 11

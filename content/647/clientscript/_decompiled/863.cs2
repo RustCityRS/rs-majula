@@ -1,0 +1,6 @@
+[clientscript,script_863](component, int)
+if (%varbit7912 = 1) {
+    if_setmodel;
+    return(~script_3438(%varbit7919), 64618499);
+}
+return;

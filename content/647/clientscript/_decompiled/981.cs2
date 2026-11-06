@@ -1,0 +1,36 @@
+[clientscript,script_981](int $int0)(int, string)
+switch ($int0) {
+    case 0:
+        return(0, "Bronze");
+    case 1:
+        return(0, "Iron");
+    case 2:
+        return(0, "Steel");
+    case 3:
+        return(0, "Black");
+    case 4:
+        return(1, "White");
+    case 5:
+        return(0, "Mithril");
+    case 6:
+        return(0, "Adamant");
+    case 7:
+        return(0, "Rune");
+    case 8:
+        return(0, "Dragon");
+    case 9:
+        return(1, "Barrows");
+    case 10:
+        return(0, "Special");
+    case 11:
+        return(1, "Salamanders");
+    case 12:
+        return(1, "Activities");
+    case 13:
+        return(0, "Dungeoneering");
+    case 14:
+        return(0, "Milestones");
+    default:
+        return(-1, "");
+}
+return(0, "");

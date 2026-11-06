@@ -1,0 +1,119 @@
+; id: 3273
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_varc_int 1191
+    3: push_constant_int 10
+    4: div 0
+    5: pop_int_local 1
+    6: push_varc_int 1191
+    7: push_varc_int 1191
+    8: push_constant_int 10
+    9: div 0
+   10: push_constant_int 10
+   11: multiply 0
+   12: sub 0
+   13: pop_int_local 2
+   14: push_int_local 1
+   15: switch 0
+   16: branch 59
+   17: push_int_local 2
+   18: switch 1
+   19: branch 2
+   20: push_constant_int 0
+   21: pop_int_local 0
+   22: branch 53
+   23: push_int_local 2
+   24: switch 2
+   25: branch 5
+   26: push_constant_int -760
+   27: pop_int_local 0
+   28: branch 2
+   29: push_constant_int 507
+   30: pop_int_local 0
+   31: branch 44
+   32: push_int_local 2
+   33: switch 3
+   34: branch 8
+   35: push_constant_int -1520
+   36: pop_int_local 0
+   37: branch 5
+   38: push_constant_int 190
+   39: pop_int_local 0
+   40: branch 2
+   41: push_constant_int 950
+   42: pop_int_local 0
+   43: branch 32
+   44: push_int_local 2
+   45: switch 4
+   46: branch 11
+   47: push_constant_int -2280
+   48: pop_int_local 0
+   49: branch 8
+   50: push_constant_int -760
+   51: pop_int_local 0
+   52: branch 5
+   53: push_constant_int 633
+   54: pop_int_local 0
+   55: branch 2
+   56: push_constant_int 1457
+   57: pop_int_local 0
+   58: branch 17
+   59: push_int_local 2
+   60: switch 5
+   61: branch 14
+   62: push_constant_int -3040
+   63: pop_int_local 0
+   64: branch 11
+   65: push_constant_int -1267
+   66: pop_int_local 0
+   67: branch 8
+   68: push_constant_int 380
+   69: pop_int_local 0
+   70: branch 5
+   71: push_constant_int 1140
+   72: pop_int_local 0
+   73: branch 2
+   74: push_constant_int 1900
+   75: pop_int_local 0
+   76: push_int_local 1
+   77: push_int_local 2
+   78: push_int_local 0
+   79: return 0
+   80: push_constant_int 0
+   81: push_constant_int 0
+   82: push_constant_int 0
+   83: return 0
+
+switch_0:
+  1 => 1
+  2 => 7
+  3 => 16
+  4 => 28
+  5 => 43
+switch_1:
+  1 => 1
+switch_2:
+  1 => 1
+  2 => 4
+switch_3:
+  1 => 1
+  2 => 4
+  3 => 7
+switch_4:
+  1 => 1
+  2 => 4
+  3 => 7
+  4 => 10
+switch_5:
+  1 => 1
+  2 => 4
+  3 => 7
+  4 => 10
+  5 => 13

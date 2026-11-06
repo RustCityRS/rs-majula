@@ -1,0 +1,17 @@
+[clientscript,script_967](int $int0, int $int1)(int)
+if ($int1 > $int0) {
+    if (sub($int1, $int0) <= 1024) {
+        return(min(add($int0, 6), $int1));
+    }
+    if ($int0 >= 6) {
+        return(sub($int0, 6));
+    }
+    return(max(~script_686(sub($int0, 6), 2048), $int1));
+}
+if (sub($int0, $int1) <= 1024) {
+    return(max(sub($int0, 6), $int1));
+}
+if ($int0 < sub(2048, 6)) {
+    return(add($int0, 6));
+}
+return(min(calc($int0 + 6 % 2048), $int1));

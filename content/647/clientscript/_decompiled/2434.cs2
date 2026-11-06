@@ -1,0 +1,16 @@
+[clientscript,script_2434](int $int0)
+%varc_int815 = calc($int0 * 300 / 10);
+if (%varc_int815 > 0) {
+    if (getwindowmode < 2) {
+        if_setontimer;
+        if_sethide(35913740);
+        if_sethide(35913741);
+    } else {
+        if_setontimer;
+        if_sethide(48890022);
+        if_sethide(48890021);
+    }
+} else {
+    ~script_2436;
+}
+return;

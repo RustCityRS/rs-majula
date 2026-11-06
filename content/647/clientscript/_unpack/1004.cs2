@@ -1,0 +1,1186 @@
+; id: 1004
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 1077
+    3: push_int_local 1
+    4: switch 1
+    5: branch 922
+    6: push_constant_int 10
+    7: push_constant_int 5574
+    8: push_constant_string "Members: Initiate sallet"
+    9: push_constant_string "<br>"
+   10: push_constant_string " (after Recruitment Drive and with 20 Defence)"
+   11: join_string 3
+   12: push_constant_string "Members now have the Prayer level required to wear "
+   13: push_constant_string "<col=000080>"
+   14: push_constant_string "initiate sallets"
+   15: push_constant_string "</col>"
+   16: push_constant_string " (after Recruitment Drive, with level 20 Defence)."
+   17: join_string 5
+   18: return 0
+   19: branch 908
+   20: push_constant_int 10
+   21: push_constant_int 5575
+   22: push_constant_string "Members: Initiate hauberk"
+   23: push_constant_string "<br>"
+   24: push_constant_string " (after Recruitment Drive and with 20 Defence)"
+   25: join_string 3
+   26: push_constant_string "Members now have the Prayer level required to wear "
+   27: push_constant_string "<col=000080>"
+   28: push_constant_string "initiate hauberks"
+   29: push_constant_string "</col>"
+   30: push_constant_string " (after Recruitment Drive, with level 20 Defence)."
+   31: join_string 5
+   32: return 0
+   33: branch 894
+   34: push_constant_int 10
+   35: push_constant_int 5576
+   36: push_constant_string "Members: Initiate cuisse"
+   37: push_constant_string "<br>"
+   38: push_constant_string " (after Recruitment Drive and with 20 Defence)"
+   39: join_string 3
+   40: push_constant_string "Members now have the Prayer level required to wear "
+   41: push_constant_string "<col=000080>"
+   42: push_constant_string "initiate cuisses"
+   43: push_constant_string "</col>"
+   44: push_constant_string " (after Recruitment Drive, with level 20 Defence)."
+   45: join_string 5
+   46: return 0
+   47: branch 880
+   48: push_constant_int 20
+   49: push_constant_int 9672
+   50: push_constant_string "Members: Proselyte sallet"
+   51: push_constant_string "<br>"
+   52: push_constant_string " (after Slug Menace and with 30 Defence)"
+   53: join_string 3
+   54: push_constant_string "Members now have the Prayer level required to wear "
+   55: push_constant_string "<col=000080>"
+   56: push_constant_string "proselyte sallets"
+   57: push_constant_string "</col>"
+   58: push_constant_string " (after Slug Menace, with level 30 Defence)."
+   59: join_string 5
+   60: return 0
+   61: branch 866
+   62: push_constant_int 20
+   63: push_constant_int 9674
+   64: push_constant_string "Members: Proselyte hauberk"
+   65: push_constant_string "<br>"
+   66: push_constant_string " (after Slug Menace and with 30 Defence)"
+   67: join_string 3
+   68: push_constant_string "Members now have the Prayer level required to wear "
+   69: push_constant_string "<col=000080>"
+   70: push_constant_string "proselyte hauberks"
+   71: push_constant_string "</col>"
+   72: push_constant_string " (after Slug Menace, with level 30 Defence)."
+   73: join_string 5
+   74: return 0
+   75: branch 852
+   76: push_constant_int 20
+   77: push_constant_int 9676
+   78: push_constant_string "Members: Proselyte cuisse"
+   79: push_constant_string "<br>"
+   80: push_constant_string " (after Slug Menace and with 30 Defence)"
+   81: join_string 3
+   82: push_constant_string "Members now have the Prayer level required to wear "
+   83: push_constant_string "<col=000080>"
+   84: push_constant_string "proselyte cuisses"
+   85: push_constant_string "</col>"
+   86: push_constant_string " (after Slug Menace, with level 30 Defence)."
+   87: join_string 5
+   88: return 0
+   89: branch 838
+   90: push_constant_int 20
+   91: push_constant_int 9678
+   92: push_constant_string "Members: Proselyte plateskirt"
+   93: push_constant_string "<br>"
+   94: push_constant_string " (after Slug Menace and with 30 Defence)"
+   95: join_string 3
+   96: push_constant_string "Members now have the Prayer level required to wear "
+   97: push_constant_string "<col=000080>"
+   98: push_constant_string "proselyte plateskirts"
+   99: push_constant_string "</col>"
+  100: push_constant_string " (after Slug Menace, with level 30 Defence)."
+  101: join_string 5
+  102: return 0
+  103: branch 824
+  104: push_constant_int 20
+  105: push_constant_int 10462
+  106: push_constant_string "Members: Guthix robe top"
+  107: push_constant_string "Members can now wear "
+  108: push_constant_string "<col=000080>"
+  109: push_constant_string "Guthix robe tops"
+  110: push_constant_string "</col>"
+  111: push_constant_string "."
+  112: join_string 5
+  113: return 0
+  114: branch 813
+  115: push_constant_int 20
+  116: push_constant_int 10466
+  117: push_constant_string "Members: Guthix robe legs"
+  118: push_constant_string "Members can now wear "
+  119: push_constant_string "<col=000080>"
+  120: push_constant_string "Guthix robe legs"
+  121: push_constant_string "</col>"
+  122: push_constant_string "."
+  123: join_string 5
+  124: return 0
+  125: branch 802
+  126: push_constant_int 20
+  127: push_constant_int 10458
+  128: push_constant_string "Members: Saradomin robe top"
+  129: push_constant_string "Members can now wear "
+  130: push_constant_string "<col=000080>"
+  131: push_constant_string "Saradomin robe tops"
+  132: push_constant_string "</col>"
+  133: push_constant_string "."
+  134: join_string 5
+  135: return 0
+  136: branch 791
+  137: push_constant_int 20
+  138: push_constant_int 10464
+  139: push_constant_string "Members: Saradomin robe legs"
+  140: push_constant_string "Members can now wear "
+  141: push_constant_string "<col=000080>"
+  142: push_constant_string "Saradomin robe legs"
+  143: push_constant_string "</col>"
+  144: push_constant_string "."
+  145: join_string 5
+  146: return 0
+  147: branch 780
+  148: push_constant_int 20
+  149: push_constant_int 10460
+  150: push_constant_string "Members: Zamorak robe top"
+  151: push_constant_string "Members can now wear "
+  152: push_constant_string "<col=000080>"
+  153: push_constant_string "Zamorak robe tops"
+  154: push_constant_string "</col>"
+  155: push_constant_string "."
+  156: join_string 5
+  157: return 0
+  158: branch 769
+  159: push_constant_int 20
+  160: push_constant_int 10468
+  161: push_constant_string "Members: Zamorak robe legs"
+  162: push_constant_string "Members can now wear "
+  163: push_constant_string "<col=000080>"
+  164: push_constant_string "Zamorak robe legs"
+  165: push_constant_string "</col>"
+  166: push_constant_string "."
+  167: join_string 5
+  168: return 0
+  169: branch 758
+  170: push_constant_int 20
+  171: push_constant_int 19380
+  172: push_constant_string "Members: Armadyl robe top"
+  173: push_constant_string "Members can now wear "
+  174: push_constant_string "<col=000080>"
+  175: push_constant_string "Armadyl robe tops"
+  176: push_constant_string "</col>"
+  177: push_constant_string "."
+  178: join_string 5
+  179: return 0
+  180: branch 747
+  181: push_constant_int 20
+  182: push_constant_int 19386
+  183: push_constant_string "Members: Armadyl robe legs"
+  184: push_constant_string "Members can now wear "
+  185: push_constant_string "<col=000080>"
+  186: push_constant_string "Armadyl robe legs"
+  187: push_constant_string "</col>"
+  188: push_constant_string "."
+  189: join_string 5
+  190: return 0
+  191: branch 736
+  192: push_constant_int 20
+  193: push_constant_int 19384
+  194: push_constant_string "Members: Bandos robe top"
+  195: push_constant_string "Members can now wear "
+  196: push_constant_string "<col=000080>"
+  197: push_constant_string "Bandos robe tops"
+  198: push_constant_string "</col>"
+  199: push_constant_string "."
+  200: join_string 5
+  201: return 0
+  202: branch 725
+  203: push_constant_int 20
+  204: push_constant_int 19388
+  205: push_constant_string "Members: Bandos robe legs"
+  206: push_constant_string "Members can now wear "
+  207: push_constant_string "<col=000080>"
+  208: push_constant_string "Bandos robe legs"
+  209: push_constant_string "</col>"
+  210: push_constant_string "."
+  211: join_string 5
+  212: return 0
+  213: branch 714
+  214: push_constant_int 20
+  215: push_constant_int 19382
+  216: push_constant_string "Members: Ancient robe top"
+  217: push_constant_string "Members can now wear "
+  218: push_constant_string "<col=000080>"
+  219: push_constant_string "Ancient robe tops"
+  220: push_constant_string "</col>"
+  221: push_constant_string "."
+  222: join_string 5
+  223: return 0
+  224: branch 703
+  225: push_constant_int 20
+  226: push_constant_int 19390
+  227: push_constant_string "Members: Ancient robe legs"
+  228: push_constant_string "Members can now wear "
+  229: push_constant_string "<col=000080>"
+  230: push_constant_string "Ancient robe legs"
+  231: push_constant_string "</col>"
+  232: push_constant_string "."
+  233: join_string 5
+  234: return 0
+  235: branch 692
+  236: push_constant_int 21
+  237: push_constant_int 18337
+  238: push_constant_string "Members: Bonecrusher"
+  239: push_constant_string "<br>"
+  240: push_constant_string " (with 21 Dungeoneering)"
+  241: join_string 3
+  242: push_constant_string "Members can now use "
+  243: push_constant_string "<col=000080>"
+  244: push_constant_string "bonecrushers"
+  245: push_constant_string "</col>"
+  246: push_constant_string ". (They also need level 21 Dungeoneering.)"
+  247: join_string 5
+  248: return 0
+  249: branch 678
+  250: push_constant_int 22
+  251: push_constant_int 11665
+  252: push_constant_string "Members: Void melee helm"
+  253: push_constant_string "Members now have the Prayer level required to wear "
+  254: push_constant_string "<col=000080>"
+  255: push_constant_string "Void melee helms"
+  256: push_constant_string "</col>"
+  257: push_constant_string "."
+  258: join_string 5
+  259: return 0
+  260: branch 667
+  261: push_constant_int 22
+  262: push_constant_int 11664
+  263: push_constant_string "Members: Void ranger helm"
+  264: push_constant_string "Members now have the Prayer level required to wear "
+  265: push_constant_string "<col=000080>"
+  266: push_constant_string "Void ranger helms"
+  267: push_constant_string "</col>"
+  268: push_constant_string "."
+  269: join_string 5
+  270: return 0
+  271: branch 656
+  272: push_constant_int 22
+  273: push_constant_int 11663
+  274: push_constant_string "Members: Void mage helm"
+  275: push_constant_string "Members now have the Prayer level required to wear "
+  276: push_constant_string "<col=000080>"
+  277: push_constant_string "Void mage helms"
+  278: push_constant_string "</col>"
+  279: push_constant_string "."
+  280: join_string 5
+  281: return 0
+  282: branch 645
+  283: push_constant_int 22
+  284: push_constant_int 8839
+  285: push_constant_string "Members: Void knight top"
+  286: push_constant_string "Members now have the Prayer level required to wear "
+  287: push_constant_string "<col=000080>"
+  288: push_constant_string "Void knight tops"
+  289: push_constant_string "</col>"
+  290: push_constant_string "."
+  291: join_string 5
+  292: return 0
+  293: branch 634
+  294: push_constant_int 22
+  295: push_constant_int 8840
+  296: push_constant_string "Members: Void knight robe"
+  297: push_constant_string "Members now have the Prayer level required to wear "
+  298: push_constant_string "<col=000080>"
+  299: push_constant_string "Void knight robes"
+  300: push_constant_string "</col>"
+  301: push_constant_string "."
+  302: join_string 5
+  303: return 0
+  304: branch 623
+  305: push_constant_int 22
+  306: push_constant_int 8842
+  307: push_constant_string "Members: Void knight gloves"
+  308: push_constant_string "Members now have the Prayer level required to wear "
+  309: push_constant_string "<col=000080>"
+  310: push_constant_string "Void knight gloves"
+  311: push_constant_string "</col>"
+  312: push_constant_string "."
+  313: join_string 5
+  314: return 0
+  315: branch 612
+  316: push_constant_int 22
+  317: push_constant_int 19712
+  318: push_constant_string "Members: Void knight deflector"
+  319: push_constant_string "Members now have the Prayer level required to wear "
+  320: push_constant_string "<col=000080>"
+  321: push_constant_string "Void knight deflectors"
+  322: push_constant_string "</col>"
+  323: push_constant_string "."
+  324: join_string 5
+  325: return 0
+  326: branch 601
+  327: push_constant_int 22
+  328: push_constant_int 8841
+  329: push_constant_string "Members: Void knight mace"
+  330: push_constant_string "Members now have the Prayer level required to wield "
+  331: push_constant_string "<col=000080>"
+  332: push_constant_string "Void knight maces"
+  333: push_constant_string "</col>"
+  334: push_constant_string "."
+  335: join_string 5
+  336: return 0
+  337: branch 590
+  338: push_constant_int 22
+  339: push_constant_int 7620
+  340: push_constant_string "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+  341: push_constant_string "<col=000080>"
+  342: push_constant_string "Void knight equipment"
+  343: push_constant_string "</col>"
+  344: push_constant_string " requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+  345: join_string 4
+  346: return 0
+  347: branch 580
+  348: push_constant_int 25
+  349: push_constant_int 11061
+  350: push_constant_string "Members: Ancient Mace"
+  351: push_constant_string "<br>"
+  352: push_constant_string " (after Another Slice of H.A.M., with 15 Attack)"
+  353: join_string 3
+  354: push_constant_string "Members now have the Prayer level required to wield the "
+  355: push_constant_string "<col=000080>"
+  356: push_constant_string "Ancient Mace"
+  357: push_constant_string "</col>"
+  358: push_constant_string " (after Another Slice of H.A.M. with level 15 Attack)."
+  359: join_string 5
+  360: return 0
+  361: branch 566
+  362: push_constant_int 30
+  363: push_constant_int 19886
+  364: push_constant_string "Twisted bird skull necklace"
+  365: push_constant_string "<br>"
+  366: push_constant_string " (with 30 Dungeoneering)"
+  367: join_string 3
+  368: push_constant_string "You now have the Prayer level required to wear "
+  369: push_constant_string "<col=000080>"
+  370: push_constant_string "Twisted bird skull necklaces"
+  371: push_constant_string "</col>"
+  372: push_constant_string ". (You also need level 30 Dungeoneering.)"
+  373: join_string 5
+  374: return 0
+  375: branch 552
+  376: push_constant_int 40
+  377: push_constant_int 10448
+  378: push_constant_string "Members: Guthix cloak"
+  379: push_constant_string "Members can now wear "
+  380: push_constant_string "<col=000080>"
+  381: push_constant_string "Guthix cloaks"
+  382: push_constant_string "</col>"
+  383: push_constant_string "."
+  384: join_string 5
+  385: return 0
+  386: branch 541
+  387: push_constant_int 40
+  388: push_constant_int 10454
+  389: push_constant_string "Members: Guthix mitre"
+  390: push_constant_string "<br>"
+  391: push_constant_string " (with 40 Magic)"
+  392: join_string 3
+  393: push_constant_string "Members now have the Prayer level required to wear "
+  394: push_constant_string "<col=000080>"
+  395: push_constant_string "Guthix mitres"
+  396: push_constant_string "</col>"
+  397: push_constant_string ". (They also need level 40 Magic.)"
+  398: join_string 5
+  399: return 0
+  400: branch 527
+  401: push_constant_int 40
+  402: push_constant_int 10446
+  403: push_constant_string "Members: Saradomin cloak"
+  404: push_constant_string "Members can now wear "
+  405: push_constant_string "<col=000080>"
+  406: push_constant_string "Saradomin cloaks"
+  407: push_constant_string "</col>"
+  408: push_constant_string "."
+  409: join_string 5
+  410: return 0
+  411: branch 516
+  412: push_constant_int 40
+  413: push_constant_int 10452
+  414: push_constant_string "Members: Saradomin mitre"
+  415: push_constant_string "<br>"
+  416: push_constant_string " (with 40 Magic)"
+  417: join_string 3
+  418: push_constant_string "Members now have the Prayer level required to wear "
+  419: push_constant_string "<col=000080>"
+  420: push_constant_string "Saradomin mitres"
+  421: push_constant_string "</col>"
+  422: push_constant_string ". (They also need level 40 Magic.)"
+  423: join_string 5
+  424: return 0
+  425: branch 502
+  426: push_constant_int 40
+  427: push_constant_int 10450
+  428: push_constant_string "Members: Zamorak cloak"
+  429: push_constant_string "Members can now wear "
+  430: push_constant_string "<col=000080>"
+  431: push_constant_string "Zamorak cloaks"
+  432: push_constant_string "</col>"
+  433: push_constant_string "."
+  434: join_string 5
+  435: return 0
+  436: branch 491
+  437: push_constant_int 40
+  438: push_constant_int 10456
+  439: push_constant_string "Members: Zamorak mitre"
+  440: push_constant_string "<br>"
+  441: push_constant_string " (with 40 Magic)"
+  442: join_string 3
+  443: push_constant_string "Members now have the Prayer level required to wear "
+  444: push_constant_string "<col=000080>"
+  445: push_constant_string "Zamorak mitres"
+  446: push_constant_string "</col>"
+  447: push_constant_string ". (They also need level 40 Magic.)"
+  448: join_string 5
+  449: return 0
+  450: branch 477
+  451: push_constant_int 40
+  452: push_constant_int 19368
+  453: push_constant_string "Members: Armadyl cloak"
+  454: push_constant_string "Members can now wear "
+  455: push_constant_string "<col=000080>"
+  456: push_constant_string "Armadyl cloaks"
+  457: push_constant_string "</col>"
+  458: push_constant_string "."
+  459: join_string 5
+  460: return 0
+  461: branch 466
+  462: push_constant_int 40
+  463: push_constant_int 19374
+  464: push_constant_string "Members: Armadyl mitre"
+  465: push_constant_string "<br>"
+  466: push_constant_string " (with 40 Magic)"
+  467: join_string 3
+  468: push_constant_string "Members now have the Prayer level required to wear "
+  469: push_constant_string "<col=000080>"
+  470: push_constant_string "Armadyl mitres"
+  471: push_constant_string "</col>"
+  472: push_constant_string ". (They also need level 40 Magic.)"
+  473: join_string 5
+  474: return 0
+  475: branch 452
+  476: push_constant_int 40
+  477: push_constant_int 19370
+  478: push_constant_string "Members: Bandos cloak"
+  479: push_constant_string "Members can now wear "
+  480: push_constant_string "<col=000080>"
+  481: push_constant_string "Bandos cloaks"
+  482: push_constant_string "</col>"
+  483: push_constant_string "."
+  484: join_string 5
+  485: return 0
+  486: branch 441
+  487: push_constant_int 40
+  488: push_constant_int 19376
+  489: push_constant_string "Members: Bandos mitre"
+  490: push_constant_string "<br>"
+  491: push_constant_string " (with 40 Magic)"
+  492: join_string 3
+  493: push_constant_string "Members now have the Prayer level required to wear "
+  494: push_constant_string "<col=000080>"
+  495: push_constant_string "Bandos mitres"
+  496: push_constant_string "</col>"
+  497: push_constant_string ". (They also need level 40 Magic.)"
+  498: join_string 5
+  499: return 0
+  500: branch 427
+  501: push_constant_int 40
+  502: push_constant_int 19372
+  503: push_constant_string "Members: Ancient cloak"
+  504: push_constant_string "Members can now wear "
+  505: push_constant_string "<col=000080>"
+  506: push_constant_string "Ancient cloaks"
+  507: push_constant_string "</col>"
+  508: push_constant_string "."
+  509: join_string 5
+  510: return 0
+  511: branch 416
+  512: push_constant_int 40
+  513: push_constant_int 19378
+  514: push_constant_string "Members: Ancient mitre"
+  515: push_constant_string "<br>"
+  516: push_constant_string " (with 40 Magic)"
+  517: join_string 3
+  518: push_constant_string "Members now have the Prayer level required to wear "
+  519: push_constant_string "<col=000080>"
+  520: push_constant_string "Ancient mitres"
+  521: push_constant_string "</col>"
+  522: push_constant_string ". (They also need level 40 Magic.)"
+  523: join_string 5
+  524: return 0
+  525: branch 402
+  526: push_constant_int 48
+  527: push_constant_int 19892
+  528: push_constant_string "Amulet of zealots"
+  529: push_constant_string "<br>"
+  530: push_constant_string " (with 48 Dungeoneering)"
+  531: join_string 3
+  532: push_constant_string "You now have the Prayer level required to wear "
+  533: push_constant_string "<col=000080>"
+  534: push_constant_string "Amulets of zealots"
+  535: push_constant_string "</col>"
+  536: push_constant_string ". (You also need level 48 Dungeoneering.)"
+  537: join_string 5
+  538: return 0
+  539: branch 388
+  540: push_constant_int 50
+  541: push_constant_int 1716
+  542: push_constant_string "Members: Use completed Prayer books"
+  543: push_constant_string "<br>"
+  544: push_constant_string "to bless holy and unholy symbols"
+  545: push_constant_string "<br>"
+  546: push_constant_string " (after Horror from the Deep)"
+  547: join_string 5
+  548: push_constant_string "Members now have the Prayer level required to use completed prayer books to bless "
+  549: push_constant_string "<col=000080>"
+  550: push_constant_string "holy"
+  551: push_constant_string "</col>"
+  552: push_constant_string " and "
+  553: push_constant_string "<col=000080>"
+  554: push_constant_string "unholy symbols"
+  555: push_constant_string "</col>"
+  556: push_constant_string " (after Horror from the Deep)."
+  557: join_string 9
+  558: return 0
+  559: branch 368
+  560: push_constant_int 55
+  561: push_constant_int 13734
+  562: push_constant_string "Members: Spirit shield"
+  563: push_constant_string "<br>"
+  564: push_constant_string " (after Summer's End and with 40 Defence)"
+  565: join_string 3
+  566: push_constant_string "Members now have the Prayer level required to wield "
+  567: push_constant_string "<col=000080>"
+  568: push_constant_string "spirit shields"
+  569: push_constant_string "</col>"
+  570: push_constant_string " (after Summer's End, with level 40 Defence)."
+  571: join_string 5
+  572: return 0
+  573: branch 354
+  574: push_constant_int 60
+  575: push_constant_int 10472
+  576: push_constant_string "Members: Guthix stole"
+  577: push_constant_string "Members can now wear "
+  578: push_constant_string "<col=000080>"
+  579: push_constant_string "Guthix stoles"
+  580: push_constant_string "</col>"
+  581: push_constant_string "."
+  582: join_string 5
+  583: return 0
+  584: branch 343
+  585: push_constant_int 60
+  586: push_constant_int 10442
+  587: push_constant_string "Members: Guthix crozier"
+  588: push_constant_string "Members can now wield "
+  589: push_constant_string "<col=000080>"
+  590: push_constant_string "Guthix croziers"
+  591: push_constant_string "</col>"
+  592: push_constant_string "."
+  593: join_string 5
+  594: return 0
+  595: branch 332
+  596: push_constant_int 60
+  597: push_constant_int 10470
+  598: push_constant_string "Members: Saradomin stole"
+  599: push_constant_string "Members can now wear "
+  600: push_constant_string "<col=000080>"
+  601: push_constant_string "Saradomin stoles"
+  602: push_constant_string "</col>"
+  603: push_constant_string "."
+  604: join_string 5
+  605: return 0
+  606: branch 321
+  607: push_constant_int 60
+  608: push_constant_int 10440
+  609: push_constant_string "Members: Saradomin crozier"
+  610: push_constant_string "Members can now wield "
+  611: push_constant_string "<col=000080>"
+  612: push_constant_string "Saradomin croziers"
+  613: push_constant_string "</col>"
+  614: push_constant_string "."
+  615: join_string 5
+  616: return 0
+  617: branch 310
+  618: push_constant_int 60
+  619: push_constant_int 10474
+  620: push_constant_string "Members: Zamorak stole"
+  621: push_constant_string "Members can now wear "
+  622: push_constant_string "<col=000080>"
+  623: push_constant_string "Zamorak stoles"
+  624: push_constant_string "</col>"
+  625: push_constant_string "."
+  626: join_string 5
+  627: return 0
+  628: branch 299
+  629: push_constant_int 60
+  630: push_constant_int 10444
+  631: push_constant_string "Members: Zamorak crozier"
+  632: push_constant_string "Members can now wield "
+  633: push_constant_string "<col=000080>"
+  634: push_constant_string "Zamorak croziers"
+  635: push_constant_string "</col>"
+  636: push_constant_string "."
+  637: join_string 5
+  638: return 0
+  639: branch 288
+  640: push_constant_int 60
+  641: push_constant_int 19392
+  642: push_constant_string "Members: Armadyl stole"
+  643: push_constant_string "Members can now wear "
+  644: push_constant_string "<col=000080>"
+  645: push_constant_string "Armadyl stoles"
+  646: push_constant_string "</col>"
+  647: push_constant_string "."
+  648: join_string 5
+  649: return 0
+  650: branch 277
+  651: push_constant_int 60
+  652: push_constant_int 19362
+  653: push_constant_string "Members: Armadyl crozier"
+  654: push_constant_string "Members can now wield "
+  655: push_constant_string "<col=000080>"
+  656: push_constant_string "Armadyl croziers"
+  657: push_constant_string "</col>"
+  658: push_constant_string "."
+  659: join_string 5
+  660: return 0
+  661: branch 266
+  662: push_constant_int 60
+  663: push_constant_int 19394
+  664: push_constant_string "Members: Bandos stole"
+  665: push_constant_string "Members can now wear "
+  666: push_constant_string "<col=000080>"
+  667: push_constant_string "Bandos stoles"
+  668: push_constant_string "</col>"
+  669: push_constant_string "."
+  670: join_string 5
+  671: return 0
+  672: branch 255
+  673: push_constant_int 60
+  674: push_constant_int 19364
+  675: push_constant_string "Members: Bandos crozier"
+  676: push_constant_string "Members can now wield "
+  677: push_constant_string "<col=000080>"
+  678: push_constant_string "Bandos croziers"
+  679: push_constant_string "</col>"
+  680: push_constant_string "."
+  681: join_string 5
+  682: return 0
+  683: branch 244
+  684: push_constant_int 60
+  685: push_constant_int 19396
+  686: push_constant_string "Members: Ancient stole"
+  687: push_constant_string "Members can now wear "
+  688: push_constant_string "<col=000080>"
+  689: push_constant_string "Ancient stoles"
+  690: push_constant_string "</col>"
+  691: push_constant_string "."
+  692: join_string 5
+  693: return 0
+  694: branch 233
+  695: push_constant_int 60
+  696: push_constant_int 19366
+  697: push_constant_string "Members: Ancient crozier"
+  698: push_constant_string "Members can now wield "
+  699: push_constant_string "<col=000080>"
+  700: push_constant_string "Ancient croziers"
+  701: push_constant_string "</col>"
+  702: push_constant_string "."
+  703: join_string 5
+  704: return 0
+  705: branch 222
+  706: push_constant_int 60
+  707: push_constant_int 19323
+  708: push_constant_string "Members: Dragon staff"
+  709: push_constant_string "<br>"
+  710: push_constant_string " (with 40 Magic, 40 Attack and 20 Defence)"
+  711: join_string 3
+  712: push_constant_string "Members now have the Prayer level required to wield "
+  713: push_constant_string "<col=000080>"
+  714: push_constant_string "dragon staves"
+  715: push_constant_string "</col>"
+  716: push_constant_string ". (They also need level 40 Magic, level 40 Attack and level 20 Defence.)"
+  717: join_string 5
+  718: return 0
+  719: branch 208
+  720: push_constant_int 60
+  721: push_constant_int 19325
+  722: push_constant_string "Members: Penguin staff"
+  723: push_constant_string "<br>"
+  724: push_constant_string " (with 40 Magic, 40 Attack and 20 Defence)"
+  725: join_string 3
+  726: push_constant_string "Members now have the Prayer level required to wield "
+  727: push_constant_string "<col=000080>"
+  728: push_constant_string "penguin staves"
+  729: push_constant_string "</col>"
+  730: push_constant_string ". (They also need level 40 Magic, level 40 Attack and level 20 Defence.)"
+  731: join_string 5
+  732: return 0
+  733: branch 194
+  734: push_constant_int 60
+  735: push_constant_int 19327
+  736: push_constant_string "Members: Bat staff"
+  737: push_constant_string "<br>"
+  738: push_constant_string " (with 40 Magic, 40 Attack and 20 Defence)"
+  739: join_string 3
+  740: push_constant_string "Members now have the Prayer level required to wield "
+  741: push_constant_string "<col=000080>"
+  742: push_constant_string "bat staves"
+  743: push_constant_string "</col>"
+  744: push_constant_string ". (They also need level 40 Magic, level 40 Attack and level 20 Defence.)"
+  745: join_string 5
+  746: return 0
+  747: branch 180
+  748: push_constant_int 60
+  749: push_constant_int 19329
+  750: push_constant_string "Members: Wolf staff"
+  751: push_constant_string "<br>"
+  752: push_constant_string " (with 40 Magic, 40 Attack and 20 Defence)"
+  753: join_string 3
+  754: push_constant_string "Members now have the Prayer level required to wield "
+  755: push_constant_string "<col=000080>"
+  756: push_constant_string "wolf staves"
+  757: push_constant_string "</col>"
+  758: push_constant_string ". (They also need level 40 Magic, level 40 Attack and level 20 Defence.)"
+  759: join_string 5
+  760: return 0
+  761: branch 166
+  762: push_constant_int 60
+  763: push_constant_int 19331
+  764: push_constant_string "Members: Cat staff"
+  765: push_constant_string "<br>"
+  766: push_constant_string " (with 40 Magic, 40 Attack and 20 Defence)"
+  767: join_string 3
+  768: push_constant_string "Members now have the Prayer level required to wield "
+  769: push_constant_string "<col=000080>"
+  770: push_constant_string "cat staves"
+  771: push_constant_string "</col>"
+  772: push_constant_string ". (They also need level 40 Magic, level 40 Attack and level 20 Defence.)"
+  773: join_string 5
+  774: return 0
+  775: branch 152
+  776: push_constant_int 60
+  777: push_constant_int 13736
+  778: push_constant_string "Members: Blessed spirit shield"
+  779: push_constant_string "<br>"
+  780: push_constant_string " (after Summer's End and with 70 Defence)"
+  781: join_string 3
+  782: push_constant_string "Members now have the Prayer level required to wield "
+  783: push_constant_string "<col=000080>"
+  784: push_constant_string "blessed spirit shields"
+  785: push_constant_string "</col>"
+  786: push_constant_string " (after Summer's End, with level 70 Defence)."
+  787: join_string 5
+  788: return 0
+  789: branch 138
+  790: push_constant_int 60
+  791: push_constant_int 19887
+  792: push_constant_string "Members: Split dragon tooth necklace"
+  793: push_constant_string "<br>"
+  794: push_constant_string " (with 60 Dungeoneering)"
+  795: join_string 3
+  796: push_constant_string "Members now have the Prayer level required to wear "
+  797: push_constant_string "<col=000080>"
+  798: push_constant_string "Split dragon tooth necklaces"
+  799: push_constant_string "</col>"
+  800: push_constant_string ". (They also need level 60 Dungeoneering.)"
+  801: join_string 5
+  802: return 0
+  803: branch 124
+  804: push_constant_int 65
+  805: push_constant_int 19308
+  806: push_constant_string "Members: Third-Age druidic staff"
+  807: push_constant_string "Members can now wield "
+  808: push_constant_string "<col=000080>"
+  809: push_constant_string "Third-Age druidic staves"
+  810: push_constant_string "</col>"
+  811: push_constant_string "."
+  812: join_string 5
+  813: return 0
+  814: branch 113
+  815: push_constant_int 65
+  816: push_constant_int 19311
+  817: push_constant_string "Members: Third-Age druidic cloak"
+  818: push_constant_string "Members can now wear "
+  819: push_constant_string "<col=000080>"
+  820: push_constant_string "Third-Age druidic cloaks"
+  821: push_constant_string "</col>"
+  822: push_constant_string "."
+  823: join_string 5
+  824: return 0
+  825: branch 102
+  826: push_constant_int 65
+  827: push_constant_int 19314
+  828: push_constant_string "Members: Third-Age druidic wreath"
+  829: push_constant_string "Members can now wear "
+  830: push_constant_string "<col=000080>"
+  831: push_constant_string "Third-Age druidic wreaths"
+  832: push_constant_string "</col>"
+  833: push_constant_string "."
+  834: join_string 5
+  835: return 0
+  836: branch 91
+  837: push_constant_int 65
+  838: push_constant_int 19317
+  839: push_constant_string "Members: Third-Age Druidic robe top"
+  840: push_constant_string "Members can now wear "
+  841: push_constant_string "<col=000080>"
+  842: push_constant_string "Third-Age druidic robe tops"
+  843: push_constant_string "</col>"
+  844: push_constant_string "."
+  845: join_string 5
+  846: return 0
+  847: branch 80
+  848: push_constant_int 65
+  849: push_constant_int 19320
+  850: push_constant_string "Members: Third-Age Druidic robe bottoms"
+  851: push_constant_string "Members can now wear "
+  852: push_constant_string "<col=000080>"
+  853: push_constant_string "Third-Age druidic bottoms"
+  854: push_constant_string "</col>"
+  855: push_constant_string "."
+  856: join_string 5
+  857: return 0
+  858: branch 69
+  859: push_constant_int 70
+  860: push_constant_int 13738
+  861: push_constant_string "Members: Arcane spirit shield"
+  862: push_constant_string "<br>"
+  863: push_constant_string " (after Summer's End and with 65 Magic and 75 Defence)"
+  864: join_string 3
+  865: push_constant_string "Members now have the Prayer level required to wield "
+  866: push_constant_string "<col=000080>"
+  867: push_constant_string "arcane spirit shields"
+  868: push_constant_string "</col>"
+  869: push_constant_string " (after Summer's End, with level 65 Magic and 75 Defence)."
+  870: join_string 5
+  871: return 0
+  872: branch 55
+  873: push_constant_int 70
+  874: push_constant_int 13744
+  875: push_constant_string "Members: Spectral spirit shield"
+  876: push_constant_string "<br>"
+  877: push_constant_string " (after Summer's End and with 65 Magic and 75 Defence)"
+  878: join_string 3
+  879: push_constant_string "Members now have the Prayer level required to wield "
+  880: push_constant_string "<col=000080>"
+  881: push_constant_string "spectral spirit shields"
+  882: push_constant_string "</col>"
+  883: push_constant_string " (after Summer's End, with level 65 Magic and 75 Defence)."
+  884: join_string 5
+  885: return 0
+  886: branch 41
+  887: push_constant_int 75
+  888: push_constant_int 13740
+  889: push_constant_string "Members: Divine spirit shield"
+  890: push_constant_string "<br>"
+  891: push_constant_string " (after Summer's End and with 75 Defence)"
+  892: join_string 3
+  893: push_constant_string "Members now have the Prayer level required to wield "
+  894: push_constant_string "<col=000080>"
+  895: push_constant_string "divine spirit shields"
+  896: push_constant_string "</col>"
+  897: push_constant_string " (after Summer's End, with level 75 Defence)."
+  898: join_string 5
+  899: return 0
+  900: branch 27
+  901: push_constant_int 75
+  902: push_constant_int 13742
+  903: push_constant_string "Members: Elysian spirit shield"
+  904: push_constant_string "<br>"
+  905: push_constant_string " (after Summer's End and with 75 Defence)"
+  906: join_string 3
+  907: push_constant_string "Members now have the Prayer level required to wield "
+  908: push_constant_string "<col=000080>"
+  909: push_constant_string "elysian spirit shields"
+  910: push_constant_string "</col>"
+  911: push_constant_string " (after Summer's End, with level 75 Defence)."
+  912: join_string 5
+  913: return 0
+  914: branch 13
+  915: push_constant_int 90
+  916: push_constant_int 19888
+  917: push_constant_string "Members: Demon horn necklace"
+  918: push_constant_string "<br>"
+  919: push_constant_string " (with 90 Dungeoneering)"
+  920: join_string 3
+  921: push_constant_string "Members now have the Prayer level required to wear "
+  922: push_constant_string "<col=000080>"
+  923: push_constant_string "Demon horn necklaces"
+  924: push_constant_string "</col>"
+  925: push_constant_string ". (They also need level 90 Dungeoneering.)"
+  926: join_string 5
+  927: return 0
+  928: branch 151
+  929: push_int_local 1
+  930: switch 2
+  931: branch 8
+  932: push_constant_int -1
+  933: push_constant_int 15707
+  934: push_constant_string "Dungeoneering skill tasks"
+  935: push_constant_string "<br>"
+  936: push_constant_string "As your Prayer level increases, you will be able to attempt higher-level prayer tasks within Daemonheim. You will also be more likely to succeed when attempting prayer tasks within Daemonheim."
+  937: join_string 3
+  938: push_constant_string ""
+  939: return 0
+  940: branch 139
+  941: push_int_local 1
+  942: switch 3
+  943: branch 136
+  944: push_constant_int 2
+  945: push_constant_int 11948
+  946: push_constant_string "Repair somebody else's gravestone"
+  947: push_constant_string "You can now "
+  948: push_constant_string "<col=000080>"
+  949: push_constant_string "repair"
+  950: push_constant_string "</col>"
+  951: push_constant_string " somebody else's "
+  952: push_constant_string "<col=000080>"
+  953: push_constant_string "gravestone"
+  954: push_constant_string "</col>"
+  955: push_constant_string "!"
+  956: join_string 9
+  957: return 0
+  958: branch 121
+  959: push_constant_int 31
+  960: push_constant_int 13253
+  961: push_constant_string "Monastery"
+  962: push_constant_string "Abbot Langley will now let you enter the "
+  963: push_constant_string "<col=000080>"
+  964: push_constant_string "Monastery"
+  965: push_constant_string "</col>"
+  966: push_constant_string " west of "
+  967: push_constant_string "<col=000080>"
+  968: push_constant_string "Edgeville"
+  969: push_constant_string "</col>"
+  970: push_constant_string "."
+  971: join_string 9
+  972: return 0
+  973: branch 106
+  974: push_constant_int 70
+  975: push_constant_int 11948
+  976: push_constant_string "Bless somebody else's gravestone"
+  977: push_constant_string "You can now "
+  978: push_constant_string "<col=000080>"
+  979: push_constant_string "bless somebody else's "
+  980: push_constant_string "<col=000080>"
+  981: push_constant_string "gravestone"
+  982: push_constant_string "</col>"
+  983: push_constant_string "!"
+  984: join_string 7
+  985: return 0
+  986: branch 93
+  987: push_constant_int 85
+  988: push_constant_int 13754
+  989: push_constant_string "Members: Bless spirit shields"
+  990: push_constant_string "<br>"
+  991: push_constant_string " (after Summer's End)"
+  992: join_string 3
+  993: push_constant_string "Members can now "
+  994: push_constant_string "<col=000080>"
+  995: push_constant_string "bless spirit shields"
+  996: push_constant_string "</col>"
+  997: push_constant_string " (after Summer's End)."
+  998: join_string 5
+  999: return 0
+ 1000: branch 79
+ 1001: push_constant_int 90
+ 1002: push_constant_int 13746
+ 1003: push_constant_string "Members: Create arcane spirit shields"
+ 1004: push_constant_string "<br>"
+ 1005: push_constant_string " (after Summer's End and with 85 Smithing)"
+ 1006: join_string 3
+ 1007: push_constant_string "Members can now create "
+ 1008: push_constant_string "<col=000080>"
+ 1009: push_constant_string "arcane spirit shields"
+ 1010: push_constant_string "</col>"
+ 1011: push_constant_string " (after Summer's End, with level 85 Smithing)."
+ 1012: join_string 5
+ 1013: return 0
+ 1014: branch 65
+ 1015: push_constant_int 90
+ 1016: push_constant_int 13748
+ 1017: push_constant_string "Members: Create divine spirit shields"
+ 1018: push_constant_string "<br>"
+ 1019: push_constant_string " (after Summer's End and with 85 Smithing)"
+ 1020: join_string 3
+ 1021: push_constant_string "Members can now create "
+ 1022: push_constant_string "<col=000080>"
+ 1023: push_constant_string "divine spirit shields"
+ 1024: push_constant_string "</col>"
+ 1025: push_constant_string " (after Summer's End, with level 85 Smithing)."
+ 1026: join_string 5
+ 1027: return 0
+ 1028: branch 51
+ 1029: push_constant_int 90
+ 1030: push_constant_int 13750
+ 1031: push_constant_string "Members: Create elysian spirit shields"
+ 1032: push_constant_string "<br>"
+ 1033: push_constant_string " (after Summer's End and with 85 Smithing)"
+ 1034: join_string 3
+ 1035: push_constant_string "Members can now create "
+ 1036: push_constant_string "<col=000080>"
+ 1037: push_constant_string "elysian spirit shields"
+ 1038: push_constant_string "</col>"
+ 1039: push_constant_string " (after Summer's End, with level 85 Smithing)."
+ 1040: join_string 5
+ 1041: return 0
+ 1042: branch 37
+ 1043: push_constant_int 90
+ 1044: push_constant_int 13752
+ 1045: push_constant_string "Members: Create spectral spirit shields"
+ 1046: push_constant_string "<br>"
+ 1047: push_constant_string " (after Summer's End and with 85 Smithing)"
+ 1048: join_string 3
+ 1049: push_constant_string "Members can now create "
+ 1050: push_constant_string "<col=000080>"
+ 1051: push_constant_string "spectral spirit shields"
+ 1052: push_constant_string "</col>"
+ 1053: push_constant_string " (after Summer's End, with level 85 Smithing)."
+ 1054: join_string 5
+ 1055: return 0
+ 1056: branch 23
+ 1057: push_constant_int 99
+ 1058: push_constant_int 9759
+ 1059: push_constant_string "Skill mastery"
+ 1060: push_constant_string "<col=000080>"
+ 1061: push_constant_string "Congratulations! You are now a master of "
+ 1062: push_constant_string "<col=800000>"
+ 1063: push_constant_string "Prayer"
+ 1064: push_constant_string "<col=000080>"
+ 1065: push_constant_string ". Members can visit "
+ 1066: push_constant_string "<col=800000>"
+ 1067: push_constant_string "Brother Jared"
+ 1068: push_constant_string "<col=000080>"
+ 1069: push_constant_string " upstairs at the "
+ 1070: push_constant_string "<col=800000>"
+ 1071: push_constant_string "Monastery"
+ 1072: push_constant_string "<col=000080>"
+ 1073: push_constant_string ". He has something special that is only available to true masters of the "
+ 1074: push_constant_string "<col=800000>"
+ 1075: push_constant_string "Prayer"
+ 1076: push_constant_string "<col=000080>"
+ 1077: push_constant_string " skill!"
+ 1078: join_string 18
+ 1079: return 0
+ 1080: push_constant_int 0
+ 1081: push_constant_int -1
+ 1082: push_constant_string ""
+ 1083: push_constant_string ""
+ 1084: return 0
+
+switch_0:
+  1 => 1
+  2 => 927
+  3 => 939
+switch_1:
+  0 => 1
+  1 => 15
+  2 => 29
+  3 => 43
+  4 => 57
+  5 => 71
+  6 => 85
+  7 => 99
+  8 => 110
+  9 => 121
+  10 => 132
+  11 => 143
+  12 => 154
+  13 => 165
+  14 => 176
+  15 => 187
+  16 => 198
+  17 => 209
+  18 => 220
+  19 => 231
+  20 => 245
+  21 => 256
+  22 => 267
+  23 => 278
+  24 => 289
+  25 => 300
+  26 => 311
+  27 => 322
+  28 => 333
+  29 => 343
+  30 => 357
+  31 => 371
+  32 => 382
+  33 => 396
+  34 => 407
+  35 => 421
+  36 => 432
+  37 => 446
+  38 => 457
+  39 => 471
+  40 => 482
+  41 => 496
+  42 => 507
+  43 => 521
+  44 => 535
+  45 => 555
+  46 => 569
+  47 => 580
+  48 => 591
+  49 => 602
+  50 => 613
+  51 => 624
+  52 => 635
+  53 => 646
+  54 => 657
+  55 => 668
+  56 => 679
+  57 => 690
+  58 => 701
+  59 => 715
+  60 => 729
+  61 => 743
+  62 => 757
+  63 => 771
+  64 => 785
+  65 => 799
+  66 => 810
+  67 => 821
+  68 => 832
+  69 => 843
+  70 => 854
+  71 => 868
+  72 => 882
+  73 => 896
+  74 => 910
+switch_2:
+  0 => 1
+switch_3:
+  0 => 1
+  1 => 16
+  2 => 31
+  3 => 44
+  4 => 58
+  5 => 72
+  6 => 86
+  7 => 100
+  8 => 114

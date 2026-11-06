@@ -1,0 +1,11 @@
+[clientscript,script_2621]
+if (if_gethide = 0) {
+    if_sethide(55705601);
+    if_sethide(55705647);
+    if_sethflip(0, 55705650);
+} else {
+    if_sethide(55705601);
+    if_sethide(55705647);
+    if_sethflip(1, 55705650);
+}
+return;

@@ -1,0 +1,11 @@
+; id: 3608
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: gosub_with_params 3609
+    2: return 0

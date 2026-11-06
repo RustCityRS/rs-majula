@@ -1,0 +1,17 @@
+[clientscript,script_3947](int $int0, string $str0, string $str1, string $str2, string $str3, string $str4, string $str5)
+if ($int0 = 1) {
+    if_setop(67371166, $str0);
+    if_setop(67371167, $str1);
+    if_setop(67371168, $str2);
+    if_setop(67371169, $str3);
+    if_setop(67371170, $str4);
+    if_setop(67371171, $str5);
+} else {
+    if_setop(58327077, $str0);
+    if_setop(58327078, $str1);
+    if_setop(58327079, $str2);
+    if_setop(58327080, $str3);
+    if_setop(58327081, $str4);
+    if_setop(58327082, $str5);
+}
+return;

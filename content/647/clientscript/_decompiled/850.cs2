@@ -1,0 +1,5 @@
+[clientscript,script_850](int $int0)(int)
+if (mod($int0, 2) = 0) {
+    return(1);
+}
+return(0);

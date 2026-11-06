@@ -1,0 +1,14 @@
+[clientscript,script_668](int $int0, int $int1, int $int2)(int, string)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($int1, $int2) = 1) {
+    $int3 = sub($int0, clientclock);
+    if ($int3 <= 0) {
+        cc_setontimer;
+        cc_delete;
+        return(-1, "");
+    }
+    $int4 = sub(255, cc_gettrans);
+    cc_settrans(min(calc(cc_gettrans + $int4 / $int3), 254));
+}
+return;

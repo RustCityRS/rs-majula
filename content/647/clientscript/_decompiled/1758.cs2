@@ -1,0 +1,8 @@
+[clientscript,script_1758](int $int0, int $int1)(int)
+if (%varc_int218 > 0) {
+    if_sethide($int0);
+} else {
+    if_sethide($int0);
+}
+if_settext(tostring(%varc_int218));
+return($int1);

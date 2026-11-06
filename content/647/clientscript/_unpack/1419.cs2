@@ -1,0 +1,52 @@
+; id: 1419
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1413
+    1: branch_if_false 1
+    2: branch 1
+    3: return 0
+    4: push_varc_int 11
+    5: branch_if_true 1
+    6: branch 1
+    7: gosub_with_params 675
+    8: getwindowmode 0
+    9: push_constant_int 2
+   10: branch_greater_than_or_equals 1
+   11: branch 3
+   12: push_constant_int 0
+   13: push_constant_int 48889925
+   14: if_sethide 0
+   15: push_constant_int 0
+   16: push_constant_int 49283075
+   17: if_sethide 0
+   18: push_constant_int 1
+   19: push_constant_int 49283079
+   20: if_sethide 0
+   21: push_constant_int 1
+   22: push_constant_int 49283080
+   23: if_sethide 0
+   24: push_constant_string "Enter name of player to delete from list"
+   25: push_constant_int 49283076
+   26: if_settext 0
+   27: push_constant_int 5
+   28: pop_varc_int 5
+   29: push_constant_string ""
+   30: gosub_with_params 1564
+   31: push_constant_int -1
+   32: push_constant_string ""
+   33: push_constant_int 49283075
+   34: op2400 0
+   35: gosub_with_params 2026
+   36: push_constant_int 112
+   37: push_constant_int -2147483640
+   38: push_constant_int -2147483639
+   39: push_constant_string "iz"
+   40: push_constant_int 49283077
+   41: op2419 0
+   42: gosub_with_params 1188
+   43: return 0

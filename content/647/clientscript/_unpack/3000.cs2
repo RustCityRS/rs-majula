@@ -1,0 +1,15 @@
+; id: 3000
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_constant_int 50
+    2: mod 0
+    3: branch_if_false 1
+    4: branch 1
+    5: gosub_with_params 3001
+    6: return 0

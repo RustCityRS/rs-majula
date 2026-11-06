@@ -1,0 +1,98 @@
+[clientscript,script_802](int $int0, int $int1, int $int2, int $int3, string $str0)(int, string)
+def_int $int4 = string_length($str0);
+if ($int0 <= -1) {
+    $int0 = $int4;
+} else {
+    $int0 = min($int0, $int4);
+}
+def_string $str1 = "";
+if ($int0 > 0) {
+    $str1 = substring($str0, 0, $int0);
+}
+def_string $str2 = "";
+if ($int0 < $int4) {
+    $str2 = substring($str0, $int0, $int4);
+}
+def_int $int5 = 0;
+if ($int2 = 85) {
+    $int5 = string_length($str1);
+    if ($int5 > 1) {
+        $str1 = substring($str1, 0, sub($int5, 1));
+    } else {
+        $str1 = "";
+    }
+    $str0 = append($str1, $str2);
+    $int0 = max(sub($int0, 1), 0);
+} else {
+    if ($int2 = 101) {
+        $int5 = string_length($str2);
+        if ($int5 > 1) {
+            $str2 = substring($str2, 1, $int5);
+        } else {
+            $str2 = "";
+        }
+        $str0 = append($str1, $str2);
+    }
+    if (char_isprintable2($int3) = 1) {
+        switch ($int1) {
+            case 0:
+                if ($int4 < 80) {
+                    $str0 = append(escape($str1), $str2);
+                    $int0 = add($int0, 1);
+                }
+            case 1:
+                if (char_isnumeric2($int3) = 1) {
+                    if ($int4 < 10) {
+                        $str0 = append(escape($str1), $str2);
+                        $int0 = add($int0, 1);
+                    }
+                }
+            case 2:
+                if ($int4 < 12) {
+                    $str0 = append(escape($str1), $str2);
+                    $int0 = add($int0, 1);
+                }
+            case 3:
+                if ($int4 < 320) {
+                    $str0 = append(escape($str1), $str2);
+                    $int0 = add($int0, 1);
+                }
+            case 4:
+                if (char_isalphanumeric2($int3) = 1) {
+                    if ($int4 < 50) {
+                        $str0 = append(escape($str1), $str2);
+                        $int0 = add($int0, 1);
+                    }
+                }
+            case 5:
+                if ($int4 < 50) {
+                    $str0 = append(escape($str1), $str2);
+                    $int0 = add($int0, 1);
+                }
+            case 6:
+                switch (getlanguage) {
+                    case 1:
+                        if (char_isnumeric2($int3) = 1) {
+                            if ($int4 < 10) {
+                                if (string_indexof_string($str0, "K") = -1) {
+                                    if (string_indexof_string($str0, "k") = -1) {
+                                        if (string_indexof_string($str0, "M") = -1) {
+                                            if (string_indexof_string($str0, "m") = -1) {
+                                                if (string_indexof_string($str0, "T") = -1) {
+                                                    if (string_indexof_string($str0, "t") = -1) {
+                                                        $str0 = append(escape($str1), $str2);
+                                                        $int0 = add($int0, 1);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    default:
+                }
+        }
+    }
+}
+return($int0, $str0);

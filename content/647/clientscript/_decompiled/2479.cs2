@@ -1,0 +1,9 @@
+[clientscript,script_2479](component)
+if (%varc_int825 < 1) {
+    %varc_int825 = 6;
+}
+if (%varc_int825 > 0) {
+    %varc_int825 = sub(%varc_int825, 1);
+}
+if_settext(tostring(%varc_int825));
+return(2424867);

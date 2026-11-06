@@ -1,0 +1,6 @@
+[clientscript,script_3291](int $int0, int $int1, int $int2)
+def_int $int3 = sub(if_getscrolly, 4);
+if (cc_find($int0, 1) = 1) {
+    ~script_3296($int0, $int1, $int2, $int3, 1);
+}
+return;

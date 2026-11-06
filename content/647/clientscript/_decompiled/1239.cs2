@@ -1,0 +1,28 @@
+[clientscript,script_1239](int $int0)(int, int)
+def_int $int1 = div(%varc_int176, 10);
+if ($int1 > 5) {
+    $int1 = 1;
+    %varc_int176 = multiply($int1, 10);
+}
+def_int $int2 = -1;
+def_int $int3 = 0;
+switch ($int1) {
+    case 0:
+    case 1:
+        $int3 = ~script_3415($int0);
+        $int2 = ~script_3415($int0);
+    case 2:
+        $int3 = ~script_3371($int0);
+        $int2 = ~script_3371($int0);
+    case 3:
+        $int3 = ~script_3372($int0);
+        $int2 = ~script_3372($int0);
+    case 4:
+        $int3 = ~script_3373($int0);
+        $int2 = ~script_3373($int0);
+    case 5:
+        $int3 = ~script_3374($int0);
+        $int2 = ~script_3374($int0);
+    default:
+}
+return($int2, $int3);

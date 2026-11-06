@@ -1,0 +1,15 @@
+; id: 2251
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Deaths: "
+    1: push_varbit 7554
+    2: tostring 0
+    3: join_string 2
+    4: push_int_local 0
+    5: if_settext 0
+    6: return 0

@@ -1,0 +1,9 @@
+[clientscript,script_1822](int $int0, int $int1)
+if (~script_1820($int0) = 0) {
+    return;
+}
+if (%varc_int247 ! $int1) {
+    %varc_int247 = $int1;
+    ~script_1771;
+}
+return;

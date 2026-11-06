@@ -1,0 +1,11 @@
+[clientscript,script_2825](int $int0)(int, component, string)
+if (%varc_int1064 = sub(cam_getpathcount(0), 1)) {
+    if ($int0 = 1) {
+        cam_clear;
+    }
+    if_setonvarcstringtransmit;
+    return(-1, 5832704, "");
+}
+cam_startpath(0, %varc_int1064, enum(105, 105, %varc_int1067, %varc_int1064), enum(105, 105, %varc_int1067, add(%varc_int1064, 1)), 1, %varc_int1064);
+%varc_int1064 = add(%varc_int1064, 1);
+return;

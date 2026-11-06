@@ -1,0 +1,43 @@
+[clientscript,script_1369](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9)
+~script_1088($int0, 0);
+def_int $int10 = -1;
+if (%varc_int622 ! -1) {
+    $int10 = maparea_getbycoord(%varc_int622);
+    if ($int10 = -1) {
+        $int10 = 28;
+    }
+}
+$int10 = ~script_2785($int10);
+if (worldmap_coord_hasarea(%varc_int622, $int10) = 1) {
+    worldmap_setflag($int10, %varc_int622);
+} else {
+    minimap_flash($int10);
+}
+%varc_int172 = maparea_getdefaultzoom($int10);
+~script_1839(%varbit5367, $int1, $int2, $int3);
+if_setonvarctransmit;
+if_setonvartransmit;
+if_setonkey;
+%varc_str31 = "";
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = %varc_int622;
+if ($int13 ! -1) {
+    $int12 = worldmap_coord_to_display($int13);
+    $int11 = 0;
+    if ($int11 < 0) {
+        $int13 = coordpack(0, coordx($int13), ~script_686(sub(coordy($int13), 1), 4), coordz($int13));
+        $int12 = worldmap_coord_to_display($int13);
+        $int11 = 0;
+        if ($int11 < 0) {
+            $int13 = coordpack(0, coordx($int13), ~script_686(sub(coordy($int13), 1), 4), coordz($int13));
+            $int12 = worldmap_coord_to_display($int13);
+            $int11 = 0;
+            if ($int11 < 0) {
+                return;
+            }
+        }
+    }
+    if_setontimer;
+}
+return;

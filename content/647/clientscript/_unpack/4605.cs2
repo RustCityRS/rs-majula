@@ -1,0 +1,33 @@
+; id: 4605
+int_param_count=5
+string_param_count=0
+long_param_count=0
+local_int_count=7
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: if_getheight 0
+    2: pop_int_local 5
+    3: push_int_local 5
+    4: push_int_local 4
+    5: sub 0
+    6: push_constant_int 64
+    7: multiply 0
+    8: push_int_local 5
+    9: div 0
+   10: pop_int_local 6
+   11: push_int_local 6
+   12: push_int_local 0
+   13: if_setcolour 0
+   14: push_int_local 6
+   15: push_constant_int 64
+   16: mod 0
+   17: pop_varbit 9258
+   18: push_int_local 4
+   19: gosub_with_params 4610
+   20: push_var 2174
+   21: op4020 0
+   22: push_int_local 2
+   23: if_setcolour 0
+   24: return 0

@@ -1,0 +1,39 @@
+[clientscript,script_869](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13)(int, int, int, int, int, int)
+def_int $int14 = ~script_718(%varc_int1445);
+def_int $int15 = ~script_718(%varc_int1446);
+def_int $int16 = ~script_715($int14, %varc_int1447, $int15, %varc_int1448);
+if (if_find($int0) = 1) {
+    cc_setparam_string(718, ~script_4126($int16));
+    cc_setcolour($int16);
+}
+if (if_find($int8) = 1) {
+    cc_setparam_string(718, ~script_4126($int16));
+    cc_setcolour($int16);
+}
+if (if_find($int1) = 1) {
+    cc_setparam_string(718, ~script_4126($int14));
+    cc_setcolour($int14);
+}
+if (if_find($int2) = 1) {
+    cc_setparam_string(718, ~script_4126($int15));
+    cc_setcolour($int15);
+}
+if_setmodel;
+if_setmodel;
+def_int $int17 = calc(%varc_int1445 * %varc_int1447 + %varc_int1446 * %varc_int1448);
+if (%varc_int1451 < $int17) {
+    if_setgraphic($int13);
+} else {
+    if (%varc_int1451 > $int17) {
+        if_setgraphic($int13);
+    }
+    if_setgraphic($int13);
+    sound_song_alt(3559, 1, 0, 255);
+}
+if ($int16 = 16776960) {
+    if_setgraphic($int12);
+    sound_song_alt(3559, 1, 10, 255);
+} else {
+    if_setgraphic($int12);
+}
+return(~script_2472($int3, $int4, $int5, $int6, $int7, $int9, %varp853, %varp854, 1110), ~script_2472($int3, $int4, $int5, $int6, $int7, $int9, %varp853, %varp854, 1110), ~script_2472($int3, $int4, $int5, $int6, $int7, $int9, %varp853, %varp854, 1110), ~script_2472($int3, $int4, $int5, $int6, $int7, $int9, %varp853, %varp854, 1110), ~script_2472($int3, $int4, $int5, $int6, $int7, $int9, %varp853, %varp854, 1110), ~script_2472($int3, $int4, $int5, $int6, $int7, $int9, %varp853, %varp854, 1110));

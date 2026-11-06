@@ -1,0 +1,7 @@
+[clientscript,script_1404](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+~script_1839(%varbit5367, $int0, $int1, $int2);
+if ($int5 ! %varbit6175) {
+    if_setonvartransmit;
+}
+~script_307;
+return;

@@ -1,0 +1,99 @@
+[clientscript,script_359](int $int0, int $int1)
+def_int $int2 = -1;
+if ($int1 = 1) {
+    player_setbodytype(2, -1);
+    player_setbodytype(3, -1);
+    player_setbodytype(4, -1);
+    player_setbodytype(5, -1);
+    player_setbodytype(6, -1);
+    player_setbodytype(8, -1);
+    player_setbodytype(14, -1);
+    player_setbodytype(15, -1);
+    %varc_int1009 = -1;
+    $int2 = struct_param($int0, param_1182);
+    if ($int2 ! -1) {
+        %varc_int1010 = $int2;
+        player_setbodytype(9, $int2);
+    }
+    $int2 = struct_param($int0, param_1183);
+    %varc_int1011 = $int2;
+    player_setbodytype(10, $int2);
+    $int2 = struct_param($int0, param_1184);
+    if ($int2 ! -1) {
+        %varc_int1012 = $int2;
+        player_setbodytype(11, $int2);
+    }
+    $int2 = struct_param($int0, param_1185);
+    if ($int2 ! -1) {
+        %varc_int1013 = $int2;
+        player_setbodytype(12, $int2);
+    }
+    $int2 = struct_param($int0, param_1186);
+    if ($int2 ! -1) {
+        %varc_int1014 = $int2;
+        player_setbodytype(13, $int2);
+    }
+} else {
+    player_setbodytype(9, -1);
+    player_setbodytype(10, -1);
+    player_setbodytype(11, -1);
+    player_setbodytype(12, -1);
+    player_setbodytype(13, -1);
+    player_setbodytype(14, -1);
+    player_setbodytype(15, -1);
+    $int2 = struct_param($int0, param_1182);
+    if ($int2 ! -1) {
+        %varc_int1010 = $int2;
+        player_setbodytype(2, $int2);
+    }
+    $int2 = struct_param($int0, param_1183);
+    %varc_int1011 = $int2;
+    player_setbodytype(3, $int2);
+    $int2 = struct_param($int0, param_1184);
+    if ($int2 ! -1) {
+        %varc_int1012 = $int2;
+        player_setbodytype(4, $int2);
+    }
+    $int2 = struct_param($int0, param_1185);
+    if ($int2 ! -1) {
+        %varc_int1013 = $int2;
+        player_setbodytype(5, $int2);
+    }
+    $int2 = struct_param($int0, param_1186);
+    if ($int2 ! -1) {
+        player_setbodytype(6, $int2);
+        %varc_int1014 = $int2;
+    }
+}
+%varc_int1018 = ~script_360($int0);
+%varc_int1017 = ~script_360($int0);
+%varc_int1016 = ~script_360($int0);
+player_setcolour(1, %varc_int1016);
+player_setcolour(2, %varc_int1017);
+player_setcolour(3, %varc_int1018);
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+if (%varc_int86 ! 0) {
+    $int4 = enum(105, 74, enum_3278, sub(%varc_int197, 1));
+    if ($int4 ! -1) {
+        $int3 = struct_param($int4, param_1163);
+        if ($int3 ! -1) {
+            if (inv_size($int3) >= 2) {
+                $int5 = inv_getobj($int3, toolkit);
+            }
+            if (inv_size($int3) >= 3) {
+                $int6 = inv_getobj($int3, cannonball);
+            }
+        }
+    }
+    ~script_392($int4, $int1);
+} else {
+    ~script_392(-1, $int1);
+}
+player_setwornobject(2, 19713);
+player_setwornobject(3, $int5);
+player_setwornobject(5, $int6);
+%varbit8092 = 0;
+return;

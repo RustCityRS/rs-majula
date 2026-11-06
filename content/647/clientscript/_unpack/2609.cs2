@@ -1,0 +1,31 @@
+; id: 2609
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 6357
+    1: branch_if_true 7
+    2: push_varbit 6357
+    3: push_constant_int 4
+    4: branch_equals 4
+    5: push_varbit 6357
+    6: push_constant_int 3
+    7: branch_equals 1
+    8: branch 7
+    9: push_constant_int 0
+   10: push_constant_int 5
+   11: push_constant_int 0
+   12: push_constant_int 0
+   13: push_int_local 0
+   14: if_setposition 0
+   15: branch 6
+   16: push_constant_int 0
+   17: push_constant_int 0
+   18: push_constant_int 0
+   19: push_constant_int 0
+   20: push_int_local 0
+   21: if_setposition 0
+   22: return 0

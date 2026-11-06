@@ -1,0 +1,5 @@
+[clientscript,script_826](int, int, component, string)
+def_int $int0 = clientclock;
+if_setontimer;
+sound_synth(synth_4437, 1, 58);
+return(827, $int0, 30474242, "i");

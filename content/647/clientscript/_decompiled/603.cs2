@@ -1,0 +1,7 @@
+[clientscript,script_603]
+if (%varc_int82 <= 0) {
+    if_setontimer;
+    ~script_621;
+}
+%varc_int82 = sub(%varc_int82, 1);
+return;

@@ -1,0 +1,11 @@
+[clientscript,script_2113](int $int0)
+if_setmodelangle;
+switch (random(3)) {
+    case 0:
+        if_setontimer;
+    case 1:
+        if_setontimer;
+    default:
+        if_setontimer;
+}
+return;

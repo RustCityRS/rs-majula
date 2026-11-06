@@ -1,0 +1,7 @@
+[clientscript,script_4208](int $int0, int $int1)
+if ($int1 = 0) {
+    if_settrans($int0);
+} else {
+    if_settrans($int0);
+}
+return;

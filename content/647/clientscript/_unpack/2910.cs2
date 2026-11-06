@@ -1,0 +1,56 @@
+; id: 2910
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: if_gettext 0
+    2: push_constant_string "Hide"
+    3: compare 0
+    4: branch_if_false 1
+    5: branch 21
+    6: push_constant_int 2911
+    7: push_constant_int 0
+    8: push_constant_int 24
+    9: push_int_local 0
+   10: op2505 0
+   11: if_getheight 0
+   12: push_constant_int 24
+   13: sub 0
+   14: push_constant_int 0
+   15: push_int_local 0
+   16: push_constant_string "1iiiI"
+   17: push_int_local 0
+   18: op2408 0
+   19: push_constant_string "Show"
+   20: push_int_local 1
+   21: if_settext 0
+   22: push_constant_int 1
+   23: push_constant_string "Show"
+   24: push_int_local 1
+   25: if_setop 0
+   26: branch 20
+   27: push_constant_int 2911
+   28: push_constant_int 1
+   29: push_constant_int 24
+   30: push_int_local 0
+   31: op2505 0
+   32: if_getheight 0
+   33: push_constant_int 24
+   34: sub 0
+   35: push_constant_int 0
+   36: push_int_local 0
+   37: push_constant_string "1iiiI"
+   38: push_int_local 0
+   39: op2408 0
+   40: push_constant_string "Hide"
+   41: push_int_local 1
+   42: if_settext 0
+   43: push_constant_int 1
+   44: push_constant_string "Hide"
+   45: push_int_local 1
+   46: if_setop 0
+   47: return 0

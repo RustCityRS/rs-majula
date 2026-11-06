@@ -1,0 +1,7 @@
+[clientscript,script_4174](int $int0)
+if (testbit(%varbit642, $int0) = 1) {
+    cc_sethide(0);
+} else {
+    cc_sethide(1);
+}
+return;

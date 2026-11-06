@@ -1,0 +1,7 @@
+[clientscript,script_856]
+sound_synth(fletch, 1, 0);
+if (%varbit4400 < sub(7, 1)) {
+    %varc_int108 = add(%varbit4400, 1);
+    ~script_861;
+}
+return;

@@ -1,0 +1,20 @@
+[clientscript,script_367](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+if ($int2 = 1) {
+    $int3 = add($int1, 17);
+} else {
+    $int3 = $int1;
+}
+def_int $int4 = if_getheight;
+if ($int4 < $int3) {
+    if_setsize(min(add($int4, 2), $int3), 0, 0, $int0);
+    if (mod($int4, $int1) = 0) {
+        sound_synth(synth_9840, 1, 0);
+    }
+} else {
+    if ($int4 > $int3) {
+        if_setsize(max(sub($int4, 2), $int3), 0, 0, $int0);
+    }
+    if_setontimer;
+}
+return;

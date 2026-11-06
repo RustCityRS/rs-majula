@@ -1,0 +1,3749 @@
+; id: 996
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 3451
+    3: push_int_local 1
+    4: switch 1
+    5: branch 219
+    6: push_constant_int 4
+    7: push_constant_int 9236
+    8: push_constant_string "Members: Opal-tipped bronze crossbow bolt"
+    9: push_constant_string "Members can now enchant "
+   10: push_constant_string "<col=000080>"
+   11: push_constant_string "opal-tipped bronze crossbow bolts"
+   12: push_constant_string "</col>"
+   13: push_constant_string "."
+   14: join_string 5
+   15: return 0
+   16: branch 208
+   17: push_constant_int 7
+   18: push_constant_int 1607
+   19: push_constant_string "Sapphire items"
+   20: push_constant_string "You can now enchant "
+   21: push_constant_string "<col=000080>"
+   22: push_constant_string "sapphire items"
+   23: push_constant_string "</col>"
+   24: push_constant_string "."
+   25: join_string 5
+   26: return 0
+   27: branch 197
+   28: push_constant_int 7
+   29: push_constant_int 9240
+   30: push_constant_string "Members: Sapphire-tipped mithril crossbow bolt"
+   31: push_constant_string "Members can now enchant "
+   32: push_constant_string "<col=000080>"
+   33: push_constant_string "sapphire-tipped crossbow bolts"
+   34: push_constant_string "</col>"
+   35: push_constant_string "."
+   36: join_string 5
+   37: return 0
+   38: branch 186
+   39: push_constant_int 14
+   40: push_constant_int 9237
+   41: push_constant_string "Members: Jade-tipped blurite crossbow bolt"
+   42: push_constant_string "Members can now enchant "
+   43: push_constant_string "<col=000080>"
+   44: push_constant_string "jade-tipped blurite crossbow bolts"
+   45: push_constant_string "</col>"
+   46: push_constant_string "."
+   47: join_string 5
+   48: return 0
+   49: branch 175
+   50: push_constant_int 24
+   51: push_constant_int 9238
+   52: push_constant_string "Members: Pearl-tipped iron crossbow bolt"
+   53: push_constant_string "Members can now enchant "
+   54: push_constant_string "<col=000080>"
+   55: push_constant_string "pearl-tipped iron crossbow bolts"
+   56: push_constant_string "</col>"
+   57: push_constant_string "."
+   58: join_string 5
+   59: return 0
+   60: branch 164
+   61: push_constant_int 27
+   62: push_constant_int 1605
+   63: push_constant_string "Emerald items"
+   64: push_constant_string "You can now enchant "
+   65: push_constant_string "<col=000080>"
+   66: push_constant_string "emerald items"
+   67: push_constant_string "</col>"
+   68: push_constant_string "."
+   69: join_string 5
+   70: return 0
+   71: branch 153
+   72: push_constant_int 27
+   73: push_constant_int 9241
+   74: push_constant_string "Members: Emerald-tipped mithril crossbow bolt"
+   75: push_constant_string "Members can now enchant "
+   76: push_constant_string "<col=000080>"
+   77: push_constant_string "emerald-tipped mithril crossbow bolts"
+   78: push_constant_string "</col>"
+   79: push_constant_string "."
+   80: join_string 5
+   81: return 0
+   82: branch 142
+   83: push_constant_int 29
+   84: push_constant_int 9239
+   85: push_constant_string "Members: Red topaz-tipped steel crossbow bolt"
+   86: push_constant_string "Members can now enchant "
+   87: push_constant_string "<col=000080>"
+   88: push_constant_string "red topaz-tipped steel crossbow bolts"
+   89: push_constant_string "</col>"
+   90: push_constant_string "."
+   91: join_string 5
+   92: return 0
+   93: branch 131
+   94: push_constant_int 49
+   95: push_constant_int 1603
+   96: push_constant_string "Ruby items"
+   97: push_constant_string "You can now enchant "
+   98: push_constant_string "<col=000080>"
+   99: push_constant_string "ruby items"
+  100: push_constant_string "</col>"
+  101: push_constant_string "."
+  102: join_string 5
+  103: return 0
+  104: branch 120
+  105: push_constant_int 49
+  106: push_constant_int 9242
+  107: push_constant_string "Members: Ruby-tipped adamant crossbow bolt"
+  108: push_constant_string "Members can now "
+  109: push_constant_string "<col=000080>"
+  110: push_constant_string "enchant ruby-tipped adamant crossbow bolts"
+  111: push_constant_string "</col>"
+  112: push_constant_string "."
+  113: join_string 5
+  114: return 0
+  115: branch 109
+  116: push_constant_int 56
+  117: push_constant_int 571
+  118: push_constant_string "Members: Charge water orbs"
+  119: push_constant_string "Members can now charge "
+  120: push_constant_string "<col=000080>"
+  121: push_constant_string "water orbs"
+  122: push_constant_string "</col>"
+  123: push_constant_string "."
+  124: join_string 5
+  125: return 0
+  126: branch 98
+  127: push_constant_int 57
+  128: push_constant_int 1601
+  129: push_constant_string "Diamond items"
+  130: push_constant_string "You can now enchant "
+  131: push_constant_string "<col=000080>"
+  132: push_constant_string "diamond items"
+  133: push_constant_string "</col>"
+  134: push_constant_string "."
+  135: join_string 5
+  136: return 0
+  137: branch 87
+  138: push_constant_int 57
+  139: push_constant_int 9243
+  140: push_constant_string "Members: Diamond-tipped adamant crossbow bolt"
+  141: push_constant_string "Members can now enchant "
+  142: push_constant_string "<col=000080>"
+  143: push_constant_string "diamond-tipped adamant crossbow bolts"
+  144: push_constant_string "</col>"
+  145: push_constant_string "."
+  146: join_string 5
+  147: return 0
+  148: branch 76
+  149: push_constant_int 60
+  150: push_constant_int 575
+  151: push_constant_string "Members: Charge earth orbs"
+  152: push_constant_string "Members can now charge "
+  153: push_constant_string "<col=000080>"
+  154: push_constant_string "earth orbs"
+  155: push_constant_string "</col>"
+  156: push_constant_string "."
+  157: join_string 5
+  158: return 0
+  159: branch 65
+  160: push_constant_int 63
+  161: push_constant_int 569
+  162: push_constant_string "Members: Charge fire orbs"
+  163: push_constant_string "Members can now charge "
+  164: push_constant_string "<col=000080>"
+  165: push_constant_string "fire orbs"
+  166: push_constant_string "</col>"
+  167: push_constant_string "."
+  168: join_string 5
+  169: return 0
+  170: branch 54
+  171: push_constant_int 66
+  172: push_constant_int 573
+  173: push_constant_string "Members: Charge air orbs"
+  174: push_constant_string "Members can now charge "
+  175: push_constant_string "<col=000080>"
+  176: push_constant_string "air orbs"
+  177: push_constant_string "</col>"
+  178: push_constant_string "."
+  179: join_string 5
+  180: return 0
+  181: branch 43
+  182: push_constant_int 68
+  183: push_constant_int 1615
+  184: push_constant_string "Members: Dragonstone items"
+  185: push_constant_string "Members can now enchant "
+  186: push_constant_string "<col=000080>"
+  187: push_constant_string "dragonstone items"
+  188: push_constant_string "</col>"
+  189: push_constant_string "."
+  190: join_string 5
+  191: return 0
+  192: branch 32
+  193: push_constant_int 68
+  194: push_constant_int 9244
+  195: push_constant_string "Members: Dragonstone-tipped rune crossbow bolt"
+  196: push_constant_string "Members can now enchant "
+  197: push_constant_string "<col=000080>"
+  198: push_constant_string "dragonstone-tipped rune crossbow bolts"
+  199: push_constant_string "</col>"
+  200: push_constant_string "."
+  201: join_string 5
+  202: return 0
+  203: branch 21
+  204: push_constant_int 87
+  205: push_constant_int 6573
+  206: push_constant_string "Members: Onyx items"
+  207: push_constant_string "Members can now enchant "
+  208: push_constant_string "<col=000080>"
+  209: push_constant_string "onyx items"
+  210: push_constant_string "</col>"
+  211: push_constant_string "."
+  212: join_string 5
+  213: return 0
+  214: branch 10
+  215: push_constant_int 87
+  216: push_constant_int 9245
+  217: push_constant_string "Members: Onyx-tipped rune crossbow bolt"
+  218: push_constant_string "Members can now enchant "
+  219: push_constant_string "<col=000080>"
+  220: push_constant_string "onyx-tipped rune crossbow bolts"
+  221: push_constant_string "</col>"
+  222: push_constant_string "."
+  223: join_string 5
+  224: return 0
+  225: branch 3228
+  226: push_int_local 1
+  227: switch 2
+  228: branch 1163
+  229: push_constant_int 1
+  230: push_constant_int 3755
+  231: push_constant_string "Members: Farseer helm"
+  232: push_constant_string "<br>"
+  233: push_constant_string " (after Fremennik Trials and with 45 Defence)"
+  234: join_string 3
+  235: push_constant_string "Members now have the Magic level required to wear "
+  236: push_constant_string "<col=000080>"
+  237: push_constant_string "farseer helms"
+  238: push_constant_string "</col>"
+  239: push_constant_string " (after Fremennik Trials)."
+  240: join_string 5
+  241: return 0
+  242: branch 1149
+  243: push_constant_int 1
+  244: push_constant_int 6153
+  245: push_constant_string "Members: Skeletal gloves"
+  246: push_constant_string "Members can now wear "
+  247: push_constant_string "<col=000080>"
+  248: push_constant_string "skeletal gloves"
+  249: push_constant_string "</col>"
+  250: push_constant_string "."
+  251: join_string 5
+  252: return 0
+  253: branch 1138
+  254: push_constant_int 1
+  255: push_constant_int 6147
+  256: push_constant_string "Members: Skeletal boots"
+  257: push_constant_string "Members can now wear "
+  258: push_constant_string "<col=000080>"
+  259: push_constant_string "skeletal boots"
+  260: push_constant_string "</col>"
+  261: push_constant_string "."
+  262: join_string 5
+  263: return 0
+  264: branch 1127
+  265: push_constant_int 20
+  266: push_constant_int 2579
+  267: push_constant_string "Members: Wizard boots"
+  268: push_constant_string "Members can now wear "
+  269: push_constant_string "<col=000080>"
+  270: push_constant_string "wizard boots."
+  271: join_string 3
+  272: return 0
+  273: branch 1118
+  274: push_constant_int 20
+  275: push_constant_int 12964
+  276: push_constant_string "Combat hood"
+  277: push_constant_string "<br>"
+  278: push_constant_string " (with level 10 Defence)"
+  279: join_string 3
+  280: push_constant_string "You now have the Magic level required to wear "
+  281: push_constant_string "<col=000080>"
+  282: push_constant_string "combat hoods"
+  283: push_constant_string "</col>"
+  284: push_constant_string ". (You also need level 10 Defence.)"
+  285: join_string 5
+  286: return 0
+  287: branch 1104
+  288: push_constant_int 20
+  289: push_constant_int 12971
+  290: push_constant_string "Combat robe top"
+  291: push_constant_string "<br>"
+  292: push_constant_string " (with level 10 Defence)"
+  293: join_string 3
+  294: push_constant_string "You now have the Magic level required to wear "
+  295: push_constant_string "<col=000080>"
+  296: push_constant_string "combat robe tops"
+  297: push_constant_string "</col>"
+  298: push_constant_string ". (You also need level 10 Defence.)"
+  299: join_string 5
+  300: return 0
+  301: branch 1090
+  302: push_constant_int 20
+  303: push_constant_int 12978
+  304: push_constant_string "Combat robe bottom"
+  305: push_constant_string "<br>"
+  306: push_constant_string " (with level 10 Defence)"
+  307: join_string 3
+  308: push_constant_string "You now have the Magic level required to wear "
+  309: push_constant_string "<col=000080>"
+  310: push_constant_string "combat robe bottoms"
+  311: push_constant_string "</col>"
+  312: push_constant_string ". (You also need level 10 Defence.)"
+  313: join_string 5
+  314: return 0
+  315: branch 1076
+  316: push_constant_int 20
+  317: push_constant_int 12887
+  318: push_constant_string "Druidic mage hood"
+  319: push_constant_string "<br>"
+  320: push_constant_string " (with level 10 Defence)"
+  321: join_string 3
+  322: push_constant_string "You now have the Magic level required to wear "
+  323: push_constant_string "<col=000080>"
+  324: push_constant_string "druidic mage hoods"
+  325: push_constant_string "</col>"
+  326: push_constant_string ". (You also need level 10 Defence.)"
+  327: join_string 5
+  328: return 0
+  329: branch 1062
+  330: push_constant_int 20
+  331: push_constant_int 12894
+  332: push_constant_string "Druidic mage top"
+  333: push_constant_string "<br>"
+  334: push_constant_string " (with level 10 Defence)"
+  335: join_string 3
+  336: push_constant_string "You now have the Magic level required to wear "
+  337: push_constant_string "<col=000080>"
+  338: push_constant_string "druidic mage tops"
+  339: push_constant_string "</col>"
+  340: push_constant_string ". (You also need level 10 Defence.)"
+  341: join_string 5
+  342: return 0
+  343: branch 1048
+  344: push_constant_int 20
+  345: push_constant_int 12901
+  346: push_constant_string "Druidic mage bottom"
+  347: push_constant_string "<br>"
+  348: push_constant_string " (with level 10 Defence)"
+  349: join_string 3
+  350: push_constant_string "You now have the Magic level required to wear "
+  351: push_constant_string "<col=000080>"
+  352: push_constant_string "druidic mage bottoms"
+  353: push_constant_string "</col>"
+  354: push_constant_string ". (You also need level 10 Defence.)"
+  355: join_string 5
+  356: return 0
+  357: branch 1034
+  358: push_constant_int 20
+  359: push_constant_int 13938
+  360: push_constant_string "Members: Corrupt Zuriel's hood"
+  361: push_constant_string "<br>"
+  362: push_constant_string " (with level 20 Defence)"
+  363: join_string 3
+  364: push_constant_string "Members now have the Magic level required to wear "
+  365: push_constant_string "<col=000080>"
+  366: push_constant_string "corrupt Zuriel's hood"
+  367: push_constant_string "</col>"
+  368: push_constant_string ". (They also need level 20 Defence.)"
+  369: join_string 5
+  370: return 0
+  371: branch 1020
+  372: push_constant_int 20
+  373: push_constant_int 13932
+  374: push_constant_string "Members: Corrupt Zuriel's robe top"
+  375: push_constant_string "<br>"
+  376: push_constant_string " (with level 20 Defence)"
+  377: join_string 3
+  378: push_constant_string "Members now have the Magic level required to wear "
+  379: push_constant_string "<col=000080>"
+  380: push_constant_string "corrupt Zuriel's robe top"
+  381: push_constant_string "</col>"
+  382: push_constant_string ". (They also need level 20 Defence.)"
+  383: join_string 5
+  384: return 0
+  385: branch 1006
+  386: push_constant_int 20
+  387: push_constant_int 13935
+  388: push_constant_string "Members: Corrupt Zuriel's robe bottom"
+  389: push_constant_string "<br>"
+  390: push_constant_string " (with level 20 Defence)"
+  391: join_string 3
+  392: push_constant_string "Members now have the Magic level required to wear "
+  393: push_constant_string "<col=000080>"
+  394: push_constant_string "corrupt Zuriel's robe bottom"
+  395: push_constant_string "</col>"
+  396: push_constant_string ". (They also need level 20 Defence.)"
+  397: join_string 5
+  398: return 0
+  399: branch 992
+  400: push_constant_int 20
+  401: push_constant_int 15488
+  402: push_constant_string "Members: Hexcrest"
+  403: push_constant_string "<br>"
+  404: push_constant_string " (with 10 Defence)"
+  405: join_string 3
+  406: push_constant_string "Members can now wear "
+  407: push_constant_string "<col=000080>"
+  408: push_constant_string "hexcrests"
+  409: push_constant_string "</col>"
+  410: push_constant_string " (with 10 Defence)."
+  411: join_string 5
+  412: return 0
+  413: branch 978
+  414: push_constant_int 20
+  415: push_constant_int 15492
+  416: push_constant_string "Members: Full Slayer helmet"
+  417: push_constant_string "<br>"
+  418: push_constant_string " (after Smoking Kills with 10 Defence, 20 Ranged and Strength)"
+  419: join_string 3
+  420: push_constant_string "Members can now wear "
+  421: push_constant_string "<col=000080>"
+  422: push_constant_string "full slayer helmets"
+  423: push_constant_string "</col>"
+  424: push_constant_string " (after Smoking Kills with 10 Defence, 20 Ranged and Strength)."
+  425: join_string 5
+  426: return 0
+  427: branch 964
+  428: push_constant_int 20
+  429: push_constant_int 9733
+  430: push_constant_string "Members: Elemental mind equipment (After Elemental Workshop II and with level 30 Smithing)"
+  431: push_constant_string "Members now have the Magic level required to wear "
+  432: push_constant_string "<col=000080>"
+  433: push_constant_string "Elemental mind equipment"
+  434: push_constant_string "</col>"
+  435: push_constant_string ". (After Elemental Workshop II and with level 30 Smithing)"
+  436: join_string 5
+  437: return 0
+  438: branch 953
+  439: push_constant_int 30
+  440: push_constant_int 18333
+  441: push_constant_string "Arcane pulse necklace"
+  442: push_constant_string "<br>"
+  443: push_constant_string " (with 30 Dungeoneering)"
+  444: join_string 3
+  445: push_constant_string "You can now wear "
+  446: push_constant_string "<col=000080>"
+  447: push_constant_string "arcane pulse necklaces"
+  448: push_constant_string "</col>"
+  449: push_constant_string ". (You also need level 30 Dungeoneering.)"
+  450: join_string 5
+  451: return 0
+  452: branch 939
+  453: push_constant_int 40
+  454: push_constant_int 4089
+  455: push_constant_string "Members: Mystic hat"
+  456: push_constant_string "<br>"
+  457: push_constant_string " (with level 20 Defence)"
+  458: join_string 3
+  459: push_constant_string "Members now have the Magic level required to wear "
+  460: push_constant_string "<col=000080>"
+  461: push_constant_string "mystic hats"
+  462: push_constant_string "</col>"
+  463: push_constant_string ". (They also need level 20 Defence.)"
+  464: join_string 5
+  465: return 0
+  466: branch 925
+  467: push_constant_int 40
+  468: push_constant_int 4091
+  469: push_constant_string "Members: Mystic robe top"
+  470: push_constant_string "<br>"
+  471: push_constant_string " (with level 20 Defence)"
+  472: join_string 3
+  473: push_constant_string "Members now have the Magic level required to wear "
+  474: push_constant_string "<col=000080>"
+  475: push_constant_string "mystic robe tops"
+  476: push_constant_string "</col>"
+  477: push_constant_string ". (They also need level 20 Defence.)"
+  478: join_string 5
+  479: return 0
+  480: branch 911
+  481: push_constant_int 40
+  482: push_constant_int 4093
+  483: push_constant_string "Members: Mystic robe bottom"
+  484: push_constant_string "<br>"
+  485: push_constant_string " (with level 20 Defence)"
+  486: join_string 3
+  487: push_constant_string "Members now have the Magic level required to wear "
+  488: push_constant_string "<col=000080>"
+  489: push_constant_string "mystic robe bottoms"
+  490: push_constant_string "</col>"
+  491: push_constant_string ". (They also need level 20 Defence.)"
+  492: join_string 5
+  493: return 0
+  494: branch 897
+  495: push_constant_int 40
+  496: push_constant_int 4095
+  497: push_constant_string "Members: Mystic gloves"
+  498: push_constant_string "<br>"
+  499: push_constant_string " (with level 20 Defence)"
+  500: join_string 3
+  501: push_constant_string "Members now have the Magic level required to wear "
+  502: push_constant_string "<col=000080>"
+  503: push_constant_string "mystic gloves"
+  504: push_constant_string "</col>"
+  505: push_constant_string ". (They also need level 20 Defence.)"
+  506: join_string 5
+  507: return 0
+  508: branch 883
+  509: push_constant_int 40
+  510: push_constant_int 4097
+  511: push_constant_string "Members: Mystic boots"
+  512: push_constant_string "<br>"
+  513: push_constant_string " (with level 20 Defence)"
+  514: join_string 3
+  515: push_constant_string "Members now have the Magic level required to wear "
+  516: push_constant_string "<col=000080>"
+  517: push_constant_string "mystic boots"
+  518: push_constant_string "</col>"
+  519: push_constant_string ". (They also need level 20 Defence.)"
+  520: join_string 5
+  521: return 0
+  522: branch 869
+  523: push_constant_int 40
+  524: push_constant_int 14499
+  525: push_constant_string "Members: Dagon'hai hat"
+  526: push_constant_string "<br>"
+  527: push_constant_string " (with level 20 Defence)"
+  528: join_string 3
+  529: push_constant_string "Members now have the Magic level required to wear "
+  530: push_constant_string "<col=000080>"
+  531: push_constant_string "Dagon'hai hats"
+  532: push_constant_string "</col>"
+  533: push_constant_string ". (They also need level 20 Defence.)"
+  534: join_string 5
+  535: return 0
+  536: branch 855
+  537: push_constant_int 40
+  538: push_constant_int 14497
+  539: push_constant_string "Members: Dagon'hai robe top"
+  540: push_constant_string "<br>"
+  541: push_constant_string " (with level 20 Defence)"
+  542: join_string 3
+  543: push_constant_string "Members now have the Magic level required to wear "
+  544: push_constant_string "<col=000080>"
+  545: push_constant_string "Dagon'hai robe tops"
+  546: push_constant_string "</col>"
+  547: push_constant_string ". (They also need level 20 Defence.)"
+  548: join_string 5
+  549: return 0
+  550: branch 841
+  551: push_constant_int 40
+  552: push_constant_int 14501
+  553: push_constant_string "Members: Dagon'hai robe bottom"
+  554: push_constant_string "<br>"
+  555: push_constant_string " (with level 20 Defence)"
+  556: join_string 3
+  557: push_constant_string "Members now have the Magic level required to wear "
+  558: push_constant_string "<col=000080>"
+  559: push_constant_string "Dagon'hai robe bottoms"
+  560: push_constant_string "</col>"
+  561: push_constant_string ". (They also need level 20 Defence.)"
+  562: join_string 5
+  563: return 0
+  564: branch 827
+  565: push_constant_int 40
+  566: push_constant_int 7400
+  567: push_constant_string "Members: Enchanted hat"
+  568: push_constant_string "<br>"
+  569: push_constant_string " (with level 20 Defence)"
+  570: join_string 3
+  571: push_constant_string "Members now have the Magic level required to wear "
+  572: push_constant_string "<col=000080>"
+  573: push_constant_string "enchanted hats"
+  574: push_constant_string "</col>"
+  575: push_constant_string ". (They also need level 20 Defence.)"
+  576: join_string 5
+  577: return 0
+  578: branch 813
+  579: push_constant_int 40
+  580: push_constant_int 7399
+  581: push_constant_string "Members: Enchanted top"
+  582: push_constant_string "<br>"
+  583: push_constant_string " (with level 20 Defence)"
+  584: join_string 3
+  585: push_constant_string "Members now have the Magic level required to wear "
+  586: push_constant_string "<col=000080>"
+  587: push_constant_string "enchanted tops"
+  588: push_constant_string "</col>"
+  589: push_constant_string ". (They also need level 20 Defence.)"
+  590: join_string 5
+  591: return 0
+  592: branch 799
+  593: push_constant_int 40
+  594: push_constant_int 7398
+  595: push_constant_string "Members: Enchanted robe"
+  596: push_constant_string "<br>"
+  597: push_constant_string " (with level 20 Defence)"
+  598: join_string 3
+  599: push_constant_string "Members now have the Magic level required to wear "
+  600: push_constant_string "<col=000080>"
+  601: push_constant_string "enchanted robes"
+  602: push_constant_string "</col>"
+  603: push_constant_string ". (They also need level 20 Defence.)"
+  604: join_string 5
+  605: return 0
+  606: branch 785
+  607: push_constant_int 40
+  608: push_constant_int 3385
+  609: push_constant_string "Members: Splitbark helm"
+  610: push_constant_string "<br>"
+  611: push_constant_string " (with level 40 Defence)"
+  612: join_string 3
+  613: push_constant_string "Members now have the Magic level required to wear "
+  614: push_constant_string "<col=000080>"
+  615: push_constant_string "splitbark helms"
+  616: push_constant_string "</col>"
+  617: push_constant_string ". (They also need level 40 Defence.)"
+  618: join_string 5
+  619: return 0
+  620: branch 771
+  621: push_constant_int 40
+  622: push_constant_int 3387
+  623: push_constant_string "Members: Splitbark body"
+  624: push_constant_string "<br>"
+  625: push_constant_string " (with level 40 Defence)"
+  626: join_string 3
+  627: push_constant_string "Members now have the Magic level required to wear "
+  628: push_constant_string "<col=000080>"
+  629: push_constant_string "splitbark bodies"
+  630: push_constant_string "</col>"
+  631: push_constant_string ". (They also need level 40 Defence.)"
+  632: join_string 5
+  633: return 0
+  634: branch 757
+  635: push_constant_int 40
+  636: push_constant_int 3389
+  637: push_constant_string "Members: Splitbark legs"
+  638: push_constant_string "<br>"
+  639: push_constant_string " (with level 40 Defence)"
+  640: join_string 3
+  641: push_constant_string "Members now have the Magic level required to wear "
+  642: push_constant_string "<col=000080>"
+  643: push_constant_string "splitbark legs"
+  644: push_constant_string "</col>"
+  645: push_constant_string ". (They also need level 40 Defence.)"
+  646: join_string 5
+  647: return 0
+  648: branch 743
+  649: push_constant_int 40
+  650: push_constant_int 3391
+  651: push_constant_string "Members: Splitbark gauntlets"
+  652: push_constant_string "<br>"
+  653: push_constant_string " (with level 40 Defence)"
+  654: join_string 3
+  655: push_constant_string "Members now have the Magic level required to wear "
+  656: push_constant_string "<col=000080>"
+  657: push_constant_string "splitbark gauntlets"
+  658: push_constant_string "</col>"
+  659: push_constant_string ". (They also need level 40 Defence.)"
+  660: join_string 5
+  661: return 0
+  662: branch 729
+  663: push_constant_int 40
+  664: push_constant_int 3393
+  665: push_constant_string "Members: Splitbark boots"
+  666: push_constant_string "<br>"
+  667: push_constant_string " (with level 40 Defence)"
+  668: join_string 3
+  669: push_constant_string "Members now have the Magic level required to wear "
+  670: push_constant_string "<col=000080>"
+  671: push_constant_string "splitbark boots"
+  672: push_constant_string "</col>"
+  673: push_constant_string ". (They also need level 40 Defence.)"
+  674: join_string 5
+  675: return 0
+  676: branch 715
+  677: push_constant_int 40
+  678: push_constant_int 6137
+  679: push_constant_string "Members: Skeletal helmet"
+  680: push_constant_string "<br>"
+  681: push_constant_string " (after Fremennik Trials and with 40 Defence)"
+  682: join_string 3
+  683: push_constant_string "Members now have the Magic level required to wear "
+  684: push_constant_string "<col=000080>"
+  685: push_constant_string "skeletal helmets"
+  686: push_constant_string "</col>"
+  687: push_constant_string " (after Fremennik Trials and with level 40 Defence)."
+  688: join_string 5
+  689: return 0
+  690: branch 701
+  691: push_constant_int 40
+  692: push_constant_int 6139
+  693: push_constant_string "Members: Skeletal top"
+  694: push_constant_string "<br>"
+  695: push_constant_string " (after Fremennik Trials and with 40 Defence)"
+  696: join_string 3
+  697: push_constant_string "Members now have the Magic level required to wear "
+  698: push_constant_string "<col=000080>"
+  699: push_constant_string "skeletal tops"
+  700: push_constant_string "</col>"
+  701: push_constant_string " (after Fremennik Trials and with level 40 Defence)."
+  702: join_string 5
+  703: return 0
+  704: branch 687
+  705: push_constant_int 40
+  706: push_constant_int 6141
+  707: push_constant_string "Members: Skeletal bottoms"
+  708: push_constant_string "<br>"
+  709: push_constant_string " (after Fremennik Trials and with 40 Defence)"
+  710: join_string 3
+  711: push_constant_string "Members now have the Magic level required to wear "
+  712: push_constant_string "<col=000080>"
+  713: push_constant_string "skeletal bottoms"
+  714: push_constant_string "</col>"
+  715: push_constant_string " (after Fremennik Trials and with level 40 Defence)."
+  716: join_string 5
+  717: return 0
+  718: branch 673
+  719: push_constant_int 40
+  720: push_constant_int 14116
+  721: push_constant_string "Members: Sacred clay hat"
+  722: push_constant_string "<br>"
+  723: push_constant_string " (with level 40 Defence)"
+  724: join_string 3
+  725: push_constant_string "Members now have the Magic level required to wear "
+  726: push_constant_string "<col=000080>"
+  727: push_constant_string "sacred clay hats"
+  728: push_constant_string "</col>"
+  729: push_constant_string ". (They also need level 40 Defence.)"
+  730: join_string 5
+  731: return 0
+  732: branch 659
+  733: push_constant_int 40
+  734: push_constant_int 14114
+  735: push_constant_string "Members: Sacred clay robe top"
+  736: push_constant_string "<br>"
+  737: push_constant_string " (with level 40 Defence)"
+  738: join_string 3
+  739: push_constant_string "Members now have the Magic level required to wear "
+  740: push_constant_string "<col=000080>"
+  741: push_constant_string "sacred clay robe tops"
+  742: push_constant_string "</col>"
+  743: push_constant_string ". (They also need level 40 Defence.)"
+  744: join_string 5
+  745: return 0
+  746: branch 645
+  747: push_constant_int 40
+  748: push_constant_int 14115
+  749: push_constant_string "Members: Sacred clay robe bottom"
+  750: push_constant_string "<br>"
+  751: push_constant_string " (with level 40 Defence)"
+  752: join_string 3
+  753: push_constant_string "Members now have the Magic level required to wear "
+  754: push_constant_string "<col=000080>"
+  755: push_constant_string "sacred clay robe bottoms"
+  756: push_constant_string "</col>"
+  757: push_constant_string ". (They also need level 40 Defence.)"
+  758: join_string 5
+  759: return 0
+  760: branch 631
+  761: push_constant_int 40
+  762: push_constant_int 10454
+  763: push_constant_string "Members: Guthix mitre"
+  764: push_constant_string "<br>"
+  765: push_constant_string " (with 40 Prayer)"
+  766: join_string 3
+  767: push_constant_string "Members now have the Magic level required to wear "
+  768: push_constant_string "<col=000080>"
+  769: push_constant_string "Guthix mitres"
+  770: push_constant_string "</col>"
+  771: push_constant_string ". (They also need level 40 Prayer.)"
+  772: join_string 5
+  773: return 0
+  774: branch 617
+  775: push_constant_int 40
+  776: push_constant_int 10452
+  777: push_constant_string "Members: Saradomin mitre"
+  778: push_constant_string "<br>"
+  779: push_constant_string " (with 40 Prayer)"
+  780: join_string 3
+  781: push_constant_string "Members now have the Magic level required to wear "
+  782: push_constant_string "<col=000080>"
+  783: push_constant_string "Saradomin mitres"
+  784: push_constant_string "</col>"
+  785: push_constant_string ". (They also need level 40 Prayer.)"
+  786: join_string 5
+  787: return 0
+  788: branch 603
+  789: push_constant_int 40
+  790: push_constant_int 10456
+  791: push_constant_string "Members: Zamorak mitre"
+  792: push_constant_string "<br>"
+  793: push_constant_string " (with 40 Prayer)"
+  794: join_string 3
+  795: push_constant_string "Members now have the Magic level required to wear "
+  796: push_constant_string "<col=000080>"
+  797: push_constant_string "Zamorak mitres"
+  798: push_constant_string "</col>"
+  799: push_constant_string ". (They also need level 40 Prayer.)"
+  800: join_string 5
+  801: return 0
+  802: branch 589
+  803: push_constant_int 40
+  804: push_constant_int 19374
+  805: push_constant_string "Members: Armadyl mitre"
+  806: push_constant_string "<br>"
+  807: push_constant_string " (with 40 Prayer)"
+  808: join_string 3
+  809: push_constant_string "Members now have the Magic level required to wear "
+  810: push_constant_string "<col=000080>"
+  811: push_constant_string "Armadyl mitres"
+  812: push_constant_string "</col>"
+  813: push_constant_string ". (They also need level 40 Prayer.)"
+  814: join_string 5
+  815: return 0
+  816: branch 575
+  817: push_constant_int 40
+  818: push_constant_int 19376
+  819: push_constant_string "Members: Bandos mitre"
+  820: push_constant_string "<br>"
+  821: push_constant_string " (with 40 Prayer)"
+  822: join_string 3
+  823: push_constant_string "Members now have the Magic level required to wear "
+  824: push_constant_string "<col=000080>"
+  825: push_constant_string "Bandos mitres"
+  826: push_constant_string "</col>"
+  827: push_constant_string ". (They also need level 40 Prayer.)"
+  828: join_string 5
+  829: return 0
+  830: branch 561
+  831: push_constant_int 40
+  832: push_constant_int 19378
+  833: push_constant_string "Members: Ancient mitre"
+  834: push_constant_string "<br>"
+  835: push_constant_string " (with 40 Prayer)"
+  836: join_string 3
+  837: push_constant_string "Members now have the Magic level required to wear "
+  838: push_constant_string "<col=000080>"
+  839: push_constant_string "Ancient mitres"
+  840: push_constant_string "</col>"
+  841: push_constant_string ". (They also need level 40 Prayer.)"
+  842: join_string 5
+  843: return 0
+  844: branch 547
+  845: push_constant_int 42
+  846: push_constant_int 11665
+  847: push_constant_string "Members: Void melee helm"
+  848: push_constant_string "Members now have the Magic level required to wear "
+  849: push_constant_string "<col=000080>"
+  850: push_constant_string "Void melee helms"
+  851: push_constant_string "</col>"
+  852: push_constant_string "."
+  853: join_string 5
+  854: return 0
+  855: branch 536
+  856: push_constant_int 42
+  857: push_constant_int 11664
+  858: push_constant_string "Members: Void ranger helm"
+  859: push_constant_string "Members now have the Magic level required to wear "
+  860: push_constant_string "<col=000080>"
+  861: push_constant_string "Void ranger helms"
+  862: push_constant_string "</col>"
+  863: push_constant_string "."
+  864: join_string 5
+  865: return 0
+  866: branch 525
+  867: push_constant_int 42
+  868: push_constant_int 11663
+  869: push_constant_string "Members: Void mage helm"
+  870: push_constant_string "Members now have the Magic level required to wear "
+  871: push_constant_string "<col=000080>"
+  872: push_constant_string "Void mage helms"
+  873: push_constant_string "</col>"
+  874: push_constant_string "."
+  875: join_string 5
+  876: return 0
+  877: branch 514
+  878: push_constant_int 42
+  879: push_constant_int 8839
+  880: push_constant_string "Members: Void knight top"
+  881: push_constant_string "Members now have the Magic level required to wear "
+  882: push_constant_string "<col=000080>"
+  883: push_constant_string "Void knight tops"
+  884: push_constant_string "</col>"
+  885: push_constant_string "."
+  886: join_string 5
+  887: return 0
+  888: branch 503
+  889: push_constant_int 42
+  890: push_constant_int 8840
+  891: push_constant_string "Members: Void knight robe"
+  892: push_constant_string "Members now have the Magic level required to wear "
+  893: push_constant_string "<col=000080>"
+  894: push_constant_string "Void knight robes"
+  895: push_constant_string "</col>"
+  896: push_constant_string "."
+  897: join_string 5
+  898: return 0
+  899: branch 492
+  900: push_constant_int 42
+  901: push_constant_int 8842
+  902: push_constant_string "Members: Void knight gloves"
+  903: push_constant_string "Members now have the Magic level required to wear "
+  904: push_constant_string "<col=000080>"
+  905: push_constant_string "Void knight gloves"
+  906: push_constant_string "</col>"
+  907: push_constant_string "."
+  908: join_string 5
+  909: return 0
+  910: branch 481
+  911: push_constant_int 42
+  912: push_constant_int 19712
+  913: push_constant_string "Members: Void knight deflector"
+  914: push_constant_string "Members now have the Magic level required to wear "
+  915: push_constant_string "<col=000080>"
+  916: push_constant_string "Void knight deflectors"
+  917: push_constant_string "</col>"
+  918: push_constant_string "."
+  919: join_string 5
+  920: return 0
+  921: branch 470
+  922: push_constant_int 42
+  923: push_constant_int 7620
+  924: push_constant_string "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+  925: push_constant_string "<col=000080>"
+  926: push_constant_string "Void knight equipment"
+  927: push_constant_string "</col>"
+  928: push_constant_string " requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+  929: join_string 4
+  930: return 0
+  931: branch 460
+  932: push_constant_int 50
+  933: push_constant_int 6918
+  934: push_constant_string "Members: Infinity hat"
+  935: push_constant_string "<br>"
+  936: push_constant_string " (with level 25 Defence)"
+  937: join_string 3
+  938: push_constant_string "Members now have the Magic level required to wear "
+  939: push_constant_string "<col=000080>"
+  940: push_constant_string "infinity hats"
+  941: push_constant_string "</col>"
+  942: push_constant_string ". (They also need level 25 Defence.)"
+  943: join_string 5
+  944: return 0
+  945: branch 446
+  946: push_constant_int 50
+  947: push_constant_int 6916
+  948: push_constant_string "Members: Infinity top"
+  949: push_constant_string "<br>"
+  950: push_constant_string " (with level 25 Defence)"
+  951: join_string 3
+  952: push_constant_string "Members now have the Magic level required to wear "
+  953: push_constant_string "<col=000080>"
+  954: push_constant_string "infinity tops"
+  955: push_constant_string "</col>"
+  956: push_constant_string ". (They also need level 25 Defence.)"
+  957: join_string 5
+  958: return 0
+  959: branch 432
+  960: push_constant_int 50
+  961: push_constant_int 6924
+  962: push_constant_string "Members: Infinity bottom"
+  963: push_constant_string "<br>"
+  964: push_constant_string " (with level 25 Defence)"
+  965: join_string 3
+  966: push_constant_string "Members now have the Magic level required to wear "
+  967: push_constant_string "<col=000080>"
+  968: push_constant_string "infinity bottoms"
+  969: push_constant_string "</col>"
+  970: push_constant_string ". (They also need level 25 Defence.)"
+  971: join_string 5
+  972: return 0
+  973: branch 418
+  974: push_constant_int 50
+  975: push_constant_int 6920
+  976: push_constant_string "Members: Infinity boots"
+  977: push_constant_string "<br>"
+  978: push_constant_string " (with level 25 Defence)"
+  979: join_string 3
+  980: push_constant_string "Members now have the Magic level required to wear "
+  981: push_constant_string "<col=000080>"
+  982: push_constant_string "infinity boots"
+  983: push_constant_string "</col>"
+  984: push_constant_string ". (They also need level 25 Defence.)"
+  985: join_string 5
+  986: return 0
+  987: branch 404
+  988: push_constant_int 50
+  989: push_constant_int 6922
+  990: push_constant_string "Members: Infinity gloves"
+  991: push_constant_string "<br>"
+  992: push_constant_string " (with level 25 Defence)"
+  993: join_string 3
+  994: push_constant_string "Members now have the Magic level required to wear "
+  995: push_constant_string "<col=000080>"
+  996: push_constant_string "infinity gloves"
+  997: push_constant_string "</col>"
+  998: push_constant_string ". (They also need level 25 Defence.)"
+  999: join_string 5
+ 1000: return 0
+ 1001: branch 390
+ 1002: push_constant_int 50
+ 1003: push_constant_int 18334
+ 1004: push_constant_string "Arcane blast necklace"
+ 1005: push_constant_string "<br>"
+ 1006: push_constant_string " (with 50 Dungeoneering)"
+ 1007: join_string 3
+ 1008: push_constant_string "You can now wear "
+ 1009: push_constant_string "<col=000080>"
+ 1010: push_constant_string "arcane blast necklaces"
+ 1011: push_constant_string "</col>"
+ 1012: push_constant_string ". (You also need level 50 Dungeoneering.)"
+ 1013: join_string 5
+ 1014: return 0
+ 1015: branch 376
+ 1016: push_constant_int 60
+ 1017: push_constant_int 2413
+ 1018: push_constant_string "Members: Guthix cape"
+ 1019: push_constant_string "Members can now wear "
+ 1020: push_constant_string "<col=000080>"
+ 1021: push_constant_string "Guthix capes."
+ 1022: join_string 3
+ 1023: return 0
+ 1024: branch 367
+ 1025: push_constant_int 60
+ 1026: push_constant_int 2412
+ 1027: push_constant_string "Members: Saradomin cape"
+ 1028: push_constant_string "Members can now wear "
+ 1029: push_constant_string "<col=000080>"
+ 1030: push_constant_string "Saradomin capes."
+ 1031: join_string 3
+ 1032: return 0
+ 1033: branch 358
+ 1034: push_constant_int 60
+ 1035: push_constant_int 2414
+ 1036: push_constant_string "Members: Zamorak cape"
+ 1037: push_constant_string "Members can now wear "
+ 1038: push_constant_string "<col=000080>"
+ 1039: push_constant_string "Zamorak capes."
+ 1040: join_string 3
+ 1041: return 0
+ 1042: branch 349
+ 1043: push_constant_int 60
+ 1044: push_constant_int 12866
+ 1045: push_constant_string "Members: Battle hood"
+ 1046: push_constant_string "<br>"
+ 1047: push_constant_string " (with level 50 Defence)"
+ 1048: join_string 3
+ 1049: push_constant_string "Members now have the Magic level required to wear "
+ 1050: push_constant_string "<col=000080>"
+ 1051: push_constant_string "battle hoods"
+ 1052: push_constant_string "</col>"
+ 1053: push_constant_string ". (They also need level 50 Defence.)"
+ 1054: join_string 5
+ 1055: return 0
+ 1056: branch 335
+ 1057: push_constant_int 60
+ 1058: push_constant_int 12873
+ 1059: push_constant_string "Members: Battle robe top"
+ 1060: push_constant_string "<br>"
+ 1061: push_constant_string " (with level 50 Defence)"
+ 1062: join_string 3
+ 1063: push_constant_string "Members now have the Magic level required to wear "
+ 1064: push_constant_string "<col=000080>"
+ 1065: push_constant_string "battle robe tops"
+ 1066: push_constant_string "</col>"
+ 1067: push_constant_string ". (They also need level 50 Defence.)"
+ 1068: join_string 5
+ 1069: return 0
+ 1070: branch 321
+ 1071: push_constant_int 60
+ 1072: push_constant_int 12880
+ 1073: push_constant_string "Members: Battle robe bottom"
+ 1074: push_constant_string "<br>"
+ 1075: push_constant_string " (with level 50 Defence)"
+ 1076: join_string 3
+ 1077: push_constant_string "Members now have the Magic level required to wear "
+ 1078: push_constant_string "<col=000080>"
+ 1079: push_constant_string "battle robe bottoms"
+ 1080: push_constant_string "</col>"
+ 1081: push_constant_string ". (They also need level 50 Defence.)"
+ 1082: join_string 5
+ 1083: return 0
+ 1084: branch 307
+ 1085: push_constant_int 65
+ 1086: push_constant_int 10342
+ 1087: push_constant_string "Members: Third-Age mage hat"
+ 1088: push_constant_string "<br>"
+ 1089: push_constant_string " (with level 30 Defence)"
+ 1090: join_string 3
+ 1091: push_constant_string "Members now have the Magic level required to wear "
+ 1092: push_constant_string "<col=000080>"
+ 1093: push_constant_string "Third-Age mage hats"
+ 1094: push_constant_string "</col>"
+ 1095: push_constant_string ". (They also need level 30 Defence)"
+ 1096: join_string 5
+ 1097: return 0
+ 1098: branch 293
+ 1099: push_constant_int 65
+ 1100: push_constant_int 10338
+ 1101: push_constant_string "Members: Third-Age robe top"
+ 1102: push_constant_string "<br>"
+ 1103: push_constant_string " (with level 30 Defence)"
+ 1104: join_string 3
+ 1105: push_constant_string "Members now have the Magic level required to wear "
+ 1106: push_constant_string "<col=000080>"
+ 1107: push_constant_string "Third-Age robe tops"
+ 1108: push_constant_string "</col>"
+ 1109: push_constant_string ". (They also need level 30 Defence)"
+ 1110: join_string 5
+ 1111: return 0
+ 1112: branch 279
+ 1113: push_constant_int 65
+ 1114: push_constant_int 10340
+ 1115: push_constant_string "Members: Third-Age robe"
+ 1116: push_constant_string "<br>"
+ 1117: push_constant_string " (with level 30 Defence)"
+ 1118: join_string 3
+ 1119: push_constant_string "Members now have the Magic level required to wear "
+ 1120: push_constant_string "<col=000080>"
+ 1121: push_constant_string "Third-Age robes"
+ 1122: push_constant_string "</col>"
+ 1123: push_constant_string ". (They also need level 30 Defence)"
+ 1124: join_string 5
+ 1125: return 0
+ 1126: branch 265
+ 1127: push_constant_int 65
+ 1128: push_constant_int 10344
+ 1129: push_constant_string "Members: Third-Age amulet"
+ 1130: push_constant_string "<br>"
+ 1131: push_constant_string " (with level 30 Defence)"
+ 1132: join_string 3
+ 1133: push_constant_string "Members now have the Magic level required to wear "
+ 1134: push_constant_string "<col=000080>"
+ 1135: push_constant_string "Third-Age amulets"
+ 1136: push_constant_string "</col>"
+ 1137: push_constant_string ". (They also need level 30 Defence)"
+ 1138: join_string 5
+ 1139: return 0
+ 1140: branch 251
+ 1141: push_constant_int 65
+ 1142: push_constant_int 9096
+ 1143: push_constant_string "Members: Lunar helm"
+ 1144: push_constant_string "<br>"
+ 1145: push_constant_string " (with level 40 Defence)"
+ 1146: join_string 3
+ 1147: push_constant_string "Members now have the Magic level required to wear "
+ 1148: push_constant_string "<col=000080>"
+ 1149: push_constant_string "lunar helms"
+ 1150: push_constant_string "</col>"
+ 1151: push_constant_string ". (They also need level 40 Defence.)"
+ 1152: join_string 5
+ 1153: return 0
+ 1154: branch 237
+ 1155: push_constant_int 65
+ 1156: push_constant_int 9097
+ 1157: push_constant_string "Members: Lunar torso"
+ 1158: push_constant_string "<br>"
+ 1159: push_constant_string " (with level 40 Defence)"
+ 1160: join_string 3
+ 1161: push_constant_string "Members now have the Magic level required to wear "
+ 1162: push_constant_string "<col=000080>"
+ 1163: push_constant_string "lunar torsos"
+ 1164: push_constant_string "</col>"
+ 1165: push_constant_string ". (They also need level 40 Defence.)"
+ 1166: join_string 5
+ 1167: return 0
+ 1168: branch 223
+ 1169: push_constant_int 65
+ 1170: push_constant_int 9099
+ 1171: push_constant_string "Members: Lunar gloves"
+ 1172: push_constant_string "<br>"
+ 1173: push_constant_string " (with level 40 Defence)"
+ 1174: join_string 3
+ 1175: push_constant_string "Members now have the Magic level required to wear "
+ 1176: push_constant_string "<col=000080>"
+ 1177: push_constant_string "lunar gloves"
+ 1178: push_constant_string "</col>"
+ 1179: push_constant_string ". (They also need level 40 Defence.)"
+ 1180: join_string 5
+ 1181: return 0
+ 1182: branch 209
+ 1183: push_constant_int 65
+ 1184: push_constant_int 9098
+ 1185: push_constant_string "Members: Lunar legs"
+ 1186: push_constant_string "<br>"
+ 1187: push_constant_string " (with level 40 Defence)"
+ 1188: join_string 3
+ 1189: push_constant_string "Members now have the Magic level required to wear "
+ 1190: push_constant_string "<col=000080>"
+ 1191: push_constant_string "lunar legs"
+ 1192: push_constant_string "</col>"
+ 1193: push_constant_string ". (They also need level 40 Defence.)"
+ 1194: join_string 5
+ 1195: return 0
+ 1196: branch 195
+ 1197: push_constant_int 65
+ 1198: push_constant_int 9100
+ 1199: push_constant_string "Members: Lunar boots"
+ 1200: push_constant_string "<br>"
+ 1201: push_constant_string " (with level 40 Defence)"
+ 1202: join_string 3
+ 1203: push_constant_string "Members now have the Magic level required to wear "
+ 1204: push_constant_string "<col=000080>"
+ 1205: push_constant_string "lunar boots"
+ 1206: push_constant_string "</col>"
+ 1207: push_constant_string ". (They also need level 40 Defence.)"
+ 1208: join_string 5
+ 1209: return 0
+ 1210: branch 181
+ 1211: push_constant_int 65
+ 1212: push_constant_int 9101
+ 1213: push_constant_string "Members: Lunar cape"
+ 1214: push_constant_string "<br>"
+ 1215: push_constant_string " (with level 40 Defence)"
+ 1216: join_string 3
+ 1217: push_constant_string "Members now have the Magic level required to wear "
+ 1218: push_constant_string "<col=000080>"
+ 1219: push_constant_string "lunar capes"
+ 1220: push_constant_string "</col>"
+ 1221: push_constant_string ". (They also need level 40 Defence.)"
+ 1222: join_string 5
+ 1223: return 0
+ 1224: branch 167
+ 1225: push_constant_int 65
+ 1226: push_constant_int 13738
+ 1227: push_constant_string "Members: Arcane spirit shield"
+ 1228: push_constant_string "<br>"
+ 1229: push_constant_string " (after Summer's End and with 70 Prayer and 75 Defence)"
+ 1230: join_string 3
+ 1231: push_constant_string "Members now have the Magic level required to wield "
+ 1232: push_constant_string "<col=000080>"
+ 1233: push_constant_string "arcane spirit shields"
+ 1234: push_constant_string "</col>"
+ 1235: push_constant_string " (after Summer's End, with level 70 Prayer and 75 Defence)."
+ 1236: join_string 5
+ 1237: return 0
+ 1238: branch 153
+ 1239: push_constant_int 65
+ 1240: push_constant_int 13744
+ 1241: push_constant_string "Members: Spectral spirit shield"
+ 1242: push_constant_string "<br>"
+ 1243: push_constant_string " (after Summer's End and with 70 Prayer and 75 Defence)"
+ 1244: join_string 3
+ 1245: push_constant_string "Members now have the Magic level required to wield "
+ 1246: push_constant_string "<col=000080>"
+ 1247: push_constant_string "spectral spirit shields"
+ 1248: push_constant_string "</col>"
+ 1249: push_constant_string " (after Summer's End, with level 70 Prayer and 75 Defence)."
+ 1250: join_string 5
+ 1251: return 0
+ 1252: branch 139
+ 1253: push_constant_int 70
+ 1254: push_constant_int 4708
+ 1255: push_constant_string "Members: Ahrim's hood"
+ 1256: push_constant_string "<br>"
+ 1257: push_constant_string " (with level 70 Defence)"
+ 1258: join_string 3
+ 1259: push_constant_string "Members now have the Magic level required to wear "
+ 1260: push_constant_string "<col=000080>"
+ 1261: push_constant_string "Ahrim's hood"
+ 1262: push_constant_string "</col>"
+ 1263: push_constant_string ". (They also need level 70 Defence.)"
+ 1264: join_string 5
+ 1265: return 0
+ 1266: branch 125
+ 1267: push_constant_int 70
+ 1268: push_constant_int 4712
+ 1269: push_constant_string "Members: Ahrim's robe top"
+ 1270: push_constant_string "<br>"
+ 1271: push_constant_string " (with level 70 Defence)"
+ 1272: join_string 3
+ 1273: push_constant_string "Members now have the Magic level required to wear "
+ 1274: push_constant_string "<col=000080>"
+ 1275: push_constant_string "Ahrim's robe top"
+ 1276: push_constant_string "</col>"
+ 1277: push_constant_string ". (They also need level 70 Defence.)"
+ 1278: join_string 5
+ 1279: return 0
+ 1280: branch 111
+ 1281: push_constant_int 70
+ 1282: push_constant_int 4714
+ 1283: push_constant_string "Members: Ahrim's robe skirt"
+ 1284: push_constant_string "<br>"
+ 1285: push_constant_string " (with level 70 Defence)"
+ 1286: join_string 3
+ 1287: push_constant_string "Members now have the Magic level required to wear "
+ 1288: push_constant_string "<col=000080>"
+ 1289: push_constant_string "Ahrim's robe skirt"
+ 1290: push_constant_string "</col>"
+ 1291: push_constant_string ". (They also need level 70 Defence.)"
+ 1292: join_string 5
+ 1293: return 0
+ 1294: branch 97
+ 1295: push_constant_int 70
+ 1296: push_constant_int 18335
+ 1297: push_constant_string "Members: Arcane stream necklace"
+ 1298: push_constant_string "<br>"
+ 1299: push_constant_string " (with 70 Dungeoneering)"
+ 1300: join_string 3
+ 1301: push_constant_string "Members can now wear "
+ 1302: push_constant_string "<col=000080>"
+ 1303: push_constant_string "arcane stream necklaces"
+ 1304: push_constant_string "</col>"
+ 1305: push_constant_string ". (They also need level 70 Dungeoneering.)"
+ 1306: join_string 5
+ 1307: return 0
+ 1308: branch 83
+ 1309: push_constant_int 78
+ 1310: push_constant_int 13864
+ 1311: push_constant_string "Members: Zuriel's hood"
+ 1312: push_constant_string "<br>"
+ 1313: push_constant_string " (with level 78 Defence)"
+ 1314: join_string 3
+ 1315: push_constant_string "Members now have the Magic level required to wear "
+ 1316: push_constant_string "<col=000080>"
+ 1317: push_constant_string "Zuriel's hood"
+ 1318: push_constant_string "</col>"
+ 1319: push_constant_string ". (They also need level 78 Defence.)"
+ 1320: join_string 5
+ 1321: return 0
+ 1322: branch 69
+ 1323: push_constant_int 78
+ 1324: push_constant_int 13858
+ 1325: push_constant_string "Members: Zuriel's robe top"
+ 1326: push_constant_string "<br>"
+ 1327: push_constant_string " (with level 78 Defence)"
+ 1328: join_string 3
+ 1329: push_constant_string "Members now have the Magic level required to wear "
+ 1330: push_constant_string "<col=000080>"
+ 1331: push_constant_string "Zuriel's robe top"
+ 1332: push_constant_string "</col>"
+ 1333: push_constant_string ". (They also need level 78 Defence.)"
+ 1334: join_string 5
+ 1335: return 0
+ 1336: branch 55
+ 1337: push_constant_int 78
+ 1338: push_constant_int 13861
+ 1339: push_constant_string "Members: Zuriel's robe bottom"
+ 1340: push_constant_string "<br>"
+ 1341: push_constant_string " (with level 78 Defence)"
+ 1342: join_string 3
+ 1343: push_constant_string "Members now have the Magic level required to wear "
+ 1344: push_constant_string "<col=000080>"
+ 1345: push_constant_string "Zuriel's robe bottom"
+ 1346: push_constant_string "</col>"
+ 1347: push_constant_string ". (They also need level 78 Defence.)"
+ 1348: join_string 5
+ 1349: return 0
+ 1350: branch 41
+ 1351: push_constant_int 80
+ 1352: push_constant_int 20159
+ 1353: push_constant_string "Members: Virtus mask"
+ 1354: push_constant_string "<br>"
+ 1355: push_constant_string " (with 80 Defence and Constitution)"
+ 1356: join_string 3
+ 1357: push_constant_string "Members can now wear "
+ 1358: push_constant_string "<col=000080>"
+ 1359: push_constant_string "virtus masks"
+ 1360: push_constant_string "</col>"
+ 1361: push_constant_string ". (They also need level 80 Defence and Constitution.)"
+ 1362: join_string 5
+ 1363: return 0
+ 1364: branch 27
+ 1365: push_constant_int 80
+ 1366: push_constant_int 20163
+ 1367: push_constant_string "Members: Virtus robe top"
+ 1368: push_constant_string "<br>"
+ 1369: push_constant_string " (with 80 Defence and Constitution)"
+ 1370: join_string 3
+ 1371: push_constant_string "Members can now wear "
+ 1372: push_constant_string "<col=000080>"
+ 1373: push_constant_string "virtus robe tops"
+ 1374: push_constant_string "</col>"
+ 1375: push_constant_string ". (They also need level 80 Defence and Constitution.)"
+ 1376: join_string 5
+ 1377: return 0
+ 1378: branch 13
+ 1379: push_constant_int 80
+ 1380: push_constant_int 20167
+ 1381: push_constant_string "Members: Virtus robe legs"
+ 1382: push_constant_string "<br>"
+ 1383: push_constant_string " (with 80 Defence and Constitution)"
+ 1384: join_string 3
+ 1385: push_constant_string "Members can now wear "
+ 1386: push_constant_string "<col=000080>"
+ 1387: push_constant_string "virtus robe legs"
+ 1388: push_constant_string "</col>"
+ 1389: push_constant_string ". (They also need level 80 Defence and Constitution.)"
+ 1390: join_string 5
+ 1391: return 0
+ 1392: branch 2061
+ 1393: push_int_local 1
+ 1394: switch 3
+ 1395: branch 590
+ 1396: push_constant_int 1
+ 1397: push_constant_int 1379
+ 1398: push_constant_string "Staff"
+ 1399: push_constant_string "You can now wield "
+ 1400: push_constant_string "<col=000080>"
+ 1401: push_constant_string "staves"
+ 1402: push_constant_string "</col>"
+ 1403: push_constant_string "."
+ 1404: join_string 5
+ 1405: return 0
+ 1406: branch 579
+ 1407: push_constant_int 1
+ 1408: push_constant_int 15598
+ 1409: push_constant_string "Caitlin's staff"
+ 1410: push_constant_string "<br>"
+ 1411: push_constant_string " (after The Blood Pact)"
+ 1412: join_string 3
+ 1413: push_constant_string "You can now wield "
+ 1414: push_constant_string "<col=000080>"
+ 1415: push_constant_string "Caitlin's staff"
+ 1416: push_constant_string "</col>"
+ 1417: push_constant_string " (after The Blood Pact)."
+ 1418: join_string 5
+ 1419: return 0
+ 1420: branch 565
+ 1421: push_constant_int 1
+ 1422: push_constant_int 1389
+ 1423: push_constant_string "Magic staff"
+ 1424: push_constant_string "You can now wield "
+ 1425: push_constant_string "<col=000080>"
+ 1426: push_constant_string "staves of magic"
+ 1427: push_constant_string "</col>"
+ 1428: push_constant_string "."
+ 1429: join_string 5
+ 1430: return 0
+ 1431: branch 554
+ 1432: push_constant_int 1
+ 1433: push_constant_int 1381
+ 1434: push_constant_string "Staff of air"
+ 1435: push_constant_string "You can now wield "
+ 1436: push_constant_string "<col=000080>"
+ 1437: push_constant_string "staves of air"
+ 1438: push_constant_string "</col>"
+ 1439: push_constant_string "."
+ 1440: join_string 5
+ 1441: return 0
+ 1442: branch 543
+ 1443: push_constant_int 1
+ 1444: push_constant_int 1385
+ 1445: push_constant_string "Staff of earth"
+ 1446: push_constant_string "You can now wield "
+ 1447: push_constant_string "<col=000080>"
+ 1448: push_constant_string "staves of earth"
+ 1449: push_constant_string "</col>"
+ 1450: push_constant_string "."
+ 1451: join_string 5
+ 1452: return 0
+ 1453: branch 532
+ 1454: push_constant_int 1
+ 1455: push_constant_int 1387
+ 1456: push_constant_string "Staff of fire"
+ 1457: push_constant_string "You can now wield "
+ 1458: push_constant_string "<col=000080>"
+ 1459: push_constant_string "staves of fires"
+ 1460: push_constant_string "</col>"
+ 1461: push_constant_string "."
+ 1462: join_string 5
+ 1463: return 0
+ 1464: branch 521
+ 1465: push_constant_int 1
+ 1466: push_constant_int 1383
+ 1467: push_constant_string "Staff of water"
+ 1468: push_constant_string "You can now wield "
+ 1469: push_constant_string "<col=000080>"
+ 1470: push_constant_string "staves of water"
+ 1471: push_constant_string "</col>"
+ 1472: push_constant_string "."
+ 1473: join_string 5
+ 1474: return 0
+ 1475: branch 510
+ 1476: push_constant_int 20
+ 1477: push_constant_int 13941
+ 1478: push_constant_string "Members: Corrupt Zuriel's staff"
+ 1479: push_constant_string "<br>"
+ 1480: push_constant_string " (with level 20 Attack)"
+ 1481: join_string 3
+ 1482: push_constant_string "Members now have the Magic level required to use "
+ 1483: push_constant_string "<col=000080>"
+ 1484: push_constant_string "Corrupt Zuriel's staff"
+ 1485: push_constant_string "</col>"
+ 1486: push_constant_string ". (They also need level 20 Attack.)"
+ 1487: join_string 5
+ 1488: return 0
+ 1489: branch 496
+ 1490: push_constant_int 30
+ 1491: push_constant_int 1397
+ 1492: push_constant_string "Members: Air battlestaff"
+ 1493: push_constant_string "<br>"
+ 1494: push_constant_string " (with level 30 Attack)"
+ 1495: join_string 3
+ 1496: push_constant_string "Members now have the Magic level required to use "
+ 1497: push_constant_string "<col=000080>"
+ 1498: push_constant_string "air battlestaves"
+ 1499: push_constant_string "</col>"
+ 1500: push_constant_string ". (They also need level 30 Attack.)"
+ 1501: join_string 5
+ 1502: return 0
+ 1503: branch 482
+ 1504: push_constant_int 30
+ 1505: push_constant_int 1399
+ 1506: push_constant_string "Members: Earth battlestaff"
+ 1507: push_constant_string "<br>"
+ 1508: push_constant_string " (with level 30 Attack)"
+ 1509: join_string 3
+ 1510: push_constant_string "Members now have the Magic level required to use "
+ 1511: push_constant_string "<col=000080>"
+ 1512: push_constant_string "earth battlestaves"
+ 1513: push_constant_string "</col>"
+ 1514: push_constant_string ". (They also need level 30 Attack.)"
+ 1515: join_string 5
+ 1516: return 0
+ 1517: branch 468
+ 1518: push_constant_int 30
+ 1519: push_constant_int 1393
+ 1520: push_constant_string "Members: Fire battlestaff"
+ 1521: push_constant_string "<br>"
+ 1522: push_constant_string " (with level 30 Attack)"
+ 1523: join_string 3
+ 1524: push_constant_string "Members now have the Magic level required to use "
+ 1525: push_constant_string "<col=000080>"
+ 1526: push_constant_string "fire battlestaves"
+ 1527: push_constant_string "</col>"
+ 1528: push_constant_string ". (They also need level 30 Attack.)"
+ 1529: join_string 5
+ 1530: return 0
+ 1531: branch 454
+ 1532: push_constant_int 30
+ 1533: push_constant_int 1395
+ 1534: push_constant_string "Members: Water battlestaff"
+ 1535: push_constant_string "<br>"
+ 1536: push_constant_string " (with level 30 Attack)"
+ 1537: join_string 3
+ 1538: push_constant_string "Members now have the Magic level required to use "
+ 1539: push_constant_string "<col=000080>"
+ 1540: push_constant_string "water battlestaves"
+ 1541: push_constant_string "</col>"
+ 1542: push_constant_string ". (They also need level 30 Attack.)"
+ 1543: join_string 5
+ 1544: return 0
+ 1545: branch 440
+ 1546: push_constant_int 30
+ 1547: push_constant_int 3053
+ 1548: push_constant_string "Members: Lava battlestaff"
+ 1549: push_constant_string "<br>"
+ 1550: push_constant_string " (with level 30 Attack)"
+ 1551: join_string 3
+ 1552: push_constant_string "Members now have the Magic level required to use "
+ 1553: push_constant_string "<col=000080>"
+ 1554: push_constant_string "lava battlestaves"
+ 1555: push_constant_string "</col>"
+ 1556: push_constant_string ". (They also need level 30 Attack.)"
+ 1557: join_string 5
+ 1558: return 0
+ 1559: branch 426
+ 1560: push_constant_int 30
+ 1561: push_constant_int 6562
+ 1562: push_constant_string "Members: Mud battlestaff"
+ 1563: push_constant_string "<br>"
+ 1564: push_constant_string " (with level 30 Attack)"
+ 1565: join_string 3
+ 1566: push_constant_string "Members now have the Magic level required to use "
+ 1567: push_constant_string "<col=000080>"
+ 1568: push_constant_string "mud battlestaves"
+ 1569: push_constant_string "</col>"
+ 1570: push_constant_string ". (They also need level 30 Attack.)"
+ 1571: join_string 5
+ 1572: return 0
+ 1573: branch 412
+ 1574: push_constant_int 30
+ 1575: push_constant_int 11736
+ 1576: push_constant_string "Members: Steam battlestaff"
+ 1577: push_constant_string "<br>"
+ 1578: push_constant_string " (with level 30 Attack)"
+ 1579: join_string 3
+ 1580: push_constant_string "Members now have the Magic level required to use "
+ 1581: push_constant_string "<col=000080>"
+ 1582: push_constant_string "steam battlestaves"
+ 1583: push_constant_string "</col>"
+ 1584: push_constant_string ". (They also need level 30 Attack.)"
+ 1585: join_string 5
+ 1586: return 0
+ 1587: branch 398
+ 1588: push_constant_int 40
+ 1589: push_constant_int 1405
+ 1590: push_constant_string "Members: Mystic air staff"
+ 1591: push_constant_string "<br>"
+ 1592: push_constant_string " (with level 40 Attack)"
+ 1593: join_string 3
+ 1594: push_constant_string "Members now have the Magic level required to use "
+ 1595: push_constant_string "<col=000080>"
+ 1596: push_constant_string "mystic air staves"
+ 1597: push_constant_string "</col>"
+ 1598: push_constant_string ". (They also need level 40 Attack.)"
+ 1599: join_string 5
+ 1600: return 0
+ 1601: branch 384
+ 1602: push_constant_int 40
+ 1603: push_constant_int 1407
+ 1604: push_constant_string "Members: Mystic earth staff"
+ 1605: push_constant_string "<br>"
+ 1606: push_constant_string " (with level 40 Attack)"
+ 1607: join_string 3
+ 1608: push_constant_string "Members now have the Magic level required to use "
+ 1609: push_constant_string "<col=000080>"
+ 1610: push_constant_string "mystic earth staves"
+ 1611: push_constant_string "</col>"
+ 1612: push_constant_string ". (They also need level 40 Attack.)"
+ 1613: join_string 5
+ 1614: return 0
+ 1615: branch 370
+ 1616: push_constant_int 40
+ 1617: push_constant_int 1401
+ 1618: push_constant_string "Members: Mystic fire staff"
+ 1619: push_constant_string "<br>"
+ 1620: push_constant_string " (with level 40 Attack)"
+ 1621: join_string 3
+ 1622: push_constant_string "Members now have the Magic level required to use "
+ 1623: push_constant_string "<col=000080>"
+ 1624: push_constant_string "mystic fire staves"
+ 1625: push_constant_string "</col>"
+ 1626: push_constant_string ". (They also need level 40 Attack.)"
+ 1627: join_string 5
+ 1628: return 0
+ 1629: branch 356
+ 1630: push_constant_int 40
+ 1631: push_constant_int 1403
+ 1632: push_constant_string "Members: Mystic water staff"
+ 1633: push_constant_string "<br>"
+ 1634: push_constant_string " (with level 40 Attack)"
+ 1635: join_string 3
+ 1636: push_constant_string "Members now have the Magic level required to use "
+ 1637: push_constant_string "<col=000080>"
+ 1638: push_constant_string "mystic water staves"
+ 1639: push_constant_string "</col>"
+ 1640: push_constant_string ". (They also need level 40 Attack.)"
+ 1641: join_string 5
+ 1642: return 0
+ 1643: branch 342
+ 1644: push_constant_int 40
+ 1645: push_constant_int 3054
+ 1646: push_constant_string "Members: Mystic lava staff"
+ 1647: push_constant_string "<br>"
+ 1648: push_constant_string " (with level 40 Attack)"
+ 1649: join_string 3
+ 1650: push_constant_string "Members now have the Magic level required to use "
+ 1651: push_constant_string "<col=000080>"
+ 1652: push_constant_string "mystic lava staves"
+ 1653: push_constant_string "</col>"
+ 1654: push_constant_string ". (They also need level 40 Attack.)"
+ 1655: join_string 5
+ 1656: return 0
+ 1657: branch 328
+ 1658: push_constant_int 40
+ 1659: push_constant_int 6563
+ 1660: push_constant_string "Members: Mystic mud staff"
+ 1661: push_constant_string "<br>"
+ 1662: push_constant_string " (with level 40 Attack)"
+ 1663: join_string 3
+ 1664: push_constant_string "Members now have the Magic level required to use "
+ 1665: push_constant_string "<col=000080>"
+ 1666: push_constant_string "mystic mud staves"
+ 1667: push_constant_string "</col>"
+ 1668: push_constant_string ". (They also need level 40 Attack.)"
+ 1669: join_string 5
+ 1670: return 0
+ 1671: branch 314
+ 1672: push_constant_int 40
+ 1673: push_constant_int 11738
+ 1674: push_constant_string "Members: Mystic steam staff"
+ 1675: push_constant_string "<br>"
+ 1676: push_constant_string " (with level 40 Attack)"
+ 1677: join_string 3
+ 1678: push_constant_string "Members now have the Magic level required to use "
+ 1679: push_constant_string "<col=000080>"
+ 1680: push_constant_string "mystic steam staves"
+ 1681: push_constant_string "</col>"
+ 1682: push_constant_string ". (They also need level 40 Attack.)"
+ 1683: join_string 5
+ 1684: return 0
+ 1685: branch 300
+ 1686: push_constant_int 40
+ 1687: push_constant_int 19323
+ 1688: push_constant_string "Members: Dragon staff"
+ 1689: push_constant_string "<br>"
+ 1690: push_constant_string " (with 40 Attack, 60 Prayer and 20 Defence)"
+ 1691: join_string 3
+ 1692: push_constant_string "Members now have the Magic level required to wield "
+ 1693: push_constant_string "<col=000080>"
+ 1694: push_constant_string "dragon staves"
+ 1695: push_constant_string "</col>"
+ 1696: push_constant_string ". (They also need level 40 Attack, level 60 Prayer and level 20 Defence.)"
+ 1697: join_string 5
+ 1698: return 0
+ 1699: branch 286
+ 1700: push_constant_int 40
+ 1701: push_constant_int 19325
+ 1702: push_constant_string "Members: Penguin staff"
+ 1703: push_constant_string "<br>"
+ 1704: push_constant_string " (with 40 Attack, 60 Prayer and 20 Defence)"
+ 1705: join_string 3
+ 1706: push_constant_string "Members now have the Magic level required to wield "
+ 1707: push_constant_string "<col=000080>"
+ 1708: push_constant_string "penguin staves"
+ 1709: push_constant_string "</col>"
+ 1710: push_constant_string ". (They also need level 40 Attack, level 60 Prayer and level 20 Defence.)"
+ 1711: join_string 5
+ 1712: return 0
+ 1713: branch 272
+ 1714: push_constant_int 40
+ 1715: push_constant_int 19327
+ 1716: push_constant_string "Members: Bat staff"
+ 1717: push_constant_string "<br>"
+ 1718: push_constant_string " (with 40 Attack, 60 Prayer and 20 Defence)"
+ 1719: join_string 3
+ 1720: push_constant_string "Members now have the Magic level required to wield "
+ 1721: push_constant_string "<col=000080>"
+ 1722: push_constant_string "bat staves"
+ 1723: push_constant_string "</col>"
+ 1724: push_constant_string ". (They also need level 40 Attack, level 60 Prayer and level 20 Defence.)"
+ 1725: join_string 5
+ 1726: return 0
+ 1727: branch 258
+ 1728: push_constant_int 40
+ 1729: push_constant_int 19329
+ 1730: push_constant_string "Members: Wolf staff"
+ 1731: push_constant_string "<br>"
+ 1732: push_constant_string " (with 40 Attack, 60 Prayer and 20 Defence)"
+ 1733: join_string 3
+ 1734: push_constant_string "Members now have the Magic level required to wield "
+ 1735: push_constant_string "<col=000080>"
+ 1736: push_constant_string "wolf staves"
+ 1737: push_constant_string "</col>"
+ 1738: push_constant_string ". (They also need level 40 Attack, level 60 Prayer and level 20 Defence.)"
+ 1739: join_string 5
+ 1740: return 0
+ 1741: branch 244
+ 1742: push_constant_int 40
+ 1743: push_constant_int 19331
+ 1744: push_constant_string "Members: Cat staff"
+ 1745: push_constant_string "<br>"
+ 1746: push_constant_string " (with 40 Attack, 60 Prayer and 20 Defence)"
+ 1747: join_string 3
+ 1748: push_constant_string "Members now have the Magic level required to wield "
+ 1749: push_constant_string "<col=000080>"
+ 1750: push_constant_string "cat staves"
+ 1751: push_constant_string "</col>"
+ 1752: push_constant_string ". (They also need level 40 Attack, level 60 Prayer and level 20 Defence.)"
+ 1753: join_string 5
+ 1754: return 0
+ 1755: branch 230
+ 1756: push_constant_int 40
+ 1757: push_constant_int 14117
+ 1758: push_constant_string "Members: Sacred clay staff"
+ 1759: push_constant_string "Members can now wield "
+ 1760: push_constant_string "<col=000080>"
+ 1761: push_constant_string "sacred clay staves"
+ 1762: push_constant_string "</col>"
+ 1763: push_constant_string "."
+ 1764: join_string 5
+ 1765: return 0
+ 1766: branch 219
+ 1767: push_constant_int 42
+ 1768: push_constant_int 8841
+ 1769: push_constant_string "Members: Void knight mace"
+ 1770: push_constant_string "Members now have the Magic level required to wield "
+ 1771: push_constant_string "<col=000080>"
+ 1772: push_constant_string "Void knight maces"
+ 1773: push_constant_string "</col>"
+ 1774: push_constant_string "."
+ 1775: join_string 5
+ 1776: return 0
+ 1777: branch 208
+ 1778: push_constant_int 45
+ 1779: push_constant_int 18342
+ 1780: push_constant_string "Law staff"
+ 1781: push_constant_string "<br>"
+ 1782: push_constant_string " (with 40 Attack and 45 Dungeoneering)"
+ 1783: join_string 3
+ 1784: push_constant_string "You can now use "
+ 1785: push_constant_string "<col=000080>"
+ 1786: push_constant_string "law staves"
+ 1787: push_constant_string "</col>"
+ 1788: push_constant_string ". (You also need level 40 Attack and level 45 Dungeoneering.)"
+ 1789: join_string 5
+ 1790: return 0
+ 1791: branch 194
+ 1792: push_constant_int 45
+ 1793: push_constant_int 18371
+ 1794: push_constant_string "Gravite staff"
+ 1795: push_constant_string "<br>"
+ 1796: push_constant_string " (with 45 Dungeoneering)"
+ 1797: join_string 3
+ 1798: push_constant_string "You can now wield "
+ 1799: push_constant_string "<col=000080>"
+ 1800: push_constant_string "gravite staves"
+ 1801: push_constant_string "</col>"
+ 1802: push_constant_string ". (You also need level 45 Dungeoneering.)"
+ 1803: join_string 5
+ 1804: return 0
+ 1805: branch 180
+ 1806: push_constant_int 50
+ 1807: push_constant_int 4170
+ 1808: push_constant_string "Members: Slayer's staff"
+ 1809: push_constant_string "<br>"
+ 1810: push_constant_string " (with level 55 Slayer)"
+ 1811: join_string 3
+ 1812: push_constant_string "Members now have the Magic level required to use "
+ 1813: push_constant_string "<col=000080>"
+ 1814: push_constant_string "Slayer staves"
+ 1815: push_constant_string "</col>"
+ 1816: push_constant_string ", magic weapons used for killing turoth and kurask. (They also need level 55 Slayer.)"
+ 1817: join_string 5
+ 1818: return 0
+ 1819: branch 166
+ 1820: push_constant_int 50
+ 1821: push_constant_int 1409
+ 1822: push_constant_string "Members: Iban's Staff"
+ 1823: push_constant_string "<br>"
+ 1824: push_constant_string " (after Underground Pass and with 50 Attack)"
+ 1825: join_string 3
+ 1826: push_constant_string "Members now have the Magic level required to use "
+ 1827: push_constant_string "<col=000080>"
+ 1828: push_constant_string "Iban's Staff"
+ 1829: push_constant_string "</col>"
+ 1830: push_constant_string " (after Underground Pass and with 50 Attack)."
+ 1831: join_string 5
+ 1832: return 0
+ 1833: branch 152
+ 1834: push_constant_int 50
+ 1835: push_constant_int 4675
+ 1836: push_constant_string "Members: Ancient Staff"
+ 1837: push_constant_string "<br>"
+ 1838: push_constant_string " (after Desert Treasure, with 50 Attack)"
+ 1839: join_string 3
+ 1840: push_constant_string "Members now have the Magic level required to use the "
+ 1841: push_constant_string "<col=000080>"
+ 1842: push_constant_string "Ancient Staff"
+ 1843: push_constant_string "</col>"
+ 1844: push_constant_string " (after Desert Treasure and with 50 Attack)."
+ 1845: join_string 5
+ 1846: return 0
+ 1847: branch 138
+ 1848: push_constant_int 53
+ 1849: push_constant_int 18341
+ 1850: push_constant_string "Nature staff"
+ 1851: push_constant_string "<br>"
+ 1852: push_constant_string " (with 40 Attack and 53 Dungeoneering)"
+ 1853: join_string 3
+ 1854: push_constant_string "You can now use "
+ 1855: push_constant_string "<col=000080>"
+ 1856: push_constant_string "nature staves"
+ 1857: push_constant_string "</col>"
+ 1858: push_constant_string ". (You also need level 40 Attack and level 53 Dungeoneering.)"
+ 1859: join_string 5
+ 1860: return 0
+ 1861: branch 124
+ 1862: push_constant_int 60
+ 1863: push_constant_int 2415
+ 1864: push_constant_string "Members: Saradomin staff"
+ 1865: push_constant_string "Members can now use "
+ 1866: push_constant_string "<col=000080>"
+ 1867: push_constant_string "Saradomin staves"
+ 1868: push_constant_string "</col>"
+ 1869: push_constant_string "."
+ 1870: join_string 5
+ 1871: return 0
+ 1872: branch 113
+ 1873: push_constant_int 60
+ 1874: push_constant_int 2416
+ 1875: push_constant_string "Members: Guthix staff"
+ 1876: push_constant_string "Members can now use the "
+ 1877: push_constant_string "<col=000080>"
+ 1878: push_constant_string "Guthix staves"
+ 1879: push_constant_string "</col>"
+ 1880: push_constant_string "."
+ 1881: join_string 5
+ 1882: return 0
+ 1883: branch 102
+ 1884: push_constant_int 60
+ 1885: push_constant_int 2417
+ 1886: push_constant_string "Members: Zamorak staff"
+ 1887: push_constant_string "Members can now use the "
+ 1888: push_constant_string "<col=000080>"
+ 1889: push_constant_string "Zamorak staves"
+ 1890: push_constant_string "</col>"
+ 1891: push_constant_string "."
+ 1892: join_string 5
+ 1893: return 0
+ 1894: branch 91
+ 1895: push_constant_int 60
+ 1896: push_constant_int 6526
+ 1897: push_constant_string "Members: Toktz-Mej-Tal"
+ 1898: push_constant_string "<br>"
+ 1899: push_constant_string " (with level 60 Attack)"
+ 1900: join_string 3
+ 1901: push_constant_string "Members now have the Magic level required to use "
+ 1902: push_constant_string "<col=000080>"
+ 1903: push_constant_string "Toktz-Mej-Tal"
+ 1904: push_constant_string "</col>"
+ 1905: push_constant_string ". (They also need level 60 Attack.)"
+ 1906: join_string 5
+ 1907: return 0
+ 1908: branch 77
+ 1909: push_constant_int 70
+ 1910: push_constant_int 15438
+ 1911: push_constant_string "Members: Penance Trident"
+ 1912: push_constant_string "Members now have the Magic level required to use the "
+ 1913: push_constant_string "<col=000080>"
+ 1914: push_constant_string "Penance Trident"
+ 1915: push_constant_string "</col>"
+ 1916: push_constant_string "."
+ 1917: join_string 5
+ 1918: return 0
+ 1919: branch 66
+ 1920: push_constant_int 70
+ 1921: push_constant_int 15485
+ 1922: push_constant_string "Members: Penance Master Trident"
+ 1923: push_constant_string "<br>"
+ 1924: push_constant_string " (with level 70 Attack)"
+ 1925: join_string 3
+ 1926: push_constant_string "Members now have the Magic level required to use the "
+ 1927: push_constant_string "<col=000080>"
+ 1928: push_constant_string "Penance Master Trident"
+ 1929: push_constant_string "</col>"
+ 1930: push_constant_string ". (They also need level 70 Attack.)"
+ 1931: join_string 5
+ 1932: return 0
+ 1933: branch 52
+ 1934: push_constant_int 70
+ 1935: push_constant_int 4710
+ 1936: push_constant_string "Members: Ahrim's staff"
+ 1937: push_constant_string "<br>"
+ 1938: push_constant_string " (with level 70 Attack)"
+ 1939: join_string 3
+ 1940: push_constant_string "Members now have the Magic level required to use "
+ 1941: push_constant_string "<col=000080>"
+ 1942: push_constant_string "Ahrim's staff"
+ 1943: push_constant_string "</col>"
+ 1944: push_constant_string ". (They also need level 70 Attack.)"
+ 1945: join_string 5
+ 1946: return 0
+ 1947: branch 38
+ 1948: push_constant_int 75
+ 1949: push_constant_int 15486
+ 1950: push_constant_string "Members: Staff of Light (with 75 Attack)"
+ 1951: push_constant_string "Members can now wield the "
+ 1952: push_constant_string "<col=000080>"
+ 1953: push_constant_string "Staff of Light"
+ 1954: push_constant_string "</col>"
+ 1955: push_constant_string " (with 75 Attack)."
+ 1956: join_string 5
+ 1957: return 0
+ 1958: branch 27
+ 1959: push_constant_int 78
+ 1960: push_constant_int 13867
+ 1961: push_constant_string "Members: Zuriel's staff"
+ 1962: push_constant_string "<br>"
+ 1963: push_constant_string " (with level 78 Attack)"
+ 1964: join_string 3
+ 1965: push_constant_string "Members now have the Magic level required to use "
+ 1966: push_constant_string "<col=000080>"
+ 1967: push_constant_string "Zuriel's staff"
+ 1968: push_constant_string "</col>"
+ 1969: push_constant_string ". (They also need level 78 Attack.)"
+ 1970: join_string 5
+ 1971: return 0
+ 1972: branch 13
+ 1973: push_constant_int 80
+ 1974: push_constant_int 18355
+ 1975: push_constant_string "Members: Chaotic staff"
+ 1976: push_constant_string "<br>"
+ 1977: push_constant_string " (with 80 Dungeoneering)"
+ 1978: join_string 3
+ 1979: push_constant_string "Members can now wield "
+ 1980: push_constant_string "<col=000080>"
+ 1981: push_constant_string "chaotic staves"
+ 1982: push_constant_string "</col>"
+ 1983: push_constant_string ". (They also need level 80 Dungeoneering.)"
+ 1984: join_string 5
+ 1985: return 0
+ 1986: branch 1467
+ 1987: push_int_local 1
+ 1988: switch 4
+ 1989: branch 96
+ 1990: push_constant_int 35
+ 1991: push_constant_int 19671
+ 1992: push_constant_string " Magical blastbox"
+ 1993: push_constant_string "<br>"
+ 1994: push_constant_string " (with 30 Dungeoneering and 30 Runecrafting)"
+ 1995: join_string 3
+ 1996: push_constant_string "You can now use "
+ 1997: push_constant_string "<col=000080>"
+ 1998: push_constant_string "magical blastboxes"
+ 1999: push_constant_string "</col>"
+ 2000: push_constant_string ". (You also need level 30 Dungeoneering and 30 Runecrafting.)"
+ 2001: join_string 5
+ 2002: return 0
+ 2003: branch 82
+ 2004: push_constant_int 45
+ 2005: push_constant_int 6908
+ 2006: push_constant_string "Members: Beginner wand"
+ 2007: push_constant_string "Members can now use "
+ 2008: push_constant_string "<col=000080>"
+ 2009: push_constant_string "beginner wands"
+ 2010: push_constant_string "</col>"
+ 2011: push_constant_string "."
+ 2012: join_string 5
+ 2013: return 0
+ 2014: branch 71
+ 2015: push_constant_int 48
+ 2016: push_constant_int 18346
+ 2017: push_constant_string "Tome of frost"
+ 2018: push_constant_string "<br>"
+ 2019: push_constant_string " (with 48 Dungeoneering)"
+ 2020: join_string 3
+ 2021: push_constant_string "You can now use "
+ 2022: push_constant_string "<col=000080>"
+ 2023: push_constant_string "tomes of frost"
+ 2024: push_constant_string "</col>"
+ 2025: push_constant_string ". (You also need level 48 Dungeoneering.)"
+ 2026: join_string 5
+ 2027: return 0
+ 2028: branch 57
+ 2029: push_constant_int 50
+ 2030: push_constant_int 6910
+ 2031: push_constant_string "Members: Apprentice wand"
+ 2032: push_constant_string "Members can now use "
+ 2033: push_constant_string "<col=000080>"
+ 2034: push_constant_string "apprentice wands"
+ 2035: push_constant_string "</col>"
+ 2036: push_constant_string "."
+ 2037: join_string 5
+ 2038: return 0
+ 2039: branch 46
+ 2040: push_constant_int 55
+ 2041: push_constant_int 6912
+ 2042: push_constant_string "Members: Teacher wand"
+ 2043: push_constant_string "Members can now use "
+ 2044: push_constant_string "<col=000080>"
+ 2045: push_constant_string "teacher wands"
+ 2046: push_constant_string "</col>"
+ 2047: push_constant_string "."
+ 2048: join_string 5
+ 2049: return 0
+ 2050: branch 35
+ 2051: push_constant_int 60
+ 2052: push_constant_int 6914
+ 2053: push_constant_string "Members: Master wand"
+ 2054: push_constant_string "Members can now use "
+ 2055: push_constant_string "<col=000080>"
+ 2056: push_constant_string "master wands"
+ 2057: push_constant_string "</col>"
+ 2058: push_constant_string "."
+ 2059: join_string 5
+ 2060: return 0
+ 2061: branch 24
+ 2062: push_constant_int 60
+ 2063: push_constant_int 6889
+ 2064: push_constant_string "Members: Mage's book"
+ 2065: push_constant_string "Members can now use "
+ 2066: push_constant_string "<col=000080>"
+ 2067: push_constant_string "mages' books"
+ 2068: push_constant_string "</col>"
+ 2069: push_constant_string "."
+ 2070: join_string 5
+ 2071: return 0
+ 2072: branch 13
+ 2073: push_constant_int 70
+ 2074: push_constant_int 19889
+ 2075: push_constant_string "Members: Celestial surgebox"
+ 2076: push_constant_string "<br>"
+ 2077: push_constant_string " (with 70 Dungeoneering and 70 Runecrafting)"
+ 2078: join_string 3
+ 2079: push_constant_string "Members can now use "
+ 2080: push_constant_string "<col=000080>"
+ 2081: push_constant_string "celestial surgeboxes"
+ 2082: push_constant_string "</col>"
+ 2083: push_constant_string ". (They also need level 70 Dungeoneering and level 70 Runecrafting.)"
+ 2084: join_string 5
+ 2085: return 0
+ 2086: branch 1367
+ 2087: push_int_local 1
+ 2088: switch 5
+ 2089: branch 55
+ 2090: push_constant_int 30
+ 2091: push_constant_int 10149
+ 2092: push_constant_string "Members: Swamp lizard"
+ 2093: push_constant_string "<br>"
+ 2094: push_constant_string " (with level 30 Attack and 30 Ranged)"
+ 2095: join_string 3
+ 2096: push_constant_string "Members now have the Magic level required to wield "
+ 2097: push_constant_string "<col=000080>"
+ 2098: push_constant_string "swamp lizards"
+ 2099: push_constant_string "</col>"
+ 2100: push_constant_string ". (They also need level 30 Attack and level 30 Ranged.)"
+ 2101: join_string 5
+ 2102: return 0
+ 2103: branch 41
+ 2104: push_constant_int 50
+ 2105: push_constant_int 10146
+ 2106: push_constant_string "Members: Orange salamander"
+ 2107: push_constant_string "<br>"
+ 2108: push_constant_string " (with level 50 Attack and 50 Ranged)"
+ 2109: join_string 3
+ 2110: push_constant_string "Members now have the Magic level required to wield "
+ 2111: push_constant_string "<col=000080>"
+ 2112: push_constant_string "orange salamanders"
+ 2113: push_constant_string "</col>"
+ 2114: push_constant_string ". (They also need level 50 Attack and 50 Ranged.)"
+ 2115: join_string 5
+ 2116: return 0
+ 2117: branch 27
+ 2118: push_constant_int 60
+ 2119: push_constant_int 10147
+ 2120: push_constant_string "Members: Red salamander"
+ 2121: push_constant_string "<br>"
+ 2122: push_constant_string " (with level 60 Attack and 60 Ranged)"
+ 2123: join_string 3
+ 2124: push_constant_string "Members now have the Magic level required to wield "
+ 2125: push_constant_string "<col=000080>"
+ 2126: push_constant_string "red salamanders"
+ 2127: push_constant_string "</col>"
+ 2128: push_constant_string ". (They also need level 60 Attack and 60 Ranged.)"
+ 2129: join_string 5
+ 2130: return 0
+ 2131: branch 13
+ 2132: push_constant_int 70
+ 2133: push_constant_int 10148
+ 2134: push_constant_string "Members: Black salamander"
+ 2135: push_constant_string "<br>"
+ 2136: push_constant_string " (with level 70 Attack and 70 Ranged)"
+ 2137: join_string 3
+ 2138: push_constant_string "Members now have the Magic level required to wield "
+ 2139: push_constant_string "<col=000080>"
+ 2140: push_constant_string "black salamanders"
+ 2141: push_constant_string "</col>"
+ 2142: push_constant_string ". (They also need level 70 Attack and 70 Ranged.)"
+ 2143: join_string 5
+ 2144: return 0
+ 2145: branch 1308
+ 2146: push_int_local 1
+ 2147: switch 6
+ 2148: branch 219
+ 2149: push_constant_int 1
+ 2150: push_constant_int 14377
+ 2151: push_constant_string "Members: Stealing Creation - class 1 staff"
+ 2152: push_constant_string "Members can now wield "
+ 2153: push_constant_string "<col=000080>"
+ 2154: push_constant_string "class 1 staves"
+ 2155: push_constant_string "</col>"
+ 2156: push_constant_string " in Stealing Creation."
+ 2157: join_string 5
+ 2158: return 0
+ 2159: branch 208
+ 2160: push_constant_int 1
+ 2161: push_constant_int 14337
+ 2162: push_constant_string "Members: Stealing Creation - class 1 hat"
+ 2163: push_constant_string "Members can now wear "
+ 2164: push_constant_string "<col=000080>"
+ 2165: push_constant_string "class 1 hats"
+ 2166: push_constant_string "</col>"
+ 2167: push_constant_string " in Stealing Creation."
+ 2168: join_string 5
+ 2169: return 0
+ 2170: branch 197
+ 2171: push_constant_int 1
+ 2172: push_constant_int 14317
+ 2173: push_constant_string "Members: Stealing Creation - class 1 robe top"
+ 2174: push_constant_string "Members can now wear "
+ 2175: push_constant_string "<col=000080>"
+ 2176: push_constant_string "class 1 robe tops"
+ 2177: push_constant_string "</col>"
+ 2178: push_constant_string " in Stealing Creation."
+ 2179: join_string 5
+ 2180: return 0
+ 2181: branch 186
+ 2182: push_constant_int 1
+ 2183: push_constant_int 14327
+ 2184: push_constant_string "Members: Stealing Creation - class 1 robe bottom"
+ 2185: push_constant_string "Members can now wear "
+ 2186: push_constant_string "<col=000080>"
+ 2187: push_constant_string "class 1 robe bottoms"
+ 2188: push_constant_string "</col>"
+ 2189: push_constant_string " in Stealing Creation."
+ 2190: join_string 5
+ 2191: return 0
+ 2192: branch 175
+ 2193: push_constant_int 20
+ 2194: push_constant_int 14379
+ 2195: push_constant_string "Members: Stealing Creation - class 2 staff"
+ 2196: push_constant_string "Members can now wield "
+ 2197: push_constant_string "<col=000080>"
+ 2198: push_constant_string "class 2 staves"
+ 2199: push_constant_string "</col>"
+ 2200: push_constant_string " in Stealing Creation."
+ 2201: join_string 5
+ 2202: return 0
+ 2203: branch 164
+ 2204: push_constant_int 20
+ 2205: push_constant_int 14339
+ 2206: push_constant_string "Members: Stealing Creation - class 2 hat"
+ 2207: push_constant_string "Members can now wear "
+ 2208: push_constant_string "<col=000080>"
+ 2209: push_constant_string "class 2 hats"
+ 2210: push_constant_string "</col>"
+ 2211: push_constant_string " in Stealing Creation."
+ 2212: join_string 5
+ 2213: return 0
+ 2214: branch 153
+ 2215: push_constant_int 20
+ 2216: push_constant_int 14319
+ 2217: push_constant_string "Members: Stealing Creation - class 2 robe top"
+ 2218: push_constant_string "Members can now wear "
+ 2219: push_constant_string "<col=000080>"
+ 2220: push_constant_string "class 2 robe tops"
+ 2221: push_constant_string "</col>"
+ 2222: push_constant_string " in Stealing Creation."
+ 2223: join_string 5
+ 2224: return 0
+ 2225: branch 142
+ 2226: push_constant_int 20
+ 2227: push_constant_int 14329
+ 2228: push_constant_string "Members: Stealing Creation - class 2 robe bottom"
+ 2229: push_constant_string "Members can now wear "
+ 2230: push_constant_string "<col=000080>"
+ 2231: push_constant_string "class 2 robe bottoms"
+ 2232: push_constant_string "</col>"
+ 2233: push_constant_string " in Stealing Creation."
+ 2234: join_string 5
+ 2235: return 0
+ 2236: branch 131
+ 2237: push_constant_int 40
+ 2238: push_constant_int 14381
+ 2239: push_constant_string "Members: Stealing Creation - class 3 staff"
+ 2240: push_constant_string "Members can now wield "
+ 2241: push_constant_string "<col=000080>"
+ 2242: push_constant_string "class 3 staves"
+ 2243: push_constant_string "</col>"
+ 2244: push_constant_string " in Stealing Creation."
+ 2245: join_string 5
+ 2246: return 0
+ 2247: branch 120
+ 2248: push_constant_int 40
+ 2249: push_constant_int 14341
+ 2250: push_constant_string "Members: Stealing Creation - class 3 hat"
+ 2251: push_constant_string "Members can now wear "
+ 2252: push_constant_string "<col=000080>"
+ 2253: push_constant_string "class 3 hats"
+ 2254: push_constant_string "</col>"
+ 2255: push_constant_string " in Stealing Creation."
+ 2256: join_string 5
+ 2257: return 0
+ 2258: branch 109
+ 2259: push_constant_int 40
+ 2260: push_constant_int 14321
+ 2261: push_constant_string "Members: Stealing Creation - class 3 robe top"
+ 2262: push_constant_string "Members can now wear "
+ 2263: push_constant_string "<col=000080>"
+ 2264: push_constant_string "class 3 robe tops"
+ 2265: push_constant_string "</col>"
+ 2266: push_constant_string " in Stealing Creation."
+ 2267: join_string 5
+ 2268: return 0
+ 2269: branch 98
+ 2270: push_constant_int 40
+ 2271: push_constant_int 14331
+ 2272: push_constant_string "Members: Stealing Creation - class 3 robe bottom"
+ 2273: push_constant_string "Members can now wear "
+ 2274: push_constant_string "<col=000080>"
+ 2275: push_constant_string "class 3 robe bottoms"
+ 2276: push_constant_string "</col>"
+ 2277: push_constant_string " in Stealing Creation."
+ 2278: join_string 5
+ 2279: return 0
+ 2280: branch 87
+ 2281: push_constant_int 60
+ 2282: push_constant_int 14383
+ 2283: push_constant_string "Members: Stealing Creation - class 4 staff"
+ 2284: push_constant_string "Members can now wield "
+ 2285: push_constant_string "<col=000080>"
+ 2286: push_constant_string "class 4 staves"
+ 2287: push_constant_string "</col>"
+ 2288: push_constant_string " in Stealing Creation."
+ 2289: join_string 5
+ 2290: return 0
+ 2291: branch 76
+ 2292: push_constant_int 60
+ 2293: push_constant_int 14343
+ 2294: push_constant_string "Members: Stealing Creation - class 4 hat"
+ 2295: push_constant_string "Members can now wear "
+ 2296: push_constant_string "<col=000080>"
+ 2297: push_constant_string "class 4 hats"
+ 2298: push_constant_string "</col>"
+ 2299: push_constant_string " in Stealing Creation."
+ 2300: join_string 5
+ 2301: return 0
+ 2302: branch 65
+ 2303: push_constant_int 60
+ 2304: push_constant_int 14323
+ 2305: push_constant_string "Members: Stealing Creation - class 4 robe top"
+ 2306: push_constant_string "Members can now wear "
+ 2307: push_constant_string "<col=000080>"
+ 2308: push_constant_string "class 4 robe tops"
+ 2309: push_constant_string "</col>"
+ 2310: push_constant_string " in Stealing Creation."
+ 2311: join_string 5
+ 2312: return 0
+ 2313: branch 54
+ 2314: push_constant_int 60
+ 2315: push_constant_int 14333
+ 2316: push_constant_string "Members: Stealing Creation - class 4 robe bottom"
+ 2317: push_constant_string "Members can now wear "
+ 2318: push_constant_string "<col=000080>"
+ 2319: push_constant_string "class 4 robe bottoms"
+ 2320: push_constant_string "</col>"
+ 2321: push_constant_string " in Stealing Creation."
+ 2322: join_string 5
+ 2323: return 0
+ 2324: branch 43
+ 2325: push_constant_int 80
+ 2326: push_constant_int 14385
+ 2327: push_constant_string "Members: Stealing Creation - class 5 staff"
+ 2328: push_constant_string "Members can now wield "
+ 2329: push_constant_string "<col=000080>"
+ 2330: push_constant_string "class 5 staves"
+ 2331: push_constant_string "</col>"
+ 2332: push_constant_string " in Stealing Creation."
+ 2333: join_string 5
+ 2334: return 0
+ 2335: branch 32
+ 2336: push_constant_int 80
+ 2337: push_constant_int 14345
+ 2338: push_constant_string "Members: Stealing Creation - class 5 hat"
+ 2339: push_constant_string "Members can now wear "
+ 2340: push_constant_string "<col=000080>"
+ 2341: push_constant_string "class 5 hats"
+ 2342: push_constant_string "</col>"
+ 2343: push_constant_string " in Stealing Creation."
+ 2344: join_string 5
+ 2345: return 0
+ 2346: branch 21
+ 2347: push_constant_int 80
+ 2348: push_constant_int 14325
+ 2349: push_constant_string "Members: Stealing Creation - class 5 robe top"
+ 2350: push_constant_string "Members can now wear "
+ 2351: push_constant_string "<col=000080>"
+ 2352: push_constant_string "class 5 robe tops"
+ 2353: push_constant_string "</col>"
+ 2354: push_constant_string " in Stealing Creation."
+ 2355: join_string 5
+ 2356: return 0
+ 2357: branch 10
+ 2358: push_constant_int 80
+ 2359: push_constant_int 14335
+ 2360: push_constant_string "Members: Stealing Creation - class 5 robe bottom"
+ 2361: push_constant_string "Members can now wear "
+ 2362: push_constant_string "<col=000080>"
+ 2363: push_constant_string "class 5 robe bottoms"
+ 2364: push_constant_string "</col>"
+ 2365: push_constant_string " in Stealing Creation."
+ 2366: join_string 5
+ 2367: return 0
+ 2368: branch 1085
+ 2369: push_int_local 1
+ 2370: switch 7
+ 2371: branch 999
+ 2372: push_constant_int -1
+ 2373: push_constant_int 15707
+ 2374: push_constant_string "Dungeoneering skill tasks"
+ 2375: push_constant_string "<br>"
+ 2376: push_constant_string "As your Magic level increases, you will be able to attempt higher-level magic tasks within Daemonheim. You will also be more likely to succeed when attempting magic tasks within Daemonheim."
+ 2377: join_string 3
+ 2378: push_constant_string ""
+ 2379: return 0
+ 2380: branch 990
+ 2381: push_constant_int 1
+ 2382: push_constant_int 16977
+ 2383: push_constant_string "Basic staves (all tiers)"
+ 2384: push_constant_string "You can now wield "
+ 2385: push_constant_string "<col=000080>"
+ 2386: push_constant_string "basic staves"
+ 2387: push_constant_string "</col>"
+ 2388: push_constant_string " within Daemonheim."
+ 2389: join_string 5
+ 2390: return 0
+ 2391: branch 979
+ 2392: push_constant_int 1
+ 2393: push_constant_int 16997
+ 2394: push_constant_string "Water staff"
+ 2395: push_constant_string "You can now wield "
+ 2396: push_constant_string "<col=000080>"
+ 2397: push_constant_string "water staves"
+ 2398: push_constant_string "</col>"
+ 2399: push_constant_string " within Daemonheim."
+ 2400: join_string 5
+ 2401: return 0
+ 2402: branch 968
+ 2403: push_constant_int 1
+ 2404: push_constant_int 16735
+ 2405: push_constant_string "Salve hood (Tier 1)"
+ 2406: push_constant_string "<br>"
+ 2407: push_constant_string " (with 1 Defence)"
+ 2408: join_string 3
+ 2409: push_constant_string "You can now wear "
+ 2410: push_constant_string "<col=000080>"
+ 2411: push_constant_string "salve hoods"
+ 2412: push_constant_string "</col>"
+ 2413: push_constant_string " within Daemonheim. (You also need level 1 Defence.)"
+ 2414: join_string 5
+ 2415: return 0
+ 2416: branch 954
+ 2417: push_constant_int 1
+ 2418: push_constant_int 17217
+ 2419: push_constant_string "Salve robe top (Tier 1)"
+ 2420: push_constant_string "<br>"
+ 2421: push_constant_string " (with 1 Defence)"
+ 2422: join_string 3
+ 2423: push_constant_string "You can now wear "
+ 2424: push_constant_string "<col=000080>"
+ 2425: push_constant_string "salve robe tops"
+ 2426: push_constant_string "</col>"
+ 2427: push_constant_string " within Daemonheim. (You also need level 1 Defence.)"
+ 2428: join_string 5
+ 2429: return 0
+ 2430: branch 940
+ 2431: push_constant_int 1
+ 2432: push_constant_int 16845
+ 2433: push_constant_string "Salve robe bottom (Tier 1)"
+ 2434: push_constant_string "<br>"
+ 2435: push_constant_string " (with 1 Defence)"
+ 2436: join_string 3
+ 2437: push_constant_string "You can now wear "
+ 2438: push_constant_string "<col=000080>"
+ 2439: push_constant_string "salve robe bottoms"
+ 2440: push_constant_string "</col>"
+ 2441: push_constant_string " within Daemonheim. (You also need level 1 Defence.)"
+ 2442: join_string 5
+ 2443: return 0
+ 2444: branch 926
+ 2445: push_constant_int 1
+ 2446: push_constant_int 17151
+ 2447: push_constant_string "Salve gloves (Tier 1)"
+ 2448: push_constant_string "<br>"
+ 2449: push_constant_string " (with 1 Defence)"
+ 2450: join_string 3
+ 2451: push_constant_string "You can now wear "
+ 2452: push_constant_string "<col=000080>"
+ 2453: push_constant_string "salve gloves"
+ 2454: push_constant_string "</col>"
+ 2455: push_constant_string " within Daemonheim. (You also need level 1 Defence.)"
+ 2456: join_string 5
+ 2457: return 0
+ 2458: branch 912
+ 2459: push_constant_int 1
+ 2460: push_constant_int 16911
+ 2461: push_constant_string "Salve boots (Tier 1)"
+ 2462: push_constant_string "<br>"
+ 2463: push_constant_string " (with 1 Defence)"
+ 2464: join_string 3
+ 2465: push_constant_string "You can now wear "
+ 2466: push_constant_string "<col=000080>"
+ 2467: push_constant_string "salve boots"
+ 2468: push_constant_string "</col>"
+ 2469: push_constant_string " within Daemonheim. (You also need level 1 Defence.)"
+ 2470: join_string 5
+ 2471: return 0
+ 2472: branch 898
+ 2473: push_constant_int 10
+ 2474: push_constant_int 17001
+ 2475: push_constant_string "Earth staff"
+ 2476: push_constant_string "You can now wield "
+ 2477: push_constant_string "<col=000080>"
+ 2478: push_constant_string "earth staves"
+ 2479: push_constant_string "</col>"
+ 2480: push_constant_string " within Daemonheim."
+ 2481: join_string 5
+ 2482: return 0
+ 2483: branch 887
+ 2484: push_constant_int 10
+ 2485: push_constant_int 16737
+ 2486: push_constant_string "Wildercress hood (Tier 2)"
+ 2487: push_constant_string "<br>"
+ 2488: push_constant_string " (with 10 Defence)"
+ 2489: join_string 3
+ 2490: push_constant_string "You can now wear "
+ 2491: push_constant_string "<col=000080>"
+ 2492: push_constant_string "wildercress hoods"
+ 2493: push_constant_string "</col>"
+ 2494: push_constant_string " within Daemonheim. (You also need level 10 Defence.)"
+ 2495: join_string 5
+ 2496: return 0
+ 2497: branch 873
+ 2498: push_constant_int 10
+ 2499: push_constant_int 17219
+ 2500: push_constant_string "Wildercress robe top (Tier 2)"
+ 2501: push_constant_string "<br>"
+ 2502: push_constant_string " (with 10 Defence)"
+ 2503: join_string 3
+ 2504: push_constant_string "You can now wear "
+ 2505: push_constant_string "<col=000080>"
+ 2506: push_constant_string "wildercress robe tops"
+ 2507: push_constant_string "</col>"
+ 2508: push_constant_string " within Daemonheim. (You also need level 10 Defence.)"
+ 2509: join_string 5
+ 2510: return 0
+ 2511: branch 859
+ 2512: push_constant_int 10
+ 2513: push_constant_int 16847
+ 2514: push_constant_string "Wildercress robe bottom (Tier 2)"
+ 2515: push_constant_string "<br>"
+ 2516: push_constant_string " (with 10 Defence)"
+ 2517: join_string 3
+ 2518: push_constant_string "You can now wear "
+ 2519: push_constant_string "<col=000080>"
+ 2520: push_constant_string "wildercress robe bottoms"
+ 2521: push_constant_string "</col>"
+ 2522: push_constant_string " within Daemonheim. (You also need level 10 Defence.)"
+ 2523: join_string 5
+ 2524: return 0
+ 2525: branch 845
+ 2526: push_constant_int 10
+ 2527: push_constant_int 17153
+ 2528: push_constant_string "Wildercress gloves (Tier 2)"
+ 2529: push_constant_string "<br>"
+ 2530: push_constant_string " (with 10 Defence)"
+ 2531: join_string 3
+ 2532: push_constant_string "You can now wear "
+ 2533: push_constant_string "<col=000080>"
+ 2534: push_constant_string "wildercress gloves"
+ 2535: push_constant_string "</col>"
+ 2536: push_constant_string " within Daemonheim. (You also need level 10 Defence.)"
+ 2537: join_string 5
+ 2538: return 0
+ 2539: branch 831
+ 2540: push_constant_int 10
+ 2541: push_constant_int 16913
+ 2542: push_constant_string "Wildercress boots (Tier 2)"
+ 2543: push_constant_string "<br>"
+ 2544: push_constant_string " (with 10 Defence)"
+ 2545: join_string 3
+ 2546: push_constant_string "You can now wear "
+ 2547: push_constant_string "<col=000080>"
+ 2548: push_constant_string "wildercress boots"
+ 2549: push_constant_string "</col>"
+ 2550: push_constant_string " within Daemonheim. (You also need level 10 Defence.)"
+ 2551: join_string 5
+ 2552: return 0
+ 2553: branch 817
+ 2554: push_constant_int 20
+ 2555: push_constant_int 17005
+ 2556: push_constant_string "Fire staff"
+ 2557: push_constant_string "You can now wield "
+ 2558: push_constant_string "<col=000080>"
+ 2559: push_constant_string "fire staves"
+ 2560: push_constant_string "</col>"
+ 2561: push_constant_string " within Daemonheim."
+ 2562: join_string 5
+ 2563: return 0
+ 2564: branch 806
+ 2565: push_constant_int 20
+ 2566: push_constant_int 16739
+ 2567: push_constant_string "Blightleaf hood (Tier 3)"
+ 2568: push_constant_string "<br>"
+ 2569: push_constant_string " (with 20 Defence)"
+ 2570: join_string 3
+ 2571: push_constant_string "You can now wear "
+ 2572: push_constant_string "<col=000080>"
+ 2573: push_constant_string "blightleaf hoods"
+ 2574: push_constant_string "</col>"
+ 2575: push_constant_string " within Daemonheim. (You also need level 20 Defence.)"
+ 2576: join_string 5
+ 2577: return 0
+ 2578: branch 792
+ 2579: push_constant_int 20
+ 2580: push_constant_int 17221
+ 2581: push_constant_string "Blightleaf robe top (Tier 3)"
+ 2582: push_constant_string "<br>"
+ 2583: push_constant_string " (with 20 Defence)"
+ 2584: join_string 3
+ 2585: push_constant_string "You can now wear "
+ 2586: push_constant_string "<col=000080>"
+ 2587: push_constant_string "blightleaf robe tops"
+ 2588: push_constant_string "</col>"
+ 2589: push_constant_string " within Daemonheim. (You also need level 20 Defence.)"
+ 2590: join_string 5
+ 2591: return 0
+ 2592: branch 778
+ 2593: push_constant_int 20
+ 2594: push_constant_int 16849
+ 2595: push_constant_string "Blightleaf robe bottom (Tier 3)"
+ 2596: push_constant_string "<br>"
+ 2597: push_constant_string " (with 20 Defence)"
+ 2598: join_string 3
+ 2599: push_constant_string "You can now wear "
+ 2600: push_constant_string "<col=000080>"
+ 2601: push_constant_string "blightleaf robe bottoms"
+ 2602: push_constant_string "</col>"
+ 2603: push_constant_string " within Daemonheim. (You also need level 20 Defence.)"
+ 2604: join_string 5
+ 2605: return 0
+ 2606: branch 764
+ 2607: push_constant_int 20
+ 2608: push_constant_int 17155
+ 2609: push_constant_string "Blightleaf gloves (Tier 3)"
+ 2610: push_constant_string "<br>"
+ 2611: push_constant_string " (with 20 Defence)"
+ 2612: join_string 3
+ 2613: push_constant_string "You can now wear "
+ 2614: push_constant_string "<col=000080>"
+ 2615: push_constant_string "blightleaf gloves"
+ 2616: push_constant_string "</col>"
+ 2617: push_constant_string " within Daemonheim. (You also need level 20 Defence.)"
+ 2618: join_string 5
+ 2619: return 0
+ 2620: branch 750
+ 2621: push_constant_int 20
+ 2622: push_constant_int 16915
+ 2623: push_constant_string "Blightleaf boots (Tier 3)"
+ 2624: push_constant_string "<br>"
+ 2625: push_constant_string " (with 20 Defence)"
+ 2626: join_string 3
+ 2627: push_constant_string "You can now wear "
+ 2628: push_constant_string "<col=000080>"
+ 2629: push_constant_string "blightleaf boots"
+ 2630: push_constant_string "</col>"
+ 2631: push_constant_string " within Daemonheim. (You also need level 20 Defence.)"
+ 2632: join_string 5
+ 2633: return 0
+ 2634: branch 736
+ 2635: push_constant_int 30
+ 2636: push_constant_int 17009
+ 2637: push_constant_string "Air staff"
+ 2638: push_constant_string "You can now wield "
+ 2639: push_constant_string "<col=000080>"
+ 2640: push_constant_string "air staves"
+ 2641: push_constant_string "</col>"
+ 2642: push_constant_string " within Daemonheim."
+ 2643: join_string 5
+ 2644: return 0
+ 2645: branch 725
+ 2646: push_constant_int 30
+ 2647: push_constant_int 16741
+ 2648: push_constant_string "Roseblood hood (Tier 4)"
+ 2649: push_constant_string "<br>"
+ 2650: push_constant_string " (with 30 Defence)"
+ 2651: join_string 3
+ 2652: push_constant_string "You can now wear "
+ 2653: push_constant_string "<col=000080>"
+ 2654: push_constant_string "roseblood hoods"
+ 2655: push_constant_string "</col>"
+ 2656: push_constant_string " within Daemonheim. (You also need level 30 Defence.)"
+ 2657: join_string 5
+ 2658: return 0
+ 2659: branch 711
+ 2660: push_constant_int 30
+ 2661: push_constant_int 17223
+ 2662: push_constant_string "Roseblood robe top (Tier 4)"
+ 2663: push_constant_string "<br>"
+ 2664: push_constant_string " (with 30 Defence)"
+ 2665: join_string 3
+ 2666: push_constant_string "You can now wear "
+ 2667: push_constant_string "<col=000080>"
+ 2668: push_constant_string "roseblood robe tops"
+ 2669: push_constant_string "</col>"
+ 2670: push_constant_string " within Daemonheim. (You also need level 30 Defence.)"
+ 2671: join_string 5
+ 2672: return 0
+ 2673: branch 697
+ 2674: push_constant_int 30
+ 2675: push_constant_int 16851
+ 2676: push_constant_string "Roseblood robe bottom (Tier 4)"
+ 2677: push_constant_string "<br>"
+ 2678: push_constant_string " (with 30 Defence)"
+ 2679: join_string 3
+ 2680: push_constant_string "You can now wear "
+ 2681: push_constant_string "<col=000080>"
+ 2682: push_constant_string "roseblood robe bottoms"
+ 2683: push_constant_string "</col>"
+ 2684: push_constant_string " within Daemonheim. (You also need level 30 Defence.)"
+ 2685: join_string 5
+ 2686: return 0
+ 2687: branch 683
+ 2688: push_constant_int 30
+ 2689: push_constant_int 17157
+ 2690: push_constant_string "Roseblood gloves (Tier 4)"
+ 2691: push_constant_string "<br>"
+ 2692: push_constant_string " (with 30 Defence)"
+ 2693: join_string 3
+ 2694: push_constant_string "You can now wear "
+ 2695: push_constant_string "<col=000080>"
+ 2696: push_constant_string "roseblood gloves"
+ 2697: push_constant_string "</col>"
+ 2698: push_constant_string " within Daemonheim. (You also need level 30 Defence.)"
+ 2699: join_string 5
+ 2700: return 0
+ 2701: branch 669
+ 2702: push_constant_int 30
+ 2703: push_constant_int 16917
+ 2704: push_constant_string "Roseblood boots (Tier 4)"
+ 2705: push_constant_string "<br>"
+ 2706: push_constant_string " (with 30 Defence)"
+ 2707: join_string 3
+ 2708: push_constant_string "You can now wear "
+ 2709: push_constant_string "<col=000080>"
+ 2710: push_constant_string "roseblood boots"
+ 2711: push_constant_string "</col>"
+ 2712: push_constant_string " within Daemonheim. (You also need level 30 Defence.)"
+ 2713: join_string 5
+ 2714: return 0
+ 2715: branch 655
+ 2716: push_constant_int 32
+ 2717: push_constant_int 18637
+ 2718: push_constant_string "Spell: Create Gatestone"
+ 2719: push_constant_string "You can now cast "
+ 2720: push_constant_string "<col=000080>"
+ 2721: push_constant_string "Create Gatestone"
+ 2722: push_constant_string "</col>"
+ 2723: push_constant_string " within Daemonheim."
+ 2724: join_string 5
+ 2725: return 0
+ 2726: branch 644
+ 2727: push_constant_int 32
+ 2728: push_constant_int 18638
+ 2729: push_constant_string "Spell: Gatestone Teleport"
+ 2730: push_constant_string "You can now cast "
+ 2731: push_constant_string "<col=000080>"
+ 2732: push_constant_string "Gatestone Teleport"
+ 2733: push_constant_string "</col>"
+ 2734: push_constant_string " within Daemonheim."
+ 2735: join_string 5
+ 2736: return 0
+ 2737: branch 633
+ 2738: push_constant_int 33
+ 2739: push_constant_int 17273
+ 2740: push_constant_string "Members: Flameburst defender"
+ 2741: push_constant_string "<br>"
+ 2742: push_constant_string " (with 33 Defence)"
+ 2743: join_string 3
+ 2744: push_constant_string "Members can now wield "
+ 2745: push_constant_string "<col=000080>"
+ 2746: push_constant_string "flameburst defenders"
+ 2747: push_constant_string "</col>"
+ 2748: push_constant_string " within Daemonheim. (They also need level 33 Defence.)"
+ 2749: join_string 5
+ 2750: return 0
+ 2751: branch 619
+ 2752: push_constant_int 36
+ 2753: push_constant_int 17275
+ 2754: push_constant_string "Members: Frostbite dagger"
+ 2755: push_constant_string "<br>"
+ 2756: push_constant_string " (with 36 Attack)"
+ 2757: join_string 3
+ 2758: push_constant_string "Members can now wield "
+ 2759: push_constant_string "<col=000080>"
+ 2760: push_constant_string "frostbite daggers"
+ 2761: push_constant_string "</col>"
+ 2762: push_constant_string " within Daemonheim. (They also need level 36 Attack.)"
+ 2763: join_string 5
+ 2764: return 0
+ 2765: branch 605
+ 2766: push_constant_int 40
+ 2767: push_constant_int 17013
+ 2768: push_constant_string "Catalytic staff"
+ 2769: push_constant_string "You can now wield "
+ 2770: push_constant_string "<col=000080>"
+ 2771: push_constant_string "catalytic staves"
+ 2772: push_constant_string "</col>"
+ 2773: push_constant_string " within Daemonheim."
+ 2774: join_string 5
+ 2775: return 0
+ 2776: branch 594
+ 2777: push_constant_int 40
+ 2778: push_constant_int 16743
+ 2779: push_constant_string "Bryll hood (Tier 5)"
+ 2780: push_constant_string "<br>"
+ 2781: push_constant_string " (with 40 Defence)"
+ 2782: join_string 3
+ 2783: push_constant_string "You can now wear "
+ 2784: push_constant_string "<col=000080>"
+ 2785: push_constant_string "bryll hoods"
+ 2786: push_constant_string "</col>"
+ 2787: push_constant_string " within Daemonheim. (You also need level 40 Defence.)"
+ 2788: join_string 5
+ 2789: return 0
+ 2790: branch 580
+ 2791: push_constant_int 40
+ 2792: push_constant_int 17225
+ 2793: push_constant_string "Bryll robe top (Tier 5)"
+ 2794: push_constant_string "<br>"
+ 2795: push_constant_string " (with 40 Defence)"
+ 2796: join_string 3
+ 2797: push_constant_string "You can now wear "
+ 2798: push_constant_string "<col=000080>"
+ 2799: push_constant_string "bryll robe tops"
+ 2800: push_constant_string "</col>"
+ 2801: push_constant_string " within Daemonheim. (You also need level 40 Defence.)"
+ 2802: join_string 5
+ 2803: return 0
+ 2804: branch 566
+ 2805: push_constant_int 40
+ 2806: push_constant_int 16853
+ 2807: push_constant_string "Bryll robe bottom (Tier 5)"
+ 2808: push_constant_string "<br>"
+ 2809: push_constant_string " (with 40 Defence)"
+ 2810: join_string 3
+ 2811: push_constant_string "You can now wear "
+ 2812: push_constant_string "<col=000080>"
+ 2813: push_constant_string "bryll robe bottoms"
+ 2814: push_constant_string "</col>"
+ 2815: push_constant_string " within Daemonheim. (You also need level 40 Defence.)"
+ 2816: join_string 5
+ 2817: return 0
+ 2818: branch 552
+ 2819: push_constant_int 40
+ 2820: push_constant_int 17159
+ 2821: push_constant_string "Bryll gloves (Tier 5)"
+ 2822: push_constant_string "<br>"
+ 2823: push_constant_string " (with 40 Defence)"
+ 2824: join_string 3
+ 2825: push_constant_string "You can now wear "
+ 2826: push_constant_string "<col=000080>"
+ 2827: push_constant_string "bryll gloves"
+ 2828: push_constant_string "</col>"
+ 2829: push_constant_string " within Daemonheim. (You also need level 40 Defence.)"
+ 2830: join_string 5
+ 2831: return 0
+ 2832: branch 538
+ 2833: push_constant_int 40
+ 2834: push_constant_int 16919
+ 2835: push_constant_string "Bryll boots (Tier 5)"
+ 2836: push_constant_string "<br>"
+ 2837: push_constant_string " (with 40 Defence)"
+ 2838: join_string 3
+ 2839: push_constant_string "You can now wear "
+ 2840: push_constant_string "<col=000080>"
+ 2841: push_constant_string "bryll boots"
+ 2842: push_constant_string "</col>"
+ 2843: push_constant_string " within Daemonheim. (You also need level 40 Defence.)"
+ 2844: join_string 5
+ 2845: return 0
+ 2846: branch 524
+ 2847: push_constant_int 50
+ 2848: push_constant_int 16999
+ 2849: push_constant_string "Members: Empowered water staff"
+ 2850: push_constant_string "Members can now wield "
+ 2851: push_constant_string "<col=000080>"
+ 2852: push_constant_string "empowered water staves"
+ 2853: push_constant_string "</col>"
+ 2854: push_constant_string " within Daemonheim."
+ 2855: join_string 5
+ 2856: return 0
+ 2857: branch 513
+ 2858: push_constant_int 50
+ 2859: push_constant_int 16745
+ 2860: push_constant_string "Members: Duskweed hood (Tier 6)"
+ 2861: push_constant_string "<br>"
+ 2862: push_constant_string " (with 50 Defence)"
+ 2863: join_string 3
+ 2864: push_constant_string "Members can now wear "
+ 2865: push_constant_string "<col=000080>"
+ 2866: push_constant_string "duskweed hoods"
+ 2867: push_constant_string "</col>"
+ 2868: push_constant_string " within Daemonheim. (They also need level 50 Defence.)"
+ 2869: join_string 5
+ 2870: return 0
+ 2871: branch 499
+ 2872: push_constant_int 50
+ 2873: push_constant_int 17227
+ 2874: push_constant_string "Members: Duskweed robe top (Tier 6)"
+ 2875: push_constant_string "<br>"
+ 2876: push_constant_string " (with 50 Defence)"
+ 2877: join_string 3
+ 2878: push_constant_string "Members can now wear "
+ 2879: push_constant_string "<col=000080>"
+ 2880: push_constant_string "duskweed robe tops"
+ 2881: push_constant_string "</col>"
+ 2882: push_constant_string " within Daemonheim. (They also need level 50 Defence.)"
+ 2883: join_string 5
+ 2884: return 0
+ 2885: branch 485
+ 2886: push_constant_int 50
+ 2887: push_constant_int 16855
+ 2888: push_constant_string "Members: Duskweed robe bottom (Tier 6)"
+ 2889: push_constant_string "<br>"
+ 2890: push_constant_string " (with 50 Defence)"
+ 2891: join_string 3
+ 2892: push_constant_string "Members can now wear "
+ 2893: push_constant_string "<col=000080>"
+ 2894: push_constant_string "duskweed robe bottoms"
+ 2895: push_constant_string "</col>"
+ 2896: push_constant_string " within Daemonheim. (They also need level 50 Defence.)"
+ 2897: join_string 5
+ 2898: return 0
+ 2899: branch 471
+ 2900: push_constant_int 50
+ 2901: push_constant_int 17161
+ 2902: push_constant_string "Members: Duskweed gloves (Tier 6)"
+ 2903: push_constant_string "<br>"
+ 2904: push_constant_string " (with 50 Defence)"
+ 2905: join_string 3
+ 2906: push_constant_string "Members can now wear "
+ 2907: push_constant_string "<col=000080>"
+ 2908: push_constant_string "duskweed gloves"
+ 2909: push_constant_string "</col>"
+ 2910: push_constant_string " within Daemonheim. (They also need level 50 Defence.)"
+ 2911: join_string 5
+ 2912: return 0
+ 2913: branch 457
+ 2914: push_constant_int 50
+ 2915: push_constant_int 16921
+ 2916: push_constant_string "Members: Duskweed boots (Tier 6)"
+ 2917: push_constant_string "<br>"
+ 2918: push_constant_string " (with 50 Defence)"
+ 2919: join_string 3
+ 2920: push_constant_string "Members can now wear "
+ 2921: push_constant_string "<col=000080>"
+ 2922: push_constant_string "duskweed boots"
+ 2923: push_constant_string "</col>"
+ 2924: push_constant_string " within Daemonheim. (They also need level 50 Defence.)"
+ 2925: join_string 5
+ 2926: return 0
+ 2927: branch 443
+ 2928: push_constant_int 60
+ 2929: push_constant_int 17003
+ 2930: push_constant_string "Members: Empowered earth staff"
+ 2931: push_constant_string "Members can now wield "
+ 2932: push_constant_string "<col=000080>"
+ 2933: push_constant_string "empowered earth staves"
+ 2934: push_constant_string "</col>"
+ 2935: push_constant_string " within Daemonheim."
+ 2936: join_string 5
+ 2937: return 0
+ 2938: branch 432
+ 2939: push_constant_int 60
+ 2940: push_constant_int 16747
+ 2941: push_constant_string "Members: Soulbell hood (Tier 7)"
+ 2942: push_constant_string "<br>"
+ 2943: push_constant_string " (with 60 Defence)"
+ 2944: join_string 3
+ 2945: push_constant_string "Members can now wear "
+ 2946: push_constant_string "<col=000080>"
+ 2947: push_constant_string "soulbell hoods"
+ 2948: push_constant_string "</col>"
+ 2949: push_constant_string " within Daemonheim. (You also need level 60 Defence)."
+ 2950: join_string 5
+ 2951: return 0
+ 2952: branch 418
+ 2953: push_constant_int 60
+ 2954: push_constant_int 17229
+ 2955: push_constant_string "Members: Soulbell robe top (Tier 7)"
+ 2956: push_constant_string "<br>"
+ 2957: push_constant_string " (with 60 Defence)"
+ 2958: join_string 3
+ 2959: push_constant_string "Members can now wear "
+ 2960: push_constant_string "<col=000080>"
+ 2961: push_constant_string "soulbell robe tops"
+ 2962: push_constant_string "</col>"
+ 2963: push_constant_string " within Daemonheim. (They also need level 60 Defence.)"
+ 2964: join_string 5
+ 2965: return 0
+ 2966: branch 404
+ 2967: push_constant_int 60
+ 2968: push_constant_int 16857
+ 2969: push_constant_string "Members: Soulbell robe bottom (Tier 7)"
+ 2970: push_constant_string "<br>"
+ 2971: push_constant_string " (with 60 Defence)"
+ 2972: join_string 3
+ 2973: push_constant_string "Members can now wear "
+ 2974: push_constant_string "<col=000080>"
+ 2975: push_constant_string "soulbell robe bottoms"
+ 2976: push_constant_string "</col>"
+ 2977: push_constant_string " within Daemonheim. (They also need level 60 Defence.)"
+ 2978: join_string 5
+ 2979: return 0
+ 2980: branch 390
+ 2981: push_constant_int 60
+ 2982: push_constant_int 17163
+ 2983: push_constant_string "Members: Soulbell gloves (Tier 7)"
+ 2984: push_constant_string "<br>"
+ 2985: push_constant_string " (with 60 Defence)"
+ 2986: join_string 3
+ 2987: push_constant_string "Members can now wear "
+ 2988: push_constant_string "<col=000080>"
+ 2989: push_constant_string "soulbell gloves"
+ 2990: push_constant_string "</col>"
+ 2991: push_constant_string " within Daemonheim. (They also need level 60 Defence.)"
+ 2992: join_string 5
+ 2993: return 0
+ 2994: branch 376
+ 2995: push_constant_int 60
+ 2996: push_constant_int 16923
+ 2997: push_constant_string "Members: Soulbell boots (Tier 7)"
+ 2998: push_constant_string "<br>"
+ 2999: push_constant_string " (with 60 Defence)"
+ 3000: join_string 3
+ 3001: push_constant_string "Members can now wear "
+ 3002: push_constant_string "<col=000080>"
+ 3003: push_constant_string "soulbell boots"
+ 3004: push_constant_string "</col>"
+ 3005: push_constant_string " within Daemonheim. (They also need level 60 Defence.)"
+ 3006: join_string 5
+ 3007: return 0
+ 3008: branch 362
+ 3009: push_constant_int 68
+ 3010: push_constant_int 17275
+ 3011: push_constant_string "Members: Hailstorm dagger"
+ 3012: push_constant_string "<br>"
+ 3013: push_constant_string " (with 68 Attack)"
+ 3014: join_string 3
+ 3015: push_constant_string "Members can now wield "
+ 3016: push_constant_string "<col=000080>"
+ 3017: push_constant_string "hailstorm daggers"
+ 3018: push_constant_string "</col>"
+ 3019: push_constant_string " within Daemonheim. (They also need level 68 Attack.)"
+ 3020: join_string 5
+ 3021: return 0
+ 3022: branch 348
+ 3023: push_constant_int 68
+ 3024: push_constant_int 17293
+ 3025: push_constant_string "Members: Doomcore staff"
+ 3026: push_constant_string "<br>"
+ 3027: push_constant_string " (with 68 Attack)"
+ 3028: join_string 3
+ 3029: push_constant_string "Members can now wield "
+ 3030: push_constant_string "<col=000080>"
+ 3031: push_constant_string "doomcore staves"
+ 3032: push_constant_string "</col>"
+ 3033: push_constant_string " within Daemonheim. (They also need level 68 Attack.)"
+ 3034: join_string 5
+ 3035: return 0
+ 3036: branch 334
+ 3037: push_constant_int 70
+ 3038: push_constant_int 17007
+ 3039: push_constant_string "Members: Empowered fire staff"
+ 3040: push_constant_string "Members can now wield "
+ 3041: push_constant_string "<col=000080>"
+ 3042: push_constant_string "empowered fire staves"
+ 3043: push_constant_string "</col>"
+ 3044: push_constant_string " within Daemonheim."
+ 3045: join_string 5
+ 3046: return 0
+ 3047: branch 323
+ 3048: push_constant_int 70
+ 3049: push_constant_int 16749
+ 3050: push_constant_string "Members: Ectohood (Tier 8)"
+ 3051: push_constant_string "<br>"
+ 3052: push_constant_string " (with 70 Defence)"
+ 3053: join_string 3
+ 3054: push_constant_string "Members can now wear "
+ 3055: push_constant_string "<col=000080>"
+ 3056: push_constant_string "ectohoods"
+ 3057: push_constant_string "</col>"
+ 3058: push_constant_string " within Daemonheim. (They also need level 70 Defence.)"
+ 3059: join_string 5
+ 3060: return 0
+ 3061: branch 309
+ 3062: push_constant_int 70
+ 3063: push_constant_int 17231
+ 3064: push_constant_string "Members: Ectorobe top (Tier 8)"
+ 3065: push_constant_string "<br>"
+ 3066: push_constant_string " (with 70 Defence)"
+ 3067: join_string 3
+ 3068: push_constant_string "Members can now wear "
+ 3069: push_constant_string "<col=000080>"
+ 3070: push_constant_string "ectorobe tops"
+ 3071: push_constant_string "</col>"
+ 3072: push_constant_string " within Daemonheim. (They also need level 70 Defence.)"
+ 3073: join_string 5
+ 3074: return 0
+ 3075: branch 295
+ 3076: push_constant_int 70
+ 3077: push_constant_int 16859
+ 3078: push_constant_string "Members: Ectorobe bottom (Tier 8)"
+ 3079: push_constant_string "<br>"
+ 3080: push_constant_string " (with 70 Defence)"
+ 3081: join_string 3
+ 3082: push_constant_string "Members can now wear "
+ 3083: push_constant_string "<col=000080>"
+ 3084: push_constant_string "ectorobe bottoms"
+ 3085: push_constant_string "</col>"
+ 3086: push_constant_string " within Daemonheim. (They also need level 70 Defence.)"
+ 3087: join_string 5
+ 3088: return 0
+ 3089: branch 281
+ 3090: push_constant_int 70
+ 3091: push_constant_int 17165
+ 3092: push_constant_string "Members: Ectogloves (Tier 8)"
+ 3093: push_constant_string "<br>"
+ 3094: push_constant_string " (with 70 Defence)"
+ 3095: join_string 3
+ 3096: push_constant_string "Members can now wear "
+ 3097: push_constant_string "<col=000080>"
+ 3098: push_constant_string "ectogloves"
+ 3099: push_constant_string "</col>"
+ 3100: push_constant_string " within Daemonheim. (They also need level 70 Defence.)"
+ 3101: join_string 5
+ 3102: return 0
+ 3103: branch 267
+ 3104: push_constant_int 70
+ 3105: push_constant_int 16925
+ 3106: push_constant_string "Members: Ectoboots (Tier 8)"
+ 3107: push_constant_string "<br>"
+ 3108: push_constant_string " (with 70 Defence)"
+ 3109: join_string 3
+ 3110: push_constant_string "Members can now wear "
+ 3111: push_constant_string "<col=000080>"
+ 3112: push_constant_string "ectoboots"
+ 3113: push_constant_string "</col>"
+ 3114: push_constant_string " within Daemonheim. (They also need level 70 Defence.)"
+ 3115: join_string 5
+ 3116: return 0
+ 3117: branch 253
+ 3118: push_constant_int 80
+ 3119: push_constant_int 17011
+ 3120: push_constant_string "Members: Empowered air staff"
+ 3121: push_constant_string "Members can now wield "
+ 3122: push_constant_string "<col=000080>"
+ 3123: push_constant_string "empowered air staves"
+ 3124: push_constant_string "</col>"
+ 3125: push_constant_string " within Daemonheim."
+ 3126: join_string 5
+ 3127: return 0
+ 3128: branch 242
+ 3129: push_constant_int 80
+ 3130: push_constant_int 16751
+ 3131: push_constant_string "Members: Runic hood (Tier 9)"
+ 3132: push_constant_string "<br>"
+ 3133: push_constant_string " (with 80 Defence)"
+ 3134: join_string 3
+ 3135: push_constant_string "Members can now wear "
+ 3136: push_constant_string "<col=000080>"
+ 3137: push_constant_string "runic hoods"
+ 3138: push_constant_string "</col>"
+ 3139: push_constant_string " within Daemonheim. (They also need level 80 Defence.)"
+ 3140: join_string 5
+ 3141: return 0
+ 3142: branch 228
+ 3143: push_constant_int 80
+ 3144: push_constant_int 17233
+ 3145: push_constant_string "Members: Runic robe top (Tier 9)"
+ 3146: push_constant_string "<br>"
+ 3147: push_constant_string " (with 80 Defence)"
+ 3148: join_string 3
+ 3149: push_constant_string "Members can now wear "
+ 3150: push_constant_string "<col=000080>"
+ 3151: push_constant_string "runic robe tops"
+ 3152: push_constant_string "</col>"
+ 3153: push_constant_string " within Daemonheim. (They also need level 80 Defence.)"
+ 3154: join_string 5
+ 3155: return 0
+ 3156: branch 214
+ 3157: push_constant_int 80
+ 3158: push_constant_int 16861
+ 3159: push_constant_string "Members: Runic robe bottom (Tier 9)"
+ 3160: push_constant_string "<br>"
+ 3161: push_constant_string " (with 80 Defence)"
+ 3162: join_string 3
+ 3163: push_constant_string "Members can now wear "
+ 3164: push_constant_string "<col=000080>"
+ 3165: push_constant_string "runic robe bottoms"
+ 3166: push_constant_string "</col>"
+ 3167: push_constant_string " within Daemonheim. (They also need level 80 Defence.)"
+ 3168: join_string 5
+ 3169: return 0
+ 3170: branch 200
+ 3171: push_constant_int 80
+ 3172: push_constant_int 17167
+ 3173: push_constant_string "Members: Runic gloves (Tier 9)"
+ 3174: push_constant_string "<br>"
+ 3175: push_constant_string " (with 80 Defence)"
+ 3176: join_string 3
+ 3177: push_constant_string "Members can now wear "
+ 3178: push_constant_string "<col=000080>"
+ 3179: push_constant_string "runic gloves"
+ 3180: push_constant_string "</col>"
+ 3181: push_constant_string " within Daemonheim. (They also need level 80 Defence.)"
+ 3182: join_string 5
+ 3183: return 0
+ 3184: branch 186
+ 3185: push_constant_int 80
+ 3186: push_constant_int 16927
+ 3187: push_constant_string "Members: Runic boots (Tier 9)"
+ 3188: push_constant_string "<br>"
+ 3189: push_constant_string " (with 80 Defence)"
+ 3190: join_string 3
+ 3191: push_constant_string "Members can now wear "
+ 3192: push_constant_string "<col=000080>"
+ 3193: push_constant_string "runic boots"
+ 3194: push_constant_string "</col>"
+ 3195: push_constant_string " within Daemonheim. (They also need level 80 Defence.)"
+ 3196: join_string 5
+ 3197: return 0
+ 3198: branch 172
+ 3199: push_constant_int 83
+ 3200: push_constant_int 17293
+ 3201: push_constant_string "Members: Doomcore staff"
+ 3202: push_constant_string "Members can now wield "
+ 3203: push_constant_string "<col=000080>"
+ 3204: push_constant_string "doomcore staves"
+ 3205: push_constant_string "</col>"
+ 3206: push_constant_string " within Daemonheim."
+ 3207: join_string 5
+ 3208: return 0
+ 3209: branch 161
+ 3210: push_constant_int 90
+ 3211: push_constant_int 17015
+ 3212: push_constant_string "Members: Empowered catalytic staff"
+ 3213: push_constant_string "Members can now wield "
+ 3214: push_constant_string "<col=000080>"
+ 3215: push_constant_string "empowered catalytic staves"
+ 3216: push_constant_string "</col>"
+ 3217: push_constant_string " within Daemonheim."
+ 3218: join_string 5
+ 3219: return 0
+ 3220: branch 150
+ 3221: push_constant_int 90
+ 3222: push_constant_int 16753
+ 3223: push_constant_string "Members: Spiritbloom hood (Tier 10)"
+ 3224: push_constant_string "<br>"
+ 3225: push_constant_string " (with 90 Defence)"
+ 3226: join_string 3
+ 3227: push_constant_string "Members can now wear "
+ 3228: push_constant_string "<col=000080>"
+ 3229: push_constant_string "spiritbloom hoods"
+ 3230: push_constant_string "</col>"
+ 3231: push_constant_string " within Daemonheim. (They also need level 90 Defence.)"
+ 3232: join_string 5
+ 3233: return 0
+ 3234: branch 136
+ 3235: push_constant_int 90
+ 3236: push_constant_int 17235
+ 3237: push_constant_string "Members: Spiritbloom robe top (Tier 10)"
+ 3238: push_constant_string "<br>"
+ 3239: push_constant_string " (with 90 Defence)"
+ 3240: join_string 3
+ 3241: push_constant_string "Members can now wear "
+ 3242: push_constant_string "<col=000080>"
+ 3243: push_constant_string "spiritbloom robe tops"
+ 3244: push_constant_string "</col>"
+ 3245: push_constant_string " within Daemonheim. (They also need level 90 Defence.)"
+ 3246: join_string 5
+ 3247: return 0
+ 3248: branch 122
+ 3249: push_constant_int 90
+ 3250: push_constant_int 16863
+ 3251: push_constant_string "Members: Spiritbloom robe bottom (Tier 10)"
+ 3252: push_constant_string "<br>"
+ 3253: push_constant_string " (with 90 Defence)"
+ 3254: join_string 3
+ 3255: push_constant_string "Members can now wear "
+ 3256: push_constant_string "<col=000080>"
+ 3257: push_constant_string "spiritbloom robe bottoms"
+ 3258: push_constant_string "</col>"
+ 3259: push_constant_string " within Daemonheim. (They also need level 90 Defence.)"
+ 3260: join_string 5
+ 3261: return 0
+ 3262: branch 108
+ 3263: push_constant_int 90
+ 3264: push_constant_int 17169
+ 3265: push_constant_string "Members: Spiritbloom gloves (Tier 10)"
+ 3266: push_constant_string "<br>"
+ 3267: push_constant_string " (with 90 Defence)"
+ 3268: join_string 3
+ 3269: push_constant_string "Members can now wear "
+ 3270: push_constant_string "<col=000080>"
+ 3271: push_constant_string "spiritbloom gloves"
+ 3272: push_constant_string "</col>"
+ 3273: push_constant_string " within Daemonheim. (They also need level 90 Defence.)"
+ 3274: join_string 5
+ 3275: return 0
+ 3276: branch 94
+ 3277: push_constant_int 90
+ 3278: push_constant_int 16929
+ 3279: push_constant_string "Members: Spiritbloom boots (Tier 10)"
+ 3280: push_constant_string "<br>"
+ 3281: push_constant_string " (with 90 Defence)"
+ 3282: join_string 3
+ 3283: push_constant_string "Members can now wear "
+ 3284: push_constant_string "<col=000080>"
+ 3285: push_constant_string "spiritbloom boots"
+ 3286: push_constant_string "</col>"
+ 3287: push_constant_string " within Daemonheim. (They also need level 90 Defence.)"
+ 3288: join_string 5
+ 3289: return 0
+ 3290: branch 80
+ 3291: push_constant_int 99
+ 3292: push_constant_int 17015
+ 3293: push_constant_string "Members: Celestial catalytic staff"
+ 3294: push_constant_string "Members can now wield "
+ 3295: push_constant_string "<col=000080>"
+ 3296: push_constant_string "celestial catalytic staves"
+ 3297: push_constant_string "</col>"
+ 3298: push_constant_string " within Daemonheim."
+ 3299: join_string 5
+ 3300: return 0
+ 3301: branch 69
+ 3302: push_constant_int 99
+ 3303: push_constant_int 16755
+ 3304: push_constant_string "Members: Celestial hood (Tier 11)"
+ 3305: push_constant_string "<br>"
+ 3306: push_constant_string " (with 99 Defence)"
+ 3307: join_string 3
+ 3308: push_constant_string "Members can now wear "
+ 3309: push_constant_string "<col=000080>"
+ 3310: push_constant_string "celestial hoods"
+ 3311: push_constant_string "</col>"
+ 3312: push_constant_string " within Daemonheim. (They also need level 99 Defence.)"
+ 3313: join_string 5
+ 3314: return 0
+ 3315: branch 55
+ 3316: push_constant_int 99
+ 3317: push_constant_int 17237
+ 3318: push_constant_string "Members: Celestial robe top (Tier 11)"
+ 3319: push_constant_string "<br>"
+ 3320: push_constant_string " (with 99 Defence)"
+ 3321: join_string 3
+ 3322: push_constant_string "Members can now wear "
+ 3323: push_constant_string "<col=000080>"
+ 3324: push_constant_string "celestial robe tops"
+ 3325: push_constant_string "</col>"
+ 3326: push_constant_string " within Daemonheim. (They also need level 99 Defence.)"
+ 3327: join_string 5
+ 3328: return 0
+ 3329: branch 41
+ 3330: push_constant_int 99
+ 3331: push_constant_int 16865
+ 3332: push_constant_string "Members: Celestial robe bottom (Tier 11)"
+ 3333: push_constant_string "<br>"
+ 3334: push_constant_string " (with 99 Defence)"
+ 3335: join_string 3
+ 3336: push_constant_string "Members can now wear "
+ 3337: push_constant_string "<col=000080>"
+ 3338: push_constant_string "celestial robe bottoms"
+ 3339: push_constant_string "</col>"
+ 3340: push_constant_string " within Daemonheim. (They also need level 99 Defence.)"
+ 3341: join_string 5
+ 3342: return 0
+ 3343: branch 27
+ 3344: push_constant_int 99
+ 3345: push_constant_int 17171
+ 3346: push_constant_string "Members: Celestial gloves (Tier 11)"
+ 3347: push_constant_string "<br>"
+ 3348: push_constant_string " (with 99 Defence)"
+ 3349: join_string 3
+ 3350: push_constant_string "Members can now wear "
+ 3351: push_constant_string "<col=000080>"
+ 3352: push_constant_string "celestial gloves"
+ 3353: push_constant_string "</col>"
+ 3354: push_constant_string " within Daemonheim. (They also need level 99 Defence.)"
+ 3355: join_string 5
+ 3356: return 0
+ 3357: branch 13
+ 3358: push_constant_int 99
+ 3359: push_constant_int 16931
+ 3360: push_constant_string "Members: Celestial boots (Tier 11)"
+ 3361: push_constant_string "<br>"
+ 3362: push_constant_string " (with 99 Defence)"
+ 3363: join_string 3
+ 3364: push_constant_string "Members can now wear "
+ 3365: push_constant_string "<col=000080>"
+ 3366: push_constant_string "celestial boots"
+ 3367: push_constant_string "</col>"
+ 3368: push_constant_string " within Daemonheim. (They also need level 99 Defence.)"
+ 3369: join_string 5
+ 3370: return 0
+ 3371: branch 82
+ 3372: push_int_local 1
+ 3373: switch 8
+ 3374: branch 79
+ 3375: push_constant_int 1
+ 3376: push_constant_int 1907
+ 3377: push_constant_string "Wizard's Mind Bomb"
+ 3378: push_constant_string "<br>"
+ 3379: push_constant_string " will temporarily increase your Magic level by 2 levels."
+ 3380: join_string 3
+ 3381: push_constant_string "<col=000080>"
+ 3382: push_constant_string "Wizard's Mind Bomb"
+ 3383: push_constant_string "</col>"
+ 3384: push_constant_string " will now temporarily increase your Magic level by "
+ 3385: push_constant_string "<col=000080>"
+ 3386: push_constant_string "2 levels"
+ 3387: push_constant_string "</col>"
+ 3388: push_constant_string "."
+ 3389: join_string 8
+ 3390: return 0
+ 3391: branch 62
+ 3392: push_constant_int 50
+ 3393: push_constant_int 1907
+ 3394: push_constant_string "Wizard's Mind Bomb"
+ 3395: push_constant_string "<br>"
+ 3396: push_constant_string " will temporarily increase your Magic level by 3 levels."
+ 3397: join_string 3
+ 3398: push_constant_string "<col=000080>"
+ 3399: push_constant_string "Wizard's Mind Bomb"
+ 3400: push_constant_string "</col>"
+ 3401: push_constant_string " will now temporarily increase your Magic level by "
+ 3402: push_constant_string "<col=000080>"
+ 3403: push_constant_string "3 levels"
+ 3404: push_constant_string "</col>"
+ 3405: push_constant_string "."
+ 3406: join_string 8
+ 3407: return 0
+ 3408: branch 45
+ 3409: push_constant_int 66
+ 3410: push_constant_int 4675
+ 3411: push_constant_string "Members: Magic Guild"
+ 3412: push_constant_string "Members can now enter the "
+ 3413: push_constant_string "<col=000080>"
+ 3414: push_constant_string "Wizard's Guild"
+ 3415: push_constant_string "</col>"
+ 3416: push_constant_string "."
+ 3417: join_string 5
+ 3418: return 0
+ 3419: branch 34
+ 3420: push_constant_int 70
+ 3421: push_constant_int 20704
+ 3422: push_constant_string "Members: access to the Livid Farm (with 60 Agility, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy)"
+ 3423: push_constant_string "Members can access the "
+ 3424: push_constant_string "<col=000080>"
+ 3425: push_constant_string "Livid Farm"
+ 3426: push_constant_string "</col>"
+ 3427: push_constant_string " (with 60 Farming, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy)."
+ 3428: join_string 5
+ 3429: return 0
+ 3430: branch 23
+ 3431: push_constant_int 99
+ 3432: push_constant_int 9762
+ 3433: push_constant_string "Skill mastery"
+ 3434: push_constant_string "<col=000080>"
+ 3435: push_constant_string "Congratulations! You are now a master of "
+ 3436: push_constant_string "<col=800000>"
+ 3437: push_constant_string "Magic"
+ 3438: push_constant_string "<col=000080>"
+ 3439: push_constant_string ". Members can visit the "
+ 3440: push_constant_string "<col=800000>"
+ 3441: push_constant_string "robe store"
+ 3442: push_constant_string "<col=000080>"
+ 3443: push_constant_string " in the "
+ 3444: push_constant_string "<col=800000>"
+ 3445: push_constant_string "Wizards' Guild"
+ 3446: push_constant_string "<col=000080>"
+ 3447: push_constant_string ". They have something special that is only available to true masters of the "
+ 3448: push_constant_string "<col=800000>"
+ 3449: push_constant_string "Magic"
+ 3450: push_constant_string "<col=000080>"
+ 3451: push_constant_string " skill!"
+ 3452: join_string 18
+ 3453: return 0
+ 3454: push_constant_int 0
+ 3455: push_constant_int -1
+ 3456: push_constant_string ""
+ 3457: push_constant_string ""
+ 3458: return 0
+
+switch_0:
+  3 => 1
+  4 => 224
+  5 => 1391
+  6 => 1985
+  7 => 2085
+  8 => 2144
+  9 => 2367
+  10 => 3370
+switch_1:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+  12 => 133
+  13 => 144
+  14 => 155
+  15 => 166
+  16 => 177
+  17 => 188
+  18 => 199
+  19 => 210
+switch_2:
+  0 => 1
+  1 => 15
+  2 => 26
+  3 => 37
+  4 => 46
+  5 => 60
+  6 => 74
+  7 => 88
+  8 => 102
+  9 => 116
+  10 => 130
+  11 => 144
+  12 => 158
+  13 => 172
+  14 => 186
+  15 => 200
+  16 => 211
+  17 => 225
+  18 => 239
+  19 => 253
+  20 => 267
+  21 => 281
+  22 => 295
+  23 => 309
+  24 => 323
+  25 => 337
+  26 => 351
+  27 => 365
+  28 => 379
+  29 => 393
+  30 => 407
+  31 => 421
+  32 => 435
+  33 => 449
+  34 => 463
+  35 => 477
+  36 => 491
+  37 => 505
+  38 => 519
+  39 => 533
+  40 => 547
+  41 => 561
+  42 => 575
+  43 => 589
+  44 => 603
+  45 => 617
+  46 => 628
+  47 => 639
+  48 => 650
+  49 => 661
+  50 => 672
+  51 => 683
+  52 => 694
+  53 => 704
+  54 => 718
+  55 => 732
+  56 => 746
+  57 => 760
+  58 => 774
+  59 => 788
+  60 => 797
+  61 => 806
+  62 => 815
+  63 => 829
+  64 => 843
+  65 => 857
+  66 => 871
+  67 => 885
+  68 => 899
+  69 => 913
+  70 => 927
+  71 => 941
+  72 => 955
+  73 => 969
+  74 => 983
+  75 => 997
+  76 => 1011
+  77 => 1025
+  78 => 1039
+  79 => 1053
+  80 => 1067
+  81 => 1081
+  82 => 1095
+  83 => 1109
+  84 => 1123
+  85 => 1137
+  86 => 1151
+switch_3:
+  0 => 1
+  1 => 12
+  2 => 26
+  3 => 37
+  4 => 48
+  5 => 59
+  6 => 70
+  7 => 81
+  8 => 95
+  9 => 109
+  10 => 123
+  11 => 137
+  12 => 151
+  13 => 165
+  14 => 179
+  15 => 193
+  16 => 207
+  17 => 221
+  18 => 235
+  19 => 249
+  20 => 263
+  21 => 277
+  22 => 291
+  23 => 305
+  24 => 319
+  25 => 333
+  26 => 347
+  27 => 361
+  28 => 372
+  29 => 383
+  30 => 397
+  31 => 411
+  32 => 425
+  33 => 439
+  34 => 453
+  35 => 467
+  36 => 478
+  37 => 489
+  38 => 500
+  39 => 514
+  40 => 525
+  41 => 539
+  42 => 553
+  43 => 564
+  44 => 578
+switch_4:
+  0 => 1
+  1 => 15
+  2 => 26
+  3 => 40
+  4 => 51
+  5 => 62
+  6 => 73
+  7 => 84
+switch_5:
+  0 => 1
+  1 => 15
+  2 => 29
+  3 => 43
+switch_6:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 122
+  12 => 133
+  13 => 144
+  14 => 155
+  15 => 166
+  16 => 177
+  17 => 188
+  18 => 199
+  19 => 210
+switch_7:
+  0 => 1
+  1 => 10
+  2 => 21
+  3 => 32
+  4 => 46
+  5 => 60
+  6 => 74
+  7 => 88
+  8 => 102
+  9 => 113
+  10 => 127
+  11 => 141
+  12 => 155
+  13 => 169
+  14 => 183
+  15 => 194
+  16 => 208
+  17 => 222
+  18 => 236
+  19 => 250
+  20 => 264
+  21 => 275
+  22 => 289
+  23 => 303
+  24 => 317
+  25 => 331
+  26 => 345
+  27 => 356
+  28 => 367
+  29 => 381
+  30 => 395
+  31 => 406
+  32 => 420
+  33 => 434
+  34 => 448
+  35 => 462
+  36 => 476
+  37 => 487
+  38 => 501
+  39 => 515
+  40 => 529
+  41 => 543
+  42 => 557
+  43 => 568
+  44 => 582
+  45 => 596
+  46 => 610
+  47 => 624
+  48 => 638
+  49 => 652
+  50 => 666
+  51 => 677
+  52 => 691
+  53 => 705
+  54 => 719
+  55 => 733
+  56 => 747
+  57 => 758
+  58 => 772
+  59 => 786
+  60 => 800
+  61 => 814
+  62 => 828
+  63 => 839
+  64 => 850
+  65 => 864
+  66 => 878
+  67 => 892
+  68 => 906
+  69 => 920
+  70 => 931
+  71 => 945
+  72 => 959
+  73 => 973
+  74 => 987
+switch_8:
+  0 => 1
+  1 => 18
+  2 => 35
+  3 => 46
+  4 => 57

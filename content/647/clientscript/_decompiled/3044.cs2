@@ -1,0 +1,7 @@
+[clientscript,script_3044](int $int0)(int, int, string)
+if (chat_getfilter_private = -1) {
+    return;
+}
+if_setontimer;
+~script_3045;
+return(-1, $int0, "");

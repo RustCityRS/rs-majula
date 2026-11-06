@@ -1,0 +1,42 @@
+[clientscript,script_2573]
+def_int $int0 = -1;
+switch (%varc_int929) {
+    case 0:
+        $int0 = inv_getobj(inv, %varc_int930);
+    case 1:
+        $int0 = inv_getobj(inv, %varc_int931);
+    case 2:
+        $int0 = inv_getobj(inv, %varc_int932);
+    case 3:
+        $int0 = inv_getobj(inv, %varc_int933);
+    case 4:
+        $int0 = inv_getobj(inv, %varc_int934);
+    case 5:
+        $int0 = inv_getobj(inv, %varc_int935);
+    case 6:
+        $int0 = inv_getobj(inv, %varc_int936);
+    case 7:
+        $int0 = inv_getobj(inv, %varc_int937);
+    case 8:
+        $int0 = inv_getobj(inv, %varc_int938);
+    case 9:
+        $int0 = inv_getobj(inv, %varc_int939);
+    default:
+}
+if ($int0 ! -1) {
+    if (oc_weight(steel_thrownaxe) ! 1) {
+    }
+} else {
+    return;
+}
+if_settext(oc_name($int0));
+if_setobject(-1, 19136624);
+if (oc_weight(steel_thrownaxe) = 1) {
+    ~script_2588;
+    ~script_2591;
+} else {
+    if (oc_weight(mithril_thrownaxe) = 1) {
+        ~script_2597;
+    }
+}
+return;

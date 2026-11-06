@@ -1,0 +1,29 @@
+[clientscript,script_2303]
+if (~script_42(%varc_int182) = 1) {
+    if_setgraphic(49086466);
+    if (%varbit6840 = 1) {
+        if_setop(49086465, "Turn curses off");
+    } else {
+        if_setop(49086465, "Turn prayers off");
+    }
+} else {
+    if_setgraphic(49086466);
+    if (%varbit6840 = 1) {
+        if_setop(49086465, "Turn quick curses on");
+    }
+    if_setop(49086465, "Turn quick prayers on");
+}
+if (getwindowmode >= 2) {
+    if_setgraphic(49086465);
+    if_setposition(1, 0, 0, 49086466);
+    if_setposition(1, 0, 0, 49086467);
+    if_setposition(15, 0, 0, 49086468);
+    if_setposition(7, 0, 0, 49086469);
+} else {
+    if_setgraphic(49086465);
+    if_setposition(1, 0, 0, 49086466);
+    if_setposition(1, 0, 0, 49086467);
+    if_setposition(15, 0, 0, 49086468);
+    if_setposition(7, 0, 0, 49086469);
+}
+return;

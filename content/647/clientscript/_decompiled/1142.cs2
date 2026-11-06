@@ -1,0 +1,39 @@
+[clientscript,script_1142](int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string)
+def_int $int0 = inv_getobj(worn, nulodion_s_notes);
+if ($int0 ! -1) {
+    if (oc_members($int0) = 1) {
+    }
+} else {
+    return(~script_1143(247, 248, 249, -1, "Punch", "Accurate" + "<br>" + "Crush" + "<br>" + "Attack XP", "Kick", "Aggressive" + "<br>" + "Crush" + "<br>" + "Strength XP", "Block", "Defensive" + "<br>" + "Crush" + "<br>" + "Defence XP", "", ""));
+}
+def_int $int1 = oc_weight(rusty_sword);
+switch ($int1) {
+    case 1:
+    case 23:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+    case 24:
+    case 25:
+    case 26:
+    default:
+}
+return;

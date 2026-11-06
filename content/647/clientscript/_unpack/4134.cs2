@@ -1,0 +1,15 @@
+; id: 4134
+int_param_count=4
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: push_int_local 0
+    2: if_setgraphic 0
+    3: push_int_local 3
+    4: push_int_local 2
+    5: if_setgraphic 0
+    6: return 0

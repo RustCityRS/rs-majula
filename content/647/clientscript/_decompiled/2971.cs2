@@ -1,0 +1,87 @@
+[clientscript,script_2971](int $int0, int $int1)
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+def_int $int2 = -1;
+def_int $int3 = -1;
+switch ($int0) {
+    case 0:
+        $str0 = "Nothing.";
+        $str1 = "There are no requirements for building this feature.";
+        $str2 = "This feature is an abscence of anything. Oddly, some creatures prefer the minimalist approach.";
+        $int2 = 62129;
+        $int3 = 30081093;
+    case 1:
+        $str0 = "Pond";
+        $str1 = "You need a Construction level of 65 to build a pond.";
+        $str2 = "Ponds attract creatures with an affinity for water. They are essentially very small, man-made lakes...or glorified puddles, depending on your view.";
+        $int3 = 30081092;
+        $int2 = 62128;
+    case 2:
+        $str0 = "Tall grass";
+        $str1 = "You need a Construction level of 62 to build tall grass.";
+        $str2 = "Tall grass is favoured by creatures who sneak and hide. It's also a favourite with people too lazy to trim their lawn. Essentially, it's a patch of land allowed to grow wild.";
+        $int3 = 30081094;
+        $int2 = 62134;
+    case 3:
+        $str0 = "Abandoned house";
+        $str1 = "You need a Construction level of 57 to build an abandoned house.";
+        $str2 = "Something approximating an abandoned house: popular amongst creatures that think they're domesticated.";
+        $int3 = 30081095;
+        $int2 = 62132;
+    case 4:
+        $str0 = "Thermal vent";
+        $str1 = "You need a Construction level of 59 to build a thermal vent.";
+        $str2 = "A home-made volcano, or, at least, something that looks like one. These are popular among earthy creatures.";
+        $int3 = 30081096;
+        $int2 = 62133;
+    case 5:
+        $str0 = "Standing stones";
+        $str1 = "You need a Construction level of 70 to build standing stones.";
+        $str2 = "A circle of home-made mystical stones, popular among creatures that are more magically inclined.";
+        $int3 = 30081097;
+        $int2 = 62136;
+    case 6:
+        $str0 = "Dark pit";
+        $str1 = "You need a Construction level of 80 to build a dark pit.";
+        $str2 = "A deep, dark, endless pit, popular among the more sinister creatures. Don't look too closely: you might fall in.";
+        $int3 = 30081098;
+        $int2 = 62131;
+    case 7:
+        $str0 = "Boneyard";
+        $str1 = "You need a Construction level of 56 to build a boneyard.";
+        $str2 = "An animal graveyard, or a collection of well-made bone mockeries. Popular among scavengers and sinister creatures.";
+        $int3 = 30081099;
+        $int2 = 62135;
+    default:
+        $str0 = "Unknown";
+        $str1 = "This should not get here.";
+        $str2 = "This should never get here.";
+        $int2 = 62129;
+        $int3 = 30081093;
+}
+~script_2973;
+if (stat(construction) < $int1) {
+    if_setcolour(30081061);
+    $str2 = append($str2, "<br>" + "<br>" + "You can pay Papa Mambo to build this for you.");
+} else {
+    if_setcolour(30081061);
+}
+if_settext($str0);
+if_settext($str1);
+if_settext($str2);
+if_setmodel;
+if_sethide(30081093);
+if_sethide(30081092);
+if_sethide(30081094);
+if_sethide(30081095);
+if_sethide(30081096);
+if_sethide(30081097);
+if_sethide(30081098);
+if_sethide(30081099);
+if ($int3 ! -1) {
+    if_sethide($int3);
+} else {
+    if_sethide(30081093);
+}
+return;

@@ -1,0 +1,79 @@
+; id: 351
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: push_varc_int 197
+    2: branch_equals 4
+    3: push_int_local 0
+    4: push_constant_int 1
+    5: branch_not 1
+    6: branch 1
+    7: return 0
+    8: push_varc_int 196
+    9: gosub_with_params 734
+   10: pop_int_local 2
+   11: push_constant_int 9830
+   12: push_constant_int 1
+   13: push_constant_int 0
+   14: sound_synth 0
+   15: push_constant_int 3278
+   16: pop_int_local 3
+   17: push_constant_int 105
+   18: push_constant_int 74
+   19: push_int_local 3
+   20: push_int_local 1
+   21: push_constant_int 1
+   22: sub 0
+   23: enum 0
+   24: pop_int_local 4
+   25: push_int_local 4
+   26: push_constant_int -1
+   27: branch_equals 1
+   28: branch 11
+   29: push_constant_int 1
+   30: pop_varc_int 197
+   31: push_constant_int 1
+   32: pop_varbit 8089
+   33: push_constant_int 105
+   34: push_constant_int 74
+   35: push_int_local 3
+   36: push_constant_int 0
+   37: enum 0
+   38: pop_int_local 4
+   39: branch 4
+   40: push_int_local 1
+   41: pop_varc_int 197
+   42: push_int_local 1
+   43: pop_varbit 8089
+   44: push_constant_int 0
+   45: push_int_local 4
+   46: op3327 0
+   47: gosub_with_params 734
+   48: gosub_with_params 384
+   49: pop_int_local 5
+   50: push_int_local 5
+   51: push_constant_int -1
+   52: branch_equals 1
+   53: branch 5
+   54: push_constant_int 0
+   55: pop_varc_int 86
+   56: push_constant_int 0
+   57: pop_varbit 8090
+   58: branch 7
+   59: push_constant_int 1
+   60: pop_varc_int 86
+   61: push_constant_int 1
+   62: pop_varbit 8090
+   63: push_int_local 5
+   64: push_int_local 2
+   65: gosub_with_params 359
+   66: push_int_local 2
+   67: gosub_with_params 387
+   68: push_int_local 2
+   69: gosub_with_params 390
+   70: return 0

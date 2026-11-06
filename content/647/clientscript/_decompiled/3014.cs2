@@ -1,0 +1,13 @@
+[clientscript,script_3014]
+if_sethide(59506703);
+if_sethide(59506718);
+def_int $int0 = random(100);
+if ($int0 < 40) {
+    if_settext("Take time to check the second trade window carefully. Don't be scammed!");
+} else {
+    if ($int0 < 70) {
+        if_settext("Never ever believe a player 'trimming' armour, it's a scam so report them!");
+    }
+    if_settext("Did you know having a bank pin can help secure your valuable items?");
+}
+return;

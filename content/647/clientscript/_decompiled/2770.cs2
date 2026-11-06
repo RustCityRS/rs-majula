@@ -1,0 +1,109 @@
+[clientscript,script_2770](int $int0, int $int1)
+switch (%varc_int1007) {
+    case 1:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60298061, $int1), 600, ~script_2764(60298061, $int1), 600, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60298061, $int1), 450, ~script_2764(60298061, $int1), 450, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60298068, $int1), 100, ~script_2764(60298068, $int1), 100, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298073, $int1), 100, ~script_2764(60298073, $int1), 100, 0);
+        cam_startpath(0, 0, 100, 140, 1, 0);
+        if_setontimer;
+    case 2:
+        if_setontimer;
+        cam_allocpath(0, 10);
+        cam_allocpath(1, 10);
+        cam_addwaypoint(0, 0, ~script_2764(60183397, $int1), 400, ~script_2764(60183397, $int1), 420, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60199780, $int1), 400, ~script_2764(60199780, $int1), 420, 128);
+        cam_addwaypoint(0, 2, ~script_2764(60216163, $int1), 400, ~script_2764(60216163, $int1), 420, 0);
+        cam_addwaypoint(0, 3, ~script_2764(60232546, $int1), 400, ~script_2764(60232546, $int1), 420, -128);
+        cam_addwaypoint(0, 4, ~script_2764(60248929, $int1), 400, ~script_2764(60248929, $int1), 420, 0);
+        cam_addwaypoint(0, 5, ~script_2764(60265312, $int1), 400, ~script_2764(60265312, $int1), 420, 128);
+        cam_addwaypoint(0, 6, ~script_2764(60281695, $int1), 400, ~script_2764(60281695, $int1), 420, 0);
+        cam_addwaypoint(0, 7, ~script_2764(60298078, $int1), 400, ~script_2764(60298078, $int1), 420, -128);
+        cam_addwaypoint(0, 8, ~script_2764(60298077, $int1), 400, ~script_2764(60298077, $int1), 420, 0);
+        cam_addwaypoint(0, 9, ~script_2764(60298076, $int1), 400, ~script_2764(60298076, $int1), 420, 128);
+        cam_addwaypoint(0, 10, ~script_2764(60298075, $int1), 400, ~script_2764(60298075, $int1), 420, 0);
+        cam_addwaypoint(1, 0, ~script_2764(60298074, $int1), 400, ~script_2764(60298074, $int1), 400, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298073, $int1), 395, ~script_2764(60298073, $int1), 395, 0);
+        cam_addwaypoint(1, 2, ~script_2764(60298072, $int1), 390, ~script_2764(60298072, $int1), 390, 0);
+        cam_addwaypoint(1, 3, ~script_2764(60298071, $int1), 385, ~script_2764(60298071, $int1), 385, 0);
+        cam_addwaypoint(1, 4, ~script_2764(60298070, $int1), 380, ~script_2764(60298070, $int1), 380, 0);
+        cam_addwaypoint(1, 5, ~script_2764(60298069, $int1), 375, ~script_2764(60298069, $int1), 375, 0);
+        cam_addwaypoint(1, 6, ~script_2764(60298068, $int1), 370, ~script_2764(60298068, $int1), 370, 0);
+        cam_addwaypoint(1, 7, ~script_2764(60298067, $int1), 365, ~script_2764(60298067, $int1), 365, 0);
+        cam_addwaypoint(1, 8, ~script_2764(60298066, $int1), 360, ~script_2764(60298066, $int1), 360, 0);
+        cam_addwaypoint(1, 9, ~script_2764(60298065, $int1), 355, ~script_2764(60298065, $int1), 355, 0);
+        cam_addwaypoint(1, 10, ~script_2764(60298065, $int1), 350, ~script_2764(60298065, $int1), 350, 0);
+        if_setonvarcstringtransmit;
+        cam_startpath(0, 0, 3000, 2500, 1, 0);
+        sound_synth(synth_6645, 1, 0);
+    case 3:
+        if_setonvarcstringtransmit;
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60298070, $int1), 350, ~script_2764(60298070, $int1), 350, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60298070, $int1), 300, ~script_2764(60298070, $int1), 300, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60298078, $int1), 300, ~script_2764(60298078, $int1), 300, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298078, $int1), 350, ~script_2764(60298078, $int1), 350, 0);
+        cam_startpath(0, 0, 60, 50, 1, 0);
+    case 4:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60363602, $int1), 450, ~script_2764(60363601, $int1), 450, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60330828, $int1), 600, ~script_2764(60330829, $int1), 600, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60298065, $int1), 400, ~script_2764(60298066, $int1), 400, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298067, $int1), 350, ~script_2764(60298066, $int1), 350, 0);
+        cam_startpath(0, 0, 250, 200, 1, 0);
+    case 5:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60363601, $int1), 700, ~script_2764(60363601, $int1), 700, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60363601, $int1), 700, ~script_2764(60363601, $int1), 700, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60298062, $int1), 350, ~script_2764(60298061, $int1), 350, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298061, $int1), 150, ~script_2764(60298061, $int1), 350, 0);
+        cam_startpath(0, 0, 100, 100, 1, 0);
+    case 6:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60347213, $int1), 450, ~script_2764(60347214, $int1), 450, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60314446, $int1), 450, ~script_2764(60314446, $int1), 450, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60298065, $int1), 400, ~script_2764(60298066, $int1), 400, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298067, $int1), 400, ~script_2764(60298066, $int1), 400, 0);
+        cam_startpath(0, 0, 60, 60, 1, 0);
+    case 7:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60314446, $int1), 400, ~script_2764(60314445, $int1), 400, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60314444, $int1), 400, ~script_2764(60314445, $int1), 400, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60248909, $int1), 350, ~script_2764(60248909, $int1), 350, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60248909, $int1), 350, ~script_2764(60248909, $int1), 350, 0);
+        cam_startpath(0, 0, 30, 30, 1, 0);
+    case 8:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60363605, $int1), 450, ~script_2764(60363604, $int1), 450, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60347219, $int1), 450, ~script_2764(60363604, $int1), 450, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60330836, $int1), 400, ~script_2764(60314453, $int1), 400, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60298069, $int1), 400, ~script_2764(60314453, $int1), 400, 0);
+        cam_startpath(0, 0, 150, 150, 1, 0);
+    case 9:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60363601, $int1), 500, ~script_2764(60330833, $int1), 500, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60248912, $int1), 700, ~script_2764(60248913, $int1), 700, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60330828, $int1), 250, ~script_2764(60330828, $int1), 250, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60347212, $int1), 250, ~script_2764(60347212, $int1), 250, 0);
+        cam_startpath(0, 0, 30, 30, 1, 0);
+    case 10:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~script_2764(60363593, $int1), 800, ~script_2764(60363593, $int1), 800, 0);
+        cam_addwaypoint(0, 1, ~script_2764(60363591, $int1), 600, ~script_2764(60363591, $int1), 600, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~script_2764(60298064, $int1), 500, ~script_2764(60298064, $int1), 500, 0);
+        cam_addwaypoint(1, 1, ~script_2764(60265298, $int1), 400, ~script_2764(60265298, $int1), 400, 0);
+        cam_startpath(0, 0, 400, 80, 1, 0);
+    default:
+        cam_clear;
+}
+return;

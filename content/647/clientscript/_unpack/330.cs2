@@ -1,0 +1,27 @@
+; id: 330
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 1
+    2: op3327 0
+    3: branch_if_true 1
+    4: branch 4
+    5: push_constant_int 2363
+    6: enum_getoutputcount 0
+    7: pop_int_local 1
+    8: branch 3
+    9: push_constant_int 2132
+   10: enum_getoutputcount 0
+   11: pop_int_local 1
+   12: push_varc_int 784
+   13: gosub_with_params 332
+   14: push_int_local 0
+   15: push_varc_int 784
+   16: push_int_local 1
+   17: gosub_with_params 2366
+   18: return 0

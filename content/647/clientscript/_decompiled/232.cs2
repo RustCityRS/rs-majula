@@ -1,0 +1,19 @@
+[clientscript,script_232]
+if_sethide(38928446);
+if_sethide(38928501);
+if_sethide(38928505);
+if_sethide(38928418);
+if (if_gethide = 0) {
+    if_sethide(38928446);
+} else {
+    if (if_gethide = 0) {
+        if_sethide(38928501);
+    }
+    if (if_gethide = 0) {
+        if_sethide(38928505);
+    }
+    if (if_gethide = 0) {
+        if_sethide(38928418);
+    }
+}
+return;

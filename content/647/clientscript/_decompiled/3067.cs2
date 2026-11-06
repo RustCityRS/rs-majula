@@ -1,0 +1,65 @@
+[clientscript,script_3067](int $int0)(int, int, component, string)
+if (worldlist_fetch = 0) {
+    if_setontimer;
+    return(3067, $int0, 59375777, "i");
+} else {
+    if_setontimer;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $str0 = "";
+def_int $int3 = 0;
+def_string $str1 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $str2 = "";
+def_int $int6 = -1;
+if ($int0 = 1) {
+    $int6 = %varc_int998;
+} else {
+    if ($int0 = 2) {
+        $int6 = %varc_int999;
+    }
+    return;
+}
+$str2 = "";
+$int5 = worldlist_start;
+$int4 = 0;
+$str1 = "";
+$int3 = 0;
+$str0 = "";
+$int2 = 0;
+$int1 = 0;
+def_int $int7 = 0;
+if ($int1 ! -1) {
+    if ($int7 = 0) {
+        if ($int1 = $int6) {
+            $int7 = 1;
+        } else {
+            $str2 = "";
+            $int5 = worldlist_next;
+            $int4 = 0;
+            $str1 = "";
+            $int3 = 0;
+            $str0 = "";
+            $int2 = 0;
+            $int1 = 0;
+        }
+    }
+}
+if ($int0 ! 1) {
+    if ($int0 = 2) {
+    }
+}
+if ($int1 > 0) {
+    if (active_toplevelinterface ! $int1) {
+        if (worldlist_hop($int1, $str2) = 1) {
+            %varc_int547 = 0;
+        } else {
+            ~script_3064(1);
+        }
+    } else {
+    }
+} else {
+}
+return;

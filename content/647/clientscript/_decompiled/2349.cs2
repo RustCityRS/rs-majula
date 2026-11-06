@@ -1,0 +1,9 @@
+[clientscript,script_2349](int $int0, int $int1, int $int2)
+if (~script_19($int1, -1) >= $int2) {
+    if_setcolour($int0);
+    if_settext(tostring($int2) + "/" + tostring($int2));
+} else {
+    if_setcolour($int0);
+    if_settext(~script_20(~script_19($int1, -1)) + "/" + tostring($int2));
+}
+return;

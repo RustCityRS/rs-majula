@@ -1,0 +1,73 @@
+[clientscript,script_1367](int, int, int, int, int, int, int)
+if_settext("Zamorak = " + tostring(%varbit155));
+if_settext(tostring(%varbit145) + " = Saradomin");
+if_settext(tostring(%varp380) + " Min");
+if (%varbit136 = 0) {
+    if_settext("Health: " + tostring(%varbit136) + "%");
+    if_setcolour(3801097);
+} else {
+    if_settext("Health " + tostring(%varbit136) + "%");
+    if_setcolour(3801097);
+}
+if (%varbit143 = 0) {
+    if_settext("Safe");
+    if_setcolour(3801090);
+} else {
+    if (%varbit143 = 1) {
+        if_settext("Taken");
+        if_setcolour(3801090);
+    }
+    if (%varbit143 = 2) {
+        if_settext("Dropped");
+        if_setcolour(3801090);
+    }
+}
+if (%varbit153 = 0) {
+    if_settext("Safe");
+    if_setcolour(3801091);
+} else {
+    if (%varbit153 = 1) {
+        if_settext("Taken");
+        if_setcolour(3801091);
+    }
+    if (%varbit153 = 2) {
+        if_settext("Dropped");
+        if_setcolour(3801091);
+    }
+}
+if (%varbit137 = 1) {
+    if_settext("Unlocked");
+    if_setcolour(3801098);
+} else {
+    if_settext("Locked");
+    if_setcolour(3801098);
+}
+if (%varbit138 = 1) {
+    if_settext("Cleared");
+    if_setcolour(3801099);
+} else {
+    if_settext("Collapsed");
+    if_setcolour(3801099);
+}
+if (%varbit139 = 1) {
+    if_settext("Cleared");
+    if_setcolour(3801100);
+} else {
+    if_settext("Collapsed");
+    if_setcolour(3801100);
+}
+if (%varbit140 = 1) {
+    if_settext("Destroyed");
+    if_setcolour(3801101);
+} else {
+    if_settext("Operational");
+    if_setcolour(3801101);
+}
+if_setobject(-1, 3801092);
+if_setobject(-1, 3801093);
+if_setobject(-1, 3801102);
+if_setobject(-1, 3801103);
+if_setobject(-1, 3801104);
+if_setobject(-1, 3801105);
+if_setobject(-1, 3801106);
+return(18748, 18749, 18750, 18751, 18752, 18753, 18754);

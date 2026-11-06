@@ -1,0 +1,13 @@
+[clientscript,script_2026](int, int, stat, stat, int, int, int, component, int, component, int, component, int, string, string, string)
+if_settextfont(49283076);
+if_settextfont(49283077);
+if_setsize(40, 1, 0, 49283076);
+if_setsize(20, 1, 0, 49283077);
+if_setposition(20, 1, 0, 49283076);
+if_setposition(60, 1, 0, 49283077);
+if_setonmouserepeat;
+if_setonmouseleave;
+op2424;
+if_setcolour(49283077);
+cc_deleteall(49283075);
+return(496, 496, runecrafting, runecrafting, 0, 0, -1, 49283077, -1, 49283077, -1, 49283077, 128, "", "", "");

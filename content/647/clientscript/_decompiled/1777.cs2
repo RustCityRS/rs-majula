@@ -1,0 +1,10 @@
+[clientscript,script_1777]
+if (%varc_int256 = 0) {
+    if_setgraphic(51839107);
+    if_settrans(51839106);
+} else {
+    if_setgraphic(51839107);
+    if_settrans(51839106);
+}
+~script_1784;
+return;

@@ -1,0 +1,17 @@
+; id: 3400
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_string_old 279
+    1: string_length 0
+    2: push_constant_int 0
+    3: branch_less_than_or_equals 1
+    4: branch 1
+    5: return 0
+    6: gosub_with_params 3391
+    7: gosub_with_params 3190
+    8: return 0

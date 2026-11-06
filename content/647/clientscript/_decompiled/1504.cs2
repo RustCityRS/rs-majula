@@ -1,0 +1,10 @@
+[clientscript,script_1504](int $int0, int $int1, int $int2, int $int3, string $str0)(int, string)
+def_int $int4 = 0;
+if (cc_find($int2, $int3) ! 1) {
+    if ($int3 = -1) {
+    }
+} else {
+    $int4 = calc(cc_getwidth - char_isnumeric($int1) / 2);
+    return(~script_1401($int0, $int1, $int4, $str0), ~script_1602($str0));
+}
+return(string_length($str0));

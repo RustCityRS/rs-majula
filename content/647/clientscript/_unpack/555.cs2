@@ -1,0 +1,57 @@
+; id: 555
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 15
+    1: push_varbit 4109
+    2: sub 0
+    3: push_constant_int 6
+    4: multiply 0
+    5: pop_int_local 0
+    6: push_constant_int 0
+    7: push_int_local 0
+    8: push_constant_int 0
+    9: push_constant_int 0
+   10: push_constant_int 40894479
+   11: if_setposition 0
+   12: push_varbit 4109
+   13: tostring 0
+   14: push_constant_int 40894534
+   15: if_settext 0
+   16: push_constant_int 15
+   17: push_varbit 4110
+   18: sub 0
+   19: push_constant_int 6
+   20: multiply 0
+   21: pop_int_local 0
+   22: push_constant_int 0
+   23: push_int_local 0
+   24: push_constant_int 0
+   25: push_constant_int 0
+   26: push_constant_int 40894481
+   27: if_setposition 0
+   28: push_varbit 4110
+   29: tostring 0
+   30: push_constant_int 40894535
+   31: if_settext 0
+   32: push_constant_int 15
+   33: push_varbit 4111
+   34: sub 0
+   35: push_constant_int 6
+   36: multiply 0
+   37: pop_int_local 0
+   38: push_constant_int 0
+   39: push_int_local 0
+   40: push_constant_int 0
+   41: push_constant_int 0
+   42: push_constant_int 40894483
+   43: if_setposition 0
+   44: push_varbit 4111
+   45: tostring 0
+   46: push_constant_int 40894536
+   47: if_settext 0
+   48: return 0

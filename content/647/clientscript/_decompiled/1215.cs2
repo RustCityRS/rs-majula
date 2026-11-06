@@ -1,0 +1,18 @@
+[clientscript,script_1215](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = max(sub($int1, if_getwidth), 1);
+$int2 = min(max($int2, 0), $int4);
+switch ($int3) {
+    case 0:
+        set_clientopt(scale($int2, $int4, 127));
+    case 1:
+        set_clientopt(scale($int2, $int4, 255));
+    case 2:
+        set_clientopt(scale($int2, $int4, 127));
+    case 3:
+        set_clientopt(add(min(scale($int2, $int4, 4), 3), 1));
+    case 4:
+        set_clientopt(scale($int2, $int4, 255));
+        ~script_2007($int0, $int1, 1, 1);
+    default:
+}
+return;

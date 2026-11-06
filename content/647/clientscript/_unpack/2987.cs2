@@ -1,0 +1,21 @@
+; id: 2987
+int_param_count=4
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: push_int_local 0
+    2: if_sethide 0
+    3: push_constant_int 0
+    4: push_int_local 1
+    5: if_sethide 0
+    6: push_constant_int 0
+    7: push_int_local 3
+    8: if_sethide 0
+    9: push_constant_int 1
+   10: push_int_local 2
+   11: if_sethide 0
+   12: return 0

@@ -1,0 +1,12 @@
+[clientscript,script_4388](int $int0, int $int1)
+def_int $int2 = -1;
+def_int $int3 = -1;
+if (ignore_getname = 1) {
+    $int3 = ~script_4384(%varbit9086, %varbit9087, 0);
+    $int2 = ~script_4384(%varbit9086, %varbit9087, 0);
+    if_setgraphic($int0);
+    if_setgraphic($int1);
+    if_setcolour($int0);
+    if_setcolour($int1);
+}
+return;

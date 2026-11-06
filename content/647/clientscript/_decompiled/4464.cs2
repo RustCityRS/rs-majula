@@ -1,0 +1,18 @@
+[clientscript,script_4464](int)
+def_int $int0 = -1;
+if (ignore_getname = 1) {
+    if (clanchannel2_find_affined = 1) {
+        docheat("");
+        $int0 = clanchannel_findname(removetags(""));
+        if ($int0 ! -1) {
+            if (clanchannel2_getuserrank($int0) >= clanchannel_getbyte2) {
+                return(1);
+            }
+        }
+    } else {
+        mes("You must be in a clan to do that.");
+    }
+} else {
+    mes("You must be in a clan to do that.");
+}
+return(0);

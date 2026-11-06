@@ -1,0 +1,28 @@
+[clientscript,script_3384](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int2 = autosetup_begin;
+$int1 = 0;
+~script_2593($int1);
+if ($int1 = 1) {
+    ~script_2700(1, $int0, 1, 0);
+    return;
+}
+%varc_int1240 = 3;
+%varc_int1277 = 0;
+setdesiredtoolkit($int1, 1);
+if ($int0 = 3) {
+    if (login_getint = 1) {
+        ~script_1174(5);
+        if_setontimer;
+    } else {
+        if (~script_3487(1) = 1) {
+            ~script_1174(11);
+        }
+        ~script_1174(11);
+    }
+} else {
+    ~script_2596($int1, getwindowmode, ~script_2692($int1), ~script_2692($int1), $int0);
+}
+return;
+return;

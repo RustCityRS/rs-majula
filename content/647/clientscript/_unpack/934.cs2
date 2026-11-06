@@ -1,0 +1,88 @@
+; id: 934
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_string ""
+    1: pop_string_local 0
+    2: push_int_local 0
+    3: push_constant_int 742
+    4: op4208 0
+    5: pop_int_local 1
+    6: push_int_local 0
+    7: push_constant_int 741
+    8: op4208 0
+    9: switch 0
+   10: branch 56
+   11: push_int_local 1
+   12: branch_if_true 1
+   13: branch 3
+   14: push_constant_string "Rescued 1 dignitary in Recipe for Disaster"
+   15: pop_string_local 0
+   16: branch 6
+   17: push_constant_string "Rescued "
+   18: push_int_local 1
+   19: tostring 0
+   20: push_constant_string " dignitaries in Recipe for Disaster"
+   21: join_string 3
+   22: pop_string_local 0
+   23: push_varbit 1852
+   24: push_int_local 0
+   25: push_constant_int 742
+   26: op4208 0
+   27: push_string_local 0
+   28: gosub_with_params 913
+   29: return 0
+   30: branch 38
+   31: push_varbit 3763
+   32: push_constant_int 2
+   33: push_constant_string "Barbarian spearmaking"
+   34: gosub_with_params 913
+   35: return 0
+   36: branch 32
+   37: push_varbit 4310
+   38: push_constant_int 10
+   39: push_constant_string "Complete: Chaos Tunnels"
+   40: gosub_with_params 913
+   41: return 0
+   42: branch 26
+   43: push_varbit 1990
+   44: push_constant_int 280
+   45: push_constant_string "Part of quest: In Aid of the Myreque"
+   46: gosub_with_params 913
+   47: return 0
+   48: branch 20
+   49: push_varbit 1850
+   50: push_constant_int 4
+   51: push_constant_string "Part of quest: Recipe for Disaster"
+   52: gosub_with_params 913
+   53: return 0
+   54: branch 14
+   55: push_varbit 3550
+   56: push_constant_int 8
+   57: push_constant_string "Part of quest: Another Slice of H.A.M."
+   58: gosub_with_params 913
+   59: return 0
+   60: branch 8
+   61: push_varbit 998
+   62: push_constant_int 7
+   63: push_constant_string "You need to complete the first puzzle in the Elemental Workshop IV Quest."
+   64: gosub_with_params 913
+   65: return 0
+   66: branch 2
+   67: push_constant_string ""
+   68: return 0
+   69: push_constant_string ""
+   70: return 0
+
+switch_0:
+  1 => 1
+  2 => 21
+  3 => 27
+  4 => 33
+  5 => 39
+  6 => 45
+  7 => 51

@@ -1,0 +1,7 @@
+[clientscript,script_1139](int $int0)
+if (%varp172 = 1) {
+    if_settext("Auto Retaliate " + "<br>" + "(Off)");
+} else {
+    if_settext("Auto Retaliate " + "<br>" + "(On)");
+}
+return;

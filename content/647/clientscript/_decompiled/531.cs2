@@ -1,0 +1,69 @@
+[clientscript,script_531](int $int0, int $int1, int $int2, int $int3)(int, int)
+def_int $int4 = -1;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = 0;
+if ($int0 = -1) {
+    return;
+}
+if ($int0 = 19726399) {
+    $int5 = ~script_543(%varbit4090);
+    $int7 = 19726381;
+    $int8 = 19726382;
+}
+if ($int0 = 19726400) {
+    $int5 = ~script_543(%varbit4091);
+    $int7 = 19726383;
+    $int8 = 19726384;
+}
+if ($int0 = 19726401) {
+    $int5 = ~script_543(%varbit4093);
+    $int7 = 19726385;
+    $int8 = 19726386;
+}
+if ($int0 = 19726402) {
+    $int5 = ~script_543(%varbit4095);
+    $int7 = 19726387;
+    $int8 = 19726388;
+}
+if ($int0 = 19726403) {
+    $int5 = ~script_543(%varbit4096);
+    $int7 = 19726389;
+    $int8 = 19726390;
+}
+if ($int0 = 19726404) {
+    $int5 = ~script_543(%varbit4098);
+    $int7 = 19726391;
+    $int8 = 19726392;
+}
+if ($int0 = 19726405) {
+    $int5 = ~script_543(%varbit4100);
+    $int7 = 19726393;
+    $int8 = 19726394;
+}
+if ($int0 = 19726406) {
+    $int5 = ~script_543(%varbit4101);
+    $int7 = 19726395;
+    $int8 = 19726396;
+}
+if ($int0 = 19726407) {
+    $int5 = ~script_543(%varbit4102);
+    $int7 = 19726397;
+    $int8 = 19726398;
+}
+if ($int5 = 1) {
+    $int4 = $int1;
+    $int9 = 0;
+    if_setcolour($int7);
+    if_setcolour($int8);
+} else {
+    $int4 = $int2;
+    $int9 = 1;
+    if_setcolour($int7);
+    if_setcolour($int8);
+}
+if_setgraphic($int0);
+if_sethide($int3);
+return($int4, $int9);

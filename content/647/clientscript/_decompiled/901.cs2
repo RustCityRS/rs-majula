@@ -1,0 +1,4 @@
+[clientscript,script_901](int, int, int, int, int, int, component, component, int, component)
+if_setmodelangle;
+if_setposition(sub(if_gety, 2), 0, 0, 46989326);
+return(0, 0, 0, 0, 1024, 400, 46989326, 46989326, sub(if_getx, 2), 46989326);

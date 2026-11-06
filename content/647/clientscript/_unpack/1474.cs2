@@ -1,0 +1,40 @@
+; id: 1474
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_constant_int 49938547
+    2: if_sethide 0
+    3: push_constant_int 1
+    4: push_constant_int 49938548
+    5: if_sethide 0
+    6: push_constant_int 1423
+    7: push_constant_int 49938450
+    8: if_setgraphic 0
+    9: push_constant_int 1431
+   10: push_constant_int 49938449
+   11: if_setgraphic 0
+   12: push_varbit 4893
+   13: branch_if_false 1
+   14: branch 1
+   15: gosub_with_params 1456
+   16: push_constant_int 1
+   17: gosub_with_params 1463
+   18: push_constant_string ""
+   19: pop_varc_string_old 138
+   20: push_constant_int 11
+   21: gosub_with_params 1548
+   22: push_constant_int 0
+   23: pop_varc_int 188
+   24: push_constant_string "Bank of RuneScape"
+   25: push_constant_int 49938477
+   26: if_settext 0
+   27: push_constant_int -1
+   28: push_constant_string ""
+   29: push_constant_int 49938449
+   30: op2408 0
+   31: return 0

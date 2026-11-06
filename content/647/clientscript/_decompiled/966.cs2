@@ -1,0 +1,7 @@
+[clientscript,script_966](int $int0, int $int1)
+def_int $int2 = if_getmodelangle_z($int0);
+if ($int2 ! $int1) {
+    if_setmodelangle;
+    %varc_int125 = clientclock;
+}
+return;

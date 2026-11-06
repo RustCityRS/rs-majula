@@ -1,0 +1,104 @@
+; id: 4285
+int_param_count=5
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: if_gettext 0
+    2: pop_varc_string_old 348
+    3: push_int_local 3
+    4: switch 0
+    5: branch 32
+    6: push_constant_string ""
+    7: push_varc_string_old 348
+    8: compare 0
+    9: push_constant_int 0
+   10: branch_not 1
+   11: branch 1
+   12: gosub_with_params 4288
+   13: branch 35
+   14: op5102 0
+   15: branch_if_false 1
+   16: branch 1
+   17: return 0
+   18: push_int_local 3
+   19: push_varc_int 1504
+   20: push_varc_string_old 348
+   21: gosub_with_params 1553
+   22: pop_int_discard 0
+   23: branch 25
+   24: push_varc_string_old 348
+   25: string_length 0
+   26: push_constant_int 0
+   27: branch_greater_than 1
+   28: branch 8
+   29: push_varc_string_old 348
+   30: push_constant_int 0
+   31: push_varc_string_old 348
+   32: string_length 0
+   33: push_constant_int 1
+   34: sub 0
+   35: op4118 0
+   36: pop_varc_string_old 348
+   37: branch 11
+   38: push_varc_string_old 348
+   39: string_length 0
+   40: push_constant_int 20
+   41: branch_less_than 1
+   42: branch 6
+   43: push_varc_string_old 348
+   44: push_constant_int 0
+   45: push_int_local 3
+   46: push_int_local 2
+   47: gosub_with_params 74
+   48: pop_varc_string_old 348
+   49: push_varc_int 1504
+   50: push_varc_string_old 348
+   51: push_constant_int 5631
+   52: push_int_local 0
+   53: push_constant_int -1
+   54: gosub_with_params 1552
+   55: pop_varc_int 1504
+   56: push_varc_int 1504
+   57: push_int_local 4
+   58: if_gety 0
+   59: push_constant_int 0
+   60: push_constant_int 0
+   61: push_int_local 4
+   62: if_setposition 0
+   63: push_varc_string_old 348
+   64: string_length 0
+   65: tostring 0
+   66: push_constant_string "/20"
+   67: join_string 2
+   68: push_int_local 1
+   69: if_settext 0
+   70: push_varc_string_old 348
+   71: string_length 0
+   72: push_constant_int 15
+   73: branch_greater_than_or_equals 1
+   74: branch 4
+   75: push_constant_int 14483456
+   76: push_int_local 1
+   77: if_setcolour 0
+   78: branch 3
+   79: push_constant_int 2039065
+   80: push_int_local 1
+   81: if_setcolour 0
+   82: push_varc_string_old 348
+   83: push_int_local 0
+   84: if_settext 0
+   85: return 0
+
+switch_0:
+  84 => 1
+  96 => 9
+  97 => 9
+  98 => 9
+  99 => 9
+  102 => 9
+  103 => 9
+  85 => 19

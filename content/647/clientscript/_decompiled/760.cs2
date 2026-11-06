@@ -1,0 +1,26 @@
+[clientscript,script_760](int $int0, int $int1, int $int2, int $int3, string $str0, string $str1, string $str2, string $str3, string $str4, string $str5)
+if (cc_find($int2, $int3) = 1) {
+    if ($int0 ! -1) {
+        cc_setobject($int0, -1);
+        cc_setopbase(oc_name($int1));
+        cc_setop(1, $str0);
+        cc_setop(2, $str1);
+        cc_setop(3, $str2);
+        cc_setop(4, $str3);
+        cc_setop(5, $str4);
+        cc_setop(6, "Examine" + "<col=ff9040>");
+        cc_setop(7, $str5);
+        cc_setgraphicshadow;
+        cc_setoutline;
+    }
+    cc_setobject(-1, 0);
+    cc_setopbase("");
+    cc_setop(1, "");
+    cc_setop(2, "");
+    cc_setop(3, "");
+    cc_setop(4, "");
+    cc_setop(5, "");
+    cc_setop(6, "");
+    cc_setop(7, "");
+}
+return;

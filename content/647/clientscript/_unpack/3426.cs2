@@ -1,0 +1,18 @@
+; id: 3426
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 73
+    1: push_constant_int 115
+    2: push_constant_int 3063
+    3: push_int_local 0
+    4: enum 0
+    5: pop_string_local 0
+    6: push_string_local 0
+    7: push_constant_int 3932252
+    8: if_settext 0
+    9: return 0

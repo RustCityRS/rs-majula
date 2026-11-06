@@ -1,0 +1,80 @@
+; id: 3360
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_var 448
+    1: switch 0
+    2: push_constant_int 5
+    3: push_constant_string "Aptitude (Tier 1)"
+    4: push_constant_int 18057
+    5: return 0
+    6: branch 49
+    7: push_constant_int 5
+    8: push_constant_string "Aptitude (Tier 1)"
+    9: push_constant_int 18057
+   10: return 0
+   11: branch 44
+   12: push_constant_int 15
+   13: push_constant_string "Aptitude (Tier 2)"
+   14: push_constant_int 18058
+   15: return 0
+   16: branch 39
+   17: push_constant_int 25
+   18: push_constant_string "Aptitude (Tier 3)"
+   19: push_constant_int 18059
+   20: return 0
+   21: branch 34
+   22: push_constant_int 35
+   23: push_constant_string "Aptitude (Tier 4)"
+   24: push_constant_int 18060
+   25: return 0
+   26: branch 29
+   27: push_constant_int 45
+   28: push_constant_string "Aptitude (Tier 5)"
+   29: push_constant_int 18061
+   30: return 0
+   31: branch 24
+   32: push_constant_int 55
+   33: push_constant_string "Aptitude (Tier 6)"
+   34: push_constant_int 18062
+   35: return 0
+   36: branch 19
+   37: push_constant_int 65
+   38: push_constant_string "Aptitude (Tier 7)"
+   39: push_constant_int 18063
+   40: return 0
+   41: branch 14
+   42: push_constant_int 75
+   43: push_constant_string "Aptitude (Tier 8)"
+   44: push_constant_int 18064
+   45: return 0
+   46: branch 9
+   47: push_constant_int 85
+   48: push_constant_string "Aptitude (Tier 9)"
+   49: push_constant_int 18065
+   50: return 0
+   51: branch 4
+   52: push_constant_int 95
+   53: push_constant_string "Aptitude (Tier 10)"
+   54: push_constant_int 18066
+   55: return 0
+   56: push_constant_int 0
+   57: push_constant_string ""
+   58: push_constant_int -1
+   59: return 0
+
+switch_0:
+  17955 => 5
+  17956 => 10
+  17957 => 15
+  17958 => 20
+  17959 => 25
+  17960 => 30
+  17961 => 35
+  17962 => 40
+  17963 => 45
+  17964 => 50

@@ -1,0 +1,14 @@
+[clientscript,script_923](int $int0, string $str0, string $str1, string $str2)
+def_int $int1 = paraheight($str0, 494);
+def_int $int2 = paraheight($str1, 494);
+if ($int2 > $int1) {
+    $int1 = $int2;
+}
+$int2 = paraheight($str2, 494);
+if ($int2 > $int1) {
+    $int1 = $int2;
+}
+~script_924($int1, 0, 0, 494, $str0);
+~script_924($int1, 1, 0, 494, $str1);
+~script_924($int1, 2, 1, 494, $str2);
+return;

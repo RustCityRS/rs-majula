@@ -1,0 +1,22 @@
+[clientscript,script_3003](int $int0)(int, int, int, int, string)
+if (enum(105, 73, enum_942, $int0) = -1) {
+    return;
+}
+def_int $int1 = -1;
+if (if_getheight > 30) {
+    $int1 = 0;
+} else {
+    if (if_getheight > 30) {
+        $int1 = 1;
+    }
+    if (if_getheight > 30) {
+        $int1 = 2;
+    }
+    if (if_getheight > 30) {
+        $int1 = 3;
+    }
+}
+if ($int0 = $int1) {
+    return;
+}
+return(~script_3004($int1, $int0));

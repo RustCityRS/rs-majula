@@ -1,0 +1,15 @@
+[clientscript,script_3491](int $int0)(int)
+def_int $int1 = $int0;
+switch ($int0) {
+    case 65077432:
+        $int1 = 65077505;
+    case 65077433:
+        $int1 = 65077490;
+    case 65077434:
+        $int1 = 65077475;
+    case 65077435:
+        $int1 = 65077460;
+    default:
+}
+if_settrans($int1);
+return(255);

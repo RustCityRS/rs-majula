@@ -1,0 +1,7 @@
+[clientscript,script_2932](int $int0, string $str0, string $str1)
+if (compare($str0, "") ! 0) {
+    if (compare($str1, "") ! 0) {
+        logout_url($int0, "loginapplet/loginapplet.ws?ssl=1&expired=0&mod=" + $str0 + "&dest=" + $str1);
+    }
+}
+return;

@@ -1,0 +1,34 @@
+[clientscript,script_4114](int, component, int, component, int)
+~script_662(0);
+~script_662(1);
+~script_662(2);
+~script_662(3);
+~script_662(4);
+~script_662(5);
+def_int $int0 = inv_getobj(inv_540, dwarf_remains);
+if ($int0 = -1) {
+    if_sethide(7143469);
+    if_setsize(225, 0, 0, 7143425);
+    if_setsize(225, 0, 0, 7143424);
+    return(1, 7143425, if_getwidth, 7143425, if_getwidth);
+}
+if_sethide(7143469);
+if_setsize(305, 0, 0, 7143425);
+if_setsize(305, 0, 0, 7143424);
+if_setobject(-1, 7143482);
+if_setopbase;
+def_string $str0 = "Lent item";
+def_string $str1 = "Still on loan";
+if_settext($str0);
+if (%varp1267 ! -1) {
+    if_settrans(7143482);
+    if_setcolour(7143483);
+    if_setop(7143482, "Demand");
+}
+if_settrans(7143482);
+if_setcolour(7143483);
+$str1 = "Available";
+if_setop(7143482, "Reclaim");
+if_settext($str1);
+if_setsize(if_getheight, 0, 0, 7143469);
+return(7143483, max(char_isnumeric(495), char_isnumeric(494)), add(max(7143482, if_getwidth), 30), 7143469, $str0, $str1);

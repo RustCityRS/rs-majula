@@ -1,0 +1,26 @@
+[clientscript,script_1126](int $int0)
+%varc_int993 = 0;
+switch ($int0) {
+    case 12582914:
+        ~script_41(12583008);
+        if (%varbit2668 = 0) {
+            if_setgraphic($int0);
+        }
+    case 12648466:
+        ~script_41(12648501);
+        if (%varbit2668 = 0) {
+            if_setgraphic($int0);
+        }
+    case 28180500:
+        ~script_41(28180544);
+        if (%varbit2668 = 0) {
+            if_setgraphic($int0);
+        }
+    case 62259202:
+        ~script_41(62259272);
+        if (%varbit2668 = 0) {
+            if_setgraphic($int0);
+        }
+    default:
+}
+return;

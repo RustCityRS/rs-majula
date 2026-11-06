@@ -1,0 +1,8 @@
+[clientscript,script_714](int $int0)(int, int, stat, int, int, string)
+cc_setposition(0, $int0, 5, 4);
+cc_setgraphic(937);
+cc_setsize(10, 32, 0, 0);
+cc_setposition2(0, 0, 1, 1);
+cc_sethide(0);
+cc_setontimer;
+return(144, $int0, ranged, clientclock, add(clientclock, 750), "Iiii");

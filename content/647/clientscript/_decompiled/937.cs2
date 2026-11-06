@@ -1,0 +1,29 @@
+[clientscript,script_937](int, int, int, component, string)
+cc_deleteall(21954592);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 4;
+def_int $int3 = 7;
+if (if_getscrollwidth > 0) {
+    $int0 = calc(if_getscrollwidth - 36 * $int2 / $int2 - 1);
+} else {
+    $int0 = calc(if_getwidth - 36 * $int2 / $int2 - 1);
+}
+if (if_getscrollheight > 0) {
+    $int1 = calc(if_getscrollheight - 32 * $int3 / $int3 - 1);
+} else {
+    $int1 = calc(if_getheight - 32 * $int3 / $int3 - 1);
+}
+def_int $int4 = 0;
+def_int $int5 = -1;
+if ($int4 < inv_size(tradeoffer)) {
+    cc_setposition(0, 21954592, 3, $int4);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(calc(36 + $int0 * $int4 % $int2), calc($int4 / $int2 * 32 + $int1), 0, 0);
+    cc_setfill(1);
+    cc_setcolour(16711680);
+    cc_settrans(255);
+    $int4 = add($int4, 1);
+}
+if_setoninvtransmit;
+return(938, 90, 1, 21954592, "Y");

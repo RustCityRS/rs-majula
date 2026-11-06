@@ -1,0 +1,45 @@
+[clientscript,script_1696](int $int0)(int)
+switch ($int0) {
+    case 0:
+        if (%varbit6830 > 0) {
+            return(4);
+        }
+        if (%varbit6821 > 0) {
+            return(1);
+        }
+        return(0);
+    case 2:
+        if (%varbit6834 > 0) {
+            return(4);
+        }
+        if (%varbit6821 > 0) {
+            return(1);
+        }
+        return(0);
+    case 1:
+        if (%varbit6833 > 0) {
+            return(4);
+        }
+        if (%varbit6821 > 0) {
+            return(1);
+        }
+        return(0);
+    case 4:
+        if (%varbit6831 > 0) {
+            return(4);
+        }
+        if (%varbit6822 > 0) {
+            return(1);
+        }
+        return(0);
+    case 6:
+        if (%varbit6832 > 0) {
+            return(4);
+        }
+        if (%varbit6823 > 0) {
+            return(1);
+        }
+        return(0);
+    default:
+}
+return(0);

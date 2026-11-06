@@ -1,0 +1,15 @@
+[clientscript,script_1523]
+if (%varbit4895 = 2) {
+    cc_setposition(0, 18022409, 4, 0);
+    cc_setposition2(0, -2, 0, 0);
+    cc_setsize(102, 23, 0, 0);
+    cc_settextfont(645);
+    cc_settextalign(0, 1, 0);
+    cc_settext("Back");
+    cc_setcolour(4600330);
+    cc_settextshadow(0);
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    if_setop(18022409, "Back to Index");
+}
+return;

@@ -1,0 +1,11 @@
+[clientscript,script_3077](int $int0, int $int1, int $int2, int $int3, int $int4)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string)
+cc_setsize(32, 32, 1, 0);
+cc_setposition2(0, 0, 2, 0);
+cc_sethide(1);
+cc_setsize(32, 32, 1, 0);
+cc_sethide(1);
+cc_setposition2(0, 0, 2, 0);
+cc_sethide(1);
+if_setonmouseover;
+if_setonmouseleave;
+return(~script_2994($int0, 0, 16, 32, 0, 0, $int1, 0, 0, 0, 0), ~script_2994($int0, 0, 16, 32, 0, 0, $int1, 0, 0, 0, 0), ~script_2994($int0, 0, 16, 32, 0, 0, $int1, 0, 0, 0, 0), ~script_2994($int0, 1, 32, 32, 16, 0, $int2, 0, 0, 0, 0), ~script_2994($int0, 1, 32, 32, 16, 0, $int2, 0, 0, 0, 0), ~script_2994($int0, 1, 32, 32, 16, 0, $int2, 0, 0, 0, 0), ~script_2994($int0, 2, 16, 32, 0, 0, $int1, 1, 0, 0, 0), ~script_2994($int0, 2, 16, 32, 0, 0, $int1, 1, 0, 0, 0), ~script_2994($int0, 2, 16, 32, 0, 0, $int1, 1, 0, 0, 0), ~script_2994($int0, 3, 16, 32, 0, 0, $int3, 0, 0, 0, 0), ~script_2994($int0, 3, 16, 32, 0, 0, $int3, 0, 0, 0, 0), ~script_2994($int0, 3, 16, 32, 0, 0, $int3, 0, 0, 0, 0), ~script_2994($int0, 4, 32, 32, 16, 0, $int4, 0, 0, 0, 0), ~script_2994($int0, 4, 32, 32, 16, 0, $int4, 0, 0, 0, 0), ~script_2994($int0, 4, 32, 32, 16, 0, $int4, 0, 0, 0, 0), ~script_2994($int0, 5, 16, 32, 0, 0, $int3, 1, 0, 0, 0), ~script_2994($int0, 5, 16, 32, 0, 0, $int3, 1, 0, 0, 0), ~script_2994($int0, 5, 16, 32, 0, 0, $int3, 1, 0, 0, 0), 3078, $int0, $int0, 3080, $int0, $int0, "I", "I");

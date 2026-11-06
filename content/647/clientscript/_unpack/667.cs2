@@ -1,0 +1,36 @@
+; id: 667
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: push_int_local 2
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 22
+    5: push_constant_int 1
+    6: cc_setfill 0
+    7: push_constant_int 0
+    8: push_constant_int 0
+    9: push_constant_int 1
+   10: push_constant_int 1
+   11: cc_setsize 0
+   12: push_constant_int 0
+   13: push_constant_int 0
+   14: push_constant_int 1
+   15: push_constant_int 1
+   16: cc_setposition2 0
+   17: push_constant_int 0
+   18: cc_settrans 0
+   19: push_constant_int 668
+   20: clientclock 0
+   21: push_int_local 0
+   22: add 0
+   23: push_int_local 1
+   24: push_int_local 2
+   25: push_constant_string "iIi"
+   26: cc_setontimer 0
+   27: return 0

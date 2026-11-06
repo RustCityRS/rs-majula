@@ -1,0 +1,18 @@
+; id: 4413
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: op3700 0
+    1: branch_if_true 1
+    2: branch 2
+    3: gosub_with_params 4415
+    4: branch 4
+    5: push_constant_int 4414
+    6: push_constant_string ""
+    7: push_constant_int 72548522
+    8: op2431 0
+    9: return 0

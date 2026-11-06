@@ -1,0 +1,32 @@
+[clientscript,script_111](int, int, int, int, int, string, string)
+if (%varc_int1413 = 0) {
+    return;
+}
+if (%varc_int11 = 1) {
+    ~script_675;
+}
+if (getwindowmode >= 2) {
+    if_sethide(48889925);
+}
+if_sethide(49283075);
+if_sethide(49283079);
+if_sethide(49283080);
+if_settext("Enter the player name whose channel you wish to join:");
+%varc_int5 = 10;
+if_setonclick;
+if_setonkey;
+cc_setposition(49283077, 49283075, 4, 0);
+if (%varc_int1027 = 1) {
+    if (string_length(%varc_str202) > 0) {
+        cc_settext("Last name entered: " + %varc_str202);
+    }
+} else {
+    %varc_str202 = removetags(chat_playername);
+    %varc_int1027 = 1;
+    cc_settext("Your name: " + %varc_str202);
+}
+cc_setop(1, "Use:");
+cc_setopbase("<col=ff9040>" + removetags(%varc_str202) + "</col>");
+cc_setonop;
+~script_1188;
+return(2753, %varc_int5, -2147483644, -2147483645, -2147483643, %varc_str202, "iiIis");

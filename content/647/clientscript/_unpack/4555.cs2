@@ -1,0 +1,99 @@
+; id: 4555
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: op3612 0
+    1: push_constant_int 0
+    2: branch_less_than_or_equals 3
+    3: op6900 0
+    4: branch_if_true 1
+    5: branch 1
+    6: return 0
+    7: push_int_local 0
+    8: switch 0
+    9: branch 68
+   10: op3612 0
+   11: push_constant_int 0
+   12: branch_greater_than 1
+   13: branch 10
+   14: push_varc_string_old 349
+   15: string_length 0
+   16: push_constant_int 0
+   17: branch_greater_than 1
+   18: branch 4
+   19: push_constant_int 1
+   20: op5006 0
+   21: push_varc_string_old 349
+   22: op5008 0
+   23: branch 4
+   24: push_constant_int 11
+   25: push_constant_int 0
+   26: push_constant_string "You are not in a Friends Chat Channel."
+   27: op3114 0
+   28: push_constant_string ""
+   29: pop_varc_string_old 349
+   30: push_varc_string_old 349
+   31: op4111 0
+   32: push_constant_int 38600731
+   33: if_settext 0
+   34: push_varc_string_old 349
+   35: string_length 0
+   36: pop_varc_int 1507
+   37: push_constant_int 38600731
+   38: push_constant_int 38600732
+   39: push_varc_string_old 349
+   40: gosub_with_params 4571
+   41: branch 36
+   42: push_int_local 0
+   43: push_varc_int 1507
+   44: push_varc_string_old 349
+   45: gosub_with_params 1553
+   46: pop_varc_int 1507
+   47: push_constant_int 38600731
+   48: push_constant_int 38600732
+   49: push_varc_string_old 349
+   50: gosub_with_params 4571
+   51: branch 26
+   52: push_int_local 1
+   53: op4113 0
+   54: branch_if_true 7
+   55: push_int_local 0
+   56: push_constant_int 85
+   57: branch_equals 4
+   58: push_int_local 0
+   59: push_constant_int 101
+   60: branch_equals 1
+   61: branch 16
+   62: push_varc_int 1507
+   63: push_varc_string_old 349
+   64: push_constant_int 0
+   65: push_int_local 0
+   66: push_int_local 1
+   67: gosub_with_params 802
+   68: pop_varc_int 1507
+   69: pop_varc_string_old 349
+   70: push_varc_string_old 349
+   71: op4111 0
+   72: push_constant_int 38600731
+   73: if_settext 0
+   74: push_constant_int 38600731
+   75: push_constant_int 38600732
+   76: push_varc_string_old 349
+   77: gosub_with_params 4571
+   78: return 0
+
+switch_0:
+  84 => 1
+  96 => 33
+  97 => 33
+  98 => 33
+  99 => 33
+  102 => 33
+  103 => 33
+  -1 => 43
+  85 => 43
+  101 => 43

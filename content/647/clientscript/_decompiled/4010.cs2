@@ -1,0 +1,48 @@
+[clientscript,script_4010](int $int0)
+switch ($int0) {
+    case 0:
+        if_setgraphic(69206032);
+        if_setgraphic(69206034);
+        if_setgraphic(69206033);
+        if_setgraphic(69206027);
+        if_setgraphic(69206029);
+        if_setgraphic(69206028);
+        if_setgraphic(69206047);
+        if_setgraphic(69206049);
+        if_setgraphic(69206048);
+        if_setgraphic(69206037);
+        if_setgraphic(69206039);
+        if_setgraphic(69206038);
+        if_setgraphic(69206060);
+        if_setgraphic(69206062);
+        if_setgraphic(69206061);
+        if_setgraphic(69206055);
+        if_setgraphic(69206057);
+        if_setgraphic(69206056);
+    case 1:
+        if_setgraphic(69206032);
+        if_setgraphic(69206034);
+        if_setgraphic(69206033);
+    case 2:
+        if_setgraphic(69206027);
+        if_setgraphic(69206029);
+        if_setgraphic(69206028);
+    case 3:
+        if_setgraphic(69206047);
+        if_setgraphic(69206049);
+        if_setgraphic(69206048);
+    case 4:
+        if_setgraphic(69206037);
+        if_setgraphic(69206039);
+        if_setgraphic(69206038);
+    case 5:
+        if_setgraphic(69206060);
+        if_setgraphic(69206062);
+        if_setgraphic(69206061);
+    case 6:
+        if_setgraphic(69206055);
+        if_setgraphic(69206057);
+        if_setgraphic(69206056);
+    default:
+}
+return;

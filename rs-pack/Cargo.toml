@@ -34,7 +34,6 @@ serde = { workspace = true }
 image = { version = "0.25", default-features = false, features = ["png"] }
 rayon = "1"
 rs-crypto = { workspace = true }
-ureq = { workspace = true }
 
 [build-dependencies]
 rs-ver = { workspace = true }

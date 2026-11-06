@@ -1,0 +1,10 @@
+[clientscript,script_677](int $int0)
+if ($int0 <= 9) {
+    if_setscrollsize(358, 225, 10223618);
+    if_sethide(10223617);
+} else {
+    if_sethide(10223617);
+    if_setscrollsize(358, calc($int0 * 20 + 30), 10223618);
+    ~script_72(10223617, 10223618, 0);
+}
+return;

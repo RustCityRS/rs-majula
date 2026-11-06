@@ -1,0 +1,17 @@
+[clientscript,script_514]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (getwindowmode >= 2) {
+    $int0 = if_getwidth;
+    $int1 = if_getheight;
+    if (%varc_int51 < $int0) {
+        %varc_int51 = add(%varc_int51, 15);
+        if_setsize($int1, 0, 0, 39976961);
+    }
+} else {
+    if (%varc_int51 < 512) {
+        %varc_int51 = add(%varc_int51, 15);
+        if_setsize(334, 0, 0, 39976961);
+    }
+}
+return;

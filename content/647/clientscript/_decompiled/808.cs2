@@ -1,0 +1,46 @@
+[clientscript,script_808]
+if_sethide(49020935);
+def_int $int0 = scale(%varbit7198, ~script_2916, 100);
+def_int $int1 = mod(clientclock, 32);
+if ($int0 > 25) {
+    %varc_int615 = 0;
+    if (~script_2916 < 200) {
+        if (%varbit7198 < 45) {
+            if ($int0 < 100) {
+                if (stat_base(hitpoints) > 0) {
+                    ~script_1888;
+                }
+            }
+        }
+    } else {
+        %varc_int1025 = 0;
+    }
+    if (if_gettrans(49020935) ! 0) {
+        if_settrans(49020935);
+    } else {
+        return;
+    }
+} else {
+    if ($int1 = 1) {
+        if (%varc_int615 <= 0) {
+            %varc_int615 = clientclock;
+        }
+        if (sub(clientclock, %varc_int615) < 1500) {
+            sound_synth(synth_5644, 1, 0);
+        }
+        if (stat_base(hitpoints) > 0) {
+            ~script_1888;
+        }
+    }
+    if ($int1 < 8) {
+        if_settrans(49020935);
+    }
+    if ($int1 < 16) {
+        if_settrans(49020935);
+    }
+    if ($int1 < 24) {
+        if_settrans(49020935);
+    }
+    if_settrans(49020935);
+}
+return;

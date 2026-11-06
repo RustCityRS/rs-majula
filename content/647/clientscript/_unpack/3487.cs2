@@ -1,0 +1,43 @@
+; id: 3487
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 0
+    2: branch_less_than 4
+    3: push_int_local 0
+    4: push_constant_int 63
+    5: branch_greater_than 1
+    6: branch 2
+    7: push_constant_int 0
+    8: return 0
+    9: push_constant_int 0
+   10: pop_int_local 1
+   11: push_constant_int 0
+   12: pop_int_local 2
+   13: op5624 0
+   14: pop_int_local 1
+   15: pop_int_local 2
+   16: push_int_local 0
+   17: push_constant_int 32
+   18: branch_less_than 1
+   19: branch 6
+   20: push_int_local 1
+   21: push_int_local 0
+   22: testbit 0
+   23: gosub_with_params 734
+   24: return 0
+   25: branch 7
+   26: push_int_local 2
+   27: push_int_local 0
+   28: push_constant_int 32
+   29: sub 0
+   30: testbit 0
+   31: gosub_with_params 734
+   32: return 0
+   33: push_constant_int -1
+   34: return 0

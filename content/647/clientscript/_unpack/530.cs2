@@ -1,0 +1,74 @@
+; id: 530
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 19726410
+    2: branch_equals 1
+    3: branch 3
+    4: push_varbit 4090
+    5: push_constant_string "Runecrafting"
+    6: return 0
+    7: push_int_local 0
+    8: push_constant_int 19726411
+    9: branch_equals 1
+   10: branch 3
+   11: push_varbit 4091
+   12: push_constant_string "Crafting"
+   13: return 0
+   14: push_int_local 0
+   15: push_constant_int 19726412
+   16: branch_equals 1
+   17: branch 3
+   18: push_varbit 4093
+   19: push_constant_string "Fletching"
+   20: return 0
+   21: push_int_local 0
+   22: push_constant_int 19726413
+   23: branch_equals 1
+   24: branch 3
+   25: push_varbit 4095
+   26: push_constant_string "Construction"
+   27: return 0
+   28: push_int_local 0
+   29: push_constant_int 19726414
+   30: branch_equals 1
+   31: branch 3
+   32: push_varbit 4096
+   33: push_constant_string "Farming"
+   34: return 0
+   35: push_int_local 0
+   36: push_constant_int 19726415
+   37: branch_equals 1
+   38: branch 3
+   39: push_varbit 4098
+   40: push_constant_string "Magic"
+   41: return 0
+   42: push_int_local 0
+   43: push_constant_int 19726416
+   44: branch_equals 1
+   45: branch 3
+   46: push_varbit 4100
+   47: push_constant_string "Smithing"
+   48: return 0
+   49: push_int_local 0
+   50: push_constant_int 19726417
+   51: branch_equals 1
+   52: branch 3
+   53: push_varbit 4101
+   54: push_constant_string "Cooking"
+   55: return 0
+   56: push_int_local 0
+   57: push_constant_int 19726418
+   58: branch_equals 1
+   59: branch 3
+   60: push_varbit 4102
+   61: push_constant_string "Herblore"
+   62: return 0
+   63: push_constant_int 0
+   64: push_constant_string ""
+   65: return 0

@@ -1,0 +1,7 @@
+[clientscript,script_2775](int $int0, int $int1)(int, int, int, string)
+if (clientclock < $int0) {
+    return;
+}
+if_setontimer;
+if_setcolour($int1);
+return(-1, $int1, 16724016, "");

@@ -1,0 +1,30 @@
+[clientscript,script_2656](int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = add($int0, %varbit6113);
+$int1 = calc(1 + %varbit6114 / 2);
+$int0 = add($int0, $int1);
+$int1 = div(%varbit6115, 2);
+$int0 = add($int0, $int1);
+$int1 = div(%varbit6116, 2);
+$int0 = add($int0, $int1);
+$int1 = calc(%varbit6117 + %varbit6118 + %varbit6119 + %varbit6120);
+$int0 = add($int0, $int1);
+$int0 = add(%varbit6121, $int0);
+$int1 = div(%varbit6122, 2);
+$int0 = add($int0, $int1);
+$int1 = div(%varbit6123, 2);
+$int0 = add($int0, $int1);
+$int1 = div(%varbit6124, 2);
+$int0 = add($int0, $int1);
+$int1 = div(%varbit6125, 2);
+$int0 = add($int0, $int1);
+$int1 = calc(%varbit6151 + %varbit6152 + %varbit6153 + %varbit6154 + %varbit6155);
+$int0 = add($int0, $int1);
+$int0 = multiply($int0, 4);
+if (%varbit6112 = 20) {
+    if ($int0 > 75) {
+        %varbit6112 = 50;
+    }
+}
+return($int0);

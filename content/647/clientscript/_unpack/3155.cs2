@@ -1,0 +1,43 @@
+; id: 3155
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 0
+    2: push_constant_int 16
+    3: push_constant_int 16
+    4: push_constant_int 0
+    5: push_constant_int 0
+    6: push_constant_int 1547
+    7: push_constant_int 0
+    8: push_constant_int 0
+    9: push_constant_int 0
+   10: push_constant_int 0
+   11: gosub_with_params 2994
+   12: push_constant_int 3156
+   13: push_int_local 0
+   14: push_constant_string "I"
+   15: cc_setonmouseover 0
+   16: push_constant_int 3157
+   17: push_int_local 0
+   18: push_constant_string "I"
+   19: cc_setonmouseleave 0
+   20: push_int_local 0
+   21: push_constant_int 1
+   22: push_constant_int 16
+   23: push_constant_int 16
+   24: push_constant_int 0
+   25: push_constant_int 0
+   26: push_constant_int 1548
+   27: push_constant_int 0
+   28: push_constant_int 0
+   29: push_constant_int 0
+   30: push_constant_int 0
+   31: gosub_with_params 2994
+   32: push_constant_int 1
+   33: cc_sethide 0
+   34: return 0

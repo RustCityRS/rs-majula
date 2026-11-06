@@ -1,0 +1,23 @@
+[clientscript,script_1717]
+if (%varc_int181 = 1) {
+    cc_deleteall(17760263);
+    cc_deleteall(17760264);
+    if_sethide(17760298);
+    if_sethide(17760256);
+    ~script_1388(17760298);
+    ~script_1237(17760264);
+    if_sethide(17760265);
+    cc_deleteall(17760262);
+    if_setscrollpos(0, 17760261);
+    if_setsize(16384, 2, 2, 17760261);
+} else {
+    cc_deleteall(17760298);
+    if_sethide(17760298);
+    if_sethide(17760256);
+    ~script_1237(17760264);
+    ~script_1293(17760263);
+    if_sethide(17760265);
+    if_setsize(add(17760256, if_getheight), 2, 1, 17760261);
+    ~script_1704;
+}
+return;

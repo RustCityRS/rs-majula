@@ -1,0 +1,52 @@
+; id: 1619
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 0
+    2: branch_less_than 10
+    3: push_int_local 0
+    4: push_constant_int 5
+    5: branch_greater_than_or_equals 7
+    6: push_int_local 1
+    7: push_constant_int 0
+    8: branch_less_than 4
+    9: push_int_local 1
+   10: push_constant_int 5
+   11: branch_greater_than_or_equals 1
+   12: branch 3
+   13: push_constant_string "Nothing happens, as if something has gone wrong."
+   14: mes 0
+   15: return 0
+   16: push_constant_int 105
+   17: push_constant_int 103
+   18: push_constant_int 800
+   19: push_int_local 1
+   20: enum 0
+   21: pop_int_local 3
+   22: push_constant_int 105
+   23: push_constant_int 73
+   24: push_int_local 3
+   25: push_int_local 0
+   26: enum 0
+   27: pop_int_local 4
+   28: push_constant_int 111
+   29: push_constant_int 109
+   30: push_constant_int 797
+   31: push_int_local 2
+   32: enum 0
+   33: push_int_local 4
+   34: op2108 0
+   35: push_constant_int 0
+   36: push_constant_int 0
+   37: push_constant_int 520
+   38: push_constant_int 0
+   39: push_constant_int 0
+   40: push_constant_int 2180
+   41: push_int_local 4
+   42: op2109 0
+   43: return 0

@@ -1,0 +1,73 @@
+; id: 3996
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 4091
+    2: branch_greater_than_or_equals 1
+    3: branch 2
+    4: push_constant_int 0
+    5: return 0
+    6: push_int_local 0
+    7: push_constant_int 4000
+    8: branch_greater_than_or_equals 1
+    9: branch 6
+   10: push_int_local 0
+   11: push_constant_int 4027
+   12: branch_less_than_or_equals 1
+   13: branch 2
+   14: push_constant_int 0
+   15: return 0
+   16: push_int_local 0
+   17: gosub_with_params 3227
+   18: push_constant_int 2
+   19: branch_equals 1
+   20: branch 3
+   21: push_constant_int 2
+   22: return 0
+   23: branch 39
+   24: push_int_local 0
+   25: gosub_with_params 3994
+   26: branch_if_true 1
+   27: branch 10
+   28: push_int_local 0
+   29: gosub_with_params 3999
+   30: branch_if_true 1
+   31: branch 3
+   32: push_constant_int 0
+   33: return 0
+   34: branch 2
+   35: push_constant_int 1
+   36: return 0
+   37: branch 25
+   38: map_members 0
+   39: branch_if_false 1
+   40: branch 13
+   41: push_constant_int 105
+   42: push_constant_int 74
+   43: push_constant_int 3483
+   44: push_int_local 0
+   45: enum 0
+   46: push_constant_int 1290
+   47: op4500 0
+   48: push_constant_int 2
+   49: branch_equals 1
+   50: branch 3
+   51: push_constant_int 0
+   52: return 0
+   53: branch 9
+   54: push_int_local 0
+   55: gosub_with_params 3224
+   56: branch_if_false 1
+   57: branch 3
+   58: push_constant_int 0
+   59: return 0
+   60: branch 2
+   61: push_constant_int 1
+   62: return 0
+   63: push_constant_int 0
+   64: return 0

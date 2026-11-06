@@ -1,0 +1,46 @@
+[clientscript,script_2284](int $int0, int $int1)
+def_int $int2 = login_getint;
+if ($int2 = -3) {
+    return;
+}
+if_setontimer;
+~script_3208(0);
+if ($int2 = 2) {
+    if_setgraphic(44105809);
+    if_sethide(44105814);
+    if_sethide(44105750);
+    if ($int1 = 1) {
+        if (string_length(%varc_str326) > 0) {
+        }
+    }
+    if (string_length(%varc_str124) > 0) {
+        ~script_3228(7, 1, 0);
+        if (string_length(%varc_str125) > 0) {
+            ~script_3228(8, 1, 0);
+        }
+    }
+    if ($int0 = 1) {
+        ~script_2714(14, 1);
+    }
+    return;
+}
+def_string $str0 = "accountappeal";
+def_string $str1 = "passwordchoice.ws";
+switch ($int2) {
+    case -4:
+    case -1:
+    case 3:
+    case -5:
+    case 7:
+    case 9:
+    case 38:
+    case 20:
+    case 21:
+    case 37:
+    default:
+}
+if ($int1 = 1) {
+    if (string_length(%varc_str326) > 0) {
+    }
+}
+return;

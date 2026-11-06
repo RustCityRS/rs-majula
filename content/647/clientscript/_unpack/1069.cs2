@@ -1,0 +1,71 @@
+; id: 1069
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 131
+    1: pop_varc_int 126
+    2: push_varc_string_old 28
+    3: pop_varc_string_old 27
+    4: push_constant_int 0
+    5: pop_varc_int 127
+    6: push_constant_int 8978432
+    7: if_gethide 0
+    8: branch_if_true 1
+    9: branch 48
+   10: getwindowmode 0
+   11: push_constant_int 2
+   12: branch_greater_than_or_equals 1
+   13: branch 12
+   14: push_constant_int 1017
+   15: push_constant_int 49283073
+   16: if_setgraphic 0
+   17: push_constant_int 0
+   18: push_constant_int 49283073
+   19: op2122 0
+   20: push_constant_int 0
+   21: push_constant_int 49283073
+   22: if_sethide 0
+   23: push_constant_int 0
+   24: push_constant_int 49283074
+   25: if_sethide 0
+   26: push_constant_int 1
+   27: push_constant_int 8978482
+   28: if_sethide 0
+   29: push_constant_int -1
+   30: push_constant_string ""
+   31: push_constant_int 8978487
+   32: op2419 0
+   33: push_constant_int 0
+   34: push_constant_int 8978432
+   35: if_sethide 0
+   36: push_constant_int 1
+   37: push_constant_int 8978439
+   38: if_sethide 0
+   39: push_constant_int 1
+   40: push_constant_int 8978441
+   41: if_sethide 0
+   42: push_constant_int 1
+   43: push_constant_int 8978445
+   44: if_sethide 0
+   45: push_constant_int 0
+   46: push_constant_int 8978449
+   47: if_sethide 0
+   48: push_constant_int 0
+   49: push_constant_int 8978433
+   50: if_sethide 0
+   51: push_constant_int 1
+   52: push_constant_int 8978435
+   53: if_sethide 0
+   54: push_constant_int 0
+   55: push_constant_int 0
+   56: push_constant_int 8978449
+   57: if_setscrollpos 0
+   58: push_constant_int 8978433
+   59: push_varc_int 130
+   60: push_constant_int -1
+   61: gosub_with_params 1071
+   62: return 0

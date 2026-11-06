@@ -1,0 +1,90 @@
+[clientscript,script_2570]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = -1;
+%varc_int930 = -1;
+%varc_int931 = -1;
+%varc_int932 = -1;
+%varc_int933 = -1;
+%varc_int934 = -1;
+%varc_int935 = -1;
+%varc_int936 = -1;
+%varc_int937 = -1;
+%varc_int938 = -1;
+%varc_int939 = -1;
+if (%varbit6429 > 0) {
+    if (%varbit6429 < 11) {
+        %varc_int929 = sub(%varbit6429, 1);
+    }
+} else {
+    %varc_int929 = 0;
+}
+if ($int1 < 10) {
+    if ($int0 < 28) {
+        $int2 = inv_getobj(inv, $int0);
+        if (oc_weight(steel_thrownaxe) = 1) {
+            if_settext("Squad " + tostring(add($int1, 1)));
+            if (oc_weight(bronze_dart) = 0) {
+                if_setgraphic(enum(105, 73, enum_2427, $int1));
+            } else {
+                if (oc_weight(bronze_dart) = 1) {
+                    if_setgraphic(enum(105, 73, enum_2427, $int1));
+                }
+            }
+            if (oc_weight(rune_thrownaxe) = 1) {
+                if_setgraphic(enum(105, 73, enum_2426, $int1));
+            } else {
+                if (oc_weight(rune_thrownaxe) = 2) {
+                    if_setgraphic(enum(105, 73, enum_2426, $int1));
+                }
+                if (oc_weight(rune_thrownaxe) = 3) {
+                    if_setgraphic(enum(105, 73, enum_2426, $int1));
+                }
+            }
+            if (oc_weight(mithril_thrownaxe) = 1) {
+                if_setcolour(enum(105, 73, enum_2429, $int1));
+            } else {
+                if_setcolour(enum(105, 73, enum_2429, $int1));
+            }
+            switch ($int1) {
+                case 0:
+                    %varc_int930 = $int0;
+                case 1:
+                    %varc_int931 = $int0;
+                case 2:
+                    %varc_int932 = $int0;
+                case 3:
+                    %varc_int933 = $int0;
+                case 4:
+                    %varc_int934 = $int0;
+                case 5:
+                    %varc_int935 = $int0;
+                case 6:
+                    %varc_int936 = $int0;
+                case 7:
+                    %varc_int937 = $int0;
+                case 8:
+                    %varc_int938 = $int0;
+                case 9:
+                    %varc_int939 = $int0;
+                default:
+            }
+            $int1 = add($int1, 1);
+        }
+        $int0 = add($int0, 1);
+    }
+}
+if ($int1 < 10) {
+    if ($int1 < 10) {
+        if_settext("No squad");
+        if_settext("");
+        if_setgraphic(enum(105, 73, enum_2427, $int1));
+        if_setgraphic(enum(105, 73, enum_2426, $int1));
+        if_setonop;
+        if_clearops;
+        $int1 = add($int1, 1);
+    }
+}
+~script_2599;
+~script_2573;
+return;

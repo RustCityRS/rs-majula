@@ -1,0 +1,14 @@
+[clientscript,script_4338](int $int0)(string)
+def_string $str0 = "";
+if ($int0 < 10) {
+    $str0 = append_num("00:0", $int0);
+} else {
+    if ($int0 < 60) {
+        $str0 = append_num("00:", $int0);
+    }
+    if ($int0 < 959) {
+        $str0 = "0" + tostring(div($int0, 100)) + ":" + tostring(mod($int0, 100));
+    }
+    $str0 = tostring(div($int0, 100)) + ":" + tostring(mod($int0, 100));
+}
+return($str0);

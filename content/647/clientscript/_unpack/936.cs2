@@ -1,0 +1,39 @@
+; id: 936
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_string ""
+    1: pop_string_local 0
+    2: push_int_local 0
+    3: push_constant_int 763
+    4: op4208 0
+    5: pop_int_local 1
+    6: push_int_local 0
+    7: push_constant_int 762
+    8: op4208 0
+    9: switch 0
+   10: branch 12
+   11: push_var 322
+   12: push_constant_int 10
+   13: push_constant_string "Part of quest: Tai Bwo Wannai Trio"
+   14: gosub_with_params 913
+   15: return 0
+   16: branch 8
+   17: push_varbit 4310
+   18: push_constant_int 10
+   19: push_constant_string "Complete: Chaos Tunnels"
+   20: gosub_with_params 913
+   21: return 0
+   22: branch 2
+   23: push_constant_string ""
+   24: return 0
+   25: push_constant_string ""
+   26: return 0
+
+switch_0:
+  1 => 1
+  2 => 7

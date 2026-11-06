@@ -1,0 +1,37 @@
+; id: 4614
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 19
+    3: push_varbit 9254
+    4: op4020 0
+    5: push_int_local 0
+    6: if_setcolour 0
+    7: branch 14
+    8: push_varbit 9255
+    9: op4020 0
+   10: push_int_local 0
+   11: if_setcolour 0
+   12: branch 9
+   13: push_varbit 9256
+   14: op4020 0
+   15: push_int_local 0
+   16: if_setcolour 0
+   17: branch 4
+   18: push_varbit 9257
+   19: op4020 0
+   20: push_int_local 0
+   21: if_setcolour 0
+   22: return 0
+
+switch_0:
+  1310722 => 1
+  1310728 => 6
+  1310731 => 11
+  1310725 => 16

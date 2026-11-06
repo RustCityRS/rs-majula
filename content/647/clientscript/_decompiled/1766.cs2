@@ -1,0 +1,167 @@
+[clientscript,script_1766]
+if (%varc_int232 = 0) {
+    if_setgraphic(35913865);
+    if_setgraphic(48889877);
+    if_setop(35913856, "Combat Styles");
+    if_setop(48889892, "Combat Styles");
+}
+if (%varc_int822 = 0) {
+    ~script_4089;
+    if_setgraphic(35913866);
+    if_setgraphic(48889984);
+    if_setop(35913857, "Task List");
+    if_setop(48889893, "Task List");
+} else {
+    if (%varc_int822 = 1) {
+        if_sethide(48889983);
+        if_sethide(35913864);
+        if_setgraphic(35913866);
+        if_setgraphic(48889984);
+        if_setop(35913857, "Camera");
+        if_setop(48889893, "Camera");
+    }
+}
+switch (%varc_int233) {
+    case 1:
+        if_setgraphic(35913867);
+        if_setgraphic(48889878);
+        if_setop(35913858, "Squad Commands");
+        if_setop(48889894, "Squad Commands");
+    case 4:
+        if_setgraphic(35913867);
+        if_setgraphic(48889878);
+        if_setop(35913858, "Turn Options");
+        if_setop(48889894, "Turn Options");
+    case 5:
+        if_setgraphic(35913867);
+        if_setgraphic(48889878);
+        if_setop(35913858, "Command Options");
+        if_setop(48889894, "Command Options");
+    default:
+        if_setgraphic(35913867);
+        if_setgraphic(48889878);
+        if_setop(35913858, "Stats");
+        if_setop(48889894, "Stats");
+}
+switch (%varc_int234) {
+    case 1:
+        if_setgraphic(35913868);
+        if_setgraphic(48889879);
+        if_setop(35913859, "Special Units");
+        if_setop(48889895, "Special Units");
+    case 2:
+        if_setgraphic(35913868);
+        if_setgraphic(48889879);
+        if_setop(35913859, "Troop Details");
+        if_setop(48889895, "Troop Details");
+    case 3:
+        if_setgraphic(35913868);
+        if_setgraphic(48889879);
+        if_setop(35913859, "Party organiser");
+        if_setop(48889895, "Party organiser");
+    case 4:
+        if_setgraphic(35913868);
+        if_setgraphic(48889879);
+        if_setop(35913859, "Book");
+        if_setop(48889895, "Book");
+    default:
+        if_setgraphic(35913868);
+        if_setgraphic(48889879);
+        if_setop(35913859, "Quest Journals");
+        if_setop(48889895, "Quest Journals");
+}
+if (%varc_int235 = 0) {
+    if_setgraphic(35913869);
+    if_setgraphic(48889880);
+    if_setop(35913860, "Inventory");
+    if_setop(48889896, "Inventory");
+} else {
+    if (%varc_int235 = 1) {
+        if_setgraphic(35913869);
+        if_setgraphic(48889880);
+        if_setop(35913860, "My Squads");
+        if_setop(48889896, "My Squads");
+    }
+    if (%varc_int235 = 2) {
+        if_setgraphic(35913869);
+        if_setgraphic(48889880);
+        if_setop(35913860, "Commands");
+        if_setop(48889896, "Commands");
+    }
+}
+if (%varc_int236 = 0) {
+    if_setgraphic(35913870);
+    if_setgraphic(48889881);
+    if_setop(35913861, "Worn Equipment");
+    if_setop(48889897, "Worn Equipment");
+} else {
+    if (%varc_int236 = 1) {
+        if_setgraphic(35913870);
+        if_setgraphic(48889881);
+        if_setop(35913861, "Acrobat Emotes");
+        if_setop(48889897, "Acrobat Emotes");
+    }
+    if (%varc_int236 = 2) {
+        if_setgraphic(35913870);
+        if_setgraphic(48889881);
+        if_setop(35913861, "Forfeit");
+        if_setop(48889897, "Forfeit");
+    }
+    if (%varc_int236 = 3) {
+        if_setgraphic(35913870);
+        if_setgraphic(48889881);
+        if_setop(35913861, "Diplomacy");
+        if_setop(48889897, "Diplomacy");
+    }
+    if (%varc_int236 = 4) {
+        if_setgraphic(35913870);
+        if_setgraphic(48889881);
+        if_setop(35913861, "Retreat");
+        if_setop(48889897, "Retreat");
+    }
+}
+if (%varc_int237 = 0) {
+    if_setgraphic(35913871);
+    if_setgraphic(48889882);
+}
+if (%varc_int238 = 0) {
+    if_setgraphic(35913872);
+    if_setgraphic(48889883);
+    if_setop(35913863, "Magic Spellbook");
+    if_setop(48889899, "Magic Spellbook");
+}
+if (%varc_int823 = 0) {
+    if_setgraphic(35913834);
+    if_setgraphic(48889884);
+}
+if (%varc_int240 = 0) {
+    if_setgraphic(35913835);
+    if_setgraphic(48889885);
+}
+if (%varc_int241 = 0) {
+    if_setgraphic(35913836);
+    if_setgraphic(48889886);
+}
+if (%varc_int242 = 0) {
+    if_setgraphic(35913837);
+    if_setgraphic(48889887);
+}
+if (%varc_int243 = 0) {
+    if_setgraphic(35913838);
+    if_setgraphic(48889888);
+}
+if (%varc_int244 = 0) {
+    if_setgraphic(35913839);
+    if_setgraphic(48889889);
+    if_setop(35913831, "Emotes");
+    if_setop(48889905, "Emotes");
+}
+if (%varc_int245 = 0) {
+    if_setgraphic(35913840);
+    if_setgraphic(48889890);
+}
+if (%varc_int824 = 0) {
+    if_setgraphic(35913841);
+    if_setgraphic(48889891);
+}
+return;

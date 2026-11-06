@@ -1,0 +1,16 @@
+[clientscript,script_3100](int $int0)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string, string)
+def_int $int1 = login_getint;
+if ($int1 = -3) {
+    return;
+} else {
+    if ($int1 = 21) {
+        if ($int0 = 13) {
+            ~script_1873;
+            return;
+        }
+    }
+    if ($int0 = 13) {
+        return(~script_3097);
+    }
+}
+return;

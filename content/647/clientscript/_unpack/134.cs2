@@ -1,0 +1,65 @@
+; id: 134
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: op3324 0
+    1: push_constant_int 5
+    2: branch_equals 4
+    3: op3324 0
+    4: push_constant_int 6
+    5: branch_equals 1
+    6: branch 10
+    7: push_constant_string "Suggest to mute this player for 48 hours"
+    8: push_constant_int 38928467
+    9: if_settext 0
+   10: push_constant_string "Suggest to mute this player for 48 hours"
+   11: push_constant_int 38928394
+   12: if_settext 0
+   13: push_constant_string "Suggest to mute this player for 48 hours"
+   14: push_constant_int 38928444
+   15: if_settext 0
+   16: branch 9
+   17: push_constant_string "Mute this player for 48 hours"
+   18: push_constant_int 38928467
+   19: if_settext 0
+   20: push_constant_string "Mute this player for 48 hours"
+   21: push_constant_int 38928394
+   22: if_settext 0
+   23: push_constant_string "Mute this player for 48 hours"
+   24: push_constant_int 38928444
+   25: if_settext 0
+   26: push_varc_int 6
+   27: branch_if_true 1
+   28: branch 3
+   29: push_constant_int 0
+   30: pop_varc_int 6
+   31: branch 2
+   32: push_constant_int 1
+   33: pop_varc_int 6
+   34: push_varc_int 6
+   35: branch_if_false 1
+   36: branch 10
+   37: push_constant_int 1768
+   38: push_constant_int 38928466
+   39: if_setgraphic 0
+   40: push_constant_int 1768
+   41: push_constant_int 38928393
+   42: if_setgraphic 0
+   43: push_constant_int 1768
+   44: push_constant_int 38928443
+   45: if_setgraphic 0
+   46: branch 9
+   47: push_constant_int 1770
+   48: push_constant_int 38928466
+   49: if_setgraphic 0
+   50: push_constant_int 1770
+   51: push_constant_int 38928393
+   52: if_setgraphic 0
+   53: push_constant_int 1770
+   54: push_constant_int 38928443
+   55: if_setgraphic 0
+   56: return 0

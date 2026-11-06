@@ -1,0 +1,36 @@
+[clientscript,script_3678](int $int0)
+cc_deleteall($int0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 6;
+def_int $int5 = 5;
+if ($int4 > 1) {
+    if (if_getscrollwidth > 0) {
+        $int2 = calc(if_getscrollwidth - 36 * $int4 / $int4 - 1);
+    }
+    $int2 = calc(if_getwidth - 36 * $int4 / $int4 - 1);
+}
+if ($int5 > 1) {
+    if (if_getscrollheight > 0) {
+        $int3 = calc(if_getscrollheight - 32 * $int5 / $int5 - 1);
+    }
+    $int3 = calc(if_getheight - 32 * $int5 / $int5 - 1);
+}
+if ($int1 < 30) {
+    cc_setposition(0, $int0, 5, $int1);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(calc(36 + $int2 * $int1 % $int4), calc($int1 / $int4 * 32 + $int3), 0, 0);
+    cc_setobject_scaled(enum(105, 79, enum_3272, $int1), testbit(%varc_int1352, $int1));
+    if (testbit(%varc_int1352, $int1) = 1) {
+        cc_setop(1, "Take" + "<col=ff9040>");
+        cc_setoutline;
+    } else {
+        cc_settrans(100);
+    }
+    cc_setop(5, "Examine" + "<col=ff9040>");
+    cc_setopbase("<col=ff981f>" + " Piece");
+    cc_setonop;
+    $int1 = add($int1, 1);
+}
+return;

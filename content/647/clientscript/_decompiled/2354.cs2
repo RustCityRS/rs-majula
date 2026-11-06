@@ -1,0 +1,23 @@
+[clientscript,script_2354](int $int0)
+if (%varc_int772 = 1) {
+    if_settext("Saving your game and loading QuestHelp");
+    %varc_int772 = add(%varc_int772, 1);
+} else {
+    if (%varc_int772 = 20) {
+        if_settext("Saving your game and loading QuestHelp.");
+        %varc_int772 = add(%varc_int772, 1);
+    }
+    if (%varc_int772 = 40) {
+        if_settext("Saving your game and loading QuestHelp..");
+        %varc_int772 = add(%varc_int772, 1);
+    }
+    if (%varc_int772 = 60) {
+        if_settext("Saving your game and loading QuestHelp.");
+        %varc_int772 = add(%varc_int772, 1);
+    }
+    if (%varc_int772 = 80) {
+        %varc_int772 = 1;
+    }
+    %varc_int772 = add(%varc_int772, 1);
+}
+return;

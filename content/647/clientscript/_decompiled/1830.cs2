@@ -1,0 +1,14 @@
+[clientscript,script_1830](int $int0)
+if (map_members = 0) {
+    return;
+}
+if (~script_1820($int0) = 0) {
+    return;
+}
+if (%varc_int253 = 0) {
+    %varc_int253 = 1;
+} else {
+    %varc_int253 = 0;
+}
+~script_1778;
+return;

@@ -1,0 +1,8 @@
+[clientscript,script_3203](int, int, component, string)
+if_openoverlay(59375669, 913);
+if_sethide(59375661);
+if (if_gethide = 0) {
+    ~script_3161(0);
+}
+if_setonkey;
+return(3206, -2147483640, 59834368, "i");

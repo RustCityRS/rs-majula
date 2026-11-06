@@ -1,0 +1,4 @@
+[clientscript,script_3187](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)(int, int, int, int, int, int, int, int, int, int, string, string)
+def_int $int7 = char_isnumeric(2710);
+if_setontimer;
+return($int1, 3188, $int0, $int2, $int7, $int3, $int4, $int5, $int6, $int0, if_gettext, "I1iIIII");

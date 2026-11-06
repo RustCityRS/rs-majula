@@ -1,0 +1,28 @@
+; id: 2932
+int_param_count=1
+string_param_count=2
+long_param_count=0
+local_int_count=1
+local_string_count=2
+local_long_count=0
+
+    0: push_string_local 0
+    1: push_constant_string ""
+    2: compare 0
+    3: push_constant_int 0
+    4: branch_not 1
+    5: branch 13
+    6: push_string_local 1
+    7: push_constant_string ""
+    8: compare 0
+    9: push_constant_int 0
+   10: branch_not 1
+   11: branch 7
+   12: push_constant_string "loginapplet/loginapplet.ws?ssl=1&expired=0&mod="
+   13: push_string_local 0
+   14: push_constant_string "&dest="
+   15: push_string_local 1
+   16: join_string 4
+   17: push_int_local 0
+   18: op5421 0
+   19: return 0

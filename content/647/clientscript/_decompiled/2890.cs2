@@ -1,0 +1,95 @@
+[clientscript,script_2890]
+def_int $int0 = -1;
+def_int $int1 = 0;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_int $int10 = 31195136;
+if ($int8 <= enum_getoutputcount(enum_929)) {
+    if ($int8 ! %varc_int1080) {
+        if ($int8 ! %varc_int1081) {
+            if ($int8 ! %varc_int1082) {
+                if ($int8 ! %varc_int1083) {
+                    if ($int8 ! %varc_int1084) {
+                        if ($int8 ! %varc_int1085) {
+                            if (testbit(%varp1632, $int8) = 1) {
+                                $int0 = enum(105, 110, enum_929, $int8);
+                                if ($int0 ! -1) {
+                                    if ($int1 < 6) {
+                                        $int1 = add($int1, 1);
+                                        if (%varc_int1080 = -1) {
+                                            %varc_int1080 = $int8;
+                                        } else {
+                                            if (%varc_int1081 = -1) {
+                                                %varc_int1081 = $int8;
+                                            }
+                                            if (%varc_int1082 = -1) {
+                                                %varc_int1082 = $int8;
+                                            }
+                                            if (%varc_int1083 = -1) {
+                                                %varc_int1083 = $int8;
+                                            }
+                                            if (%varc_int1084 = -1) {
+                                                %varc_int1084 = $int8;
+                                            }
+                                            if (%varc_int1085 = -1) {
+                                                %varc_int1085 = $int8;
+                                            }
+                                        }
+                                        $int0 = -1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    $int8 = add($int8, 1);
+}
+$int8 = 1;
+def_int $int11 = 0;
+if ($int8 <= 6) {
+    $int10 = enum(105, 73, enum_925, $int8);
+    if ($int10 ! 31195136) {
+        if (if_getgraphic($int10) = -1) {
+            switch ($int8) {
+                case 1:
+                    $int0 = enum(105, 110, enum_929, %varc_int1080);
+                case 2:
+                    $int0 = enum(105, 110, enum_929, %varc_int1081);
+                case 3:
+                    $int0 = enum(105, 110, enum_929, %varc_int1082);
+                case 4:
+                    $int0 = enum(105, 110, enum_929, %varc_int1083);
+                case 5:
+                    $int0 = enum(105, 110, enum_929, %varc_int1084);
+                case 6:
+                    $int0 = enum(105, 110, enum_929, %varc_int1085);
+                default:
+            }
+            if ($int0 ! -1) {
+                if_setgraphic($int10);
+                if_settext("");
+                if_setonmouserepeat;
+                if_setonmouseleave;
+                if ($int10 ! 31195149) {
+                    if ($int10 ! 31195150) {
+                        if_sethide(31195153);
+                        if_setposition(if_gety, 0, 0, 31195153);
+                        $int11 = add(clientclock, 150);
+                        if_setontimer;
+                    }
+                }
+            }
+        }
+    }
+    $int8 = add($int8, 1);
+}
+return;

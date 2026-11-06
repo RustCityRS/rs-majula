@@ -1,0 +1,15 @@
+[clientscript,script_1566](int $int0, int $int1)(int)
+if ($int0 = 7) {
+    if ($int1 = 0) {
+        return(1);
+    }
+}
+if ($int0 = 4) {
+    switch ($int1) {
+        case 0:
+        case 1:
+        case 2:
+            return(1);
+    }
+}
+return(0);

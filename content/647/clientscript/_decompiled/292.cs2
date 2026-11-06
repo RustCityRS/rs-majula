@@ -1,0 +1,10 @@
+[clientscript,script_292](int $int0, int $int1, int $int2, int $int3)(int, int)
+if ($int0 = -1) {
+    $int0 = 280;
+}
+cc_setposition(0, $int1, 5, if_getchildcount($int1));
+cc_setposition2($int3, $int2, 2, 0);
+cc_setsize(20, 20, 0, 0);
+cc_settiling(1);
+cc_setgraphic(struct_param($int0, param_130));
+return(0, add($int3, 10));

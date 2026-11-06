@@ -1,0 +1,8 @@
+[clientscript,script_305](int $int0)(int, int, int, component, string)
+if ($int0 = 1) {
+    if_setcolour(49479694);
+} else {
+    if_setcolour(49479694);
+}
+if_setontimer;
+return(306, clientclock, -2147483645, 49479694, "iI");

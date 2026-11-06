@@ -1,0 +1,54 @@
+[clientscript,script_4273]
+if_sethide(70975640);
+if_sethide(70975641);
+if_sethide(70975642);
+if_sethide(70975637);
+if_sethide(70975638);
+if_sethide(70975639);
+if_sethide(70975726);
+if_sethide(70975736);
+if_sethide(70975877);
+if_sethide(70975643);
+if_settext(tostring(multiply(2, 10)));
+if (stat_base(magic) < 83) {
+    if_settext(tostring(calc(2 / 2 * 10)) + " (halved)");
+} else {
+    if_settext(tostring(multiply(2, 10)));
+}
+if (stat_base(magic) < 80) {
+    if_settext(tostring(calc(12 / 2 * 10)) + " (halved)");
+} else {
+    if_settext(tostring(multiply(12, 10)));
+}
+if (stat_base(magic) < 86) {
+    if_settext(tostring(calc(2 / 2 * 10)) + " (halved)");
+} else {
+    if_settext(tostring(multiply(2, 10)));
+}
+if (stat_base(magic) < 91) {
+    if_settext(tostring(calc(10 / 2 * 10)) + " (halved)");
+} else {
+    if_settext(tostring(multiply(10, 10)));
+}
+if_settext("Magic and Farming");
+if (stat_base(magic) < 83) {
+    if_settext("Farming (no Magic)");
+} else {
+    if_settext("Magic and Farming");
+}
+if (stat_base(magic) < 80) {
+    if_settext("Crafting (no Magic)");
+} else {
+    if_settext("Magic and Crafting");
+}
+if (stat_base(magic) < 86) {
+    if_settext("Construction (no Magic)");
+} else {
+    if_settext("Magic and Construction");
+}
+if (stat_base(magic) < 91) {
+    if_settext("Agility (no Magic)");
+} else {
+    if_settext("Magic and Agility");
+}
+return;

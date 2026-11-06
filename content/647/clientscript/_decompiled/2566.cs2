@@ -1,0 +1,23 @@
+[clientscript,script_2566]
+if_settext(%varc_str182);
+if_settext(%varc_str183);
+if (%varc_int945 = 0) {
+    if_setmodel;
+} else {
+    if (%varc_int945 = 1) {
+        if_setmodel;
+    }
+    if (%varc_int945 = 2) {
+        if_setmodel;
+    }
+    if (%varc_int945 = 3) {
+        if_setmodel;
+    }
+    if (%varc_int945 = 4) {
+        if_setmodel;
+    }
+    if (%varc_int945 = 5) {
+        if_setmodel;
+    }
+}
+return;

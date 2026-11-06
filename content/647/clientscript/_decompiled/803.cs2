@@ -1,0 +1,120 @@
+[clientscript,script_803]
+def_string $str0 = "";
+switch (%varbit5145) {
+    case 1:
+        if_sethide(37683217);
+        if_setonmouserepeat;
+    case 2:
+        if_sethide(37683218);
+        if_setonmouserepeat;
+    case 3:
+        if_sethide(37683219);
+        if_setonmouserepeat;
+    case 4:
+        if_sethide(37683220);
+        if_setonmouserepeat;
+    case 5:
+        if_sethide(37683221);
+        if_setonmouserepeat;
+    case 6:
+        if_sethide(37683222);
+        if_setonmouserepeat;
+    case 7:
+        if_sethide(37683223);
+        if_setonmouserepeat;
+    case 8:
+        if_sethide(37683224);
+        if_setonmouserepeat;
+    case 9:
+        if_sethide(37683225);
+        if_setonmouserepeat;
+    case 10:
+        if_sethide(37683226);
+        if_setonmouserepeat;
+    case 11:
+        if_sethide(37683227);
+        if_setonmouserepeat;
+    case 12:
+        if_sethide(37683228);
+        if_setonmouserepeat;
+    default:
+        return;
+}
+%varc_int2 = 0;
+switch (%varbit5145) {
+    case 1:
+        if (%varbit5168 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 2:
+        if (%varbit5169 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 3:
+        if (%varbit5170 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 4:
+        if (%varbit5171 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 5:
+        if (%varbit5172 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 6:
+        if (%varbit5173 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 7:
+        if (%varbit5174 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 8:
+        if (%varbit5175 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 9:
+        if (%varbit5176 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 10:
+        if (%varbit5177 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 11:
+        if (%varbit5178 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    case 12:
+        if (%varbit5179 = 1) {
+            ~script_804;
+        } else {
+            ~script_813(%varbit5145);
+        }
+    default:
+        return;
+}
+return;

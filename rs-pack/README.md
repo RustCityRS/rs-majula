@@ -1,8 +1,51 @@
 # rs-pack -- Cache Packing & Unpacking
 
 This crate handles the complete pipeline for packing game assets from human-readable source files into binary cache
-archives, and unpacking original Jagex rev-225 cache files back into editable content. It produces byte-identical output
+archives, and unpacking original Jagex cache files back into editable content. It produces byte-identical output
 verified by CRC against original archives.
+
+## Revision 647 startup
+
+The complete unpacked source cache is versioned under `content/647`, alongside the authored
+configs, scripts and donor assets. Starting the server needs no reference cache or download.
+`unpack` remains a manual import tool for a separately supplied cache.
+
+Startup reads config files once for validation and packing. Independent asset archives,
+including the binary archives, start alongside config packing and RuneScript compilation.
+Animations, interfaces, sprites, songs and textures are encoded and compressed one group
+at a time. Config grouping borrows records directly from the packed buffers. Map sources
+are indexed with one directory scan, preserving donor precedence.
+
+Config buffers go directly to JS5 grouping and runtime providers, without intermediate
+JAGs, dat2 files, server files or timestamp files. Map loading and MIDI-length calculation
+also run in parallel. The server retains compressed JS5 groups in memory and serves
+borrowed containers without disk reads or a cache mutex.
+Appending group versions reserves only the two required bytes. Reference tables used
+for packing and validation are released before engine initialization.
+
+The script compiler uses the same private registry copy as older revisions to protect
+`script.pack` when multiple worlds start together. Compiled bytecode stays in memory.
+
+Check the source pack and run the offline group-level regression:
+
+```bash
+REV=647 cargo run -p rs-pack -- pack
+REV=647 cargo test -p rs-pack --test crc_gate -- --ignored
+```
+
+The final `Pack complete` log reports packing and runtime provider loading time, excluding
+Cargo compilation and the rest of server bootstrap. Enable debug logs for per-archive,
+config-type and compiler timing:
+
+```bash
+RUST_LOG=info,rs_pack=debug,runec=error REV=647 cargo run --release -p rs-pack -- pack
+```
+
+Use the server's `Pack complete` log when measuring server startup. The pack CLI uses the
+system allocator; the server uses mimalloc, so their timings are not directly comparable.
+The manual import, discovery, clientscript decompiler and legacy JAG builders do not run
+on the 647 startup path. Compression keeps the original Gzip/Bzip2 selection rules and
+the strict archive/group checks.
 
 ## Table of Contents
 

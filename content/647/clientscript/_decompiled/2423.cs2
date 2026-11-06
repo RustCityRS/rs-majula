@@ -1,0 +1,18 @@
+[clientscript,script_2423](int $int0)(int, int, int, int)
+def_int $int1 = -1;
+if (%varc_int811 = 0) {
+    $int1 = 1358;
+} else {
+    if (%varc_int811 = 1) {
+        $int1 = 1359;
+    }
+    if (%varc_int811 = 2) {
+        $int1 = 1360;
+    }
+    if (%varc_int811 = 3) {
+        $int1 = 1361;
+    }
+}
+if_setmodelanim;
+if_setmodelanim;
+return(-1, $int0, $int1, $int0);

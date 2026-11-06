@@ -1,0 +1,38 @@
+[clientscript,script_2100](int $int0, int $int1)(int)
+def_string $str0 = "";
+switch ($int0) {
+    case 54657032:
+    case 54657036:
+    case 54657051:
+        $str0 = "The number of times that the avatar has been killed.";
+    case 54657033:
+    case 54657037:
+    case 54657048:
+        $str0 = "The Slayer level required to attack each avatar.";
+    case 54657034:
+    case 54657038:
+    case 54657047:
+        $str0 = "The remaining health of each avatar.";
+    case 54657049:
+    case 54657050:
+        $str0 = "How much time the game has remaining.";
+    case 54657031:
+        $str0 = "This column displays the blue team's statistics.";
+    case 54657035:
+        $str0 = "This column displays the red team's statistics.";
+    case 54657052:
+        $str0 = "Shows which team controls the soul obelisk.";
+    case 54657053:
+        $str0 = "Shows which team controls the western graveyard.";
+    case 54657054:
+        $str0 = "Shows which team controls the eastern graveyard.";
+    case 54657092:
+        $str0 = "Shows how much control a team has over the soul obelisk.";
+    case 54657098:
+        $str0 = "Shows how active you have been during the game.";
+    default:
+        return;
+}
+if_getlayer;
+~script_39($int1, 25, $int1, if_getwidth, $str0);
+return($int0);

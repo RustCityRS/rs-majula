@@ -1,0 +1,33 @@
+; id: 692
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 5367
+    1: switch 0
+    2: branch 12
+    3: push_constant_int 1
+    4: push_int_local 0
+    5: push_int_local 1
+    6: push_int_local 2
+    7: gosub_with_params 1839
+    8: branch 11
+    9: push_constant_int 2
+   10: push_int_local 0
+   11: push_int_local 1
+   12: push_int_local 2
+   13: gosub_with_params 1839
+   14: branch 5
+   15: push_constant_int 0
+   16: push_int_local 0
+   17: push_int_local 1
+   18: push_int_local 2
+   19: gosub_with_params 1839
+   20: return 0
+
+switch_0:
+  0 => 1
+  1 => 7

@@ -1,0 +1,8 @@
+[clientscript,script_4449](int $int0)(int, component, string)
+if (hud_test(72744974, -1) = 1) {
+    if_setontimer;
+    return(4450, 72744974, "");
+}
+if (clanchannel2_find_affined = 1) {
+}
+return;

@@ -1,0 +1,45 @@
+; id: 3408
+int_param_count=1
+string_param_count=1
+long_param_count=0
+local_int_count=1
+local_string_count=3
+local_long_count=0
+
+    0: push_constant_string "<u=88ffff>"
+    1: push_string_local 0
+    2: push_constant_string "</u>"
+    3: join_string 3
+    4: pop_string_local 1
+    5: push_constant_string "<u=64c8fa>"
+    6: push_string_local 0
+    7: push_constant_string "</u>"
+    8: join_string 3
+    9: pop_string_local 2
+   10: push_constant_int 1
+   11: push_constant_string "Open link"
+   12: push_int_local 0
+   13: if_setop 0
+   14: push_constant_int 1897
+   15: push_constant_string ""
+   16: push_int_local 0
+   17: op2409 0
+   18: push_constant_int 1
+   19: push_constant_int 146
+   20: push_int_local 0
+   21: op2309 0
+   22: push_constant_int 2381
+   23: push_int_local 0
+   24: push_constant_int 8978431
+   25: push_string_local 1
+   26: push_constant_string "Iis"
+   27: push_int_local 0
+   28: op2403 0
+   29: push_constant_int 2381
+   30: push_int_local 0
+   31: push_constant_int 6605050
+   32: push_string_local 2
+   33: push_constant_string "Iis"
+   34: push_int_local 0
+   35: op2404 0
+   36: return 0

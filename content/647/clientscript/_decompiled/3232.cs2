@@ -1,0 +1,108 @@
+[clientscript,script_3232](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, string $str0, string $str1, string $str2)(int, int, int, int, int, int)
+def_int $int8 = 39059461;
+def_int $int9 = 39059463;
+def_int $int10 = 39059467;
+def_int $int11 = 39059466;
+def_int $int12 = 39059468;
+def_int $int13 = 39059511;
+def_int $int14 = 39059469;
+def_int $int15 = 39059470;
+def_int $int16 = 39059471;
+def_int $int17 = 39059513;
+def_int $int18 = 39059514;
+def_int $int19 = 39059515;
+if (login_getint = 1) {
+    $int8 = 63897629;
+    $int9 = 63897601;
+    $int10 = 63897604;
+    $int11 = 63897603;
+    $int12 = 63897605;
+    $int13 = 63897606;
+    $int14 = 63897611;
+    $int15 = 63897612;
+    $int16 = 63897613;
+    $int17 = 63897607;
+    $int18 = 63897608;
+    $int19 = 63897609;
+}
+if (if_gethide = 0) {
+    return;
+}
+if (%varc_int174 ! 5) {
+    %varc_int1089 = %varc_int174;
+}
+%varc_int174 = 5;
+def_int $int20 = 250;
+if ($int4 = 1) {
+    $int20 = max(250, add(char_isnumeric(3793), 36));
+    if (mod($int20, 2) > 0) {
+        $int20 = add($int20, 1);
+    }
+}
+if_setsize(154, 0, 0, $int9);
+def_int $int21 = calc(paraheight($str0, 3793) * 16 + 5);
+if_setsize($int21, 1, 0, $int10);
+if_settext($str0);
+if ($int2 = 1) {
+    %varc_int1092 = add(clientclock, 5);
+    if_setgraphic($int11);
+    if_setsize(111, 0, 0, $int11);
+    if_setposition(7, 1, 0, $int11);
+    if_setposition(112, 1, 0, $int10);
+    if_setontimer;
+} else {
+    %varc_int1092 = 0;
+    if_setontimer;
+    if_setgraphic($int11);
+    if_setsize(63, 0, 0, $int11);
+    if_setposition(18, 1, 0, $int11);
+    if_setposition(123, 1, 0, $int10);
+    $int21 = sub($int21, 35);
+}
+def_int $int22 = 0;
+$int21 = add(if_gety, $int21);
+if ($int4 = 0) {
+    if ($int6 = 0) {
+        $int22 = 12;
+        $int21 = add($int21, $int22);
+        if_sethide($int12);
+        if_sethide($int13);
+    }
+} else {
+    if ($int4 = 1) {
+        if ($int6 = 0) {
+            $int22 = 41;
+            $int21 = add($int21, $int22);
+            if_setposition(8, 1, 2, $int12);
+            if_sethide($int12);
+            if_sethide($int13);
+        }
+    }
+    if ($int4 = 0) {
+        if ($int6 = 1) {
+            $int22 = 41;
+            $int21 = add($int21, $int22);
+            if_setposition(8, 1, 2, $int13);
+            if_sethide($int13);
+            if_sethide($int12);
+        }
+    }
+    $int22 = 70;
+    $int21 = add($int21, $int22);
+    if ($int7 = 0) {
+        if_setposition(40, 1, 2, $int12);
+        if_setposition(10, 1, 2, $int13);
+    } else {
+        if_setposition(10, 1, 2, $int12);
+        if_setposition(40, 1, 2, $int13);
+    }
+    if_sethide($int13);
+    if_sethide($int12);
+}
+if_setsize($int21, 0, 0, $int9);
+~script_2952($int12, $int13, $int0);
+if_setposition($int22, 1, 2, $int10);
+if_sethide($int8);
+if_sethide($int9);
+if_sethide(39059460);
+return($int9, if_getwidth, 0, 0, 0, 1);

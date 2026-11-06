@@ -1,0 +1,96 @@
+[clientscript,script_793](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0, string $str1, string $str2, string $str3, string $str4)
+cc_deleteall($int0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+if_setscrollsize(0, calc($int4 - $int3 / $int1 + 1 * 57), $int0);
+def_int $int7 = 0;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_int $int12 = 12525;
+def_int $int13 = 12530;
+def_int $int14 = 2859;
+def_int $int15 = 12527;
+def_int $int16 = -1;
+def_int $int17 = -1;
+def_int $int18 = -1;
+def_int $int19 = -1;
+def_int $int20 = -1;
+def_int $int21 = -1;
+def_int $int22 = 1;
+def_int $int23 = 7;
+def_int $int24 = 1;
+def_int $int25 = 1;
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_string $str5 = "hello";
+def_int $int32 = 0;
+define_array(111, 10);
+def_int $int33 = -1;
+def_int $int34 = 0;
+if ($int7 <= sub($int4, $int3)) {
+    $int5 = calc(16 + $int7 % $int1 * 48 + $int7 % $int1 * 5);
+    $int6 = calc($int7 / $int1 * 52 + $int7 / $int1 * 5);
+    cc_setposition(0, $int0, 5, $int34);
+    $int34 = add($int34, 1);
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int5, $int6, 0, 0);
+    cc_setgraphic(2205);
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_setposition(1, $int0, 5, $int34);
+    $int34 = add($int34, 1);
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int5, $int6, 0, 0);
+    cc_setgraphic(2206);
+    cc_sethide(1);
+    cc_setposition($int34, $int0, 5, $int34);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(add($int5, 6), add($int6, 4), 0, 0);
+    $int33 = enum(105, 111, enum_1182, $int8);
+    if ($int8 = 1) {
+        if (~script_795($int33) = 1) {
+            ~script_794($int33, $int33, $int0, $int34, $str0, $str1, $str2, $str3, $str4);
+        } else {
+            ~script_794(enum(105, 111, enum_1183, $int8), $int33, $int0, $int34, $str0, $str1, $str2, $str3, $str4);
+        }
+    } else {
+        if ($int33 = 12292) {
+            ~script_794($int33, $int33, $int0, $int34, $str0, $str1, $str2, $str3, $str4);
+        }
+        ~script_794(enum(105, 111, enum_1183, $int8), $int33, $int0, $int34, $str0, $str1, $str2, $str3, $str4);
+    }
+    $str5 = "";
+    $int32 = enum(111, 105, enum_1185, $int33);
+    if ($int8 = 1) {
+        cc_setonmouserepeat;
+        cc_setonmouseleave;
+    } else {
+        $str5 = "You do not have access to this type of Summoning pouch.";
+        cc_setonmouserepeat;
+        cc_setonmouseleave;
+    }
+    $int34 = add($int34, 1);
+    cc_setposition(0, $int0, 5, $int34);
+    $int34 = add($int34, 1);
+    cc_setsize(12, 12, 0, 0);
+    cc_setposition2(add($int5, 2), add($int6, 38), 0, 0);
+    cc_setobject_nonum(spirit_shards, 1);
+    cc_setposition(0, $int0, 4, $int34);
+    $int34 = add($int34, 1);
+    cc_setsize(31, 12, 0, 0);
+    cc_setposition2(add($int5, 13), add($int6, 39), 0, 0);
+    cc_settextfont(494);
+    cc_setcolour(16777215);
+    cc_settextalign(2, 1, 0);
+    cc_settext(~script_940(oc_weight(cert_druidrobetop)));
+    cc_settextshadow(1);
+    $int7 = add($int7, 1);
+    $int8 = add($int8, 1);
+}
+return;

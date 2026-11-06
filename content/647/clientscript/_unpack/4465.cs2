@@ -1,0 +1,17 @@
+; id: 4465
+int_param_count=0
+string_param_count=1
+long_param_count=0
+local_int_count=0
+local_string_count=1
+local_long_count=0
+
+    0: op3751 0
+    1: branch_if_true 1
+    2: branch 3
+    3: push_string_local 0
+    4: gosub_with_params 4466
+    5: branch 2
+    6: push_constant_string "You must be in your clan channel to do that."
+    7: mes 0
+    8: return 0

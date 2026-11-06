@@ -1,0 +1,30 @@
+[clientscript,script_4017](int $int0)
+if_settext("");
+def_string $str0 = "Click to hide completed Tasks.";
+def_string $str1 = "Click to hide Tasks which are not in a set.";
+if (%varbit8579 = 1) {
+    if_setonop;
+    $str0 = "Click to show completed Tasks.";
+} else {
+    if_setonop;
+}
+if_setonmouserepeat;
+if (%varbit8580 = 1) {
+    if_setonop;
+    $str1 = "Click to show Tasks which are not in a set.";
+} else {
+    if_setonop;
+}
+if_setonmouserepeat;
+if (%varc_int1429 = 1) {
+    if_setgraphic(60096654);
+    if_setonmouseover;
+    if_setonmouseleave;
+    if_setop(60096654, "Turn-on");
+} else {
+    if_setgraphic(60096654);
+    if_setonmouseover;
+    if_setonmouseleave;
+    if_setop(60096654, "Turn-off");
+}
+return;

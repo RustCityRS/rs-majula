@@ -1,0 +1,5 @@
+[clientscript,script_4593](int $int0, string $str0)(int, int, int, int, int)
+def_int $int1 = calc(paraheight($str0, 495) * 15 + 5);
+if_sethide($int0);
+if_settext($str0);
+return($int0, if_getwidth, 0, $int0, $int1);

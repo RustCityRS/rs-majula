@@ -1,0 +1,22 @@
+[clientscript,script_1124](int $int0)(int)
+def_int $int1 = if_gettrans($int0);
+if (%varc_int992 = 1) {
+    $int1 = add($int1, 1);
+    if ($int1 >= 255) {
+        %varc_int992 = 0;
+    }
+} else {
+    $int1 = sub($int1, 1);
+    if ($int1 <= 0) {
+        %varc_int992 = 1;
+    }
+}
+if ($int1 > 255) {
+    $int1 = 255;
+} else {
+    if ($int1 < 0) {
+        $int1 = 0;
+    }
+}
+if_settrans($int0);
+return($int1);

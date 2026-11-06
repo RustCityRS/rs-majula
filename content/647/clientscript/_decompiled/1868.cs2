@@ -1,0 +1,9 @@
+[clientscript,script_1868](int $int0)
+if (mod(clientclock, 50) = 0) {
+    if (reboottimer > 0) {
+        if_setposition(-8, 1, 1, 59375633);
+        ~script_1870(59375640);
+        if_setontimer;
+    }
+}
+return;

@@ -1,0 +1,6 @@
+[clientscript,script_2693](int $int0)(string)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int2 = screenmode_getresolution($int0);
+$int1 = 0;
+return(tostring($int1) + "x" + tostring($int2));

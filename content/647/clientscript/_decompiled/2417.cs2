@@ -1,0 +1,6 @@
+[clientscript,script_2417](int $int0)
+if (%varc_int805 = 5) {
+    if_setop($int0, "Pump");
+}
+if_setop($int0, "Inspect");
+return;

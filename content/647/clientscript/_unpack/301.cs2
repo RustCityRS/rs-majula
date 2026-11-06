@@ -1,0 +1,45 @@
+; id: 301
+int_param_count=6
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: push_int_local 2
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 2
+    5: push_int_local 5
+    6: cc_setcolour 0
+    7: push_int_local 3
+    8: push_constant_int -1
+    9: branch_not 1
+   10: branch 7
+   11: push_int_local 1
+   12: push_int_local 3
+   13: cc_find 0
+   14: branch_if_true 1
+   15: branch 2
+   16: push_int_local 5
+   17: cc_setcolour 0
+   18: push_int_local 0
+   19: branch_if_true 1
+   20: branch 8
+   21: push_int_local 1
+   22: push_int_local 4
+   23: cc_find 0
+   24: branch_if_true 1
+   25: branch 2
+   26: push_constant_int 0
+   27: cc_sethide 0
+   28: branch 7
+   29: push_int_local 1
+   30: push_int_local 4
+   31: cc_find 0
+   32: branch_if_true 1
+   33: branch 2
+   34: push_constant_int 1
+   35: cc_sethide 0
+   36: return 0

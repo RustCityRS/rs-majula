@@ -1,0 +1,16 @@
+[clientscript,script_1990](int)
+def_int $int0 = 0;
+$int0 = calc(%varbit5783 + %varbit5785 + %varbit5786 + %varbit5790 + %varbit5791 + %varbit5793 + %varbit5792 + %varbit5784);
+if (%varbit5782 = 5) {
+    $int0 = add($int0, 1);
+}
+if (%varbit5787 = 5) {
+    $int0 = add($int0, 1);
+}
+if (%varbit5788 = 5) {
+    $int0 = add($int0, 1);
+}
+if (%varbit5789 = 5) {
+    $int0 = add($int0, 1);
+}
+return($int0);

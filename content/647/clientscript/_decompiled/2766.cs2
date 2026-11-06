@@ -1,0 +1,10 @@
+[clientscript,script_2766](int $int0, int $int1, int $int2)(int, int, int, string)
+cc_setposition(0, $int2, 3, 0);
+cc_settrans(255);
+cc_setfill(1);
+cc_setcolour($int0);
+cc_setsize(0, 0, 1, 1);
+cc_setposition2(0, 0, 1, 1);
+$int1 = min($int1, 250);
+cc_setontimer;
+return(2767, add(clientclock, $int1), $int2, "iI");

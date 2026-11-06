@@ -1,0 +1,24 @@
+[clientscript,script_3406](int, int, int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int3 < 100) {
+    switch (chat_gethistory_length($int3)) {
+        case 3:
+        case 7:
+        case 18:
+            $int0 = add($int0, 1);
+        case 9:
+        case 20:
+            $int2 = add($int2, 1);
+        case 41:
+        case 42:
+        case 44:
+        case 45:
+            $int1 = add($int1, 1);
+        default:
+    }
+    $int3 = add($int3, 1);
+}
+return($int0, $int1, $int2);

@@ -1,0 +1,26 @@
+[clientscript,script_1325](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int)
+if_setmodel;
+if_setmodel;
+if_setobject_nonum;
+if (%varbit2540 = 0) {
+    if_setmodel;
+    if_setmodel;
+    if_setmodel;
+    return(17219, $int3, -1, $int2, -1, $int4);
+}
+if (%varbit2540 > %varbit2511) {
+    if_setmodel;
+    if_setmodel;
+    if_setmodel;
+    return(17219, $int3, 17221, $int2, 17217, $int4);
+}
+if (%varbit2540 < %varbit2511) {
+    if_setmodel;
+    if_setmodel;
+    if_setmodel;
+    return(17219, $int3, 17220, $int2, 17218, $int4);
+}
+if_setmodel;
+if_setmodel;
+if_setmodel;
+return(17216, $int3, -1, $int2, -1, $int4);

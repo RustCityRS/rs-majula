@@ -1,0 +1,205 @@
+[clientscript,script_973]
+def_int $int0 = %varbit4729;
+if (%varbit4729 < 1) {
+    return;
+}
+def_string $str0 = enum_string(0, 1477, $int0);
+def_int $int1 = enum(105, 83, enum_681, $int0);
+def_int $int2 = enum(105, 100, enum_1478, $int0);
+def_int $int3 = 1;
+def_int $int4 = 1;
+switch ($int0) {
+    case 1:
+        $int4 = %varc_int1469;
+    case 2:
+        $int4 = %varc_int1470;
+    case 5:
+        $int4 = %varc_int1471;
+    case 3:
+        $int4 = %varc_int1472;
+    case 7:
+        $int4 = %varc_int1473;
+    case 4:
+        $int4 = %varc_int1474;
+    case 6:
+        $int4 = %varc_int1475;
+    case 8:
+        $int4 = %varc_int1476;
+    case 9:
+        $int4 = %varc_int1477;
+    case 10:
+        $int4 = %varc_int1478;
+    case 11:
+        $int4 = %varc_int1479;
+    case 19:
+        $int4 = %varc_int1480;
+    case 13:
+        $int4 = %varc_int1481;
+    case 14:
+        $int4 = %varc_int1482;
+    case 15:
+        $int4 = %varc_int1483;
+    case 16:
+        $int4 = %varc_int1484;
+    case 17:
+        $int4 = %varc_int1485;
+    case 18:
+        $int4 = %varc_int1486;
+    case 12:
+        $int4 = %varc_int1487;
+    case 20:
+        $int4 = %varc_int1488;
+    case 21:
+        $int4 = %varc_int1489;
+    case 22:
+        $int4 = %varc_int1490;
+    case 23:
+        $int4 = %varc_int1491;
+    case 24:
+        $int4 = %varc_int1492;
+    case 25:
+        $int4 = %varc_int1493;
+    default:
+}
+if (add($int4, 1) ! stat_base($int1)) {
+    $str0 = enum_string(0, 3644, $int0) + tostring(sub(stat_base($int1), $int4)) + enum_string(0, 3645, $int0);
+}
+if_settext($str0);
+if_settext("You have now reached level " + tostring(stat_base($int1)) + ".");
+if_setgraphic(48562183);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $str1 = "";
+def_int $int8 = 0;
+def_int $int9 = -1;
+def_int $int10 = 2287;
+def_int $int11 = $int10;
+def_int $int12 = 0;
+cc_deleteall(48562178);
+cc_deleteall(48562179);
+if (%varp281 < 1000) {
+    if (stat_base($int1) = 3) {
+        $str1 = "<col=000080>" + "You've now reached the highest skill level that you can achieve during the tutorial. Once you finish the tutorial, you can advance this skill even further!";
+        $int7 = ~script_974($int5, $int6, 7620, $int10, 0, 0, $str1);
+        cc_settext($str1);
+        $int6 = ~script_975($int6, $int7);
+        $int5 = add(2, $int5);
+    }
+}
+if (%varbit4730 = 1) {
+    $str1 = "<col=800000>" + "Well done! You've reached the total level " + tostring(enum(105, 105, enum_1475, %varbit4728)) + " milestone!";
+    $int7 = ~script_974($int5, $int6, 7620, $int10, 0, 0, $str1);
+    cc_settext($str1);
+    $int6 = ~script_975($int6, $int7);
+    $int5 = add(2, $int5);
+}
+$int8 = 0;
+$str1 = "null";
+$int9 = 7620;
+if ($int0 = 1) {
+    if (%varbit4731 = 1) {
+        $str1 = "<col=800000>" + "Well done! You've reached the Combat level " + tostring(enum(105, 105, enum_1473, %varbit4727)) + " milestone!";
+        $int7 = ~script_974($int5, $int6, 7620, $int10, 0, 0, $str1);
+        cc_settext($str1);
+        $int6 = ~script_975($int6, $int7);
+        $int5 = add(2, $int5);
+    }
+    if (%varbit5395 = 1) {
+        if ($int9 ! -1) {
+            $str1 = ~script_976($int8);
+            $int9 = ~script_976($int8);
+            $int12 = ~script_976($int8);
+            if ($int12 = ~script_1432) {
+                $int7 = ~script_974($int5, $int6, $int9, $int10, 0, 0, $str1);
+                cc_settext($str1);
+                $int6 = ~script_975($int6, $int7);
+                $int5 = add(2, $int5);
+            }
+            $int8 = add($int8, 1);
+        }
+    }
+}
+$str1 = "";
+$int9 = 7620;
+def_int $int13 = 0;
+$int8 = 0;
+if ($int13 ! -1) {
+    $int13 = 0;
+    $int13 = ~script_1023($int1, $int8);
+    $int9 = ~script_1023($int1, $int8);
+    $str1 = ~script_1023($int1, $int8);
+    if ($int13 = 1) {
+        $int7 = ~script_974($int5, $int6, $int9, $int10, 0, 0, $str1);
+        cc_settext($str1);
+        $int6 = ~script_975($int6, $int7);
+        $int5 = add(2, $int5);
+        $int3 = 0;
+    }
+    $int8 = add($int8, 1);
+}
+$int11 = $int10;
+$int9 = 7620;
+$str1 = "";
+$int8 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_string $str2 = "";
+$int14 = ~script_12($int0);
+$str0 = ~script_12($int0);
+if ($int8 < $int14) {
+    $int15 = ~script_13($int0, $int8);
+    $str0 = ~script_13($int0, $int8);
+    $int16 = 0;
+    $int9 = 7620;
+    $int11 = $int10;
+    if (~script_1566($int0, $int8) = 1) {
+        if ($int11 ! -1) {
+            $str1 = ~script_1567($int0, $int8, $int16);
+            $str2 = ~script_1567($int0, $int8, $int16);
+            $int11 = ~script_1567($int0, $int8, $int16);
+            $int12 = ~script_1567($int0, $int8, $int16);
+            if ($int12 <= stat_base($int1)) {
+                if ($int12 > $int4) {
+                    $int7 = ~script_974($int5, $int6, $int9, $int11, $int0, $int8, $str1);
+                    cc_settext($str1);
+                    $int6 = ~script_975($int6, $int7);
+                    $int5 = add(2, $int5);
+                    $int3 = 0;
+                }
+            }
+            $int16 = add($int16, 1);
+        }
+        $int8 = add($int8, 1);
+    } else {
+        if ($int9 ! -1) {
+            $str1 = ~script_14($int0, $int8, $int16);
+            $str2 = ~script_14($int0, $int8, $int16);
+            $int9 = ~script_14($int0, $int8, $int16);
+            $int12 = ~script_14($int0, $int8, $int16);
+            if ($int12 <= stat_base($int1)) {
+                if ($int12 > $int4) {
+                    $int7 = ~script_974($int5, $int6, $int9, $int11, $int0, $int8, $str1);
+                    cc_settext($str1);
+                    $int6 = ~script_975($int6, $int7);
+                    $int5 = add(2, $int5);
+                    $int3 = 0;
+                }
+            }
+            $int16 = add($int16, 1);
+        }
+        $int8 = add($int8, 1);
+    }
+}
+if ($int3 = 1) {
+    $str1 = append(~script_4242($int0), "Check out the skill advance guide to see what you'll be able to do when you reach even higher levels...");
+    $int7 = ~script_974($int5, $int6, 7620, $int10, 0, 0, $str1);
+    cc_settext($str1);
+    $int6 = ~script_975($int6, $int7);
+}
+if_setscrollpos(0, 48562178);
+if_setscrollsize(296, $int6, 48562178);
+if ($int6 > 160) {
+}
+return;

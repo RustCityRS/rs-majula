@@ -1,0 +1,60 @@
+; id: 3434
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1280
+    1: branch_if_true 1
+    2: branch 1
+    3: return 0
+    4: push_varc_int 1278
+    5: push_int_local 0
+    6: branch_not 1
+    7: branch 4
+    8: push_constant_int 9439
+    9: push_constant_int 1
+   10: push_constant_int 0
+   11: sound_synth 0
+   12: push_int_local 0
+   13: pop_varc_int 1278
+   14: push_constant_int 1134
+   15: push_constant_int 3538960
+   16: if_setgraphic 0
+   17: push_constant_int 1134
+   18: push_constant_int 3538961
+   19: if_setgraphic 0
+   20: push_constant_int 1134
+   21: push_constant_int 3538962
+   22: if_setgraphic 0
+   23: push_varc_int 1278
+   24: branch_if_true 1
+   25: branch 4
+   26: push_constant_int 1135
+   27: push_constant_int 3538960
+   28: if_setgraphic 0
+   29: branch 21
+   30: push_varc_int 1278
+   31: push_constant_int 2
+   32: branch_equals 1
+   33: branch 4
+   34: push_constant_int 1135
+   35: push_constant_int 3538961
+   36: if_setgraphic 0
+   37: branch 13
+   38: push_varc_int 1278
+   39: push_constant_int 3
+   40: branch_equals 1
+   41: branch 4
+   42: push_constant_int 1135
+   43: push_constant_int 3538962
+   44: if_setgraphic 0
+   45: branch 5
+   46: push_constant_int 1
+   47: pop_varc_int 1278
+   48: push_constant_int 1135
+   49: push_constant_int 3538960
+   50: if_setgraphic 0
+   51: return 0

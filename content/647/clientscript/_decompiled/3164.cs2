@@ -1,0 +1,11 @@
+[clientscript,script_3164](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if (clanchannel2_find_affined = 1) {
+    if (if_gethide = 0) {
+        ~script_3161(1);
+    } else {
+        ~script_3161(0);
+    }
+} else {
+    ~script_3161(0);
+}
+return;

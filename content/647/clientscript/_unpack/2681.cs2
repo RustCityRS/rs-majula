@@ -1,0 +1,15 @@
+; id: 2681
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Number of rooms: "
+    1: push_varc_int 944
+    2: tostring 0
+    3: join_string 2
+    4: push_constant_int 26083346
+    5: if_settext 0
+    6: return 0

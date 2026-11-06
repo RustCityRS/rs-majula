@@ -1,0 +1,33 @@
+[clientscript,script_1715](int, int, int)
+def_int $int0 = -1;
+if (%varc_int1043 = -1) {
+    return;
+}
+switch (%varc_int1043) {
+    case 4761:
+    case 4762:
+        $int0 = 1572874;
+    case 4763:
+    case 4764:
+        $int0 = 1572872;
+    case 4765:
+    case 4766:
+        $int0 = 1572873;
+    case 4767:
+    case 4768:
+        $int0 = 1572875;
+    case 4769:
+    case 4770:
+        $int0 = 1572876;
+    case 4771:
+    case 4772:
+        $int0 = 1572877;
+    default:
+}
+if ($int0 = -1) {
+    return;
+}
+if_setobject(-1, $int0);
+if_setmodelzoom(1600, $int0);
+if_setmodelanim;
+return(%varc_int1043, 12554, $int0);

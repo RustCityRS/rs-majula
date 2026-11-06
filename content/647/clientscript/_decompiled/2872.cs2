@@ -1,0 +1,29 @@
+[clientscript,script_2872]
+if (%varc_int1077 = 1) {
+    if_setgraphic(12255244);
+    ~script_2878;
+    if_sethide(12255233);
+    if_sethide(12255234);
+    if_sethide(12255249);
+    if_sethide(12255250);
+    if_sethide(12255241);
+    if_sethide(12255242);
+    if_sethide(12255243);
+    if_sethide(12255245);
+    if (%varbit7081 = 32767) {
+        if_sethide(12255246);
+    }
+} else {
+    if_setgraphic(12255244);
+    if_sethide(12255241);
+    if_sethide(12255242);
+    if_sethide(12255243);
+    if_sethide(12255245);
+    if_sethide(12255246);
+    if_sethide(12255250);
+    if_sethide(12255233);
+    if_sethide(12255234);
+    if_sethide(12255249);
+}
+%varc_int2 = 0;
+return;

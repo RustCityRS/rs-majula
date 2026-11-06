@@ -1,0 +1,406 @@
+[clientscript,script_2845](int, int, int, int, component, component, component, component)
+if (%varbit3251 = 1) {
+    if_setmodel;
+    if_settext("Attacker level up to 2");
+    if_settext("+20 bonus damage");
+    if_settext("200 Attacker Honour Points");
+    if (%varbit3256 > 199) {
+        if_setcolour(30998573);
+    }
+} else {
+    if (%varbit3251 = 2) {
+        if_setmodel;
+        if_settext("Attacker level up to 3");
+        if_settext("+30 bonus damage");
+        if_settext("300 Attacker Honour Points");
+        if (%varbit3256 > 299) {
+            if_setcolour(30998573);
+        }
+    }
+    if (%varbit3251 = 3) {
+        if_setmodel;
+        if_settext("Attacker level up to 4");
+        if_settext("+40 bonus damage");
+        if_settext("400 Attacker Honour Points");
+        if (%varbit3256 > 399) {
+            if_setcolour(30998573);
+        }
+    }
+    if (%varbit3251 = 4) {
+        if_setmodel;
+        if_settext("Attacker level up to 5");
+        if_settext("+50 bonus damage");
+        if_settext("500 Attacker Honour Points");
+        if (%varbit3256 > 499) {
+            if_setcolour(30998573);
+        }
+    }
+    if (%varbit3251 = 5) {
+        if_setmodel;
+        if_settext("Attacker level up complete");
+        if_settext(" - Mastered - ");
+        if_settext(" - Mastered - ");
+    }
+    %varbit3251 = 1;
+    if_setmodel;
+    if_settext("Attacker level up to 2");
+    if_settext("+20 bonus damage");
+    if_settext("200 Attacker Honour Points");
+    if (%varbit3256 > 199) {
+        if_setcolour(30998573);
+    }
+}
+if (%varbit3253 = 1) {
+    if_setmodel;
+    if_settext("Defender level up to 2");
+    if_settext("Lure range 5");
+    if_settext("200 Defender Honour Points");
+    if (%varbit3263 > 199) {
+        if_setcolour(30998580);
+    }
+} else {
+    if (%varbit3253 = 2) {
+        if_setmodel;
+        if_settext("Defender level up to 3");
+        if_settext("Lure range 6");
+        if_settext("300 Defender Honour Points");
+        if (%varbit3263 > 299) {
+            if_setcolour(30998580);
+        }
+    }
+    if (%varbit3253 = 3) {
+        if_setmodel;
+        if_settext("Defender level up to 4");
+        if_settext("Lure range 8");
+        if_settext("400 Defender Honour Points");
+        if (%varbit3263 > 399) {
+            if_setcolour(30998580);
+        }
+    }
+    if (%varbit3253 = 4) {
+        if_setmodel;
+        if_settext("Defender level up to 5");
+        if_settext("Lure range 10");
+        if_settext("500 Defender Honour Points");
+        if (%varbit3263 > 499) {
+            if_setcolour(30998580);
+        }
+    }
+    if (%varbit3253 = 5) {
+        if_setmodel;
+        if_settext("Defender level up complete");
+        if_settext(" - Mastered - ");
+        if_settext(" - Mastered - ");
+    }
+    %varbit3253 = 1;
+    if_setmodel;
+    if_settext("Defender level up to 2");
+    if_settext("Lure range 5");
+    if_settext("200 Defender Honour Points");
+    if (%varbit3263 > 199) {
+        if_setcolour(30998580);
+    }
+}
+if (%varbit3254 = 1) {
+    if_setmodel;
+    if_settext("Collector level up to 2");
+    if_settext("Egg conversion");
+    if_settext("200 Collector Honour Points");
+    if (%varbit3261 > 199) {
+        if_setcolour(30998587);
+    }
+} else {
+    if (%varbit3254 = 2) {
+        if_setmodel;
+        if_settext("Collector level up to 3");
+        if_settext("Egg convert success (80%)");
+        if_settext("300 Collector Honour Points");
+        if (%varbit3261 > 299) {
+            if_setcolour(30998587);
+        }
+    }
+    if (%varbit3254 = 3) {
+        if_setmodel;
+        if_settext("Collector level up to 4");
+        if_settext("Egg convert success (90%)");
+        if_settext("400 Collector Honour Points");
+        if (%varbit3261 > 399) {
+            if_setcolour(30998587);
+        }
+    }
+    if (%varbit3254 = 4) {
+        if_setmodel;
+        if_settext("Collector level up to 5");
+        if_settext("Egg convert success (100%)");
+        if_settext("500 Collector Honour Points");
+        if (%varbit3261 > 499) {
+            if_setcolour(30998587);
+        }
+    }
+    if (%varbit3254 = 5) {
+        if_setmodel;
+        if_settext("Collector level up complete");
+        if_settext(" - Mastered - ");
+        if_settext(" - Mastered - ");
+    }
+    %varbit3254 = 1;
+    if_setmodel;
+    if_settext("Collector level up to 2");
+    if_settext("Egg conversion");
+    if_settext("200 Collector Honour Points");
+    if (%varbit3261 > 199) {
+        if_setcolour(30998587);
+    }
+}
+if (%varbit3255 = 1) {
+    if_setmodel;
+    if_settext("Healer level up to 2");
+    if_settext("Heal 150 points, more run energy");
+    if_settext("200 Healer Honour Points");
+    if (%varbit3262 > 199) {
+        if_setcolour(30998594);
+    }
+} else {
+    if (%varbit3255 = 2) {
+        if_setmodel;
+        if_settext("Healer level up to 3");
+        if_settext("Heal 200 points, more run energy");
+        if_settext("300 Healer Honour Points");
+        if (%varbit3262 > 299) {
+            if_setcolour(30998594);
+        }
+    }
+    if (%varbit3255 = 3) {
+        if_setmodel;
+        if_settext("Healer level up to 4");
+        if_settext("Heal 250 points, more run energy");
+        if_settext("400 Healer Honour Points");
+        if (%varbit3262 > 399) {
+            if_setcolour(30998594);
+        }
+    }
+    if (%varbit3255 = 4) {
+        if_setmodel;
+        if_settext("Healer level up to 5");
+        if_settext("Heal 350 points, more run energy");
+        if_settext("500 Healer Honour Points");
+        if (%varbit3262 > 499) {
+            if_setcolour(30998594);
+        }
+    }
+    if (%varbit3255 = 5) {
+        if_setmodel;
+        if_settext("Healer level up complete");
+        if_settext(" - Mastered - ");
+        if_settext(" - Mastered - ");
+    }
+    %varbit3255 = 1;
+    if_setmodel;
+    if_settext("Healer level up to 2");
+    if_settext("Heal 150 points and even more run energy");
+    if_settext("200 Healer Honour Points");
+    if (%varbit3262 > 199) {
+        if_setcolour(30998594);
+    }
+}
+if (%varbit3256 > 274) {
+    if (%varbit3263 > 274) {
+        if (%varbit3261 > 274) {
+            if (%varbit3262 > 274) {
+                if_setcolour(30998656);
+            }
+        }
+    }
+}
+if (%varbit3256 > 274) {
+    if (%varbit3263 > 274) {
+        if (%varbit3261 > 274) {
+            if (%varbit3262 > 274) {
+                if_setcolour(30998649);
+            }
+        }
+    }
+}
+if (%varbit3256 > 274) {
+    if (%varbit3263 > 274) {
+        if (%varbit3261 > 274) {
+            if (%varbit3262 > 274) {
+                if_setcolour(30998642);
+            }
+        }
+    }
+}
+if (%varbit3256 > 274) {
+    if (%varbit3263 > 274) {
+        if (%varbit3261 > 274) {
+            if (%varbit3262 > 274) {
+                if_setcolour(30998635);
+            }
+        }
+    }
+}
+if (%varbit3256 > 374) {
+    if (%varbit3263 > 374) {
+        if (%varbit3261 > 374) {
+            if (%varbit3262 > 374) {
+                if_setcolour(30998628);
+            }
+        }
+    }
+}
+if (%varbit3256 > 374) {
+    if (%varbit3263 > 374) {
+        if (%varbit3261 > 374) {
+            if (%varbit3262 > 374) {
+                if_setcolour(30998621);
+            }
+        }
+    }
+}
+if (%varbit3256 > 99) {
+    if (%varbit3263 > 99) {
+        if (%varbit3261 > 99) {
+            if (%varbit3262 > 99) {
+                if_setcolour(30998615);
+            }
+        }
+    }
+}
+if (%varbit3256 > 149) {
+    if (%varbit3263 > 149) {
+        if (%varbit3261 > 149) {
+            if (%varbit3262 > 149) {
+                if_setcolour(30998609);
+            }
+        }
+    }
+}
+if (inv_total(inv, coins) > 94999) {
+    if_setcolour(30998740);
+}
+if (%varbit3245 = 1) {
+    if_setcolour(30998623);
+    if_setcolour(30998630);
+    if_setcolour(30998637);
+    if_setcolour(30998644);
+    if_setcolour(30998651);
+    if_setcolour(30998658);
+    if_setcolour(30998742);
+}
+if (%varbit3256 > 9) {
+    if_setcolour(30998734);
+}
+if (%varbit3256 > 19) {
+    if_setcolour(30998728);
+}
+if (%varbit3256 > 29) {
+    if_setcolour(30998722);
+}
+if (inv_total(inv, penance_horn) < 1) {
+    if (inv_total(bank, penance_horn) < 1) {
+        if (inv_total(worn, penance_horn) < 1) {
+            if (inv_total(inv_530, penance_horn) < 1) {
+                if (inv_total(inv, penance_master_horn) < 1) {
+                    if (inv_total(bank, penance_master_horn) < 1) {
+                        if (inv_total(worn, penance_master_horn) < 1) {
+                            if (inv_total(inv_530, penance_master_horn) < 1) {
+                                if_setcolour(30998747);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+if (%varbit3251 = 5) {
+    if_setcolour(30998711);
+}
+if (inv_total(inv, penance_master_horn) < 1) {
+    if (inv_total(bank, penance_master_horn) < 1) {
+        if (inv_total(worn, penance_master_horn) < 1) {
+            if (inv_total(inv_530, penance_master_horn) < 1) {
+                if (inv_total(inv, penance_horn) > 0) {
+                    if_setcolour(30998712);
+                }
+            }
+        }
+    }
+}
+if (%varbit3256 > 389) {
+    if (%varbit3263 > 389) {
+        if (%varbit3261 > 389) {
+            if (%varbit3262 > 389) {
+                if_setcolour(30998674);
+            }
+        }
+    }
+}
+if (inv_total(inv, penance_trident) > 0) {
+    if_setcolour(30998668);
+}
+def_int $int0 = 0;
+if (inv_total(inv, abyssal_whip) > 0) {
+    $int0 = 1;
+}
+if (%varbit7342 = 0) {
+    if (%varbit3256 > 49) {
+        if_setcolour(30998690);
+    }
+} else {
+    if ($int0 = 1) {
+        if_setcolour(30998690);
+    }
+}
+if (%varbit7344 = 0) {
+    if (%varbit3256 > 49) {
+        if_setcolour(30998684);
+    }
+} else {
+    if ($int0 = 1) {
+        if_setcolour(30998684);
+    }
+}
+if (%varbit7341 = 0) {
+    if (%varbit3256 > 49) {
+        if_setcolour(30998702);
+    }
+} else {
+    if ($int0 = 1) {
+        if_setcolour(30998702);
+    }
+}
+if (%varbit7343 = 0) {
+    if (%varbit3256 > 49) {
+        if_setcolour(30998696);
+    }
+} else {
+    if ($int0 = 1) {
+        if_setcolour(30998696);
+    }
+}
+if (%varbit7342 = 1) {
+    if_settext("Carrying a valid weapon");
+    if_settext("Use Penance Egg Paint (White)");
+}
+if (%varbit7344 = 1) {
+    if_settext("Carrying a valid weapon");
+    if_settext("Use Penance Egg Paint (Green)");
+}
+if (%varbit7343 = 1) {
+    if_settext("Carrying a valid weapon");
+    if_settext("Use Penance Egg Paint (Blue)");
+}
+if (%varbit7341 = 1) {
+    if_settext("Carrying a valid weapon");
+    if_settext("Use Penance Egg Paint (Yellow)");
+}
+if_setobject(-1, 30998700);
+if_setobject(-1, 30998682);
+if_setobject(-1, 30998688);
+if_setobject(-1, 30998694);
+if_settext(tostring(%varbit3256));
+if_settext(tostring(%varbit3263));
+if_settext(tostring(%varbit3261));
+if_settext(tostring(%varbit3262));
+return(10534, 10531, 15705, 10533, 30998537, 30998538, 30998539, 30998540);

@@ -1,0 +1,30 @@
+[clientscript,script_1323](int $int0, int $int1, int $int2, int $int3)
+if (inv_getobj(inv_439, dwarf_remains) ! -1) {
+    if_sethide($int0);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int0);
+}
+if (inv_getobj(inv_439, toolkit) ! -1) {
+    if_sethide($int1);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int1);
+}
+if (inv_getobj(inv_439, cannonball) ! -1) {
+    if_sethide($int2);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int2);
+}
+if (inv_getobj(inv_439, nulodion_s_notes) ! -1) {
+    if_sethide($int3);
+    if_setobject_nonum;
+    if_setopbase;
+} else {
+    if_sethide($int3);
+}
+return;

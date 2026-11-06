@@ -1,0 +1,39 @@
+[clientscript,script_2920](int $int0, int $int1, string $str0)(int)
+if_openoverlay(59375685, 914);
+if (string_length($str0) > 0) {
+    %varc_str277 = removetags($str0);
+} else {
+    %varc_str277 = "";
+}
+if_settext(%varc_str277);
+if (if_gethide = 0) {
+    ~script_3161(0);
+}
+if_setonkey;
+if_setonop;
+%varc_int1097 = string_length(%varc_str277);
+if_setonclick;
+if_sethide(59899932);
+if ($int0 = 1) {
+    if (%varc_int6 = 0) {
+        if_setgraphic(59899927);
+    } else {
+        if_setgraphic(59899927);
+    }
+    if ($int1 = 5) {
+        if_settext("Suggest to mute this player for 48 hours");
+    }
+    if_settext("Mute this player for 48 hours");
+    if_setsize(if_getheight, 0, 0, 59899925);
+    if_setposition(32, 0, 0, 59899918);
+    if_setposition(62, 0, 0, 59899919);
+    if_setposition(60, 0, 0, 59899920);
+    if_sethide(59899925);
+} else {
+    if_setposition(42, 0, 0, 59899918);
+    if_setposition(82, 0, 0, 59899919);
+    if_setposition(80, 0, 0, 59899920);
+    if_sethide(59899925);
+}
+if_sethide(59375650);
+return(0);

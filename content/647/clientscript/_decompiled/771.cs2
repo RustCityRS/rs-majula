@@ -1,0 +1,12 @@
+[clientscript,script_771](int $int0)(int)
+switch ($int0) {
+    case 6287:
+        return(add(inv_total(inv, snake_hide), inv_total(inv, snake_hide_7801)));
+    case 6979:
+        return(calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)));
+    case 2462:
+        return(calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)));
+    default:
+        return(~script_1(93, $int0));
+}
+return(0);

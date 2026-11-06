@@ -1,0 +1,27 @@
+; id: 3349
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1177
+    1: branch_if_false 1
+    2: branch 8
+    3: push_constant_int 61538370
+    4: push_constant_int -1
+    5: push_constant_int 61538418
+    6: push_constant_string "P3: Shared XP is ON"
+    7: push_constant_int 25
+    8: push_constant_int 200
+    9: gosub_with_params 1163
+   10: branch 7
+   11: push_constant_int 61538370
+   12: push_constant_int -1
+   13: push_constant_int 61538418
+   14: push_constant_string "P3: Shared XP is OFF"
+   15: push_constant_int 25
+   16: push_constant_int 200
+   17: gosub_with_params 1163
+   18: return 0

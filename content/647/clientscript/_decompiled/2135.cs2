@@ -1,0 +1,29 @@
+[clientscript,script_2135](int $int0, int $int1, int $int2)(int, int, int, int, int)
+def_int $int3 = if_getx;
+def_int $int4 = if_gety;
+if ($int1 >= 0) {
+    if ($int0 <= div(if_getwidth, 2)) {
+        $int3 = calc($int3 - random(2) + 2);
+    }
+} else {
+    if ($int0 <= if_getwidth) {
+        $int3 = calc($int3 + random(2) + 2);
+    }
+}
+if ($int2 >= 0) {
+    if ($int0 <= div(if_getheight, 2)) {
+        $int4 = calc($int4 - random(2) + 2);
+    }
+} else {
+    if ($int0 <= if_getheight) {
+        $int4 = calc($int4 + random(2) + 2);
+    }
+}
+$int3 = max($int3, 0);
+$int4 = max($int4, 0);
+if_getlayer;
+$int3 = min(if_getwidth, sub($int0, if_getwidth));
+if_getlayer;
+$int4 = min(if_getheight, sub($int0, if_getheight));
+if_setposition($int4, 0, 0, $int0);
+return($int3, $int0, $int4, $int0, $int3);

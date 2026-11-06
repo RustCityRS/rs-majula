@@ -1,0 +1,66 @@
+; id: 221
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_string_old 24
+    1: push_constant_string ""
+    2: compare 0
+    3: branch_if_false 1
+    4: branch 2
+    5: gosub_with_params 675
+    6: return 0
+    7: push_constant_int 3
+    8: pop_varc_int 790
+    9: push_constant_int 1
+   10: push_constant_int 38928417
+   11: if_sethide 0
+   12: push_constant_int 1
+   13: push_constant_int 38928418
+   14: if_sethide 0
+   15: push_constant_int 1
+   16: push_constant_int 38928445
+   17: if_sethide 0
+   18: push_constant_int 1
+   19: push_constant_int 38928532
+   20: if_sethide 0
+   21: push_constant_int 1
+   22: push_constant_int 38928533
+   23: if_sethide 0
+   24: push_constant_int 1
+   25: push_constant_int 38928534
+   26: if_sethide 0
+   27: push_constant_int 1
+   28: push_constant_int 38928535
+   29: if_sethide 0
+   30: push_constant_int 1
+   31: push_constant_int 38928549
+   32: if_sethide 0
+   33: push_constant_int 1
+   34: push_constant_int 38928550
+   35: if_sethide 0
+   36: push_constant_int 1
+   37: push_constant_int 38928488
+   38: if_sethide 0
+   39: push_constant_int 0
+   40: push_constant_int 38928504
+   41: if_sethide 0
+   42: push_constant_int 1
+   43: push_constant_int 38928446
+   44: if_sethide 0
+   45: push_constant_int 1
+   46: push_constant_int 38928501
+   47: if_sethide 0
+   48: push_constant_int 1
+   49: push_constant_int 38928505
+   50: if_sethide 0
+   51: push_constant_string "Ignore "
+   52: push_varc_string_old 24
+   53: push_constant_string "?"
+   54: join_string 3
+   55: push_constant_int 38928519
+   56: if_settext 0
+   57: return 0

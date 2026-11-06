@@ -1,0 +1,18 @@
+[clientscript,script_1972](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+sound_synth(synth_4911, 1, 0);
+switch ($int0) {
+    case 0:
+        %varc_int618 = calc(%varc_int618 + 1 % 26);
+    case 1:
+        %varc_int619 = calc(%varc_int619 + 1 % 26);
+    case 2:
+        %varc_int620 = calc(%varc_int620 + 1 % 26);
+    case 3:
+        %varc_int621 = calc(%varc_int621 + 1 % 26);
+    default:
+}
+~script_1971($int0, $int1);
+return;

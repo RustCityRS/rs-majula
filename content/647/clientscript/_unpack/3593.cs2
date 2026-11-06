@@ -1,0 +1,32 @@
+; id: 3593
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: push_constant_int 3142
+    3: return 0
+    4: branch 11
+    5: push_constant_int 3145
+    6: return 0
+    7: branch 8
+    8: push_constant_int 3148
+    9: return 0
+   10: branch 5
+   11: push_constant_int 3151
+   12: return 0
+   13: branch 2
+   14: push_constant_int 3154
+   15: return 0
+   16: push_constant_int -1
+   17: return 0
+
+switch_0:
+  2 => 3
+  3 => 6
+  4 => 9
+  5 => 12

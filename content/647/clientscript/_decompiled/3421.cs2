@@ -1,0 +1,12 @@
+[clientscript,script_3421](int, int, int, int, int, int)
+if (%varc_int1279 ! 2) {
+    sound_synth(synth_9445, 1, 0);
+}
+%varc_int1279 = 2;
+if_sethide(3932205);
+if_sethide(3932206);
+if_sethide(3932247);
+if_sethide(3932180);
+if_sethide(3932177);
+if_sethide(3932174);
+return(1, 1, 0, 1, 1, 0);

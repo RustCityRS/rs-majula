@@ -1,0 +1,30 @@
+; id: 1600
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_constant_int 0
+    3: pop_int_local 1
+    4: gosub_with_params 1891
+    5: branch_if_true 1
+    6: branch 13
+    7: push_constant_int 0
+    8: push_constant_int 72679444
+    9: if_sethide 0
+   10: push_constant_int 72679442
+   11: if_gety 0
+   12: pop_int_local 0
+   13: push_constant_int 134
+   14: push_int_local 0
+   15: push_constant_int 0
+   16: push_constant_int 0
+   17: push_constant_int 72679442
+   18: if_setposition 0
+   19: return 0
+   20: gosub_with_params 1632
+   21: return 0

@@ -1,0 +1,15 @@
+[clientscript,script_1785](int $int0, int $int1, int $int2, int $int3, string $str0)(int, int)
+cc_setposition(0, 51904515, 4, $int1);
+cc_setposition2(0, $int0, 0, 0);
+cc_settextfont(495);
+cc_settextshadow(1);
+cc_setsize($int2, calc(paraheight($str0, 495) * 12 + 5), 0, 0);
+cc_settext($str0);
+if ($int3 = 1) {
+    cc_settextalign(1, 0, 0);
+    cc_setcolour(16750623);
+    return(calc($int0 + cc_getheight + 12), add($int1, 1));
+}
+cc_settextalign(0, 0, 0);
+cc_setcolour(13150820);
+return(calc($int0 + cc_getheight + 5), add($int1, 1));

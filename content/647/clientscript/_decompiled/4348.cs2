@@ -1,0 +1,276 @@
+[clientscript,script_4348](int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+~script_4501(71958745, "Day");
+~script_4501(71958733, "Month");
+~script_4501(71958723, "Year");
+~script_4501(71958775, "World");
+~script_4501(71958670, "Select Event Type");
+~script_4501(71958685, "Select Event Place");
+~script_4501(71958700, "Select Event Attendees");
+if_setscrollpos(0, 71958711);
+~script_157(71958710, 71958711, 0, 1);
+if_setscrollpos(0, 71958696);
+~script_157(71958695, 71958696, 0, 1);
+if_setscrollpos(0, 71958681);
+~script_157(71958680, 71958681, 0, 1);
+if (%varbit9140 = 1) {
+    if_settext("All events relative to clan time");
+} else {
+    if_settext("All events relative to game time");
+}
+switch (%varp2128) {
+    case 1:
+        if (%varbit9115 > 0) {
+            $int2 = date_split(%varbit9115);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9123), "");
+        if (%varbit9107 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9107), "");
+        }
+        if (%varbit9091 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9091), "");
+        }
+        if (%varbit9099 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9099), "");
+        }
+        if (%varp2120 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2120), "");
+        }
+        ~script_4358(71958796);
+    case 2:
+        if (%varbit9116 > 0) {
+            $int2 = date_split(%varbit9116);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9124), "");
+        if (%varbit9108 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9108), "");
+        }
+        if (%varbit9092 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9092), "");
+        }
+        if (%varbit9100 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9100), "");
+        }
+        if (%varp2121 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2121), "");
+        }
+        ~script_4358(71958805);
+    case 3:
+        if (%varbit9117 > 0) {
+            $int2 = date_split(%varbit9117);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9125), "");
+        if (%varbit9109 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9109), "");
+        }
+        if (%varbit9093 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9093), "");
+        }
+        if (%varbit9101 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9101), "");
+        }
+        if (%varp2122 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2122), "");
+        }
+        ~script_4358(71958814);
+    case 4:
+        if (%varbit9118 > 0) {
+            $int2 = date_split(%varbit9118);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9126), "");
+        if (%varbit9110 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9110), "");
+        }
+        if (%varbit9094 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9094), "");
+        }
+        if (%varbit9102 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9102), "");
+        }
+        if (%varp2123 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2123), "");
+        }
+        ~script_4358(71958823);
+    case 5:
+        if (%varbit9119 > 0) {
+            $int2 = date_split(%varbit9119);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9127), "");
+        if (%varbit9111 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9111), "");
+        }
+        if (%varbit9095 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9095), "");
+        }
+        if (%varbit9103 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9103), "");
+        }
+        if (%varp2124 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2124), "");
+        }
+        ~script_4358(71958832);
+    case 6:
+        if (%varbit9120 > 0) {
+            $int2 = date_split(%varbit9120);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9128), "");
+        if (%varbit9112 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9112), "");
+        }
+        if (%varbit9096 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9096), "");
+        }
+        if (%varbit9104 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9104), "");
+        }
+        if (%varp2125 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2125), "");
+        }
+        ~script_4358(71958841);
+    case 7:
+        if (%varbit9121 > 0) {
+            $int2 = date_split(%varbit9121);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9129), "");
+        if (%varbit9113 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9113), "");
+        }
+        if (%varbit9097 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9097), "");
+        }
+        if (%varbit9105 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9105), "");
+        }
+        if (%varp2126 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2126), "");
+        }
+        ~script_4358(71958850);
+    case 8:
+        if (%varbit9122 > 0) {
+            $int2 = date_split(%varbit9122);
+            $int1 = 0;
+            $int0 = 0;
+            $int1 = add($int1, 1);
+            $int2 = max(11, sub($int2, 2000));
+        }
+        if ($int0 > 0) {
+            ~script_4501(enum(105, 115, enum_3697, $int0), "");
+        }
+        if ($int1 > 0) {
+            ~script_4501(enum(105, 115, enum_3698, $int1), "");
+        }
+        if ($int2 > 0) {
+            ~script_4501(enum(105, 115, enum_3699, $int2), "");
+        }
+        ~script_4501(enum(105, 115, enum_3695, %varbit9130), "");
+        if (%varbit9114 > 0) {
+            ~script_4501(enum(105, 115, enum_3700, %varbit9114), "");
+        }
+        if (%varbit9098 > 0) {
+            ~script_4501(enum(105, 115, enum_3687, %varbit9098), "");
+        }
+        if (%varbit9106 > 0) {
+            ~script_4501(enum(105, 115, enum_3696, %varbit9106), "");
+        }
+        if (%varp2127 >= 0) {
+            ~script_4501(enum(105, 115, enum_3725, %varp2127), "");
+        }
+        ~script_4358(71958859);
+    default:
+}
+~script_4353(71958574);
+~script_4356(71958576);
+return(~script_4350);

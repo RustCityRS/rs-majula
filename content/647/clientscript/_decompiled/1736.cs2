@@ -1,0 +1,12 @@
+[clientscript,script_1736](int $int0, int $int1)
+def_int $int2 = 0;
+if (cc_find($int0, $int1) = 1) {
+    if (mod(clientclock, 40) > 20) {
+        cc_settrans(0);
+        if (mod(clientclock, 40) = 21) {
+            sound_synth(synth_5009, 1, 0);
+        }
+    }
+    cc_settrans(255);
+}
+return;

@@ -1,0 +1,8 @@
+[clientscript,script_2411](int $int0)(int, int, int, int, int, int, string)
+if (%varbit995 = 0) {
+    ~script_2410(-1, $int0, oc_wearpos(ammo_mould), $int0, oc_wearpos(instruction_manual), oc_iop($int0, 1), oc_iop($int0, 2), "", oc_iop($int0, 4), oc_iop($int0, 5), oc_name($int0));
+} else {
+    ~script_2410(oc_wearpos(toolkit), $int0, oc_wearpos(ammo_mould), $int0, oc_wearpos(instruction_manual), "Lletya", oc_iop($int0, 2), "Temple", oc_iop($int0, 4), oc_iop($int0, 5), oc_name($int0));
+}
+cc_setonvartransmit;
+return(2412, -2147483645, -2147483643, $int0, 1560, 1, "IioY");

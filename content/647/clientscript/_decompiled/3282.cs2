@@ -1,0 +1,4 @@
+[clientscript,script_3282](int $int0, int $int1, int $int2, string $str0)(int)
+if_getlayer;
+~script_3364($int1, $int2, 25, $int2, if_getwidth, 11, 11, $str0);
+return($int0);

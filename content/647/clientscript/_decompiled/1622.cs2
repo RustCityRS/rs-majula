@@ -1,0 +1,30 @@
+[clientscript,script_1622]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($int0 <= inv_size(inv_509)) {
+    cc_setposition(0, 33947661, 5, $int0);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(calc(5 + 70 * $int1), multiply(40, $int2), 0, 0);
+    if (inv_getobj(inv_509, $int0) ! -1) {
+        cc_setobject(inv_getobj(inv_509, $int0), 1);
+        cc_setopbase(oc_name(inv_getobj(inv_509, $int0)));
+        cc_setop(1, "Take-back 1");
+        cc_setop(2, "Take-back 5");
+        cc_setop(3, "Take-back 10");
+        cc_setop(4, "Take-back All");
+        cc_setop(5, "Take-back X");
+    }
+    cc_setposition(0, 33947662, 4, $int0);
+    cc_settextfont(494);
+    cc_setcolour(16776960);
+    cc_setsize(15, 15, 0, 0);
+    cc_setposition2(calc(5 + 70 * $int1), multiply(40, $int2), 0, 0);
+    $int0 = add($int0, 1);
+    $int1 = add($int1, 1);
+    if ($int1 > 4) {
+        $int1 = 0;
+        $int2 = add($int2, 1);
+    }
+}
+return;

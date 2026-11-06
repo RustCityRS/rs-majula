@@ -1,0 +1,28 @@
+; id: 1904
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: op152 0
+    2: push_varc_string_old 30
+    3: string_length 0
+    4: push_constant_int 0
+    5: branch_greater_than 1
+    6: branch 5
+    7: push_int_local 0
+    8: push_int_local 1
+    9: push_int_local 2
+   10: gosub_with_params 1902
+   11: branch 7
+   12: push_constant_int 0
+   13: push_constant_int 0
+   14: push_int_local 1
+   15: op2120 0
+   16: push_int_local 1
+   17: push_int_local 2
+   18: gosub_with_params 1905
+   19: return 0

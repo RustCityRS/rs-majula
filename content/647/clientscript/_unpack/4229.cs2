@@ -1,0 +1,50 @@
+; id: 4229
+int_param_count=1
+string_param_count=1
+long_param_count=0
+local_int_count=1
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 93
+    1: push_constant_int 2883
+    2: inv_total 0
+    3: push_constant_int 0
+    4: branch_greater_than 16
+    5: push_constant_int 94
+    6: push_constant_int 3
+    7: inv_getobj 0
+    8: push_constant_int 2883
+    9: branch_equals 11
+   10: push_constant_int 93
+   11: push_constant_int 4827
+   12: inv_total 0
+   13: push_constant_int 0
+   14: branch_greater_than 6
+   15: push_constant_int 94
+   16: push_constant_int 3
+   17: inv_getobj 0
+   18: push_constant_int 4827
+   19: branch_equals 1
+   20: branch 12
+   21: push_var 294
+   22: push_int_local 0
+   23: branch_greater_than_or_equals 1
+   24: branch 8
+   25: push_string_local 0
+   26: push_constant_string "<br>"
+   27: push_constant_string "Kills: "
+   28: push_int_local 0
+   29: tostring 0
+   30: join_string 4
+   31: cc_settext 1
+   32: return 0
+   33: push_string_local 0
+   34: push_constant_string "<br>"
+   35: push_constant_string "<col=ff0000>"
+   36: push_constant_string "Kills: "
+   37: push_int_local 0
+   38: tostring 0
+   39: join_string 5
+   40: cc_settext 1
+   41: return 0

@@ -1,0 +1,3 @@
+[clientscript,script_532](int $int0, int $int1)(int)
+if_settext(tostring(stat_base($int1)));
+return($int0);

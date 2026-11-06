@@ -1,0 +1,5 @@
+[clientscript,script_2473](int $int0, int $int1, int $int2)
+if (%varp850 ! -1) {
+    ~script_1163($int0, $int1, $int2, 0, 180, oc_name(%varp850));
+}
+return;

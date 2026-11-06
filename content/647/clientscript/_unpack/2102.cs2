@@ -1,0 +1,50 @@
+; id: 2102
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 19464198
+    1: push_constant_int 19464196
+    2: push_constant_int 798
+    3: push_constant_int 795
+    4: push_constant_int 796
+    5: push_constant_int 797
+    6: push_constant_int 793
+    7: push_constant_int 794
+    8: gosub_with_params 31
+    9: push_constant_int 19464199
+   10: if_gettext 0
+   11: push_constant_int 19464199
+   12: if_getwidth 0
+   13: push_constant_int 495
+   14: paraheight 0
+   15: push_constant_int 12
+   16: multiply 0
+   17: push_constant_int 5
+   18: add 0
+   19: pop_int_local 0
+   20: push_constant_int 19464199
+   21: if_getwidth 0
+   22: push_int_local 0
+   23: push_constant_int 0
+   24: push_constant_int 0
+   25: push_constant_int 19464199
+   26: if_setsize 0
+   27: push_constant_int 19464241
+   28: if_getx 0
+   29: push_constant_int 19464199
+   30: if_gety 0
+   31: push_int_local 0
+   32: add 0
+   33: push_constant_int 5
+   34: add 0
+   35: push_constant_int 0
+   36: push_constant_int 0
+   37: push_constant_int 19464241
+   38: if_setposition 0
+   39: push_constant_int 0
+   40: gosub_with_params 2104
+   41: return 0

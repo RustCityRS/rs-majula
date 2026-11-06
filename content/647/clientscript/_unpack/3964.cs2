@@ -1,0 +1,27 @@
+; id: 3964
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1414
+    1: branch_if_true 1
+    2: branch 4
+    3: push_constant_string "Username:"
+    4: push_constant_int 39059492
+    5: if_settext 0
+    6: branch 11
+    7: push_varc_int 1414
+    8: push_constant_int 2
+    9: branch_equals 1
+   10: branch 4
+   11: push_constant_string "Email:"
+   12: push_constant_int 39059492
+   13: if_settext 0
+   14: branch 3
+   15: push_constant_string "Login:"
+   16: push_constant_int 39059492
+   17: if_settext 0
+   18: return 0

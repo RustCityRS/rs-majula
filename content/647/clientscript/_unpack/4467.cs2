@@ -1,0 +1,36 @@
+; id: 4467
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 0
+    2: push_constant_int -1
+    3: pop_int_local 1
+    4: op3751 0
+    5: branch_if_true 1
+    6: branch 17
+    7: docheat 0
+    8: op4119 0
+    9: op3760 0
+   10: pop_int_local 1
+   11: push_int_local 1
+   12: push_constant_int 0
+   13: branch_greater_than_or_equals 1
+   14: branch 9
+   15: push_int_local 1
+   16: op3757 0
+   17: pop_int_local 0
+   18: push_int_local 0
+   19: op3753 0
+   20: branch_greater_than_or_equals 1
+   21: branch 2
+   22: push_constant_int 1
+   23: return 0
+   24: push_constant_int 0
+   25: return 0
+   26: push_constant_int 0
+   27: return 0

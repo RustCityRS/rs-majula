@@ -1,0 +1,9 @@
+[clientscript,script_4418]
+def_string $str0 = removetags(if_gettext);
+if (friend_test($str0) = 0) {
+    mes("Attempting to add " + $str0 + " to your Friends List.");
+    friend_add($str0);
+} else {
+    mes("You've already added " + $str0 + " to your friends list.");
+}
+return;

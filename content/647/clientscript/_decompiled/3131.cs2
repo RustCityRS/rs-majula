@@ -1,0 +1,10 @@
+[clientscript,script_3131](int $int0, int $int1, int $int2)(int, int)
+if (cc_find($int0, $int1) = 1) {
+    if_sethide(59637825);
+    if_sethide(59637826);
+    if_setposition(cc_gety, 0, 0, 59637825);
+    if_setposition(cc_gety, 0, 0, 59637826);
+}
+if_setcolour(59637826);
+if_setcolour(59637825);
+return(4210752, 6316128);

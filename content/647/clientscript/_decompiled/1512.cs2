@@ -1,0 +1,14 @@
+[clientscript,script_1512](int $int0, int $int1)(int, int, int)
+if ($int0 ! 1) {
+    return;
+}
+switch ($int1) {
+    case 1:
+    case 2:
+        if (~script_361(%varc_int1010, 3) ! -1) {
+            return;
+        }
+    default:
+}
+%varc_int778 = $int1;
+return(~script_1513, ~script_1513, ~script_1513);

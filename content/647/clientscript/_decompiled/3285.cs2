@@ -1,0 +1,7 @@
+[clientscript,script_3285](int $int0)
+if_setscrollsize(0, $int0, 62062628);
+if_setscrollsize(0, $int0, 62062630);
+if (62062628 < if_getheight) {
+    if_sethide(62062639);
+}
+return;

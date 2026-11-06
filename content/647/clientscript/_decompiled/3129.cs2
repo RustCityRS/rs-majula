@@ -1,0 +1,29 @@
+[clientscript,script_3129](int $int0, int $int1, int $int2, string $str0)
+if ($int0 = 1) {
+    if ($int1 > -1) {
+        if (cc_find(59637824, $int1) = 1) {
+            if_sethide(59637827);
+            if_setposition(cc_gety, 0, 0, 59637827);
+        }
+    }
+    if (active_toplevelinterface = %varc_int998) {
+        if (cc_find(59637781, 3) = 1) {
+            cc_sethide(0);
+        }
+    } else {
+        if (cc_find(59637781, 3) = 1) {
+            cc_sethide(1);
+        }
+    }
+    if (active_toplevelinterface = %varc_int999) {
+        if (cc_find(59637782, 3) = 1) {
+            cc_sethide(0);
+        }
+    } else {
+        if (cc_find(59637782, 3) = 1) {
+            cc_sethide(1);
+        }
+    }
+    ~script_3064(1);
+}
+return;

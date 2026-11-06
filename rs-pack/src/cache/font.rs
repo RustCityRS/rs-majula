@@ -1,9 +1,11 @@
 #[cfg(since_647)]
 use crate::archive;
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 use crate::types::Font;
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
-use rs_io::js5::{Js5Store, java_string_hash};
+use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
@@ -248,7 +250,7 @@ impl FontTypeProvider {
 
 #[cfg(since_647)]
 impl FontTypeProvider {
-    pub fn from_cache(cache: &mut Js5Store) -> FontTypeProvider {
+    pub fn from_cache(cache: &PackedCache) -> FontTypeProvider {
         let slot_names: [(&str, Font); 4] = [
             ("p11_full", Font::P11),
             ("p12_full", Font::P12),
@@ -264,7 +266,7 @@ impl FontTypeProvider {
             .collect();
         let mut id_index: HashMap<u16, usize> = HashMap::new();
 
-        let Some(ref_table) = cache.reference_table(archive::FONTMETRICS).cloned() else {
+        let Some(ref_table) = cache.reference_table(archive::FONTMETRICS) else {
             warn!("No reference table for archive 13 (FONTMETRICS)");
             return FontTypeProvider::from_slots(fonts);
         };
@@ -280,18 +282,16 @@ impl FontTypeProvider {
         }
 
         for group in &ref_table.groups {
-            let Ok(Some(g)) = cache.read_group(archive::FONTMETRICS, group.id) else {
-                continue;
-            };
-            let Some(entry) = g.entries.first() else {
+            let Ok(Some(data)) = cache.read_group_raw_decompressed(archive::FONTMETRICS, group.id)
+            else {
                 continue;
             };
             // 2-byte header then one advance per code point.
-            if entry.data().len() < 258 {
+            if data.len() < 258 {
                 continue;
             }
             let mut draw_width = [0u8; 256];
-            draw_width.copy_from_slice(&entry.data()[2..258]);
+            draw_width.copy_from_slice(&data[2..258]);
 
             let index = match slot_of_group.get(&group.id) {
                 Some(&slot) => {

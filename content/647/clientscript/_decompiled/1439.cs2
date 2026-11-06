@@ -1,0 +1,210 @@
+[clientscript,script_1439](int $int0, int $int1, int $int2)
+cc_deleteall($int0);
+cc_deleteall($int1);
+cc_deleteall($int2);
+%varc_int656 = min(%varc_int656, sub(%varc_int657, 1));
+def_int $int3 = 0;
+if (%varc_int658 > 0) {
+    $int3 = 1;
+}
+if ($int3 = 0) {
+    cc_setposition(0, $int2, 4, if_getchildcount($int2));
+    cc_setsize(2, 14, 1, 0);
+    cc_setposition2(0, 0, 1, 2);
+    cc_settextalign(1, 1, 0);
+    cc_settextfont(494);
+    cc_setcolour(16750623);
+    if ($int3 = 0) {
+        cc_settext(tostring(add(%varc_int656, 1)) + " / " + tostring(%varc_int657));
+    }
+    cc_settext(tostring(%varc_int656) + " / " + tostring(sub(%varc_int657, 1)));
+}
+if (%varc_int656 > 0) {
+    cc_setposition(0, $int2, 4, if_getchildcount($int2));
+    cc_setsize(2, 17, 1, 1);
+    cc_setposition2(0, 1, 1, 0);
+    cc_settextalign(0, 0, 0);
+    cc_settextfont(495);
+    cc_setcolour(16750623);
+    switch (%varc_int656) {
+        case 1:
+            cc_settext(%varc_str73);
+        case 2:
+            cc_settext(%varc_str74);
+        case 3:
+            cc_settext(%varc_str75);
+        case 4:
+            cc_settext(%varc_str76);
+        case 5:
+            cc_settext(%varc_str77);
+        case 6:
+            cc_settext(%varc_str78);
+        case 7:
+            cc_settext(%varc_str79);
+        case 8:
+            cc_settext(%varc_str80);
+        case 9:
+            cc_settext(%varc_str81);
+        case 10:
+            cc_settext(%varc_str82);
+        case 11:
+            cc_settext(%varc_str83);
+        case 12:
+            cc_settext(%varc_str84);
+        case 13:
+            cc_settext(%varc_str85);
+        case 14:
+            cc_settext(%varc_str86);
+        case 15:
+            cc_settext(%varc_str87);
+        case 16:
+            cc_settext(%varc_str88);
+        case 17:
+            cc_settext(%varc_str89);
+        case 18:
+            cc_settext(%varc_str90);
+        case 19:
+            cc_settext(%varc_str91);
+        case 20:
+            cc_settext(%varc_str92);
+        case 21:
+            cc_settext(%varc_str93);
+        case 22:
+            cc_settext(%varc_str94);
+        case 23:
+            cc_settext(%varc_str95);
+        case 24:
+            cc_settext(%varc_str96);
+        case 25:
+            cc_settext(%varc_str97);
+        case 26:
+            cc_settext(%varc_str98);
+        case 27:
+            cc_settext(%varc_str99);
+        case 28:
+            cc_settext(%varc_str100);
+        case 29:
+            cc_settext(%varc_str101);
+        case 30:
+            cc_settext(%varc_str102);
+        case 31:
+            cc_settext(%varc_str103);
+        case 32:
+            cc_settext(%varc_str104);
+        case 33:
+            cc_settext(%varc_str105);
+        case 34:
+            cc_settext(%varc_str106);
+        case 35:
+            cc_settext(%varc_str107);
+        case 36:
+            cc_settext(%varc_str108);
+        case 37:
+            cc_settext(%varc_str109);
+        case 38:
+            cc_settext(%varc_str110);
+        case 39:
+            cc_settext(%varc_str111);
+        case 40:
+            cc_settext(%varc_str112);
+        case 41:
+            cc_settext(%varc_str113);
+        case 42:
+            cc_settext(%varc_str114);
+        case 43:
+            cc_settext(%varc_str115);
+        case 44:
+            cc_settext(%varc_str116);
+        case 45:
+            cc_settext(%varc_str117);
+        case 46:
+            cc_settext(%varc_str118);
+        case 47:
+            cc_settext(%varc_str119);
+        case 48:
+            cc_settext(%varc_str120);
+        case 49:
+            cc_settext(%varc_str121);
+        default:
+    }
+    return;
+}
+def_int $int4 = 0;
+def_string $str0 = "";
+def_int $int5 = 0;
+if ($int4 < 16) {
+    switch ($int4) {
+        case 0:
+            $str0 = %varc_str57;
+            $int5 = %varc_int658;
+        case 1:
+            $str0 = %varc_str58;
+            $int5 = %varc_int659;
+        case 2:
+            $str0 = %varc_str59;
+            $int5 = %varc_int660;
+        case 3:
+            $str0 = %varc_str60;
+            $int5 = %varc_int661;
+        case 4:
+            $str0 = %varc_str61;
+            $int5 = %varc_int662;
+        case 5:
+            $str0 = %varc_str62;
+            $int5 = %varc_int663;
+        case 6:
+            $str0 = %varc_str63;
+            $int5 = %varc_int664;
+        case 7:
+            $str0 = %varc_str64;
+            $int5 = %varc_int665;
+        case 8:
+            $str0 = %varc_str65;
+            $int5 = %varc_int666;
+        case 9:
+            $str0 = %varc_str66;
+            $int5 = %varc_int667;
+        case 10:
+            $str0 = %varc_str67;
+            $int5 = %varc_int668;
+        case 11:
+            $str0 = %varc_str68;
+            $int5 = %varc_int669;
+        case 12:
+            $str0 = %varc_str69;
+            $int5 = %varc_int670;
+        case 13:
+            $str0 = %varc_str70;
+            $int5 = %varc_int671;
+        case 14:
+            $str0 = %varc_str71;
+            $int5 = %varc_int672;
+        case 15:
+            $str0 = %varc_str72;
+            $int5 = %varc_int673;
+        default:
+            $str0 = "";
+            $int5 = 0;
+    }
+    if (string_length($str0) > 0) {
+        cc_setposition(0, $int2, 4, if_getchildcount($int2));
+        if ($int4 = sub(16, 1)) {
+            cc_setsize(6, 17, 1, 0);
+        } else {
+            cc_setsize(2, 12, 1, 0);
+        }
+        cc_setposition2(0, calc($int4 * 12 + 1), 1, 0);
+        cc_settextalign(0, 0, 0);
+        cc_settextfont(495);
+        cc_setcolour(16750623);
+        cc_settext($str0);
+        if ($int5 > 0) {
+            cc_setop(1, "Go");
+            cc_setonop;
+            cc_setonmouseover;
+            cc_setonmouseleave;
+        }
+    }
+    $int4 = add($int4, 1);
+}
+return;

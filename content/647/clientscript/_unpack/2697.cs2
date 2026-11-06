@@ -1,0 +1,64 @@
+; id: 2697
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: op6131 0
+    2: branch_equals 1
+    3: branch 1
+    4: return 0
+    5: push_int_local 0
+    6: op6031 0
+    7: op6131 0
+    8: pop_int_local 2
+    9: push_int_local 2
+   10: gosub_with_params 2593
+   11: push_int_local 0
+   12: push_int_local 2
+   13: branch_not 1
+   14: branch 19
+   15: push_int_local 2
+   16: push_constant_int 1
+   17: op6032 0
+   18: push_int_local 1
+   19: push_constant_int 1
+   20: push_constant_string "RuneScape was unable to enter that display mode."
+   21: push_constant_string "<br>"
+   22: push_constant_string "<br>"
+   23: push_constant_string "Please visit our Knowledge Base for more information."
+   24: join_string 4
+   25: push_constant_string "Consult Knowledge Base"
+   26: push_constant_string "kbase/view.ws?guid=controls_display_options"
+   27: gosub_with_params 2694
+   28: push_int_local 2
+   29: getwindowmode 0
+   30: push_int_local 2
+   31: gosub_with_params 2692
+   32: push_int_local 1
+   33: gosub_with_params 3387
+   34: push_int_local 2
+   35: getwindowmode 0
+   36: push_int_local 2
+   37: gosub_with_params 2692
+   38: push_int_local 1
+   39: gosub_with_params 3387
+   40: push_int_local 2
+   41: branch_if_true 4
+   42: push_int_local 2
+   43: push_constant_int 3
+   44: branch_equals 1
+   45: branch 6
+   46: push_constant_int 1
+   47: push_int_local 1
+   48: push_constant_int 0
+   49: push_constant_int 1
+   50: gosub_with_params 2700
+   51: branch 3
+   52: push_int_local 2
+   53: push_constant_int 0
+   54: op6032 0
+   55: return 0

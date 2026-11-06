@@ -1,0 +1,3 @@
+[clientscript,script_2251](int $int0)(int)
+if_settext("Deaths: " + tostring(%varbit7554));
+return($int0);

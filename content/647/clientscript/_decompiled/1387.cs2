@@ -1,0 +1,238 @@
+[clientscript,script_1387](int $int0)
+if (%varc_int1413 = 0) {
+    if ($int0 ! 99) {
+        return;
+    }
+}
+~script_4249($int0);
+if (getwindowmode >= 2) {
+    if (if_hasoverlay(48889940) = 1) {
+        if ($int0 ! 98) {
+            if_sethide(48889940);
+            if_sethide(48889941);
+            if_sethide(48889939);
+            if_sethide(48889942);
+        }
+        if_sethide(48889940);
+        if_sethide(48889941);
+        if_sethide(48889939);
+        if_sethide(48889942);
+    } else {
+        if_sethide(48889940);
+        if_sethide(48889942);
+        if ($int0 ! 2) {
+            ~script_1659;
+        }
+        switch ($int0) {
+            case 0:
+                if_setgraphic(48889892);
+                if_sethide(48889943);
+                if_setgraphic(48889985);
+                if_setgraphic(48889986);
+                if_sethide(48889939);
+            case 1:
+                if_setgraphic(48889893);
+                if_sethide(48889944);
+                if_setgraphic(48889987);
+                if_setgraphic(48889988);
+                if_sethide(48889939);
+            case 2:
+                if_setgraphic(48889894);
+                if_setgraphic(48889989);
+                if_setgraphic(48889990);
+                if_sethide(48889945);
+                if_sethide(48889939);
+                ~script_1658;
+            case 3:
+                if_setgraphic(48889895);
+                if_setgraphic(48889991);
+                if_setgraphic(48889992);
+                if_sethide(48889946);
+                if_sethide(48889939);
+            case 4:
+                if_setgraphic(48889896);
+                if_setgraphic(48889993);
+                if_setgraphic(48889994);
+                if_sethide(48889947);
+                if_sethide(48889939);
+            case 5:
+                if_setgraphic(48889897);
+                if_setgraphic(48889995);
+                if_setgraphic(48889996);
+                if_sethide(48889948);
+                if_sethide(48889939);
+            case 6:
+                if_setgraphic(48889898);
+                if_setgraphic(48889997);
+                if_setgraphic(48889998);
+                if_sethide(48889949);
+                if_sethide(48889939);
+            case 7:
+                if_setgraphic(48889899);
+                if_setgraphic(48889999);
+                if_setgraphic(48890000);
+                if_sethide(48889950);
+                if_sethide(48889939);
+            case 8:
+                if_setgraphic(48889900);
+                if_setgraphic(48890001);
+                if_setgraphic(48890002);
+                if_sethide(48889951);
+                if_sethide(48889939);
+            case 9:
+                if_setgraphic(48889901);
+                if_setgraphic(48890003);
+                if_setgraphic(48890004);
+                if_sethide(48889952);
+                if_sethide(48889939);
+            case 10:
+                if_setgraphic(48889902);
+                if_setgraphic(48890005);
+                if_setgraphic(48890006);
+                if_sethide(48889953);
+                if_sethide(48889939);
+            case 11:
+                if_setgraphic(48889903);
+                if_setgraphic(48890007);
+                if_setgraphic(48890008);
+                if_sethide(48889954);
+                if_sethide(48889939);
+            case 12:
+                if_setgraphic(48889904);
+                if_setgraphic(48890009);
+                if_setgraphic(48890010);
+                if_sethide(48889955);
+                if_sethide(48889939);
+            case 13:
+                if_setgraphic(48889905);
+                if_setgraphic(48890011);
+                if_setgraphic(48890012);
+                if_sethide(48889956);
+                if_sethide(48889939);
+            case 14:
+                if_setgraphic(48889906);
+                if_setgraphic(48890013);
+                if_setgraphic(48890014);
+                if_sethide(48889957);
+                if_sethide(48889939);
+            case 15:
+                if_setgraphic(48889907);
+                if_setgraphic(48890015);
+                if_setgraphic(48890016);
+                if_sethide(48889958);
+                if_sethide(48889939);
+            case 98:
+                if_sethide(48889941);
+                if_sethide(48889939);
+            case 95:
+                if_sethide(48889960);
+                if_sethide(48889939);
+            case 99:
+                if_sethide(48889961);
+                if_sethide(48889939);
+        }
+    }
+} else {
+    if (if_hasoverlay(35913926) = 1) {
+        if ($int0 ! 98) {
+            if_sethide(35913926);
+            if_sethide(35913927);
+            if_sethide(35913928);
+        }
+        if_sethide(35913926);
+        if_sethide(35913927);
+        if_sethide(35913928);
+    }
+    if_sethide(35913926);
+    if_sethide(35913928);
+    switch ($int0) {
+        case 0:
+            if_setgraphic(35913856);
+            if_setgraphic(35913874);
+            if_setgraphic(35913875);
+            if_sethide(35913931);
+        case 1:
+            if_setgraphic(35913857);
+            if_setgraphic(35913876);
+            if_setgraphic(35913877);
+            if_sethide(35913932);
+        case 2:
+            if_setgraphic(35913858);
+            if_setgraphic(35913878);
+            if_setgraphic(35913879);
+            if_sethide(35913933);
+            ~script_1659;
+        case 3:
+            if_setgraphic(35913859);
+            if_setgraphic(35913880);
+            if_setgraphic(35913881);
+            if_sethide(35913934);
+        case 4:
+            if_setgraphic(35913860);
+            if_setgraphic(35913882);
+            if_setgraphic(35913883);
+            if_sethide(35913935);
+        case 5:
+            if_setgraphic(35913861);
+            if_setgraphic(35913884);
+            if_setgraphic(35913885);
+            if_sethide(35913936);
+        case 6:
+            if_setgraphic(35913862);
+            if_setgraphic(35913886);
+            if_setgraphic(35913887);
+            if_sethide(35913937);
+        case 7:
+            if_setgraphic(35913863);
+            if_setgraphic(35913888);
+            if_setgraphic(35913889);
+            if_sethide(35913938);
+        case 8:
+            if_setgraphic(35913826);
+            if_setgraphic(35913810);
+            if_setgraphic(35913811);
+            if_sethide(35913939);
+        case 9:
+            if_setgraphic(35913827);
+            if_setgraphic(35913812);
+            if_setgraphic(35913813);
+            if_sethide(35913940);
+        case 10:
+            if_setgraphic(35913828);
+            if_setgraphic(35913814);
+            if_setgraphic(35913815);
+            if_sethide(35913941);
+        case 11:
+            if_setgraphic(35913829);
+            if_setgraphic(35913816);
+            if_setgraphic(35913817);
+            if_sethide(35913942);
+        case 12:
+            if_setgraphic(35913830);
+            if_setgraphic(35913818);
+            if_setgraphic(35913819);
+            if_sethide(35913943);
+        case 13:
+            if_setgraphic(35913831);
+            if_setgraphic(35913820);
+            if_setgraphic(35913821);
+            if_sethide(35913944);
+        case 14:
+            if_setgraphic(35913832);
+            if_setgraphic(35913822);
+            if_setgraphic(35913823);
+            if_sethide(35913945);
+        case 15:
+            if_setgraphic(35913833);
+            if_setgraphic(35913824);
+            if_setgraphic(35913825);
+            if_sethide(35913946);
+        case 98:
+            if_sethide(35913927);
+        case 95:
+            if_sethide(35913948);
+        case 99:
+            if_sethide(35913949);
+    }
+}
+return;

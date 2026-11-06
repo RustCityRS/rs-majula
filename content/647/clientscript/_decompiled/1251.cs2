@@ -1,0 +1,19 @@
+[clientscript,script_1251](int $int0, int $int1, int $int2, int $int3, int $int4)(int, int, int, int, int, int, int, string)
+cam_startpath(0, $int0, ~script_1898($int0), ~script_1898($int0), 1, $int0);
+if (cam_getpathcount(0) <= add($int0, 2)) {
+    if_setcolour($int3);
+    if_settrans($int3);
+    if_sethide($int3);
+    if_setontimer;
+    if_setontimer;
+    if_setonvarcstringtransmit;
+    if (%varc_int176 = 2) {
+        %varc_int176 = calc(%varc_int176 + 8 + 10 * random(sub(5, 1)) + 1);
+    } else {
+        %varc_int176 = add(%varc_int176, 8);
+    }
+    %varc_int177 = add(clientclock, 30);
+    return;
+}
+if_setonvarcstringtransmit;
+return(1250, add($int0, 1), $int1, $int2, $int3, $int4, $int1, "iIIIi");

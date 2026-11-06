@@ -1,0 +1,1962 @@
+; id: 992
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 1800
+    3: push_int_local 1
+    4: switch 1
+    5: branch 234
+    6: push_constant_int 1
+    7: push_constant_int 3241
+    8: push_constant_string "Man"
+    9: push_constant_string "You can now pickpocket "
+   10: push_constant_string "<col=000080>"
+   11: push_constant_string "men"
+   12: push_constant_string "</col>"
+   13: push_constant_string " and "
+   14: push_constant_string "<col=000080>"
+   15: push_constant_string "women"
+   16: push_constant_string "</col>"
+   17: push_constant_string "."
+   18: join_string 9
+   19: return 0
+   20: branch 219
+   21: push_constant_int 10
+   22: push_constant_int 3243
+   23: push_constant_string "Farmer"
+   24: push_constant_string "You can now pickpocket "
+   25: push_constant_string "<col=000080>"
+   26: push_constant_string "farmers"
+   27: push_constant_string "</col>"
+   28: push_constant_string "."
+   29: join_string 5
+   30: return 0
+   31: branch 208
+   32: push_constant_int 15
+   33: push_constant_int 4295
+   34: push_constant_string "Female H.A.M. follower"
+   35: push_constant_string "You can now pickpocket "
+   36: push_constant_string "<col=000080>"
+   37: push_constant_string "female H.A.M. followers"
+   38: push_constant_string "</col>"
+   39: push_constant_string "."
+   40: join_string 5
+   41: return 0
+   42: branch 197
+   43: push_constant_int 20
+   44: push_constant_int 4297
+   45: push_constant_string "Male H.A.M. follower"
+   46: push_constant_string "You can now pickpocket "
+   47: push_constant_string "<col=000080>"
+   48: push_constant_string "male H.A.M. followers"
+   49: push_constant_string "</col>"
+   50: push_constant_string "."
+   51: join_string 5
+   52: return 0
+   53: branch 186
+   54: push_constant_int 25
+   55: push_constant_int 3245
+   56: push_constant_string "Warrior"
+   57: push_constant_string "You can now pickpocket "
+   58: push_constant_string "<col=000080>"
+   59: push_constant_string "warriors"
+   60: push_constant_string "</col>"
+   61: push_constant_string "."
+   62: join_string 5
+   63: return 0
+   64: branch 175
+   65: push_constant_int 32
+   66: push_constant_int 3247
+   67: push_constant_string "Rogue"
+   68: push_constant_string "You can now pickpocket "
+   69: push_constant_string "<col=000080>"
+   70: push_constant_string "rogues"
+   71: push_constant_string "</col>"
+   72: push_constant_string "."
+   73: join_string 5
+   74: return 0
+   75: branch 164
+   76: push_constant_int 36
+   77: push_constant_int 10998
+   78: push_constant_string "Cave goblin"
+   79: push_constant_string "You can now pickpocket "
+   80: push_constant_string "<col=000080>"
+   81: push_constant_string "cave goblins"
+   82: push_constant_string "</col>"
+   83: push_constant_string "."
+   84: join_string 5
+   85: return 0
+   86: branch 153
+   87: push_constant_int 38
+   88: push_constant_int 5068
+   89: push_constant_string "Master farmer"
+   90: push_constant_string "You can now pickpocket "
+   91: push_constant_string "<col=000080>"
+   92: push_constant_string "master farmers"
+   93: push_constant_string "</col>"
+   94: push_constant_string "."
+   95: join_string 5
+   96: return 0
+   97: branch 142
+   98: push_constant_int 40
+   99: push_constant_int 3249
+  100: push_constant_string "Guard"
+  101: push_constant_string "You can now pickpocket "
+  102: push_constant_string "<col=000080>"
+  103: push_constant_string "guards"
+  104: push_constant_string "</col>"
+  105: push_constant_string "."
+  106: join_string 5
+  107: return 0
+  108: branch 131
+  109: push_constant_int 45
+  110: push_constant_int 3686
+  111: push_constant_string "Fremennik citizen"
+  112: push_constant_string "You can now pickpocket "
+  113: push_constant_string "<col=000080>"
+  114: push_constant_string "Fremennik citizens"
+  115: push_constant_string "</col>"
+  116: push_constant_string "."
+  117: join_string 5
+  118: return 0
+  119: branch 120
+  120: push_constant_int 45
+  121: push_constant_int 6782
+  122: push_constant_string "Bearded Pollnivnian bandit"
+  123: push_constant_string "You can now pickpocket "
+  124: push_constant_string "<col=000080>"
+  125: push_constant_string "bearded Pollnivnian bandits"
+  126: push_constant_string "</col>"
+  127: push_constant_string "."
+  128: join_string 5
+  129: return 0
+  130: branch 109
+  131: push_constant_int 53
+  132: push_constant_int 4625
+  133: push_constant_string "Desert bandit"
+  134: push_constant_string "You can now pickpocket "
+  135: push_constant_string "<col=000080>"
+  136: push_constant_string "desert bandits"
+  137: push_constant_string "</col>"
+  138: push_constant_string "."
+  139: join_string 5
+  140: return 0
+  141: branch 98
+  142: push_constant_int 55
+  143: push_constant_int 3251
+  144: push_constant_string "Knight"
+  145: push_constant_string "You can now pickpocket "
+  146: push_constant_string "<col=000080>"
+  147: push_constant_string "knights"
+  148: push_constant_string "</col>"
+  149: push_constant_string "."
+  150: join_string 5
+  151: return 0
+  152: branch 87
+  153: push_constant_int 55
+  154: push_constant_int 6781
+  155: push_constant_string "Pollnivnian bandit"
+  156: push_constant_string "You can now pickpocket "
+  157: push_constant_string "<col=000080>"
+  158: push_constant_string "Pollnivnian bandits"
+  159: push_constant_string "</col>"
+  160: push_constant_string "."
+  161: join_string 5
+  162: return 0
+  163: branch 76
+  164: push_constant_int 65
+  165: push_constant_int 3253
+  166: push_constant_string "Watchman"
+  167: push_constant_string "You can now pickpocket "
+  168: push_constant_string "<col=000080>"
+  169: push_constant_string "watchmen"
+  170: push_constant_string "</col>"
+  171: push_constant_string "."
+  172: join_string 5
+  173: return 0
+  174: branch 65
+  175: push_constant_int 65
+  176: push_constant_int 6780
+  177: push_constant_string "Menaphite thug"
+  178: push_constant_string "You can now pickpocket "
+  179: push_constant_string "<col=000080>"
+  180: push_constant_string "Menaphite thugs"
+  181: push_constant_string "</col>"
+  182: push_constant_string "."
+  183: join_string 5
+  184: return 0
+  185: branch 54
+  186: push_constant_int 70
+  187: push_constant_int 3255
+  188: push_constant_string "Paladin"
+  189: push_constant_string "You can now pickpocket "
+  190: push_constant_string "<col=000080>"
+  191: push_constant_string "paladins"
+  192: push_constant_string "</col>"
+  193: push_constant_string "."
+  194: join_string 5
+  195: return 0
+  196: branch 43
+  197: push_constant_int 75
+  198: push_constant_int 3257
+  199: push_constant_string "Gnome"
+  200: push_constant_string "You can now pickpocket "
+  201: push_constant_string "<col=000080>"
+  202: push_constant_string "gnomes"
+  203: push_constant_string "</col>"
+  204: push_constant_string "."
+  205: join_string 5
+  206: return 0
+  207: branch 32
+  208: push_constant_int 80
+  209: push_constant_int 3259
+  210: push_constant_string "Hero"
+  211: push_constant_string "You can now pickpocket "
+  212: push_constant_string "<col=000080>"
+  213: push_constant_string "heroes"
+  214: push_constant_string "</col>"
+  215: push_constant_string "."
+  216: join_string 5
+  217: return 0
+  218: branch 21
+  219: push_constant_int 85
+  220: push_constant_int 6105
+  221: push_constant_string "Elf"
+  222: push_constant_string "You can now pickpocket "
+  223: push_constant_string "<col=000080>"
+  224: push_constant_string "elves"
+  225: push_constant_string "</col>"
+  226: push_constant_string "."
+  227: join_string 5
+  228: return 0
+  229: branch 10
+  230: push_constant_int 90
+  231: push_constant_int 15258
+  232: push_constant_string "Dwarf trader"
+  233: push_constant_string "You can now pickpocket "
+  234: push_constant_string "<col=000080>"
+  235: push_constant_string "dwarven traders"
+  236: push_constant_string "</col>"
+  237: push_constant_string "."
+  238: join_string 5
+  239: return 0
+  240: branch 1562
+  241: push_int_local 1
+  242: switch 2
+  243: branch 764
+  244: push_constant_int 11
+  245: push_constant_int 3241
+  246: push_constant_string "Possibility of stealing double loot from a man"
+  247: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  248: push_constant_string "<col=000080>"
+  249: push_constant_string "men"
+  250: push_constant_string "</col>"
+  251: push_constant_string " and "
+  252: push_constant_string "<col=000080>"
+  253: push_constant_string "women"
+  254: push_constant_string "</col>"
+  255: push_constant_string "."
+  256: join_string 9
+  257: return 0
+  258: branch 749
+  259: push_constant_int 20
+  260: push_constant_int 3243
+  261: push_constant_string "Possibility of stealing double loot from a farmer"
+  262: push_constant_string "<br>"
+  263: push_constant_string " (with 10 Agility)"
+  264: join_string 3
+  265: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  266: push_constant_string "<col=000080>"
+  267: push_constant_string "farmers"
+  268: push_constant_string "</col>"
+  269: push_constant_string ". (You also need level 10 Agility.)"
+  270: join_string 5
+  271: return 0
+  272: branch 735
+  273: push_constant_int 21
+  274: push_constant_int 3241
+  275: push_constant_string "Possibility of stealing triple loot from a man"
+  276: push_constant_string "<br>"
+  277: push_constant_string " (with 11 Agility)"
+  278: join_string 3
+  279: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  280: push_constant_string "<col=000080>"
+  281: push_constant_string "men"
+  282: push_constant_string "</col>"
+  283: push_constant_string " and "
+  284: push_constant_string "<col=000080>"
+  285: push_constant_string "women"
+  286: push_constant_string "</col>"
+  287: push_constant_string ". (You also need level 11 Agility.)"
+  288: join_string 9
+  289: return 0
+  290: branch 717
+  291: push_constant_int 25
+  292: push_constant_int 4295
+  293: push_constant_string "Possibility of stealing double loot from a female H.A.M. follower"
+  294: push_constant_string "<br>"
+  295: push_constant_string " (with 15 Agility)"
+  296: join_string 3
+  297: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  298: push_constant_string "<col=000080>"
+  299: push_constant_string "female H.A.M. followers"
+  300: push_constant_string "</col>"
+  301: push_constant_string ". (You also need level 15 Agility.)"
+  302: join_string 5
+  303: return 0
+  304: branch 703
+  305: push_constant_int 30
+  306: push_constant_int 3243
+  307: push_constant_string "Possibility of stealing triple loot from a farmer"
+  308: push_constant_string "<br>"
+  309: push_constant_string " (with 20 Agility)"
+  310: join_string 3
+  311: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  312: push_constant_string "<col=000080>"
+  313: push_constant_string "farmers"
+  314: push_constant_string "</col>"
+  315: push_constant_string ". (You also need level 20 Agility.)"
+  316: join_string 5
+  317: return 0
+  318: branch 689
+  319: push_constant_int 30
+  320: push_constant_int 4297
+  321: push_constant_string "Possibility of stealing double loot from a male H.A.M. follower"
+  322: push_constant_string "<br>"
+  323: push_constant_string " (with 20 Agility)"
+  324: join_string 3
+  325: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  326: push_constant_string "<col=000080>"
+  327: push_constant_string "male H.A.M. followers"
+  328: push_constant_string "</col>"
+  329: push_constant_string ". (You also need level 20 Agility.)"
+  330: join_string 5
+  331: return 0
+  332: branch 675
+  333: push_constant_int 31
+  334: push_constant_int 3241
+  335: push_constant_string "Possibility of stealing quadruple loot from a man"
+  336: push_constant_string "<br>"
+  337: push_constant_string " (with 21 Agility)"
+  338: join_string 3
+  339: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  340: push_constant_string "<col=000080>"
+  341: push_constant_string "men"
+  342: push_constant_string "</col>"
+  343: push_constant_string " and "
+  344: push_constant_string "<col=000080>"
+  345: push_constant_string "women"
+  346: push_constant_string "</col>"
+  347: push_constant_string ". (You also need level 21 Agility.)"
+  348: join_string 9
+  349: return 0
+  350: branch 657
+  351: push_constant_int 35
+  352: push_constant_int 4295
+  353: push_constant_string "Possibility of stealing triple loot from a female H.A.M. follower"
+  354: push_constant_string "<br>"
+  355: push_constant_string " (with 25 Agility)"
+  356: join_string 3
+  357: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  358: push_constant_string "<col=000080>"
+  359: push_constant_string "female H.A.M. followers"
+  360: push_constant_string "</col>"
+  361: push_constant_string ". (You also need level 25 Agility.)"
+  362: join_string 5
+  363: return 0
+  364: branch 643
+  365: push_constant_int 35
+  366: push_constant_int 3245
+  367: push_constant_string "Possibility of stealing double loot from a warrior"
+  368: push_constant_string "<br>"
+  369: push_constant_string " (with 25 Agility)"
+  370: join_string 3
+  371: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  372: push_constant_string "<col=000080>"
+  373: push_constant_string "warriors"
+  374: push_constant_string "</col>"
+  375: push_constant_string ". (You also need level 25 Agility.)"
+  376: join_string 5
+  377: return 0
+  378: branch 629
+  379: push_constant_int 40
+  380: push_constant_int 3243
+  381: push_constant_string "Possibility of stealing quadruple loot from a farmer"
+  382: push_constant_string "<br>"
+  383: push_constant_string " (with 30 Agility)"
+  384: join_string 3
+  385: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  386: push_constant_string "<col=000080>"
+  387: push_constant_string "farmers"
+  388: push_constant_string "</col>"
+  389: push_constant_string ". (You also need level 30 Agility.)"
+  390: join_string 5
+  391: return 0
+  392: branch 615
+  393: push_constant_int 40
+  394: push_constant_int 4297
+  395: push_constant_string "Possibility of stealing triple loot from a male H.A.M. follower"
+  396: push_constant_string "<br>"
+  397: push_constant_string " (with 30 Agility)"
+  398: join_string 3
+  399: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  400: push_constant_string "<col=000080>"
+  401: push_constant_string "male H.A.M. followers"
+  402: push_constant_string "</col>"
+  403: push_constant_string ". (You also need level 30 Agility.)"
+  404: join_string 5
+  405: return 0
+  406: branch 601
+  407: push_constant_int 42
+  408: push_constant_int 3247
+  409: push_constant_string "Possibility of stealing double loot from a rogue"
+  410: push_constant_string "<br>"
+  411: push_constant_string " (with 32 Agility)"
+  412: join_string 3
+  413: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  414: push_constant_string "<col=000080>"
+  415: push_constant_string "rogues"
+  416: push_constant_string "</col>"
+  417: push_constant_string ". (You also need level 32 Agility.)"
+  418: join_string 5
+  419: return 0
+  420: branch 587
+  421: push_constant_int 45
+  422: push_constant_int 4295
+  423: push_constant_string "Possibility of stealing quadruple loot from a female H.A.M. follower"
+  424: push_constant_string "<br>"
+  425: push_constant_string " (with 35 Agility)"
+  426: join_string 3
+  427: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  428: push_constant_string "<col=000080>"
+  429: push_constant_string "female H.A.M. followers"
+  430: push_constant_string "</col>"
+  431: push_constant_string ". (You also need level 35 Agility.)"
+  432: join_string 5
+  433: return 0
+  434: branch 573
+  435: push_constant_int 45
+  436: push_constant_int 3245
+  437: push_constant_string "Possibility of stealing triple loot from a warrior"
+  438: push_constant_string "<br>"
+  439: push_constant_string " (with 35 Agility)"
+  440: join_string 3
+  441: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  442: push_constant_string "<col=000080>"
+  443: push_constant_string "warriors"
+  444: push_constant_string "</col>"
+  445: push_constant_string ". (You also need level 35 Agility.)"
+  446: join_string 5
+  447: return 0
+  448: branch 559
+  449: push_constant_int 46
+  450: push_constant_int 10998
+  451: push_constant_string "Possibility of stealing double loot from a cave goblin"
+  452: push_constant_string "<br>"
+  453: push_constant_string " (with 36 Agility)"
+  454: join_string 3
+  455: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  456: push_constant_string "<col=000080>"
+  457: push_constant_string "cave goblins"
+  458: push_constant_string "</col>"
+  459: push_constant_string ". (You also need level 36 Agility.)"
+  460: join_string 5
+  461: return 0
+  462: branch 545
+  463: push_constant_int 48
+  464: push_constant_int 5068
+  465: push_constant_string "Possibility of stealing double loot from a master farmer"
+  466: push_constant_string "<br>"
+  467: push_constant_string " (with 38 Agility)"
+  468: join_string 3
+  469: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  470: push_constant_string "<col=000080>"
+  471: push_constant_string "master farmers"
+  472: push_constant_string "</col>"
+  473: push_constant_string ". (You also need level 38 Agility.)"
+  474: join_string 5
+  475: return 0
+  476: branch 531
+  477: push_constant_int 50
+  478: push_constant_int 4297
+  479: push_constant_string "Possibility of stealing quadruple loot from a male H.A.M. follower"
+  480: push_constant_string "<br>"
+  481: push_constant_string " (with 40 Agility)"
+  482: join_string 3
+  483: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  484: push_constant_string "<col=000080>"
+  485: push_constant_string "male H.A.M. followers"
+  486: push_constant_string "</col>"
+  487: push_constant_string ". (You also need level 40 Agility.)"
+  488: join_string 5
+  489: return 0
+  490: branch 517
+  491: push_constant_int 50
+  492: push_constant_int 3249
+  493: push_constant_string "Possibility of stealing double loot from a guard"
+  494: push_constant_string "<br>"
+  495: push_constant_string " (with 40 Agility)"
+  496: join_string 3
+  497: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  498: push_constant_string "<col=000080>"
+  499: push_constant_string "guards"
+  500: push_constant_string "</col>"
+  501: push_constant_string ". (You also need level 40 Agility.)"
+  502: join_string 5
+  503: return 0
+  504: branch 503
+  505: push_constant_int 52
+  506: push_constant_int 3247
+  507: push_constant_string "Possibility of stealing triple loot from a rogue"
+  508: push_constant_string "<br>"
+  509: push_constant_string " (with 42 Agility)"
+  510: join_string 3
+  511: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  512: push_constant_string "<col=000080>"
+  513: push_constant_string "rogues"
+  514: push_constant_string "</col>"
+  515: push_constant_string ". (You also need level 42 Agility.)"
+  516: join_string 5
+  517: return 0
+  518: branch 489
+  519: push_constant_int 55
+  520: push_constant_int 3245
+  521: push_constant_string "Possibility of stealing quadruple loot from a warrior"
+  522: push_constant_string "<br>"
+  523: push_constant_string " (with 45 Agility)"
+  524: join_string 3
+  525: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  526: push_constant_string "<col=000080>"
+  527: push_constant_string "warriors"
+  528: push_constant_string "</col>"
+  529: push_constant_string ". (You also need level 45 Agility.)"
+  530: join_string 5
+  531: return 0
+  532: branch 475
+  533: push_constant_int 55
+  534: push_constant_int 3686
+  535: push_constant_string "Possibility of stealing double loot from a Fremennik citizen"
+  536: push_constant_string "<br>"
+  537: push_constant_string " (with 45 Agility)"
+  538: join_string 3
+  539: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  540: push_constant_string "<col=000080>"
+  541: push_constant_string "Fremennik citizens"
+  542: push_constant_string "</col>"
+  543: push_constant_string ". (You also need level 45 Agility.)"
+  544: join_string 5
+  545: return 0
+  546: branch 461
+  547: push_constant_int 55
+  548: push_constant_int 6782
+  549: push_constant_string "Possibility of stealing double loot from a bearded Pollnivnian bandit"
+  550: push_constant_string "<br>"
+  551: push_constant_string " (with 45 Agility)"
+  552: join_string 3
+  553: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  554: push_constant_string "<col=000080>"
+  555: push_constant_string "bearded Pollnivnian bandits"
+  556: push_constant_string "</col>"
+  557: push_constant_string ". (You also need level 45 Agility.)"
+  558: join_string 5
+  559: return 0
+  560: branch 447
+  561: push_constant_int 56
+  562: push_constant_int 10998
+  563: push_constant_string "Possibility of stealing triple loot from a cave goblin"
+  564: push_constant_string "<br>"
+  565: push_constant_string " (with 46 Agility)"
+  566: join_string 3
+  567: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  568: push_constant_string "<col=000080>"
+  569: push_constant_string "cave goblins"
+  570: push_constant_string "</col>"
+  571: push_constant_string ". (You also need level 46 Agility.)"
+  572: join_string 5
+  573: return 0
+  574: branch 433
+  575: push_constant_int 58
+  576: push_constant_int 5068
+  577: push_constant_string "Possibility of stealing triple loot from a master farmer"
+  578: push_constant_string "<br>"
+  579: push_constant_string " (with 48 Agility)"
+  580: join_string 3
+  581: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  582: push_constant_string "<col=000080>"
+  583: push_constant_string "master farmers"
+  584: push_constant_string "</col>"
+  585: push_constant_string ". (You also need level 48 Agility.)"
+  586: join_string 5
+  587: return 0
+  588: branch 419
+  589: push_constant_int 60
+  590: push_constant_int 3249
+  591: push_constant_string "Possibility of stealing triple loot from a guard"
+  592: push_constant_string "<br>"
+  593: push_constant_string " (with 50 Agility)"
+  594: join_string 3
+  595: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  596: push_constant_string "<col=000080>"
+  597: push_constant_string "guards"
+  598: push_constant_string "</col>"
+  599: push_constant_string ". (You also need level 50 Agility.)"
+  600: join_string 5
+  601: return 0
+  602: branch 405
+  603: push_constant_int 62
+  604: push_constant_int 3247
+  605: push_constant_string "Possibility of stealing quadruple loot from a rogue"
+  606: push_constant_string "<br>"
+  607: push_constant_string " (with 52 Agility)"
+  608: join_string 3
+  609: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  610: push_constant_string "<col=000080>"
+  611: push_constant_string "rogues"
+  612: push_constant_string "</col>"
+  613: push_constant_string ". (You also need level 52 Agility.)"
+  614: join_string 5
+  615: return 0
+  616: branch 391
+  617: push_constant_int 63
+  618: push_constant_int 4625
+  619: push_constant_string "Possibility of stealing double loot from a desert bandit"
+  620: push_constant_string "<br>"
+  621: push_constant_string " (with 53 Agility)"
+  622: join_string 3
+  623: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  624: push_constant_string "<col=000080>"
+  625: push_constant_string "desert bandits"
+  626: push_constant_string "</col>"
+  627: push_constant_string ". (You also need level 53 Agility.)"
+  628: join_string 5
+  629: return 0
+  630: branch 377
+  631: push_constant_int 65
+  632: push_constant_int 3686
+  633: push_constant_string "Possibility of stealing triple loot from a Fremennik citizen"
+  634: push_constant_string "<br>"
+  635: push_constant_string " (with 55 Agility)"
+  636: join_string 3
+  637: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  638: push_constant_string "<col=000080>"
+  639: push_constant_string "Fremennik citizens"
+  640: push_constant_string "</col>"
+  641: push_constant_string ". (You also need level 55 Agility.)"
+  642: join_string 5
+  643: return 0
+  644: branch 363
+  645: push_constant_int 65
+  646: push_constant_int 6782
+  647: push_constant_string "Possibility of stealing triple loot from a bearded Pollnivnian bandit"
+  648: push_constant_string "<br>"
+  649: push_constant_string " (with 55 Agility)"
+  650: join_string 3
+  651: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  652: push_constant_string "<col=000080>"
+  653: push_constant_string "bearded Pollnivnian bandits"
+  654: push_constant_string "</col>"
+  655: push_constant_string ". (You also need level 55 Agility.)"
+  656: join_string 5
+  657: return 0
+  658: branch 349
+  659: push_constant_int 65
+  660: push_constant_int 3251
+  661: push_constant_string "Possibility of stealing double loot from a knight"
+  662: push_constant_string "<br>"
+  663: push_constant_string " (with 55 Agility)"
+  664: join_string 3
+  665: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  666: push_constant_string "<col=000080>"
+  667: push_constant_string "knights"
+  668: push_constant_string "</col>"
+  669: push_constant_string ". (You also need level 55 Agility.)"
+  670: join_string 5
+  671: return 0
+  672: branch 335
+  673: push_constant_int 65
+  674: push_constant_int 6781
+  675: push_constant_string "Possibility of stealing double loot from a Pollnivnian bandit"
+  676: push_constant_string "<br>"
+  677: push_constant_string " (with 55 Agility)"
+  678: join_string 3
+  679: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  680: push_constant_string "<col=000080>"
+  681: push_constant_string "Pollnivnian bandits"
+  682: push_constant_string "</col>"
+  683: push_constant_string ". (You also need level 55 Agility.)"
+  684: join_string 5
+  685: return 0
+  686: branch 321
+  687: push_constant_int 66
+  688: push_constant_int 10998
+  689: push_constant_string "Possibility of stealing quadruple loot from a cave goblin"
+  690: push_constant_string "<br>"
+  691: push_constant_string " (with 56 Agility)"
+  692: join_string 3
+  693: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  694: push_constant_string "<col=000080>"
+  695: push_constant_string "cave goblins"
+  696: push_constant_string "</col>"
+  697: push_constant_string ". (You also need level 56 Agility.)"
+  698: join_string 5
+  699: return 0
+  700: branch 307
+  701: push_constant_int 68
+  702: push_constant_int 5068
+  703: push_constant_string "Possibility of stealing quadruple loot from a master farmer"
+  704: push_constant_string "<br>"
+  705: push_constant_string " (with 58 Agility)"
+  706: join_string 3
+  707: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  708: push_constant_string "<col=000080>"
+  709: push_constant_string "master farmers"
+  710: push_constant_string "</col>"
+  711: push_constant_string ". (You also need level 58 Agility.)"
+  712: join_string 5
+  713: return 0
+  714: branch 293
+  715: push_constant_int 70
+  716: push_constant_int 3249
+  717: push_constant_string "Possibility of stealing quadruple loot from a guard"
+  718: push_constant_string "<br>"
+  719: push_constant_string " (with 60 Agility)"
+  720: join_string 3
+  721: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  722: push_constant_string "<col=000080>"
+  723: push_constant_string "guards"
+  724: push_constant_string "</col>"
+  725: push_constant_string ". (You also need level 60 Agility.)"
+  726: join_string 5
+  727: return 0
+  728: branch 279
+  729: push_constant_int 73
+  730: push_constant_int 4625
+  731: push_constant_string "Possibility of stealing triple loot from a desert bandit"
+  732: push_constant_string "<br>"
+  733: push_constant_string " (with 63 Agility)"
+  734: join_string 3
+  735: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  736: push_constant_string "<col=000080>"
+  737: push_constant_string "desert bandits"
+  738: push_constant_string "</col>"
+  739: push_constant_string ". (You also need level 63 Agility.)"
+  740: join_string 5
+  741: return 0
+  742: branch 265
+  743: push_constant_int 75
+  744: push_constant_int 3686
+  745: push_constant_string "Possibility of stealing quadruple loot from a Fremennik citizen"
+  746: push_constant_string "<br>"
+  747: push_constant_string " (with 65 Agility)"
+  748: join_string 3
+  749: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  750: push_constant_string "<col=000080>"
+  751: push_constant_string "Fremennik citizens"
+  752: push_constant_string "</col>"
+  753: push_constant_string ". (You also need level 65 Agility.)"
+  754: join_string 5
+  755: return 0
+  756: branch 251
+  757: push_constant_int 75
+  758: push_constant_int 6782
+  759: push_constant_string "Possibility of stealing quadruple loot from a bearded Pollnivnian bandit"
+  760: push_constant_string "<br>"
+  761: push_constant_string " (with 65 Agility)"
+  762: join_string 3
+  763: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  764: push_constant_string "<col=000080>"
+  765: push_constant_string "bearded Pollnivnian bandits"
+  766: push_constant_string "</col>"
+  767: push_constant_string ". (You also need level 65 Agility.)"
+  768: join_string 5
+  769: return 0
+  770: branch 237
+  771: push_constant_int 75
+  772: push_constant_int 3251
+  773: push_constant_string "Possibility of stealing triple loot from a knight"
+  774: push_constant_string "<br>"
+  775: push_constant_string " (with 65 Agility)"
+  776: join_string 3
+  777: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  778: push_constant_string "<col=000080>"
+  779: push_constant_string "knights"
+  780: push_constant_string "</col>"
+  781: push_constant_string ". (You also need level 65 Agility.)"
+  782: join_string 5
+  783: return 0
+  784: branch 223
+  785: push_constant_int 75
+  786: push_constant_int 6781
+  787: push_constant_string "Possibility of stealing triple loot from a Pollnivnian bandit"
+  788: push_constant_string "<br>"
+  789: push_constant_string " (with 65 Agility)"
+  790: join_string 3
+  791: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  792: push_constant_string "<col=000080>"
+  793: push_constant_string "Pollnivnian bandits"
+  794: push_constant_string "</col>"
+  795: push_constant_string ". (You also need level 65 Agility.)"
+  796: join_string 5
+  797: return 0
+  798: branch 209
+  799: push_constant_int 75
+  800: push_constant_int 3253
+  801: push_constant_string "Possibility of stealing double loot from a watchman"
+  802: push_constant_string "<br>"
+  803: push_constant_string " (with 65 Agility)"
+  804: join_string 3
+  805: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  806: push_constant_string "<col=000080>"
+  807: push_constant_string "watchmen"
+  808: push_constant_string "</col>"
+  809: push_constant_string ". (You also need level 65 Agility.)"
+  810: join_string 5
+  811: return 0
+  812: branch 195
+  813: push_constant_int 75
+  814: push_constant_int 6780
+  815: push_constant_string "Possibility of stealing double loot from a Menaphite thug"
+  816: push_constant_string "<br>"
+  817: push_constant_string " (with 65 Agility)"
+  818: join_string 3
+  819: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  820: push_constant_string "<col=000080>"
+  821: push_constant_string "Menaphite thugs"
+  822: push_constant_string "</col>"
+  823: push_constant_string ". (You also need level 65 Agility.)"
+  824: join_string 5
+  825: return 0
+  826: branch 181
+  827: push_constant_int 80
+  828: push_constant_int 3255
+  829: push_constant_string "Possibility of stealing double loot from a paladin"
+  830: push_constant_string "<br>"
+  831: push_constant_string " (with 70 Agility)"
+  832: join_string 3
+  833: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  834: push_constant_string "<col=000080>"
+  835: push_constant_string "paladins"
+  836: push_constant_string "</col>"
+  837: push_constant_string ". (You also need level 70 Agility.)"
+  838: join_string 5
+  839: return 0
+  840: branch 167
+  841: push_constant_int 83
+  842: push_constant_int 4625
+  843: push_constant_string "Possibility of stealing quadruple loot from a desert bandit"
+  844: push_constant_string "<br>"
+  845: push_constant_string " (with 73 Agility)"
+  846: join_string 3
+  847: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  848: push_constant_string "<col=000080>"
+  849: push_constant_string "desert bandits"
+  850: push_constant_string "</col>"
+  851: push_constant_string ". (You also need level 73 Agility.)"
+  852: join_string 5
+  853: return 0
+  854: branch 153
+  855: push_constant_int 85
+  856: push_constant_int 3251
+  857: push_constant_string "Possibility of stealing quadruple loot from a knight"
+  858: push_constant_string "<br>"
+  859: push_constant_string " (with 75 Agility)"
+  860: join_string 3
+  861: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  862: push_constant_string "<col=000080>"
+  863: push_constant_string "knights"
+  864: push_constant_string "</col>"
+  865: push_constant_string ". (You also need level 75 Agility.)"
+  866: join_string 5
+  867: return 0
+  868: branch 139
+  869: push_constant_int 85
+  870: push_constant_int 6781
+  871: push_constant_string "Possibility of stealing quadruple loot from a Pollnivnian bandit"
+  872: push_constant_string "<br>"
+  873: push_constant_string " (with 75 Agility)"
+  874: join_string 3
+  875: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  876: push_constant_string "<col=000080>"
+  877: push_constant_string "Pollnivnian bandits"
+  878: push_constant_string "</col>"
+  879: push_constant_string ". (You also need level 75 Agility.)"
+  880: join_string 5
+  881: return 0
+  882: branch 125
+  883: push_constant_int 85
+  884: push_constant_int 3253
+  885: push_constant_string "Possibility of stealing triple loot from a watchman"
+  886: push_constant_string "<br>"
+  887: push_constant_string " (with 75 Agility)"
+  888: join_string 3
+  889: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  890: push_constant_string "<col=000080>"
+  891: push_constant_string "watchmen"
+  892: push_constant_string "</col>"
+  893: push_constant_string ". (You also need level 75 Agility.)"
+  894: join_string 5
+  895: return 0
+  896: branch 111
+  897: push_constant_int 85
+  898: push_constant_int 6780
+  899: push_constant_string "Possibility of stealing triple loot from a Menaphite thug"
+  900: push_constant_string "<br>"
+  901: push_constant_string " (with 75 Agility)"
+  902: join_string 3
+  903: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  904: push_constant_string "<col=000080>"
+  905: push_constant_string "Menaphite thugs"
+  906: push_constant_string "</col>"
+  907: push_constant_string ". (You also need level 75 Agility.)"
+  908: join_string 5
+  909: return 0
+  910: branch 97
+  911: push_constant_int 85
+  912: push_constant_int 3257
+  913: push_constant_string "Possibility of stealing double loot from a gnome"
+  914: push_constant_string "<br>"
+  915: push_constant_string " (with 75 Agility)"
+  916: join_string 3
+  917: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  918: push_constant_string "<col=000080>"
+  919: push_constant_string "gnomes"
+  920: push_constant_string "</col>"
+  921: push_constant_string ". (You also need level 75 Agility.)"
+  922: join_string 5
+  923: return 0
+  924: branch 83
+  925: push_constant_int 90
+  926: push_constant_int 3255
+  927: push_constant_string "Possibility of stealing triple loot from a paladin"
+  928: push_constant_string "<br>"
+  929: push_constant_string " (with 80 Agility)"
+  930: join_string 3
+  931: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  932: push_constant_string "<col=000080>"
+  933: push_constant_string "paladins"
+  934: push_constant_string "</col>"
+  935: push_constant_string ". (You also need level 80 Agility.)"
+  936: join_string 5
+  937: return 0
+  938: branch 69
+  939: push_constant_int 90
+  940: push_constant_int 3259
+  941: push_constant_string "Possibility of stealing double loot from a hero"
+  942: push_constant_string "<br>"
+  943: push_constant_string " (with 80 Agility)"
+  944: join_string 3
+  945: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+  946: push_constant_string "<col=000080>"
+  947: push_constant_string "heroes"
+  948: push_constant_string "</col>"
+  949: push_constant_string ". (You also need level 80 Agility.)"
+  950: join_string 5
+  951: return 0
+  952: branch 55
+  953: push_constant_int 95
+  954: push_constant_int 3253
+  955: push_constant_string "Possibility of stealing quadruple loot from a watchman"
+  956: push_constant_string "<br>"
+  957: push_constant_string " (with 85 Agility)"
+  958: join_string 3
+  959: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  960: push_constant_string "<col=000080>"
+  961: push_constant_string "watchmen"
+  962: push_constant_string "</col>"
+  963: push_constant_string ". (You also need level 85 Agility.)"
+  964: join_string 5
+  965: return 0
+  966: branch 41
+  967: push_constant_int 95
+  968: push_constant_int 6780
+  969: push_constant_string "Possibility of stealing quadruple loot from a Menaphite thug"
+  970: push_constant_string "<br>"
+  971: push_constant_string " (with 85 Agility)"
+  972: join_string 3
+  973: push_constant_string "You now have the Thieving level required to potentially steal quadruple loot from "
+  974: push_constant_string "<col=000080>"
+  975: push_constant_string "Menaphite thugs"
+  976: push_constant_string "</col>"
+  977: push_constant_string ". (You also need level 85 Agility.)"
+  978: join_string 5
+  979: return 0
+  980: branch 27
+  981: push_constant_int 95
+  982: push_constant_int 3257
+  983: push_constant_string "Possibility of stealing triple loot from a gnome"
+  984: push_constant_string "<br>"
+  985: push_constant_string " (with 85 Agility)"
+  986: join_string 3
+  987: push_constant_string "You now have the Thieving level required to potentially steal triple loot from "
+  988: push_constant_string "<col=000080>"
+  989: push_constant_string "gnomes"
+  990: push_constant_string "</col>"
+  991: push_constant_string ". (You also need level 85 Agility.)"
+  992: join_string 5
+  993: return 0
+  994: branch 13
+  995: push_constant_int 95
+  996: push_constant_int 6105
+  997: push_constant_string "Possibility of stealing double loot from an elf"
+  998: push_constant_string "<br>"
+  999: push_constant_string " (with 85 Agility)"
+ 1000: join_string 3
+ 1001: push_constant_string "You now have the Thieving level required to potentially steal double loot from "
+ 1002: push_constant_string "<col=000080>"
+ 1003: push_constant_string "elves"
+ 1004: push_constant_string "</col>"
+ 1005: push_constant_string ". (You also need level 85 Agility.)"
+ 1006: join_string 5
+ 1007: return 0
+ 1008: branch 794
+ 1009: push_int_local 1
+ 1010: switch 3
+ 1011: branch 224
+ 1012: push_constant_int 2
+ 1013: push_constant_int 1965
+ 1014: push_constant_string "Vegetable stall"
+ 1015: push_constant_string "<br>"
+ 1016: push_constant_string " (after Fremennik Trials)"
+ 1017: join_string 3
+ 1018: push_constant_string "You now have the Thieving level required to steal from "
+ 1019: push_constant_string "<col=000080>"
+ 1020: push_constant_string "vegetable stalls"
+ 1021: push_constant_string "</col>"
+ 1022: push_constant_string " (after Fremennik Trials)."
+ 1023: join_string 5
+ 1024: return 0
+ 1025: branch 210
+ 1026: push_constant_int 5
+ 1027: push_constant_int 1891
+ 1028: push_constant_string "Baker's stall"
+ 1029: push_constant_string "You can now steal from "
+ 1030: push_constant_string "<col=000080>"
+ 1031: push_constant_string "bakers' stalls"
+ 1032: push_constant_string "</col>"
+ 1033: push_constant_string "."
+ 1034: join_string 5
+ 1035: return 0
+ 1036: branch 199
+ 1037: push_constant_int 5
+ 1038: push_constant_int 1933
+ 1039: push_constant_string "Ape Atoll general stall"
+ 1040: push_constant_string "<br>"
+ 1041: push_constant_string " (after starting Monkey Madness)"
+ 1042: join_string 3
+ 1043: push_constant_string "You now have the Thieving level required to steal from the "
+ 1044: push_constant_string "<col=000080>"
+ 1045: push_constant_string "general stall"
+ 1046: push_constant_string "</col>"
+ 1047: push_constant_string " on Ape Atoll (after starting Monkey Madness)."
+ 1048: join_string 5
+ 1049: return 0
+ 1050: branch 185
+ 1051: push_constant_int 5
+ 1052: push_constant_int 1978
+ 1053: push_constant_string "Tea stall"
+ 1054: push_constant_string "You can now steal from "
+ 1055: push_constant_string "<col=000080>"
+ 1056: push_constant_string "tea stalls"
+ 1057: push_constant_string "</col>"
+ 1058: push_constant_string "."
+ 1059: join_string 5
+ 1060: return 0
+ 1061: branch 174
+ 1062: push_constant_int 5
+ 1063: push_constant_int 1755
+ 1064: push_constant_string "Crafting stall"
+ 1065: push_constant_string "You can now steal from the "
+ 1066: push_constant_string "<col=000080>"
+ 1067: push_constant_string "crafting stalls"
+ 1068: push_constant_string "</col>"
+ 1069: push_constant_string " in Keldagrim and, after starting Monkey Madness, the Ape Atoll."
+ 1070: join_string 5
+ 1071: return 0
+ 1072: branch 163
+ 1073: push_constant_int 5
+ 1074: push_constant_int 1963
+ 1075: push_constant_string "Monkey food stall"
+ 1076: push_constant_string "<br>"
+ 1077: push_constant_string " (after starting Monkey Madness)"
+ 1078: join_string 3
+ 1079: push_constant_string "You now have the Thieving level required to steal from the "
+ 1080: push_constant_string "<col=000080>"
+ 1081: push_constant_string "monkey food stall"
+ 1082: push_constant_string "</col>"
+ 1083: push_constant_string " (after starting Monkey Madness)."
+ 1084: join_string 5
+ 1085: return 0
+ 1086: branch 149
+ 1087: push_constant_int 15
+ 1088: push_constant_int 2379
+ 1089: push_constant_string "Rock cake stall"
+ 1090: push_constant_string "You can now steal from "
+ 1091: push_constant_string "<col=000080>"
+ 1092: push_constant_string "rock cake stalls"
+ 1093: push_constant_string "</col>"
+ 1094: push_constant_string "."
+ 1095: join_string 5
+ 1096: return 0
+ 1097: branch 138
+ 1098: push_constant_int 20
+ 1099: push_constant_int 950
+ 1100: push_constant_string "Silk stall"
+ 1101: push_constant_string "You can now steal from "
+ 1102: push_constant_string "<col=000080>"
+ 1103: push_constant_string "silk stalls"
+ 1104: push_constant_string "</col>"
+ 1105: push_constant_string "."
+ 1106: join_string 5
+ 1107: return 0
+ 1108: branch 127
+ 1109: push_constant_int 22
+ 1110: push_constant_int 7919
+ 1111: push_constant_string "Wine stall"
+ 1112: push_constant_string "You can now steal from "
+ 1113: push_constant_string "<col=000080>"
+ 1114: push_constant_string "wine stalls"
+ 1115: push_constant_string "</col>"
+ 1116: push_constant_string "."
+ 1117: join_string 5
+ 1118: return 0
+ 1119: branch 116
+ 1120: push_constant_int 27
+ 1121: push_constant_int 5171
+ 1122: push_constant_string "Seed stall"
+ 1123: push_constant_string "You can now steal from "
+ 1124: push_constant_string "<col=000080>"
+ 1125: push_constant_string "seed stalls"
+ 1126: push_constant_string "</col>"
+ 1127: push_constant_string "."
+ 1128: join_string 5
+ 1129: return 0
+ 1130: branch 105
+ 1131: push_constant_int 35
+ 1132: push_constant_int 948
+ 1133: push_constant_string "Fur stall"
+ 1134: push_constant_string "You can now steal from "
+ 1135: push_constant_string "<col=000080>"
+ 1136: push_constant_string "fur stalls"
+ 1137: push_constant_string "</col>"
+ 1138: push_constant_string "."
+ 1139: join_string 5
+ 1140: return 0
+ 1141: branch 94
+ 1142: push_constant_int 42
+ 1143: push_constant_int 331
+ 1144: push_constant_string "Fish stall"
+ 1145: push_constant_string "You can now steal from "
+ 1146: push_constant_string "<col=000080>"
+ 1147: push_constant_string "fish stalls"
+ 1148: push_constant_string "</col>"
+ 1149: push_constant_string "."
+ 1150: join_string 5
+ 1151: return 0
+ 1152: branch 83
+ 1153: push_constant_int 49
+ 1154: push_constant_int 9174
+ 1155: push_constant_string "Crossbow stall"
+ 1156: push_constant_string "You can now steal from "
+ 1157: push_constant_string "<col=000080>"
+ 1158: push_constant_string "crossbow stalls"
+ 1159: push_constant_string "</col>"
+ 1160: push_constant_string "."
+ 1161: join_string 5
+ 1162: return 0
+ 1163: branch 72
+ 1164: push_constant_int 50
+ 1165: push_constant_int 442
+ 1166: push_constant_string "Silver stall"
+ 1167: push_constant_string "You can now steal from "
+ 1168: push_constant_string "<col=000080>"
+ 1169: push_constant_string "silver stalls"
+ 1170: push_constant_string "</col>"
+ 1171: push_constant_string "."
+ 1172: join_string 5
+ 1173: return 0
+ 1174: branch 61
+ 1175: push_constant_int 63
+ 1176: push_constant_int 2773
+ 1177: push_constant_string "Customs evidence files"
+ 1178: push_constant_string "<br>"
+ 1179: push_constant_string " (after Rocking Out)"
+ 1180: join_string 3
+ 1181: push_constant_string "You now have the Thieving level to steal from the "
+ 1182: push_constant_string "<col=000080>"
+ 1183: push_constant_string "customs evidence files"
+ 1184: push_constant_string "</col>"
+ 1185: push_constant_string " of "
+ 1186: push_constant_string "<col=000080>"
+ 1187: push_constant_string "Rock Island Prison"
+ 1188: push_constant_string "</col>"
+ 1189: push_constant_string " (after Rocking Out)."
+ 1190: join_string 9
+ 1191: return 0
+ 1192: branch 43
+ 1193: push_constant_int 65
+ 1194: push_constant_int 556
+ 1195: push_constant_string "Magic stall"
+ 1196: push_constant_string "You can now steal from "
+ 1197: push_constant_string "<col=000080>"
+ 1198: push_constant_string "magic stalls"
+ 1199: push_constant_string "</col>"
+ 1200: push_constant_string "."
+ 1201: join_string 5
+ 1202: return 0
+ 1203: branch 32
+ 1204: push_constant_int 65
+ 1205: push_constant_int 1323
+ 1206: push_constant_string "Scimitar stall"
+ 1207: push_constant_string "You can now steal from "
+ 1208: push_constant_string "<col=000080>"
+ 1209: push_constant_string "scimitar stalls"
+ 1210: push_constant_string "</col>"
+ 1211: push_constant_string "."
+ 1212: join_string 5
+ 1213: return 0
+ 1214: branch 21
+ 1215: push_constant_int 65
+ 1216: push_constant_int 2007
+ 1217: push_constant_string "Spice stall"
+ 1218: push_constant_string "You can now steal from "
+ 1219: push_constant_string "<col=000080>"
+ 1220: push_constant_string "spice stalls"
+ 1221: push_constant_string "</col>"
+ 1222: push_constant_string "."
+ 1223: join_string 5
+ 1224: return 0
+ 1225: branch 10
+ 1226: push_constant_int 75
+ 1227: push_constant_int 1607
+ 1228: push_constant_string "Gem stall"
+ 1229: push_constant_string "You can now steal from "
+ 1230: push_constant_string "<col=000080>"
+ 1231: push_constant_string "gem stalls"
+ 1232: push_constant_string "</col>"
+ 1233: push_constant_string "."
+ 1234: join_string 5
+ 1235: return 0
+ 1236: branch 566
+ 1237: push_int_local 1
+ 1238: switch 4
+ 1239: branch 154
+ 1240: push_constant_int 13
+ 1241: push_constant_int 1001
+ 1242: push_constant_string "Ardougne, Rellekka and the Wilderness"
+ 1243: push_constant_string "You can now steal from certain "
+ 1244: push_constant_string "<col=000080>"
+ 1245: push_constant_string "chests"
+ 1246: push_constant_string "</col>"
+ 1247: push_constant_string " in "
+ 1248: push_constant_string "<col=000080>"
+ 1249: push_constant_string "Ardougne"
+ 1250: push_constant_string "</col>"
+ 1251: push_constant_string ", "
+ 1252: push_constant_string "<col=000080>"
+ 1253: push_constant_string "Rellekka"
+ 1254: push_constant_string "</col>"
+ 1255: push_constant_string " and the "
+ 1256: push_constant_string "<col=000080>"
+ 1257: push_constant_string "Wilderness"
+ 1258: push_constant_string "</col>"
+ 1259: push_constant_string "."
+ 1260: join_string 17
+ 1261: return 0
+ 1262: branch 131
+ 1263: push_constant_int 28
+ 1264: push_constant_int 561
+ 1265: push_constant_string "Upstairs in Ardougne and Rellekka"
+ 1266: push_constant_string "You can now steal from certain "
+ 1267: push_constant_string "<col=000080>"
+ 1268: push_constant_string "chests"
+ 1269: push_constant_string "</col>"
+ 1270: push_constant_string " upstairs in "
+ 1271: push_constant_string "<col=000080>"
+ 1272: push_constant_string "Ardougne"
+ 1273: push_constant_string "</col>"
+ 1274: push_constant_string " and "
+ 1275: push_constant_string "<col=000080>"
+ 1276: push_constant_string "Rellekka"
+ 1277: push_constant_string "</col>"
+ 1278: push_constant_string "."
+ 1279: join_string 13
+ 1280: return 0
+ 1281: branch 112
+ 1282: push_constant_int 43
+ 1283: push_constant_int 1001
+ 1284: push_constant_string "Upstairs in Ardougne"
+ 1285: push_constant_string "You can now steal from certain "
+ 1286: push_constant_string "<col=000080>"
+ 1287: push_constant_string "chests"
+ 1288: push_constant_string "</col>"
+ 1289: push_constant_string " upstairs in "
+ 1290: push_constant_string "<col=000080>"
+ 1291: push_constant_string "Ardougne"
+ 1292: push_constant_string "</col>"
+ 1293: push_constant_string "."
+ 1294: join_string 9
+ 1295: return 0
+ 1296: branch 97
+ 1297: push_constant_int 47
+ 1298: push_constant_int 41
+ 1299: push_constant_string "Hemenster"
+ 1300: push_constant_string "You can now steal from certain "
+ 1301: push_constant_string "<col=000080>"
+ 1302: push_constant_string "chests"
+ 1303: push_constant_string "</col>"
+ 1304: push_constant_string " in "
+ 1305: push_constant_string "<col=000080>"
+ 1306: push_constant_string "Hemenster"
+ 1307: push_constant_string "</col>"
+ 1308: push_constant_string "."
+ 1309: join_string 9
+ 1310: return 0
+ 1311: branch 82
+ 1312: push_constant_int 47
+ 1313: push_constant_int 1001
+ 1314: push_constant_string "Rellekka"
+ 1315: push_constant_string "You can now steal from certain "
+ 1316: push_constant_string "<col=000080>"
+ 1317: push_constant_string "chests"
+ 1318: push_constant_string "</col>"
+ 1319: push_constant_string " in "
+ 1320: push_constant_string "<col=000080>"
+ 1321: push_constant_string "Rellekka"
+ 1322: push_constant_string "</col>"
+ 1323: push_constant_string "."
+ 1324: join_string 9
+ 1325: return 0
+ 1326: branch 67
+ 1327: push_constant_int 52
+ 1328: push_constant_int 4522
+ 1329: push_constant_string "Dorgesh-Kaan (average chests)"
+ 1330: push_constant_string "You can now steal from "
+ 1331: push_constant_string "<col=000080>"
+ 1332: push_constant_string "average chests"
+ 1333: push_constant_string "</col>"
+ 1334: push_constant_string " in "
+ 1335: push_constant_string "<col=000080>"
+ 1336: push_constant_string "Dorgesh-Kaan"
+ 1337: push_constant_string "</col>"
+ 1338: push_constant_string "."
+ 1339: join_string 9
+ 1340: return 0
+ 1341: branch 52
+ 1342: push_constant_int 59
+ 1343: push_constant_int 565
+ 1344: push_constant_string "Chaos Druid Tower, north of Ardougne"
+ 1345: push_constant_string "You can now steal from "
+ 1346: push_constant_string "<col=000080>"
+ 1347: push_constant_string "chests"
+ 1348: push_constant_string "</col>"
+ 1349: push_constant_string " in the "
+ 1350: push_constant_string "<col=000080>"
+ 1351: push_constant_string "Chaos Druid Tower"
+ 1352: push_constant_string "</col>"
+ 1353: push_constant_string ", north of "
+ 1354: push_constant_string "<col=000080>"
+ 1355: push_constant_string "Ardougne"
+ 1356: push_constant_string "</col>"
+ 1357: push_constant_string "."
+ 1358: join_string 13
+ 1359: return 0
+ 1360: branch 33
+ 1361: push_constant_int 72
+ 1362: push_constant_int 383
+ 1363: push_constant_string "King Lathas's castle in Ardougne"
+ 1364: push_constant_string "You can now steal from "
+ 1365: push_constant_string "<col=000080>"
+ 1366: push_constant_string "chests"
+ 1367: push_constant_string "</col>"
+ 1368: push_constant_string " in "
+ 1369: push_constant_string "<col=000080>"
+ 1370: push_constant_string "King Lathas's castle"
+ 1371: push_constant_string "</col>"
+ 1372: push_constant_string " in "
+ 1373: push_constant_string "<col=000080>"
+ 1374: push_constant_string "Ardougne"
+ 1375: push_constant_string "</col>"
+ 1376: push_constant_string "."
+ 1377: join_string 13
+ 1378: return 0
+ 1379: branch 14
+ 1380: push_constant_int 78
+ 1381: push_constant_int 1623
+ 1382: push_constant_string "Dorgesh-Kaan (rich chests)"
+ 1383: push_constant_string "You can now steal from "
+ 1384: push_constant_string "<col=000080>"
+ 1385: push_constant_string "rich chests"
+ 1386: push_constant_string "</col>"
+ 1387: push_constant_string " in "
+ 1388: push_constant_string "<col=000080>"
+ 1389: push_constant_string "Dorgesh-Kaan"
+ 1390: push_constant_string "</col>"
+ 1391: push_constant_string "."
+ 1392: join_string 9
+ 1393: return 0
+ 1394: branch 408
+ 1395: push_int_local 1
+ 1396: switch 5
+ 1397: branch 73
+ 1398: push_constant_int 15
+ 1399: push_constant_int 10593
+ 1400: push_constant_string "Cowbells from dairy cows (after starting Cold War)"
+ 1401: push_constant_string "You now have the Thieving level required to steal "
+ 1402: push_constant_string "<col=000080>"
+ 1403: push_constant_string "cowbells"
+ 1404: push_constant_string "</col>"
+ 1405: push_constant_string " from "
+ 1406: push_constant_string "<col=000080>"
+ 1407: push_constant_string "dairy cows"
+ 1408: push_constant_string "</col>"
+ 1409: push_constant_string " (after starting Cold War)."
+ 1410: join_string 9
+ 1411: return 0
+ 1412: branch 58
+ 1413: push_constant_int 20
+ 1414: push_constant_int 4834
+ 1415: push_constant_string "Zogre coffins at Jiggig"
+ 1416: push_constant_string "You can now pick locks in "
+ 1417: push_constant_string "<col=000080>"
+ 1418: push_constant_string "zogre coffins"
+ 1419: push_constant_string "</col>"
+ 1420: push_constant_string " at "
+ 1421: push_constant_string "<col=000080>"
+ 1422: push_constant_string "Jiggig"
+ 1423: push_constant_string "</col>"
+ 1424: push_constant_string "."
+ 1425: join_string 9
+ 1426: return 0
+ 1427: branch 43
+ 1428: push_constant_int 30
+ 1429: push_constant_int 4599
+ 1430: push_constant_string "Blackjack lure and knockout"
+ 1431: push_constant_string "<br>"
+ 1432: push_constant_string " (after starting The Feud)"
+ 1433: join_string 3
+ 1434: push_constant_string "Members now have the Thieving level required to use a "
+ 1435: push_constant_string "<col=000080>"
+ 1436: push_constant_string "blackjack"
+ 1437: push_constant_string "</col>"
+ 1438: push_constant_string " to lure and knockout a target (after starting The Feud)."
+ 1439: join_string 5
+ 1440: return 0
+ 1441: branch 29
+ 1442: push_constant_int 44
+ 1443: push_constant_int 10981
+ 1444: push_constant_string "Wire from the Dorgeshuun wire machine."
+ 1445: push_constant_string "You can now steal "
+ 1446: push_constant_string "<col=000080>"
+ 1447: push_constant_string "wire"
+ 1448: push_constant_string "</col>"
+ 1449: push_constant_string " from the "
+ 1450: push_constant_string "<col=000080>"
+ 1451: push_constant_string "Dorgeshuun wire machine"
+ 1452: push_constant_string "</col>"
+ 1453: push_constant_string "."
+ 1454: join_string 9
+ 1455: return 0
+ 1456: branch 14
+ 1457: push_constant_int 82
+ 1458: push_constant_int 1523
+ 1459: push_constant_string "Pick lock to enter Agility Dungeon from Yanille"
+ 1460: push_constant_string "You can now use your lock-picking skills to access the "
+ 1461: push_constant_string "<col=000080>"
+ 1462: push_constant_string "Agility Dungeon"
+ 1463: push_constant_string "</col>"
+ 1464: push_constant_string " from "
+ 1465: push_constant_string "<col=000080>"
+ 1466: push_constant_string "Yanille"
+ 1467: push_constant_string "</col>"
+ 1468: push_constant_string "."
+ 1469: join_string 9
+ 1470: return 0
+ 1471: branch 331
+ 1472: push_int_local 1
+ 1473: switch 6
+ 1474: branch 43
+ 1475: push_constant_int 91
+ 1476: push_constant_int 18778
+ 1477: push_constant_string "Starved ancient effigies"
+ 1478: push_constant_string "You can now investigate "
+ 1479: push_constant_string "<col=000080>"
+ 1480: push_constant_string "starved ancient effigies"
+ 1481: push_constant_string "</col>"
+ 1482: push_constant_string " using your knowledge of Thieving."
+ 1483: join_string 5
+ 1484: return 0
+ 1485: branch 32
+ 1486: push_constant_int 93
+ 1487: push_constant_int 18779
+ 1488: push_constant_string "Nourished ancient effigies"
+ 1489: push_constant_string "You can now investigate "
+ 1490: push_constant_string "<col=000080>"
+ 1491: push_constant_string "nourished ancient effigies"
+ 1492: push_constant_string "</col>"
+ 1493: push_constant_string " using your knowledge of Thieving."
+ 1494: join_string 5
+ 1495: return 0
+ 1496: branch 21
+ 1497: push_constant_int 95
+ 1498: push_constant_int 18780
+ 1499: push_constant_string "Sated ancient effigies"
+ 1500: push_constant_string "You can now investigate "
+ 1501: push_constant_string "<col=000080>"
+ 1502: push_constant_string "sated ancient effigies"
+ 1503: push_constant_string "</col>"
+ 1504: push_constant_string " using your knowledge of Thieving."
+ 1505: join_string 5
+ 1506: return 0
+ 1507: branch 10
+ 1508: push_constant_int 97
+ 1509: push_constant_int 18781
+ 1510: push_constant_string "Gorged ancient effigies"
+ 1511: push_constant_string "You can now investigate "
+ 1512: push_constant_string "<col=000080>"
+ 1513: push_constant_string "gorged ancient effigies"
+ 1514: push_constant_string "</col>"
+ 1515: push_constant_string " using your knowledge of Thieving."
+ 1516: join_string 5
+ 1517: return 0
+ 1518: branch 284
+ 1519: push_int_local 1
+ 1520: switch 7
+ 1521: branch 235
+ 1522: push_constant_int -1
+ 1523: push_constant_int 7620
+ 1524: push_constant_string "In Stealing Creation, you can pickpocket players 20 levels above your own."
+ 1525: push_constant_string ""
+ 1526: return 0
+ 1527: branch 229
+ 1528: push_constant_int 1
+ 1529: push_constant_int 10855
+ 1530: push_constant_string "Sorceress's Garden - Winter"
+ 1531: push_constant_string "You can now enter the "
+ 1532: push_constant_string "<col=000080>"
+ 1533: push_constant_string "winter garden"
+ 1534: push_constant_string "</col>"
+ 1535: push_constant_string " in "
+ 1536: push_constant_string "<col=000080>"
+ 1537: push_constant_string "Sorceress's Garden"
+ 1538: push_constant_string "</col>"
+ 1539: push_constant_string "."
+ 1540: join_string 9
+ 1541: return 0
+ 1542: branch 214
+ 1543: push_constant_int 21
+ 1544: push_constant_int 9026
+ 1545: push_constant_string "Pyramid Plunder - Room 1"
+ 1546: push_constant_string "You can now enter the "
+ 1547: push_constant_string "<col=000080>"
+ 1548: push_constant_string "first chamber"
+ 1549: push_constant_string "</col>"
+ 1550: push_constant_string " of the "
+ 1551: push_constant_string "<col=000080>"
+ 1552: push_constant_string "Pyramid of Jalsavrah"
+ 1553: push_constant_string "</col>"
+ 1554: push_constant_string " in "
+ 1555: push_constant_string "<col=000080>"
+ 1556: push_constant_string "Pyramid Plunder"
+ 1557: push_constant_string "</col>"
+ 1558: push_constant_string "."
+ 1559: join_string 13
+ 1560: return 0
+ 1561: branch 195
+ 1562: push_constant_int 25
+ 1563: push_constant_int 10853
+ 1564: push_constant_string "Sorceress's Garden - Spring"
+ 1565: push_constant_string "You can now enter the "
+ 1566: push_constant_string "<col=000080>"
+ 1567: push_constant_string "spring garden"
+ 1568: push_constant_string "</col>"
+ 1569: push_constant_string " in "
+ 1570: push_constant_string "<col=000080>"
+ 1571: push_constant_string "Sorceress's Garden"
+ 1572: push_constant_string "</col>"
+ 1573: push_constant_string "."
+ 1574: join_string 9
+ 1575: return 0
+ 1576: branch 180
+ 1577: push_constant_int 31
+ 1578: push_constant_int 9032
+ 1579: push_constant_string "Pyramid Plunder - Room 2"
+ 1580: push_constant_string "You can now enter the "
+ 1581: push_constant_string "<col=000080>"
+ 1582: push_constant_string "second chamber"
+ 1583: push_constant_string "</col>"
+ 1584: push_constant_string " of the "
+ 1585: push_constant_string "<col=000080>"
+ 1586: push_constant_string "Pyramid of Jalsavrah"
+ 1587: push_constant_string "</col>"
+ 1588: push_constant_string " in "
+ 1589: push_constant_string "<col=000080>"
+ 1590: push_constant_string "Pyramid Plunder"
+ 1591: push_constant_string "</col>"
+ 1592: push_constant_string "."
+ 1593: join_string 13
+ 1594: return 0
+ 1595: branch 161
+ 1596: push_constant_int 41
+ 1597: push_constant_int 9036
+ 1598: push_constant_string "Pyramid Plunder - Room 3"
+ 1599: push_constant_string "You can now enter the "
+ 1600: push_constant_string "<col=000080>"
+ 1601: push_constant_string "third chamber"
+ 1602: push_constant_string "</col>"
+ 1603: push_constant_string " of the "
+ 1604: push_constant_string "<col=000080>"
+ 1605: push_constant_string "Pyramid of Jalsavrah"
+ 1606: push_constant_string "</col>"
+ 1607: push_constant_string " in "
+ 1608: push_constant_string "<col=000080>"
+ 1609: push_constant_string "Pyramid Plunder"
+ 1610: push_constant_string "</col>"
+ 1611: push_constant_string "."
+ 1612: join_string 13
+ 1613: return 0
+ 1614: branch 142
+ 1615: push_constant_int 45
+ 1616: push_constant_int 10854
+ 1617: push_constant_string "Sorceress's Garden - Autumn"
+ 1618: push_constant_string "You can now enter the "
+ 1619: push_constant_string "<col=000080>"
+ 1620: push_constant_string "autumn garden"
+ 1621: push_constant_string "</col>"
+ 1622: push_constant_string " in "
+ 1623: push_constant_string "<col=000080>"
+ 1624: push_constant_string "Sorceress's Garden"
+ 1625: push_constant_string "</col>"
+ 1626: push_constant_string "."
+ 1627: join_string 9
+ 1628: return 0
+ 1629: branch 127
+ 1630: push_constant_int 50
+ 1631: push_constant_int 5559
+ 1632: push_constant_string "Rogues' Den"
+ 1633: push_constant_string "<br>"
+ 1634: push_constant_string " (with 50 Agility)"
+ 1635: join_string 3
+ 1636: push_constant_string "You now have the Thieving level required to attempt the "
+ 1637: push_constant_string "<col=000080>"
+ 1638: push_constant_string "Rogues' Den"
+ 1639: push_constant_string "</col>"
+ 1640: push_constant_string ", located below the Toad and Chicken in "
+ 1641: push_constant_string "<col=000080>"
+ 1642: push_constant_string "Burthorpe"
+ 1643: push_constant_string "</col>"
+ 1644: push_constant_string ". (You also need level 50 Agility.)"
+ 1645: join_string 9
+ 1646: return 0
+ 1647: branch 109
+ 1648: push_constant_int 51
+ 1649: push_constant_int 9042
+ 1650: push_constant_string "Pyramid Plunder - Room 4"
+ 1651: push_constant_string "You can now enter the "
+ 1652: push_constant_string "<col=000080>"
+ 1653: push_constant_string "fourth chamber"
+ 1654: push_constant_string "</col>"
+ 1655: push_constant_string " of the "
+ 1656: push_constant_string "<col=000080>"
+ 1657: push_constant_string "Pyramid of Jalsavrah"
+ 1658: push_constant_string "</col>"
+ 1659: push_constant_string " in "
+ 1660: push_constant_string "<col=000080>"
+ 1661: push_constant_string "Pyramid Plunder"
+ 1662: push_constant_string "</col>"
+ 1663: push_constant_string "."
+ 1664: join_string 13
+ 1665: return 0
+ 1666: branch 90
+ 1667: push_constant_int 61
+ 1668: push_constant_int 9038
+ 1669: push_constant_string "Pyramid Plunder - Room 5"
+ 1670: push_constant_string "You can now enter the "
+ 1671: push_constant_string "<col=000080>"
+ 1672: push_constant_string "fifth chamber"
+ 1673: push_constant_string "</col>"
+ 1674: push_constant_string " of the "
+ 1675: push_constant_string "<col=000080>"
+ 1676: push_constant_string "Pyramid of Jalsavrah"
+ 1677: push_constant_string "</col>"
+ 1678: push_constant_string " in "
+ 1679: push_constant_string "<col=000080>"
+ 1680: push_constant_string "Pyramid Plunder"
+ 1681: push_constant_string "</col>"
+ 1682: push_constant_string "."
+ 1683: join_string 13
+ 1684: return 0
+ 1685: branch 71
+ 1686: push_constant_int 65
+ 1687: push_constant_int 10852
+ 1688: push_constant_string "Sorceress's Garden - Summer"
+ 1689: push_constant_string "You can now enter the "
+ 1690: push_constant_string "<col=000080>"
+ 1691: push_constant_string "summer garden"
+ 1692: push_constant_string "</col>"
+ 1693: push_constant_string " in "
+ 1694: push_constant_string "<col=000080>"
+ 1695: push_constant_string "Sorceress's Garden"
+ 1696: push_constant_string "</col>"
+ 1697: push_constant_string "."
+ 1698: join_string 9
+ 1699: return 0
+ 1700: branch 56
+ 1701: push_constant_int 71
+ 1702: push_constant_int 9040
+ 1703: push_constant_string "Pyramid Plunder - Room 6"
+ 1704: push_constant_string "You can now enter the "
+ 1705: push_constant_string "<col=000080>"
+ 1706: push_constant_string "sixth chamber"
+ 1707: push_constant_string "</col>"
+ 1708: push_constant_string " of the "
+ 1709: push_constant_string "<col=000080>"
+ 1710: push_constant_string "Pyramid of Jalsavrah"
+ 1711: push_constant_string "</col>"
+ 1712: push_constant_string " in "
+ 1713: push_constant_string "<col=000080>"
+ 1714: push_constant_string "Pyramid Plunder"
+ 1715: push_constant_string "</col>"
+ 1716: push_constant_string "."
+ 1717: join_string 13
+ 1718: return 0
+ 1719: branch 37
+ 1720: push_constant_int 81
+ 1721: push_constant_int 9028
+ 1722: push_constant_string "Pyramid Plunder - Room 7"
+ 1723: push_constant_string "You can now enter the "
+ 1724: push_constant_string "<col=000080>"
+ 1725: push_constant_string "seventh chamber"
+ 1726: push_constant_string "</col>"
+ 1727: push_constant_string " of the "
+ 1728: push_constant_string "<col=000080>"
+ 1729: push_constant_string "Pyramid of Jalsavrah"
+ 1730: push_constant_string "</col>"
+ 1731: push_constant_string " in "
+ 1732: push_constant_string "<col=000080>"
+ 1733: push_constant_string "Pyramid Plunder"
+ 1734: push_constant_string "</col>"
+ 1735: push_constant_string "."
+ 1736: join_string 13
+ 1737: return 0
+ 1738: branch 18
+ 1739: push_constant_int 91
+ 1740: push_constant_int 9034
+ 1741: push_constant_string "Pyramid Plunder - Room 8"
+ 1742: push_constant_string "You can now enter the "
+ 1743: push_constant_string "<col=000080>"
+ 1744: push_constant_string "eighth chamber"
+ 1745: push_constant_string "</col>"
+ 1746: push_constant_string " of the "
+ 1747: push_constant_string "<col=000080>"
+ 1748: push_constant_string "Pyramid of Jalsavrah"
+ 1749: push_constant_string "</col>"
+ 1750: push_constant_string " in "
+ 1751: push_constant_string "<col=000080>"
+ 1752: push_constant_string "Pyramid Plunder"
+ 1753: push_constant_string "</col>"
+ 1754: push_constant_string "."
+ 1755: join_string 13
+ 1756: return 0
+ 1757: branch 45
+ 1758: push_int_local 1
+ 1759: switch 8
+ 1760: branch 19
+ 1761: push_constant_int -1
+ 1762: push_constant_int 15707
+ 1763: push_constant_string "Dungeoneering skill tasks"
+ 1764: push_constant_string "<br>"
+ 1765: push_constant_string "<br>"
+ 1766: push_constant_string "As your Thieving level increases, you will be able to attempt higher-level Thieving tasks within Daemonheim."
+ 1767: push_constant_string "<br>"
+ 1768: push_constant_string "<br>"
+ 1769: push_constant_string "You will be more likely to succeed when attempting Thieving tasks within Daemonheim."
+ 1770: push_constant_string "<br>"
+ 1771: push_constant_string "<br>"
+ 1772: push_constant_string "You will also be able to open higher level "
+ 1773: push_constant_string "<col=000080>"
+ 1774: push_constant_string "locked chests"
+ 1775: push_constant_string "</col>"
+ 1776: push_constant_string " within Daemonheim."
+ 1777: join_string 14
+ 1778: push_constant_string ""
+ 1779: return 0
+ 1780: branch 22
+ 1781: push_int_local 1
+ 1782: branch_if_false 1
+ 1783: branch 19
+ 1784: push_constant_int 99
+ 1785: push_constant_int 9777
+ 1786: push_constant_string "Skill mastery"
+ 1787: push_constant_string "<col=000080>"
+ 1788: push_constant_string "Congratulations! You are now a master thief. Why not visit "
+ 1789: push_constant_string "<col=800000>"
+ 1790: push_constant_string "Martin Thwait"
+ 1791: push_constant_string "<col=000080>"
+ 1792: push_constant_string ", who runs a shop at the "
+ 1793: push_constant_string "<col=800000>"
+ 1794: push_constant_string "Rogues' Den"
+ 1795: push_constant_string "<col=000080>"
+ 1796: push_constant_string ". He has something special that is only available to true masters of the "
+ 1797: push_constant_string "<col=800000>"
+ 1798: push_constant_string "Thieving"
+ 1799: push_constant_string "<col=000080>"
+ 1800: push_constant_string " skill!"
+ 1801: join_string 14
+ 1802: return 0
+ 1803: push_constant_int 0
+ 1804: push_constant_int -1
+ 1805: push_constant_string ""
+ 1806: push_constant_string ""
+ 1807: return 0
+
+switch_0:
+  0 => 1
+  1 => 239
+  2 => 1007
+  3 => 1235
+  4 => 1393
+  5 => 1470
+  6 => 1517
+  7 => 1756
+  8 => 1779
+switch_1:
+  0 => 1
+  1 => 16
+  2 => 27
+  3 => 38
+  4 => 49
+  5 => 60
+  6 => 71
+  7 => 82
+  8 => 93
+  9 => 104
+  10 => 115
+  11 => 126
+  12 => 137
+  13 => 148
+  14 => 159
+  15 => 170
+  16 => 181
+  17 => 192
+  18 => 203
+  19 => 214
+  20 => 225
+switch_2:
+  0 => 1
+  1 => 16
+  2 => 30
+  3 => 48
+  4 => 62
+  5 => 76
+  6 => 90
+  7 => 108
+  8 => 122
+  9 => 136
+  10 => 150
+  11 => 164
+  12 => 178
+  13 => 192
+  14 => 206
+  15 => 220
+  16 => 234
+  17 => 248
+  18 => 262
+  19 => 276
+  20 => 290
+  21 => 304
+  22 => 318
+  23 => 332
+  24 => 346
+  25 => 360
+  26 => 374
+  27 => 388
+  28 => 402
+  29 => 416
+  30 => 430
+  31 => 444
+  32 => 458
+  33 => 472
+  34 => 486
+  35 => 500
+  36 => 514
+  37 => 528
+  38 => 542
+  39 => 556
+  40 => 570
+  41 => 584
+  42 => 598
+  43 => 612
+  44 => 626
+  45 => 640
+  46 => 654
+  47 => 668
+  48 => 682
+  49 => 696
+  50 => 710
+  51 => 724
+  52 => 738
+  53 => 752
+switch_3:
+  0 => 1
+  1 => 15
+  2 => 26
+  3 => 40
+  4 => 51
+  5 => 62
+  6 => 76
+  7 => 87
+  8 => 98
+  9 => 109
+  10 => 120
+  11 => 131
+  12 => 142
+  13 => 153
+  14 => 164
+  15 => 182
+  16 => 193
+  17 => 204
+  18 => 215
+switch_4:
+  0 => 1
+  1 => 24
+  2 => 43
+  3 => 58
+  4 => 73
+  5 => 88
+  6 => 103
+  7 => 122
+  8 => 141
+switch_5:
+  0 => 1
+  1 => 16
+  2 => 31
+  3 => 45
+  4 => 60
+switch_6:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+switch_7:
+  0 => 1
+  1 => 7
+  2 => 22
+  3 => 41
+  4 => 56
+  5 => 75
+  6 => 94
+  7 => 109
+  8 => 127
+  9 => 146
+  10 => 165
+  11 => 180
+  12 => 199
+  13 => 218
+switch_8:
+  0 => 1

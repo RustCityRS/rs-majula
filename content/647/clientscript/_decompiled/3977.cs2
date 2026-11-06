@@ -1,0 +1,265 @@
+[clientscript,script_3977](int $int0)(int)
+~script_41(69206152);
+if ($int0 = 0) {
+    if (%varp281 < 1000) {
+        $int0 = 4094;
+    }
+}
+if (~script_3999($int0) = 1) {
+    return;
+}
+def_int $int1 = -1;
+def_string $str0 = "";
+def_string $str1 = "";
+def_string $str2 = "";
+def_int $int2 = -1;
+def_int $int3 = -1;
+$int1 = enum(105, 74, enum_3483, $int0);
+def_int $int4 = calc(struct_param($int1, param_1293) - 1 * 5 + struct_param($int1, param_1272));
+def_int $int5 = enum(105, 74, enum_3494, $int4);
+if ($int1 ! -1) {
+    $str0 = "";
+    $str1 = "";
+    if ($int0 > 419) {
+        if ($int0 < 424) {
+            $str1 = append($str1, "<br>" + "<br>" + "Click on the Hints tab above if you wish to see more information on how to complete this Task.");
+        }
+    } else {
+        if ($int0 = 419) {
+            $str1 = append($str1, "<br>" + "<br>" + "Simply click on Jack to start a conversation - as a new player you will start just nearby.");
+        }
+    }
+    if (struct_param($int1, param_1270) ! 4094) {
+        $str2 = "";
+        $int3 = struct_param(enum(105, 74, enum_2252, struct_param($int1, param_1270)), param_952);
+    } else {
+        $str2 = "";
+        $int3 = struct_param($int1, param_1271);
+    }
+    if_setgraphic(69206151);
+    if_settext($str0);
+    if_settext($str1);
+    if_settextfont(69206145);
+    if_settextalign(0, 0, 69206145);
+}
+def_string $str3 = "";
+if (compare($str2, "") = 0) {
+    if (%varp281 = 1000) {
+        if (%varbit8601 < 10) {
+            $str3 = "ten";
+        } else {
+            if (%varbit8601 < 25) {
+                $str3 = "forty";
+            }
+            if (%varbit8601 < 50) {
+                $str3 = "160";
+            }
+            if (%varbit8601 < 100) {
+                $str3 = "640";
+            }
+            $str3 = "2560";
+        }
+        $str2 = "Completing this Task will earn you " + $str3 + " coins.";
+    }
+}
+if_sethide(69206092);
+if_sethide(69206093);
+if_sethide(69206094);
+if_sethide(69206095);
+if_sethide(69206096);
+if_sethide(69206097);
+if_sethide(69206098);
+if_sethide(69206099);
+if_sethide(69206100);
+if_sethide(69206101);
+if_sethide(69206102);
+if_sethide(69206103);
+def_int $int6 = 10;
+def_int $int7 = 0;
+def_int $int8 = 15;
+def_int $int9 = 0;
+def_string $str4 = "";
+def_int $int10 = 0;
+$int10 = ~script_3995($int0);
+$str4 = ~script_3995($int0);
+$int9 = ~script_3995($int0);
+if (getlanguage = 1) {
+    if_sethide(69206137);
+    if_sethide(69206157);
+}
+if (getlanguage = 0) {
+    if_settext("    Pin");
+    if_settext("     Back");
+}
+if_sethide(69206137);
+if_sethide(69206157);
+if_sethide(69206104);
+if (compare("", "") ! 0) {
+    if (struct_param($int1, param_1282) ! -1) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script_3978($int6, struct_param($int1, param_1274), 69206092, $int7, 69206093, 69206139, "");
+}
+if (compare("", "") ! 0) {
+    if (struct_param($int1, param_1283) ! -1) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script_3978($int6, struct_param($int1, param_1275), 69206094, $int7, 69206095, 69206139, "");
+}
+if (compare("", "") ! 0) {
+    if (struct_param($int1, param_1284) ! -1) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script_3978($int6, struct_param($int1, param_1276), 69206096, $int7, 69206097, 69206139, "");
+}
+if (compare("", "") ! 0) {
+    if (struct_param($int1, param_1285) ! -1) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script_3978($int6, struct_param($int1, param_1277), 69206098, $int7, 69206099, 69206139, "");
+}
+if (compare("", "") ! 0) {
+    if (struct_param($int1, param_1286) ! -1) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script_3978($int6, struct_param($int1, param_1278), 69206100, $int7, 69206101, 69206139, "");
+}
+if (compare("", "") ! 0) {
+    if (struct_param($int1, param_1287) ! -1) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script_3978($int6, struct_param($int1, param_1279), 69206102, $int7, 69206103, 69206139, "");
+}
+$int6 = max(69206139, if_getheight);
+if_setscrollsize(0, $int6, 69206139);
+if (69206139 > if_getheight) {
+    if_sethide(69206140);
+} else {
+    if_sethide(69206140);
+}
+if_sethide(69206082);
+if_sethide(69206083);
+if_sethide(69206084);
+if_sethide(69206085);
+if_sethide(69206086);
+if_sethide(69206087);
+if_sethide(69206088);
+if_sethide(69206089);
+$int6 = ~script_3978(0, 10, 69206081, 4094, -1, 69206090, $str2);
+if ($int5 ! -1) {
+    if ($int5 ! 1645) {
+        $int6 = ~script_3978($int6, struct_param($int5, param_1273), 69206082, 4094, -1, 69206090, "");
+        $int6 = ~script_3978($int6, struct_param($int5, param_1292), 69206083, 4094, -1, 69206090, "");
+        if (compare("", "") ! 0) {
+            $int6 = ~script_3978($int6, struct_param($int5, param_1274), 69206084, 4094, -1, 69206090, "");
+        }
+        if (compare("", "") ! 0) {
+            $int6 = ~script_3978($int6, struct_param($int5, param_1275), 69206085, 4094, -1, 69206090, "");
+        }
+        if (compare("", "") ! 0) {
+            $int6 = ~script_3978($int6, struct_param($int5, param_1276), 69206086, 4094, -1, 69206090, "");
+        }
+        if (compare("", "") ! 0) {
+            $int6 = ~script_3978($int6, struct_param($int5, param_1277), 69206087, 4094, -1, 69206090, "");
+        }
+        if (compare("", "") ! 0) {
+            $int6 = ~script_3978($int6, struct_param($int5, param_1278), 69206088, 4094, -1, 69206090, "");
+        }
+        if (compare("", "") ! 0) {
+            $int6 = ~script_3978($int6, struct_param($int5, param_1279), 69206089, 4094, -1, 69206090, "");
+        }
+    }
+} else {
+    if (%varbit8601 > %varbit8602) {
+        $str2 = "You have already earned a sum of money, which you may claim by talking to any Taskmaster or you can increase by completing more Tasks.";
+        $int6 = ~script_3978(0, $int6, 69206083, 4094, -1, 69206090, $str2);
+    }
+}
+$int6 = max(69206090, if_getheight);
+if_setscrollsize(0, $int6, 69206090);
+if (69206090 > if_getheight) {
+    if_sethide(69206111);
+} else {
+    if_sethide(69206111);
+}
+def_string $str5 = "";
+def_int $int11 = 5;
+if (~script_3227($int0) = 2) {
+    if_sethide(69206104);
+    if_sethide(69206106);
+    if (%varp281 = 1000) {
+        if_sethide(69206146);
+    }
+    if ($int0 = 419) {
+        if (%varbit9030 = 1) {
+            $str5 = "Task complete! Click here to return to the task list.";
+            if (getwindowmode >= 2) {
+                if (if_getwidth < 997) {
+                    $int11 = add($int11, 40);
+                }
+                ~script_4248(158, $int11, 1, 16777215, 5631, $str5);
+            }
+            ~script_4247(175, -1, 1, 16777215, 5631, $str5);
+        }
+    }
+} else {
+    if (struct_param($int1, param_1267) = 60) {
+        if_sethide(69206104);
+        if_sethide(69206146);
+        if (%varp281 < 135) {
+            if (%varbit9029 = 0) {
+                if_sethide(69206106);
+            }
+        } else {
+            if_sethide(69206106);
+        }
+    }
+    if_sethide(69206106);
+    if (~script_3999($int0) = 0) {
+        if ($int9 = 1) {
+            if ($int0 ! %varbit8576) {
+                if_sethide(69206104);
+            }
+        }
+    } else {
+        if_sethide(69206104);
+    }
+    if ($int0 ! 420) {
+        if ($int0 ! 363) {
+            if ($int0 = 419) {
+            }
+        }
+    } else {
+        $str5 = "Click on the Hints tab for more on how to complete this Task.";
+    }
+    if ($int0 = 421) {
+        $str5 = "Remember, the Hints tab provides more details about a Task.";
+    } else {
+        $str5 = "";
+    }
+    if (%varbit9030 = 0) {
+        $str5 = "";
+    }
+    if (getwindowmode >= 2) {
+        if (if_getwidth < 997) {
+            ~script_4248(196, 223, 1, 16777215, 5631, $str5);
+        } else {
+            ~script_4248(196, 183, 1, 16777215, 5631, $str5);
+        }
+    }
+    ~script_4247(217, 177, 1, 16777215, 5631, $str5);
+}
+if_setsize(add(15, $int6), 1, 0, 69206112);
+return(0);

@@ -1,0 +1,63 @@
+; id: 1817
+int_param_count=6
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Victory!"
+    1: push_int_local 0
+    2: if_settext 0
+    3: push_constant_int 75
+    4: push_constant_int 89
+    5: push_constant_int 0
+    6: push_constant_int 0
+    7: push_int_local 0
+    8: if_setposition 0
+    9: push_constant_string "Your clan is victorious."
+   10: push_int_local 1
+   11: if_settext 0
+   12: push_constant_int 79
+   13: push_constant_int 130
+   14: push_constant_int 0
+   15: push_constant_int 0
+   16: push_int_local 1
+   17: if_setposition 0
+   18: push_constant_int 79
+   19: push_constant_int 180
+   20: push_constant_int 0
+   21: push_constant_int 0
+   22: push_int_local 2
+   23: if_setposition 0
+   24: push_constant_int 175
+   25: push_constant_int 125
+   26: push_constant_int 0
+   27: push_constant_int 0
+   28: push_int_local 2
+   29: if_setsize 0
+   30: push_constant_int 52
+   31: push_constant_int 118
+   32: push_constant_int 0
+   33: push_constant_int 0
+   34: push_int_local 3
+   35: if_setposition 0
+   36: push_constant_int 0
+   37: push_int_local 0
+   38: if_sethide 0
+   39: push_constant_int 0
+   40: push_int_local 1
+   41: if_sethide 0
+   42: push_constant_int 0
+   43: push_int_local 2
+   44: if_sethide 0
+   45: push_constant_int 0
+   46: push_int_local 3
+   47: if_sethide 0
+   48: push_constant_int 0
+   49: push_int_local 4
+   50: if_sethide 0
+   51: push_constant_int 1
+   52: push_int_local 5
+   53: if_sethide 0
+   54: return 0

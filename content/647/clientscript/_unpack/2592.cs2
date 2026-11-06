@@ -1,0 +1,25 @@
+; id: 2592
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 6784
+    1: push_constant_int 1
+    2: push_constant_int 0
+    3: sound_synth 0
+    4: push_int_local 0
+    5: op2612 0
+    6: push_constant_int 941
+    7: branch_equals 1
+    8: branch 4
+    9: push_constant_int 942
+   10: push_int_local 0
+   11: if_setgraphic 0
+   12: branch 3
+   13: push_constant_int 941
+   14: push_int_local 0
+   15: if_setgraphic 0
+   16: return 0

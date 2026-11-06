@@ -1,0 +1,8 @@
+[clientscript,script_597]
+def_string $str0 = "null";
+if (%varc_int84 < 2147483647) {
+    %varc_int84 = add(%varc_int84, 1);
+    $str0 = "";
+    if_settext($str0);
+}
+return;

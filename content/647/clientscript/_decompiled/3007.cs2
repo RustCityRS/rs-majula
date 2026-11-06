@@ -1,0 +1,13 @@
+[clientscript,script_3007](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)(stat, int, int, int, stat, int, int, stat, int, int, int, int, int, string, string)
+if_setsize(88, 0, 0, $int1);
+if_setgraphic($int1);
+if_setsize(88, 1, 0, $int2);
+if_setgraphic($int2);
+if_setsize(88, 0, 0, $int3);
+if_setgraphic($int3);
+if_setgraphic($int5);
+if_setsize(88, 0, 0, $int6);
+if_setgraphic($int6);
+if_setonmouseover;
+if_setonmouseleave;
+return(smithing, 4681, 26, 4682, smithing, 4684, 2670, smithing, 4683, -1, $int0, -1, $int0, "", "");

@@ -1,0 +1,4 @@
+[clientscript,script_3212](string $str0)
+$str0 = $str0 + "?cty=" + tostring(clan_getchatuserrank(0));
+~script_2934(1, $str0);
+return;

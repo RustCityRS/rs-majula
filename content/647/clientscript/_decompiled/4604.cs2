@@ -1,0 +1,19 @@
+[clientscript,script_4604](int $int0, int $int1, int $int2)(int, int)
+if_setcolour($int2);
+def_int $int3 = if_getheight;
+def_int $int4 = 1;
+if (%varbit9258 > 0) {
+    $int4 = max(min(calc($int3 - %varbit9258 * 2), $int3), 0);
+}
+def_int $int5 = if_getheight;
+def_int $int6 = 0;
+if (%varbit9259 > 0) {
+    $int6 = max(min(calc($int5 - %varbit9259 * $int5 / 8), $int5), 0);
+    $int6 = max(min(calc($int6 - $int5 / 16), $int5), 0);
+}
+def_int $int7 = 0;
+if (%varbit9260 > 0) {
+    $int7 = max(min(calc(%varbit9260 * $int5 / 128), $int5), 0);
+}
+if_setcolour($int0);
+return(%varbit9258, ~script_4609($int7, $int6));

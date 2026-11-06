@@ -1,0 +1,14 @@
+[clientscript,script_4572](int $int0, int $int1)(component, int)
+if (clan_getchatsize <= 0) {
+    if_settext("");
+    if_sethide($int1);
+    return(38600731, 1);
+}
+if (calc(clientclock - $int0 % 40) < 20) {
+    if (has_focus = 1) {
+        if_sethide($int1);
+    }
+} else {
+    if_sethide($int1);
+}
+return;

@@ -1,0 +1,7 @@
+[clientscript,script_3088](int $int0, string $str0, string $str1)
+if (compare($str0, "") ! 0) {
+    if (compare($str1, "") ! 0) {
+        url_request($int0, $str0, $str1);
+    }
+}
+return;

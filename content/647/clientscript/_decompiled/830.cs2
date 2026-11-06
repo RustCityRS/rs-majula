@@ -1,0 +1,5 @@
+[clientscript,script_830](int $int0, int $int1)(int, int, int, int, int, int, int, string)
+if_setmodelanim;
+if_setonvartransmit;
+~script_834($int0);
+return(3320, $int1, 831, $int0, 425, 1, $int0, "IY");

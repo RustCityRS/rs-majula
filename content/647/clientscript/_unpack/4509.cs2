@@ -1,0 +1,32 @@
+; id: 4509
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 535
+    1: pop_int_local 1
+    2: push_constant_int 536
+    3: pop_int_local 2
+    4: push_int_local 1
+    5: push_int_local 0
+    6: if_setgraphic 0
+    7: push_constant_int 44
+    8: push_constant_int -2147483645
+    9: push_int_local 2
+   10: push_constant_string "Id"
+   11: push_int_local 0
+   12: op2403 0
+   13: push_constant_int 44
+   14: push_constant_int -2147483645
+   15: push_int_local 1
+   16: push_constant_string "Id"
+   17: push_int_local 0
+   18: op2404 0
+   19: push_constant_int 29
+   20: push_constant_string ""
+   21: push_int_local 0
+   22: op2409 0
+   23: return 0

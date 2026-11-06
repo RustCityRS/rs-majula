@@ -1,0 +1,45 @@
+; id: 114
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1302
+    1: push_constant_int 168
+    2: push_constant_int 747
+    3: push_constant_int 2
+    4: push_constant_string "Y"
+    5: push_constant_int 35913922
+    6: op2428 0
+    7: push_constant_int 1302
+    8: push_constant_int 168
+    9: push_constant_int 747
+   10: push_constant_int 2
+   11: push_constant_string "Y"
+   12: push_constant_int 48889932
+   13: op2428 0
+   14: getwindowmode 0
+   15: push_constant_int 2
+   16: branch_greater_than_or_equals 1
+   17: branch 9
+   18: push_constant_int 117
+   19: push_constant_int 1021
+   20: push_constant_int 1
+   21: push_constant_string "Y"
+   22: push_constant_int 48889875
+   23: op2407 0
+   24: push_constant_int 1
+   25: gosub_with_params 1309
+   26: branch 9
+   27: push_constant_int 117
+   28: push_constant_int 1021
+   29: push_constant_int 1
+   30: push_constant_string "Y"
+   31: push_constant_int 35913855
+   32: op2407 0
+   33: gosub_with_params 2756
+   34: push_constant_int 1
+   35: gosub_with_params 1312
+   36: return 0

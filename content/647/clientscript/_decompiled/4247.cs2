@@ -1,0 +1,32 @@
+[clientscript,script_4247](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0)
+if ($int3 = -1) {
+    $int3 = 16777215;
+}
+if ($int4 = -1) {
+    $int4 = 5631;
+}
+if_sethide(48890038);
+if_sethide(35913923);
+if (compare($str0, "") = 0) {
+    return;
+}
+if_settext($str0);
+if_setposition($int1, 2, 2, 35913923);
+if_setcolour(35913963);
+if_settextfont(35913963);
+if ($int2 = 1) {
+    if_sethide(35913965);
+    if_sethide(35913966);
+} else {
+    if_sethide(35913965);
+    if_sethide(35913966);
+}
+if_sethide(35913923);
+if (compare($str0, "The '?' icon will add an arrow to the screen which points to your destination.") = 0) {
+    if (getlanguage = 0) {
+        if_sethide(35913964);
+    }
+} else {
+    if_sethide(35913964);
+}
+return;

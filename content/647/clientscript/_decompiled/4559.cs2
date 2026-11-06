@@ -1,0 +1,118 @@
+[clientscript,script_4559](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int, int, int, string)
+if (hud_test($int3, -1) = 1) {
+    if_setontimer;
+    return(4558, $int0, $int1, $int2, $int3, $int4, $int5, $int4, "IIIIII");
+} else {
+    if_setontimer;
+}
+cc_deleteall($int0);
+cc_deleteall($int1);
+cc_deleteall($int2);
+cc_deleteall($int3);
+def_int $int6 = 0;
+def_int $int7 = clan_getchatsize;
+def_int $int8 = 0;
+def_string $str0 = "";
+def_int $int9 = 15;
+def_int $int10 = 17;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_string $str1 = "";
+def_int $int17 = 0;
+if ($int7 <= 0) {
+    if_settext("Not in chat");
+    if_settext("None");
+    if_settext("Join Chat Channel");
+    if_setop(38600743, "Join Chat Channel");
+    ~script_4560($int3, "You are not currently in a Friends Chat channel." + "<br>" + "<br>" + "Use the button below if you wish to join a chat channel.");
+    if_setsize(if_getheight, 0, 0, 38600749);
+    if_setscrollsize(0, 0, 38600755);
+    if_setscrollpos(0, 38600755);
+    ~script_72(38600756, 38600755, 0);
+} else {
+    if_settext(clan_getchatowner);
+    if_settext(clan_getchatdisplayname);
+    if_settext("Leave chat channel");
+    if_setop(38600743, "Leave chat channel");
+    if_setsize(4, 0, 1, 38600749);
+    if ($int8 < $int7) {
+        $int16 = clan_getchatuserrank2($int8);
+        $str1 = "";
+        $str0 = clan_getchatuserdisplay($int8);
+        ~script_2996($int8, $int3, if_getwidth, $int9, 0, $int12, 0, 1, 0);
+        if (mod($int8, 2) = 0) {
+            cc_setcolour(2103569);
+        } else {
+            cc_setcolour(2695190);
+        }
+        cc_setonmouseover;
+        cc_setonmouseleave;
+        if (clan_isself($int8) = 0) {
+            cc_setonop;
+            if (friend_test(removetags($str1)) = 1) {
+                cc_setop(8, "Remove friend " + $str0);
+            }
+            if (ignores_test(removetags($str1)) = 1) {
+                cc_setop(9, "Remove ignore " + $str0);
+            }
+            cc_setop(6, "Add friend " + $str0);
+            cc_setop(7, "Add ignore " + $str0);
+        }
+        if (clan_getranks2 >= clan_getminkick2) {
+            if (clan_getranks2 > $int16) {
+                cc_setop(10, "Kick/ban " + $str0);
+            }
+        }
+        ~script_2995($int0, $int8, 0, $int9, $int10, $int12, 16777215, 494, 0, 1, 0, 1, $str0);
+        cc_setsize($int10, $int9, 1, 0);
+        cc_setmaxlines(1);
+        $int13 = clan_getchatuserrankicon($int8);
+        if ($int13 = 0) {
+            $str0 = "Offline";
+            $int11 = 16711680;
+        } else {
+            $str0 = "";
+            if ($int13 = active_toplevelinterface) {
+                $int11 = 65280;
+            }
+            $int11 = 16776960;
+        }
+        ~script_2995($int2, $int8, 0, $int9, 5, $int12, $int11, 494, 0, 1, 0, 1, $str0);
+        cc_setsize(5, $int9, 1, 0);
+        cc_setmaxlines(1);
+        $int12 = add($int12, $int9);
+        $int8 = add($int8, 1);
+    }
+    $int14 = calc(if_getheight / $int9 + 1);
+    if ($int14 > $int7) {
+        if ($int8 < $int14) {
+            ~script_2996($int8, $int3, if_getwidth, $int9, 0, $int12, 0, 1, 0);
+            if (mod($int8, 2) = 0) {
+                cc_setcolour(2103569);
+            } else {
+                cc_setcolour(2695190);
+            }
+            $int12 = add($int12, $int9);
+            $int8 = add($int8, 1);
+        }
+        $int15 = if_getheight;
+    } else {
+        $int15 = $int12;
+    }
+    if ($int14 <= $int7) {
+        $int17 = if_getscrolly;
+        if_setscrollsize(0, $int15, 38600755);
+        if ($int17 > $int15) {
+            $int17 = $int15;
+        }
+        ~script_72(38600756, 38600755, $int17);
+    }
+    if_setscrollsize(0, 0, 38600755);
+    if_setscrollpos(0, 38600755);
+    ~script_72(38600756, 38600755, 0);
+}
+return(~script_4573);

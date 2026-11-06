@@ -513,7 +513,7 @@ impl SharedCache {
 pub struct ServerIO {
     cache: SharedCache,
     /// Rev-647 cache delivery: archive-255 reference tables + signed master
-    /// index preloaded in RAM, remaining groups read from disk on demand.
+    /// index and group containers are served from memory.
     #[cfg(since_647)]
     js5: rs_protocol::js5::Js5Cache,
     rsa: &'static RsaKey,
@@ -697,51 +697,21 @@ async fn bootstrap(
     // Before the pack churns the heap: see init_collision.
     rs_engine::init_collision();
     info!("Compiling content assets & building cache...");
-    // Rev-647 `pack_all` returns a `PackResult` (JS5 cache + TypeProviders);
-    // the engine-facing CacheStore is bridged from it, scripts load from the
-    // built server dir, and the JS5 store is preloaded for cache delivery.
     #[cfg(since_647)]
-    let (store, scripts, layout, js5_store): (
-        Box<CacheStore>,
-        ScriptProvider,
-        rs_pack::startup::InterfaceLayout,
-        rs_io::js5::Js5Store,
-    ) = {
-        let result = rs_pack::pack_all(
-            Path::new(rs_pack::CONTENT_DIR),
-            Path::new(rs_pack::PACK_DIR),
-            args.verify,
-            args.members,
-        )?;
-        info!(
-            "JS5 cache built + CRC-gated at {}",
-            result.cache_dir.display()
-        );
-        let rs_pack::startup::PackResult {
-            cache_dir,
-            config,
-            layout,
-            mut js5_store,
-        } = result;
-
-        // XTEA map keys: landscape decryption at load time and rebuild
-        // packets at runtime both read the globally-installed store.
-        let keys_path = Path::new(rs_pack::CONTENT_DIR).join("keys.json");
-        match rs_pack::cache::map::XteaKeyStore::load(&keys_path) {
-            Ok(keys) => keys.install_global(),
-            Err(e) => tracing::warn!("No XTEA keys at {}: {e}", keys_path.display()),
-        }
-
-        let server_dir = cache_dir.join("server");
-        let store = CacheStore::from_packed_config(config, &mut js5_store, &server_dir)?;
-
-        let script_dat = std::fs::read(server_dir.join("script.dat"))?;
-        let script_idx = std::fs::read(server_dir.join("script.idx"))?;
-        let scripts = ScriptProvider::from_bytes(&script_dat, &script_idx);
-        info!("Scripts loaded successfully ({} scripts)", scripts.count());
-
-        (store, scripts, layout, js5_store)
-    };
+    let rs_pack::startup::PackResult {
+        store,
+        scripts,
+        layout,
+        cache: js5_cache,
+    } = rs_pack::pack_all(
+        Path::new(rs_pack::CONTENT_DIR),
+        Path::new(rs_pack::PACK_DIR),
+        args.verify,
+        args.members,
+    )?;
+    #[cfg(since_647)]
+    rs_pack::cache::map::XteaKeyStore::load(&Path::new(rs_pack::CONTENT_DIR).join("keys.json"))?
+        .install_global();
     #[cfg(before_647)]
     let (store, scripts) = rs_pack::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
@@ -772,9 +742,11 @@ async fn bootstrap(
     device::init(&fs::read(rsa_path)?);
 
     // Rev-647 cache delivery: archive-255 reference tables + signed master
-    // index preloaded in RAM, remaining groups read from disk on demand.
+    // index and group containers are served from memory.
     #[cfg(since_647)]
-    let js5 = rs_protocol::js5::Js5Cache::preload(js5_store, rsa)?;
+    let js5 = rs_protocol::js5::Js5Cache::new(js5_cache.groups, rsa)?;
+    #[cfg(since_647)]
+    drop(js5_cache.tables);
 
     let (ether_tx, ether_rx) = {
         let (outbound_tx, outbound_rx) = unbounded_channel::<EtherOutbound>();
@@ -1274,11 +1246,10 @@ async fn reload_coordinator(
             // Rev-647: the cache is rebuilt + CRC-gated, but the world swap
             // channel expects the jag-era CacheStore — not wired yet.
             #[cfg(since_647)]
-            Ok(Ok(pack_result)) => {
+            Ok(Ok(_pack_result)) => {
                 let elapsed = start.elapsed();
                 info!(
-                    "Hot-reload: JS5 cache rebuilt at {} in {:.2}ms (rev-647 world swap not wired yet)",
-                    pack_result.cache_dir.display(),
+                    "Hot-reload: JS5 cache packed in memory in {:.2}ms (rev-647 world swap not wired yet)",
                     elapsed.as_secs_f64() * 1000.0
                 );
                 let _ = &result_tx;

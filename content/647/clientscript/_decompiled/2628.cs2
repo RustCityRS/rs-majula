@@ -1,0 +1,52 @@
+[clientscript,script_2628]
+if (%varc_int906 = 0) {
+    if_setgraphic(56295449);
+    if_settext("Idle");
+} else {
+    if (%varc_int906 = 2) {
+        if_setgraphic(56295449);
+        switch (%varc_int907) {
+            case 0:
+                %varc_int906 = 0;
+                if_setgraphic(56295449);
+                if_settext("Idle");
+            case 1:
+            case 2:
+                if_settext("Exploring");
+            case 3:
+            case 4:
+                if_settext("Attacking wall");
+            case 5:
+            case 6:
+            case 7:
+                if_settext("Rescuing TzHaar");
+            case 8:
+            case 9:
+                if_settext("Collecting gold");
+            case 10:
+            case 11:
+            case 12:
+                if_settext("Stealing TzHaar");
+            case 13:
+            case 14:
+            case 15:
+                if_settext("Collecting parts");
+            case 16:
+            case 17:
+            case 18:
+                if_settext("Collecting Rocks");
+            case 19:
+            case 20:
+                if_settext("Attacking catapult");
+            case 21:
+                if_settext("Retaliating");
+            case 22:
+                if_settext("Moving to destination");
+            case 23:
+                if_settext("Attacking");
+            default:
+                if_settext("Busy");
+        }
+    }
+}
+return;

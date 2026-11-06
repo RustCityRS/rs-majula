@@ -1,0 +1,24 @@
+; id: 4250
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 35913731
+    1: if_getwidth 0
+    2: pop_int_local 0
+    3: getwindowmode 0
+    4: push_constant_int 2
+    5: branch_greater_than_or_equals 1
+    6: branch 3
+    7: push_constant_int 48889856
+    8: if_getwidth 0
+    9: pop_int_local 0
+   10: push_int_local 0
+   11: tostring 0
+   12: push_constant_string "."
+   13: join_string 2
+   14: mes 0
+   15: return 0

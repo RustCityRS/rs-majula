@@ -1,0 +1,26 @@
+; id: 732
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 278
+    1: branch_if_false 1
+    2: branch 4
+    3: push_constant_int 1377
+    4: push_int_local 0
+    5: op2110 0
+    6: branch 10
+    7: push_varbit 278
+    8: branch_if_true 1
+    9: branch 4
+   10: push_constant_int 2114
+   11: push_int_local 0
+   12: op2110 0
+   13: branch 3
+   14: push_constant_int 2116
+   15: push_int_local 0
+   16: op2110 0
+   17: return 0

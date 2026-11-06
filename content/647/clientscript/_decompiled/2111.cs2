@@ -1,0 +1,20 @@
+[clientscript,script_2111](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if ($int0 ! 1) {
+    return;
+}
+def_int $int7 = 0;
+def_int $int8 = 0;
+sound_synth(synth_4911, 1, 0);
+if ($int1 = 1) {
+    $int7 = ~script_686(calc(%varbit693 + $int2 % 4), 4);
+    $int8 = %varbit5851;
+} else {
+    if ($int1 = 2) {
+        $int7 = ~script_686(calc(%varbit694 + $int2 % 4), 4);
+        $int8 = %varbit5852;
+    }
+    $int7 = ~script_686(calc(%varbit695 + $int2 % 4), 4);
+    $int8 = %varbit5853;
+}
+~script_2112($int3, $int4, $int5, $int6, $int7, $int8);
+return;

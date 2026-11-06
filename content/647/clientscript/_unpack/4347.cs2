@@ -1,0 +1,54 @@
+; id: 4347
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 0
+    2: push_var 2136
+    3: push_constant_int 0
+    4: branch_greater_than 1
+    5: branch 30
+    6: push_constant_int 105
+    7: push_constant_int 103
+    8: push_constant_int 3703
+    9: push_var 2136
+   10: enum 0
+   11: pop_int_local 0
+   12: push_int_local 0
+   13: push_constant_int -1
+   14: branch_not 1
+   15: branch 19
+   16: push_constant_int 1
+   17: push_constant_int 71893211
+   18: if_sethide 0
+   19: push_constant_int 0
+   20: push_constant_int 0
+   21: push_constant_int 71893216
+   22: if_setscrollpos 0
+   23: push_int_local 0
+   24: push_constant_int 1
+   25: push_constant_string "Select a keyword"
+   26: push_int_local 0
+   27: enum_getoutputcount 0
+   28: push_constant_int 7
+   29: push_constant_int 71893205
+   30: push_constant_int 71893215
+   31: push_constant_int 71893217
+   32: push_constant_int 71893216
+   33: push_constant_int 71893222
+   34: gosub_with_params 4499
+   35: branch 9
+   36: push_constant_int 0
+   37: push_constant_int 71893211
+   38: if_sethide 0
+   39: push_constant_int 71893205
+   40: push_constant_string "Select a keyword"
+   41: gosub_with_params 4501
+   42: push_constant_int 71893191
+   43: push_constant_string "Select a category"
+   44: gosub_with_params 4501
+   45: return 0

@@ -1,0 +1,8 @@
+[clientscript,script_87](int $int0)
+if_settext("Score: " + tostring(%varbit2121));
+if (%varbit2121 = 0) {
+    if_setcolour($int0);
+} else {
+    if_setcolour($int0);
+}
+return;

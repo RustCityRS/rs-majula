@@ -1,0 +1,19 @@
+[clientscript,script_1969]
+def_int $int0 = 1;
+def_int $int1 = 0;
+if ($int0 <= enum_getoutputcount(enum_2119)) {
+    if (%varc_int617 = 1) {
+        $int1 = enum(105, 105, enum_2022, $int0);
+        if_settext(tostring($int1) + " Coins");
+    } else {
+        $int1 = enum(105, 105, enum_2021, $int0);
+        if_settext(tostring($int1) + " Coins");
+    }
+    if (inv_total(inv, coins) >= $int1) {
+        if_setcolour(enum(105, 73, enum_2119, $int0));
+    } else {
+        if_setcolour(enum(105, 73, enum_2119, $int0));
+    }
+    $int0 = add($int0, 1);
+}
+return;

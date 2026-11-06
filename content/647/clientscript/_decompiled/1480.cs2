@@ -1,0 +1,7 @@
+[clientscript,script_1480](int $int0, int $int1)
+if (%varc_int188 = 0) {
+    ~script_41(49938529);
+    return;
+}
+~script_569($int0, $int1, 49938529, 25, 150, "Item is in tab " + tostring(~script_1468($int1)));
+return;

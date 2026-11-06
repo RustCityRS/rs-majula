@@ -1,0 +1,33 @@
+[clientscript,script_739](int $int0)(int)
+$int0 = sub($int0, 1);
+def_int $int1 = 1;
+def_int $int2 = 1;
+def_int $int3 = 0;
+define_array(105, 36);
+def_int $int4 = 0;
+if (%varc_int103 ! %varbit4227) {
+    %varc_int103 = %varbit4227;
+}
+$int3 = %varc_int103;
+if ($int1 <= 12) {
+    if ($int2 <= 3) {
+        $int4 = mod($int3, 36);
+        if (push_array_int(0, $int4) ! 0) {
+            $int4 = add($int4, 1);
+            if ($int4 = 36) {
+                $int4 = 0;
+            }
+        }
+        if ($int4 = $int0) {
+            return($int1);
+        }
+        %array0 = pop_array_int($int4, $int1);
+        $int3 = multiply($int3, $int3);
+        $int3 = calc($int3 - $int3 / 1000000 * 1000000);
+        $int3 = div($int3, 100);
+        $int2 = add($int2, 1);
+    }
+    $int1 = add($int1, 1);
+    $int2 = 1;
+}
+return(0);

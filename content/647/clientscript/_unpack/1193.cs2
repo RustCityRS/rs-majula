@@ -1,0 +1,17 @@
+; id: 1193
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: branch_if_true 5
+    2: clientclock 0
+    3: push_constant_int 50
+    4: mod 0
+    5: branch_if_false 1
+    6: branch 1
+    7: gosub_with_params 1194
+    8: return 0

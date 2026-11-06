@@ -1,0 +1,29 @@
+; id: 3215
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: branch_if_true 1
+    2: branch 9
+    3: push_constant_int 1
+    4: push_constant_string "Microtutorial"
+    5: push_constant_int 35913826
+    6: if_setop 0
+    7: push_constant_int 1
+    8: push_constant_string "Microtutorial"
+    9: push_constant_int 48889900
+   10: if_setop 0
+   11: branch 8
+   12: push_constant_int 1
+   13: push_constant_string ""
+   14: push_constant_int 35913826
+   15: if_setop 0
+   16: push_constant_int 1
+   17: push_constant_string ""
+   18: push_constant_int 48889900
+   19: if_setop 0
+   20: return 0

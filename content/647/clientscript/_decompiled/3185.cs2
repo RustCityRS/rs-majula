@@ -1,0 +1,32 @@
+[clientscript,script_3185](int $int0, int $int1, int $int2)(int, int, int, int, string)
+switch ($int0) {
+    case 84:
+        ~script_3183;
+        return;
+    case 13:
+        ~script_3180;
+        return;
+    case 96:
+    case 97:
+    case 98:
+    case 99:
+    case 102:
+    case 103:
+        %varc_int1097 = ~script_1553($int0, %varc_int1097, %varc_str277);
+        return(~script_1879(59899931, 59899932, %varc_str277));
+    case -1:
+    case 85:
+    case 101:
+        if (char_isprintable2($int1) = 1) {
+            if ($int0 = -1) {
+                if (string_length(removetags(escape(""))) = 0) {
+                    return;
+                }
+            }
+            %varc_int1097 = ~script_802(%varc_int1097, 2, $int0, $int1, %varc_str277);
+            %varc_str277 = ~script_802(%varc_int1097, 2, $int0, $int1, %varc_str277);
+            if_settext(%varc_str277);
+        }
+    default:
+}
+return;

@@ -1,0 +1,8 @@
+[clientscript,script_2575](component)
+def_int $int0 = 0;
+if ($int0 < enum_getoutputcount(enum_2428)) {
+    if_setcolour(enum(105, 73, enum_2428, $int0));
+    $int0 = add($int0, 1);
+}
+if_setcolour(enum(105, 73, enum_2428, %varc_int929));
+return(16711731);

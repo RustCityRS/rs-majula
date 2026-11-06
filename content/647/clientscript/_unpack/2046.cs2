@@ -1,0 +1,34 @@
+; id: 2046
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 2045
+    1: push_int_local 0
+    2: push_constant_int 49479708
+    3: push_constant_int 0
+    4: push_constant_int 0
+    5: push_constant_int 0
+    6: push_constant_string "IIiii"
+    7: push_int_local 0
+    8: op2408 0
+    9: push_int_local 0
+   10: op152 0
+   11: push_constant_int 49479716
+   12: op152 0
+   13: push_constant_int 49479717
+   14: op152 0
+   15: push_constant_int 49479718
+   16: op152 0
+   17: push_constant_int 49479719
+   18: op152 0
+   19: push_constant_int 49479720
+   20: op152 0
+   21: push_constant_int 49479721
+   22: op152 0
+   23: push_constant_int 49479722
+   24: op152 0
+   25: return 0

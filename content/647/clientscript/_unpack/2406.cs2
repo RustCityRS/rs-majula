@@ -1,0 +1,16 @@
+; id: 2406
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: push_constant_string "Level 60 Agility"
+    3: push_constant_string "<br>"
+    4: push_constant_string "Only permits west-to-east travel"
+    5: join_string 3
+    6: gosub_with_params 2010
+    7: return 0

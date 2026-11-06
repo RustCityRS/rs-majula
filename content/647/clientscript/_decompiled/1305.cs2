@@ -1,0 +1,18 @@
+[clientscript,script_1305](int)
+def_int $int0 = 0;
+if (~script_1314(99) = 0) {
+    return(99);
+}
+if (~script_1314(95) = 0) {
+    return(95);
+}
+if (~script_1314(98) = 0) {
+    return(98);
+}
+if ($int0 < 16) {
+    if (~script_1314($int0) = 0) {
+        return($int0);
+    }
+    $int0 = add($int0, 1);
+}
+return(-1);

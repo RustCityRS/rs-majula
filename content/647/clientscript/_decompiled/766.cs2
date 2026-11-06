@@ -1,0 +1,137 @@
+[clientscript,script_766](int $int0)(int)
+if (oc_weight(druid_s_robe) ! -1) {
+    if ($int0 < oc_weight(cert_druidrobebottom)) {
+        return(0);
+    }
+}
+if (oc_weight(druidrobetop) ! -1) {
+    if ($int0 < oc_weight(cert_druidrobetop)) {
+        return(0);
+    }
+}
+if (oc_weight(monk_s_robe) ! -1) {
+    if ($int0 < oc_weight(cert_monkrobebottom)) {
+        return(0);
+    }
+}
+if (oc_weight(damaged_armour) ! -1) {
+    switch (oc_weight(damaged_armour)) {
+        case 6287:
+            if ($int0 < oc_weight(broken_armour)) {
+                return(0);
+            }
+        case 6979:
+            if ($int0 < oc_weight(broken_armour)) {
+                return(0);
+            }
+        case 2462:
+            if ($int0 < oc_weight(broken_armour)) {
+                return(0);
+            }
+        default:
+            if ($int0 < oc_weight(broken_armour)) {
+                return(0);
+            }
+    }
+}
+if (oc_weight(stone_tablet) ! -1) {
+    switch (oc_weight(stone_tablet)) {
+        case 6287:
+            if ($int0 < oc_weight(chemical_powder)) {
+                return(0);
+            }
+        case 6979:
+            if ($int0 < oc_weight(chemical_powder)) {
+                return(0);
+            }
+        case 2462:
+            if ($int0 < oc_weight(chemical_powder)) {
+                return(0);
+            }
+        default:
+            if ($int0 < oc_weight(chemical_powder)) {
+                return(0);
+            }
+    }
+}
+if (oc_weight(ammonium_nitrate) ! -1) {
+    switch (oc_weight(ammonium_nitrate)) {
+        case 6287:
+            if ($int0 < oc_weight(unidentified_liquid)) {
+                return(0);
+            }
+        case 6979:
+            if ($int0 < oc_weight(unidentified_liquid)) {
+                return(0);
+            }
+        case 2462:
+            if ($int0 < oc_weight(unidentified_liquid)) {
+                return(0);
+            }
+        default:
+            if ($int0 < oc_weight(unidentified_liquid)) {
+                return(0);
+            }
+    }
+}
+if (oc_weight(nitroglycerin) ! -1) {
+    switch (oc_weight(nitroglycerin)) {
+        case 6287:
+            if ($int0 < oc_weight(ground_charcoal)) {
+                return(0);
+            }
+        case 6979:
+            if ($int0 < oc_weight(ground_charcoal)) {
+                return(0);
+            }
+        case 2462:
+            if ($int0 < oc_weight(ground_charcoal)) {
+                return(0);
+            }
+        default:
+            if ($int0 < oc_weight(ground_charcoal)) {
+                return(0);
+            }
+    }
+}
+if (oc_weight(mixed_chemicals) ! -1) {
+    switch (oc_weight(mixed_chemicals)) {
+        case 6287:
+            if ($int0 < oc_weight(postcharcoalmixture)) {
+                return(0);
+            }
+        case 6979:
+            if ($int0 < oc_weight(postcharcoalmixture)) {
+                return(0);
+            }
+        case 2462:
+            if ($int0 < oc_weight(postcharcoalmixture)) {
+                return(0);
+            }
+        default:
+            if ($int0 < oc_weight(postcharcoalmixture)) {
+                return(0);
+            }
+    }
+}
+if (oc_weight(chemical_compound) ! -1) {
+    switch (oc_weight(chemical_compound)) {
+        case 6287:
+            if ($int0 < oc_weight(arcenia_root)) {
+                return(0);
+            }
+        case 6979:
+            if ($int0 < oc_weight(arcenia_root)) {
+                return(0);
+            }
+        case 2462:
+            if ($int0 < oc_weight(arcenia_root)) {
+                return(0);
+            }
+        default:
+            if ($int0 < oc_weight(arcenia_root)) {
+                return(0);
+            }
+    }
+}
+return(1);

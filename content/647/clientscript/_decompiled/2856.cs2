@@ -1,0 +1,8 @@
+[clientscript,script_2856]
+if (~script_2869(coordpack(%varc_int1070, 1, 0, 0)) = 1) {
+    return;
+}
+if (~script_2866(coord, coordpack(%varc_int1070, 1, 0, 0)) < 31) {
+    %varc_int1070 = coordpack(%varc_int1070, 1, 0, 0);
+}
+return;

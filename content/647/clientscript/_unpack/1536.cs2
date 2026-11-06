@@ -1,0 +1,31 @@
+; id: 1536
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1537
+    1: push_constant_int 1747
+    2: push_constant_int 1
+    3: push_constant_string "Y"
+    4: push_int_local 0
+    5: op2407 0
+    6: push_constant_int 1538
+    7: push_constant_int 93
+    8: push_constant_int 94
+    9: push_constant_int 530
+   10: push_constant_int 3
+   11: push_constant_string "Y"
+   12: push_int_local 0
+   13: op2414 0
+   14: push_constant_int 1539
+   15: push_constant_int 352
+   16: push_constant_int 1
+   17: push_constant_string "Y"
+   18: push_int_local 0
+   19: op2429 0
+   20: gosub_with_params 4592
+   21: gosub_with_params 4597
+   22: return 0

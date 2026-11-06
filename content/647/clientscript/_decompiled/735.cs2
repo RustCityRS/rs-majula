@@ -1,0 +1,6 @@
+[clientscript,script_735](int $int0, int $int1, int $int2, int $int3)
+~script_41($int0);
+if (cc_find($int1, $int2) = 1) {
+    cc_setgraphic($int3);
+}
+return;

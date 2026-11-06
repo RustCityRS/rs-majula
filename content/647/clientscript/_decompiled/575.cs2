@@ -1,0 +1,8 @@
+[clientscript,script_575](int, component, string)
+%varc_int81 = sub(%varc_int81, 1);
+if (%varc_int81 > 0) {
+    return;
+}
+if_setontimer;
+~script_576;
+return(-1, 25493513, "");

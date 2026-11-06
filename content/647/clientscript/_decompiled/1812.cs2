@@ -1,0 +1,11 @@
+[clientscript,script_1812](int $int0, string $str0)(int, int, int, string)
+if (string_length($str0) = 0) {
+    if_settext("");
+    %varc_str39 = "";
+    if_setontimer;
+    return($int0, -1, $int0, "");
+}
+if_settext($str0);
+%varc_str39 = $str0;
+if_setontimer;
+return($int0, 1813, add(clientclock, 1000), $int0, $int0, "iI");

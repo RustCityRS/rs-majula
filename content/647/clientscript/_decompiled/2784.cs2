@@ -1,0 +1,85 @@
+[clientscript,script_2784](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
+if ($int0 ! 0) {
+    if (coordx(coord) >= coordx(45094272)) {
+        if (coordx(coord) <= coordx(852481535)) {
+            if (coordz(coord) >= coordz(45094272)) {
+            }
+        }
+    }
+} else {
+    if ($int6 ! -1) {
+        if (coordz(coord) < add(coordz(45094272), 8)) {
+            if_sethide($int6);
+            cc_deleteall($int6);
+        }
+        if_sethide($int6);
+    }
+    if ($int7 = 0) {
+        if (mod(clientclock, 50) ! 0) {
+            return;
+        }
+    }
+    if_setcolour($int4);
+    if_setcolour($int5);
+    if_setgraphic($int2);
+    if_settext("ITEMS ARE" + "<br>" + "SAFE");
+}
+if ($int0 ! 1) {
+    if (coordx(coord) >= coordx(48240000)) {
+        if (coordx(coord) <= coordx(855627263)) {
+            if (coordz(coord) >= coordz(48240000)) {
+            }
+        }
+    }
+} else {
+    if ($int6 ! -1) {
+        if (coordz(coord) < add(coordz(48240000), 8)) {
+            if_sethide($int6);
+            cc_deleteall($int6);
+        }
+        if_sethide($int6);
+    }
+    if ($int7 = 0) {
+        if (mod(clientclock, 50) ! 0) {
+            return;
+        }
+    }
+    if_setcolour($int4);
+    if_setcolour($int5);
+    if_setgraphic($int2);
+    if_settext("ITEMS ARE" + "<br>" + "DROPPED");
+}
+if_sethide($int4);
+if_sethide($int5);
+if_sethide($int2);
+if_sethide($int3);
+if ($int6 ! -1) {
+    if_sethide($int6);
+}
+cc_deleteall($int1);
+return;
+if_sethide($int4);
+if_sethide($int5);
+if_sethide($int2);
+if_sethide($int3);
+if_settiling(1, $int2);
+def_int $int8 = parawidth(if_gettext, 494);
+$int8 = max(parawidth(if_gettext, 494), $int8);
+$int8 = add($int8, 8);
+def_int $int9 = 5;
+if_setposition($int9, 0, 0, $int4);
+def_int $int10 = paraheight(if_gettext, 494);
+$int10 = calc($int10 * 10 + 3);
+if_setsize($int10, 0, 0, $int4);
+$int9 = calc($int9 + $int10 - 1);
+if_setposition($int9, 0, 0, $int3);
+$int9 = calc($int3 + if_getheight - 1);
+if_setposition($int9, 0, 0, $int5);
+def_int $int11 = paraheight(if_gettext, 494);
+$int11 = calc($int11 * 10 + 3);
+if_setsize($int10, 0, 0, $int5);
+$int9 = calc($int9 + $int11 + 3);
+if_setsize($int9, 0, 0, $int1);
+if_setsize($int9, 0, 0, $int2);
+cc_deleteall($int1);
+return(0, 0, 0, 0, $int4, 512, $int5, 512, 0, $int4, $int8, $int8, $int8, calc($int3 - if_getwidth / 2), $int9, 0, $int5, $int8, $int8, $int8, $int8, ~script_1086($int1, 0, 0, 0), ~script_1086($int1, 0, 0, 0), ~script_1086($int1, 0, 0, 0));

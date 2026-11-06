@@ -1,0 +1,22 @@
+; id: 1679
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 1678
+    1: push_varc_int 1044
+    2: switch 0
+    3: branch 2
+    4: gosub_with_params 1687
+    5: branch 4
+    6: push_constant_int -1
+    7: push_constant_string ""
+    8: push_constant_int 5570560
+    9: op2426 0
+   10: return 0
+
+switch_0:
+  0 => 1

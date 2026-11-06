@@ -1,0 +1,50 @@
+; id: 1405
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 61
+    1: branch_if_true 1
+    2: branch 6
+    3: push_constant_string "Draughts: Options"
+    4: push_constant_int 49545226
+    5: if_settext 0
+    6: push_constant_int 49545219
+    7: gosub_with_params 1406
+    8: branch 29
+    9: push_varbit 61
+   10: push_constant_int 2
+   11: branch_equals 1
+   12: branch 6
+   13: push_constant_string "Runelink: Options"
+   14: push_constant_int 49545226
+   15: if_settext 0
+   16: push_constant_int 49545220
+   17: gosub_with_params 1406
+   18: branch 19
+   19: push_varbit 61
+   20: push_constant_int 3
+   21: branch_equals 1
+   22: branch 6
+   23: push_constant_string "Runesquares: Options"
+   24: push_constant_int 49545226
+   25: if_settext 0
+   26: push_constant_int 49545224
+   27: gosub_with_params 1406
+   28: branch 9
+   29: push_varbit 61
+   30: push_constant_int 4
+   31: branch_equals 1
+   32: branch 5
+   33: push_constant_string "Runeversi: Options"
+   34: push_constant_int 49545226
+   35: if_settext 0
+   36: push_constant_int 49545222
+   37: gosub_with_params 1406
+   38: gosub_with_params 1407
+   39: gosub_with_params 1408
+   40: gosub_with_params 1409
+   41: return 0

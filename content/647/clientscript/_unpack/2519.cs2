@@ -1,0 +1,86 @@
+; id: 2519
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 2520
+    1: pop_int_local 1
+    2: push_int_local 0
+    3: switch 0
+    4: branch 64
+    5: push_varc_int 847
+    6: push_constant_int 0
+    7: branch_greater_than 1
+    8: branch 8
+    9: push_varc_int 847
+   10: push_constant_int 1
+   11: sub 0
+   12: pop_varc_int 847
+   13: push_varc_int 847
+   14: tostring 0
+   15: push_constant_int 42860557
+   16: if_settext 0
+   17: branch 51
+   18: push_varc_int 848
+   19: push_constant_int 0
+   20: branch_greater_than 1
+   21: branch 8
+   22: push_varc_int 848
+   23: push_constant_int 1
+   24: sub 0
+   25: pop_varc_int 848
+   26: push_varc_int 848
+   27: tostring 0
+   28: push_constant_int 42860605
+   29: if_settext 0
+   30: branch 38
+   31: push_varc_int 849
+   32: push_constant_int 0
+   33: branch_greater_than 1
+   34: branch 8
+   35: push_varc_int 849
+   36: push_constant_int 1
+   37: sub 0
+   38: pop_varc_int 849
+   39: push_varc_int 849
+   40: tostring 0
+   41: push_constant_int 42860597
+   42: if_settext 0
+   43: branch 25
+   44: push_varc_int 850
+   45: push_constant_int 0
+   46: branch_greater_than 1
+   47: branch 8
+   48: push_varc_int 850
+   49: push_constant_int 1
+   50: sub 0
+   51: pop_varc_int 850
+   52: push_varc_int 850
+   53: tostring 0
+   54: push_constant_int 42860589
+   55: if_settext 0
+   56: branch 12
+   57: push_varc_int 851
+   58: push_constant_int 0
+   59: branch_greater_than 1
+   60: branch 8
+   61: push_varc_int 851
+   62: push_constant_int 1
+   63: sub 0
+   64: pop_varc_int 851
+   65: push_varc_int 851
+   66: tostring 0
+   67: push_constant_int 42860614
+   68: if_settext 0
+   69: gosub_with_params 2517
+   70: return 0
+
+switch_0:
+  42860558 => 1
+  42860606 => 14
+  42860598 => 27
+  42860590 => 40
+  42860615 => 53

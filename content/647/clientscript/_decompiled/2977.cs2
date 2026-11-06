@@ -1,0 +1,12 @@
+[clientscript,script_2977](int $int0)
+def_int $int1 = ~script_284(coord);
+cam_allocpath(0, 3);
+cam_allocpath(1, 3);
+cam_addwaypoint(0, 0, coordpack($int1, 23, 0, 25), 700, coordpack($int1, 23, 0, 25), 700, 0);
+cam_addwaypoint(1, 0, coordpack($int1, 30, 0, 33), 400, coordpack($int1, 30, 0, 22), 400, 0);
+cam_addwaypoint(0, 1, coordpack($int1, 23, 0, 25), 700, coordpack($int1, 23, 0, 25), 700, 0);
+cam_addwaypoint(1, 1, coordpack($int1, 27, 0, 29), 500, coordpack($int1, 27, 0, 29), 500, 0);
+cam_addwaypoint(0, 2, coordpack($int1, 23, 0, 25), 700, coordpack($int1, 23, 0, 25), 700, 0);
+cam_addwaypoint(1, 2, coordpack($int1, 31, 0, 33), 400, coordpack($int1, 31, 0, 33), 400, 0);
+cam_startpath(0, 0, 1000000, 1000000, 1, 0);
+return;

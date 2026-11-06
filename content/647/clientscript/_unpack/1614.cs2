@@ -1,0 +1,26 @@
+; id: 1614
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int -1
+    1: pop_int_local 3
+    2: push_int_local 2
+    3: push_int_local 0
+    4: op4209 0
+    5: pop_int_local 3
+    6: push_int_local 3
+    7: push_constant_int -1
+    8: branch_not 1
+    9: branch 4
+   10: push_int_local 1
+   11: push_int_local 3
+   12: op1309 0
+   13: branch 3
+   14: push_int_local 1
+   15: push_constant_int 36
+   16: op1309 0
+   17: return 0

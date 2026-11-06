@@ -1,0 +1,22 @@
+; id: 1951
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 616
+    1: branch_if_true 1
+    2: branch 4
+    3: push_constant_int 0
+    4: push_constant_int 48824321
+    5: if_sethide 0
+    6: branch 6
+    7: push_constant_int 0
+    8: pop_varc_int 616
+    9: push_constant_int 1
+   10: push_constant_int 48824321
+   11: if_sethide 0
+   12: gosub_with_params 1952
+   13: return 0

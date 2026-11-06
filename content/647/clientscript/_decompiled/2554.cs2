@@ -1,0 +1,15 @@
+[clientscript,script_2554]
+if (%varc_int924 = 1) {
+    if_setgraphic(2555931);
+} else {
+    if (%varc_int924 = 2) {
+        if_setgraphic(2555931);
+    }
+    if (%varc_int924 = 3) {
+        if_setgraphic(2555931);
+    }
+    if (%varc_int924 = 4) {
+        if_setgraphic(2555931);
+    }
+}
+return;

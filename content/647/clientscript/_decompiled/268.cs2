@@ -1,0 +1,22 @@
+[clientscript,script_268](int $int0)
+define_array(105, 5);
+%array0 = pop_array_int(0, %varc_int1104);
+%array0 = pop_array_int(1, %varc_int1105);
+%array0 = pop_array_int(2, %varc_int1106);
+%array0 = pop_array_int(3, %varc_int1107);
+%array0 = pop_array_int(4, %varc_int1108);
+def_int $int1 = 0;
+if (push_array_int(0, $int0) ! 0) {
+    $int1 = $int0;
+    if ($int1 < sub(5, 1)) {
+        %array0 = pop_array_int($int1, push_array_int(0, add($int1, 1)));
+    }
+    %array0 = pop_array_int(sub(5, 1), 0);
+}
+%varc_int1104 = push_array_int(0, 0);
+%varc_int1105 = push_array_int(0, 1);
+%varc_int1106 = push_array_int(0, 2);
+%varc_int1107 = push_array_int(0, 3);
+%varc_int1108 = push_array_int(0, 4);
+~script_261;
+return;

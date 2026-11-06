@@ -1,0 +1,4 @@
+[clientscript,script_4334](int $int0, int $int1)(int, int)
+if_setcolour($int0);
+if_setcolour($int1);
+return(hsv_to_rgb(push_clansetting_intvar(18)), hsv_to_rgb(push_clansetting_intvar(19)));

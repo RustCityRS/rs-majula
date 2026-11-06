@@ -1,0 +1,45 @@
+[clientscript,script_154](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $str0, string $str1, string $str2, string $str3, string $str4, string $str5, string $str6, string $str7, string $str8)
+def_string $str9 = "";
+if (cc_find($int2, $int3) = 1) {
+    if (inv_getobj($int0, $int1) ! -1) {
+        $str9 = "<col=ff981f>" + oc_name(inv_getobj($int0, $int1));
+        cc_setobject(inv_getobj($int0, $int1), inv_getnum($int0, $int1));
+        cc_setopbase($str9);
+        cc_setop(1, $str0);
+        cc_setop(2, $str1);
+        cc_setop(3, $str2);
+        cc_setop(4, $str3);
+        cc_setop(5, $str4);
+        cc_setop(6, $str5);
+        cc_setop(7, $str6);
+        cc_setop(8, $str7);
+        cc_setop(9, $str8);
+        cc_setop(10, "Examine" + "<col=ff9040>");
+        if ($int4 > 0) {
+            cc_setdragdeadtime;
+            cc_setdragdeadtime(10);
+        }
+        if ($int4 = 1) {
+            cc_setondragcomplete;
+        } else {
+            if ($int4 = 2) {
+                cc_setondragcomplete;
+            }
+        }
+        if ($int4 ! 0) {
+            if ($int5 ! -1) {
+                cc_setondrag;
+            }
+        }
+        cc_setgraphicshadow;
+        cc_setoutline;
+    }
+    cc_setobject_nonum(-1, 0);
+    cc_clearops;
+    if ($int4 > 0) {
+        cc_setdragdeadtime;
+        cc_setdragdeadtime(0);
+    }
+    cc_setondragcomplete;
+}
+return;

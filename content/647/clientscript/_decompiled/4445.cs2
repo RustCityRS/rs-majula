@@ -1,0 +1,15 @@
+[clientscript,script_4445](int, int, int, int, component, int, component, int, int, int, int, int, int, stat, stat, int, int, int, component, int, string, string)
+cc_deleteall(72744965);
+cc_deleteall(72744968);
+cc_deleteall(72744966);
+cc_deleteall(72744967);
+cc_deleteall(72744964);
+if_setop(72745055, "Join chat");
+if_setgraphic(72745056);
+if_sethide(72744998);
+if_sethide(72745024);
+if_settext("");
+def_string $str0 = "Join another" + "<br>" + "clan's clanchat.";
+if_setonmouserepeat;
+if_setop(72745055, "Join Clan Chat channel");
+return(1, 6256, 1, 0, 72745025, 4538, 72745020, -2147483645, -1, 120, 3793, 3793, 16777215, smithing, ranged, 0, -2147483647, -2147483646, 72745055, 1, $str0, "IIisifdiiiiii");

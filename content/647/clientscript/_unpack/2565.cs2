@@ -1,0 +1,28 @@
+; id: 2565
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 0
+    2: push_varbit 6380
+    3: pop_varc_int 846
+    4: push_varbit 6380
+    5: tostring 0
+    6: push_constant_int 56557598
+    7: if_settext 0
+    8: push_varc_int 839
+    9: push_constant_int 100
+   10: push_varc_int 846
+   11: multiply 0
+   12: sub 0
+   13: pop_int_local 0
+   14: push_int_local 0
+   15: push_constant_string ","
+   16: gosub_with_params 46
+   17: push_constant_int 56557582
+   18: if_settext 0
+   19: return 0

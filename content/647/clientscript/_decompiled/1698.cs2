@@ -1,0 +1,25 @@
+[clientscript,script_1698]
+if_setonvartransmit;
+if_setscrollsize(17760264, if_getheight, 17760261);
+if_setonop;
+def_string $str0 = "This is the effect that prayers and curses have during combat. It includes curses that have used against you. The adjustment has no effect outside of combat. The percentage shown is relative to your skill level and may vary depending on the enemy you are fighting, and the prayers or curses used. Partial percentages are not shown.";
+if (%varc_int1052 = 1) {
+    if_setsize(63, 2, 0, 17760265);
+    if_setsize(add(17760256, if_getheight), 2, 1, 17760261);
+    if_setsize(calc(17760256 + if_getheight + 2), 0, 1, 17760262);
+    if_sethide(17760280);
+    ~script_1700;
+    ~script_1704;
+    if_setonmouserepeat;
+    if_setonmouseleave;
+} else {
+    if_setsize(19, 2, 0, 17760265);
+    if_setsize(add(17760256, if_getheight), 2, 1, 17760261);
+    if_setsize(calc(17760256 + if_getheight + 2), 0, 1, 17760262);
+    if_sethide(17760280);
+    ~script_1700;
+    ~script_1704;
+    if_setonmouserepeat;
+    if_setonmouseleave;
+}
+return;

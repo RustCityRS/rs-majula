@@ -1,0 +1,93 @@
+; id: 3454
+int_param_count=5
+string_param_count=0
+long_param_count=0
+local_int_count=5
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 71
+    3: push_int_local 1
+    4: pop_varc_int 1283
+    5: push_int_local 2
+    6: pop_varc_int 1284
+    7: push_int_local 3
+    8: pop_varc_int 1285
+    9: push_int_local 4
+   10: pop_varc_int 1286
+   11: branch 62
+   12: push_int_local 1
+   13: pop_varc_int 1287
+   14: push_int_local 2
+   15: pop_varc_int 1288
+   16: push_int_local 3
+   17: pop_varc_int 1289
+   18: push_int_local 4
+   19: pop_varc_int 1290
+   20: branch 53
+   21: push_int_local 1
+   22: pop_varc_int 1291
+   23: push_int_local 2
+   24: pop_varc_int 1292
+   25: push_int_local 3
+   26: pop_varc_int 1293
+   27: push_int_local 4
+   28: pop_varc_int 1294
+   29: branch 44
+   30: push_int_local 1
+   31: pop_varc_int 1295
+   32: push_int_local 2
+   33: pop_varc_int 1296
+   34: push_int_local 3
+   35: pop_varc_int 1297
+   36: push_int_local 4
+   37: pop_varc_int 1298
+   38: branch 35
+   39: push_int_local 1
+   40: pop_varc_int 1299
+   41: push_int_local 2
+   42: pop_varc_int 1300
+   43: push_int_local 3
+   44: pop_varc_int 1301
+   45: push_int_local 4
+   46: pop_varc_int 1302
+   47: branch 26
+   48: push_int_local 1
+   49: pop_varc_int 1303
+   50: push_int_local 2
+   51: pop_varc_int 1304
+   52: push_int_local 3
+   53: pop_varc_int 1305
+   54: push_int_local 4
+   55: pop_varc_int 1306
+   56: branch 17
+   57: push_int_local 1
+   58: pop_varc_int 1307
+   59: push_int_local 2
+   60: pop_varc_int 1308
+   61: push_int_local 3
+   62: pop_varc_int 1309
+   63: push_int_local 4
+   64: pop_varc_int 1310
+   65: branch 8
+   66: push_int_local 1
+   67: pop_varc_int 1311
+   68: push_int_local 2
+   69: pop_varc_int 1312
+   70: push_int_local 3
+   71: pop_varc_int 1313
+   72: push_int_local 4
+   73: pop_varc_int 1314
+   74: return 0
+
+switch_0:
+  1 => 1
+  2 => 10
+  3 => 19
+  4 => 28
+  5 => 37
+  6 => 46
+  7 => 55
+  8 => 64

@@ -1,0 +1,10 @@
+[clientscript,script_1747](int $int0, int $int1)(int)
+if (%varc_int229 > 2) {
+    if_setmodel;
+    if_setcolour($int1);
+} else {
+    if_setmodel;
+    if_setcolour($int1);
+}
+if_settext(tostring(%varc_int229));
+return($int1);

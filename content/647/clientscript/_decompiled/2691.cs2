@@ -1,0 +1,24 @@
+[clientscript,script_2691](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if ($int5 = 1) {
+    if (cc_find($int0, $int3) = 1) {
+        cc_setcolour($int4);
+    }
+}
+if (cc_find($int0, $int1) = 1) {
+    if ($int2 = 1) {
+        if (cc_getgraphic = 2554) {
+            cc_setgraphic(2555);
+        } else {
+            if (cc_getgraphic = 2556) {
+                cc_setgraphic(2557);
+            }
+        }
+    }
+    if (cc_getgraphic = 2555) {
+        cc_setgraphic(2554);
+    }
+    if (cc_getgraphic = 2557) {
+        cc_setgraphic(2556);
+    }
+}
+return;

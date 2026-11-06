@@ -1,0 +1,24 @@
+[clientscript,script_4097](int $int0, int $int1, string $str0)(int)
+cc_deleteall($int0);
+cc_setposition(0, $int0, 5, if_getchildcount($int0));
+cc_setsize(8, $int1, 0, 0);
+cc_setposition2(0, 0, 0, 0);
+cc_setgraphic(4514);
+cc_setposition(0, $int0, 5, if_getchildcount($int0));
+cc_setsize(8, $int1, 0, 0);
+cc_setposition2(0, 0, 2, 0);
+cc_setgraphic(4516);
+cc_setposition(0, $int0, 5, if_getchildcount($int0));
+cc_setsize(16, $int1, 1, 0);
+cc_setposition2(0, 0, 1, 0);
+cc_setgraphic(4515);
+cc_setposition(0, $int0, 4, if_getchildcount($int0));
+cc_setsize(20, $int1, 1, 0);
+cc_setposition2(0, 1, 1, 0);
+cc_settextfont(494);
+cc_settextalign(1, 1, 0);
+cc_setcolour(0);
+cc_settextshadow(0);
+cc_settext($str0);
+if_sethide($int0);
+return(0);

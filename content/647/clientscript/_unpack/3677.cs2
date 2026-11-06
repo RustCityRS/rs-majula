@@ -1,0 +1,94 @@
+; id: 3677
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 2
+    2: push_int_local 0
+    3: switch 0
+    4: branch 47
+    5: push_varc_int 1336
+    6: pop_int_local 2
+    7: branch 44
+    8: push_varc_int 1337
+    9: pop_int_local 2
+   10: branch 41
+   11: push_varc_int 1338
+   12: pop_int_local 2
+   13: branch 38
+   14: push_varc_int 1339
+   15: pop_int_local 2
+   16: branch 35
+   17: push_varc_int 1340
+   18: pop_int_local 2
+   19: branch 32
+   20: push_varc_int 1341
+   21: pop_int_local 2
+   22: branch 29
+   23: push_varc_int 1342
+   24: pop_int_local 2
+   25: branch 26
+   26: push_varc_int 1343
+   27: pop_int_local 2
+   28: branch 23
+   29: push_varc_int 1344
+   30: pop_int_local 2
+   31: branch 20
+   32: push_varc_int 1345
+   33: pop_int_local 2
+   34: branch 17
+   35: push_varc_int 1346
+   36: pop_int_local 2
+   37: branch 14
+   38: push_varc_int 1347
+   39: pop_int_local 2
+   40: branch 11
+   41: push_varc_int 1348
+   42: pop_int_local 2
+   43: branch 8
+   44: push_varc_int 1349
+   45: pop_int_local 2
+   46: branch 5
+   47: push_varc_int 1350
+   48: pop_int_local 2
+   49: branch 2
+   50: push_varc_int 1351
+   51: pop_int_local 2
+   52: push_constant_string "Current price: "
+   53: push_int_local 2
+   54: gosub_with_params 940
+   55: push_constant_string " gp"
+   56: join_string 3
+   57: pop_string_local 0
+   58: push_int_local 0
+   59: push_int_local 1
+   60: push_constant_int 65929264
+   61: push_string_local 0
+   62: push_constant_int 25
+   63: push_constant_int 65929264
+   64: op2505 0
+   65: if_getwidth 0
+   66: gosub_with_params 569
+   67: return 0
+
+switch_0:
+  65929230 => 1
+  65929231 => 4
+  65929232 => 7
+  65929233 => 10
+  65929234 => 13
+  65929235 => 16
+  65929236 => 19
+  65929237 => 22
+  65929238 => 25
+  65929239 => 28
+  65929240 => 31
+  65929241 => 34
+  65929242 => 37
+  65929243 => 40
+  65929244 => 43
+  65929245 => 46

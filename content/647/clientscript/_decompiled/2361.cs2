@@ -1,0 +1,7 @@
+[clientscript,script_2361](int $int0)
+if (%varbit8271 = 0) {
+    return;
+}
+def_int $int1 = enum(105, 73, enum_2352, %varbit8271);
+if_setparam_int(1224, $int0, $int1);
+return;

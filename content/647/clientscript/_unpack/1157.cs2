@@ -1,0 +1,71 @@
+; id: 1157
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 1
+    2: branch_not 1
+    3: branch 1
+    4: return 0
+    5: getwindowmode 0
+    6: push_constant_int 2
+    7: branch_greater_than_or_equals 1
+    8: branch 3
+    9: push_constant_int 0
+   10: push_constant_int 48889925
+   11: if_sethide 0
+   12: push_constant_int 0
+   13: push_constant_int 49283075
+   14: if_sethide 0
+   15: push_constant_int 1
+   16: push_constant_int 49283079
+   17: if_sethide 0
+   18: push_constant_int 1
+   19: push_constant_int 49283080
+   20: if_sethide 0
+   21: push_varc_int 266
+   22: gosub_with_params 42
+   23: branch_if_false 1
+   24: branch 6
+   25: push_constant_string ""
+   26: pop_varc_string_old 38
+   27: push_constant_string ""
+   28: pop_varc_string_old 39
+   29: push_constant_int 1
+   30: pop_varc_int 266
+   31: push_varc_string_old 38
+   32: string_length 0
+   33: push_constant_int 0
+   34: branch_greater_than 1
+   35: branch 7
+   36: push_constant_string "Edit the name of your caller:"
+   37: push_constant_string "<br>"
+   38: push_constant_string "(Delete it to disable this feature.)"
+   39: join_string 3
+   40: push_constant_int 49283076
+   41: if_settext 0
+   42: branch 3
+   43: push_constant_string "Enter the name of your caller:"
+   44: push_constant_int 49283076
+   45: if_settext 0
+   46: push_constant_int 12
+   47: pop_varc_int 5
+   48: push_varc_string_old 38
+   49: gosub_with_params 1564
+   50: push_constant_int 1805
+   51: push_constant_string ""
+   52: push_constant_int 49283075
+   53: op2400 0
+   54: gosub_with_params 2026
+   55: push_constant_int 112
+   56: push_constant_int -2147483640
+   57: push_constant_int -2147483639
+   58: push_constant_string "iz"
+   59: push_constant_int 49283077
+   60: op2419 0
+   61: gosub_with_params 1188
+   62: return 0

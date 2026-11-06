@@ -1,0 +1,105 @@
+; id: 2848
+int_param_count=6
+string_param_count=0
+long_param_count=0
+local_int_count=8
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 6
+    2: push_constant_int 0
+    3: pop_int_local 7
+    4: push_int_local 2
+    5: push_constant_int -1
+    6: branch_not 1
+    7: branch 83
+    8: push_int_local 3
+    9: push_constant_int -1
+   10: branch_equals 1
+   11: branch 31
+   12: push_int_local 2
+   13: if_find 0
+   14: branch_if_true 1
+   15: branch 26
+   16: push_int_local 2
+   17: push_constant_int 31064075
+   18: branch_equals 1
+   19: branch 22
+   20: push_int_local 4
+   21: pop_int_local 6
+   22: push_int_local 5
+   23: pop_int_local 7
+   24: push_int_local 0
+   25: push_int_local 1
+   26: cc_find 1
+   27: branch_if_true 1
+   28: branch 13
+   29: push_constant_int 105
+   30: push_constant_int 105
+   31: push_constant_int 905
+   32: push_int_local 1
+   33: enum 0
+   34: push_constant_int 105
+   35: push_constant_int 105
+   36: push_constant_int 906
+   37: push_int_local 1
+   38: enum 0
+   39: push_constant_int 0
+   40: push_constant_int 0
+   41: cc_setposition2 1
+   42: branch 48
+   43: push_int_local 3
+   44: push_constant_int 9
+   45: branch_less_than 1
+   46: branch 1
+   47: return 0
+   48: push_int_local 3
+   49: push_constant_int 9
+   50: sub 0
+   51: gosub_with_params 2849
+   52: branch_if_false 1
+   53: branch 37
+   54: push_int_local 2
+   55: push_int_local 3
+   56: cc_find 0
+   57: branch_if_true 1
+   58: branch 4
+   59: cc_getx 0
+   60: pop_int_local 6
+   61: cc_gety 0
+   62: pop_int_local 7
+   63: push_int_local 0
+   64: push_int_local 1
+   65: cc_find 1
+   66: branch_if_true 1
+   67: branch 23
+   68: push_constant_int 2
+   69: randominc 0
+   70: switch 0
+   71: branch 14
+   72: push_constant_int 8502
+   73: push_constant_int 1
+   74: push_constant_int 0
+   75: sound_synth 0
+   76: branch 9
+   77: push_constant_int 8518
+   78: push_constant_int 1
+   79: push_constant_int 0
+   80: sound_synth 0
+   81: branch 4
+   82: push_constant_int 8515
+   83: push_constant_int 1
+   84: push_constant_int 0
+   85: sound_synth 0
+   86: push_int_local 6
+   87: push_int_local 7
+   88: push_constant_int 0
+   89: push_constant_int 0
+   90: cc_setposition2 1
+   91: return 0
+
+switch_0:
+  0 => 1
+  1 => 6
+  2 => 11

@@ -1,0 +1,15 @@
+; id: 2072
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Zeal: "
+    1: push_varbit 5827
+    2: tostring 0
+    3: join_string 2
+    4: push_constant_int 18087995
+    5: if_settext 0
+    6: return 0

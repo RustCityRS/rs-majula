@@ -1,0 +1,16 @@
+[clientscript,script_2089](int, int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = enum(105, 105, enum_723, %varc_int647);
+$int1 = enum(105, 105, enum_2196, %varc_int647);
+if (%varc_int647 < 15) {
+    if_setcolour(54788164);
+} else {
+    if (%varc_int647 > 15) {
+        if_setcolour(54788164);
+    }
+    if_setcolour(54788164);
+}
+if_setposition(66, 2, 0, 54788164);
+if_setsize(8, 0, 0, 54788164);
+return($int0, $int1);

@@ -1,0 +1,9 @@
+[clientscript,script_3997](component, component, component, component, component, int, int)
+if_settext(tostring(%varc_int1423));
+if_settext(tostring(%varc_int1424));
+if_settext(tostring(428));
+if_settext(tostring(%varbit8601));
+if_settext("Progress:");
+def_int $int0 = calc(60096617 * if_getwidth - 4 / max(%varc_int1423, 1));
+if_setsize(16, 0, 0, 60096621);
+return(60096624, 60096622, 60096662, 60096660, 60096625, %varc_int1424, $int0);

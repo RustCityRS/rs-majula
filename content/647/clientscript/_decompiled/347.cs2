@@ -1,0 +1,15 @@
+[clientscript,script_347](int $int0, int $int1, int $int2)
+if (cc_find($int0, $int1) = 1) {
+    if ($int2 = -1) {
+        cc_setontimer;
+        cc_setonclick;
+    }
+    $int2 = calc($int2 - cc_getwidth / 2);
+    if ($int2 >= 0) {
+        cc_setontimer;
+    } else {
+        cc_setontimer;
+    }
+    cc_setonclick;
+}
+return;

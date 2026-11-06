@@ -1,0 +1,14 @@
+[clientscript,script_4431](int $int0)
+def_string $str0 = "";
+if (clanchannel2_find_affined = 1) {
+    if_setontimer;
+    ~script_4434;
+    op2431;
+    op2432;
+    if_setgraphic(72745046);
+} else {
+    $str0 = "Join Clan Chat channel.";
+    if_setonmouserepeat;
+    if_setop(72745045, "Join Clan Chat channel");
+}
+return;

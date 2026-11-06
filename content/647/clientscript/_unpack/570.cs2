@@ -1,0 +1,59 @@
+; id: 570
+int_param_count=0
+string_param_count=1
+long_param_count=0
+local_int_count=0
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_int 1
+    1: push_constant_int 49283080
+    2: if_sethide 0
+    3: push_constant_int 1
+    4: push_constant_int 49283075
+    5: if_sethide 0
+    6: push_constant_int 0
+    7: push_constant_int 49283079
+    8: if_sethide 0
+    9: push_constant_int 574
+   10: push_constant_int -2147483640
+   11: push_constant_int -2147483639
+   12: push_constant_string "iz"
+   13: push_constant_int 25493513
+   14: op2419 0
+   15: push_string_local 0
+   16: push_constant_int 25493510
+   17: if_settext 0
+   18: push_constant_int 0
+   19: push_constant_int 25493509
+   20: if_sethide 0
+   21: push_constant_int -1
+   22: push_constant_int -1
+   23: push_constant_int 25493519
+   24: if_setobject 0
+   25: gosub_with_params 1188
+   26: push_constant_string ""
+   27: pop_varc_string_old 22
+   28: push_constant_string "*"
+   29: push_constant_int 25493513
+   30: if_settext 0
+   31: push_constant_int 25493508
+   32: op152 0
+   33: push_constant_int 0
+   34: push_constant_int 15
+   35: push_constant_int 25493508
+   36: op2120 0
+   37: push_constant_int 25493512
+   38: push_constant_int 25493508
+   39: push_constant_int 792
+   40: push_constant_int 789
+   41: push_constant_int 790
+   42: push_constant_int 791
+   43: push_constant_int 773
+   44: push_constant_int 788
+   45: gosub_with_params 31
+   46: push_constant_int 572
+   47: push_constant_string ""
+   48: push_constant_int 25493513
+   49: op2423 0
+   50: return 0

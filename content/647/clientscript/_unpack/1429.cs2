@@ -1,0 +1,55 @@
+; id: 1429
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_constant_int 32
+    2: mod 0
+    3: pop_int_local 2
+    4: push_int_local 0
+    5: push_int_local 1
+    6: cc_find 0
+    7: branch_if_true 1
+    8: branch 37
+    9: push_varc_int 1024
+   10: push_varbit 6521
+   11: branch_equals 1
+   12: branch 28
+   13: push_varc_int 1024
+   14: push_constant_int 0
+   15: branch_not 1
+   16: branch 24
+   17: push_int_local 2
+   18: push_constant_int 8
+   19: branch_less_than 1
+   20: branch 3
+   21: push_constant_int 0
+   22: cc_settrans 0
+   23: branch 16
+   24: push_int_local 2
+   25: push_constant_int 16
+   26: branch_less_than 1
+   27: branch 3
+   28: push_constant_int 85
+   29: cc_settrans 0
+   30: branch 9
+   31: push_int_local 2
+   32: push_constant_int 24
+   33: branch_less_than 1
+   34: branch 3
+   35: push_constant_int 255
+   36: cc_settrans 0
+   37: branch 2
+   38: push_constant_int 85
+   39: cc_settrans 0
+   40: branch 5
+   41: push_constant_int -1
+   42: push_constant_string ""
+   43: cc_setontimer 0
+   44: push_constant_int 0
+   45: cc_settrans 0
+   46: return 0

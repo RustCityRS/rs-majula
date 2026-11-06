@@ -1,0 +1,17 @@
+; id: 1944
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string ""
+    1: push_constant_int 52559888
+    2: if_settext 0
+    3: push_constant_int 1
+    4: push_constant_int 52559891
+    5: if_sethide 0
+    6: push_constant_int 0
+    7: pop_varc_int 581
+    8: return 0

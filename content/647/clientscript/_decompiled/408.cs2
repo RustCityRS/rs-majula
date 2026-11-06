@@ -1,0 +1,21 @@
+[clientscript,script_408](int $int0)
+if (%varc_int1363 = $int0) {
+    return;
+}
+if_setonvarctransmit;
+%varc_int1389 = 0;
+if (%varc_int1363 = %varbit7510) {
+    if_sethide(66191393);
+    if_sethide(66191392);
+    if_sethide(66191384);
+    if_settext("Your Turn");
+    sound_song_alt(3439, 1, 0, 255);
+} else {
+    if_sethide(66191393);
+    if_sethide(66191384);
+    if_settext("Opponent's Turn");
+    if (if_gethide = 1) {
+        if_sethide(66191392);
+    }
+}
+return;

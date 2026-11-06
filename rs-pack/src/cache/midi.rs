@@ -1,16 +1,16 @@
 #[cfg(since_647)]
-use crate::PACK_DIR;
-#[cfg(since_647)]
 use crate::archive;
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use anyhow::{Result, bail};
+#[cfg(since_647)]
+use rayon::prelude::*;
 use rs_io::Packet;
 use rs_io::bz2::bz2_decompress;
 use rs_io::crc::getcrc;
-#[cfg(since_647)]
-use rs_io::js5::Js5Store;
 use std::collections::HashMap;
 use std::sync::Arc;
 #[cfg(since_647)]
@@ -324,10 +324,10 @@ pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
 pub const MIDI_JINGLE_BASE: usize = 10000;
 
 #[cfg(since_647)]
-pub(super) fn load_midi_ids() -> HashMap<Box<str>, u16> {
+pub(crate) fn load_midi_ids(pack_dir: &Path) -> HashMap<Box<str>, u16> {
     let mut ids = HashMap::new();
     for stem in ["songs", "jingles"] {
-        let path = Path::new(PACK_DIR).join(format!("{stem}.pack"));
+        let path = pack_dir.join(format!("{stem}.pack"));
         let Ok(text) = fs::read_to_string(&path) else {
             continue;
         };
@@ -344,29 +344,33 @@ pub(super) fn load_midi_ids() -> HashMap<Box<str>, u16> {
 }
 
 #[cfg(since_647)]
-pub(super) fn load_midi_tick_lengths(cache: &mut Js5Store) -> Box<[Option<u16>]> {
+pub(crate) fn load_midi_tick_lengths(cache: &PackedCache) -> Box<[Option<u16>]> {
     let mut lengths: Vec<Option<u16>> = Vec::new();
     for (archive, base) in [(archive::SONGS, 0), (archive::JINGLES, MIDI_JINGLE_BASE)] {
-        let Some(table) = cache.reference_table(archive).cloned() else {
+        let Some(table) = cache.reference_table(archive) else {
             continue;
         };
-        for group in &table.groups {
-            let Ok(Some(g)) = cache.read_group(archive, group.id) else {
-                continue;
-            };
-            let Some(ms) = g
-                .entries
-                .first()
-                .and_then(|e| decode_jagex_midi(e.data()).ok())
-                .and_then(|smf| parse_midi_length(&smf))
-            else {
-                continue;
-            };
-            let i = base + group.id as usize;
+        let groups: Vec<_> = table
+            .groups
+            .par_iter()
+            .filter_map(|group| {
+                let data = cache
+                    .read_group_raw_decompressed(archive, group.id)
+                    .ok()??;
+                let ms = decode_jagex_midi(&data)
+                    .ok()
+                    .and_then(|smf| parse_midi_length(&smf))?;
+                Some((
+                    base + group.id as usize,
+                    ((ms as f64 / 600.0).ceil() as u32 + 1) as u16,
+                ))
+            })
+            .collect();
+        for (i, ticks) in groups {
             if i >= lengths.len() {
                 lengths.resize(i + 1, None);
             }
-            lengths[i] = Some(((ms as f64 / 600.0).ceil() as u32 + 1) as u16);
+            lengths[i] = Some(ticks);
         }
     }
     info!(

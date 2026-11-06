@@ -1,0 +1,6 @@
+[clientscript,script_2609](int $int0)
+if (%varbit6357 = 1) {
+    if_setposition(5, 0, 0, $int0);
+}
+if_setposition(0, 0, 0, $int0);
+return;

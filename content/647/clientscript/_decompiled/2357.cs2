@@ -1,0 +1,14 @@
+[clientscript,script_2357](int $int0)(int)
+if_setzorder_front($int0);
+if (%varp1893 = -1) {
+    return;
+}
+def_int $int1 = enum(73, 73, enum_1592, %varp1893);
+def_int $int2 = if_getx;
+def_int $int3 = if_gety;
+if ($int0 = 69009490) {
+    $int2 = calc($int1 - if_getwidth / 2);
+    $int3 = calc($int1 - if_getheight / 2);
+}
+if_setposition($int3, 0, 0, $int1);
+return($int2);

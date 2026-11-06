@@ -1,0 +1,20 @@
+[clientscript,script_3238](int $int0, int $int1, int $int2)
+def_int $int3 = ~script_2948;
+if (%varc_int174 = $int2) {
+    if (calc(clientclock - $int0 % 40) < 20) {
+        if ($int3 ! -3) {
+            if ($int3 ! 21) {
+                if ($int3 ! 1) {
+                    if (if_gethide = 1) {
+                        if (has_focus = 1) {
+                            if_sethide($int1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+} else {
+    if_sethide($int1);
+}
+return;

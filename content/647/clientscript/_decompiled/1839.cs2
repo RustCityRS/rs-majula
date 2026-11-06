@@ -1,0 +1,70 @@
+[clientscript,script_1839](int $int0, int $int1, int $int2, int $int3)
+cc_deleteall($int1);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = ~script_285($int1, $int7);
+cc_setposition(0, $int1, 5, if_getchildcount($int1));
+cc_setposition2(0, $int7, 0, 0);
+cc_setsize(0, 5, 1, 0);
+cc_setgraphic(1121);
+cc_settiling;
+$int7 = add($int7, 4);
+define_array(105, add(104, 1));
+def_int $int8 = -1;
+def_int $int9 = -1;
+if ($int0 = 0) {
+    if ($int4 <= 104) {
+        $int8 = enum(105, 74, enum_1805, $int4);
+        if ($int8 ! -1) {
+            if (map_members = 1) {
+                $int7 = ~script_1840($int1, $int4, $int7);
+            }
+        }
+        $int4 = add($int4, 1);
+    }
+    if_settext("Key order:" + "<br>" + "Traditional");
+} else {
+    if ($int4 <= 104) {
+        $int8 = enum(105, 74, enum_1805, $int4);
+        if ($int8 ! -1) {
+            if (map_members = 1) {
+                %array0 = pop_array_int($int6, $int4);
+                $int6 = add($int6, 1);
+            }
+        }
+        $int4 = add($int4, 1);
+    }
+    $int6 = sub($int6, 1);
+    $int4 = 0;
+    if ($int0 = 1) {
+        ~script_1842(0, 0, $int6);
+        if ($int4 <= $int6) {
+            $int7 = ~script_1840($int1, push_array_int(0, $int4), $int7);
+            $int4 = add($int4, 1);
+        }
+        if_settext("Key order:" + "<br>" + "Alphabetical");
+    }
+    if ($int0 = 2) {
+        ~script_1843(0, 0, $int6);
+        if ($int9 < enum_getoutputcount(enum_1806)) {
+            $int7 = ~script_1841($int1, $int9, $int7);
+            if (struct_param(enum(105, 74, enum_1805, push_array_int(0, $int5)), param_597) = $int9) {
+                $int5 = add($int5, 1);
+            }
+            ~script_1842(0, $int4, sub($int5, 1));
+            if ($int4 < $int5) {
+                $int7 = ~script_1840($int1, push_array_int(0, $int4), $int7);
+                $int4 = add($int4, 1);
+            }
+            $int9 = add($int9, 1);
+        }
+        if_settext("Key order:" + "<br>" + "Categorised");
+    }
+}
+$int7 = add($int7, 5);
+if_setscrollsize(0, $int7, $int1);
+if (cc_find($int2, 1) = 1) {
+    ~script_37($int1, $int1, if_getscrolly, 1);
+}
+return;

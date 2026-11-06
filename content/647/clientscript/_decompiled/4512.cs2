@@ -1,0 +1,13 @@
+[clientscript,script_4512](int $int0, int $int1)
+if ($int0 = -1) {
+    return;
+}
+def_int $int2 = struct_param($int1, param_1351);
+def_int $int3 = struct_param($int1, param_1358);
+cc_deleteall($int0);
+cc_setposition(0, $int0, 5, if_getchildcount($int0));
+cc_setposition2(0, 0, 1, 1);
+cc_setsize(60, 60, 0, 0);
+cc_setgraphic($int2);
+cc_settrans($int3);
+return;

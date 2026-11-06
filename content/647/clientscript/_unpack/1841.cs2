@@ -1,0 +1,45 @@
+; id: 1841
+int_param_count=3
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_constant_int 4
+    2: push_int_local 0
+    3: op2703 0
+    4: cc_setposition 0
+    5: push_constant_int 105
+    6: push_constant_int 115
+    7: push_constant_int 1806
+    8: push_int_local 1
+    9: enum 0
+   10: cc_settext 0
+   11: push_constant_int 0
+   12: push_int_local 2
+   13: push_constant_int 0
+   14: push_constant_int 0
+   15: cc_setposition2 0
+   16: push_constant_int 0
+   17: push_constant_int 30
+   18: push_constant_int 1
+   19: push_constant_int 0
+   20: cc_setsize 0
+   21: push_constant_int 16750623
+   22: cc_setcolour 0
+   23: push_constant_int 496
+   24: cc_settextfont 0
+   25: push_constant_int 1
+   26: cc_settextshadow 0
+   27: push_constant_int 1
+   28: push_constant_int 1
+   29: push_constant_int 0
+   30: cc_settextalign 0
+   31: push_int_local 2
+   32: cc_getheight 0
+   33: add 0
+   34: return 0
+   35: push_constant_int 0
+   36: return 0

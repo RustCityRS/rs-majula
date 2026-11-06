@@ -1,0 +1,10 @@
+[clientscript,script_4258](int $int0)
+if (if_find($int0) = 1) {
+    cc_setposition2(0, 0, 1, 1);
+    cc_setsize(16, 15, 0, 0);
+    cc_setgraphic(5451);
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_settrans(255);
+}
+return;

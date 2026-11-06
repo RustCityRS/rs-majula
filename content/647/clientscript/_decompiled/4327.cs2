@@ -1,0 +1,10 @@
+[clientscript,script_4327](int $int0, int $int1)
+if (cc_find($int1, $int0) = 1) {
+    if ($int1 = 71368704) {
+        if (%varp2149 = $int0) {
+            cc_setgraphic(6039);
+        }
+    }
+    cc_setgraphic(6036);
+}
+return;

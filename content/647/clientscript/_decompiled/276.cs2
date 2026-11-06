@@ -1,0 +1,13 @@
+[clientscript,script_276](int $int0)(string)
+switch ($int0) {
+    case 1:
+        return("Lake");
+    case 2:
+        return("River");
+    case 3:
+        return("Beach");
+    case 4:
+        return("Docks");
+    default:
+}
+return("Waterfront");

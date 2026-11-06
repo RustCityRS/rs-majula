@@ -1,0 +1,30 @@
+[clientscript,script_3978](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $str0)(int)
+if_sethide($int2);
+if_settext($str0);
+if_settextfont($int2);
+if_settextalign(1, 0, $int2);
+def_int $int6 = sub(if_getwidth, 18);
+if (~script_3999($int3) = 1) {
+    $int6 = add($int6, 9);
+}
+def_int $int7 = 0;
+if ($int4 ! -1) {
+    $int7 = if_getheight;
+    $int6 = sub($int6, 21);
+}
+def_int $int8 = max(15, multiply($int6, paraheight($str0, 495)));
+if_setsize($int8, 0, 0, $int2);
+if_setposition($int1, 0, 0, $int2);
+if (~script_3999($int3) = 0) {
+    if ($int4 ! -1) {
+        if_sethide($int4);
+        if_setposition(calc($int8 + $int4 - if_getheight / 2), 2, 0, $int4);
+        if (%varbit8578 = $int0) {
+            if (%varbit8594 = $int3) {
+                if_setgraphic($int4);
+            }
+        }
+        if_setgraphic($int4);
+    }
+}
+return(add($int1, $int8));

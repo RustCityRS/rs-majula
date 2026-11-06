@@ -1,0 +1,12 @@
+[clientscript,script_4059](int $int0, int $int1)
+def_int $int2 = 5;
+if (if_gety >= 0) {
+    if_setposition(0, 1, 0, $int0);
+    %varc_int1432 = 0;
+    if_setop(69337090, "Select");
+    if_setop(69337091, "Select");
+    if_setontimer;
+} else {
+    if_setposition(add(if_gety, $int2), 1, 0, $int0);
+}
+return;

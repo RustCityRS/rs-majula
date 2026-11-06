@@ -1,0 +1,20 @@
+[clientscript,script_2314](int, int, int, int)
+if (if_gethide = 1) {
+    if_setvflip(1, 8978563);
+    if_sethide(8978510);
+    if_sethide(8978509);
+    if_sethide(8978511);
+    if_sethide(8978501);
+} else {
+    if_setvflip(0, 8978563);
+    if_sethide(8978510);
+    if_sethide(8978509);
+    if_sethide(8978511);
+    if_sethide(8978501);
+}
+if_setvflip(0, 8978578);
+if_sethide(8978507);
+if_sethide(8978506);
+if_sethide(8978508);
+if_sethide(8978500);
+return(1, 1, 1, 1);

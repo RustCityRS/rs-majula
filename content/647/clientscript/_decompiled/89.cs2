@@ -1,0 +1,113 @@
+[clientscript,script_89](int, component, string)
+if (hud_test(49414144, -1) = 1) {
+    if_setontimer;
+    return(1562, 49414144, "");
+}
+def_int $int0 = 0;
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (reboottimer > 0) {
+    $int2 = calc(reboottimer / 50 % 60);
+    $int3 = div(reboottimer, 3000);
+    if ($int2 < 10) {
+        if_settext("<col=ffff00>" + "System update in: " + tostring($int3) + ":0" + tostring($int2));
+    } else {
+        if_settext("<col=ffff00>" + "System update in: " + tostring($int3) + ":" + tostring($int2));
+    }
+    $int0 = 1;
+    if_clearops;
+    if_setonop;
+    if_settextshadow(1, 49414149);
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = enum(105, 105, enum_3056, %varp287);
+def_int $int7 = enum(105, 49, enum_3057, %varp287);
+if (%varp287 > 0) {
+    if (getwindowmode < 2) {
+        if ($int4 < 100) {
+            if ($int0 < 5) {
+                if (~script_91($int4) = 1) {
+                    $int1 = enum(105, 73, enum_580, $int0);
+                    if_setcolour($int1);
+                    if_settextshadow($int7, $int1);
+                    $int5 = chat_gethistory_length($int4);
+                    switch ($int5) {
+                        case 3:
+                        case 7:
+                        case 18:
+                            if_settext("From " + player_getdisplayname($int4) + ": ");
+                        case 5:
+                            if_settext("");
+                        case 6:
+                        case 19:
+                            if_settext("To " + player_getdisplayname($int4) + ": ");
+                        default:
+                    }
+                    if_clearops;
+                    if_setonop;
+                    switch ($int5) {
+                        case 3:
+                        case 6:
+                        case 7:
+                            if_setopbase;
+                            if (compare(removetags(chat_playername), removetags(player_getdisplayname($int4))) ! 0) {
+                                if (friend_test(chat_gethistory_message($int4)) = 1) {
+                                    if (is_quickchat_only = 0) {
+                                        if (is_subscriber = 0) {
+                                            if_setop($int1, "Message");
+                                        }
+                                    }
+                                } else {
+                                    if_setop($int1, "Add friend");
+                                    if_setop($int1, "Add ignore");
+                                }
+                                if (staffmodlevel > 0) {
+                                    if_setop($int1, "Report abuse");
+                                }
+                            }
+                        case 18:
+                        case 19:
+                            if_setopbase;
+                            if (compare(removetags(chat_playername), removetags(player_getdisplayname($int4))) ! 0) {
+                                if (friend_test(chat_gethistory_message($int4)) = 1) {
+                                    if (is_quickchat_only = 0) {
+                                        if (is_subscriber = 0) {
+                                            if_setop($int1, "Message");
+                                        }
+                                    }
+                                } else {
+                                    if_setop($int1, "Add friend");
+                                    if_setop($int1, "Add ignore");
+                                }
+                                if ($int5 = 18) {
+                                    if (quickchat_phrase_getautocount(chat_gethistory_rank($int4)) > 0) {
+                                        if (%varc_int132 = -1) {
+                                            %varc_int132 = chat_gethistory_rank($int4);
+                                            %varc_str29 = player_getdisplayname($int4);
+                                            %varc_int133 = 5;
+                                            if (friend_test(chat_gethistory_message($int4)) = 1) {
+                                                if_setop($int1, "Quick Response");
+                                            }
+                                        }
+                                        if_setop($int1, "Quick Response");
+                                    }
+                                }
+                            }
+                        default:
+                    }
+                    $int0 = add($int0, 1);
+                }
+                $int4 = add($int4, 1);
+            }
+        }
+    }
+}
+if ($int0 < 5) {
+    $int1 = enum(105, 73, enum_580, $int0);
+    if_settext("");
+    if_clearops;
+    $int0 = add($int0, 1);
+}
+return;

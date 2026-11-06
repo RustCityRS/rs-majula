@@ -1,0 +1,21 @@
+; id: 2081
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 639
+    1: push_constant_int 0
+    2: branch_greater_than 1
+    3: branch 5
+    4: push_varc_int 641
+    5: tostring 0
+    6: push_constant_int 54788106
+    7: if_settext 0
+    8: branch 3
+    9: push_constant_string "---"
+   10: push_constant_int 54788106
+   11: if_settext 0
+   12: return 0

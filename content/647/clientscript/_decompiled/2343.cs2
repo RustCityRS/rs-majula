@@ -1,0 +1,5 @@
+[clientscript,script_2343](int, component, string)
+%varc_int770 = 8;
+cam_startpath(0, %varc_int770, 500, 900, 1, %varc_int770);
+if_setonvarcstringtransmit;
+return(2344, 36569088, "");

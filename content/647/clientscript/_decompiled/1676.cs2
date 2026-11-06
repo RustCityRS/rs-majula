@@ -1,0 +1,13 @@
+[clientscript,script_1676](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 = $int2) {
+    return;
+}
+~script_1675($int1);
+%varbit6768 = $int1;
+cc_deleteall(5505046);
+~script_1674($int1);
+~script_1674($int1);
+return;

@@ -1,0 +1,37 @@
+[clientscript,script_1479](string $str0)(component, int, int)
+$str0 = escape2($str0);
+~script_41(49938529);
+%varc_int1 = 0;
+if_sethide(49938547);
+if (string_length($str0) = 0) {
+    if_settext("Bank of RuneScape (no search entered)");
+    if_sethide(49938548);
+    ~script_1455;
+    return(49938477, 0, 0);
+} else {
+    if_settext("Bank of RuneScape (search: '" + $str0 + "')");
+    if_sethide(49938548);
+}
+def_int $int0 = inv_size(bank);
+def_int $int1 = 0;
+def_int $int2 = 0;
+if_setscrollpos(0, 49938525);
+if ($int1 < $int0) {
+    if (string_indexof_string(lowercase(oc_name(inv_getobj(bank, $int1))), lowercase($str0)) ! -1) {
+        if (cc_find(49938525, $int1) = 1) {
+            cc_setposition2(calc(44 * $int2 % 10 + 8), calc($int2 / 10 * 44 + 5), 0, 0);
+            cc_sethide(0);
+            $int2 = add($int2, 1);
+        }
+    } else {
+        if (cc_find(49938525, $int1) = 1) {
+            cc_setposition2(0, 0, 0, 0);
+            cc_sethide(1);
+        }
+    }
+    $int1 = add($int1, 1);
+}
+if ($int2 = 0) {
+    if_sethide(49938547);
+}
+return(~script_1458($int2), $int2);

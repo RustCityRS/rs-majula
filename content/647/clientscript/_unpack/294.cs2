@@ -1,0 +1,50 @@
+; id: 294
+int_param_count=6
+string_param_count=0
+long_param_count=0
+local_int_count=6
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 2266
+    1: push_constant_int 1
+    2: push_constant_int 0
+    3: sound_synth 0
+    4: push_int_local 0
+    5: gosub_with_params 2785
+    6: pop_int_local 0
+    7: push_int_local 0
+    8: op5235 0
+    9: branch_equals 1
+   10: branch 8
+   11: push_constant_int 0
+   12: push_int_local 1
+   13: push_int_local 2
+   14: push_int_local 3
+   15: push_int_local 4
+   16: push_int_local 5
+   17: gosub_with_params 291
+   18: return 0
+   19: push_constant_string ""
+   20: pop_varc_string_old 31
+   21: push_int_local 4
+   22: gosub_with_params 308
+   23: push_int_local 5
+   24: gosub_with_params 2046
+   25: push_constant_int 49479737
+   26: gosub_with_params 41
+   27: push_int_local 0
+   28: op5205 0
+   29: push_int_local 0
+   30: op5218 0
+   31: pop_varc_int 172
+   32: gosub_with_params 1372
+   33: gosub_with_params 307
+   34: push_constant_int 0
+   35: push_int_local 1
+   36: push_int_local 2
+   37: push_int_local 3
+   38: push_int_local 4
+   39: push_int_local 5
+   40: gosub_with_params 291
+   41: return 0

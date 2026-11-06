@@ -1,0 +1,10 @@
+[clientscript,script_4367]
+def_string $str0 = escape2(clipboard_gettext);
+if (string_length($str0) <= 13) {
+    %varc_str346 = $str0;
+    %varc_int1498 = string_length(%varc_str346);
+    %varc_int1498 = ~script_1552(%varc_int1498, 5631, 72089638, -1, %varc_str346);
+    if_setposition(if_gety, 0, 0, 72089639);
+    if_settext(%varc_str346);
+}
+return;

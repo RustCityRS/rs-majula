@@ -1,0 +1,18 @@
+[clientscript,script_2833](int $int0)(int, int, int, int, int, int, string)
+switch ($int0) {
+    case 6099:
+    case 6100:
+    case 6101:
+    case 6102:
+        return(~script_2411($int0));
+    case 13561:
+    case 19760:
+    case 13562:
+        return(~script_2431($int0));
+    case 18339:
+        return(~script_1273($int0));
+    default:
+}
+cc_setonvartransmit;
+~script_2410(oc_wearpos(nulodion_s_notes), $int0, oc_wearpos(ammo_mould), $int0, oc_wearpos(instruction_manual), oc_iop($int0, 1), oc_iop($int0, 2), oc_iop($int0, 3), oc_iop($int0, 4), oc_iop($int0, 5), oc_name($int0));
+return(-1, $int0, oc_wearpos(toolkit), $int0, oc_wearpos(cannonball), $int0, "");

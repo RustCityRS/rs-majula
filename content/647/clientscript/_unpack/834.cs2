@@ -1,0 +1,32 @@
+; id: 834
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 278
+    1: switch 0
+    2: branch 12
+    3: push_constant_int 200
+    4: push_int_local 0
+    5: op2103 0
+    6: branch 11
+    7: push_constant_int 150
+    8: push_int_local 0
+    9: op2103 0
+   10: branch 7
+   11: push_constant_int 50
+   12: push_int_local 0
+   13: op2103 0
+   14: branch 3
+   15: push_constant_int 255
+   16: push_int_local 0
+   17: op2103 0
+   18: return 0
+
+switch_0:
+  1 => 1
+  2 => 5
+  3 => 9

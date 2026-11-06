@@ -1,0 +1,8 @@
+[clientscript,script_2750](int $int0)(component, int, int, int, int, int)
+if_settext(tostring(sub(2009, $int0)));
+if_sethide(13369454);
+if_sethide(13369455);
+if_sethide(13369445);
+if_sethide(13369372);
+if_sethide(13369405);
+return(13369406, 1, 1, 1, 1, 0);

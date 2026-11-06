@@ -1,0 +1,24 @@
+; id: 64
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 3637
+    1: tostring 0
+    2: push_constant_string "/"
+    3: push_constant_int 183
+    4: tostring 0
+    5: join_string 3
+    6: push_constant_int 34865153
+    7: if_settext 0
+    8: push_varbit 3637
+    9: push_constant_int 183
+   10: branch_equals 1
+   11: branch 3
+   12: push_constant_int 65280
+   13: push_constant_int 34865153
+   14: if_setcolour 0
+   15: return 0

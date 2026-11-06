@@ -1,0 +1,22 @@
+[clientscript,script_2510](component, component, component, component, component)
+if (%varc_int852 <= 0) {
+    %varc_int852 = 0;
+}
+if (%varc_int853 <= 0) {
+    %varc_int853 = 0;
+}
+if (%varc_int854 <= 0) {
+    %varc_int854 = 0;
+}
+if (%varc_int855 <= 0) {
+    %varc_int855 = 0;
+}
+if (%varc_int856 <= 0) {
+    %varc_int856 = 0;
+}
+if_settext(tostring(%varc_int852));
+if_settext(tostring(%varc_int853));
+if_settext(tostring(%varc_int854));
+if_settext(tostring(%varc_int855));
+if_settext(tostring(%varc_int856));
+return(42860553, 42860602, 42860594, 42860586, 42860611);

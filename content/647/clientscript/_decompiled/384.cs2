@@ -1,0 +1,35 @@
+[clientscript,script_384](int $int0, int $int1, int $int2)(int)
+switch ($int0) {
+    case 0:
+        if ($int2 = 1) {
+            return(struct_param($int1, param_1175));
+        }
+        return(struct_param($int1, param_1169));
+    case 1:
+        if ($int2 = 1) {
+            return(struct_param($int1, param_1176));
+        }
+        return(struct_param($int1, param_1170));
+    case 2:
+        if ($int2 = 1) {
+            return(struct_param($int1, param_1177));
+        }
+        return(struct_param($int1, param_1171));
+    case 3:
+        if ($int2 = 1) {
+            return(struct_param($int1, param_1178));
+        }
+        return(struct_param($int1, param_1172));
+    case 4:
+        if ($int2 = 1) {
+            return(struct_param($int1, param_1179));
+        }
+        return(struct_param($int1, param_1173));
+    case 5:
+        if ($int2 = 1) {
+            return(struct_param($int1, param_1180));
+        }
+        return(struct_param($int1, param_1174));
+    default:
+}
+return(-1);

@@ -1,0 +1,19 @@
+; id: 4169
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_var 286
+    1: push_int_local 0
+    2: testbit 0
+    3: branch_if_true 1
+    4: branch 3
+    5: push_constant_int 1135
+    6: cc_setgraphic 0
+    7: branch 2
+    8: push_constant_int 1134
+    9: cc_setgraphic 0
+   10: return 0

@@ -1,0 +1,29 @@
+[clientscript,script_2958](int $int0, int $int1, int $int2, int $int3)(int, int, int)
+if_getlayer;
+def_int $int4 = $int0;
+def_int $int5 = 0;
+switch ($int1) {
+    case 20024:
+        $int5 = %varbit8399;
+        if_settext(oc_name($int1) + "<br>" + "(" + tostring($int5) + "/" + tostring($int2) + ")");
+    case 20012:
+        $int5 = %varbit8400;
+        if_settext(oc_name($int1) + "<br>" + "(" + tostring($int5) + "/" + tostring($int2) + ")");
+    case 20032:
+        $int5 = %varbit8403;
+        if_settext(oc_name($int1) + "<br>" + "(" + tostring($int5) + "/" + tostring($int2) + ")");
+    case 20036:
+        $int5 = %varbit8402;
+        if_settext(oc_name($int1) + "<br>" + "(" + tostring($int5) + "/" + tostring($int2) + ")");
+    case 20040:
+        $int5 = %varbit8404;
+        if_settext(oc_name($int1) + "<br>" + "(" + tostring($int5) + "/" + tostring($int2) + ")");
+    case 20028:
+        $int5 = %varbit8401;
+        if_settext(oc_name($int1) + "<br>" + "(" + tostring($int5) + "/" + tostring($int2) + ")");
+    default:
+}
+if_setobject_nonum;
+if_setoutline(1, $int0);
+if_setmouseover_cursor(171, $int3);
+return($int1, -1, $int0);

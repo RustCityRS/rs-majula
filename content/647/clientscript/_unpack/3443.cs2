@@ -1,0 +1,62 @@
+; id: 3443
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 35
+    3: push_constant_string "A ranger, he prefers the bow and arrow to all other combat. He's a straight arrow and hates evil do-ers."
+    4: return 0
+    5: branch 32
+    6: push_constant_string "A wizard, he researches the mysteries of life and performs magic."
+    7: return 0
+    8: branch 29
+    9: push_constant_string "A miner, works hard all day mining rock. Likes to party in the evenings."
+   10: return 0
+   11: branch 26
+   12: push_constant_string "A cook, he spends his day making bread and stopping people stealing his cakes. He hates stew."
+   13: return 0
+   14: branch 23
+   15: push_constant_string "A shady-looking gentleman. He's likely involved in the criminal underworld."
+   16: return 0
+   17: branch 20
+   18: push_constant_string "A young man. He's concerned with starting his own business and making money. Also enjoys a rowdy party."
+   19: return 0
+   20: branch 17
+   21: push_constant_string "A barbarian. He is sensitive to any disrespect of his culture."
+   22: return 0
+   23: branch 14
+   24: push_constant_string "An elderly gentleman. He's worried about his safety and a rise in crime."
+   25: return 0
+   26: branch 11
+   27: push_constant_string "A young woman. She's concerned with the safety of her children."
+   28: return 0
+   29: branch 8
+   30: push_constant_string "A shady-looking fellow. He covers up his face to hide his identity."
+   31: return 0
+   32: branch 5
+   33: push_constant_string "A desert citizen. She doesn't have much love for mainlanders."
+   34: return 0
+   35: branch 2
+   36: push_constant_string "An elderly gentleman. He doesn't like parties or noise."
+   37: return 0
+   38: push_constant_string ""
+   39: return 0
+
+switch_0:
+  1 => 1
+  2 => 4
+  3 => 7
+  4 => 10
+  5 => 13
+  6 => 16
+  7 => 19
+  8 => 22
+  9 => 25
+  10 => 28
+  11 => 31
+  12 => 34

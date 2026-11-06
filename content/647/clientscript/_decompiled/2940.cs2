@@ -1,0 +1,21 @@
+[clientscript,script_2940](int $int0)(int, int)
+def_int $int1 = ~script_2948;
+if ($int1 = -3) {
+    return;
+}
+if_settext(%varc_str32);
+if_settext(~script_2949(%varc_str33));
+if (string_length(%varc_str32) > 0) {
+    %varc_int174 = 4;
+} else {
+    %varc_int174 = 3;
+}
+if (%varc_int174 = 3) {
+    %varc_int1099 = string_length(%varc_str32);
+} else {
+    %varc_int1099 = string_length(~script_2949(%varc_str33));
+}
+if_sethide(48758810);
+if_sethide(39059460);
+~script_3964;
+return(0, 0);

@@ -1,0 +1,27 @@
+; id: 807
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 0
+    1: pop_int_local 1
+    2: push_int_local 0
+    3: stat_base 0
+    4: push_constant_int 0
+    5: branch_greater_than 1
+    6: branch 8
+    7: push_constant_int 100
+    8: push_int_local 0
+    9: stat 0
+   10: multiply 0
+   11: push_int_local 0
+   12: stat_base 0
+   13: div 0
+   14: pop_int_local 1
+   15: push_int_local 1
+   16: return 0
+   17: push_constant_int 0
+   18: return 0

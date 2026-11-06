@@ -1,0 +1,7 @@
+[clientscript,script_628]
+def_int $int0 = 0;
+if ($int0 < 6) {
+    ~script_651($int0);
+    $int0 = add($int0, 1);
+}
+return;

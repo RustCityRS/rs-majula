@@ -1,0 +1,49 @@
+; id: 2416
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 805
+    1: push_constant_int 2
+    2: branch_equals 4
+    3: push_varc_int 805
+    4: push_constant_int 8
+    5: branch_equals 1
+    6: branch 5
+    7: push_constant_int 1
+    8: push_constant_string "Cut wire"
+    9: push_int_local 0
+   10: if_setop 0
+   11: branch 28
+   12: push_varc_int 805
+   13: push_constant_int 3
+   14: branch_equals 4
+   15: push_varc_int 805
+   16: push_constant_int 9
+   17: branch_equals 1
+   18: branch 5
+   19: push_constant_int 1
+   20: push_constant_string "Replace wire"
+   21: push_int_local 0
+   22: if_setop 0
+   23: branch 16
+   24: push_varc_int 805
+   25: push_constant_int 4
+   26: branch_equals 4
+   27: push_varc_int 805
+   28: push_constant_int 10
+   29: branch_equals 1
+   30: branch 5
+   31: push_constant_int 1
+   32: push_constant_string "Repair wire"
+   33: push_int_local 0
+   34: if_setop 0
+   35: branch 4
+   36: push_constant_int 1
+   37: push_constant_string "Inspect"
+   38: push_int_local 0
+   39: if_setop 0
+   40: return 0

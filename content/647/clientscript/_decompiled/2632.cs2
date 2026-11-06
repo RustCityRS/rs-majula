@@ -1,0 +1,42 @@
+[clientscript,script_2632](int $int0)
+if ($int0 ! 56295424) {
+}
+switch ($int0) {
+    case 56295424:
+        if_settext("Go to");
+        if_settext("Click to view this squad.");
+    case 56295437:
+        if_settext("Attack");
+        if_settext("Select the enemy squad you wish to attack.");
+    case 56295438:
+        if_settext("Move");
+        if_settext("Select the destination for your squad.");
+    case 56295439:
+        if_settext("Explore");
+        if_settext("Send the unit to explore for treasure.");
+    case 56295440:
+        if (%varbit6357 = 2) {
+            if_settext("Attack wall/catapult");
+            if_settext("Select the wall or catapult you want your squad to attack.");
+        } else {
+            if (%varbit6357 = 3) {
+                if_settext("Collect gold");
+                if_settext("Select the cave entrance from which your squad should gather gold.");
+            }
+            if (%varbit6357 = 4) {
+                if_settext("Rescue");
+                if_settext("Select the fissure from which your squad should rescue TzHaar.");
+            }
+        }
+    case 56295441:
+        if (%varbit6357 = 2) {
+            if_settext("Collect");
+            if_settext("Select a resource for your squad to collect.");
+        }
+        if (%varbit6357 = 4) {
+            if_settext("Steal");
+            if_settext("Select a lander to steal TzHaar from.");
+        }
+    default:
+}
+return;

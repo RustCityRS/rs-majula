@@ -1,0 +1,21 @@
+[clientscript,script_2073](int $int0)
+switch ($int0) {
+    case 18087988:
+    case 18087940:
+        if_sethide(18088015);
+        if_sethide(18088016);
+        if_sethide(18088014);
+    case 18087987:
+    case 18087957:
+        if_sethide(18088015);
+        if_sethide(18088016);
+        if_sethide(18088014);
+    case 18087958:
+    case 18087941:
+        if_sethide(18088015);
+        if_sethide(18088016);
+        if_sethide(18088014);
+    default:
+        return;
+}
+return;

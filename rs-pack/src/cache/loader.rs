@@ -8,10 +8,12 @@ use super::r#struct::StructTypeRaw;
 use super::varbit::VarbitType;
 use super::varp::VarPlayerTypeRaw;
 use crate::archive;
+use crate::cache::js5::PackedCache;
 use crate::cache::map::XteaKeyStore;
 use crate::pack::packed_data::PackedData;
 use crate::types::{MapSquareCrcs, MapSquares};
 use anyhow::{Result, anyhow, bail};
+use rayon::prelude::*;
 use rs_crypto::huffman::Huffman;
 use rs_io::Packet;
 use rs_io::js5::{
@@ -19,7 +21,7 @@ use rs_io::js5::{
     compression::{CompressionType, compress},
     java_string_hash,
 };
-use std::{collections::HashMap, fs, path::Path, sync::Arc};
+use std::{collections::HashMap, sync::Arc};
 use tracing::{debug, info, warn};
 
 pub fn load_all_npcs(cache: &mut Js5Store) -> Result<TypeProvider<NpcTypeRaw>> {
@@ -157,48 +159,40 @@ fn load_config_group<T: CacheType>(
     Ok(TypeProvider::from_types(types, ctx))
 }
 
-pub(super) fn load_mapsquares(cache: &mut Js5Store) -> Result<(MapSquares, MapSquareCrcs)> {
+pub(crate) fn load_mapsquares(
+    cache: &PackedCache,
+    xtea: &XteaKeyStore,
+) -> Result<(MapSquares, MapSquareCrcs)> {
     let ref_table = match cache.reference_table(archive::MAPS) {
-        Some(rt) => rt.clone(),
+        Some(rt) => rt,
         None => {
             warn!("No reference table for archive 5 (MAPS)");
             return Ok((Default::default(), Default::default()));
         }
     };
 
-    let xtea = XteaKeyStore::global();
-
     let name_lookup = build_map_name_lookup();
     let mut mapsquares = MapSquares::default();
     let mut mapcrcs = MapSquareCrcs::default();
 
-    for group in &ref_table.groups {
-        let Some(&(kind, mx, mz)) = name_lookup.get(&group.name_hash) else {
-            continue;
-        };
-
-        let data = if kind == 'l' {
-            // Landscape groups may be XTEA-encrypted.
-            let keys = xtea
-                .as_ref()
-                .map(|x| x.get(mx as u32, mz as u32))
-                .unwrap_or([0; 4]);
-            match cache.read_group_xtea(archive::MAPS, group.id, &keys) {
-                Ok(Some(d)) => d.to_vec(),
-                _ => continue,
+    let squares: Vec<_> = ref_table
+        .groups
+        .par_iter()
+        .filter_map(|group| {
+            let &(kind, mx, mz) = name_lookup.get(&group.name_hash)?;
+            let data = if kind == 'l' {
+                cache.read_group_xtea(archive::MAPS, group.id, &xtea.get(mx as u32, mz as u32))
+            } else {
+                cache.read_group_raw_decompressed(archive::MAPS, group.id)
             }
-        } else {
-            match cache.read_group_raw_decompressed(archive::MAPS, group.id) {
-                Ok(Some(d)) => d.to_vec(),
-                _ => continue,
-            }
-        };
-
-        // Re-compress for storage (the engine decompresses on demand).
-        let compressed = compress(&data, CompressionType::Gzip).unwrap_or_default();
-
-        mapsquares.insert((kind, mx, mz), Arc::from(compressed.as_slice()));
-        mapcrcs.insert((kind, mx, mz), group.crc as i32);
+            .ok()??;
+            let compressed = compress(&data, CompressionType::Gzip).unwrap_or_default();
+            Some(((kind, mx, mz), Arc::from(compressed), group.crc as i32))
+        })
+        .collect();
+    for (square, data, crc) in squares {
+        mapsquares.insert(square, data);
+        mapcrcs.insert(square, crc);
     }
 
     info!(
@@ -208,19 +202,13 @@ pub(super) fn load_mapsquares(cache: &mut Js5Store) -> Result<(MapSquares, MapSq
     Ok((mapsquares, mapcrcs))
 }
 
-pub(super) fn merge_server_layer(
-    server_dir: &Path,
+pub(crate) fn merge_server_layer(
+    packed: &PackedData,
     stem: &str,
     kind: char,
     mapsquares: &mut MapSquares,
 ) {
-    let Ok(dat) = fs::read(server_dir.join(format!("{stem}.dat"))) else {
-        return;
-    };
-    let Ok(idx) = fs::read(server_dir.join(format!("{stem}.idx"))) else {
-        return;
-    };
-    let entries = match PackedData::entries(&dat, &idx) {
+    let entries = match PackedData::entries(&packed.dat, &packed.idx) {
         Ok(entries) => entries,
         Err(error) => {
             warn!("Invalid server {stem} layer: {error}");
@@ -237,21 +225,19 @@ pub(super) fn merge_server_layer(
     info!("Loaded {loaded} {stem} regions from server {stem}.dat");
 }
 
-pub(super) fn load_huffman(cache: &mut Js5Store) -> Result<Huffman> {
+pub(crate) fn load_huffman(cache: &PackedCache) -> Result<Huffman> {
     let target_hash = java_string_hash("huffman");
     let ref_table = cache
         .reference_table(archive::BINARY)
-        .ok_or_else(|| anyhow!("No reference table for archive 10 (BINARY)"))?
-        .clone();
+        .ok_or_else(|| anyhow!("No reference table for archive 10 (BINARY)"))?;
 
     for group in &ref_table.groups {
         if group.name_hash != target_hash {
             continue;
         }
-        if let Some(g) = cache.read_group(archive::BINARY, group.id)? {
-            let bits = g.entries[0].data();
+        if let Some(bits) = cache.read_group_raw_decompressed(archive::BINARY, group.id)? {
             info!("Loaded Huffman table ({} symbols) from cache", bits.len());
-            return Ok(Huffman::new(bits));
+            return Ok(Huffman::new(&bits));
         }
     }
     bail!("Huffman group not found in archive 10 (BINARY)")

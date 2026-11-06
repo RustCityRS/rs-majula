@@ -1,0 +1,28 @@
+[clientscript,script_2703](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = sub($int0, clientclock);
+if ($int5 <= 0) {
+    ~script_2705(0, $int1, $int2, 1, $int3, $int4);
+    return;
+}
+def_int $int6 = getwindowmode;
+if (testbit($int1, 1) = 1) {
+    if ($int6 ! 3) {
+        ~script_2705(0, $int1, $int2, 1, $int3, $int4);
+        return;
+    }
+}
+def_int $int7 = 48889936;
+if ($int2 = 1) {
+    if ($int6 = 1) {
+        $int7 = 35913748;
+    }
+    if (if_hasoverlay($int7) = 0) {
+    }
+    if_settext("Reverting in: " + tostring(div($int5, 50)));
+} else {
+    if ($int2 = 2) {
+        if_settext("Reverting in: " + tostring(div($int5, 50)));
+    }
+    if_settext("Reverting in: " + tostring(div($int5, 50)));
+}
+return;

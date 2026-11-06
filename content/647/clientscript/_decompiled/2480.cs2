@@ -1,0 +1,55 @@
+[clientscript,script_2480](component)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int2 = calc(if_getwidth - 36 * 10 / 10 - 1);
+$int3 = calc(if_getheight - 128 / 3);
+cc_deleteall(2686991);
+cc_deleteall(57737216);
+if ($int4 = 0) {
+    if (enum(105, 79, %varc_int875, $int0) ! 11760) {
+        cc_setposition(0, 2686991, 5, $int0);
+        cc_setsize(36, 32, 0, 0);
+        cc_setposition2(calc(36 + $int2 * $int0 % 10), calc($int0 / 10 * 32 + $int3), 0, 0);
+        cc_setobject(enum(105, 79, %varc_int875, $int0), -1);
+        cc_setopbase("<col=ff981f>" + oc_name(enum(105, 79, %varc_int875, $int0)));
+        cc_setop(1, "Value");
+        cc_setop(2, "Buy 1");
+        cc_setop(3, "Examine");
+        cc_setgraphicshadow;
+        cc_setoutline;
+        cc_setposition(1, 57737216, 5, $int0);
+        cc_setsize(36, 32, 0, 0);
+        cc_setposition2(calc(42 * $int0 % 4), calc($int0 / 4 * 42), 0, 0);
+        cc_setobject(enum(105, 79, %varc_int875, $int0), inv_total(inv, enum(105, 79, %varc_int875, $int0)));
+        cc_setopbase("<col=ff981f>" + oc_name(enum(105, 79, %varc_int875, $int0)));
+        cc_setop(1, "Value");
+        cc_setop(2, "Sell 1");
+        cc_setop(3, "Sell X");
+        cc_setop(4, "Examine");
+        cc_setgraphicshadow;
+        cc_setoutline;
+        $int0 = add($int0, 1);
+    } else {
+        $int4 = 1;
+    }
+}
+$int1 = $int0;
+$int0 = 0;
+$int4 = 0;
+if ($int4 = 0) {
+    if (enum(105, 79, %varc_int875, $int0) ! 11760) {
+        cc_setposition(0, 2686991, 5, $int1);
+        cc_setsize(12, 6, 0, 0);
+        cc_setposition2(calc(36 + $int2 * $int0 % 10), calc($int0 / 10 * 32 + $int3), 0, 0);
+        cc_setgraphic(1066);
+    } else {
+        $int4 = 1;
+    }
+    $int0 = add($int0, 1);
+    $int1 = add($int1, 1);
+}
+if_settext(~script_46(%varp1448, ","));
+return(2686993);

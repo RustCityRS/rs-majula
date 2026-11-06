@@ -1,0 +1,45 @@
+[clientscript,script_1540](int $int0)
+cc_deleteall($int0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = calc(if_getwidth - 36 * 4 / 3);
+$int2 = calc(if_getheight - 32 * 7 / 6);
+def_int $int3 = 0;
+def_int $int4 = inv_size(inv);
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_string $str0 = "";
+def_string $str1 = "";
+if ($int3 < $int4) {
+    cc_setposition(0, $int0, 5, $int3);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(calc(36 + $int1 * $int3 % 4), calc($int3 / 4 * 32 + $int2), 0, 0);
+    $int5 = inv_getobj(inv, $int3);
+    if ($int5 ! -1) {
+        $int6 = inv_total(inv, $int5);
+        $str1 = "";
+        $str0 = "";
+        if (string_length($str0) <= 0) {
+            if (testbit(%varc_int96, $int3) = 1) {
+                $str0 = oc_iop($int5, 2);
+            }
+            if (testbit(%varc_int95, $int3) = 1) {
+                $str0 = "Eat";
+            }
+        }
+    } else {
+        $str1 = "";
+        $str0 = "";
+        $int6 = 0;
+    }
+    if ($int6 > 5) {
+        ~script_154(93, $int3, $int0, $int3, 1, -1, "Deposit-1", "Deposit-5", "Deposit-10", "Deposit-" + tostring(%varp1249), "Deposit-X", "Deposit-All", "", $str0, $str1);
+    } else {
+        if ($int6 > 1) {
+            ~script_154(93, $int3, $int0, $int3, 1, -1, "Deposit-1", "Deposit-5", "", "Deposit-" + tostring(%varp1249), "Deposit-X", "Deposit-All", "", $str0, $str1);
+        }
+        ~script_154(93, $int3, $int0, $int3, 1, -1, "Deposit", "", "", "", "", "", "", $str0, $str1);
+    }
+    $int3 = add($int3, 1);
+}
+return;

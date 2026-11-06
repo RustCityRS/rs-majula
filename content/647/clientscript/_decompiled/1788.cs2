@@ -1,0 +1,21 @@
+[clientscript,script_1788](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13, int $int14)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
+if_setsize(if_getheight, 0, 0, $int1);
+if_setsize(if_getheight, 0, 0, $int2);
+if_setsize(if_getheight, 0, 0, $int3);
+if_setsize(if_getheight, 0, 0, $int4);
+if_setsize(if_getheight, 0, 0, $int5);
+if_setsize(if_getheight, 0, 0, $int6);
+if_setsize(if_getheight, 0, 0, $int8);
+if_setsize(if_getheight, 0, 0, $int9);
+if_setsize(if_getheight, 0, 0, $int10);
+if_setsize(if_getheight, 0, 0, $int11);
+if_setsize(if_getheight, 0, 0, $int12);
+if_setsize(if_getheight, 0, 0, $int13);
+def_int $int15 = calc(4 + $int14 - $int7);
+if_setposition(if_gety, 0, 0, $int8);
+if_setposition(if_gety, 0, 0, $int9);
+if_setposition(if_gety, 0, 0, $int10);
+if_setposition(if_gety, 0, 0, $int11);
+if_setposition(if_gety, 0, 0, $int12);
+if_setposition(if_gety, 0, 0, $int13);
+return($int0, $int1, $int0, $int2, $int0, $int3, $int0, $int4, $int0, $int5, $int0, $int6, $int7, $int8, $int7, $int9, $int7, $int10, $int7, $int11, $int7, $int12, $int7, $int13, $int15, $int8, $int15, $int9, $int15, $int10, $int15, $int11, $int15, $int12, $int15, $int13);

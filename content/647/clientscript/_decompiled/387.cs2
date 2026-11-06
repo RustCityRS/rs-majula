@@ -1,0 +1,136 @@
+[clientscript,script_387](int $int0)
+def_string $str0 = "Select Character";
+def_string $str1 = "Select Style";
+def_string $str2 = "Style";
+def_int $int1 = 0;
+$int1 = max(max(add(char_isnumeric(468), 40), char_isnumeric(468)), char_isnumeric(468));
+if_setposition(0, 0, 0, 67371044);
+def_int $int2 = if_getchildcount(67371045);
+if (cc_find(67371045, sub($int2, 1)) = 1) {
+    cc_sethide(1);
+}
+cc_setposition(0, 67371045, 4, $int2);
+cc_setsize(0, 0, 1, 1);
+cc_setposition2(0, 0, 1, 1);
+cc_settextfont(468);
+cc_setcolour(2366226);
+cc_settextalign(1, 1, 0);
+cc_settextshadow(0);
+cc_settext($str2);
+cc_sethide(1);
+$str1 = if_getop(1, 67371047);
+$str0 = if_getop(1, 67371046);
+def_int $int3 = enum_getoutputcount(enum_3280);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 73;
+def_int $int7 = 3278;
+$int2 = calc(if_getx + $int1 + 20);
+$int1 = add(max(char_isnumeric(495), char_isnumeric(495)), 30);
+if_setposition(if_gety, 0, 0, 67371046);
+$int2 = calc($int2 + $int1 + 10);
+if_setposition(if_gety, 0, 0, 67371047);
+$int4 = min($int3, enum_getoutputcount($int7));
+$int5 = calc($int4 + 1 / 2);
+$int1 = max(calc($int5 * $int6 + 89 - $int6), scale(4, 5, 765));
+if_setsize(26, 0, 1, 67371043);
+if_setsize(if_getheight, 0, 0, 67371122);
+if_setsize(180, 1, 0, 67371055);
+if_setposition(237, 1, 0, 67371079);
+if_setsize(if_getheight, 0, 0, 67371048);
+if_setposition(if_gety, 0, 0, 67371048);
+~script_389;
+def_int $int8 = sub(%varc_int197, 1);
+if ($int8 <= -1) {
+    if_sethide(67371045);
+    if_sethide(67371123);
+    if_sethide(67371125);
+    if_sethide(67371120);
+    if_sethide(67371121);
+} else {
+    if_sethide(67371045);
+    if_sethide(67371123);
+    if (%varbit8246 = 1) {
+        if (%varbit8247 = 0) {
+            if_sethide(67371125);
+        }
+    } else {
+        if_sethide(67371125);
+    }
+    if_sethide(67371120);
+    if_sethide(67371121);
+}
+def_int $int9 = -1;
+def_string $str3 = "";
+def_int $int10 = -1;
+def_int $int11 = 0;
+def_int $int12 = 1;
+def_int $int13 = enum(105, 74, $int7, $int8);
+~script_385($int13);
+$int2 = calc(if_getheight - 89 + 17);
+if ($int11 < $int4) {
+    $int9 = enum(105, 73, enum_3280, $int11);
+    if ($int9 ! -1) {
+        if ($int11 < $int5) {
+            if ($int11 = $int8) {
+                if_setposition(0, 0, 0, $int9);
+            } else {
+                if_setposition($int2, 0, 2, $int9);
+            }
+            if ($int11 <= $int8) {
+                if_setzorder_front($int9);
+            }
+            if_setzorder_back($int9);
+        } else {
+            if ($int11 = $int8) {
+                if_setposition(17, 0, 2, $int9);
+            } else {
+                if_setposition(0, 0, 2, $int9);
+            }
+            if ($int8 < $int5) {
+                if_setzorder_front($int9);
+            }
+        }
+        if_setsize(89, 0, 0, $int9);
+        $int13 = enum(105, 74, $int7, $int11);
+        if ($int13 ! -1) {
+            if ($int0 = 1) {
+                $str3 = "";
+                $int10 = struct_param($int13, param_1162);
+            } else {
+                $str3 = "";
+                $int10 = struct_param($int13, param_1161);
+            }
+            if ($int11 = $int8) {
+                $int12 = 1;
+            } else {
+                $int12 = 0;
+            }
+            if_setonop;
+        }
+    }
+    $int11 = add($int11, 1);
+}
+if ($int11 < $int3) {
+    $int9 = enum(105, 73, enum_3280, $int11);
+    if ($int9 ! -1) {
+        if_sethide($int9);
+    }
+    $int11 = add($int11, 1);
+}
+if ($int8 >= $int5) {
+    $int11 = sub($int4, 1);
+    if ($int11 >= $int8) {
+        $int9 = enum(105, 73, enum_3280, $int11);
+        if ($int9 ! -1) {
+            if_setzorder_front($int9);
+        }
+        $int11 = sub($int11, 1);
+    }
+} else {
+    $int9 = enum(105, 73, enum_3280, $int8);
+    if ($int9 ! -1) {
+        if_setzorder_front($int9);
+    }
+}
+return;

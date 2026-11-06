@@ -1,0 +1,25 @@
+; id: 1424
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 4456
+    1: branch_if_false 1
+    2: branch 7
+    3: push_constant_int 8960
+    4: push_constant_int 327683
+    5: if_setcolour 0
+    6: push_constant_int 16711680
+    7: push_constant_int 327682
+    8: if_setcolour 0
+    9: branch 6
+   10: push_constant_int 65280
+   11: push_constant_int 327683
+   12: if_setcolour 0
+   13: push_constant_int 2293760
+   14: push_constant_int 327682
+   15: if_setcolour 0
+   16: return 0

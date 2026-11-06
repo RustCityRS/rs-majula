@@ -1,0 +1,8 @@
+[clientscript,script_3473](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if ($int1 < sub(cam_getpathcount(0), 1)) {
+    cam_startpath(0, $int1, $int2, $int3, 1, $int1);
+    if_setonvarcstringtransmit;
+} else {
+    if_setonvarcstringtransmit;
+}
+return;

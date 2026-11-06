@@ -1,0 +1,83 @@
+[clientscript,script_4183](int $int0)
+if ($int0 = 70254730) {
+    if_sethide(70254727);
+    if_sethide(70254739);
+    if_sethide(70254751);
+    if_sethide(70254763);
+    if_setmodel;
+    if_setmodel;
+    if_setmodel;
+    if_setmodel;
+    if_setmodel;
+    if_settext(tostring(1));
+    if_settext(tostring(1));
+    if_settext(tostring(2));
+    if_settext(tostring(1));
+    if_settext(tostring(4));
+    if_settext(tostring(1));
+    if_settext(tostring(6));
+    if_settext(tostring(1));
+    if_settext(tostring(8));
+} else {
+    if ($int0 = 70254742) {
+        if_sethide(70254727);
+        if_sethide(70254739);
+        if_sethide(70254751);
+        if_sethide(70254763);
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_settext(tostring(9));
+        if_settext(tostring(4));
+        if_settext(tostring(7));
+        if_settext(tostring(3));
+        if_settext(tostring(12));
+        if_settext(tostring(3));
+        if_settext(tostring(14));
+        if_settext(tostring(2));
+        if_settext(tostring(16));
+    }
+    if ($int0 = 70254754) {
+        if_sethide(70254727);
+        if_sethide(70254739);
+        if_sethide(70254751);
+        if_sethide(70254763);
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_settext(tostring(12));
+        if_settext(tostring(9));
+        if_settext(tostring(17));
+        if_settext(tostring(6));
+        if_settext(tostring(24));
+        if_settext(tostring(4));
+        if_settext(tostring(22));
+        if_settext(tostring(4));
+        if_settext(tostring(30));
+    }
+    if ($int0 = 70254766) {
+        if_sethide(70254727);
+        if_sethide(70254739);
+        if_sethide(70254751);
+        if_sethide(70254763);
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_setmodel;
+        if_settext(tostring(75));
+        if_settext(tostring(40));
+        if_settext(tostring(80));
+        if_settext(tostring(30));
+        if_settext(tostring(120));
+        if_settext(tostring(25));
+        if_settext(tostring(150));
+        if_settext(tostring(18));
+        if_settext(tostring(144));
+    }
+}
+return;

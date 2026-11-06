@@ -1,0 +1,44 @@
+[clientscript,script_1319]
+if (%varbit4834 = 1) {
+    if_setmodel;
+    %varc_int163 = 1;
+} else {
+    if_setmodel;
+    %varc_int163 = 0;
+}
+if (%varbit4834 = 2) {
+    if_setmodel;
+    %varc_int164 = 1;
+} else {
+    if_setmodel;
+    %varc_int164 = 0;
+}
+if (%varbit4834 = 3) {
+    if_setmodel;
+    %varc_int162 = 1;
+} else {
+    if_setmodel;
+    %varc_int162 = 0;
+}
+if (%varbit4834 = 4) {
+    if_setmodel;
+    %varc_int165 = 1;
+} else {
+    if_setmodel;
+    %varc_int165 = 0;
+}
+if (%varbit4834 = 5) {
+    if_setmodel;
+    %varc_int166 = 1;
+} else {
+    if_setmodel;
+    %varc_int166 = 0;
+}
+if (%varbit4834 = 6) {
+    if_setmodel;
+    %varc_int167 = 1;
+} else {
+    if_setmodel;
+    %varc_int167 = 0;
+}
+return;

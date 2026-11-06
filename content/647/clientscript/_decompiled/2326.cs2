@@ -1,0 +1,28 @@
+[clientscript,script_2326](int $int0)(component)
+def_int $int1 = clientclock;
+switch ($int0) {
+    case 32826:
+    case 32828:
+    case 32820:
+        %varc_int767 = 0;
+        if_sethide(20054041);
+        if_settext("Incorrect");
+        sound_synth(synth_6424, 1, 0);
+        if_setcolour(20054042);
+        if_setontimer;
+    default:
+        %varc_int767 = add(%varc_int767, 1);
+        if (%varc_int767 = 10) {
+            if_sethide(20054043);
+            if_setop(20054045, "Train");
+            if_setonclick;
+        }
+        if_sethide(20054041);
+        if_settext("Correct");
+        sound_synth(synth_6423, 1, 0);
+        if_setcolour(20054042);
+        if_setontimer;
+}
+if_settext("Correct: " + tostring(%varc_int767) + "/" + tostring(10));
+sound_synth(synth_6423, 1, 0);
+return(20054019);

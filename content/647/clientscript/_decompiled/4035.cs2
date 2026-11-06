@@ -1,0 +1,57 @@
+[clientscript,script_4035](int)
+def_int $int0 = 88;
+if (%varbit5387 = 250) {
+    $int0 = add($int0, 5);
+}
+if (%varbit2561 >= 3) {
+    $int0 = add($int0, 5);
+}
+if (%varp131 >= 9) {
+    $int0 = add($int0, 5);
+}
+if (%varbit358 = 15) {
+    $int0 = add($int0, 10);
+}
+if (%varbit6001 >= 45) {
+    $int0 = add($int0, 10);
+}
+if (%varp150 >= 160) {
+    $int0 = add($int0, 5);
+}
+if (%varp223 >= 9) {
+    $int0 = add($int0, 5);
+}
+if (%varbit1990 >= 430) {
+    $int0 = add($int0, 5);
+}
+if (%varbit1383 >= 4) {
+    $int0 = add($int0, 5);
+}
+if (%varbit5075 = 20) {
+    $int0 = add($int0, 5);
+}
+if (%varp14 >= 7) {
+    $int0 = add($int0, 5);
+}
+if (%varp112 >= 7) {
+    $int0 = add($int0, 5);
+}
+if (%varp302 >= 61) {
+    $int0 = add($int0, 5);
+}
+if (%varp63 >= 6) {
+    $int0 = add($int0, 5);
+}
+if (%varp145 >= 7) {
+    $int0 = add($int0, 5);
+}
+if (%varbit1028 >= 70) {
+    $int0 = add($int0, 5);
+}
+if (%varp26 >= 80) {
+    $int0 = add($int0, 5);
+}
+if (%varbit3523 >= 150) {
+    $int0 = add($int0, 5);
+}
+return($int0);

@@ -1,0 +1,19 @@
+[clientscript,script_1783](int $int0, int $int1, int $int2, int $int3)
+if ($int2 = -1) {
+    if (cc_find($int1, 1) = 1) {
+        ~script_157($int1, $int0, 0, 1);
+    }
+    return;
+}
+def_int $int4 = 0;
+if (cc_find($int2, $int3) ! 1) {
+    if ($int3 = -1) {
+    }
+} else {
+    $int4 = calc(cc_gety + cc_getheight / 2);
+    $int4 = calc($int0 - if_getheight / 2);
+    if (cc_find($int1, 1) = 1) {
+        ~script_157($int1, $int0, $int4, 1);
+    }
+}
+return;

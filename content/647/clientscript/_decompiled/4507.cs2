@@ -1,0 +1,14 @@
+[clientscript,script_4507](int $int0, int $int1, int $int2)
+def_string $str0 = "";
+if (cc_find($int1, $int0) = 1) {
+    $str0 = cc_gettext;
+}
+cc_deleteall($int2);
+cc_setposition(0, $int2, 4, if_getchildcount($int2));
+cc_settext($str0);
+cc_settextfont(3793);
+cc_setposition2(5, 0, 0, 1);
+cc_setsize(5, 16384, 1, 2);
+cc_settextalign(0, 1, 0);
+cc_setcolour(0);
+return;

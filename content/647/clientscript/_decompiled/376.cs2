@@ -1,0 +1,61 @@
+[clientscript,script_376](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if ($int1 = -1) {
+    cc_setposition(0, $int0, 3, $int6);
+    cc_sethide(1);
+    cc_setposition(0, $int0, 3, add($int6, 1));
+    cc_sethide(1);
+    cc_setposition(0, $int0, 3, add($int6, 2));
+    cc_sethide(1);
+    cc_setposition(0, $int0, 3, add($int6, 3));
+    cc_sethide(1);
+    cc_setposition(0, $int0, 3, add($int6, 4));
+    cc_sethide(1);
+    cc_setposition(0, $int0, 3, add($int6, 5));
+    cc_sethide(1);
+    return;
+}
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (cc_find($int1, $int2) ! 1) {
+    if ($int2 = -1) {
+    }
+} else {
+    $int8 = sub(cc_gety, $int5);
+    $int7 = sub(cc_getx, $int5);
+    $int9 = min($int0, if_getwidth);
+    $int10 = calc(cc_getheight + $int5 * 2);
+}
+return;
+cc_setposition(0, $int0, 3, $int6);
+cc_setsize(sub($int9, 2), 2, 0, 0);
+cc_setposition2(add($int7, 1), $int8, 0, 0);
+cc_setfill(1);
+cc_setcolour($int3);
+cc_setposition(0, $int0, 3, add($int6, 1));
+cc_setsize(sub($int9, 2), 2, 0, 0);
+cc_setposition2(add($int7, 1), calc($int8 + $int10 - 2), 0, 0);
+cc_setfill(1);
+cc_setcolour($int4);
+cc_setposition(0, $int0, 3, add($int6, 2));
+cc_setsize(2, sub($int10, 2), 0, 0);
+cc_setposition2($int7, add($int8, 1), 0, 0);
+cc_setfill(1);
+cc_setcolour($int4);
+cc_setposition(0, $int0, 3, add($int6, 3));
+cc_setsize(2, sub($int10, 2), 0, 0);
+cc_setposition2(calc($int7 + $int9 - 2), add($int8, 1), 0, 0);
+cc_setfill(1);
+cc_setcolour($int4);
+cc_setposition(0, $int0, 3, add($int6, 4));
+cc_setsize(2, calc($int10 - 2 / 2), 0, 0);
+cc_setposition2($int7, add($int8, 1), 0, 0);
+cc_setfill(1);
+cc_setcolour($int3);
+cc_setposition(0, $int0, 3, add($int6, 5));
+cc_setsize(2, calc($int10 - 2 / 2), 0, 0);
+cc_setposition2(calc($int7 + $int9 - 2), add($int8, 1), 0, 0);
+cc_setfill(1);
+cc_setcolour($int3);
+return;

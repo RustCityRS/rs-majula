@@ -1,0 +1,9 @@
+[clientscript,script_1129]
+hud_setoffsets(36, 41);
+hud_setoffsets(46, -1);
+if (%varc_int987 = 1) {
+    set_clientopt(%varc_int987);
+}
+%varc_int987 = 1;
+set_clientopt(%varc_int987);
+return;

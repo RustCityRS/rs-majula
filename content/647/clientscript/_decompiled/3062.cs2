@@ -1,0 +1,35 @@
+[clientscript,script_3062](int $int0)(int, int, int, string)
+if (worldlist_fetch = 0) {
+    ~script_3064(0);
+    if_setontimer;
+    return(3061, $int0, $int0, "I");
+}
+%varc_int1322 = 0;
+~script_3064(1);
+if_setontimer;
+%varc_int1100 = -1;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (~script_2727 = 1) {
+    if (%varc_int547 = 0) {
+        ~script_3076(59375709);
+        ~script_3074(59375707);
+        if_sethide(59375648);
+        sound_jingle(349, 0);
+        $int3 = if_getwidth;
+        $int4 = if_getwidth;
+        $int1 = max(59375702, add(char_isnumeric(496), 30));
+        $int4 = max($int3, multiply(paraheight(if_gettext, 496), 16));
+        $int2 = max(243, add($int4, 91));
+        if_setsize($int4, 0, 0, 59375703);
+        if_setsize($int2, 0, 0, 59375700);
+        return(~script_3026(59375709), ~script_3025(59375707), 0, ~script_3412(59375702, 59375703), ~script_3412(59375702, 59375703), 59375703, 59375703, 337, 152, 59375703, $int3, $int1, if_gettext);
+    }
+}
+%varc_int200 = 0;
+~script_3064(0);
+login_hopworld(0);
+if_setontimer;
+return(3063, $int0, active_toplevelinterface, $int0, "Ii");

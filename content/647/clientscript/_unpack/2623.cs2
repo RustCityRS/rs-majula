@@ -1,0 +1,70 @@
+; id: 2623
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 1
+    1: pop_int_local 0
+    2: push_constant_int 105
+    3: push_constant_int 73
+    4: push_constant_int 2451
+    5: push_int_local 0
+    6: enum 0
+    7: push_constant_int 55705624
+    8: branch_not 1
+    9: branch 12
+   10: push_constant_string ""
+   11: push_constant_int 105
+   12: push_constant_int 73
+   13: push_constant_int 2451
+   14: push_int_local 0
+   15: enum 0
+   16: if_settext 0
+   17: push_int_local 0
+   18: push_constant_int 1
+   19: add 0
+   20: pop_int_local 0
+   21: branch -20
+   22: push_constant_string "Welcome to Mobilising Armies."
+   23: push_constant_int 55705625
+   24: if_settext 0
+   25: push_varbit 6352
+   26: switch 0
+   27: branch 15
+   28: push_constant_int 1906
+   29: push_constant_int 55705650
+   30: if_setgraphic 0
+   31: branch 11
+   32: push_constant_int 1904
+   33: push_constant_int 55705650
+   34: if_setgraphic 0
+   35: branch 7
+   36: push_constant_int 1905
+   37: push_constant_int 55705650
+   38: if_setgraphic 0
+   39: branch 3
+   40: push_constant_int 1907
+   41: push_constant_int 55705650
+   42: if_setgraphic 0
+   43: push_constant_int 55705645
+   44: push_constant_int 55705646
+   45: push_constant_int 55705646
+   46: op2604 0
+   47: push_constant_int 1
+   48: gosub_with_params 157
+   49: push_constant_int 2625
+   50: push_constant_int -2147483640
+   51: push_constant_int -2147483639
+   52: push_constant_string "iz"
+   53: push_constant_int 55705648
+   54: op2419 0
+   55: return 0
+
+switch_0:
+  1 => 1
+  2 => 5
+  3 => 9
+  4 => 13

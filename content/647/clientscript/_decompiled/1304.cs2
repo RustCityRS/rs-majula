@@ -1,0 +1,31 @@
+[clientscript,script_1304](int $int0)
+def_int $int1 = ~script_1305;
+if (~script_2709 = 0) {
+    if ($int0 = 9) {
+        return;
+    }
+}
+if ($int0 = $int1) {
+    if (%varbit9030 = 1) {
+        $int0 = 1;
+        ~script_4089;
+    }
+}
+if ($int1 > -1) {
+    if ($int1 = $int0) {
+        if (getwindowmode >= 2) {
+            if (%varbit9030 = 0) {
+                ~script_1306;
+            }
+        } else {
+            return;
+        }
+    } else {
+        ~script_1306;
+        ~script_1387($int0);
+    }
+} else {
+    ~script_1306;
+    ~script_1387($int0);
+}
+return;

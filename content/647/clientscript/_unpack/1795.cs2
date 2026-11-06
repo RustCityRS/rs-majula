@@ -1,0 +1,61 @@
+; id: 1795
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 697
+    1: pop_int_local 2
+    2: push_constant_int 699
+    3: pop_int_local 3
+    4: push_varbit 5279
+    5: branch_if_true 1
+    6: branch 23
+    7: push_varbit 5295
+    8: branch_if_true 1
+    9: branch 10
+   10: push_int_local 3
+   11: push_int_local 1
+   12: if_setgraphic 0
+   13: push_constant_int 44
+   14: push_int_local 1
+   15: push_int_local 2
+   16: push_constant_string "Id"
+   17: push_int_local 0
+   18: op2409 0
+   19: branch 9
+   20: push_int_local 2
+   21: push_int_local 1
+   22: if_setgraphic 0
+   23: push_constant_int 44
+   24: push_int_local 1
+   25: push_int_local 3
+   26: push_constant_string "Id"
+   27: push_int_local 0
+   28: op2409 0
+   29: branch 22
+   30: push_varbit 5294
+   31: branch_if_true 1
+   32: branch 10
+   33: push_int_local 3
+   34: push_int_local 1
+   35: if_setgraphic 0
+   36: push_constant_int 44
+   37: push_int_local 1
+   38: push_int_local 2
+   39: push_constant_string "Id"
+   40: push_int_local 0
+   41: op2409 0
+   42: branch 9
+   43: push_int_local 2
+   44: push_int_local 1
+   45: if_setgraphic 0
+   46: push_constant_int 44
+   47: push_int_local 1
+   48: push_int_local 3
+   49: push_constant_string "Id"
+   50: push_int_local 0
+   51: op2409 0
+   52: return 0

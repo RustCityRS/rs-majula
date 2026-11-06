@@ -1,0 +1,12 @@
+[clientscript,script_4468](int)
+def_int $int0 = -1;
+def_int $int1 = -1;
+docheat("");
+$int1 = clanchannel2_findname(removetags(""));
+if ($int1 >= 0) {
+    $int0 = clanchannel2_getuserrank($int1);
+    if ($int0 >= clanchannel2_getrankkick) {
+        return(1);
+    }
+}
+return(0);

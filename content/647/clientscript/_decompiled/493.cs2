@@ -1,0 +1,88 @@
+[clientscript,script_493](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = -1;
+switch ($int0) {
+    case 66519098:
+        $int2 = 1;
+    case 66519100:
+        $int2 = 2;
+    case 66519102:
+        $int2 = 3;
+    case 66519104:
+        $int2 = 4;
+    case 66519108:
+        $int2 = 5;
+    case 66519110:
+        $int2 = 6;
+    case 66519112:
+        $int2 = 7;
+    case 66519114:
+        $int2 = 8;
+    case 66519106:
+        $int2 = 9;
+    default:
+        return;
+}
+if ($int1 = 1) {
+    $int3 = 16777215;
+} else {
+    $int3 = 16750623;
+}
+if (%varbit7539 ! $int2) {
+    if (%varbit7540 ! $int2) {
+        if (%varbit7541 ! $int2) {
+            if (%varbit7542 ! $int2) {
+                if_setcolour($int0);
+                if ($int1 = 1) {
+                    $int4 = ~script_488($int2);
+                    if ($int4 ! -1) {
+                        if_sethide(66519089);
+                        if_sethide(66519090);
+                        if_sethide(66519091);
+                        if_sethide(66519092);
+                        if_sethide(66519093);
+                        if_sethide(66519094);
+                        if_settext("");
+                        if_setgraphic(66519090);
+                        if_settext("");
+                        if_settext(append("Cooldown: ", tostring(struct_param($int4, param_1155))));
+                        if_settext(append("Cost: ", tostring(struct_param($int4, param_1154))));
+                    }
+                }
+                switch (%varbit7515) {
+                    case 1:
+                        $int4 = ~script_488(%varbit7539);
+                    case 2:
+                        $int4 = ~script_488(%varbit7540);
+                    case 3:
+                        $int4 = ~script_488(%varbit7541);
+                    case 4:
+                        $int4 = ~script_488(%varbit7542);
+                    default:
+                        $int4 = -1;
+                }
+                if ($int4 = -1) {
+                    if_sethide(66519089);
+                    if_sethide(66519090);
+                    if_sethide(66519091);
+                    if_sethide(66519092);
+                    if_sethide(66519093);
+                    if_sethide(66519094);
+                }
+                if_sethide(66519089);
+                if_sethide(66519090);
+                if_sethide(66519091);
+                if_sethide(66519092);
+                if_sethide(66519093);
+                if_sethide(66519094);
+                if_settext("");
+                if_setgraphic(66519090);
+                if_settext("");
+                if_settext(append("Cooldown: ", tostring(struct_param($int4, param_1155))));
+                if_settext(append("Cost: ", tostring(struct_param($int4, param_1154))));
+            }
+        }
+    }
+}
+return;

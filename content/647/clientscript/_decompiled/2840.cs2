@@ -1,0 +1,18 @@
+[clientscript,script_2840]
+%varc_int1068 = add(%varc_int1068, 1);
+switch (%varc_int1068) {
+    case 1:
+        if_setonvarcstringtransmit;
+        cam_startpath(0, %varc_int1068, 400, 0, 1, %varc_int1068);
+    case 2:
+        if_setonvarcstringtransmit;
+    case 3:
+        if_setonvarcstringtransmit;
+        cam_startpath(0, %varc_int1068, 650, 700, 1, %varc_int1068);
+    case 5:
+        if_setonvarcstringtransmit;
+    default:
+        if_setonvarcstringtransmit;
+        cam_startpath(0, %varc_int1068, 400, 400, 1, %varc_int1068);
+}
+return;

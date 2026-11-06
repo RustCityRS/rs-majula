@@ -1,0 +1,12 @@
+[clientscript,script_2236]
+if (%varc_int1135 < 15) {
+    if (calc(%varp1687 + %varp1688 + %varp1686) > 1) {
+        sound_synth(synth_8729, 1, 0);
+        %varc_int1135 = add(%varc_int1135, 1);
+    }
+} else {
+    %varp1685 = 2;
+    sound_synth(synth_2277, 1, 0);
+}
+~script_2220;
+return;

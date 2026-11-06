@@ -1,0 +1,11 @@
+[clientscript,script_473](int $int0, int $int1)(int)
+if (stat_base(farming) < 25) {
+    if_settext("<col=c80000>" + "A Farming level of " + tostring(25) + " is required." + "</col>");
+    return($int0);
+}
+if (%varbit2086 < $int1) {
+    if_settext("<col=c80000>" + tostring($int1) + " Commendations required." + "</col>");
+} else {
+    if_settext(tostring($int1) + " Commendations.");
+}
+return;

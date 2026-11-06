@@ -1,0 +1,75 @@
+[clientscript,script_192]
+if (%varp281 < 1000) {
+    return;
+}
+def_int $int0 = chat_getofflinepm;
+def_int $int1 = 0;
+if ($int0 > %varc_int43) {
+    if (%varc_int41 = 0) {
+        %varc_int43 = $int0;
+        return;
+    }
+    $int0 = calc($int0 - %varc_int43 - 1);
+    if ($int0 >= 100) {
+        $int0 = 99;
+    }
+    if ($int0 >= 0) {
+        $int1 = chat_gethistory_length($int0);
+        if (~script_90($int0, 0) = 1) {
+            if (~script_506($int0) = 0) {
+                switch ($int1) {
+                    case 0:
+                    case 4:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 109:
+                    case 110:
+                    case 26:
+                    case 117:
+                    case 1:
+                    case 2:
+                    case 17:
+                    case 116:
+                    case 3:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 18:
+                    case 19:
+                    case 30:
+                    case 31:
+                    case 9:
+                    case 11:
+                    case 107:
+                    case 20:
+                    case 100:
+                    case 101:
+                    case 103:
+                    case 105:
+                    case 106:
+                    case 108:
+                    case 111:
+                    case 112:
+                    case 113:
+                    case 114:
+                    case 118:
+                    case 102:
+                    case 104:
+                    case 41:
+                    case 43:
+                    case 42:
+                    case 44:
+                    case 46:
+                    case 45:
+                    case 115:
+                        if (string_length("") > 1) {
+                        }
+                }
+            }
+        }
+        $int0 = sub($int0, 1);
+    }
+    %varc_int43 = chat_getofflinepm;
+}
+return;

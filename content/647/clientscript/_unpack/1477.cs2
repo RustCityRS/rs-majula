@@ -1,0 +1,91 @@
+; id: 1477
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 5007
+    1: branch_if_false 1
+    2: branch 4
+    3: push_constant_string "Quick task:"
+    4: push_constant_int 50200612
+    5: if_settext 0
+    6: branch 3
+    7: push_constant_string "Large task:"
+    8: push_constant_int 50200612
+    9: if_settext 0
+   10: push_varbit 4216
+   11: tostring 0
+   12: push_constant_int 50200676
+   13: if_settext 0
+   14: push_varbit 4208
+   15: push_constant_int 1
+   16: add 0
+   17: push_constant_int 5
+   18: multiply 0
+   19: tostring 0
+   20: push_constant_int 50200678
+   21: if_settext 0
+   22: push_varbit 4217
+   23: tostring 0
+   24: push_constant_int 50200667
+   25: if_settext 0
+   26: push_varbit 4209
+   27: push_constant_int 1
+   28: add 0
+   29: push_constant_int 5
+   30: multiply 0
+   31: tostring 0
+   32: push_constant_int 50200669
+   33: if_settext 0
+   34: push_varbit 4218
+   35: tostring 0
+   36: push_constant_int 50200657
+   37: if_settext 0
+   38: push_varbit 4210
+   39: push_constant_int 1
+   40: add 0
+   41: push_constant_int 5
+   42: multiply 0
+   43: tostring 0
+   44: push_constant_int 50200659
+   45: if_settext 0
+   46: push_varbit 4219
+   47: tostring 0
+   48: push_constant_int 50200647
+   49: if_settext 0
+   50: push_varbit 4211
+   51: push_constant_int 1
+   52: add 0
+   53: push_constant_int 5
+   54: multiply 0
+   55: tostring 0
+   56: push_constant_int 50200649
+   57: if_settext 0
+   58: push_varbit 4220
+   59: tostring 0
+   60: push_constant_int 50200637
+   61: if_settext 0
+   62: push_varbit 4212
+   63: push_constant_int 1
+   64: add 0
+   65: push_constant_int 5
+   66: multiply 0
+   67: tostring 0
+   68: push_constant_int 50200639
+   69: if_settext 0
+   70: push_varbit 5008
+   71: tostring 0
+   72: push_constant_int 50200627
+   73: if_settext 0
+   74: push_varbit 4213
+   75: push_constant_int 1
+   76: add 0
+   77: push_constant_int 5
+   78: multiply 0
+   79: tostring 0
+   80: push_constant_int 50200629
+   81: if_settext 0
+   82: return 0

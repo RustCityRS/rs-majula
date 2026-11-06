@@ -1,0 +1,9 @@
+[clientscript,script_1034](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, string $str0)
+cc_setposition(0, 10289177, 4, $int0);
+cc_setposition2($int1, $int2, 0, 0);
+cc_setsize($int3, $int4, 0, 0);
+cc_setcolour($int5);
+cc_settextshadow(1);
+cc_settextfont(495);
+cc_settext($str0);
+return;

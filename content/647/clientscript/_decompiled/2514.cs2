@@ -1,0 +1,11 @@
+[clientscript,script_2514]
+if_settext("0");
+if_settext("0");
+if_settext("0");
+if_settext("0");
+if_settext("0");
+if_settext("0");
+if (%varc_int839 >= 0) {
+    if_settext(~script_46(%varc_int839, ","));
+}
+return;

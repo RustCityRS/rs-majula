@@ -1,0 +1,15 @@
+[clientscript,script_2968](int $int0, int $int1, int $int2)
+if_getlayer;
+def_int $int3 = $int0;
+def_int $int4 = 0;
+$int4 = inv_total(inv, $int1);
+if ($int4 > 0) {
+    if_setcolour($int2);
+    if_setobject($int4, $int0);
+} else {
+    if_setcolour($int2);
+    if_setobject(-1, $int0);
+}
+if_setoutline(1, $int0);
+if_setmouseover_cursor(171, $int2);
+return;

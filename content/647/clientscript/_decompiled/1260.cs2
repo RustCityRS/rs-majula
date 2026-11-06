@@ -1,0 +1,10 @@
+[clientscript,script_1260]
+if (%varbit305 = 1) {
+    return;
+}
+if (%varp266 = 0) {
+    if_setgraphic(7471133);
+} else {
+    if_setgraphic(7471133);
+}
+return;

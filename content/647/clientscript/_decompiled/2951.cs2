@@ -1,0 +1,35 @@
+[clientscript,script_2951](int, int, string)
+def_int $int0 = 39059466;
+if (login_getint = 1) {
+    $int0 = 63897603;
+}
+def_int $int1 = ~script_2948;
+if ($int1 ! -3) {
+    if_setontimer;
+    return(-1, $int0, "");
+}
+if (clientclock < %varc_int1092) {
+    return;
+}
+%varc_int1092 = add(clientclock, 5);
+switch (if_getgraphic($int0)) {
+    case 4107:
+        if_setgraphic($int0);
+    case 4108:
+        if_setgraphic($int0);
+    case 4109:
+        if_setgraphic($int0);
+    case 4110:
+        if_setgraphic($int0);
+    case 4111:
+        if_setgraphic($int0);
+    case 4112:
+        if_setgraphic($int0);
+    case 4113:
+        if_setgraphic($int0);
+    case 4114:
+        if_setgraphic($int0);
+    default:
+        if_setgraphic($int0);
+}
+return;

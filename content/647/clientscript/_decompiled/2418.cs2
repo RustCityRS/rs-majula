@@ -1,0 +1,7 @@
+[clientscript,script_2418](int $int0)
+if (%varc_int805 = 6) {
+    if_setop($int0, "Fix");
+} else {
+    if_setop($int0, "Inspect");
+}
+return;

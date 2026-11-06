@@ -1,0 +1,65 @@
+; id: 1072
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=4
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: op5066 0
+    2: pop_int_local 2
+    3: push_constant_int 0
+    4: pop_int_local 3
+    5: push_int_local 2
+    6: push_constant_int 0
+    7: branch_greater_than 1
+    8: branch 45
+    9: push_varc_int 134
+   10: push_int_local 2
+   11: branch_less_than 1
+   12: branch 41
+   13: push_varc_int 134
+   14: push_constant_int 10
+   15: branch_less_than 1
+   16: branch 37
+   17: push_int_local 1
+   18: push_varc_int 134
+   19: op5067 0
+   20: pop_int_local 3
+   21: push_int_local 3
+   22: branch_if_false 1
+   23: branch 3
+   24: push_int_local 1
+   25: gosub_with_params 1044
+   26: return 0
+   27: push_int_local 3
+   28: branch_if_true 1
+   29: branch 4
+   30: push_int_local 1
+   31: push_constant_int 0
+   32: gosub_with_params 1037
+   33: return 0
+   34: push_int_local 3
+   35: push_constant_int 10
+   36: branch_equals 1
+   37: branch 4
+   38: push_int_local 1
+   39: push_constant_int 1
+   40: gosub_with_params 1037
+   41: return 0
+   42: push_int_local 3
+   43: push_constant_int 2
+   44: branch_equals 1
+   45: branch 3
+   46: push_int_local 1
+   47: gosub_with_params 1047
+   48: return 0
+   49: push_varc_int 134
+   50: push_constant_int 1
+   51: add 0
+   52: pop_varc_int 134
+   53: branch -45
+   54: push_int_local 1
+   55: gosub_with_params 1077
+   56: return 0

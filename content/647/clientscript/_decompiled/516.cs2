@@ -1,0 +1,12 @@
+[clientscript,script_516]
+if (%varc_int52 < 300) {
+    %varc_int52 = add(%varc_int52, 1);
+}
+if (%varc_int51 > 0) {
+    if (mod(%varc_int52, 3) = 0) {
+        %varc_int51 = sub(%varc_int51, 3);
+        %varc_int50 = add(%varc_int50, 1);
+        if_setmodelangle;
+    }
+}
+return;

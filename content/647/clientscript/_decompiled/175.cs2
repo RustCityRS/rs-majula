@@ -1,0 +1,41 @@
+[clientscript,script_175](int $int0, int $int1)
+if (%varp281 < 1000) {
+    mes("You can't do this while in the tutorial.");
+    return;
+}
+switch ($int0) {
+    case 1:
+        if (%varc_int41 = $int1) {
+            if (getwindowmode >= 2) {
+                %varc_int41 = -1;
+                ~script_1364;
+            }
+        } else {
+            if (%varc_int41 = -1) {
+                %varc_int41 = $int1;
+                ~script_1364;
+            }
+            %varc_int41 = $int1;
+        }
+        ~script_181(%varc_int41);
+        ~script_84;
+    case 2:
+        ~script_184($int1, 0);
+        ~script_84;
+    case 3:
+        if ($int1 = 3) {
+            if (friend_count < 0) {
+                mes("The friends list is still loading, your selection won't take effect immediately.");
+            }
+        }
+        ~script_184($int1, 1);
+        ~script_84;
+    case 4:
+        ~script_184($int1, 2);
+        ~script_84;
+    case 5:
+        ~script_184($int1, 3);
+        ~script_84;
+    default:
+}
+return;

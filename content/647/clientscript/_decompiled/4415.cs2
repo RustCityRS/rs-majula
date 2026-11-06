@@ -1,0 +1,20 @@
+[clientscript,script_4415](int, int, int, int, int, int, int, int, int)
+if_settext(clanchannel_getname);
+if_settext("Game time:" + "<br>" + ~script_4337(push_clansetting_intvar));
+if_settext(clanchannel_getstring(clanchannel_getint2));
+if (push_clansetting_var > 0) {
+    if_settext(tostring(push_clansetting_var));
+}
+if_settext(tostring(ignore_test("")));
+if (push_clansetting_var = 0) {
+    if_settext("This clan is not recruiting.");
+} else {
+    if (push_clansetting_var = 1) {
+        if_settext("This clan is recruiting.");
+    }
+}
+~script_4329(72548390);
+~script_4328(72548551);
+~script_4420;
+if_sethide(72548503);
+return(~script_4332(72548454, 72548464), ~script_4332(72548454, 72548464), ~script_4332(72548454, 72548464), ~script_4332(72548454, 72548464), ~script_4334(72548359, 72548360), ~script_4334(72548359, 72548360), ~script_4336(72548446), ~script_4343(72548447), 1);

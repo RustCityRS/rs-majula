@@ -1,0 +1,14 @@
+[clientscript,script_2729](int $int0, int $int1, int $int2, int $int3)(int, int, int, int, int, int, string)
+def_int $int4 = getwindowmode;
+if ($int4 ! 1) {
+    if ($int3 ! 1) {
+        return;
+    }
+} else {
+    if ($int3 = 1) {
+        return;
+    }
+}
+~script_2730($int1, $int2, $int4);
+if_setontimer;
+return(2729, -2147483645, $int1, $int2, $int4, $int0, "IIIi");

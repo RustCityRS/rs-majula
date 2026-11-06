@@ -1,0 +1,15 @@
+; id: 1095
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 1097
+    1: op6203 0
+    2: push_constant_int 0
+    3: push_constant_int 0
+    4: push_constant_int 48889862
+    5: if_setsize 0
+    6: return 0

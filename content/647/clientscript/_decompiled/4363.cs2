@@ -1,0 +1,53 @@
+[clientscript,script_4363](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, string $str0, long $long0)
+if_settext($str0);
+if_setgraphic($int1);
+if ($long0 ! -1L) {
+    if_setonop;
+    if_sethide(72024230);
+} else {
+    if_clearops;
+    if_sethide(72024230);
+}
+if (ignore_count = 1) {
+    if (~script_4616($int2, $int3) > 0) {
+        if ($int4 > 0) {
+            if ($int5 > 0) {
+                if ($int6 > 0) {
+                    if_sethide(72024172);
+                }
+            }
+        }
+    }
+    ~script_4621(72024064);
+} else {
+    if_sethide(72024172);
+}
+%varp2128 = $int0;
+switch ($int0) {
+    case 1:
+        if_setgraphic(72024070);
+    case 2:
+        if_setgraphic(72024187);
+    case 3:
+        if_setgraphic(72024190);
+    case 4:
+        if_setgraphic(72024193);
+    case 5:
+        if_setgraphic(72024196);
+    case 6:
+        if_setgraphic(72024199);
+    case 7:
+        if_setgraphic(72024202);
+    case 8:
+        if_setgraphic(72024205);
+    default:
+}
+~script_4624(72024070, 1);
+~script_4624(72024187, 2);
+~script_4624(72024190, 3);
+~script_4624(72024193, 4);
+~script_4624(72024196, 5);
+~script_4624(72024199, 6);
+~script_4624(72024202, 7);
+~script_4624(72024205, 8);
+return;

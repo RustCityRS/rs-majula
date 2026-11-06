@@ -1,0 +1,22 @@
+; id: 3127
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: cc_find 0
+    3: branch_if_true 1
+    4: branch 8
+    5: push_int_local 1
+    6: branch_if_false 1
+    7: branch 3
+    8: push_constant_int 1535
+    9: cc_setgraphic 0
+   10: branch 2
+   11: push_constant_int 1536
+   12: cc_setgraphic 0
+   13: return 0

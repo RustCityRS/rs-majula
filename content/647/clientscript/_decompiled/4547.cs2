@@ -1,0 +1,12 @@
+[clientscript,script_4547](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, component, component, int, component, int)
+cc_deleteall($int0);
+cc_deleteall($int1);
+cc_deleteall($int2);
+cc_deleteall($int3);
+if_sethide(59768844);
+if_settext("Not in chat");
+if_setsize(if_getheight, 0, 0, 59768871);
+if_setscrollsize(0, 0, 59768877);
+if_setscrollpos(0, 59768877);
+~script_72(59768878, 59768877, 0);
+return(0, 59768850, 59768871, if_getwidth, 59768870, 0);

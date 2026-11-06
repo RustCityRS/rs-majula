@@ -1,0 +1,12 @@
+[clientscript,script_2831](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+player_setbodytype($int2, $int1);
+if ($int2 = 1) {
+    %varc_int1009 = $int1;
+} else {
+    %varc_int1008 = $int1;
+}
+~script_2790;
+return;

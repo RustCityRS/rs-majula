@@ -1,0 +1,8 @@
+[clientscript,script_2949](string $str0)(string)
+def_int $int0 = string_length($str0);
+$str0 = "";
+if ($int0 > 0) {
+    $str0 = $str0 + "*";
+    $int0 = sub($int0, 1);
+}
+return($str0);

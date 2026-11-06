@@ -1,0 +1,18 @@
+; id: 2948
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: op5420 0
+    1: branch_if_true 1
+    2: branch 3
+    3: op5607 0
+    4: return 0
+    5: branch 2
+    6: op5617 0
+    7: return 0
+    8: push_constant_int 0
+    9: return 0

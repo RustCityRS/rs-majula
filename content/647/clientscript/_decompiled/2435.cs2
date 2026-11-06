@@ -1,0 +1,38 @@
+[clientscript,script_2435]
+if (%varc_int815 > 0) {
+    %varc_int815 = sub(%varc_int815, 1);
+} else {
+    ~script_2436;
+    return;
+}
+def_int $int0 = div(%varc_int815, 50);
+def_int $int1 = div($int0, 60);
+$int0 = calc($int0 - $int1 * 60);
+def_string $str0 = "";
+def_string $str1 = "";
+if ($int1 = 0) {
+    $str0 = "00";
+} else {
+    if ($int1 < 10) {
+        $str0 = "0" + tostring($int1);
+    }
+    $str0 = tostring($int1);
+}
+if ($int0 = 0) {
+    $str1 = "00";
+} else {
+    if ($int0 < 10) {
+        $str1 = "0" + tostring($int0);
+    }
+    $str1 = tostring($int0);
+}
+if (getwindowmode < 2) {
+    if_sethide(35913741);
+    if_sethide(35913740);
+    if_settext($str0 + ":" + $str1);
+} else {
+    if_sethide(48890022);
+    if_sethide(48890021);
+    if_settext($str0 + ":" + $str1);
+}
+return;

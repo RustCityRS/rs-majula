@@ -1,0 +1,21 @@
+[clientscript,script_2576](int $int0, int $int1)(int)
+def_string $str0 = "";
+switch ($int0) {
+    case 51183649:
+    case 51183658:
+        $str0 = "How much time is left for this round.";
+    case 51183650:
+    case 51183659:
+        $str0 = "How many orbs the green team have captured this round.";
+    case 51183660:
+    case 51183651:
+        $str0 = "How many orbs the yellow team have captured this round.";
+    case 51183653:
+    case 51183662:
+        $str0 = "How active you have been during this round.";
+    default:
+        return;
+}
+if_getlayer;
+~script_39($int1, 25, $int1, if_getwidth, $str0);
+return($int0);

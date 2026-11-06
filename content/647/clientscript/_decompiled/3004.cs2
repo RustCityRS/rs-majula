@@ -1,0 +1,9 @@
+[clientscript,script_3004](int $int0, int $int1)(int, int, int, component, string)
+if_setonclick;
+if_setonclick;
+if_setonclick;
+if_setonclick;
+if (if_getgraphic(~script_3013($int1)) ! 2669) {
+}
+if_setontimer;
+return(3005, $int1, $int0, 59441154, "ii");

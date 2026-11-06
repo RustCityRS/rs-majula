@@ -1,0 +1,42 @@
+[clientscript,script_2773](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string)
+if (%varp281 < 6) {
+    return;
+}
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = -1;
+switch ($int0) {
+    case 1:
+        cam_clear;
+        $int10 = $int5;
+        $int9 = $int1;
+        $int12 = 2278;
+        $int11 = 2273;
+    case 2:
+        cam_clear;
+        $int10 = $int6;
+        $int9 = $int2;
+        $int12 = 2277;
+        $int11 = 2272;
+    case 3:
+        cam_clear;
+        $int10 = $int7;
+        $int9 = $int3;
+        $int12 = 2279;
+        $int11 = 2274;
+    case 4:
+        cam_clear;
+        $int10 = $int8;
+        $int9 = $int4;
+        $int12 = 2280;
+        $int11 = 2275;
+    default:
+        return;
+}
+if_setgraphic($int9);
+def_int $int13 = 2271;
+if_setontimer;
+if_setgraphic($int10);
+if_setontimer;
+return(2276, 1723, -2147483645, -2147483643, $int13, add(clientclock, 10), $int9, $int12, 1723, -2147483645, -2147483643, $int11, add(clientclock, 10), $int10, "Iidi", "Iidi");

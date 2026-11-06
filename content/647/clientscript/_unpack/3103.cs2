@@ -1,0 +1,61 @@
+; id: 3103
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: gosub_with_params 3102
+    1: gosub_with_params 3113
+    2: push_constant_int 59637815
+    3: push_constant_int 1
+    4: push_constant_int 0
+    5: push_constant_string "Descending world number"
+    6: push_constant_string "Ascending world number"
+    7: gosub_with_params 3125
+    8: push_constant_int 59637790
+    9: push_constant_int 3
+   10: push_constant_int 2
+   11: push_constant_string "Descending player count"
+   12: push_constant_string "Ascending player count"
+   13: gosub_with_params 3125
+   14: push_constant_int 59637812
+   15: push_constant_int 5
+   16: push_constant_int 4
+   17: push_constant_string "Descending activity"
+   18: push_constant_string "Ascending activity"
+   19: gosub_with_params 3125
+   20: push_constant_int 59637809
+   21: push_constant_int 9
+   22: push_constant_int 8
+   23: push_constant_string "Descending type"
+   24: push_constant_string "Ascending type"
+   25: gosub_with_params 3125
+   26: push_constant_int 59637807
+   27: push_constant_int 7
+   28: push_constant_int 6
+   29: push_constant_string "Descending LootShare"
+   30: push_constant_string "Ascending LootShare"
+   31: gosub_with_params 3125
+   32: push_constant_int 59637805
+   33: push_constant_int 11
+   34: push_constant_int 10
+   35: push_constant_string "Descending ping"
+   36: push_constant_string "Ascending ping"
+   37: gosub_with_params 3125
+   38: gosub_with_params 3116
+   39: op5420 0
+   40: branch_if_true 1
+   41: branch 7
+   42: push_constant_int 0
+   43: push_constant_string "Please choose a game world from the list."
+   44: push_constant_string "<br>"
+   45: push_constant_string "This will cause the game applet to reload."
+   46: join_string 3
+   47: gosub_with_params 3143
+   48: branch 3
+   49: push_constant_int 0
+   50: push_constant_string "Please choose a game world from the list."
+   51: gosub_with_params 3143
+   52: return 0

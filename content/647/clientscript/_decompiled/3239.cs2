@@ -1,0 +1,153 @@
+[clientscript,script_3239](int $int0, int $int1, int $int2)
+def_int $int3 = ~script_2948;
+if ($int1 = 0) {
+    if ($int3 = -3) {
+        return;
+    }
+}
+%varc_int175 = clientclock;
+~script_41(48758864);
+%varc_int1 = 0;
+%varc_int174 = 1;
+if (%varc_int1090 ! 6) {
+    %varc_int1091 = %varc_int1090;
+    if_setonclick;
+}
+if ($int0 = 0) {
+    %varc_int174 = 0;
+    ~script_3385;
+    if_sethide(48758808);
+} else {
+    if_sethide(48758808);
+    if_closeoverlay(48758808);
+}
+if ($int0 = 5) {
+    if_openoverlay(48758811, 975);
+    if_sethide(48758807);
+    if_sethide(48758811);
+} else {
+    if_closeoverlay(48758811);
+    if_sethide(48758807);
+    if_sethide(48758811);
+}
+if ($int0 = 11) {
+    %varc_int547 = 0;
+    if_openoverlay(48758810, 596);
+    if_sethide(39059460);
+    ~script_3230;
+}
+if_closeoverlay(48758810);
+if_sethide(48758810);
+if ($int0 = 7) {
+    if_openoverlay(48758832, 673);
+    if_sethide(48758832);
+} else {
+    if_closeoverlay(48758832);
+    if_sethide(48758832);
+}
+if ($int0 = 8) {
+    %varc_int174 = 10;
+    if_sethide(48758833);
+} else {
+    if_closeoverlay(48758833);
+    if_sethide(48758833);
+}
+if ($int0 = 7) {
+    if_sethide(48758807);
+}
+if_sethide(48758807);
+def_int $int4 = 4120;
+def_int $int5 = 4125;
+if ($int0 = 0) {
+    if_setcolour(48758890);
+    if_setonclick;
+    if_setonmouseover;
+    if_setonmouseleave;
+}
+if_setcolour(48758890);
+if_setonclick;
+if_setonmouseover;
+if_setonmouseleave;
+if ($int0 = 6) {
+    ~script_2595(0);
+    if ($int2 = 1) {
+        ~script_3387(get_clientopt, getwindowmode, ~script_2692(get_clientopt), ~script_2692(get_clientopt), 0);
+    }
+    if_sethide(48758834);
+    %varc_int174 = 13;
+} else {
+    if (%varc_int1090 = 6) {
+        if ($int0 ! 5) {
+            if_sethide(48758807);
+        }
+    }
+    if_sethide(48758834);
+    op2427;
+    op2427;
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $str0 = "";
+def_int $int8 = 3793;
+if ($int0 = 9) {
+    $int6 = if_getwidth;
+    $int7 = calc(paraheight(if_gettext, 3793) * 14 + 5);
+    if_setsize($int7, 0, 0, 48758860);
+    $str0 = if_gettext;
+    $int7 = calc(if_gety + $int7 + 6);
+    if (string_length($str0) > 0) {
+        if_setposition($int7, 1, 0, 48758861);
+        if_setsize(if_getheight, 0, 0, 48758861);
+        if_settext("<u=c8c8c8>" + $str0 + "</u>");
+        if_setonmouseover;
+        if_setonmouseleave;
+        if_sethide(48758861);
+        $int7 = calc(48758861 + if_getheight + 6);
+    } else {
+        if_setposition(0, 1, 0, 48758861);
+        if_setonmouseover;
+        if_setonmouseleave;
+        if_setonclick;
+        if_sethide(48758861);
+        if_settext("");
+    }
+    if_setsize(if_getheight, 0, 0, 48758863);
+    if_setsize(calc(48758863 + if_getheight + 11), 0, 0, 48758835);
+    if_sethide(48758835);
+} else {
+    if_sethide(48758835);
+    if_setposition(0, 1, 0, 48758861);
+    if_setonmouseover;
+    if_setonmouseleave;
+    if_setonclick;
+    if_sethide(48758861);
+    if_settext("");
+    if_settext("");
+    if_setonclick;
+}
+if ($int0 = 10) {
+    %varc_int174 = 11;
+    if_sethide(48758836);
+} else {
+    if_sethide(48758836);
+    if_setonclick;
+    if_setonclick;
+}
+if ($int0 ! 9) {
+    if ($int0 ! 10) {
+        %varc_int1090 = $int0;
+    }
+}
+if ($int0 = 12) {
+    %varc_str32 = %varc_str122;
+    %varc_str33 = %varc_str124;
+    %varc_str122 = "";
+    %varc_str124 = "";
+    %varc_str125 = "";
+    if_settext(%varc_str32);
+    if_settext(~script_2949(%varc_str33));
+    %varc_int174 = 4;
+    %varc_int175 = clientclock;
+    %varc_int1099 = string_length(~script_2949(%varc_str33));
+}
+return;

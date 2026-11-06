@@ -1,0 +1,30 @@
+[clientscript,script_102](string $str0)(int, int, int, int, int, int, int, int, int, component, component, int, component, int, component, int, int, int, int, component, int, int, int, component, int, int, component, int, component, int, int, component, string, string, string, string, string, string, string)
+if (%varc_int5 > 1) {
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(48889925);
+}
+if_settextfont(49283076);
+if_settextfont(49283077);
+if_setsize(20, 1, 1, 49283076);
+if_setsize(20, 1, 0, 49283077);
+if_setposition(0, 1, 0, 49283076);
+if_setposition(0, 1, 2, 49283077);
+if_sethide(49283075);
+if_sethide(49283079);
+if_sethide(49283080);
+if_settext($str0);
+if_settext("Click here to continue");
+%varc_int5 = 1;
+if_setonclick;
+if_setonkey;
+if_setcolour(49283077);
+if_setonmouserepeat;
+if_setonmouseleave;
+~script_1188;
+if_sethide(49283078);
+if_setontimer;
+if_setonclick;
+op2424;
+return(497, 497, 0, 0, 0, 0, 0, 1, 1, 49283076, 49283077, 101, 49283075, -1, 49283077, 128, 45, -2147483645, 16777215, 49283077, 45, -2147483645, 128, 49283077, 1, -1, 49283077, -1, 49283077, 3450, 1, 49283077, "", "", "Ii", "Ii", "", "", "i");

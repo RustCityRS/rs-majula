@@ -1,0 +1,25 @@
+; id: 3088
+int_param_count=1
+string_param_count=2
+long_param_count=0
+local_int_count=1
+local_string_count=2
+local_long_count=0
+
+    0: push_string_local 0
+    1: push_constant_string ""
+    2: compare 0
+    3: push_constant_int 0
+    4: branch_not 1
+    5: branch 10
+    6: push_string_local 1
+    7: push_constant_string ""
+    8: compare 0
+    9: push_constant_int 0
+   10: branch_not 1
+   11: branch 4
+   12: push_string_local 0
+   13: push_string_local 1
+   14: push_int_local 0
+   15: op5400 0
+   16: return 0

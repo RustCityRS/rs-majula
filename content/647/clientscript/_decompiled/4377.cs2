@@ -1,0 +1,33 @@
+[clientscript,script_4377](component, component, int, int, int, int)
+if (%varp2134 = %varc_int1499) {
+    if_settext("You have voted.");
+} else {
+    if_settext("You have not yet voted." + "<br>" + "How would you like to vote?");
+}
+if (%varbit9151 = 0) {
+    if_settext("Results of last vote:");
+} else {
+    if (%varbit9154 = 1) {
+        if_settext("Vote open for less than a minute.");
+    }
+    if_settext("Vote open for less than " + tostring(%varbit9154) + " minutes.");
+}
+def_int $int0 = add(%varbit9149, %varbit9150);
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($int0 > 0) {
+    if ($int0 = %varbit9149) {
+        $int1 = 100;
+    }
+    if ($int0 = %varbit9150) {
+        $int2 = 100;
+    }
+    $int1 = calc(100 * %varbit9149 / $int0);
+    if (%varbit9150 = 0) {
+        $int2 = 0;
+    }
+    $int2 = sub(100, $int1);
+}
+if_settext(tostring(%varbit9149));
+if_settext(tostring(%varbit9150));
+return(72155143, 72155144, ~script_4542($int1, 72155195, 72155200), ~script_4542($int1, 72155195, 72155200), ~script_4542($int2, 72155205, 72155210), ~script_4542($int2, 72155205, 72155210));

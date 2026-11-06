@@ -1,0 +1,38 @@
+[clientscript,script_2120](int $int0, int $int1, int $int2, int $int3, int $int4)(int, int, int, int, int, int, int, int, string, string)
+if ($int0 ! 1) {
+    return;
+}
+def_int $int5 = 0;
+if ($int5 < inv_size(ame_rewards)) {
+    if (cc_find($int1, multiply($int5, 7)) = 1) {
+        if ($int5 = $int2) {
+            cc_settrans(100);
+        }
+        cc_settrans(200);
+    }
+    $int5 = add($int5, 1);
+}
+if_settext("Confirm:" + "<br>");
+cc_deleteall($int3);
+def_int $int6 = 833;
+$int5 = 0;
+if ($int5 < inv_size(ame_rewards)) {
+    if ($int5 = $int2) {
+        cc_setposition(0, $int3, 5, $int5);
+        cc_setsize(90, 56, 0, 0);
+        cc_setposition2(0, 0, 0, 0);
+        cc_setgraphic($int6);
+        cc_sethide(0);
+        cc_setonmouseleave;
+        $int6 = 834;
+        cc_setonmouseover;
+        cc_setop(1, "Confirm");
+        return(688, -2147483645, -2147483643, $int6, 688, -2147483645, -2147483643, $int6, "Iid", "Iid");
+    }
+    cc_setposition(0, $int3, 3, $int5);
+    cc_setposition2(-1, -1, 0, 0);
+    cc_setsize(0, 0, 0, 0);
+    cc_sethide(1);
+    $int5 = add($int5, 1);
+}
+return;

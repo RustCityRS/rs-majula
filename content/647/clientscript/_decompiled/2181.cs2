@@ -1,0 +1,7 @@
+[clientscript,script_2181]
+def_int $int0 = 0;
+if ($int0 <= %varc_int273) {
+    ~script_2180($int0);
+    $int0 = add($int0, 1);
+}
+return;

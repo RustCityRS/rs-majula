@@ -1,0 +1,17 @@
+[clientscript,script_3976](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+~script_41(69206179);
+%varc_int1416 = $int1;
+if_sethide(69206108);
+if_sethide(69206110);
+if_sethide(69206141);
+if_sethide(69206138);
+if (~script_3999($int0) = 1) {
+    if (%varbit8588 ! 4094) {
+        return;
+    }
+} else {
+}
+return;

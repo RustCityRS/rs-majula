@@ -1,0 +1,76 @@
+; id: 769
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 111
+    1: push_constant_int 111
+    2: push_constant_int 1283
+    3: push_var 448
+    4: enum 0
+    5: pop_int_local 0
+    6: push_int_local 0
+    7: push_constant_int 526
+    8: branch_equals 1
+    9: branch 4
+   10: push_constant_string "0"
+   11: push_constant_int 43384898
+   12: if_settext 0
+   13: return 0
+   14: push_constant_int 93
+   15: push_int_local 0
+   16: inv_total 0
+   17: pop_int_local 1
+   18: push_int_local 1
+   19: push_constant_int 0
+   20: branch_greater_than 1
+   21: branch 40
+   22: push_int_local 1
+   23: push_constant_int 1000000
+   24: branch_greater_than 1
+   25: branch 12
+   26: push_int_local 1
+   27: push_constant_int 1000000
+   28: div 0
+   29: pop_int_local 1
+   30: push_int_local 1
+   31: tostring 0
+   32: push_constant_string "M"
+   33: join_string 2
+   34: push_constant_int 43384898
+   35: if_settext 0
+   36: return 0
+   37: branch 23
+   38: push_int_local 1
+   39: push_constant_int 1000
+   40: branch_greater_than 1
+   41: branch 12
+   42: push_int_local 1
+   43: push_constant_int 1000
+   44: div 0
+   45: pop_int_local 1
+   46: push_int_local 1
+   47: tostring 0
+   48: push_constant_string "K"
+   49: join_string 2
+   50: push_constant_int 43384898
+   51: if_settext 0
+   52: return 0
+   53: branch 7
+   54: push_constant_int 93
+   55: push_int_local 0
+   56: inv_total 0
+   57: tostring 0
+   58: push_constant_int 43384898
+   59: if_settext 0
+   60: return 0
+   61: branch 4
+   62: push_constant_string "0"
+   63: push_constant_int 43384898
+   64: if_settext 0
+   65: return 0
+   66: return 0
+   67: return 0

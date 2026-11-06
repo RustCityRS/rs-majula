@@ -1,0 +1,25 @@
+[clientscript,script_3296](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = sub($int1, if_getheight);
+if ($int5 = 0) {
+    $int5 = 1;
+}
+if ($int3 < 0) {
+    $int3 = 0;
+}
+if ($int3 > $int5) {
+    $int3 = $int5;
+}
+if_setscrollpos($int3, $int1);
+if_setscrollpos($int3, $int2);
+def_int $int6 = 0;
+if ($int4 = 1) {
+    $int6 = calc(if_getheight - 32 - cc_getheight);
+    cc_setposition2(0, add(16, scale($int3, $int5, $int6)), 0, 0);
+    if (cc_find($int0, 2) = 1) {
+        cc_setposition2(0, cc_gety, 0, 0);
+    }
+    if (cc_find($int0, 3) = 1) {
+        cc_setposition2(0, calc(cc_gety + cc_getheight - 5), 0, 0);
+    }
+}
+return;

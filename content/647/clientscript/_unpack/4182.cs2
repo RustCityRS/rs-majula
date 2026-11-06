@@ -1,0 +1,49 @@
+; id: 4182
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varbit 8857
+    1: tostring 0
+    2: push_constant_string "/"
+    3: push_constant_int 4000
+    4: tostring 0
+    5: join_string 3
+    6: push_constant_int 70254645
+    7: if_settext 0
+    8: push_varbit 8859
+    9: tostring 0
+   10: push_constant_string "/"
+   11: push_constant_int 4000
+   12: tostring 0
+   13: join_string 3
+   14: push_constant_int 70254649
+   15: if_settext 0
+   16: push_varbit 8862
+   17: tostring 0
+   18: push_constant_string "/"
+   19: push_constant_int 4000
+   20: tostring 0
+   21: join_string 3
+   22: push_constant_int 70254653
+   23: if_settext 0
+   24: push_varbit 8863
+   25: tostring 0
+   26: push_constant_string "/"
+   27: push_constant_int 4000
+   28: tostring 0
+   29: join_string 3
+   30: push_constant_int 70254657
+   31: if_settext 0
+   32: push_varbit 8865
+   33: tostring 0
+   34: push_constant_string "/"
+   35: push_constant_int 8000
+   36: tostring 0
+   37: join_string 3
+   38: push_constant_int 70254641
+   39: if_settext 0
+   40: return 0

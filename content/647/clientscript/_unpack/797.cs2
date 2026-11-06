@@ -1,0 +1,20 @@
+; id: 797
+int_param_count=5
+string_param_count=5
+long_param_count=0
+local_int_count=5
+local_string_count=5
+local_long_count=0
+
+    0: push_int_local 0
+    1: push_int_local 1
+    2: push_int_local 2
+    3: push_string_local 0
+    4: push_string_local 1
+    5: push_string_local 2
+    6: push_string_local 3
+    7: push_string_local 4
+    8: push_int_local 3
+    9: push_int_local 4
+   10: gosub_with_params 798
+   11: return 0

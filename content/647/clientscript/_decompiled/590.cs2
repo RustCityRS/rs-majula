@@ -1,0 +1,12 @@
+[clientscript,script_590](int $int0, int $int1)
+if ($int1 = 1) {
+    %varp1112 = $int0;
+    %varp1109 = -1;
+    if (stockmarket_isempty($int0) = 1) {
+        %varp1113 = -1;
+        %varp1111 = 1;
+        %varp1110 = 0;
+    }
+    ~script_621;
+}
+return;

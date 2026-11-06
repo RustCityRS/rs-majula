@@ -1,0 +1,16 @@
+; id: 3404
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 59572285
+    1: if_getheight 0
+    2: push_constant_int 59572286
+    3: if_getheight 0
+    4: sub 0
+    5: push_constant_int 1
+    6: gosub_with_params 3403
+    7: return 0

@@ -1,0 +1,16 @@
+[clientscript,script_6](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, int $int12, string $str0, string $str1)(stat, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, stat, int, int, int, int, int, int, int, int, int, int, int, int, stat, int, int, string, string)
+if (map_members = 0) {
+    if ($int0 = 12648496) {
+        $str0 = "Lumbridge Home Teleport";
+    }
+}
+if_setopbase;
+if_setonmouserepeat;
+if_setonmouseleave;
+if (if_gettargetmask($int0) ! 0) {
+    if_setontargetenter;
+    op2406;
+}
+if_setoninvtransmit;
+if_setonstattransmit;
+return(agility, $int0, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, 93, 1, $int0, agility, $int0, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, magic, 1, $int0, "IddioioioioiY", "IddioioioioiY");

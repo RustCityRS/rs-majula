@@ -1,0 +1,22 @@
+[clientscript,script_4552](int, int, int, int)
+if_settext("Friends List" + "<br>" + "RuneScape " + tostring(active_toplevelinterface));
+op2420;
+if_setscrollsize(0, 0, 36044811);
+if_setscrollpos(0, 36044811);
+def_int $int0 = 36044800;
+cc_deleteall($int0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($int2 < 200) {
+    $int1 = calc($int2 * 15 + 5);
+    if (mod($int2, 2) ! 0) {
+        cc_setposition(0, $int0, 3, if_getchildcount($int0));
+        cc_setsize(16384, 15, 2, 0);
+        cc_setposition2(0, $int1, 0, 0);
+        cc_setcolour(2302496);
+        cc_setfill(1);
+        cc_settrans(128);
+    }
+    $int2 = add($int2, 1);
+}
+return(~script_125(%varc_int1036), ~script_125(%varc_int1036), ~script_125(%varc_int1036), ~script_125(%varc_int1036));

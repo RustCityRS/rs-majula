@@ -1,0 +1,170 @@
+[clientscript,script_2260](int $int0)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, string, string, string, string, string, string, string)
+def_int $int1 = if_getwidth;
+def_int $int2 = if_getheight;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 2987;
+def_int $int7 = 2988;
+if (map_members = 1) {
+    if (%varc_int1320 = 2) {
+        $int6 = 2989;
+        $int7 = 2990;
+    } else {
+        if (%varc_int1320 = 3) {
+            $int6 = 2991;
+            $int7 = 2992;
+        }
+        if (%varc_int1320 = 4) {
+            $int6 = 2993;
+            $int7 = 2994;
+        }
+        $int6 = 2987;
+        $int7 = 2988;
+    }
+} else {
+    if (%varc_int1320 = 2) {
+        $int6 = 2997;
+        $int7 = 2998;
+    }
+    if (%varc_int1320 = 3) {
+        $int6 = 2999;
+        $int7 = 3000;
+    }
+    if (%varc_int1320 = 4) {
+        $int6 = 3001;
+        $int7 = 3002;
+    }
+    $int6 = 2995;
+    $int7 = 2996;
+}
+cc_deleteall($int0);
+cc_deleteall(62652441);
+cc_setposition(0, $int0, 4, $int3);
+$int3 = add($int3, 1);
+cc_setsize(31, 12, 0, 0);
+cc_setposition2(0, 0, 0, 0);
+cc_settextfont(494);
+cc_settextalign(0, 1, 0);
+cc_settext("Resources:");
+cc_setcolour(13015809);
+cc_settextshadow(1);
+cc_setposition(0, $int0, 5, $int3);
+$int3 = add($int3, 1);
+cc_setsize(160, 12, 0, 0);
+cc_setposition2(0, 7, 0, 0);
+cc_setgraphic(1074);
+$int5 = add($int5, 20);
+def_int $int8 = $int3;
+if (sub($int3, $int8) < multiply(enum_getoutputcount($int6), 5)) {
+    cc_setposition(0, $int0, 5, $int3);
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int4, $int5, 0, 0);
+    cc_setgraphic(2205);
+    cc_setopbase("<col=ff981f>" + oc_name(enum(105, 79, $int6, calc($int3 - $int8 / 5))) + "</col>");
+    cc_setop(1, "Info");
+    cc_setop(2, "Buy 1");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setop(5, "Buy 50");
+    cc_setop(6, "Buy 250");
+    cc_setop(10, "Examine");
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_setposition(1, $int0, 5, add($int3, 1));
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int4, $int5, 0, 0);
+    cc_setgraphic(2206);
+    cc_sethide(1);
+    cc_setposition(add($int3, 1), $int0, 5, add($int3, 2));
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(add($int4, 6), add($int5, 4), 0, 0);
+    cc_setobject_nonum(enum(105, 79, $int6, calc($int3 - $int8 / 5)), 1);
+    cc_setgraphicshadow;
+    cc_setoutline;
+    cc_setposition(1, $int0, 5, add($int3, 3));
+    cc_setsize(12, 12, 0, 0);
+    cc_setposition2(add($int4, 2), add($int5, 38), 0, 0);
+    cc_setgraphic(2181);
+    cc_setposition(3153952, $int0, 4, add($int3, 4));
+    cc_setsize(31, 12, 0, 0);
+    cc_setposition2(add($int4, 13), add($int5, 39), 0, 0);
+    cc_settextfont(494);
+    cc_settextalign(2, 1, 0);
+    cc_settext(~script_940(~script_2262(enum(105, 79, $int6, calc($int3 - $int8 / 5)))));
+    cc_setcolour(14869154);
+    cc_settextshadow(1);
+    $int4 = add($int4, 50);
+    if (add($int4, 48) > $int1) {
+        $int4 = 0;
+        $int5 = add($int5, 54);
+    }
+    $int3 = add($int3, 5);
+}
+if ($int4 ! 0) {
+    $int4 = 0;
+    $int5 = add($int5, 52);
+}
+cc_setposition(0, $int0, 4, $int3);
+$int3 = add($int3, 1);
+cc_setsize(31, 12, 0, 0);
+cc_setposition2(0, add($int5, 10), 0, 0);
+cc_settextfont(494);
+cc_settextalign(0, 1, 0);
+cc_settext("Tools:");
+cc_setcolour(13015809);
+cc_settextshadow(1);
+cc_setposition(0, $int0, 5, $int3);
+$int3 = add($int3, 1);
+cc_setsize(160, 12, 0, 0);
+cc_setposition2(0, add($int5, 17), 0, 0);
+cc_setgraphic(1074);
+$int5 = add($int5, 30);
+$int8 = $int3;
+if (sub($int3, $int8) < multiply(enum_getoutputcount($int7), 5)) {
+    cc_setposition(0, $int0, 5, $int3);
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int4, $int5, 0, 0);
+    cc_setgraphic(2205);
+    cc_setopbase("<col=ff981f>" + oc_name(enum(105, 79, $int7, calc($int3 - $int8 / 5))) + "</col>");
+    cc_setop(1, "Info");
+    cc_setop(2, "Buy 1");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setop(5, "Buy 50");
+    cc_setop(6, "Buy 250");
+    cc_setop(10, "Examine");
+    cc_setonmouseover;
+    cc_setonmouseleave;
+    cc_setposition(1, $int0, 5, add($int3, 1));
+    cc_setsize(48, 52, 0, 0);
+    cc_setposition2($int4, $int5, 0, 0);
+    cc_setgraphic(2206);
+    cc_sethide(1);
+    cc_setposition(add($int3, 1), $int0, 5, add($int3, 2));
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition2(add($int4, 6), add($int5, 4), 0, 0);
+    cc_setobject_nonum(enum(105, 79, $int7, calc($int3 - $int8 / 5)), 1);
+    cc_setgraphicshadow;
+    cc_setoutline;
+    cc_setposition(1, $int0, 5, add($int3, 3));
+    cc_setsize(12, 12, 0, 0);
+    cc_setposition2(add($int4, 2), add($int5, 38), 0, 0);
+    cc_setgraphic(2181);
+    cc_setposition(3153952, $int0, 4, add($int3, 4));
+    cc_setsize(31, 12, 0, 0);
+    cc_setposition2(add($int4, 13), add($int5, 39), 0, 0);
+    cc_settextfont(494);
+    cc_settextalign(2, 1, 0);
+    cc_settext(~script_940(~script_2262(enum(105, 79, $int7, calc($int3 - $int8 / 5)))));
+    cc_setcolour(14869154);
+    cc_settextshadow(1);
+    $int4 = add($int4, 50);
+    if (add($int4, 48) > $int1) {
+        $int4 = 0;
+        $int5 = add($int5, 54);
+    }
+    $int3 = add($int3, 5);
+}
+if_setscrollsize(0, add($int5, 52), $int0);
+return(~script_31(62652441, $int0, 792, 789, 790, 791, 773, 788));

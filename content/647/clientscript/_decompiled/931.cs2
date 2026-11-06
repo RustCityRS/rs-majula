@@ -1,0 +1,44 @@
+[clientscript,script_931](int $int0)(int)
+def_int $int1 = oc_weight(picture_770);
+if ($int1 = -1) {
+    return(1);
+}
+if ($int0 < oc_weight(dramen_branch)) {
+    return(0);
+}
+$int1 = oc_weight(dramen_staff);
+if ($int1 = -1) {
+    return(1);
+}
+if ($int0 < oc_weight(perfect__ring)) {
+    return(0);
+}
+$int1 = oc_weight(perfect__necklace);
+if ($int1 = -1) {
+    return(1);
+}
+if ($int0 < oc_weight(cooking_gauntlets)) {
+    return(0);
+}
+$int1 = oc_weight(goldsmith_gauntlets);
+if ($int1 = -1) {
+    return(1);
+}
+if ($int0 < oc_weight(chaos_gauntlets)) {
+    return(0);
+}
+$int1 = oc_weight(family_gauntlets);
+if ($int1 = -1) {
+    return(1);
+}
+if ($int0 < oc_weight(crest_part)) {
+    return(0);
+}
+$int1 = oc_weight(caleb_crest);
+if ($int1 = -1) {
+    return(1);
+}
+if ($int0 < oc_weight(johnathon_crest)) {
+    return(0);
+}
+return(1);

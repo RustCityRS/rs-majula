@@ -1,0 +1,12 @@
+[clientscript,script_2094]
+if (%varc_int654 < 100) {
+    %varc_int654 = add(%varc_int654, 1);
+}
+if (%varc_int654 = 50) {
+    if_sethide(54657080);
+}
+if (%varc_int654 = 100) {
+    if_sethide(54657080);
+    %varc_int654 = 0;
+}
+return;

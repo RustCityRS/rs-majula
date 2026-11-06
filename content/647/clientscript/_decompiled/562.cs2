@@ -1,0 +1,5 @@
+[clientscript,script_562](int $int0)
+if (if_getgraphic($int0) = 5455) {
+    if_setgraphic($int0);
+}
+return;

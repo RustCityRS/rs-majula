@@ -1,0 +1,4 @@
+[clientscript,script_4263](int $int0, int $int1, int $int2)(int, int)
+if_setposition($int2, 0, 0, $int0);
+if_sethide($int0);
+return($int1, 0);

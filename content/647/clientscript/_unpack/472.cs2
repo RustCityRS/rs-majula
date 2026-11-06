@@ -1,0 +1,43 @@
+; id: 472
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 14
+    1: stat_base 0
+    2: push_constant_int 25
+    3: branch_less_than 1
+    4: branch 10
+    5: push_constant_string "<col=c80000>"
+    6: push_constant_string "A Mining level of "
+    7: push_constant_int 25
+    8: tostring 0
+    9: push_constant_string " is required."
+   10: push_constant_string "</col>"
+   11: join_string 5
+   12: push_int_local 0
+   13: if_settext 0
+   14: return 0
+   15: push_varbit 2086
+   16: push_int_local 1
+   17: branch_less_than 1
+   18: branch 9
+   19: push_constant_string "<col=c80000>"
+   20: push_int_local 1
+   21: tostring 0
+   22: push_constant_string " Commendations required."
+   23: push_constant_string "</col>"
+   24: join_string 4
+   25: push_int_local 0
+   26: if_settext 0
+   27: branch 6
+   28: push_int_local 1
+   29: tostring 0
+   30: push_constant_string " Commendations."
+   31: join_string 2
+   32: push_int_local 0
+   33: if_settext 0
+   34: return 0

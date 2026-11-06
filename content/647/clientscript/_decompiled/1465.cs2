@@ -1,0 +1,46 @@
+[clientscript,script_1465](component, component, int, int, int, component, int, int, component, int, int, int, component, int, int, component, component, component, string, string, string, string)
+def_string $str0 = "Total number of " + "<col=ba1626>" + "free" + "</col>" + " bank slots used";
+def_string $str1 = "Total number of " + "<col=ba1626>" + "member" + "</col>" + " bank slots used";
+def_string $str2 = "Total number of " + "<col=ba1626>" + "demo" + "</col>" + " bank slots used";
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (~script_3287 = 1) {
+    $int0 = calc(516 - 439 + 1);
+    $int1 = sub(516, $int0);
+} else {
+    $int0 = calc(516 - 439 + 1 - 10);
+    $int1 = calc(516 - 10 - $int0);
+}
+def_int $int2 = %varc_int1038;
+def_int $int3 = sub(%varc_int192, $int2);
+def_int $int4 = calc($int0 - $int2 * -1);
+def_int $int5 = calc($int3 - 439 - 1);
+if_sethide(49938454);
+if_sethide(49938455);
+if ($int5 > 0) {
+    $int2 = add($int2, $int5);
+    $int3 = sub(439, 1);
+    if ($int5 = 1) {
+        $str0 = "Total number of " + "<col=ba1626>" + "free" + "</col>" + " bank slots used" + "<br>" + "<col=ba1626>" + "Note: this includes an overflow of 1 member item" + "</col>";
+    } else {
+        $str0 = "Total number of " + "<col=ba1626>" + "free" + "</col>" + " bank slots used" + "<br>" + "<col=ba1626>" + "Note: this includes an overflow of " + tostring($int5) + " member items" + "</col>";
+    }
+    $str1 = "Total number of " + "<col=ba1626>" + "member" + "</col>" + " bank slots used";
+} else {
+    if ($int4 > 0) {
+        $int3 = add($int3, $int4);
+        $int2 = $int0;
+        $str0 = "Total number of " + "<col=ba1626>" + "free" + "</col>" + " bank slots used";
+        if ($int4 = 1) {
+            $str1 = "Total number of " + "<col=ba1626>" + "member" + "</col>" + " bank slots used" + "<br>" + "<col=ba1626>" + "Note: this includes an overflow of 1 free item" + "</col>";
+        }
+        $str1 = "Total number of " + "<col=ba1626>" + "member" + "</col>" + " bank slots used" + "<br>" + "<col=ba1626>" + "Note: this includes an overflow of " + tostring($int4) + " free items" + "</col>";
+    }
+}
+if_settext(tostring($int2));
+if_settext(tostring($int3));
+if_setonmouserepeat;
+if_setonmouserepeat;
+if_settext(tostring($int0));
+if_settext(tostring($int1));
+return(49938461, 49938463, 1160, -2147483645, -1, 49938551, 25, 150, 49938461, 1160, -2147483645, -1, 49938551, 25, 150, 49938463, 49938462, 49938464, $str0, "IiIsii", $str1, "IiIsii");

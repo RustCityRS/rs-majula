@@ -1,0 +1,14 @@
+[clientscript,script_1671](int $int0, int $int1)
+def_string $str0 = "Empty display";
+switch ($int1) {
+    case 0:
+        if_setonmouserepeat;
+    case 1:
+        if_setonmouserepeat;
+    case 2:
+        if_setonmouserepeat;
+    case 3:
+        if_setonmouserepeat;
+    default:
+}
+return;

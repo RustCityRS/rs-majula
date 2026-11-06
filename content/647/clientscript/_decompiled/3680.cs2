@@ -1,0 +1,63 @@
+[clientscript,script_3680]
+~script_41(12255248);
+%varc_int1 = 0;
+def_int $int0 = -1;
+if (if_find(12255236) = 1) {
+    $int0 = cc_getparam(1133);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $str0 = "";
+def_int $int3 = string_length(%varc_str196);
+def_int $int4 = 5;
+if ($int0 ! -1) {
+    if (cc_find(12255233, multiply($int0, 2)) = 1) {
+        if (cc_find(12255233, calc($int0 * 2 + 1)) = 1) {
+            cc_clearops;
+            cc_clearops;
+            $str0 = lowercase(cc_gettext);
+            if (string_length($str0) > 0) {
+                if (~script_837($int0) = 1) {
+                    if ($int3 = 0) {
+                        cc_setop(2, "Unlock hint");
+                        ~script_3681($int0);
+                        cc_sethide(0);
+                        cc_sethide(0);
+                        cc_setposition2(15, $int4, 0, 0);
+                        cc_setposition2(2, add($int4, 1), 0, 0);
+                        $int4 = add($int4, 15);
+                    }
+                    cc_sethide(1);
+                    cc_sethide(1);
+                    $int1 = add($int1, 1);
+                } else {
+                    if ($int3 = 0) {
+                        cc_setop(2, "Unlock hint");
+                        cc_setcolour(16711680);
+                        cc_setonmouseleave;
+                        cc_setonop(1);
+                        cc_sethide(0);
+                        cc_setposition2(15, $int4, 0, 0);
+                        cc_setposition2(2, add($int4, 1), 0, 0);
+                        $int4 = add($int4, 15);
+                    }
+                    cc_sethide(1);
+                    cc_sethide(1);
+                }
+                $int2 = add($int2, 1);
+            }
+            $int0 = cc_getparam(1133);
+        }
+    } else {
+        $int0 = -1;
+    }
+}
+if_setscrollsize(167, add(5, $int4), 12255233);
+~script_72(12255234, 12255233, %varc_int88);
+if_settext("Unlocked:" + "<br>" + tostring($int1) + " / " + tostring($int2));
+if ($int4 = 5) {
+    if_sethide(12255250);
+} else {
+    if_sethide(12255250);
+}
+return;

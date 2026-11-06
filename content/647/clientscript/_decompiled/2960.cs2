@@ -1,0 +1,18 @@
+[clientscript,script_2960](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0)
+if ($int0 ! -1) {
+    if ($int4 = 1) {
+        if_setgraphic($int0);
+    }
+    if_setgraphic($int0);
+}
+if ($int1 ! -1) {
+    if ($int4 = 1) {
+        if_settext($str0);
+        if_setcolour($int2);
+        if_setsize(if_getheight, 0, 0, $int1);
+    }
+    if_settext($str0);
+    if_setcolour($int2);
+    if_setsize(if_getheight, 0, 0, $int1);
+}
+return;

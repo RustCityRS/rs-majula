@@ -1,0 +1,90 @@
+; id: 4552
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=3
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Friends List"
+    1: push_constant_string "<br>"
+    2: push_constant_string "RuneScape "
+    3: op3318 0
+    4: tostring 0
+    5: join_string 4
+    6: push_constant_int 36044819
+    7: if_settext 0
+    8: push_constant_int 124
+    9: push_constant_string ""
+   10: push_constant_int 36044806
+   11: op2420 0
+   12: push_constant_int 0
+   13: push_constant_int 0
+   14: push_constant_int 36044811
+   15: op2120 0
+   16: push_constant_int 0
+   17: push_constant_int 0
+   18: push_constant_int 36044811
+   19: if_setscrollpos 0
+   20: push_constant_int 36044812
+   21: push_constant_int 36044811
+   22: push_constant_int 5666
+   23: push_constant_int 5663
+   24: push_constant_int 5664
+   25: push_constant_int 5665
+   26: push_constant_int 5686
+   27: push_constant_int 5685
+   28: gosub_with_params 31
+   29: push_constant_int 36044800
+   30: pop_int_local 0
+   31: push_int_local 0
+   32: op152 0
+   33: push_constant_int 0
+   34: pop_int_local 1
+   35: push_constant_int 0
+   36: pop_int_local 2
+   37: push_int_local 2
+   38: push_constant_int 200
+   39: branch_less_than 1
+   40: branch 38
+   41: push_int_local 2
+   42: push_constant_int 15
+   43: multiply 0
+   44: push_constant_int 5
+   45: add 0
+   46: pop_int_local 1
+   47: push_int_local 2
+   48: push_constant_int 2
+   49: mod 0
+   50: push_constant_int 0
+   51: branch_not 1
+   52: branch 21
+   53: push_int_local 0
+   54: push_constant_int 3
+   55: push_int_local 0
+   56: op2703 0
+   57: cc_setposition 0
+   58: push_constant_int 16384
+   59: push_constant_int 15
+   60: push_constant_int 2
+   61: push_constant_int 0
+   62: cc_setsize 0
+   63: push_constant_int 0
+   64: push_int_local 1
+   65: push_constant_int 0
+   66: push_constant_int 0
+   67: cc_setposition2 0
+   68: push_constant_int 2302496
+   69: cc_setcolour 0
+   70: push_constant_int 1
+   71: cc_setfill 0
+   72: push_constant_int 128
+   73: cc_settrans 0
+   74: push_int_local 2
+   75: push_constant_int 1
+   76: add 0
+   77: pop_int_local 2
+   78: branch -42
+   79: push_varc_int 1036
+   80: gosub_with_params 125
+   81: return 0

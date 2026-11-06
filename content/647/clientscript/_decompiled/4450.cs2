@@ -1,0 +1,8 @@
+[clientscript,script_4450]
+if (hud_test(72744974, -1) = 1) {
+    return;
+}
+if_setontimer;
+if (clanchannel2_find_affined = 1) {
+}
+return;

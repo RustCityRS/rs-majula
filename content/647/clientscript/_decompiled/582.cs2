@@ -1,0 +1,15 @@
+[clientscript,script_582](int $int0)(int, int, int, int, int, int, int, int, int)
+def_int $int1 = if_getwidth;
+def_int $int2 = if_getheight;
+def_int $int3 = sub($int1, 32);
+def_int $int4 = sub($int2, 32);
+def_int $int5 = sub($int1, 64);
+def_int $int6 = sub($int2, 64);
+if ($int5 < 0) {
+    $int5 = 0;
+}
+if ($int6 < 0) {
+    $int6 = 0;
+}
+def_int $int7 = if_getchildcount($int0);
+return(~script_98($int0, $int7, 1136, 7, 7, sub($int1, 14), sub($int2, 14)), ~script_98($int0, add($int7, 1), 958, 0, 0, 32, 32), ~script_98($int0, add($int7, 2), 959, $int3, 0, 32, 32), ~script_98($int0, add($int7, 3), 960, 0, $int4, 32, 32), ~script_98($int0, add($int7, 4), 961, $int3, $int4, 32, 32), ~script_98($int0, add($int7, 5), 954, 32, 0, $int5, 32), ~script_98($int0, add($int7, 6), 955, 0, 32, 32, $int6), ~script_98($int0, add($int7, 7), 956, 32, $int4, $int5, 32), ~script_98($int0, add($int7, 8), 957, $int3, 32, 32, $int6));

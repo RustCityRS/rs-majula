@@ -1,0 +1,16 @@
+; id: 2505
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_string "Limit: "
+    1: gosub_with_params 2687
+    2: push_constant_string ","
+    3: gosub_with_params 46
+    4: join_string 2
+    5: push_int_local 0
+    6: if_settext 0
+    7: return 0

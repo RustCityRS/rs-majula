@@ -1,0 +1,36 @@
+[clientscript,script_3932](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0, string $str1)
+cc_deleteall($int2);
+if_setsize(27, 0, 0, $int2);
+cc_setposition($int4, $int2, 5, if_getchildcount($int2));
+cc_setsize(6, 26, 1, 0);
+cc_setposition2(0, 0, 1, 1);
+cc_settiling;
+cc_setposition(1, $int2, 5, if_getchildcount($int2));
+cc_setsize(26, 26, 0, 0);
+cc_setposition2(0, 0, 0, 1);
+cc_setposition(0, $int2, 5, if_getchildcount($int2));
+cc_setsize(26, 26, 0, 0);
+cc_setposition2(3, 0, 2, 1);
+cc_setposition(0, $int2, 4, if_getchildcount($int2));
+cc_setsize(0, 0, 1, 1);
+cc_setposition2(0, -3, 1, 1);
+cc_settextfont(3793);
+cc_setcolour(15458492);
+cc_settextalign(1, 1, 0);
+cc_settextshadow(0);
+cc_settext($str0);
+~script_3929($int2, $int3, 0);
+if ($int3 = -1) {
+    if_setonmouseleave;
+    if_setonmouseover;
+} else {
+    if_setonmouseleave;
+    if_setonmouseover;
+}
+if ($int0 = 0) {
+    if_setonclick;
+} else {
+    if_setop($int2, $str0);
+    if_setonop;
+}
+return;

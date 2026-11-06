@@ -1,0 +1,53 @@
+[clientscript,script_2223]
+if_openoverlay(48758833, 669);
+if_setgraphic(43843611);
+if_setgraphic(43843612);
+if_setvflip(0, 43843612);
+if_sethflip(1, 43843612);
+if_setgraphic(43843613);
+if_setvflip(0, 43843613);
+if_sethflip(0, 43843613);
+if_setgraphic(43843605);
+if_setvflip(0, 43843605);
+if_sethflip(1, 43843605);
+if_setgraphic(43843610);
+if_setvflip(0, 43843610);
+if_sethflip(0, 43843610);
+def_string $str0 = "";
+def_int $int0 = char_isnumeric(3793);
+if_setsize(if_getheight, 0, 0, 43843591);
+def_int $int1 = char_isnumeric(3793);
+if_setsize(if_getheight, 0, 0, 43843593);
+def_int $int2 = char_isnumeric(3793);
+if_setsize(if_getheight, 0, 0, 43843592);
+def_string $str1 = if_gettext;
+if_settext(append(append(if_gettext, append(" ", append(if_gettext, " "))), if_gettext));
+if_setposition(if_gety, 1, 0, 43843592);
+if_setsize(if_getheight, 0, 0, 43843592);
+if_setposition(if_gety, 0, 0, 43843591);
+if_settext($str1);
+if_setsize(if_getheight, 0, 0, 43843592);
+if_setposition(if_gety, 0, 0, 43843592);
+if_setposition(if_gety, 0, 0, 43843593);
+if (%varc_int1407 < 13) {
+    if_sethide(43843598);
+    if_sethide(43843611);
+    if_sethide(43843597);
+    if_settext("Congratulations, your account has been created successfully!");
+} else {
+    if_sethide(43843598);
+    if_sethide(43843611);
+    if_sethide(43843597);
+    if_settext("Congratulations, your account has been successfully created and your welcome email will arrive shortly!");
+}
+def_string $str2 = "dob";
+def_string $str3 = "set_members_dob.ws";
+if (%varc_int1088 = 1) {
+    $str0 = "Continue To Buy";
+    if_setonclick;
+} else {
+    $str0 = "Continue";
+    if_setonclick;
+}
+~script_1174(8);
+return;

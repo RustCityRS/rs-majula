@@ -1,0 +1,10 @@
+[clientscript,script_2253](int, int)
+if_settext(%varc_str315);
+if (%varc_int1233 > 200) {
+    %varc_int1233 = 200;
+}
+def_int $int0 = %varc_int1233;
+$int0 = calc($int0 * 37 / 40 + 14);
+if_setsize(18, 1, 0, 61931536);
+if_setposition(15, 0, 0, 61931537);
+return($int0, add($int0, 1));

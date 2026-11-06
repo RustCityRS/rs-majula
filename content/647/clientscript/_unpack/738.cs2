@@ -1,0 +1,25 @@
+; id: 738
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=2
+local_long_count=0
+
+    0: push_varc_int 105
+    1: push_constant_int 10
+    2: div 0
+    3: tostring 0
+    4: pop_string_local 0
+    5: push_varc_int 105
+    6: push_constant_int 10
+    7: mod 0
+    8: tostring 0
+    9: pop_string_local 1
+   10: push_string_local 0
+   11: push_constant_int 17629232
+   12: if_settext 0
+   13: push_string_local 1
+   14: push_constant_int 17629233
+   15: if_settext 0
+   16: return 0

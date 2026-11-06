@@ -1,0 +1,8 @@
+[clientscript,script_2369](int $int0, int $int1, int $int2)
+def_int $int3 = if_getscrollx;
+if_setscrollpos(0, 59310093);
+if (59310093 ! if_getscrollx) {
+    if_setgraphic($int0);
+}
+~script_2370;
+return;

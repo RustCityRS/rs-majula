@@ -1,0 +1,62 @@
+[clientscript,script_3498](int $int0, int $int1)
+def_int $int2 = 65142858;
+def_int $int3 = 65142862;
+def_int $int4 = 65142864;
+def_int $int5 = calc(10 + 10 * $int0);
+def_int $int6 = if_gety;
+switch ($int6) {
+    case -22:
+        $int6 = $int0;
+    case -137:
+        $int6 = add($int0, 11);
+    case -222:
+        $int6 = add($int0, 17);
+    case -277:
+        $int6 = add($int0, 29);
+    case -400:
+        $int6 = add($int0, 35);
+    case -500:
+        $int6 = add($int0, 47);
+    default:
+        $int6 = $int0;
+}
+if ($int1 ! 0) {
+    $int6 = $int1;
+}
+sound_synth(synth_8809, 1, 0);
+if_setposition($int5, 0, 0, $int2);
+if_settext(tostring($int6));
+switch ($int0) {
+    case 1:
+        if_settext(if_gettext);
+    case 2:
+        if_settext(if_gettext);
+    case 3:
+        if_settext(if_gettext);
+    case 4:
+        if_settext(if_gettext);
+    case 5:
+        if_settext(if_gettext);
+    case 6:
+        if_settext(if_gettext);
+    case 7:
+        if_settext(if_gettext);
+    case 8:
+        if_settext(if_gettext);
+    case 9:
+        if_settext(if_gettext);
+    case 10:
+        if_settext(if_gettext);
+    case 11:
+        if_settext(if_gettext);
+    case 12:
+        if_settext(if_gettext);
+    case 13:
+        if_settext(if_gettext);
+    case 14:
+        if_settext(if_gettext);
+    case 15:
+        if_settext(if_gettext);
+    default:
+}
+return;

@@ -1,0 +1,739 @@
+; id: 2788
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 1
+    1: switch 0
+    2: branch 670
+    3: push_constant_int -1
+    4: push_constant_int 2287
+    5: push_constant_string "You can see what each prayer does by selecting the Prayer icon on your side interface. Move your mouse over the icon of the prayer you want and a description will be available."
+    6: push_constant_string ""
+    7: return 0
+    8: branch 664
+    9: push_constant_int 1
+   10: push_constant_int 660
+   11: push_constant_int 735
+   12: op4500 0
+   13: push_constant_string "Thick Skin"
+   14: push_constant_string "You can now use the "
+   15: push_constant_string "<col=000080>"
+   16: push_constant_string "Thick Skin"
+   17: push_constant_string "</col>"
+   18: push_constant_string " prayer."
+   19: join_string 5
+   20: return 0
+   21: branch 651
+   22: push_constant_int 4
+   23: push_constant_int 661
+   24: push_constant_int 735
+   25: op4500 0
+   26: push_constant_string "Burst of Strength"
+   27: push_constant_string "You can now use the "
+   28: push_constant_string "<col=000080>"
+   29: push_constant_string "Burst of Strength"
+   30: push_constant_string "</col>"
+   31: push_constant_string " prayer."
+   32: join_string 5
+   33: return 0
+   34: branch 638
+   35: push_constant_int 7
+   36: push_constant_int 662
+   37: push_constant_int 735
+   38: op4500 0
+   39: push_constant_string "Clarity of Thought"
+   40: push_constant_string "You can now use the "
+   41: push_constant_string "<col=000080>"
+   42: push_constant_string "Clarity of Thought"
+   43: push_constant_string "</col>"
+   44: push_constant_string " prayer."
+   45: join_string 5
+   46: return 0
+   47: branch 625
+   48: push_constant_int 8
+   49: push_constant_int 678
+   50: push_constant_int 735
+   51: op4500 0
+   52: push_constant_string "Sharp Eye"
+   53: push_constant_string "You can now use the "
+   54: push_constant_string "<col=000080>"
+   55: push_constant_string "Sharp Eye"
+   56: push_constant_string "</col>"
+   57: push_constant_string " prayer."
+   58: join_string 5
+   59: return 0
+   60: branch 612
+   61: push_constant_int 9
+   62: push_constant_int 679
+   63: push_constant_int 735
+   64: op4500 0
+   65: push_constant_string "Mystic Will"
+   66: push_constant_string "You can now use the "
+   67: push_constant_string "<col=000080>"
+   68: push_constant_string "Mystic Will"
+   69: push_constant_string "</col>"
+   70: push_constant_string " prayer."
+   71: join_string 5
+   72: return 0
+   73: branch 599
+   74: push_constant_int 10
+   75: push_constant_int 663
+   76: push_constant_int 735
+   77: op4500 0
+   78: push_constant_string "Rock Skin"
+   79: push_constant_string "You can now use the "
+   80: push_constant_string "<col=000080>"
+   81: push_constant_string "Rock Skin"
+   82: push_constant_string "</col>"
+   83: push_constant_string " prayer."
+   84: join_string 5
+   85: return 0
+   86: branch 586
+   87: push_constant_int 13
+   88: push_constant_int 664
+   89: push_constant_int 735
+   90: op4500 0
+   91: push_constant_string "Superhuman Strength"
+   92: push_constant_string "You can now use the "
+   93: push_constant_string "<col=000080>"
+   94: push_constant_string "Superhuman Strength"
+   95: push_constant_string "</col>"
+   96: push_constant_string " prayer."
+   97: join_string 5
+   98: return 0
+   99: branch 573
+  100: push_constant_int 16
+  101: push_constant_int 665
+  102: push_constant_int 735
+  103: op4500 0
+  104: push_constant_string "Improved Reflexes"
+  105: push_constant_string "You can now use the "
+  106: push_constant_string "<col=000080>"
+  107: push_constant_string "Improved Reflexes"
+  108: push_constant_string "</col>"
+  109: push_constant_string " prayer."
+  110: join_string 5
+  111: return 0
+  112: branch 560
+  113: push_constant_int 19
+  114: push_constant_int 666
+  115: push_constant_int 735
+  116: op4500 0
+  117: push_constant_string "Rapid Restore"
+  118: push_constant_string "You can now use the "
+  119: push_constant_string "<col=000080>"
+  120: push_constant_string "Rapid Restore"
+  121: push_constant_string "</col>"
+  122: push_constant_string " prayer."
+  123: join_string 5
+  124: return 0
+  125: branch 547
+  126: push_constant_int 22
+  127: push_constant_int 667
+  128: push_constant_int 735
+  129: op4500 0
+  130: push_constant_string "Rapid Heal"
+  131: push_constant_string "You can now use the "
+  132: push_constant_string "<col=000080>"
+  133: push_constant_string "Rapid Heal"
+  134: push_constant_string "</col>"
+  135: push_constant_string " prayer."
+  136: join_string 5
+  137: return 0
+  138: branch 534
+  139: push_constant_int 25
+  140: push_constant_int 668
+  141: push_constant_int 735
+  142: op4500 0
+  143: push_constant_string "Protect Item"
+  144: push_constant_string "You can now use the "
+  145: push_constant_string "<col=000080>"
+  146: push_constant_string "Protect Item"
+  147: push_constant_string "</col>"
+  148: push_constant_string " prayer."
+  149: join_string 5
+  150: return 0
+  151: branch 521
+  152: push_constant_int 26
+  153: push_constant_int 680
+  154: push_constant_int 735
+  155: op4500 0
+  156: push_constant_string "Hawk Eye"
+  157: push_constant_string "You can now use the "
+  158: push_constant_string "<col=000080>"
+  159: push_constant_string "Hawk Eye"
+  160: push_constant_string "</col>"
+  161: push_constant_string " prayer."
+  162: join_string 5
+  163: return 0
+  164: branch 508
+  165: push_constant_int 27
+  166: push_constant_int 681
+  167: push_constant_int 735
+  168: op4500 0
+  169: push_constant_string "Mystic Lore"
+  170: push_constant_string "You can now use the "
+  171: push_constant_string "<col=000080>"
+  172: push_constant_string "Mystic Lore"
+  173: push_constant_string "</col>"
+  174: push_constant_string " prayer."
+  175: join_string 5
+  176: return 0
+  177: branch 495
+  178: push_constant_int 28
+  179: push_constant_int 669
+  180: push_constant_int 735
+  181: op4500 0
+  182: push_constant_string "Steel Skin"
+  183: push_constant_string "You can now use the "
+  184: push_constant_string "<col=000080>"
+  185: push_constant_string "Steel Skin"
+  186: push_constant_string "</col>"
+  187: push_constant_string " prayer."
+  188: join_string 5
+  189: return 0
+  190: branch 482
+  191: push_constant_int 31
+  192: push_constant_int 670
+  193: push_constant_int 735
+  194: op4500 0
+  195: push_constant_string "Ultimate Strength"
+  196: push_constant_string "You can now use the "
+  197: push_constant_string "<col=000080>"
+  198: push_constant_string "Ultimate Strength"
+  199: push_constant_string "</col>"
+  200: push_constant_string " prayer."
+  201: join_string 5
+  202: return 0
+  203: branch 469
+  204: push_constant_int 34
+  205: push_constant_int 671
+  206: push_constant_int 735
+  207: op4500 0
+  208: push_constant_string "Incredible Reflexes"
+  209: push_constant_string "You can now use the "
+  210: push_constant_string "<col=000080>"
+  211: push_constant_string "Incredible Reflexes"
+  212: push_constant_string "</col>"
+  213: push_constant_string " prayer."
+  214: join_string 5
+  215: return 0
+  216: branch 456
+  217: push_constant_int 35
+  218: push_constant_int 684
+  219: push_constant_int 735
+  220: op4500 0
+  221: push_constant_string "Members: Protect from Summoning"
+  222: push_constant_string "Members can now use the "
+  223: push_constant_string "<col=000080>"
+  224: push_constant_string "Protect from Summoning"
+  225: push_constant_string "</col>"
+  226: push_constant_string " prayer."
+  227: join_string 5
+  228: return 0
+  229: branch 443
+  230: push_constant_int 37
+  231: push_constant_int 672
+  232: push_constant_int 735
+  233: op4500 0
+  234: push_constant_string "Protect from Magic"
+  235: push_constant_string "You can now use the "
+  236: push_constant_string "<col=000080>"
+  237: push_constant_string "Protect from Magic"
+  238: push_constant_string "</col>"
+  239: push_constant_string " prayer."
+  240: join_string 5
+  241: return 0
+  242: branch 430
+  243: push_constant_int 40
+  244: push_constant_int 673
+  245: push_constant_int 735
+  246: op4500 0
+  247: push_constant_string "Protect from Missiles"
+  248: push_constant_string "You can now use the "
+  249: push_constant_string "<col=000080>"
+  250: push_constant_string "Protect from Missiles"
+  251: push_constant_string "</col>"
+  252: push_constant_string " prayer."
+  253: join_string 5
+  254: return 0
+  255: branch 417
+  256: push_constant_int 43
+  257: push_constant_int 674
+  258: push_constant_int 735
+  259: op4500 0
+  260: push_constant_string "Protect from Melee"
+  261: push_constant_string "You can now use the "
+  262: push_constant_string "<col=000080>"
+  263: push_constant_string "Protect from Melee"
+  264: push_constant_string "</col>"
+  265: push_constant_string " prayer."
+  266: join_string 5
+  267: return 0
+  268: branch 404
+  269: push_constant_int 44
+  270: push_constant_int 682
+  271: push_constant_int 735
+  272: op4500 0
+  273: push_constant_string "Eagle Eye"
+  274: push_constant_string "You can now use the "
+  275: push_constant_string "<col=000080>"
+  276: push_constant_string "Eagle Eye"
+  277: push_constant_string "</col>"
+  278: push_constant_string " prayer."
+  279: join_string 5
+  280: return 0
+  281: branch 391
+  282: push_constant_int 45
+  283: push_constant_int 683
+  284: push_constant_int 735
+  285: op4500 0
+  286: push_constant_string "Mystic Might"
+  287: push_constant_string "You can now use the "
+  288: push_constant_string "<col=000080>"
+  289: push_constant_string "Mystic Might"
+  290: push_constant_string "</col>"
+  291: push_constant_string " prayer."
+  292: join_string 5
+  293: return 0
+  294: branch 378
+  295: push_constant_int 46
+  296: push_constant_int 675
+  297: push_constant_int 735
+  298: op4500 0
+  299: push_constant_string "Members: Retribution"
+  300: push_constant_string "Members can now use the "
+  301: push_constant_string "<col=000080>"
+  302: push_constant_string "Retribution"
+  303: push_constant_string "</col>"
+  304: push_constant_string " prayer."
+  305: join_string 5
+  306: return 0
+  307: branch 365
+  308: push_constant_int 49
+  309: push_constant_int 676
+  310: push_constant_int 735
+  311: op4500 0
+  312: push_constant_string "Members: Redemption"
+  313: push_constant_string "Members can now use the "
+  314: push_constant_string "<col=000080>"
+  315: push_constant_string "Redemption"
+  316: push_constant_string "</col>"
+  317: push_constant_string " prayer."
+  318: join_string 5
+  319: return 0
+  320: branch 352
+  321: push_constant_int 50
+  322: push_constant_int 888
+  323: push_constant_int 735
+  324: op4500 0
+  325: push_constant_string "Members: Protect Item (curse)"
+  326: push_constant_string "Members can now use the "
+  327: push_constant_string "<col=000080>"
+  328: push_constant_string "Protect Item"
+  329: push_constant_string "</col>"
+  330: push_constant_string " curse (after The Temple at Senntisten)."
+  331: join_string 5
+  332: return 0
+  333: branch 339
+  334: push_constant_int 50
+  335: push_constant_int 889
+  336: push_constant_int 735
+  337: op4500 0
+  338: push_constant_string "Members: Sap Warrior"
+  339: push_constant_string "Members can now use the "
+  340: push_constant_string "<col=000080>"
+  341: push_constant_string "Sap Warrior"
+  342: push_constant_string "</col>"
+  343: push_constant_string " curse (after The Temple at Senntisten)."
+  344: join_string 5
+  345: return 0
+  346: branch 326
+  347: push_constant_int 52
+  348: push_constant_int 677
+  349: push_constant_int 735
+  350: op4500 0
+  351: push_constant_string "Members: Smite"
+  352: push_constant_string "Members can now use the "
+  353: push_constant_string "<col=000080>"
+  354: push_constant_string "Smite"
+  355: push_constant_string "</col>"
+  356: push_constant_string " prayer."
+  357: join_string 5
+  358: return 0
+  359: branch 313
+  360: push_constant_int 52
+  361: push_constant_int 890
+  362: push_constant_int 735
+  363: op4500 0
+  364: push_constant_string "Members: Sap Ranger"
+  365: push_constant_string "Members can now use the "
+  366: push_constant_string "<col=000080>"
+  367: push_constant_string "Sap Ranger"
+  368: push_constant_string "</col>"
+  369: push_constant_string " curse (after The Temple at Senntisten)."
+  370: join_string 5
+  371: return 0
+  372: branch 300
+  373: push_constant_int 54
+  374: push_constant_int 891
+  375: push_constant_int 735
+  376: op4500 0
+  377: push_constant_string "Members: Sap Mage"
+  378: push_constant_string "Members can now use the "
+  379: push_constant_string "<col=000080>"
+  380: push_constant_string "Sap Mage"
+  381: push_constant_string "</col>"
+  382: push_constant_string " curse (after The Temple at Senntisten)."
+  383: join_string 5
+  384: return 0
+  385: branch 287
+  386: push_constant_int 56
+  387: push_constant_int 892
+  388: push_constant_int 735
+  389: op4500 0
+  390: push_constant_string "Members: Sap Spirit"
+  391: push_constant_string "Members can now use the "
+  392: push_constant_string "<col=000080>"
+  393: push_constant_string "Sap Spirit"
+  394: push_constant_string "</col>"
+  395: push_constant_string " curse (after The Temple at Senntisten)."
+  396: join_string 5
+  397: return 0
+  398: branch 274
+  399: push_constant_int 59
+  400: push_constant_int 893
+  401: push_constant_int 735
+  402: op4500 0
+  403: push_constant_string "Members: Berserker"
+  404: push_constant_string "Members can now use the "
+  405: push_constant_string "<col=000080>"
+  406: push_constant_string "Berserker"
+  407: push_constant_string "</col>"
+  408: push_constant_string " curse (after The Temple at Senntisten)."
+  409: join_string 5
+  410: return 0
+  411: branch 261
+  412: push_constant_int 60
+  413: push_constant_int 685
+  414: push_constant_int 735
+  415: op4500 0
+  416: push_constant_string "Members: Chivalry"
+  417: push_constant_string "<br>"
+  418: push_constant_string " (after King's Ransom)"
+  419: join_string 3
+  420: push_constant_string "Members now have the Prayer level required to use the "
+  421: push_constant_string "<col=000080>"
+  422: push_constant_string "Chivalry"
+  423: push_constant_string "</col>"
+  424: push_constant_string " prayer (after King's Ransom)."
+  425: join_string 5
+  426: return 0
+  427: branch 245
+  428: push_constant_int 62
+  429: push_constant_int 894
+  430: push_constant_int 735
+  431: op4500 0
+  432: push_constant_string "Members: Deflect Summoning"
+  433: push_constant_string "Members can now use the "
+  434: push_constant_string "<col=000080>"
+  435: push_constant_string "Deflect Summoning"
+  436: push_constant_string "</col>"
+  437: push_constant_string " curse (after The Temple at Senntisten)."
+  438: join_string 5
+  439: return 0
+  440: branch 232
+  441: push_constant_int 65
+  442: push_constant_int 895
+  443: push_constant_int 735
+  444: op4500 0
+  445: push_constant_string "Members: Deflect Magic"
+  446: push_constant_string "Members can now use the "
+  447: push_constant_string "<col=000080>"
+  448: push_constant_string "Deflect Magic"
+  449: push_constant_string "</col>"
+  450: push_constant_string " curse (after The Temple at Senntisten)."
+  451: join_string 5
+  452: return 0
+  453: branch 219
+  454: push_constant_int 65
+  455: push_constant_int 1005
+  456: push_constant_int 735
+  457: op4500 0
+  458: push_constant_string "Members: Rapid Renewal"
+  459: push_constant_string "<br>"
+  460: push_constant_string " (with 65 Dungeoneering)"
+  461: join_string 3
+  462: push_constant_string "Members can now use the "
+  463: push_constant_string "<col=000080>"
+  464: push_constant_string "Rapid Renewal"
+  465: push_constant_string "</col>"
+  466: push_constant_string " prayer (bought from Daemonheim). (They also need level 65 Dungeoneering.)"
+  467: join_string 5
+  468: return 0
+  469: branch 203
+  470: push_constant_int 68
+  471: push_constant_int 896
+  472: push_constant_int 735
+  473: op4500 0
+  474: push_constant_string "Members: Deflect Missiles"
+  475: push_constant_string "Members can now use the "
+  476: push_constant_string "<col=000080>"
+  477: push_constant_string "Deflect Missiles"
+  478: push_constant_string "</col>"
+  479: push_constant_string " curse (after The Temple at Senntisten)."
+  480: join_string 5
+  481: return 0
+  482: branch 190
+  483: push_constant_int 70
+  484: push_constant_int 686
+  485: push_constant_int 735
+  486: op4500 0
+  487: push_constant_string "Members: Piety"
+  488: push_constant_string "<br>"
+  489: push_constant_string " (after King's Ransom)"
+  490: join_string 3
+  491: push_constant_string "Members now have the Prayer level required to use the "
+  492: push_constant_string "<col=000080>"
+  493: push_constant_string "Piety"
+  494: push_constant_string "</col>"
+  495: push_constant_string " prayer (after King's Ransom)."
+  496: join_string 5
+  497: return 0
+  498: branch 174
+  499: push_constant_int 71
+  500: push_constant_int 897
+  501: push_constant_int 735
+  502: op4500 0
+  503: push_constant_string "Members: Deflect Melee"
+  504: push_constant_string "Members can now use the "
+  505: push_constant_string "<col=000080>"
+  506: push_constant_string "Deflect Melee"
+  507: push_constant_string "</col>"
+  508: push_constant_string " curse (after The Temple at Senntisten)."
+  509: join_string 5
+  510: return 0
+  511: branch 161
+  512: push_constant_int 74
+  513: push_constant_int 1029
+  514: push_constant_int 735
+  515: op4500 0
+  516: push_constant_string "Members: Rigour"
+  517: push_constant_string "<br>"
+  518: push_constant_string " (with 74 Dungeoneering)"
+  519: join_string 3
+  520: push_constant_string "Members can now use the "
+  521: push_constant_string "<col=000080>"
+  522: push_constant_string "Rigour"
+  523: push_constant_string "</col>"
+  524: push_constant_string " prayer (bought from Daemonheim). (They also need level 74 Dungeoneering.)"
+  525: join_string 5
+  526: return 0
+  527: branch 145
+  528: push_constant_int 74
+  529: push_constant_int 898
+  530: push_constant_int 735
+  531: op4500 0
+  532: push_constant_string "Members: Leech Attack"
+  533: push_constant_string "Members can now use the "
+  534: push_constant_string "<col=000080>"
+  535: push_constant_string "Leech Attack"
+  536: push_constant_string "</col>"
+  537: push_constant_string " curse (after The Temple at Senntisten)."
+  538: join_string 5
+  539: return 0
+  540: branch 132
+  541: push_constant_int 76
+  542: push_constant_int 899
+  543: push_constant_int 735
+  544: op4500 0
+  545: push_constant_string "Members: Leech Ranged"
+  546: push_constant_string "Members can now use the "
+  547: push_constant_string "<col=000080>"
+  548: push_constant_string "Leech Ranged"
+  549: push_constant_string "</col>"
+  550: push_constant_string " curse (after The Temple at Senntisten)."
+  551: join_string 5
+  552: return 0
+  553: branch 119
+  554: push_constant_int 77
+  555: push_constant_int 1006
+  556: push_constant_int 735
+  557: op4500 0
+  558: push_constant_string "Members: Augury"
+  559: push_constant_string "<br>"
+  560: push_constant_string " (with 77 Dungeoneering)"
+  561: join_string 3
+  562: push_constant_string "Members can now use the "
+  563: push_constant_string "<col=000080>"
+  564: push_constant_string "Augury"
+  565: push_constant_string "</col>"
+  566: push_constant_string " prayer (bought from Daemonheim). (They also need level 77 Dungeoneering.)"
+  567: join_string 5
+  568: return 0
+  569: branch 103
+  570: push_constant_int 78
+  571: push_constant_int 900
+  572: push_constant_int 735
+  573: op4500 0
+  574: push_constant_string "Members: Leech Magic"
+  575: push_constant_string "Members can now use the "
+  576: push_constant_string "<col=000080>"
+  577: push_constant_string "Leech Magic"
+  578: push_constant_string "</col>"
+  579: push_constant_string " curse (after The Temple at Senntisten)."
+  580: join_string 5
+  581: return 0
+  582: branch 90
+  583: push_constant_int 80
+  584: push_constant_int 901
+  585: push_constant_int 735
+  586: op4500 0
+  587: push_constant_string "Members: Leech Defence"
+  588: push_constant_string "Members can now use the "
+  589: push_constant_string "<col=000080>"
+  590: push_constant_string "Leech Defence"
+  591: push_constant_string "</col>"
+  592: push_constant_string " curse (after The Temple at Senntisten)."
+  593: join_string 5
+  594: return 0
+  595: branch 77
+  596: push_constant_int 82
+  597: push_constant_int 902
+  598: push_constant_int 735
+  599: op4500 0
+  600: push_constant_string "Members: Leech Strength"
+  601: push_constant_string "Members can now use the "
+  602: push_constant_string "<col=000080>"
+  603: push_constant_string "Leech Strength"
+  604: push_constant_string "</col>"
+  605: push_constant_string " curse (after The Temple at Senntisten)."
+  606: join_string 5
+  607: return 0
+  608: branch 64
+  609: push_constant_int 84
+  610: push_constant_int 903
+  611: push_constant_int 735
+  612: op4500 0
+  613: push_constant_string "Members: Leech Energy"
+  614: push_constant_string "Members can now use the "
+  615: push_constant_string "<col=000080>"
+  616: push_constant_string "Leech Energy"
+  617: push_constant_string "</col>"
+  618: push_constant_string " curse (after The Temple at Senntisten)."
+  619: join_string 5
+  620: return 0
+  621: branch 51
+  622: push_constant_int 86
+  623: push_constant_int 904
+  624: push_constant_int 735
+  625: op4500 0
+  626: push_constant_string "Members: Leech Special Attack"
+  627: push_constant_string "Members can now use the "
+  628: push_constant_string "<col=000080>"
+  629: push_constant_string "Leech Special Attack"
+  630: push_constant_string "</col>"
+  631: push_constant_string " curse (after The Temple at Senntisten)."
+  632: join_string 5
+  633: return 0
+  634: branch 38
+  635: push_constant_int 89
+  636: push_constant_int 905
+  637: push_constant_int 735
+  638: op4500 0
+  639: push_constant_string "Members: Wrath"
+  640: push_constant_string "Members can now use the "
+  641: push_constant_string "<col=000080>"
+  642: push_constant_string "Wrath"
+  643: push_constant_string "</col>"
+  644: push_constant_string " curse (after The Temple at Senntisten)."
+  645: join_string 5
+  646: return 0
+  647: branch 25
+  648: push_constant_int 92
+  649: push_constant_int 906
+  650: push_constant_int 735
+  651: op4500 0
+  652: push_constant_string "Members: Soul Split"
+  653: push_constant_string "Members can now use the "
+  654: push_constant_string "<col=000080>"
+  655: push_constant_string "Soul Split"
+  656: push_constant_string "</col>"
+  657: push_constant_string " curse (after The Temple at Senntisten)."
+  658: join_string 5
+  659: return 0
+  660: branch 12
+  661: push_constant_int 95
+  662: push_constant_int 907
+  663: push_constant_int 735
+  664: op4500 0
+  665: push_constant_string "Members: Turmoil"
+  666: push_constant_string "Members can now use the "
+  667: push_constant_string "<col=000080>"
+  668: push_constant_string "Turmoil"
+  669: push_constant_string "</col>"
+  670: push_constant_string " curse (after The Temple at Senntisten)."
+  671: join_string 5
+  672: return 0
+  673: push_constant_int 0
+  674: push_constant_int -1
+  675: push_constant_string ""
+  676: push_constant_string ""
+  677: return 0
+
+switch_0:
+  0 => 1
+  1 => 7
+  2 => 20
+  3 => 33
+  4 => 46
+  5 => 59
+  6 => 72
+  7 => 85
+  8 => 98
+  9 => 111
+  10 => 124
+  11 => 137
+  12 => 150
+  13 => 163
+  14 => 176
+  15 => 189
+  16 => 202
+  17 => 215
+  18 => 228
+  19 => 241
+  20 => 254
+  21 => 267
+  22 => 280
+  23 => 293
+  24 => 306
+  25 => 319
+  26 => 332
+  27 => 345
+  28 => 358
+  29 => 371
+  30 => 384
+  31 => 397
+  32 => 410
+  33 => 426
+  34 => 439
+  35 => 452
+  36 => 468
+  37 => 481
+  38 => 497
+  39 => 510
+  40 => 526
+  41 => 539
+  42 => 552
+  43 => 568
+  44 => 581
+  45 => 594
+  46 => 607
+  47 => 620
+  48 => 633
+  49 => 646
+  50 => 659

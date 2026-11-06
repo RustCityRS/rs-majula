@@ -1,0 +1,15 @@
+[clientscript,script_1745](int)
+if (%varc_int217 < 1) {
+    %varc_int217 = add(%varc_int217, 1);
+    return;
+}
+%varc_int217 = 0;
+if (%varc_int216 = 1) {
+    %varc_int215 = sub(%varc_int215, 9);
+} else {
+    %varc_int215 = add(%varc_int215, 9);
+}
+%varc_int215 = min(%varc_int215, 255);
+%varc_int215 = max(%varc_int215, 0);
+if_settrans(44564482);
+return(%varc_int215);

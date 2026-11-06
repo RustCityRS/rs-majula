@@ -1,0 +1,11 @@
+[clientscript,script_2291](int $int0, int $int1)
+if (~script_2297($int1) = 1) {
+    if (cc_find($int0, $int1) = 1) {
+        cc_setgraphic(181);
+    }
+} else {
+    if (cc_find($int0, $int1) = 1) {
+        cc_setgraphic(180);
+    }
+}
+return;

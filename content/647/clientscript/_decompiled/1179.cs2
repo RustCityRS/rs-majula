@@ -1,0 +1,18 @@
+[clientscript,script_1179]
+if (%varbit7232 = 1) {
+    if (getlanguage = 1) {
+        if_setgraphic(35913728);
+        if_setgraphic(48890082);
+    } else {
+        if_setgraphic(35913728);
+        if_setgraphic(48890082);
+    }
+} else {
+    if (getlanguage = 1) {
+        if_setgraphic(35913728);
+        if_setgraphic(48890082);
+    }
+    if_setgraphic(35913728);
+    if_setgraphic(48890082);
+}
+return;

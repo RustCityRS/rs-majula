@@ -1,0 +1,10 @@
+[clientscript,script_732](int $int0)
+if (%varbit278 = 0) {
+    if_setmodelanim;
+} else {
+    if (%varbit278 = 1) {
+        if_setmodelanim;
+    }
+    if_setmodelanim;
+}
+return;

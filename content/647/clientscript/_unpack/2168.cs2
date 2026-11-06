@@ -1,0 +1,21 @@
+; id: 2168
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: map_members 0
+    1: branch_if_false 1
+    2: branch 3
+    3: push_constant_string "More advanced sorting options are available on a members' world."
+    4: mes 0
+    5: branch 6
+    6: push_var 281
+    7: push_constant_int 1000
+    8: branch_less_than 1
+    9: branch 2
+   10: push_constant_string "More advanced sorting options are available after the Tutorial."
+   11: mes 0
+   12: return 0

@@ -1,0 +1,14 @@
+[clientscript,script_4392](int $int0)
+if (%varp2094 > 0) {
+    if_setmodel_recolour(0, 31690, %varp2094, $int0);
+}
+if (%varp2095 > 0) {
+    if_setmodel_recolour(1, 60362, %varp2095, $int0);
+}
+if (%varp2096 > 0) {
+    if_setmodel_recolour(3, 55246, %varp2096, $int0);
+}
+if (%varp2097 > 0) {
+    if_setmodel_recolour(4, 17358, %varp2097, $int0);
+}
+return;

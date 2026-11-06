@@ -1,0 +1,24 @@
+[clientscript,script_2445](int $int0, int $int1, int $int2, string $str0)(stat, int)
+def_int $int3 = if_getwidth;
+$str0 = escape2(~script_2446($str0));
+cc_setposition(2228233, 2228233, 4, $int1);
+cc_setposition2(0, calc($int0 * 15 + 5), 0, 0);
+def_int $int4 = paraheight($str0, 494);
+cc_setsize(0, multiply($int4, 14), 1, 0);
+cc_setcolour($int2);
+cc_settext($str0);
+cc_settextfont(494);
+cc_settextalign(0, 1, 14);
+cc_settextshadow(1);
+cc_setondrag;
+cc_setondragcomplete;
+if (%varp1439 = $int1) {
+    cc_setop(1, "Unselect");
+} else {
+    cc_setop(1, "Select");
+}
+cc_setop(2, "Edit");
+cc_setop(3, "Colour");
+cc_setop(4, "Delete");
+cc_setdragdeadtime;
+return(mining, add($int0, $int4));

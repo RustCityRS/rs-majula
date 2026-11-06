@@ -1,0 +1,8 @@
+[clientscript,script_747](int $int0, int $int1, string $str0)
+if ($int0 ! 1) {
+    return;
+}
+if (cc_find(1179677, $int1) = 1) {
+    cc_settext($str0);
+}
+return;

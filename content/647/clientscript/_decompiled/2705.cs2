@@ -1,0 +1,143 @@
+[clientscript,script_2705](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if ($int2 = 1) {
+    if_closeoverlay(48889936);
+    if_closeoverlay(35913748);
+    if_setontimer;
+    if_setontimer;
+    if_sethide(35913918);
+    if_sethide(35913796);
+    if_sethide(35913921);
+    if_sethide(35913930);
+    if_sethide(35913890);
+    if_sethide(35913842);
+} else {
+    if ($int2 = 2) {
+        if_setontimer;
+    }
+    if_setontimer;
+}
+def_int $int6 = 0;
+if ($int0 = 1) {
+    setdesiredtoolkit(get_clientopt, 1);
+    if (getwindowmode ! 3) {
+        setdefaultwindowmode(getwindowmode);
+    }
+    set_clientopt(get_clientopt);
+    if (testbit($int1, 1) = 1) {
+        %varc_int994 = 2;
+    }
+    %varc_int1240 = 3;
+    %varc_int1277 = 0;
+} else {
+    if (testbit($int1, 0) = 1) {
+        autosetup_level;
+        if ($int4 = 0) {
+            $int6 = get_clientopt;
+            set_clientopt($int6);
+            ~script_2593($int6);
+        }
+    } else {
+        $int6 = get_clientopt;
+    }
+    if (testbit($int1, 1) = 1) {
+        if (getwindowmode ! getdefaultwindowmode) {
+            setwindowmode(getdefaultwindowmode);
+        }
+    }
+    if (testbit($int1, 2) = 1) {
+        set_clientopt(get_clientopt);
+    }
+    if (testbit($int1, 3) = 1) {
+        set_clientopt(0);
+    }
+    if ($int2 = 3) {
+        ~script_1174(0);
+        ~script_3384($int2);
+        return;
+    }
+    if ($int5 = 1) {
+        ~script_3387($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+    } else {
+        if (testbit($int1, 1) = 1) {
+            ~script_2596($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+        }
+        ~script_3387($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+    }
+    if ($int2 = 1) {
+        if ($int3 = 1) {
+            mes("The requested change has been cancelled.");
+        }
+    }
+}
+def_string $str0 = "kbase/view.ws?guid=controls_display_options";
+if ($int2 ! 1) {
+    $int6 = get_clientopt;
+    if ($int2 = 2) {
+        if_sethide(59375647);
+        if ($int5 = 1) {
+            ~script_3387($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+        } else {
+            if (testbit($int1, 1) = 1) {
+                ~script_2596($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+            }
+            ~script_3387($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+        }
+        if ($int4 = 0) {
+            if ($int3 = 1) {
+                ~script_2190(0, -1, 0, "", "The change of detail mode has been cancelled." + "<br>" + "<br>" + "Perhaps different graphical settings would work better for you?", "", "Advanced info");
+                if_setonclick;
+            }
+        }
+    }
+    if ($int2 = 3) {
+        if (login_getint = 1) {
+            ~script_1174(5);
+            if (%varc_int1273 = 1) {
+                return;
+            }
+            if_setontimer;
+        } else {
+            if (~script_3487(3) = 1) {
+                ~script_1174(7);
+            }
+            ~script_1174(11);
+        }
+    }
+    if ($int5 = 1) {
+        ~script_3387($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+    } else {
+        if (testbit($int1, 1) = 1) {
+            ~script_2596($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+        }
+        ~script_3387($int6, getwindowmode, ~script_2692($int6), ~script_2692($int6), $int2);
+    }
+    if ($int4 = 0) {
+        if ($int3 = 1) {
+            if_settext("The change of detail mode has been cancelled." + "<br>" + "<br>" + "Perhaps different graphical settings would work better for you?");
+            if ($int5 = 1) {
+                if_setonclick;
+            } else {
+                if (testbit($int1, 1) = 1) {
+                    if_setonclick;
+                }
+                if_setonclick;
+            }
+            if_settext("Advanced info");
+            if_setonclick;
+            ~script_1174(9);
+        }
+    }
+    if ($int5 = 1) {
+        ~script_3239(6, 0, 1);
+    }
+    if (testbit($int1, 1) = 1) {
+        ~script_1174(6);
+    }
+    ~script_3239(6, 0, 1);
+}
+if ($int0 = 0) {
+    if ($int4 = 1) {
+        ~script_3384($int2);
+    }
+}
+return;

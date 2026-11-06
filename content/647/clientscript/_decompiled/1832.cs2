@@ -1,0 +1,11 @@
+[clientscript,script_1832](int $int0)
+if (~script_1820($int0) = 0) {
+    return;
+}
+if (%varc_int255 = 0) {
+    %varc_int255 = 1;
+} else {
+    %varc_int255 = 0;
+}
+~script_1780;
+return;

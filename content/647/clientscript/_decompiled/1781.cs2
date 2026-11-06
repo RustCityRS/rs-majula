@@ -1,0 +1,19 @@
+[clientscript,script_1781]
+def_int $int0 = 0;
+if ($int0 <= 4) {
+    if (cc_find(51839117, multiply($int0, 4)) = 1) {
+        if (%varc_int257 = $int0) {
+            cc_setgraphic(699);
+            ~script_1783(51839117, 51839118, 51839117, calc($int0 * 4 + 3));
+        }
+        if (map_members = 0) {
+            if (struct_param(enum(105, 74, enum_1604, $int0), param_557) = 1) {
+                cc_setgraphic(698);
+            }
+        }
+        cc_setgraphic(697);
+    }
+    $int0 = add($int0, 1);
+}
+~script_1784;
+return;

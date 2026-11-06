@@ -1,0 +1,7 @@
+[clientscript,script_2441]
+if (%varc_int820 < 2) {
+    if_settext("Time Left: ~1 Min");
+} else {
+    if_settext("Time Left: " + tostring(%varc_int820) + " Mins");
+}
+return;

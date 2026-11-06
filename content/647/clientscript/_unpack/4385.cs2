@@ -1,0 +1,24 @@
+; id: 4385
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 4390
+    1: push_constant_int 72417336
+    2: push_constant_int 2093
+    3: push_constant_int 2094
+    4: push_constant_int 2095
+    5: push_constant_int 2096
+    6: push_constant_int 2097
+    7: push_constant_int 5
+    8: push_constant_string "IY"
+    9: push_constant_int 72417335
+   10: op2407 0
+   11: push_constant_int 72417336
+   12: gosub_with_params 4391
+   13: push_constant_int 72417336
+   14: gosub_with_params 4392
+   15: return 0

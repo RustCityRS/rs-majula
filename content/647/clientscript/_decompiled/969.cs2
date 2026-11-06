@@ -1,0 +1,21 @@
+[clientscript,script_969](int $int0)
+def_int $int1 = mod(clientclock, 32);
+if (~script_970($int0) = 0) {
+    if (if_gettrans($int0) ! 0) {
+        if_settrans($int0);
+    } else {
+        if_setontimer;
+    }
+} else {
+    if ($int1 < 8) {
+        if_settrans($int0);
+    }
+    if ($int1 < 16) {
+        if_settrans($int0);
+    }
+    if ($int1 < 24) {
+        if_settrans($int0);
+    }
+    if_settrans($int0);
+}
+return;

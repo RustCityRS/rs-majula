@@ -1,0 +1,14 @@
+[clientscript,script_2862]
+if (%varc_int1074 = 0) {
+    if (%varc_int1071 = 19) {
+        %varc_int1071 = 0;
+    } else {
+        %varc_int1071 = add(%varc_int1071, 1);
+    }
+} else {
+    if (%varc_int1074 = 1) {
+        %varc_int1072 = coordpack(%varc_int1072, 1, 0, 0);
+    }
+    cam_clear;
+}
+return;

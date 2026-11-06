@@ -1,0 +1,34 @@
+; id: 2863
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1074
+    1: branch_if_false 1
+    2: branch 11
+    3: push_varc_int 1071
+    4: branch_if_false 1
+    5: branch 3
+    6: push_constant_int 19
+    7: pop_varc_int 1071
+    8: branch 4
+    9: push_varc_int 1071
+   10: push_constant_int 1
+   11: sub 0
+   12: pop_varc_int 1071
+   13: branch 11
+   14: push_varc_int 1074
+   15: branch_if_true 1
+   16: branch 7
+   17: push_varc_int 1072
+   18: push_constant_int -1
+   19: push_constant_int 0
+   20: push_constant_int 0
+   21: op3336 0
+   22: pop_varc_int 1072
+   23: branch 1
+   24: op5510 0
+   25: return 0

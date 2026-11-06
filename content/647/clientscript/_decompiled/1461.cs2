@@ -1,0 +1,15 @@
+[clientscript,script_1461](int $int0)(int, int, int, int, int, int, int, int, int, component, int, int, int, int, component, int, string, string, string, string)
+def_int $int1 = enum(105, 73, enum_1614, $int0);
+def_int $int2 = enum(105, 73, enum_1615, $int0);
+if_sethide($int1);
+if_sethide($int2);
+if_setobject(-1, $int2);
+if_setgraphic($int2);
+if_setoutline(0, $int2);
+if_setgraphicshadow(0, $int2);
+if_clearops;
+if_setonclick;
+def_string $str0 = "Drag an item here to create a new tab";
+if_setonmouserepeat;
+if_setonmouseleave;
+return(0, 0, -1, 1435, $int1, 1481, $int1, 38, -2147483645, 49938551, 25, 150, $int1, 40, 49938551, $int1, "", $str0, "IIsii", "I");

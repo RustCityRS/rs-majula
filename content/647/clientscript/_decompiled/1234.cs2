@@ -1,0 +1,17 @@
+[clientscript,script_1234](int $int0)
+if (key_isdown_ctrl = 1) {
+    return;
+}
+if (%varc_int173 ! 1) {
+    switch ($int0) {
+        case 1:
+            cam_clear;
+        case 2:
+            cam_clear;
+        case 3:
+            cam_clear;
+        case 4:
+            cam_clear;
+    }
+}
+return;

@@ -1,0 +1,6 @@
+[clientscript,script_2899](int, int, int, int, component, string)
+if_sethide(31195194);
+if_settrans(31195194);
+def_int $int0 = clientclock;
+if_setontimer;
+return(0, 0, 2900, $int0, 31195194, "i");

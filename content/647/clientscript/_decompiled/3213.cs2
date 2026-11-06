@@ -1,0 +1,114 @@
+[clientscript,script_3213](int $int0, string $str0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $str1 = "accountappeal";
+def_string $str2 = "passwordchoice.ws";
+switch ($int0) {
+    case 44105809:
+        if (string_length($str0) > 0) {
+            if_setgraphic(44105809);
+            if_sethide(44105814);
+            if_settext($str0);
+            if_settext($str0);
+        } else {
+            if (if_getgraphic($int0) = 4061) {
+                if_settext(if_gettext);
+            }
+            if (if_getgraphic($int0) = 4059) {
+                if_settext("This email address is available for use.");
+            }
+            if_settext("Please enter your email address here.");
+        }
+        if_setsize(calc(paraheight(if_gettext, 3793) * 12 + 10), 0, 0, 44105750);
+        $int2 = 99;
+        $int4 = 535;
+    case 44105828:
+        if (string_length($str0) > 0) {
+            if_setgraphic(44105828);
+            if_sethide(44105833);
+            if_settext($str0);
+            if_settext($str0);
+        } else {
+            if (if_getgraphic($int0) = 4061) {
+                if_settext(if_gettext);
+            }
+            if (if_getgraphic($int0) = 4059) {
+                if_settext("Both email addresses match.");
+            }
+            if_settext("Please enter your email address again here.");
+        }
+        if_setsize(calc(paraheight(if_gettext, 3793) * 12 + 10), 0, 0, 44105750);
+        $int2 = 128;
+        $int4 = 535;
+    case 44105799:
+        if (string_length($str0) > 0) {
+            if_setgraphic(44105799);
+            if_sethide(44105804);
+            if_settext($str0);
+            if_settext($str0);
+        } else {
+            if (if_getgraphic($int0) = 4061) {
+                if_settext(if_gettext);
+            }
+            if (if_getgraphic($int0) = 4059) {
+                if_settext("You have entered your password.");
+            }
+            if_settext("Please enter your desired password here.");
+        }
+        if_setsize(calc(paraheight(if_gettext, 3793) * 12 + 10), 0, 0, 44105750);
+        $int2 = 161;
+        $int4 = 535;
+    case 44105789:
+        if (string_length($str0) > 0) {
+            if_setgraphic(44105789);
+            if_sethide(44105794);
+            if_settext($str0);
+            if_settext($str0);
+        } else {
+            if (if_getgraphic($int0) = 4061) {
+                if_settext(if_gettext);
+            }
+            if (if_getgraphic($int0) = 4059) {
+                if_settext("Both passwords match.");
+            }
+            if_settext("Please enter your desired password again here.");
+        }
+        if_setsize(calc(paraheight(if_gettext, 3793) * 12 + 10), 0, 0, 44105750);
+        $int2 = 190;
+        $int4 = 535;
+    case 44105764:
+        if (string_length($str0) > 0) {
+            if_setgraphic(44105764);
+            if_sethide(44105840);
+            if_settext($str0);
+            if_settext($str0);
+        } else {
+            if (if_getgraphic($int0) = 4061) {
+                if_settext(if_gettext);
+            }
+            if (if_getgraphic($int0) = 4059) {
+                if_settext("You have entered your age.");
+            }
+            if_settext("Please enter your age, in years, here.");
+        }
+        $int5 = sub(if_getwidth, 362);
+        if_setsize(30, 0, 0, 44105750);
+        $int2 = 223;
+        $int4 = 362;
+    default:
+        if_sethide(44105750);
+        return(1);
+}
+$int1 = div(if_getheight, 2);
+$int3 = sub($int2, $int1);
+if_setposition($int3, 0, 0, 44105750);
+if_sethide(44105750);
+if (compare(if_gettext, "Email already in use. Try a different email or click " + "<u=ebe0bc>" + "here" + "</u>" + " to recover this account.") = 0) {
+    if_setonclick;
+} else {
+    if_setonclick;
+}
+return;

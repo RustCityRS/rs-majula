@@ -1,0 +1,12 @@
+[clientscript,script_2436]
+%varc_int815 = 0;
+if (getwindowmode < 2) {
+    if_setontimer;
+    if_sethide(35913741);
+    if_sethide(35913740);
+} else {
+    if_setontimer;
+    if_sethide(48890022);
+    if_sethide(48890021);
+}
+return;

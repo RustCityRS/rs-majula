@@ -1,0 +1,34 @@
+[clientscript,script_3968]
+if (%varc_int1429 = 1) {
+    return;
+}
+%varc_int1427 = 0;
+def_int $int0 = enum(105, 74, enum_3483, %varc_int1425);
+def_int $int1 = 1;
+if (getwindowmode >= 2) {
+    if (if_gethide = 1) {
+        $int1 = 0;
+    }
+} else {
+    if (if_gethide = 1) {
+        $int1 = 0;
+    }
+}
+if (%varp281 = 1000) {
+    if_setonop;
+} else {
+    if_setonop;
+}
+if (if_gethide = 1) {
+    if (if_gethide = 1) {
+        if ($int0 ! -1) {
+            if_settrans(69140493);
+            if_setontimer;
+            if_sethide(69140492);
+        }
+        if_sethide(69140481);
+        if_sethide(69140492);
+    }
+}
+%varc_int1426 = %varc_int1425;
+return;

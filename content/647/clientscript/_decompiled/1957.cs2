@@ -1,0 +1,9 @@
+[clientscript,script_1957](int $int0, int $int1, int $int2)
+def_int $int3 = inv_total(inv, $int1);
+if_settext(tostring($int3) + "/" + tostring($int2));
+if ($int3 >= $int2) {
+    if_setcolour($int0);
+} else {
+    if_setcolour($int0);
+}
+return;

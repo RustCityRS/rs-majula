@@ -1,0 +1,15 @@
+[clientscript,script_2191](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, stat, int, int, int, string, string)
+def_int $int12 = parawidth(if_gettext, 494);
+def_int $int13 = parawidth(if_gettext, 494);
+def_int $int14 = parawidth(if_gettext, 494);
+def_int $int15 = parawidth(if_gettext, 494);
+def_int $int16 = parawidth(if_gettext, 494);
+def_int $int17 = parawidth(if_gettext, 494);
+~script_2337($int0);
+if_setontimer;
+~script_2335($int0, $int2, $int3, $int4, $int5, $int12, $int13, $int14, $int15, $int16, $int6, $int7, $int8, $int9, $int10, $int11, $int17);
+if_setonvartransmit;
+if_setsize(75, 0, 0, 39387136);
+if_settrans(39387137);
+%varc_int1435 = 255;
+return($int1, 512, $int2, 512, $int3, 512, $int4, 512, $int5, 512, $int10, 512, 2336, $int0, getwindowmode, $int0, 2333, $int0, $int2, $int3, $int4, $int5, $int12, $int13, $int14, $int15, $int16, $int6, $int7, $int8, $int9, $int10, $int11, $int17, 1048, 1058, 2040, hitpoints, $int0, 100, 255, "Ii", "IIIIIiiiiiIIIIIIiY");

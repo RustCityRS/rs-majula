@@ -1,0 +1,17 @@
+[clientscript,script_2827](string $str0)
+def_int $int0 = 0;
+$int0 = multiply(paraheight($str0, 495), 13);
+if ($int0 > 48) {
+    $int0 = multiply(paraheight($str0, 495), 13);
+}
+if ($int0 > 48) {
+    if_setscrollsize(0, $int0, 11665431);
+    if_setsize(48, 0, 0, 11665431);
+    if_setsize($int0, 2, 0, 11665461);
+    if_setsize($int0, 2, 0, 11665462);
+    if_settextalign(0, 0, 11665463);
+} else {
+    if_setsize(48, 0, 0, 11665431);
+    if_settextalign(1, 0, 11665463);
+}
+return;

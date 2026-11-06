@@ -1,0 +1,21 @@
+[clientscript,script_3488](component, int, component, int, component, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
+%varc_int1186 = 1337;
+%varc_int1184 = 0;
+if_setposition(52, 0, 0, 65077360);
+if_setposition(52, 0, 0, 65077275);
+if_setposition(52, 0, 0, 65077274);
+if_sethide(65077502);
+if_sethide(65077487);
+if_sethide(65077472);
+if_sethide(65077457);
+if_settrans(65077505);
+if_settrans(65077490);
+if_settrans(65077475);
+if_settrans(65077460);
+if_sethide(65077442);
+if_sethide(65077443);
+if_sethide(65077444);
+if_sethide(65077445);
+if_sethide(65077509);
+if_sethide(65077439);
+return(65077360, if_getx, 65077275, if_getx, 65077274, if_getx, 1, 1, 1, 1, 255, 255, 255, 255, 1, 1, 1, 1, 1, 1);

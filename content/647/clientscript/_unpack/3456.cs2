@@ -1,0 +1,15 @@
+; id: 3456
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 3457
+    1: push_constant_int 31129601
+    2: clientclock 0
+    3: push_constant_string "Ii"
+    4: push_constant_int 31129601
+    5: op2408 0
+    6: return 0

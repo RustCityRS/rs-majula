@@ -1,0 +1,76 @@
+; id: 2100
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=1
+local_long_count=0
+
+    0: push_constant_string ""
+    1: pop_string_local 0
+    2: push_int_local 0
+    3: switch 0
+    4: branch 33
+    5: push_constant_string "The number of times that the avatar has been killed."
+    6: pop_string_local 0
+    7: branch 31
+    8: push_constant_string "The Slayer level required to attack each avatar."
+    9: pop_string_local 0
+   10: branch 28
+   11: push_constant_string "The remaining health of each avatar."
+   12: pop_string_local 0
+   13: branch 25
+   14: push_constant_string "How much time the game has remaining."
+   15: pop_string_local 0
+   16: branch 22
+   17: push_constant_string "This column displays the blue team's statistics."
+   18: pop_string_local 0
+   19: branch 19
+   20: push_constant_string "This column displays the red team's statistics."
+   21: pop_string_local 0
+   22: branch 16
+   23: push_constant_string "Shows which team controls the soul obelisk."
+   24: pop_string_local 0
+   25: branch 13
+   26: push_constant_string "Shows which team controls the western graveyard."
+   27: pop_string_local 0
+   28: branch 10
+   29: push_constant_string "Shows which team controls the eastern graveyard."
+   30: pop_string_local 0
+   31: branch 7
+   32: push_constant_string "Shows how much control a team has over the soul obelisk."
+   33: pop_string_local 0
+   34: branch 4
+   35: push_constant_string "Shows how active you have been during the game."
+   36: pop_string_local 0
+   37: branch 1
+   38: return 0
+   39: push_int_local 0
+   40: push_int_local 1
+   41: push_string_local 0
+   42: push_constant_int 25
+   43: push_int_local 1
+   44: op2505 0
+   45: if_getwidth 0
+   46: gosub_with_params 39
+   47: return 0
+
+switch_0:
+  54657032 => 1
+  54657036 => 1
+  54657051 => 1
+  54657033 => 4
+  54657037 => 4
+  54657048 => 4
+  54657034 => 7
+  54657038 => 7
+  54657047 => 7
+  54657049 => 10
+  54657050 => 10
+  54657031 => 13
+  54657035 => 16
+  54657052 => 19
+  54657053 => 22
+  54657054 => 25
+  54657092 => 28
+  54657098 => 31

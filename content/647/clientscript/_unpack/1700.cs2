@@ -1,0 +1,27 @@
+; id: 1700
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=0
+local_string_count=0
+local_long_count=0
+
+    0: push_varc_int 1052
+    1: branch_if_true 1
+    2: branch 8
+    3: push_constant_string "Hide stat adjustments."
+    4: push_constant_int 17760268
+    5: if_settext 0
+    6: push_constant_int 1
+    7: push_constant_string "Hide stat adjustments"
+    8: push_constant_int 17760268
+    9: if_setop 0
+   10: branch 7
+   11: push_constant_string "Show stat adjustments."
+   12: push_constant_int 17760268
+   13: if_settext 0
+   14: push_constant_int 1
+   15: push_constant_string "Show stat adjustments"
+   16: push_constant_int 17760268
+   17: if_setop 0
+   18: return 0

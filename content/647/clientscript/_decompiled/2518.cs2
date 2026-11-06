@@ -1,0 +1,41 @@
+[clientscript,script_2518](int $int0)(int, int, int, int, int, int, int)
+def_int $int1 = ~script_2520;
+switch ($int0) {
+    case 42860559:
+        if (%varc_int847 < 5) {
+            if ($int1 < 5) {
+                %varc_int847 = add(%varc_int847, 1);
+                if_settext(tostring(%varc_int847));
+            }
+        }
+    case 42860607:
+        if (%varc_int848 < 5) {
+            if ($int1 < 5) {
+                %varc_int848 = add(%varc_int848, 1);
+                if_settext(tostring(%varc_int848));
+            }
+        }
+    case 42860599:
+        if (%varc_int849 < 5) {
+            if ($int1 < 5) {
+                %varc_int849 = add(%varc_int849, 1);
+                if_settext(tostring(%varc_int849));
+            }
+        }
+    case 42860591:
+        if (%varc_int850 < 5) {
+            if ($int1 < 5) {
+                %varc_int850 = add(%varc_int850, 1);
+                if_settext(tostring(%varc_int850));
+            }
+        }
+    case 42860616:
+        if (%varc_int851 < 5) {
+            if ($int1 < 5) {
+                %varc_int851 = add(%varc_int851, 1);
+                if_settext(tostring(%varc_int851));
+            }
+        }
+    default:
+}
+return(~script_2517, ~script_2517, ~script_2517, ~script_2517, ~script_2517, ~script_2517, ~script_2517);

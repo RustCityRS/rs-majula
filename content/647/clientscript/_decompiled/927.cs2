@@ -1,0 +1,11 @@
+[clientscript,script_927](int $int0)(int)
+if (oc_weight(yommi_totem) ! -1) {
+    return(1);
+}
+if (oc_weight(lump_of_crystal) > -1) {
+    return(1);
+}
+if (oc_weight(chunk_of_crystal) = 1) {
+    return(1);
+}
+return(0);

@@ -1,0 +1,63 @@
+[clientscript,script_2508](int $int0)(component, component)
+switch ($int0) {
+    case 55836719:
+        %varc_int840 = 0;
+    case 55836713:
+        if (%varc_int840 < sub(2147483647, 10)) {
+            if (%varc_int839 >= 10) {
+                if (~script_2509(10) = 1) {
+                    %varc_int840 = add(%varc_int840, 10);
+                    %varc_int839 = sub(%varc_int839, 10);
+                }
+            }
+        }
+    case 55836715:
+        if (%varc_int840 < sub(2147483647, 100)) {
+            if (%varc_int839 >= 100) {
+                if (~script_2509(100) = 1) {
+                    %varc_int840 = add(%varc_int840, 100);
+                    %varc_int839 = sub(%varc_int839, 100);
+                }
+            }
+        }
+    case 55836721:
+        if (%varc_int840 < sub(2147483647, 500)) {
+            if (%varc_int839 >= 500) {
+                if (~script_2509(500) = 1) {
+                    %varc_int840 = add(%varc_int840, 500);
+                    %varc_int839 = sub(%varc_int839, 500);
+                }
+            }
+        }
+    case 55836723:
+        if (%varc_int840 < sub(2147483647, 1000)) {
+            if (%varc_int839 >= 1000) {
+                if (~script_2509(1000) = 1) {
+                    %varc_int840 = add(%varc_int840, 1000);
+                    %varc_int839 = sub(%varc_int839, 1000);
+                }
+            }
+        }
+    case 55836725:
+        if (%varc_int840 < sub(2147483647, 10000)) {
+            if (%varc_int839 >= 10000) {
+                if (~script_2509(10000) = 1) {
+                    %varc_int840 = add(%varc_int840, 10000);
+                    %varc_int839 = sub(%varc_int839, 10000);
+                }
+            }
+        }
+    case 55836717:
+        if (%varc_int839 < ~script_2687) {
+            %varc_int840 = %varc_int839;
+            %varc_int839 = 0;
+        }
+        if (%varc_int840 < ~script_2687) {
+            %varc_int840 = ~script_2687;
+            %varc_int839 = sub(%varc_int839, ~script_2687);
+        }
+    default:
+}
+if_settext(~script_46(%varc_int840, ","));
+if_settext(~script_46(%varc_int839, ","));
+return(55836735, 55836734);

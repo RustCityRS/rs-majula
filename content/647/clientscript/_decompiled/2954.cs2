@@ -1,0 +1,54 @@
+[clientscript,script_2954]
+def_int $int0 = 39059461;
+def_int $int1 = 39059463;
+def_int $int2 = 39059467;
+def_int $int3 = 39059466;
+def_int $int4 = 39059468;
+def_int $int5 = 39059511;
+def_int $int6 = 39059469;
+def_int $int7 = 39059470;
+def_int $int8 = 39059471;
+def_int $int9 = 39059513;
+def_int $int10 = 39059514;
+def_int $int11 = 39059515;
+def_int $int12 = 39059472;
+def_int $int13 = 39059516;
+if (login_getint = 1) {
+    $int0 = 63897629;
+    $int1 = 63897601;
+    $int2 = 63897604;
+    $int3 = 63897603;
+    $int4 = 63897605;
+    $int5 = 63897606;
+    $int6 = 63897611;
+    $int7 = 63897612;
+    $int8 = 63897613;
+    $int9 = 63897607;
+    $int10 = 63897608;
+    $int11 = 63897609;
+    $int12 = 63897614;
+    $int13 = 63897610;
+}
+if_setonclick;
+if_setonclick;
+if_setonmouseover;
+if_setonmouseleave;
+if_setonmouseover;
+if_setonmouseleave;
+if_setposition(5, 0, 2, $int4);
+if_setposition(5, 0, 2, $int5);
+if_settext("");
+if_settext("");
+if_sethide($int4);
+if_sethide($int5);
+if_settext("");
+%varc_int1092 = 0;
+if_setgraphic($int3);
+if_setontimer;
+if_sethide($int0);
+if_sethide($int1);
+if (login_getint = 1) {
+    return;
+} else {
+}
+return;

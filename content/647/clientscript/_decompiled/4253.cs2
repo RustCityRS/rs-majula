@@ -1,0 +1,22 @@
+[clientscript,script_4253]
+if (%varbit9030 = 1) {
+    if_settext("Tutorial is ON");
+} else {
+    if_settext("Tutorial is OFF");
+}
+if (%varbit9028 = enum_getoutputcount(enum_3656)) {
+    if_sethide(60096677);
+}
+if_sethide(60096677);
+switch (getlanguage) {
+    case 0:
+        if_setsize(18, 0, 0, 60096677);
+    case 2:
+        if_setsize(18, 0, 0, 60096677);
+    case 1:
+        if_setsize(18, 0, 0, 60096677);
+    case 3:
+        if_setsize(18, 0, 0, 60096677);
+    default:
+}
+return;

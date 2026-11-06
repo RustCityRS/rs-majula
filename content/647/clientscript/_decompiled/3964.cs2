@@ -1,0 +1,10 @@
+[clientscript,script_3964]
+if (%varc_int1414 = 1) {
+    if_settext("Username:");
+} else {
+    if (%varc_int1414 = 2) {
+        if_settext("Email:");
+    }
+    if_settext("Login:");
+}
+return;

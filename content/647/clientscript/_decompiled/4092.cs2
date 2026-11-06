@@ -1,0 +1,18 @@
+[clientscript,script_4092](int $int0, int $int1, int $int2)
+if (~script_2728 = 1) {
+    if ($int1 ! -1) {
+        if (if_getchildcount($int1) <= 0) {
+        }
+    }
+    ~script_4089;
+} else {
+    if ($int1 ! -1) {
+        if (if_getchildcount($int1) > 0) {
+            cc_deleteall($int1);
+            if_setontimer;
+            if_sethide($int1);
+        }
+    }
+    if_sethide($int2);
+}
+return;

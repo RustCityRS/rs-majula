@@ -1,0 +1,7 @@
+[clientscript,script_3401](component, int, int, int, component, int, int, int, component, string, string)
+if (%varc_int1274 < 0) {
+}
+if_setdraggable(-1, 59572286);
+if_setondrag;
+if_setondragcomplete;
+return(59572285, 3402, -2147483646, 0, 59572286, 3402, -2147483646, 1, 59572286, "i1", "i1");

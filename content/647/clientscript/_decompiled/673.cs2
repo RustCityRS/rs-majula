@@ -1,0 +1,85 @@
+[clientscript,script_673](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9)
+def_int $int10 = enum(105, 73, enum_1083, $int0);
+cc_deleteall($int10);
+def_int $int11 = if_getwidth;
+def_int $int12 = if_getheight;
+def_string $str0 = "";
+if ($int7 = 1) {
+    $str0 = "Empty";
+} else {
+    if ($int1 = 0) {
+        $str0 = "Buy";
+    }
+    $str0 = "Sell";
+}
+cc_setposition(0, $int10, 3, 0);
+cc_setsize($int11, $int12, 0, 0);
+cc_setposition2(0, 0, 0, 0);
+cc_setfill(1);
+cc_setcolour(16777215);
+cc_settrans(255);
+def_int $int13 = if_getchildcount($int10);
+if ($int7 = 1) {
+    if ($int0 < 2) {
+        if ($int9 = $int0) {
+            if (cc_find($int10, 0) = 1) {
+                cc_settrans(230);
+            }
+        }
+    }
+    if_sethide(enum(105, 73, enum_1085, $int0));
+}
+def_string $str1 = ~script_46($int2, ",");
+def_string $str2 = ~script_46($int6, ",");
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = enum(105, 73, enum_1084, $int0);
+if_sethide($int16);
+def_string $str3 = "";
+if ($int7 = 1) {
+    if ($int0 < 2) {
+        if ($int0 = $int9) {
+            if_sethide($int16);
+        }
+        cc_setposition(0, $int10, 5, $int13);
+        cc_setgraphic(1155);
+        cc_setsize(16, 14, 0, 0);
+        cc_setposition2(5, 29, 0, 0);
+        $int13 = add($int13, 1);
+    }
+} else {
+    $int14 = 7;
+    $int15 = sub($int12, 30);
+    ~script_674($int14, $int15, sub($int11, 14), 15, $int0, $int10, $int13, 1, $int7, $int8, $int2, $int3);
+    $int13 = if_getchildcount($int10);
+    cc_setposition(0, $int10, 5, $int13);
+    $int13 = add($int13, 1);
+    cc_setposition2(6, 30, 0, 0);
+    cc_setsize(40, 36, 0, 0);
+    cc_setgraphic(1137);
+    cc_setposition(0, $int10, 5, $int13);
+    cc_setposition2(8, 32, 0, 0);
+    cc_setsize(36, 32, 0, 0);
+    cc_setobject($int5, $int2);
+    cc_setgraphicshadow;
+    $int13 = add($int13, 1);
+    cc_setposition(0, $int10, 4, $int13);
+    $int13 = add($int13, 1);
+    cc_setposition2(48, 30, 0, 0);
+    cc_setsize(sub($int11, 53), 22, 0, 0);
+    cc_setcolour(13408512);
+    cc_settextfont(494);
+    cc_settextalign(0, 0, 0);
+    cc_settextshadow(1);
+    cc_settext(oc_name($int5));
+    cc_setposition(0, $int10, 4, $int13);
+    $int13 = add($int13, 1);
+    cc_setposition2(48, 54, 0, 0);
+    cc_setsize(sub($int11, 53), 15, 0, 0);
+    cc_setcolour(12434267);
+    cc_settextfont(494);
+    cc_settextalign(0, 0, 15);
+    cc_settextshadow(1);
+    cc_settext($str2 + " gp");
+}
+return;

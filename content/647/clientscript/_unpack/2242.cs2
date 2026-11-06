@@ -1,0 +1,182 @@
+; id: 2242
+int_param_count=0
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: push_constant_int 8727
+    1: push_constant_int 3
+    2: push_constant_int 0
+    3: sound_synth 0
+    4: push_constant_string "Turns taken score: "
+    5: push_var 1674
+    6: tostring 0
+    7: push_constant_string " x 101 = "
+    8: push_var 1674
+    9: push_constant_int 101
+   10: multiply 0
+   11: tostring 0
+   12: join_string 4
+   13: push_constant_int 60751894
+   14: if_settext 0
+   15: push_constant_string "Resources spare: "
+   16: push_var 1688
+   17: push_var 1687
+   18: push_var 1686
+   19: add 0
+   20: add 0
+   21: tostring 0
+   22: push_constant_string " x -10 = -"
+   23: push_var 1688
+   24: push_var 1687
+   25: push_var 1686
+   26: add 0
+   27: add 0
+   28: push_constant_int 10
+   29: multiply 0
+   30: tostring 0
+   31: join_string 4
+   32: push_constant_int 60751898
+   33: if_settext 0
+   34: push_var 1674
+   35: push_constant_int 16
+   36: branch_less_than 1
+   37: branch 4
+   38: push_constant_string "Completed within turn limit: -100"
+   39: push_constant_int 60751899
+   40: if_settext 0
+   41: branch 3
+   42: push_constant_string "Not completed within turn limit: 0"
+   43: push_constant_int 60751899
+   44: if_settext 0
+   45: push_constant_string "Workers employed: "
+   46: push_var 1681
+   47: tostring 0
+   48: push_constant_string " x -10 = -"
+   49: push_var 1681
+   50: push_constant_int 10
+   51: multiply 0
+   52: tostring 0
+   53: join_string 4
+   54: push_constant_int 60751900
+   55: if_settext 0
+   56: push_constant_string "Turns taken: "
+   57: push_var 1674
+   58: tostring 0
+   59: join_string 2
+   60: push_constant_int 60751904
+   61: if_settext 0
+   62: push_varbit 7324
+   63: branch_if_false 1
+   64: branch 4
+   65: push_constant_string "Oven not repaired: 50"
+   66: push_constant_int 60751895
+   67: if_settext 0
+   68: branch 3
+   69: push_constant_string "Oven repaired: 0"
+   70: push_constant_int 60751895
+   71: if_settext 0
+   72: push_varbit 7326
+   73: branch_if_false 1
+   74: branch 4
+   75: push_constant_string "Conveyor not repaired: 50"
+   76: push_constant_int 60751896
+   77: if_settext 0
+   78: branch 3
+   79: push_constant_string "Conveyor repaired: 0"
+   80: push_constant_int 60751896
+   81: if_settext 0
+   82: push_varbit 7325
+   83: branch_if_false 1
+   84: branch 4
+   85: push_constant_string "Painter not repaired: 50"
+   86: push_constant_int 60751897
+   87: if_settext 0
+   88: branch 3
+   89: push_constant_string "Painter repaired: 0"
+   90: push_constant_int 60751897
+   91: if_settext 0
+   92: push_constant_int 0
+   93: pop_int_local 0
+   94: push_var 1674
+   95: push_constant_int 101
+   96: multiply 0
+   97: pop_int_local 0
+   98: push_varbit 7325
+   99: branch_if_false 1
+  100: branch 4
+  101: push_int_local 0
+  102: push_constant_int 50
+  103: add 0
+  104: pop_int_local 0
+  105: push_varbit 7324
+  106: branch_if_false 1
+  107: branch 4
+  108: push_int_local 0
+  109: push_constant_int 50
+  110: add 0
+  111: pop_int_local 0
+  112: push_varbit 7326
+  113: branch_if_false 1
+  114: branch 4
+  115: push_int_local 0
+  116: push_constant_int 50
+  117: add 0
+  118: pop_int_local 0
+  119: push_int_local 0
+  120: push_var 1688
+  121: push_var 1687
+  122: push_var 1686
+  123: add 0
+  124: add 0
+  125: push_constant_int 10
+  126: multiply 0
+  127: sub 0
+  128: pop_int_local 0
+  129: push_var 1674
+  130: push_constant_int 16
+  131: branch_less_than 1
+  132: branch 4
+  133: push_int_local 0
+  134: push_constant_int 100
+  135: sub 0
+  136: pop_int_local 0
+  137: push_int_local 0
+  138: push_var 1681
+  139: push_constant_int 10
+  140: multiply 0
+  141: sub 0
+  142: pop_int_local 0
+  143: push_int_local 0
+  144: push_constant_int 0
+  145: branch_less_than 1
+  146: branch 2
+  147: push_constant_int 0
+  148: pop_int_local 0
+  149: push_int_local 0
+  150: push_constant_int 32768
+  151: branch_greater_than 1
+  152: branch 2
+  153: push_constant_int 32768
+  154: pop_int_local 0
+  155: push_int_local 0
+  156: push_varbit 7339
+  157: branch_equals 1
+  158: branch 8
+  159: push_constant_string "Final score: "
+  160: push_int_local 0
+  161: tostring 0
+  162: push_constant_string " (New best score)"
+  163: join_string 3
+  164: push_constant_int 60751903
+  165: if_settext 0
+  166: branch 6
+  167: push_constant_string "Final score: "
+  168: push_int_local 0
+  169: tostring 0
+  170: join_string 2
+  171: push_constant_int 60751903
+  172: if_settext 0
+  173: return 0

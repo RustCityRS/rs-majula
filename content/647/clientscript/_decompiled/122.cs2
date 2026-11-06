@@ -1,0 +1,9 @@
+[clientscript,script_122](int $int0)(int)
+def_int $int1 = 0;
+$int1 = mod(clientclock, 100);
+if ($int1 > 50) {
+    $int1 = sub(100, $int1);
+}
+$int1 = sub(255, $int1);
+if_settrans($int0);
+return($int1);

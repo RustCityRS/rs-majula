@@ -1,0 +1,25 @@
+[clientscript,script_1898](int $int0)(int, int)
+switch ($int0) {
+    case 0:
+        return(%varc_int523, %varc_int533);
+    case 1:
+        return(%varc_int524, %varc_int534);
+    case 2:
+        return(%varc_int525, %varc_int535);
+    case 3:
+        return(%varc_int526, %varc_int536);
+    case 4:
+        return(%varc_int527, %varc_int537);
+    case 5:
+        return(%varc_int528, %varc_int538);
+    case 6:
+        return(%varc_int529, %varc_int539);
+    case 7:
+        return(%varc_int530, %varc_int540);
+    case 8:
+        return(%varc_int531, %varc_int541);
+    case 9:
+        return(%varc_int532, %varc_int542);
+    default:
+}
+return(0, 0);

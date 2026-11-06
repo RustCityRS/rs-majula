@@ -1,0 +1,53 @@
+[clientscript,script_178](int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 8;
+if ($int0 < $int2) {
+    if (%varc_int42 = $int0) {
+        if (%varc_int41 = $int0) {
+            if_setgraphic(enum(105, 73, enum_683, $int0));
+        }
+    } else {
+        if (%varc_int42 = $int0) {
+            if_setgraphic(enum(105, 73, enum_683, $int0));
+        }
+        if (%varc_int41 = $int0) {
+            if_setgraphic(enum(105, 73, enum_683, $int0));
+        }
+        if (calc(~script_179($int0) / 25 % 2) = 1) {
+            if_setgraphic(enum(105, 73, enum_683, $int0));
+        }
+        if_setgraphic(enum(105, 73, enum_683, $int0));
+    }
+    $int0 = add($int0, 1);
+}
+if (~script_185(1) = 1) {
+    if_settext("<col=ffff00>" + "Filter");
+} else {
+    if_settext("All");
+}
+$int0 = 2;
+if ($int0 < $int2) {
+    $int1 = ~script_185($int0);
+    if ($int0 = 3) {
+        if ($int1 = 1) {
+            if (friend_count < 0) {
+                if_settext("<col=ffff00>" + "Loading");
+            }
+        }
+    } else {
+        if ($int1 = 1) {
+            if_settext("<col=ffff00>" + "Friends");
+        }
+        if ($int1 = 2) {
+            if_settext("<col=ff0000>" + "Off");
+        }
+        if ($int1 = 3) {
+            if_settext("<col=00ffff>" + "Hide");
+        }
+        if_settext("On");
+    }
+    $int0 = add($int0, 1);
+}
+if_sethide(49217537);
+return(0);

@@ -1,0 +1,54 @@
+[clientscript,script_2952](int $int0, int $int1, int $int2)
+def_string $str0 = "";
+def_string $str1 = "";
+switch ($int2) {
+    case 3:
+        $str0 = "accountappeal";
+        $str1 = "passwordchoice.ws";
+        if_setonclick;
+        if_setonclick;
+    case 4:
+        $str0 = "ticketing";
+        $str1 = "inbox.ws";
+        if_setonclick;
+        if_setonclick;
+    case 11:
+        $str0 = "password_history";
+        $str1 = "password.ws";
+        if_setonclick;
+        if_setonclick;
+    case 18:
+        $str0 = "accountappeal";
+        $str1 = "lockchoice.ws";
+        if_setonclick;
+        if_setonclick;
+    case 30:
+        if (is_unsigned = 1) {
+            $str1 = "slu.ws";
+            if_setonclick;
+        } else {
+            $str0 = "dob";
+            $str1 = "set_members_dob.ws";
+            if_setonclick;
+        }
+        if_setonclick;
+    case 31:
+        $str0 = "displaynames";
+        $str1 = "name.ws";
+        if_setonclick;
+        if_setonclick;
+    case 32:
+    case 12:
+    case 19:
+        $str0 = "dob";
+        $str1 = "set_members_dob.ws";
+        if_setonclick;
+        if_setonclick;
+    case 21:
+        if_setonclick;
+        if_setonclick;
+    default:
+        if_setonclick;
+        if_setonclick;
+}
+return;

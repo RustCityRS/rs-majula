@@ -1,0 +1,37 @@
+; id: 2900
+int_param_count=1
+string_param_count=0
+long_param_count=0
+local_int_count=1
+local_string_count=0
+local_long_count=0
+
+    0: clientclock 0
+    1: push_int_local 0
+    2: push_constant_int 200
+    3: add 0
+    4: branch_greater_than 1
+    5: branch 8
+    6: push_constant_int -1
+    7: push_constant_string ""
+    8: push_constant_int 31195194
+    9: op2408 0
+   10: push_constant_int 1
+   11: push_constant_int 31195194
+   12: if_sethide 0
+   13: branch 14
+   14: clientclock 0
+   15: push_int_local 0
+   16: push_constant_int 150
+   17: add 0
+   18: branch_greater_than 1
+   19: branch 8
+   20: push_constant_int 31195194
+   21: op2609 0
+   22: push_constant_int 10
+   23: add 0
+   24: push_constant_int 255
+   25: op4016 0
+   26: push_constant_int 31195194
+   27: op2103 0
+   28: return 0

@@ -1,0 +1,402 @@
+; id: 994
+int_param_count=2
+string_param_count=0
+long_param_count=0
+local_int_count=2
+local_string_count=0
+local_long_count=0
+
+    0: push_int_local 0
+    1: switch 0
+    2: branch 350
+    3: push_int_local 1
+    4: switch 1
+    5: branch 56
+    6: push_constant_int -1
+    7: push_constant_int 7620
+    8: push_constant_string "Your Constitution tells you how healthy your character can be. A character with low Constitution will only have a small number of life points when they're fully healed, whereas a character with high Constitution can have many more life points."
+    9: push_constant_string ""
+   10: return 0
+   11: branch 50
+   12: push_constant_int -1
+   13: push_constant_int 7620
+   14: push_constant_string "If you see any "
+   15: push_constant_string "<col=800000>"
+   16: push_constant_string "red 'hitsplats'"
+   17: push_constant_string "</col>"
+   18: push_constant_string " during combat, the number shown corresponds to the number of life points lost as a result of that strike."
+   19: join_string 5
+   20: push_constant_string ""
+   21: return 0
+   22: branch 39
+   23: push_constant_int -1
+   24: push_constant_int 7620
+   25: push_constant_string "<col=800000>"
+   26: push_constant_string "Blue hitsplats"
+   27: push_constant_string "</col>"
+   28: push_constant_string " mean no damage has been dealt."
+   29: join_string 4
+   30: push_constant_string ""
+   31: return 0
+   32: branch 29
+   33: push_constant_int -1
+   34: push_constant_int 7620
+   35: push_constant_string "<col=800000>"
+   36: push_constant_string "Green hitsplats"
+   37: push_constant_string "</col>"
+   38: push_constant_string " are poison damage (members)."
+   39: join_string 4
+   40: push_constant_string ""
+   41: return 0
+   42: branch 19
+   43: push_constant_int -1
+   44: push_constant_int 7620
+   45: push_constant_string "<col=800000>"
+   46: push_constant_string "Yellow hitsplats"
+   47: push_constant_string "</col>"
+   48: push_constant_string " are disease damage (members)."
+   49: join_string 4
+   50: push_constant_string ""
+   51: return 0
+   52: branch 9
+   53: push_constant_int -1
+   54: push_constant_int 7620
+   55: push_constant_string "<col=800000>"
+   56: push_constant_string "Pink hitsplats"
+   57: push_constant_string "</col>"
+   58: push_constant_string " show life points restored through healing (while in Daemonheim)."
+   59: join_string 4
+   60: push_constant_string ""
+   61: return 0
+   62: branch 290
+   63: push_int_local 1
+   64: switch 2
+   65: branch 245
+   66: push_constant_int 35
+   67: push_constant_int 14936
+   68: push_constant_string "Members: Agile top (with 35 Defence)"
+   69: push_constant_string "Members now have the Constitution level required to wear "
+   70: push_constant_string "<col=000080>"
+   71: push_constant_string "agile tops"
+   72: push_constant_string "</col>"
+   73: push_constant_string ". (They also need level 35 Defence.)"
+   74: join_string 5
+   75: return 0
+   76: branch 234
+   77: push_constant_int 35
+   78: push_constant_int 14938
+   79: push_constant_string "Members: Agile legs (with 35 Defence)"
+   80: push_constant_string "Members now have the Constitution level required to wear "
+   81: push_constant_string "<col=000080>"
+   82: push_constant_string "agile legs"
+   83: push_constant_string "</col>"
+   84: push_constant_string ". (They also need level 35 Defence.)"
+   85: join_string 5
+   86: return 0
+   87: branch 223
+   88: push_constant_int 42
+   89: push_constant_int 11665
+   90: push_constant_string "Members: Void melee helm"
+   91: push_constant_string "Members now have the Constitution level required to wear "
+   92: push_constant_string "<col=000080>"
+   93: push_constant_string "Void melee helms"
+   94: push_constant_string "</col>"
+   95: push_constant_string "."
+   96: join_string 5
+   97: return 0
+   98: branch 212
+   99: push_constant_int 42
+  100: push_constant_int 11664
+  101: push_constant_string "Members: Void ranger helm"
+  102: push_constant_string "Members now have the Constitution level required to wear "
+  103: push_constant_string "<col=000080>"
+  104: push_constant_string "Void ranger helms"
+  105: push_constant_string "</col>"
+  106: push_constant_string "."
+  107: join_string 5
+  108: return 0
+  109: branch 201
+  110: push_constant_int 42
+  111: push_constant_int 11663
+  112: push_constant_string "Members: Void mage helm"
+  113: push_constant_string "Members now have the Constitution level required to wear "
+  114: push_constant_string "<col=000080>"
+  115: push_constant_string "Void mage helms"
+  116: push_constant_string "</col>"
+  117: push_constant_string "."
+  118: join_string 5
+  119: return 0
+  120: branch 190
+  121: push_constant_int 42
+  122: push_constant_int 8839
+  123: push_constant_string "Members: Void knight top"
+  124: push_constant_string "Members now have the Constitution level required to wear "
+  125: push_constant_string "<col=000080>"
+  126: push_constant_string "Void knight tops"
+  127: push_constant_string "</col>"
+  128: push_constant_string "."
+  129: join_string 5
+  130: return 0
+  131: branch 179
+  132: push_constant_int 42
+  133: push_constant_int 8840
+  134: push_constant_string "Members: Void knight robe"
+  135: push_constant_string "Members now have the Constitution level required to wear "
+  136: push_constant_string "<col=000080>"
+  137: push_constant_string "Void knight robes"
+  138: push_constant_string "</col>"
+  139: push_constant_string "."
+  140: join_string 5
+  141: return 0
+  142: branch 168
+  143: push_constant_int 42
+  144: push_constant_int 8842
+  145: push_constant_string "Members: Void knight gloves"
+  146: push_constant_string "Members now have the Constitution level required to wear "
+  147: push_constant_string "<col=000080>"
+  148: push_constant_string "Void knight gloves"
+  149: push_constant_string "</col>"
+  150: push_constant_string "."
+  151: join_string 5
+  152: return 0
+  153: branch 157
+  154: push_constant_int 42
+  155: push_constant_int 19712
+  156: push_constant_string "Members: Void knight deflector"
+  157: push_constant_string "Members now have the Constitution level required to wear "
+  158: push_constant_string "<col=000080>"
+  159: push_constant_string "Void knight deflectors"
+  160: push_constant_string "</col>"
+  161: push_constant_string "."
+  162: join_string 5
+  163: return 0
+  164: branch 146
+  165: push_constant_int 42
+  166: push_constant_int 8841
+  167: push_constant_string "Members: Void knight mace"
+  168: push_constant_string "Members now have the Constitution level required to wield "
+  169: push_constant_string "<col=000080>"
+  170: push_constant_string "Void knight maces"
+  171: push_constant_string "</col>"
+  172: push_constant_string "."
+  173: join_string 5
+  174: return 0
+  175: branch 135
+  176: push_constant_int 42
+  177: push_constant_int 7620
+  178: push_constant_string "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+  179: push_constant_string "<col=000080>"
+  180: push_constant_string "Void knight equipment"
+  181: push_constant_string "</col>"
+  182: push_constant_string " requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+  183: join_string 4
+  184: return 0
+  185: branch 125
+  186: push_constant_int 80
+  187: push_constant_int 20135
+  188: push_constant_string "Members: Torva full helm"
+  189: push_constant_string "<br>"
+  190: push_constant_string " (with 80 Strength and Defence)"
+  191: join_string 3
+  192: push_constant_string "Members can now wear "
+  193: push_constant_string "<col=000080>"
+  194: push_constant_string "torva full helms"
+  195: push_constant_string "</col>"
+  196: push_constant_string ". (They also need level 80 Strength and Defence)"
+  197: join_string 5
+  198: return 0
+  199: branch 111
+  200: push_constant_int 80
+  201: push_constant_int 20139
+  202: push_constant_string "Members: Torva platebody"
+  203: push_constant_string "<br>"
+  204: push_constant_string " (with 80 Strength and Defence)"
+  205: join_string 3
+  206: push_constant_string "Members can now wear "
+  207: push_constant_string "<col=000080>"
+  208: push_constant_string "torva platebodies"
+  209: push_constant_string "</col>"
+  210: push_constant_string ". (They also need level 80 Strength and Defence)"
+  211: join_string 5
+  212: return 0
+  213: branch 97
+  214: push_constant_int 80
+  215: push_constant_int 20143
+  216: push_constant_string "Members: Torva platelegs"
+  217: push_constant_string "<br>"
+  218: push_constant_string " (with 80 Strength and Defence)"
+  219: join_string 3
+  220: push_constant_string "Members can now wear "
+  221: push_constant_string "<col=000080>"
+  222: push_constant_string "torva platelegs"
+  223: push_constant_string "</col>"
+  224: push_constant_string ". (They also need level 80 Strength and Defence)"
+  225: join_string 5
+  226: return 0
+  227: branch 83
+  228: push_constant_int 80
+  229: push_constant_int 20159
+  230: push_constant_string "Members: Virtus mask"
+  231: push_constant_string "<br>"
+  232: push_constant_string " (with 80 Magic and Defence)"
+  233: join_string 3
+  234: push_constant_string "Members can now wear "
+  235: push_constant_string "<col=000080>"
+  236: push_constant_string "virtus masks"
+  237: push_constant_string "</col>"
+  238: push_constant_string ". (They also need level 80 Magic and Defence)"
+  239: join_string 5
+  240: return 0
+  241: branch 69
+  242: push_constant_int 80
+  243: push_constant_int 20163
+  244: push_constant_string "Members: Virtus robe top"
+  245: push_constant_string "<br>"
+  246: push_constant_string " (with 80 Magic and Defence)"
+  247: join_string 3
+  248: push_constant_string "Members can now wear "
+  249: push_constant_string "<col=000080>"
+  250: push_constant_string "virtus robe tops"
+  251: push_constant_string "</col>"
+  252: push_constant_string ". (They also need level 80 Magic and Defence)"
+  253: join_string 5
+  254: return 0
+  255: branch 55
+  256: push_constant_int 80
+  257: push_constant_int 20167
+  258: push_constant_string "Members: Virtus robe legs"
+  259: push_constant_string "<br>"
+  260: push_constant_string " (with 80 Magic and Defence)"
+  261: join_string 3
+  262: push_constant_string "Members can now wear "
+  263: push_constant_string "<col=000080>"
+  264: push_constant_string "virtus robe legs"
+  265: push_constant_string "</col>"
+  266: push_constant_string ". (They also need level 80 Magic and Defence)"
+  267: join_string 5
+  268: return 0
+  269: branch 41
+  270: push_constant_int 80
+  271: push_constant_int 20147
+  272: push_constant_string "Members: Pernix cowl"
+  273: push_constant_string "<br>"
+  274: push_constant_string " (with 80 Ranged and Defence)"
+  275: join_string 3
+  276: push_constant_string "Members can now wear "
+  277: push_constant_string "<col=000080>"
+  278: push_constant_string "pernix cowls"
+  279: push_constant_string "</col>"
+  280: push_constant_string ". (They also need level 80 Ranged and Defence)"
+  281: join_string 5
+  282: return 0
+  283: branch 27
+  284: push_constant_int 80
+  285: push_constant_int 20151
+  286: push_constant_string "Members: Pernix body"
+  287: push_constant_string "<br>"
+  288: push_constant_string " (with 80 Ranged and Defence)"
+  289: join_string 3
+  290: push_constant_string "Members can now wear "
+  291: push_constant_string "<col=000080>"
+  292: push_constant_string "pernix bodies"
+  293: push_constant_string "</col>"
+  294: push_constant_string ". (They also need level 80 Ranged and Defence)"
+  295: join_string 5
+  296: return 0
+  297: branch 13
+  298: push_constant_int 80
+  299: push_constant_int 20155
+  300: push_constant_string "Members: Pernix chaps"
+  301: push_constant_string "<br>"
+  302: push_constant_string " (with 80 Ranged and Defence)"
+  303: join_string 3
+  304: push_constant_string "Members can now wear "
+  305: push_constant_string "<col=000080>"
+  306: push_constant_string "pernix chaps"
+  307: push_constant_string "</col>"
+  308: push_constant_string ". (They also need level 80 Ranged and Defence)"
+  309: join_string 5
+  310: return 0
+  311: branch 41
+  312: push_int_local 1
+  313: switch 3
+  314: branch 38
+  315: push_constant_int 70
+  316: push_constant_int 8122
+  317: push_constant_string "Members: Zamorak's Fortress in the God Wars Dungeon"
+  318: push_constant_string "Members can now access the "
+  319: push_constant_string "<col=000080>"
+  320: push_constant_string "Zamorak Fortress"
+  321: push_constant_string "</col>"
+  322: push_constant_string " in the "
+  323: push_constant_string "<col=000080>"
+  324: push_constant_string "God Wars Dungeon"
+  325: push_constant_string "</col>"
+  326: push_constant_string "."
+  327: join_string 9
+  328: return 0
+  329: branch 23
+  330: push_constant_int 99
+  331: push_constant_int 9768
+  332: push_constant_string "Skill mastery"
+  333: push_constant_string "<col=000080>"
+  334: push_constant_string "Congratulations! You are now a master of "
+  335: push_constant_string "<col=800000>"
+  336: push_constant_string "Constitution"
+  337: push_constant_string "<col=000080>"
+  338: push_constant_string ". Members can visit "
+  339: push_constant_string "<col=800000>"
+  340: push_constant_string "Surgeon General Tafani"
+  341: push_constant_string "<col=000080>"
+  342: push_constant_string " at the "
+  343: push_constant_string "<col=800000>"
+  344: push_constant_string "Duel Arena Hospital"
+  345: push_constant_string "<col=000080>"
+  346: push_constant_string ". She has something special that is only available to true masters of the "
+  347: push_constant_string "<col=800000>"
+  348: push_constant_string "Constitution"
+  349: push_constant_string "<col=000080>"
+  350: push_constant_string " skill!"
+  351: join_string 18
+  352: return 0
+  353: push_constant_int 0
+  354: push_constant_int -1
+  355: push_constant_string ""
+  356: push_constant_string ""
+  357: return 0
+
+switch_0:
+  0 => 1
+  1 => 61
+  2 => 310
+switch_1:
+  0 => 1
+  1 => 7
+  2 => 18
+  3 => 28
+  4 => 38
+  5 => 48
+switch_2:
+  0 => 1
+  1 => 12
+  2 => 23
+  3 => 34
+  4 => 45
+  5 => 56
+  6 => 67
+  7 => 78
+  8 => 89
+  9 => 100
+  10 => 111
+  11 => 121
+  12 => 135
+  13 => 149
+  14 => 163
+  15 => 177
+  16 => 191
+  17 => 205
+  18 => 219
+  19 => 233
+switch_3:
+  0 => 1
+  1 => 16

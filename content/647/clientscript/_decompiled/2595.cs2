@@ -1,0 +1,4 @@
+[clientscript,script_2595](int $int0)
+def_int $int1 = get_clientopt;
+~script_2596($int1, getwindowmode, ~script_2692($int1), ~script_2692($int1), $int0);
+return;

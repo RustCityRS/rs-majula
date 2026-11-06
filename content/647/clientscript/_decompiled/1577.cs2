@@ -1,0 +1,16 @@
+[clientscript,script_1577](int $int0, int $int1)(int)
+def_string $str0 = %varc_str210;
+def_int $int2 = if_getwidth;
+if (parawidth($str0, 497) > $int2) {
+    if (parawidth($str0 + "...", 497) > $int2) {
+        $str0 = substring($str0, 0, sub(string_length($str0), 1));
+    }
+    $str0 = $str0 + "...";
+    if_setonmouserepeat;
+    if_setonmouseleave;
+} else {
+    if_setonmouserepeat;
+    if_setonmouseleave;
+}
+if_settext($str0);
+return($int0);
