@@ -72,3 +72,16 @@ if (npc_findnext = true) {
 } else {
     mes("No NPC within 5 tiles")
 }
+
+// info: Play a seq on the nearest npc of a type, to see which of its
+// animations is which. Run ::animnpc <npc> <id> beside it. Takes a raw seq id
+// (int), as ::spotnpc takes a spotanim's.
+[debugproc,animnpc](npc $npc, int $id)
+if (npc_find(coord, $npc, 8, 0) = true) {
+    mes("Seq <tostring($id)> on <npc_name>");
+    // Held still, so the seq plays where it can be watched.
+    npc_setmode(none);
+    npc_anim($id, 0);
+} else {
+    mes("No <nc_name($npc)> within 8 tiles");
+}

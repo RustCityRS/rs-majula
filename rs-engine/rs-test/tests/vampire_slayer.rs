@@ -450,11 +450,41 @@ fn pack_id(kind: &str, name: &str) -> i32 {
         .unwrap_or_else(|| panic!("{kind}.pack names {name}"))
 }
 
-/// The Count claws, as 289's Mort Myre vampires and void-634's vampyres do
-/// (vamp_claw, 1264), and does not punch (the attack_anim param's default,
-/// which 289's Count fell back to).
+/// The frame sets a seq's frames come from, from 647's unpacked cache
+/// (`all.seq`: `frameN=<delay>:<frame>:<frame set>`).
+fn frame_sets(seq: &str) -> std::collections::BTreeSet<String> {
+    let path = format!(
+        "{}/../../content/647/scripts/_unpack/all.seq",
+        env!("CARGO_MANIFEST_DIR")
+    );
+    let all = std::fs::read_to_string(&path).expect(&path);
+    let head = format!(
+        "[{seq}]
+"
+    );
+    let start = all
+        .find(&head)
+        .unwrap_or_else(|| panic!("all.seq has {seq}"))
+        + head.len();
+    let body = &all[start
+        ..all[start..]
+            .find(
+                "
+[",
+            )
+            .map_or(all.len(), |e| start + e)];
+    body.lines()
+        .filter_map(|l| l.strip_prefix("frame"))
+        .filter_map(|l| l.split_once('='))
+        .filter_map(|(_, v)| v.rsplit(':').next().map(str::to_string))
+        .collect()
+}
+
+/// The Count's attack, block and death play on his own skeleton, the frame
+/// set his 2011 stand (bas 1669: seq 3330) uses, not a human one (289's punch
+/// and block, the default death, vamp_claw), which twists his model.
 #[test]
-fn the_count_claws() {
+fn the_count_fights_on_his_own_skeleton() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let count = npc_type(engine, "count_draynor");
@@ -464,11 +494,20 @@ fn the_count_claws() {
             .get_by_id(count)
             .and_then(|n| n.params.as_deref())
             .expect("the Count has params");
-        let value = params.get(&pack_id("param", "attack_anim"));
-        assert!(
-            matches!(value, Some(rs_pack::ParamValue::Int(v)) if *v == 1264),
-            "attack_anim is {value:?}"
-        );
-        assert_eq!(pack_id("seq", "vamp_claw"), 1264);
+        let own = frame_sets("seq_3330");
+        assert_eq!(own.len(), 1, "his stand is one frame set: {own:?}");
+        assert_ne!(own, frame_sets("human_unarmedpunch"));
+        for (param, seq) in [
+            ("attack_anim", 3331),
+            ("defend_anim", 3332),
+            ("death_anim", 3112),
+        ] {
+            let value = params.get(&pack_id("param", param));
+            assert!(
+                matches!(value, Some(rs_pack::ParamValue::Int(v)) if *v == seq),
+                "{param} is {value:?}, not {seq}"
+            );
+            assert_eq!(frame_sets(&format!("seq_{seq}")), own, "{param} {seq}");
+        }
     });
 }
