@@ -105,20 +105,20 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
     let mut p = ClientPacket::new();
-    p.p1_alt2(0).p2(nid as i32);
+    p.p1_alt3(0).p2(nid as i32);
     client.send(ClientProt::OpNpc1, &p.finish());
 }
 
 /// Uses the obj in `slot` on the loc `loc` at `(x, z)` (OPLOCT).
 fn use_on(client: &mut HarnessClient, o: u16, slot: i32, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.p2_alt1(o as i32)
-        .p2_alt1(slot)
+    p.p2_alt2(o as i32)
+        .p2_alt2(slot)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
-        .p2_alt1(x as i32)
-        .p1_alt3(0)
-        .ip2(loc as i32);
+        .p2_alt2(x as i32)
+        .p1_alt1(0)
+        .p2_alt1(loc as i32);
     client.send(ClientProt::OpLocT, &p.finish());
 }
 
