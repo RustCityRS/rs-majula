@@ -1,6 +1,6 @@
-#[cfg(since_647)]
-use crate::REVISION;
 use crate::{ConnectionGuard, ConnectionPermit, ServerIO, Socket};
+#[cfg(since_647)]
+use crate::{REVISION, SocketType};
 #[cfg(since_647)]
 use anyhow::anyhow;
 use anyhow::bail;
@@ -327,6 +327,19 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
 }
 
 #[cfg(since_647)]
+fn world_id(client: &Socket) -> anyhow::Result<u16> {
+    let SocketType::Tcp(stream) = &client.socket_type else {
+        bail!("647 lobby requires a TCP connection");
+    };
+    stream
+        .local_addr()?
+        .port()
+        .checked_sub(40000)
+        .filter(|id| (1..=15535).contains(id))
+        .ok_or_else(|| anyhow!("invalid 647 world port"))
+}
+
+#[cfg(since_647)]
 async fn send_lobby_response(client: &mut Socket, display_name: &str) -> anyhow::Result<()> {
     let len = u8::try_from(59 + Packet::sizejstr(display_name))?;
     let mut pkt = Packet::new(1 + len as usize);
@@ -356,7 +369,7 @@ async fn send_lobby_response(client: &mut Socket, display_name: &str) -> anyhow:
     pkt.p1(10);
     pkt.p4(0x0046F489);
     pkt.p1(0);
-    pkt.p2(1);
+    pkt.p2(world_id(client)?);
     pkt.p1(0);
     pkt.pjstr("127.0.0.1", 0);
 
@@ -400,6 +413,7 @@ async fn lobby_loop(mut client: Socket, mut isaac: IsaacPair) -> anyhow::Result<
 
 #[cfg(since_647)]
 async fn send_world_list(client: &mut Socket, isaac: &mut IsaacPair) -> anyhow::Result<()> {
+    let world_id = world_id(client)? as i32;
     let mut inner = Packet::new(128);
 
     inner.p1(2);
@@ -410,8 +424,8 @@ async fn send_world_list(client: &mut Socket, isaac: &mut IsaacPair) -> anyhow::
     inner.p1(0);
     inner.pjstr("Otherworld", 0);
 
-    inner.psmart1or2(1);
-    inner.psmart1or2(1);
+    inner.psmart1or2(world_id);
+    inner.psmart1or2(world_id);
     inner.psmart1or2(1);
 
     inner.psmart1or2(0);

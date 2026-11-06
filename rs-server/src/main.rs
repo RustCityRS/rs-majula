@@ -677,7 +677,14 @@ async fn bootstrap(
 ) -> Result<()> {
     let host = args.host.clone();
     let http = args.http_port.unwrap_or(8070 + args.node_id as u16);
+    #[cfg(before_647)]
     let tcp = args.tcp_port.unwrap_or(43584 + args.node_id as u16);
+    #[cfg(since_647)]
+    let tcp = args.tcp_port.unwrap_or(39991 + args.node_id as u16);
+    #[cfg(since_647)]
+    if !(40001..=55535).contains(&tcp) {
+        bail!("647 standalone client requires --tcp-port between 40001 and 55535");
+    }
     // Rev-647 clients fetch the cache over JS5, not JAGGRAB.
     #[cfg(before_647)]
     let jaggrab = args.jaggrab_port.unwrap_or(tcp + 1);

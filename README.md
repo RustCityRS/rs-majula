@@ -558,7 +558,7 @@ before `migrate`).
 |---|---|---|
 | `--host <HOST>` | `0.0.0.0` | Address the game and HTTP ports listen on. |
 | `--http-port <PORT>` | `8070 + node_id` (`8080`) | The web client and cache files. |
-| `--tcp-port <PORT>` | `43584 + node_id` (`43594`) | The game protocol port. |
+| `--tcp-port <PORT>` | `43584 + node_id` (`43594`); 647: `39991 + node_id` (`40001`) | The game protocol port. |
 | `--private-key <PATH>` | `.keys/private.pem` | The RSA private key for the login handshake. |
 | `--real-ip-header <NAME>` | unset | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
 | `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`) | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. |
@@ -643,12 +643,17 @@ download, regeneration command or intermediate disk cache is needed.
 ```bash
 docker compose up -d
 REV=647 cargo run --profile dev-opt -p rs-server
-java -Xmx512m -cp public/647/client.jar client 3594 3594 3594 live english game0
+java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
+  -cp public/647/client.jar client 1 1 1 live english game0
 ```
 
-Run the client in a separate terminal with Java 17 or 21. Its built-in desktop launcher
-connects to localhost; the three server IDs select ports `40000 + id`, so `3594` reaches
-the default server port `43594`. This launcher does not use `jav_config.ws` or HTTP port 80.
+Run the client in a separate terminal with Java 17 or 21. The `--add-opens` flag permits
+the stock native-library loader to load the Software, OpenGL and DirectX renderers.
+Its built-in desktop launcher connects to localhost; the three server IDs select ports
+`40000 + id`, so World 1 uses the default server port `40001`. Node 10 is World 1, node 11
+is World 2, and so on. This launcher does not use `jav_config.ws` or HTTP port 80.
+The lobby advertises the world ID matching the server's listening port. Custom
+TCP ports must be between 40001 and 55535; use `port - 40000` for the client's server IDs.
 
 To reproduce the RSA patch, or verify that no other client changes are present:
 

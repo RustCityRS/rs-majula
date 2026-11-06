@@ -4,7 +4,7 @@ codebase=http://127.0.0.1
 applet_minwidth=1024
 applet_minheight=768
 cabbase=g.cab
-java_arguments=-Xmx102m -Dsun.java2d.noddraw=true
+java_arguments=--add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m -Dsun.java2d.noddraw=true
 haveie6=0
 havefirefox=1
 cookieprefix=
@@ -14,11 +14,11 @@ crashurl=
 unsignedurl=
 param=colourid=0
 param=worldid=1
-param=lobbyid=3594
+param=lobbyid=1
 param=lobbyaddress=127.0.0.1
 param=gameaddress=127.0.0.1
-param=demoid=0
-param=modewhere=0
+param=demoid=1
+param=modewhere=4
 param=modewhat=0
 param=lang=0
 param=objecttag=0

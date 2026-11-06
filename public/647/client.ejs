@@ -69,7 +69,7 @@
             <p>
                 3. Launch the client from a separate terminal on the same computer:
             </p>
-            <p><code>java -Xmx512m -cp client.jar client <%= Number(nodeid) + 3584 %> <%= Number(nodeid) + 3584 %> <%= Number(nodeid) + 3584 %> live english game0</code></p>
+            <p><code>java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m -cp client.jar client <%= Number(nodeid) - 9 %> <%= Number(nodeid) - 9 %> <%= Number(nodeid) - 9 %> live english game0</code></p>
             <p>
                 Log in with any username and password &mdash; accounts are
                 created on first login.
