@@ -1,0 +1,106 @@
+// 289's Draynor Manor (quests/quest_haunted/configs/quest_haunted.loc) on
+// 2011's locs, matched by where cache 786's maps (l48_52, l48_152) place them.
+// Examines moved here from examine.loc.
+//
+// The basement's lever puzzle is per player in 2011. Levers A-F (146-151, as
+// 289's) are multilocs on varbits 1788-1793, bits 1-6 of varp 33 (289's
+// ernestlever, which used bits 0-5), so lever_index is 289's plus one. The
+// nine doors are multilocs on varbits 1794-1802, bits 0-8 of varp 668: at 0 a
+// door with no ops, at 1 one with Open. 289's doors map onto them in id order,
+// and haunted_door_bit is each one's bit.
+
+[loc_146]
+desc=I wonder what this does...
+category=haunted_lever
+param=lever_index,1
+
+[loc_147]
+desc=I wonder what this does...
+category=haunted_lever
+param=lever_index,2
+
+[loc_148]
+desc=I wonder what this does...
+category=haunted_lever
+param=lever_index,3
+
+[loc_149]
+desc=I wonder what this does...
+category=haunted_lever
+param=lever_index,4
+
+[loc_150]
+desc=I wonder what this does...
+category=haunted_lever
+param=lever_index,5
+
+[loc_151]
+desc=I wonder what this does...
+category=haunted_lever
+param=lever_index,6
+
+// 289's 1to2
+[loc_137]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,0
+
+// 289's 2to3
+[loc_138]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,1
+
+// 289's 4to5
+[loc_2373]
+desc=A cupboard.
+category=haunted_door
+param=haunted_door_bit,2
+
+// 289's 5to6
+[loc_140]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,3
+
+// 289's 8to9
+[loc_141]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,4
+
+// 289's 2to5
+[loc_2374]
+desc=A cupboard.
+category=haunted_door
+param=haunted_door_bit,5
+
+// 289's 3to6
+[loc_143]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,6
+
+// 289's 4to7
+[loc_144]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,7
+
+// 289's 5to8
+[loc_145]
+desc=It's closed.
+category=haunted_door
+param=haunted_door_bit,8
+
+[compost_heap]
+desc=Smelly.
+
+[fountain]
+desc=An ornate fountain.
+
+[closet_door]
+desc=The door is closed.
+
+[hauntedleverup]
+desc=I wonder what this does...

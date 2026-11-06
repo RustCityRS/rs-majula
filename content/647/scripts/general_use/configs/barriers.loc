@@ -2236,9 +2236,17 @@ desc=A door.
 category=door_closed
 param=next_loc_stage,door_46305
 
+// Draynor Manor's front doors: 289's haunteddoorl and haunteddoorr
+// (quest_haunted.loc), a double door, on 2011's 47421 and 47424, which open
+// to 47423 and 47425 (cache 786). quest_haunted.rs2 opens them.
+[large_door_47421]
+desc=A large double door.
+category=double_door_open_and_close_left
+param=next_loc_stage,large_door_47423
+
 [large_door_47424]
 desc=A large double door.
-category=door_closed
+category=double_door_open_and_close_right
 param=next_loc_stage,large_door_47425
 
 [door_47443]
