@@ -8,13 +8,20 @@ use rs_io::js5::encode_group_entries;
 use std::fs;
 use std::path::Path;
 
-pub fn read(aid: u8, path: &Path) -> Result<String> {
+pub fn pack_file(
+    aid: u8,
+    gid: u32,
+    path: &Path,
+    names: &AssetNames,
+) -> Result<Vec<(u32, Vec<u8>)>> {
     let text = fs::read_to_string(path).with_context(|| path.display().to_string())?;
-    if aid == archive::WORLDMAP_DATA {
-        worldmap_source::read_squares(path, &text)
-    } else {
-        Ok(text)
-    }
+    pack_sections(aid, gid, &text, names, |body| {
+        if aid == archive::WORLDMAP_DATA {
+            worldmap_source::pack_squares(path, gid, body, names)
+        } else {
+            pack(aid, gid, body, names)
+        }
+    })
 }
 
 pub fn entry_kind(aid: u8, gid: u32) -> Option<&'static str> {
@@ -47,27 +54,38 @@ pub fn pack_entries(
     text: &str,
     names: &AssetNames,
 ) -> Result<Vec<(u32, Vec<u8>)>> {
+    pack_sections(aid, gid, text, names, |body| pack(aid, gid, body, names))
+}
+
+fn pack_sections(
+    aid: u8,
+    gid: u32,
+    text: &str,
+    names: &AssetNames,
+    mut encode: impl FnMut(&str) -> Result<Vec<u8>>,
+) -> Result<Vec<(u32, Vec<u8>)>> {
     let mut entries = Vec::new();
-    let mut body = String::new();
+    let mut start = 0;
+    let mut offset = 0;
     let mut current = None;
-    for line in text.lines() {
+    for line in text.split_inclusive('\n') {
+        let end = offset + line.len();
+        let line = line.trim_end_matches(['\r', '\n']);
         if let Some(header) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
             if let Some(id) = current {
-                entries.push((id, pack(aid, gid, &body, names)?));
+                entries.push((id, encode(&text[start..offset])?));
             }
-            body.clear();
+            start = end;
             current = Some(if let Some(kind) = entry_kind(aid, gid) {
                 names.id(kind, header)?
             } else {
                 0
             });
-        } else {
-            body.push_str(line);
-            body.push('\n');
         }
+        offset = end;
     }
     if let Some(id) = current {
-        entries.push((id, pack(aid, gid, &body, names)?));
+        entries.push((id, encode(&text[start..])?));
     }
     ensure!(!entries.is_empty(), "Asset has no sections");
     entries.sort_by_key(|(id, _)| *id);

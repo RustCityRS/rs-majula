@@ -10,6 +10,8 @@ use rs_io::js5::reference::encode_master_index;
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
+use std::ops::Range;
+#[cfg(since_647)]
 use std::sync::Arc;
 #[cfg(since_647)]
 use tracing::info;
@@ -76,7 +78,8 @@ impl Js5Response<'_> {
 #[cfg(since_647)]
 #[derive(Clone)]
 pub struct Js5Cache {
-    groups: Arc<HashMap<(u8, u32), Vec<u8>>>,
+    groups: Arc<HashMap<(u8, u32), Range<usize>>>,
+    data: Arc<Vec<u8>>,
 }
 
 #[cfg(since_647)]
@@ -105,20 +108,32 @@ impl Js5Cache {
             private_key,
         );
         groups.insert((255, 255), master);
+        let mut data = Vec::with_capacity(groups.values().map(Vec::len).sum());
+        let groups: HashMap<_, _> = groups
+            .into_iter()
+            .map(|(id, group)| {
+                let start = data.len();
+                data.extend_from_slice(&group);
+                (id, start..data.len())
+            })
+            .collect();
         info!("JS5 cache ready: {} groups in memory", groups.len());
         Ok(Self {
             groups: Arc::new(groups),
+            data: Arc::new(data),
         })
     }
 
     pub fn get(&self, archive: u8, group: u32) -> Option<&[u8]> {
-        self.groups.get(&(archive, group)).map(Vec::as_slice)
+        self.groups
+            .get(&(archive, group))
+            .map(|range| &self.data[range.clone()])
     }
 
     pub fn prefetch_crcs(&self) -> [i32; 27] {
         let mut crcs = [0; 27];
         for (archive, crc) in crcs.iter_mut().enumerate() {
-            if let Some(data) = self.groups.get(&(255, archive as u32)) {
+            if let Some(data) = self.get(255, archive as u32) {
                 *crc = getcrc(data, 0, data.len());
             }
         }

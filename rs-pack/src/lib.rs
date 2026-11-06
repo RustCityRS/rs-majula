@@ -83,6 +83,8 @@ use crate::pack::wordenc::pack_wordenc;
 use crate::types::OndemandBlobs;
 #[cfg(all(since_244, before_647))]
 use crate::unpack::model::load_existing_pack;
+#[cfg(since_647)]
+use rayon::ThreadPoolBuilder;
 #[cfg(before_647)]
 use rs_io::crc;
 #[cfg(before_647)]
@@ -413,7 +415,9 @@ pub fn pack_all(
     verify: bool,
     members: bool,
 ) -> anyhow::Result<startup::PackResult> {
-    startup::pack_all(source, pack, verify, members)
+    ThreadPoolBuilder::new()
+        .build()?
+        .install(|| startup::pack_all(source, pack, verify, members))
 }
 
 #[cfg(before_647)]

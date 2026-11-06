@@ -320,8 +320,7 @@ pub fn pack_asset_archives(
                 .map(|(gid, path)| {
                     let mut file_ids = None;
                     let data = if asset::extension(aid).is_some() {
-                        let entries =
-                            asset::pack_entries(aid, *gid, &asset::read(aid, path)?, &names)?;
+                        let entries = asset::pack_file(aid, *gid, path, &names)?;
                         file_ids = Some(entries.iter().map(|(id, _)| *id).collect::<Vec<_>>());
                         encode_group_entries(
                             &entries

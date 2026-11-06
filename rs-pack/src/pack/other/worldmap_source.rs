@@ -1,24 +1,14 @@
+use crate::pack::names::AssetNames;
 use crate::pack::text::{Number, TextCodec};
 use anyhow::{Context, Result, bail, ensure};
 use std::fs;
 use std::path::{Component, Path};
 
 pub fn read_squares(path: &Path, text: &str) -> Result<String> {
-    let parent = path.parent().context("World map source has no parent")?;
     let mut result = String::new();
     for line in text.lines() {
         if let Some(square) = line.trim().strip_prefix("square=") {
-            let relative = Path::new(square.trim());
-            ensure!(
-                relative.extension().is_some_and(|ext| ext == "fms")
-                    && relative
-                        .components()
-                        .all(|part| matches!(part, Component::Normal(_))),
-                "Invalid world map square path: {square}"
-            );
-            let path = parent.join(relative);
-            let source = fs::read_to_string(&path)
-                .with_context(|| format!("Reading world map square {}", path.display()))?;
+            let source = read_square(path, square)?;
             result.push_str(&source);
             if !source.ends_with('\n') {
                 result.push('\n');
@@ -29,6 +19,60 @@ pub fn read_squares(path: &Path, text: &str) -> Result<String> {
         }
     }
     Ok(result)
+}
+
+fn read_square(path: &Path, square: &str) -> Result<String> {
+    let relative = Path::new(square.trim());
+    ensure!(
+        relative.extension().is_some_and(|ext| ext == "fms")
+            && relative
+                .components()
+                .all(|part| matches!(part, Component::Normal(_))),
+        "Invalid world map square path: {square}"
+    );
+    let path = path
+        .parent()
+        .context("World map source has no parent")?
+        .join(relative);
+    fs::read_to_string(&path)
+        .with_context(|| format!("Reading world map square {}", path.display()))
+}
+
+pub fn pack_squares(path: &Path, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
+    let mut squares = Vec::new();
+    let mut offset = 0;
+    for line in text.split_inclusive('\n') {
+        let end = offset + line.len();
+        if let Some(square) = line.trim().strip_prefix("square=") {
+            squares.push((offset, end, square));
+        }
+        offset = end;
+    }
+    let Some(&(start, _, _)) = squares.first() else {
+        let mut c = TextCodec::pack(text, names)?;
+        transcode(gid, &mut c)?;
+        return Ok(c.finish()?.1);
+    };
+    let mut c = TextCodec::pack(&text[..start], names)?;
+    ensure!(
+        c.label("format", "area")? == "area",
+        "Squares require an area"
+    );
+    let palettes = palettes(&mut c)?;
+    chunks(&mut c, &palettes)?;
+    let mut data = c.finish()?.1;
+    for (i, &(_, end, square)) in squares.iter().enumerate() {
+        let source = read_square(path, square)?;
+        let next = squares
+            .get(i + 1)
+            .map_or(text.len(), |&(start, _, _)| start);
+        for part in [source.as_str(), &text[end..next]] {
+            let mut c = TextCodec::pack(part, names)?;
+            chunks(&mut c, &palettes)?;
+            data.extend(c.finish()?.1);
+        }
+    }
+    Ok(data)
 }
 
 fn tile(c: &mut TextCodec<'_>, key: &str, palettes: &[Vec<i64>; 2]) -> Result<i64> {
@@ -136,58 +180,68 @@ pub fn transcode(gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
         c.number("members", Number::U8)?;
     } else {
         ensure!(kind == "area", "Unknown world map format: {kind}");
-        let mut palettes = [Vec::new(), Vec::new()];
-        for (index, (key, domain)) in [("underlays", "flu"), ("overlays", "flo")]
-            .into_iter()
-            .enumerate()
-        {
-            let count = c.number(key, Number::U8)?;
-            for _ in 0..count {
-                palettes[index].push(c.reference_offset(domain, Number::U8, domain, 1)?);
-            }
+        let palettes = palettes(c)?;
+        chunks(c, &palettes)?;
+    }
+    Ok(())
+}
+
+fn palettes(c: &mut TextCodec<'_>) -> Result<[Vec<i64>; 2]> {
+    let mut palettes = [Vec::new(), Vec::new()];
+    for (index, (key, domain)) in [("underlays", "flu"), ("overlays", "flo")]
+        .into_iter()
+        .enumerate()
+    {
+        let count = c.number(key, Number::U8)?;
+        for _ in 0..count {
+            palettes[index].push(c.reference_offset(domain, Number::U8, domain, 1)?);
         }
-        while c.more("chunk_kind") {
-            let chunk = c.number("chunk_kind", Number::U8)?;
-            let mut x = c.number("map_x", Number::U8)? * 64;
-            let mut z = c.number("map_z", Number::U8)? * 64;
-            if chunk != 0 {
-                x += c.number("chunk_x", Number::U8)? * 8;
-                z += c.number("chunk_z", Number::U8)? * 8;
-            }
-            let size = if chunk == 0 { 64 } else { 8 };
-            for index in 0..size * size {
-                let key = format!("tile{}_{}", x + index / size, z + index % size);
-                let flags = tile(c, &key, &palettes)?;
-                if flags & 1 == 0 {
-                    let index = flags >> 2 & 63;
-                    if index == 62 {
-                        continue;
+    }
+    Ok(palettes)
+}
+
+fn chunks(c: &mut TextCodec<'_>, palettes: &[Vec<i64>; 2]) -> Result<()> {
+    while c.more("chunk_kind") {
+        let chunk = c.number("chunk_kind", Number::U8)?;
+        let mut x = c.number("map_x", Number::U8)? * 64;
+        let mut z = c.number("map_z", Number::U8)? * 64;
+        if chunk != 0 {
+            x += c.number("chunk_x", Number::U8)? * 8;
+            z += c.number("chunk_z", Number::U8)? * 8;
+        }
+        let size = if chunk == 0 { 64 } else { 8 };
+        for index in 0..size * size {
+            let key = format!("tile{}_{}", x + index / size, z + index % size);
+            let flags = tile(c, &key, palettes)?;
+            if flags & 1 == 0 {
+                let index = flags >> 2 & 63;
+                if index == 62 {
+                    continue;
+                }
+                if index == 63 {
+                    c.reference_offset(
+                        "floor",
+                        Number::U8,
+                        if flags & 2 == 0 { "flu" } else { "flo" },
+                        1,
+                    )?;
+                }
+                if flags & 2 != 0 {
+                    c.reference_offset("underlay", Number::U8, "flu", 1)?;
+                }
+            } else {
+                let levels = (flags >> 1 & 3) + 1;
+                for _ in 0..levels {
+                    c.reference_offset("underlay", Number::U8, "flu", 1)?;
+                    if flags & 8 != 0 {
+                        c.reference_offset("overlay", Number::U8, "flo", 1)?;
+                        shape(c, "shape_rotation")?;
                     }
-                    if index == 63 {
-                        c.reference_offset(
-                            "floor",
-                            Number::U8,
-                            if flags & 2 == 0 { "flu" } else { "flo" },
-                            1,
-                        )?;
-                    }
-                    if flags & 2 != 0 {
-                        c.reference_offset("underlay", Number::U8, "flu", 1)?;
-                    }
-                } else {
-                    let levels = (flags >> 1 & 3) + 1;
-                    for _ in 0..levels {
-                        c.reference_offset("underlay", Number::U8, "flu", 1)?;
-                        if flags & 8 != 0 {
-                            c.reference_offset("overlay", Number::U8, "flo", 1)?;
-                            shape(c, "shape_rotation")?;
-                        }
-                        if flags & 16 != 0 {
-                            let count = c.number("locs", Number::U8)?;
-                            for _ in 0..count {
-                                c.reference("loc", Number::U16, "loc")?;
-                                shape(c, "loc_shape_rotation")?;
-                            }
+                    if flags & 16 != 0 {
+                        let count = c.number("locs", Number::U8)?;
+                        for _ in 0..count {
+                            c.reference("loc", Number::U16, "loc")?;
+                            shape(c, "loc_shape_rotation")?;
                         }
                     }
                 }

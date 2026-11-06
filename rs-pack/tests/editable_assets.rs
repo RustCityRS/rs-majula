@@ -48,7 +48,11 @@ fn worldmap_squares_preserve_chunk_order_and_edits() {
         square=main/file_1/m50_51_2.fms\n"
     );
     fs::write(&path, format!("[file_1]\n{source}")).unwrap();
-    let source = asset::read(aid, &path).unwrap();
+    assert_eq!(
+        asset::pack_file(aid, 0, &path, &names).unwrap(),
+        [(1, data.clone())]
+    );
+    let source = worldmap_source::read_squares(&path, &fs::read_to_string(&path).unwrap()).unwrap();
     assert_eq!(asset::pack_group(aid, 0, &source, &names).unwrap(), data);
 
     let square = dir.join("main/file_1/m50_51.fms");
@@ -56,18 +60,39 @@ fn worldmap_squares_preserve_chunk_order_and_edits() {
         .unwrap()
         .replacen("=empty\n", "=empty_overlay\n", 1);
     fs::write(square, text).unwrap();
-    let source = asset::read(aid, &path).unwrap();
     data[7] = 250;
-    assert_eq!(asset::pack_group(aid, 0, &source, &names).unwrap(), data);
+    assert_eq!(
+        asset::pack_file(aid, 0, &path, &names).unwrap(),
+        [(1, data.clone())]
+    );
+
+    let manifest = fs::read_to_string(&path).unwrap();
+    let inline = fs::read_to_string(dir.join("main/file_1/m51_51.fms")).unwrap();
+    fs::write(
+        &path,
+        manifest.replace("square=main/file_1/m51_51.fms\n", &inline),
+    )
+    .unwrap();
+    assert_eq!(
+        asset::pack_file(aid, 0, &path, &names).unwrap(),
+        [(1, data.clone())]
+    );
+    fs::write(&path, manifest).unwrap();
 
     fs::remove_file(dir.join("main/file_1/m51_51.fms")).unwrap();
     assert!(
-        asset::read(aid, &path)
+        asset::pack_file(aid, 0, &path, &names)
             .unwrap_err()
             .to_string()
             .contains("m51_51.fms")
     );
     assert!(worldmap_source::read_squares(&path, "square=../outside.fms\n").is_err());
+    fs::write(
+        &path,
+        "[file_1]\nformat=area\nunderlays=0\noverlays=0\nsquare=../outside.fms\n",
+    )
+    .unwrap();
+    assert!(asset::pack_file(aid, 0, &path, &names).is_err());
     fs::remove_dir_all(dir).unwrap();
 }
 

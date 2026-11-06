@@ -98,8 +98,8 @@ Unpacking exports this metadata and copies the keys used to decode maps into the
 World-map areas list `square=main/file_1/m50_50.fms` paths relative to their `.fm` file.
 Each square file contains the original 64-by-64 square or its 8-by-8 chunks. Keep the
 listed order: a square revisited later uses a numbered part such as `m50_50_2.fms`.
-The area palette stays in `.fm`, and packing combines the squares into the original
-cache entry. Inline square data is also accepted.
+The area palette stays in `.fm`. Packing reads one square at a time and combines
+its bytes into the original cache entry. Inline square data is also accepted.
 
 For example, a model vertex is `vertex0=-40,-10,-16`, a triangle is
 `face0.vertices=0,1,2`, and a material is `face0.material=texture_12`. Texture mappings
