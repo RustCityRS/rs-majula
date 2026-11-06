@@ -160,6 +160,26 @@ if ($var = 1) {
 %musiclength = midi_length($song);
 midi_song(%currentsong);
 
+// A track a quest scene plays, unlocked as it starts if it was not, with the
+// area's message (2011's Vampire Slayer coffin: I'm Counting on You, whose
+// Unlock hint is "during Vampire Slayer.", enum 952; the 2011-02-19 and
+// 2011-05-30 recordings show the message as the scene starts).
+[proc,music_unlock_play](dbrow $song)
+def_int $unlock;
+def_int $bit;
+$unlock, $bit = db_getfield($song, music:unlock, 0);
+if ($unlock ! null) {
+    if (testbit(~music_getvar($unlock), $bit) = ^false) {
+        ~music_setvar($unlock, $bit);
+        mes("@red@You have unlocked a new music track: <db_getfield($song, music:name, 0)>.");
+    }
+}
+if_settext(music_v3:com4, db_getfield($song, music:name, 0));
+%currentsong = db_getfield($song, music:track, 0);
+%musicstart = map_clock;
+%musiclength = midi_length(%currentsong);
+midi_song(%currentsong);
+
 [proc,music_jingle](midi $jingle)
 // we only offset for music looping
 // the client will handle playing the last song after this jingle ends

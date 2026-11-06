@@ -5,7 +5,20 @@
 // now specifically used"), and the quest waits for Morgan. Without garlic,
 // each of the player's hits of 0 heals him 10 life points (2011 wiki, Vampire
 // Slayer).
-[ai_queue4,count_draynor] gosub(npc_death);
+[ai_queue4,count_draynor]
+~quest_vampire_coffin_close;
+gosub(npc_death);
+
+// The coffin cutscene's camera (quest_vampire.rs2) holds until the player
+// engages him: in the 2010-10-15 and 2011-02-19 recordings it gives the
+// player's camera back as the player reaches him to attack.
+[opnpc2,count_draynor]
+cam_reset;
+@player_combat_start;
+
+[apnpc2,count_draynor]
+cam_reset;
+@player_combat_start_ap;
 
 // https://youtu.be/67aR5-_INcU
 // - seems to be called on npc damage, and on npc hit
@@ -91,8 +104,12 @@ if (%vampire < ^vampire_complete) {
 [ai_timer,count_draynor]
 if (finduid(%npc_attacking_uid) = true) {
     if (npc_range(coord) > 10 | coordy(coord) ! coordy(npc_coord)) {
+        // A player who leaves without attacking him gets the camera back.
+        cam_reset;
+        ~quest_vampire_coffin_close;
         npc_del;
     }
 } else {
+    ~quest_vampire_coffin_close;
     npc_del;
 }

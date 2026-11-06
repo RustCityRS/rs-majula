@@ -79,9 +79,48 @@ if (npc_findnext = true) {
 [debugproc,animnpc](npc $npc, int $id)
 if (npc_find(coord, $npc, 8, 0) = true) {
     mes("Seq <tostring($id)> on <npc_name>");
-    // Held still, so the seq plays where it can be watched.
+    // Held still and facing the player, so the seq plays as it would in a
+    // fight, where it can be watched.
     npc_setmode(none);
+    npc_facesquare(coord);
     npc_anim($id, 0);
 } else {
     mes("No <nc_name($npc)> within 8 tiles");
+}
+
+// info: Play a seq on a loc, to see which of a loc's animations is which.
+// Run ::animloc <coord> <loc> <seq>, the coord as level_mx_mz_lx_lz.
+[debugproc,animloc](coord $coord, loc $loc, int $id)
+if (loc_find($coord, $loc) = true) {
+    mes("Seq <tostring($id)> on <lc_name($loc)>");
+    loc_anim($id);
+} else {
+    mes("No <lc_name($loc)> at that coord");
+}
+
+// info: Put the camera at a tile and height, looking at another, at once
+// (speed 100 snaps: the 647 client's CAM_MOVETO/CAM_LOOKAT). For matching a
+// cutscene's camera. Run ::camset <coord> <height> <coord> <height>; ::camreset
+// gives the camera back.
+[debugproc,camset](coord $from, int $height, coord $at, int $at_height)
+cam_moveto($from, $height, 100, 100);
+cam_lookat($at, $at_height, 100, 100);
+
+[debugproc,camreset]()
+cam_reset;
+
+// info: Play a seq on yourself, turned to a tile. Run ::animself <seq> <coord>.
+[debugproc,animself](int $id, coord $face)
+mes("Seq <tostring($id)> on you");
+facesquare($face);
+anim($id, 0);
+
+// info: Change a loc for a while, to see another loc's model in its place.
+// Run ::locchange <coord> <loc> <new loc> <ticks>.
+[debugproc,locchange](coord $coord, loc $loc, loc $to, int $ticks)
+if (loc_find($coord, $loc) = true) {
+    mes("<lc_name($loc)> becomes <lc_name($to)> for <tostring($ticks)> ticks");
+    loc_change($to, $ticks);
+} else {
+    mes("No <lc_name($loc)> at that coord");
 }

@@ -8,28 +8,92 @@
 //   the backpack or the bank, goes then.
 // Lines are 289's: no 2011 source quotes the reworked quest's.
 //
-// Waiting: 2011 plays a cutscene when the coffin opens (the player's stake
-// fails to go in, and the Count teleports out); and a player the Count kills
-// before the quest wakes in a cell (2011 wiki, Vampire Slayer). Neither is
-// described closely enough to port.
+// Waiting: a player the Count kills before the quest wakes in a cell (2011
+// wiki, Vampire Slayer), not described closely enough to port.
 
 // 2011's coffin, loc 158, at 3080,9785 in Draynor Manor's basement: Open is
-// its only op (289's had Search and Close once open).
+// its only op (289's had Search and Close once open), and it plays 2011's
+// cutscene ("a cutscene with play of you attempting to stake Count Draynor,
+// but it doesn't go in deep enough. He will teleport out of his coffin and
+// attack you", 2011 wiki, Vampire Slayer).
 [oploc1,coffin]
 if (%vampire = ^vampire_complete | %vampire = ^quest_vampire_not_started) {
     return;
 }
-npc_findallany(0_48_152_9_56, 6, ^vis_off);
+npc_findallany(0_48_152_9_49, 15, ^vis_off);
 while (npc_findnext = true) {
     if (npc_type = count_draynor & %npc_attacking_uid = uid) {
         return;
     }
 }
+~quest_vampire_coffin_cutscene;
+
+// The coffin cutscene as three recordings show it: 2010-10-15 (YouTube
+// TLKwCRHHM6M, in real time: its fades last the 1.6s and 1.5s of 2011's
+// default fade, seqs 1377 and 1378), 2011-02-19 (zJQS-7HNjuE) and 2011-05-30
+// (soXccN_SXH4). In ticks from Open:
+//   0  the game view fades to black, and I'm Counting on You plays;
+//   3  it fades in on a camera south-west of the dais;
+//   6  the player leans over the coffin (human_stake2, the only bend into
+//      it of cache 786's player seqs; 2010's holds a little longer) and its
+//      lid slides off (seq 3112);
+//  10  the stake fails;
+//  13  the Count sits up, stands and raises his arms (seq 3322), and the
+//      camera lifts and draws back a little;
+//  16  the camera pulls back to the floor below the dais;
+//  21  the coffin lies open and empty, and the Count rises from the floor
+//      (seq 3328) on 3081,9777, facing the camera;
+//  25  he turns to the player, and stands (he does not come: the
+//      recordings' players attack him 3-8 seconds later, where he rose).
+// The camera holds until the player engages him (count_draynor.rs2). Its
+// tiles, heights and speeds are fitted to the recordings' frames in the 647
+// client; the times are the 2010 recording's. The look's constant speed of 1
+// lets the client's angles reach the look (with 0 they stop about 90 units
+// short): the end frames are at pitch 1024 and yaw 15910, the look's.
+[proc,quest_vampire_coffin_cutscene]
+if_openoverlay(fade_to_black);
+~music_unlock_play(music_Im_Counting_On_You);
+p_delay(2);
+cam_moveto(0_48_152_6_49, 750, 0, 100);
+cam_lookat(0_48_152_8_54, 300, 0, 100);
+if_openoverlay(fv1144926);
+p_delay(2);
+anim(human_stake2, 0);
+if (loc_find(0_48_152_8_57, coffin) = true) {
+    loc_anim(seq_3112);
+}
+p_delay(3);
+mes("You stab the vampire with the stake, but it does not go deep enough.");
+p_delay(2);
+if (loc_find(0_48_152_8_57, coffin) = true) {
+    loc_anim(seq_3322);
+}
+cam_moveto(0_48_152_6_48, 840, 0, 90);
+cam_lookat(0_48_152_8_54, 350, 1, 90);
+p_delay(2);
+cam_moveto(0_48_152_6_43, 520, 0, 16);
 p_delay(4);
-npc_add(0_48_152_9_56, count_draynor, 500);
+if_openoverlay(null);
+if (loc_find(0_48_152_8_57, coffin) = true) {
+    loc_change(coffin_163, 500);
+}
+npc_add(0_48_152_9_49, count_draynor, 500);
+npc_anim(seq_3328, 0);
 %npc_attacking_uid = uid;
 npc_sethuntmode(aggressive_melee_extra);
 npc_sethunt(5);
+p_delay(3);
+npc_facesquare(coord);
+
+// The coffin lies open and empty while its Count is out, and closes once he
+// has gone, staked or got away: a player he got away from opens it for
+// another fight (2011 wiki, Vampire Slayer: "if the count returns to his
+// coffin before you kill him ... you must return to Dr. Harlow and obtain
+// another stake before you attempt to kill him again").
+[proc,quest_vampire_coffin_close]
+if (loc_find(0_48_152_8_57, coffin_163) = true) {
+    loc_change(coffin, 1);
+}
 
 [proc,quest_vampire_set_progress](int $stage)
 %vampire = $stage;

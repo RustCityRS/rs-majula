@@ -511,3 +511,159 @@ fn the_count_fights_on_his_own_skeleton() {
         }
     });
 }
+
+/// The client's own opcodes (`ServerProt.java`) for the camera packets.
+const CAM_LOOKAT: u16 = 26;
+const CAM_RESET: u16 = 67;
+const CAM_MOVETO: u16 = 94;
+
+/// A CAM_MOVETO's height, variable speed and constant speed, as its encoder
+/// writes them: `p1_alt1 x, p1_alt2 z, p1_alt1 var, p2 height, p1_alt1 const`.
+fn moveto(payload: &[u8]) -> (u16, u8, u8) {
+    (
+        u16::from_be_bytes([payload[3], payload[4]]),
+        payload[2].wrapping_sub(128),
+        payload[5].wrapping_sub(128),
+    )
+}
+
+/// A CAM_LOOKAT's height, variable speed and constant speed: `p1_alt2 x,
+/// p2_alt3 height, p1_alt3 z, p1_alt2 const, p1_alt3 var`.
+fn lookat(payload: &[u8]) -> (u16, u8, u8) {
+    (
+        u16::from_le_bytes([payload[1].wrapping_sub(128), payload[2]]),
+        128u8.wrapping_sub(payload[5]),
+        0u8.wrapping_sub(payload[4]),
+    )
+}
+
+/// Opening the coffin plays 2011's cutscene, timed to the 2010-10-15
+/// recording (YouTube TLKwCRHHM6M), whose fades last 2011's default fade:
+/// the track unlocked at once, the stake failing at tick 10, the camera's
+/// three fitted moves, the coffin left open and empty as the Count rises on
+/// 3081,9777 at tick 21; he stays there, the player's camera comes back when
+/// the player goes to attack him, and the coffin closes once he has gone.
+#[test]
+fn the_coffin_plays_2011s_cutscene() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let _ = engine.script_errors.take();
+        let count = npc_type(engine, "count_draynor");
+        let mut client = login(
+            engine,
+            (3079, 0, 9786),
+            2,
+            0,
+            &[("stake", 1), ("garlic", 1)],
+        );
+        client.packets();
+        let mut p = ClientPacket::new();
+        p.p2_alt1(COFFIN.2 as i32)
+            .p2_alt1(COFFIN.0 as i32)
+            .p1(0)
+            .p2_alt2(COFFIN.1 as i32);
+        client.send(ClientProt::OpLoc1, &p.finish());
+        let mut said: Vec<(usize, String)> = Vec::new();
+        let mut moves: Vec<(usize, (u16, u8, u8))> = Vec::new();
+        let mut looks: Vec<(usize, (u16, u8, u8))> = Vec::new();
+        let mut risen: Option<(usize, u16, u16, u16)> = None;
+        for tick in 0..32 {
+            engine.cycle();
+            let packets = client.packets();
+            for (_, m) in HarnessClient::game_messages(&packets) {
+                said.push((tick, m));
+            }
+            for (op, payload) in &packets {
+                match *op {
+                    CAM_MOVETO => moves.push((tick, moveto(payload))),
+                    CAM_LOOKAT => looks.push((tick, lookat(payload))),
+                    _ => {}
+                }
+            }
+            if risen.is_none()
+                && let Some(n) = engine
+                    .npc_list
+                    .npcs
+                    .iter()
+                    .flatten()
+                    .find(|n| n.npc.uid.id() == count)
+            {
+                let c = n.npc.pathing.coord;
+                risen = Some((tick, n.npc.uid.nid(), c.x(), c.z()));
+            }
+            if tick % 20 == 0 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+        }
+        no_script_errors(engine, "the cutscene");
+        let at = |text: &str| {
+            said.iter()
+                .find(|(_, m)| m.contains(text))
+                .map(|&(t, _)| t)
+                .unwrap_or_else(|| panic!("{text}: {said:?}"))
+        };
+        let open = at("You have unlocked a new music track: I'm Counting on You.");
+        assert!(open <= 1, "the track unlocks as the coffin opens: {said:?}");
+        assert_eq!(
+            at("You stab the vampire with the stake, but it does not go deep enough.") - open,
+            10,
+            "{said:?}"
+        );
+        let moves: Vec<_> = moves.iter().map(|&(t, m)| (t - open, m)).collect();
+        assert_eq!(
+            moves,
+            [(3, (750, 100, 0)), (13, (840, 90, 0)), (16, (520, 16, 0))],
+            "the camera's moves (tick, (height, var speed, const speed))"
+        );
+        let looks: Vec<_> = looks.iter().map(|&(t, l)| (t - open, l)).collect();
+        assert_eq!(looks, [(3, (300, 100, 0)), (13, (350, 90, 1))], "its look");
+        let (tick, nid, x, z) = risen.expect("the Count rises");
+        assert_eq!((tick - open, x, z), (21, 3081, 9777));
+        assert!(
+            loc_at(engine, "coffin_163", COFFIN.1, COFFIN.2),
+            "the coffin lies open and empty"
+        );
+        // He stands where he rose.
+        ticks(engine, &mut client, 10);
+        let c = engine.get_npc(nid).expect("he stays").npc.pathing.coord;
+        assert_eq!((c.x(), c.z()), (3081, 9777));
+        // The player goes for him: the camera is the player's again.
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut reset = false;
+        for _ in 0..3 {
+            engine.cycle();
+            reset |= client.packets().iter().any(|(op, _)| *op == CAM_RESET);
+        }
+        assert!(reset, "CAM_RESET once the player attacks");
+        no_script_errors(engine, "the attack");
+        // Away from him, the player leaves him to his ai_timer: he goes, the
+        // player has the camera back, and the coffin closes for another try.
+        engine.harness_telejump(client.pid, 3222, 0, 3218);
+        let mut reset = false;
+        for _ in 0..5 {
+            engine.cycle();
+            reset |= client.packets().iter().any(|(op, _)| *op == CAM_RESET);
+        }
+        assert!(reset, "CAM_RESET as he goes");
+        assert!(
+            engine.get_npc(nid).is_none(),
+            "he goes once the player is away"
+        );
+        assert!(
+            loc_at(engine, "coffin", COFFIN.1, COFFIN.2),
+            "the coffin closes once he has gone"
+        );
+    });
+}
+
+/// Whether loc `name` stands at `x`,`z` on level 0.
+fn loc_at(engine: &Engine, name: &str, x: u16, z: u16) -> bool {
+    let id = pack_id("loc", name) as u16;
+    engine
+        .zones
+        .zone(x, 0, z)
+        .and_then(|zone| zone.get_loc(x, z, id))
+        .is_some()
+}
