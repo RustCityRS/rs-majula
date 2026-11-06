@@ -3286,7 +3286,17 @@ impl ActivePlayer {
                 continue;
             }
             if let Some(item) = worn.and_then(|inv| inv.get(slot)) {
-                buf.p2(if cfg!(since_647) { 0x4000 } else { 0x200 } + item.obj);
+                #[cfg(before_647)]
+                buf.p2(0x200 + item.obj);
+                #[cfg(since_647)]
+                match engine()
+                    .objs()
+                    .get_by_id(item.obj)
+                    .and_then(|obj| obj.wearid)
+                {
+                    Some(wearid) => buf.p2(0x8000 + wearid),
+                    None => buf.p1(0),
+                }
             } else {
                 let appearance_value = self.get_appearance_in_slot(slot as usize);
                 if appearance_value < 1 {

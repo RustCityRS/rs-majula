@@ -18,6 +18,8 @@ pub struct ObjContext {
 
 pub struct ObjType {
     pub id: u16,
+    #[cfg(since_647)]
+    pub wearid: Option<u16>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
     pub stackable: bool,
@@ -58,6 +60,8 @@ impl From<ObjTypeRaw> for ObjType {
             tradeable: raw.tradeable,
             members: raw.members,
             wearpos3: raw.wearpos3,
+            #[cfg(since_647)]
+            wearid: raw.wearid,
             op: raw.op,
             iop: raw.iop,
             weight: raw.weight,
@@ -100,6 +104,9 @@ pub struct ObjTypeRaw {
     pub womanweary: i8,
     pub womanwear2: Option<u16>,
     pub wearpos3: Option<WearPos>,
+    #[cfg(since_647)]
+    #[serde(skip)]
+    pub wearid: Option<u16>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
     pub recol_s: Option<Box<[u16]>>,
@@ -274,6 +281,8 @@ impl CacheType for ObjTypeRaw {
             womanweary: 0,
             womanwear2: None,
             wearpos3: None,
+            #[cfg(since_647)]
+            wearid: None,
             op: Some(Box::new([None, None, Some("Take".into()), None, None])),
             iop: Some(Box::new([None, None, None, None, Some("Drop".into())])),
             recol_s: None,
@@ -494,6 +503,8 @@ impl CacheType for ObjTypeRaw {
     }
 
     fn post_decode(objs: &mut Vec<Self>, ctx: &Self::Context) {
+        #[cfg(since_647)]
+        let mut wearid = 0;
         for id in 0..objs.len() {
             if let Some(certtemplate) = objs.get(id).and_then(|obj| obj.certtemplate) {
                 let template = objs
@@ -562,6 +573,10 @@ impl CacheType for ObjTypeRaw {
                         let link = objs[link_id].clone();
                         gen_bought(&mut objs[id], &template, &link);
                     }
+                }
+                if objs[id].manwear.is_some() || objs[id].womanwear.is_some() {
+                    objs[id].wearid = Some(wearid);
+                    wearid += 1;
                 }
             }
             objs[id].disable(ctx);

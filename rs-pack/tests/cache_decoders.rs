@@ -16,6 +16,8 @@ use rs_pack::cache::loc::LocTypeRaw;
 use rs_pack::cache::npc::NpcTypeRaw;
 use rs_pack::cache::obj::ObjTypeRaw;
 #[cfg(since_647)]
+use rs_pack::cache::obj::{ObjContext, ObjType};
+#[cfg(since_647)]
 use rs_pack::cache::param::{ParamType, ParamTypeRaw};
 use rs_pack::cache::provider::CacheType;
 #[cfg(since_647)]
@@ -36,7 +38,7 @@ use rs_pack::pack::pack_registry::PackRegistry;
 use rs_pack::pack::packed_data::PackedData;
 use rs_pack::types::HuntCheckAfk;
 #[cfg(since_647)]
-use rs_pack::types::ScriptVarType;
+use rs_pack::types::{ScriptVarType, WearPos};
 #[cfg(since_647)]
 use rs_pack::unpack::config::{
     UnpackedPacks, r#enum::emit_enum_props, flo::emit_flo_props, flu::emit_flu_props,
@@ -65,6 +67,30 @@ fn rendering_fields_keep_their_wire_values() {
         assert_eq!(npc.contrast, -1);
         assert_eq!(obj.contrast, 127);
     }
+}
+
+#[cfg(since_647)]
+#[test]
+fn wearable_ids_include_linked_items_and_both_genders() {
+    let mut objs: Vec<_> = (0..7).map(ObjTypeRaw::new).collect();
+    objs[1].manwear = Some(123);
+    objs[2].womanwear = Some(456);
+    objs[3].wearpos = Some(WearPos::Ring);
+    objs[4].lenttemplate = 6;
+    objs[4].lentlink = 1;
+    objs[5].boughttemplate = 6;
+    objs[5].boughtlink = 2;
+    let objs = TypeProvider::<ObjType>::from_types(
+        objs,
+        ObjContext {
+            members: true,
+            autodisable_params: Box::new([]),
+        },
+    );
+    assert_eq!(
+        objs.types.iter().map(|obj| obj.wearid).collect::<Vec<_>>(),
+        [None, Some(0), Some(1), None, Some(2), Some(3), None]
+    );
 }
 
 #[cfg(since_647)]
