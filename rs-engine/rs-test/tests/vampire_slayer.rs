@@ -539,7 +539,8 @@ fn lookat(payload: &[u8]) -> (u16, u8, u8) {
 
 /// Opening the coffin plays 2011's cutscene, timed to the 2010-10-15
 /// recording (YouTube TLKwCRHHM6M), whose fades last 2011's default fade:
-/// the track unlocked at once, the stake failing at tick 10, the camera's
+/// the track unlocked at once, the player's push on the lid (seq 3335) at
+/// tick 6, the stake failing at tick 10, the camera's
 /// three fitted moves, the coffin left open and empty as the Count rises on
 /// 3081,9777 at tick 21; he stays there, the player's camera comes back when
 /// the player goes to attack him, and the coffin closes once he has gone.
@@ -567,8 +568,16 @@ fn the_coffin_plays_2011s_cutscene() {
         let mut moves: Vec<(usize, (u16, u8, u8))> = Vec::new();
         let mut looks: Vec<(usize, (u16, u8, u8))> = Vec::new();
         let mut risen: Option<(usize, u16, u16, u16)> = None;
+        // The seqs the player plays, by tick.
+        let mut played: Vec<(usize, String)> = Vec::new();
+        rs_vm::ops::test::set_recording(true);
+        rs_vm::ops::test::forget_calls();
         for tick in 0..32 {
             engine.cycle();
+            for seq in rs_vm::ops::test::calls_for("anim") {
+                played.push((tick, seq));
+            }
+            rs_vm::ops::test::forget_calls();
             let packets = client.packets();
             for (_, m) in HarnessClient::game_messages(&packets) {
                 said.push((tick, m));
@@ -595,6 +604,7 @@ fn the_coffin_plays_2011s_cutscene() {
                 client.send(ClientProt::NoTimeout, &[]);
             }
         }
+        rs_vm::ops::test::set_recording(false);
         no_script_errors(engine, "the cutscene");
         let at = |text: &str| {
             said.iter()
@@ -609,6 +619,11 @@ fn the_coffin_plays_2011s_cutscene() {
             10,
             "{said:?}"
         );
+        // The push of the 2010 and 2011 recordings, the rework's seq 3335:
+        // nothing else (the 289-era stake lunge, 929, is not it).
+        let push = pack_id("seq", "seq_3335").to_string();
+        let played: Vec<_> = played.iter().map(|(t, s)| (t - open, s.clone())).collect();
+        assert_eq!(played, [(6, push)], "the player's seqs (tick, seq)");
         let moves: Vec<_> = moves.iter().map(|&(t, m)| (t - open, m)).collect();
         assert_eq!(
             moves,

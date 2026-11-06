@@ -59,6 +59,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, ANIM => |s, player| {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
+            #[cfg(since_647)]
+            crate::ops::test::record_call(ANIM, "anim", &seq.to_string());
             player.anim((seq != -1).then_some(seq as u16), delay);
         });
 

@@ -34,10 +34,11 @@ while (npc_findnext = true) {
 // (soXccN_SXH4). In ticks from Open:
 //   0  the game view fades to black, and I'm Counting on You plays;
 //   3  it fades in on a camera south-west of the dais;
-//   6  the player leans over the coffin (human_stake2, the only bend into
-//      it of cache 786's player seqs; 2010's holds a little longer) and its
-//      lid slides off (seq 3112);
-//  10  the stake fails;
+//   6  the player puts his weapon away, sets both hands on the lid and
+//      leans into it (seq 3335, frame set 3039, beside the Count's 3036 in
+//      cache 786), and stands again; the lid slides off (seq 3112), off by
+//      282.6s in the 2010 recording, 1.65s into the push;
+//  10  the stake fails, the player upright again (no stab is seen);
 //  13  the Count sits up, stands and raises his arms (seq 3322), and the
 //      camera lifts and draws back a little;
 //  16  the camera pulls back to the floor below the dais;
@@ -58,7 +59,7 @@ cam_moveto(0_48_152_6_49, 750, 0, 100);
 cam_lookat(0_48_152_8_54, 300, 0, 100);
 if_openoverlay(fv1144926);
 p_delay(2);
-anim(human_stake2, 0);
+anim(seq_3335, 0);
 if (loc_find(0_48_152_8_57, coffin) = true) {
     loc_anim(seq_3112);
 }
